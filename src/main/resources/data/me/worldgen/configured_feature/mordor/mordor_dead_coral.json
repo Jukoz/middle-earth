@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "simple_state_provider",
+      "state":
+      { 
+        "Name": "minecraft:dead_tube_coral_fan"
+      }
+    },
+	"place_in": [
+      { 
+        "Name": "minecraft:air"
+      }
+    ],
+	"place_on": [
+      { 
+        "Name": "minecraft:basalt"
+      }
+    ]
+  }
+}

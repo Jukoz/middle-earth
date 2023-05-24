@@ -1,0 +1,35 @@
+{
+  "parent": "me:middle_earth/root",
+  "criteria": {
+    "me:lembas": {
+      "conditions": {
+        "item": {
+          "items": [
+            "me:lembas"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.middle_earth.lembas.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "me:lembas"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.lembas.title"
+    }
+  },
+  "requirements": [
+    [
+      "me:lembas"
+    ]
+  ]
+}

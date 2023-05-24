@@ -1,0 +1,41 @@
+{
+  "parent": "me:middle_earth/root",
+  "criteria": {
+    "me:mordor": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "me:mordor"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.enter_mordor.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "me:ashen_rock"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.enter_mordor.title"
+    }
+  },
+  "requirements": [
+    [
+      "me:mordor"
+    ]
+  ]
+}

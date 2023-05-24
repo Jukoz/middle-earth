@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "me:block/gondor_bricks",
+    "top": "me:block/gondor_bricks",
+    "side": "me:block/gondor_bricks"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "me:mithril_ingot"
+    }
+  },
+  "result": {
+    "item": "me:mithril_block"
+  }
+}

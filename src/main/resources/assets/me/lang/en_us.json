@@ -1,0 +1,90 @@
+{
+  "advancements.middle_earth.root.title": "Middle Earth",
+  "advancements.middle_earth.root.description": "Enter the Middle Earth!",
+  "advancements.middle_earth.enter_mordor.title": "One does not simply...",
+  "advancements.middle_earth.enter_mordor.description": "Walk into Mordor",
+  "advancements.middle_earth.enter_lothlorien.title": "The Golden Trees",
+  "advancements.middle_earth.enter_lothlorien.description": "Enter Lothlorien",
+  "advancements.middle_earth.lembas.title": "Elvish Bread",
+  "advancements.middle_earth.lembas.description": "One bite is enough to fill the stomach of a grown man!",
+  "advancements.middle_earth.mithril.title": "As light as feathers",
+  "advancements.middle_earth.mithril.description": "Mine some Mithril!",
+
+  "item.me.mithril_ingot": "Mithril Ingot",
+  "item.me.mithril_nugget": "Mithril Nugget",
+  "item.me.raw_mithril": "Raw Mithril",
+  "item.me.morgul_ingot": "Morgul Ingot",
+
+  "item.me.orc_bone": "Orc Bone",
+  "item.me.warg_bone": "Warg Bone",
+  "item.me.warg_fur": "Warg Fur",
+  "item.me.gold_ring": "Gold Ring",
+
+  "item.me.empty_phial": "Empty Phial",
+  "item.me.starlight_phial": "Starlight Phial",
+
+  "item.me.dwarven_pickaxe": "Dwarven Pickaxe",
+  "item.me.dwarven_axe": "Dwarven Axe",
+  "item.me.dwarven_shovel": "Dwarven Shovel",
+  "item.me.dwarven_hoe": "Dwarven Hoe",
+  "item.me.mordor_orc_pickaxe": "Mordor Orc Pickaxe",
+  "item.me.mordor_orc_axe": "Mordor Orc Axe",
+  "item.me.mordor_orc_shovel": "Mordor Orc Shovel",
+  "item.me.mordor_orc_hoe": "Mordor Orc Hoe",
+
+  "item.me.dwarven_sword": "Dwarven Sword",
+  "item.me.gondor_sword": "Gondorian Sword",
+  "item.me.mordor_orc_sword": "Mordor Orc Sword",
+
+  "item.me.lembas": "Lembas",
+  "item.me.maggoty_bread": "Maggoty Bread",
+  "item.me.tough_berries": "Tough Berries",
+
+  "item.me.warg_spawn_egg": "Warg Spawn Egg",
+  "item.me.durin_folk_spawn_egg": "Durin Folk Spawn Egg",
+  "item.me.galadhrim_elf_spawn_egg": "Galadhrim Elf Spawn Egg",
+  "item.me.mordor_orc_spawn_egg": "Mordor Orc Spawn Egg",
+
+  "entity.me.durin_folk": "Durin Folk",
+  "entity.me.galadhrim_elf": "Galadhrim Elf",
+  "entity.me.mordor_orc": "Mordor Orc",
+
+  "block.me.mithril_ore": "Mithril Ore",
+  "block.me.mithril_block": "Mithril Block",
+
+  "block.me.gondor_bricks": "Gondor Bricks",
+  "block.me.gondor_bricks_slab": "Gondor Bricks Slab",
+  "block.me.gondor_bricks_stairs": "Gondor Bricks Stairs",
+  "block.me.gondor_bricks_wall": "Gondor Bricks Wall",
+  "block.me.blue_rock": "Blue Rock",
+  "block.me.blue_rock_slab": "Blue Rock Slab",
+  "block.me.blue_rock_wall": "Blue Rock Wall",
+  "block.me.ashen_rock": "Ashen Rock",
+  "block.me.ashen_rock_slab": "Ashen Rock Slab",
+  "block.me.mordor_dirt": "Mordor Dirt",
+  "block.me.mordor_morgul_ore": "Mordor Morgul Ore",
+  "block.me.mordor_bricks": "Mordor Bricks",
+
+  "block.me.mallorn_leaves": "Mallorn Leaves",
+  "block.me.mallorn_log": "Mallorn Log",
+  "block.me.mallorn_planks": "Mallorn Planks",
+  "block.me.mallorn_planks_slab": "Mallorn Planks Slab",
+  "block.me.mallorn_planks_stairs": "Mallorn Planks Stairs",
+  "block.me.mallorn_planks_fence": "Mallorn Planks Fence",
+
+  "block.me.tough_berry_bush": "Tough Berry Bushes",
+  "block.me.mordor_lichen": "Mordor Lichen",
+  "block.me.mordor_lichen_fan": "Mordor Lichen Fan",
+
+  "block.me.scorched_log": "Scorched Log",
+  "block.me.scorched_planks": "Scorched Planks",
+  "block.me.scorched_stairs": "Scorched Stairs",
+  "block.me.scorched_slab": "Scorched Slab",
+  "block.me.scorched_fence": "Scorched Fence",
+  "block.me.scorched_gate": "Scorched Fence Gate",
+
+  "itemGroup.blocks": "Blocks",
+  "itemGroup.food": "Food",
+  "itemGroup.weapons": "Weapons",
+  "itemGroup.resources": "Resources"
+}

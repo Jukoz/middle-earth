@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "me:gondor_bricks",
+    "me:gondor_bricks_slab",
+    "me:gondor_bricks_stairs",
+    "me:gondor_bricks_wall",
+    "me:blue_rock",
+    "me:blue_rock_slab",
+    "me:ashen_rock",
+    "me:ashen_rock_slab",
+    "me:mithril_ore",
+    "me:mithril_block"
+  ]
+}

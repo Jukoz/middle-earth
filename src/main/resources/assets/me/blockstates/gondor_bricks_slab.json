@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "type=bottom": {
+            "model": "me:block/gondor_bricks_slab"
+        },
+        "type=double": {
+            "model": "me:block/gondor_bricks"
+        },
+        "type=top": {
+            "model": "me:block/gondor_bricks_slab_top"
+        }
+    }
+}

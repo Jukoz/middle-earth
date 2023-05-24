@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "type=bottom": {
+            "model": "me:block/ashen_rock_slab"
+        },
+        "type=double": {
+            "model": "me:block/ashen_rock"
+        },
+        "type=top": {
+            "model": "me:block/mordor_rock_slab_top"
+        }
+    }
+}
