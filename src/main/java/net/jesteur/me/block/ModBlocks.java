@@ -37,6 +37,15 @@ public class ModBlocks {
             new Block(FabricBlockSettings.of(Material.STONE).strength(STONE_STRENGTH).requiresTool()));
     public static final Block ASHEN_ROCK_SLAB = registerBlock("ashen_rock_slab",
             new SlabBlock(FabricBlockSettings.of(Material.STONE).strength(STONE_STRENGTH, SLAB_RESISTANCE).requiresTool()));
+    public static final Block ASHEN_BRICKS = registerBlock("ashen_bricks",
+            new Block(FabricBlockSettings.of(Material.STONE).strength(STONE_STRENGTH).requiresTool()));
+    public static final Block ASHEN_BRICKS_SLAB = registerBlock("ashen_bricks_slab",
+            new SlabBlock(FabricBlockSettings.of(Material.STONE).strength(STONE_STRENGTH, SLAB_RESISTANCE).requiresTool()));
+    public static final Block ASHEN_BRICKS_STAIRS = registerBlock("ashen_bricks_stairs",
+            new StairsBlock(ASHEN_BRICKS.getDefaultState(), AbstractBlock.Settings.copy(ASHEN_BRICKS).strength(STONE_STRENGTH).requiresTool()));
+    public static final Block ASHEN_BRICKS_WALL = registerBlock("ashen_bricks_wall",
+            new WallBlock(AbstractBlock.Settings.copy(ASHEN_BRICKS).strength(STONE_STRENGTH).requiresTool()));
+
     public static final Block MORDOR_DIRT = registerBlock("mordor_dirt",
             new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)));
 

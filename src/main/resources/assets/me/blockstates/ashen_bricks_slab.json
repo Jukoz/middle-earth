@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "type=bottom": {
+            "model": "me:block/ashen_bricks_slab"
+        },
+        "type=double": {
+            "model": "me:block/ashen_bricks"
+        },
+        "type=top": {
+            "model": "me:block/ashen_bricks_slab_top"
+        }
+    }
+}
