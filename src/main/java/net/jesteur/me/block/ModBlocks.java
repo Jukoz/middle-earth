@@ -44,7 +44,7 @@ public class ModBlocks {
     public static final Block ASHEN_BRICKS_STAIRS = registerBlock("ashen_bricks_stairs",
             new StairsBlock(ASHEN_BRICKS.getDefaultState(), AbstractBlock.Settings.copy(ASHEN_BRICKS).strength(STONE_STRENGTH).requiresTool()));
     public static final Block ASHEN_BRICKS_WALL = registerBlock("ashen_bricks_wall",
-            new WallBlock(AbstractBlock.Settings.copy(GONDOR_BRICKS).strength(STONE_STRENGTH).requiresTool()));
+            new WallBlock(AbstractBlock.Settings.copy(ASHEN_BRICKS).strength(STONE_STRENGTH).requiresTool()));
 
     public static final Block MORDOR_DIRT = registerBlock("mordor_dirt",
             new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)));
