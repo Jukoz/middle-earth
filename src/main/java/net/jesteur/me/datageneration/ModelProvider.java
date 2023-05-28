@@ -5,9 +5,11 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.jesteur.me.datageneration.content.models.SimpleBlockModel;
 import net.jesteur.me.datageneration.content.models.SimpleSlabModel;
+import net.jesteur.me.datageneration.content.models.SimpleStairModel;
 import net.jesteur.me.datageneration.content.tags.MineablePickaxe;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.data.client.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
@@ -42,6 +44,20 @@ public class ModelProvider extends FabricModelProvider {
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSlabBlockState(
                     slab,
                     bottom, top, id));
+        }
+
+        for (SimpleStairModel.Stair stair : SimpleStairModel.blocks) {
+
+            TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(stair.block());
+
+            Identifier inner = Models.INNER_STAIRS.upload(stair.stairs(), texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier regular = Models.STAIRS.upload(stair.stairs(), texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier outer = Models.OUTER_STAIRS.upload(stair.stairs(), texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+
+
+            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createStairsBlockState(
+                    stair.stairs(), inner, regular, outer));
+
         }
 
     }
