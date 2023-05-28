@@ -19,15 +19,6 @@ public class ModBlocks {
     public static final float DIRT_STRENGTH = 0.6f;
     public static final float SLAB_RESISTANCE = 6.0f; // From explosions
 
-    public static final Block GONDOR_BRICKS = registerBlock("gondor_bricks",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(STONE_STRENGTH).requiresTool()));
-    public static final Block GONDOR_BRICKS_SLAB = registerBlock("gondor_bricks_slab",
-            new SlabBlock(FabricBlockSettings.of(Material.STONE).strength(STONE_STRENGTH, SLAB_RESISTANCE).requiresTool()));
-    public static final Block GONDOR_BRICKS_STAIRS = registerBlock("gondor_bricks_stairs",
-            new StairsBlock(GONDOR_BRICKS.getDefaultState(), AbstractBlock.Settings.copy(GONDOR_BRICKS).strength(STONE_STRENGTH).requiresTool()));
-    public static final Block GONDOR_BRICKS_WALL = registerBlock("gondor_bricks_wall",
-            new WallBlock(AbstractBlock.Settings.copy(GONDOR_BRICKS).strength(STONE_STRENGTH).requiresTool()));
-
     public static final Block BLUE_ROCK = registerBlock("blue_rock",
             new Block(FabricBlockSettings.of(Material.STONE).strength(STONE_STRENGTH, SLAB_RESISTANCE).requiresTool()));
     public static final Block BLUE_ROCK_SLAB = registerBlock("blue_rock_slab",
@@ -37,14 +28,6 @@ public class ModBlocks {
             new Block(FabricBlockSettings.of(Material.STONE).strength(STONE_STRENGTH).requiresTool()));
     public static final Block ASHEN_ROCK_SLAB = registerBlock("ashen_rock_slab",
             new SlabBlock(FabricBlockSettings.of(Material.STONE).strength(STONE_STRENGTH, SLAB_RESISTANCE).requiresTool()));
-    public static final Block ASHEN_BRICKS = registerBlock("ashen_bricks",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(STONE_STRENGTH).requiresTool()));
-    public static final Block ASHEN_BRICKS_SLAB = registerBlock("ashen_bricks_slab",
-            new SlabBlock(FabricBlockSettings.of(Material.STONE).strength(STONE_STRENGTH, SLAB_RESISTANCE).requiresTool()));
-    public static final Block ASHEN_BRICKS_STAIRS = registerBlock("ashen_bricks_stairs",
-            new StairsBlock(ASHEN_BRICKS.getDefaultState(), AbstractBlock.Settings.copy(ASHEN_BRICKS).strength(STONE_STRENGTH).requiresTool()));
-    public static final Block ASHEN_BRICKS_WALL = registerBlock("ashen_bricks_wall",
-            new WallBlock(AbstractBlock.Settings.copy(ASHEN_BRICKS).strength(STONE_STRENGTH).requiresTool()));
 
     public static final Block MORDOR_DIRT = registerBlock("mordor_dirt",
             new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)));

@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.jesteur.me.datageneration.content.models.SimpleBlockModel;
 import net.jesteur.me.datageneration.content.models.SimpleSlabModel;
 import net.jesteur.me.datageneration.content.models.SimpleStairModel;
+import net.jesteur.me.datageneration.content.models.SimpleWallModel;
 import net.jesteur.me.datageneration.content.tags.MineablePickaxe;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -60,10 +61,31 @@ public class ModelProvider extends FabricModelProvider {
 
         }
 
+        for (SimpleWallModel.Wall wall : SimpleWallModel.blocks) {
+
+            TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(wall.block());
+
+            Models.WALL_INVENTORY.upload(wall.wall(), texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier post = Models.TEMPLATE_WALL_POST.upload(wall.wall(), texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier low = Models.TEMPLATE_WALL_SIDE.upload(wall.wall(), texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier tall = Models.TEMPLATE_WALL_SIDE_TALL.upload(wall.wall(), texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+
+
+            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createWallBlockState(
+                    wall.wall(),
+                    post,
+                    low,
+                    tall
+            ));
+        }
+
     }
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-
+        for (SimpleWallModel.Wall wall : SimpleWallModel.blocks) {
+            Identifier id = Registries.BLOCK.getId(wall.wall());
+            itemModelGenerator.register(wall.wall().asItem(), new Model(Optional.of(id.withPath("block/" + id.getPath() + "_inventory")), Optional.empty()));
+        }
     }
 }

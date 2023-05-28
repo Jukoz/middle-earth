@@ -1,6 +1,7 @@
 package net.jesteur.me;
 
 import net.fabricmc.api.ModInitializer;
+import net.jesteur.me.block.ModBlockSets;
 import net.jesteur.me.block.ModBlocks;
 import net.jesteur.me.block.ModNatureBlocks;
 import net.jesteur.me.entity.ModEntities;
@@ -34,6 +35,8 @@ public class MiddleEarth implements ModInitializer {
 		ModNatureBlocks.registerModBlocks();
 		ModEntityModels.getModels();
 		ModEntities.registerModEntities();
+
+		ModBlockSets.registerModBlockSets();
 
 		ModDimensions.register();
 		MEBiomeKeys.registerModBiomes();

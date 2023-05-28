@@ -2,6 +2,7 @@ package net.jesteur.me.item.utils;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.jesteur.me.MiddleEarth;
+import net.jesteur.me.block.ModBlockSets;
 import net.jesteur.me.block.ModBlocks;
 import net.jesteur.me.block.ModNatureBlocks;
 import net.jesteur.me.item.*;
@@ -14,7 +15,7 @@ public class ModItemGroups {
 
     public static final ItemGroup BLOCKS = FabricItemGroup.builder(new Identifier(MiddleEarth.MOD_ID, "blocks"))
             .displayName(Text.literal("Blocks"))
-            .icon(() -> new ItemStack(ModBlocks.GONDOR_BRICKS.asItem()))
+            .icon(() -> new ItemStack(ModBlockSets.ASHEN_BRICKS.bricks().asItem()))
             .build();
     public static final ItemGroup NATURE_BLOCKS = FabricItemGroup.builder(new Identifier(MiddleEarth.MOD_ID, "nature_blocks"))
             .displayName(Text.literal("Nature Blocks"))

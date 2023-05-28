@@ -6,9 +6,9 @@ import net.minecraft.block.Block;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleStairModel {
-    public record Stair(Block block, Block stairs) {}
-    public static List<Stair> blocks = new ArrayList<>() {
+public class SimpleWallModel {
+    public record Wall(Block block, Block wall) {}
+    public static List<Wall> blocks = new ArrayList<>() {
         {
 
         }
