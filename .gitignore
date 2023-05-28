@@ -18,7 +18,4 @@ gradle-app.setting
 .classpath
 
 /run
-.idea/jarRepositories.xml
-.idea/misc.xml
-.idea/runConfigurations/Minecraft_Client.xml
-.idea/runConfigurations/Minecraft_Server.xml
+.idea
