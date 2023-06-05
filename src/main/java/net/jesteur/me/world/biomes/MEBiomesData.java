@@ -1,5 +1,6 @@
 package net.jesteur.me.world.biomes;
 
+import net.jesteur.me.block.ModBlockSets;
 import net.jesteur.me.block.ModBlocks;
 import net.minecraft.block.Blocks;
 
@@ -27,8 +28,8 @@ public class MEBiomesData {
         biomeHeights.put(new Color(221, 216, 28), new MEBiome(4, MEBiomeKeys.LOTHLORIEN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(10, 54, 15), new MEBiome(6, MEBiomeKeys.MIRKWOOD, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(129, 129, 129), new MEBiome(41, MEBiomeKeys.MISTY_MOUNTAINS, Blocks.STONE, Blocks.STONE, Blocks.STONE, Blocks.STONE));
-        biomeHeights.put(new Color(60, 42, 42), new MEBiome(5, MEBiomeKeys.MORDOR, ModBlocks.ASHEN_ROCK, ModBlocks.ASHEN_ROCK, ModBlocks.ASHEN_ROCK, ModBlocks.ASHEN_ROCK));
-        biomeHeights.put(new Color(36, 31, 31), new MEBiome(37, MEBiomeKeys.MORDOR_MOUNTAINS, ModBlocks.ASHEN_ROCK, ModBlocks.ASHEN_ROCK, ModBlocks.ASHEN_ROCK, ModBlocks.ASHEN_ROCK));
+        biomeHeights.put(new Color(60, 42, 42), new MEBiome(5, MEBiomeKeys.MORDOR, ModBlockSets.ASHEN_ROCK.base(), ModBlockSets.ASHEN_ROCK.base(), ModBlockSets.ASHEN_ROCK.base(), ModBlockSets.ASHEN_ROCK.base()));
+        biomeHeights.put(new Color(36, 31, 31), new MEBiome(37, MEBiomeKeys.MORDOR_MOUNTAINS, ModBlockSets.ASHEN_ROCK.base(), ModBlockSets.ASHEN_ROCK.base(), ModBlockSets.ASHEN_ROCK.base(), ModBlockSets.ASHEN_ROCK.base()));
         biomeHeights.put(new Color(88, 82, 71), new MEBiome(3, MEBiomeKeys.MORDOR_WASTES, Blocks.GRASS_BLOCK, ModBlocks.MORDOR_DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(160, 165, 149), new MEBiome(6, MEBiomeKeys.NORTHEN_WASTELANDS, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(174, 178, 113), new MEBiome(4, MEBiomeKeys.RHUN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
