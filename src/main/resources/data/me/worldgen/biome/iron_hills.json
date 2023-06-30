@@ -67,6 +67,7 @@
     ]
   ],
   "has_precipitation": true,
+  "creature_spawn_probability": 0.2,
   "spawn_costs": {},
   "spawners": {
     "ambient": [
