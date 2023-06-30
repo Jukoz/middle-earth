@@ -42,6 +42,7 @@ public class ModBiomeSource extends BiomeSource {
 
         return biomes.stream().filter(
                 b -> b.getKey().get().toString().equalsIgnoreCase(biome.toString()))
-                .findFirst().get();
+            .findFirst().get();
+
     }
 }

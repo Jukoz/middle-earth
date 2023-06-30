@@ -14,15 +14,9 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
 public class ModBlocks {
-    public static final float STONE_STRENGTH = 1.5f;
     public static final float WOOD_STRENGTH = 2f;
     public static final float DIRT_STRENGTH = 0.6f;
     public static final float SLAB_RESISTANCE = 6.0f; // From explosions
-
-    public static final Block BLUE_ROCK = registerBlock("blue_rock",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(STONE_STRENGTH, SLAB_RESISTANCE).requiresTool()));
-    public static final Block BLUE_ROCK_SLAB = registerBlock("blue_rock_slab",
-            new SlabBlock(FabricBlockSettings.of(Material.STONE).strength(STONE_STRENGTH).requiresTool()));
 
     public static final Block MORDOR_DIRT = registerBlock("mordor_dirt",
             new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)));

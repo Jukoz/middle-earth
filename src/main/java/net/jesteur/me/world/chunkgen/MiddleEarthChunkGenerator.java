@@ -24,7 +24,6 @@ import net.minecraft.world.HeightLimitView;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.SpawnHelper;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.GenerationStep;
@@ -56,23 +55,30 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 new ArrayList<>(Arrays.asList(
                     biomeRegistry.getOrThrow(MEBiomeKeys.ANDUIN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BLUE_MOUNTAINS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DALE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ERIADOR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FANGORN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FORODWAITH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GONDOR),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GREY_PLAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LINDON),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LOTHLORIEN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MISTY_MOUNTAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORDOR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORDOR_MOUNTAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORDOR_WASTES),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.NORTHEN_WASTELANDS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_WASTELANDS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.NURN_RIVER),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.NURN_SEA),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OCEAN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.RHUN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.RIVER),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.ROHAN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SHIRE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHERN_FOROCHEL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WHITE_MOUNTAINS)
                 ))
             )
