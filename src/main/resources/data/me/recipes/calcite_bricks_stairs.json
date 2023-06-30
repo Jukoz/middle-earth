@@ -7,11 +7,11 @@
   ],
   "key": {
     "#": {
-      "item": "me:gondor_bricks"
+      "item": "me:calcite_bricks"
     }
   },
   "result": {
-    "item": "me:gondor_bricks_stairs",
+    "item": "me:calcite_bricks_stairs",
     "count": 4
   }
 }

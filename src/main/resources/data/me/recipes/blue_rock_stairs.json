@@ -1,15 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
+    "#  ",
+    "## ",
     "###"
   ],
   "key": {
     "#": {
-      "item": "me:ashen_rock"
+      "item": "me:blue_rock"
     }
   },
   "result": {
-    "item": "me:ashen_rock_slab",
-    "count": 6
+    "item": "me:blue_rock_stairs",
+    "count": 4
   }
 }

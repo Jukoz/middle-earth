@@ -5,33 +5,40 @@ import net.jesteur.me.MiddleEarth;
 import net.minecraft.block.*;
 
 public class ModBlockSets {
-    public static SimpleBlockSet ASHEN_BRICKS = registerBrickSet("ashen_bricks");
-    public static SimpleBlockSet GONDOR_BRICKS = registerBrickSet("gondor_bricks");
-    public static SimpleBlockSet ASHEN_ROCK = registerBrickSet("ashen_rock");
+    public static final float STONE_STRENGTH = 1.5f;
+    public static final float BRICKS_STRENGTH = 1.75f;
+
+    public static SimpleBlockSet ASHEN_BRICKS = registerBrickSet("ashen_bricks", BRICKS_STRENGTH);
+    public static SimpleBlockSet ASHEN_ROCK = registerBrickSet("ashen_rock", STONE_STRENGTH);
+    public static SimpleBlockSet BLUE_ROCK = registerBrickSet("blue_rock", STONE_STRENGTH);
+    public static SimpleBlockSet BLUE_ROCK_BRICKS = registerBrickSet("blue_rock_bricks", BRICKS_STRENGTH);
+    public static SimpleBlockSet CALCITE_BRICKS = registerBrickSet("calcite_bricks", BRICKS_STRENGTH);
 
 
     public static SimpleBlockSet[] sets = new SimpleBlockSet[] {
             ASHEN_BRICKS,
-            GONDOR_BRICKS,
-            ASHEN_ROCK
+            ASHEN_ROCK,
+            BLUE_ROCK,
+            BLUE_ROCK_BRICKS,
+            CALCITE_BRICKS
     };
 
     public record SimpleBlockSet(Block base, Block slab, Block stairs, Block wall) {
     }
 
-    private static SimpleBlockSet registerBrickSet(String name) {
+    private static SimpleBlockSet registerBrickSet(String name, float strength) {
 
         Block bricks = ModBlocks.registerBlock(name, new Block(FabricBlockSettings.of(Material.STONE)
-                .strength(ModBlocks.STONE_STRENGTH).requiresTool()));
+                .strength(strength).requiresTool()));
 
         Block slab = ModBlocks.registerBlock(name + "_slab", new SlabBlock(FabricBlockSettings
-                .of(Material.STONE).strength(ModBlocks.STONE_STRENGTH, ModBlocks.SLAB_RESISTANCE).requiresTool()));
+                .of(Material.STONE).strength(strength, ModBlocks.SLAB_RESISTANCE).requiresTool()));
 
         Block stairs = ModBlocks.registerBlock(name + "_stairs", new StairsBlock(bricks.getDefaultState(), FabricBlockSettings
-                .of(Material.STONE).strength(ModBlocks.STONE_STRENGTH).requiresTool()));
+                .of(Material.STONE).strength(strength).requiresTool()));
 
         Block wall = ModBlocks.registerBlock(name + "_wall", new WallBlock(AbstractBlock.Settings.copy(bricks)
-                .strength(ModBlocks.STONE_STRENGTH).requiresTool()));
+                .strength(strength).requiresTool()));
 
 
         return new SimpleBlockSet(bricks, slab, stairs, wall);

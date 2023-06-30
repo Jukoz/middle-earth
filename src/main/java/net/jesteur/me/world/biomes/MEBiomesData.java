@@ -18,7 +18,7 @@ public class MEBiomesData {
         defaultBiome = new MEBiome(-21, MEBiomeKeys.OCEAN, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE);
         biomeHeights.put(new Color(55, 90, 195), defaultBiome);
         biomeHeights.put(new Color(157, 208, 113), new MEBiome(4, MEBiomeKeys.ANDUIN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
-        biomeHeights.put(new Color(200, 209, 255), new MEBiome(48, MEBiomeKeys.BLUE_MOUNTAINS, ModBlocks.BLUE_ROCK, ModBlocks.BLUE_ROCK, Blocks.STONE, Blocks.STONE));
+        biomeHeights.put(new Color(200, 209, 255), new MEBiome(48, MEBiomeKeys.BLUE_MOUNTAINS, ModBlockSets.BLUE_ROCK.base(), ModBlockSets.BLUE_ROCK.base(), Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(171,193,128), new MEBiome(4, MEBiomeKeys.ERIADOR, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(54, 75, 11), new MEBiome(6, MEBiomeKeys.FANGORN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(236, 236, 236), new MEBiome(8, MEBiomeKeys.FORODWAITH, Blocks.SNOW, Blocks.SNOW_BLOCK, Blocks.STONE, Blocks.STONE));
