@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.block.special.MordorPlant;
+import net.jesteur.me.block.special.StrawBerryBushBlock;
 import net.jesteur.me.block.special.ToughBerryBushBlock;
 import net.jesteur.me.item.utils.ModItemGroups;
 import net.minecraft.block.*;
@@ -22,6 +23,8 @@ public class ModNatureBlocks {
             new MordorPlant(AbstractBlock.Settings.of(Material.REPLACEABLE_PLANT).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)));
     public static final Block MORDOR_LICHEN_FAN = registerBlock("mordor_lichen_fan",
             new MordorPlant(AbstractBlock.Settings.of(Material.REPLACEABLE_PLANT).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS)));
+    public static final Block STRAWBERRY_BUSH = registerBlock("strawberry_bush",
+            new StrawBerryBushBlock(FabricBlockSettings.of(Material.PLANT).ticksRandomly().noCollision().breakInstantly().sounds(BlockSoundGroup.SWEET_BERRY_BUSH)), true);
 
 
 

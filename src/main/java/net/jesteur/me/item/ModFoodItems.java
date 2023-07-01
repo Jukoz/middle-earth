@@ -22,7 +22,11 @@ public class ModFoodItems {
             new Item(new FabricItemSettings().food(
                     new FoodComponent.Builder().hunger(5).saturationModifier(1.2f).build())));
     public static final Item TOUGH_BERRIES = registerItem("tough_berries",
-            new AliasedBlockItem(ModNatureBlocks.TOUGH_BERRY_BUSH, new Item.Settings()));
+            new AliasedBlockItem(ModNatureBlocks.STRAWBERRY_BUSH, new Item.Settings()));
+    public static final Item STRAWBERRY = registerItem("strawberry",
+            new AliasedBlockItem(ModNatureBlocks.STRAWBERRY_BUSH,
+                    new FabricItemSettings().food(
+                            new FoodComponent.Builder().hunger(2).saturationModifier(0.1f).build())));
 
     private static Item registerItem(String name, Item item) {
         ItemGroupEvents.modifyEntriesEvent(ModItemGroups.FOOD).register(entries -> entries.add(item));
