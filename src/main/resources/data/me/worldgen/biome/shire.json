@@ -62,6 +62,7 @@
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
       "me:trees_plains",
+      "me:patch_strawberry",
       "minecraft:flower_plains",
       "minecraft:patch_grass_plain",
       "minecraft:brown_mushroom_normal",
@@ -78,6 +79,12 @@
   "spawners": {
 	"monster": [],
     "creature": [
+	  {
+        "type": "me:hobbit",
+        "maxCount": 5,
+        "minCount": 2,
+        "weight": 24
+      },
 	  {
         "type": "minecraft:sheep",
         "maxCount": 4,

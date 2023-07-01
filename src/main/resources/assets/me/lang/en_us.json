@@ -7,6 +7,8 @@
   "advancements.middle_earth.enter_lothlorien.description": "Enter Lothlorien",
   "advancements.middle_earth.lembas.title": "Elvish Bread",
   "advancements.middle_earth.lembas.description": "One bite is enough to fill the stomach of a grown man!",
+  "advancements.middle_earth.strawberry.title": "Do you remember?",
+  "advancements.middle_earth.strawberry.description": "The taste of strawberries",
   "advancements.middle_earth.mithril.title": "As light as feathers",
   "advancements.middle_earth.mithril.description": "Mine some Mithril!",
 
@@ -38,6 +40,7 @@
 
   "item.me.lembas": "Lembas",
   "item.me.maggoty_bread": "Maggoty Bread",
+  "item.me.strawberry": "Strawberry",
   "item.me.tough_berries": "Tough Berries",
 
   "item.me.durin_folk_spawn_egg": "Durin Folk Spawn Egg",
@@ -84,9 +87,10 @@
   "block.me.mallorn_planks_stairs": "Mallorn Planks Stairs",
   "block.me.mallorn_planks_fence": "Mallorn Planks Fence",
 
-  "block.me.tough_berry_bush": "Tough Berry Bushes",
   "block.me.mordor_lichen": "Mordor Lichen",
   "block.me.mordor_lichen_fan": "Mordor Lichen Fan",
+  "block.me.strawberry_bush": "Strawberry Bush",
+  "block.me.tough_berry_bush": "Tough Berry Bush",
 
   "block.me.scorched_log": "Scorched Log",
   "block.me.scorched_planks": "Scorched Planks",
