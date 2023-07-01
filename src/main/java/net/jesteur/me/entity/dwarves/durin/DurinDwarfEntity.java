@@ -10,6 +10,7 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.world.World;
@@ -66,8 +67,8 @@ public class DurinDwarfEntity extends HostileEntity {
         this.goalSelector.add(++i, new SwimGoal(this));
         this.goalSelector.add(++i, new MeleeAttackGoal(this, 1.2f, false));
         this.goalSelector.add(++i, new WanderAroundFarGoal(this, 1.0));
-        //this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        //this.goalSelector.add(++i, new LookAroundGoal(this));
+        this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(++i, new LookAroundGoal(this));
         i = 0;
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
     }
