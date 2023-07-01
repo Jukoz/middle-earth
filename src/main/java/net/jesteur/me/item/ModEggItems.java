@@ -12,6 +12,8 @@ import net.minecraft.util.Identifier;
 public class ModEggItems {
     public static final Item DURIN_FOLK_SPAWN_EGG = registerItem("durin_folk_spawn_egg",
             new SpawnEggItem(ModEntities.DURIN_FOLK, 4541263, 8090735, new Item.Settings()));
+    public static final Item HOBBIT_SPAWN_EGG = registerItem("hobbit_spawn_egg",
+            new SpawnEggItem(ModEntities.HOBBIT, 11131454, 13810794, new Item.Settings()));
     public static final Item GALADHRIM_ELF_SPAWN_EGG = registerItem("galadhrim_elf_spawn_egg",
             new SpawnEggItem(ModEntities.GALADHRIM_ELF, 15388227, 8950161, new Item.Settings()));
     public static final Item MORDOR_ORC_SPAWN_EGG = registerItem("mordor_orc_spawn_egg",

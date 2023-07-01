@@ -43,13 +43,15 @@
   "item.me.strawberry": "Strawberry",
   "item.me.tough_berries": "Tough Berries",
 
-  "item.me.warg_spawn_egg": "Warg Spawn Egg",
   "item.me.durin_folk_spawn_egg": "Durin Folk Spawn Egg",
+  "item.me.hobbit_spawn_egg": "Hobbit Spawn Egg",
   "item.me.galadhrim_elf_spawn_egg": "Galadhrim Elf Spawn Egg",
   "item.me.mordor_orc_spawn_egg": "Mordor Orc Spawn Egg",
+  "item.me.warg_spawn_egg": "Warg Spawn Egg",
 
   "entity.me.durin_folk": "Durin Folk",
   "entity.me.galadhrim_elf": "Galadhrim Elf",
+  "entity.me.hobbit": "Hobbit",
   "entity.me.mordor_orc": "Mordor Orc",
 
   "block.me.mithril_ore": "Mithril Ore",

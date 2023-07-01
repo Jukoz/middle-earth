@@ -3,6 +3,7 @@ package net.jesteur.me.entity.orcs.mordor;
 import net.jesteur.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfVariant;
+import net.jesteur.me.entity.hobbits.HobbitEntity;
 import net.jesteur.me.item.ModWeaponItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -49,6 +50,7 @@ public class MordorOrcEntity extends HostileEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, HobbitEntity.class, true));
     }
 
     public MordorOrcVariant getVariant() {
