@@ -14,11 +14,14 @@ public class MEBiomesData {
     public static HashMap<Color, MEBiome> biomeHeights = new HashMap<>();
     public static MEBiome defaultBiome;
 
+    /// Only supports height value from -22 to 41
+    public static final int MINIMAL_HEIGHT = -22;
+
     public static void loadBiomes() {
         defaultBiome = new MEBiome(-21, MEBiomeKeys.OCEAN, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE);
         biomeHeights.put(new Color(55, 90, 195), defaultBiome);
         biomeHeights.put(new Color(157, 208, 113), new MEBiome(4, MEBiomeKeys.ANDUIN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
-        biomeHeights.put(new Color(200, 209, 255), new MEBiome(48, MEBiomeKeys.BLUE_MOUNTAINS, ModBlockSets.BLUE_ROCK.base(), ModBlockSets.BLUE_ROCK.base(), Blocks.STONE, Blocks.STONE));
+        biomeHeights.put(new Color(200, 209, 255), new MEBiome(39, MEBiomeKeys.BLUE_MOUNTAINS, ModBlockSets.BLUE_ROCK.base(), ModBlockSets.BLUE_ROCK.base(), Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(132,164,78), new MEBiome(4, MEBiomeKeys.DALE, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(171,193,128), new MEBiome(4, MEBiomeKeys.ERIADOR, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(54, 75, 11), new MEBiome(6, MEBiomeKeys.FANGORN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
@@ -35,11 +38,11 @@ public class MEBiomesData {
         biomeHeights.put(new Color(36, 31, 31), new MEBiome(37, MEBiomeKeys.MORDOR_MOUNTAINS, ModBlockSets.ASHEN_ROCK.base(), ModBlockSets.ASHEN_ROCK.base(), ModBlockSets.ASHEN_ROCK.base(), ModBlockSets.ASHEN_ROCK.base()));
         biomeHeights.put(new Color(88, 82, 71), new MEBiome(3, MEBiomeKeys.MORDOR_WASTES, Blocks.GRASS_BLOCK, ModBlocks.MORDOR_DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(160, 165, 149), new MEBiome(6, MEBiomeKeys.NORTHERN_WASTELANDS, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
-        biomeHeights.put(new Color(79,91,161), new MEBiome(-20, MEBiomeKeys.NURN_RIVER, ModBlocks.MORDOR_DIRT, ModBlocks.MORDOR_DIRT, Blocks.STONE, Blocks.STONE));
-        biomeHeights.put(new Color(88,94,130), new MEBiome(-21, MEBiomeKeys.NURN_SEA, ModBlocks.MORDOR_DIRT, ModBlocks.MORDOR_DIRT, Blocks.STONE, Blocks.STONE));
+        biomeHeights.put(new Color(79,91,161), new MEBiome(-16, MEBiomeKeys.NURN_RIVER, ModBlocks.MORDOR_DIRT, ModBlocks.MORDOR_DIRT, Blocks.STONE, Blocks.STONE));
+        biomeHeights.put(new Color(88,94,130), new MEBiome(-17, MEBiomeKeys.NURN_SEA, ModBlocks.MORDOR_DIRT, ModBlocks.MORDOR_DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(174, 178, 113), new MEBiome(4, MEBiomeKeys.RHUN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(183,229,102), new MEBiome(4, MEBiomeKeys.ROHAN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
-        biomeHeights.put(new Color(95,140,195), new MEBiome(-20, MEBiomeKeys.RIVER, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE));
+        biomeHeights.put(new Color(95,140,195), new MEBiome(-18, MEBiomeKeys.RIVER, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(84, 217, 70), new MEBiome(4, MEBiomeKeys.SHIRE, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(206, 179, 156), new MEBiome(4, MEBiomeKeys.SOUTHERN_FOROCHEL, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(219, 245, 215), new MEBiome(36, MEBiomeKeys.WHITE_MOUNTAINS, Blocks.CALCITE, Blocks.CALCITE, Blocks.STONE, Blocks.STONE));

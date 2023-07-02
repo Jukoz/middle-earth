@@ -39,7 +39,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
 public class MiddleEarthChunkGenerator extends ChunkGenerator {
-    public static final int PERLIN_HEIGHT_RANGE = 13;
     public static final int STONE_HEIGHT = 32;
     public static final int WATER_HEIGHT = 64;
     public static final int HEIGHT = 24 + STONE_HEIGHT;
@@ -113,29 +112,29 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     meBiome = MEBiomesData.defaultBiome;
                 }
 
-                int roundedHeight = (int) MiddleEarthHeightMap.getHeight(posX, posZ);
-
+                float height = MiddleEarthHeightMap.getSmoothHeight(posX, posZ);
+                height += MiddleEarthHeightMap.getPerlinHeight(posX, posZ);
 
                 for(int y = bottomY + 1; y <= WATER_HEIGHT; y++) {
                     chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.WATER.getDefaultState(), false);
                 }
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, bottomY, z), Blocks.BEDROCK.getDefaultState(), false);
-                for(int y = bottomY + 1; y < STONE_HEIGHT + roundedHeight; y++) {
+                for(int y = bottomY + 1; y < STONE_HEIGHT + height; y++) {
                     chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), meBiome.deepStoneBlock.getDefaultState(), false);
                 }
                 if(Math.random() < 0.5f) chunk.setBlockState(chunk.getPos().getBlockPos(x, chunk.getBottomY() + 1, z), Blocks.BEDROCK.getDefaultState(), false);
-                for(int y = STONE_HEIGHT + roundedHeight; y < HEIGHT + roundedHeight; y++) {
+                for(int y = (int) (STONE_HEIGHT + height); y < HEIGHT + height; y++) {
                     chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), meBiome.stoneBlock.getDefaultState(), false);
                 }
-                for(int y = HEIGHT + roundedHeight; y < DIRT_HEIGHT + roundedHeight; y++) {
+                for(int y = (int) (HEIGHT + height); y < DIRT_HEIGHT + height; y++) {
                     chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), meBiome.underSurfaceBlock.getDefaultState(), false);
                 }
 
                 BlockState surfaceBlock = meBiome.surfaceBlock.getDefaultState();
-                if(DIRT_HEIGHT + roundedHeight < WATER_HEIGHT && meBiome.surfaceBlock == Blocks.GRASS_BLOCK) {
+                if(DIRT_HEIGHT + height < WATER_HEIGHT && meBiome.surfaceBlock == Blocks.GRASS_BLOCK) {
                     surfaceBlock = Blocks.DIRT.getDefaultState();
                 }
-                chunk.setBlockState(chunk.getPos().getBlockPos(x, DIRT_HEIGHT + roundedHeight, z), surfaceBlock, false);
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (DIRT_HEIGHT + height), z), surfaceBlock, false);
             }
         }
 
@@ -175,7 +174,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     @Override
     public int getHeight(int x, int z, Heightmap.Type heightmap, HeightLimitView world, NoiseConfig noiseConfig) {
-        return (int) (DIRT_HEIGHT + MiddleEarthChunkGenerator.PERLIN_HEIGHT_RANGE + MiddleEarthHeightMap.getHeight(x, z));
+        return (int) (DIRT_HEIGHT + (MiddleEarthHeightMap.PERLIN_HEIGHT_RANGE / 2) + MiddleEarthHeightMap.getHeight(x, z));
     }
 
     @Override

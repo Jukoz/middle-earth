@@ -50,7 +50,5 @@ public class MiddleEarth implements ModInitializer {
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
 		}
-
-		MiddleEarthHeightMap.loadHeightMap();
 	}
 }
