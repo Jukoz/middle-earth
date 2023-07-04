@@ -6,7 +6,7 @@
       "minecraft:canyon"
     ]
   },
-  "downfall": 0.3,
+  "downfall": 0.4,
   "effects": {
     "fog_color": 12638463,
     "mood_sound": {
@@ -15,9 +15,11 @@
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
-    "sky_color": 8233727,
+    "sky_color": 7254527,
     "water_color": 4159204,
-    "water_fog_color": 329011
+    "water_fog_color": 329011,
+    "grass_color": 13419633,
+    "foliage_color": 9615182
   },
   "features": [
     [],
@@ -28,6 +30,8 @@
       "minecraft:amethyst_geode"
     ],
     [
+	  "minecraft:fossil_upper",
+      "minecraft:fossil_lower",
     ],
     [],
     [],
@@ -49,25 +53,25 @@
       "minecraft:ore_gold",
       "minecraft:ore_gold_lower",
       "minecraft:ore_copper",
-      "minecraft:underwater_magma",
+      "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-      "minecraft:ore_emerald"
+	  "me:ore_sand"
     ],
     [],
     [
       "minecraft:spring_water",
-      "minecraft:spring_lava"
     ],
     [
       "minecraft:glow_lichen",
       "minecraft:flower_default",
-	  "me:trees_taiga",
-	  "me:stone_rock",
-	  "minecraft:patch_berry_common",
-	  "minecraft:patch_large_fern",
-      "minecraft:patch_grass_taiga_2",
-      "me:patch/tough_berry_02"
+      "minecraft:patch_grass_badlands",
+      "minecraft:patch_dead_bush_2",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal",
+      "minecraft:patch_sugar_cane_desert",
+      "minecraft:patch_pumpkin",
+      "minecraft:patch_cactus_desert"
     ],
     [
       "minecraft:freeze_top_layer"
@@ -76,28 +80,18 @@
   "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
-    "ambient": [
-      {
-        "type": "minecraft:bat",
-        "maxCount": 8,
-        "minCount": 8,
-        "weight": 10
-      }
-    ],
-    "axolotls": [],
+	"monster": [],
     "creature": [
       {
-        "type": "minecraft:fox",
-        "maxCount": 4,
+        "type": "minecraft:rabbit",
+        "maxCount": 3,
         "minCount": 2,
-        "weight": 8
+        "weight": 4
       }
-	],
+    ],
     "misc": [],
-    "monster": [],
-    "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.2
+  "temperature": 1.0
 }

@@ -1,5 +1,5 @@
 {
-  "feature": "me:harad_ore_sand",
+  "feature": "me:ore_sand",
   "placement": [
     {
       "type": "minecraft:count_on_every_layer",

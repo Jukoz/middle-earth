@@ -21,9 +21,9 @@ public class MapImageLoader {
 
     public static void loadImage(ClassLoader classLoader) throws IOException, URISyntaxException {
         URL resource = classLoader.getResource("assets/" + MiddleEarth.MOD_ID + "/textures/map.png");
-        URL exportURL = classLoader.getResource("assets/" + MiddleEarth.MOD_ID + "/textures/output.png");
-        File file = Paths.get(exportURL.toURI()).toFile();
-        String absolutePath = file.getAbsolutePath();
+        //URL exportURL = classLoader.getResource("assets/" + MiddleEarth.MOD_ID + "/textures/output.png");
+        //File file = Paths.get(exportURL.toURI()).toFile();
+        //String absolutePath = file.getAbsolutePath();
 
         BufferedImage img;
         try {
@@ -35,14 +35,14 @@ public class MapImageLoader {
         }
         pixels = ImageUtils.convertTo2D(img);
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             subDivide(false);
         }
 
         BufferedImage heightMap = createHeightMap();
         BufferedImage blurredImage = ImageUtils.blur(heightMap);
-        File outputfile = new File(absolutePath);
-        ImageIO.write(blurredImage, "png", outputfile);
+        //File outputfile = new File(absolutePath);
+        //ImageIO.write(blurredImage, "png", outputfile);
         MiddleEarthHeightMap.applyHeightMapImage(blurredImage);
     }
 
