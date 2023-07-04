@@ -4,77 +4,44 @@ import net.jesteur.me.utils.noises.PerlinNoise;
 import net.jesteur.me.world.biomes.MEBiome;
 import net.jesteur.me.world.biomes.MEBiomesData;
 
-import java.util.Arrays;
+import java.awt.image.BufferedImage;
 
 public class MiddleEarthHeightMap {
-    public static final int SMOOTH_BRUSH_SIZE = 16;
+    public static final int SMOOTH_BRUSH_SIZE = 2;
     public static final int PERLIN_STRETCH_X = 210;
     public static final int PERLIN_STRETCH_Y = 180;
-    public static final int PERLIN_STRETCH_X2 = 27;
-    public static final int PERLIN_STRETCH_Y2 = 27;
-    public static final int PERLIN_HEIGHT_RANGE = 54;
-    public static final float MOUNTAIN_HEIGHT_RANGE = 4.5f;
+    public static final int PERLIN_STRETCH_X2 = 33;
+    public static final int PERLIN_STRETCH_Y2 = 33;
+    public static final int PERLIN_HEIGHT_RANGE = 90;
+    public static final float MOUNTAIN_HEIGHT_RANGE = 2.5f;
     public static final int MOUNTAIN_START_HEIGHT = 16; // Height depending on the Biome Data.
-    public static final int PERLIN_HEIGHT_OFFSET = 4;
+    public static final int PERLIN_HEIGHT_OFFSET = 8;
     public static final int STONE_HEIGHT = 50;
     public static final int HEIGHT = 8 + STONE_HEIGHT;
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
 
-    public static float[][] heightMap;
+    private static BufferedImage heightMapImage;
 
     public static int latitude; // Horizontal
     public static int longitude; // Vertical
 
-    public static void loadHeightMap() {
-        latitude = MapImageLoader.getImageSize()[0];
-        longitude = MapImageLoader.getImageSize()[1];
 
-        heightMap = new float[latitude][longitude];
-        for (int z = 0; z < longitude; z++) {
-            for (int x = latitude - 1; x >= 0; x--) {
-                heightMap[x][z] = MapImageLoader.getBiomeHeight(x, z);
-            }
-        }
-
-        smoothHeightMap();
-        applyNoise();
+    public static void applyHeightMapImage(BufferedImage newHeightMapImage) {
+        heightMapImage = newHeightMapImage;
+        latitude = heightMapImage.getHeight();
+        longitude = heightMapImage.getWidth();
     }
 
-    private static void smoothHeightMap() {
-        float[][] newHeightMap = new float[latitude][longitude];
-        Arrays.stream(newHeightMap).forEach(a -> Arrays.fill(a, heightMap[0][0]));
-        int radius = SMOOTH_BRUSH_SIZE / 2;
-        for (int z = radius; z < longitude - radius; z++) {
-            for (int x = radius; x < latitude - radius; x++) {
-                float[] heights = new float[SMOOTH_BRUSH_SIZE * SMOOTH_BRUSH_SIZE];
-                for (int j = 0; j < SMOOTH_BRUSH_SIZE; j++) {
-                    for (int i = 0; i < SMOOTH_BRUSH_SIZE; i++) {
-                        heights[i + (j * SMOOTH_BRUSH_SIZE)] = heightMap[x + i - radius][z + j - radius];
-                    }
-                }
-                newHeightMap[x][z] = average(heights);
-            }
-        }
-        heightMap = newHeightMap;
-    }
-
-    private static void applyNoise() {
-        for(int posX = 0; posX < latitude; posX++) {
-            for (int posZ = 0; posZ < longitude; posZ++) {
-                heightMap[posX][posZ] += getPerlinHeight(posX, posZ);
-            }
-        }
-    }
-
-    public static double getPerlinHeight(int x, int z) {
+    public static float getPerlinHeight(int x, int z) {
         double additionalHeight;
         MEBiome meBiome;
 
         double perlin = 1 * PerlinNoise.noise((double) x / PERLIN_STRETCH_X, 0,  (double) z / PERLIN_STRETCH_Y);
-        perlin += 0.6f * PerlinNoise.noise((double) x * 2 / PERLIN_STRETCH_X, 0,  (double) z * 2 / PERLIN_STRETCH_Y);
-        perlin += 0.3f * PerlinNoise.noise((double) x * 4 / PERLIN_STRETCH_X, 0,  (double) z * 4 / PERLIN_STRETCH_Y);
+        perlin += 0.5f * PerlinNoise.noise((double) x * 2 / PERLIN_STRETCH_X, 0,  (double) z * 2 / PERLIN_STRETCH_Y);
+        perlin += 0.25f * PerlinNoise.noise((double) x * 4 / PERLIN_STRETCH_X, 0,  (double) z * 4 / PERLIN_STRETCH_Y);
+        perlin += 0.125f * PerlinNoise.noise((double) x * 8 / PERLIN_STRETCH_X, 0,  (double) z * 8 / PERLIN_STRETCH_Y);
 
-        perlin = perlin / (1 + 0.6f + 0.3f);
+        perlin = perlin / (1 + 0.5f + 0.25f + 0.125f);
         perlin *= PERLIN_HEIGHT_RANGE;
         perlin += PERLIN_HEIGHT_OFFSET;
 
@@ -90,20 +57,24 @@ public class MiddleEarthHeightMap {
             meBiome = MEBiomesData.defaultBiome;
             additionalHeight = meBiome.height + perlin;
         }
-        return additionalHeight;
-    }
-
-    private static float average(float[] heights) {
-        float average = 0;
-        for (float height : heights) {
-            average += height;
-        }
-        return average / heights.length;
+        return (float) additionalHeight;
     }
 
     public static float getHeight(int x, int z) {
         if(!isCoordinateInBounds(x, z)) return MEBiomesData.defaultBiome.height + (float)getPerlinHeight(x, z);
-        return heightMap[x][z];
+        return ((float) ((heightMapImage.getRGB(x, z)>>16)&0xFF) / 4) + MEBiomesData.MINIMAL_HEIGHT;
+    }
+
+    public static float getSmoothHeight(int x, int z) {
+        float total = 0;
+        for(int i = -SMOOTH_BRUSH_SIZE; i <= SMOOTH_BRUSH_SIZE; i++) {
+            for(int j = -SMOOTH_BRUSH_SIZE; j <= SMOOTH_BRUSH_SIZE; j++) {
+                if(!isCoordinateInBounds(x + i, z + j)) total += MEBiomesData.defaultBiome.height;
+                else total += ((float)((heightMapImage.getRGB(x + i, z + j)>>16)&0xFF) / 4) + MEBiomesData.MINIMAL_HEIGHT;
+            }
+        }
+
+        return total / ((SMOOTH_BRUSH_SIZE * 2 + 1) * (SMOOTH_BRUSH_SIZE * 2 + 1));
     }
 
     public static boolean isCoordinateInBounds(int x, int z) {

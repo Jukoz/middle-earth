@@ -15,7 +15,7 @@
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
-    "grass_color": 5560646,
+    "grass_color": 8576835,
     "sky_color": 7907327,
     "water_color": 4159204,
     "water_fog_color": 329011
@@ -62,7 +62,7 @@
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
       "me:trees_plains",
-      "me:patch_strawberry",
+      "me:patch/strawberry",
       "minecraft:flower_plains",
       "minecraft:patch_grass_plain",
       "minecraft:brown_mushroom_normal",

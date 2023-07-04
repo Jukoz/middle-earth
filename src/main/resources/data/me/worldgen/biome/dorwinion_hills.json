@@ -48,6 +48,7 @@
       "minecraft:ore_iron_small",
       "minecraft:ore_gold",
       "minecraft:ore_gold_lower",
+      "me:mithril_ore",
       "minecraft:ore_copper",
       "minecraft:underwater_magma",
       "minecraft:disk_clay",
@@ -55,25 +56,18 @@
       "minecraft:ore_emerald"
     ],
     [],
-    [
-      "minecraft:spring_water",
-      "minecraft:spring_lava"
-    ],
+    [],
     [
       "minecraft:glow_lichen",
       "minecraft:flower_default",
-	  "me:trees_taiga",
-	  "me:stone_rock",
-	  "minecraft:patch_berry_common",
-	  "minecraft:patch_large_fern",
-      "minecraft:patch_grass_taiga_2",
-      "me:patch/tough_berry_02"
+      "minecraft:patch_grass_badlands"
     ],
     [
       "minecraft:freeze_top_layer"
     ]
   ],
   "has_precipitation": true,
+  "creature_spawn_probability": 0.2,
   "spawn_costs": {},
   "spawners": {
     "ambient": [
@@ -85,12 +79,12 @@
       }
     ],
     "axolotls": [],
-    "creature": [
-      {
-        "type": "minecraft:fox",
-        "maxCount": 4,
-        "minCount": 2,
-        "weight": 8
+	"creature": [
+	  {
+        "type": "me:durin_folk",
+        "maxCount": 5,
+        "minCount": 3,
+        "weight": 14
       }
 	],
     "misc": [],

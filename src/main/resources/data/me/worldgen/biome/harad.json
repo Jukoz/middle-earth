@@ -53,11 +53,10 @@
       "minecraft:ore_copper",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
-      "minecraft:disk_gravel"
+      "minecraft:disk_gravel",
+	  "me:ore_sand"
     ],
-    [
-	 "me:harad_ore_sand"
-	],
+    [],
     [
       "minecraft:spring_water",
     ],

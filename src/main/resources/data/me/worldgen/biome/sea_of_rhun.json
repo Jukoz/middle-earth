@@ -6,7 +6,7 @@
       "minecraft:canyon"
     ]
   },
-  "downfall": 0.3,
+  "downfall": 0.4,
   "effects": {
     "fog_color": 12638463,
     "mood_sound": {
@@ -15,7 +15,7 @@
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
-    "sky_color": 8233727,
+    "sky_color": 8103167,
     "water_color": 4159204,
     "water_fog_color": 329011
   },
@@ -49,25 +49,26 @@
       "minecraft:ore_gold",
       "minecraft:ore_gold_lower",
       "minecraft:ore_copper",
-      "minecraft:underwater_magma",
+      "minecraft:disk_sand",
       "minecraft:disk_clay",
-      "minecraft:disk_gravel",
-      "minecraft:ore_emerald"
+      "minecraft:disk_gravel"
     ],
     [],
     [
       "minecraft:spring_water",
-      "minecraft:spring_lava"
     ],
     [
       "minecraft:glow_lichen",
+      "minecraft:trees_water",
       "minecraft:flower_default",
-	  "me:trees_taiga",
-	  "me:stone_rock",
-	  "minecraft:patch_berry_common",
-	  "minecraft:patch_large_fern",
-      "minecraft:patch_grass_taiga_2",
-      "me:patch/tough_berry_02"
+      "minecraft:patch_grass_badlands",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal",
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_pumpkin",
+      "minecraft:seagrass_normal",
+      "minecraft:seagrass_simple",
+      "minecraft:kelp_cold"
     ],
     [
       "minecraft:freeze_top_layer"
@@ -76,28 +77,31 @@
   "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
-    "ambient": [
+	"monster": [],
+    "creature": [],
+    "misc": [],
+    "water_ambient": [
       {
-        "type": "minecraft:bat",
-        "maxCount": 8,
-        "minCount": 8,
-        "weight": 10
+        "type": "minecraft:salmon",
+        "maxCount": 6,
+        "minCount": 3,
+        "weight": 9
+      },
+	  {
+        "type": "minecraft:cod",
+        "maxCount": 6,
+        "minCount": 3,
+        "weight": 7
       }
     ],
-    "axolotls": [],
-    "creature": [
+    "water_creature": [
       {
-        "type": "minecraft:fox",
+        "type": "minecraft:squid",
         "maxCount": 4,
-        "minCount": 2,
-        "weight": 8
+        "minCount": 1,
+        "weight": 1
       }
-	],
-    "misc": [],
-    "monster": [],
-    "underground_water_creature": [],
-    "water_ambient": [],
-    "water_creature": []
+    ]
   },
-  "temperature": 0.2
+  "temperature": 0.5
 }

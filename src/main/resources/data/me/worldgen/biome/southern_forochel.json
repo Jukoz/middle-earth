@@ -67,7 +67,7 @@
 	  "minecraft:patch_berry_common",
 	  "minecraft:patch_large_fern",
       "minecraft:patch_grass_taiga_2",
-      "me:patch_tough_berry_02"
+      "me:patch/tough_berry_02"
     ],
     [
       "minecraft:freeze_top_layer"
