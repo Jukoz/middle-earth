@@ -8,11 +8,11 @@ import java.util.Arrays;
 
 public class ImageUtils {
     public static int BRUSH_SIZE = 24;
-    public static float ratio = 1.0f / (BRUSH_SIZE * BRUSH_SIZE);
+    public static float RATIO = 1.0f / (BRUSH_SIZE * BRUSH_SIZE);
 
     public static BufferedImage blur(BufferedImage image) {
         float[] blurKernel = new float[BRUSH_SIZE * BRUSH_SIZE];
-        Arrays.fill(blurKernel, ratio);
+        Arrays.fill(blurKernel, RATIO);
         Kernel kernel = new Kernel(BRUSH_SIZE, BRUSH_SIZE, blurKernel);
         ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
 
