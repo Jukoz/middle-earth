@@ -27,8 +27,9 @@ public class ImageUtils {
         final boolean hasAlphaChannel = image.getAlphaRaster() != null;
 
         int[][] result = new int[height][width];
+        final int pixelLength = (hasAlphaChannel) ? 4 : 3;
+
         if (hasAlphaChannel) {
-            final int pixelLength = 4;
             for (int pixel = 0, row = 0, col = 0; pixel + 3 < pixels.length; pixel += pixelLength) {
                 int argb = 0;
                 argb += (((int) pixels[pixel] & 0xff) << 24); // alpha
@@ -43,7 +44,6 @@ public class ImageUtils {
                 }
             }
         } else {
-            final int pixelLength = 3;
             for (int pixel = 0, row = 0, col = 0; pixel + 2 < pixels.length; pixel += pixelLength) {
                 int argb = 0;
                 argb += -16777216; // 255 alpha
