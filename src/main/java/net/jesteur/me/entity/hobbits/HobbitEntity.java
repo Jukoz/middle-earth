@@ -3,6 +3,7 @@ package net.jesteur.me.entity.hobbits;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jesteur.me.entity.pebble.PebbleEntity;
 import net.jesteur.me.item.ModRessourceItems;
+import net.jesteur.me.item.items.PebbleItem;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.RangedAttackMob;
@@ -61,7 +62,7 @@ public class HobbitEntity extends HostileEntity implements RangedAttackMob {
         double f = target.getZ() - this.getZ();
         double g = Math.sqrt(d * d + f * f);
 
-        PebbleEntity pebbleEntity = new PebbleEntity(world, this, 1f);
+        PebbleEntity pebbleEntity = new PebbleEntity(world, this, PebbleItem.DAMAGE);
         pebbleEntity.setItem(itemStack);
         pebbleEntity.setVelocity(d, e + g * (double)0.2f, f, 0.8f, 14 - this.world.getDifficulty().getId() * 4);
         this.world.spawnEntity(pebbleEntity);
