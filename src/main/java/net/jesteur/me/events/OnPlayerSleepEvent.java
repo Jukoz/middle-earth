@@ -22,7 +22,7 @@ import org.joml.Vector3i;
  * Once we find the right coordinates, we wake up the player to free the bed and teleport him.
  */
 public class OnPlayerSleepEvent implements EntitySleepEvents.StartSleeping {
-    public static final Vector3i ME_SPAWN_LOCATION = new Vector3i(3660, 85, 3020);
+    public static final Vector3i ME_SPAWN_LOCATION = new Vector3i(3640, 90, 2950);
 
     @Override
     public void onStartSleeping(LivingEntity entity, BlockPos sleepingPos) {
@@ -39,17 +39,11 @@ public class OnPlayerSleepEvent implements EntitySleepEvents.StartSleeping {
                         if(registryKey != ModDimensions.WORLD_KEY) targetPos = new Vector3i(serverWorld.getSpawnPos().getX(), 80, serverWorld.getSpawnPos().getZ());
 
                         player.wakeUp();
-                        ((ServerPlayerEntity) player).teleport(serverWorld, targetPos.x + 5, targetPos.y, targetPos.x + 5, 0, 0);
+                        ((ServerPlayerEntity) player).teleport(serverWorld, targetPos.x, targetPos.y + 10, targetPos.z, 0, 0);
                         World targetWorld =  player.getWorld();
-                        int highestY;
+                        int highY = 1 + targetWorld.getChunk(new BlockPos(targetPos.x, 0, targetPos.z)).sampleHeightmap(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, targetPos.x, targetPos.z);
 
-                        if(targetWorld.getRegistryKey() == ModDimensions.WORLD_KEY) {
-                            highestY = 10 + (int) (MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(targetPos.x, targetPos.z));
-                        } else {
-                            highestY = targetWorld.getTopY(Heightmap.Type.WORLD_SURFACE, targetPos.x, targetPos.z);
-                        }
-
-                        player.refreshPositionAfterTeleport(targetPos.x, highestY, targetPos.x);
+                        player.refreshPositionAfterTeleport(targetPos.x, highY, targetPos.z);
                     }
                 }
             }
