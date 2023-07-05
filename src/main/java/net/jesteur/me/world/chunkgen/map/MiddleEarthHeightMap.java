@@ -79,7 +79,7 @@ public class MiddleEarthHeightMap {
 
     public static boolean isCoordinateInBounds(int x, int z) {
         if(x < 0 || z < 0) return false;
-        return (x < latitude && z < longitude);
+        return (x < longitude && z < latitude);
     }
 
     // Going to be useful for making roads with curves.

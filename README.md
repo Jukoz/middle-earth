@@ -13,7 +13,8 @@ If you want to help us, either make a pull request or join our discord for more 
 ## Authors
 ### Developpers
 Jukoz<br>
-Krahab
+Krahab<br>
+nullBlade
 
 ### Modelers & Textures
 Jukoz<br>
@@ -21,26 +22,6 @@ JB3<br>
 Krahab
 
 ## Planned features
-### Biomes
-- Rohan
-- Erebor
-- Grey Mountains
-- Mirkwood
-- Mountains of Ash
-- Isengard
-- Rivendell
-- Dunland
-- Fangorn
-- Lindon
-- Dale
-- Forodwaith (differentiated between live-able and non-live-able)
-- Harad
-- Umbar
-- Dorwinion
-- Red Mountains
-- Angmar
-<p>And many others.</p>
-
 ### Mobs
 #### Mordor
 - Mordor Orc
