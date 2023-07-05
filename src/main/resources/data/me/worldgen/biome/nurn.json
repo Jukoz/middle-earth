@@ -66,14 +66,7 @@
   "spawn_costs": {},
   "spawners": {
     "ambient": [],
-	"creature": [
-	  {
-        "type": "me:mordor_orc",
-        "maxCount": 5,
-        "minCount": 3,
-        "weight": 14
-      }
-	],
+	"creature": [],
     "axolotls": [],
     "misc": [],
     "monster": [
