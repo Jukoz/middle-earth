@@ -78,13 +78,8 @@
   "spawn_costs": {},
   "spawners": {
 	"monster": [],
+	"ambient": [],
     "creature": [
-	  {
-        "type": "me:hobbit",
-        "maxCount": 5,
-        "minCount": 2,
-        "weight": 24
-      },
 	  {
         "type": "minecraft:sheep",
         "maxCount": 4,
