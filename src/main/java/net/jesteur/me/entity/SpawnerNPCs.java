@@ -44,7 +44,6 @@ public class SpawnerNPCs implements Spawner {
 
         int i = 0;
         for (PlayerEntity playerEntity : world.getPlayers()) {
-            FluidState fluidState;
             BlockState blockState;
             if (playerEntity.isSpectator()) continue;
             BlockPos blockPos = playerEntity.getBlockPos();
@@ -54,13 +53,11 @@ public class SpawnerNPCs implements Spawner {
             float randomAngle = random.nextInt(360);
             int distance = SPAWN_DISTANCE + random.nextInt(SPAWN_RAND);
 
-            targetBlockPos = targetBlockPos.add((int)(distance * Math.cos(randomAngle)), 0, 0);
-            targetBlockPos = targetBlockPos.add(0, 0, (int)(distance * Math.sin(randomAngle)));
+            int x = targetBlockPos.getX() + (int)(distance * Math.cos(randomAngle));
+            int z = targetBlockPos.getZ() + (int)(distance * Math.sin(randomAngle));
+            targetBlockPos = new BlockPos(x, 1 + getHighestYAtXZ(world, x, z), z);
 
-            int highY = 1 + getHighestYAtXZ(world, targetBlockPos.getX(), targetBlockPos.getZ());
-            targetBlockPos = new BlockPos(targetBlockPos.getX(), highY, targetBlockPos.getZ());
-
-            blockState = world.getBlockState(new BlockPos(targetBlockPos.getX(), targetBlockPos.getY() - 1, targetBlockPos.getZ()));
+            blockState = world.getBlockState(new BlockPos(x, targetBlockPos.getY() - 1, z));
             if(blockState.isOf(Blocks.WATER) || blockState.isOf(Blocks.LAVA)) continue;
 
             if(world.getBiome(targetBlockPos).getKey().isEmpty()) continue;

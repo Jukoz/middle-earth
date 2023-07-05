@@ -36,7 +36,7 @@ public class HobbitEntity extends HostileEntity implements RangedAttackMob {
     protected void initGoals() {
         int i = 0;
         this.goalSelector.add(++i, new FleeEntityGoal<MordorOrcEntity>(this, MordorOrcEntity.class, 8.0f, 0.8f, 1.4f));
-        this.goalSelector.add(++i, new ProjectileAttackGoal(this, 1.0, 8, 16, 20.0f));
+        this.goalSelector.add(++i, new ProjectileAttackGoal(this, 1.0, 12, 24, 20.0f));
         this.goalSelector.add(++i, new SwimGoal(this));
         this.goalSelector.add(++i, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
