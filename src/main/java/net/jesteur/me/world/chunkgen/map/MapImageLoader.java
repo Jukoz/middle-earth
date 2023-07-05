@@ -2,6 +2,7 @@ package net.jesteur.me.world.chunkgen.map;
 
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.world.biomes.MEBiomesData;
+import org.apache.commons.lang3.time.StopWatch;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class MapImageLoader {
+    private static final int iterations = 3;
     private static int[][] pixels;
     private static Random random = new Random(1379);
 
@@ -35,7 +37,7 @@ public class MapImageLoader {
         }
         pixels = ImageUtils.convertTo2D(img);
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < iterations; i++) {
             subDivide(false);
         }
 
@@ -73,6 +75,9 @@ public class MapImageLoader {
     private static void subDivide(boolean takeRandom) {
         int width = (pixels[0].length * 2) - 1;
         int height = (pixels.length * 2) - 1;
+        int maxY = pixels.length - 1;
+        int maxX = pixels[0].length - 1;
+
         int[][] newPixels = new int[height][width];
         Arrays.stream(newPixels).forEach(a -> Arrays.fill(a, pixels[0][0]));
 
@@ -82,15 +87,15 @@ public class MapImageLoader {
             }
         }
 
-        for (int y = 0; y < pixels.length - 1; y++) {
-            for (int x = 0; x < pixels[0].length - 1; x++) {
+        for (int y = 0; y < maxY; y++) {
+            for (int x = 0; x < maxX; x++) {
                 newPixels[(y * 2) + 1][x * 2] = pickRandom(newPixels[y * 2][x * 2], newPixels[(y * 2) + 2][x * 2]); // Horizontal
                 newPixels[y * 2][(x * 2) + 1] = pickRandom(newPixels[y * 2][x * 2], newPixels[y * 2][(x * 2) + 2]); // Vertical
             }
         }
         if(takeRandom) {
-            for (int y = 0; y < pixels.length - 1; y++) {
-                for (int x = 0; x < pixels[0].length - 1; x++) {
+            for (int y = 0; y < maxY; y++) {
+                for (int x = 0; x < maxX; x++) {
                     int centerAverage = pickRandom(
                             pickRandom(newPixels[(y * 2) + 1][x * 2], newPixels[(y * 2) + 1][(x * 2) + 2]), // Top and down
                             pickRandom(newPixels[y * 2][(x * 2) + 1], newPixels[(y * 2) + 2][(x * 2) + 1])); // Left and right
@@ -98,8 +103,8 @@ public class MapImageLoader {
                 }
             }
         } else {
-            for (int y = 0; y < pixels.length - 1; y++) {
-                for (int x = 0; x < pixels[0].length - 1; x++) {
+            for (int y = 0; y < maxY; y++) {
+                for (int x = 0; x < maxX; x++) {
                     int centerAverage = pickPopular(new int[]{
                             newPixels[(y * 2) + 1][x * 2],
                             newPixels[(y * 2) + 1][(x * 2) + 2],
@@ -120,24 +125,25 @@ public class MapImageLoader {
     }
 
     private static int pickRandom(int a, int b) {
-        if(random.nextFloat() < 0.5f) return a;
-        else return b;
-    }
-
-    private static int pickRandom(int[] heights) {
-        return heights[random.nextInt(heights.length)];
+        return random.nextFloat() < 0.5 ? a : b;
     }
 
     private static int pickPopular(int[] heights) {
         HashMap<Integer, Integer> popularHeights = new HashMap<>();
-        for (int height: heights) {
+        for (int height : heights) {
             popularHeights.merge(height, 1, Integer::sum);
         }
 
         int popular = heights[0];
-        for (int height: heights) {
-            if(popularHeights.get(height) > popularHeights.get(popular)) popular = height;
+        int maxCount = popularHeights.get(popular);
+        for (int height : heights) {
+            int currentCount = popularHeights.get(height);
+            if (currentCount > maxCount) {
+                popular = height;
+                maxCount = currentCount;
+            }
         }
+
         return popular;
     }
 

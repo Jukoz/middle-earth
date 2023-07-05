@@ -77,14 +77,7 @@
       }
     ],
     "axolotls": [],
-    "creature": [
-	  {
-        "type": "me:durin_folk",
-        "maxCount": 5,
-        "minCount": 3,
-        "weight": 12
-      },
-	],
+    "creature": [],
     "misc": [],
     "monster": [],
     "underground_water_creature": [],

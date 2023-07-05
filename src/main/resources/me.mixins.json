@@ -4,7 +4,8 @@
   "package": "net.jesteur.me.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BlockEntityLandedMixin"
+    "BlockEntityLandedMixin",
+    "EntitySpawnMixin"
   ],
   "client": [
     "PlayerMixin"

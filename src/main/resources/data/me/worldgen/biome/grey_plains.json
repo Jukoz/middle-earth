@@ -82,12 +82,6 @@
 	"monster": [],
     "creature": [
 	  {
-        "type": "me:durin_folk",
-        "maxCount": 5,
-        "minCount": 3,
-        "weight": 22
-      },
-	  {
         "type": "minecraft:sheep",
         "maxCount": 4,
         "minCount": 4,

@@ -22,7 +22,7 @@ import org.joml.Vector3i;
  * Once we find the right coordinates, we wake up the player to free the bed and teleport him.
  */
 public class OnPlayerSleepEvent implements EntitySleepEvents.StartSleeping {
-    public static final Vector3i ME_SPAWN_LOCATION = new Vector3i(830, 85, 1020);
+    public static final Vector3i ME_SPAWN_LOCATION = new Vector3i(3660, 85, 3020);
 
     @Override
     public void onStartSleeping(LivingEntity entity, BlockPos sleepingPos) {

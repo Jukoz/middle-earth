@@ -8,10 +8,10 @@ import net.jesteur.me.entity.ModEntities;
 import net.jesteur.me.entity.model.ModEntityModels;
 import net.jesteur.me.events.ModEvents;
 import net.jesteur.me.item.*;
+import net.jesteur.me.world.spawners.ModEntitySpawning;
 import net.jesteur.me.world.biomes.MEBiomeKeys;
 import net.jesteur.me.world.biomes.MEBiomesData;
 import net.jesteur.me.world.chunkgen.map.MapImageLoader;
-import net.jesteur.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.jesteur.me.world.dimension.ModDimensions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +33,10 @@ public class MiddleEarth implements ModInitializer {
 		ModEggItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();
+
 		ModEntityModels.getModels();
 		ModEntities.registerModEntities();
+		ModEntitySpawning.addSpawns();
 
 		ModBlockSets.registerModBlockSets();
 

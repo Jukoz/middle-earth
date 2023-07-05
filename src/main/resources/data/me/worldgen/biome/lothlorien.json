@@ -74,12 +74,6 @@
   "spawn_costs": {},
   "spawners": {
     "creature": [
-	  {
-        "type": "me:galadhrim_elf",
-        "maxCount": 5,
-        "minCount": 3,
-        "weight": 14
-      },
       {
         "type": "minecraft:sheep",
         "maxCount": 4,

@@ -9,11 +9,8 @@ import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -39,7 +36,7 @@ public class HobbitEntity extends HostileEntity implements RangedAttackMob {
     protected void initGoals() {
         int i = 0;
         this.goalSelector.add(++i, new FleeEntityGoal<MordorOrcEntity>(this, MordorOrcEntity.class, 8.0f, 0.8f, 1.4f));
-        this.goalSelector.add(++i, new ProjectileAttackGoal(this, 1.0, 8, 16, 20.0f));
+        this.goalSelector.add(++i, new ProjectileAttackGoal(this, 1.0, 12, 24, 20.0f));
         this.goalSelector.add(++i, new SwimGoal(this));
         this.goalSelector.add(++i, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
