@@ -54,8 +54,8 @@ public class PebbleEntity extends ThrownItemEntity {
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        float computedDamage = entity instanceof HobbitEntity ? 0 : this.damage;
-        entity.damage(this.getDamageSources().thrown(this, this.getOwner()), computedDamage);
+        if(this.getOwner() instanceof HobbitEntity && entity instanceof HobbitEntity) return;
+        entity.damage(this.getDamageSources().thrown(this, this.getOwner()), this.damage);
     }
 
     protected void onCollision(HitResult hitResult) {
