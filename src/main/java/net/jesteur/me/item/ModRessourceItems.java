@@ -27,6 +27,8 @@ public class ModRessourceItems {
             new Item(new FabricItemSettings()));
     public static final Item STARLIGHT_PHIAL = registerItem("starlight_phial",
             new Item(new FabricItemSettings().maxCount(1)));
+    public static final Item PEBBLE = registerItem("pebble",
+            new Item(new FabricItemSettings()));
 
     private static Item registerItem(String name, Item item) {
         ItemGroupEvents.modifyEntriesEvent(ModItemGroups.RESOURCES).register(entries -> entries.add(item));

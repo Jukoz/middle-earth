@@ -10,6 +10,7 @@ import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfRenderer;
 import net.jesteur.me.entity.hobbits.HobbitRenderer;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcRenderer;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 
 public class MiddleEarthClient implements ClientModInitializer {
 
@@ -19,6 +20,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.HOBBIT, HobbitRenderer::new);
         EntityRendererRegistry.register(ModEntities.GALADHRIM_ELF, GaladhrimElfRenderer::new);
         EntityRendererRegistry.register(ModEntities.MORDOR_ORC, MordorOrcRenderer::new);
+
+        EntityRendererRegistry.register(ModEntities.PEBBLE, FlyingItemEntityRenderer::new);
 
         initializeRenderLayerMap();
     }
