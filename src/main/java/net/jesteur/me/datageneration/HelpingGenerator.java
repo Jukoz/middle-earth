@@ -6,6 +6,7 @@ import net.jesteur.me.datageneration.content.models.SimpleBlockModel;
 import net.jesteur.me.datageneration.content.models.SimpleSlabModel;
 import net.jesteur.me.datageneration.content.models.SimpleStairModel;
 import net.jesteur.me.datageneration.content.models.SimpleWallModel;
+import net.jesteur.me.datageneration.content.multi.WoodMulti;
 import net.jesteur.me.datageneration.content.tags.MineablePickaxe;
 import net.jesteur.me.datageneration.content.tags.Walls;
 

@@ -19,11 +19,14 @@ public class ModBlocks {
     public static final float SLAB_RESISTANCE = 6.0f; // From explosions
 
     public static final Block MORDOR_DIRT = registerBlock("mordor_dirt",
-            new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)));
+            new Block(FabricBlockSettings.copyOf(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)));
 
     public static final Block MALLORN_LEAVES = registerBlock("mallorn_leaves",
             new LeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)));
     public static final Block MALLORN_LOG = registerBlock("mallorn_log",
+            new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_LOG).strength(WOOD_STRENGTH).requiresTool()
+                    .sounds(BlockSoundGroup.WOOD)));
+    public static final Block MALLORN_WOOD = registerBlock("mallorn_wood",
             new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_LOG).strength(WOOD_STRENGTH).requiresTool()
                     .sounds(BlockSoundGroup.WOOD)));
 
@@ -35,19 +38,21 @@ public class ModBlocks {
     public static final Block MALLORN_PLANKS_STAIRS = registerBlock("mallorn_planks_stairs",
             new StairsBlock(MALLORN_PLANKS.getDefaultState(), AbstractBlock.Settings.copy(MALLORN_PLANKS).strength(WOOD_STRENGTH).requiresTool()));
     public static final Block MITHRIL_BLOCK = registerBlock("mithril_block",
-            new Block(FabricBlockSettings.of(Material.METAL).strength(6f).requiresTool()));
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(6f).requiresTool()));
     public static final Block MITHRIL_ORE = registerBlock("mithril_ore",
-            new Block(FabricBlockSettings.of(Material.STONE).strength(4f).requiresTool()));
+            new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(4f).requiresTool()));
 
     public static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
         return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);
     }
 
-    private static Item registerBlockItem(String name, Block block) {
-        ItemGroupEvents.modifyEntriesEvent(ModItemGroups.BLOCKS).register(entries -> entries.add(block));
-        return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name),
+    static Item registerBlockItem(String name, Block block) {
+        var item =  Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name),
                 new BlockItem(block, new FabricItemSettings()));
+        Item.BLOCK_ITEMS.put(block, item);
+        ModItemGroups.BLOCKS_CONTENTS.add(item.getDefaultStack());
+        return item;
     }
 
     public static void registerModBlocks() {

@@ -22,7 +22,7 @@ public class ModWeaponItems {
             new SwordItem(ModToolMaterials.DWARVEN, IRON_DAMAGE, IRON_ATTACKS_SPEED, new FabricItemSettings()));
 
     private static Item registerItem(String name, Item item) {
-        ItemGroupEvents.modifyEntriesEvent(ModItemGroups.WEAPONS).register(entries -> entries.add(item));
+        ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
     }
     public static void registerModItems() {
