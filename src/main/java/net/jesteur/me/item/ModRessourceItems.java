@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.item.items.PebbleItem;
 import net.jesteur.me.item.utils.ModItemGroups;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -32,7 +33,7 @@ public class ModRessourceItems {
             new PebbleItem(new FabricItemSettings()));
 
     private static Item registerItem(String name, Item item) {
-        ItemGroupEvents.modifyEntriesEvent(ModItemGroups.RESOURCES).register(entries -> entries.add(item));
+        ModItemGroups.RESOURCES_CONTENTS.add(item.getDefaultStack());
         return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
     }
 

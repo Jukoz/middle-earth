@@ -46,7 +46,7 @@ public class PebbleEntity extends ThrownItemEntity {
         if (status == 3) {
             ParticleEffect particleEffect = this.getParticleParameters();
             for(int i = 0; i < 8; ++i) {
-                this.world.addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0, 0.0, 0.0);
+                getWorld().addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0, 0.0, 0.0);
             }
         }
     }
@@ -60,8 +60,8 @@ public class PebbleEntity extends ThrownItemEntity {
 
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-        if (!this.world.isClient) {
-            this.world.sendEntityStatus(this, (byte)3);
+        if (!getWorld().isClient) {
+            getWorld().sendEntityStatus(this, (byte)3);
             this.discard();
         }
     }

@@ -7,6 +7,7 @@ import net.jesteur.me.datageneration.content.models.SimpleBlockModel;
 import net.jesteur.me.datageneration.content.models.SimpleSlabModel;
 import net.jesteur.me.datageneration.content.models.SimpleStairModel;
 import net.jesteur.me.datageneration.content.models.SimpleWallModel;
+import net.jesteur.me.datageneration.content.multi.WoodMulti;
 import net.jesteur.me.datageneration.content.tags.MineablePickaxe;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -79,6 +80,10 @@ public class ModelProvider extends FabricModelProvider {
             ));
         }
 
+        for (WoodMulti.WoodRecord wood : WoodMulti.woods) {
+            blockStateModelGenerator.registerSingleton(wood.wood(), TexturedModel.CUBE_ALL.get(wood.log()).getTextures(), Models.CUBE_ALL);
+        }
+
     }
 
     @Override
@@ -86,6 +91,10 @@ public class ModelProvider extends FabricModelProvider {
         for (SimpleWallModel.Wall wall : SimpleWallModel.blocks) {
             Identifier id = Registries.BLOCK.getId(wall.wall());
             itemModelGenerator.register(wall.wall().asItem(), new Model(Optional.of(id.withPath("block/" + id.getPath() + "_inventory")), Optional.empty()));
+        }
+        for (WoodMulti.WoodRecord wood : WoodMulti.woods) {
+            Identifier id = Registries.BLOCK.getId(wood.wood());
+            itemModelGenerator.register(wood.wood().asItem(), new Model(Optional.of(id.withPath("block/" + id.getPath())), Optional.empty()));
         }
     }
 }

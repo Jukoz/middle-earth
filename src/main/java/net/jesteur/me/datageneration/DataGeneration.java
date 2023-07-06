@@ -13,6 +13,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(BlockTagProvider::new);
         pack.addProvider(BlockLootTableProvider::new);
         pack.addProvider(ModelProvider::new);
+        pack.addProvider(RecipeProvider::new);
     }
 
 }
