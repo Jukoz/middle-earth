@@ -197,7 +197,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     @Override
     public int getHeight(int x, int z, Heightmap.Type heightmap, HeightLimitView world, NoiseConfig noiseConfig) {
-        return (int) (DIRT_HEIGHT + (MiddleEarthHeightMap.PERLIN_HEIGHT_RANGE / 2) + MiddleEarthHeightMap.getHeight(x, z));
+        float worldHeight = 1 + DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(x, z) + MiddleEarthHeightMap.getPerlinHeight(x, z);;
+        return (int)worldHeight;
     }
 
     @Override
