@@ -10,6 +10,7 @@ import java.util.List;
 public class SimpleBlockModel {
     public static List<Block> blocks = new ArrayList<>() {
         {
+            add(ModBlocks.MALLORN_WOOD);
         }
     };
 }

@@ -26,6 +26,9 @@ public class ModBlocks {
     public static final Block MALLORN_LOG = registerBlock("mallorn_log",
             new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_LOG).strength(WOOD_STRENGTH).requiresTool()
                     .sounds(BlockSoundGroup.WOOD)));
+    public static final Block MALLORN_WOOD = registerBlock("mallorn_wood",
+            new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_LOG).strength(WOOD_STRENGTH).requiresTool()
+                    .sounds(BlockSoundGroup.WOOD)));
 
     public static final Block MALLORN_PLANKS = registerBlock("mallorn_planks",
             new Block(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).strength(WOOD_STRENGTH).requiresTool()
