@@ -29,7 +29,7 @@ public class ModFoodItems {
                             new FoodComponent.Builder().hunger(2).saturationModifier(0.1f).build())));
 
     private static Item registerItem(String name, Item item) {
-        ItemGroupEvents.modifyEntriesEvent(ModItemGroups.FOOD).register(entries -> entries.add(item));
+        ModItemGroups.FOOD_CONTENTS.add(item.getDefaultStack());
         return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
     }
     public static void registerModItems() {

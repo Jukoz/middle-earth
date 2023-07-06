@@ -21,7 +21,7 @@ public class ModEggItems {
 
 
     private static Item registerItem(String name, Item item) {
-        ItemGroupEvents.modifyEntriesEvent(ModItemGroups.SPAWN_EGGS).register(entries -> entries.add(item));
+        ModItemGroups.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
         return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
     }
 

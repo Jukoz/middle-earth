@@ -59,10 +59,10 @@ public class HobbitEntity extends HostileEntity implements RangedAttackMob {
         double f = target.getZ() - this.getZ();
         double g = Math.sqrt(d * d + f * f);
 
-        PebbleEntity pebbleEntity = new PebbleEntity(world, this, PebbleItem.DAMAGE);
+        PebbleEntity pebbleEntity = new PebbleEntity(getWorld(), this, PebbleItem.DAMAGE);
         pebbleEntity.setItem(itemStack);
-        pebbleEntity.setVelocity(d, e + g * (double)0.2f, f, 0.8f, 14 - this.world.getDifficulty().getId() * 4);
-        this.world.spawnEntity(pebbleEntity);
+        pebbleEntity.setVelocity(d, e + g * (double)0.2f, f, 0.8f, 14 - getWorld().getDifficulty().getId() * 4);
+        getWorld().spawnEntity(pebbleEntity);
         this.playSound(SoundEvents.ENTITY_SNOWBALL_THROW, 1.0f, 1.0f / (this.getRandom().nextFloat() * 0.05f + 0.8f));
     }
 
