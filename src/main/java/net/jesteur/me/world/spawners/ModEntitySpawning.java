@@ -26,6 +26,7 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.MISTY_MOUNTAINS, List.of(new EntitySpawningSettings(ModEntities.DURIN_FOLK, 2, 5)));
         spawns.put(MEBiomeKeys.MORDOR, List.of(new EntitySpawningSettings(ModEntities.MORDOR_ORC, 2, 5)));
         spawns.put(MEBiomeKeys.NURN, List.of(new EntitySpawningSettings(ModEntities.MORDOR_ORC, 1, 3)));
+        spawns.put(MEBiomeKeys.BEACH, List.of(new EntitySpawningSettings(ModEntities.CRAB, 3, 6)));
     }
 
     public static List<EntitySpawningSettings> getSpawnsAt(RegistryKey<Biome> biomeRegistryKey) {

@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.jesteur.me.block.ModNatureBlocks;
 import net.jesteur.me.entity.ModEntities;
+import net.jesteur.me.entity.crab.CrabRenderer;
 import net.jesteur.me.entity.dwarves.durin.DurinDwarfRenderer;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfRenderer;
 import net.jesteur.me.entity.hobbits.HobbitRenderer;
@@ -21,7 +22,11 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.GALADHRIM_ELF, GaladhrimElfRenderer::new);
         EntityRendererRegistry.register(ModEntities.MORDOR_ORC, MordorOrcRenderer::new);
 
+        // Weapons
         EntityRendererRegistry.register(ModEntities.PEBBLE, FlyingItemEntityRenderer::new);
+
+        // Animals
+        EntityRendererRegistry.register(ModEntities.CRAB, CrabRenderer::new);
 
         initializeRenderLayerMap();
     }
