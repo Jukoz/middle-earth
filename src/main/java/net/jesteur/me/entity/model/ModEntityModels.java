@@ -3,6 +3,7 @@ package net.jesteur.me.entity.model;
 import com.google.common.collect.ImmutableMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.jesteur.me.entity.crab.CrabModel;
 import net.jesteur.me.entity.dwarves.durin.DurinDwarfModel;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfModel;
 import net.minecraft.client.model.Dilation;
@@ -20,6 +21,9 @@ public class ModEntityModels {
         builder.put(ModEntityModelLayers.ELF, ElfModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.HOBBIT, HobbitModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.ORC, OrcModel.getTexturedModelData(Dilation.NONE));
+
+        // Animals
+        builder.put(ModEntityModelLayers.CRAB, CrabModel.getTexturedModelData());
 
         ImmutableMap<EntityModelLayer, TexturedModelData> immutableMap = builder.build();
         return immutableMap;
