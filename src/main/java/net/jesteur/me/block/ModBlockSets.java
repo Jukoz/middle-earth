@@ -28,14 +28,12 @@ public class ModBlockSets {
 
     private static SimpleBlockSet registerBrickSet(String name, float strength) {
 
-        Block bricks = ModBlocks.registerBlock(name, new Block(FabricBlockSettings.of(Material.STONE)
+        Block bricks = ModBlocks.registerBlock(name, new Block(FabricBlockSettings.copyOf(Blocks.STONE)
                 .strength(strength).requiresTool()));
 
-        Block slab = ModBlocks.registerBlock(name + "_slab", new SlabBlock(FabricBlockSettings
-                .of(Material.STONE).strength(strength, ModBlocks.SLAB_RESISTANCE).requiresTool()));
+        Block slab = ModBlocks.registerBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(Blocks.STONE).strength(strength, ModBlocks.SLAB_RESISTANCE).requiresTool()));
 
-        Block stairs = ModBlocks.registerBlock(name + "_stairs", new StairsBlock(bricks.getDefaultState(), FabricBlockSettings
-                .of(Material.STONE).strength(strength).requiresTool()));
+        Block stairs = ModBlocks.registerBlock(name + "_stairs", new StairsBlock(bricks.getDefaultState(), FabricBlockSettings.copyOf(Blocks.STONE).strength(strength).requiresTool()));
 
         Block wall = ModBlocks.registerBlock(name + "_wall", new WallBlock(AbstractBlock.Settings.copy(bricks)
                 .strength(strength).requiresTool()));

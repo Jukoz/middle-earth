@@ -61,9 +61,9 @@ public class GaladhrimElfEntity extends HostileEntity implements RangedAttackMob
         double e = target.getBodyY(0.3333333333333333) - persistentProjectileEntity.getY();
         double f = target.getZ() - this.getZ();
         double g = Math.sqrt(d * d + f * f);
-        persistentProjectileEntity.setVelocity(d, e + g * (double)0.2f, f, 1.8f, 14 - this.world.getDifficulty().getId() * 4);
+        persistentProjectileEntity.setVelocity(d, e + g * (double)0.2f, f, 1.8f, 14 - getWorld().getDifficulty().getId() * 4);
         this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0f, 1.0f / (this.getRandom().nextFloat() * 0.05f + 0.8f));
-        this.world.spawnEntity(persistentProjectileEntity);
+        getWorld().spawnEntity(persistentProjectileEntity);
     }
 
     protected PersistentProjectileEntity createArrowProjectile(ItemStack arrow, float damageModifier) {

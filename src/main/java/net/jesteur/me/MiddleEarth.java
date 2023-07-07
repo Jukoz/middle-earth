@@ -8,6 +8,7 @@ import net.jesteur.me.entity.ModEntities;
 import net.jesteur.me.entity.model.ModEntityModels;
 import net.jesteur.me.events.ModEvents;
 import net.jesteur.me.item.*;
+import net.jesteur.me.item.utils.ModItemGroups;
 import net.jesteur.me.world.spawners.ModEntitySpawning;
 import net.jesteur.me.world.biomes.MEBiomeKeys;
 import net.jesteur.me.world.biomes.MEBiomesData;
@@ -38,6 +39,8 @@ public class MiddleEarth implements ModInitializer {
 		ModEntities.registerModEntities();
 		ModEntitySpawning.addSpawns();
 
+		ModItemGroups.register();
+
 		ModBlockSets.registerModBlockSets();
 
 		ModDimensions.register();
@@ -47,9 +50,7 @@ public class MiddleEarth implements ModInitializer {
 
 		try {
 			MapImageLoader.loadImage(getClass().getClassLoader());
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} catch (URISyntaxException e) {
+		} catch (IOException | URISyntaxException e) {
 			throw new RuntimeException(e);
 		}
 	}

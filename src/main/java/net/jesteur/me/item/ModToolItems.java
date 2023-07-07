@@ -40,7 +40,7 @@ public class ModToolItems {
 
 
     private static Item registerItem(String name, Item item) {
-        ItemGroupEvents.modifyEntriesEvent(ModItemGroups.TOOLS).register(entries -> entries.add(item));
+        ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
         return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
     }
     public static void registerModItems() {
