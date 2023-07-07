@@ -19,6 +19,9 @@ public class ModEggItems {
     public static final Item MORDOR_ORC_SPAWN_EGG = registerItem("mordor_orc_spawn_egg",
             new SpawnEggItem(ModEntities.MORDOR_ORC, 4209210, 7682104, new Item.Settings()));
 
+    // Animals
+    public static final Item CRAB_SPAWN_EGG = registerItem("crab_spawn_egg",
+            new SpawnEggItem(ModEntities.CRAB, 15350073,15764576, new Item.Settings()));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());

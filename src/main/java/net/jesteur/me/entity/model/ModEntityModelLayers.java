@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.jesteur.me.MiddleEarth;
+import net.jesteur.me.entity.crab.CrabModel;
 import net.jesteur.me.entity.dwarves.durin.DurinDwarfModel;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfModel;
 import net.minecraft.client.model.Dilation;
@@ -18,6 +19,9 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer ELF = ModEntityModelLayers.registerEntityModelLayer("elf", ElfModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer HOBBIT = ModEntityModelLayers.registerEntityModelLayer("hobbit", HobbitModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer ORC = ModEntityModelLayers.registerEntityModelLayer("orc", OrcModel.getTexturedModelData(Dilation.NONE));
+
+    // Animals
+    public static final EntityModelLayer CRAB = ModEntityModelLayers.registerEntityModelLayer("crab", CrabModel.getTexturedModelData());
 
 
     /**
