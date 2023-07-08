@@ -4,8 +4,7 @@ import net.jesteur.me.block.SimpleBlockSets;
 import net.jesteur.me.block.WoodBlockSets;
 import net.jesteur.me.datageneration.content.loot_tables.BlockDrops;
 import net.jesteur.me.datageneration.content.models.*;
-import net.jesteur.me.datageneration.content.tags.MineablePickaxe;
-import net.jesteur.me.datageneration.content.tags.Walls;
+import net.jesteur.me.datageneration.content.tags.*;
 
 public class HelpingGenerator {
 
@@ -40,10 +39,12 @@ public class HelpingGenerator {
             SimpleBlockModel.blocks.add(set.planks());
             SimpleSlabModel.blocks.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
             SimpleStairModel.blocks.add(new SimpleStairModel.Stair(set.planks(), set.planksStairs()));
-            //SimpleBlockModel.blocks.add(set.planksFence());
-            //SimpleBlockModel.blocks.add(set.planksGate());
+            SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.planks(), set.planksFence()));
+            SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(set.planks(), set.planksGate()));
+            SimpleButtonModel.blocks.add(new SimpleButtonModel.Button(set.planks(), set.button()));
+            SimplePressurePlateModel.blocks.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
 
-            // Log
+
             BlockDrops.blocks.add(set.leaves());
             BlockDrops.blocks.add(set.log());
             BlockDrops.blocks.add(set.wood());
@@ -51,9 +52,16 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.planks());
             BlockDrops.blocks.add(set.planksSlab());
             BlockDrops.blocks.add(set.planksStairs());
-
+            BlockDrops.blocks.add(set.planksFence());
+            BlockDrops.blocks.add(set.planksGate());
+            BlockDrops.blocks.add(set.button());
+            BlockDrops.blocks.add(set.pressurePlate());
 
             Walls.walls.add(set.woodWall());
+            Fences.fences.add(set.planksFence());
+            FenceGates.fenceGates.add(set.planksGate());
+            Buttons.buttons.add(set.button());
+            PressurePlates.pressurePlates.add(set.pressurePlate());
         }
     }
 }

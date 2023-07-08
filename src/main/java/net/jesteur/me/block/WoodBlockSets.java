@@ -24,36 +24,36 @@ public class WoodBlockSets {
 
     private static SimpleBlockSet registerWoodSet(String name, float strength) {
         Block leaves = ModBlocks.registerBlock(name + "_leaves", new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(strength)));
-
         // TODO : Fix the log top texture
-        Block log = ModBlocks.registerBlock(name + "_log", new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_LOG).strength(strength)));
+        String nameBase = name + "_log";
+        Block log = ModBlocks.registerBlock(nameBase, new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_LOG).strength(strength)));
 
-        Block wood = ModBlocks.registerBlock(name + "_wood", new Block(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).strength(strength)));
+        nameBase = name + "_wood";
+        Block wood = ModBlocks.registerBlock(nameBase, new Block(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).strength(strength)));
 
-        Block woodWall = ModBlocks.registerBlock(name + "_wood_wall", new WallBlock(AbstractBlock.Settings.copy(wood).strength(strength)));
+        Block woodWall = ModBlocks.registerBlock(nameBase + "_wall", new WallBlock(AbstractBlock.Settings.copy(wood).strength(strength)));
 
-        Block planks = ModBlocks.registerBlock(name + "_planks", new Block(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(strength)));
+        nameBase = name + "_planks";
+        Block planks = ModBlocks.registerBlock(nameBase, new Block(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(strength)));
 
-        Block planksSlab = ModBlocks.registerBlock(name + "_planks_slab", new SlabBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).strength(strength, ModBlocks.SLAB_RESISTANCE)));
+        Block slab = ModBlocks.registerBlock(nameBase + "_slab", new SlabBlock(FabricBlockSettings.copyOf(planks).strength(strength, ModBlocks.SLAB_RESISTANCE)));
 
-        Block planksStairs = ModBlocks.registerBlock(name + "_planks_stairs", new StairsBlock(planks.getDefaultState(), FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).strength(strength)));
+        Block stairs = ModBlocks.registerBlock(nameBase + "_stairs", new StairsBlock(planks.getDefaultState(), FabricBlockSettings.copyOf(planks).strength(strength)));
 
-        // TODO : fence, gate, pressurePlate, button
+        // TODO : item renders : fence, gate
 
-        //Block planksFence = ModBlocks.registerBlock(name + "planks_fence", new FenceBlock(FabricBlockSettings.copyOf(Blocks.OAK_FENCE).strength(strength)));
+        Block fence = ModBlocks.registerBlock(nameBase + "_fence", new FenceBlock(FabricBlockSettings.copyOf(planks)));
+        Block gate = ModBlocks.registerBlock(nameBase + "_fence_gate",  new FenceGateBlock(FabricBlockSettings.copyOf(planks), WoodType.OAK));
 
-        //Block planksGate = ModBlocks.registerBlock(name + "planks_gate", new FenceGateBlock(FabricBlockSettings.copyOf(Blocks.OAK_FENCE_GATE)));
+        Block button = ModBlocks.registerBlock(nameBase + "_button",  new ButtonBlock(FabricBlockSettings.copyOf(planks), BlockSetType.OAK, 5, true));
 
+        Block pressurePlate = ModBlocks.registerBlock(nameBase + "_pressure_plate",  new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, FabricBlockSettings.copyOf(planks), BlockSetType.OAK));
 
-        return new SimpleBlockSet(leaves, log, wood, woodWall, planks, planksSlab, planksStairs, null, null, null, null);
+        return new SimpleBlockSet(leaves, log, wood, woodWall, planks, slab, stairs, fence, gate, pressurePlate, button);
     }
 
 
     public static void registerModBlockSets() {
         MiddleEarth.LOGGER.debug("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
-    }
-
-    private static PillarBlock createLogBlock(MapColor topMapColor, MapColor sideMapColor) {
-        return new PillarBlock(AbstractBlock.Settings.create().mapColor((state) -> { return state.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor; }));
     }
 }
