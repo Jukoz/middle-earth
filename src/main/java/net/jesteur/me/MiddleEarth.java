@@ -35,7 +35,6 @@ public class MiddleEarth implements ModInitializer {
 		ModBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();
 
-		ModEntityModels.getModels();
 		ModEntities.registerModEntities();
 		ModEntitySpawning.addSpawns();
 

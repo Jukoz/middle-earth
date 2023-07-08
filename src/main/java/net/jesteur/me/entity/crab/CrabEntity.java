@@ -12,7 +12,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.*;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -110,7 +109,7 @@ public class CrabEntity extends AnimalEntity {
                 if (this.crab.isBaby()) {
                     this.crab.setMovementSpeed(Math.max(this.crab.getMovementSpeed() / 3.0F, 0.06F));
                 }
-            } else if (this.crab.onGround) {
+            } else if (this.crab.isOnGround()) {
                 this.crab.setMovementSpeed(Math.max(this.crab.getMovementSpeed() / 2.0F, 0.2F));
             }
 
