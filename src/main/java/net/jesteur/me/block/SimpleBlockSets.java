@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jesteur.me.MiddleEarth;
 import net.minecraft.block.*;
 
-public class ModBlockSets {
+public class SimpleBlockSets {
     public static final float STONE_STRENGTH = 1.5f;
     public static final float BRICKS_STRENGTH = 1.75f;
 
@@ -20,7 +20,7 @@ public class ModBlockSets {
             ASHEN_ROCK,
             BLUE_ROCK,
             BLUE_ROCK_BRICKS,
-            CALCITE_BRICKS
+            CALCITE_BRICKS,
     };
 
     public record SimpleBlockSet(Block base, Block slab, Block stairs, Block wall) {
@@ -42,7 +42,8 @@ public class ModBlockSets {
         return new SimpleBlockSet(bricks, slab, stairs, wall);
     }
 
+
     public static void registerModBlockSets() {
-        MiddleEarth.LOGGER.debug("Registering ModBlockSets for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.debug("Registering SimpleBlockSets for " + MiddleEarth.MOD_ID);
     }
 }

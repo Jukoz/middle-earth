@@ -1,7 +1,5 @@
 package net.jesteur.me.datageneration.content.models;
 
-import net.jesteur.me.block.ModBlockSets;
-import net.jesteur.me.block.ModBlocks;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;

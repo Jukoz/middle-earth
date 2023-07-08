@@ -2,25 +2,16 @@ package net.jesteur.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.jesteur.me.datageneration.content.models.SimpleBlockModel;
 import net.jesteur.me.datageneration.content.models.SimpleSlabModel;
 import net.jesteur.me.datageneration.content.models.SimpleStairModel;
 import net.jesteur.me.datageneration.content.models.SimpleWallModel;
-import net.jesteur.me.datageneration.content.multi.WoodMulti;
-import net.jesteur.me.datageneration.content.tags.MineablePickaxe;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.client.*;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 public class ModelProvider extends FabricModelProvider {
 
@@ -80,10 +71,12 @@ public class ModelProvider extends FabricModelProvider {
             ));
         }
 
-        for (WoodMulti.WoodRecord wood : WoodMulti.woods) {
-            blockStateModelGenerator.registerSingleton(wood.wood(), TexturedModel.CUBE_ALL.get(wood.log()).getTextures(), Models.CUBE_ALL);
-        }
-
+        //for (WoodMulti.WoodRecord wood : WoodMulti.woods) {
+        //    Block logBlock = wood.log();
+        //    TextureMap logTextureMap = TexturedModel.CUBE_ALL.get(logBlock).getTextures();
+        //    blockStateModelGenerator.registerSingleton(wood.wood(), logTextureMap, Models.CUBE_ALL);
+        //    Models.WALL_INVENTORY.upload(logBlock, logTextureMap, blockStateModelGenerator.modelCollector);
+        //}
     }
 
     @Override
@@ -92,9 +85,10 @@ public class ModelProvider extends FabricModelProvider {
             Identifier id = Registries.BLOCK.getId(wall.wall());
             itemModelGenerator.register(wall.wall().asItem(), new Model(Optional.of(id.withPath("block/" + id.getPath() + "_inventory")), Optional.empty()));
         }
-        for (WoodMulti.WoodRecord wood : WoodMulti.woods) {
-            Identifier id = Registries.BLOCK.getId(wood.wood());
-            itemModelGenerator.register(wood.wood().asItem(), new Model(Optional.of(id.withPath("block/" + id.getPath())), Optional.empty()));
-        }
+
+        //for (WoodMulti.WoodRecord wood : WoodMulti.woods) {
+        //    Identifier id = Registries.BLOCK.getId(wood.wood());
+        //    itemModelGenerator.register(wood.wood().asItem(), new Model(Optional.of(id.withPath("block/" + id.getPath())), Optional.empty()));
+        //}
     }
 }
