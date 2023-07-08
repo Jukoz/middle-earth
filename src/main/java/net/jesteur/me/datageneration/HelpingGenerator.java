@@ -33,17 +33,27 @@ public class HelpingGenerator {
 
         for (WoodBlockSets.SimpleBlockSet set : WoodBlockSets.sets) {
             // Wood
+            SimpleBlockModel.blocks.add(set.leaves());
+            SimpleBlockModel.blocks.add(set.log());
             SimpleBlockModel.blocks.add(set.wood());
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.wood(), set.woodWall()));
+            SimpleBlockModel.blocks.add(set.planks());
+            SimpleSlabModel.blocks.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
+            SimpleStairModel.blocks.add(new SimpleStairModel.Stair(set.planks(), set.planksStairs()));
+            //SimpleBlockModel.blocks.add(set.planksFence());
+            //SimpleBlockModel.blocks.add(set.planksGate());
+
             // Log
-            SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.log()));
+            BlockDrops.blocks.add(set.leaves());
+            BlockDrops.blocks.add(set.log());
+            BlockDrops.blocks.add(set.wood());
+            BlockDrops.blocks.add(set.woodWall());
+            BlockDrops.blocks.add(set.planks());
+            BlockDrops.blocks.add(set.planksSlab());
+            BlockDrops.blocks.add(set.planksStairs());
 
-            //BlockDrops.blocks.add(set.wood());
-            //BlockDrops.blocks.add(set.woodWall());
-            //BlockDrops.blocks.add(set.log());
-            //BlockDrops.blocks.add(set.logWall());
 
-
+            Walls.walls.add(set.woodWall());
         }
     }
 }
