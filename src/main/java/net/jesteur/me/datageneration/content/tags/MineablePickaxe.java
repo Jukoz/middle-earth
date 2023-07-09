@@ -12,6 +12,7 @@ public class MineablePickaxe {
         {
             add(ModBlocks.MITHRIL_ORE);
             add(ModBlocks.MITHRIL_BLOCK);
+            add(ModBlocks.CHISELED_BLUE_ROCK_BRICKS);
         }
     };
 }
