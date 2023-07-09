@@ -31,9 +31,8 @@ public class HelpingGenerator {
         }
 
         for (WoodBlockSets.SimpleBlockSet set : WoodBlockSets.sets) {
-            // Wood
             SimpleBlockModel.blocks.add(set.leaves());
-            SimpleBlockModel.blocks.add(set.log());
+            SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.wood(), set.log()));
             SimpleBlockModel.blocks.add(set.wood());
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.wood(), set.woodWall()));
             SimpleBlockModel.blocks.add(set.planks());
@@ -43,7 +42,6 @@ public class HelpingGenerator {
             SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(set.planks(), set.planksGate()));
             SimpleButtonModel.blocks.add(new SimpleButtonModel.Button(set.planks(), set.button()));
             SimplePressurePlateModel.blocks.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
-
 
             BlockDrops.blocks.add(set.leaves());
             BlockDrops.blocks.add(set.log());

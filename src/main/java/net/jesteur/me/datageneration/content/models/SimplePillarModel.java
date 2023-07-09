@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimplePillarModel {
-    public record Pillar(Block block) {}
+    public record Pillar(Block base, Block pillar) {}
 
     public static List<Pillar> blocks = new ArrayList<>();
 }

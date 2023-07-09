@@ -26,7 +26,7 @@ public class WoodBlockSets {
         Block leaves = ModBlocks.registerBlock(name + "_leaves", new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(strength)));
         // TODO : Fix the log top texture
         String nameBase = name + "_log";
-        Block log = ModBlocks.registerBlock(nameBase, new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_LOG).strength(strength)));
+        Block log = ModBlocks.registerBlock(nameBase, new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(strength)));
 
         nameBase = name + "_wood";
         Block wood = ModBlocks.registerBlock(nameBase, new Block(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).strength(strength)));
@@ -40,9 +40,8 @@ public class WoodBlockSets {
 
         Block stairs = ModBlocks.registerBlock(nameBase + "_stairs", new StairsBlock(planks.getDefaultState(), FabricBlockSettings.copyOf(planks).strength(strength)));
 
-        // TODO : item renders : fence, gate
-
         Block fence = ModBlocks.registerBlock(nameBase + "_fence", new FenceBlock(FabricBlockSettings.copyOf(planks)));
+
         Block gate = ModBlocks.registerBlock(nameBase + "_fence_gate",  new FenceGateBlock(FabricBlockSettings.copyOf(planks), WoodType.OAK));
 
         Block button = ModBlocks.registerBlock(nameBase + "_button",  new ButtonBlock(FabricBlockSettings.copyOf(planks), BlockSetType.OAK, 5, true));

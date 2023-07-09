@@ -11,16 +11,21 @@ public class SimpleBlockSets {
     public static SimpleBlockSet ASHEN_BRICKS = registerBrickSet("ashen_bricks", BRICKS_STRENGTH);
     public static SimpleBlockSet ASHEN_ROCK = registerBrickSet("ashen_rock", STONE_STRENGTH);
     public static SimpleBlockSet BLUE_ROCK = registerBrickSet("blue_rock", STONE_STRENGTH);
+    public static SimpleBlockSet FROZEN_BLUE_ROCK = registerBrickSet("frozen_blue_rock", STONE_STRENGTH);
     public static SimpleBlockSet BLUE_ROCK_BRICKS = registerBrickSet("blue_rock_bricks", BRICKS_STRENGTH);
     public static SimpleBlockSet CALCITE_BRICKS = registerBrickSet("calcite_bricks", BRICKS_STRENGTH);
-
+    public static SimpleBlockSet FROZEN_BLUE_ROCK_BRICKS = registerBrickSet("frozen_blue_rock_bricks", STONE_STRENGTH);
+    public static SimpleBlockSet FROZEN_BLUE_ROCK_POLISHED = registerBrickSet("frozen_blue_rock_polished", STONE_STRENGTH);
 
     public static SimpleBlockSet[] sets = new SimpleBlockSet[] {
             ASHEN_BRICKS,
             ASHEN_ROCK,
             BLUE_ROCK,
+            FROZEN_BLUE_ROCK,
             BLUE_ROCK_BRICKS,
             CALCITE_BRICKS,
+            FROZEN_BLUE_ROCK_BRICKS,
+            FROZEN_BLUE_ROCK_POLISHED,
     };
 
     public record SimpleBlockSet(Block base, Block slab, Block stairs, Block wall) {
@@ -28,18 +33,15 @@ public class SimpleBlockSets {
 
     private static SimpleBlockSet registerBrickSet(String name, float strength) {
 
-        Block bricks = ModBlocks.registerBlock(name, new Block(FabricBlockSettings.copyOf(Blocks.STONE)
-                .strength(strength).requiresTool()));
+        Block base = ModBlocks.registerBlock(name, new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(strength).requiresTool()));
 
         Block slab = ModBlocks.registerBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(Blocks.STONE).strength(strength, ModBlocks.SLAB_RESISTANCE).requiresTool()));
 
-        Block stairs = ModBlocks.registerBlock(name + "_stairs", new StairsBlock(bricks.getDefaultState(), FabricBlockSettings.copyOf(Blocks.STONE).strength(strength).requiresTool()));
+        Block stairs = ModBlocks.registerBlock(name + "_stairs", new StairsBlock(base.getDefaultState(), FabricBlockSettings.copyOf(Blocks.STONE).strength(strength).requiresTool()));
 
-        Block wall = ModBlocks.registerBlock(name + "_wall", new WallBlock(AbstractBlock.Settings.copy(bricks)
-                .strength(strength).requiresTool()));
+        Block wall = ModBlocks.registerBlock(name + "_wall", new WallBlock(AbstractBlock.Settings.copy(base).strength(strength).requiresTool()));
 
-
-        return new SimpleBlockSet(bricks, slab, stairs, wall);
+        return new SimpleBlockSet(base, slab, stairs, wall);
     }
 
 

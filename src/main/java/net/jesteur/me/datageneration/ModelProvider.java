@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.jesteur.me.datageneration.content.models.*;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -21,6 +22,10 @@ public class ModelProvider extends FabricModelProvider {
 
         for (Block block : SimpleBlockModel.blocks) {
             blockStateModelGenerator.registerSimpleCubeAll(block);
+        }
+
+        for (SimplePillarModel.Pillar block : SimplePillarModel.blocks) {
+            blockStateModelGenerator.registerAxisRotated(block.pillar(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
         }
 
         for (SimpleSlabModel.Slab block : SimpleSlabModel.blocks) {
@@ -78,8 +83,6 @@ public class ModelProvider extends FabricModelProvider {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
             Block fenceGate = block.fenceGate();
 
-            //Models.FENCE_INVENTORY.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
-
             Identifier open = Models.TEMPLATE_CUSTOM_FENCE_GATE_OPEN.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
             Identifier closed = Models.TEMPLATE_CUSTOM_FENCE_GATE.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
             Identifier openWall = Models.TEMPLATE_CUSTOM_FENCE_GATE_WALL_OPEN.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -92,7 +95,6 @@ public class ModelProvider extends FabricModelProvider {
         for (SimpleButtonModel.Button block : SimpleButtonModel.blocks) {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
             Block button = block.button();
-            //Models.BUTTON_INVENTORY.upload(button, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
 
             Identifier unpressed = Models.BUTTON.upload(button, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
             Identifier pressed = Models.BUTTON_PRESSED.upload(button, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -104,7 +106,6 @@ public class ModelProvider extends FabricModelProvider {
         for (SimplePressurePlateModel.PressurePlate block : SimplePressurePlateModel.blocks) {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
             Block pressurePlate = block.pressurePlate();
-            //Models.BUTTON_INVENTORY.upload(pressurePlate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
 
             Identifier up = Models.PRESSURE_PLATE_UP.upload(pressurePlate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
             Identifier down = Models.PRESSURE_PLATE_DOWN.upload(pressurePlate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
