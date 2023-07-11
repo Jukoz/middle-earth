@@ -3,6 +3,7 @@ package net.jesteur.me.datageneration;
 import net.jesteur.me.block.SimpleBlockSets;
 import net.jesteur.me.block.WoodBlockSets;
 import net.jesteur.me.datageneration.content.loot_tables.BlockDrops;
+import net.jesteur.me.datageneration.content.loot_tables.LeavesDrops;
 import net.jesteur.me.datageneration.content.models.*;
 import net.jesteur.me.datageneration.content.tags.*;
 
@@ -33,7 +34,6 @@ public class HelpingGenerator {
         for (WoodBlockSets.SimpleBlockSet set : WoodBlockSets.sets) {
             SimpleBlockModel.blocks.add(set.leaves());
             SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.log()));
-            //SimpleBlockModel.blocks.add(set.wood());
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.log(), set.woodWall()));
             SimpleBlockModel.blocks.add(set.planks());
             SimpleSlabModel.blocks.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
@@ -43,7 +43,7 @@ public class HelpingGenerator {
             SimpleButtonModel.blocks.add(new SimpleButtonModel.Button(set.planks(), set.button()));
             SimplePressurePlateModel.blocks.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
 
-            BlockDrops.blocks.add(set.leaves());
+            LeavesDrops.blocks.add(set.leaves());
             BlockDrops.blocks.add(set.log());
             BlockDrops.blocks.add(set.wood());
             BlockDrops.blocks.add(set.woodWall());
@@ -55,11 +55,25 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.button());
             BlockDrops.blocks.add(set.pressurePlate());
 
-            Walls.walls.add(set.woodWall());
+            MineableAxe.blocks.add(set.log());
+            MineableAxe.blocks.add(set.wood());
+            MineableAxe.blocks.add(set.woodWall());
+            MineableAxe.blocks.add(set.planks());
+            MineableAxe.blocks.add(set.planksSlab());
+            MineableAxe.blocks.add(set.planksStairs());
+            MineableAxe.blocks.add(set.planksFence());
+            MineableAxe.blocks.add(set.planksGate());
+            MineableAxe.blocks.add(set.button());
+            MineableAxe.blocks.add(set.pressurePlate());
+
+            Buttons.buttons.add(set.button());
             Fences.fences.add(set.planksFence());
             FenceGates.fenceGates.add(set.planksGate());
-            Buttons.buttons.add(set.button());
+            Logs.logs.add(set.log());
+            Logs.logs.add(set.wood());
+            Logs.logs.add(set.woodWall());
             PressurePlates.pressurePlates.add(set.pressurePlate());
+            Walls.walls.add(set.woodWall());
         }
     }
 }

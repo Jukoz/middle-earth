@@ -18,7 +18,7 @@ public class ModBlocks {
     public static final float SLAB_RESISTANCE = 6.0f; // From explosions
 
     public static final Block CALCITE_PILLAR = registerBlock("calcite_pillar",
-            new Block(FabricBlockSettings.copyOf(Blocks.STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
     public static final Block CHISELED_BLUE_ROCK_BRICKS = registerBlock("chiseled_blue_rock_bricks",
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
     public static final Block CHISELED_CALCITE = registerBlock("chiseled_calcite",

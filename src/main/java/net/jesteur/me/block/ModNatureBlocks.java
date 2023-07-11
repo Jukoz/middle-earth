@@ -21,18 +21,17 @@ public class ModNatureBlocks {
     public static final Block TOUGH_BERRY_BUSH = registerBlock("tough_berry_bush",
             new ToughBerryBushBlock(FabricBlockSettings.copyOf(Blocks.SWEET_BERRY_BUSH).ticksRandomly().noCollision().breakInstantly().sounds(BlockSoundGroup.SWEET_BERRY_BUSH)), true);
     public static final Block MORDOR_LICHEN = registerBlock("mordor_lichen",
-            new MordorPlant(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ).mapColor(DyeColor.GRAY)));
+            new MordorPlant(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ).mapColor(DyeColor.GRAY)), false);
     public static final Block MORDOR_LICHEN_FAN = registerBlock("mordor_lichen_fan",
-            new MordorPlant(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).mapColor(DyeColor.GRAY)));
+            new MordorPlant(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ).mapColor(DyeColor.GRAY)), false);
     public static final Block STRAWBERRY_BUSH = registerBlock("strawberry_bush",
             new StrawBerryBushBlock(FabricBlockSettings.copyOf(Blocks.SWEET_BERRY_BUSH).ticksRandomly().noCollision().breakInstantly().sounds(BlockSoundGroup.SWEET_BERRY_BUSH)), true);
 
 
 
 
-    public static Block registerBlock(String name, Block block, boolean... absent) {
-        if(absent.length == 0) ModBlocks.registerBlockItem(name, block);
-        else if(!absent[0]) registerBlockItem(name, block);
+    public static Block registerBlock(String name, Block block, boolean absent) {
+        if(!absent) ModNatureBlocks.registerBlockItem(name, block);
         return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);
     }
 

@@ -26,7 +26,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimplePillarModel.Pillar block : SimplePillarModel.blocks) {
-            blockStateModelGenerator.registerAxisRotated(block.pillar(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+            blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
         }
 
         for (SimpleSlabModel.Slab block : SimpleSlabModel.blocks) {
