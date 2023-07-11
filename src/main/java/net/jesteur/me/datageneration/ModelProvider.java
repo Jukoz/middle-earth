@@ -2,6 +2,7 @@ package net.jesteur.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.jesteur.me.block.WoodBlockSets;
 import net.jesteur.me.datageneration.content.models.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -70,13 +71,14 @@ public class ModelProvider extends FabricModelProvider {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
             Block fence = block.fence();
 
-            Models.FENCE_INVENTORY.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
-
             Identifier post = Models.FENCE_POST.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
             Identifier side = Models.FENCE_SIDE.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier inventory = Models.FENCE_INVENTORY.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
 
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
                     .createFenceBlockState(fence, post, side));
+
+            blockStateModelGenerator.registerParentedItemModel(fence, inventory);
         }
 
         for (SimpleFenceGateModel.FenceGate block : SimpleFenceGateModel.blocks) {
@@ -98,9 +100,12 @@ public class ModelProvider extends FabricModelProvider {
 
             Identifier unpressed = Models.BUTTON.upload(button, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
             Identifier pressed = Models.BUTTON_PRESSED.upload(button, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier inventory = Models.BUTTON_INVENTORY.upload(button, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
 
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
                     .createButtonBlockState(button, unpressed, pressed));
+
+            blockStateModelGenerator.registerParentedItemModel(button, inventory);
         }
 
         for (SimplePressurePlateModel.PressurePlate block : SimplePressurePlateModel.blocks) {

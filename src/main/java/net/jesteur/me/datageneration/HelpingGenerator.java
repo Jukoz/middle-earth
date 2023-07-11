@@ -32,9 +32,9 @@ public class HelpingGenerator {
 
         for (WoodBlockSets.SimpleBlockSet set : WoodBlockSets.sets) {
             SimpleBlockModel.blocks.add(set.leaves());
-            SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.wood(), set.log()));
-            SimpleBlockModel.blocks.add(set.wood());
-            SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.wood(), set.woodWall()));
+            SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.log()));
+            //SimpleBlockModel.blocks.add(set.wood());
+            SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.log(), set.woodWall()));
             SimpleBlockModel.blocks.add(set.planks());
             SimpleSlabModel.blocks.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
             SimpleStairModel.blocks.add(new SimpleStairModel.Stair(set.planks(), set.planksStairs()));
