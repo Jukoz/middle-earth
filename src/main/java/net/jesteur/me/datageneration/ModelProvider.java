@@ -2,11 +2,10 @@ package net.jesteur.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.jesteur.me.block.WoodBlockSets;
 import net.jesteur.me.datageneration.content.models.*;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
+import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
@@ -127,6 +126,10 @@ public class ModelProvider extends FabricModelProvider {
         for (SimpleWallModel.Wall wall : SimpleWallModel.blocks) {
             Identifier id = Registries.BLOCK.getId(wall.wall());
             itemModelGenerator.register(wall.wall().asItem(), new Model(Optional.of(id.withPath("block/" + id.getPath() + "_inventory")), Optional.empty()));
+        }
+
+        for (Item item : SimpleItemModel.items) {
+            itemModelGenerator.register(item, Models.GENERATED);
         }
     }
 }
