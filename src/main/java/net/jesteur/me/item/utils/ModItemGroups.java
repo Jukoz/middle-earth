@@ -20,7 +20,7 @@ public class ModItemGroups {
     public static final List<ItemStack> BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup BLOCKS = FabricItemGroup.builder()
             .displayName(Text.literal("Blocks"))
-            .icon(() -> new ItemStack(SimpleBlockSets.ASHEN_BRICKS.base().asItem()))
+            .icon(() -> new ItemStack(SimpleBlockSets.CALCITE_BRICKS.base().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : BLOCKS_CONTENTS) {
                     entries.add(item);

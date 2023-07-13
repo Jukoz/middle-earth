@@ -74,6 +74,7 @@ public class HelpingGenerator {
             Logs.logs.add(set.woodWall());
             PressurePlates.pressurePlates.add(set.pressurePlate());
             Walls.walls.add(set.woodWall());
+            Planks.planks.add(set.planks());
         }
     }
 }
