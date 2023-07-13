@@ -1,11 +1,10 @@
 package net.jesteur.me.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.jesteur.me.MiddleEarth;
+import net.jesteur.me.item.items.StarlightPhialItem;
 import net.jesteur.me.item.items.PebbleItem;
 import net.jesteur.me.item.utils.ModItemGroups;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -28,7 +27,7 @@ public class ModRessourceItems {
     public static final Item EMPTY_PHIAL = registerItem("empty_phial",
             new Item(new FabricItemSettings()));
     public static final Item STARLIGHT_PHIAL = registerItem("starlight_phial",
-            new Item(new FabricItemSettings().maxCount(1)));
+            new StarlightPhialItem(new FabricItemSettings().maxCount(1)));
     public static final Item PEBBLE = registerItem("pebble",
             new PebbleItem(new FabricItemSettings()));
 
