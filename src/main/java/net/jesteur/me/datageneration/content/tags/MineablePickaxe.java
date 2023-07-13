@@ -10,8 +10,11 @@ import java.util.List;
 public class MineablePickaxe {
     public static List<Block> blocks = new ArrayList<>() {
         {
-            add(ModBlocks.MITHRIL_ORE);
+            add(ModBlocks.CALCITE_PILLAR);
+            add(ModBlocks.CHISELED_BLUE_ROCK_BRICKS);
+            add(ModBlocks.CHISELED_CALCITE);
             add(ModBlocks.MITHRIL_BLOCK);
+            add(ModBlocks.MITHRIL_ORE);
         }
     };
 }

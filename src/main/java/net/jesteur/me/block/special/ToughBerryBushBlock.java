@@ -94,7 +94,7 @@ public class ToughBerryBushBlock extends PlantBlock
         }
         if (i > 1) {
             int j = 1 + world.random.nextInt(2);
-            SweetBerryBushBlock.dropStack(world, pos, new ItemStack(ModFoodItems.TOUGH_BERRIES, j + (bl ? 1 : 0)));
+            ToughBerryBushBlock.dropStack(world, pos, new ItemStack(ModFoodItems.TOUGH_BERRIES, j + (bl ? 1 : 0)));
             world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0f, 0.8f + world.random.nextFloat() * 0.4f);
             BlockState blockState = (BlockState) state.with(AGE, 1);
             world.setBlockState(pos, blockState, Block.NOTIFY_LISTENERS);

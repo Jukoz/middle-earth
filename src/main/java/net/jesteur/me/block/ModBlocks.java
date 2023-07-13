@@ -14,29 +14,18 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
 public class ModBlocks {
-    public static final float WOOD_STRENGTH = 2f;
     public static final float DIRT_STRENGTH = 0.6f;
     public static final float SLAB_RESISTANCE = 6.0f; // From explosions
 
+    public static final Block CALCITE_PILLAR = registerBlock("calcite_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+    public static final Block CHISELED_BLUE_ROCK_BRICKS = registerBlock("chiseled_blue_rock_bricks",
+            new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+    public static final Block CHISELED_CALCITE = registerBlock("chiseled_calcite",
+            new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
     public static final Block MORDOR_DIRT = registerBlock("mordor_dirt",
             new Block(FabricBlockSettings.copyOf(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)));
 
-    public static final Block MALLORN_LEAVES = registerBlock("mallorn_leaves",
-            new LeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)));
-    public static final Block MALLORN_LOG = registerBlock("mallorn_log",
-            new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_LOG).strength(WOOD_STRENGTH).requiresTool()
-                    .sounds(BlockSoundGroup.WOOD)));
-    public static final Block MALLORN_WOOD = registerBlock("mallorn_wood",
-            new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_LOG).strength(WOOD_STRENGTH).requiresTool()
-                    .sounds(BlockSoundGroup.WOOD)));
-
-    public static final Block MALLORN_PLANKS = registerBlock("mallorn_planks",
-            new Block(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).strength(WOOD_STRENGTH).requiresTool()
-                    .sounds(BlockSoundGroup.WOOD)));
-    public static final Block MALLORN_PLANKS_SLAB = registerBlock("mallorn_planks_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).strength(WOOD_STRENGTH, SLAB_RESISTANCE).requiresTool().sounds(BlockSoundGroup.WOOD)));
-    public static final Block MALLORN_PLANKS_STAIRS = registerBlock("mallorn_planks_stairs",
-            new StairsBlock(MALLORN_PLANKS.getDefaultState(), AbstractBlock.Settings.copy(MALLORN_PLANKS).strength(WOOD_STRENGTH).requiresTool()));
     public static final Block MITHRIL_BLOCK = registerBlock("mithril_block",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(6f).requiresTool()));
     public static final Block MITHRIL_ORE = registerBlock("mithril_ore",

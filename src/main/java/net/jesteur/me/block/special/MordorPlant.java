@@ -1,7 +1,6 @@
 package net.jesteur.me.block.special;
 
-import net.jesteur.me.block.ModBlockSets;
-import net.jesteur.me.block.ModBlocks;
+import net.jesteur.me.block.SimpleBlockSets;
 import net.minecraft.block.*;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
@@ -21,7 +20,7 @@ public class MordorPlant extends PlantBlock implements Fertilizable {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isIn(BlockTags.DIRT) || floor.isOf(ModBlockSets.ASHEN_ROCK.base()) || floor.isOf(Blocks.BASALT) || floor.isOf(Blocks.FARMLAND);
+        return floor.isIn(BlockTags.DIRT) || floor.isOf(SimpleBlockSets.ASHEN_ROCK.base()) || floor.isOf(Blocks.BASALT) || floor.isOf(Blocks.FARMLAND);
     }
 
     @Override
