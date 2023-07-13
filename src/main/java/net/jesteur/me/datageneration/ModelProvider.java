@@ -2,25 +2,16 @@ package net.jesteur.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.jesteur.me.datageneration.content.models.SimpleBlockModel;
-import net.jesteur.me.datageneration.content.models.SimpleSlabModel;
-import net.jesteur.me.datageneration.content.models.SimpleStairModel;
-import net.jesteur.me.datageneration.content.models.SimpleWallModel;
+import net.jesteur.me.datageneration.content.models.*;
 import net.jesteur.me.datageneration.content.multi.WoodMulti;
-import net.jesteur.me.datageneration.content.tags.MineablePickaxe;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.data.client.*;
+import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 public class ModelProvider extends FabricModelProvider {
 
@@ -95,6 +86,9 @@ public class ModelProvider extends FabricModelProvider {
         for (WoodMulti.WoodRecord wood : WoodMulti.woods) {
             Identifier id = Registries.BLOCK.getId(wood.wood());
             itemModelGenerator.register(wood.wood().asItem(), new Model(Optional.of(id.withPath("block/" + id.getPath())), Optional.empty()));
+        }
+        for (Item item : SimpleItemModel.items) {
+            itemModelGenerator.register(item, Models.GENERATED);
         }
     }
 }
