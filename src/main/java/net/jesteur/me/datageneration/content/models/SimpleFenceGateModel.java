@@ -5,9 +5,9 @@ import net.minecraft.block.Block;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleSlabModel {
-    public record Slab(Block block, Block slab) {}
-    public static List<Slab> blocks = new ArrayList<>() {
+public class SimpleFenceGateModel {
+    public record FenceGate(Block block, Block fenceGate) {}
+    public static List<FenceGate> blocks = new ArrayList<>() {
         {
         }
     };

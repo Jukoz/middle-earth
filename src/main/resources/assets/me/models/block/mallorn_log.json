@@ -1,7 +1,0 @@
-{
-    "parent": "block/cube_column",
-    "textures": {
-        "end": "me:block/mallorn_log_top",
-        "side": "me:block/mallorn_log"
-    }
-}
