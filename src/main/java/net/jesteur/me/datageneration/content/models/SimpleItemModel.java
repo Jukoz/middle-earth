@@ -9,7 +9,7 @@ import java.util.List;
 public class SimpleItemModel {
     public static List<Item> items = new ArrayList<>() {
         {
-            add(ModRessourceItems.CREATIVE_STARLIGHT_PHIAL);
+
         }
     };
 }
