@@ -3,6 +3,7 @@ package net.jesteur.me.item;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.jesteur.me.MiddleEarth;
+import net.jesteur.me.item.items.CreativeStarlightPhialItem;
 import net.jesteur.me.item.items.PebbleItem;
 import net.jesteur.me.item.utils.ModItemGroups;
 import net.minecraft.block.Blocks;
@@ -29,6 +30,9 @@ public class ModRessourceItems {
             new Item(new FabricItemSettings()));
     public static final Item STARLIGHT_PHIAL = registerItem("starlight_phial",
             new Item(new FabricItemSettings().maxCount(1)));
+
+    public static final Item CREATIVE_STARLIGHT_PHIAL = registerItem("creative_starlight_phial",
+            new CreativeStarlightPhialItem(new FabricItemSettings().maxCount(1)));
     public static final Item PEBBLE = registerItem("pebble",
             new PebbleItem(new FabricItemSettings()));
 
