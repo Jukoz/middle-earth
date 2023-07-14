@@ -3,15 +3,20 @@ package net.jesteur.me.world.biomes;
 import net.jesteur.me.block.SimpleBlockSets;
 import net.jesteur.me.block.ModBlocks;
 import net.minecraft.block.Blocks;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.world.biome.Biome;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Converts PNG pixel color to a BiomeKey reference.
  */
 public class MEBiomesData {
     public static HashMap<Color, MEBiome> biomeHeights = new HashMap<>();
+    public static List<RegistryKey<Biome>> waterBiomes = new ArrayList<>();
     public static MEBiome defaultBiome;
 
     /// Only supports height value from -22 to 41
@@ -41,6 +46,7 @@ public class MEBiomesData {
         biomeHeights.put(new Color(67,193,125), new MEBiome(4, MEBiomeKeys.LINDON, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(69, 92, 228), new MEBiome(-17, MEBiomeKeys.LONG_LAKE, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(221, 216, 28), new MEBiome(4, MEBiomeKeys.LOTHLORIEN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
+        biomeHeights.put(new Color(69, 106, 228), new MEBiome(-15, MEBiomeKeys.MILLPOND, Blocks.GRASS, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(10, 54, 15), new MEBiome(6, MEBiomeKeys.MIRKWOOD, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(129, 129, 129), new MEBiome(41, MEBiomeKeys.MISTY_MOUNTAINS, Blocks.STONE, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(60, 42, 42), new MEBiome(5, MEBiomeKeys.MORDOR, SimpleBlockSets.ASHEN_ROCK.base(), SimpleBlockSets.ASHEN_ROCK.base(), SimpleBlockSets.ASHEN_ROCK.base(), SimpleBlockSets.ASHEN_ROCK.base()));
@@ -69,5 +75,12 @@ public class MEBiomesData {
         biomeHeights.put(new Color(156, 150, 150), new MEBiome(13, MEBiomeKeys.TOLFALAS, Blocks.GRASS_BLOCK, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(225, 192, 133), new MEBiome(7, MEBiomeKeys.UMBAR, Blocks.GRASS_BLOCK, Blocks.SANDSTONE, Blocks.STONE, Blocks.STONE));
         biomeHeights.put(new Color(219, 245, 215), new MEBiome(36, MEBiomeKeys.WHITE_MOUNTAINS, Blocks.CALCITE, Blocks.CALCITE, Blocks.STONE, Blocks.STONE));
+
+        waterBiomes.add(MEBiomeKeys.OCEAN);
+        waterBiomes.add(MEBiomeKeys.OCEAN_COAST);
+        waterBiomes.add(MEBiomeKeys.LONG_LAKE);
+        waterBiomes.add(MEBiomeKeys.MILLPOND);
+        waterBiomes.add(MEBiomeKeys.NURN_SEA);
+        waterBiomes.add(MEBiomeKeys.SEA_OF_RHUN);
     }
 }

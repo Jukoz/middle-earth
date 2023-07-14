@@ -1,7 +1,7 @@
 package net.jesteur.me.mixin;
 
 import com.google.common.collect.ImmutableList;
-import net.jesteur.me.entity.SpawnerNPCs;
+import net.jesteur.me.world.spawners.SpawnerNPCs;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.spawner.Spawner;
 import org.spongepowered.asm.mixin.Mixin;

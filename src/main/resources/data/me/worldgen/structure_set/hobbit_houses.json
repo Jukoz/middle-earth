@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "me:hobbit_houses",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 12,
+    "separation": 6,
+    "salt": 137345924
+  }
+}

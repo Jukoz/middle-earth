@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "me:old_angmar",
+	"me:mordor_wastes"
+  ]
+}

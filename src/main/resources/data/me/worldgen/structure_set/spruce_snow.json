@@ -1,0 +1,18 @@
+{
+  "structures": [
+    {
+      "structure": "me:spruce_snow",
+      "weight": 1
+    },
+	{
+      "structure": "me:spruce_dead",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 2,
+    "separation": 1,
+    "salt": 687874183
+  }
+}

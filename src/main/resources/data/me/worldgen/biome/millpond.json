@@ -24,7 +24,9 @@
     [
       "minecraft:lake_lava_underground",
     ],
-    [],
+    [
+      "minecraft:amethyst_geode"
+    ],
     [
     ],
     [],
@@ -64,9 +66,7 @@
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_pumpkin",
-      "minecraft:seagrass_normal",
-      "minecraft:seagrass_simple",
-      "minecraft:kelp_cold"
+      "minecraft:seagrass_river"
     ],
     [
       "minecraft:freeze_top_layer"
@@ -80,16 +80,10 @@
     "misc": [],
     "water_ambient": [
       {
-        "type": "minecraft:cod",
-        "maxCount": 6,
-        "minCount": 3,
-        "weight": 8
-      },
-	        {
         "type": "minecraft:salmon",
-        "maxCount": 6,
-        "minCount": 3,
-        "weight": 10
+        "maxCount": 5,
+        "minCount": 1,
+        "weight": 5
       }
     ],
     "water_creature": [
@@ -97,9 +91,9 @@
         "type": "minecraft:squid",
         "maxCount": 4,
         "minCount": 1,
-        "weight": 1
+        "weight": 2
       }
     ]
   },
-  "temperature": 0.2
+  "temperature": 0.8
 }

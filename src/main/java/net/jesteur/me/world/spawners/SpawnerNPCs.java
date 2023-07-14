@@ -1,4 +1,4 @@
-package net.jesteur.me.entity;
+package net.jesteur.me.world.spawners;
 
 import net.jesteur.me.entity.hobbits.HobbitEntity;
 import net.jesteur.me.world.spawners.EntitySpawningSettings;

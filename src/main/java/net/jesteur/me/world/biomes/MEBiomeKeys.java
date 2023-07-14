@@ -29,6 +29,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> LINDON = MEBiomeKeys.register("lindon");
     public static final RegistryKey<Biome> LONG_LAKE = MEBiomeKeys.register("long_lake");
     public static final RegistryKey<Biome> LOTHLORIEN = MEBiomeKeys.register("lothlorien");
+    public static final RegistryKey<Biome> MILLPOND = MEBiomeKeys.register("millpond");
     public static final RegistryKey<Biome> MIRKWOOD = MEBiomeKeys.register("mirkwood");
     public static final RegistryKey<Biome> MISTY_MOUNTAINS = MEBiomeKeys.register("misty_mountains");
     public static final RegistryKey<Biome> MORDOR = MEBiomeKeys.register("mordor");

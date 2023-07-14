@@ -62,7 +62,6 @@
     [
       "minecraft:glow_lichen",
       "minecraft:flower_default",
-	  "me:trees_taiga",
 	  "me:stone_rock",
 	  "minecraft:patch_berry_common",
 	  "minecraft:patch_large_fern",

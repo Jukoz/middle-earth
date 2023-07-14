@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "me:old_angmar",
+    "me:grey_plains",
+	"me:northern_wastelands",
+	"me:southern_forochel"
+  ]
+}
