@@ -16,6 +16,7 @@ public class ModEntitySpawning {
     private static HashMap<RegistryKey<Biome>, List<EntitySpawningSettings>> spawns = new HashMap<>();
 
     public static void addSpawns() {
+        spawns.put(MEBiomeKeys.OLD_RHUDAUR, List.of(new EntitySpawningSettings(ModEntities.CAVE_TROLL, 1, 1)));
         spawns.put(MEBiomeKeys.SHIRE, List.of(new EntitySpawningSettings(ModEntities.HOBBIT, 2, 6)));
         spawns.put(MEBiomeKeys.RIVENDELL, List.of(new EntitySpawningSettings(ModEntities.GALADHRIM_ELF, 2, 5)));
         spawns.put(MEBiomeKeys.LINDON, List.of(new EntitySpawningSettings(ModEntities.GALADHRIM_ELF, 2, 5)));

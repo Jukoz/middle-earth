@@ -29,7 +29,7 @@ import java.util.List;
 public class SpawnerNPCs implements Spawner {
     private static final int SPAWN_DISTANCE = 24;
     private static final int SPAWN_RAND = 8;
-    private static final int BASE_COOLDOWN = 5;
+    private static final int BASE_COOLDOWN = 8;
     private static final int COOLDOWN_RANGE = 7;
     private int cooldown = BASE_COOLDOWN + COOLDOWN_RANGE;
 

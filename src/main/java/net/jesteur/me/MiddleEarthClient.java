@@ -11,6 +11,7 @@ import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfRenderer;
 import net.jesteur.me.entity.hobbits.HobbitRenderer;
 import net.jesteur.me.entity.model.ModEntityModels;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcRenderer;
+import net.jesteur.me.entity.trolls.cave.CaveTrollRenderer;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 
@@ -20,6 +21,7 @@ public class MiddleEarthClient implements ClientModInitializer {
     public void onInitializeClient() {
         ModEntityModels.getModels();
 
+        EntityRendererRegistry.register(ModEntities.CAVE_TROLL, CaveTrollRenderer::new);
         EntityRendererRegistry.register(ModEntities.DURIN_FOLK, DurinDwarfRenderer::new);
         EntityRendererRegistry.register(ModEntities.HOBBIT, HobbitRenderer::new);
         EntityRendererRegistry.register(ModEntities.GALADHRIM_ELF, GaladhrimElfRenderer::new);
