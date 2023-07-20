@@ -44,6 +44,7 @@
   "item.me.tough_berries": "Tough Berries",
 
   "item.me.cave_troll_spawn_egg": "Cave Troll Spawn Egg",
+  "item.me.snow_troll_spawn_egg": "Snow Troll Spawn Egg",
   "item.me.crab_spawn_egg": "Crab Spawn Egg",
   "item.me.durin_folk_spawn_egg": "Durin Folk Spawn Egg",
   "item.me.hobbit_spawn_egg": "Hobbit Spawn Egg",
@@ -52,6 +53,7 @@
   "item.me.warg_spawn_egg": "Warg Spawn Egg",
 
   "entity.me.cave_troll": "Cave Troll",
+  "entity.me.snow_troll": "Snow Troll",
   "entity.me.crab": "Crab",
   "entity.me.durin_folk": "Durin Folk",
   "entity.me.galadhrim_elf": "Galadhrim Elf",

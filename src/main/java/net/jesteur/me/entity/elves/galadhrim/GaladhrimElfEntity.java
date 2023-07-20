@@ -2,6 +2,7 @@ package net.jesteur.me.entity.elves.galadhrim;
 
 import net.jesteur.me.entity.goals.BowAttackGoal;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
+import net.jesteur.me.entity.trolls.TrollEntity;
 import net.jesteur.me.entity.trolls.cave.CaveTrollEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -51,7 +52,7 @@ public class GaladhrimElfEntity extends HostileEntity implements RangedAttackMob
         this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(++i, new LookAroundGoal(this));
         i = 0;
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, CaveTrollEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
     }
 

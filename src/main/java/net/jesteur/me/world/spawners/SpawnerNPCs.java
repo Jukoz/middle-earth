@@ -1,4 +1,4 @@
-package net.jesteur.me.entity;
+package net.jesteur.me.world.spawners;
 
 import net.jesteur.me.entity.hobbits.HobbitEntity;
 import net.jesteur.me.world.spawners.EntitySpawningSettings;
@@ -68,7 +68,7 @@ public class SpawnerNPCs implements Spawner {
             if(spawningSettings == null || spawningSettings.size() == 0) continue;
             EntitySpawningSettings entitySpawningSettings = spawningSettings.get(random.nextInt(spawningSettings.size()));
 
-            int randomCount = random.nextInt(entitySpawningSettings.getMaxCount() - entitySpawningSettings.getMinCount());
+            int randomCount = random.nextInt(1 + entitySpawningSettings.getMaxCount() - entitySpawningSettings.getMinCount()); // We add +1 because we want inclusive bound.
             int entityCount = entitySpawningSettings.getMinCount() + randomCount;
 
             for (int m = 0; m < entityCount; ++m) {

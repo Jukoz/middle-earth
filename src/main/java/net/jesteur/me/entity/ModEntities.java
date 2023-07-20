@@ -10,6 +10,7 @@ import net.jesteur.me.entity.hobbits.HobbitEntity;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jesteur.me.entity.pebble.PebbleEntity;
 import net.jesteur.me.entity.trolls.cave.CaveTrollEntity;
+import net.jesteur.me.entity.trolls.snow.SnowTrollEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -24,6 +25,7 @@ public class ModEntities {
     public static final EntityType<HobbitEntity> HOBBIT = registerEntity("hobbit", HobbitEntity::new, SpawnGroup.CREATURE, 0.5f, 1.9f);
     public static final EntityType<GaladhrimElfEntity> GALADHRIM_ELF = registerEntity("galadhrim_elf", GaladhrimElfEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
     public static final EntityType<MordorOrcEntity> MORDOR_ORC = registerEntity("mordor_orc", MordorOrcEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<SnowTrollEntity> SNOW_TROLL = registerEntity("snow_troll", SnowTrollEntity::new, SpawnGroup.CREATURE, 1.8f, 3.8f);
 
     // Weapons
     public static final EntityType<PebbleEntity> PEBBLE = registerEntity("pebble", PebbleEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
@@ -44,6 +46,7 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(HOBBIT, HobbitEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(GALADHRIM_ELF, GaladhrimElfEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(MORDOR_ORC, MordorOrcEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
         // Animals
         FabricDefaultAttributeRegistry.register(CRAB, CrabEntity.createCrabAttributes());
 
