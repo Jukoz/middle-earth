@@ -1,6 +1,8 @@
 package net.jesteur.me.entity.dwarves.durin;
 
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
+import net.jesteur.me.entity.trolls.TrollEntity;
+import net.jesteur.me.entity.trolls.cave.CaveTrollEntity;
 import net.jesteur.me.item.ModToolItems;
 import net.jesteur.me.item.ModWeaponItems;
 import net.minecraft.entity.EntityType;
@@ -43,7 +45,7 @@ public class DurinDwarfEntity extends HostileEntity {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 22.0)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0);
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0);
     }
 
     public static enum State {
@@ -70,6 +72,7 @@ public class DurinDwarfEntity extends HostileEntity {
         this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(++i, new LookAroundGoal(this));
         i = 0;
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
     }
 

@@ -8,10 +8,6 @@ public enum GaladhrimElfVariant {
     SILVER_TEAL_BLUE_WOMAN(0),
     SILVER_CYAN_BLUE_WOMAN(1),
     SILVER_LIME_BLUE_WOMAN(2);
-    //BLONDE_BLUE(0),
-    //BLONDE_GREEN(1),
-    //SILVER_BLUE(2),
-    //BROWN_GREEN(3);
 
     private static final GaladhrimElfVariant[] BY_ID = Arrays.stream(values()).sorted(
             Comparator.comparingInt(GaladhrimElfVariant::getId)).toArray(GaladhrimElfVariant[]::new);
