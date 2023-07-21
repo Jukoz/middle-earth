@@ -2,6 +2,8 @@ package net.jesteur.me.entity.hobbits;
 
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jesteur.me.entity.pebble.PebbleEntity;
+import net.jesteur.me.entity.trolls.TrollEntity;
+import net.jesteur.me.entity.trolls.cave.CaveTrollEntity;
 import net.jesteur.me.item.ModRessourceItems;
 import net.jesteur.me.item.items.PebbleItem;
 import net.minecraft.entity.EntityType;
@@ -36,9 +38,10 @@ public class HobbitEntity extends HostileEntity implements RangedAttackMob {
     @Override
     protected void initGoals() {
         int i = 0;
-        this.goalSelector.add(++i, new FleeEntityGoal<MordorOrcEntity>(this, MordorOrcEntity.class, 8.0f, 0.8f, 1.4f));
-        this.goalSelector.add(++i, new ProjectileAttackGoal(this, 1.0, 12, 24, 20.0f));
         this.goalSelector.add(++i, new SwimGoal(this));
+        this.goalSelector.add(++i, new FleeEntityGoal<>(this, TrollEntity.class, 8.0f, 0.8f, 1.2f));
+        this.goalSelector.add(++i, new FleeEntityGoal<>(this, MordorOrcEntity.class, 8.0f, 0.8f, 1.2f));
+        this.goalSelector.add(++i, new ProjectileAttackGoal(this, 1.0, 12, 24, 20.0f));
         this.goalSelector.add(++i, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(++i, new LookAroundGoal(this));
