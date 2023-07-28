@@ -3,12 +3,16 @@
     {
       "structure": "me:huge_mallorn",
       "weight": 1
+    },
+	    {
+      "structure": "me:medium_mallorn",
+      "weight": 1
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "spacing": 5,
-    "separation": 3,
+    "spacing": 3,
+    "separation": 2,
     "salt": 423584521
   }
 }

@@ -2,9 +2,9 @@
   "replace": false,
   "values": [
     "me:old_rhudaur",
-    "me:northern_dunland",
     "me:eregion",
     "me:grey_plains",
-    "me:northern_wastelands"
+    "me:northern_wastelands",
+    "me:trollshaws"
   ]
 }

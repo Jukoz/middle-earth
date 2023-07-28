@@ -54,9 +54,11 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 new ArrayList<>(Arrays.asList(
                     biomeRegistry.getOrThrow(MEBiomeKeys.ANDUIN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BLUE_MOUNTAINS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.CORSAIR_COASTS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DALE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DORWINION_HILLS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DUNLAND_FOOTHILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.EASTERN_RHOVANION),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ENEDWAITH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.EREGION),
@@ -72,6 +74,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LINDON),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LONG_LAKE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LORIEN_EDGE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LORIEN_EDGE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LOTHLORIEN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MISTY_MOUNTAINS),
@@ -100,6 +104,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHERN_FOROCHEL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.THE_ANGLE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.TOLFALAS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.TROLLSHAWS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.UMBAR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WHITE_MOUNTAINS)
                 ))
