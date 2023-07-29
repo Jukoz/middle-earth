@@ -5,7 +5,8 @@ import java.util.Comparator;
 
 public enum MordorOrcVariant {
     LIGHT_BROWN_RED(0),
-    PALE_BLUE_YELLOW(1);
+    PALE_BLUE_YELLOW(1),
+    PALE_GREY_ORANGE(2);
 
     private static final MordorOrcVariant[] BY_ID = Arrays.stream(values()).sorted(
             Comparator.comparingInt(MordorOrcVariant::getId)).toArray(MordorOrcVariant[]::new);

@@ -10,9 +10,11 @@ import net.minecraft.world.biome.BiomeKeys;
 public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> ANDUIN = MEBiomeKeys.register("anduin");
     public static final RegistryKey<Biome> BLUE_MOUNTAINS = MEBiomeKeys.register("blue_mountains");
+    public static final RegistryKey<Biome> BLUE_MOUNTAINS_FOOTHILLS = MEBiomeKeys.register("blue_mountains_foothills");
     public static final RegistryKey<Biome> CORSAIR_COASTS = MEBiomeKeys.register("corsair_coasts");
     public static final RegistryKey<Biome> DALE = MEBiomeKeys.register("dale");
     public static final RegistryKey<Biome> DORWINION_HILLS = MEBiomeKeys.register("dorwinion_hills");
+    public static final RegistryKey<Biome> DUNLAND_FOOTHILLS = MEBiomeKeys.register("dunland_foothills");
     public static final RegistryKey<Biome> EASTERN_RHOVANION = MEBiomeKeys.register("eastern_rhovanion");
     public static final RegistryKey<Biome> ENEDWAITH = MEBiomeKeys.register("enedwaith");
     public static final RegistryKey<Biome> EREGION = MEBiomeKeys.register("eregion");
@@ -28,7 +30,9 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> IRON_HILLS = MEBiomeKeys.register("iron_hills");
     public static final RegistryKey<Biome> LINDON = MEBiomeKeys.register("lindon");
     public static final RegistryKey<Biome> LONG_LAKE = MEBiomeKeys.register("long_lake");
+    public static final RegistryKey<Biome> LORIEN_EDGE = MEBiomeKeys.register("lorien_edge");
     public static final RegistryKey<Biome> LOTHLORIEN = MEBiomeKeys.register("lothlorien");
+    public static final RegistryKey<Biome> MILLPOND = MEBiomeKeys.register("millpond");
     public static final RegistryKey<Biome> MIRKWOOD = MEBiomeKeys.register("mirkwood");
     public static final RegistryKey<Biome> MISTY_MOUNTAINS = MEBiomeKeys.register("misty_mountains");
     public static final RegistryKey<Biome> MORDOR = MEBiomeKeys.register("mordor");
@@ -56,6 +60,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> SOUTHERN_FOROCHEL = MEBiomeKeys.register("southern_forochel");
     public static final RegistryKey<Biome> THE_ANGLE = MEBiomeKeys.register("the_angle");
     public static final RegistryKey<Biome> TOLFALAS = MEBiomeKeys.register("tolfalas");
+    public static final RegistryKey<Biome> TROLLSHAWS = MEBiomeKeys.register("trollshaws");
     public static final RegistryKey<Biome> UMBAR = MEBiomeKeys.register("umbar");
     public static final RegistryKey<Biome> WHITE_MOUNTAINS = MEBiomeKeys.register("white_mountains");
 

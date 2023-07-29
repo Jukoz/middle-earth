@@ -19,7 +19,7 @@ public class MordorOrcRenderer extends BipedEntityRenderer<MordorOrcEntity, Mord
     private static final String PATH = "textures/entities/orcs/mordor/";
 
     public MordorOrcRenderer(EntityRendererFactory.Context ctx) {
-        super(ctx, new MordorOrcModel(ctx.getPart(ModEntityModelLayers.ORC)), 0.5f);
+        super(ctx, new MordorOrcModel<>(ctx.getPart(ModEntityModelLayers.ORC)), 0.5f);
     }
 
     @Override
@@ -33,6 +33,8 @@ public class MordorOrcRenderer extends BipedEntityRenderer<MordorOrcEntity, Mord
                         PATH + "orc1.png");
                 resourceLocation.put(MordorOrcVariant.PALE_BLUE_YELLOW,
                         PATH + "orc2.png");
+                resourceLocation.put(MordorOrcVariant.PALE_GREY_ORANGE,
+                        PATH + "orc3.png");
             });
 
     @Override

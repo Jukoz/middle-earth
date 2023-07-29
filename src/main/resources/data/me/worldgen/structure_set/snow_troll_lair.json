@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "me:snow_troll_lair",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 18,
+    "separation": 9,
+    "salt": 11162725
+  }
+}

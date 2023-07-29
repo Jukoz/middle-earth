@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "me:blue_dwarven_underground_house",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 14,
+    "separation": 7,
+    "salt": 1256834297
+  }
+}
