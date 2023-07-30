@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class MapImageLoader {
-    private static final int iterations = 2;
+    private static final int iterations = 3;
     private static int[][] pixels;
     private static Random random = new Random(1379);
 
@@ -58,7 +58,7 @@ public class MapImageLoader {
         float height = 0;
         Color color = new Color(pixels[y][x]);
         try {
-            height = MEBiomesData.biomeHeights.get(color).height;
+            height = MEBiomesData.biomeMap.get(pixels[y][x]).height;
         }
         catch (Exception e) {
             System.out.println("Unknown pixel color (" + color + ") at: " + x + "," + y + " at the Middle Earth map");

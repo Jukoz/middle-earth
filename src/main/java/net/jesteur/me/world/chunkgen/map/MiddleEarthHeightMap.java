@@ -1,5 +1,6 @@
 package net.jesteur.me.world.chunkgen.map;
 
+import net.jesteur.me.utils.noises.BlendedNoise;
 import net.jesteur.me.utils.noises.PerlinNoise;
 import net.jesteur.me.world.biomes.MEBiome;
 import net.jesteur.me.world.biomes.MEBiomesData;
@@ -10,10 +11,10 @@ public class MiddleEarthHeightMap {
     public static final int SMOOTH_BRUSH_SIZE = 2;
     public static final int PERLIN_STRETCH_X = 210;
     public static final int PERLIN_STRETCH_Y = 180;
-    public static final int PERLIN_STRETCH_X2 = 33;
-    public static final int PERLIN_STRETCH_Y2 = 33;
-    public static final int PERLIN_HEIGHT_RANGE = 90;
-    public static final float MOUNTAIN_HEIGHT_RANGE = 2.5f;
+    public static final int PERLIN_STRETCH_X2 = 37;
+    public static final int PERLIN_STRETCH_Y2 = 37;
+    public static final int PERLIN_HEIGHT_RANGE = 33;
+    public static final float MOUNTAIN_HEIGHT_RANGE = 2.0f;
     public static final int MOUNTAIN_START_HEIGHT = 16; // Height depending on the Biome Data.
     public static final int PERLIN_HEIGHT_OFFSET = 8;
     public static final int STONE_HEIGHT = 50;
@@ -32,21 +33,32 @@ public class MiddleEarthHeightMap {
         longitude = heightMapImage.getWidth();
     }
 
-    public static float getPerlinHeight(int x, int z) {
-        double additionalHeight;
-        MEBiome meBiome;
+    private static float getImageHeight(int x, int z) {
+        if(!isCoordinateInBounds(x, z)) return MEBiomesData.defaultBiome.height + getPerlinMapHeight(x, z);
+        return ((float) ((heightMapImage.getRGB(x, z)>>16)&0xFF) / 4) + MEBiomesData.MINIMAL_HEIGHT;
+    }
 
-        double perlin = 1 * PerlinNoise.noise((double) x / PERLIN_STRETCH_X, 0,  (double) z / PERLIN_STRETCH_Y);
-        perlin += 0.5f * PerlinNoise.noise((double) x * 2 / PERLIN_STRETCH_X, 0,  (double) z * 2 / PERLIN_STRETCH_Y);
-        perlin += 0.25f * PerlinNoise.noise((double) x * 4 / PERLIN_STRETCH_X, 0,  (double) z * 4 / PERLIN_STRETCH_Y);
-        perlin += 0.125f * PerlinNoise.noise((double) x * 8 / PERLIN_STRETCH_X, 0,  (double) z * 8 / PERLIN_STRETCH_Y);
+    private static double getPerlinHeight(int x, int z) {
+        double perlin = 1 * BlendedNoise.noise((double) x / PERLIN_STRETCH_X,(double) z / PERLIN_STRETCH_Y);
+        perlin += 0.5f * BlendedNoise.noise((double) x * 2 / PERLIN_STRETCH_X,(double) z * 2 / PERLIN_STRETCH_Y);
+        perlin += 0.25f * BlendedNoise.noise((double) x * 4 / PERLIN_STRETCH_X,(double) z * 4 / PERLIN_STRETCH_Y);
+        perlin += 0.125f * BlendedNoise.noise((double) x * 8 / PERLIN_STRETCH_X,(double) z * 8 / PERLIN_STRETCH_Y);
 
         perlin = perlin / (1 + 0.5f + 0.25f + 0.125f);
         perlin *= PERLIN_HEIGHT_RANGE;
         perlin += PERLIN_HEIGHT_OFFSET;
 
+        return perlin;
+    }
+
+    private static float getPerlinMapHeight(int x, int z) {
+        double additionalHeight;
+        MEBiome meBiome;
+
+        double perlin = getPerlinHeight(x, z);
+
         if(MiddleEarthHeightMap.isCoordinateInBounds(x, z)) {
-            float biomeHeight = MiddleEarthHeightMap.getHeight(x, z);
+            float biomeHeight = MiddleEarthHeightMap.getImageHeight(x, z);
             if(biomeHeight >= MOUNTAIN_START_HEIGHT) {
                 float multiplier = 2f * (biomeHeight / MOUNTAIN_START_HEIGHT);
                 //perlin2 *= 1 + ((multiplier - 1) / 3);
@@ -60,12 +72,7 @@ public class MiddleEarthHeightMap {
         return (float) additionalHeight;
     }
 
-    public static float getHeight(int x, int z) {
-        if(!isCoordinateInBounds(x, z)) return MEBiomesData.defaultBiome.height + (float)getPerlinHeight(x, z);
-        return ((float) ((heightMapImage.getRGB(x, z)>>16)&0xFF) / 4) + MEBiomesData.MINIMAL_HEIGHT;
-    }
-
-    public static float getSmoothHeight(int x, int z) {
+    private static float getSmoothHeight(int x, int z) {
         float total = 0;
         for(int i = -SMOOTH_BRUSH_SIZE; i <= SMOOTH_BRUSH_SIZE; i++) {
             for(int j = -SMOOTH_BRUSH_SIZE; j <= SMOOTH_BRUSH_SIZE; j++) {
@@ -75,6 +82,10 @@ public class MiddleEarthHeightMap {
         }
 
         return total / ((SMOOTH_BRUSH_SIZE * 2 + 1) * (SMOOTH_BRUSH_SIZE * 2 + 1));
+    }
+
+    public static float getHeight(int x, int z) {
+        return getSmoothHeight(x, z) + getPerlinMapHeight(x, z);
     }
 
     public static boolean isCoordinateInBounds(int x, int z) {
