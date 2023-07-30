@@ -1,7 +1,9 @@
 package net.jesteur.me.world.biomes;
 
 import com.mojang.serialization.Codec;
+import net.jesteur.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jesteur.me.world.chunkgen.map.MapImageLoader;
+import net.jesteur.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.biome.Biome;
@@ -36,13 +38,19 @@ public class ModBiomeSource extends BiomeSource {
         int k = BiomeCoords.toBlock(z);
 
         if(!MapImageLoader.isCoordinateInImage(i, k)) return biomes.get(0);
-        Color color = new Color(MapImageLoader.getBiomeColor(i, k));
-        MEBiome meBiome = MEBiomesData.biomeHeights.get(color);
+        MEBiome meBiome = MEBiomesData.biomeMap.get(MapImageLoader.getBiomeColor(i, k));
         RegistryKey<Biome> biome = meBiome.biome;
+        RegistryKey<Biome> processedBiome;
+
+        if(!MEBiomesData.waterBiomes.contains(biome)) {
+            float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
+            if(height <= 64) {
+                processedBiome = MEBiomesData.millPond.biome;
+            } else processedBiome = biome;
+        } else processedBiome = biome;
 
         return biomes.stream().filter(
-                b -> b.getKey().get().toString().equalsIgnoreCase(biome.toString()))
-            .findFirst().get();
-
+                        b -> b.getKey().get().toString().equalsIgnoreCase(processedBiome.toString()))
+                .findFirst().get();
     }
 }

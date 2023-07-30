@@ -31,7 +31,6 @@ import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.*;
 import net.minecraft.world.gen.noise.NoiseConfig;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -77,6 +76,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.LORIEN_EDGE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LORIEN_EDGE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LOTHLORIEN),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.MILLPOND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MISTY_MOUNTAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORDOR),
@@ -135,13 +135,12 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 MEBiome meBiome;
 
                 if(MiddleEarthHeightMap.isCoordinateInBounds(posX, posZ)) {
-                    meBiome = MEBiomesData.biomeHeights.get(new Color(MapImageLoader.getBiomeColor(posX, posZ)));
+                    meBiome = MEBiomesData.biomeMap.get(MapImageLoader.getBiomeColor(posX, posZ));
                 } else {
                     meBiome = MEBiomesData.defaultBiome;
                 }
 
-                float height = MiddleEarthHeightMap.getSmoothHeight(posX, posZ);
-                height += MiddleEarthHeightMap.getPerlinHeight(posX, posZ);
+                float height = MiddleEarthHeightMap.getHeight(posX, posZ);
 
                 for(int y = bottomY + 1; y <= WATER_HEIGHT; y++) {
                     chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.WATER.getDefaultState(), false);
@@ -202,7 +201,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     @Override
     public int getHeight(int x, int z, Heightmap.Type heightmap, HeightLimitView world, NoiseConfig noiseConfig) {
-        float worldHeight = 1 + DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(x, z) + MiddleEarthHeightMap.getPerlinHeight(x, z);;
+        float worldHeight = 1 + DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(x, z);
         return (int)worldHeight;
     }
 
