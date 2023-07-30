@@ -43,7 +43,7 @@ public class ModBiomeSource extends BiomeSource {
         RegistryKey<Biome> processedBiome;
 
         if(!MEBiomesData.waterBiomes.contains(biome)) {
-            float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k); //+ (float)MiddleEarthHeightMap.getPerlinHeight(i, k);
+            float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
             if(height <= 64) {
                 processedBiome = MEBiomesData.millPond.biome;
             } else processedBiome = biome;
