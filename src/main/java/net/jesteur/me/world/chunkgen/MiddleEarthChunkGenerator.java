@@ -74,7 +74,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.LINDON),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LONG_LAKE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LORIEN_EDGE),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.LORIEN_EDGE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LOTHLORIEN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MILLPOND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD),
@@ -106,6 +105,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.TOLFALAS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.TROLLSHAWS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.UMBAR),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.WASTE_POND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WHITE_MOUNTAINS)
                 ))
             )

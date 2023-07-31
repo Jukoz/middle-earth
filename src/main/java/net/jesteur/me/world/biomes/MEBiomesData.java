@@ -17,8 +17,10 @@ import java.util.List;
 public class MEBiomesData {
     public static HashMap<Integer, MEBiome> biomeMap = new HashMap<>();
     public static List<RegistryKey<Biome>> waterBiomes = new ArrayList<>();
+    public static List<RegistryKey<Biome>> wastePondBiomes = new ArrayList<>();
     public static MEBiome defaultBiome;
     public static MEBiome millPond;
+    public static MEBiome wastePond;
 
     /// Only supports height value from -22 to 41
     public static final int MINIMAL_HEIGHT = -22;
@@ -30,8 +32,10 @@ public class MEBiomesData {
     public static void loadBiomes() {
         defaultBiome = new MEBiome(-21, MEBiomeKeys.OCEAN, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE);
         millPond = new MEBiome(-10, MEBiomeKeys.MILLPOND,  Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE);
+        wastePond = new MEBiome(-15, MEBiomeKeys.WASTE_POND, ModBlocks.MORDOR_DIRT, ModBlocks.MORDOR_DIRT, Blocks.STONE, Blocks.STONE);
         addBiome(new Color(55, 90, 195), defaultBiome);
         addBiome(new Color(110, 154, 218), millPond);
+        addBiome(new Color(75, 108, 143), wastePond);
 
         addBiome(new Color(156, 207, 113), new MEBiome(4, MEBiomeKeys.ANDUIN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(200, 209, 255), new MEBiome(39, MEBiomeKeys.BLUE_MOUNTAINS, SimpleBlockSets.BLUE_ROCK.base(), SimpleBlockSets.BLUE_ROCK.base(), Blocks.STONE, Blocks.STONE));
@@ -65,7 +69,7 @@ public class MEBiomesData {
         addBiome(new Color(106, 127, 62), new MEBiome(5, MEBiomeKeys.NORTHERN_DUNLAND, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(160, 165, 149), new MEBiome(6, MEBiomeKeys.NORTHERN_WASTELANDS, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(74, 77, 51), new MEBiome(5, MEBiomeKeys.NURN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(79, 91, 161), new MEBiome(-16, MEBiomeKeys.NURN_RIVER, ModBlocks.MORDOR_DIRT, ModBlocks.MORDOR_DIRT, Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(79, 91, 161), new MEBiome(-21, MEBiomeKeys.NURN_RIVER, ModBlocks.MORDOR_DIRT, ModBlocks.MORDOR_DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(88, 94, 130), new MEBiome(-17, MEBiomeKeys.NURN_SEA, ModBlocks.MORDOR_DIRT, ModBlocks.MORDOR_DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(75, 106, 199), new MEBiome(-12, MEBiomeKeys.OCEAN_COAST, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(73, 82, 53), new MEBiome(6, MEBiomeKeys.OLD_ANGMAR, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
@@ -95,5 +99,10 @@ public class MEBiomesData {
         waterBiomes.add(MEBiomeKeys.OCEAN_COAST);
         waterBiomes.add(MEBiomeKeys.RIVER);
         waterBiomes.add(MEBiomeKeys.SEA_OF_RHUN);
+
+        wastePondBiomes.add(MEBiomeKeys.MORDOR);
+        wastePondBiomes.add(MEBiomeKeys.MORDOR_MOUNTAINS);
+        wastePondBiomes.add(MEBiomeKeys.MORDOR_WASTES);
+        wastePondBiomes.add(MEBiomeKeys.NURN);
     }
 }
