@@ -66,6 +66,7 @@
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass",
       "minecraft:flower_warm",
+	  "me:patch/harad_plants",
 	  "me:stone_rock",
 	  "me:granite_rock",
       "minecraft:patch_grass_savanna",

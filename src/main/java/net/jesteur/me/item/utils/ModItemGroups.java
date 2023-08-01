@@ -31,7 +31,7 @@ public class ModItemGroups {
     public static final List<ItemStack> NATURE_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup NATURE_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.literal("Nature Blocks"))
-            .icon(() -> new ItemStack(ModNatureBlocks.MORDOR_LICHEN.asItem()))
+            .icon(() -> new ItemStack(ModNatureBlocks.TAN_SHRUB.asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : NATURE_BLOCKS_CONTENTS) {
                     entries.add(item);
