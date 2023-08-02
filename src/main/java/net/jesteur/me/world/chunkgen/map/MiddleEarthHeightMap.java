@@ -14,7 +14,7 @@ public class MiddleEarthHeightMap {
     public static final int PERLIN_STRETCH_X2 = 37;
     public static final int PERLIN_STRETCH_Y2 = 37;
     public static final int PERLIN_HEIGHT_RANGE = 33;
-    public static final float MOUNTAIN_HEIGHT_RANGE = 0.9f;
+    public static final float MOUNTAIN_HEIGHT_RANGE = 8.6f;
     public static final float MOUNTAIN_HEIGHT_MULTIPLIER = 2.4f;
     public static final int MOUNTAIN_START_HEIGHT = 16; // Height depending on the Biome Data.
     public static final int PERLIN_HEIGHT_OFFSET = 8;
