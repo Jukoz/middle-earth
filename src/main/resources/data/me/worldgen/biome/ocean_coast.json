@@ -83,9 +83,9 @@
     "creature": [
 	   {
         "type": "me:crab",
-        "maxCount": 7,
-        "minCount": 3,
-        "weight": 10
+        "maxCount": 5,
+        "minCount": 1,
+        "weight": 5
       }
 	],
     "misc": [],

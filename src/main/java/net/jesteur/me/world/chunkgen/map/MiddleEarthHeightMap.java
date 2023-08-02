@@ -61,9 +61,11 @@ public class MiddleEarthHeightMap {
         if(MiddleEarthHeightMap.isCoordinateInBounds(x, z)) {
             float biomeHeight = MiddleEarthHeightMap.getImageHeight(x, z);
             if(biomeHeight >= MOUNTAIN_START_HEIGHT) {
-                float multiplier = MOUNTAIN_HEIGHT_MULTIPLIER * (biomeHeight / MOUNTAIN_START_HEIGHT);
+                float multiplier = (biomeHeight / MOUNTAIN_START_HEIGHT) - 1;
+                multiplier = MOUNTAIN_HEIGHT_MULTIPLIER * multiplier;
                 //perlin2 *= 1 + ((multiplier - 1) / 3);
-                perlin *= Math.max(3 - multiplier, multiplier * MOUNTAIN_HEIGHT_RANGE * BlendedNoise.noise((double) x / PERLIN_STRETCH_X2,  (double) z / PERLIN_STRETCH_Y2));
+                //perlin *= Math.max(1 - multiplier, multiplier * MOUNTAIN_HEIGHT_RANGE * BlendedNoise.noise((double) x / PERLIN_STRETCH_X2,  (double) z / PERLIN_STRETCH_Y2));
+                perlin += multiplier * MOUNTAIN_HEIGHT_RANGE * BlendedNoise.noise((double) x / PERLIN_STRETCH_X2,  (double) z / PERLIN_STRETCH_Y2);
             }
             additionalHeight = biomeHeight + perlin;
         } else {
