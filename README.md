@@ -19,6 +19,13 @@ nullBlade
 ### Modelers & Textures
 Jukoz<br>
 JB3<br>
+Krahab<br>
+Ag3ntCrab
+
+### Builders
+JB3<br>
+Grandison<br>
+Jukoz<br>
 Krahab
 
 ## Planned features
