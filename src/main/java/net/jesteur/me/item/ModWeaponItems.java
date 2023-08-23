@@ -72,6 +72,8 @@ public class ModWeaponItems {
 
     public static final Item GONDOR_SWORD = registerItemWithModel("gondorian_sword",
             new SwordItem(ToolMaterials.IRON, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
+    public static final Item GONDOR_LONGSWORD = registerItemWithModel("gondorian_longsword",
+            new SwordItem(ToolMaterials.IRON, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), true);
     public static final Item GONDOR_DAGGER = registerItemWithModel("gondorian_dagger",
             new SwordItem(ToolMaterials.IRON, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED, new FabricItemSettings()), false);
     public static final Item GONDOR_BATTLEAXE = registerItemWithModel("gondorian_battleaxe",
