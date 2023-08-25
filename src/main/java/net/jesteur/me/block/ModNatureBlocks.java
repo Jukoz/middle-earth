@@ -19,6 +19,8 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
+import static net.jesteur.me.block.WoodBlockSets.LEAVES_STRENGTH;
+
 public class ModNatureBlocks {
     public static final Block TOUGH_BERRY_BUSH = registerBlock("tough_berry_bush",
             new ToughBerryBushBlock(FabricBlockSettings.copyOf(Blocks.SWEET_BERRY_BUSH).ticksRandomly().noCollision().breakInstantly().sounds(BlockSoundGroup.SWEET_BERRY_BUSH)), true);
@@ -34,6 +36,8 @@ public class ModNatureBlocks {
             new HaradPlant(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ).mapColor(DyeColor.GREEN)), false);
     public static final Block YELLOW_FLOWER = registerBlock("yellow_flower",
             new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 0, FabricBlockSettings.copyOf(Blocks.DANDELION)), false);
+    public static final Block LEBETHRON_LEAVES = registerBlock("lebethron_leaves",
+            new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), false);
 
 
     public static final Block STRAWBERRY_BUSH = registerBlock("strawberry_bush",

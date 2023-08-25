@@ -1,11 +1,17 @@
 package net.jesteur.me.datageneration;
 
+import net.jesteur.me.block.ModBlocks;
 import net.jesteur.me.block.SimpleBlockSets;
 import net.jesteur.me.block.WoodBlockSets;
 import net.jesteur.me.datageneration.content.loot_tables.BlockDrops;
 import net.jesteur.me.datageneration.content.loot_tables.LeavesDrops;
 import net.jesteur.me.datageneration.content.models.*;
 import net.jesteur.me.datageneration.content.tags.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.LeavesBlock;
+import net.minecraft.sound.BlockSoundGroup;
 
 public class HelpingGenerator {
 
@@ -32,7 +38,10 @@ public class HelpingGenerator {
         }
 
         for (WoodBlockSets.SimpleBlockSet set : WoodBlockSets.sets) {
-            SimpleBlockModel.blocks.add(set.leaves());
+            if(set.leaves() != null) {
+                SimpleBlockModel.blocks.add(set.leaves());
+                LeavesDrops.blocks.add(set.leaves());
+            }
             SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.log()));
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.log(), set.woodWall()));
             SimpleBlockModel.blocks.add(set.planks());
@@ -43,7 +52,6 @@ public class HelpingGenerator {
             SimpleButtonModel.blocks.add(new SimpleButtonModel.Button(set.planks(), set.button()));
             SimplePressurePlateModel.blocks.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
 
-            LeavesDrops.blocks.add(set.leaves());
             BlockDrops.blocks.add(set.log());
             BlockDrops.blocks.add(set.wood());
             BlockDrops.blocks.add(set.woodWall());
