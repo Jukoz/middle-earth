@@ -3,6 +3,7 @@ package net.jesteur.me.item;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.jesteur.me.MiddleEarth;
+import net.jesteur.me.datageneration.content.models.SimpleHandheldItemModel;
 import net.jesteur.me.item.utils.ModItemGroups;
 import net.jesteur.me.item.utils.ModToolMaterials;
 import net.minecraft.item.*;
@@ -41,6 +42,7 @@ public class ModToolItems {
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
+        SimpleHandheldItemModel.items.add(item);
         return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
     }
     public static void registerModItems() {
