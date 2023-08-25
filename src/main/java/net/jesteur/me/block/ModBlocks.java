@@ -19,10 +19,18 @@ public class ModBlocks {
 
     public static final Block CALCITE_PILLAR = registerBlock("calcite_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+    public static final Block LIMESTONE_PILLAR = registerBlock("limestone_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+
     public static final Block CHISELED_BLUE_ROCK_BRICKS = registerBlock("chiseled_blue_rock_bricks",
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
     public static final Block CHISELED_CALCITE = registerBlock("chiseled_calcite",
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+    public static final Block CHISELED_LIMESTONE_BRICKS = registerBlock("chiseled_limestone_bricks",
+            new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+
+    public static final Block DRY_DIRT = registerBlock("dry_dirt",
+            new Block(FabricBlockSettings.copyOf(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)));
     public static final Block MORDOR_DIRT = registerBlock("mordor_dirt",
             new Block(FabricBlockSettings.copyOf(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)));
 
@@ -30,6 +38,9 @@ public class ModBlocks {
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(6f).requiresTool()));
     public static final Block MITHRIL_ORE = registerBlock("mithril_ore",
             new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(4f).requiresTool()));
+
+    public static final Block STONE_LECTERN = registerBlock("stone_lectern",
+            new LecternBlock(FabricBlockSettings.copyOf(Blocks.LECTERN).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
 
     public static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);

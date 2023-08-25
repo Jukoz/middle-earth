@@ -10,8 +10,11 @@ public class BlockDrops {
     public static List<Block> blocks = new ArrayList<>() {
         {
             add(ModBlocks.CALCITE_PILLAR);
+            add(ModBlocks.LIMESTONE_PILLAR);
             add(ModBlocks.CHISELED_BLUE_ROCK_BRICKS);
             add(ModBlocks.CHISELED_CALCITE);
+            add(ModBlocks.CHISELED_LIMESTONE_BRICKS);
+            add(ModBlocks.DRY_DIRT);
             add(ModBlocks.MORDOR_DIRT);
         }
     };

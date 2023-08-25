@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "me:block/stone_lectern",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/stone_lectern"
+    },
+    "facing=south": {
+      "model": "me:block/stone_lectern",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/stone_lectern",
+      "y": 270
+    }
+  }
+}
