@@ -13,6 +13,8 @@ public class SimplePillarModel {
         {
             add(new Pillar(ModBlocks.LIMESTONE_PILLAR));
             add(new Pillar(ModBlocks.CALCITE_PILLAR));
+            add(new Pillar(ModBlocks.REEDS_BLOCK));
+            add(new Pillar(ModBlocks.STRAW_BLOCK));
         }
     };
 }

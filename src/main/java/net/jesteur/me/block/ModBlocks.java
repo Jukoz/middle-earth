@@ -34,6 +34,11 @@ public class ModBlocks {
     public static final Block MORDOR_DIRT = registerBlock("mordor_dirt",
             new Block(FabricBlockSettings.copyOf(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)));
 
+    public static final Block REEDS_BLOCK = registerBlock("reeds_block",
+            new HayBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
+    public static final Block STRAW_BLOCK = registerBlock("straw_block",
+            new HayBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
+
     public static final Block MITHRIL_BLOCK = registerBlock("mithril_block",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(6f).requiresTool()));
     public static final Block MITHRIL_ORE = registerBlock("mithril_ore",

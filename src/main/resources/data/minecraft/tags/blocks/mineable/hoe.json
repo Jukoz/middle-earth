@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-
+    "me:reeds_block",
+    "me:straw_block"
   ]
 }

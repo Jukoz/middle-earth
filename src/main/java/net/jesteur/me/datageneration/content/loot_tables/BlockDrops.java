@@ -16,6 +16,8 @@ public class BlockDrops {
             add(ModBlocks.CHISELED_LIMESTONE_BRICKS);
             add(ModBlocks.DRY_DIRT);
             add(ModBlocks.MORDOR_DIRT);
+            add(ModBlocks.REEDS_BLOCK);
+            add(ModBlocks.STRAW_BLOCK);
         }
     };
 }
