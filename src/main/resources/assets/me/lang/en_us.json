@@ -87,6 +87,7 @@
   "item.me.strawberry": "Strawberry",
   "item.me.tough_berries": "Tough Berries",
 
+  "item.me.barrow_wight_spawn_egg": "Barrow Wight Spawn Egg",
   "item.me.cave_troll_spawn_egg": "Cave Troll Spawn Egg",
   "item.me.snow_troll_spawn_egg": "Snow Troll Spawn Egg",
   "item.me.crab_spawn_egg": "Crab Spawn Egg",
@@ -96,6 +97,7 @@
   "item.me.mordor_orc_spawn_egg": "Mordor Orc Spawn Egg",
   "item.me.warg_spawn_egg": "Warg Spawn Egg",
 
+  "entity.me.barrow_wight": "Barrow Wight",
   "entity.me.cave_troll": "Cave Troll",
   "entity.me.snow_troll": "Snow Troll",
   "entity.me.crab": "Crab",

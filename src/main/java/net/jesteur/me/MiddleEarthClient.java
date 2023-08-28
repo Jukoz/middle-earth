@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.jesteur.me.block.ModNatureBlocks;
 import net.jesteur.me.datageneration.VariantsModelProvider;
 import net.jesteur.me.entity.ModEntities;
+import net.jesteur.me.entity.barrow_wights.BarrowWightEntityRenderer;
 import net.jesteur.me.entity.crab.CrabRenderer;
 import net.jesteur.me.entity.dwarves.durin.DurinDwarfRenderer;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfRenderer;
@@ -25,7 +26,7 @@ public class MiddleEarthClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ModEntityModels.getModels();
-
+        EntityRendererRegistry.register(ModEntities.BARROW_WIGHT, BarrowWightEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.CAVE_TROLL, CaveTrollRenderer::new);
         EntityRendererRegistry.register(ModEntities.DURIN_FOLK, DurinDwarfRenderer::new);
         EntityRendererRegistry.register(ModEntities.HOBBIT, HobbitRenderer::new);

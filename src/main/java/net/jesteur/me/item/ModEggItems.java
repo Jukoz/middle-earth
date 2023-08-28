@@ -10,6 +10,9 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModEggItems {
+
+    public static final Item BARROW_WIGHT_SPAWN_EGG = registerItem("barrow_wight_spawn_egg",
+            new SpawnEggItem(ModEntities.BARROW_WIGHT, 1852734, 2456136, new Item.Settings()));
     public static final Item CAVE_TROLL_SPAWN_EGG = registerItem("cave_troll_spawn_egg",
             new SpawnEggItem(ModEntities.CAVE_TROLL, 4671043, 3485226, new Item.Settings()));
     public static final Item DURIN_FOLK_SPAWN_EGG = registerItem("durin_folk_spawn_egg",
