@@ -1,0 +1,44 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Minecraft Client",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/run",
+      "console": "integratedTerminal",
+      "stopOnEntry": false,
+      "mainClass": "net.fabricmc.devlaunchinjector.Main",
+      "vmArgs": "-Dfabric.dli.config\u003dC:\\Users\\edvin\\Documents\\Minecraft\\Mods\\middle-earth2\\middle-earth\\.gradle\\loom-cache\\launch.cfg -Dfabric.dli.env\u003dclient -Dfabric.dli.main\u003dnet.fabricmc.loader.impl.launch.knot.KnotClient",
+      "args": "",
+      "env": {},
+      "projectName": "middle-earth"
+    },
+    {
+      "type": "java",
+      "name": "Data Generation",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/build/datagen",
+      "console": "integratedTerminal",
+      "stopOnEntry": false,
+      "mainClass": "net.fabricmc.devlaunchinjector.Main",
+      "vmArgs": "-Dfabric.dli.config\u003dC:\\Users\\edvin\\Documents\\Minecraft\\Mods\\middle-earth2\\middle-earth\\.gradle\\loom-cache\\launch.cfg -Dfabric.dli.env\u003dclient -Dfabric-api.datagen -Dfabric-api.datagen.output-dir\u003dC:\\Users\\edvin\\Documents\\Minecraft\\Mods\\middle-earth2\\middle-earth\\src\\main\\generated -Dfabric-api.datagen.modid\u003dme -Dfabric.dli.main\u003dnet.fabricmc.loader.impl.launch.knot.KnotClient",
+      "args": "",
+      "env": {},
+      "projectName": "middle-earth"
+    },
+    {
+      "type": "java",
+      "name": "Minecraft Server",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/run",
+      "console": "integratedTerminal",
+      "stopOnEntry": false,
+      "mainClass": "net.fabricmc.devlaunchinjector.Main",
+      "vmArgs": "-Dfabric.dli.config\u003dC:\\Users\\edvin\\Documents\\Minecraft\\Mods\\middle-earth2\\middle-earth\\.gradle\\loom-cache\\launch.cfg -Dfabric.dli.env\u003dserver -Dfabric.dli.main\u003dnet.fabricmc.loader.impl.launch.knot.KnotServer",
+      "args": "nogui",
+      "env": {},
+      "projectName": "middle-earth"
+    }
+  ]
+}

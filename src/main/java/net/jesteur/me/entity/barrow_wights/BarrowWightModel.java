@@ -2,22 +2,16 @@ package net.jesteur.me.entity.barrow_wights;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.jesteur.me.entity.trolls.cave.CaveTrollEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.entity.model.CrossbowPosing;
-import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.client.render.entity.animation.AnimationHelper;
+import net.minecraft.client.render.entity.animation.Keyframe;
+import net.minecraft.client.render.entity.animation.Transformation;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.Arm;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
+import org.joml.Vector3f;
 
 @Environment(value= EnvType.CLIENT)
 public class BarrowWightModel
@@ -31,7 +25,7 @@ public class BarrowWightModel
     private final ModelPart rightArm;
     private final ModelPart leftLeg;
     private final ModelPart rightLeg;
-    private static final float ROTATION_SPEED = 0.8f;
+    private static final float ROTATION_SPEED = 0.4f;
 
     public BarrowWightModel(ModelPart root) {
         this.root = root;
@@ -97,32 +91,105 @@ public class BarrowWightModel
     }
     @Override
     public void setAngles(BarrowWightEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.pitch = headPitch * ((float)Math.PI / 180);
-        this.head.yaw = netHeadYaw * ((float)Math.PI / 180);
+        switch(entity.getAnimationState())
+        {
+            case VANILLA -> {
+                this.head.pitch = headPitch * ((float) Math.PI / 180);
+                this.head.yaw = netHeadYaw * ((float) Math.PI / 180);
 
-        this.bottomJaw.pitch = 0.25F * Math.max(0, MathHelper.cos(ageInTicks * 0.1f));
-        float k = 0.8f * limbSwingAmount;
-        this.rightLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
-        this.leftLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float)Math.PI) * k;
+                this.bottomJaw.pitch = 0.25F * Math.max(0, MathHelper.cos(ageInTicks * 0.1f));
+                float k = 0.8f * limbSwingAmount;
+                this.rightLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
+                this.leftLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
 
-        int i = entity.getAttackTicksLeft();
-        if (entity.getState().equals(BarrowWightEntity.State.ATTACK)) {
-            float ageFloat = (ageInTicks - (int)ageInTicks); // Helps to smooth the animation
-            this.rightArm.pitch = -1.1f + 0.9f * MathHelper.wrap((float) i - ageFloat, 10.0f);
-            this.leftArm.pitch = -1.1f + 0.9f * MathHelper.wrap((float) i - ageFloat, 10.0f);
-        } else {
-            this.rightArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float)Math.PI) * k;
-            this.leftArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
+                int i = entity.getAttackTicksLeft();
+                if (entity.getState().equals(BarrowWightEntity.State.ATTACK)) {
+                    float ageFloat = (ageInTicks - (int) ageInTicks); // Helps to smooth the animation
+                    this.rightArm.pitch = -1.1f + 0.9f * MathHelper.wrap((float) i - ageFloat, 10.0f);
+                    this.leftArm.pitch = -1.1f + 0.9f * MathHelper.wrap((float) i - ageFloat, 10.0f);
+                } else {
+                    this.rightArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
+                    this.leftArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
+                }
+            }
+            //Attacking(potential more advanced animation. Not necessary just for testing purposes).
+            case ANIM_ATTACK -> {
+
+            }
+            case ANIM_SCREAMING ->
+                AnimationHelper.animate(this,anim_scream, 30, 1.0f, new Vector3f());
         }
+
     }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
+        //quick matrix translation to fix floating wight .-.
+        matrices.translate(0f,1.5f, 0f);
         root.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
     }
 
     @Override
     public ModelPart getPart() {
         return this.root;
+
     }
+
+    public static final Animation anim_scream = Animation.Builder.create(1.5f)
+            .addBoneAnimation("head",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(-1.73f, 8.41f, 2.72f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("head",
+                    new Transformation(Transformation.Targets.SCALE,
+                            new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createScalingVector(1f, 1f, 1f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("right_arm2",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.25f, AnimationHelper.createRotationalVector(-20f, 0f, 10f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(-20f, 0f, 20f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.75f, AnimationHelper.createRotationalVector(-20f, 0f, 10f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1f, AnimationHelper.createRotationalVector(-20f, 0f, 20f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1.25f, AnimationHelper.createRotationalVector(-20f, 0f, 10f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("left_arm2",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.25f, AnimationHelper.createRotationalVector(-20f, 0f, -10f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(-20f, 0f, -20f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.75f, AnimationHelper.createRotationalVector(-20f, 0f, -10f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1f, AnimationHelper.createRotationalVector(-20f, 0f, -20f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1.25f, AnimationHelper.createRotationalVector(-20f, 0f, -10f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("bottom_jaw",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(32f, 6f, 12.5f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("bottom_jaw",
+                    new Transformation(Transformation.Targets.SCALE,
+                            new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(0.5f, AnimationHelper.createScalingVector(1f, 1f, 1f),
+                                    Transformation.Interpolations.LINEAR))).build();
 }
