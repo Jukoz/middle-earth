@@ -18,6 +18,8 @@ public class BlockDrops {
             add(ModBlocks.MORDOR_DIRT);
             add(ModBlocks.REEDS_BLOCK);
             add(ModBlocks.STRAW_BLOCK);
+            add(ModBlocks.STONE_TRAPDOOR);
+            add(ModBlocks.BLACKSTONE_TRAPDOOR);
         }
     };
 }

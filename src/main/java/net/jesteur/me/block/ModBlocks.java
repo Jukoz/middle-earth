@@ -44,8 +44,10 @@ public class ModBlocks {
     public static final Block MITHRIL_ORE = registerBlock("mithril_ore",
             new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(4f).requiresTool()));
 
-    public static final Block STONE_LECTERN = registerBlock("stone_lectern",
-            new LecternBlock(FabricBlockSettings.copyOf(Blocks.LECTERN).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+    public static final Block STONE_TRAPDOOR = registerBlock("stone_trapdoor",
+            new TrapdoorBlock(FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE), BlockSetType.STONE));
+    public static final Block BLACKSTONE_TRAPDOOR = registerBlock("blackstone_trapdoor",
+            new TrapdoorBlock(FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE), BlockSetType.POLISHED_BLACKSTONE));
 
     public static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
