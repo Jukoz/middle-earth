@@ -119,6 +119,16 @@ public class ModelProvider extends FabricModelProvider {
                     .createPressurePlateBlockState(pressurePlate, up, down));
         }
 
+        for (Block block : SimpleTrapDoorModel.blocks) {
+            TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block);
+
+            Identifier top = Models.TEMPLATE_ORIENTABLE_TRAPDOOR_TOP.upload(block, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier bottom = Models.TEMPLATE_ORIENTABLE_TRAPDOOR_BOTTOM.upload(block, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier open = Models.TEMPLATE_ORIENTABLE_TRAPDOOR_OPEN.upload(block, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+
+            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
+                    .createTrapdoorBlockState(block, top, bottom, open));
+        }
 
     }
 

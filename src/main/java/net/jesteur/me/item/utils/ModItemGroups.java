@@ -87,7 +87,7 @@ public class ModItemGroups {
 
     public static final ItemGroup SPAWN_EGGS = FabricItemGroup.builder()
             .displayName(Text.literal("Spawn Eggs"))
-            .icon(() -> new ItemStack(ModEggItems.MORDOR_ORC_SPAWN_EGG))
+            .icon(() -> new ItemStack(ModEggItems.HOBBIT_SPAWN_EGG))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : SPAWN_EGGS_CONTENTS) {
                     entries.add(item);
