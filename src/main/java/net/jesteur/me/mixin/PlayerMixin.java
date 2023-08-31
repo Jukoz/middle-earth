@@ -14,4 +14,6 @@ public abstract class PlayerMixin {
 	private void dropItem0(ItemStack stack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemEntity> cir) {
 		PlayerEntity player = (PlayerEntity) (Object) this;
 	}
+
+
 }

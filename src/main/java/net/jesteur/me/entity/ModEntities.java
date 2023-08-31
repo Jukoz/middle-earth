@@ -9,6 +9,7 @@ import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jesteur.me.entity.hobbits.HobbitEntity;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jesteur.me.entity.pebble.PebbleEntity;
+import net.jesteur.me.entity.spear.SpearEntity;
 import net.jesteur.me.entity.trolls.cave.CaveTrollEntity;
 import net.jesteur.me.entity.trolls.snow.SnowTrollEntity;
 import net.minecraft.entity.Entity;
@@ -40,6 +41,7 @@ public class ModEntities {
 
     ///* Weapons *///
     public static final EntityType<PebbleEntity> PEBBLE = registerEntity("pebble", PebbleEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
+    public static final EntityType<SpearEntity> SPEAR = registerEntity("spear", SpearEntity::new, SpawnGroup.MISC, 0.5F, 0.5F);
 
     ///* Animals *///
     public static final EntityType<CrabEntity> CRAB = registerEntity("crab", CrabEntity::new, SpawnGroup.CREATURE, 0.4f, 0.4f);

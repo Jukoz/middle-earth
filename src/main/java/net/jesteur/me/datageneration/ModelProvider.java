@@ -2,6 +2,7 @@ package net.jesteur.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.jesteur.me.datageneration.content.CustomItemModels;
 import net.jesteur.me.datageneration.content.models.*;
 import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
@@ -140,6 +141,21 @@ public class ModelProvider extends FabricModelProvider {
 
         for (Item item : SimpleItemModel.items) {
             itemModelGenerator.register(item, Models.GENERATED);
+        }
+
+        for (Item item : SimpleHandheldItemModel.items) {
+            itemModelGenerator.register(item, Models.HANDHELD);
+        }
+
+        for (Item item : SimpleBigItemModel.items) {
+            itemModelGenerator.register(item, CustomItemModels.BIG_WEAPON);
+            itemModelGenerator.register(item, "_inventory", Models.HANDHELD);
+        }
+
+        for (Item item : SimpleBowItemModel.items) {
+            for(int i = 0; i < 3; i++) {
+                itemModelGenerator.register(item, "_pulling_" + i, Models.GENERATED);
+            }
         }
     }
 }
