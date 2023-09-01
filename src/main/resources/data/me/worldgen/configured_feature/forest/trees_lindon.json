@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "me:tall_birch_tree",
+    "features": [
+      {
+        "chance": 0.45,
+        "feature": "me:tall_birch_tree"
+      },
+      {
+        "chance": 0.3,
+        "feature": "minecraft:fancy_oak_bees_0002"
+      },
+	  {
+        "chance": 0.25,
+        "feature": "me:oak_bush"
+      }
+    ]
+  }
+}

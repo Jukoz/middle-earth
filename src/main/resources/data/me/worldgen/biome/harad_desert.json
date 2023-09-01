@@ -42,6 +42,8 @@
       "minecraft:ore_granite_lower",
       "minecraft:ore_diorite_upper",
       "minecraft:ore_diorite_lower",
+      "me:ore_dolomite_lower",
+      "me:ore_dolomite_upper",
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
       "minecraft:ore_tuff",
@@ -65,12 +67,12 @@
     [
       "minecraft:glow_lichen",
       "minecraft:flower_default",
+	  "me:patch/harad_plants",
       "minecraft:patch_grass_badlands",
       "minecraft:patch_dead_bush_2",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane_desert",
-      "minecraft:patch_pumpkin",
       "minecraft:patch_cactus_desert"
     ],
     [

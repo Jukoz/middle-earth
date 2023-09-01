@@ -151,7 +151,7 @@ public class CrabModel extends EntityModel<CrabEntity> {
 
         float legAngle = 65F * MathHelper.RADIANS_PER_DEGREE;
         float armAngle = 30F * MathHelper.RADIANS_PER_DEGREE;
-        float cosVal = (MathHelper.cos(limbSwing * 0.6662F * 2.0F + 0.0F) * 0.4F) * limbSwingAmount;
+        float cosVal = (MathHelper.cos(limbSwing * 2.0F) * 0.6F) * limbSwingAmount;
 
         legRightFirst.roll = legAngle;
         legRightSecond.roll = legAngle;
@@ -173,7 +173,7 @@ public class CrabModel extends EntityModel<CrabEntity> {
         armRight.roll = armAngle ;
         armLeft.roll = -armAngle;
 
-        float clawPitchMovement = MathHelper.abs(MathHelper.cos(limbSwing * 0.6662F * 2.0F + 0.0F) * 0.4F) * limbSwingAmount;
+        float clawPitchMovement = MathHelper.abs(MathHelper.cos(limbSwing * 1.3333F) * 0.5F) * limbSwingAmount;
         clawTopRight.roll = -clawPitchMovement;
         clawBotRight.roll = clawPitchMovement;
 

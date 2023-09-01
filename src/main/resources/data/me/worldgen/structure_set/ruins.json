@@ -2,13 +2,21 @@
   "structures": [
     {
       "structure": "me:ruins",
+      "weight": 4
+    },
+	{
+      "structure": "me:ruined_stone_bridges",
+      "weight": 2
+    },
+	{
+      "structure": "me:ruined_temples",
       "weight": 1
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "spacing": 5,
-    "separation": 2,
+    "spacing": 22,
+    "separation": 11,
     "salt": 1646207470
   }
 }

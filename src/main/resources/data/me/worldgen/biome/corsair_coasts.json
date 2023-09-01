@@ -40,6 +40,8 @@
       "minecraft:ore_granite_lower",
       "minecraft:ore_diorite_upper",
       "minecraft:ore_diorite_lower",
+      "me:ore_dolomite_lower",
+      "me:ore_dolomite_upper",
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
       "minecraft:ore_tuff",
@@ -65,7 +67,7 @@
     [
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass",
-      "minecraft:flower_warm",
+      "me:patch/harad_plants",
 	  "me:stone_rock",
       "minecraft:patch_grass_savanna",
       "minecraft:brown_mushroom_normal",

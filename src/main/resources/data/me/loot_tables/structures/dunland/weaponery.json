@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:group",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:iron_sword"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:iron_axe"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:shield"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

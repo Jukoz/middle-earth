@@ -4,6 +4,7 @@ import net.jesteur.me.entity.goals.BowAttackGoal;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jesteur.me.entity.trolls.TrollEntity;
 import net.jesteur.me.entity.trolls.cave.CaveTrollEntity;
+import net.jesteur.me.item.ModWeaponItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -29,7 +30,7 @@ public class GaladhrimElfEntity extends HostileEntity implements RangedAttackMob
     public GaladhrimElfEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
         if (Math.random() < 0.6f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_BOW));
         }
     }
 

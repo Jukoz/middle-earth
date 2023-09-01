@@ -1,0 +1,42 @@
+{
+  "name": "me:birch",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "me:trees/birch_1",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "me:trees/birch_2",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "me:trees/birch_3",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    },
+		{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "me:trees/birch_4",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

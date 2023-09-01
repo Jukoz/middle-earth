@@ -1,0 +1,22 @@
+{
+  "structures": [
+    {
+      "structure": "me:dunland_spruce",
+      "weight": 120
+    },
+	{
+      "structure": "me:dunland_pine",
+      "weight": 120
+    },
+	{
+      "structure": "me:dunland_house",
+      "weight": 7
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 1,
+    "separation": 0,
+    "salt": 5542487198
+  }
+}

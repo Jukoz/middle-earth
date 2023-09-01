@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "me:old_rhudaur",
+    "me:eregion",
+    "me:grey_plains",
+    "me:northern_wastelands",
+    "me:trollshaws"
+  ]
+}

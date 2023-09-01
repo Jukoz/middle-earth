@@ -1,0 +1,18 @@
+{
+  "structures": [
+    {
+      "structure": "me:spruce",
+      "weight": 1
+    },
+	{
+      "structure": "me:pine",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 1,
+    "separation": 0,
+    "salt": 1242475849
+  }
+}

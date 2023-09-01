@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:disk",
+  "config": {
+    "state_provider": {
+      "fallback": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:powder_snow"
+        }
+      },
+      "rules": []
+    },
+    "target": {
+      "type": "minecraft:any_of",
+      "predicates": [
+        {
+          "type": "minecraft:matching_block_tag",
+          "tag": "minecraft:base_stone_overworld"
+        },
+        {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:snow_block"
+        }
+      ]
+    },
+    "radius": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": 2,
+        "max_inclusive": 5
+      }
+    },
+    "half_height": 4
+  }
+}

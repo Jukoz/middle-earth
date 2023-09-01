@@ -1,0 +1,14 @@
+{
+  "structures": [
+	{
+      "structure": "me:umbar_house",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 13,
+    "separation": 7,
+    "salt": 134367138
+  }
+}
