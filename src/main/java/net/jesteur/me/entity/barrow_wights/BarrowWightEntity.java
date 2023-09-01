@@ -97,6 +97,7 @@ public class BarrowWightEntity extends HostileEntity {
             amount *= (1 - RESISTANCE);
         }
         return super.damage(source, amount);
+
     }
 
     public int getAttackTicksLeft() {

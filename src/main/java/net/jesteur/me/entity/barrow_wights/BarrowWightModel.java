@@ -10,6 +10,7 @@ import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.AnimationState;
 import net.minecraft.util.math.MathHelper;
 import org.joml.Vector3f;
 
@@ -89,8 +90,10 @@ public class BarrowWightModel
 
         return TexturedModelData.of(modelData, 128, 128);
     }
+
     @Override
     public void setAngles(BarrowWightEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+
         switch(entity.getAnimationState())
         {
             case VANILLA -> {
@@ -117,21 +120,25 @@ public class BarrowWightModel
 
             }
             case ANIM_SCREAMING ->{
-                float k = 0.8f * limbSwingAmount;
+                this.root.pitch = 0;
+                this.head.pitch = 0;
+                this.head.roll = 0;
+                this.head.yaw = 0;
+                /*float k = 0.8f * limbSwingAmount;
                 this.rightLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
-                this.leftLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
-                AnimationHelper.animate(this, anim_scream, 30, 1.0f, new Vector3f(0,0,0));
+                this.leftLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;*/
+                //animate(BarrowWightAnimations.anim_scream);
+                AnimationHelper.animate(this, BarrowWightAnimations.anim_scream, 30, 1.0f, new Vector3f(10,10,10));
 
             }
 
         }
 
     }
-
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
         //quick matrix translation to fix floating wight .-.
-        matrices.translate(0f,1.5f, 0f);
+        matrices.translate(0f, 1.5f, 0f);
         root.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
     }
 
@@ -141,69 +148,5 @@ public class BarrowWightModel
 
     }
 
-    public final Animation anim_scream = Animation.Builder.create(1.5f)
-            .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.ROTATE,
-                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(-1.73f, 8.41f, 2.72f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.SCALE,
-                            new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.5f, AnimationHelper.createScalingVector(1f, 1f, 1f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(1f, AnimationHelper.createScalingVector(1f, 1f, 1f),
-                                    Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("right_arm2",
-                    new Transformation(Transformation.Targets.ROTATE,
-                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.25f, AnimationHelper.createRotationalVector(-20f, 0f, 10f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(-20f, 0f, 20f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.75f, AnimationHelper.createRotationalVector(-20f, 0f, 10f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(1f, AnimationHelper.createRotationalVector(-20f, 0f, 20f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(1.25f, AnimationHelper.createRotationalVector(-20f, 0f, 10f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(1.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("left_arm2",
-                    new Transformation(Transformation.Targets.ROTATE,
-                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.25f, AnimationHelper.createRotationalVector(-20f, 0f, -10f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(-20f, 0f, -20f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.75f, AnimationHelper.createRotationalVector(-20f, 0f, -10f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(1f, AnimationHelper.createRotationalVector(-20f, 0f, -20f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(1.25f, AnimationHelper.createRotationalVector(-20f, 0f, -10f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(1.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("bottom_jaw",
-                    new Transformation(Transformation.Targets.ROTATE,
-                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(32f, 6f, 12.5f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("bottom_jaw",
-                    new Transformation(Transformation.Targets.SCALE,
-                            new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.5f, AnimationHelper.createScalingVector(1f, 1f, 1f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(1f, AnimationHelper.createScalingVector(1f, 1f, 1f),
-                                    Transformation.Interpolations.LINEAR))).build();
+
 }
