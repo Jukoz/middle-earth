@@ -94,7 +94,7 @@ public class BarrowWightModel
         switch(entity.getAnimationState())
         {
             case VANILLA -> {
-                /*this.head.pitch = headPitch * ((float) Math.PI / 180);
+                this.head.pitch = headPitch * ((float) Math.PI / 180);
                 this.head.yaw = netHeadYaw * ((float) Math.PI / 180);
 
                 this.bottomJaw.pitch = 0.25F * Math.max(0, MathHelper.cos(ageInTicks * 0.1f));
@@ -110,14 +110,20 @@ public class BarrowWightModel
                 } else {
                     this.rightArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
                     this.leftArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
-                }*/
+                }
             }
             //Attacking(potential more advanced animation. Not necessary just for testing purposes).
             case ANIM_ATTACK -> {
 
             }
-            case ANIM_SCREAMING ->
-                AnimationHelper.animate(this, anim_scream, 2, 1.0f, new Vector3f(0,0,0));
+            case ANIM_SCREAMING ->{
+                float k = 0.8f * limbSwingAmount;
+                this.rightLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
+                this.leftLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
+                AnimationHelper.animate(this, anim_scream, 30, 1.0f, new Vector3f(0,0,0));
+
+            }
+
         }
 
     }
@@ -135,7 +141,7 @@ public class BarrowWightModel
 
     }
 
-    public static final Animation anim_scream = Animation.Builder.create(1.5f)
+    public final Animation anim_scream = Animation.Builder.create(1.5f)
             .addBoneAnimation("head",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),

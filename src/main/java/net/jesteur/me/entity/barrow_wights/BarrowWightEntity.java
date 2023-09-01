@@ -86,7 +86,7 @@ public class BarrowWightEntity extends HostileEntity {
 
     @Override
     public boolean damage(DamageSource source, float amount) {
-        MiddleEarth.LOGGER.debug("TEST AMOUNT: " + ticksTilNextAnimationChange);
+        MiddleEarth.LOGGER.info("Test: " + wgState);
         if(ticksTilNextAnimationChange == 0){
             wgState = WightAnimationState.ANIM_SCREAMING;
             ticksTilNextAnimationChange = (int) (20*1.5f);
