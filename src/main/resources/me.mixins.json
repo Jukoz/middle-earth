@@ -7,9 +7,10 @@
     "BlockEntityLandedMixin",
     "EntitySpawnMixin",
     "ItemRendererMixin",
-    "PlayerMixin"
+    "PlayerMixin",
   ],
   "client": [
+    "ElytraFeatureRendererMixin"
   ],
   "server": [
   ],

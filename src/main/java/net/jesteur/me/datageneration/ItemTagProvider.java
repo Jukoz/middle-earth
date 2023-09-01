@@ -23,7 +23,5 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
-        getOrCreateTagBuilder(ItemTags.TRIMMABLE_ARMOR)
-                .add(ModEquipmentItems.CLOAK, ModEquipmentItems.CLOAK_HOOD);
     }
 }

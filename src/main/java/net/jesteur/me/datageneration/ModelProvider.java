@@ -4,8 +4,10 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.jesteur.me.datageneration.content.CustomItemModels;
 import net.jesteur.me.datageneration.content.models.*;
+import net.jesteur.me.item.ModEquipmentItems;
 import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -157,5 +159,8 @@ public class ModelProvider extends FabricModelProvider {
                 itemModelGenerator.register(item, "_pulling_" + i, Models.GENERATED);
             }
         }
+
+        itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.CLOAK));
+        itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.CLOAK_HOOD));
     }
 }
