@@ -94,7 +94,7 @@ public class BarrowWightModel
         switch(entity.getAnimationState())
         {
             case VANILLA -> {
-                this.head.pitch = headPitch * ((float) Math.PI / 180);
+                /*this.head.pitch = headPitch * ((float) Math.PI / 180);
                 this.head.yaw = netHeadYaw * ((float) Math.PI / 180);
 
                 this.bottomJaw.pitch = 0.25F * Math.max(0, MathHelper.cos(ageInTicks * 0.1f));
@@ -110,14 +110,14 @@ public class BarrowWightModel
                 } else {
                     this.rightArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
                     this.leftArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
-                }
+                }*/
             }
             //Attacking(potential more advanced animation. Not necessary just for testing purposes).
             case ANIM_ATTACK -> {
 
             }
             case ANIM_SCREAMING ->
-                AnimationHelper.animate(this,anim_scream, 30, 1.0f, new Vector3f());
+                AnimationHelper.animate(this, anim_scream, 2, 1.0f, new Vector3f(0,0,0));
         }
 
     }
@@ -141,12 +141,16 @@ public class BarrowWightModel
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createRotationalVector(-1.73f, 8.41f, 2.72f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
                     new Transformation(Transformation.Targets.SCALE,
                             new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createScalingVector(1f, 1f, 1f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1f, AnimationHelper.createScalingVector(1f, 1f, 1f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("right_arm2",
                     new Transformation(Transformation.Targets.ROTATE,
@@ -185,11 +189,15 @@ public class BarrowWightModel
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createRotationalVector(32f, 6f, 12.5f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("bottom_jaw",
                     new Transformation(Transformation.Targets.SCALE,
                             new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createScalingVector(1f, 1f, 1f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1f, AnimationHelper.createScalingVector(1f, 1f, 1f),
                                     Transformation.Interpolations.LINEAR))).build();
 }

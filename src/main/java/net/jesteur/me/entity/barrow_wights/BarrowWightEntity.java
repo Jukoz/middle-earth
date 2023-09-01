@@ -64,7 +64,8 @@ public class BarrowWightEntity extends HostileEntity {
         ANIM_ATTACK;
     }
     public WightAnimationState getAnimationState(){
-        return wgState;
+        if(ticksTilNextAnimationChange > 0) return WightAnimationState.ANIM_SCREAMING;
+        else return wgState;
     }
 
     public BarrowWightEntity.State getState() {
@@ -76,6 +77,9 @@ public class BarrowWightEntity extends HostileEntity {
         }
         else if(this.isInWalkTargetRange()) {
             return BarrowWightEntity.State.WALKING;
+        }
+        else if(this.ticksTilNextAnimationChange > 0){
+            return State.SCREAM;
         }
         return BarrowWightEntity.State.NEUTRAL;
     }
