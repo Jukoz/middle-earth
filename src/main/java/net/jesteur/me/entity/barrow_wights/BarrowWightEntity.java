@@ -17,6 +17,7 @@ public class BarrowWightEntity extends HostileEntity {
     public static final int ATTACK_COOLDOWN = 10;
     public static final float RESISTANCE = 0.15f;
     private int attackTicksLeft = 0;
+    private int screamTicksLeft = 0;
 
     AnimationState screamAnimationState = new AnimationState();
 
@@ -64,7 +65,14 @@ public class BarrowWightEntity extends HostileEntity {
             return BarrowWightEntity.State.ATTACK;
         }
         else if (this.isAttacking()) {
-            return BarrowWightEntity.State.AGGRESSIVE;
+
+            if( this.screamTicksLeft == 0 ) 
+            {
+                screamTicksLeft = 200;
+                return State.SCREAM;        }
+
+            else
+                return BarrowWightEntity.State.AGGRESSIVE;
         }
         else if(this.isInWalkTargetRange()) {
             return BarrowWightEntity.State.WALKING;
@@ -79,7 +87,6 @@ public class BarrowWightEntity extends HostileEntity {
                 && !source.equals(getDamageSources().cramming()) && !source.equals(getDamageSources().magic())) {
             amount *= (1 - RESISTANCE);
         }
-        this.screamAnimationState.start(this.age);
 
         return super.damage(source, amount);
 
@@ -91,7 +98,20 @@ public class BarrowWightEntity extends HostileEntity {
 
 
     @Override
+    public void tick(){
+        if(getState() == State.SCREAM){
+            MiddleEarth.LOGGER.info("Trying to play animation!!!");
+            this.screamAnimationState.start(this.age);
+        }
+        if(this.screamTicksLeft > 0 )
+            this.screamTicksLeft--;
+        super.tick();
+    }
+
+    @Override
     public void tickMovement() {
+
+
         super.tickMovement();
         if (this.attackTicksLeft > 0) {
             --this.attackTicksLeft;

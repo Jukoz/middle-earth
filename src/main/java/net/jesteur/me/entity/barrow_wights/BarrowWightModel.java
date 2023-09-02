@@ -87,8 +87,25 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
     @Override
     public void setAngles(BarrowWightEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform); // resets all limbs before animation. eahc run of animationstate update sets next frame...
-        //this.updateAnimation(((FrogEntity)frogEntity).longJumpingAnimationState, FrogAnimations.LONG_JUMPING, ageInTicks);
+        this.head.pitch = headPitch * ((float) Math.PI / 180);
+        this.head.yaw = netHeadYaw * ((float) Math.PI / 180);
+
+        this.bottomJaw.pitch = 0.25F * Math.max(0, MathHelper.cos(ageInTicks * 0.1f));
+        float k = 0.8f * limbSwingAmount;
+        this.rightLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
+        this.leftLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
+
+        int i = entity.getAttackTicksLeft();
+        if (entity.getState().equals(BarrowWightEntity.State.ATTACK)) {
+            float ageFloat = (ageInTicks - (int) ageInTicks); // Helps to smooth the animation
+            this.rightArm.pitch = -1.1f + 0.9f * MathHelper.wrap((float) i - ageFloat, 10.0f);
+            this.leftArm.pitch = -1.1f + 0.9f * MathHelper.wrap((float) i - ageFloat, 10.0f);
+        } else {
+            this.rightArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
+            this.leftArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
+        }
         this.updateAnimation(((BarrowWightEntity) entity).screamAnimationState, BarrowWightAnimations.anim_scream, ageInTicks);
+
 
     }
 
