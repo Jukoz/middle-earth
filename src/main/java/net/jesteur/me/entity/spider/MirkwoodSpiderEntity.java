@@ -4,7 +4,6 @@ import net.jesteur.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jesteur.me.entity.hobbits.HobbitEntity;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
-import net.jesteur.me.entity.trolls.cave.CaveTrollVariant;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -31,13 +30,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
-import java.util.Random;
-
-public class SpiderEntity extends HostileEntity {
+public class MirkwoodSpiderEntity extends HostileEntity {
     private static final TrackedData<Byte> SPIDER_FLAGS;
     private int climbingTicks = 0;
 
-    public SpiderEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public MirkwoodSpiderEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -158,8 +155,8 @@ public class SpiderEntity extends HostileEntity {
         this.dataTracker.set(SPIDER_FLAGS, b);
     }
 
-    public SpiderVariant getVariant() {
-        return SpiderVariant.byId(this.getId());
+    public MirkwoodSpiderVariants getVariant() {
+        return MirkwoodSpiderVariants.byId(this.getId());
     }
 
     static {

@@ -10,7 +10,7 @@ import net.jesteur.me.entity.hobbits.HobbitEntity;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jesteur.me.entity.pebble.PebbleEntity;
 import net.jesteur.me.entity.spear.SpearEntity;
-import net.jesteur.me.entity.spider.SpiderEntity;
+import net.jesteur.me.entity.spider.MirkwoodSpiderEntity;
 import net.jesteur.me.entity.trolls.cave.CaveTrollEntity;
 import net.jesteur.me.entity.trolls.snow.SnowTrollEntity;
 import net.minecraft.entity.Entity;
@@ -36,7 +36,7 @@ public class ModEntities {
     public static final EntityType<MordorOrcEntity> MORDOR_ORC = registerEntity("mordor_orc", MordorOrcEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
     // Spiders
-    public static final EntityType<SpiderEntity> SPIDER = registerEntity("spider", SpiderEntity::new, SpawnGroup.CREATURE, 1.3f, 0.9f);
+    public static final EntityType<MirkwoodSpiderEntity> MIRKWOOD_SPIDER = registerEntity("mirkwood_spider", MirkwoodSpiderEntity::new, SpawnGroup.CREATURE, 1.3f, 0.9f);
 
     // Trolls
     public static final EntityType<CaveTrollEntity> CAVE_TROLL = registerEntity("cave_troll", CaveTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
@@ -65,7 +65,7 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(GALADHRIM_ELF, GaladhrimElfEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(MORDOR_ORC, MordorOrcEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
-        FabricDefaultAttributeRegistry.register(SPIDER, SpiderEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(MIRKWOOD_SPIDER, MirkwoodSpiderEntity.setAttributes());
         // Animals
         FabricDefaultAttributeRegistry.register(CRAB, CrabEntity.createCrabAttributes());
 
