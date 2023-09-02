@@ -10,6 +10,7 @@ import net.jesteur.me.entity.model.ModEntityModels;
 import net.jesteur.me.events.ModEvents;
 import net.jesteur.me.item.*;
 import net.jesteur.me.item.utils.ModItemGroups;
+import net.jesteur.me.statusEffects.ModStatusEffects;
 import net.jesteur.me.world.spawners.ModEntitySpawning;
 import net.jesteur.me.world.biomes.MEBiomeKeys;
 import net.jesteur.me.world.biomes.MEBiomesData;
@@ -27,7 +28,7 @@ public class MiddleEarth implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-
+		ModStatusEffects.registerStatusEffects();
 		ModWeaponItems.registerModItems();
 		ModToolItems.registerModItems();
 		ModFoodItems.registerModItems();

@@ -66,7 +66,7 @@ public class BarrowWightEntity extends HostileEntity {
         }
         else if (this.isAttacking()) {
 
-            if( this.screamTicksLeft == 0 ) 
+            if( this.screamTicksLeft == 0 )
             {
                 screamTicksLeft = 200;
                 return State.SCREAM;        }
