@@ -157,5 +157,9 @@ public class ModelProvider extends FabricModelProvider {
                 itemModelGenerator.register(item, "_pulling_" + i, Models.GENERATED);
             }
         }
+
+        for (Item item : SimpleSpawnEggItemModel.items) {
+            itemModelGenerator.register(item, CustomItemModels.TEMPLATE_SPAWN_EGG);
+        }
     }
 }

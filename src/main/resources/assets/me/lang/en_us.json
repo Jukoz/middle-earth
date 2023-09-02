@@ -94,6 +94,7 @@
   "item.me.hobbit_spawn_egg": "Hobbit Spawn Egg",
   "item.me.galadhrim_elf_spawn_egg": "Galadhrim Elf Spawn Egg",
   "item.me.mordor_orc_spawn_egg": "Mordor Orc Spawn Egg",
+  "item.me.spider_spawn_egg": "Spider Spawn Egg",
   "item.me.warg_spawn_egg": "Warg Spawn Egg",
 
   "entity.me.cave_troll": "Cave Troll",
@@ -103,6 +104,7 @@
   "entity.me.galadhrim_elf": "Galadhrim Elf",
   "entity.me.hobbit": "Hobbit",
   "entity.me.mordor_orc": "Mordor Orc",
+  "entity.me.spider": "Spider",
   "item.me.pebble": "Pebble",
 
   "block.me.mithril_ore": "Mithril Ore",

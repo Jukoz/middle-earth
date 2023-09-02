@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.entity.crab.CrabModel;
+import net.jesteur.me.entity.spider.SpiderModel;
 import net.jesteur.me.entity.trolls.cave.CaveTrollModel;
 import net.jesteur.me.entity.trolls.snow.SnowTrollModel;
 import net.minecraft.client.model.Dilation;
@@ -21,6 +22,7 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer ORC = ModEntityModelLayers.registerEntityModelLayer("orc", OrcModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer CAVE_TROLL = ModEntityModelLayers.registerEntityModelLayer("cave_troll", CaveTrollModel.getTexturedModelData());
     public static final EntityModelLayer SNOW_TROLL = ModEntityModelLayers.registerEntityModelLayer("snow_troll", SnowTrollModel.getTexturedModelData());
+    public static final EntityModelLayer SPIDER = ModEntityModelLayers.registerEntityModelLayer("spider", SpiderModel.getTexturedModelData());
 
     // Animals
     public static final EntityModelLayer CRAB = ModEntityModelLayers.registerEntityModelLayer("crab", CrabModel.getTexturedModelData());

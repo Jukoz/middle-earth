@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jesteur.me.entity.crab.CrabModel;
+import net.jesteur.me.entity.spider.SpiderModel;
 import net.jesteur.me.entity.trolls.cave.CaveTrollModel;
 import net.jesteur.me.entity.trolls.snow.SnowTrollModel;
 import net.minecraft.client.model.Dilation;
@@ -23,6 +24,7 @@ public class ModEntityModels {
         builder.put(ModEntityModelLayers.ORC, OrcModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.CAVE_TROLL, CaveTrollModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.SNOW_TROLL, SnowTrollModel.getTexturedModelData());
+        builder.put(ModEntityModelLayers.SPIDER, SpiderModel.getTexturedModelData());
 
         // Animals
         builder.put(ModEntityModelLayers.CRAB, CrabModel.getTexturedModelData());

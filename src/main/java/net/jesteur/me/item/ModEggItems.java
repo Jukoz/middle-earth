@@ -2,6 +2,7 @@ package net.jesteur.me.item;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.jesteur.me.MiddleEarth;
+import net.jesteur.me.datageneration.content.models.SimpleSpawnEggItemModel;
 import net.jesteur.me.entity.ModEntities;
 import net.jesteur.me.item.utils.ModItemGroups;
 import net.minecraft.item.*;
@@ -22,13 +23,18 @@ public class ModEggItems {
             new SpawnEggItem(ModEntities.MORDOR_ORC, 4209210, 7682104, new Item.Settings()));
     public static final Item SNOW_TROLL_SPAWN_EGG = registerItem("snow_troll_spawn_egg",
             new SpawnEggItem(ModEntities.SNOW_TROLL, 12770027, 9739424, new Item.Settings()));
+    public static final Item SPIDER_SPAWN_EGG = registerItem("spider_spawn_egg",
+            new SpawnEggItem(ModEntities.SPIDER, 657930, 11669520, new Item.Settings()));
 
     // Animals
     public static final Item CRAB_SPAWN_EGG = registerItem("crab_spawn_egg",
             new SpawnEggItem(ModEntities.CRAB, 15350073,15764576, new Item.Settings()));
 
+
+
     private static Item registerItem(String name, Item item) {
         ModItemGroups.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
+        SimpleSpawnEggItemModel.items.add(item);
         return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
     }
 
