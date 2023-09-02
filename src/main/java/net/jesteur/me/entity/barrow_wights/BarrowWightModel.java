@@ -4,19 +4,17 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.animation.Keyframe;
-import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.*;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.AnimationState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.FrogEntity;
 import net.minecraft.util.math.MathHelper;
 import org.joml.Vector3f;
 
-@Environment(value= EnvType.CLIENT)
-public class BarrowWightModel
-        extends SinglePartEntityModel<BarrowWightEntity> {
+@Environment(value = EnvType.CLIENT)
+public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
 
     private final ModelPart root;
     private final ModelPart head;
@@ -43,16 +41,11 @@ public class BarrowWightModel
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        ModelPartData head = modelPartData.addChild("head", ModelPartBuilder.create().uv(0, 52).cuboid(-4.0F, -4.35F, -10.1324F, 8.0F, 6.0F, 8.0F, new Dilation(0.1F))
-                .uv(69, 7).cuboid(-3.5F, -4.6F, -9.6324F, 7.0F, 6.0F, 0.0F, new Dilation(0.0F))
-                .uv(47, 0).cuboid(-4.0F, 1.8943F, -10.1206F, 8.0F, 1.0F, 6.0F, new Dilation(0.1F))
-                .uv(0, 28).cuboid(-4.0F, -4.4443F, -10.5F, 8.0F, 10.0F, 10.0F, new Dilation(0.2F)), ModelTransform.pivot(0.0F, -30.0557F, -1.0F));
+        ModelPartData head = modelPartData.addChild("head", ModelPartBuilder.create().uv(0, 52).cuboid(-4.0F, -4.35F, -10.1324F, 8.0F, 6.0F, 8.0F, new Dilation(0.1F)).uv(69, 7).cuboid(-3.5F, -4.6F, -9.6324F, 7.0F, 6.0F, 0.0F, new Dilation(0.0F)).uv(47, 0).cuboid(-4.0F, 1.8943F, -10.1206F, 8.0F, 1.0F, 6.0F, new Dilation(0.1F)).uv(0, 28).cuboid(-4.0F, -4.4443F, -10.5F, 8.0F, 10.0F, 10.0F, new Dilation(0.2F)), ModelTransform.pivot(0.0F, -30.0557F, -1.0F));
 
-        ModelPartData bottomJaw = head.addChild("bottomJaw", ModelPartBuilder.create().uv(62, 44).cuboid(-3.99F, -1.6614F, -5.9F, 7.98F, 2.0F, 6.0F, new Dilation(0.0F))
-                .uv(72, 37).cuboid(-3.99F, 0.3386F, -6.0F, 7.98F, 1.0F, 6.0F, new Dilation(0.0F)), ModelTransform.of(0.01F, 2.0557F, -4.3F, 0.2182F, 0.0F, 0.0F));
+        ModelPartData bottomJaw = head.addChild("bottomJaw", ModelPartBuilder.create().uv(62, 44).cuboid(-3.99F, -1.6614F, -5.9F, 7.98F, 2.0F, 6.0F, new Dilation(0.0F)).uv(72, 37).cuboid(-3.99F, 0.3386F, -6.0F, 7.98F, 1.0F, 6.0F, new Dilation(0.0F)), ModelTransform.of(0.01F, 2.0557F, -4.3F, 0.2182F, 0.0F, 0.0F));
 
-        ModelPartData body = modelPartData.addChild("body", ModelPartBuilder.create().uv(0, 18).cuboid(-10.0F, -6.9088F, -11.0419F, 20.0F, 3.0F, 7.0F, new Dilation(0.0F))
-                .uv(36, 28).cuboid(-5.0F, 4.6614F, -5.0419F, 10.0F, 8.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -26.6614F, 6.1294F));
+        ModelPartData body = modelPartData.addChild("body", ModelPartBuilder.create().uv(0, 18).cuboid(-10.0F, -6.9088F, -11.0419F, 20.0F, 3.0F, 7.0F, new Dilation(0.0F)).uv(36, 28).cuboid(-5.0F, 4.6614F, -5.0419F, 10.0F, 8.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -26.6614F, 6.1294F));
 
         ModelPartData shoulderCloak_r1 = body.addChild("shoulderCloak_r1", ModelPartBuilder.create().uv(0, 0).cuboid(-9.91F, -20.0F, -4.5F, 20.0F, 11.0F, 7.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 14.6614F, -3.1294F, 0.1745F, 0.0F, 0.0F));
 
@@ -93,48 +86,12 @@ public class BarrowWightModel
 
     @Override
     public void setAngles(BarrowWightEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
-        switch(entity.getAnimationState())
-        {
-            case VANILLA -> {
-                this.head.pitch = headPitch * ((float) Math.PI / 180);
-                this.head.yaw = netHeadYaw * ((float) Math.PI / 180);
-
-                this.bottomJaw.pitch = 0.25F * Math.max(0, MathHelper.cos(ageInTicks * 0.1f));
-                float k = 0.8f * limbSwingAmount;
-                this.rightLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
-                this.leftLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
-
-                int i = entity.getAttackTicksLeft();
-                if (entity.getState().equals(BarrowWightEntity.State.ATTACK)) {
-                    float ageFloat = (ageInTicks - (int) ageInTicks); // Helps to smooth the animation
-                    this.rightArm.pitch = -1.1f + 0.9f * MathHelper.wrap((float) i - ageFloat, 10.0f);
-                    this.leftArm.pitch = -1.1f + 0.9f * MathHelper.wrap((float) i - ageFloat, 10.0f);
-                } else {
-                    this.rightArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
-                    this.leftArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
-                }
-            }
-            //Attacking(potential more advanced animation. Not necessary just for testing purposes).
-            case ANIM_ATTACK -> {
-
-            }
-            case ANIM_SCREAMING ->{
-                this.root.pitch = 0;
-                this.head.pitch = 0;
-                this.head.roll = 0;
-                this.head.yaw = 0;
-                /*float k = 0.8f * limbSwingAmount;
-                this.rightLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
-                this.leftLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;*/
-                //animate(BarrowWightAnimations.anim_scream);
-                AnimationHelper.animate(this, BarrowWightAnimations.anim_scream, 30, 1.0f, new Vector3f(10,10,10));
-
-            }
-
-        }
+        this.getPart().traverse().forEach(ModelPart::resetTransform); // resets all limbs before animation. eahc run of animationstate update sets next frame...
+        //this.updateAnimation(((FrogEntity)frogEntity).longJumpingAnimationState, FrogAnimations.LONG_JUMPING, ageInTicks);
+        this.updateAnimation(((BarrowWightEntity) entity).screamAnimationState, BarrowWightAnimations.anim_scream, ageInTicks);
 
     }
+
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
         //quick matrix translation to fix floating wight .-.

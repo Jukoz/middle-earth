@@ -6,6 +6,7 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,12 +17,11 @@ public class BarrowWightEntity extends HostileEntity {
     public static final int ATTACK_COOLDOWN = 10;
     public static final float RESISTANCE = 0.15f;
     private int attackTicksLeft = 0;
-    private WightAnimationState wgState;
 
-    private int ticksTilNextAnimationChange = 0;
+    AnimationState screamAnimationState = new AnimationState();
+
     public BarrowWightEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
-        wgState = WightAnimationState.VANILLA;
     }
 
     public static DefaultAttributeContainer.Builder setAttributes() {
@@ -33,7 +33,6 @@ public class BarrowWightEntity extends HostileEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 20.0);
     }
-
     @Override
     protected float getJumpVelocity() {
         return 0.5f * this.getJumpVelocityMultiplier() + this.getJumpBoostVelocityModifier();
@@ -58,15 +57,7 @@ public class BarrowWightEntity extends HostileEntity {
         ATTACK,
         SCREAM;
     }
-    public enum WightAnimationState{
-        VANILLA,
-        ANIM_SCREAMING,
-        ANIM_ATTACK;
-    }
-    public WightAnimationState getAnimationState(){
-        if(ticksTilNextAnimationChange > 0) return WightAnimationState.ANIM_SCREAMING;
-        else return wgState;
-    }
+
 
     public BarrowWightEntity.State getState() {
         if(this.attackTicksLeft > 0) {
@@ -78,24 +69,18 @@ public class BarrowWightEntity extends HostileEntity {
         else if(this.isInWalkTargetRange()) {
             return BarrowWightEntity.State.WALKING;
         }
-        else if(this.ticksTilNextAnimationChange > 0){
-            return State.SCREAM;
-        }
         return BarrowWightEntity.State.NEUTRAL;
+
     }
 
     @Override
     public boolean damage(DamageSource source, float amount) {
-        MiddleEarth.LOGGER.info("Test: " + wgState);
-        if(ticksTilNextAnimationChange == 0){
-            wgState = WightAnimationState.ANIM_SCREAMING;
-            ticksTilNextAnimationChange = (int) (20*1.5f);
-        }
-
         if(!source.equals(getDamageSources().drown()) && !source.equals(getDamageSources().lava())
                 && !source.equals(getDamageSources().cramming()) && !source.equals(getDamageSources().magic())) {
             amount *= (1 - RESISTANCE);
         }
+        this.screamAnimationState.start(this.age);
+
         return super.damage(source, amount);
 
     }
@@ -104,17 +89,12 @@ public class BarrowWightEntity extends HostileEntity {
         return this.attackTicksLeft;
     }
 
+
     @Override
     public void tickMovement() {
         super.tickMovement();
         if (this.attackTicksLeft > 0) {
             --this.attackTicksLeft;
-        }
-        if (this.ticksTilNextAnimationChange > 0) {
-            --this.ticksTilNextAnimationChange;
-        }
-        else {
-            wgState = WightAnimationState.VANILLA;
         }
     }
 
