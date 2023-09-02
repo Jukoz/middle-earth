@@ -1,16 +1,21 @@
 package net.jesteur.me.entity.equipments;
 
+import net.jesteur.me.utils.ToRad;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import org.joml.Vector3f;
 
 public class CloakCapeEntityModel<T extends LivingEntity> extends AnimalModel<T> {
     private final ModelPart cape;
 
-    public CloakCapeEntityModel(ModelPart cape) {
-        this.cape = cape;
+    public CloakCapeEntityModel(ModelPart root) {
+        this.cape = root.getChild("cape");
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -18,8 +23,9 @@ public class CloakCapeEntityModel<T extends LivingEntity> extends AnimalModel<T>
         ModelPartData modelPartData = modelData.getRoot();
         Dilation dilation = new Dilation(0.0F);
         modelPartData.addChild("cape", ModelPartBuilder.create().uv(32, 32)
-                .cuboid(-6.0F, -1F, -2f, 12.0F, 22.0F, 1.0F, dilation)
-                , ModelTransform.of(0, 1f, 5f, 0.0F, 0.0F, 0F));
+                .cuboid(-6.0F, 0f, 2, 12.0F, 22.0F, 1.0F, dilation)
+                , ModelTransform.of(0, 0.5f, 1.5f, 0.0F, 0.0F, 0F));
+
         return TexturedModelData.of(modelData, 32, 32);
     }
 
@@ -33,12 +39,16 @@ public class CloakCapeEntityModel<T extends LivingEntity> extends AnimalModel<T>
 
     @Override
     public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        if(entity.getVelocity().x != 0 || entity.getVelocity().y != 0){
-            this.cape.pitch = (float)Math.sin(45);
-        } else if (entity.getVelocity().y != 0){
-            this.cape.pitch = (float)Math.sin(90);
-        } else {
-            this.cape.pitch = Math.abs((float)Math.sin(animationProgress * 0.2f));
-        }
+
+        Vec3d velocity = entity.getVelocity();
+        Vec3d absVel = new Vec3d(Math.abs(velocity.x), Math.abs(velocity.y), Math.abs(velocity.z));
+        double speed = Math.sqrt(absVel.getX() * absVel.getX() + absVel.getY() * absVel.getY() + absVel.getZ() * absVel.getZ());
+
+        double degree = (90f * speed > 90) ? 90 : 90f * speed;
+        if(degree < 5f) degree = 5f;
+
+        // entity.getWorld().getPlayers().get(0).sendMessage(Text.literal("Speed : " + degree + " " + speed));
+
+        this.cape.pitch = ToRad.ex(degree + (Math.sin(animationProgress * 0.2f) / 2));
     }
 }
