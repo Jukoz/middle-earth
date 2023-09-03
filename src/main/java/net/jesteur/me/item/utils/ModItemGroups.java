@@ -61,6 +61,17 @@ public class ModItemGroups {
             })
             .build();
 
+    public static final List<ItemStack> EQUIPMENT_CONTENTS = new LinkedList<>();
+    public static final ItemGroup EQUIPMENT = FabricItemGroup.builder()
+            .displayName(Text.literal("Equipment"))
+            .icon(() -> new ItemStack(ModEquipmentItems.CLOAK))
+            .entries((displayContext, entries) -> {
+                for (ItemStack item : EQUIPMENT_CONTENTS) {
+                    entries.add(item);
+                }
+            })
+            .build();
+
     public static final List<ItemStack> TOOLS_CONTENTS = new LinkedList<>();
     public static final ItemGroup TOOLS = FabricItemGroup.builder()
             .displayName(Text.literal("Tools"))
@@ -100,6 +111,7 @@ public class ModItemGroups {
         Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "nature_blocks"), NATURE_BLOCKS);
         Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "food"), FOOD);
         Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "weapons"), WEAPONS);
+        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "equipment"), EQUIPMENT);
         Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "tools"), TOOLS);
         Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "resources"), RESOURCES);
         Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "spawn_eggs"), SPAWN_EGGS);

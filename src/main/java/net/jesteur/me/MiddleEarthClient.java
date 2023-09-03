@@ -3,6 +3,7 @@ package net.jesteur.me;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.jesteur.me.block.ModNatureBlocks;
@@ -18,21 +19,20 @@ import net.jesteur.me.entity.orcs.mordor.MordorOrcRenderer;
 import net.jesteur.me.entity.spear.JavelinEntityRenderer;
 import net.jesteur.me.entity.trolls.cave.CaveTrollRenderer;
 import net.jesteur.me.entity.trolls.snow.SnowTrollRenderer;
+import net.jesteur.me.item.ModEquipmentItems;
 import net.jesteur.me.item.utils.ModModelPredicateProvider;
 import net.jesteur.me.mixin.InGameHUDInvoker;
-import net.jesteur.me.statusEffects.Hallucination;
 import net.jesteur.me.utils.HallucinationData;
 import net.jesteur.me.utils.IEntityDataSaver;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.color.item.ItemColorProvider;
 import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
-import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.item.DyeableItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-
-import java.time.chrono.MinguoEra;
-import java.util.Collection;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class MiddleEarthClient implements ClientModInitializer {
 
@@ -61,6 +61,10 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.PEBBLE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.SPEAR, JavelinEntityRenderer::new);
 
+        registerDyeableItem(ModEquipmentItems.TUNIC_CLOAK);
+        registerDyeableItem(ModEquipmentItems.CLOAK);
+        registerDyeableItem(ModEquipmentItems.CLOAK_HOOD);
+
         // Animals
         EntityRendererRegistry.register(ModEntities.CRAB, CrabRenderer::new);
 
@@ -78,5 +82,15 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.STRAWBERRY_BUSH, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.TOUGH_BERRY_BUSH, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.YELLOW_FLOWER, RenderLayer.getCutout());
+    }
+
+    private void registerDyeableItem(Item item) {
+        ColorProviderRegistry.ITEM.register(new ItemColorProvider() {
+            @Override
+            public int getColor(ItemStack stack, int layer)
+            {
+                return layer == 0 ? ((DyeableItem)stack.getItem()).getColor(stack) : 0xFFFFFF;
+            }
+        }, item);
     }
 }

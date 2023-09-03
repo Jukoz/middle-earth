@@ -30,6 +30,7 @@ public class MiddleEarth implements ModInitializer {
 	public void onInitialize() {
 		ModStatusEffects.registerStatusEffects();
 		ModWeaponItems.registerModItems();
+		ModEquipmentItems.registerModItems();
 		ModToolItems.registerModItems();
 		ModFoodItems.registerModItems();
 		ModRessourceItems.registerModItems();

@@ -12,6 +12,8 @@
     "EntityDataSaverMixin"
   ],
   "client": [
+    "ElytraFeatureRendererMixin",
+    "HeadFeatureRendererMixin"
   ],
   "server": [
   ],

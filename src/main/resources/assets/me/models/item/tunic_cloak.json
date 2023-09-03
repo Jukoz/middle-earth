@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "me:item/tunic_cloak",
+    "layer1": "me:item/tunic_cloak_overlay"
+  }
+}
