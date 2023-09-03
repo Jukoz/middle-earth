@@ -12,13 +12,29 @@ public class WoodBlockSets {
     public static final float PLATE_BUTTON_STRENGTH = 0.5f;
     public static final float LEAVES_STRENGTH = 0.1f;
 
-    public static SimpleBlockSet MALLORN = registerWoodSet("mallorn", WOOD_STRENGTH);
-    public static SimpleBlockSet PINE = registerWoodSet("pine", WOOD_STRENGTH);
+    public static SimpleBlockSet BEECH = registerWoodSet("beech", WOOD_STRENGTH, true);
+    public static SimpleBlockSet LARCH = registerWoodSet("larch", WOOD_STRENGTH, true);
+    public static SimpleBlockSet BLACK_LEBETHRON = registerWoodSet("black_lebethron", WOOD_STRENGTH, false);
+    public static SimpleBlockSet WHITE_LEBETHRON = registerWoodSet("white_lebethron", WOOD_STRENGTH, false);
+    public static SimpleBlockSet MALLORN = registerWoodSet("mallorn", WOOD_STRENGTH, true);
+    public static SimpleBlockSet MAPLE = registerWoodSet("maple", WOOD_STRENGTH, true);
+    public static SimpleBlockSet MIRKWOOD = registerWoodSet("mirkwood", WOOD_STRENGTH, false);
+    public static SimpleBlockSet PALM = registerWoodSet("palm", WOOD_STRENGTH, true);
+    public static SimpleBlockSet PINE = registerWoodSet("pine", WOOD_STRENGTH, true);
+    public static SimpleBlockSet WILLOW = registerWoodSet("willow", WOOD_STRENGTH, true);
 
 
     public static SimpleBlockSet[] sets = new SimpleBlockSet[] {
+            BEECH,
+            LARCH,
+            BLACK_LEBETHRON,
+            WHITE_LEBETHRON,
             MALLORN,
+            MAPLE,
+            MIRKWOOD,
+            PALM,
             PINE,
+            WILLOW,
     };
 
     public record SimpleBlockSet(Block leaves, Block log, Block wood, Block woodWall,
@@ -26,10 +42,12 @@ public class WoodBlockSets {
                                  Block pressurePlate, Block button) {
     }
 
-    private static SimpleBlockSet registerWoodSet(String name, float strength) {
-        Block leaves = ModBlocks.registerBlock(name + "_leaves", new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)
-                .strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)));
-
+    private static SimpleBlockSet registerWoodSet(String name, float strength, boolean hasLeaves) {
+        Block leaves = null;
+        if(hasLeaves) {
+            leaves = ModNatureBlocks.registerBlock(name + "_leaves", new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)
+                    .strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), false);
+        }
         Block log = ModBlocks.registerBlock(name + "_log", new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(strength).sounds(BlockSoundGroup.WOOD)));
 
         Block wood = ModBlocks.registerBlock(name + "_wood", new Block(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).strength(strength).sounds(BlockSoundGroup.WOOD)));

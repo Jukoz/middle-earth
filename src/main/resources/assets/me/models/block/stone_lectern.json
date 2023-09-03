@@ -1,0 +1,11 @@
+{
+    "parent": "minecraft:block/lectern",
+    "textures": {
+        "particle": "me:block/stone_lectern_sides",
+        "bottom": "block/stone",
+        "base": "me:block/stone_lectern_base",
+        "front": "me:block/stone_lectern_front",
+        "sides": "me:block/stone_lectern_sides",
+        "top": "me:block/stone_lectern_top"
+    }
+}
