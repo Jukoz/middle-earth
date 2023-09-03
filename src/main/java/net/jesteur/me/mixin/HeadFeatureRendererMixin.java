@@ -30,6 +30,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 
+import java.awt.*;
+
 @Environment(EnvType.CLIENT)
 @Mixin(HeadFeatureRenderer.class)
 public class HeadFeatureRendererMixin <T extends LivingEntity, M extends EntityModel<T> & ModelWithHead> extends FeatureRenderer<T, M> {
@@ -57,13 +59,13 @@ public class HeadFeatureRendererMixin <T extends LivingEntity, M extends EntityM
         if (itemStack.getItem() == ModEquipmentItems.CLOAK_HOOD) {
             matrices.push();
             matrices.scale(this.scaleX, this.scaleY, this.scaleZ);
+
             ((ModelWithHead) ((HeadFeatureRenderer) (Object) this).getContextModel()).getHead().rotate(matrices);
             matrices.scale(1.19F, 1.19F, 1.19F);
-            int color = ((DyeableItem)itemStack.getItem() ).getColor(itemStack);
-            Vec3d rgb = IntToRGB.ex(color);
-            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, this.cloakHoodModel.getLayer(CLOAK_HOOD_TEXTURE), false, itemStack.hasGlint());
 
-            this.cloakHoodModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, (float)rgb.x, (float)rgb.y, (float)rgb.z, 1.0F);
+            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, this.cloakHoodModel.getLayer(CLOAK_HOOD_TEXTURE), false, itemStack.hasGlint());
+            Color rgb = IntToRGB.ex(((DyeableItem)itemStack.getItem()).getColor(itemStack));
+            this.cloakHoodModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, rgb.getRed()/255f, rgb.getGreen()/255f, rgb.getBlue()/255f, 1.0F);
             matrices.pop();
         }
         if (itemStack.getItem() == ModEquipmentItems.FUR_CLOAK_HOOD) {

@@ -25,6 +25,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 
+import java.awt.*;
+
 @Environment(EnvType.CLIENT)
 @Mixin(ElytraFeatureRenderer.class)
 public class ElytraFeatureRendererMixin<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
@@ -45,14 +47,12 @@ public class ElytraFeatureRendererMixin<T extends LivingEntity, M extends Entity
         if (item == ModEquipmentItems.CLOAK || item == ModEquipmentItems.TUNIC_CLOAK) {
             matrices.push();
 
-            int color = ((DyeableItem)itemStack.getItem()).getColor(itemStack);
-            Vec3d rgb = IntToRGB.ex(color);
-
             this.getContextModel().copyStateTo(this.cloakCapeModel);
 
             VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(CLOAK_CAPE_TEXTURE), false, itemStack.hasGlint());
 
-            this.cloakCapeModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, (float)rgb.x, (float)rgb.y, (float)rgb.z, 1.0F);
+            Color rgb = IntToRGB.ex(((DyeableItem)itemStack.getItem()).getColor(itemStack));
+            this.cloakCapeModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, rgb.getRed()/255f, rgb.getGreen()/255f, rgb.getBlue()/255f, 1.0F);
             this.cloakCapeModel.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
             matrices.pop();
         }
