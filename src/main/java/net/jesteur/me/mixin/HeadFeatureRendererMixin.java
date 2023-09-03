@@ -34,6 +34,7 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(HeadFeatureRenderer.class)
 public class HeadFeatureRendererMixin <T extends LivingEntity, M extends EntityModel<T> & ModelWithHead> extends FeatureRenderer<T, M> {
     private static final Identifier CLOAK_HOOD_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/cloak_features.png");
+    private static final Identifier FUR_CLOAK_HOOD_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/fur_cloak_features.png");
     @Shadow
     @Final
     private float scaleX;
@@ -63,6 +64,17 @@ public class HeadFeatureRendererMixin <T extends LivingEntity, M extends EntityM
             VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, this.cloakHoodModel.getLayer(CLOAK_HOOD_TEXTURE), false, itemStack.hasGlint());
 
             this.cloakHoodModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, (float)rgb.x, (float)rgb.y, (float)rgb.z, 1.0F);
+            matrices.pop();
+        }
+        if (itemStack.getItem() == ModEquipmentItems.FUR_CLOAK_HOOD) {
+            matrices.push();
+            matrices.scale(this.scaleX, this.scaleY, this.scaleZ);
+            ((ModelWithHead) ((HeadFeatureRenderer) (Object) this).getContextModel()).getHead().rotate(matrices);
+            matrices.scale(1.19F, 1.19F, 1.19F);
+
+            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, this.cloakHoodModel.getLayer(FUR_CLOAK_HOOD_TEXTURE), false, itemStack.hasGlint());
+
+            this.cloakHoodModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
             matrices.pop();
         }
     }

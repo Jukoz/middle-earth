@@ -45,6 +45,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         ModelLoadingRegistry.INSTANCE.registerModelProvider(((manager, out) -> new VariantsModelProvider().provideExtraModels(manager, out)));
         EntityRendererRegistry.register(ModEntities.PEBBLE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.SPEAR, JavelinEntityRenderer::new);
+
+        registerDyeableItem(ModEquipmentItems.TUNIC_CLOAK);
         registerDyeableItem(ModEquipmentItems.CLOAK);
         registerDyeableItem(ModEquipmentItems.CLOAK_HOOD);
 

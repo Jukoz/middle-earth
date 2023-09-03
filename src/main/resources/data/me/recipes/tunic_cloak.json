@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "#S#",
-    "# #",
+    "#L#",
     "# #"
   ],
   "key": {
@@ -11,10 +11,13 @@
     },
     "S": {
       "item": "minecraft:string"
+    },
+    "L": {
+      "item": "minecraft:leather_chestplate"
     }
   },
   "result": {
-    "item": "me:cloak",
+    "item": "me:tunic_cloak",
     "count": 1
   }
 }

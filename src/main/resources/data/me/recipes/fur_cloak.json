@@ -2,19 +2,22 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "#S#",
-    "# #",
-    "# #"
+    "W W",
+    "W W"
   ],
   "key": {
     "#": {
-      "item": "minecraft:white_wool"
+      "item": "minecraft:rabbit_hide"
     },
     "S": {
       "item": "minecraft:string"
+    },
+    "W": {
+      "item": "minecraft:white_wool"
     }
   },
   "result": {
-    "item": "me:cloak",
+    "item": "me:fur_cloak",
     "count": 1
   }
 }

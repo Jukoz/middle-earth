@@ -29,6 +29,7 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(ElytraFeatureRenderer.class)
 public class ElytraFeatureRendererMixin<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
     private static final Identifier CLOAK_CAPE_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/cloak_features.png");
+    private static final Identifier FUR_CLOAK_CAPE_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/fur_cloak_features.png");
 
     private final CloakCapeEntityModel<T> cloakCapeModel = new CloakCapeEntityModel<>(CloakCapeEntityModel.getTexturedModelData().createModel());
 
@@ -40,7 +41,8 @@ public class ElytraFeatureRendererMixin<T extends LivingEntity, M extends Entity
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         ItemStack itemStack = entity.getEquippedStack(EquipmentSlot.CHEST);
         Item item = itemStack.getItem();
-        if (item == ModEquipmentItems.CLOAK) {
+        // Dyeable cloak
+        if (item == ModEquipmentItems.CLOAK || item == ModEquipmentItems.TUNIC_CLOAK) {
             matrices.push();
 
             int color = ((DyeableItem)itemStack.getItem()).getColor(itemStack);
@@ -51,6 +53,18 @@ public class ElytraFeatureRendererMixin<T extends LivingEntity, M extends Entity
             VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(CLOAK_CAPE_TEXTURE), false, itemStack.hasGlint());
 
             this.cloakCapeModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, (float)rgb.x, (float)rgb.y, (float)rgb.z, 1.0F);
+            this.cloakCapeModel.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+            matrices.pop();
+        }
+        // Fur cloak
+        if (item == ModEquipmentItems.FUR_CLOAK || item == ModEquipmentItems.CHAINMAIL_CLOAK) {
+            matrices.push();
+
+            this.getContextModel().copyStateTo(this.cloakCapeModel);
+
+            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(FUR_CLOAK_CAPE_TEXTURE), false, itemStack.hasGlint());
+
+            this.cloakCapeModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
             this.cloakCapeModel.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
             matrices.pop();
         }

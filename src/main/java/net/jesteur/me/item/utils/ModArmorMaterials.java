@@ -13,13 +13,19 @@ import java.util.EnumMap;
 import java.util.function.Supplier;
 
 public enum ModArmorMaterials implements ArmorMaterial {
-    FUR_CLOAK("fur_cloak", 5, new int[] { 2, 6, 0, 0},
-            0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, 0.0F,
-            () -> Ingredient.ofItems(Items.IRON_INGOT))
-    ,
-    CLOAK("cloak", 5, new int[] { 1, 5, 0, 0}, 0,
+
+    CLOAK("cloak", 5, new int[] { 1, 2, 0, 0}, 0,
             SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, 0.0F,
-            () -> Ingredient.ofItems(Items.LEATHER))
+            () -> Ingredient.ofItems(Items.LEATHER)),
+    TUNIC_CLOAK("tunic_cloak", 15, new int[] { 0, 5, 0, 0}, 0,
+            SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, 0.0F,
+            () -> Ingredient.ofItems(Items.LEATHER)),
+    FUR_CLOAK("fur_cloak", 5, new int[] { 2, 2, 0, 0},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, 0.0F,
+            () -> Ingredient.ofItems(Items.IRON_INGOT)),
+    CHAINMAIL_FUR_CLOAK("chainmail_fur_cloak", 25, new int[] { 0, 7, 0, 0},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, 0.0F,
+            () -> Ingredient.ofItems(Items.IRON_INGOT)),
     ;
 
     private final String name;

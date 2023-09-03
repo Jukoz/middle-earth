@@ -14,11 +14,23 @@ import net.minecraft.util.Identifier;
 
 public class ModEquipmentItems {
 
+    // Dyeable cloaks
     public static final Item CLOAK = registerItem("cloak",
             new DyeableArmorItem(ModArmorMaterials.CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
     public static final Item CLOAK_HOOD = registerItem("cloak_hood",
-            (Item)(new DyeableArmorItem(ModArmorMaterials.CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings())));
+            new DyeableArmorItem(ModArmorMaterials.CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings()));
+    // Tunic cloak
+    public static final Item TUNIC_CLOAK = registerItem("tunic_cloak",
+            new DyeableArmorItem(ModArmorMaterials.TUNIC_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
 
+    // Fur cloaks
+    public static final Item FUR_CLOAK = registerItem("fur_cloak",
+            new ArmorItem(ModArmorMaterials.FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
+    public static final Item FUR_CLOAK_HOOD = registerItem("fur_cloak_hood",
+            new ArmorItem(ModArmorMaterials.FUR_CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings()));
+    // Chainmail fur cloaks
+    public static final Item CHAINMAIL_CLOAK = registerItem("chainmail_fur_cloak",
+            new ArmorItem(ModArmorMaterials.CHAINMAIL_FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
