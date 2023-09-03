@@ -2,18 +2,18 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "#S#",
-    "#W#",
-    "#W#"
+    "#L#",
+    "# #"
   ],
   "key": {
     "#": {
-      "item": "minecraft:leather"
+      "item": "minecraft:white_wool"
     },
     "S": {
       "item": "minecraft:string"
     },
-    "W": {
-      "item": "minecraft:white_wool"
+    "L": {
+      "item": "minecraft:leather_chestplate"
     }
   },
   "result": {

@@ -1,15 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " # ",
-    "#W#",
-    " S "
+    "###",
+    "#S#"
   ],
   "key": {
     "#": {
-      "item": "minecraft:leather"
-    },
-    "W": {
       "item": "minecraft:white_wool"
     },
     "S": {

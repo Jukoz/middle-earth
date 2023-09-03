@@ -3,18 +3,25 @@ package net.jesteur.me.item.utils;
 import net.jesteur.me.MiddleEarth;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 
+import java.util.EnumMap;
 import java.util.function.Supplier;
 
 public enum ModArmorMaterials implements ArmorMaterial {
-    LEATHER_CLOAK("cloak", 15, new int[] { 2, 4, 0, 0}, 5,
-            SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1, 0.0f,
-            () -> Ingredient.ofItems(Items.LEATHER));
+    FUR_CLOAK("fur_cloak", 5, new int[] { 2, 6, 0, 0},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, 0.0F,
+            () -> Ingredient.ofItems(Items.IRON_INGOT))
+    ,
+    CLOAK("cloak", 5, new int[] { 1, 5, 0, 0}, 0,
+            SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, 0.0F,
+            () -> Ingredient.ofItems(Items.LEATHER))
     ;
+
     private final String name;
     private final int durabilityMultiplier;
     private final int[] protectionAmounts;

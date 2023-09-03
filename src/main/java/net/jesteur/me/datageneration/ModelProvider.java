@@ -159,8 +159,5 @@ public class ModelProvider extends FabricModelProvider {
                 itemModelGenerator.register(item, "_pulling_" + i, Models.GENERATED);
             }
         }
-
-        itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.CLOAK));
-        itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.CLOAK_HOOD));
     }
 }

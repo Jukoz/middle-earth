@@ -18,16 +18,16 @@ public class CloakHoodEntityModel <T extends LivingEntity> extends AnimalModel<T
         ModelPartData modelPartData = modelData.getRoot();
         Dilation dilation = new Dilation(0.0F);
         modelPartData
-                .addChild("hood", ModelPartBuilder.create().uv(0, 0)
-                        .cuboid(-3, -12, 2, 6, 6, 1.0F, dilation)
+                .addChild("hood", ModelPartBuilder.create()
+                                .uv(32, 0)
+                                .cuboid(-3, -12, 2, 6, 6, 1.0F, dilation)
                 , ModelTransform.of(0, 0, 0, 0, 0.0F, 0F))
-                .addChild("back_hood", ModelPartBuilder.create().uv(0,7)
+                .addChild("back_hood", ModelPartBuilder.create().uv(32, 7)
                         .cuboid(-3, -13.435f, 2.08f, 6,6,2, dilation)
                 , ModelTransform.of(0, 1, -1, -ToRad.ex(7.5), 0.0F, 0F));
 
 
-
-        return TexturedModelData.of(modelData, 32, 32);
+        return TexturedModelData.of(modelData, 64, 32);
     }
 
     @Override

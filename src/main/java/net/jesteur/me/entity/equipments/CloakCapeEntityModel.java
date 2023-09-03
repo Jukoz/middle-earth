@@ -22,11 +22,12 @@ public class CloakCapeEntityModel<T extends LivingEntity> extends AnimalModel<T>
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         Dilation dilation = new Dilation(0.0F);
-        modelPartData.addChild("cape", ModelPartBuilder.create().uv(32, 32)
+        modelPartData.addChild("cape", ModelPartBuilder.create()
                 .cuboid(-6.0F, 0f, 2, 12.0F, 22.0F, 1.0F, dilation)
+                .uv(0, 0)
                 , ModelTransform.of(0, 0.5f, 1.5f, 0.0F, 0.0F, 0F));
 
-        return TexturedModelData.of(modelData, 32, 32);
+        return TexturedModelData.of(modelData, 64, 32);
     }
 
     protected Iterable<ModelPart> getHeadParts() {
@@ -47,8 +48,8 @@ public class CloakCapeEntityModel<T extends LivingEntity> extends AnimalModel<T>
         double degree = (90f * speed > 90) ? 90 : 90f * speed;
         if(degree < 5f) degree = 5f;
 
-        // entity.getWorld().getPlayers().get(0).sendMessage(Text.literal("Speed : " + degree + " " + speed));
-
         this.cape.pitch = ToRad.ex(degree + (Math.sin(animationProgress * 0.2f) / 2));
     }
+
+
 }
