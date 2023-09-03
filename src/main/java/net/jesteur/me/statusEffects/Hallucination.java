@@ -35,8 +35,5 @@ public class Hallucination extends StatusEffect {
     }
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        HudRenderCallback.EVENT.register((drawContext, tickDelta) -> {
-
-        });
     }
 }
