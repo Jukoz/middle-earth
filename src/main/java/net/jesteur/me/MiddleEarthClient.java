@@ -4,6 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.jesteur.me.block.ModNatureBlocks;
 import net.jesteur.me.datageneration.VariantsModelProvider;
 import net.jesteur.me.entity.ModEntities;
@@ -18,13 +19,43 @@ import net.jesteur.me.entity.spear.JavelinEntityRenderer;
 import net.jesteur.me.entity.trolls.cave.CaveTrollRenderer;
 import net.jesteur.me.entity.trolls.snow.SnowTrollRenderer;
 import net.jesteur.me.item.utils.ModModelPredicateProvider;
-import net.minecraft.client.render.RenderLayer;
+import net.jesteur.me.mixin.InGameHUDInvoker;
+import net.jesteur.me.statusEffects.Hallucination;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.util.Identifier;
+
+import java.util.Collection;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MiddleEarthClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        HudRenderCallback.EVENT.register((drawContext, tickDelta) -> {
+            int intensity = 0;
+            boolean isHallucinating = false;
+
+            Collection<StatusEffectInstance> c =  MinecraftClient.getInstance().player.getStatusEffects();
+            for (StatusEffectInstance statusEffect:
+                 c) {
+                MiddleEarth.LOGGER.info(statusEffect.getEffectType().toString());
+                if(statusEffect.getEffectType() instanceof Hallucination){
+                    isHallucinating = true;
+                    break;
+                }
+            }
+            if(isHallucinating){
+            InGameHud ingamehud = MinecraftClient.getInstance().inGameHud;
+            InGameHUDInvoker inGameHUDInvoker = (InGameHUDInvoker) ingamehud;
+            inGameHUDInvoker.renderOverlayInvoker(drawContext,new Identifier("me", "textures/entities/barrow_wights/overlay.png"), 1);
+            }
+
+        });
+
         ModEntityModels.getModels();
         EntityRendererRegistry.register(ModEntities.BARROW_WIGHT, BarrowWightEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.CAVE_TROLL, CaveTrollRenderer::new);
