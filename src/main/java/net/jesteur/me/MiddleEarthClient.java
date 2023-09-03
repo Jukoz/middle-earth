@@ -43,8 +43,8 @@ public class MiddleEarthClient implements ClientModInitializer {
             InGameHud ingamehud = MinecraftClient.getInstance().inGameHud;
             InGameHUDInvoker inGameHUDInvoker = (InGameHUDInvoker) ingamehud;
             int hallucination = HallucinationData.readHallucination((IEntityDataSaver) MinecraftClient.getInstance().player);
-            inGameHUDInvoker.renderOverlayInvoker(drawContext, new Identifier(MiddleEarth.MOD_ID, "textures/entities/barrow_wights/overlay.png"), hallucination/80.0f);
-            ingamehud.clear();
+            inGameHUDInvoker.renderOverlayInvoker(drawContext, new Identifier(MiddleEarth.MOD_ID, "textures/entities/barrow_wights/overlay.png"), hallucination/100.0f);
+            ingamehud.clear(); // this seems to be needed as its drawing the same ui on top of eachother... unsure how to solve otherwise. will clear
         });
 
         ModEntityModels.getModels();
