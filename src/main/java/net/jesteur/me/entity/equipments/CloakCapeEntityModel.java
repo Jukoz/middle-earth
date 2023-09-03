@@ -7,6 +7,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.text.Text;
+import net.minecraft.util.dynamic.Range;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3f;
@@ -45,8 +46,10 @@ public class CloakCapeEntityModel<T extends LivingEntity> extends AnimalModel<T>
         Vec3d absVel = new Vec3d(Math.abs(velocity.x), Math.abs(velocity.y), Math.abs(velocity.z));
         double speed = Math.sqrt(absVel.getX() * absVel.getX() + absVel.getY() * absVel.getY() + absVel.getZ() * absVel.getZ());
 
-        double degree = (90f * speed > 90) ? 90 : 90f * speed;
-        if(degree < 5f) degree = 5f;
+
+        double degree = 90f * speed;
+        degree = Math.max(5f, degree);
+        degree = Math.min(90f, degree);
 
         this.cape.pitch = ToRad.ex(degree + (Math.sin(animationProgress * 0.2f) / 2));
     }
