@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public class EntityDataSaverMixin implements IEntityDataSaver {
-    private final String KEY = MiddleEarth.MOD_ID + ".hallucination";
+    private final String KEY = MiddleEarth.MOD_ID;
     private NbtCompound persistentData;
 
     @Override

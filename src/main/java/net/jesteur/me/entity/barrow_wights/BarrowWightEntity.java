@@ -1,6 +1,8 @@
 package net.jesteur.me.entity.barrow_wights;
 
 import net.jesteur.me.MiddleEarth;
+import net.jesteur.me.utils.HallucinationData;
+import net.jesteur.me.utils.IEntityDataSaver;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -129,6 +131,12 @@ public class BarrowWightEntity extends HostileEntity {
             double d;
             if (target instanceof LivingEntity) {
                 LivingEntity livingEntity = (LivingEntity)target;
+                if(target instanceof PlayerEntity) {
+                    //PlayerEntity playerEntity = (PlayerEntity) livingEntity;
+                    HallucinationData.addHallucination((IEntityDataSaver) livingEntity, 1);
+
+                    System.out.println("HALLUCINATION: " + HallucinationData.readHallucination((IEntityDataSaver) livingEntity));
+                }
                 d = livingEntity.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE);
             } else {
                 d = 0.0;

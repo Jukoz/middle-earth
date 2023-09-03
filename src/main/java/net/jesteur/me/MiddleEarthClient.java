@@ -42,16 +42,16 @@ public class MiddleEarthClient implements ClientModInitializer {
             Collection<StatusEffectInstance> c =  MinecraftClient.getInstance().player.getStatusEffects();
             for (StatusEffectInstance statusEffect:
                  c) {
-                MiddleEarth.LOGGER.info(statusEffect.getEffectType().toString());
+                //MiddleEarth.LOGGER.info(statusEffect.getEffectType().toString());
                 if(statusEffect.getEffectType() instanceof Hallucination){
                     isHallucinating = true;
                     break;
                 }
             }
             if(isHallucinating){
-            InGameHud ingamehud = MinecraftClient.getInstance().inGameHud;
-            InGameHUDInvoker inGameHUDInvoker = (InGameHUDInvoker) ingamehud;
-            inGameHUDInvoker.renderOverlayInvoker(drawContext,new Identifier("me", "textures/entities/barrow_wights/overlay.png"), 1);
+                InGameHud ingamehud = MinecraftClient.getInstance().inGameHud;
+                InGameHUDInvoker inGameHUDInvoker = (InGameHUDInvoker) ingamehud;
+                inGameHUDInvoker.renderOverlayInvoker(drawContext,new Identifier(MiddleEarth.MOD_ID, "textures/entities/barrow_wights/overlay.png"), 0.5f);
             }
 
         });
