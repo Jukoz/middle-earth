@@ -102,7 +102,6 @@ public class BarrowWightEntity extends HostileEntity {
     @Override
     public void tick(){
         if(getState() == State.SCREAM){
-            MiddleEarth.LOGGER.info("Trying to play animation!!!");
             this.screamAnimationState.start(this.age);
         }
         if(this.screamTicksLeft > 0 )

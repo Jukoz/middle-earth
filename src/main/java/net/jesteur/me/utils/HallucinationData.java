@@ -9,7 +9,7 @@ public class HallucinationData {
         NbtCompound nbt = player.getPersistentData();
         int hallucination = nbt.getInt(KEY);
 
-        hallucination = Math.min(40, hallucination + amount);
+        hallucination = Math.min(80, hallucination + amount);
         hallucination = Math.max(0, hallucination);
 
         nbt.putInt(KEY, hallucination);
@@ -21,5 +21,10 @@ public class HallucinationData {
         int hallucination = nbt.getInt(KEY);
 
         return hallucination;
+    }
+    public static void resetHallucination(IEntityDataSaver player){
+        NbtCompound nbt = player.getPersistentData();
+        nbt.putInt(KEY, 0);
+
     }
 }

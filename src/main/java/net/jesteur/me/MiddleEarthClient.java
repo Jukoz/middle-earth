@@ -21,6 +21,8 @@ import net.jesteur.me.entity.trolls.snow.SnowTrollRenderer;
 import net.jesteur.me.item.utils.ModModelPredicateProvider;
 import net.jesteur.me.mixin.InGameHUDInvoker;
 import net.jesteur.me.statusEffects.Hallucination;
+import net.jesteur.me.utils.HallucinationData;
+import net.jesteur.me.utils.IEntityDataSaver;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.*;
@@ -28,6 +30,7 @@ import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.util.Identifier;
 
+import java.time.chrono.MinguoEra;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -36,24 +39,12 @@ public class MiddleEarthClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         HudRenderCallback.EVENT.register((drawContext, tickDelta) -> {
-            int intensity = 0;
-            boolean isHallucinating = false;
 
-            Collection<StatusEffectInstance> c =  MinecraftClient.getInstance().player.getStatusEffects();
-            for (StatusEffectInstance statusEffect:
-                 c) {
-                //MiddleEarth.LOGGER.info(statusEffect.getEffectType().toString());
-                if(statusEffect.getEffectType() instanceof Hallucination){
-                    isHallucinating = true;
-                    break;
-                }
-            }
-            if(isHallucinating){
-                InGameHud ingamehud = MinecraftClient.getInstance().inGameHud;
-                InGameHUDInvoker inGameHUDInvoker = (InGameHUDInvoker) ingamehud;
-                inGameHUDInvoker.renderOverlayInvoker(drawContext,new Identifier(MiddleEarth.MOD_ID, "textures/entities/barrow_wights/overlay.png"), 0.5f);
-            }
-
+            InGameHud ingamehud = MinecraftClient.getInstance().inGameHud;
+            InGameHUDInvoker inGameHUDInvoker = (InGameHUDInvoker) ingamehud;
+            int hallucination = HallucinationData.readHallucination((IEntityDataSaver) MinecraftClient.getInstance().player);
+            inGameHUDInvoker.renderOverlayInvoker(drawContext, new Identifier(MiddleEarth.MOD_ID, "textures/entities/barrow_wights/overlay.png"), hallucination/80.0f);
+            ingamehud.clear();
         });
 
         ModEntityModels.getModels();
