@@ -325,5 +325,28 @@
   "itemGroup.blocks": "Blocks",
   "itemGroup.food": "Food",
   "itemGroup.weapons": "Weapons",
-  "itemGroup.resources": "Resources"
+  "itemGroup.resources": "Resources",
+
+  "#Comment:": "Copper ores",
+  "block.me.blue_rock_copper_ore": "Gonluin Copper Ore",
+  "block.me.ashen_rock_copper_ore": "Ashen Copper Ore",
+  "block.me.dolomite_copper_ore": "Dolomite Copper Ore",
+  "block.me.calcite_copper_ore": "Calcite Copper Ore",
+
+  "#Comment:": "Coal ores",
+  "block.me.blue_rock_coal_ore": "Gonluin Coal Ore",
+  "block.me.ashen_rock_coal_ore": "Ashen Coal Ore",
+  "block.me.dolomite_coal_ore": "Dolomite Coal Ore",
+  "block.me.calcite_coal_ore": "Calcite Coal Ore",
+  "#Comment:": "Iron ores",
+  "block.me.blue_rock_iron_ore": "Gonluin Iron Ore",
+  "block.me.ashen_rock_iron_ore": "Ashen Iron Ore",
+  "block.me.dolomite_iron_ore": "Dolomite Iron Ore",
+  "block.me.calcite_iron_ore": "Calcite Iron Ore",
+
+  "#Comment:": "Gold ores",
+  "block.me.blue_rock_gold_ore": "Gonluin Gold Ore",
+  "block.me.ashen_rock_gold_ore": "Ashen Gold Ore",
+  "block.me.dolomite_gold_ore": "Dolomite Gold Ore",
+  "block.me.calcite_gold_ore": "Calcite Gold Ore"
 }
