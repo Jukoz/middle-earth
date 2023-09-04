@@ -12,7 +12,7 @@ public class OreRockSets {
     public static final float ORE_STRENGTH = 3.0f;
 
     public static OreRockSet ASHEN_ROCK = registerOreSet("ashen_rock", 1.2f, null);
-    public static OreRockSet BLUE_ROCK = registerOreSet("blue_rock", 2.0f, null);
+    public static OreRockSet BLUE_ROCK = registerOreSet("gonluin", 2.0f, null);
     public static OreRockSet DOLOMITE = registerOreSet("dolomite", 1.2f, null);
     public static OreRockSet CALCITE = registerOreSet("calcite", 1.0f, null);
 

@@ -10,16 +10,16 @@
           "tag": "minecraft:base_stone_overworld"
         },
         "state": {
-          "Name": "me:frozen_blue_rock"
+          "Name": "me:frozen_gonluin"
         }
       },
       {
         "target": {
           "predicate_type": "minecraft:block_match",
-          "block": "me:blue_rock"
+          "block": "me:gonluin"
         },
         "state": {
-          "Name": "me:frozen_blue_rock"
+          "Name": "me:frozen_gonluin"
         }
       }
     ]
