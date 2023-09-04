@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=true,hanging=false": {
+      "model": "me:block/skull_lantern"
+    },
+    "lit=true,hanging=true": {
+      "model": "me:block/skull_lantern_hanging"
+    },
+    "lit=false,hanging=false": {
+      "model": "me:block/unlit_skull_lantern"
+    },
+    "lit=false,hanging=true": {
+      "model": "me:block/unlit_skull_lantern_hanging"
+    }
+  }
+}

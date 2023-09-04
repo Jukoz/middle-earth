@@ -1,6 +1,7 @@
 package net.jesteur.me.datageneration.content.loot_tables;
 
 import net.jesteur.me.block.ModBlocks;
+import net.jesteur.me.block.ModDecorativeBlocks;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class BlockDrops {
             add(ModBlocks.STRAW_BLOCK);
             add(ModBlocks.STONE_TRAPDOOR);
             add(ModBlocks.BLACKSTONE_TRAPDOOR);
+            add(ModDecorativeBlocks.SKULL_LANTERN);
         }
     };
 }

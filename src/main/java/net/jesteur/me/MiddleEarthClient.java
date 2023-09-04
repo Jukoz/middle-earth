@@ -5,6 +5,8 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.jesteur.me.block.ModBlocks;
+import net.jesteur.me.block.ModDecorativeBlocks;
 import net.jesteur.me.block.ModNatureBlocks;
 import net.jesteur.me.datageneration.VariantsModelProvider;
 import net.jesteur.me.entity.ModEntities;
@@ -34,6 +36,7 @@ public class MiddleEarthClient implements ClientModInitializer {
     public void onInitializeClient() {
         ModEntityModels.getModels();
 
+        // Entities
         EntityRendererRegistry.register(ModEntities.CAVE_TROLL, CaveTrollRenderer::new);
         EntityRendererRegistry.register(ModEntities.DURIN_FOLK, DurinDwarfRenderer::new);
         EntityRendererRegistry.register(ModEntities.HOBBIT, HobbitRenderer::new);
@@ -55,6 +58,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         ModModelPredicateProvider.registerBowModel();
 
+
         initializeRenderLayerMap();
     }
 
@@ -67,6 +71,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.STRAWBERRY_BUSH, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.TOUGH_BERRY_BUSH, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.YELLOW_FLOWER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.SKULL_LANTERN, RenderLayer.getCutout());
     }
 
     private void registerDyeableItem(Item item) {

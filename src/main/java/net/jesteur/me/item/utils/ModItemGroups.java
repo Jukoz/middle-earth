@@ -2,6 +2,7 @@ package net.jesteur.me.item.utils;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.jesteur.me.MiddleEarth;
+import net.jesteur.me.block.ModDecorativeBlocks;
 import net.jesteur.me.block.SimpleBlockSets;
 import net.jesteur.me.block.ModNatureBlocks;
 import net.jesteur.me.item.*;
@@ -23,6 +24,17 @@ public class ModItemGroups {
             .icon(() -> new ItemStack(SimpleBlockSets.CALCITE_BRICKS.base().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : BLOCKS_CONTENTS) {
+                    entries.add(item);
+                }
+            })
+            .build();
+
+    public static final List<ItemStack> DECORATIVES_BLOCKS_CONTENT = new LinkedList<>();
+    public static final ItemGroup DECORATIVES_BLOCKS = FabricItemGroup.builder()
+            .displayName(Text.literal("Decoratives"))
+            .icon(() -> new ItemStack(ModDecorativeBlocks.SKULL_LANTERN))
+            .entries((displayContext, entries) -> {
+                for (ItemStack item : DECORATIVES_BLOCKS_CONTENT) {
                     entries.add(item);
                 }
             })
@@ -108,6 +120,7 @@ public class ModItemGroups {
 
     public static void register() {
         Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "blocks"), BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "decorative"), DECORATIVES_BLOCKS);
         Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "nature_blocks"), NATURE_BLOCKS);
         Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "food"), FOOD);
         Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "weapons"), WEAPONS);

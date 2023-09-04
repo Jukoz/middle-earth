@@ -2,6 +2,7 @@ package net.jesteur.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.jesteur.me.block.ModBlocks;
 import net.jesteur.me.datageneration.content.CustomItemModels;
 import net.jesteur.me.datageneration.content.models.*;
 import net.jesteur.me.item.ModEquipmentItems;
