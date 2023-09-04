@@ -1,6 +1,5 @@
 package net.jesteur.me.entity.spider;
 
-import net.jesteur.me.entity.trolls.cave.CaveTrollEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
@@ -10,7 +9,7 @@ import net.minecraft.util.math.MathHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpiderModel extends EntityModel<SpiderEntity> {
+public class MirkwoodSpiderModel extends EntityModel<MirkwoodSpiderEntity> {
     private static final int CLIMBING_TIME_TRANSITION = 30;
     private static final float LEGS_MARGIN_ANGLE = 0.18f;
     private static final float LEGS_MARGIN_ANGLE_MULTIPLIER = 2f;
@@ -52,7 +51,7 @@ public class SpiderModel extends EntityModel<SpiderEntity> {
     private List<ModelPart> legs = new ArrayList<>();
     private float climbingTicks = 0;
 
-    public SpiderModel(ModelPart root) {
+    public MirkwoodSpiderModel(ModelPart root) {
         this.body = root.getChild("body");
         this.leg_right = this.body.getChild("leg_right");
         this.leg1 = leg_right.getChild("leg1");
@@ -172,8 +171,8 @@ public class SpiderModel extends EntityModel<SpiderEntity> {
     }
 
     @Override
-    public void setAngles(SpiderEntity entity, float limbAngle, float limbDistance, float ageInTicks, float headYaw, float headPitch) {
-        float cosVal = (MathHelper.cos(limbAngle * 2.0F) * 0.6F) * limbDistance;
+    public void setAngles(MirkwoodSpiderEntity entity, float limbAngle, float limbDistance, float ageInTicks, float headYaw, float headPitch) {
+        float cosVal = (MathHelper.cos(limbAngle * 1.2F) * 0.2F) * limbDistance;
         float cosTime = MathHelper.cos(ageInTicks * 0.15F) * 0.6F;
 
         if(entity.isClimbingWall()) {
