@@ -19,11 +19,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 
-public abstract class AbstractToggeableLightBlock extends AbstractCandleBlock {
+public abstract class AbstractToggeableLightBlock extends Block {
 
     protected AbstractToggeableLightBlock(Settings settings) {
         super(settings);
     }
+
 
 
 }
