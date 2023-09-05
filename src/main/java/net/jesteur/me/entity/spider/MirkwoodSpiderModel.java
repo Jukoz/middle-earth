@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MirkwoodSpiderModel extends EntityModel<MirkwoodSpiderEntity> {
-    private static final int CLIMBING_TIME_TRANSITION = 30;
     private static final float LEGS_MARGIN_ANGLE = 0.18f;
     private static final float LEGS_MARGIN_ANGLE_MULTIPLIER = 2f;
     private static final float UPPER_LEGS_ROLL = 0.6f;
@@ -49,7 +48,6 @@ public class MirkwoodSpiderModel extends EntityModel<MirkwoodSpiderEntity> {
     private List<ModelPart> evenBottomLegs = new ArrayList<>();
     private List<ModelPart> oddBottomLegs = new ArrayList<>();
     private List<ModelPart> legs = new ArrayList<>();
-    private float climbingTicks = 0;
 
     public MirkwoodSpiderModel(ModelPart root) {
         this.body = root.getChild("body");
@@ -107,9 +105,9 @@ public class MirkwoodSpiderModel extends EntityModel<MirkwoodSpiderEntity> {
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData body = modelPartData.addChild("body", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 21.0F, 0.0F));
+        ModelPartData body = modelPartData.addChild("body", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 20.0F, -5.5F));
 
-        ModelPartData leg_right = body.addChild("leg_right", ModelPartBuilder.create().uv(13, 45).cuboid(-3.0F, -5.0F, -10.0F, 1.0F, 3.0F, 11.0F, new Dilation(0.0F)), ModelTransform.pivot(-1.0F, 1.0F, 0.0F));
+        ModelPartData leg_right = body.addChild("leg_right", ModelPartBuilder.create().uv(13, 45).cuboid(-3.0F, -5.0F, -10.0F, 1.0F, 3.0F, 11.0F, new Dilation(0.0F)), ModelTransform.pivot(-1.0F, 2.0F, 5.5F));
 
         ModelPartData leg1 = leg_right.addChild("leg1", ModelPartBuilder.create().uv(33, 8).cuboid(-11.8F, -3.0F, -1.0F, 13.0F, 2.0F, 2.0F, new Dilation(-0.05F)), ModelTransform.pivot(-3.2F, -1.5F, -0.2F));
 
@@ -127,7 +125,7 @@ public class MirkwoodSpiderModel extends EntityModel<MirkwoodSpiderEntity> {
 
         ModelPartData bottom_leg4 = leg4.addChild("bottom_leg4", ModelPartBuilder.create().uv(22, 25).cuboid(-17.5F, -1.0F, -1.0F, 18.0F, 2.0F, 2.0F, new Dilation(-0.05F)), ModelTransform.pivot(-11.4F, -2.0F, 0.0F));
 
-        ModelPartData leg_left = body.addChild("leg_left", ModelPartBuilder.create().uv(0, 37).cuboid(3.1F, -5.1F, -10.0F, 1.0F, 3.0F, 11.0F, new Dilation(0.0F)), ModelTransform.of(7.1F, 1.1F, -9.0F, 0.0F, 3.1416F, 0.0F));
+        ModelPartData leg_left = body.addChild("leg_left", ModelPartBuilder.create().uv(0, 37).cuboid(3.1F, -5.1F, -10.0F, 1.0F, 3.0F, 11.0F, new Dilation(0.0F)), ModelTransform.of(7.1F, 2.1F, -3.5F, 0.0F, 3.1416F, 0.0F));
 
         ModelPartData leg5 = leg_left.addChild("leg5", ModelPartBuilder.create().uv(33, 4).cuboid(-11.9F, -3.0F, -1.0F, 13.0F, 2.0F, 2.0F, new Dilation(-0.05F)), ModelTransform.pivot(3.0F, -1.6F, -0.2F));
 
@@ -145,11 +143,11 @@ public class MirkwoodSpiderModel extends EntityModel<MirkwoodSpiderEntity> {
 
         ModelPartData bottom_leg8 = leg8.addChild("bottom_leg8", ModelPartBuilder.create().uv(22, 21).cuboid(-17.4F, -1.0F, -1.0F, 18.0F, 2.0F, 2.0F, new Dilation(-0.05F)), ModelTransform.pivot(-11.6F, -2.0F, 0.0F));
 
-        ModelPartData thorax = body.addChild("thorax", ModelPartBuilder.create().uv(0, 21).cuboid(-2.0F, -6.0F, -9.0F, 6.0F, 6.0F, 10.0F, new Dilation(0.0F)), ModelTransform.pivot(-1.0F, -1.0F, 0.0F));
+        ModelPartData thorax = body.addChild("thorax", ModelPartBuilder.create().uv(0, 21).cuboid(-2.0F, -6.0F, -9.0F, 6.0F, 6.0F, 10.0F, new Dilation(0.0F)), ModelTransform.pivot(-1.0F, 0.0F, 5.5F));
 
         ModelPartData abdomen = thorax.addChild("abdomen", ModelPartBuilder.create().uv(0, 0).cuboid(-5.0F, -6.0F, -0.5F, 10.0F, 8.0F, 13.0F, new Dilation(0.5F)), ModelTransform.pivot(1.0F, -2.0F, 1.5F));
 
-        ModelPartData face = body.addChild("face", ModelPartBuilder.create().uv(24, 29).cuboid(-3.0F, -10.0F, -14.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.01F)), ModelTransform.pivot(-1.0F, 1.0F, -2.0F));
+        ModelPartData face = body.addChild("face", ModelPartBuilder.create().uv(24, 29).cuboid(-3.0F, -10.0F, -14.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.01F)), ModelTransform.pivot(-1.0F, 2.0F, 3.5F));
 
         ModelPartData fang1 = face.addChild("fang1", ModelPartBuilder.create().uv(0, 5).cuboid(-0.75F, -0.5F, -6.0F, 2.0F, 3.0F, 2.0F, new Dilation(0.1F)), ModelTransform.of(-1.5F, -3.75F, -10.0F, 0.0F, 0.0F, -0.2182F));
 
@@ -172,16 +170,15 @@ public class MirkwoodSpiderModel extends EntityModel<MirkwoodSpiderEntity> {
 
     @Override
     public void setAngles(MirkwoodSpiderEntity entity, float limbAngle, float limbDistance, float ageInTicks, float headYaw, float headPitch) {
-        float cosVal = (MathHelper.cos(limbAngle * 1.2F) * 0.2F) * limbDistance;
+        float cosVal = (MathHelper.cos(limbAngle * 1.4F) * 0.3F) * limbDistance;
         float cosTime = MathHelper.cos(ageInTicks * 0.15F) * 0.6F;
 
-        if(entity.isClimbingWall()) {
-            this.climbingTicks = Math.min(CLIMBING_TIME_TRANSITION, this.climbingTicks + 1);
-            cosVal = MathHelper.cos(ageInTicks * 0.11F) * 0.6F;
-        } else {
-            this.climbingTicks = Math.max(0, this.climbingTicks - 1);
+        float percentage = (float) entity.getClimbingTicks() / MirkwoodSpiderEntity.CLIMBING_TIME_TRANSITION;
+
+        if(percentage > 0) {
+            cosVal = MathHelper.cos(ageInTicks * 0.3F) * 0.6F;
+
         }
-        float percentage = climbingTicks / CLIMBING_TIME_TRANSITION;
 
         for(ModelPart leg : oddLegs) {
             leg.roll = UPPER_LEGS_ROLL + (cosVal / 3);
@@ -221,13 +218,13 @@ public class MirkwoodSpiderModel extends EntityModel<MirkwoodSpiderEntity> {
 
         this.fang1.roll = cosTime / 8;
         this.fang2.roll = -cosTime / 8;
-        this.fang1.yaw = -cosVal / 7;
-        this.fang2.yaw = cosVal / 7;
+        this.fang1.pitch = -cosVal / 5;
+        this.fang2.pitch = cosVal / 5;
 
         this.abdomen.pitch = -0.15f + (cosVal / 7);
 
         this.body.pitch = -1.5f * percentage;
-        this.abdomen.pitch += (0.7f * percentage);
+        this.abdomen.pitch += (0.7f * percentage) + (0.04 * cosTime);
     }
 
     @Override

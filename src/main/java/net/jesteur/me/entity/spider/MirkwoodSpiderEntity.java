@@ -2,6 +2,7 @@ package net.jesteur.me.entity.spider;
 
 import net.jesteur.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfEntity;
+import net.jesteur.me.entity.goals.FastPonceAtTargetGoal;
 import net.jesteur.me.entity.hobbits.HobbitEntity;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
 import net.minecraft.block.BlockState;
@@ -31,6 +32,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 public class MirkwoodSpiderEntity extends HostileEntity {
+    public static final int CLIMBING_TIME_TRANSITION = 12;
     private static final TrackedData<Byte> SPIDER_FLAGS;
     private int climbingTicks = 0;
 
@@ -41,13 +43,13 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     public static DefaultAttributeContainer.Builder setAttributes() {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 16.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.37);
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4);
     }
 
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(3, new PounceAtTargetGoal(this, 0.5F));
-        this.goalSelector.add(4, new AttackGoal(this));
+        this.goalSelector.add(3, new FastPonceAtTargetGoal(this, 0.3F, 0.4f));
+        this.goalSelector.add(4, new MeleeAttackGoal(this, 1.2f, false));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
@@ -104,6 +106,17 @@ public class MirkwoodSpiderEntity extends HostileEntity {
             this.setClimbingWall(this.horizontalCollision);
         }
     }
+
+    @Override
+    public void tickMovement() {
+        super.tickMovement();
+        if(isClimbingWall()) {
+            this.climbingTicks = Math.min(CLIMBING_TIME_TRANSITION, this.climbingTicks + 1);
+        } else {
+            this.climbingTicks = Math.max(0, this.climbingTicks - 1);
+        }
+    }
+
     protected SoundEvent getAmbientSound() {
         return SoundEvents.ENTITY_SPIDER_AMBIENT;
     }
@@ -144,6 +157,10 @@ public class MirkwoodSpiderEntity extends HostileEntity {
         return (this.dataTracker.get(SPIDER_FLAGS) & 1) != 0;
     }
 
+    public boolean isCollidingWall() {
+        return this.horizontalCollision;
+    }
+
     public void setClimbingWall(boolean climbing) {
         byte b = (Byte)this.dataTracker.get(SPIDER_FLAGS);
         if (climbing) {
@@ -153,6 +170,10 @@ public class MirkwoodSpiderEntity extends HostileEntity {
         }
 
         this.dataTracker.set(SPIDER_FLAGS, b);
+    }
+
+    public int getClimbingTicks() {
+        return this.climbingTicks;
     }
 
     public MirkwoodSpiderVariants getVariant() {
