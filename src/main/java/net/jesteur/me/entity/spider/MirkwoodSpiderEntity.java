@@ -43,7 +43,8 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     public static DefaultAttributeContainer.Builder setAttributes() {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 16.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4);
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 36.0);
     }
 
     protected void initGoals() {

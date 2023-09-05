@@ -47,6 +47,7 @@ public class MordorOrcEntity extends HostileEntity {
         this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(++i, new LookAroundGoal(this));
         i = 0;
+        this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
