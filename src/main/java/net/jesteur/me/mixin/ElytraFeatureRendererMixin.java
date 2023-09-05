@@ -39,7 +39,7 @@ public class ElytraFeatureRendererMixin<T extends LivingEntity, M extends Entity
         super(context);
     }
 
-    @Override
+    @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         ItemStack itemStack = entity.getEquippedStack(EquipmentSlot.CHEST);
         Item item = itemStack.getItem();

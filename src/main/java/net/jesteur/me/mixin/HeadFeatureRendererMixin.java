@@ -53,7 +53,8 @@ public class HeadFeatureRendererMixin <T extends LivingEntity, M extends EntityM
         super(context);
     }
 
-    @Override
+    @SuppressWarnings("rawtypes")
+    @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         ItemStack itemStack = entity.getEquippedStack(EquipmentSlot.HEAD);
         if (itemStack.getItem() == ModEquipmentItems.CLOAK_HOOD) {
