@@ -15,6 +15,7 @@ import net.jesteur.me.entity.hobbits.HobbitRenderer;
 import net.jesteur.me.entity.model.ModEntityModels;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcRenderer;
 import net.jesteur.me.entity.spear.JavelinEntityRenderer;
+import net.jesteur.me.entity.spider.MirkwoodSpiderRenderer;
 import net.jesteur.me.entity.trolls.cave.CaveTrollRenderer;
 import net.jesteur.me.entity.trolls.snow.SnowTrollRenderer;
 import net.jesteur.me.item.ModEquipmentItems;
@@ -39,6 +40,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.HOBBIT, HobbitRenderer::new);
         EntityRendererRegistry.register(ModEntities.GALADHRIM_ELF, GaladhrimElfRenderer::new);
         EntityRendererRegistry.register(ModEntities.MORDOR_ORC, MordorOrcRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MIRKWOOD_SPIDER, MirkwoodSpiderRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNOW_TROLL, SnowTrollRenderer::new);
 
         // Items
