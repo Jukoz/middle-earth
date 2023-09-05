@@ -38,8 +38,8 @@ public class MEBiomesData {
         addBiome(new Color(75, 108, 143), wastePond);
 
         addBiome(new Color(156, 207, 113), new MEBiome(4, MEBiomeKeys.ANDUIN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(200, 209, 255), new MEBiome(39, MEBiomeKeys.BLUE_MOUNTAINS, SimpleBlockSets.BLUE_ROCK.base(), SimpleBlockSets.BLUE_ROCK.base(), Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(178, 183, 210), new MEBiome(22, MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, SimpleBlockSets.BLUE_ROCK.base(), SimpleBlockSets.BLUE_ROCK.base(), Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(200, 209, 255), new MEBiome(39, MEBiomeKeys.BLUE_MOUNTAINS, SimpleBlockSets.GONLUIN.base(), SimpleBlockSets.GONLUIN.base(), Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(178, 183, 210), new MEBiome(22, MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, SimpleBlockSets.GONLUIN.base(), SimpleBlockSets.GONLUIN.base(), Blocks.STONE, Blocks.STONE));
         addBiome(new Color(193, 188, 131), new MEBiome(6, MEBiomeKeys.CORSAIR_COASTS, Blocks.GRASS_BLOCK, Blocks.SANDSTONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(132, 164, 78), new MEBiome(4, MEBiomeKeys.DALE, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(93, 113, 92), new MEBiome(31, MEBiomeKeys.DORWINION_HILLS, Blocks.STONE, Blocks.STONE, Blocks.STONE, Blocks.STONE));

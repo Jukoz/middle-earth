@@ -10,6 +10,8 @@
     "PlayerMixin"
   ],
   "client": [
+    "ElytraFeatureRendererMixin",
+    "HeadFeatureRendererMixin"
   ],
   "server": [
   ],

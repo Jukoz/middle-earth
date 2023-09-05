@@ -4,8 +4,10 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.jesteur.me.datageneration.content.CustomItemModels;
 import net.jesteur.me.datageneration.content.models.*;
+import net.jesteur.me.item.ModEquipmentItems;
 import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -161,5 +163,9 @@ public class ModelProvider extends FabricModelProvider {
         for (Item item : SimpleSpawnEggItemModel.items) {
             itemModelGenerator.register(item, CustomItemModels.TEMPLATE_SPAWN_EGG);
         }
+        
+        // Dyeables needs to be done manually (because of layers)
+        itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.FUR_CLOAK));
+        itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.FUR_CLOAK_HOOD));
     }
 }
