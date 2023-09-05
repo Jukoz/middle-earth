@@ -1,6 +1,7 @@
 package net.jesteur.me.datageneration;
 
 import net.jesteur.me.block.ModBlocks;
+import net.jesteur.me.block.OreRockSets;
 import net.jesteur.me.block.SimpleBlockSets;
 import net.jesteur.me.block.WoodBlockSets;
 import net.jesteur.me.datageneration.content.loot_tables.BlockDrops;
@@ -84,6 +85,18 @@ public class HelpingGenerator {
             PressurePlates.pressurePlates.add(set.pressurePlate());
             Walls.walls.add(set.woodWall());
             Planks.planks.add(set.planks());
+        }
+
+        for (OreRockSets.OreRockSet set : OreRockSets.sets) {
+            SimpleBlockModel.blocks.add(set.gold_ore());
+            SimpleBlockModel.blocks.add(set.iron_ore());
+            SimpleBlockModel.blocks.add(set.coal_ore());
+            SimpleBlockModel.blocks.add(set.copper_ore());
+
+            MineablePickaxe.blocks.add(set.gold_ore());
+            MineablePickaxe.blocks.add(set.iron_ore());
+            MineablePickaxe.blocks.add(set.coal_ore());
+            MineablePickaxe.blocks.add(set.copper_ore());
         }
     }
 }

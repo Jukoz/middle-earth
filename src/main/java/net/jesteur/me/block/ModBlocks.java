@@ -21,7 +21,7 @@ public class ModBlocks {
     public static final Block LIMESTONE_PILLAR = registerBlock("limestone_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
 
-    public static final Block CHISELED_BLUE_ROCK_BRICKS = registerBlock("chiseled_blue_rock_bricks",
+    public static final Block CHISELED_BLUE_ROCK_BRICKS = registerBlock("chiseled_gonluin_bricks",
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
     public static final Block CHISELED_CALCITE = registerBlock("chiseled_calcite",
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));

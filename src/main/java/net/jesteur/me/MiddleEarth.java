@@ -24,6 +24,7 @@ public class MiddleEarth implements ModInitializer {
 	@Override
 	public void onInitialize() {
 
+		OreRockSets.registerModBlockSets();
 		ModWeaponItems.registerModItems();
 		ModEquipmentItems.registerModItems();
 		ModToolItems.registerModItems();
