@@ -1,5 +1,5 @@
 {
-  "#Comment:": "Advancements",
+"#Comment:": "Advancements",
   "advancements.middle_earth.root.title": "Middle Earth",
   "advancements.middle_earth.root.description": "Enter the Middle Earth!",
   "advancements.middle_earth.enter_mordor.title": "One does not simply...",
@@ -13,7 +13,7 @@
   "advancements.middle_earth.mithril.title": "As light as feathers",
   "advancements.middle_earth.mithril.description": "Mine some Mithril!",
 
-  "#Comment:": "Item Groups",
+"#Comment:": "Item Groups",
   "itemGroup.blocks": "Blocks",
   "itemGroup.nature_blocks": "Nature Blocks",
   "itemGroup.food": "Food",
@@ -23,37 +23,37 @@
   "itemGroup.resources": "Resources",
   "itemGroup.spawn_eggs": "Spawn Eggs",
 
-  "#Comment:": "Item - Mithril",
+"#Comment:": "Item - Mithril",
   "item.me.mithril_ingot": "Mithril Ingot",
   "item.me.mithril_nugget": "Mithril Nugget",
   "item.me.raw_mithril": "Raw Mithril",
   "item.me.morgul_ingot": "Morgul Ingot",
 
-  "#Comment:": "Item - General",
+"#Comment:": "Item - General",
   "item.me.orc_bone": "Orc Bone",
   "item.me.warg_bone": "Warg Bone",
   "item.me.warg_fur": "Warg Fur",
   "item.me.gold_ring": "Gold Ring",
 
-  "#Comment:": "Item - Phial",
+"#Comment:": "Item - Phial",
   "item.me.empty_phial": "Empty Phial",
   "item.me.starlight_phial": "Starlight Phial",
 
-  "#Comment:": "Item - Dwarven",
+"#Comment:": "Item - Dwarven",
   "item.me.dwarven_pickaxe": "Dwarven Pickaxe",
   "item.me.dwarven_axe": "Dwarven Axe",
   "item.me.dwarven_shovel": "Dwarven Shovel",
   "item.me.dwarven_hoe": "Dwarven Hoe",
   "item.me.dwarven_sword": "Dwarven Sword",
 
-  "#Comment:": "Item - Mordor Orc",
+"#Comment:": "Item - Mordor Orc",
   "item.me.mordor_orc_pickaxe": "Mordor Orc Pickaxe",
   "item.me.mordor_orc_axe": "Mordor Orc Axe",
   "item.me.mordor_orc_shovel": "Mordor Orc Shovel",
   "item.me.mordor_orc_hoe": "Mordor Orc Hoe",
   "item.me.mordor_orc_sword": "Mordor Orc Sword",
 
-  "#Comment:": "Item - Anduin",
+"#Comment:": "Item - Anduin",
   "item.me.anduin_sword": "Anduin Sword",
   "item.me.anduin_dagger": "Anduin Dagger",
   "item.me.anduin_battleaxe": "Anduin Battleaxe",
@@ -61,7 +61,7 @@
   "item.me.anduin_spear": "Anduin Spear",
   "item.me.anduin_pike": "Anduin Pike",
 
-  "#Comment:": "Item - Dalish",
+"#Comment:": "Item - Dalish",
   "item.me.dalish_sword": "Dalish Sword",
   "item.me.dalish_dagger": "Dalish Dagger",
   "item.me.dalish_trident": "Dalish Trident",
@@ -70,14 +70,14 @@
   "item.me.dalish_pike": "Dalish Pike",
   "item.me.dalish_bow": "Dalish Bow",
 
-  "#Comment:": "Item - Dunland",
+"#Comment:": "Item - Dunland",
   "item.me.dunland_club": "Dunland Club",
   "item.me.dunland_dagger": "Dunland Dagger",
   "item.me.dunland_pitchfork": "Dunland Pitchfork",
   "item.me.dunland_spear": "Dunland Spear",
   "item.me.dunland_pike": "Dunland Pike",
 
-  "#Comment:": "Item - Gondor",
+"#Comment:": "Item - Gondor",
   "item.me.gondorian_sword": "Gondorian Sword",
   "item.me.gondorian_longsword": "Gondorian Longsword",
   "item.me.gondorian_dagger": "Gondorian Dagger",
@@ -86,7 +86,7 @@
   "item.me.gondorian_pike": "Gondorian Pike",
   "item.me.gondorian_bow": "Gondorian Bow",
 
-  "#Comment:": "Item - Lorien",
+"#Comment:": "Item - Lorien",
   "item.me.lorien_sword": "Lorien Sword",
   "item.me.lorien_dagger": "Lorien Dagger",
   "item.me.lorien_battlestaff": "Lorien Battlestaff",
@@ -94,17 +94,17 @@
   "item.me.lorien_pike": "Lorien Pike",
   "item.me.lorien_bow": "Lorien Bow",
 
-  "#Comment:": "Item - Umbar",
+"#Comment:": "Item - Umbar",
   "item.me.umbar_scimitar": "Umbar Scimitar",
   "item.me.umbar_dagger": "Umbar Dagger",
   "item.me.umbar_spear": "Umbar Spear",
   "item.me.umbar_pike": "Umbar Pike",
   "item.me.umbar_bow": "Umbar Bow",
 
-  "#Comment:": "Item - Weapon",
+"#Comment:": "Item - Weapon",
   "item.me.sting": "Sting",
 
-  "#Comment:": "Item - Cloaks",
+"#Comment:": "Item - Cloaks",
   "item.me.cloak": "Cloak",
   "item.me.cloak_hood": "Cloak Hood",
   "item.me.tunic_cloak": "Tunic Cloak",
@@ -112,13 +112,13 @@
   "item.me.fur_cloak_hood": "Fur Cloak Hood",
   "item.me.chainmail_fur_cloak": "Chainmail Fur Cloak",
 
-  "#Comment:": "Item - Food",
+"#Comment:": "Item - Food",
   "item.me.lembas": "Lembas",
   "item.me.maggoty_bread": "Maggoty Bread",
   "item.me.strawberry": "Strawberry",
   "item.me.tough_berries": "Tough Berries",
 
-  "#Comment:": "Item - Spawn Eggs",
+"#Comment:": "Item - Spawn Eggs",
   "item.me.cave_troll_spawn_egg": "Cave Troll Spawn Egg",
   "item.me.snow_troll_spawn_egg": "Snow Troll Spawn Egg",
   "item.me.crab_spawn_egg": "Crab Spawn Egg",
@@ -129,7 +129,7 @@
   "item.me.mirkwood_spider_spawn_egg": "Mirkwood Spider Spawn Egg",
   "item.me.warg_spawn_egg": "Warg Spawn Egg",
 
-  "#Comment:": "Item - Entities",
+"#Comment:": "Item - Entities",
   "entity.me.cave_troll": "Cave Troll",
   "entity.me.snow_troll": "Snow Troll",
   "entity.me.crab": "Crab",
@@ -140,19 +140,19 @@
   "entity.me.mirkwood_spider": "Mirkwood Spider",
   "item.me.pebble": "Pebble",
 
-  "#Comment:": "Block - Vanilla +",
+"#Comment:": "Block - Vanilla +",
   "block.me.stone_trapdoor": "Stone Trapdoor",
   "block.me.blackstone_trapdoor": "Blackstone Trapdoor",
 
-  "#Comment:": "Block - Mithril",
+"#Comment:": "Block - Mithril",
   "block.me.mithril_ore": "Mithril Ore",
   "block.me.mithril_block": "Mithril Block",
 
-  "#Comment:": "Block - Farm",
+"#Comment:": "Block - Farm",
   "block.me.straw_block": "Straw Block",
   "block.me.reeds_block": "Reeds Block",
 
-  "#Comment:": "Block - Ashen",
+"#Comment:": "Block - Ashen",
   "block.me.ashen_rock": "Ashen Rock",
   "block.me.ashen_rock_slab": "Ashen Rock Slab",
   "block.me.ashen_rock_stairs": "Ashen Rock Stairs",
@@ -162,7 +162,7 @@
   "block.me.ashen_bricks_stairs": "Ashen Bricks Stairs",
   "block.me.ashen_bricks_wall": "Ashen Bricks Wall",
 
-  "#Comment:": "Block - Calcite",
+"#Comment:": "Block - Calcite",
   "block.me.calcite_bricks": "Calcite Bricks",
   "block.me.calcite_bricks_polished": "Polished Calcite Bricks",
   "block.me.calcite_bricks_slab": "Calcite Bricks Slab",
@@ -171,7 +171,7 @@
   "block.me.calcite_pillar": "Calcite Pillar",
   "block.me.chiseled_calcite": "Chiseled Calcite",
 
-  "#Comment:": "Block - Dolomite",
+"#Comment:": "Block - Dolomite",
   "block.me.dolomite": "Dolomite",
   "block.me.dolomite_slab": "Dolomite Slab",
   "block.me.dolomite_stairs": "Dolomite Stairs",
@@ -181,13 +181,13 @@
   "block.me.dolomite_bricks_stairs": "Dolomite Bricks Stairs",
   "block.me.dolomite_bricks_wall": "Dolomite Bricks Wall",
 
-  "#Comment:": "Block - Polished Dolomite",
+"#Comment:": "Block - Polished Dolomite",
   "block.me.polished_dolomite": "Polished Dolomite",
   "block.me.polished_dolomite_slab": "Polished Dolomite Slab",
   "block.me.polished_dolomite_stairs": "Polished Dolomite Stairs",
   "block.me.polished_dolomite_wall": "Polished Dolomite Wall",
 
-  "#Comment:": "Block - Gonluin",
+"#Comment:": "Block - Gonluin",
   "block.me.gonluin": "Gonluin",
   "block.me.gonluin_slab": "Gonluin Slab",
   "block.me.gonluin_stairs": "Gonluin Stairs",
@@ -197,10 +197,10 @@
   "block.me.gonluin_bricks_stairs": "Gonluin Bricks Stairs",
   "block.me.gonluin_bricks_wall": "Gonluin Bricks Wall",
 
-  "#Comment:": "Block - Chiseled Gonluin",
+"#Comment:": "Block - Chiseled Gonluin",
   "block.me.chiseled_gonluin_bricks": "Chiseled Gonluin Bricks",
 
-  "#Comment:": "Block - Frozen Gonluin",
+"#Comment:": "Block - Frozen Gonluin",
   "block.me.frozen_gonluin": "Frozen Gonluin",
   "block.me.frozen_gonluin_polished": "Polished Frozen Gonluin",
   "block.me.frozen_gonluin_cobblestone": "Frozen Gonluin Cobblestone",
@@ -216,15 +216,16 @@
   "block.me.frozen_gonluin_bricks_stairs": "Frozen Gonluin Bricks Stairs",
   "block.me.frozen_gonluin_bricks_wall": "Frozen Gonluin Bricks Wall",
 
-  "#Comment:": "Block - Polished Frozen Gonluin",
+"#Comment:": "Block - Polished Frozen Gonluin",
   "block.me.polished_frozen_gonluin": "Polished Frozen Gonluin",
   "block.me.polished_frozen_gonluin_slab": "Polished Frozen Gonluin Slab",
   "block.me.polished_frozen_gonluin_stairs": "Polished Frozen Gonluin Stairs",
   "block.me.polished_frozen_gonluin_wall": "Polished Frozen Gonluin Wall",
 
-  "#Comment:": "Block - Limestone",
+"#Comment:": "Block - Limestone",
   "block.me.limestone": "Limestone",
   "block.me.limestone_pillar": "Limestone Pillar",
+  "block.me.chiseled_limestone_bricks": "Chiseled Limestone Bricks",
   "block.me.limestone_slab": "Limestone Slab",
   "block.me.limestone_stairs": "Limestone Stairs",
   "block.me.limestone_wall": "Limestone Wall",
@@ -242,10 +243,11 @@
   "block.me.limestone_mossy_bricks_wall": "Limestone Mossy Bricks Wall",
 
 
-  "#Comment:": "Block - Dirt",
+"#Comment:": "Block - Dirt",
+  "block.me.dry_dirt": "Dry Dirt",
   "block.me.mordor_dirt": "Mordor Dirt",
 
-  "#Comment:": "Block - Beech",
+"#Comment:": "Block - Beech",
   "block.me.beech_leaves": "Beech Leaves",
   "block.me.beech_log": "Beech Log",
   "block.me.beech_wood": "Beech Wood",
@@ -258,7 +260,7 @@
   "block.me.beech_pressure_plate": "Beech Pressure Plate",
   "block.me.beech_button": "Beech Button",
 
-  "#Comment:": "Block - Larch",
+"#Comment:": "Block - Larch",
   "block.me.larch_leaves": "Larch Leaves",
   "block.me.larch_log": "Larch Log",
   "block.me.larch_wood": "Larch Wood",
@@ -271,7 +273,7 @@
   "block.me.larch_pressure_plate": "Larch Pressure Plate",
   "block.me.larch_button": "Larch Button",
 
-  "#Comment:": "Block - Lebethron",
+"#Comment:": "Block - Lebethron",
   "block.me.lebethron_leaves": "Lebethron Leaves",
   "block.me.black_lebethron_log": "Black Lebethron Log",
   "block.me.black_lebethron_wood": "Black Lebethron Wood",
@@ -284,7 +286,7 @@
   "block.me.black_lebethron_pressure_plate": "Black Lebethron Pressure Plate",
   "block.me.black_lebethron_button": "Black Lebethron Button",
 
-  "#Comment:": "Block - White Lebethron",
+"#Comment:": "Block - White Lebethron",
   "block.me.white_lebethron_log": "White Lebethron Log",
   "block.me.white_lebethron_wood": "White Lebethron Wood",
   "block.me.white_lebethron_wood_wall": "White Lebethron Wood Wall",
@@ -296,7 +298,7 @@
   "block.me.white_lebethron_pressure_plate": "White Lebethron Pressure Plate",
   "block.me.white_lebethron_button": "White Lebethron Button",
 
-  "#Comment:": "Block - Mallorn",
+"#Comment:": "Block - Mallorn",
   "block.me.mallorn_leaves": "Mallorn Leaves",
   "block.me.mallorn_log": "Mallorn Log",
   "block.me.mallorn_wood": "Mallorn Wood",
@@ -309,7 +311,7 @@
   "block.me.mallorn_pressure_plate": "Mallorn Pressure Plate",
   "block.me.mallorn_button": "Mallorn Button",
 
-  "#Comment:": "Block - Maple",
+"#Comment:": "Block - Maple",
   "block.me.maple_leaves": "Maple Leaves",
   "block.me.maple_log": "Maple Log",
   "block.me.maple_wood": "Maple Wood",
@@ -322,7 +324,7 @@
   "block.me.maple_pressure_plate": "Maple Pressure Plate",
   "block.me.maple_button": "Maple Button",
 
-  "#Comment:": "Block - Mirkwood",
+"#Comment:": "Block - Mirkwood",
   "block.me.mirkwood_leaves": "Mirkwood Leaves",
   "block.me.mirkwood_log": "Mirkwood Log",
   "block.me.mirkwood_wood": "Mirkwood Wood",
@@ -335,7 +337,7 @@
   "block.me.mirkwood_pressure_plate": "Mirkwood Pressure Plate",
   "block.me.mirkwood_button": "Mirkwood Button",
 
-  "#Comment:": "Block - Palm",
+"#Comment:": "Block - Palm",
   "block.me.palm_leaves": "Palm Leaves",
   "block.me.palm_log": "Palm Log",
   "block.me.palm_wood": "Palm Wood",
@@ -348,7 +350,7 @@
   "block.me.palm_pressure_plate": "Palm Pressure Plate",
   "block.me.palm_button": "Palm Button",
 
-  "#Comment:": "Block - Pine",
+"#Comment:": "Block - Pine",
   "block.me.pine_leaves": "Pine Leaves",
   "block.me.pine_log": "Pine Log",
   "block.me.pine_wood": "Pine Wood",
@@ -361,7 +363,7 @@
   "block.me.pine_pressure_plate": "Pine Pressure Plate",
   "block.me.pine_button": "Pine Button",
 
-  "#Comment:": "Block - Willow",
+"#Comment:": "Block - Willow",
   "block.me.willow_leaves": "Willow Leaves",
   "block.me.willow_log": "Willow Log",
   "block.me.willow_wood": "Willow Wood",
@@ -374,7 +376,7 @@
   "block.me.willow_pressure_plate": "Willow Pressure Plate",
   "block.me.willow_button": "Willow Button",
 
-  "#Comment:": "Block - Plants",
+"#Comment:": "Block - Plants",
   "block.me.brown_grass": "Brown Grass",
   "block.me.green_shrub": "Green Shrub",
   "block.me.mordor_lichen": "Mordor Lichen",
@@ -384,24 +386,24 @@
   "block.me.tough_berry_bush": "Tough Berry Bush",
   "block.me.yellow_flower": "Yellow Flower",
 
-  "#Comment:": "Block - Copper ores",
+"#Comment:": "Block - Copper ores",
   "block.me.gonluin_copper_ore": "Gonluin Copper Ore",
   "block.me.ashen_rock_copper_ore": "Ashen Copper Ore",
   "block.me.dolomite_copper_ore": "Dolomite Copper Ore",
   "block.me.calcite_copper_ore": "Calcite Copper Ore",
 
-  "#Comment:": "Block - Coal ores",
+"#Comment:": "Block - Coal ores",
   "block.me.gonluin_coal_ore": "Gonluin Coal Ore",
   "block.me.ashen_rock_coal_ore": "Ashen Coal Ore",
   "block.me.dolomite_coal_ore": "Dolomite Coal Ore",
   "block.me.calcite_coal_ore": "Calcite Coal Ore",
-  "#Comment:": "Block - Iron ores",
+"#Comment:": "Block - Iron ores",
   "block.me.gonluin_iron_ore": "Gonluin Iron Ore",
   "block.me.ashen_rock_iron_ore": "Ashen Iron Ore",
   "block.me.dolomite_iron_ore": "Dolomite Iron Ore",
   "block.me.calcite_iron_ore": "Calcite Iron Ore",
 
-  "#Comment:": "Block - Gold ores",
+"#Comment:": "Block - Gold ores",
   "block.me.gonluin_gold_ore": "Gonluin Gold Ore",
   "block.me.ashen_rock_gold_ore": "Ashen Gold Ore",
   "block.me.dolomite_gold_ore": "Dolomite Gold Ore",
