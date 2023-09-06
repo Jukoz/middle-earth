@@ -11,9 +11,10 @@
     "PlayerMixin"
   ],
   "client": [
-    "client.InGameHudMixin",
+    "client.AbstractClientPlayerEntityMixin",
     "client.ElytraFeatureRendererMixin",
-    "client.HeadFeatureRendererMixin"
+    "client.HeadFeatureRendererMixin",
+    "client.InGameHudMixin"
   ],
   "server": [
   ],

@@ -41,10 +41,7 @@ public abstract class InGameHudMixin {
     public void injected(DrawContext context, float tickDelta, CallbackInfo ci) {
         assert this.client.player != null;
         if(this.client.player.hasStatusEffect(ModStatusEffects.HALLUCINATION)){
-            StatusEffectInstance effect = this.client.player.getStatusEffect(ModStatusEffects.HALLUCINATION);
-
             float intensity = (float)HallucinationData.readHallucination((IEntityDataSaver) this.client.player) / 100f;
-            this.client.player.sendMessage(Text.literal("intensity : " + intensity));
             this.renderOverlay(context, HALLUCINATION_OUTLINE,  intensity);
         }
     }
