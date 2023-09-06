@@ -327,5 +327,8 @@
   "itemGroup.blocks": "Blocks",
   "itemGroup.food": "Food",
   "itemGroup.weapons": "Weapons",
-  "itemGroup.resources": "Resources"
+  "itemGroup.resources": "Resources",
+
+  "Comment": "Status Effects",
+  "effect.me.hallucination" : "Hallucination"
 }

@@ -27,6 +27,7 @@ import net.jesteur.me.utils.IEntityDataSaver;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.item.ItemColorProvider;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.item.DyeableItem;
@@ -40,11 +41,18 @@ public class MiddleEarthClient implements ClientModInitializer {
     public void onInitializeClient() {
         HudRenderCallback.EVENT.register((drawContext, tickDelta) -> {
 
+
             InGameHud ingamehud = MinecraftClient.getInstance().inGameHud;
+
+            //this cant be used because it fucks up chat history...
+            // clearing this resets chat
+            //ingamehud.clear(); // this seems to be needed as its drawing the same ui on top of eachother... unsure how to solve otherwise. will clear
+
             InGameHUDInvoker inGameHUDInvoker = (InGameHUDInvoker) ingamehud;
             int hallucination = HallucinationData.readHallucination((IEntityDataSaver) MinecraftClient.getInstance().player);
-            inGameHUDInvoker.renderOverlayInvoker(drawContext, new Identifier(MiddleEarth.MOD_ID, "textures/entities/barrow_wights/overlay.png"), hallucination/100.0f);
-            ingamehud.clear(); // this seems to be needed as its drawing the same ui on top of eachother... unsure how to solve otherwise. will clear
+            if(hallucination > 0){
+                inGameHUDInvoker.renderOverlayInvoker(drawContext, new Identifier(MiddleEarth.MOD_ID, "textures/entities/barrow_wights/overlays_hallucination.png"), hallucination/100.0f);
+            }
         });
 
         ModEntityModels.getModels();
