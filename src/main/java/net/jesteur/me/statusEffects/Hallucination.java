@@ -36,7 +36,7 @@ public class Hallucination extends StatusEffect {
             else{
                 HallucinationData.addHallucination((IEntityDataSaver) player, 1);
             }
-            System.out.print("Test : " + HallucinationData.readHallucination((IEntityDataSaver) player));
+            //System.out.print("Test : " + HallucinationData.readHallucination((IEntityDataSaver) player));
         }
     }
     @Override

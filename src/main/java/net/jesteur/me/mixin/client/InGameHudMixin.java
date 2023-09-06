@@ -37,16 +37,15 @@ public abstract class InGameHudMixin {
 
     @Shadow protected abstract void renderOverlay(DrawContext context, Identifier texture, float opacity);
 
-    @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    public void render(DrawContext context, float tickDelta, CallbackInfo ci) {
+    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;getLastFrameDuration()F", shift = At.Shift.AFTER))
+    public void injected(DrawContext context, float tickDelta, CallbackInfo ci) {
         assert this.client.player != null;
         if(this.client.player.hasStatusEffect(ModStatusEffects.HALLUCINATION)){
             StatusEffectInstance effect = this.client.player.getStatusEffect(ModStatusEffects.HALLUCINATION);
 
-            float duration = (float)HallucinationData.readHallucination((IEntityDataSaver) this.client.player);
-            this.client.player.sendMessage(Text.literal("Duration : " + duration));
-            this.renderOverlay(context, HALLUCINATION_OUTLINE, 0.5f / 100);
-            ci.cancel();
+            float intensity = (float)HallucinationData.readHallucination((IEntityDataSaver) this.client.player) / 100f;
+            this.client.player.sendMessage(Text.literal("intensity : " + intensity));
+            this.renderOverlay(context, HALLUCINATION_OUTLINE,  intensity);
         }
     }
 }
