@@ -1,8 +1,7 @@
-package net.jesteur.me.mixin;
+package net.jesteur.me.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.entity.equipments.CloakCapeEntityModel;
 import net.jesteur.me.item.ModEquipmentItems;
@@ -24,12 +23,16 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 
 import java.awt.*;
 
 @Environment(EnvType.CLIENT)
 @Mixin(ElytraFeatureRenderer.class)
-public class ElytraFeatureRendererMixin<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
+public abstract class ElytraFeatureRendererMixin<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
     private static final Identifier CLOAK_CAPE_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/cloak_features.png");
     private static final Identifier FUR_CLOAK_CAPE_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/fur_cloak_features.png");
 
@@ -39,8 +42,9 @@ public class ElytraFeatureRendererMixin<T extends LivingEntity, M extends Entity
         super(context);
     }
 
-    @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
+    @Inject(method = "render", at = @At("HEAD"), cancellable = true)
+    private void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo info) {
+    {
         ItemStack itemStack = entity.getEquippedStack(EquipmentSlot.CHEST);
         Item item = itemStack.getItem();
         // Dyeable cloak
@@ -55,6 +59,7 @@ public class ElytraFeatureRendererMixin<T extends LivingEntity, M extends Entity
             this.cloakCapeModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, rgb.getRed()/255f, rgb.getGreen()/255f, rgb.getBlue()/255f, 1.0F);
             this.cloakCapeModel.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
             matrices.pop();
+            info.cancel();
         }
         // Fur cloak
         if (item == ModEquipmentItems.FUR_CLOAK || item == ModEquipmentItems.CHAINMAIL_CLOAK) {
@@ -67,6 +72,7 @@ public class ElytraFeatureRendererMixin<T extends LivingEntity, M extends Entity
             this.cloakCapeModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
             this.cloakCapeModel.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
             matrices.pop();
+            info.cancel();
         }
-    }
+    }}
 }

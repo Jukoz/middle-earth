@@ -160,6 +160,11 @@ public class ModelProvider extends FabricModelProvider {
                 itemModelGenerator.register(item, "_pulling_" + i, Models.GENERATED);
             }
         }
+
+        for (Item item : SimpleSpawnEggItemModel.items) {
+            itemModelGenerator.register(item, CustomItemModels.TEMPLATE_SPAWN_EGG);
+        }
+        
         // Dyeables needs to be done manually (because of layers)
         itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.FUR_CLOAK));
         itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.FUR_CLOAK_HOOD));

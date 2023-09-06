@@ -1,4 +1,4 @@
-package net.jesteur.me.mixin;
+package net.jesteur.me.mixin.client;
 
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.utils.IntToRGB;
@@ -29,12 +29,13 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
 
 @Environment(EnvType.CLIENT)
 @Mixin(HeadFeatureRenderer.class)
-public class HeadFeatureRendererMixin <T extends LivingEntity, M extends EntityModel<T> & ModelWithHead> extends FeatureRenderer<T, M> {
+public class HeadFeatureRendererMixin {
     private static final Identifier CLOAK_HOOD_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/cloak_features.png");
     private static final Identifier FUR_CLOAK_HOOD_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/fur_cloak_features.png");
     @Shadow
@@ -49,13 +50,12 @@ public class HeadFeatureRendererMixin <T extends LivingEntity, M extends EntityM
 
     private final CloakHoodEntityModel cloakHoodModel = new CloakHoodEntityModel(CloakHoodEntityModel.getTexturedModelData().createModel());
 
-    public HeadFeatureRendererMixin(FeatureRendererContext<T, M> context) {
-        super(context);
-    }
-
-    @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
+    @SuppressWarnings("rawtypes")
+    @Inject(method = "render", at = @At("HEAD"), cancellable = true)
+    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, LivingEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo info) {
         ItemStack itemStack = entity.getEquippedStack(EquipmentSlot.HEAD);
+        // Dyeable Cloak
+        System.out.print("Head Feature - Test");
         if (itemStack.getItem() == ModEquipmentItems.CLOAK_HOOD) {
             matrices.push();
             matrices.scale(this.scaleX, this.scaleY, this.scaleZ);
@@ -67,7 +67,9 @@ public class HeadFeatureRendererMixin <T extends LivingEntity, M extends EntityM
             Color rgb = IntToRGB.ex(((DyeableItem)itemStack.getItem()).getColor(itemStack));
             this.cloakHoodModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, rgb.getRed()/255f, rgb.getGreen()/255f, rgb.getBlue()/255f, 1.0F);
             matrices.pop();
+            info.cancel();
         }
+        // Fur Cloak
         if (itemStack.getItem() == ModEquipmentItems.FUR_CLOAK_HOOD) {
             matrices.push();
             matrices.scale(this.scaleX, this.scaleY, this.scaleZ);
@@ -78,6 +80,7 @@ public class HeadFeatureRendererMixin <T extends LivingEntity, M extends EntityM
 
             this.cloakHoodModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
             matrices.pop();
+            info.cancel();
         }
     }
 }
