@@ -2,6 +2,7 @@ package net.jesteur.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.jesteur.me.block.OreRockSets;
 import net.jesteur.me.datageneration.content.tags.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -32,5 +33,36 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "pressure_plates"))).add(PressurePlates.pressurePlates.toArray(new Block[0]));
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "walls"))).add(Walls.walls.toArray(new Block[0]));
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "planks"))).add(Planks.planks.toArray(new Block[0]));
+
+
+        //Ores
+        TagKey<Block> iron_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "iron_ores"));
+        TagKey<Block> gold_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "gold_ores"));
+        TagKey<Block> cores = TagKey.of(RegistryKeys.BLOCK, new Identifier("c", "ores")); //Create Ores list
+        TagKey<Block> copper_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "copper_ores"));
+        TagKey<Block> coal_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "coal_ores"));
+
+        for (OreRockSets.OreRockSet set : OreRockSets.sets) {
+            getOrCreateTagBuilder(iron_ores)
+                    .add(set.iron_ore());
+            getOrCreateTagBuilder(gold_ores)
+                    .add(set.gold_ore());
+            getOrCreateTagBuilder(cores)
+                    .add(set.iron_ore())
+                    .add(set.gold_ore());
+            getOrCreateTagBuilder(iron_ores)
+                    .add(set.iron_ore());
+            getOrCreateTagBuilder(gold_ores)
+                    .add(set.gold_ore());
+            getOrCreateTagBuilder(cores)
+                    .add(set.iron_ore())
+                    .add(set.coal_ore())
+                    .add(set.copper_ore())
+                    .add(set.gold_ore());
+            getOrCreateTagBuilder(coal_ores)
+                    .add(set.coal_ore());
+            getOrCreateTagBuilder(copper_ores)
+                    .add(set.copper_ore());
+        }
     }
 }

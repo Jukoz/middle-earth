@@ -1,10 +1,7 @@
 package net.jesteur.me;
 
 import net.fabricmc.api.ModInitializer;
-import net.jesteur.me.block.SimpleBlockSets;
-import net.jesteur.me.block.ModBlocks;
-import net.jesteur.me.block.ModNatureBlocks;
-import net.jesteur.me.block.WoodBlockSets;
+import net.jesteur.me.block.*;
 import net.jesteur.me.entity.ModEntities;
 import net.jesteur.me.entity.model.ModEntityModels;
 import net.jesteur.me.events.ModEvents;
@@ -29,6 +26,7 @@ public class MiddleEarth implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModStatusEffects.registerStatusEffects();
+		OreRockSets.registerModBlockSets();
 		ModWeaponItems.registerModItems();
 		ModEquipmentItems.registerModItems();
 		ModToolItems.registerModItems();
