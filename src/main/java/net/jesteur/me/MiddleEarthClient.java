@@ -22,7 +22,6 @@ import net.jesteur.me.entity.trolls.cave.CaveTrollRenderer;
 import net.jesteur.me.entity.trolls.snow.SnowTrollRenderer;
 import net.jesteur.me.item.ModEquipmentItems;
 import net.jesteur.me.item.utils.ModModelPredicateProvider;
-import net.jesteur.me.mixin.InGameHUDInvoker;
 import net.jesteur.me.utils.HallucinationData;
 import net.jesteur.me.utils.IEntityDataSaver;
 import net.minecraft.client.MinecraftClient;
@@ -40,21 +39,6 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        HudRenderCallback.EVENT.register((drawContext, tickDelta) -> {
-
-
-            InGameHud ingamehud = MinecraftClient.getInstance().inGameHud;
-
-            //this cant be used because it fucks up chat history...
-            // clearing this resets chat
-            //ingamehud.clear(); // this seems to be needed as its drawing the same ui on top of eachother... unsure how to solve otherwise. will clear
-
-            InGameHUDInvoker inGameHUDInvoker = (InGameHUDInvoker) ingamehud;
-            int hallucination = HallucinationData.readHallucination((IEntityDataSaver) MinecraftClient.getInstance().player);
-            if(hallucination > 0){
-                inGameHUDInvoker.renderOverlayInvoker(drawContext, new Identifier(MiddleEarth.MOD_ID, "textures/entities/barrow_wights/overlays_hallucination.png"), hallucination/100.0f);
-            }
-        });
 
         ModEntityModels.getModels();
         EntityRendererRegistry.register(ModEntities.BARROW_WIGHT, BarrowWightEntityRenderer::new);

@@ -1,19 +1,14 @@
 package net.jesteur.me.statusEffects;
 
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.jesteur.me.MiddleEarth;
-import net.jesteur.me.mixin.InGameHUDInvoker;
 import net.jesteur.me.utils.HallucinationData;
 import net.jesteur.me.utils.IEntityDataSaver;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.nbt.NbtCompound;
 
 import java.util.Map;
 
@@ -21,7 +16,7 @@ public class Hallucination extends StatusEffect {
     public Hallucination(){
         super(
                 StatusEffectCategory.HARMFUL,
-                0x006666
+                0x000000
         );
     }
 
@@ -41,6 +36,7 @@ public class Hallucination extends StatusEffect {
             else{
                 HallucinationData.addHallucination((IEntityDataSaver) player, 1);
             }
+            System.out.print("Test : " + HallucinationData.readHallucination((IEntityDataSaver) player));
         }
     }
     @Override

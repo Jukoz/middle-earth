@@ -5,13 +5,13 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "BlockEntityLandedMixin",
+    "EntityDataSaverMixin",
     "EntitySpawnMixin",
     "ItemRendererMixin",
-    "PlayerMixin",
-    "InGameHUDInvoker",
-    "EntityDataSaverMixin"
+    "PlayerMixin"
   ],
   "client": [
+    "client.InGameHudMixin",
     "client.ElytraFeatureRendererMixin",
     "client.HeadFeatureRendererMixin"
   ],
