@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_hanging_lantern",
   "textures": {
-    "lantern": "me:block/skull_lantern_hanging_unlit"
+    "lantern": "me:block/skull_lantern_unlit"
   }
 }
