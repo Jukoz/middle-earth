@@ -62,8 +62,6 @@ public class WallSkullLanternBlock extends SkullLanternBlock {
                     .with(HANGING, false)
                     .with(FACING, direction.getOpposite());
             if (blockState.canPlaceAt(ctx.getWorld(), ctx.getBlockPos())) {
-                if(!ctx.getWorld().isClient())
-                    ctx.getWorld().getPlayers().get(0).sendMessage(Text.literal("Placing block : " + direction));
                 return blockState.with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
             }
         }

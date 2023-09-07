@@ -6,6 +6,7 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.WorldView;
@@ -42,14 +43,15 @@ public class ModVerticallyAttachableBlockItem extends BlockItem {
                 if (direction != verticalAttachmentDirection.getOpposite()) {
                     BlockState blockState3 = direction == verticalAttachmentDirection ? this.getBlock().getPlacementState(context) : blockState;
                     if (blockState3 != null && this.canPlaceAt(worldView, blockState3, blockPos)) {
+                        if(!context.getWorld().isClient())
+                            context.getWorld().getPlayers().get(0).sendMessage(Text.of("Is placing : " + direction));
                         blockState2 = blockState3;
-                        break;
+                        return worldView.canPlace(blockState2, blockPos, ShapeContext.absent()) ? blockState2 : null;
                     }
                 }
             }
         }
-
-        return blockState2 != null && worldView.canPlace(blockState2, blockPos, ShapeContext.absent()) ? blockState2 : null;
+        return null;
     }
 
     public void appendBlocks(Map<Block, Item> map, Item item) {
