@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class MapImageLoader {
-    private static final int iterations = 3;
+    public static final int iterations = 3;
     private static int[][] pixels;
     private static Random random = new Random(1379);
 

@@ -55,7 +55,6 @@ public class HeadFeatureRendererMixin {
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, LivingEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo info) {
         ItemStack itemStack = entity.getEquippedStack(EquipmentSlot.HEAD);
         // Dyeable Cloak
-        System.out.print("Head Feature - Test");
         if (itemStack.getItem() == ModEquipmentItems.CLOAK_HOOD) {
             matrices.push();
             matrices.scale(this.scaleX, this.scaleY, this.scaleZ);
