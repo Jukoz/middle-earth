@@ -1,6 +1,5 @@
 package net.jesteur.me.block.special.toggeable_lights;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,7 +10,6 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.sound.SoundCategory;
@@ -21,7 +19,6 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -36,7 +33,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.ToIntFunction;
 
-public class SkullLantern extends Block {
+public class SkullLanternBlock extends Block {
     public static final BooleanProperty LIT;
     public static final IntProperty LEVEL_15;
     public static final BooleanProperty WATERLOGGED;
@@ -47,7 +44,7 @@ public class SkullLantern extends Block {
     public static final ToIntFunction<BlockState> STATE_TO_LUMINANCE;
     public static int DEFAULT_LUMINANCE;
 
-    public SkullLantern(Settings settings) {
+    public SkullLanternBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.getDefaultState().with(LIT, false).with(HANGING, false).with(WATERLOGGED, false).with(LEVEL_15, 15));
     }

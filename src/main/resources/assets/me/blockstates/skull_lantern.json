@@ -7,10 +7,10 @@
       "model": "me:block/skull_lantern_hanging"
     },
     "lit=false,hanging=false": {
-      "model": "me:block/unlit_skull_lantern"
+      "model": "me:block/skull_lantern_unlit"
     },
     "lit=false,hanging=true": {
-      "model": "me:block/unlit_skull_lantern_hanging"
+      "model": "me:block/skull_lantern_hanging_unlit"
     }
   }
 }

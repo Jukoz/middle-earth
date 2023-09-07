@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=true": {
+      "model": "me:block/skull_lantern_wall"
+    },
+    "lit=false": {
+      "model": "me:block/skull_lantern_wall_unlit"
+    }
+  }
+}

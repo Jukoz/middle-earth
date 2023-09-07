@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_lantern",
   "textures": {
-    "lantern": "me:block/unlit_skull_lantern"
+    "lantern": "me:block/skull_lantern_unlit"
   }
 }
