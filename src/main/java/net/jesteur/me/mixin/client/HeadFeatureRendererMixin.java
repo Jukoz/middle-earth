@@ -2,13 +2,8 @@ package net.jesteur.me.mixin.client;
 
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.utils.IntToRGB;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.item.DyeableItem;
-import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.jesteur.me.entity.equipments.CloakHoodEntityModel;
+import net.jesteur.me.model.equipment.CloakHoodModel;
 import net.jesteur.me.item.ModEquipmentItems;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
@@ -48,14 +43,13 @@ public class HeadFeatureRendererMixin {
     @Final
     private float scaleZ;
 
-    private final CloakHoodEntityModel cloakHoodModel = new CloakHoodEntityModel(CloakHoodEntityModel.getTexturedModelData().createModel());
+    private final CloakHoodModel cloakHoodModel = new CloakHoodModel(CloakHoodModel.getTexturedModelData().createModel());
 
     @SuppressWarnings("rawtypes")
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, LivingEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo info) {
         ItemStack itemStack = entity.getEquippedStack(EquipmentSlot.HEAD);
         // Dyeable Cloak
-        System.out.print("Head Feature - Test");
         if (itemStack.getItem() == ModEquipmentItems.CLOAK_HOOD) {
             matrices.push();
             matrices.scale(this.scaleX, this.scaleY, this.scaleZ);

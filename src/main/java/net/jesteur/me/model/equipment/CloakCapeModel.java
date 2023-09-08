@@ -1,21 +1,16 @@
-package net.jesteur.me.entity.equipments;
+package net.jesteur.me.model.equipment;
 
 import net.jesteur.me.utils.ToRad;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.text.Text;
-import net.minecraft.util.dynamic.Range;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import org.joml.Vector3f;
 
-public class CloakCapeEntityModel<T extends LivingEntity> extends AnimalModel<T> {
+public class CloakCapeModel<T extends LivingEntity> extends AnimalModel<T> {
     private final ModelPart cape;
 
-    public CloakCapeEntityModel(ModelPart root) {
+    public CloakCapeModel(ModelPart root) {
         this.cape = root.getChild("cape");
     }
 
