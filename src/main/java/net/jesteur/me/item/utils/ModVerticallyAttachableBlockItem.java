@@ -43,8 +43,6 @@ public class ModVerticallyAttachableBlockItem extends BlockItem {
                 if (direction != verticalAttachmentDirection.getOpposite()) {
                     BlockState blockState3 = direction == verticalAttachmentDirection ? this.getBlock().getPlacementState(context) : blockState;
                     if (blockState3 != null && this.canPlaceAt(worldView, blockState3, blockPos)) {
-                        if(!context.getWorld().isClient())
-                            context.getWorld().getPlayers().get(0).sendMessage(Text.of("Is placing : " + direction));
                         blockState2 = blockState3;
                         return worldView.canPlace(blockState2, blockPos, ShapeContext.absent()) ? blockState2 : null;
                     }

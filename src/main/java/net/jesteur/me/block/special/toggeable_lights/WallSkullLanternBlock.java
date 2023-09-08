@@ -1,18 +1,24 @@
 package net.jesteur.me.block.special.toggeable_lights;
 
+import net.jesteur.me.item.ModDecorativeItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
+import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.sound.SoundCategory;
@@ -36,6 +42,7 @@ import java.util.function.ToIntFunction;
 
 public class WallSkullLanternBlock extends SkullLanternBlock {
     private static final DirectionProperty FACING;
+    private static final VoxelShape WALL_SHAPE;
 
     public WallSkullLanternBlock(Settings settings) {
         super(settings);
@@ -70,6 +77,11 @@ public class WallSkullLanternBlock extends SkullLanternBlock {
     }
 
     @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return WALL_SHAPE;
+    }
+
+    @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         Direction direction = attachedDirection(state).getOpposite();
         return Block.sideCoversSmallSquare(world, pos.offset(direction), direction.getOpposite());
@@ -83,11 +95,17 @@ public class WallSkullLanternBlock extends SkullLanternBlock {
 
         return attachedDirection(state).getOpposite() == direction && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
-    protected static Direction attachedDirection(BlockState state) {
+    protected Direction attachedDirection(BlockState state) {
         return state.get(FACING);
     }
 
     static {
         FACING = Properties.FACING;
+
+        WALL_SHAPE  = VoxelShapes.union(
+                Block.createCuboidShape(5.0, 1.0, 5.0, 11.0, 8.0, 11.0),
+                Block.createCuboidShape(6.0, 8.0, 6.0, 10.0, 10.0, 10.0),
+                Block.createCuboidShape(7.0, 12.0, 1, 9.0, 14.0, 10.0),
+                Block.createCuboidShape(6.0, 6.0, 0, 10.0, 15.0, 1));
     }
 }
