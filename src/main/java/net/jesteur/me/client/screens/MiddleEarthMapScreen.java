@@ -25,8 +25,8 @@ public class MiddleEarthMapScreen extends Screen {
     private static final Text RETURN_TO_GAME_TEXT = Text.translatable("menu.returnToGame");
     private static final Text MAP_TITLE_TEXT = Text.of("Middle-earth Map");
     public static final int MARGIN = 5;
-    public static final int WINDOW_WIDTH = 500;
-    public static final int WINDOW_HEIGHT = 300;
+    public static final int WINDOW_WIDTH = 525; // 1400 / 2.66667
+    public static final int WINDOW_HEIGHT = 456; // 1216 / 2.66667
     public static final int MAP_WIDTH = 1400;
     public static final int MAP_HEIGHT = 1216;
     public static final float MAX_ZOOM = 3.0f;
@@ -69,7 +69,10 @@ public class MiddleEarthMapScreen extends Screen {
             if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
                 Vec2f playerPos = getPlayerPositionOnMap(abstractClientPlayerEntity, x, y);
                 //System.out.println("POS: " + playerPos.x + " . " + playerPos.y);
-                context.drawTexture(abstractClientPlayerEntity.getSkinTexture(), x + (int) playerPos.x, y + (int) playerPos.y, 8, 8, 8, 8, 64, 64);
+                context.drawTexture(abstractClientPlayerEntity.getSkinTexture(),
+                        ((this.width - WINDOW_WIDTH) / 2) + MARGIN + (int)playerPos.x,
+                        ((this.height - WINDOW_HEIGHT) / 2) + MARGIN + (int)playerPos.x,
+                        8, 8, 8, 8, 64, 64);
             }
         }
     }
@@ -117,15 +120,23 @@ public class MiddleEarthMapScreen extends Screen {
     }
 
     private Vec2f getPlayerPositionOnMap(AbstractClientPlayerEntity abstractClientPlayerEntity, float centerX, float centerY) {
-        float worldGenScale = (float) Math.pow(2, MapImageLoader.iterations);
-        float posX = (float) abstractClientPlayerEntity.getPos().x / (MAP_WIDTH * worldGenScale);
-        float posZ = (float) abstractClientPlayerEntity.getPos().z / (MAP_HEIGHT * worldGenScale);
+        float worldSizeX = MAP_WIDTH * (float) Math.pow(2 , MapImageLoader.iterations);
+        float worldSizeY = MAP_HEIGHT * (float) Math.pow(2 , MapImageLoader.iterations);
 
-        posX = Math.max(0, Math.min(WINDOW_WIDTH, posX * WINDOW_WIDTH * zoomScale));
-        posZ = Math.max(0, Math.min(WINDOW_HEIGHT, posZ * WINDOW_HEIGHT * zoomScale));
+        float posX = (float) abstractClientPlayerEntity.getPos().x; // (MAP_WIDTH * worldGenScale);
+        float posZ = (float) abstractClientPlayerEntity.getPos().z; // (MAP_HEIGHT * worldGenScale);
 
-        posX -= centerX / 2;
-        posZ -= centerY / 2;
+        //abstractClientPlayerEntity.sendMessage(Text.literal((long)worldSizeX + ";"+ (long)worldSizeY + " >> " + (int)posX + ";" + (int)posZ));
+        posX = WINDOW_WIDTH / worldSizeX * posX;
+        posZ = WINDOW_HEIGHT / worldSizeY * posZ;
+
+        abstractClientPlayerEntity.sendMessage(Text.literal(width + ";"+ height + " >> " + (int)posX + ";" + (int)posZ));
+
+        // posX = Math.max(0, Math.min(WINDOW_WIDTH, posX * WINDOW_WIDTH * zoomScale));
+        // posZ = Math.max(0, Math.min(WINDOW_HEIGHT, posZ * WINDOW_HEIGHT * zoomScale));
+
+        // posX -= centerX / 2;
+        // posZ -= centerY / 2;
 
         return new Vec2f(posX, posZ);
     }
