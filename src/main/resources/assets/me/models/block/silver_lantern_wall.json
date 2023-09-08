@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [48, 48],
 	"textures": {
-		"0": "me:block/skull_lantern_wall",
-		"particle": "me:block/skull_lantern_wall"
+		"0": "me:block/silver_lantern_wall",
+		"particle": "me:block/silver_lantern_wall"
 	},
 	"elements": [
 		{

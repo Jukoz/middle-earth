@@ -1,50 +1,26 @@
 package net.jesteur.me.block.special.toggeable_lights;
 
-import net.jesteur.me.item.ModDecorativeItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.mob.PiglinBrain;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.resource.featuretoggle.FeatureSet;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.*;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
-import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.ToIntFunction;
-
-public class WallSkullLanternBlock extends SkullLanternBlock {
+public class WallSilverLanternBlock extends SilverLanternBlock {
     private static final DirectionProperty FACING;
     private static final VoxelShape WALL_SHAPE;
 
-    public WallSkullLanternBlock(Settings settings) {
+    public WallSilverLanternBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.getDefaultState().with(FACING, Direction.EAST));
     }
@@ -104,8 +80,6 @@ public class WallSkullLanternBlock extends SkullLanternBlock {
 
         WALL_SHAPE  = VoxelShapes.union(
                 Block.createCuboidShape(5.0, 1.0, 5.0, 11.0, 8.0, 11.0),
-                Block.createCuboidShape(6.0, 8.0, 6.0, 10.0, 10.0, 10.0),
-                Block.createCuboidShape(7.0, 12.0, 1, 9.0, 14.0, 10.0),
-                Block.createCuboidShape(6.0, 6.0, 0, 10.0, 15.0, 1));
+                Block.createCuboidShape(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
     }
 }

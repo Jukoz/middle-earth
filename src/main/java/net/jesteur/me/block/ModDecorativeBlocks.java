@@ -3,8 +3,8 @@ package net.jesteur.me.block;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jesteur.me.MiddleEarth;
-import net.jesteur.me.block.special.toggeable_lights.SkullLanternBlock;
-import net.jesteur.me.block.special.toggeable_lights.WallSkullLanternBlock;
+import net.jesteur.me.block.special.toggeable_lights.SilverLanternBlock;
+import net.jesteur.me.block.special.toggeable_lights.WallSilverLanternBlock;
 import net.jesteur.me.item.utils.ModItemGroups;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
@@ -20,11 +20,11 @@ import java.util.function.ToIntFunction;
 
 public class ModDecorativeBlocks {
 
-    public static final Block SKULL_LANTERN = registerBlock("skull_lantern",
-            new SkullLanternBlock(FabricBlockSettings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
+    public static final Block SILVER_LANTERN = registerBlock("silver_lantern",
+            new SilverLanternBlock(FabricBlockSettings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
 
-    public static final Block WALL_SKULL_LANTERN = registerBlock("skull_lantern_wall",
-            new WallSkullLanternBlock(FabricBlockSettings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
+    public static final Block WALL_SILVER_LANTERN = registerBlock("silver_lantern_wall",
+            new WallSilverLanternBlock(FabricBlockSettings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
 
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = new Identifier(MiddleEarth.MOD_ID, name);

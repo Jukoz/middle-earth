@@ -11,8 +11,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 
 public class ModDecorativeItems {
-    public static final Item SKULL_LANTERN = registerItem("skull_lantern",
-            new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.SKULL_LANTERN, ModDecorativeBlocks.WALL_SKULL_LANTERN, new Item.Settings(), new Direction[]{Direction.DOWN, Direction.UP}));
+    public static final Item SILVER_LANTERN = registerItem("silver_lantern",
+            new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.SILVER_LANTERN, ModDecorativeBlocks.WALL_SILVER_LANTERN, new Item.Settings(), new Direction[]{Direction.DOWN, Direction.UP}));
 
 
     private static Item registerItem(String name, Item item) {

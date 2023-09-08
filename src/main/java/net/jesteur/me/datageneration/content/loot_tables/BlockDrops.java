@@ -21,7 +21,7 @@ public class BlockDrops {
             add(ModBlocks.STRAW_BLOCK);
             add(ModBlocks.STONE_TRAPDOOR);
             add(ModBlocks.BLACKSTONE_TRAPDOOR);
-            add(ModDecorativeBlocks.SKULL_LANTERN);
+            add(ModDecorativeBlocks.SILVER_LANTERN);
         }
     };
 }
