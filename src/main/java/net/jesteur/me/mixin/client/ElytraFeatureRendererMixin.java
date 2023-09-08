@@ -19,9 +19,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -35,6 +33,7 @@ import java.awt.*;
 public abstract class ElytraFeatureRendererMixin<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
     private static final Identifier CLOAK_CAPE_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/cloak_features.png");
     private static final Identifier FUR_CLOAK_CAPE_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/fur_cloak_features.png");
+    private static final Identifier NAZGUL_CLOAK_CAPE_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/nazgul_cloak_features.png");
 
     private final CloakCapeEntityModel<T> cloakCapeModel = new CloakCapeEntityModel<>(CloakCapeEntityModel.getTexturedModelData().createModel());
 
@@ -62,12 +61,24 @@ public abstract class ElytraFeatureRendererMixin<T extends LivingEntity, M exten
             info.cancel();
         }
         // Fur cloak
-        if (item == ModEquipmentItems.FUR_CLOAK || item == ModEquipmentItems.CHAINMAIL_CLOAK) {
+        else if (item == ModEquipmentItems.FUR_CLOAK || item == ModEquipmentItems.CHAINMAIL_CLOAK) {
             matrices.push();
 
             this.getContextModel().copyStateTo(this.cloakCapeModel);
 
             VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(FUR_CLOAK_CAPE_TEXTURE), false, itemStack.hasGlint());
+
+            this.cloakCapeModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
+            this.cloakCapeModel.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+            matrices.pop();
+            info.cancel();
+        }
+        else if (item == ModEquipmentItems.NAZGUL_CLOAK) {
+            matrices.push();
+
+            this.getContextModel().copyStateTo(this.cloakCapeModel);
+
+            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(NAZGUL_CLOAK_CAPE_TEXTURE), false, itemStack.hasGlint());
 
             this.cloakCapeModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
             this.cloakCapeModel.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);

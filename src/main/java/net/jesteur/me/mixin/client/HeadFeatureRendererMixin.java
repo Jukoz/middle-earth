@@ -38,6 +38,7 @@ import java.awt.*;
 public class HeadFeatureRendererMixin {
     private static final Identifier CLOAK_HOOD_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/cloak_features.png");
     private static final Identifier FUR_CLOAK_HOOD_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/fur_cloak_features.png");
+    private static final Identifier NAZGUL_CLOAK_HOOD_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/nazgul_cloak_features.png");
     @Shadow
     @Final
     private float scaleX;
@@ -55,7 +56,6 @@ public class HeadFeatureRendererMixin {
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, LivingEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo info) {
         ItemStack itemStack = entity.getEquippedStack(EquipmentSlot.HEAD);
         // Dyeable Cloak
-        System.out.print("Head Feature - Test");
         if (itemStack.getItem() == ModEquipmentItems.CLOAK_HOOD) {
             matrices.push();
             matrices.scale(this.scaleX, this.scaleY, this.scaleZ);
@@ -70,13 +70,25 @@ public class HeadFeatureRendererMixin {
             info.cancel();
         }
         // Fur Cloak
-        if (itemStack.getItem() == ModEquipmentItems.FUR_CLOAK_HOOD) {
+        else if (itemStack.getItem() == ModEquipmentItems.FUR_CLOAK_HOOD) {
             matrices.push();
             matrices.scale(this.scaleX, this.scaleY, this.scaleZ);
             ((ModelWithHead) ((HeadFeatureRenderer) (Object) this).getContextModel()).getHead().rotate(matrices);
             matrices.scale(1.19F, 1.19F, 1.19F);
 
             VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, this.cloakHoodModel.getLayer(FUR_CLOAK_HOOD_TEXTURE), false, itemStack.hasGlint());
+
+            this.cloakHoodModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
+            matrices.pop();
+            info.cancel();
+        }
+        else if (itemStack.getItem() == ModEquipmentItems.NAZGUL_CLOAK_HOOD) {
+            matrices.push();
+            matrices.scale(this.scaleX, this.scaleY, this.scaleZ);
+            ((ModelWithHead) ((HeadFeatureRenderer) (Object) this).getContextModel()).getHead().rotate(matrices);
+            matrices.scale(1.19F, 1.19F, 1.19F);
+
+            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, this.cloakHoodModel.getLayer(NAZGUL_CLOAK_HOOD_TEXTURE), false, itemStack.hasGlint());
 
             this.cloakHoodModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
             matrices.pop();

@@ -32,6 +32,15 @@ public class ModEquipmentItems {
     public static final Item CHAINMAIL_CLOAK = registerItem("chainmail_fur_cloak",
             new ArmorItem(ModArmorMaterials.CHAINMAIL_FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
 
+    public static final Item NAZGUL_CLOAK_HOOD = registerItem("nazgul_cloak_hood",
+            new ArmorItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings()));
+    public static final Item NAZGUL_CLOAK = registerItem("nazgul_cloak",
+            new ArmorItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
+    public static final Item NAZGUL_CLOAK_PANTS = registerItem("nazgul_cloak_pants",
+            new ArmorItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item NAZGUL_MORGUL_BOOTS = registerItem("nazgul_morgul_boots",
+            new ArmorItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
