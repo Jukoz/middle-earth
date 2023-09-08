@@ -407,5 +407,8 @@
   "block.me.gonluin_gold_ore": "Gonluin Gold Ore",
   "block.me.ashen_rock_gold_ore": "Ashen Gold Ore",
   "block.me.dolomite_gold_ore": "Dolomite Gold Ore",
-  "block.me.calcite_gold_ore": "Calcite Gold Ore"
+  "block.me.calcite_gold_ore": "Calcite Gold Ore",
+
+  "#Comment:": "Block - Lights",
+  "block.me.silver_lantern": "Silver Lantern"
 }

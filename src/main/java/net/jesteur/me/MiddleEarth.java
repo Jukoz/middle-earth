@@ -3,7 +3,6 @@ package net.jesteur.me;
 import net.fabricmc.api.ModInitializer;
 import net.jesteur.me.block.*;
 import net.jesteur.me.entity.ModEntities;
-import net.jesteur.me.entity.model.ModEntityModels;
 import net.jesteur.me.events.ModEvents;
 import net.jesteur.me.item.*;
 import net.jesteur.me.item.utils.ModItemGroups;
@@ -33,7 +32,9 @@ public class MiddleEarth implements ModInitializer {
 		ModRessourceItems.registerModItems();
 		ModEggItems.registerModItems();
 		ModBlocks.registerModBlocks();
+		ModDecorativeBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();
+		ModDecorativeItems.registerModItems();
 
 		ModEntities.registerModEntities();
 		ModEntitySpawning.addSpawns();

@@ -3,7 +3,7 @@ package net.jesteur.me.mixin.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jesteur.me.MiddleEarth;
-import net.jesteur.me.entity.equipments.CloakCapeEntityModel;
+import net.jesteur.me.model.equipment.CloakCapeModel;
 import net.jesteur.me.item.ModEquipmentItems;
 import net.jesteur.me.utils.IntToRGB;
 import net.minecraft.client.render.OverlayTexture;
@@ -19,9 +19,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -36,7 +34,7 @@ public abstract class ElytraFeatureRendererMixin<T extends LivingEntity, M exten
     private static final Identifier CLOAK_CAPE_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/cloak_features.png");
     private static final Identifier FUR_CLOAK_CAPE_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/fur_cloak_features.png");
 
-    private final CloakCapeEntityModel<T> cloakCapeModel = new CloakCapeEntityModel<>(CloakCapeEntityModel.getTexturedModelData().createModel());
+    private final CloakCapeModel<T> cloakCapeModel = new CloakCapeModel<>(CloakCapeModel.getTexturedModelData().createModel());
 
     public ElytraFeatureRendererMixin(FeatureRendererContext<T, M> context) {
         super(context);
