@@ -67,11 +67,12 @@ public class MiddleEarthMapScreen extends Screen {
         if(cameraEntity != null) {
             Vec3d pos = Objects.requireNonNull(MinecraftClient.getInstance().getCameraEntity()).getPos();
             if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
-                Vec2f playerPos = getPlayerPositionOnMap(abstractClientPlayerEntity, x, y);
+                Vec3d playerCoordinate = new Vec3d(abstractClientPlayerEntity.getPos().x, abstractClientPlayerEntity.getPos().y, abstractClientPlayerEntity.getPos().z);
+                Vec2f mapPlayerPos = getCoordinateOnMap((float)playerCoordinate.x, (float)playerCoordinate.z, x, y, abstractClientPlayerEntity);
                 //System.out.println("POS: " + playerPos.x + " . " + playerPos.y);
                 context.drawTexture(abstractClientPlayerEntity.getSkinTexture(),
-                        ((this.width - WINDOW_WIDTH) / 2) + MARGIN + (int)playerPos.x,
-                        ((this.height - WINDOW_HEIGHT) / 2) + MARGIN + (int)playerPos.x,
+                        ((this.width - WINDOW_WIDTH) / 2) + MARGIN + (int)mapPlayerPos.x,
+                        ((this.height - WINDOW_HEIGHT) / 2) + MARGIN + (int)mapPlayerPos.y,
                         8, 8, 8, 8, 64, 64);
             }
         }
@@ -119,25 +120,23 @@ public class MiddleEarthMapScreen extends Screen {
         this.mapDeltaY = Math.min((float) MAP_HEIGHT * distanceScale, mapDeltaY);
     }
 
-    private Vec2f getPlayerPositionOnMap(AbstractClientPlayerEntity abstractClientPlayerEntity, float centerX, float centerY) {
+    private Vec2f getCoordinateOnMap(float posX, float posZ, float centerX, float centerY, AbstractClientPlayerEntity abstractClientPlayerEntity) {
         float worldSizeX = MAP_WIDTH * (float) Math.pow(2 , MapImageLoader.iterations);
         float worldSizeY = MAP_HEIGHT * (float) Math.pow(2 , MapImageLoader.iterations);
 
-        float posX = (float) abstractClientPlayerEntity.getPos().x; // (MAP_WIDTH * worldGenScale);
-        float posZ = (float) abstractClientPlayerEntity.getPos().z; // (MAP_HEIGHT * worldGenScale);
-
         //abstractClientPlayerEntity.sendMessage(Text.literal((long)worldSizeX + ";"+ (long)worldSizeY + " >> " + (int)posX + ";" + (int)posZ));
-        posX = WINDOW_WIDTH / worldSizeX * posX;
-        posZ = WINDOW_HEIGHT / worldSizeY * posZ;
+        float transformedPosX = WINDOW_WIDTH / worldSizeX * posX;
+        float transformedPosZ = WINDOW_HEIGHT / worldSizeY * posZ;
 
-        abstractClientPlayerEntity.sendMessage(Text.literal(width + ";"+ height + " >> " + (int)posX + ";" + (int)posZ));
+        //abstractClientPlayerEntity.sendMessage(Text.literal("Map Coord : " + (int)transformedPosX + "," + (int)transformedPosZ + " >> Coord : " + posX + "," + posZ));
+        transformedPosX -= mapDeltaX * zoomScale;
+        transformedPosZ -= mapDeltaY * zoomScale;
+        abstractClientPlayerEntity.sendMessage(Text.literal("Map Coord : " + (int)transformedPosX + "," + (int)transformedPosZ + " >> offset : " + mapDeltaX * zoomScale + "," + mapDeltaY * zoomScale));
+
 
         // posX = Math.max(0, Math.min(WINDOW_WIDTH, posX * WINDOW_WIDTH * zoomScale));
         // posZ = Math.max(0, Math.min(WINDOW_HEIGHT, posZ * WINDOW_HEIGHT * zoomScale));
 
-        // posX -= centerX / 2;
-        // posZ -= centerY / 2;
-
-        return new Vec2f(posX, posZ);
+        return new Vec2f(transformedPosX, transformedPosZ);
     }
 }
