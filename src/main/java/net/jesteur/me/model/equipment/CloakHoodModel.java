@@ -1,4 +1,4 @@
-package net.jesteur.me.entity.equipments;
+package net.jesteur.me.model.equipment;
 
 import com.google.common.collect.ImmutableList;
 import net.jesteur.me.utils.ToRad;
@@ -6,10 +6,10 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
 import net.minecraft.entity.LivingEntity;
 
-public class CloakHoodEntityModel <T extends LivingEntity> extends AnimalModel<T> {
+public class CloakHoodModel<T extends LivingEntity> extends AnimalModel<T> {
     private final ModelPart hood;
 
-    public CloakHoodEntityModel(ModelPart root) {
+    public CloakHoodModel(ModelPart root) {
         this.hood = root.getChild("hood");
     }
 
