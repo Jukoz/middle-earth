@@ -44,8 +44,10 @@ public class NazgulRenderer extends BipedEntityRenderer<NazgulEntity, NazgulMode
             int fadingTicks = entity.getFadingTicks();
             float percentage = (float) fadingTicks / NazgulEntity.FADING_TIME;
             //poseStack.translate(Math.cos(fadingTicks * 0.3f) * percentage, Math.sin(fadingTicks * 0.35f) * percentage, Math.cos(fadingTicks * 0.4f) * percentage);
-            entityYaw += (float)(Math.cos((double)(entity).age * (2.5f + percentage)) * Math.PI * (double)0.4f);
+            entityYaw += (float)(Math.cos((double)(entity).age * 10 * percentage)) * Math.PI * ((double)1.35f + percentage);
+            float entityPitch = (float)(Math.cos((double)(entity).age * (5 + percentage)) * Math.PI * (double)0.3f);
             poseStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0f - entityYaw));
+            //poseStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(60.0f + entityPitch));
         }
 
         poseStack.scale(1.05f, 1.05f, 1.05f);

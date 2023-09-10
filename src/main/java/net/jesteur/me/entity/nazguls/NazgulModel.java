@@ -139,6 +139,6 @@ public class NazgulModel<T extends MobEntity>
 
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
-        super.render(matrices, vertices, light, overlay, red, green, blue, alpha * 0.8f);
+        super.render(matrices, vertices, light, overlay, red, green, blue, alpha * 0.5f);
     }
 }

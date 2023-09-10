@@ -11,6 +11,8 @@ import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,7 +24,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
 public class NazgulEntity extends HostileEntity {
-    public static int FADING_TIME = 60;
+    public static int FADING_TIME = 90;
+    public static float DAMAGE_MULTIPLIER = 0.4f;
     private int ticksSinceDeath = 0;
     public NazgulEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -86,8 +89,16 @@ public class NazgulEntity extends HostileEntity {
     }
 
     @Override
-    public void kill() {
+    public boolean damage(DamageSource source, float amount) {
+        if(!source.isOf(DamageTypes.IN_FIRE) && !source.isOf(DamageTypes.ON_FIRE) && !source.isOf(DamageTypes.LAVA)) {
+            //amount *= DAMAGE_MULTIPLIER;
+        }
+        return super.damage(source, amount);
+    }
 
+    @Override
+    public void kill() {
+        // Empty
     }
 
     @Override
