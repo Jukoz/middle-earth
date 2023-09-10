@@ -7,6 +7,7 @@ import net.jesteur.me.entity.crab.CrabEntity;
 import net.jesteur.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jesteur.me.entity.hobbits.HobbitEntity;
+import net.jesteur.me.entity.nazguls.NazgulEntity;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jesteur.me.entity.pebble.PebbleEntity;
 import net.jesteur.me.entity.spear.SpearEntity;
@@ -31,6 +32,9 @@ public class ModEntities {
 
     // Hobbits
     public static final EntityType<HobbitEntity> HOBBIT = registerEntity("hobbit", HobbitEntity::new, SpawnGroup.CREATURE, 0.5f, 1.9f);
+
+    // Nazgul
+    public static final EntityType<NazgulEntity> NAZGUL = registerEntity("nazgul", NazgulEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
     // Orcs
     public static final EntityType<MordorOrcEntity> MORDOR_ORC = registerEntity("mordor_orc", MordorOrcEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
@@ -63,6 +67,7 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(DURIN_FOLK, DurinDwarfEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(HOBBIT, HobbitEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(GALADHRIM_ELF, GaladhrimElfEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(NAZGUL, NazgulEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(MORDOR_ORC, MordorOrcEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(MIRKWOOD_SPIDER, MirkwoodSpiderEntity.setAttributes());

@@ -1,47 +1,54 @@
-package net.jesteur.me.entity.orcs.mordor;
+package net.jesteur.me.entity.nazguls;
 
 import com.google.common.collect.Maps;
 import net.jesteur.me.MiddleEarth;
-import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfEntity;
-import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfVariant;
 import net.jesteur.me.entity.model.ModEntityModelLayers;
+import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
+import net.jesteur.me.entity.orcs.mordor.MordorOrcModel;
+import net.jesteur.me.entity.orcs.mordor.MordorOrcVariant;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.LivingEntityRenderer;
+import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.client.render.entity.model.ZombieEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.RotationAxis;
 
 import java.util.Map;
 
-public class MordorOrcRenderer extends BipedEntityRenderer<MordorOrcEntity, MordorOrcModel<MordorOrcEntity>> {
-    private static final String PATH = "textures/entities/orcs/mordor/";
+public class NazgulRenderer extends BipedEntityRenderer<NazgulEntity, NazgulModel<NazgulEntity>> {
+    private static final String PATH = "textures/entities/nazgul/nazgul.png";
 
-    public MordorOrcRenderer(EntityRendererFactory.Context ctx) {
-        super(ctx, new MordorOrcModel<>(ctx.getPart(ModEntityModelLayers.ORC)), 0.5f);
+    public NazgulRenderer(EntityRendererFactory.Context ctx) {
+        super(ctx, new NazgulModel<>(ctx.getPart(ModEntityModelLayers.NAZGUL)), 0.5f);
+        this.addFeature(new ArmorFeatureRenderer<>(this, new ZombieEntityModel(ctx.getPart(EntityModelLayers.ZOMBIE_INNER_ARMOR)), new ZombieEntityModel(ctx.getPart(EntityModelLayers.ZOMBIE_OUTER_ARMOR)), ctx.getModelManager()));
     }
 
     @Override
-    public Identifier getTexture(MordorOrcEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+    public Identifier getTexture(NazgulEntity entity) {
+        return new Identifier(MiddleEarth.MOD_ID, PATH);
     }
 
-    public static final Map<MordorOrcVariant, String> LOCATION_BY_VARIANT =
-            Util.make(Maps.newEnumMap(MordorOrcVariant.class), (resourceLocation) -> {
-                resourceLocation.put(MordorOrcVariant.LIGHT_BROWN_RED,
-                        PATH + "orc1.png");
-                resourceLocation.put(MordorOrcVariant.PALE_BLUE_YELLOW,
-                        PATH + "orc2.png");
-                resourceLocation.put(MordorOrcVariant.PALE_GREY_ORANGE,
-                        PATH + "orc3.png");
-            });
-
     @Override
-    public void render(MordorOrcEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
+    public void render(NazgulEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
 
-        poseStack.scale(0.75f, 0.75f, 0.75f);
+        if(entity.isFading()) {
+            int fadingTicks = entity.getFadingTicks();
+            float percentage = (float) fadingTicks / NazgulEntity.FADING_TIME;
+            //poseStack.translate(Math.cos(fadingTicks * 0.3f) * percentage, Math.sin(fadingTicks * 0.35f) * percentage, Math.cos(fadingTicks * 0.4f) * percentage);
+            entityYaw += (float)(Math.cos((double)(entity).age * (2.5f + percentage)) * Math.PI * (double)0.4f);
+            poseStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0f - entityYaw));
+        }
+
+        poseStack.scale(1.05f, 1.05f, 1.05f);
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 }

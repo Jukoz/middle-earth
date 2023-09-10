@@ -25,7 +25,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
             0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, 0.0F,
             () -> Ingredient.ofItems(Items.IRON_INGOT)),
     CHAINMAIL_FUR_CLOAK("chainmail_fur_cloak", 15, new int[] { 0, 5, 0, 0},
-            0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, 0.0F,
+            0, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 0, 0.0F,
             () -> Ingredient.ofItems(Items.IRON_INGOT)),
     NAZGUL_CLOAK("nazgul_cloak", 15, new int[] { 2, 5, 4, 2},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0, 0.0F,
@@ -58,7 +58,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
 
     @Override
     public int getDurability(ArmorItem.Type type) {
-        return BASE_DURABILITY[type.ordinal()];
+        return BASE_DURABILITY[type.ordinal()] * this.durabilityMultiplier;
     }
 
     @Override
