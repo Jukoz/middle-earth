@@ -35,17 +35,14 @@ public class MiddleEarthMapScreen extends Screen {
     public static final int MAP_HEIGHT = 1216;
 
     public static final float MIN_ZOOM = (float) WINDOW_WIDTH / (MAP_WIDTH + (MARGIN * 2));
-    public static final float MAX_ZOOM = 3.0f;
-    public static final float ZOOMING_POWER = 0.067f;
-
-    private GameProfile gameProfile;
-    private float zoomScale = 1f;
+    public static final float MAX_ZOOM = 2.5f;
+    public static final float ZOOMING_POWER = 0.07f;
+    private float zoomScale = MIN_ZOOM;
     private float mapDisplacementX, mapDisplacementY;
 
 
-    public MiddleEarthMapScreen(GameProfile gameProfile) {
+    public MiddleEarthMapScreen() {
         super(MAP_TITLE_TEXT);
-        this.gameProfile = gameProfile;
     }
 
     @Override
@@ -77,14 +74,17 @@ public class MiddleEarthMapScreen extends Screen {
                 Vec3d playerCoordinate = new Vec3d(abstractClientPlayerEntity.getPos().x, abstractClientPlayerEntity.getPos().y, abstractClientPlayerEntity.getPos().z);
                 Vec2f mapPlayerPos = getCoordinateOnMap((float)playerCoordinate.x, (float)playerCoordinate.z, x, y, abstractClientPlayerEntity);
 
-                context.drawTextWithShadow(textRenderer, Text.literal("World Coordinates : " + (int)playerCoordinate.x + "," + (int)playerCoordinate.y+ "," + (int)playerCoordinate.z), 0, 5, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Mouse : " + (int)mouseX + "," + (int)mouseY), 0, 15, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Raw Zoom  : " + zoomScale ), 0, 25, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Modified Zoom : " + (zoomScale + 1 - MIN_ZOOM)), 0, 35, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("World Player Coordinates : " + (int)playerCoordinate.x + ", " + (int)playerCoordinate.y+ ", " + (int)playerCoordinate.z), 0, 5, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Map Player Coordinates : " + (int)mapPlayerPos.x + ", " + (int)mapPlayerPos.y), 0, 15, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Mouse : " + (int)mouseX + "," + (int)mouseY), 0, 25, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Raw Zoom  : " + zoomScale ), 0, 35, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Modified Zoom : " + (zoomScale + 1 - MIN_ZOOM)), 0, 45, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Map Displacement X : " + mapDisplacementX), 0, 60, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Map Displacement Y : " + mapDisplacementY), 0, 70, 0xffffff);
 
                 context.drawTexture(abstractClientPlayerEntity.getSkinTexture(),
-                        ((this.width - WINDOW_WIDTH) / 2) + MARGIN + (int)mapPlayerPos.x - 4,
-                        ((this.height - WINDOW_HEIGHT) / 2) + MARGIN + (int)mapPlayerPos.y - 4,
+                        x + MARGIN + (int)mapPlayerPos.x - 4,
+                        y + MARGIN + (int)mapPlayerPos.y - 4,
                         8, 8, 8, 8, 64, 64);
             }
         }
@@ -107,13 +107,25 @@ public class MiddleEarthMapScreen extends Screen {
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
         float zoomAmount = (float) (amount * ZOOMING_POWER);
 
-        this.zoomScale = (float) Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, zoomScale + zoomAmount));
+        // Store the previous zoom scale for later use
+        float previousZoomScale = this.zoomScale;
 
-        float zoomAmountX = zoomScale * MAP_WIDTH;
-        float zoomAmountY = zoomScale * MAP_HEIGHT;
+        this.zoomScale = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, zoomScale + zoomAmount));
+        float modifiedZoomScale = (previousZoomScale + 1 - MIN_ZOOM);
 
-        this.mapDisplacementX += zoomAmountX; //(int)(mouseX * zoomAmount + (MAX_ZOOM - zoomAmount) * mouseX);
-        this.mapDisplacementY += zoomAmountY; //(int)(mouseY * zoomAmount + (MAX_ZOOM - zoomAmount) * mouseY);
+        // Calculate the change in zoom scale
+        float zoomChange = this.zoomScale - previousZoomScale;
+
+        // Calculate the center of the map in screen coordinates
+        float centerX = (float)MAP_WIDTH / 2;
+        float centerY = (float)MAP_HEIGHT / 2;
+
+        // Calculate the displacement to keep the center of the map fixed
+        float zoomAmountX = centerX * zoomChange;
+        float zoomAmountY = centerY * zoomChange;
+
+        this.mapDisplacementX += zoomAmountX;
+        this.mapDisplacementY += zoomAmountY;
 
         correctMapVision();
         return super.mouseScrolled(mouseX, mouseY, amount);
@@ -128,13 +140,13 @@ public class MiddleEarthMapScreen extends Screen {
         this.mapDisplacementY = Math.min((float) MAP_HEIGHT * distanceScale, mapDisplacementY);
     }
 
-    private Vec2f getCoordinateOnMap(float posX, float posZ, float centerX, float centerY, AbstractClientPlayerEntity abstractClientPlayerEntity) {
+    private Vec2f getCoordinateOnMap(float posX, float posZ, float leftMargin, float topMargin, AbstractClientPlayerEntity abstractClientPlayerEntity) {
         float worldSizeX = MAP_WIDTH * (float) Math.pow(2 , MapImageLoader.iterations);
         float worldSizeY = MAP_HEIGHT * (float) Math.pow(2 , MapImageLoader.iterations);
 
-        float newZoom = zoomScale + 1 - MIN_ZOOM; // 1 -> max
-        float transformedPosX = (float)WINDOW_WIDTH / worldSizeX * posX * newZoom;
-        float transformedPosY = (float)WINDOW_HEIGHT / worldSizeY * posZ * newZoom;
+        float newZoom = zoomScale + 1 - MIN_ZOOM; // 1 -> min
+        float transformedPosX = (float) ((posX / worldSizeX) * WINDOW_WIDTH * newZoom); // Math.pow(newZoom, 2));
+        float transformedPosY = (float) ((posZ / worldSizeY) * WINDOW_HEIGHT * newZoom); // Math.pow(newZoom, 2));
 
         transformedPosX -= mapDisplacementX;
         transformedPosY -= mapDisplacementY;
