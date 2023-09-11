@@ -106,26 +106,14 @@ public class MiddleEarthMapScreen extends Screen {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
         float zoomAmount = (float) (amount * ZOOMING_POWER);
-
-        // Store the previous zoom scale for later use
         float previousZoomScale = this.zoomScale;
 
         this.zoomScale = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, zoomScale + zoomAmount));
-        float modifiedZoomScale = (previousZoomScale + 1 - MIN_ZOOM);
+        float modifiedZoomScale = (zoomScale + 1 - MIN_ZOOM);
+        float modifiedPreviousZoomScale = (previousZoomScale + 1 - MIN_ZOOM);
 
-        // Calculate the change in zoom scale
-        float zoomChange = this.zoomScale - previousZoomScale;
-
-        // Calculate the center of the map in screen coordinates
-        float centerX = (float)MAP_WIDTH / 2;
-        float centerY = (float)MAP_HEIGHT / 2;
-
-        // Calculate the displacement to keep the center of the map fixed
-        float zoomAmountX = centerX * zoomChange;
-        float zoomAmountY = centerY * zoomChange;
-
-        this.mapDisplacementX += zoomAmountX;
-        this.mapDisplacementY += zoomAmountY;
+        this.mapDisplacementX = (((MAP_WIDTH * modifiedZoomScale) - MAP_WIDTH) / 2) - (mapDisplacementX - ((MAP_WIDTH * modifiedPreviousZoomScale) - MAP_WIDTH) / 2);
+        this.mapDisplacementY = (((MAP_HEIGHT * modifiedZoomScale) - MAP_HEIGHT) / 2) - (mapDisplacementY - ((MAP_HEIGHT * modifiedPreviousZoomScale) - MAP_HEIGHT) / 2);
 
         correctMapVision();
         return super.mouseScrolled(mouseX, mouseY, amount);
