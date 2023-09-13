@@ -114,17 +114,6 @@ public class NazgulModel<T extends MobEntity>
 
             this.leftArm.pitch = -3.1f + MathHelper.sin(ageInTicks * 0.4f + (float)Math.PI) * 0.3f * limbCosTime;
             this.leftArm.roll = 0.6f + MathHelper.cos(ageInTicks * 0.666f + (float)Math.PI) * 0.2f;
-            //if(state == NazgulEntity.State.FADING) {
-            //    this.leftArm.pivotX = LEFT_ARM_PIVOT_X + MathHelper.sin(ageInTicks * 0.8f + (float)Math.PI) * 0.5f * limbCosTime;
-            //    this.rightArm.pivotX = RIGHT_ARM_PIVOT_X + MathHelper.cos(ageInTicks * 0.8f + (float)Math.PI) * 0.5f * limbCosTime;
-            //    this.leftLeg.pivotX = LEG_PIVOT_X + MathHelper.sin(ageInTicks * 1.1f + (float)Math.PI) * 0.7f * limbCosTime;
-            //    this.rightLeg.pivotX = -LEG_PIVOT_X + MathHelper.cos(ageInTicks * 1.1f + (float)Math.PI) * 0.7f * limbCosTime;
-            //} else {
-            //    this.leftArm.pivotX = LEFT_ARM_PIVOT_X;
-            //    this.rightArm.pivotX = RIGHT_ARM_PIVOT_X;
-            //    this.leftLeg.pivotX = LEG_PIVOT_X;
-            //    this.rightLeg.pivotX = -LEG_PIVOT_X;
-            //}
         }
     }
 

@@ -23,6 +23,7 @@ import net.jesteur.me.entity.trolls.cave.CaveTrollRenderer;
 import net.jesteur.me.entity.trolls.snow.SnowTrollRenderer;
 import net.jesteur.me.item.ModEquipmentItems;
 import net.jesteur.me.item.utils.ModModelPredicateProvider;
+import net.jesteur.me.sound.ModSounds;
 import net.jesteur.me.utils.IntToRGB;
 import net.minecraft.client.color.item.ItemColorProvider;
 import net.minecraft.client.render.RenderLayer;
@@ -61,7 +62,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.CRAB, CrabRenderer::new);
 
         ModModelPredicateProvider.registerBowModel();
-
 
         initializeRenderLayerMap();
     }

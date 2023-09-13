@@ -6,6 +6,7 @@ import net.jesteur.me.entity.ModEntities;
 import net.jesteur.me.events.ModEvents;
 import net.jesteur.me.item.*;
 import net.jesteur.me.item.utils.ModItemGroups;
+import net.jesteur.me.sound.ModSounds;
 import net.jesteur.me.world.spawners.ModEntitySpawning;
 import net.jesteur.me.world.biomes.MEBiomeKeys;
 import net.jesteur.me.world.biomes.MEBiomesData;
@@ -43,6 +44,8 @@ public class MiddleEarth implements ModInitializer {
 
 		SimpleBlockSets.registerModBlockSets();
 		WoodBlockSets.registerModBlockSets();
+
+		ModSounds.registerModSounds();
 
 		ModDimensions.register();
 		MEBiomeKeys.registerModBiomes();

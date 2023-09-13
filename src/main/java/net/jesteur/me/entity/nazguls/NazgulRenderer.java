@@ -50,7 +50,10 @@ public class NazgulRenderer extends BipedEntityRenderer<NazgulEntity, NazgulMode
             //poseStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(60.0f + entityPitch));
         }
 
-        poseStack.scale(1.05f, 1.05f, 1.05f);
+        float scale = 1 - (float)entity.getFadingTicks() / NazgulEntity.FADING_TIME;
+        scale = (float) Math.pow(scale, 0.35f);
+        poseStack.scale(1.05f * scale, 1.05f * scale, 1.05f * scale);
+
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 }

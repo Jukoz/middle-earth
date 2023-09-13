@@ -2,6 +2,7 @@ package net.jesteur.me.mixin;
 
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.item.ModRessourceItems;
+import net.jesteur.me.utils.ParticleManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -53,7 +54,7 @@ public abstract class BlockEntityLandedMixin {
 
 							world.playSound(position.getX(), position.getY(), position.getZ(), SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 1, 1.2f, true);
 
-							createParticles(world, entityItem.getPos());
+							ParticleManager.createParticles(world, entityItem.getPos(), ParticleTypes.END_ROD);
 							removeOneItemFromStackEntity(itm);
 							removeOneItemFromStackEntity(entityItem);
 
@@ -72,18 +73,6 @@ public abstract class BlockEntityLandedMixin {
 					}
 				}
 			}
-		}
-	}
-
-	private void createParticles(World world, Position pos) {
-		for (int i = 0; i < PARTICLE_QUANTITY; i++) {
-			world.addParticle(ParticleTypes.END_ROD,
-					pos.getX() + RANDOM_PARTICLE_RANGE * (-0.5f + Math.random()),
-					pos.getY() + Math.random(),
-					pos.getZ() + RANDOM_PARTICLE_RANGE * (-0.5f + Math.random()),
-					PARTICLE_VELOCITY * (-0.5f + Math.random()),
-					PARTICLE_VELOCITY * (-0.5f + Math.random()),
-					PARTICLE_VELOCITY * (-0.5f + Math.random()));
 		}
 	}
 
