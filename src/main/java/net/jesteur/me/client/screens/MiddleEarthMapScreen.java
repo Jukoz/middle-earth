@@ -50,10 +50,11 @@ public class MiddleEarthMapScreen extends Screen {
     protected void init() {
         zoomModifiers = new float[MAX_ZOOM_INDEX];
         float newValue = 0f;
-        float power = 1.07f;
-        float zoomDecimalModifier = (float)Math.pow(10, 5);
+        float power = 1.05f;
+        float decimalNb = 3;
         for(int i = 0; i < MAX_ZOOM_INDEX; i++) {
-            newValue += Math.round(Math.pow(power, -i) * zoomDecimalModifier) / zoomDecimalModifier;
+            newValue += ((float)Math.round(Math.round(Math.pow(power, -i) * Math.pow(10, decimalNb)))
+                    / (float)Math.pow(10, decimalNb));
             zoomModifiers[i] = newValue;
         }
     }
@@ -127,9 +128,15 @@ public class MiddleEarthMapScreen extends Screen {
         int newZoomIndex = (int)Math.min(MAX_ZOOM_INDEX - 1, Math.max(0, (zoomIndex + amount)));
         if(newZoomIndex != zoomIndex) {
             zoomIndex = newZoomIndex;
+            float previousZoom = currentZoom;
             currentZoom = zoomModifiers[zoomIndex];
+
+            mapDisplacementX = mapDisplacementX + (int)(((MAP_WINDOW_WIDTH * currentZoom) - (MAP_WINDOW_WIDTH * previousZoom)) / 2);
+            mapDisplacementY = mapDisplacementY + (int)(((MAP_WINDOW_HEIGHT * currentZoom) - (MAP_WINDOW_HEIGHT * previousZoom)) / 2);
+
             correctMapVision();
         }
+
         return super.mouseScrolled(mouseX, mouseY, amount);
     }
 
