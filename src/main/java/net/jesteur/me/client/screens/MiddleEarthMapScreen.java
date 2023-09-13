@@ -1,7 +1,5 @@
 package net.jesteur.me.client.screens;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.world.chunkgen.map.MapImageLoader;
@@ -10,17 +8,11 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.biome.Biome;
-import org.joml.Vector3f;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class MiddleEarthMapScreen extends Screen {
@@ -29,18 +21,19 @@ public class MiddleEarthMapScreen extends Screen {
     private static final Text RETURN_TO_GAME_TEXT = Text.translatable("menu.returnToGame");
     private static final Text MAP_TITLE_TEXT = Text.of("Middle-earth Map");
     public static final int MARGIN = 5;
-    public static final int WINDOW_WIDTH = 525; // 1400 / 2.66667
-    public static final int WINDOW_HEIGHT = 456; // 1216 / 2.66667
+
     public static final int MAP_WIDTH = 1400;
     public static final int MAP_HEIGHT = 1216;
 
+    public static final int WINDOW_WIDTH = Math.round((float)MAP_WIDTH / (10f/3f));
+    public static final int WINDOW_HEIGHT = Math.round((float)MAP_HEIGHT / (10f/3f));
+
     public static final float MIN_ZOOM = (float) WINDOW_WIDTH / (MAP_WIDTH + (MARGIN * 2));
-    public static final float MAX_ZOOM = 2.5f;
-    public static final float ZOOMING_POWER = 0.07f;
     private float zoomScale = MIN_ZOOM;
     private float mapDisplacementX, mapDisplacementY;
 
-
+    private int zoomIndex = 0;
+    private float currentZoom = 1f;
     public MiddleEarthMapScreen() {
         super(MAP_TITLE_TEXT);
     }
@@ -61,26 +54,35 @@ public class MiddleEarthMapScreen extends Screen {
         int x = (this.width - WINDOW_WIDTH) / 2;
         int y = (this.height - WINDOW_HEIGHT) / 2;
         RenderSystem.enableBlend();
-        context.drawTexture(WINDOW_TEXTURE, x, y, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-
-        context.drawTexture(MAP_TEXTURE, x + MARGIN, y + MARGIN, mapDisplacementX, mapDisplacementY,
-                WINDOW_WIDTH - (2 * MARGIN), WINDOW_HEIGHT - (2 * MARGIN), (int) (MAP_WIDTH * zoomScale), (int) (MAP_HEIGHT * zoomScale));
+        // Border
+        context.drawTexture(WINDOW_TEXTURE, x, y, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
+                WINDOW_WIDTH, WINDOW_HEIGHT);
+        // Map
+        int marginOffset = (zoomIndex > 0) ? -MARGIN : MARGIN;
+        context.drawTexture(MAP_TEXTURE, x + MARGIN, y + MARGIN,
+                // UV (x,y)
+                mapDisplacementX, mapDisplacementY,
+                WINDOW_WIDTH - (MARGIN * 2),
+                WINDOW_HEIGHT - (MARGIN * 2),
+                (int) (MAP_WIDTH * currentZoom * MIN_ZOOM) - marginOffset,
+                (int) (MAP_HEIGHT * currentZoom * MIN_ZOOM) - marginOffset);
 
         Entity cameraEntity = this.client.getCameraEntity();
         if(cameraEntity != null) {
             Vec3d pos = Objects.requireNonNull(MinecraftClient.getInstance().getCameraEntity()).getPos();
             if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
                 Vec3d playerCoordinate = new Vec3d(abstractClientPlayerEntity.getPos().x, abstractClientPlayerEntity.getPos().y, abstractClientPlayerEntity.getPos().z);
-                Vec2f mapPlayerPos = getCoordinateOnMap((float)playerCoordinate.x, (float)playerCoordinate.z, x, y, abstractClientPlayerEntity);
+                Vec2f mapPlayerPos = getCoordinateOnMap((float)playerCoordinate.x, (float)playerCoordinate.z, 4,4);
 
+                // Debug panels
                 context.drawTextWithShadow(textRenderer, Text.literal("World Player Coordinates : " + (int)playerCoordinate.x + ", " + (int)playerCoordinate.y+ ", " + (int)playerCoordinate.z), 0, 5, 0xffffff);
                 context.drawTextWithShadow(textRenderer, Text.literal("Map Player Coordinates : " + (int)mapPlayerPos.x + ", " + (int)mapPlayerPos.y), 0, 15, 0xffffff);
                 context.drawTextWithShadow(textRenderer, Text.literal("Mouse : " + (int)mouseX + "," + (int)mouseY), 0, 25, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Raw Zoom  : " + zoomScale ), 0, 35, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Modified Zoom : " + (zoomScale + 1 - MIN_ZOOM)), 0, 45, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Map Displacement X : " + mapDisplacementX), 0, 60, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Map Displacement Y : " + mapDisplacementY), 0, 70, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Zoom  : " + this.currentZoom ), 0, 35, 0xffffff);
+
+                context.drawTextWithShadow(textRenderer, Text.literal("Map Displacement X : " + mapDisplacementX), 0, 50, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Map Displacement Y : " + mapDisplacementY), 0, 60, 0xffffff);
 
                 context.drawTexture(abstractClientPlayerEntity.getSkinTexture(),
                         x + MARGIN + (int)mapPlayerPos.x - 4,
@@ -105,44 +107,54 @@ public class MiddleEarthMapScreen extends Screen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-        float zoomAmount = (float) (amount * ZOOMING_POWER);
-        float previousZoomScale = this.zoomScale;
+        // Out of the window
+        if(mouseX < 275 || mouseX > 685 && mouseY < 75 || mouseY > 430)
+            return super.mouseScrolled(mouseX, mouseY, amount);
 
-        this.zoomScale = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, zoomScale + zoomAmount));
-        float modifiedZoomScale = (zoomScale + 1 - MIN_ZOOM);
-        float modifiedPreviousZoomScale = (previousZoomScale + 1 - MIN_ZOOM);
+        // Between 0 and 10 scrolls
+        int newZoomIndex = Math.min(Math.max((this.zoomIndex + ((amount > 0) ? 1 : -1)), 0), 10);
+        if(newZoomIndex != this.zoomIndex) {
+            float previousZoomScale = this.currentZoom;
+            boolean isZooming = this.zoomIndex < newZoomIndex;
+            if(isZooming){
+                this.currentZoom += (float)Math.pow(1.25f, -this.zoomIndex - 1);
+            } else {
+                if(newZoomIndex == 0)
+                    this.currentZoom = 1;
+                else
+                    this.currentZoom -= (float)Math.pow(1.3f, -this.zoomIndex);
+            }
+            this.zoomIndex = newZoomIndex;
+            System.out.println(this.zoomIndex + " > " + this.currentZoom);
 
-        this.mapDisplacementX = (((MAP_WIDTH * modifiedZoomScale) - MAP_WIDTH) / 2) - (mapDisplacementX - ((MAP_WIDTH * modifiedPreviousZoomScale) - MAP_WIDTH) / 2);
-        this.mapDisplacementY = (((MAP_HEIGHT * modifiedZoomScale) - MAP_HEIGHT) / 2) - (mapDisplacementY - ((MAP_HEIGHT * modifiedPreviousZoomScale) - MAP_HEIGHT) / 2);
-
-        correctMapVision();
+            correctMapVision();
+        }
         return super.mouseScrolled(mouseX, mouseY, amount);
     }
 
     private void correctMapVision() {
+        // Minimum (0)
         this.mapDisplacementX = Math.max(0, mapDisplacementX);
         this.mapDisplacementY = Math.max(0, mapDisplacementY);
 
-        float distanceScale = zoomScale - MIN_ZOOM;
-        this.mapDisplacementX = Math.min((float) MAP_WIDTH * distanceScale, mapDisplacementX);
-        this.mapDisplacementY = Math.min((float) MAP_HEIGHT * distanceScale, mapDisplacementY);
+        float modifier = currentZoom - 1;
+
+        // Maximum (dynamic)
+        // When zoomIndex is 0, maximum should be 0,0
+        this.mapDisplacementX = Math.min((float)(WINDOW_WIDTH) * modifier, mapDisplacementX);
+        this.mapDisplacementY = Math.min((float)(WINDOW_HEIGHT) * modifier, mapDisplacementY);
     }
 
-    private Vec2f getCoordinateOnMap(float posX, float posZ, float leftMargin, float topMargin, AbstractClientPlayerEntity abstractClientPlayerEntity) {
-        float worldSizeX = MAP_WIDTH * (float) Math.pow(2 , MapImageLoader.iterations);
-        float worldSizeY = MAP_HEIGHT * (float) Math.pow(2 , MapImageLoader.iterations);
+    private Vec2f getCoordinateOnMap(float posX, float posZ, int textureOffsetX, int textureOffsetY) {
+        float worldSize = (float) Math.pow(2 , MapImageLoader.iterations);
+        float worldSizeX = MAP_WIDTH * worldSize;
+        float worldSizeY = MAP_HEIGHT * worldSize;
 
-        float newZoom = zoomScale + 1 - MIN_ZOOM; // 1 -> min
-        float transformedPosX = (float) ((posX / worldSizeX) * WINDOW_WIDTH * newZoom); // Math.pow(newZoom, 2));
-        float transformedPosY = (float) ((posZ / worldSizeY) * WINDOW_HEIGHT * newZoom); // Math.pow(newZoom, 2));
+        float transformedPosX = ((posX / worldSizeX) * WINDOW_WIDTH * currentZoom) - mapDisplacementX;
+        float transformedPosY = ((posZ / worldSizeY) * WINDOW_HEIGHT * currentZoom) - mapDisplacementY;
 
-        transformedPosX -= mapDisplacementX;
-        transformedPosY -= mapDisplacementY;
-
-        //abstractClientPlayerEntity.sendMessage(Text.literal("Zoom : " + newZoom));
-
-        transformedPosX = Math.max(4, Math.min(WINDOW_WIDTH + 4, transformedPosX));
-        transformedPosY = Math.max(4, Math.min(WINDOW_HEIGHT + 4, transformedPosY));
+        transformedPosX = Math.max(textureOffsetX, Math.min(WINDOW_WIDTH - textureOffsetX - (MARGIN * 2), transformedPosX));
+        transformedPosY = Math.max(textureOffsetY, Math.min(WINDOW_HEIGHT - textureOffsetY - (MARGIN * 2), transformedPosY));
 
         return new Vec2f(transformedPosX, transformedPosY);
     }
