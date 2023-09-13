@@ -13,6 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class MiddleEarthMapScreen extends Screen {
@@ -28,20 +29,33 @@ public class MiddleEarthMapScreen extends Screen {
     public static final int WINDOW_WIDTH = Math.round((float)MAP_WIDTH / (10f/3f));
     public static final int WINDOW_HEIGHT = Math.round((float)MAP_HEIGHT / (10f/3f));
 
-    public static final float MIN_ZOOM = (float) WINDOW_WIDTH / (MAP_WIDTH + (MARGIN * 2));
-    private float zoomScale = MIN_ZOOM;
-    private float mapDisplacementX, mapDisplacementY;
+    public static final int MAP_WINDOW_WIDTH = WINDOW_WIDTH - (MARGIN * 2);
+    public static final int MAP_WINDOW_HEIGHT = WINDOW_HEIGHT - (MARGIN * 2);
 
-    private int zoomIndex = 0;
-    private float currentZoom = 1f;
+    public static final float MIN_ZOOM = (float) MAP_WINDOW_WIDTH / MAP_WIDTH;
+    private static final int MAX_ZOOM_INDEX = 13;
+
+    private static int mapDisplacementX = 0;
+    private static int mapDisplacementY = 0;
+
+    private static int zoomIndex = 0;
+    private static float currentZoom = 1f;
     public MiddleEarthMapScreen() {
         super(MAP_TITLE_TEXT);
     }
 
+    private static float[] zoomModifiers;
+
     @Override
     protected void init() {
-        this.mapDisplacementX = 0f;
-        this.mapDisplacementY = 0f;
+        zoomModifiers = new float[MAX_ZOOM_INDEX];
+        float newValue = 0f;
+        float power = 1.07f;
+        float zoomDecimalModifier = (float)Math.pow(10, 5);
+        for(int i = 0; i < MAX_ZOOM_INDEX; i++) {
+            newValue += Math.round(Math.pow(power, -i) * zoomDecimalModifier) / zoomDecimalModifier;
+            zoomModifiers[i] = newValue;
+        }
     }
 
     @Override
@@ -59,14 +73,13 @@ public class MiddleEarthMapScreen extends Screen {
         context.drawTexture(WINDOW_TEXTURE, x, y, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
                 WINDOW_WIDTH, WINDOW_HEIGHT);
         // Map
-        int marginOffset = (zoomIndex > 0) ? -MARGIN : MARGIN;
         context.drawTexture(MAP_TEXTURE, x + MARGIN, y + MARGIN,
                 // UV (x,y)
                 mapDisplacementX, mapDisplacementY,
-                WINDOW_WIDTH - (MARGIN * 2),
-                WINDOW_HEIGHT - (MARGIN * 2),
-                (int) (MAP_WIDTH * currentZoom * MIN_ZOOM) - marginOffset,
-                (int) (MAP_HEIGHT * currentZoom * MIN_ZOOM) - marginOffset);
+                MAP_WINDOW_WIDTH,
+                MAP_WINDOW_HEIGHT,
+            (int) (MAP_WIDTH * currentZoom * MIN_ZOOM),
+            (int) (MAP_HEIGHT * currentZoom * MIN_ZOOM));
 
         Entity cameraEntity = this.client.getCameraEntity();
         if(cameraEntity != null) {
@@ -79,10 +92,11 @@ public class MiddleEarthMapScreen extends Screen {
                 context.drawTextWithShadow(textRenderer, Text.literal("World Player Coordinates : " + (int)playerCoordinate.x + ", " + (int)playerCoordinate.y+ ", " + (int)playerCoordinate.z), 0, 5, 0xffffff);
                 context.drawTextWithShadow(textRenderer, Text.literal("Map Player Coordinates : " + (int)mapPlayerPos.x + ", " + (int)mapPlayerPos.y), 0, 15, 0xffffff);
                 context.drawTextWithShadow(textRenderer, Text.literal("Mouse : " + (int)mouseX + "," + (int)mouseY), 0, 25, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Zoom  : " + this.currentZoom ), 0, 35, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Zoom  : " + currentZoom ), 0, 35, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Zoom Index : " + zoomIndex ), 0, 45, 0xFFBF00);
 
-                context.drawTextWithShadow(textRenderer, Text.literal("Map Displacement X : " + mapDisplacementX), 0, 50, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Map Displacement Y : " + mapDisplacementY), 0, 60, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Map Displacement X : " + mapDisplacementX), 0, 60, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Map Displacement Y : " + mapDisplacementY), 0, 70, 0xffffff);
 
                 context.drawTexture(abstractClientPlayerEntity.getSkinTexture(),
                         x + MARGIN + (int)mapPlayerPos.x - 4,
@@ -97,8 +111,8 @@ public class MiddleEarthMapScreen extends Screen {
         if (button != 0) {
             return false;
         }
-        this.mapDisplacementX -= (float) deltaX;
-        this.mapDisplacementY -= (float) deltaY;
+        mapDisplacementX -= (float) deltaX;
+        mapDisplacementY -= (float) deltaY;
 
         correctMapVision();
         return true;
@@ -107,26 +121,13 @@ public class MiddleEarthMapScreen extends Screen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-        // Out of the window
+        // Check if you're outside the window
         if(mouseX < 275 || mouseX > 685 && mouseY < 75 || mouseY > 430)
             return super.mouseScrolled(mouseX, mouseY, amount);
-
-        // Between 0 and 10 scrolls
-        int newZoomIndex = Math.min(Math.max((this.zoomIndex + ((amount > 0) ? 1 : -1)), 0), 10);
-        if(newZoomIndex != this.zoomIndex) {
-            float previousZoomScale = this.currentZoom;
-            boolean isZooming = this.zoomIndex < newZoomIndex;
-            if(isZooming){
-                this.currentZoom += (float)Math.pow(1.25f, -this.zoomIndex - 1);
-            } else {
-                if(newZoomIndex == 0)
-                    this.currentZoom = 1;
-                else
-                    this.currentZoom -= (float)Math.pow(1.3f, -this.zoomIndex);
-            }
-            this.zoomIndex = newZoomIndex;
-            System.out.println(this.zoomIndex + " > " + this.currentZoom);
-
+        int newZoomIndex = (int)Math.min(MAX_ZOOM_INDEX - 1, Math.max(0, (zoomIndex + amount)));
+        if(newZoomIndex != zoomIndex) {
+            zoomIndex = newZoomIndex;
+            currentZoom = zoomModifiers[zoomIndex];
             correctMapVision();
         }
         return super.mouseScrolled(mouseX, mouseY, amount);
@@ -134,15 +135,14 @@ public class MiddleEarthMapScreen extends Screen {
 
     private void correctMapVision() {
         // Minimum (0)
-        this.mapDisplacementX = Math.max(0, mapDisplacementX);
-        this.mapDisplacementY = Math.max(0, mapDisplacementY);
+        mapDisplacementX = Math.max(0, mapDisplacementX);
+        mapDisplacementY = Math.max(0, mapDisplacementY);
 
         float modifier = currentZoom - 1;
-
         // Maximum (dynamic)
         // When zoomIndex is 0, maximum should be 0,0
-        this.mapDisplacementX = Math.min((float)(WINDOW_WIDTH) * modifier, mapDisplacementX);
-        this.mapDisplacementY = Math.min((float)(WINDOW_HEIGHT) * modifier, mapDisplacementY);
+        mapDisplacementX = (int)Math.min((MAP_WINDOW_WIDTH) * modifier, mapDisplacementX);
+        mapDisplacementY = (int) Math.min((MAP_WINDOW_HEIGHT) * modifier, mapDisplacementY);
     }
 
     private Vec2f getCoordinateOnMap(float posX, float posZ, int textureOffsetX, int textureOffsetY) {
@@ -150,11 +150,11 @@ public class MiddleEarthMapScreen extends Screen {
         float worldSizeX = MAP_WIDTH * worldSize;
         float worldSizeY = MAP_HEIGHT * worldSize;
 
-        float transformedPosX = ((posX / worldSizeX) * WINDOW_WIDTH * currentZoom) - mapDisplacementX;
-        float transformedPosY = ((posZ / worldSizeY) * WINDOW_HEIGHT * currentZoom) - mapDisplacementY;
+        float transformedPosX = ((posX / worldSizeX) * MAP_WINDOW_WIDTH * currentZoom) - mapDisplacementX;
+        float transformedPosY = ((posZ / worldSizeY) * MAP_WINDOW_HEIGHT * currentZoom) - mapDisplacementY;
 
-        transformedPosX = Math.max(textureOffsetX, Math.min(WINDOW_WIDTH - textureOffsetX - (MARGIN * 2), transformedPosX));
-        transformedPosY = Math.max(textureOffsetY, Math.min(WINDOW_HEIGHT - textureOffsetY - (MARGIN * 2), transformedPosY));
+        transformedPosX = Math.max(textureOffsetX, Math.min(MAP_WINDOW_WIDTH - textureOffsetX, transformedPosX));
+        transformedPosY = Math.max(textureOffsetY, Math.min(MAP_WINDOW_HEIGHT - textureOffsetY, transformedPosY));
 
         return new Vec2f(transformedPosX, transformedPosY);
     }
