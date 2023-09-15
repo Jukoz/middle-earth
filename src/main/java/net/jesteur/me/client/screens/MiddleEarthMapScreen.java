@@ -51,10 +51,12 @@ public class MiddleEarthMapScreen extends Screen {
     private static int zoomIndex = 0;
     private static float currentZoom = 1f;
 
+    private static int zoomButtonIndex;
+    private static int dezoomButtonIndex;
+
     enum ZoomTypes {
-        CENTER,
-        CURSOR,
-        PLAYER
+        PLAYER_FOCUS,
+        FREE
     }
 
     public MiddleEarthMapScreen() {
@@ -74,6 +76,28 @@ public class MiddleEarthMapScreen extends Screen {
                     / (float)Math.pow(10, decimalNb));
             zoomModifiers[i] = newValue;
         }
+
+        int x = (this.width - WINDOW_WIDTH) / 2;
+        int y = (this.height - WINDOW_HEIGHT) / 2;
+
+        int offset = 18 + 3;
+        int signsOffsetX = x + WINDOW_WIDTH + 2;
+        int signsOffsetY = y + WINDOW_HEIGHT - (offset * 3);
+
+        ButtonWidget zoomButton = ButtonWidget.builder(Text.literal("Zoom"), button -> {
+                    zoom(1);
+                })
+                .dimensions(signsOffsetX, signsOffsetY + offset, 18, 18).build();
+        ButtonWidget dezoomButton = ButtonWidget.builder(Text.literal("Dezoom"), button -> {
+                    zoom(-1);
+                })
+                .dimensions(signsOffsetX, signsOffsetY + (offset * 2), 18, 18).build();
+
+        addDrawableChild(zoomButton);
+        addDrawableChild(dezoomButton);
+
+        zoomButtonIndex = children().indexOf(zoomButton);
+        dezoomButtonIndex = children().indexOf(dezoomButton);
     }
 
     @Override
@@ -87,7 +111,7 @@ public class MiddleEarthMapScreen extends Screen {
         int y = (this.height - WINDOW_HEIGHT) / 2;
         RenderSystem.enableBlend();
 
-        drawMaintTextures(context, x, y);
+        drawMaintTextures(context, x, y, mouseX, mouseY);
 
         Entity cameraEntity = this.client.getCameraEntity();
         if(cameraEntity != null) {
@@ -117,7 +141,7 @@ public class MiddleEarthMapScreen extends Screen {
         }
     }
 
-    private void drawMaintTextures(DrawContext context, int x, int y) {
+    private void drawMaintTextures(DrawContext context, int x, int y, double mouseX, double mouseY) {
         // Border
         context.drawTexture(WINDOW_TEXTURE, x, y, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
                 WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -132,33 +156,36 @@ public class MiddleEarthMapScreen extends Screen {
 
         // Map UI
 
-        // Signs
+        // Zoom
+        int offset = 18 + 3;
         int signsOffsetX = x + WINDOW_WIDTH + 2;
-        int signsOffsetY = y + WINDOW_HEIGHT - 38;
+        int signsOffsetY = y + WINDOW_HEIGHT - (offset * 3);
 
-        // Sign +
+        // Zoom Type
         context.drawTexture(MAP_UI_TEXTURE,
                 signsOffsetX,
                 signsOffsetY,
-                (zoomIndex != MAX_ZOOM_INDEX - 1)? 0 : 36, 0, 18, 18, 256, 256);
-        // Sign -
+                0, 36, 18, 18, 256, 256);
+
         context.drawTexture(MAP_UI_TEXTURE,
                 signsOffsetX,
-                signsOffsetY + 18 + 2,
+                signsOffsetY + offset,
+                (zoomIndex != MAX_ZOOM_INDEX - 1)? 0 : 36, 0, 18, 18, 256, 256);
+
+        // Zoom +
+        context.drawTexture(MAP_UI_TEXTURE,
+                signsOffsetX,
+                signsOffsetY + offset,
+                (zoomIndex != MAX_ZOOM_INDEX - 1)? 0 : 36, 0, 18, 18, 256, 256);
+        // Zoom -
+        context.drawTexture(MAP_UI_TEXTURE,
+                signsOffsetX,
+                signsOffsetY + (offset * 2),
                 (zoomIndex != 0)? 0 : 36, 18, 18, 18, 256, 256);
 
-        ButtonWidget zoomButton = ButtonWidget.builder(Text.literal("Zoom"), button -> {
-                    zoom(1);
-                })
-                .dimensions(signsOffsetX, signsOffsetY, 18, 18).build();
+        ((ButtonWidget)children().get(zoomButtonIndex)).active = (zoomIndex < MAX_ZOOM_INDEX - 1);
+        ((ButtonWidget)children().get(dezoomButtonIndex)).active = (zoomIndex > 0);
 
-        ButtonWidget dezoomButton = ButtonWidget.builder(Text.literal("Zoom"), button -> {
-                    zoom(-1);
-                })
-                .dimensions(signsOffsetX, signsOffsetY + 18 + 2, 18, 18).build();
-
-        addDrawableChild(zoomButton);
-        addDrawableChild(dezoomButton);
 
         // BREE (TEST)
         if(zoomIndex >= 3){
@@ -166,7 +193,12 @@ public class MiddleEarthMapScreen extends Screen {
             context.drawTexture(MAP_UI_TEXTURE,
                     x + MARGIN + (int)breeOnMap.x,
                     y + MARGIN + (int)breeOnMap.y,
-                    0, 36, 4, 4, 256, 256);
+                    54, 0, 4, 4, 256, 256);
+            context.drawText(textRenderer,"BREE",
+                    x + MARGIN + (int)breeOnMap.x + 5,
+                    y + MARGIN + (int)breeOnMap.y - 2,
+                    0x000000,
+                    false);
         }
     }
 
