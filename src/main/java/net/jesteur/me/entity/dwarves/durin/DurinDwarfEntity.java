@@ -1,5 +1,6 @@
 package net.jesteur.me.entity.dwarves.durin;
 
+import net.jesteur.me.entity.nazguls.NazgulEntity;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jesteur.me.entity.spider.MirkwoodSpiderEntity;
 import net.jesteur.me.entity.trolls.TrollEntity;
@@ -76,6 +77,7 @@ public class DurinDwarfEntity extends HostileEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
     }
 
     public DurinDwarfVariant getVariant() {

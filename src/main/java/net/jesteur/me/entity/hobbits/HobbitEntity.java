@@ -1,5 +1,6 @@
 package net.jesteur.me.entity.hobbits;
 
+import net.jesteur.me.entity.nazguls.NazgulEntity;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jesteur.me.entity.pebble.PebbleEntity;
 import net.jesteur.me.entity.spider.MirkwoodSpiderEntity;
@@ -22,6 +23,9 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 
 public class HobbitEntity extends HostileEntity implements RangedAttackMob {
+    private static float FLEE_DISTANCE = 8f;
+    private static float FLEE_SPEED_MIN = 0.8f;
+    private static float FLEE_SPEED_MAX = 1.2f;
 
     public HobbitEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -40,9 +44,10 @@ public class HobbitEntity extends HostileEntity implements RangedAttackMob {
     protected void initGoals() {
         int i = 0;
         this.goalSelector.add(++i, new SwimGoal(this));
-        this.goalSelector.add(++i, new FleeEntityGoal<>(this, TrollEntity.class, 8.0f, 0.8f, 1.2f));
-        this.goalSelector.add(++i, new FleeEntityGoal<>(this, MordorOrcEntity.class, 8.0f, 0.8f, 1.2f));
-        this.goalSelector.add(++i, new FleeEntityGoal<>(this, MirkwoodSpiderEntity.class, 8.0f, 0.8f, 1.2f));
+        this.goalSelector.add(++i, new FleeEntityGoal<>(this, TrollEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
+        this.goalSelector.add(++i, new FleeEntityGoal<>(this, MordorOrcEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
+        this.goalSelector.add(++i, new FleeEntityGoal<>(this, MirkwoodSpiderEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
+        this.goalSelector.add(++i, new FleeEntityGoal<>(this, NazgulEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
         this.goalSelector.add(++i, new ProjectileAttackGoal(this, 1.0, 12, 24, 20.0f));
         this.goalSelector.add(++i, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));

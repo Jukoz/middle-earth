@@ -2,6 +2,7 @@ package net.jesteur.me.entity.nazguls;
 
 import net.jesteur.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfEntity;
+import net.jesteur.me.entity.goals.PanicFireGoal;
 import net.jesteur.me.entity.hobbits.HobbitEntity;
 import net.jesteur.me.item.ModEquipmentItems;
 import net.jesteur.me.item.ModWeaponItems;
@@ -13,29 +14,42 @@ import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import org.jetbrains.annotations.Nullable;
 
 public class NazgulEntity extends HostileEntity {
-    public static int FADING_TIME = 50;
+    public static int FADING_TIME = 45;
+    public static int ALERT_TIME = 600;
     public static float DAMAGE_MULTIPLIER = 0.4f;
     private int ticksSinceDeath = 0;
+    private int ticksSinceAlert = ALERT_TIME;
     public NazgulEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.WATER, -1.0f);
-        setEquipment();
+    }
+
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+        entityData = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+        Random random = world.getRandom();
+        this.initEquipment(random, difficulty);
+        return entityData;
     }
 
     public static DefaultAttributeContainer.Builder setAttributes() {
@@ -47,20 +61,22 @@ public class NazgulEntity extends HostileEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.5);
     }
 
-    private void setEquipment() {
-        equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORDOR_ORC_SWORD));
-        equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.AIR));
+    @Override
+    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
+        super.initEquipment(random, localDifficulty);
+        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORGUL_BLADE));
 
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.NAZGUL_CLOAK_HOOD));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.NAZGUL_CLOAK));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.NAZGUL_CLOAK_PANTS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.NAZGUL_MORGUL_BOOTS));
+        this.equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.NAZGUL_CLOAK_HOOD));
+        this.equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.NAZGUL_CLOAK));
+        this.equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.NAZGUL_PANTS));
+        this.equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.NAZGUL_BOOTS));
     }
 
     @Override
     protected void initGoals() {
         int i = 0;
         this.goalSelector.add(++i, new SwimGoal(this));
+        this.goalSelector.add(++i, new PanicFireGoal(this, 1.1f));
         this.goalSelector.add(++i, new MeleeAttackGoal(this, 1.2f, false));
         this.goalSelector.add(++i, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
@@ -96,7 +112,7 @@ public class NazgulEntity extends HostileEntity {
     @Override
     public boolean damage(DamageSource source, float amount) {
         if(!source.isOf(DamageTypes.IN_FIRE) && !source.isOf(DamageTypes.ON_FIRE) && !source.isOf(DamageTypes.LAVA)) {
-            //amount *= DAMAGE_MULTIPLIER;
+            amount *= DAMAGE_MULTIPLIER;
         }
         return super.damage(source, amount);
     }
@@ -113,7 +129,7 @@ public class NazgulEntity extends HostileEntity {
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSounds.NAZGUL_SCREAM;
+        return ModSounds.NAZGUL_FADE;
     }
 
     @Override
@@ -137,10 +153,11 @@ public class NazgulEntity extends HostileEntity {
     @Override
     public void tickMovement() {
         super.tickMovement();
-
+        ticksSinceAlert = Math.min(ticksSinceAlert + 1, ALERT_TIME);
         LivingEntity livingEntity = this.getTarget();
-        if (livingEntity != null && livingEntity.isAlive()) {
-            // Scream
+        if (livingEntity != null && livingEntity.isAlive() && ticksSinceAlert == ALERT_TIME) {
+            ticksSinceAlert = 0;
+            this.playSound(ModSounds.NAZGUL_SCREAM, 1.25f, getSoundPitch() - 0.05f);
         }
     }
 }

@@ -7,6 +7,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
 public class ModSounds {
+    public static SoundEvent NAZGUL_FADE = registerSoundEvent("nazgul_fade");
     public static SoundEvent NAZGUL_SCREAM = registerSoundEvent("nazgul_scream");
 
     private static SoundEvent registerSoundEvent(String name) {

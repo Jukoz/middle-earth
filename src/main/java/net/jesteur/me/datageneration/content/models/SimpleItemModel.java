@@ -1,7 +1,6 @@
 package net.jesteur.me.datageneration.content.models;
 
 import net.jesteur.me.item.ModEquipmentItems;
-import net.jesteur.me.item.ModRessourceItems;
 import net.minecraft.item.Item;
 
 import java.util.ArrayList;
@@ -12,6 +11,8 @@ public class SimpleItemModel {
         {
             add(ModEquipmentItems.NAZGUL_CLOAK_HOOD);
             add(ModEquipmentItems.NAZGUL_CLOAK);
+            add(ModEquipmentItems.NAZGUL_PANTS);
+            add(ModEquipmentItems.NAZGUL_BOOTS);
         }
     };
 }

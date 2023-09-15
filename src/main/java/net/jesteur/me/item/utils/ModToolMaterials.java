@@ -11,8 +11,10 @@ import java.util.function.Supplier;
 
 public enum ModToolMaterials implements ToolMaterial
 {
-    DWARVEN(MiningLevels.DIAMOND, 700, 8.0f, 2.5f, 15, () -> Ingredient.ofItems(Items.IRON_INGOT)),
-    MORGUL(MiningLevels.IRON, 550, 6.5f, 2f, 14, () -> Ingredient.ofItems(ModRessourceItems.MORGUL_INGOT));
+    DWARVEN(MiningLevels.DIAMOND, 800, 8.0f, 2.5f, 15, () -> Ingredient.ofItems(Items.IRON_INGOT)),
+    ELVEN(MiningLevels.DIAMOND, 700, 7.5f, 2.5f, 15, () -> Ingredient.ofItems(Items.IRON_INGOT)),
+    MORGUL(MiningLevels.IRON, 666, 7f, 2.5f, 14, () -> Ingredient.ofItems(ModRessourceItems.MORGUL_INGOT)),
+    MORDOR_ORC(MiningLevels.IRON, 550, 6.5f, 2.0f, 14, () -> Ingredient.ofItems(Items.IRON_INGOT));
 
     private final int miningLevel;
     private final int itemDurability;

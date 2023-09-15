@@ -57,7 +57,7 @@ public class NazgulModel<T extends MobEntity>
                         .cuboid(-1.0f, -2.0f, -2.0f, 4.0f, 12.0f, 4.0f, dilation),
                 ModelTransform.pivot(LEFT_ARM_PIVOT_X, 2.5f, 0.0f));
         ModelPartData rightArm = root.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create().uv(40, 16)
-                        .cuboid(-2.0f, -2.0f, -2.0f, 4.0f, 12.0f, 4.0f, dilation),
+                        .cuboid(-3f, -2.0f, -2.0f, 4.0f, 12.0f, 4.0f, dilation),
                 ModelTransform.pivot(RIGHT_ARM_PIVOT_X, 2.5f, 0.0f));
 
         rightArm.addChild(RIGHT_SLEEVE, ModelPartBuilder.create().uv(40, 32).cuboid(0f, 0f, 0f, 3.0f, 12.0f, 4.0f, dilation.add(0.25f)),
