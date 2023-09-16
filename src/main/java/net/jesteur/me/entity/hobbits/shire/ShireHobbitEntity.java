@@ -66,20 +66,15 @@ public class ShireHobbitEntity extends PathAwareEntity implements RangedAttackMo
 
         float randomVal = random.nextFloat();
 
-    /*
-            if (randomVal < 0.15f) {
+        if(randomVal < 0.03f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
+        } else if (randomVal < 0.15f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModRessourceItems.PEBBLE));
         } else if(randomVal < 0.20f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.APPLE));
         }  else if(randomVal < 0.25f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.CARROT));
-        } else if(randomVal < 0.35f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
         }
-     */
-
-        equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_SWORD));
-        equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
 
         randomVal = random.nextFloat();
 

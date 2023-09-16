@@ -5,8 +5,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.entity.dwarves.durin.DurinDwarfEntity;
+import net.jesteur.me.entity.dwarves.durin.DurinDwarfModel;
+import net.jesteur.me.entity.model.HobbitModel;
 import net.jesteur.me.entity.model.ModEntityModelLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
@@ -18,7 +21,7 @@ import net.minecraft.util.Util;
 import java.util.Map;
 
 @Environment(value= EnvType.CLIENT)
-public class ShireHobbitRenderer extends MobEntityRenderer<ShireHobbitEntity, ShireHobbitModel<ShireHobbitEntity>> {
+public class ShireHobbitRenderer extends BipedEntityRenderer<ShireHobbitEntity, ShireHobbitModel<ShireHobbitEntity>> {
     private static final String PATH = "textures/entities/hobbits/shire/";
     private static final float SIZE = 0.65f;
 
