@@ -28,7 +28,7 @@ public class ModEquipmentItems {
     public static final Item FUR_CLOAK_HOOD = registerItem("fur_cloak_hood",
             new ArmorItem(ModArmorMaterials.FUR_CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings()));
     // Chainmail fur cloaks
-    public static final Item CHAINMAIL_CLOAK = registerItem("chainmail_fur_cloak",
+    public static final Item CHAINMAIL_FUR_CLOAK = registerItem("chainmail_fur_cloak",
             new ArmorItem(ModArmorMaterials.CHAINMAIL_FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
 
     public static final Item NAZGUL_CLOAK_HOOD = registerItem("nazgul_cloak_hood",

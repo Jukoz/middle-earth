@@ -1,34 +1,51 @@
-package net.jesteur.me.entity.hobbits;
+package net.jesteur.me.entity.hobbits.shire;
 
 import net.jesteur.me.entity.nazguls.NazgulEntity;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jesteur.me.entity.pebble.PebbleEntity;
 import net.jesteur.me.entity.spider.MirkwoodSpiderEntity;
 import net.jesteur.me.entity.trolls.TrollEntity;
-import net.jesteur.me.entity.trolls.cave.CaveTrollEntity;
+import net.jesteur.me.item.ModEquipmentItems;
 import net.jesteur.me.item.ModRessourceItems;
+import net.jesteur.me.item.ModToolItems;
+import net.jesteur.me.item.ModWeaponItems;
 import net.jesteur.me.item.items.PebbleItem;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeableItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-public class HobbitEntity extends HostileEntity implements RangedAttackMob {
+public class ShireHobbitEntity extends PathAwareEntity implements RangedAttackMob {
     private static float FLEE_DISTANCE = 8f;
     private static float FLEE_SPEED_MIN = 0.8f;
     private static float FLEE_SPEED_MAX = 1.2f;
 
-    public HobbitEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public ShireHobbitEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+        entityData = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+        Random random = world.getRandom();
+        this.initEquipment(random, difficulty);
+        return entityData;
     }
 
     public static DefaultAttributeContainer.Builder setAttributes() {
@@ -38,6 +55,52 @@ public class HobbitEntity extends HostileEntity implements RangedAttackMob {
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0);
+    }
+
+    @Override
+    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
+        super.initEquipment(random, localDifficulty);
+
+        equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.AIR));
+        equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.AIR));
+
+        float randomVal = random.nextFloat();
+
+    /*
+            if (randomVal < 0.15f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModRessourceItems.PEBBLE));
+        } else if(randomVal < 0.20f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.APPLE));
+        }  else if(randomVal < 0.25f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.CARROT));
+        } else if(randomVal < 0.35f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
+        }
+     */
+
+        equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_SWORD));
+        equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+
+        randomVal = random.nextFloat();
+
+        if (randomVal < 0.5f) {
+            int[] colors = {
+                    0x375c23,
+                    0x535c23,
+                    0x665723
+            };
+            int colorIndex = random.nextInt(3);
+            DyeableItem itemHood = (DyeableItem)ModEquipmentItems.CLOAK_HOOD;
+            ItemStack stackHood = new ItemStack((Item)itemHood);
+            itemHood.setColor(stackHood, colors[colorIndex]);
+
+            DyeableItem item = (DyeableItem)ModEquipmentItems.CLOAK;
+            ItemStack stack = new ItemStack((Item)item);
+            item.setColor(stack, colors[colorIndex]);
+
+            equipStack(EquipmentSlot.HEAD, stackHood);
+            equipStack(EquipmentSlot.CHEST, stack);
+        }
     }
 
     @Override
@@ -52,12 +115,13 @@ public class HobbitEntity extends HostileEntity implements RangedAttackMob {
         this.goalSelector.add(++i, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(++i, new LookAroundGoal(this));
+
         i = 0;
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
     }
 
-    public HobbitVariant getVariant() {
-        return HobbitVariant.byId(this.getId());
+    public ShireHobbitVariant getVariant() {
+        return ShireHobbitVariant.byId(this.getId());
     }
 
     @Override

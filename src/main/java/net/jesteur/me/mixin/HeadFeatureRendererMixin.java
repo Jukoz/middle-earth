@@ -1,4 +1,4 @@
-package net.jesteur.me.mixin.client;
+package net.jesteur.me.mixin;
 
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.utils.IntToRGB;
@@ -28,7 +28,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
 
-@Environment(EnvType.CLIENT)
 @Mixin(HeadFeatureRenderer.class)
 public class HeadFeatureRendererMixin {
     private static final Identifier CLOAK_HOOD_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/cloak_features.png");

@@ -3,7 +3,7 @@ package net.jesteur.me.entity.spider;
 import net.jesteur.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jesteur.me.entity.goals.FastPonceAtTargetGoal;
-import net.jesteur.me.entity.hobbits.HobbitEntity;
+import net.jesteur.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -59,7 +59,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(4, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
-        this.targetSelector.add(5, new ActiveTargetGoal<>(this, HobbitEntity.class, true));
+        this.targetSelector.add(5, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
         this.targetSelector.add(6, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
     }
 

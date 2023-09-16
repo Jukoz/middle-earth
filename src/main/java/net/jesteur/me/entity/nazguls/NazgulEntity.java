@@ -3,7 +3,7 @@ package net.jesteur.me.entity.nazguls;
 import net.jesteur.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jesteur.me.entity.goals.PanicFireGoal;
-import net.jesteur.me.entity.hobbits.HobbitEntity;
+import net.jesteur.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jesteur.me.item.ModEquipmentItems;
 import net.jesteur.me.item.ModWeaponItems;
 import net.jesteur.me.sound.ModSounds;
@@ -19,13 +19,11 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -85,7 +83,7 @@ public class NazgulEntity extends HostileEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, HobbitEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
     public enum State {

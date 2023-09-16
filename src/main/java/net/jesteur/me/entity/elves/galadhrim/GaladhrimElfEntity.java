@@ -16,6 +16,7 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
@@ -25,11 +26,11 @@ import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 
-public class GaladhrimElfEntity extends HostileEntity implements RangedAttackMob {
+public class GaladhrimElfEntity extends PathAwareEntity implements RangedAttackMob {
     private final BowAttackGoal bowAttackGoal = new BowAttackGoal(this, 1.0, 16, 24.0f);
     private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.2, false);
 
-    public GaladhrimElfEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public GaladhrimElfEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         if (Math.random() < 0.6f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_BOW));

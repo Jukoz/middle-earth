@@ -5,40 +5,42 @@ import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jesteur.me.entity.spider.MirkwoodSpiderEntity;
 import net.jesteur.me.entity.trolls.TrollEntity;
 import net.jesteur.me.entity.trolls.cave.CaveTrollEntity;
+import net.jesteur.me.item.ModEquipmentItems;
 import net.jesteur.me.item.ModToolItems;
 import net.jesteur.me.item.ModWeaponItems;
+import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-public class DurinDwarfEntity extends HostileEntity {
-    public DurinDwarfEntity(EntityType<? extends HostileEntity> entityType, World world) {
+public class DurinDwarfEntity extends PathAwareEntity {
+    public DurinDwarfEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
-        double random = Math.random();
-        if (random < 0.4f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModToolItems.DWARVEN_AXE));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.AIR));
-        } else if (random < 0.8f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModToolItems.DWARVEN_PICKAXE));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.AIR));
-        } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_SWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        }
+    }
 
-        random = Math.random();
-        if(random < 0.4f) {
-            equipStack(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
-        }
-
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+        entityData = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+        Random random = world.getRandom();
+        this.initEquipment(random, difficulty);
+        return entityData;
     }
 
     public static DefaultAttributeContainer.Builder setAttributes() {
@@ -48,6 +50,36 @@ public class DurinDwarfEntity extends HostileEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0);
+    }
+
+    @Override
+    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
+        super.initEquipment(random, localDifficulty);
+        float randomVal = random.nextFloat();
+
+        equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.AIR));
+
+        if (randomVal < 0.4f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModToolItems.DWARVEN_AXE));
+        } else if (randomVal < 0.8f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModToolItems.DWARVEN_PICKAXE));
+        } else {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_SWORD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+        }
+
+        randomVal = random.nextFloat();
+        if(randomVal < 0.05f){
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.FUR_CLOAK_HOOD));
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.FUR_CLOAK));
+        } else if(randomVal < 0.10f) {
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.FUR_CLOAK_HOOD));
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.CHAINMAIL_FUR_CLOAK));
+        } else if(randomVal < 0.20f) {
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.FUR_CLOAK));
+        } else if(randomVal < 0.30f) {
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.CHAINMAIL_FUR_CLOAK));
+        }
     }
 
     public static enum State {
@@ -83,4 +115,5 @@ public class DurinDwarfEntity extends HostileEntity {
     public DurinDwarfVariant getVariant() {
         return DurinDwarfVariant.byId(this.getId());
     }
+
 }
