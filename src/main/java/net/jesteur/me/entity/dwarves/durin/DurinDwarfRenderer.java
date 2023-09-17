@@ -8,6 +8,9 @@ import net.jesteur.me.entity.model.ModEntityModelLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.client.render.entity.model.ZombieEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -21,6 +24,7 @@ public class DurinDwarfRenderer extends BipedEntityRenderer<DurinDwarfEntity, Du
 
     public DurinDwarfRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new DurinDwarfModel(ctx.getPart(ModEntityModelLayers.DWARF)), 0.5f);
+        this.addFeature(new ArmorFeatureRenderer<>(this, new DurinDwarfModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new DurinDwarfModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), ctx.getModelManager()));
     }
 
     public static final Map<DurinDwarfVariant, String> LOCATION_BY_VARIANT =

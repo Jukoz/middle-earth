@@ -1,12 +1,11 @@
 package net.jesteur.me.entity.pebble;
 
 import net.jesteur.me.entity.ModEntities;
-import net.jesteur.me.entity.hobbits.HobbitEntity;
+import net.jesteur.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jesteur.me.item.ModRessourceItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.BlazeEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -54,7 +53,7 @@ public class PebbleEntity extends ThrownItemEntity {
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        if(this.getOwner() instanceof HobbitEntity && entity instanceof HobbitEntity) return;
+        if(this.getOwner() instanceof ShireHobbitEntity && entity instanceof ShireHobbitEntity) return;
         entity.damage(this.getDamageSources().thrown(this, this.getOwner()), this.damage);
     }
 

@@ -1,4 +1,4 @@
-package net.jesteur.me.entity.hobbits;
+package net.jesteur.me.entity.hobbits.shire;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -15,10 +15,10 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 
 @Environment(value= EnvType.CLIENT)
-public class HobbitAnimModel<T extends MobEntity>
+public class ShireHobbitModel<T extends MobEntity>
         extends BipedEntityModel<T> {
 
-    public HobbitAnimModel(ModelPart root) {
+    public ShireHobbitModel(ModelPart root) {
         super(root);
     }
 
