@@ -1,4 +1,4 @@
-package net.jesteur.me.mixin;
+package net.jesteur.me.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -48,42 +48,34 @@ public abstract class ElytraFeatureRendererMixin<T extends LivingEntity, M exten
         Item item = itemStack.getItem();
         // Dyeable cloak
         if (item == ModEquipmentItems.CLOAK || item == ModEquipmentItems.TUNIC_CLOAK) {
-            matrices.push();
-
-            this.getContextModel().copyStateTo(this.cloakCapeModel);
-
-            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(CLOAK_CAPE_TEXTURE), false, itemStack.hasGlint());
-
             Color rgb = IntToRGB.ex(((DyeableItem)itemStack.getItem()).getColor(itemStack));
-            this.cloakCapeModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, rgb.getRed()/255f, rgb.getGreen()/255f, rgb.getBlue()/255f, 1.0F);
-            this.cloakCapeModel.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-            matrices.pop();
+            renderCape(CLOAK_CAPE_TEXTURE, itemStack, matrices, vertexConsumers, light, entity, limbAngle, limbDistance,
+                    animationProgress, headYaw, headPitch, rgb.getRed()/255f, rgb.getGreen()/255f, rgb.getBlue()/255f);
             info.cancel();
         }
         // Fur cloak
         else if (item == ModEquipmentItems.FUR_CLOAK || item == ModEquipmentItems.CHAINMAIL_FUR_CLOAK) {
-            matrices.push();
-
-            this.getContextModel().copyStateTo(this.cloakCapeModel);
-
-            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(FUR_CLOAK_CAPE_TEXTURE), false, itemStack.hasGlint());
-
-            this.cloakCapeModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
-            this.cloakCapeModel.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-            matrices.pop();
+            renderCape(FUR_CLOAK_CAPE_TEXTURE, itemStack, matrices, vertexConsumers, light, entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
             info.cancel();
         }
         else if (item == ModEquipmentItems.NAZGUL_CLOAK) {
-            matrices.push();
-
-            this.getContextModel().copyStateTo(this.cloakCapeModel);
-
-            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(NAZGUL_CLOAK_CAPE_TEXTURE), false, itemStack.hasGlint());
-
-            this.cloakCapeModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
-            this.cloakCapeModel.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-            matrices.pop();
+            renderCape(NAZGUL_CLOAK_CAPE_TEXTURE, itemStack, matrices, vertexConsumers, light, entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
             info.cancel();
         }
     }}
+
+    private void renderCape(Identifier renderLayer, ItemStack itemStack, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle,
+                            float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        renderCape(renderLayer, itemStack, matrices, vertexConsumers, light, entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 1.0f, 1.0f, 1.0f);
+    }
+
+    private void renderCape(Identifier renderLayer, ItemStack itemStack, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle,
+                            float limbDistance, float animationProgress, float headYaw, float headPitch, float r, float g, float b) {
+        matrices.push();
+        this.getContextModel().copyStateTo(this.cloakCapeModel);
+        this.cloakCapeModel.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+        VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(renderLayer), false, itemStack.hasGlint());
+        this.cloakCapeModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, r, g, b, 1.0F);
+        matrices.pop();
+    }
 }

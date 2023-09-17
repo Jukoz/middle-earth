@@ -1,4 +1,4 @@
-package net.jesteur.me.mixin;
+package net.jesteur.me.mixin.client;
 
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.utils.IntToRGB;

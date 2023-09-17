@@ -41,7 +41,6 @@ public class CloakCapeModel<T extends LivingEntity> extends AnimalModel<T> {
 
     @Override
     public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-
         Vec3d velocity = entity.getVelocity();
         double sqrVel = velocity.lengthSquared();
         double speed = (sqrVel * 0.35f) + Math.sqrt(Math.abs(limbDistance)) * 0.4f;

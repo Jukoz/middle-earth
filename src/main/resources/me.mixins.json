@@ -9,9 +9,9 @@
     "PlayerMixin"
   ],
   "client": [
-    "ElytraFeatureRendererMixin",
-    "HeadFeatureRendererMixin",
-    "ItemRendererMixin"
+    "client.ElytraFeatureRendererMixin",
+    "client.HeadFeatureRendererMixin",
+    "client.ItemRendererMixin"
   ],
   "server": [
   ],

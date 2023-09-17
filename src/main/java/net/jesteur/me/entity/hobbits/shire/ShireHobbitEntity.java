@@ -78,7 +78,7 @@ public class ShireHobbitEntity extends PathAwareEntity implements RangedAttackMo
 
         randomVal = random.nextFloat();
 
-        if (randomVal < 0.5f) {
+        if (randomVal < 0.15f) {
             int[] colors = {
                     0x375c23,
                     0x535c23,
@@ -86,14 +86,15 @@ public class ShireHobbitEntity extends PathAwareEntity implements RangedAttackMo
             };
             int colorIndex = random.nextInt(3);
             DyeableItem itemHood = (DyeableItem)ModEquipmentItems.CLOAK_HOOD;
-            ItemStack stackHood = new ItemStack((Item)itemHood);
-            itemHood.setColor(stackHood, colors[colorIndex]);
-
             DyeableItem item = (DyeableItem)ModEquipmentItems.CLOAK;
             ItemStack stack = new ItemStack((Item)item);
             item.setColor(stack, colors[colorIndex]);
 
-            equipStack(EquipmentSlot.HEAD, stackHood);
+            if(randomVal < 0.07f) {
+                ItemStack stackHood = new ItemStack((Item)itemHood);
+                itemHood.setColor(stackHood, colors[colorIndex]);
+                equipStack(EquipmentSlot.HEAD, stackHood);
+            }
             equipStack(EquipmentSlot.CHEST, stack);
         }
     }
