@@ -44,7 +44,7 @@ public class CloakCapeModel<T extends LivingEntity> extends AnimalModel<T> {
 
         Vec3d velocity = entity.getVelocity();
         double sqrVel = velocity.lengthSquared();
-        double speed = (sqrVel * 0.35f) + Math.sqrt(Math.abs(limbDistance)) * 0.35f;
+        double speed = (sqrVel * 0.35f) + Math.sqrt(Math.abs(limbDistance)) * 0.4f;
         double degree;
 
         if (entity.isInSneakingPose()) {
