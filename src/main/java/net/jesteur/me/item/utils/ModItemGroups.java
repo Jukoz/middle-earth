@@ -32,7 +32,7 @@ public class ModItemGroups {
     public static final List<ItemStack> DECORATIVES_BLOCKS_CONTENT = new LinkedList<>();
     public static final ItemGroup DECORATIVES_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.literal("Decoratives"))
-            .icon(() -> new ItemStack(ModDecorativeItems.SILVER_LANTERN))
+            .icon(() -> new ItemStack(ModDecorativeItems.DWARVEN_LANTERN))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : DECORATIVES_BLOCKS_CONTENT) {
                     entries.add(item);
