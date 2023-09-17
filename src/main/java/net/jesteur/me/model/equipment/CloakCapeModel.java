@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class CloakCapeModel<T extends LivingEntity> extends AnimalModel<T> {
@@ -42,10 +43,10 @@ public class CloakCapeModel<T extends LivingEntity> extends AnimalModel<T> {
     public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 
         Vec3d velocity = entity.getVelocity();
-        Vec3d absVel = new Vec3d(Math.abs(velocity.x), Math.abs(velocity.y), Math.abs(velocity.z));
-        double speed = Math.sqrt(absVel.getX() * absVel.getX() + absVel.getY() * absVel.getY() + absVel.getZ() * absVel.getZ());
-
+        double sqrVel = velocity.lengthSquared();
+        double speed = (sqrVel * 0.35f) + Math.sqrt(Math.abs(limbDistance)) * 0.35f;
         double degree;
+
         if (entity.isInSneakingPose()) {
             this.cape.pivotZ = 0.6f;
             this.cape.pivotY = 2.7f;
@@ -53,7 +54,7 @@ public class CloakCapeModel<T extends LivingEntity> extends AnimalModel<T> {
         } else {
             this.cape.pivotZ = 0;
             this.cape.pivotY = 0.5f;
-            degree = 5 + (MAX_ANGLE_CLOAK * speed * SPEED_MULTIPLIER_CLOAK);
+            degree = 5 + (MAX_ANGLE_CLOAK * speed);
         }
         degree = Math.max(7.5f, degree);
         degree = Math.min(MAX_ANGLE_CLOAK, degree);
