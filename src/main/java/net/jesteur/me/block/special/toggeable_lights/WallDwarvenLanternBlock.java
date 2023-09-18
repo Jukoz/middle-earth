@@ -8,19 +8,22 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.*;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.*;
+import net.minecraft.world.BlockView;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
-public class WallSilverLanternBlock extends SilverLanternBlock {
+public class WallDwarvenLanternBlock extends DwarvenLanternBlock {
     private static final DirectionProperty FACING;
     private static final VoxelShape WALL_SHAPE;
 
-    public WallSilverLanternBlock(Settings settings) {
+    public WallDwarvenLanternBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.getDefaultState().with(FACING, Direction.EAST));
     }

@@ -28,6 +28,8 @@ public class ModDecorativeBlocks {
 
     public static final Block DWARVEN_LANTERN = registerBlock("dwarven_lantern",
             new DwarvenLanternBlock(FabricBlockSettings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
+    public static final Block WALL_DWARVEN_LANTERN = registerBlock("dwarven_lantern_wall",
+            new WallSilverLanternBlock(FabricBlockSettings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
 
 
     public static Block registerBlock(String name, Block block) {
