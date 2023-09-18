@@ -17,6 +17,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -39,10 +40,10 @@ public abstract class AbstractClientPlayerEntityMixin {
         //player.changeLookDirection(2, 2);
 
         if(player.hasStatusEffect(ModStatusEffects.HALLUCINATION)){
-            LivingEntity lookAt = clientWorld.getClosestEntity(BarrowWightEntity.class, TargetPredicate.DEFAULT, player, player.getX(), player.getY(), player.getZ(), new Box(5, 5, 5, 5, 5,5));
+            LivingEntity lookAt = clientWorld.getClosestEntity(BarrowWightEntity.class, TargetPredicate.createNonAttackable(), null, player.getX(), player.getY(), player.getZ(), player.getBoundingBox().expand(5));
             if( lookAt != null ){
                 MinecraftClient.getInstance().player.sendMessage(Text.literal("Closest Entity UUID: " + lookAt.getUuidAsString()));
-                player.lookAt(player.getCommandSource().getEntityAnchor(), new Vec3d(lookAt.getX(), lookAt.getEyeY(), lookAt.getZ()));
+                player.lookAt(player.getCommandSource().getEntityAnchor(), new Vec3d(lookAt.getX(), lookAt.getEyeY()-1.4f, lookAt.getZ()));
             }
             float intensity = (float) HallucinationData.readHallucination((IEntityDataSaver) player) / 100f;
             cir.setReturnValue(cir.getReturnValue() * (1 - intensity/4));
