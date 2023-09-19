@@ -36,7 +36,6 @@ public abstract class AbstractClientPlayerEntityMixin {
 
     @Shadow @Final public ClientWorld clientWorld;
 
-    @Shadow @Final public ClientWorld clientWorld;
 
     @Inject(method = "getFovMultiplier()F", at =@At("TAIL"), cancellable = true)
     private void injected(CallbackInfoReturnable<Float> cir) {
@@ -45,11 +44,11 @@ public abstract class AbstractClientPlayerEntityMixin {
         //player.changeLookDirection(2, 2);
 
         if(player.hasStatusEffect(ModStatusEffects.HALLUCINATION)){
-            LivingEntity lookAt = clientWorld.getClosestEntity(BarrowWightEntity.class, TargetPredicate.createNonAttackable(), null, player.getX(), player.getY(), player.getZ(), player.getBoundingBox().expand(5));
+            /*LivingEntity lookAt = clientWorld.getClosestEntity(BarrowWightEntity.class, TargetPredicate.createNonAttackable(), null, player.getX(), player.getY(), player.getZ(), player.getBoundingBox().expand(5));
             if( lookAt != null ){
                 MinecraftClient.getInstance().player.sendMessage(Text.literal("Closest Entity UUID: " + lookAt.getUuidAsString()));
                 player.lookAt(player.getCommandSource().getEntityAnchor(), new Vec3d(lookAt.getX(), lookAt.getEyeY()-1.4f, lookAt.getZ()));
-            }
+            }*/
             float intensity = (float) HallucinationData.readHallucination((IEntityDataSaver) player) / 100f;
             cir.setReturnValue(cir.getReturnValue() * (1 - intensity/4));
 
@@ -68,8 +67,8 @@ public abstract class AbstractClientPlayerEntityMixin {
             float destPitch = MathHelper.wrapDegrees((float)(-(MathHelper.atan2(dY, g) * 57.2957763671875)));
             float destYaw = MathHelper.wrapDegrees((float)(MathHelper.atan2(dZ, dX) * 57.2957763671875) - 90.0f);
 
-            //destPitch = MathHelper.lerp(player.getPitch(), destPitch, 0.1f);
-            //destYaw = MathHelper.lerp(player.getYaw(), destYaw, 0.1f);
+            destPitch = MathHelper.lerp(0.1f, destPitch, player.getPitch());
+            destYaw = MathHelper.lerp(0.1f, destYaw, player.getYaw());
 
             //destPitch = player.getPitch();
             //destYaw = player.getYaw();
