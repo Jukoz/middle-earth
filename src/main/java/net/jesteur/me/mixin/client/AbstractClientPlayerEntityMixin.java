@@ -43,7 +43,7 @@ public abstract class AbstractClientPlayerEntityMixin {
         assert player != null;
         //player.changeLookDirection(2, 2);
         if(player.hasStatusEffect(ModStatusEffects.HALLUCINATION)){
-            if( lookAt != null ){
+            if( lookAt != null  && !lookAt.isDead()){
                 double dX = lookAt.getX() - player.getX(); // d
                 double dY = lookAt.getY() - player.getY(); // e
                 double dZ = lookAt.getZ() - player.getZ(); // f
