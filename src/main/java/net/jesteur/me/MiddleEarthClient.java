@@ -73,16 +73,11 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.YELLOW_FLOWER, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.DWARVEN_LANTERN, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WALL_DWARVEN_LANTERN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.SILVER_LANTERN, RenderLayer.getCutout());
     }
 
     private void registerDyeableItem(Item item) {
-        ColorProviderRegistry.ITEM.register(new ItemColorProvider() {
-            @Override
-            public int getColor(ItemStack stack, int layer)
-            {
-                return layer == 0 ? ((DyeableItem)stack.getItem()).getColor(stack) : 0xFFFFFF;
-            }
-        }, item);
+        ColorProviderRegistry.ITEM.register((stack, layer) -> layer == 0 ? ((DyeableItem)stack.getItem()).getColor(stack) : 0xFFFFFF, item);
     }
 }

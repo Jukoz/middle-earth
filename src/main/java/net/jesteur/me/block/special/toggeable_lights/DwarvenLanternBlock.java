@@ -79,7 +79,7 @@ public class DwarvenLanternBlock extends AbstractToggeableLightBlock {
                 Block.createCuboidShape(5.0, 0.0, 5.0, 11.0, 6.0, 11.0),
                 Block.createCuboidShape(6.0, 6.0, 6.0, 10.0, 7.0, 10.0));
         HANGING_SHAPE = VoxelShapes.union(
-                Block.createCuboidShape(5.0, 1.0, 5.0, 11.0, 8.0, 11.0),
+                Block.createCuboidShape(5.0, 3.0, 5.0, 11.0, 8.0, 11.0),
                 Block.createCuboidShape(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
     }
 }

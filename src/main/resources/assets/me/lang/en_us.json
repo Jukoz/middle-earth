@@ -104,16 +104,20 @@
   "item.me.umbar_pike": "Umbar Pike",
   "item.me.umbar_bow": "Umbar Bow",
 
-"#Comment:": "Item - Weapon",
+"#Comment:": "Item - Misc Weapons",
   "item.me.sting": "Sting",
 
-"#Comment:": "Item - Cloaks",
+"#Comment:": "Armours",
   "item.me.cloak": "Cloak",
   "item.me.cloak_hood": "Cloak Hood",
   "item.me.tunic_cloak": "Tunic Cloak",
   "item.me.fur_cloak": "Fur Cloak",
   "item.me.fur_cloak_hood": "Fur Cloak Hood",
   "item.me.chainmail_fur_cloak": "Chainmail Fur Cloak",
+  "item.me.nazgul_cloak_hood": "Nazgûl Cloak Hood",
+  "item.me.nazgul_cloak": "Nazgûl Cloak",
+  "item.me.nazgul_pants": "Nazgûl Pants",
+  "item.me.nazgul_boots": "Nazgûl Boots",
 
 "#Comment:": "Item - Food",
   "item.me.lembas": "Lembas",
@@ -402,7 +406,9 @@
   "block.me.calcite_gold_ore": "Calcite Gold Ore",
 
   "#Comment:": "Block - Lights",
+  "block.me.dwarven_lantern": "Dwarven Lantern",
   "block.me.silver_lantern": "Silver Lantern",
+
 
 "#Comment:": "ENTITIES",
   "entity.me.cave_troll": "Cave Troll",
