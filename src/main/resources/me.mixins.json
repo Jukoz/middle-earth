@@ -15,7 +15,7 @@
     "client.ElytraFeatureRendererMixin",
     "client.HeadFeatureRendererMixin",
     "client.InGameHudMixin",
-    "client.MinecraftClientMixin"
+    "client.MouseMixin"
   ],
   "server": [
   ],
