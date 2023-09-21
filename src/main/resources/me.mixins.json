@@ -14,7 +14,8 @@
     "client.AbstractClientPlayerEntityMixin",
     "client.ElytraFeatureRendererMixin",
     "client.HeadFeatureRendererMixin",
-    "client.InGameHudMixin"
+    "client.InGameHudMixin",
+    "client.MinecraftClientMixin"
   ],
   "server": [
   ],
