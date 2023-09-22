@@ -19,6 +19,7 @@ import net.minecraft.text.Style;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
+import org.joml.Vector2i;
 
 import javax.swing.text.StyleContext;
 import java.text.DecimalFormat;
@@ -44,6 +45,7 @@ public class MiddleEarthMapScreen extends Screen {
 
     public static final float MIN_ZOOM = (float) MAP_WINDOW_WIDTH / MAP_WIDTH;
     private static final int MAX_ZOOM_INDEX = 10;
+    private static final Vector2i WORLD_SIZE = getWorldSize();
 
     private static int mapDisplacementX = 0;
     private static int mapDisplacementY = 0;
@@ -59,6 +61,7 @@ public class MiddleEarthMapScreen extends Screen {
     private float centerOnPlayerButtonHover = 0f;
 
     private Vec3d playerCoordinate;
+
 
     public MiddleEarthMapScreen() {
         super(MAP_TITLE_TEXT);
@@ -303,12 +306,8 @@ public class MiddleEarthMapScreen extends Screen {
     }
 
     private Vec2f getCoordinateOnMap(float posX, float posZ, int textureOffsetX, int textureOffsetY) {
-        float worldSize = (float) Math.pow(2 , MapImageLoader.iterations);
-        float worldSizeX = MAP_WIDTH * worldSize;
-        float worldSizeY = MAP_HEIGHT * worldSize;
-
-        float transformedPosX = ((posX / worldSizeX) * MAP_WINDOW_WIDTH * currentZoom) - mapDisplacementX;
-        float transformedPosY = ((posZ / worldSizeY) * MAP_WINDOW_HEIGHT * currentZoom) - mapDisplacementY;
+        float transformedPosX = ((posX / WORLD_SIZE.x) * MAP_WINDOW_WIDTH * currentZoom) - mapDisplacementX;
+        float transformedPosY = ((posZ / WORLD_SIZE.y) * MAP_WINDOW_HEIGHT * currentZoom) - mapDisplacementY;
 
         transformedPosX = Math.max(textureOffsetX, Math.min(MAP_WINDOW_WIDTH - textureOffsetX, transformedPosX));
         transformedPosY = Math.max(textureOffsetY, Math.min(MAP_WINDOW_HEIGHT - textureOffsetY, transformedPosY));
@@ -321,13 +320,8 @@ public class MiddleEarthMapScreen extends Screen {
     }
 
     private void centerOnPlayer(){
-        float worldSize = (float) Math.pow(2 , MapImageLoader.iterations);
-
-        float worldSizeX = MAP_WIDTH * worldSize;
-        float worldSizeY = MAP_HEIGHT * worldSize;
-
-        float transformedPlayerCoordinateX = (((float)playerCoordinate.x / worldSizeX) * MAP_WINDOW_WIDTH * currentZoom);
-        float transformedPlayerCoordinateY = (((float)playerCoordinate.z / worldSizeY) * MAP_WINDOW_HEIGHT * currentZoom);
+        float transformedPlayerCoordinateX = (((float)playerCoordinate.x / WORLD_SIZE.x) * MAP_WINDOW_WIDTH * currentZoom);
+        float transformedPlayerCoordinateY = (((float)playerCoordinate.z / WORLD_SIZE.y) * MAP_WINDOW_HEIGHT * currentZoom);
 
         centerMapTo((int)transformedPlayerCoordinateX, (int)transformedPlayerCoordinateY);
     }
@@ -344,5 +338,11 @@ public class MiddleEarthMapScreen extends Screen {
         mapDisplacementY = y - (MAP_WINDOW_HEIGHT / 2);;
 
         correctMapVision();
+    }
+
+    private static Vector2i getWorldSize(){
+        float worldSize = (float) Math.pow(2 , MiddleEarth.MAP_ITERATION);
+
+        return new Vector2i((int)(MAP_WIDTH * worldSize), (int)(MAP_HEIGHT * worldSize));
     }
 }
