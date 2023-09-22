@@ -1,0 +1,17 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "me:block/morgul_ivy",
+    "morgul_ivy": "me:block/morgul_ivy"
+  },
+  "elements": [
+    {
+      "from": [ 0, 0, 0.1 ],
+      "to": [ 16, 16, 0.1 ],
+      "faces": {
+        "north": { "uv": [ 16, 0, 0, 16 ], "texture": "#morgul_ivy" },
+        "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#morgul_ivy" }
+      }
+    }
+  ]
+}
