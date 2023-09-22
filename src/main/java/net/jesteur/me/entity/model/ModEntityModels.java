@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jesteur.me.entity.crab.CrabModel;
+import net.jesteur.me.entity.nazguls.NazgulModel;
 import net.jesteur.me.entity.spider.MirkwoodSpiderModel;
 import net.jesteur.me.entity.trolls.cave.CaveTrollModel;
 import net.jesteur.me.entity.trolls.snow.SnowTrollModel;
@@ -21,6 +22,7 @@ public class ModEntityModels {
         builder.put(ModEntityModelLayers.DWARF, DwarfModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.ELF, ElfModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.HOBBIT, HobbitModel.getTexturedModelData(Dilation.NONE));
+        builder.put(ModEntityModelLayers.NAZGUL, NazgulModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.ORC, OrcModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.CAVE_TROLL, CaveTrollModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.SNOW_TROLL, SnowTrollModel.getTexturedModelData());

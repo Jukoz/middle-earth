@@ -3,11 +3,16 @@ package net.jesteur.me.model.equipment;
 import net.jesteur.me.utils.ToRad;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class CloakCapeModel<T extends LivingEntity> extends AnimalModel<T> {
+    private static final float MAX_ANGLE_CLOAK = 75f;
+    private static final float SPEED_MULTIPLIER_CLOAK = 1.8f;
     private final ModelPart cape;
 
     public CloakCapeModel(ModelPart root) {
@@ -19,9 +24,9 @@ public class CloakCapeModel<T extends LivingEntity> extends AnimalModel<T> {
         ModelPartData modelPartData = modelData.getRoot();
         Dilation dilation = new Dilation(0.0F);
         modelPartData.addChild("cape", ModelPartBuilder.create()
-                .cuboid(-6.0F, 0f, 2, 12.0F, 22.0F, 1.0F, dilation)
+                .cuboid(-6.0F, 0f, 2.5F, 12.0F, 22.0F, 1.0F, dilation)
                 .uv(0, 0)
-                , ModelTransform.of(0, 0.5f, 1.5f, 0.0F, 0.0F, 0F));
+                , ModelTransform.of(0, 0.5f, 0, 0.0F, 0.0F, 0F));
 
         return TexturedModelData.of(modelData, 64, 32);
     }
@@ -36,18 +41,23 @@ public class CloakCapeModel<T extends LivingEntity> extends AnimalModel<T> {
 
     @Override
     public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-
         Vec3d velocity = entity.getVelocity();
-        Vec3d absVel = new Vec3d(Math.abs(velocity.x), Math.abs(velocity.y), Math.abs(velocity.z));
-        double speed = Math.sqrt(absVel.getX() * absVel.getX() + absVel.getY() * absVel.getY() + absVel.getZ() * absVel.getZ());
+        double sqrVel = velocity.lengthSquared();
+        double speed = (sqrVel * 0.35f) + Math.sqrt(Math.abs(limbDistance)) * 0.4f;
+        double degree;
 
-
-        double degree = 90f * speed;
-        degree = Math.max(5f, degree);
-        degree = Math.min(90f, degree);
+        if (entity.isInSneakingPose()) {
+            this.cape.pivotZ = 0.6f;
+            this.cape.pivotY = 2.7f;
+            degree = 25f + (speed * 30);
+        } else {
+            this.cape.pivotZ = 0;
+            this.cape.pivotY = 0.5f;
+            degree = 5 + (MAX_ANGLE_CLOAK * speed);
+        }
+        degree = Math.max(7.5f, degree);
+        degree = Math.min(MAX_ANGLE_CLOAK, degree);
 
         this.cape.pitch = ToRad.ex(degree + (Math.sin(animationProgress * 0.2f) / 2));
     }
-
-
 }

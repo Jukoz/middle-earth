@@ -2,8 +2,7 @@ package net.jesteur.me.entity.trolls;
 
 import net.jesteur.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfEntity;
-import net.jesteur.me.entity.hobbits.HobbitEntity;
-import net.jesteur.me.entity.trolls.cave.CaveTrollVariant;
+import net.jesteur.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.EntityType;
@@ -53,7 +52,7 @@ public class TrollEntity extends HostileEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, HobbitEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
     public enum State {

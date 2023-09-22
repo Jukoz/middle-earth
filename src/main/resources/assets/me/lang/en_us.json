@@ -35,6 +35,7 @@
   "item.me.warg_fur": "Warg Fur",
   "item.me.gold_ring": "Gold Ring",
   "item.me.middle_earth_map": "Middle Earth Map",
+  "item.me.pebble": "Pebble",
 
 "#Comment:": "Item - Phial",
   "item.me.empty_phial": "Empty Phial",
@@ -53,6 +54,8 @@
   "item.me.mordor_orc_shovel": "Mordor Orc Shovel",
   "item.me.mordor_orc_hoe": "Mordor Orc Hoe",
   "item.me.mordor_orc_sword": "Mordor Orc Sword",
+  
+  "item.me.morgul_blade": "Morgul Blade",
 
 "#Comment:": "Item - Anduin",
   "item.me.anduin_sword": "Anduin Sword",
@@ -129,17 +132,6 @@
   "item.me.mordor_orc_spawn_egg": "Mordor Orc Spawn Egg",
   "item.me.mirkwood_spider_spawn_egg": "Mirkwood Spider Spawn Egg",
   "item.me.warg_spawn_egg": "Warg Spawn Egg",
-
-"#Comment:": "Item - Entities",
-  "entity.me.cave_troll": "Cave Troll",
-  "entity.me.snow_troll": "Snow Troll",
-  "entity.me.crab": "Crab",
-  "entity.me.durin_folk": "Durin Folk",
-  "entity.me.galadhrim_elf": "Galadhrim Elf",
-  "entity.me.hobbit": "Hobbit",
-  "entity.me.mordor_orc": "Mordor Orc",
-  "entity.me.mirkwood_spider": "Mirkwood Spider",
-  "item.me.pebble": "Pebble",
 
 "#Comment:": "Block - Vanilla +",
   "block.me.stone_trapdoor": "Stone Trapdoor",
@@ -411,5 +403,22 @@
   "block.me.calcite_gold_ore": "Calcite Gold Ore",
 
   "#Comment:": "Block - Lights",
-  "block.me.silver_lantern": "Silver Lantern"
+  "block.me.silver_lantern": "Silver Lantern",
+
+"#Comment:": "ENTITIES",
+  "entity.me.cave_troll": "Cave Troll",
+  "entity.me.snow_troll": "Snow Troll",
+  "entity.me.crab": "Crab",
+  "entity.me.durin_folk": "Durin Folk",
+  "entity.me.galadhrim_elf": "Galadhrim Elf",
+  "entity.me.hobbit": "Hobbit",
+  "entity.me.mordor_orc": "Mordor Orc",
+  "entity.me.mirkwood_spider": "Mirkwood Spider",
+  "entity.me.nazgul": "Nazgûl",
+  "entity.me.pebble": "Pebble",
+
+
+"#Comment": "SOUNDS",
+  "sounds.me.nazgul_fade": "Nazgûl Fading",
+  "sounds.me.nazgul_scream": "Nazgûl Screaming"
 }

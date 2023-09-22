@@ -5,7 +5,6 @@ import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.item.utils.ModArmorMaterials;
 import net.jesteur.me.item.utils.ModItemGroups;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterials;
 import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -29,8 +28,17 @@ public class ModEquipmentItems {
     public static final Item FUR_CLOAK_HOOD = registerItem("fur_cloak_hood",
             new ArmorItem(ModArmorMaterials.FUR_CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings()));
     // Chainmail fur cloaks
-    public static final Item CHAINMAIL_CLOAK = registerItem("chainmail_fur_cloak",
+    public static final Item CHAINMAIL_FUR_CLOAK = registerItem("chainmail_fur_cloak",
             new ArmorItem(ModArmorMaterials.CHAINMAIL_FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
+
+    public static final Item NAZGUL_CLOAK_HOOD = registerItem("nazgul_cloak_hood",
+            new ArmorItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings()));
+    public static final Item NAZGUL_CLOAK = registerItem("nazgul_cloak",
+            new ArmorItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
+    public static final Item NAZGUL_PANTS = registerItem("nazgul_pants",
+            new ArmorItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item NAZGUL_BOOTS = registerItem("nazgul_boots",
+            new ArmorItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());

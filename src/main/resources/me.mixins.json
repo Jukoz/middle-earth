@@ -6,12 +6,12 @@
   "mixins": [
     "BlockEntityLandedMixin",
     "EntitySpawnMixin",
-    "ItemRendererMixin",
     "PlayerMixin"
   ],
   "client": [
     "client.ElytraFeatureRendererMixin",
-    "client.HeadFeatureRendererMixin"
+    "client.HeadFeatureRendererMixin",
+    "client.ItemRendererMixin"
   ],
   "server": [
   ],

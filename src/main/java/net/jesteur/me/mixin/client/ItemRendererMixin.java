@@ -1,6 +1,5 @@
-package net.jesteur.me.mixin;
+package net.jesteur.me.mixin.client;
 
-import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.datageneration.VariantsModelProvider;
 import net.jesteur.me.datageneration.content.models.SimpleBigItemModel;
 import net.minecraft.client.render.item.ItemModels;
@@ -8,8 +7,6 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.ModelIdentifier;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

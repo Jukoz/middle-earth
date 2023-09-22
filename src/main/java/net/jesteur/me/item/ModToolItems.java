@@ -30,13 +30,13 @@ public class ModToolItems {
             new HoeItem(ModToolMaterials.DWARVEN, IRON_HOE_DAMAGE, IRON_HOE_ATTACK_SPEED, new FabricItemSettings()));
 
     public static final Item MORDOR_ORC_PICKAXE = registerItem("mordor_orc_pickaxe",
-            new PickaxeItem(ModToolMaterials.MORGUL, IRON_DAMAGE, IRON_ATTACK_SPEED, new FabricItemSettings()));
+            new PickaxeItem(ModToolMaterials.MORDOR_ORC, IRON_DAMAGE, IRON_ATTACK_SPEED, new FabricItemSettings()));
     public static final Item MORDOR_ORC_AXE = registerItem("mordor_orc_axe",
-            new AxeItem(ModToolMaterials.MORGUL, IRON_AXE_DAMAGE, IRON_AXE_ATTACK_SPEED, new FabricItemSettings()));
+            new AxeItem(ModToolMaterials.MORDOR_ORC, IRON_AXE_DAMAGE, IRON_AXE_ATTACK_SPEED, new FabricItemSettings()));
     public static final Item MORDOR_ORC_SHOVEL = registerItem("mordor_orc_shovel",
-            new ShovelItem(ModToolMaterials.MORGUL, IRON_PICKAXE_DAMAGE, IRON_ATTACK_SPEED, new FabricItemSettings()));
+            new ShovelItem(ModToolMaterials.MORDOR_ORC, IRON_PICKAXE_DAMAGE, IRON_ATTACK_SPEED, new FabricItemSettings()));
     public static final Item MORDOR_ORC_HOE = registerItem("mordor_orc_hoe",
-            new HoeItem(ModToolMaterials.MORGUL, IRON_HOE_DAMAGE, IRON_HOE_ATTACK_SPEED, new FabricItemSettings()));
+            new HoeItem(ModToolMaterials.MORDOR_ORC, IRON_HOE_DAMAGE, IRON_HOE_ATTACK_SPEED, new FabricItemSettings()));
 
 
 

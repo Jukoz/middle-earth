@@ -1,14 +1,10 @@
 package net.jesteur.me.world.spawners;
 
 import net.jesteur.me.entity.ModEntities;
-import net.jesteur.me.entity.hobbits.HobbitEntity;
 import net.jesteur.me.world.biomes.MEBiomeKeys;
-import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 

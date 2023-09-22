@@ -1,0 +1,17 @@
+{
+  "nazgul_fade": {
+    "subtitle": "sounds.me.nazgul_fade",
+    "sounds": [
+      "me:nazgul/nazgul_fade1",
+      "me:nazgul/nazgul_fade2"
+    ]
+  },
+  "nazgul_scream": {
+    "subtitle": "sounds.me.nazgul_scream",
+    "sounds": [
+      "me:nazgul/nazgul_scream1",
+      "me:nazgul/nazgul_scream2",
+      "me:nazgul/nazgul_scream3"
+    ]
+  }
+}
