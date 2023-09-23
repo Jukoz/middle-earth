@@ -18,7 +18,10 @@ public class StarlightPhialItem extends Item {
         if (user.isCreative()) {
             ModDimensions.teleportPlayerToME(user);
         }
+        
         return super.use(world, user, hand);
     }
+
+
 
 }
