@@ -18,7 +18,13 @@ public class BlockDrops {
             add(ModBlocks.DRY_DIRT);
             add(ModBlocks.MORDOR_DIRT);
             add(ModBlocks.REEDS_BLOCK);
+            add(ModBlocks.REEDS_STAIRS);
+            add(ModBlocks.REEDS_SLAB);
+            add(ModBlocks.REEDS_WALL);
             add(ModBlocks.STRAW_BLOCK);
+            add(ModBlocks.STRAW_STAIRS);
+            add(ModBlocks.STRAW_SLAB);
+            add(ModBlocks.STRAW_WALL);
             add(ModBlocks.STONE_TRAPDOOR);
             add(ModBlocks.BLACKSTONE_TRAPDOOR);
             add(ModDecorativeBlocks.SILVER_LANTERN);

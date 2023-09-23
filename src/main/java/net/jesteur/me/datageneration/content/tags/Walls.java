@@ -9,7 +9,8 @@ import java.util.List;
 public class Walls {
     public static List<Block> walls = new ArrayList<>() {
         {
-
+            add(ModBlocks.REEDS_WALL);
+            add(ModBlocks.STRAW_WALL);
         }
     };
 }

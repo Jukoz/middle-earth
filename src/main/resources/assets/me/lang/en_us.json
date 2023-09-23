@@ -104,16 +104,20 @@
   "item.me.umbar_pike": "Umbar Pike",
   "item.me.umbar_bow": "Umbar Bow",
 
-"#Comment:": "Item - Weapon",
+"#Comment:": "Item - Misc Weapons",
   "item.me.sting": "Sting",
 
-"#Comment:": "Item - Cloaks",
+"#Comment:": "Armours",
   "item.me.cloak": "Cloak",
   "item.me.cloak_hood": "Cloak Hood",
   "item.me.tunic_cloak": "Tunic Cloak",
   "item.me.fur_cloak": "Fur Cloak",
   "item.me.fur_cloak_hood": "Fur Cloak Hood",
   "item.me.chainmail_fur_cloak": "Chainmail Fur Cloak",
+  "item.me.nazgul_cloak_hood": "Nazgûl Cloak Hood",
+  "item.me.nazgul_cloak": "Nazgûl Cloak",
+  "item.me.nazgul_pants": "Nazgûl Pants",
+  "item.me.nazgul_boots": "Nazgûl Boots",
 
 "#Comment:": "Item - Food",
   "item.me.lembas": "Lembas",
@@ -142,7 +146,13 @@
 
 "#Comment:": "Block - Farm",
   "block.me.straw_block": "Straw Block",
+  "block.me.straw_stairs": "Straw Stairs",
+  "block.me.straw_slab": "Straw Slab",
+  "block.me.straw_wall": "Straw Wall",
   "block.me.reeds_block": "Reeds Block",
+  "block.me.reeds_stairs": "Reeds Stairs",
+  "block.me.reeds_slab": "Reeds Slab",
+  "block.me.reeds_wall": "Reeds Wall",
 
 "#Comment:": "Block - Ashen",
   "block.me.ashen_rock": "Ashen Rock",
@@ -373,6 +383,10 @@
   "block.me.green_shrub": "Green Shrub",
   "block.me.mordor_lichen": "Mordor Lichen",
   "block.me.mordor_lichen_fan": "Mordor Lichen Fan",
+  "block.me.morgul_ivy": "Morgul Ivy",
+  "block.me.hanging_cobweb": "Hanging Cobweb",
+  "block.me.corrupted_moss": "Corrupted Moss",
+  "block.me.corrupted_moss_carpet": "Corrupted Moss Carpet",
   "block.me.strawberry_bush": "Strawberry Bush",
   "block.me.tan_shrub": "Tan Shrub",
   "block.me.tough_berry_bush": "Tough Berry Bush",
@@ -402,7 +416,9 @@
   "block.me.calcite_gold_ore": "Calcite Gold Ore",
 
   "#Comment:": "Block - Lights",
+  "block.me.dwarven_lantern": "Dwarven Lantern",
   "block.me.silver_lantern": "Silver Lantern",
+
 
 "#Comment:": "ENTITIES",
   "entity.me.cave_troll": "Cave Troll",
