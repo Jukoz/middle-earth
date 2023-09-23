@@ -7,6 +7,7 @@ import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.block.special.*;
 import net.jesteur.me.item.utils.ModItemGroups;
 import net.minecraft.block.*;
+import net.minecraft.block.RootsBlock;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
@@ -33,6 +34,11 @@ public class ModNatureBlocks {
                     .mapColor(DyeColor.GREEN).luminance(GlowLichenBlock.getLuminanceSupplier(5)).burnable()), false);
     public static final Block HANGING_COBWEB = registerBlock("hanging_cobweb",
             new HangingCobwebBlock(AbstractBlock.Settings.create().mapColor(MapColor.WHITE_GRAY).solid().noCollision().requiresTool().strength(4.0f)), false);
+
+    public static final Block CORNER_COBWEB = registerBlock("corner_cobweb",
+            new CornerCobwebBlock(AbstractBlock.Settings.create().mapColor(MapColor.WHITE_GRAY).solid().noCollision().requiresTool().strength(4.0f)), false);
+
+
     public static final Block CORRUPTED_MOSS_CARPET = registerBlock("corrupted_moss_carpet",
             new CarpetBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET)), false);
     public static final Block CORRUPTED_MOSS = registerBlock("corrupted_moss",
@@ -56,7 +62,11 @@ public class ModNatureBlocks {
     public static final Block STRAWBERRY_BUSH = registerBlock("strawberry_bush",
             new StrawBerryBushBlock(FabricBlockSettings.copyOf(Blocks.SWEET_BERRY_BUSH).ticksRandomly().noCollision().breakInstantly().sounds(BlockSoundGroup.SWEET_BERRY_BUSH)), true);
 
+    public static final Block MIRKWOOD_ROOTS = registerBlock("mirkwood_roots",
+            new MangroveRootsBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_ROOTS)), false);
 
+    public static final Block MIRKWOOD_HANGING_ROOTS = registerBlock("mirkwood_hanging_roots",
+            new HangingRootsBlock(FabricBlockSettings.copyOf(Blocks.HANGING_ROOTS)), false);
 
 
     public static Block registerBlock(String name, Block block, boolean absent) {

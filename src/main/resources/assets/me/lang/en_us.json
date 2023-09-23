@@ -339,6 +339,8 @@
   "block.me.mirkwood_fence_gate": "Mirkwood Fence Gate",
   "block.me.mirkwood_pressure_plate": "Mirkwood Pressure Plate",
   "block.me.mirkwood_button": "Mirkwood Button",
+  "block.me.mirkwood_roots": "Mirkwood Roots",
+  "block.me.mirkwood_hanging_roots": "Mirkwood Hanging Roots",
 
 "#Comment:": "Block - Palm",
   "block.me.palm_leaves": "Palm Leaves",
@@ -386,6 +388,7 @@
   "block.me.mordor_lichen_fan": "Mordor Lichen Fan",
   "block.me.morgul_ivy": "Morgul Ivy",
   "block.me.hanging_cobweb": "Hanging Cobweb",
+  "block.me.corner_cobweb": "Corner Cobweb",
   "block.me.corrupted_moss": "Corrupted Moss",
   "block.me.corrupted_moss_carpet": "Corrupted Moss Carpet",
   "block.me.strawberry_bush": "Strawberry Bush",
