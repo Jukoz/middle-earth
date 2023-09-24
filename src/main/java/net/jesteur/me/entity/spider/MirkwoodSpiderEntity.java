@@ -1,5 +1,6 @@
 package net.jesteur.me.entity.spider;
 
+import net.jesteur.me.block.ModNatureBlocks;
 import net.jesteur.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jesteur.me.entity.goals.FastPonceAtTargetGoal;
@@ -141,7 +142,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     }
 
     public void slowMovement(BlockState state, Vec3d multiplier) {
-        if (!state.isOf(Blocks.COBWEB)) {
+        if (!state.isOf(Blocks.COBWEB) && !state.isOf(ModNatureBlocks.CORNER_COBWEB) && !state.isOf(ModNatureBlocks.HANGING_COBWEB)) {
             super.slowMovement(state, multiplier);
         }
     }

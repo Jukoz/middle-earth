@@ -53,7 +53,7 @@ public class MirkwoodSpiderEggBlock extends Block {
 
     @Override
     public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-        if(entity.getType() != ModEntities.MIRKWOOD_SPIDER){
+        if(!entity.collidedSoftly && entity.getType() != ModEntities.MIRKWOOD_SPIDER){
             this.breakEgg(world, pos, state);
         }
         super.onSteppedOn(world, pos, state, entity);
