@@ -2,6 +2,7 @@ package net.jesteur.me.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.jesteur.me.MiddleEarth;
+import net.jesteur.me.item.items.MiddleEarthMapItem;
 import net.jesteur.me.item.items.StarlightPhialItem;
 import net.jesteur.me.item.items.PebbleItem;
 import net.jesteur.me.item.utils.ModItemGroups;
@@ -12,6 +13,8 @@ import net.minecraft.util.Identifier;
 
 public class ModRessourceItems {
 
+    public static final Item MIDDLE_EARTH_MAP = registerItem("middle_earth_map",
+            new MiddleEarthMapItem(new FabricItemSettings()));
     public static final Item MITHRIL_INGOT = registerItem("mithril_ingot",
             new Item(new FabricItemSettings().fireproof()));
     public static final Item RAW_MITHRIL = registerItem("raw_mithril",
