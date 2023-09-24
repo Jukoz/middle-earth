@@ -68,6 +68,22 @@ public class MiddleEarthMapScreen extends Screen {
         super(MAP_TITLE_TEXT);
     }
 
+
+    public static final float [] ZOOM_LEVELS = {
+            1f,
+            1.5f,
+            2f,
+            2.5f,
+            3f,
+            3.5f,
+            4f,
+            5f,
+            6f,
+            7f,
+            8f,
+            9f
+    };
+
     @Override
     protected void init() {
 
@@ -130,7 +146,7 @@ public class MiddleEarthMapScreen extends Screen {
                 context.drawTextWithShadow(textRenderer, Text.literal("Mouse in Window : " + (int)mouseX + "," + (int)mouseY), 0, 35, 0xffffff);
                 context.drawTextWithShadow(textRenderer, Text.literal("Mouse in Map : " + ((int)mouseX - x - MARGIN) + "," +  ((int)mouseY - y - MARGIN)), 0, 45, 0xffffff);
 
-                context.drawTextWithShadow(textRenderer, Text.literal("Zoom Level : " + zoomLevel ), 0, 60, 0xFFBF00);
+                context.drawTextWithShadow(textRenderer, Text.literal("Zoom Level : " + zoomLevel + " (" + getZoomLevel() + ")"), 0, 60, 0xFFBF00);
                 cursorWorldCoordinate = getWorldCoordinateOfCursor(mouseX, mouseY);
                 context.drawTextWithShadow(textRenderer, Text.literal("Cursor World Coordinates : " + cursorWorldCoordinate.x + ", " + cursorWorldCoordinate.y), 0, 70, 0xFFBF00);
 
@@ -147,6 +163,10 @@ public class MiddleEarthMapScreen extends Screen {
         }
     }
 
+    private float getZoomLevel(){
+        return ZOOM_LEVELS[zoomLevel - 1];
+    }
+
     private void drawMaintTextures(DrawContext context, int x, int y, double mouseX, double mouseY) {
         // Border
         context.drawTexture(WINDOW_TEXTURE, x, y, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
@@ -157,8 +177,8 @@ public class MiddleEarthMapScreen extends Screen {
                 mapDisplacementX, mapDisplacementY,
                 MAP_WINDOW_WIDTH,
                 MAP_WINDOW_HEIGHT,
-                (int) (MAP_WIDTH * zoomLevel * MIN_ZOOM),
-                (int) (MAP_HEIGHT * zoomLevel * MIN_ZOOM));
+                (int) (MAP_WIDTH * getZoomLevel() * MIN_ZOOM),
+                (int) (MAP_HEIGHT * getZoomLevel() * MIN_ZOOM));
 
         // Map UI
 
@@ -173,7 +193,7 @@ public class MiddleEarthMapScreen extends Screen {
         if(mouseX > signsOffsetX && mouseX < signsOffsetX + 18 && mouseY > signsOffsetY && mouseY < signsOffsetY + 18){
             centerOnPlayerButtonHover = 3;
         }
-        if(zoomLevel == 0){
+        if(zoomLevel == 1){
             centerOnPlayerTextureOffset = 36;
         }
         context.drawTexture(MAP_UI_TEXTURE,
@@ -202,7 +222,7 @@ public class MiddleEarthMapScreen extends Screen {
         if(mouseX > signsOffsetX && mouseX < signsOffsetX + 18 && mouseY > signsOffsetY + (offset * 2) && mouseY < signsOffsetY + 18 + (offset * 2)){
             dezoomButtonHover = 3;
         }
-        if(zoomLevel == 0){
+        if(zoomLevel == 1){
             dezoomTextureOffset = 36;
         }
         context.drawTexture(MAP_UI_TEXTURE,
@@ -210,9 +230,9 @@ public class MiddleEarthMapScreen extends Screen {
                 signsOffsetY + (offset * 2),
                 dezoomTextureOffset, 18, 18, 18, 256, 256);
 
-        ((ButtonWidget)children().get(centerOnPlayerButgtonIndex)).active = (zoomLevel > 0);
+        ((ButtonWidget)children().get(centerOnPlayerButgtonIndex)).active = (zoomLevel > 1);
         ((ButtonWidget)children().get(zoomButtonIndex)).active = (zoomLevel < MAX_ZOOM_LEVEL - 1);
-        ((ButtonWidget)children().get(dezoomButtonIndex)).active = (zoomLevel > 0);
+        ((ButtonWidget)children().get(dezoomButtonIndex)).active = (zoomLevel > 1);
 
 
         // BREE (TEST)
@@ -272,7 +292,7 @@ public class MiddleEarthMapScreen extends Screen {
         mapDisplacementX = Math.max(0, mapDisplacementX);
         mapDisplacementY = Math.max(0, mapDisplacementY);
 
-        float modifier = zoomLevel - 1;
+        float modifier = getZoomLevel() - 1;
         // Maximum (dynamic)
         // When zoomLevelIndex is 0, maximum should be 0,0
         mapDisplacementX = (int)Math.min((MAP_WINDOW_WIDTH) * modifier, mapDisplacementX);
@@ -280,8 +300,8 @@ public class MiddleEarthMapScreen extends Screen {
     }
 
     private Vec2f getCoordinateOnMap(float posX, float posZ, int textureOffsetX, int textureOffsetY) {
-        float transformedPosX = ((posX / WORLD_SIZE.x) * MAP_WINDOW_WIDTH * zoomLevel) - mapDisplacementX;
-        float transformedPosY = ((posZ / WORLD_SIZE.y) * MAP_WINDOW_HEIGHT * zoomLevel) - mapDisplacementY;
+        float transformedPosX = ((posX / WORLD_SIZE.x) * MAP_WINDOW_WIDTH * getZoomLevel()) - mapDisplacementX;
+        float transformedPosY = ((posZ / WORLD_SIZE.y) * MAP_WINDOW_HEIGHT * getZoomLevel()) - mapDisplacementY;
 
         transformedPosX = Math.max(textureOffsetX, Math.min(MAP_WINDOW_WIDTH - textureOffsetX, transformedPosX));
         transformedPosY = Math.max(textureOffsetY, Math.min(MAP_WINDOW_HEIGHT - textureOffsetY, transformedPosY));
@@ -294,15 +314,15 @@ public class MiddleEarthMapScreen extends Screen {
     }
 
     private void centerOnCoordinates(double x, double y){
-        double transformedCoordinatesX = ((x / WORLD_SIZE.x) * MAP_WINDOW_WIDTH * zoomLevel);
-        double transformedCoordinatesY = ((y / WORLD_SIZE.y) * MAP_WINDOW_HEIGHT * zoomLevel);
+        double transformedCoordinatesX = ((x / WORLD_SIZE.x) * MAP_WINDOW_WIDTH * getZoomLevel());
+        double transformedCoordinatesY = ((y / WORLD_SIZE.y) * MAP_WINDOW_HEIGHT * getZoomLevel());
 
         centerMapTo((int)transformedCoordinatesX, (int)transformedCoordinatesY);
     }
 
     private Vector2i getCenterOfCurrentMap(){
-        int centerX = (int)((mapDisplacementX + (MAP_WINDOW_WIDTH / 2)) / ((float)zoomLevel * MIN_ZOOM));
-        int centerY =  (int)((mapDisplacementY + (MAP_WINDOW_HEIGHT / 2)) / ((float)zoomLevel * MIN_ZOOM));
+        int centerX = (int)((mapDisplacementX + (MAP_WINDOW_WIDTH / 2)) / (getZoomLevel() * MIN_ZOOM));
+        int centerY =  (int)((mapDisplacementY + (MAP_WINDOW_HEIGHT / 2)) / (getZoomLevel() * MIN_ZOOM));
 
         return new Vector2i(centerX, centerY);
     }
@@ -311,8 +331,8 @@ public class MiddleEarthMapScreen extends Screen {
         mouseX -= (double) (this.width - WINDOW_WIDTH) / 2;
         mouseY -= (double) (this.height - WINDOW_HEIGHT) / 2;
 
-        int centerX = (int)((mapDisplacementX + mouseX) / ((float)zoomLevel * MIN_ZOOM));
-        int centerY =  (int)((mapDisplacementY + mouseY) / ((float)zoomLevel * MIN_ZOOM));
+        int centerX = (int)((mapDisplacementX + mouseX) / (getZoomLevel() * MIN_ZOOM));
+        int centerY =  (int)((mapDisplacementY + mouseY) / (getZoomLevel() * MIN_ZOOM));
 
         centerX= (int)(WORLD_SIZE.x / MAP_WIDTH * centerX);
         centerY = (int)(WORLD_SIZE.y / MAP_HEIGHT * centerY);
