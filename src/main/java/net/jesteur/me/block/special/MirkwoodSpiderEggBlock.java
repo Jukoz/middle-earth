@@ -5,6 +5,7 @@ import net.jesteur.me.entity.spider.MirkwoodSpiderEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -16,6 +17,9 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.event.GameEvent;
@@ -77,6 +81,12 @@ public class MirkwoodSpiderEggBlock extends Block {
         entity.age = 0;
         entity.setPos(pos.getX(), pos.getY() + 1, pos.getZ());
         world.spawnEntity(entity);
+    }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return VoxelShapes.union(
+                Block.createCuboidShape(5.0, 0.0, 5.0, 11.0, 7.0, 11.0));
     }
 
     static {
