@@ -17,6 +17,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.gen.feature.TreeConfiguredFeatures;
 
 import static net.jesteur.me.block.WoodBlockSets.LEAVES_STRENGTH;
 
@@ -38,11 +39,15 @@ public class ModNatureBlocks {
     public static final Block CORNER_COBWEB = registerBlock("corner_cobweb",
             new CornerCobwebBlock(AbstractBlock.Settings.create().mapColor(MapColor.WHITE_GRAY).solid().noCollision().requiresTool().strength(4.0f)), false);
 
-
     public static final Block CORRUPTED_MOSS_CARPET = registerBlock("corrupted_moss_carpet",
             new CarpetBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET)), false);
+
     public static final Block CORRUPTED_MOSS = registerBlock("corrupted_moss",
-            new MossBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_BLOCK)), false);
+            new VineBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_BLOCK)), false);
+
+    public static final Block MOSS = registerBlock("moss",
+            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
+                    .mapColor(DyeColor.GREEN).burnable()), false);
 
     public static final Block BROWN_GRASS = registerBlock("brown_grass",
             new HaradPlant(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
@@ -56,6 +61,11 @@ public class ModNatureBlocks {
     public static final Block YELLOW_FLOWER = registerBlock("yellow_flower",
             new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 0, FabricBlockSettings.copyOf(Blocks.DANDELION)), false);
 
+    public static final Block WHITE_MUSHROOM = registerBlock("white_mushroom",
+            new MushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), false);
+    public static final Block WHITE_MUSHROOM_TILLER = registerBlock("white_mushroom_tiller",
+            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), false);
+
     public static final Block LEBETHRON_LEAVES = registerBlock("lebethron_leaves",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), false);
 
@@ -68,6 +78,8 @@ public class ModNatureBlocks {
     public static final Block MIRKWOOD_HANGING_ROOTS = registerBlock("mirkwood_hanging_roots",
             new HangingRootsBlock(FabricBlockSettings.copyOf(Blocks.HANGING_ROOTS)), false);
 
+    public static final Block MIRKWOOD_SPIDER_EGG = registerBlock("mirkwood_spider_egg",
+            new MirkwoodSpiderEggBlock(FabricBlockSettings.copyOf(Blocks.TURTLE_EGG)), false);
 
     public static Block registerBlock(String name, Block block, boolean absent) {
         if(!absent) ModNatureBlocks.registerBlockItem(name, block);

@@ -1,6 +1,6 @@
 {
   "parent": "me:block/cross_direction",
   "textures": {
-    "cross": "me:block/corner_cobweb"
+    "cross": "me:block/white_mushroom"
   }
 }

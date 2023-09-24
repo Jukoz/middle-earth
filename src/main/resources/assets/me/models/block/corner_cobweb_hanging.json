@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:block/cross",
+  "parent": "me:block/cross_direction_inverted",
   "textures": {
-    "cross": "me:block/corner_cobweb_hanging"
+    "cross": "me:block/corner_cobweb"
   }
 }

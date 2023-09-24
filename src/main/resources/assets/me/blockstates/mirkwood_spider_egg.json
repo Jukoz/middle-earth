@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=south": {
+      "model": "me:block/mirkwood_spider_egg"
+    },
+    "facing=west": {
+      "model": "me:block/mirkwood_spider_egg",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/mirkwood_spider_egg",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "me:block/mirkwood_spider_egg",
+      "y": 270
+    }
+  }
+}

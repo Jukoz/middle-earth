@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "me:block/mordor_lichen_fan"
+    "layer0": "me:block/moss"
   }
 }
