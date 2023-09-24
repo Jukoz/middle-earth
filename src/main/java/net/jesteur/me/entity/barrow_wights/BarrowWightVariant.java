@@ -1,7 +1,5 @@
 package net.jesteur.me.entity.barrow_wights;
 
-import net.jesteur.me.entity.orcs.mordor.MordorOrcVariant;
-
 import java.util.Arrays;
 import java.util.Comparator;
 

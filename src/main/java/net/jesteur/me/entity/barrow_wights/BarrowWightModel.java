@@ -4,14 +4,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.animation.*;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.FrogEntity;
 import net.minecraft.util.math.MathHelper;
-import org.joml.Vector3f;
 
 @Environment(value = EnvType.CLIENT)
 public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
@@ -95,7 +90,7 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
         this.rightLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
         this.leftLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
 
-        int i = entity.getAttackTicksLeft();
+        /*int i = entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_COOLING_DOWN);
         if (entity.getState().equals(BarrowWightEntity.State.ATTACK)) {
             float ageFloat = (ageInTicks - (int) ageInTicks); // Helps to smooth the animation
             this.rightArm.pitch = -1.1f + 0.9f * MathHelper.wrap((float) i - ageFloat, 10.0f);
@@ -103,7 +98,7 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
         } else {
             this.rightArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
             this.leftArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
-        }
+        }*/
         this.updateAnimation(((BarrowWightEntity) entity).screamAnimationState, BarrowWightAnimations.anim_scream, ageInTicks);
 
 
