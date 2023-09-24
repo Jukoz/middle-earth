@@ -57,6 +57,7 @@ public class MiddleEarthMapScreen extends Screen {
     private static int dezoomButtonIndex;
     private float dezoomButtonHover = 0f;
     private static int centerOnPlayerButgtonIndex;
+    public static final float [] ZOOM_LEVELS = new float[12];
     private float centerOnPlayerButtonHover = 0f;
 
     private Vec3d playerCoordinate;
@@ -66,23 +67,13 @@ public class MiddleEarthMapScreen extends Screen {
 
     public MiddleEarthMapScreen() {
         super(MAP_TITLE_TEXT);
+        float zoom = 1;
+        for(int i = 0; i < ZOOM_LEVELS.length; i++) {
+            ZOOM_LEVELS[i] = zoom;
+            zoom *= 1.4f;
+        }
     }
 
-
-    public static final float [] ZOOM_LEVELS = {
-            1f,
-            1.5f,
-            2f,
-            2.5f,
-            3f,
-            3.5f,
-            4f,
-            5f,
-            6f,
-            7f,
-            8f,
-            9f
-    };
 
     @Override
     protected void init() {
