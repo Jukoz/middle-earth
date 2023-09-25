@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#fabric:shovels",
+      "required": false
+    },
+    "me:dwarven_shovel",
+    "me:mordor_orc_shovel"
+  ]
+}

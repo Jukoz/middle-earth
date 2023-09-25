@@ -21,6 +21,8 @@ public class ModRessourceItems {
             new Item(new FabricItemSettings().fireproof()));
     public static final Item MITHRIL_NUGGET = registerItem("mithril_nugget",
             new Item(new FabricItemSettings().fireproof()));
+    public static final Item RAW_TIN = registerItem("raw_tin",
+            new Item(new FabricItemSettings().fireproof()));
     public static final Item MORGUL_INGOT = registerItem("morgul_ingot",
             new Item(new FabricItemSettings()));
     public static final Item ORC_BONE = registerItem("orc_bone",
