@@ -62,12 +62,9 @@
       "minecraft:spring_water"
     ],
     [
-      "minecraft:glow_lichen",
+      "me:patch/mirkwood",
       "me:trees_mirkwood",
-      "me:stone_rock",
-      "minecraft:patch_grass_jungle",
-      "minecraft:brown_mushroom_normal",
-      "minecraft:patch_sugar_cane"
+      "me:stone_rock"
     ],
     [
       "minecraft:freeze_top_layer"
