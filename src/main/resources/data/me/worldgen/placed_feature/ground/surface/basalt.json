@@ -1,5 +1,5 @@
 {
-  "feature": "me:old/mordor/ore_basalt",
+  "feature": "me:ground/surface/basalt",
   "placement": [
     {
       "type": "minecraft:count_on_every_layer",

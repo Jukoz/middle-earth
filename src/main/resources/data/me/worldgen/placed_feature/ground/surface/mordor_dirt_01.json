@@ -1,5 +1,5 @@
 {
-  "feature": "me:ground/surface/mordor_dirt",
+  "feature": "me:ground/surface/mordor_dirt_01",
   "placement": [
     {
       "type": "minecraft:noise_threshold_count",

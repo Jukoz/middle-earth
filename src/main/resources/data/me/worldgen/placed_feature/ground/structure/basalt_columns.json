@@ -1,5 +1,5 @@
 {
-  "feature": "me:old/mordor/basalt_columns",
+  "feature": "me:ground/structure/basalt_columns",
   "placement": [
     {
       "type": "minecraft:count_on_every_layer",

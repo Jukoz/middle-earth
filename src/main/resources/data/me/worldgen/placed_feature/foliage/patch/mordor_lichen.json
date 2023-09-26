@@ -1,5 +1,5 @@
 {
-  "feature": "me:old/mordor/patch_mordor_lichen",
+  "feature": "me:foliage/patch/mordor_lichen",
   "placement": [
     {
       "type": "minecraft:count",
