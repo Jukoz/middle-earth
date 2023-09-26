@@ -39,8 +39,8 @@
       "minecraft:ore_granite_lower",
       "minecraft:ore_diorite_upper",
       "minecraft:ore_diorite_lower",
-      "me:ore_dolomite_lower",
-      "me:ore_dolomite_upper",
+      "me:old/ore_dolomite_lower",
+      "me:old/ore_dolomite_upper",
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
       "minecraft:ore_tuff",
@@ -63,7 +63,7 @@
     [
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
-      "me:trees_plains",
+      "me:old/trees_plains",
 	  "minecraft:patch_berry_common",
       "minecraft:flower_plains",
       "minecraft:patch_grass_plain",
@@ -82,7 +82,7 @@
 	"monster": [],
     "creature": [
 	  {
-        "type": "me:hobbit",
+        "type": "me:old/hobbit",
         "maxCount": 5,
         "minCount": 2,
         "weight": 16

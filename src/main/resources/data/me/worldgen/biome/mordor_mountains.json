@@ -37,21 +37,21 @@
   "features": [
     [],
     [
-	  "me:mordor/lava_lake"
+	  "me:old/mordor/lava_lake"
 	],
     [],
     [],
     [],
     [],
     [
-	  "me:mordor/ore_mordor_dirt",
-	  "me:mordor/ore_basalt"
+	  "me:old/mordor/ore_mordor_dirt",
+	  "me:old/mordor/ore_basalt"
 	],
     [],
     [
-	  "me:patch/tough_berry",
-	  "me:mordor/patch_mordor_lichen",
-	  "me:mordor/patch_mordor_lichen_fan",
+	  "me:old/patch/tough_berry",
+	  "me:old/mordor/patch_mordor_lichen",
+	  "me:old/mordor/patch_mordor_lichen_fan",
 	],
     []
   ],

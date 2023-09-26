@@ -38,8 +38,8 @@
       "minecraft:ore_granite_lower",
       "minecraft:ore_diorite_upper",
       "minecraft:ore_diorite_lower",
-      "me:ore_dolomite_lower",
-      "me:ore_dolomite_upper",
+      "me:old/ore_dolomite_lower",
+      "me:old/ore_dolomite_upper",
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
       "minecraft:ore_tuff",
@@ -64,12 +64,12 @@
     [
       "minecraft:glow_lichen",
       "minecraft:flower_default",
-	  "me:trees_taiga",
-	  "me:stone_rock",
+	  "me:old/trees_taiga",
+	  "me:old/stone_rock",
 	  "minecraft:patch_berry_common",
 	  "minecraft:patch_large_fern",
       "minecraft:patch_grass_taiga_2",
-      "me:patch/tough_berry_02"
+      "me:old/patch/tough_berry_02"
     ],
     [
       "minecraft:freeze_top_layer"

@@ -61,8 +61,8 @@
     [
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
-      "me:trees_plains",
-	  "me:stone_rock",
+      "me:old/trees_plains",
+	  "me:old/stone_rock",
       "minecraft:flower_plains",
       "minecraft:patch_grass_plain",
       "minecraft:brown_mushroom_normal",

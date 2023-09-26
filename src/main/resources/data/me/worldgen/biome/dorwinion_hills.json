@@ -38,8 +38,8 @@
       "minecraft:ore_granite_lower",
       "minecraft:ore_diorite_upper",
       "minecraft:ore_diorite_lower",
-      "me:ore_dolomite_lower",
-      "me:ore_dolomite_upper",
+      "me:old/ore_dolomite_lower",
+      "me:old/ore_dolomite_upper",
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
       "minecraft:ore_tuff",
@@ -50,7 +50,7 @@
       "minecraft:ore_iron_small",
       "minecraft:ore_gold",
       "minecraft:ore_gold_lower",
-      "me:mithril_ore",
+      "me:old/mithril_ore",
       "minecraft:ore_copper",
       "minecraft:underwater_magma",
       "minecraft:disk_clay",
@@ -83,7 +83,7 @@
     "axolotls": [],
 	"creature": [
 	  {
-        "type": "me:durin_folk",
+        "type": "me:old/durin_folk",
         "maxCount": 5,
         "minCount": 3,
         "weight": 14

@@ -54,7 +54,7 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-	  "me:disk_podzol"
+	  "me:old/disk_podzol"
     ],
     [],
     [
@@ -63,7 +63,7 @@
     [
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
-	  "me:trees_northern_dunland",
+	  "me:old/trees_northern_dunland",
       "minecraft:flower_plains",
       "minecraft:patch_grass_plain",
       "minecraft:brown_mushroom_normal",
