@@ -56,12 +56,12 @@
     ],
     [],
     [
-      "minecraft:spring_water",
+      "minecraft:spring_water"
     ],
     [
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
-      "me:old/trees_plains",
+      "me:forest/plains",
 	  "me:old/stone_rock",
       "minecraft:flower_plains",
       "minecraft:patch_grass_plain",

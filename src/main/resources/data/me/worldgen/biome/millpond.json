@@ -18,7 +18,7 @@
   "features": [
     [],
     [
-      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_underground"
     ],
     [
       "minecraft:amethyst_geode"
@@ -53,7 +53,7 @@
     ],
     [],
     [
-      "minecraft:spring_water",
+      "minecraft:spring_water"
     ],
     [
       "minecraft:glow_lichen",

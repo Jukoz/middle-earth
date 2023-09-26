@@ -24,7 +24,7 @@
   "features": [
     [],
     [
-      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_underground"
     ],
     [
       "minecraft:amethyst_geode"
@@ -56,11 +56,11 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-	  "me:old/disk_podzol"
+	  "me:ground/disk/podzol"
     ],
     [],
     [
-      "minecraft:spring_water",
+      "minecraft:spring_water"
     ],
     [
       "minecraft:glow_lichen",
@@ -90,6 +90,7 @@
       },
       {
         "type": "minecraft:pig",
+        "maxCount": 4,
         "maxCount": 4,
         "minCount": 4,
         "weight": 10

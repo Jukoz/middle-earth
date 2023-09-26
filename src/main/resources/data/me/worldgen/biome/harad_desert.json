@@ -24,14 +24,14 @@
   "features": [
     [],
     [
-      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_underground"
     ],
     [
       "minecraft:amethyst_geode"
     ],
     [
 	  "minecraft:fossil_upper",
-      "minecraft:fossil_lower",
+      "minecraft:fossil_lower"
     ],
     [],
     [],
@@ -62,7 +62,7 @@
     ],
     [],
     [
-      "minecraft:spring_water",
+      "minecraft:spring_water"
     ],
     [
       "minecraft:glow_lichen",

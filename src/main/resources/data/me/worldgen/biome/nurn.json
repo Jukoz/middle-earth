@@ -56,7 +56,7 @@
     [
       "minecraft:glow_lichen",
 	  "me:old/stone_rock",
-	  "me:old/trees_plains",
+	  "me:forest/plains",
 	  "minecraft:patch_berry_common",
       "minecraft:patch_grass_plain",
       "me:old/patch/tough_berry_02"

@@ -24,7 +24,7 @@
   "features": [
     [],
     [
-      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_underground"
     ],
     [
       "minecraft:amethyst_geode"
@@ -59,11 +59,11 @@
     ],
     [],
     [
-      "minecraft:spring_water",
+      "minecraft:spring_water"
     ],
     [
       "minecraft:glow_lichen",
-      "me:old/trees_fangorn",
+      "me:forest/fangorn",
       "minecraft:forest_flowers",
       "minecraft:flower_default",
       "minecraft:patch_grass_forest",

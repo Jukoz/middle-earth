@@ -24,7 +24,7 @@
   "features": [
     [],
     [
-      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_underground"
     ],
     [
       "minecraft:amethyst_geode"
@@ -59,13 +59,13 @@
     ],
     [],
     [
-      "minecraft:spring_water",
+      "minecraft:spring_water"
     ],
     [
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
-      "me:old/trees_plains",
-      "me:old/trees_southern_dunland",
+      "me:forest/plains",
+      "me:forest/southern_dunland",
 	  "me:old/stone_rock",
       "minecraft:flower_plains",
       "minecraft:patch_grass_plain",

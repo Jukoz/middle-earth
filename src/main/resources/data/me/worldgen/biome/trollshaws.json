@@ -24,7 +24,7 @@
   "features": [
     [],
     [
-      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_underground"
     ],
     [
       "minecraft:amethyst_geode"
@@ -56,16 +56,16 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-	  "me:old/disk_podzol"
+	  "me:ground/disk/podzol"
     ],
     [],
     [
-      "minecraft:spring_water",
+      "minecraft:spring_water"
     ],
     [
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
-      "me:old/trees_plains",
+      "me:forest/plains",
 	  "me:old/stone_rock",
       "minecraft:flower_plains",
       "minecraft:patch_grass_plain",

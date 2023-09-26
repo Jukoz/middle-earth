@@ -22,7 +22,7 @@
   "features": [
     [],
     [
-      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_underground"
     ],
     [
       "minecraft:amethyst_geode"
@@ -64,7 +64,7 @@
     [
       "minecraft:glow_lichen",
       "minecraft:flower_default",
-	  "me:old/trees_taiga",
+	  "me:forest/taiga",
 	  "me:old/stone_rock",
 	  "minecraft:patch_berry_common",
 	  "minecraft:patch_large_fern",

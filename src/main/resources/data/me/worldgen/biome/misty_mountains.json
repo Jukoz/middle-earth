@@ -22,7 +22,7 @@
   "features": [
     [],
     [
-      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_underground"
     ],
     [
       "minecraft:amethyst_geode"
@@ -56,9 +56,9 @@
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
       "minecraft:ore_emerald",
-      "me:old/disk_dolomite",
-      "me:old/disk_snow_powder",
-      "me:old/disk_snow_block"
+      "me:ground/disk/dolomite",
+      "me:ground/disk/snow_powder",
+      "me:ground/disk/snow_block"
     ],
     [],
     [],
