@@ -1,5 +1,5 @@
 {
-  "feature": "me:old/stone_rock",
+  "feature": "me:special/dynamic/cobweb",
   "placement": [
     {
       "type": "minecraft:count",
@@ -7,11 +7,11 @@
         "type": "minecraft:weighted_list",
         "distribution": [
           {
-            "weight": 4,
+            "weight": 5,
             "data": 1
           },
           {
-            "weight": 6,
+            "weight": 5,
             "data": 0
           }
         ]

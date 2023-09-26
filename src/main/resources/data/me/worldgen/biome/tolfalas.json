@@ -40,8 +40,8 @@
       "minecraft:ore_granite_lower",
       "minecraft:ore_diorite_upper",
       "minecraft:ore_diorite_lower",
-      "me:old/ore_dolomite_lower",
-      "me:old/ore_dolomite_upper",
+      "me:ground/underground/dolomite_lower",
+      "me:ground/surface/dolomite_upper",
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
       "minecraft:ore_tuff",
@@ -56,7 +56,7 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-	  "me:old/ore_coarse_dirt"
+	  "me:ground/surface/coarse_dirt"
     ],
     [],
     [
@@ -66,7 +66,7 @@
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass",
       "minecraft:flower_warm",
-	  "me:old/stone_rock",
+	  "me:boulder/basic/stone",
       "minecraft:patch_grass_savanna",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",

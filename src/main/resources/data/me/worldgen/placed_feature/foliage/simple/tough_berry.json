@@ -1,5 +1,5 @@
 {
-  "feature": "me:old/patch/harad_plants",
+  "feature": "me:foliage/simple/tough_berry",
   "placement": [
     {
       "type": "minecraft:count",
@@ -7,11 +7,11 @@
         "type": "minecraft:weighted_list",
         "distribution": [
           {
-            "weight": 3,
+            "weight": 8,
             "data": 1
           },
           {
-            "weight": 7,
+            "weight": 2,
             "data": 0
           }
         ]

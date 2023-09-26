@@ -1,5 +1,5 @@
 {
-  "feature": "me:old/ore_coarse_dirt",
+  "feature": "me:ground/surface/mordor_dirt",
   "placement": [
     {
       "type": "minecraft:noise_threshold_count",

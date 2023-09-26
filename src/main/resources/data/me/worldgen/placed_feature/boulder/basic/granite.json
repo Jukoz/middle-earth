@@ -1,5 +1,5 @@
 {
-  "feature": "me:old/patch/tough_berry",
+  "feature": "me:boulder/basic/granite",
   "placement": [
     {
       "type": "minecraft:count",
@@ -7,11 +7,11 @@
         "type": "minecraft:weighted_list",
         "distribution": [
           {
-            "weight": 2,
+            "weight": 3,
             "data": 1
           },
           {
-            "weight": 8,
+            "weight": 7,
             "data": 0
           }
         ]

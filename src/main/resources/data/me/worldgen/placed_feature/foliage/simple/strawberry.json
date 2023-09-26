@@ -1,5 +1,5 @@
 {
-  "feature": "me:boulder/basic/diorite_rock",
+  "feature": "me:foliage/simple/strawberry",
   "placement": [
     {
       "type": "minecraft:count",
@@ -7,11 +7,11 @@
         "type": "minecraft:weighted_list",
         "distribution": [
           {
-            "weight": 3,
+            "weight": 1,
             "data": 1
           },
           {
-            "weight": 7,
+            "weight": 9,
             "data": 0
           }
         ]

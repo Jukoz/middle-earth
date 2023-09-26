@@ -1,13 +1,13 @@
 {
-  "feature": "me:old/ore_frozen_gonluin",
+  "feature": "me:ground/surface/stone",
   "placement": [
     {
       "type": "minecraft:count_on_every_layer",
       "count": {
         "type": "minecraft:uniform",
         "value": {
-          "min_inclusive": 2,
-          "max_inclusive": 4
+          "min_inclusive": 1,
+          "max_inclusive": 3
         }
       }
     }

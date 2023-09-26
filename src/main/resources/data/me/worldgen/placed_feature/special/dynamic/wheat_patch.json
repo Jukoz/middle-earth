@@ -1,5 +1,5 @@
 {
-  "feature": "me:old/wheat_patch",
+  "feature": "me:special/dynamic/wheat_patch",
   "placement": [
     {
       "type": "minecraft:count",
