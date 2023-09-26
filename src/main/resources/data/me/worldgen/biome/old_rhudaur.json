@@ -24,7 +24,7 @@
   "features": [
     [],
     [
-      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_underground"
     ],
     [
       "minecraft:amethyst_geode"
@@ -40,8 +40,8 @@
       "minecraft:ore_granite_lower",
       "minecraft:ore_diorite_upper",
       "minecraft:ore_diorite_lower",
-      "me:ore_dolomite_lower",
-      "me:ore_dolomite_upper",
+      "me:ground/underground/dolomite_lower",
+      "me:ground/surface/dolomite_upper",
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
       "minecraft:ore_tuff",
@@ -56,16 +56,16 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-	  "me:disk_podzol"
+	  "me:ground/disk/podzol"
     ],
     [],
     [
-      "minecraft:spring_water",
+      "minecraft:spring_water"
     ],
     [
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
-	  "me:stone_rock",
+	  "me:boulder/basic/stone",
       "minecraft:flower_plains",
       "minecraft:patch_grass_plain",
       "minecraft:brown_mushroom_normal",
@@ -90,6 +90,7 @@
       },
       {
         "type": "minecraft:pig",
+        "maxCount": 4,
         "maxCount": 4,
         "minCount": 4,
         "weight": 10

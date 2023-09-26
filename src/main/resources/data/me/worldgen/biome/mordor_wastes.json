@@ -31,7 +31,7 @@
   "features": [
     [],
     [
-      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_underground"
     ],
     [
       "minecraft:amethyst_geode"
@@ -40,16 +40,16 @@
     [],
     [],
     [
-	  "me:mordor_wastes_ore_mordor_dirt",
+	  "me:ground/surface/mordor_dirt_01",
 	  "minecraft:disk_clay",
       "minecraft:disk_gravel"
 	],
     [],
     [
-	  "me:patch/tough_berry",
-	  "me:mordor/patch_mordor_lichen",
-	  "me:mordor/patch_mordor_lichen_fan",
-	  "me:wastelands_trees",
+	  "me:foliage/simple/tough_berry",
+	  "me:foliage/patch/mordor_lichen",
+	  "me:foliage/patch/mordor_lichen_fan",
+	  "me:tree/spruce/dead_02",
 	  "minecraft:patch_tall_grass",
       "minecraft:patch_grass_savanna"
 	],

@@ -22,7 +22,7 @@
   "features": [
     [],
     [
-      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_underground"
     ],
     [
       "minecraft:amethyst_geode"
@@ -38,8 +38,8 @@
       "minecraft:ore_granite_lower",
       "minecraft:ore_diorite_upper",
       "minecraft:ore_diorite_lower",
-      "me:ore_dolomite_lower",
-      "me:ore_dolomite_upper",
+      "me:ground/underground/dolomite_lower",
+      "me:ground/surface/dolomite_upper",
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
       "minecraft:ore_tuff",
@@ -55,7 +55,7 @@
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
       "minecraft:ore_emerald",
-	  "me:ore_frozen_gonluin"
+	  "me:ground/surface/frozen_gonluin"
     ],
     [],
     [],

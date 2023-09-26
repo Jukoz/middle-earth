@@ -34,8 +34,8 @@
       "minecraft:ore_granite_lower",
       "minecraft:ore_diorite_upper",
       "minecraft:ore_diorite_lower",
-      "me:ore_dolomite_lower",
-      "me:ore_dolomite_upper",
+      "me:ground/underground/dolomite_lower",
+      "me:ground/surface/dolomite_upper",
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
       "minecraft:ore_tuff",
@@ -55,11 +55,11 @@
     [],
     [
       "minecraft:glow_lichen",
-	  "me:stone_rock",
-	  "me:trees_plains",
+	  "me:boulder/basic/stone",
+	  "me:forest/plains",
 	  "minecraft:patch_berry_common",
       "minecraft:patch_grass_plain",
-      "me:patch/tough_berry_02"
+      "me:foliage/simple/tough_berry_02"
 	],
     []
   ],

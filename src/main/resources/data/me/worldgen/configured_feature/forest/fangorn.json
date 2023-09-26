@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "minecraft:fancy_oak_checked",
+    "features": [
+      {
+        "chance": 0.8,
+        "feature": "me:tree/fangorn/large"
+      },
+      {
+        "chance": 0.2,
+        "feature": "minecraft:fancy_oak_checked"
+      }
+    ]
+  }
+}
