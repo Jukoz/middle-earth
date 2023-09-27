@@ -40,8 +40,8 @@
       "minecraft:ore_granite_lower",
       "minecraft:ore_diorite_upper",
       "minecraft:ore_diorite_lower",
-      "me:ore_dolomite_lower",
-      "me:ore_dolomite_upper",
+      "me:ground/underground/dolomite_lower",
+      "me:ground/surface/dolomite_upper",
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
       "minecraft:ore_tuff",
@@ -62,12 +62,9 @@
       "minecraft:spring_water"
     ],
     [
-      "minecraft:glow_lichen",
-      "me:trees_mirkwood",
-      "me:stone_rock",
-      "minecraft:patch_grass_jungle",
-      "minecraft:brown_mushroom_normal",
-      "minecraft:patch_sugar_cane"
+      "me:foliage/patch/mirkwood",
+      "me:forest/mirkwood",
+      "me:boulder/basic/stone"
     ],
     [
       "minecraft:freeze_top_layer"

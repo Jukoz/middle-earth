@@ -1,5 +1,7 @@
 package net.jesteur.me.item.items;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.jesteur.me.client.screens.MiddleEarthMapScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -15,14 +17,15 @@ public class MiddleEarthMapItem extends Item {
         super(settings);
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        ItemStack itemStack = user.getStackInHand(hand);
         MinecraftClient mc = MinecraftClient.getInstance();
-        if (mc.currentScreen == null) {
-            mc.setScreen(new MiddleEarthMapScreen());
+        if(world.isClient) {
+            if (mc.currentScreen == null) {
+                mc.setScreen(new MiddleEarthMapScreen());
+            }
         }
-
-        return TypedActionResult.success(itemStack, world.isClient());
+        return super.use(world, user, hand);
     }
 }

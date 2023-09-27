@@ -9,6 +9,7 @@ import net.jesteur.me.item.utils.ModItemGroups;
 import net.minecraft.block.*;
 import net.minecraft.block.RootsBlock;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -17,6 +18,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.gen.feature.TreeConfiguredFeatures;
 
 import static net.jesteur.me.block.WoodBlockSets.LEAVES_STRENGTH;
@@ -67,7 +70,8 @@ public class ModNatureBlocks {
             new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 0, FabricBlockSettings.copyOf(Blocks.DANDELION)), false);
 
     public static final Block WHITE_MUSHROOM = registerBlock("white_mushroom",
-            new MushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), false);
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), false);
+
     public static final Block WHITE_MUSHROOM_TILLER = registerBlock("white_mushroom_tiller",
             new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), false);
 
