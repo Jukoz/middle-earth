@@ -3,6 +3,7 @@ package net.jesteur.me.block;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jesteur.me.MiddleEarth;
 import net.minecraft.block.*;
+import net.minecraft.block.enums.Instrument;
 import net.minecraft.util.Identifier;
 
 public class OreRockSets {
@@ -16,8 +17,10 @@ public class OreRockSets {
     public static OreRockSet BLUE_ROCK = registerOreSet("gonluin", 2.0f, null);
     public static OreRockSet DOLOMITE = registerOreSet("dolomite", 1.2f, null);
     public static OreRockSet CALCITE = registerOreSet("calcite", 1.0f, null);
-    public static CompleteOreRockSet DEEPSLATE = registerVanillaOreSet("deepslate", 1.0f, null);
-    public static CompleteOreRockSet STONE = registerVanillaOreSet("stone", 2.0f, null);
+
+    // Vanilla
+    public static CompleteOreRockSet DEEPSLATE = registerVanillaOreSet("deepslate_", 1.0f, null);
+    public static CompleteOreRockSet STONE = registerVanillaOreSet("", 2.0f, null);
 
     public static OreRockSet[] sets = new OreRockSet[] {
             ASHEN_ROCK,
@@ -38,34 +41,35 @@ public class OreRockSets {
     }
 
     public static OreRockSet registerOreSet(String rockname, float strength_mult, Block source) {
-        Block iron_ore = ModBlocks.registerBlock(
+        Block iron_ore = ModNatureBlocks.registerBlock(
                 rockname + "_iron_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
-                        IRON_ORE_STRENGTH * strength_mult, 3*strength_mult).requiresTool().dropsLike(Blocks.IRON_ORE)));
+                        IRON_ORE_STRENGTH * strength_mult, 3*strength_mult).requiresTool().dropsLike(Blocks.IRON_ORE)), false);
 
-        Block gold_ore = ModBlocks.registerBlock(
+        Block gold_ore = ModNatureBlocks.registerBlock(
                 rockname + "_gold_ore", new Block(FabricBlockSettings.copyOf(Blocks.GOLD_ORE).strength(
-                        ORE_STRENGTH * strength_mult, 3*strength_mult).requiresTool().dropsLike(Blocks.GOLD_ORE)));
+                        ORE_STRENGTH * strength_mult, 3*strength_mult).requiresTool().dropsLike(Blocks.GOLD_ORE)), false);
 
-        Block copper_ore = ModBlocks.registerBlock(
+        Block copper_ore = ModNatureBlocks.registerBlock(
                 rockname + "_copper_ore", new Block(FabricBlockSettings.copyOf(Blocks.COPPER_ORE).strength(
-                        ORE_STRENGTH * strength_mult, 3*strength_mult).requiresTool().dropsLike(Blocks.COPPER_ORE)));
+                        ORE_STRENGTH * strength_mult, 3*strength_mult).requiresTool().dropsLike(Blocks.COPPER_ORE)), false);
 
-        Block coal_ore = ModBlocks.registerBlock(
+        Block coal_ore = ModNatureBlocks.registerBlock(
                 rockname + "_coal_ore", new Block(FabricBlockSettings.copyOf(Blocks.COAL_ORE).strength(
-                        ORE_STRENGTH * strength_mult, 3*strength_mult).requiresTool().dropsLike(Blocks.COAL_ORE)));
+                        ORE_STRENGTH * strength_mult, 3*strength_mult).requiresTool().dropsLike(Blocks.COAL_ORE)), false);
 
-        Block tin_ore = ModBlocks.registerBlock(
+        Block tin_ore = ModNatureBlocks.registerBlock(
                 rockname + "_tin_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
-                        ORE_STRENGTH * strength_mult, 3*strength_mult).requiresTool().dropsLike(Blocks.IRON_ORE)
-                        .drops(new Identifier(MiddleEarth.MOD_ID, "raw_tin"))));
+                        ORE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()
+                        .drops(new Identifier(MiddleEarth.MOD_ID, rockname + "_tin_ore"))), false);
+
         return new OreRockSet(iron_ore, gold_ore, copper_ore, coal_ore, tin_ore);
     }
 
     public static CompleteOreRockSet registerVanillaOreSet(String rockname, float strength_mult, Block source) {
-        Block tin_ore = ModBlocks.registerBlock(
-                rockname + "_tin_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
+        Block tin_ore = ModNatureBlocks.registerBlock(
+                rockname + "tin_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
                         ORE_STRENGTH * strength_mult, 3*strength_mult).requiresTool().dropsLike(Blocks.IRON_ORE)
-                        .drops(new Identifier(MiddleEarth.MOD_ID, "raw_tin"))));
+                        .drops(new Identifier(MiddleEarth.MOD_ID, rockname + "tin_ore"))), false);
 
         return new CompleteOreRockSet(tin_ore);
     }

@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "me:stone_tin_ore"
+              "name": "me:tin_ore"
             },
             {
               "type": "minecraft:item",
@@ -45,5 +45,4 @@
       ],
       "rolls": 1.0
     }
-  ]
-}
+  ]}
