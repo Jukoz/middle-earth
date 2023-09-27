@@ -29,6 +29,8 @@
   "item.me.raw_mithril": "Raw Mithril",
   "item.me.morgul_ingot": "Morgul Ingot",
   "item.me.raw_tin": "Raw Tin",
+  "item.me.tin_ingot": "Tin Ingot",
+  "item.me.tin_nugget": "Tin Nugget",
 
 "#Comment:": "Item - General",
   "item.me.orc_bone": "Orc Bone",
@@ -435,6 +437,7 @@
   "block.me.calcite_tin_ore": "Calcite Tin Ore",
   "block.me.tin_ore": "Tin Ore",
   "block.me.deepslate_tin_ore": "Deepslate Tin Ore",
+  "block.me.tin_block": "Tin Block",
 
 "#Comment:": "Block - Lights",
   "block.me.dwarven_lantern": "Dwarven Lantern",

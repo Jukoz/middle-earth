@@ -15,14 +15,21 @@ public class ModRessourceItems {
 
     public static final Item MIDDLE_EARTH_MAP = registerItem("middle_earth_map",
             new MiddleEarthMapItem(new FabricItemSettings()));
+
     public static final Item MITHRIL_INGOT = registerItem("mithril_ingot",
             new Item(new FabricItemSettings().fireproof()));
     public static final Item RAW_MITHRIL = registerItem("raw_mithril",
             new Item(new FabricItemSettings().fireproof()));
     public static final Item MITHRIL_NUGGET = registerItem("mithril_nugget",
             new Item(new FabricItemSettings().fireproof()));
+
     public static final Item RAW_TIN = registerItem("raw_tin",
-            new Item(new FabricItemSettings().fireproof()));
+            new Item(new FabricItemSettings()));
+    public static final Item TIN_INGOT = registerItem("tin_ingot",
+            new Item(new FabricItemSettings()));
+    public static final Item TIN_NUGGET = registerItem("tin_nugget",
+            new Item(new FabricItemSettings()));
+
     public static final Item MORGUL_INGOT = registerItem("morgul_ingot",
             new Item(new FabricItemSettings()));
     public static final Item ORC_BONE = registerItem("orc_bone",
