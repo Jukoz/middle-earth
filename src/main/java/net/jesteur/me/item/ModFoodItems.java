@@ -18,6 +18,14 @@ public class ModFoodItems {
     public static final Item LEMBAS = registerItem("lembas",
             new Item(new FabricItemSettings().food(
                     new FoodComponent.Builder().hunger(20).saturationModifier(20).build())));
+
+    public static final Item RAW_CRAB_CLAW = registerItem("raw_crab_claw",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(2).saturationModifier(0.2F).meat().build())));
+    public static final Item COOKED_CRAB_CLAW = registerItem("cooked_crab_claw",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(5).saturationModifier(0.6F).meat().build())));
+
     public static final Item MAGGOTY_BREAD = registerItem("maggoty_bread",
             new Item(new FabricItemSettings().food(
                     new FoodComponent.Builder().hunger(5).saturationModifier(1.2f).build())));

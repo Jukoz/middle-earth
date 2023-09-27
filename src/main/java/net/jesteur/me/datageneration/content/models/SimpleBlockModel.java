@@ -15,6 +15,7 @@ public class SimpleBlockModel {
             add(ModBlocks.DRY_DIRT);
             add(ModBlocks.MORDOR_DIRT);
             add(ModBlocks.MITHRIL_BLOCK);
+            add(ModBlocks.TIN_BLOCK);
             add(ModBlocks.MITHRIL_ORE);
         }
     };
