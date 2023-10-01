@@ -32,18 +32,19 @@ public class MiddleEarth implements ModInitializer {
 		ModFoodItems.registerModItems();
 		ModRessourceItems.registerModItems();
 		ModEggItems.registerModItems();
+		ModItemGroups.register();
+
 		ModBlocks.registerModBlocks();
 		ModDecorativeBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();
 		ModDecorativeItems.registerModItems();
+		SimpleBlockSets.registerModBlockSets();
+		WoodBlockSets.registerModBlockSets();
+
+		ModBlockEntities.registerBlockEntities();
 
 		ModEntities.registerModEntities();
 		ModEntitySpawning.addSpawns();
-
-		ModItemGroups.register();
-
-		SimpleBlockSets.registerModBlockSets();
-		WoodBlockSets.registerModBlockSets();
 
 		ModSounds.registerModSounds();
 

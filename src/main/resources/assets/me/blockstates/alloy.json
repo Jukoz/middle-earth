@@ -1,34 +1,7 @@
 {
   "variants": {
-    "facing=east,lit=false": {
-      "model": "me:block/alloy",
-      "y": 90
-    },
-    "facing=east,lit=true": {
-      "model": "me:block/alloy",
-      "y": 90
-    },
-    "facing=north,lit=false": {
+    "": {
       "model": "me:block/alloy"
-    },
-    "facing=north,lit=true": {
-      "model": "me:block/alloy"
-    },
-    "facing=south,lit=false": {
-      "model": "me:block/alloy",
-      "y": 180
-    },
-    "facing=south,lit=true": {
-      "model": "me:block/alloy",
-      "y": 180
-    },
-    "facing=west,lit=false": {
-      "model": "me:block/alloy",
-      "y": 270
-    },
-    "facing=west,lit=true": {
-      "model": "me:block/alloy",
-      "y": 270
     }
   }
 }

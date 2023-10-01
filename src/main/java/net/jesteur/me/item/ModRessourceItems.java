@@ -12,6 +12,10 @@ import net.minecraft.util.Identifier;
 
 public class ModRessourceItems {
 
+    public static final Item DWARVEN_STEEL = registerItem("dwarven_steel",
+            new Item(new FabricItemSettings()));
+    public static final Item DWARVEN_STEEL_NUGGET = registerItem("dwarven_steel_nugget",
+            new Item(new FabricItemSettings()));
     public static final Item MITHRIL_INGOT = registerItem("mithril_ingot",
             new Item(new FabricItemSettings().fireproof()));
     public static final Item RAW_MITHRIL = registerItem("raw_mithril",
