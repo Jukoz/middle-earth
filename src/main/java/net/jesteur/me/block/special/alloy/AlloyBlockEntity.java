@@ -1,6 +1,7 @@
 package net.jesteur.me.block.special.alloy;
 
 import net.jesteur.me.block.ModBlockEntities;
+import net.jesteur.me.gui.AlloyScreenHandler;
 import net.jesteur.me.item.ModRessourceItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -27,13 +28,13 @@ import org.jetbrains.annotations.Nullable;
 
 public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
     private static final String ID = "alloy";
-    private static final int MAX_PROGRESS = 72;
-    private static final int METAL_SLOT = 0;
-    private static final int CARBIDE_SLOT = 1;
-    private static final int FUEL_SLOT = 2;
-    private static final int OUTPUT_SLOT = 3;
+    public static final int MAX_PROGRESS = 14; //72;
+    private static final int METAL_SLOT = 1;
+    private static final int CARBIDE_SLOT = 2;
+    private static final int FUEL_SLOT = 0;
+    private static final int OUTPUT_SLOT = 5;
     private final DefaultedList<ItemStack> inventory =
-            DefaultedList.ofSize(4, ItemStack.EMPTY);
+            DefaultedList.ofSize(6, ItemStack.EMPTY);
 
     protected final PropertyDelegate propertyDelegate;
     private int progress = 0;
@@ -60,12 +61,12 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
                     case 0 -> AlloyBlockEntity.this.progress = value;
                     case 1 -> AlloyBlockEntity.this.fuelTime = value;
                     case 2 -> AlloyBlockEntity.this.maxFuelTime = value;
-                };
+                }
             }
 
             @Override
             public int size() {
-                return 4;
+                return 3;
             }
         };
     }
@@ -78,7 +79,7 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return null;
+        return new AlloyScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
     @Override
@@ -115,7 +116,7 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-        return true;
+        return slot != OUTPUT_SLOT;
     }
 
     @Override
@@ -174,11 +175,27 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
             entity.progress++;
             markDirty(world, blockPos, blockState); // Reloads the block in this chunk, for sync & saving.
             if(entity.progress >= MAX_PROGRESS) {
-                //craftItem(entity);
+                craftItem(entity);
+                entity.progress = 0;
             }
         } else {
             entity.progress = Math.max(entity.progress - 2, 0);
             markDirty(world, blockPos, blockState);
+        }
+    }
+
+    private static void craftItem(AlloyBlockEntity entity) {
+        SimpleInventory inventory1 = new SimpleInventory(entity.size());
+        for (int i = 0; i < entity.size(); i++) {
+            inventory1.setStack(i, entity.getStack(i));
+        }
+
+        if(hasRecipe(entity)) {
+            entity.removeStack(METAL_SLOT, 1);
+            entity.removeStack(CARBIDE_SLOT, 1);
+
+            entity.setStack(OUTPUT_SLOT, new ItemStack(ModRessourceItems.DWARVEN_STEEL,
+                    entity.getStack(OUTPUT_SLOT).getCount() + 1));
         }
     }
 
@@ -188,18 +205,18 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
             inventory1.setStack(i, entity.getStack(i));
         }
 
-        boolean hasMetalInFirstSlot = entity.getStack(METAL_SLOT).getItem() == Items.RAW_IRON;
-        boolean hasCarbideInSecondSlot = entity.getStack(METAL_SLOT).getItem() == Items.COAL;
+        boolean hasMetalInFirstSlot = entity.getStack(METAL_SLOT).getItem() == Items.RAW_IRON || entity.getStack(METAL_SLOT).getItem() == Items.IRON_INGOT;
+        boolean hasCarbideInSecondSlot = entity.getStack(CARBIDE_SLOT).getItem() == Items.COAL;
         boolean canInsertOutput = canInsertAmountIntoOutput(inventory1)
-                && canInsertRecipeIntoOutput(inventory1, ModRessourceItems.MORGUL_INGOT);
+                && canInsertRecipeIntoOutput(inventory1, ModRessourceItems.DWARVEN_STEEL);
 
         return hasMetalInFirstSlot && hasCarbideInSecondSlot && canInsertOutput;
     }
 
     private static boolean canInsertAmountIntoOutput(SimpleInventory inventory1) {
-        return false;
+        return inventory1.getStack(OUTPUT_SLOT).getMaxCount() > inventory1.getStack(OUTPUT_SLOT).getCount();
     }
     private static boolean canInsertRecipeIntoOutput(SimpleInventory inventory1, Item item) {
-        return false;
+        return inventory1.getStack(OUTPUT_SLOT).getItem() == item || inventory1.getStack(OUTPUT_SLOT).isEmpty();
     }
 }

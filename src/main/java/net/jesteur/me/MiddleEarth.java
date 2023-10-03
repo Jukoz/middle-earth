@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.jesteur.me.block.*;
 import net.jesteur.me.entity.ModEntities;
 import net.jesteur.me.events.ModEvents;
+import net.jesteur.me.gui.ModScreenHandlers;
 import net.jesteur.me.item.*;
 import net.jesteur.me.item.utils.ModItemGroups;
 import net.jesteur.me.sound.ModSounds;
@@ -42,6 +43,8 @@ public class MiddleEarth implements ModInitializer {
 		WoodBlockSets.registerModBlockSets();
 
 		ModBlockEntities.registerBlockEntities();
+
+		ModScreenHandlers.registerAllScreenHandlers();
 
 		ModEntities.registerModEntities();
 		ModEntitySpawning.addSpawns();
