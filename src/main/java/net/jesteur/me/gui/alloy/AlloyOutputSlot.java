@@ -1,4 +1,4 @@
-package net.jesteur.me.gui;
+package net.jesteur.me.gui.alloy;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;

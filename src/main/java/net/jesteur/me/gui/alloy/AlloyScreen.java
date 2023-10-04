@@ -1,4 +1,4 @@
-package net.jesteur.me.gui;
+package net.jesteur.me.gui.alloy;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.jesteur.me.MiddleEarth;
@@ -12,6 +12,7 @@ import net.minecraft.util.Identifier;
 public class AlloyScreen extends HandledScreen<AlloyScreenHandler> {
     private static final Identifier TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/gui/alloy.png");
     private static final int PROGRESS_ARROW_SIZE = 24;
+    private static final int COOKING_FIRE_SIZE = 14;
     public AlloyScreen(AlloyScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
     }
@@ -35,8 +36,13 @@ public class AlloyScreen extends HandledScreen<AlloyScreenHandler> {
     }
 
     private void renderProgressArrow(DrawContext context, int x, int y) {
+        //if(handler.isCooking()) {
         if(handler.isCrafting()) {
-            context.drawTexture(TEXTURE, x + 94, y + 35, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17);
+            int cookingTime = (int) (handler.getScaledProgress() * COOKING_FIRE_SIZE);
+            context.drawTexture(TEXTURE, x + 53, y + 50 - cookingTime, 176, COOKING_FIRE_SIZE - (cookingTime), COOKING_FIRE_SIZE, cookingTime);
+        }
+        if(handler.isCrafting()) {
+            context.drawTexture(TEXTURE, x + 94, y + 34, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17);
         }
     }
 

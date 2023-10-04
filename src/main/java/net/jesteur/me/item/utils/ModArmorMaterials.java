@@ -32,7 +32,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
             () -> Ingredient.ofItems(ModRessourceItems.MORGUL_INGOT)),
     MORDOR_ORC_ARMOR("mordor_orc_armor", 16, new int[] { 2, 6, 5, 2},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0, 0.0F,
-            () -> Ingredient.ofItems(ModRessourceItems.MORGUL_INGOT)),
+            () -> Ingredient.ofItems(ModRessourceItems.ORC_STEEL)),
     ;
 
     private final String name;

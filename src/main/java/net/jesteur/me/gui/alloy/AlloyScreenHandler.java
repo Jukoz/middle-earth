@@ -1,6 +1,7 @@
-package net.jesteur.me.gui;
+package net.jesteur.me.gui.alloy;
 
 import net.jesteur.me.block.special.alloy.AlloyBlockEntity;
+import net.jesteur.me.gui.ModScreenHandlers;
 import net.jesteur.me.item.ModRessourceItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -49,6 +50,17 @@ public class AlloyScreenHandler extends ScreenHandler{
     @Override
     public boolean canUse(PlayerEntity player) {
         return this.inventory.canPlayerUse(player);
+    }
+
+    public boolean isCooking() {
+        return propertyDelegate.get(1) > 0;
+    }
+
+    public float getScaledCooking() {
+        int cooking = this.propertyDelegate.get(1);
+        int maxCooking = this.propertyDelegate.get(2);
+
+        return (float) cooking / maxCooking;
     }
 
     public boolean isCrafting() {

@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
       "model": "me:block/alloy"
+    },
+    "facing=south": {
+      "model": "me:block/alloy",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/alloy",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "me:block/alloy",
+      "y": 90
     }
   }
 }

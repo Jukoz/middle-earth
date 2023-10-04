@@ -20,17 +20,15 @@ import net.jesteur.me.entity.spear.JavelinEntityRenderer;
 import net.jesteur.me.entity.spider.MirkwoodSpiderRenderer;
 import net.jesteur.me.entity.trolls.cave.CaveTrollRenderer;
 import net.jesteur.me.entity.trolls.snow.SnowTrollRenderer;
-import net.jesteur.me.gui.AlloyScreen;
+import net.jesteur.me.gui.alloy.AlloyScreen;
 import net.jesteur.me.gui.ModScreenHandlers;
 import net.jesteur.me.item.ModEquipmentItems;
 import net.jesteur.me.item.utils.ModModelPredicateProvider;
-import net.minecraft.client.color.item.ItemColorProvider;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.item.DyeableItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 public class MiddleEarthClient implements ClientModInitializer {
 

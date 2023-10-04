@@ -1,10 +1,8 @@
-package net.jesteur.me.gui;
+package net.jesteur.me.gui.alloy;
 
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.screen.slot.FurnaceFuelSlot;
 import net.minecraft.screen.slot.Slot;
 
 public class AlloyFuelSlot extends Slot {

@@ -24,6 +24,8 @@ public class ModRessourceItems {
             new Item(new FabricItemSettings().fireproof()));
     public static final Item MORGUL_INGOT = registerItem("morgul_ingot",
             new Item(new FabricItemSettings()));
+    public static final Item ORC_STEEL = registerItem("orc_steel",
+            new Item(new FabricItemSettings()));
     public static final Item ORC_BONE = registerItem("orc_bone",
             new Item(new FabricItemSettings()));
     public static final Item WARG_BONE = registerItem("warg_bone",

@@ -1,5 +1,6 @@
 package net.jesteur.me.gui;
 
+import net.jesteur.me.gui.alloy.AlloyScreenHandler;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandlerType;
 

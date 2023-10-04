@@ -1,9 +1,10 @@
 package net.jesteur.me.block.special.alloy;
 
 import net.jesteur.me.block.ModBlockEntities;
-import net.jesteur.me.gui.AlloyScreenHandler;
+import net.jesteur.me.gui.alloy.AlloyScreenHandler;
 import net.jesteur.me.item.ModRessourceItems;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -25,10 +26,13 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
+
 
 public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
     private static final String ID = "alloy";
     public static final int MAX_PROGRESS = 14; //72;
+    public static final int INPUT_SIZE = 4;
     private static final int METAL_SLOT = 1;
     private static final int CARBIDE_SLOT = 2;
     private static final int FUEL_SLOT = 0;
@@ -37,6 +41,7 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
             DefaultedList.ofSize(6, ItemStack.EMPTY);
 
     protected final PropertyDelegate propertyDelegate;
+    protected final Map<Item, Integer> fuelTimeMap = AbstractFurnaceBlockEntity.createFuelTimeMap();
     private int progress = 0;
     private int fuelTime = 0;
     private int maxFuelTime = 0;
@@ -100,6 +105,13 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
         maxFuelTime = nbt.getInt(ID + ".max-fuel-time");
     }
 
+    protected boolean isFuel(Item item) {
+        for (Item item1: fuelTimeMap.keySet()) {
+            if(item1.equals(item)) return true;
+        }
+        return false;
+    }
+
     @Override
     public int[] getAvailableSlots(Direction side) {
         int[] slots = new int[inventory.size()];
@@ -111,6 +123,11 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        if (slot == OUTPUT_SLOT) return false;
+        if (slot == FUEL_SLOT) {
+            System.out.println("IS " + stack.getItem().getName() + " , FUEL: " + isFuel(stack.getItem()));
+            return isFuel(stack.getItem());
+        }
         return true;
     }
 
