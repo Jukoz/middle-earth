@@ -31,7 +31,7 @@ import java.util.Map;
 
 public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
     private static final String ID = "alloy";
-    public static final int MAX_PROGRESS = 14; //72;
+    public static final int MAX_PROGRESS = 30; //72;
     public static final int INPUT_SIZE = 4;
     private static final int METAL_SLOT = 1;
     private static final int CARBIDE_SLOT = 2;
@@ -187,15 +187,20 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     public static void tick(World world, BlockPos blockPos, BlockState blockState, AlloyBlockEntity entity) {
         if(world.isClient()) return;
-
+        entity.fuelTime = Math.max(0, entity.fuelTime - 200);
+        boolean progress = false;
         if(hasRecipe(entity)) {
-            entity.progress++;
-            markDirty(world, blockPos, blockState); // Reloads the block in this chunk, for sync & saving.
-            if(entity.progress >= MAX_PROGRESS) {
-                craftItem(entity);
-                entity.progress = 0;
+            if(entity.hasFuel(entity)) {
+                entity.progress++;
+                progress = true;
+                markDirty(world, blockPos, blockState); // Reloads the block in this chunk, for sync & saving.
+                if(entity.progress >= MAX_PROGRESS) {
+                    craftItem(entity);
+                    entity.progress = 0;
+                }
             }
-        } else {
+        }
+        if (!progress){
             entity.progress = Math.max(entity.progress - 2, 0);
             markDirty(world, blockPos, blockState);
         }
@@ -206,11 +211,9 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
         for (int i = 0; i < entity.size(); i++) {
             inventory1.setStack(i, entity.getStack(i));
         }
-
         if(hasRecipe(entity)) {
             entity.removeStack(METAL_SLOT, 1);
             entity.removeStack(CARBIDE_SLOT, 1);
-
             entity.setStack(OUTPUT_SLOT, new ItemStack(ModRessourceItems.DWARVEN_STEEL,
                     entity.getStack(OUTPUT_SLOT).getCount() + 1));
         }
@@ -228,6 +231,29 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
                 && canInsertRecipeIntoOutput(inventory1, ModRessourceItems.DWARVEN_STEEL);
 
         return hasMetalInFirstSlot && hasCarbideInSecondSlot && canInsertOutput;
+    }
+
+    private boolean hasFuel(AlloyBlockEntity entity) {
+        SimpleInventory inventory1 = new SimpleInventory(entity.size());
+        for (int i = 0; i < entity.size(); i++) {
+            inventory1.setStack(i, entity.getStack(i));
+        }
+
+        Item fuelItem = inventory1.getStack(FUEL_SLOT).getItem();
+        if(this.fuelTime > 0) return true;
+        else {
+            if(isFuel(fuelItem)) {
+                getFuel(inventory1, fuelItem);
+                return true;
+            } else return false;
+        }
+    }
+
+    private void getFuel(SimpleInventory inventory1, Item fuelItem) {
+        fuelTime = fuelTimeMap.get(fuelItem);
+        maxFuelTime = fuelTime;
+        if(fuelItem == Items.LAVA_BUCKET) inventory1.setStack(FUEL_SLOT, Items.BUCKET.getDefaultStack()); // FIXME
+        else inventory1.getStack(FUEL_SLOT).decrement(1);
     }
 
     private static boolean canInsertAmountIntoOutput(SimpleInventory inventory1) {

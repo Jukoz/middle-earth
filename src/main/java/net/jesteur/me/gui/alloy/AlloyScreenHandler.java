@@ -59,6 +59,7 @@ public class AlloyScreenHandler extends ScreenHandler{
     public float getScaledCooking() {
         int cooking = this.propertyDelegate.get(1);
         int maxCooking = this.propertyDelegate.get(2);
+        if(maxCooking == 0) maxCooking = 200;
 
         return (float) cooking / maxCooking;
     }
