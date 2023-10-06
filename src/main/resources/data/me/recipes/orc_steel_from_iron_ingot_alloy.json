@@ -5,10 +5,10 @@
       "item": "minecraft:iron_ingot"
     },
     {
-      "item": "minecraft:coal"
+      "item": "me:ashen_rock"
     }
   ],
   "output": {
-    "item": "me:dwarven_steel"
+    "item": "me:orc_steel"
   }
 }

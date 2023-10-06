@@ -26,17 +26,23 @@ public class AlloyRecipe implements Recipe<SimpleInventory> {
     @Override
     public boolean matches(SimpleInventory inventory, World world) {
         if(world.isClient()) return false;
-        RecipeMatcher recipeMatcher = new RecipeMatcher();
-        int i = 0;
-        for (int j = 1; j < inventory.size() - 1; ++j) { // We avoid first and last indexes, because it's for fuel & output.
-            ItemStack itemStack = inventory.getStack(j);
-            ++i;
-            if (itemStack.isEmpty()) continue;
-            recipeMatcher.addInput(itemStack, 1);
+        //RecipeMatcher recipeMatcher = new RecipeMatcher();
+        //int i = 0;
+        //for (int j = 1; j < inventory.size() - 1; ++j) { // We avoid first and last indexes, because it's for fuel & output.
+        //    ItemStack itemStack = inventory.getStack(j);
+        //    ++i;
+        //    if (itemStack.isEmpty()) continue;
+        //    recipeMatcher.addInput(itemStack, 1);
+        //}
+        //boolean sameSize = i == this.inputs.size();
+        //boolean matches = recipeMatcher.match(this, null);
+        //return sameSize && matches;
+
+        for (int i = 0; i < inputs.size(); i++) {
+            if(!inputs.get(i).test(inventory.getStack(i + 1))) return false;
         }
-        boolean sameSize = i == this.inputs.size();
-        boolean matches = recipeMatcher.match(this, null);
-        return sameSize && matches;
+
+        return true;
     }
 
     @Override
@@ -83,10 +89,10 @@ public class AlloyRecipe implements Recipe<SimpleInventory> {
         public AlloyRecipe read(Identifier id, JsonObject json) {
             ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
             JsonArray ingredients = JsonHelper.getArray(json, "ingredients");
-            DefaultedList<Ingredient> inputs = DefaultedList.ofSize(4, Ingredient.EMPTY);
+            DefaultedList<Ingredient> inputs = DefaultedList.ofSize(ingredients.size(), Ingredient.EMPTY);
 
             //DefaultedList<Ingredient> defaultedList = ShapelessRecipe.Serializer.getIngredients(JsonHelper.getArray(jsonObject, "ingredients"));
-            for (int i = 0; i < inputs.size(); i++) {
+            for (int i = 0; i < ingredients.size(); i++) {
                 Ingredient ingredient = Ingredient.fromJson(ingredients.get(i), true);
                 if (ingredient.isEmpty()) continue;
                 inputs.set(i, ingredient);
