@@ -53,6 +53,9 @@ public class NazgulRenderer extends BipedEntityRenderer<NazgulEntity, NazgulMode
         float scale = 1 - (float)entity.getFadingTicks() / NazgulEntity.FADING_TIME;
         scale = (float) Math.pow(scale, 0.35f);
         poseStack.scale(1.05f * scale, 1.05f * scale, 1.05f * scale);
+        if(entity.hasVehicle()) {
+            poseStack.translate(0, -0.4f, 0);
+        }
 
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }

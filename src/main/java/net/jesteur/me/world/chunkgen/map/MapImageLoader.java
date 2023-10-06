@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class MapImageLoader {
-    private static final int iterations = 3;
     private static int[][] pixels;
     private static Random random = new Random(1379);
 
@@ -37,7 +36,7 @@ public class MapImageLoader {
         }
         pixels = ImageUtils.convertTo2D(img);
 
-        for (int i = 0; i < iterations; i++) {
+        for (int i = 0; i < MiddleEarth.MAP_ITERATION; i++) {
             subDivide(false);
         }
 

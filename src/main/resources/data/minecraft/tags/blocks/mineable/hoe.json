@@ -2,12 +2,12 @@
   "replace": false,
   "values": [
     "me:reeds_block",
-    "me:reeds_stair_block",
-    "me:reeds_slab_block",
-    "me:reeds_wall_block",
+    "me:reeds_stair",
+    "me:reeds_slab",
+    "me:reeds_wall",
     "me:straw_block",
-    "me:straw_stair_block",
-    "me:straw_slab_block",
-    "me:straw_wall_block"
+    "me:straw_stair",
+    "me:straw_slab",
+    "me:straw_wall"
   ]
 }

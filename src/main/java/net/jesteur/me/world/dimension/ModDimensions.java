@@ -2,6 +2,7 @@ package net.jesteur.me.world.dimension;
 
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.world.chunkgen.MiddleEarthChunkGenerator;
+import net.jesteur.me.world.chunkgen.map.MapImageLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -41,7 +42,7 @@ public class ModDimensions {
             if (serverWorld != null) {
                 serverWorld = serverWorld.getServer().getWorld(registryKey);
 
-                Vector3i targetPos = new Vector3i(ME_SPAWN_LOCATION.x, ME_SPAWN_LOCATION.y, ME_SPAWN_LOCATION.z);
+                Vector3i targetPos = getSpawnCoordinate();
                 if(registryKey != WORLD_KEY) targetPos = new Vector3i(serverWorld.getSpawnPos().getX(), 80, serverWorld.getSpawnPos().getZ());
 
                 player.wakeUp();
@@ -52,5 +53,13 @@ public class ModDimensions {
                 player.refreshPositionAfterTeleport(targetPos.x, highY, targetPos.z);
             }
         }
+    }
+
+    public static Vector3i getSpawnCoordinate(){
+        double worldIteration = Math.pow(2, MiddleEarth.MAP_ITERATION);
+        int x = (int)((ME_SPAWN_LOCATION.x * worldIteration));
+        int z = (int)((ME_SPAWN_LOCATION.z * worldIteration));
+
+        return new Vector3i(x, ME_SPAWN_LOCATION.y, z);
     }
 }

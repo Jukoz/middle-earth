@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "hanging=true,facing=south": {
+      "model": "me:block/corner_cobweb_hanging"
+    },
+    "hanging=true,facing=west": {
+      "model": "me:block/corner_cobweb_hanging",
+      "y": 90
+    },
+    "hanging=true,facing=north": {
+      "model": "me:block/corner_cobweb_hanging",
+      "y": 180
+    },
+    "hanging=true,facing=east": {
+      "model": "me:block/corner_cobweb_hanging",
+      "y": 270
+    },
+    "hanging=false,facing=south": {
+      "model": "me:block/corner_cobweb"
+    },
+    "hanging=false,facing=west": {
+      "model": "me:block/corner_cobweb",
+      "y": 90
+    },
+    "hanging=false,facing=north": {
+      "model": "me:block/corner_cobweb",
+      "y": 180
+    },
+    "hanging=false,facing=east": {
+      "model": "me:block/corner_cobweb",
+      "y": 270
+    }
+  }
+}

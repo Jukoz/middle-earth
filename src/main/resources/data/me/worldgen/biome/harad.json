@@ -24,7 +24,7 @@
   "features": [
     [],
     [
-      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_underground"
     ],
     [
       "minecraft:amethyst_geode"
@@ -40,8 +40,8 @@
       "minecraft:ore_granite_lower",
       "minecraft:ore_diorite_upper",
       "minecraft:ore_diorite_lower",
-      "me:ore_dolomite_lower",
-      "me:ore_dolomite_upper",
+      "me:ground/underground/dolomite_lower",
+      "me:ground/surface/dolomite_upper",
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
       "minecraft:ore_tuff",
@@ -56,18 +56,18 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-	  "me:ore_sand"
+	  "me:ground/surface/sand_01"
     ],
     [],
     [
-      "minecraft:spring_water",
+      "minecraft:spring_water"
     ],
     [
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass",
       "minecraft:trees_savanna",
       "minecraft:flower_warm",
-	  "me:patch/harad_plants",
+	  "me:foliage/simple/harad_plants",
       "minecraft:patch_grass_savanna",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
