@@ -3,6 +3,7 @@ package net.jesteur.me.block.special.alloy;
 import net.jesteur.me.block.ModBlockEntities;
 import net.jesteur.me.gui.alloy.AlloyScreenHandler;
 import net.jesteur.me.item.ModRessourceItems;
+import net.jesteur.me.recipe.AlloyRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -27,6 +28,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+import java.util.Optional;
 
 
 public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
@@ -123,9 +125,8 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-        if (slot == OUTPUT_SLOT) return false;
+        //if (slot == OUTPUT_SLOT) return false;
         if (slot == FUEL_SLOT) {
-            System.out.println("IS " + stack.getItem().getName() + " , FUEL: " + isFuel(stack.getItem()));
             return isFuel(stack.getItem());
         }
         return true;
@@ -187,7 +188,7 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     public static void tick(World world, BlockPos blockPos, BlockState blockState, AlloyBlockEntity entity) {
         if(world.isClient()) return;
-        entity.fuelTime = Math.max(0, entity.fuelTime - 200);
+        entity.fuelTime = Math.max(0, entity.fuelTime - 1);
         boolean progress = false;
         if(hasRecipe(entity)) {
             if(entity.hasFuel(entity)) {
@@ -211,10 +212,16 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
         for (int i = 0; i < entity.size(); i++) {
             inventory1.setStack(i, entity.getStack(i));
         }
+
+        Optional<AlloyRecipe> match = entity.getWorld().getRecipeManager()
+                .getFirstMatch(AlloyRecipe.Type.INSTANCE, inventory1, entity.getWorld());
+        if(match.isEmpty()) throw new RuntimeException("Somehow... you crafted an item without recipe?!");
+
         if(hasRecipe(entity)) {
-            entity.removeStack(METAL_SLOT, 1);
-            entity.removeStack(CARBIDE_SLOT, 1);
-            entity.setStack(OUTPUT_SLOT, new ItemStack(ModRessourceItems.DWARVEN_STEEL,
+            for (int i = 1; i <= 3; i++) {
+                entity.removeStack(i, 1);
+            }
+            entity.setStack(OUTPUT_SLOT, new ItemStack(match.get().output.getRegistryEntry(),
                     entity.getStack(OUTPUT_SLOT).getCount() + 1));
         }
     }
@@ -225,15 +232,16 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
             inventory1.setStack(i, entity.getStack(i));
         }
 
-        boolean hasMetalInFirstSlot = entity.getStack(METAL_SLOT).getItem() == Items.RAW_IRON || entity.getStack(METAL_SLOT).getItem() == Items.IRON_INGOT;
-        boolean hasCarbideInSecondSlot = entity.getStack(CARBIDE_SLOT).getItem() == Items.COAL;
-        boolean canInsertOutput = canInsertAmountIntoOutput(inventory1)
-                && canInsertRecipeIntoOutput(inventory1, ModRessourceItems.DWARVEN_STEEL);
+        Optional<AlloyRecipe> match = entity.getWorld().getRecipeManager()
+                .getFirstMatch(AlloyRecipe.Type.INSTANCE, inventory1, entity.getWorld());
+        if(match.isEmpty()) return false;
 
-        return hasMetalInFirstSlot && hasCarbideInSecondSlot && canInsertOutput;
+        return canInsertAmountIntoOutput(inventory1)
+                && canInsertRecipeIntoOutput(inventory1, match.get().output.getItem());
     }
 
     private boolean hasFuel(AlloyBlockEntity entity) {
+
         SimpleInventory inventory1 = new SimpleInventory(entity.size());
         for (int i = 0; i < entity.size(); i++) {
             inventory1.setStack(i, entity.getStack(i));
@@ -243,17 +251,20 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
         if(this.fuelTime > 0) return true;
         else {
             if(isFuel(fuelItem)) {
-                getFuel(inventory1, fuelItem);
+                getFuel(entity, fuelItem);
                 return true;
             } else return false;
         }
     }
 
-    private void getFuel(SimpleInventory inventory1, Item fuelItem) {
+    private void getFuel(AlloyBlockEntity entity, Item fuelItem) {
         fuelTime = fuelTimeMap.get(fuelItem);
         maxFuelTime = fuelTime;
-        if(fuelItem == Items.LAVA_BUCKET) inventory1.setStack(FUEL_SLOT, Items.BUCKET.getDefaultStack()); // FIXME
-        else inventory1.getStack(FUEL_SLOT).decrement(1);
+        if(fuelItem == Items.LAVA_BUCKET) {
+            entity.removeStack(FUEL_SLOT);
+            entity.setStack(FUEL_SLOT, Items.BUCKET.getDefaultStack()); // FIXME
+        }
+        else entity.getStack(FUEL_SLOT).decrement(1);
     }
 
     private static boolean canInsertAmountIntoOutput(SimpleInventory inventory1) {
