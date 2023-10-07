@@ -34,35 +34,34 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "walls"))).add(Walls.walls.toArray(new Block[0]));
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "planks"))).add(Planks.planks.toArray(new Block[0]));
 
-
         //Ores
         TagKey<Block> iron_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "iron_ores"));
         TagKey<Block> gold_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "gold_ores"));
-        TagKey<Block> cores = TagKey.of(RegistryKeys.BLOCK, new Identifier("c", "ores")); //Create Ores list
         TagKey<Block> copper_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "copper_ores"));
         TagKey<Block> coal_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "coal_ores"));
+
+        TagKey<Block> tin_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "tin_ores"));
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             getOrCreateTagBuilder(iron_ores)
                     .add(set.iron_ore());
             getOrCreateTagBuilder(gold_ores)
                     .add(set.gold_ore());
-            getOrCreateTagBuilder(cores)
-                    .add(set.iron_ore())
-                    .add(set.gold_ore());
             getOrCreateTagBuilder(iron_ores)
                     .add(set.iron_ore());
             getOrCreateTagBuilder(gold_ores)
-                    .add(set.gold_ore());
-            getOrCreateTagBuilder(cores)
-                    .add(set.iron_ore())
-                    .add(set.coal_ore())
-                    .add(set.copper_ore())
                     .add(set.gold_ore());
             getOrCreateTagBuilder(coal_ores)
                     .add(set.coal_ore());
             getOrCreateTagBuilder(copper_ores)
                     .add(set.copper_ore());
+            getOrCreateTagBuilder(tin_ores)
+                    .add(set.tin_ore());
+        }
+
+        for (OreRockSets.CompleteOreRockSet set : OreRockSets.vanillaSets) {
+            getOrCreateTagBuilder(tin_ores)
+                    .add(set.tin_ore());
         }
     }
 }
