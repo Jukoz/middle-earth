@@ -1,9 +1,12 @@
 package net.jesteur.me.block.special.alloy;
 
+import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.block.ModBlockEntities;
 import net.jesteur.me.gui.alloy.AlloyScreenHandler;
 import net.jesteur.me.item.ModRessourceItems;
 import net.jesteur.me.recipe.AlloyRecipe;
+import net.minecraft.block.AbstractFurnaceBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -33,15 +36,11 @@ import java.util.Optional;
 
 public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
     private static final String ID = "alloy";
-    public static final int MAX_PROGRESS = 30; //72;
-    public static final int INPUT_SIZE = 4;
-    private static final int METAL_SLOT = 1;
-    private static final int CARBIDE_SLOT = 2;
+    public static final int MAX_PROGRESS = 200;
     private static final int FUEL_SLOT = 0;
     private static final int OUTPUT_SLOT = 5;
     private final DefaultedList<ItemStack> inventory =
             DefaultedList.ofSize(6, ItemStack.EMPTY);
-
     protected final PropertyDelegate propertyDelegate;
     protected final Map<Item, Integer> fuelTimeMap = AbstractFurnaceBlockEntity.createFuelTimeMap();
     private int progress = 0;
@@ -80,7 +79,7 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     @Override
     public Text getDisplayName() {
-        return Text.literal("Alloy"); // to fix to translation
+        return Text.translatable("screen." + MiddleEarth.MOD_ID + "." + ID);
     }
 
     @Nullable
@@ -205,6 +204,9 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
             entity.progress = Math.max(entity.progress - 2, 0);
             markDirty(world, blockPos, blockState);
         }
+        boolean isCooking = entity.fuelTime > 0;
+        blockState = blockState.with(AbstractFurnaceBlock.LIT, isCooking);
+        world.setBlockState(blockPos, blockState, Block.NOTIFY_ALL);
     }
 
     private static void craftItem(AlloyBlockEntity entity) {
@@ -218,11 +220,11 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
         if(match.isEmpty()) throw new RuntimeException("Somehow... you crafted an item without recipe?!");
 
         if(hasRecipe(entity)) {
-            for (int i = 1; i <= 3; i++) {
+            for (int i = 1; i <= 4; i++) {
                 entity.removeStack(i, 1);
             }
             entity.setStack(OUTPUT_SLOT, new ItemStack(match.get().output.getRegistryEntry(),
-                    entity.getStack(OUTPUT_SLOT).getCount() + 1));
+                    entity.getStack(OUTPUT_SLOT).getCount() + match.get().output.getCount()));
         }
     }
 
@@ -236,7 +238,7 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
                 .getFirstMatch(AlloyRecipe.Type.INSTANCE, inventory1, entity.getWorld());
         if(match.isEmpty()) return false;
 
-        return canInsertAmountIntoOutput(inventory1)
+        return canInsertAmountIntoOutput(inventory1, match.get().output.getCount())
                 && canInsertRecipeIntoOutput(inventory1, match.get().output.getItem());
     }
 
@@ -262,13 +264,13 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
         maxFuelTime = fuelTime;
         if(fuelItem == Items.LAVA_BUCKET) {
             entity.removeStack(FUEL_SLOT);
-            entity.setStack(FUEL_SLOT, Items.BUCKET.getDefaultStack()); // FIXME
+            entity.setStack(FUEL_SLOT, Items.BUCKET.getDefaultStack());
         }
         else entity.getStack(FUEL_SLOT).decrement(1);
     }
 
-    private static boolean canInsertAmountIntoOutput(SimpleInventory inventory1) {
-        return inventory1.getStack(OUTPUT_SLOT).getMaxCount() > inventory1.getStack(OUTPUT_SLOT).getCount();
+    private static boolean canInsertAmountIntoOutput(SimpleInventory inventory1, int count) {
+        return inventory1.getStack(OUTPUT_SLOT).getMaxCount() > inventory1.getStack(OUTPUT_SLOT).getCount() + (count- 1);
     }
     private static boolean canInsertRecipeIntoOutput(SimpleInventory inventory1, Item item) {
         return inventory1.getStack(OUTPUT_SLOT).getItem() == item || inventory1.getStack(OUTPUT_SLOT).isEmpty();

@@ -1,0 +1,21 @@
+{
+  "type": "me:alloy",
+  "ingredients": [
+    {
+      "tag": "me:iron"
+    },
+    {
+      "item": "me:ashen_rock"
+    },
+    {
+      "tag": "me:iron"
+    },
+    {
+      "item": "me:ashen_rock"
+    }
+  ],
+  "output": {
+    "item": "me:orc_steel",
+    "count": 2
+  }
+}

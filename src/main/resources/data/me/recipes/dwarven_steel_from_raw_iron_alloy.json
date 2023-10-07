@@ -1,0 +1,14 @@
+{
+  "type": "me:alloy",
+  "ingredients": [
+    {
+      "tag": "me:iron"
+    },
+    {
+      "item": "minecraft:coal"
+    }
+  ],
+  "output": {
+    "item": "me:dwarven_steel"
+  }
+}

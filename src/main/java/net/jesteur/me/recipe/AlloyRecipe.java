@@ -38,10 +38,17 @@ public class AlloyRecipe implements Recipe<SimpleInventory> {
         //boolean matches = recipeMatcher.match(this, null);
         //return sameSize && matches;
 
-        for (int i = 0; i < inputs.size(); i++) {
-            if(!inputs.get(i).test(inventory.getStack(i + 1))) return false;
+        int i = 0;
+        for (int j = 1; j < inventory.size() - 1; ++j) { // We avoid first and last indexes, because it's for fuel & output.
+            ItemStack itemStack = inventory.getStack(j);
+            if (itemStack.isEmpty()) continue;
+            ++i;
         }
+        if(i != this.inputs.size()) return false;
 
+        for (int j = 0; j < inputs.size(); j++) {
+            if(!inputs.get(j).test(inventory.getStack(j + 1))) return false;
+        }
         return true;
     }
 

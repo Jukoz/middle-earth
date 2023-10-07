@@ -2,7 +2,7 @@
   "type": "me:alloy",
   "ingredients": [
     {
-      "item": "minecraft:iron_ingot"
+      "tag": "me:iron"
     },
     {
       "item": "me:ashen_rock"

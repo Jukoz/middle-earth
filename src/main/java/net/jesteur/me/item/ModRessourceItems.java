@@ -12,7 +12,10 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModRessourceItems {
-
+    public static final Item BRONZE_INGOT = registerItem("bronze_ingot",
+            new Item(new FabricItemSettings()));
+    public static final Item BRONZE_NUGGET = registerItem("bronze_nugget",
+            new Item(new FabricItemSettings()));
     public static final Item DWARVEN_STEEL = registerItem("dwarven_steel",
             new Item(new FabricItemSettings()));
     public static final Item DWARVEN_STEEL_NUGGET = registerItem("dwarven_steel_nugget",
@@ -38,6 +41,8 @@ public class ModRessourceItems {
     public static final Item MORGUL_INGOT = registerItem("morgul_ingot",
             new Item(new FabricItemSettings()));
     public static final Item ORC_STEEL = registerItem("orc_steel",
+            new Item(new FabricItemSettings()));
+    public static final Item ORC_STEEL_NUGGET = registerItem("orc_steel_nugget",
             new Item(new FabricItemSettings()));
     public static final Item ORC_BONE = registerItem("orc_bone",
             new Item(new FabricItemSettings()));
