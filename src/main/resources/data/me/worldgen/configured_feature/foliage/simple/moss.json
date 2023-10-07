@@ -1,0 +1,52 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "minecraft:moss_carpet"
+                },
+                "weight": 8
+              },
+              {
+                "data": {
+                  "Name": "me:corrupted_moss_carpet"
+
+                },
+                "weight": 3
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:environment_scan",
+          "direction_of_search": "down",
+          "max_steps": 15,
+          "target_condition": {
+            "type": "minecraft:has_sturdy_face",
+            "offset": [
+              0,
+              -1,
+              0
+            ],
+            "direction": "up"
+          },
+          "allowed_search_condition": {
+            "type": "minecraft:true"
+          }
+        }
+      ]
+    },
+    "tries": 32,
+    "xz_spread": 7,
+    "y_spread": 3
+  }
+}

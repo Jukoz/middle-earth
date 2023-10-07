@@ -1,11 +1,7 @@
 {
   "type": "minecraft:tree",
   "config": {
-    "decorators": [
-      {
-        "type": "minecraft:trunk_vine"
-      }
-    ],
+    "decorators": [],
     "dirt_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
@@ -13,8 +9,9 @@
       }
     },
     "foliage_placer": {
-      "type": "minecraft:dark_oak_foliage_placer",
-      "offset": 0,
+      "type": "minecraft:bush_foliage_placer",
+      "height": 2,
+      "offset": 1,
       "radius": 1
     },
     "foliage_provider": {
@@ -22,32 +19,30 @@
       "state": {
         "Name": "minecraft:dark_oak_leaves",
         "Properties": {
-          "distance": "9",
-          "persistent": "true",
+          "distance": "7",
+          "persistent": "false",
           "waterlogged": "false"
         }
       }
     },
-    "force_dirt": true,
-    "ignore_vines": true,
+    "force_dirt": false,
+    "ignore_vines": false,
     "minimum_size": {
-      "type": "minecraft:three_layers_feature_size",
-      "limit": 1,
-      "lower_size": 2,
-      "middle_size": 1,
-      "upper_limit": 1,
-      "upper_size": 3
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 0,
+      "lower_size": 0,
+      "upper_size": 0
     },
     "trunk_placer": {
-      "type": "minecraft:dark_oak_trunk_placer",
-      "base_height": 7,
-      "height_rand_a": 4,
-      "height_rand_b": 2
+      "type": "minecraft:straight_trunk_placer",
+      "base_height": 1,
+      "height_rand_a": 0,
+      "height_rand_b": 0
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "me:mirkwood_log",
+        "Name": "me:mirkwood_wood",
         "Properties": {
           "axis": "y"
         }
