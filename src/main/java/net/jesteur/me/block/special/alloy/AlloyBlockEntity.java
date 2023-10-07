@@ -37,8 +37,8 @@ import java.util.Optional;
 public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
     private static final String ID = "alloy";
     public static final int MAX_PROGRESS = 200;
-    private static final int FUEL_SLOT = 0;
-    private static final int OUTPUT_SLOT = 5;
+    public static final int FUEL_SLOT = 0;
+    public static final int OUTPUT_SLOT = 5;
     private final DefaultedList<ItemStack> inventory =
             DefaultedList.ofSize(6, ItemStack.EMPTY);
     protected final PropertyDelegate propertyDelegate;

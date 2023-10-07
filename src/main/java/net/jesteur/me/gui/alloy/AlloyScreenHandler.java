@@ -3,6 +3,9 @@ package net.jesteur.me.gui.alloy;
 import net.jesteur.me.block.special.alloy.AlloyBlockEntity;
 import net.jesteur.me.gui.ModScreenHandlers;
 import net.jesteur.me.item.ModRessourceItems;
+import net.jesteur.me.recipe.AlloyRecipe;
+import net.jesteur.me.recipe.ModRecipes;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -12,14 +15,16 @@ import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.world.World;
 
 public class AlloyScreenHandler extends ScreenHandler{
-
     private final Inventory inventory;
+    private World world;
     private final PropertyDelegate propertyDelegate;
 
     public AlloyScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, new SimpleInventory(6), new ArrayPropertyDelegate(3));
+        this.world = playerInventory.player.getWorld();
     }
 
     public AlloyScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
@@ -44,7 +49,25 @@ public class AlloyScreenHandler extends ScreenHandler{
 
     @Override
     public ItemStack quickMove(PlayerEntity player, int slot) {
-        return ModRessourceItems.DWARVEN_STEEL.getDefaultStack();
+        ItemStack stack = ItemStack.EMPTY;
+        Slot invSlot = this.slots.get(slot);
+
+        if(invSlot.hasStack()) {
+            ItemStack originalStack = invSlot.getStack();
+            if(slot < this.inventory.size()) {
+                if(!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.insertItem(originalStack, 0, this.inventory.size() - 1, false)) {
+                return ItemStack.EMPTY;
+            }
+            if (originalStack.isEmpty()) {
+                invSlot.setStack(ItemStack.EMPTY);
+            } else {
+                invSlot.markDirty();
+            }
+        }
+        return stack;
     }
 
     @Override
