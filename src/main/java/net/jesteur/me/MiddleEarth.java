@@ -7,6 +7,7 @@ import net.jesteur.me.events.ModEvents;
 import net.jesteur.me.gui.ModScreenHandlers;
 import net.jesteur.me.item.*;
 import net.jesteur.me.item.utils.ModItemGroups;
+import net.jesteur.me.network.ModNetworks;
 import net.jesteur.me.recipe.ModRecipes;
 import net.jesteur.me.sound.ModSounds;
 import net.jesteur.me.world.spawners.ModEntitySpawning;
@@ -56,7 +57,9 @@ public class MiddleEarth implements ModInitializer {
 		ModDimensions.register();
 		MEBiomeKeys.registerModBiomes();
 		MEBiomesData.loadBiomes();
+
 		ModEvents.register();
+		ModNetworks.registerS2CPackets();
 
 		try {
 			MapImageLoader.loadImage(getClass().getClassLoader());

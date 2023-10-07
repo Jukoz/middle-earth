@@ -1,9 +1,13 @@
 package net.jesteur.me.block.special.alloy;
 
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.block.ModBlockEntities;
 import net.jesteur.me.gui.alloy.AlloyScreenHandler;
 import net.jesteur.me.item.ModRessourceItems;
+import net.jesteur.me.network.ModNetworks;
 import net.jesteur.me.recipe.AlloyRecipe;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.Block;
@@ -20,9 +24,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -30,6 +37,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
 
@@ -106,6 +114,32 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
         maxFuelTime = nbt.getInt(ID + ".max-fuel-time");
     }
 
+    public ItemStack getRenderStack() {
+        return this.getStack(OUTPUT_SLOT);
+    }
+    public void setInventory(DefaultedList<ItemStack> inventory) {
+        for (int i = 0; i < inventory.size(); i++) {
+            this.inventory.set(i, inventory.get(i));
+        }
+    }
+
+    @Override
+    public void markDirty() {
+        if(!world.isClient()) {
+            PacketByteBuf data = PacketByteBufs.create();
+            data.writeInt(inventory.size());
+            for(int i = 0; i < inventory.size(); i++) {
+                data.writeItemStack(inventory.get(i));
+            }
+            data.writeBlockPos(getPos());
+
+            for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) world, getPos())) {
+                ServerPlayNetworking.send(player, ModNetworks.ITEM_SYNC, data);
+            }
+        }
+        super.markDirty();
+    }
+
     protected boolean isFuel(Item item) {
         for (Item item1: fuelTimeMap.keySet()) {
             if(item1.equals(item)) return true;
@@ -124,7 +158,6 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-        //if (slot == OUTPUT_SLOT) return false;
         if (slot == FUEL_SLOT) {
             return isFuel(stack.getItem());
         }
@@ -225,6 +258,7 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
             }
             entity.setStack(OUTPUT_SLOT, new ItemStack(match.get().output.getRegistryEntry(),
                     entity.getStack(OUTPUT_SLOT).getCount() + match.get().output.getCount()));
+            entity.markDirty();
         }
     }
 

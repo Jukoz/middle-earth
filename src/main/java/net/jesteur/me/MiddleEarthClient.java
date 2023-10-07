@@ -3,10 +3,13 @@ package net.jesteur.me;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.jesteur.me.block.ModBlockEntities;
 import net.jesteur.me.block.ModDecorativeBlocks;
 import net.jesteur.me.block.ModNatureBlocks;
+import net.jesteur.me.block.special.alloy.AlloyBlockEntityRenderer;
 import net.jesteur.me.datageneration.VariantsModelProvider;
 import net.jesteur.me.entity.ModEntities;
 import net.jesteur.me.entity.crab.CrabRenderer;
@@ -61,6 +64,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         ModModelPredicateProvider.registerBowModel();
 
         HandledScreens.register(ModScreenHandlers.ALLOY_SCREEN_HANDLER, AlloyScreen::new);
+        BlockEntityRendererRegistry.register(ModBlockEntities.ALLOY, AlloyBlockEntityRenderer::new);
 
         initializeRenderLayerMap();
     }
