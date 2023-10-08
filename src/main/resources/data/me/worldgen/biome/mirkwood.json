@@ -55,16 +55,21 @@
       "minecraft:ore_copper",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
-      "minecraft:disk_gravel"
+      "minecraft:disk_gravel",
+      "me:ground/surface/mud"
     ],
     [],
     [
       "minecraft:spring_water"
     ],
     [
-      "me:foliage/patch/mirkwood",
       "me:forest/mirkwood",
-      "me:boulder/basic/stone"
+      "me:boulder/complex/mossy_rock",
+      "me:foliage/simple/white_mushroom_tiller",
+      "me:foliage/patch/white_mushroom_patch",
+      "me:foliage/patch/mirkwood",
+      "me:ground/structure/mirkwood_roots",
+      "me:foliage/simple/forest_moss"
     ],
     [
       "minecraft:freeze_top_layer"

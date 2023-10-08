@@ -12,49 +12,31 @@
                 "data": {
                   "Name": "minecraft:grass"
                 },
-                "weight": 4
+                "weight": 8
               },
               {
                 "data": {
                   "Name": "minecraft:fern"
                 },
-                "weight": 3
+                "weight": 8
               },
               {
                 "data": {
                   "Name": "minecraft:tall_grass"
                 },
-                "weight": 2
+                "weight": 15
               },
               {
                 "data": {
                   "Name": "minecraft:large_fern"
                 },
+                "weight": 10
+              },
+              {
+                "data": {
+                  "Name": "minecraft:brown_mushroom"
+                },
                 "weight": 2
-              },
-              {
-                "data": {
-                  "Name": "me:white_mushroom"
-                },
-                "weight": 1
-              },
-              {
-                "data": {
-                  "Name": "me:white_mushroom_tiller"
-                },
-                "weight": 1
-              },
-              {
-                "data": {
-                  "Name": "me:mirkwood_roots"
-                },
-                "weight": 1
-              },
-              {
-                "data": {
-                  "Name": "me:moss"
-                },
-                "weight": 4
               }
             ]
           }
@@ -75,8 +57,8 @@
         }
       ]
     },
-    "tries": 20,
+    "tries": 15,
     "xz_spread": 7,
-    "y_spread": 1
+    "y_spread": 2
   }
 }
