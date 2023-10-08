@@ -62,7 +62,6 @@ public class ModBlocks {
             new TrapdoorBlock(FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE), BlockSetType.POLISHED_BLACKSTONE));
 
 
-
     public static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
         return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);

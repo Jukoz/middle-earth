@@ -116,7 +116,7 @@ public class ModWeaponItems {
             new SwordItem(ToolMaterials.IRON, SWORD_DAMAGE, SWORD_ATTACKS_SPEED + 1, new FabricItemSettings()), false);
 
     public static final Item MORDOR_ORC_SWORD = registerItemWithModel("mordor_orc_sword",
-            new SwordItem(ModToolMaterials.MORDOR_ORC, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
+            new SwordItem(ModToolMaterials.ORCISH, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
     public static final Item DWARVEN_SWORD = registerItemWithModel("dwarven_sword",
             new SwordItem(ModToolMaterials.DWARVEN, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
     private static final List<Item> pikes = Arrays.asList(GONDOR_PIKE);

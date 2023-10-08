@@ -4,8 +4,11 @@ import net.fabricmc.api.ModInitializer;
 import net.jesteur.me.block.*;
 import net.jesteur.me.entity.ModEntities;
 import net.jesteur.me.events.ModEvents;
+import net.jesteur.me.gui.ModScreenHandlers;
 import net.jesteur.me.item.*;
 import net.jesteur.me.item.utils.ModItemGroups;
+import net.jesteur.me.network.ModNetworks;
+import net.jesteur.me.recipe.ModRecipes;
 import net.jesteur.me.sound.ModSounds;
 import net.jesteur.me.world.spawners.ModEntitySpawning;
 import net.jesteur.me.world.biomes.MEBiomeKeys;
@@ -32,25 +35,31 @@ public class MiddleEarth implements ModInitializer {
 		ModFoodItems.registerModItems();
 		ModRessourceItems.registerModItems();
 		ModEggItems.registerModItems();
+		ModItemGroups.register();
+
 		ModBlocks.registerModBlocks();
 		ModDecorativeBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();
 		ModDecorativeItems.registerModItems();
+		SimpleBlockSets.registerModBlockSets();
+		WoodBlockSets.registerModBlockSets();
+
+		ModBlockEntities.registerBlockEntities();
+
+		ModScreenHandlers.registerAllScreenHandlers();
+		ModRecipes.registerRecipes();
 
 		ModEntities.registerModEntities();
 		ModEntitySpawning.addSpawns();
-
-		ModItemGroups.register();
-
-		SimpleBlockSets.registerModBlockSets();
-		WoodBlockSets.registerModBlockSets();
 
 		ModSounds.registerModSounds();
 
 		ModDimensions.register();
 		MEBiomeKeys.registerModBiomes();
 		MEBiomesData.loadBiomes();
+
 		ModEvents.register();
+		ModNetworks.registerS2CPackets();
 
 		try {
 			MapImageLoader.loadImage(getClass().getClassLoader());

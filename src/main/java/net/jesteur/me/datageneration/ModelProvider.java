@@ -12,6 +12,7 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.Biome;
 
 import java.util.Optional;
 
