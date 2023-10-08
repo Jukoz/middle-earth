@@ -2,7 +2,7 @@ package net.jesteur.me.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jesteur.me.MiddleEarth;
-import net.jesteur.me.block.special.alloy.AlloyBlock;
+import net.jesteur.me.block.special.alloyfurnace.AlloyFurnace;
 import net.jesteur.me.block.special.toggeable_lights.DwarvenLanternBlock;
 import net.jesteur.me.block.special.toggeable_lights.SilverLanternBlock;
 import net.jesteur.me.block.special.toggeable_lights.WallDwarvenLanternBlock;
@@ -27,8 +27,8 @@ public class ModDecorativeBlocks {
     public static final Block WALL_DWARVEN_LANTERN = registerBlock("dwarven_lantern_wall",
             new WallDwarvenLanternBlock(FabricBlockSettings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
 
-    public static final Block ALLOY = registerBlock("alloy",
-            new AlloyBlock(FabricBlockSettings.copyOf(Blocks.STONE).strength(1.65f).requiresTool()));
+    public static final Block ALLOY_FURNACE = registerBlock("alloy_furnace",
+            new AlloyFurnace(FabricBlockSettings.copyOf(Blocks.STONE).strength(1.65f).requiresTool()));
 
 
     public static Block registerBlock(String name, Block block) {

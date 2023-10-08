@@ -26,18 +26,6 @@ public class AlloyRecipe implements Recipe<SimpleInventory> {
     @Override
     public boolean matches(SimpleInventory inventory, World world) {
         if(world.isClient()) return false;
-        //RecipeMatcher recipeMatcher = new RecipeMatcher();
-        //int i = 0;
-        //for (int j = 1; j < inventory.size() - 1; ++j) { // We avoid first and last indexes, because it's for fuel & output.
-        //    ItemStack itemStack = inventory.getStack(j);
-        //    ++i;
-        //    if (itemStack.isEmpty()) continue;
-        //    recipeMatcher.addInput(itemStack, 1);
-        //}
-        //boolean sameSize = i == this.inputs.size();
-        //boolean matches = recipeMatcher.match(this, null);
-        //return sameSize && matches;
-
         int i = 0;
         for (int j = 1; j < inventory.size() - 1; ++j) { // We avoid first and last indexes, because it's for fuel & output.
             ItemStack itemStack = inventory.getStack(j);
@@ -85,20 +73,18 @@ public class AlloyRecipe implements Recipe<SimpleInventory> {
     public static class Type implements RecipeType<AlloyRecipe> {
         private Type() {}
         public static final Type INSTANCE = new Type();
-        public static final String ID = "alloy";
+        public static final String ID = "alloy_furnace";
     }
 
     public static class Serializer implements RecipeSerializer<AlloyRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final String ID = "alloy";
+        public static final String ID = "alloy_furnace";
 
         @Override
         public AlloyRecipe read(Identifier id, JsonObject json) {
             ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
             JsonArray ingredients = JsonHelper.getArray(json, "ingredients");
             DefaultedList<Ingredient> inputs = DefaultedList.ofSize(ingredients.size(), Ingredient.EMPTY);
-
-            //DefaultedList<Ingredient> defaultedList = ShapelessRecipe.Serializer.getIngredients(JsonHelper.getArray(jsonObject, "ingredients"));
             for (int i = 0; i < ingredients.size(); i++) {
                 Ingredient ingredient = Ingredient.fromJson(ingredients.get(i), true);
                 if (ingredient.isEmpty()) continue;

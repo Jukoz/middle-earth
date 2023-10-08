@@ -1,15 +1,15 @@
-package net.jesteur.me.gui.alloy;
+package net.jesteur.me.gui.alloyfurnace;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 
-public class AlloyOutputSlot extends Slot {
+public class AlloyFurnaceOutputSlot extends Slot {
     private final PlayerEntity player;
     private int amount;
 
-    public AlloyOutputSlot(PlayerEntity player, Inventory inventory, int index, int x, int y) {
+    public AlloyFurnaceOutputSlot(PlayerEntity player, Inventory inventory, int index, int x, int y) {
         super(inventory, index, x, y);
         this.player = player;
     }

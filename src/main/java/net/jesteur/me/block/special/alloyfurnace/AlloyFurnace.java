@@ -1,18 +1,16 @@
-package net.jesteur.me.block.special.alloy;
+package net.jesteur.me.block.special.alloyfurnace;
 
 import net.jesteur.me.block.ModBlockEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.FurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
@@ -29,12 +27,12 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class AlloyBlock extends BlockWithEntity implements BlockEntityProvider {
+public class AlloyFurnace extends BlockWithEntity implements BlockEntityProvider {
     private static final VoxelShape RAYCAST_SHAPE = createCuboidShape(2.0, 12.0, 2.0, 14.0, 16.0, 14.0);
     protected static final VoxelShape OUTLINE_SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), RAYCAST_SHAPE, BooleanBiFunction.ONLY_FIRST);
     public static final DirectionProperty FACING = Properties.HOPPER_FACING;
     public static final BooleanProperty LIT = Properties.LIT;
-    public AlloyBlock(Settings settings) {
+    public AlloyFurnace(Settings settings) {
         super(settings);
         this.setDefaultState(((this.stateManager.getDefaultState()).with(FACING, Direction.NORTH)).with(LIT, false));
     }
@@ -48,7 +46,7 @@ public class AlloyBlock extends BlockWithEntity implements BlockEntityProvider {
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if(state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if(blockEntity instanceof AlloyBlockEntity alloyBlockEntity) {
+            if(blockEntity instanceof AlloyFurnaceEntity alloyBlockEntity) {
                 ItemScatterer.spawn(world, pos, alloyBlockEntity);
             }
             super.onStateReplaced(state, world, pos, newState, moved);
@@ -91,13 +89,13 @@ public class AlloyBlock extends BlockWithEntity implements BlockEntityProvider {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new AlloyBlockEntity(pos, state);
+        return new AlloyFurnaceEntity(pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.ALLOY, AlloyBlockEntity::tick);
+        return checkType(type, ModBlockEntities.ALLOY, AlloyFurnaceEntity::tick);
     }
 
     @Override

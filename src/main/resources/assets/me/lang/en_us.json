@@ -452,7 +452,7 @@
 "#Comment:": "Block - Decoratives",
   "block.me.dwarven_lantern": "Dwarven Lantern",
   "block.me.silver_lantern": "Silver Lantern",
-  "block.me.alloy": "Alloy Furnace",
+  "block.me.alloy_furnace": "Alloy Furnace",
 
 "#Comment:": "ENTITIES",
   "entity.me.cave_troll": "Cave Troll",
@@ -472,5 +472,5 @@
   "sounds.me.nazgul_scream": "Nazgûl Screaming",
   
 "Comment": "GUI",
-  "screen.me.alloy": "Alloy"
+  "screen.me.alloy_furnace": "Alloy Furnace"
 }

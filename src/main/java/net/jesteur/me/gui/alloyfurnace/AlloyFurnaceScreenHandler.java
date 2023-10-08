@@ -1,11 +1,7 @@
-package net.jesteur.me.gui.alloy;
+package net.jesteur.me.gui.alloyfurnace;
 
-import net.jesteur.me.block.special.alloy.AlloyBlockEntity;
+import net.jesteur.me.block.special.alloyfurnace.AlloyFurnaceEntity;
 import net.jesteur.me.gui.ModScreenHandlers;
-import net.jesteur.me.item.ModRessourceItems;
-import net.jesteur.me.recipe.AlloyRecipe;
-import net.jesteur.me.recipe.ModRecipes;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -17,29 +13,27 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class AlloyScreenHandler extends ScreenHandler{
+public class AlloyFurnaceScreenHandler extends ScreenHandler{
     private final Inventory inventory;
-    private World world;
     private final PropertyDelegate propertyDelegate;
 
-    public AlloyScreenHandler(int syncId, PlayerInventory playerInventory) {
+    public AlloyFurnaceScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, new SimpleInventory(6), new ArrayPropertyDelegate(3));
-        this.world = playerInventory.player.getWorld();
     }
 
-    public AlloyScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
+    public AlloyFurnaceScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
         super(ModScreenHandlers.ALLOY_SCREEN_HANDLER, syncId);
         checkSize(inventory, 6);
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);
         this.propertyDelegate = delegate;
 
-        this.addSlot(new AlloyFuelSlot(inventory, this, 0, 53, 53));
+        this.addSlot(new AlloyFurnaceFuelSlot(inventory, this, 0, 53, 53));
         this.addSlot(new Slot(inventory, 1, 26, 17));
         this.addSlot(new Slot(inventory, 2, 44, 17));
         this.addSlot(new Slot(inventory, 3, 62, 17));
         this.addSlot(new Slot(inventory, 4, 80, 17));
-        this.addSlot(new AlloyOutputSlot(playerInventory.player, inventory, 5, 129, 35));
+        this.addSlot(new AlloyFurnaceOutputSlot(playerInventory.player, inventory, 5, 129, 35));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -94,7 +88,7 @@ public class AlloyScreenHandler extends ScreenHandler{
     public float getScaledProgress() {
         int progress = this.propertyDelegate.get(0);
 
-        return (float) progress / AlloyBlockEntity.MAX_PROGRESS;
+        return (float) progress / AlloyFurnaceEntity.MAX_PROGRESS;
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory) {

@@ -3,7 +3,6 @@ package net.jesteur.me.block;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jesteur.me.MiddleEarth;
-import net.jesteur.me.block.special.alloy.AlloyBlock;
 import net.jesteur.me.item.utils.ModItemGroups;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;

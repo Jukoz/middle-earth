@@ -1,4 +1,4 @@
-package net.jesteur.me.gui.alloy;
+package net.jesteur.me.gui.alloyfurnace;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.jesteur.me.MiddleEarth;
@@ -9,11 +9,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class AlloyScreen extends HandledScreen<AlloyScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/gui/alloy.png");
+public class AlloyFurnaceScreen extends HandledScreen<AlloyFurnaceScreenHandler> {
+    private static final Identifier TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/gui/alloy_furnace.png");
     private static final int PROGRESS_ARROW_SIZE = 24;
     private static final int COOKING_FIRE_SIZE = 14;
-    public AlloyScreen(AlloyScreenHandler handler, PlayerInventory inventory, Text title) {
+    public AlloyFurnaceScreen(AlloyFurnaceScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
     }
 

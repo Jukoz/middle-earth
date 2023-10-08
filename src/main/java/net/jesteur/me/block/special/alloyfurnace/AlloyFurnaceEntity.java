@@ -1,12 +1,11 @@
-package net.jesteur.me.block.special.alloy;
+package net.jesteur.me.block.special.alloyfurnace;
 
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.block.ModBlockEntities;
-import net.jesteur.me.gui.alloy.AlloyScreenHandler;
-import net.jesteur.me.item.ModRessourceItems;
+import net.jesteur.me.gui.alloyfurnace.AlloyFurnaceScreenHandler;
 import net.jesteur.me.network.ModNetworks;
 import net.jesteur.me.recipe.AlloyRecipe;
 import net.minecraft.block.AbstractFurnaceBlock;
@@ -37,13 +36,12 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
 
 
-public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
-    private static final String ID = "alloy";
+public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
+    private static final String ID = "alloy_furnace";
     public static final int MAX_PROGRESS = 200;
     public static final int FUEL_SLOT = 0;
     public static final int OUTPUT_SLOT = 5;
@@ -56,15 +54,15 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
     private int maxFuelTime = 0;
 
 
-    public AlloyBlockEntity(BlockPos pos, BlockState state) {
+    public AlloyFurnaceEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.ALLOY, pos, state);
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> AlloyBlockEntity.this.progress;
-                    case 1 -> AlloyBlockEntity.this.fuelTime;
-                    case 2 -> AlloyBlockEntity.this.maxFuelTime;
+                    case 0 -> AlloyFurnaceEntity.this.progress;
+                    case 1 -> AlloyFurnaceEntity.this.fuelTime;
+                    case 2 -> AlloyFurnaceEntity.this.maxFuelTime;
                     default -> 0;
                 };
             }
@@ -72,9 +70,9 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0 -> AlloyBlockEntity.this.progress = value;
-                    case 1 -> AlloyBlockEntity.this.fuelTime = value;
-                    case 2 -> AlloyBlockEntity.this.maxFuelTime = value;
+                    case 0 -> AlloyFurnaceEntity.this.progress = value;
+                    case 1 -> AlloyFurnaceEntity.this.fuelTime = value;
+                    case 2 -> AlloyFurnaceEntity.this.maxFuelTime = value;
                 }
             }
 
@@ -93,7 +91,7 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new AlloyScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+        return new AlloyFurnaceScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
     @Override
@@ -218,7 +216,7 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
         inventory.clear();
     }
 
-    public static void tick(World world, BlockPos blockPos, BlockState blockState, AlloyBlockEntity entity) {
+    public static void tick(World world, BlockPos blockPos, BlockState blockState, AlloyFurnaceEntity entity) {
         if(world.isClient()) return;
         entity.fuelTime = Math.max(0, entity.fuelTime - 1);
         boolean progress = false;
@@ -242,7 +240,7 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
         world.setBlockState(blockPos, blockState, Block.NOTIFY_ALL);
     }
 
-    private static void craftItem(AlloyBlockEntity entity) {
+    private static void craftItem(AlloyFurnaceEntity entity) {
         SimpleInventory inventory1 = new SimpleInventory(entity.size());
         for (int i = 0; i < entity.size(); i++) {
             inventory1.setStack(i, entity.getStack(i));
@@ -262,7 +260,7 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
         }
     }
 
-    private static boolean hasRecipe(AlloyBlockEntity entity) {
+    private static boolean hasRecipe(AlloyFurnaceEntity entity) {
         SimpleInventory inventory1 = new SimpleInventory(entity.size());
         for (int i = 0; i < entity.size(); i++) {
             inventory1.setStack(i, entity.getStack(i));
@@ -276,7 +274,7 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
                 && canInsertRecipeIntoOutput(inventory1, match.get().output.getItem());
     }
 
-    private boolean hasFuel(AlloyBlockEntity entity) {
+    private boolean hasFuel(AlloyFurnaceEntity entity) {
 
         SimpleInventory inventory1 = new SimpleInventory(entity.size());
         for (int i = 0; i < entity.size(); i++) {
@@ -293,7 +291,7 @@ public class AlloyBlockEntity extends BlockEntity implements NamedScreenHandlerF
         }
     }
 
-    private void getFuel(AlloyBlockEntity entity, Item fuelItem) {
+    private void getFuel(AlloyFurnaceEntity entity, Item fuelItem) {
         fuelTime = fuelTimeMap.get(fuelItem);
         maxFuelTime = fuelTime;
         if(fuelItem == Items.LAVA_BUCKET) {

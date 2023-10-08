@@ -16,8 +16,8 @@ public class ModDecorativeItems {
             new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.DWARVEN_LANTERN, ModDecorativeBlocks.WALL_DWARVEN_LANTERN, new Item.Settings(), new Direction[]{Direction.DOWN, Direction.UP}));
     public static final Item SILVER_LANTERN = registerItem("silver_lantern",
             new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.SILVER_LANTERN, ModDecorativeBlocks.WALL_SILVER_LANTERN, new Item.Settings(), new Direction[]{Direction.DOWN, Direction.UP}));
-    public static final Item ALLOY = registerItem("alloy",
-            new BlockItem(ModDecorativeBlocks.ALLOY, new Item.Settings()));
+    public static final Item ALLOY_FURNACE = registerItem("alloy_furnace",
+            new BlockItem(ModDecorativeBlocks.ALLOY_FURNACE, new Item.Settings()));
 
 
     private static Item registerItem(String name, Item item) {

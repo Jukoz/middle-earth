@@ -1,10 +1,10 @@
 {
   "parent": "block/block",
   "textures": {
-    "0": "me:block/alloy_side",
-    "1": "me:block/alloy_bottom",
-    "2": "me:block/alloy_front",
-    "particle": "me:block/alloy_side"
+    "0": "me:block/alloy_furnace_side",
+    "1": "me:block/alloy_furnace_bottom",
+    "2": "me:block/alloy_furnace_front",
+    "particle": "me:block/alloy_furnace_side"
   },
   "elements": [
     {

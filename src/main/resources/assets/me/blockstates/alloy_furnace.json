@@ -1,41 +1,41 @@
 {
   "variants": {
     "facing=east,lit=false": {
-      "model": "me:block/alloy",
+      "model": "me:block/alloy_furnace",
       "y": 90
     },
     "facing=east,lit=true": {
-      "model": "me:block/alloy_on",
+      "model": "me:block/alloy_furnace_on",
       "y": 90
     },
     "facing=north,lit=false": {
-      "model": "me:block/alloy"
+      "model": "me:block/alloy_furnace"
     },
     "facing=north,lit=true": {
-      "model": "me:block/alloy_on"
+      "model": "me:block/alloy_furnace_on"
     },
     "facing=south,lit=false": {
-      "model": "me:block/alloy",
+      "model": "me:block/alloy_furnace",
       "y": 180
     },
     "facing=south,lit=true": {
-      "model": "me:block/alloy_on",
+      "model": "me:block/alloy_furnace_on",
       "y": 180
     },
     "facing=west,lit=false": {
-      "model": "me:block/alloy",
+      "model": "me:block/alloy_furnace",
       "y": 270
     },
     "facing=west,lit=true": {
-      "model": "me:block/alloy_on",
+      "model": "me:block/alloy_furnace_on",
       "y": 270
     },
     "facing=down,lit=false": {
-      "model": "me:block/alloy",
+      "model": "me:block/alloy_furnace",
       "y": 0
     },
     "facing=down,lit=true": {
-      "model": "me:block/alloy_on",
+      "model": "me:block/alloy_furnace_on",
       "y": 0
     }
   }

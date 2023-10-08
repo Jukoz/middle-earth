@@ -1,14 +1,14 @@
-package net.jesteur.me.gui.alloy;
+package net.jesteur.me.gui.alloyfurnace;
 
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 
-public class AlloyFuelSlot extends Slot {
-    private final AlloyScreenHandler handler;
+public class AlloyFurnaceFuelSlot extends Slot {
+    private final AlloyFurnaceScreenHandler handler;
 
-    public AlloyFuelSlot(Inventory inventory, AlloyScreenHandler handler, int index, int x, int y) {
+    public AlloyFurnaceFuelSlot(Inventory inventory, AlloyFurnaceScreenHandler handler, int index, int x, int y) {
         super(inventory, index, x, y);
         this.handler = handler;
     }
