@@ -64,7 +64,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         ModModelPredicateProvider.registerBowModel();
 
         HandledScreens.register(ModScreenHandlers.ALLOY_SCREEN_HANDLER, AlloyFurnaceScreen::new);
-        BlockEntityRendererRegistry.register(ModBlockEntities.ALLOY, AlloyFurnaceEntityRenderer::new);
+        BlockEntityRendererRegistry.register(ModBlockEntities.ALLOY_FURNACE, AlloyFurnaceEntityRenderer::new);
 
         initializeRenderLayerMap();
     }

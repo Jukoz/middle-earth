@@ -9,11 +9,11 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModBlockEntities {
-    public static BlockEntityType<AlloyFurnaceEntity> ALLOY;
+    public static BlockEntityType<AlloyFurnaceEntity> ALLOY_FURNACE;
 
     public static void registerBlockEntities() {
-        ALLOY = Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                new Identifier(MiddleEarth.MOD_ID, "alloy"),
+        ALLOY_FURNACE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
+                new Identifier(MiddleEarth.MOD_ID, "alloy_furnace"),
                 FabricBlockEntityTypeBuilder.create(AlloyFurnaceEntity::new,
                         ModDecorativeBlocks.ALLOY_FURNACE).build(null));
     }

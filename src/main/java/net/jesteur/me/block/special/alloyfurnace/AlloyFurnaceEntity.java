@@ -55,7 +55,7 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
 
 
     public AlloyFurnaceEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.ALLOY, pos, state);
+        super(ModBlockEntities.ALLOY_FURNACE, pos, state);
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
