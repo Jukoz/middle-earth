@@ -79,16 +79,16 @@ public class BackgroundRendererMixin {
 
             if(biomeRegistry.getKey().isPresent()){
                 if (biomeRegistry.getKey().get().equals(MEBiomeKeys.MISTY_MOUNTAINS)) {
-                    fogStartGoal = -8.0F;
-                    fogEndGoal = 24F;
+                    fogStartGoal = -viewDistance;
+                    fogEndGoal = viewDistance;
                     modifyFog = true;
                 } else if(biomeRegistry.getKey().get().equals(MEBiomeKeys.DUNLAND_FOOTHILLS)){
-                    fogStartGoal = -8.0F;
-                    fogEndGoal = 40F;
+                    fogStartGoal = -viewDistance / 2;
+                    fogEndGoal = viewDistance;
                     modifyFog = true;
                 } else if(biomeRegistry.getKey().get().equals(MEBiomeKeys.NORTHERN_DUNLAND)){
                     fogStartGoal = 0.0F;
-                    fogEndGoal = 96F;
+                    fogEndGoal = viewDistance;
                     modifyFog = true;
                 } else {
                     fogStartGoal = 0.0F;
