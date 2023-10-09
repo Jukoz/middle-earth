@@ -6,7 +6,8 @@
   "mixins": [
     "BlockEntityLandedMixin",
     "EntitySpawnMixin",
-    "PlayerMixin"
+    "PlayerMixin",
+    "TrunkPlacerTypeInvoker"
   ],
   "client": [
     "client.ElytraFeatureRendererMixin",

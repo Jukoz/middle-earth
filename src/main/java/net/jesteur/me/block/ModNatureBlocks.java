@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.block.special.*;
 import net.jesteur.me.item.utils.ModItemGroups;
+import net.jesteur.me.world.features.MirkwoodSaplingGenerator;
 import net.minecraft.block.*;
 import net.minecraft.block.RootsBlock;
 import net.minecraft.block.piston.PistonBehavior;
@@ -82,9 +83,11 @@ public class ModNatureBlocks {
 
     public static final Block WHITE_MUSHROOM = registerBlock("white_mushroom",
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), false);
-
     public static final Block WHITE_MUSHROOM_TILLER = registerBlock("white_mushroom_tiller",
             new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), false);
+
+    public static final Block MIRKWOOD_SAPLING = registerBlock("mirkwood_sapling",
+            new SaplingBlock(new MirkwoodSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), false);
 
     public static final Block LEBETHRON_LEAVES = registerBlock("lebethron_leaves",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), false);
@@ -94,10 +97,8 @@ public class ModNatureBlocks {
 
     public static final Block MIRKWOOD_ROOTS = registerBlock("mirkwood_roots",
             new MangroveRootsBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_ROOTS)), false);
-
     public static final Block MIRKWOOD_HANGING_ROOTS = registerBlock("mirkwood_hanging_roots",
             new HangingRootsBlock(FabricBlockSettings.copyOf(Blocks.HANGING_ROOTS)), false);
-
     public static final Block MIRKWOOD_SPIDER_EGG = registerBlock("mirkwood_spider_egg",
             new MirkwoodSpiderEggBlock(FabricBlockSettings.copyOf(Blocks.TURTLE_EGG)), false);
 

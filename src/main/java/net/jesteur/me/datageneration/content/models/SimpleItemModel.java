@@ -1,5 +1,6 @@
 package net.jesteur.me.datageneration.content.models;
 
+import net.jesteur.me.block.ModNatureBlocks;
 import net.jesteur.me.item.ModEquipmentItems;
 import net.jesteur.me.item.ModRessourceItems;
 import net.minecraft.item.Item;

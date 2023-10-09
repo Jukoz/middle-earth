@@ -18,7 +18,7 @@ public class WoodBlockSets {
     public static SimpleBlockSet WHITE_LEBETHRON = registerWoodSet("white_lebethron", WOOD_STRENGTH, false);
     public static SimpleBlockSet MALLORN = registerWoodSet("mallorn", WOOD_STRENGTH, true);
     public static SimpleBlockSet MAPLE = registerWoodSet("maple", WOOD_STRENGTH, true);
-    public static SimpleBlockSet MIRKWOOD = registerWoodSet("mirkwood", WOOD_STRENGTH, false);
+    public static SimpleBlockSet MIRKWOOD = registerWoodSet("mirkwood", WOOD_STRENGTH, true);
     public static SimpleBlockSet PALM = registerWoodSet("palm", WOOD_STRENGTH, true);
     public static SimpleBlockSet PINE = registerWoodSet("pine", WOOD_STRENGTH, true);
     public static SimpleBlockSet WILLOW = registerWoodSet("willow", WOOD_STRENGTH, true);

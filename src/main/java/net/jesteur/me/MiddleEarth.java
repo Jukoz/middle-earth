@@ -10,6 +10,7 @@ import net.jesteur.me.item.utils.ModItemGroups;
 import net.jesteur.me.network.ModNetworks;
 import net.jesteur.me.recipe.ModRecipes;
 import net.jesteur.me.sound.ModSounds;
+import net.jesteur.me.world.gen.ModWorldGeneration;
 import net.jesteur.me.world.spawners.ModEntitySpawning;
 import net.jesteur.me.world.biomes.MEBiomeKeys;
 import net.jesteur.me.world.biomes.MEBiomesData;
@@ -57,6 +58,7 @@ public class MiddleEarth implements ModInitializer {
 		ModDimensions.register();
 		MEBiomeKeys.registerModBiomes();
 		MEBiomesData.loadBiomes();
+		ModWorldGeneration.generateModWorldGen();
 
 		ModEvents.register();
 		ModNetworks.registerS2CPackets();
