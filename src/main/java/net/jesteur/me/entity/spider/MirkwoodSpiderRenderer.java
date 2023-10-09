@@ -2,6 +2,7 @@ package net.jesteur.me.entity.spider;
 
 
 import com.google.common.collect.Maps;
+import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.entity.model.ModEntityModelLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -11,6 +12,7 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.Map;
 
@@ -43,6 +45,11 @@ public class MirkwoodSpiderRenderer extends MobEntityRenderer<MirkwoodSpiderEnti
     @Override
     public void render(MirkwoodSpiderEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
+        if(entity.age > MirkwoodSpiderEntity.ADULT_AGE){
+            poseStack.scale(1,1,1);
+        } else {
+            poseStack.scale(0.5f, 0.5f, 0.5f);
+        }
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 }

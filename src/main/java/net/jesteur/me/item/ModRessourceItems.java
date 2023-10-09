@@ -2,6 +2,7 @@ package net.jesteur.me.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.jesteur.me.MiddleEarth;
+import net.jesteur.me.item.items.MiddleEarthMapItem;
 import net.jesteur.me.item.items.StarlightPhialItem;
 import net.jesteur.me.item.items.PebbleItem;
 import net.jesteur.me.item.utils.ModItemGroups;
@@ -11,6 +12,17 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModRessourceItems {
+    public static final Item BRONZE_INGOT = registerItem("bronze_ingot",
+            new Item(new FabricItemSettings()));
+    public static final Item BRONZE_NUGGET = registerItem("bronze_nugget",
+            new Item(new FabricItemSettings()));
+    public static final Item DWARVEN_STEEL = registerItem("dwarven_steel",
+            new Item(new FabricItemSettings()));
+    public static final Item DWARVEN_STEEL_NUGGET = registerItem("dwarven_steel_nugget",
+            new Item(new FabricItemSettings()));
+            
+    public static final Item MIDDLE_EARTH_MAP = registerItem("middle_earth_map",
+            new MiddleEarthMapItem(new FabricItemSettings()));
 
     public static final Item MITHRIL_INGOT = registerItem("mithril_ingot",
             new Item(new FabricItemSettings().fireproof()));
@@ -18,7 +30,19 @@ public class ModRessourceItems {
             new Item(new FabricItemSettings().fireproof()));
     public static final Item MITHRIL_NUGGET = registerItem("mithril_nugget",
             new Item(new FabricItemSettings().fireproof()));
+
+    public static final Item RAW_TIN = registerItem("raw_tin",
+            new Item(new FabricItemSettings()));
+    public static final Item TIN_INGOT = registerItem("tin_ingot",
+            new Item(new FabricItemSettings()));
+    public static final Item TIN_NUGGET = registerItem("tin_nugget",
+            new Item(new FabricItemSettings()));
+
     public static final Item MORGUL_INGOT = registerItem("morgul_ingot",
+            new Item(new FabricItemSettings()));
+    public static final Item ORC_STEEL = registerItem("orc_steel",
+            new Item(new FabricItemSettings()));
+    public static final Item ORC_STEEL_NUGGET = registerItem("orc_steel_nugget",
             new Item(new FabricItemSettings()));
     public static final Item ORC_BONE = registerItem("orc_bone",
             new Item(new FabricItemSettings()));

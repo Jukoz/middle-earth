@@ -4,10 +4,13 @@ import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jesteur.me.MiddleEarth;
+import net.jesteur.me.entity.hobbits.shire.ShireHobbitModel;
 import net.jesteur.me.entity.model.ModEntityModelLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -20,6 +23,7 @@ public class GaladhrimElfRenderer extends BipedEntityRenderer<GaladhrimElfEntity
 
     public GaladhrimElfRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new GaladhrimElfModel<>(ctx.getPart(ModEntityModelLayers.ELF)), 0.5f);
+        this.addFeature(new ArmorFeatureRenderer<>(this, new GaladhrimElfModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new GaladhrimElfModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), ctx.getModelManager()));
     }
 
     public static final Map<GaladhrimElfVariant, String> LOCATION_BY_VARIANT =

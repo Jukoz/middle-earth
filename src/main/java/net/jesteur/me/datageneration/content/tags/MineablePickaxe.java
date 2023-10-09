@@ -17,8 +17,7 @@ public class MineablePickaxe {
             add(ModBlocks.CHISELED_LIMESTONE_BRICKS);
             add(ModBlocks.MITHRIL_BLOCK);
             add(ModBlocks.MITHRIL_ORE);
-            add(ModBlocks.REEDS_BLOCK);
-            add(ModBlocks.STRAW_BLOCK);
+            add(ModBlocks.TIN_BLOCK);
         }
     };
 }

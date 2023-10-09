@@ -1,39 +1,76 @@
 package net.jesteur.me.entity.elves.galadhrim;
 
 import net.jesteur.me.entity.goals.BowAttackGoal;
+import net.jesteur.me.entity.nazguls.NazgulEntity;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jesteur.me.entity.spider.MirkwoodSpiderEntity;
 import net.jesteur.me.entity.trolls.TrollEntity;
 import net.jesteur.me.entity.trolls.cave.CaveTrollEntity;
+import net.jesteur.me.item.ModEquipmentItems;
+import net.jesteur.me.item.ModToolItems;
 import net.jesteur.me.item.ModWeaponItems;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.RangedWeaponItem;
+import net.minecraft.item.*;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-public class GaladhrimElfEntity extends HostileEntity implements RangedAttackMob {
+public class GaladhrimElfEntity extends PathAwareEntity implements RangedAttackMob {
     private final BowAttackGoal bowAttackGoal = new BowAttackGoal(this, 1.0, 16, 24.0f);
     private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.2, false);
 
-    public GaladhrimElfEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public GaladhrimElfEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
-        if (Math.random() < 0.6f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_BOW));
+    }
+
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+        entityData = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+        Random random = world.getRandom();
+        this.initEquipment(random, difficulty);
+        return entityData;
+    }
+
+    @Override
+    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
+        super.initEquipment(random, localDifficulty);
+
+        equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_BOW));
+        equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.AIR));
+
+        float randomVal = random.nextFloat();
+
+        if (randomVal < 0.35f) {
+            int[] colors = {
+                    0x809c9c,
+                    0x808c9c,
+                    0x435e52
+            };
+            int colorIndex = random.nextInt(3);
+
+            DyeableItem item = (DyeableItem)ModEquipmentItems.CLOAK;
+            ItemStack stack = new ItemStack((Item)item);
+            item.setColor(stack, colors[colorIndex]);
+
+            equipStack(EquipmentSlot.CHEST, stack);
         }
     }
+
 
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
@@ -57,6 +94,7 @@ public class GaladhrimElfEntity extends HostileEntity implements RangedAttackMob
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
     }
 
     @Override

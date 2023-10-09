@@ -2,13 +2,8 @@ package net.jesteur.me.mixin.client;
 
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.utils.IntToRGB;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.item.DyeableItem;
-import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.jesteur.me.entity.equipments.CloakHoodEntityModel;
+import net.jesteur.me.model.equipment.CloakHoodModel;
 import net.jesteur.me.item.ModEquipmentItems;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
@@ -38,6 +33,7 @@ import java.awt.*;
 public class HeadFeatureRendererMixin {
     private static final Identifier CLOAK_HOOD_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/cloak_features.png");
     private static final Identifier FUR_CLOAK_HOOD_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/fur_cloak_features.png");
+    private static final Identifier NAZGUL_CLOAK_HOOD_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/nazgul_cloak_features.png");
     @Shadow
     @Final
     private float scaleX;
@@ -48,7 +44,7 @@ public class HeadFeatureRendererMixin {
     @Final
     private float scaleZ;
 
-    private final CloakHoodEntityModel cloakHoodModel = new CloakHoodEntityModel(CloakHoodEntityModel.getTexturedModelData().createModel());
+    private final CloakHoodModel cloakHoodModel = new CloakHoodModel(CloakHoodModel.getTexturedModelData().createModel());
 
     @SuppressWarnings("rawtypes")
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
@@ -69,13 +65,25 @@ public class HeadFeatureRendererMixin {
             info.cancel();
         }
         // Fur Cloak
-        if (itemStack.getItem() == ModEquipmentItems.FUR_CLOAK_HOOD) {
+        else if (itemStack.getItem() == ModEquipmentItems.FUR_CLOAK_HOOD) {
             matrices.push();
             matrices.scale(this.scaleX, this.scaleY, this.scaleZ);
             ((ModelWithHead) ((HeadFeatureRenderer) (Object) this).getContextModel()).getHead().rotate(matrices);
             matrices.scale(1.19F, 1.19F, 1.19F);
 
             VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, this.cloakHoodModel.getLayer(FUR_CLOAK_HOOD_TEXTURE), false, itemStack.hasGlint());
+
+            this.cloakHoodModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
+            matrices.pop();
+            info.cancel();
+        }
+        else if (itemStack.getItem() == ModEquipmentItems.NAZGUL_CLOAK_HOOD) {
+            matrices.push();
+            matrices.scale(this.scaleX, this.scaleY, this.scaleZ);
+            ((ModelWithHead) ((HeadFeatureRenderer) (Object) this).getContextModel()).getHead().rotate(matrices);
+            matrices.scale(1.19F, 1.19F, 1.19F);
+
+            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, this.cloakHoodModel.getLayer(NAZGUL_CLOAK_HOOD_TEXTURE), false, itemStack.hasGlint());
 
             this.cloakHoodModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
             matrices.pop();

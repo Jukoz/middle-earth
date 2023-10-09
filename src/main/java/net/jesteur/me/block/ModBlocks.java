@@ -1,7 +1,6 @@
 package net.jesteur.me.block;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.item.utils.ModItemGroups;
@@ -36,18 +35,32 @@ public class ModBlocks {
 
     public static final Block REEDS_BLOCK = registerBlock("reeds_block",
             new HayBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
+    public static final Block REEDS_STAIRS = registerBlock("reeds_stairs",
+            new StairsBlock(REEDS_BLOCK.getDefaultState(), FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
+    public static final Block REEDS_SLAB = registerBlock("reeds_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
+    public static final Block REEDS_WALL = registerBlock("reeds_wall",
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
     public static final Block STRAW_BLOCK = registerBlock("straw_block",
             new HayBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
+    public static final Block STRAW_STAIRS = registerBlock("straw_stairs",
+            new StairsBlock(STRAW_BLOCK.getDefaultState(), FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
+    public static final Block STRAW_SLAB = registerBlock("straw_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
+    public static final Block STRAW_WALL = registerBlock("straw_wall",
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
 
     public static final Block MITHRIL_BLOCK = registerBlock("mithril_block",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(6f).requiresTool()));
     public static final Block MITHRIL_ORE = registerBlock("mithril_ore",
             new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(4f).requiresTool()));
-
+    public static final Block TIN_BLOCK = registerBlock("tin_block",
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(2f).requiresTool()));
     public static final Block STONE_TRAPDOOR = registerBlock("stone_trapdoor",
             new TrapdoorBlock(FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE), BlockSetType.STONE));
     public static final Block BLACKSTONE_TRAPDOOR = registerBlock("blackstone_trapdoor",
             new TrapdoorBlock(FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE), BlockSetType.POLISHED_BLACKSTONE));
+
 
     public static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);

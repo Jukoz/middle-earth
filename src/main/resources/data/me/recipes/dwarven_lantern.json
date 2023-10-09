@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:torch"
+    },
+    "X": {
+      "item": "me:dwarven_steel_nugget"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "X#X",
+    "XXX"
+  ],
+  "result": {
+    "item": "me:dwarven_lantern"
+  },
+  "show_notification": true
+}

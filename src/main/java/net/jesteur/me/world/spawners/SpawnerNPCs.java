@@ -1,18 +1,11 @@
 package net.jesteur.me.world.spawners;
 
-import net.jesteur.me.entity.hobbits.HobbitEntity;
-import net.jesteur.me.world.spawners.EntitySpawningSettings;
-import net.jesteur.me.world.spawners.ModEntitySpawning;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityData;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +14,6 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.spawner.Spawner;
 
 import java.util.List;

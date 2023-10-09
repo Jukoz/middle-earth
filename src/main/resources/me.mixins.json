@@ -7,7 +7,6 @@
     "BlockEntityLandedMixin",
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
-    "ItemRendererMixin",
     "PlayerMixin"
   ],
   "client": [
@@ -16,7 +15,8 @@
     "client.ElytraFeatureRendererMixin",
     "client.HeadFeatureRendererMixin",
     "client.InGameHudMixin",
-    "client.MouseMixin"
+    "client.MouseMixin",
+    "client.ItemRendererMixin"
   ],
   "server": [
   ],

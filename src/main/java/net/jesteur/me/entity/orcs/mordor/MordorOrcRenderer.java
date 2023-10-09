@@ -2,12 +2,14 @@ package net.jesteur.me.entity.orcs.mordor;
 
 import com.google.common.collect.Maps;
 import net.jesteur.me.MiddleEarth;
+import net.jesteur.me.entity.dwarves.durin.DurinDwarfModel;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfVariant;
 import net.jesteur.me.entity.model.ModEntityModelLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -20,6 +22,9 @@ public class MordorOrcRenderer extends BipedEntityRenderer<MordorOrcEntity, Mord
 
     public MordorOrcRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new MordorOrcModel<>(ctx.getPart(ModEntityModelLayers.ORC)), 0.5f);
+        this.addFeature(new ArmorFeatureRenderer<>(this, new MordorOrcModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)),
+                new MordorOrcModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), ctx.getModelManager()));
+
     }
 
     @Override

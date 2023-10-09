@@ -7,6 +7,11 @@
 ## Current state of the mod
 As of now, the mod is in Alpha development stage, meaning this project is still a prototype and it's missing many core features we want to add. <br>
 
+## Licenses of this project
+Artistic elements such as textures, models, audio, and more are subject to licensing under either the CC-BY-NC 4.0 license or ARR, because multiple artists worked on it or/and gave permission to use their assets.<br>
+For the code, it's under MIT license. You can find both licenses at our github repository.
+Please be aware that this project is a Minecraft Parody set in the Middle-earth universe and all rights are reserved under Tolkien domain.
+
 ## Contributing to the code source
 If you want to help us, either make a pull request or join our discord for more information.
 
@@ -14,12 +19,19 @@ If you want to help us, either make a pull request or join our discord for more 
 ### Developpers
 Jukoz<br>
 Krahab<br>
-nullBlade
+Froosty11<br>
+nullBlade<br>
+Slooshyboi
 
 ### Modelers & Textures
-Jukoz<br>
+Tom<br>
+WorseNotePad<br>
 JB3<br>
+Jukoz<br>
 Krahab<br>
+Python_200<br>
+R3tt0<br>
+Thorin_The_III<br>
 Ag3ntCrab
 
 ### Builders
@@ -28,7 +40,16 @@ Grandison<br>
 Jukoz<br>
 Krahab
 
+### Special Thanks
+dylanhugh and Angmarzku for their ideas & arts for Gundabad and more.
+
 ## Planned features
+### Gameplay
+- Traders
+- New smithing & attributes system
+- Brews and stews
+- Hiring units
+
 ### Mobs
 #### Mordor
 - Mordor Orc
@@ -113,4 +134,3 @@ Krahab
 - Bear
 - Boar
 - Deer
-- Crab

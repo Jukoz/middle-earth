@@ -1,0 +1,14 @@
+{
+  "type": "me:alloy_furnace",
+  "ingredients": [
+    {
+      "tag": "me:iron"
+    },
+    {
+      "item": "me:ashen_rock"
+    }
+  ],
+  "output": {
+    "item": "me:orc_steel"
+  }
+}

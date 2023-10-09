@@ -1,0 +1,6 @@
+{
+  "parent": "me:block/cross_direction",
+  "textures": {
+    "cross": "me:block/hanging_cobweb"
+  }
+}

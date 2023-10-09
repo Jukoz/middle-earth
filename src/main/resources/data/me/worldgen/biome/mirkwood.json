@@ -15,8 +15,8 @@
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
-    "grass_color": 669199,
-	"foliage_color": 1262610,
+    "grass_color": 4151612,
+	"foliage_color": 3823415,
     "sky_color": 7972607,
     "water_color": 4293787,
     "water_fog_color": 338483
@@ -24,7 +24,7 @@
   "features": [
     [],
     [
-      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_underground"
     ],
     [
       "minecraft:amethyst_geode"
@@ -40,8 +40,8 @@
       "minecraft:ore_granite_lower",
       "minecraft:ore_diorite_upper",
       "minecraft:ore_diorite_lower",
-      "me:ore_dolomite_lower",
-      "me:ore_dolomite_upper",
+      "me:ground/underground/dolomite_lower",
+      "me:ground/surface/dolomite_upper",
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
       "minecraft:ore_tuff",
@@ -55,22 +55,21 @@
       "minecraft:ore_copper",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
-      "minecraft:disk_gravel"
+      "minecraft:disk_gravel",
+      "me:ground/surface/mud"
     ],
     [],
     [
-      "minecraft:spring_water",
+      "minecraft:spring_water"
     ],
     [
-      "minecraft:glow_lichen",
-      "me:trees_mirkwood",
-      "minecraft:forest_flowers",
-      "minecraft:flower_default",
-      "minecraft:patch_grass_forest",
-      "minecraft:brown_mushroom_normal",
-      "minecraft:red_mushroom_normal",
-      "minecraft:patch_sugar_cane",
-      "minecraft:patch_pumpkin"
+      "me:forest/mirkwood",
+      "me:boulder/complex/mossy_rock",
+      "me:foliage/simple/white_mushroom_tiller",
+      "me:foliage/patch/white_mushroom_patch",
+      "me:foliage/patch/mirkwood",
+      "me:ground/structure/mirkwood_roots",
+      "me:foliage/simple/forest_moss"
     ],
     [
       "minecraft:freeze_top_layer"
@@ -79,43 +78,14 @@
   "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
-	"monster": [],
+	"monster": [
+    ],
     "creature": [
 	  {
-        "type": "minecraft:sheep",
+        "type": "minecraft:wolf",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 12
-      },
-      {
-        "type": "minecraft:pig",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 10
-      },
-      {
-        "type": "minecraft:chicken",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 10
-      },
-      {
-        "type": "minecraft:cow",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 8
-      },
-      {
-        "type": "minecraft:horse",
-        "maxCount": 6,
-        "minCount": 2,
-        "weight": 5
-      },
-      {
-        "type": "minecraft:donkey",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 1
+        "weight": 15
       }
     ],
     "misc": [],

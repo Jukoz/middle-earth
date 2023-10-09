@@ -12,6 +12,7 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
+import net.minecraft.client.render.block.BlockModelRenderer;
 import net.minecraft.sound.BlockSoundGroup;
 
 public class HelpingGenerator {
@@ -91,11 +92,19 @@ public class HelpingGenerator {
             SimpleBlockModel.blocks.add(set.iron_ore());
             SimpleBlockModel.blocks.add(set.coal_ore());
             SimpleBlockModel.blocks.add(set.copper_ore());
+            SimpleBlockModel.blocks.add(set.tin_ore());
 
             MineablePickaxe.blocks.add(set.gold_ore());
             MineablePickaxe.blocks.add(set.iron_ore());
             MineablePickaxe.blocks.add(set.coal_ore());
             MineablePickaxe.blocks.add(set.copper_ore());
+            MineablePickaxe.blocks.add(set.tin_ore());
+        }
+
+        for (OreRockSets.CompleteOreRockSet set : OreRockSets.vanillaSets) {
+            SimpleBlockModel.blocks.add(set.tin_ore());
+
+            MineablePickaxe.blocks.add(set.tin_ore());
         }
     }
 }
