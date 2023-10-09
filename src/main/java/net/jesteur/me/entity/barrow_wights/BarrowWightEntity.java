@@ -9,6 +9,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.brain.task.SonicBoomTask;
 import net.minecraft.entity.ai.pathing.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -121,9 +122,11 @@ public class BarrowWightEntity
 
     @Override
     public boolean tryAttack(Entity target) {
+        System.out.println("try to attacck");
         this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
         this.playSound(SoundEvents.ENTITY_WARDEN_ATTACK_IMPACT, 10.0f, this.getSoundPitch());
         HallucinatingWhispersTask.cooldown(this, 40);
+        SonicBoomTask.cooldown(this, 40);
         return super.tryAttack(target);
     }
 

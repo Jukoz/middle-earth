@@ -12,6 +12,7 @@
   ],
   "client": [
     "client.AbstractClientPlayerEntityMixin",
+    "client.BackgroundRendererMixin",
     "client.ElytraFeatureRendererMixin",
     "client.HeadFeatureRendererMixin",
     "client.InGameHudMixin",
