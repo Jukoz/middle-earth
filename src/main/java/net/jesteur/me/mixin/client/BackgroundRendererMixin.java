@@ -10,6 +10,7 @@ import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.FogShape;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,10 +29,12 @@ public class BackgroundRendererMixin {
         Entity entity = camera.getFocusedEntity();
 
         if (entity instanceof ClientPlayerEntity clientPlayerEntity) {
-            Optional<RegistryKey<Biome>> biomeRegistry = clientPlayerEntity.getWorld().getBiome(clientPlayerEntity.getBlockPos()).getKey();
-            if(biomeRegistry.isPresent() && MEBiomeFogData.DATA.containsKey(biomeRegistry.get())){
-                MEBiomeFogData fogData = MEBiomeFogData.DATA.get(biomeRegistry.get());
-                RenderSystem.setShaderFogColor(fogData.rgba.x, fogData.rgba.y, fogData.rgba.z, fogData.rgba.w);
+            if(!clientPlayerEntity.hasStatusEffect(StatusEffects.DARKNESS) && !clientPlayerEntity.hasStatusEffect(StatusEffects.BLINDNESS)) {
+                Optional<RegistryKey<Biome>> biomeRegistry = clientPlayerEntity.getWorld().getBiome(clientPlayerEntity.getBlockPos()).getKey();
+                if(biomeRegistry.isPresent() && MEBiomeFogData.DATA.containsKey(biomeRegistry.get())){
+                    MEBiomeFogData fogData = MEBiomeFogData.DATA.get(biomeRegistry.get());
+                    RenderSystem.setShaderFogColor(fogData.rgba.x, fogData.rgba.y, fogData.rgba.z, fogData.rgba.w);
+                }
             }
         }
     }
@@ -41,13 +44,16 @@ public class BackgroundRendererMixin {
         Entity entity = camera.getFocusedEntity();
 
         if (entity instanceof ClientPlayerEntity clientPlayerEntity) {
-            Optional<RegistryKey<Biome>> biomeRegistry = clientPlayerEntity.getWorld().getBiome(clientPlayerEntity.getBlockPos()).getKey();
-            if(biomeRegistry.isPresent() && MEBiomeFogData.DATA.containsKey(biomeRegistry.get())){
-                MEBiomeFogData fogData = MEBiomeFogData.DATA.get(biomeRegistry.get());
-                RenderSystem.setShaderFogStart(fogData.fogStart);
-                RenderSystem.setShaderFogEnd(fogData.fogEnd);
-                RenderSystem.setShaderFogShape(FogShape.SPHERE);
+            if(!clientPlayerEntity.hasStatusEffect(StatusEffects.DARKNESS) && !clientPlayerEntity.hasStatusEffect(StatusEffects.BLINDNESS)) {
+                Optional<RegistryKey<Biome>> biomeRegistry = clientPlayerEntity.getWorld().getBiome(clientPlayerEntity.getBlockPos()).getKey();
+                if(biomeRegistry.isPresent() && MEBiomeFogData.DATA.containsKey(biomeRegistry.get())){
+                    MEBiomeFogData fogData = MEBiomeFogData.DATA.get(biomeRegistry.get());
+                    RenderSystem.setShaderFogStart(fogData.fogStart);
+                    RenderSystem.setShaderFogEnd(fogData.fogEnd);
+                    RenderSystem.setShaderFogShape(FogShape.SPHERE);
+                }
             }
+
         }
     }
 }

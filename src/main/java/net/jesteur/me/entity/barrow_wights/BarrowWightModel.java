@@ -99,7 +99,7 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
             this.rightArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
             this.leftArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
         }*/
-        this.updateAnimation(((BarrowWightEntity) entity).screamAnimationState, BarrowWightAnimations.anim_scream, ageInTicks);
+        this.updateAnimation(entity.screamAnimationState, BarrowWightAnimations.anim_scream, ageInTicks);
 
 
     }

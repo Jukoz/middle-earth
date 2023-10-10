@@ -81,6 +81,12 @@
 	"monster": [
     ],
     "creature": [
+      {
+        "type": "minecraft:frog",
+        "maxCount": 7,
+        "minCount": 3,
+        "weight": 20
+      },
 	  {
         "type": "minecraft:wolf",
         "maxCount": 4,

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "me:block/reeds_bottom"
+    },
+    "half=upper": {
+      "model": "me:block/reeds_top"
+    }
+  }
+}

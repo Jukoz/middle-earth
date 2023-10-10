@@ -122,8 +122,8 @@ public class BarrowWightEntity
 
     @Override
     public boolean tryAttack(Entity target) {
-        System.out.println("try to attacck");
-        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+        System.out.println("try to attack" + target);
+        this.getWorld().sendEntityStatus(this, (byte)4);
         this.playSound(SoundEvents.ENTITY_WARDEN_ATTACK_IMPACT, 10.0f, this.getSoundPitch());
         HallucinatingWhispersTask.cooldown(this, 40);
         SonicBoomTask.cooldown(this, 40);

@@ -49,7 +49,11 @@ public class BarrowWightBrain {
     }
 
     private static void addFightActivities(BarrowWightEntity barrowWight, Brain<BarrowWightEntity> brain) {
-        brain.setTaskList(Activity.FIGHT, 10, ImmutableList.of(new HallucinatingWhispersTask(),LookAtMobTask.create((LivingEntity entity) -> BarrowWightBrain.isTargeting(barrowWight, entity), (float)barrowWight.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)), RangedApproachTask.create(1.2f), MeleeAttackTask.create(18)), MemoryModuleType.ATTACK_TARGET);
+        brain.setTaskList(Activity.FIGHT, 10,
+                ImmutableList.of(new HallucinatingWhispersTask(),LookAtMobTask
+                        .create((LivingEntity entity) -> BarrowWightBrain.isTargeting(barrowWight, entity),
+                                (float)barrowWight.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
+                        RangedApproachTask.create(1.2f), MeleeAttackTask.create(18)), MemoryModuleType.ATTACK_TARGET);
     }
 
     private static boolean isTargeting(BarrowWightEntity warden, LivingEntity entity) {
