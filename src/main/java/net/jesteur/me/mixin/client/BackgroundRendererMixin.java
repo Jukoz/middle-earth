@@ -23,22 +23,6 @@ import java.util.Optional;
 @Environment(EnvType.CLIENT)
 @Mixin(BackgroundRenderer.class)
 public class BackgroundRendererMixin {
-
-    @Inject(method = "render", at = @At("TAIL"))
-    private static void applyFog(Camera camera, float tickDelta, ClientWorld world, int viewDistance, float skyDarkness, CallbackInfo ci) {
-        Entity entity = camera.getFocusedEntity();
-
-        if (entity instanceof ClientPlayerEntity clientPlayerEntity) {
-            if(!clientPlayerEntity.hasStatusEffect(StatusEffects.DARKNESS) && !clientPlayerEntity.hasStatusEffect(StatusEffects.BLINDNESS)) {
-                Optional<RegistryKey<Biome>> biomeRegistry = clientPlayerEntity.getWorld().getBiome(clientPlayerEntity.getBlockPos()).getKey();
-                if(biomeRegistry.isPresent() && MEBiomeFogData.DATA.containsKey(biomeRegistry.get())){
-                    MEBiomeFogData fogData = MEBiomeFogData.DATA.get(biomeRegistry.get());
-                    RenderSystem.setShaderFogColor(fogData.rgba.x, fogData.rgba.y, fogData.rgba.z, fogData.rgba.w);
-                }
-            }
-        }
-    }
-
     @Inject(method = "applyFog", at = @At("TAIL"))
     private static void applyFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta, CallbackInfo ci) {
         Entity entity = camera.getFocusedEntity();

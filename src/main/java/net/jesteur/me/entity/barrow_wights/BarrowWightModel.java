@@ -108,41 +108,35 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
         int screaming = entity.getScreamingActionTime();
         if(screaming >= 0) {
             float currentPercent = 1f - ((float) screaming / BarrowWightEntity.SCREAM_ACTION_TIME);
-            entity.getWorld().getPlayers().get(0).sendMessage(Text.literal("%" + currentPercent + " for " + screaming));
 
+            float firstStepPercent = 1f;
+            float secondStepPercent = 0.2f;
 
-            if(currentPercent < 0.25f) {
-                this.head.pitch = -MathHelper.sin(45 * RAD);
+            float currentStepPercent = (currentPercent < firstStepPercent)? firstStepPercent : secondStepPercent ;
+            float currentPercentInStep = 1 / currentStepPercent * currentPercent;
 
-                this.bottomJaw.pitch = MathHelper.sin(50 * RAD);
+            if(currentStepPercent == firstStepPercent){
+                // Head
+                float headPitchGoal = -getRadSin(45);
+                this.head.pitch = ((headPitchGoal - this.head.pitch) * currentStepPercent) * currentPercentInStep;
 
-                this.rightArm.pitch = -MathHelper.sin(90 * RAD);
-                this.leftArm.pitch = -MathHelper.sin(90 * RAD);
+                // Jaw
+                float jawPitchGoal = getRadSin(80);
+                this.bottomJaw.pitch = ((jawPitchGoal - this.bottomJaw.pitch) * currentStepPercent) * currentPercentInStep;
 
+                // Right Arm
+                float rightArmPitchGoal = -getRadSin(90);
+                this.rightArm.pitch = ((rightArmPitchGoal - 0) * currentStepPercent) * currentPercentInStep;
 
-                this.rightArm.yaw = MathHelper.sin(60 * RAD);
-                this.leftArm.yaw = -MathHelper.sin(60 * RAD);
-            } else if (currentPercent < 0.7f){
-                this.head.pitch = -MathHelper.sin(70f * RAD);
+                float rightArmYawGoal = getRadSin(60);
+                this.rightArm.yaw = ((rightArmYawGoal - 0) * currentStepPercent) * currentPercentInStep;
 
-                this.bottomJaw.pitch = MathHelper.sin(30f * RAD);
+                // Left Arm
+                float leftArmPitchGoal = -getRadSin(90);
+                this.leftArm.pitch = ((leftArmPitchGoal - 0) * currentStepPercent) * currentPercentInStep;
 
-                this.rightArm.pitch = -MathHelper.sin(160 * RAD);
-                this.leftArm.pitch = -MathHelper.sin(160 * RAD);
-
-                this.rightArm.yaw = MathHelper.sin(60 * RAD);
-                this.leftArm.yaw = -MathHelper.sin(60 * RAD);
-            }
-            else {
-                this.head.pitch = -MathHelper.sin(60 * RAD);
-
-                this.bottomJaw.pitch = MathHelper.sin(90f * RAD);
-
-                this.rightArm.pitch = -MathHelper.sin(110f * RAD);
-                this.leftArm.pitch = -MathHelper.sin(110f * RAD);
-
-                this.rightArm.yaw = MathHelper.sin(60f * RAD);
-                this.leftArm.yaw = -MathHelper.sin(60f * RAD);
+                float leftArmYawGoal = -getRadSin(60);
+                this.leftArm.yaw = ((leftArmYawGoal - 0) * currentStepPercent) * currentPercentInStep;
             }
         }
     }

@@ -3,22 +3,15 @@
  */
 package net.jesteur.me.entity.barrow_wights;
 
-import com.mojang.logging.LogUtils;
-import com.mojang.serialization.Dynamic;
 import net.jesteur.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfEntity;
-import net.jesteur.me.entity.goals.FastPonceAtTargetGoal;
 import net.jesteur.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jesteur.me.entity.orcs.mordor.MordorOrcEntity;
-import net.jesteur.me.statusEffects.Hallucination;
 import net.jesteur.me.statusEffects.ModStatusEffects;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.task.SonicBoomTask;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.pathing.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -27,30 +20,17 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.*;
+import net.minecraft.entity.mob.CreeperEntity;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.server.network.DebugInfoSender;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.event.listener.EntityGameEventHandler;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-
-import java.util.function.BiConsumer;
 
 public class BarrowWightEntity extends HostileEntity {
     private static final int MAX_HEALTH = 15;
@@ -58,22 +38,14 @@ public class BarrowWightEntity extends HostileEntity {
     private static final float KNOCKBACK_RESISTANCE = 1.0f;
     private static final float ATTACK_KNOCKBACK = 1.2f;
     private static final int ATTACK_DAMAGE = 3;
-
     private static final TrackedData<Boolean> CAN_SCREAM;
     private static final TrackedData<Integer> SCREAMING_TIME;
-
     public static final String LAST_SCREAM_TIME_KEY = "ScreamDelayTime";
-
     private int lastScreamTime;
-    private int screamActionTime;
-
     private static final int SCREAM_DELAY = 150;
     private static final int SCREAM_EFFECT_DURATION = 100;
 
     public static final int SCREAM_ACTION_TIME = 35;
-
-    public AnimationState attackingAnimationState = new AnimationState();
-    public AnimationState screamAnimationState = new AnimationState();
 
     public BarrowWightEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -144,13 +116,12 @@ public class BarrowWightEntity extends HostileEntity {
                 screamingTime --;
                 this.setScreamingActionTime(screamingTime);
 
-                if(target != null && target.isPlayer())
-                    target.sendMessage(Text.literal("SCREAMING!!!" + screamingTime));
-
                 if(this.getScreamingActionTime() <= 0){
-
                     if(target != null && target.isPlayer()){
-                        target.sendMessage(Text.literal("Barrow Down - BOO!!!!"));
+                        int value = Random.create().nextBetweenExclusive(0, 100);
+                        if(value < 5){
+                            target.sendMessage(Text.literal("The barrows says BOO!!!!"));
+                        }
                         target.addStatusEffect(new StatusEffectInstance(ModStatusEffects.HALLUCINATION, SCREAM_EFFECT_DURATION), this);
                         target.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, SCREAM_EFFECT_DURATION), this);
                     }
@@ -196,10 +167,6 @@ public class BarrowWightEntity extends HostileEntity {
 
         this.setScreamingActionTime(SCREAM_ACTION_TIME);
         this.setCanScream(false);
-    }
-
-    public int screaming() {
-        return screamActionTime;
     }
 
     public boolean canFreeze() {
