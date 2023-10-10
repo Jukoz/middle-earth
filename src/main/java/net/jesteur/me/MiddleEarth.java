@@ -7,6 +7,7 @@ import net.jesteur.me.events.ModEvents;
 import net.jesteur.me.gui.ModScreenHandlers;
 import net.jesteur.me.item.*;
 import net.jesteur.me.item.utils.ModItemGroups;
+import net.jesteur.me.statusEffects.ModStatusEffects;
 import net.jesteur.me.network.ModNetworks;
 import net.jesteur.me.recipe.ModRecipes;
 import net.jesteur.me.sound.ModSounds;
@@ -27,7 +28,7 @@ public class MiddleEarth implements ModInitializer {
 	public static final int MAP_ITERATION = 3;
 	@Override
 	public void onInitialize() {
-
+		ModStatusEffects.registerStatusEffects();
 		OreRockSets.registerModBlockSets();
 		ModWeaponItems.registerModItems();
 		ModEquipmentItems.registerModItems();

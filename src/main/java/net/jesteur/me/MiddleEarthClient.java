@@ -6,12 +6,14 @@ import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.jesteur.me.block.ModBlockEntities;
 import net.jesteur.me.block.ModDecorativeBlocks;
 import net.jesteur.me.block.ModNatureBlocks;
 import net.jesteur.me.block.special.alloyfurnace.AlloyFurnaceEntityRenderer;
 import net.jesteur.me.datageneration.VariantsModelProvider;
 import net.jesteur.me.entity.ModEntities;
+import net.jesteur.me.entity.barrow_wights.BarrowWightEntityRenderer;
 import net.jesteur.me.entity.crab.CrabRenderer;
 import net.jesteur.me.entity.dwarves.durin.DurinDwarfRenderer;
 import net.jesteur.me.entity.elves.galadhrim.GaladhrimElfRenderer;
@@ -27,18 +29,27 @@ import net.jesteur.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jesteur.me.gui.ModScreenHandlers;
 import net.jesteur.me.item.ModEquipmentItems;
 import net.jesteur.me.item.utils.ModModelPredicateProvider;
+import net.jesteur.me.utils.HallucinationData;
+import net.jesteur.me.utils.IEntityDataSaver;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.color.item.ItemColorProvider;
+import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.item.DyeableItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 
 public class MiddleEarthClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ModEntityModels.getModels();
 
+        ModEntityModels.getModels();
+        EntityRendererRegistry.register(ModEntities.BARROW_WIGHT, BarrowWightEntityRenderer::new);
         // Entities
         EntityRendererRegistry.register(ModEntities.CAVE_TROLL, CaveTrollRenderer::new);
         EntityRendererRegistry.register(ModEntities.DURIN_FOLK, DurinDwarfRenderer::new);
@@ -90,6 +101,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.MOSS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.FOREST_MOSS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.CORRUPTED_MOSS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.REEDS, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.DWARVEN_LANTERN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WALL_DWARVEN_LANTERN, RenderLayer.getCutout());

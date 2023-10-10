@@ -101,6 +101,10 @@ public class ModNatureBlocks {
     public static final Block MIRKWOOD_SPIDER_EGG = registerBlock("mirkwood_spider_egg",
             new MirkwoodSpiderEggBlock(FabricBlockSettings.copyOf(Blocks.TURTLE_EGG)), false);
 
+    public static final Block REEDS = registerBlock("reeds",
+            new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.TALL_GRASS)), false);
+
+
     public static Block registerBlock(String name, Block block, boolean absent) {
         if(!absent) ModNatureBlocks.registerBlockItem(name, block);
         return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);

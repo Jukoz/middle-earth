@@ -21,3 +21,4 @@ run/
 build/
 .idea
 src/main/generated/
+bin/main/*

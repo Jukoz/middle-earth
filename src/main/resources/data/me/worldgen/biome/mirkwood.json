@@ -8,7 +8,7 @@
   },
   "downfall": 0.4,
   "effects": {
-    "fog_color": 12638463,
+    "fog_color": 8358528,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
@@ -81,6 +81,12 @@
 	"monster": [
     ],
     "creature": [
+      {
+        "type": "minecraft:frog",
+        "maxCount": 7,
+        "minCount": 3,
+        "weight": 20
+      },
 	  {
         "type": "minecraft:wolf",
         "maxCount": 4,
