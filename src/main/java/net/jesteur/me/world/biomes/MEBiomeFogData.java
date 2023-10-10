@@ -16,6 +16,7 @@ public class MEBiomeFogData {
         DATA.put(MEBiomeKeys.DUNLAND_FOOTHILLS, new MEBiomeFogData(-25f, 96f, new Color(0xc2c4c4)));
         DATA.put(MEBiomeKeys.MIRKWOOD, new MEBiomeFogData(25f, 200f, new Color(0x49524d)));
         DATA.put(MEBiomeKeys.NORTHERN_DUNLAND, new MEBiomeFogData(10f, 200f, new Color(0x2e332e)));
+        DATA.put(MEBiomeKeys.SHIRE, new MEBiomeFogData(10f, 75f, new Color(0x383735)));
     };
 
     public float fogStart;

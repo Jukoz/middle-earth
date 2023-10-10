@@ -6,6 +6,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 
 @Environment(value = EnvType.CLIENT)
@@ -19,7 +20,8 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
     private final ModelPart rightArm;
     private final ModelPart leftLeg;
     private final ModelPart rightLeg;
-    private static final float ROTATION_SPEED = 0.4f;
+    private static final float ROTATION_SPEED = 0.6f;
+    private static float RAD = (float)Math.PI/180;
 
     public BarrowWightModel(ModelPart root) {
         this.root = root;
@@ -81,28 +83,68 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
 
     @Override
     public void setAngles(BarrowWightEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        if(!entity.getWorld().isClient) return;
+
+
         this.getPart().traverse().forEach(ModelPart::resetTransform); // resets all limbs before animation. eahc run of animationstate update sets next frame...
-        this.head.pitch = headPitch * ((float) Math.PI / 180);
-        this.head.yaw = netHeadYaw * ((float) Math.PI / 180);
+        this.head.pitch = headPitch * RAD;
+        this.head.yaw = netHeadYaw * RAD;
+
 
         this.bottomJaw.pitch = 0.25F * Math.max(0, MathHelper.cos(ageInTicks * 0.1f));
-        float k = 1.5f * limbSwingAmount;
+
+        float k = 0.8f * limbSwingAmount;
         this.rightLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
-        this.leftLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
+        this.leftLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float)Math.PI) * k;
 
 
-        /*int i = entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_COOLING_DOWN);
-        if (entity.getState().equals(BarrowWightEntity.State.ATTACK)) {
-            float ageFloat = (ageInTicks - (int) ageInTicks); // Helps to smooth the animation
-            this.rightArm.pitch = -1.1f + 0.9f * MathHelper.wrap((float) i - ageFloat, 10.0f);
-            this.leftArm.pitch = -1.1f + 0.9f * MathHelper.wrap((float) i - ageFloat, 10.0f);
-        } else {
-            this.rightArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
-            this.leftArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
-        }*/
-        this.updateAnimation(entity.screamAnimationState, BarrowWightAnimations.anim_scream, ageInTicks);
+        float kA = 0.3f * limbSwingAmount;
+        this.rightArm.pitch = -MathHelper.cos(limbSwing * ROTATION_SPEED) * kA;
+        this.leftArm.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * kA;
+
+        this.rightArm.yaw = 0;
+        this.leftArm.yaw = 0;
+
+        int screaming = entity.getScreamingActionTime();
+        if(screaming >= 0) {
+            float currentPercent = 1f - ((float) screaming / BarrowWightEntity.SCREAM_ACTION_TIME);
+            entity.getWorld().getPlayers().get(0).sendMessage(Text.literal("%" + currentPercent + " for " + screaming));
 
 
+            if(currentPercent < 0.25f) {
+                this.head.pitch = -MathHelper.sin(45 * RAD);
+
+                this.bottomJaw.pitch = MathHelper.sin(50 * RAD);
+
+                this.rightArm.pitch = -MathHelper.sin(90 * RAD);
+                this.leftArm.pitch = -MathHelper.sin(90 * RAD);
+
+
+                this.rightArm.yaw = MathHelper.sin(60 * RAD);
+                this.leftArm.yaw = -MathHelper.sin(60 * RAD);
+            } else if (currentPercent < 0.7f){
+                this.head.pitch = -MathHelper.sin(70f * RAD);
+
+                this.bottomJaw.pitch = MathHelper.sin(30f * RAD);
+
+                this.rightArm.pitch = -MathHelper.sin(160 * RAD);
+                this.leftArm.pitch = -MathHelper.sin(160 * RAD);
+
+                this.rightArm.yaw = MathHelper.sin(60 * RAD);
+                this.leftArm.yaw = -MathHelper.sin(60 * RAD);
+            }
+            else {
+                this.head.pitch = -MathHelper.sin(60 * RAD);
+
+                this.bottomJaw.pitch = MathHelper.sin(90f * RAD);
+
+                this.rightArm.pitch = -MathHelper.sin(110f * RAD);
+                this.leftArm.pitch = -MathHelper.sin(110f * RAD);
+
+                this.rightArm.yaw = MathHelper.sin(60f * RAD);
+                this.leftArm.yaw = -MathHelper.sin(60f * RAD);
+            }
+        }
     }
 
     @Override
@@ -115,8 +157,9 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
     @Override
     public ModelPart getPart() {
         return this.root;
-
     }
 
-
+    private float getRadSin(float degree){
+        return MathHelper.sin(degree * RAD);
+    }
 }

@@ -26,6 +26,7 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
@@ -53,16 +54,23 @@ import java.util.function.BiConsumer;
 
 public class BarrowWightEntity extends HostileEntity {
     private static final int MAX_HEALTH = 15;
-    private static final float MOVEMENT_SPEED = 0.4f;
+    private static final float MOVEMENT_SPEED = 0.55f;
     private static final float KNOCKBACK_RESISTANCE = 1.0f;
     private static final float ATTACK_KNOCKBACK = 1.2f;
     private static final int ATTACK_DAMAGE = 3;
 
     private static final TrackedData<Boolean> CAN_SCREAM;
-    public static final String LAST_SCREAM_TIME_KEY = "ScreamDelayTime";
-    private int lastScreamTime;
+    private static final TrackedData<Integer> SCREAMING_TIME;
 
-    private final int SCREAM_DELAY = 500;
+    public static final String LAST_SCREAM_TIME_KEY = "ScreamDelayTime";
+
+    private int lastScreamTime;
+    private int screamActionTime;
+
+    private static final int SCREAM_DELAY = 150;
+    private static final int SCREAM_EFFECT_DURATION = 100;
+
+    public static final int SCREAM_ACTION_TIME = 35;
 
     public AnimationState attackingAnimationState = new AnimationState();
     public AnimationState screamAnimationState = new AnimationState();
@@ -75,7 +83,7 @@ public class BarrowWightEntity extends HostileEntity {
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, MOVEMENT_SPEED)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, MAX_HEALTH)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, KNOCKBACK_RESISTANCE)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 0.9)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 0.85)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 28.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, ATTACK_DAMAGE)
                 .add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, ATTACK_KNOCKBACK);
@@ -83,10 +91,11 @@ public class BarrowWightEntity extends HostileEntity {
 
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(6, new LookAroundGoal(this));
+
+        this.goalSelector.add(2, new MeleeAttackGoal(this, MOVEMENT_SPEED , false));
+        this.goalSelector.add(3, new WanderAroundFarGoal(this, MOVEMENT_SPEED * 0.8f));
+        this.goalSelector.add(4, new LookAtEntityGoal(this, LivingEntity.class, 32.0F));
+        this.goalSelector.add(5, new LookAroundGoal(this));
 
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
@@ -99,25 +108,56 @@ public class BarrowWightEntity extends HostileEntity {
     protected void initDataTracker() {
         super.initDataTracker();
         this.getDataTracker().startTracking(CAN_SCREAM, true);
+        this.getDataTracker().startTracking(SCREAMING_TIME, 0);
+
     }
 
     public boolean canScream() {
         return this.getDataTracker().get(CAN_SCREAM);
     }
+    public Integer getScreamingActionTime() {
+        return this.getDataTracker().get(SCREAMING_TIME);
+    }
 
     public void setCanScream(boolean canScream) {
-        if(!canScream) this.lastScreamTime = SCREAM_DELAY;
+        if(!canScream) {
+            this.lastScreamTime = SCREAM_DELAY;
+        }
         this.dataTracker.set(CAN_SCREAM, canScream);
     }
 
     private void setScreamedTime(int time) {
-        this.lastScreamTime = SCREAM_DELAY;
-        this.setCanScream(false);
+        this.lastScreamTime = time;
+    }
+
+    public void setScreamingActionTime(int screamingTime) {
+        this.dataTracker.set(SCREAMING_TIME, screamingTime);
     }
 
     @Override
     public void tick() {
         if (!this.getWorld().isClient && this.isAlive() && !this.isAiDisabled()) {
+            LivingEntity target = getTarget();
+
+            int screamingTime = this.getScreamingActionTime();
+            if(screamingTime > 0 ){
+                screamingTime --;
+                this.setScreamingActionTime(screamingTime);
+
+                if(target != null && target.isPlayer())
+                    target.sendMessage(Text.literal("SCREAMING!!!" + screamingTime));
+
+                if(this.getScreamingActionTime() <= 0){
+
+                    if(target != null && target.isPlayer()){
+                        target.sendMessage(Text.literal("Barrow Down - BOO!!!!"));
+                        target.addStatusEffect(new StatusEffectInstance(ModStatusEffects.HALLUCINATION, SCREAM_EFFECT_DURATION), this);
+                        target.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, SCREAM_EFFECT_DURATION), this);
+                    }
+
+                    this.setScreamingActionTime(-1);
+                }
+            }
             if (!this.canScream()) {
                 --this.lastScreamTime;
                 if (this.lastScreamTime < 0) {
@@ -147,12 +187,19 @@ public class BarrowWightEntity extends HostileEntity {
 
     protected void tryToScream() {
         LivingEntity target = getTarget();
+
         if(target == null) return;
+        if(target.distanceTo(this) > 25) return;
+        if(target.distanceTo(this) < 5) return;
+
         if(target.hasStatusEffect(ModStatusEffects.HALLUCINATION)) return;
-        target.addStatusEffect(new StatusEffectInstance(ModStatusEffects.HALLUCINATION, 200), this);
-        if(target.isPlayer())
-            target.sendMessage(Text.literal("Barrow Down - BOO!!!!"));
+
+        this.setScreamingActionTime(SCREAM_ACTION_TIME);
         this.setCanScream(false);
+    }
+
+    public int screaming() {
+        return screamActionTime;
     }
 
     public boolean canFreeze() {
@@ -175,6 +222,11 @@ public class BarrowWightEntity extends HostileEntity {
         return SoundEvents.ENTITY_SKELETON_STEP;
     }
 
+    @Override
+    public float getSoundPitch() {
+        return 0.1f;
+    }
+
     protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
         super.dropEquipment(source, lootingMultiplier, allowDrops);
         Entity entity = source.getAttacker();
@@ -192,5 +244,6 @@ public class BarrowWightEntity extends HostileEntity {
 
     static {
         CAN_SCREAM = DataTracker.registerData(BarrowWightEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+        SCREAMING_TIME = DataTracker.registerData(BarrowWightEntity.class, TrackedDataHandlerRegistry.INTEGER);
     }
 }
