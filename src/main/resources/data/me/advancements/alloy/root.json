@@ -1,12 +1,11 @@
 {
-  "parent": "me:middle_earth/root",
   "criteria": {
-    "raw_mithril": {
+    "alloy_furnace": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:raw_mithril"
+              "me:alloy_furnace"
             ]
           }
         ]
@@ -16,22 +15,23 @@
   },
   "display": {
     "announce_to_chat": true,
+    "background": "me:textures/block/dolomite_bricks.png",
     "description": {
-      "translate": "advancements.middle_earth.mithril.description"
+      "translate": "advancements.alloy.root.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:mithril_ore"
+      "item": "me:alloy_furnace"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.mithril.title"
+      "translate": "advancements.alloy.root.title"
     }
   },
-  "requirements": [
+    "requirements": [
     [
-      "raw_mithril"
+      "alloy_furnace"
     ]
   ]
 }
