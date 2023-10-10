@@ -86,9 +86,10 @@ public class BarrowWightModel extends SinglePartEntityModel<BarrowWightEntity> {
         this.head.yaw = netHeadYaw * ((float) Math.PI / 180);
 
         this.bottomJaw.pitch = 0.25F * Math.max(0, MathHelper.cos(ageInTicks * 0.1f));
-        float k = 0.8f * limbSwingAmount;
+        float k = 1.5f * limbSwingAmount;
         this.rightLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
         this.leftLeg.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float) Math.PI) * k;
+
 
         /*int i = entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_COOLING_DOWN);
         if (entity.getState().equals(BarrowWightEntity.State.ATTACK)) {

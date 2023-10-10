@@ -61,6 +61,7 @@ public class MouseMixin {
                 player.prevPitch = player.getPitch();
                 player.prevYaw = player.getYaw();
             } else if(id == -1){
+
                 this.lookAt = player.getWorld().getClosestEntity(BarrowWightEntity.class, TargetPredicate.createNonAttackable(), null, player.getX(), player.getY(), player.getZ(), player.getBoundingBox().expand(12));
                 if(lookAt != null)
                     this.id = lookAt.getId();
