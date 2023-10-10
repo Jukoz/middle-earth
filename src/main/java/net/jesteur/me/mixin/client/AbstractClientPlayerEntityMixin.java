@@ -39,18 +39,10 @@ public abstract class AbstractClientPlayerEntityMixin {
     private void injected(CallbackInfoReturnable<Float> cir) {
     PlayerEntity player = MinecraftClient.getInstance().player;
         assert player != null;
-        //player.changeLookDirection(2, 2);
         if(player.hasStatusEffect(ModStatusEffects.HALLUCINATION)){
-
-
             float intensity = (float) HallucinationData.readHallucination((IEntityDataSaver) player) / 100f;
             cir.setReturnValue(cir.getReturnValue() * (1 - intensity/4));
-
         }
-
-
-
-
     }
 
 }
