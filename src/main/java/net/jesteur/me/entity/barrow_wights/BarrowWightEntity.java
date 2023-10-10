@@ -33,7 +33,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 public class BarrowWightEntity extends HostileEntity {
-    private static final int MAX_HEALTH = 15;
+    private static final int MAX_HEALTH = 30;
     private static final float MOVEMENT_SPEED = 0.55f;
     private static final float KNOCKBACK_RESISTANCE = 1.0f;
     private static final float ATTACK_KNOCKBACK = 1.2f;
