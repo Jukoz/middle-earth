@@ -2,6 +2,7 @@ package net.jesteur.me.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.jesteur.me.MiddleEarth;
+import net.jesteur.me.item.items.EmptyPhialItem;
 import net.jesteur.me.item.items.MiddleEarthMapItem;
 import net.jesteur.me.item.items.StarlightPhialItem;
 import net.jesteur.me.item.items.PebbleItem;
@@ -49,7 +50,9 @@ public class ModRessourceItems {
     public static final Item WARG_BONE = registerItem("warg_bone",
             new Item(new FabricItemSettings()));
     public static final Item EMPTY_PHIAL = registerItem("empty_phial",
-            new Item(new FabricItemSettings()));
+            new EmptyPhialItem(new FabricItemSettings()));
+    public static final Item WATER_PHIAL = registerItem("water_phial",
+            new Item(new FabricItemSettings().maxCount(1)));
     public static final Item STARLIGHT_PHIAL = registerItem("starlight_phial",
             new StarlightPhialItem(new FabricItemSettings().maxCount(1)));
     public static final Item PEBBLE = registerItem("pebble",

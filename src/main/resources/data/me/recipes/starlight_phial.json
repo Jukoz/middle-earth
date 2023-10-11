@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "item": "minecraft:glow_ink_sac"
+    },
+    {
+      "item": "minecraft:glow_berries"
+    },
+    {
+      "item": "me:water_phial"
+    }
+  ],
+  "result": {
+    "item": "me:starlight_phial"
+  }
+}
