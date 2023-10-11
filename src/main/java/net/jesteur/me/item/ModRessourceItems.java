@@ -22,7 +22,7 @@ public class ModRessourceItems {
             new Item(new FabricItemSettings()));
             
     public static final Item MIDDLE_EARTH_MAP = registerItem("middle_earth_map",
-            new MiddleEarthMapItem(new FabricItemSettings()));
+            new MiddleEarthMapItem(new FabricItemSettings().maxCount(1)));
 
     public static final Item MITHRIL_INGOT = registerItem("mithril_ingot",
             new Item(new FabricItemSettings().fireproof()));
