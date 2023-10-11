@@ -36,6 +36,9 @@
   "itemGroup.resources": "Resources",
   "itemGroup.spawn_eggs": "Spawn Eggs",
 
+"#Comment:": "Status Effects",
+  "effect.me.hallucination" : "Hallucination",
+
 "#Comment:": "Item - Ores",
   "item.me.bronze_ingot": "Bronze Ingot",
   "item.me.bronze_nugget": "Bronze Nugget",
@@ -155,6 +158,7 @@
   "item.me.cooked_crab_claw": "Cooked Crab Claw",
 
 "#Comment:": "Item - Spawn Eggs",
+  "item.me.barrow_wight_spawn_egg": "Barrow Wight Spawn Egg",
   "item.me.cave_troll_spawn_egg": "Cave Troll Spawn Egg",
   "item.me.snow_troll_spawn_egg": "Snow Troll Spawn Egg",
   "item.me.crab_spawn_egg": "Crab Spawn Egg",
@@ -164,6 +168,18 @@
   "item.me.mordor_orc_spawn_egg": "Mordor Orc Spawn Egg",
   "item.me.mirkwood_spider_spawn_egg": "Mirkwood Spider Spawn Egg",
   "item.me.warg_spawn_egg": "Warg Spawn Egg",
+
+"#Comment:": "Item - Entities",
+  "entity.me.barrow_wight": "Barrow Wight",
+  "entity.me.cave_troll": "Cave Troll",
+  "entity.me.snow_troll": "Snow Troll",
+  "entity.me.crab": "Crab",
+  "entity.me.durin_folk": "Durin Folk",
+  "entity.me.galadhrim_elf": "Galadhrim Elf",
+  "entity.me.hobbit": "Hobbit",
+  "entity.me.mordor_orc": "Mordor Orc",
+  "entity.me.mirkwood_spider": "Mirkwood Spider",
+  "item.me.pebble": "Pebble",
 
 "#Comment:": "Block - Vanilla +",
   "block.me.stone_trapdoor": "Stone Trapdoor",
@@ -272,7 +288,6 @@
   "block.me.limestone_mossy_bricks_slab": "Limestone Mossy Bricks Slab",
   "block.me.limestone_mossy_bricks_stairs": "Limestone Mossy Bricks Stairs",
   "block.me.limestone_mossy_bricks_wall": "Limestone Mossy Bricks Wall",
-
 
 "#Comment:": "Block - Dirt",
   "block.me.dry_dirt": "Dry Dirt",
