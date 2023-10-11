@@ -22,8 +22,8 @@
       "state": {
         "Name": "minecraft:dark_oak_leaves",
         "Properties": {
-          "distance": "7",
-          "persistent": "false",
+          "distance": "9",
+          "persistent": "true",
           "waterlogged": "false"
         }
       }
@@ -40,9 +40,9 @@
     },
     "trunk_placer": {
       "type": "minecraft:dark_oak_trunk_placer",
-      "base_height": 8,
-      "height_rand_a": 5,
-      "height_rand_b": 1
+      "base_height": 7,
+      "height_rand_a": 4,
+      "height_rand_b": 2
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",

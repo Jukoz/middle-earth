@@ -4,6 +4,7 @@ import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.block.ModDecorativeBlocks;
 import net.jesteur.me.item.utils.ModItemGroups;
 import net.jesteur.me.item.utils.ModVerticallyAttachableBlockItem;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -15,6 +16,8 @@ public class ModDecorativeItems {
             new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.DWARVEN_LANTERN, ModDecorativeBlocks.WALL_DWARVEN_LANTERN, new Item.Settings(), new Direction[]{Direction.DOWN, Direction.UP}));
     public static final Item SILVER_LANTERN = registerItem("silver_lantern",
             new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.SILVER_LANTERN, ModDecorativeBlocks.WALL_SILVER_LANTERN, new Item.Settings(), new Direction[]{Direction.DOWN, Direction.UP}));
+    public static final Item ALLOY_FURNACE = registerItem("alloy_furnace",
+            new BlockItem(ModDecorativeBlocks.ALLOY_FURNACE, new Item.Settings()));
 
 
     private static Item registerItem(String name, Item item) {

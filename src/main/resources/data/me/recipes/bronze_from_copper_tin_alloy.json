@@ -1,0 +1,21 @@
+{
+  "type": "me:alloy_furnace",
+  "ingredients": [
+    {
+      "tag": "me:copper"
+    },
+    {
+      "tag": "me:copper"
+    },
+    {
+      "tag": "me:copper"
+    },
+    {
+      "tag": "me:tin"
+    }
+  ],
+  "output": {
+    "item": "me:bronze_ingot",
+    "count": 4
+  }
+}

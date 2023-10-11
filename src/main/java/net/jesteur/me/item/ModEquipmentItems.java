@@ -40,6 +40,15 @@ public class ModEquipmentItems {
     public static final Item NAZGUL_BOOTS = registerItem("nazgul_boots",
             new ArmorItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
+    public static final Item MORDOR_ORC_HELMET = registerItem("mordor_orc_helmet",
+            new ArmorItem(ModArmorMaterials.MORDOR_ORC_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
+    public static final Item MORDOR_ORC_CHESTPLATE = registerItem("mordor_orc_chestplate",
+            new ArmorItem(ModArmorMaterials.MORDOR_ORC_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
+    public static final Item MORDOR_ORC_LEGGINGS = registerItem("mordor_orc_leggings",
+            new ArmorItem(ModArmorMaterials.MORDOR_ORC_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item MORDOR_ORC_BOOTS = registerItem("mordor_orc_boots",
+            new ArmorItem(ModArmorMaterials.MORDOR_ORC_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);

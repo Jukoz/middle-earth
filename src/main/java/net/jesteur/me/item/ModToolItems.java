@@ -1,7 +1,6 @@
 package net.jesteur.me.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.datageneration.content.models.SimpleHandheldItemModel;
 import net.jesteur.me.item.utils.ModItemGroups;
@@ -30,13 +29,13 @@ public class ModToolItems {
             new HoeItem(ModToolMaterials.DWARVEN, IRON_HOE_DAMAGE, IRON_HOE_ATTACK_SPEED, new FabricItemSettings()));
 
     public static final Item MORDOR_ORC_PICKAXE = registerItem("mordor_orc_pickaxe",
-            new PickaxeItem(ModToolMaterials.MORDOR_ORC, IRON_DAMAGE, IRON_ATTACK_SPEED, new FabricItemSettings()));
+            new PickaxeItem(ModToolMaterials.ORCISH, IRON_DAMAGE, IRON_ATTACK_SPEED, new FabricItemSettings()));
     public static final Item MORDOR_ORC_AXE = registerItem("mordor_orc_axe",
-            new AxeItem(ModToolMaterials.MORDOR_ORC, IRON_AXE_DAMAGE, IRON_AXE_ATTACK_SPEED, new FabricItemSettings()));
+            new AxeItem(ModToolMaterials.ORCISH, IRON_AXE_DAMAGE, IRON_AXE_ATTACK_SPEED, new FabricItemSettings()));
     public static final Item MORDOR_ORC_SHOVEL = registerItem("mordor_orc_shovel",
-            new ShovelItem(ModToolMaterials.MORDOR_ORC, IRON_PICKAXE_DAMAGE, IRON_ATTACK_SPEED, new FabricItemSettings()));
+            new ShovelItem(ModToolMaterials.ORCISH, IRON_PICKAXE_DAMAGE, IRON_ATTACK_SPEED, new FabricItemSettings()));
     public static final Item MORDOR_ORC_HOE = registerItem("mordor_orc_hoe",
-            new HoeItem(ModToolMaterials.MORDOR_ORC, IRON_HOE_DAMAGE, IRON_HOE_ATTACK_SPEED, new FabricItemSettings()));
+            new HoeItem(ModToolMaterials.ORCISH, IRON_HOE_DAMAGE, IRON_HOE_ATTACK_SPEED, new FabricItemSettings()));
 
 
 

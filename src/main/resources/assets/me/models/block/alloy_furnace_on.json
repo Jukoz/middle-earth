@@ -1,0 +1,9 @@
+{
+  "parent": "me:block/alloy_furnace",
+  "textures": {
+    "0": "me:block/alloy_furnace_side",
+    "1": "me:block/alloy_furnace_bottom",
+    "2": "me:block/alloy_furnace_front_on",
+    "particle": "me:block/alloy_furnace_side"
+  }
+}

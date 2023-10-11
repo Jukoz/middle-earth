@@ -4,46 +4,53 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jesteur.me.MiddleEarth;
+import net.jesteur.me.world.biomes.MEBiome;
+import net.jesteur.me.world.biomes.MEBiomeFogData;
+import net.jesteur.me.world.biomes.MEBiomesData;
+import net.jesteur.me.world.biomes.ModBiomeSource;
 import net.jesteur.me.world.chunkgen.map.MapImageLoader;
+import net.jesteur.me.world.dimension.ModDimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.ControlsListWidget;
+import net.minecraft.client.gui.screen.option.GameOptionsScreen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.entity.Entity;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.text.ClickEvent;
 import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Text;
 import net.minecraft.text.Style;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import org.joml.Vector2i;
 
 import javax.swing.text.StyleContext;
 import java.text.DecimalFormat;
 import java.util.Objects;
+import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class MiddleEarthMapScreen extends Screen {
     private static final Identifier WINDOW_TEXTURE = new Identifier(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
     private static final Identifier MAP_UI_TEXTURE = new Identifier(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
     private static final Identifier MAP_TEXTURE = new Identifier(MiddleEarth.MOD_ID,"textures/map.png");
-    private static final Text RETURN_TO_GAME_TEXT = Text.translatable("menu.returnToGame");
     private static final Text MAP_TITLE_TEXT = Text.of("Middle-earth Map");
     public static final int MARGIN = 5;
 
-    public static final int MAP_WIDTH = 1400;
-    public static final int MAP_HEIGHT = 1216;
-
-    public static final int WINDOW_WIDTH = Math.round((float)MAP_WIDTH / (10f/3f));
-    public static final int WINDOW_HEIGHT = Math.round((float)MAP_HEIGHT / (10f/3f));
-
-    public static final int MAP_WINDOW_WIDTH = WINDOW_WIDTH - (MARGIN * 2);
-    public static final int MAP_WINDOW_HEIGHT = WINDOW_HEIGHT - (MARGIN * 2);
-
-    public static final float MIN_ZOOM = (float) MAP_WINDOW_WIDTH / MAP_WIDTH;
+    public static final int MAP_IMAGE_WIDTH = 1400;
+    public static final int MAP_IMAGE_HEIGHT = 1216;
+    public int windowWidth, windowHeight;
+    public int mapWindowWidth, mapWindowHeight;
+    public float minZoom;
     private static final int MAX_ZOOM_LEVEL = 10;
     public static final float [] ZOOM_LEVELS = new float[MAX_ZOOM_LEVEL];
     private static final Vector2i WORLD_SIZE = getWorldSize();
@@ -54,19 +61,14 @@ public class MiddleEarthMapScreen extends Screen {
     private static int zoomLevel = 1;
 
     private static int zoomButtonIndex;
-    private float zoomButtonHover = 0f;
     private static int dezoomButtonIndex;
-    private float dezoomButtonHover = 0f;
     private static int centerOnPlayerButtonIndex;
-    private float centerOnPlayerButtonHover = 0f;
     private static int debugButtonIndex;
-    private float debugButtonHover = 0f;
-
     private Vec3d playerCoordinate;
 
     private Vector2i cursorWorldCoordinate;
 
-    private boolean debug = false;
+    private static boolean debug = false;
 
     public MiddleEarthMapScreen() {
         super(MAP_TITLE_TEXT);
@@ -80,34 +82,54 @@ public class MiddleEarthMapScreen extends Screen {
 
     @Override
     protected void init() {
+        if(this.client != null) {
+            float[]  guiScaleModifiers = { // Index is GUI Scale
+                6.25f, // 0
+                3f, // 1
+                4f, // 2
+                5f, // 3
+                6.25f, // 4
+            };
 
-        int x = (this.width - WINDOW_WIDTH) / 2;
-        int y = (this.height - WINDOW_HEIGHT) / 2;
+            int guiScale = this.client.options.getGuiScale().getValue();
 
-        int offset = 18 + 3;
-        int signsOffsetX = x + WINDOW_WIDTH + 2;
-        int signsOffsetY = y + WINDOW_HEIGHT - (offset * 3);
+            windowWidth = Math.round((float)MAP_IMAGE_WIDTH / guiScaleModifiers[guiScale]);
+            windowHeight = Math.round((float)MAP_IMAGE_HEIGHT / guiScaleModifiers[guiScale]);
+
+            mapWindowWidth =  windowWidth - (MARGIN * 2);
+            mapWindowHeight = windowHeight - (MARGIN * 2);
+        }
+
+        minZoom = (float) mapWindowWidth / MAP_IMAGE_WIDTH;
+
+        int x = (this.width - windowWidth) / 2;
+        int y = (this.height - windowHeight) / 2;
+
+        int offset = 18;
+        int buttonMargin = 3;
+        int optionsOffsetX = x + windowWidth + 2;
+        int optionsOffsetY = y + windowHeight - MARGIN;
 
 
         ButtonWidget debugButton = ButtonWidget.builder(Text.literal("Debug"), button -> {
                     debug = !debug;
                 })
-                .dimensions(signsOffsetX, y + MARGIN, 18, 18).build();
+                .dimensions(optionsOffsetX, y + MARGIN, 18, 18).build();
 
 
         ButtonWidget centerOnPlayer = ButtonWidget.builder(Text.literal("Center on Player"), button -> {
                     centerOnCoordinates(playerCoordinate.x, playerCoordinate.z);
                 })
-                .dimensions(signsOffsetX, signsOffsetY, 18, 18).build();
+                .dimensions(optionsOffsetX, optionsOffsetY - (offset * 3) - (buttonMargin * 2), 18, 18).build();
 
         ButtonWidget zoomButton = ButtonWidget.builder(Text.literal("Zoom"), button -> {
                     zoom(1, false);
                 })
-                .dimensions(signsOffsetX, signsOffsetY + offset, 18, 18).build();
+                .dimensions(optionsOffsetX, optionsOffsetY - (offset * 2)  - buttonMargin, 18, 18).build();
         ButtonWidget dezoomButton = ButtonWidget.builder(Text.literal("Dezoom"), button -> {
                     zoom(-1, false);
                 })
-                .dimensions(signsOffsetX, signsOffsetY + (offset * 2), 18, 18).build();
+                .dimensions(optionsOffsetX, optionsOffsetY - offset, 18, 18).build();
 
         addDrawableChild(debugButton);
         addDrawableChild(centerOnPlayer);
@@ -127,45 +149,51 @@ public class MiddleEarthMapScreen extends Screen {
     }
 
     public void drawWindow(DrawContext context, int mouseX, int mouseY) {
-        int x = (this.width - WINDOW_WIDTH) / 2;
-        int y = (this.height - WINDOW_HEIGHT) / 2;
+        int x = (this.width -  windowWidth) / 2;
+        int y = (this.height - windowHeight) / 2;
         RenderSystem.enableBlend();
 
         drawMaintTextures(context, x, y, mouseX, mouseY);
 
         Entity cameraEntity = this.client.getCameraEntity();
         if(cameraEntity != null) {
-            Vec3d pos = Objects.requireNonNull(MinecraftClient.getInstance().getCameraEntity()).getPos();
             if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
+
                 playerCoordinate = new Vec3d(abstractClientPlayerEntity.getPos().x, abstractClientPlayerEntity.getPos().y, abstractClientPlayerEntity.getPos().z);
                 Vec2f mapPlayerPos = getCoordinateOnMap((float)playerCoordinate.x, (float)playerCoordinate.z, 4,4);
 
-                // Debug panels
-                if(debug){
-                    context.drawTextWithShadow(textRenderer, Text.literal("World Player Coordinates : " + (int)playerCoordinate.x + ", " + (int)playerCoordinate.y+ ", " + (int)playerCoordinate.z), 0, 5, 0xffffff);
-                    context.drawTextWithShadow(textRenderer, Text.literal("Map Player Coordinates : " + (int)mapPlayerPos.x + ", " + (int)mapPlayerPos.y), 0, 15, 0xffffff);
+                if(cameraEntity.getWorld().getDimensionKey().getValue().toString().contains(ModDimensions.DIMENSION_KEY.getValue().toString())){
+                    context.drawTexture(abstractClientPlayerEntity.getSkinTexture(),
+                            x + MARGIN + (int)mapPlayerPos.x - 4,
+                            y + MARGIN + (int)mapPlayerPos.y - 4,
+                            8, 8, 8, 8, 64, 64);
 
-                    //context.drawTextWithShadow(textRenderer, Text.literal("Mouse.coord: " + ((int)mouseX - x) * currentZoom / MIN_ZOOM + "," + ((int)mouseY - y) * currentZoom / MIN_ZOOM), 0, 25, 0xffffff);
-                    context.drawTextWithShadow(textRenderer, Text.literal("Mouse in Window : " + (int)mouseX + "," + (int)mouseY), 0, 35, 0xffffff);
-                    context.drawTextWithShadow(textRenderer, Text.literal("Mouse in Map : " + ((int)mouseX - x - MARGIN) + "," +  ((int)mouseY - y - MARGIN)), 0, 45, 0xffffff);
-
-                    context.drawTextWithShadow(textRenderer, Text.literal("Zoom Level : " + zoomLevel + " (" + getZoomLevel() + ")"), 0, 60, 0xFFBF00);
+                    boolean oustideBound = cursorIsOutsideOfMapBounds(mouseX, mouseY);
                     cursorWorldCoordinate = getWorldCoordinateOfCursor(mouseX, mouseY);
-                    context.drawTextWithShadow(textRenderer, Text.literal("Cursor World Coordinates : " + cursorWorldCoordinate.x + ", " + cursorWorldCoordinate.y), 0, 70, 0xFFBF00);
+                    
+                    // Debug panel
+                    if(debug){
+                        World world = abstractClientPlayerEntity.getWorld();
+                        Optional<RegistryKey<Biome>> biomeRegistry = world.getBiome(abstractClientPlayerEntity.getBlockPos()).getKey();
+                        String currentBiomeId = biomeRegistry.isPresent() ? biomeRegistry.get().getValue().toString() : "N/A";
 
-                    context.drawTextWithShadow(textRenderer, Text.literal("Map Displacement X : " + mapDisplacementX), 0, 85, 0xffffff);
-                    context.drawTextWithShadow(textRenderer, Text.literal("Map Displacement Y : " + mapDisplacementY), 0, 95, 0xffffff);
+                        context.drawTextWithShadow(textRenderer, Text.literal("Player information"), 0, 5, 0xffffff);
+                        context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + (int)playerCoordinate.x + ", " + (int)playerCoordinate.y + "," + (int)playerCoordinate.z), 5, 15, 0xffffff);
+                        context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + currentBiomeId), 5, 25, 0xffffff);
 
-                    //context.drawTextWithShadow(textRenderer, Text.literal("Current Map Center : " + (int)centerCoordinate.x + ", " + (int)centerCoordinate.y), 0, 110, 0xffffff);
+                        MEBiome meBiome = MEBiomesData.biomeMap.get(MapImageLoader.getBiomeColor(cursorWorldCoordinate.x, cursorWorldCoordinate.y));
+
+                        context.drawTextWithShadow(textRenderer, Text.literal("Cursor information"), 0, 45, 0xffffff);
+                        context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + ((oustideBound) ? "N/A" : (int)cursorWorldCoordinate.x + ", " + (int)cursorWorldCoordinate.y)), 5, 55, 0xffffff);
+                        context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + ((oustideBound || meBiome == null) ? "N/A" : meBiome.biome.getValue().toString())), 5, 65, 0xffffff);
+
+                    }
                 }
-
-                context.drawTexture(abstractClientPlayerEntity.getSkinTexture(),
-                        x + MARGIN + (int)mapPlayerPos.x - 4,
-                        y + MARGIN + (int)mapPlayerPos.y - 4,
-                        8, 8, 8, 8, 64, 64);
             }
         }
     }
+
+
 
     private float getZoomLevel(){
         return ZOOM_LEVELS[zoomLevel - 1];
@@ -173,77 +201,55 @@ public class MiddleEarthMapScreen extends Screen {
 
     private void drawMaintTextures(DrawContext context, int x, int y, double mouseX, double mouseY) {
         // Border
-        context.drawTexture(WINDOW_TEXTURE, x, y, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
-                WINDOW_WIDTH, WINDOW_HEIGHT);
+        context.drawTexture(WINDOW_TEXTURE, x, y, 0, 0,  windowWidth, windowHeight,
+                 windowWidth, windowHeight);
         // Map
         context.drawTexture(MAP_TEXTURE, x + MARGIN, y + MARGIN,
                 // UV (x,y)
                 mapDisplacementX, mapDisplacementY,
-                MAP_WINDOW_WIDTH,
-                MAP_WINDOW_HEIGHT,
-                (int) (MAP_WIDTH * getZoomLevel() * MIN_ZOOM),
-                (int) (MAP_HEIGHT * getZoomLevel() * MIN_ZOOM));
+                mapWindowWidth,
+                 mapWindowHeight,
+                (int) (MAP_IMAGE_WIDTH * getZoomLevel() * minZoom),
+                (int) (MAP_IMAGE_HEIGHT * getZoomLevel() * minZoom));
 
         // Map UI
 
-        // Zoom
-        int offset = 18 + 3;
-        int signsOffsetX = x + WINDOW_WIDTH + 2;
-        int signsOffsetY = y + WINDOW_HEIGHT - (offset * 3);
-
         // Debug Button
-        int debugButtonTextureOffset = (debugButtonHover > 0) ? 18 : 0;
-        debugButtonHover --;
-        if(mouseX > signsOffsetX && mouseX < signsOffsetX + 18 && mouseY > y + MARGIN && mouseY < y + MARGIN + 18){
-            debugButtonHover = 3;
-        }
+        int debugButtonTextureOffset = children().get(debugButtonIndex).isMouseOver(mouseX, mouseY) ? 18 : 0;
+
         context.drawTexture(MAP_UI_TEXTURE,
-                signsOffsetX,
-                y + MARGIN,
+                ((ButtonWidget)children().get(debugButtonIndex)).getX(),
+                ((ButtonWidget)children().get(debugButtonIndex)).getY(),
                 debugButtonTextureOffset, 54, 18, 18, 256, 256);
 
-
         // Center on player
-        int centerOnPlayerTextureOffset = (centerOnPlayerButtonHover > 0) ? 18 : 0;
-        centerOnPlayerButtonHover --;
-        if(mouseX > signsOffsetX && mouseX < signsOffsetX + 18 && mouseY > signsOffsetY && mouseY < signsOffsetY + 18){
-            centerOnPlayerButtonHover = 3;
-        }
+        int centerOnPlayerTextureOffset = children().get(centerOnPlayerButtonIndex).isMouseOver(mouseX, mouseY) ? 18 : 0;
         if(zoomLevel == 1){
             centerOnPlayerTextureOffset = 36;
         }
         context.drawTexture(MAP_UI_TEXTURE,
-                signsOffsetX,
-                signsOffsetY,
+                ((ButtonWidget)children().get(centerOnPlayerButtonIndex)).getX(),
+                ((ButtonWidget)children().get(centerOnPlayerButtonIndex)).getY(),
                 centerOnPlayerTextureOffset, 36, 18, 18, 256, 256);
 
-
         // Zoom +
-        int zoomTextureOffset = (zoomButtonHover > 0) ? 18 : 0;
-        zoomButtonHover --;
-        if(mouseX > signsOffsetX && mouseX < signsOffsetX + 18 && mouseY > signsOffsetY + offset && mouseY < signsOffsetY + 18 + offset){
-            zoomButtonHover = 3;
-        }
+        int zoomTextureOffset = children().get(zoomButtonIndex).isMouseOver(mouseX, mouseY) ? 18 : 0;
         if(zoomLevel ==  MAX_ZOOM_LEVEL - 1){
             zoomTextureOffset = 36;
         }
         context.drawTexture(MAP_UI_TEXTURE,
-                signsOffsetX,
-                signsOffsetY + offset,
+                ((ButtonWidget)children().get(zoomButtonIndex)).getX(),
+                ((ButtonWidget)children().get(zoomButtonIndex)).getY(),
                 zoomTextureOffset, 0, 18, 18, 256, 256);
 
         // Zoom -
-        int dezoomTextureOffset = (dezoomButtonHover > 0) ? 18 : 0;
-        dezoomButtonHover --;
-        if(mouseX > signsOffsetX && mouseX < signsOffsetX + 18 && mouseY > signsOffsetY + (offset * 2) && mouseY < signsOffsetY + 18 + (offset * 2)){
-            dezoomButtonHover = 3;
-        }
+        int dezoomTextureOffset = children().get(dezoomButtonIndex).isMouseOver(mouseX, mouseY) ? 18 : 0;
         if(zoomLevel == 1){
             dezoomTextureOffset = 36;
         }
         context.drawTexture(MAP_UI_TEXTURE,
-                signsOffsetX,
-                signsOffsetY + (offset * 2),
+                ((ButtonWidget)children().get(dezoomButtonIndex)).getX(),
+                ((ButtonWidget)children().get(dezoomButtonIndex)).getY(),
                 dezoomTextureOffset, 18, 18, 18, 256, 256);
 
         ((ButtonWidget)children().get(centerOnPlayerButtonIndex)).active = (zoomLevel > 1);
@@ -311,53 +317,53 @@ public class MiddleEarthMapScreen extends Screen {
         float modifier = getZoomLevel() - 1;
         // Maximum (dynamic)
         // When zoomLevelIndex is 0, maximum should be 0,0
-        mapDisplacementX = (int)Math.min((MAP_WINDOW_WIDTH) * modifier, mapDisplacementX);
-        mapDisplacementY = (int) Math.min((MAP_WINDOW_HEIGHT) * modifier, mapDisplacementY);
+        mapDisplacementX = (int)Math.min((mapWindowWidth) * modifier, mapDisplacementX);
+        mapDisplacementY = (int) Math.min(( mapWindowHeight) * modifier, mapDisplacementY);
     }
 
     private Vec2f getCoordinateOnMap(float posX, float posZ, int textureOffsetX, int textureOffsetY) {
-        float transformedPosX = ((posX / WORLD_SIZE.x) * MAP_WINDOW_WIDTH * getZoomLevel()) - mapDisplacementX;
-        float transformedPosY = ((posZ / WORLD_SIZE.y) * MAP_WINDOW_HEIGHT * getZoomLevel()) - mapDisplacementY;
+        float transformedPosX = ((posX / WORLD_SIZE.x) * mapWindowWidth * getZoomLevel()) - mapDisplacementX;
+        float transformedPosY = ((posZ / WORLD_SIZE.y) *  mapWindowHeight * getZoomLevel()) - mapDisplacementY;
 
-        transformedPosX = Math.max(textureOffsetX, Math.min(MAP_WINDOW_WIDTH - textureOffsetX, transformedPosX));
-        transformedPosY = Math.max(textureOffsetY, Math.min(MAP_WINDOW_HEIGHT - textureOffsetY, transformedPosY));
+        transformedPosX = Math.max(textureOffsetX, Math.min(mapWindowWidth - textureOffsetX, transformedPosX));
+        transformedPosY = Math.max(textureOffsetY, Math.min( mapWindowHeight - textureOffsetY, transformedPosY));
 
         return new Vec2f(transformedPosX, transformedPosY);
     }
 
     private boolean cursorIsOutsideOfMapBounds(double mouseX, double mouseY){
-        int x = (this.width - WINDOW_WIDTH) / 2  + MARGIN;
-        int y = (this.height - WINDOW_HEIGHT) / 2 + MARGIN;
+        int x = (this.width -  windowWidth) / 2  + MARGIN;
+        int y = (this.height - windowHeight) / 2 + MARGIN;
 
-        boolean isInBoundX = (int)mouseX - x > 0 && (int)mouseX - x < MAP_WINDOW_WIDTH;
-        boolean isInBoundY = (int)mouseY - y > 0 && (int)mouseY - y < MAP_WINDOW_HEIGHT;
+        boolean isInBoundX = (int)mouseX - x > 0 && (int)mouseX - x < mapWindowWidth;
+        boolean isInBoundY = (int)mouseY - y > 0 && (int)mouseY - y <  mapWindowHeight;
 
         return !isInBoundX || !isInBoundY;
     }
 
     private void centerOnCoordinates(double x, double y){
-        double transformedCoordinatesX = ((x / WORLD_SIZE.x) * MAP_WINDOW_WIDTH * getZoomLevel());
-        double transformedCoordinatesY = ((y / WORLD_SIZE.y) * MAP_WINDOW_HEIGHT * getZoomLevel());
+        double transformedCoordinatesX = ((x / WORLD_SIZE.x) * mapWindowWidth * getZoomLevel());
+        double transformedCoordinatesY = ((y / WORLD_SIZE.y) *  mapWindowHeight * getZoomLevel());
 
         centerMapTo((int)transformedCoordinatesX, (int)transformedCoordinatesY);
     }
 
     private Vector2i getCenterOfCurrentMap(){
-        int centerX = (int)((mapDisplacementX + (MAP_WINDOW_WIDTH / 2)) / (getZoomLevel() * MIN_ZOOM));
-        int centerY =  (int)((mapDisplacementY + (MAP_WINDOW_HEIGHT / 2)) / (getZoomLevel() * MIN_ZOOM));
+        int centerX = (int)((mapDisplacementX + (mapWindowWidth / 2)) / (getZoomLevel() * minZoom));
+        int centerY =  (int)((mapDisplacementY + ( mapWindowHeight / 2)) / (getZoomLevel() * minZoom));
 
         return new Vector2i(centerX, centerY);
     }
 
     private Vector2i getWorldCoordinateOfCursor(double mouseX, double mouseY) {
-        mouseX -= (double) (this.width - WINDOW_WIDTH) / 2;
-        mouseY -= (double) (this.height - WINDOW_HEIGHT) / 2;
+        mouseX -= (double) (this.width -  windowWidth) / 2;
+        mouseY -= (double) (this.height - windowHeight) / 2;
 
-        int centerX = (int)((mapDisplacementX + mouseX) / (getZoomLevel() * MIN_ZOOM));
-        int centerY =  (int)((mapDisplacementY + mouseY) / (getZoomLevel() * MIN_ZOOM));
+        int centerX = (int)((mapDisplacementX + mouseX) / (getZoomLevel() * minZoom));
+        int centerY =  (int)((mapDisplacementY + mouseY) / (getZoomLevel() * minZoom));
 
-        centerX= (int)(WORLD_SIZE.x / MAP_WIDTH * centerX);
-        centerY = (int)(WORLD_SIZE.y / MAP_HEIGHT * centerY);
+        centerX= (int)(WORLD_SIZE.x / MAP_IMAGE_WIDTH * centerX);
+        centerY = (int)(WORLD_SIZE.y / MAP_IMAGE_HEIGHT * centerY);
 
         return new Vector2i(centerX, centerY);
     }
@@ -366,15 +372,15 @@ public class MiddleEarthMapScreen extends Screen {
     private Vector2i getCoordinateInCenterOfMap(){
         Vector2i currentCenter = getCenterOfCurrentMap();
 
-        currentCenter.x = (int)(WORLD_SIZE.x / MAP_WIDTH * currentCenter.x);
-        currentCenter.y = (int)(WORLD_SIZE.y / MAP_HEIGHT * currentCenter.y);
+        currentCenter.x = (int)(WORLD_SIZE.x / MAP_IMAGE_WIDTH * currentCenter.x);
+        currentCenter.y = (int)(WORLD_SIZE.y / MAP_IMAGE_HEIGHT * currentCenter.y);
 
         return currentCenter;
     }
 
     private void centerMapTo(int x, int y){
-        mapDisplacementX = x - (MAP_WINDOW_WIDTH / 2);
-        mapDisplacementY = y - (MAP_WINDOW_HEIGHT / 2);;
+        mapDisplacementX = x - (mapWindowWidth / 2);
+        mapDisplacementY = y - ( mapWindowHeight / 2);;
 
         correctMapVision();
     }
@@ -382,6 +388,6 @@ public class MiddleEarthMapScreen extends Screen {
     private static Vector2i getWorldSize(){
         float worldSize = (float) Math.pow(2 , MiddleEarth.MAP_ITERATION);
 
-        return new Vector2i((int)(MAP_WIDTH * worldSize), (int)(MAP_HEIGHT * worldSize));
+        return new Vector2i((int)(MAP_IMAGE_WIDTH * worldSize), (int)(MAP_IMAGE_HEIGHT * worldSize));
     }
 }

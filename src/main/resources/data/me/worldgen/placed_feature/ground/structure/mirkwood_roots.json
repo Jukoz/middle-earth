@@ -1,0 +1,15 @@
+{
+  "feature": "me:ground/structure/mirkwood_roots",
+  "placement": [
+    {
+      "type": "minecraft:count_on_every_layer",
+      "count": {
+        "type": "minecraft:uniform",
+        "value": {
+          "min_inclusive": 0,
+          "max_inclusive": 2
+        }
+      }
+    }
+  ]
+}

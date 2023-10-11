@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "me:tin_ingot",
+    "me:raw_tin",
+    "me:tin_ore",
+    "me:deepslate_tin_ore",
+    "me:ashen_rock_tin_ore",
+    "me:gonluin_tin_ore",
+    "me:dolomite_tin_ore",
+    "me:calcite_tin_ore"
+  ]
+}

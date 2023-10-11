@@ -8,7 +8,7 @@
   },
   "downfall": 0.4,
   "effects": {
-    "fog_color": 12638463,
+    "fog_color": 8358528,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
@@ -55,16 +55,21 @@
       "minecraft:ore_copper",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
-      "minecraft:disk_gravel"
+      "minecraft:disk_gravel",
+      "me:ground/surface/mud"
     ],
     [],
     [
       "minecraft:spring_water"
     ],
     [
-      "me:foliage/patch/mirkwood",
       "me:forest/mirkwood",
-      "me:boulder/basic/stone"
+      "me:boulder/complex/mossy_rock",
+      "me:foliage/simple/white_mushroom_tiller",
+      "me:foliage/patch/white_mushroom_patch",
+      "me:foliage/patch/mirkwood",
+      "me:ground/structure/mirkwood_roots",
+      "me:foliage/simple/forest_moss"
     ],
     [
       "minecraft:freeze_top_layer"
@@ -76,6 +81,12 @@
 	"monster": [
     ],
     "creature": [
+      {
+        "type": "minecraft:frog",
+        "maxCount": 7,
+        "minCount": 3,
+        "weight": 20
+      },
 	  {
         "type": "minecraft:wolf",
         "maxCount": 4,
