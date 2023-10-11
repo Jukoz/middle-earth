@@ -8,11 +8,16 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 
 public class MEBiomeKeys extends BiomeKeys {
-    public static final RegistryKey<Biome> ANDUIN = MEBiomeKeys.register("anduin");
+    public static final RegistryKey<Biome> ANDUIN_VALES = MEBiomeKeys.register("anduin");
+    public static final RegistryKey<Biome> BARROW_DOWNS = MEBiomeKeys.register("barrow_downs");
     public static final RegistryKey<Biome> BLUE_MOUNTAINS = MEBiomeKeys.register("blue_mountains");
     public static final RegistryKey<Biome> BLUE_MOUNTAINS_FOOTHILLS = MEBiomeKeys.register("blue_mountains_foothills");
     public static final RegistryKey<Biome> CORSAIR_COASTS = MEBiomeKeys.register("corsair_coasts");
     public static final RegistryKey<Biome> DALE = MEBiomeKeys.register("dale");
+    public static final RegistryKey<Biome> DARK_MIRKWOOD = MEBiomeKeys.register("dark_mirkwood");
+    public static final RegistryKey<Biome> DARK_MIRKWOOD_EDGE = MEBiomeKeys.register("dark_mirkwood_edge");
+    public static final RegistryKey<Biome> DARK_ANDUIN_VALES = MEBiomeKeys.register("dark_anduin_vales");
+    public static final RegistryKey<Biome> DOL_GULDUR = MEBiomeKeys.register("dol_guldur");
     public static final RegistryKey<Biome> DORWINION_HILLS = MEBiomeKeys.register("dorwinion_hills");
     public static final RegistryKey<Biome> DUNLAND_FOOTHILLS = MEBiomeKeys.register("dunland_foothills");
     public static final RegistryKey<Biome> EASTERN_RHOVANION = MEBiomeKeys.register("eastern_rhovanion");
@@ -28,12 +33,17 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> HARAD_DESERT = MEBiomeKeys.register("harad_desert");
     public static final RegistryKey<Biome> HARONDOR = MEBiomeKeys.register("harondor");
     public static final RegistryKey<Biome> IRON_HILLS = MEBiomeKeys.register("iron_hills");
+    public static final RegistryKey<Biome> IRON_HILLS_FRONTIER = MEBiomeKeys.register("iron_hills_frontier");
     public static final RegistryKey<Biome> LINDON = MEBiomeKeys.register("lindon");
     public static final RegistryKey<Biome> LONG_LAKE = MEBiomeKeys.register("long_lake");
     public static final RegistryKey<Biome> LORIEN_EDGE = MEBiomeKeys.register("lorien_edge");
     public static final RegistryKey<Biome> LOTHLORIEN = MEBiomeKeys.register("lothlorien");
     public static final RegistryKey<Biome> MILLPOND = MEBiomeKeys.register("millpond");
     public static final RegistryKey<Biome> MIRKWOOD = MEBiomeKeys.register("mirkwood");
+    public static final RegistryKey<Biome> MIRKWOOD_EDGE = MEBiomeKeys.register("mirkwood_edge");
+    public static final RegistryKey<Biome> MIRKWOOD_FOOTHILLS = MEBiomeKeys.register("mirkwood_foothills");
+    public static final RegistryKey<Biome> MIRKWOOD_MOUNTAINS = MEBiomeKeys.register("mirkwood_mountains");
+    public static final RegistryKey<Biome> MIRKWOOD_SWAMP = MEBiomeKeys.register("mirkwood_swamp");
     public static final RegistryKey<Biome> MISTY_MOUNTAINS = MEBiomeKeys.register("misty_mountains");
     public static final RegistryKey<Biome> MORDOR = MEBiomeKeys.register("mordor");
     public static final RegistryKey<Biome> MORDOR_MOUNTAINS = MEBiomeKeys.register("mordor_mountains");
@@ -60,9 +70,12 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> SOUTHERN_FOROCHEL = MEBiomeKeys.register("southern_forochel");
     public static final RegistryKey<Biome> WASTE_POND = MEBiomeKeys.register("waste_pond");
     public static final RegistryKey<Biome> THE_ANGLE = MEBiomeKeys.register("the_angle");
+    public static final RegistryKey<Biome> THE_OLD_FOREST = MEBiomeKeys.register("the_old_forest");
+    public static final RegistryKey<Biome> THE_WOLD = MEBiomeKeys.register("the_wold");
     public static final RegistryKey<Biome> TOLFALAS = MEBiomeKeys.register("tolfalas");
     public static final RegistryKey<Biome> TROLLSHAWS = MEBiomeKeys.register("trollshaws");
     public static final RegistryKey<Biome> UMBAR = MEBiomeKeys.register("umbar");
+    public static final RegistryKey<Biome> WOODLAND_REALM = MEBiomeKeys.register("woodland_realm");
     public static final RegistryKey<Biome> WHITE_MOUNTAINS = MEBiomeKeys.register("white_mountains");
 
     private static RegistryKey<Biome> register(String name) {
