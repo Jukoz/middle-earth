@@ -3,13 +3,7 @@
   "category": "equipment",
   "ingredients": [
     {
-      "item": "minecraft:glowstone_dust"
-    },
-    {
-      "item": "minecraft:glow_ink_sac"
-    },
-    {
-      "item": "minecraft:glow_berries"
+      "tag": "me:glowy"
     },
     {
       "item": "me:water_phial"
