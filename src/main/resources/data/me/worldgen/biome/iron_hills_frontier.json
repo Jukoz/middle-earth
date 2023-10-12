@@ -6,20 +6,18 @@
       "minecraft:canyon"
     ]
   },
-  "downfall": 0.4,
+  "downfall": 0.3,
   "effects": {
-    "fog_color": 8358528,
+    "fog_color": 12638463,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
-    "grass_color": 4151612,
-	"foliage_color": 3823415,
-    "sky_color": 7972607,
-    "water_color": 4293787,
-    "water_fog_color": 338483
+    "sky_color": 8233727,
+    "water_color": 4159204,
+    "water_fog_color": 329011
   },
   "features": [
     [],
@@ -53,45 +51,42 @@
       "minecraft:ore_gold",
       "minecraft:ore_gold_lower",
       "minecraft:ore_copper",
-      "minecraft:disk_sand",
+      "minecraft:underwater_magma",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-      "me:ground/surface/mud"
+      "minecraft:ore_emerald",
+	  "me:ground/disk/dolomite"
     ],
     [],
+    [],
     [
-      "minecraft:spring_water"
-    ],
-    [
-      "me:forest/mirkwood",
-      "me:boulder/complex/mossy_rock",
-      "me:foliage/simple/white_mushroom_tiller",
-      "me:foliage/patch/white_mushroom_patch",
-      "minecraft:red_mushroom_normal",
-      "me:foliage/patch/mirkwood",
-      "me:ground/structure/mirkwood_roots",
-      "me:foliage/simple/forest_moss"
+      "minecraft:glow_lichen",
+      "minecraft:flower_default",
+      "minecraft:patch_grass_badlands"
     ],
     [
       "minecraft:freeze_top_layer"
     ]
   ],
   "has_precipitation": true,
+  "creature_spawn_probability": 0.2,
   "spawn_costs": {},
   "spawners": {
-	"monster": [
-    ],
-    "creature": [
-	  {
-        "type": "minecraft:wolf",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 15
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "maxCount": 8,
+        "minCount": 8,
+        "weight": 10
       }
     ],
+    "axolotls": [],
+	"creature": [],
     "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.8
+  "temperature": 0.2
 }

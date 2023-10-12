@@ -8,18 +8,18 @@
   },
   "downfall": 0.4,
   "effects": {
-    "fog_color": 8358528,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
-    "grass_color": 4151612,
-	"foliage_color": 3823415,
-    "sky_color": 7972607,
-    "water_color": 4293787,
-    "water_fog_color": 338483
+    "sky_color": 3684976,
+    "fog_color": 5065045,
+    "water_color": 2503248,
+    "water_fog_color": 462892,
+    "grass_color": 3554356,
+    "foliage_color": 3424049
   },
   "features": [
     [],
@@ -67,7 +67,6 @@
       "me:boulder/complex/mossy_rock",
       "me:foliage/simple/white_mushroom_tiller",
       "me:foliage/patch/white_mushroom_patch",
-      "minecraft:red_mushroom_normal",
       "me:foliage/patch/mirkwood",
       "me:ground/structure/mirkwood_roots",
       "me:foliage/simple/forest_moss"
@@ -82,12 +81,6 @@
 	"monster": [
     ],
     "creature": [
-	  {
-        "type": "minecraft:wolf",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 15
-      }
     ],
     "misc": [],
     "water_ambient": [],

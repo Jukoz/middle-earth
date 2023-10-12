@@ -51,6 +51,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     public MiddleEarthChunkGenerator(RegistryEntryLookup<Biome> biomeRegistry) {
         super(new ModBiomeSource(
                 new ArrayList<>(Arrays.asList(
+                    biomeRegistry.getOrThrow(MEBiomeKeys.OCEAN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ANDUIN_VALES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BARROW_DOWNS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BLUE_MOUNTAINS),
@@ -96,7 +97,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.NURN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NURN_RIVER),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NURN_SEA),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.OCEAN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OCEAN_COAST),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OLD_ANGMAR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OLD_ARTHEDAIN),
@@ -150,6 +150,11 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 if(MiddleEarthHeightMap.isCoordinateInBounds(posX, posZ)) {
                     meBiome = MEBiomesData.biomeMap.get(MapImageLoader.getBiomeColor(posX, posZ));
                 } else {
+                    meBiome = MEBiomesData.defaultBiome;
+                }
+
+                if(meBiome == null) {
+                    int c = MapImageLoader.getBiomeColor(posX, posZ);
                     meBiome = MEBiomesData.defaultBiome;
                 }
 

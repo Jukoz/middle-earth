@@ -8,18 +8,18 @@
   },
   "downfall": 0.4,
   "effects": {
-    "fog_color": 8358528,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
-    "grass_color": 4151612,
-	"foliage_color": 3823415,
-    "sky_color": 7972607,
-    "water_color": 4293787,
-    "water_fog_color": 338483
+    "sky_color": 6785744,
+    "fog_color": 10004675,
+    "water_color": 4421513,
+    "water_fog_color": 402733,
+    "grass_color": 2050827,
+    "foliage_color": 1789719
   },
   "features": [
     [],
@@ -55,22 +55,22 @@
       "minecraft:ore_copper",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
-      "minecraft:disk_gravel",
-      "me:ground/surface/mud"
+      "minecraft:disk_gravel"
     ],
     [],
     [
       "minecraft:spring_water"
     ],
     [
-      "me:forest/mirkwood",
-      "me:boulder/complex/mossy_rock",
-      "me:foliage/simple/white_mushroom_tiller",
-      "me:foliage/patch/white_mushroom_patch",
+      "minecraft:glow_lichen",
+      "me:forest/fangorn",
+      "minecraft:forest_flowers",
+      "minecraft:flower_default",
+      "minecraft:patch_grass_forest",
+      "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
-      "me:foliage/patch/mirkwood",
-      "me:ground/structure/mirkwood_roots",
-      "me:foliage/simple/forest_moss"
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_pumpkin"
     ],
     [
       "minecraft:freeze_top_layer"
@@ -79,16 +79,8 @@
   "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
-	"monster": [
-    ],
-    "creature": [
-	  {
-        "type": "minecraft:wolf",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 15
-      }
-    ],
+	"monster": [],
+    "creature": [],
     "misc": [],
     "water_ambient": [],
     "water_creature": []

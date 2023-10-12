@@ -42,7 +42,8 @@
     [
 	  "me:ground/surface/mordor_dirt_01",
 	  "minecraft:disk_clay",
-      "minecraft:disk_gravel"
+      "minecraft:disk_gravel",
+	  "me:ground/surface/mud"
 	],
     [],
     [

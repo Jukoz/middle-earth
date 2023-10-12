@@ -17,9 +17,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionOptions;
 import org.joml.Vector3i;
 
-import static net.jesteur.me.events.OnPlayerSleepEvent.ME_SPAWN_LOCATION;
 
 public class ModDimensions {
+    public static final Vector3i ME_SPAWN_LOCATION = new Vector3i(440, 90, 350);
     public static final String PATH = "middle-earth";
 
     public static final RegistryKey<DimensionOptions> DIMENSION_KEY =

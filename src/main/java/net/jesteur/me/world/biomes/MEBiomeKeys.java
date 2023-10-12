@@ -51,8 +51,8 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> NORTHERN_DUNLAND = MEBiomeKeys.register("northern_dunland");
     public static final RegistryKey<Biome> NORTHERN_WASTELANDS = MEBiomeKeys.register("northern_wastelands");
     public static final RegistryKey<Biome> NURN = MEBiomeKeys.register("nurn");
-    public static final RegistryKey<Biome> NURN_SEA = MEBiomeKeys.register("nurn_sea");
     public static final RegistryKey<Biome> NURN_RIVER = MEBiomeKeys.register("nurn_river");
+    public static final RegistryKey<Biome> NURN_SEA = MEBiomeKeys.register("nurn_sea");
     public static final RegistryKey<Biome> OCEAN = MEBiomeKeys.register("ocean");
     public static final RegistryKey<Biome> OCEAN_COAST = MEBiomeKeys.register("ocean_coast");
     public static final RegistryKey<Biome> OLD_ANGMAR = MEBiomeKeys.register("old_angmar");
@@ -61,22 +61,22 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> RHUN = MEBiomeKeys.register("rhun");
     public static final RegistryKey<Biome> RIVENDELL = MEBiomeKeys.register("rivendell");
     public static final RegistryKey<Biome> RIVENDELL_FOOTHILLS = MEBiomeKeys.register("rivendell_foothills");
+    public static final RegistryKey<Biome> SEA_OF_RHUN = MEBiomeKeys.register("sea_of_rhun");
     public static final RegistryKey<Biome> RIVER = MEBiomeKeys.register("river");
     public static final RegistryKey<Biome> ROHAN = MEBiomeKeys.register("rohan");
-    public static final RegistryKey<Biome> SEA_OF_RHUN = MEBiomeKeys.register("shire");
     public static final RegistryKey<Biome> SHIRE = MEBiomeKeys.register("shire");
     public static final RegistryKey<Biome> SOUTHEAST_RHOVANION = MEBiomeKeys.register("southeast_rhovanion");
     public static final RegistryKey<Biome> SOUTHERN_DUNLAND = MEBiomeKeys.register("southern_dunland");
     public static final RegistryKey<Biome> SOUTHERN_FOROCHEL = MEBiomeKeys.register("southern_forochel");
-    public static final RegistryKey<Biome> WASTE_POND = MEBiomeKeys.register("waste_pond");
     public static final RegistryKey<Biome> THE_ANGLE = MEBiomeKeys.register("the_angle");
     public static final RegistryKey<Biome> THE_OLD_FOREST = MEBiomeKeys.register("the_old_forest");
     public static final RegistryKey<Biome> THE_WOLD = MEBiomeKeys.register("the_wold");
     public static final RegistryKey<Biome> TOLFALAS = MEBiomeKeys.register("tolfalas");
     public static final RegistryKey<Biome> TROLLSHAWS = MEBiomeKeys.register("trollshaws");
     public static final RegistryKey<Biome> UMBAR = MEBiomeKeys.register("umbar");
-    public static final RegistryKey<Biome> WOODLAND_REALM = MEBiomeKeys.register("woodland_realm");
+    public static final RegistryKey<Biome> WASTE_POND = MEBiomeKeys.register("waste_pond");
     public static final RegistryKey<Biome> WHITE_MOUNTAINS = MEBiomeKeys.register("white_mountains");
+    public static final RegistryKey<Biome> WOODLAND_REALM = MEBiomeKeys.register("woodland_realm");
 
     private static RegistryKey<Biome> register(String name) {
         return RegistryKey.of(RegistryKeys.BIOME, new Identifier(MiddleEarth.MOD_ID, name));

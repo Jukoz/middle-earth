@@ -23,6 +23,9 @@ import java.util.Optional;
 @Environment(EnvType.CLIENT)
 @Mixin(BackgroundRenderer.class)
 public class BackgroundRendererMixin {
+    private float currentFogStart = 0;
+    private float currentFogEnd = 0;
+
     @Inject(method = "applyFog", at = @At("TAIL"))
     private static void applyFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta, CallbackInfo ci) {
         Entity entity = camera.getFocusedEntity();

@@ -8,18 +8,18 @@
   },
   "downfall": 0.4,
   "effects": {
-    "fog_color": 8358528,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
-    "grass_color": 4151612,
-	"foliage_color": 3823415,
-    "sky_color": 7972607,
-    "water_color": 4293787,
-    "water_fog_color": 338483
+    "sky_color": 5993621,
+    "fog_color": 7635851,
+    "water_color": 4812936,
+    "water_fog_color": 3034721,
+    "grass_color": 6721389,
+    "foliage_color": 6525545
   },
   "features": [
     [],
@@ -55,22 +55,15 @@
       "minecraft:ore_copper",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
-      "minecraft:disk_gravel",
-      "me:ground/surface/mud"
+      "minecraft:disk_gravel"
     ],
     [],
     [
       "minecraft:spring_water"
     ],
     [
-      "me:forest/mirkwood",
       "me:boulder/complex/mossy_rock",
-      "me:foliage/simple/white_mushroom_tiller",
-      "me:foliage/patch/white_mushroom_patch",
-      "minecraft:red_mushroom_normal",
-      "me:foliage/patch/mirkwood",
-      "me:ground/structure/mirkwood_roots",
-      "me:foliage/simple/forest_moss"
+	  "me:boulder/basic/stone",
     ],
     [
       "minecraft:freeze_top_layer"
@@ -79,15 +72,8 @@
   "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
-	"monster": [
-    ],
+	"monster": [],
     "creature": [
-	  {
-        "type": "minecraft:wolf",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 15
-      }
     ],
     "misc": [],
     "water_ambient": [],
