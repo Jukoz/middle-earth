@@ -64,4 +64,8 @@ public class ModDimensions {
 
         return new Vector3i(x, ME_SPAWN_LOCATION.y, z);
     }
+
+    public static boolean isInMiddleEarth(World world){
+        return world.getRegistryKey().getValue().equals(WORLD_KEY.getValue());
+    }
 }

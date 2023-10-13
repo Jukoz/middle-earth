@@ -51,7 +51,6 @@ public class MiddleEarthMapScreen extends Screen {
     private static int dezoomButtonIndex;
     private static int centerOnPlayerButtonIndex;
     private static int debugButtonIndex;
-    private Vec3d playerCoordinate;
 
     private Vector2i cursorWorldCoordinate;
 
@@ -106,7 +105,7 @@ public class MiddleEarthMapScreen extends Screen {
 
 
         ButtonWidget centerOnPlayer = ButtonWidget.builder(Text.literal("Center on Player"), button -> {
-                    centerOnCoordinates(playerCoordinate.x, playerCoordinate.z);
+                    centerOnPlayer();
                 })
                 .dimensions(optionsOffsetX, optionsOffsetY - (offset * 3) - (buttonMargin * 2), 18, 18).build();
 
@@ -136,6 +135,7 @@ public class MiddleEarthMapScreen extends Screen {
         if(cameraEntity != null) {
             if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
                 this.player = abstractClientPlayerEntity;
+
                 this.renderBackground(context);
                 this.drawWindow(context, mouseX, mouseY);
             } else{
@@ -151,7 +151,7 @@ public class MiddleEarthMapScreen extends Screen {
 
         drawMaintTextures(context, x, y, mouseX, mouseY);
         Vec2f mapPlayerPos = getCoordinateOnMap((float)player.getBlockPos().getX(), (float)player.getBlockPos().getZ(), 4,4);
-        if(this.player.getWorld().getDimensionKey().getValue().toString().contains(ModDimensions.DIMENSION_KEY.getValue().toString())){
+        if(ModDimensions.isInMiddleEarth(player.getWorld())){
             context.drawTexture(this.player.getSkinTexture(),
                     x + MARGIN + (int)mapPlayerPos.x - 4,
                     y + MARGIN + (int)mapPlayerPos.y - 4,
@@ -224,7 +224,9 @@ public class MiddleEarthMapScreen extends Screen {
 
         // Debug Button
         int debugButtonTextureOffset = children().get(debugButtonIndex).isMouseOver(mouseX, mouseY) ? 18 : 0;
-
+        if(!ModDimensions.isInMiddleEarth(player.getWorld())){
+            debugButtonTextureOffset = 36;
+        }
         context.drawTexture(MAP_UI_TEXTURE,
                 ((ButtonWidget)children().get(debugButtonIndex)).getX(),
                 ((ButtonWidget)children().get(debugButtonIndex)).getY(),
@@ -232,7 +234,7 @@ public class MiddleEarthMapScreen extends Screen {
 
         // Center on player
         int centerOnPlayerTextureOffset = children().get(centerOnPlayerButtonIndex).isMouseOver(mouseX, mouseY) ? 18 : 0;
-        if(zoomLevel == 1){
+        if(!canCenterOnPlayer()){
             centerOnPlayerTextureOffset = 36;
         }
         context.drawTexture(MAP_UI_TEXTURE,
@@ -260,7 +262,8 @@ public class MiddleEarthMapScreen extends Screen {
                 ((ButtonWidget)children().get(dezoomButtonIndex)).getY(),
                 dezoomTextureOffset, 18, 18, 18, 256, 256);
 
-        ((ButtonWidget)children().get(centerOnPlayerButtonIndex)).active = (zoomLevel > 1);
+        ((ButtonWidget)children().get(debugButtonIndex)).active = ModDimensions.isInMiddleEarth(player.getWorld());
+        ((ButtonWidget)children().get(centerOnPlayerButtonIndex)).active = canCenterOnPlayer();
         ((ButtonWidget)children().get(zoomButtonIndex)).active = (zoomLevel < MAX_ZOOM_LEVEL - 1);
         ((ButtonWidget)children().get(dezoomButtonIndex)).active = (zoomLevel > 1);
 
@@ -347,6 +350,16 @@ public class MiddleEarthMapScreen extends Screen {
         boolean isInBoundY = (int)mouseY - y > 0 && (int)mouseY - y <  mapWindowHeight;
 
         return !isInBoundX || !isInBoundY;
+    }
+
+    private void centerOnPlayer() {
+        if(canCenterOnPlayer()){
+            centerOnCoordinates(player.getX(), player.getZ());
+        }
+    }
+
+    private boolean canCenterOnPlayer(){
+        return zoomLevel > 1 && this.player != null && ModDimensions.isInMiddleEarth(player.getWorld());
     }
 
     private void centerOnCoordinates(double x, double y){
