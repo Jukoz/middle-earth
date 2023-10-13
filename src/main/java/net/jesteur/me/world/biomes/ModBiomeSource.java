@@ -37,16 +37,22 @@ public class ModBiomeSource extends BiomeSource {
         int i = BiomeCoords.toBlock(x);
         int k = BiomeCoords.toBlock(z);
 
-        if(!MapImageLoader.isCoordinateInImage(i, k)) return biomes.get(0);
+        if(!MiddleEarthHeightMap.isCoordinateInBounds(i, k)) return biomes.get(0);
         MEBiome meBiome = MEBiomesData.biomeMap.get(MapImageLoader.getBiomeColor(i, k));
+        if(meBiome == null) {
+            return biomes.get(0);
+        }
+
         RegistryKey<Biome> biome = meBiome.biome;
         RegistryKey<Biome> processedBiome;
 
         if(!MEBiomesData.waterBiomes.contains(biome)) {
             float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
-            if(height <= MiddleEarthChunkGenerator.WATER_HEIGHT + 1) {
+            if(height <= MiddleEarthChunkGenerator.WATER_HEIGHT + 1.25f) {
                 if(MEBiomesData.wastePondBiomes.contains(biome)) {
                     processedBiome = MEBiomesData.wastePond.biome;
+                } else if(MEBiomesData.mirkwoodSwampBiomes.contains(biome)) {
+                    processedBiome = MEBiomesData.mirkwoodSwamp.biome;
                 } else {
                     processedBiome = MEBiomesData.millPond.biome;
                 }

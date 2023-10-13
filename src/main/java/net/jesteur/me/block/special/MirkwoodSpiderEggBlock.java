@@ -22,6 +22,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,19 +45,22 @@ public class MirkwoodSpiderEggBlock extends Block {
         return this.getDefaultState()
                 .with(FACING, ctx.getHorizontalPlayerFacing());
     }
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        return attachedDirection(state).getOpposite() == direction && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        BlockPos blockPos = pos.down();
+        return world.getBlockState(blockPos).isSolidBlock(world, blockPos);
     }
-    protected Direction attachedDirection(BlockState state) {
-        return state.get(FACING);
+
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        return !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override
     public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
         if(!entity.collidedSoftly && entity.getType() != ModEntities.MIRKWOOD_SPIDER){
             this.breakEgg(world, pos, state);
+            super.onSteppedOn(world, pos, state, entity);
         }
-        super.onSteppedOn(world, pos, state, entity);
     }
 
     @Override

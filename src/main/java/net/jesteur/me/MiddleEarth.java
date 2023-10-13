@@ -1,13 +1,12 @@
 package net.jesteur.me;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.jesteur.me.block.*;
 import net.jesteur.me.entity.ModEntities;
-import net.jesteur.me.events.ModEvents;
 import net.jesteur.me.gui.ModScreenHandlers;
 import net.jesteur.me.item.*;
 import net.jesteur.me.item.utils.ModItemGroups;
+import net.jesteur.me.network.ModNetworks;
 import net.jesteur.me.statusEffects.ModStatusEffects;
 import net.jesteur.me.recipe.ModRecipes;
 import net.jesteur.me.sound.ModSounds;
@@ -59,7 +58,7 @@ public class MiddleEarth implements ModInitializer {
 		MEBiomeKeys.registerModBiomes();
 		MEBiomesData.loadBiomes();
 
-		ModEvents.register();
+		ModNetworks.registerS2CPackets();
 
 		try {
 			MapImageLoader.loadImage(getClass().getClassLoader());

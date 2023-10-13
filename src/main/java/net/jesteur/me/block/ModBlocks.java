@@ -33,13 +33,13 @@ public class ModBlocks {
     public static final Block MORDOR_DIRT = registerBlock("mordor_dirt",
             new Block(FabricBlockSettings.copyOf(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)));
 
-    public static final Block REEDS_BLOCK = registerBlock("reeds_block",
+    public static final Block REED_BLOCK = registerBlock("reed_block",
             new HayBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
-    public static final Block REEDS_STAIRS = registerBlock("reeds_stairs",
-            new StairsBlock(REEDS_BLOCK.getDefaultState(), FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
-    public static final Block REEDS_SLAB = registerBlock("reeds_slab",
+    public static final Block REED_STAIRS = registerBlock("reed_stairs",
+            new StairsBlock(REED_BLOCK.getDefaultState(), FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
+    public static final Block REED_SLAB = registerBlock("reed_slab",
             new SlabBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
-    public static final Block REEDS_WALL = registerBlock("reeds_wall",
+    public static final Block REED_WALL = registerBlock("reed_wall",
             new WallBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
     public static final Block STRAW_BLOCK = registerBlock("straw_block",
             new HayBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));

@@ -152,6 +152,7 @@ public class MapImageLoader {
             for (int x = 0; x < pixels[0].length; x++) {
                 int height = (int) ((getBiomeHeight(x, y) - MEBiomesData.MINIMAL_HEIGHT) * 4);
                 try {
+                    height = Math.max(0, Math.min(255, height));
                     int rgb = new Color(height, height, height).getRGB();
                     heightMap.setRGB(x, y, rgb);
                 } catch (Exception e) {

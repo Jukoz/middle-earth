@@ -45,22 +45,21 @@ public class CornerCobwebBlock extends Block {
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return !world.isWater(pos);
+        BlockPos sidePos = pos.offset(state.get(FACING));
+        BlockPos verticalPos = pos.offset(state.get(HANGING) ? Direction.UP : Direction.DOWN);
+        return !world.isWater(pos) &&
+                world.getBlockState(verticalPos).isSolidBlock(world, verticalPos) ||
+                world.getBlockState(sidePos).isSolidBlock(world, sidePos);
     }
 
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        return attachedDirection(state).getOpposite() == direction && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         entity.slowMovement(state, new Vec3d(0.25, 0.05f, 0.25));
     }
-
-    protected Direction attachedDirection(BlockState state) {
-        return state.get(FACING);
-    }
-
 
     static {
         HANGING = Properties.HANGING;

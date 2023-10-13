@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#fabric:hoes",
+      "required": false
+    },
+    "me:dwarven_hoe",
+    "me:mordor_orc_hoe"
+  ]
+}

@@ -56,7 +56,8 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-      "me:ground/surface/mud"
+      "me:ground/surface/mud",
+      "me:ground/surface/mirkwood_podzol"
     ],
     [],
     [
@@ -81,16 +82,10 @@
 	"monster": [
     ],
     "creature": [
-      {
-        "type": "minecraft:frog",
-        "maxCount": 7,
-        "minCount": 3,
-        "weight": 20
-      },
 	  {
         "type": "minecraft:wolf",
         "maxCount": 4,
-        "minCount": 4,
+        "minCount": 1,
         "weight": 15
       }
     ],

@@ -8,13 +8,13 @@
   },
   "downfall": 0.3,
   "effects": {
-    "fog_color": 12638463,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
+	"fog_color": 12638463,
     "sky_color": 8233727,
     "water_color": 4159204,
     "water_fog_color": 329011
@@ -50,7 +50,6 @@
       "minecraft:ore_iron_small",
       "minecraft:ore_gold",
       "minecraft:ore_gold_lower",
-      "me:ore/mithril",
       "minecraft:ore_copper",
       "minecraft:underwater_magma",
       "minecraft:disk_clay",

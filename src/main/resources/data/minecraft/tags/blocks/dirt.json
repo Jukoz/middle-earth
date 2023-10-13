@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "me:mordor_dirt"
+    "me:mordor_dirt",
+    "me:mirkwood_podzol"
   ]
 }
