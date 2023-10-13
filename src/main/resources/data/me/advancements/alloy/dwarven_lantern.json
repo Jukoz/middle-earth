@@ -1,12 +1,12 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "me:alloy/dwarven_steel",
   "criteria": {
-    "raw_mithril": {
+    "dwarven_lantern": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:raw_mithril"
+              "me:dwarven_lantern"
             ]
           }
         ]
@@ -17,21 +17,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.mithril.description"
+      "translate": "advancements.alloy.dwarven_lantern.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:mithril_ore"
+      "item": "me:dwarven_lantern"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.mithril.title"
+      "translate": "advancements.alloy.dwarven_lantern.title"
     }
   },
   "requirements": [
     [
-      "raw_mithril"
+      "dwarven_lantern"
     ]
   ]
 }
