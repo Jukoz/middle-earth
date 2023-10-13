@@ -36,12 +36,6 @@
                 "data": {
                   "Name": "minecraft:brown_mushroom"
                 },
-                "weight": 2
-              },
-			                {
-                "data": {
-                  "Name": "minecraft:red_mushroom"
-                },
                 "weight": 1
               }
             ]

@@ -64,6 +64,7 @@
 
 "#Comment:": "Item - Phial",
   "item.me.empty_phial": "Empty Phial",
+  "item.me.water_phial": "Water Phial",
   "item.me.starlight_phial": "Starlight Phial",
 
 "#Comment:": "Item - Dwarven",
@@ -157,6 +158,9 @@
   "item.me.raw_crab_claw": "Raw Crab Claw",
   "item.me.cooked_crab_claw": "Cooked Crab Claw",
 
+"#Comment:": "Item - Resources",
+  "item.me.straws": "Straws",
+
 "#Comment:": "Item - Spawn Eggs",
   "item.me.barrow_wight_spawn_egg": "Barrow Wight Spawn Egg",
   "item.me.cave_troll_spawn_egg": "Cave Troll Spawn Egg",
@@ -184,6 +188,7 @@
 "#Comment:": "Block - Vanilla +",
   "block.me.stone_trapdoor": "Stone Trapdoor",
   "block.me.blackstone_trapdoor": "Blackstone Trapdoor",
+  "block.me.mirkwood_podzol": "Mirkwood Podzol",
 
 "#Comment:": "Block - Mithril",
   "block.me.mithril_ore": "Mithril Ore",
@@ -194,10 +199,10 @@
   "block.me.straw_stairs": "Straw Stairs",
   "block.me.straw_slab": "Straw Slab",
   "block.me.straw_wall": "Straw Wall",
-  "block.me.reeds_block": "Reeds Block",
-  "block.me.reeds_stairs": "Reeds Stairs",
-  "block.me.reeds_slab": "Reeds Slab",
-  "block.me.reeds_wall": "Reeds Wall",
+  "block.me.reed_block": "Reed Block",
+  "block.me.reed_stairs": "Reed Stairs",
+  "block.me.reed_slab": "Reed Slab",
+  "block.me.reed_wall": "Reed Wall",
 
 "#Comment:": "Block - Ashen",
   "block.me.ashen_rock": "Ashen Rock",
@@ -440,6 +445,8 @@
   "block.me.forest_moss": "Forest Moss",
   "block.me.forest_moss_block": "Forest Moss Block",
   "block.me.forest_moss_carpet": "Forest Moss Carpet",
+  "block.me.reeds": "Reeds",
+
   "block.me.strawberry_bush": "Strawberry Bush",
   "block.me.tan_shrub": "Tan Shrub",
   "block.me.tough_berry_bush": "Tough Berry Bush",

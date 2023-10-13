@@ -56,13 +56,15 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-      "me:ground/surface/mud"
+      "me:ground/surface/mud",
+      "me:ground/surface/mirkwood_podzol"
     ],
     [],
     [
       "minecraft:spring_water"
     ],
     [
+      "me:foliage/patch/reeds",
       "minecraft:glow_lichen",
       "minecraft:trees_water",
       "minecraft:flower_default",

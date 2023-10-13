@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "me:straw_block"
+    }
+  },
+  "result": {
+    "item": "me:straws",
+    "count": 9
+  }
+}

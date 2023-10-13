@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jesteur.me.world.biomes.MEBiomeFogData;
+import net.jesteur.me.world.dimension.ModDimensions;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.render.Camera;
@@ -59,7 +60,6 @@ public class BackgroundRendererMixin {
                 RenderSystem.setShaderFogEnd(fogEnd);
                 RenderSystem.setShaderFogShape(FogShape.SPHERE);
             }
-
         }
     }
 }

@@ -40,14 +40,15 @@
     [],
     [],
     [
-	  "me:ground/surface/mordor_dirt_01",
+      "me:ground/surface/mordor_dirt_01",
 	  "minecraft:disk_clay",
       "minecraft:disk_gravel",
 	  "me:ground/surface/mud"
 	],
     [],
     [
-	  "me:foliage/simple/tough_berry",
+      "me:foliage/patch/reeds",
+      "me:foliage/simple/tough_berry",
 	  "me:foliage/patch/mordor_lichen",
 	  "me:foliage/patch/mordor_lichen_fan",
 	  "me:tree/spruce/dead_02",

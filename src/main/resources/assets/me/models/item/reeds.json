@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "item/generated",
   "textures": {
-    "layer0": "me:block/reeds_top"
+    "layer0": "me:item/reeds"
   }
 }

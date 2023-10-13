@@ -10,7 +10,7 @@ public class SimpleSlabModel {
     public record Slab(Block block, Block slab) {}
     public static List<Slab> blocks = new ArrayList<>() {
         {
-            add(new Slab(ModBlocks.REEDS_BLOCK, ModBlocks.REEDS_SLAB));
+            add(new Slab(ModBlocks.REED_BLOCK, ModBlocks.REED_SLAB));
             add(new Slab(ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_SLAB));
         }
     };

@@ -57,6 +57,8 @@ public class ModRessourceItems {
             new StarlightPhialItem(new FabricItemSettings().maxCount(1)));
     public static final Item PEBBLE = registerItem("pebble",
             new PebbleItem(new FabricItemSettings()));
+    public static final Item STRAWS = registerItem("straws",
+            new Item(new FabricItemSettings()));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.RESOURCES_CONTENTS.add(item.getDefaultStack());

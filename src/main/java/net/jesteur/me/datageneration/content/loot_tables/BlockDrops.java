@@ -17,10 +17,10 @@ public class BlockDrops {
             add(ModBlocks.CHISELED_LIMESTONE_BRICKS);
             add(ModBlocks.DRY_DIRT);
             add(ModBlocks.MORDOR_DIRT);
-            add(ModBlocks.REEDS_BLOCK);
-            add(ModBlocks.REEDS_STAIRS);
-            add(ModBlocks.REEDS_SLAB);
-            add(ModBlocks.REEDS_WALL);
+            add(ModBlocks.REED_BLOCK);
+            add(ModBlocks.REED_STAIRS);
+            add(ModBlocks.REED_SLAB);
+            add(ModBlocks.REED_WALL);
             add(ModBlocks.STRAW_BLOCK);
             add(ModBlocks.STRAW_STAIRS);
             add(ModBlocks.STRAW_SLAB);

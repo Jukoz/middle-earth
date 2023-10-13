@@ -56,7 +56,8 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-      "me:ground/surface/mud"
+      "me:ground/surface/mud",
+      "me:ground/surface/mirkwood_podzol"
     ],
     [],
     [
@@ -64,7 +65,7 @@
     ],
     [
       "me:boulder/complex/mossy_rock",
-      "me:foliage/patch/mirkwood",
+      "me:foliage/patch/mirkwood"
     ],
     [
       "minecraft:freeze_top_layer"
