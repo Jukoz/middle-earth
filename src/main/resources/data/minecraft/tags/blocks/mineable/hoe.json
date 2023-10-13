@@ -1,10 +1,10 @@
 {
   "replace": false,
   "values": [
-    "me:reeds_block",
-    "me:reeds_stairs",
-    "me:reeds_slab",
-    "me:reeds_wall",
+    "me:reed_block",
+    "me:reed_stairs",
+    "me:reed_slab",
+    "me:reed_wall",
     "me:straw_block",
     "me:straw_stairs",
     "me:straw_slab",

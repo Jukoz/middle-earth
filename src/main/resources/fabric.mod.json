@@ -6,7 +6,7 @@
   "name": "Middle-earth",
   "description": "Bringing Middle-earth to Minecraft!",
   "authors": [
-    "Jukoz, Jesteur"
+    "Jukoz, Krahab"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -19,13 +19,13 @@
   "environment": "*",
   "entrypoints": {
     "fabric-datagen": [
-      "net.jesteur.me.datageneration.DataGeneration"
+      "net.jukoz.me.datageneration.DataGeneration"
     ],
     "main": [
-      "net.jesteur.me.MiddleEarth"
+      "net.jukoz.me.MiddleEarth"
     ],
     "client": [
-      "net.jesteur.me.MiddleEarthClient"
+      "net.jukoz.me.MiddleEarthClient"
     ]
   },
   "mixins": [
