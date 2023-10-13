@@ -1,12 +1,17 @@
 package net.jesteur.me.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jesteur.me.MiddleEarth;
+import net.jesteur.me.block.ModNatureBlocks;
 import net.jesteur.me.item.items.EmptyPhialItem;
 import net.jesteur.me.item.items.MiddleEarthMapItem;
 import net.jesteur.me.item.items.StarlightPhialItem;
 import net.jesteur.me.item.items.PebbleItem;
 import net.jesteur.me.item.utils.ModItemGroups;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.TallPlantBlock;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -57,8 +62,23 @@ public class ModRessourceItems {
             new StarlightPhialItem(new FabricItemSettings().maxCount(1)));
     public static final Item PEBBLE = registerItem("pebble",
             new PebbleItem(new FabricItemSettings()));
-    public static final Item STRAWS = registerItem("straws",
+    public static final Item STRAW = registerItem("straw",
             new Item(new FabricItemSettings()));
+    public static final Block REEDS = registerBlock("reeds",
+            new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.TALL_GRASS).strength(0.2f)), false);
+
+    public static Block registerBlock(String name, Block block, boolean absent) {
+        if(!absent) registerBlockItem(name, block);
+        return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);
+    }
+    static Item registerBlockItem(String name, Block block) {
+        var item =  Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name),
+                new BlockItem(block, new FabricItemSettings()));
+
+        Item.BLOCK_ITEMS.put(block, item);
+        ModItemGroups.RESOURCES_CONTENTS.add(item.getDefaultStack());
+        return item;
+    }
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.RESOURCES_CONTENTS.add(item.getDefaultStack());

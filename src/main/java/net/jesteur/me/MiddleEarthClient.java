@@ -28,6 +28,7 @@ import net.jesteur.me.entity.trolls.snow.SnowTrollRenderer;
 import net.jesteur.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jesteur.me.gui.ModScreenHandlers;
 import net.jesteur.me.item.ModEquipmentItems;
+import net.jesteur.me.item.ModRessourceItems;
 import net.jesteur.me.item.utils.ModModelPredicateProvider;
 import net.jesteur.me.network.ModNetworks;
 import net.jesteur.me.utils.HallucinationData;
@@ -104,7 +105,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.MOSS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.FOREST_MOSS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.CORRUPTED_MOSS, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.REEDS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModRessourceItems.REEDS, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.DWARVEN_LANTERN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WALL_DWARVEN_LANTERN, RenderLayer.getCutout());

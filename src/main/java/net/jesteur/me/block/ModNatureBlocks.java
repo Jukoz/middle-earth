@@ -37,10 +37,10 @@ public class ModNatureBlocks {
             new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).luminance(GlowLichenBlock.getLuminanceSupplier(5)).burnable()), false);
     public static final Block HANGING_COBWEB = registerBlock("hanging_cobweb",
-            new HangingCobwebBlock(FabricBlockSettings.copyOf(Blocks.COBWEB)), false);
+            new HangingCobwebBlock(FabricBlockSettings.copyOf(Blocks.COBWEB).drops(new Identifier(MiddleEarth.MOD_ID, "hanging_cobweb")).strength(2)), false);
 
     public static final Block CORNER_COBWEB = registerBlock("corner_cobweb",
-            new CornerCobwebBlock(FabricBlockSettings.copyOf(Blocks.COBWEB)), false);
+            new CornerCobwebBlock(FabricBlockSettings.copyOf(Blocks.COBWEB).drops(new Identifier(MiddleEarth.MOD_ID, "corner_cobweb")).strength(2)), false);
 
     public static final Block CORRUPTED_MOSS_CARPET = registerBlock("corrupted_moss_carpet",
             new CarpetBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET)), false);
@@ -101,9 +101,6 @@ public class ModNatureBlocks {
 
     public static final Block MIRKWOOD_SPIDER_EGG = registerBlock("mirkwood_spider_egg",
             new MirkwoodSpiderEggBlock(FabricBlockSettings.copyOf(Blocks.TURTLE_EGG)), false);
-
-    public static final Block REEDS = registerBlock("reeds",
-            new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.TALL_GRASS)), false);
 
 
     public static Block registerBlock(String name, Block block, boolean absent) {

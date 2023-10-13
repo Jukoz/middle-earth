@@ -54,7 +54,7 @@
                   }
                 }
               ],
-              "name": "me:straws"
+              "name": "me:straw"
             },
             {
               "type": "minecraft:item",
@@ -90,7 +90,7 @@
           "predicate": {
             "block": {
               "blocks": [
-                "minecraft:tall_grass"
+                "me:reeds"
               ],
               "state": {
                 "half": "lower"
@@ -122,7 +122,7 @@
                   "function": "minecraft:set_count"
                 }
               ],
-              "name": "minecraft:grass"
+              "name": "me:reeds"
             },
             {
               "type": "minecraft:item",
@@ -135,7 +135,7 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
-              "name": "minecraft:wheat_seeds"
+              "name": "me:reeds"
             }
           ]
         }
