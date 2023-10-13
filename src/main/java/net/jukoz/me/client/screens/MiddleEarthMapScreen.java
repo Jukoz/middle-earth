@@ -200,7 +200,9 @@ public class MiddleEarthMapScreen extends Screen {
     }
 
     private void teleport(Vector2i coord){
-        this.player.setPos(coord.x, this.player.getY(), coord.y);
+        if(ModDimensions.isInMiddleEarth(this.player.getWorld())){
+            this.player.setPos(coord.x, this.player.getY(), coord.y);
+        }
     }
 
     private float getZoomLevel(){
