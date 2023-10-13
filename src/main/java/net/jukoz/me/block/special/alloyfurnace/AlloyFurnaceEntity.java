@@ -123,7 +123,7 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
 
     @Override
     public void markDirty() {
-        if(!world.isClient()) {
+        if(world != null && !world.isClient()) {
             PacketByteBuf data = PacketByteBufs.create();
             data.writeInt(inventory.size());
             for(int i = 0; i < inventory.size(); i++) {
