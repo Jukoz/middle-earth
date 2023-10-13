@@ -3,6 +3,8 @@ package net.jesteur.me.world.dimension;
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jesteur.me.world.chunkgen.map.MapImageLoader;
+import net.jesteur.me.world.chunkgen.map.MiddleEarthHeightMap;
+import net.jesteur.me.world.spawners.SpawnerNPCs;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -48,11 +50,15 @@ public class ModDimensions {
                 player.wakeUp();
                 ((ServerPlayerEntity) player).teleport(serverWorld, targetPos.x, targetPos.y + 10, targetPos.z, 0, 0);
                 World targetWorld =  player.getWorld();
-                int highY = 1 + targetWorld.getChunk(new BlockPos(targetPos.x, 0, targetPos.z)).sampleHeightmap(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, targetPos.x, targetPos.z);
+                int highY = 1 + getHighestYAtXZ(targetPos.x, targetPos.z);
 
                 player.refreshPositionAfterTeleport(targetPos.x, highY, targetPos.z);
             }
         }
+    }
+
+    public static int getHighestYAtXZ(int x, int z) {
+        return (int) MiddleEarthHeightMap.getHeight(x, z);
     }
 
     public static Vector3i getSpawnCoordinate(){

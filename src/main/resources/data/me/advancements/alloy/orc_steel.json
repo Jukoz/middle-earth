@@ -1,12 +1,12 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "me:alloy/root",
   "criteria": {
-    "raw_mithril": {
+    "orc_steel": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:raw_mithril"
+              "me:orc_steel"
             ]
           }
         ]
@@ -17,21 +17,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.mithril.description"
+      "translate": "advancements.alloy.orc_steel.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:mithril_ore"
+      "item": "me:orc_steel"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.mithril.title"
+      "translate": "advancements.alloy.orc_steel.title"
     }
   },
   "requirements": [
     [
-      "raw_mithril"
+      "orc_steel"
     ]
   ]
 }

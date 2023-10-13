@@ -75,7 +75,7 @@ public class SpawnerNPCs implements Spawner {
         return i;
     }
 
-    public int getHighestYAtXZ(World world, int x, int z) {
+    public static int getHighestYAtXZ(World world, int x, int z) {
         return world.getChunk(new BlockPos(x, 0, z)).sampleHeightmap(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z);
     }
 }

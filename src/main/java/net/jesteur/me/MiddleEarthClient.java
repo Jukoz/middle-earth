@@ -29,6 +29,7 @@ import net.jesteur.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jesteur.me.gui.ModScreenHandlers;
 import net.jesteur.me.item.ModEquipmentItems;
 import net.jesteur.me.item.utils.ModModelPredicateProvider;
+import net.jesteur.me.network.ModNetworks;
 import net.jesteur.me.utils.HallucinationData;
 import net.jesteur.me.utils.IEntityDataSaver;
 import net.minecraft.client.MinecraftClient;
@@ -76,6 +77,8 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         HandledScreens.register(ModScreenHandlers.ALLOY_SCREEN_HANDLER, AlloyFurnaceScreen::new);
         BlockEntityRendererRegistry.register(ModBlockEntities.ALLOY_FURNACE, AlloyFurnaceEntityRenderer::new);
+
+        ModNetworks.registerS2CPackets();
 
         initializeRenderLayerMap();
     }

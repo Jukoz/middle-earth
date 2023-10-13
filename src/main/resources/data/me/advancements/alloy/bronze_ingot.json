@@ -1,12 +1,12 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "me:alloy/root",
   "criteria": {
-    "raw_mithril": {
+    "bronze_ingot": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:raw_mithril"
+              "me:bronze_ingot"
             ]
           }
         ]
@@ -17,21 +17,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.mithril.description"
+      "translate": "advancements.alloy.bronze_ingot.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:mithril_ore"
+      "item": "me:bronze_ingot"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.mithril.title"
+      "translate": "advancements.alloy.bronze_ingot.title"
     }
   },
   "requirements": [
     [
-      "raw_mithril"
+      "bronze_ingot"
     ]
   ]
 }

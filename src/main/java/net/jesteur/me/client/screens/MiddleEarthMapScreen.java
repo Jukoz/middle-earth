@@ -5,26 +5,16 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jesteur.me.MiddleEarth;
 import net.jesteur.me.world.biomes.MEBiome;
-import net.jesteur.me.world.biomes.MEBiomeFogData;
 import net.jesteur.me.world.biomes.MEBiomesData;
-import net.jesteur.me.world.biomes.ModBiomeSource;
 import net.jesteur.me.world.chunkgen.map.MapImageLoader;
 import net.jesteur.me.world.dimension.ModDimensions;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.option.ControlsListWidget;
-import net.minecraft.client.gui.screen.option.GameOptionsScreen;
-import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Text;
-import net.minecraft.text.Style;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
@@ -33,9 +23,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import org.joml.Vector2i;
 
-import javax.swing.text.StyleContext;
-import java.text.DecimalFormat;
-import java.util.Objects;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
@@ -69,6 +56,7 @@ public class MiddleEarthMapScreen extends Screen {
     private Vector2i cursorWorldCoordinate;
 
     private static boolean debug = false;
+    AbstractClientPlayerEntity player;
 
     public MiddleEarthMapScreen() {
         super(MAP_TITLE_TEXT);
@@ -144,8 +132,16 @@ public class MiddleEarthMapScreen extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context);
-        this.drawWindow(context, mouseX, mouseY);
+        Entity cameraEntity = this.client.getCameraEntity();
+        if(cameraEntity != null) {
+            if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
+                this.player = abstractClientPlayerEntity;
+                this.renderBackground(context);
+                this.drawWindow(context, mouseX, mouseY);
+            } else{
+                this.player = null;
+            }
+        }
     }
 
     public void drawWindow(DrawContext context, int mouseX, int mouseY) {
@@ -154,46 +150,58 @@ public class MiddleEarthMapScreen extends Screen {
         RenderSystem.enableBlend();
 
         drawMaintTextures(context, x, y, mouseX, mouseY);
+        Vec2f mapPlayerPos = getCoordinateOnMap((float)player.getBlockPos().getX(), (float)player.getBlockPos().getZ(), 4,4);
+        if(this.player.getWorld().getDimensionKey().getValue().toString().contains(ModDimensions.DIMENSION_KEY.getValue().toString())){
+            context.drawTexture(this.player.getSkinTexture(),
+                    x + MARGIN + (int)mapPlayerPos.x - 4,
+                    y + MARGIN + (int)mapPlayerPos.y - 4,
+                    8, 8, 8, 8, 64, 64);
 
-        Entity cameraEntity = this.client.getCameraEntity();
-        if(cameraEntity != null) {
-            if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
+            boolean oustideBound = cursorIsOutsideOfMapBounds(mouseX, mouseY);
+            cursorWorldCoordinate = getWorldCoordinateOfCursor(mouseX, mouseY);
 
-                playerCoordinate = new Vec3d(abstractClientPlayerEntity.getPos().x, abstractClientPlayerEntity.getPos().y, abstractClientPlayerEntity.getPos().z);
-                Vec2f mapPlayerPos = getCoordinateOnMap((float)playerCoordinate.x, (float)playerCoordinate.z, 4,4);
+            // Debug panel
+            if(debug){
+                World world = this.player.getWorld();
+                Optional<RegistryKey<Biome>> biomeRegistry = world.getBiome(this.player.getBlockPos()).getKey();
+                String currentBiomeId = biomeRegistry.isPresent() ? biomeRegistry.get().getValue().toString() : "N/A";
 
-                if(cameraEntity.getWorld().getDimensionKey().getValue().toString().contains(ModDimensions.DIMENSION_KEY.getValue().toString())){
-                    context.drawTexture(abstractClientPlayerEntity.getSkinTexture(),
-                            x + MARGIN + (int)mapPlayerPos.x - 4,
-                            y + MARGIN + (int)mapPlayerPos.y - 4,
-                            8, 8, 8, 8, 64, 64);
+                context.drawTextWithShadow(textRenderer, Text.literal("Player information"), 0, 5, 0xffffff);
+                BlockPos playerPos = this.player.getBlockPos();
+                context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + (int)playerPos.getX() + ", " + (int)playerPos.getY() + ", " + (int)playerPos.getZ()), 5, 15, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + currentBiomeId), 5, 25, 0xffffff);
 
-                    boolean oustideBound = cursorIsOutsideOfMapBounds(mouseX, mouseY);
-                    cursorWorldCoordinate = getWorldCoordinateOfCursor(mouseX, mouseY);
-                    
-                    // Debug panel
-                    if(debug){
-                        World world = abstractClientPlayerEntity.getWorld();
-                        Optional<RegistryKey<Biome>> biomeRegistry = world.getBiome(abstractClientPlayerEntity.getBlockPos()).getKey();
-                        String currentBiomeId = biomeRegistry.isPresent() ? biomeRegistry.get().getValue().toString() : "N/A";
+                MEBiome meBiome = MEBiomesData.biomeMap.get(MapImageLoader.getBiomeColor(cursorWorldCoordinate.x, cursorWorldCoordinate.y));
 
-                        context.drawTextWithShadow(textRenderer, Text.literal("Player information"), 0, 5, 0xffffff);
-                        context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + (int)playerCoordinate.x + ", " + (int)playerCoordinate.y + "," + (int)playerCoordinate.z), 5, 15, 0xffffff);
-                        context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + currentBiomeId), 5, 25, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Cursor information"), 0, 45, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + ((oustideBound) ? "N/A" : (int)cursorWorldCoordinate.x + ", " + ModDimensions.getHighestYAtXZ(mouseX, mouseY) + ", "+ (int)cursorWorldCoordinate.y)), 5, 55, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + ((oustideBound || meBiome == null) ? "N/A" : meBiome.biome.getValue().toString())), 5, 65, 0xffffff);
 
-                        MEBiome meBiome = MEBiomesData.biomeMap.get(MapImageLoader.getBiomeColor(cursorWorldCoordinate.x, cursorWorldCoordinate.y));
-
-                        context.drawTextWithShadow(textRenderer, Text.literal("Cursor information"), 0, 45, 0xffffff);
-                        context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + ((oustideBound) ? "N/A" : (int)cursorWorldCoordinate.x + ", " + (int)cursorWorldCoordinate.y)), 5, 55, 0xffffff);
-                        context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + ((oustideBound || meBiome == null) ? "N/A" : meBiome.biome.getValue().toString())), 5, 65, 0xffffff);
-
-                    }
+                if(!oustideBound && this.player.isCreative()){
+                    context.drawTextWithShadow(textRenderer, Text.literal("Right Click to teleport"), mouseX + 10, mouseY, 0xcccccc);
                 }
             }
         }
     }
 
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if(button == 1){
+            if(!cursorIsOutsideOfMapBounds(mouseX, mouseY)){
+                if(this.player.isCreative() && debug){
+                    teleport(getWorldCoordinateOfCursor(mouseX, mouseY));
+                    this.close();
+                    return true;
+                }
+            }
+        }
+        super.mouseClicked(mouseX, mouseY, button);
+        return false;
+    }
 
+    private void teleport(Vector2i coord){
+        this.player.setPos(coord.x, this.player.getY(), coord.y);
+    }
 
     private float getZoomLevel(){
         return ZOOM_LEVELS[zoomLevel - 1];
