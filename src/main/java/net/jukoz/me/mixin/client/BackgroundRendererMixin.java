@@ -48,6 +48,9 @@ public class BackgroundRendererMixin {
                     } else if (fogEndMultiplier > fogData.fogEnd) {
                         fogEndMultiplier = Math.max(fogEndMultiplier - (tickDelta * TICK_SPEED), fogData.fogEnd);
                     }
+                } else {
+                    fogEndMultiplier = Math.min(fogEndMultiplier + (tickDelta * TICK_SPEED), 1);
+                    fogStartMultiplier = Math.min(fogStartMultiplier + (tickDelta * TICK_SPEED), 1);
                 }
 
                 float f = MathHelper.clamp(viewDistance / 10.0F, 4.0F, 64.0F);
