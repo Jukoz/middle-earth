@@ -93,6 +93,12 @@
         "type": "minecraft:squid",
         "maxCount": 4,
         "minCount": 1,
+        "weight": 2
+      },
+      {
+        "type": "me:crab",
+        "maxCount": 4,
+        "minCount": 1,
         "weight": 1
       },
       {
