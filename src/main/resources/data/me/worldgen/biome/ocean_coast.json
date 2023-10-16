@@ -81,21 +81,9 @@
   "spawners": {
 	"monster": [],
     "creature": [
-	   {
-        "type": "me:old/crab",
-        "maxCount": 5,
-        "minCount": 1,
-        "weight": 5
-      }
 	],
     "misc": [],
     "water_ambient": [
-	  {
-        "type": "me:old/crab",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 3
-      },
       {
         "type": "minecraft:cod",
         "maxCount": 6,
@@ -106,6 +94,12 @@
     "water_creature": [
       {
         "type": "minecraft:squid",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 2
+      },
+      {
+        "type": "me:crab",
         "maxCount": 4,
         "minCount": 1,
         "weight": 1

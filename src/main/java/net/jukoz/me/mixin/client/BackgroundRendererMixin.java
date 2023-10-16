@@ -36,6 +36,7 @@ public class BackgroundRendererMixin {
             if(
                     !clientPlayerEntity.hasStatusEffect(StatusEffects.DARKNESS) &&
                     !clientPlayerEntity.hasStatusEffect(StatusEffects.BLINDNESS) &&
+                    !clientPlayerEntity.isSubmergedInWater() &&
                     ModDimensions.isInMiddleEarth(clientPlayerEntity.getWorld()))
             {
                 Optional<RegistryKey<Biome>> biomeRegistry = clientPlayerEntity.getWorld().getBiome(clientPlayerEntity.getBlockPos()).getKey();
