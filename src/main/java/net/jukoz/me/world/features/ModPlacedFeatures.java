@@ -1,8 +1,8 @@
-package net.jesteur.me.world.features;
+package net.jukoz.me.world.features;
 
-import net.jesteur.me.MiddleEarth;
-import net.jesteur.me.block.ModNatureBlocks;
-import net.jesteur.me.block.WoodBlockSets;
+import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.ModNatureBlocks;
+import net.jukoz.me.block.WoodBlockSets;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;

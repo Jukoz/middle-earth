@@ -1,4 +1,4 @@
-package net.jesteur.me.mixin;
+package net.jukoz.me.mixin;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.world.gen.trunk.TrunkPlacer;

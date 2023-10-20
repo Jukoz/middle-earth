@@ -1,6 +1,6 @@
-package net.jesteur.me.utils;
+package net.jukoz.me.utils;
 
-import net.jesteur.me.MiddleEarth;
+import net.jukoz.me.MiddleEarth;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 

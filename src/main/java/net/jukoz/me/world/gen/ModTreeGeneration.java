@@ -1,13 +1,13 @@
-package net.jesteur.me.world.gen;
+package net.jukoz.me.world.gen;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.jesteur.me.MiddleEarth;
-import net.jesteur.me.mixin.TrunkPlacerTypeInvoker;
-import net.jesteur.me.utils.RegistryUtils;
-import net.jesteur.me.world.biomes.MEBiomeKeys;
-import net.jesteur.me.world.features.BigTrunkPlacer;
-import net.jesteur.me.world.features.ModPlacedFeatures;
+import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.mixin.TrunkPlacerTypeInvoker;
+import net.jukoz.me.utils.RegistryUtils;
+import net.jukoz.me.world.biomes.MEBiomeKeys;
+import net.jukoz.me.world.features.BigTrunkPlacer;
+import net.jukoz.me.world.features.ModPlacedFeatures;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.gen.GenerationStep;

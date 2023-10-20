@@ -1,9 +1,9 @@
-package net.jesteur.me.world.features;
+package net.jukoz.me.world.features;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.jesteur.me.world.gen.ModTreeGeneration;
+import net.jukoz.me.world.gen.ModTreeGeneration;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
