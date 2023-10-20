@@ -1,0 +1,37 @@
+{
+  "parent": "me:alloy/dwarven_steel",
+  "criteria": {
+    "dwarven_lantern": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:dwarven_lantern"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.alloy.dwarven_lantern.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "me:dwarven_lantern"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.alloy.dwarven_lantern.title"
+    }
+  },
+  "requirements": [
+    [
+      "dwarven_lantern"
+    ]
+  ]
+}

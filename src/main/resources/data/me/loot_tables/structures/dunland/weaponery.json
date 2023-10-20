@@ -2,18 +2,30 @@
   "type": "minecraft:chest",
   "pools": [
     {
-      "rolls": 1,
+      "rolls": 2,
       "entries": [
         {
           "type": "minecraft:group",
           "children": [
             {
               "type": "minecraft:item",
-              "name": "minecraft:iron_sword"
+              "name": "me:dunland_club"
             },
             {
               "type": "minecraft:item",
-              "name": "minecraft:iron_axe"
+              "name": "me:dunland_spear"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "me:dunland_pitchfork"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "me:dunland_pike"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "me:dunland_dagger"
             },
             {
               "type": "minecraft:item",

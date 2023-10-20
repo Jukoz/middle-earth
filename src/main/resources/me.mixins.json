@@ -1,17 +1,21 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.jesteur.me.mixin",
+  "package": "net.jukoz.me.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BlockEntityLandedMixin",
+    "EntityDataSaverMixin",
     "EntitySpawnMixin",
     "PlayerMixin",
     "TrunkPlacerTypeInvoker"
   ],
   "client": [
+    "client.AbstractClientPlayerEntityMixin",
+    "client.BackgroundRendererMixin",
     "client.ElytraFeatureRendererMixin",
     "client.HeadFeatureRendererMixin",
+    "client.InGameHudMixin",
+    "client.MouseMixin",
     "client.ItemRendererMixin"
   ],
   "server": [

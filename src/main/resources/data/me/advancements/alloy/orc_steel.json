@@ -1,0 +1,37 @@
+{
+  "parent": "me:alloy/root",
+  "criteria": {
+    "orc_steel": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:orc_steel"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.alloy.orc_steel.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "me:orc_steel"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.alloy.orc_steel.title"
+    }
+  },
+  "requirements": [
+    [
+      "orc_steel"
+    ]
+  ]
+}

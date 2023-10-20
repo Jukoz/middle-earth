@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "alloy_furnace": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:alloy_furnace"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "me:textures/block/dolomite_bricks.png",
+    "description": {
+      "translate": "advancements.alloy.root.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "me:alloy_furnace"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.alloy.root.title"
+    }
+  },
+    "requirements": [
+    [
+      "alloy_furnace"
+    ]
+  ]
+}

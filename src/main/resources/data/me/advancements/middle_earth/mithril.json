@@ -1,12 +1,12 @@
 {
   "parent": "me:middle_earth/root",
   "criteria": {
-    "me:mithril_ore": {
+    "raw_mithril": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:mithril_ore"
+              "me:raw_mithril"
             ]
           }
         ]
@@ -31,7 +31,7 @@
   },
   "requirements": [
     [
-      "me:raw_mithril"
+      "raw_mithril"
     ]
   ]
 }

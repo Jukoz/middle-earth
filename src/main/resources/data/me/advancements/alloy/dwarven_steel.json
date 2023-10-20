@@ -1,0 +1,37 @@
+{
+  "parent": "me:alloy/root",
+  "criteria": {
+    "dwarven_steel": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:dwarven_steel"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.alloy.dwarven_steel.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "me:dwarven_steel"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.alloy.dwarven_steel.title"
+    }
+  },
+  "requirements": [
+    [
+      "dwarven_steel"
+    ]
+  ]
+}
