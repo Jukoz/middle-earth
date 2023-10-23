@@ -1,8 +1,8 @@
-package net.jesteur.me.datageneration;
+package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.jesteur.me.MiddleEarth;
+import net.jukoz.me.MiddleEarth;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 

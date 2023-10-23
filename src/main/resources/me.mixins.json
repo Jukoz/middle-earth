@@ -6,6 +6,7 @@
   "mixins": [
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
+    "FoliagePlacerTypeInvoker",
     "PlayerMixin",
     "TrunkPlacerTypeInvoker"
   ],
@@ -15,8 +16,8 @@
     "client.ElytraFeatureRendererMixin",
     "client.HeadFeatureRendererMixin",
     "client.InGameHudMixin",
-    "client.MouseMixin",
-    "client.ItemRendererMixin"
+    "client.ItemRendererMixin",
+    "client.MouseMixin"
   ],
   "server": [
   ],

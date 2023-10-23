@@ -1,4 +1,4 @@
-package net.jesteur.me.world.gen;
+package net.jukoz.me.world.gen;
 
 public class ModWorldGeneration {
     public static void generateModWorldGen() {

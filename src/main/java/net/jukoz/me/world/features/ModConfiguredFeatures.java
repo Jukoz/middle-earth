@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
+import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
@@ -16,10 +17,10 @@ public class ModConfiguredFeatures {
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> context) {
         register(context, MIRKWOOD_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
-                BlockStateProvider.of(WoodBlockSets.MIRKWOOD.log()),
-                new BigTrunkPlacer(17, 2, 0),
+                BlockStateProvider.of(WoodBlockSets.MIRKWOOD.wood()),
+                new BigTrunkPlacer(27, 3, 2.5f, 0.4f, 5.1f, 5, 0.4f),
                 BlockStateProvider.of(WoodBlockSets.MIRKWOOD.leaves()),
-                new DarkOakFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0)),
+                new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(1),5),
                 new TwoLayersFeatureSize(1, 0, 2)).dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
     }
 

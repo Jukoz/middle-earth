@@ -2,8 +2,8 @@ package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.jesteur.me.world.features.ModConfiguredFeatures;
-import net.jesteur.me.world.features.ModPlacedFeatures;
+import net.jukoz.me.world.features.ModConfiguredFeatures;
+import net.jukoz.me.world.features.ModPlacedFeatures;
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
 
