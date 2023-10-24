@@ -20,9 +20,6 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 public class BigTrunkPlacer extends TrunkPlacer {
-    public static final float TRUNK_ANGLE = 4.8f;
-    public static final float POW_PERCENTAGE = 0.45f;
-    public static final int ITERATIONS = 4;
 
     protected final int baseHeight;
     protected final int randomHeight;

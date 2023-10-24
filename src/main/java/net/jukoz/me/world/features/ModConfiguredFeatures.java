@@ -18,9 +18,9 @@ public class ModConfiguredFeatures {
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> context) {
         register(context, MIRKWOOD_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(WoodBlockSets.MIRKWOOD.wood()),
-                new BigTrunkPlacer(27, 3, 2.5f, 0.4f, 5.1f, 5, 0.4f),
+                new BigTrunkPlacer(27, 3, 2.5f, 0.5f, 6.2f, 5, 0.3f),
                 BlockStateProvider.of(WoodBlockSets.MIRKWOOD.leaves()),
-                new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(1),5),
+                new OvalFoliagePlacer(3, ConstantIntProvider.create(-1), ConstantIntProvider.create(4), 0.5f),
                 new TwoLayersFeatureSize(1, 0, 2)).dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
     }
 
