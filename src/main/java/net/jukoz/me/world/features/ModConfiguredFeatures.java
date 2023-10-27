@@ -28,7 +28,7 @@ public class ModConfiguredFeatures {
                 .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
         register(context, MEGA_MIRKWOOD_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(WoodBlockSets.MIRKWOOD.wood()),
-                new BigTrunkPlacer(27, 3, 2.5f, 0.5f, 6.2f, 5, 0.28f),
+                new BigTrunkPlacer(27, 3, 2.5f, 0.5f, 6.2f, 5, 0.25f),
                 BlockStateProvider.of(WoodBlockSets.MIRKWOOD.leaves()),
                 new OvalFoliagePlacer(3, ConstantIntProvider.create(-1), ConstantIntProvider.create(4), 0.5f),
                 new TwoLayersFeatureSize(1, 0, 2))
