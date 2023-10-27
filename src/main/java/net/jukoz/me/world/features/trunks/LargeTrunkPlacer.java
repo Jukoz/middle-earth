@@ -1,7 +1,6 @@
-package net.jukoz.me.world.features;
+package net.jukoz.me.world.features.trunks;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.world.gen.ModTreeGeneration;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class BigTrunkPlacer extends TrunkPlacer {
+public class LargeTrunkPlacer extends TrunkPlacer {
 
     protected final int baseHeight;
     protected final int randomHeight;
@@ -29,7 +28,7 @@ public class BigTrunkPlacer extends TrunkPlacer {
     protected final int iterations;
     protected final float iteration_percentage;
 
-    public static final Codec<BigTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> {
+    public static final Codec<LargeTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(
                 Codec.intRange(0,90).fieldOf("baseHeight").forGetter((trunkPlacer) -> {
                     return trunkPlacer.baseHeight;
@@ -45,10 +44,10 @@ public class BigTrunkPlacer extends TrunkPlacer {
                     return trunkPlacer.iterations;
                 }), Codec.floatRange(0.0f, 1.0f).fieldOf("iteration_percentage").forGetter((trunkPlacer) -> {
                     return trunkPlacer.iteration_percentage;
-                })).apply(instance, BigTrunkPlacer::new);
+                })).apply(instance, LargeTrunkPlacer::new);
     });
 
-    public BigTrunkPlacer(int baseHeight, int randomHeight, float baseRadius, float tipRadius, float angle, int iterations, float iteration_percentage) {
+    public LargeTrunkPlacer(int baseHeight, int randomHeight, float baseRadius, float tipRadius, float angle, int iterations, float iteration_percentage) {
         super(baseHeight, randomHeight, 0);
         this.baseHeight = baseHeight;
         this.randomHeight = randomHeight;

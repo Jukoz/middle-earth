@@ -5,9 +5,9 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 
 import net.jukoz.me.utils.RegistryUtils;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
-import net.jukoz.me.world.features.BigTrunkPlacer;
+import net.jukoz.me.world.features.trunks.LargeTrunkPlacer;
 import net.jukoz.me.world.features.ModPlacedFeatures;
-import net.jukoz.me.world.features.OvalFoliagePlacer;
+import net.jukoz.me.world.features.foliages.OvalFoliagePlacer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.gen.GenerationStep;
@@ -17,8 +17,8 @@ import net.minecraft.world.gen.trunk.TrunkPlacerType;
 public class ModTreeGeneration {
     public static final Registry<TrunkPlacerType<?>> trunkRegistry = Registries.TRUNK_PLACER_TYPE;
     public static final Registry<FoliagePlacerType<?>> foliageRegistry = Registries.FOLIAGE_PLACER_TYPE;
-    public static final TrunkPlacerType<BigTrunkPlacer> RICH_TRUNK_PLACER = RegistryUtils.register(
-            trunkRegistry, "big_trunk", new TrunkPlacerType<>(BigTrunkPlacer.CODEC)
+    public static final TrunkPlacerType<LargeTrunkPlacer> RICH_TRUNK_PLACER = RegistryUtils.register(
+            trunkRegistry, "big_trunk", new TrunkPlacerType<>(LargeTrunkPlacer.CODEC)
     );
 
     public static final FoliagePlacerType<OvalFoliagePlacer> OVAL_FOLIAGE = RegistryUtils.register(
