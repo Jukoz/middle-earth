@@ -58,8 +58,7 @@ public class ModConfiguredFeatures {
                 .decorators(ImmutableList.of(new LeavesVineTreeDecorator(0.25F)))
                 .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
 
-        /*
-                register(context, MEGA_MIRKWOOD_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
+        register(context, MEGA_MIRKWOOD_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(WoodBlockSets.MIRKWOOD.wood()),
                 new LargeTrunkPlacer(27, 3, 2.5f, 0.5f, 6.2f, 5, 0.25f),
                 BlockStateProvider.of(WoodBlockSets.MIRKWOOD.leaves()),
@@ -74,11 +73,6 @@ public class ModConfiguredFeatures {
                 new TwoLayersFeatureSize(1, 0, 2))
                 .decorators(ImmutableList.of(new LeavesVineTreeDecorator(0.25F)))
                 .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
-         */
-
-
-        ConfiguredFeatures.register(context, MEGA_MIRKWOOD_TREE_KEY, Feature.TREE, (new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.MANGROVE_LOG), new UpwardsBranchingTrunkPlacer(2, 1, 4, UniformIntProvider.create(1, 4), 0.5F, UniformIntProvider.create(0, 1), registryEntryLookup.getOrThrow(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)), BlockStateProvider.of(Blocks.MANGROVE_LEAVES), new RandomSpreadFoliagePlacer(ConstantIntProvider.create(3), ConstantIntProvider.create(0), ConstantIntProvider.create(2), 70), Optional.of(new MangroveRootPlacer(UniformIntProvider.create(1, 3), BlockStateProvider.of(Blocks.MANGROVE_ROOTS), Optional.of(new AboveRootPlacement(BlockStateProvider.of(Blocks.MOSS_CARPET), 0.5F)), new MangroveRootPlacement(registryEntryLookup.getOrThrow(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH), RegistryEntryList.of(Block::getRegistryEntry, new Block[]{Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS}), BlockStateProvider.of(Blocks.MUDDY_MANGROVE_ROOTS), 8, 15, 0.2F))), new TwoLayersFeatureSize(2, 0, 2))).decorators(List.of(new LeavesVineTreeDecorator(0.125F), new AttachedToLeavesTreeDecorator(0.14F, 1, 0, new RandomizedIntBlockStateProvider(BlockStateProvider.of((BlockState)Blocks.MANGROVE_PROPAGULE.getDefaultState().with(PropaguleBlock.HANGING, true)), PropaguleBlock.AGE, UniformIntProvider.create(0, 4)), 2, List.of(Direction.DOWN)))).ignoreVines().build());
-
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {
