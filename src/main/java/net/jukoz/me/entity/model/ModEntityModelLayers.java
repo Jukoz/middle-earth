@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.barrow_wights.BarrowWightModel;
 import net.jukoz.me.entity.crab.CrabModel;
+import net.jukoz.me.entity.goose.GooseModel;
 import net.jukoz.me.entity.nazguls.NazgulModel;
 import net.jukoz.me.entity.spider.MirkwoodSpiderModel;
 import net.jukoz.me.entity.trolls.cave.CaveTrollModel;
@@ -31,6 +32,7 @@ public final class ModEntityModelLayers {
 
     // Animals
     public static final EntityModelLayer CRAB = ModEntityModelLayers.registerEntityModelLayer("crab", CrabModel.getTexturedModelData());
+    public static final EntityModelLayer GOOSE = ModEntityModelLayers.registerEntityModelLayer("goose", GooseModel.getTexturedModelData());
 
 
     /**

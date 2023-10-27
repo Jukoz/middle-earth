@@ -16,6 +16,9 @@ import net.jukoz.me.entity.barrow_wights.BarrowWightEntityRenderer;
 import net.jukoz.me.entity.crab.CrabRenderer;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfRenderer;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfRenderer;
+import net.jukoz.me.entity.goose.GooseEntity;
+import net.jukoz.me.entity.goose.GooseHeldItemFeatureRenderer;
+import net.jukoz.me.entity.goose.GooseRenderer;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitRenderer;
 import net.jukoz.me.entity.model.ModEntityModels;
 import net.jukoz.me.entity.nazguls.NazgulRenderer;
@@ -64,6 +67,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         // Animals
         EntityRendererRegistry.register(ModEntities.CRAB, CrabRenderer::new);
+        EntityRendererRegistry.register(ModEntities.GOOSE, GooseRenderer::new);
 
         ModModelPredicateProvider.registerBowModel();
 

@@ -116,6 +116,12 @@
         "maxCount": 3,
         "minCount": 1,
         "weight": 1
+      },
+      {
+        "type": "me:goose",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 4
       }
     ],
     "misc": [],
