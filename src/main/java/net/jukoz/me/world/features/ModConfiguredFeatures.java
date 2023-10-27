@@ -15,7 +15,8 @@ import net.minecraft.world.gen.treedecorator.LeavesVineTreeDecorator;
 public class ModConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> MIRKWOOD_TREE_KEY = registerKey("mirkwood_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEGA_MIRKWOOD_TREE_KEY = registerKey("mega_mirkwood_tree");
-
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MALLORN_TREE_KEY = registerKey("mallorn_tree");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MEGA_MALLORN_TREE_KEY = registerKey("mega_mallorn_tree");
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> context) {
         register(context, MIRKWOOD_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
@@ -33,6 +34,21 @@ public class ModConfiguredFeatures {
                 new OvalFoliagePlacer(3, ConstantIntProvider.create(-1), ConstantIntProvider.create(4), 0.5f),
                 new TwoLayersFeatureSize(1, 0, 2))
                 .decorators(ImmutableList.of(new LeavesVineTreeDecorator(0.25F)))
+                .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
+
+        register(context, MALLORN_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
+                BlockStateProvider.of(WoodBlockSets.MALLORN.wood()),
+                new BigTrunkPlacer(16, 2, 1.0f, 0.4f, 1.6f, 2, 0.26f),
+                BlockStateProvider.of(WoodBlockSets.MALLORN.leaves()),
+                new OvalFoliagePlacer(2, ConstantIntProvider.create(-1), ConstantIntProvider.create(3), 0.4f),
+                new TwoLayersFeatureSize(1, 0, 2))
+                .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
+        register(context, MEGA_MALLORN_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
+                BlockStateProvider.of(WoodBlockSets.MALLORN.wood()),
+                new BigTrunkPlacer(29, 3, 2.5f, 0.5f, 3.2f, 5, 0.23f),
+                BlockStateProvider.of(WoodBlockSets.MALLORN.leaves()),
+                new OvalFoliagePlacer(3, ConstantIntProvider.create(-1), ConstantIntProvider.create(4), 0.5f),
+                new TwoLayersFeatureSize(1, 0, 2))
                 .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
     }
 
