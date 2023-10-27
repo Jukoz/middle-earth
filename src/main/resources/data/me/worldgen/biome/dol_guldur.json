@@ -56,14 +56,14 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-      "me:ground/surface/mud"
+      "me:ground/surface/mud",
+	  "me:mirkwood_tree"
     ],
     [],
     [
       "minecraft:spring_water"
     ],
     [
-      "me:forest/mirkwood",
       "me:boulder/complex/mossy_rock",
       "me:foliage/simple/white_mushroom_tiller",
       "me:foliage/patch/white_mushroom_patch",

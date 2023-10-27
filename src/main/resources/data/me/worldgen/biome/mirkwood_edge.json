@@ -57,14 +57,15 @@
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
       "me:ground/surface/mud",
-      "me:ground/surface/mirkwood_podzol"
+      "me:ground/surface/mirkwood_podzol",
+      "me:mirkwood_tree",
+      "me:mega_mirkwood_tree"
     ],
     [],
     [
       "minecraft:spring_water"
     ],
     [
-      "me:forest/mirkwood_edge",
       "me:boulder/complex/mossy_rock",
       "me:foliage/patch/mirkwood",
       "me:ground/structure/mirkwood_roots",

@@ -74,6 +74,8 @@ public class BigTrunkPlacer extends TrunkPlacer {
         BlockPos.Mutable mutable = new BlockPos.Mutable();
 
         List<FoliagePlacer.TreeNode> treeNodes = createBranches(world, replacer, random, mutable, config, startPos, getHeight(random), baseRadius, tipRadius);
+        createRoots(world, replacer, random, mutable, config, startPos, (int) (getHeight(random) / 3.5f), baseRadius * 0.9f, tipRadius);
+
         return ImmutableList.copyOf(treeNodes);
     }
 
@@ -119,13 +121,30 @@ public class BigTrunkPlacer extends TrunkPlacer {
         return treeNodes;
     }
 
+    private void createRoots(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable mutable,
+                             TreeFeatureConfig config, BlockPos startPos, int height, float radiusA, float radiusB) {
+        int rootsNb = 4 + (int)(Math.random() * 3);
+        startPos = startPos.add(0, (int) (height * 0.6f), 0);
+        double angle = Math.random() * (360/Math.PI);
+        for (int i = 0; i < rootsNb; i++) {
+            createBranch(world, replacer, random, mutable, config, startPos, -height, angle, radiusA, radiusB);
+            angle = angle + (float)(360 / (rootsNb + 1)) -5 + (Math.random() * 10);
+        }
+    }
+
 
     private BlockPos createBranch(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable mutable,
                                   TreeFeatureConfig config, BlockPos startPos, int height, double direction, float radiusA, float radiusB) {
+        int multiplier = 1;
+        if(height < 0) {
+            multiplier = -1;
+            height *= -1;
+        }
         float radius = radiusA;
         final int ceilRadius = (int) Math.ceil(radiusA);
         float offsetX = 0;
         float offsetZ = 0;
+
         for (int i = 0; i < height; ++i) {
             float percentage = (float) (Math.pow((float) i / height, 1.2));
             offsetX = (MathHelper.lerp(percentage, 0, (float) Math.cos(direction)) * this.angle);
@@ -140,13 +159,13 @@ public class BigTrunkPlacer extends TrunkPlacer {
                     if (distanceSquared <= radius * radius) {
                         dx += offsetX;
                         dz += offsetZ;
-                        this.setLog(world, replacer, random, mutable, config, startPos, (int) dx, i, (int) dz);
+                        this.setLog(world, replacer, random, mutable, config, startPos, (int) dx, i * multiplier, (int) dz);
                     }
                 }
             }
             radius = MathHelper.lerp((float) i / height, radiusA, radiusB );
         }
-        return new BlockPos(startPos).add((int) offsetX, height, (int) offsetZ);
+        return new BlockPos(startPos).add((int) offsetX, multiplier * height, (int) offsetZ);
     }
 
     private void setLog(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable tmpPos,

@@ -14,7 +14,7 @@
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
-    "sky_color": 6858396,
+    "sky_color": 6849446,
     "fog_color": 6780008,
     "water_color": 4293787,
     "water_fog_color": 338483,
@@ -58,7 +58,7 @@
       "minecraft:disk_gravel",
       "me:ground/surface/mud",
       "me:ground/surface/mirkwood_podzol",
-	  "me:mirkwood_tree"
+	  "me:mega_mirkwood_tree"
     ],
     [],
     [

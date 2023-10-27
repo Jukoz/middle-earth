@@ -60,8 +60,9 @@ public class OvalFoliagePlacer extends FoliagePlacer {
     }
 
     private boolean isPointInside(int x, int y, int z, int radius) {
-        float squareRadius = (radius + extraSize) * (radius + extraSize);
-        float squareHeight = (baseHeight + extraSize) * (baseHeight + extraSize);
+        float randomness = -0.35f + (float) (Math.random() * 0.7f);
+        float squareRadius = (radius + extraSize + randomness) * (radius + extraSize + randomness);
+        float squareHeight = (baseHeight + extraSize + randomness) * (baseHeight + extraSize + randomness);
         float deltaX = (float)(x*x) / squareRadius;
         float deltaY = (float)(y*y) / squareHeight;
         float deltaZ = (float)(z*z) / squareRadius;
