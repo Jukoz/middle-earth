@@ -31,6 +31,8 @@ public class ModEggItems {
     // Animals
     public static final Item CRAB_SPAWN_EGG = registerItem("crab_spawn_egg",
             new SpawnEggItem(ModEntities.CRAB, 15350073,15764576, new Item.Settings()));
+    public static final Item SNAIL_SPAWN_EGG = registerItem("snail_spawn_egg",
+            new SpawnEggItem(ModEntities.SNAIL, 7765379, 7165482, new Item.Settings()));
 
 
 

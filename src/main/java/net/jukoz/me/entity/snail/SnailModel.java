@@ -10,7 +10,7 @@ import net.minecraft.entity.Entity;
 // Made with Blockbench 4.8.3
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
-public class SnailModel extends EntityModel<SnailEntity> {
+public class SnailModel<T extends SnailEntity> extends SinglePartEntityModel<T> {
 	private final ModelPart snail;
 	public SnailModel(ModelPart root) {
 		this.snail = root.getChild("snail");
@@ -33,9 +33,17 @@ public class SnailModel extends EntityModel<SnailEntity> {
 	}
 	@Override
 	public void setAngles(SnailEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+
 	}
 	@Override
 	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
 		snail.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
 	}
+
+	@Override
+	public ModelPart getPart() {
+		return snail;
+	}
+
+
 }
