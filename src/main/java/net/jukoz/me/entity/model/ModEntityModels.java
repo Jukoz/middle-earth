@@ -5,6 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.entity.crab.CrabModel;
 import net.jukoz.me.entity.nazguls.NazgulModel;
+import net.jukoz.me.entity.snail.SnailModel;
 import net.jukoz.me.entity.spider.MirkwoodSpiderModel;
 import net.jukoz.me.entity.trolls.cave.CaveTrollModel;
 import net.jukoz.me.entity.trolls.snow.SnowTrollModel;
@@ -30,6 +31,7 @@ public class ModEntityModels {
 
         // Animals
         builder.put(ModEntityModelLayers.CRAB, CrabModel.getTexturedModelData());
+        builder.put(ModEntityModelLayers.SNAIL, SnailModel.getTexturedModelData());
 
         ImmutableMap<EntityModelLayer, TexturedModelData> immutableMap = builder.build();
         return immutableMap;
