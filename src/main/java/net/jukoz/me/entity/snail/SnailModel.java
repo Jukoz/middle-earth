@@ -1,5 +1,6 @@
 package net.jukoz.me.entity.snail;
 
+import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
@@ -37,6 +38,11 @@ public class SnailModel<T extends SnailEntity> extends SinglePartEntityModel<T> 
 	@Override
 	public void setAngles(SnailEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.getPart().traverse().forEach(ModelPart::resetTransform);
+
+		float percentage = (float) entity.getClimbingTicks() / SnailEntity.CLIMBING_TIME_TRANSITION;
+
+		snail.pitch = -1.6f * percentage;
+
 		if(limbSwingAmount >= 0.001) {
 			float stretch = ((ageInTicks % 201) / 500);
 			if(stretch >= 0.2) {
@@ -45,9 +51,6 @@ public class SnailModel<T extends SnailEntity> extends SinglePartEntityModel<T> 
 			else {
 				this.body.zScale = 1f - stretch;
 			}
-		}
-		else {
-			this.body.zScale = 1;
 		}
 
 	}
