@@ -40,6 +40,7 @@ public class GondorianRenderer extends BipedEntityRenderer<GondorianEntity, Gond
     @Override
     public void render(GondorianEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
+        poseStack.scale(0.92f, 0.8f, 0.92f);
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 }

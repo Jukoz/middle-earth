@@ -23,7 +23,13 @@ public class ShireHobbitRenderer extends BipedEntityRenderer<ShireHobbitEntity, 
 
     public ShireHobbitRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new ShireHobbitModel<>(ctx.getPart(ModEntityModelLayers.HOBBIT)), 0.5f);
-        this.addFeature(new ArmorFeatureRenderer<>(this, new ShireHobbitModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new ShireHobbitModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), ctx.getModelManager()));
+        this.addFeature(
+                new ArmorFeatureRenderer<>(this,
+                        new ShireHobbitModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)),
+                        new ShireHobbitModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)
+                ),
+                ctx.getModelManager())
+        );
     }
 
     public static final Map<ShireHobbitVariant, String> LOCATION_BY_VARIANT =

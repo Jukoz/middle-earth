@@ -18,11 +18,13 @@ import net.minecraft.util.Identifier;
 @Environment(value= EnvType.CLIENT)
 public final class ModEntityModelLayers {
     private static final String MAIN = "main";
+    // Humanoid
     public static final EntityModelLayer DWARF = ModEntityModelLayers.registerEntityModelLayer("dwarf", DwarfModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer ELF = ModEntityModelLayers.registerEntityModelLayer("elf", ElfModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer HOBBIT = ModEntityModelLayers.registerEntityModelLayer("hobbit", HobbitModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer NAZGUL = ModEntityModelLayers.registerEntityModelLayer("nazgul", NazgulModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer ORC = ModEntityModelLayers.registerEntityModelLayer("orc", OrcModel.getTexturedModelData(Dilation.NONE));
+    // Custom
     public static final EntityModelLayer CAVE_TROLL = ModEntityModelLayers.registerEntityModelLayer("cave_troll", CaveTrollModel.getTexturedModelData());
     public static final EntityModelLayer SNOW_TROLL = ModEntityModelLayers.registerEntityModelLayer("snow_troll", SnowTrollModel.getTexturedModelData());
     public static final EntityModelLayer BARROW_WIGHT = ModEntityModelLayers.registerEntityModelLayer("barrow_wight", BarrowWightModel.getTexturedModelData());
