@@ -16,6 +16,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.mob.SpiderEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -33,8 +34,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,7 +45,7 @@ import java.util.function.Predicate;
 public class GooseEntity extends AnimalEntity {
 
     private static final Ingredient BREEDING_INGREDIENT
-            = Ingredient.ofItems(new ItemConvertible[]{Items.GRASS, Items.WHEAT_SEEDS});
+            = Ingredient.ofItems(Items.GRASS, Items.WHEAT_SEEDS);
     static final Predicate<ItemEntity> PICKABLE_DROP_FILTER;
     public float flapProgress;
     public float maxWingDeviation;
@@ -62,19 +61,32 @@ public class GooseEntity extends AnimalEntity {
     }
 
     protected void initGoals() {
-        this.goalSelector.add(1, new EscapeDangerGoal(this, 1.25));
-        this.goalSelector.add(2, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(3, new TemptGoal(this, 1.2, BREEDING_INGREDIENT, false));
+        this.goalSelector.add(1, new SwimGoal(this));
+        this.goalSelector.add(2, new MeleeAttackGoal(this, 0.9f, false));
+        this.goalSelector.add(3, new EscapeDangerGoal(this, 1.15));
+        this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
+        this.goalSelector.add(5, new TemptGoal(this, 1.1, BREEDING_INGREDIENT, false));
 
-        this.goalSelector.add(4, new FollowParentGoal(this, 1.05));
-        this.goalSelector.add(5, new GooseEntity.PickupItemGoal());
+        this.goalSelector.add(6, new FollowParentGoal(this, 1.05));
+        this.goalSelector.add(7, new GooseEntity.PickupItemGoal());
 
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.add(7, new LookAroundGoal(this));
-        this.goalSelector.add(8, new WanderAroundGoal(this, 1.0F));
-        this.goalSelector.add(9, new FlyOntoTreeGoal(this, 1.0));
+        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+        this.goalSelector.add(9, new LookAroundGoal(this));
+        this.goalSelector.add(10, new WanderAroundGoal(this, 1.0F));
+        this.goalSelector.add(11, new FlyOntoTreeGoal(this, 1.0));
 
-        this.goalSelector.add(10, new FleeEntityGoal<>(this, WolfEntity.class, 8.0F, 1.0, 1.4));
+        this.goalSelector.add(12, new FleeEntityGoal<>(this, WolfEntity.class, 8.0F, 0.9, 1.2));
+
+        this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
+    }
+
+    public static DefaultAttributeContainer.Builder createGooseAttributes() {
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.75)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0)
+                .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.4000000059604645);
     }
 
     public void handleStatus(byte status) {
@@ -110,16 +122,6 @@ public class GooseEntity extends AnimalEntity {
         return false;
     }
 
-    private void spit(ItemStack stack) {
-        if (!stack.isEmpty() && !this.getWorld().isClient) {
-            ItemEntity itemEntity = new ItemEntity(this.getWorld(), this.getX() + this.getRotationVector().x, this.getY() + 1.0, this.getZ() + this.getRotationVector().z, stack);
-            itemEntity.setPickupDelay(40);
-            itemEntity.setThrower(this.getUuid());
-            this.playSound(SoundEvents.ENTITY_FOX_SPIT, 1.0F, 1.0F);
-            this.getWorld().spawnEntity(itemEntity);
-        }
-    }
-
     private void dropItem(ItemStack stack) {
         ItemEntity itemEntity = new ItemEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), stack);
         this.getWorld().spawnEntity(itemEntity);
@@ -133,7 +135,6 @@ public class GooseEntity extends AnimalEntity {
                 this.dropItem(itemStack.split(i - 1));
             }
 
-            this.spit(this.getEquippedStack(EquipmentSlot.MAINHAND));
             this.triggerItemPickedUpByEntityCriteria(item);
             this.equipStack(EquipmentSlot.MAINHAND, itemStack.split(1));
             this.updateDropChances(EquipmentSlot.MAINHAND);
@@ -194,13 +195,6 @@ public class GooseEntity extends AnimalEntity {
         this.field_28640 = this.speed + this.maxWingDeviation / 2.0F;
     }
 
-    public static DefaultAttributeContainer.Builder createCrabAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
-                .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.4000000059604645);
-    }
-
     protected SoundEvent getAmbientSound() {
         return SoundEvents.ENTITY_CHICKEN_AMBIENT;
     }
@@ -235,7 +229,7 @@ public class GooseEntity extends AnimalEntity {
 
 
     public boolean canBreatheInWater() {
-        return true;
+        return false;
     }
 
     public boolean isPushedByFluids() {
