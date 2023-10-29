@@ -6,14 +6,17 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 
 // Made with Blockbench 4.8.3
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
 public class SnailModel<T extends SnailEntity> extends SinglePartEntityModel<T> {
 	private final ModelPart snail;
+	private final ModelPart body;
 	public SnailModel(ModelPart root) {
 		this.snail = root.getChild("snail");
+		this.body = snail.getChild("body");
 	}
 	public static TexturedModelData getTexturedModelData() {
 		ModelData modelData = new ModelData();
@@ -33,7 +36,13 @@ public class SnailModel<T extends SnailEntity> extends SinglePartEntityModel<T> 
 	}
 	@Override
 	public void setAngles(SnailEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
+		float stretch = ((ageInTicks % 201) / 500);
+		if(stretch >= 0.2) {
+			this.body.zScale = 1f - (0.4f - stretch);
+		}
+		else {
+			this.body.zScale = 1f - stretch;
+		}
 	}
 	@Override
 	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
