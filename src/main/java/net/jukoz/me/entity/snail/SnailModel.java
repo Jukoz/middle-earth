@@ -36,13 +36,20 @@ public class SnailModel<T extends SnailEntity> extends SinglePartEntityModel<T> 
 	}
 	@Override
 	public void setAngles(SnailEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		float stretch = ((ageInTicks % 201) / 500);
-		if(stretch >= 0.2) {
-			this.body.zScale = 1f - (0.4f - stretch);
+		this.getPart().traverse().forEach(ModelPart::resetTransform);
+		if(limbSwingAmount >= 0.001) {
+			float stretch = ((ageInTicks % 201) / 500);
+			if(stretch >= 0.2) {
+				this.body.zScale = 1f - (0.4f - stretch);
+			}
+			else {
+				this.body.zScale = 1f - stretch;
+			}
 		}
 		else {
-			this.body.zScale = 1f - stretch;
+			this.body.zScale = 1;
 		}
+
 	}
 	@Override
 	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
