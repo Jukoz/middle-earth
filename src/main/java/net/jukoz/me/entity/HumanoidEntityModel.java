@@ -4,35 +4,29 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.utils.ToRad;
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.model.ModelTransform;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.CrossbowPosing;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
-import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class HumanoidEntityModel<T extends MobEntity>
             extends BipedEntityModel<T> {
     private ModelPart rightEye;
     private ModelPart rightEyebrow;
-    private ModelPart rightPupill;
+    private ModelPart rightPupil;
     private ModelPart rightEyelidTop;
     private ModelPart rightEyelidBot;
 
     private ModelPart leftEye;
     private ModelPart leftEyebrow;
-    private ModelPart leftPupill;
+    private ModelPart leftPupil;
     private ModelPart leftEyelidTop;
     private ModelPart leftEyelidBot;
 
@@ -45,13 +39,13 @@ public class HumanoidEntityModel<T extends MobEntity>
 
         this.rightEye = head.getChild(HumanoidModel.RIGHT_EYE);
         this.rightEyebrow = head.getChild(HumanoidModel.RIGHT_EYEBROW);
-        this.rightPupill = head.getChild(HumanoidModel.RIGHT_PUPILL);
+        this.rightPupil = head.getChild(HumanoidModel.RIGHT_PUPIL);
         this.rightEyelidTop = this.rightEye.getChild(HumanoidModel.RIGHT_EYELID_TOP);
         this.rightEyelidBot = this.rightEye.getChild(HumanoidModel.RIGHT_EYELID_BOT);
 
         this.leftEye = head.getChild(HumanoidModel.LEFT_EYE);
         this.leftEyebrow = head.getChild(HumanoidModel.LEFT_EYEBROW);
-        this.leftPupill = head.getChild(HumanoidModel.LEFT_PUPILL);
+        this.leftPupil = head.getChild(HumanoidModel.LEFT_PUPIL);
         this.leftEyelidTop = this.leftEye.getChild(HumanoidModel.LEFT_EYELID_TOP);
         this.leftEyelidBot = this.leftEye.getChild(HumanoidModel.LEFT_EYELID_BOT);
     }
@@ -91,7 +85,27 @@ public class HumanoidEntityModel<T extends MobEntity>
             CrossbowPosing.swingArms(this.rightArm, this.leftArm, h);
         }
 
-        this.rightEyebrow.roll = -ToRad.ex(5);
+        this.rightEyebrow.roll = ToRad.ex(5);
+        this.rightEyebrow.pivotY = -4f - 0.7f;
+        this.rightPupil.yScale = 0.75f;
+        this.rightPupil.xScale = 1.3f;
+        this.rightEyelidTop.yScale = 0.45f;
+        this.rightEyelidBot.yScale = -0.25f;
+
+        this.leftEyebrow.roll = ToRad.ex(-5);
+        this.leftEyebrow.pivotY = -4f - 0.7f;
+        this.leftPupil.yScale = 0.75f;
+        this.leftPupil.xScale = 1.3f;
+        //this.leftPupill.pivotX = 0.3f;
+        this.leftEyelidTop.yScale = 0.45f;
+        this.leftEyelidBot.yScale = -0.25f;
+
+        this.rightEyelidTop.hidden = true;
+        this.rightEyelidBot.hidden = true;
+        this.leftEyelidTop.hidden = true;
+        this.leftEyelidBot.hidden = true;
+        /*
+
         this.rightEyebrow.pivotY = -3.8f;
         this.rightEye.yScale = -0.6f;
         this.rightPupill.yScale = -0.6f;
@@ -99,13 +113,13 @@ public class HumanoidEntityModel<T extends MobEntity>
         this.rightEyelidTop.hidden = true;
         this.rightEyelidBot.yScale = 0.8f;
 
-        this.leftEyebrow.roll = ToRad.ex(5);
+
         this.leftEyebrow.pivotY = -3.8f;
         this.leftEye.yScale = -0.6f;
         this.leftPupill.yScale = -0.6f;
         this.leftEyelidTop.yScale = 0.25f;
         this.leftEyelidTop.hidden = true;
-        this.leftEyelidBot.yScale = 0.8f;
+        this.leftEyelidBot.yScale = 0.8f;*/
     }
 
     @Override

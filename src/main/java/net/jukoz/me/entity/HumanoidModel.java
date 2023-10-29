@@ -12,8 +12,8 @@ public abstract class HumanoidModel {
     public static final String RIGHT_PANTS = "right_leg";
     public static final String RIGHT_EYE = "right_eye";
     public static final String LEFT_EYE = "left_eye";
-    public static final String RIGHT_PUPILL = "right_pupill";
-    public static final String LEFT_PUPILL = "left_pupill";
+    public static final String RIGHT_PUPIL = "right_pupil";
+    public static final String LEFT_PUPIL = "left_pupil";
     public static final String RIGHT_EYEBROW = "right_eyebrow";
     public static final String LEFT_EYEBROW = "left_eyebrow";
     public static final String RIGHT_EYELID_TOP = "right_eyelid_top";
@@ -99,51 +99,49 @@ public abstract class HumanoidModel {
                         .cuboid(0, 0, 0, 2.0f, 2.0f, 0.0f,
                                 Set.of(Direction.NORTH)
                         ),
-                ModelTransform.pivot(1f, -2f, eyeOffset));
+                ModelTransform.pivot(1f, -4f, eyeOffset));
 
         ModelPartData left_eye = head.addChild(LEFT_EYE, ModelPartBuilder.create().uv(0,eyeTextureY).mirrored()
                         .cuboid(0, 0, 0, 2.0f, 2.0f, 0.0f,
                                 Set.of(Direction.NORTH)
                         ),
-                ModelTransform.pivot(-3f, -2f, eyeOffset));
+                ModelTransform.pivot(-3f, -4f, eyeOffset));
 
         // Pupills
-        head.addChild(RIGHT_PUPILL, ModelPartBuilder.create().uv(0,pupillTextureY).mirrored()
+        head.addChild(RIGHT_PUPIL, ModelPartBuilder.create().uv(0,pupillTextureY).mirrored()
                         .cuboid(0.0f, 0, 0.0f, 1.0f, 2.0f, 0.0f,
                                 Set.of(Direction.NORTH)
                         ),
-                        ModelTransform.pivot(1, -2, pupillOffset));
+                        ModelTransform.pivot(1.3f, -4, pupillOffset));
 
-        head.addChild(LEFT_PUPILL, ModelPartBuilder.create().uv(0,pupillTextureY).mirrored()
+        head.addChild(LEFT_PUPIL, ModelPartBuilder.create().uv(0,pupillTextureY).mirrored()
                         .cuboid(0.0f, 0, 0.0f, 1.0f, 2.0f, 0.0f,
                                 Set.of(Direction.NORTH)
                         ),
-                ModelTransform.pivot(-2f, -2, pupillOffset));
+                ModelTransform.pivot(-2.6f, -4, pupillOffset));
 
         // Eyelids
-        rightEye.addChild(RIGHT_EYELID_TOP, ModelPartBuilder.create().uv(0,eyelidTextureY).mirrored()
+        rightEye.addChild(RIGHT_EYELID_TOP, ModelPartBuilder.create().uv(0,eyelidTextureY)
                         .cuboid(0, 0, 0f, 2.0f, 1.0f, 0.0f,
                                 Set.of(Direction.NORTH)
                         ),
-                ModelTransform.pivot(0, 2f, eyelidOffset));
+                ModelTransform.pivot(0, 2, eyelidOffset));
 
         rightEye.addChild(RIGHT_EYELID_BOT, ModelPartBuilder.create().uv(0,eyelidTextureY).mirrored()
                         .cuboid(0f, 0f, 0f, 2.0f, 1.0f, 0.0f,
                                 Set.of(Direction.NORTH)
                         ),
-                ModelTransform.pivot(0, 0f, eyelidOffset));
+                ModelTransform.pivot(0, 0, eyelidOffset));
 
-        left_eye.addChild(LEFT_EYELID_TOP, ModelPartBuilder.create().uv(0,eyelidTextureY).mirrored()
-                        .cuboid(0, 0, 0, 2.0f, 1.0f, 0.0f,
-                                Set.of(Direction.NORTH)
-                        ),
-                ModelTransform.pivot(0, 2f, eyelidOffset));
 
+
+
+        left_eye.addChild(LEFT_EYELID_TOP, ModelPartBuilder.create().uv(0,eyelidTextureY)
+                        .cuboid(0, 0, 0, 2.0f, 1.0f, 0.0f, Set.of(Direction.NORTH)),
+                ModelTransform.pivot(0, 2, eyelidOffset));
         left_eye.addChild(LEFT_EYELID_BOT, ModelPartBuilder.create().uv(0,eyelidTextureY).mirrored()
-                        .cuboid(0, 0, 0, 2.0f, 1.0f, 0.0f,
-                                Set.of(Direction.NORTH)
-                        ),
-                ModelTransform.pivot(0, 0f, eyelidOffset));
+                        .cuboid(0, 0, 0, 2.0f, 1.0f, 0.0f, Set.of(Direction.NORTH)),
+                ModelTransform.pivot(0, 0, eyelidOffset));
 
         return modelData;
     }

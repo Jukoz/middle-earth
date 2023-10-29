@@ -108,7 +108,7 @@ public class ShireHobbitEntity extends PathAwareEntity implements RangedAttackMo
         this.goalSelector.add(++i, new ProjectileAttackGoal(this, 1.0, 12, 24, 20.0f));
         this.goalSelector.add(++i, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(++i, new LookAroundGoal(this));
+        //this.goalSelector.add(++i, new LookAroundGoal(this));
 
         i = 0;
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
