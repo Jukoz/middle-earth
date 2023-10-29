@@ -1,11 +1,15 @@
 package net.jukoz.me.entity.snail;
 
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.crab.CrabVariant;
+import net.jukoz.me.entity.goals.EatCropsGoal;
 import net.minecraft.client.sound.Sound;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.goal.EatGrassGoal;
 import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
@@ -30,6 +34,8 @@ public class SnailEntity extends AnimalEntity {
     public static final int CLIMBING_TIME_TRANSITION = 12;
     private static final TrackedData<Byte> SPIDER_FLAGS;
     private int climbingTicks = 0;
+    private int eatCropsTimer;
+    private EatCropsGoal eatCropsGoal;
 
     public SnailEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
@@ -37,7 +43,9 @@ public class SnailEntity extends AnimalEntity {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(0, new WanderAroundFarGoal(this, 0.8));
+        this.eatCropsGoal = new EatCropsGoal(this);
+        this.goalSelector.add(0, eatCropsGoal);
+        this.goalSelector.add(1, new WanderAroundFarGoal(this, 0.8));
     }
 
     public static DefaultAttributeContainer.Builder createSnailAttributes() {
@@ -56,6 +64,12 @@ public class SnailEntity extends AnimalEntity {
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         return ModEntities.SNAIL.create(world);
+    }
+
+    @Override
+    protected void mobTick() {
+        this.eatCropsTimer = this.eatCropsGoal.getTimer();
+        super.mobTick();
     }
 
     @Nullable
@@ -84,6 +98,29 @@ public class SnailEntity extends AnimalEntity {
         this.dataTracker.startTracking(SPIDER_FLAGS, (byte)0);
     }
 
+    @Override
+    public void handleStatus(byte status) {
+        if (status == EntityStatuses.SET_SHEEP_EAT_GRASS_TIMER_OR_PRIME_TNT_MINECART) {
+            this.eatCropsTimer = 40;
+        } else {
+            super.handleStatus(status);
+        }
+    }
+
+    @Override
+    public void onEatingGrass() {
+        super.onEatingGrass();
+        if (this.isBaby()) {
+            this.growUp(60);
+        }
+        if(random.nextDouble() <= 0.15D) {
+            World world = this.getWorld();
+            SnailEntity snailSpawn = ((EntityType<SnailEntity>) EntityType.get(MiddleEarth.MOD_ID + ":snail").get()).create(world);
+            snailSpawn.updatePosition(this.getX(), this.getY(), this.getZ());
+            world.spawnEntity(snailSpawn);
+        }
+    }
+
     public void tick() {
         super.tick();
         if (!this.getWorld().isClient) {
@@ -96,6 +133,9 @@ public class SnailEntity extends AnimalEntity {
 
     @Override
     public void tickMovement() {
+        if (this.getWorld().isClient) {
+            this.eatCropsTimer = Math.max(0, this.eatCropsTimer - 1);
+        }
         super.tickMovement();
         if(isClimbingWall()) {
 
