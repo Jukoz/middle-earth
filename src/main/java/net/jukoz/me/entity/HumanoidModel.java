@@ -71,69 +71,79 @@ public abstract class HumanoidModel {
                 ModelTransform.pivot(0.0f, 0.0f, 0.0f));
 
         // Face features
+        int eyebrowTextureY = 0;
+        int eyeTextureY = 1;
+        int pupillTextureY = 3;
+        int eyelidTextureY = 5;
 
-        head.addChild(RIGHT_EYEBROW, ModelPartBuilder.create().uv(0,0).mirrored()
-                        .cuboid(1f, -5f, -4.35f, 2.0f, 1.0f, 0.0f,
+        float eyebrowOffset = -4.3f;
+        float eyeOffset = -4.2f;
+        float pupillOffset = -4.225f;
+        float eyelidOffset = -0.05f;
+
+        // Eyebrows
+        head.addChild(RIGHT_EYEBROW, ModelPartBuilder.create().uv(0,eyebrowTextureY).mirrored()
+                        .cuboid(-1f, -0.5f, 0, 2.0f, 1.0f, 0.0f,
                                 Set.of(Direction.NORTH)
                         ),
-                ModelTransform.pivot(0.0f, 0.0f, 0.0f));
+                ModelTransform.pivot(2f, -4f, eyebrowOffset));
 
-        head.addChild(LEFT_EYEBROW, ModelPartBuilder.create().uv(0,0).mirrored()
-                        .cuboid(-3f, -5f, -4.35f, 2.0f, 1.0f, 0.0f,
+        head.addChild(LEFT_EYEBROW, ModelPartBuilder.create().uv(0,eyebrowTextureY).mirrored()
+                        .cuboid(-1f, -0.5f, 0f, 2.0f, 1.0f, 0.0f,
                                 Set.of(Direction.NORTH)
                         ),
-                ModelTransform.pivot(0.0f, 0.0f, 0.0f));
+                ModelTransform.pivot(-2f, -4f, eyebrowOffset));
 
-
-        ModelPartData rightEye = head.addChild(RIGHT_EYE, ModelPartBuilder.create().uv(0,1).mirrored()
-                        .cuboid(1f, -4f, -4.25f, 2.0f, 2.0f, 0.0f),
-                ModelTransform.pivot(0.0f, 0.0f, 0.0f));
-
-
-        rightEye.addChild(RIGHT_PUPILL, ModelPartBuilder.create().uv(0,3).mirrored()
-                                .cuboid(-0.0f, 0.0f, 0.0f, 1.0f, 2.0f, 0.0f,
-                                        Set.of(Direction.NORTH)
-                                ),
-                        ModelTransform.pivot(1.5f, -4f, -4.26f));
-
-
-        rightEye.addChild(RIGHT_EYELID_TOP, ModelPartBuilder.create().uv(0,5).mirrored()
-                        .cuboid(1f, 0, -4.28f, 2.0f, 1.0f, 0.0f,
+        // Eyes
+        ModelPartData rightEye = head.addChild(RIGHT_EYE, ModelPartBuilder.create().uv(0,eyeTextureY).mirrored()
+                        .cuboid(0, 0, 0, 2.0f, 2.0f, 0.0f,
                                 Set.of(Direction.NORTH)
                         ),
-                ModelTransform.pivot(0.0f, -4.0f, 0.0f));
+                ModelTransform.pivot(1f, -2f, eyeOffset));
 
-        rightEye.addChild(RIGHT_EYELID_BOT, ModelPartBuilder.create().uv(0,5).mirrored()
+        ModelPartData left_eye = head.addChild(LEFT_EYE, ModelPartBuilder.create().uv(0,eyeTextureY).mirrored()
+                        .cuboid(0, 0, 0, 2.0f, 2.0f, 0.0f,
+                                Set.of(Direction.NORTH)
+                        ),
+                ModelTransform.pivot(-3f, -2f, eyeOffset));
+
+        // Pupills
+        head.addChild(RIGHT_PUPILL, ModelPartBuilder.create().uv(0,pupillTextureY).mirrored()
+                        .cuboid(0.0f, 0, 0.0f, 1.0f, 2.0f, 0.0f,
+                                Set.of(Direction.NORTH)
+                        ),
+                        ModelTransform.pivot(1, -2, pupillOffset));
+
+        head.addChild(LEFT_PUPILL, ModelPartBuilder.create().uv(0,pupillTextureY).mirrored()
+                        .cuboid(0.0f, 0, 0.0f, 1.0f, 2.0f, 0.0f,
+                                Set.of(Direction.NORTH)
+                        ),
+                ModelTransform.pivot(-2f, -2, pupillOffset));
+
+        // Eyelids
+        rightEye.addChild(RIGHT_EYELID_TOP, ModelPartBuilder.create().uv(0,eyelidTextureY).mirrored()
+                        .cuboid(0, 0, 0f, 2.0f, 1.0f, 0.0f,
+                                Set.of(Direction.NORTH)
+                        ),
+                ModelTransform.pivot(0, 2f, eyelidOffset));
+
+        rightEye.addChild(RIGHT_EYELID_BOT, ModelPartBuilder.create().uv(0,eyelidTextureY).mirrored()
                         .cuboid(0f, 0f, 0f, 2.0f, 1.0f, 0.0f,
                                 Set.of(Direction.NORTH)
                         ),
-                ModelTransform.pivot(1f, -2.0f, -4.28f));
+                ModelTransform.pivot(0, 0f, eyelidOffset));
 
-
-        ModelPartData left_eye = head.addChild(LEFT_EYE, ModelPartBuilder.create().uv(0,1).mirrored()
-                        .cuboid(-3f, -4f, -4.25f, 2.0f, 2.0f, 0.0f),
-                ModelTransform.pivot(0.0f, 0.0f, 0.0f));
-
-
-        left_eye.addChild(LEFT_PUPILL, ModelPartBuilder.create().uv(0,3).mirrored()
-                        .cuboid(0.0f, 0f, 0.0f, 1.0f, 2.0f, 0.0f,
-                                Set.of(Direction.NORTH)
-                        ),
-                ModelTransform.pivot(-2.5f, -4f, -4.26f));
-
-
-        left_eye.addChild(LEFT_EYELID_TOP, ModelPartBuilder.create().uv(0,5).mirrored()
-                        .cuboid(-3f, 0, -4.28f, 2.0f, 1.0f, 0.0f,
-                                Set.of(Direction.NORTH)
-                        ),
-                ModelTransform.pivot(0.0f, -4f, 0.0f));
-
-        left_eye.addChild(LEFT_EYELID_BOT, ModelPartBuilder.create().uv(0,5).mirrored()
+        left_eye.addChild(LEFT_EYELID_TOP, ModelPartBuilder.create().uv(0,eyelidTextureY).mirrored()
                         .cuboid(0, 0, 0, 2.0f, 1.0f, 0.0f,
                                 Set.of(Direction.NORTH)
                         ),
-                ModelTransform.pivot(-3.0f, -2f, -4.28f));
+                ModelTransform.pivot(0, 2f, eyelidOffset));
 
+        left_eye.addChild(LEFT_EYELID_BOT, ModelPartBuilder.create().uv(0,eyelidTextureY).mirrored()
+                        .cuboid(0, 0, 0, 2.0f, 1.0f, 0.0f,
+                                Set.of(Direction.NORTH)
+                        ),
+                ModelTransform.pivot(0, 0f, eyelidOffset));
 
         return modelData;
     }
