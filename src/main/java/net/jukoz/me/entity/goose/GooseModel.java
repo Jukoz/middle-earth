@@ -9,7 +9,7 @@ import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.util.math.MathHelper;
 
 public class GooseModel<T extends GooseEntity> extends EntityModel<GooseEntity> {
-    private final ModelPart neck;
+    public final ModelPart neck;
     public final ModelPart head;
     private final ModelPart body;
     private final ModelPart right_wing;
