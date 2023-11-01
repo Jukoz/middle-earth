@@ -66,6 +66,11 @@ public class ModRessourceItems {
     public static final Block REEDS = registerBlock("reeds",
             new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.TALL_GRASS).strength(0.2f)), false);
 
+    public static final Item DUCK_FEATHER = registerItem("duck_feather",
+            new Item(new FabricItemSettings()));
+    public static final Item SWAN_FEATHER = registerItem("swan_feather",
+            new Item(new FabricItemSettings()));
+
     public static Block registerBlock(String name, Block block, boolean absent) {
         if(!absent) registerBlockItem(name, block);
         return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);

@@ -164,6 +164,8 @@
 
 "#Comment:": "Item - Resources",
   "item.me.straw": "Straw",
+  "item.me.duck_feather": "Duck Feather",
+  "item.me.swan_feather": "Swan Feather",
 
 "#Comment:": "Item - Spawn Eggs",
   "item.me.barrow_wight_spawn_egg": "Barrow Wight Spawn Egg",
@@ -171,6 +173,7 @@
   "item.me.snow_troll_spawn_egg": "Snow Troll Spawn Egg",
   "item.me.crab_spawn_egg": "Crab Spawn Egg",
   "item.me.goose_spawn_egg": "Goose Spawn Egg",
+  "item.me.duck_spawn_egg": "Duck Spawn Egg",
   "item.me.durin_folk_spawn_egg": "Durin Folk Spawn Egg",
   "item.me.hobbit_spawn_egg": "Hobbit Spawn Egg",
   "item.me.galadhrim_elf_spawn_egg": "Galadhrim Elf Spawn Egg",
@@ -184,6 +187,7 @@
   "entity.me.snow_troll": "Snow Troll",
   "entity.me.crab": "Crab",
   "entity.me.goose": "Goose",
+  "entity.me.duck": "Duck",
   "entity.me.durin_folk": "Durin Folk",
   "entity.me.galadhrim_elf": "Galadhrim Elf",
   "entity.me.hobbit": "Hobbit",

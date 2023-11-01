@@ -45,6 +45,9 @@ public class GooseHeldItemFeatureRenderer extends FeatureRenderer<GooseEntity, G
 
             matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90.0F));
         }
+        if(gooseEntity.isAttacking()){
+
+        }
 
         this.heldItemRenderer.renderItem(gooseEntity, itemStack, ModelTransformationMode.GROUND, false, matrixStack, vertexConsumerProvider, i);
         matrixStack.pop();

@@ -25,7 +25,7 @@
               "function": "minecraft:looting_enchant"
             }
           ],
-          "name": "minecraft:feather"
+          "name": "me:duck_feather"
         }
       ],
       "rolls": 1.0
@@ -59,7 +59,7 @@
               "function": "minecraft:looting_enchant"
             }
           ],
-          "name": "me:raw_goose"
+          "name": "me:raw_duck"
         }
       ],
       "rolls": 1.0

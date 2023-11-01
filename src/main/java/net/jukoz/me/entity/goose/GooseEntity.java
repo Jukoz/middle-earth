@@ -1,6 +1,9 @@
 package net.jukoz.me.entity.goose;
 
+import com.google.common.collect.ImmutableList;
+import com.mojang.serialization.Dynamic;
 import net.jukoz.me.entity.ModEntities;
+import net.jukoz.me.entity.goals.BirdFlightGoal;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.Entity;
@@ -8,6 +11,10 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.FuzzyTargeting;
+import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.brain.sensor.Sensor;
+import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
@@ -16,11 +23,9 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.mob.SpiderEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ItemStackParticleEffect;
@@ -44,7 +49,7 @@ import java.util.function.Predicate;
 
 public class GooseEntity extends AnimalEntity {
 
-    private static final Ingredient BREEDING_INGREDIENT
+    public static final Ingredient BREEDING_INGREDIENT
             = Ingredient.ofItems(Items.GRASS, Items.WHEAT_SEEDS);
     static final Predicate<ItemEntity> PICKABLE_DROP_FILTER;
     public float flapProgress;
@@ -54,14 +59,16 @@ public class GooseEntity extends AnimalEntity {
     private float flapSpeed = 1.0F;
     private float field_28640 = 1.0F;
 
-
     public GooseEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
         this.setCanPickUpLoot(true);
     }
 
     protected void initGoals() {
-        this.goalSelector.add(1, new SwimGoal(this));
+        this.goalSelector.add(0, new SwimGoal(this));
+
+        this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
+
         this.goalSelector.add(2, new MeleeAttackGoal(this, 0.9f, false));
         this.goalSelector.add(3, new EscapeDangerGoal(this, 1.15));
         this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
@@ -73,12 +80,12 @@ public class GooseEntity extends AnimalEntity {
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(9, new LookAroundGoal(this));
         this.goalSelector.add(10, new WanderAroundGoal(this, 1.0F));
-        this.goalSelector.add(11, new FlyOntoTreeGoal(this, 1.0));
 
         this.goalSelector.add(12, new FleeEntityGoal<>(this, WolfEntity.class, 8.0F, 0.9, 1.2));
 
-        this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
+        this.goalSelector.add(13, new BirdFlightGoal(this));
     }
+
 
     public static DefaultAttributeContainer.Builder createGooseAttributes() {
         return MobEntity.createMobAttributes()
@@ -239,53 +246,6 @@ public class GooseEntity extends AnimalEntity {
     @Override
     public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
-    }
-
-
-    private static class FlyOntoTreeGoal extends FlyGoal {
-        public FlyOntoTreeGoal(PathAwareEntity pathAwareEntity, double d) {
-            super(pathAwareEntity, d);
-        }
-
-        @Nullable
-        protected Vec3d getWanderTarget() {
-            Vec3d vec3d = null;
-            if (this.mob.isTouchingWater()) {
-                vec3d = FuzzyTargeting.find(this.mob, 15, 15);
-            }
-
-            if (this.mob.getRandom().nextFloat() >= this.probability) {
-                vec3d = this.locateTree();
-            }
-
-            return vec3d == null ? super.getWanderTarget() : vec3d;
-        }
-
-        @Nullable
-        private Vec3d locateTree() {
-            BlockPos blockPos = this.mob.getBlockPos();
-            BlockPos.Mutable mutable = new BlockPos.Mutable();
-            BlockPos.Mutable mutable2 = new BlockPos.Mutable();
-            Iterable<BlockPos> iterable = BlockPos.iterate(MathHelper.floor(this.mob.getX() - 3.0), MathHelper.floor(this.mob.getY() - 6.0), MathHelper.floor(this.mob.getZ() - 3.0), MathHelper.floor(this.mob.getX() + 3.0), MathHelper.floor(this.mob.getY() + 6.0), MathHelper.floor(this.mob.getZ() + 3.0));
-            Iterator var5 = iterable.iterator();
-
-            BlockPos blockPos2;
-            boolean bl;
-            do {
-                do {
-                    if (!var5.hasNext()) {
-                        return null;
-                    }
-
-                    blockPos2 = (BlockPos)var5.next();
-                } while(blockPos.equals(blockPos2));
-
-                BlockState blockState = this.mob.getWorld().getBlockState(mutable2.set(blockPos2, Direction.DOWN));
-                bl = blockState.getBlock() instanceof LeavesBlock || blockState.isIn(BlockTags.LOGS);
-            } while(!bl || !this.mob.getWorld().isAir(blockPos2) || !this.mob.getWorld().isAir(mutable.set(blockPos2, Direction.UP)));
-
-            return Vec3d.ofBottomCenter(blockPos2);
-        }
     }
 
     class PickupItemGoal extends Goal {

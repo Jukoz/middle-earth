@@ -33,6 +33,8 @@ public class ModEggItems {
             new SpawnEggItem(ModEntities.CRAB, 15350073,15764576, new Item.Settings()));
     public static final Item GOOSE_SPAWN_EGG = registerItem("goose_spawn_egg",
             new SpawnEggItem(ModEntities.GOOSE, 8421504,13882323, new Item.Settings()));
+    public static final Item DUCK_SPAWN_EGG = registerItem("duck_spawn_egg",
+            new SpawnEggItem(ModEntities.DUCK, 7810816,32526, new Item.Settings()));
 
 
 

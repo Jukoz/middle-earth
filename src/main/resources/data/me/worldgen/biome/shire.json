@@ -117,6 +117,12 @@
         "maxCount": 3,
         "minCount": 1,
         "weight": 1
+      },
+      {
+        "type": "me:duck",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 5
       }
     ],
     "misc": [],
