@@ -2,15 +2,9 @@ package net.jukoz.me.entity.snail;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
-import net.jukoz.me.entity.crab.CrabVariant;
-import net.jukoz.me.entity.goals.EatCropsGoal;
-import net.minecraft.client.sound.Sound;
-import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.EntityStatuses;
+import net.minecraft.block.*;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.EatGrassGoal;
-import net.minecraft.entity.ai.goal.TemptGoal;
+import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
 import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.SpiderNavigation;
@@ -23,10 +17,14 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 public class SnailEntity extends AnimalEntity {
@@ -34,8 +32,7 @@ public class SnailEntity extends AnimalEntity {
     public static final int CLIMBING_TIME_TRANSITION = 12;
     private static final TrackedData<Byte> SPIDER_FLAGS;
     private int climbingTicks = 0;
-    private int eatCropsTimer;
-    private EatCropsGoal eatCropsGoal;
+    int moreCropsTicks;
 
     public SnailEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
@@ -43,8 +40,7 @@ public class SnailEntity extends AnimalEntity {
 
     @Override
     protected void initGoals() {
-        this.eatCropsGoal = new EatCropsGoal(this);
-        this.goalSelector.add(0, eatCropsGoal);
+        this.goalSelector.add(0, new SnailEatCropGoal(this));
         this.goalSelector.add(1, new WanderAroundFarGoal(this, 0.8));
     }
 
@@ -59,16 +55,85 @@ public class SnailEntity extends AnimalEntity {
     public SnailVariant getVariant() {
         return SnailVariant.byId(this.getId());
     }
-
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         return ModEntities.SNAIL.create(world);
     }
 
+
+    static class SnailEatCropGoal
+            extends MoveToTargetPosGoal {
+        private final SnailEntity snail;
+        private boolean wantsCrops;
+        private boolean hasTarget;
+
+        public SnailEatCropGoal(SnailEntity snail) {
+            super(snail, 1.0f, 16);
+            this.snail = snail;
+        }
+
+        @Override
+        public boolean canStart() {
+            if (this.cooldown <= 0) {
+                if (!this.snail.getWorld().getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
+                    return false;
+                }
+                this.hasTarget = false;
+                this.wantsCrops = this.snail.wantsCrops();
+            }
+            return super.canStart();
+        }
+
+        @Override
+        public boolean shouldContinue() {
+            return this.hasTarget && super.shouldContinue();
+        }
+
+        @Override
+        public void tick() {
+            super.tick();
+            this.snail.getLookControl().lookAt((double)this.targetPos.getX() + 0.5, this.targetPos.getY() + 1, (double)this.targetPos.getZ() + 0.5, 10.0f, this.snail.getMaxLookPitchChange());
+            if (this.hasReached()) {
+                World world = this.snail.getWorld();
+                BlockPos blockPos = this.targetPos.up();
+                BlockState blockState = world.getBlockState(blockPos);
+                Block block = blockState.getBlock();
+                if (this.hasTarget && block.getDefaultState().isIn(BlockTags.CROPS)) {
+                    world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), Block.NOTIFY_LISTENERS);
+                    world.breakBlock(blockPos, true, this.snail);
+                    this.snail.onEatingGrass();
+                    this.snail.moreCropsTicks = 1200;
+                }
+                this.hasTarget = false;
+                this.cooldown = 10;
+            }
+        }
+
+        @Override
+        protected boolean isTargetPos(WorldView world, BlockPos pos) {
+            BlockState blockState = world.getBlockState(pos);
+            if (blockState.isOf(Blocks.FARMLAND) && this.wantsCrops && !this.hasTarget && (blockState = world.getBlockState(pos.up())).isIn(BlockTags.CROPS)) {
+                this.hasTarget = true;
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    boolean wantsCrops() {
+        return this.moreCropsTicks <= 0;
+    }
+
     @Override
     protected void mobTick() {
-        this.eatCropsTimer = this.eatCropsGoal.getTimer();
+        if (this.moreCropsTicks > 0) {
+            this.moreCropsTicks -= this.random.nextInt(3);
+            if (this.moreCropsTicks < 0) {
+                this.moreCropsTicks = 0;
+            }
+        }
         super.mobTick();
     }
 
@@ -99,15 +164,6 @@ public class SnailEntity extends AnimalEntity {
     }
 
     @Override
-    public void handleStatus(byte status) {
-        if (status == EntityStatuses.SET_SHEEP_EAT_GRASS_TIMER_OR_PRIME_TNT_MINECART) {
-            this.eatCropsTimer = 40;
-        } else {
-            super.handleStatus(status);
-        }
-    }
-
-    @Override
     public void onEatingGrass() {
         super.onEatingGrass();
         if (this.isBaby()) {
@@ -133,9 +189,6 @@ public class SnailEntity extends AnimalEntity {
 
     @Override
     public void tickMovement() {
-        if (this.getWorld().isClient) {
-            this.eatCropsTimer = Math.max(0, this.eatCropsTimer - 1);
-        }
         super.tickMovement();
         if(isClimbingWall()) {
 
