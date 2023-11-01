@@ -30,7 +30,8 @@ public class GooseHeldItemFeatureRenderer extends FeatureRenderer<GooseEntity, G
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, GooseEntity gooseEntity, float f, float g, float h, float j, float k, float l) {
         matrixStack.push();
 
-        matrixStack.translate(((GooseModel)this.getContextModel()).head.pivotX / 16.0F, ((GooseModel)this.getContextModel()).head.pivotY / 16.0F, ((GooseModel)this.getContextModel()).head.pivotZ / 16.0F);
+        System.out.println();
+        matrixStack.translate((this.getContextModel()).head.pivotX / 16.0F + (this.getContextModel()).neck.pivotX / 16.0F, (this.getContextModel()).neck.pivotY / 16.0F, (this.getContextModel()).head.pivotZ / 16.0F + (this.getContextModel()).neck.pivotZ / 16.0F);
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(k));
         matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(l));
 

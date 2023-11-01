@@ -7,7 +7,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 
 public class GooseModel<T extends GooseEntity> extends EntityModel<GooseEntity> {
-    private final ModelPart neck;
+    public final ModelPart neck;
     public final ModelPart head;
     private final ModelPart body;
     private final ModelPart right_wing;
