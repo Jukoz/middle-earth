@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.crop.TomatoCropBlock;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
+import net.jukoz.me.datageneration.content.loot_tables.CropDrops;
 import net.jukoz.me.datageneration.content.loot_tables.LeavesDrops;
 import net.jukoz.me.item.ModFoodItems;
 import net.minecraft.block.Block;
@@ -26,11 +27,8 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         for (Block block : LeavesDrops.blocks) {
             addDrop(block, BlockLootTableGenerator.dropsWithShears(block));
         }
-
-        // Crops
-        BlockStatePropertyLootCondition.Builder builder = BlockStatePropertyLootCondition.builder(ModNatureBlocks.TOMATO_CROP).properties(StatePredicate.Builder.create()
-                .exactMatch(TomatoCropBlock.AGE, 3));
-        addDrop(ModNatureBlocks.TOMATO_CROP, cropDrops(ModNatureBlocks.TOMATO_CROP, ModFoodItems.TOMATO, ModFoodItems.TOMATO, builder));
-
+        for(CropDrops.CropDrop cd : CropDrops.blocks) {
+            addDrop(cd.crop_block, cropDrops(cd.crop_block, cd.fruit, cd.seeds, cd.builder));
+        }
     }
 }
