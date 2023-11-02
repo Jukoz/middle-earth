@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 public class SnailEntity extends AnimalEntity {
 
     public static final int CLIMBING_TIME_TRANSITION = 12;
-    private static final TrackedData<Byte> SPIDER_FLAGS;
+    private static final TrackedData<Byte> SNAIL_FLAGS;
     private int climbingTicks = 0;
     int moreCropsTicks;
 
@@ -160,7 +160,7 @@ public class SnailEntity extends AnimalEntity {
 
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(SPIDER_FLAGS, (byte)0);
+        this.dataTracker.startTracking(SNAIL_FLAGS, (byte)0);
     }
 
     @Override
@@ -203,7 +203,7 @@ public class SnailEntity extends AnimalEntity {
     }
 
     public boolean isClimbingWall() {
-        return (this.dataTracker.get(SPIDER_FLAGS) & 1) != 0;
+        return (this.dataTracker.get(SNAIL_FLAGS) & 1) != 0;
     }
 
     public boolean isCollidingWall() {
@@ -211,14 +211,14 @@ public class SnailEntity extends AnimalEntity {
     }
 
     public void setClimbingWall(boolean climbing) {
-        byte b = (Byte)this.dataTracker.get(SPIDER_FLAGS);
+        byte b = (Byte)this.dataTracker.get(SNAIL_FLAGS);
         if (climbing) {
             b = (byte)(b | 1);
         } else {
             b &= -2;
         }
 
-        this.dataTracker.set(SPIDER_FLAGS, b);
+        this.dataTracker.set(SNAIL_FLAGS, b);
     }
 
     public int getClimbingTicks() {
@@ -226,6 +226,6 @@ public class SnailEntity extends AnimalEntity {
     }
 
     static {
-        SPIDER_FLAGS = DataTracker.registerData(net.minecraft.entity.mob.SpiderEntity.class, TrackedDataHandlerRegistry.BYTE);
+        SNAIL_FLAGS = DataTracker.registerData(SnailEntity.class, TrackedDataHandlerRegistry.BYTE);
     }
 }
