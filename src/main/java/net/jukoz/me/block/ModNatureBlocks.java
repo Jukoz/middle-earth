@@ -3,6 +3,7 @@ package net.jukoz.me.block;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.crop.TomatoCropBlock;
 import net.jukoz.me.block.special.*;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.block.*;
@@ -94,6 +95,9 @@ public class ModNatureBlocks {
 
     public static final Block MIRKWOOD_SPIDER_EGG = registerBlock("mirkwood_spider_egg",
             new MirkwoodSpiderEggBlock(FabricBlockSettings.copyOf(Blocks.TURTLE_EGG)), false);
+
+    public static final Block TOMATO_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "tomato_crop"),
+            new TomatoCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));
 
 
     public static Block registerBlock(String name, Block block, boolean absent) {

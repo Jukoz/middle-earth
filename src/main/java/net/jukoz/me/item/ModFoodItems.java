@@ -32,6 +32,11 @@ public class ModFoodItems {
                     new FabricItemSettings().food(
                             new FoodComponent.Builder().hunger(2).saturationModifier(0.1f).build())));
 
+    public static final Item TOMATO = registerItem("tomato",
+            new AliasedBlockItem(ModNatureBlocks.TOMATO_CROP,
+                    new FabricItemSettings().food(
+                            new FoodComponent.Builder().hunger(3).saturationModifier(0.3f).build())));
+
     private static Item registerItem(String name, Item item) {
         ModItemGroups.FOOD_CONTENTS.add(item.getDefaultStack());
         return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);

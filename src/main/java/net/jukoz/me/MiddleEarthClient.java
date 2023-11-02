@@ -65,6 +65,10 @@ public class MiddleEarthClient implements ClientModInitializer {
         // Animals
         EntityRendererRegistry.register(ModEntities.CRAB, CrabRenderer::new);
 
+
+        // Crops
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.TOMATO_CROP, RenderLayer.getCutout());
+
         ModModelPredicateProvider.registerBowModel();
 
         HandledScreens.register(ModScreenHandlers.ALLOY_SCREEN_HANDLER, AlloyFurnaceScreen::new);

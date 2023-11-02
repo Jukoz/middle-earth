@@ -2,6 +2,8 @@ package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.jukoz.me.block.ModNatureBlocks;
+import net.jukoz.me.block.crop.TomatoCropBlock;
 import net.jukoz.me.datageneration.content.CustomItemModels;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.item.ModEquipmentItems;
@@ -29,6 +31,10 @@ public class ModelProvider extends FabricModelProvider {
 
         for (SimplePillarModel.Pillar block : SimplePillarModel.blocks) {
             blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+        }
+
+        for (Block block : SimpleCropModel.blocks) {
+            blockStateModelGenerator.registerCrop(ModNatureBlocks.TOMATO_CROP, TomatoCropBlock.AGE, 0, 1, 2, 3);
         }
 
         for (SimpleSlabModel.Slab block : SimpleSlabModel.blocks) {
