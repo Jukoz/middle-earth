@@ -33,9 +33,30 @@ public class ModFoodItems {
                             new FoodComponent.Builder().hunger(2).saturationModifier(0.1f).build())));
 
     public static final Item TOMATO = registerItem("tomato",
-            new AliasedBlockItem(ModNatureBlocks.TOMATO_CROP,
+            new Item(new FabricItemSettings().food(
+                            new FoodComponent.Builder().hunger(4).saturationModifier(0.4f).build())));
+    public static final Item BELL_PEPPER = registerItem("bell_pepper",
+            new Item(new FabricItemSettings().food(
+                            new FoodComponent.Builder().hunger(4).saturationModifier(0.5f).build())));
+    public static final Item CUCUMBER = registerItem("cucumber",
+            new Item(new FabricItemSettings().food(
+                            new FoodComponent.Builder().hunger(4).saturationModifier(0.5f).build())));
+    public static final Item GARLIC = registerItem("garlic",
+            new AliasedBlockItem(ModNatureBlocks.GARLIC_CROP,
                     new FabricItemSettings().food(
+                            new FoodComponent.Builder().hunger(2).saturationModifier(0.2f).build())));
+    public static final Item LEEK = registerItem("leek",
+            new AliasedBlockItem(ModNatureBlocks.LEEK_CROP,
+                    new FabricItemSettings().food(
+                            new FoodComponent.Builder().hunger(2).saturationModifier(0.2f).build())));
+    public static final Item LETTUCE = registerItem("lettuce",
+            new Item(new FabricItemSettings().food(
                             new FoodComponent.Builder().hunger(3).saturationModifier(0.3f).build())));
+    public static final Item ONION = registerItem("onion",
+            new AliasedBlockItem(ModNatureBlocks.ONION_CROP,
+                    new FabricItemSettings().food(
+                            new FoodComponent.Builder().hunger(2).saturationModifier(0.2f).build())));
+
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.FOOD_CONTENTS.add(item.getDefaultStack());

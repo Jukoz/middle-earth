@@ -1,6 +1,5 @@
 package net.jukoz.me.block.crop;
 
-import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModRessourceItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -10,17 +9,15 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 
-public class TomatoCropBlock extends CropBlock {
+public class FlaxCropBlock extends CropBlock {
     public static final int MAX_AGE = 3;
     public static final IntProperty AGE = Properties.AGE_3;
-
-    public TomatoCropBlock(Settings settings) {
+    public FlaxCropBlock(Settings settings) {
         super(settings);
     }
-
     @Override
     protected ItemConvertible getSeedsItem() {
-        return ModRessourceItems.TOMATO_SEEDS;
+        return ModRessourceItems.FLAX_SEEDS;
     }
 
     @Override

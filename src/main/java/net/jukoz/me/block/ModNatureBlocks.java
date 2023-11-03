@@ -3,7 +3,7 @@ package net.jukoz.me.block;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.crop.TomatoCropBlock;
+import net.jukoz.me.block.crop.*;
 import net.jukoz.me.block.special.*;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.block.*;
@@ -98,6 +98,22 @@ public class ModNatureBlocks {
 
     public static final Block TOMATO_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "tomato_crop"),
             new TomatoCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));
+    public static final Block BELL_PEPPER_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "bell_pepper_crop"),
+            new BellpepperCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));
+    public static final Block CUCUMBER_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "cucumber_crop"),
+            new CucumberCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));
+    public static final Block FLAX_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "flax_crop"),
+            new FlaxCropBlock(FabricBlockSettings.copyOf(Blocks.WHEAT)));
+    public static final Block GARLIC_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "garlic_crop"),
+            new GarlicCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));
+    public static final Block LEEK_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "leek_crop"),
+            new LeekCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));
+    public static final Block LETTUCE_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "lettuce_crop"),
+            new LettuceCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));
+    public static final Block ONION_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "onion_crop"),
+            new OnionCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));
+    public static final Block PIPEWEED_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "pipeweed_crop"),
+            new PipeweedCropBlock(FabricBlockSettings.copyOf(Blocks.WHEAT)));
 
 
     public static Block registerBlock(String name, Block block, boolean absent) {
