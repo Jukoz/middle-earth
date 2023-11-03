@@ -4,6 +4,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.jukoz.me.block.SimpleBlockSets;
 import net.jukoz.me.block.WoodBlockSets;
+import net.jukoz.me.item.ModFoodItems;
+import net.jukoz.me.item.ModRessourceItems;
 import net.minecraft.block.Block;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
