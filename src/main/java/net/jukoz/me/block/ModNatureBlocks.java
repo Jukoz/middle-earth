@@ -87,6 +87,9 @@ public class ModNatureBlocks {
     public static final Block STRAWBERRY_BUSH = registerBlock("strawberry_bush",
             new StrawBerryBushBlock(FabricBlockSettings.copyOf(Blocks.SWEET_BERRY_BUSH).ticksRandomly().noCollision().breakInstantly().sounds(BlockSoundGroup.SWEET_BERRY_BUSH)), true);
 
+    public static final Block WILD_PIPEWEED = registerBlock("wild_pipeweed",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+
     public static final Block MIRKWOOD_ROOTS = registerBlock("mirkwood_roots",
             new MangroveRootsBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_ROOTS)), false);
 

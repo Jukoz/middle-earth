@@ -134,6 +134,10 @@ public class ModelProvider extends FabricModelProvider {
                     .createTrapdoorBlockState(block, top, bottom, open));
         }
 
+        for(Block block : TintableCrossModel.notTintedBlocks) {
+            blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.TintType.NOT_TINTED);
+        }
+
         // Crops
         blockStateModelGenerator.registerCrop(ModNatureBlocks.TOMATO_CROP, TomatoCropBlock.AGE, 0, 1, 2, 3);
         blockStateModelGenerator.registerCrop(ModNatureBlocks.BELL_PEPPER_CROP, BellpepperCropBlock.AGE, 0, 1, 2, 3, 4);
@@ -144,7 +148,6 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCrop(ModNatureBlocks.LETTUCE_CROP, LettuceCropBlock.AGE, 0, 1, 2, 3);
         blockStateModelGenerator.registerCrop(ModNatureBlocks.ONION_CROP, OnionCropBlock.AGE, 0, 1, 2, 3);
         blockStateModelGenerator.registerCrop(ModNatureBlocks.PIPEWEED_CROP, PipeweedCropBlock.AGE, 0, 1, 2, 3);
-
     }
 
     @Override

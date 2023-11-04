@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CropDrops {
-    public static List<CropDrop> blocks = new ArrayList<>() {
+    public static List<CropDrop> crops = new ArrayList<>() {
         {
             add(new CropDrop(BlockStatePropertyLootCondition.builder(ModNatureBlocks.TOMATO_CROP).properties(StatePredicate.Builder.create().exactMatch(TomatoCropBlock.AGE, 3)),
                     ModNatureBlocks.TOMATO_CROP, ModFoodItems.TOMATO, ModRessourceItems.TOMATO_SEEDS));
@@ -33,6 +33,11 @@ public class CropDrops {
                     ModNatureBlocks.ONION_CROP, ModFoodItems.ONION, ModFoodItems.ONION));
             add(new CropDrop(BlockStatePropertyLootCondition.builder(ModNatureBlocks.PIPEWEED_CROP).properties(StatePredicate.Builder.create().exactMatch(PipeweedCropBlock.AGE, 3)),
                     ModNatureBlocks.PIPEWEED_CROP, ModRessourceItems.PIPEWEED, ModRessourceItems.PIPEWEED_SEEDS));
+        }
+    };
+    public static List<CropDrop> wild_crops = new ArrayList<>() {
+        {
+            add(new CropDrop(null, ModNatureBlocks.WILD_PIPEWEED, ModRessourceItems.PIPEWEED, null));
         }
     };
 
