@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 
@@ -65,6 +66,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                             FabricRecipeProvider.conditionsFromItem(Items.STICK))
                     .offerTo(exporter);
         }
+
+        // Seeds
+        createSeedsRecipe(exporter, ModFoodItems.TOMATO, ModRessourceItems.TOMATO_SEEDS);
+        createSeedsRecipe(exporter, ModFoodItems.BELL_PEPPER, ModRessourceItems.BELL_PEPPER_SEEDS);
+        createSeedsRecipe(exporter, ModFoodItems.CUCUMBER, ModRessourceItems.CUCUMBER_SEEDS);
+        createSeedsRecipe(exporter, ModFoodItems.LEEK, ModRessourceItems.LEEK_SEEDS);
+        createSeedsRecipe(exporter, ModFoodItems.LETTUCE, ModRessourceItems.LETTUCE_SEEDS);
+
     }
 
     private void createBrickRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output, int count) {
@@ -102,6 +111,16 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .pattern("lll")
                 .pattern("lll")
                 .input('l', input)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter);
+
+
+    }
+
+    private void createSeedsRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Item output) {
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, output, 1)
+                .input(input)
                 .criterion(FabricRecipeProvider.hasItem(input),
                         FabricRecipeProvider.conditionsFromItem(input))
                 .offerTo(exporter);
