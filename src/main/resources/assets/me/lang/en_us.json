@@ -222,7 +222,16 @@
   "block.me.reed_stairs": "Reed Stairs",
   "block.me.reed_slab": "Reed Slab",
   "block.me.reed_wall": "Reed Wall",
+
   "block.me.wild_pipeweed": "Wild Pipeweed",
+  "block.me.wild_flax": "Wild Flax",
+  "block.me.wild_tomato": "Wild Tomato",
+  "block.me.wild_bell_pepper": "Wild Bell Pepper",
+  "block.me.wild_cucumber": "Wild Cucumber",
+  "block.me.wild_leek": "Wild Leek",
+  "block.me.wild_lettuce": "Wild Lettuce",
+  "block.me.wild_garlic": "Wild Garlic",
+  "block.me.wild_onion": "Wild Onion",
 
 "#Comment:": "Block - Ashen",
   "block.me.ashen_rock": "Ashen Rock",

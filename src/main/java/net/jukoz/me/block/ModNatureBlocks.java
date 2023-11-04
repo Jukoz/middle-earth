@@ -89,6 +89,22 @@ public class ModNatureBlocks {
 
     public static final Block WILD_PIPEWEED = registerBlock("wild_pipeweed",
             new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_FLAX = registerBlock("wild_flax",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_TOMATO = registerBlock("wild_tomato",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_BELL_PEPPER = registerBlock("wild_bell_pepper",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_CUCUMBER = registerBlock("wild_cucumber",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_GARLIC = registerBlock("wild_garlic",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_ONION = registerBlock("wild_onion",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_LETTUCE = registerBlock("wild_lettuce",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_LEEK = registerBlock("wild_leek",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
 
     public static final Block MIRKWOOD_ROOTS = registerBlock("mirkwood_roots",
             new MangroveRootsBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_ROOTS)), false);

@@ -37,7 +37,15 @@ public class CropDrops {
     };
     public static List<CropDrop> wild_crops = new ArrayList<>() {
         {
-            add(new CropDrop(null, ModNatureBlocks.WILD_PIPEWEED, ModRessourceItems.PIPEWEED, null));
+            add(new CropDrop(null, ModNatureBlocks.WILD_PIPEWEED, ModRessourceItems.PIPEWEED, ModRessourceItems.PIPEWEED_SEEDS));
+            add(new CropDrop(null, ModNatureBlocks.WILD_FLAX, ModRessourceItems.FLAX, ModRessourceItems.FLAX_SEEDS));
+            add(new CropDrop(null, ModNatureBlocks.WILD_TOMATO, ModFoodItems.TOMATO, ModRessourceItems.TOMATO_SEEDS));
+            add(new CropDrop(null, ModNatureBlocks.WILD_BELL_PEPPER, ModFoodItems.BELL_PEPPER, ModRessourceItems.BELL_PEPPER_SEEDS));
+            add(new CropDrop(null, ModNatureBlocks.WILD_CUCUMBER, ModFoodItems.CUCUMBER, ModRessourceItems.CUCUMBER_SEEDS));
+            add(new CropDrop(null, ModNatureBlocks.WILD_LEEK, ModFoodItems.LEEK, ModRessourceItems.LEEK_SEEDS));
+            add(new CropDrop(null, ModNatureBlocks.WILD_LETTUCE, ModFoodItems.LETTUCE, ModRessourceItems.LETTUCE_SEEDS));
+            add(new CropDrop(null, ModNatureBlocks.WILD_GARLIC, ModFoodItems.GARLIC, ModFoodItems.GARLIC));
+            add(new CropDrop(null, ModNatureBlocks.WILD_ONION, ModFoodItems.ONION, ModFoodItems.ONION));
         }
     };
 
