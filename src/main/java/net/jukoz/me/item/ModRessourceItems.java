@@ -3,10 +3,8 @@ package net.jukoz.me.item;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.item.items.EmptyPhialItem;
-import net.jukoz.me.item.items.MiddleEarthMapItem;
-import net.jukoz.me.item.items.StarlightPhialItem;
-import net.jukoz.me.item.items.PebbleItem;
+import net.jukoz.me.block.ModBlocks;
+import net.jukoz.me.item.items.*;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -14,6 +12,7 @@ import net.minecraft.block.TallPlantBlock;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 
 public class ModRessourceItems {
@@ -65,6 +64,8 @@ public class ModRessourceItems {
             new Item(new FabricItemSettings()));
     public static final Block REEDS = registerBlock("reeds",
             new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.TALL_GRASS).strength(0.2f)), false);
+    public static final Item QUICKSAND_BUCKET = registerItem("quicksand_bucket",
+          new PowderSnowBucketItem(ModBlocks.QUICKSAND, SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, new Item.Settings().maxCount(1)));
 
     public static Block registerBlock(String name, Block block, boolean absent) {
         if(!absent) registerBlockItem(name, block);

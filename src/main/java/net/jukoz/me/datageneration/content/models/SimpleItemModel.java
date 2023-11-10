@@ -11,6 +11,7 @@ public class SimpleItemModel {
     public static List<Item> items = new ArrayList<>() {
         {
             add(ModRessourceItems.WATER_PHIAL);
+            add(ModRessourceItems.QUICKSAND_BUCKET);
 
             add(ModRessourceItems.BRONZE_INGOT);
             add(ModRessourceItems.BRONZE_NUGGET);

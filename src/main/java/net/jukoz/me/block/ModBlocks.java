@@ -3,6 +3,7 @@ package net.jukoz.me.block;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.special.QuicksandBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
@@ -11,6 +12,10 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
+
+import java.util.function.Predicate;
 
 public class ModBlocks {
     public static final float DIRT_STRENGTH = 0.6f;
@@ -49,7 +54,6 @@ public class ModBlocks {
             new SlabBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
     public static final Block STRAW_WALL = registerBlock("straw_wall",
             new WallBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
-
     public static final Block MITHRIL_BLOCK = registerBlock("mithril_block",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(6f).requiresTool()));
     public static final Block MITHRIL_ORE = registerBlock("mithril_ore",
@@ -60,7 +64,8 @@ public class ModBlocks {
             new TrapdoorBlock(FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE), BlockSetType.STONE));
     public static final Block BLACKSTONE_TRAPDOOR = registerBlock("blackstone_trapdoor",
             new TrapdoorBlock(FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE), BlockSetType.POLISHED_BLACKSTONE));
-
+    public static final Block QUICKSAND = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "quicksand"),
+            new QuicksandBlock(FabricBlockSettings.create().sounds(BlockSoundGroup.SAND).strength(1f).mapColor(MapColor.PALE_YELLOW).solidBlock(ModBlocks::always).solid().suffocates(ModBlocks::always)));
 
     public static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
@@ -77,5 +82,9 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         MiddleEarth.LOGGER.debug("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+    }
+
+    private static boolean always(BlockState state, BlockView world, BlockPos pos) {
+        return true;
     }
 }

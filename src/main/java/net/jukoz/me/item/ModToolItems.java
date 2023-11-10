@@ -39,6 +39,7 @@ public class ModToolItems {
 
 
 
+
     private static Item registerItem(String name, Item item) {
         ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
         SimpleHandheldItemModel.items.add(item);

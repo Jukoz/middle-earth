@@ -1,6 +1,7 @@
 package net.jukoz.me.datageneration.content.models;
 
 import net.jukoz.me.block.ModBlocks;
+import net.jukoz.me.block.ModNatureBlocks;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class SimpleBlockModel {
             add(ModBlocks.MITHRIL_BLOCK);
             add(ModBlocks.TIN_BLOCK);
             add(ModBlocks.MITHRIL_ORE);
+            add(ModBlocks.QUICKSAND);
         }
     };
 }
