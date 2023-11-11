@@ -63,7 +63,7 @@
     ],
     [
       "minecraft:glow_lichen",
-      "minecraft:flower_plains",
+      "me:foliage/simple/lothlorien_plants",
       "minecraft:patch_grass_plain",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_pumpkin"
