@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.QuicksandBlock;
+import net.jukoz.me.item.ModRessourceItems;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
@@ -65,7 +66,8 @@ public class ModBlocks {
     public static final Block BLACKSTONE_TRAPDOOR = registerBlock("blackstone_trapdoor",
             new TrapdoorBlock(FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE), BlockSetType.POLISHED_BLACKSTONE));
     public static final Block QUICKSAND = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "quicksand"),
-            new QuicksandBlock(FabricBlockSettings.create().sounds(BlockSoundGroup.SAND).strength(1f).mapColor(MapColor.PALE_YELLOW).solidBlock(ModBlocks::always).solid().suffocates(ModBlocks::always)));
+            new QuicksandBlock(FabricBlockSettings.create().sounds(BlockSoundGroup.SAND).strength(1f).mapColor(MapColor.PALE_YELLOW)
+                    .dynamicBounds().solidBlock(ModBlocks::never).blockVision(ModBlocks::always).suffocates(ModBlocks::always), 14011802));
 
     public static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
@@ -86,5 +88,8 @@ public class ModBlocks {
 
     private static boolean always(BlockState state, BlockView world, BlockPos pos) {
         return true;
+    }
+    private static boolean never(BlockState state, BlockView world, BlockPos pos) {
+        return false;
     }
 }
