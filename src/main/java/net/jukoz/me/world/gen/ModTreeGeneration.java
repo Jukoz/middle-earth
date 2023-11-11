@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 
 import net.jukoz.me.utils.RegistryUtils;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
+import net.jukoz.me.world.features.trunks.CanopyTrunkPlacer;
 import net.jukoz.me.world.features.trunks.LargeTrunkPlacer;
 import net.jukoz.me.world.features.ModPlacedFeatures;
 import net.jukoz.me.world.features.foliages.OvalFoliagePlacer;
@@ -18,7 +19,10 @@ public class ModTreeGeneration {
     public static final Registry<TrunkPlacerType<?>> trunkRegistry = Registries.TRUNK_PLACER_TYPE;
     public static final Registry<FoliagePlacerType<?>> foliageRegistry = Registries.FOLIAGE_PLACER_TYPE;
     public static final TrunkPlacerType<LargeTrunkPlacer> RICH_TRUNK_PLACER = RegistryUtils.register(
-            trunkRegistry, "big_trunk", new TrunkPlacerType<>(LargeTrunkPlacer.CODEC)
+            trunkRegistry, "large_trunk", new TrunkPlacerType<>(LargeTrunkPlacer.CODEC)
+    );
+    public static final TrunkPlacerType<CanopyTrunkPlacer> CANOPY_TRUNK_PLACER = RegistryUtils.register(
+            trunkRegistry, "canopy_trunk", new TrunkPlacerType<>(CanopyTrunkPlacer.CODEC)
     );
 
     public static final FoliagePlacerType<OvalFoliagePlacer> OVAL_FOLIAGE = RegistryUtils.register(
