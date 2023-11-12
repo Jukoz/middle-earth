@@ -5,6 +5,11 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.item.items.*;
+import net.jukoz.me.block.ModNatureBlocks;
+import net.jukoz.me.item.items.EmptyPhialItem;
+import net.jukoz.me.item.items.MiddleEarthMapItem;
+import net.jukoz.me.item.items.StarlightPhialItem;
+import net.jukoz.me.item.items.PebbleItem;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -66,6 +71,16 @@ public class ModRessourceItems {
             new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.TALL_GRASS).strength(0.2f)), false);
     public static final Item QUICKSAND_BUCKET = registerItem("quicksand_bucket",
           new PowderSnowBucketItem(ModBlocks.QUICKSAND, SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, new Item.Settings().maxCount(1)));
+
+    public static final Item FLAX = registerItem("flax", new Item(new FabricItemSettings()));
+    public static final Item FLAX_SEEDS = registerItem("flax_seeds", new AliasedBlockItem(ModNatureBlocks.FLAX_CROP, new FabricItemSettings()));
+    public static final Item PIPEWEED = registerItem("pipeweed", new Item(new FabricItemSettings()));
+    public static final Item PIPEWEED_SEEDS = registerItem("pipeweed_seeds", new AliasedBlockItem(ModNatureBlocks.PIPEWEED_CROP, new FabricItemSettings()));
+    public static final Item TOMATO_SEEDS = registerItem("tomato_seeds", new AliasedBlockItem(ModNatureBlocks.TOMATO_CROP, new FabricItemSettings()));
+    public static final Item BELL_PEPPER_SEEDS = registerItem("bell_pepper_seeds", new AliasedBlockItem(ModNatureBlocks.BELL_PEPPER_CROP, new FabricItemSettings()));
+    public static final Item CUCUMBER_SEEDS = registerItem("cucumber_seeds", new AliasedBlockItem(ModNatureBlocks.CUCUMBER_CROP, new FabricItemSettings()));
+    public static final Item LEEK_SEEDS = registerItem("leek_seeds", new AliasedBlockItem(ModNatureBlocks.LEEK_CROP, new FabricItemSettings()));
+    public static final Item LETTUCE_SEEDS = registerItem("lettuce_seeds", new AliasedBlockItem(ModNatureBlocks.LETTUCE_CROP, new FabricItemSettings()));
 
     public static Block registerBlock(String name, Block block, boolean absent) {
         if(!absent) registerBlockItem(name, block);

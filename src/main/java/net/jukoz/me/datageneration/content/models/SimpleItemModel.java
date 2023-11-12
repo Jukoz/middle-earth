@@ -1,6 +1,7 @@
 package net.jukoz.me.datageneration.content.models;
 
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModRessourceItems;
 import net.minecraft.item.Item;
 
@@ -17,6 +18,14 @@ public class SimpleItemModel {
             add(ModRessourceItems.BRONZE_NUGGET);
             add(ModRessourceItems.ORC_STEEL);
             add(ModRessourceItems.ORC_STEEL_NUGGET);
+
+            add(ModFoodItems.TOMATO);
+            add(ModFoodItems.BELL_PEPPER);
+            add(ModFoodItems.CUCUMBER);
+            add(ModFoodItems.LEEK);
+            add(ModFoodItems.LETTUCE);
+            add(ModRessourceItems.FLAX);
+            add(ModRessourceItems.PIPEWEED);
 
             add(ModEquipmentItems.NAZGUL_CLOAK_HOOD);
             add(ModEquipmentItems.NAZGUL_CLOAK);
