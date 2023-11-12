@@ -23,6 +23,8 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.mob.PiglinActivity;
+import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -59,10 +61,35 @@ public class GooseEntity extends AnimalEntity {
     private float flapSpeed = 1.0F;
     private float field_28640 = 1.0F;
 
+    //protected static final ImmutableList<SensorType<? extends Sensor<? super GooseEntity>>> SENSORS;
+    //protected static final ImmutableList MEMORY_MODULES;
+
     public GooseEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
         this.setCanPickUpLoot(true);
     }
+/*
+    protected Brain.Profile<GooseEntity> createBrainProfile() {
+        return Brain.createProfile(MEMORY_MODULES, SENSORS);
+    }
+
+    protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
+        return GooseBrain.create(this, this.createBrainProfile().deserialize(dynamic));
+    }
+
+    public Brain<GooseEntity> getBrain() {
+        return (Brain<GooseEntity>) super.getBrain();
+    }
+
+    protected void mobTick() {
+        this.getWorld().getProfiler().push("gooseBrain");
+        this.getBrain().tick((ServerWorld)this.getWorld(), this);
+        this.getWorld().getProfiler().pop();
+        this.getWorld().getProfiler().push("gooseActivityUpdate");
+        GooseBrain.updateActivities(this);
+        this.getWorld().getProfiler().pop();
+        super.mobTick();
+    }*/
 
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
@@ -83,7 +110,7 @@ public class GooseEntity extends AnimalEntity {
 
         this.goalSelector.add(12, new FleeEntityGoal<>(this, WolfEntity.class, 8.0F, 0.9, 1.2));
 
-        this.goalSelector.add(13, new BirdFlightGoal(this));
+        //this.goalSelector.add(13, new BirdFlightGoal(this));
     }
 
 
@@ -290,5 +317,28 @@ public class GooseEntity extends AnimalEntity {
         PICKABLE_DROP_FILTER = (item) -> {
             return !item.cannotPickup() && item.isAlive();
         };
+    /*
+        SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES,
+                SensorType.HURT_BY,
+                SensorType.IS_IN_WATER);
+
+        MEMORY_MODULES = ImmutableList.of(MemoryModuleType.LOOK_TARGET,
+                MemoryModuleType.MOBS,
+                MemoryModuleType.VISIBLE_MOBS,
+                MemoryModuleType.WALK_TARGET,
+                MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+                MemoryModuleType.PATH,
+                MemoryModuleType.BREED_TARGET,
+                MemoryModuleType.ATTACK_TARGET,
+                MemoryModuleType.TEMPTING_PLAYER,
+                MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
+                MemoryModuleType.IS_TEMPTED,
+                MemoryModuleType.HURT_BY,
+                MemoryModuleType.HURT_BY_ENTITY,
+                MemoryModuleType.NEAREST_ATTACKABLE,
+                MemoryModuleType.IS_IN_WATER,
+                MemoryModuleType.IS_PANICKING,
+                MemoryModuleType.UNREACHABLE_TONGUE_TARGETS);
+        */
     }
 }

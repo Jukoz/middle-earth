@@ -36,6 +36,13 @@ public class ModFoodItems {
             new Item(new FabricItemSettings().food(
                     new FoodComponent.Builder().hunger(6).saturationModifier(0.7F).meat().build())));
 
+    public static final Item RAW_SWAN = registerItem("raw_swan",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(3).saturationModifier(0.4F).meat().build())));
+    public static final Item COOKED_SWAN = registerItem("cooked_swan",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(8).saturationModifier(0.8F).meat().build())));
+
     public static final Item MAGGOTY_BREAD = registerItem("maggoty_bread",
             new Item(new FabricItemSettings().food(
                     new FoodComponent.Builder().hunger(5).saturationModifier(1.2f).build())));

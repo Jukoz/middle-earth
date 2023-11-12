@@ -11,6 +11,7 @@ import net.jukoz.me.entity.duck.DuckModel;
 import net.jukoz.me.entity.goose.GooseModel;
 import net.jukoz.me.entity.nazguls.NazgulModel;
 import net.jukoz.me.entity.spider.MirkwoodSpiderModel;
+import net.jukoz.me.entity.swan.SwanModel;
 import net.jukoz.me.entity.trolls.cave.CaveTrollModel;
 import net.jukoz.me.entity.trolls.snow.SnowTrollModel;
 import net.minecraft.client.model.Dilation;
@@ -36,6 +37,7 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer CRAB = ModEntityModelLayers.registerEntityModelLayer("crab", CrabModel.getTexturedModelData());
     public static final EntityModelLayer GOOSE = ModEntityModelLayers.registerEntityModelLayer("goose", GooseModel.getTexturedModelData());
     public static final EntityModelLayer DUCK = ModEntityModelLayers.registerEntityModelLayer("duck", DuckModel.getTexturedModelData());
+    public static final EntityModelLayer SWAN = ModEntityModelLayers.registerEntityModelLayer("swan", SwanModel.getTexturedModelData());
 
 
     /**

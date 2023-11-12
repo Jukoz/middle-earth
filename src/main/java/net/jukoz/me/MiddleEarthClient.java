@@ -26,6 +26,8 @@ import net.jukoz.me.entity.nazguls.NazgulRenderer;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
 import net.jukoz.me.entity.spear.JavelinEntityRenderer;
 import net.jukoz.me.entity.spider.MirkwoodSpiderRenderer;
+import net.jukoz.me.entity.swan.SwanModel;
+import net.jukoz.me.entity.swan.SwanRenderer;
 import net.jukoz.me.entity.trolls.cave.CaveTrollRenderer;
 import net.jukoz.me.entity.trolls.snow.SnowTrollRenderer;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
@@ -70,6 +72,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.CRAB, CrabRenderer::new);
         EntityRendererRegistry.register(ModEntities.GOOSE, GooseRenderer::new);
         EntityRendererRegistry.register(ModEntities.DUCK, DuckRenderer::new);
+        EntityRendererRegistry.register(ModEntities.SWAN, SwanRenderer::new);
 
         ModModelPredicateProvider.registerBowModel();
 
