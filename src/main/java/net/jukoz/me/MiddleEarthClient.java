@@ -30,6 +30,7 @@ import net.jukoz.me.entity.trolls.cave.CaveTrollRenderer;
 import net.jukoz.me.entity.trolls.snow.SnowTrollRenderer;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jukoz.me.gui.ModScreenHandlers;
+import net.jukoz.me.gui.wood_pile.WoodPileScreen;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModRessourceItems;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
@@ -74,6 +75,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         ModModelPredicateProvider.registerBowModel();
 
         HandledScreens.register(ModScreenHandlers.ALLOY_SCREEN_HANDLER, AlloyFurnaceScreen::new);
+        HandledScreens.register(ModScreenHandlers.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         BlockEntityRendererRegistry.register(ModBlockEntities.ALLOY_FURNACE, AlloyFurnaceEntityRenderer::new);
 
         ModNetworks.registerS2CPackets();

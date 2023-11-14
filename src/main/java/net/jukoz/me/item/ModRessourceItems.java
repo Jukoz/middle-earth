@@ -44,6 +44,20 @@ public class ModRessourceItems {
     public static final Item TIN_NUGGET = registerItem("tin_nugget",
             new Item(new FabricItemSettings()));
 
+    public static final Item RAW_LEAD = registerItem("raw_lead",
+            new Item(new FabricItemSettings()));
+    public static final Item LEAD_INGOT = registerItem("lead_ingot",
+            new Item(new FabricItemSettings()));
+    public static final Item LEAD_NUGGET = registerItem("lead_nugget",
+            new Item(new FabricItemSettings()));
+
+    public static final Item RAW_SILVER = registerItem("raw_silver",
+            new Item(new FabricItemSettings()));
+    public static final Item SILVER_INGOT = registerItem("silver_ingot",
+            new Item(new FabricItemSettings()));
+    public static final Item SILVER_NUGGET = registerItem("silver_nugget",
+            new Item(new FabricItemSettings()));
+
     public static final Item MORGUL_INGOT = registerItem("morgul_ingot",
             new Item(new FabricItemSettings()));
     public static final Item ORC_STEEL = registerItem("orc_steel",

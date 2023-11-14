@@ -86,18 +86,26 @@ public class HelpingGenerator {
             SimpleBlockModel.blocks.add(set.coal_ore());
             SimpleBlockModel.blocks.add(set.copper_ore());
             SimpleBlockModel.blocks.add(set.tin_ore());
+            SimpleBlockModel.blocks.add(set.lead_ore());
+            SimpleBlockModel.blocks.add(set.silver_ore());
 
             MineablePickaxe.blocks.add(set.gold_ore());
             MineablePickaxe.blocks.add(set.iron_ore());
             MineablePickaxe.blocks.add(set.coal_ore());
             MineablePickaxe.blocks.add(set.copper_ore());
             MineablePickaxe.blocks.add(set.tin_ore());
+            MineablePickaxe.blocks.add(set.lead_ore());
+            MineablePickaxe.blocks.add(set.silver_ore());
         }
 
         for (OreRockSets.CompleteOreRockSet set : OreRockSets.vanillaSets) {
             SimpleBlockModel.blocks.add(set.tin_ore());
+            SimpleBlockModel.blocks.add(set.lead_ore());
+            SimpleBlockModel.blocks.add(set.silver_ore());
 
             MineablePickaxe.blocks.add(set.tin_ore());
+            MineablePickaxe.blocks.add(set.lead_ore());
+            MineablePickaxe.blocks.add(set.silver_ore() );
         }
     }
 }

@@ -56,6 +56,11 @@ public class ModBlocks {
             new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(4f).requiresTool()));
     public static final Block TIN_BLOCK = registerBlock("tin_block",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(2f).requiresTool()));
+    public static final Block LEAD_BLOCK = registerBlock("lead_block",
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(2f).requiresTool()));
+    public static final Block SILVER_BLOCK = registerBlock("silver_block",
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(4f).requiresTool()));
+
     public static final Block STONE_TRAPDOOR = registerBlock("stone_trapdoor",
             new TrapdoorBlock(FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE), BlockSetType.STONE));
     public static final Block BLACKSTONE_TRAPDOOR = registerBlock("blackstone_trapdoor",

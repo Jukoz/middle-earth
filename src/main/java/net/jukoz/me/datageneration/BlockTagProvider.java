@@ -41,6 +41,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         TagKey<Block> coal_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "coal_ores"));
 
         TagKey<Block> tin_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "tin_ores"));
+        TagKey<Block> lead_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "lead_ores"));
+        TagKey<Block> silver_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "silver_ores"));
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             getOrCreateTagBuilder(iron_ores)
@@ -57,11 +59,19 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                     .add(set.copper_ore());
             getOrCreateTagBuilder(tin_ores)
                     .add(set.tin_ore());
+            getOrCreateTagBuilder(lead_ores)
+                    .add(set.lead_ore());
+            getOrCreateTagBuilder(silver_ores)
+                    .add(set.silver_ore());
         }
 
         for (OreRockSets.CompleteOreRockSet set : OreRockSets.vanillaSets) {
             getOrCreateTagBuilder(tin_ores)
                     .add(set.tin_ore());
+            getOrCreateTagBuilder(lead_ores)
+                    .add(set.lead_ore());
+            getOrCreateTagBuilder(silver_ores)
+                    .add(set.silver_ore());
         }
     }
 }
