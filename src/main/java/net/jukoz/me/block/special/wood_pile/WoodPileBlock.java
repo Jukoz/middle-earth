@@ -16,18 +16,28 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Random;
+
 public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvider {
 
-    public static final IntProperty STAGE = IntProperty.of("stage", 1, 3);
+    public static final IntProperty STAGE = IntProperty.of("stage", 0, 2);
     public static final DirectionProperty HORIZONTAL_FACING = Properties.HORIZONTAL_FACING;
+    private static final VoxelShape STAGE_0, STAGE_1, STAGE_2;
 
     public WoodPileBlock(Settings settings) {
         super(settings);
-        this.setDefaultState((this.stateManager.getDefaultState()).with(HORIZONTAL_FACING, Direction.NORTH).with(STAGE, 1));
+        this.setDefaultState((this.stateManager.getDefaultState()).with(HORIZONTAL_FACING, Direction.NORTH).with(STAGE, 0));
+    }
 
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     @Override
@@ -37,7 +47,7 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
 
     @Nullable
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(STAGE, 1);
+        return this.getDefaultState().with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(STAGE, 0);
     }
 
     @Override
@@ -58,11 +68,34 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
     }
 
     public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return (BlockState)state.with(HORIZONTAL_FACING, rotation.rotate((Direction)state.get(HORIZONTAL_FACING)));
+        return state.with(HORIZONTAL_FACING, rotation.rotate(state.get(HORIZONTAL_FACING)));
     }
 
     public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation((Direction)state.get(HORIZONTAL_FACING)));
+        return state.rotate(mirror.getRotation(state.get(HORIZONTAL_FACING)));
     }
 
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return switch (state.get(STAGE)) {
+            case 2 -> STAGE_2;
+            case 1 -> STAGE_1;
+            default -> STAGE_0;
+        };
+    }
+
+    static {
+        // todo : voxel shapes
+        STAGE_0 = VoxelShapes.union(
+                Block.createCuboidShape(2.0, 0.0, 5.0, 10.0, 6.0, 11.0),
+                Block.createCuboidShape(6.0, 6.0, 6.0, 10.0, 7.0, 10.0));
+
+        STAGE_1 = VoxelShapes.union(
+                Block.createCuboidShape(5.0, 3.0, 5.0, 11.0, 8.0, 11.0),
+                Block.createCuboidShape(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
+
+        STAGE_2 = VoxelShapes.union(
+                Block.createCuboidShape(5.0, 3.0, 5.0, 11.0, 8.0, 11.0),
+                Block.createCuboidShape(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
+    }
 }
