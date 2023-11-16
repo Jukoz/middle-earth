@@ -27,7 +27,23 @@ public class BlockDrops {
             add(ModBlocks.STRAW_WALL);
             add(ModBlocks.STONE_TRAPDOOR);
             add(ModBlocks.BLACKSTONE_TRAPDOOR);
+
+            //METALS
+            add(ModBlocks.RAW_MITHRIL_BLOCK);
+            add(ModBlocks.MITHRIL_BLOCK);
+            add(ModBlocks.RAW_TIN_BLOCK);
+            add(ModBlocks.TIN_BLOCK);
+            add(ModBlocks.RAW_LEAD_BLOCK);
+            add(ModBlocks.LEAD_BLOCK);
+            add(ModBlocks.CUT_LEAD);
+            add(ModBlocks.CUT_LEAD_STAIRS);
+            add(ModBlocks.CUT_LEAD_SLAB);
+            add(ModBlocks.RAW_SILVER_BLOCK);
+            add(ModBlocks.SILVER_BLOCK);
+
             add(ModDecorativeBlocks.SILVER_LANTERN);
+            add(ModDecorativeBlocks.DWARVEN_LANTERN);
+            add(ModDecorativeBlocks.WOOD_PILE);
         }
     };
 }

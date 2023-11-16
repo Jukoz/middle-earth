@@ -12,6 +12,7 @@ public class SimpleSlabModel {
         {
             add(new Slab(ModBlocks.REED_BLOCK, ModBlocks.REED_SLAB));
             add(new Slab(ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_SLAB));
+            add(new Slab(ModBlocks.CUT_LEAD, ModBlocks.CUT_LEAD_SLAB));
         }
     };
 }

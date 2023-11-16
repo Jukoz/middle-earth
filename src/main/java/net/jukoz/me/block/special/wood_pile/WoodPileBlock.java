@@ -3,7 +3,9 @@ package net.jukoz.me.block.special.wood_pile;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
@@ -52,12 +54,28 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if(!world.isClient) {
+
+        if (world.isClient) return ActionResult.SUCCESS;
+        Inventory blockEntity = (Inventory) world.getBlockEntity(pos);
+
+        if (!player.getStackInHand(hand).isEmpty() && player.getStackInHand(hand).isIn(ItemTags.LOGS)) {
+            // Check what is the first open slot and put an item from the player's hand there
+            if (blockEntity.getStack(0).isEmpty()) {
+                // Put the stack the player is holding into the inventory
+                blockEntity.setStack(0, player.getStackInHand(hand).copy());
+                // Remove the stack from the player's hand
+                player.getStackInHand(hand).setCount(0);
+            } else if (blockEntity.getStack(1).isEmpty()) {
+                blockEntity.setStack(1, player.getStackInHand(hand).copy());
+                player.getStackInHand(hand).setCount(0);
+            }
+        } else if (!world.isClient){
             NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
             if(screenHandlerFactory != null) {
                 player.openHandledScreen(screenHandlerFactory);
             }
         }
+
         return ActionResult.SUCCESS;
     }
 
@@ -85,17 +103,13 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
     }
 
     static {
-        // todo : voxel shapes
         STAGE_0 = VoxelShapes.union(
-                Block.createCuboidShape(2.0, 0.0, 5.0, 10.0, 6.0, 11.0),
-                Block.createCuboidShape(6.0, 6.0, 6.0, 10.0, 7.0, 10.0));
+                Block.createCuboidShape(0, 0, 0, 16, 4, 16));
 
         STAGE_1 = VoxelShapes.union(
-                Block.createCuboidShape(5.0, 3.0, 5.0, 11.0, 8.0, 11.0),
-                Block.createCuboidShape(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
+                Block.createCuboidShape(0, 0, 0, 16, 7, 16));
 
         STAGE_2 = VoxelShapes.union(
-                Block.createCuboidShape(5.0, 3.0, 5.0, 11.0, 8.0, 11.0),
-                Block.createCuboidShape(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
+                Block.createCuboidShape(0, 0, 0, 16, 9, 16));
     }
 }

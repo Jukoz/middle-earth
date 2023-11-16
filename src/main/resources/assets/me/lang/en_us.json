@@ -530,13 +530,18 @@
   "block.me.calcite_lead_ore": "Calcite Lead Ore",
   "block.me.lead_ore": "Lead Ore",
   "block.me.deepslate_lead_ore": "Deepslate Lead Ore",
+  "block.me.raw_lead_block": "Block of Raw Lead",
   "block.me.lead_block": "Lead Block",
+  "block.me.cut_lead": "Cut Lead",
+  "block.me.cut_lead_stairs": "Cut Lead Stairs",
+  "block.me.cut_lead_slab": "Cut Lead Slab",
 
 "#Comment:": "Block - Silver ores",
   "block.me.gonluin_silver_ore": "Gonluin Silver Ore",
   "block.me.ashen_rock_silver_ore": "Ashen Silver Ore",
   "block.me.dolomite_silver_ore": "Dolomite Silver Ore",
   "block.me.calcite_silver_ore": "Calcite Silver Ore",
+  "block.me.raw_silver_block": "Block of Raw Silver",
   "block.me.silver_ore": "Silver Ore",
   "block.me.deepslate_silver_ore": "Deepslate Silver Ore",
   "block.me.silver_block": "Silver Block",
@@ -545,6 +550,7 @@
   "block.me.dwarven_lantern": "Dwarven Lantern",
   "block.me.silver_lantern": "Silver Lantern",
   "block.me.alloy_furnace": "Alloy Furnace",
+  "block.me.wood_pile": "Wood Pile",
 
 "#Comment:": "ENTITIES",
   "entity.me.cave_troll": "Cave Troll",
@@ -564,5 +570,6 @@
   "sounds.me.nazgul_scream": "Nazgûl Screaming",
   
 "Comment": "GUI",
-  "screen.me.alloy_furnace": "Alloy Furnace"
+  "screen.me.alloy_furnace": "Alloy Furnace",
+  "screen.me.wood_pile": "Wood Pile"
 }

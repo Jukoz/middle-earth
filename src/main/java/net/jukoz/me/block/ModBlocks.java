@@ -50,16 +50,31 @@ public class ModBlocks {
     public static final Block STRAW_WALL = registerBlock("straw_wall",
             new WallBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
 
-    public static final Block MITHRIL_BLOCK = registerBlock("mithril_block",
-            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(6f).requiresTool()));
     public static final Block MITHRIL_ORE = registerBlock("mithril_ore",
             new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(4f).requiresTool()));
+    public static final Block RAW_MITHRIL_BLOCK = registerBlock("raw_mithril_block",
+            new Block(FabricBlockSettings.copyOf(Blocks.RAW_IRON_BLOCK).strength(4f).requiresTool()));
+    public static final Block MITHRIL_BLOCK = registerBlock("mithril_block",
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(6f).requiresTool()));
+    public static final Block RAW_TIN_BLOCK = registerBlock("raw_tin_block",
+            new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(2f).requiresTool()));
     public static final Block TIN_BLOCK = registerBlock("tin_block",
-            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(2f).requiresTool()));
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(3f).requiresTool()));
+    public static final Block RAW_LEAD_BLOCK = registerBlock("raw_lead_block",
+            new Block(FabricBlockSettings.copyOf(Blocks.RAW_IRON_BLOCK).strength(3f).requiresTool()));
     public static final Block LEAD_BLOCK = registerBlock("lead_block",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(2f).requiresTool()));
+    public static final Block RAW_SILVER_BLOCK = registerBlock("raw_silver_block",
+            new Block(FabricBlockSettings.copyOf(Blocks.RAW_IRON_BLOCK).strength(3f).requiresTool()));
     public static final Block SILVER_BLOCK = registerBlock("silver_block",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(4f).requiresTool()));
+
+    public static final Block CUT_LEAD = registerBlock("cut_lead",
+            new HayBlock(FabricBlockSettings.copyOf(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER)));
+    public static final Block CUT_LEAD_STAIRS = registerBlock("cut_lead_stairs",
+            new StairsBlock(REED_BLOCK.getDefaultState(), FabricBlockSettings.copyOf(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER)));
+    public static final Block CUT_LEAD_SLAB = registerBlock("cut_lead_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER)));
 
     public static final Block STONE_TRAPDOOR = registerBlock("stone_trapdoor",
             new TrapdoorBlock(FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE), BlockSetType.STONE));
@@ -72,12 +87,11 @@ public class ModBlocks {
         return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);
     }
 
-    static Item registerBlockItem(String name, Block block) {
+    static void registerBlockItem(String name, Block block) {
         var item =  Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name),
                 new BlockItem(block, new FabricItemSettings()));
         Item.BLOCK_ITEMS.put(block, item);
         ModItemGroups.BLOCKS_CONTENTS.add(item.getDefaultStack());
-        return item;
     }
 
     public static void registerModBlocks() {

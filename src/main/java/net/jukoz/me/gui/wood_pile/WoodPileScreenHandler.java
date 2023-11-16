@@ -22,15 +22,24 @@ public class WoodPileScreenHandler extends ScreenHandler {
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);
 
-        this.addSlot(new Slot(inventory, 1, 26, 17));
-        this.addSlot(new Slot(inventory, 2, 36, 17));
-        this.addSlot(new Slot(inventory, 3, 46, 17));
-        this.addSlot(new Slot(inventory, 4, 56, 17));
-        this.addSlot(new Slot(inventory, 5, 66, 17));
-        this.addSlot(new Slot(inventory, 6, 76, 17));
-        this.addSlot(new Slot(inventory, 7, 86, 17));
-        this.addSlot(new Slot(inventory, 8, 96, 17));
-        this.addSlot(new Slot(inventory, 9, 106, 17));
+        int i;
+        int j;
+        for(i = 0; i < 3; ++i) {
+            for(j = 0; j < 3; ++j) {
+                this.addSlot(new Slot(inventory, j + i * 3, 62 + j * 18, 17 + i * 18));
+            }
+        }
+
+        for(i = 0; i < 3; ++i) {
+            for(j = 0; j < 9; ++j) {
+                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+            }
+        }
+
+        for(i = 0; i < 9; ++i) {
+            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+        }
+
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

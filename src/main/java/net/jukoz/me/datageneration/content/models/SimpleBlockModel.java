@@ -15,11 +15,18 @@ public class SimpleBlockModel {
             add(ModBlocks.CHISELED_LIMESTONE_BRICKS);
             add(ModBlocks.DRY_DIRT);
             add(ModBlocks.MORDOR_DIRT);
-            add(ModBlocks.MITHRIL_BLOCK);
-            add(ModBlocks.TIN_BLOCK);
+
+            //METALS
             add(ModBlocks.MITHRIL_ORE);
+            add(ModBlocks.RAW_MITHRIL_BLOCK);
+            add(ModBlocks.MITHRIL_BLOCK);
+            add(ModBlocks.RAW_TIN_BLOCK);
+            add(ModBlocks.TIN_BLOCK);
+            add(ModBlocks.RAW_LEAD_BLOCK);
             add(ModBlocks.LEAD_BLOCK);
+            add(ModBlocks.RAW_SILVER_BLOCK);
             add(ModBlocks.SILVER_BLOCK);
+            add(ModBlocks.CUT_LEAD);
         }
     };
 }

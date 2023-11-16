@@ -10,7 +10,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class WoodPileScreen extends HandledScreen<WoodPileScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/gui/wood_pile_inventory.png");
+    private static final Identifier TEXTURE = new Identifier("minecraft:textures/gui/container/dispenser.png");
 
 
     public WoodPileScreen(WoodPileScreenHandler handler, PlayerInventory inventory, Text title) {
