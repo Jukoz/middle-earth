@@ -58,6 +58,7 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
         if (world.isClient) return ActionResult.SUCCESS;
         Inventory blockEntity = (Inventory) world.getBlockEntity(pos);
 
+        // FIXME Refactor the add item to a more clean method like in EntityBlock
         if (!player.getStackInHand(hand).isEmpty() && player.getStackInHand(hand).isIn(ItemTags.LOGS)) {
             // Check what is the first open slot and put an item from the player's hand there
             if (blockEntity.getStack(0).isEmpty()) {
@@ -69,7 +70,7 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
                 blockEntity.setStack(1, player.getStackInHand(hand).copy());
                 player.getStackInHand(hand).setCount(0);
             }
-        } else if (!world.isClient){
+        } else {
             NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
             if(screenHandlerFactory != null) {
                 player.openHandledScreen(screenHandlerFactory);
