@@ -71,8 +71,8 @@ public class ModNatureBlocks {
             new HaradPlant(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), false);
     public static final Block MALLOS = registerBlock("mallos",
-            new HaradPlant(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
-                    .mapColor(DyeColor.GREEN)), false);
+            new FlowerBlock(StatusEffects.GLOWING, 3, FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().breakInstantly()
+                    .sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ).mapColor(DyeColor.GREEN)), false);
     public static final Block TAN_SHRUB = registerBlock("tan_shrub",
             new HaradPlant(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), false);

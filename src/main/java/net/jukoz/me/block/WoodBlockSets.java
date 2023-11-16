@@ -2,7 +2,9 @@ package net.jukoz.me.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.special.ModLeavesBlock;
 import net.minecraft.block.*;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.sound.BlockSoundGroup;
 
 public class WoodBlockSets {
@@ -43,8 +45,9 @@ public class WoodBlockSets {
     private static SimpleBlockSet registerWoodSet(String name, float strength, boolean hasLeaves) {
         Block leaves = null;
         if(hasLeaves) {
-            leaves = ModNatureBlocks.registerBlock(name + "_leaves", new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)
-                    .strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), false);
+            leaves = ModNatureBlocks.registerBlock(name + "_leaves", new ModLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN)
+                    .strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(ModBlocks::canSpawnOnLeaves).suffocates(ModBlocks::never)
+                    .blockVision(ModBlocks::never).burnable().pistonBehavior(PistonBehavior.DESTROY).solidBlock(ModBlocks::never)), false);
         }
         Block log = ModBlocks.registerBlock(name + "_log", new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(strength).sounds(BlockSoundGroup.WOOD)));
 

@@ -2,6 +2,7 @@ package net.jukoz.me.world.features;
 
 import com.google.common.collect.ImmutableList;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.WoodBlockSets;
 import net.jukoz.me.world.features.foliages.OvalFoliagePlacer;
@@ -25,6 +26,7 @@ import net.minecraft.world.gen.treedecorator.LeavesVineTreeDecorator;
 import java.util.Optional;
 
 public class ModConfiguredFeatures {
+    public static final RegistryKey<ConfiguredFeature<?, ?>> BIRCH_TREE_KEY = registerKey("birch_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MIRKWOOD_TREE_KEY = registerKey("mirkwood_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEGA_MIRKWOOD_TREE_KEY = registerKey("mega_mirkwood_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MALLORN_TREE_KEY = registerKey("mallorn_tree");
@@ -32,6 +34,14 @@ public class ModConfiguredFeatures {
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> context) {
         RegistryEntryLookup<Block> registryEntryLookup = context.getRegistryLookup(RegistryKeys.BLOCK);
+
+        register(context, BIRCH_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
+                        BlockStateProvider.of(Blocks.BIRCH_LOG),
+                        new CanopyTrunkPlacer(15, 2, 0.9f, 0.87f, 5.3f, 3, 0.44f),
+                        BlockStateProvider.of(Blocks.BIRCH_LEAVES),
+                        new OvalFoliagePlacer(2, ConstantIntProvider.create(0), ConstantIntProvider.create(3), 0.4f),
+                        new TwoLayersFeatureSize(1, 0, 2))
+                .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
 
         register(context, MIRKWOOD_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(WoodBlockSets.MIRKWOOD.wood()),
@@ -67,14 +77,14 @@ public class ModConfiguredFeatures {
 
         register(context, MALLORN_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(WoodBlockSets.MALLORN.log()),
-                new CanopyTrunkPlacer(16, 2, 1.0f, 0.55f, 5.8f, 2, 0.38f),
+                new CanopyTrunkPlacer(16, 2, 0.9f, 0.87f, 5.2f, 3, 0.42f),
                 BlockStateProvider.of(WoodBlockSets.MALLORN.leaves()),
                 new OvalFoliagePlacer(2, ConstantIntProvider.create(0), ConstantIntProvider.create(3), 0.4f),
                 new TwoLayersFeatureSize(1, 0, 2))
                 .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
         register(context, MEGA_MALLORN_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(WoodBlockSets.MALLORN.wood()),
-                new CanopyTrunkPlacer(29, 3, 2.55f, 0.67f, 8.1f, 3, 0.44f),
+                new CanopyTrunkPlacer(29, 3, 2.45f, 0.67f, 8.1f, 3, 0.44f),
                 BlockStateProvider.of(WoodBlockSets.MALLORN.leaves()),
                 new OvalFoliagePlacer(3, ConstantIntProvider.create(-1), ConstantIntProvider.create(4), 0.4f),
                 new TwoLayersFeatureSize(1, 0, 2))

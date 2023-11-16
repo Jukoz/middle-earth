@@ -186,7 +186,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     @Override
     public void generateFeatures(StructureWorldAccess world, Chunk chunk, StructureAccessor structureAccessor) {
-
         super.generateFeatures(world, chunk, structureAccessor);
     }
 

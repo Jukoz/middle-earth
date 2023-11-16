@@ -83,7 +83,7 @@ public class CanopyTrunkPlacer extends TrunkPlacer {
                 startPos, height, 0, 0, baseRadius, tipRadius), 1, false);
         treeNodes.add(treeNode);
 
-        createRoots(world, replacer, random, mutable, config, startPos, (int) (getHeight(random) / 3f), baseRadius * 0.95f, tipRadius);
+        createRoots(world, replacer, random, mutable, config, startPos.add(0, 1, 0), (int) (getHeight(random) / 3f), baseRadius * 0.95f, tipRadius);
 
         return ImmutableList.copyOf(treeNodes);
     }
