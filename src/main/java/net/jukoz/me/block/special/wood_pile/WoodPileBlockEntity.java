@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
+import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.network.ModNetworks;
 import net.jukoz.me.utils.ImplementedInventory;
 import net.jukoz.me.gui.wood_pile.WoodPileScreenHandler;
@@ -22,11 +23,14 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
+
+import static net.jukoz.me.block.special.wood_pile.WoodPileBlock.STAGE;
 
 public class WoodPileBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
 
@@ -71,12 +75,43 @@ public class WoodPileBlockEntity extends BlockEntity implements NamedScreenHandl
 
     @Override
     public void setStack(int slot, ItemStack stack) {
-        if(stack.isIn(ItemTags.LOGS)) { // FIXME Wrong method to sort, anything that isn't a log item gets deleted.
-            inventory.set(slot, stack);
-            if (stack.getCount() > getMaxCountPerStack()) {
-                stack.setCount(getMaxCountPerStack());
+        inventory.set(slot, stack);
+        if (stack.getCount() > getMaxCountPerStack()) {
+            stack.setCount(getMaxCountPerStack());
+        }
+        if(this.hasAmount(5)){
+            this.getWorld().setBlockState(this.getPos(), ModDecorativeBlocks.WOOD_PILE.getDefaultState()
+                    .with(STAGE, 2)
+                    .with(Properties.HORIZONTAL_FACING, this.getWorld().getBlockState(this.getPos()).get(Properties.HORIZONTAL_FACING)));
+        }  else if (this.isEmpty()){
+            this.getWorld().setBlockState(this.getPos(), ModDecorativeBlocks.WOOD_PILE.getDefaultState()
+                    .with(STAGE, 0)
+                    .with(Properties.HORIZONTAL_FACING, this.getWorld().getBlockState(this.getPos()).get(Properties.HORIZONTAL_FACING)));
+        } else if (!this.hasAmount(5) && !isEmpty()){
+            this.getWorld().setBlockState(this.getPos(), ModDecorativeBlocks.WOOD_PILE.getDefaultState()
+                    .with(STAGE, 1)
+                    .with(Properties.HORIZONTAL_FACING, this.getWorld().getBlockState(this.getPos()).get(Properties.HORIZONTAL_FACING)));
+        }
+    }
+    @Override
+    public ItemStack removeStack(int slot, int count) {
+        ItemStack result = Inventories.splitStack(getItems(), slot, count);
+        if (!result.isEmpty()) {
+            markDirty();
+        }
+
+        return result;
+    }
+
+    public boolean hasAmount(int amount) {
+        int result = 0;
+        for (int i = 0; i < size(); i++) {
+            ItemStack stack = getStack(i);
+            if (!stack.isEmpty()) {
+                result++;
             }
         }
+        return result >= amount;
     }
 
     @Override

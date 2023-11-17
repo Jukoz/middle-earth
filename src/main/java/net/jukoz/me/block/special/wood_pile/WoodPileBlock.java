@@ -54,30 +54,33 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-
-        if (world.isClient) return ActionResult.SUCCESS;
-        Inventory blockEntity = (Inventory) world.getBlockEntity(pos);
-
-        // FIXME Refactor the add item to a more clean method like in EntityBlock
-        if (!player.getStackInHand(hand).isEmpty() && player.getStackInHand(hand).isIn(ItemTags.LOGS)) {
-            // Check what is the first open slot and put an item from the player's hand there
-            if (blockEntity.getStack(0).isEmpty()) {
-                // Put the stack the player is holding into the inventory
-                blockEntity.setStack(0, player.getStackInHand(hand).copy());
-                // Remove the stack from the player's hand
-                player.getStackInHand(hand).setCount(0);
-            } else if (blockEntity.getStack(1).isEmpty()) {
-                blockEntity.setStack(1, player.getStackInHand(hand).copy());
-                player.getStackInHand(hand).setCount(0);
-            }
+        if (world.isClient) {
+            return ActionResult.SUCCESS;
         } else {
-            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-            if(screenHandlerFactory != null) {
-                player.openHandledScreen(screenHandlerFactory);
+            if (addStackRightClick(world, pos, player, hand)){
+                NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+                if(screenHandlerFactory != null) {
+                    player.openHandledScreen(screenHandlerFactory);
+                }
             }
         }
-
         return ActionResult.SUCCESS;
+    }
+
+    public boolean addStackRightClick(World world, BlockPos pos, PlayerEntity player, Hand hand){
+        Inventory blockEntity = (Inventory) world.getBlockEntity(pos);
+
+        if (!player.getStackInHand(hand).isEmpty() && player.getStackInHand(hand).isIn(ItemTags.LOGS)) {
+            for(int i = 0;i <= 8; i++){
+                if (blockEntity.getStack(i).isEmpty()) {
+                    blockEntity.setStack(i, player.getStackInHand(hand).copy());
+                    player.getStackInHand(hand).setCount(0);
+                }
+            }
+        } else {
+            return true;
+        }
+        return false;
     }
 
     @Nullable

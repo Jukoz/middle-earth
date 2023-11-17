@@ -1,5 +1,6 @@
 package net.jukoz.me.datageneration;
 
+import com.mojang.serialization.Decoder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.jukoz.me.block.ModNatureBlocks;
@@ -123,15 +124,12 @@ public class ModelProvider extends FabricModelProvider {
                     .createPressurePlateBlockState(pressurePlate, up, down));
         }
 
-        for (Block block : SimpleTrapDoorModel.blocks) {
-            TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block);
+        for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.blocks) {
+            blockStateModelGenerator.registerTrapdoor(trapdoor.trapdoor());
+        }
 
-            Identifier top = Models.TEMPLATE_ORIENTABLE_TRAPDOOR_TOP.upload(block, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
-            Identifier bottom = Models.TEMPLATE_ORIENTABLE_TRAPDOOR_BOTTOM.upload(block, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
-            Identifier open = Models.TEMPLATE_ORIENTABLE_TRAPDOOR_OPEN.upload(block, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
-
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createTrapdoorBlockState(block, top, bottom, open));
+        for(SimpleDoorModel.Door door : SimpleDoorModel.blocks){
+            blockStateModelGenerator.registerDoor(door.door());
         }
 
         for(Block block : TintableCrossModel.notTintedBlocks) {

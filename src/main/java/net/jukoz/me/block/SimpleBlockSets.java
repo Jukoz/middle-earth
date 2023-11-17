@@ -25,6 +25,9 @@ public class SimpleBlockSets {
     public static SimpleBlockSet LIMESTONE_MOSSY_BRICKS = registerBrickSet("limestone_mossy_bricks", STONE_STRENGTH, null);
     public static SimpleBlockSet POLISHED_FROZEN_GONLUIN = registerBrickSet("polished_frozen_gonluin", STONE_STRENGTH, FROZEN_GONLUIN_BRICKS.base);
     public static SimpleBlockSet POLISHED_DOLOMITE = registerBrickSet("polished_dolomite", STONE_STRENGTH, DOLOMITE_BRICKS.base);
+    public static SimpleBlockSet ANDESITE_BRICKS = registerBrickSet("andesite_bricks", STONE_STRENGTH, Blocks.ANDESITE);
+    public static SimpleBlockSet SMALL_ANDESITE_BRICKS = registerBrickSet("small_andesite_bricks", STONE_STRENGTH, ANDESITE_BRICKS.base);
+    public static SimpleBlockSet GRANITE_BRICKS = registerBrickSet("granite_bricks", STONE_STRENGTH, Blocks.GRANITE);
 
     public static SimpleBlockSet[] sets = new SimpleBlockSet[] {
             ASHEN_BRICKS,
@@ -42,7 +45,10 @@ public class SimpleBlockSets {
             LIMESTONE_CRACKED_BRICKS,
             LIMESTONE_MOSSY_BRICKS,
             POLISHED_FROZEN_GONLUIN,
-            POLISHED_DOLOMITE
+            POLISHED_DOLOMITE,
+            ANDESITE_BRICKS,
+            SMALL_ANDESITE_BRICKS,
+            GRANITE_BRICKS,
     };
 
     public record SimpleBlockSet(Block source, Block base, Block slab, Block stairs, Block wall) {

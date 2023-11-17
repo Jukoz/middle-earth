@@ -63,6 +63,6 @@ public class CornerCobwebBlock extends Block {
 
     static {
         HANGING = Properties.HANGING;
-        FACING = Properties.FACING;
+        FACING = Properties.HORIZONTAL_FACING;
     }
 }

@@ -2,6 +2,7 @@ package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.SimpleBlockSets;
 import net.jukoz.me.block.WoodBlockSets;
 import net.jukoz.me.item.ModFoodItems;
@@ -28,8 +29,12 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             if(record.source() != null) createBrickRecipe(exporter, record.source(), record.base(), 4);
 
             createSlabsRecipe(exporter, record.base(), record.slab());
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.base(), 2);
             createStairsRecipe(exporter, record.base(), record.stairs());
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.base(), 1);
             createWallsRecipe(exporter, record.base(), record.wall());
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.wall(), record.base(), 1);
+
         }
 
         for (WoodBlockSets.SimpleBlockSet record : WoodBlockSets.sets) {
@@ -37,8 +42,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createWallsRecipe(exporter, record.wood(), record.woodWall());
             createSlabsRecipe(exporter, record.planks(), record.planksSlab());
             createStairsRecipe(exporter, record.planks(), record.planksStairs());
+            createDoorRecipe(exporter, record.planks(), record.door());
+            createTrapdoorRecipe(exporter, record.planks(), record.trapdoor());
 
-            ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planks())
+            ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planks(), 4)
                     .input(record.log())
                     .criterion(FabricRecipeProvider.hasItem(record.log()),
                             FabricRecipeProvider.conditionsFromItem(record.planks()))
@@ -74,6 +81,11 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createSeedsRecipe(exporter, ModFoodItems.LEEK, ModRessourceItems.LEEK_SEEDS);
         createSeedsRecipe(exporter, ModFoodItems.LETTUCE, ModRessourceItems.LETTUCE_SEEDS);
 
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD, ModBlocks.LEAD_BLOCK, 4);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_SLAB, ModBlocks.LEAD_BLOCK, 8);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_STAIRS, ModBlocks.LEAD_BLOCK, 4);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_SLAB, ModBlocks.CUT_LEAD);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_STAIRS, ModBlocks.CUT_LEAD);
     }
 
     private void createBrickRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output, int count) {
@@ -99,6 +111,26 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
     private void createSlabsRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 6)
+                .pattern("lll")
+                .input('l', input)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter);
+    }
+
+    private void createDoorRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 3)
+                .pattern("ll")
+                .pattern("ll")
+                .pattern("ll")
+                .input('l', input)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter);
+    }
+    private void createTrapdoorRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 2)
+                .pattern("lll")
                 .pattern("lll")
                 .input('l', input)
                 .criterion(FabricRecipeProvider.hasItem(input),

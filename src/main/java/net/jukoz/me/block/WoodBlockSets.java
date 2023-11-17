@@ -37,7 +37,7 @@ public class WoodBlockSets {
 
     public record SimpleBlockSet(Block leaves, Block log, Block wood, Block woodWall,
                                  Block planks, Block planksSlab, Block planksStairs, Block planksFence, Block planksGate,
-                                 Block pressurePlate, Block button) {
+                                 Block pressurePlate, Block button, Block door, Block trapdoor) {
     }
 
     private static SimpleBlockSet registerWoodSet(String name, float strength, boolean hasLeaves) {
@@ -72,7 +72,13 @@ public class WoodBlockSets {
         Block pressurePlate = ModBlocks.registerBlock(name + "_pressure_plate",  new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING,
                 FabricBlockSettings.copyOf(planks).strength(PLATE_BUTTON_STRENGTH).sounds(BlockSoundGroup.WOOD), BlockSetType.OAK));
 
-        return new SimpleBlockSet(leaves, log, wood, woodWall, planks, slab, stairs, fence, gate, pressurePlate, button);
+        Block door = ModBlocks.registerBlock(name + "_door", new DoorBlock(FabricBlockSettings.copyOf(planks)
+                .strength(strength).sounds(BlockSoundGroup.WOOD), BlockSetType.OAK));
+
+        Block trapdoor = ModBlocks.registerBlock(name + "_trapdoor", new TrapdoorBlock(FabricBlockSettings.copyOf(planks)
+                .strength(strength).sounds(BlockSoundGroup.WOOD), BlockSetType.OAK));
+
+        return new SimpleBlockSet(leaves, log, wood, woodWall, planks, slab, stairs, fence, gate, pressurePlate, button, door, trapdoor);
     }
 
 

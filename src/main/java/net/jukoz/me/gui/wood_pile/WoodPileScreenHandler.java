@@ -26,16 +26,16 @@ public class WoodPileScreenHandler extends ScreenHandler {
         int j;
         for(i = 0; i < 3; ++i) {
             for(j = 0; j < 3; ++j) {
-                this.addSlot(new Slot(inventory, j + i * 3, 62 + j * 18, 17 + i * 18));
+                this.addSlot(new WoodPileSlot(inventory, j + i * 3, 62 + j * 18, 17 + i * 18));
             }
         }
         for(i = 0; i < 3; ++i) {
             for(j = 0; j < 9; ++j) {
-                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlot(new WoodPileSlot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
         for(i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+            this.addSlot(new WoodPileSlot(playerInventory, i, 8 + i * 18, 142));
         }
 
         addPlayerInventory(playerInventory);

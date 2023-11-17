@@ -46,6 +46,8 @@ public class HelpingGenerator {
             SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(set.planks(), set.planksGate()));
             SimpleButtonModel.blocks.add(new SimpleButtonModel.Button(set.planks(), set.button()));
             SimplePressurePlateModel.blocks.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
+            SimpleTrapDoorModel.blocks.add(new SimpleTrapDoorModel.Trapdoor(set.planks(), set.trapdoor()));
+            SimpleDoorModel.blocks.add(new SimpleDoorModel.Door(set.planks(), set.door()));
 
             BlockDrops.blocks.add(set.log());
             BlockDrops.blocks.add(set.wood());
@@ -57,6 +59,8 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.planksGate());
             BlockDrops.blocks.add(set.button());
             BlockDrops.blocks.add(set.pressurePlate());
+            BlockDrops.blocks.add(set.trapdoor());
+            BlockDrops.blocks.add(set.door());
 
             MineableAxe.blocks.add(set.log());
             MineableAxe.blocks.add(set.wood());
@@ -68,6 +72,8 @@ public class HelpingGenerator {
             MineableAxe.blocks.add(set.planksGate());
             MineableAxe.blocks.add(set.button());
             MineableAxe.blocks.add(set.pressurePlate());
+            MineableAxe.blocks.add(set.trapdoor());
+            MineableAxe.blocks.add(set.door());
 
             Buttons.buttons.add(set.button());
             Fences.fences.add(set.planksFence());
@@ -78,6 +84,8 @@ public class HelpingGenerator {
             PressurePlates.pressurePlates.add(set.pressurePlate());
             Walls.walls.add(set.woodWall());
             Planks.planks.add(set.planks());
+            Doors.doors.add(set.door());
+            Trapdoors.trapdoors.add(set.trapdoor());
         }
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
