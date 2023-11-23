@@ -13,7 +13,7 @@ public class BlockDrops {
             add(ModBlocks.CALCITE_PILLAR);
             add(ModBlocks.LIMESTONE_PILLAR);
             add(ModBlocks.CHISELED_BLUE_ROCK_BRICKS);
-            add(ModBlocks.CHISELED_CALCITE);
+            add(ModBlocks.CHISELED_CALCITE_BRICKS);
             add(ModBlocks.CHISELED_LIMESTONE_BRICKS);
             add(ModBlocks.DRY_DIRT);
             add(ModBlocks.MORDOR_DIRT);
@@ -27,6 +27,11 @@ public class BlockDrops {
             add(ModBlocks.STRAW_WALL);
             add(ModBlocks.STONE_TRAPDOOR);
             add(ModBlocks.BLACKSTONE_TRAPDOOR);
+
+            add(ModBlocks.GRANITE_PILLAR);
+            add(ModBlocks.ANDESITE_PILLAR);
+            add(ModBlocks.DIORITE_PILLAR);
+            add(ModBlocks.JADEITE_PILLAR);
 
             //METALS
             add(ModBlocks.RAW_MITHRIL_BLOCK);
@@ -44,6 +49,9 @@ public class BlockDrops {
             add(ModDecorativeBlocks.SILVER_LANTERN);
             add(ModDecorativeBlocks.DWARVEN_LANTERN);
             add(ModDecorativeBlocks.WOOD_PILE);
+
+            add(ModBlocks.SILVES_BARS);
+            add(ModBlocks.RIVER_SAND);
         }
     };
 }

@@ -3,6 +3,7 @@ package net.jukoz.me.datageneration;
 import com.mojang.serialization.Decoder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.crop.*;
 import net.jukoz.me.datageneration.content.CustomItemModels;

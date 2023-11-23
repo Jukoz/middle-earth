@@ -1,7 +1,6 @@
 package net.jukoz.me.datageneration.content.models;
 
 import net.jukoz.me.block.ModBlocks;
-import net.jukoz.me.block.OreRockSets;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ public class SimpleBlockModel {
     public static List<Block> blocks = new ArrayList<>() {
         {
             add(ModBlocks.CHISELED_BLUE_ROCK_BRICKS);
-            add(ModBlocks.CHISELED_CALCITE);
+            add(ModBlocks.CHISELED_CALCITE_BRICKS);
             add(ModBlocks.CHISELED_LIMESTONE_BRICKS);
             add(ModBlocks.DRY_DIRT);
             add(ModBlocks.MORDOR_DIRT);
@@ -27,6 +26,8 @@ public class SimpleBlockModel {
             add(ModBlocks.RAW_SILVER_BLOCK);
             add(ModBlocks.SILVER_BLOCK);
             add(ModBlocks.CUT_LEAD);
+
+            add(ModBlocks.RIVER_SAND);
         }
     };
 }

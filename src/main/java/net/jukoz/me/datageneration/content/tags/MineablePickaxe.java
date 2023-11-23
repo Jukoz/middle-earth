@@ -12,7 +12,7 @@ public class MineablePickaxe {
             add(ModBlocks.CALCITE_PILLAR);
             add(ModBlocks.LIMESTONE_PILLAR);
             add(ModBlocks.CHISELED_BLUE_ROCK_BRICKS);
-            add(ModBlocks.CHISELED_CALCITE);
+            add(ModBlocks.CHISELED_CALCITE_BRICKS);
             add(ModBlocks.CHISELED_LIMESTONE_BRICKS);
             add(ModBlocks.MITHRIL_ORE);
             add(ModBlocks.RAW_MITHRIL_BLOCK);
@@ -23,6 +23,12 @@ public class MineablePickaxe {
             add(ModBlocks.LEAD_BLOCK);
             add(ModBlocks.RAW_SILVER_BLOCK);
             add(ModBlocks.SILVER_BLOCK);
+
+            add(ModBlocks.ANDESITE_PILLAR);
+            add(ModBlocks.GRANITE_PILLAR);
+            add(ModBlocks.DIORITE_PILLAR);
+            add(ModBlocks.JADEITE_PILLAR);
+
         }
     };
 }

@@ -26,7 +26,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
         for (SimpleBlockSets.SimpleBlockSet record : SimpleBlockSets.sets) {
-            if(record.source() != null) createBrickRecipe(exporter, record.source(), record.base(), 4);
+            if(record.source() != null){
+                createBrickRecipe(exporter, record.source(), record.base(), 4);
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 4);
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.source(), 2);
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.source());
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.wall(), record.source());
+            }
+
 
             createSlabsRecipe(exporter, record.base(), record.slab());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.base(), 2);
@@ -72,6 +79,12 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                     .criterion(FabricRecipeProvider.hasItem(Items.STICK),
                             FabricRecipeProvider.conditionsFromItem(Items.STICK))
                     .offerTo(exporter);
+
+            ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.button(), 1)
+                    .input(record.planks(), 1)
+                    .criterion(FabricRecipeProvider.hasItem(record.planks()),
+                            FabricRecipeProvider.conditionsFromItem(record.planks()))
+                    .offerTo(exporter);
         }
 
         // Seeds
@@ -84,7 +97,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD, ModBlocks.LEAD_BLOCK, 4);
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_SLAB, ModBlocks.LEAD_BLOCK, 8);
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_STAIRS, ModBlocks.LEAD_BLOCK, 4);
-        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_SLAB, ModBlocks.CUT_LEAD);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_SLAB, ModBlocks.CUT_LEAD, 2);
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_STAIRS, ModBlocks.CUT_LEAD);
     }
 

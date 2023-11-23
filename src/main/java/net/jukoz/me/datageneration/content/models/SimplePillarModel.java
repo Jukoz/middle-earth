@@ -15,6 +15,10 @@ public class SimplePillarModel {
             add(new Pillar(ModBlocks.CALCITE_PILLAR));
             add(new Pillar(ModBlocks.REED_BLOCK));
             add(new Pillar(ModBlocks.STRAW_BLOCK));
+            add(new Pillar(ModBlocks.ANDESITE_PILLAR));
+            add(new Pillar(ModBlocks.GRANITE_PILLAR));
+            add(new Pillar(ModBlocks.DIORITE_PILLAR));
+            add(new Pillar(ModBlocks.JADEITE_PILLAR));
         }
     };
 }
