@@ -36,12 +36,16 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.item.DyeableItem;
 import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
+import net.minecraft.village.VillagerType;
 
 public class MiddleEarthClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-
         ModEntityModels.getModels();
         EntityRendererRegistry.register(ModEntities.BARROW_WIGHT, BarrowWightEntityRenderer::new);
         // Entities

@@ -3,7 +3,7 @@ package net.jukoz.me.entity.nazguls;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.PanicFireGoal;
-import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
+import net.jukoz.me.entity.hobbits.shire.ShireHobbitNpcEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.sound.ModSounds;
@@ -83,7 +83,7 @@ public class NazgulEntity extends HostileEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitNpcEntity.class, true));
     }
 
     public enum State {

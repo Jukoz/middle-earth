@@ -7,7 +7,7 @@ import net.jukoz.me.entity.barrow_wights.BarrowWightEntity;
 import net.jukoz.me.entity.crab.CrabEntity;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
-import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
+import net.jukoz.me.entity.hobbits.shire.ShireHobbitNpcEntity;
 import net.jukoz.me.entity.human.gondor.GondorianEntity;
 import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
@@ -38,7 +38,7 @@ public class ModEntities {
     public static final EntityType<GondorianEntity> GONDORIAN = registerEntity("gondorian", GondorianEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
     // Hobbits
-    public static final EntityType<ShireHobbitEntity> HOBBIT = registerEntity("hobbit", ShireHobbitEntity::new, SpawnGroup.CREATURE, 0.5f, 1.9f);
+    public static final EntityType<ShireHobbitNpcEntity> HOBBIT = registerEntity("hobbit", ShireHobbitNpcEntity::new, SpawnGroup.CREATURE, 0.5f, 1.9f);
 
     // Nazgul
     public static final EntityType<NazgulEntity> NAZGUL = registerEntity("nazgul", NazgulEntity::new, SpawnGroup.CREATURE, 0.55f, 1.9f);
@@ -73,7 +73,7 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(BARROW_WIGHT, BarrowWightEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(CAVE_TROLL, CaveTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(DURIN_FOLK, DurinDwarfEntity.setAttributes());
-        FabricDefaultAttributeRegistry.register(HOBBIT, ShireHobbitEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(HOBBIT, ShireHobbitNpcEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(GALADHRIM_ELF, GaladhrimElfEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(GONDORIAN, GondorianEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(NAZGUL, NazgulEntity.setAttributes());

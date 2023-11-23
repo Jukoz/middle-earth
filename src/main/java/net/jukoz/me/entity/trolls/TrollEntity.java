@@ -1,8 +1,8 @@
-package net.jukoz.me.entity.trolls;
+    package net.jukoz.me.entity.trolls;
 
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
-import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
+import net.jukoz.me.entity.hobbits.shire.ShireHobbitNpcEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.EntityType;
@@ -52,7 +52,7 @@ public class TrollEntity extends HostileEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitNpcEntity.class, true));
     }
 
     public enum State {

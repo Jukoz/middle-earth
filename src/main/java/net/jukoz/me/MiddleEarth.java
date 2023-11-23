@@ -45,7 +45,6 @@ public class MiddleEarth implements ModInitializer {
 		WoodBlockSets.registerModBlockSets();
 
 		ModBlockEntities.registerBlockEntities();
-
 		ModScreenHandlers.registerAllScreenHandlers();
 		ModRecipes.registerRecipes();
 

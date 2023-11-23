@@ -5,7 +5,7 @@ package net.jukoz.me.entity.barrow_wights;
 
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
-import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
+import net.jukoz.me.entity.hobbits.shire.ShireHobbitNpcEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.minecraft.entity.Entity;
@@ -73,7 +73,7 @@ public class BarrowWightEntity extends HostileEntity {
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(4, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
-        this.targetSelector.add(5, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(5, new ActiveTargetGoal<>(this, ShireHobbitNpcEntity.class, true));
         this.targetSelector.add(6, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
     }
 

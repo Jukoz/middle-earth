@@ -1,7 +1,7 @@
 package net.jukoz.me.entity.pebble;
 
 import net.jukoz.me.entity.ModEntities;
-import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
+import net.jukoz.me.entity.hobbits.shire.ShireHobbitNpcEntity;
 import net.jukoz.me.item.ModRessourceItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -53,7 +53,7 @@ public class PebbleEntity extends ThrownItemEntity {
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        if(this.getOwner() instanceof ShireHobbitEntity && entity instanceof ShireHobbitEntity) return;
+        if(this.getOwner() instanceof ShireHobbitNpcEntity && entity instanceof ShireHobbitNpcEntity) return;
         entity.damage(this.getDamageSources().thrown(this, this.getOwner()), this.damage);
     }
 

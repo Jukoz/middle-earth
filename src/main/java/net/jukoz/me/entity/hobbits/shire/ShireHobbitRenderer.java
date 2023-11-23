@@ -17,22 +17,27 @@ import net.minecraft.util.Util;
 import java.util.Map;
 
 @Environment(value= EnvType.CLIENT)
-public class ShireHobbitRenderer extends BipedEntityRenderer<ShireHobbitEntity, ShireHobbitModel<ShireHobbitEntity>> {
+public class ShireHobbitRenderer extends BipedEntityRenderer<ShireHobbitNpcEntity, ShireHobbitModelNpc<ShireHobbitNpcEntity>> {
     private static final String PATH = "textures/entities/hobbits/shire/";
     private static final float SIZE = 0.65f;
 
     public ShireHobbitRenderer(EntityRendererFactory.Context ctx) {
-        super(ctx, new ShireHobbitModel<>(ctx.getPart(ModEntityModelLayers.HOBBIT)), 0.5f);
+        super(ctx, new ShireHobbitModelNpc<>(ctx.getPart(ModEntityModelLayers.HOBBIT)), 0.5f);
         this.addFeature(
                 new ArmorFeatureRenderer<>(this,
-                        new ShireHobbitModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)),
-                        new ShireHobbitModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)
+                        new ShireHobbitModelNpc(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)),
+                        new ShireHobbitModelNpc(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)
                 ),
                 ctx.getModelManager())
         );
     }
 
     public static final Map<ShireHobbitVariant, String> LOCATION_BY_VARIANT =
+            Util.make(Maps.newEnumMap(ShireHobbitVariant.class), (resourceLocation) -> {
+                resourceLocation.put(ShireHobbitVariant.FRODO,
+                        PATH + "frodo.png");
+            });
+            /*
             Util.make(Maps.newEnumMap(ShireHobbitVariant.class), (resourceLocation) -> {
                 resourceLocation.put(ShireHobbitVariant.GINGER_WHITE_BLUE,
                         PATH + "hobbit1.png");
@@ -45,13 +50,16 @@ public class ShireHobbitRenderer extends BipedEntityRenderer<ShireHobbitEntity, 
                 resourceLocation.put(ShireHobbitVariant.FRODO,
                         PATH + "frodo.png");
             });
+         */
 
-    @Override
-    public Identifier getTexture(ShireHobbitEntity entity) {
+
+
+                @Override
+    public Identifier getTexture(ShireHobbitNpcEntity entity) {
         return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
-    public void render(ShireHobbitEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
+    public void render(ShireHobbitNpcEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
 
         poseStack.scale(SIZE, SIZE, SIZE);
