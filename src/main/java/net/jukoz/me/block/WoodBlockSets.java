@@ -12,16 +12,16 @@ public class WoodBlockSets {
     public static final float PLATE_BUTTON_STRENGTH = 0.5f;
     public static final float LEAVES_STRENGTH = 0.1f;
 
-    public static SimpleBlockSet BEECH = registerWoodSet("beech", WOOD_STRENGTH, true);
-    public static SimpleBlockSet LARCH = registerWoodSet("larch", WOOD_STRENGTH, true);
-    public static SimpleBlockSet BLACK_LEBETHRON = registerWoodSet("black_lebethron", WOOD_STRENGTH, false);
-    public static SimpleBlockSet WHITE_LEBETHRON = registerWoodSet("white_lebethron", WOOD_STRENGTH, false);
-    public static SimpleBlockSet MALLORN = registerWoodSet("mallorn", WOOD_STRENGTH, true);
-    public static SimpleBlockSet MAPLE = registerWoodSet("maple", WOOD_STRENGTH, true);
-    public static SimpleBlockSet MIRKWOOD = registerWoodSet("mirkwood", WOOD_STRENGTH, true);
-    public static SimpleBlockSet PALM = registerWoodSet("palm", WOOD_STRENGTH, true);
-    public static SimpleBlockSet PINE = registerWoodSet("pine", WOOD_STRENGTH, true);
-    public static SimpleBlockSet WILLOW = registerWoodSet("willow", WOOD_STRENGTH, true);
+    public static SimpleBlockSet BEECH = registerWoodSet("beech", WOOD_STRENGTH, true, true);
+    public static SimpleBlockSet LARCH = registerWoodSet("larch", WOOD_STRENGTH, true, true);
+    public static SimpleBlockSet BLACK_LEBETHRON = registerWoodSet("black_lebethron", WOOD_STRENGTH, false, true);
+    public static SimpleBlockSet WHITE_LEBETHRON = registerWoodSet("white_lebethron", WOOD_STRENGTH, false, true);
+    public static SimpleBlockSet MALLORN = registerWoodSet("mallorn", WOOD_STRENGTH, true, false);
+    public static SimpleBlockSet MAPLE = registerWoodSet("maple", WOOD_STRENGTH, true, true);
+    public static SimpleBlockSet MIRKWOOD = registerWoodSet("mirkwood", WOOD_STRENGTH, true, true);
+    public static SimpleBlockSet PALM = registerWoodSet("palm", WOOD_STRENGTH, true, true);
+    public static SimpleBlockSet PINE = registerWoodSet("pine", WOOD_STRENGTH, true, true);
+    public static SimpleBlockSet WILLOW = registerWoodSet("willow", WOOD_STRENGTH, true, true);
 
 
     public static SimpleBlockSet[] sets = new SimpleBlockSet[] {
@@ -42,12 +42,12 @@ public class WoodBlockSets {
                                  Block pressurePlate, Block button) {
     }
 
-    private static SimpleBlockSet registerWoodSet(String name, float strength, boolean hasLeaves) {
+    private static SimpleBlockSet registerWoodSet(String name, float strength, boolean hasLeaves, boolean castShadow) {
         Block leaves = null;
         if(hasLeaves) {
             leaves = ModNatureBlocks.registerBlock(name + "_leaves", new ModLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN)
                     .strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(ModBlocks::canSpawnOnLeaves).suffocates(ModBlocks::never)
-                    .blockVision(ModBlocks::never).burnable().pistonBehavior(PistonBehavior.DESTROY).solidBlock(ModBlocks::never)), false);
+                    .blockVision(ModBlocks::never).burnable().pistonBehavior(PistonBehavior.DESTROY).solidBlock(ModBlocks::never), castShadow), false);
         }
         Block log = ModBlocks.registerBlock(name + "_log", new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(strength).sounds(BlockSoundGroup.WOOD)));
 

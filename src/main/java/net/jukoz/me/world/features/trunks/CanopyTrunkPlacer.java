@@ -7,6 +7,8 @@ import net.jukoz.me.world.gen.ModTreeGeneration;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
@@ -83,7 +85,7 @@ public class CanopyTrunkPlacer extends TrunkPlacer {
                 startPos, height, 0, 0, baseRadius, tipRadius), 1, false);
         treeNodes.add(treeNode);
 
-        createRoots(world, replacer, random, mutable, config, startPos.add(0, 1, 0), (int) (getHeight(random) / 3f), baseRadius * 0.95f, tipRadius);
+        createRoots(world, replacer, random, mutable, config, startPos.add(0, 1, 0), (int) (getHeight(random) / 2.5f), baseRadius * 0.95f, tipRadius);
 
         return ImmutableList.copyOf(treeNodes);
     }
@@ -93,9 +95,6 @@ public class CanopyTrunkPlacer extends TrunkPlacer {
         int test2 = 0;
         List<BlockPos> lastTopBranches = List.of(startPos);
         float heightProgress = 0;
-        if(iterations == 3) {
-            int debug = 0;
-        }
 
         for (int i = 0; i < iterations; i++) {
             List<BlockPos> currentTopBranches = new ArrayList<>();
@@ -122,7 +121,13 @@ public class CanopyTrunkPlacer extends TrunkPlacer {
                         newTopPos = new BlockPos(topBranchBlock).add(0, (int) (-2 + (Math.random() * 5)), 0);
                     }
                     double angle2 = (angle * k) + offsetAngle;
-                    currentTopBranches.add(createBranch(world, replacer, random, mutable, config, newTopPos, currentHeight, angle2, this.angle, currentRadiusA, currentRadiusB));
+                    if(currentRadiusA <= 1) {
+                        currentTopBranches.add(createLinearBranch(world, replacer, random, mutable, config, newTopPos,
+                                currentHeight, angle2, this.angle, currentRadiusA, currentRadiusB));
+                    } else {
+                        currentTopBranches.add(createBranch(world, replacer, random, mutable, config, newTopPos,
+                            currentHeight, angle2, this.angle, currentRadiusA, currentRadiusB));
+                    }
                     ++test2;
                 }
             }
@@ -151,6 +156,24 @@ public class CanopyTrunkPlacer extends TrunkPlacer {
             direction = direction + (float)(360 / (rootsNb + 1)) -5 + (Math.random() * 10);
         }
     }
+
+    protected BlockPos createLinearBranch(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable mutable,
+                                    TreeFeatureConfig config, BlockPos startPos, int height, double angle, float velocity, float radiusA, float radiusB) {
+        if(height < 0) {
+            height *= -1;
+        }
+        Vec3d dir = new Vec3d(Math.cos(angle), 1, Math.sin(angle)).normalize();
+        Vec3d currentPos = new Vec3d(startPos.getX(), startPos.getY(), startPos.getZ());
+
+        int iterations = (int) (height / dir.y);
+        for (int i = 0; i < iterations; ++i) {
+            this.setLog(world, replacer, random, mutable, config, new BlockPos((int) currentPos.x, (int) currentPos.y, (int) currentPos.z),
+                    0, 0, 0);
+            currentPos = currentPos.add(dir);
+        }
+        return new BlockPos((int) currentPos.x, (int) currentPos.y, (int) currentPos.z);
+    }
+
 
     protected BlockPos createBranch(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable mutable,
                                     TreeFeatureConfig config, BlockPos startPos, int height, double direction, float angle, float radiusA, float radiusB) {
@@ -187,6 +210,7 @@ public class CanopyTrunkPlacer extends TrunkPlacer {
         }
         return new BlockPos(startPos).add((int) offsetX, multiplier * height, (int) offsetZ);
     }
+
 
     protected void setLog(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable tmpPos,
                           TreeFeatureConfig config, BlockPos startPos, int dx, int dy, int dz) {

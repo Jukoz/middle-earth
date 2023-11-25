@@ -84,7 +84,7 @@ public class ModConfiguredFeatures {
                 .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
         register(context, MEGA_MALLORN_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(WoodBlockSets.MALLORN.wood()),
-                new CanopyTrunkPlacer(29, 3, 2.45f, 0.67f, 8.1f, 3, 0.44f),
+                new CanopyTrunkPlacer(29, 3, 2.8f, 0.67f, 8.1f, 3, 0.44f),
                 BlockStateProvider.of(WoodBlockSets.MALLORN.leaves()),
                 new OvalFoliagePlacer(3, ConstantIntProvider.create(-1), ConstantIntProvider.create(4), 0.4f),
                 new TwoLayersFeatureSize(1, 0, 2))
