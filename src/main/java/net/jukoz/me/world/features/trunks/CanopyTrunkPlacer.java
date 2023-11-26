@@ -8,7 +8,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
@@ -25,39 +24,51 @@ public class CanopyTrunkPlacer extends TrunkPlacer {
     protected final int randomHeight;
     protected final float  baseRadius;
     protected final float  tipRadius;
-    protected final float  angle;
+    protected final float velocity;
     protected final int iterations;
     protected final float iteration_percentage;
-    private static int test = 0;
+    protected final float trunk_noise;
+    protected final int roots_offset;
+    protected final int straight_trunk;
 
     public static final Codec<CanopyTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(
-                Codec.intRange(0,90).fieldOf("baseHeight").forGetter((trunkPlacer) -> {
+                Codec.intRange(0,90).fieldOf("base_height").forGetter((trunkPlacer) -> {
                     return trunkPlacer.baseHeight;
-                }), Codec.intRange(0,16).fieldOf("randomHeight").forGetter((trunkPlacer) -> {
+                }), Codec.intRange(0,16).fieldOf("random_height").forGetter((trunkPlacer) -> {
                     return trunkPlacer.randomHeight;
-                }), Codec.floatRange(0,16).fieldOf("baseRadius").forGetter((trunkPlacer) -> {
+                }), Codec.floatRange(0,16).fieldOf("base_radius").forGetter((trunkPlacer) -> {
                     return trunkPlacer.baseRadius;
-                }), Codec.floatRange(0,16).fieldOf("tipRadius").forGetter((trunkPlacer) -> {
+                }), Codec.floatRange(0,16).fieldOf("tip_radius").forGetter((trunkPlacer) -> {
                     return trunkPlacer.tipRadius;
-                }), Codec.floatRange(0.0f, 16.0f).fieldOf("angle").forGetter((trunkPlacer) -> {
-                    return trunkPlacer.angle;
+                }), Codec.floatRange(0.0f, 16.0f).fieldOf("velocity").forGetter((trunkPlacer) -> {
+                    return trunkPlacer.velocity;
                 }), Codec.intRange(1,8).fieldOf("iteration").forGetter((trunkPlacer) -> {
                     return trunkPlacer.iterations;
                 }), Codec.floatRange(0.0f, 1.0f).fieldOf("iteration_percentage").forGetter((trunkPlacer) -> {
                     return trunkPlacer.iteration_percentage;
+                }), Codec.floatRange(-1.0f, 1.0f).fieldOf("trunk_noise").forGetter((trunkPlacer) -> {
+                    return trunkPlacer.trunk_noise;
+                }), Codec.intRange(-8, 8).fieldOf("roots_offset").forGetter((trunkPlacer) -> {
+                    return trunkPlacer.roots_offset;
+                }), Codec.intRange(0, 1).fieldOf("straight_trunk").forGetter((trunkPlacer) -> {
+                    return trunkPlacer.straight_trunk;
                 })).apply(instance, CanopyTrunkPlacer::new);
     });
 
-    public CanopyTrunkPlacer(int baseHeight, int randomHeight, float baseRadius, float tipRadius, float angle, int iterations, float iteration_percentage) {
+    public CanopyTrunkPlacer(int baseHeight, int randomHeight, float baseRadius, float tipRadius, float velocity,
+                             int iterations, float iteration_percentage, float trunk_noise, int roots_offset, int straight_trunk) {
         super(baseHeight, randomHeight, 0);
         this.baseHeight = baseHeight;
         this.randomHeight = randomHeight;
         this.baseRadius = baseRadius;
         this.tipRadius = tipRadius;
-        this.angle = angle;
+        this.velocity = velocity;
         this.iterations = iterations;
         this.iteration_percentage = iteration_percentage;
+        this.trunk_noise = trunk_noise;
+        this.roots_offset = roots_offset;
+        this.straight_trunk = straight_trunk;
     }
 
     @Override
@@ -69,9 +80,6 @@ public class CanopyTrunkPlacer extends TrunkPlacer {
     public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
         BlockPos blockPos = startPos.down();
         setToDirt(world, replacer, random, blockPos, config);
-        setToDirt(world, replacer, random, blockPos.east(), config);
-        setToDirt(world, replacer, random, blockPos.south(), config);
-        setToDirt(world, replacer, random, blockPos.south().east(), config);
         BlockPos.Mutable mutable = new BlockPos.Mutable();
 
         float heightProgress = (float) Math.pow((float) 1 / iterations, iteration_percentage);
@@ -81,18 +89,24 @@ public class CanopyTrunkPlacer extends TrunkPlacer {
         List<FoliagePlacer.TreeNode> treeNodes = createCircleBranches(world, replacer, random, mutable, config,
                 newPos, (int) (getHeight(random) - (height * heightProgress)), MathHelper.lerp(heightProgress, baseRadius, tipRadius), tipRadius);
 
+        float direction = 0;
+        float velocity = 0;
+        if(straight_trunk == 0) {
+            direction = (float) (Math.random() * (360 / Math.PI));
+            velocity = this.velocity;
+        }
         FoliagePlacer.TreeNode treeNode = new FoliagePlacer.TreeNode(createBranch(world, replacer, random, mutable, config,
-                startPos, height, 0, 0, baseRadius, tipRadius), 1, false);
+                startPos, height, direction, velocity, baseRadius, tipRadius), 1, false);
         treeNodes.add(treeNode);
 
-        createRoots(world, replacer, random, mutable, config, startPos.add(0, 1, 0), (int) (getHeight(random) / 2.5f), baseRadius * 0.95f, tipRadius);
+        createRoots(world, replacer, random, mutable, config, startPos.add(0, this.roots_offset, 0), (int) (getHeight(random) / 2.5f), baseRadius * 0.95f, tipRadius);
 
         return ImmutableList.copyOf(treeNodes);
     }
 
     private List<FoliagePlacer.TreeNode> createCircleBranches(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable mutable,
                                                         TreeFeatureConfig config, BlockPos startPos, int height, float radiusA, float radiusB) {
-        int test2 = 0;
+        List<FoliagePlacer.TreeNode> treeNodes = new ArrayList<>();
         List<BlockPos> lastTopBranches = List.of(startPos);
         float heightProgress = 0;
 
@@ -123,23 +137,22 @@ public class CanopyTrunkPlacer extends TrunkPlacer {
                     double angle2 = (angle * k) + offsetAngle;
                     if(currentRadiusA <= 1) {
                         currentTopBranches.add(createLinearBranch(world, replacer, random, mutable, config, newTopPos,
-                                currentHeight, angle2, this.angle, currentRadiusA, currentRadiusB));
+                            currentHeight, angle2, this.velocity, currentRadiusA, currentRadiusB));
                     } else {
                         currentTopBranches.add(createBranch(world, replacer, random, mutable, config, newTopPos,
-                            currentHeight, angle2, this.angle, currentRadiusA, currentRadiusB));
+                            currentHeight, angle2, this.velocity, currentRadiusA, currentRadiusB));
                     }
-                    ++test2;
+
+                    if (Math.random() < 0.4f) {
+                        int index = currentTopBranches.size() - 1;
+                        treeNodes.add(new FoliagePlacer.TreeNode(currentTopBranches.get(index), 0, false));
+                        currentTopBranches.remove(index);
+                    }
                 }
             }
             lastTopBranches = currentTopBranches;
         }
 
-        if(test2 > test) {
-            test = test2;
-            System.out.println(test);
-        }
-
-        List<FoliagePlacer.TreeNode> treeNodes = new ArrayList<>();
         for(BlockPos pos : lastTopBranches) {
             treeNodes.add(new FoliagePlacer.TreeNode(pos, 0, false));
         }
@@ -152,7 +165,7 @@ public class CanopyTrunkPlacer extends TrunkPlacer {
         startPos = startPos.add(0, (int) (height * 0.6f), 0);
         double direction = Math.random() * (360/Math.PI);
         for (int i = 0; i < rootsNb; i++) {
-            createBranch(world, replacer, random, mutable, config, startPos, -height, direction, this.angle / 2, radiusA, radiusB);
+            createBranch(world, replacer, random, mutable, config, startPos, -height, direction, this.velocity / 2, radiusA, radiusB);
             direction = direction + (float)(360 / (rootsNb + 1)) -5 + (Math.random() * 10);
         }
     }
@@ -162,7 +175,7 @@ public class CanopyTrunkPlacer extends TrunkPlacer {
         if(height < 0) {
             height *= -1;
         }
-        Vec3d dir = new Vec3d(Math.cos(angle), 1, Math.sin(angle)).normalize();
+        Vec3d dir = new Vec3d(Math.cos(angle), 1, Math.sin(angle)); //.normalize()
         Vec3d currentPos = new Vec3d(startPos.getX(), startPos.getY(), startPos.getZ());
 
         int iterations = (int) (height / dir.y);
@@ -176,7 +189,7 @@ public class CanopyTrunkPlacer extends TrunkPlacer {
 
 
     protected BlockPos createBranch(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos.Mutable mutable,
-                                    TreeFeatureConfig config, BlockPos startPos, int height, double direction, float angle, float radiusA, float radiusB) {
+                                    TreeFeatureConfig config, BlockPos startPos, int height, double direction, float velocity, float radiusA, float radiusB) {
         int multiplier = 1;
         if(height < 0) {
             multiplier = -1;
@@ -189,15 +202,15 @@ public class CanopyTrunkPlacer extends TrunkPlacer {
 
         for (int i = 0; i < height; ++i) {
             float percentage = (float) (Math.pow((float) i / height, 1.2));
-            offsetX = (MathHelper.lerp(percentage, 0, (float) Math.cos(direction)) * angle);
-            offsetZ = (MathHelper.lerp(percentage, 0, (float) Math.sin(direction)) * angle);
+            offsetX = (MathHelper.lerp(percentage, 0, (float) Math.cos(direction)) * velocity);
+            offsetZ = (MathHelper.lerp(percentage, 0, (float) Math.sin(direction)) * velocity);
 
             for (int x = -ceilRadius; x <= ceilRadius; x++) {
                 for (int z = -ceilRadius; z <= ceilRadius; z++) {
                     double dx = x;
                     double dz = z;
                     double distanceSquared = x * x + z * z;
-                    distanceSquared += (Math.random() * -0.15f);
+                    distanceSquared += (Math.random() * this.trunk_noise);
 
                     if (distanceSquared <= radius * radius) {
                         dx += offsetX;

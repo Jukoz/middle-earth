@@ -24,47 +24,48 @@ public class LargeTrunkPlacer extends TrunkPlacer {
     protected final int randomHeight;
     protected final float  baseRadius;
     protected final float  tipRadius;
-    protected final float  angle;
+    protected final float velocity;
     protected final int iterations;
-    protected final float iteration_percentage;
+    protected final float iterationPercentage;
 
     public static final Codec<LargeTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(
-                Codec.intRange(0,90).fieldOf("baseHeight").forGetter((trunkPlacer) -> {
+                Codec.intRange(0,90).fieldOf("base_height").forGetter((trunkPlacer) -> {
                     return trunkPlacer.baseHeight;
-                }), Codec.intRange(0,16).fieldOf("randomHeight").forGetter((trunkPlacer) -> {
+                }), Codec.intRange(0,16).fieldOf("random_height").forGetter((trunkPlacer) -> {
                     return trunkPlacer.randomHeight;
-                }), Codec.floatRange(0,16).fieldOf("baseRadius").forGetter((trunkPlacer) -> {
+                }), Codec.floatRange(0,16).fieldOf("base_hadius").forGetter((trunkPlacer) -> {
                     return trunkPlacer.baseRadius;
-                }), Codec.floatRange(0,16).fieldOf("tipRadius").forGetter((trunkPlacer) -> {
+                }), Codec.floatRange(0,16).fieldOf("tip_hadius").forGetter((trunkPlacer) -> {
                     return trunkPlacer.tipRadius;
-                }), Codec.floatRange(0.0f, 8.0f).fieldOf("angle").forGetter((trunkPlacer) -> {
-                    return trunkPlacer.angle;
+                }), Codec.floatRange(0.0f, 8.0f).fieldOf("velocity").forGetter((trunkPlacer) -> {
+                    return trunkPlacer.velocity;
                 }), Codec.intRange(1,8).fieldOf("iteration").forGetter((trunkPlacer) -> {
                     return trunkPlacer.iterations;
                 }), Codec.floatRange(0.0f, 1.0f).fieldOf("iteration_percentage").forGetter((trunkPlacer) -> {
-                    return trunkPlacer.iteration_percentage;
+                    return trunkPlacer.iterationPercentage;
                 })).apply(instance, LargeTrunkPlacer::new);
     });
 
-    public LargeTrunkPlacer(int baseHeight, int randomHeight, float baseRadius, float tipRadius, float angle, int iterations, float iteration_percentage) {
+    public LargeTrunkPlacer(int baseHeight, int randomHeight, float baseRadius, float tipRadius, float velocity, int iterations, float iterationPercentage) {
         super(baseHeight, randomHeight, 0);
         this.baseHeight = baseHeight;
         this.randomHeight = randomHeight;
         this.baseRadius = baseRadius;
         this.tipRadius = tipRadius;
-        this.angle = angle;
+        this.velocity = velocity;
         this.iterations = iterations;
-        this.iteration_percentage = iteration_percentage;
+        this.iterationPercentage = iterationPercentage;
     }
 
     @Override
     protected TrunkPlacerType<?> getType() {
-        return ModTreeGeneration.RICH_TRUNK_PLACER;
+        return ModTreeGeneration.LARGE_TRUNK_PLACER;
     }
 
     @Override
-    public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
+    public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random,
+                                                 int height, BlockPos startPos, TreeFeatureConfig config) {
         BlockPos blockPos = startPos.down();
         setToDirt(world, replacer, random, blockPos, config);
         setToDirt(world, replacer, random, blockPos.east(), config);
@@ -88,7 +89,7 @@ public class LargeTrunkPlacer extends TrunkPlacer {
             float currentRadiusA = MathHelper.lerp(heightProgress, radiusA, radiusB);
 
             float step = (float)(i + 1) / iterations;
-            heightProgress = (float) Math.pow(step, iteration_percentage);
+            heightProgress = (float) Math.pow(step, iterationPercentage);
 
             currentHeight = (int) (height * heightProgress) - currentHeight;
             float currentRadiusB = MathHelper.lerp(1 - heightProgress, radiusB, radiusA);
@@ -146,8 +147,8 @@ public class LargeTrunkPlacer extends TrunkPlacer {
 
         for (int i = 0; i < height; ++i) {
             float percentage = (float) (Math.pow((float) i / height, 1.2));
-            offsetX = (MathHelper.lerp(percentage, 0, (float) Math.cos(direction)) * this.angle);
-            offsetZ = (MathHelper.lerp(percentage, 0, (float) Math.sin(direction)) * this.angle);
+            offsetX = (MathHelper.lerp(percentage, 0, (float) Math.cos(direction)) * this.velocity);
+            offsetZ = (MathHelper.lerp(percentage, 0, (float) Math.sin(direction)) * this.velocity);
             for (int x = -ceilRadius; x <= ceilRadius; x++) {
                 for (int z = -ceilRadius; z <= ceilRadius; z++) {
                     double dx = x;
