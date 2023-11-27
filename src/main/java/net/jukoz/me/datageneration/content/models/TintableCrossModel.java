@@ -11,9 +11,7 @@ import java.util.List;
 public class TintableCrossModel {
     public static List<Block> notTintedBlocks = new ArrayList<>() {
         {
-            add(ModNatureBlocks.WILD_PIPEWEED);
             add(ModNatureBlocks.WILD_FLAX);
-            add(ModNatureBlocks.WILD_TOMATO);
             add(ModNatureBlocks.WILD_BELL_PEPPER);
             add(ModNatureBlocks.WILD_CUCUMBER);
             add(ModNatureBlocks.WILD_LEEK);

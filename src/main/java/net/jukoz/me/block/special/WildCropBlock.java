@@ -8,6 +8,7 @@ import net.minecraft.world.BlockView;
 
 public class WildCropBlock extends PlantBlock {
     protected static final VoxelShape SHAPE = Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 13.0, 14.0);
+
     public WildCropBlock(Settings settings) {
         super(settings);
     }

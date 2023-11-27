@@ -138,7 +138,6 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         // Crops
-        blockStateModelGenerator.registerCrop(ModNatureBlocks.TOMATO_CROP, TomatoCropBlock.AGE, 0, 1, 2, 3);
         blockStateModelGenerator.registerCrop(ModNatureBlocks.BELL_PEPPER_CROP, BellpepperCropBlock.AGE, 0, 1, 2, 3, 4);
         blockStateModelGenerator.registerCrop(ModNatureBlocks.CUCUMBER_CROP, CucumberCropBlock.AGE, 0, 1, 2, 3);
         blockStateModelGenerator.registerCrop(ModNatureBlocks.FLAX_CROP, FlaxCropBlock.AGE, 0, 1, 2, 3);
@@ -146,7 +145,6 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCrop(ModNatureBlocks.LEEK_CROP, LeekCropBlock.AGE, 0, 1, 2, 3);
         blockStateModelGenerator.registerCrop(ModNatureBlocks.LETTUCE_CROP, LettuceCropBlock.AGE, 0, 1, 2, 3);
         blockStateModelGenerator.registerCrop(ModNatureBlocks.ONION_CROP, OnionCropBlock.AGE, 0, 1, 2, 3);
-        blockStateModelGenerator.registerCrop(ModNatureBlocks.PIPEWEED_CROP, PipeweedCropBlock.AGE, 0, 1, 2, 3);
     }
 
     @Override

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "me:block/wild_pipeweed_bottom"
+    },
+    "half=upper": {
+      "model": "me:block/wild_pipeweed_top"
+    }
+  }
+}
