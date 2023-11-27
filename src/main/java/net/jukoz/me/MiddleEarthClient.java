@@ -132,6 +132,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.SILVER_LANTERN, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SILVES_BARS, RenderLayer.getCutout());
+
     }
 
     private void registerDyeableItem(Item item) {

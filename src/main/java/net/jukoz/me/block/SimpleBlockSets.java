@@ -28,23 +28,37 @@ public class SimpleBlockSets {
 
     public static SimpleBlockSet LIMESTONE = registerBrickSet("limestone", STONE_STRENGTH, null);
     public static SimpleBlockSet LIMESTONE_BRICKS = registerBrickSet("limestone_bricks", STONE_STRENGTH, LIMESTONE.base);
-    public static SimpleBlockSet LIMESTONE_CRACKED_BRICKS = registerBrickSet("limestone_cracked_bricks", STONE_STRENGTH, null);
-    public static SimpleBlockSet LIMESTONE_MOSSY_BRICKS = registerBrickSet("limestone_mossy_bricks", STONE_STRENGTH, null);
+    public static SimpleBlockSet LIMESTONE_CRACKED_BRICKS = registerBrickSet("limestone_cracked_bricks", STONE_STRENGTH, LIMESTONE_BRICKS.base);
+    public static SimpleBlockSet LIMESTONE_MOSSY_BRICKS = registerBrickSet("limestone_mossy_bricks", STONE_STRENGTH, LIMESTONE_BRICKS.base);
 
     public static SimpleBlockSet ANDESITE_BRICKS = registerBrickSet("andesite_bricks", STONE_STRENGTH, Blocks.POLISHED_ANDESITE);
-    public static SimpleBlockSet MOSSY_ANDESITE_BRICKS = registerBrickSet("mossy_andesite_bricks", STONE_STRENGTH, null);
-    public static SimpleBlockSet CRACKED_ANDESITE_BRICKS = registerBrickSet("cracked_andesite_bricks", STONE_STRENGTH, null);
+    public static SimpleBlockSet MOSSY_ANDESITE_BRICKS = registerBrickSet("mossy_andesite_bricks", STONE_STRENGTH, ANDESITE_BRICKS.base);
+    public static SimpleBlockSet CRACKED_ANDESITE_BRICKS = registerBrickSet("cracked_andesite_bricks", STONE_STRENGTH, ANDESITE_BRICKS.base);
     public static SimpleBlockSet SMALL_ANDESITE_BRICKS = registerBrickSet("small_andesite_bricks", STONE_STRENGTH, ANDESITE_BRICKS.base);
+    public static SimpleBlockSet MOSSY_SMALL_ANDESITE_BRICKS = registerBrickSet("mossy_small_andesite_bricks", STONE_STRENGTH, SMALL_ANDESITE_BRICKS.base);
+    public static SimpleBlockSet CRACKED_SMALL_ANDESITE_BRICKS = registerBrickSet("cracked_small_andesite_bricks", STONE_STRENGTH, SMALL_ANDESITE_BRICKS.base);
+    public static SimpleBlockSet MOSSY_POLISHED_ANDESITE = registerBrickSet("mossy_polished_andesite", STONE_STRENGTH, Blocks.POLISHED_ANDESITE);
+    public static SimpleBlockSet CRACKED_POLISHED_ANDESITE = registerBrickSet("cracked_polished_andesite", STONE_STRENGTH, Blocks.POLISHED_ANDESITE);
+
 
     public static SimpleBlockSet GRANITE_BRICKS = registerBrickSet("granite_bricks", STONE_STRENGTH, Blocks.POLISHED_GRANITE);
-    public static SimpleBlockSet MOSSY_GRANITE_BRICKS = registerBrickSet("mossy_granite_bricks", STONE_STRENGTH, null);
-    public static SimpleBlockSet CRACKED_GRANITE_BRICKS = registerBrickSet("cracked_granite_bricks", STONE_STRENGTH, null);
+    public static SimpleBlockSet MOSSY_GRANITE_BRICKS = registerBrickSet("mossy_granite_bricks", STONE_STRENGTH, GRANITE_BRICKS.base);
+    public static SimpleBlockSet CRACKED_GRANITE_BRICKS = registerBrickSet("cracked_granite_bricks", STONE_STRENGTH, GRANITE_BRICKS.base);
     public static SimpleBlockSet SMALL_GRANITE_BRICKS = registerBrickSet("small_granite_bricks", STONE_STRENGTH, GRANITE_BRICKS.base);
+    public static SimpleBlockSet MOSSY_SMALL_GRANITE_BRICKS = registerBrickSet("mossy_small_granite_bricks", STONE_STRENGTH, SMALL_GRANITE_BRICKS.base);
+    public static SimpleBlockSet CRACKED_SMALL_GRANITE_BRICKS = registerBrickSet("cracked_small_granite_bricks", STONE_STRENGTH, SMALL_GRANITE_BRICKS.base);
+    public static SimpleBlockSet MOSSY_POLISHED_GRANITE = registerBrickSet("mossy_polished_granite", STONE_STRENGTH, Blocks.POLISHED_GRANITE);
+    public static SimpleBlockSet CRACKED_POLISHED_GRANITE = registerBrickSet("cracked_polished_granite", STONE_STRENGTH, Blocks.POLISHED_GRANITE);
+
 
     public static SimpleBlockSet DIORITE_BRICKS = registerBrickSet("diorite_bricks", STONE_STRENGTH, Blocks.POLISHED_DIORITE);
-    public static SimpleBlockSet MOSSY_DIORITE_BRICKS = registerBrickSet("mossy_diorite_bricks", STONE_STRENGTH, null);
-    public static SimpleBlockSet CRACKED_DIORITE_BRICKS = registerBrickSet("cracked_diorite_bricks", STONE_STRENGTH, null);
+    public static SimpleBlockSet MOSSY_DIORITE_BRICKS = registerBrickSet("mossy_diorite_bricks", STONE_STRENGTH, DIORITE_BRICKS.base);
+    public static SimpleBlockSet CRACKED_DIORITE_BRICKS = registerBrickSet("cracked_diorite_bricks", STONE_STRENGTH, DIORITE_BRICKS.base);
     public static SimpleBlockSet SMALL_DIORITE_BRICKS = registerBrickSet("small_diorite_bricks", STONE_STRENGTH, DIORITE_BRICKS.base);
+    public static SimpleBlockSet MOSSY_SMALL_DIORITE_BRICKS = registerBrickSet("mossy_small_diorite_bricks", STONE_STRENGTH, SMALL_DIORITE_BRICKS.base);
+    public static SimpleBlockSet CRACKED_SMALL_DIORITE_BRICKS = registerBrickSet("cracked_small_diorite_bricks", STONE_STRENGTH, SMALL_DIORITE_BRICKS.base);
+    public static SimpleBlockSet MOSSY_POLISHED_DIORITE = registerBrickSet("mossy_polished_diorite", STONE_STRENGTH, Blocks.POLISHED_DIORITE);
+    public static SimpleBlockSet CRACKED_POLISHED_DIORITE = registerBrickSet("cracked_polished_diorite", STONE_STRENGTH, Blocks.POLISHED_DIORITE);
 
     public static SimpleBlockSet QUARTZITE = registerBrickSet("quartzite", STONE_STRENGTH, null);
 
@@ -57,33 +71,54 @@ public class SimpleBlockSets {
     public static SimpleBlockSet[] sets = new SimpleBlockSet[] {
             ASHEN_BRICKS,
             ASHEN_ROCK,
+
             GONLUIN,
             SMALL_GONLUIN_BRICKS,
-            CALCITE_BRICKS,
-            DOLOMITE,
-            DOLOMITE_BRICKS,
             FROZEN_GONLUIN_COBBLESTONE,
             FROZEN_GONLUIN,
             FROZEN_GONLUIN_BRICKS,
+            POLISHED_FROZEN_GONLUIN,
+
+            CALCITE_BRICKS,
+
+            DOLOMITE,
+            DOLOMITE_BRICKS,
+            POLISHED_DOLOMITE,
+
             LIMESTONE,
             LIMESTONE_BRICKS,
             LIMESTONE_CRACKED_BRICKS,
             LIMESTONE_MOSSY_BRICKS,
-            POLISHED_FROZEN_GONLUIN,
-            POLISHED_DOLOMITE,
+
             ANDESITE_BRICKS,
             MOSSY_ANDESITE_BRICKS,
             CRACKED_ANDESITE_BRICKS,
             SMALL_ANDESITE_BRICKS,
+            MOSSY_SMALL_ANDESITE_BRICKS,
+            CRACKED_SMALL_ANDESITE_BRICKS,
+            MOSSY_POLISHED_ANDESITE,
+            CRACKED_POLISHED_ANDESITE,
+
             GRANITE_BRICKS,
             MOSSY_GRANITE_BRICKS,
             CRACKED_GRANITE_BRICKS,
             SMALL_GRANITE_BRICKS,
+            MOSSY_SMALL_GRANITE_BRICKS,
+            CRACKED_SMALL_GRANITE_BRICKS,
+            MOSSY_POLISHED_GRANITE,
+            CRACKED_POLISHED_GRANITE,
+
             DIORITE_BRICKS,
             MOSSY_DIORITE_BRICKS,
             CRACKED_DIORITE_BRICKS,
             SMALL_DIORITE_BRICKS,
+            MOSSY_SMALL_DIORITE_BRICKS,
+            CRACKED_SMALL_DIORITE_BRICKS,
+            MOSSY_POLISHED_DIORITE,
+            CRACKED_POLISHED_DIORITE,
+
             QUARTZITE,
+
             JADEITE,
             POLISHED_JADEITE,
             JADEITE_BRICKS,

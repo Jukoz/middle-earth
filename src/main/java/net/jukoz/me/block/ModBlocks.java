@@ -18,22 +18,56 @@ public class ModBlocks {
 
     public static final Block CALCITE_PILLAR = registerBlock("calcite_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+
     public static final Block LIMESTONE_PILLAR = registerBlock("limestone_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+
     public static final Block ANDESITE_PILLAR = registerBlock("andesite_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+    public static final Block MOSSY_ANDESITE_PILLAR = registerBlock("mossy_andesite_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+    public static final Block CRACKED_ANDESITE_PILLAR = registerBlock("cracked_andesite_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+
     public static final Block GRANITE_PILLAR = registerBlock("granite_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+    public static final Block MOSSY_GRANITE_PILLAR = registerBlock("mossy_granite_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+    public static final Block CRACKED_GRANITE_PILLAR = registerBlock("cracked_granite_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+
     public static final Block DIORITE_PILLAR = registerBlock("diorite_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+    public static final Block MOSSY_DIORITE_PILLAR = registerBlock("mossy_diorite_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+    public static final Block CRACKED_DIORITE_PILLAR = registerBlock("cracked_diorite_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+
     public static final Block JADEITE_PILLAR = registerBlock("jadeite_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
 
     public static final Block CHISELED_BLUE_ROCK_BRICKS = registerBlock("chiseled_gonluin_bricks",
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+
     public static final Block CHISELED_CALCITE_BRICKS = registerBlock("chiseled_calcite_bricks",
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+
     public static final Block CHISELED_LIMESTONE_BRICKS = registerBlock("chiseled_limestone_bricks",
+            new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+
+    public static final Block CHISELED_ANDESITE_BRICKS = registerBlock("chiseled_andesite_bricks",
+            new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+    public static final Block CUT_POLISHED_ANDESITE = registerBlock("cut_polished_andesite",
+            new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+    
+    public static final Block CHISELED_GRANITE_BRICKS = registerBlock("chiseled_granite_bricks",
+            new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+    public static final Block CUT_POLISHED_GRANITE = registerBlock("cut_polished_granite",
+            new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+
+    public static final Block CHISELED_DIORITE_BRICKS = registerBlock("chiseled_diorite_bricks",
+            new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
+    public static final Block CUT_POLISHED_DIORITE = registerBlock("cut_polished_diorite",
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(SimpleBlockSets.STONE_STRENGTH).sounds(BlockSoundGroup.STONE)));
 
     public static final Block DRY_DIRT = registerBlock("dry_dirt",

@@ -8,11 +8,13 @@ import net.jukoz.me.block.WoodBlockSets;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModRessourceItems;
 import net.minecraft.block.Block;
+import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 
 import java.util.function.Consumer;
@@ -26,7 +28,12 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
         for (SimpleBlockSets.SimpleBlockSet record : SimpleBlockSets.sets) {
-            if(record.source() != null){
+
+            if(record.toString().contains("mossy_")){
+                createMossyRecipe(exporter, record.source().asItem(), record.base().asItem());
+            } else if(record.toString().contains("cracked_")){
+                createCrackedRecipe(exporter, record.source().asItem(), record.base().asItem());
+            } else if(record.source() != null){
                 createBrickRecipe(exporter, record.source(), record.base(), 4);
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 4);
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.source(), 2);
@@ -34,14 +41,12 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.wall(), record.source());
             }
 
-
             createSlabsRecipe(exporter, record.base(), record.slab());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.base(), 2);
             createStairsRecipe(exporter, record.base(), record.stairs());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.base(), 1);
             createWallsRecipe(exporter, record.base(), record.wall());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.wall(), record.base(), 1);
-
         }
 
         for (WoodBlockSets.SimpleBlockSet record : WoodBlockSets.sets) {
@@ -106,6 +111,22 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .pattern("ll")
                 .pattern("ll")
                 .input('l', input)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter);
+    }
+
+    private void createMossyRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Item output) {
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, output, 1)
+                .input(input)
+                .input(Items.VINE)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter);
+    }
+
+    private void createCrackedRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Item output) {
+        CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(input),RecipeCategory.BUILDING_BLOCKS, output, 0.1f, 200)
                 .criterion(FabricRecipeProvider.hasItem(input),
                         FabricRecipeProvider.conditionsFromItem(input))
                 .offerTo(exporter);
