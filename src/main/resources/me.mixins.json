@@ -11,11 +11,13 @@
   "client": [
     "client.AbstractClientPlayerEntityMixin",
     "client.BackgroundRendererMixin",
+    "client.ClientPlayerInteractionManagerMixin",
     "client.ElytraFeatureRendererMixin",
+    "client.GameRendererMixin",
     "client.HeadFeatureRendererMixin",
     "client.InGameHudMixin",
-    "client.MouseMixin",
-    "client.ItemRendererMixin"
+    "client.ItemRendererMixin",
+    "client.MouseMixin"
   ],
   "server": [
   ],
