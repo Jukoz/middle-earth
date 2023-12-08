@@ -50,9 +50,6 @@ public class SpruceTrunkPlacer extends TrunkPlacer {
                                                  int height, BlockPos startPos, TreeFeatureConfig config) {
         BlockPos blockPos = startPos.down();
         setToDirt(world, replacer, random, blockPos, config);
-        setToDirt(world, replacer, random, blockPos.east(), config);
-        setToDirt(world, replacer, random, blockPos.south(), config);
-        setToDirt(world, replacer, random, blockPos.south().east(), config);
         BlockPos.Mutable mutable = new BlockPos.Mutable();
 
         List<FoliagePlacer.TreeNode> treeNodes = createTrunk(world, replacer, random, mutable, config, startPos, getHeight(random));
