@@ -15,10 +15,14 @@ import java.util.List;
  * Converts PNG pixel color to a BiomeKey reference.
  */
 public class MEBiomesData {
-    public static HashMap<Integer, MEBiome> biomeMap = new HashMap<>();
+    private static HashMap<Integer, MEBiome> biomeByColorMap = new HashMap<>();
+    private static HashMap<MEBiome,Short > biomeIdByBiomeMap = new HashMap<>();
+    private static HashMap<Short, MEBiome> biomeByIdMap = new HashMap<>();
+
     public static List<RegistryKey<Biome>> waterBiomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> wastePondBiomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> mirkwoodSwampBiomes = new ArrayList<>();
+
     public static MEBiome defaultBiome;
     public static MEBiome millPond;
     public static MEBiome wastePond;
@@ -27,8 +31,33 @@ public class MEBiomesData {
     /// Only supports height value from -22 to 41
     public static final int MINIMAL_HEIGHT = -22;
 
+
     public static void addBiome(Color color, MEBiome biome) {
-        biomeMap.put(color.getRGB(), biome);
+        biomeByColorMap.put(color.getRGB(), biome);
+        biomeIdByBiomeMap.put(biome, (short)biomeIdByBiomeMap.size());
+        biomeByIdMap.put(biomeIdByBiomeMap.get(biome), biome);
+        // Debug :
+        // System.out.print("Biome_Id: %s, Biome_Name: %s, Biome_Color: %s\n".formatted(biomeIdByBiomeMap.get(biome).toString(), biome.biome.getValue(), color.getRGB()));
+    }
+
+    public static MEBiome getBiomeByColor(Integer rgb){
+        if(biomeByColorMap.containsKey(rgb)){
+            return biomeByColorMap.get(rgb);
+        }
+        return null;
+    }
+
+    public static Short getBiomeIdByBiome(MEBiome biome){
+        if(biomeIdByBiomeMap.containsKey(biome)){
+            return biomeIdByBiomeMap.get(biome);
+        }
+        return null;
+    }
+    public static MEBiome getBiomeById(Short id){
+        if(biomeByIdMap.containsKey(id)){
+            return biomeByIdMap.get(id);
+        }
+        return null;
     }
 
     public static void loadBiomes() {

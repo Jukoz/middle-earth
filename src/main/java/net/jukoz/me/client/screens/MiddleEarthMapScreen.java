@@ -5,7 +5,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.world.biomes.MEBiome;
-import net.jukoz.me.world.biomes.MEBiomesData;
 import net.jukoz.me.world.chunkgen.map.MapImageLoader;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.gui.DrawContext;
@@ -18,7 +17,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import org.joml.Vector2i;
@@ -34,7 +32,7 @@ public class MiddleEarthMapScreen extends Screen {
     public static final int MARGIN = 5;
 
     public static final int MAP_IMAGE_WIDTH = 1400;
-    public static final int MAP_IMAGE_HEIGHT = 1216;
+    public static final int MAP_IMAGE_HEIGHT = 1400;
     public int windowWidth, windowHeight;
     public int mapWindowWidth, mapWindowHeight;
     public float minZoom;
@@ -171,7 +169,7 @@ public class MiddleEarthMapScreen extends Screen {
                 context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + (int)playerPos.getX() + ", " + (int)playerPos.getY() + ", " + (int)playerPos.getZ()), 5, 15, 0xffffff);
                 context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + currentBiomeId), 5, 25, 0xffffff);
 
-                MEBiome meBiome = MEBiomesData.biomeMap.get(MapImageLoader.getBiomeColor(cursorWorldCoordinate.x, cursorWorldCoordinate.y));
+                MEBiome meBiome = MapImageLoader.getbiomeByWorldCoordinate(cursorWorldCoordinate.x, cursorWorldCoordinate.y);
 
                 context.drawTextWithShadow(textRenderer, Text.literal("Cursor information"), 0, 45, 0xffffff);
                 context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + ((oustideBound) ? "N/A" : (int)cursorWorldCoordinate.x + ", " + ModDimensions.getHighestYAtXZ(mouseX, mouseY) + ", "+ (int)cursorWorldCoordinate.y)), 5, 55, 0xffffff);

@@ -148,13 +148,12 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 MEBiome meBiome;
 
                 if(MiddleEarthHeightMap.isCoordinateInBounds(posX, posZ)) {
-                    meBiome = MEBiomesData.biomeMap.get(MapImageLoader.getBiomeColor(posX, posZ));
+                    meBiome = MapImageLoader.getbiomeByWorldCoordinate(posX, posZ);
                 } else {
                     meBiome = MEBiomesData.defaultBiome;
                 }
 
                 if(meBiome == null) {
-                    int c = MapImageLoader.getBiomeColor(posX, posZ);
                     meBiome = MEBiomesData.defaultBiome;
                 }
 

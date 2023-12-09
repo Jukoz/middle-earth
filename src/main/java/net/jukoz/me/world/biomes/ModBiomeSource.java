@@ -36,8 +36,8 @@ public class ModBiomeSource extends BiomeSource {
         int i = BiomeCoords.toBlock(x);
         int k = BiomeCoords.toBlock(z);
 
-        if(!MiddleEarthHeightMap.isCoordinateInBounds(i, k)) return biomes.get(0);
-        MEBiome meBiome = MEBiomesData.biomeMap.get(MapImageLoader.getBiomeColor(i, k));
+        if(!MiddleEarthHeightMap.isCoordinateInBounds(i, k)) return biomes.get(0); // TODO : Min max i/k
+        MEBiome meBiome = MapImageLoader.getbiomeByWorldCoordinate(i, k);
         if(meBiome == null) {
             return biomes.get(0);
         }
