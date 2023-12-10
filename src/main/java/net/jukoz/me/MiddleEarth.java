@@ -24,7 +24,7 @@ import java.net.URISyntaxException;
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "me";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static final int MAP_ITERATION = 4;
+	public static final int MAP_ITERATION = 3;
 	@Override
 	public void onInitialize() {
 		ModStatusEffects.registerStatusEffects();

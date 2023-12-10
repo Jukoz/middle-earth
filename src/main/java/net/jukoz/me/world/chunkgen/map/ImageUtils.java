@@ -2,20 +2,22 @@ package net.jukoz.me.world.chunkgen.map;
 
 import com.google.common.base.Stopwatch;
 import net.jukoz.me.world.biomes.MEBiome;
+import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.MEBiomesData;
+import net.minecraft.world.biome.BiomeKeys;
 import org.apache.commons.lang3.time.StopWatch;
 
 import java.awt.image.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class ImageUtils {
     public static int BRUSH_SIZE = 24;
     public static float RATIO = 1.0f / (BRUSH_SIZE * BRUSH_SIZE);
-    private static byte[] SEED = generateSeed(99999999); //generateSeed(14232899, 0); //generateSeed(99999999);
+    private static byte[] SEED = generateSeed(0);
     private static int SEED_INDEX = 0;
 
     public static BufferedImage blur(BufferedImage image) {
@@ -54,45 +56,6 @@ public class ImageUtils {
         return result;
     }
 
-    // Weird code :')
-    /*
-        public static short[][] convertImageToBiomeIdArray(BufferedImage image) {
-        final byte[] pixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-        final int width = image.getWidth();
-        final int height = image.getHeight();
-        final boolean hasAlphaChannel = image.getAlphaRaster() != null;
-
-        short[][] result = new short[height][width];
-        final int pixelLength = (hasAlphaChannel) ? 4 : 3;
-
-        for (int pixel = 0, row = 0, col = 0; pixel + pixelLength - 1 < pixels.length; pixel += pixelLength) {
-            int argb = 0;
-            if (hasAlphaChannel) {
-                argb += ((int) pixels[pixel] & 0xff) << 24; // alpha
-            } else {
-                argb += -16777216; // 255 alpha
-            }
-            argb += ((int) pixels[pixel + 1] & 0xff); // blue
-            argb += (((int) pixels[pixel + 2] & 0xff) << 8); // green
-            argb += (((int) pixels[pixel + 3] & 0xff) << 16); // red
-
-            MEBiome biome = MEBiomesData.getBiomeByColor(argb);
-            if (biome != null) {
-                result[row][col] = MEBiomesData.getBiomeIdByBiome(biome);
-            } else {
-                System.out.println("Biome datas do not contain the color (%s) which is at %x,%y".formatted(argb, row, col));
-            }
-
-            col++;
-            if (col == width) {
-                col = 0;
-                row++;
-            }
-        }
-
-        return result;
-    }
-     */
     public static short[][] subdivide(short[][] initial, int amount) {
         Stopwatch stopwatch = Stopwatch.createUnstarted();
         short[][] newResult = initial;
@@ -115,6 +78,8 @@ public class ImageUtils {
             }
 
             // Create the average values with neighbors
+            List<Short> biomeIds = new ArrayList<>();
+
             for(int x = 0; x < newWidth; x ++){
                 for(int y = 0; y < newHeight; y ++){
                     boolean xIsUneven = x % 2 == 1;
@@ -122,34 +87,30 @@ public class ImageUtils {
 
                     if(xIsUneven ^ yIsUneven){
                         if(xIsUneven){
-                            tempResult[x][y] = (getNextSeed() == 1)
-                                    ? tempResult[x + 1][y]
-                                    : tempResult[x - 1][y];
+                            biomeIds.add(tempResult[x + 1][y]);
+                            biomeIds.add(tempResult[x - 1][y]);
                         }
                         if(yIsUneven){
-                            tempResult[x][y] = (getNextSeed() == 1)
-                                    ? tempResult[x][y + 1]
-                                    : tempResult[x][y - 1];
+                            biomeIds.add(tempResult[x][y + 1]);
+                            biomeIds.add(tempResult[x][y - 1]);
+                        }
+                        tempResult[x][y] = getRandomShortFromList(biomeIds);
+                        biomeIds.clear();
 
+                        if(yIsUneven && x > 1){
                             // Create the middle coordinate
-                            if(x > 1){
-                                short value = 0;
-                                for(int j = 0; j < 4 * 2; j++){
-                                    value += getNextSeed();
-                                }
-
-                                if(value < 2){
-                                    value = tempResult[x][y];
-                                } else if (value < 4){
-                                    value = tempResult[x - 1][y + 1];
-                                } else if (value < 6){
-                                    value = tempResult[x - 2][y];
-                                } else {
-                                    value = tempResult[x - 1][y - 1];
-                                }
-                                tempResult[x - 1][y] = value;
-                                valueFilled++;
+                            short value = 0;
+                            for(int j = 0; j < 4 * 2; j++){
+                                value += getNextSeed();
                             }
+                            biomeIds.add(tempResult[x][y]);
+                            biomeIds.add(tempResult[x - 2][y]);
+                            biomeIds.add(tempResult[x - 1][y + 1]);
+                            biomeIds.add(tempResult[x - 1][y - 1]);
+
+                            valueFilled++;
+                            tempResult[x - 1][y] = getRandomShortFromList(biomeIds);
+                            biomeIds.clear();
                         }
                         valueFilled++;
                     }
@@ -164,26 +125,39 @@ public class ImageUtils {
         return newResult;
     }
 
+    private static short getRandomShortFromList(List<Short> biomeIds) {
+        byte index = 0;
+        if(Collections.frequency(biomeIds, 54) >= 2) return 54; // River
+        for(byte i = 0; i < biomeIds.size() - 1; i++){
+            if(getNextSeed() >= 5){
+                index += 1;
+            }
+        }
+        return biomeIds.get(index);
+    }
+
     public static byte[] generateSeed(long seed, int initial){
         ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
         buffer.putLong(seed);
 
         SEED = buffer.array();
+        System.out.println(Arrays.toString(buffer.array()));
         SEED_INDEX = initial;
 
         return SEED;
     }
 
     public static byte[] generateSeed(int bound){
-        Random random = new Random();
-        long seed = random.nextLong(bound);
-        System.out.println("Generated seed is %s with %s as bound".formatted(seed, bound));
 
-        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
-        buffer.putLong(seed);
+        String piString = "31415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679";
 
-        SEED = buffer.array();
-        SEED_INDEX = random.nextInt(SEED.length);
+        byte[] piBytes = new byte[piString.length()];
+        for (int i = 0; i < piString.length(); i++) {
+            piBytes[i] = Byte.parseByte(String.valueOf(piString.charAt(i)));
+        }
+
+        SEED = piBytes;
+        SEED_INDEX = bound;
 
         return SEED;
     }
@@ -194,51 +168,5 @@ public class ImageUtils {
             SEED_INDEX = 0;
         }
         return SEED[SEED_INDEX];
-    }
-
-
-    // Old Version, remove it when everything works with subdivision
-    public static int[][] convertTo2D(BufferedImage image) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
-
-        final byte[] pixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-        final int width = image.getWidth();
-        final int height = image.getHeight();
-        final boolean hasAlphaChannel = image.getAlphaRaster() != null;
-
-        int[][] result = new int[height][width];
-        final int pixelLength = (hasAlphaChannel) ? 4 : 3;
-
-        if (hasAlphaChannel) {
-            for (int pixel = 0, row = 0, col = 0; pixel + 3 < pixels.length; pixel += pixelLength) {
-                int argb = 0;
-                argb += (((int) pixels[pixel] & 0xff) << 24); // alpha
-                argb += ((int) pixels[pixel + 1] & 0xff); // blue
-                argb += (((int) pixels[pixel + 2] & 0xff) << 8); // green
-                argb += (((int) pixels[pixel + 3] & 0xff) << 16); // red
-                result[row][col] = argb;
-                col++;
-                if (col == width) {
-                    col = 0;
-                    row++;
-                }
-            }
-        } else {
-            for (int pixel = 0, row = 0, col = 0; pixel + 2 < pixels.length; pixel += pixelLength) {
-                int argb = 0;
-                argb += -16777216; // 255 alpha
-                argb += ((int) pixels[pixel] & 0xff); // blue
-                argb += (((int) pixels[pixel + 1] & 0xff) << 8); // green
-                argb += (((int) pixels[pixel + 2] & 0xff) << 16); // red
-                result[row][col] = argb;
-                col++;
-                if (col == width) {
-                    col = 0;
-                    row++;
-                }
-            }
-        }
-        System.out.println("It took %s milliseconds to convert the image to a 2D array (old)".formatted(stopwatch.elapsed(TimeUnit.MILLISECONDS)));
-        return result;
     }
 }
