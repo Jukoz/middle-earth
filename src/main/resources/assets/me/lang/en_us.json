@@ -454,6 +454,18 @@
   "block.me.yellow_flower": "Yellow Flower",
   "block.me.white_mushroom": "White Mushroom",
   "block.me.white_mushroom_tiller": "White Mushroom Tiller",
+  
+  "block.me.beech_sapling": "Beech Sapling",
+  "block.me.larch_sapling": "Larch Sapling",
+  "block.me.lebethron_sapling": "Lebethron Sapling",
+  "block.me.white_lebethron_sapling": "White Lebethron Sapling",
+  "block.me.mallorn_sapling": "Mallorn Sapling",
+  "block.me.maple_sapling": "Maple Sapling",
+  "block.me.mirkwood_sapling": "Mirkwood Sapling",
+  "block.me.palm_sapling": "Palm Sapling",
+  "block.me.white_palm_sapling": "White Palm Sapling",
+  "block.me.pine_sapling": "Pine Sapling",
+  "block.me.willow_sapling": "Willow Sapling",
 
 "#Comment:": "Block - Copper ores",
   "block.me.gonluin_copper_ore": "Gonluin Copper Ore",

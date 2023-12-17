@@ -53,7 +53,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 
         int count = 6 + (int) (Math.random() * 2);
         double angle = (float) (360 / count);
-        double offsetAngle = Math.random() * 180;
+        double offsetAngle = Math.random() * 20;
 
         for (int i = 0; i < count; i++) {
             createArcBranch(world, placer, random, mutable, config, treeNode.getCenter().add(0, offset, 0), this.baseHeight,
@@ -62,10 +62,10 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 
         count--;
         angle = (float) (360 / count);
-        offsetAngle = Math.random() * 180;
+        offsetAngle += Math.random() * 20;
         for (int i = 0; i < count; i++) {
-            createArcBranch(world, placer, random, mutable, config, treeNode.getCenter().add(0, offset, 0), this.baseHeight - 1,
-                    (angle * i) + offsetAngle, this.acceleration - 0.05f, this.velocity + 1f);
+            createArcBranch(world, placer, random, mutable, config, treeNode.getCenter().add(0, offset, 0), this.baseHeight,
+                    (angle * i) + offsetAngle, this.acceleration - 0.05f, this.velocity + 0.85f);
         }
     }
 
@@ -76,12 +76,18 @@ public class PalmFoliagePlacer extends FoliagePlacer {
         }
         Vec3d dir = new Vec3d(Math.cos(angle), 0, Math.sin(angle)).normalize();
         Vec3d currentPos = new Vec3d(startPos.getX(), startPos.getY() - 1, startPos.getZ());
+        Vec3d lastPos;
         float currentVel = velocity;
 
         for(int i = 0; i < height; i++) {
+            lastPos = currentPos;
             currentPos = currentPos.add(new Vec3d(dir.x, Math.max(-1, currentVel), dir.z));
             mutable.set(currentPos.x, currentPos.y, currentPos.z);
             placeFoliageBlock(world, placer, random, config, mutable);
+            if(lastPos.getY() != currentPos.getY()) {
+                mutable.set(currentPos.x, currentPos.y + 1, currentPos.z);
+                placeFoliageBlock(world, placer, random, config, mutable);
+            }
             currentVel += acceleration;
         }
     }

@@ -25,7 +25,8 @@ public class ArcTrunkPlacer extends TrunkPlacer {
 
     protected final int baseHeight;
     protected final int randomHeight;
-    protected final float acceleration;
+    protected final float minAcceleration;
+    protected final float maxAcceleration;
     protected final float velocity;
 
     public static final Codec<ArcTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> {
@@ -34,18 +35,21 @@ public class ArcTrunkPlacer extends TrunkPlacer {
                     return trunkPlacer.baseHeight;
                 }), Codec.intRange(0,16).fieldOf("random_height").forGetter((trunkPlacer) -> {
                     return trunkPlacer.randomHeight;
-                }), Codec.floatRange(0.0f,0.2f).fieldOf("acceleration").forGetter((trunkPlacer) -> {
-                    return trunkPlacer.acceleration;
+                }), Codec.floatRange(0.0f,0.2f).fieldOf("min_acceleration").forGetter((trunkPlacer) -> {
+                    return trunkPlacer.minAcceleration;
+                }), Codec.floatRange(0.0f,0.2f).fieldOf("max_acceleration").forGetter((trunkPlacer) -> {
+                    return trunkPlacer.maxAcceleration;
                 }), Codec.floatRange(0.0f,0.2f).fieldOf("velocity").forGetter((trunkPlacer) -> {
                     return trunkPlacer.velocity;
                 })).apply(instance, ArcTrunkPlacer::new);
     });
 
-    public ArcTrunkPlacer(int baseHeight, int randomHeight, float acceleration, float velocity) {
+    public ArcTrunkPlacer(int baseHeight, int randomHeight, float minAcceleration, float maxAcceleration, float velocity) {
         super(baseHeight, randomHeight, 0);
         this.baseHeight = baseHeight;
         this.randomHeight = randomHeight;
-        this.acceleration = acceleration;
+        this.minAcceleration = minAcceleration;
+        this.maxAcceleration = maxAcceleration;
         this.velocity = velocity;
     }
 
@@ -58,14 +62,11 @@ public class ArcTrunkPlacer extends TrunkPlacer {
     public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random,
                                                  int height, BlockPos startPos, TreeFeatureConfig config) {
         BlockPos blockPos = startPos.down();
-        setToDirt(world, replacer, random, blockPos, config);
-        setToDirt(world, replacer, random, blockPos.east(), config);
-        setToDirt(world, replacer, random, blockPos.south(), config);
-        setToDirt(world, replacer, random, blockPos.south().east(), config);
         BlockPos.Mutable mutable = new BlockPos.Mutable();
 
         double angle = Math.random() * 180;
-        List<FoliagePlacer.TreeNode> treeNodes = createArcBranch(world, replacer, random, mutable, config, startPos, getHeight(random), angle, this.acceleration, this.velocity);
+        float acceleration = (float) ((Math.random() * (maxAcceleration - minAcceleration)) + minAcceleration);
+        List<FoliagePlacer.TreeNode> treeNodes = createArcBranch(world, replacer, random, mutable, config, startPos, getHeight(random), angle, acceleration, this.velocity);
 
         return ImmutableList.copyOf(treeNodes);
     }

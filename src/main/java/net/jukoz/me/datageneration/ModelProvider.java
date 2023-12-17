@@ -132,6 +132,10 @@ public class ModelProvider extends FabricModelProvider {
                     .createTrapdoorBlockState(block, top, bottom, open));
         }
 
+
+        for (Block block : SimpleCrossBlockModel.blocks) {
+            blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.TintType.NOT_TINTED);
+        }
     }
 
     @Override

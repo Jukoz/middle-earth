@@ -12,6 +12,7 @@
     "TrunkPlacerTypeInvoker"
   ],
   "client": [
+    "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
     "client.BackgroundRendererMixin",
     "client.ElytraFeatureRendererMixin",

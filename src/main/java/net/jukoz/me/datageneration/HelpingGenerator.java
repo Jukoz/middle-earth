@@ -35,7 +35,8 @@ public class HelpingGenerator {
         for (WoodBlockSets.SimpleBlockSet set : WoodBlockSets.sets) {
             if(set.leaves() != null) {
                 SimpleBlockModel.blocks.add(set.leaves());
-                LeavesDrops.blocks.add(set.leaves());
+                LeavesSets.blocks.add(set.leaves());
+                if(set.sapling() != null) LeavesDrops.blocks.add(new LeavesDrops.LeavesDrop(set.leaves(), set.sapling()));
             }
             SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.log()));
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.log(), set.woodWall()));
