@@ -180,7 +180,7 @@ public class ModWeaponItems {
 
 
     public static final Item IRON_DAGGER = registerItemWithModel("iron_dagger",
-            new RangeWeaponItem(ToolMaterials.IRON, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED, DAGGER_REACH, new FabricItemSettings()), false);
+            new RangeWeaponItem(ToolMaterials.IRON, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED - 0.1f, DAGGER_REACH, new FabricItemSettings()), false);
     public static final Item STONE_DAGGER = registerItemWithModel("stone_dagger",
             new RangeWeaponItem(ToolMaterials.STONE, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED, DAGGER_REACH, new FabricItemSettings()), false);
     public static final Item WOODEN_DAGGER = registerItemWithModel("wooden_dagger",
