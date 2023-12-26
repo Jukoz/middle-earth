@@ -10,12 +10,10 @@ public class ModModelPredicateProvider {
         registerBow(ModWeaponItems.DALISH_BOW);
         registerBow(ModWeaponItems.GONDOR_BOW);
         registerBow(ModWeaponItems.LORIEN_BOW);
+        registerBow(ModWeaponItems.ROHIRRIC_BOW);
         registerBow(ModWeaponItems.UMBAR_BOW);
     }
     public static void registerBow(Item bow) {
-
-
-
         ModelPredicateProviderRegistry.register(bow, new Identifier("pull"),
                 (stack, world, entity, seed) -> {
                    if(entity == null) return 0.0f;
