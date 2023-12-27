@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "me:silver_ore"
+    "item": "me:diftomin_silver_ore"
   },
   "result": "me:silver_ingot",
   "experience": 2,

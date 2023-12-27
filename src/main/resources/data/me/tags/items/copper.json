@@ -5,9 +5,10 @@
     "minecraft:raw_copper",
     "minecraft:copper_ore",
     "minecraft:deepslate_copper_ore",
-    "me:ashen_rock_copper_ore",
+    "me:ashen_copper_ore",
     "me:gonluin_copper_ore",
-    "me:dolomite_copper_ore",
-    "me:calcite_copper_ore"
+    "me:calcite_copper_ore",
+    "me:limestone_copper_ore",
+    "me:frozen_copper_ore"
   ]
 }

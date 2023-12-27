@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "me:lead_ore"
+    "item": "me:diftomin_lead_ore"
   },
   "result": "me:lead_ingot",
   "experience": 2,

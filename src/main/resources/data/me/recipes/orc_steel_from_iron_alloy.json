@@ -5,10 +5,10 @@
       "tag": "me:iron"
     },
     {
-      "item": "me:ashen_rock"
+      "item": "me:ashen_stone"
     }
   ],
   "output": {
-    "item": "me:orc_steel"
+    "item": "me:orc_steel_ingot"
   }
 }
