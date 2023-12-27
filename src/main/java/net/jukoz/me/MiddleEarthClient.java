@@ -11,7 +11,7 @@ import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntityRenderer;
 import net.jukoz.me.datageneration.VariantsModelProvider;
-import net.jukoz.me.datageneration.content.models.SimpleCrossBlockModel;
+import net.jukoz.me.datageneration.content.models.TintableCrossModel;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntityRenderer;
 import net.jukoz.me.entity.crab.CrabRenderer;
@@ -21,6 +21,7 @@ import net.jukoz.me.entity.hobbits.shire.ShireHobbitRenderer;
 import net.jukoz.me.entity.model.ModEntityModels;
 import net.jukoz.me.entity.nazguls.NazgulRenderer;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
+import net.jukoz.me.entity.snail.SnailRenderer;
 import net.jukoz.me.entity.spear.JavelinEntityRenderer;
 import net.jukoz.me.entity.spider.MirkwoodSpiderRenderer;
 import net.jukoz.me.entity.trolls.cave.CaveTrollRenderer;
@@ -66,6 +67,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         // Animals
         EntityRendererRegistry.register(ModEntities.CRAB, CrabRenderer::new);
+        EntityRendererRegistry.register(ModEntities.SNAIL, SnailRenderer::new);
 
         ModModelPredicateProvider.registerBowModel();
 
@@ -102,9 +104,33 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.CORRUPTED_MOSS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModRessourceItems.REEDS, RenderLayer.getCutout());
 
-        for(Block block : SimpleCrossBlockModel.blocks) { // TODO refactor with #dev merge.
+
+        for(Block block : TintableCrossModel.notTintedBlocks) { // TODO refactor with #dev merge.
+            if(block != null) BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
+        }
+        for(Block block : TintableCrossModel.tintedBlocks) {
             BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
         }
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.TOMATO_CROP, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.BELL_PEPPER_CROP, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.CUCUMBER_CROP, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.FLAX_CROP, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.GARLIC_CROP, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.LEEK_CROP, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.LETTUCE_CROP, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.ONION_CROP, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.PIPEWEED_CROP, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILD_PIPEWEED, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILD_FLAX, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILD_TOMATO, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILD_BELL_PEPPER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILD_CUCUMBER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILD_LEEK, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILD_LETTUCE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILD_GARLIC, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILD_ONION, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.DWARVEN_LANTERN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WALL_DWARVEN_LANTERN, RenderLayer.getCutout());

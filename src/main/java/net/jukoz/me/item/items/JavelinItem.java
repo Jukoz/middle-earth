@@ -22,14 +22,14 @@ import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class SpearItem  extends ToolItem implements Vanishable {
+public class JavelinItem extends ToolItem implements Vanishable {
     private static final float BASE_STRENGTH = 0.75f;
     private static final float CHARGE_STRENGTH = 1f;
     private static final int STRENGTH_CHARGE_TIME = 20; // 1s charge for full strength
     private final float attackDamage;
     private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
 
-    public SpearItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Item.Settings settings) {
+    public JavelinItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Item.Settings settings) {
         super(toolMaterial, settings);
         this.attackDamage = (float)attackDamage + toolMaterial.getAttackDamage();
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();

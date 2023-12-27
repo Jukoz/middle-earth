@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.datageneration.content.models.SimpleCrossBlockModel;
 import net.jukoz.me.world.features.ModConfiguredFeatures;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.crop.*;
 import net.jukoz.me.block.special.*;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.world.features.saplings.DualSaplingGenerator;
@@ -129,12 +130,50 @@ public class ModNatureBlocks {
     public static final Block STRAWBERRY_BUSH = registerBlock("strawberry_bush",
             new StrawBerryBushBlock(FabricBlockSettings.copyOf(Blocks.SWEET_BERRY_BUSH).ticksRandomly().noCollision().breakInstantly().sounds(BlockSoundGroup.SWEET_BERRY_BUSH)), false);
 
+    public static final Block WILD_PIPEWEED = registerBlock("wild_pipeweed",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_FLAX = registerBlock("wild_flax",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_TOMATO = registerBlock("wild_tomato",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_BELL_PEPPER = registerBlock("wild_bell_pepper",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_CUCUMBER = registerBlock("wild_cucumber",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_GARLIC = registerBlock("wild_garlic",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_ONION = registerBlock("wild_onion",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_LETTUCE = registerBlock("wild_lettuce",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_LEEK = registerBlock("wild_leek",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+
     public static final Block MIRKWOOD_ROOTS = registerBlock("mirkwood_roots",
             new MangroveRootsBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_ROOTS)), true);
     public static final Block MIRKWOOD_HANGING_ROOTS = registerBlock("mirkwood_hanging_roots",
             new HangingRootsBlock(FabricBlockSettings.copyOf(Blocks.HANGING_ROOTS)), true);
     public static final Block MIRKWOOD_SPIDER_EGG = registerBlock("mirkwood_spider_egg",
             new MirkwoodSpiderEggBlock(FabricBlockSettings.copyOf(Blocks.TURTLE_EGG)), true);
+
+    public static final Block TOMATO_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "tomato_crop"),
+            new TomatoCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));
+    public static final Block BELL_PEPPER_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "bell_pepper_crop"),
+            new BellpepperCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));
+    public static final Block CUCUMBER_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "cucumber_crop"),
+            new CucumberCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));
+    public static final Block FLAX_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "flax_crop"),
+            new FlaxCropBlock(FabricBlockSettings.copyOf(Blocks.WHEAT)));
+    public static final Block GARLIC_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "garlic_crop"),
+            new GarlicCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));
+    public static final Block LEEK_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "leek_crop"),
+            new LeekCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));
+    public static final Block LETTUCE_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "lettuce_crop"),
+            new LettuceCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));
+    public static final Block ONION_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "onion_crop"),
+            new OnionCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));
+    public static final Block PIPEWEED_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "pipeweed_crop"),
+            new PipeweedCropBlock(FabricBlockSettings.copyOf(Blocks.WHEAT)));
 
 
     public static Block registerCrossBlock(String name, Block block, boolean present) {

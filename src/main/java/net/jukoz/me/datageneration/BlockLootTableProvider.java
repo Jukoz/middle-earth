@@ -2,8 +2,11 @@ package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
+import net.jukoz.me.datageneration.content.loot_tables.CropDrops;
 import net.jukoz.me.datageneration.content.loot_tables.LeavesDrops;
+import net.jukoz.me.item.ModRessourceItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.server.loottable.BlockLootTableGenerator;
@@ -11,6 +14,7 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
+
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.loot.condition.TableBonusLootCondition;
@@ -23,6 +27,7 @@ import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.item.EnchantmentPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.loot.condition.RandomChanceLootCondition;
 
 public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     protected static final LootCondition.Builder WITH_SILK_TOUCH = MatchToolLootCondition.builder(ItemPredicate.Builder.create()
@@ -44,6 +49,18 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         for (LeavesDrops.LeavesDrop drop : LeavesDrops.blocks) {
             addDrop(drop.block(), this.leavesDrops(drop.block(), drop.drop(), SAPLING_DROP_CHANCE));
         }
+        for (CropDrops.CropDrop cd : CropDrops.crops) {
+            addDrop(cd.crop_block, cropDrops(cd.crop_block, cd.fruit, cd.seeds, cd.builder));
+        }
+        for (CropDrops.CropDrop cd : CropDrops.wild_crops) {
+            addDrop(cd.crop_block,
+                    LootTable.builder().pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F))
+                            .with(ItemEntry.builder(cd.seeds)
+                                    .conditionally(RandomChanceLootCondition.builder(0.125f)))
+                            .with(ItemEntry.builder(cd.fruit))));
+        }
+
+
     }
 
     public LootTable.Builder leavesDrops(Block leaves, Block drop, float ... chance) {

@@ -21,7 +21,8 @@ Jukoz<br>
 Krahab<br>
 Froosty11<br>
 nullBlade<br>
-Slooshyboi
+Slooshyboi<br>
+Tom
 
 ### Modelers & Textures
 Tom<br>

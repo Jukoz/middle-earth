@@ -2,6 +2,8 @@ package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.jukoz.me.block.ModNatureBlocks;
+import net.jukoz.me.block.crop.*;
 import net.jukoz.me.datageneration.content.CustomItemModels;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.item.ModEquipmentItems;
@@ -132,10 +134,20 @@ public class ModelProvider extends FabricModelProvider {
                     .createTrapdoorBlockState(block, top, bottom, open));
         }
 
-
-        for (Block block : SimpleCrossBlockModel.blocks) {
-            blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.TintType.NOT_TINTED);
+        for(Block block : TintableCrossModel.notTintedBlocks) {
+            if(block != null) blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.TintType.NOT_TINTED);
         }
+
+        // Crops
+        blockStateModelGenerator.registerCrop(ModNatureBlocks.TOMATO_CROP, TomatoCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.registerCrop(ModNatureBlocks.BELL_PEPPER_CROP, BellpepperCropBlock.AGE, 0, 1, 2, 3, 4);
+        blockStateModelGenerator.registerCrop(ModNatureBlocks.CUCUMBER_CROP, CucumberCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.registerCrop(ModNatureBlocks.FLAX_CROP, FlaxCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.registerCrop(ModNatureBlocks.GARLIC_CROP, GarlicCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.registerCrop(ModNatureBlocks.LEEK_CROP, LeekCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.registerCrop(ModNatureBlocks.LETTUCE_CROP, LettuceCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.registerCrop(ModNatureBlocks.ONION_CROP, OnionCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.registerCrop(ModNatureBlocks.PIPEWEED_CROP, PipeweedCropBlock.AGE, 0, 1, 2, 3);
     }
 
     @Override
@@ -160,7 +172,7 @@ public class ModelProvider extends FabricModelProvider {
 
         for (Item item : SimpleBowItemModel.items) {
             for(int i = 0; i < 3; i++) {
-                itemModelGenerator.register(item, "_pulling_" + i, Models.GENERATED);
+                itemModelGenerator.register(item, "_pulling_" + i, CustomItemModels.BOW);
             }
         }
 
