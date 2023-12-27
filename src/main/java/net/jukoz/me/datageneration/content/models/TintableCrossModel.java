@@ -1,9 +1,8 @@
 package net.jukoz.me.datageneration.content.models;
 
-import com.mojang.datafixers.util.Pair;
+import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.minecraft.block.Block;
-import net.minecraft.data.client.BlockStateModelGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +17,21 @@ public class TintableCrossModel {
             add(ModNatureBlocks.WILD_LETTUCE);
             add(ModNatureBlocks.WILD_GARLIC);
             add(ModNatureBlocks.WILD_ONION);
+
+            add(ModNatureBlocks.BROWN_BOLETE);
+            add(ModNatureBlocks.CAVE_AMANITA);
+            add(ModNatureBlocks.DEEP_FIRECAP);
+            add(ModNatureBlocks.GHOSTSHROOM);
+            add(ModNatureBlocks.MORSEL);
+            add(ModNatureBlocks.SKY_FIRECAP);
+            add(ModNatureBlocks.TRUMPET_SHROOM);
+            add(ModNatureBlocks.TUBESHRROM);
+            add(ModNatureBlocks.VIOLET_CAPS);
+            add(ModNatureBlocks.WHITE_MUSHROOM);
+            add(ModNatureBlocks.YELLOW_AMANITA);
+
+            add(ModNatureBlocks.GLOWWORM_MAIN);
+            add(ModNatureBlocks.GLOWWORM_WEBBING);
         }
     };
     public static List<Block> tintedBlocks = new ArrayList<>() {

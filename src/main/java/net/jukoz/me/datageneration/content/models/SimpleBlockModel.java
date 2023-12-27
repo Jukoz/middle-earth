@@ -1,35 +1,26 @@
 package net.jukoz.me.datageneration.content.models;
 
 import net.jukoz.me.block.ModBlocks;
+import net.jukoz.me.block.ModNatureBlocks;
+import net.jukoz.me.block.StoneBlockSets;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleBlockModel {
+
+    public record ChiseledBlock(Block base, Block origin) {}
+
+    public record ChiseledPolishedBlock(Block base, Block origin) {}
+
     public static List<Block> blocks = new ArrayList<>() {
         {
-
             add(ModBlocks.DRY_DIRT);
-            add(ModBlocks.MORDOR_DIRT);
-
-            add(ModBlocks.CHISELED_BLUE_ROCK_BRICKS);
-
-            add(ModBlocks.CHISELED_CALCITE_BRICKS);
-
-            add(ModBlocks.CHISELED_LIMESTONE_BRICKS);
-
-            add(ModBlocks.CHISELED_ANDESITE_BRICKS);
-            add(ModBlocks.CUT_POLISHED_ANDESITE);
-
-            add(ModBlocks.CHISELED_GRANITE_BRICKS);
-            add(ModBlocks.CUT_POLISHED_GRANITE);
-
-            add(ModBlocks.CHISELED_DIORITE_BRICKS);
-            add(ModBlocks.CUT_POLISHED_DIORITE);
+            add(ModBlocks.ASHEN_DIRT);
 
             //METALS
-            add(ModBlocks.MITHRIL_ORE);
             add(ModBlocks.RAW_MITHRIL_BLOCK);
             add(ModBlocks.MITHRIL_BLOCK);
             add(ModBlocks.RAW_TIN_BLOCK);
@@ -40,7 +31,38 @@ public class SimpleBlockModel {
             add(ModBlocks.SILVER_BLOCK);
             add(ModBlocks.CUT_LEAD);
 
+            //GEMS
+            add(ModBlocks.SAPPHIRE_BLOCK);
+            add(ModBlocks.BUDDING_SAPPHIRE);
+            add(ModBlocks.RED_AGATE_BLOCK);
+            add(ModBlocks.BUDDING_RED_AGATE);
+            add(ModBlocks.CITRINE_BLOCK);
+            add(ModBlocks.BUDDING_CITRINE);
+
             add(ModBlocks.RIVER_SAND);
+            add(ModBlocks.ASH_BLOCK);
+        }
+    };
+
+    public static List<ChiseledBlock> chiseledBlocks = new ArrayList<>() {
+        {
+            add(new ChiseledBlock(ModBlocks.CHISELED_GONLUIN_BRICKS, StoneBlockSets.GONLUIN_BRICKS.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_CALCITE_BRICKS, StoneBlockSets.CALCITE_BRICKS.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_LIMESTONE_BRICKS, StoneBlockSets.LIMESTONE_BRICKS.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_ANDESITE_BRICKS, StoneBlockSets.ANDESITE_BRICKS.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_GRANITE_BRICKS, StoneBlockSets.GRANITE_BRICKS.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_DIORITE_BRICKS, StoneBlockSets.DIORITE_BRICKS.slab()));
+        }
+    };
+
+    public static List<ChiseledPolishedBlock> chiseledPolishedBlocks = new ArrayList<>() {
+        {
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_GONLUIN, StoneBlockSets.POLISHED_GONLUIN.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_CALCITE, StoneBlockSets.POLISHED_CALCITE.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_ANDESITE, Blocks.POLISHED_ANDESITE_SLAB));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_STONE, Blocks.SMOOTH_STONE_SLAB));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_GRANITE, Blocks.POLISHED_GRANITE_SLAB));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_DIORITE, Blocks.POLISHED_DIORITE_SLAB));
         }
     };
 }

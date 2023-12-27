@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "me:block/wild_tomato_top"
-  }
-}

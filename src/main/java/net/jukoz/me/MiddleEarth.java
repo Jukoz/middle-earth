@@ -6,7 +6,6 @@ import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.utils.ModItemGroups;
-import net.jukoz.me.network.ModNetworks;
 import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.jukoz.me.recipe.ModRecipes;
 import net.jukoz.me.sound.ModSounds;
@@ -24,7 +23,7 @@ import java.net.URISyntaxException;
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "me";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static final int MAP_ITERATION = 3;
+	public static final int MAP_ITERATION = 0;
 	@Override
 	public void onInitialize() {
 		ModStatusEffects.registerStatusEffects();
@@ -41,8 +40,10 @@ public class MiddleEarth implements ModInitializer {
 		ModDecorativeBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();
 		ModDecorativeItems.registerModItems();
-		SimpleBlockSets.registerModBlockSets();
+		StoneBlockSets.registerModBlockSets();
 		WoodBlockSets.registerModBlockSets();
+		MushroomBlockSets.registerModBlockSets();
+		RoofBlockSets.registerModBlockSets();
 
 		ModBlockEntities.registerBlockEntities();
 

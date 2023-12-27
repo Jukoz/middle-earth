@@ -2,12 +2,17 @@ package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
+import net.jukoz.me.block.OreRockSets;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.datageneration.content.loot_tables.CropDrops;
 import net.jukoz.me.datageneration.content.loot_tables.LeavesDrops;
+import net.jukoz.me.datageneration.content.models.SimpleBlockModel;
+import net.jukoz.me.datageneration.content.tags.MineablePickaxe;
 import net.jukoz.me.item.ModRessourceItems;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.server.loottable.BlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
@@ -46,6 +51,32 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                             .with(ItemEntry.builder(cd.fruit))));
         }
 
-
+        for (OreRockSets.OreRockSet set : OreRockSets.sets) {
+            if (set.coal_ore() != null) {
+                addDrop(set.coal_ore(), oreDrops(set.coal_ore(), Items.COAL));
+            }
+            if (set.copper_ore() != null) {
+                addDrop(set.copper_ore(),copperOreDrops(set.copper_ore()));
+            }
+            if (set.tin_ore() != null) {
+                addDrop(set.tin_ore(),oreDrops(set.tin_ore(), ModRessourceItems.RAW_TIN));
+            }
+            if (set.lead_ore() != null) {
+                addDrop(set.lead_ore(),oreDrops(set.lead_ore(), ModRessourceItems.RAW_LEAD));
+            }
+            if (set.silver_ore() != null) {
+                addDrop(set.silver_ore(),oreDrops(set.silver_ore(), ModRessourceItems.RAW_SILVER));
+            }
+            if (set.gold_ore() != null) {
+                addDrop(set.gold_ore(),oreDrops(set.gold_ore(), Items.RAW_GOLD));
+            }
+            if (set.iron_ore() != null) {
+                addDrop(set.iron_ore(),oreDrops(set.iron_ore(), Items.RAW_IRON));
+            }
+            if (set.mithril_ore() != null) {
+                addDrop(set.mithril_ore(),oreDrops(set.mithril_ore(), ModRessourceItems.RAW_MITHRIL));
+            }
+        }
+        addDropWithSilkTouch(ModBlocks.STONE_MYCELIUM);
     }
 }

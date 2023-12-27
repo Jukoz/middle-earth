@@ -24,9 +24,6 @@ public class ModNatureBlocks {
     public static final Block MORDOR_LICHEN = registerBlock("mordor_lichen",
             new MordorPlant(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GRAY)), false);
-    public static final Block MORDOR_LICHEN_FAN = registerBlock("mordor_lichen_fan",
-            new MordorPlant(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ)
-                    .mapColor(DyeColor.GRAY)), false);
     public static final Block MORGUL_IVY = registerBlock("morgul_ivy",
             new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).luminance(GlowLichenBlock.getLuminanceSupplier(5)).burnable()), false);
@@ -75,11 +72,62 @@ public class ModNatureBlocks {
     public static final Block YELLOW_FLOWER = registerBlock("yellow_flower",
             new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 0, FabricBlockSettings.copyOf(Blocks.DANDELION)), false);
 
+    public static final Block BROWN_BOLETE = registerBlock("brown_bolete",
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), false);
+    public static final Block CAVE_AMANITA = registerBlock("cave_amanita",
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), false);
+    public static final Block DEEP_FIRECAP = registerBlock("deep_firecap",
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), false);
+    public static final Block GHOSTSHROOM = registerBlock("ghostshroom",
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), false);
+    public static final Block MORSEL = registerBlock("morsel",
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), false);
+    public static final Block SKY_FIRECAP = registerBlock("sky_firecap",
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), false);
+    public static final Block TRUMPET_SHROOM = registerBlock("trumpet_shroom",
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), false);
+    public static final Block TALL_TRUMPET_SHROOM = registerBlock("tall_trumpet_shroom",
+            new TallWildCropBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), false);
+    public static final Block TUBESHRROM = registerBlock("tubeshroom",
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), false);
+    public static final Block TALL_TUBESHROOM = registerBlock("tall_tubeshroom",
+            new TallWildCropBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), false);
+    public static final Block VIOLET_CAPS = registerBlock("violet_caps",
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), false);
     public static final Block WHITE_MUSHROOM = registerBlock("white_mushroom",
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), false);
+    public static final Block YELLOW_AMANITA = registerBlock("yellow_amanita",
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), false);
 
+    public static final Block BROWN_BOLETE_TILLER = registerBlock("brown_bolete_tiller",
+            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), false);
+    public static final Block CAVE_AMANITA_TILLER = registerBlock("cave_amanita_tiller",
+            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), false);
+    public static final Block DEEP_FIRECAP_TILLER = registerBlock("deep_firecap_tiller",
+            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), false);
+    public static final Block GHOSTSHROOM_TILLER = registerBlock("ghostshroom_tiller",
+            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), false);
+    public static final Block MORSEL_TILLER = registerBlock("morsel_tiller",
+            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), false);
+    public static final Block SKY_FIRECAP_TILLER = registerBlock("sky_firecap_tiller",
+            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), false);
+    public static final Block VIOLET_CAPS_TILLER = registerBlock("violet_caps_tiller",
+            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), false);
     public static final Block WHITE_MUSHROOM_TILLER = registerBlock("white_mushroom_tiller",
             new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), false);
+    public static final Block YELLOW_AMANITA_TILLER = registerBlock("yellow_amanita_tiller",
+            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), false);
+
+    public static final Block BROWN_BOLETE_BLOCK = registerBlock("brown_bolete_block",
+            new MushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK)), false);
+    public static final Block CAVE_AMANITA_BLOCK = registerBlock("cave_amanita_block",
+            new MushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK)), false);
+    public static final Block DEEP_FIRECAP_BLOCK = registerBlock("deep_firecap_block",
+            new MushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK)), false);
+    public static final Block SKY_FIRECAP_BLOCK = registerBlock("sky_firecap_block",
+            new MushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK)), false);
+    public static final Block YELLOW_AMANITA_BLOCK = registerBlock("yellow_amanita_block",
+            new MushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK)), false);
 
     public static final Block LEBETHRON_LEAVES = registerBlock("lebethron_leaves",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), false);
@@ -105,6 +153,12 @@ public class ModNatureBlocks {
             new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
     public static final Block WILD_LEEK = registerBlock("wild_leek",
             new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_POTATO = registerBlock("wild_potato",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_CARROT = registerBlock("wild_carrot",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
+    public static final Block WILD_BEETROOT = registerBlock("wild_beetroot",
+            new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), false);
 
     public static final Block MIRKWOOD_ROOTS = registerBlock("mirkwood_roots",
             new MangroveRootsBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_ROOTS)), false);
@@ -114,6 +168,11 @@ public class ModNatureBlocks {
 
     public static final Block MIRKWOOD_SPIDER_EGG = registerBlock("mirkwood_spider_egg",
             new MirkwoodSpiderEggBlock(FabricBlockSettings.copyOf(Blocks.TURTLE_EGG)), false);
+
+    public static final Block GLOWWORM_WEBBING = registerBlock("glowworm_webbing",
+            new GlowWormBottomBlock(FabricBlockSettings.copyOf(Blocks.WEEPING_VINES_PLANT).luminance(4)), false);
+    public static final Block GLOWWORM_MAIN = registerBlock("glowworm_main",
+            new GlowWormBlock(FabricBlockSettings.copyOf(Blocks.WEEPING_VINES).luminance(4)), true);
 
     public static final Block TOMATO_CROP = Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, "tomato_crop"),
             new TomatoCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)));

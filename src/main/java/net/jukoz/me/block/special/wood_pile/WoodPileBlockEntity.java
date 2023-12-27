@@ -132,6 +132,12 @@ public class WoodPileBlockEntity extends BlockEntity implements NamedScreenHandl
     }
 
     @Override
+    public void clear() {
+        inventory.clear();
+    }
+
+
+    @Override
     public boolean canPlayerUse(PlayerEntity player) {
         return Inventory.canPlayerUse(this, player);
     }

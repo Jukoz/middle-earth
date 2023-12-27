@@ -1,12 +1,13 @@
 package net.jukoz.me.datageneration;
 
-import com.mojang.serialization.Decoder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.crop.*;
 import net.jukoz.me.datageneration.content.CustomItemModels;
+import net.jukoz.me.datageneration.content.MEModels;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.minecraft.block.Block;
@@ -14,6 +15,7 @@ import net.minecraft.data.client.*;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 
 import java.util.Optional;
@@ -30,8 +32,19 @@ public class ModelProvider extends FabricModelProvider {
         for (Block block : SimpleBlockModel.blocks) {
             blockStateModelGenerator.registerSimpleCubeAll(block);
         }
+        for (SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledBlocks) {
+            blockStateModelGenerator.registerSimpleCubeAll(block.base());
+        }
+        for (SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledPolishedBlocks) {
+            blockStateModelGenerator.registerSimpleCubeAll(block.base());
+        }
+        
 
         for (SimplePillarModel.Pillar block : SimplePillarModel.blocks) {
+            blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+        }
+
+        for (SimplePillarModel.StonePillar block : SimplePillarModel.stonePillars) {
             blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
         }
 
@@ -125,17 +138,110 @@ public class ModelProvider extends FabricModelProvider {
                     .createPressurePlateBlockState(pressurePlate, up, down));
         }
 
-        for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.blocks) {
+        for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.trapdoors) {
             blockStateModelGenerator.registerTrapdoor(trapdoor.trapdoor());
         }
 
-        for(SimpleDoorModel.Door door : SimpleDoorModel.blocks){
+
+        for(SimpleDoorModel.Door door : SimpleDoorModel.doors){
             blockStateModelGenerator.registerDoor(door.door());
         }
-
         for(Block block : TintableCrossModel.notTintedBlocks) {
             blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.TintType.NOT_TINTED);
         }
+
+        for(Block block : SimpleFlowerBedModel.flowerBeds) {
+            blockStateModelGenerator.registerFlowerbed(block);
+        }
+
+        for(Block block : SimpleDoubleBlockModel.doubleBlocks){
+            blockStateModelGenerator.registerDoubleBlock(block, BlockStateModelGenerator.TintType.NOT_TINTED);
+        }
+
+        for(Block block : SimpleDoubleBlockModel.doubleBlocksItems){
+            registerDoubleBlock(blockStateModelGenerator, block, BlockStateModelGenerator.TintType.NOT_TINTED);
+        }
+
+        for(Block block : SimpleMushroomBlockModel.mushroomBlocks){
+            blockStateModelGenerator.registerMushroomBlock(block);
+        }
+
+        for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.blocks){
+            if (verticalSlab.vanilla() && verticalSlab.block().getName().toString().contains("planks")){
+                blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(verticalSlab.verticalSlab(),
+                        BlockStateVariant.create().put(VariantSettings.MODEL, MEModels.VERTICAL_SLAB.upload(verticalSlab.verticalSlab(),
+                                TextureMap.of(TextureKey.ALL,new Identifier("minecraft","block/" +
+                                        Registries.BLOCK.getId(verticalSlab.verticalSlab()).getPath().replaceAll("_vertical_slab","_planks"))),
+                                blockStateModelGenerator.modelCollector)).put(VariantSettings.UVLOCK, true)).coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()));
+            } else if (!verticalSlab.vanilla() && verticalSlab.block().getName().toString().contains("planks")){
+                blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(verticalSlab.verticalSlab(),
+                        BlockStateVariant.create().put(VariantSettings.MODEL, MEModels.VERTICAL_SLAB.upload(verticalSlab.verticalSlab(),
+                                TextureMap.of(TextureKey.ALL,new Identifier(MiddleEarth.MOD_ID,"block/" +
+                                        Registries.BLOCK.getId(verticalSlab.verticalSlab()).getPath().replaceAll("_vertical_slab","_planks"))),
+                                blockStateModelGenerator.modelCollector)).put(VariantSettings.UVLOCK, true)).coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()));
+            } else if (!verticalSlab.vanilla() && (verticalSlab.block().getName().toString().contains("reed") || verticalSlab.block().getName().toString().contains("straw"))){
+                blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(verticalSlab.verticalSlab(),
+                        BlockStateVariant.create().put(VariantSettings.MODEL, MEModels.VERTICAL_SLAB.upload(verticalSlab.verticalSlab(),
+                                TextureMap.of(TextureKey.ALL,new Identifier(MiddleEarth.MOD_ID,"block/" +
+                                        Registries.BLOCK.getId(verticalSlab.verticalSlab()).getPath().replaceAll("_vertical_slab","_block"))),
+                                blockStateModelGenerator.modelCollector)).put(VariantSettings.UVLOCK, true)).coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()));
+            }else if (!verticalSlab.vanilla()){
+                blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(verticalSlab.verticalSlab(),
+                        BlockStateVariant.create().put(VariantSettings.MODEL, MEModels.VERTICAL_SLAB.upload(verticalSlab.verticalSlab(),
+                                TextureMap.of(TextureKey.ALL,new Identifier(MiddleEarth.MOD_ID,"block/" +
+                                        Registries.BLOCK.getId(verticalSlab.verticalSlab()).getPath().replaceAll("_vertical_slab",""))),
+                                blockStateModelGenerator.modelCollector)).put(VariantSettings.UVLOCK, true)).coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()));
+            }
+        }
+
+        for(SimplePaneModel.Pane pane : SimplePaneModel.panes){
+            registerLeadGlassPane(blockStateModelGenerator, pane.glass(), pane.pane());
+        }
+
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.STONE_VERTICAL_SLAB, "stone");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.COBBLESTONE_VERTICAL_SLAB, "cobblestone");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.MOSSY_COBBLESTONE_VERTICAL_SLAB, "mossy_cobblestone");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.SMOOTH_STONE_VERTICAL_SLAB, "smooth_stone");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.STONE_BRICK_VERTICAL_SLAB, "stone_bricks");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.MOSSY_STONE_BRICK_VERTICAL_SLAB, "mossy_stone_bricks");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.GRANITE_VERTICAL_SLAB, "granite");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.POLISHED_GRANITE_VERTICAL_SLAB, "polished_granite");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.DIORITE_VERTICAL_SLAB, "diorite");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.POLISHED_DIORITE_VERTICAL_SLAB, "polished_diorite");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.ANDESITE_VERTICAL_SLAB, "andesite");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.POLISHED_ANDESITE_VERTICAL_SLAB, "polished_andesite");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.COBBLED_DEEPSLATE_VERTICAL_SLAB, "cobbled_deepslate");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.POLISHED_DEEPSLATE_VERTICAL_SLAB, "polished_deepslate");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.DEEPSLATE_BRICK_VERTICAL_SLAB, "deepslate_bricks");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.DEEPSLATE_TILE_VERTICAL_SLAB, "deepslate_tiles");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.BRICK_VERTICAL_SLAB, "bricks");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.MUD_BRICK_VERTICAL_SLAB, "mud_bricks");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.SANDSTONE_VERTICAL_SLAB, "sandstone");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.SMOOTH_SANDSTONE_VERTICAL_SLAB, "sandstone_top");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.CUT_SANDSTONE_VERTICAL_SLAB, "cut_sandstone");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.RED_SANDSTONE_VERTICAL_SLAB, "red_sandstone");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.SMOOTH_RED_SANDSTONE_VERTICAL_SLAB, "red_sandstone_top");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.CUT_RED_SANDSTONE_VERTICAL_SLAB, "cut_red_sandstone");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.PRISMARINE_VERTICAL_SLAB, "prismarine");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.PRISMARINE_BRICK_VERTICAL_SLAB, "prismarine_bricks");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.DARK_PRISMARINE_VERTICAL_SLAB, "dark_prismarine");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.NETHER_BRICK_VERTICAL_SLAB, "nether_bricks");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.RED_NETHER_BRICK_VERTICAL_SLAB, "red_nether_bricks");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.BLACKSTONE_VERTICAL_SLAB, "blackstone");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.POLISHED_BLACKSTONE_VERTICAL_SLAB, "polished_blackstone");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.POLISHED_BLACKSTONE_BRICK_VERTICAL_SLAB, "polished_blackstone_bricks");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.END_STONE_BRICK_VERTICAL_SLAB, "end_stone_bricks");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.PURPUR_VERTICAL_SLAB, "purpur_block");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.QUARTZ_VERTICAL_SLAB, "quartz_block_side");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.SMOOTH_QUARTZ_VERTICAL_SLAB, "quartz_block_bottom");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.CUT_COPPER_VERTICAL_SLAB, "cut_copper");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.EXPOSED_CUT_COPPER_VERTICAL_SLAB, "exposed_cut_copper");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.WEATHERED_CUT_COPPER_VERTICAL_SLAB, "weathered_cut_copper");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.OXIDIZED_CUT_COPPER_VERTICAL_SLAB, "oxidized_cut_copper");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.WAXED_CUT_COPPER_VERTICAL_SLAB, "cut_copper");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.WAXED_EXPOSED_CUT_COPPER_VERTICAL_SLAB, "exposed_cut_copper");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.WAXED_WEATHERED_CUT_COPPER_VERTICAL_SLAB, "weathered_cut_copper");
+        registerVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.WAXED_OXIDIZED_CUT_COPPER_VERTICAL_SLAB, "oxidized_cut_copper");
 
         // Crops
         blockStateModelGenerator.registerCrop(ModNatureBlocks.BELL_PEPPER_CROP, BellpepperCropBlock.AGE, 0, 1, 2, 3, 4);
@@ -145,6 +251,47 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCrop(ModNatureBlocks.LEEK_CROP, LeekCropBlock.AGE, 0, 1, 2, 3);
         blockStateModelGenerator.registerCrop(ModNatureBlocks.LETTUCE_CROP, LettuceCropBlock.AGE, 0, 1, 2, 3);
         blockStateModelGenerator.registerCrop(ModNatureBlocks.ONION_CROP, OnionCropBlock.AGE, 0, 1, 2, 3);
+        
+        //CLUSTERS
+        blockStateModelGenerator.registerAmethyst(ModBlocks.SAPPHIRE_CLUSTER);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.SMALL_SAPPHIRE_BUD);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.MEDIUM_SAPPHIRE_BUD);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.LARGE_SAPPHIRE_BUD);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.RED_AGATE_CLUSTER);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.SMALL_RED_AGATE_BUD);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.MEDIUM_RED_AGATE_BUD);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.LARGE_RED_AGATE_BUD);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.CITRINE_CLUSTER);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.SMALL_CITRINE_BUD);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.MEDIUM_CITRINE_BUD);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.LARGE_CITRINE_BUD);
+    }
+
+    public void registerVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, String texture){
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block,
+                BlockStateVariant.create().put(VariantSettings.MODEL, MEModels.VERTICAL_SLAB.upload(block,
+                        TextureMap.of(TextureKey.ALL,new Identifier("minecraft","block/" + texture)),
+                        blockStateModelGenerator.modelCollector)).put(VariantSettings.UVLOCK, true)).coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()));
+    }
+
+    public final void registerDoubleBlock(BlockStateModelGenerator blockStateModelGenerator, Block doubleBlock, BlockStateModelGenerator.TintType tintType) {
+        blockStateModelGenerator.registerItemModel(doubleBlock.asItem());
+        Identifier identifier = blockStateModelGenerator.createSubModel(doubleBlock, "_top", tintType.getCrossModel(), TextureMap::cross);
+        Identifier identifier2 = blockStateModelGenerator.createSubModel(doubleBlock, "_bottom", tintType.getCrossModel(), TextureMap::cross);
+        blockStateModelGenerator.registerDoubleBlock(doubleBlock, identifier, identifier2);
+    }
+
+    public final void registerLeadGlassPane(BlockStateModelGenerator blockStateModelGenerator, Block glass, Block glassPane) {
+        blockStateModelGenerator.registerSimpleCubeAll(glass);
+        TextureMap textureMap = TextureMap.paneAndTopForEdge(glass, ModBlocks.LEAD_GLASS_PANE);
+        Identifier identifier = Models.TEMPLATE_GLASS_PANE_POST.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector);
+        Identifier identifier2 = Models.TEMPLATE_GLASS_PANE_SIDE.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector);
+        Identifier identifier3 = Models.TEMPLATE_GLASS_PANE_SIDE_ALT.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector);
+        Identifier identifier4 = Models.TEMPLATE_GLASS_PANE_NOSIDE.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector);
+        Identifier identifier5 = Models.TEMPLATE_GLASS_PANE_NOSIDE_ALT.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector);
+        Item item = glassPane.asItem();
+        Models.GENERATED.upload(ModelIds.getItemModelId(item), TextureMap.layer0(glass), blockStateModelGenerator.modelCollector);
+        blockStateModelGenerator.blockStateCollector.accept(MultipartBlockStateSupplier.create(glassPane).with(BlockStateVariant.create().put(VariantSettings.MODEL, identifier)).with(When.create().set(Properties.NORTH, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier2)).with(When.create().set(Properties.EAST, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier2).put(VariantSettings.Y, VariantSettings.Rotation.R90)).with(When.create().set(Properties.SOUTH, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier3)).with(When.create().set(Properties.WEST, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier3).put(VariantSettings.Y, VariantSettings.Rotation.R90)).with(When.create().set(Properties.NORTH, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier4)).with(When.create().set(Properties.EAST, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier5)).with(When.create().set(Properties.SOUTH, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier5).put(VariantSettings.Y, VariantSettings.Rotation.R90)).with(When.create().set(Properties.WEST, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier4).put(VariantSettings.Y, VariantSettings.Rotation.R270)));
     }
 
     @Override
@@ -180,5 +327,19 @@ public class ModelProvider extends FabricModelProvider {
         // Dyeables needs to be done manually (because of layers)
         itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.FUR_CLOAK));
         itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.FUR_CLOAK_HOOD));
+        
+        // CLUSTERS
+        itemModelGenerator.register(ModBlocks.SAPPHIRE_CLUSTER.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.SMALL_SAPPHIRE_BUD.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.MEDIUM_SAPPHIRE_BUD.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.LARGE_SAPPHIRE_BUD.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.RED_AGATE_CLUSTER.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.SMALL_RED_AGATE_BUD.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.MEDIUM_RED_AGATE_BUD.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.LARGE_RED_AGATE_BUD.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.CITRINE_CLUSTER.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.SMALL_CITRINE_BUD.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.MEDIUM_CITRINE_BUD.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.LARGE_CITRINE_BUD.asItem(), Models.GENERATED);
     }
 }

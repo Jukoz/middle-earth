@@ -10,7 +10,7 @@ import java.util.List;
 public class SimpleTrapDoorModel {
     public record Trapdoor(Block block, Block trapdoor) {}
 
-    public static List<Trapdoor> blocks = new ArrayList<>() {
+    public static List<Trapdoor> trapdoors = new ArrayList<>() {
         {
             add(new Trapdoor(Blocks.STONE, ModBlocks.STONE_TRAPDOOR));
             add(new Trapdoor(Blocks.BLACKSTONE, ModBlocks.BLACKSTONE_TRAPDOOR));

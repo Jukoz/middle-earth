@@ -2,7 +2,7 @@ package net.jukoz.me.item.utils;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.SimpleBlockSets;
+import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.item.*;
 import net.minecraft.item.ItemGroup;
@@ -20,7 +20,7 @@ public class ModItemGroups {
     public static final List<ItemStack> BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup BLOCKS = FabricItemGroup.builder()
             .displayName(Text.literal("Blocks"))
-            .icon(() -> new ItemStack(SimpleBlockSets.CALCITE_BRICKS.base().asItem()))
+            .icon(() -> new ItemStack(StoneBlockSets.CALCITE_BRICKS.base().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : BLOCKS_CONTENTS) {
                     entries.add(item);
@@ -86,7 +86,7 @@ public class ModItemGroups {
     public static final List<ItemStack> TOOLS_CONTENTS = new LinkedList<>();
     public static final ItemGroup TOOLS = FabricItemGroup.builder()
             .displayName(Text.literal("Tools"))
-            .icon(() -> new ItemStack(ModToolItems.DWARVEN_PICKAXE))
+            .icon(() -> new ItemStack(ModToolItems.DWARVEN_STEEL_PICKAXE))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : TOOLS_CONTENTS) {
                     entries.add(item);

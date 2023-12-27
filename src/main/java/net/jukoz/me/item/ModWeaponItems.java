@@ -86,20 +86,20 @@ public class ModWeaponItems {
             new BowItem(new FabricItemSettings().maxDamage(640)));
 
     public static final Item LORIEN_SWORD = registerItemWithModel("lorien_sword",
-            new SwordItem(ModToolMaterials.ELVEN, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
+            new SwordItem(ModToolMaterials.ELVEN_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
     public static final Item LORIEN_DAGGER = registerItemWithModel("lorien_dagger",
-            new SwordItem(ModToolMaterials.ELVEN, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED, new FabricItemSettings()), false);
+            new SwordItem(ModToolMaterials.ELVEN_STEEL, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED, new FabricItemSettings()), false);
     public static final Item LORIEN_SPEAR = registerItemWithModel("lorien_spear",
-            new SpearItem(ModToolMaterials.ELVEN, SPEAR_DAMAGE, SPEAR_ATTACKS_SPEED, new FabricItemSettings()), true);
+            new SpearItem(ModToolMaterials.ELVEN_STEEL, SPEAR_DAMAGE, SPEAR_ATTACKS_SPEED, new FabricItemSettings()), true);
     public static final Item LORIEN_BATTLESTAFF = registerItemWithModel("lorien_battlestaff",
-            new SwordItem(ModToolMaterials.ELVEN, SPEAR_DAMAGE, PIKE_ATTACKS_SPEED, new FabricItemSettings()), true);
+            new SwordItem(ModToolMaterials.ELVEN_STEEL, SPEAR_DAMAGE, PIKE_ATTACKS_SPEED, new FabricItemSettings()), true);
     public static final Item LORIEN_PIKE = registerItemWithModel("lorien_pike",
-            new SwordItem(ModToolMaterials.ELVEN, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, new FabricItemSettings()), true);
+            new SwordItem(ModToolMaterials.ELVEN_STEEL, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, new FabricItemSettings()), true);
     public static final Item LORIEN_BOW = registerBowItem("lorien_bow",
             new BowItem(new FabricItemSettings().maxDamage(640)));
 
     public static final Item MORGUL_BLADE = registerItemWithModel("morgul_blade",
-            new SwordItem(ModToolMaterials.MORGUL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED + 0.1f, new FabricItemSettings()), false);
+            new SwordItem(ModToolMaterials.MORGUL_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED + 0.1f, new FabricItemSettings()), false);
 
     public static final Item UMBAR_SCIMITAR = registerItemWithModel("umbar_scimitar",
             new SwordItem(ToolMaterials.IRON, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
@@ -116,9 +116,9 @@ public class ModWeaponItems {
             new SwordItem(ToolMaterials.IRON, SWORD_DAMAGE, SWORD_ATTACKS_SPEED + 1, new FabricItemSettings()), false);
 
     public static final Item MORDOR_ORC_SWORD = registerItemWithModel("mordor_orc_sword",
-            new SwordItem(ModToolMaterials.ORCISH, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
+            new SwordItem(ModToolMaterials.ORC_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
     public static final Item DWARVEN_SWORD = registerItemWithModel("dwarven_sword",
-            new SwordItem(ModToolMaterials.DWARVEN, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
+            new SwordItem(ModToolMaterials.DWARVEN_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
     private static final List<Item> pikes = Arrays.asList(GONDOR_PIKE);
     private static final List<Item> daggers = Arrays.asList(GONDOR_DAGGER);
 

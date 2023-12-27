@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "me:block/stone_mycelium"
+      },
+      {
+        "model": "me:block/stone_mycelium",
+        "y": 90
+      },
+      {
+        "model": "me:block/stone_mycelium",
+        "y": 180
+      },
+      {
+        "model": "me:block/stone_mycelium",
+        "y": 270
+      }
+    ]
+  }
+}

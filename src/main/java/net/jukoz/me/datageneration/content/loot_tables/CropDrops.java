@@ -6,6 +6,7 @@ import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModRessourceItems;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
 import net.minecraft.predicate.StatePredicate;
 
@@ -35,6 +36,7 @@ public class CropDrops {
                     ModNatureBlocks.PIPEWEED_CROP, ModRessourceItems.PIPEWEED, ModRessourceItems.PIPEWEED_SEEDS));
         }
     };
+
     public static List<CropDrop> wild_crops = new ArrayList<>() {
         {
             add(new CropDrop(null, ModNatureBlocks.WILD_PIPEWEED, ModRessourceItems.PIPEWEED, ModRessourceItems.PIPEWEED_SEEDS));
@@ -46,6 +48,9 @@ public class CropDrops {
             add(new CropDrop(null, ModNatureBlocks.WILD_LETTUCE, ModFoodItems.LETTUCE, ModRessourceItems.LETTUCE_SEEDS));
             add(new CropDrop(null, ModNatureBlocks.WILD_GARLIC, ModFoodItems.GARLIC, ModFoodItems.GARLIC));
             add(new CropDrop(null, ModNatureBlocks.WILD_ONION, ModFoodItems.ONION, ModFoodItems.ONION));
+            add(new CropDrop(null, ModNatureBlocks.WILD_POTATO, Items.POTATO, Items.POTATO));
+            add(new CropDrop(null, ModNatureBlocks.WILD_CARROT, Items.CARROT, Items.CARROT));
+            add(new CropDrop(null, ModNatureBlocks.WILD_BEETROOT, Items.BEETROOT, Items.BEETROOT_SEEDS));
         }
     };
 
@@ -61,6 +66,5 @@ public class CropDrops {
             this.fruit = fruit;
             this.seeds = seeds;
         }
-
     }
 }

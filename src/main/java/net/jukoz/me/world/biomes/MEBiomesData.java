@@ -1,6 +1,6 @@
 package net.jukoz.me.world.biomes;
 
-import net.jukoz.me.block.SimpleBlockSets;
+import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.block.ModBlocks;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryKey;
@@ -35,7 +35,7 @@ public class MEBiomesData {
         defaultBiome = new MEBiome(-21, MEBiomeKeys.OCEAN, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE);
         millPond = new MEBiome(-10, MEBiomeKeys.MILLPOND,  Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE);
         mirkwoodSwamp = new MEBiome(-12, MEBiomeKeys.MIRKWOOD_SWAMP, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE);
-        wastePond = new MEBiome(-15, MEBiomeKeys.WASTE_POND, ModBlocks.MORDOR_DIRT, ModBlocks.MORDOR_DIRT, Blocks.STONE, Blocks.STONE);
+        wastePond = new MEBiome(-15, MEBiomeKeys.WASTE_POND, ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT, Blocks.STONE, Blocks.STONE);
 
         addBiome(new Color(55, 90, 195), defaultBiome);
         addBiome(new Color(110, 154, 218), millPond);
@@ -44,8 +44,8 @@ public class MEBiomesData {
 
         addBiome(new Color(156, 207, 113), new MEBiome(4, MEBiomeKeys.ANDUIN_VALES, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(96, 171, 89), new MEBiome(6, MEBiomeKeys.BARROW_DOWNS, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(200, 209, 255), new MEBiome(39, MEBiomeKeys.BLUE_MOUNTAINS, SimpleBlockSets.GONLUIN.base(), SimpleBlockSets.GONLUIN.base(), Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(178, 183, 210), new MEBiome(22, MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, SimpleBlockSets.GONLUIN.base(), SimpleBlockSets.GONLUIN.base(), Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(200, 209, 255), new MEBiome(39, MEBiomeKeys.BLUE_MOUNTAINS, StoneBlockSets.GONLUIN.base(), StoneBlockSets.GONLUIN.base(), Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(178, 183, 210), new MEBiome(22, MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, StoneBlockSets.GONLUIN.base(), StoneBlockSets.GONLUIN.base(), Blocks.STONE, Blocks.STONE));
         addBiome(new Color(193, 188, 131), new MEBiome(6, MEBiomeKeys.CORSAIR_COASTS, Blocks.GRASS_BLOCK, Blocks.SANDSTONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(132, 164, 78), new MEBiome(4, MEBiomeKeys.DALE, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(18, 26, 19), new MEBiome(6, MEBiomeKeys.DARK_MIRKWOOD, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
@@ -77,14 +77,14 @@ public class MEBiomesData {
         addBiome(new Color(74, 107, 78), new MEBiome(15, MEBiomeKeys.MIRKWOOD_FOOTHILLS, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(76, 85, 77), new MEBiome(31, MEBiomeKeys.MIRKWOOD_MOUNTAINS, Blocks.STONE, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(129, 129, 129), new MEBiome(41, MEBiomeKeys.MISTY_MOUNTAINS, Blocks.SNOW_BLOCK, Blocks.STONE, Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(60, 42, 42), new MEBiome(5, MEBiomeKeys.MORDOR, SimpleBlockSets.ASHEN_ROCK.base(), SimpleBlockSets.ASHEN_ROCK.base(), SimpleBlockSets.ASHEN_ROCK.base(), SimpleBlockSets.ASHEN_ROCK.base()));
-        addBiome(new Color(36, 31, 31), new MEBiome(37, MEBiomeKeys.MORDOR_MOUNTAINS, SimpleBlockSets.ASHEN_ROCK.base(), SimpleBlockSets.ASHEN_ROCK.base(), SimpleBlockSets.ASHEN_ROCK.base(), SimpleBlockSets.ASHEN_ROCK.base()));
-        addBiome(new Color(88, 82, 71), new MEBiome(3, MEBiomeKeys.MORDOR_WASTES, Blocks.GRASS_BLOCK, ModBlocks.MORDOR_DIRT, Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(60, 42, 42), new MEBiome(5, MEBiomeKeys.MORDOR, StoneBlockSets.ASHEN_STONE.base(), StoneBlockSets.ASHEN_STONE.base(), StoneBlockSets.ASHEN_STONE.base(), StoneBlockSets.ASHEN_STONE.base()));
+        addBiome(new Color(36, 31, 31), new MEBiome(37, MEBiomeKeys.MORDOR_MOUNTAINS, StoneBlockSets.ASHEN_STONE.base(), StoneBlockSets.ASHEN_STONE.base(), StoneBlockSets.ASHEN_STONE.base(), StoneBlockSets.ASHEN_STONE.base()));
+        addBiome(new Color(88, 82, 71), new MEBiome(3, MEBiomeKeys.MORDOR_WASTES, Blocks.GRASS_BLOCK, ModBlocks.ASHEN_DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(106, 127, 62), new MEBiome(5, MEBiomeKeys.NORTHERN_DUNLAND, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(160, 165, 149), new MEBiome(6, MEBiomeKeys.NORTHERN_WASTELANDS, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(74, 77, 51), new MEBiome(5, MEBiomeKeys.NURN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(79, 91, 161), new MEBiome(-21, MEBiomeKeys.NURN_RIVER, ModBlocks.MORDOR_DIRT, ModBlocks.MORDOR_DIRT, Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(88, 94, 130), new MEBiome(-17, MEBiomeKeys.NURN_SEA, ModBlocks.MORDOR_DIRT, ModBlocks.MORDOR_DIRT, Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(79, 91, 161), new MEBiome(-21, MEBiomeKeys.NURN_RIVER, ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT, Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(88, 94, 130), new MEBiome(-17, MEBiomeKeys.NURN_SEA, ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(75, 106, 199), new MEBiome(-12, MEBiomeKeys.OCEAN_COAST, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(73, 82, 53), new MEBiome(6, MEBiomeKeys.OLD_ANGMAR, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(213, 255, 132), new MEBiome(4, MEBiomeKeys.OLD_ARTHEDAIN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));

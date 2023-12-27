@@ -9,22 +9,25 @@ import java.util.List;
 public class MineablePickaxe {
     public static List<Block> blocks = new ArrayList<>() {
         {
-            add(ModBlocks.CHISELED_BLUE_ROCK_BRICKS);
+            add(ModBlocks.CHISELED_GONLUIN_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_GONLUIN);
 
             add(ModBlocks.CHISELED_CALCITE_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_CALCITE);
 
             add(ModBlocks.CHISELED_LIMESTONE_BRICKS);
 
+            add(ModBlocks.CHISELED_SMOOTH_STONE);
+
             add(ModBlocks.CHISELED_ANDESITE_BRICKS);
-            add(ModBlocks.CUT_POLISHED_ANDESITE);
+            add(ModBlocks.CHISELED_POLISHED_ANDESITE);
 
             add(ModBlocks.CHISELED_GRANITE_BRICKS);
-            add(ModBlocks.CUT_POLISHED_GRANITE);
+            add(ModBlocks.CHISELED_POLISHED_GRANITE);
 
             add(ModBlocks.CHISELED_DIORITE_BRICKS);
-            add(ModBlocks.CUT_POLISHED_DIORITE);
+            add(ModBlocks.CHISELED_POLISHED_DIORITE);
 
-            add(ModBlocks.MITHRIL_ORE);
             add(ModBlocks.RAW_MITHRIL_BLOCK);
             add(ModBlocks.MITHRIL_BLOCK);
             add(ModBlocks.RAW_TIN_BLOCK);
@@ -34,7 +37,18 @@ public class MineablePickaxe {
             add(ModBlocks.RAW_SILVER_BLOCK);
             add(ModBlocks.SILVER_BLOCK);
 
+            add(ModBlocks.STONE_PILLAR);
+            add(ModBlocks.MOSSY_STONE_PILLAR);
+            add(ModBlocks.CRACKED_STONE_PILLAR);
+
+            add(ModBlocks.DEEPSLATE_PILLAR);
+
+            add(ModBlocks.FROZEN_PILLAR);
+
+
             add(ModBlocks.CALCITE_PILLAR);
+            add(ModBlocks.MOSSY_CALCITE_PILLAR);
+            add(ModBlocks.CRACKED_CALCITE_PILLAR);
 
             add(ModBlocks.LIMESTONE_PILLAR);
 
@@ -51,7 +65,7 @@ public class MineablePickaxe {
             add(ModBlocks.CRACKED_DIORITE_PILLAR);
             
             add(ModBlocks.JADEITE_PILLAR);
-
+            add(ModBlocks.CRACKED_JADEITE_PILLAR);
         }
     };
 }

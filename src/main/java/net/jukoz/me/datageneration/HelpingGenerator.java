@@ -1,32 +1,36 @@
 package net.jukoz.me.datageneration;
 
-import net.jukoz.me.block.OreRockSets;
-import net.jukoz.me.block.SimpleBlockSets;
-import net.jukoz.me.block.WoodBlockSets;
+import net.jukoz.me.block.*;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.datageneration.content.loot_tables.LeavesDrops;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.content.tags.*;
+import net.minecraft.registry.Registries;
+
+import java.util.Objects;
 
 public class HelpingGenerator {
 
     public static void generateFiles() {
-        SimpleBlockSets.registerModBlockSets();
+        StoneBlockSets.registerModBlockSets();
 
-        for (SimpleBlockSets.SimpleBlockSet set : SimpleBlockSets.sets) {
+        for (StoneBlockSets.SimpleBlockSet set : StoneBlockSets.sets) {
             SimpleBlockModel.blocks.add(set.base());
             SimpleSlabModel.blocks.add(new SimpleSlabModel.Slab(set.base(), set.slab()));
+            SimpleVerticalSlabModel.blocks.add(new SimpleVerticalSlabModel.VerticalSlab(set.base(), set.slab(), set.verticalSlab(), false));
             SimpleStairModel.blocks.add(new SimpleStairModel.Stair(set.base(), set.stairs()));
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.base(), set.wall()));
 
             BlockDrops.blocks.add(set.base());
             BlockDrops.blocks.add(set.slab());
+            BlockDrops.blocks.add(set.verticalSlab());
             BlockDrops.blocks.add(set.stairs());
             BlockDrops.blocks.add(set.wall());
 
             MineablePickaxe.blocks.add(set.base());
             MineablePickaxe.blocks.add(set.wall());
             MineablePickaxe.blocks.add(set.slab());
+            MineablePickaxe.blocks.add(set.verticalSlab());
             MineablePickaxe.blocks.add(set.stairs());
 
             Walls.walls.add(set.wall());
@@ -41,19 +45,21 @@ public class HelpingGenerator {
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.log(), set.woodWall()));
             SimpleBlockModel.blocks.add(set.planks());
             SimpleSlabModel.blocks.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
+            SimpleVerticalSlabModel.blocks.add(new SimpleVerticalSlabModel.VerticalSlab(set.planks(), set.planksSlab(), set.planksVerticalSlab(), false));
             SimpleStairModel.blocks.add(new SimpleStairModel.Stair(set.planks(), set.planksStairs()));
             SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.planks(), set.planksFence()));
             SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(set.planks(), set.planksGate()));
             SimpleButtonModel.blocks.add(new SimpleButtonModel.Button(set.planks(), set.button()));
             SimplePressurePlateModel.blocks.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
-            SimpleTrapDoorModel.blocks.add(new SimpleTrapDoorModel.Trapdoor(set.planks(), set.trapdoor()));
-            SimpleDoorModel.blocks.add(new SimpleDoorModel.Door(set.planks(), set.door()));
+            SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(set.planks(), set.trapdoor()));
+            SimpleDoorModel.doors.add(new SimpleDoorModel.Door(set.planks(), set.door()));
 
             BlockDrops.blocks.add(set.log());
             BlockDrops.blocks.add(set.wood());
             BlockDrops.blocks.add(set.woodWall());
             BlockDrops.blocks.add(set.planks());
             BlockDrops.blocks.add(set.planksSlab());
+            BlockDrops.blocks.add(set.planksVerticalSlab());
             BlockDrops.blocks.add(set.planksStairs());
             BlockDrops.blocks.add(set.planksFence());
             BlockDrops.blocks.add(set.planksGate());
@@ -67,6 +73,7 @@ public class HelpingGenerator {
             MineableAxe.blocks.add(set.woodWall());
             MineableAxe.blocks.add(set.planks());
             MineableAxe.blocks.add(set.planksSlab());
+            MineableAxe.blocks.add(set.planksVerticalSlab());
             MineableAxe.blocks.add(set.planksStairs());
             MineableAxe.blocks.add(set.planksFence());
             MineableAxe.blocks.add(set.planksGate());
@@ -88,32 +95,119 @@ public class HelpingGenerator {
             Trapdoors.trapdoors.add(set.trapdoor());
         }
 
-        for (OreRockSets.OreRockSet set : OreRockSets.sets) {
-            SimpleBlockModel.blocks.add(set.gold_ore());
-            SimpleBlockModel.blocks.add(set.iron_ore());
-            SimpleBlockModel.blocks.add(set.coal_ore());
-            SimpleBlockModel.blocks.add(set.copper_ore());
-            SimpleBlockModel.blocks.add(set.tin_ore());
-            SimpleBlockModel.blocks.add(set.lead_ore());
-            SimpleBlockModel.blocks.add(set.silver_ore());
+        for (MushroomBlockSets.MushroomBlockSet set : MushroomBlockSets.sets) {
+            if(!Objects.equals(Registries.BLOCK.getId(set.stem()).getPath(), "mushroom_stem")) {
+                SimpleBlockModel.blocks.add(set.stem());
 
-            MineablePickaxe.blocks.add(set.gold_ore());
-            MineablePickaxe.blocks.add(set.iron_ore());
-            MineablePickaxe.blocks.add(set.coal_ore());
-            MineablePickaxe.blocks.add(set.copper_ore());
-            MineablePickaxe.blocks.add(set.tin_ore());
-            MineablePickaxe.blocks.add(set.lead_ore());
-            MineablePickaxe.blocks.add(set.silver_ore());
+                MineableAxe.blocks.add(set.stem());
+            }
+
+
+            SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.stem(), set.stemWall()));
+            SimpleBlockModel.blocks.add(set.planks());
+            SimpleSlabModel.blocks.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
+            SimpleVerticalSlabModel.blocks.add(new SimpleVerticalSlabModel.VerticalSlab(set.planks(), set.planksSlab(), set.planksVerticalSlab(), false));
+            SimpleStairModel.blocks.add(new SimpleStairModel.Stair(set.planks(), set.planksStairs()));
+            SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.planks(), set.planksFence()));
+            SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(set.planks(), set.planksGate()));
+            SimpleButtonModel.blocks.add(new SimpleButtonModel.Button(set.planks(), set.button()));
+            SimplePressurePlateModel.blocks.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
+            SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(set.planks(), set.trapdoor()));
+            SimpleDoorModel.doors.add(new SimpleDoorModel.Door(set.planks(), set.door()));
+
+            BlockDrops.blocks.add(set.stemWall());
+            BlockDrops.blocks.add(set.planks());
+            BlockDrops.blocks.add(set.planksSlab());
+            BlockDrops.blocks.add(set.planksVerticalSlab());
+            BlockDrops.blocks.add(set.planksStairs());
+            BlockDrops.blocks.add(set.planksFence());
+            BlockDrops.blocks.add(set.planksGate());
+            BlockDrops.blocks.add(set.button());
+            BlockDrops.blocks.add(set.pressurePlate());
+            BlockDrops.blocks.add(set.trapdoor());
+            BlockDrops.blocks.add(set.door());
+
+            MineableAxe.blocks.add(set.stemWall());
+            MineableAxe.blocks.add(set.planks());
+            MineableAxe.blocks.add(set.planksSlab());
+            MineableAxe.blocks.add(set.planksVerticalSlab());
+            MineableAxe.blocks.add(set.planksStairs());
+            MineableAxe.blocks.add(set.planksFence());
+            MineableAxe.blocks.add(set.planksGate());
+            MineableAxe.blocks.add(set.button());
+            MineableAxe.blocks.add(set.pressurePlate());
+            MineableAxe.blocks.add(set.trapdoor());
+            MineableAxe.blocks.add(set.door());
+
+            Buttons.buttons.add(set.button());
+            Fences.fences.add(set.planksFence());
+            FenceGates.fenceGates.add(set.planksGate());
+            Walls.walls.add(set.stemWall());
+            PressurePlates.pressurePlates.add(set.pressurePlate());
+            Planks.planks.add(set.planks());
+            Doors.doors.add(set.door());
+            Trapdoors.trapdoors.add(set.trapdoor());
         }
 
-        for (OreRockSets.CompleteOreRockSet set : OreRockSets.vanillaSets) {
-            SimpleBlockModel.blocks.add(set.tin_ore());
-            SimpleBlockModel.blocks.add(set.lead_ore());
-            SimpleBlockModel.blocks.add(set.silver_ore());
+        for (RoofBlockSets.RoofBlockSet set : RoofBlockSets.sets) {
+            SimpleBlockModel.blocks.add(set.block());
+            SimpleSlabModel.blocks.add(new SimpleSlabModel.Slab(set.block(), set.slab()));
+            SimpleVerticalSlabModel.blocks.add(new SimpleVerticalSlabModel.VerticalSlab(set.block(), set.slab(), set.verticalSlab(), false));
+            SimpleStairModel.blocks.add(new SimpleStairModel.Stair(set.block(), set.stairs()));
 
-            MineablePickaxe.blocks.add(set.tin_ore());
-            MineablePickaxe.blocks.add(set.lead_ore());
-            MineablePickaxe.blocks.add(set.silver_ore() );
+            BlockDrops.blocks.add(set.block());
+            BlockDrops.blocks.add(set.slab());
+            BlockDrops.blocks.add(set.verticalSlab());
+            BlockDrops.blocks.add(set.stairs());
+
+            if(set.origin() != null && set.origin().toString().contains("planks")){
+                MineableAxe.blocks.add(set.block());
+                MineableAxe.blocks.add(set.slab());
+                MineableAxe.blocks.add(set.verticalSlab());
+                MineableAxe.blocks.add(set.stairs());
+            } else {
+                MineablePickaxe.blocks.add(set.block());
+                MineablePickaxe.blocks.add(set.slab());
+                MineablePickaxe.blocks.add(set.verticalSlab());
+                MineablePickaxe.blocks.add(set.stairs());
+            }
+
+        }
+
+        for (OreRockSets.OreRockSet set : OreRockSets.sets) {
+            if(set.coal_ore() != null){
+                SimpleBlockModel.blocks.add(set.coal_ore());
+                MineablePickaxe.blocks.add(set.coal_ore());
+            }
+            if(set.copper_ore() != null){
+                SimpleBlockModel.blocks.add(set.copper_ore());
+                MineablePickaxe.blocks.add(set.copper_ore());
+            }
+            if(set.tin_ore() != null){
+                SimpleBlockModel.blocks.add(set.tin_ore());
+                MineablePickaxe.blocks.add(set.tin_ore());
+            }
+            if(set.lead_ore() != null){
+                SimpleBlockModel.blocks.add(set.lead_ore());
+                MineablePickaxe.blocks.add(set.lead_ore());
+            }
+            if(set.silver_ore() != null){
+                SimpleBlockModel.blocks.add(set.silver_ore());
+                MineablePickaxe.blocks.add(set.silver_ore());
+            }
+            if(set.gold_ore() != null){
+                SimpleBlockModel.blocks.add(set.gold_ore());
+                MineablePickaxe.blocks.add(set.gold_ore());
+            }
+            if(set.iron_ore() != null){
+                SimpleBlockModel.blocks.add(set.iron_ore());
+                MineablePickaxe.blocks.add(set.iron_ore());
+            }
+            if(set.mithril_ore() != null){
+                SimpleBlockModel.blocks.add(set.mithril_ore());
+                MineablePickaxe.blocks.add(set.mithril_ore());
+            }
+
         }
     }
 }

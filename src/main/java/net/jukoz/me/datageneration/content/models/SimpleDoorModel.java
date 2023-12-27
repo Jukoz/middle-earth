@@ -9,7 +9,7 @@ import java.util.List;
 public class SimpleDoorModel {
     public record Door(Block block, Block door) {}
 
-    public static List<Door> blocks = new ArrayList<>() {
+    public static List<Door> doors = new ArrayList<>() {
         {
         }
     };
