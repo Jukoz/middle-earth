@@ -3,8 +3,9 @@ package net.jukoz.me.world.chunkgen.map;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.world.biomes.MEBiome;
 import net.jukoz.me.world.biomes.MEBiomesData;
+import net.jukoz.me.world.datas.WorldMapDatas;
 
-import java.awt.image.BufferedImage;
+import java.awt.*;
 
 public class MiddleEarthHeightMap {
     public static final int SMOOTH_BRUSH_SIZE = 2;
@@ -21,24 +22,39 @@ public class MiddleEarthHeightMap {
     public static final int HEIGHT = 8 + STONE_HEIGHT;
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
 
-    private static BufferedImage heightMapImage;
 
-    public static int latitude; // Horizontal
-    public static int longitude; // Vertical
+    private static float getImageHeight(int xWorld, int zWorld) {
 
+        int xMapCoordinate = Math.round((float) xWorld / 4);
+        int zMapCoordinate = Math.round((float) zWorld / 4);
 
-    public static void applyHeightMapImage(BufferedImage newHeightMapImage) {
-        heightMapImage = newHeightMapImage;
-        latitude = heightMapImage.getHeight();
-        longitude = heightMapImage.getWidth();
+        if(!WorldMapDatas.isWorldCoordinateInBound(xWorld, zWorld)){
+            return MEBiomesData.defaultBiome.height + getPerlinMapHeight(xMapCoordinate, zMapCoordinate);
+        }
+
+        Color color = WorldMapDatas.getHeight(xMapCoordinate, zMapCoordinate);
+
+        if(color != null){
+            float red = color.getRed();
+            float blue = color.getBlue();
+            float height = red - 25; //+ (color.getGreen() / 255f);
+            if(blue > 180){
+                height = red * -1;
+            }
+            else if(blue > 0 && blue > red){
+                float newHeight = height * -1;
+                newHeight -=(-newHeight) * (blue / 200);
+                newHeight *= -1;
+                newHeight = Math.max(newHeight, height);
+                height = Math.max(-7, newHeight);
+            }
+
+            return height;
+        }
+        return 0;
     }
 
-    private static float getImageHeight(int x, int z) {
-        if(!isCoordinateInBounds(x, z)) return MEBiomesData.defaultBiome.height + getPerlinMapHeight(x, z);
-        return ((float) ((heightMapImage.getRGB(x, z)>>16)&0xFF) / 4) + MEBiomesData.MINIMAL_HEIGHT;
-    }
-
-    private static double getPerlinHeight(int x, int z) {
+    public static double getPerlinHeight(int x, int z) {
         double perlin = 1 * BlendedNoise.noise((double) x / PERLIN_STRETCH_X,(double) z / PERLIN_STRETCH_Y);
         perlin += 0.5f * BlendedNoise.noise((double) x * 2 / PERLIN_STRETCH_X,(double) z * 2 / PERLIN_STRETCH_Y);
         perlin += 0.25f * BlendedNoise.noise((double) x * 4 / PERLIN_STRETCH_X,(double) z * 4 / PERLIN_STRETCH_Y);
@@ -56,8 +72,8 @@ public class MiddleEarthHeightMap {
         MEBiome meBiome;
         double perlin = getPerlinHeight(x, z);
 
-        if(MiddleEarthHeightMap.isCoordinateInBounds(x, z)) {
-            float biomeHeight = MiddleEarthHeightMap.getImageHeight(x, z);
+        if(WorldMapDatas.isWorldCoordinateInBound(x, z)) {
+            float biomeHeight = getImageHeight(x, z);
             if(biomeHeight >= MOUNTAIN_START_HEIGHT) {
                 float multiplier = (biomeHeight / MOUNTAIN_START_HEIGHT) - 1;
                 multiplier = MOUNTAIN_HEIGHT_MULTIPLIER * multiplier;
@@ -75,8 +91,8 @@ public class MiddleEarthHeightMap {
         float total = 0;
         for(int i = -SMOOTH_BRUSH_SIZE; i <= SMOOTH_BRUSH_SIZE; i++) {
             for(int j = -SMOOTH_BRUSH_SIZE; j <= SMOOTH_BRUSH_SIZE; j++) {
-                if(!isCoordinateInBounds(x + i, z + j)) total += MEBiomesData.defaultBiome.height;
-                else total += ((float)((heightMapImage.getRGB(x + i, z + j)>>16)&0xFF) / 4) + MEBiomesData.MINIMAL_HEIGHT;
+                if(!WorldMapDatas.isWorldCoordinateInBound(x + i, z + j)) total += MEBiomesData.defaultBiome.height;
+                else total += getImageHeight(x,z);
             }
         }
 
@@ -87,10 +103,6 @@ public class MiddleEarthHeightMap {
         return getSmoothHeight(x, z) + getPerlinMapHeight(x, z);
     }
 
-    public static boolean isCoordinateInBounds(int x, int z) {
-        if(x < 0 || z < 0) return false;
-        return (x < longitude && z < latitude);
-    }
 
     // Going to be useful for making roads with curves.
     static float getPointOnBezierCurve(float h0, float h1, float h2, float t)

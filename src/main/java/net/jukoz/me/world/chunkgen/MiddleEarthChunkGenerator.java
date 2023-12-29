@@ -8,6 +8,7 @@ import net.jukoz.me.world.biomes.MEBiomesData;
 import net.jukoz.me.world.biomes.ModBiomeSource;
 import net.jukoz.me.world.chunkgen.map.MapImageLoader;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
+import net.jukoz.me.world.datas.WorldMapDatas;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -82,7 +83,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.LONG_LAKE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LORIEN_EDGE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LOTHLORIEN),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.MILLPOND),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.POND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD_EDGE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD_FOOTHILLS),
@@ -147,8 +148,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 int posZ = (chunk.getPos().z * 16) + z;
                 MEBiome meBiome;
 
-                if(MiddleEarthHeightMap.isCoordinateInBounds(posX, posZ)) {
-                    meBiome = MapImageLoader.getbiomeByWorldCoordinate(posX, posZ);
+                if(WorldMapDatas.isWorldCoordinateInBound(posX, posZ)) {
+                    meBiome = WorldMapDatas.getBiome(posX, posZ);
                 } else {
                     meBiome = MEBiomesData.defaultBiome;
                 }

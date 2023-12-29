@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MapImageLoader;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
+import net.jukoz.me.world.datas.WorldMapDatas;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.biome.Biome;
@@ -36,9 +37,9 @@ public class ModBiomeSource extends BiomeSource {
         int i = BiomeCoords.toBlock(x);
         int k = BiomeCoords.toBlock(z);
 
-        if(!MiddleEarthHeightMap.isCoordinateInBounds(i, k)) return biomes.get(0); // TODO : Min max i/k
-        MEBiome meBiome = MapImageLoader.getbiomeByWorldCoordinate(i, k);
-        if(meBiome == null) {
+        MEBiome meBiome = WorldMapDatas.getBiome(i, k);
+
+        if (meBiome == null) {
             return biomes.get(0);
         }
 
@@ -53,7 +54,7 @@ public class ModBiomeSource extends BiomeSource {
                 } else if(MEBiomesData.mirkwoodSwampBiomes.contains(biome)) {
                     processedBiome = MEBiomesData.mirkwoodSwamp.biome;
                 } else {
-                    processedBiome = MEBiomesData.millPond.biome;
+                    processedBiome = MEBiomesData.pond.biome;
                 }
             } else processedBiome = biome;
         } else processedBiome = biome;

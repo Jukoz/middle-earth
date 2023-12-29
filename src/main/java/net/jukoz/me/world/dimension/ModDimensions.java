@@ -3,6 +3,7 @@ package net.jukoz.me.world.dimension;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
+import net.jukoz.me.world.datas.WorldMapDatas;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -17,7 +18,7 @@ import org.joml.Vector3i;
 
 
 public class ModDimensions {
-    public static final Vector3i ME_SPAWN_LOCATION = new Vector3i(440, 90, 350);
+    public static final Vector3i ME_SPAWN_LOCATION = new Vector3i(939, 90, 911);
     public static final String PATH = "middle-earth";
 
     public static final RegistryKey<DimensionOptions> DIMENSION_KEY =
@@ -44,9 +45,13 @@ public class ModDimensions {
                 if(registryKey != WORLD_KEY) targetPos = new Vector3i(serverWorld.getSpawnPos().getX(), 80, serverWorld.getSpawnPos().getZ());
 
                 player.wakeUp();
-                ((ServerPlayerEntity) player).teleport(serverWorld, targetPos.x, targetPos.y + 10, targetPos.z, 0, 0);
-                World targetWorld =  player.getWorld();
-                int highY = 1 + getHighestYAtXZ(targetPos.x, targetPos.z);
+                if(MiddleEarth.MAP_ITERATION > 0){
+                    targetPos.x *= (int) Math.pow(2, MiddleEarth.MAP_ITERATION - 1);
+                    targetPos.z *= (int) Math.pow(2, MiddleEarth.MAP_ITERATION - 1);
+                }
+
+                ((ServerPlayerEntity) player).teleport(serverWorld, targetPos.x , targetPos.y + 10, targetPos.z, 0, 0);
+                int highY =  1 + getHighestYAtXZ(targetPos.x, targetPos.z);
 
                 player.refreshPositionAfterTeleport(targetPos.x, highY, targetPos.z);
             }
