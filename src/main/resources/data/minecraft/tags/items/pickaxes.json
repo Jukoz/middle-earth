@@ -5,13 +5,13 @@
       "id": "#fabric:pickaxes",
       "required": false
     },
-    "me:dwarven_steel_pickaxes",
-    "me:orc_steel_pickaxes",
-    "me:uruk_steel_pickaxes",
-    "me:elven_steel_pickaxes",
-    "me:steel_pickaxes",
-    "me:jade_pickaxes",
-    "me:bronze_pickaxes",
-    "me:mithril_pickaxes"
+    "me:dwarven_steel_pickaxe",
+    "me:orc_steel_pickaxe",
+    "me:uruk_steel_pickaxe",
+    "me:elven_steel_pickaxe",
+    "me:steel_pickaxe",
+    "me:jade_pickaxe",
+    "me:bronze_pickaxe",
+    "me:mithril_pickaxe"
   ]
 }

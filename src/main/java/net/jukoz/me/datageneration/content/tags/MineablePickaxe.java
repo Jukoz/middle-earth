@@ -28,6 +28,8 @@ public class MineablePickaxe {
             add(ModBlocks.CHISELED_DIORITE_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_DIORITE);
 
+            add(ModBlocks.CHISELED_BASALT_BRICKS);
+
             add(ModBlocks.RAW_MITHRIL_BLOCK);
             add(ModBlocks.MITHRIL_BLOCK);
             add(ModBlocks.RAW_TIN_BLOCK);

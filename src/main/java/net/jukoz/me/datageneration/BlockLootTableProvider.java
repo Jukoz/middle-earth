@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.OreRockSets;
+import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.datageneration.content.loot_tables.CropDrops;
 import net.jukoz.me.datageneration.content.loot_tables.LeavesDrops;
@@ -18,15 +19,23 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
+import net.minecraft.loot.condition.LootCondition;
+import net.minecraft.loot.condition.LootConditionTypes;
+import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LeafEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.ApplyBonusLootFunction;
+import net.minecraft.loot.function.ConditionalLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
+import net.minecraft.predicate.NumberRange;
+import net.minecraft.predicate.item.EnchantmentPredicate;
+import net.minecraft.registry.Registries;
 
 public class BlockLootTableProvider extends FabricBlockLootTableProvider {
+    protected static final LootCondition.Builder WITH_SILK_TOUCH = MatchToolLootCondition.builder(net.minecraft.predicate.item.ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, NumberRange.IntRange.atLeast(1))));
 
     protected BlockLootTableProvider(FabricDataOutput dataOutput) {
         super(dataOutput);
@@ -35,7 +44,28 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     @Override
     public void generate() {
         for (Block block : BlockDrops.blocks) {
-            addDrop(block);
+            if(Registries.BLOCK.getId(block).getPath().equals("diftomin")){
+                cobbleDrops(block, StoneBlockSets.COBBLED_DIFTOMIN.base());
+            }else if(Registries.BLOCK.getId(block).getPath().equals("epmosto")){
+                cobbleDrops(block, StoneBlockSets.COBBLED_EPMOSTO.base());
+            }else if(Registries.BLOCK.getId(block).getPath().equals("gonluin")){
+                cobbleDrops(block, StoneBlockSets.COBBLED_GONLUIN.base());
+            }else if(Registries.BLOCK.getId(block).getPath().equals("limestone")){
+                cobbleDrops(block, StoneBlockSets.COBBLED_LIMESTONE.base());
+            }else if(Registries.BLOCK.getId(block).getPath().equals("dolomite")){
+                cobbleDrops(block, StoneBlockSets.COBBLED_DOLOMITE.base());
+            }else if(Registries.BLOCK.getId(block).getPath().equals("quartzite")){
+                cobbleDrops(block, StoneBlockSets.COBBLED_QUARTZITE.base());
+            }else if(Registries.BLOCK.getId(block).getPath().equals("frozen_stone")){
+                cobbleDrops(block, StoneBlockSets.FROZEN_COBBLESTONE.base());
+            }else if(Registries.BLOCK.getId(block).getPath().equals("ashen_stone")){
+                cobbleDrops(block, StoneBlockSets.ASHEN_COBBLESTONE.base());
+            }else if(Registries.BLOCK.getId(block).getPath().contains("_door")){
+                addDrop(block, doorDrops(block));
+            } else {
+                addDrop(block);
+            }
+
         }
         for (Block block : LeavesDrops.blocks) {
             addDrop(block, BlockLootTableGenerator.dropsWithShears(block));
@@ -78,5 +108,18 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             }
         }
         addDropWithSilkTouch(ModBlocks.STONE_MYCELIUM);
+    }
+
+    public void cobbleDrops(Block stoneBlock, Block cobbledBlock){
+        addDrop(stoneBlock,
+                LootTable.builder()
+                        .pool(LootPool.builder()
+                                .conditionally(WITH_SILK_TOUCH)
+                                .rolls(ConstantLootNumberProvider.create(1.0F))
+                                .with(ItemEntry.builder(stoneBlock)))
+                        .pool(LootPool.builder()
+                                .conditionally(WITH_SILK_TOUCH.invert())
+                                .rolls(ConstantLootNumberProvider.create(1.0F))
+                                .with(ItemEntry.builder(cobbledBlock))));
     }
 }

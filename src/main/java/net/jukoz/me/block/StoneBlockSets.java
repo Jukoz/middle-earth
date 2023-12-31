@@ -28,8 +28,9 @@ public class StoneBlockSets {
     public static final float EPMOSTO_BRICKS_HARDNESS = 6.5F;
     public static final float EPMOSTO_BRICKS_BLAST_RESISTANCE = 9.0F;
 
+    public static SimpleBlockSet ASHEN_COBBLESTONE = registerBrickSet("ashen_cobblestone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet ASHEN_STONE = registerBrickSet("ashen_stone", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
-    public static SimpleBlockSet ASHEN_BRICKS = registerBrickSet("ashen_bricks", BRICKS_HARDNESS, BRICKS_BLASTRESISTANCE, ASHEN_STONE.base);
+    public static SimpleBlockSet ASHEN_BRICKS = registerBrickSet("ashen_bricks", ASHEN_COBBLESTONE.base.getHardness(), ASHEN_COBBLESTONE.base.getBlastResistance(), ASHEN_STONE.base);
     public static SimpleBlockSet ASHEN_TILES = registerBrickSet("ashen_tiles", ASHEN_BRICKS.base.getHardness(), ASHEN_BRICKS.base.getBlastResistance(), ASHEN_BRICKS.base);
 
     public static SimpleBlockSet GONLUIN = registerBrickSet("gonluin", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
@@ -118,6 +119,15 @@ public class StoneBlockSets {
     public static SimpleBlockSet MOSSY_ANDESITE_TILES = registerBrickSet("mossy_andesite_tiles", ANDESITE_BRICKS.base.getHardness(), ANDESITE_BRICKS.base.getBlastResistance(), ANDESITE_TILES.base);
     public static SimpleBlockSet CRACKED_ANDESITE_TILES = registerBrickSet("cracked_andesite_tiles", ANDESITE_BRICKS.base.getHardness(), ANDESITE_BRICKS.base.getBlastResistance(), ANDESITE_TILES.base);
 
+    public static SimpleBlockSet MOSSY_POLISHED_BASALT = registerBrickSet("mossy_polished_basalt", Blocks.BASALT.getHardness(), Blocks.BASALT.getBlastResistance(), Blocks.POLISHED_BASALT);
+    public static SimpleBlockSet CRACKED_POLISHED_BASALT = registerBrickSet("cracked_polished_basalt", Blocks.BASALT.getHardness(), Blocks.BASALT.getBlastResistance(), Blocks.POLISHED_BASALT);
+    public static SimpleBlockSet BASALT_BRICKS = registerBrickSet("basalt_bricks", Blocks.STONE_BRICKS.getHardness(), Blocks.STONE_BRICKS.getBlastResistance(), Blocks.SMOOTH_BASALT);
+    public static SimpleBlockSet MOSSY_BASALT_BRICKS = registerBrickSet("mossy_basalt_bricks", BASALT_BRICKS.base.getHardness(), BASALT_BRICKS.base.getBlastResistance(), BASALT_BRICKS.base);
+    public static SimpleBlockSet CRACKED_BASALT_BRICKS = registerBrickSet("cracked_basalt_bricks", BASALT_BRICKS.base.getHardness(), BASALT_BRICKS.base.getBlastResistance(), BASALT_BRICKS.base);
+    public static SimpleBlockSet BASALT_TILES = registerBrickSet("basalt_tiles", BASALT_BRICKS.base.getHardness(), BASALT_BRICKS.base.getBlastResistance(), BASALT_BRICKS.base);
+    public static SimpleBlockSet MOSSY_BASALT_TILES = registerBrickSet("mossy_basalt_tiles", BASALT_BRICKS.base.getHardness(), BASALT_BRICKS.base.getBlastResistance(), BASALT_TILES.base);
+    public static SimpleBlockSet CRACKED_BASALT_TILES = registerBrickSet("cracked_basalt_tiles", BASALT_BRICKS.base.getHardness(), BASALT_BRICKS.base.getBlastResistance(), BASALT_TILES.base);
+
     public static SimpleBlockSet COBBLED_GRANITE = registerBrickSet("cobbled_granite", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, Blocks.GRANITE);
     public static SimpleBlockSet MOSSY_COBBLED_GRANITE = registerBrickSet("mossy_cobbled_granite", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, Blocks.GRANITE);
     public static SimpleBlockSet MOSSY_POLISHED_GRANITE = registerBrickSet("mossy_polished_granite", Blocks.GRANITE.getHardness(), Blocks.GRANITE.getBlastResistance(), Blocks.POLISHED_GRANITE);
@@ -191,6 +201,7 @@ public class StoneBlockSets {
 
 
     public static SimpleBlockSet[] sets = new SimpleBlockSet[] {
+
             ASHEN_STONE,
             ASHEN_BRICKS,
             ASHEN_TILES,
@@ -270,6 +281,13 @@ public class StoneBlockSets {
             CRACKED_DIORITE_TILES,
             MOSSY_POLISHED_DIORITE,
             CRACKED_POLISHED_DIORITE,
+
+            BASALT_BRICKS,
+            MOSSY_BASALT_BRICKS,
+            CRACKED_BASALT_BRICKS,
+            BASALT_TILES,
+            MOSSY_BASALT_TILES,
+            CRACKED_BASALT_TILES,
 
             QUARTZITE,
             QUARTZITE_BRICKS,

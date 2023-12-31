@@ -16,9 +16,9 @@ public class HelpingGenerator {
 
         for (StoneBlockSets.SimpleBlockSet set : StoneBlockSets.sets) {
             SimpleBlockModel.blocks.add(set.base());
-            SimpleSlabModel.blocks.add(new SimpleSlabModel.Slab(set.base(), set.slab()));
-            SimpleVerticalSlabModel.blocks.add(new SimpleVerticalSlabModel.VerticalSlab(set.base(), set.slab(), set.verticalSlab(), false));
-            SimpleStairModel.blocks.add(new SimpleStairModel.Stair(set.base(), set.stairs()));
+            SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.base(), set.slab()));
+            SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.base(), set.slab(), set.verticalSlab()));
+            SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.base(), set.stairs()));
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.base(), set.wall()));
 
             BlockDrops.blocks.add(set.base());
@@ -44,9 +44,9 @@ public class HelpingGenerator {
             SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.log()));
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.log(), set.woodWall()));
             SimpleBlockModel.blocks.add(set.planks());
-            SimpleSlabModel.blocks.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
-            SimpleVerticalSlabModel.blocks.add(new SimpleVerticalSlabModel.VerticalSlab(set.planks(), set.planksSlab(), set.planksVerticalSlab(), false));
-            SimpleStairModel.blocks.add(new SimpleStairModel.Stair(set.planks(), set.planksStairs()));
+            SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
+            SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.planks(), set.planksSlab(), set.planksVerticalSlab()));
+            SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.planks(), set.planksStairs()));
             SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.planks(), set.planksFence()));
             SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(set.planks(), set.planksGate()));
             SimpleButtonModel.blocks.add(new SimpleButtonModel.Button(set.planks(), set.button()));
@@ -105,9 +105,9 @@ public class HelpingGenerator {
 
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.stem(), set.stemWall()));
             SimpleBlockModel.blocks.add(set.planks());
-            SimpleSlabModel.blocks.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
-            SimpleVerticalSlabModel.blocks.add(new SimpleVerticalSlabModel.VerticalSlab(set.planks(), set.planksSlab(), set.planksVerticalSlab(), false));
-            SimpleStairModel.blocks.add(new SimpleStairModel.Stair(set.planks(), set.planksStairs()));
+            SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
+            SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.planks(), set.planksSlab(), set.planksVerticalSlab()));
+            SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.planks(), set.planksStairs()));
             SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.planks(), set.planksFence()));
             SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(set.planks(), set.planksGate()));
             SimpleButtonModel.blocks.add(new SimpleButtonModel.Button(set.planks(), set.button()));
@@ -151,9 +151,9 @@ public class HelpingGenerator {
 
         for (RoofBlockSets.RoofBlockSet set : RoofBlockSets.sets) {
             SimpleBlockModel.blocks.add(set.block());
-            SimpleSlabModel.blocks.add(new SimpleSlabModel.Slab(set.block(), set.slab()));
-            SimpleVerticalSlabModel.blocks.add(new SimpleVerticalSlabModel.VerticalSlab(set.block(), set.slab(), set.verticalSlab(), false));
-            SimpleStairModel.blocks.add(new SimpleStairModel.Stair(set.block(), set.stairs()));
+            SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.block(), set.slab()));
+            SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.block(), set.slab(), set.verticalSlab()));
+            SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.block(), set.stairs()));
 
             BlockDrops.blocks.add(set.block());
             BlockDrops.blocks.add(set.slab());

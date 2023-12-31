@@ -54,7 +54,7 @@ public class PipeweedCropBlock extends CropBlock {
     public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
         if(super.getAge(state) > 1) {
             return world.getBlockState(pos).canPlaceAt(world, pos.add(0,1,0));
-            // todo : make it so whenever the pipeweed wants to grow, it checks the block above to see if you can place anything
+            // todo : make it so whenever the pipeweed wants to grow, it checks the origin above to see if you can place anything
         }
         return super.canGrow(world, random, pos, state);
     }

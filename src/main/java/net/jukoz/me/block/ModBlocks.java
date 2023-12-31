@@ -109,13 +109,25 @@ public class ModBlocks {
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)));
     public static final Block CHISELED_POLISHED_DIORITE = registerBlock("chiseled_polished_diorite",
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)));
+    
+    public static final Block CHISELED_BASALT_BRICKS = registerBlock("chiseled_basalt_bricks",
+            new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)));
+
     //endregion
 
     public static final Block DRY_DIRT = registerBlock("dry_dirt",
             new Block(FabricBlockSettings.copyOf(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)));
+    public static final Block DRY_DIRT_SLAB = registerBlock("dry_dirt_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(DRY_DIRT)));
+    public static final Block DRY_DIRT_STAIRS = registerBlock("dry_dirt_stairs",
+            new StairsBlock(DRY_DIRT.getDefaultState(), FabricBlockSettings.copyOf(DRY_DIRT)));
     public static final Block ASHEN_DIRT = registerBlock("ashen_dirt",
             new Block(FabricBlockSettings.copyOf(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)));
-
+    public static final Block ASHEN_DIRT_SLAB = registerBlock("ashen_dirt_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(ASHEN_DIRT)));
+    public static final Block ASHEN_DIRT_STAIRS = registerBlock("ashen_dirt_stairs",
+            new StairsBlock(ASHEN_DIRT.getDefaultState(), FabricBlockSettings.copyOf(ASHEN_DIRT)));
+    
     public static final Block REED_BLOCK = registerBlock("reed_block",
             new HayBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)));
     public static final Block REED_STAIRS = registerBlock("reed_stairs",
@@ -292,6 +304,49 @@ public class ModBlocks {
     public static final Block ASH_BLOCK = registerBlock("ash_block",
             new FallingBlock(FabricBlockSettings.copyOf(Blocks.SAND).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.SAND)));
 
+    //region VANILLA SLABS
+    public static final Block DIRT_SLAB = registerBlock("dirt_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.DIRT)));
+    public static final Block COARSE_DIRT_SLAB = registerBlock("coarse_dirt_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.COARSE_DIRT)));
+    public static final Block ROOTED_DIRT_SLAB = registerBlock("rooted_dirt_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.ROOTED_DIRT)));
+    public static final Block MUD_SLAB = registerBlock("mud_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.ROOTED_DIRT)));
+
+    public static final Block BLACK_WOOL_SLAB = registerBlock("black_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block BLUE_WOOL_SLAB = registerBlock("blue_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block BROWN_WOOL_SLAB = registerBlock("brown_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block CYAN_WOOL_SLAB = registerBlock("cyan_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block GRAY_WOOL_SLAB = registerBlock("gray_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block GREEN_WOOL_SLAB = registerBlock("green_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block LIGHT_BLUE_WOOL_SLAB = registerBlock("light_blue_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block LIGHT_GRAY_WOOL_SLAB = registerBlock("light_gray_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block LIME_WOOL_SLAB = registerBlock("lime_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block MAGENTA_WOOL_SLAB = registerBlock("magenta_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block ORANGE_WOOL_SLAB = registerBlock("orange_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block PINK_WOOL_SLAB = registerBlock("pink_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block PURPLE_WOOL_SLAB = registerBlock("purple_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block RED_WOOL_SLAB = registerBlock("red_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block WHITE_WOOL_SLAB = registerBlock("white_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block YELLOW_WOOL_SLAB = registerBlock("yellow_wool_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    //endregion
 
     //region VANILLA VERTICAL SLABS
     public static final Block OAK_VERTICAL_SLAB = registerBlock("oak_vertical_slab",
@@ -406,6 +461,88 @@ public class ModBlocks {
     public static final Block WAXED_OXIDIZED_CUT_COPPER_VERTICAL_SLAB = registerBlock("waxed_oxidized_cut_copper_vertical_slab",
             new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB)));
 
+    public static final Block BLACK_WOOL_VERTICAL_SLAB = registerBlock("black_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block BLUE_WOOL_VERTICAL_SLAB = registerBlock("blue_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block BROWN_WOOL_VERTICAL_SLAB = registerBlock("brown_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block CYAN_WOOL_VERTICAL_SLAB = registerBlock("cyan_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block GRAY_WOOL_VERTICAL_SLAB = registerBlock("gray_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block GREEN_WOOL_VERTICAL_SLAB = registerBlock("green_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block LIGHT_BLUE_WOOL_VERTICAL_SLAB = registerBlock("light_blue_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block LIGHT_GRAY_WOOL_VERTICAL_SLAB = registerBlock("light_gray_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block LIME_WOOL_VERTICAL_SLAB = registerBlock("lime_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block MAGENTA_WOOL_VERTICAL_SLAB = registerBlock("magenta_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block ORANGE_WOOL_VERTICAL_SLAB = registerBlock("orange_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block PINK_WOOL_VERTICAL_SLAB = registerBlock("pink_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block PURPLE_WOOL_VERTICAL_SLAB = registerBlock("purple_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block RED_WOOL_VERTICAL_SLAB = registerBlock("red_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block WHITE_WOOL_VERTICAL_SLAB = registerBlock("white_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block YELLOW_WOOL_VERTICAL_SLAB = registerBlock("yellow_wool_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+
+    //endregion
+
+    //region VANILLA STAIRS
+    public static final Block DIRT_STAIRS = registerBlock("dirt_stairs",
+            new StairsBlock(Blocks.DIRT.getDefaultState(), FabricBlockSettings.copyOf(Blocks.DIRT)));
+    public static final Block COARSE_DIRT_STAIRS = registerBlock("coarse_dirt_stairs",
+            new StairsBlock(Blocks.COARSE_DIRT.getDefaultState(), FabricBlockSettings.copyOf(Blocks.COARSE_DIRT)));
+    public static final Block MUD_STAIRS = registerBlock("mud_stairs",
+            new StairsBlock(Blocks.MUD.getDefaultState(), FabricBlockSettings.copyOf(Blocks.MUD)));
+
+    public static final Block BLACK_WOOL_STAIRS = registerBlock("black_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block BLUE_WOOL_STAIRS = registerBlock("blue_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block BROWN_WOOL_STAIRS = registerBlock("brown_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block CYAN_WOOL_STAIRS = registerBlock("cyan_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block GRAY_WOOL_STAIRS = registerBlock("gray_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block GREEN_WOOL_STAIRS = registerBlock("green_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block LIGHT_BLUE_WOOL_STAIRS = registerBlock("light_blue_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block LIGHT_GRAY_WOOL_STAIRS = registerBlock("light_gray_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block LIME_WOOL_STAIRS = registerBlock("lime_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block MAGENTA_WOOL_STAIRS = registerBlock("magenta_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block ORANGE_WOOL_STAIRS = registerBlock("orange_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block PINK_WOOL_STAIRS = registerBlock("pink_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block PURPLE_WOOL_STAIRS = registerBlock("purple_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block RED_WOOL_STAIRS = registerBlock("red_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block WHITE_WOOL_STAIRS = registerBlock("white_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    public static final Block YELLOW_WOOL_STAIRS = registerBlock("yellow_wool_stairs",
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
+    //endregion
+
+    //region VANILLA LAYERS
+    public static final Block GRAVEL_LAYERS = registerBlock("gravel_layers",
+            new SnowBlock(FabricBlockSettings.copyOf(Blocks.GRAVEL)));
+    public static final Block SAND_LAYERS = registerBlock("sand_layers",
+            new SnowBlock(FabricBlockSettings.copyOf(Blocks.GRAVEL)));
     //endregion
 
     public static Block registerBlock(String name, Block block) {
