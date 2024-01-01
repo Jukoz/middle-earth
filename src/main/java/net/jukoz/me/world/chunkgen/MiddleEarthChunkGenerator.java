@@ -2,13 +2,13 @@ package net.jukoz.me.world.chunkgen;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.world.biomes.MEBiome;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.MEBiomesData;
 import net.jukoz.me.world.biomes.ModBiomeSource;
-import net.jukoz.me.world.chunkgen.map.MapImageLoader;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
-import net.jukoz.me.world.datas.WorldMapDatas;
+import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -44,6 +44,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     public static final int HEIGHT = 24 + STONE_HEIGHT;
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
 
+    MiddleEarthMapDatas middleEarthMapDatas;
     RegistryEntryLookup<Biome> biomeRegistry;
     public static final Codec<MiddleEarthChunkGenerator> CODEC = RecordCodecBuilder.create((instance) ->
             instance.group(RegistryOps.getEntryLookupCodec(RegistryKeys.BIOME))
@@ -125,6 +126,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             )
         );
         this.biomeRegistry = biomeRegistry;
+
+        this.middleEarthMapDatas = MiddleEarth.GetWorldMapDatas();
     }
 
     @Override
@@ -148,8 +151,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 int posZ = (chunk.getPos().z * 16) + z;
                 MEBiome meBiome;
 
-                if(WorldMapDatas.isWorldCoordinateInBound(posX, posZ)) {
-                    meBiome = WorldMapDatas.getBiome(posX, posZ);
+                if(middleEarthMapDatas.isWorldCoordinateInBound(posX, posZ)) {
+                    meBiome = middleEarthMapDatas.getBiomeFromWorldCoordinate(MiddleEarth.MAP_ITERATION, posX, posZ);
                 } else {
                     meBiome = MEBiomesData.defaultBiome;
                 }

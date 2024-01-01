@@ -2,108 +2,122 @@ package net.jukoz.me.world.chunkgen.map;
 
 import com.google.common.base.Stopwatch;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.world.biomes.MEBiome;
 import net.jukoz.me.world.biomes.MEBiomesData;
-import net.jukoz.me.world.datas.WorldMapDatas;
+import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 
 import javax.imageio.ImageIO;
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
+import java.net.URL;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class ImageUtils {
     private static byte[] SEED = generateSeed(50);
     private static int SEED_INDEX = 0;
-    public static short INITIAL_REGION_SIZE_X = 1;
-    public static short INITIAL_REGION_SIZE_Y = 1;
-    public final static int REGION_SIZE = WorldMapDatas.REGION_SIZE;
-
-    public static int BRUSH_SIZE = 15;
+    public static int BRUSH_SIZE = 16;
     public static float RATIO = 1.0f / (BRUSH_SIZE * BRUSH_SIZE);
 
+    public static BufferedImage fetchResourceImage(ClassLoader classLoader ,String path) throws IOException {
+        URL resource = classLoader.getResource(path);
+        BufferedImage img = ImageIO.read(resource);
+        return img;
+    }
+
+    public static BufferedImage fetchRunImage(String path) throws Exception {
+        File f = new File(path);
+        //System.out.println(f.getAbsolutePath());
+        if(!f.exists()) return null;
+
+        BufferedImage img = ImageIO.read(f);
+        return img;
+    }
+
+    public static void saveImage(BufferedImage bufferedImage, String path, String fileName) throws Exception {
+        new File(path).mkdirs();
+        File f = new File(path + fileName);
+        ImageIO.write(bufferedImage, "png", f);
+    }
     public static BufferedImage blur(BufferedImage image) {
+        // Create new expended image :
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int newWidth = width + (2 * BRUSH_SIZE);
+        int newHeight = height + (2 * BRUSH_SIZE);
+
+        BufferedImage expendedImage = new BufferedImage(newWidth, newHeight, image.getType());
+        // Copy image content
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                expendedImage.setRGB(x + BRUSH_SIZE, y + BRUSH_SIZE, image.getRGB(x, y));
+            }
+        }
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < BRUSH_SIZE; x++) {
+                expendedImage.setRGB(x, y + BRUSH_SIZE, image.getRGB(0, y)); // Left edge
+                expendedImage.setRGB(width + BRUSH_SIZE + x, y + BRUSH_SIZE, image.getRGB(width - 1, y)); // Right edge
+            }
+        }
+
+        for (int x = 0; x < width + 2 * BRUSH_SIZE; x++) {
+            for (int y = 0; y < BRUSH_SIZE; y++) {
+                expendedImage.setRGB(x, y, expendedImage.getRGB(x, BRUSH_SIZE)); // Top edge
+                expendedImage.setRGB(x, height + BRUSH_SIZE + y, expendedImage.getRGB(x, height + BRUSH_SIZE - 1)); // Bottom edge
+            }
+        }
+
         float[] blurKernel = new float[BRUSH_SIZE * BRUSH_SIZE];
         Arrays.fill(blurKernel, RATIO);
         Kernel kernel = new Kernel(BRUSH_SIZE, BRUSH_SIZE, blurKernel);
         ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
 
-        return op.filter(image, null);
+        expendedImage = op.filter(expendedImage, null);
+
+
+        return expendedImage.getSubimage(BRUSH_SIZE, BRUSH_SIZE, width, height);
     }
 
-    public static void createBiomeMap(BufferedImage intialImage) throws IOException {
-        Stopwatch stopwatch = Stopwatch.createUnstarted();
-        final int width = intialImage.getWidth();
-        final int height = intialImage.getHeight();
-        final int halfRegionSize = REGION_SIZE/2;
 
-        if(width % REGION_SIZE != 0 || height % REGION_SIZE != 0){
-            String message = "ImageUtils::Cannot subdivide map image, size not dividable by %s, current size is [%s, %s]".formatted(REGION_SIZE, width, height);
-            System.out.println(message);
-            throw new IOException(message);
-        }
-        // Creating initial map
-        INITIAL_REGION_SIZE_X = (short)(width / REGION_SIZE);
-        INITIAL_REGION_SIZE_Y = (short)(height / REGION_SIZE);
+    public static BufferedImage[][] subdivide(BufferedImage parent) {
+        BufferedImage[][] subidivedImages = new BufferedImage[2][2];
+        int width = parent.getWidth();
+        int height = parent.getHeight();
 
-        WorldMapDatas.initialize(INITIAL_REGION_SIZE_X, INITIAL_REGION_SIZE_Y);
-        BufferedImage newBiomeRegion = new BufferedImage(WorldMapDatas.REGION_SIZE, WorldMapDatas.REGION_SIZE, BufferedImage.TYPE_INT_ARGB);
-
-        WorldMapDatas.saveBiomeRegion(0, 0, 0, intialImage);
-        if(MiddleEarth.MAP_ITERATION == 0) return;
-        WorldMapDatas.next();
-        for(int i = 0; i < WorldMapDatas.AMOUNT_REGION_X; i ++){
-            for(int j = 0; j <  WorldMapDatas.AMOUNT_REGION_Y; j ++){
-                createChildFromParentRegion(newBiomeRegion, halfRegionSize, intialImage, i, j);
-                WorldMapDatas.saveBiomeRegion(i, j, WorldMapDatas.ITERATION, newBiomeRegion);
+        for(int x = 0; x < 2; x++){
+            for(int y = 0; y < 2; y++){
+                subidivedImages[x][y] = createChildFromParentImage(
+                        new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB), parent, width / 2, x, y
+                );
             }
         }
 
-        // Example of reading a file 'v'
-        String stepImage = "ImageUtils::Starting development";
-        System.out.println(stepImage);
+        return subidivedImages;
+    }
 
-        // Map iteration 0 is saved for initial map.        while(WorldMapDatas.ITERATION < MiddleEarth.MAP_ITERATION){
-        WorldMapDatas.next();
-        stopwatch.reset();
-        stopwatch.start();
-        for(int i = 0; i < WorldMapDatas.AMOUNT_REGION_X/2; i ++){
-            for(int j = 0; j < WorldMapDatas.AMOUNT_REGION_Y/2; j ++) {
-                String pathOfRegion = WorldMapDatas.BIOME_PATH.formatted(WorldMapDatas.ITERATION - 1) + WorldMapDatas.IMAGE_NAME.formatted(i, j);
-                File regionImage = new File(pathOfRegion);
-                if(regionImage.exists()){
-                    BufferedImage buffImage = ImageIO.read(regionImage);
-                    // Iterate to create the subdivision of the current region
-                    for(int rI = 0; rI < 2; rI++){
-                        for(int rJ = 0; rJ < 2; rJ++){
-                            newBiomeRegion = createChildFromParentRegion(newBiomeRegion, halfRegionSize, buffImage, rI, rJ);
-                            WorldMapDatas.saveBiomeRegion(i * 2 + rI, j * 2 + rJ, WorldMapDatas.ITERATION, newBiomeRegion);
-                        }
+
+    private static BufferedImage createChildFromParentImage(BufferedImage child, BufferedImage parent, int halfRegionSize, int xIndex, int yIndex) {
+        for(int x = halfRegionSize * xIndex; x < halfRegionSize * (xIndex+1); x++) {
+            for(int y = halfRegionSize * yIndex; y < halfRegionSize * (yIndex+1); y++) {
+                /* Debug
+                    final int color = parent.getRGB(x, y);
+                    final Short id = MEBiomesData.getBiomeIdByBiome(MEBiomesData.getBiomeByColor(color));
+                    if(id == null){
+                        String errMessage = "ImageUtils::Cannot subdivide map image, no biome found for color %s at (%s, %s)".formatted(color, x, y);
+                        System.out.println(errMessage);
+                        throw new RuntimeException(errMessage);
                     }
-                } else {
-                    String message = "ImageUtils::Cannot subdivide map image, region have not been found : %s".formatted(pathOfRegion);
-                    System.out.println(message);
-                    throw new IOException(message);
-                }
+                 */
+                child.setRGB((x - (halfRegionSize * xIndex)) * 2, (y - (halfRegionSize * yIndex)) * 2, parent.getRGB(x, y));
             }
         }
-        String errMessage = "ImageUtils::Stage of saving regions has been completed for iteration #%s in %s milliseconds".formatted(WorldMapDatas.ITERATION, stopwatch.elapsed(TimeUnit.MILLISECONDS));
-        System.out.println(errMessage);
-
-        String msg = "ImageUtils::Creation of the map completed : %s".formatted(WorldMapDatas.toStr());
-
-        System.out.println(msg); // Wtf
+        return fillImage(child);
     }
 
-
-
-
-    private static BufferedImage fillRegion(BufferedImage newRegion) {
+    private static BufferedImage fillImage(BufferedImage image) {
         final Stopwatch stopwatch = Stopwatch.createUnstarted();
-        final int width = newRegion.getWidth();
-        final int height = newRegion.getHeight();
+        final int width = image.getWidth();
+        final int height = image.getHeight();
 
         // Create the average values with neighbors
         List<Integer> biomeColors = new ArrayList<>();
@@ -116,52 +130,36 @@ public class ImageUtils {
                 if(xIsUneven ^ yIsUneven){
                     if(xIsUneven){
                         if(x < width - 1)
-                            biomeColors.add(newRegion.getRGB(x + 1,y));
-                        biomeColors.add(newRegion.getRGB(x - 1,y));
+                            biomeColors.add(image.getRGB(x + 1,y));
+                        biomeColors.add(image.getRGB(x - 1,y));
                     }
                     if(yIsUneven){
                         if(y < height - 1)
-                            biomeColors.add(newRegion.getRGB(x,y + 1));
-                        biomeColors.add(newRegion.getRGB(x,y - 1));
+                            biomeColors.add(image.getRGB(x,y + 1));
+                        biomeColors.add(image.getRGB(x,y - 1));
                     }
 
-                    newRegion.setRGB(x,y, getRandomInteger(biomeColors));
+                    image.setRGB(x,y, getRandomInteger(biomeColors));
 
                     biomeColors.clear();
 
                     if(yIsUneven && x > 1){
-                        biomeColors.add(newRegion.getRGB(x,y));
-                        biomeColors.add(newRegion.getRGB(x - 2,y));
+                        biomeColors.add(image.getRGB(x,y));
+                        biomeColors.add(image.getRGB(x - 2,y));
                         if(y < height - 1)
-                            biomeColors.add(newRegion.getRGB(x - 1,y + 1));
-                        biomeColors.add(newRegion.getRGB(x - 1,y - 1));
+                            biomeColors.add(image.getRGB(x - 1,y + 1));
+                        biomeColors.add(image.getRGB(x - 1,y - 1));
 
-                        newRegion.setRGB(x - 1,y, getRandomInteger(biomeColors));
+                        image.setRGB(x - 1,y, getRandomInteger(biomeColors));
                         biomeColors.clear();
                     }
                 } else if(x == width - 1){ // TODO : Find another solution instead of only taking the one from the left
-                    newRegion.setRGB(x,y, newRegion.getRGB(x - 1, y));
+                    image.setRGB(x,y, image.getRGB(x - 1, y));
                 }
             }
         }
         stopwatch.reset();
-        return newRegion;
-    }
-
-    private static BufferedImage createChildFromParentRegion(BufferedImage child, int halfRegionSize, BufferedImage parent, int rI, int rJ) {
-        for(int x = halfRegionSize * rI; x < halfRegionSize * (rI+1); x++) {
-            for(int y = halfRegionSize * rJ; y < halfRegionSize * (rJ+1); y++) {
-                final int color = parent.getRGB(x, y);
-                final Short id = MEBiomesData.getBiomeIdByBiome(MEBiomesData.getBiomeByColor(color));
-                if(id == null){
-                    String errMessage = "ImageUtils::Cannot subdivide map image, no biome found for color %s at (%s, %s)".formatted(color, x, y);
-                    System.out.println(errMessage);
-                    throw new RuntimeException(errMessage);
-                }
-                child.setRGB((x - halfRegionSize * rI) * 2, (y - halfRegionSize * rJ) * 2, MEBiomesData.getColorByBiomeId(id));
-            }
-        }
-        return fillRegion(child);
+        return image;
     }
 
     private static Integer getRandomInteger(List<Integer> list) {

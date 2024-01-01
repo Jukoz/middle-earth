@@ -1,9 +1,10 @@
 package net.jukoz.me.world.chunkgen.map;
 
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.world.biomes.MEBiome;
 import net.jukoz.me.world.biomes.MEBiomesData;
-import net.jukoz.me.world.datas.WorldMapDatas;
+import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 
 import java.awt.*;
 
@@ -25,14 +26,7 @@ public class MiddleEarthHeightMap {
 
     private static float getImageHeight(int xWorld, int zWorld) {
 
-        int xMapCoordinate = Math.round((float) xWorld / 4);
-        int zMapCoordinate = Math.round((float) zWorld / 4);
-
-        if(!WorldMapDatas.isWorldCoordinateInBound(xWorld, zWorld)){
-            return MEBiomesData.defaultBiome.height + getPerlinMapHeight(xMapCoordinate, zMapCoordinate);
-        }
-
-        Color color = WorldMapDatas.getHeight(xMapCoordinate, zMapCoordinate);
+        Color color = MiddleEarth.GetWorldMapDatas().getHeightFromWorldCoordinates(xWorld, zWorld);
 
         if(color != null){
             float red = color.getRed();
@@ -72,7 +66,7 @@ public class MiddleEarthHeightMap {
         MEBiome meBiome;
         double perlin = getPerlinHeight(x, z);
 
-        if(WorldMapDatas.isWorldCoordinateInBound(x, z)) {
+        if(MiddleEarth.GetWorldMapDatas().isWorldCoordinateInBound(x, z)) {
             float biomeHeight = getImageHeight(x, z);
             if(biomeHeight >= MOUNTAIN_START_HEIGHT) {
                 float multiplier = (biomeHeight / MOUNTAIN_START_HEIGHT) - 1;
@@ -91,7 +85,7 @@ public class MiddleEarthHeightMap {
         float total = 0;
         for(int i = -SMOOTH_BRUSH_SIZE; i <= SMOOTH_BRUSH_SIZE; i++) {
             for(int j = -SMOOTH_BRUSH_SIZE; j <= SMOOTH_BRUSH_SIZE; j++) {
-                if(!WorldMapDatas.isWorldCoordinateInBound(x + i, z + j)) total += MEBiomesData.defaultBiome.height;
+                if(!MiddleEarth.GetWorldMapDatas().isWorldCoordinateInBound(x + i, z + j)) total += MEBiomesData.defaultBiome.height;
                 else total += getImageHeight(x,z);
             }
         }
