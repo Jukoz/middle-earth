@@ -20,10 +20,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.random.CheckedRandom;
 import net.minecraft.util.math.random.ChunkRandom;
 import net.minecraft.util.math.random.RandomSeed;
-import net.minecraft.world.ChunkRegion;
-import net.minecraft.world.HeightLimitView;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.SpawnHelper;
+import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.chunk.Chunk;
@@ -145,6 +142,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     }
 
+
+
     @Override
     public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
         int bottomY = chunk.getBottomY();
@@ -212,6 +211,11 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         if(noise < 0.4f && noise3 < 0.75f && miniNoise < 0.8f) { //
             chunk.setBlockState(blockPos, blockState, false);
         }
+    }
+    
+    @Override
+    public void generateFeatures(StructureWorldAccess world, Chunk chunk, StructureAccessor structureAccessor) {
+        super.generateFeatures(world, chunk, structureAccessor);
     }
 
     @Override

@@ -4,11 +4,15 @@
   "package": "net.jukoz.me.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "ChunkRegionMixin",
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
-    "PlayerMixin"
+    "FoliagePlacerTypeInvoker",
+    "PlayerMixin",
+    "TrunkPlacerTypeInvoker"
   ],
   "client": [
+    "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
     "client.BackgroundRendererMixin",
     "client.ClientPlayerInteractionManagerMixin",
