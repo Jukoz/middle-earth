@@ -14,8 +14,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class MiddleEarthMapDatas {
-    public static final String BIOME_PATH = "mods/me_data/biomes/i_%s";
-    public static final String HEIGHT_PATH = "mods/me_data/heights";
+    public static final String BIOME_PATH = "data/me/biomes/i_%s";
+    public static final String HEIGHT_PATH = "data/me/heights";
     public static final String IMAGE_NAME = "/%s_%s.png";
     public static final int REGION_SIZE = 3000;
     public static final int PIXEL_WEIGHT = 4;
@@ -83,7 +83,6 @@ public class MiddleEarthMapDatas {
         while(iteration < MiddleEarth.MAP_ITERATION){
             ExecutorService executorService = Executors.newFixedThreadPool(threadPoolSize);
             applyNext();
-            System.out.println("MiddleEarthMapDatas::New biome map for #[%s] _ [%s][%s]".formatted(iteration, biomeRegions[iteration].length, biomeRegions[iteration][0].length));
             for(int xOld = 0; xOld < biomeRegions[iteration-1].length; xOld++){
                 for(int zOld = 0; zOld < biomeRegions[iteration-1][0].length; zOld++){
                     int finalX = xOld;
@@ -170,7 +169,6 @@ public class MiddleEarthMapDatas {
     private void saveRegions(BufferedImage[][] regions, String path) throws Exception {
         for(int x = 0; x < regions.length; x ++){
             for(int y = 0; y < regions[0].length; y ++){
-                //System.out.println("MiddleEarthMapDatas::Saving Region for [%s][%s] from initial [%s][%s] at <%s>".formatted(x, y, x/2, y/2, path));
                 ImageUtils.saveImage(regions[x][y], path, IMAGE_NAME.formatted(x, y));
             }
         }
@@ -229,7 +227,6 @@ public class MiddleEarthMapDatas {
                             return true;
                         } else {
                             biomeRegions[i][x][y] = img;
-                            //System.out.println("MiddleEarthMapDatas::<%s>".formatted(path));
                         }
                     }
                 }
