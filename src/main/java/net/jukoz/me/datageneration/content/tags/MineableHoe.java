@@ -10,6 +10,8 @@ import java.util.List;
 public class MineableHoe {
     public static List<Block> blocks = new ArrayList<>() {
     {
+        add(ModNatureBlocks.LEBETHRON_LEAVES);
+
         add(ModBlocks.REED_BLOCK);
         add(ModBlocks.REED_SLAB);
         add(ModBlocks.REED_STAIRS);

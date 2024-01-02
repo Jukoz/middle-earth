@@ -70,6 +70,8 @@ public class HelpingGenerator {
             MineableAxe.blocks.add(set.button());
             MineableAxe.blocks.add(set.pressurePlate());
 
+            if(set.leaves() != null) MineableHoe.blocks.add(set.leaves());
+
             Buttons.buttons.add(set.button());
             Fences.fences.add(set.planksFence());
             FenceGates.fenceGates.add(set.planksGate());
