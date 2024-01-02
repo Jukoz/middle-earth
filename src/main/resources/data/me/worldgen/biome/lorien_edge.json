@@ -54,7 +54,8 @@
       "minecraft:ore_copper",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
-      "minecraft:disk_gravel"
+      "minecraft:disk_gravel",
+	  "me:mallorn_tree"
     ],
     [],
     [
@@ -62,8 +63,7 @@
     ],
     [
       "minecraft:glow_lichen",
-      "me:forest/lothlorien",
-      "minecraft:flower_plains",
+      "me:foliage/simple/lothlorien_plants",
       "minecraft:patch_grass_plain",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_pumpkin"

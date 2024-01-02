@@ -10,6 +10,7 @@ import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.jukoz.me.recipe.ModRecipes;
 import net.jukoz.me.sound.ModSounds;
 import net.jukoz.me.world.datas.MiddleEarthMapDatas;
+import net.jukoz.me.world.gen.ModWorldGeneration;
 import net.jukoz.me.world.spawners.ModEntitySpawning;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.MEBiomesData;
@@ -27,7 +28,7 @@ public class MiddleEarth implements ModInitializer {
 	// 5 : 96 000 (384,000)
 	// 6 : 192 000 (768,000)
 	// 7 : 384 000 (1,536,000)
-	public static final int MAP_ITERATION = 3;
+	public static final int MAP_ITERATION = 2;
 	public static final boolean FORCE_GENERATION = false;
 	private static MiddleEarthMapDatas middleEarthMapDatas;
 
@@ -63,6 +64,7 @@ public class MiddleEarth implements ModInitializer {
 		ModDimensions.register();
 		MEBiomeKeys.registerModBiomes();
 		MEBiomesData.loadBiomes();
+		ModWorldGeneration.generateModWorldGen();
 
 		try {
 			middleEarthMapDatas = new MiddleEarthMapDatas(getClass().getClassLoader());

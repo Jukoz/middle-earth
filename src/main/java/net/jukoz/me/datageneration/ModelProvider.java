@@ -135,7 +135,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for(Block block : TintableCrossModel.notTintedBlocks) {
-            blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.TintType.NOT_TINTED);
+            if(block != null) blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.TintType.NOT_TINTED);
         }
 
         // Crops
@@ -172,7 +172,7 @@ public class ModelProvider extends FabricModelProvider {
 
         for (Item item : SimpleBowItemModel.items) {
             for(int i = 0; i < 3; i++) {
-                itemModelGenerator.register(item, "_pulling_" + i, Models.GENERATED);
+                itemModelGenerator.register(item, "_pulling_" + i, CustomItemModels.BOW);
             }
         }
 
