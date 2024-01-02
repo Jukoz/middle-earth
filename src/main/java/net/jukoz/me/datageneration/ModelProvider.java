@@ -135,7 +135,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for(Block block : TintableCrossModel.notTintedBlocks) {
-            blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.TintType.NOT_TINTED);
+            if(block != null) blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.TintType.NOT_TINTED);
         }
 
         // Crops
