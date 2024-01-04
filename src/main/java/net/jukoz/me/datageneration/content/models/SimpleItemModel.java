@@ -1,6 +1,7 @@
 package net.jukoz.me.datageneration.content.models;
 
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModRessourceItems;
 import net.minecraft.item.Item;
 
@@ -21,6 +22,12 @@ public class SimpleItemModel {
             add(ModEquipmentItems.NAZGUL_CLOAK);
             add(ModEquipmentItems.NAZGUL_PANTS);
             add(ModEquipmentItems.NAZGUL_BOOTS);
+
+            add(ModFoodItems.RAW_HORSE);
+            add(ModFoodItems.COOKED_HORSE);
+
+            add(ModEquipmentItems.STEEL_TROLL_ARMOR);
+            add(ModEquipmentItems.BEAST_CHAINS);
         }
     };
 }

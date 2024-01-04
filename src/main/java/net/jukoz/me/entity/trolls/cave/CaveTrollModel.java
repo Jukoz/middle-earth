@@ -2,6 +2,8 @@ package net.jukoz.me.entity.trolls.cave;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.jukoz.me.entity.balrog.BalrogAnimations;
+import net.jukoz.me.entity.trolls.TrollAnimations;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
@@ -19,8 +21,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 
 @Environment(value= EnvType.CLIENT)
-public class CaveTrollModel
-extends SinglePartEntityModel<CaveTrollEntity> {
+public class CaveTrollModel extends SinglePartEntityModel<CaveTrollEntity> {
     private final ModelPart root;
     private final ModelPart body;
     private final ModelPart head;
@@ -57,42 +58,44 @@ extends SinglePartEntityModel<CaveTrollEntity> {
                 .uv(116, 107).cuboid(-6.0F, 0.2F, -16.0F, 12.0F, 3.0F, 12.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -26.0F, -6.0F));
 
         ModelPartData boneJaw = head.addChild("boneJaw", ModelPartBuilder.create().uv(84, 50).cuboid(-6.0F, 0.75F, -13.0F, 12.0F, 3.0F, 14.0F, new Dilation(0.0F))
-                .uv(117, 91).cuboid(-5.5F, -1.25F, -12.5F, 11.0F, 2.0F, 13.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 2.45F, -5.0F, 0.0F, 0.0F, 0.0F));
+                .uv(117, 91).cuboid(-5.5F, -1.25F, -12.5F, 11.0F, 2.0F, 13.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 2.45F, -5.0F));
 
-        ModelPartData legLeft = modelPartData.addChild("legLeft", ModelPartBuilder.create().uv(73, 0).cuboid(-5.0F, 19.0F, -7.0F, 10.0F, 5.0F, 2.0F, new Dilation(0.0F))
-                .uv(0, 118).cuboid(-5.0F, 11.0F, -5.0F, 10.0F, 13.0F, 10.0F, new Dilation(0.0F))
-                .uv(106, 67).cuboid(-5.5F, -2.0F, -5.5F, 11.0F, 13.0F, 11.0F, new Dilation(0.0F)), ModelTransform.pivot(5.5F, 0.0F, 0.0F));
+        ModelPartData legLeft = modelPartData.addChild("legLeft", ModelPartBuilder.create().uv(106, 67).cuboid(-5.5F, -2.0F, -5.5F, 11.0F, 13.0F, 11.0F, new Dilation(0.0F)), ModelTransform.pivot(5.5F, 0.0F, 0.0F));
 
-        ModelPartData legRight = modelPartData.addChild("legRight", ModelPartBuilder.create().uv(45, 67).cuboid(-5.0F, 19.0F, -7.0F, 10.0F, 5.0F, 2.0F, new Dilation(0.0F))
-                .uv(118, 23).cuboid(-5.0F, 11.0F, -5.0F, 10.0F, 13.0F, 10.0F, new Dilation(0.0F))
-                .uv(84, 95).cuboid(-5.5F, -2.0F, -5.5F, 11.0F, 13.0F, 11.0F, new Dilation(0.0F)), ModelTransform.pivot(-5.5F, 0.0F, 0.0F));
+        ModelPartData kneeLeft = legLeft.addChild("kneeLeft", ModelPartBuilder.create().uv(0, 118).cuboid(3.6F, -13.0F, -5.0F, 10.0F, 13.0F, 10.0F, new Dilation(0.0F))
+                .uv(73, 0).cuboid(3.6F, -5.0F, -7.0F, 10.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(-8.6F, 24.0F, 0.0F));
 
-        ModelPartData armRight = modelPartData.addChild("armRight", ModelPartBuilder.create().uv(60, 67).cuboid(-11.0F, -4.0F, -6.0F, 11.0F, 16.0F, 12.0F, new Dilation(0.0F))
-                .uv(90, 0).cuboid(-10.0F, 12.0F, -5.0F, 9.0F, 23.0F, 10.0F, new Dilation(0.0F)), ModelTransform.pivot(-14.0F, -26.0F, 1.0F));
+        ModelPartData legRight = modelPartData.addChild("legRight", ModelPartBuilder.create().uv(84, 95).cuboid(-5.5F, -2.0F, -5.5F, 11.0F, 13.0F, 11.0F, new Dilation(0.0F)), ModelTransform.pivot(-5.5F, 0.0F, 0.0F));
 
-        ModelPartData armLeft = modelPartData.addChild("armLeft", ModelPartBuilder.create().uv(0, 90).cuboid(0.0F, -4.0F, -6.0F, 11.0F, 16.0F, 12.0F, new Dilation(0.0F))
-                .uv(46, 95).cuboid(1.0F, 12.0F, -5.0F, 9.0F, 23.0F, 10.0F, new Dilation(0.0F)), ModelTransform.pivot(14.0F, -26.0F, 1.0F));
+        ModelPartData kneeRight = legRight.addChild("kneeRight", ModelPartBuilder.create().uv(45, 67).cuboid(-5.0F, 19.0F, -7.0F, 10.0F, 5.0F, 2.0F, new Dilation(0.0F))
+                .uv(118, 23).cuboid(-5.0F, 11.0F, -5.0F, 10.0F, 13.0F, 10.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+
+        ModelPartData armRight = modelPartData.addChild("armRight", ModelPartBuilder.create().uv(60, 67).cuboid(-11.0F, -4.0F, -6.0F, 11.0F, 16.0F, 12.0F, new Dilation(0.0F)), ModelTransform.pivot(-14.0F, -26.0F, 1.0F));
+
+        ModelPartData forearmRight = armRight.addChild("forearmRight", ModelPartBuilder.create().uv(90, 0).cuboid(-11.5F, 9.2F, -5.5F, 9.0F, 23.0F, 10.0F, new Dilation(0.0F)), ModelTransform.pivot(1.5F, 2.8F, 0.5F));
+
+        ModelPartData armLeft = modelPartData.addChild("armLeft", ModelPartBuilder.create().uv(0, 90).cuboid(0.0F, -4.0F, -6.0F, 11.0F, 16.0F, 12.0F, new Dilation(0.0F)), ModelTransform.pivot(14.0F, -26.0F, 1.0F));
+
+        ModelPartData forearmLeft = armLeft.addChild("forearmLeft", ModelPartBuilder.create().uv(46, 95).cuboid(-4.5F, 0.2F, -5.5F, 9.0F, 23.0F, 10.0F, new Dilation(0.0F)), ModelTransform.pivot(5.5F, 11.8F, 0.5F));
         return TexturedModelData.of(modelData, 256, 256);
     }
 
     @Override
     public void setAngles(CaveTrollEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.pitch = headPitch * ((float)Math.PI / 180);
-        this.head.yaw = netHeadYaw * ((float)Math.PI / 180);
-        this.boneJaw.pitch = 0.25F * Math.max(0, MathHelper.cos(ageInTicks * 0.1f));
-        float k = 0.8f * limbSwingAmount;
-        this.legRight.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
-        this.legLeft.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float)Math.PI) * k;
+        this.getPart().traverse().forEach(ModelPart::resetTransform);
+        this.setHeadAngles(netHeadYaw, headPitch);
 
-        int i = entity.getAttackTicksLeft();
-        if (entity.getState().equals(CaveTrollEntity.State.ATTACK)) {
-            float ageFloat = (ageInTicks - (int)ageInTicks); // Helps to smooth the animation
-            this.armRight.pitch = -1.1f + 0.9f * MathHelper.wrap((float) i - ageFloat, 10.0f);
-            this.armLeft.pitch = -1.1f + 0.9f * MathHelper.wrap((float) i - ageFloat, 10.0f);
-        } else {
-            this.armRight.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float)Math.PI) * k;
-            this.armLeft.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
-        }
+        this.animateMovement(TrollAnimations.MOVING, limbSwing, limbSwingAmount, 2f, 2.5f);
+        this.updateAnimation(entity.idleAnimationState, TrollAnimations.IDLE, ageInTicks, 1f);
+        this.updateAnimation(entity.attackAnimationState, TrollAnimations.ATTACK, ageInTicks, 1f);
+    }
+
+    private void setHeadAngles(float headYaw, float headPitch) {
+        headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
+        headPitch = MathHelper.clamp(headPitch, -25.0F, 40.0F);
+
+        this.head.yaw = headYaw * 0.017453292F;
+        this.head.pitch = headPitch * 0.017453292F;
     }
 
     @Override

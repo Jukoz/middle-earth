@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.entity.balrog.BalrogModel;
 import net.jukoz.me.entity.barrow_wights.BarrowWightModel;
 import net.jukoz.me.entity.crab.CrabModel;
 import net.jukoz.me.entity.duck.DuckEntity;
@@ -31,6 +32,7 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer SNOW_TROLL = ModEntityModelLayers.registerEntityModelLayer("snow_troll", SnowTrollModel.getTexturedModelData());
     public static final EntityModelLayer BARROW_WIGHT = ModEntityModelLayers.registerEntityModelLayer("barrow_wight", BarrowWightModel.getTexturedModelData());
     public static final EntityModelLayer SPIDER = ModEntityModelLayers.registerEntityModelLayer("spider", MirkwoodSpiderModel.getTexturedModelData());
+    public static final EntityModelLayer BALROG = ModEntityModelLayers.registerEntityModelLayer("balrog", BalrogModel.getTexturedModelData());
 
 
     // Animals

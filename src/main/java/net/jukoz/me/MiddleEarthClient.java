@@ -12,6 +12,7 @@ import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntityRenderer;
 import net.jukoz.me.datageneration.VariantsModelProvider;
 import net.jukoz.me.entity.ModEntities;
+import net.jukoz.me.entity.balrog.BalrogRenderer;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntityRenderer;
 import net.jukoz.me.entity.crab.CrabRenderer;
 import net.jukoz.me.entity.duck.DuckRenderer;
@@ -58,6 +59,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.MORDOR_ORC, MordorOrcRenderer::new);
         EntityRendererRegistry.register(ModEntities.MIRKWOOD_SPIDER, MirkwoodSpiderRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNOW_TROLL, SnowTrollRenderer::new);
+        EntityRendererRegistry.register(ModEntities.BALROG, BalrogRenderer::new);
 
         // Items
         ModelLoadingRegistry.INSTANCE.registerModelProvider(((manager, out) -> new VariantsModelProvider().provideExtraModels(manager, out)));

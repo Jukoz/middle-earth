@@ -149,6 +149,8 @@
   "item.me.mordor_orc_leggings": "Mordor Orc Leggings",
   "item.me.mordor_orc_boots": "Mordor Orc Boots",
 
+  "item.me.steel_troll_armor": "Steel Troll Armor",
+
 "#Comment:": "Item - Food",
   "item.me.lembas": "Lembas",
   "item.me.maggoty_bread": "Maggoty Bread",
@@ -162,6 +164,8 @@
   "item.me.cooked_duck": "Cooked Duck",
   "item.me.raw_swan": "Raw Swan",
   "item.me.cooked_swan": "Cooked Swan",
+  "item.me.raw_horse": "Raw Horse",
+  "item.me.cooked_horse": "Cooked Horse",
 
 "#Comment:": "Item - Resources",
   "item.me.straw": "Straw",
@@ -170,6 +174,8 @@
 
 "#Comment:": "Item - Spawn Eggs",
   "item.me.barrow_wight_spawn_egg": "Barrow Wight Spawn Egg",
+  "item.me.nazgul_spawn_egg": "Nazgûl Spawn Egg",
+  "item.me.balrog_spawn_egg": "Balrog Spawn Egg",
   "item.me.cave_troll_spawn_egg": "Cave Troll Spawn Egg",
   "item.me.snow_troll_spawn_egg": "Snow Troll Spawn Egg",
   "item.me.crab_spawn_egg": "Crab Spawn Egg",
@@ -199,6 +205,7 @@
   "entity.me.mordor_orc": "Mordor Orc",
   "entity.me.mirkwood_spider": "Mirkwood Spider",
   "entity.me.nazgul": "Nazgûl",
+  "entity.me.balrog": "Balrog",
   "entity.me.pebble": "Pebble",
 
 "#Comment:": "Block - Vanilla +",

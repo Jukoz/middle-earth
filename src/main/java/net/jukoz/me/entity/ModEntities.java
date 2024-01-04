@@ -3,6 +3,7 @@ package net.jukoz.me.entity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.entity.balrog.BalrogEntity;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntity;
 import net.jukoz.me.entity.crab.CrabEntity;
 import net.jukoz.me.entity.duck.DuckEntity;
@@ -31,6 +32,9 @@ public class ModEntities {
     // Barrow Wights
     public static final EntityType<BarrowWightEntity> BARROW_WIGHT = registerEntity("barrow_wight", BarrowWightEntity::new, SpawnGroup.CREATURE, 0.9f, 2.1f);
 
+    //Balrog
+    public static final EntityType<BalrogEntity> BALROG = registerEntity("balrog", BalrogEntity::new, SpawnGroup.MONSTER, 1.5f, 2.5f);
+
     // Dwarfs
     public static final EntityType<DurinDwarfEntity> DURIN_FOLK = registerEntity("durin_folk", DurinDwarfEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
@@ -54,7 +58,6 @@ public class ModEntities {
     public static final EntityType<SnowTrollEntity> SNOW_TROLL = registerEntity("snow_troll", SnowTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
 
 
-
     ///* Weapons *///
     public static final EntityType<PebbleEntity> PEBBLE = registerEntity("pebble", PebbleEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
     public static final EntityType<SpearEntity> SPEAR = registerEntity("spear", SpearEntity::new, SpawnGroup.MISC, 0.5F, 0.5F);
@@ -74,6 +77,7 @@ public class ModEntities {
 
     public static void registerModEntities() {
         FabricDefaultAttributeRegistry.register(BARROW_WIGHT, BarrowWightEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(BALROG, BalrogEntity.createBalrogAttributes());
         FabricDefaultAttributeRegistry.register(CAVE_TROLL, CaveTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(DURIN_FOLK, DurinDwarfEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(HOBBIT, ShireHobbitEntity.setAttributes());

@@ -27,6 +27,10 @@ public class ModEggItems {
             new SpawnEggItem(ModEntities.SNOW_TROLL, 12770027, 9739424, new Item.Settings()));
     public static final Item MIRKWOOD_SPIDER_SPAWN_EGG = registerItem("mirkwood_spider_spawn_egg",
             new SpawnEggItem(ModEntities.MIRKWOOD_SPIDER, 657930, 11669520, new Item.Settings()));
+    public static final Item BALROG_SPAWN_EGG = registerItem("balrog_spawn_egg",
+            new SpawnEggItem(ModEntities.BALROG, 8323072, 11027200, new Item.Settings()));
+    public static final Item NAZGUL_SPAWN_EGG = registerItem("nazgul_spawn_egg",
+            new SpawnEggItem(ModEntities.NAZGUL, 1644825, 4144959, new Item.Settings()));
 
     // Animals
     public static final Item CRAB_SPAWN_EGG = registerItem("crab_spawn_egg",
