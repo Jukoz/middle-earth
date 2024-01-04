@@ -2,6 +2,8 @@ package net.jukoz.me.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.special.StoolBlock;
+import net.jukoz.me.block.special.TableBlock;
 import net.jukoz.me.block.special.VerticalSlabBlock;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
@@ -17,7 +19,7 @@ public class MushroomBlockSets {
 
     public record MushroomBlockSet(Block stem, Block stemWall,
                                  Block planks, Block planksSlab, Block planksVerticalSlab, Block planksStairs, Block planksFence, Block planksGate,
-                                 Block pressurePlate, Block button, Block door, Block trapdoor) {
+                                 Block pressurePlate, Block button, Block door, Block trapdoor, Block stool, Block table) {
     }
 
     public static MushroomBlockSets.MushroomBlockSet[] sets = new MushroomBlockSets.MushroomBlockSet[] {
@@ -57,12 +59,18 @@ public class MushroomBlockSets {
                 FabricBlockSettings.copyOf(planks).strength(PLATE_BUTTON_STRENGTH).sounds(BlockSoundGroup.WOOD), BlockSetType.OAK));
 
         Block door = ModBlocks.registerBlock(name + "_door", new DoorBlock(FabricBlockSettings.copyOf(planks)
-                .strength(MushroomBlockSets.MUSHROOM_STRENGTH).sounds(BlockSoundGroup.WOOD), BlockSetType.OAK));
+                .sounds(BlockSoundGroup.WOOD), BlockSetType.OAK));
 
         Block trapdoor = ModBlocks.registerBlock(name + "_trapdoor", new TrapdoorBlock(FabricBlockSettings.copyOf(planks)
-                .strength(MushroomBlockSets.MUSHROOM_STRENGTH).sounds(BlockSoundGroup.WOOD).nonOpaque(), BlockSetType.OAK));
+                .sounds(BlockSoundGroup.WOOD).nonOpaque(), BlockSetType.OAK));
 
-        return new MushroomBlockSet(stem, stemWall, planks, slab, verticalSlab, stairs, fence, gate, pressurePlate, button, door, trapdoor);
+        Block stool = ModBlocks.registerBlock(name + "_wood_stool", new StoolBlock(FabricBlockSettings.copyOf(planks)
+                .sounds(BlockSoundGroup.WOOD).nonOpaque()));
+
+        Block table = ModBlocks.registerBlock(name + "_wood_table", new TableBlock(FabricBlockSettings.copyOf(planks)
+                .sounds(BlockSoundGroup.WOOD).nonOpaque()));
+
+        return new MushroomBlockSet(stem, stemWall, planks, slab, verticalSlab, stairs, fence, gate, pressurePlate, button, door, trapdoor, stool, table);
     }
 
     public static void registerModBlockSets() {

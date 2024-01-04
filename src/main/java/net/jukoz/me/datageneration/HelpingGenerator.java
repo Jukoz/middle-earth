@@ -5,6 +5,7 @@ import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.datageneration.content.loot_tables.LeavesDrops;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.content.tags.*;
+import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 
 import java.util.Objects;
@@ -53,6 +54,8 @@ public class HelpingGenerator {
             SimplePressurePlateModel.blocks.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
             SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(set.planks(), set.trapdoor()));
             SimpleDoorModel.doors.add(new SimpleDoorModel.Door(set.planks(), set.door()));
+            SimpleWoodStoolModel.stools.add(set.stool());
+            SimpleWoodTableModel.tables.add(set.table());
 
             BlockDrops.blocks.add(set.log());
             BlockDrops.blocks.add(set.wood());
@@ -67,6 +70,8 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.pressurePlate());
             BlockDrops.blocks.add(set.trapdoor());
             BlockDrops.blocks.add(set.door());
+            BlockDrops.blocks.add(set.stool());
+            BlockDrops.blocks.add(set.table());
 
             MineableAxe.blocks.add(set.log());
             MineableAxe.blocks.add(set.wood());
@@ -81,6 +86,8 @@ public class HelpingGenerator {
             MineableAxe.blocks.add(set.pressurePlate());
             MineableAxe.blocks.add(set.trapdoor());
             MineableAxe.blocks.add(set.door());
+            MineableAxe.blocks.add(set.stool());
+            MineableAxe.blocks.add(set.table());
 
             Buttons.buttons.add(set.button());
             Fences.fences.add(set.planksFence());
@@ -126,6 +133,8 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.pressurePlate());
             BlockDrops.blocks.add(set.trapdoor());
             BlockDrops.blocks.add(set.door());
+            BlockDrops.blocks.add(set.stool());
+            BlockDrops.blocks.add(set.table());
 
             MineableAxe.blocks.add(set.stemWall());
             MineableAxe.blocks.add(set.planks());
@@ -138,6 +147,8 @@ public class HelpingGenerator {
             MineableAxe.blocks.add(set.pressurePlate());
             MineableAxe.blocks.add(set.trapdoor());
             MineableAxe.blocks.add(set.door());
+            MineableAxe.blocks.add(set.stool());
+            MineableAxe.blocks.add(set.table());
 
             Buttons.buttons.add(set.button());
             Fences.fences.add(set.planksFence());
@@ -173,6 +184,13 @@ public class HelpingGenerator {
             }
 
         }
+
+        for (SimpleVerticalSlabModel.VerticalSlab set : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
+            BlockDrops.blocks.add(set.verticalSlab());
+        }
+
+        BlockDrops.blocks.addAll(SimpleWoodStoolModel.vanillaStools);
+        BlockDrops.blocks.addAll(SimpleWoodTableModel.vanillaTables);
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null){

@@ -2,7 +2,10 @@ package net.jukoz.me.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.special.StoolBlock;
+import net.jukoz.me.block.special.TableBlock;
 import net.jukoz.me.block.special.VerticalSlabBlock;
+import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
 
@@ -37,7 +40,7 @@ public class WoodBlockSets {
 
     public record SimpleBlockSet(Block leaves, Block log, Block wood, Block woodWall,
                                  Block planks, Block planksSlab, Block planksVerticalSlab, Block planksStairs, Block planksFence, Block planksGate,
-                                 Block pressurePlate, Block button, Block door, Block trapdoor) {
+                                 Block pressurePlate, Block button, Block door, Block trapdoor, Block stool, Block table) {
     }
 
     private static SimpleBlockSet registerWoodSet(String name, float strength, boolean hasLeaves) {
@@ -83,7 +86,15 @@ public class WoodBlockSets {
         Block trapdoor = ModBlocks.registerBlock(name + "_trapdoor", new TrapdoorBlock(FabricBlockSettings.copyOf(planks)
                 .strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque(), BlockSetType.OAK));
 
-        return new SimpleBlockSet(leaves, log, wood, woodWall, planks, slab, verticalSlab, stairs, fence, gate, pressurePlate, button, door, trapdoor);
+        Block stool = ModBlocks.registerBlock(name + "_wood_stool", new StoolBlock(FabricBlockSettings.copyOf(planks)
+                .strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque()));
+
+        Block table = ModBlocks.registerBlock(name + "_wood_table", new TableBlock(FabricBlockSettings.copyOf(planks)
+                .strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque()));
+
+        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(stool.asItem().getDefaultStack());
+
+        return new SimpleBlockSet(leaves, log, wood, woodWall, planks, slab, verticalSlab, stairs, fence, gate, pressurePlate, button, door, trapdoor, stool, table);
     }
 
 

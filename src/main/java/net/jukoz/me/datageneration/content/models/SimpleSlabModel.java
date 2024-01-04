@@ -12,6 +12,7 @@ public class SimpleSlabModel {
     public static List<Slab> slabs = new ArrayList<>() {
         {
             add(new Slab(ModBlocks.REED_BLOCK, ModBlocks.REED_SLAB));
+            add(new Slab(ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_SLAB));
             add(new Slab(ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT_SLAB));
             add(new Slab(ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_SLAB));
             add(new Slab(ModBlocks.CUT_LEAD, ModBlocks.CUT_LEAD_SLAB));

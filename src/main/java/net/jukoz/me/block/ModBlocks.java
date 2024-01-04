@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.StoneMyceliumBlock;
+import net.jukoz.me.block.special.StoolBlock;
 import net.jukoz.me.block.special.VerticalSlabBlock;
 import net.jukoz.me.block.special.gemstones.CitrineBuddingGemBlock;
 import net.jukoz.me.block.special.gemstones.RedAgateBuddingGemBlock;
@@ -493,7 +494,6 @@ public class ModBlocks {
             new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
     public static final Block YELLOW_WOOL_VERTICAL_SLAB = registerBlock("yellow_wool_vertical_slab",
             new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)));
-
     //endregion
 
     //region VANILLA STAIRS
@@ -544,6 +544,7 @@ public class ModBlocks {
     public static final Block SAND_LAYERS = registerBlock("sand_layers",
             new SnowBlock(FabricBlockSettings.copyOf(Blocks.GRAVEL)));
     //endregion
+
 
     public static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);

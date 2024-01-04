@@ -73,6 +73,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createDoorRecipe(exporter, record.planks(), record.door());
             createTrapdoorRecipe(exporter, record.planks(), record.trapdoor());
 
+            createStoolRecipe(exporter, record.planks().asItem(), record.stool());
+
             ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planks(), 4)
                     .input(record.log())
                     .criterion(FabricRecipeProvider.hasItem(record.log()),
@@ -127,6 +129,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createStairsRecipe(exporter, record.planks(), record.planksStairs());
             createDoorRecipe(exporter, record.planks(), record.door());
             createTrapdoorRecipe(exporter, record.planks(), record.trapdoor());
+            createStoolRecipe(exporter, record.planks().asItem(), record.stool());
+
 
             ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planksFence(), 3)
                     .pattern("lsl")
@@ -470,9 +474,13 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createSeedsRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Item output) {
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, output, 1)
-                .input(input)
+    private void createStoolRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
+                .pattern("PPP")
+                .pattern("SSS")
+                .pattern("S S")
+                .input('P', input)
+                .input('S', Items.STICK)
                 .criterion(FabricRecipeProvider.hasItem(input),
                         FabricRecipeProvider.conditionsFromItem(input))
                 .offerTo(exporter);
@@ -480,6 +488,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     //endregion
 
     //region ITEM RECIPE METHODS
+    private void createSeedsRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Item output) {
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, output, 1)
+                .input(input)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter);
+    }
+
     private void createPickaxeRecipe(Consumer<RecipeJsonProvider> exporter, Item inputRod, Item inputMaterial, Item output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
                 .pattern("MMM")

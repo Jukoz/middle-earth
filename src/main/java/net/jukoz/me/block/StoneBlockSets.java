@@ -236,6 +236,7 @@ public class StoneBlockSets {
             POLISHED_DOLOMITE,
 
             COBBLED_LIMESTONE,
+            MOSSY_COBBLED_LIMESTONE,
             LIMESTONE,
             LIMESTONE_BRICKS,
             CRACKED_LIMESTONE_BRICKS,
