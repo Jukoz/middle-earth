@@ -3,6 +3,7 @@ package net.jukoz.me.world.dimension;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
+import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -13,11 +14,12 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionOptions;
+import org.joml.Vector2i;
 import org.joml.Vector3i;
 
 
 public class ModDimensions {
-    public static final Vector3i ME_SPAWN_LOCATION = new Vector3i(440, 90, 350);
+    public static final Vector3i ME_SPAWN_LOCATION = new Vector3i(939, 90, 911);
     public static final String PATH = "middle-earth";
 
     public static final RegistryKey<DimensionOptions> DIMENSION_KEY =
@@ -44,11 +46,14 @@ public class ModDimensions {
                 if(registryKey != WORLD_KEY) targetPos = new Vector3i(serverWorld.getSpawnPos().getX(), 80, serverWorld.getSpawnPos().getZ());
 
                 player.wakeUp();
-                ((ServerPlayerEntity) player).teleport(serverWorld, targetPos.x, targetPos.y + 10, targetPos.z, 0, 0);
-                World targetWorld =  player.getWorld();
-                int highY = 1 + getHighestYAtXZ(targetPos.x, targetPos.z);
+                Vector2i coordinates = MiddleEarth.GetWorldMapDatas().getWorldCoordinateFromImage(ME_SPAWN_LOCATION.x, ME_SPAWN_LOCATION.z);
+                targetPos.x = coordinates.x;
+                targetPos.z = coordinates.y;
+                // Todo : GetHighestYAtXZ to fix
+                targetPos.y = 80;
 
-                player.refreshPositionAfterTeleport(targetPos.x, highY, targetPos.z);
+                ((ServerPlayerEntity) player).teleport(serverWorld, targetPos.x , targetPos.y, targetPos.z, 0, 0);
+                player.refreshPositionAfterTeleport(targetPos.x, targetPos.y, targetPos.z);
             }
         }
     }
