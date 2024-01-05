@@ -8,18 +8,13 @@ import net.minecraft.world.biome.Biome;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * Converts PNG pixel color to a BiomeKey reference.
  */
 public class MEBiomesData {
-    private static HashMap<Integer, MEBiome> biomeByColorMap = new HashMap<>();
-    private static HashMap<MEBiome,Short > biomeIdByBiomeMap = new HashMap<>();
-    private static HashMap<Short, MEBiome> biomeByIdMap = new HashMap<>();
-    private static HashMap<Short, Integer> colorByBiomeId = new HashMap<>();
-
+    private static List<MEBiome> biomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> waterBiomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> wastePondBiomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> mirkwoodSwampBiomes = new ArrayList<>();
@@ -34,37 +29,33 @@ public class MEBiomesData {
 
 
     public static void addBiome(Color color, MEBiome biome) {
-        biomeByColorMap.put(color.getRGB(), biome);
-        Short id = (short)biomeIdByBiomeMap.size();
-        biomeIdByBiomeMap.put(biome, id);
-        biomeByIdMap.put(biomeIdByBiomeMap.get(biome), biome);
-        colorByBiomeId.put(id, color.getRGB());
-        // Debug :
-        // System.out.print("Biome_Id: %s, Biome_Name: %s, Biome_Color: %s\n".formatted(biomeIdByBiomeMap.get(biome).toString(), biome.biome.getValue(), color.getRGB()));
+        biome.color = color;
+        biomes.add(biome);
     }
 
     public static MEBiome getBiomeByColor(Integer rgb){
-        if(biomeByColorMap.containsKey(rgb)){
-            return biomeByColorMap.get(rgb);
+        try{
+            return biomes.stream().filter(x -> x.color.getRGB() == rgb).findFirst().get();
+        } catch (Exception e){
+            System.out.println("MeBiomes::No registered biome has %s for color".formatted(rgb));
         }
         return null;
     }
 
-    public static Short getBiomeIdByBiome(MEBiome biome){
-        if(biomeIdByBiomeMap.containsKey(biome)){
-            return biomeIdByBiomeMap.get(biome);
-        }
-        return null;
-    }
     public static MEBiome getBiomeById(Short id){
-        if(biomeByIdMap.containsKey(id)){
-            return biomeByIdMap.get(id);
+        try{
+            return biomes.get(id);
+        } catch (Exception e){
+            System.out.println("MeBiomes::No registered biome has %s for id".formatted(id));
         }
         return null;
     }
+
     public static Integer getColorByBiomeId(Short id){
-        if(biomeByIdMap.containsKey(id)){
-            return colorByBiomeId.get(id);
+        try{
+            return biomes.get(id).color.getRGB();
+        } catch (Exception e){
+            System.out.println("MeBiomes::No registered biome has %s for id".formatted(id));
         }
         return null;
     }

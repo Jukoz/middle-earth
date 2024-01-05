@@ -4,8 +4,11 @@ import net.minecraft.block.Block;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 
+import java.awt.*;
+
 public class MEBiome {
     public int height;
+    public Color color;
     public RegistryKey<Biome> biome;
     public Block surfaceBlock;
     public Block underSurfaceBlock;

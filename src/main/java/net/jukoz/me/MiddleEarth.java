@@ -28,7 +28,7 @@ public class MiddleEarth implements ModInitializer {
 	// 5 : 96 000 (384,000)
 	// 6 : 192 000 (768,000)
 	// 7 : 384 000 (1,536,000)
-	public static final int MAP_ITERATION = 2;
+	public static final int MAP_ITERATION = 3;
 	public static final boolean FORCE_GENERATION = false;
 	private static MiddleEarthMapDatas middleEarthMapDatas;
 

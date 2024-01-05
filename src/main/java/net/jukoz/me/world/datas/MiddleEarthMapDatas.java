@@ -39,7 +39,7 @@ public class MiddleEarthMapDatas {
 
         BufferedImage initialMapImage = ImageUtils.fetchResourceImage(classLoader,"assets/" + MiddleEarth.MOD_ID + "/textures/map.png");
         if(initialMapImage.getWidth() % REGION_SIZE != 0 || initialMapImage.getHeight() % REGION_SIZE != 0){
-            throw new Exception("WorldMapDatas::Map image has an incorrect size [%s, %s]".formatted());
+            throw new Exception("WorldMapDatas::Map image has an incorrect size [%s, %s]".formatted(initialMapImage.getWidth(), initialMapImage.getHeight()));
         }
         xRegionAmount = initialMapImage.getWidth() / REGION_SIZE;
         zRegionAmount = initialMapImage.getHeight() / REGION_SIZE;
