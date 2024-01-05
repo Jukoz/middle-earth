@@ -1,4 +1,4 @@
-package net.jukoz.me.world.features.saplings;
+package net.jukoz.me.world.features.tree.saplings;
 
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.registry.RegistryKey;

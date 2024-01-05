@@ -1,6 +1,5 @@
-package net.jukoz.me.world.features.saplings;
+package net.jukoz.me.world.features.tree.saplings;
 
-import net.jukoz.me.world.features.ModConfiguredFeatures;
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.math.random.Random;

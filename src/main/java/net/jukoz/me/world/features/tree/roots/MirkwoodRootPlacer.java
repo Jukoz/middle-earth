@@ -1,4 +1,4 @@
-package net.jukoz.me.world.features.roots;
+package net.jukoz.me.world.features.tree.roots;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
-import net.jukoz.me.world.features.ModRootPlacerType;
+import net.jukoz.me.world.features.tree.ModRootPlacerType;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;

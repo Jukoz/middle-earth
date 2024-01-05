@@ -1,8 +1,8 @@
-package net.jukoz.me.world.features;
+package net.jukoz.me.world.features.tree;
 
 import com.mojang.serialization.Codec;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.world.features.roots.MirkwoodRootPlacer;
+import net.jukoz.me.world.features.tree.roots.MirkwoodRootPlacer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;

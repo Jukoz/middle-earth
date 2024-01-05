@@ -1,22 +1,18 @@
-package net.jukoz.me.world.features;
+package net.jukoz.me.world.features.tree;
 
 import com.google.common.collect.ImmutableList;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.WoodBlockSets;
-import net.jukoz.me.world.features.foliages.OvalFoliagePlacer;
-import net.jukoz.me.world.features.foliages.PalmFoliagePlacer;
-import net.jukoz.me.world.features.roots.MirkwoodRootPlacement;
-import net.jukoz.me.world.features.roots.MirkwoodRootPlacer;
-import net.jukoz.me.world.features.trunks.ArcTrunkPlacer;
-import net.jukoz.me.world.features.trunks.CanopyTrunkPlacer;
-import net.jukoz.me.world.features.trunks.LargeTrunkPlacer;
-import net.jukoz.me.world.features.trunks.SpruceTrunkPlacer;
+import net.jukoz.me.world.features.tree.foliages.OvalFoliagePlacer;
+import net.jukoz.me.world.features.tree.foliages.PalmFoliagePlacer;
+import net.jukoz.me.world.features.tree.trunks.ArcTrunkPlacer;
+import net.jukoz.me.world.features.tree.trunks.CanopyTrunkPlacer;
+import net.jukoz.me.world.features.tree.trunks.LargeTrunkPlacer;
+import net.jukoz.me.world.features.tree.trunks.SpruceTrunkPlacer;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.*;
-import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
@@ -24,14 +20,11 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.PineFoliagePlacer;
 import net.minecraft.world.gen.foliage.SpruceFoliagePlacer;
-import net.minecraft.world.gen.root.AboveRootPlacement;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.treedecorator.LeavesVineTreeDecorator;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 
-import java.util.Optional;
-
-public class ModConfiguredFeatures {
+public class ModTreeConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> BEECH_TREE_KEY = registerKey("beech_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BIRCH_TREE_KEY = registerKey("birch_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEGA_DARK_OAK_TREE_KEY = registerKey("mega_dark_oak_tree");

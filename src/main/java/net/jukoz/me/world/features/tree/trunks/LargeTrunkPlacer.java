@@ -1,4 +1,4 @@
-package net.jukoz.me.world.features.trunks;
+package net.jukoz.me.world.features.tree.trunks;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;

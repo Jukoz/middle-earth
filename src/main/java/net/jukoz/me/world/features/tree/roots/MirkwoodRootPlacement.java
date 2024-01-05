@@ -1,4 +1,4 @@
-package net.jukoz.me.world.features.roots;
+package net.jukoz.me.world.features.tree.roots;
 
 
 import com.mojang.serialization.Codec;

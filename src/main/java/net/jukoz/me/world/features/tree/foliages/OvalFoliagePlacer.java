@@ -1,4 +1,4 @@
-package net.jukoz.me.world.features.foliages;
+package net.jukoz.me.world.features.tree.foliages;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
