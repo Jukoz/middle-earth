@@ -88,6 +88,7 @@ public class CaveTrollModel extends SinglePartEntityModel<CaveTrollEntity> {
         this.animateMovement(TrollAnimations.MOVING, limbSwing, limbSwingAmount, 2f, 2.5f);
         this.updateAnimation(entity.idleAnimationState, TrollAnimations.IDLE, ageInTicks, 1f);
         this.updateAnimation(entity.attackAnimationState, TrollAnimations.ATTACK, ageInTicks, 1f);
+        this.updateAnimation(entity.chargeAnimationState, TrollAnimations.CHARGING, ageInTicks, 1f);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {

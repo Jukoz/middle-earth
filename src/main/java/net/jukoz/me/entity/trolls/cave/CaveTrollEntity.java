@@ -8,7 +8,7 @@ import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.world.World;
 
 public class CaveTrollEntity extends TrollEntity {
-    public CaveTrollEntity(EntityType<? extends AbstractHorseEntity> entityType, World world) {
+    public CaveTrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
     }
 

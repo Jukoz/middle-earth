@@ -1,23 +1,34 @@
 package net.jukoz.me.entity.trolls;
 
+import com.sun.jna.platform.win32.WinDef;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
+import net.jukoz.me.entity.goals.ChargeAttackGoal;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.items.TrollArmorItem;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.ShulkerEntity;
+import net.minecraft.entity.mob.VexEntity;
+import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.entity.passive.CamelEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.StackReference;
@@ -25,46 +36,49 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.*;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.function.Predicate;
 
-//TODO Tamable with horse meat
-//TODO Inventory with saddle, armour and couple slots of storage
-//TODO Charge with rider
 //TODO Redo attack animation
-//TODO Custom Saddle
 //TODO Troll Armour
 //TODO Troll Weapon
 
-//TODO Brain
 //TODO Throw attack
-//TODO Charge attack
 //TODO Sleeping
 
 
-public class TrollEntity extends AbstractHorseEntity {
+public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
     public static final int ATTACK_COOLDOWN = 10;
     public static final float RESISTANCE = 0.15f;
     private int attackTicksLeft = 0;
+    private int chargeCooldown = 0;
+    private Vec3d targetDir = Vec3d.ZERO;
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
+    public final AnimationState chargeAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
     private static final TrackedData<Boolean> CHEST = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final UUID TROLL_ARMOR_BONUS_ID = UUID.fromString("667E1665-8B10-40C8-8F9D-CF9B1667F295");
 
 
-    public TrollEntity(EntityType<? extends AbstractHorseEntity> entityType, World world) {
+    public TrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -80,9 +94,32 @@ public class TrollEntity extends AbstractHorseEntity {
                 .add(EntityAttributes.HORSE_JUMP_STRENGTH, 0.0);
     }
 
+    @Override
+    protected void initGoals() {
+        this.goalSelector.add(1, new SwimGoal(this));
+        this.goalSelector.add(2, new ChargeAttackGoal(this, 400));
+        this.goalSelector.add(3, new MeleeAttackGoal(this, 0.9f, false));
+        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(6, new LookAroundGoal(this));
+        this.targetSelector.add(1, new TargetPlayerGoal(this));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
+        this.targetSelector.add(4, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+    }
+
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(CHEST, false);
+        this.dataTracker.startTracking(CHARGING, false);
+    }
+
+    @Override
+    public void onTrackedDataSet(TrackedData<?> data) {
+        if (!this.firstUpdate && CHARGING.equals(data)) {
+            this.chargeCooldown = this.chargeCooldown == 0 ? 400 : this.chargeCooldown;
+        }
+        super.onTrackedDataSet(data);
     }
 
     private void setupAnimationStates() {
@@ -103,9 +140,58 @@ public class TrollEntity extends AbstractHorseEntity {
     @Override
     public void tick() {
         super.tick();
+        if(this.isCharging()) {
+            chargeAttack();
+            if(!chargeAnimationState.isRunning()) {
+                this.chargeAnimationState.start(this.age);
+            }
+        }
+        if(this.chargeCooldown <= 370 || !isCharging()) {
+            this.setCharging(false);
+            this.targetDir = Vec3d.ZERO;
+        }
+        if(!this.isCharging()) {
+            this.chargeAnimationState.stop();
+        }
+        if(chargeCooldown > 0) {
+            --this.chargeCooldown;
+        }
+
         if (this.getWorld().isClient) {
             setupAnimationStates();
         }
+    }
+
+    class TargetPlayerGoal
+            extends ActiveTargetGoal<PlayerEntity> {
+        public TargetPlayerGoal(TrollEntity mob) {
+            super((MobEntity)mob, PlayerEntity.class, true);
+        }
+
+        @Override
+        public boolean canStart() {
+            if (TrollEntity.this.getWorld().getDifficulty() == Difficulty.PEACEFUL || TrollEntity.this.isTame()) {
+                if(TrollEntity.this.getTarget() instanceof PlayerEntity) {
+                    TrollEntity.this.setTarget(null);
+                }
+
+                return false;
+            }
+            return super.canStart();
+        }
+
+        @Override
+        public boolean shouldContinue() {
+            if(!TrollEntity.this.isTame()) {
+                return super.shouldContinue();
+            }
+            return false;
+        }
+    }
+
+    @Override
+    protected void initAttributes(Random random) {
+
     }
 
     @Override
@@ -114,31 +200,52 @@ public class TrollEntity extends AbstractHorseEntity {
     }
 
     @Override
-    protected void initGoals() {
-        this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new MeleeAttackGoal(this, 0.9f, false));
-        this.goalSelector.add(3, new HorseBondWithPlayerGoal(this, 1.2));
-        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(6, new LookAroundGoal(this));
-        this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
-        this.targetSelector.add(4, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+    public int getJumpCooldown() {
+        return this.chargeCooldown;
     }
 
     //region MOUNTING
 
 
-    @Override
-    public void saddle(@Nullable SoundCategory sound) {
-        this.items.setStack(0, new ItemStack(ModEquipmentItems.BEAST_CHAINS));
+    private StackReference createInventoryStackReference(final int slot, final Predicate<ItemStack> predicate) {
+        return new StackReference(){
+
+            @Override
+            public ItemStack get() {
+                return TrollEntity.this.items.getStack(slot);
+            }
+
+            @Override
+            public boolean set(ItemStack stack) {
+                if (!predicate.test(stack)) {
+                    return false;
+                }
+                TrollEntity.this.items.setStack(slot, stack);
+                TrollEntity.this.updateSaddle();
+                return true;
+            }
+        };
     }
+
+
 
     public double getMountedHeightOffset() {
         float f = Math.min(0.25F, this.limbAnimator.getSpeed());
         float g = this.limbAnimator.getPos();
         return (double)this.getHeight() - 0.19 + (double)(0.12F * MathHelper.cos(g * 1.5F) * 2.0F * f);
+    }
+
+    @Override
+    protected Vec3d getControlledMovementInput(PlayerEntity controllingPlayer, Vec3d movementInput) {
+        if (this.isOnGround() && this.jumpStrength == 0.0f && this.isAngry() && !this.jumping) {
+            return Vec3d.ZERO;
+        }
+        float f = controllingPlayer.sidewaysSpeed * 0.5f;
+        float g = controllingPlayer.forwardSpeed * 0.75f;
+        if (g <= 0.0f) {
+            g *= 0.25f;
+        }
+        return new Vec3d(f, 0.0, g);
     }
 
     public boolean hasChest() {
@@ -164,7 +271,6 @@ public class TrollEntity extends AbstractHorseEntity {
         }
 
     }
-
 
     public ItemStack getArmorType() {
         return this.getEquippedStack(EquipmentSlot.CHEST);
@@ -217,14 +323,14 @@ public class TrollEntity extends AbstractHorseEntity {
         }
         if (nbt.contains("ArmorItem", 10)) {
             ItemStack itemStack = ItemStack.fromNbt(nbt.getCompound("ArmorItem"));
-            if (!itemStack.isEmpty() && this.isTrollArmor(itemStack)) {
+            if (!itemStack.isEmpty() && this.isHorseArmor(itemStack)) {
                 this.items.setStack(1, itemStack);
             }
         }
 
         if (nbt.contains("SaddleItem", 10)) {
             ItemStack itemStack = ItemStack.fromNbt(nbt.getCompound("SaddleItem"));
-            if (itemStack.isOf(ModEquipmentItems.BEAST_CHAINS)) {
+            if (itemStack.isOf(Items.SADDLE)) {
                 this.items.setStack(0, itemStack);
             }
         }
@@ -245,7 +351,7 @@ public class TrollEntity extends AbstractHorseEntity {
         this.equipArmor(stack);
         if (!this.getWorld().isClient) {
             this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).removeModifier(TROLL_ARMOR_BONUS_ID);
-            if (this.isTrollArmor(stack)) {
+            if (this.isHorseArmor(stack)) {
                 int i = ((TrollArmorItem)stack.getItem()).getBonus();
                 if (i != 0) {
                     this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).addTemporaryModifier(new EntityAttributeModifier(TROLL_ARMOR_BONUS_ID, "Troll armor bonus", (double)i, EntityAttributeModifier.Operation.ADDITION));
@@ -259,53 +365,84 @@ public class TrollEntity extends AbstractHorseEntity {
         return true;
     }
 
-
-    public boolean isTrollArmor(ItemStack item) {
-        return item.getItem() instanceof TrollArmorItem;
-    }
-
     @Override
     public void onInventoryChanged(Inventory sender) {
         ItemStack itemStack = this.getArmorType();
         super.onInventoryChanged(sender);
         ItemStack itemStack2 = this.getArmorType();
-        if (this.age > 20 && this.isTrollArmor(itemStack2) && itemStack != itemStack2) {
+        if (this.age > 20 && this.isHorseArmor(itemStack2) && itemStack != itemStack2) {
             this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.5F, 1.0F);
         }
     }
 
     @Override
     public StackReference getStackReference(int mappedIndex) {
-        return mappedIndex == 499 ? new StackReference() {
-            public ItemStack get() {
-                return TrollEntity.this.hasChest() ? new ItemStack(Items.CHEST) : ItemStack.EMPTY;
+        int j;
+        int i = mappedIndex - 400;
+        if (i >= 0 && i < 2 && i < this.items.size()) {
+            if (i == 0) {
+                return this.createInventoryStackReference(i, stack -> stack.isEmpty() || stack.isOf(Items.SADDLE));
             }
-
-            public boolean set(ItemStack stack) {
-                if (stack.isEmpty()) {
-                    if (TrollEntity.this.hasChest()) {
-                        TrollEntity.this.setHasChest(false);
-                        TrollEntity.this.onChestedStatusChanged();
-                    }
-
-                    return true;
-                } else if (stack.isOf(Items.CHEST)) {
-                    if (!TrollEntity.this.hasChest()) {
-                        TrollEntity.this.setHasChest(true);
-                        TrollEntity.this.onChestedStatusChanged();
-                    }
-
-                    return true;
-                } else {
-                    return false;
+            if (i == 1) {
+                if (!this.hasArmorSlot()) {
+                    return StackReference.EMPTY;
                 }
+                return this.createInventoryStackReference(i, stack -> stack.isEmpty() || this.isHorseArmor((ItemStack)stack));
             }
-        } : super.getStackReference(mappedIndex);
+        }
+        if ((j = mappedIndex - 500 + 2) >= 2 && j < this.items.size()) {
+            return StackReference.of(this.items, j);
+        }
+        return super.getStackReference(mappedIndex);
     }
 
+    // Charge Attack
+    @Override
+    protected void jump(float strength, Vec3d movementInput) {
+        if(this.chargeCooldown <= 0) {
+            this.setCharging(true);
+            this.chargeCooldown = 400;
+        }
+    }
+
+    public void setCharging(boolean charging) {
+        this.dataTracker.set(CHARGING, charging);
+    }
+
+    public boolean isCharging() {
+        return this.dataTracker.get(CHARGING);
+    }
+
+    @Override
+    public void startJumping(int height) {
+        this.playSound(SoundEvents.ENTITY_CAMEL_DASH, 1.0f, 1.0f);
+        this.setCharging(true);
+    }
+
+    public void tryBonding(PlayerEntity player) {
+        if(random.nextDouble() <= 0.1d) {
+
+            this.setOwnerUuid(player.getUuid());
+            this.setTame(true);
+            if (player instanceof ServerPlayerEntity) {
+                Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
+            }
+            this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+
+            this.chargeCooldown = 0;
+        }
+        else {
+            this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
+        }
+    }
 
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         boolean bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
+
+        if(player.getStackInHand(hand).isOf(ModFoodItems.COOKED_HORSE)) {
+            this.tryBonding(player);
+        }
+
         if (!this.hasPassengers() && !bl) {
             ItemStack itemStack = player.getStackInHand(hand);
             if (!itemStack.isEmpty()) {
@@ -322,12 +459,21 @@ public class TrollEntity extends AbstractHorseEntity {
                     this.addChest(player, itemStack);
                     return ActionResult.success(this.getWorld().isClient);
                 }
+                if (this.hasArmorSlot() && this.isHorseArmor(itemStack) && !this.hasArmorInSlot()) {
+                    this.equipHorseArmor(player, itemStack);
+                    return ActionResult.success(this.getWorld().isClient);
+                }
             }
-
-            return super.interactMob(player, hand);
-        } else {
-            return super.interactMob(player, hand);
         }
+        if(this.isTame()) {
+            super.interactMob(player, hand);
+        }
+        return ActionResult.success(this.getWorld().isClient);
+    }
+
+    @Override
+    public boolean isHorseArmor(ItemStack item) {
+        return item.getItem() instanceof TrollArmorItem;
     }
 
     private void addChest(PlayerEntity player, ItemStack chest) {
@@ -382,11 +528,48 @@ public class TrollEntity extends AbstractHorseEntity {
         return this.attackTicksLeft;
     }
 
+    public int getChargeCooldown() {
+        return this.chargeCooldown;
+    }
+    public void setChargeCooldown(int chargeCooldown) {
+        this.chargeCooldown = chargeCooldown;
+    }
+
     @Override
     public void tickMovement() {
         super.tickMovement();
         if (this.attackTicksLeft > 0) {
             --this.attackTicksLeft;
+        }
+    }
+
+    public void chargeAttack() {
+        List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
+
+        if(!this.isTame() && !this.getWorld().isClient) {
+            if(targetDir == Vec3d.ZERO && this.getTarget() != null) {
+                targetDir = new Vec3d( this.getTarget().getBlockPos().getX() - this.getBlockPos().getX(),
+                        this.getTarget().getBlockPos().getY() - this.getBlockPos().getY(),
+                        this.getTarget().getBlockPos().getZ() - this.getBlockPos().getZ());
+            }
+            this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
+            this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d));
+            System.out.println(targetDir);
+            System.out.println(this.getYaw());
+
+        }
+        else if (this.getWorld().isClient) {
+            this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d));
+        }
+
+        for(Entity entity : entities) {
+            if(entity.getUuid() != this.getOwnerUuid() && entity != this) {
+                entity.damage(entity.getDamageSources().mobAttack(this), 16.0f);
+            }
+        }
+        this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+        if(!chargeAnimationState.isRunning()) {
+            this.chargeAnimationState.start(this.age);
         }
     }
 
@@ -420,6 +603,13 @@ public class TrollEntity extends AbstractHorseEntity {
         }
         if(status == 4){
             this.attackAnimationState.start(this.age);
+        }
+        if (status == EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES) {
+            this.spawnPlayerReactionParticles(true);
+        } else if (status == EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES) {
+            this.spawnPlayerReactionParticles(false);
+        } else {
+            super.handleStatus(status);
         }
     }
 

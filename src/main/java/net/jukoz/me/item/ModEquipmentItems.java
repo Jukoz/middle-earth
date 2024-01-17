@@ -8,6 +8,7 @@ import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.SaddleItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -51,7 +52,7 @@ public class ModEquipmentItems {
             new ArmorItem(ModArmorMaterials.MORDOR_ORC_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item BEAST_CHAINS = registerItem("beast_chains",
-            new Item(new FabricItemSettings()));
+            new SaddleItem(new FabricItemSettings().maxCount(1)));
 
     public static final Item STEEL_TROLL_ARMOR = registerItem("steel_troll_armor",
             new TrollArmorItem(10, "steel", new FabricItemSettings().maxCount(1)));

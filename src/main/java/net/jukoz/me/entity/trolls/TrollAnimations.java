@@ -730,7 +730,7 @@ public class TrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.44f, AnimationHelper.createRotationalVector(0f, 0f, 42.5f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation CHARCHING = Animation.Builder.create(0.96f).looping()
+    public static final Animation CHARGING = Animation.Builder.create(0.96f).looping()
             .addBoneAnimation("body",
                     new Transformation(Transformation.Targets.TRANSLATE,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 2f),

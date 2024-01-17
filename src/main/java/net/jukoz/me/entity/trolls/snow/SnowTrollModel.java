@@ -2,6 +2,7 @@ package net.jukoz.me.entity.trolls.snow;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.jukoz.me.entity.trolls.TrollAnimations;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
@@ -71,22 +72,21 @@ extends SinglePartEntityModel<SnowTrollEntity> {
 
     @Override
     public void setAngles(SnowTrollEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.pitch = headPitch * ((float)Math.PI / 180);
-        this.head.yaw = netHeadYaw * ((float)Math.PI / 180);
-        this.boneJaw.pitch = 0.25F * Math.max(0, MathHelper.cos(ageInTicks * 0.1f));
-        float k = 0.8f * limbSwingAmount;
-        this.legRight.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
-        this.legLeft.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float)Math.PI) * k;
+        this.getPart().traverse().forEach(ModelPart::resetTransform);
+        this.setHeadAngles(netHeadYaw, headPitch);
 
-        int i = entity.getAttackTicksLeft();
-        if (entity.getState().equals(SnowTrollEntity.State.ATTACK)) {
-            float ageFloat = (ageInTicks - (int)ageInTicks); // Helps to smooth the animation
-            this.armRight.pitch = -1.1f + 0.9f * MathHelper.wrap((float) i - ageFloat, 10.0f);
-            this.armLeft.pitch = -1.1f + 0.9f * MathHelper.wrap((float) i - ageFloat, 10.0f);
-        } else {
-            this.armRight.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED + (float)Math.PI) * k;
-            this.armLeft.pitch = MathHelper.cos(limbSwing * ROTATION_SPEED) * k;
-        }
+        this.animateMovement(TrollAnimations.MOVING, limbSwing, limbSwingAmount, 2f, 2.5f);
+        this.updateAnimation(entity.idleAnimationState, TrollAnimations.IDLE, ageInTicks, 1f);
+        this.updateAnimation(entity.attackAnimationState, TrollAnimations.ATTACK, ageInTicks, 1f);
+        this.updateAnimation(entity.chargeAnimationState, TrollAnimations.CHARGING, ageInTicks, 1f);
+    }
+
+    private void setHeadAngles(float headYaw, float headPitch) {
+        headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
+        headPitch = MathHelper.clamp(headPitch, -25.0F, 40.0F);
+
+        this.head.yaw = headYaw * 0.017453292F;
+        this.head.pitch = headPitch * 0.017453292F;
     }
 
     @Override
