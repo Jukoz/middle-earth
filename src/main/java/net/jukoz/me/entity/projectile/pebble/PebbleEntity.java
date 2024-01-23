@@ -1,4 +1,4 @@
-package net.jukoz.me.entity.pebble;
+package net.jukoz.me.entity.projectile.pebble;
 
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;

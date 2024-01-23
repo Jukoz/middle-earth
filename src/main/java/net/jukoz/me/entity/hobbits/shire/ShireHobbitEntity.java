@@ -2,7 +2,7 @@ package net.jukoz.me.entity.hobbits.shire;
 
 import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
-import net.jukoz.me.entity.pebble.PebbleEntity;
+import net.jukoz.me.entity.projectile.pebble.PebbleEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.trolls.TrollEntity;
 import net.jukoz.me.item.ModEquipmentItems;

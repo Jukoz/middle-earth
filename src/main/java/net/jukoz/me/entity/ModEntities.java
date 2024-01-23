@@ -13,8 +13,9 @@ import net.jukoz.me.entity.goose.GooseEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
-import net.jukoz.me.entity.pebble.PebbleEntity;
-import net.jukoz.me.entity.spear.SpearEntity;
+import net.jukoz.me.entity.projectile.boulder.BoulderEntity;
+import net.jukoz.me.entity.projectile.pebble.PebbleEntity;
+import net.jukoz.me.entity.projectile.spear.SpearEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.swan.SwanEntity;
 import net.jukoz.me.entity.trolls.cave.CaveTrollEntity;
@@ -60,6 +61,7 @@ public class ModEntities {
 
     ///* Weapons *///
     public static final EntityType<PebbleEntity> PEBBLE = registerEntity("pebble", PebbleEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
+    public static final EntityType<BoulderEntity> BOULDER = registerEntity("boulder", BoulderEntity::new, SpawnGroup.MISC, 1f, 1f);
     public static final EntityType<SpearEntity> SPEAR = registerEntity("spear", SpearEntity::new, SpawnGroup.MISC, 0.5F, 0.5F);
 
     ///* Animals *///

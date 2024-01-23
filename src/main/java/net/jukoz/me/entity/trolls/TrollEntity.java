@@ -1,34 +1,29 @@
 package net.jukoz.me.entity.trolls;
 
-import com.sun.jna.platform.win32.WinDef;
+import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.ChargeAttackGoal;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
-import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.entity.projectile.boulder.BoulderEntity;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.items.TrollArmorItem;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.pathing.Path;
+import net.minecraft.entity.ai.pathing.PathNode;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.ShulkerEntity;
-import net.minecraft.entity.mob.VexEntity;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
-import net.minecraft.entity.passive.AbstractHorseEntity;
-import net.minecraft.entity.passive.CamelEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.StackReference;
@@ -38,7 +33,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -47,34 +41,33 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-//TODO Redo attack animation
-//TODO Troll Armour
-//TODO Troll Weapon
-
-//TODO Throw attack
 //TODO Sleeping
-
+//TODO Attack Owners target
 
 public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
     public static final int ATTACK_COOLDOWN = 10;
     public static final float RESISTANCE = 0.15f;
     private int attackTicksLeft = 0;
-    private int chargeCooldown = 0;
+    private int chargeCooldown = 100;
+    private int throwCooldown = 100;
     private Vec3d targetDir = Vec3d.ZERO;
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState chargeAnimationState = new AnimationState();
+    public final AnimationState throwingAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+    private int throwingAnimationTimeout = 0;
 
     private static final TrackedData<Boolean> CHEST = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> THROWING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final UUID TROLL_ARMOR_BONUS_ID = UUID.fromString("667E1665-8B10-40C8-8F9D-CF9B1667F295");
 
 
@@ -112,12 +105,16 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
         super.initDataTracker();
         this.dataTracker.startTracking(CHEST, false);
         this.dataTracker.startTracking(CHARGING, false);
+        this.dataTracker.startTracking(THROWING, false);
     }
 
     @Override
     public void onTrackedDataSet(TrackedData<?> data) {
         if (!this.firstUpdate && CHARGING.equals(data)) {
             this.chargeCooldown = this.chargeCooldown == 0 ? 400 : this.chargeCooldown;
+        }
+        if(!this.firstUpdate && THROWING.equals(data)) {
+            this.throwCooldown = this.throwCooldown == 0 ? 200 : this.throwCooldown;
         }
         super.onTrackedDataSet(data);
     }
@@ -128,6 +125,17 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
             this.idleAnimationState.start(this.age);
         } else {
             --this.idleAnimationTimeout;
+        }
+
+        if(this.isThrowing() && this.throwingAnimationTimeout <= 0) {
+            this.throwingAnimationTimeout = 100;
+            this.throwingAnimationState.start(this.age);
+        }else {
+            --this.throwingAnimationTimeout;
+        }
+
+        if(!this.isThrowing()) {
+            this.throwingAnimationState.stop();
         }
     }
 
@@ -140,6 +148,11 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
     @Override
     public void tick() {
         super.tick();
+
+        if(this.getTarget() != null) {
+            this.getLookControl().lookAt(this.getTarget());
+        }
+
         if(this.isCharging()) {
             chargeAttack();
             if(!chargeAnimationState.isRunning()) {
@@ -157,9 +170,34 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
             --this.chargeCooldown;
         }
 
+        if(throwCooldown == 0 && this.getTarget() != null) {
+            this.setThrowing(true);
+            throwCooldown = 200;
+        }
+        if(this.isThrowing() && throwCooldown <= 180) {
+            throwAttack();
+        }
+        if(throwCooldown > 0) {
+            --this.throwCooldown;
+        }
+
         if (this.getWorld().isClient) {
             setupAnimationStates();
         }
+    }
+
+    private boolean canNavigateToEntity(LivingEntity entity) {
+        int j;
+        Path path = this.getNavigation().findPathTo(entity, 0);
+        if (path == null) {
+            return false;
+        }
+        PathNode pathNode = path.getEnd();
+        if (pathNode == null) {
+            return false;
+        }
+        int i = pathNode.x - entity.getBlockX();
+        return (double)(i * i + (j = pathNode.z - entity.getBlockZ()) * j) <= 2.25;
     }
 
     class TargetPlayerGoal
@@ -413,6 +451,14 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
         return this.dataTracker.get(CHARGING);
     }
 
+    public void setThrowing(boolean throwing) {
+        this.dataTracker.set(THROWING, throwing);
+    }
+
+    public boolean isThrowing() {
+        return this.dataTracker.get(THROWING);
+    }
+
     @Override
     public void startJumping(int height) {
         this.playSound(SoundEvents.ENTITY_CAMEL_DASH, 1.0f, 1.0f);
@@ -441,6 +487,7 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
 
         if(player.getStackInHand(hand).isOf(ModFoodItems.COOKED_HORSE)) {
             this.tryBonding(player);
+            player.getStackInHand(hand).decrement(1);
         }
 
         if (!this.hasPassengers() && !bl) {
@@ -534,6 +581,8 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
     public void setChargeCooldown(int chargeCooldown) {
         this.chargeCooldown = chargeCooldown;
     }
+    public int getThrowCooldown() {return this.throwCooldown;}
+    public void setThrowCooldown(int throwCooldown) {this.throwCooldown = throwCooldown;}
 
     @Override
     public void tickMovement() {
@@ -570,6 +619,25 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
         this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
         if(!chargeAnimationState.isRunning()) {
             this.chargeAnimationState.start(this.age);
+        }
+    }
+
+    public void throwAttack() {
+
+        Entity target = this.getTarget();
+        if(target != null) {
+            this.setThrowing(false);
+
+            Vec3d rotationVec = this.getRotationVec(1.0f);
+            BoulderEntity boulder = new BoulderEntity(ModEntities.BOULDER, this, this.getWorld());
+            double x = target.getX() - this.getX();
+            double y = target.getBodyY(0.3333333333333333) - boulder.getY();
+            double z = target.getZ() - this.getZ();
+            double c = Math.sqrt(x * x + z * z);
+
+            boulder.setPosition(this.getX() + rotationVec.x * 3.0f, this.getBodyY(0.75f), boulder.getZ() + rotationVec.z * 3.0f);
+            boulder.setVelocity(x, y + c * 0.2d , z, 1.0f, 8 - this.getWorld().getDifficulty().getId() * 4);
+            this.getWorld().spawnEntity(boulder);
         }
     }
 

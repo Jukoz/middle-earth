@@ -79,6 +79,7 @@ extends SinglePartEntityModel<SnowTrollEntity> {
         this.updateAnimation(entity.idleAnimationState, TrollAnimations.IDLE, ageInTicks, 1f);
         this.updateAnimation(entity.attackAnimationState, TrollAnimations.ATTACK, ageInTicks, 1f);
         this.updateAnimation(entity.chargeAnimationState, TrollAnimations.CHARGING, ageInTicks, 1f);
+        this.updateAnimation(entity.throwingAnimationState, TrollAnimations.THROWING, ageInTicks, 1f);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {

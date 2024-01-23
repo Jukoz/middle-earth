@@ -1,4 +1,4 @@
-package net.jukoz.me.entity.spear;
+package net.jukoz.me.entity.projectile.spear;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

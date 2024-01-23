@@ -1,4 +1,4 @@
-package net.jukoz.me.entity.spear;
+package net.jukoz.me.entity.projectile.spear;
 
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
