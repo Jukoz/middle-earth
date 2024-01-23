@@ -11,12 +11,15 @@ import net.jukoz.me.block.special.gemstones.RedAgateBuddingGemBlock;
 import net.jukoz.me.block.special.gemstones.SapphireBuddingGemBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.block.*;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 
 public class ModBlocks {
     public static final float DIRT_STRENGTH = 0.6f;
@@ -540,5 +543,13 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         MiddleEarth.LOGGER.debug("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+    }
+
+    public static boolean never(BlockState state, BlockView world, BlockPos pos) {
+        return false;
+    }
+
+    public static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
+        return type == EntityType.OCELOT || type == EntityType.PARROT;
     }
 }

@@ -30,6 +30,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         var mineableAxe = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "mineable/axe")));
         var mineableShovel = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "mineable/shovel")));
         var mineableHoe = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "mineable/hoe")));
+        var swordEfficient = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "sword_efficient")));
 
         var needsStoneTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "needs_stone_tool")));
         var needsIronTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "needs_iron_tool")));
@@ -39,9 +40,17 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         var seat = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier(MiddleEarth.MOD_ID, "seat")));
         var table = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier(MiddleEarth.MOD_ID, "table")));
 
+        var leaves = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "leaves")));
+
 
         mineableAxe.add(MineableAxe.blocks.toArray(new Block[0]));
         mineablePickaxe.add(MineablePickaxe.blocks.toArray(new Block[0]));
+
+        leaves.add(LeavesSets.blocks.toArray(new Block[0]));
+        mineableHoe.add(MineableHoe.blocks.toArray(new Block[0]));
+
+        swordEfficient.add(LeavesSets.blocks.toArray(new Block[0]));
+
 
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "doors"))).add(Doors.doors.toArray(new Block[0]));
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "trapdoors"))).add(Trapdoors.trapdoors.toArray(new Block[0]));

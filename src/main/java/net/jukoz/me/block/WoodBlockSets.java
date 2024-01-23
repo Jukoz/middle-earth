@@ -7,7 +7,9 @@ import net.jukoz.me.block.special.StoolBlock;
 import net.jukoz.me.block.special.TableBlock;
 import net.jukoz.me.block.special.VerticalSlabBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
+import net.jukoz.me.block.special.ModLeavesBlock;
 import net.minecraft.block.*;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.sound.BlockSoundGroup;
 
 public class WoodBlockSets {
@@ -15,16 +17,17 @@ public class WoodBlockSets {
     public static final float PLATE_BUTTON_STRENGTH = 0.5f;
     public static final float LEAVES_STRENGTH = 0.1f;
 
-    public static SimpleBlockSet BEECH = registerWoodSet("beech", WOOD_STRENGTH, true);
-    public static SimpleBlockSet LARCH = registerWoodSet("larch", WOOD_STRENGTH, true);
-    public static SimpleBlockSet BLACK_LEBETHRON = registerWoodSet("black_lebethron", WOOD_STRENGTH, false);
-    public static SimpleBlockSet WHITE_LEBETHRON = registerWoodSet("white_lebethron", WOOD_STRENGTH, false);
-    public static SimpleBlockSet MALLORN = registerWoodSet("mallorn", WOOD_STRENGTH, true);
-    public static SimpleBlockSet MAPLE = registerWoodSet("maple", WOOD_STRENGTH, true);
-    public static SimpleBlockSet MIRKWOOD = registerWoodSet("mirkwood", WOOD_STRENGTH, false);
-    public static SimpleBlockSet PALM = registerWoodSet("palm", WOOD_STRENGTH, true);
-    public static SimpleBlockSet PINE = registerWoodSet("pine", WOOD_STRENGTH, true);
-    public static SimpleBlockSet WILLOW = registerWoodSet("willow", WOOD_STRENGTH, true);
+    public static SimpleBlockSet BEECH = registerWoodSet("beech", WOOD_STRENGTH, true, ModNatureBlocks.BEECH_SAPLING, true, false);
+    public static SimpleBlockSet LARCH = registerWoodSet("larch", WOOD_STRENGTH, true, ModNatureBlocks.LARCH_SAPLING, true, false);
+    public static SimpleBlockSet BLACK_LEBETHRON = registerWoodSet("black_lebethron", WOOD_STRENGTH, false, null, true, false);
+    public static SimpleBlockSet WHITE_LEBETHRON = registerWoodSet("white_lebethron", WOOD_STRENGTH, false, null, true, false);
+    public static SimpleBlockSet MALLORN = registerWoodSet("mallorn", WOOD_STRENGTH, true, ModNatureBlocks.MALLORN_SAPLING, false, true);
+    public static SimpleBlockSet MAPLE = registerWoodSet("maple", WOOD_STRENGTH, true, ModNatureBlocks.MAPLE_SAPLING, false, false);
+    public static SimpleBlockSet MIRKWOOD = registerWoodSet("mirkwood", WOOD_STRENGTH, true, ModNatureBlocks.MIRKWOOD_SAPLING, true, true);
+    public static SimpleBlockSet PALM = registerWoodSet("palm", WOOD_STRENGTH, true, ModNatureBlocks.PALM_SAPLING,  true,  true);
+    public static SimpleBlockSet WHITE_PALM = registerWoodSet("white_palm", WOOD_STRENGTH, false, null, true, true);
+    public static SimpleBlockSet PINE = registerWoodSet("pine", WOOD_STRENGTH, true, ModNatureBlocks.PINE_SAPLING, true, false);
+    public static SimpleBlockSet WILLOW = registerWoodSet("willow", WOOD_STRENGTH, true, ModNatureBlocks.WILLOW_SAPLING, true, false);
 
     public static SimpleBlockSet[] sets = new SimpleBlockSet[] {
             BEECH,
@@ -35,20 +38,28 @@ public class WoodBlockSets {
             MAPLE,
             MIRKWOOD,
             PALM,
+            WHITE_PALM,
             PINE,
             WILLOW,
     };
 
     public record SimpleBlockSet(Block leaves, Block log, Block wood, Block woodWall,
                                  Block planks, Block planksSlab, Block planksVerticalSlab, Block planksStairs, Block planksFence, Block planksGate,
-                                 Block pressurePlate, Block button, Block door, Block trapdoor, Block stool, Block table, Block chair) {
+                                 Block pressurePlate, Block button, Block door, Block trapdoor, Block stool, Block table, Block chair, Block sapling) {
     }
 
-    private static SimpleBlockSet registerWoodSet(String name, float strength, boolean hasLeaves) {
+    private static SimpleBlockSet registerWoodSet(String name, float strength, boolean hasLeaves, Block sapling, boolean castShadow, boolean range) {
         Block leaves = null;
         if(hasLeaves) {
-            leaves = ModNatureBlocks.registerBlock(name + "_leaves", new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)
-                    .strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), false);
+            if(range) {
+                leaves = ModNatureBlocks.registerBlock(name + "_leaves", new ModLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN)
+                        .strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(ModBlocks::canSpawnOnLeaves).suffocates(ModBlocks::never)
+                        .blockVision(ModBlocks::never).burnable().pistonBehavior(PistonBehavior.DESTROY).solidBlock(ModBlocks::never), castShadow), true);
+            } else {
+                leaves = ModNatureBlocks.registerBlock(name + "_leaves", new LeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN)
+                        .strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(ModBlocks::canSpawnOnLeaves).suffocates(ModBlocks::never)
+                        .blockVision(ModBlocks::never).burnable().pistonBehavior(PistonBehavior.DESTROY).solidBlock(ModBlocks::never)), true);
+            }
         }
 
 
@@ -103,7 +114,7 @@ public class WoodBlockSets {
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(chair.asItem().getDefaultStack());
 
         return new SimpleBlockSet(leaves, log, wood, woodWall, planks, slab, verticalSlab, stairs, fence, gate,
-                pressurePlate, button, door, trapdoor, stool, table, chair);
+                pressurePlate, button, door, trapdoor, stool, table, chair, sapling);
     }
 
 
