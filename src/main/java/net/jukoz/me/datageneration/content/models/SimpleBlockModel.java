@@ -33,6 +33,7 @@ public class SimpleBlockModel {
             add(ModBlocks.RAW_SILVER_BLOCK);
             add(ModBlocks.SILVER_BLOCK);
             add(ModBlocks.CUT_LEAD);
+            add(ModBlocks.CUT_SILVER);
 
             //GEMS
             add(ModBlocks.SAPPHIRE_BLOCK);

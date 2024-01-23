@@ -106,6 +106,11 @@ public class BlockDrops {
             add(ModBlocks.CUT_LEAD);
             add(ModBlocks.CUT_LEAD_STAIRS);
             add(ModBlocks.CUT_LEAD_SLAB);
+
+            add(ModBlocks.CUT_SILVER);
+            add(ModBlocks.CUT_SILVER_STAIRS);
+            add(ModBlocks.CUT_SILVER_SLAB);
+            
             add(ModBlocks.RAW_SILVER_BLOCK);
             add(ModBlocks.SILVER_BLOCK);
 

@@ -14,6 +14,7 @@ public class SimpleVerticalSlabModel {
             add(new VerticalSlab(ModBlocks.REED_BLOCK, ModBlocks.REED_SLAB, ModBlocks.REED_VERTICAL_SLAB));
             add(new VerticalSlab(ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_SLAB, ModBlocks.STRAW_VERTICAL_SLAB));
             add(new VerticalSlab(ModBlocks.CUT_LEAD, ModBlocks.CUT_LEAD_SLAB, ModBlocks.CUT_LEAD_VERTICAL_SLAB));
+            add(new VerticalSlab(ModBlocks.CUT_SILVER, ModBlocks.CUT_SILVER_SLAB, ModBlocks.CUT_SILVER_VERTICAL_SLAB));
         }
     };
 

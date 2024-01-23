@@ -2087,6 +2087,10 @@
   "block.me.cut_lead_stairs": "Cut Lead Stairs",
   "block.me.cut_lead_slab": "Cut Lead Slab",
   "block.me.cut_lead_vertical_slab": "Cut Lead Vertical Slab",
+  "block.me.cut_silver": "Cut Silver",
+  "block.me.cut_silver_stairs": "Cut Silver Stairs",
+  "block.me.cut_silver_slab": "Cut Silver Slab",
+  "block.me.cut_silver_vertical_slab": "Cut Silver Vertical Slab",
 
 "#Comment:": "Block - Silver Blocks",
   "block.me.diftomin_silver_ore": "Diftomin Silver Ore",

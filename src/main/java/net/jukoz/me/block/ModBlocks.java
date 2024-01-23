@@ -199,6 +199,15 @@ public class ModBlocks {
     public static final Block CUT_LEAD_VERTICAL_SLAB = registerMiscBlock("cut_lead_vertical_slab",
             new VerticalSlabBlock(FabricBlockSettings.copyOf(ModBlocks.CUT_LEAD_SLAB)));
 
+    public static final Block CUT_SILVER = registerMiscBlock("cut_silver",
+            new Block(FabricBlockSettings.copyOf(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER)));
+    public static final Block CUT_SILVER_STAIRS = registerMiscBlock("cut_silver_stairs",
+            new StairsBlock(REED_BLOCK.getDefaultState(), FabricBlockSettings.copyOf(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER)));
+    public static final Block CUT_SILVER_SLAB = registerMiscBlock("cut_silver_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER)));
+    public static final Block CUT_SILVER_VERTICAL_SLAB = registerMiscBlock("cut_silver_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(ModBlocks.CUT_SILVER_SLAB)));
+
     public static final Block SAPPHIRE_BLOCK = registerMiscBlock("sapphire_block",
             new AmethystBlock(FabricBlockSettings.copyOf(Blocks.AMETHYST_BLOCK)));
     public static final Block BUDDING_SAPPHIRE = registerMiscBlock("budding_sapphire",
