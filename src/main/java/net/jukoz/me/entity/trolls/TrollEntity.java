@@ -1,8 +1,12 @@
 package net.jukoz.me.entity.trolls;
 
+import com.mojang.datafixers.types.templates.Tag;
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
+import net.jukoz.me.entity.goals.BeastFollowOwnerGoal;
+import net.jukoz.me.entity.goals.BeastSitGoal;
 import net.jukoz.me.entity.goals.ChargeAttackGoal;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntity;
@@ -19,23 +23,30 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.StackReference;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
@@ -57,6 +68,8 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
     private int chargeCooldown = 100;
     private int throwCooldown = 100;
     private Vec3d targetDir = Vec3d.ZERO;
+    private boolean sitting;
+    private PlayerEntity owner;
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
@@ -75,7 +88,6 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
         super(entityType, world);
     }
 
-
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35f)
@@ -90,11 +102,13 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new ChargeAttackGoal(this, 400));
+        this.goalSelector.add(1, new BeastSitGoal(this));
+        this.goalSelector.add(3, new ChargeAttackGoal(this, 400));
         this.goalSelector.add(3, new MeleeAttackGoal(this, 0.9f, false));
-        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(6, new LookAroundGoal(this));
+        this.goalSelector.add(4, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
+        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new TargetPlayerGoal(this));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
@@ -186,20 +200,6 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
         }
     }
 
-    private boolean canNavigateToEntity(LivingEntity entity) {
-        int j;
-        Path path = this.getNavigation().findPathTo(entity, 0);
-        if (path == null) {
-            return false;
-        }
-        PathNode pathNode = path.getEnd();
-        if (pathNode == null) {
-            return false;
-        }
-        int i = pathNode.x - entity.getBlockX();
-        return (double)(i * i + (j = pathNode.z - entity.getBlockZ()) * j) <= 2.25;
-    }
-
     class TargetPlayerGoal
             extends ActiveTargetGoal<PlayerEntity> {
         public TargetPlayerGoal(TrollEntity mob) {
@@ -240,6 +240,14 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
     @Override
     public int getJumpCooldown() {
         return this.chargeCooldown;
+    }
+
+    public void setBeastOwner(PlayerEntity owner) {
+        this.owner = owner;
+    }
+
+    public PlayerEntity getBeastOwner() {
+        return this.owner;
     }
 
     //region MOUNTING
@@ -292,6 +300,18 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
 
     public void setHasChest(boolean hasChest) {
         this.dataTracker.set(CHEST, hasChest);
+    }
+
+    public boolean isSitting() {
+        return this.sitting;
+    }
+
+    public void setSitting(boolean sitting) {
+        this.sitting = sitting;
+    }
+
+    public boolean isCommandItem(ItemStack stack) {
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "bones")));
     }
 
     protected int getInventorySize() {
@@ -469,6 +489,7 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
         if(random.nextDouble() <= 0.1d) {
 
             this.setOwnerUuid(player.getUuid());
+            this.setBeastOwner(player);
             this.setTame(true);
             if (player instanceof ServerPlayerEntity) {
                 Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
@@ -488,6 +509,10 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
         if(player.getStackInHand(hand).isOf(ModFoodItems.COOKED_HORSE)) {
             this.tryBonding(player);
             player.getStackInHand(hand).decrement(1);
+        }
+
+        if(this.isTame() && isCommandItem(player.getStackInHand(hand))) {
+            this.setSitting(!isSitting());
         }
 
         if (!this.hasPassengers() && !bl) {
@@ -512,7 +537,7 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
                 }
             }
         }
-        if(this.isTame()) {
+        if(this.isTame() && !isCommandItem(player.getStackInHand(hand))) {
             super.interactMob(player, hand);
         }
         return ActionResult.success(this.getWorld().isClient);
