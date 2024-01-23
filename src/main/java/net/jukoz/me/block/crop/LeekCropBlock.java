@@ -1,5 +1,6 @@
 package net.jukoz.me.block.crop;
 
+import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -17,7 +18,7 @@ public class LeekCropBlock extends CropBlock {
     }
     @Override
     protected ItemConvertible getSeedsItem() {
-        return ModResourceItems.LEEK_SEEDS;
+        return ModFoodItems.LEEK;
     }
 
     @Override

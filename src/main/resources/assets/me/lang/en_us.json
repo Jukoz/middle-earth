@@ -1707,6 +1707,30 @@
   "block.me.palm_table": "Palm Table",
   "block.me.palm_chair": "Palm Chair",
 
+"#Comment:": "Block - Palm",
+  "block.me.white_palm_leaves": "White Palm Leaves",
+  "block.me.white_palm_log": "White Palm Log",
+  "block.me.white_palm_wood": "White Palm Wood",
+  "block.me.white_palm_wood_wall": "White Palm Wood Wall",
+  "block.me.white_palm_planks": "White Palm Planks",
+  "block.me.white_palm_slab": "White Palm Slab",
+  "block.me.white_palm_vertical_slab": "White Palm Vertical Slab",
+  "block.me.white_palm_stairs": "White Palm Stairs",
+  "block.me.white_palm_fence": "White Palm Fence",
+  "block.me.white_palm_fence_gate": "White Palm Fence Gate",
+  "block.me.white_palm_pressure_plate": "White Palm Pressure Plate",
+  "block.me.white_palm_button": "White Palm Button",
+  "block.me.white_palm_door": "White Palm Door",
+  "block.me.white_palm_trapdoor": "White Palm Trapdoor",
+  "block.me.white_palm_shingles": "White Palm Shingles",
+  "block.me.white_palm_shingles_stairs": "White Palm Shingles Stairs",
+  "block.me.white_palm_shingles_slab": "White Palm Shingles Slab",
+  "block.me.white_palm_shingles_vertical_slab": "White Palm Shingles Vertical Slab",
+
+  "block.me.white_palm_stool": "White Palm Stool",
+  "block.me.white_palm_table": "White Palm Table",
+  "block.me.white_palm_chair": "White Palm Chair",
+
 "#Comment:": "Block - Pine",
   "block.me.pine_leaves": "Pine Leaves",
   "block.me.pine_log": "Pine Log",
@@ -2066,6 +2090,7 @@
   "block.me.willow_sapling": "Willow Sapling",
 
   "block.me.glowworm_webbing": "Glowworm Webbing",
+  "block.me.glowworm_main": "Glowworm Main",
   "block.me.mirkwood_roots": "Mirkwood Roots",
   "block.me.mirkwood_hanging_roots": "Mirkwood Hanging Roots",
 

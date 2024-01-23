@@ -27,7 +27,7 @@ public class CropDrops {
             add(new CropDrop(BlockStatePropertyLootCondition.builder(ModNatureBlocks.GARLIC_CROP).properties(StatePredicate.Builder.create().exactMatch(GarlicCropBlock.AGE, 3)),
                     ModNatureBlocks.GARLIC_CROP, ModFoodItems.GARLIC, ModFoodItems.GARLIC));
             add(new CropDrop(BlockStatePropertyLootCondition.builder(ModNatureBlocks.LEEK_CROP).properties(StatePredicate.Builder.create().exactMatch(LeekCropBlock.AGE, 3)),
-                    ModNatureBlocks.LEEK_CROP, ModFoodItems.LEEK, ModResourceItems.LEEK_SEEDS));
+                    ModNatureBlocks.LEEK_CROP, ModFoodItems.LEEK, ModFoodItems.LEEK));
             add(new CropDrop(BlockStatePropertyLootCondition.builder(ModNatureBlocks.LETTUCE_CROP).properties(StatePredicate.Builder.create().exactMatch(LettuceCropBlock.AGE, 3)),
                     ModNatureBlocks.LETTUCE_CROP, ModFoodItems.LETTUCE, ModResourceItems.LETTUCE_SEEDS));
             add(new CropDrop(BlockStatePropertyLootCondition.builder(ModNatureBlocks.ONION_CROP).properties(StatePredicate.Builder.create().exactMatch(OnionCropBlock.AGE, 3)),
@@ -44,7 +44,7 @@ public class CropDrops {
             add(new CropDrop(null, ModNatureBlocks.WILD_TOMATO, ModFoodItems.TOMATO, ModResourceItems.TOMATO_SEEDS));
             add(new CropDrop(null, ModNatureBlocks.WILD_BELL_PEPPER, ModFoodItems.BELL_PEPPER, ModResourceItems.BELL_PEPPER_SEEDS));
             add(new CropDrop(null, ModNatureBlocks.WILD_CUCUMBER, ModFoodItems.CUCUMBER, ModResourceItems.CUCUMBER_SEEDS));
-            add(new CropDrop(null, ModNatureBlocks.WILD_LEEK, ModFoodItems.LEEK, ModResourceItems.LEEK_SEEDS));
+            add(new CropDrop(null, ModNatureBlocks.WILD_LEEK, ModFoodItems.LEEK, ModFoodItems.LEEK));
             add(new CropDrop(null, ModNatureBlocks.WILD_LETTUCE, ModFoodItems.LETTUCE, ModResourceItems.LETTUCE_SEEDS));
             add(new CropDrop(null, ModNatureBlocks.WILD_GARLIC, ModFoodItems.GARLIC, ModFoodItems.GARLIC));
             add(new CropDrop(null, ModNatureBlocks.WILD_ONION, ModFoodItems.ONION, ModFoodItems.ONION));

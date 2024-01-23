@@ -130,9 +130,6 @@ public class MiddleEarthClient implements ClientModInitializer {
             return FoliageColors.getDefaultColor();
         }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT);
 
-        for(Block block : TintableCrossModel.notTintedBlocks){
-            BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
-        }
 
         for(Block block : SimpleDoubleBlockModel.doubleBlocks){
             BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
@@ -152,7 +149,7 @@ public class MiddleEarthClient implements ClientModInitializer {
             BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
         }
 
-        for(Block block : TintableCrossModel.notTintedBlocks) { // TODO refactor with #dev merge.
+        for(Block block : TintableCrossModel.notTintedBlocks) {
             if(block != null) BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
         }
         for(Block block : TintableCrossModel.tintedBlocks) {

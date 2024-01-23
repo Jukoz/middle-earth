@@ -189,6 +189,7 @@ public class ModelProvider extends FabricModelProvider {
 
         for(Block block : TintableCrossModel.notTintedBlocks) {
             if(block != null) blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.TintType.NOT_TINTED);
+
         }
 
         for(Block block : TintableCrossModel.tintedBlocks) {
