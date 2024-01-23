@@ -15,6 +15,9 @@ public class SimpleBlockModel {
 
     public record ChiseledPolishedBlock(Block base, Block origin) {}
 
+    public record CobbleableStoneBlock(Block base, Block origin) {}
+
+
     public static List<Block> blocks = new ArrayList<>() {
         {
             add(ModBlocks.DRY_DIRT);
@@ -44,6 +47,12 @@ public class SimpleBlockModel {
         }
     };
 
+    public static List<Block> cobbleableStoneBlocks = new ArrayList<>() {
+        {
+
+        }
+    };
+
     public static List<ChiseledBlock> chiseledBlocks = new ArrayList<>() {
         {
             add(new ChiseledBlock(ModBlocks.CHISELED_GONLUIN_BRICKS, StoneBlockSets.GONLUIN_BRICKS.slab()));
@@ -53,13 +62,23 @@ public class SimpleBlockModel {
             add(new ChiseledBlock(ModBlocks.CHISELED_GRANITE_BRICKS, StoneBlockSets.GRANITE_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_DIORITE_BRICKS, StoneBlockSets.DIORITE_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_BASALT_BRICKS, StoneBlockSets.BASALT_BRICKS.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_DIFTOMIN_BRICKS, StoneBlockSets.DIFTOMIN_BRICKS.slab()));
+        }
+    };
+
+    public static List<ChiseledBlock> chiseledBlocksTopBottom = new ArrayList<>() {
+        {
+            add(new ChiseledBlock(ModBlocks.CHISELED_BLUE_TUFF_BRICKS, StoneBlockSets.BLUE_TUFF_BRICKS.slab()));
         }
     };
 
     public static List<ChiseledPolishedBlock> chiseledPolishedBlocks = new ArrayList<>() {
         {
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_GONLUIN, StoneBlockSets.POLISHED_GONLUIN.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_BLUE_TUFF, StoneBlockSets.POLISHED_BLUE_TUFF.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_CALCITE, StoneBlockSets.POLISHED_CALCITE.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_DIFTOMIN, StoneBlockSets.POLISHED_DIFTOMIN.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_LIMESTONE, StoneBlockSets.POLISHED_LIMESTONE.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_ANDESITE, Blocks.POLISHED_ANDESITE_SLAB));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_STONE, Blocks.SMOOTH_STONE_SLAB));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_GRANITE, Blocks.POLISHED_GRANITE_SLAB));

@@ -1,7 +1,7 @@
 package net.jukoz.me.block.special;
 
 import net.jukoz.me.block.ModNatureBlocks;
-import net.jukoz.me.item.ModRessourceItems;
+import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -31,9 +31,9 @@ public class GlowWormBlock extends AbstractPlantBlock {
             itemStack.decrement(1);
             world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
             if (itemStack.isEmpty()) {
-                player.setStackInHand(hand, new ItemStack(ModRessourceItems.GLOWWORM_BOTTLE));
-            } else if (!player.getInventory().insertStack(new ItemStack(ModRessourceItems.GLOWWORM_BOTTLE))) {
-                player.dropItem(new ItemStack(ModRessourceItems.GLOWWORM_BOTTLE), false);
+                player.setStackInHand(hand, new ItemStack(ModResourceItems.GLOWWORM_BOTTLE));
+            } else if (!player.getInventory().insertStack(new ItemStack(ModResourceItems.GLOWWORM_BOTTLE))) {
+                player.dropItem(new ItemStack(ModResourceItems.GLOWWORM_BOTTLE), false);
             }
             world.removeBlock(pos,false);
         }

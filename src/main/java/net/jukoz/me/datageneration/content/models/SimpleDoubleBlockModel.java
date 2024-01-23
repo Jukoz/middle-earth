@@ -1,8 +1,7 @@
 package net.jukoz.me.datageneration.content.models;
 
-import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
-import net.jukoz.me.item.ModRessourceItems;
+import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class SimpleDoubleBlockModel {
 
     public static List<Block> doubleBlocksItems = new ArrayList<>() {
         {
-            add(ModRessourceItems.REEDS);
+            add(ModResourceItems.REEDS);
         }
     };
 }

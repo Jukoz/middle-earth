@@ -23,17 +23,21 @@ public class SimplePillarModel {
     public static List<StonePillar> stonePillars = new ArrayList<>() {
         {
             add(new StonePillar(ModBlocks.LIMESTONE_PILLAR, StoneBlockSets.LIMESTONE_BRICKS.base()));
+            add(new StonePillar(ModBlocks.MOSSY_LIMESTONE_PILLAR, ModBlocks.LIMESTONE_PILLAR));
+            add(new StonePillar(ModBlocks.CRACKED_LIMESTONE_PILLAR, ModBlocks.LIMESTONE_PILLAR));
 
             add(new StonePillar(ModBlocks.STONE_PILLAR, Blocks.STONE_BRICKS));
             add(new StonePillar(ModBlocks.MOSSY_STONE_PILLAR, ModBlocks.STONE_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_STONE_PILLAR, ModBlocks.STONE_PILLAR));
-
+            
             add(new StonePillar(ModBlocks.DEEPSLATE_PILLAR, Blocks.DEEPSLATE_BRICKS));
             add(new StonePillar(ModBlocks.MOSSY_DEEPSLATE_PILLAR, ModBlocks.STONE_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_DEEPSLATE_PILLAR, ModBlocks.STONE_PILLAR));
 
             add(new StonePillar(ModBlocks.GONLUIN_PILLAR, StoneBlockSets.GONLUIN_BRICKS.base()));
 
+            add(new StonePillar(ModBlocks.BLUE_TUFF_PILLAR, StoneBlockSets.BLUE_TUFF_BRICKS.base()));
+            
             add(new StonePillar(ModBlocks.FROZEN_PILLAR, StoneBlockSets.FROZEN_BRICKS.base()));
 
             add(new StonePillar(ModBlocks.CALCITE_PILLAR, StoneBlockSets.CALCITE_BRICKS.base()));
@@ -54,6 +58,9 @@ public class SimplePillarModel {
 
             add(new StonePillar(ModBlocks.JADEITE_PILLAR, StoneBlockSets.JADEITE_BRICKS.base()));
             add(new StonePillar(ModBlocks.CRACKED_JADEITE_PILLAR, ModBlocks.JADEITE_PILLAR));
+
+            add(new StonePillar(ModBlocks.DIFTOMIN_PILLAR, StoneBlockSets.DIFTOMIN_BRICKS.base()));
+
         }
     };
 }

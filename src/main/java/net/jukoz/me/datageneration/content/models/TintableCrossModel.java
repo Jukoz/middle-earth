@@ -32,9 +32,32 @@ public class TintableCrossModel {
 
             add(ModNatureBlocks.GLOWWORM_MAIN);
             add(ModNatureBlocks.GLOWWORM_WEBBING);
+
         }
     };
     public static List<Block> tintedBlocks = new ArrayList<>() {
+        {
+            add(ModNatureBlocks.GRASS_TUFT);
+            add(ModNatureBlocks.WILD_GRASS);
+        }
+    };
 
+    public static List<Block> grassLikeBlocks = new ArrayList<>()
+    {
+        {
+            add(ModNatureBlocks.BROWN_GRASS);
+            add(ModNatureBlocks.GREEN_SHRUB);
+            add(ModNatureBlocks.TAN_SHRUB);
+
+            add(ModNatureBlocks.DRY_GRASS);
+            add(ModNatureBlocks.DYING_GRASS);
+            add(ModNatureBlocks.HEATHER);
+            add(ModNatureBlocks.HEATHER_BUSH);
+            add(ModNatureBlocks.RED_HEATHER);
+            add(ModNatureBlocks.WHEATGRASS);
+            add(ModNatureBlocks.WILDERGRASS);
+            add(ModNatureBlocks.BEACH_GRASS);
+            add(ModNatureBlocks.COASTAL_PANIC_GRASS);
+        }
     };
 }

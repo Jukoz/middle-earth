@@ -10,24 +10,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleWoodStoolModel {
+
+    public record VanillaStool(Block base, Block origin) {}
+
     public static List<Block> stools = new ArrayList<>() {
         {
         }
     };
 
-    public static List<Block> vanillaStools = new ArrayList<>() {
+    public static List<VanillaStool> vanillaStools = new ArrayList<>() {
         {
-            add(ModDecorativeBlocks.OAK_WOOD_STOOL);
-            add(ModDecorativeBlocks.SPRUCE_WOOD_STOOL);
-            add(ModDecorativeBlocks.BIRCH_WOOD_STOOL);
-            add(ModDecorativeBlocks.JUNGLE_WOOD_STOOL);
-            add(ModDecorativeBlocks.ACACIA_WOOD_STOOL);
-            add(ModDecorativeBlocks.DARK_OAK_WOOD_STOOL);
-            add(ModDecorativeBlocks.MANGROVE_WOOD_STOOL);
-            add(ModDecorativeBlocks.BAMBOO_WOOD_STOOL);
-            add(ModDecorativeBlocks.CHERRY_WOOD_STOOL);
-            add(ModDecorativeBlocks.CRIMSON_WOOD_STOOL);
-            add(ModDecorativeBlocks.WARPED_WOOD_STOOL);
+            add(new VanillaStool(ModDecorativeBlocks.OAK_STOOL, Blocks.OAK_SLAB));
+            add(new VanillaStool(ModDecorativeBlocks.SPRUCE_STOOL, Blocks.SPRUCE_SLAB));
+            add(new VanillaStool(ModDecorativeBlocks.BIRCH_STOOL, Blocks.BIRCH_SLAB));
+            add(new VanillaStool(ModDecorativeBlocks.JUNGLE_STOOL, Blocks.JUNGLE_SLAB));
+            add(new VanillaStool(ModDecorativeBlocks.ACACIA_STOOL, Blocks.ACACIA_SLAB));
+            add(new VanillaStool(ModDecorativeBlocks.DARK_OAK_STOOL, Blocks.DARK_OAK_SLAB));
+            add(new VanillaStool(ModDecorativeBlocks.MANGROVE_STOOL, Blocks.MANGROVE_SLAB));
+            add(new VanillaStool(ModDecorativeBlocks.BAMBOO_STOOL, Blocks.BAMBOO_SLAB));
+            add(new VanillaStool(ModDecorativeBlocks.CHERRY_STOOL, Blocks.CHERRY_SLAB));
+            add(new VanillaStool(ModDecorativeBlocks.CRIMSON_STOOL, Blocks.CRIMSON_SLAB));
+            add(new VanillaStool(ModDecorativeBlocks.WARPED_STOOL, Blocks.WARPED_SLAB));
         }
     };
 }

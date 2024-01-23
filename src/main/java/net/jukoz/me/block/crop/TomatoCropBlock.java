@@ -1,7 +1,6 @@
 package net.jukoz.me.block.crop;
 
-import net.jukoz.me.item.ModFoodItems;
-import net.jukoz.me.item.ModRessourceItems;
+import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropBlock;
@@ -27,7 +26,7 @@ public class TomatoCropBlock extends CropBlock {
 
     @Override
     protected ItemConvertible getSeedsItem() {
-        return ModRessourceItems.TOMATO_SEEDS;
+        return ModResourceItems.TOMATO_SEEDS;
     }
 
     @Override

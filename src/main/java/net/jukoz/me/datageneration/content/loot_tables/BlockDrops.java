@@ -15,10 +15,14 @@ public class BlockDrops {
             add(ModBlocks.CHISELED_GONLUIN_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_GONLUIN);
 
+            add(ModBlocks.CHISELED_BLUE_TUFF_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_BLUE_TUFF);
+
             add(ModBlocks.CHISELED_CALCITE_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_CALCITE);
 
             add(ModBlocks.CHISELED_LIMESTONE_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_LIMESTONE);
 
             add(ModBlocks.CHISELED_SMOOTH_STONE);
 
@@ -32,6 +36,10 @@ public class BlockDrops {
             add(ModBlocks.CHISELED_POLISHED_DIORITE);
 
             add(ModBlocks.CHISELED_BASALT_BRICKS);
+
+            add(ModBlocks.DIFTOMIN_PILLAR);
+            add(ModBlocks.CHISELED_DIFTOMIN_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_DIFTOMIN);
 
             add(ModBlocks.DRY_DIRT);
             add(ModBlocks.DRY_DIRT_SLAB);
@@ -54,6 +62,9 @@ public class BlockDrops {
             add(ModBlocks.MOSSY_STONE_PILLAR);
             add(ModBlocks.CRACKED_STONE_PILLAR);
 
+            add(ModBlocks.BLUE_TUFF_PILLAR);
+
+
             add(ModBlocks.DEEPSLATE_PILLAR);
             add(ModBlocks.MOSSY_DEEPSLATE_PILLAR);
             add(ModBlocks.CRACKED_DEEPSLATE_PILLAR);
@@ -67,6 +78,8 @@ public class BlockDrops {
             add(ModBlocks.CRACKED_CALCITE_PILLAR);
 
             add(ModBlocks.LIMESTONE_PILLAR);
+            add(ModBlocks.MOSSY_LIMESTONE_PILLAR);
+            add(ModBlocks.CRACKED_LIMESTONE_PILLAR);
 
             add(ModBlocks.GRANITE_PILLAR);
             add(ModBlocks.MOSSY_GRANITE_PILLAR);

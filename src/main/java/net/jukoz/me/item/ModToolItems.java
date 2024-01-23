@@ -5,6 +5,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.datageneration.content.models.SimpleHandheldItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleItemModel;
 import net.jukoz.me.item.items.BronzeBucketItem;
+import net.jukoz.me.item.items.CustomPowderSnowBucket;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.ModToolMaterials;
 import net.minecraft.block.Blocks;
@@ -102,9 +103,9 @@ public class ModToolItems {
     public static final Item BROKEN_BRONZE_BUCKET = registerItemGenerated("broken_bronze_bucket",
             new Item(new FabricItemSettings().maxCount(16)));
     public static final Item BRONZE_WATER_BUCKET = registerItemGenerated("bronze_water_bucket",
-            new BucketItem(Fluids.WATER, new FabricItemSettings().maxCount(1)));
+            new BronzeBucketItem(Fluids.WATER, new FabricItemSettings().recipeRemainder(BRONZE_BUCKET).maxCount(1)));
     public static final Item BRONZE_POWDER_SNOW_BUCKET = registerItemGenerated("bronze_powder_snow_bucket",
-            new PowderSnowBucketItem(Blocks.POWDER_SNOW, SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, new FabricItemSettings().maxCount(1)));
+            new CustomPowderSnowBucket(Blocks.POWDER_SNOW, SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, new FabricItemSettings().maxCount(1)));
     public static final Item BRONZE_MILK_BUCKET = registerItemGenerated("bronze_milk_bucket",
             new MilkBucketItem(new FabricItemSettings().maxCount(1)));
     public static final Item BRONZE_PUFFERFISH_BUCKET = registerItemGenerated("bronze_pufferfish_bucket",
@@ -123,9 +124,9 @@ public class ModToolItems {
     public static final Item MITHRIL_BUCKET = registerItemGenerated("mithril_bucket",
             new BucketItem(Fluids.EMPTY, new FabricItemSettings().maxCount(16).fireproof()));
     public static final Item MITHRIL_WATER_BUCKET = registerItemGenerated("mithril_water_bucket",
-            new BucketItem(Fluids.WATER, new FabricItemSettings().maxCount(1).fireproof()));
+            new BucketItem(Fluids.WATER, new FabricItemSettings().recipeRemainder(MITHRIL_BUCKET).maxCount(1).fireproof()));
     public static final Item MITHRIL_LAVA_BUCKET = registerItemGenerated("mithril_lava_bucket",
-            new BucketItem(Fluids.LAVA, new FabricItemSettings().maxCount(1).fireproof()));
+            new BucketItem(Fluids.LAVA, new FabricItemSettings().recipeRemainder(MITHRIL_BUCKET).maxCount(1).fireproof()));
     public static final Item MITHRIL_POWDER_SNOW_BUCKET = registerItemGenerated("mithril_powder_snow_bucket",
             new PowderSnowBucketItem(Blocks.POWDER_SNOW, SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, new FabricItemSettings().maxCount(1).fireproof()));
     public static final Item MITHRIL_MILK_BUCKET = registerItemGenerated("mithril_milk_bucket",

@@ -25,9 +25,6 @@ public class MiddleEarth implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final int MAP_ITERATION = 0;
 
-	//TODO Layers Waterlog
-	//TODO Layers Loot Tables
-
 	@Override
 	public void onInitialize() {
 		ModStatusEffects.registerStatusEffects();
@@ -36,17 +33,17 @@ public class MiddleEarth implements ModInitializer {
 		ModEquipmentItems.registerModItems();
 		ModToolItems.registerModItems();
 		ModFoodItems.registerModItems();
-		ModRessourceItems.registerModItems();
+		ModResourceItems.registerModItems();
 		ModEggItems.registerModItems();
 		ModItemGroups.register();
 
+		WoodBlockSets.registerModBlockSets();
+		MushroomBlockSets.registerModBlockSets();
+		StoneBlockSets.registerModBlockSets();
+		ModDecorativeItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModDecorativeBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();
-		ModDecorativeItems.registerModItems();
-		StoneBlockSets.registerModBlockSets();
-		WoodBlockSets.registerModBlockSets();
-		MushroomBlockSets.registerModBlockSets();
 		RoofBlockSets.registerModBlockSets();
 
 		ModBlockEntities.registerBlockEntities();

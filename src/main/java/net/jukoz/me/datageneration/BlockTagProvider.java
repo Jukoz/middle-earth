@@ -2,10 +2,12 @@ package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.OreRockSets;
 import net.jukoz.me.block.StoneBlockSets;
+import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.content.tags.*;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
@@ -33,6 +35,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         var needsIronTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "needs_iron_tool")));
         var needsDiamondTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "needs_diamond_tool")));
         var needsNetheriteTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("fabric", "needs_tool_level_4")));
+
+        var seat = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier(MiddleEarth.MOD_ID, "seat")));
+        var table = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier(MiddleEarth.MOD_ID, "table")));
+
 
         mineableAxe.add(MineableAxe.blocks.toArray(new Block[0]));
         mineablePickaxe.add(MineablePickaxe.blocks.toArray(new Block[0]));
@@ -115,6 +121,63 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 needsStoneTools.add(record.wall());
             }
         }
+
+        for (StoneBlockSets.SimpleBlockSetMain record : StoneBlockSets.setsMain) {
+            if (Registries.BLOCK.getId(record.base()).getPath().contains("diftomin")){
+                needsIronTools.add(record.base());
+                needsIronTools.add(record.slab());
+                needsIronTools.add(record.verticalSlab());
+                needsIronTools.add(record.stairs());
+                needsIronTools.add(record.wall());
+                needsIronTools.add(record.stool());
+                needsIronTools.add(record.table());
+            }else if (Registries.BLOCK.getId(record.base()).getPath().contains("epmosto")){
+                needsDiamondTools.add(record.base());
+                needsDiamondTools.add(record.slab());
+                needsDiamondTools.add(record.verticalSlab());
+                needsDiamondTools.add(record.stairs());
+                needsDiamondTools.add(record.wall());
+                needsDiamondTools.add(record.stool());
+                needsDiamondTools.add(record.table());
+            } else {
+                needsStoneTools.add(record.base());
+                needsStoneTools.add(record.slab());
+                needsStoneTools.add(record.verticalSlab());
+                needsStoneTools.add(record.stairs());
+                needsStoneTools.add(record.wall());
+                needsStoneTools.add(record.stool());
+                needsStoneTools.add(record.table());
+            }
+        }
+
+        for (SimpleStoneChairModel.VanillaChair block : SimpleStoneChairModel.vanillaChairs) {
+
+        }
+
+        SimpleStoneStoolModel.stools.forEach(seat::add);
+        SimpleStoneStoolModel.vanillaStools.forEach(block -> {
+            seat.add(block.base());
+        });
+        SimpleStoneChairModel.chairs.forEach(seat::add);
+        SimpleStoneChairModel.vanillaChairs.forEach(block -> {
+            seat.add(block.base());
+        });
+        SimpleStoneTableModel.tables.forEach(table::add);
+        SimpleStoneTableModel.vanillaTables.forEach(block -> {
+            table.add(block.base());
+        });
+        SimpleWoodStoolModel.stools.forEach(seat::add);
+        SimpleWoodStoolModel.vanillaStools.forEach(block -> {
+            seat.add(block.base());
+        });
+        SimpleWoodChairModel.chairs.forEach(seat::add);
+        SimpleWoodChairModel.vanillaChairs.forEach(block -> {
+            seat.add(block.base());
+        });
+        SimpleWoodTableModel.tables.forEach(table::add);
+        SimpleWoodTableModel.vanillaTables.forEach(block -> {
+            table.add(block.base());
+        });
 
         needsStoneTools.add(OreRockSets.GONLUIN.copper_ore());
         needsStoneTools.add(OreRockSets.GONLUIN.tin_ore());
@@ -229,8 +292,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableAxe.add(ModBlocks.CRIMSON_VERTICAL_SLAB);
         mineableAxe.add(ModBlocks.WARPED_VERTICAL_SLAB);
 
-        mineableShovel.add(ModBlocks.GRAVEL_LAYERS);
-        mineableShovel.add(ModBlocks.SAND_LAYERS);
+        mineableShovel.add(ModBlocks.GRAVEL_LAYER);
+        mineableShovel.add(ModBlocks.SAND_LAYER);
 
         mineableShovel.add(ModBlocks.DIRT_SLAB);
         mineableShovel.add(ModBlocks.DIRT_STAIRS);

@@ -16,8 +16,8 @@ public class SimpleLayersModel {
 
     public static List<SimpleLayersModel.Layers> vanillaLayers = new ArrayList<>() {
         {
-            add(new SimpleLayersModel.Layers(Blocks.GRAVEL, ModBlocks.GRAVEL_LAYERS));
-            add(new SimpleLayersModel.Layers(Blocks.SAND, ModBlocks.SAND_LAYERS));
+            add(new SimpleLayersModel.Layers(Blocks.GRAVEL, ModBlocks.GRAVEL_LAYER));
+            add(new SimpleLayersModel.Layers(Blocks.SAND, ModBlocks.SAND_LAYER));
         }
     };
 }

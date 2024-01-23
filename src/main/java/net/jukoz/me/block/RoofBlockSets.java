@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.VerticalSlabBlock;
 import net.minecraft.block.*;
-import net.minecraft.sound.BlockSoundGroup;
 
 public class RoofBlockSets {
 
@@ -37,24 +36,24 @@ public class RoofBlockSets {
     public static RoofBlockSet CHARRED_SHINGLES = registerWoodSet("charred_shingles", null);
     public static RoofBlockSet WEATHERED_SHINGLES = registerWoodSet("weathered_shingles", null);
 
-    public static RoofBlockSet BRICK_CLAY_TILING = registerWoodSet("brick_clay_tiling", Blocks.BRICKS);
+    public static RoofBlockSet BRICK_CLAY_TILING = registerClaySet("brick_clay_tiling", Blocks.BRICKS);
 
-    public static RoofBlockSet BLACK_CLAY_TILING = registerWoodSet("black_clay_tiling", Blocks.BLACK_TERRACOTTA);
-    public static RoofBlockSet BLUE_CLAY_TILING = registerWoodSet("blue_clay_tiling", Blocks.BLUE_TERRACOTTA);
-    public static RoofBlockSet BROWN_CLAY_TILING = registerWoodSet("brown_clay_tiling", Blocks.BROWN_TERRACOTTA);
-    public static RoofBlockSet CYAN_CLAY_TILING = registerWoodSet("cyan_clay_tiling", Blocks.CYAN_TERRACOTTA);
-    public static RoofBlockSet GRAY_CLAY_TILING = registerWoodSet("gray_clay_tiling", Blocks.GRAY_TERRACOTTA);
-    public static RoofBlockSet GREEN_CLAY_TILING = registerWoodSet("green_clay_tiling", Blocks.GREEN_TERRACOTTA);
-    public static RoofBlockSet LIGHT_BLUE_CLAY_TILING = registerWoodSet("light_blue_clay_tiling", Blocks.LIGHT_BLUE_TERRACOTTA);
-    public static RoofBlockSet LIGHT_GRAY_CLAY_TILING = registerWoodSet("light_gray_clay_tiling", Blocks.LIGHT_GRAY_TERRACOTTA);
-    public static RoofBlockSet LIME_TILING = registerWoodSet("lime_clay_tiling", Blocks.LIME_TERRACOTTA);
-    public static RoofBlockSet MAGENTA_CLAY_TILING = registerWoodSet("magenta_clay_tiling", Blocks.MAGENTA_TERRACOTTA);
-    public static RoofBlockSet ORANGE_CLAY_TILING = registerWoodSet("orange_clay_tiling", Blocks.ORANGE_TERRACOTTA);
-    public static RoofBlockSet PINK_CLAY_TILING = registerWoodSet("pink_clay_tiling", Blocks.PINK_TERRACOTTA);
-    public static RoofBlockSet PURPLE_CLAY_TILING = registerWoodSet("purple_clay_tiling", Blocks.PURPLE_TERRACOTTA);
-    public static RoofBlockSet RED_CLAY_TILING = registerWoodSet("red_clay_tiling", Blocks.RED_TERRACOTTA);
-    public static RoofBlockSet WHITE_CLAY_TILING = registerWoodSet("white_clay_tiling", Blocks.WHITE_TERRACOTTA);
-    public static RoofBlockSet YELLOW_CLAY_TILING = registerWoodSet("yellow_clay_tiling", Blocks.YELLOW_TERRACOTTA);
+    public static RoofBlockSet BLACK_CLAY_TILING = registerClaySet("black_clay_tiling", Blocks.BLACK_TERRACOTTA);
+    public static RoofBlockSet BLUE_CLAY_TILING = registerClaySet("blue_clay_tiling", Blocks.BLUE_TERRACOTTA);
+    public static RoofBlockSet BROWN_CLAY_TILING = registerClaySet("brown_clay_tiling", Blocks.BROWN_TERRACOTTA);
+    public static RoofBlockSet CYAN_CLAY_TILING = registerClaySet("cyan_clay_tiling", Blocks.CYAN_TERRACOTTA);
+    public static RoofBlockSet GRAY_CLAY_TILING = registerClaySet("gray_clay_tiling", Blocks.GRAY_TERRACOTTA);
+    public static RoofBlockSet GREEN_CLAY_TILING = registerClaySet("green_clay_tiling", Blocks.GREEN_TERRACOTTA);
+    public static RoofBlockSet LIGHT_BLUE_CLAY_TILING = registerClaySet("light_blue_clay_tiling", Blocks.LIGHT_BLUE_TERRACOTTA);
+    public static RoofBlockSet LIGHT_GRAY_CLAY_TILING = registerClaySet("light_gray_clay_tiling", Blocks.LIGHT_GRAY_TERRACOTTA);
+    public static RoofBlockSet LIME_TILING = registerClaySet("lime_clay_tiling", Blocks.LIME_TERRACOTTA);
+    public static RoofBlockSet MAGENTA_CLAY_TILING = registerClaySet("magenta_clay_tiling", Blocks.MAGENTA_TERRACOTTA);
+    public static RoofBlockSet ORANGE_CLAY_TILING = registerClaySet("orange_clay_tiling", Blocks.ORANGE_TERRACOTTA);
+    public static RoofBlockSet PINK_CLAY_TILING = registerClaySet("pink_clay_tiling", Blocks.PINK_TERRACOTTA);
+    public static RoofBlockSet PURPLE_CLAY_TILING = registerClaySet("purple_clay_tiling", Blocks.PURPLE_TERRACOTTA);
+    public static RoofBlockSet RED_CLAY_TILING = registerClaySet("red_clay_tiling", Blocks.RED_TERRACOTTA);
+    public static RoofBlockSet WHITE_CLAY_TILING = registerClaySet("white_clay_tiling", Blocks.WHITE_TERRACOTTA);
+    public static RoofBlockSet YELLOW_CLAY_TILING = registerClaySet("yellow_clay_tiling", Blocks.YELLOW_TERRACOTTA);
 
     public static RoofBlockSet[] sets = new RoofBlockSet[] {
             OAK_SHINGLES,
@@ -113,16 +112,35 @@ public class RoofBlockSets {
         Block block = null;
 
         if (origin == null) {
-            block = ModBlocks.registerBlock(name, new Block(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            block = ModBlocks.registerWoodBlock(name, new Block(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
         }else {
-            block = ModBlocks.registerBlock(name, new Block(AbstractBlock.Settings.copy(origin)));
+            block = ModBlocks.registerWoodBlock(name, new Block(AbstractBlock.Settings.copy(origin)));
         }
 
-        Block slab = ModBlocks.registerBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(block)));
+        Block slab = ModBlocks.registerWoodBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(block)));
 
-        Block verticalSlab = ModBlocks.registerBlock(name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(block)));
+        Block verticalSlab = ModBlocks.registerWoodBlock(name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(block)));
 
-        Block stairs = ModBlocks.registerBlock(name + "_stairs", new StairsBlock(block.getDefaultState(),
+        Block stairs = ModBlocks.registerWoodBlock(name + "_stairs", new StairsBlock(block.getDefaultState(),
+                FabricBlockSettings.copyOf(block)));
+
+        return new RoofBlockSet(block, slab, verticalSlab, stairs, origin);
+    }
+
+    private static RoofBlockSet registerClaySet(String name, Block origin) {
+        Block block = null;
+
+        if (origin == null) {
+            block = ModBlocks.registerStoneBlock(name, new Block(AbstractBlock.Settings.copy(Blocks.TERRACOTTA)));
+        }else {
+            block = ModBlocks.registerStoneBlock(name, new Block(AbstractBlock.Settings.copy(origin)));
+        }
+
+        Block slab = ModBlocks.registerStoneBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(block)));
+
+        Block verticalSlab = ModBlocks.registerStoneBlock(name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(block)));
+
+        Block stairs = ModBlocks.registerStoneBlock(name + "_stairs", new StairsBlock(block.getDefaultState(),
                 FabricBlockSettings.copyOf(block)));
 
         return new RoofBlockSet(block, slab, verticalSlab, stairs, origin);

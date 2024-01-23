@@ -3,29 +3,33 @@ package net.jukoz.me.datageneration.content.models;
 import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleWoodTableModel {
+    public record VanillaTable(Block base, Block origin) {}
+
+
     public static List<Block> tables = new ArrayList<>() {
         {
         }
     };
 
-    public static List<Block> vanillaTables = new ArrayList<>() {
+    public static List<VanillaTable> vanillaTables = new ArrayList<>() {
         {
-            add(ModDecorativeBlocks.OAK_WOOD_TABLE);
-            add(ModDecorativeBlocks.SPRUCE_WOOD_TABLE);
-            add(ModDecorativeBlocks.BIRCH_WOOD_TABLE);
-            add(ModDecorativeBlocks.JUNGLE_WOOD_TABLE);
-            add(ModDecorativeBlocks.ACACIA_WOOD_TABLE);
-            add(ModDecorativeBlocks.DARK_OAK_WOOD_TABLE);
-            add(ModDecorativeBlocks.MANGROVE_WOOD_TABLE);
-            add(ModDecorativeBlocks.BAMBOO_WOOD_TABLE);
-            add(ModDecorativeBlocks.CHERRY_WOOD_TABLE);
-            add(ModDecorativeBlocks.CRIMSON_WOOD_TABLE);
-            add(ModDecorativeBlocks.WARPED_WOOD_TABLE);
+            add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.OAK_TABLE, Blocks.OAK_SLAB));
+            add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.SPRUCE_TABLE, Blocks.SPRUCE_SLAB));
+            add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.BIRCH_TABLE, Blocks.BIRCH_SLAB));
+            add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.JUNGLE_TABLE, Blocks.JUNGLE_SLAB));
+            add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.ACACIA_TABLE, Blocks.ACACIA_SLAB));
+            add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.DARK_OAK_TABLE, Blocks.DARK_OAK_SLAB));
+            add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.MANGROVE_TABLE, Blocks.MANGROVE_SLAB));
+            add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.BAMBOO_TABLE, Blocks.BAMBOO_SLAB));
+            add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.CHERRY_TABLE, Blocks.CHERRY_SLAB));
+            add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.CRIMSON_TABLE, Blocks.CRIMSON_SLAB));
+            add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.WARPED_TABLE, Blocks.WARPED_SLAB));
         }
     };
 }

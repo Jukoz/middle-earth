@@ -1,7 +1,7 @@
 package net.jukoz.me.item.utils;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.item.ModRessourceItems;
+import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Items;
@@ -27,10 +27,10 @@ public enum ModArmorMaterials implements ArmorMaterial {
             () -> Ingredient.ofItems(Items.IRON_INGOT)),
     NAZGUL_CLOAK("nazgul_cloak", 15, new int[] { 2, 5, 4, 2},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0, 0.0F,
-            () -> Ingredient.ofItems(ModRessourceItems.MORGUL_STEEL_INGOT)),
+            () -> Ingredient.ofItems(ModResourceItems.MORGUL_STEEL_INGOT)),
     MORDOR_ORC_ARMOR("mordor_orc_armor", 16, new int[] { 2, 6, 5, 2},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0, 0.0F,
-            () -> Ingredient.ofItems(ModRessourceItems.ORC_STEEL_INGOT)),
+            () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT)),
     ;
 
     private final String name;

@@ -3,32 +3,25 @@ package net.jukoz.me.datageneration;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.jukoz.me.block.ModBlocks;
-import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.OreRockSets;
 import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.datageneration.content.loot_tables.CropDrops;
 import net.jukoz.me.datageneration.content.loot_tables.LeavesDrops;
-import net.jukoz.me.datageneration.content.models.SimpleBlockModel;
-import net.jukoz.me.datageneration.content.tags.MineablePickaxe;
-import net.jukoz.me.item.ModRessourceItems;
+import net.jukoz.me.datageneration.content.models.SimpleFanModel;
+import net.jukoz.me.datageneration.content.models.TintableCrossModel;
+import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.server.loottable.BlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.condition.LootConditionTypes;
 import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LeafEntry;
-import net.minecraft.loot.entry.LootPoolEntry;
-import net.minecraft.loot.function.ApplyBonusLootFunction;
-import net.minecraft.loot.function.ConditionalLootFunction;
-import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.item.EnchantmentPredicate;
@@ -52,9 +45,9 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 cobbleDrops(block, StoneBlockSets.COBBLED_GONLUIN.base());
             }else if(Registries.BLOCK.getId(block).getPath().equals("limestone")){
                 cobbleDrops(block, StoneBlockSets.COBBLED_LIMESTONE.base());
-            }else if(Registries.BLOCK.getId(block).getPath().equals("dolomite")){
+            }/*else if(Registries.BLOCK.getId(block).getPath().equals("dolomite")){
                 cobbleDrops(block, StoneBlockSets.COBBLED_DOLOMITE.base());
-            }else if(Registries.BLOCK.getId(block).getPath().equals("quartzite")){
+            }*/else if(Registries.BLOCK.getId(block).getPath().equals("quartzite")){
                 cobbleDrops(block, StoneBlockSets.COBBLED_QUARTZITE.base());
             }else if(Registries.BLOCK.getId(block).getPath().equals("frozen_stone")){
                 cobbleDrops(block, StoneBlockSets.FROZEN_COBBLESTONE.base());
@@ -81,6 +74,14 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                             .with(ItemEntry.builder(cd.fruit))));
         }
 
+        for(Block block : TintableCrossModel.grassLikeBlocks) {
+            addDrop(block, grassDrops(block));
+        }
+
+        for(Block block : SimpleFanModel.grassLikeFans) {
+            addDrop(block, grassDrops(block));
+        }
+
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if (set.coal_ore() != null) {
                 addDrop(set.coal_ore(), oreDrops(set.coal_ore(), Items.COAL));
@@ -89,13 +90,13 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 addDrop(set.copper_ore(),copperOreDrops(set.copper_ore()));
             }
             if (set.tin_ore() != null) {
-                addDrop(set.tin_ore(),oreDrops(set.tin_ore(), ModRessourceItems.RAW_TIN));
+                addDrop(set.tin_ore(),oreDrops(set.tin_ore(), ModResourceItems.RAW_TIN));
             }
             if (set.lead_ore() != null) {
-                addDrop(set.lead_ore(),oreDrops(set.lead_ore(), ModRessourceItems.RAW_LEAD));
+                addDrop(set.lead_ore(),oreDrops(set.lead_ore(), ModResourceItems.RAW_LEAD));
             }
             if (set.silver_ore() != null) {
-                addDrop(set.silver_ore(),oreDrops(set.silver_ore(), ModRessourceItems.RAW_SILVER));
+                addDrop(set.silver_ore(),oreDrops(set.silver_ore(), ModResourceItems.RAW_SILVER));
             }
             if (set.gold_ore() != null) {
                 addDrop(set.gold_ore(),oreDrops(set.gold_ore(), Items.RAW_GOLD));
@@ -104,7 +105,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 addDrop(set.iron_ore(),oreDrops(set.iron_ore(), Items.RAW_IRON));
             }
             if (set.mithril_ore() != null) {
-                addDrop(set.mithril_ore(),oreDrops(set.mithril_ore(), ModRessourceItems.RAW_MITHRIL));
+                addDrop(set.mithril_ore(),oreDrops(set.mithril_ore(), ModResourceItems.RAW_MITHRIL));
             }
         }
         addDropWithSilkTouch(ModBlocks.STONE_MYCELIUM);
