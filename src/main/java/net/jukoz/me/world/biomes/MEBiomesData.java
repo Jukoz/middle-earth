@@ -18,8 +18,10 @@ public class MEBiomesData {
     public static List<RegistryKey<Biome>> waterBiomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> wastePondBiomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> mirkwoodSwampBiomes = new ArrayList<>();
+    public static List<RegistryKey<Biome>> oasisBiomes = new ArrayList<>();
 
     public static MEBiome defaultBiome;
+    public static MEBiome oasis;
     public static MEBiome pond;
     public static MEBiome wastePond;
     public static MEBiome mirkwoodSwamp;
@@ -62,12 +64,14 @@ public class MEBiomesData {
 
     public static void loadBiomes() {
         defaultBiome = new MEBiome(-21, MEBiomeKeys.OCEAN, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE);
+        oasis = new MEBiome(-10, MEBiomeKeys.OASIS,  Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE);
         pond = new MEBiome(-10, MEBiomeKeys.POND,  Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE);
         mirkwoodSwamp = new MEBiome(-12, MEBiomeKeys.MIRKWOOD_SWAMP, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE);
         wastePond = new MEBiome(-15, MEBiomeKeys.WASTE_POND, ModBlocks.MORDOR_DIRT, ModBlocks.MORDOR_DIRT, Blocks.STONE, Blocks.STONE);
 
         // Water Biomes :
         addBiome(new Color(55, 90, 195), defaultBiome);
+        addBiome(new Color(104, 168, 222), oasis);
         addBiome(new Color(110, 154, 218), pond);
         addBiome(new Color(89, 136, 129), mirkwoodSwamp);
         addBiome(new Color(75, 108, 143), wastePond);
@@ -156,6 +160,12 @@ public class MEBiomesData {
         mirkwoodSwampBiomes.add(MEBiomeKeys.DOL_GULDUR);
         mirkwoodSwampBiomes.add(MEBiomeKeys.MIRKWOOD);
         mirkwoodSwampBiomes.add(MEBiomeKeys.MIRKWOOD_EDGE);
+
+        oasisBiomes.add(MEBiomeKeys.CORSAIR_COASTS);
+        oasisBiomes.add(MEBiomeKeys.HARONDOR);
+        oasisBiomes.add(MEBiomeKeys.HARAD);
+        oasisBiomes.add(MEBiomeKeys.HARAD_DESERT);
+        oasisBiomes.add(MEBiomeKeys.UMBAR);
 
         wastePondBiomes.add(MEBiomeKeys.MORDOR);
         wastePondBiomes.add(MEBiomeKeys.MORDOR_MOUNTAINS);

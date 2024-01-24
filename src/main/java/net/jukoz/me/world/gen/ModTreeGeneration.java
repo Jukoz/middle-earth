@@ -42,8 +42,5 @@ public class ModTreeGeneration {
     );
 
     public static void generateTrees() {
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(MEBiomeKeys.MIRKWOOD),
-                GenerationStep.Feature.VEGETAL_DECORATION, ModTreePlacedFeatures.MIRKWOOD_PLACED_TREE_KEY);
-
     }
 }
