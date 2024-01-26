@@ -1,5 +1,6 @@
 package net.jukoz.me.entity.goals;
 
+import net.jukoz.me.entity.beasts.BeastEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -9,11 +10,11 @@ import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import java.util.EnumSet;
 
 public class BeastTrackOwnerAttackerGoal extends TrackTargetGoal {
-    private final TrollEntity mob;
+    private final BeastEntity mob;
     private LivingEntity attacker;
     private int lastAttackedTime;
 
-    public BeastTrackOwnerAttackerGoal(TrollEntity mob) {
+    public BeastTrackOwnerAttackerGoal(BeastEntity mob) {
         super(mob, false);
         this.mob = mob;
         this.setControls(EnumSet.of(Goal.Control.TARGET));

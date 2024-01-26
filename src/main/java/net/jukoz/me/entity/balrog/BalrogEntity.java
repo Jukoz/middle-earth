@@ -64,19 +64,6 @@ public class BalrogEntity extends HostileEntity {
                 .add(EntityAttributes.GENERIC_ARMOR, 10.0);
     }
 
-    public TrollEntity.State getState() {
-        if(this.attackTicksLeft > 0) {
-            return TrollEntity.State.ATTACK;
-        }
-        else if (this.isAttacking()) {
-            return TrollEntity.State.AGGRESSIVE;
-        }
-        else if(this.isInWalkTargetRange()) {
-            return TrollEntity.State.WALKING;
-        }
-        return TrollEntity.State.NEUTRAL;
-    }
-
     public int getAttackTicksLeft() {
         return this.attackTicksLeft;
     }
@@ -197,10 +184,4 @@ public class BalrogEntity extends HostileEntity {
         return true;
     }
 
-    public enum State {
-        NEUTRAL,
-        WALKING,
-        AGGRESSIVE,
-        ATTACK;
-    }
 }

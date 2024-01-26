@@ -58,6 +58,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
 
     private int chargeCooldown = 100;
     private boolean sitting;
+    private LivingEntity owner;
 
     public static final int ATTACK_COOLDOWN = 10;
     public static final float RESISTANCE = 0.15f;
@@ -79,7 +80,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
 
     }
 
-    private void setupAnimationStates() {
+    protected void setupAnimationStates() {
         if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = this.random.nextInt(40) + 80;
             this.idleAnimationState.start(this.age);
@@ -163,34 +164,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
         this.updateSaddle();
     }
 
-    // Goals ===========================================================================================================
-    class TargetPlayerGoal
-            extends ActiveTargetGoal<PlayerEntity> {
-        public TargetPlayerGoal(BeastEntity mob) {
-            super((MobEntity)mob, PlayerEntity.class, true);
-        }
-
-        @Override
-        public boolean canStart() {
-            if (BeastEntity.this.getWorld().getDifficulty() == Difficulty.PEACEFUL || BeastEntity.this.isTame()) {
-                if(BeastEntity.this.getTarget() instanceof PlayerEntity) {
-                    BeastEntity.this.setTarget(null);
-                }
-
-                return false;
-            }
-            return super.canStart();
-        }
-
-        @Override
-        public boolean shouldContinue() {
-            if(!BeastEntity.this.isTame()) {
-                return super.shouldContinue();
-            }
-            return false;
-        }
-    }
-
     // Getters and Setters =============================================================================================
     @Override
     protected float getJumpVelocity() {
@@ -205,7 +178,11 @@ public class BeastEntity extends AbstractDonkeyEntity {
     @Nullable
     @Override
     public LivingEntity getOwner() {
-        return super.getOwner();
+        return this.owner;
+    }
+
+    public void setOwner(LivingEntity owner) {
+        this.owner = owner;
     }
 
     public double getMountedHeightOffset() {
@@ -236,7 +213,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
     }
 
     public boolean isCommandItem(ItemStack stack) {
-        return stack.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "bones")));
+        return false;
     }
 
     public void setCharging(boolean charging) {
@@ -333,11 +310,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
     }
 
     @Override
-    public boolean isHorseArmor(ItemStack item) {
-        return item.getItem() instanceof TrollArmorItem;
-    }
-
-    @Override
     public boolean hasArmorSlot() {
         return true;
     }
@@ -388,6 +360,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
         if(random.nextDouble() <= 0.1d) {
 
             this.setOwnerUuid(player.getUuid());
+            this.setOwner(player);
             this.setTame(true);
             if (player instanceof ServerPlayerEntity) {
                 Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
@@ -561,6 +534,12 @@ public class BeastEntity extends AbstractDonkeyEntity {
         } else {
             super.handleStatus(status);
         }
+    }
+
+    @Override
+    protected void updateLimbs(float posDelta) {
+        float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
+        this.limbAnimator.updateLimbs(f, 0.2f);
     }
 
     @Override
