@@ -1,10 +1,11 @@
-package net.jukoz.me.entity.trolls.snow;
+package net.jukoz.me.entity.beasts.trolls.snow;
 
-import net.jukoz.me.entity.trolls.TrollEntity;
+import net.jukoz.me.entity.beasts.BeastEntity;
+import net.jukoz.me.entity.beasts.trolls.TrollEntity;
+import net.jukoz.me.item.ModFoodItems;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
-import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
 public class SnowTrollEntity extends TrollEntity {

@@ -1,4 +1,4 @@
-package net.jukoz.me.entity.trolls.cave;
+package net.jukoz.me.entity.beasts.trolls.cave;
 
 import com.google.common.collect.Maps;
 import net.jukoz.me.MiddleEarth;

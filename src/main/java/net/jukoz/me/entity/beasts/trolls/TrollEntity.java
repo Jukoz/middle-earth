@@ -1,6 +1,5 @@
-package net.jukoz.me.entity.trolls;
+package net.jukoz.me.entity.beasts.trolls;
 
-import com.mojang.datafixers.types.templates.Tag;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
@@ -15,30 +14,24 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.pathing.Path;
-import net.minecraft.entity.ai.pathing.PathNode;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.StackReference;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
@@ -53,7 +46,6 @@ import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
@@ -97,7 +89,7 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(1, new BeastSitGoal(this));
+        this.goalSelector.add(2, new BeastSitGoal(this));
         this.goalSelector.add(3, new ChargeAttackGoal(this, 400));
         this.goalSelector.add(3, new MeleeAttackGoal(this, 0.9f, false));
         this.goalSelector.add(4, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
@@ -167,7 +159,7 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
             this.getLookControl().lookAt(this.getTarget());
         }
 
-        if(this.isCharging() && !isThrowing()) {
+        if(this.isCharging()) {
             chargeAttack();
             if(!chargeAnimationState.isRunning()) {
                 this.chargeAnimationState.start(this.age);
@@ -244,11 +236,12 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
         return this.chargeCooldown;
     }
 
-    public void setBeastOwner(PlayerEntity owner) {
+    public void setOwner(PlayerEntity owner) {
         this.owner = owner;
     }
 
-    public PlayerEntity getBeastOwner() {
+    @Override
+    public PlayerEntity getOwner() {
         return this.owner;
     }
 
@@ -329,7 +322,6 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
 
             this.setHasChest(false);
         }
-
     }
 
     public ItemStack getArmorType() {
@@ -362,7 +354,6 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
         if (!this.items.getStack(1).isEmpty()) {
             nbt.put("ArmorItem", this.items.getStack(1).writeNbt(new NbtCompound()));
         }
-
     }
 
     @Override
@@ -491,7 +482,7 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
         if(random.nextDouble() <= 0.1d) {
 
             this.setOwnerUuid(player.getUuid());
-            this.setBeastOwner(player);
+            this.setOwner(player);
             this.setTame(true);
             if (player instanceof ServerPlayerEntity) {
                 Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);

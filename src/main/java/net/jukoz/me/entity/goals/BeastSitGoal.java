@@ -1,9 +1,7 @@
 package net.jukoz.me.entity.goals;
 
-import net.jukoz.me.entity.trolls.TrollEntity;
-import net.minecraft.entity.LivingEntity;
+import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.passive.TameableEntity;
 
 import java.util.EnumSet;
 

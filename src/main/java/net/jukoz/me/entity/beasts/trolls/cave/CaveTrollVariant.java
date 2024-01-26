@@ -1,4 +1,4 @@
-package net.jukoz.me.entity.trolls.cave;
+package net.jukoz.me.entity.beasts.trolls.cave;
 
 import java.util.Arrays;
 import java.util.Comparator;

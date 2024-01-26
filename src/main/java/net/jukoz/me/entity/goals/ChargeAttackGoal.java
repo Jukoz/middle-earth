@@ -1,14 +1,10 @@
 package net.jukoz.me.entity.goals;
 
-import net.jukoz.me.entity.trolls.TrollEntity;
+import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNode;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 
 public class ChargeAttackGoal extends Goal {
     private TrollEntity mob;

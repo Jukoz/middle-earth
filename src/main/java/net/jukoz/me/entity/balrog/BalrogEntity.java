@@ -3,7 +3,7 @@ package net.jukoz.me.entity.balrog;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
-import net.jukoz.me.entity.trolls.TrollEntity;
+import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;

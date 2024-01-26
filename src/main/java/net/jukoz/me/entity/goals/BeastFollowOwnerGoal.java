@@ -1,24 +1,15 @@
 package net.jukoz.me.entity.goals;
 
-import net.jukoz.me.entity.trolls.TrollEntity;
+import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.EntityView;
 import net.minecraft.world.WorldView;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
-import java.util.List;
-import java.util.UUID;
-import java.util.function.Predicate;
 
 public class BeastFollowOwnerGoal extends Goal {
     public static final int TELEPORT_DISTANCE = 12;
@@ -52,7 +43,7 @@ public class BeastFollowOwnerGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        LivingEntity livingEntity = this.mob.getBeastOwner();
+        LivingEntity livingEntity = this.mob.getOwner();
         if (livingEntity == null) {
             return false;
         }

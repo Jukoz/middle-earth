@@ -1,23 +1,12 @@
-package net.jukoz.me.entity.trolls.cave;
+package net.jukoz.me.entity.beasts.trolls.cave;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.jukoz.me.entity.balrog.BalrogAnimations;
-import net.jukoz.me.entity.trolls.TrollAnimations;
+import net.jukoz.me.entity.beasts.trolls.TrollAnimations;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.entity.model.CrossbowPosing;
-import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.Arm;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 
 @Environment(value= EnvType.CLIENT)
