@@ -5,9 +5,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
-import net.jukoz.me.entity.goals.BeastFollowOwnerGoal;
-import net.jukoz.me.entity.goals.BeastSitGoal;
-import net.jukoz.me.entity.goals.ChargeAttackGoal;
+import net.jukoz.me.entity.goals.*;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntity;
 import net.jukoz.me.item.ModFoodItems;
@@ -58,9 +56,6 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-//TODO Sleeping
-//TODO Attack Owners target
-
 public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
     public static final int ATTACK_COOLDOWN = 10;
     public static final float RESISTANCE = 0.15f;
@@ -109,10 +104,12 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(7, new LookAroundGoal(this));
-        this.targetSelector.add(1, new TargetPlayerGoal(this));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
-        this.targetSelector.add(4, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal(this));
+        this.targetSelector.add(2, new BeastAttackWithOwnerGoal(this));
+        this.targetSelector.add(3, new TargetPlayerGoal(this));
+        this.targetSelector.add(4, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
+        this.targetSelector.add(5, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
+        this.targetSelector.add(6, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
     protected void initDataTracker() {
@@ -147,6 +144,9 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
         }else {
             --this.throwingAnimationTimeout;
         }
+        if(isThrowing()) {
+            this.setMovementSpeed(0);
+        }
 
         if(!this.isThrowing()) {
             this.throwingAnimationState.stop();
@@ -167,7 +167,7 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
             this.getLookControl().lookAt(this.getTarget());
         }
 
-        if(this.isCharging()) {
+        if(this.isCharging() && !isThrowing()) {
             chargeAttack();
             if(!chargeAnimationState.isRunning()) {
                 this.chargeAnimationState.start(this.age);
@@ -184,9 +184,11 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
             --this.chargeCooldown;
         }
 
-        if(throwCooldown == 0 && this.getTarget() != null) {
-            this.setThrowing(true);
-            throwCooldown = 200;
+        if(throwCooldown == 0 && this.getTarget() != null && !isCharging()) {
+            if(this.distanceTo(this.getTarget()) >= 5) {
+                this.setThrowing(true);
+                throwCooldown = 200;
+            }
         }
         if(this.isThrowing() && throwCooldown <= 180) {
             throwAttack();
@@ -660,8 +662,8 @@ public class TrollEntity extends AbstractDonkeyEntity implements Saddleable {
             double z = target.getZ() - this.getZ();
             double c = Math.sqrt(x * x + z * z);
 
-            boulder.setPosition(this.getX() + rotationVec.x * 3.0f, this.getBodyY(0.75f), boulder.getZ() + rotationVec.z * 3.0f);
-            boulder.setVelocity(x, y + c * 0.2d , z, 1.0f, 8 - this.getWorld().getDifficulty().getId() * 4);
+            boulder.setPosition(this.getX() + rotationVec.x * 2.0f, this.getBodyY(0.75f), boulder.getZ() + rotationVec.z * 2.0f);
+            boulder.setVelocity(x * 0.8d, y + c * 0.3d , z * 0.8d, 1.0f, 8 - this.getWorld().getDifficulty().getId() * 4);
             this.getWorld().spawnEntity(boulder);
         }
     }
