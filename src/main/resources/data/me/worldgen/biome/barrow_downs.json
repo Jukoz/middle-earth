@@ -63,7 +63,7 @@
     ],
     [
       "me:boulder/complex/mossy_rock",
-	  "me:boulder/basic/stone",
+	  "me:boulder/basic/stone"
     ],
     [
       "minecraft:freeze_top_layer"

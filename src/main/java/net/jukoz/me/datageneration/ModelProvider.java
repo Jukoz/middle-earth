@@ -13,6 +13,7 @@ import net.jukoz.me.datageneration.content.MEModels;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
@@ -251,111 +252,46 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for(Block block : SimpleStoneStoolModel.stools){
-            registerStoneStoolModelBlockStates(blockStateModelGenerator, block, new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_stool", "")));
+            registerStoneStoolModelBlockStates(blockStateModelGenerator, block,
+                    new Identifier(MiddleEarth.MOD_ID, "block/" +
+                            Registries.BLOCK.getId(block).getPath().replaceAll("_stool", "")));
+        }
+        for(SimpleStoneStoolModel.VanillaStool stool : SimpleStoneStoolModel.vanillaStools){
+            String id = "block/" + Registries.BLOCK.getId(stool.origin()).getPath();
+            if(stool.origin() == Blocks.BASALT) id += "_side";
+            registerStoneStoolModelBlockStates(blockStateModelGenerator, stool.base(),
+                    new Identifier("minecraft", id));
         }
 
         for(Block block : SimpleStoneTableModel.tables){
             registerStoneTableModelBlockStates(blockStateModelGenerator, block, new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_table", "")));
         }
+        for(SimpleStoneTableModel.VanillaTable stool : SimpleStoneTableModel.vanillaTables){
+            String id = "block/" + Registries.BLOCK.getId(stool.origin()).getPath();
+            if(stool.origin() == Blocks.BASALT) id += "_side";
+            registerStoneTableModelBlockStates(blockStateModelGenerator, stool.base(), new Identifier("minecraft", id));
+        }
 
         for(Block block : SimpleStoneChairModel.chairs){
             registerStoneChairModelBlockStates(blockStateModelGenerator, block, new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_chair", "")));
+        }
+        for(SimpleStoneChairModel.VanillaChair stool : SimpleStoneChairModel.vanillaChairs){
+            String id = "block/" + Registries.BLOCK.getId(stool.origin()).getPath();
+            if(stool.origin() == Blocks.BASALT) id += "_side";
+            registerStoneChairModelBlockStates(blockStateModelGenerator, stool.base(), new Identifier("minecraft", id));
         }
 
         for(Block block : SimpleFanModel.grassLikeFans){
             registerFanModel(blockStateModelGenerator, block);
         }
 
-        registerStoneStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.STONE_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.STONE_STOOL).getPath().replaceAll("_stool", "")));
-        registerStoneStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.CALCITE_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.CALCITE_STOOL).getPath().replaceAll("_stool", "")));
-        registerStoneStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.ANDESITE_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.ANDESITE_STOOL).getPath().replaceAll("_stool", "")));
-        registerStoneStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.GRANITE_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.GRANITE_STOOL).getPath().replaceAll("_stool", "")));
-        registerStoneStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.DIORITE_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.DIORITE_STOOL).getPath().replaceAll("_stool", "")));
-        registerStoneStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.DEEPSLATE_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.DEEPSLATE_STOOL).getPath().replaceAll("_stool", "")));
-        registerStoneStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.BLACKSTONE_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BLACKSTONE_STOOL).getPath().replaceAll("_stool", "")));
-        registerStoneStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.BASALT_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BASALT_STOOL).getPath().replaceAll("_stool", "_side")));
-        registerStoneStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.TUFF_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.TUFF_STOOL).getPath().replaceAll("_stool", "")));
-
-        registerStoneTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.STONE_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.STONE_TABLE).getPath().replaceAll("_table", "")));
-        registerStoneTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.CALCITE_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.CALCITE_TABLE).getPath().replaceAll("_table", "")));
-        registerStoneTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.ANDESITE_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.ANDESITE_TABLE).getPath().replaceAll("_table", "")));
-        registerStoneTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.GRANITE_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.GRANITE_TABLE).getPath().replaceAll("_table", "")));
-        registerStoneTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.DIORITE_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.DIORITE_TABLE).getPath().replaceAll("_table", "")));
-        registerStoneTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.DEEPSLATE_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.DEEPSLATE_TABLE).getPath().replaceAll("_table", "")));
-        registerStoneTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.BLACKSTONE_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BLACKSTONE_TABLE).getPath().replaceAll("_table", "")));
-        registerStoneTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.BASALT_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BASALT_TABLE).getPath().replaceAll("_table", "_side")));
-        registerStoneTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.TUFF_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.TUFF_TABLE).getPath().replaceAll("_table", "")));
-        
-        registerStoneChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.STONE_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.STONE_CHAIR).getPath().replaceAll("_chair", "")));
-        registerStoneChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.CALCITE_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.CALCITE_CHAIR).getPath().replaceAll("_chair", "")));
-        registerStoneChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.ANDESITE_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.ANDESITE_CHAIR).getPath().replaceAll("_chair", "")));
-        registerStoneChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.GRANITE_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.GRANITE_CHAIR).getPath().replaceAll("_chair", "")));
-        registerStoneChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.DIORITE_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.DIORITE_CHAIR).getPath().replaceAll("_chair", "")));
-        registerStoneChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.DEEPSLATE_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.DEEPSLATE_CHAIR).getPath().replaceAll("_chair", "")));
-        registerStoneChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.BLACKSTONE_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BLACKSTONE_CHAIR).getPath().replaceAll("_chair", "")));
-        registerStoneChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.BASALT_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BASALT_CHAIR).getPath().replaceAll("_chair", "_side")));
-        registerStoneChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.TUFF_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.TUFF_CHAIR).getPath().replaceAll("_chair", "")));
-
-        registerWoodStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.OAK_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.OAK_STOOL).getPath().replaceAll("_stool", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.OAK_STOOL).getPath().replaceAll("_stool", "_planks")));
-        registerWoodStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.SPRUCE_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.SPRUCE_STOOL).getPath().replaceAll("_stool", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.SPRUCE_STOOL).getPath().replaceAll("_stool", "_planks")));
-        registerWoodStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.BIRCH_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BIRCH_STOOL).getPath().replaceAll("_stool", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BIRCH_STOOL).getPath().replaceAll("_stool", "_planks")));
-        registerWoodStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.JUNGLE_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.JUNGLE_STOOL).getPath().replaceAll("_stool", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.JUNGLE_STOOL).getPath().replaceAll("_stool", "_planks")));
-        registerWoodStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.ACACIA_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.ACACIA_STOOL).getPath().replaceAll("_stool", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.ACACIA_STOOL).getPath().replaceAll("_stool", "_planks")));
-        registerWoodStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.DARK_OAK_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.DARK_OAK_STOOL).getPath().replaceAll("_stool", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.DARK_OAK_STOOL).getPath().replaceAll("_stool", "_planks")));
-        registerWoodStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.MANGROVE_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.MANGROVE_STOOL).getPath().replaceAll("_stool", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.MANGROVE_STOOL).getPath().replaceAll("_stool", "_planks")));
-        registerWoodStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.CHERRY_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.CHERRY_STOOL).getPath().replaceAll("_stool", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.CHERRY_STOOL).getPath().replaceAll("_stool", "_planks")));
-        registerWoodStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.BAMBOO_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BAMBOO_STOOL).getPath().replaceAll("_stool", "_planks")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BAMBOO_STOOL).getPath().replaceAll("_stool", "_planks")));
-        registerWoodStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.CRIMSON_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.CRIMSON_STOOL).getPath().replaceAll("_stool", "_stem")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.CRIMSON_STOOL).getPath().replaceAll("_stool", "_planks")));
-        registerWoodStoolModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.WARPED_STOOL,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.WARPED_STOOL).getPath().replaceAll("_stool", "_stem")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.WARPED_STOOL).getPath().replaceAll("_stool", "_planks")));
+        for(SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools) {
+            String id = Registries.BLOCK.getId(stool.origin()).getPath();
+            String baseTextureId = id.substring(0, id.lastIndexOf("_")) + "_planks";
+            registerWoodStoolModelBlockStates(blockStateModelGenerator, stool.base(),
+                    new Identifier("minecraft", "block/" + id),
+                    new Identifier("minecraft", "block/" + baseTextureId));
+        }
 
         registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.MUSHROOM.stool(),
                 new Identifier("minecraft", "block/mushroom_stem"),
@@ -367,73 +303,22 @@ public class ModelProvider extends FabricModelProvider {
                 new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.GRAY_MUSHROOM.stool()).getPath().replaceAll("_stool", "_stem")),
                 new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.GRAY_MUSHROOM.stool()).getPath().replaceAll("_stool", "_planks")));
 
-        registerWoodTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.OAK_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.OAK_TABLE).getPath().replaceAll("_table", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.OAK_TABLE).getPath().replaceAll("_table", "_planks")));
-        registerWoodTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.SPRUCE_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.SPRUCE_TABLE).getPath().replaceAll("_table", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.SPRUCE_TABLE).getPath().replaceAll("_table", "_planks")));
-        registerWoodTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.BIRCH_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BIRCH_TABLE).getPath().replaceAll("_table", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BIRCH_TABLE).getPath().replaceAll("_table", "_planks")));
-        registerWoodTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.JUNGLE_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.JUNGLE_TABLE).getPath().replaceAll("_table", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.JUNGLE_TABLE).getPath().replaceAll("_table", "_planks")));
-        registerWoodTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.ACACIA_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.ACACIA_TABLE).getPath().replaceAll("_table", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.ACACIA_TABLE).getPath().replaceAll("_table", "_planks")));
-        registerWoodTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.DARK_OAK_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.DARK_OAK_TABLE).getPath().replaceAll("_table", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.DARK_OAK_TABLE).getPath().replaceAll("_table", "_planks")));
-        registerWoodTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.MANGROVE_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.MANGROVE_TABLE).getPath().replaceAll("_table", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.MANGROVE_TABLE).getPath().replaceAll("_table", "_planks")));
-        registerWoodTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.CHERRY_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.CHERRY_TABLE).getPath().replaceAll("_table", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.CHERRY_TABLE).getPath().replaceAll("_table", "_planks")));
-        registerWoodTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.BAMBOO_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BAMBOO_TABLE).getPath().replaceAll("_table", "_planks")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BAMBOO_TABLE).getPath().replaceAll("_table", "_planks")));
-        registerWoodTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.CRIMSON_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.CRIMSON_TABLE).getPath().replaceAll("_table", "_stem")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.CRIMSON_TABLE).getPath().replaceAll("_table", "_planks")));
-        registerWoodTableModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.WARPED_TABLE,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.WARPED_TABLE).getPath().replaceAll("_table", "_stem")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.WARPED_TABLE).getPath().replaceAll("_table", "_planks")));
 
-        registerWoodChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.OAK_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.OAK_CHAIR).getPath().replaceAll("_chair", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.OAK_CHAIR).getPath().replaceAll("_chair", "_planks")));
-        registerWoodChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.SPRUCE_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.SPRUCE_CHAIR).getPath().replaceAll("_chair", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.SPRUCE_CHAIR).getPath().replaceAll("_chair", "_planks")));
-        registerWoodChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.BIRCH_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BIRCH_CHAIR).getPath().replaceAll("_chair", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BIRCH_CHAIR).getPath().replaceAll("_chair", "_planks")));
-        registerWoodChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.JUNGLE_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.JUNGLE_CHAIR).getPath().replaceAll("_chair", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.JUNGLE_CHAIR).getPath().replaceAll("_chair", "_planks")));
-        registerWoodChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.ACACIA_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.ACACIA_CHAIR).getPath().replaceAll("_chair", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.ACACIA_CHAIR).getPath().replaceAll("_chair", "_planks")));
-        registerWoodChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.DARK_OAK_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.DARK_OAK_CHAIR).getPath().replaceAll("_chair", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.DARK_OAK_CHAIR).getPath().replaceAll("_chair", "_planks")));
-        registerWoodChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.MANGROVE_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.MANGROVE_CHAIR).getPath().replaceAll("_chair", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.MANGROVE_CHAIR).getPath().replaceAll("_chair", "_planks")));
-        registerWoodChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.CHERRY_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.CHERRY_CHAIR).getPath().replaceAll("_chair", "_log")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.CHERRY_CHAIR).getPath().replaceAll("_chair", "_planks")));
-        registerWoodChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.BAMBOO_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BAMBOO_CHAIR).getPath().replaceAll("_chair", "_planks")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.BAMBOO_CHAIR).getPath().replaceAll("_chair", "_planks")));
-        registerWoodChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.CRIMSON_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.CRIMSON_CHAIR).getPath().replaceAll("_chair", "_stem")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.CRIMSON_CHAIR).getPath().replaceAll("_chair", "_planks")));
-        registerWoodChairModelBlockStates(blockStateModelGenerator, ModDecorativeBlocks.WARPED_CHAIR,
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.WARPED_CHAIR).getPath().replaceAll("_chair", "_stem")),
-                new Identifier("minecraft", "block/" + Registries.BLOCK.getId(ModDecorativeBlocks.WARPED_CHAIR).getPath().replaceAll("_chair", "_planks")));
+        for(SimpleWoodTableModel.VanillaTable table : SimpleWoodTableModel.vanillaTables) {
+            String id = Registries.BLOCK.getId(table.origin()).getPath();
+            String baseTextureId = id.substring(0, id.lastIndexOf("_")) + "_planks"; // We replace the suffix (_log or _stem) by _planks
+            registerWoodTableModelBlockStates(blockStateModelGenerator, table.base(),
+                    new Identifier("minecraft", "block/" + id),
+                    new Identifier("minecraft", "block/" + baseTextureId));
+        }
+
+        for(SimpleWoodChairModel.VanillaChair chair : SimpleWoodChairModel.vanillaChairs) {
+            String id = Registries.BLOCK.getId(chair.origin()).getPath();
+            String baseTextureId = id.substring(0, id.lastIndexOf("_")) + "_planks";
+            registerWoodChairModelBlockStates(blockStateModelGenerator, chair.base(),
+                    new Identifier("minecraft", "block/" + id),
+                    new Identifier("minecraft", "block/" + baseTextureId));
+        }
 
         registerWoodChairModelBlockStates(blockStateModelGenerator, MushroomBlockSets.MUSHROOM.chair(),
                 new Identifier("minecraft", "block/mushroom_stem"),
@@ -457,79 +342,26 @@ public class ModelProvider extends FabricModelProvider {
                 new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.GRAY_MUSHROOM.table()).getPath().replaceAll("_table", "_planks")));
 
 
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.STONE_VERTICAL_SLAB, "stone");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.COBBLESTONE_VERTICAL_SLAB, "cobblestone");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.MOSSY_COBBLESTONE_VERTICAL_SLAB, "mossy_cobblestone");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.SMOOTH_STONE_VERTICAL_SLAB, "smooth_stone");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.STONE_BRICK_VERTICAL_SLAB, "stone_bricks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.MOSSY_STONE_BRICK_VERTICAL_SLAB, "mossy_stone_bricks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.GRANITE_VERTICAL_SLAB, "granite");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.POLISHED_GRANITE_VERTICAL_SLAB, "polished_granite");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.DIORITE_VERTICAL_SLAB, "diorite");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.POLISHED_DIORITE_VERTICAL_SLAB, "polished_diorite");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.ANDESITE_VERTICAL_SLAB, "andesite");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.POLISHED_ANDESITE_VERTICAL_SLAB, "polished_andesite");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.COBBLED_DEEPSLATE_VERTICAL_SLAB, "cobbled_deepslate");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.POLISHED_DEEPSLATE_VERTICAL_SLAB, "polished_deepslate");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.DEEPSLATE_BRICK_VERTICAL_SLAB, "deepslate_bricks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.DEEPSLATE_TILE_VERTICAL_SLAB, "deepslate_tiles");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.BRICK_VERTICAL_SLAB, "bricks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.MUD_BRICK_VERTICAL_SLAB, "mud_bricks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.SANDSTONE_VERTICAL_SLAB, "sandstone");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.SMOOTH_SANDSTONE_VERTICAL_SLAB, "sandstone_top");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.CUT_SANDSTONE_VERTICAL_SLAB, "cut_sandstone");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.RED_SANDSTONE_VERTICAL_SLAB, "red_sandstone");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.SMOOTH_RED_SANDSTONE_VERTICAL_SLAB, "red_sandstone_top");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.CUT_RED_SANDSTONE_VERTICAL_SLAB, "cut_red_sandstone");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.PRISMARINE_VERTICAL_SLAB, "prismarine");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.PRISMARINE_BRICK_VERTICAL_SLAB, "prismarine_bricks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.DARK_PRISMARINE_VERTICAL_SLAB, "dark_prismarine");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.NETHER_BRICK_VERTICAL_SLAB, "nether_bricks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.RED_NETHER_BRICK_VERTICAL_SLAB, "red_nether_bricks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.BLACKSTONE_VERTICAL_SLAB, "blackstone");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.POLISHED_BLACKSTONE_VERTICAL_SLAB, "polished_blackstone");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.POLISHED_BLACKSTONE_BRICK_VERTICAL_SLAB, "polished_blackstone_bricks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.END_STONE_BRICK_VERTICAL_SLAB, "end_stone_bricks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.PURPUR_VERTICAL_SLAB, "purpur_block");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.QUARTZ_VERTICAL_SLAB, "quartz_block_side");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.SMOOTH_QUARTZ_VERTICAL_SLAB, "quartz_block_bottom");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.CUT_COPPER_VERTICAL_SLAB, "cut_copper");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.EXPOSED_CUT_COPPER_VERTICAL_SLAB, "exposed_cut_copper");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.WEATHERED_CUT_COPPER_VERTICAL_SLAB, "weathered_cut_copper");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.OXIDIZED_CUT_COPPER_VERTICAL_SLAB, "oxidized_cut_copper");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.WAXED_CUT_COPPER_VERTICAL_SLAB, "cut_copper");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.WAXED_EXPOSED_CUT_COPPER_VERTICAL_SLAB, "exposed_cut_copper");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.WAXED_WEATHERED_CUT_COPPER_VERTICAL_SLAB, "weathered_cut_copper");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.WAXED_OXIDIZED_CUT_COPPER_VERTICAL_SLAB, "oxidized_cut_copper");
+        for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
+            String id = String.valueOf(Registries.BLOCK.getId(verticalSlab.block()));
+            id = id.substring(id.lastIndexOf(":") + 1);
 
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.OAK_VERTICAL_SLAB, "oak_planks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.SPRUCE_VERTICAL_SLAB, "spruce_planks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.BIRCH_VERTICAL_SLAB, "birch_planks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.JUNGLE_VERTICAL_SLAB, "jungle_planks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.ACACIA_VERTICAL_SLAB, "acacia_planks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.DARK_OAK_VERTICAL_SLAB, "dark_oak_planks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.MANGROVE_VERTICAL_SLAB, "mangrove_planks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.CHERRY_VERTICAL_SLAB, "cherry_planks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.BAMBOO_VERTICAL_SLAB, "bamboo_planks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.CRIMSON_VERTICAL_SLAB, "crimson_planks");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.WARPED_VERTICAL_SLAB, "warped_planks");
-
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.BLACK_WOOL_VERTICAL_SLAB, "black_wool");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.BLUE_WOOL_VERTICAL_SLAB, "blue_wool");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.BROWN_WOOL_VERTICAL_SLAB, "brown_wool");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.CYAN_WOOL_VERTICAL_SLAB, "cyan_wool");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.GRAY_WOOL_VERTICAL_SLAB, "gray_wool");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.GREEN_WOOL_VERTICAL_SLAB, "green_wool");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.LIGHT_BLUE_WOOL_VERTICAL_SLAB, "light_blue_wool");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.LIGHT_GRAY_WOOL_VERTICAL_SLAB, "light_gray_wool");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.LIME_WOOL_VERTICAL_SLAB, "lime_wool");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.MAGENTA_WOOL_VERTICAL_SLAB, "magenta_wool");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.ORANGE_WOOL_VERTICAL_SLAB, "orange_wool");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.PINK_WOOL_VERTICAL_SLAB, "pink_wool");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.PURPLE_WOOL_VERTICAL_SLAB, "purple_wool");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.RED_WOOL_VERTICAL_SLAB, "red_wool");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.WHITE_WOOL_VERTICAL_SLAB, "white_wool");
-        registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, ModBlocks.YELLOW_WOOL_VERTICAL_SLAB, "yellow_wool");
+            if(verticalSlab.block() == Blocks.SMOOTH_RED_SANDSTONE
+                    || verticalSlab.block() == Blocks.SMOOTH_SANDSTONE) {
+                id += "_top";
+                id = id.substring(id.indexOf("_") + 1);
+            } else if(verticalSlab.block() == Blocks.QUARTZ_BLOCK) {
+                id += "_side";
+            } else if(verticalSlab.block() == Blocks.SMOOTH_QUARTZ) {
+                id = "quartz_block_bottom";
+            } else if(verticalSlab.block() == Blocks.WAXED_CUT_COPPER
+                    || verticalSlab.block() == Blocks.WAXED_EXPOSED_CUT_COPPER
+                    || verticalSlab.block() == Blocks.WAXED_WEATHERED_CUT_COPPER
+                    || verticalSlab.block() == Blocks.WAXED_OXIDIZED_CUT_COPPER) {
+                id = id.substring(id.indexOf("_") + 1);
+            }
+            registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), id);
+        }
 
         // Crops
         blockStateModelGenerator.registerCrop(ModNatureBlocks.BELL_PEPPER_CROP, BellpepperCropBlock.AGE, 0, 1, 2, 3, 4);

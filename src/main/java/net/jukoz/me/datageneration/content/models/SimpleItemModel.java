@@ -21,7 +21,6 @@ public class SimpleItemModel {
             add(ModFoodItems.TOMATO);
             add(ModFoodItems.BELL_PEPPER);
             add(ModFoodItems.CUCUMBER);
-            //add(ModFoodItems.LEEK);
             add(ModFoodItems.LETTUCE);
             add(ModResourceItems.FLAX);
             add(ModResourceItems.PIPEWEED);
