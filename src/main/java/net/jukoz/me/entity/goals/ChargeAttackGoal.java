@@ -1,5 +1,6 @@
 package net.jukoz.me.entity.goals;
 
+import net.jukoz.me.entity.beasts.BeastEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -7,11 +8,11 @@ import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNode;
 
 public class ChargeAttackGoal extends Goal {
-    private TrollEntity mob;
+    private BeastEntity mob;
     private final int MAX_COOLDOWN;
     private int checkCanNavigateCooldown;
 
-    public ChargeAttackGoal(TrollEntity mob, int maxCooldown) {
+    public ChargeAttackGoal(BeastEntity mob, int maxCooldown) {
         this.mob = mob;
         this.MAX_COOLDOWN = maxCooldown;
     }

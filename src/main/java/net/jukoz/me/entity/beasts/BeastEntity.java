@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+// Beasts are mostly aggressive Entities which work much like wolves, while also allowing the player to mount them.
 public class BeastEntity extends AbstractDonkeyEntity {
     public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
