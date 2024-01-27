@@ -32,9 +32,7 @@ public class MiddleEarth implements ModInitializer {
 	public static final int MAP_ITERATION = 0;
 	public static final boolean FORCE_GENERATION = false;
 	private static MiddleEarthMapDatas middleEarthMapDatas;
-
-	//TODO BlockDrops new method
-
+	
 	@Override
 	public void onInitialize() {
 		ModStatusEffects.registerStatusEffects();
