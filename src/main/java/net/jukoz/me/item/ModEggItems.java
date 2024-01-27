@@ -41,6 +41,8 @@ public class ModEggItems {
             new SpawnEggItem(ModEntities.DUCK, 7810816,32526, new Item.Settings()));
     public static final Item SWAN_SPAWN_EGG = registerItem("swan_spawn_egg",
             new SpawnEggItem(ModEntities.SWAN, 14869218,11842231, new Item.Settings()));
+    public static final Item SNAIL_SPAWN_EGG = registerItem("snail_spawn_egg",
+            new SpawnEggItem(ModEntities.SNAIL, 7765379, 7165482, new Item.Settings()));
 
 
 

@@ -6,7 +6,8 @@ import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.world.biomes.MEBiome;
 import net.jukoz.me.world.biomes.MEBiomesData;
-import net.jukoz.me.world.chunkgen.map.MapImageLoader;
+import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
+import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -18,7 +19,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import org.joml.Vector2i;
@@ -33,12 +33,12 @@ public class MiddleEarthMapScreen extends Screen {
     private static final Text MAP_TITLE_TEXT = Text.of("Middle-earth Map");
     public static final int MARGIN = 5;
 
-    public static final int MAP_IMAGE_WIDTH = 1400;
-    public static final int MAP_IMAGE_HEIGHT = 1216;
+    public static final int MAP_IMAGE_WIDTH = 3000;
+    public static final int MAP_IMAGE_HEIGHT = 3000;
     public int windowWidth, windowHeight;
     public int mapWindowWidth, mapWindowHeight;
     public float minZoom;
-    private static final int MAX_ZOOM_LEVEL = 10;
+    private static final int MAX_ZOOM_LEVEL = 20;
     public static final float [] ZOOM_LEVELS = new float[MAX_ZOOM_LEVEL];
     private static final Vector2i WORLD_SIZE = getWorldSize();
 
@@ -57,8 +57,11 @@ public class MiddleEarthMapScreen extends Screen {
     private static boolean debug = false;
     AbstractClientPlayerEntity player;
 
+    private static int pixelWeight;
+
     public MiddleEarthMapScreen() {
         super(MAP_TITLE_TEXT);
+        pixelWeight = MiddleEarthMapDatas.PIXEL_WEIGHT;
         float zoom = 1;
         for(int i = 0; i < ZOOM_LEVELS.length; i++) {
             ZOOM_LEVELS[i] = zoom;
@@ -80,8 +83,8 @@ public class MiddleEarthMapScreen extends Screen {
 
             int guiScale = this.client.options.getGuiScale().getValue();
 
-            windowWidth = Math.round((float)MAP_IMAGE_WIDTH / guiScaleModifiers[guiScale]);
-            windowHeight = Math.round((float)MAP_IMAGE_HEIGHT / guiScaleModifiers[guiScale]);
+            windowWidth = Math.round((float)MAP_IMAGE_WIDTH / guiScaleModifiers[guiScale] / 2);
+            windowHeight = Math.round((float)MAP_IMAGE_HEIGHT / guiScaleModifiers[guiScale] / 2);
 
             mapWindowWidth =  windowWidth - (MARGIN * 2);
             mapWindowHeight = windowHeight - (MARGIN * 2);
@@ -171,11 +174,14 @@ public class MiddleEarthMapScreen extends Screen {
                 context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + (int)playerPos.getX() + ", " + (int)playerPos.getY() + ", " + (int)playerPos.getZ()), 5, 15, 0xffffff);
                 context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + currentBiomeId), 5, 25, 0xffffff);
 
-                MEBiome meBiome = MEBiomesData.biomeMap.get(MapImageLoader.getBiomeColor(cursorWorldCoordinate.x, cursorWorldCoordinate.y));
+                MEBiome biome = MiddleEarth.GetWorldMapDatas().getBiomeFromWorldCoordinate(MiddleEarth.MAP_ITERATION, cursorWorldCoordinate.x, cursorWorldCoordinate.y);
+                if(biome == null){
+                    biome = MEBiomesData.getBiomeById((short) 0);
+                }
 
                 context.drawTextWithShadow(textRenderer, Text.literal("Cursor information"), 0, 45, 0xffffff);
                 context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + ((oustideBound) ? "N/A" : (int)cursorWorldCoordinate.x + ", " + ModDimensions.getHighestYAtXZ(mouseX, mouseY) + ", "+ (int)cursorWorldCoordinate.y)), 5, 55, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + ((oustideBound || meBiome == null) ? "N/A" : meBiome.biome.getValue().toString())), 5, 65, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + ((oustideBound) ? "N/A" : biome.biome.getValue().toString())), 5, 65, 0xffffff);
 
                 if(!oustideBound && this.player.isCreative()){
                     context.drawTextWithShadow(textRenderer, Text.literal("Right Click to teleport"), mouseX + 10, mouseY, 0xcccccc);
@@ -201,7 +207,8 @@ public class MiddleEarthMapScreen extends Screen {
 
     private void teleport(Vector2i coord){
         if(ModDimensions.isInMiddleEarth(this.player.getWorld())){
-            this.player.setPos(coord.x, this.player.getY(), coord.y);
+            float y = MiddleEarthHeightMap.getHeight(coord.x, coord.y);
+            player.setPos(coord.x , y, coord.y);
         }
     }
 
@@ -305,7 +312,11 @@ public class MiddleEarthMapScreen extends Screen {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
         if(!cursorIsOutsideOfMapBounds(mouseX, mouseY)){
-            cursorWorldCoordinate = getWorldCoordinateOfCursor(mouseX, mouseY);
+            Vector2i coord = getWorldCoordinateOfCursor(mouseX, mouseY);
+            coord.x /= pixelWeight;
+            coord.y /= pixelWeight;
+
+            cursorWorldCoordinate = coord;
             zoom((int)Math.round(amount), true);
         }
         return super.mouseScrolled(mouseX, mouseY, amount);
@@ -335,8 +346,8 @@ public class MiddleEarthMapScreen extends Screen {
     }
 
     private Vec2f getCoordinateOnMap(float posX, float posZ, int textureOffsetX, int textureOffsetY) {
-        float transformedPosX = ((posX / WORLD_SIZE.x) * mapWindowWidth * getZoomLevel()) - mapDisplacementX;
-        float transformedPosY = ((posZ / WORLD_SIZE.y) *  mapWindowHeight * getZoomLevel()) - mapDisplacementY;
+        float transformedPosX = ((posX / pixelWeight / WORLD_SIZE.x) * mapWindowWidth * getZoomLevel()) - mapDisplacementX;
+        float transformedPosY = ((posZ / pixelWeight / WORLD_SIZE.y) *  mapWindowHeight * getZoomLevel()) - mapDisplacementY;
 
         transformedPosX = Math.max(textureOffsetX, Math.min(mapWindowWidth - textureOffsetX, transformedPosX));
         transformedPosY = Math.max(textureOffsetY, Math.min( mapWindowHeight - textureOffsetY, transformedPosY));
@@ -356,7 +367,7 @@ public class MiddleEarthMapScreen extends Screen {
 
     private void centerOnPlayer() {
         if(canCenterOnPlayer()){
-            centerOnCoordinates(player.getX(), player.getZ());
+            centerOnCoordinates(player.getX()/pixelWeight, player.getZ()/pixelWeight);
         }
     }
 
@@ -372,15 +383,15 @@ public class MiddleEarthMapScreen extends Screen {
     }
 
     private Vector2i getCenterOfCurrentMap(){
-        int centerX = (int)((mapDisplacementX + (mapWindowWidth / 2)) / (getZoomLevel() * minZoom));
-        int centerY =  (int)((mapDisplacementY + ( mapWindowHeight / 2)) / (getZoomLevel() * minZoom));
+        int centerX = (int)((mapDisplacementX + (mapWindowWidth / 2)) / (getZoomLevel() * minZoom) / pixelWeight);
+        int centerY =  (int)((mapDisplacementY + ( mapWindowHeight / 2)) / (getZoomLevel() * minZoom) / pixelWeight);
 
         return new Vector2i(centerX, centerY);
     }
 
     private Vector2i getWorldCoordinateOfCursor(double mouseX, double mouseY) {
         mouseX -= (double) (this.width -  windowWidth) / 2;
-        mouseY -= (double) (this.height - windowHeight) / 2;
+        mouseY -= (double) (this.height - windowHeight) / 2 ;
 
         int centerX = (int)((mapDisplacementX + mouseX) / (getZoomLevel() * minZoom));
         int centerY =  (int)((mapDisplacementY + mouseY) / (getZoomLevel() * minZoom));
@@ -388,7 +399,7 @@ public class MiddleEarthMapScreen extends Screen {
         centerX= (int)(WORLD_SIZE.x / MAP_IMAGE_WIDTH * centerX);
         centerY = (int)(WORLD_SIZE.y / MAP_IMAGE_HEIGHT * centerY);
 
-        return new Vector2i(centerX, centerY);
+        return new Vector2i(centerX * pixelWeight, centerY * pixelWeight);
     }
 
 

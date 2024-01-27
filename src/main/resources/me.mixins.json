@@ -4,18 +4,24 @@
   "package": "net.jukoz.me.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "ChunkRegionMixin",
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
-    "PlayerMixin"
+    "FoliagePlacerTypeInvoker",
+    "PlayerMixin",
+    "TrunkPlacerTypeInvoker"
   ],
   "client": [
+    "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
     "client.BackgroundRendererMixin",
+    "client.ClientPlayerInteractionManagerMixin",
     "client.ElytraFeatureRendererMixin",
+    "client.GameRendererMixin",
     "client.HeadFeatureRendererMixin",
     "client.InGameHudMixin",
-    "client.MouseMixin",
-    "client.ItemRendererMixin"
+    "client.ItemRendererMixin",
+    "client.MouseMixin"
   ],
   "server": [
   ],
