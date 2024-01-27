@@ -1,6 +1,6 @@
 package net.jukoz.me.block.special;
 
-import net.jukoz.me.block.SimpleBlockSets;
+import net.jukoz.me.block.StoneBlockSets;
 import net.minecraft.block.*;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
@@ -20,7 +20,7 @@ public class MordorPlant extends PlantBlock implements Fertilizable {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return  floor.isIn(BlockTags.DIRT) || floor.isIn(BlockTags.SAND) || floor.isOf(SimpleBlockSets.ASHEN_ROCK.base())
+        return  floor.isIn(BlockTags.DIRT) || floor.isIn(BlockTags.SAND) || floor.isOf(StoneBlockSets.ASHEN_STONE.base())
                 || floor.isOf(Blocks.BASALT) || floor.isOf(Blocks.FARMLAND);
     }
 

@@ -68,7 +68,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:mordor_orc_axe"
+          "name": "me:orc_steel_axe"
         }
       ]
     },
@@ -80,7 +80,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:mordor_dirt"
+          "name": "me:ashen_dirt"
         }
       ]
     }

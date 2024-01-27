@@ -5,9 +5,7 @@
     "minecraft:raw_iron",
     "minecraft:iron_ore",
     "minecraft:deepslate_iron_ore",
-    "me:ashen_rock_iron_ore",
-    "me:gonluin_iron_ore",
-    "me:dolomite_iron_ore",
-    "me:calcite_iron_ore"
+    "me:epmosto_iron_ore",
+    "me:diftomin_iron_ore"
   ]
 }

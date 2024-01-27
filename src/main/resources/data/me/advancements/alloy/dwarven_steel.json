@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "me:dwarven_steel"
+              "me:dwarven_steel_ingot"
             ]
           }
         ]
@@ -22,7 +22,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:dwarven_steel"
+      "item": "me:dwarven_steel_ingot"
     },
     "show_toast": true,
     "title": {

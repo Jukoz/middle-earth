@@ -1,7 +1,6 @@
 package net.jukoz.me.block.crop;
 
 import net.jukoz.me.item.ModFoodItems;
-import net.jukoz.me.item.ModRessourceItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropBlock;
