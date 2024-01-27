@@ -313,5 +313,24 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableShovel.add(ModBlocks.ROOTED_DIRT_SLAB);
 
         mineableShovel.add(ModBlocks.ROOTED_DIRT_SLAB);
+        
+        mineablePickaxe.add(ModBlocks.SAPPHIRE_BLOCK);
+        mineablePickaxe.add(ModBlocks.BUDDING_SAPPHIRE);
+        mineablePickaxe.add(ModBlocks.SMALL_SAPPHIRE_BUD);
+        mineablePickaxe.add(ModBlocks.MEDIUM_SAPPHIRE_BUD);
+        mineablePickaxe.add(ModBlocks.LARGE_SAPPHIRE_BUD);
+        mineablePickaxe.add(ModBlocks.SAPPHIRE_CLUSTER);
+        mineablePickaxe.add(ModBlocks.CITRINE_BLOCK);
+        mineablePickaxe.add(ModBlocks.BUDDING_CITRINE);
+        mineablePickaxe.add(ModBlocks.SMALL_CITRINE_BUD);
+        mineablePickaxe.add(ModBlocks.MEDIUM_CITRINE_BUD);
+        mineablePickaxe.add(ModBlocks.LARGE_CITRINE_BUD);
+        mineablePickaxe.add(ModBlocks.CITRINE_CLUSTER);
+        mineablePickaxe.add(ModBlocks.RED_AGATE_BLOCK);
+        mineablePickaxe.add(ModBlocks.BUDDING_RED_AGATE);
+        mineablePickaxe.add(ModBlocks.SMALL_RED_AGATE_BUD);
+        mineablePickaxe.add(ModBlocks.MEDIUM_RED_AGATE_BUD);
+        mineablePickaxe.add(ModBlocks.LARGE_RED_AGATE_BUD);
+        mineablePickaxe.add(ModBlocks.RED_AGATE_CLUSTER);
     }
 }

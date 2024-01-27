@@ -112,17 +112,17 @@ public class RoofBlockSets {
         Block block = null;
 
         if (origin == null) {
-            block = ModBlocks.registerWoodBlock(name, new Block(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            block = ModBlocks.registerWoodBlock(name, new Block(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)),false);
         }else {
-            block = ModBlocks.registerWoodBlock(name, new Block(AbstractBlock.Settings.copy(origin)));
+            block = ModBlocks.registerWoodBlock(name, new Block(AbstractBlock.Settings.copy(origin)),false);
         }
 
-        Block slab = ModBlocks.registerWoodBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(block)));
+        Block slab = ModBlocks.registerWoodBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(block)),false);
 
-        Block verticalSlab = ModBlocks.registerWoodBlock(name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(block)));
+        Block verticalSlab = ModBlocks.registerWoodBlock(name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(block)),false);
 
         Block stairs = ModBlocks.registerWoodBlock(name + "_stairs", new StairsBlock(block.getDefaultState(),
-                FabricBlockSettings.copyOf(block)));
+                FabricBlockSettings.copyOf(block)),false);
 
         return new RoofBlockSet(block, slab, verticalSlab, stairs, origin);
     }
@@ -131,17 +131,17 @@ public class RoofBlockSets {
         Block block = null;
 
         if (origin == null) {
-            block = ModBlocks.registerStoneBlock(name, new Block(AbstractBlock.Settings.copy(Blocks.TERRACOTTA)));
+            block = ModBlocks.registerStoneBlock(name, new Block(AbstractBlock.Settings.copy(Blocks.TERRACOTTA)),false);
         }else {
-            block = ModBlocks.registerStoneBlock(name, new Block(AbstractBlock.Settings.copy(origin)));
+            block = ModBlocks.registerStoneBlock(name, new Block(AbstractBlock.Settings.copy(origin)),false);
         }
 
-        Block slab = ModBlocks.registerStoneBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(block)));
+        Block slab = ModBlocks.registerStoneBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(block)),false);
 
-        Block verticalSlab = ModBlocks.registerStoneBlock(name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(block)));
+        Block verticalSlab = ModBlocks.registerStoneBlock(name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(block)),false);
 
         Block stairs = ModBlocks.registerStoneBlock(name + "_stairs", new StairsBlock(block.getDefaultState(),
-                FabricBlockSettings.copyOf(block)));
+                FabricBlockSettings.copyOf(block)),false);
 
         return new RoofBlockSet(block, slab, verticalSlab, stairs, origin);
     }

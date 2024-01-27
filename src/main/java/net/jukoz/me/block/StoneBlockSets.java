@@ -361,38 +361,38 @@ public class StoneBlockSets {
 
     private static SimpleBlockSet registerStoneSet(String name, float hardness, float blastResistance, Block source) {
 
-        Block base = ModBlocks.registerStoneBlock(name, new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(hardness, blastResistance).requiresTool()));
+        Block base = ModBlocks.registerStoneBlock(name, new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(hardness, blastResistance).requiresTool()),false);
 
-        Block slab = ModBlocks.registerStoneBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(base).strength(hardness, blastResistance).requiresTool()));
+        Block slab = ModBlocks.registerStoneBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(base).strength(hardness, blastResistance).requiresTool()),false);
 
-        Block verticalSlab = ModBlocks.registerStoneBlock(name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool()));
+        Block verticalSlab = ModBlocks.registerStoneBlock(name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool()),false);
 
-        Block stairs = ModBlocks.registerStoneBlock(name + "_stairs", new StairsBlock(base.getDefaultState(), FabricBlockSettings.copyOf(base).strength(hardness, blastResistance).requiresTool()));
+        Block stairs = ModBlocks.registerStoneBlock(name + "_stairs", new StairsBlock(base.getDefaultState(), FabricBlockSettings.copyOf(base).strength(hardness, blastResistance).requiresTool()),false);
 
-        Block wall = ModBlocks.registerStoneBlock(name + "_wall", new WallBlock(AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool()));
+        Block wall = ModBlocks.registerStoneBlock(name + "_wall", new WallBlock(AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool()),false);
 
         return new SimpleBlockSet(source, base, slab, verticalSlab, stairs, wall);
     }
 
     private static SimpleBlockSetMain registerMainStoneSet(String name, float hardness, float blastResistance, Block source) {
 
-        Block base = ModBlocks.registerStoneBlock(name, new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(hardness, blastResistance).requiresTool()));
+        Block base = ModBlocks.registerStoneBlock(name, new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(hardness, blastResistance).requiresTool()),false);
 
-        Block slab = ModBlocks.registerStoneBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(base).strength(hardness, blastResistance).requiresTool()));
+        Block slab = ModBlocks.registerStoneBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(base).strength(hardness, blastResistance).requiresTool()),false);
 
-        Block verticalSlab = ModBlocks.registerStoneBlock(name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool()));
+        Block verticalSlab = ModBlocks.registerStoneBlock(name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool()),false);
 
-        Block stairs = ModBlocks.registerStoneBlock(name + "_stairs", new StairsBlock(base.getDefaultState(), FabricBlockSettings.copyOf(base).strength(hardness, blastResistance).requiresTool()));
+        Block stairs = ModBlocks.registerStoneBlock(name + "_stairs", new StairsBlock(base.getDefaultState(), FabricBlockSettings.copyOf(base).strength(hardness, blastResistance).requiresTool()),false);
 
-        Block wall = ModBlocks.registerStoneBlock(name + "_wall", new WallBlock(AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool()));
+        Block wall = ModBlocks.registerStoneBlock(name + "_wall", new WallBlock(AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool()),false);
 
         Block stool = ModBlocks.registerBlock(name + "_stool", new StoolBlock(FabricBlockSettings.copyOf(base)
-                .strength(hardness, blastResistance).requiresTool().nonOpaque()));
+                .strength(hardness, blastResistance).requiresTool().nonOpaque()),false);
 
         Block table = ModBlocks.registerBlock(name + "_table", new TableBlock(FabricBlockSettings.copyOf(base)
-                .strength(hardness, blastResistance).requiresTool().nonOpaque()));
+                .strength(hardness, blastResistance).requiresTool().nonOpaque()),false);
 
-        Block chair = ModBlocks.registerBlock(name + "_chair", new StoneChairBlock(FabricBlockSettings.copyOf(base).nonOpaque()));
+        Block chair = ModBlocks.registerBlock(name + "_chair", new StoneChairBlock(FabricBlockSettings.copyOf(base).nonOpaque()),false);
 
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(stool.asItem().getDefaultStack());
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(table.asItem().getDefaultStack());

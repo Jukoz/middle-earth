@@ -246,17 +246,17 @@ public class HelpingGenerator {
 
         for(SimpleStoneStoolModel.VanillaStool stool : SimpleStoneStoolModel.vanillaStools){
             BlockDrops.blocks.add(stool.base());
-            MineableAxe.blocks.add(stool.base());
+            MineablePickaxe.blocks.add(stool.base());
         }
 
         for(SimpleStoneTableModel.VanillaTable table : SimpleStoneTableModel.vanillaTables) {
             BlockDrops.blocks.add(table.base());
-            MineableAxe.blocks.add(table.base());
+            MineablePickaxe.blocks.add(table.base());
         }
 
         for(SimpleStoneChairModel.VanillaChair chair : SimpleStoneChairModel.vanillaChairs){
             BlockDrops.blocks.add(chair.base());
-            MineableAxe.blocks.add(chair.base());
+            MineablePickaxe.blocks.add(chair.base());
         }
         
 

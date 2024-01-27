@@ -1,19 +1,28 @@
 package net.jukoz.me.block.special.gemstones;
 
 import net.jukoz.me.block.ModBlocks;
-import net.minecraft.block.*;
+import net.minecraft.block.AmethystClusterBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BuddingAmethystBlock;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 
-public class RedAgateBuddingGemBlock extends BuddingAmethystBlock {
+import java.util.ArrayList;
+import java.util.List;
+
+public class CustomBuddingGemBlock extends BuddingAmethystBlock {
 
     private static final Direction[] DIRECTIONS = Direction.values();
 
-    public RedAgateBuddingGemBlock(Settings settings) {
+    private final List<Block> clusters;
+
+    public CustomBuddingGemBlock(Settings settings, List<Block> clustersIn) {
         super(settings);
+        clusters = clustersIn;
     }
 
     @Override
@@ -24,14 +33,16 @@ public class RedAgateBuddingGemBlock extends BuddingAmethystBlock {
             BlockState blockState = world.getBlockState(blockPos);
             Block block = null;
             if (canGrowIn(blockState)) {
-                block = ModBlocks.SMALL_RED_AGATE_BUD;
-            } else if (blockState.isOf(ModBlocks.SMALL_RED_AGATE_BUD) && blockState.get(AmethystClusterBlock.FACING) == direction) {
-                block = ModBlocks.MEDIUM_RED_AGATE_BUD;
-            } else if (blockState.isOf(ModBlocks.MEDIUM_RED_AGATE_BUD) && blockState.get(AmethystClusterBlock.FACING) == direction) {
-                block = ModBlocks.LARGE_RED_AGATE_BUD;
-            } else if (blockState.isOf(ModBlocks.LARGE_RED_AGATE_BUD) && blockState.get(AmethystClusterBlock.FACING) == direction) {
-                block = ModBlocks.RED_AGATE_CLUSTER;
+                block = clusters.get(0);
+            } else if (blockState.isOf(clusters.get(0)) && blockState.get(AmethystClusterBlock.FACING) == direction) {
+                block = clusters.get(1);
+            } else if (blockState.isOf(clusters.get(1)) && blockState.get(AmethystClusterBlock.FACING) == direction) {
+                block = clusters.get(2);
+            } else if (blockState.isOf(clusters.get(2)) && blockState.get(AmethystClusterBlock.FACING) == direction) {
+                block = clusters.get(3);
             }
+
+
 
             if (block != null) {
                 BlockState blockState2 = (BlockState)((BlockState)block.getDefaultState().with(AmethystClusterBlock.FACING, direction)).with(AmethystClusterBlock.WATERLOGGED, blockState.getFluidState().getFluid() == Fluids.WATER);

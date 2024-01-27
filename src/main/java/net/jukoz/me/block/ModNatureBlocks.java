@@ -140,11 +140,11 @@ public class ModNatureBlocks {
     public static final Block TRUMPET_SHROOM = registerBlock("trumpet_shroom",
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
     public static final Block TALL_TRUMPET_SHROOM = registerBlock("tall_trumpet_shroom",
-            new TallWildCropBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
+            new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block TUBESHRROM = registerBlock("tubeshroom",
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
     public static final Block TALL_TUBESHROOM = registerBlock("tall_tubeshroom",
-            new TallWildCropBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
+            new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block VIOLET_CAPS = registerBlock("violet_caps",
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
     public static final Block WHITE_MUSHROOM = registerBlock("white_mushroom",
@@ -223,11 +223,11 @@ public class ModNatureBlocks {
             new StrawBerryBushBlock(FabricBlockSettings.copyOf(Blocks.SWEET_BERRY_BUSH).ticksRandomly().noCollision().breakInstantly().sounds(BlockSoundGroup.SWEET_BERRY_BUSH)), false);
 
     public static final Block WILD_PIPEWEED = registerBlock("wild_pipeweed",
-            new TallWildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
+            new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
     public static final Block WILD_FLAX = registerCrossBlock("wild_flax",
             new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
     public static final Block WILD_TOMATO = registerBlock("wild_tomato",
-            new TallWildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
+            new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
     public static final Block WILD_BELL_PEPPER = registerCrossBlock("wild_bell_pepper",
             new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
     public static final Block WILD_CUCUMBER = registerCrossBlock("wild_cucumber",
