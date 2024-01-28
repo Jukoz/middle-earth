@@ -224,7 +224,7 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
             if(entity.hasFuel(entity)) {
                 entity.progress++;
                 progress = true;
-                markDirty(world, blockPos, blockState); // Reloads the block in this chunk, for sync & saving.
+                markDirty(world, blockPos, blockState); // Reloads the origin in this chunk, for sync & saving.
                 if(entity.progress >= MAX_PROGRESS) {
                     craftItem(entity);
                     entity.progress = 0;

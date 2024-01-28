@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.datageneration.content.tags.*;
 import net.jukoz.me.item.ModRessourceItems;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
@@ -25,6 +26,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var bones = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "bones")));
 
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
+
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "logs"))).add(Logs.getItemPlanks().toArray(new Item[0]));
 
         bones.add(Items.BONE);
         bones.add(ModRessourceItems.ORC_BONE);

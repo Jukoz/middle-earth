@@ -4,73 +4,130 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
 import net.minecraft.block.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class OreRockSets {
     public static final float STONE_STRENGTH = 2.0f;
     public static final float DEEPSLATE_STRENGTH = 2.5f;
+    public static final float DIFTOMIN_STRENGTH = 3.0f;
+    public static final float EPMOSTO_STRENGTH = 4.0f;
 
-    public static OreRockSet ASHEN_ROCK = registerOreSet("ashen_rock", STONE_STRENGTH, null);
-    public static OreRockSet BLUE_ROCK = registerOreSet("gonluin", STONE_STRENGTH, null);
-    public static OreRockSet DOLOMITE = registerOreSet("dolomite", STONE_STRENGTH, null);
-    public static OreRockSet CALCITE = registerOreSet("calcite", STONE_STRENGTH, null);
 
-    // Vanilla
-    public static CompleteOreRockSet DEEPSLATE = registerVanillaOreSet("deepslate_", DEEPSLATE_STRENGTH, null);
-    public static CompleteOreRockSet STONE = registerVanillaOreSet("", STONE_STRENGTH, null);
+    public static OreRockSet STONE = registerOreSet("", STONE_STRENGTH,
+            List.of(ORES.TIN_ORE), Blocks.STONE);
+    public static OreRockSet GONLUIN = registerOreSet("gonluin_", STONE_STRENGTH,
+            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), StoneBlockSets.GONLUIN.base());
+    public static OreRockSet FROZEN = registerOreSet("frozen_", STONE_STRENGTH,
+            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE), StoneBlockSets.FROZEN_STONE.base());
+    public static OreRockSet ASHEN = registerOreSet("ashen_", STONE_STRENGTH,
+            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), StoneBlockSets.ASHEN_STONE.base());
+    public static OreRockSet LIMESTONE = registerOreSet("limestone_", STONE_STRENGTH,
+            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), StoneBlockSets.LIMESTONE.base());
+    public static OreRockSet CALCITE = registerOreSet("calcite_", STONE_STRENGTH,
+            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), Blocks.CALCITE);
+
+    public static OreRockSet DEEPSLATE = registerOreSet("deepslate_", DEEPSLATE_STRENGTH,
+            Arrays.asList(ORES.TIN_ORE, ORES.LEAD_ORE), Blocks.DEEPSLATE);
+
+    public static OreRockSet DIFTOMIN = registerOreSet("diftomin_", DIFTOMIN_STRENGTH,
+            Arrays.asList(ORES.TIN_ORE, ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE), StoneBlockSets.DIFTOMIN.base());
+
+    public static OreRockSet EPMOSTO = registerOreSet("epmosto_", EPMOSTO_STRENGTH,
+            Arrays.asList(ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE, ORES.MITHRIL_ORE), StoneBlockSets.EPMOSTO.base());
 
     public static OreRockSet[] sets = new OreRockSet[] {
-            ASHEN_ROCK,
-            BLUE_ROCK,
-            DOLOMITE,
+            STONE,
+            GONLUIN,
+            FROZEN,
+            ASHEN,
+            LIMESTONE,
             CALCITE,
-    };
-
-    public static CompleteOreRockSet[] vanillaSets = new CompleteOreRockSet[] {
             DEEPSLATE,
-            STONE
+            DIFTOMIN,
+            EPMOSTO,
     };
 
-    public record OreRockSet(Block iron_ore, Block gold_ore, Block copper_ore, Block coal_ore, Block tin_ore) {
-    }
-
-    public record CompleteOreRockSet(Block tin_ore) {
-    }
-
-    public static OreRockSet registerOreSet(String rockName, float strength_mult, Block source) {
-        Block iron_ore = ModNatureBlocks.registerBlock(
-                rockName + "_iron_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
-                        STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool().dropsLike(Blocks.IRON_ORE)), false);
-
-        Block gold_ore = ModNatureBlocks.registerBlock(
-                rockName + "_gold_ore", new Block(FabricBlockSettings.copyOf(Blocks.GOLD_ORE).strength(
-                        STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool().dropsLike(Blocks.GOLD_ORE)), false);
-
-        Block copper_ore = ModNatureBlocks.registerBlock(
-                rockName + "_copper_ore", new Block(FabricBlockSettings.copyOf(Blocks.COPPER_ORE).strength(
-                        STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool().dropsLike(Blocks.COPPER_ORE)), false);
-
-        Block coal_ore = ModNatureBlocks.registerBlock(
-                rockName + "_coal_ore", new Block(FabricBlockSettings.copyOf(Blocks.COAL_ORE).strength(
-                        STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool().dropsLike(Blocks.COAL_ORE)), false);
-
-        Block tin_ore = ModNatureBlocks.registerBlock(
-                rockName + "_tin_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
-                        STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
-
-        return new OreRockSet(iron_ore, gold_ore, copper_ore, coal_ore, tin_ore);
-    }
-
-    public static CompleteOreRockSet registerVanillaOreSet(String rockname, float strength_mult, Block source) {
-        Block tin_ore = ModNatureBlocks.registerBlock(
-                rockname + "tin_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
-                        STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
-
-        return new CompleteOreRockSet(tin_ore);
+    public record OreRockSet(Block coal_ore, Block copper_ore, Block tin_ore, Block lead_ore, Block silver_ore, Block gold_ore, Block iron_ore, Block mithril_ore, Block origin) {
     }
 
 
+    public static OreRockSet registerOreSet(String rockName, float strength_mult, List<ORES> ores, Block origin) {
 
+        Block coal_ore = null;
+        Block copper_ore = null;
+        Block tin_ore = null;
+        Block lead_ore = null;
+        Block silver_ore = null;
+        Block gold_ore = null;
+        Block iron_ore = null;
+        Block mithril_ore = null;
+
+        if(ores.contains(ORES.COAL_ORE)){
+            coal_ore = ModNatureBlocks.registerBlock(
+                    rockName + "coal_ore", new ExperienceDroppingBlock(FabricBlockSettings.copyOf(Blocks.COAL_ORE).strength(
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+        }
+
+        if(ores.contains(ORES.COPPER_ORE)) {
+            copper_ore = ModNatureBlocks.registerBlock(
+                    rockName + "copper_ore", new Block(FabricBlockSettings.copyOf(Blocks.COPPER_ORE).strength(
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+        }
+
+        if(ores.contains(ORES.TIN_ORE)) {
+            tin_ore = ModNatureBlocks.registerBlock(
+                    rockName + "tin_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+        }
+
+        if(ores.contains(ORES.LEAD_ORE)) {
+            lead_ore = ModNatureBlocks.registerBlock(
+                    rockName + "lead_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+        }
+
+        if(ores.contains(ORES.SILVER_ORE)) {
+            silver_ore = ModNatureBlocks.registerBlock(
+                    rockName + "silver_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+        }
+
+        if(ores.contains(ORES.GOLD_ORE)) {
+            gold_ore = ModNatureBlocks.registerBlock(
+                    rockName + "gold_ore", new Block(FabricBlockSettings.copyOf(Blocks.GOLD_ORE).strength(
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+        }
+
+        if(ores.contains(ORES.IRON_ORE)) {
+            iron_ore = ModNatureBlocks.registerBlock(
+                    rockName + "iron_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+        }
+
+        if(ores.contains(ORES.MITHRIL_ORE)) {
+            mithril_ore = ModNatureBlocks.registerBlock(
+                    rockName + "mithril_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+        }
+
+        return new OreRockSet(coal_ore, copper_ore, tin_ore, lead_ore, silver_ore, gold_ore, iron_ore, mithril_ore, origin);
+    }
 
     public static void registerModBlockSets() {
         MiddleEarth.LOGGER.debug("Registering OreSets for " + MiddleEarth.MOD_ID);
+    }
+
+    enum ORES{
+        COAL_ORE,
+        COPPER_ORE,
+        TIN_ORE,
+        LEAD_ORE,
+        SILVER_ORE,
+        GOLD_ORE,
+        IRON_ORE,
+        MITHRIL_ORE,
+        ;
     }
 }

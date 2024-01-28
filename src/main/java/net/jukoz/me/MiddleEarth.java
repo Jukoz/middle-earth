@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "me";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
 	// 1 : 6000 (24,000)
 	// 2 : 12 000 (48,000)
 	// 3 : 24 000 (96,000)
@@ -28,10 +29,10 @@ public class MiddleEarth implements ModInitializer {
 	// 5 : 96 000 (384,000)
 	// 6 : 192 000 (768,000)
 	// 7 : 384 000 (1,536,000)
-	public static final int MAP_ITERATION = 1;
+	public static final int MAP_ITERATION = 0;
 	public static final boolean FORCE_GENERATION = false;
 	private static MiddleEarthMapDatas middleEarthMapDatas;
-
+	
 	@Override
 	public void onInitialize() {
 		ModStatusEffects.registerStatusEffects();
@@ -40,16 +41,18 @@ public class MiddleEarth implements ModInitializer {
 		ModEquipmentItems.registerModItems();
 		ModToolItems.registerModItems();
 		ModFoodItems.registerModItems();
-		ModRessourceItems.registerModItems();
+		ModResourceItems.registerModItems();
 		ModEggItems.registerModItems();
 		ModItemGroups.register();
 
+		WoodBlockSets.registerModBlockSets();
+		MushroomBlockSets.registerModBlockSets();
+		StoneBlockSets.registerModBlockSets();
+		ModDecorativeItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModDecorativeBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();
-		ModDecorativeItems.registerModItems();
-		SimpleBlockSets.registerModBlockSets();
-		WoodBlockSets.registerModBlockSets();
+		RoofBlockSets.registerModBlockSets();
 
 		ModBlockEntities.registerBlockEntities();
 

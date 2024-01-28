@@ -2,7 +2,7 @@ package net.jukoz.me.entity.projectile.pebble;
 
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
-import net.jukoz.me.item.ModRessourceItems;
+import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -17,7 +17,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 
 public class PebbleEntity extends ThrownItemEntity {
-    private Item item = ModRessourceItems.PEBBLE;
+    private Item item = ModResourceItems.PEBBLE;
     private float damage;
 
     public PebbleEntity(EntityType<? extends PebbleEntity> entityType, World world) {

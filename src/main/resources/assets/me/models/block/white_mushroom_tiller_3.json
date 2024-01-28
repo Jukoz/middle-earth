@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/flowerbed_3",
-  "textures": {
-    "flowerbed": "me:block/white_mushroom_tiller",
-    "stem": "me:block/white_mushroom_tiller_stem"
-  }
-}

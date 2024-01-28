@@ -65,7 +65,7 @@
     [
 	  "minecraft:patch_grass_forest",
 	  "minecraft:patch_tall_grass_2",
-      "me:boulder/complex/mossy_rock",
+      "me:boulder/complex/mossy_rock"
     ],
     [
       "minecraft:freeze_top_layer"

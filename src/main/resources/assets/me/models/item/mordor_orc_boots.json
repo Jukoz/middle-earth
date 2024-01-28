@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "me:item/mordor_orc_boots"
-  }
-}

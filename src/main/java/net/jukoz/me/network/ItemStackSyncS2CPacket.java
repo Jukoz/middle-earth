@@ -2,6 +2,7 @@ package net.jukoz.me.network;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntity;
+import net.jukoz.me.block.special.wood_pile.WoodPileBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
@@ -20,6 +21,8 @@ public class ItemStackSyncS2CPacket {
         BlockPos position = buf.readBlockPos();
 
         if(client.world.getBlockEntity(position) instanceof AlloyFurnaceEntity blockEntity) {
+            blockEntity.setInventory(list);
+        } else if(client.world.getBlockEntity(position) instanceof WoodPileBlockEntity blockEntity) {
             blockEntity.setInventory(list);
         }
     }

@@ -70,7 +70,7 @@ public class MordorOrcEntity extends HostileEntity {
         if(randomVal < 0.67f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORDOR_ORC_SWORD));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModToolItems.MORDOR_ORC_AXE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModToolItems.ORC_STEEL_AXE));
         }
 
         randomVal = random.nextFloat();

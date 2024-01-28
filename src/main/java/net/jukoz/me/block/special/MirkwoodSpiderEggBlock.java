@@ -93,7 +93,7 @@ public class MirkwoodSpiderEggBlock extends Block {
     }
 
     static {
-        FACING = Properties.FACING;
+        FACING = Properties.HORIZONTAL_FACING;
     }
 }
 

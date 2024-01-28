@@ -6,7 +6,7 @@ import net.jukoz.me.entity.projectile.pebble.PebbleEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.jukoz.me.item.ModEquipmentItems;
-import net.jukoz.me.item.ModRessourceItems;
+import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.items.PebbleItem;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
@@ -67,7 +67,7 @@ public class ShireHobbitEntity extends PathAwareEntity implements RangedAttackMo
         if(randomVal < 0.03f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
         } else if (randomVal < 0.15f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModRessourceItems.PEBBLE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModResourceItems.PEBBLE));
         } else if(randomVal < 0.20f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.APPLE));
         }  else if(randomVal < 0.25f){
@@ -120,7 +120,7 @@ public class ShireHobbitEntity extends PathAwareEntity implements RangedAttackMo
 
     @Override
     public void attack(LivingEntity target, float pullProgress) {
-        Item item = ModRessourceItems.PEBBLE;
+        Item item = ModResourceItems.PEBBLE;
         ItemStack itemStack = new ItemStack(item);
         double d = target.getX() - this.getX();
         double e = target.getBodyY(0.3333333333333333) - this.getY();
