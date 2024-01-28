@@ -75,7 +75,13 @@
   "spawn_costs": {},
   "spawners": {
 	"monster": [],
-    "creature": [],
+    "creature": [
+      {
+      "type": "me:swan",
+      "maxCount": 3,
+      "minCount": 1,
+      "weight": 5
+    }],
     "misc": [],
     "water_ambient": [
       {

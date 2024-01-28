@@ -14,19 +14,25 @@ import net.jukoz.me.datageneration.content.models.SimpleFlowerBedModel;
 import net.jukoz.me.datageneration.content.models.TintableCrossModel;
 import net.jukoz.me.datageneration.content.tags.Crops;
 import net.jukoz.me.entity.ModEntities;
+import net.jukoz.me.entity.balrog.BalrogRenderer;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntityRenderer;
 import net.jukoz.me.entity.crab.CrabRenderer;
+import net.jukoz.me.entity.duck.DuckRenderer;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfRenderer;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfRenderer;
+import net.jukoz.me.entity.goose.GooseRenderer;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitRenderer;
 import net.jukoz.me.entity.model.ModEntityModels;
 import net.jukoz.me.entity.nazguls.NazgulRenderer;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
+import net.jukoz.me.entity.projectile.boulder.BoulderEntityRenderer;
+import net.jukoz.me.entity.projectile.spear.JavelinEntityRenderer;
 import net.jukoz.me.entity.snail.SnailRenderer;
-import net.jukoz.me.entity.spear.JavelinEntityRenderer;
 import net.jukoz.me.entity.spider.MirkwoodSpiderRenderer;
-import net.jukoz.me.entity.trolls.cave.CaveTrollRenderer;
-import net.jukoz.me.entity.trolls.snow.SnowTrollRenderer;
+import net.jukoz.me.entity.swan.SwanRenderer;
+import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollRenderer;
+import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollRenderer;
+import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jukoz.me.gui.wood_pile.WoodPileScreen;
@@ -62,11 +68,13 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.MORDOR_ORC, MordorOrcRenderer::new);
         EntityRendererRegistry.register(ModEntities.MIRKWOOD_SPIDER, MirkwoodSpiderRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNOW_TROLL, SnowTrollRenderer::new);
+        EntityRendererRegistry.register(ModEntities.BALROG, BalrogRenderer::new);
 
         // Items
         ModelLoadingRegistry.INSTANCE.registerModelProvider(((manager, out) -> new VariantsModelProvider().provideExtraModels(manager, out)));
         EntityRendererRegistry.register(ModEntities.PEBBLE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.SPEAR, JavelinEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
 
         registerDyeableItem(ModEquipmentItems.TUNIC_CLOAK);
         registerDyeableItem(ModEquipmentItems.CLOAK);
@@ -74,6 +82,9 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         // Animals
         EntityRendererRegistry.register(ModEntities.CRAB, CrabRenderer::new);
+        EntityRendererRegistry.register(ModEntities.GOOSE, GooseRenderer::new);
+        EntityRendererRegistry.register(ModEntities.DUCK, DuckRenderer::new);
+        EntityRendererRegistry.register(ModEntities.SWAN, SwanRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNAIL, SnailRenderer::new);
 
         ModModelPredicateProvider.registerBowModel();

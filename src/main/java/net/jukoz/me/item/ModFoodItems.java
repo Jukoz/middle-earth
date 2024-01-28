@@ -23,6 +23,34 @@ public class ModFoodItems {
             new Item(new FabricItemSettings().food(
                     new FoodComponent.Builder().hunger(5).saturationModifier(0.6F).meat().build())));
 
+    public static final Item RAW_GOOSE = registerItem("raw_goose",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(3).saturationModifier(0.3F).meat().build())));
+    public static final Item COOKED_GOOSE = registerItem("cooked_goose",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(7).saturationModifier(0.8F).meat().build())));
+
+    public static final Item RAW_DUCK = registerItem("raw_duck",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(2).saturationModifier(0.3F).meat().build())));
+    public static final Item COOKED_DUCK = registerItem("cooked_duck",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(6).saturationModifier(0.7F).meat().build())));
+
+    public static final Item RAW_SWAN = registerItem("raw_swan",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(3).saturationModifier(0.4F).meat().build())));
+    public static final Item COOKED_SWAN = registerItem("cooked_swan",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(8).saturationModifier(0.8F).meat().build())));
+
+    public static final Item RAW_HORSE = registerItem("raw_horse",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(4).saturationModifier(0.4F).meat().build())));
+    public static final Item COOKED_HORSE = registerItem("cooked_horse",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(9).saturationModifier(1.0F).meat().build())));
+
     public static final Item MAGGOTY_BREAD = registerItem("maggoty_bread",
             new Item(new FabricItemSettings().food(
                     new FoodComponent.Builder().hunger(5).saturationModifier(1.2f).build())));

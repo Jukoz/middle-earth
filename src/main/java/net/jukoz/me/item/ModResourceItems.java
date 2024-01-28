@@ -138,6 +138,11 @@ public class ModResourceItems {
     public static final Block REEDS = registerBlock("reeds",
             new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.TALL_GRASS).strength(0.2f)), false);
 
+    public static final Item DUCK_FEATHER = registerItem("duck_feather",
+            new Item(new FabricItemSettings()));
+    public static final Item SWAN_FEATHER = registerItem("swan_feather",
+            new Item(new FabricItemSettings()));
+            
     public static final Item GLOWWORM_BOTTLE = registerItem("glowworm_bottle",
             new GlowwormBottle(new FabricItemSettings().maxCount(1).food(
                     new FoodComponent.Builder().hunger(2).saturationModifier(0.3f).build())));

@@ -3,7 +3,7 @@ package net.jukoz.me.entity.dwarves.durin;
 import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
-import net.jukoz.me.entity.trolls.TrollEntity;
+import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;

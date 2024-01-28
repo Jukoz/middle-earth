@@ -2,11 +2,13 @@ package net.jukoz.me.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.item.items.TrollArmorItem;
 import net.jukoz.me.item.utils.ModArmorMaterials;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.SaddleItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -48,6 +50,12 @@ public class ModEquipmentItems {
             new ArmorItem(ModArmorMaterials.MORDOR_ORC_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
     public static final Item MORDOR_ORC_BOOTS = registerItem("mordor_orc_boots",
             new ArmorItem(ModArmorMaterials.MORDOR_ORC_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
+    public static final Item BEAST_CHAINS = registerItem("beast_chains",
+            new SaddleItem(new FabricItemSettings().maxCount(1)));
+
+    public static final Item STEEL_TROLL_ARMOR = registerItem("steel_troll_armor",
+            new TrollArmorItem(10, "steel", new FabricItemSettings().maxCount(1)));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());

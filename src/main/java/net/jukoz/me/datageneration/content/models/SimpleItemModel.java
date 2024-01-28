@@ -41,12 +41,16 @@ public class SimpleItemModel {
             add(ModFoodItems.VEGETABLE_SKEWER);
             add(ModFoodItems.COOKED_VEGETABLE_SKEWER);
             add(ModFoodItems.VEGETABLE_SOUP);
+            add(ModFoodItems.RAW_HORSE);
+            add(ModFoodItems.COOKED_HORSE);
 
             add(ModEquipmentItems.NAZGUL_CLOAK_HOOD);
             add(ModEquipmentItems.NAZGUL_CLOAK);
             add(ModEquipmentItems.NAZGUL_PANTS);
             add(ModEquipmentItems.NAZGUL_BOOTS);
 
+            add(ModEquipmentItems.STEEL_TROLL_ARMOR);
+            add(ModEquipmentItems.BEAST_CHAINS);
             add(ModEquipmentItems.MORDOR_ORC_HELMET);
             add(ModEquipmentItems.MORDOR_ORC_CHESTPLATE);
             add(ModEquipmentItems.MORDOR_ORC_LEGGINGS);

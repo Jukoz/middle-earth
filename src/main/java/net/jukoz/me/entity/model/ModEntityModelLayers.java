@@ -4,13 +4,17 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.entity.balrog.BalrogModel;
 import net.jukoz.me.entity.barrow_wights.BarrowWightModel;
 import net.jukoz.me.entity.crab.CrabModel;
+import net.jukoz.me.entity.duck.DuckModel;
+import net.jukoz.me.entity.goose.GooseModel;
 import net.jukoz.me.entity.nazguls.NazgulModel;
 import net.jukoz.me.entity.snail.SnailModel;
 import net.jukoz.me.entity.spider.MirkwoodSpiderModel;
-import net.jukoz.me.entity.trolls.cave.CaveTrollModel;
-import net.jukoz.me.entity.trolls.snow.SnowTrollModel;
+import net.jukoz.me.entity.swan.SwanModel;
+import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollModel;
+import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollModel;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -28,10 +32,14 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer SNOW_TROLL = ModEntityModelLayers.registerEntityModelLayer("snow_troll", SnowTrollModel.getTexturedModelData());
     public static final EntityModelLayer BARROW_WIGHT = ModEntityModelLayers.registerEntityModelLayer("barrow_wight", BarrowWightModel.getTexturedModelData());
     public static final EntityModelLayer SPIDER = ModEntityModelLayers.registerEntityModelLayer("spider", MirkwoodSpiderModel.getTexturedModelData());
+    public static final EntityModelLayer BALROG = ModEntityModelLayers.registerEntityModelLayer("balrog", BalrogModel.getTexturedModelData());
 
 
     // Animals
     public static final EntityModelLayer CRAB = ModEntityModelLayers.registerEntityModelLayer("crab", CrabModel.getTexturedModelData());
+    public static final EntityModelLayer GOOSE = ModEntityModelLayers.registerEntityModelLayer("goose", GooseModel.getTexturedModelData());
+    public static final EntityModelLayer DUCK = ModEntityModelLayers.registerEntityModelLayer("duck", DuckModel.getTexturedModelData());
+    public static final EntityModelLayer SWAN = ModEntityModelLayers.registerEntityModelLayer("swan", SwanModel.getTexturedModelData());
     public static final EntityModelLayer SNAIL = ModEntityModelLayers.registerEntityModelLayer("snail", SnailModel.getTexturedModelData());
 
 

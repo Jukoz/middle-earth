@@ -281,6 +281,8 @@
   "item.me.mordor_orc_leggings": "Mordor Orc Leggings",
   "item.me.mordor_orc_boots": "Mordor Orc Boots",
 
+  "item.me.steel_troll_armor": "Steel Troll Armor",
+
 "#Comment:": "Item - Food",
   "item.me.lembas": "Lembas",
   "item.me.maggoty_bread": "Maggoty Bread",
@@ -288,6 +290,14 @@
   "item.me.tough_berries": "Tough Berries",
   "item.me.raw_crab_claw": "Raw Crab Claw",
   "item.me.cooked_crab_claw": "Cooked Crab Claw",
+  "item.me.raw_goose": "Raw Goose",
+  "item.me.cooked_goose": "Cooked Goose",
+  "item.me.raw_duck": "Raw Duck",
+  "item.me.cooked_duck": "Cooked Duck",
+  "item.me.raw_swan": "Raw Swan",
+  "item.me.cooked_swan": "Cooked Swan",
+  "item.me.raw_horse": "Raw Horse",
+  "item.me.cooked_horse": "Cooked Horse",
   "item.me.tomato": "Tomato",
   "item.me.bell_pepper": "Bell Pepper",
   "item.me.cucumber": "Cucumber",
@@ -295,7 +305,6 @@
   "item.me.leek": "Leek",
   "item.me.lettuce": "Lettuce",
   "item.me.onion": "Onion",
-
   "item.me.berry_pie": "Berry Pie",
   "item.me.boiled_egg": "Boiled Egg",
   "item.me.crab_soup": "Crab Soup",
@@ -312,6 +321,11 @@
   "item.me.vegetable_soup": "Vegetable Soup",
 
   "item.me.glowworm_bottle": "Glowworm Bottle",
+
+"#Comment:": "Item - Resources",
+  "item.me.straw": "Straw",
+  "item.me.duck_feather": "Duck Feather",
+  "item.me.swan_feather": "Swan Feather",
 
 "#Comment:": "Item - Seeds",
   "item.me.tomato_seeds": "Tomato Seeds",
@@ -332,9 +346,14 @@
 
   "#Comment:": "Item - Spawn Eggs",
   "item.me.barrow_wight_spawn_egg": "Barrow Wight Spawn Egg",
+  "item.me.nazgul_spawn_egg": "Nazgûl Spawn Egg",
+  "item.me.balrog_spawn_egg": "Balrog Spawn Egg",
   "item.me.cave_troll_spawn_egg": "Cave Troll Spawn Egg",
   "item.me.snow_troll_spawn_egg": "Snow Troll Spawn Egg",
   "item.me.crab_spawn_egg": "Crab Spawn Egg",
+  "item.me.goose_spawn_egg": "Goose Spawn Egg",
+  "item.me.duck_spawn_egg": "Duck Spawn Egg",
+  "item.me.swan_spawn_egg": "Swan Spawn Egg",
   "item.me.durin_folk_spawn_egg": "Durin Folk Spawn Egg",
   "item.me.hobbit_spawn_egg": "Hobbit Spawn Egg",
   "item.me.galadhrim_elf_spawn_egg": "Galadhrim Elf Spawn Egg",
@@ -344,16 +363,23 @@
   "item.me.snail_spawn_egg": "Snail Spawn Egg",
 
 "#Comment:": "Item - Entities",
-  "entity.me.barrow_wight": "Barrow Wight",
+  "item.me.pebble": "Pebble",
+
+  "#Comment:": "ENTITIES",
   "entity.me.cave_troll": "Cave Troll",
   "entity.me.snow_troll": "Snow Troll",
   "entity.me.crab": "Crab",
+  "entity.me.goose": "Goose",
+  "entity.me.duck": "Duck",
+  "entity.me.swan": "Swan",
   "entity.me.durin_folk": "Durin Folk",
   "entity.me.galadhrim_elf": "Galadhrim Elf",
   "entity.me.hobbit": "Hobbit",
   "entity.me.mordor_orc": "Mordor Orc",
   "entity.me.mirkwood_spider": "Mirkwood Spider",
-  "item.me.pebble": "Pebble",
+  "entity.me.nazgul": "Nazgûl",
+  "entity.me.balrog": "Balrog",
+  "entity.me.pebble": "Pebble",
 
 "#Comment:": "Block - Vanilla +",
   "block.me.stone_trapdoor": "Stone Trapdoor",
@@ -753,7 +779,7 @@
   "block.me.cracked_polished_gonluin_wall": "Cracked Polished Gonluin Wall",
   "block.me.chiseled_polished_gonluin": "Chiseled Polished Gonluin",
   "block.me.chiseled_gonluin_bricks": "Chiseled Gonluin Bricks",
-
+  
   "block.me.gonluin_stool": "Gonluin Stool",
   "block.me.gonluin_table": "Gonluin Table",
   "block.me.gonluin_chair": "Gonluin Chair",
@@ -2263,19 +2289,6 @@
   "block.me.silver_lantern": "Silver Lantern",
   "block.me.alloy_furnace": "Alloy Furnace",
   "block.me.wood_pile": "Wood Pile",
-
-"#Comment:": "ENTITIES",
-  "entity.me.cave_troll": "Cave Troll",
-  "entity.me.snow_troll": "Snow Troll",
-  "entity.me.crab": "Crab",
-  "entity.me.durin_folk": "Durin Folk",
-  "entity.me.galadhrim_elf": "Galadhrim Elf",
-  "entity.me.hobbit": "Hobbit",
-  "entity.me.mordor_orc": "Mordor Orc",
-  "entity.me.mirkwood_spider": "Mirkwood Spider",
-  "entity.me.nazgul": "Nazgûl",
-  "entity.me.pebble": "Pebble",
-
 
 "#Comment": "SOUNDS",
   "sounds.me.nazgul_fade": "Nazgûl Fading",

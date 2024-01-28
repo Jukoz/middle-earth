@@ -1,6 +1,6 @@
 package net.jukoz.me.item.items;
 
-import net.jukoz.me.entity.pebble.PebbleEntity;
+import net.jukoz.me.entity.projectile.pebble.PebbleEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
