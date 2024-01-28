@@ -33,8 +33,6 @@ import net.jukoz.me.entity.swan.SwanRenderer;
 import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollRenderer;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollRenderer;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
-import net.jukoz.me.entity.trolls.cave.CaveTrollRenderer;
-import net.jukoz.me.entity.trolls.snow.SnowTrollRenderer;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jukoz.me.gui.wood_pile.WoodPileScreen;
