@@ -439,8 +439,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
             }
             this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
             this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d));
-            System.out.println(targetDir);
-            System.out.println(this.getYaw());
 
         }
         else if (this.getWorld().isClient) {
