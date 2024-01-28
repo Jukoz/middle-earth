@@ -81,7 +81,7 @@ public class ModEntities {
 
     public static void registerModEntities() {
         FabricDefaultAttributeRegistry.register(BARROW_WIGHT, BarrowWightEntity.setAttributes());
-        FabricDefaultAttributeRegistry.register(BALROG, BalrogEntity.createBalrogAttributes());
+        //FabricDefaultAttributeRegistry.register(BALROG, BalrogEntity.createBalrogAttributes());
         FabricDefaultAttributeRegistry.register(CAVE_TROLL, CaveTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(DURIN_FOLK, DurinDwarfEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(HOBBIT, ShireHobbitEntity.setAttributes());
