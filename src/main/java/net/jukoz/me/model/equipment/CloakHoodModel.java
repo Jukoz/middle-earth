@@ -26,7 +26,6 @@ public class CloakHoodModel<T extends LivingEntity> extends AnimalModel<T> {
                         .cuboid(-3, -13.435f, 2.08f, 6,6,2, dilation)
                 , ModelTransform.of(0, 1, -1, -ToRad.ex(7.5), 0.0F, 0F));
 
-
         return TexturedModelData.of(modelData, 64, 32);
     }
 

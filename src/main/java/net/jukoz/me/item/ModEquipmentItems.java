@@ -51,6 +51,15 @@ public class ModEquipmentItems {
     public static final Item MORDOR_ORC_BOOTS = registerItem("mordor_orc_boots",
             new ArmorItem(ModArmorMaterials.MORDOR_ORC_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
+    public static final Item ROHAN_SCALE_HELMET = registerItem("rohan_scale_helmet",
+            new ArmorItem(ModArmorMaterials.ROHAN_SCALE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
+    public static final Item ROHAN_SCALE_CHESTPLATE = registerItem("rohan_scale_chestplate",
+            new ArmorItem(ModArmorMaterials.ROHAN_SCALE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
+    public static final Item ROHAN_SCALE_LEGGINGS = registerItem("rohan_scale_leggings",
+            new ArmorItem(ModArmorMaterials.ROHAN_SCALE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item ROHAN_SCALE_BOOTS = registerItem("rohan_scale_boots",
+            new ArmorItem(ModArmorMaterials.ROHAN_SCALE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
     public static final Item BEAST_CHAINS = registerItem("beast_chains",
             new SaddleItem(new FabricItemSettings().maxCount(1)));
 

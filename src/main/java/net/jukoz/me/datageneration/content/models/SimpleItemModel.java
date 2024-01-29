@@ -56,6 +56,11 @@ public class SimpleItemModel {
             add(ModEquipmentItems.MORDOR_ORC_LEGGINGS);
             add(ModEquipmentItems.MORDOR_ORC_BOOTS);
 
+            add(ModEquipmentItems.ROHAN_SCALE_HELMET);
+            add(ModEquipmentItems.ROHAN_SCALE_CHESTPLATE);
+            add(ModEquipmentItems.ROHAN_SCALE_LEGGINGS);
+            add(ModEquipmentItems.ROHAN_SCALE_BOOTS);
+
             add(ModResourceItems.GLOWWORM_BOTTLE);
 
             add(ModResourceItems.RED_AGATE_SHARD);

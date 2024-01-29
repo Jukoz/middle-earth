@@ -14,6 +14,7 @@
   "client": [
     "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
+    "client.ArmorFeatureRendererMixin",
     "client.BackgroundRendererMixin",
     "client.ClientPlayerInteractionManagerMixin",
     "client.ElytraFeatureRendererMixin",

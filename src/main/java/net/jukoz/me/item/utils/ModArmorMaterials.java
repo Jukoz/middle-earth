@@ -31,6 +31,9 @@ public enum ModArmorMaterials implements ArmorMaterial {
     MORDOR_ORC_ARMOR("mordor_orc_armor", 16, new int[] { 2, 6, 5, 2},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0, 0.0F,
             () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT)),
+    ROHAN_SCALE_ARMOR("rohan_scale", 25, new int[] { 2, 6, 5, 2},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1, 0.1F,
+            () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)),
     ;
 
     private final String name;

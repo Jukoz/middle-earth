@@ -64,13 +64,11 @@ public abstract class ElytraFeatureRendererMixin<T extends LivingEntity, M exten
         }
     }}
 
-    private void renderCape(Identifier renderLayer, ItemStack itemStack, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle,
-                            float limbDistance, float animationProgress, float headYaw, float headPitch) {
+    private void renderCape(Identifier renderLayer, ItemStack itemStack, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         renderCape(renderLayer, itemStack, matrices, vertexConsumers, light, entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 1.0f, 1.0f, 1.0f);
     }
 
-    private void renderCape(Identifier renderLayer, ItemStack itemStack, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle,
-                            float limbDistance, float animationProgress, float headYaw, float headPitch, float r, float g, float b) {
+    private void renderCape(Identifier renderLayer, ItemStack itemStack, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch, float r, float g, float b) {
         matrices.push();
         this.getContextModel().copyStateTo(this.cloakCapeModel);
         this.cloakCapeModel.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
