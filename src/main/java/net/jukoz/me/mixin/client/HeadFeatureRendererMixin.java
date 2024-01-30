@@ -1,7 +1,6 @@
 package net.jukoz.me.mixin.client;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.model.equipment.RohanTier4HelmetArmourModel;
 import net.jukoz.me.utils.IntToRGB;
 import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.item.DyeableItem;
@@ -12,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.jukoz.me.model.equipment.CloakHoodModel;
+import net.jukoz.me.client.model.equipment.CloakHoodModel;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
@@ -47,7 +46,7 @@ public class HeadFeatureRendererMixin {
     private float scaleZ;
 
     private final CloakHoodModel cloakHoodModel = new CloakHoodModel(CloakHoodModel.getTexturedModelData().createModel());
-    private final RohanTier4HelmetArmourModel rohanTier4HelmetArmourModel = new RohanTier4HelmetArmourModel(RohanTier4HelmetArmourModel.getTexturedModelData().createModel());
+    //private final RohanTier4HelmetArmourModel rohanTier4HelmetArmourModel = new RohanTier4HelmetArmourModel(RohanTier4HelmetArmourModel.getTexturedModelData().createModel());
 
     @SuppressWarnings("rawtypes")
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
@@ -91,7 +90,7 @@ public class HeadFeatureRendererMixin {
             this.cloakHoodModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
             matrices.pop();
             info.cancel();
-        } else if (itemStack.getItem() == ModEquipmentItems.ROHAN_SCALE_HELMET) {
+        }/* else if (itemStack.getItem() == ModEquipmentItems.ROHAN_SCALE_HELMET) {
             matrices.push();
             matrices.scale(this.scaleX, this.scaleY, this.scaleZ);
             ((ModelWithHead) ((HeadFeatureRenderer) (Object) this).getContextModel()).getHead().rotate(matrices);
@@ -102,7 +101,6 @@ public class HeadFeatureRendererMixin {
             this.rohanTier4HelmetArmourModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
             matrices.pop();
             info.cancel();
-        }
-
+        }*/
     }
 }

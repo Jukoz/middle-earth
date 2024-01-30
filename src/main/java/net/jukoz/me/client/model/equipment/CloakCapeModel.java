@@ -1,4 +1,4 @@
-package net.jukoz.me.model.equipment;
+package net.jukoz.me.client.model.equipment;
 
 import net.jukoz.me.utils.ToRad;
 import net.minecraft.client.model.*;

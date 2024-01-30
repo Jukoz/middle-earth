@@ -3,11 +3,11 @@ package net.jukoz.me;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.jukoz.me.block.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntityRenderer;
+import net.jukoz.me.client.model.equipment.RohanTier4ArmourModel;
+import net.jukoz.me.client.renderer.RohanScaleArmorRenderer;
 import net.jukoz.me.datageneration.VariantsModelProvider;
 import net.jukoz.me.datageneration.content.models.SimpleDoubleBlockModel;
 import net.jukoz.me.datageneration.content.models.SimpleFlowerBedModel;
@@ -48,11 +48,15 @@ import net.minecraft.client.color.world.GrassColors;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.DyeableItem;
 import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
 
 public class MiddleEarthClient implements ClientModInitializer {
+
+    public static final EntityModelLayer ROHAN_SCALE_ARMOR_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "rohan_scale_armor"), "layer_0");
 
     @Override
     public void onInitializeClient() {
@@ -94,6 +98,14 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(ModBlockEntities.ALLOY_FURNACE, AlloyFurnaceEntityRenderer::new);
 
         ModNetworks.registerS2CPackets();
+
+        EntityModelLayerRegistry.registerModelLayer(ROHAN_SCALE_ARMOR_MODEL_LAYER, RohanTier4ArmourModel::getTexturedModelData);
+
+        ArmorRenderer.register(new RohanScaleArmorRenderer(),
+                ModEquipmentItems.ROHAN_SCALE_HELMET,
+                ModEquipmentItems.ROHAN_SCALE_CHESTPLATE,
+                ModEquipmentItems.ROHAN_SCALE_LEGGINGS,
+                ModEquipmentItems.ROHAN_SCALE_BOOTS);
 
         initializeRenderLayerMap();
     }
