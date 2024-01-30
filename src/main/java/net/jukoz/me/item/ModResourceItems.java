@@ -145,7 +145,7 @@ public class ModResourceItems {
             
     public static final Item GLOWWORM_BOTTLE = registerItem("glowworm_bottle",
             new GlowwormBottle(new FabricItemSettings().maxCount(1).food(
-                    new FoodComponent.Builder().hunger(2).saturationModifier(0.3f).build())));
+                    new FoodComponent.Builder().hunger(2).saturationModifier(0.3f).alwaysEdible().build())));
 
     public static final Item FLAX = registerItem("flax", new Item(new FabricItemSettings()));
     public static final Item FLAX_SEEDS = registerItem("flax_seeds", new AliasedBlockItem(ModNatureBlocks.FLAX_CROP, new FabricItemSettings()));
