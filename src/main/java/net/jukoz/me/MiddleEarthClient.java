@@ -6,8 +6,8 @@ import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.jukoz.me.block.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntityRenderer;
-import net.jukoz.me.client.model.equipment.RohanTier4ArmourModel;
-import net.jukoz.me.client.renderer.RohanScaleArmorRenderer;
+import net.jukoz.me.client.model.equipment.InnerArmorModel;
+import net.jukoz.me.client.renderer.ModArmorRenderer;
 import net.jukoz.me.datageneration.VariantsModelProvider;
 import net.jukoz.me.datageneration.content.models.SimpleDoubleBlockModel;
 import net.jukoz.me.datageneration.content.models.SimpleFlowerBedModel;
@@ -34,7 +34,6 @@ import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollRenderer;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollRenderer;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jukoz.me.gui.ModScreenHandlers;
-import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jukoz.me.gui.wood_pile.WoodPileScreen;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
@@ -56,7 +55,7 @@ import net.minecraft.util.Identifier;
 
 public class MiddleEarthClient implements ClientModInitializer {
 
-    public static final EntityModelLayer ROHAN_SCALE_ARMOR_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "rohan_scale_armor"), "layer_0");
+    public static final EntityModelLayer INNER_ARMOR_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "armor"), "layer_0");
 
     @Override
     public void onInitializeClient() {
@@ -99,9 +98,9 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         ModNetworks.registerS2CPackets();
 
-        EntityModelLayerRegistry.registerModelLayer(ROHAN_SCALE_ARMOR_MODEL_LAYER, RohanTier4ArmourModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(INNER_ARMOR_MODEL_LAYER, InnerArmorModel::getTexturedModelData);
 
-        ArmorRenderer.register(new RohanScaleArmorRenderer(),
+        ArmorRenderer.register(new ModArmorRenderer(),
                 ModEquipmentItems.ROHAN_SCALE_HELMET,
                 ModEquipmentItems.ROHAN_SCALE_CHESTPLATE,
                 ModEquipmentItems.ROHAN_SCALE_LEGGINGS,
