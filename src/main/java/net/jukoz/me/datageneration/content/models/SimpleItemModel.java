@@ -58,6 +58,9 @@ public class SimpleItemModel {
 
             add(ModResourceItems.GLOWWORM_BOTTLE);
 
+            add(ModResourceItems.COPPER_COIN);
+            add(ModResourceItems.SILVER_COIN);
+
             add(ModResourceItems.RED_AGATE_SHARD);
             add(ModResourceItems.SAPPHIRE_SHARD);
             add(ModResourceItems.CITRINE_SHARD);
