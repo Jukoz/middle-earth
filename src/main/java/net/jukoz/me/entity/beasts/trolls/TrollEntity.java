@@ -33,6 +33,7 @@ import net.minecraft.world.World;
 
 // TODO Fix laws of gravity
 // TODO Have slowly accelerate for charge
+// TODO Update Model and Animations
 public class TrollEntity extends BeastEntity {
     public static final int ATTACK_COOLDOWN = 10;
     public static final float RESISTANCE = 0.15f;
