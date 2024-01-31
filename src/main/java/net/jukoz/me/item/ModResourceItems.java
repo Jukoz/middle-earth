@@ -147,6 +147,10 @@ public class ModResourceItems {
             new GlowwormBottle(new FabricItemSettings().maxCount(1).food(
                     new FoodComponent.Builder().hunger(2).saturationModifier(0.3f).build())));
 
+    public static final Item COPPER_COIN = registerItem("copper_coin", new Item(new FabricItemSettings()));
+    public static final Item SILVER_COIN = registerItem("silver_coin", new Item(new FabricItemSettings()));
+
+
     public static final Item FLAX = registerItem("flax", new Item(new FabricItemSettings()));
     public static final Item FLAX_SEEDS = registerItem("flax_seeds", new AliasedBlockItem(ModNatureBlocks.FLAX_CROP, new FabricItemSettings()));
     public static final Item PIPEWEED = registerItem("pipeweed", new Item(new FabricItemSettings()));
