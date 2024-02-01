@@ -34,7 +34,7 @@ public class HeadFeatureRendererMixin {
     private static final Identifier CLOAK_HOOD_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/cloak_features.png");
     private static final Identifier FUR_CLOAK_HOOD_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/fur_cloak_features.png");
     private static final Identifier NAZGUL_CLOAK_HOOD_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/nazgul_cloak_features.png");
-    private static final Identifier ROHAN_4_HELMET_ADDON = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/rohan_scale_helmet_addon.png");
+
     @Shadow
     @Final
     private float scaleX;
@@ -90,17 +90,6 @@ public class HeadFeatureRendererMixin {
             this.cloakHoodModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
             matrices.pop();
             info.cancel();
-        }/* else if (itemStack.getItem() == ModEquipmentItems.ROHAN_SCALE_HELMET) {
-            matrices.push();
-            matrices.scale(this.scaleX, this.scaleY, this.scaleZ);
-            ((ModelWithHead) ((HeadFeatureRenderer) (Object) this).getContextModel()).getHead().rotate(matrices);
-            matrices.scale(1.19F, 1.19F, 1.19F);
-
-            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, this.rohanTier4HelmetArmourModel.getLayer(ROHAN_4_HELMET_ADDON), false, itemStack.hasGlint());
-
-            this.rohanTier4HelmetArmourModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
-            matrices.pop();
-            info.cancel();
-        }*/
+        }
     }
 }

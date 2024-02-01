@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.jukoz.me.block.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntityRenderer;
 import net.jukoz.me.client.model.equipment.InnerArmorModel;
+import net.jukoz.me.client.model.equipment.RohanScaleHelmetArmorModel;
 import net.jukoz.me.client.renderer.ModArmorRenderer;
 import net.jukoz.me.datageneration.VariantsModelProvider;
 import net.jukoz.me.datageneration.content.models.SimpleDoubleBlockModel;
@@ -37,6 +38,8 @@ import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.gui.wood_pile.WoodPileScreen;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.item.utils.ModArmorMaterials;
+import net.jukoz.me.item.utils.ModArmors;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
 import net.jukoz.me.network.ModNetworks;
 import net.minecraft.block.Block;
@@ -56,6 +59,7 @@ import net.minecraft.util.Identifier;
 public class MiddleEarthClient implements ClientModInitializer {
 
     public static final EntityModelLayer INNER_ARMOR_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "armor"), "layer_0");
+    public static final EntityModelLayer HELMET_ADDON_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "armor"), "helmet_addon");
 
     @Override
     public void onInitializeClient() {
@@ -99,12 +103,12 @@ public class MiddleEarthClient implements ClientModInitializer {
         ModNetworks.registerS2CPackets();
 
         EntityModelLayerRegistry.registerModelLayer(INNER_ARMOR_MODEL_LAYER, InnerArmorModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(HELMET_ADDON_MODEL_LAYER, RohanScaleHelmetArmorModel::getTexturedModelData);
 
-        ArmorRenderer.register(new ModArmorRenderer(),
-                ModEquipmentItems.ROHAN_SCALE_HELMET,
-                ModEquipmentItems.ROHAN_SCALE_CHESTPLATE,
-                ModEquipmentItems.ROHAN_SCALE_LEGGINGS,
-                ModEquipmentItems.ROHAN_SCALE_BOOTS);
+        for (ModArmors armor : ModArmors.values()) {
+            ArmorRenderer.register(new ModArmorRenderer(armor.getHelmetModel(), armor.getSimpleName()),
+                    armor.getItems());
+        }
 
         initializeRenderLayerMap();
     }

@@ -15,6 +15,9 @@ import net.minecraft.util.Identifier;
 
 public class ModEquipmentItems {
 
+    public static final Item GAMBESON = registerItem("gambeson",
+            new ArmorItem(ModArmorMaterials.GAMBESON, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
+
     // Dyeable cloaks
     public static final Item CLOAK = registerItem("cloak",
             new DyeableArmorItem(ModArmorMaterials.CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
@@ -50,6 +53,15 @@ public class ModEquipmentItems {
             new ArmorItem(ModArmorMaterials.MORDOR_ORC_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
     public static final Item MORDOR_ORC_BOOTS = registerItem("mordor_orc_boots",
             new ArmorItem(ModArmorMaterials.MORDOR_ORC_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
+    public static final Item ROHAN_MAIL_HELMET = registerItem("rohan_mail_helmet",
+            new ArmorItem(ModArmorMaterials.ROHAN_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
+    public static final Item ROHAN_MAIL_CHESTPLATE = registerItem("rohan_mail_chestplate",
+            new ArmorItem(ModArmorMaterials.ROHAN_MAIL_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
+    public static final Item ROHAN_MAIL_LEGGINGS = registerItem("rohan_mail_leggings",
+            new ArmorItem(ModArmorMaterials.ROHAN_MAIL_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item ROHAN_MAIL_BOOTS = registerItem("rohan_mail_boots",
+            new ArmorItem(ModArmorMaterials.ROHAN_MAIL_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item ROHAN_SCALE_HELMET = registerItem("rohan_scale_helmet",
             new ArmorItem(ModArmorMaterials.ROHAN_SCALE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));

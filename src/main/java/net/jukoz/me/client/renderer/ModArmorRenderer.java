@@ -3,6 +3,7 @@ package net.jukoz.me.client.renderer;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.MiddleEarthClient;
+import net.jukoz.me.client.model.equipment.CustomHelmetModel;
 import net.jukoz.me.client.model.equipment.InnerArmorModel;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -16,13 +17,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 public class ModArmorRenderer implements ArmorRenderer {
-    private static final Identifier ROHAN_SCALE_LAYER_0 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/rohan_scale_layer_0.png");
-    private static final Identifier ROHAN_SCALE_LAYER_1 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/rohan_scale_layer_1.png");
-    private static final Identifier ROHAN_SCALE_LAYER_2 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/rohan_scale_layer_2.png");
+    private  Identifier ARMOR_LAYER_0;
+    private  Identifier ARMOR_LAYER_1;
+    private  Identifier ARMOR_LAYER_2;
 
+    private  CustomHelmetModel<LivingEntity> helmetModel;
     private static InnerArmorModel<LivingEntity> innerArmorModel;
     private static ArmorEntityModel<LivingEntity> armorModel;
     private static ArmorEntityModel<LivingEntity> legArmorModel;
+
+    public ModArmorRenderer(CustomHelmetModel<LivingEntity> customHelmetModel, String armorName) {
+        helmetModel = customHelmetModel;
+        ARMOR_LAYER_0 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_0.png");
+        ARMOR_LAYER_1 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_1.png");
+        ARMOR_LAYER_2 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_2.png");
+    }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, BipedEntityModel<LivingEntity> contextModel) {
@@ -36,39 +45,45 @@ public class ModArmorRenderer implements ArmorRenderer {
             armorModel.setVisible(false);
             armorModel.head.visible = true;
             armorModel.hat.visible = true;
-            ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, ROHAN_SCALE_LAYER_1);
-        } else
-            if (slot == EquipmentSlot.CHEST) {
+            ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, ARMOR_LAYER_1);
+            if(helmetModel != null){
+                contextModel.copyBipedStateTo(helmetModel);
+                helmetModel.setVisible(false);
+                helmetModel.head.visible = true;
+                ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, helmetModel, helmetModel.HELMET_ADDON_TEXTURE);
+                //helmetModel.setAngles(entity,0 ,0 ,0 , contextModel.head.yaw, contextModel.head.roll);
+            }
+        } else if (slot == EquipmentSlot.CHEST) {
             contextModel.copyBipedStateTo(innerArmorModel);
             innerArmorModel.setVisible(false);
             innerArmorModel.body.visible = true;
             innerArmorModel.rightArm.visible = true;
             innerArmorModel.leftArm.visible = true;
-            ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, innerArmorModel, ROHAN_SCALE_LAYER_0);
+            innerArmorModel.rightLeg.visible = true;
+            innerArmorModel.leftLeg.visible = true;
+            ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, innerArmorModel, ARMOR_LAYER_0);
             contextModel.copyBipedStateTo(armorModel);
             armorModel.setVisible(false);
             armorModel.body.visible = true;
             armorModel.rightArm.visible = true;
             armorModel.leftArm.visible = true;
-            ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, ROHAN_SCALE_LAYER_1);
+            ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, ARMOR_LAYER_1);
         } else if (slot == EquipmentSlot.LEGS) {
             contextModel.copyBipedStateTo(innerArmorModel);
             innerArmorModel.setVisible(false);
-            innerArmorModel.rightLeg.visible = true;
-            innerArmorModel.leftLeg.visible = true;
-            ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, innerArmorModel, ROHAN_SCALE_LAYER_0);
+            ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, innerArmorModel, ARMOR_LAYER_0);
             contextModel.copyBipedStateTo(legArmorModel);
             legArmorModel.setVisible(false);
             legArmorModel.body.visible = true;
             legArmorModel.rightLeg.visible = true;
             legArmorModel.leftLeg.visible = true;
-            ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, legArmorModel, ROHAN_SCALE_LAYER_2);
+            ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, legArmorModel, ARMOR_LAYER_2);
         } else if (slot == EquipmentSlot.FEET) {
             contextModel.copyBipedStateTo(armorModel);
             armorModel.setVisible(false);
             armorModel.rightLeg.visible = true;
             armorModel.leftLeg.visible = true;
-            ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, ROHAN_SCALE_LAYER_1);
+            ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, ARMOR_LAYER_1);
         }
     }
 }
