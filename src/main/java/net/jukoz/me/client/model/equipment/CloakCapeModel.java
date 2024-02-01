@@ -3,27 +3,41 @@ package net.jukoz.me.client.model.equipment;
 import net.jukoz.me.utils.ToRad;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
+import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.util.math.Vec3d;
 
-public class CloakCapeModel<T extends LivingEntity> extends AnimalModel<T> {
+public class CloakCapeModel<T extends LivingEntity> extends CustomHelmetModel<T> {
     private static final float MAX_ANGLE_CLOAK = 75f;
     private static final float SPEED_MULTIPLIER_CLOAK = 1.8f;
     private final ModelPart cape;
 
     public CloakCapeModel(ModelPart root) {
-        this.cape = root.getChild("cape");
+        super(root);
+        this.cape = root.getChild("body").getChild("cape");
     }
 
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         Dilation dilation = new Dilation(0.0F);
-        modelPartData.addChild("cape", ModelPartBuilder.create()
-                .cuboid(-6.0F, 0f, 2.5F, 12.0F, 22.0F, 1.0F, dilation)
+
+        modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        head.addChild("cape", ModelPartBuilder.create()
+                .cuboid(-6.0F, 0f, 3.5F, 12.0F, 22.0F, 0.0F, dilation)
                 .uv(0, 0)
                 , ModelTransform.of(0, 0.5f, 0, 0.0F, 0.0F, 0F));
+
+        modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        modelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+
+        modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         return TexturedModelData.of(modelData, 64, 32);
     }
