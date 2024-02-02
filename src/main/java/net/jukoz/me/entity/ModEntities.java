@@ -13,6 +13,7 @@ import net.jukoz.me.entity.goose.GooseEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
+import net.jukoz.me.entity.pheasant.PheasantEntity;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntity;
 import net.jukoz.me.entity.projectile.pebble.PebbleEntity;
 import net.jukoz.me.entity.projectile.spear.SpearEntity;
@@ -70,6 +71,7 @@ public class ModEntities {
     public static final EntityType<GooseEntity> GOOSE = registerEntity("goose", GooseEntity::new, SpawnGroup.CREATURE, 0.6f, 1.25f);
     public static final EntityType<DuckEntity> DUCK = registerEntity("duck", DuckEntity::new, SpawnGroup.CREATURE, 0.6f, 0.8f);
     public static final EntityType<SwanEntity> SWAN = registerEntity("swan", SwanEntity::new, SpawnGroup.CREATURE, 0.6f, 0.9f);
+    public static final EntityType<PheasantEntity> PHEASANT = registerEntity("pheasant", PheasantEntity::new, SpawnGroup.CREATURE, 0.6f, 0.8f);
     public static final EntityType<SnailEntity> SNAIL = registerEntity("snail", SnailEntity::new, SpawnGroup.CREATURE, 0.3f, 0.3f);
 
 
@@ -95,6 +97,7 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(GOOSE, GooseEntity.createGooseAttributes());
         FabricDefaultAttributeRegistry.register(DUCK, DuckEntity.createDuckAttributes());
         FabricDefaultAttributeRegistry.register(SWAN, SwanEntity.createSwanAttributes());
+        FabricDefaultAttributeRegistry.register(PHEASANT, PheasantEntity.createPheasantAttributes());
         FabricDefaultAttributeRegistry.register(SNAIL, SnailEntity.createSnailAttributes());
 
         MiddleEarth.LOGGER.debug("Registering Mod Entities for " + MiddleEarth.MOD_ID);
