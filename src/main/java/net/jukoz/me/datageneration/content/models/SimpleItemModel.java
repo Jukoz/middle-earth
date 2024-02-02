@@ -1,7 +1,5 @@
 package net.jukoz.me.datageneration.content.models;
 
-import net.jukoz.me.block.ModNatureBlocks;
-import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.item.Item;
@@ -43,23 +41,6 @@ public class SimpleItemModel {
             add(ModFoodItems.VEGETABLE_SOUP);
             add(ModFoodItems.RAW_HORSE);
             add(ModFoodItems.COOKED_HORSE);
-
-            add(ModEquipmentItems.NAZGUL_CLOAK_HOOD);
-            add(ModEquipmentItems.NAZGUL_CLOAK);
-            add(ModEquipmentItems.NAZGUL_PANTS);
-            add(ModEquipmentItems.NAZGUL_BOOTS);
-
-            add(ModEquipmentItems.STEEL_TROLL_ARMOR);
-            add(ModEquipmentItems.BEAST_CHAINS);
-            add(ModEquipmentItems.MORDOR_ORC_HELMET);
-            add(ModEquipmentItems.MORDOR_ORC_CHESTPLATE);
-            add(ModEquipmentItems.MORDOR_ORC_LEGGINGS);
-            add(ModEquipmentItems.MORDOR_ORC_BOOTS);
-
-            add(ModEquipmentItems.ROHAN_SCALE_HELMET);
-            add(ModEquipmentItems.ROHAN_SCALE_CHESTPLATE);
-            add(ModEquipmentItems.ROHAN_SCALE_LEGGINGS);
-            add(ModEquipmentItems.ROHAN_SCALE_BOOTS);
 
             add(ModResourceItems.GLOWWORM_BOTTLE);
 

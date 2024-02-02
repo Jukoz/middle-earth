@@ -47,7 +47,9 @@ public class RohanScaleHelmetArmorModel<T extends LivingEntity> extends CustomHe
         double speed = (sqrVel * 0.35f) + Math.sqrt(Math.abs(limbDistance)) * 0.4f;
         double degree;
 
-        if (entity.isInSneakingPose()) {
+        degree = 5 + (MAX_ANGLE_HAIR * speed);
+
+        /*if (entity.isInSneakingPose()) {
             this.hair.pivotZ = 0.6f;
             this.hair.pivotY = 2.7f;
             degree = 25f + (speed * 30);
@@ -55,10 +57,19 @@ public class RohanScaleHelmetArmorModel<T extends LivingEntity> extends CustomHe
             this.hair.pivotZ = 0;
             this.hair.pivotY = 0.5f;
             degree = 5 + (MAX_ANGLE_HAIR * speed);
-        }
+        }*/
+
+
         degree = Math.max(7.5f, degree);
         degree = Math.min(MAX_ANGLE_HAIR, degree);
+        if(headPitch < -0.75){
+            degree -= 45;
+        }else if(headPitch < -1.4){
+            degree -= 5;
+        }else {
+            degree -= 90;
+        }
 
-        this.hair.pitch = ToRad.ex(degree + (Math.sin(animationProgress * 0.2f) * 20));
+        this.hair.pitch = ToRad.ex(degree + (Math.sin(animationProgress * 0.2f)) / 2);
     }
 }

@@ -532,9 +532,12 @@ public class ModelProvider extends FabricModelProvider {
         }
         
         // Dyeables needs to be done manually (because of layers)
+        itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.CLOAK));
+        itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.CLOAK_HOOD));
+        itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.TUNIC_CLOAK));
         itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.FUR_CLOAK));
         itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.FUR_CLOAK_HOOD));
-        
+
         // CLUSTERS
         itemModelGenerator.register(ModBlocks.SAPPHIRE_CLUSTER.asItem(), Models.GENERATED);
         itemModelGenerator.register(ModBlocks.SMALL_SAPPHIRE_BUD.asItem(), Models.GENERATED);

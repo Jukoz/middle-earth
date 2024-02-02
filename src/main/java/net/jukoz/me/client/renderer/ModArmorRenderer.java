@@ -74,8 +74,8 @@ public class ModArmorRenderer implements ArmorRenderer {
                     contextModel.copyBipedStateTo(helmetModel);
                     helmetModel.setVisible(false);
                     helmetModel.head.visible = true;
+                    helmetModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.pitch);
                     ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, helmetModel, helmetModel.HELMET_ADDON_TEXTURE);
-                    //helmetModel.setAngles(entity, 0,0,(float)entity.age + tickDelta, contextModel.head.yaw, contextModel.head.roll);
                 }
             } else if (slot == EquipmentSlot.CHEST) {
                 contextModel.copyBipedStateTo(innerArmorModel);
@@ -98,8 +98,8 @@ public class ModArmorRenderer implements ArmorRenderer {
                     contextModel.copyBipedStateTo(capeModel);
                     capeModel.setVisible(false);
                     capeModel.body.visible = true;
+                    capeModel.setAngles(entity, entity.limbAnimator.getPos(),entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.roll);
                     ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, capeModel, ARMOR_LAYER_CAPE);
-                    capeModel.setAngles(entity,0 ,0 ,0 , contextModel.head.yaw, contextModel.head.roll);
                 }
             } else if (slot == EquipmentSlot.LEGS) {
                 contextModel.copyBipedStateTo(innerArmorModel);
