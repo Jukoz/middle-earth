@@ -3,7 +3,7 @@ package net.jukoz.me.mixin.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.client.model.equipment.CloakCapeModel;
+import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.utils.IntToRGB;
 import net.minecraft.client.render.OverlayTexture;

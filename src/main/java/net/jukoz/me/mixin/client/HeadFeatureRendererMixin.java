@@ -1,7 +1,7 @@
 package net.jukoz.me.mixin.client;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.client.model.equipment.RohanScaleHelmetArmorModel;
+import net.jukoz.me.client.model.equipment.head.RohanScaleHelmetArmorModel;
 import net.jukoz.me.utils.IntToRGB;
 import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.item.DyeableItem;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.jukoz.me.client.model.equipment.CloakHoodModel;
+import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;

@@ -1,11 +1,11 @@
 package net.jukoz.me.client.renderer;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
-import net.fabricmc.fabric.mixin.client.rendering.ArmorFeatureRendererMixin;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.MiddleEarthClient;
-import net.jukoz.me.client.model.equipment.CloakCapeModel;
-import net.jukoz.me.client.model.equipment.CustomHelmetModel;
+import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
+import net.jukoz.me.client.model.equipment.chest.CustomChestplateModel;
+import net.jukoz.me.client.model.equipment.head.CustomHelmetModel;
 import net.jukoz.me.client.model.equipment.InnerArmorModel;
 import net.jukoz.me.utils.IntToRGB;
 import net.minecraft.client.MinecraftClient;
@@ -14,7 +14,6 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.client.render.entity.model.ArmorEntityModel;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
@@ -22,6 +21,7 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeableItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -35,6 +35,7 @@ public class ModArmorRenderer implements ArmorRenderer {
     private  Identifier ARMOR_LAYER_CAPE;
 
     private  CustomHelmetModel<LivingEntity> helmetModel;
+    private  CustomChestplateModel<LivingEntity> chestplateModel;
     private static InnerArmorModel<LivingEntity> innerArmorModel;
     private static ArmorEntityModel<LivingEntity> armorModel;
     private static ArmorEntityModel<LivingEntity> legArmorModel;
@@ -43,8 +44,9 @@ public class ModArmorRenderer implements ArmorRenderer {
     private final boolean hasCape;
     private final boolean dyeable;
 
-    public ModArmorRenderer(CustomHelmetModel<LivingEntity> customHelmetModel, String armorName, boolean hasCape, boolean dyeable) {
+    public ModArmorRenderer(CustomHelmetModel<LivingEntity> customHelmetModel, CustomChestplateModel<LivingEntity> customChestplateModel, String armorName, boolean hasCape, boolean dyeable) {
         helmetModel = customHelmetModel;
+        chestplateModel = customChestplateModel;
         ARMOR_LAYER_0 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_0.png");
         ARMOR_LAYER_1 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_1.png");
         ARMOR_LAYER_2 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_2.png");
@@ -93,6 +95,15 @@ public class ModArmorRenderer implements ArmorRenderer {
                 armorModel.rightArm.visible = true;
                 armorModel.leftArm.visible = true;
                 ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, ARMOR_LAYER_1);
+
+                if(this.chestplateModel != null) {
+                    contextModel.copyBipedStateTo(chestplateModel);
+                    chestplateModel.setVisible(false);
+                    chestplateModel.body.visible = true;
+                    chestplateModel.rightArm.visible = true;
+                    chestplateModel.leftArm.visible = true;
+                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, chestplateModel, chestplateModel.CHESTPLATE_ADDON_TEXTURE);
+                }
 
                 if (this.hasCape) {
                     contextModel.copyBipedStateTo(capeModel);
@@ -148,6 +159,14 @@ public class ModArmorRenderer implements ArmorRenderer {
                 armorModel.rightArm.visible = true;
                 armorModel.leftArm.visible = true;
                 renderDyeable(matrices, vertexConsumers, light, stack, armorModel, ARMOR_LAYER_1);
+
+                if(this.chestplateModel != null) {
+                    chestplateModel.setVisible(false);
+                    chestplateModel.body.visible = true;
+                    chestplateModel.rightArm.visible = true;
+                    chestplateModel.leftArm.visible = true;
+                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, chestplateModel, chestplateModel.CHESTPLATE_ADDON_TEXTURE);
+                }
 
                 if (this.hasCape) {
                     contextModel.copyBipedStateTo(capeModel);

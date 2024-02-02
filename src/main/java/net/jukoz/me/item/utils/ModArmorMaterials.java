@@ -1,14 +1,9 @@
 package net.jukoz.me.item.utils;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.client.model.equipment.CustomHelmetModel;
-import net.jukoz.me.client.model.equipment.RohanScaleHelmetArmorModel;
-import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
@@ -42,17 +37,29 @@ public enum ModArmorMaterials implements ArmorMaterial {
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0, 0.0F,
             () -> Ingredient.ofItems(ModResourceItems.MORGUL_STEEL_INGOT)),
 
-    MORDOR_ORC_ARMOR("mordor_orc_armor", 16, new int[] { 2, 6, 5, 2},
-            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0, 0.0F,
-            () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT)),
-
     ROHAN_MAIL_ARMOR("rohan_mail", 15, new int[] { 2, 5, 4, 2},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.5f, 0.1F,
-            () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)),
+            () -> Ingredient.ofItems(Items.IRON_INGOT)),
 
     ROHAN_SCALE_ARMOR("rohan_scale", 25, new int[] { 2, 6, 5, 2},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1, 0.1F,
             () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)),
+
+    MORDOR_URUK_PLATE_ARMOR("mordor_uruk_plate", 25, new int[] { 3, 7, 6, 3},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2, 0.1F,
+            () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT)),
+
+    MISTY_ORC_MAIL_ARMOR("misty_orc_mail", 15, new int[] { 2, 5, 4, 2},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.5f, 0.1F,
+            () -> Ingredient.ofItems(Items.IRON_INGOT)),
+
+    MISTY_URUK_SCALE_ARMOR("misty_uruk_scale", 25, new int[] { 2, 6, 5, 2},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1, 0.1F,
+            () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT)),
+
+    MISTY_URUK_PLATE_ARMOR("misty_uruk_plate", 25, new int[] { 3, 7, 6, 3},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2, 0.1F,
+            () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT)),
     ;
 
     private final String name;

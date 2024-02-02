@@ -6,9 +6,9 @@ import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.jukoz.me.block.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntityRenderer;
-import net.jukoz.me.client.model.equipment.CloakCapeModel;
+import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
 import net.jukoz.me.client.model.equipment.InnerArmorModel;
-import net.jukoz.me.client.model.equipment.RohanScaleHelmetArmorModel;
+import net.jukoz.me.client.model.equipment.head.RohanScaleHelmetArmorModel;
 import net.jukoz.me.client.renderer.ModArmorRenderer;
 import net.jukoz.me.datageneration.VariantsModelProvider;
 import net.jukoz.me.datageneration.content.models.SimpleDoubleBlockModel;
@@ -108,7 +108,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(CAPE_MODEL_LAYER, CloakCapeModel::getTexturedModelData);
 
         for (ModArmors armor : ModArmors.values()) {
-            ArmorRenderer.register(new ModArmorRenderer(armor.getHelmetModel(), armor.getSimpleName(), armor.hasCape(), armor.isDyeable()),
+            ArmorRenderer.register(new ModArmorRenderer(armor.getHelmetModel(), armor.getChestPlateModel(), armor.getSimpleName(), armor.hasCape(), armor.isDyeable()),
                     armor.getItems());
         }
 

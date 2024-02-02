@@ -1,4 +1,4 @@
-package net.jukoz.me.client.model.equipment;
+package net.jukoz.me.client.model.equipment.head;
 
 import com.google.common.collect.ImmutableList;
 import net.jukoz.me.utils.ToRad;

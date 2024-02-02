@@ -1,4 +1,4 @@
-package net.jukoz.me.client.model.equipment;
+package net.jukoz.me.client.model.equipment.head;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.ToRad;
