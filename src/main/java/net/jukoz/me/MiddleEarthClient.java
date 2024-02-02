@@ -10,6 +10,7 @@ import net.jukoz.me.client.model.equipment.CloakCapeModel;
 import net.jukoz.me.client.model.equipment.InnerArmorModel;
 import net.jukoz.me.client.model.equipment.RohanScaleHelmetArmorModel;
 import net.jukoz.me.client.renderer.ModArmorRenderer;
+import net.jukoz.me.client.renderer.RohanHelmetFeatureRenderer;
 import net.jukoz.me.datageneration.VariantsModelProvider;
 import net.jukoz.me.datageneration.content.models.SimpleDoubleBlockModel;
 import net.jukoz.me.datageneration.content.models.SimpleFlowerBedModel;
@@ -66,6 +67,8 @@ public class MiddleEarthClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
+        //registerRohanHorseFeature();
+
         ModEntityModels.getModels();
         EntityRendererRegistry.register(ModEntities.BARROW_WIGHT, BarrowWightEntityRenderer::new);
         // Entities
@@ -115,6 +118,16 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         initializeRenderLayerMap();
     }
+
+    /*private void registerRohanHorseFeature(){
+        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
+            if (entityType != EntityType.PLAYER) return;
+            registrationHelper.register(
+                    new RohanHelmetFeatureRenderer(
+                            (FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>>) entityRenderer,
+                            context.getModelLoader()));
+        });
+    }*/
 
     private void initializeRenderLayerMap() {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.MORDOR_LICHEN, RenderLayer.getCutout());

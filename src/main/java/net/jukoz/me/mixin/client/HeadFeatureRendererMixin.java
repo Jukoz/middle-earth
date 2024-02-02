@@ -1,6 +1,7 @@
 package net.jukoz.me.mixin.client;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.client.model.equipment.RohanScaleHelmetArmorModel;
 import net.jukoz.me.utils.IntToRGB;
 import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.item.DyeableItem;
@@ -45,8 +46,9 @@ public class HeadFeatureRendererMixin {
     @Final
     private float scaleZ;
 
-    private final CloakHoodModel cloakHoodModel = new CloakHoodModel(CloakHoodModel.getTexturedModelData().createModel());
-    //private final RohanTier4HelmetArmourModel rohanTier4HelmetArmourModel = new RohanTier4HelmetArmourModel(RohanTier4HelmetArmourModel.getTexturedModelData().createModel());
+    private final CloakHoodModel<LivingEntity> cloakHoodModel = new CloakHoodModel<>(CloakHoodModel.getTexturedModelData().createModel());
+    private final RohanScaleHelmetArmorModel<LivingEntity> rohanScaleHelmetArmorModel = new RohanScaleHelmetArmorModel<>(RohanScaleHelmetArmorModel.getTexturedModelData().createModel());
+
 
     @SuppressWarnings("rawtypes")
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)

@@ -3,12 +3,13 @@ package net.jukoz.me.client.model.equipment;
 import net.jukoz.me.utils.ToRad;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.util.math.Vec3d;
 
-public class CloakCapeModel<T extends LivingEntity> extends CustomHelmetModel<T> {
+public class CloakCapeModel<T extends LivingEntity> extends BipedEntityModel<T> {
     private static final float MAX_ANGLE_CLOAK = 75f;
     private static final float SPEED_MULTIPLIER_CLOAK = 1.8f;
     private final ModelPart cape;

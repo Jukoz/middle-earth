@@ -1,6 +1,7 @@
 package net.jukoz.me.client.renderer;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.fabricmc.fabric.mixin.client.rendering.ArmorFeatureRendererMixin;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.MiddleEarthClient;
 import net.jukoz.me.client.model.equipment.CloakCapeModel;
@@ -13,6 +14,7 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.client.render.entity.model.ArmorEntityModel;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
@@ -38,8 +40,8 @@ public class ModArmorRenderer implements ArmorRenderer {
     private static ArmorEntityModel<LivingEntity> legArmorModel;
     private static CloakCapeModel<LivingEntity> capeModel;
 
-    private boolean hasCape;
-    private boolean dyeable;
+    private final boolean hasCape;
+    private final boolean dyeable;
 
     public ModArmorRenderer(CustomHelmetModel<LivingEntity> customHelmetModel, String armorName, boolean hasCape, boolean dyeable) {
         helmetModel = customHelmetModel;
@@ -60,6 +62,7 @@ public class ModArmorRenderer implements ArmorRenderer {
             legArmorModel = new ArmorEntityModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(EntityModelLayers.PLAYER_INNER_ARMOR));
             capeModel = new CloakCapeModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CAPE_MODEL_LAYER));
         }
+
         if(!dyeable) {
             if (slot == EquipmentSlot.HEAD) {
                 contextModel.copyBipedStateTo(armorModel);
@@ -72,7 +75,7 @@ public class ModArmorRenderer implements ArmorRenderer {
                     helmetModel.setVisible(false);
                     helmetModel.head.visible = true;
                     ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, helmetModel, helmetModel.HELMET_ADDON_TEXTURE);
-                    //helmetModel.setAngles(entity,0 ,0 ,0 , contextModel.head.yaw, contextModel.head.roll);
+                    //helmetModel.setAngles(entity, 0,0,(float)entity.age + tickDelta, contextModel.head.yaw, contextModel.head.roll);
                 }
             } else if (slot == EquipmentSlot.CHEST) {
                 contextModel.copyBipedStateTo(innerArmorModel);
@@ -96,6 +99,7 @@ public class ModArmorRenderer implements ArmorRenderer {
                     capeModel.setVisible(false);
                     capeModel.body.visible = true;
                     ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, capeModel, ARMOR_LAYER_CAPE);
+                    capeModel.setAngles(entity,0 ,0 ,0 , contextModel.head.yaw, contextModel.head.roll);
                 }
             } else if (slot == EquipmentSlot.LEGS) {
                 contextModel.copyBipedStateTo(innerArmorModel);

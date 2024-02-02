@@ -44,7 +44,7 @@ public class RohanScaleHelmetArmorModel<T extends LivingEntity> extends CustomHe
     public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         Vec3d velocity = entity.getVelocity();
         double sqrVel = velocity.lengthSquared();
-        double speed = (sqrVel * 0.5f);
+        double speed = (sqrVel * 0.35f) + Math.sqrt(Math.abs(limbDistance)) * 0.4f;
         double degree;
 
         if (entity.isInSneakingPose()) {
@@ -59,6 +59,6 @@ public class RohanScaleHelmetArmorModel<T extends LivingEntity> extends CustomHe
         degree = Math.max(7.5f, degree);
         degree = Math.min(MAX_ANGLE_HAIR, degree);
 
-        this.hair.pitch = ToRad.ex(degree);
+        this.hair.pitch = ToRad.ex(degree + (Math.sin(animationProgress * 0.2f) * 20));
     }
 }
