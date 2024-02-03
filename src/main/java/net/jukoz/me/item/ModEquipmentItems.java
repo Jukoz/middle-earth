@@ -5,10 +5,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.items.TrollArmorItem;
 import net.jukoz.me.item.utils.ModArmorMaterials;
 import net.jukoz.me.item.utils.ModItemGroups;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.DyeableArmorItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.SaddleItem;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -56,6 +53,9 @@ public class ModEquipmentItems {
 
     public static final Item STEEL_TROLL_ARMOR = registerItem("steel_troll_armor",
             new TrollArmorItem(10, "steel", new FabricItemSettings().maxCount(1)));
+
+    public static final Item ROHAN_LEATHER_HORSE_ARMOR = registerItem("rohan_leather_horse_armor",
+            new HorseArmorItem(3, "rohan_leather", new FabricItemSettings().maxCount(1)));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
