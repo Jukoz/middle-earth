@@ -3,7 +3,7 @@ package net.jukoz.me.entity.dwarves.durin;
 import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
-import net.jukoz.me.entity.trolls.TrollEntity;
+import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
@@ -57,9 +57,9 @@ public class DurinDwarfEntity extends PathAwareEntity {
         equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.AIR));
 
         if (randomVal < 0.4f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModToolItems.DWARVEN_AXE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModToolItems.DWARVEN_STEEL_AXE));
         } else if (randomVal < 0.8f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModToolItems.DWARVEN_PICKAXE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModToolItems.DWARVEN_STEEL_PICKAXE));
         } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_SWORD));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));

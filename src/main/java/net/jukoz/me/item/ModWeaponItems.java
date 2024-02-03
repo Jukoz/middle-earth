@@ -84,15 +84,15 @@ public class ModWeaponItems {
             new RangeWeaponItem(ToolMaterials.IRON, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH, new FabricItemSettings()), true);
 
     public static final Item DWARVEN_SWORD = registerItemWithModel("dwarven_sword",
-            new SwordItem(ModToolMaterials.DWARVEN, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
+            new SwordItem(ModToolMaterials.DWARVEN_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
     public static final Item DWARVEN_DAGGER = registerItemWithModel("dwarven_dagger",
-            new RangeWeaponItem(ModToolMaterials.DWARVEN, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED, DAGGER_REACH, new FabricItemSettings()), false);
+            new RangeWeaponItem(ModToolMaterials.DWARVEN_STEEL, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED, DAGGER_REACH, new FabricItemSettings()), false);
     public static final Item DWARVEN_BATTLEAXE = registerItemWithModel("dwarven_battleaxe",
-            new AxeItem(ModToolMaterials.DWARVEN, BATTLEAXE_DAMAGE, BATTLEAXE_ATTACKS_SPEED, new FabricItemSettings()), true);
+            new AxeItem(ModToolMaterials.DWARVEN_STEEL, BATTLEAXE_DAMAGE, BATTLEAXE_ATTACKS_SPEED, new FabricItemSettings()), true);
     public static final Item DWARVEN_SPEAR = registerItemWithModel("dwarven_spear",
-            new RangeWeaponItem(ModToolMaterials.DWARVEN, SPEAR_DAMAGE, SPEAR_ATTACKS_SPEED, TWO_HAND_REACH, new FabricItemSettings()), true);
+            new RangeWeaponItem(ModToolMaterials.DWARVEN_STEEL, SPEAR_DAMAGE, SPEAR_ATTACKS_SPEED, TWO_HAND_REACH, new FabricItemSettings()), true);
     public static final Item DWARVEN_PIKE = registerItemWithModel("dwarven_pike",
-            new RangeWeaponItem(ModToolMaterials.DWARVEN, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH, new FabricItemSettings()), true);
+            new RangeWeaponItem(ModToolMaterials.DWARVEN_STEEL, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH, new FabricItemSettings()), true);
 
     public static final Item GONDOR_SWORD = registerItemWithModel("gondorian_sword",
             new SwordItem(ToolMaterials.IRON, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
@@ -110,42 +110,44 @@ public class ModWeaponItems {
             new BowItem(new FabricItemSettings().maxDamage(640)));
 
     public static final Item GUNDABAD_SCIMITAR = registerItemWithModel("gundabad_scimitar",
-            new SwordItem(ModToolMaterials.ORCISH, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
+            new SwordItem(ModToolMaterials.ORC_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
      public static final Item GUNDABAD_FALCHION = registerItemWithModel("gundabad_falchion",
-            new SwordItem(ModToolMaterials.ORCISH, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
+            new SwordItem(ModToolMaterials.ORC_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
     public static final Item GUNDABAD_DAGGER = registerItemWithModel("gundabad_dagger",
-            new RangeWeaponItem(ModToolMaterials.ORCISH, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED, DAGGER_REACH, new FabricItemSettings()), false);
+            new RangeWeaponItem(ModToolMaterials.ORC_STEEL, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED, DAGGER_REACH, new FabricItemSettings()), false);
     public static final Item GUNDABAD_SPEAR = registerItemWithModel("gundabad_spear",
-            new RangeWeaponItem(ModToolMaterials.ORCISH, SPEAR_DAMAGE, SPEAR_ATTACKS_SPEED, TWO_HAND_REACH, new FabricItemSettings()), true);
+            new RangeWeaponItem(ModToolMaterials.ORC_STEEL, SPEAR_DAMAGE, SPEAR_ATTACKS_SPEED, TWO_HAND_REACH, new FabricItemSettings()), true);
     public static final Item GUNDABAD_BARDICHE = registerItemWithModel("gundabad_bardiche",
-            new RangeWeaponItem(ModToolMaterials.ORCISH, BATTLEAXE_DAMAGE, POLEARM_ATTACKS_SPEED, PIKE_REACH, new FabricItemSettings()), true);
+            new RangeWeaponItem(ModToolMaterials.ORC_STEEL, BATTLEAXE_DAMAGE, POLEARM_ATTACKS_SPEED, PIKE_REACH, new FabricItemSettings()), true);
 
     public static final Item LORIEN_SWORD = registerItemWithModel("lorien_sword",
-            new SwordItem(ModToolMaterials.ELVEN, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
+            new SwordItem(ModToolMaterials.ELVEN_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
     public static final Item LORIEN_DAGGER = registerItemWithModel("lorien_dagger",
-            new RangeWeaponItem(ModToolMaterials.ELVEN, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED, DAGGER_REACH, new FabricItemSettings()), false);
+
+            new RangeWeaponItem(ModToolMaterials.ELVEN_STEEL, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED, DAGGER_REACH, new FabricItemSettings()), false);
     public static final Item LORIEN_SPEAR = registerItemWithModel("lorien_spear",
-            new RangeWeaponItem(ModToolMaterials.ELVEN, SPEAR_DAMAGE, SPEAR_ATTACKS_SPEED, TWO_HAND_REACH, new FabricItemSettings()), true);
+            new RangeWeaponItem(ModToolMaterials.ELVEN_STEEL, SPEAR_DAMAGE, SPEAR_ATTACKS_SPEED, TWO_HAND_REACH, new FabricItemSettings()), true);
     public static final Item LORIEN_BATTLESTAFF = registerItemWithModel("lorien_battlestaff",
-            new RangeWeaponItem(ModToolMaterials.ELVEN, 0, SPEAR_ATTACKS_SPEED, PIKE_REACH, new FabricItemSettings()), true);
+            new RangeWeaponItem(ModToolMaterials.ELVEN_STEEL, 0, SPEAR_ATTACKS_SPEED, PIKE_REACH, new FabricItemSettings()), true);
     public static final Item LORIEN_PIKE = registerItemWithModel("lorien_pike",
-            new RangeWeaponItem(ModToolMaterials.ELVEN, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH, new FabricItemSettings()), true);
+            new RangeWeaponItem(ModToolMaterials.ELVEN_STEEL, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH, new FabricItemSettings()), true);
+
     public static final Item LORIEN_BOW = registerBowItem("lorien_bow",
             new BowItem(new FabricItemSettings().maxDamage(640)));
 
     public static final Item MORDOR_ORC_SCIMITAR = registerItemWithModel("mordor_orc_scimitar",
-            new SwordItem(ModToolMaterials.ORCISH, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
+            new SwordItem(ModToolMaterials.ORC_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
     public static final Item MORDOR_ORC_SWORD = registerItemWithModel("mordor_orc_sword",
-            new SwordItem(ModToolMaterials.ORCISH, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
+            new SwordItem(ModToolMaterials.ORC_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
     public static final Item MORDOR_ORC_DAGGER = registerItemWithModel("mordor_orc_dagger",
-            new RangeWeaponItem(ModToolMaterials.ORCISH, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED, DAGGER_REACH, new FabricItemSettings()), false);
+            new RangeWeaponItem(ModToolMaterials.ORC_STEEL, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED, DAGGER_REACH, new FabricItemSettings()), false);
     public static final Item MORDOR_ORC_BATTLEAXE = registerItemWithModel("mordor_orc_battleaxe",
-            new AxeItem(ModToolMaterials.ORCISH, BATTLEAXE_DAMAGE, BATTLEAXE_ATTACKS_SPEED, new FabricItemSettings()), true);
+            new AxeItem(ModToolMaterials.ORC_STEEL, BATTLEAXE_DAMAGE, BATTLEAXE_ATTACKS_SPEED, new FabricItemSettings()), true);
     public static final Item MORDOR_ORC_PIKE = registerItemWithModel("mordor_orc_pike",
-            new RangeWeaponItem(ModToolMaterials.ORCISH, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH, new FabricItemSettings()), true);
+            new RangeWeaponItem(ModToolMaterials.ORC_STEEL, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH, new FabricItemSettings()), true);
 
     public static final Item MORGUL_BLADE = registerItemWithModel("morgul_blade",
-            new SwordItem(ModToolMaterials.MORGUL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED + 0.1f, new FabricItemSettings()), false);
+            new SwordItem(ModToolMaterials.MORGUL_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED + 0.1f, new FabricItemSettings()), false);
 
     public static final Item ROHIRRIC_SWORD = registerItemWithModel("rohirric_sword",
             new SwordItem(ToolMaterials.IRON, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);

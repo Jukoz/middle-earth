@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "me:orc_steel"
+              "me:orc_steel_ingot"
             ]
           }
         ]
@@ -22,7 +22,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:orc_steel"
+      "item": "me:orc_steel_ingot"
     },
     "show_toast": true,
     "title": {

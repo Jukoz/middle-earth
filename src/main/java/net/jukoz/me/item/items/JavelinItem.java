@@ -2,7 +2,7 @@ package net.jukoz.me.item.items;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import net.jukoz.me.entity.spear.SpearEntity;
+import net.jukoz.me.entity.projectile.spear.SpearEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EquipmentSlot;

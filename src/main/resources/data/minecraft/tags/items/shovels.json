@@ -5,7 +5,13 @@
       "id": "#fabric:shovels",
       "required": false
     },
-    "me:dwarven_shovel",
-    "me:mordor_orc_shovel"
+    "me:dwarven_steel_shovel",
+    "me:orc_steel_shovel",
+    "me:uruk_steel_shovel",
+    "me:elven_steel_shovel",
+    "me:steel_shovel",
+    "me:jade_shovel",
+    "me:bronze_shovel",
+    "me:mithril_shovel"
   ]
 }

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "me:raw_goose"
+  },
+  "result": "me:cooked_goose",
+  "experience": 0.1,
+  "cookingtime": 125
+}

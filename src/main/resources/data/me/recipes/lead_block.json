@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "me:lead_ingot"
+    }
+  },
+  "result": {
+    "item": "me:lead_block"
+  }
+}
