@@ -34,11 +34,12 @@ public class CustomChestplateItem extends ArmorItem {
             if(material.getSubFaction() != null){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(material.getSubFaction()));
             }
+            tooltip.add(Text.of(""));
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
         }
-        tooltip.add(Text.of(""));
         if(Screen.hasAltDown()){
+            tooltip.add(Text.of(""));
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
             if(this.cape){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".chestplate_cape"));
