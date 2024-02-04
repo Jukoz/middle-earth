@@ -64,41 +64,41 @@ public class ModEquipmentItems {
     public static final Item ROHAN_SCALE_BOOTS = registerGeneratedItem("rohan_scale_boots",
             new CustomBootsItem(ModArmorMaterials.ROHAN_SCALE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
-    public static final Item DURINS_FOLK_MAIL_HELMET = registerGeneratedItem("durins_folk_mail_helmet",
-            new CustomHelmetItem(ModArmorMaterials.DURINS_FOLK_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
-    public static final Item DURINS_FOLK_MAIL_CHESTPLATE = registerGeneratedItem("durins_folk_mail_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.DURINS_FOLK_MAIL_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false));
-    public static final Item DURINS_FOLK_MAIL_LEGGINGS = registerGeneratedItem("durins_folk_mail_leggings",
-            new CustomLeggingsItem(ModArmorMaterials.DURINS_FOLK_MAIL_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
-    public static final Item DURINS_FOLK_MAIL_BOOTS = registerGeneratedItem("durins_folk_mail_boots",
-            new CustomBootsItem(ModArmorMaterials.DURINS_FOLK_MAIL_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+    public static final Item LONGBEARD_MAIL_HELMET = registerGeneratedItem("longbeard_mail_helmet",
+            new CustomHelmetItem(ModArmorMaterials.LONGBEARD_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item LONGBEARD_MAIL_CHESTPLATE = registerGeneratedItem("longbeard_mail_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.LONGBEARD_MAIL_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false));
+    public static final Item LONGBEARD_MAIL_LEGGINGS = registerGeneratedItem("longbeard_mail_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.LONGBEARD_MAIL_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item LONGBEARD_MAIL_BOOTS = registerGeneratedItem("longbeard_mail_boots",
+            new CustomBootsItem(ModArmorMaterials.LONGBEARD_MAIL_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
-    public static final Item DURINS_FOLK_SCALE_HELMET = registerGeneratedItem("durins_folk_scale_helmet",
-            new CustomHelmetItem(ModArmorMaterials.DURINS_FOLK_SCALE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
-    public static final Item DURINS_FOLK_SCALE_CHESTPLATE = registerGeneratedItem("durins_folk_scale_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.DURINS_FOLK_SCALE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false));
-    public static final Item DURINS_FOLK_SCALE_LEGGINGS = registerGeneratedItem("durins_folk_scale_leggings",
-            new CustomLeggingsItem(ModArmorMaterials.DURINS_FOLK_SCALE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
-    public static final Item DURINS_FOLK_SCALE_BOOTS = registerGeneratedItem("durins_folk_scale_boots",
-            new CustomBootsItem(ModArmorMaterials.DURINS_FOLK_SCALE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+    public static final Item LONGBEARD_SCALE_HELMET = registerGeneratedItem("longbeard_scale_helmet",
+            new CustomHelmetItem(ModArmorMaterials.LONGBEARD_SCALE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item LONGBEARD_SCALE_CHESTPLATE = registerGeneratedItem("longbeard_scale_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.LONGBEARD_SCALE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false));
+    public static final Item LONGBEARD_SCALE_LEGGINGS = registerGeneratedItem("longbeard_scale_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.LONGBEARD_SCALE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item LONGBEARD_SCALE_BOOTS = registerGeneratedItem("longbeard_scale_boots",
+            new CustomBootsItem(ModArmorMaterials.LONGBEARD_SCALE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
-    public static final Item DURINS_FOLK_PLATE_HELMET = registerGeneratedItem("durins_folk_plate_helmet",
-            new CustomHelmetItem(ModArmorMaterials.DURINS_FOLK_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
-    public static final Item DURINS_FOLK_PLATE_CHESTPLATE = registerGeneratedItem("durins_folk_plate_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.DURINS_FOLK_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),true));
-    public static final Item DURINS_FOLK_PLATE_LEGGINGS = registerGeneratedItem("durins_folk_plate_leggings",
-            new CustomLeggingsItem(ModArmorMaterials.DURINS_FOLK_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
-    public static final Item DURINS_FOLK_PLATE_BOOTS = registerGeneratedItem("durins_folk_plate_boots",
-            new CustomBootsItem(ModArmorMaterials.DURINS_FOLK_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+    public static final Item LONGBEARD_PLATE_HELMET = registerGeneratedItem("longbeard_plate_helmet",
+            new CustomHelmetItem(ModArmorMaterials.LONGBEARD_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item LONGBEARD_PLATE_CHESTPLATE = registerGeneratedItem("longbeard_plate_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.LONGBEARD_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),true));
+    public static final Item LONGBEARD_PLATE_LEGGINGS = registerGeneratedItem("longbeard_plate_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.LONGBEARD_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item LONGBEARD_PLATE_BOOTS = registerGeneratedItem("longbeard_plate_boots",
+            new CustomBootsItem(ModArmorMaterials.LONGBEARD_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
-    public static final Item DURINS_FOLK_COMMANDER_HELMET = registerGeneratedItem("durins_folk_commander_helmet",
-            new CustomHelmetItem(ModArmorMaterials.DURINS_FOLK_COMMANDER_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
-    public static final Item DURINS_FOLK_COMMANDER_CHESTCOMMANDER = registerGeneratedItem("durins_folk_commander_chestcommander",
-            new CustomChestplateItem(ModArmorMaterials.DURINS_FOLK_COMMANDER_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),true));
-    public static final Item DURINS_FOLK_COMMANDER_LEGGINGS = registerGeneratedItem("durins_folk_commander_leggings",
-            new CustomLeggingsItem(ModArmorMaterials.DURINS_FOLK_COMMANDER_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
-    public static final Item DURINS_FOLK_COMMANDER_BOOTS = registerGeneratedItem("durins_folk_commander_boots",
-            new CustomBootsItem(ModArmorMaterials.DURINS_FOLK_COMMANDER_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+    public static final Item LONGBEARD_COMMANDER_HELMET = registerGeneratedItem("longbeard_commander_helmet",
+            new CustomHelmetItem(ModArmorMaterials.LONGBEARD_COMMANDER_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item LONGBEARD_COMMANDER_CHESTCOMMANDER = registerGeneratedItem("longbeard_commander_chestcommander",
+            new CustomChestplateItem(ModArmorMaterials.LONGBEARD_COMMANDER_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),true));
+    public static final Item LONGBEARD_COMMANDER_LEGGINGS = registerGeneratedItem("longbeard_commander_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.LONGBEARD_COMMANDER_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item LONGBEARD_COMMANDER_BOOTS = registerGeneratedItem("longbeard_commander_boots",
+            new CustomBootsItem(ModArmorMaterials.LONGBEARD_COMMANDER_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item LOTHLORIEN_MAIL_HELMET = registerGeneratedItem("lothlorien_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.LOTHLORIEN_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));

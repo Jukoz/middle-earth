@@ -33,17 +33,17 @@ public enum ModArmors {
     ROHAN_SCALE_ARMOR("rohan_scale", new RohanScaleHelmetArmorModel<>(RohanScaleHelmetArmorModel.getTexturedModelData().createModel()), null,
             true, false, ModEquipmentItems.ROHAN_SCALE_HELMET, ModEquipmentItems.ROHAN_SCALE_CHESTPLATE, ModEquipmentItems.ROHAN_SCALE_LEGGINGS, ModEquipmentItems.ROHAN_SCALE_BOOTS),
     
-    DURINS_FOLK_MAIL_ARMOR("durins_folk_mail", null, null,
-            false, false, ModEquipmentItems.DURINS_FOLK_MAIL_HELMET, ModEquipmentItems.DURINS_FOLK_MAIL_CHESTPLATE, ModEquipmentItems.DURINS_FOLK_MAIL_LEGGINGS, ModEquipmentItems.DURINS_FOLK_MAIL_BOOTS),
+    LONGBEARD_MAIL_ARMOR("longbeard_mail", null, null,
+            false, false, ModEquipmentItems.LONGBEARD_MAIL_HELMET, ModEquipmentItems.LONGBEARD_MAIL_CHESTPLATE, ModEquipmentItems.LONGBEARD_MAIL_LEGGINGS, ModEquipmentItems.LONGBEARD_MAIL_BOOTS),
 
-    DURINS_FOLK_SCALE_ARMOR("durins_folk_scale", null, null,
-            false, false, ModEquipmentItems.DURINS_FOLK_SCALE_HELMET, ModEquipmentItems.DURINS_FOLK_SCALE_CHESTPLATE, ModEquipmentItems.DURINS_FOLK_SCALE_LEGGINGS, ModEquipmentItems.DURINS_FOLK_SCALE_BOOTS),
+    LONGBEARD_SCALE_ARMOR("longbeard_scale", null, null,
+            false, false, ModEquipmentItems.LONGBEARD_SCALE_HELMET, ModEquipmentItems.LONGBEARD_SCALE_CHESTPLATE, ModEquipmentItems.LONGBEARD_SCALE_LEGGINGS, ModEquipmentItems.LONGBEARD_SCALE_BOOTS),
 
-    DURINS_FOLK_PLATE_ARMOR("durins_folk_plate", null, null,
-            true, false, ModEquipmentItems.DURINS_FOLK_PLATE_HELMET, ModEquipmentItems.DURINS_FOLK_PLATE_CHESTPLATE, ModEquipmentItems.DURINS_FOLK_PLATE_LEGGINGS, ModEquipmentItems.DURINS_FOLK_PLATE_BOOTS),
+    LONGBEARD_PLATE_ARMOR("longbeard_plate", null, null,
+            true, false, ModEquipmentItems.LONGBEARD_PLATE_HELMET, ModEquipmentItems.LONGBEARD_PLATE_CHESTPLATE, ModEquipmentItems.LONGBEARD_PLATE_LEGGINGS, ModEquipmentItems.LONGBEARD_PLATE_BOOTS),
     
-    DURINS_FOLK_COMMANDER_ARMOR("durins_folk_commander", null, null,
-            true, false, ModEquipmentItems.DURINS_FOLK_COMMANDER_HELMET, ModEquipmentItems.DURINS_FOLK_COMMANDER_CHESTCOMMANDER, ModEquipmentItems.DURINS_FOLK_COMMANDER_LEGGINGS, ModEquipmentItems.DURINS_FOLK_COMMANDER_BOOTS),
+    LONGBEARD_COMMANDER_ARMOR("longbeard_commander", null, null,
+            true, false, ModEquipmentItems.LONGBEARD_COMMANDER_HELMET, ModEquipmentItems.LONGBEARD_COMMANDER_CHESTCOMMANDER, ModEquipmentItems.LONGBEARD_COMMANDER_LEGGINGS, ModEquipmentItems.LONGBEARD_COMMANDER_BOOTS),
     
     LOTHLORIEN_MAIL_ARMOR("lothlorien_mail", null, null,
             false, false, ModEquipmentItems.LOTHLORIEN_MAIL_HELMET, ModEquipmentItems.LOTHLORIEN_MAIL_CHESTPLATE, ModEquipmentItems.LOTHLORIEN_MAIL_LEGGINGS, ModEquipmentItems.LOTHLORIEN_MAIL_BOOTS),
