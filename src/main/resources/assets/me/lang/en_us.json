@@ -2296,5 +2296,22 @@
   
 "Comment": "GUI",
   "screen.me.alloy_furnace": "Alloy Furnace",
-  "screen.me.wood_pile": "Wood Pile"
+  "screen.me.wood_pile": "Wood Pile",
+
+"Comment": "Tooltips",
+  "tooltip.me.shift" : "Hold SHIFT to see faction information.",
+  "tooltip.me.alt" : "Hold ALT to see customization information.",
+
+  "tooltip.me.gondor" : "Gondor",
+  "tooltip.me.rohan" : "Rohan",
+  "tooltip.me.longbeards" : "longbeards",
+  "tooltip.me.lothlorien" : "Lothlórien",
+  "tooltip.me.mordor" : "Mordor",
+  "tooltip.me.misty_orcs" : "Misty Mountains Orcs",
+  "tooltip.me.gundabad" : "Gundabad",
+  "tooltip.me.moria_goblins" : "Moria Goblins",
+
+  "tooltip.me.dyeable" : "Dyeable",
+  "tooltip.me.cape" : "Cape",
+  "tooltip.me.hood" : "Hood"
 }

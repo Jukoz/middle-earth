@@ -32,6 +32,27 @@ public enum ModArmors {
 
     ROHAN_SCALE_ARMOR("rohan_scale", new RohanScaleHelmetArmorModel<>(RohanScaleHelmetArmorModel.getTexturedModelData().createModel()), null,
             true, false, ModEquipmentItems.ROHAN_SCALE_HELMET, ModEquipmentItems.ROHAN_SCALE_CHESTPLATE, ModEquipmentItems.ROHAN_SCALE_LEGGINGS, ModEquipmentItems.ROHAN_SCALE_BOOTS),
+    
+    DURINS_FOLK_MAIL_ARMOR("durins_folk_mail", null, null,
+            false, false, ModEquipmentItems.DURINS_FOLK_MAIL_HELMET, ModEquipmentItems.DURINS_FOLK_MAIL_CHESTPLATE, ModEquipmentItems.DURINS_FOLK_MAIL_LEGGINGS, ModEquipmentItems.DURINS_FOLK_MAIL_BOOTS),
+
+    DURINS_FOLK_SCALE_ARMOR("durins_folk_scale", null, null,
+            false, false, ModEquipmentItems.DURINS_FOLK_SCALE_HELMET, ModEquipmentItems.DURINS_FOLK_SCALE_CHESTPLATE, ModEquipmentItems.DURINS_FOLK_SCALE_LEGGINGS, ModEquipmentItems.DURINS_FOLK_SCALE_BOOTS),
+
+    DURINS_FOLK_PLATE_ARMOR("durins_folk_plate", null, null,
+            true, false, ModEquipmentItems.DURINS_FOLK_PLATE_HELMET, ModEquipmentItems.DURINS_FOLK_PLATE_CHESTPLATE, ModEquipmentItems.DURINS_FOLK_PLATE_LEGGINGS, ModEquipmentItems.DURINS_FOLK_PLATE_BOOTS),
+    
+    DURINS_FOLK_COMMANDER_ARMOR("durins_folk_commander", null, null,
+            true, false, ModEquipmentItems.DURINS_FOLK_COMMANDER_HELMET, ModEquipmentItems.DURINS_FOLK_COMMANDER_CHESTCOMMANDER, ModEquipmentItems.DURINS_FOLK_COMMANDER_LEGGINGS, ModEquipmentItems.DURINS_FOLK_COMMANDER_BOOTS),
+    
+    LOTHLORIEN_MAIL_ARMOR("lothlorien_mail", null, null,
+            false, false, ModEquipmentItems.LOTHLORIEN_MAIL_HELMET, ModEquipmentItems.LOTHLORIEN_MAIL_CHESTPLATE, ModEquipmentItems.LOTHLORIEN_MAIL_LEGGINGS, ModEquipmentItems.LOTHLORIEN_MAIL_BOOTS),
+
+    LOTHLORIEN_SCALE_ARMOR("lothlorien_scale", new LothlorienHelmetArmorModel<>(LothlorienHelmetArmorModel.getTexturedModelData().createModel(), "scale"), null,
+            false, false, ModEquipmentItems.LOTHLORIEN_SCALE_HELMET, ModEquipmentItems.LOTHLORIEN_SCALE_CHESTPLATE, ModEquipmentItems.LOTHLORIEN_SCALE_LEGGINGS, ModEquipmentItems.LOTHLORIEN_SCALE_BOOTS),
+
+    LOTHLORIEN_PLATE_ARMOR("lothlorien_plate", new LothlorienHelmetArmorModel<>(LothlorienHelmetArmorModel.getTexturedModelData().createModel(), "plate"), null,
+            true, false, ModEquipmentItems.LOTHLORIEN_PLATE_HELMET, ModEquipmentItems.LOTHLORIEN_PLATE_CHESTPLATE, ModEquipmentItems.LOTHLORIEN_PLATE_LEGGINGS, ModEquipmentItems.LOTHLORIEN_PLATE_BOOTS),
 
     MORDOR_URUK_PLATE_ARMOR("mordor_uruk_plate", new MordorUrukPlateHelmetArmorModel<>(MordorUrukPlateHelmetArmorModel.getTexturedModelData().createModel()), null,
             false, false, ModEquipmentItems.MORDOR_URUK_PLATE_HELMET, ModEquipmentItems.MORDOR_URUK_PLATE_CHESTPLATE, ModEquipmentItems.MORDOR_URUK_PLATE_LEGGINGS, ModEquipmentItems.MORDOR_URUK_PLATE_BOOTS),
@@ -44,7 +65,6 @@ public enum ModArmors {
 
     MISTY_URUK_PLATE_ARMOR("misty_uruk_plate",new MistyUrukPlateHelmetArmorModel<>(MistyUrukPlateHelmetArmorModel.getTexturedModelData().createModel()), new MistyUrukPlateChestplateArmorModel<>(MistyUrukPlateChestplateArmorModel.getTexturedModelData().createModel()),
             false, false, ModEquipmentItems.MISTY_URUK_PLATE_HELMET, ModEquipmentItems.MISTY_URUK_PLATE_CHESTPLATE, ModEquipmentItems.MISTY_URUK_PLATE_LEGGINGS, ModEquipmentItems.MISTY_URUK_PLATE_BOOTS),
-
     ;
 
     private final String name;
