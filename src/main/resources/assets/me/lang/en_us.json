@@ -276,10 +276,15 @@
   "item.me.nazgul_cloak": "Nazgûl Cloak",
   "item.me.nazgul_pants": "Nazgûl Pants",
   "item.me.nazgul_boots": "Nazgûl Boots",
-  "item.me.mordor_orc_helmet": "Mordor Orc Helmet",
-  "item.me.mordor_orc_chestplate": "Mordor Orc Chestplate",
-  "item.me.mordor_orc_leggings": "Mordor Orc Leggings",
-  "item.me.mordor_orc_boots": "Mordor Orc Boots",
+  
+  "item.me.rohan_mail_helmet": "Rohan Mail Helmet",
+  "item.me.rohan_mail_chestplate": "Rohan Mail Chestplate",
+  "item.me.rohan_mail_leggings": "Rohan Mail Leggings",
+  "item.me.rohan_mail_boots": "Rohan Mail Boots",
+  "item.me.rohan_scale_helmet": "Rohan Scale Helmet",
+  "item.me.rohan_scale_chestplate": "Rohan Scale Chestplate",
+  "item.me.rohan_scale_leggings": "Rohan Scale Leggings",
+  "item.me.rohan_scale_boots": "Rohan Scale Boots",
 
   "item.me.steel_troll_armor": "Steel Troll Armor",
 
@@ -2299,12 +2304,16 @@
   "screen.me.wood_pile": "Wood Pile",
 
 "Comment": "Tooltips",
-  "tooltip.me.shift" : "Hold SHIFT to see faction information.",
-  "tooltip.me.alt" : "Hold ALT to see customization information.",
+  "tooltip.me.shift" : "Hold §3SHIFT§f to see faction information.",
+  "tooltip.me.alt" : "Hold §3ALT§f to see custom parts information.",
+  "tooltip.me.faction" : "§6Faction: §f",
+  "tooltip.me.sub_faction" : "§7Sub Faction: §f",
+  "tooltip.me.customizations" : "§6Custom Parts: §f",
 
   "tooltip.me.gondor" : "Gondor",
   "tooltip.me.rohan" : "Rohan",
-  "tooltip.me.longbeards" : "longbeards",
+  "tooltip.me.longbeards" : "Longbeards",
+  "tooltip.me.erebor" : "Erebor",
   "tooltip.me.lothlorien" : "Lothlórien",
   "tooltip.me.mordor" : "Mordor",
   "tooltip.me.misty_orcs" : "Misty Mountains Orcs",
@@ -2312,6 +2321,6 @@
   "tooltip.me.moria_goblins" : "Moria Goblins",
 
   "tooltip.me.dyeable" : "Dyeable",
-  "tooltip.me.cape" : "Cape",
-  "tooltip.me.hood" : "Hood"
+  "tooltip.me.chestplate_cape" : "Cape",
+  "tooltip.me.helmet_hood" : "Hood"
 }

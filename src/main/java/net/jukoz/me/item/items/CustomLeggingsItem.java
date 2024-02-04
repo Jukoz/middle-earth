@@ -7,18 +7,17 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import javax.script.ScriptEngine;
 import java.util.List;
 
-public class CustomArmorItem extends ArmorItem {
+public class CustomLeggingsItem extends ArmorItem {
 
     private ModArmorMaterials material;
 
-    public CustomArmorItem(ModArmorMaterials material, Type type, Settings settings) {
+    public CustomLeggingsItem(ModArmorMaterials material, Type type, Settings settings) {
         super(material, type, settings);
 
         this.material = material;
@@ -28,19 +27,18 @@ public class CustomArmorItem extends ArmorItem {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 
+        tooltip.add(Text.of(""));
         if(Screen.hasShiftDown()){
-            tooltip.add(Text.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction") + ":" + material.getFaction()));
-            tooltip.add(material.getFaction());
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(material.getFaction()));
             if(material.getSubFaction() != null){
-                tooltip.add(Text.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction") + ":" + material.getSubFaction()));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(material.getSubFaction()));
             }
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
         }
+        tooltip.add(Text.of(""));
         if(Screen.hasAltDown()){
-            if(material.getCustomizations() != null){
-                tooltip.addAll(material.getCustomizations());
-            }
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
         }else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
         }
