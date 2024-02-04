@@ -32,7 +32,7 @@ public class CustomHelmetItem extends ArmorItem {
 
         tooltip.add(Text.of(""));
         if (Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").formatted(Formatting.GOLD).append(material.getFaction()));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(material.getFaction()));
             if (material.getSubFaction() != null) {
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(material.getSubFaction()));
             }

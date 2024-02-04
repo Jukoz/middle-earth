@@ -57,11 +57,11 @@ public enum ModArmorMaterials implements ArmorMaterial {
 
     DURINS_FOLK_PLATE_ARMOR("durins_folk_plate", 25, new int[] { 2, 6, 5, 2},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1, 0.1F,
-            () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), null),
+            () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")),
 
     DURINS_FOLK_COMMANDER_ARMOR("durins_folk_commander", 25, new int[] { 2, 6, 5, 2},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1, 0.1F,
-            () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), null),
+            () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")),
 
     LOTHLORIEN_MAIL_ARMOR("lothlorien_mail", 15, new int[] { 2, 5, 4, 2},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.5f, 0.1F,
