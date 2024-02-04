@@ -54,8 +54,8 @@ public class ModEquipmentItems {
     public static final Item STEEL_TROLL_ARMOR = registerItem("steel_troll_armor",
             new TrollArmorItem(10, "steel", new FabricItemSettings().maxCount(1)));
 
-    public static final Item ROHAN_LEATHER_HORSE_ARMOR = registerItem("rohan_leather_horse_armor",
-            new HorseArmorItem(3, "rohan_leather", new FabricItemSettings().maxCount(1)));
+    public static final Item ROHIRRIC_HORSE_ARMOR = registerItem("rohirric_horse_armor",
+            new HorseArmorItem(10, "rohirric", new FabricItemSettings().maxCount(1)));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
