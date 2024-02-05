@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "V",
+    "V",
+    "S"
+  ],
+  "key": {
+    "V": {
+      "tag": "me:vegetable"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "me:vegetable_skewer",
+    "count": 1
+  }
+}

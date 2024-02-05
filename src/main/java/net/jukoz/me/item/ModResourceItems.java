@@ -145,7 +145,7 @@ public class ModResourceItems {
             
     public static final Item GLOWWORM_BOTTLE = registerItem("glowworm_bottle",
             new GlowwormBottle(new FabricItemSettings().maxCount(1).food(
-                    new FoodComponent.Builder().hunger(2).saturationModifier(0.3f).build())));
+                    new FoodComponent.Builder().hunger(2).saturationModifier(0.3f).alwaysEdible().build())));
 
     public static final Item COPPER_COIN = registerItem("copper_coin", new Item(new FabricItemSettings()));
     public static final Item SILVER_COIN = registerItem("silver_coin", new Item(new FabricItemSettings()));
