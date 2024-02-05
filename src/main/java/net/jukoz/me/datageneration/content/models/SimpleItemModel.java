@@ -56,6 +56,8 @@ public class SimpleItemModel {
             add(ModEquipmentItems.MORDOR_ORC_LEGGINGS);
             add(ModEquipmentItems.MORDOR_ORC_BOOTS);
 
+            add(ModEquipmentItems.ROHIRRIC_HORSE_ARMOR);
+
             add(ModResourceItems.GLOWWORM_BOTTLE);
 
             add(ModResourceItems.COPPER_COIN);

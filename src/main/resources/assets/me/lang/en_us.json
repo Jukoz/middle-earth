@@ -283,6 +283,9 @@
 
   "item.me.steel_troll_armor": "Steel Troll Armor",
 
+"#Comment:": "Item - Horse Armor",
+  "item.me.rohirric_horse_armor": "Rohirric Horse Armor",
+
 "#Comment:": "Item - Food",
   "item.me.lembas": "Lembas",
   "item.me.maggoty_bread": "Maggoty Bread",
