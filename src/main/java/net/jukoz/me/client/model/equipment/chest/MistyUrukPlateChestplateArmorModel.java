@@ -26,8 +26,13 @@ public class MistyUrukPlateChestplateArmorModel<T extends LivingEntity> extends 
         modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        ModelPartData right_arm = modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        right_arm.addChild("shoulder_addon", ModelPartBuilder.create().uv(0, 0).cuboid(-3.0F, -2.0F, -2.0F, 3.0F, 5.0F, 0, new Dilation(0.0F)), ModelTransform.pivot(-3.0F, -4.0F, 2.0F));
+
+        ModelPartData right_arm = modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(),
+                ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        right_arm.addChild("shoulder_addon", ModelPartBuilder.create()
+                .uv(0, 0).cuboid(-3.0F, -2.0F, -2.0F, 3.0F, 5.0F, 0, new Dilation(0.0F)),
+                ModelTransform.pivot(-3.0F, -4.0F, 2.0F));
+
         modelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
