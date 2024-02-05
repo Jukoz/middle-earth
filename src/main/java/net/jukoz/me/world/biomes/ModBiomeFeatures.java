@@ -1,5 +1,6 @@
 package net.jukoz.me.world.biomes;
 
+import net.jukoz.me.world.features.boulder.BoulderPlacedFeatures;
 import net.jukoz.me.world.features.tree.ModTreePlacedFeatures;
 import net.jukoz.me.world.features.vegetation.ModVegetationPlacedFeatures;
 import net.minecraft.world.biome.GenerationSettings;
@@ -7,6 +8,7 @@ import net.minecraft.world.gen.GenerationStep;
 
 public class ModBiomeFeatures {
 
+    // region TREES
     public static void addBeechTrees(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModTreePlacedFeatures.BEECH_PLACED_TREE_KEY);
     }
@@ -92,6 +94,22 @@ public class ModBiomeFeatures {
     public static void addWillowTrees(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModTreePlacedFeatures.WILLOW_PLACED_TREE_KEY);
     }
+    // endregion TREES
+
+    // region BOULDERS
+    public static void addAndesiteBoulder(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BoulderPlacedFeatures.ANDESITE_BOULDER);
+    }
+    public static void addDioriteBoulder(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BoulderPlacedFeatures.DIORITE_BOULDER);
+    }
+    public static void addGraniteBoulder(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BoulderPlacedFeatures.GRANITE_BOULDER);
+    }
+    public static void addStoneBoulder(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BoulderPlacedFeatures.STONE_BOULDER);
+    }
+    // endregion
 
     public static void addMallos(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_MALLOS);

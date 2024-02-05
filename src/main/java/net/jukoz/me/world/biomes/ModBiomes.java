@@ -2,6 +2,8 @@ package net.jukoz.me.world.biomes;
 
 import net.jukoz.me.world.spawners.ModSpawnSettingsBuilder;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
@@ -154,17 +156,18 @@ public class ModBiomes {
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 13419633, 9615182)));
         context.register(MEBiomeKeys.TROLLSHAWS, createTrollshawsBiome(context, new BiomeColorsDTO(
                 6980296, 10402016, 4618461, defaultWaterFog, 9666387, 9731143)));
-        context.register(MEBiomeKeys.UMBAR, createDefaultBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.UMBAR, createUmbarBiome(context, new BiomeColorsDTO(
                 7254527, 12638463, 5212644, 333363, 11059059, 9284946)));
         context.register(MEBiomeKeys.WASTE_POND, createLakeBiome(context, new BiomeColorsDTO(
                 8163746, 10926783, 5860963, 863008, 4020033, 2371608)));
-        context.register(MEBiomeKeys.WHITE_MOUNTAINS, createDefaultBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.WHITE_MOUNTAINS, createWhiteMountainsBiome(context, new BiomeColorsDTO(
                 hillySky, 12638463, defaultWater, defaultWaterFog, 7183466, 7513204)));
-        context.register(MEBiomeKeys.WOODLAND_REALM, createMirkwoodBiome(context, new BiomeColorsDTO(
-                8497918, 10666932, 4492967, 471355, 2780195, 2713634), false));
+        context.register(MEBiomeKeys.WOODLAND_REALM, createWoodlandRealmBiome(context, new BiomeColorsDTO(
+                8497918, 10666932, 4492967, 471355, 2780195, 2713634)));
     }
 
     public static Biome createAnduinBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        Text.translatable("key").formatted(Formatting.BLUE).append(Text.of("test").copy().formatted(Formatting.RED));
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
@@ -207,6 +210,8 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addHaradVegetation(generationSettings);
+        ModBiomeFeatures.addGraniteBoulder(generationSettings);
+
         ModBiomeFeatures.addPalmTrees(generationSettings);
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
@@ -303,6 +308,8 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addDefaultVegetation(generationSettings);
+        ModBiomeFeatures.addDioriteBoulder(generationSettings);
+
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.TREES_PLAINS);
         ModBiomeFeatures.addBeechTrees(generationSettings);
         ModBiomeFeatures.addLebethronTrees(generationSettings);
@@ -325,6 +332,7 @@ public class ModBiomes {
     public static Biome createHaradBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addHaradMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addHaradVegetation(generationSettings);
@@ -586,6 +594,7 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addDefaultVegetation(generationSettings);
+        ModBiomeFeatures.addGraniteBoulder(generationSettings);
 
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.TREES_PLAINS);
         ModBiomeFeatures.addBeechTrees(generationSettings);
@@ -676,12 +685,49 @@ public class ModBiomes {
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
 
+    public static Biome createUmbarBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addHaradMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addHaradVegetation(generationSettings);
+        ModBiomeFeatures.addGraniteBoulder(generationSettings);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
     public static Biome createLakeBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addRiverAnimals(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addOceanVegetation(generationSettings);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
+    public static Biome createWhiteMountainsBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addMountainsMobs(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addNordicVegetation(generationSettings);
+        ModBiomeFeatures.addLarchTrees(generationSettings);
+        ModBiomeFeatures.addPineTrees(generationSettings);
+        ModBiomeFeatures.addSpruceTrees(generationSettings);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
+    public static Biome createWoodlandRealmBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addWolves(spawnSettings);
+
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addMirkwoodVegetation(generationSettings);
+        addMirkwoodTrees(generationSettings);
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
@@ -713,16 +759,6 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addDefaultVegetation(generationSettings);
-
-        return createBiome(biomeColors, spawnSettings, generationSettings);
-    }
-
-    public static Biome createDefaultBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
-        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
-
-        addDefaultVegetation(generationSettings);
-        addColdTrees(generationSettings);
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
@@ -761,6 +797,7 @@ public class ModBiomes {
         DefaultBiomeFeatures.addDefaultVegetation(generationSettings);
         DefaultBiomeFeatures.addDefaultDisks(generationSettings);
         DefaultBiomeFeatures.addDefaultFlowers(generationSettings);
+        ModBiomeFeatures.addStoneBoulder(generationSettings);
     }
 
     public static void addMordorVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
@@ -774,6 +811,7 @@ public class ModBiomes {
         DefaultBiomeFeatures.addSweetBerryBushes(generationSettings);
         DefaultBiomeFeatures.addDefaultDisks(generationSettings);
         DefaultBiomeFeatures.addDefaultFlowers(generationSettings);
+        ModBiomeFeatures.addAndesiteBoulder(generationSettings);
     }
 
     public static void addMirkwoodVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {

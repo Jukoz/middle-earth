@@ -3,6 +3,8 @@ package net.jukoz.me.datageneration;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.jukoz.me.world.biomes.ModBiomes;
+import net.jukoz.me.world.features.boulder.BoulderConfiguredFeatures;
+import net.jukoz.me.world.features.boulder.BoulderPlacedFeatures;
 import net.jukoz.me.world.features.tree.ModTreeConfiguredFeatures;
 import net.jukoz.me.world.features.tree.ModTreePlacedFeatures;
 import net.jukoz.me.world.features.vegetation.ModVegetationConfiguredFeatures;
@@ -32,7 +34,9 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.BIOME, ModBiomes::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModTreeConfiguredFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModVegetationConfiguredFeatures::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, BoulderConfiguredFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModTreePlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModVegetationPlacedFeatures::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, BoulderPlacedFeatures::bootstrap);
     }
 }
