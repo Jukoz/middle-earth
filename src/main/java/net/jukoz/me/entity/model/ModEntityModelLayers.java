@@ -7,6 +7,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.balrog.BalrogModel;
 import net.jukoz.me.entity.barrow_wights.BarrowWightModel;
 import net.jukoz.me.entity.crab.CrabModel;
+import net.jukoz.me.entity.deer.DeerModel;
 import net.jukoz.me.entity.duck.DuckModel;
 import net.jukoz.me.entity.goose.GooseModel;
 import net.jukoz.me.entity.nazguls.NazgulModel;
@@ -41,6 +42,7 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer DUCK = ModEntityModelLayers.registerEntityModelLayer("duck", DuckModel.getTexturedModelData());
     public static final EntityModelLayer SWAN = ModEntityModelLayers.registerEntityModelLayer("swan", SwanModel.getTexturedModelData());
     public static final EntityModelLayer SNAIL = ModEntityModelLayers.registerEntityModelLayer("snail", SnailModel.getTexturedModelData());
+    public static final EntityModelLayer DEER = ModEntityModelLayers.registerEntityModelLayer("deer", DeerModel.getTexturedModelData());
 
 
     /**

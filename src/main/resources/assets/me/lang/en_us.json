@@ -364,6 +364,7 @@
   "item.me.mirkwood_spider_spawn_egg": "Mirkwood Spider Spawn Egg",
   "item.me.warg_spawn_egg": "Warg Spawn Egg",
   "item.me.snail_spawn_egg": "Snail Spawn Egg",
+  "item.me.deer_spawn_egg": "Deer Spawn Egg",
 
 "#Comment:": "Item - Entities",
   "item.me.pebble": "Pebble",
@@ -375,6 +376,8 @@
   "entity.me.goose": "Goose",
   "entity.me.duck": "Duck",
   "entity.me.swan": "Swan",
+  "entity.me.snail": "Snail",
+  "entity.me.deer": "Deer",
   "entity.me.durin_folk": "Durin Folk",
   "entity.me.galadhrim_elf": "Galadhrim Elf",
   "entity.me.hobbit": "Hobbit",
