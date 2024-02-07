@@ -13,16 +13,16 @@ public enum ModArmors {
             true, false, false, false, ModEquipmentItems.GAMBESON),
 
     CLOAK("cloak", null, null,
-            false, false, false, true, ModEquipmentItems.CLOAK, ModEquipmentItems.CLOAK_HOOD),
+            false, true, false, true, ModEquipmentItems.CLOAK, ModEquipmentItems.CLOAK_HOOD),
 
     TUNIC_CLOAK("tunic_cloak", null, null,
-            false, false, false, true, ModEquipmentItems.TUNIC_CLOAK),
+            false, true, false, true, ModEquipmentItems.TUNIC_CLOAK),
 
     FUR_CLOAK("fur_cloak", null, null,
-            false, false, true, false, ModEquipmentItems.FUR_CLOAK, ModEquipmentItems.FUR_CLOAK_HOOD),
+            false, true, false, false, ModEquipmentItems.FUR_CLOAK, ModEquipmentItems.FUR_CLOAK_HOOD),
 
     CHAINMAIL_FUR_CLOAK("chainmail_fur_cloak", null, null,
-            false, false, true, false, ModEquipmentItems.CHAINMAIL_FUR_CLOAK),
+            false, true, true, false, ModEquipmentItems.CHAINMAIL_FUR_CLOAK),
 
     NAZGUL_CLOAK("nazgul_cloak", null, null,
             false, true, false, false, ModEquipmentItems.NAZGUL_CLOAK_HOOD, ModEquipmentItems.NAZGUL_CLOAK, ModEquipmentItems.NAZGUL_PANTS, ModEquipmentItems.NAZGUL_BOOTS),
