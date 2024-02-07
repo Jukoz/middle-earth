@@ -32,7 +32,10 @@ public enum ModArmors {
 
     ROHAN_SCALE_ARMOR("rohan_scale", new RohanScaleHelmetArmorModel<>(RohanScaleHelmetArmorModel.getTexturedModelData().createModel()), null,
             true, false, false, ModEquipmentItems.ROHAN_SCALE_HELMET, ModEquipmentItems.ROHAN_SCALE_CHESTPLATE, ModEquipmentItems.ROHAN_SCALE_LEGGINGS, ModEquipmentItems.ROHAN_SCALE_BOOTS),
-    
+
+    ROHAN_PLATE_ARMOR("rohan_plate", new RohanPlateHelmetArmorModel<>(RohanPlateHelmetArmorModel.getTexturedModelData().createModel()), null,
+            false, false, false, ModEquipmentItems.ROHAN_PLATE_HELMET, ModEquipmentItems.ROHAN_PLATE_CHESTPLATE, ModEquipmentItems.ROHAN_PLATE_LEGGINGS, ModEquipmentItems.ROHAN_PLATE_BOOTS),
+
     LONGBEARD_MAIL_ARMOR("longbeard_mail", null, null,
             false, false, false, ModEquipmentItems.LONGBEARD_MAIL_HELMET, ModEquipmentItems.LONGBEARD_MAIL_CHESTPLATE, ModEquipmentItems.LONGBEARD_MAIL_LEGGINGS, ModEquipmentItems.LONGBEARD_MAIL_BOOTS),
 

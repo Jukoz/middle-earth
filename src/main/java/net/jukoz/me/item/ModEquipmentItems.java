@@ -64,6 +64,15 @@ public class ModEquipmentItems {
     public static final Item ROHAN_SCALE_BOOTS = registerGeneratedItem("rohan_scale_boots",
             new CustomBootsItem(ModArmorMaterials.ROHAN_SCALE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
+    public static final Item ROHAN_PLATE_HELMET = registerGeneratedItem("rohan_plate_helmet",
+            new CustomHelmetItem(ModArmorMaterials.ROHAN_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item ROHAN_PLATE_CHESTPLATE = registerGeneratedItem("rohan_plate_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.ROHAN_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), true));
+    public static final Item ROHAN_PLATE_LEGGINGS = registerGeneratedItem("rohan_plate_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.ROHAN_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item ROHAN_PLATE_BOOTS = registerGeneratedItem("rohan_plate_boots",
+            new CustomBootsItem(ModArmorMaterials.ROHAN_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
     public static final Item LONGBEARD_MAIL_HELMET = registerGeneratedItem("longbeard_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.LONGBEARD_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
     public static final Item LONGBEARD_MAIL_CHESTPLATE = registerGeneratedItem("longbeard_mail_chestplate",

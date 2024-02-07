@@ -47,6 +47,10 @@ public enum ModArmorMaterials implements ArmorMaterial {
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1, 0.1F,
             () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null),
 
+    ROHAN_PLATE_ARMOR("rohan_plate", 35, new int[] { 3, 7, 6, 3},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2, 0.1F,
+            () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null),
+
     LONGBEARD_MAIL_ARMOR("longbeard_mail", 15, new int[] { 2, 5, 4, 2},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.5f, 0.1F,
             () -> Ingredient.ofItems(Items.IRON_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")),
@@ -55,12 +59,12 @@ public enum ModArmorMaterials implements ArmorMaterial {
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1, 0.1F,
             () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")),
 
-    LONGBEARD_PLATE_ARMOR("longbeard_plate", 25, new int[] { 2, 6, 5, 2},
-            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1, 0.1F,
+    LONGBEARD_PLATE_ARMOR("longbeard_plate", 35, new int[] { 3, 7, 6, 3},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2, 0.1F,
             () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")),
 
-    LONGBEARD_COMMANDER_ARMOR("longbeard_commander", 25, new int[] { 2, 6, 5, 2},
-            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1, 0.1F,
+    LONGBEARD_COMMANDER_ARMOR("longbeard_commander", 35, new int[] { 3, 7, 6, 3},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2, 0.1F,
             () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")),
 
     LOTHLORIEN_MAIL_ARMOR("lothlorien_mail", 15, new int[] { 2, 5, 4, 2},
@@ -71,11 +75,11 @@ public enum ModArmorMaterials implements ArmorMaterial {
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1, 0.1F,
             () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null),
 
-    LOTHLORIEN_PLATE_ARMOR("lothlorien_plate", 25, new int[] { 2, 6, 5, 2},
-            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1, 0.1F,
+    LOTHLORIEN_PLATE_ARMOR("lothlorien_plate", 35, new int[] { 3, 7, 6, 3},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2, 0.1F,
             () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null),
 
-    MORDOR_URUK_PLATE_ARMOR("mordor_uruk_plate", 25, new int[] { 3, 7, 6, 3},
+    MORDOR_URUK_PLATE_ARMOR("mordor_uruk_plate", 35, new int[] { 3, 7, 6, 3},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2, 0.1F,
             () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null),
 
@@ -87,7 +91,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1, 0.1F,
             () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad")),
 
-    MISTY_URUK_PLATE_ARMOR("misty_uruk_plate", 25, new int[] { 3, 7, 6, 3},
+    MISTY_URUK_PLATE_ARMOR("misty_uruk_plate", 35, new int[] { 3, 7, 6, 3},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2, 0.1F,
             () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad")),
     ;
