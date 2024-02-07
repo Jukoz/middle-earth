@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "me:cooked_fish"
+    },
+    {
+      "tag": "me:vegetable"
+    },
+    {
+      "tag": "me:vegetable"
+    },
+    {
+      "item": "minecraft:bowl"
+    }
+  ],
+  "result": {
+    "item": "me:fish_stew"
+  }
+}

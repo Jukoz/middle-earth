@@ -6,10 +6,7 @@ import net.jukoz.me.datageneration.content.models.SimpleItemModel;
 import net.jukoz.me.item.items.*;
 import net.jukoz.me.item.utils.ModArmorMaterials;
 import net.jukoz.me.item.utils.ModItemGroups;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.DyeableArmorItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.SaddleItem;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -177,6 +174,9 @@ public class ModEquipmentItems {
 
     public static final Item STEEL_TROLL_ARMOR = registerGeneratedItem("steel_troll_armor",
             new TrollArmorItem(10, "steel", new FabricItemSettings().maxCount(1)));
+
+    public static final Item ROHIRRIC_HORSE_ARMOR = registerItem("rohirric_horse_armor",
+            new HorseArmorItem(10, "rohirric", new FabricItemSettings().maxCount(1)));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());

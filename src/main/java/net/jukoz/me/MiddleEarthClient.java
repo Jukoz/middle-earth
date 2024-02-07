@@ -20,6 +20,7 @@ import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.balrog.BalrogRenderer;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntityRenderer;
 import net.jukoz.me.entity.crab.CrabRenderer;
+import net.jukoz.me.entity.deer.DeerRenderer;
 import net.jukoz.me.entity.duck.DuckRenderer;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfRenderer;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfRenderer;
@@ -96,6 +97,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.DUCK, DuckRenderer::new);
         EntityRendererRegistry.register(ModEntities.SWAN, SwanRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNAIL, SnailRenderer::new);
+        EntityRendererRegistry.register(ModEntities.DEER, DeerRenderer::new);
 
         ModModelPredicateProvider.registerBowModel();
 
