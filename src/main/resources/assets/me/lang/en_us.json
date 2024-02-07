@@ -283,6 +283,9 @@
 
   "item.me.steel_troll_armor": "Steel Troll Armor",
 
+"#Comment:": "Item - Horse Armor",
+  "item.me.rohirric_horse_armor": "Rohirric Horse Armor",
+
 "#Comment:": "Item - Food",
   "item.me.lembas": "Lembas",
   "item.me.maggoty_bread": "Maggoty Bread",
@@ -298,6 +301,8 @@
   "item.me.cooked_swan": "Cooked Swan",
   "item.me.raw_horse": "Raw Horse",
   "item.me.cooked_horse": "Cooked Horse",
+  "item.me.raw_rat": "Raw Rat",
+  "item.me.cooked_rat": "Cooked Rat",
   "item.me.tomato": "Tomato",
   "item.me.bell_pepper": "Bell Pepper",
   "item.me.cucumber": "Cucumber",
