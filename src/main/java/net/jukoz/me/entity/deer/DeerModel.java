@@ -50,6 +50,7 @@ public class DeerModel extends SinglePartEntityModel<DeerEntity> {
 
         ModelPartData FrontLegsRight = Deer.addChild("FrontLegsRight", ModelPartBuilder.create().uv(24, 57).cuboid(-1.5F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(-3.5F, -10.0F, -11.0F));
         return TexturedModelData.of(modelData, 128, 128);
+
     }
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {

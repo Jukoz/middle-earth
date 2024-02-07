@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 public class DeerEntity extends AnimalEntity {
 
     public final AnimationState idleAnimationState = new AnimationState();
-    private int idleAnimationTimeout = 0;
+    private int idleAnimationTimeout = this.random.nextInt(100) + 950;
 
     public DeerEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
