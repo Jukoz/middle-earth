@@ -10,7 +10,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.util.math.Vec3d;
 
 public class CloakCapeModel<T extends LivingEntity> extends BipedEntityModel<T> {
-    private static final float MAX_ANGLE_CLOAK = 75f;
+    private static final float MAX_ANGLE_CLOAK = 80f;
     private static final float SPEED_MULTIPLIER_CLOAK = 1.8f;
     private final ModelPart cape;
     private final ModelPart cape_shoulder;
@@ -66,9 +66,9 @@ public class CloakCapeModel<T extends LivingEntity> extends BipedEntityModel<T> 
         double degree;
 
         if (entity.isInSneakingPose()) {
-            this.cape.pivotZ = 0.6f;
-            this.cape.pivotY = 2.7f;
-            degree = 25f + (speed * 30);
+            this.cape.pivotZ = 0.15f;
+            this.cape.pivotY = 0.15f;
+            degree = 5f + (speed * (MAX_ANGLE_CLOAK / 2));
         } else {
             this.cape.pivotZ = 0;
             this.cape.pivotY = 0.5f;
@@ -77,6 +77,6 @@ public class CloakCapeModel<T extends LivingEntity> extends BipedEntityModel<T> 
         degree = Math.max(7.5f, degree);
         degree = Math.min(MAX_ANGLE_CLOAK, degree);
 
-        this.cape.pitch = ToRad.ex(degree + (Math.sin(animationProgress * 0.2f) / 2));
+        this.cape.pitch = ToRad.ex(degree);
     }
 }

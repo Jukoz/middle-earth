@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 
 public enum ModArmorMaterials implements ArmorMaterial {
 
-    GAMBESON("gambeson", 15, new int[] { 2, 5, 4, 2},
+    GAMBESON("gambeson", 15, new int[] { 1, 4, 3, 1},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.5f, 0.1F,
             () -> Ingredient.ofItems(Items.LEATHER), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null),
 

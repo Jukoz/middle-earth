@@ -23,8 +23,10 @@ public class CloakHoodModel<T extends LivingEntity> extends BipedEntityModel<T> 
 
         ModelPartData hat = modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-        hat.addChild("hood", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -7.5F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(1.6F))
-                .uv(32, 0).cuboid(-4.0F, -7.5F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(2.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        hat.addChild("hood", ModelPartBuilder.create()
+                .uv(0, 0).cuboid(-4.0F, -7.5F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(1.6F))
+                .uv(32, 0).cuboid(-4.0F, -7.5F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(2.0F)),
+                ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 

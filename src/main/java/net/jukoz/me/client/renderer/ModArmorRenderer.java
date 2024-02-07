@@ -44,11 +44,13 @@ public class ModArmorRenderer implements ArmorRenderer {
     private static CloakCapeModel<LivingEntity> capeModel;
     private static CloakHoodModel<LivingEntity> hoodModel;
 
+    private final boolean hasInnerLayer;
     private final boolean hasCape;
     private final boolean hasHood;
     private final boolean dyeable;
 
-    public ModArmorRenderer(CustomHelmetModel<LivingEntity> customHelmetModel, CustomChestplateModel<LivingEntity> customChestplateModel, String armorName, boolean hasCape, boolean hasHood, boolean dyeable) {
+    public ModArmorRenderer(CustomHelmetModel<LivingEntity> customHelmetModel, CustomChestplateModel<LivingEntity> customChestplateModel, String armorName,
+                            boolean hasInnerLayer, boolean hasCape, boolean hasHood, boolean dyeable) {
         helmetModel = customHelmetModel;
         chestplateModel = customChestplateModel;
         ARMOR_LAYER_0 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_0.png");
@@ -57,6 +59,7 @@ public class ModArmorRenderer implements ArmorRenderer {
         ARMOR_LAYER_CAPE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_cape.png");
         ARMOR_LAYER_HOOD = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_hood.png");
 
+        this.hasInnerLayer = hasInnerLayer;
         this.hasCape = hasCape;
         this.hasHood = hasHood;
         this.dyeable = dyeable;
@@ -94,15 +97,16 @@ public class ModArmorRenderer implements ArmorRenderer {
                     ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, hoodModel, ARMOR_LAYER_HOOD);
                 }
             } else if (slot == EquipmentSlot.CHEST) {
-                contextModel.copyBipedStateTo(innerArmorModel);
-                innerArmorModel.setVisible(false);
-                innerArmorModel.body.visible = true;
-                innerArmorModel.rightArm.visible = true;
-                innerArmorModel.leftArm.visible = true;
-                innerArmorModel.rightLeg.visible = true;
-                innerArmorModel.leftLeg.visible = true;
-                ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, innerArmorModel, ARMOR_LAYER_0);
-
+                if(hasInnerLayer) {
+                    contextModel.copyBipedStateTo(innerArmorModel);
+                    innerArmorModel.setVisible(false);
+                    innerArmorModel.body.visible = true;
+                    innerArmorModel.rightArm.visible = true;
+                    innerArmorModel.leftArm.visible = true;
+                    innerArmorModel.rightLeg.visible = true;
+                    innerArmorModel.leftLeg.visible = true;
+                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, innerArmorModel, ARMOR_LAYER_0);
+                }
                 contextModel.copyBipedStateTo(armorModel);
                 armorModel.setVisible(false);
                 armorModel.body.visible = true;
@@ -166,15 +170,16 @@ public class ModArmorRenderer implements ArmorRenderer {
                     ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, hoodModel, ARMOR_LAYER_HOOD);
                 }
             } else if (slot == EquipmentSlot.CHEST) {
-                contextModel.copyBipedStateTo(innerArmorModel);
-                innerArmorModel.setVisible(false);
-                innerArmorModel.body.visible = true;
-                innerArmorModel.rightArm.visible = true;
-                innerArmorModel.leftArm.visible = true;
-                innerArmorModel.rightLeg.visible = true;
-                innerArmorModel.leftLeg.visible = true;
-                renderDyeable(matrices, vertexConsumers, light, stack, innerArmorModel, ARMOR_LAYER_0);
-
+                if(hasInnerLayer) {
+                    contextModel.copyBipedStateTo(innerArmorModel);
+                    innerArmorModel.setVisible(false);
+                    innerArmorModel.body.visible = true;
+                    innerArmorModel.rightArm.visible = true;
+                    innerArmorModel.leftArm.visible = true;
+                    innerArmorModel.rightLeg.visible = true;
+                    innerArmorModel.leftLeg.visible = true;
+                    renderDyeable(matrices, vertexConsumers, light, stack, innerArmorModel, ARMOR_LAYER_0);
+                }
                 contextModel.copyBipedStateTo(armorModel);
                 armorModel.setVisible(false);
                 armorModel.body.visible = true;

@@ -111,7 +111,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(HOOD_MODEL_LAYER, CloakHoodModel::getTexturedModelData);
 
         for (ModArmors armor : ModArmors.values()) {
-        ArmorRenderer.register(new ModArmorRenderer(armor.getHelmetModel(), armor.getChestPlateModel(), armor.getSimpleName(), armor.hasCape(), armor.hasHood(), armor.isDyeable()),
+        ArmorRenderer.register(new ModArmorRenderer(armor.getHelmetModel(), armor.getChestPlateModel(), armor.getSimpleName(), armor.hasInnerLayer(), armor.hasCape(), armor.hasHood(), armor.isDyeable()),
                     armor.getItems());
         }
 

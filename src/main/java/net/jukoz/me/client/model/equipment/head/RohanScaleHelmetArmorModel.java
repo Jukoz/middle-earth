@@ -26,8 +26,13 @@ public class RohanScaleHelmetArmorModel<T extends LivingEntity> extends CustomHe
 
         modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(0, -1).cuboid(0.0F, -15.0F, -6.0F, 0.0F, 11.0F, 17.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, -1.0F));
-        head.addChild("hair", ModelPartBuilder.create().uv(0, 27).cuboid(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 18.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -9.0F, 5.0F, -1.5708F, 0.0F, 0.0F));
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(0, -1)
+                .cuboid(0.0F, -16.0F, -6.0F, 0.0F, 11.0F, 17.0F, new Dilation(0.0F)),
+                ModelTransform.pivot(0.0F, 0.0F, -1.0F));
+
+        head.addChild("hair", ModelPartBuilder.create().uv(0, 27)
+                .cuboid(-1.0F, -2.0F, 0.0F, 2.0F, 3.0F, 18.0F, new Dilation(0.0F)),
+                ModelTransform.of(0.0F, -9.0F, 5.0F, -1.5708F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
@@ -47,20 +52,9 @@ public class RohanScaleHelmetArmorModel<T extends LivingEntity> extends CustomHe
         double degree;
 
         degree = 5 + (MAX_ANGLE_HAIR * speed);
-
-        /*if (entity.isInSneakingPose()) {
-            this.hair.pivotZ = 0.6f;
-            this.hair.pivotY = 2.7f;
-            degree = 25f + (speed * 30);
-        } else {
-            this.hair.pivotZ = 0;
-            this.hair.pivotY = 0.5f;
-            degree = 5 + (MAX_ANGLE_HAIR * speed);
-        }*/
-
-
-        degree = Math.max(7.5f, degree);
+        degree = Math.max(2.5f, degree);
         degree = Math.min(MAX_ANGLE_HAIR, degree);
+
         if(headPitch < -0.75){
             degree -= 45;
         }else if(headPitch < -1.4){
@@ -69,6 +63,6 @@ public class RohanScaleHelmetArmorModel<T extends LivingEntity> extends CustomHe
             degree -= 90;
         }
 
-        this.hair.pitch = ToRad.ex(degree + (Math.sin(animationProgress * 0.2f)) / 2);
+        this.hair.pitch = ToRad.ex(degree);
     }
 }
