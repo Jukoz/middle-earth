@@ -24,7 +24,7 @@ public class DeerModel extends SinglePartEntityModel<DeerEntity> {
 
         ModelPartData Neck = Head.addChild("Neck", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.7641F, 0.6357F));
 
-        ModelPartData neck_r1 = Neck.addChild("neck_r1", ModelPartBuilder.create().uv(0, 0).cuboid(-2.5F, -3.3504F, -8.5F, 5.0F, 7.0F, 17.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -5.0F, -3.0F, -1.0036F, 0.0F, 0.0F));
+        ModelPartData neck_r1 = Neck.addChild("neck_r1", ModelPartBuilder.create().uv(0, 0).cuboid(-2.5F, -3.3504F, -8.5F, 5.0F, 7.0F, 17.0F, new Dilation(-0.1F)), ModelTransform.of(0.0F, -5.0F, -3.0F, -1.0036F, 0.0F, 0.0F));
 
         ModelPartData headnoneck = Neck.addChild("headnoneck", ModelPartBuilder.create(), ModelTransform.of(0.0F, -9.5365F, -6.0671F, 0.2182F, 0.0F, 0.0F));
 
@@ -32,33 +32,15 @@ public class DeerModel extends SinglePartEntityModel<DeerEntity> {
 
         ModelPartData EarRight_r1 = headnoneck.addChild("EarRight_r1", ModelPartBuilder.create().uv(36, 45).cuboid(-1.0F, -2.5F, -0.5F, 2.0F, 5.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(-3.0F, -2.5889F, -0.3614F, 0.1678F, 0.2564F, -0.9819F));
 
-        ModelPartData Head_r1 = headnoneck.addChild("Head_r1", ModelPartBuilder.create().uv(27, 0).cuboid(-3.0F, -3.0F, -5.8F, 6.0F, 5.0F, 10.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -0.7072F, -1.3409F, 0.4363F, 0.0F, 0.0F));
+        ModelPartData Head_r1 = headnoneck.addChild("Head_r1", ModelPartBuilder.create().uv(62, 5).cuboid(-3.0F, -1.0F, -6.8F, 4.0F, 4.0F, 4.0F, new Dilation(0.0F)), ModelTransform.of(1.0F, -1.7163F, -1.5432F, 0.4363F, 0.0F, 0.0F));
+
+        ModelPartData Head_r2 = headnoneck.addChild("Head_r2", ModelPartBuilder.create().uv(33, 3).cuboid(-3.0F, -3.0F, -2.5569F, 6.0F, 5.0F, 7.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -0.7072F, -1.3409F, 0.4363F, 0.0F, 0.0F));
 
         ModelPartData Antlers = headnoneck.addChild("Antlers", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 25.4137F, 17.3708F));
 
-        ModelPartData rightantler = Antlers.addChild("rightantler", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData rightAntler_r1 = Antlers.addChild("rightAntler_r1", ModelPartBuilder.create().uv(-7, 74).mirrored().cuboid(-6.0F, -8.5F, -12.5F, 0.0F, 15.0F, 15.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(-3.0F, -38.7276F, -10.0686F, 0.3309F, -0.4862F, -0.3936F));
 
-        ModelPartData Right5_r1 = rightantler.addChild("Right5_r1", ModelPartBuilder.create().uv(36, 51).cuboid(-1.5F, -2.0F, 0.5F, 1.0F, 4.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(-2.5608F, -30.4379F, -20.7981F, 0.9235F, 0.1104F, -0.1536F));
-
-        ModelPartData Right4_r1 = rightantler.addChild("Right4_r1", ModelPartBuilder.create().uv(4, 12).cuboid(-0.5F, -1.0F, -0.5F, 1.0F, 4.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(-6.3265F, -34.3883F, -21.0788F, 0.9235F, 0.1104F, -0.1536F));
-
-        ModelPartData Right3_r1 = rightantler.addChild("Right3_r1", ModelPartBuilder.create().uv(49, 0).cuboid(-0.5F, -5.0F, -0.5F, 1.0F, 5.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(-6.3603F, -35.8932F, -19.3032F, -0.2983F, 0.1104F, -0.1536F));
-
-        ModelPartData Right2_r1 = rightantler.addChild("Right2_r1", ModelPartBuilder.create().uv(4, 24).cuboid(-0.5F, -4.0F, -0.5F, 1.0F, 7.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(-6.3603F, -35.8932F, -19.3032F, 0.1381F, 0.1104F, -0.1536F));
-
-        ModelPartData Right1_r1 = rightantler.addChild("Right1_r1", ModelPartBuilder.create().uv(33, 0).cuboid(-2.5F, -3.0F, -0.5F, 1.0F, 6.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(-2.5F, -32.2943F, -19.0853F, 0.057F, 0.1672F, -0.7237F));
-
-        ModelPartData leftantler = Antlers.addChild("leftantler", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-
-        ModelPartData Left5_r1 = leftantler.addChild("Left5_r1", ModelPartBuilder.create().uv(8, 12).cuboid(0.5F, -2.0F, 0.5F, 1.0F, 4.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(2.5608F, -30.4379F, -20.7981F, 0.9235F, -0.1104F, 0.1536F));
-
-        ModelPartData Left4_r1 = leftantler.addChild("Left4_r1", ModelPartBuilder.create().uv(0, 12).cuboid(-0.5F, -1.0F, -0.5F, 1.0F, 4.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(6.3265F, -34.3883F, -21.0788F, 0.9235F, -0.1104F, 0.1536F));
-
-        ModelPartData Left3_r1 = leftantler.addChild("Left3_r1", ModelPartBuilder.create().uv(13, 11).cuboid(-0.5F, -5.0F, -0.5F, 1.0F, 5.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(6.3603F, -35.8932F, -19.3032F, -0.2983F, -0.1104F, 0.1536F));
-
-        ModelPartData Left2_r1 = leftantler.addChild("Left2_r1", ModelPartBuilder.create().uv(0, 24).cuboid(-0.5F, -4.0F, -0.5F, 1.0F, 7.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(6.3603F, -35.8932F, -19.3032F, 0.1381F, -0.1104F, 0.1536F));
-
-        ModelPartData Left1_r1 = leftantler.addChild("Left1_r1", ModelPartBuilder.create().uv(31, 24).cuboid(1.5F, -3.0F, -0.5F, 1.0F, 6.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(2.5F, -32.2943F, -19.0853F, 0.057F, -0.1672F, 0.7237F));
+        ModelPartData leftAntler_r1 = Antlers.addChild("leftAntler_r1", ModelPartBuilder.create().uv(-7, 74).cuboid(6.0F, -8.5F, -12.5F, 0.0F, 15.0F, 15.0F, new Dilation(0.0F)), ModelTransform.of(3.0F, -38.7276F, -10.0686F, 0.3309F, 0.4862F, 0.3936F));
 
         ModelPartData BackLegsLeft = Deer.addChild("BackLegsLeft", ModelPartBuilder.create().uv(0, 57).cuboid(-1.5F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(3.49F, -10.0F, 4.0F));
 
@@ -87,3 +69,4 @@ public class DeerModel extends SinglePartEntityModel<DeerEntity> {
         this.updateAnimation(entity.idleAnimationState, DeerAnimations.IDLE2, animationProgress, 1f);
     }
 }
+
