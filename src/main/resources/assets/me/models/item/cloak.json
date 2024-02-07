@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "me:item/cloak",
-    "layer1": "me:item/cloak_overlay"
-  }
-}
