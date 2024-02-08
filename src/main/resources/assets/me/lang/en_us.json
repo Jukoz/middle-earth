@@ -370,6 +370,7 @@
   "item.me.warg_spawn_egg": "Warg Spawn Egg",
   "item.me.snail_spawn_egg": "Snail Spawn Egg",
   "item.me.pheasant_spawn_egg": "Pheasant Spawn Egg",
+  "item.me.deer_spawn_egg": "Deer Spawn Egg",
 
 "#Comment:": "Item - Entities",
   "item.me.pebble": "Pebble",
@@ -382,6 +383,8 @@
   "entity.me.duck": "Duck",
   "entity.me.swan": "Swan",
   "entity.me.pheasant": "Pheasant",
+  "entity.me.snail": "Snail",
+  "entity.me.deer": "Deer",
   "entity.me.durin_folk": "Durin Folk",
   "entity.me.galadhrim_elf": "Galadhrim Elf",
   "entity.me.hobbit": "Hobbit",
