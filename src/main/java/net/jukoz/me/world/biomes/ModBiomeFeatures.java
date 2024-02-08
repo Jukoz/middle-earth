@@ -1,10 +1,16 @@
 package net.jukoz.me.world.biomes;
 
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.world.features.boulder.BoulderPlacedFeatures;
 import net.jukoz.me.world.features.tree.ModTreePlacedFeatures;
 import net.jukoz.me.world.features.vegetation.ModVegetationPlacedFeatures;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.feature.PlacedFeature;
 
 public class ModBiomeFeatures {
 
@@ -109,8 +115,12 @@ public class ModBiomeFeatures {
     public static void addStoneBoulder(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BoulderPlacedFeatures.STONE_BOULDER);
     }
+    public static void addMossyBoulder(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BoulderPlacedFeatures.MOSSY_BOULDER);
+    }
     // endregion
 
+    // region FOLIAGE
     public static void addMallos(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_MALLOS);
     }
@@ -120,4 +130,13 @@ public class ModBiomeFeatures {
     public static void addToughBerriesRare(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_TOUGH_BERRY_BUSH_RARE);
     }
+    public static void addMirkwoodFoliage(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_MIRKWOOD);
+    }
+    public static void addReedsFoliage(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier(MiddleEarth.MOD_ID, "foliage/patch/reeds")));
+    }
+    // enregion
+
+
 }

@@ -2,19 +2,27 @@ package net.jukoz.me.world.features.boulder;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModNatureBlocks;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SweetBerryBushBlock;
+import net.jukoz.me.datageneration.content.models.SimpleSlabModel;
+import net.minecraft.block.*;
+import net.minecraft.block.enums.SlabType;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DataPool;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+import net.minecraft.world.gen.stateprovider.BlockStateProviderType;
+import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 
 public class BoulderConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ANDESITE_BOULDER = registerKey("andesite_boulder");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DIORITE_BOULDER = registerKey("diorite_boulder");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRANITE_BOULDER = registerKey("granite_boulder");
     public static final RegistryKey<ConfiguredFeature<?, ?>> STONE_BOULDER = registerKey("stone_boulder");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MOSSY_BOULDER = registerKey("mossy_boulder");
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
         ConfiguredFeatures.register(featureRegisterable, ANDESITE_BOULDER, Feature.FOREST_ROCK,
                 new SingleStateFeatureConfig(Blocks.ANDESITE.getDefaultState()));
@@ -24,6 +32,13 @@ public class BoulderConfiguredFeatures {
                 new SingleStateFeatureConfig(Blocks.GRANITE.getDefaultState()));
         ConfiguredFeatures.register(featureRegisterable, STONE_BOULDER, Feature.FOREST_ROCK,
                 new SingleStateFeatureConfig(Blocks.STONE.getDefaultState()));
+        ConfiguredFeatures.register(featureRegisterable, MOSSY_BOULDER, Feature.BLOCK_PILE,
+                new BlockPileFeatureConfig(new WeightedBlockStateProvider(DataPool.<BlockState>builder()
+                        .add(Blocks.STONE.getDefaultState(), 3)
+                        .add(Blocks.ANDESITE.getDefaultState(), 2)
+                        .add(Blocks.STONE_SLAB.getDefaultState().with(SlabBlock.TYPE, SlabType.BOTTOM).with(SlabBlock.WATERLOGGED, false), 1)
+                        .add(Blocks.MOSSY_COBBLESTONE_SLAB.getDefaultState().with(SlabBlock.TYPE, SlabType.BOTTOM).with(SlabBlock.WATERLOGGED, false), 2)
+                        .add(Blocks.MOSSY_COBBLESTONE.getDefaultState(), 6))));
     }
 
 

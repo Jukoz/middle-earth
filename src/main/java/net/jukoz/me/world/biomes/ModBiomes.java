@@ -821,6 +821,8 @@ public class ModBiomes {
         DefaultBiomeFeatures.addSweetBerryBushes(generationSettings);
         DefaultBiomeFeatures.addDefaultDisks(generationSettings);
         DefaultBiomeFeatures.addDefaultFlowers(generationSettings);
+        ModBiomeFeatures.addMossyBoulder(generationSettings);
+        ModBiomeFeatures.addMirkwoodFoliage(generationSettings);
     }
 
     public static void addHaradVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
@@ -844,6 +846,7 @@ public class ModBiomes {
     public static void addOceanVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
         DefaultBiomeFeatures.addKelp(generationSettings);
         DefaultBiomeFeatures.addSeagrassOnStone(generationSettings);
+        ModBiomeFeatures.addReedsFoliage(generationSettings);
         DefaultBiomeFeatures.addDefaultDisks(generationSettings);
     }
 
