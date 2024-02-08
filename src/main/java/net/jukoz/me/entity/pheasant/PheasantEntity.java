@@ -1,6 +1,7 @@
 package net.jukoz.me.entity.pheasant;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.entity.goals.PheasantStartledGoal;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -54,7 +55,7 @@ public class PheasantEntity extends AnimalEntity {
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4));
-        this.goalSelector.add(2, new FleeWhenStartledGoal());
+        this.goalSelector.add(2, new PheasantStartledGoal(this));
         this.goalSelector.add(3, new FollowParentGoal(this, 1.1));
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
@@ -149,76 +150,6 @@ public class PheasantEntity extends AnimalEntity {
 
     private void setVariant(PheasantVariant variant) {
         this.dataTracker.set(VARIANT, variant.getId() & 255);
-    }
-
-    /* GOALS */
-    class FleeWhenStartledGoal extends Goal {
-        PheasantEntity pheasant = PheasantEntity.this;
-        PlayerEntity player;
-        Vec3d vec3d = Vec3d.ZERO;
-        Vec3d fleeDir;
-        @Nullable
-        Path fleePath;
-        final EntityNavigation fleeingEntityNavigation;
-        boolean flying;
-
-        public FleeWhenStartledGoal() {
-            this.setControls(EnumSet.of(Control.MOVE));
-            this.fleeingEntityNavigation = pheasant.getNavigation();
-        }
-
-        @Override
-        public boolean canStart() {
-            player = pheasant.getWorld().getClosestPlayer(pheasant, 7.0d);
-            if(player == null) {
-                return false;
-            }
-
-            vec3d = NoPenaltyTargeting.findFrom(this.pheasant, 4, 3, this.player.getPos());
-            if (vec3d == null) {
-                return false;
-            }
-            if (this.player.squaredDistanceTo(vec3d.x, vec3d.y, vec3d.z) < this.player.squaredDistanceTo(this.pheasant)) {
-                return false;
-            }
-
-            this.fleePath = this.fleeingEntityNavigation.findPathTo(vec3d.x, vec3d.y, vec3d.z, 0);
-            if(this.fleePath == null) {
-                return false;
-            }
-
-            boolean wearingCloak =  player.getEquippedStack(EquipmentSlot.CHEST).isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "cloaks")))
-                    && player.getEquippedStack(EquipmentSlot.HEAD).isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "cloaks")));
-
-            return !(player == null || wearingCloak || player.isSneaking() || !pheasant.isOnGround());
-        }
-
-        @Override
-        public void start() {
-            fleeDir = vec3d.subtract(pheasant.getPos()).multiply(1,0,1).normalize();
-            this.flying = false;
-            this.fleeingEntityNavigation.startMovingAlong(this.fleePath, 1.6d);
-        }
-
-        @Override
-        public void tick() {
-            if(this.fleeingEntityNavigation.isIdle() && !this.flying) {
-                this.pheasant.setVelocity(fleeDir.multiply(1.7, 0, 1.7).add(0, 0.5, 0));
-                this.pheasant.setYaw((float) Math.toDegrees(Math.atan2(-fleeDir.x, fleeDir.z)));
-                this.flying = true;
-            }
-        }
-
-        @Override
-        public boolean shouldContinue() {
-            return !this.flying;
-        }
-
-        @Override
-        public void stop() {
-            this.player = null;
-            this.flying = false;
-        }
     }
 
 }
