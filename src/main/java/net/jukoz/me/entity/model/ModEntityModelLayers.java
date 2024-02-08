@@ -11,6 +11,7 @@ import net.jukoz.me.entity.deer.DeerModel;
 import net.jukoz.me.entity.duck.DuckModel;
 import net.jukoz.me.entity.goose.GooseModel;
 import net.jukoz.me.entity.nazguls.NazgulModel;
+import net.jukoz.me.entity.pheasant.PheasantModel;
 import net.jukoz.me.entity.snail.SnailModel;
 import net.jukoz.me.entity.spider.MirkwoodSpiderModel;
 import net.jukoz.me.entity.swan.SwanModel;
@@ -41,6 +42,7 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer GOOSE = ModEntityModelLayers.registerEntityModelLayer("goose", GooseModel.getTexturedModelData());
     public static final EntityModelLayer DUCK = ModEntityModelLayers.registerEntityModelLayer("duck", DuckModel.getTexturedModelData());
     public static final EntityModelLayer SWAN = ModEntityModelLayers.registerEntityModelLayer("swan", SwanModel.getTexturedModelData());
+    public static final EntityModelLayer PHEASANT = ModEntityModelLayers.registerEntityModelLayer("pheasant", PheasantModel.getTexturedModelData());
     public static final EntityModelLayer SNAIL = ModEntityModelLayers.registerEntityModelLayer("snail", SnailModel.getTexturedModelData());
     public static final EntityModelLayer DEER = ModEntityModelLayers.registerEntityModelLayer("deer", DeerModel.getTexturedModelData());
 
