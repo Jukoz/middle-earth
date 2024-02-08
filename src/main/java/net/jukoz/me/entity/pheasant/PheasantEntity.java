@@ -44,12 +44,6 @@ import java.util.List;
 
 public class PheasantEntity extends AnimalEntity {
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(PheasantEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    public float flapProgress;
-    public float maxWingDeviation;
-    public float prevMaxWingDeviation;
-    public float prevFlapProgress;
-    public float flapSpeed = 1.0f;
-    private float field_28639 = 1.0f;
 
     public PheasantEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
@@ -105,29 +99,16 @@ public class PheasantEntity extends AnimalEntity {
     @Override
     public void tickMovement() {
         super.tickMovement();
-        this.prevFlapProgress = this.flapProgress;
-        this.prevMaxWingDeviation = this.maxWingDeviation;
-        this.maxWingDeviation += (this.isOnGround() ? -1.0f : 4.0f) * 0.3f;
-        this.maxWingDeviation = MathHelper.clamp(this.maxWingDeviation, 0.0f, 1.0f);
-        if (!this.isOnGround() && this.flapSpeed < 1.0f) {
-            this.flapSpeed = 1.0f;
-        }
-        this.flapSpeed *= 0.9f;
+
         Vec3d vec3d = this.getVelocity();
         if (!this.isOnGround() && vec3d.y < 0.0) {
             this.setVelocity(vec3d.multiply(1.0, 0.6, 1.0));
         }
-        this.flapProgress += this.flapSpeed * 2.0f;
     }
 
     @Override
     public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
-    }
-
-    @Override
-    protected void addFlapEffects() {
-        this.field_28639 = this.speed + this.maxWingDeviation / 2.0f;
     }
 
     @Override

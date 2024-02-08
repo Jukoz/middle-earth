@@ -10,11 +10,18 @@ import net.minecraft.util.math.MathHelper;
 
 public class PheasantModel extends SinglePartEntityModel<PheasantEntity> {
     private final ModelPart pheasant;
-    private final ModelPart head;
+    private final ModelPart rightleg;
+    private final ModelPart leftleg;
+    private final ModelPart rightwing;
+    private final ModelPart leftwing;
 
     public PheasantModel(ModelPart root) {
         this.pheasant = root.getChild("pheasant");
-        this.head = pheasant.getChild("upperbody").getChild("headandneck").getChild("head");
+        this.rightleg = this.pheasant.getChild("rightleg");
+        this.leftleg = this.pheasant.getChild("leftleg");
+        this.rightwing = this.pheasant.getChild("rightwing");
+        this.leftwing = this.pheasant.getChild("leftwing");
+
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -76,16 +83,16 @@ public class PheasantModel extends SinglePartEntityModel<PheasantEntity> {
 
     @Override
     public void setAngles(PheasantEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        this.pheasant.getChild("rightleg").pitch = MathHelper.cos(limbAngle * 0.6662f) * 1.4f * limbDistance;
-        this.pheasant.getChild("leftleg").pitch = MathHelper.cos(limbAngle * 0.6662f + (float)Math.PI) * 1.4f * limbDistance;
+        this.rightleg.pitch = MathHelper.cos(limbAngle * 0.6662f) * 1.4f * limbDistance;
+        this.leftleg.pitch = MathHelper.cos(limbAngle * 0.6662f + (float)Math.PI) * 1.4f * limbDistance;
 
-        this.pheasant.getChild("rightwing").roll = 0;
-        this.pheasant.getChild("leftwing").roll = 0;
+        this.rightwing.roll = 0;
+        this.leftwing.roll = 0;
 
         if(!entity.isOnGround()) {
             float angle = MathHelper.cos(MathHelper.cos(animationProgress * 0.5f));
-            this.pheasant.getChild("rightwing").roll = 4 + (4 * angle);
-            this.pheasant.getChild("leftwing").roll = -4 - (4 * angle);
+            this.rightwing.roll = 4 + (4 * angle);
+            this.leftwing.roll = -4 - (4 * angle);
         }
     }
 }
