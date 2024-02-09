@@ -1,34 +1,34 @@
 package net.jukoz.me.world.biomes;
 
-import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.world.features.boulder.BoulderPlacedFeatures;
 import net.jukoz.me.world.features.tree.ModTreePlacedFeatures;
 import net.jukoz.me.world.features.vegetation.ModVegetationPlacedFeatures;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.PlacedFeature;
 
 public class ModBiomeFeatures {
 
     // region TREES
-    public static void addBeechTrees(GenerationSettings.LookupBackedBuilder builder) {
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModTreePlacedFeatures.BEECH_PLACED_TREE_KEY);
-    }
     public static void addBirchTrees(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModTreePlacedFeatures.BIRCH_PLACED_TREE_KEY);
     }
-    public static void addBirchSparseTrees(GenerationSettings.LookupBackedBuilder builder) {
+    public static void addSparseBirchTrees(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModTreePlacedFeatures.SPARSE_BIRCH_PLACED_TREE_KEY);
+    }
+    public static void addRareBirchTrees(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModTreePlacedFeatures.RARE_BIRCH_PLACED_TREE_KEY);
     }
     public static void addMegaBirchTrees(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModTreePlacedFeatures.MEGA_BIRCH_PLACED_TREE_KEY);
     }
     public static void addMegaBirchCommonTrees(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModTreePlacedFeatures.MEGA_BIRCH_PLACED_COMMON_TREE_KEY);
+    }
+    public static void addBeechTrees(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModTreePlacedFeatures.BEECH_PLACED_TREE_KEY);
+    }
+    public static void addRareBeechTrees(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModTreePlacedFeatures.RARE_BEECH_PLACED_TREE_KEY);
     }
     public static void addMegaDarkOakTrees(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModTreePlacedFeatures.MEGA_DARK_OAK_PLACED_TREE_KEY);
@@ -62,6 +62,9 @@ public class ModBiomeFeatures {
     }
     public static void addMegaOakCommonTrees(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModTreePlacedFeatures.MEGA_OAK_PLACED_TREE_COMMON_KEY);
+    }
+    public static void addRareMegaOakTrees(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModTreePlacedFeatures.RARE_MEGA_OAK_PLACED_TREE_KEY);
     }
 
     public static void addMegaMirkwoodTrees(GenerationSettings.LookupBackedBuilder builder) {
@@ -124,6 +127,9 @@ public class ModBiomeFeatures {
     public static void addMallos(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_MALLOS);
     }
+    public static void addStrawberries(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_STRAWBERRY_BUSH);
+    }
     public static void addToughBerries(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_TOUGH_BERRY_BUSH);
     }
@@ -136,7 +142,44 @@ public class ModBiomeFeatures {
     public static void addReedsFoliage(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_REEDS);
     }
-    // enregion
+    // endregion
 
-
+    // region WILD CROPS
+    public static void addWildBeetroot(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_WILD_BEETROOT);
+    }
+    public static void addWildBellPepper(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_WILD_BELL_PEPPER);
+    }
+    public static void addWildCarrot(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_WILD_CARROT);
+    }
+    public static void addWildCucumber(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_WILD_CUCUMBER);
+    }
+    public static void addWildFlax(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_WILD_FLAX);
+    }
+    public static void addWildGarlic(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_WILD_GARLIC);
+    }
+    public static void addWildLeek(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_WILD_LEEK);
+    }
+    public static void addWildLettuce(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_WILD_LETTUCE);
+    }
+    public static void addWildOnion(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_WILD_ONION);
+    }
+    public static void addWildPipeweed(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_WILD_PIPEWEED);
+    }
+    public static void addWildPotato(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_WILD_POTATO);
+    }
+    public static void addWildTomato(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_WILD_TOMATO);
+    }
+    // endregion
 }
