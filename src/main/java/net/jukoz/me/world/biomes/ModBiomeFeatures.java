@@ -134,7 +134,7 @@ public class ModBiomeFeatures {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_MIRKWOOD);
     }
     public static void addReedsFoliage(GenerationSettings.LookupBackedBuilder builder) {
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier(MiddleEarth.MOD_ID, "foliage/patch/reeds")));
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.PATCH_REEDS);
     }
     // enregion
 
