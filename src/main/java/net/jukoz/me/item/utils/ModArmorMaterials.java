@@ -15,6 +15,10 @@ import java.util.function.Supplier;
 
 public enum ModArmorMaterials implements ArmorMaterial {
 
+    HOBBIT_SHIRRIF_HAT("hobbit_shirrif_hat", 10, new int[] { 1, 4, 3, 1},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0f, 0.0F,
+            () -> Ingredient.ofItems(Items.LEATHER), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shire"), null),
+
     GAMBESON("gambeson", 15, new int[] { 1, 4, 3, 1},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.5f, 0.1F,
             () -> Ingredient.ofItems(Items.LEATHER), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null),
@@ -38,6 +42,14 @@ public enum ModArmorMaterials implements ArmorMaterial {
     NAZGUL_CLOAK("nazgul_cloak", 15, new int[] { 2, 5, 4, 2},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0, 0.0F,
             () -> Ingredient.ofItems(ModResourceItems.MORGUL_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null),
+
+    GONDOR_PLATE_ARMOR("gondor_plate", 35, new int[] { 3, 7, 6, 3},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2, 0.1F,
+            () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), null),
+
+    GONDOR_FOUNTAIN_GUARD_ARMOR("gondor_fountain_guard", 35, new int[] { 3, 7, 6, 3},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2, 0.1F,
+            () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), null),
 
     ROHAN_MAIL_ARMOR("rohan_mail", 15, new int[] { 2, 5, 4, 2},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.5f, 0.1F,
@@ -78,6 +90,14 @@ public enum ModArmorMaterials implements ArmorMaterial {
     LOTHLORIEN_PLATE_ARMOR("lothlorien_plate", 35, new int[] { 3, 7, 6, 3},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2, 0.1F,
             () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null),
+
+    MORDOR_ORC_MAIL_ARMOR("mordor_orc_mail", 15, new int[] { 2, 5, 4, 2},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.5f, 0.1F,
+            () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad")),
+
+    MORDOR_URUK_SCALE_ARMOR("mordor_uruk_scale",  25, new int[] { 2, 6, 5, 2},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1, 0.1F,
+            () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null),
 
     MORDOR_URUK_PLATE_ARMOR("mordor_uruk_plate", 35, new int[] { 3, 7, 6, 3},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2, 0.1F,

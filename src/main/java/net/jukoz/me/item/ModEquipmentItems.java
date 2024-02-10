@@ -43,6 +43,27 @@ public class ModEquipmentItems {
     public static final Item NAZGUL_BOOTS = registerGeneratedItem("nazgul_boots",
             new CustomBootsItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
+    public static final Item HOBBIT_SHIRRIF_HAT = registerGeneratedItem("hobbit_shirrif_hat",
+            new CustomHelmetItem(ModArmorMaterials.HOBBIT_SHIRRIF_HAT, ArmorItem.Type.HELMET, new FabricItemSettings(), false));
+
+    public static final Item GONDOR_PLATE_HELMET = registerGeneratedItem("gondor_plate_helmet",
+            new CustomHelmetItem(ModArmorMaterials.GONDOR_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item GONDOR_PLATE_CHESTPLATE = registerGeneratedItem("gondor_plate_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.GONDOR_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), true));
+    public static final Item GONDOR_PLATE_LEGGINGS = registerGeneratedItem("gondor_plate_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.GONDOR_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item GONDOR_PLATE_BOOTS = registerGeneratedItem("gondor_plate_boots",
+            new CustomBootsItem(ModArmorMaterials.GONDOR_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
+    public static final Item GONDOR_FOUNTAIN_GUARD_HELMET = registerGeneratedItem("gondor_fountain_guard_helmet",
+            new CustomHelmetItem(ModArmorMaterials.GONDOR_FOUNTAIN_GUARD_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item GONDOR_FOUNTAIN_GUARD_CHESTPLATE = registerGeneratedItem("gondor_fountain_guard_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.GONDOR_FOUNTAIN_GUARD_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), true));
+    public static final Item GONDOR_FOUNTAIN_GUARD_LEGGINGS = registerGeneratedItem("gondor_fountain_guard_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.GONDOR_FOUNTAIN_GUARD_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item GONDOR_FOUNTAIN_GUARD_BOOTS = registerGeneratedItem("gondor_fountain_guard_boots",
+            new CustomBootsItem(ModArmorMaterials.GONDOR_FOUNTAIN_GUARD_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
     public static final Item ROHAN_MAIL_HELMET = registerGeneratedItem("rohan_mail_helmet",
             new CustomChestplateItem(ModArmorMaterials.ROHAN_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
     public static final Item ROHAN_MAIL_CHESTPLATE = registerGeneratedItem("rohan_mail_chestplate",
@@ -132,6 +153,24 @@ public class ModEquipmentItems {
             new CustomLeggingsItem(ModArmorMaterials.LOTHLORIEN_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
     public static final Item LOTHLORIEN_PLATE_BOOTS = registerGeneratedItem("lothlorien_plate_boots",
             new CustomBootsItem(ModArmorMaterials.LOTHLORIEN_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
+    public static final Item MORDOR_ORC_MAIL_HELMET = registerGeneratedItem("mordor_orc_mail_helmet",
+            new CustomHelmetItem(ModArmorMaterials.MORDOR_ORC_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item MORDOR_ORC_MAIL_CHESTPLATE = registerGeneratedItem("mordor_orc_mail_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.MORDOR_ORC_MAIL_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false));
+    public static final Item MORDOR_ORC_MAIL_LEGGINGS = registerGeneratedItem("mordor_orc_mail_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.MORDOR_ORC_MAIL_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item MORDOR_ORC_MAIL_BOOTS = registerGeneratedItem("mordor_orc_mail_boots",
+            new CustomBootsItem(ModArmorMaterials.MORDOR_ORC_MAIL_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
+    public static final Item MORDOR_URUK_SCALE_HELMET = registerGeneratedItem("mordor_uruk_scale_helmet",
+            new CustomHelmetItem(ModArmorMaterials.MORDOR_URUK_SCALE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item MORDOR_URUK_SCALE_CHESTPLATE = registerGeneratedItem("mordor_uruk_scale_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.MORDOR_URUK_SCALE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false));
+    public static final Item MORDOR_URUK_SCALE_LEGGINGS = registerGeneratedItem("mordor_uruk_scale_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.MORDOR_URUK_SCALE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item MORDOR_URUK_SCALE_BOOTS = registerGeneratedItem("mordor_uruk_scale_boots",
+            new CustomBootsItem(ModArmorMaterials.MORDOR_URUK_SCALE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item MORDOR_URUK_PLATE_HELMET = registerGeneratedItem("mordor_uruk_plate_helmet",
             new CustomHelmetItem(ModArmorMaterials.MORDOR_URUK_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
