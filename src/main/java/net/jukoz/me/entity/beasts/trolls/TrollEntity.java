@@ -35,8 +35,6 @@ import net.minecraft.world.World;
 // TODO Have slowly accelerate for charge
 // TODO Update Model and Animations
 public class TrollEntity extends BeastEntity {
-    public static final int ATTACK_COOLDOWN = 10;
-    public static final float RESISTANCE = 0.15f;
     private int throwCooldown = 100;
     public final AnimationState throwingAnimationState = new AnimationState();
     private int throwingAnimationTimeout = 0;
@@ -68,8 +66,8 @@ public class TrollEntity extends BeastEntity {
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(7, new LookAroundGoal(this));
-        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal(this));
-        this.targetSelector.add(2, new BeastAttackWithOwnerGoal(this));
+        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((BeastEntity) this));
+        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((BeastEntity)this));
         this.targetSelector.add(3, new TargetPlayerGoal(this));
         this.targetSelector.add(4, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(5, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
@@ -124,13 +122,19 @@ public class TrollEntity extends BeastEntity {
         }
 
         if(throwCooldown == 0 && this.getTarget() != null && !isCharging()) {
-            if(this.distanceTo(this.getTarget()) >= 5) {
+            if(this.squaredDistanceTo(this.getTarget()) >= 25 && !this.hasPassengers()) {
                 this.setThrowing(true);
                 throwCooldown = 200;
             }
         }
-        if(this.isThrowing() && throwCooldown <= 180) {
-            throwAttack();
+        if(this.isThrowing()) {
+            this.setVelocity(Vec3d.ZERO);
+            if(!this.isOnGround()) {
+                this.setThrowing(false);
+            }
+            if(throwCooldown <= 180) {
+                throwAttack();
+            }
         }
         if(throwCooldown > 0) {
             --this.throwCooldown;
@@ -233,7 +237,9 @@ public class TrollEntity extends BeastEntity {
 
             boulder.setPosition(this.getX() + rotationVec.x * 2.0f, this.getBodyY(0.75f), boulder.getZ() + rotationVec.z * 2.0f);
             boulder.setVelocity(x * 0.8d, y + c * 0.3d , z * 0.8d, 1.0f, 8 - this.getWorld().getDifficulty().getId() * 4);
-            this.getWorld().spawnEntity(boulder);
+            if(boulder != null) {
+                this.getWorld().spawnEntity(boulder);
+            }
         }
     }
 }
