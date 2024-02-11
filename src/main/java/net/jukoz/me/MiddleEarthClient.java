@@ -87,7 +87,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SWAN, SwanRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNAIL, SnailRenderer::new);
 
-        ModModelPredicateProvider.registerBowModel();
+        ModModelPredicateProvider.registerAllPredicates();
 
         HandledScreens.register(ModScreenHandlers.ALLOY_SCREEN_HANDLER, AlloyFurnaceScreen::new);
         HandledScreens.register(ModScreenHandlers.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
