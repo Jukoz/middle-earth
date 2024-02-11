@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:carrot",
+    "minecraft:potato",
+    "minecraft:beetroot",
+    "me:leek",
+    "me:cucumber",
+    "me:lettuce",
+    "me:garlic",
+    "me:tomato",
+    "me:bell_pepper",
+    "me:onion"
+  ]
+}

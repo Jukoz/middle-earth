@@ -67,6 +67,9 @@ public class ModEquipmentItems {
     public static final Item MISTY_MOUNTAINS_SHIELD = registerItem("misty_mountains_shield",
             new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
 
+    public static final Item ROHIRRIC_HORSE_ARMOR = registerItem("rohirric_horse_armor",
+            new HorseArmorItem(10, "rohirric", new FabricItemSettings().maxCount(1)));
+
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
