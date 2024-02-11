@@ -283,7 +283,15 @@
 
   "item.me.steel_troll_armor": "Steel Troll Armor",
 
-"#Comment:": "Item - Food",
+"#Comment:": "Shields",
+  "item.me.rohan_shield": "Rohirric Shield",
+  "item.me.gondor_shield": "Gondorian Shield",
+  "item.me.longbeard_shield": "Longbeard Shield",
+  "item.me.lothlorien_shield": "Lórien Shield",
+  "item.me.mordor_shield": "Mordor Shield",
+  "item.me.misty_mountains_shield": "Misty Mountains Shield",
+
+  "#Comment:": "Item - Food",
   "item.me.lembas": "Lembas",
   "item.me.maggoty_bread": "Maggoty Bread",
   "item.me.strawberry": "Strawberry",
