@@ -30,11 +30,17 @@ public enum ModArmors {
 
     HOBBIT_SHIRRIF_HAT("hobbit_shirrif_hat", new HobbitShirrifHatArmorModel<>(HobbitShirrifHatArmorModel.getTexturedModelData().createModel()), null,
             false, false, false, false, false, ModEquipmentItems.HOBBIT_SHIRRIF_HAT),
+    
+    GONDOR_MAIL_ARMOR("gondor_mail", new GondorMailHelmetArmorModel<>(GondorMailHelmetArmorModel.getTexturedModelData().createModel()), null,
+            true, true, false, false, false, ModEquipmentItems.GONDOR_MAIL_HELMET, ModEquipmentItems.GONDOR_MAIL_CHESTPLATE, ModEquipmentItems.GONDOR_MAIL_LEGGINGS, ModEquipmentItems.GONDOR_MAIL_BOOTS),
 
-    GONDOR_PLATE_ARMOR("gondor_plate", new GondorHelmetArmorModel<>(GondorHelmetArmorModel.getTexturedModelData().createModel(), "gondor_plate"), null,
+    GONDOR_PLATE_ARMOR("gondor_plate", new GondorPlateHelmetArmorModel<>(GondorPlateHelmetArmorModel.getTexturedModelData().createModel()), null,
             true, true, false, false, false, ModEquipmentItems.GONDOR_PLATE_HELMET, ModEquipmentItems.GONDOR_PLATE_CHESTPLATE, ModEquipmentItems.GONDOR_PLATE_LEGGINGS, ModEquipmentItems.GONDOR_PLATE_BOOTS),
+    
+    GONDOR_CITADEL_GUARD_ARMOR("gondor_citadel_guard", new GondorCitadelGuardrHelmetArmorModel<>(GondorCitadelGuardrHelmetArmorModel.getTexturedModelData().createModel()), null,
+            true, true, true, false, false, ModEquipmentItems.GONDOR_CITADEL_GUARD_HELMET, ModEquipmentItems.GONDOR_CITADEL_GUARD_CHESTPLATE, ModEquipmentItems.GONDOR_CITADEL_GUARD_LEGGINGS, ModEquipmentItems.GONDOR_CITADEL_GUARD_BOOTS),
 
-    GONDOR_FOUNTAIN_GUARD_ARMOR("gondor_fountain_guard", new GondorHelmetArmorModel<>(GondorHelmetArmorModel.getTexturedModelData().createModel(), "gondor_fountain_guard"), null,
+    GONDOR_FOUNTAIN_GUARD_ARMOR("gondor_fountain_guard", new GondoFountainGuardrHelmetArmorModel<>(GondoFountainGuardrHelmetArmorModel.getTexturedModelData().createModel()), null,
             true, true, true, false, false, ModEquipmentItems.GONDOR_FOUNTAIN_GUARD_HELMET, ModEquipmentItems.GONDOR_FOUNTAIN_GUARD_CHESTPLATE, ModEquipmentItems.GONDOR_FOUNTAIN_GUARD_LEGGINGS, ModEquipmentItems.GONDOR_FOUNTAIN_GUARD_BOOTS),
 
     ROHAN_MAIL_ARMOR("rohan_mail", null, null,

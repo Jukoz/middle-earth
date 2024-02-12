@@ -43,7 +43,15 @@ public enum ModArmorMaterials implements ArmorMaterial {
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0, 0.0F,
             () -> Ingredient.ofItems(ModResourceItems.MORGUL_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null),
 
+    GONDOR_MAIL_ARMOR("gondor_mail", 15, new int[] { 2, 5, 4, 2},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.5f, 0.1F,
+            () -> Ingredient.ofItems(Items.IRON_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), null),
+
     GONDOR_PLATE_ARMOR("gondor_plate", 35, new int[] { 3, 7, 6, 3},
+            0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2, 0.1F,
+            () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), null),
+
+    GONDOR_CITADEL_GUARD_ARMOR("gondor_citadel_guard", 35, new int[] { 3, 7, 6, 3},
             0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2, 0.1F,
             () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), null),
 

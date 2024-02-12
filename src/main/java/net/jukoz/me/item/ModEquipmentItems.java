@@ -46,6 +46,15 @@ public class ModEquipmentItems {
     public static final Item HOBBIT_SHIRRIF_HAT = registerGeneratedItem("hobbit_shirrif_hat",
             new CustomHelmetItem(ModArmorMaterials.HOBBIT_SHIRRIF_HAT, ArmorItem.Type.HELMET, new FabricItemSettings(), false));
 
+    public static final Item GONDOR_MAIL_HELMET = registerGeneratedItem("gondor_mail_helmet",
+            new CustomChestplateItem(ModArmorMaterials.GONDOR_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item GONDOR_MAIL_CHESTPLATE = registerGeneratedItem("gondor_mail_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.GONDOR_MAIL_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), true));
+    public static final Item GONDOR_MAIL_LEGGINGS = registerGeneratedItem("gondor_mail_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.GONDOR_MAIL_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item GONDOR_MAIL_BOOTS = registerGeneratedItem("gondor_mail_boots",
+            new CustomBootsItem(ModArmorMaterials.GONDOR_MAIL_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
     public static final Item GONDOR_PLATE_HELMET = registerGeneratedItem("gondor_plate_helmet",
             new CustomHelmetItem(ModArmorMaterials.GONDOR_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
     public static final Item GONDOR_PLATE_CHESTPLATE = registerGeneratedItem("gondor_plate_chestplate",
@@ -55,6 +64,15 @@ public class ModEquipmentItems {
     public static final Item GONDOR_PLATE_BOOTS = registerGeneratedItem("gondor_plate_boots",
             new CustomBootsItem(ModArmorMaterials.GONDOR_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
+    public static final Item GONDOR_CITADEL_GUARD_HELMET = registerGeneratedItem("gondor_citadel_guard_helmet",
+            new CustomHelmetItem(ModArmorMaterials.GONDOR_CITADEL_GUARD_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item GONDOR_CITADEL_GUARD_CHESTPLATE = registerGeneratedItem("gondor_citadel_guard_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.GONDOR_CITADEL_GUARD_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), true));
+    public static final Item GONDOR_CITADEL_GUARD_LEGGINGS = registerGeneratedItem("gondor_citadel_guard_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.GONDOR_CITADEL_GUARD_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item GONDOR_CITADEL_GUARD_BOOTS = registerGeneratedItem("gondor_citadel_guard_boots",
+            new CustomBootsItem(ModArmorMaterials.GONDOR_CITADEL_GUARD_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+    
     public static final Item GONDOR_FOUNTAIN_GUARD_HELMET = registerGeneratedItem("gondor_fountain_guard_helmet",
             new CustomHelmetItem(ModArmorMaterials.GONDOR_FOUNTAIN_GUARD_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
     public static final Item GONDOR_FOUNTAIN_GUARD_CHESTPLATE = registerGeneratedItem("gondor_fountain_guard_chestplate",
