@@ -232,6 +232,19 @@ public class ModEquipmentItems {
     public static final Item STEEL_TROLL_ARMOR = registerGeneratedItem("steel_troll_armor",
             new TrollArmorItem(10, "steel", new FabricItemSettings().maxCount(1)));
 
+    public static final Item GONDOR_SHIELD = registerItem("gondor_shield",
+            new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
+    public static final Item ROHAN_SHIELD = registerItem("rohan_shield",
+            new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
+    public static final Item LONGBEARD_SHIELD = registerItem("longbeard_shield",
+            new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
+    public static final Item LOTHLORIEN_SHIELD = registerItem("lothlorien_shield",
+            new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
+    public static final Item MORDOR_SHIELD = registerItem("mordor_shield",
+            new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
+    public static final Item MISTY_MOUNTAINS_SHIELD = registerItem("misty_mountains_shield",
+            new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
+
     public static final Item ROHIRRIC_HORSE_ARMOR = registerItem("rohirric_horse_armor",
             new HorseArmorItem(10, "rohirric", new FabricItemSettings().maxCount(1)));
 
