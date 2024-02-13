@@ -31,7 +31,9 @@ import java.awt.*;
 
 public class ModArmorRenderer implements ArmorRenderer {
     private  Identifier ARMOR_LAYER_0;
+    private  Identifier ARMOR_LAYER_0_OVERLAY;
     private  Identifier ARMOR_LAYER_1;
+    private  Identifier ARMOR_LAYER_1_OVERLAY;
     private  Identifier ARMOR_LAYER_2;
     private  Identifier ARMOR_LAYER_CAPE;
     private  Identifier ARMOR_LAYER_HOOD;
@@ -55,7 +57,9 @@ public class ModArmorRenderer implements ArmorRenderer {
         helmetModel = customHelmetModel;
         chestplateModel = customChestplateModel;
         ARMOR_LAYER_0 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_0.png");
+        ARMOR_LAYER_0_OVERLAY = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_0_overlay.png");
         ARMOR_LAYER_1 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_1.png");
+        ARMOR_LAYER_1_OVERLAY = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_1_overlay.png");
         ARMOR_LAYER_2 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_2.png");
         ARMOR_LAYER_CAPE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_cape.png");
         ARMOR_LAYER_HOOD = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_hood.png");
@@ -162,6 +166,7 @@ public class ModArmorRenderer implements ArmorRenderer {
                     armorModel.head.visible = true;
                     armorModel.hat.visible = true;
                     renderDyeable(matrices, vertexConsumers, light, stack, armorModel, ARMOR_LAYER_1);
+                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, ARMOR_LAYER_1_OVERLAY);
                 }
                 if (helmetModel != null) {
                     contextModel.copyBipedStateTo(helmetModel);
@@ -186,20 +191,25 @@ public class ModArmorRenderer implements ArmorRenderer {
                     innerArmorModel.rightLeg.visible = true;
                     innerArmorModel.leftLeg.visible = true;
                     renderDyeable(matrices, vertexConsumers, light, stack, innerArmorModel, ARMOR_LAYER_0);
+                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, innerArmorModel, ARMOR_LAYER_0_OVERLAY);
                 }
-                contextModel.copyBipedStateTo(armorModel);
-                armorModel.setVisible(false);
-                armorModel.body.visible = true;
-                armorModel.rightArm.visible = true;
-                armorModel.leftArm.visible = true;
-                renderDyeable(matrices, vertexConsumers, light, stack, armorModel, ARMOR_LAYER_1);
+                if(hasVanillaArmorModel) {
+                    contextModel.copyBipedStateTo(armorModel);
+                    armorModel.setVisible(false);
+                    armorModel.body.visible = true;
+                    armorModel.rightArm.visible = true;
+                    armorModel.leftArm.visible = true;
+                    renderDyeable(matrices, vertexConsumers, light, stack, armorModel, ARMOR_LAYER_1);
+                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, ARMOR_LAYER_1_OVERLAY);
+                }
 
                 if(this.chestplateModel != null) {
+                    contextModel.copyBipedStateTo(chestplateModel);
                     chestplateModel.setVisible(false);
                     chestplateModel.body.visible = true;
                     chestplateModel.rightArm.visible = true;
                     chestplateModel.leftArm.visible = true;
-                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, chestplateModel, chestplateModel.CHESTPLATE_ADDON_TEXTURE);
+                    renderDyeable(matrices, vertexConsumers, light, stack, chestplateModel, chestplateModel.CHESTPLATE_ADDON_TEXTURE);
                 }
 
                 if (this.hasCape) {

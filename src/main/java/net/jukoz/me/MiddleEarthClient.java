@@ -91,6 +91,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         registerDyeableItem(ModEquipmentItems.TUNIC_CLOAK);
         registerDyeableItem(ModEquipmentItems.CLOAK);
         registerDyeableItem(ModEquipmentItems.CLOAK_HOOD);
+        registerDyeableItem(ModEquipmentItems.GAMBESON);
 
         // Animals
         EntityRendererRegistry.register(ModEntities.CRAB, CrabRenderer::new);
