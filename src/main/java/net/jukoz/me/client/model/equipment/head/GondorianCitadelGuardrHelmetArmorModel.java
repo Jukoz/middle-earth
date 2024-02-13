@@ -6,15 +6,15 @@ import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
-public class GondoFountainGuardrHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
+public class GondorianCitadelGuardrHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
 
     public final ModelPart addons;
 
-    public GondoFountainGuardrHelmetArmorModel(ModelPart root) {
+    public GondorianCitadelGuardrHelmetArmorModel(ModelPart root) {
         super(root);
         addons = root.getChild("head").getChild("addons");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/gondor_fountain_guard_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/gondorian_citadel_guard_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -25,13 +25,13 @@ public class GondoFountainGuardrHelmetArmorModel<T extends LivingEntity> extends
 
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         head.addChild("addons", ModelPartBuilder.create()
-                .uv(0, 11).cuboid(-3.0F, -13.0F, -3.0F, 6.0F, 2.0F, 6.0F, new Dilation(0.0F))
+                .uv(0, 10).cuboid(-3.0F, -13.0F, -3.0F, 6.0F, 2.0F, 6.0F, new Dilation(0.0F))
                 .uv(0, 0).cuboid(-4.0F, -11.0F, -4.0F, 8.0F, 2.0F, 8.0F, new Dilation(0.0F))
-                .uv(49, 0).cuboid(-9.5F, -17.0F, 0.0F, 6.0F, 15.0F, 0.0F, new Dilation(0.0F))
-                .uv(49, 0).mirrored().cuboid(3.5F, -17.0F, 0.0F, 6.0F, 15.0F, 0.0F, new Dilation(0.0F)).mirrored(false)
                 .uv(32, 0).mirrored().cuboid(-3.0F, -15.6F, -4.6F, 6.0F, 12.0F, 0.0F, new Dilation(0.5F)).mirrored(false)
-                .uv(32, 16).mirrored().cuboid(-4.0F, -8.0F, -4.4F, 8.0F, 8.0F, 2.0F, new Dilation(0.5F)).mirrored(false),
-                ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+                .uv(32, 16).mirrored().cuboid(-4.0F, -8.0F, -4.4F, 8.0F, 8.0F, 2.0F, new Dilation(0.5F)).mirrored(false), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+
+        head.addChild("wing_right",  ModelPartBuilder.create().uv(49, 0).cuboid(-6.0F, -9.5F, -0.1F, 6.0F, 15.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-5.0F, -6.5F, -2.5F, 0.0F, 1.3963F, 0.0F));
+        head.addChild("wing_left",  ModelPartBuilder.create().uv(43, 0).cuboid(0.0F, -9.5F, -0.1F, 6.0F, 15.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(5.0F, -6.5F, -2.5F, 0.0F, -1.3963F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

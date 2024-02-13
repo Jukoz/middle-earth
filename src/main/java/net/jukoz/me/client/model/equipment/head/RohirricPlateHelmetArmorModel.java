@@ -6,15 +6,15 @@ import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
-public class GondorMailHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
+public class RohirricPlateHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
 
-    public final ModelPart addons;
+    public final ModelPart headOrnament;
 
-    public GondorMailHelmetArmorModel(ModelPart root) {
+    public RohirricPlateHelmetArmorModel(ModelPart root) {
         super(root);
-        addons = root.getChild("head").getChild("addons");
+        headOrnament = root.getChild("head").getChild("head_ornament");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/gondor_mail_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/rohirric_plate_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -24,10 +24,7 @@ public class GondorMailHelmetArmorModel<T extends LivingEntity> extends CustomHe
         modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        head.addChild("addons", ModelPartBuilder.create()
-                        .uv(0, 10).cuboid(-3.0F, -13.0F, -3.0F, 6.0F, 2.0F, 6.0F, new Dilation(0.0F))
-                        .uv(0, 0).cuboid(-4.0F, -11.0F, -4.0F, 8.0F, 2.0F, 8.0F, new Dilation(0.0F)),
-                        ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        head.addChild("head_ornament", ModelPartBuilder.create().uv(0, 0).cuboid(0.0F, -15.0F, -10.0F, 0.0F, 11.0F, 17.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
@@ -36,7 +33,7 @@ public class GondorMailHelmetArmorModel<T extends LivingEntity> extends CustomHe
         modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(modelData, 64, 32);
+        return TexturedModelData.of(modelData, 64, 64);
     }
 
     @Override

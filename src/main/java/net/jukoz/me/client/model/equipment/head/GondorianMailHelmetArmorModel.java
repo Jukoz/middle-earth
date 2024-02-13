@@ -1,22 +1,20 @@
 package net.jukoz.me.client.model.equipment.head;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.utils.ToRad;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 
-public class LothlorienHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
+public class GondorianMailHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
 
-    public final ModelPart spike;
+    public final ModelPart addons;
 
-    public LothlorienHelmetArmorModel(ModelPart root, String tier) {
+    public GondorianMailHelmetArmorModel(ModelPart root) {
         super(root);
-        spike = root.getChild("head").getChild("spike");
+        addons = root.getChild("head").getChild("addons");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/lothlorien_plate_layer_1.png");
+        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/gondorian_mail_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -26,7 +24,10 @@ public class LothlorienHelmetArmorModel<T extends LivingEntity> extends CustomHe
         modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        head.addChild("spike", ModelPartBuilder.create().uv(24, -8).mirrored().cuboid(-5.0F, 0.0F, 2.0F, 0.0F, 5.0F, 10.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(5.0F, -3.0F, -8.0F, 1.5708F, 0.0F, 0.0F));
+        head.addChild("addons", ModelPartBuilder.create()
+                        .uv(0, 10).cuboid(-3.0F, -13.0F, -3.0F, 6.0F, 2.0F, 6.0F, new Dilation(0.0F))
+                        .uv(0, 0).cuboid(-4.0F, -11.0F, -4.0F, 8.0F, 2.0F, 8.0F, new Dilation(0.0F)),
+                        ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

@@ -8,16 +8,16 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
-public class RohanScaleHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
+public class RohirricScaleHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
     private static final float MAX_ANGLE_HAIR = 75f;
 
     public final ModelPart hair;
 
-    public RohanScaleHelmetArmorModel(ModelPart root) {
+    public RohirricScaleHelmetArmorModel(ModelPart root) {
         super(root);
         hair = root.getChild("head").getChild("hair");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/rohan_scale_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/rohirric_scale_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {

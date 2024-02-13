@@ -28,29 +28,31 @@ public enum ModArmors {
     NAZGUL_CLOAK("nazgul_cloak", null, null,
             false, true, true, false, false, ModEquipmentItems.NAZGUL_CLOAK_HOOD, ModEquipmentItems.NAZGUL_CLOAK, ModEquipmentItems.NAZGUL_PANTS, ModEquipmentItems.NAZGUL_BOOTS),
 
-    HOBBIT_SHIRRIF_HAT("hobbit_shirrif_hat", new HobbitShirrifHatArmorModel<>(HobbitShirrifHatArmorModel.getTexturedModelData().createModel()), null,
-            false, false, false, false, false, ModEquipmentItems.HOBBIT_SHIRRIF_HAT),
+    HOBBIT_SHIRRIF_HAT_GREEN("hobbit_shirrif_hat_green", new HobbitShirrifHatArmorModel<>(HobbitShirrifHatArmorModel.getTexturedModelData().createModel(), "green"), null,
+            false, false, false, false, false, ModEquipmentItems.HOBBIT_SHIRRIF_HAT_GREEN),
+    HOBBIT_SHIRRIF_HAT_BROWN("hobbit_shirrif_hat_brown", new HobbitShirrifHatArmorModel<>(HobbitShirrifHatArmorModel.getTexturedModelData().createModel(), "brown"), null,
+            false, false, false, false, false, ModEquipmentItems.HOBBIT_SHIRRIF_HAT_BROWN),
     
-    GONDOR_MAIL_ARMOR("gondor_mail", new GondorMailHelmetArmorModel<>(GondorMailHelmetArmorModel.getTexturedModelData().createModel()), null,
-            true, true, false, false, false, ModEquipmentItems.GONDOR_MAIL_HELMET, ModEquipmentItems.GONDOR_MAIL_CHESTPLATE, ModEquipmentItems.GONDOR_MAIL_LEGGINGS, ModEquipmentItems.GONDOR_MAIL_BOOTS),
+    GONDORIAN_MAIL_ARMOR("gondorian_mail", new GondorianMailHelmetArmorModel<>(GondorianMailHelmetArmorModel.getTexturedModelData().createModel()), null,
+            true, true, false, false, false, ModEquipmentItems.GONDORIAN_MAIL_HELMET, ModEquipmentItems.GONDORIAN_MAIL_CHESTPLATE, ModEquipmentItems.GONDORIAN_MAIL_LEGGINGS, ModEquipmentItems.GONDORIAN_MAIL_BOOTS),
 
-    GONDOR_PLATE_ARMOR("gondor_plate", new GondorPlateHelmetArmorModel<>(GondorPlateHelmetArmorModel.getTexturedModelData().createModel()), null,
-            true, true, false, false, false, ModEquipmentItems.GONDOR_PLATE_HELMET, ModEquipmentItems.GONDOR_PLATE_CHESTPLATE, ModEquipmentItems.GONDOR_PLATE_LEGGINGS, ModEquipmentItems.GONDOR_PLATE_BOOTS),
+    GONDORIAN_PLATE_ARMOR("gondorian_plate", new GondorianPlateHelmetArmorModel<>(GondorianPlateHelmetArmorModel.getTexturedModelData().createModel()), null,
+            true, true, false, false, false, ModEquipmentItems.GONDORIAN_PLATE_HELMET, ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE, ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS, ModEquipmentItems.GONDORIAN_PLATE_BOOTS),
     
-    GONDOR_CITADEL_GUARD_ARMOR("gondor_citadel_guard", new GondorCitadelGuardrHelmetArmorModel<>(GondorCitadelGuardrHelmetArmorModel.getTexturedModelData().createModel()), null,
-            true, true, true, false, false, ModEquipmentItems.GONDOR_CITADEL_GUARD_HELMET, ModEquipmentItems.GONDOR_CITADEL_GUARD_CHESTPLATE, ModEquipmentItems.GONDOR_CITADEL_GUARD_LEGGINGS, ModEquipmentItems.GONDOR_CITADEL_GUARD_BOOTS),
+    GONDORIAN_CITADEL_GUARD_ARMOR("gondorian_citadel_guard", new GondorianCitadelGuardrHelmetArmorModel<>(GondorianCitadelGuardrHelmetArmorModel.getTexturedModelData().createModel()), null,
+            true, true, true, false, false, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_HELMET, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_CHESTPLATE, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_LEGGINGS, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_BOOTS),
 
-    GONDOR_FOUNTAIN_GUARD_ARMOR("gondor_fountain_guard", new GondoFountainGuardrHelmetArmorModel<>(GondoFountainGuardrHelmetArmorModel.getTexturedModelData().createModel()), null,
-            true, true, true, false, false, ModEquipmentItems.GONDOR_FOUNTAIN_GUARD_HELMET, ModEquipmentItems.GONDOR_FOUNTAIN_GUARD_CHESTPLATE, ModEquipmentItems.GONDOR_FOUNTAIN_GUARD_LEGGINGS, ModEquipmentItems.GONDOR_FOUNTAIN_GUARD_BOOTS),
+    GONDORIAN_FOUNTAIN_GUARD_ARMOR("gondorian_fountain_guard", new GondorianFountainGuardrHelmetArmorModel<>(GondorianFountainGuardrHelmetArmorModel.getTexturedModelData().createModel()), null,
+            true, true, true, false, false, ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_HELMET, ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE, ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS, ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_BOOTS),
 
-    ROHAN_MAIL_ARMOR("rohan_mail", null, null,
-            true, true, true, false, false, ModEquipmentItems.ROHAN_MAIL_HELMET, ModEquipmentItems.ROHAN_MAIL_CHESTPLATE, ModEquipmentItems.ROHAN_MAIL_LEGGINGS, ModEquipmentItems.ROHAN_MAIL_BOOTS),
+    ROHIRRIC_MAIL_ARMOR("rohirric_mail", null, null,
+            true, true, true, false, false, ModEquipmentItems.ROHIRRIC_MAIL_HELMET, ModEquipmentItems.ROHIRRIC_MAIL_CHESTPLATE, ModEquipmentItems.ROHIRRIC_MAIL_LEGGINGS, ModEquipmentItems.ROHIRRIC_MAIL_BOOTS),
 
-    ROHAN_SCALE_ARMOR("rohan_scale", new RohanScaleHelmetArmorModel<>(RohanScaleHelmetArmorModel.getTexturedModelData().createModel()), null,
-            true, true, true, false, false, ModEquipmentItems.ROHAN_SCALE_HELMET, ModEquipmentItems.ROHAN_SCALE_CHESTPLATE, ModEquipmentItems.ROHAN_SCALE_LEGGINGS, ModEquipmentItems.ROHAN_SCALE_BOOTS),
+    ROHIRRIC_SCALE_ARMOR("rohirric_scale", new RohirricScaleHelmetArmorModel<>(RohirricScaleHelmetArmorModel.getTexturedModelData().createModel()), null,
+            true, true, true, false, false, ModEquipmentItems.ROHIRRIC_SCALE_HELMET, ModEquipmentItems.ROHIRRIC_SCALE_CHESTPLATE, ModEquipmentItems.ROHIRRIC_SCALE_LEGGINGS, ModEquipmentItems.ROHIRRIC_SCALE_BOOTS),
 
-    ROHAN_PLATE_ARMOR("rohan_plate", new RohanPlateHelmetArmorModel<>(RohanPlateHelmetArmorModel.getTexturedModelData().createModel()), null,
-            true, true, false, false, false, ModEquipmentItems.ROHAN_PLATE_HELMET, ModEquipmentItems.ROHAN_PLATE_CHESTPLATE, ModEquipmentItems.ROHAN_PLATE_LEGGINGS, ModEquipmentItems.ROHAN_PLATE_BOOTS),
+    ROHIRRIC_PLATE_ARMOR("rohirric_plate", new RohirricPlateHelmetArmorModel<>(RohirricPlateHelmetArmorModel.getTexturedModelData().createModel()), null,
+            true, true, false, false, false, ModEquipmentItems.ROHIRRIC_PLATE_HELMET, ModEquipmentItems.ROHIRRIC_PLATE_CHESTPLATE, ModEquipmentItems.ROHIRRIC_PLATE_LEGGINGS, ModEquipmentItems.ROHIRRIC_PLATE_BOOTS),
 
     LONGBEARD_MAIL_ARMOR("longbeard_mail", null, null,
             true, true, false, false, false, ModEquipmentItems.LONGBEARD_MAIL_HELMET, ModEquipmentItems.LONGBEARD_MAIL_CHESTPLATE, ModEquipmentItems.LONGBEARD_MAIL_LEGGINGS, ModEquipmentItems.LONGBEARD_MAIL_BOOTS),
@@ -64,14 +66,14 @@ public enum ModArmors {
     LONGBEARD_COMMANDER_ARMOR("longbeard_commander", null, null,
             true, true, false, false, false, ModEquipmentItems.LONGBEARD_COMMANDER_HELMET, ModEquipmentItems.LONGBEARD_COMMANDER_CHESTCOMMANDER, ModEquipmentItems.LONGBEARD_COMMANDER_LEGGINGS, ModEquipmentItems.LONGBEARD_COMMANDER_BOOTS),
     
-    LOTHLORIEN_MAIL_ARMOR("lothlorien_mail", null, null,
-            true, true, false, false, false, ModEquipmentItems.LOTHLORIEN_MAIL_HELMET, ModEquipmentItems.LOTHLORIEN_MAIL_CHESTPLATE, ModEquipmentItems.LOTHLORIEN_MAIL_LEGGINGS, ModEquipmentItems.LOTHLORIEN_MAIL_BOOTS),
+    LORIEN_MAIL_ARMOR("lorien_mail", null, null,
+            true, true, false, false, false, ModEquipmentItems.LORIEN_MAIL_HELMET, ModEquipmentItems.LORIEN_MAIL_CHESTPLATE, ModEquipmentItems.LORIEN_MAIL_LEGGINGS, ModEquipmentItems.LORIEN_MAIL_BOOTS),
 
-    LOTHLORIEN_SCALE_ARMOR("lothlorien_scale", new LothlorienHelmetArmorModel<>(LothlorienHelmetArmorModel.getTexturedModelData().createModel(), "scale"), null,
-            true, true, false, false, false, ModEquipmentItems.LOTHLORIEN_SCALE_HELMET, ModEquipmentItems.LOTHLORIEN_SCALE_CHESTPLATE, ModEquipmentItems.LOTHLORIEN_SCALE_LEGGINGS, ModEquipmentItems.LOTHLORIEN_SCALE_BOOTS),
+    LORIEN_SCALE_ARMOR("lorien_scale", new LorienHelmetArmorModel<>(LorienHelmetArmorModel.getTexturedModelData().createModel(), "scale"), null,
+            true, true, false, false, false, ModEquipmentItems.LORIEN_SCALE_HELMET, ModEquipmentItems.LORIEN_SCALE_CHESTPLATE, ModEquipmentItems.LORIEN_SCALE_LEGGINGS, ModEquipmentItems.LORIEN_SCALE_BOOTS),
 
-    LOTHLORIEN_PLATE_ARMOR("lothlorien_plate", new LothlorienHelmetArmorModel<>(LothlorienHelmetArmorModel.getTexturedModelData().createModel(), "plate"), null,
-            true, true, true, true, false, ModEquipmentItems.LOTHLORIEN_PLATE_HELMET, ModEquipmentItems.LOTHLORIEN_PLATE_CHESTPLATE, ModEquipmentItems.LOTHLORIEN_PLATE_LEGGINGS, ModEquipmentItems.LOTHLORIEN_PLATE_BOOTS),
+    LORIEN_PLATE_ARMOR("lorien_plate", new LorienHelmetArmorModel<>(LorienHelmetArmorModel.getTexturedModelData().createModel(), "plate"), null,
+            true, true, true, true, false, ModEquipmentItems.LORIEN_PLATE_HELMET, ModEquipmentItems.LORIEN_PLATE_CHESTPLATE, ModEquipmentItems.LORIEN_PLATE_LEGGINGS, ModEquipmentItems.LORIEN_PLATE_BOOTS),
     
     MORDOR_ORC_MAIL_ARMOR("mordor_orc_mail", null, null,
             true, true, false, false, false, ModEquipmentItems.MORDOR_ORC_MAIL_HELMET, ModEquipmentItems.MORDOR_ORC_MAIL_CHESTPLATE, ModEquipmentItems.MORDOR_ORC_MAIL_LEGGINGS, ModEquipmentItems.MORDOR_ORC_MAIL_BOOTS),

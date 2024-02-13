@@ -6,15 +6,15 @@ import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
-public class GondorPlateHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
+public class GondorianPlateHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
 
     public final ModelPart addons;
 
-    public GondorPlateHelmetArmorModel(ModelPart root) {
+    public GondorianPlateHelmetArmorModel(ModelPart root) {
         super(root);
         addons = root.getChild("head").getChild("addons");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/gondor_plate_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/gondorian_plate_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {
