@@ -130,7 +130,7 @@ public class ModBiomes {
         context.register(MEBiomeKeys.OLD_ANGMAR, createOldAngmarBiome(context, new BiomeColorsDTO(
                 8954077, 11781343, 4814544, 460593, 7443043, 6982236)));
         context.register(MEBiomeKeys.OLD_ARTHEDAIN, createOldArthedainBiome(context, new BiomeColorsDTO(
-                7907327, defaultFog, defaultWater, defaultWaterFog, 13301380, 12047734)));
+                7907327, defaultFog, defaultWater, defaultWaterFog, 12508275, 11652468)));
         context.register(MEBiomeKeys.OLD_RHUDAUR, createOldRhudaurBiome(context, new BiomeColorsDTO(
                 7508201, 10863086, 4618461, defaultWaterFog, 6722387, 6198343)));
         context.register(MEBiomeKeys.OASIS, createLakeBiome(context, new BiomeColorsDTO(
@@ -546,9 +546,10 @@ public class ModBiomes {
 
         addArthedainVegetation(generationSettings);
 
-        ModBiomeFeatures.addBeechTrees(vegetation);
-        ModBiomeFeatures.addSparseBirchTrees(vegetation);
-        ModBiomeFeatures.addMegaOakTrees(vegetation);
+        vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+        ModBiomeFeatures.addVeryRareBeechTrees(vegetation);
+        ModBiomeFeatures.addVeryRareBirchTrees(vegetation);
+        ModBiomeFeatures.addVeryRareMegaOakTrees(vegetation);
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
@@ -632,7 +633,7 @@ public class ModBiomes {
         vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
         ModBiomeFeatures.addRareBeechTrees(vegetation);
         ModBiomeFeatures.addRareBirchTrees(vegetation);
-        ModBiomeFeatures.addRareMegaOakTrees(vegetation);
+        ModBiomeFeatures.addVeryRareMegaOakTrees(vegetation);
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
@@ -800,21 +801,30 @@ public class ModBiomes {
         vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);
         vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
         vegetation.add(BoulderPlacedFeatures.STONE_BOULDER);
+        ModBiomeFeatures.addWildBeetroot(vegetation);
+        ModBiomeFeatures.addWildCucumber(vegetation);
+        ModBiomeFeatures.addWildGarlic(vegetation);
     }
 
     public static void addArthedainVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
         DefaultBiomeFeatures.addDefaultDisks(generationSettings);
-        vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_FOREST);
+        vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_NORMAL);
+        vegetation.add(VegetationPlacedFeatures.PATCH_TALL_GRASS_2);
         vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
         vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
         vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
         vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);
         vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
+        ModBiomeFeatures.addHeather(vegetation);
+        ModBiomeFeatures.addHeatherBush(vegetation);
+        ModBiomeFeatures.addWheatGrass(vegetation);
         ModBiomeFeatures.addWildGarlic(vegetation);
         ModBiomeFeatures.addWildLeek(vegetation);
         ModBiomeFeatures.addWildLettuce(vegetation);
         ModBiomeFeatures.addWildPotato(vegetation);
         ModBiomeFeatures.addStoneBoulder(vegetation);
+        ModBiomeFeatures.addDryDirtDisk(vegetation);
+        ModBiomeFeatures.addGravelDisk(vegetation);
     }
 
     public static void addEriadorVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
@@ -826,10 +836,11 @@ public class ModBiomes {
         vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);
         vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
         vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+        ModBiomeFeatures.addHeather(vegetation);
         ModBiomeFeatures.addWildLeek(vegetation);
         ModBiomeFeatures.addWildLettuce(vegetation);
         ModBiomeFeatures.addWildOnion(vegetation);
-        ModBiomeFeatures.addStoneBoulder(vegetation);
+        ModBiomeFeatures.addGraniteBoulder(vegetation);
     }
 
     public static void addForodwaithVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
@@ -862,6 +873,7 @@ public class ModBiomes {
         vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
         ModBiomeFeatures.addMallos(vegetation);
         ModBiomeFeatures.addWildCarrot(vegetation);
+        ModBiomeFeatures.addWildFlax(vegetation);
         ModBiomeFeatures.addWildLettuce(vegetation);
         ModBiomeFeatures.addWildOnion(vegetation);
     }
@@ -895,6 +907,8 @@ public class ModBiomes {
         vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
         vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
         ModBiomeFeatures.addAndesiteBoulder(vegetation);
+        ModBiomeFeatures.addWildBeetroot(vegetation);
+        ModBiomeFeatures.addWildPotato(vegetation);
     }
 
     public static void addOceanVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
