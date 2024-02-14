@@ -23,7 +23,8 @@ public class ChargeAttackGoal extends Goal {
                 (mob.getTarget() != null) &&
                 this.mob.getRandom().nextInt(ChargeAttackGoal.toGoalTicks(40)) == 0 &&
                 this.mob.distanceTo(mob.getTarget()) >= 10 &&
-                canNavigateToEntity(this.mob.getTarget());
+                canNavigateToEntity(this.mob.getTarget()) &&
+                this.mob.canCharge();
     }
 
     @Override

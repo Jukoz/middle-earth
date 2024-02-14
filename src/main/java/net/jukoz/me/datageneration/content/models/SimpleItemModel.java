@@ -52,7 +52,6 @@ public class SimpleItemModel {
             add(ModEquipmentItems.NAZGUL_BOOTS);
 
             add(ModEquipmentItems.STEEL_TROLL_ARMOR);
-            add(ModEquipmentItems.BEAST_CHAINS);
             add(ModEquipmentItems.MORDOR_ORC_HELMET);
             add(ModEquipmentItems.MORDOR_ORC_CHESTPLATE);
             add(ModEquipmentItems.MORDOR_ORC_LEGGINGS);
