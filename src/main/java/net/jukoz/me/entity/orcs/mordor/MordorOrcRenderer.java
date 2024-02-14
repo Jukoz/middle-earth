@@ -32,11 +32,11 @@ public class MordorOrcRenderer extends BipedEntityRenderer<MordorOrcEntity, Mord
     public static final Map<MordorOrcVariant, String> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(MordorOrcVariant.class), (resourceLocation) -> {
                 resourceLocation.put(MordorOrcVariant.LIGHT_BROWN_RED,
-                        PATH + "orc1.png");
+                        PATH + "uruk1.png");
                 resourceLocation.put(MordorOrcVariant.PALE_BLUE_YELLOW,
-                        PATH + "orc2.png");
+                        PATH + "uruk2.png");
                 resourceLocation.put(MordorOrcVariant.PALE_GREY_ORANGE,
-                        PATH + "orc3.png");
+                        PATH + "uruk3.png");
             });
 
     @Override

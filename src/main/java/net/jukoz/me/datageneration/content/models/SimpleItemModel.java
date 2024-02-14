@@ -44,20 +44,6 @@ public class SimpleItemModel {
             add(ModFoodItems.RAW_RAT);
             add(ModFoodItems.COOKED_RAT);
 
-            add(ModEquipmentItems.NAZGUL_CLOAK_HOOD);
-            add(ModEquipmentItems.NAZGUL_CLOAK);
-            add(ModEquipmentItems.NAZGUL_PANTS);
-            add(ModEquipmentItems.NAZGUL_BOOTS);
-
-            add(ModEquipmentItems.STEEL_TROLL_ARMOR);
-            add(ModEquipmentItems.BEAST_CHAINS);
-            add(ModEquipmentItems.MORDOR_ORC_HELMET);
-            add(ModEquipmentItems.MORDOR_ORC_CHESTPLATE);
-            add(ModEquipmentItems.MORDOR_ORC_LEGGINGS);
-            add(ModEquipmentItems.MORDOR_ORC_BOOTS);
-
-            add(ModEquipmentItems.ROHIRRIC_HORSE_ARMOR);
-
             add(ModResourceItems.GLOWWORM_BOTTLE);
 
             add(ModResourceItems.COPPER_COIN);
