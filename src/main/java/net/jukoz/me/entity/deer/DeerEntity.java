@@ -35,10 +35,10 @@ public class DeerEntity extends AnimalEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new EscapeDangerGoal(this, 1.2f));
-        this.goalSelector.add(2, new FleeEntityGoal<PlayerEntity>(this, PlayerEntity.class, 8.0f, 1.3, 1.5));
-        this.goalSelector.add(2, new FleeEntityGoal<WolfEntity>(this, WolfEntity.class, 10.0f, 1.3, 1.5));
-        this.goalSelector.add(2, new FleeEntityGoal<HostileEntity>(this, HostileEntity.class, 4.0f, 1.3, 1.5));
+        this.goalSelector.add(1, new EscapeDangerGoal(this, 1.5f));
+        this.goalSelector.add(2, new FleeEntityGoal<PlayerEntity>(this, PlayerEntity.class, 8.0f, 1.5f, 1.7f));
+        this.goalSelector.add(2, new FleeEntityGoal<WolfEntity>(this, WolfEntity.class, 10.0f, 1.5f, 1.7f));
+        this.goalSelector.add(2, new FleeEntityGoal<HostileEntity>(this, HostileEntity.class, 4.0f, 1.5f, 1.7f));
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(5, new LookAroundGoal(this));
