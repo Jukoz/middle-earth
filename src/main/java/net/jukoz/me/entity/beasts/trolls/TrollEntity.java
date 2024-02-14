@@ -123,12 +123,12 @@ public class TrollEntity extends BeastEntity {
         }
 
         if(throwCooldown == 0 && this.getTarget() != null && !isCharging()) {
-            if(this.squaredDistanceTo(this.getTarget()) >= 25 && !this.hasPassengers()) {
+            if(this.squaredDistanceTo(this.getTarget()) >= 25 && !this.hasPassengers() && canThrow()) {
                 this.setThrowing(true);
                 throwCooldown = 200;
             }
         }
-        if(this.isThrowing()) {
+        if(this.isThrowing() && canThrow()) {
             this.setVelocity(Vec3d.ZERO);
             if(!this.isOnGround()) {
                 this.setThrowing(false);
@@ -203,6 +203,10 @@ public class TrollEntity extends BeastEntity {
         }
 
         this.updateSaddle();
+    }
+
+    public boolean canThrow() {
+        return true;
     }
 
     public void setThrowing(boolean throwing) {

@@ -166,6 +166,10 @@ public class BeastEntity extends AbstractDonkeyEntity {
     }
 
     // Getters and Setters =============================================================================================
+
+    public boolean canCharge() {
+        return true;
+    }
     @Override
     protected float getJumpVelocity() {
         return 0.5f * this.getJumpVelocityMultiplier() + this.getJumpBoostVelocityModifier();

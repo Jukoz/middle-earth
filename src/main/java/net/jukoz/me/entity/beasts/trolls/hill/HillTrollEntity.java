@@ -13,6 +13,7 @@ import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -37,6 +38,16 @@ public class HillTrollEntity extends TrollEntity {
     }
     public boolean isStoned() {
         return  this.dataTracker.get(STONED);
+    }
+
+    @Override
+    public boolean canThrow() {
+        return !this.isStoned();
+    }
+
+    @Override
+    public boolean canCharge() {
+        return !this.isStoned();
     }
 
     @Override
