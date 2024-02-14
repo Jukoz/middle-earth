@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.balrog.BalrogEntity;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntity;
+import net.jukoz.me.entity.beasts.trolls.hill.HillTrollEntity;
 import net.jukoz.me.entity.crab.CrabEntity;
 import net.jukoz.me.entity.deer.DeerEntity;
 import net.jukoz.me.entity.deer.DeerModel;
@@ -61,7 +62,7 @@ public class ModEntities {
     // Trolls
     public static final EntityType<CaveTrollEntity> CAVE_TROLL = registerEntity("cave_troll", CaveTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
     public static final EntityType<SnowTrollEntity> SNOW_TROLL = registerEntity("snow_troll", SnowTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
-
+    public static final EntityType<HillTrollEntity> HILL_TROLL = registerEntity("hill_troll", HillTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
 
     ///* Weapons *///
     public static final EntityType<PebbleEntity> PEBBLE = registerEntity("pebble", PebbleEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
@@ -88,12 +89,13 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(BARROW_WIGHT, BarrowWightEntity.setAttributes());
         //FabricDefaultAttributeRegistry.register(BALROG, BalrogEntity.createBalrogAttributes());
         FabricDefaultAttributeRegistry.register(CAVE_TROLL, CaveTrollEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(HILL_TROLL, HillTrollEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(DURIN_FOLK, DurinDwarfEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(HOBBIT, ShireHobbitEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(GALADHRIM_ELF, GaladhrimElfEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(NAZGUL, NazgulEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(MORDOR_ORC, MordorOrcEntity.setAttributes());
-        FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(MIRKWOOD_SPIDER, MirkwoodSpiderEntity.setAttributes());
         // Animals
         FabricDefaultAttributeRegistry.register(CRAB, CrabEntity.createCrabAttributes());

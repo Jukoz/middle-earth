@@ -48,9 +48,6 @@ public class ModEquipmentItems {
     public static final Item MORDOR_ORC_BOOTS = registerItem("mordor_orc_boots",
             new ArmorItem(ModArmorMaterials.MORDOR_ORC_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
-    public static final Item BEAST_CHAINS = registerItem("beast_chains",
-            new SaddleItem(new FabricItemSettings().maxCount(1)));
-
     public static final Item STEEL_TROLL_ARMOR = registerItem("steel_troll_armor",
             new TrollArmorItem(10, "steel", new FabricItemSettings().maxCount(1)));
 
