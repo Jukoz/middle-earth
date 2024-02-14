@@ -546,6 +546,7 @@ public class ModBiomes {
 
         addArthedainVegetation(generationSettings);
 
+        ModBiomeFeatures.addOakBush(vegetation);
         vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
         ModBiomeFeatures.addVeryRareBeechTrees(vegetation);
         ModBiomeFeatures.addVeryRareBirchTrees(vegetation);
@@ -556,10 +557,16 @@ public class ModBiomes {
 
     public static Biome createOldRhudaurBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addWolves(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addNordicVegetation(generationSettings);
+        ModBiomeFeatures.addCoarseDirtDisk(vegetation);
+        ModBiomeFeatures.addGravelDisk(vegetation);
+        ModBiomeFeatures.addPodzolDisk(vegetation);
 
+        ModBiomeFeatures.addOakBush(vegetation);
+        ModBiomeFeatures.addSparseLarchTrees(vegetation);
         ModBiomeFeatures.addDeadPineTrees(vegetation);
         ModBiomeFeatures.addSparsePineTrees(vegetation);
         ModBiomeFeatures.addSpruceTrees(vegetation);
@@ -908,6 +915,7 @@ public class ModBiomes {
         vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
         vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
         ModBiomeFeatures.addAndesiteBoulder(vegetation);
+        ModBiomeFeatures.addWildGrass(vegetation);
         ModBiomeFeatures.addForestMoss(vegetation);
         ModBiomeFeatures.addBrownBolete(vegetation);
         ModBiomeFeatures.addMorsel(vegetation);

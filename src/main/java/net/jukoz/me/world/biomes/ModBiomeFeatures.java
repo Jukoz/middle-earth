@@ -48,6 +48,9 @@ public class ModBiomeFeatures {
     public static void addLarchTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.LARCH_PLACED_TREE_KEY);
     }
+    public static void addSparseLarchTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.SPARSE_LARCH_PLACED_TREE_KEY);
+    }
     public static void addLebethronTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.BLACK_LEBETHRON_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.WHITE_LEBETHRON_PLACED_TREE_KEY);
@@ -66,6 +69,9 @@ public class ModBiomeFeatures {
         vegetation.add(ModTreePlacedFeatures.MIRKWOOD_PLACED_TREE_KEY);
     }
 
+    public static void addOakBush(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.OAK_BUSH_PLACED_TREE_KEY);
+    }
     public static void addMegaOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.MEGA_OAK_PLACED_TREE_KEY);
     }
@@ -169,6 +175,9 @@ public class ModBiomeFeatures {
     public static void addWheatGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_WHEAT_GRASS);
     }
+    public static void addWildGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_WILD_GRASS);
+    }
     // endregion
 
     // region MUSHROOMS
@@ -226,11 +235,17 @@ public class ModBiomeFeatures {
     // endregion
 
     // region ORES
+    public static void addCoarseDirtDisk(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.COARSE_DIRT_DISK);
+    }
     public static void addDryDirtDisk(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.DRY_DIRT_DISK);
     }
     public static void addGravelDisk(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.GRAVEL_DISK);
+    }
+    public static void addPodzolDisk(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.PODZOL_DISK);
     }
     // end region
 }

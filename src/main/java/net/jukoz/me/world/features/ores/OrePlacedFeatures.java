@@ -16,19 +16,28 @@ import net.minecraft.world.gen.placementmodifier.RarityFilterPlacementModifier;
 import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier;
 
 public class OrePlacedFeatures {
+    public static final RegistryKey<PlacedFeature> COARSE_DIRT_DISK = registerKey("coarse_dirt_disk");
     public static final RegistryKey<PlacedFeature> DRY_DIRT_DISK = registerKey("dry_dirt_disk");
     public static final RegistryKey<PlacedFeature> GRAVEL_DISK = registerKey("gravel_disk");
+    public static final RegistryKey<PlacedFeature> PODZOL_DISK = registerKey("podzol_disk");
 
     public static void bootstrap(Registerable<PlacedFeature> featureRegisterable) {
         RegistryEntryLookup<ConfiguredFeature<?, ?>> registryEntryLookup = featureRegisterable.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> coarseDirt = registryEntryLookup.getOrThrow(OreConfiguredFeatures.COARSE_DIRT_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> dryDirt = registryEntryLookup.getOrThrow(OreConfiguredFeatures.DRY_DIRT_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> gravel = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRAVEL_ORE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> podzol = registryEntryLookup.getOrThrow(OreConfiguredFeatures.PODZOL_ORE);
 
         PlacementModifier common = RarityFilterPlacementModifier.of(2);
         PlacementModifier uncommon = PlacedFeatures.createCountExtraModifier(0, 0.1f, 1);
+
+        PlacedFeatures.register(featureRegisterable, COARSE_DIRT_DISK, coarseDirt, common,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, DRY_DIRT_DISK, dryDirt, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, GRAVEL_DISK, gravel, uncommon,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PODZOL_DISK, podzol, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
     }
 

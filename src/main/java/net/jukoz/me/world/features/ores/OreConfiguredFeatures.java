@@ -26,7 +26,7 @@ public class OreConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, GRAVEL_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, Blocks.GRAVEL.getDefaultState(), 48, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, PODZOL_ORE, Feature.ORE,
-                new OreFeatureConfig(dirtTest, Blocks.GRAVEL.getDefaultState(), 48, 0.4f));
+                new OreFeatureConfig(dirtTest, Blocks.PODZOL.getDefaultState(), 48, 0.4f));
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {
