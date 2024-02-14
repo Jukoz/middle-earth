@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "M",
+    "S"
+  ],
+  "key": {
+    "M": {
+      "item": "me:raw_rat"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "me:rat_skewer",
+    "count": 1
+  }
+}

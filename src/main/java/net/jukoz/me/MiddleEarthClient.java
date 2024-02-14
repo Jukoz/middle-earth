@@ -18,6 +18,7 @@ import net.jukoz.me.entity.balrog.BalrogRenderer;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntityRenderer;
 import net.jukoz.me.entity.beasts.trolls.hill.HillTrollRenderer;
 import net.jukoz.me.entity.crab.CrabRenderer;
+import net.jukoz.me.entity.deer.DeerRenderer;
 import net.jukoz.me.entity.duck.DuckRenderer;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfRenderer;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfRenderer;
@@ -26,6 +27,8 @@ import net.jukoz.me.entity.hobbits.shire.ShireHobbitRenderer;
 import net.jukoz.me.entity.model.ModEntityModels;
 import net.jukoz.me.entity.nazguls.NazgulRenderer;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
+import net.jukoz.me.entity.pheasant.PheasantModel;
+import net.jukoz.me.entity.pheasant.PheasantRenderer;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntityRenderer;
 import net.jukoz.me.entity.projectile.spear.JavelinEntityRenderer;
 import net.jukoz.me.entity.snail.SnailRenderer;
@@ -86,9 +89,11 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.GOOSE, GooseRenderer::new);
         EntityRendererRegistry.register(ModEntities.DUCK, DuckRenderer::new);
         EntityRendererRegistry.register(ModEntities.SWAN, SwanRenderer::new);
+        EntityRendererRegistry.register(ModEntities.PHEASANT, PheasantRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNAIL, SnailRenderer::new);
+        EntityRendererRegistry.register(ModEntities.DEER, DeerRenderer::new);
 
-        ModModelPredicateProvider.registerBowModel();
+        ModModelPredicateProvider.registerAllPredicates();
 
         HandledScreens.register(ModScreenHandlers.ALLOY_SCREEN_HANDLER, AlloyFurnaceScreen::new);
         HandledScreens.register(ModScreenHandlers.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);

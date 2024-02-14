@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.datageneration.content.tags.*;
+import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -24,6 +25,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         var bones = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "bones")));
+        var cloaks = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "cloaks")));
 
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
 
@@ -32,5 +34,14 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         bones.add(Items.BONE);
         bones.add(ModResourceItems.ORC_BONE);
         bones.add(ModResourceItems.WARG_BONE);
+
+        cloaks.add(ModEquipmentItems.CLOAK);
+        cloaks.add(ModEquipmentItems.TUNIC_CLOAK);
+        cloaks.add(ModEquipmentItems.FUR_CLOAK);
+        cloaks.add(ModEquipmentItems.CHAINMAIL_FUR_CLOAK);
+        cloaks.add(ModEquipmentItems.NAZGUL_CLOAK);
+        cloaks.add(ModEquipmentItems.CLOAK_HOOD);
+        cloaks.add(ModEquipmentItems.FUR_CLOAK_HOOD);
+        cloaks.add(ModEquipmentItems.NAZGUL_CLOAK_HOOD);
     }
 }
