@@ -49,6 +49,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.wall(), record.source());
             }
 
+            createButtonRecipe(exporter, record.base().asItem(), record.button());
+            createPressurePlateRecipe(exporter, record.base().asItem(), record.pressurePlate());
             createSlabsRecipe(exporter, record.base(), record.slab());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.base(), 2);
             createStairsRecipe(exporter, record.base(), record.stairs());
@@ -89,6 +91,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         for (WoodBlockSets.SimpleBlockSet record : WoodBlockSets.sets) {
             createBrickRecipe(exporter, record.log().asItem(), record.wood(), 3);
             createWallsRecipe(exporter, record.wood(), record.woodWall());
+            createFenceRecipe(exporter, record.wood().asItem(), record.woodFence());
             createSlabsRecipe(exporter, record.planks(), record.planksSlab());
             createStairsRecipe(exporter, record.planks(), record.planksStairs());
             createDoorRecipe(exporter, record.planks(), record.door());
@@ -103,17 +106,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                             FabricRecipeProvider.conditionsFromItem(record.planks()))
                     .offerTo(exporter);
 
-            ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planksFence(), 3)
-                    .pattern("lsl")
-                    .pattern("lsl")
-                    .input('l', record.planks())
-                    .input('s', Items.STICK)
-                    .criterion(FabricRecipeProvider.hasItem(record.planks()),
-                            FabricRecipeProvider.conditionsFromItem(record.planks()))
-                    .criterion(FabricRecipeProvider.hasItem(Items.STICK),
-                            FabricRecipeProvider.conditionsFromItem(Items.STICK))
-                    .offerTo(exporter);
-
             ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planksGate(), 1)
                     .pattern("sls")
                     .pattern("sls")
@@ -125,11 +117,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                             FabricRecipeProvider.conditionsFromItem(Items.STICK))
                     .offerTo(exporter);
 
-            ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.button(), 1)
-                    .input(record.planks(), 1)
-                    .criterion(FabricRecipeProvider.hasItem(record.planks()),
-                            FabricRecipeProvider.conditionsFromItem(record.planks()))
-                    .offerTo(exporter);
+            createButtonRecipe(exporter, record.planks().asItem(), record.button());
+            createPressurePlateRecipe(exporter, record.planks().asItem(), record.pressurePlate());
         }
         //endregion
 
@@ -155,16 +144,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createWoodTableRecipe(exporter, record.planksSlab().asItem(), record.table());
             createWoodChairRecipe(exporter, record.planksSlab().asItem(), record.chair());
 
-            ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planksFence(), 3)
-                    .pattern("lsl")
-                    .pattern("lsl")
-                    .input('l', record.planks())
-                    .input('s', Items.STICK)
-                    .criterion(FabricRecipeProvider.hasItem(record.planks()),
-                            FabricRecipeProvider.conditionsFromItem(record.planks()))
-                    .criterion(FabricRecipeProvider.hasItem(Items.STICK),
-                            FabricRecipeProvider.conditionsFromItem(Items.STICK))
-                    .offerTo(exporter);
+            createFenceRecipe(exporter, record.stem().asItem(), record.stemFence());
 
             ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planksGate(), 1)
                     .pattern("sls")
@@ -177,11 +157,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                             FabricRecipeProvider.conditionsFromItem(Items.STICK))
                     .offerTo(exporter);
 
-            ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.button(), 1)
-                    .input(record.planks(), 1)
-                    .criterion(FabricRecipeProvider.hasItem(record.planks()),
-                            FabricRecipeProvider.conditionsFromItem(record.planks()))
-                    .offerTo(exporter);
+            createButtonRecipe(exporter, record.planks().asItem(), record.button());
+            createPressurePlateRecipe(exporter, record.planks().asItem(), record.pressurePlate());
         }
         //endregion
 
@@ -342,7 +319,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createDyeableBlockRecipe(exporter, StoneBlockSets.STONE_TILES.base(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_TILES.base(), 8);
 
         createBrickRecipe(exporter, ModResourceItems.CITRINE_SHARD, ModBlocks.CITRINE_BLOCK, 1);
-        createBrickRecipe(exporter, ModResourceItems.SAPPHIRE_SHARD, ModBlocks.SAPPHIRE_BLOCK, 1);
+        createFilledRecipe(exporter, Items.GLOWSTONE, ModBlocks.GLOWSTONE_BLOCK, 1);
+        createBrickRecipe(exporter, ModResourceItems.QUARTZ_SHARD, ModBlocks.QUARTZ_BLOCK, 1);
         createBrickRecipe(exporter, ModResourceItems.RED_AGATE_SHARD, ModBlocks.RED_AGATE_BLOCK, 1);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LEAD_GLASS, 4)
@@ -614,6 +592,39 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(input))
                 .offerTo(exporter);
     }
+
+    private void createButtonRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output) {
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
+                .input(input, 1)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter);
+    }
+
+    private void createPressurePlateRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 2)
+                .pattern("BB")
+                .input('B', input)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter);
+    }
+
+    private void createFenceRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 3)
+                .pattern("lsl")
+                .pattern("lsl")
+                .input('l', input)
+                .input('s', Items.STICK)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .criterion(FabricRecipeProvider.hasItem(Items.STICK),
+                        FabricRecipeProvider.conditionsFromItem(Items.STICK))
+                .offerTo(exporter);
+    }
+
+
+
 
 
     //endregion

@@ -23,15 +23,20 @@ public class HelpingGenerator {
             SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.base(), set.slab(), set.verticalSlab()));
             SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.base(), set.stairs()));
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.base(), set.wall()));
+            SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(set.base(), set.pressurePlate()));
+            SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(set.base(), set.button()));
             SimpleStoneStoolModel.stools.add(set.stool());
             SimpleStoneTableModel.tables.add(set.table());
             SimpleStoneChairModel.chairs.add(set.chair());
+
 
             BlockDrops.blocks.add(set.base());
             BlockDrops.blocks.add(set.slab());
             BlockDrops.blocks.add(set.verticalSlab());
             BlockDrops.blocks.add(set.stairs());
             BlockDrops.blocks.add(set.wall());
+            BlockDrops.blocks.add(set.pressurePlate());
+            BlockDrops.blocks.add(set.button());
             BlockDrops.blocks.add(set.stool());
             BlockDrops.blocks.add(set.table());
             BlockDrops.blocks.add(set.chair());
@@ -41,6 +46,8 @@ public class HelpingGenerator {
             MineablePickaxe.blocks.add(set.slab());
             MineablePickaxe.blocks.add(set.verticalSlab());
             MineablePickaxe.blocks.add(set.stairs());
+            MineablePickaxe.blocks.add(set.pressurePlate());
+            MineablePickaxe.blocks.add(set.button());
             MineablePickaxe.blocks.add(set.stool());
             MineablePickaxe.blocks.add(set.table());
             MineablePickaxe.blocks.add(set.chair());
@@ -77,15 +84,25 @@ public class HelpingGenerator {
                 if(set.sapling() != null) LeavesDrops.blocks.add(new LeavesDrops.LeavesDrop(set.leaves(), set.sapling()));
             }
             SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.log()));
+            SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.strippedLog()));
+
+            SimpleBlockModel.woodBlocks.add(set.wood());
+            SimpleBlockModel.woodBlocks.add(set.strippedWood());
+
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.log(), set.woodWall()));
+            SimpleWallModel.strippedWalls.add(new SimpleWallModel.Wall(set.strippedWood(), set.strippedWoodWall()));
+
+            SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.log(), set.woodFence()));
+            SimpleFenceModel.strippedFences.add(new SimpleFenceModel.Fence(set.strippedWood(), set.strippedWoodFence()));
+
             SimpleBlockModel.blocks.add(set.planks());
             SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
             SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.planks(), set.planksSlab(), set.planksVerticalSlab()));
             SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.planks(), set.planksStairs()));
             SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.planks(), set.planksFence()));
             SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(set.planks(), set.planksGate()));
-            SimpleButtonModel.blocks.add(new SimpleButtonModel.Button(set.planks(), set.button()));
-            SimplePressurePlateModel.blocks.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
+            SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(set.planks(), set.button()));
+            SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
             SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(set.planks(), set.trapdoor()));
             SimpleDoorModel.doors.add(new SimpleDoorModel.Door(set.planks(), set.door()));
             SimpleWoodStoolModel.stools.add(set.stool());
@@ -93,8 +110,13 @@ public class HelpingGenerator {
             SimpleWoodChairModel.chairs.add(set.chair());
 
             BlockDrops.blocks.add(set.log());
+            BlockDrops.blocks.add(set.strippedLog());
             BlockDrops.blocks.add(set.wood());
+            BlockDrops.blocks.add(set.strippedWood());
             BlockDrops.blocks.add(set.woodWall());
+            BlockDrops.blocks.add(set.strippedWoodWall());
+            BlockDrops.blocks.add(set.woodFence());
+            BlockDrops.blocks.add(set.strippedWoodFence());
             BlockDrops.blocks.add(set.planks());
             BlockDrops.blocks.add(set.planksSlab());
             BlockDrops.blocks.add(set.planksVerticalSlab());
@@ -110,8 +132,13 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.chair());
 
             MineableAxe.blocks.add(set.log());
+            MineableAxe.blocks.add(set.strippedLog());
             MineableAxe.blocks.add(set.wood());
+            MineableAxe.blocks.add(set.strippedWood());
             MineableAxe.blocks.add(set.woodWall());
+            MineableAxe.blocks.add(set.strippedWoodWall());
+            MineableAxe.blocks.add(set.woodFence());
+            MineableAxe.blocks.add(set.strippedWoodFence());
             MineableAxe.blocks.add(set.planks());
             MineableAxe.blocks.add(set.planksSlab());
             MineableAxe.blocks.add(set.planksVerticalSlab());
@@ -130,12 +157,20 @@ public class HelpingGenerator {
 
             Buttons.buttons.add(set.button());
             Fences.fences.add(set.planksFence());
+            Fences.fences.add(set.woodFence());
+            Fences.fences.add(set.strippedWoodFence());
             FenceGates.fenceGates.add(set.planksGate());
             Logs.logs.add(set.log());
+            Logs.logs.add(set.strippedLog());
             Logs.logs.add(set.wood());
+            Logs.logs.add(set.strippedWood());
             Logs.logs.add(set.woodWall());
+            Logs.logs.add(set.strippedWoodWall());
+            Logs.logs.add(set.woodFence());
+            Logs.logs.add(set.strippedWoodFence());
             PressurePlates.pressurePlates.add(set.pressurePlate());
             Walls.walls.add(set.woodWall());
+            Walls.walls.add(set.strippedWoodWall());
             Planks.planks.add(set.planks());
             Doors.doors.add(set.door());
             Trapdoors.trapdoors.add(set.trapdoor());
@@ -149,18 +184,20 @@ public class HelpingGenerator {
             }
 
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.stem(), set.stemWall()));
+            SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.stem(), set.stemFence()));
             SimpleBlockModel.blocks.add(set.planks());
             SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
             SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.planks(), set.planksSlab(), set.planksVerticalSlab()));
             SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.planks(), set.planksStairs()));
             SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.planks(), set.planksFence()));
             SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(set.planks(), set.planksGate()));
-            SimpleButtonModel.blocks.add(new SimpleButtonModel.Button(set.planks(), set.button()));
-            SimplePressurePlateModel.blocks.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
+            SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(set.planks(), set.button()));
+            SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
             SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(set.planks(), set.trapdoor()));
             SimpleDoorModel.doors.add(new SimpleDoorModel.Door(set.planks(), set.door()));
 
             BlockDrops.blocks.add(set.stemWall());
+            BlockDrops.blocks.add(set.stemFence());
             BlockDrops.blocks.add(set.planks());
             BlockDrops.blocks.add(set.planksSlab());
             BlockDrops.blocks.add(set.planksVerticalSlab());
@@ -176,6 +213,7 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.chair());
 
             MineableAxe.blocks.add(set.stemWall());
+            MineableAxe.blocks.add(set.stemFence());
             MineableAxe.blocks.add(set.planks());
             MineableAxe.blocks.add(set.planksSlab());
             MineableAxe.blocks.add(set.planksVerticalSlab());
@@ -192,6 +230,7 @@ public class HelpingGenerator {
 
             Buttons.buttons.add(set.button());
             Fences.fences.add(set.planksFence());
+            Fences.fences.add(set.stemFence());
             FenceGates.fenceGates.add(set.planksGate());
             Walls.walls.add(set.stemWall());
             PressurePlates.pressurePlates.add(set.pressurePlate());

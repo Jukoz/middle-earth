@@ -117,9 +117,9 @@ public class ModResourceItems {
 
     public static final Item RED_AGATE_SHARD = registerItem("red_agate_shard",
             new Item(new FabricItemSettings()));
-    public static final Item SAPPHIRE_SHARD = registerItem("sapphire_shard",
-            new Item(new FabricItemSettings()));
     public static final Item CITRINE_SHARD = registerItem("citrine_shard",
+            new Item(new FabricItemSettings()));
+    public static final Item QUARTZ_SHARD = registerItem("quartz_shard",
             new Item(new FabricItemSettings()));
 
     public static final Item ORC_BONE = registerItem("orc_bone",

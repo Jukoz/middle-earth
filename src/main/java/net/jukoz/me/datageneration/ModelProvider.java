@@ -53,6 +53,12 @@ public class ModelProvider extends FabricModelProvider {
             blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
         }
 
+        for (Block wood : SimpleBlockModel.woodBlocks) {
+            TextureMap textureMap = new TextureMap().put(TextureKey.ALL, new
+                    Identifier(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(wood).getPath().replaceAll("_wood", "_log")));
+            Identifier identifier = Models.CUBE_COLUMN.upload(wood, textureMap, blockStateModelGenerator.modelCollector);
+            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createAxisRotatedBlockState(wood, identifier));}
+
         for (SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledPolishedBlocks) {
             blockStateModelGenerator.registerSimpleCubeAll(block.base());
         }
@@ -127,8 +133,38 @@ public class ModelProvider extends FabricModelProvider {
                     .createWallBlockState(wall, post, low, tall));
         }
 
+        for (SimpleWallModel.Wall block : SimpleWallModel.strippedWalls) {
+            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
+            Block wall = block.wall();
+
+            Identifier inventory = Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+
+            blockStateModelGenerator.registerParentedItemModel(wall, inventory);
+
+            Identifier post = Models.TEMPLATE_WALL_POST.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier low = Models.TEMPLATE_WALL_SIDE.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier tall = Models.TEMPLATE_WALL_SIDE_TALL.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+
+            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
+                    .createWallBlockState(wall, post, low, tall));
+        }
+
         for (SimpleFenceModel.Fence block : SimpleFenceModel.blocks) {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
+            Block fence = block.fence();
+
+            Identifier post = Models.FENCE_POST.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier side = Models.FENCE_SIDE.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier inventory = Models.FENCE_INVENTORY.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+
+            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
+                    .createFenceBlockState(fence, post, side));
+
+            blockStateModelGenerator.registerParentedItemModel(fence, inventory);
+        }
+
+        for (SimpleFenceModel.Fence block : SimpleFenceModel.strippedFences) {
+            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
             Block fence = block.fence();
 
             Identifier post = Models.FENCE_POST.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -154,7 +190,7 @@ public class ModelProvider extends FabricModelProvider {
                     .createFenceGateBlockState(fenceGate, open, closed, openWall, closedWall, false));
         }
 
-        for (SimpleButtonModel.Button block : SimpleButtonModel.blocks) {
+        for (SimpleButtonModel.Button block : SimpleButtonModel.buttons) {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
             Block button = block.button();
 
@@ -168,7 +204,7 @@ public class ModelProvider extends FabricModelProvider {
             blockStateModelGenerator.registerParentedItemModel(button, inventory);
         }
 
-        for (SimplePressurePlateModel.PressurePlate block : SimplePressurePlateModel.blocks) {
+        for (SimplePressurePlateModel.PressurePlate block : SimplePressurePlateModel.pressurePlates) {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
             Block pressurePlate = block.pressurePlate();
 
@@ -373,10 +409,10 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCrop(ModNatureBlocks.ONION_CROP, OnionCropBlock.AGE, 0, 1, 2, 3);
         
         //CLUSTERS
-        blockStateModelGenerator.registerAmethyst(ModBlocks.SAPPHIRE_CLUSTER);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.SMALL_SAPPHIRE_BUD);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.MEDIUM_SAPPHIRE_BUD);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.LARGE_SAPPHIRE_BUD);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.GLOWSTONE_CLUSTER);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.SMALL_GLOWSTONE_BUD);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.MEDIUM_GLOWSTONE_BUD);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.LARGE_GLOWSTONE_BUD);
         blockStateModelGenerator.registerAmethyst(ModBlocks.RED_AGATE_CLUSTER);
         blockStateModelGenerator.registerAmethyst(ModBlocks.SMALL_RED_AGATE_BUD);
         blockStateModelGenerator.registerAmethyst(ModBlocks.MEDIUM_RED_AGATE_BUD);
@@ -385,6 +421,10 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerAmethyst(ModBlocks.SMALL_CITRINE_BUD);
         blockStateModelGenerator.registerAmethyst(ModBlocks.MEDIUM_CITRINE_BUD);
         blockStateModelGenerator.registerAmethyst(ModBlocks.LARGE_CITRINE_BUD);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.QUARTZ_CLUSTER);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.SMALL_QUARTZ_BUD);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.MEDIUM_QUARTZ_BUD);
+        blockStateModelGenerator.registerAmethyst(ModBlocks.LARGE_QUARTZ_BUD);
     }
 
     public final void registerFanModel(BlockStateModelGenerator blockStateCollector, Block coralFanBlock) {
@@ -536,10 +576,10 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.FUR_CLOAK_HOOD));
         
         // CLUSTERS
-        itemModelGenerator.register(ModBlocks.SAPPHIRE_CLUSTER.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.SMALL_SAPPHIRE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.MEDIUM_SAPPHIRE_BUD.asItem(), Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.LARGE_SAPPHIRE_BUD.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.QUARTZ_CLUSTER.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.SMALL_QUARTZ_BUD.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.MEDIUM_QUARTZ_BUD.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.LARGE_QUARTZ_BUD.asItem(), Models.GENERATED);
         itemModelGenerator.register(ModBlocks.RED_AGATE_CLUSTER.asItem(), Models.GENERATED);
         itemModelGenerator.register(ModBlocks.SMALL_RED_AGATE_BUD.asItem(), Models.GENERATED);
         itemModelGenerator.register(ModBlocks.MEDIUM_RED_AGATE_BUD.asItem(), Models.GENERATED);
@@ -548,5 +588,9 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModBlocks.SMALL_CITRINE_BUD.asItem(), Models.GENERATED);
         itemModelGenerator.register(ModBlocks.MEDIUM_CITRINE_BUD.asItem(), Models.GENERATED);
         itemModelGenerator.register(ModBlocks.LARGE_CITRINE_BUD.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.GLOWSTONE_CLUSTER.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.SMALL_GLOWSTONE_BUD.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.MEDIUM_GLOWSTONE_BUD.asItem(), Models.GENERATED);
+        itemModelGenerator.register(ModBlocks.LARGE_GLOWSTONE_BUD.asItem(), Models.GENERATED);
     }
 }

@@ -66,8 +66,8 @@ public class SimpleItemModel {
             add(ModResourceItems.SILVER_COIN);
 
             add(ModResourceItems.RED_AGATE_SHARD);
-            add(ModResourceItems.SAPPHIRE_SHARD);
             add(ModResourceItems.CITRINE_SHARD);
+            add(ModResourceItems.QUARTZ_SHARD);
 
             add(ModResourceItems.ORC_BONE);
             add(ModResourceItems.WARG_BONE);
