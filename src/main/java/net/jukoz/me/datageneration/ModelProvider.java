@@ -537,8 +537,6 @@ public class ModelProvider extends FabricModelProvider {
         registerDyeableArmor(((ArmorItem) ModEquipmentItems.CLOAK), itemModelGenerator);
         registerDyeableArmor(((ArmorItem) ModEquipmentItems.CLOAK_HOOD), itemModelGenerator);
         registerDyeableArmor(((ArmorItem) ModEquipmentItems.TUNIC_CLOAK), itemModelGenerator);
-        registerDyeableArmor(((ArmorItem) ModEquipmentItems.FUR_CLOAK), itemModelGenerator);
-        registerDyeableArmor(((ArmorItem) ModEquipmentItems.FUR_CLOAK_HOOD), itemModelGenerator);
         registerDyeableArmor(((ArmorItem) ModEquipmentItems.GAMBESON), itemModelGenerator);
 
         // CLUSTERS

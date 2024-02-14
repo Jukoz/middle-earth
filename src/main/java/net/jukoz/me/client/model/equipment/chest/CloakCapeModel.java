@@ -13,6 +13,7 @@ public class CloakCapeModel<T extends LivingEntity> extends BipedEntityModel<T> 
     private static final float MAX_ANGLE_CLOAK = 80f;
     private static final float SPEED_MULTIPLIER_CLOAK = 1.8f;
     private final ModelPart cape;
+    private final ModelPart cape_low;
     private final ModelPart cape_shoulder;
     private final ModelPart right_arm_shoulder_cape;
     private final ModelPart left_arm_shoulder_cape;
@@ -20,6 +21,7 @@ public class CloakCapeModel<T extends LivingEntity> extends BipedEntityModel<T> 
     public CloakCapeModel(ModelPart root) {
         super(root);
         this.cape = root.getChild("body").getChild("cape");
+        this.cape_low = root.getChild("body").getChild("cape").getChild("cape_low");
         this.cape_shoulder = root.getChild("body").getChild("cape_shoulder");
         this.right_arm_shoulder_cape = root.getChild("right_arm").getChild("right_arm_shoulder_cape");
         this.left_arm_shoulder_cape = root.getChild("left_arm").getChild("left_arm_shoulder_cape");
@@ -33,24 +35,28 @@ public class CloakCapeModel<T extends LivingEntity> extends BipedEntityModel<T> 
         modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData body = modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        body.addChild("cape", ModelPartBuilder.create()
-                .uv(0, 26).mirrored().cuboid(-6.0F, 0.0F, 3.0F, 12.0F, 22.0F, 0.0F, new Dilation(0.0F)).mirrored(false),
+        ModelPartData cape =  body.addChild("cape", ModelPartBuilder.create()
+                        .uv(0, 22).mirrored().cuboid(-9.0F, 0.0F, 3.0F, 18.0F, 13.0F, 0.0F, new Dilation(0.0F)).mirrored(false),
                 ModelTransform.of(0, 0.5f, 0, 0.0F, 0.0F, 0F));
+        cape.addChild("cape_low", ModelPartBuilder.create()
+                .uv(0, 35).mirrored().cuboid(-9.0F, 1.0F, -2.0F, 18.0F, 13.0F, 0.0F, new Dilation(0.0F)).mirrored(false),
+                ModelTransform.of(0.0F, 12F, 5.0F, 0.0F, 0.0F, 0.0F));
         body.addChild("cape_shoulder", ModelPartBuilder.create()
-                .uv(0, 0).cuboid(-4.0F, -24.0F, -2.0F, 8.0F, 12.0F, 4.0F, new Dilation(1.1F)),
+                        .uv(0, 0).cuboid(-4.0F, -24.0F, -2.0F, 8.0F, 12.0F, 4.0F, new Dilation(0.0F)),
                 ModelTransform.pivot(0.0F, 24.0F, 0.0F));
 
         ModelPartData right_arm = modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(),
                 ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         right_arm.addChild("right_arm_shoulder_cape", ModelPartBuilder.create()
-                .uv(24, 0).cuboid(-3.5F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(1.1F)),
+                        .uv(24, 0).cuboid(-3.5F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(1.1F)),
                 ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData left_arm = modelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create(),
                 ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         left_arm.addChild("left_arm_shoulder_cape", ModelPartBuilder.create()
-                .uv(24, 0).mirrored().cuboid(-0.5F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(1.1F)).mirrored(false),
+                        .uv(24, 0).mirrored().cuboid(-0.5F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(1.1F)).mirrored(false),
                 ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+
 
         modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

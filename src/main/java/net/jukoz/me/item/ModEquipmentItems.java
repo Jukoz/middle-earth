@@ -34,14 +34,10 @@ public class ModEquipmentItems {
     public static final Item CHAINMAIL_FUR_CLOAK = registerGeneratedItem("chainmail_fur_cloak",
             new CustomChestplateItem(ModArmorMaterials.CHAINMAIL_FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), true, false));
 
-    public static final Item NAZGUL_CLOAK_HOOD = registerGeneratedItem("nazgul_cloak_hood",
-            new CustomHelmetItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings(),true));
-    public static final Item NAZGUL_CLOAK = registerGeneratedItem("nazgul_cloak",
-            new CustomChestplateItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),true, false));
-    public static final Item NAZGUL_PANTS = registerGeneratedItem("nazgul_pants",
-            new CustomLeggingsItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
-    public static final Item NAZGUL_BOOTS = registerGeneratedItem("nazgul_boots",
-            new CustomBootsItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+    public static final Item RUSTY_KETTLE_HELMET = registerGeneratedItem("rusty_kettle_helmet",
+            new CustomHelmetItem(ModArmorMaterials.RUSTY_KETTLE_HELMET, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item KETTLE_HELMET = registerGeneratedItem("kettle_helmet",
+            new CustomHelmetItem(ModArmorMaterials.KETTLE_HELMET, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
 
     public static final Item HOBBIT_SHIRRIF_HAT_GREEN = registerGeneratedItem("hobbit_shirrif_hat_green",
             new CustomHelmetItem(ModArmorMaterials.HOBBIT_SHIRRIF_HAT, ArmorItem.Type.HELMET, new FabricItemSettings(), false));
@@ -65,7 +61,6 @@ public class ModEquipmentItems {
             new CustomLeggingsItem(ModArmorMaterials.GONDORIAN_REINFORCED_MAIL_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
     public static final Item GONDORIAN_REINFORCED_MAIL_BOOTS = registerGeneratedItem("gondorian_reinforced_mail_boots",
             new CustomBootsItem(ModArmorMaterials.GONDORIAN_REINFORCED_MAIL_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
-
 
     public static final Item GONDORIAN_PLATE_HELMET = registerGeneratedItem("gondorian_plate_helmet",
             new CustomHelmetItem(ModArmorMaterials.GONDORIAN_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
@@ -196,10 +191,9 @@ public class ModEquipmentItems {
     public static final Item LORIEN_SHIELD = registerItem("lorien_shield",
             new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
 
+
     public static final Item MORDOR_ORC_MAIL_HELMET = registerGeneratedItem("mordor_orc_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.MORDOR_ORC_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
-    public static final Item MORDOR_ORC_KETTLE_HELMET = registerGeneratedItem("mordor_orc_kettle_helmet",
-            new CustomHelmetItem(ModArmorMaterials.MORDOR_ORC_KETTLE_HELMET, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
     public static final Item MORDOR_ORC_MAIL_CHESTPLATE = registerGeneratedItem("mordor_orc_mail_chestplate",
             new CustomChestplateItem(ModArmorMaterials.MORDOR_ORC_MAIL_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false, false));
     public static final Item MORDOR_ORC_MAIL_LEGGINGS = registerGeneratedItem("mordor_orc_mail_leggings",
@@ -227,6 +221,15 @@ public class ModEquipmentItems {
 
     public static final Item MORDOR_SHIELD = registerItem("mordor_shield",
             new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
+
+    public static final Item NAZGUL_CLOAK_HOOD = registerGeneratedItem("nazgul_cloak_hood",
+            new CustomHelmetItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings(),true));
+    public static final Item NAZGUL_CLOAK = registerGeneratedItem("nazgul_cloak",
+            new CustomChestplateItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),true, false));
+    public static final Item NAZGUL_PANTS = registerGeneratedItem("nazgul_pants",
+            new CustomLeggingsItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item NAZGUL_BOOTS = registerGeneratedItem("nazgul_boots",
+            new CustomBootsItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item MISTY_ORC_MAIL_HELMET = registerGeneratedItem("misty_orc_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.MISTY_ORC_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));

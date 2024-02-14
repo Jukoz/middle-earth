@@ -6,15 +6,15 @@ import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
-public class MordorOrcKettleHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
+public class KettleHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
 
     public final ModelPart kettle_hat;
 
-    public MordorOrcKettleHelmetArmorModel(ModelPart root) {
+    public KettleHelmetArmorModel(ModelPart root, String name) {
         super(root);
         kettle_hat = root.getChild("head").getChild("kettle_hat");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/mordor_orc_kettle_helmet_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + name + "_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {

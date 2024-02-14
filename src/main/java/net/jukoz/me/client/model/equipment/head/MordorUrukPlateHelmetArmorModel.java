@@ -26,9 +26,8 @@ public class MordorUrukPlateHelmetArmorModel<T extends LivingEntity> extends Cus
 
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         ModelPartData skull_parts = head.addChild("skull_parts", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        skull_parts.addChild("skull", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -41.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(-0.8F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
-        skull_parts.addChild("skull_right_support", ModelPartBuilder.create().uv(28, 24).cuboid(3.3F, -38.2698F, -0.8F, 0.0F, 6.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
-        skull_parts.addChild("skull_left_support", ModelPartBuilder.create().uv(28, 24).mirrored().cuboid(-3.4F, -38.4698F, -1.0F, 0.0F, 6.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+        skull_parts.addChild("skull", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -41.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(-0.8F))
+                .uv(0, 16).mirrored().cuboid(-4.0F, -40.3F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(-0.6F)).mirrored(false), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

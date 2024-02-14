@@ -25,6 +25,12 @@ public enum ModArmors {
     CHAINMAIL_FUR_CLOAK("chainmail_fur_cloak", null, null,
             false, true, true, true, false, ModEquipmentItems.CHAINMAIL_FUR_CLOAK),
 
+    RUSTY_KETTLE_HELMET("rusty_kettle_helmet", new KettleHelmetArmorModel<>(KettleHelmetArmorModel.getTexturedModelData().createModel(), "rusty_kettle_helmet"), null,
+            false, true, false, false, false, ModEquipmentItems.RUSTY_KETTLE_HELMET),
+
+    KETTLE_HELMET("kettle_helmet", new KettleHelmetArmorModel<>(KettleHelmetArmorModel.getTexturedModelData().createModel(), "kettle_helmet"), null,
+            false, true, false, false, false, ModEquipmentItems.KETTLE_HELMET),
+
     NAZGUL_CLOAK("nazgul_cloak", null, null,
             false, true, true, false, false, ModEquipmentItems.NAZGUL_CLOAK_HOOD, ModEquipmentItems.NAZGUL_CLOAK, ModEquipmentItems.NAZGUL_PANTS, ModEquipmentItems.NAZGUL_BOOTS),
 
@@ -80,9 +86,6 @@ public enum ModArmors {
     
     MORDOR_ORC_MAIL_ARMOR("mordor_orc_mail", null, null,
             true, true, false, false, false, ModEquipmentItems.MORDOR_ORC_MAIL_HELMET, ModEquipmentItems.MORDOR_ORC_MAIL_CHESTPLATE, ModEquipmentItems.MORDOR_ORC_MAIL_LEGGINGS, ModEquipmentItems.MORDOR_ORC_MAIL_BOOTS),
-
-    MORDOR_ORC_KETTLE_HELMET("mordor_orc_kettle_helmet", new MordorOrcKettleHelmetArmorModel<>(MordorOrcKettleHelmetArmorModel.getTexturedModelData().createModel()), null,
-            false, true, false, false, false, ModEquipmentItems.MORDOR_ORC_KETTLE_HELMET),
 
     MORDOR_URUK_SCALE_ARMOR("mordor_uruk_scale", null, null,
             true, true, false, false, false, ModEquipmentItems.MORDOR_URUK_SCALE_HELMET, ModEquipmentItems.MORDOR_URUK_SCALE_CHESTPLATE, ModEquipmentItems.MORDOR_URUK_SCALE_LEGGINGS, ModEquipmentItems.MORDOR_URUK_SCALE_BOOTS),
