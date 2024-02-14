@@ -61,7 +61,6 @@ public class ModEntities {
     public static final EntityType<SnowTrollEntity> SNOW_TROLL = registerEntity("snow_troll", SnowTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
     public static final EntityType<HillTrollEntity> HILL_TROLL = registerEntity("hill_troll", HillTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
 
-
     ///* Weapons *///
     public static final EntityType<PebbleEntity> PEBBLE = registerEntity("pebble", PebbleEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
     public static final EntityType<BoulderEntity> BOULDER = registerEntity("boulder", BoulderEntity::new, SpawnGroup.MISC, 1f, 1f);

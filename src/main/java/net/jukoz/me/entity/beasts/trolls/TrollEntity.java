@@ -30,10 +30,11 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldEvents;
 
-// TODO Fix laws of gravity
 // TODO Have slowly accelerate for charge
 // TODO Update Model and Animations
+// TODO Turn to stone
 public class TrollEntity extends BeastEntity {
     private int throwCooldown = 100;
     public final AnimationState throwingAnimationState = new AnimationState();

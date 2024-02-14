@@ -11,7 +11,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class HillTrollRenderer extends MobEntityRenderer<HillTrollEntity, HillTrollModel> {
-    private static final String PATH = "textures/entities/trolls/hill/";
+    private static final String PATH = "textures/entities/trolls/";
 
     public HillTrollRenderer(EntityRendererFactory.Context context) {
         super(context, new HillTrollModel(context.getPart(ModEntityModelLayers.HILL_TROLL)), 1.1f);
@@ -19,7 +19,8 @@ public class HillTrollRenderer extends MobEntityRenderer<HillTrollEntity, HillTr
 
     @Override
     public Identifier getTexture(HillTrollEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, PATH + "troll1.png");
+        return entity.isStoned() ?
+                new Identifier(MiddleEarth.MOD_ID, PATH + "statue/hill_troll_statue.png") : new Identifier(MiddleEarth.MOD_ID, PATH + "hill/troll1.png");
     }
 
     public void render(HillTrollEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
@@ -27,5 +28,12 @@ public class HillTrollRenderer extends MobEntityRenderer<HillTrollEntity, HillTr
 
         poseStack.scale(1, 1, 1);
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+    }
+
+    @Override
+    protected void setupTransforms(HillTrollEntity entity, MatrixStack matrices, float animationProgress, float bodyYaw, float tickDelta) {
+        if(!entity.isStoned()) {
+            super.setupTransforms(entity, matrices, animationProgress, bodyYaw, tickDelta);
+        }
     }
 }
