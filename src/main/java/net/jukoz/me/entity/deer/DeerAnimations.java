@@ -33,7 +33,7 @@ public class DeerAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("BackLegsRight",
+            .addBoneAnimation("right_back_leg",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-27.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -51,7 +51,7 @@ public class DeerAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("FrontLegsLeft",
+            .addBoneAnimation("left_front_leg",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-27.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -67,7 +67,7 @@ public class DeerAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("BackLegsLeft",
+            .addBoneAnimation("left_back_leg",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(27.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -215,7 +215,7 @@ public class DeerAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.25f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("Chest",
+            .addBoneAnimation("chest",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -227,7 +227,7 @@ public class DeerAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(2.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("Head",
+            .addBoneAnimation("head",
                     new Transformation(Transformation.Targets.TRANSLATE,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -239,7 +239,7 @@ public class DeerAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createTranslationalVector(0f, -8f, 1f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("Head",
+            .addBoneAnimation("head",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),

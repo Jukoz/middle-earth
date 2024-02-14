@@ -1,9 +1,7 @@
 package net.jukoz.me.entity.deer;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.EntityType;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -14,12 +12,16 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
 
 public class DeerEntity extends AnimalEntity {
 
@@ -33,10 +35,10 @@ public class DeerEntity extends AnimalEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new EscapeDangerGoal(this, 1.5f));
-        this.goalSelector.add(2, new FleeEntityGoal<PlayerEntity>(this, PlayerEntity.class, 8.0f, 1.5, 1.7));
-        this.goalSelector.add(2, new FleeEntityGoal<WolfEntity>(this, WolfEntity.class, 10.0f, 1.5, 1.7));
-        this.goalSelector.add(2, new FleeEntityGoal<HostileEntity>(this, HostileEntity.class, 4.0f, 1.5, 1.7));
+        this.goalSelector.add(1, new EscapeDangerGoal(this, 1.2f));
+        this.goalSelector.add(2, new FleeEntityGoal<PlayerEntity>(this, PlayerEntity.class, 8.0f, 1.3, 1.5));
+        this.goalSelector.add(2, new FleeEntityGoal<WolfEntity>(this, WolfEntity.class, 10.0f, 1.3, 1.5));
+        this.goalSelector.add(2, new FleeEntityGoal<HostileEntity>(this, HostileEntity.class, 4.0f, 1.3, 1.5));
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(5, new LookAroundGoal(this));
@@ -69,6 +71,11 @@ public class DeerEntity extends AnimalEntity {
         if(this.getWorld().isClient()) {
             setupAnimationStates();
         }
+    }
+
+    @Override
+    public double getMountedHeightOffset() {
+        return (double)this.getHeight() * 0.6;
     }
 
     @Nullable
