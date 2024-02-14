@@ -18,7 +18,7 @@ public class MordorUrukRenderer extends BipedEntityRenderer<MordorUrukEntity, Mo
     private static final String PATH = "textures/entities/uruks/mordor/";
 
     public MordorUrukRenderer(EntityRendererFactory.Context ctx) {
-        super(ctx, new MordorUrukModel<>(ctx.getPart(ModEntityModelLayers.ORC)), 0.5f);
+        super(ctx, new MordorUrukModel<>(ctx.getPart(ModEntityModelLayers.URUK)), 0.5f);
         this.addFeature(new ArmorFeatureRenderer<>(this, new MordorUrukModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)),
                 new MordorUrukModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), ctx.getModelManager()));
     }

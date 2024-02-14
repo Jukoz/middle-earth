@@ -75,11 +75,11 @@ public class MordorUrukEntity extends HostileEntity {
 
         randomVal = random.nextFloat();
         if(randomVal < 0.75f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_ORC_MAIL_HELMET));
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MORDOR_URUK_SCALE_HELMET));
         }
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_ORC_MAIL_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_ORC_MAIL_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_ORC_MAIL_BOOTS));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MORDOR_URUK_SCALE_CHESTPLATE));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MORDOR_URUK_SCALE_LEGGINGS));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MORDOR_URUK_SCALE_BOOTS));
     }
 
     public MordorUrukVariant getVariant() {

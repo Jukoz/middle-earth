@@ -70,18 +70,18 @@ public class GondorHumanEntity extends HostileEntity {
         float randomVal = random.nextFloat();
         if(randomVal < 0.67f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_SWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.GONDORIAN_SHIELD));
         } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_LONGSWORD));
         }
 
         randomVal = random.nextFloat();
         if(randomVal < 0.75f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_ORC_MAIL_HELMET));
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.GONDORIAN_REINFORCED_MAIL_HELMET));
         }
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_ORC_MAIL_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_ORC_MAIL_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_ORC_MAIL_BOOTS));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GONDORIAN_REINFORCED_MAIL_CHESTPLATE));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.GONDORIAN_REINFORCED_MAIL_LEGGINGS));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.GONDORIAN_REINFORCED_MAIL_BOOTS));
     }
 
     public GondorHumanVariant getVariant() {
