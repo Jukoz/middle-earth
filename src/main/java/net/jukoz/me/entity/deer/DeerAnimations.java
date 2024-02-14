@@ -67,7 +67,7 @@ public class DeerAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("left_back_leg",
+            .addBoneAnimation("leg_back_left",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(27.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
