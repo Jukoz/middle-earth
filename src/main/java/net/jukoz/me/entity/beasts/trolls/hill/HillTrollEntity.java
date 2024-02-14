@@ -1,14 +1,22 @@
 package net.jukoz.me.entity.beasts.trolls.hill;
 
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
+import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class HillTrollEntity extends TrollEntity {
     public static final TrackedData<Boolean> STONED = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -61,6 +69,24 @@ public class HillTrollEntity extends TrollEntity {
     public void turnToStone() {
         this.setAiDisabled(true);
         this.setStoned(true);
+    }
 
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putBoolean("Petrified", this.isStoned());
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        this.dataTracker.set(STONED, nbt.getBoolean("Petrified"));
+    }
+
+    @Override
+    public void onDamaged(DamageSource damageSource) {
+        if(!this.isStoned()) {
+            super.onDamaged(damageSource);
+        }
     }
 }
