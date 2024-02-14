@@ -153,23 +153,23 @@ public class ModNatureBlocks {
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
 
     public static final Block BROWN_BOLETE_TILLER = registerBlock("brown_bolete_tiller",
-            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), true);
+            new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block CAVE_AMANITA_TILLER = registerBlock("cave_amanita_tiller",
-            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), true);
+            new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block DEEP_FIRECAP_TILLER = registerBlock("deep_firecap_tiller",
-            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), true);
+            new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block GHOSTSHROOM_TILLER = registerBlock("ghostshroom_tiller",
-            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), true);
+            new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block MORSEL_TILLER = registerBlock("morsel_tiller",
-            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), true);
+            new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block SKY_FIRECAP_TILLER = registerBlock("sky_firecap_tiller",
-            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), true);
+            new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block VIOLET_CAPS_TILLER = registerBlock("violet_caps_tiller",
-            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), true);
+            new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block WHITE_MUSHROOM_TILLER = registerBlock("white_mushroom_tiller",
-            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), true);
+            new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block YELLOW_AMANITA_TILLER = registerBlock("yellow_amanita_tiller",
-            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), true);
+            new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
 
     public static final Block BROWN_BOLETE_BLOCK = registerBlock("brown_bolete_block",
             new MushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM_BLOCK)), true);

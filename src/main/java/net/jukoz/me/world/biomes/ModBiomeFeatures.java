@@ -136,6 +136,9 @@ public class ModBiomeFeatures {
     // endregion
 
     // region FOLIAGE
+    public static void addForestMoss(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_FOREST_MOSS);
+    }
     public static void addHeather(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_HEATHER);
     }
@@ -165,6 +168,21 @@ public class ModBiomeFeatures {
     }
     public static void addWheatGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_WHEAT_GRASS);
+    }
+    // endregion
+
+    // region MUSHROOMS
+    public static void addBrownBolete(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_BROWN_BOLETE);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_BROWN_BOLETE_TILLER);
+    }
+    public static void addMorsel(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_MORSEL);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_MORSEL_TILLER);
+    }
+    public static void addWhiteMushroom(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_WHITE_MUSHROOM);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_WHITE_MUSHROOM_TILLER);
     }
     // endregion
 
