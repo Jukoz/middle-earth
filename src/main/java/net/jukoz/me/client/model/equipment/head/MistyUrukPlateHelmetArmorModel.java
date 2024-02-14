@@ -7,7 +7,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
 public class MistyUrukPlateHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
-    private static final float MAX_ANGLE_HAIR = 75f;
 
     public final ModelPart wing_right;
     public final ModelPart wing_left;

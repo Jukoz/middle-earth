@@ -16,11 +16,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
 import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ArmorMaterials;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 public class ModelProvider extends FabricModelProvider {
@@ -532,11 +534,10 @@ public class ModelProvider extends FabricModelProvider {
         }
         
         // Dyeables needs to be done manually (because of layers)
-        itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.CLOAK));
-        itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.CLOAK_HOOD));
-        itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.TUNIC_CLOAK));
-        itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.FUR_CLOAK));
-        itemModelGenerator.registerArmor(((ArmorItem) ModEquipmentItems.FUR_CLOAK_HOOD));
+        registerDyeableArmor(((ArmorItem) ModEquipmentItems.CLOAK), itemModelGenerator);
+        registerDyeableArmor(((ArmorItem) ModEquipmentItems.CLOAK_HOOD), itemModelGenerator);
+        registerDyeableArmor(((ArmorItem) ModEquipmentItems.TUNIC_CLOAK), itemModelGenerator);
+        registerDyeableArmor(((ArmorItem) ModEquipmentItems.GAMBESON), itemModelGenerator);
 
         // CLUSTERS
         itemModelGenerator.register(ModBlocks.SAPPHIRE_CLUSTER.asItem(), Models.GENERATED);
@@ -551,5 +552,15 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModBlocks.SMALL_CITRINE_BUD.asItem(), Models.GENERATED);
         itemModelGenerator.register(ModBlocks.MEDIUM_CITRINE_BUD.asItem(), Models.GENERATED);
         itemModelGenerator.register(ModBlocks.LARGE_CITRINE_BUD.asItem(), Models.GENERATED);
+    }
+
+    public final void registerDyeableArmor(ArmorItem armor, ItemModelGenerator itemModelGenerator) {
+        Identifier identifier = ModelIds.getItemModelId(armor);
+        Identifier identifier2 = TextureMap.getId(armor);
+        Identifier identifier3 = TextureMap.getSubId(armor, "_overlay");
+        Models.GENERATED_TWO_LAYERS.upload(identifier, TextureMap.layered(identifier2, identifier3), itemModelGenerator.writer, (id, textures) -> {
+                    return itemModelGenerator.createArmorJson(id, textures, armor.getMaterial());
+                }
+        );
     }
 }
