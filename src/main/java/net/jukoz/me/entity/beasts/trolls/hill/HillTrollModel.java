@@ -83,6 +83,11 @@ public class HillTrollModel extends SinglePartEntityModel<HillTrollEntity> {
     public void setAngles(HillTrollEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
         this.setHeadAngles(headYaw, headPitch);
+
+        this.animateMovement(HillTrollAnimations.WALK, limbAngle, limbDistance, 2f, 2.5f);
+        this.updateAnimation(entity.attackAnimationState, HillTrollAnimations.ATTACK, animationProgress, 1.3f);
+        this.updateAnimation(entity.chargeAnimationState, HillTrollAnimations.CHARGE, animationProgress, 1f);
+        this.updateAnimation(entity.throwingAnimationState, HillTrollAnimations.THROW, animationProgress, 1f);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {
