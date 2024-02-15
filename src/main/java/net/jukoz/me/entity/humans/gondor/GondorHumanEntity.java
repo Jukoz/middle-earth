@@ -1,8 +1,13 @@
 package net.jukoz.me.entity.humans.gondor;
 
+import net.jukoz.me.entity.barrow_wights.BarrowWightEntity;
+import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
+import net.jukoz.me.entity.nazguls.NazgulEntity;
+import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
+import net.jukoz.me.entity.uruks.mordor.MordorUrukEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
@@ -58,10 +63,11 @@ public class GondorHumanEntity extends HostileEntity {
         this.goalSelector.add(++i, new LookAroundGoal(this));
         i = 0;
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorUrukEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BarrowWightEntity.class, true));
     }
 
     @Override
