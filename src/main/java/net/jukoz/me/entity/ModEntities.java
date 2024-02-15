@@ -14,6 +14,7 @@ import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goose.GooseEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
+import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.pheasant.PheasantEntity;
@@ -25,6 +26,7 @@ import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.swan.SwanEntity;
 import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollEntity;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollEntity;
+import net.jukoz.me.entity.uruks.mordor.MordorUrukEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -38,8 +40,8 @@ public class ModEntities {
     // Barrow Wights
     public static final EntityType<BarrowWightEntity> BARROW_WIGHT = registerEntity("barrow_wight", BarrowWightEntity::new, SpawnGroup.CREATURE, 0.9f, 2.1f);
 
-    //Balrog
-    public static final EntityType<BalrogEntity> BALROG = registerEntity("balrog", BalrogEntity::new, SpawnGroup.MONSTER, 1.5f, 2.5f);
+    // Humans
+    public static final EntityType<GondorHumanEntity> GONDOR_MAN = registerEntity("gondor_man", GondorHumanEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
     // Dwarfs
     public static final EntityType<DurinDwarfEntity> DURIN_FOLK = registerEntity("durin_folk", DurinDwarfEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
@@ -55,6 +57,9 @@ public class ModEntities {
 
     // Orcs
     public static final EntityType<MordorOrcEntity> MORDOR_ORC = registerEntity("mordor_orc", MordorOrcEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+
+    // Uruks
+    public static final EntityType<MordorUrukEntity> MORDOR_URUK = registerEntity("mordor_uruk", MordorUrukEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
     // Spiders
     public static final EntityType<MirkwoodSpiderEntity> MIRKWOOD_SPIDER = registerEntity("mirkwood_spider", MirkwoodSpiderEntity::new, SpawnGroup.CREATURE, 1.15f, 0.9f);
@@ -89,6 +94,7 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(BARROW_WIGHT, BarrowWightEntity.setAttributes());
         //FabricDefaultAttributeRegistry.register(BALROG, BalrogEntity.createBalrogAttributes());
         FabricDefaultAttributeRegistry.register(CAVE_TROLL, CaveTrollEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(GONDOR_MAN, GondorHumanEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(HILL_TROLL, HillTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(DURIN_FOLK, DurinDwarfEntity.setAttributes());
@@ -96,6 +102,7 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(GALADHRIM_ELF, GaladhrimElfEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(NAZGUL, NazgulEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(MORDOR_ORC, MordorOrcEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(MORDOR_URUK, MordorUrukEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(MIRKWOOD_SPIDER, MirkwoodSpiderEntity.setAttributes());
         // Animals
         FabricDefaultAttributeRegistry.register(CRAB, CrabEntity.createCrabAttributes());
