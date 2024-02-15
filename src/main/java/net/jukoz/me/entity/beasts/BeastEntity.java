@@ -166,6 +166,10 @@ public class BeastEntity extends AbstractDonkeyEntity {
     }
 
     // Getters and Setters =============================================================================================
+
+    public boolean canCharge() {
+        return true;
+    }
     @Override
     protected float getJumpVelocity() {
         return 0.5f * this.getJumpVelocityMultiplier() + this.getJumpBoostVelocityModifier();
@@ -438,15 +442,15 @@ public class BeastEntity extends AbstractDonkeyEntity {
                         this.getTarget().getBlockPos().getZ() - this.getBlockPos().getZ());
             }
             this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
-            this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d));
+            this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d).add(0, this.getVelocity().y, 0));
 
         }
         else if (this.getWorld().isClient) {
-            this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d));
+            this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d).add(0, this.getVelocity().y, 0));
         }
 
         for(Entity entity : entities) {
-            if(entity.getUuid() != this.getOwnerUuid() && entity != this) {
+            if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity)) {
                 entity.damage(entity.getDamageSources().mobAttack(this), 16.0f);
             }
         }
