@@ -261,9 +261,6 @@ public class ModEquipmentItems {
     public static final Item MISTY_MOUNTAINS_SHIELD = registerItem("misty_mountains_shield",
             new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
 
-    public static final Item BEAST_CHAINS = registerGeneratedItem("beast_chains",
-            new SaddleItem(new FabricItemSettings().maxCount(1)));
-
     public static final Item STEEL_TROLL_ARMOR = registerGeneratedItem("steel_troll_armor",
             new TrollArmorItem(10, "steel", new FabricItemSettings().maxCount(1)));
 

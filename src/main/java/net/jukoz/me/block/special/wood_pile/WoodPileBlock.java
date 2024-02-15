@@ -66,10 +66,14 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
         if (world.isClient) {
             return ActionResult.SUCCESS;
         } else {
-            if (addStackRightClick(world, pos, player, hand)){
-                NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-                if(screenHandlerFactory != null) {
-                    player.openHandledScreen(screenHandlerFactory);
+            if(player.isCreative()){
+                world.setBlockState(pos, state.cycle(STAGE));
+            } else {
+                if (addStackRightClick(world, pos, player, hand)) {
+                    NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+                    if (screenHandlerFactory != null) {
+                        player.openHandledScreen(screenHandlerFactory);
+                    }
                 }
             }
         }

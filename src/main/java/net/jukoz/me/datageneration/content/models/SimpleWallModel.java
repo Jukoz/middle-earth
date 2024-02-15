@@ -14,4 +14,9 @@ public class SimpleWallModel {
             add(new Wall(ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_WALL));
         }
     };
+
+    public static List<Wall> strippedWalls = new ArrayList<>() {
+        {
+        }
+    };
 }

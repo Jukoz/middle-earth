@@ -314,12 +314,12 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineableShovel.add(ModBlocks.ROOTED_DIRT_SLAB);
         
-        mineablePickaxe.add(ModBlocks.SAPPHIRE_BLOCK);
-        mineablePickaxe.add(ModBlocks.BUDDING_SAPPHIRE);
-        mineablePickaxe.add(ModBlocks.SMALL_SAPPHIRE_BUD);
-        mineablePickaxe.add(ModBlocks.MEDIUM_SAPPHIRE_BUD);
-        mineablePickaxe.add(ModBlocks.LARGE_SAPPHIRE_BUD);
-        mineablePickaxe.add(ModBlocks.SAPPHIRE_CLUSTER);
+        mineablePickaxe.add(ModBlocks.QUARTZ_BLOCK);
+        mineablePickaxe.add(ModBlocks.BUDDING_QUARTZ);
+        mineablePickaxe.add(ModBlocks.SMALL_QUARTZ_BUD);
+        mineablePickaxe.add(ModBlocks.MEDIUM_QUARTZ_BUD);
+        mineablePickaxe.add(ModBlocks.LARGE_QUARTZ_BUD);
+        mineablePickaxe.add(ModBlocks.QUARTZ_CLUSTER);
         mineablePickaxe.add(ModBlocks.CITRINE_BLOCK);
         mineablePickaxe.add(ModBlocks.BUDDING_CITRINE);
         mineablePickaxe.add(ModBlocks.SMALL_CITRINE_BUD);
@@ -332,5 +332,11 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.MEDIUM_RED_AGATE_BUD);
         mineablePickaxe.add(ModBlocks.LARGE_RED_AGATE_BUD);
         mineablePickaxe.add(ModBlocks.RED_AGATE_CLUSTER);
+        mineablePickaxe.add(ModBlocks.GLOWSTONE_BLOCK);
+        mineablePickaxe.add(ModBlocks.BUDDING_GLOWSTONE);
+        mineablePickaxe.add(ModBlocks.SMALL_GLOWSTONE_BUD);
+        mineablePickaxe.add(ModBlocks.MEDIUM_GLOWSTONE_BUD);
+        mineablePickaxe.add(ModBlocks.LARGE_GLOWSTONE_BUD);
+        mineablePickaxe.add(ModBlocks.GLOWSTONE_CLUSTER);
     }
 }

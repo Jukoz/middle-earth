@@ -132,7 +132,7 @@ public class ModNatureBlocks {
     public static final Block DEEP_FIRECAP = registerBlock("deep_firecap",
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
     public static final Block GHOSTSHROOM = registerBlock("ghostshroom",
-            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM).luminance(4), null), true);
     public static final Block MORSEL = registerBlock("morsel",
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
     public static final Block SKY_FIRECAP = registerBlock("sky_firecap",
@@ -142,9 +142,9 @@ public class ModNatureBlocks {
     public static final Block TALL_TRUMPET_SHROOM = registerBlock("tall_trumpet_shroom",
             new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block TUBESHRROM = registerBlock("tubeshroom",
-            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM).luminance(4), null), true);
     public static final Block TALL_TUBESHROOM = registerBlock("tall_tubeshroom",
-            new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
+            new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM).luminance(5)), true);
     public static final Block VIOLET_CAPS = registerBlock("violet_caps",
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
     public static final Block WHITE_MUSHROOM = registerBlock("white_mushroom",
@@ -159,7 +159,7 @@ public class ModNatureBlocks {
     public static final Block DEEP_FIRECAP_TILLER = registerBlock("deep_firecap_tiller",
             new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), true);
     public static final Block GHOSTSHROOM_TILLER = registerBlock("ghostshroom_tiller",
-            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), true);
+            new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS).luminance(3)), true);
     public static final Block MORSEL_TILLER = registerBlock("morsel_tiller",
             new FlowerbedBlock(FabricBlockSettings.copyOf(Blocks.PINK_PETALS)), true);
     public static final Block SKY_FIRECAP_TILLER = registerBlock("sky_firecap_tiller",
@@ -290,13 +290,12 @@ public class ModNatureBlocks {
         return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);
     }
 
-    static Item registerBlockItem(String name, Block block) {
+    static void registerBlockItem(String name, Block block) {
         var item =  Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name),
                 new BlockItem(block, new FabricItemSettings()));
-
         Item.BLOCK_ITEMS.put(block, item);
+
         ModItemGroups.NATURE_BLOCKS_CONTENTS.add(item.getDefaultStack());
-        return item;
     }
 
     public static void registerModBlocks() {
