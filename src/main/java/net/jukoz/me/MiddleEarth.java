@@ -23,6 +23,20 @@ public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "me";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
+	//TODO Vanilla wood walls and fences and slabs and stairs
+	//TODO Second vertical slab model for sandstone, pillars, etc
+	//TODO Packed Mud stairs and slabs
+	//TODO Hobbit Window
+	//TODO Wood Chair Tweak UVS ?
+	//TODO Buds Loot Tables
+	//TODO Switch wood furniture from logs to stripped
+	//TODO Wood Stairs and slabs
+	//TODO Wheatgrass grayscale
+	//TODO Pedestal Block
+	//TODO Stone Lectern
+	//TODO Tall Shrooms Placement like plant rn no good
+	//TODO Lang
+
 	// 1 : 6000 (24,000)
 	// 2 : 12 000 (48,000)
 	// 3 : 24 000 (96,000)

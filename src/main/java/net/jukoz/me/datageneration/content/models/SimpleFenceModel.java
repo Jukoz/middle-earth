@@ -11,4 +11,9 @@ public class SimpleFenceModel {
         {
         }
     };
+
+    public static List<Fence> strippedFences = new ArrayList<>() {
+        {
+        }
+    };
 }
