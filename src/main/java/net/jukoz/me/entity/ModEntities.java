@@ -40,10 +40,7 @@ public class ModEntities {
     // Barrow Wights
     public static final EntityType<BarrowWightEntity> BARROW_WIGHT = registerEntity("barrow_wight", BarrowWightEntity::new, SpawnGroup.CREATURE, 0.9f, 2.1f);
 
-    //Balrog
-    public static final EntityType<BalrogEntity> BALROG = registerEntity("balrog", BalrogEntity::new, SpawnGroup.MONSTER, 1.5f, 2.5f);
-
-    //HUMANS
+    // Humans
     public static final EntityType<GondorHumanEntity> GONDOR_MAN = registerEntity("gondor_man", GondorHumanEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
     // Dwarfs
@@ -61,7 +58,7 @@ public class ModEntities {
     // Orcs
     public static final EntityType<MordorOrcEntity> MORDOR_ORC = registerEntity("mordor_orc", MordorOrcEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
-    //URUKS
+    // Uruks
     public static final EntityType<MordorUrukEntity> MORDOR_URUK = registerEntity("mordor_uruk", MordorUrukEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
     // Spiders
