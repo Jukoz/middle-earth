@@ -3,11 +3,14 @@ package net.jukoz.me;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.jukoz.me.block.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntityRenderer;
+import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
+import net.jukoz.me.client.model.equipment.InnerArmorModel;
+import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
+import net.jukoz.me.client.model.equipment.head.RohirricScaleHelmetArmorModel;
+import net.jukoz.me.client.renderer.ModArmorRenderer;
 import net.jukoz.me.datageneration.VariantsModelProvider;
 import net.jukoz.me.datageneration.content.models.SimpleDoubleBlockModel;
 import net.jukoz.me.datageneration.content.models.SimpleFlowerBedModel;
@@ -27,7 +30,6 @@ import net.jukoz.me.entity.hobbits.shire.ShireHobbitRenderer;
 import net.jukoz.me.entity.model.ModEntityModels;
 import net.jukoz.me.entity.nazguls.NazgulRenderer;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
-import net.jukoz.me.entity.pheasant.PheasantModel;
 import net.jukoz.me.entity.pheasant.PheasantRenderer;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntityRenderer;
 import net.jukoz.me.entity.projectile.spear.JavelinEntityRenderer;
@@ -41,6 +43,7 @@ import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.gui.wood_pile.WoodPileScreen;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.item.utils.ModArmors;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
 import net.jukoz.me.network.ModNetworks;
 import net.minecraft.block.Block;
@@ -51,11 +54,18 @@ import net.minecraft.client.color.world.GrassColors;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.DyeableItem;
 import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
 
 public class MiddleEarthClient implements ClientModInitializer {
+
+    public static final EntityModelLayer INNER_ARMOR_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "armor"), "layer_0");
+    public static final EntityModelLayer HELMET_ADDON_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "armor"), "helmet_addon");
+    public static final EntityModelLayer CAPE_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "armor"), "cape");
+    public static final EntityModelLayer HOOD_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "armor"), "hood");
 
     @Override
     public void onInitializeClient() {
@@ -83,6 +93,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         registerDyeableItem(ModEquipmentItems.TUNIC_CLOAK);
         registerDyeableItem(ModEquipmentItems.CLOAK);
         registerDyeableItem(ModEquipmentItems.CLOAK_HOOD);
+        registerDyeableItem(ModEquipmentItems.GAMBESON);
 
         // Animals
         EntityRendererRegistry.register(ModEntities.CRAB, CrabRenderer::new);
@@ -100,6 +111,16 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(ModBlockEntities.ALLOY_FURNACE, AlloyFurnaceEntityRenderer::new);
 
         ModNetworks.registerS2CPackets();
+
+        EntityModelLayerRegistry.registerModelLayer(INNER_ARMOR_MODEL_LAYER, InnerArmorModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(HELMET_ADDON_MODEL_LAYER, RohirricScaleHelmetArmorModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(CAPE_MODEL_LAYER, CloakCapeModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(HOOD_MODEL_LAYER, CloakHoodModel::getTexturedModelData);
+
+        for (ModArmors armor : ModArmors.values()) {
+        ArmorRenderer.register(new ModArmorRenderer(armor.getHelmetModel(), armor.getChestPlateModel(), armor.getSimpleName(), armor.hasInnerLayer() , armor.hasVanillaArmorModel(), armor.hasCape(), armor.hasHood(), armor.isDyeable()),
+                    armor.getItems());
+        }
 
         initializeRenderLayerMap();
     }
