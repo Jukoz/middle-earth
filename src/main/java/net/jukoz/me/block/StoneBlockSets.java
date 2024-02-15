@@ -36,13 +36,13 @@ public class StoneBlockSets {
 
     public static SimpleBlockSetMain GONLUIN = registerMainStoneSet("gonluin", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet COBBLED_GONLUIN = registerStoneSet("cobbled_gonluin", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, GONLUIN.base);
-    //public static SimpleBlockSet MOSSY_COBBLED_GONLUIN = registerStoneSet("mossy_cobbled_gonluin", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, GONLUIN.base);
+    public static SimpleBlockSet MOSSY_COBBLED_GONLUIN = registerStoneSet("mossy_cobbled_gonluin", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, GONLUIN.base);
     public static SimpleBlockSet POLISHED_GONLUIN = registerStoneSet("polished_gonluin", GONLUIN.base.getHardness(), GONLUIN.base.getBlastResistance(), GONLUIN.base);
     //public static SimpleBlockSet MOSSY_POLISHED_GONLUIN = registerStoneSet("mossy_polished_gonluin", GONLUIN.base.getHardness(), GONLUIN.base.getBlastResistance(), POLISHED_GONLUIN.base);
     //public static SimpleBlockSet CRACKED_POLISHED_GONLUIN = registerStoneSet("cracked_polished_gonluin", GONLUIN.base.getHardness(), GONLUIN.base.getBlastResistance(), POLISHED_GONLUIN.base);
     public static SimpleBlockSet GONLUIN_BRICKS = registerStoneSet("gonluin_bricks", COBBLED_GONLUIN.base.getHardness(), COBBLED_GONLUIN.base.getBlastResistance(), POLISHED_GONLUIN.base);
     //public static SimpleBlockSet MOSSY_GONLUIN_BRICKS = registerStoneSet("mossy_gonluin_bricks", COBBLED_GONLUIN.base.getHardness(), COBBLED_GONLUIN.base.getBlastResistance(), GONLUIN_BRICKS.base);
-    //public static SimpleBlockSet CRACKED_GONLUIN_BRICKS = registerStoneSet("cracked_gonluin_bricks", COBBLED_GONLUIN.base.getHardness(), COBBLED_GONLUIN.base.getBlastResistance(), GONLUIN_BRICKS.base);
+    public static SimpleBlockSet CRACKED_GONLUIN_BRICKS = registerStoneSet("cracked_gonluin_bricks", COBBLED_GONLUIN.base.getHardness(), COBBLED_GONLUIN.base.getBlastResistance(), GONLUIN_BRICKS.base);
     public static SimpleBlockSet GONLUIN_TILES = registerStoneSet("gonluin_tiles", COBBLED_GONLUIN.base.getHardness(), COBBLED_GONLUIN.base.getBlastResistance(), GONLUIN_BRICKS.base);
     //public static SimpleBlockSet MOSSY_GONLUIN_TILES = registerStoneSet("mossy_gonluin_tiles", COBBLED_GONLUIN.base.getHardness(), COBBLED_GONLUIN.base.getBlastResistance(), GONLUIN_TILES.base);
     //public static SimpleBlockSet CRACKED_GONLUIN_TILES = registerStoneSet("cracked_gonluin_tiles", COBBLED_GONLUIN.base.getHardness(), COBBLED_GONLUIN.base.getBlastResistance(), GONLUIN_TILES.base);
@@ -237,12 +237,15 @@ public class StoneBlockSets {
     };
 
     public static SimpleBlockSet[] sets = new SimpleBlockSet[] {
+            ASHEN_COBBLESTONE,
             ASHEN_BRICKS,
             ASHEN_TILES,
 
             COBBLED_GONLUIN,
+            MOSSY_COBBLED_GONLUIN,
             POLISHED_GONLUIN,
             GONLUIN_BRICKS,
+            CRACKED_GONLUIN_BRICKS,
             GONLUIN_TILES,
 
             FROZEN_COBBLESTONE,
@@ -356,7 +359,7 @@ public class StoneBlockSets {
     public record SimpleBlockSet(Block source, Block base, Block slab, Block verticalSlab, Block stairs, Block wall) {
     }
 
-    public record SimpleBlockSetMain(Block source, Block base, Block slab, Block verticalSlab, Block stairs, Block wall, Block stool, Block table, Block chair) {
+    public record SimpleBlockSetMain(Block source, Block base, Block slab, Block verticalSlab, Block stairs, Block wall, Block pressurePlate, Block button, Block stool, Block table, Block chair) {
     }
 
     private static SimpleBlockSet registerStoneSet(String name, float hardness, float blastResistance, Block source) {
@@ -386,10 +389,14 @@ public class StoneBlockSets {
 
         Block wall = ModBlocks.registerStoneBlock(name + "_wall", new WallBlock(AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool()),false);
 
+        Block pressurePlate = ModBlocks.registerStoneBlock(name + "_pressure_plate", new PressurePlateBlock(PressurePlateBlock.ActivationRule.MOBS, AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), BlockSetType.STONE),false);
+
+        Block button = ModBlocks.registerStoneBlock(name + "_button", new ButtonBlock(AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), BlockSetType.STONE, 20, false),false);
+
         Block stool = ModBlocks.registerBlock(name + "_stool", new StoolBlock(FabricBlockSettings.copyOf(base)
                 .strength(hardness, blastResistance).requiresTool().nonOpaque()),false);
 
-        Block table = ModBlocks.registerBlock(name + "_table", new TableBlock(FabricBlockSettings.copyOf(base)
+        Block table = ModBlocks.registerBlock(name + "_table", new StoneTableBlock(FabricBlockSettings.copyOf(base)
                 .strength(hardness, blastResistance).requiresTool().nonOpaque()),false);
 
         Block chair = ModBlocks.registerBlock(name + "_chair", new StoneChairBlock(FabricBlockSettings.copyOf(base).nonOpaque()),false);
@@ -398,9 +405,8 @@ public class StoneBlockSets {
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(table.asItem().getDefaultStack());
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(chair.asItem().getDefaultStack());
 
-        return new SimpleBlockSetMain(source, base, slab, verticalSlab, stairs, wall, stool, table, chair);
+        return new SimpleBlockSetMain(source, base, slab, verticalSlab, stairs, wall, pressurePlate, button, stool, table, chair);
     }
-
 
     public static void registerModBlockSets() {
         MiddleEarth.LOGGER.debug("Registering SimpleBlockSets for " + MiddleEarth.MOD_ID);

@@ -36,12 +36,14 @@ public class SimpleBlockModel {
             add(ModBlocks.CUT_SILVER);
 
             //GEMS
-            add(ModBlocks.SAPPHIRE_BLOCK);
-            add(ModBlocks.BUDDING_SAPPHIRE);
+            add(ModBlocks.QUARTZ_BLOCK);
+            add(ModBlocks.BUDDING_QUARTZ);
             add(ModBlocks.RED_AGATE_BLOCK);
             add(ModBlocks.BUDDING_RED_AGATE);
             add(ModBlocks.CITRINE_BLOCK);
             add(ModBlocks.BUDDING_CITRINE);
+            add(ModBlocks.GLOWSTONE_BLOCK);
+            add(ModBlocks.BUDDING_GLOWSTONE);
 
             add(ModBlocks.RIVER_SAND);
             add(ModBlocks.ASH_BLOCK);
@@ -84,6 +86,12 @@ public class SimpleBlockModel {
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_STONE, Blocks.SMOOTH_STONE_SLAB));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_GRANITE, Blocks.POLISHED_GRANITE_SLAB));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_DIORITE, Blocks.POLISHED_DIORITE_SLAB));
+        }
+    };
+
+    public static List<Block> woodBlocks = new ArrayList<>() {
+        {
+
         }
     };
 }

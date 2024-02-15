@@ -157,7 +157,7 @@ public class ModBlocks {
     
     public static final Block REED_BLOCK = registerMiscBlock("reed_block",
             new HayBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)),true);
-    public static final Block REED_STAIRS = registerStoneBlock("reed_stairs",
+    public static final Block REED_STAIRS = registerMiscBlock("reed_stairs",
             new StairsBlock(REED_BLOCK.getDefaultState(), FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)),true);
     public static final Block REED_SLAB = registerMiscBlock("reed_slab",
             new SlabBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)),true);
@@ -212,18 +212,18 @@ public class ModBlocks {
     public static final Block CUT_SILVER_VERTICAL_SLAB = registerMiscBlock("cut_silver_vertical_slab",
             new VerticalSlabBlock(FabricBlockSettings.copyOf(ModBlocks.CUT_SILVER_SLAB)),true);
 
-    public static final Block SAPPHIRE_BLOCK = registerMiscBlock("sapphire_block",
+    public static final Block QUARTZ_BLOCK = registerMiscBlock("quartz_block",
             new AmethystBlock(FabricBlockSettings.copyOf(Blocks.AMETHYST_BLOCK)), true);
-    public static final Block SAPPHIRE_CLUSTER = registerMiscBlock("sapphire_cluster",
+    public static final Block QUARTZ_CLUSTER = registerMiscBlock("quartz_cluster",
             new AmethystClusterBlock(7,3, FabricBlockSettings.copyOf(Blocks.AMETHYST_CLUSTER)), false);
-    public static final Block LARGE_SAPPHIRE_BUD = registerMiscBlock("large_sapphire_bud",
-            new AmethystClusterBlock(5,3, FabricBlockSettings.copyOf(ModBlocks.SAPPHIRE_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD)), false);
-    public static final Block MEDIUM_SAPPHIRE_BUD = registerMiscBlock("medium_sapphire_bud",
-            new AmethystClusterBlock(4,3, FabricBlockSettings.copyOf(ModBlocks.SAPPHIRE_CLUSTER).sounds(BlockSoundGroup.MEDIUM_AMETHYST_BUD)), false);
-    public static final Block SMALL_SAPPHIRE_BUD = registerMiscBlock("small_sapphire_bud",
-            new AmethystClusterBlock(3,4, FabricBlockSettings.copyOf(ModBlocks.SAPPHIRE_CLUSTER).sounds(BlockSoundGroup.SMALL_AMETHYST_BUD)), false);
-    public static final Block BUDDING_SAPPHIRE = registerMiscBlock("budding_sapphire",
-            new CustomBuddingGemBlock(FabricBlockSettings.copyOf(Blocks.BUDDING_AMETHYST), List.of(SMALL_SAPPHIRE_BUD,MEDIUM_SAPPHIRE_BUD,LARGE_SAPPHIRE_BUD, SAPPHIRE_CLUSTER)), false);
+    public static final Block LARGE_QUARTZ_BUD = registerMiscBlock("large_quartz_bud",
+            new AmethystClusterBlock(5,3, FabricBlockSettings.copyOf(ModBlocks.QUARTZ_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD)), false);
+    public static final Block MEDIUM_QUARTZ_BUD = registerMiscBlock("medium_quartz_bud",
+            new AmethystClusterBlock(4,3, FabricBlockSettings.copyOf(ModBlocks.QUARTZ_CLUSTER).sounds(BlockSoundGroup.MEDIUM_AMETHYST_BUD)), false);
+    public static final Block SMALL_QUARTZ_BUD = registerMiscBlock("small_quartz_bud",
+            new AmethystClusterBlock(3,4, FabricBlockSettings.copyOf(ModBlocks.QUARTZ_CLUSTER).sounds(BlockSoundGroup.SMALL_AMETHYST_BUD)), false);
+    public static final Block BUDDING_QUARTZ = registerMiscBlock("budding_quartz",
+            new CustomBuddingGemBlock(FabricBlockSettings.copyOf(Blocks.BUDDING_AMETHYST), List.of(SMALL_QUARTZ_BUD,MEDIUM_QUARTZ_BUD,LARGE_QUARTZ_BUD, QUARTZ_CLUSTER)), false);
 
     public static final Block RED_AGATE_BLOCK = registerMiscBlock("red_agate_block",
             new AmethystBlock(FabricBlockSettings.copyOf(Blocks.AMETHYST_BLOCK)), true);
@@ -250,6 +250,20 @@ public class ModBlocks {
             new AmethystClusterBlock(3,4, FabricBlockSettings.copyOf(ModBlocks.CITRINE_CLUSTER).sounds(BlockSoundGroup.SMALL_AMETHYST_BUD)), false);
     public static final Block BUDDING_CITRINE = registerMiscBlock("budding_citrine",
             new CustomBuddingGemBlock(FabricBlockSettings.copyOf(Blocks.BUDDING_AMETHYST), List.of(SMALL_CITRINE_BUD,MEDIUM_CITRINE_BUD,LARGE_CITRINE_BUD, CITRINE_CLUSTER)), false);
+
+    public static final Block GLOWSTONE_BLOCK = registerMiscBlock("glowstone_block",
+            new AmethystBlock(FabricBlockSettings.copyOf(Blocks.AMETHYST_BLOCK).luminance(12)), true);
+    public static final Block GLOWSTONE_CLUSTER = registerMiscBlock("glowstone_cluster",
+            new AmethystClusterBlock(7,3, FabricBlockSettings.copyOf(Blocks.AMETHYST_CLUSTER).luminance(10)), false);
+    public static final Block LARGE_GLOWSTONE_BUD = registerMiscBlock("large_glowstone_bud",
+            new AmethystClusterBlock(5,3, FabricBlockSettings.copyOf(ModBlocks.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD).luminance(9)), false);
+    public static final Block MEDIUM_GLOWSTONE_BUD = registerMiscBlock("medium_glowstone_bud",
+            new AmethystClusterBlock(4,3, FabricBlockSettings.copyOf(ModBlocks.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.MEDIUM_AMETHYST_BUD).luminance(7)), false);
+    public static final Block SMALL_GLOWSTONE_BUD = registerMiscBlock("small_glowstone_bud",
+            new AmethystClusterBlock(3,4, FabricBlockSettings.copyOf(ModBlocks.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.SMALL_AMETHYST_BUD).luminance(5)), false);
+    public static final Block BUDDING_GLOWSTONE = registerMiscBlock("budding_glowstone",
+            new CustomBuddingGemBlock(FabricBlockSettings.copyOf(Blocks.BUDDING_AMETHYST).luminance(12), List.of(SMALL_GLOWSTONE_BUD,MEDIUM_GLOWSTONE_BUD,LARGE_GLOWSTONE_BUD, GLOWSTONE_CLUSTER)), false);
+
 
     public static final Block STONE_TRAPDOOR = registerStoneBlock("stone_trapdoor",
             new TrapdoorBlock(FabricBlockSettings.copyOf(Blocks.OAK_TRAPDOOR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE), BlockSetType.STONE), true);
