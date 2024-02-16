@@ -22,6 +22,7 @@ public class BoulderConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> DIORITE_BOULDER = registerKey("diorite_boulder");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRANITE_BOULDER = registerKey("granite_boulder");
     public static final RegistryKey<ConfiguredFeature<?, ?>> STONE_BOULDER = registerKey("stone_boulder");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MIRKWOOD_ROOTS_BOULDER = registerKey("mirkwood_roots_boulder");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MOSSY_BOULDER = registerKey("mossy_boulder");
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
         ConfiguredFeatures.register(featureRegisterable, ANDESITE_BOULDER, Feature.FOREST_ROCK,
@@ -32,6 +33,9 @@ public class BoulderConfiguredFeatures {
                 new SingleStateFeatureConfig(Blocks.GRANITE.getDefaultState()));
         ConfiguredFeatures.register(featureRegisterable, STONE_BOULDER, Feature.FOREST_ROCK,
                 new SingleStateFeatureConfig(Blocks.STONE.getDefaultState()));
+        ConfiguredFeatures.register(featureRegisterable, MIRKWOOD_ROOTS_BOULDER, Feature.FOREST_ROCK,
+                new SingleStateFeatureConfig(ModNatureBlocks.MIRKWOOD_ROOTS.getDefaultState()));
+
         ConfiguredFeatures.register(featureRegisterable, MOSSY_BOULDER, Feature.BLOCK_PILE,
                 new BlockPileFeatureConfig(new WeightedBlockStateProvider(DataPool.<BlockState>builder()
                         .add(Blocks.STONE.getDefaultState(), 3)

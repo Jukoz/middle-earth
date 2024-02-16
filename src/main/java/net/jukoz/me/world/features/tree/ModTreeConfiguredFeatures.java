@@ -34,6 +34,7 @@ public class ModTreeConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> LARCH_TREE_KEY = registerKey("larch_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BLACK_LEBETHRON_TREE_KEY = registerKey("black_lebethron_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> WHITE_LEBETHRON_TREE_KEY = registerKey("white_lebethron_tree");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SMALL_MIRKWOOD_TREE_KEY = registerKey("small_mirkwood_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MIRKWOOD_TREE_KEY = registerKey("mirkwood_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEGA_MIRKWOOD_TREE_KEY = registerKey("mega_mirkwood_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MALLORN_TREE_KEY = registerKey("mallorn_tree");
@@ -129,6 +130,14 @@ public class ModTreeConfiguredFeatures {
             new TwoLayersFeatureSize(1, 0, 2))
             .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
 
+        register(context, SMALL_MIRKWOOD_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
+            BlockStateProvider.of(WoodBlockSets.MIRKWOOD.wood()),
+            new CanopyTrunkPlacer(7, 2, 0.9f, 0.87f, 3.2f, 1, 0.28f, -0.15f, 0, 0),
+            BlockStateProvider.of(WoodBlockSets.MIRKWOOD.leaves()),
+            new OvalFoliagePlacer(2, ConstantIntProvider.create(-1), ConstantIntProvider.create(2), 0.3f),
+            new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(ImmutableList.of(new LeavesVineTreeDecorator(0.1F)))
+            .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
         register(context, MIRKWOOD_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
             BlockStateProvider.of(WoodBlockSets.MIRKWOOD.wood()),
             new LargeTrunkPlacer(14, 2, 1.1f, 0.55f, 3.2f, 2, 0.28f),
