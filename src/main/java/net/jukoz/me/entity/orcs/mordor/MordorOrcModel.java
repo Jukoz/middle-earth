@@ -2,6 +2,7 @@ package net.jukoz.me.entity.orcs.mordor;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.CrossbowPosing;
@@ -40,18 +41,17 @@ public class MordorOrcModel<T extends MobEntity>
     public void setAngles(T mobEntity, float f, float g, float h, float i, float j) {
         super.setAngles(mobEntity, f, g, h, i, j);
         ItemStack itemStack = ((LivingEntity)mobEntity).getMainHandStack();
-        if (((MobEntity)mobEntity).isAttacking() && (itemStack.isEmpty() || !itemStack.isOf(Items.BOW))) {
-            float k = MathHelper.sin(this.handSwingProgress * (float)Math.PI);
-            float l = MathHelper.sin((1.0f - (1.0f - this.handSwingProgress) * (1.0f - this.handSwingProgress)) * (float)Math.PI);
-            this.rightArm.roll = 0.0f;
+        MordorOrcEntity.State state = ((MordorOrcEntity)mobEntity).getState();
+
+        if(state == MordorOrcEntity.State.ATTACKING) {
+            // Walk added
+            this.leftArm.pitch = MathHelper.cos(f * 0.6662f) * 2.0f * g * 0.5f;
+            this.leftArm.yaw = 0.0f;
             this.leftArm.roll = 0.0f;
-            this.rightArm.yaw = -(0.1f - k * 0.6f);
-            this.leftArm.yaw = 0.1f - k * 0.6f;
-            this.rightArm.pitch = -1.5707964f;
-            this.leftArm.pitch = -1.5707964f;
-            this.rightArm.pitch -= k * 1.2f - l * 0.4f;
-            this.leftArm.pitch -= k * 1.2f - l * 0.4f;
-            CrossbowPosing.swingArms(this.rightArm, this.leftArm, h);
+
+            this.rightArm.pitch = -0.9f + MathHelper.cos(f * 0.6662f + (float)Math.PI) * 2.0f * g * 0.5f;
+            this.rightArm.yaw = 0.0f;
+            this.rightArm.roll = 0.0f;
         }
     }
 

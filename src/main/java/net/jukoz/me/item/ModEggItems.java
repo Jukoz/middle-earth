@@ -11,24 +11,30 @@ import net.minecraft.util.Identifier;
 
 public class ModEggItems {
 
-    public static final Item BARROW_WIGHT_SPAWN_EGG = registerItem("barrow_wight_spawn_egg",
-            new SpawnEggItem(ModEntities.BARROW_WIGHT, 1852734, 2456136, new Item.Settings()));
-    public static final Item CAVE_TROLL_SPAWN_EGG = registerItem("cave_troll_spawn_egg",
-            new SpawnEggItem(ModEntities.CAVE_TROLL, 4671043, 3485226, new Item.Settings()));
-    public static final Item HILL_TROLL_SPAWN_EGG = registerItem("hill_troll_spawn_egg",
-            new SpawnEggItem(ModEntities.HILL_TROLL, 10517857, 5257516, new Item.Settings()));
-    public static final Item GONDOR_MAN_SPAWN_EGG = registerItem("gondor_man_spawn_egg",
-            new SpawnEggItem(ModEntities.GONDOR_MAN, 4541263, 8090735, new Item.Settings()));
-    public static final Item DURIN_FOLK_SPAWN_EGG = registerItem("durin_folk_spawn_egg",
-            new SpawnEggItem(ModEntities.DURIN_FOLK, 4541263, 8090735, new Item.Settings()));
     public static final Item HOBBIT_SPAWN_EGG = registerItem("hobbit_spawn_egg",
             new SpawnEggItem(ModEntities.HOBBIT, 11131454, 13810794, new Item.Settings()));
+    public static final Item GONDOR_MAN_SPAWN_EGG = registerItem("gondor_man_spawn_egg",
+            new SpawnEggItem(ModEntities.GONDOR_MAN, 1644825, 14869218, new Item.Settings()));
+    public static final Item ROHAN_MAN_SPAWN_EGG = registerItem("rohan_man_spawn_egg",
+            new SpawnEggItem(ModEntities.ROHAN_MAN, 9132338, 32526, new Item.Settings()));
+    public static final Item DURIN_FOLK_SPAWN_EGG = registerItem("durin_folk_spawn_egg",
+            new SpawnEggItem(ModEntities.DURIN_FOLK, 4541263, 8090735, new Item.Settings()));
     public static final Item GALADHRIM_ELF_SPAWN_EGG = registerItem("galadhrim_elf_spawn_egg",
             new SpawnEggItem(ModEntities.GALADHRIM_ELF, 15388227, 8950161, new Item.Settings()));
     public static final Item MORDOR_ORC_SPAWN_EGG = registerItem("mordor_orc_spawn_egg",
             new SpawnEggItem(ModEntities.MORDOR_ORC, 4209210, 7682104, new Item.Settings()));
     public static final Item MORDOR_URUK_SPAWN_EGG = registerItem("mordor_uruk_spawn_egg",
             new SpawnEggItem(ModEntities.MORDOR_URUK, 4209210, 7682104, new Item.Settings()));
+    public static final Item MISTY_ORC_SPAWN_EGG = registerItem("misty_orc_spawn_egg",
+            new SpawnEggItem(ModEntities.MISTY_ORC, 4209210, 7682104, new Item.Settings()));
+    public static final Item MISTY_URUK_SPAWN_EGG = registerItem("misty_uruk_spawn_egg",
+            new SpawnEggItem(ModEntities.MISTY_URUK, 4209210, 7682104, new Item.Settings()));
+    public static final Item BARROW_WIGHT_SPAWN_EGG = registerItem("barrow_wight_spawn_egg",
+            new SpawnEggItem(ModEntities.BARROW_WIGHT, 1852734, 2456136, new Item.Settings()));
+    public static final Item CAVE_TROLL_SPAWN_EGG = registerItem("cave_troll_spawn_egg",
+            new SpawnEggItem(ModEntities.CAVE_TROLL, 4671043, 3485226, new Item.Settings()));
+    public static final Item HILL_TROLL_SPAWN_EGG = registerItem("hill_troll_spawn_egg",
+            new SpawnEggItem(ModEntities.HILL_TROLL, 10517857, 5257516, new Item.Settings()));
     public static final Item SNOW_TROLL_SPAWN_EGG = registerItem("snow_troll_spawn_egg",
             new SpawnEggItem(ModEntities.SNOW_TROLL, 12770027, 9739424, new Item.Settings()));
     public static final Item MIRKWOOD_SPIDER_SPAWN_EGG = registerItem("mirkwood_spider_spawn_egg",

@@ -3,6 +3,9 @@ package net.jukoz.me.entity.uruks.mordor;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
+import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
+import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
+import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
@@ -57,10 +60,23 @@ public class MordorUrukEntity extends HostileEntity {
         this.goalSelector.add(++i, new LookAroundGoal(this));
         i = 0;
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+    }
+
+    public static enum State {
+        NEUTRAL,
+        ATTACKING,
+    }
+
+    public MordorUrukEntity.State getState() {
+        if (this.isAttacking()) {
+            return MordorUrukEntity.State.ATTACKING;
+        }
+        return MordorUrukEntity.State.NEUTRAL;
     }
 
     @Override
@@ -69,17 +85,23 @@ public class MordorUrukEntity extends HostileEntity {
         float randomVal = random.nextFloat();
         if(randomVal < 0.67f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORDOR_ORC_SWORD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MORDOR_SHIELD));
         } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModToolItems.ORC_STEEL_AXE));
         }
 
         randomVal = random.nextFloat();
-        if(randomVal < 0.75f){
+        if (randomVal > 0.35) {
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MORDOR_URUK_SCALE_HELMET));
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MORDOR_URUK_SCALE_CHESTPLATE));
+            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MORDOR_URUK_SCALE_LEGGINGS));
+            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MORDOR_URUK_SCALE_BOOTS));
+        } else {
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MORDOR_URUK_PLATE_HELMET));
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MORDOR_URUK_PLATE_CHESTPLATE));
+            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MORDOR_URUK_PLATE_LEGGINGS));
+            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MORDOR_URUK_PLATE_BOOTS));
         }
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MORDOR_URUK_SCALE_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MORDOR_URUK_SCALE_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MORDOR_URUK_SCALE_BOOTS));
     }
 
     public MordorUrukVariant getVariant() {

@@ -17,7 +17,6 @@ public class HumanModel {
                 .cuboid(-1.0f, 0f, -1.0f, 2.0f, 2.0f, 2.0f, dilation),
                 ModelTransform.pivot(0.0f, 0.0f, 0.0f));
 
-
         root.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(0, 0)
                 .cuboid(-4.0f, -8.0f, -4.0f, 8.0f, 8.0f, 8.0f, dilation),
                 ModelTransform.pivot(0.0f, 0.0f, 0.0f));

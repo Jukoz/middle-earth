@@ -28,8 +28,10 @@ import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfRenderer;
 import net.jukoz.me.entity.goose.GooseRenderer;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitRenderer;
 import net.jukoz.me.entity.humans.gondor.GondorHumanRenderer;
+import net.jukoz.me.entity.humans.rohan.RohanHumanRenderer;
 import net.jukoz.me.entity.model.ModEntityModels;
 import net.jukoz.me.entity.nazguls.NazgulRenderer;
+import net.jukoz.me.entity.orcs.misties.MistyOrcRenderer;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
 import net.jukoz.me.entity.pheasant.PheasantRenderer;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntityRenderer;
@@ -39,6 +41,7 @@ import net.jukoz.me.entity.spider.MirkwoodSpiderRenderer;
 import net.jukoz.me.entity.swan.SwanRenderer;
 import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollRenderer;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollRenderer;
+import net.jukoz.me.entity.uruks.misties.MistyUrukRenderer;
 import net.jukoz.me.entity.uruks.mordor.MordorUrukEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorUrukRenderer;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
@@ -79,15 +82,18 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.CAVE_TROLL, CaveTrollRenderer::new);
         EntityRendererRegistry.register(ModEntities.HILL_TROLL, HillTrollRenderer::new);
         EntityRendererRegistry.register(ModEntities.GONDOR_MAN, GondorHumanRenderer::new);
+        EntityRendererRegistry.register(ModEntities.ROHAN_MAN, RohanHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.DURIN_FOLK, DurinDwarfRenderer::new);
         EntityRendererRegistry.register(ModEntities.HOBBIT, ShireHobbitRenderer::new);
         EntityRendererRegistry.register(ModEntities.GALADHRIM_ELF, GaladhrimElfRenderer::new);
         EntityRendererRegistry.register(ModEntities.NAZGUL, NazgulRenderer::new);
         EntityRendererRegistry.register(ModEntities.MORDOR_ORC, MordorOrcRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MISTY_ORC, MistyOrcRenderer::new);
         EntityRendererRegistry.register(ModEntities.MORDOR_URUK, MordorUrukRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MISTY_URUK, MistyUrukRenderer::new);
         EntityRendererRegistry.register(ModEntities.MIRKWOOD_SPIDER, MirkwoodSpiderRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNOW_TROLL, SnowTrollRenderer::new);
-        EntityRendererRegistry.register(ModEntities.BALROG, BalrogRenderer::new);
+        //EntityRendererRegistry.register(ModEntities.BALROG, BalrogRenderer::new);
 
         // Items
         ModelLoadingRegistry.INSTANCE.registerModelProvider(((manager, out) -> new VariantsModelProvider().provideExtraModels(manager, out)));

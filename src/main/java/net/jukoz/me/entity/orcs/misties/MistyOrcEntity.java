@@ -1,4 +1,4 @@
-package net.jukoz.me.entity.orcs.mordor;
+package net.jukoz.me.entity.orcs.misties;
 
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
@@ -26,8 +26,8 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class MordorOrcEntity extends HostileEntity {
-    public MordorOrcEntity(EntityType<? extends HostileEntity> entityType, World world) {
+public class MistyOrcEntity extends HostileEntity {
+    public MistyOrcEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -71,11 +71,11 @@ public class MordorOrcEntity extends HostileEntity {
         ATTACKING,
     }
 
-    public MordorOrcEntity.State getState() {
+    public State getState() {
         if (this.isAttacking()) {
-            return MordorOrcEntity.State.ATTACKING;
+            return State.ATTACKING;
         }
-        return MordorOrcEntity.State.NEUTRAL;
+        return State.NEUTRAL;
     }
 
     @Override
@@ -83,24 +83,24 @@ public class MordorOrcEntity extends HostileEntity {
         super.initEquipment(random, localDifficulty);
         float randomVal = random.nextFloat();
         if(randomVal < 0.67f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORDOR_ORC_SWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MORDOR_SHIELD));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SCIMITAR));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MISTY_MOUNTAINS_SHIELD));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModToolItems.ORC_STEEL_AXE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SPEAR));
         }
 
         randomVal = random.nextFloat();
         if (randomVal > 0.85f) {
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.RUSTY_KETTLE_HELMET));
         } else {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_HELMET));
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_ORC_MAIL_HELMET));
         }
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_BOOTS));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_ORC_MAIL_CHESTPLATE));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_ORC_MAIL_LEGGINGS));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_ORC_MAIL_BOOTS));
     }
 
-    public MordorOrcVariant getVariant() {
-        return MordorOrcVariant.byId(this.getId());
+    public MistyOrcVariant getVariant() {
+        return MistyOrcVariant.byId(this.getId());
     }
 }

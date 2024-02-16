@@ -1,10 +1,13 @@
 package net.jukoz.me.entity.hobbits.shire;
 
 import net.jukoz.me.entity.nazguls.NazgulEntity;
+import net.jukoz.me.entity.orcs.misties.MistyOrcEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.projectile.pebble.PebbleEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
+import net.jukoz.me.entity.uruks.misties.MistyUrukEntity;
+import net.jukoz.me.entity.uruks.mordor.MordorUrukEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.items.PebbleItem;
@@ -111,7 +114,14 @@ public class ShireHobbitEntity extends PathAwareEntity implements RangedAttackMo
         this.goalSelector.add(++i, new LookAroundGoal(this));
 
         i = 0;
+        this.targetSelector.add(++i, new RevengeGoal(this));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyUrukEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorUrukEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyOrcEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
     }
 
     public ShireHobbitVariant getVariant() {

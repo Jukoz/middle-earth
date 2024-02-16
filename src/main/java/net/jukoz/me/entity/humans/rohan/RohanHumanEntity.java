@@ -1,9 +1,6 @@
-package net.jukoz.me.entity.humans.gondor;
+package net.jukoz.me.entity.humans.rohan;
 
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
-import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
-import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
-import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.misties.MistyOrcEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
@@ -11,7 +8,6 @@ import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.uruks.misties.MistyUrukEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorUrukEntity;
 import net.jukoz.me.item.ModEquipmentItems;
-import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -32,8 +28,8 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class GondorHumanEntity extends HostileEntity {
-    public GondorHumanEntity(EntityType<? extends HostileEntity> entityType, World world) {
+public class RohanHumanEntity extends HostileEntity {
+    public RohanHumanEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -79,11 +75,11 @@ public class GondorHumanEntity extends HostileEntity {
         ATTACKING,
     }
 
-    public GondorHumanEntity.State getState() {
+    public State getState() {
         if (this.isAttacking()) {
-            return GondorHumanEntity.State.ATTACKING;
+            return State.ATTACKING;
         }
-        return GondorHumanEntity.State.NEUTRAL;
+        return State.NEUTRAL;
     }
 
     @Override
@@ -91,45 +87,35 @@ public class GondorHumanEntity extends HostileEntity {
         super.initEquipment(random, localDifficulty);
         float randomVal = random.nextFloat();
         if (randomVal < 0.67f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_SWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.GONDORIAN_SHIELD));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_SWORD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.ROHIRRIC_SHIELD));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_LONGSWORD));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_PIKE));
         }
 
         randomVal = random.nextFloat();
-        if (randomVal > 0.70f) {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HELMET));
+        if (randomVal > 0.78f) {
+            equipStack(EquipmentSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
             equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GAMBESON));
-        } else if (randomVal > 0.15f && randomVal < 0.70f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.GONDORIAN_MAIL_HELMET));
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GONDORIAN_MAIL_CHESTPLATE));
-            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.GONDORIAN_MAIL_LEGGINGS));
-            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.GONDORIAN_MAIL_BOOTS));
-        } else if (randomVal < 0.15f && randomVal > 0.05f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.GONDORIAN_REINFORCED_MAIL_HELMET));
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GONDORIAN_REINFORCED_MAIL_CHESTPLATE));
-            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.GONDORIAN_REINFORCED_MAIL_LEGGINGS));
-            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.GONDORIAN_REINFORCED_MAIL_BOOTS));
-        } else if (randomVal < 0.05f && randomVal > 0.02f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.GONDORIAN_PLATE_HELMET));
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE));
-            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS));
-            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.GONDORIAN_PLATE_BOOTS));
-        } else if (randomVal < 0.02f && randomVal > 0.01f) {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_HELMET));
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_CHESTPLATE));
-            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_LEGGINGS));
-            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_BOOTS));
-        } else if (randomVal < 0.01f && randomVal > 0.00f) {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_HELMET));
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE));
-            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS));
-            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_BOOTS));
+        } else if (randomVal > 0.19f && randomVal < 0.78f){
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_HELMET));
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_CHESTPLATE));
+            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_LEGGINGS));
+            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_BOOTS));
+        } else if (randomVal < 0.19f && randomVal > 0.04f){
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_HELMET));
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_CHESTPLATE));
+            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_LEGGINGS));
+            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_BOOTS));
+        } else {
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.ROHIRRIC_PLATE_HELMET));
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_PLATE_CHESTPLATE));
+            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_PLATE_LEGGINGS));
+            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.ROHIRRIC_PLATE_BOOTS));
         }
     }
 
-    public GondorHumanVariant getVariant() {
-        return GondorHumanVariant.byId(this.getId());
+    public RohanHumanVariant getVariant() {
+        return RohanHumanVariant.byId(this.getId());
     }
 }
