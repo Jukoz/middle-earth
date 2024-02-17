@@ -25,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -32,15 +33,21 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
 
-// TODO Have slowly accelerate for charge
+import java.util.List;
+
 // TODO Update Model and Animations
-// TODO Turn to stone
 public class TrollEntity extends BeastEntity {
     private int throwCooldown = 100;
     public final AnimationState throwingAnimationState = new AnimationState();
     private int throwingAnimationTimeout = 0;
     public static final TrackedData<Boolean> THROWING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
+
+    // Temporary disabled until next update
+    @Override
+    public boolean hasArmorSlot() {
+        return false;
+    }
 
     public TrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
@@ -246,5 +253,31 @@ public class TrollEntity extends BeastEntity {
                 this.getWorld().spawnEntity(boulder);
             }
         }
+    }
+
+    @Override
+    public void chargeAttack() {
+        List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
+
+        if(!this.isTame() && !this.getWorld().isClient) {
+            if(targetDir == Vec3d.ZERO && this.getTarget() != null) {
+                targetDir = new Vec3d( this.getTarget().getBlockPos().getX() - this.getBlockPos().getX(),
+                        this.getTarget().getBlockPos().getY() - this.getBlockPos().getY(),
+                        this.getTarget().getBlockPos().getZ() - this.getBlockPos().getZ());
+            }
+            this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
+            this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - 20)) / 20)).add(0, this.getVelocity().y, 0));
+        }
+        else if (this.getWorld().isClient) {
+            this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - 20)) / 20)).add(0, this.getVelocity().y, 0));
+        }
+
+        for(Entity entity : entities) {
+            if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity)) {
+                entity.damage(entity.getDamageSources().mobAttack(this), 16.0f);
+            }
+        }
+        this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+        this.chargeAnimationState.startIfNotRunning(this.age);
     }
 }

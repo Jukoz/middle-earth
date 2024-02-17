@@ -1,20 +1,17 @@
 package net.jukoz.me.entity.beasts;
 
-import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.jukoz.me.item.items.TrollArmorItem;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
@@ -25,19 +22,15 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -57,13 +50,13 @@ public class BeastEntity extends AbstractDonkeyEntity {
     private int idleAnimationTimeout = 0;
     private int attackTicksLeft = 0;
 
-    private int chargeCooldown = 100;
+    protected int chargeTimeout;
     private boolean sitting;
     private LivingEntity owner;
 
     public static final int ATTACK_COOLDOWN = 10;
     public static final float RESISTANCE = 0.15f;
-    private Vec3d targetDir = Vec3d.ZERO;
+    protected Vec3d targetDir = Vec3d.ZERO;
     private static final UUID BEAST_ARMOR_BONUS_ID = UUID.fromString("667E1665-8B10-40C8-8F9D-CF9B1667F295");
 
     // Initializing ====================================================================================================
@@ -93,7 +86,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
     @Override
     public void onTrackedDataSet(TrackedData<?> data) {
         if (!this.firstUpdate && CHARGING.equals(data)) {
-            this.chargeCooldown = this.chargeCooldown == 0 ? 400 : this.chargeCooldown;
+            this.chargeTimeout = this.chargeTimeout == 0 ? maxChargeCooldown() : this.chargeTimeout;
         }
         super.onTrackedDataSet(data);
     }
@@ -177,7 +170,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
 
     @Override
     public int getJumpCooldown() {
-        return this.chargeCooldown;
+        return this.chargeTimeout;
     }
 
     @Nullable
@@ -229,11 +222,15 @@ public class BeastEntity extends AbstractDonkeyEntity {
         return this.dataTracker.get(CHARGING);
     }
 
-    public int getChargeCooldown() {
-        return this.chargeCooldown;
+    public int getChargeTimeout() {
+        return this.chargeTimeout;
     }
-    public void setChargeCooldown(int chargeCooldown) {
-        this.chargeCooldown = chargeCooldown;
+    public void setChargeTimeout(int chargeTimeout) {
+        this.chargeTimeout = chargeTimeout;
+    }
+
+    public int maxChargeCooldown() {
+        return 400;
     }
 
     private float getAttackDamage() {
@@ -349,9 +346,9 @@ public class BeastEntity extends AbstractDonkeyEntity {
     // Move Set and Behavior ===========================================================================================
     @Override
     protected void jump(float strength, Vec3d movementInput) {
-        if(this.chargeCooldown <= 0) {
+        if(this.chargeTimeout <= 0) {
             this.setCharging(true);
-            this.chargeCooldown = 400;
+            this.chargeTimeout = maxChargeCooldown();
         }
     }
 
@@ -372,7 +369,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
             }
             this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
 
-            this.chargeCooldown = 0;
+            this.chargeTimeout = 0;
         }
         else {
             this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
@@ -433,29 +430,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
     }
 
     public void chargeAttack() {
-        List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
-
-        if(!this.isTame() && !this.getWorld().isClient) {
-            if(targetDir == Vec3d.ZERO && this.getTarget() != null) {
-                targetDir = new Vec3d( this.getTarget().getBlockPos().getX() - this.getBlockPos().getX(),
-                        this.getTarget().getBlockPos().getY() - this.getBlockPos().getY(),
-                        this.getTarget().getBlockPos().getZ() - this.getBlockPos().getZ());
-            }
-            this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
-            this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d).add(0, this.getVelocity().y, 0));
-
-        }
-        else if (this.getWorld().isClient) {
-            this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d).add(0, this.getVelocity().y, 0));
-        }
-
-        for(Entity entity : entities) {
-            if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity)) {
-                entity.damage(entity.getDamageSources().mobAttack(this), 16.0f);
-            }
-        }
-        this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
-        this.chargeAnimationState.startIfNotRunning(this.age);
     }
 
     @Override
@@ -496,15 +470,15 @@ public class BeastEntity extends AbstractDonkeyEntity {
                 this.chargeAnimationState.start(this.age);
             }
         }
-        if(this.chargeCooldown <= 370 || !isCharging()) {
+        if(this.chargeTimeout <= (maxChargeCooldown() - 20) || !isCharging()) {
             this.setCharging(false);
             this.targetDir = Vec3d.ZERO;
         }
         if(!this.isCharging()) {
             this.chargeAnimationState.stop();
         }
-        if(chargeCooldown > 0) {
-            --this.chargeCooldown;
+        if(chargeTimeout > 0) {
+            --this.chargeTimeout;
         }
 
         if (this.getWorld().isClient) {
