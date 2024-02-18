@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.balrog.BalrogModel;
 import net.jukoz.me.entity.barrow_wights.BarrowWightModel;
-import net.jukoz.me.entity.beasts.trolls.hill.HillTrollModel;
+import net.jukoz.me.entity.beasts.trolls.stone.StoneTrollModel;
 import net.jukoz.me.entity.crab.CrabModel;
 import net.jukoz.me.entity.duck.DuckModel;
 import net.jukoz.me.entity.goose.GooseModel;
@@ -31,7 +31,7 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer ORC = ModEntityModelLayers.registerEntityModelLayer("orc", OrcModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer CAVE_TROLL = ModEntityModelLayers.registerEntityModelLayer("cave_troll", CaveTrollModel.getTexturedModelData());
     public static final EntityModelLayer SNOW_TROLL = ModEntityModelLayers.registerEntityModelLayer("snow_troll", SnowTrollModel.getTexturedModelData());
-    public static final EntityModelLayer HILL_TROLL = ModEntityModelLayers.registerEntityModelLayer("hill_troll", HillTrollModel.getTexturedModelData());
+    public static final EntityModelLayer HILL_TROLL = ModEntityModelLayers.registerEntityModelLayer("hill_troll", StoneTrollModel.getTexturedModelData());
     public static final EntityModelLayer BARROW_WIGHT = ModEntityModelLayers.registerEntityModelLayer("barrow_wight", BarrowWightModel.getTexturedModelData());
     public static final EntityModelLayer SPIDER = ModEntityModelLayers.registerEntityModelLayer("spider", MirkwoodSpiderModel.getTexturedModelData());
     public static final EntityModelLayer BALROG = ModEntityModelLayers.registerEntityModelLayer("balrog", BalrogModel.getTexturedModelData());

@@ -1,18 +1,15 @@
-package net.jukoz.me.entity.beasts.trolls.hill;
+package net.jukoz.me.entity.beasts.trolls.stone;
 
-import net.jukoz.me.entity.beasts.trolls.TrollAnimations;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
-public class HillTrollModel extends SinglePartEntityModel<HillTrollEntity> {
+public class StoneTrollModel extends SinglePartEntityModel<StoneTrollEntity> {
     private final ModelPart r;
     private final ModelPart head;
-    public HillTrollModel(ModelPart root) {
+    public StoneTrollModel(ModelPart root) {
         this.r = root.getChild("r");
         this.head = r.getChild("upperbody").getChild("upperbodynoarms").getChild("head");
     }
@@ -80,14 +77,14 @@ public class HillTrollModel extends SinglePartEntityModel<HillTrollEntity> {
     }
 
     @Override
-    public void setAngles(HillTrollEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+    public void setAngles(StoneTrollEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
         this.setHeadAngles(headYaw, headPitch);
 
-        this.animateMovement(HillTrollAnimations.WALK, limbAngle, limbDistance, 2f, 2.5f);
-        this.updateAnimation(entity.attackAnimationState, HillTrollAnimations.ATTACK, animationProgress, 1.3f);
-        this.updateAnimation(entity.chargeAnimationState, HillTrollAnimations.CHARGE, animationProgress, 1f);
-        this.updateAnimation(entity.throwingAnimationState, HillTrollAnimations.THROW, animationProgress, 1f);
+        this.animateMovement(StoneTrollAnimations.WALK, limbAngle, limbDistance, 2f, 2.5f);
+        this.updateAnimation(entity.attackAnimationState, StoneTrollAnimations.ATTACK, animationProgress, 1.3f);
+        this.updateAnimation(entity.chargeAnimationState, StoneTrollAnimations.CHARGE, animationProgress, 1f);
+        this.updateAnimation(entity.throwingAnimationState, StoneTrollAnimations.THROW, animationProgress, 1f);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {

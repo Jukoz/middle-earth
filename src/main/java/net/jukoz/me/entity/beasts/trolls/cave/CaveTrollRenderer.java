@@ -27,7 +27,7 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
     public static final Map<CaveTrollVariant, String> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(CaveTrollVariant.class), (resourceLocation) -> {
                 resourceLocation.put(CaveTrollVariant.GREY_YELLOW,
-                        PATH + "troll1.png");
+                        PATH + "stone_troll1.png");
                 resourceLocation.put(CaveTrollVariant.GREY_BLUE,
                         PATH + "troll2.png");
                 resourceLocation.put(CaveTrollVariant.GREY_STONE,

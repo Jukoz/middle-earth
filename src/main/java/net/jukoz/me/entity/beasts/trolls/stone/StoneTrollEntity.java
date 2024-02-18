@@ -1,4 +1,4 @@
-package net.jukoz.me.entity.beasts.trolls.hill;
+package net.jukoz.me.entity.beasts.trolls.stone;
 
 import net.jukoz.me.entity.beasts.BeastEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
@@ -13,17 +13,20 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class HillTrollEntity extends TrollEntity {
-    public static final TrackedData<Integer> PETRIFYING = DataTracker.registerData(HillTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
+public class StoneTrollEntity extends TrollEntity {
+    public static final TrackedData<Integer> PETRIFYING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
-    public HillTrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
+    public StoneTrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -50,6 +53,25 @@ public class HillTrollEntity extends TrollEntity {
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(PETRIFYING, 100);
+    }
+
+    @Override
+    public double getMountedHeightOffset() {
+        float f = Math.min(0.25F, this.limbAnimator.getSpeed());
+        float g = this.limbAnimator.getPos();
+        return (double)this.getHeight() - 1.0d + (double)(0.12F * MathHelper.cos(g * 1.5F) * 2.0F * f);
+    }
+
+    @Override
+    protected void updatePassengerPosition(Entity passenger, PositionUpdater positionUpdater) {
+        int i = this.getPassengerList().indexOf(passenger);
+        if (i < 0) {
+            return;
+        }
+        float f = -0.5f; // Z-Offset
+
+        Vec3d vec3d = new Vec3d(0.0, 0.0, f).rotateY(-this.bodyYaw * ((float)Math.PI / 180));
+        positionUpdater.accept(passenger, this.getX() + vec3d.x, this.getY() + this.getMountedHeightOffset(), this.getZ() + vec3d.z);
     }
 
     public void setPetrifying(int petrifying) {

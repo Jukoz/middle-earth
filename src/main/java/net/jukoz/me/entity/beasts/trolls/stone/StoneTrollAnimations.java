@@ -1,11 +1,11 @@
-package net.jukoz.me.entity.beasts.trolls.hill;
+package net.jukoz.me.entity.beasts.trolls.stone;
 
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.animation.AnimationHelper;
 import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
 
-public class HillTrollAnimations {
+public class StoneTrollAnimations {
     public static final Animation WALK = Animation.Builder.create(1f).looping()
             .addBoneAnimation("righarm",
                     new Transformation(Transformation.Targets.ROTATE,
