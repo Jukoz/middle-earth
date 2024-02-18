@@ -3,12 +3,10 @@ package net.jukoz.me.entity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.entity.balrog.BalrogEntity;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntity;
 import net.jukoz.me.entity.beasts.trolls.hill.HillTrollEntity;
 import net.jukoz.me.entity.crab.CrabEntity;
 import net.jukoz.me.entity.deer.DeerEntity;
-import net.jukoz.me.entity.deer.DeerModel;
 import net.jukoz.me.entity.duck.DuckEntity;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
@@ -41,21 +39,29 @@ import net.minecraft.util.Identifier;
 public class ModEntities {
 
     //TODO One npc class that npcs extend
-    //TODO Saving Variants
-    //TODO Default Goals
-    //TODO Npc Persistence
 
-    //TODO Pass on armours based on npc rank
-    //TODO Npc Weapons
     //TODO Npc Sizes
-    //TODO Npc weird animation/item holding
+    //TODO Npc weird animation/item holding -> model fucked
+    //TODO Npc Balance, too weak rn ?
+    //TODO Npc Loot Tables
 
     // Barrow Wights
     public static final EntityType<BarrowWightEntity> BARROW_WIGHT = registerEntity("barrow_wight", BarrowWightEntity::new, SpawnGroup.CREATURE, 0.9f, 2.1f);
 
-    // Humans
-    public static final EntityType<GondorHumanEntity> GONDOR_MAN = registerEntity("gondor_man", GondorHumanEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
-    public static final EntityType<RohanHumanEntity> ROHAN_MAN = registerEntity("rohan_man", RohanHumanEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    //HUMANS
+    //Gondor
+    public static final EntityType<GondorHumanEntity> GONDORIAN_MILITIA = registerEntity("gondorian_militia", GondorHumanEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<GondorHumanEntity> GONDORIAN_SOLDIER = registerEntity("gondorian_soldier", GondorHumanEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<GondorHumanEntity> GONDORIAN_KNIGHT = registerEntity("gondorian_knight", GondorHumanEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<GondorHumanEntity> GONDORIAN_VETERAN = registerEntity("gondorian_veteran", GondorHumanEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<GondorHumanEntity> GONDORIAN_COMMANDER = registerEntity("gondorian_commander", GondorHumanEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+
+    //ROHAN
+    public static final EntityType<RohanHumanEntity> ROHIRRIM_MILITIA = registerEntity("rohirrim_militia", RohanHumanEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<RohanHumanEntity> ROHIRRIM_SOLDIER = registerEntity("rohirrim_soldier", RohanHumanEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<RohanHumanEntity> ROHIRRIM_KNIGHT = registerEntity("rohirrim_knight", RohanHumanEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<RohanHumanEntity> ROHIRRIM_VETERAN = registerEntity("rohirrim_veteran", RohanHumanEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<RohanHumanEntity> ROHIRRIM_COMMANDER = registerEntity("rohirrim_commander", RohanHumanEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
     // Dwarfs
     public static final EntityType<DurinDwarfEntity> DURIN_FOLK = registerEntity("durin_folk", DurinDwarfEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
@@ -110,8 +116,19 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(BARROW_WIGHT, BarrowWightEntity.setAttributes());
         //FabricDefaultAttributeRegistry.register(BALROG, BalrogEntity.createBalrogAttributes());
         FabricDefaultAttributeRegistry.register(CAVE_TROLL, CaveTrollEntity.setAttributes());
-        FabricDefaultAttributeRegistry.register(GONDOR_MAN, GondorHumanEntity.setAttributes());
-        FabricDefaultAttributeRegistry.register(ROHAN_MAN, RohanHumanEntity.setAttributes());
+        
+        FabricDefaultAttributeRegistry.register(GONDORIAN_MILITIA, GondorHumanEntity.setSoldierAttributes());
+        FabricDefaultAttributeRegistry.register(GONDORIAN_SOLDIER, GondorHumanEntity.setSoldierAttributes());
+        FabricDefaultAttributeRegistry.register(GONDORIAN_KNIGHT, GondorHumanEntity.setKnightAttributes());
+        FabricDefaultAttributeRegistry.register(GONDORIAN_VETERAN, GondorHumanEntity.setVeteranAttributes());
+        FabricDefaultAttributeRegistry.register(GONDORIAN_COMMANDER, GondorHumanEntity.setCommanderAttributes());
+        
+        FabricDefaultAttributeRegistry.register(ROHIRRIM_MILITIA, GondorHumanEntity.setSoldierAttributes());
+        FabricDefaultAttributeRegistry.register(ROHIRRIM_SOLDIER, GondorHumanEntity.setSoldierAttributes());
+        FabricDefaultAttributeRegistry.register(ROHIRRIM_KNIGHT, GondorHumanEntity.setKnightAttributes());
+        FabricDefaultAttributeRegistry.register(ROHIRRIM_VETERAN, GondorHumanEntity.setVeteranAttributes());
+        FabricDefaultAttributeRegistry.register(ROHIRRIM_COMMANDER, GondorHumanEntity.setCommanderAttributes());
+        
         FabricDefaultAttributeRegistry.register(HILL_TROLL, HillTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(DURIN_FOLK, DurinDwarfEntity.setAttributes());

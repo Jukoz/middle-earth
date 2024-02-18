@@ -10,6 +10,7 @@ import net.jukoz.me.entity.uruks.misties.MistyUrukEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorUrukEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.items.PebbleItem;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
@@ -66,19 +67,32 @@ public class ShireHobbitEntity extends PathAwareEntity implements RangedAttackMo
         equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.AIR));
 
         float randomVal = random.nextFloat();
-
-        if(randomVal < 0.03f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
-        } else if (randomVal < 0.15f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModResourceItems.PEBBLE));
-        } else if(randomVal < 0.20f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.APPLE));
-        }  else if(randomVal < 0.25f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.CARROT));
+        if(randomVal > 0.95f) {
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HELMET));
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GAMBESON));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.IRON_DAGGER));
+        }
+        else if(randomVal > 0.85f && randomVal < 0.95f){
+            randomVal = random.nextFloat();
+            if(randomVal < 0.50f){
+                equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HOBBIT_SHIRRIF_HAT_BROWN));
+            } else {
+                equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HOBBIT_SHIRRIF_HAT_GREEN));
+            }
+        } else {
+            randomVal = random.nextFloat();
+            if(randomVal < 0.03f){
+                equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
+            } else if (randomVal < 0.15f) {
+                equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModResourceItems.PEBBLE));
+            } else if(randomVal < 0.20f){
+                equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.APPLE));
+            }  else if(randomVal < 0.25f){
+                equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.CARROT));
+            }
         }
 
         randomVal = random.nextFloat();
-
         if (randomVal < 0.15f) {
             int[] colors = {
                     0x375c23,

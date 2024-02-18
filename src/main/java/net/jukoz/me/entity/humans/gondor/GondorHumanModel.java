@@ -9,6 +9,7 @@ import net.minecraft.client.render.entity.model.CrossbowPosing;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Arm;
@@ -27,7 +28,7 @@ public class GondorHumanModel<T extends MobEntity>
         this.rightArmPose = ArmPose.EMPTY;
         this.leftArmPose = ArmPose.EMPTY;
         ItemStack itemStack = ((LivingEntity)mobEntity).getStackInHand(Hand.MAIN_HAND);
-        if (itemStack.isOf(Items.BOW) && ((MobEntity)mobEntity).isAttacking()) {
+        if (itemStack.getItem() instanceof BowItem && ((MobEntity)mobEntity).isAttacking()) {
             if (((MobEntity)mobEntity).getMainArm() == Arm.RIGHT) {
                 this.rightArmPose = ArmPose.BOW_AND_ARROW;
             } else {
@@ -37,7 +38,7 @@ public class GondorHumanModel<T extends MobEntity>
         super.animateModel(mobEntity, f, g, h);
     }
 
-    @Override
+    /*@Override
     public void setAngles(T mobEntity, float f, float g, float h, float i, float j) {
         super.setAngles(mobEntity, f, g, h, i, j);
         ItemStack itemStack = ((LivingEntity)mobEntity).getMainHandStack();
@@ -62,5 +63,5 @@ public class GondorHumanModel<T extends MobEntity>
         modelPart.pivotX += f;
         modelPart.rotate(matrices);
         modelPart.pivotX -= f;
-    }
+    }*/
 }

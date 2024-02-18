@@ -32,11 +32,11 @@ public class RohanHumanRenderer extends BipedEntityRenderer<RohanHumanEntity, Ro
     public static final Map<RohanHumanVariant, String> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(RohanHumanVariant.class), (resourceLocation) -> {
                 resourceLocation.put(RohanHumanVariant.LIGHT_BROWN_RED,
-                        PATH + "rohan1.png");
+                        PATH + "rohirrim1.png");
                 resourceLocation.put(RohanHumanVariant.PALE_BLUE_YELLOW,
-                        PATH + "rohan2.png");
+                        PATH + "rohirrim2.png");
                 resourceLocation.put(RohanHumanVariant.PALE_GREY_ORANGE,
-                        PATH + "rohan3.png");
+                        PATH + "rohirrim3.png");
             });
 
     @Override

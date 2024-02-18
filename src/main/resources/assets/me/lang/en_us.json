@@ -466,7 +466,19 @@
   "item.me.durin_folk_spawn_egg": "Durin Folk Spawn Egg",
   "item.me.hobbit_spawn_egg": "Hobbit Spawn Egg",
   "item.me.galadhrim_elf_spawn_egg": "Galadhrim Elf Spawn Egg",
-  "item.me.gondor_man_spawn_egg": "Gondor Man Spawn Egg",
+  
+  "item.me.gondorian_militia_spawn_egg": "Gondorian Militia Spawn Egg",
+  "item.me.gondorian_soldier_spawn_egg": "Gondorian Soldier Spawn Egg",
+  "item.me.gondorian_knight_spawn_egg": "Gondorian Knight Spawn Egg",
+  "item.me.gondorian_veteran_spawn_egg": "Gondorian Veteran Spawn Egg",
+  "item.me.gondorian_commander_spawn_egg": "Gondorian Commander Spawn Egg",
+
+  "item.me.rohirrim_militia_spawn_egg": "Rohirrim Militia Spawn Egg",
+  "item.me.rohirrim_soldier_spawn_egg": "Rohirrim Soldier Spawn Egg",
+  "item.me.rohirrim_knight_spawn_egg": "Rohirrim Knight Spawn Egg",
+  "item.me.rohirrim_veteran_spawn_egg": "Rohirrim Veteran Spawn Egg",
+  "item.me.rohirrim_commander_spawn_egg": "Rohirrim Commander Spawn Egg",
+  
   "item.me.rohan_man_spawn_egg": "Rohan Man Spawn Egg",
   "item.me.mordor_orc_spawn_egg": "Mordor Orc Spawn Egg",
   "item.me.mordor_uruk_spawn_egg": "Mordor Uruk Spawn Egg",
@@ -495,8 +507,19 @@
   "entity.me.durin_folk": "Durin Folk",
   "entity.me.galadhrim_elf": "Galadhrim Elf",
   "entity.me.hobbit": "Hobbit",
-  "entity.me.gondor_man": "Gondor Man",
-  "entity.me.rohan_man": "Rohan Man",
+  
+  "entity.me.gondorian_militia": "Gondorian Militia",
+  "entity.me.gondorian_soldier": "Gondorian Soldier",
+  "entity.me.gondorian_knight": "Gondorian Knight",
+  "entity.me.gondorian_veteran": "Gondorian Veteran",
+  "entity.me.gondorian_commander": "Gondorian Commander",
+
+  "entity.me.rohirrim_militia": "Rohirrim Militia",
+  "entity.me.rohirrim_soldier": "Rohirrim Soldier",
+  "entity.me.rohirrim_knight": "Rohirrim Knight",
+  "entity.me.rohirrim_veteran": "Rohirrim Veteran",
+  "entity.me.rohirrim_commander": "Rohirrim Commander",
+  
   "entity.me.mordor_orc": "Mordor Orc",
   "entity.me.mordor_uruk": "Mordor Uruk",
   "entity.me.misty_orc": "Misty Orc",

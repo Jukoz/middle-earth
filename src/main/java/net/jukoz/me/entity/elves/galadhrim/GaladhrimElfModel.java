@@ -2,6 +2,7 @@ package net.jukoz.me.entity.elves.galadhrim;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.jukoz.me.item.ModWeaponItems;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.CrossbowPosing;
@@ -27,7 +28,7 @@ public class GaladhrimElfModel<T extends MobEntity>
         this.rightArmPose = BipedEntityModel.ArmPose.EMPTY;
         this.leftArmPose = BipedEntityModel.ArmPose.EMPTY;
         ItemStack itemStack = ((LivingEntity)mobEntity).getStackInHand(Hand.MAIN_HAND);
-        if (itemStack.isOf(Items.BOW) && ((MobEntity)mobEntity).isAttacking()) {
+        if (itemStack.isOf(ModWeaponItems.LORIEN_BOW) && ((MobEntity)mobEntity).isAttacking()) {
             if (((MobEntity)mobEntity).getMainArm() == Arm.RIGHT) {
                 this.rightArmPose = BipedEntityModel.ArmPose.BOW_AND_ARROW;
             } else {
@@ -37,11 +38,11 @@ public class GaladhrimElfModel<T extends MobEntity>
         super.animateModel(mobEntity, f, g, h);
     }
 
-    @Override
+    /*@Override
     public void setAngles(T mobEntity, float f, float g, float h, float i, float j) {
         super.setAngles(mobEntity, f, g, h, i, j);
         ItemStack itemStack = ((LivingEntity)mobEntity).getMainHandStack();
-        if (((MobEntity)mobEntity).isAttacking() && (itemStack.isEmpty() || !itemStack.isOf(Items.BOW))) {
+        if (((MobEntity)mobEntity).isAttacking() && (itemStack.isOf(Items.BOW))) {
             float k = MathHelper.sin(this.handSwingProgress * (float)Math.PI);
             float l = MathHelper.sin((1.0f - (1.0f - this.handSwingProgress) * (1.0f - this.handSwingProgress)) * (float)Math.PI);
             this.rightArm.roll = 0.0f;
@@ -63,5 +64,5 @@ public class GaladhrimElfModel<T extends MobEntity>
         modelPart.pivotX += f;
         modelPart.rotate(matrices);
         modelPart.pivotX -= f;
-    }
+    }*/
 }
