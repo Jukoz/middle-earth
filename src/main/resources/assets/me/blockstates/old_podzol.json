@@ -2,18 +2,18 @@
   "variants": {
     "snowy=false": [
       {
-        "model": "me:block/mirkwood_podzol"
+        "model": "me:block/old_podzol"
       },
       {
-        "model": "me:block/mirkwood_podzol",
+        "model": "me:block/old_podzol",
         "y": 90
       },
       {
-        "model": "me:block/mirkwood_podzol",
+        "model": "me:block/old_podzol",
         "y": 180
       },
       {
-        "model": "me:block/mirkwood_podzol",
+        "model": "me:block/old_podzol",
         "y": 270
       }
     ],

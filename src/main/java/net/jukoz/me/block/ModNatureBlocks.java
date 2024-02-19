@@ -65,7 +65,7 @@ public class ModNatureBlocks {
     public static final Block FOREST_MOSS_BLOCK = registerBlock("forest_moss_block",
             new Block(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_BLOCK)), true);
 
-    public static final Block MIRKWOOD_PODZOL = registerBlock("mirkwood_podzol",
+    public static final Block OLD_PODZOL = registerBlock("old_podzol",
             new SnowyBlock(AbstractBlock.Settings.create().mapColor(MapColor.SPRUCE_BROWN).strength(0.5F).sounds(BlockSoundGroup.GRAVEL)), true);
 
     public static final Block BROWN_GRASS = registerBlock("brown_grass",
