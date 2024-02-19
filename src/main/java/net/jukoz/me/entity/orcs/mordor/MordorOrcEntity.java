@@ -90,8 +90,9 @@ public class MordorOrcEntity extends HostileEntity {
         }
 
         randomVal = random.nextFloat();
+
         if (randomVal > 0.85f) {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.RUSTY_KETTLE_HELMET));
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.RUSTY_KETTLE_HAT));
         } else {
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_HELMET));
         }

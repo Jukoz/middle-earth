@@ -8,15 +8,15 @@ import net.minecraft.util.Identifier;
 
 public class MistyUrukScaleHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
 
-    public final ModelPart wing_right;
-    public final ModelPart wing_left;
+    public final ModelPart wingRight;
+    public final ModelPart wingLeft;
 
     public MistyUrukScaleHelmetArmorModel(ModelPart root) {
         super(root);
-        wing_right = root.getChild("head").getChild("wing_right");
-        wing_left = root.getChild("head").getChild("wing_left");
+        wingRight = root.getChild("head").getChild("wing_right");
+        wingLeft = root.getChild("head").getChild("wing_left");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/misty_uruk_scale_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/misty_hobgoblin_scale_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {
