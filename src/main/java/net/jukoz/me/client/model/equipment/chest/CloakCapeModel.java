@@ -13,18 +13,18 @@ public class CloakCapeModel<T extends LivingEntity> extends BipedEntityModel<T> 
     private static final float MAX_ANGLE_CLOAK = 80f;
     private static final float SPEED_MULTIPLIER_CLOAK = 1.8f;
     private final ModelPart cape;
-    private final ModelPart cape_low;
-    private final ModelPart cape_shoulder;
-    private final ModelPart right_arm_shoulder_cape;
-    private final ModelPart left_arm_shoulder_cape;
+    private final ModelPart capeLow;
+    private final ModelPart capeShoulder;
+    private final ModelPart rightArmShoulderCape;
+    private final ModelPart leftArmShoulderCape;
 
     public CloakCapeModel(ModelPart root) {
         super(root);
         this.cape = root.getChild("body").getChild("cape");
-        this.cape_low = root.getChild("body").getChild("cape").getChild("cape_low");
-        this.cape_shoulder = root.getChild("body").getChild("cape_shoulder");
-        this.right_arm_shoulder_cape = root.getChild("right_arm").getChild("right_arm_shoulder_cape");
-        this.left_arm_shoulder_cape = root.getChild("left_arm").getChild("left_arm_shoulder_cape");
+        this.capeLow = root.getChild("body").getChild("cape").getChild("cape_low");
+        this.capeShoulder = root.getChild("body").getChild("cape_shoulder");
+        this.rightArmShoulderCape = root.getChild("right_arm").getChild("right_arm_shoulder_cape");
+        this.leftArmShoulderCape = root.getChild("left_arm").getChild("left_arm_shoulder_cape");
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -42,8 +42,10 @@ public class CloakCapeModel<T extends LivingEntity> extends BipedEntityModel<T> 
                 .uv(0, 35).mirrored().cuboid(-9.0F, 1.0F, -2.0F, 18.0F, 13.0F, 0.0F, new Dilation(0.0F)).mirrored(false),
                 ModelTransform.of(0.0F, 12F, 5.0F, 0.0F, 0.0F, 0.0F));
         body.addChild("cape_shoulder", ModelPartBuilder.create()
-                        .uv(0, 0).cuboid(-4.0F, -24.0F, -2.0F, 8.0F, 12.0F, 4.0F, new Dilation(0.0F)),
-                ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+                .uv(0, 0).cuboid(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new Dilation(1.1F)),
+                ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+
+
 
         ModelPartData right_arm = modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(),
                 ModelTransform.pivot(0.0F, 0.0F, 0.0F));

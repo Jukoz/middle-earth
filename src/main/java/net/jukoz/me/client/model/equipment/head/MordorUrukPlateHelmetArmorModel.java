@@ -15,7 +15,7 @@ public class MordorUrukPlateHelmetArmorModel<T extends LivingEntity> extends Cus
         super(root);
         skull = root.getChild("head").getChild("skull_parts");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/mordor_uruk_plate_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/mordor_black_uruk_plate_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {

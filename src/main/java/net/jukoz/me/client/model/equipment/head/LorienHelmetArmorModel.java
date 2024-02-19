@@ -14,7 +14,7 @@ public class LorienHelmetArmorModel<T extends LivingEntity> extends CustomHelmet
         super(root);
         spike = root.getChild("head").getChild("spike");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/lorien_plate_layer_1.png");
+        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/lorien_" + tier +"_layer_1.png");
     }
 
     public static TexturedModelData getTexturedModelData() {
