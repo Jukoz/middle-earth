@@ -17,24 +17,31 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 
-public class PineconeEntity extends AbstractProjectleEntity {
-    private Item item = ModResourceItems.PINECONE;
+public class LitPineconeEntity extends AbstractProjectleEntity {
+    private Item item = ModResourceItems.LIT_PINECONE;
     private float damage;
 
-    public PineconeEntity(EntityType<? extends PineconeEntity> entityType, World world) {
+
+    public LitPineconeEntity(EntityType<? extends LitPineconeEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public PineconeEntity(World world, LivingEntity owner, float dmg) {
-        super(ModEntities.PINECONE, owner, world);
+    public LitPineconeEntity(World world, LivingEntity owner, float dmg) {
+        super(ModEntities.LIT_PINECONE, owner, world);
         this.damage = dmg;
     }
 
-    public PineconeEntity(World world, double x, double y, double z) {
-        super(ModEntities.PINECONE, x, y, z, world);
+    public LitPineconeEntity(World world, double x, double y, double z) {
+        super(ModEntities.LIT_PINECONE, x, y, z, world);
+    }
+    protected void onEntityHit(EntityHitResult entityHitResult) {
+        super.onEntityHit(entityHitResult);
+        Entity entity = entityHitResult.getEntity();
+        entity.setOnFireFor(4);
     }
 
     protected Item getDefaultItem() {
         return item;
     }
+
 }

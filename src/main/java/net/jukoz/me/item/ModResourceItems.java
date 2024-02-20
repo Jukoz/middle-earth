@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModNatureBlocks;
-import net.jukoz.me.entity.projectile.lit_pinecone.LitPineconeEntity;
 import net.jukoz.me.item.items.*;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.block.Block;

@@ -1,6 +1,5 @@
-package net.jukoz.me.entity.projectile.lit_pinecone;
+package net.jukoz.me.entity.projectile;
 
-import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.entity.Entity;
@@ -16,21 +15,20 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 
-public class LitPineconeEntity extends ThrownItemEntity {
-    private Item item = ModResourceItems.LIT_PINECONE;
+public abstract class AbstractProjectleEntity extends ThrownItemEntity {
+    public Item item;
     private float damage;
 
-    public LitPineconeEntity(EntityType<? extends LitPineconeEntity> entityType, World world) {
+    public AbstractProjectleEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public LitPineconeEntity(World world, LivingEntity owner, float dmg) {
-        super(ModEntities.LIT_PINECONE, owner, world);
-        this.damage = dmg;
+    public AbstractProjectleEntity(EntityType<? extends ThrownItemEntity> entityType, double d, double e, double f, World world) {
+        super(entityType, d, e, f, world);
     }
 
-    public LitPineconeEntity(World world, double x, double y, double z) {
-        super(ModEntities.LIT_PINECONE, x, y, z, world);
+    public AbstractProjectleEntity(EntityType<? extends ThrownItemEntity> entityType, LivingEntity livingEntity, World world) {
+        super(entityType, livingEntity, world);
     }
 
     protected Item getDefaultItem() {
@@ -53,7 +51,6 @@ public class LitPineconeEntity extends ThrownItemEntity {
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        entity.setOnFireFor(4);
         if(this.getOwner() instanceof ShireHobbitEntity && entity instanceof ShireHobbitEntity) return;
         entity.damage(this.getDamageSources().thrown(this, this.getOwner()), this.damage);
     }
