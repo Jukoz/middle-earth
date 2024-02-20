@@ -42,8 +42,9 @@ public class ModEntities {
 
     //TODO Npc Sizes
     //TODO Npc weird animation/item holding -> model fucked
-    //TODO Npc Balance, too weak rn ?
+    //TODO Npc Balance, too weak rn ? Buff Damage and attack range
     //TODO Npc Loot Tables
+    //TODO Npc XP levels
 
     // Barrow Wights
     public static final EntityType<BarrowWightEntity> BARROW_WIGHT = registerEntity("barrow_wight", BarrowWightEntity::new, SpawnGroup.CREATURE, 0.9f, 2.1f);
@@ -67,7 +68,11 @@ public class ModEntities {
     public static final EntityType<DurinDwarfEntity> DURIN_FOLK = registerEntity("durin_folk", DurinDwarfEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
     // Elves
-    public static final EntityType<GaladhrimElfEntity> GALADHRIM_ELF = registerEntity("galadhrim_elf", GaladhrimElfEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<GaladhrimElfEntity> LORIEN_MILITIA = registerEntity("lorien_militia", GaladhrimElfEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<GaladhrimElfEntity> LORIEN_SOLDIER = registerEntity("lorien_soldier", GaladhrimElfEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<GaladhrimElfEntity> LORIEN_KNIGHT = registerEntity("lorien_knight", GaladhrimElfEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<GaladhrimElfEntity> LORIEN_VETERAN = registerEntity("lorien_veteran", GaladhrimElfEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<GaladhrimElfEntity> LORIEN_COMMANDER = registerEntity("lorien_commander", GaladhrimElfEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
     // Hobbits
     public static final EntityType<ShireHobbitEntity> HOBBIT = registerEntity("hobbit", ShireHobbitEntity::new, SpawnGroup.CREATURE, 0.5f, 1.9f);
@@ -116,7 +121,9 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(BARROW_WIGHT, BarrowWightEntity.setAttributes());
         //FabricDefaultAttributeRegistry.register(BALROG, BalrogEntity.createBalrogAttributes());
         FabricDefaultAttributeRegistry.register(CAVE_TROLL, CaveTrollEntity.setAttributes());
-        
+
+        FabricDefaultAttributeRegistry.register(HOBBIT, ShireHobbitEntity.setAttributes());
+
         FabricDefaultAttributeRegistry.register(GONDORIAN_MILITIA, GondorHumanEntity.setSoldierAttributes());
         FabricDefaultAttributeRegistry.register(GONDORIAN_SOLDIER, GondorHumanEntity.setSoldierAttributes());
         FabricDefaultAttributeRegistry.register(GONDORIAN_KNIGHT, GondorHumanEntity.setKnightAttributes());
@@ -128,18 +135,23 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(ROHIRRIM_KNIGHT, GondorHumanEntity.setKnightAttributes());
         FabricDefaultAttributeRegistry.register(ROHIRRIM_VETERAN, GondorHumanEntity.setVeteranAttributes());
         FabricDefaultAttributeRegistry.register(ROHIRRIM_COMMANDER, GondorHumanEntity.setCommanderAttributes());
-        
-        FabricDefaultAttributeRegistry.register(HILL_TROLL, HillTrollEntity.setAttributes());
-        FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
+
         FabricDefaultAttributeRegistry.register(DURIN_FOLK, DurinDwarfEntity.setAttributes());
-        FabricDefaultAttributeRegistry.register(HOBBIT, ShireHobbitEntity.setAttributes());
-        FabricDefaultAttributeRegistry.register(GALADHRIM_ELF, GaladhrimElfEntity.setAttributes());
+
+        FabricDefaultAttributeRegistry.register(LORIEN_MILITIA, GaladhrimElfEntity.setSoldierAttributes());
+        FabricDefaultAttributeRegistry.register(LORIEN_SOLDIER, GaladhrimElfEntity.setSoldierAttributes());
+        FabricDefaultAttributeRegistry.register(LORIEN_KNIGHT, GaladhrimElfEntity.setKnightAttributes());
+        FabricDefaultAttributeRegistry.register(LORIEN_VETERAN, GaladhrimElfEntity.setVeteranAttributes());
+        FabricDefaultAttributeRegistry.register(LORIEN_COMMANDER, GaladhrimElfEntity.setCommanderAttributes());
+        
         FabricDefaultAttributeRegistry.register(NAZGUL, NazgulEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(MORDOR_ORC, MordorOrcEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(MISTY_ORC, MistyOrcEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(MORDOR_URUK, MordorUrukEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(MISTY_URUK, MistyUrukEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(MIRKWOOD_SPIDER, MirkwoodSpiderEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(HILL_TROLL, HillTrollEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
         // Animals
         FabricDefaultAttributeRegistry.register(CRAB, CrabEntity.createCrabAttributes());
         FabricDefaultAttributeRegistry.register(GOOSE, GooseEntity.createGooseAttributes());

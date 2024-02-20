@@ -36,6 +36,20 @@ public class GaladhrimElfEntity extends NpcEntity{
 
     public GaladhrimElfEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
+        String name = this.getDefaultName().toString();
+        if(name.contains("militia")){
+            this.setRank(RANK.MILITIA);
+            this.setBow(Items.BOW);
+        } else if (name.contains("soldier")) {
+            this.setRank(RANK.SOLDIER);
+            this.setBow(ModWeaponItems.LORIEN_BOW);
+        }else if (name.contains("knight")) {
+            this.setRank(RANK.KNIGHT);
+        }else if (name.contains("veteran")) {
+            this.setRank(RANK.VETERAN);
+        }else if (name.contains("commander")) {
+            this.setRank(RANK.COMMANDER);
+        }
     }
 
     @Nullable
@@ -47,36 +61,7 @@ public class GaladhrimElfEntity extends NpcEntity{
         return entityData;
     }
 
-    @Override
-    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        super.initEquipment(random, localDifficulty);
-        float randomVal = random.nextFloat();
-
-        if (randomVal < 0.50f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
-        } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_BOW));
-        }
-        randomVal = random.nextFloat();
-
-        if (randomVal < 0.35f) {
-            int[] colors = {
-                    0x809c9c,
-                    0x808c9c,
-                    0x435e52
-            };
-            int colorIndex = random.nextInt(3);
-
-            DyeableItem item = (DyeableItem)ModEquipmentItems.CLOAK;
-            ItemStack stack = new ItemStack((Item)item);
-            item.setColor(stack, colors[colorIndex]);
-
-            equipStack(EquipmentSlot.CHEST, stack);
-        }
-    }
-
-    public static DefaultAttributeContainer.Builder setAttributes() {
+    public static DefaultAttributeContainer.Builder setSoldierAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 25.0)
@@ -84,17 +69,35 @@ public class GaladhrimElfEntity extends NpcEntity{
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0);
     }
+    public static DefaultAttributeContainer.Builder setKnightAttributes() {
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 27.0)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.5);
+    }
+    public static DefaultAttributeContainer.Builder setVeteranAttributes() {
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 29.0)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0);
+    }
+    public static DefaultAttributeContainer.Builder setCommanderAttributes() {
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 31.0)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.5);
+    }
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(1, new SwimGoal(this));
-        //this.goalSelector.add(2, new CustomBowAttackGoal(this, 1.0, 16, 24.0f));
-        this.goalSelector.add(3, new MeleeAttackGoal(this, 1.2, false));
-        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(6, new LookAroundGoal(this));
-        int i = 1;
-        this.targetSelector.add(++i, new RevengeGoal(this));
+        super.initGoals();
+        int i = 2;
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorUrukEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyUrukEntity.class, true));
@@ -104,7 +107,139 @@ public class GaladhrimElfEntity extends NpcEntity{
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
     }
 
+    @Override
+    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
+        super.initEquipment(random, localDifficulty);
+        switch (this.getRank()){
+            case MILITIA -> militiaEquipment(random);
+            case SOLDIER -> soldierEquipment(random);
+            case KNIGHT -> knightEquipment(random);
+            case VETERAN -> veteranEquipment(random);
+            case COMMANDER -> commanderEquipment(random);
+        }
+    }
 
+    private void militiaEquipment(Random random){
+        int[] colors = {
+                0x4d4a57
+        };
+        int colorIndex = random.nextInt(1);
+
+        DyeableItem item = (DyeableItem)ModEquipmentItems.GAMBESON;
+        ItemStack gambeson = new ItemStack((Item)(DyeableItem)ModEquipmentItems.GAMBESON);
+        ItemStack leatherHelmet = new ItemStack((Item)(DyeableItem)Items.LEATHER_HELMET);
+        ItemStack leatherChestplate = new ItemStack((Item)(DyeableItem)Items.LEATHER_CHESTPLATE);
+        ItemStack leatherLeggings = new ItemStack((Item)(DyeableItem)Items.LEATHER_LEGGINGS);
+        ItemStack leatherBoots = new ItemStack((Item)(DyeableItem)Items.LEATHER_BOOTS);
+        item.setColor(gambeson, colors[colorIndex]);
+        item.setColor(leatherHelmet, colors[colorIndex]);
+        item.setColor(leatherChestplate, colors[colorIndex]);
+        item.setColor(leatherLeggings, colors[colorIndex]);
+        item.setColor(leatherBoots, colors[colorIndex]);
+
+        float val = random.nextFloat();
+        if(val >= 0.30f){
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HAT));
+        } else  {
+            equipStack(EquipmentSlot.HEAD, leatherHelmet);
+        }
+
+        float val1 = random.nextFloat();
+        if(val1 >= 0.30f){
+            equipStack(EquipmentSlot.CHEST, gambeson);
+        } else  {
+            equipStack(EquipmentSlot.CHEST, leatherChestplate);
+        }
+
+        float val2 = random.nextFloat();
+
+        if(val2 >= 0.50f){
+            equipStack(EquipmentSlot.LEGS, leatherLeggings);
+        }
+
+        equipStack(EquipmentSlot.FEET, leatherBoots);
+
+
+        float val3 = random.nextFloat();
+        if(val3 >= 0.55f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+        } else if (val3 < 0.55f && val3 > 0.20f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SPEAR));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+        } else if (val3 <= 0.20f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_DAGGER));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+        }
+    }
+
+    private void soldierEquipment(Random random){
+        
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.LORIEN_MAIL_HELMET));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.LORIEN_MAIL_CHESTPLATE));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_MAIL_LEGGINGS));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_MAIL_BOOTS));
+
+
+        float val3 = random.nextFloat();
+        if(val3 >= 0.55f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_BOW));
+        } else if (val3 < 0.55f && val3 > 0.20f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SPEAR));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+        } else if (val3 <= 0.20f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+        }
+    }
+
+    private void knightEquipment(Random random){
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.LORIEN_SCALE_HELMET));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.LORIEN_SCALE_CHESTPLATE));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_SCALE_LEGGINGS));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_SCALE_BOOTS));
+
+        float val = random.nextFloat();
+        if (val < 0.50f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SWORD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+        } else {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+        }
+    }
+
+    private void veteranEquipment(Random random){
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.LORIEN_PLATE_HELMET));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.LORIEN_PLATE_CHESTPLATE));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_PLATE_LEGGINGS));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_PLATE_BOOTS));
+
+        float val = random.nextFloat();
+        if (val < 0.50f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SWORD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+        } else {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+        }
+    }
+
+    private void commanderEquipment(Random random){
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.LORIEN_PLATE_HELMET));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.LORIEN_PLATE_CHESTPLATE));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_PLATE_LEGGINGS));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_PLATE_BOOTS));
+
+        float val = random.nextFloat();
+
+        if (val < 0.50f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SWORD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+        } else {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+        }
+    }
     public GaladhrimElfVariant getVariant() {
         return GaladhrimElfVariant.byId(this.getId());
     }

@@ -146,7 +146,7 @@ public class GondorHumanEntity extends NpcEntity{
 
         float val = random.nextFloat();
         if(val >= 0.30f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HELMET));
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HAT));
         } else  {
             equipStack(EquipmentSlot.HEAD, leatherHelmet);
         }
@@ -192,7 +192,7 @@ public class GondorHumanEntity extends NpcEntity{
         if(val >= 0.30f){
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.GONDORIAN_MAIL_HELMET));
         } else  {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HELMET));
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HAT));
         }
 
         float val1 = random.nextFloat();

@@ -9,6 +9,7 @@ import net.minecraft.client.render.entity.model.CrossbowPosing;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Arm;
@@ -28,7 +29,7 @@ public class GaladhrimElfModel<T extends MobEntity>
         this.rightArmPose = BipedEntityModel.ArmPose.EMPTY;
         this.leftArmPose = BipedEntityModel.ArmPose.EMPTY;
         ItemStack itemStack = ((LivingEntity)mobEntity).getStackInHand(Hand.MAIN_HAND);
-        if (itemStack.isOf(ModWeaponItems.LORIEN_BOW) && ((MobEntity)mobEntity).isAttacking()) {
+        if (itemStack.getItem() instanceof BowItem && ((MobEntity)mobEntity).isAttacking()) {
             if (((MobEntity)mobEntity).getMainArm() == Arm.RIGHT) {
                 this.rightArmPose = BipedEntityModel.ArmPose.BOW_AND_ARROW;
             } else {

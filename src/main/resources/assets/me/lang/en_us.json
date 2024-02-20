@@ -462,9 +462,8 @@
   "item.me.goose_spawn_egg": "Goose Spawn Egg",
   "item.me.duck_spawn_egg": "Duck Spawn Egg",
   "item.me.swan_spawn_egg": "Swan Spawn Egg",
-  "item.me.durin_folk_spawn_egg": "Durin Folk Spawn Egg",
+  
   "item.me.hobbit_spawn_egg": "Hobbit Spawn Egg",
-  "item.me.galadhrim_elf_spawn_egg": "Galadhrim Elf Spawn Egg",
   
   "item.me.gondorian_militia_spawn_egg": "Gondorian Militia Spawn Egg",
   "item.me.gondorian_soldier_spawn_egg": "Gondorian Soldier Spawn Egg",
@@ -478,7 +477,14 @@
   "item.me.rohirrim_veteran_spawn_egg": "Rohirrim Veteran Spawn Egg",
   "item.me.rohirrim_commander_spawn_egg": "Rohirrim Commander Spawn Egg",
   
-  "item.me.rohan_man_spawn_egg": "Rohan Man Spawn Egg",
+  "item.me.durin_folk_spawn_egg": "Durin Folk Spawn Egg",
+
+  "item.me.lorien_militia_spawn_egg": "Lórien Militia Spawn Egg",
+  "item.me.lorien_soldier_spawn_egg": "Lórien Soldier Spawn Egg",
+  "item.me.lorien_knight_spawn_egg": "Lórien Knight Spawn Egg",
+  "item.me.lorien_veteran_spawn_egg": "Lórien Veteran Spawn Egg",
+  "item.me.lorien_commander_spawn_egg": "Lórien Commander Spawn Egg",
+
   "item.me.mordor_orc_spawn_egg": "Mordor Orc Spawn Egg",
   "item.me.mordor_uruk_spawn_egg": "Mordor Uruk Spawn Egg",
   "item.me.misty_orc_spawn_egg": "Misty Orc Spawn Egg",
@@ -518,6 +524,12 @@
   "entity.me.rohirrim_knight": "Rohirrim Knight",
   "entity.me.rohirrim_veteran": "Rohirrim Veteran",
   "entity.me.rohirrim_commander": "Rohirrim Commander",
+
+  "entity.me.lorien_militia": "Lórien Militia",
+  "entity.me.lorien_soldier": "Lórien Soldier",
+  "entity.me.lorien_knight": "Lórien Knight",
+  "entity.me.lorien_veteran": "Lórien Veteran",
+  "entity.me.lorien_commander": "Lórien Commander",
   
   "entity.me.mordor_orc": "Mordor Orc",
   "entity.me.mordor_uruk": "Mordor Uruk",

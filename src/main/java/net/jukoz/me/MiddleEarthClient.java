@@ -79,7 +79,9 @@ public class MiddleEarthClient implements ClientModInitializer {
         // Entities
         EntityRendererRegistry.register(ModEntities.CAVE_TROLL, CaveTrollRenderer::new);
         EntityRendererRegistry.register(ModEntities.HILL_TROLL, HillTrollRenderer::new);
-        
+
+        EntityRendererRegistry.register(ModEntities.HOBBIT, ShireHobbitRenderer::new);
+
         EntityRendererRegistry.register(ModEntities.GONDORIAN_MILITIA, GondorHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.GONDORIAN_SOLDIER, GondorHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.GONDORIAN_KNIGHT, GondorHumanRenderer::new);
@@ -91,10 +93,15 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.ROHIRRIM_KNIGHT, RohanHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.ROHIRRIM_VETERAN, RohanHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.ROHIRRIM_COMMANDER, RohanHumanRenderer::new);
-        
+
         EntityRendererRegistry.register(ModEntities.DURIN_FOLK, DurinDwarfRenderer::new);
-        EntityRendererRegistry.register(ModEntities.HOBBIT, ShireHobbitRenderer::new);
-        EntityRendererRegistry.register(ModEntities.GALADHRIM_ELF, GaladhrimElfRenderer::new);
+
+        EntityRendererRegistry.register(ModEntities.LORIEN_MILITIA, GaladhrimElfRenderer::new);
+        EntityRendererRegistry.register(ModEntities.LORIEN_SOLDIER, GaladhrimElfRenderer::new);
+        EntityRendererRegistry.register(ModEntities.LORIEN_KNIGHT, GaladhrimElfRenderer::new);
+        EntityRendererRegistry.register(ModEntities.LORIEN_VETERAN, GaladhrimElfRenderer::new);
+        EntityRendererRegistry.register(ModEntities.LORIEN_COMMANDER, GaladhrimElfRenderer::new);
+        
         EntityRendererRegistry.register(ModEntities.NAZGUL, NazgulRenderer::new);
         EntityRendererRegistry.register(ModEntities.MORDOR_ORC, MordorOrcRenderer::new);
         EntityRendererRegistry.register(ModEntities.MISTY_ORC, MistyOrcRenderer::new);

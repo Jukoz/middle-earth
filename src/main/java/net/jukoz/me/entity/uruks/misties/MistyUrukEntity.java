@@ -91,15 +91,15 @@ public class MistyUrukEntity extends HostileEntity {
 
         randomVal = random.nextFloat();
         if (randomVal > 0.35) {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_URUK_SCALE_HELMET));
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_URUK_SCALE_CHESTPLATE));
-            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_URUK_SCALE_LEGGINGS));
-            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_URUK_SCALE_BOOTS));
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_HELMET));
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_CHESTPLATE));
+            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_LEGGINGS));
+            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_BOOTS));
         } else {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_URUK_PLATE_HELMET));
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_URUK_PLATE_CHESTPLATE));
-            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_URUK_PLATE_LEGGINGS));
-            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_URUK_PLATE_BOOTS));
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_HELMET));
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_CHESTPLATE));
+            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_LEGGINGS));
+            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_BOOTS));
         }
     }
 

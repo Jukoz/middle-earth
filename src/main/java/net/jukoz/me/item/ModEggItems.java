@@ -38,8 +38,18 @@ public class ModEggItems {
 
     public static final Item DURIN_FOLK_SPAWN_EGG = registerItem("durin_folk_spawn_egg",
             new SpawnEggItem(ModEntities.DURIN_FOLK, 4541263, 8090735, new Item.Settings()));
-    public static final Item GALADHRIM_ELF_SPAWN_EGG = registerItem("galadhrim_elf_spawn_egg",
-            new SpawnEggItem(ModEntities.GALADHRIM_ELF, 15388227, 8950161, new Item.Settings()));
+
+    public static final Item LORIEN_MILITIA_SPAWN_EGG = registerItem("lorien_militia_spawn_egg",
+            new SpawnEggItem(ModEntities.LORIEN_MILITIA, 15388227, 8950161, new Item.Settings()));
+    public static final Item LORIEN_SOLDIER_SPAWN_EGG = registerItem("lorien_soldier_spawn_egg",
+            new SpawnEggItem(ModEntities.LORIEN_SOLDIER, 15388227, 8950161, new Item.Settings()));
+    public static final Item LORIEN_KNIGHT_SPAWN_EGG = registerItem("lorien_knight_spawn_egg",
+            new SpawnEggItem(ModEntities.LORIEN_KNIGHT, 15388227, 8950161, new Item.Settings()));
+    public static final Item LORIEN_VETERAN_SPAWN_EGG = registerItem("lorien_veteran_spawn_egg",
+            new SpawnEggItem(ModEntities.LORIEN_VETERAN, 15388227, 8950161, new Item.Settings()));
+    public static final Item LORIEN_COMMANDER_SPAWN_EGG = registerItem("lorien_commander_spawn_egg",
+            new SpawnEggItem(ModEntities.LORIEN_COMMANDER, 15388227, 8950161, new Item.Settings()));
+
     public static final Item MORDOR_ORC_SPAWN_EGG = registerItem("mordor_orc_spawn_egg",
             new SpawnEggItem(ModEntities.MORDOR_ORC, 4209210, 7682104, new Item.Settings()));
     public static final Item MORDOR_URUK_SPAWN_EGG = registerItem("mordor_uruk_spawn_egg",
