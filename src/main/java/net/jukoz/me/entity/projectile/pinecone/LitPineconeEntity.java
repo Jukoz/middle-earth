@@ -1,4 +1,4 @@
-package net.jukoz.me.entity.projectile.pebble;
+package net.jukoz.me.entity.projectile.pinecone;
 
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
@@ -17,24 +17,31 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 
-public class PebbleEntity extends AbstractProjectleEntity {
-    private Item item = ModResourceItems.PEBBLE;
+public class LitPineconeEntity extends AbstractProjectleEntity {
+    private Item item = ModResourceItems.LIT_PINECONE;
     private float damage;
 
-    public PebbleEntity(EntityType<? extends PebbleEntity> entityType, World world) {
+
+    public LitPineconeEntity(EntityType<? extends LitPineconeEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public PebbleEntity(World world, LivingEntity owner, float dmg) {
-        super(ModEntities.PEBBLE, owner, world);
+    public LitPineconeEntity(World world, LivingEntity owner, float dmg) {
+        super(ModEntities.LIT_PINECONE, owner, world);
         this.damage = dmg;
     }
 
-    public PebbleEntity(World world, double x, double y, double z) {
-        super(ModEntities.PEBBLE, x, y, z, world);
+    public LitPineconeEntity(World world, double x, double y, double z) {
+        super(ModEntities.LIT_PINECONE, x, y, z, world);
+    }
+    protected void onEntityHit(EntityHitResult entityHitResult) {
+        super.onEntityHit(entityHitResult);
+        Entity entity = entityHitResult.getEntity();
+        entity.setOnFireFor(4);
     }
 
     protected Item getDefaultItem() {
         return item;
     }
+
 }
