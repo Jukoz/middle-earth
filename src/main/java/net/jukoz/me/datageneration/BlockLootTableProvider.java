@@ -71,7 +71,16 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 
         }
         for (LeavesDrops.LeavesDrop drop : LeavesDrops.blocks) {
-            addDrop(drop.block(), this.leavesDrops(drop.block(), drop.drop(), SAPLING_DROP_CHANCE));
+            if(drop.toString().contains("pine")){
+                addDrop(drop.block(), this.leavesDrops(drop.block(), drop.drop(), SAPLING_DROP_CHANCE)
+                        .pool(LootPool.builder()
+                                .rolls(ConstantLootNumberProvider.create(1.0F)).conditionally(WITHOUT_SILK_TOUCH_NOR_SHEARS)
+                                .with(((LeafEntry.Builder)this.addSurvivesExplosionCondition(drop.drop(), ItemEntry.builder(ModResourceItems.PINECONE)))
+                                        .conditionally(TableBonusLootCondition.builder(Enchantments.FORTUNE, new float[]{0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F})))));
+
+            } else {
+                addDrop(drop.block(), this.leavesDrops(drop.block(), drop.drop(), SAPLING_DROP_CHANCE));
+            }
         }
         for (CropDrops.CropDrop cd : CropDrops.crops) {
             addDrop(cd.crop_block, cropDrops(cd.crop_block, cd.fruit, cd.seeds, cd.builder));

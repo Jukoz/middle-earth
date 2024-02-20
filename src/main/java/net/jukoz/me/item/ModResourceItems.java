@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModNatureBlocks;
+import net.jukoz.me.entity.projectile.lit_pinecone.LitPineconeEntity;
 import net.jukoz.me.item.items.*;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.block.Block;
@@ -132,6 +133,10 @@ public class ModResourceItems {
 
     public static final Item PEBBLE = registerItem("pebble",
             new PebbleItem(new FabricItemSettings()));
+    public static final Item PINECONE = registerItem("pinecone",
+            new PineconeItem(new FabricItemSettings()));
+    public static final Item LIT_PINECONE = registerItem("lit_pinecone",
+            new LitPineconeItem(new FabricItemSettings().maxCount(16)));
 
     public static final Item STRAW = registerItem("straw",
             new Item(new FabricItemSettings()));
