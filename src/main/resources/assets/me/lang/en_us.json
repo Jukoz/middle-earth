@@ -222,12 +222,13 @@
   "item.me.gundabad_bardiche": "Gundabad Bardiche",
 
 "#Comment:": "Item - Lorien",
-  "item.me.lorien_sword": "Lórien Sword",
-  "item.me.lorien_dagger": "Lórien Dagger",
-  "item.me.lorien_battlestaff": "Lórien Battlestaff",
-  "item.me.lorien_spear": "Lórien Spear",
-  "item.me.lorien_pike": "Lórien Pike",
-  "item.me.lorien_bow": "Lórien Bow",
+  "item.me.lorien_sword": "Lorien Sword",
+  "item.me.lorien_longsword": "Lórien Longsword",
+  "item.me.lorien_dagger": "Lorien Dagger",
+  "item.me.lorien_battlestaff": "Lorien Battlestaff",
+  "item.me.lorien_spear": "Lorien Spear",
+  "item.me.lorien_pike": "Lorien Pike",
+  "item.me.lorien_bow": "Lorien Bow",
   
 "#Comment:": "Item - Mordor Orc",
   "item.me.mordor_orc_sword": "Mordor Orc Sword",
@@ -497,6 +498,8 @@
 
 "#Comment:": "Item - Entities",
   "item.me.pebble": "Pebble",
+  "item.me.pinecone": "Pinecone",
+  "item.me.lit_pinecone": "Lit Pinecone",
 
 "#Comment:": "ENTITIES",
   "entity.me.cave_troll": "Cave Troll",
@@ -539,6 +542,8 @@
   "entity.me.nazgul": "Nazgûl",
   "entity.me.balrog": "Balrog",
   "entity.me.pebble": "Pebble",
+  "entity.me.pinecone": "Pinecone",
+  "entity.me.lit_pinecone": "Lit Pinecone",
 
 "#Comment:": "Block - Vanilla +",
   "block.me.stone_trapdoor": "Stone Trapdoor",
