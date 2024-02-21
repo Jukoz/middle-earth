@@ -50,14 +50,20 @@ public class ModEggItems {
     public static final Item LORIEN_LEADER_SPAWN_EGG = registerItem("lorien_leader_spawn_egg",
             new SpawnEggItem(ModEntities.LORIEN_LEADER, 15388227, 8950161, new Item.Settings()));
 
-    public static final Item MORDOR_ORC_SPAWN_EGG = registerItem("mordor_orc_spawn_egg",
-            new SpawnEggItem(ModEntities.MORDOR_ORC, 4209210, 7682104, new Item.Settings()));
+    public static final Item MORDOR_ORC_SNAGA_SPAWN_EGG = registerItem("mordor_orc_snaga_spawn_egg",
+            new SpawnEggItem(ModEntities.MORDOR_ORC_SNAGA, 4209210, 7682104, new Item.Settings()));
+    public static final Item MORDOR_ORC_SOLDIER_SPAWN_EGG = registerItem("mordor_orc_soldier_spawn_egg",
+            new SpawnEggItem(ModEntities.MORDOR_ORC_SOLDIER, 4209210, 7682104, new Item.Settings()));
     public static final Item MORDOR_URUK_SPAWN_EGG = registerItem("mordor_uruk_spawn_egg",
             new SpawnEggItem(ModEntities.MORDOR_URUK, 4209210, 7682104, new Item.Settings()));
-    public static final Item MISTY_ORC_SPAWN_EGG = registerItem("misty_orc_spawn_egg",
-            new SpawnEggItem(ModEntities.MISTY_ORC, 4209210, 7682104, new Item.Settings()));
+
+    public static final Item MISTY_ORC_SNAGA_SPAWN_EGG = registerItem("misty_orc_snaga_spawn_egg",
+            new SpawnEggItem(ModEntities.MISTY_ORC_SNAGA, 4209210, 7682104, new Item.Settings()));
+    public static final Item MISTY_ORC_WARRIOR_SPAWN_EGG = registerItem("misty_orc_warrior_spawn_egg",
+            new SpawnEggItem(ModEntities.MISTY_ORC_WARRIOR, 4209210, 7682104, new Item.Settings()));
     public static final Item MISTY_URUK_SPAWN_EGG = registerItem("misty_uruk_spawn_egg",
             new SpawnEggItem(ModEntities.MISTY_URUK, 4209210, 7682104, new Item.Settings()));
+
     public static final Item BARROW_WIGHT_SPAWN_EGG = registerItem("barrow_wight_spawn_egg",
             new SpawnEggItem(ModEntities.BARROW_WIGHT, 1852734, 2456136, new Item.Settings()));
     public static final Item CAVE_TROLL_SPAWN_EGG = registerItem("cave_troll_spawn_egg",

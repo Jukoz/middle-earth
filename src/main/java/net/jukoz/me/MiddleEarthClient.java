@@ -103,11 +103,17 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.LORIEN_VETERAN, GaladhrimElfRenderer::new);
         EntityRendererRegistry.register(ModEntities.LORIEN_LEADER, GaladhrimElfRenderer::new);
         
-        EntityRendererRegistry.register(ModEntities.NAZGUL, NazgulRenderer::new);
-        EntityRendererRegistry.register(ModEntities.MORDOR_ORC, MordorOrcRenderer::new);
-        EntityRendererRegistry.register(ModEntities.MISTY_ORC, MistyOrcRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MORDOR_ORC_SNAGA, MordorOrcRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MORDOR_ORC_SOLDIER, MordorOrcRenderer::new);
         EntityRendererRegistry.register(ModEntities.MORDOR_URUK, MordorUrukRenderer::new);
+
+
+        EntityRendererRegistry.register(ModEntities.MISTY_ORC_SNAGA, MistyOrcRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MISTY_ORC_WARRIOR, MistyOrcRenderer::new);
         EntityRendererRegistry.register(ModEntities.MISTY_URUK, MistyUrukRenderer::new);
+
+        EntityRendererRegistry.register(ModEntities.NAZGUL, NazgulRenderer::new);
+
         EntityRendererRegistry.register(ModEntities.MIRKWOOD_SPIDER, MirkwoodSpiderRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNOW_TROLL, SnowTrollRenderer::new);
         //EntityRendererRegistry.register(ModEntities.BALROG, BalrogRenderer::new);

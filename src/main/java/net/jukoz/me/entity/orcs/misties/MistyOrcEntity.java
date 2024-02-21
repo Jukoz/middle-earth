@@ -1,26 +1,21 @@
 package net.jukoz.me.entity.orcs.misties;
 
+import net.jukoz.me.entity.NpcEntity;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
-import net.jukoz.me.entity.humans.bandit.BanditHumanModel;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.item.ModEquipmentItems;
-import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
@@ -28,9 +23,17 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class MistyOrcEntity extends HostileEntity {
-    public MistyOrcEntity(EntityType<? extends HostileEntity> entityType, World world) {
+public class MistyOrcEntity extends NpcEntity {
+    public MistyOrcEntity(EntityType<? extends NpcEntity> entityType, World world) {
         super(entityType, world);
+        String name = this.getDefaultName().toString();
+        if(name.contains("snaga")){
+            this.setRank(RANK.MILITIA);
+            this.setBow(Items.BOW);
+        } else if (name.contains("warrior")) {
+            this.setRank(RANK.SOLDIER);
+            this.setBow(Items.BOW);
+        }
     }
 
     @Nullable
@@ -42,7 +45,7 @@ public class MistyOrcEntity extends HostileEntity {
         return entityData;
     }
 
-    public static DefaultAttributeContainer.Builder setAttributes() {
+    public static DefaultAttributeContainer.Builder setSoldierAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0)
@@ -53,14 +56,8 @@ public class MistyOrcEntity extends HostileEntity {
 
     @Override
     protected void initGoals() {
-        int i = 0;
-        this.goalSelector.add(++i, new SwimGoal(this));
-        this.goalSelector.add(++i, new MeleeAttackGoal(this, 1.2f, false));
-        this.goalSelector.add(++i, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(++i, new LookAroundGoal(this));
-        i = 0;
-        this.targetSelector.add(1, new RevengeGoal(this));
+        super.initGoals();
+        int i = 2;
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
@@ -69,38 +66,71 @@ public class MistyOrcEntity extends HostileEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
     }
 
-    public static enum State {
-        NEUTRAL,
-        ATTACKING,
-    }
-
-    public State getState() {
-        if (this.isAttacking()) {
-            return State.ATTACKING;
-        }
-        return State.NEUTRAL;
-    }
-
     @Override
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
         super.initEquipment(random, localDifficulty);
-        float randomVal = random.nextFloat();
-        if(randomVal < 0.67f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SCIMITAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MISTY_MOUNTAINS_SHIELD));
-        } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SPEAR));
+        switch (this.getRank()){
+            case MILITIA -> militiaEquipment(random);
+            case SOLDIER -> soldierEquipment(random);
+        }
+    }
+
+    private void militiaEquipment(Random random){
+        float val = random.nextFloat();
+        if(val >= 0.30f){
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.RUSTY_KETTLE_HAT));
+        } else  {
+            equipStack(EquipmentSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
         }
 
-        randomVal = random.nextFloat();
-        if (randomVal > 0.85f) {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.RUSTY_KETTLE_HAT));
-        } else {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_GOBLIN_MAIL_HELMET));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
+
+        float val2 = random.nextFloat();
+
+        if(val2 >= 0.50f){
+            equipStack(EquipmentSlot.LEGS, new ItemStack(Items.LEATHER_LEGGINGS));
         }
+
+        equipStack(EquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
+
+
+        float val3 = random.nextFloat();
+        if(val3 >= 0.55f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+        } else if (val3 < 0.55f && val3 > 0.20f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SPEAR));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+        } else if (val3 <= 0.20f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_DAGGER));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+        }
+    }
+
+    private void soldierEquipment(Random random){
+        float val = random.nextFloat();
+        if(val >= 0.30f){
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_GOBLIN_MAIL_HELMET));
+        } else  {
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.RUSTY_KETTLE_HAT));
+        }
+
         equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_GOBLIN_MAIL_CHESTPLATE));
+
+
         equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_GOBLIN_MAIL_LEGGINGS));
         equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_GOBLIN_MAIL_BOOTS));
+
+
+        float val3 = random.nextFloat();
+        if(val3 >= 0.55f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+        } else if (val3 < 0.55f && val3 > 0.20f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SPEAR));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MORDOR_SHIELD));
+        } else if (val3 <= 0.20f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SCIMITAR));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MORDOR_SHIELD));
+        }
     }
 
     public MistyOrcVariant getVariant() {

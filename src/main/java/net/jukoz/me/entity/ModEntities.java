@@ -52,6 +52,9 @@ public class ModEntities {
     // Barrow Wights
     public static final EntityType<BarrowWightEntity> BARROW_WIGHT = registerEntity("barrow_wight", BarrowWightEntity::new, SpawnGroup.CREATURE, 0.9f, 2.1f);
 
+    // Hobbits
+    public static final EntityType<ShireHobbitEntity> HOBBIT = registerEntity("hobbit", ShireHobbitEntity::new, SpawnGroup.CREATURE, 0.5f, 1.9f);
+
     //HUMANS
     //Gondor
     public static final EntityType<GondorHumanEntity> GONDORIAN_MILITIA = registerEntity("gondorian_militia", GondorHumanEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
@@ -82,19 +85,22 @@ public class ModEntities {
     public static final EntityType<GaladhrimElfEntity> LORIEN_VETERAN = registerEntity("lorien_veteran", GaladhrimElfEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
     public static final EntityType<GaladhrimElfEntity> LORIEN_LEADER = registerEntity("lorien_leader", GaladhrimElfEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
-    // Hobbits
-    public static final EntityType<ShireHobbitEntity> HOBBIT = registerEntity("hobbit", ShireHobbitEntity::new, SpawnGroup.CREATURE, 0.5f, 1.9f);
+    //ORCS
+    //Mordor
+    public static final EntityType<MordorOrcEntity> MORDOR_ORC_SNAGA = registerEntity("mordor_orc_snaga", MordorOrcEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<MordorOrcEntity> MORDOR_ORC_SOLDIER = registerEntity("mordor_orc_soldier", MordorOrcEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    //Misties
+    public static final EntityType<MistyOrcEntity> MISTY_ORC_SNAGA = registerEntity("misty_orc_snaga", MistyOrcEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<MistyOrcEntity> MISTY_ORC_WARRIOR = registerEntity("misty_orc_warrior", MistyOrcEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+
+    //URUKS
+    //Mordor
+    public static final EntityType<MordorUrukEntity> MORDOR_URUK = registerEntity("mordor_uruk", MordorUrukEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    //Misties
+    public static final EntityType<MistyUrukEntity> MISTY_URUK = registerEntity("misty_uruk", MistyUrukEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
     // Nazgul
     public static final EntityType<NazgulEntity> NAZGUL = registerEntity("nazgul", NazgulEntity::new, SpawnGroup.CREATURE, 0.55f, 1.9f);
-
-    // Orcs
-    public static final EntityType<MordorOrcEntity> MORDOR_ORC = registerEntity("mordor_orc", MordorOrcEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
-    public static final EntityType<MistyOrcEntity> MISTY_ORC = registerEntity("misty_orc", MistyOrcEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
-
-    // Uruks
-    public static final EntityType<MordorUrukEntity> MORDOR_URUK = registerEntity("mordor_uruk", MordorUrukEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
-    public static final EntityType<MistyUrukEntity> MISTY_URUK = registerEntity("misty_uruk", MistyUrukEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
     // Spiders
     public static final EntityType<MirkwoodSpiderEntity> MIRKWOOD_SPIDER = registerEntity("mirkwood_spider", MirkwoodSpiderEntity::new, SpawnGroup.CREATURE, 1.15f, 0.9f);
@@ -154,11 +160,16 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(LORIEN_VETERAN, GaladhrimElfEntity.setVeteranAttributes());
         FabricDefaultAttributeRegistry.register(LORIEN_LEADER, GaladhrimElfEntity.setLeaderAttributes());
         
-        FabricDefaultAttributeRegistry.register(NAZGUL, NazgulEntity.setAttributes());
-        FabricDefaultAttributeRegistry.register(MORDOR_ORC, MordorOrcEntity.setAttributes());
-        FabricDefaultAttributeRegistry.register(MISTY_ORC, MistyOrcEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(MORDOR_ORC_SNAGA, MordorOrcEntity.setSoldierAttributes());
+        FabricDefaultAttributeRegistry.register(MORDOR_ORC_SOLDIER, MordorOrcEntity.setSoldierAttributes());
         FabricDefaultAttributeRegistry.register(MORDOR_URUK, MordorUrukEntity.setAttributes());
+
+        FabricDefaultAttributeRegistry.register(MISTY_ORC_SNAGA, MistyOrcEntity.setSoldierAttributes());
+        FabricDefaultAttributeRegistry.register(MISTY_ORC_WARRIOR, MistyOrcEntity.setSoldierAttributes());
         FabricDefaultAttributeRegistry.register(MISTY_URUK, MistyUrukEntity.setAttributes());
+
+        FabricDefaultAttributeRegistry.register(NAZGUL, NazgulEntity.setAttributes());
+
         FabricDefaultAttributeRegistry.register(MIRKWOOD_SPIDER, MirkwoodSpiderEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(HILL_TROLL, HillTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());

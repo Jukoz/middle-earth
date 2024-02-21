@@ -487,9 +487,12 @@
   "item.me.lorien_veteran_spawn_egg": "Lórien Veteran Spawn Egg",
   "item.me.lorien_leader_spawn_egg": "Lórien Leader Spawn Egg",
 
-  "item.me.mordor_orc_spawn_egg": "Mordor Orc Spawn Egg",
+  "item.me.mordor_orc_snaga_spawn_egg": "Mordor Orc Snaga Spawn Egg",
+  "item.me.mordor_orc_soldier_spawn_egg": "Mordor Orc Soldier Spawn Egg",
   "item.me.mordor_uruk_spawn_egg": "Mordor Uruk Spawn Egg",
-  "item.me.misty_orc_spawn_egg": "Misty Orc Spawn Egg",
+
+  "item.me.misty_orc_snaga_spawn_egg": "Misty Orc Snaga Spawn Egg",
+  "item.me.misty_orc_warrior_spawn_egg": "Misty Orc Warrior Spawn Egg",
   "item.me.misty_uruk_spawn_egg": "Misty Uruk Spawn Egg",
 
   "item.me.bandit_militia_spawn_egg": "Bandit Militia Spawn Egg",
@@ -540,9 +543,12 @@
   "entity.me.lorien_veteran": "Lórien Veteran",
   "entity.me.lorien_leader": "Lórien Leader",
   
-  "entity.me.mordor_orc": "Mordor Orc",
+  "entity.me.mordor_orc_snaga": "Mordor Orc Snaga",
+  "entity.me.mordor_orc_soldier": "Mordor Orc Soldier",
   "entity.me.mordor_uruk": "Mordor Uruk",
-  "entity.me.misty_orc": "Misty Orc",
+
+  "entity.me.misty_orc_snaga": "Misty Orc Snaga",
+  "entity.me.misty_orc_warrior": "Misty Orc Warrior",
   "entity.me.misty_uruk": "Misty Uruk",
 
   "entity.me.nazgul": "Nazgûl",
