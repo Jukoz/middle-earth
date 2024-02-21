@@ -4,6 +4,7 @@
   "package": "net.jukoz.me.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BannerPatternRegisterMixin",
     "ChunkRegionMixin",
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
