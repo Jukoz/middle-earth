@@ -114,6 +114,7 @@ public class SimpleItemModel {
 
             add(ModResourceItems.PINECONE);
             add(ModResourceItems.LIT_PINECONE);
+            add(ModResourceItems.IRON_CHAINMAIL);
         }
     };
 }

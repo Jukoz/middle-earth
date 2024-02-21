@@ -115,6 +115,9 @@ public class ModResourceItems {
     public static final Item MITHRIL_ROD = registerItem("mithril_rod",
             new Item(new FabricItemSettings().fireproof()));
 
+    public static final Item IRON_CHAINMAIL = registerItem("iron_chainmail",
+            new Item(new FabricItemSettings()));
+
     public static final Item RED_AGATE_SHARD = registerItem("red_agate_shard",
             new Item(new FabricItemSettings()));
     public static final Item CITRINE_SHARD = registerItem("citrine_shard",
