@@ -162,8 +162,10 @@ public class ModArmorRenderer implements ArmorRenderer {
     static void renderArmor(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture, boolean dyeable){
         if(dyeable){
             renderDyeable(matrices, vertexConsumers, light, stack, model, texture);
-            renderDyeable(matrices, vertexConsumers, light, stack, model, new Identifier(MiddleEarth.MOD_ID,
-                    texture.getPath().replaceAll(".png", "_overlay.png")));
+            if(!(model == capeModel)){
+                renderDyeable(matrices, vertexConsumers, light, stack, model, new Identifier(MiddleEarth.MOD_ID,
+                        texture.getPath().replaceAll(".png", "_overlay.png")));
+            }
         } else {
             ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, texture);
         }

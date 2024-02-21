@@ -26,9 +26,9 @@ public class ModEquipmentItems {
             new DyeableArmorItem(ModArmorMaterials.TUNIC_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
 
     // Fur cloaks
-    public static final Item FUR_CLOAK = registerItem("fur_cloak",
+    public static final Item FUR_CLOAK = registerGeneratedItem("fur_cloak",
             new CustomChestplateItem(ModArmorMaterials.FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), true, false));
-    public static final Item FUR_CLOAK_HOOD = registerItem("fur_cloak_hood",
+    public static final Item FUR_CLOAK_HOOD = registerGeneratedItem("fur_cloak_hood",
             new CustomHelmetItem(ModArmorMaterials.FUR_CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings(), true));
 
     // Chainmail fur cloaks
