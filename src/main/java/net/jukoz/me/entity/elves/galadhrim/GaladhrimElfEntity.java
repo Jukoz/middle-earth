@@ -3,6 +3,7 @@ package net.jukoz.me.entity.elves.galadhrim;
 import net.jukoz.me.entity.NpcEntity;
 import net.jukoz.me.entity.goals.BowAttackGoal;
 import net.jukoz.me.entity.goals.CustomBowAttackGoal;
+import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.misties.MistyOrcEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
@@ -47,8 +48,8 @@ public class GaladhrimElfEntity extends NpcEntity{
             this.setRank(RANK.KNIGHT);
         }else if (name.contains("veteran")) {
             this.setRank(RANK.VETERAN);
-        }else if (name.contains("commander")) {
-            this.setRank(RANK.COMMANDER);
+        }else if (name.contains("leader")) {
+            this.setRank(RANK.LEADER);
         }
     }
 
@@ -85,7 +86,7 @@ public class GaladhrimElfEntity extends NpcEntity{
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0);
     }
-    public static DefaultAttributeContainer.Builder setCommanderAttributes() {
+    public static DefaultAttributeContainer.Builder setLeaderAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 31.0)
@@ -105,6 +106,7 @@ public class GaladhrimElfEntity extends NpcEntity{
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyOrcEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
     }
 
     @Override
@@ -115,7 +117,7 @@ public class GaladhrimElfEntity extends NpcEntity{
             case SOLDIER -> soldierEquipment(random);
             case KNIGHT -> knightEquipment(random);
             case VETERAN -> veteranEquipment(random);
-            case COMMANDER -> commanderEquipment(random);
+            case LEADER -> leaderEquipment(random);
         }
     }
 
@@ -125,13 +127,15 @@ public class GaladhrimElfEntity extends NpcEntity{
         };
         int colorIndex = random.nextInt(1);
 
-        DyeableItem item = (DyeableItem)ModEquipmentItems.GAMBESON;
-        ItemStack gambeson = new ItemStack((Item)(DyeableItem)ModEquipmentItems.GAMBESON);
+        DyeableItem item = (DyeableItem)ModEquipmentItems.TUNIC_CLOAK;
+        ItemStack tunicCloak = new ItemStack((Item)(DyeableItem)ModEquipmentItems.TUNIC_CLOAK);
+        ItemStack hood = new ItemStack((Item)(DyeableItem)ModEquipmentItems.CLOAK_HOOD);
         ItemStack leatherHelmet = new ItemStack((Item)(DyeableItem)Items.LEATHER_HELMET);
         ItemStack leatherChestplate = new ItemStack((Item)(DyeableItem)Items.LEATHER_CHESTPLATE);
         ItemStack leatherLeggings = new ItemStack((Item)(DyeableItem)Items.LEATHER_LEGGINGS);
         ItemStack leatherBoots = new ItemStack((Item)(DyeableItem)Items.LEATHER_BOOTS);
-        item.setColor(gambeson, colors[colorIndex]);
+        item.setColor(tunicCloak, colors[colorIndex]);
+        item.setColor(hood, colors[colorIndex]);
         item.setColor(leatherHelmet, colors[colorIndex]);
         item.setColor(leatherChestplate, colors[colorIndex]);
         item.setColor(leatherLeggings, colors[colorIndex]);
@@ -139,14 +143,14 @@ public class GaladhrimElfEntity extends NpcEntity{
 
         float val = random.nextFloat();
         if(val >= 0.30f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HAT));
+            equipStack(EquipmentSlot.HEAD, hood);
         } else  {
             equipStack(EquipmentSlot.HEAD, leatherHelmet);
         }
 
         float val1 = random.nextFloat();
         if(val1 >= 0.30f){
-            equipStack(EquipmentSlot.CHEST, gambeson);
+            equipStack(EquipmentSlot.CHEST, tunicCloak);
         } else  {
             equipStack(EquipmentSlot.CHEST, leatherChestplate);
         }
@@ -164,8 +168,7 @@ public class GaladhrimElfEntity extends NpcEntity{
         if(val3 >= 0.55f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
         } else if (val3 < 0.55f && val3 > 0.20f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SPEAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_BATTLESTAFF));
         } else if (val3 <= 0.20f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_DAGGER));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
@@ -199,9 +202,11 @@ public class GaladhrimElfEntity extends NpcEntity{
         equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_SCALE_BOOTS));
 
         float val = random.nextFloat();
-        if (val < 0.50f) {
+        if(val >= 0.75f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SWORD));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+        } else if (val < 0.75f && val >= 0.50f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_LONGSWORD));
         } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
@@ -215,16 +220,15 @@ public class GaladhrimElfEntity extends NpcEntity{
         equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_PLATE_BOOTS));
 
         float val = random.nextFloat();
-        if (val < 0.50f) {
+        if(val >= 0.50f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SWORD));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_LONGSWORD));
         }
     }
 
-    private void commanderEquipment(Random random){
+    private void leaderEquipment(Random random){
         equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.LORIEN_PLATE_HELMET));
         equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.LORIEN_PLATE_CHESTPLATE));
         equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_PLATE_LEGGINGS));
@@ -233,11 +237,9 @@ public class GaladhrimElfEntity extends NpcEntity{
         float val = random.nextFloat();
 
         if (val < 0.50f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_LONGSWORD));
         } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
         }
     }
     public GaladhrimElfVariant getVariant() {

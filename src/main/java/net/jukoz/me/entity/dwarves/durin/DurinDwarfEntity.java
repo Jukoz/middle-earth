@@ -1,5 +1,6 @@
 package net.jukoz.me.entity.dwarves.durin;
 
+import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.misties.MistyOrcEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
@@ -114,6 +115,7 @@ public class DurinDwarfEntity extends PathAwareEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyOrcEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
     }
 
     public DurinDwarfVariant getVariant() {

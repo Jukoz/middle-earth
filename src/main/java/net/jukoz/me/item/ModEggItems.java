@@ -22,8 +22,8 @@ public class ModEggItems {
             new SpawnEggItem(ModEntities.GONDORIAN_KNIGHT, 1644825, 14869218, new Item.Settings()));
     public static final Item GONDORIAN_VETERAN_SPAWN_EGG = registerItem("gondorian_veteran_spawn_egg",
             new SpawnEggItem(ModEntities.GONDORIAN_VETERAN, 1644825, 14869218, new Item.Settings()));
-    public static final Item GONDORIAN_COMMANDER_SPAWN_EGG = registerItem("gondorian_commander_spawn_egg",
-            new SpawnEggItem(ModEntities.GONDORIAN_COMMANDER, 1644825, 14869218, new Item.Settings()));
+    public static final Item GONDORIAN_LEADER_SPAWN_EGG = registerItem("gondorian_leader_spawn_egg",
+            new SpawnEggItem(ModEntities.GONDORIAN_LEADER, 1644825, 14869218, new Item.Settings()));
 
     public static final Item ROHIRRIM_MILITIA_SPAWN_EGG = registerItem("rohirrim_militia_spawn_egg",
             new SpawnEggItem(ModEntities.ROHIRRIM_MILITIA, 9132338, 32526, new Item.Settings()));
@@ -33,8 +33,8 @@ public class ModEggItems {
             new SpawnEggItem(ModEntities.ROHIRRIM_KNIGHT, 9132338, 32526, new Item.Settings()));
     public static final Item ROHIRRIM_VETERAN_SPAWN_EGG = registerItem("rohirrim_veteran_spawn_egg",
             new SpawnEggItem(ModEntities.ROHIRRIM_VETERAN, 9132338, 32526, new Item.Settings()));
-    public static final Item ROHIRRIM_COMMANDER_SPAWN_EGG = registerItem("rohirrim_commander_spawn_egg",
-            new SpawnEggItem(ModEntities.ROHIRRIM_COMMANDER, 9132338, 32526, new Item.Settings()));
+    public static final Item ROHIRRIM_LEADER_SPAWN_EGG = registerItem("rohirrim_leader_spawn_egg",
+            new SpawnEggItem(ModEntities.ROHIRRIM_LEADER, 9132338, 32526, new Item.Settings()));
 
     public static final Item DURIN_FOLK_SPAWN_EGG = registerItem("durin_folk_spawn_egg",
             new SpawnEggItem(ModEntities.DURIN_FOLK, 4541263, 8090735, new Item.Settings()));
@@ -47,8 +47,8 @@ public class ModEggItems {
             new SpawnEggItem(ModEntities.LORIEN_KNIGHT, 15388227, 8950161, new Item.Settings()));
     public static final Item LORIEN_VETERAN_SPAWN_EGG = registerItem("lorien_veteran_spawn_egg",
             new SpawnEggItem(ModEntities.LORIEN_VETERAN, 15388227, 8950161, new Item.Settings()));
-    public static final Item LORIEN_COMMANDER_SPAWN_EGG = registerItem("lorien_commander_spawn_egg",
-            new SpawnEggItem(ModEntities.LORIEN_COMMANDER, 15388227, 8950161, new Item.Settings()));
+    public static final Item LORIEN_LEADER_SPAWN_EGG = registerItem("lorien_leader_spawn_egg",
+            new SpawnEggItem(ModEntities.LORIEN_LEADER, 15388227, 8950161, new Item.Settings()));
 
     public static final Item MORDOR_ORC_SPAWN_EGG = registerItem("mordor_orc_spawn_egg",
             new SpawnEggItem(ModEntities.MORDOR_ORC, 4209210, 7682104, new Item.Settings()));
@@ -74,6 +74,13 @@ public class ModEggItems {
      */
     public static final Item NAZGUL_SPAWN_EGG = registerItem("nazgul_spawn_egg",
             new SpawnEggItem(ModEntities.NAZGUL, 1644825, 4144959, new Item.Settings()));
+
+    public static final Item BANDIT_MILITIA_SPAWN_EGG = registerItem("bandit_militia_spawn_egg",
+            new SpawnEggItem(ModEntities.BANDIT_MILITIA, 15388227, 8950161, new Item.Settings()));
+    public static final Item BANDIT_SOLDIER_SPAWN_EGG = registerItem("bandit_soldier_spawn_egg",
+            new SpawnEggItem(ModEntities.BANDIT_SOLDIER, 15388227, 8950161, new Item.Settings()));
+    public static final Item BANDIT_KNIGHT_SPAWN_EGG = registerItem("bandit_knight_spawn_egg",
+            new SpawnEggItem(ModEntities.BANDIT_KNIGHT, 15388227, 8950161, new Item.Settings()));
 
     // Animals
     public static final Item CRAB_SPAWN_EGG = registerItem("crab_spawn_egg",

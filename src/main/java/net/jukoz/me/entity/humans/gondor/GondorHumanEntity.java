@@ -6,6 +6,7 @@ import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.CustomBowAttackGoal;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
+import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.misties.MistyOrcEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
@@ -54,8 +55,8 @@ public class GondorHumanEntity extends NpcEntity{
             this.setRank(RANK.KNIGHT);
         }else if (name.contains("veteran")) {
             this.setRank(RANK.VETERAN);
-        }else if (name.contains("commander")) {
-            this.setRank(RANK.COMMANDER);
+        }else if (name.contains("leader")) {
+            this.setRank(RANK.LEADER);
         }
     }
 
@@ -92,7 +93,7 @@ public class GondorHumanEntity extends NpcEntity{
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0);
     }
-    public static DefaultAttributeContainer.Builder setCommanderAttributes() {
+    public static DefaultAttributeContainer.Builder setLeaderAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 26.0)
@@ -112,6 +113,7 @@ public class GondorHumanEntity extends NpcEntity{
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyOrcEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
     }
 
     @Override
@@ -122,7 +124,7 @@ public class GondorHumanEntity extends NpcEntity{
             case SOLDIER -> soldierEquipment(random);
             case KNIGHT -> knightEquipment(random);
             case VETERAN -> veteranEquipment(random);
-            case COMMANDER -> commanderEquipment(random);
+            case LEADER -> leaderEquipment(random);
         }
     }
 
@@ -253,7 +255,7 @@ public class GondorHumanEntity extends NpcEntity{
         }
     }
 
-    private void commanderEquipment(Random random){
+    private void leaderEquipment(Random random){
         float randomVal =random.nextFloat();
         if(randomVal < 0.50f){
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_HELMET));

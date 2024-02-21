@@ -148,6 +148,6 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         SOLDIER,
         KNIGHT,
         VETERAN,
-        COMMANDER
+        LEADER
     }
 }

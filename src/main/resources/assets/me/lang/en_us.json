@@ -327,10 +327,10 @@
   "item.me.longbeard_plate_chestplate": "Longbeard Plate Chestplate",
   "item.me.longbeard_plate_leggings": "Longbeard Plate Leggings",
   "item.me.longbeard_plate_boots": "Longbeard Plate Boots",
-  "item.me.longbeard_commander_helmet": "Longbeard Commander Helmet",
-  "item.me.longbeard_commander_chestcommander": "Longbeard Commander Chestcommander",
-  "item.me.longbeard_commander_leggings": "Longbeard Commander Leggings",
-  "item.me.longbeard_commander_boots": "Longbeard Commander Boots",
+  "item.me.longbeard_leader_helmet": "Longbeard Leader Helmet",
+  "item.me.longbeard_leader_chestleader": "Longbeard Leader Chestleader",
+  "item.me.longbeard_leader_leggings": "Longbeard Leader Leggings",
+  "item.me.longbeard_leader_boots": "Longbeard Leader Boots",
 
   "item.me.lorien_mail_helmet": "Lórien Mail Helmet",
   "item.me.lorien_mail_chestplate": "Lórien Mail Chestplate",
@@ -470,13 +470,13 @@
   "item.me.gondorian_soldier_spawn_egg": "Gondorian Soldier Spawn Egg",
   "item.me.gondorian_knight_spawn_egg": "Gondorian Knight Spawn Egg",
   "item.me.gondorian_veteran_spawn_egg": "Gondorian Veteran Spawn Egg",
-  "item.me.gondorian_commander_spawn_egg": "Gondorian Commander Spawn Egg",
+  "item.me.gondorian_leader_spawn_egg": "Gondorian Leader Spawn Egg",
 
   "item.me.rohirrim_militia_spawn_egg": "Rohirrim Militia Spawn Egg",
   "item.me.rohirrim_soldier_spawn_egg": "Rohirrim Soldier Spawn Egg",
   "item.me.rohirrim_knight_spawn_egg": "Rohirrim Knight Spawn Egg",
   "item.me.rohirrim_veteran_spawn_egg": "Rohirrim Veteran Spawn Egg",
-  "item.me.rohirrim_commander_spawn_egg": "Rohirrim Commander Spawn Egg",
+  "item.me.rohirrim_leader_spawn_egg": "Rohirrim Leader Spawn Egg",
   
   "item.me.durin_folk_spawn_egg": "Durin Folk Spawn Egg",
 
@@ -484,12 +484,17 @@
   "item.me.lorien_soldier_spawn_egg": "Lórien Soldier Spawn Egg",
   "item.me.lorien_knight_spawn_egg": "Lórien Knight Spawn Egg",
   "item.me.lorien_veteran_spawn_egg": "Lórien Veteran Spawn Egg",
-  "item.me.lorien_commander_spawn_egg": "Lórien Commander Spawn Egg",
+  "item.me.lorien_leader_spawn_egg": "Lórien Leader Spawn Egg",
 
   "item.me.mordor_orc_spawn_egg": "Mordor Orc Spawn Egg",
   "item.me.mordor_uruk_spawn_egg": "Mordor Uruk Spawn Egg",
   "item.me.misty_orc_spawn_egg": "Misty Orc Spawn Egg",
   "item.me.misty_uruk_spawn_egg": "Misty Uruk Spawn Egg",
+
+  "item.me.bandit_militia_spawn_egg": "Bandit Militia Spawn Egg",
+  "item.me.bandit_soldier_spawn_egg": "Bandit Soldier Spawn Egg",
+  "item.me.bandit_knight_spawn_egg": "Bandit Knight Spawn Egg",
+  
   "item.me.mirkwood_spider_spawn_egg": "Mirkwood Spider Spawn Egg",
   "item.me.warg_spawn_egg": "Warg Spawn Egg",
   "item.me.snail_spawn_egg": "Snail Spawn Egg",
@@ -520,27 +525,35 @@
   "entity.me.gondorian_soldier": "Gondorian Soldier",
   "entity.me.gondorian_knight": "Gondorian Knight",
   "entity.me.gondorian_veteran": "Gondorian Veteran",
-  "entity.me.gondorian_commander": "Gondorian Commander",
+  "entity.me.gondorian_leader": "Gondorian Leader",
 
   "entity.me.rohirrim_militia": "Rohirrim Militia",
   "entity.me.rohirrim_soldier": "Rohirrim Soldier",
   "entity.me.rohirrim_knight": "Rohirrim Knight",
   "entity.me.rohirrim_veteran": "Rohirrim Veteran",
-  "entity.me.rohirrim_commander": "Rohirrim Commander",
+  "entity.me.rohirrim_leader": "Rohirrim Leader",
 
   "entity.me.lorien_militia": "Lórien Militia",
   "entity.me.lorien_soldier": "Lórien Soldier",
   "entity.me.lorien_knight": "Lórien Knight",
   "entity.me.lorien_veteran": "Lórien Veteran",
-  "entity.me.lorien_commander": "Lórien Commander",
+  "entity.me.lorien_leader": "Lórien Leader",
   
   "entity.me.mordor_orc": "Mordor Orc",
   "entity.me.mordor_uruk": "Mordor Uruk",
   "entity.me.misty_orc": "Misty Orc",
   "entity.me.misty_uruk": "Misty Uruk",
-  "entity.me.mirkwood_spider": "Mirkwood Spider",
+
   "entity.me.nazgul": "Nazgûl",
+
+  "entity.me.bandit_militia": "Bandit Militia",
+  "entity.me.bandit_soldier": "Bandit Soldier",
+  "entity.me.bandit_knight": "Bandit Knight",
+  
+  "entity.me.mirkwood_spider": "Mirkwood Spider",
+
   "entity.me.balrog": "Balrog",
+  
   "entity.me.pebble": "Pebble",
   "entity.me.pinecone": "Pinecone",
   "entity.me.lit_pinecone": "Lit Pinecone",

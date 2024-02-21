@@ -2,6 +2,7 @@ package net.jukoz.me.entity.humans.rohan;
 
 import net.jukoz.me.entity.NpcEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
+import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.misties.MistyOrcEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
@@ -46,8 +47,8 @@ public class RohanHumanEntity extends NpcEntity {
             this.setRank(RANK.KNIGHT);
         }else if (name.contains("veteran")) {
             this.setRank(RANK.VETERAN);
-        }else if (name.contains("commander")) {
-            this.setRank(RANK.COMMANDER);
+        }else if (name.contains("leader")) {
+            this.setRank(RANK.LEADER);
         }
     }
 
@@ -84,7 +85,7 @@ public class RohanHumanEntity extends NpcEntity {
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0);
     }
-    public static DefaultAttributeContainer.Builder setCommanderAttributes() {
+    public static DefaultAttributeContainer.Builder setLeaderAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 26.0)
@@ -104,6 +105,7 @@ public class RohanHumanEntity extends NpcEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyOrcEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
     }
 
     @Override
@@ -114,7 +116,7 @@ public class RohanHumanEntity extends NpcEntity {
             case SOLDIER -> soldierEquipment(random);
             case KNIGHT -> knightEquipment(random);
             case VETERAN -> veteranEquipment(random);
-            case COMMANDER -> commanderEquipment(random);
+            case LEADER -> leaderEquipment(random);
         }
     }
 
@@ -238,7 +240,7 @@ public class RohanHumanEntity extends NpcEntity {
         }
     }
 
-    private void commanderEquipment(Random random) {
+    private void leaderEquipment(Random random) {
         equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.ROHIRRIC_PLATE_HELMET));
         equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_PLATE_CHESTPLATE));
         equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_PLATE_LEGGINGS));
