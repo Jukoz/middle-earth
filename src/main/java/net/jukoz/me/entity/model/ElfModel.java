@@ -28,13 +28,15 @@ public class ElfModel {
         leftEar.addChild(LEFT_EAR, ModelPartBuilder.create().uv(3, 4).cuboid(0, -2, -1f, 1.0f, 2.0f, 1.0f, dilation),
                 ModelTransform.of(0f, 0, 0f,0f, 0, 0f));
 
-        ModelPartData leftArm = modelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create().uv(32, 48).cuboid(-1.0f, -2.0f, -2.0f, 3.0f, 12.0f, 4.0f, dilation),
+        ModelPartData leftArm = modelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create()
+                        .uv(32, 48).cuboid(-1.0f, -2.0f, -2.0f, 3.0f, 12.0f, 4.0f, dilation),
                 ModelTransform.pivot(5.0f, 2.5f, 0.0f));
-        ModelPartData rightArm = modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create().uv(40, 16).cuboid(-2.0f, -2.0f, -2.0f, 3.0f, 12.0f, 4.0f, dilation),
+        ModelPartData rightArm = modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create()
+                        .uv(40, 16).cuboid(-2.5f, -2.0f, -2.0f, 3.0f, 12.0f, 4.0f, dilation),
                 ModelTransform.pivot(-5.0f, 2.5f, 0.0f));
 
         rightArm.addChild(RIGHT_SLEEVE, ModelPartBuilder.create().uv(40, 32).cuboid(0f, 0f, 0f, 3.0f, 12.0f, 4.0f, dilation.add(0.25f)),
-                ModelTransform.pivot(-2f, -2f, -2f));
+                ModelTransform.pivot(-3f, -2f, -2f));
         leftArm.addChild(LEFT_SLEEVE, ModelPartBuilder.create().uv(48, 48).cuboid(0f, 0f, 0f, 3.0f, 12.0f, 4.0f, dilation.add(0.25f)),
                 ModelTransform.pivot(-1f, -2f, -2f));
 

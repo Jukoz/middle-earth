@@ -36,7 +36,7 @@ public class DurinDwarfModel<T extends MobEntity>
         super.animateModel(mobEntity, f, g, h);
     }
 
-    @Override
+    /*@Override
     public void setAngles(T mobEntity, float f, float g, float h, float i, float j) {
         super.setAngles(mobEntity, f, g, h, i, j);
         ItemStack itemStack = ((LivingEntity)mobEntity).getMainHandStack();
@@ -61,5 +61,5 @@ public class DurinDwarfModel<T extends MobEntity>
         modelPart.pivotX += f;
         modelPart.rotate(matrices);
         modelPart.pivotX -= f;
-    }
+    }*/
 }

@@ -20,11 +20,13 @@ public class ModEntityModels {
     public static Map<EntityModelLayer, TexturedModelData> getModels() {
         ImmutableMap.Builder<EntityModelLayer, TexturedModelData> builder = ImmutableMap.builder();
 
+        builder.put(ModEntityModelLayers.HUMAN, HumanModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.DWARF, DwarfModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.ELF, ElfModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.HOBBIT, HobbitModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.NAZGUL, NazgulModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.ORC, OrcModel.getTexturedModelData(Dilation.NONE));
+        builder.put(ModEntityModelLayers.URUK, UrukModel.getTexturedModelData(Dilation.NONE));
         builder.put(ModEntityModelLayers.CAVE_TROLL, CaveTrollModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.SNOW_TROLL, SnowTrollModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.SPIDER, MirkwoodSpiderModel.getTexturedModelData());
