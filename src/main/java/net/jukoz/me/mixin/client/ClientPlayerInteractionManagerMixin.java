@@ -1,7 +1,6 @@
 package net.jukoz.me.mixin.client;
 
-import net.jukoz.me.item.ModWeaponItems;
-import net.jukoz.me.item.items.RangeWeaponItem;
+import net.jukoz.me.item.items.ReachWeaponItem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,7 +14,7 @@ public class ClientPlayerInteractionManagerMixin {
     @Inject(method="getReachDistance", at=@At("HEAD"), cancellable = true)
     public void getReachDistance(CallbackInfoReturnable<Float> cir){
         PlayerEntity player = MinecraftClient.getInstance().player;
-        if(player != null && player.getMainHandStack().getItem() instanceof RangeWeaponItem rangedWeaponItem){
+        if(player != null && player.getMainHandStack().getItem() instanceof ReachWeaponItem rangedWeaponItem){
             cir.setReturnValue(rangedWeaponItem.getRangeDistance());
         }
     }

@@ -27,12 +27,14 @@ public class GaladhrimElfRenderer extends BipedEntityRenderer<GaladhrimElfEntity
 
     public static final Map<GaladhrimElfVariant, String> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(GaladhrimElfVariant.class), (resourceLocation) -> {
-                resourceLocation.put(GaladhrimElfVariant.SILVER_TEAL_BLUE_WOMAN,
+                resourceLocation.put(GaladhrimElfVariant.SILVER_TEAL_BLUE,
                           PATH + "elf1.png");
-                resourceLocation.put(GaladhrimElfVariant.SILVER_CYAN_BLUE_WOMAN,
+                resourceLocation.put(GaladhrimElfVariant.SILVER_CYAN_BLUE,
                         PATH + "elf2.png");
-                resourceLocation.put(GaladhrimElfVariant.SILVER_LIME_BLUE_WOMAN,
+                resourceLocation.put(GaladhrimElfVariant.SILVER_LIME_BLUE,
                         PATH + "elf3.png");
+                resourceLocation.put(GaladhrimElfVariant.BLOND_GREEN_BLUE,
+                        PATH + "elf4.png");
             });
 
     @Override

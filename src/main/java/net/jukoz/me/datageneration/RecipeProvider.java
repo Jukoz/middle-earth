@@ -369,6 +369,12 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(ModBlocks.ASH_BLOCK),
                         FabricRecipeProvider.conditionsFromItem(ModBlocks.ASH_BLOCK))
                 .offerTo(exporter);
+
+        createHelmetRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_HELMET);
+        createChestplateRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_CHESTPLATE);
+        createLeggingsRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_LEGGINGS);
+        createBootsRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_BOOTS);
+
     }
 
     //region BLOCK RECIPE METHODS
@@ -698,6 +704,45 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
                 .pattern("M M")
                 .pattern(" M ")
+                .input('M', inputMaterial)
+                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
+                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+    }
+
+    private void createBootsRecipe(Consumer<RecipeJsonProvider> exporter, Item inputMaterial, Item output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
+                .pattern("M M")
+                .pattern("M M")
+                .input('M', inputMaterial)
+                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
+                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+    }
+    private void createLeggingsRecipe(Consumer<RecipeJsonProvider> exporter, Item inputMaterial, Item output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
+                .pattern("MMM")
+                .pattern("M M")
+                .pattern("M M")
+                .input('M', inputMaterial)
+                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
+                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+    }
+    private void createChestplateRecipe(Consumer<RecipeJsonProvider> exporter, Item inputMaterial, Item output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
+                .pattern("M M")
+                .pattern("MMM")
+                .pattern("MMM")
+                .input('M', inputMaterial)
+                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
+                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+    }
+    private void createHelmetRecipe(Consumer<RecipeJsonProvider> exporter, Item inputMaterial, Item output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
+                .pattern("MMM")
+                .pattern("M M")
                 .input('M', inputMaterial)
                 .criterion(FabricRecipeProvider.hasItem(inputMaterial),
                         FabricRecipeProvider.conditionsFromItem(inputMaterial))

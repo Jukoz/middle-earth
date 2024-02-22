@@ -115,6 +115,9 @@ public class ModResourceItems {
     public static final Item MITHRIL_ROD = registerItem("mithril_rod",
             new Item(new FabricItemSettings().fireproof()));
 
+    public static final Item IRON_CHAINMAIL = registerItem("iron_chainmail",
+            new Item(new FabricItemSettings()));
+
     public static final Item RED_AGATE_SHARD = registerItem("red_agate_shard",
             new Item(new FabricItemSettings()));
     public static final Item CITRINE_SHARD = registerItem("citrine_shard",
@@ -132,6 +135,10 @@ public class ModResourceItems {
 
     public static final Item PEBBLE = registerItem("pebble",
             new PebbleItem(new FabricItemSettings()));
+    public static final Item PINECONE = registerItem("pinecone",
+            new PineconeItem(new FabricItemSettings()));
+    public static final Item LIT_PINECONE = registerItem("lit_pinecone",
+            new LitPineconeItem(new FabricItemSettings().maxCount(16)));
 
     public static final Item STRAW = registerItem("straw",
             new Item(new FabricItemSettings()));

@@ -11,20 +11,65 @@ import net.minecraft.util.Identifier;
 
 public class ModEggItems {
 
+    public static final Item HOBBIT_SPAWN_EGG = registerItem("hobbit_spawn_egg",
+            new SpawnEggItem(ModEntities.HOBBIT, 11131454, 13810794, new Item.Settings()));
+    
+    public static final Item GONDORIAN_MILITIA_SPAWN_EGG = registerItem("gondorian_militia_spawn_egg",
+            new SpawnEggItem(ModEntities.GONDORIAN_MILITIA, 1644825, 14869218, new Item.Settings()));
+    public static final Item GONDORIAN_SOLDIER_SPAWN_EGG = registerItem("gondorian_soldier_spawn_egg",
+            new SpawnEggItem(ModEntities.GONDORIAN_SOLDIER, 1644825, 14869218, new Item.Settings()));
+    public static final Item GONDORIAN_KNIGHT_SPAWN_EGG = registerItem("gondorian_knight_spawn_egg",
+            new SpawnEggItem(ModEntities.GONDORIAN_KNIGHT, 1644825, 14869218, new Item.Settings()));
+    public static final Item GONDORIAN_VETERAN_SPAWN_EGG = registerItem("gondorian_veteran_spawn_egg",
+            new SpawnEggItem(ModEntities.GONDORIAN_VETERAN, 1644825, 14869218, new Item.Settings()));
+    public static final Item GONDORIAN_LEADER_SPAWN_EGG = registerItem("gondorian_leader_spawn_egg",
+            new SpawnEggItem(ModEntities.GONDORIAN_LEADER, 1644825, 14869218, new Item.Settings()));
+
+    public static final Item ROHIRRIM_MILITIA_SPAWN_EGG = registerItem("rohirrim_militia_spawn_egg",
+            new SpawnEggItem(ModEntities.ROHIRRIM_MILITIA, 9132338, 32526, new Item.Settings()));
+    public static final Item ROHIRRIM_SOLDIER_SPAWN_EGG = registerItem("rohirrim_soldier_spawn_egg",
+            new SpawnEggItem(ModEntities.ROHIRRIM_SOLDIER, 9132338, 32526, new Item.Settings()));
+    public static final Item ROHIRRIM_KNIGHT_SPAWN_EGG = registerItem("rohirrim_knight_spawn_egg",
+            new SpawnEggItem(ModEntities.ROHIRRIM_KNIGHT, 9132338, 32526, new Item.Settings()));
+    public static final Item ROHIRRIM_VETERAN_SPAWN_EGG = registerItem("rohirrim_veteran_spawn_egg",
+            new SpawnEggItem(ModEntities.ROHIRRIM_VETERAN, 9132338, 32526, new Item.Settings()));
+    public static final Item ROHIRRIM_LEADER_SPAWN_EGG = registerItem("rohirrim_leader_spawn_egg",
+            new SpawnEggItem(ModEntities.ROHIRRIM_LEADER, 9132338, 32526, new Item.Settings()));
+
+    public static final Item DURIN_FOLK_SPAWN_EGG = registerItem("durin_folk_spawn_egg",
+            new SpawnEggItem(ModEntities.DURIN_FOLK, 4541263, 8090735, new Item.Settings()));
+
+    public static final Item LORIEN_MILITIA_SPAWN_EGG = registerItem("lorien_militia_spawn_egg",
+            new SpawnEggItem(ModEntities.LORIEN_MILITIA, 15388227, 8950161, new Item.Settings()));
+    public static final Item LORIEN_SOLDIER_SPAWN_EGG = registerItem("lorien_soldier_spawn_egg",
+            new SpawnEggItem(ModEntities.LORIEN_SOLDIER, 15388227, 8950161, new Item.Settings()));
+    public static final Item LORIEN_KNIGHT_SPAWN_EGG = registerItem("lorien_knight_spawn_egg",
+            new SpawnEggItem(ModEntities.LORIEN_KNIGHT, 15388227, 8950161, new Item.Settings()));
+    public static final Item LORIEN_VETERAN_SPAWN_EGG = registerItem("lorien_veteran_spawn_egg",
+            new SpawnEggItem(ModEntities.LORIEN_VETERAN, 15388227, 8950161, new Item.Settings()));
+    public static final Item LORIEN_LEADER_SPAWN_EGG = registerItem("lorien_leader_spawn_egg",
+            new SpawnEggItem(ModEntities.LORIEN_LEADER, 15388227, 8950161, new Item.Settings()));
+
+    public static final Item MORDOR_ORC_SNAGA_SPAWN_EGG = registerItem("mordor_orc_snaga_spawn_egg",
+            new SpawnEggItem(ModEntities.MORDOR_ORC_SNAGA, 4209210, 7682104, new Item.Settings()));
+    public static final Item MORDOR_ORC_SOLDIER_SPAWN_EGG = registerItem("mordor_orc_soldier_spawn_egg",
+            new SpawnEggItem(ModEntities.MORDOR_ORC_SOLDIER, 4209210, 7682104, new Item.Settings()));
+    public static final Item MORDOR_URUK_SPAWN_EGG = registerItem("mordor_uruk_spawn_egg",
+            new SpawnEggItem(ModEntities.MORDOR_URUK, 4209210, 7682104, new Item.Settings()));
+
+    public static final Item MISTY_ORC_SNAGA_SPAWN_EGG = registerItem("misty_orc_snaga_spawn_egg",
+            new SpawnEggItem(ModEntities.MISTY_ORC_SNAGA, 4209210, 7682104, new Item.Settings()));
+    public static final Item MISTY_ORC_WARRIOR_SPAWN_EGG = registerItem("misty_orc_warrior_spawn_egg",
+            new SpawnEggItem(ModEntities.MISTY_ORC_WARRIOR, 4209210, 7682104, new Item.Settings()));
+    public static final Item MISTY_URUK_SPAWN_EGG = registerItem("misty_uruk_spawn_egg",
+            new SpawnEggItem(ModEntities.MISTY_URUK, 4209210, 7682104, new Item.Settings()));
+
     public static final Item BARROW_WIGHT_SPAWN_EGG = registerItem("barrow_wight_spawn_egg",
             new SpawnEggItem(ModEntities.BARROW_WIGHT, 1852734, 2456136, new Item.Settings()));
     public static final Item CAVE_TROLL_SPAWN_EGG = registerItem("cave_troll_spawn_egg",
             new SpawnEggItem(ModEntities.CAVE_TROLL, 4671043, 3485226, new Item.Settings()));
     public static final Item HILL_TROLL_SPAWN_EGG = registerItem("hill_troll_spawn_egg",
             new SpawnEggItem(ModEntities.HILL_TROLL, 10517857, 5257516, new Item.Settings()));
-    public static final Item DURIN_FOLK_SPAWN_EGG = registerItem("durin_folk_spawn_egg",
-            new SpawnEggItem(ModEntities.DURIN_FOLK, 4541263, 8090735, new Item.Settings()));
-    public static final Item HOBBIT_SPAWN_EGG = registerItem("hobbit_spawn_egg",
-            new SpawnEggItem(ModEntities.HOBBIT, 11131454, 13810794, new Item.Settings()));
-    public static final Item GALADHRIM_ELF_SPAWN_EGG = registerItem("galadhrim_elf_spawn_egg",
-            new SpawnEggItem(ModEntities.GALADHRIM_ELF, 15388227, 8950161, new Item.Settings()));
-    public static final Item MORDOR_ORC_SPAWN_EGG = registerItem("mordor_orc_spawn_egg",
-            new SpawnEggItem(ModEntities.MORDOR_ORC, 4209210, 7682104, new Item.Settings()));
     public static final Item SNOW_TROLL_SPAWN_EGG = registerItem("snow_troll_spawn_egg",
             new SpawnEggItem(ModEntities.SNOW_TROLL, 12770027, 9739424, new Item.Settings()));
     public static final Item MIRKWOOD_SPIDER_SPAWN_EGG = registerItem("mirkwood_spider_spawn_egg",
@@ -35,6 +80,13 @@ public class ModEggItems {
      */
     public static final Item NAZGUL_SPAWN_EGG = registerItem("nazgul_spawn_egg",
             new SpawnEggItem(ModEntities.NAZGUL, 1644825, 4144959, new Item.Settings()));
+
+    public static final Item BANDIT_MILITIA_SPAWN_EGG = registerItem("bandit_militia_spawn_egg",
+            new SpawnEggItem(ModEntities.BANDIT_MILITIA, 15388227, 8950161, new Item.Settings()));
+    public static final Item BANDIT_SOLDIER_SPAWN_EGG = registerItem("bandit_soldier_spawn_egg",
+            new SpawnEggItem(ModEntities.BANDIT_SOLDIER, 15388227, 8950161, new Item.Settings()));
+    public static final Item BANDIT_KNIGHT_SPAWN_EGG = registerItem("bandit_knight_spawn_egg",
+            new SpawnEggItem(ModEntities.BANDIT_KNIGHT, 15388227, 8950161, new Item.Settings()));
 
     // Animals
     public static final Item CRAB_SPAWN_EGG = registerItem("crab_spawn_egg",

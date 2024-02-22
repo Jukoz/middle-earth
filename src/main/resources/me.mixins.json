@@ -16,9 +16,7 @@
     "client.AbstractClientPlayerEntityMixin",
     "client.BackgroundRendererMixin",
     "client.ClientPlayerInteractionManagerMixin",
-    "client.ElytraFeatureRendererMixin",
     "client.GameRendererMixin",
-    "client.HeadFeatureRendererMixin",
     "client.InGameHudMixin",
     "client.ItemRendererMixin",
     "client.MouseMixin"
