@@ -6,13 +6,13 @@ import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
-public class KettleHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
+public class KettleHatArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
 
-    public final ModelPart kettle_hat;
+    public final ModelPart kettleHat;
 
-    public KettleHelmetArmorModel(ModelPart root, String name) {
+    public KettleHatArmorModel(ModelPart root, String name) {
         super(root);
-        kettle_hat = root.getChild("head").getChild("kettle_hat");
+        kettleHat = root.getChild("head").getChild("kettle_hat");
 
         HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + name + "_helmet_addon.png");
     }
@@ -24,7 +24,8 @@ public class KettleHelmetArmorModel<T extends LivingEntity> extends CustomHelmet
         modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        head.addChild("kettle_hat", ModelPartBuilder.create().uv(-16, 0).cuboid(-8.0F, -6.0F, -8.0F, 16.0F, 0.0F, 16.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        head.addChild("kettle_hat", ModelPartBuilder.create()
+                .uv(-16, 0).cuboid(-8.0F, -5.25F, -8.0F, 16.0F, 0.0F, 16.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

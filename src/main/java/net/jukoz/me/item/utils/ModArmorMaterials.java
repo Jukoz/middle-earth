@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 
 public enum ModArmorMaterials implements ArmorMaterial {
 
-    HOBBIT_SHIRRIF_HAT("hobbit_shirrif_hat", 1, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+    HOBBIT_SHIRRIFF_HAT("hobbit_shirriff_hat", 1, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(Items.LEATHER), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shire"), null),
 
     GAMBESON("gambeson", 11, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
@@ -35,10 +35,10 @@ public enum ModArmorMaterials implements ArmorMaterial {
     CHAINMAIL_FUR_CLOAK("chainmail_fur_cloak", 3, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN,
             () -> Ingredient.ofItems(Items.IRON_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null),
 
-    RUSTY_KETTLE_HELMET("rusty_kettle_helmet", 2, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+    RUSTY_KETTLE_HAT("rusty_kettle_hat", 2, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(Items.IRON_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null),
 
-    KETTLE_HELMET("rusty_kettle_helmet", 2, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+    KETTLE_HAT("kettle_hat", 2, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(Items.IRON_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null),
 
     NAZGUL_CLOAK("nazgul_cloak", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
@@ -92,19 +92,19 @@ public enum ModArmorMaterials implements ArmorMaterial {
     MORDOR_ORC_MAIL_ARMOR("mordor_orc_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null),
 
-    MORDOR_URUK_SCALE_ARMOR("mordor_uruk_scale",  4, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+    MORDOR_BLACK_URUK_SCALE_ARMOR("mordor_black_uruk_scale",  4, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null),
 
-    MORDOR_URUK_PLATE_ARMOR("mordor_uruk_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+    MORDOR_BLACK_URUK_PLATE_ARMOR("mordor_black_uruk_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null),
 
-    MISTY_ORC_MAIL_ARMOR("misty_orc_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+    MISTY_GOBLIN_MAIL_ARMOR("misty_goblin_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), null),
 
-    MISTY_URUK_SCALE_ARMOR("misty_uruk_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+    MISTY_HOBGOBLIN_SCALE_ARMOR("misty_hobgoblin_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad")),
 
-    MISTY_URUK_PLATE_ARMOR("misty_uruk_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+    MISTY_HOBGOBLIN_PLATE_ARMOR("misty_hobgoblin_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad")),
     ;
 

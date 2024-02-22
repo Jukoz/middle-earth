@@ -26,23 +26,24 @@ public class ModEquipmentItems {
             new DyeableArmorItem(ModArmorMaterials.TUNIC_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
 
     // Fur cloaks
-    public static final Item FUR_CLOAK = registerItem("fur_cloak",
+    public static final Item FUR_CLOAK = registerGeneratedItem("fur_cloak",
             new CustomChestplateItem(ModArmorMaterials.FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), true, false));
-    public static final Item FUR_CLOAK_HOOD = registerItem("fur_cloak_hood",
+    public static final Item FUR_CLOAK_HOOD = registerGeneratedItem("fur_cloak_hood",
             new CustomHelmetItem(ModArmorMaterials.FUR_CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings(), true));
+
     // Chainmail fur cloaks
     public static final Item CHAINMAIL_FUR_CLOAK = registerGeneratedItem("chainmail_fur_cloak",
             new CustomChestplateItem(ModArmorMaterials.CHAINMAIL_FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), true, false));
 
-    public static final Item RUSTY_KETTLE_HELMET = registerGeneratedItem("rusty_kettle_helmet",
-            new CustomHelmetItem(ModArmorMaterials.RUSTY_KETTLE_HELMET, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
-    public static final Item KETTLE_HELMET = registerGeneratedItem("kettle_helmet",
-            new CustomHelmetItem(ModArmorMaterials.KETTLE_HELMET, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item RUSTY_KETTLE_HAT = registerGeneratedItem("rusty_kettle_hat",
+            new CustomHelmetItem(ModArmorMaterials.RUSTY_KETTLE_HAT, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item KETTLE_HAT = registerGeneratedItem("kettle_hat",
+            new CustomHelmetItem(ModArmorMaterials.KETTLE_HAT, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
 
-    public static final Item HOBBIT_SHIRRIF_HAT_GREEN = registerGeneratedItem("hobbit_shirrif_hat_green",
-            new CustomHelmetItem(ModArmorMaterials.HOBBIT_SHIRRIF_HAT, ArmorItem.Type.HELMET, new FabricItemSettings(), false));
-    public static final Item HOBBIT_SHIRRIF_HAT_BROWN = registerGeneratedItem("hobbit_shirrif_hat_brown",
-            new CustomHelmetItem(ModArmorMaterials.HOBBIT_SHIRRIF_HAT, ArmorItem.Type.HELMET, new FabricItemSettings(), false));
+    public static final Item HOBBIT_SHIRRIFF_HAT_GREEN = registerGeneratedItem("hobbit_shirriff_hat_green",
+            new CustomHelmetItem(ModArmorMaterials.HOBBIT_SHIRRIFF_HAT, ArmorItem.Type.HELMET, new FabricItemSettings(), false));
+    public static final Item HOBBIT_SHIRRIFF_HAT_BROWN = registerGeneratedItem("hobbit_shirriff_hat_brown",
+            new CustomHelmetItem(ModArmorMaterials.HOBBIT_SHIRRIFF_HAT, ArmorItem.Type.HELMET, new FabricItemSettings(), false));
 
     public static final Item GONDORIAN_MAIL_HELMET = registerGeneratedItem("gondorian_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.GONDORIAN_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
@@ -190,8 +191,7 @@ public class ModEquipmentItems {
 
     public static final Item LORIEN_SHIELD = registerItem("lorien_shield",
             new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
-
-
+    
     public static final Item MORDOR_ORC_MAIL_HELMET = registerGeneratedItem("mordor_orc_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.MORDOR_ORC_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
     public static final Item MORDOR_ORC_MAIL_CHESTPLATE = registerGeneratedItem("mordor_orc_mail_chestplate",
@@ -201,23 +201,23 @@ public class ModEquipmentItems {
     public static final Item MORDOR_ORC_MAIL_BOOTS = registerGeneratedItem("mordor_orc_mail_boots",
             new CustomBootsItem(ModArmorMaterials.MORDOR_ORC_MAIL_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
-    public static final Item MORDOR_URUK_SCALE_HELMET = registerGeneratedItem("mordor_uruk_scale_helmet",
-            new CustomHelmetItem(ModArmorMaterials.MORDOR_URUK_SCALE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
-    public static final Item MORDOR_URUK_SCALE_CHESTPLATE = registerGeneratedItem("mordor_uruk_scale_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.MORDOR_URUK_SCALE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false, false));
-    public static final Item MORDOR_URUK_SCALE_LEGGINGS = registerGeneratedItem("mordor_uruk_scale_leggings",
-            new CustomLeggingsItem(ModArmorMaterials.MORDOR_URUK_SCALE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
-    public static final Item MORDOR_URUK_SCALE_BOOTS = registerGeneratedItem("mordor_uruk_scale_boots",
-            new CustomBootsItem(ModArmorMaterials.MORDOR_URUK_SCALE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+    public static final Item MORDOR_BLACK_URUK_SCALE_HELMET = registerGeneratedItem("mordor_black_uruk_scale_helmet",
+            new CustomHelmetItem(ModArmorMaterials.MORDOR_BLACK_URUK_SCALE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item MORDOR_BLACK_URUK_SCALE_CHESTPLATE = registerGeneratedItem("mordor_black_uruk_scale_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.MORDOR_BLACK_URUK_SCALE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false, false));
+    public static final Item MORDOR_BLACK_URUK_SCALE_LEGGINGS = registerGeneratedItem("mordor_black_uruk_scale_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.MORDOR_BLACK_URUK_SCALE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item MORDOR_BLACK_URUK_SCALE_BOOTS = registerGeneratedItem("mordor_black_uruk_scale_boots",
+            new CustomBootsItem(ModArmorMaterials.MORDOR_BLACK_URUK_SCALE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
-    public static final Item MORDOR_URUK_PLATE_HELMET = registerGeneratedItem("mordor_uruk_plate_helmet",
-            new CustomHelmetItem(ModArmorMaterials.MORDOR_URUK_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
-    public static final Item MORDOR_URUK_PLATE_CHESTPLATE = registerGeneratedItem("mordor_uruk_plate_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.MORDOR_URUK_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false, false));
-    public static final Item MORDOR_URUK_PLATE_LEGGINGS = registerGeneratedItem("mordor_uruk_plate_leggings",
-            new CustomLeggingsItem(ModArmorMaterials.MORDOR_URUK_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
-    public static final Item MORDOR_URUK_PLATE_BOOTS = registerGeneratedItem("mordor_uruk_plate_boots",
-            new CustomBootsItem(ModArmorMaterials.MORDOR_URUK_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+    public static final Item MORDOR_BLACK_URUK_PLATE_HELMET = registerGeneratedItem("mordor_black_uruk_plate_helmet",
+            new CustomHelmetItem(ModArmorMaterials.MORDOR_BLACK_URUK_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item MORDOR_BLACK_URUK_PLATE_CHESTPLATE = registerGeneratedItem("mordor_black_uruk_plate_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.MORDOR_BLACK_URUK_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false, false));
+    public static final Item MORDOR_BLACK_URUK_PLATE_LEGGINGS = registerGeneratedItem("mordor_black_uruk_plate_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.MORDOR_BLACK_URUK_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item MORDOR_BLACK_URUK_PLATE_BOOTS = registerGeneratedItem("mordor_black_uruk_plate_boots",
+            new CustomBootsItem(ModArmorMaterials.MORDOR_BLACK_URUK_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item MORDOR_SHIELD = registerItem("mordor_shield",
             new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
@@ -231,32 +231,32 @@ public class ModEquipmentItems {
     public static final Item NAZGUL_BOOTS = registerGeneratedItem("nazgul_boots",
             new CustomBootsItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
-    public static final Item MISTY_ORC_MAIL_HELMET = registerGeneratedItem("misty_orc_mail_helmet",
-            new CustomHelmetItem(ModArmorMaterials.MISTY_ORC_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
-    public static final Item MISTY_ORC_MAIL_CHESTPLATE = registerGeneratedItem("misty_orc_mail_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.MISTY_ORC_MAIL_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false, false));
-    public static final Item MISTY_ORC_MAIL_LEGGINGS = registerGeneratedItem("misty_orc_mail_leggings",
-            new CustomLeggingsItem(ModArmorMaterials.MISTY_ORC_MAIL_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
-    public static final Item MISTY_ORC_MAIL_BOOTS = registerGeneratedItem("misty_orc_mail_boots",
-            new CustomBootsItem(ModArmorMaterials.MISTY_ORC_MAIL_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+    public static final Item MISTY_GOBLIN_MAIL_HELMET = registerGeneratedItem("misty_goblin_mail_helmet",
+            new CustomHelmetItem(ModArmorMaterials.MISTY_GOBLIN_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item MISTY_GOBLIN_MAIL_CHESTPLATE = registerGeneratedItem("misty_goblin_mail_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.MISTY_GOBLIN_MAIL_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false, false));
+    public static final Item MISTY_GOBLIN_MAIL_LEGGINGS = registerGeneratedItem("misty_goblin_mail_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.MISTY_GOBLIN_MAIL_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item MISTY_GOBLIN_MAIL_BOOTS = registerGeneratedItem("misty_goblin_mail_boots",
+            new CustomBootsItem(ModArmorMaterials.MISTY_GOBLIN_MAIL_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
-    public static final Item MISTY_URUK_SCALE_HELMET = registerGeneratedItem("misty_uruk_scale_helmet",
-            new CustomHelmetItem(ModArmorMaterials.MISTY_URUK_SCALE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
-    public static final Item MISTY_URUK_SCALE_CHESTPLATE = registerGeneratedItem("misty_uruk_scale_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.MISTY_URUK_SCALE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false, false));
-    public static final Item MISTY_URUK_SCALE_LEGGINGS = registerGeneratedItem("misty_uruk_scale_leggings",
-            new CustomLeggingsItem(ModArmorMaterials.MISTY_URUK_SCALE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
-    public static final Item MISTY_URUK_SCALE_BOOTS = registerGeneratedItem("misty_uruk_scale_boots",
-            new CustomBootsItem(ModArmorMaterials.MISTY_URUK_SCALE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+    public static final Item MISTY_HOBGOBLIN_SCALE_HELMET = registerGeneratedItem("misty_hobgoblin_scale_helmet",
+            new CustomHelmetItem(ModArmorMaterials.MISTY_HOBGOBLIN_SCALE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item MISTY_HOBGOBLIN_SCALE_CHESTPLATE = registerGeneratedItem("misty_hobgoblin_scale_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.MISTY_HOBGOBLIN_SCALE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false, false));
+    public static final Item MISTY_HOBGOBLIN_SCALE_LEGGINGS = registerGeneratedItem("misty_hobgoblin_scale_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.MISTY_HOBGOBLIN_SCALE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item MISTY_HOBGOBLIN_SCALE_BOOTS = registerGeneratedItem("misty_hobgoblin_scale_boots",
+            new CustomBootsItem(ModArmorMaterials.MISTY_HOBGOBLIN_SCALE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
-    public static final Item MISTY_URUK_PLATE_HELMET = registerGeneratedItem("misty_uruk_plate_helmet",
-            new CustomHelmetItem(ModArmorMaterials.MISTY_URUK_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
-    public static final Item MISTY_URUK_PLATE_CHESTPLATE = registerGeneratedItem("misty_uruk_plate_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.MISTY_URUK_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false, false));
-    public static final Item MISTY_URUK_PLATE_LEGGINGS = registerGeneratedItem("misty_uruk_plate_leggings",
-            new CustomLeggingsItem(ModArmorMaterials.MISTY_URUK_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
-    public static final Item MISTY_URUK_PLATE_BOOTS = registerGeneratedItem("misty_uruk_plate_boots",
-            new CustomBootsItem(ModArmorMaterials.MISTY_URUK_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+    public static final Item MISTY_HOBGOBLIN_PLATE_HELMET = registerGeneratedItem("misty_hobgoblin_plate_helmet",
+            new CustomHelmetItem(ModArmorMaterials.MISTY_HOBGOBLIN_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
+    public static final Item MISTY_HOBGOBLIN_PLATE_CHESTPLATE = registerGeneratedItem("misty_hobgoblin_plate_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.MISTY_HOBGOBLIN_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false, false));
+    public static final Item MISTY_HOBGOBLIN_PLATE_LEGGINGS = registerGeneratedItem("misty_hobgoblin_plate_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.MISTY_HOBGOBLIN_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item MISTY_HOBGOBLIN_PLATE_BOOTS = registerGeneratedItem("misty_hobgoblin_plate_boots",
+            new CustomBootsItem(ModArmorMaterials.MISTY_HOBGOBLIN_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item MISTY_MOUNTAINS_SHIELD = registerItem("misty_mountains_shield",
             new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));

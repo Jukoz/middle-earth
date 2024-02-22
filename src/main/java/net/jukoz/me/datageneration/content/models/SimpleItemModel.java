@@ -111,6 +111,8 @@ public class SimpleItemModel {
             add(ModResourceItems.MITHRIL_INGOT);
             add(ModResourceItems.MITHRIL_NUGGET);
             add(ModResourceItems.MITHRIL_ROD);
+
+            add(ModResourceItems.IRON_CHAINMAIL);
         }
     };
 }

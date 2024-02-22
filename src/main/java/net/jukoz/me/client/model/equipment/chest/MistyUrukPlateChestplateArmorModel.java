@@ -9,13 +9,13 @@ import net.minecraft.util.Identifier;
 public class MistyUrukPlateChestplateArmorModel<T extends LivingEntity> extends CustomChestplateModel<T> {
     private static final float MAX_ANGLE_HAIR = 75f;
 
-    public final ModelPart shoulder_addon;
+    public final ModelPart shoulderAddon;
 
     public MistyUrukPlateChestplateArmorModel(ModelPart root) {
         super(root);
-        shoulder_addon = root.getChild("right_arm").getChild("shoulder_addon");
+        shoulderAddon = root.getChild("right_arm").getChild("shoulder_addon");
 
-        CHESTPLATE_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/misty_uruk_plate_chestplate_addon.png");
+        CHESTPLATE_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/misty_hobgoblin_plate_chestplate_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {
