@@ -79,7 +79,7 @@ public enum ModArmors {
             true, true, true, true, false, ModEquipmentItems.LORIEN_MAIL_HELMET, ModEquipmentItems.LORIEN_MAIL_CHESTPLATE, ModEquipmentItems.LORIEN_MAIL_LEGGINGS, ModEquipmentItems.LORIEN_MAIL_BOOTS),
 
     LORIEN_SCALE_ARMOR("lorien_scale", new LorienHelmetArmorModel<>(LorienHelmetArmorModel.getTexturedModelData().createModel(), "scale"), null,
-            true, true, false, false, false, ModEquipmentItems.LORIEN_SCALE_HELMET, ModEquipmentItems.LORIEN_SCALE_CHESTPLATE, ModEquipmentItems.LORIEN_SCALE_LEGGINGS, ModEquipmentItems.LORIEN_SCALE_BOOTS),
+            true, true, true, false, false, ModEquipmentItems.LORIEN_SCALE_HELMET, ModEquipmentItems.LORIEN_SCALE_CHESTPLATE, ModEquipmentItems.LORIEN_SCALE_LEGGINGS, ModEquipmentItems.LORIEN_SCALE_BOOTS),
 
     LORIEN_PLATE_ARMOR("lorien_plate", new LorienHelmetArmorModel<>(LorienHelmetArmorModel.getTexturedModelData().createModel(), "plate"), null,
             true, true, true, true, false, ModEquipmentItems.LORIEN_PLATE_HELMET, ModEquipmentItems.LORIEN_PLATE_CHESTPLATE, ModEquipmentItems.LORIEN_PLATE_LEGGINGS, ModEquipmentItems.LORIEN_PLATE_BOOTS),
