@@ -27,6 +27,7 @@ import net.jukoz.me.entity.dwarves.durin.DurinDwarfRenderer;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfRenderer;
 import net.jukoz.me.entity.goose.GooseRenderer;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitRenderer;
+import net.jukoz.me.entity.humans.gondor.GondorHumanRenderer;
 import net.jukoz.me.entity.model.ModEntityModels;
 import net.jukoz.me.entity.nazguls.NazgulRenderer;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
@@ -38,6 +39,8 @@ import net.jukoz.me.entity.spider.MirkwoodSpiderRenderer;
 import net.jukoz.me.entity.swan.SwanRenderer;
 import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollRenderer;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollRenderer;
+import net.jukoz.me.entity.uruks.mordor.MordorUrukEntity;
+import net.jukoz.me.entity.uruks.mordor.MordorUrukRenderer;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.gui.wood_pile.WoodPileScreen;
@@ -75,14 +78,15 @@ public class MiddleEarthClient implements ClientModInitializer {
         // Entities
         EntityRendererRegistry.register(ModEntities.CAVE_TROLL, CaveTrollRenderer::new);
         EntityRendererRegistry.register(ModEntities.HILL_TROLL, HillTrollRenderer::new);
+        EntityRendererRegistry.register(ModEntities.GONDOR_MAN, GondorHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.DURIN_FOLK, DurinDwarfRenderer::new);
         EntityRendererRegistry.register(ModEntities.HOBBIT, ShireHobbitRenderer::new);
         EntityRendererRegistry.register(ModEntities.GALADHRIM_ELF, GaladhrimElfRenderer::new);
         EntityRendererRegistry.register(ModEntities.NAZGUL, NazgulRenderer::new);
         EntityRendererRegistry.register(ModEntities.MORDOR_ORC, MordorOrcRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MORDOR_URUK, MordorUrukRenderer::new);
         EntityRendererRegistry.register(ModEntities.MIRKWOOD_SPIDER, MirkwoodSpiderRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNOW_TROLL, SnowTrollRenderer::new);
-        EntityRendererRegistry.register(ModEntities.BALROG, BalrogRenderer::new);
 
         // Items
         ModelLoadingRegistry.INSTANCE.registerModelProvider(((manager, out) -> new VariantsModelProvider().provideExtraModels(manager, out)));

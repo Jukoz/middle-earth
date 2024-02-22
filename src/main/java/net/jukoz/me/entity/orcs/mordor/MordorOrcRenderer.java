@@ -43,7 +43,7 @@ public class MordorOrcRenderer extends BipedEntityRenderer<MordorOrcEntity, Mord
     public void render(MordorOrcEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
 
-        poseStack.scale(0.75f, 0.75f, 0.75f);
+        poseStack.scale(0.8f, 0.8f, 0.8f);
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 }
