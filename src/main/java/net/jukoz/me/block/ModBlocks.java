@@ -272,9 +272,6 @@ public class ModBlocks {
 
     public static final Block SILVERS_BARS = registerMiscBlock("silver_bars",
             new PaneBlock(FabricBlockSettings.copyOf(Blocks.IRON_BARS).sounds(BlockSoundGroup.METAL)), true);
-    //endregion
-
-    //region GLASS
 
     //endregion
 

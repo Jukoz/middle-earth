@@ -341,6 +341,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.LEAD_INGOT))
                 .offerTo(exporter);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.ROPE, 4)
+                .pattern("W")
+                .pattern("W")
+                .input('W', Blocks.WHITE_WOOL)
+                .criterion(FabricRecipeProvider.hasItem(Blocks.WHITE_WOOL),
+                        FabricRecipeProvider.conditionsFromItem(Blocks.WHITE_WOOL))
+                .offerTo(exporter);
+
 
         createPickaxeRecipe(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModToolItems.JADE_PICKAXE);
         createAxeRecipe(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModToolItems.JADE_AXE);

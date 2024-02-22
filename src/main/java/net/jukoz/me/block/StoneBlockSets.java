@@ -122,8 +122,8 @@ public class StoneBlockSets {
     //public static SimpleBlockSet MOSSY_BLUE_TUFF_TILES = registerStoneSet("mossy_blue_tuff_tiles", COBBLED_BLUE_TUFF.base.getHardness(), COBBLED_BLUE_TUFF.base.getBlastResistance(), BLUE_TUFF_TILES.base);
     public static SimpleBlockSet CRACKED_BLUE_TUFF_TILES = registerStoneSet("cracked_blue_tuff_tiles", COBBLED_BLUE_TUFF.base.getHardness(), COBBLED_BLUE_TUFF.base.getBlastResistance(), BLUE_TUFF_TILES.base);
 
-    //public static SimpleBlockSet COBBLED_ANDESITE = registerStoneSet("cobbled_andesite", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, Blocks.ANDESITE);
-    //public static SimpleBlockSet MOSSY_COBBLED_ANDESITE = registerStoneSet("mossy_cobbled_andesite", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, Blocks.ANDESITE);
+    public static SimpleBlockSet COBBLED_ANDESITE = registerStoneSet("cobbled_andesite", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, Blocks.ANDESITE);
+    public static SimpleBlockSet MOSSY_COBBLED_ANDESITE = registerStoneSet("mossy_cobbled_andesite", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, Blocks.ANDESITE);
     public static SimpleBlockSet MOSSY_POLISHED_ANDESITE = registerStoneSet("mossy_polished_andesite", Blocks.ANDESITE.getHardness(), Blocks.ANDESITE.getBlastResistance(), Blocks.POLISHED_ANDESITE);
     public static SimpleBlockSet CRACKED_POLISHED_ANDESITE = registerStoneSet("cracked_polished_andesite", Blocks.ANDESITE.getHardness(), Blocks.ANDESITE.getBlastResistance(), Blocks.POLISHED_ANDESITE);
     public static SimpleBlockSet ANDESITE_BRICKS = registerStoneSet("andesite_bricks", Blocks.STONE_BRICKS.getHardness(), Blocks.STONE_BRICKS.getBlastResistance(), Blocks.POLISHED_ANDESITE);
@@ -301,6 +301,8 @@ public class StoneBlockSets {
             BLUE_TUFF_TILES,
             CRACKED_BLUE_TUFF_TILES,
 
+            COBBLED_ANDESITE,
+            MOSSY_COBBLED_ANDESITE,
             ANDESITE_BRICKS,
             MOSSY_ANDESITE_BRICKS,
             CRACKED_ANDESITE_BRICKS,
