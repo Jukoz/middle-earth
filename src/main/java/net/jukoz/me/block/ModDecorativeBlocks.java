@@ -16,6 +16,7 @@ import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.block.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 
@@ -252,7 +253,8 @@ public class ModDecorativeBlocks {
             new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.WARPED_PLANKS).nonOpaque()));
     //endregion
 
-
+    public static final Block ROPE = registerBlockWithItem("rope",
+            new ChainBlock(FabricBlockSettings.copyOf(Blocks.CHAIN).sounds(BlockSoundGroup.WOOL).strength(0.8F).noCollision()));
     
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = new Identifier(MiddleEarth.MOD_ID, name);
