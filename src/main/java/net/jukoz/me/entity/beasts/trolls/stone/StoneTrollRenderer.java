@@ -12,13 +12,12 @@ public class StoneTrollRenderer extends MobEntityRenderer<StoneTrollEntity, Ston
     private static final String PATH = "textures/entities/trolls/stone/";
 
     public StoneTrollRenderer(EntityRendererFactory.Context context) {
-        super(context, new StoneTrollModel(context.getPart(ModEntityModelLayers.HILL_TROLL)), 1.1f);
+        super(context, new StoneTrollModel(context.getPart(ModEntityModelLayers.STONE_TROLL)), 1.1f);
     }
 
     @Override
     public Identifier getTexture(StoneTrollEntity entity) {
-        return entity.isPetrified() ?
-                new Identifier(MiddleEarth.MOD_ID, PATH + "petrified_stone_troll.png") : new Identifier(MiddleEarth.MOD_ID, PATH + "stone_troll1.png");
+        return new Identifier(MiddleEarth.MOD_ID, PATH + "stone_troll1.png");
     }
 
     public void render(StoneTrollEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,

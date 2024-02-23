@@ -1,5 +1,6 @@
 package net.jukoz.me.entity.beasts.trolls.stone;
 
+import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.beasts.BeastEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
@@ -18,6 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -121,6 +123,9 @@ public class StoneTrollEntity extends TrollEntity {
                 if(this.getPetrifying() <= 0) {
                     this.turnToStone();
                 }
+                if(this.age % 10 == 0) {
+                    this.playSound(SoundEvents.BLOCK_FIRE_AMBIENT, 1.0f, 1.0f);
+                }
             }
             else {
                 this.setPetrifying(100);
@@ -129,6 +134,7 @@ public class StoneTrollEntity extends TrollEntity {
         if(getPetrifying() != -1 && getPetrifying() < 100 && this.getWorld().isClient() && this.age % 3 == 0) {
             this.getWorld().addParticle(ParticleTypes.LARGE_SMOKE, this.getX() + ((random.nextFloat() * 2f) - 1f), this.getY() + 1d + random.nextFloat(), this.getZ() + ((random.nextFloat() * 2f) - 1f), random.nextFloat() / 8.0f, 0.2f, random.nextFloat() / 8.0f);
         }
+
         super.tickMovement();
     }
 
@@ -142,6 +148,7 @@ public class StoneTrollEntity extends TrollEntity {
                 entity.dismountVehicle();
             }
         }
+        this.convertTo(ModEntities.PETRIFIED_TROLL, true);
     }
 
     @Override
