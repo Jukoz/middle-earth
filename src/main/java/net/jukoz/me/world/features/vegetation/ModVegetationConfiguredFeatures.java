@@ -1,6 +1,7 @@
 package net.jukoz.me.world.features.vegetation;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.WoodBlockSets;
 import net.minecraft.block.*;
@@ -19,6 +20,8 @@ import java.util.List;
 public class ModVegetationConfiguredFeatures {
     // region FOLIAGE
     public static final RegistryKey<ConfiguredFeature<?, ?>> MOCK = registerKey("mock"); // Mock feature. Use it for duplicate data gen strategy
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_BASALT = registerKey("patch_basalt");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_BLACKSTONE = registerKey("patch_blackstone");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_CORRUPTED_MOSS = registerKey("patch_corrupted_moss");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_CORRUPTED_MOSS_CARPET = registerKey("patch_corrupted_moss_carpet");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_DRY_GRASS = registerKey("patch_dry_grass");
@@ -70,6 +73,11 @@ public class ModVegetationConfiguredFeatures {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(Blocks.GRASS))));
 
+        ConfiguredFeatures.register(featureRegisterable, PATCH_BASALT, Feature.BLOCK_PILE,
+                new BlockPileFeatureConfig(BlockStateProvider.of(Blocks.BASALT)));
+        ConfiguredFeatures.register(featureRegisterable, PATCH_BLACKSTONE, Feature.BLOCK_PILE,
+                new BlockPileFeatureConfig(BlockStateProvider.of(Blocks.BLACKSTONE)));
+
         ConfiguredFeatures.register(featureRegisterable, PATCH_CORRUPTED_MOSS, Feature.MULTIFACE_GROWTH,
                 new MultifaceGrowthFeatureConfig((MultifaceGrowthBlock)ModNatureBlocks.CORRUPTED_MOSS,
                         20, true, true, true, 0.5f,
@@ -119,7 +127,7 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, PATCH_TOUGH_BERRY_BUSH, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.TOUGH_BERRY_BUSH.getDefaultState()
-                                .with(SweetBerryBushBlock.AGE, 0))), List.of(Blocks.GRASS_BLOCK)));
+                                .with(SweetBerryBushBlock.AGE, 0))), List.of(Blocks.GRASS_BLOCK, Blocks.DIRT, ModBlocks.ASHEN_DIRT)));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_MALLOS, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,

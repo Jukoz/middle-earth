@@ -17,7 +17,8 @@ public class MiddleEarthHeightMap {
     public static final int PERLIN_STRETCH_Y2 = 37;
     public static final int PERLIN_HEIGHT_RANGE = 33;
     public static final float MOUNTAIN_HEIGHT_RANGE = 8.6f;
-    public static final float MOUNTAIN_HEIGHT_MULTIPLIER = 1.6f;
+    public static final float MOUNTAIN_HEIGHT_MULTIPLIER = 1.87f;
+    public static final float MOUNTAIN_EXPONENTIAL_HEIGHT = 1.107f;
     public static final int MOUNTAIN_START_HEIGHT = 16; // Height depending on the Biome Data.
     public static final int PERLIN_HEIGHT_OFFSET = 2;
     public static final int STONE_HEIGHT = 50;
@@ -72,8 +73,10 @@ public class MiddleEarthHeightMap {
             float biomeHeight = getBiomeWeightHeight(x, z);
             if(biomeHeight >= MOUNTAIN_START_HEIGHT) {
                 float multiplier = (biomeHeight / MOUNTAIN_START_HEIGHT) - 1;
+                biomeHeight += biomeHeight * multiplier * MOUNTAIN_EXPONENTIAL_HEIGHT;
                 multiplier = MOUNTAIN_HEIGHT_MULTIPLIER * multiplier;
-                perlin += multiplier * MOUNTAIN_HEIGHT_RANGE * BlendedNoise.noise((double) x / PERLIN_STRETCH_X2,  (double) z / PERLIN_STRETCH_Y2);
+                perlin += multiplier * MOUNTAIN_EXPONENTIAL_HEIGHT * MOUNTAIN_HEIGHT_RANGE * BlendedNoise.noise((double) x / PERLIN_STRETCH_X2,  (double) z / PERLIN_STRETCH_Y2);
+                perlin += multiplier * (MOUNTAIN_HEIGHT_RANGE / 2) * BlendedNoise.noise((double) (2 * x) / PERLIN_STRETCH_X2,  (double) (2 * z) / PERLIN_STRETCH_Y2);
             }
             additionalHeight = biomeHeight + perlin;
         } else {

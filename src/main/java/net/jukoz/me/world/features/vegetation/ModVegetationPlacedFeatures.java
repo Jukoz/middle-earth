@@ -17,6 +17,8 @@ import java.util.List;
 
 public class ModVegetationPlacedFeatures {
     // region FOLIAGE
+    public static final RegistryKey<PlacedFeature> PATCH_BASALT = registerKey("patch_basalt");
+    public static final RegistryKey<PlacedFeature> PATCH_BLACKSTONE = registerKey("patch_blackstone");
     public static final RegistryKey<PlacedFeature> PATCH_CORRUPTED_MOSS = registerKey("patch_corrupted_moss");
     public static final RegistryKey<PlacedFeature> PATCH_CORRUPTED_MOSS_CARPET = registerKey("patch_corrupted_moss_carpet");
     public static final RegistryKey<PlacedFeature> PATCH_DYING_GRASS = registerKey("patch_dying_grass");
@@ -31,6 +33,7 @@ public class ModVegetationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> PATCH_MALLOS = registerKey("patch_mallos");
     public static final RegistryKey<PlacedFeature> PATCH_STRAWBERRY_BUSH = registerKey("patch_strawberry_bush");
     public static final RegistryKey<PlacedFeature> PATCH_TOUGH_BERRY_BUSH = registerKey("patch_tough_berry_bush");
+    public static final RegistryKey<PlacedFeature> PATCH_COMMON_TOUGH_BERRY_BUSH = registerKey("patch_common_tough_berry_bush");
     public static final RegistryKey<PlacedFeature> PATCH_TOUGH_BERRY_BUSH_RARE = registerKey("patch_tough_berry_bush_rare");
     public static final RegistryKey<PlacedFeature> PATCH_MIRKWOOD = registerKey("patch_mirkwood");
     public static final RegistryKey<PlacedFeature> PATCH_MIRKWOOD_ROOTS = registerKey("patch_mirkwood_roots");
@@ -80,10 +83,12 @@ public class ModVegetationPlacedFeatures {
     public static void bootstrap(Registerable<PlacedFeature> featureRegisterable) {
         RegistryEntryLookup<ConfiguredFeature<?, ?>> registryEntryLookup = featureRegisterable.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> mock = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.MOCK);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> basalt = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_BASALT);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> blackStone = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_BLACKSTONE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> corruptedMoss = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_CORRUPTED_MOSS);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> corruptedMossCarpet = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_CORRUPTED_MOSS_CARPET);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> dyingGrass = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_DYING_GRASS);
-        RegistryEntry.Reference<ConfiguredFeature<?, ?>> dryGrass = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_DYING_GRASS);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> dryGrass = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_DRY_GRASS);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> forestMoss = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FOREST_MOSS);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> forestMossCarpet = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_FOREST_MOSS_CARPET);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> heather = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_HEATHER);
@@ -119,6 +124,8 @@ public class ModVegetationPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> wildPotato = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_WILD_POTATO);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> wildTomato = registryEntryLookup.getOrThrow(ModVegetationConfiguredFeatures.PATCH_WILD_TOMATO);
 
+        PlacedFeatures.register(featureRegisterable, PATCH_BASALT, basalt, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PATCH_BLACKSTONE, blackStone, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_CORRUPTED_MOSS_CARPET, corruptedMossCarpet, uncommon, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_CORRUPTED_MOSS, corruptedMoss, CountPlacementModifier.of(UniformIntProvider.create(15, 25)), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_DYING_GRASS, dyingGrass, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
@@ -133,10 +140,11 @@ public class ModVegetationPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, PATCH_MALLOS, mallos, RarityFilterPlacementModifier.of(48), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_STRAWBERRY_BUSH, strawBerries, veryRare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_TOUGH_BERRY_BUSH, toughBerries, RarityFilterPlacementModifier.of(48), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PATCH_COMMON_TOUGH_BERRY_BUSH, toughBerries, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_TOUGH_BERRY_BUSH_RARE, toughBerries, RarityFilterPlacementModifier.of(320), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_MIRKWOOD, mirkwood, RarityFilterPlacementModifier.of(25), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_MIRKWOOD_ROOTS, mirkwoodRoots, common, CountPlacementModifier.of(UniformIntProvider.create(0, 2)));
-        PlacedFeatures.register(featureRegisterable, PATCH_MORDOR_LICHEN, mordorLichen, RarityFilterPlacementModifier.of(25), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, PATCH_MORDOR_LICHEN, mordorLichen, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_REEDS, mock, RarityFilterPlacementModifier.of(25), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_WHEAT_GRASS, wheatGrass, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PATCH_WILD_GRASS, wildGrass, rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

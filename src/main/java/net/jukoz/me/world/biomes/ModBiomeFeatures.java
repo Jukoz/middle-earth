@@ -1,10 +1,13 @@
 package net.jukoz.me.world.biomes;
 
 import net.jukoz.me.world.features.boulder.BoulderPlacedFeatures;
+import net.jukoz.me.world.features.misc.MiscPlacedFeatures;
 import net.jukoz.me.world.features.ores.OrePlacedFeatures;
 import net.jukoz.me.world.features.tree.ModTreePlacedFeatures;
 import net.jukoz.me.world.features.vegetation.ModVegetationPlacedFeatures;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.world.biome.GenerationSettings;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.PlacedFeature;
 
 import java.util.List;
@@ -155,6 +158,9 @@ public class ModBiomeFeatures {
     public static void addMirkwoodRoots(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(BoulderPlacedFeatures.MIRKWOOD_ROOTS_BOULDER);
     }
+    public static void addSandStoneBoulder(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(BoulderPlacedFeatures.SANDSTONE_BOULDER);
+    }
     public static void addStoneBoulder(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(BoulderPlacedFeatures.STONE_BOULDER);
     }
@@ -164,6 +170,12 @@ public class ModBiomeFeatures {
     // endregion
 
     // region FOLIAGE
+    public static void addBasaltPile(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_BASALT);
+    }
+    public static void addBlackStonePile(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_BLACKSTONE);
+    }
     public static void addCorruptedMoss(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_CORRUPTED_MOSS);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_CORRUPTED_MOSS_CARPET);
@@ -206,6 +218,9 @@ public class ModBiomeFeatures {
     }
     public static void addToughBerries(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_TOUGH_BERRY_BUSH);
+    }
+    public static void addCommonToughBerries(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_TOUGH_BERRY_BUSH);
     }
     public static void addToughBerriesRare(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_TOUGH_BERRY_BUSH_RARE);
@@ -290,6 +305,21 @@ public class ModBiomeFeatures {
     // endregion
 
     // region ORES
+    public static void addAshBlockOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.ASH_BLOCK_ORE);
+    }
+    public static void addAshenDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.ASHEN_DIRT_ORE);
+    }
+    public static void addAshenDirtStoneOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.ASHEN_DIRT_STONE_ORE);
+    }
+    public static void addBasaltOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.BASALT_ORE);
+    }
+    public static void addBlackConcretePowder(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.BLACK_CONCRETE_POWDER_ORE);
+    }
     public static void addCoarseDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.COARSE_DIRT_ORE);
     }
@@ -308,8 +338,17 @@ public class ModBiomeFeatures {
     public static void addPodzolOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.PODZOL_ORE);
     }
+    public static void addSandOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.SAND_ORE);
+    }
     public static void addLightGrayConcretePowderOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.LIGHT_GRAY_CONCRETE_POWDER_ORE);
     }
-    // end region
+    // endregion
+
+    // region MISC
+    public static void addLavaMagmaLake(GenerationSettings.LookupBackedBuilder generationSettings) {
+        generationSettings.feature(GenerationStep.Feature.LAKES, MiscPlacedFeatures.LAVA_MAGMA_POOL);
+    }
+    // endregion
 }
