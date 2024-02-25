@@ -29,7 +29,6 @@ public class MiddleEarth implements ModInitializer {
 	//TODO Hobbit Window
 	//TODO Wood Chair Tweak UVS ?
 	//TODO Buds Loot Tables
-	//TODO Switch wood furniture from logs to stripped
 	//TODO Wood Stairs and slabs
 	//TODO Wheatgrass grayscale
 	//TODO Pedestal Block
