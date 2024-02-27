@@ -232,6 +232,9 @@ public class BeastEntity extends AbstractDonkeyEntity {
     public int maxChargeCooldown() {
         return 400;
     }
+    public int chargeDuration() {
+        return 20;
+    }
 
     private float getAttackDamage() {
         return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
@@ -470,7 +473,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
                 this.chargeAnimationState.start(this.age);
             }
         }
-        if(this.chargeTimeout <= (maxChargeCooldown() - 20) || !isCharging()) {
+        if(this.chargeTimeout <= (maxChargeCooldown() - chargeDuration()) || !isCharging()) {
             this.setCharging(false);
             this.targetDir = Vec3d.ZERO;
         }

@@ -35,12 +35,12 @@ import net.minecraft.world.WorldEvents;
 
 import java.util.List;
 
-// TODO Update Model and Animations
 public class TrollEntity extends BeastEntity {
     private int throwCooldown = 100;
     public final AnimationState throwingAnimationState = new AnimationState();
     private int throwingAnimationTimeout = 0;
     public static final TrackedData<Boolean> THROWING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
 
 
     // Temporary disabled until next update
@@ -68,7 +68,7 @@ public class TrollEntity extends BeastEntity {
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BeastSitGoal(this));
-        this.goalSelector.add(3, new ChargeAttackGoal(this, 400));
+        this.goalSelector.add(3, new ChargeAttackGoal(this, maxChargeCooldown()));
         this.goalSelector.add(3, new MeleeAttackGoal(this, 0.9f, false));
         this.goalSelector.add(4, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
@@ -225,6 +225,11 @@ public class TrollEntity extends BeastEntity {
     }
 
     @Override
+    public int chargeDuration() {
+        return 25;
+    }
+
+    @Override
     public Item getBondingItem() {
         return ModFoodItems.COOKED_HORSE;
     }
@@ -266,10 +271,10 @@ public class TrollEntity extends BeastEntity {
                         this.getTarget().getBlockPos().getZ() - this.getBlockPos().getZ());
             }
             this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
-            this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - 20)) / 20)).add(0, this.getVelocity().y, 0));
+            this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())).add(0, this.getVelocity().y, 0));
         }
         else if (this.getWorld().isClient) {
-            this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - 20)) / 20)).add(0, this.getVelocity().y, 0));
+            this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())).add(0, this.getVelocity().y, 0));
         }
 
         for(Entity entity : entities) {

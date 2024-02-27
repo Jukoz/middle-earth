@@ -139,15 +139,7 @@ public class StoneTrollEntity extends TrollEntity {
     }
 
     public void turnToStone() {
-        this.setPetrifying(-1);
         this.setAiDisabled(true);
-        this.setTame(false);
-        this.setOwner(null);
-        if(!this.getPassengerList().isEmpty()) {
-            for(Entity entity : this.getPassengerList()) {
-                entity.dismountVehicle();
-            }
-        }
         this.convertTo(ModEntities.PETRIFIED_TROLL, true);
     }
 
