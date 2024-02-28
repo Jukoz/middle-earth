@@ -258,6 +258,9 @@ public class ModEquipmentItems {
     public static final Item MISTY_HOBGOBLIN_PLATE_BOOTS = registerGeneratedItem("misty_hobgoblin_plate_boots",
             new CustomBootsItem(ModArmorMaterials.MISTY_HOBGOBLIN_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
+    public static final Item MISTY_HOBGOBLIN_COMMANDER_CHESTPLATE = registerGeneratedItem("misty_hobgoblin_commander_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.MISTY_HOBGOBLIN_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false, false));
+
     public static final Item MISTY_MOUNTAINS_SHIELD = registerItem("misty_mountains_shield",
             new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
 

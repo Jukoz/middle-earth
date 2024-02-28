@@ -14,23 +14,19 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class CustomChestplateItem extends ArmorItem implements DyeableItem {
-
     private ModArmorMaterials material;
     private boolean cape;
     private boolean dyeable;
 
     public CustomChestplateItem(ModArmorMaterials material, Type type, Settings settings, boolean cape, boolean dyeable) {
         super(material, type, settings);
-
         this.material = material;
         this.cape = cape;
         this.dyeable = dyeable;
     }
 
-
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-
         tooltip.add(Text.of(""));
         if(Screen.hasShiftDown()){
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(material.getFaction()));

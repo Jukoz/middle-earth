@@ -1,12 +1,22 @@
 package net.jukoz.me.item.utils;
 
 import net.jukoz.me.client.model.equipment.chest.CustomChestplateModel;
+import net.jukoz.me.client.model.equipment.chest.MistyUrukCommanderChestplateArmorModel;
 import net.jukoz.me.client.model.equipment.chest.MistyUrukPlateChestplateArmorModel;
 import net.jukoz.me.client.model.equipment.chest.MistyUrukScaleChestplateArmorModel;
 import net.jukoz.me.client.model.equipment.head.*;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.SmithingTrimRecipeJsonBuilder;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.util.Identifier;
+
+import java.util.function.Consumer;
 
 public enum ModArmors {
 
@@ -64,7 +74,7 @@ public enum ModArmors {
             true, true, false, false, false, ModEquipmentItems.ROHIRRIC_PLATE_HELMET, ModEquipmentItems.ROHIRRIC_PLATE_CHESTPLATE, ModEquipmentItems.ROHIRRIC_PLATE_LEGGINGS, ModEquipmentItems.ROHIRRIC_PLATE_BOOTS),
 
     LONGBEARD_MAIL_ARMOR("longbeard_mail", null, null,
-            true, true, false, false, false, ModEquipmentItems.LONGBEARD_MAIL_HELMET, ModEquipmentItems.LONGBEARD_MAIL_CHESTPLATE, ModEquipmentItems.LONGBEARD_MAIL_LEGGINGS, ModEquipmentItems.LONGBEARD_MAIL_BOOTS),
+            true, true, true, false, false, ModEquipmentItems.LONGBEARD_MAIL_HELMET, ModEquipmentItems.LONGBEARD_MAIL_CHESTPLATE, ModEquipmentItems.LONGBEARD_MAIL_LEGGINGS, ModEquipmentItems.LONGBEARD_MAIL_BOOTS),
 
     LONGBEARD_SCALE_ARMOR("longbeard_scale", null, null,
             true, true, false, false, false, ModEquipmentItems.LONGBEARD_SCALE_HELMET, ModEquipmentItems.LONGBEARD_SCALE_CHESTPLATE, ModEquipmentItems.LONGBEARD_SCALE_LEGGINGS, ModEquipmentItems.LONGBEARD_SCALE_BOOTS),
@@ -101,6 +111,9 @@ public enum ModArmors {
 
     MISTY_HOBGOBLIN_PLATE_ARMOR("misty_hobgoblin_plate",new MistyUrukPlateHelmetArmorModel<>(MistyUrukPlateHelmetArmorModel.getTexturedModelData().createModel()), new MistyUrukPlateChestplateArmorModel<>(MistyUrukPlateChestplateArmorModel.getTexturedModelData().createModel()),
             true, true, false, false, false, ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_HELMET, ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_CHESTPLATE, ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_LEGGINGS, ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_BOOTS),
+
+    MISTY_HOBGOBLIN_COMMANDER_ARMOR("misty_hobgoblin_commander",null, new MistyUrukCommanderChestplateArmorModel<>(MistyUrukCommanderChestplateArmorModel.getTexturedModelData().createModel()),
+            true, true, false, false, false, ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_CHESTPLATE),
     ;
 
     private final String name;
