@@ -81,7 +81,7 @@ public class StoneTrollModel extends SinglePartEntityModel<StoneTrollEntity> {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
         this.setHeadAngles(headYaw, headPitch);
 
-        this.animateMovement(StoneTrollAnimations.WALK, limbAngle, limbDistance, 2f, 2.5f);
+        this.animateMovement(StoneTrollAnimations.WALK, limbAngle, limbDistance, 3f, 3f);
         this.updateAnimation(entity.attackAnimationState, StoneTrollAnimations.ATTACK, animationProgress, 1.3f);
         this.updateAnimation(entity.chargeAnimationState, StoneTrollAnimations.CHARGE, animationProgress, 1f);
         this.updateAnimation(entity.throwingAnimationState, StoneTrollAnimations.THROW, animationProgress, 1f);

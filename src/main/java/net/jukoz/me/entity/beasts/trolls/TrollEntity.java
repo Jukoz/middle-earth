@@ -137,9 +137,6 @@ public class TrollEntity extends BeastEntity {
         }
         if(this.isThrowing() && canThrow()) {
             this.setVelocity(Vec3d.ZERO);
-            if(!this.isOnGround()) {
-                this.setThrowing(false);
-            }
             if(throwCooldown <= 180) {
                 throwAttack();
             }
@@ -254,7 +251,7 @@ public class TrollEntity extends BeastEntity {
 
             boulder.setPosition(this.getX() + rotationVec.x * 2.0f, this.getBodyY(0.75f), boulder.getZ() + rotationVec.z * 2.0f);
             boulder.setVelocity(x * 0.8d, y + c * 0.3d , z * 0.8d, 1.0f, 8 - this.getWorld().getDifficulty().getId() * 4);
-            if(boulder != null) {
+            if(boulder != null && !this.getWorld().isClient) {
                 this.getWorld().spawnEntity(boulder);
             }
         }
