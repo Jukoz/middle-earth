@@ -152,7 +152,7 @@ public class ModEquipmentItems {
 
     public static final Item LONGBEARD_COMMANDER_HELMET = registerGeneratedItem("longbeard_commander_helmet",
             new CustomHelmetItem(ModArmorMaterials.LONGBEARD_COMMANDER_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
-    public static final Item LONGBEARD_COMMANDER_CHESTCOMMANDER = registerGeneratedItem("longbeard_commander_chestcommander",
+    public static final Item LONGBEARD_COMMANDER_CHESTPLATE = registerGeneratedItem("longbeard_commander_chestplate",
             new CustomChestplateItem(ModArmorMaterials.LONGBEARD_COMMANDER_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(),false, false));
     public static final Item LONGBEARD_COMMANDER_LEGGINGS = registerGeneratedItem("longbeard_commander_leggings",
             new CustomLeggingsItem(ModArmorMaterials.LONGBEARD_COMMANDER_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
@@ -218,6 +218,9 @@ public class ModEquipmentItems {
             new CustomLeggingsItem(ModArmorMaterials.MORDOR_BLACK_URUK_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
     public static final Item MORDOR_BLACK_URUK_PLATE_BOOTS = registerGeneratedItem("mordor_black_uruk_plate_boots",
             new CustomBootsItem(ModArmorMaterials.MORDOR_BLACK_URUK_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
+    public static final Item MORDOR_BLACK_URUK_COMMANDER_HELMET = registerGeneratedItem("mordor_black_uruk_commander_helmet",
+            new CustomHelmetItem(ModArmorMaterials.MORDOR_BLACK_URUK_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(),false));
 
     public static final Item MORDOR_SHIELD = registerItem("mordor_shield",
             new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));

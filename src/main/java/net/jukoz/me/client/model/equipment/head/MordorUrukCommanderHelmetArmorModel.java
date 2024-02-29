@@ -6,16 +6,15 @@ import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
-public class MordorUrukPlateHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
-    private static final float MAX_ANGLE_HAIR = 75f;
+public class MordorUrukCommanderHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
 
     public final ModelPart skull;
 
-    public MordorUrukPlateHelmetArmorModel(ModelPart root) {
+    public MordorUrukCommanderHelmetArmorModel(ModelPart root) {
         super(root);
         skull = root.getChild("head").getChild("skull_parts");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/mordor_black_uruk_plate_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/mordor_black_uruk_commander_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {

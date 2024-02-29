@@ -98,6 +98,9 @@ public enum ModArmorMaterials implements ArmorMaterial {
     MORDOR_BLACK_URUK_PLATE_ARMOR("mordor_black_uruk_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null),
 
+    MORDOR_BLACK_URUK_COMMANDER_ARMOR("mordor_black_uruk_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null),
+
     MISTY_GOBLIN_MAIL_ARMOR("misty_goblin_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), null),
 
