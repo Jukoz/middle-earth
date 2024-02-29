@@ -7,6 +7,7 @@ import net.jukoz.me.block.special.WoodChairBlock;
 import net.jukoz.me.block.special.StoolBlock;
 import net.jukoz.me.block.special.TableBlock;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnace;
+import net.jukoz.me.block.special.artisantable.ArtisanTable;
 import net.jukoz.me.block.special.toggeable_lights.DwarvenLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.SilverLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.WallDwarvenLanternBlock;
@@ -35,6 +36,8 @@ public class ModDecorativeBlocks {
 
     public static final Block ALLOY_FURNACE = registerBlock("alloy_furnace",
             new AlloyFurnace(FabricBlockSettings.copyOf(Blocks.STONE).strength(1.65f).requiresTool()));
+    public static final Block ARTISAN_TABLE = registerBlock("artisan_table",
+            new ArtisanTable(FabricBlockSettings.copyOf(Blocks.STONE).strength(1.65f).requiresTool()));
 
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             new WoodPileBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque()));
