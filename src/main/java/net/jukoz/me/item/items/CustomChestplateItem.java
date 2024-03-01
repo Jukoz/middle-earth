@@ -15,14 +15,19 @@ import java.util.List;
 
 public class CustomChestplateItem extends ArmorItem implements DyeableItem {
     private ModArmorMaterials material;
-    private boolean cape;
-    private boolean dyeable;
 
-    public CustomChestplateItem(ModArmorMaterials material, Type type, Settings settings, boolean cape, boolean dyeable) {
+    private List<Customizations> customsList;
+
+    public CustomChestplateItem(ModArmorMaterials material, Type type, Settings settings, List<Customizations> customsList) {
         super(material, type, settings);
         this.material = material;
-        this.cape = cape;
-        this.dyeable = dyeable;
+        this.customsList = customsList;
+    }
+
+    public CustomChestplateItem(ModArmorMaterials material, Type type, Settings settings) {
+        super(material, type, settings);
+        this.material = material;
+        this.customsList = null;
     }
 
     @Override
@@ -40,17 +45,30 @@ public class CustomChestplateItem extends ArmorItem implements DyeableItem {
         if(Screen.hasAltDown()){
             tooltip.add(Text.of(""));
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
-            if(this.dyeable){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable"));
+            if(this.customsList != null){
+                this.customsList.forEach( custom ->{
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name));
+                });
             }
-            if(this.cape){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".chestplate_cape"));
-            }
-
         }else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
         }
 
         super.appendTooltip(stack, world, tooltip, context);
     }
+
+    public enum Customizations{
+        DYEABLE("dyeable"),
+        CAPE("cape"),
+        IMPALED_SKULLS("impaled_skulls"),
+        POUCH("pouch"),
+        ;
+
+        public final String name;
+        Customizations(String name){
+            this.name = name;
+        }
+    }
+
+
 }

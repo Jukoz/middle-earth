@@ -17,13 +17,23 @@ import java.util.List;
 public class CustomHelmetItem extends ArmorItem {
 
     private ModArmorMaterials material;
-    private boolean hood;
+    private List<CustomHelmetItem.Customizations> customsList;
 
-    public CustomHelmetItem(ModArmorMaterials material, Type type, Settings settings, boolean hood) {
+
+    public CustomHelmetItem(ModArmorMaterials material, Type type, Settings settings, List<CustomHelmetItem.Customizations> customsList) {
         super(material, type, settings);
 
         this.material = material;
-        this.hood = hood;
+        this.customsList = customsList;
+
+    }
+
+    public CustomHelmetItem(ModArmorMaterials material, Type type, Settings settings) {
+        super(material, type, settings);
+
+        this.material = material;
+        this.customsList = null;
+
     }
 
 
@@ -43,8 +53,10 @@ public class CustomHelmetItem extends ArmorItem {
         if (Screen.hasAltDown()) {
             tooltip.add(Text.of(""));
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
-            if (this.hood) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".helmet_hood"));
+            if(this.customsList != null){
+                this.customsList.forEach( custom ->{
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name));
+                });
             }
         }else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
@@ -52,4 +64,17 @@ public class CustomHelmetItem extends ArmorItem {
         super.appendTooltip(stack, world, tooltip, context);
         }
 
+
+    public enum Customizations{
+        DYEABLE("dyeable"),
+        SKULL("skull"),
+        HOOD("hood"),
+        FEATHER("feather"),
+        ;
+
+        public final String name;
+        Customizations(String name){
+            this.name = name;
+        }
+    }
 }

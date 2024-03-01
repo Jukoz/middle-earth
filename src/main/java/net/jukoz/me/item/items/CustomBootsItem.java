@@ -46,4 +46,14 @@ public class CustomBootsItem extends ArmorItem {
 
         super.appendTooltip(stack, world, tooltip, context);
     }
+
+    enum Customizations{
+        DYEABLE("dyeable"),
+        ;
+
+        public final String name;
+        Customizations(String name){
+            this.name = name;
+        }
+    }
 }

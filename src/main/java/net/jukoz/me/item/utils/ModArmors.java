@@ -61,17 +61,17 @@ public enum ModArmors {
     ROHIRRIC_PLATE_ARMOR("rohirric_plate", new RohirricPlateHelmetArmorModel<>(RohirricPlateHelmetArmorModel.getTexturedModelData().createModel()), null,
             true, true, false, false, false, ModEquipmentItems.ROHIRRIC_PLATE_HELMET, ModEquipmentItems.ROHIRRIC_PLATE_CHESTPLATE, ModEquipmentItems.ROHIRRIC_PLATE_LEGGINGS, ModEquipmentItems.ROHIRRIC_PLATE_BOOTS),
 
-    LONGBEARD_MAIL_ARMOR("longbeard_mail", null, null,
-            true, true, true, false, false, ModEquipmentItems.LONGBEARD_MAIL_HELMET, ModEquipmentItems.LONGBEARD_MAIL_CHESTPLATE, ModEquipmentItems.LONGBEARD_MAIL_LEGGINGS, ModEquipmentItems.LONGBEARD_MAIL_BOOTS),
+    EREBOR_MAIL_ARMOR("erebor_mail", null, null,
+            true, true, true, false, false, ModEquipmentItems.EREBOR_MAIL_HELMET, ModEquipmentItems.EREBOR_MAIL_CHESTPLATE, ModEquipmentItems.EREBOR_MAIL_LEGGINGS, ModEquipmentItems.EREBOR_MAIL_BOOTS),
 
-    LONGBEARD_SCALE_ARMOR("longbeard_scale", null, new LongbeardPouchChestplateArmorModel<>(LongbeardPouchChestplateArmorModel.getTexturedModelData().createModel()),
-            true, true, false, false, false, ModEquipmentItems.LONGBEARD_SCALE_HELMET, ModEquipmentItems.LONGBEARD_SCALE_CHESTPLATE, ModEquipmentItems.LONGBEARD_SCALE_LEGGINGS, ModEquipmentItems.LONGBEARD_SCALE_BOOTS),
+    EREBOR_SCALE_ARMOR("erebor_scale", null, new EreborPouchChestplateArmorModel<>(EreborPouchChestplateArmorModel.getTexturedModelData().createModel()),
+            true, true, false, false, false, ModEquipmentItems.EREBOR_SCALE_HELMET, ModEquipmentItems.EREBOR_SCALE_CHESTPLATE, ModEquipmentItems.EREBOR_SCALE_LEGGINGS, ModEquipmentItems.EREBOR_SCALE_BOOTS),
 
-    LONGBEARD_PLATE_ARMOR("longbeard_plate", null, new LongbeardPouchChestplateArmorModel<>(LongbeardPouchChestplateArmorModel.getTexturedModelData().createModel()),
-            true, true, false, false, false, ModEquipmentItems.LONGBEARD_PLATE_HELMET, ModEquipmentItems.LONGBEARD_PLATE_CHESTPLATE, ModEquipmentItems.LONGBEARD_PLATE_LEGGINGS, ModEquipmentItems.LONGBEARD_PLATE_BOOTS),
+    EREBOR_PLATE_ARMOR("erebor_plate", null, new EreborPouchChestplateArmorModel<>(EreborPouchChestplateArmorModel.getTexturedModelData().createModel()),
+            true, true, false, false, false, ModEquipmentItems.EREBOR_PLATE_HELMET, ModEquipmentItems.EREBOR_PLATE_CHESTPLATE, ModEquipmentItems.EREBOR_PLATE_LEGGINGS, ModEquipmentItems.EREBOR_PLATE_BOOTS),
     
-    LONGBEARD_COMMANDER_ARMOR("longbeard_commander", new LongbeardCommanderHelmetArmorModel<>(LongbeardCommanderHelmetArmorModel.getTexturedModelData().createModel()), null,
-            true, true, true, false, false, ModEquipmentItems.LONGBEARD_COMMANDER_HELMET, ModEquipmentItems.LONGBEARD_COMMANDER_CHESTPLATE, ModEquipmentItems.LONGBEARD_COMMANDER_LEGGINGS, ModEquipmentItems.LONGBEARD_COMMANDER_BOOTS),
+    EREBOR_COMMANDER_ARMOR("erebor_commander", new EreborCommanderHelmetArmorModel<>(EreborCommanderHelmetArmorModel.getTexturedModelData().createModel()), null,
+            true, true, true, false, false, ModEquipmentItems.EREBOR_COMMANDER_HELMET, ModEquipmentItems.EREBOR_COMMANDER_CHESTPLATE, ModEquipmentItems.EREBOR_COMMANDER_LEGGINGS, ModEquipmentItems.EREBOR_COMMANDER_BOOTS),
     
     LORIEN_MAIL_ARMOR("lorien_mail", new LorienHelmetArmorModel<>(LorienHelmetArmorModel.getTexturedModelData().createModel(), "mail"), null,
             true, true, true, true, false, ModEquipmentItems.LORIEN_MAIL_HELMET, ModEquipmentItems.LORIEN_MAIL_CHESTPLATE, ModEquipmentItems.LORIEN_MAIL_LEGGINGS, ModEquipmentItems.LORIEN_MAIL_BOOTS),
