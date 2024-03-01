@@ -58,9 +58,9 @@ public class CustomHelmetItem extends ArmorItem implements DyeableItem {
                     this.customsList.forEach(custom -> {
                         tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name));
                     });
-                } else {
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
                 }
+            } else {
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
             }
             super.appendTooltip(stack, world, tooltip, context);
         }
