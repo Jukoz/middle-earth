@@ -42,16 +42,20 @@ public class CustomChestplateItem extends ArmorItem implements DyeableItem {
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
         }
-        if(Screen.hasAltDown()){
-            tooltip.add(Text.of(""));
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
-            if(this.customsList != null){
+        if(this.customsList != null){
+            if(Screen.hasAltDown()){
+                tooltip.add(Text.of(""));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
                 this.customsList.forEach( custom ->{
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name));
+                    if(custom.name.contains("dyeable")){
+                        tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name).append(": " + String.format("#%06X", (0xFFFFFF & this.getColor(stack)))));
+                    } else {
+                        tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name));
+                    }
                 });
+            }else {
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
             }
-        }else {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
         }
 
         super.appendTooltip(stack, world, tooltip, context);
@@ -69,6 +73,4 @@ public class CustomChestplateItem extends ArmorItem implements DyeableItem {
             this.name = name;
         }
     }
-
-
 }

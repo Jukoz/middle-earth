@@ -20,7 +20,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
     HOBBIT_SHIRRIFF_HAT("hobbit_shirriff_hat", 1, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(Items.LEATHER), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shire"), null),
 
-    GAMBESON("gambeson", 11, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+    GAMBESON("gambeson", 2, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(Items.LEATHER), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null),
 
     CLOAK("cloak", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,

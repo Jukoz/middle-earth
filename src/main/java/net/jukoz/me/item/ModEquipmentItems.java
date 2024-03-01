@@ -9,6 +9,7 @@ import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
@@ -19,19 +20,21 @@ public class ModEquipmentItems {
             new CustomChestplateItem(ModArmorMaterials.GAMBESON, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.DYEABLE)));
 
     // Dyeable cloaks
-    public static final Item CLOAK = registerItem("cloak",
-            new DyeableArmorItem(ModArmorMaterials.CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
     public static final Item CLOAK_HOOD = registerItem("cloak_hood",
-            new DyeableArmorItem(ModArmorMaterials.CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings()));
+            new CustomHelmetItem(ModArmorMaterials.CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings(), List.of(CustomHelmetItem.Customizations.HOOD)));
+    public static final Item CLOAK = registerItem("cloak",
+            new CustomChestplateItem(ModArmorMaterials.CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
+
     // Tunic cloak
     public static final Item TUNIC_CLOAK = registerItem("tunic_cloak",
-            new DyeableArmorItem(ModArmorMaterials.TUNIC_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
+            new CustomChestplateItem(ModArmorMaterials.TUNIC_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
 
     // Fur cloaks
-    public static final Item FUR_CLOAK = registerGeneratedItem("fur_cloak",
-            new CustomChestplateItem(ModArmorMaterials.FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
     public static final Item FUR_CLOAK_HOOD = registerGeneratedItem("fur_cloak_hood",
             new CustomHelmetItem(ModArmorMaterials.FUR_CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings(),  List.of(CustomHelmetItem.Customizations.HOOD)));
+    public static final Item FUR_CLOAK = registerGeneratedItem("fur_cloak",
+            new CustomChestplateItem(ModArmorMaterials.FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
+
 
     // Chainmail fur cloaks
     public static final Item CHAINMAIL_FUR_CLOAK = registerGeneratedItem("chainmail_fur_cloak",
@@ -95,6 +98,9 @@ public class ModEquipmentItems {
     public static final Item GONDORIAN_SHIELD = registerItem("gondorian_shield",
             new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
 
+    public static final Item GONDORIAN_HORSE_ARMOR = registerGeneratedItem("gondorian_horse_armor",
+            new CustomHorseArmorItem(7, "gondorian", new FabricItemSettings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
+
     public static final Item ROHIRRIC_MAIL_HELMET = registerGeneratedItem("rohirric_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.ROHIRRIC_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
     public static final Item ROHIRRIC_MAIL_CHESTPLATE = registerGeneratedItem("rohirric_mail_chestplate",
@@ -124,6 +130,9 @@ public class ModEquipmentItems {
 
     public static final Item ROHIRRIC_SHIELD = registerItem("rohirric_shield",
             new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
+
+    public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
+            new CustomHorseArmorItem(10, "rohirric", new FabricItemSettings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
 
     public static final Item EREBOR_MAIL_HELMET = registerGeneratedItem("erebor_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.EREBOR_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
@@ -163,6 +172,9 @@ public class ModEquipmentItems {
 
     public static final Item LONGBEARD_SHIELD = registerItem("longbeard_shield",
             new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
+
+    public static final Item LORIEN_HORSE_ARMOR = registerGeneratedItem("lorien_horse_armor",
+            new CustomHorseArmorItem(7, "lorien", new FabricItemSettings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
 
     public static final Item LORIEN_MAIL_HELMET = registerGeneratedItem("lorien_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.LORIEN_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(), List.of(CustomHelmetItem.Customizations.HOOD)));
@@ -271,9 +283,6 @@ public class ModEquipmentItems {
 
     public static final Item STEEL_TROLL_ARMOR = registerGeneratedItem("steel_troll_armor",
             new TrollArmorItem(10, "steel", new FabricItemSettings().maxCount(1)));
-
-    public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
-            new HorseArmorItem(10, "rohirric", new FabricItemSettings().maxCount(1)));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
