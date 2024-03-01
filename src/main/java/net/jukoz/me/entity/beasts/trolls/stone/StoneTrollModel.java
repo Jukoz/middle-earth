@@ -85,6 +85,7 @@ public class StoneTrollModel extends SinglePartEntityModel<StoneTrollEntity> {
         this.updateAnimation(entity.attackAnimationState, StoneTrollAnimations.ATTACK, animationProgress, 1.3f);
         this.updateAnimation(entity.chargeAnimationState, StoneTrollAnimations.CHARGE, animationProgress, 1f);
         this.updateAnimation(entity.throwingAnimationState, StoneTrollAnimations.THROW, animationProgress, 1f);
+        this.updateAnimation(entity.sittingAnimationState, StoneTrollAnimations.SITTING, animationProgress, 1f);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {

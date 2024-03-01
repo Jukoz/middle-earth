@@ -61,7 +61,8 @@ public class StoneTrollEntity extends TrollEntity {
     public double getMountedHeightOffset() {
         float f = Math.min(0.25F, this.limbAnimator.getSpeed());
         float g = this.limbAnimator.getPos();
-        return (double)this.getHeight() - 1.0d + (double)(0.12F * MathHelper.cos(g * 1.5F) * 2.0F * f);
+        float h = this.isSitting() ? -0.75f : 0;
+        return (double)this.getHeight() - 1.0d + (double)(0.12F * MathHelper.cos(g * 1.5F) * 2.0F * f) + h;
     }
 
     @Override
@@ -70,6 +71,7 @@ public class StoneTrollEntity extends TrollEntity {
         if (i < 0) {
             return;
         }
+
         float f = -0.5f; // Z-Offset
 
         Vec3d vec3d = new Vec3d(0.0, 0.0, f).rotateY(-this.bodyYaw * ((float)Math.PI / 180));

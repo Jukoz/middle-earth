@@ -21,7 +21,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -35,24 +34,23 @@ import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
 // Beasts are mostly aggressive Entities which work much like wolves, while also allowing the player to mount them.
 public class BeastEntity extends AbstractDonkeyEntity {
-    public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> SITTING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState chargeAnimationState = new AnimationState();
+    public final AnimationState sittingAnimationState = new AnimationState();
 
     private int idleAnimationTimeout = 0;
     private int attackTicksLeft = 0;
 
     protected int chargeTimeout;
-    private boolean sitting;
-    private LivingEntity owner;
 
     public static final int ATTACK_COOLDOWN = 10;
     public static final float RESISTANCE = 0.15f;
@@ -67,6 +65,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(CHARGING, false);
+        this.dataTracker.startTracking(SITTING, false);
     }
 
     @Override
@@ -80,6 +79,12 @@ public class BeastEntity extends AbstractDonkeyEntity {
             this.idleAnimationState.start(this.age);
         } else {
             --this.idleAnimationTimeout;
+        }
+        if(this.isSitting()) {
+            this.sittingAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.sittingAnimationState.stop();
         }
     }
 
@@ -173,15 +178,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
         return this.chargeTimeout;
     }
 
-    @Nullable
-    @Override
-    public LivingEntity getOwner() {
-        return this.owner;
-    }
-
-    public void setOwner(LivingEntity owner) {
-        this.owner = owner;
-    }
 
     public double getMountedHeightOffset() {
         float f = Math.min(0.25F, this.limbAnimator.getSpeed());
@@ -191,7 +187,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
 
     @Override
     protected Vec3d getControlledMovementInput(PlayerEntity controllingPlayer, Vec3d movementInput) {
-        if (this.isOnGround() && this.jumpStrength == 0.0f && this.isAngry() && !this.jumping) {
+        if (this.isOnGround() && this.jumpStrength == 0.0f && this.isAngry() && !this.jumping || this.isSitting()) {
             return Vec3d.ZERO;
         }
         float f = controllingPlayer.sidewaysSpeed * 0.5f;
@@ -202,12 +198,20 @@ public class BeastEntity extends AbstractDonkeyEntity {
         return new Vec3d(f, 0.0, g);
     }
 
+    public PlayerEntity getOwner() {
+        if(this.getOwnerUuid() != null) {
+            return getPlayerByUuid(this.getOwnerUuid());
+        }
+        return null;
+    }
+
+
     public boolean isSitting() {
-        return this.sitting;
+        return this.dataTracker.get(SITTING);
     }
 
     public void setSitting(boolean sitting) {
-        this.sitting = sitting;
+        this.dataTracker.set(SITTING, sitting);
     }
 
     public boolean isCommandItem(ItemStack stack) {
@@ -349,7 +353,10 @@ public class BeastEntity extends AbstractDonkeyEntity {
     // Move Set and Behavior ===========================================================================================
     @Override
     protected void jump(float strength, Vec3d movementInput) {
-        if(this.chargeTimeout <= 0) {
+        if(this.isSitting()) {
+            this.setSitting(false);
+        }
+        else if(this.chargeTimeout <= 0) {
             this.setCharging(true);
             this.chargeTimeout = maxChargeCooldown();
         }
@@ -357,17 +364,20 @@ public class BeastEntity extends AbstractDonkeyEntity {
 
     @Override
     public void startJumping(int height) {
-        this.playSound(SoundEvents.ENTITY_CAMEL_DASH, 1.0f, 1.0f);
-        this.setCharging(true);
+        if(!this.isSitting()) {
+            this.playSound(SoundEvents.ENTITY_CAMEL_DASH, 1.0f, 1.0f);
+            this.setCharging(true);
+        }
+        else {
+            this.setSitting(false);
+        }
     }
 
     public void tryBonding(PlayerEntity player) {
         if(random.nextDouble() <= 0.1d) {
-
-            this.setOwnerUuid(player.getUuid());
-            this.setOwner(player);
-            this.setTame(true);
             if (player instanceof ServerPlayerEntity) {
+                this.setOwnerUuid(player.getUuid());
+                this.setTame(true);
                 Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
             }
             this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
@@ -379,6 +389,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
         }
     }
 
+
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         boolean bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
 
@@ -387,7 +398,8 @@ public class BeastEntity extends AbstractDonkeyEntity {
             player.getStackInHand(hand).decrement(1);
         }
 
-        if(this.isTame() && isCommandItem(player.getStackInHand(hand))) {
+        if(this.isTame() && isCommandItem(player.getStackInHand(hand)) && player.getUuid() == this.getOwnerUuid()) {
+            System.out.println("Client: " + this.getWorld().isClient + ", Player: " + player.getUuid() + ", Owner: " + this.getOwnerUuid());
             this.setSitting(!isSitting());
         }
 
@@ -514,6 +526,15 @@ public class BeastEntity extends AbstractDonkeyEntity {
         } else {
             super.handleStatus(status);
         }
+    }
+
+    public PlayerEntity getPlayerByUuid(UUID uuid) {
+        for (int i = 0; i < this.getWorld().getPlayers().size(); ++i) {
+            PlayerEntity playerEntity = this.getWorld().getPlayers().get(i);
+            if (!uuid.equals(playerEntity.getUuid())) continue;
+            return playerEntity;
+        }
+        return null;
     }
 
     @Override

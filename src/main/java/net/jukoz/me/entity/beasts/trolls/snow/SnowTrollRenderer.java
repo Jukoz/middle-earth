@@ -25,7 +25,7 @@ public class SnowTrollRenderer extends MobEntityRenderer<SnowTrollEntity, SnowTr
     public static final Map<SnowTrollVariant, String> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(SnowTrollVariant.class), (resourceLocation) -> {
                 resourceLocation.put(SnowTrollVariant.SNOW,
-                        PATH + "stone_troll1.png");
+                        PATH + "troll1.png");
                 resourceLocation.put(SnowTrollVariant.ICE,
                         PATH + "troll2.png");
             });
