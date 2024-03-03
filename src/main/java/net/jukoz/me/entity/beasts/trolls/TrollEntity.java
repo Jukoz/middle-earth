@@ -3,7 +3,7 @@ package net.jukoz.me.entity.beasts.trolls;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.beasts.BeastEntity;
-import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
+import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.*;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
@@ -30,7 +30,6 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldEvents;
 
 // TODO Have slowly accelerate for charge
 // TODO Update Model and Animations
@@ -71,7 +70,7 @@ public class TrollEntity extends BeastEntity {
         this.targetSelector.add(2, new BeastAttackWithOwnerGoal((BeastEntity)this));
         this.targetSelector.add(3, new TargetPlayerGoal(this));
         this.targetSelector.add(4, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(5, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
+        this.targetSelector.add(5, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(6, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 

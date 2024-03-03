@@ -1,7 +1,7 @@
 package net.jukoz.me.entity.uruks.misties;
 
 import net.jukoz.me.entity.NpcEntity;
-import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
+import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
@@ -16,9 +16,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.random.Random;
@@ -76,11 +74,12 @@ public class MistyHobgoblinEntity extends NpcEntity {
 
     @Override
     protected void initGoals() {
+        super.initGoals();
         int i = 2;
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
     }
@@ -131,7 +130,7 @@ public class MistyHobgoblinEntity extends NpcEntity {
 
     private void leaderEquipment(Random random){
         {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_HELMET));
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_HELMET));
             equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_CHESTPLATE));
             equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_LEGGINGS));
             equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_BOOTS));

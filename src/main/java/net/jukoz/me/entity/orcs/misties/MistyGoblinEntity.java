@@ -1,7 +1,7 @@
 package net.jukoz.me.entity.orcs.misties;
 
 import net.jukoz.me.entity.NpcEntity;
-import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
+import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
@@ -23,8 +23,8 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class MistyOrcEntity extends NpcEntity {
-    public MistyOrcEntity(EntityType<? extends NpcEntity> entityType, World world) {
+public class MistyGoblinEntity extends NpcEntity {
+    public MistyGoblinEntity(EntityType<? extends NpcEntity> entityType, World world) {
         super(entityType, world);
         String name = this.getDefaultName().toString();
         if(name.contains("snaga")){
@@ -61,7 +61,7 @@ public class MistyOrcEntity extends NpcEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
     }
@@ -133,7 +133,7 @@ public class MistyOrcEntity extends NpcEntity {
         }
     }
 
-    public MistyOrcVariant getVariant() {
-        return MistyOrcVariant.byId(this.getId());
+    public MistyGoblinVariant getVariant() {
+        return MistyGoblinVariant.byId(this.getId());
     }
 }

@@ -6,6 +6,7 @@ import net.jukoz.me.item.ModWeaponItems;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -14,11 +15,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
@@ -48,7 +52,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(5, new LookAroundGoal(this));
-        this.targetSelector.add(1, new RevengeGoal(this).setGroupRevenge(new Class[0]));
+        this.targetSelector.add(1, new RevengeGoal(this, this.getClass()).setGroupRevenge());
     }
 
     public void updateAttackType() {
@@ -140,6 +144,12 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     @Override
     public int getXpToDrop() {
         return super.getXpToDrop();
+    }
+
+
+    @Override
+    protected float modifyAppliedDamage(DamageSource source, float amount) {
+        return super.modifyAppliedDamage(source, amount);
     }
 
     public enum RANK{
