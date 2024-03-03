@@ -8,7 +8,6 @@ import net.jukoz.me.entity.barrow_wights.BarrowWightEntity;
 import net.jukoz.me.entity.beasts.trolls.hill.HillTrollEntity;
 import net.jukoz.me.entity.crab.CrabEntity;
 import net.jukoz.me.entity.deer.DeerEntity;
-import net.jukoz.me.entity.deer.DeerModel;
 import net.jukoz.me.entity.duck.DuckEntity;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
@@ -19,7 +18,9 @@ import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.pheasant.PheasantEntity;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntity;
+import net.jukoz.me.entity.projectile.pinecone.LitPineconeEntity;
 import net.jukoz.me.entity.projectile.pebble.PebbleEntity;
+import net.jukoz.me.entity.projectile.pinecone.PineconeEntity;
 import net.jukoz.me.entity.projectile.spear.SpearEntity;
 import net.jukoz.me.entity.snail.SnailEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
@@ -71,6 +72,8 @@ public class ModEntities {
 
     ///* Weapons *///
     public static final EntityType<PebbleEntity> PEBBLE = registerEntity("pebble", PebbleEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
+    public static final EntityType<PineconeEntity> PINECONE = registerEntity("pinecone", PineconeEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
+    public static final EntityType<LitPineconeEntity> LIT_PINECONE = registerEntity("lit_pinecone", LitPineconeEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
     public static final EntityType<BoulderEntity> BOULDER = registerEntity("boulder", BoulderEntity::new, SpawnGroup.MISC, 1f, 1f);
     public static final EntityType<SpearEntity> SPEAR = registerEntity("spear", SpearEntity::new, SpawnGroup.MISC, 0.5F, 0.5F);
 

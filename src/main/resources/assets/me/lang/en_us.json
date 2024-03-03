@@ -229,6 +229,7 @@
   "item.me.lorien_spear": "Lórien Spear",
   "item.me.lorien_pike": "Lórien Pike",
   "item.me.lorien_bow": "Lórien Bow",
+
   
 "#Comment:": "Item - Mordor Orc",
   "item.me.mordor_orc_sword": "Mordor Orc Sword",
@@ -482,6 +483,8 @@
 
 "#Comment:": "Item - Entities",
   "item.me.pebble": "Pebble",
+  "item.me.pinecone": "Pinecone",
+  "item.me.lit_pinecone": "Lit Pinecone",
 
   "#Comment:": "ENTITIES",
   "entity.me.cave_troll": "Cave Troll",
@@ -502,6 +505,8 @@
   "entity.me.nazgul": "Nazgûl",
   "entity.me.balrog": "Balrog",
   "entity.me.pebble": "Pebble",
+  "entity.me.pinecone": "Pinecone",
+  "entity.me.lit_pinecone": "Lit Pinecone",
 
 "#Comment:": "Block - Vanilla +",
   "block.me.stone_trapdoor": "Stone Trapdoor",
@@ -2507,6 +2512,25 @@
   "block.me.silver_lantern": "Silver Lantern",
   "block.me.alloy_furnace": "Alloy Furnace",
   "block.me.wood_pile": "Wood Pile",
+
+
+"#Comment:": "Items - Banners",
+  "item.me.gondor_banner_pattern": "Gondor Banner Pattern",
+  "item.me.gondor_banner_pattern.desc": "White Tree of Gondor",
+  "item.me.rohan_banner_pattern": "Rohan Banner Pattern",
+  "item.me.rohan_banner_pattern.desc": "Rohan Horse Head",
+  "item.me.longbeard_banner_pattern": "Longbeard Banner Pattern",
+  "item.me.longbeard_banner_pattern.desc": "Durin Insignia",
+  "item.me.lothlorien_banner_pattern": "Lothlórien Banner Pattern",
+  "item.me.lothlorien_banner_pattern.desc": "Tree of Lórien",
+  "item.me.mordor_great_eye_banner_pattern": "Mordor Great Eye Banner Pattern",
+  "item.me.mordor_great_eye_banner_pattern.desc": "The Great Eye of Sauron",
+  "item.me.mordor_eye_banner_pattern": "Mordor Eye Banner Pattern (Alt)",
+  "item.me.mordor_eye_banner_pattern.desc": "The Eye of Sauron",
+  "item.me.misty_orcs_eye_banner_pattern": "Misty Orcs Eye Banner Pattern",
+  "item.me.misty_orcs_eye_banner_pattern.desc": "The Eye of Sauron",
+  "item.me.misty_orcs_peaks_banner_pattern": "Misty Orcs Peaks Banner Pattern",
+  "item.me.misty_orcs_peaks_banner_pattern.desc": "The three Peaks of Moria",
 
 "#Comment": "SOUNDS",
   "sounds.me.nazgul_fade": "Nazgûl Fading",
