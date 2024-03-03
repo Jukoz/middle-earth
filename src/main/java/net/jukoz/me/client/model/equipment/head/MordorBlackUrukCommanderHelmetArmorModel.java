@@ -6,17 +6,15 @@ import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
-public class MistyUrukScaleHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
+public class MordorBlackUrukCommanderHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
 
-    public final ModelPart wingRight;
-    public final ModelPart wingLeft;
+    public final ModelPart skull;
 
-    public MistyUrukScaleHelmetArmorModel(ModelPart root) {
+    public MordorBlackUrukCommanderHelmetArmorModel(ModelPart root) {
         super(root);
-        wingRight = root.getChild("head").getChild("wing_right");
-        wingLeft = root.getChild("head").getChild("wing_left");
+        skull = root.getChild("head").getChild("skull_parts");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/misty_hobgoblin_scale_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/mordor_black_uruk_commander_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -26,8 +24,9 @@ public class MistyUrukScaleHelmetArmorModel<T extends LivingEntity> extends Cust
         modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        head.addChild("wing_right", ModelPartBuilder.create().uv(0, 0).mirrored().cuboid(-2.5F, -2.5F, -1.0F, 4.0F, 5.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(3.5F, -11.5F, 0.0F, 0.0F, -0.2618F, 0.0F));
-        head.addChild("wing_left", ModelPartBuilder.create().uv(0, 0).cuboid(-1.5F, -2.5F, -1.0F, 4.0F, 5.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-3.5F, -11.5F, 0.0F, 0.0F, 0.2618F, 0.0F));
+        ModelPartData skull_parts = head.addChild("skull_parts", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        skull_parts.addChild("skull", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -41.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(-0.8F))
+                .uv(0, 16).mirrored().cuboid(-4.0F, -40.3F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(-0.6F)).mirrored(false), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
@@ -36,7 +35,7 @@ public class MistyUrukScaleHelmetArmorModel<T extends LivingEntity> extends Cust
         modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(modelData, 16, 16);
+        return TexturedModelData.of(modelData, 32, 32);
     }
 
     @Override

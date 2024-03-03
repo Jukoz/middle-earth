@@ -1,22 +1,21 @@
 package net.jukoz.me.client.model.equipment.chest;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.client.model.equipment.head.CustomHelmetModel;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
-public class MistyUrukScaleChestplateArmorModel<T extends LivingEntity> extends CustomChestplateModel<T> {
+public class MistyHobgoblinPlateChestplateArmorModel<T extends LivingEntity> extends CustomChestplateModel<T> {
     private static final float MAX_ANGLE_HAIR = 75f;
 
     public final ModelPart shoulderAddon;
 
-    public MistyUrukScaleChestplateArmorModel(ModelPart root) {
+    public MistyHobgoblinPlateChestplateArmorModel(ModelPart root) {
         super(root);
-        shoulderAddon = root.getChild("left_arm").getChild("shoulder_addon");
+        shoulderAddon = root.getChild("right_arm").getChild("shoulder_addon");
 
-        CHESTPLATE_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/misty_hobgoblin_scale_chestplate_addon.png");
+        CHESTPLATE_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/misty_hobgoblin_plate_chestplate_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -27,9 +26,14 @@ public class MistyUrukScaleChestplateArmorModel<T extends LivingEntity> extends 
         modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        ModelPartData left_arm = modelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        left_arm.addChild("shoulder_addon", ModelPartBuilder.create().uv(0, 0).mirrored().cuboid(3.0F, -6.0F, 0.0F, 3.0F, 5.0F, 0.0F), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+
+        ModelPartData right_arm = modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(),
+                ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        right_arm.addChild("shoulder_addon", ModelPartBuilder.create()
+                .uv(0, 0).cuboid(-3.0F, -2.0F, -2.0F, 3.0F, 5.0F, 0, new Dilation(0.0F)),
+                ModelTransform.pivot(-3.0F, -4.0F, 2.0F));
+
+        modelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

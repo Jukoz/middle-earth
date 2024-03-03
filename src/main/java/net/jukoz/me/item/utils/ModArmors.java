@@ -91,20 +91,20 @@ public enum ModArmors {
     MORDOR_BLACK_URUK_PLATE_ARMOR("mordor_black_uruk_plate", null, null,
             true, true, false, false, false, ModEquipmentItems.MORDOR_BLACK_URUK_PLATE_HELMET, ModEquipmentItems.MORDOR_BLACK_URUK_PLATE_CHESTPLATE, ModEquipmentItems.MORDOR_BLACK_URUK_PLATE_LEGGINGS, ModEquipmentItems.MORDOR_BLACK_URUK_PLATE_BOOTS),
 
-    MORDOR_BLACK_URUK_COMMANDER_ARMOR("mordor_black_uruk_commander", new MordorUrukCommanderHelmetArmorModel<>(MordorUrukCommanderHelmetArmorModel.getTexturedModelData().createModel()), null,
+    MORDOR_BLACK_URUK_COMMANDER_ARMOR("mordor_black_uruk_commander", new MordorBlackUrukCommanderHelmetArmorModel<>(MordorBlackUrukCommanderHelmetArmorModel.getTexturedModelData().createModel()), null,
             true, true, false, false, false, ModEquipmentItems.MORDOR_BLACK_URUK_COMMANDER_HELMET),
 
     MISTY_GOBLIN_MAIL_ARMOR("misty_goblin_mail", null, null,
             true, true, false, false, false, ModEquipmentItems.MISTY_GOBLIN_MAIL_HELMET, ModEquipmentItems.MISTY_GOBLIN_MAIL_CHESTPLATE, ModEquipmentItems.MISTY_GOBLIN_MAIL_LEGGINGS, ModEquipmentItems.MISTY_GOBLIN_MAIL_BOOTS),
     
-    MISTY_HOBGOBLIN_SCALE_ARMOR("misty_hobgoblin_scale",  new MistyUrukScaleHelmetArmorModel<>(MistyUrukScaleHelmetArmorModel.getTexturedModelData().createModel()), new MistyUrukScaleChestplateArmorModel<>(MistyUrukScaleChestplateArmorModel.getTexturedModelData().createModel()),
+    MISTY_HOBGOBLIN_SCALE_ARMOR("misty_hobgoblin_scale",  new MistyHobgoblinScaleHelmetArmorModel<>(MistyHobgoblinScaleHelmetArmorModel.getTexturedModelData().createModel()), new MistyHobgoblinScaleChestplateArmorModel<>(MistyHobgoblinScaleChestplateArmorModel.getTexturedModelData().createModel()),
             true, true, false, false, false, ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_HELMET, ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_CHESTPLATE, ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_LEGGINGS, ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_BOOTS),
 
-    MISTY_HOBGOBLIN_PLATE_ARMOR("misty_hobgoblin_plate",new MistyUrukPlateHelmetArmorModel<>(MistyUrukPlateHelmetArmorModel.getTexturedModelData().createModel()), new MistyUrukPlateChestplateArmorModel<>(MistyUrukPlateChestplateArmorModel.getTexturedModelData().createModel()),
+    MISTY_HOBGOBLIN_PLATE_ARMOR("misty_hobgoblin_plate",new MistyHobgoblinPlateHelmetArmorModel<>(MistyHobgoblinPlateHelmetArmorModel.getTexturedModelData().createModel()), new MistyHobgoblinPlateChestplateArmorModel<>(MistyHobgoblinPlateChestplateArmorModel.getTexturedModelData().createModel()),
             true, true, false, false, false, ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_HELMET, ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_CHESTPLATE, ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_LEGGINGS, ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_BOOTS),
 
-    MISTY_HOBGOBLIN_COMMANDER_ARMOR("misty_hobgoblin_commander",null, new MistyUrukCommanderChestplateArmorModel<>(MistyUrukCommanderChestplateArmorModel.getTexturedModelData().createModel()),
-            true, true, false, false, false, ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_CHESTPLATE),
+    MISTY_HOBGOBLIN_COMMANDER_ARMOR("misty_hobgoblin_commander",new MistyHobgoblinCommanderHelmetArmorModel<>(MistyHobgoblinCommanderHelmetArmorModel.getTexturedModelData().createModel()), new MistyHobgoblinCommanderChestplateArmorModel<>(MistyHobgoblinCommanderChestplateArmorModel.getTexturedModelData().createModel()),
+            true, true, false, false, false,ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_HELMET, ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_CHESTPLATE),
     ;
 
     private final String name;

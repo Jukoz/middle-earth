@@ -223,13 +223,12 @@
   "item.me.gundabad_bardiche": "Gundabad Bardiche",
 
 "#Comment:": "Item - Lorien",
-  "item.me.lorien_sword": "Lorien Sword",
-  "item.me.lorien_longsword": "Lórien Longsword",
-  "item.me.lorien_dagger": "Lorien Dagger",
-  "item.me.lorien_battlestaff": "Lorien Battlestaff",
-  "item.me.lorien_spear": "Lorien Spear",
-  "item.me.lorien_pike": "Lorien Pike",
-  "item.me.lorien_bow": "Lorien Bow",
+  "item.me.lorien_sword": "Lórien Sword",
+  "item.me.lorien_dagger": "Lórien Dagger",
+  "item.me.lorien_battlestaff": "Lórien Battlestaff",
+  "item.me.lorien_spear": "Lórien Spear",
+  "item.me.lorien_pike": "Lórien Pike",
+  "item.me.lorien_bow": "Lórien Bow",
   
 "#Comment:": "Item - Mordor Orc",
   "item.me.mordor_orc_sword": "Mordor Orc Sword",
@@ -376,6 +375,7 @@
   "item.me.misty_hobgoblin_plate_chestplate": "Misty Hobgoblin Plate Chestplate",
   "item.me.misty_hobgoblin_plate_leggings": "Misty Hobgoblin Plate Leggings",
   "item.me.misty_hobgoblin_plate_boots": "Misty Hobgoblin Plate Boots",
+  "item.me.misty_hobgoblin_commander_helmet": "Misty Hobgoblin Commander Helmet",
   "item.me.misty_hobgoblin_commander_chestplate": "Misty Hobgoblin Commander Chestplate",
 
   "item.me.steel_troll_armor": "Steel Troll Armor",

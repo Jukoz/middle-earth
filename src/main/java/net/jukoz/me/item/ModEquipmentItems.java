@@ -50,6 +50,7 @@ public class ModEquipmentItems {
     public static final Item HOBBIT_SHIRRIFF_HAT_BROWN = registerGeneratedItem("hobbit_shirriff_hat_brown",
             new CustomHelmetItem(ModArmorMaterials.HOBBIT_SHIRRIFF_HAT, ArmorItem.Type.HELMET, new FabricItemSettings(),  List.of(CustomHelmetItem.Customizations.FEATHER)));
 
+    //GONDOR
     public static final Item GONDORIAN_MAIL_HELMET = registerGeneratedItem("gondorian_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.GONDORIAN_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
     public static final Item GONDORIAN_MAIL_CHESTPLATE = registerGeneratedItem("gondorian_mail_chestplate",
@@ -96,11 +97,12 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.GONDORIAN_FOUNTAIN_GUARD_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item GONDORIAN_SHIELD = registerItem("gondorian_shield",
-            new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
+            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
 
     public static final Item GONDORIAN_HORSE_ARMOR = registerGeneratedItem("gondorian_horse_armor",
             new CustomHorseArmorItem(7, "gondorian", new FabricItemSettings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
 
+    //ROHAN
     public static final Item ROHIRRIC_MAIL_HELMET = registerGeneratedItem("rohirric_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.ROHIRRIC_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
     public static final Item ROHIRRIC_MAIL_CHESTPLATE = registerGeneratedItem("rohirric_mail_chestplate",
@@ -129,11 +131,12 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.ROHIRRIC_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item ROHIRRIC_SHIELD = registerItem("rohirric_shield",
-            new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
+            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
 
     public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
             new CustomHorseArmorItem(10, "rohirric", new FabricItemSettings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
 
+    //EREBOR
     public static final Item EREBOR_MAIL_HELMET = registerGeneratedItem("erebor_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.EREBOR_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
     public static final Item EREBOR_MAIL_CHESTPLATE = registerGeneratedItem("erebor_mail_chestplate",
@@ -171,11 +174,12 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.EREBOR_COMMANDER_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item LONGBEARD_SHIELD = registerItem("longbeard_shield",
-            new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
+            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards")));
 
     public static final Item LORIEN_HORSE_ARMOR = registerGeneratedItem("lorien_horse_armor",
             new CustomHorseArmorItem(7, "lorien", new FabricItemSettings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
 
+    //LOTHLORIEN
     public static final Item LORIEN_MAIL_HELMET = registerGeneratedItem("lorien_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.LORIEN_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(), List.of(CustomHelmetItem.Customizations.HOOD)));
     public static final Item LORIEN_MAIL_CHESTPLATE = registerGeneratedItem("lorien_mail_chestplate",
@@ -204,8 +208,9 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.LORIEN_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item LORIEN_SHIELD = registerItem("lorien_shield",
-            new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
-    
+            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
+
+    //MORDOR
     public static final Item MORDOR_ORC_MAIL_HELMET = registerGeneratedItem("mordor_orc_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.MORDOR_ORC_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
     public static final Item MORDOR_ORC_MAIL_CHESTPLATE = registerGeneratedItem("mordor_orc_mail_chestplate",
@@ -237,7 +242,7 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.MORDOR_BLACK_URUK_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(), List.of(CustomHelmetItem.Customizations.SKULL)));
 
     public static final Item MORDOR_SHIELD = registerItem("mordor_shield",
-            new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
+            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor")));
 
     public static final Item NAZGUL_CLOAK_HOOD = registerGeneratedItem("nazgul_cloak_hood",
             new CustomHelmetItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings(),List.of(CustomHelmetItem.Customizations.HOOD)));
@@ -248,6 +253,7 @@ public class ModEquipmentItems {
     public static final Item NAZGUL_BOOTS = registerGeneratedItem("nazgul_boots",
             new CustomBootsItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
+    //MISTY MOUNTAINS ORCS
     public static final Item MISTY_GOBLIN_MAIL_HELMET = registerGeneratedItem("misty_goblin_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.MISTY_GOBLIN_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
     public static final Item MISTY_GOBLIN_MAIL_CHESTPLATE = registerGeneratedItem("misty_goblin_mail_chestplate",
@@ -275,11 +281,13 @@ public class ModEquipmentItems {
     public static final Item MISTY_HOBGOBLIN_PLATE_BOOTS = registerGeneratedItem("misty_hobgoblin_plate_boots",
             new CustomBootsItem(ModArmorMaterials.MISTY_HOBGOBLIN_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
+    public static final Item MISTY_HOBGOBLIN_COMMANDER_HELMET = registerGeneratedItem("misty_hobgoblin_commander_helmet",
+            new CustomChestplateItem(ModArmorMaterials.MISTY_HOBGOBLIN_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
     public static final Item MISTY_HOBGOBLIN_COMMANDER_CHESTPLATE = registerGeneratedItem("misty_hobgoblin_commander_chestplate",
             new CustomChestplateItem(ModArmorMaterials.MISTY_HOBGOBLIN_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.IMPALED_SKULLS)));
 
     public static final Item MISTY_MOUNTAINS_SHIELD = registerItem("misty_mountains_shield",
-            new ShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336)));
+            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs")));
 
     public static final Item STEEL_TROLL_ARMOR = registerGeneratedItem("steel_troll_armor",
             new TrollArmorItem(10, "steel", new FabricItemSettings().maxCount(1)));
