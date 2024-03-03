@@ -6,17 +6,19 @@ import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
-public class MistyUrukPlateHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
+public class MistyHobgoblinCommanderHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
 
+    public final ModelPart wingMiddle;
     public final ModelPart wingRight;
     public final ModelPart wingLeft;
 
-    public MistyUrukPlateHelmetArmorModel(ModelPart root) {
+    public MistyHobgoblinCommanderHelmetArmorModel(ModelPart root) {
         super(root);
-        wingRight = root.getChild("head").getChild("wing_right");
-        wingLeft = root.getChild("head").getChild("wing_left");
+        wingMiddle = root.getChild("head").getChild("addon").getChild("wing_middle");
+        wingRight = root.getChild("head").getChild("addon").getChild("wing_right");
+        wingLeft = root.getChild("head").getChild("addon").getChild("wing_left");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/misty_hobgoblin_plate_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/misty_hobgoblin_commander_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -26,12 +28,10 @@ public class MistyUrukPlateHelmetArmorModel<T extends LivingEntity> extends Cust
         modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        ModelPartData wing_right = head.addChild("wing_right", ModelPartBuilder.create(), ModelTransform.pivot(-2.5F, -10.5976F, -0.7012F));
-        ModelPartData wing_left = head.addChild("wing_left", ModelPartBuilder.create(), ModelTransform.pivot(-2.5F, -10.5976F, -0.7012F));
-        wing_right.addChild("wing_right1", ModelPartBuilder.create().uv(6, 0).cuboid(-3.5F, 8.5F, 8.1426F, 6.0F, 8.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-3.6462F, -13.4868F, -7.8413F, 0.0F, 0.3491F, 0.0F));
-        wing_right.addChild("wing_right2", ModelPartBuilder.create().uv(0, 0).cuboid(0.0F, -7.0F, -0.5F, 2.0F, 14.0F, 1.0F, new Dilation(0.1F)), ModelTransform.of(-0.5F, 3.1132F, -0.3666F, 0.0F, 0.3491F, 0.0F));
-        wing_left.addChild("wing_left1", ModelPartBuilder.create().uv(6, 0).mirrored().cuboid(-2.5F, 8.5F, 8.1426F, 6.0F, 8.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(8.6462F, -13.4868F, -7.8413F, 0.0F, -0.3491F, 0.0F));
-        wing_left.addChild("wing_left2", ModelPartBuilder.create().uv(0, 0).mirrored().cuboid(-2.0F, -7.0F, -0.5F, 2.0F, 14.0F, 1.0F, new Dilation(0.1F)).mirrored(false), ModelTransform.of(5.5F, 3.1132F, -0.3666F, 0.0F, -0.3491F, 0.0F));
+        ModelPartData addon = head.addChild("addon", ModelPartBuilder.create(), ModelTransform.of(-1.5F, -10.5976F, -3.7012F, 0.0F, -0.3491F, 0.0F));
+        addon.addChild("wing_middle", ModelPartBuilder.create().uv(17, 2).mirrored().cuboid(-3.0F, -4.0F, -2.0F, 6.0F, 8.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(4.3312F, -0.9868F, -0.0188F, 0.0F, 0.1309F, 0.0F));
+        addon.addChild("wing_right", ModelPartBuilder.create().uv(17, 2).cuboid(-3.0F, -4.0F, 0.0F, 6.0F, 8.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-1.3312F, -0.9868F, -0.0188F, 0.0F, 0.5672F, 0.0F));
+        addon.addChild("wing_left", ModelPartBuilder.create().uv(0, 0).cuboid(0.0F, -7.0F, -0.5F, 4.0F, 14.0F, 1.0F, new Dilation(0.1F)), ModelTransform.of(-0.5F, 3.1132F, -0.3666F, 0.0F, 0.3491F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
