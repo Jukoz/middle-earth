@@ -48,7 +48,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(5, new LookAroundGoal(this));
-        this.targetSelector.add(1, new RevengeGoal(this));
+        this.targetSelector.add(1, new RevengeGoal(this).setGroupRevenge(new Class[0]));
     }
 
     public void updateAttackType() {

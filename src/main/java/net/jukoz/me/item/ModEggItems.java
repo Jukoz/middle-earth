@@ -54,15 +54,23 @@ public class ModEggItems {
             new SpawnEggItem(ModEntities.MORDOR_ORC_SNAGA, 4209210, 7682104, new Item.Settings()));
     public static final Item MORDOR_ORC_SOLDIER_SPAWN_EGG = registerItem("mordor_orc_soldier_spawn_egg",
             new SpawnEggItem(ModEntities.MORDOR_ORC_SOLDIER, 4209210, 7682104, new Item.Settings()));
-    public static final Item MORDOR_URUK_SPAWN_EGG = registerItem("mordor_uruk_spawn_egg",
-            new SpawnEggItem(ModEntities.MORDOR_URUK, 4209210, 7682104, new Item.Settings()));
+    public static final Item MORDOR_BLACK_URUK_SOLDIER_SPAWN_EGG = registerItem("mordor_black_uruk_soldier_spawn_egg",
+            new SpawnEggItem(ModEntities.MORDOR_BLACK_URUK_SOLDIER, 4209210, 7682104, new Item.Settings()));
+    public static final Item MORDOR_BLACK_URUK_veteran_SPAWN_EGG = registerItem("mordor_black_uruk_veteran_spawn_egg",
+            new SpawnEggItem(ModEntities.MORDOR_BLACK_URUK_VETERAN, 4209210, 7682104, new Item.Settings()));
+    public static final Item MORDOR_BLACK_URUK_leader_SPAWN_EGG = registerItem("mordor_black_uruk_leader_spawn_egg",
+            new SpawnEggItem(ModEntities.MORDOR_BLACK_URUK_LEADER, 4209210, 7682104, new Item.Settings()));
 
     public static final Item MISTY_ORC_SNAGA_SPAWN_EGG = registerItem("misty_orc_snaga_spawn_egg",
             new SpawnEggItem(ModEntities.MISTY_ORC_SNAGA, 4209210, 7682104, new Item.Settings()));
     public static final Item MISTY_ORC_WARRIOR_SPAWN_EGG = registerItem("misty_orc_warrior_spawn_egg",
             new SpawnEggItem(ModEntities.MISTY_ORC_WARRIOR, 4209210, 7682104, new Item.Settings()));
-    public static final Item MISTY_URUK_SPAWN_EGG = registerItem("misty_uruk_spawn_egg",
-            new SpawnEggItem(ModEntities.MISTY_URUK, 4209210, 7682104, new Item.Settings()));
+    public static final Item MISTY_HOBGOBLIN_SOLDIER_SPAWN_EGG = registerItem("misty_hobgoblin_soldier_spawn_egg",
+            new SpawnEggItem(ModEntities.MISTY_HOBGOBLIN_SOLDIER, 4209210, 7682104, new Item.Settings()));
+    public static final Item MISTY_HOBGOBLIN_veteran_SPAWN_EGG = registerItem("misty_hobgoblin_veteran_spawn_egg",
+            new SpawnEggItem(ModEntities.MISTY_HOBGOBLIN_VETERAN, 4209210, 7682104, new Item.Settings()));
+    public static final Item MISTY_HOBGOBLIN_leader_SPAWN_EGG = registerItem("misty_hobgoblin_leader_spawn_egg",
+            new SpawnEggItem(ModEntities.MISTY_HOBGOBLIN_LEADER, 4209210, 7682104, new Item.Settings()));
 
     public static final Item BARROW_WIGHT_SPAWN_EGG = registerItem("barrow_wight_spawn_egg",
             new SpawnEggItem(ModEntities.BARROW_WIGHT, 1852734, 2456136, new Item.Settings()));

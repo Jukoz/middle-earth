@@ -14,32 +14,32 @@ import net.minecraft.util.Util;
 
 import java.util.Map;
 
-public class MistyUrukRenderer extends BipedEntityRenderer<MistyUrukEntity, MistyUrukModel<MistyUrukEntity>> {
+public class MistyHobgoblinRenderer extends BipedEntityRenderer<MistyHobgoblinEntity, MistyHobgoblinModel<MistyHobgoblinEntity>> {
     private static final String PATH = "textures/entities/uruks/misties/";
 
-    public MistyUrukRenderer(EntityRendererFactory.Context ctx) {
-        super(ctx, new MistyUrukModel<>(ctx.getPart(ModEntityModelLayers.URUK)), 0.5f);
-        this.addFeature(new ArmorFeatureRenderer<>(this, new MistyUrukModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)),
-                new MistyUrukModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), ctx.getModelManager()));
+    public MistyHobgoblinRenderer(EntityRendererFactory.Context ctx) {
+        super(ctx, new MistyHobgoblinModel<>(ctx.getPart(ModEntityModelLayers.URUK)), 0.5f);
+        this.addFeature(new ArmorFeatureRenderer<>(this, new MistyHobgoblinModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)),
+                new MistyHobgoblinModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), ctx.getModelManager()));
     }
 
     @Override
-    public Identifier getTexture(MistyUrukEntity entity) {
+    public Identifier getTexture(MistyHobgoblinEntity entity) {
         return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
-    public static final Map<MistyUrukVariant, String> LOCATION_BY_VARIANT =
-            Util.make(Maps.newEnumMap(MistyUrukVariant.class), (resourceLocation) -> {
-                resourceLocation.put(MistyUrukVariant.LIGHT_BROWN_RED,
+    public static final Map<MistyHobgoblinVariant, String> LOCATION_BY_VARIANT =
+            Util.make(Maps.newEnumMap(MistyHobgoblinVariant.class), (resourceLocation) -> {
+                resourceLocation.put(MistyHobgoblinVariant.LIGHT_BROWN_RED,
                         PATH + "uruk1.png");
-                resourceLocation.put(MistyUrukVariant.PALE_BLUE_YELLOW,
+                resourceLocation.put(MistyHobgoblinVariant.PALE_BLUE_YELLOW,
                         PATH + "uruk2.png");
-                resourceLocation.put(MistyUrukVariant.PALE_GREY_ORANGE,
+                resourceLocation.put(MistyHobgoblinVariant.PALE_GREY_ORANGE,
                         PATH + "uruk3.png");
             });
 
     @Override
-    public void render(MistyUrukEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
+    public void render(MistyHobgoblinEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
 
         poseStack.scale(0.95f, 0.95f, 0.95f);

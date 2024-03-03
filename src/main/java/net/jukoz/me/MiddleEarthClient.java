@@ -41,8 +41,8 @@ import net.jukoz.me.entity.spider.MirkwoodSpiderRenderer;
 import net.jukoz.me.entity.swan.SwanRenderer;
 import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollRenderer;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollRenderer;
-import net.jukoz.me.entity.uruks.misties.MistyUrukRenderer;
-import net.jukoz.me.entity.uruks.mordor.MordorUrukRenderer;
+import net.jukoz.me.entity.uruks.misties.MistyHobgoblinRenderer;
+import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukRenderer;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.gui.wood_pile.WoodPileScreen;
@@ -105,12 +105,16 @@ public class MiddleEarthClient implements ClientModInitializer {
         
         EntityRendererRegistry.register(ModEntities.MORDOR_ORC_SNAGA, MordorOrcRenderer::new);
         EntityRendererRegistry.register(ModEntities.MORDOR_ORC_SOLDIER, MordorOrcRenderer::new);
-        EntityRendererRegistry.register(ModEntities.MORDOR_URUK, MordorUrukRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MORDOR_BLACK_URUK_SOLDIER, MordorBlackUrukRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MORDOR_BLACK_URUK_VETERAN, MordorBlackUrukRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MORDOR_BLACK_URUK_LEADER, MordorBlackUrukRenderer::new);
 
 
         EntityRendererRegistry.register(ModEntities.MISTY_ORC_SNAGA, MistyOrcRenderer::new);
         EntityRendererRegistry.register(ModEntities.MISTY_ORC_WARRIOR, MistyOrcRenderer::new);
-        EntityRendererRegistry.register(ModEntities.MISTY_URUK, MistyUrukRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MISTY_HOBGOBLIN_SOLDIER, MistyHobgoblinRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MISTY_HOBGOBLIN_VETERAN, MistyHobgoblinRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MISTY_HOBGOBLIN_LEADER, MistyHobgoblinRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.NAZGUL, NazgulRenderer::new);
 

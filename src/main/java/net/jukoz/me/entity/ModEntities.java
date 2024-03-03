@@ -29,8 +29,8 @@ import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.swan.SwanEntity;
 import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollEntity;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollEntity;
-import net.jukoz.me.entity.uruks.misties.MistyUrukEntity;
-import net.jukoz.me.entity.uruks.mordor.MordorUrukEntity;
+import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
+import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -95,9 +95,13 @@ public class ModEntities {
 
     //URUKS
     //Mordor
-    public static final EntityType<MordorUrukEntity> MORDOR_URUK = registerEntity("mordor_uruk", MordorUrukEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<MordorBlackUrukEntity> MORDOR_BLACK_URUK_SOLDIER = registerEntity("mordor_black_uruk_soldier", MordorBlackUrukEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<MordorBlackUrukEntity> MORDOR_BLACK_URUK_VETERAN = registerEntity("mordor_black_uruk_veteran", MordorBlackUrukEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<MordorBlackUrukEntity> MORDOR_BLACK_URUK_LEADER = registerEntity("mordor_black_uruk_leader", MordorBlackUrukEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
     //Misties
-    public static final EntityType<MistyUrukEntity> MISTY_URUK = registerEntity("misty_uruk", MistyUrukEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<MistyHobgoblinEntity> MISTY_HOBGOBLIN_SOLDIER = registerEntity("misty_hobgoblin_soldier", MistyHobgoblinEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<MistyHobgoblinEntity> MISTY_HOBGOBLIN_VETERAN = registerEntity("misty_hobgoblin_veteran", MistyHobgoblinEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
+    public static final EntityType<MistyHobgoblinEntity> MISTY_HOBGOBLIN_LEADER = registerEntity("misty_hobgoblin_leader", MistyHobgoblinEntity::new, SpawnGroup.CREATURE, 0.4f, 1.9f);
 
     // Nazgul
     public static final EntityType<NazgulEntity> NAZGUL = registerEntity("nazgul", NazgulEntity::new, SpawnGroup.CREATURE, 0.55f, 1.9f);
@@ -162,11 +166,15 @@ public class ModEntities {
         
         FabricDefaultAttributeRegistry.register(MORDOR_ORC_SNAGA, MordorOrcEntity.setSoldierAttributes());
         FabricDefaultAttributeRegistry.register(MORDOR_ORC_SOLDIER, MordorOrcEntity.setSoldierAttributes());
-        FabricDefaultAttributeRegistry.register(MORDOR_URUK, MordorUrukEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(MORDOR_BLACK_URUK_SOLDIER, MordorBlackUrukEntity.setKnightAttributes());
+        FabricDefaultAttributeRegistry.register(MORDOR_BLACK_URUK_VETERAN, MordorBlackUrukEntity.setVeteranAttributes());
+        FabricDefaultAttributeRegistry.register(MORDOR_BLACK_URUK_LEADER, MordorBlackUrukEntity.setLeaderAttributes());
 
         FabricDefaultAttributeRegistry.register(MISTY_ORC_SNAGA, MistyOrcEntity.setSoldierAttributes());
         FabricDefaultAttributeRegistry.register(MISTY_ORC_WARRIOR, MistyOrcEntity.setSoldierAttributes());
-        FabricDefaultAttributeRegistry.register(MISTY_URUK, MistyUrukEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(MISTY_HOBGOBLIN_SOLDIER, MordorBlackUrukEntity.setKnightAttributes());
+        FabricDefaultAttributeRegistry.register(MISTY_HOBGOBLIN_VETERAN, MordorBlackUrukEntity.setVeteranAttributes());
+        FabricDefaultAttributeRegistry.register(MISTY_HOBGOBLIN_LEADER, MordorBlackUrukEntity.setLeaderAttributes());
 
         FabricDefaultAttributeRegistry.register(NAZGUL, NazgulEntity.setAttributes());
 
