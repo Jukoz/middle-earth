@@ -14,7 +14,7 @@ public class EreborPouchChestplateArmorModel<T extends LivingEntity> extends Cus
         super(root);
         pouch = root.getChild("body").getChild("pouch");
 
-        CHESTPLATE_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/longbeard_pouch.png");
+        CHESTPLATE_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/erebor_pouch.png");
     }
 
     public static TexturedModelData getTexturedModelData() {
