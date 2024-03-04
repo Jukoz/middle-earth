@@ -19,7 +19,7 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.FORODWAITH, List.of(new EntitySpawningSettings(ModEntities.SNOW_TROLL, 0, 1)));
         spawns.put(MEBiomeKeys.SOUTHERN_FOROCHEL, List.of(new EntitySpawningSettings(ModEntities.SNOW_TROLL, 0, 1)));
 
-        spawns.put(MEBiomeKeys.SHIRE, List.of(new EntitySpawningSettings(ModEntities.HOBBIT, 2, 5)));
+        spawns.put(MEBiomeKeys.SHIRE, List.of(new EntitySpawningSettings(ModEntities.HOBBIT_CIVILIAN, 2, 5)));
 
         spawns.put(MEBiomeKeys.RIVENDELL, List.of(new EntitySpawningSettings(ModEntities.LORIEN_SOLDIER, 2, 5)));
         spawns.put(MEBiomeKeys.LINDON, List.of(new EntitySpawningSettings(ModEntities.LORIEN_SOLDIER, 2, 5)));

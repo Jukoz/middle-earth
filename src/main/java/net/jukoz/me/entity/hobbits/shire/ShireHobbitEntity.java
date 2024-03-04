@@ -1,5 +1,7 @@
 package net.jukoz.me.entity.hobbits.shire;
 
+import net.jukoz.me.entity.NpcEntity;
+import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
@@ -32,13 +34,22 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class ShireHobbitEntity extends PathAwareEntity implements RangedAttackMob {
+public class ShireHobbitEntity extends NpcEntity {
     private static float FLEE_DISTANCE = 8f;
     private static float FLEE_SPEED_MIN = 0.8f;
     private static float FLEE_SPEED_MAX = 1.2f;
 
-    public ShireHobbitEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
+    public ShireHobbitEntity(EntityType<? extends NpcEntity> entityType, World world) {
         super(entityType, world);
+        String name = this.getDefaultName().toString();
+        if(name.contains("civilian")){
+            this.setRank(RANK.CIVILIAN);
+        }else if(name.contains("bounder")){
+            this.setRank(RANK.MILITIA);
+            this.setBow(Items.BOW);
+        }else if (name.contains("shirriff")) {
+            this.setRank(RANK.SOLDIER);
+        }
     }
 
     @Nullable
@@ -50,7 +61,35 @@ public class ShireHobbitEntity extends PathAwareEntity implements RangedAttackMo
         return entityData;
     }
 
-    public static DefaultAttributeContainer.Builder setAttributes() {
+    @Override
+    protected void initGoals() {
+        int i = 0;
+        this.goalSelector.add(++i, new SwimGoal(this));
+        this.goalSelector.add(++i, new FleeEntityGoal<>(this, TrollEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
+        this.goalSelector.add(++i, new FleeEntityGoal<>(this, MordorBlackUrukEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
+        this.goalSelector.add(++i, new FleeEntityGoal<>(this, MistyHobgoblinEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
+        this.goalSelector.add(++i, new FleeEntityGoal<>(this, MordorOrcEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
+        this.goalSelector.add(++i, new FleeEntityGoal<>(this, MistyGoblinEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
+        this.goalSelector.add(++i, new FleeEntityGoal<>(this, BanditHumanEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
+        this.goalSelector.add(++i, new FleeEntityGoal<>(this, MirkwoodSpiderEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
+        this.goalSelector.add(++i, new FleeEntityGoal<>(this, NazgulEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
+        this.goalSelector.add(++i, new ProjectileAttackGoal(this, 1.0, 12, 24, 20.0f));
+        this.goalSelector.add(++i, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(++i, new LookAroundGoal(this));
+        i = 1;
+        this.targetSelector.add(++i, new RevengeGoal(this).setGroupRevenge());
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
+    }
+
+    public static DefaultAttributeContainer.Builder setSoldierAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0)
@@ -58,38 +97,36 @@ public class ShireHobbitEntity extends PathAwareEntity implements RangedAttackMo
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0);
     }
+    public static DefaultAttributeContainer.Builder setKnightAttributes() {
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 22.0)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.5);
+    }
 
     @Override
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
         super.initEquipment(random, localDifficulty);
 
-        equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.AIR));
-        equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.AIR));
-
-        float randomVal = random.nextFloat();
-        if(randomVal > 0.95f) {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HAT));
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GAMBESON));
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.IRON_DAGGER));
+        switch (this.getRank()){
+            case CIVILIAN -> civilianEquipement(random);
+            case MILITIA -> militiaEquipment(random);
+            case SOLDIER -> soldierEquipment(random);
         }
-        else if(randomVal > 0.85f && randomVal < 0.95f){
-            randomVal = random.nextFloat();
-            if(randomVal < 0.50f){
-                equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HOBBIT_SHIRRIFF_HAT_BROWN));
-            } else {
-                equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HOBBIT_SHIRRIFF_HAT_GREEN));
-            }
-        } else {
-            randomVal = random.nextFloat();
-            if(randomVal < 0.03f){
-                equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
-            } else if (randomVal < 0.15f) {
-                equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModResourceItems.PEBBLE));
-            } else if(randomVal < 0.20f){
-                equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.APPLE));
-            }  else if(randomVal < 0.25f){
-                equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.CARROT));
-            }
+    }
+
+    private void civilianEquipement(Random random){
+        float randomVal = random.nextFloat();
+        if(randomVal < 0.03f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
+        } else if (randomVal < 0.15f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModResourceItems.PEBBLE));
+        } else if(randomVal < 0.20f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.APPLE));
+        }  else if(randomVal < 0.25f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.CARROT));
         }
 
         randomVal = random.nextFloat();
@@ -114,29 +151,22 @@ public class ShireHobbitEntity extends PathAwareEntity implements RangedAttackMo
         }
     }
 
-    @Override
-    protected void initGoals() {
-        int i = 0;
-        this.goalSelector.add(++i, new SwimGoal(this));
-        this.goalSelector.add(++i, new FleeEntityGoal<>(this, TrollEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
-        this.goalSelector.add(++i, new FleeEntityGoal<>(this, MordorOrcEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
-        this.goalSelector.add(++i, new FleeEntityGoal<>(this, MirkwoodSpiderEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
-        this.goalSelector.add(++i, new FleeEntityGoal<>(this, NazgulEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
-        this.goalSelector.add(++i, new ProjectileAttackGoal(this, 1.0, 12, 24, 20.0f));
-        this.goalSelector.add(++i, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(++i, new LookAroundGoal(this));
-
-        i = 0;
-        this.targetSelector.add(++i, new RevengeGoal(this));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
+    private void militiaEquipment(Random random){
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HAT));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GAMBESON));
+        equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.IRON_DAGGER));
     }
+
+    private void soldierEquipment(Random random){
+        float  randomVal = random.nextFloat();
+        equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+        if(randomVal < 0.50f){
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HOBBIT_SHIRRIFF_HAT_BROWN));
+        } else {
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HOBBIT_SHIRRIFF_HAT_GREEN));
+        }
+    }
+
 
     public ShireHobbitVariant getVariant() {
         return ShireHobbitVariant.byId(this.getId());
@@ -157,7 +187,4 @@ public class ShireHobbitEntity extends PathAwareEntity implements RangedAttackMo
         getWorld().spawnEntity(pebbleEntity);
         this.playSound(SoundEvents.ENTITY_SNOWBALL_THROW, 1.0f, 1.0f / (this.getRandom().nextFloat() * 0.05f + 0.8f));
     }
-
-
-
 }

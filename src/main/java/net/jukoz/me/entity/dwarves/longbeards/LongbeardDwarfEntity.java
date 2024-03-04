@@ -41,7 +41,7 @@ public class LongbeardDwarfEntity extends NpcEntity {
         } else if (name.contains("soldier")) {
             this.setRank(RANK.SOLDIER);
             this.setBow(Items.BOW);
-        }else if (name.contains("knight")) {
+        }else if (name.contains("elite")) {
             this.setRank(RANK.KNIGHT);
         }else if (name.contains("veteran")) {
             this.setRank(RANK.VETERAN);
@@ -121,7 +121,7 @@ public class LongbeardDwarfEntity extends NpcEntity {
 
     private void militiaEquipment(Random random){
         int[] colors = {
-                0x4d4a57
+                2113882
         };
         int colorIndex = random.nextInt(1);
 

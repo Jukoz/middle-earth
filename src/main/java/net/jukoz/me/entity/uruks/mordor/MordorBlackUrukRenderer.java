@@ -42,7 +42,7 @@ public class MordorBlackUrukRenderer extends BipedEntityRenderer<MordorBlackUruk
     public void render(MordorBlackUrukEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
 
-        poseStack.scale(0.95f, 0.95f, 0.95f);
+        poseStack.scale(0.92f, 0.92f, 0.92f);
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 }

@@ -469,8 +469,10 @@
   "item.me.duck_spawn_egg": "Duck Spawn Egg",
   "item.me.swan_spawn_egg": "Swan Spawn Egg",
   
-  "item.me.hobbit_spawn_egg": "Hobbit Spawn Egg",
-  
+  "item.me.hobbit_civilian_spawn_egg": "Hobbit Civilian Spawn Egg",
+  "item.me.hobbit_bounder_spawn_egg": "Hobbit Bounder Spawn Egg",
+  "item.me.hobbit_shirriff_spawn_egg": "Hobbit Shirriff Spawn Egg",
+
   "item.me.gondorian_militia_spawn_egg": "Gondorian Militia Spawn Egg",
   "item.me.gondorian_soldier_spawn_egg": "Gondorian Soldier Spawn Egg",
   "item.me.gondorian_knight_spawn_egg": "Gondorian Knight Spawn Egg",
@@ -485,7 +487,7 @@
 
   "item.me.longbeard_militia_spawn_egg": "Longbeard Militia Spawn Egg",
   "item.me.longbeard_soldier_spawn_egg": "Longbeard Soldier Spawn Egg",
-  "item.me.longbeard_knight_spawn_egg": "Longbeard Knight Spawn Egg",
+  "item.me.longbeard_elite_spawn_egg": "Longbeard Elite Spawn Egg",
   "item.me.longbeard_veteran_spawn_egg": "Longbeard Veteran Spawn Egg",
   "item.me.longbeard_leader_spawn_egg": "Longbeard Leader Spawn Egg",
 
@@ -533,9 +535,11 @@
   "entity.me.pheasant": "Pheasant",
   "entity.me.snail": "Snail",
   "entity.me.deer": "Deer",
-  "entity.me.galadhrim_elf": "Galadhrim Elf",
-  "entity.me.hobbit": "Hobbit",
-  
+
+  "entity.me.hobbit_civilian": "Hobbit Civilian",
+  "entity.me.hobbit_bounder": "Hobbit Bounder",
+  "entity.me.hobbit_shirriff": "Hobbit Shirriff",
+
   "entity.me.gondorian_militia": "Gondorian Militia",
   "entity.me.gondorian_soldier": "Gondorian Soldier",
   "entity.me.gondorian_knight": "Gondorian Knight",
@@ -550,7 +554,7 @@
 
   "entity.me.longbeard_militia": "Longbeard Militia",
   "entity.me.longbeard_soldier": "Longbeard Soldier",
-  "entity.me.longbeard_knight": "Longbeard Knight",
+  "entity.me.longbeard_elite": "Longbeard Elite",
   "entity.me.longbeard_veteran": "Longbeard Veteran",
   "entity.me.longbeard_leader": "Longbeard Leader",
 
