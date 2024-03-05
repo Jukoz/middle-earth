@@ -399,7 +399,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
         }
 
         if(this.isTame() && isCommandItem(player.getStackInHand(hand)) && player.getUuid() == this.getOwnerUuid()) {
-            System.out.println("Client: " + this.getWorld().isClient + ", Player: " + player.getUuid() + ", Owner: " + this.getOwnerUuid());
             this.setSitting(!isSitting());
         }
 

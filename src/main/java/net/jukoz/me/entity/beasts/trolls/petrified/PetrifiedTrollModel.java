@@ -45,7 +45,7 @@ public class PetrifiedTrollModel extends SinglePartEntityModel<PetrifiedTrollEnt
 
         ModelPartData hair1 = hair.addChild("hair1", ModelPartBuilder.create().uv(204, 105).cuboid(-6.3F, -22.2272F, -5.9945F, 13.0F, 19.0F, 12.0F, new Dilation(0.1F)), ModelTransform.of(-26.7F, -37.5249F, 16.9945F, 0.5236F, 0.0F, 0.0F));
 
-        ModelPartData torso = upperbodynoarms.addChild("torso", ModelPartBuilder.create().uv(0, 41).cuboid(-13.0F, -50.0F, -4.0F, 25.0F, 29.0F, 12.0F, new Dilation(0.0F))
+        ModelPartData torso = upperBodyNoArms.addChild("torso", ModelPartBuilder.create().uv(0, 41).cuboid(-13.0F, -50.0F, -4.0F, 25.0F, 29.0F, 12.0F, new Dilation(0.0F))
                 .uv(0, 0).cuboid(-13.0F, -50.0F, -4.0F, 25.0F, 29.0F, 12.0F, new Dilation(0.2F)), ModelTransform.pivot(0.0F, 22.0F, 0.0F));
 
         ModelPartData frontloin = torso.addChild("frontloin", ModelPartBuilder.create().uv(74, 48).cuboid(-12.5F, -1.5F, -0.5F, 25.0F, 21.0F, 1.0F, new Dilation(0.3F)), ModelTransform.pivot(-0.5F, -26.5F, -3.504F));
