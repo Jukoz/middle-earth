@@ -5,10 +5,10 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.balrog.BalrogEntity;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntity;
-import net.jukoz.me.entity.beasts.trolls.hill.HillTrollEntity;
+import net.jukoz.me.entity.beasts.trolls.petrified.PetrifiedTrollEntity;
+import net.jukoz.me.entity.beasts.trolls.stone.StoneTrollEntity;
 import net.jukoz.me.entity.crab.CrabEntity;
 import net.jukoz.me.entity.deer.DeerEntity;
-import net.jukoz.me.entity.deer.DeerModel;
 import net.jukoz.me.entity.duck.DuckEntity;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
@@ -18,7 +18,9 @@ import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.pheasant.PheasantEntity;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntity;
+import net.jukoz.me.entity.projectile.pinecone.LitPineconeEntity;
 import net.jukoz.me.entity.projectile.pebble.PebbleEntity;
+import net.jukoz.me.entity.projectile.pinecone.PineconeEntity;
 import net.jukoz.me.entity.projectile.spear.SpearEntity;
 import net.jukoz.me.entity.snail.SnailEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
@@ -62,10 +64,13 @@ public class ModEntities {
     // Trolls
     public static final EntityType<CaveTrollEntity> CAVE_TROLL = registerEntity("cave_troll", CaveTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
     public static final EntityType<SnowTrollEntity> SNOW_TROLL = registerEntity("snow_troll", SnowTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
-    public static final EntityType<HillTrollEntity> HILL_TROLL = registerEntity("hill_troll", HillTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
+    public static final EntityType<StoneTrollEntity> STONE_TROLL = registerEntity("stone_troll", StoneTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
+    public static final EntityType<PetrifiedTrollEntity> PETRIFIED_TROLL = registerEntity("petrified_troll", PetrifiedTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
 
     ///* Weapons *///
     public static final EntityType<PebbleEntity> PEBBLE = registerEntity("pebble", PebbleEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
+    public static final EntityType<PineconeEntity> PINECONE = registerEntity("pinecone", PineconeEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
+    public static final EntityType<LitPineconeEntity> LIT_PINECONE = registerEntity("lit_pinecone", LitPineconeEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
     public static final EntityType<BoulderEntity> BOULDER = registerEntity("boulder", BoulderEntity::new, SpawnGroup.MISC, 1f, 1f);
     public static final EntityType<SpearEntity> SPEAR = registerEntity("spear", SpearEntity::new, SpawnGroup.MISC, 0.5F, 0.5F);
 
@@ -89,7 +94,8 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(BARROW_WIGHT, BarrowWightEntity.setAttributes());
         //FabricDefaultAttributeRegistry.register(BALROG, BalrogEntity.createBalrogAttributes());
         FabricDefaultAttributeRegistry.register(CAVE_TROLL, CaveTrollEntity.setAttributes());
-        FabricDefaultAttributeRegistry.register(HILL_TROLL, HillTrollEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(STONE_TROLL, StoneTrollEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(PETRIFIED_TROLL, PetrifiedTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(DURIN_FOLK, DurinDwarfEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(HOBBIT, ShireHobbitEntity.setAttributes());

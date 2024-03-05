@@ -1,13 +1,13 @@
-package net.jukoz.me.entity.beasts.trolls.hill;
+package net.jukoz.me.entity.beasts.trolls.stone;
 
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.animation.AnimationHelper;
 import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
 
-public class HillTrollAnimations {
+public class StoneTrollAnimations {
     public static final Animation WALK = Animation.Builder.create(1f).looping()
-            .addBoneAnimation("righarm",
+            .addBoneAnimation("right_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(15f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -15,7 +15,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(15f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("leftarm",
+            .addBoneAnimation("left_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-15f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -23,7 +23,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-15f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("RightLeg",
+            .addBoneAnimation("right_leg",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-17.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -31,7 +31,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-17.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("LeftLeg",
+            .addBoneAnimation("left_leg",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(17.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -76,7 +76,7 @@ public class HillTrollAnimations {
                     new Transformation(Transformation.Targets.TRANSLATE,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("righarm",
+            .addBoneAnimation("right_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -100,7 +100,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.2916767f, AnimationHelper.createRotationalVector(11.49f, 13.5f, -3.91f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("Jaw",
+            .addBoneAnimation("jaw",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -133,7 +133,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.5f, AnimationHelper.createRotationalVector(-55f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("righarm",
+            .addBoneAnimation("right_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -143,7 +143,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.5f, AnimationHelper.createRotationalVector(-20f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("righarm",
+            .addBoneAnimation("right_arm",
                     new Transformation(Transformation.Targets.SCALE,
                             new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
                                     Transformation.Interpolations.LINEAR),
@@ -151,7 +151,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.5f, AnimationHelper.createScalingVector(1f, 1f, 1f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("leftarm",
+            .addBoneAnimation("left_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -161,7 +161,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.5f, AnimationHelper.createRotationalVector(-20f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("leftarm",
+            .addBoneAnimation("left_arm",
                     new Transformation(Transformation.Targets.SCALE,
                             new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
                                     Transformation.Interpolations.LINEAR),
@@ -169,7 +169,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.5f, AnimationHelper.createScalingVector(1f, 1f, 1f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("RightLeg",
+            .addBoneAnimation("right_leg",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -177,11 +177,11 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.5f, AnimationHelper.createRotationalVector(-34.59f, 5.72f, 8.22f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("RightLeg",
+            .addBoneAnimation("right_leg",
                     new Transformation(Transformation.Targets.SCALE,
                             new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("LeftLeg",
+            .addBoneAnimation("left_leg",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -189,7 +189,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.5f, AnimationHelper.createRotationalVector(-34.59f, -5.72f, -8.22f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("LeftLeg",
+            .addBoneAnimation("left_leg",
                     new Transformation(Transformation.Targets.SCALE,
                             new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
                                     Transformation.Interpolations.LINEAR),
@@ -236,7 +236,7 @@ public class HillTrollAnimations {
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(2.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("righarm",
+            .addBoneAnimation("right_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-47.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -244,7 +244,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-47.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("leftarm",
+            .addBoneAnimation("left_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(25f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -282,7 +282,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-2.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("RightLeg",
+            .addBoneAnimation("right_leg",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(30f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -290,7 +290,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(30f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("LeftLeg",
+            .addBoneAnimation("left_leg",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-35f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -317,7 +317,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(2.125f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("righarm",
+            .addBoneAnimation("right_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -333,7 +333,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(2.125f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("righarm",
+            .addBoneAnimation("right_arm",
                     new Transformation(Transformation.Targets.SCALE,
                             new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
                                     Transformation.Interpolations.LINEAR),
@@ -341,7 +341,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(2.125f, AnimationHelper.createScalingVector(1f, 1f, 1f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("leftarm",
+            .addBoneAnimation("left_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -357,7 +357,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(2.125f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("leftarm",
+            .addBoneAnimation("left_arm",
                     new Transformation(Transformation.Targets.SCALE,
                             new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
                                     Transformation.Interpolations.LINEAR),
@@ -391,7 +391,7 @@ public class HillTrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(2.0834335f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("Jaw",
+            .addBoneAnimation("jaw",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
@@ -404,12 +404,72 @@ public class HillTrollAnimations {
                             new Keyframe(2.0834335f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation ATTACK = Animation.Builder.create(1f)
-            .addBoneAnimation("righarm",
+            .addBoneAnimation("right_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createRotationalVector(-54.9f, -20.88f, -14.07f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR))).build();
+
+    public static final Animation SITTING = Animation.Builder.create(1f).looping()
+            .addBoneAnimation("right_arm",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(-20f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("right_arm",
+                    new Transformation(Transformation.Targets.SCALE,
+                            new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("left_arm",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(-20f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("left_arm",
+                    new Transformation(Transformation.Targets.SCALE,
+                            new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("right_leg",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(-74.59f, 5.72f, 8.22f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("right_leg",
+                    new Transformation(Transformation.Targets.SCALE,
+                            new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("left_leg",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(-74.59f, -5.72f, -8.22f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("left_leg",
+                    new Transformation(Transformation.Targets.SCALE,
+                            new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("head",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("frontloin",
+                    new Transformation(Transformation.Targets.TRANSLATE,
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(1f, 1f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("frontloin",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(-60f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("upperbody",
+                    new Transformation(Transformation.Targets.TRANSLATE,
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -13f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("backloin",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR),
+                            new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR)))
+            .addBoneAnimation("legs",
+                    new Transformation(Transformation.Targets.TRANSLATE,
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -13f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
 }

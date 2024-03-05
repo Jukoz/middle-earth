@@ -16,7 +16,8 @@ import net.jukoz.me.datageneration.content.tags.Crops;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.balrog.BalrogRenderer;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntityRenderer;
-import net.jukoz.me.entity.beasts.trolls.hill.HillTrollRenderer;
+import net.jukoz.me.entity.beasts.trolls.petrified.PetrifiedTrollRenderer;
+import net.jukoz.me.entity.beasts.trolls.stone.StoneTrollRenderer;
 import net.jukoz.me.entity.crab.CrabRenderer;
 import net.jukoz.me.entity.deer.DeerRenderer;
 import net.jukoz.me.entity.duck.DuckRenderer;
@@ -64,7 +65,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.BARROW_WIGHT, BarrowWightEntityRenderer::new);
         // Entities
         EntityRendererRegistry.register(ModEntities.CAVE_TROLL, CaveTrollRenderer::new);
-        EntityRendererRegistry.register(ModEntities.HILL_TROLL, HillTrollRenderer::new);
+        EntityRendererRegistry.register(ModEntities.STONE_TROLL, StoneTrollRenderer::new);
+        EntityRendererRegistry.register(ModEntities.PETRIFIED_TROLL, PetrifiedTrollRenderer::new);
         EntityRendererRegistry.register(ModEntities.DURIN_FOLK, DurinDwarfRenderer::new);
         EntityRendererRegistry.register(ModEntities.HOBBIT, ShireHobbitRenderer::new);
         EntityRendererRegistry.register(ModEntities.GALADHRIM_ELF, GaladhrimElfRenderer::new);
@@ -77,6 +79,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         // Items
         ModelLoadingRegistry.INSTANCE.registerModelProvider(((manager, out) -> new VariantsModelProvider().provideExtraModels(manager, out)));
         EntityRendererRegistry.register(ModEntities.PEBBLE, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.PINECONE, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.LIT_PINECONE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.SPEAR, JavelinEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
 
