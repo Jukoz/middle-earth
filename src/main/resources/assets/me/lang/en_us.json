@@ -1148,6 +1148,11 @@
   "block.me.cobbled_granite_vertical_slab": "Cobbled Granite Vertical Slab",
   "block.me.cobbled_granite_stairs": "Cobbled Granite Stairs",
   "block.me.cobbled_granite_wall": "Cobbled Granite Wall",
+  "block.me.mossy_cobbled_granite": "Mossy Cobbled Granite",
+  "block.me.mossy_cobbled_granite_slab": "Mossy Cobbled Granite Slab",
+  "block.me.mossy_cobbled_granite_vertical_slab": "Mossy Cobbled Granite Vertical Slab",
+  "block.me.mossy_cobbled_granite_stairs": "Mossy Cobbled Granite Stairs",
+  "block.me.mossy_cobbled_granite_wall": "Mossy Cobbled Granite Wall",
   "block.me.granite_vertical_slab": "Granite Vertical Slab",
   "block.me.granite_pillar": "Granite Pillar",
   "block.me.mossy_granite_pillar": "Mossy Granite Pillar",
@@ -2515,9 +2520,20 @@
 
 "#Comment:": "Block - Misc",
   "block.me.river_sand": "River Sand",
+  "block.me.black_sand": "Black Sand",
+  "block.me.white_sand": "White Sand",
   "block.me.gravel_layer": "Gravel Layer",
   "block.me.sand_layer": "Sand Layer",
-  
+  "block.me.black_sand_layer": "Black Sand Layer",
+  "block.me.white_sand_layer": "White Sand Layer",
+
+  "block.me.daub": "Daub",
+  "block.me.wattle_and_daub": "Wattle and Daub",
+  "block.me.wattle_and_daub_cross": "Wattle and Daub Cross",
+  "block.me.wattle_and_daub_right": "Wattle and Daub Right",
+  "block.me.wattle_and_daub_left": "Wattle and Daub Left",
+  "block.me.wattle_and_daub_diamond": "Wattle and Daub Diamond",
+
 
   "block.me.black_wool_slab": "Black Wool Slab",
   "block.me.blue_wool_slab": "Blue Wool Slab",

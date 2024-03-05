@@ -43,8 +43,8 @@ public class WoodBlockSets {
             WILLOW,
     };
 
-    public record SimpleBlockSet(Block leaves, Block log, Block wood, Block woodWall, Block woodFence,
-                                 Block strippedLog, Block strippedWood, Block strippedWoodWall, Block strippedWoodFence,
+    public record SimpleBlockSet(Block leaves, Block log, Block wood, Block woodSlab, Block woodVerticalSlab, Block woodStairs, Block woodWall, Block woodFence,
+                                 Block strippedLog, Block strippedWood, Block strippedWoodSlab, Block strippedWoodVerticalSlab, Block strippedWoodStairs, Block strippedWoodWall, Block strippedWoodFence,
                                  Block planks, Block planksSlab, Block planksVerticalSlab, Block planksStairs, Block planksFence, Block planksGate,
                                  Block pressurePlate, Block button, Block door, Block trapdoor, Block stool, Block table, Block chair, Block sapling) {
     }
@@ -68,6 +68,14 @@ public class WoodBlockSets {
 
         Block wood = ModBlocks.registerWoodBlock(name + "_wood", new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
 
+        Block woodSlab = ModBlocks.registerWoodBlock(name + "_wood_slab", new SlabBlock(FabricBlockSettings.copyOf(wood)
+                .strength(strength, ModBlocks.SLAB_RESISTANCE).sounds(BlockSoundGroup.WOOD)),false);
+
+        Block woodVerticalSlab = ModBlocks.registerWoodBlock(name + "_wood_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
+
+        Block woodStairs = ModBlocks.registerWoodBlock(name + "_wood_stairs", new StairsBlock(wood.getDefaultState(),
+                FabricBlockSettings.copyOf(wood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
+        
         Block woodWall = ModBlocks.registerWoodBlock(name + "_wood_wall", new WallBlock(AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
 
         Block woodFence = ModBlocks.registerWoodBlock(name + "_wood_fence", new FenceBlock(AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
@@ -75,7 +83,15 @@ public class WoodBlockSets {
         Block strippedLog = ModBlocks.registerWoodBlock("stripped_" + name + "_log", new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
 
         Block strippedWood = ModBlocks.registerWoodBlock("stripped_" + name + "_wood", new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
+        
+        Block strippedSlab = ModBlocks.registerWoodBlock("stripped_" + name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(strippedWood)
+                .strength(strength, ModBlocks.SLAB_RESISTANCE).sounds(BlockSoundGroup.WOOD)),false);
 
+        Block strippedVerticalSlab = ModBlocks.registerWoodBlock("stripped_" + name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(strippedWood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
+
+        Block strippedStairs = ModBlocks.registerWoodBlock("stripped_" + name + "_stairs", new StairsBlock(strippedWood.getDefaultState(),
+                FabricBlockSettings.copyOf(strippedWood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
+        
         Block strippedWoodWall = ModBlocks.registerWoodBlock("stripped_" + name + "_wood_wall", new WallBlock(AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
 
         Block strippedWoodFence = ModBlocks.registerWoodBlock("stripped_" + name + "_wood_fence", new FenceBlock(AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
@@ -123,8 +139,8 @@ public class WoodBlockSets {
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(table.asItem().getDefaultStack());
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(chair.asItem().getDefaultStack());
 
-        return new SimpleBlockSet(leaves, log, wood, woodWall, woodFence,
-                strippedLog, strippedWood, strippedWoodWall, strippedWoodFence,
+        return new SimpleBlockSet(leaves, log, wood, woodSlab, woodVerticalSlab, woodStairs, woodWall, woodFence,
+                strippedLog, strippedWood, strippedSlab, strippedVerticalSlab, strippedStairs, strippedWoodWall, strippedWoodFence,
                 planks, slab, verticalSlab, stairs, fence, gate,
                 pressurePlate, button, door, trapdoor, stool, table, chair, sapling);
     }

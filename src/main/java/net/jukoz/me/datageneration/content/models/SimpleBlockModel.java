@@ -46,7 +46,16 @@ public class SimpleBlockModel {
             add(ModBlocks.BUDDING_GLOWSTONE);
 
             add(ModBlocks.RIVER_SAND);
+            add(ModBlocks.BLACK_SAND);
+            add(ModBlocks.WHITE_SAND);
             add(ModBlocks.ASH_BLOCK);
+
+            add(ModBlocks.DAUB);
+            add(ModBlocks.WATTLE_AND_DAUB);
+            add(ModBlocks.WATTLE_AND_DAUB_CROSS);
+            add(ModBlocks.WATTLE_AND_DAUB_RIGHT);
+            add(ModBlocks.WATTLE_AND_DAUB_LEFT);
+            add(ModBlocks.WATTLE_AND_DAUB_DIAMOND);
         }
     };
 

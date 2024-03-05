@@ -90,10 +90,15 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         //region WOOD RECIPES
         for (WoodBlockSets.SimpleBlockSet record : WoodBlockSets.sets) {
             createBrickRecipe(exporter, record.log().asItem(), record.wood(), 3);
+            createBrickRecipe(exporter, record.strippedLog().asItem(), record.strippedWood(), 3);
             createWallsRecipe(exporter, record.wood(), record.woodWall());
             createFenceRecipe(exporter, record.wood().asItem(), record.woodFence());
             createSlabsRecipe(exporter, record.planks(), record.planksSlab());
+            createSlabsRecipe(exporter, record.wood(), record.woodSlab());
+            createSlabsRecipe(exporter, record.strippedWood(), record.strippedWoodSlab());
             createStairsRecipe(exporter, record.planks(), record.planksStairs());
+            createStairsRecipe(exporter, record.wood(), record.woodStairs());
+            createStairsRecipe(exporter, record.strippedWood(), record.strippedWoodStairs());
             createDoorRecipe(exporter, record.planks(), record.door());
             createTrapdoorRecipe(exporter, record.planks(), record.trapdoor());
             createWoodStoolRecipe(exporter, record.planksSlab().asItem(), record.stool());
@@ -196,7 +201,39 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             }
         }
 
+        for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.strippedVerticalSlabs) {
+            createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
+            createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
+            if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, verticalSlab.verticalSlab(), verticalSlab.block(),2);
+            }
+        }
+
+        for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.woodVerticalSlabs) {
+            createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
+            createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
+            if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, verticalSlab.verticalSlab(), verticalSlab.block(),2);
+            }
+        }
+
         for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
+            createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
+            createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
+            if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, verticalSlab.verticalSlab(), verticalSlab.block(),2);
+            }
+        }
+
+        for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaWoodVerticalSlabs) {
+            createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
+            createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
+            if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, verticalSlab.verticalSlab(), verticalSlab.block(),2);
+            }
+        }
+
+        for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaStrippedVerticalSlabs) {
             createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
             createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
             if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
@@ -228,7 +265,23 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createSlabsRecipe(exporter, slab.origin(), slab.slab());
         }
 
+        for(SimpleSlabModel.Slab slab : SimpleSlabModel.vanillaWoodSlabs){
+            createSlabsRecipe(exporter, slab.origin(), slab.slab());
+        }
+
+        for(SimpleSlabModel.Slab slab : SimpleSlabModel.vanillaStrippedSlab){
+            createSlabsRecipe(exporter, slab.origin(), slab.slab());
+        }
+
         for(SimpleStairModel.Stair stair : SimpleStairModel.vanillaStairs){
+            createStairsRecipe(exporter, stair.origin(), stair.stairs());
+        }
+
+        for(SimpleStairModel.Stair stair : SimpleStairModel.vanillaWoodStairs){
+            createStairsRecipe(exporter, stair.origin(), stair.stairs());
+        }
+
+        for(SimpleStairModel.Stair stair : SimpleStairModel.vanillaStrippedStairs){
             createStairsRecipe(exporter, stair.origin(), stair.stairs());
         }
 
@@ -281,6 +334,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         createLayerRecipe(exporter, Blocks.GRAVEL.asItem(), ModBlocks.GRAVEL_LAYER);
         createLayerRecipe(exporter, Blocks.SAND.asItem(), ModBlocks.SAND_LAYER);
+        createLayerRecipe(exporter, ModBlocks.BLACK_SAND.asItem(), ModBlocks.BLACK_SAND_LAYER);
+        createLayerRecipe(exporter, ModBlocks.WHITE_SAND.asItem(), ModBlocks.WHITE_SAND_LAYER);
 
         // Seeds
         createSeedsRecipe(exporter, ModFoodItems.TOMATO, ModResourceItems.TOMATO_SEEDS);

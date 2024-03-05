@@ -18,6 +18,42 @@ public class SimpleVerticalSlabModel {
         }
     };
 
+    public static List<SimpleVerticalSlabModel.VerticalSlab> woodVerticalSlabs = new ArrayList<>() {
+        {
+        }
+    };
+
+    public static List<SimpleVerticalSlabModel.VerticalSlab> strippedVerticalSlabs = new ArrayList<>() {
+        {
+        }
+    };
+
+    public static List<SimpleVerticalSlabModel.VerticalSlab> vanillaWoodVerticalSlabs = new ArrayList<>() {
+        {
+            add(new VerticalSlab(Blocks.OAK_WOOD, ModBlocks.OAK_WOOD_SLAB, ModBlocks.OAK_WOOD_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.SPRUCE_WOOD, ModBlocks.SPRUCE_WOOD_SLAB, ModBlocks.SPRUCE_WOOD_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.BIRCH_WOOD, ModBlocks.BIRCH_WOOD_SLAB, ModBlocks.BIRCH_WOOD_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.JUNGLE_WOOD, ModBlocks.JUNGLE_WOOD_SLAB, ModBlocks.JUNGLE_WOOD_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.ACACIA_WOOD, ModBlocks.ACACIA_WOOD_SLAB, ModBlocks.ACACIA_WOOD_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.DARK_OAK_WOOD, ModBlocks.DARK_OAK_WOOD_SLAB, ModBlocks.DARK_OAK_WOOD_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.MANGROVE_WOOD, ModBlocks.MANGROVE_WOOD_SLAB, ModBlocks.MANGROVE_WOOD_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.CHERRY_WOOD, ModBlocks.CHERRY_WOOD_SLAB, ModBlocks.CHERRY_WOOD_VERTICAL_SLAB));
+        }
+    };
+
+    public static List<SimpleVerticalSlabModel.VerticalSlab> vanillaStrippedVerticalSlabs = new ArrayList<>() {
+        {
+            add(new VerticalSlab(Blocks.STRIPPED_OAK_WOOD, ModBlocks.STRIPPED_OAK_WOOD_SLAB, ModBlocks.STRIPPED_OAK_WOOD_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.STRIPPED_SPRUCE_WOOD, ModBlocks.STRIPPED_SPRUCE_WOOD_SLAB, ModBlocks.STRIPPED_SPRUCE_WOOD_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.STRIPPED_BIRCH_WOOD, ModBlocks.STRIPPED_BIRCH_WOOD_SLAB, ModBlocks.STRIPPED_BIRCH_WOOD_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.STRIPPED_JUNGLE_WOOD, ModBlocks.STRIPPED_JUNGLE_WOOD_SLAB, ModBlocks.STRIPPED_JUNGLE_WOOD_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.STRIPPED_ACACIA_WOOD, ModBlocks.STRIPPED_ACACIA_WOOD_SLAB, ModBlocks.STRIPPED_ACACIA_WOOD_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.STRIPPED_DARK_OAK_WOOD, ModBlocks.STRIPPED_DARK_OAK_WOOD_SLAB, ModBlocks.STRIPPED_DARK_OAK_WOOD_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.STRIPPED_MANGROVE_WOOD, ModBlocks.STRIPPED_MANGROVE_WOOD_SLAB, ModBlocks.STRIPPED_MANGROVE_WOOD_VERTICAL_SLAB));
+            add(new VerticalSlab(Blocks.STRIPPED_CHERRY_WOOD, ModBlocks.STRIPPED_CHERRY_WOOD_SLAB, ModBlocks.STRIPPED_CHERRY_WOOD_VERTICAL_SLAB));
+        }
+    };
+
     public static List<SimpleVerticalSlabModel.VerticalSlab> vanillaVerticalSlabs = new ArrayList<>() {
         {
             add(new VerticalSlab(Blocks.STONE, Blocks.STONE_SLAB, ModBlocks.STONE_VERTICAL_SLAB));

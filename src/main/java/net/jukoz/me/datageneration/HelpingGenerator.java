@@ -89,22 +89,34 @@ public class HelpingGenerator {
             SimpleBlockModel.woodBlocks.add(set.wood());
             SimpleBlockModel.woodBlocks.add(set.strippedWood());
 
+            SimpleBlockModel.blocks.add(set.planks());
+
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.log(), set.woodWall()));
             SimpleWallModel.strippedWalls.add(new SimpleWallModel.Wall(set.strippedWood(), set.strippedWoodWall()));
 
+            SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.planks(), set.planksFence()));
             SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.log(), set.woodFence()));
             SimpleFenceModel.strippedFences.add(new SimpleFenceModel.Fence(set.strippedWood(), set.strippedWoodFence()));
 
-            SimpleBlockModel.blocks.add(set.planks());
+
             SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
+            SimpleSlabModel.woodSlabs.add(new SimpleSlabModel.Slab(set.wood(), set.woodSlab()));
+            SimpleSlabModel.strippedSlabs.add(new SimpleSlabModel.Slab(set.strippedWood(), set.strippedWoodSlab()));
+
             SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.planks(), set.planksSlab(), set.planksVerticalSlab()));
+            SimpleVerticalSlabModel.woodVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.wood(), set.woodSlab(), set.woodVerticalSlab()));
+            SimpleVerticalSlabModel.strippedVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.strippedWood(), set.strippedWoodSlab(), set.strippedWoodVerticalSlab()));
+
             SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.planks(), set.planksStairs()));
-            SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.planks(), set.planksFence()));
+            SimpleStairModel.woodStairs.add(new SimpleStairModel.Stair(set.wood(), set.woodStairs()));
+            SimpleStairModel.strippedStairs.add(new SimpleStairModel.Stair(set.strippedWood(), set.strippedWoodStairs()));
+
             SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(set.planks(), set.planksGate()));
             SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(set.planks(), set.button()));
             SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
             SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(set.planks(), set.trapdoor()));
             SimpleDoorModel.doors.add(new SimpleDoorModel.Door(set.planks(), set.door()));
+
             SimpleWoodStoolModel.stools.add(set.stool());
             SimpleWoodTableModel.tables.add(set.table());
             SimpleWoodChairModel.chairs.add(set.chair());
@@ -119,8 +131,14 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.strippedWoodFence());
             BlockDrops.blocks.add(set.planks());
             BlockDrops.blocks.add(set.planksSlab());
+            BlockDrops.blocks.add(set.woodSlab());
+            BlockDrops.blocks.add(set.strippedWoodSlab());
             BlockDrops.blocks.add(set.planksVerticalSlab());
+            BlockDrops.blocks.add(set.woodVerticalSlab());
+            BlockDrops.blocks.add(set.strippedWoodVerticalSlab());
             BlockDrops.blocks.add(set.planksStairs());
+            BlockDrops.blocks.add(set.woodStairs());
+            BlockDrops.blocks.add(set.strippedWoodVerticalSlab());
             BlockDrops.blocks.add(set.planksFence());
             BlockDrops.blocks.add(set.planksGate());
             BlockDrops.blocks.add(set.button());
@@ -141,8 +159,14 @@ public class HelpingGenerator {
             MineableAxe.blocks.add(set.strippedWoodFence());
             MineableAxe.blocks.add(set.planks());
             MineableAxe.blocks.add(set.planksSlab());
+            MineableAxe.blocks.add(set.woodSlab());
+            MineableAxe.blocks.add(set.strippedWoodSlab());
             MineableAxe.blocks.add(set.planksVerticalSlab());
+            MineableAxe.blocks.add(set.woodVerticalSlab());
+            MineableAxe.blocks.add(set.strippedWoodVerticalSlab());
             MineableAxe.blocks.add(set.planksStairs());
+            MineableAxe.blocks.add(set.woodStairs());
+            MineableAxe.blocks.add(set.strippedWoodStairs());
             MineableAxe.blocks.add(set.planksFence());
             MineableAxe.blocks.add(set.planksGate());
             MineableAxe.blocks.add(set.button());
@@ -163,7 +187,13 @@ public class HelpingGenerator {
             Logs.logs.add(set.log());
             Logs.logs.add(set.strippedLog());
             Logs.logs.add(set.wood());
+            Logs.logs.add(set.woodSlab());
+            Logs.logs.add(set.woodVerticalSlab());
+            Logs.logs.add(set.woodStairs());
             Logs.logs.add(set.strippedWood());
+            Logs.logs.add(set.strippedWoodSlab());
+            Logs.logs.add(set.strippedWoodVerticalSlab());
+            Logs.logs.add(set.strippedWoodStairs());
             Logs.logs.add(set.woodWall());
             Logs.logs.add(set.strippedWoodWall());
             Logs.logs.add(set.woodFence());

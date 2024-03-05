@@ -20,6 +20,44 @@ public class SimpleSlabModel {
         }
     };
 
+    public static List<Slab> woodSlabs = new ArrayList<>() {
+        {
+
+        }
+    };
+
+    public static List<Slab> strippedSlabs = new ArrayList<>() {
+        {
+
+        }
+    };
+
+    public static List<Slab> vanillaWoodSlabs = new ArrayList<>() {
+        {
+            add(new SimpleSlabModel.Slab(Blocks.OAK_WOOD, ModBlocks.OAK_WOOD_SLAB));
+            add(new SimpleSlabModel.Slab(Blocks.SPRUCE_WOOD, ModBlocks.SPRUCE_WOOD_SLAB));
+            add(new SimpleSlabModel.Slab(Blocks.BIRCH_WOOD, ModBlocks.BIRCH_WOOD_SLAB));
+            add(new SimpleSlabModel.Slab(Blocks.JUNGLE_WOOD, ModBlocks.JUNGLE_WOOD_SLAB));
+            add(new SimpleSlabModel.Slab(Blocks.ACACIA_WOOD, ModBlocks.ACACIA_WOOD_SLAB));
+            add(new SimpleSlabModel.Slab(Blocks.DARK_OAK_WOOD, ModBlocks.DARK_OAK_WOOD_SLAB));
+            add(new SimpleSlabModel.Slab(Blocks.MANGROVE_WOOD, ModBlocks.MANGROVE_WOOD_SLAB));
+            add(new SimpleSlabModel.Slab(Blocks.CHERRY_WOOD, ModBlocks.CHERRY_WOOD_SLAB));
+        }
+    };
+
+    public static List<Slab> vanillaStrippedSlab = new ArrayList<>() {
+        {
+            add(new SimpleSlabModel.Slab(Blocks.STRIPPED_OAK_WOOD, ModBlocks.STRIPPED_OAK_WOOD_SLAB));
+            add(new SimpleSlabModel.Slab(Blocks.STRIPPED_SPRUCE_WOOD, ModBlocks.STRIPPED_SPRUCE_WOOD_SLAB));
+            add(new SimpleSlabModel.Slab(Blocks.STRIPPED_BIRCH_WOOD, ModBlocks.STRIPPED_BIRCH_WOOD_SLAB));
+            add(new SimpleSlabModel.Slab(Blocks.STRIPPED_JUNGLE_WOOD, ModBlocks.STRIPPED_JUNGLE_WOOD_SLAB));
+            add(new SimpleSlabModel.Slab(Blocks.STRIPPED_ACACIA_WOOD, ModBlocks.STRIPPED_ACACIA_WOOD_SLAB));
+            add(new SimpleSlabModel.Slab(Blocks.STRIPPED_DARK_OAK_WOOD, ModBlocks.STRIPPED_DARK_OAK_WOOD_SLAB));
+            add(new SimpleSlabModel.Slab(Blocks.STRIPPED_MANGROVE_WOOD, ModBlocks.STRIPPED_MANGROVE_WOOD_SLAB));
+            add(new SimpleSlabModel.Slab(Blocks.STRIPPED_CHERRY_WOOD, ModBlocks.STRIPPED_CHERRY_WOOD_SLAB));
+        }
+    };
+
     public static List<Slab> vanillaSlabs = new ArrayList<>() {
         {
             add(new Slab(Blocks.DIRT, ModBlocks.DIRT_SLAB));

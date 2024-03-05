@@ -222,6 +222,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.STONE_MYCELIUM);
         mineableShovel.add(ModBlocks.ASH_BLOCK);
         mineableShovel.add(ModBlocks.RIVER_SAND);
+        mineableShovel.add(ModBlocks.BLACK_SAND);
+        mineableShovel.add(ModBlocks.WHITE_SAND);
 
         mineablePickaxe.add(ModDecorativeBlocks.DWARVEN_LANTERN);
         mineablePickaxe.add(ModDecorativeBlocks.SILVER_LANTERN);
@@ -289,6 +291,51 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.WAXED_WEATHERED_CUT_COPPER_VERTICAL_SLAB);
         mineablePickaxe.add(ModBlocks.WAXED_OXIDIZED_CUT_COPPER_VERTICAL_SLAB);
 
+        mineableAxe.add(ModBlocks.OAK_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.SPRUCE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.BIRCH_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.JUNGLE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.ACACIA_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.DARK_OAK_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.MANGROVE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.CHERRY_WOOD_SLAB);
+
+        mineableAxe.add(ModBlocks.STRIPPED_OAK_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_SPRUCE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_BIRCH_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_JUNGLE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_ACACIA_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_DARK_OAK_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_MANGROVE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_CHERRY_WOOD_SLAB);
+
+        mineableAxe.add(ModBlocks.STRIPPED_OAK_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_SPRUCE_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_BIRCH_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_JUNGLE_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_ACACIA_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_DARK_OAK_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_MANGROVE_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_CHERRY_WOOD_STAIRS);
+
+        mineableAxe.add(ModBlocks.OAK_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.SPRUCE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.BIRCH_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.JUNGLE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.ACACIA_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.DARK_OAK_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.MANGROVE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.CHERRY_WOOD_VERTICAL_SLAB);
+
+        mineableAxe.add(ModBlocks.STRIPPED_OAK_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_SPRUCE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_BIRCH_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_JUNGLE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_ACACIA_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_DARK_OAK_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_MANGROVE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_CHERRY_WOOD_VERTICAL_SLAB);
+
         mineableAxe.add(ModBlocks.OAK_VERTICAL_SLAB);
         mineableAxe.add(ModBlocks.SPRUCE_VERTICAL_SLAB);
         mineableAxe.add(ModBlocks.BIRCH_VERTICAL_SLAB);
@@ -303,6 +350,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineableShovel.add(ModBlocks.GRAVEL_LAYER);
         mineableShovel.add(ModBlocks.SAND_LAYER);
+        mineableShovel.add(ModBlocks.BLACK_SAND_LAYER);
+        mineableShovel.add(ModBlocks.WHITE_SAND_LAYER);
 
         mineableShovel.add(ModBlocks.DIRT_SLAB);
         mineableShovel.add(ModBlocks.DIRT_STAIRS);
