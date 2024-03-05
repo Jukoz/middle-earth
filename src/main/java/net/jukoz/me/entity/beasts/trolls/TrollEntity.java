@@ -76,10 +76,11 @@ public class TrollEntity extends BeastEntity {
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((BeastEntity) this));
         this.targetSelector.add(2, new BeastAttackWithOwnerGoal((BeastEntity)this));
-        this.targetSelector.add(3, new TargetPlayerGoal(this));
-        this.targetSelector.add(4, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
+        this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
+        this.targetSelector.add(4, new TargetPlayerGoal(this));
+        this.targetSelector.add(5, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(5, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
-        this.targetSelector.add(6, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(5, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
     protected void initDataTracker() {
@@ -237,9 +238,8 @@ public class TrollEntity extends BeastEntity {
     }
 
     public void throwAttack() {
-
         Entity target = this.getTarget();
-        if(target != null) {
+        if(target != null && !this.getWorld().isClient) {
             this.setThrowing(false);
 
             Vec3d rotationVec = this.getRotationVec(1.0f);
@@ -251,7 +251,7 @@ public class TrollEntity extends BeastEntity {
 
             boulder.setPosition(this.getX() + rotationVec.x * 2.0f, this.getBodyY(0.75f), boulder.getZ() + rotationVec.z * 2.0f);
             boulder.setVelocity(x * 0.8d, y + c * 0.3d , z * 0.8d, 1.0f, 8 - this.getWorld().getDifficulty().getId() * 4);
-            if(boulder != null && !this.getWorld().isClient) {
+            if(boulder != null) {
                 this.getWorld().spawnEntity(boulder);
             }
         }
