@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "me:block/artisan_table",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "me:block/artisan_table",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/artisan_table",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "me:block/artisan_table"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 package net.jukoz.me.gui;
 
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreenHandler;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreenHandler;
@@ -17,7 +18,7 @@ public class ModScreenHandlers {
 
     public static void registerAllScreenHandlers() {
         ALLOY_SCREEN_HANDLER = new ScreenHandlerType<>(AlloyFurnaceScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
-        ARTISAN_SCREEN_HANDLER = new ScreenHandlerType<>(ArtisanTableScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
+        ARTISAN_SCREEN_HANDLER = new ExtendedScreenHandlerType<>(ArtisanTableScreenHandler::new);
         WOOD_PILE_SCREEN_HANDLER = new ScreenHandlerType<>(WoodPileScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
 
         Registry.register(Registries.SCREEN_HANDLER, new Identifier(MiddleEarth.MOD_ID, "alloy_furnace"),
