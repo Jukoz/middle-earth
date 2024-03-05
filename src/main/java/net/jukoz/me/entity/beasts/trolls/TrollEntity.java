@@ -25,22 +25,29 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldEvents;
 
-// TODO Fix laws of gravity
-// TODO Have slowly accelerate for charge
+import java.util.List;
+
 public class TrollEntity extends BeastEntity {
-    public static final int ATTACK_COOLDOWN = 10;
-    public static final float RESISTANCE = 0.15f;
     private int throwCooldown = 100;
     public final AnimationState throwingAnimationState = new AnimationState();
     private int throwingAnimationTimeout = 0;
     public static final TrackedData<Boolean> THROWING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
+
+
+    // Temporary disabled until next update
+    @Override
+    public boolean hasArmorSlot() {
+        return false;
+    }
 
     public TrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
@@ -61,18 +68,19 @@ public class TrollEntity extends BeastEntity {
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BeastSitGoal(this));
-        this.goalSelector.add(3, new ChargeAttackGoal(this, 400));
+        this.goalSelector.add(3, new ChargeAttackGoal(this, maxChargeCooldown()));
         this.goalSelector.add(3, new MeleeAttackGoal(this, 0.9f, false));
         this.goalSelector.add(4, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(7, new LookAroundGoal(this));
-        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal(this));
-        this.targetSelector.add(2, new BeastAttackWithOwnerGoal(this));
-        this.targetSelector.add(3, new TargetPlayerGoal(this));
-        this.targetSelector.add(4, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
+        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((BeastEntity) this));
+        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((BeastEntity)this));
+        this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
+        this.targetSelector.add(4, new TargetPlayerGoal(this));
+        this.targetSelector.add(5, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(5, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
-        this.targetSelector.add(6, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(5, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
     protected void initDataTracker() {
@@ -123,13 +131,16 @@ public class TrollEntity extends BeastEntity {
         }
 
         if(throwCooldown == 0 && this.getTarget() != null && !isCharging()) {
-            if(this.distanceTo(this.getTarget()) >= 5) {
+            if(this.squaredDistanceTo(this.getTarget()) >= 25 && !this.hasPassengers() && canThrow()) {
                 this.setThrowing(true);
                 throwCooldown = 200;
             }
         }
-        if(this.isThrowing() && throwCooldown <= 180) {
-            throwAttack();
+        if(this.isThrowing() && canThrow()) {
+            this.setVelocity(Vec3d.ZERO);
+            if(throwCooldown <= 180) {
+                throwAttack();
+            }
         }
         if(throwCooldown > 0) {
             --this.throwCooldown;
@@ -199,12 +210,21 @@ public class TrollEntity extends BeastEntity {
         this.updateSaddle();
     }
 
+    public boolean canThrow() {
+        return true;
+    }
+
     public void setThrowing(boolean throwing) {
         this.dataTracker.set(THROWING, throwing);
     }
 
     public boolean isThrowing() {
         return this.dataTracker.get(THROWING);
+    }
+
+    @Override
+    public int chargeDuration() {
+        return 25;
     }
 
     @Override
@@ -218,9 +238,8 @@ public class TrollEntity extends BeastEntity {
     }
 
     public void throwAttack() {
-
         Entity target = this.getTarget();
-        if(target != null) {
+        if(target != null && !this.getWorld().isClient) {
             this.setThrowing(false);
 
             Vec3d rotationVec = this.getRotationVec(1.0f);
@@ -232,7 +251,35 @@ public class TrollEntity extends BeastEntity {
 
             boulder.setPosition(this.getX() + rotationVec.x * 2.0f, this.getBodyY(0.75f), boulder.getZ() + rotationVec.z * 2.0f);
             boulder.setVelocity(x * 0.8d, y + c * 0.3d , z * 0.8d, 1.0f, 8 - this.getWorld().getDifficulty().getId() * 4);
-            this.getWorld().spawnEntity(boulder);
+            if(boulder != null) {
+                this.getWorld().spawnEntity(boulder);
+            }
         }
+    }
+
+    @Override
+    public void chargeAttack() {
+        List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
+
+        if(!this.isTame() && !this.getWorld().isClient) {
+            if(targetDir == Vec3d.ZERO && this.getTarget() != null) {
+                targetDir = new Vec3d( this.getTarget().getBlockPos().getX() - this.getBlockPos().getX(),
+                        this.getTarget().getBlockPos().getY() - this.getBlockPos().getY(),
+                        this.getTarget().getBlockPos().getZ() - this.getBlockPos().getZ());
+            }
+            this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
+            this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())).add(0, this.getVelocity().y, 0));
+        }
+        else if (this.getWorld().isClient) {
+            this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())).add(0, this.getVelocity().y, 0));
+        }
+
+        for(Entity entity : entities) {
+            if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity)) {
+                entity.damage(entity.getDamageSources().mobAttack(this), 16.0f);
+            }
+        }
+        this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+        this.chargeAnimationState.startIfNotRunning(this.age);
     }
 }

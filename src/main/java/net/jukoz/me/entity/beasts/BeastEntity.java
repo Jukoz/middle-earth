@@ -1,20 +1,17 @@
 package net.jukoz.me.entity.beasts;
 
-import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.jukoz.me.item.items.TrollArmorItem;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
@@ -24,46 +21,40 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
 // Beasts are mostly aggressive Entities which work much like wolves, while also allowing the player to mount them.
 public class BeastEntity extends AbstractDonkeyEntity {
-    public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> SITTING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState chargeAnimationState = new AnimationState();
+    public final AnimationState sittingAnimationState = new AnimationState();
 
     private int idleAnimationTimeout = 0;
     private int attackTicksLeft = 0;
 
-    private int chargeCooldown = 100;
-    private boolean sitting;
-    private LivingEntity owner;
+    protected int chargeTimeout;
 
     public static final int ATTACK_COOLDOWN = 10;
     public static final float RESISTANCE = 0.15f;
-    private Vec3d targetDir = Vec3d.ZERO;
+    protected Vec3d targetDir = Vec3d.ZERO;
     private static final UUID BEAST_ARMOR_BONUS_ID = UUID.fromString("667E1665-8B10-40C8-8F9D-CF9B1667F295");
 
     // Initializing ====================================================================================================
@@ -74,6 +65,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(CHARGING, false);
+        this.dataTracker.startTracking(SITTING, false);
     }
 
     @Override
@@ -88,12 +80,18 @@ public class BeastEntity extends AbstractDonkeyEntity {
         } else {
             --this.idleAnimationTimeout;
         }
+        if(this.isSitting()) {
+            this.sittingAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.sittingAnimationState.stop();
+        }
     }
 
     @Override
     public void onTrackedDataSet(TrackedData<?> data) {
         if (!this.firstUpdate && CHARGING.equals(data)) {
-            this.chargeCooldown = this.chargeCooldown == 0 ? 400 : this.chargeCooldown;
+            this.chargeTimeout = this.chargeTimeout == 0 ? maxChargeCooldown() : this.chargeTimeout;
         }
         super.onTrackedDataSet(data);
     }
@@ -166,6 +164,10 @@ public class BeastEntity extends AbstractDonkeyEntity {
     }
 
     // Getters and Setters =============================================================================================
+
+    public boolean canCharge() {
+        return true;
+    }
     @Override
     protected float getJumpVelocity() {
         return 0.5f * this.getJumpVelocityMultiplier() + this.getJumpBoostVelocityModifier();
@@ -173,18 +175,9 @@ public class BeastEntity extends AbstractDonkeyEntity {
 
     @Override
     public int getJumpCooldown() {
-        return this.chargeCooldown;
+        return this.chargeTimeout;
     }
 
-    @Nullable
-    @Override
-    public LivingEntity getOwner() {
-        return this.owner;
-    }
-
-    public void setOwner(LivingEntity owner) {
-        this.owner = owner;
-    }
 
     public double getMountedHeightOffset() {
         float f = Math.min(0.25F, this.limbAnimator.getSpeed());
@@ -194,7 +187,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
 
     @Override
     protected Vec3d getControlledMovementInput(PlayerEntity controllingPlayer, Vec3d movementInput) {
-        if (this.isOnGround() && this.jumpStrength == 0.0f && this.isAngry() && !this.jumping) {
+        if (this.isOnGround() && this.jumpStrength == 0.0f && this.isAngry() && !this.jumping || this.isSitting()) {
             return Vec3d.ZERO;
         }
         float f = controllingPlayer.sidewaysSpeed * 0.5f;
@@ -205,12 +198,20 @@ public class BeastEntity extends AbstractDonkeyEntity {
         return new Vec3d(f, 0.0, g);
     }
 
+    public PlayerEntity getOwner() {
+        if(this.getOwnerUuid() != null) {
+            return getPlayerByUuid(this.getOwnerUuid());
+        }
+        return null;
+    }
+
+
     public boolean isSitting() {
-        return this.sitting;
+        return this.dataTracker.get(SITTING);
     }
 
     public void setSitting(boolean sitting) {
-        this.sitting = sitting;
+        this.dataTracker.set(SITTING, sitting);
     }
 
     public boolean isCommandItem(ItemStack stack) {
@@ -225,11 +226,18 @@ public class BeastEntity extends AbstractDonkeyEntity {
         return this.dataTracker.get(CHARGING);
     }
 
-    public int getChargeCooldown() {
-        return this.chargeCooldown;
+    public int getChargeTimeout() {
+        return this.chargeTimeout;
     }
-    public void setChargeCooldown(int chargeCooldown) {
-        this.chargeCooldown = chargeCooldown;
+    public void setChargeTimeout(int chargeTimeout) {
+        this.chargeTimeout = chargeTimeout;
+    }
+
+    public int maxChargeCooldown() {
+        return 400;
+    }
+    public int chargeDuration() {
+        return 20;
     }
 
     private float getAttackDamage() {
@@ -345,35 +353,42 @@ public class BeastEntity extends AbstractDonkeyEntity {
     // Move Set and Behavior ===========================================================================================
     @Override
     protected void jump(float strength, Vec3d movementInput) {
-        if(this.chargeCooldown <= 0) {
+        if(this.isSitting()) {
+            this.setSitting(false);
+        }
+        else if(this.chargeTimeout <= 0) {
             this.setCharging(true);
-            this.chargeCooldown = 400;
+            this.chargeTimeout = maxChargeCooldown();
         }
     }
 
     @Override
     public void startJumping(int height) {
-        this.playSound(SoundEvents.ENTITY_CAMEL_DASH, 1.0f, 1.0f);
-        this.setCharging(true);
+        if(!this.isSitting()) {
+            this.playSound(SoundEvents.ENTITY_CAMEL_DASH, 1.0f, 1.0f);
+            this.setCharging(true);
+        }
+        else {
+            this.setSitting(false);
+        }
     }
 
     public void tryBonding(PlayerEntity player) {
         if(random.nextDouble() <= 0.1d) {
-
-            this.setOwnerUuid(player.getUuid());
-            this.setOwner(player);
-            this.setTame(true);
             if (player instanceof ServerPlayerEntity) {
+                this.setOwnerUuid(player.getUuid());
+                this.setTame(true);
                 Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
             }
             this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
 
-            this.chargeCooldown = 0;
+            this.chargeTimeout = 0;
         }
         else {
             this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
         }
     }
+
 
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         boolean bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
@@ -383,7 +398,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
             player.getStackInHand(hand).decrement(1);
         }
 
-        if(this.isTame() && isCommandItem(player.getStackInHand(hand))) {
+        if(this.isTame() && isCommandItem(player.getStackInHand(hand)) && player.getUuid() == this.getOwnerUuid()) {
             this.setSitting(!isSitting());
         }
 
@@ -429,29 +444,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
     }
 
     public void chargeAttack() {
-        List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
-
-        if(!this.isTame() && !this.getWorld().isClient) {
-            if(targetDir == Vec3d.ZERO && this.getTarget() != null) {
-                targetDir = new Vec3d( this.getTarget().getBlockPos().getX() - this.getBlockPos().getX(),
-                        this.getTarget().getBlockPos().getY() - this.getBlockPos().getY(),
-                        this.getTarget().getBlockPos().getZ() - this.getBlockPos().getZ());
-            }
-            this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
-            this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d));
-
-        }
-        else if (this.getWorld().isClient) {
-            this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d));
-        }
-
-        for(Entity entity : entities) {
-            if(entity.getUuid() != this.getOwnerUuid() && entity != this) {
-                entity.damage(entity.getDamageSources().mobAttack(this), 16.0f);
-            }
-        }
-        this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
-        this.chargeAnimationState.startIfNotRunning(this.age);
     }
 
     @Override
@@ -492,15 +484,15 @@ public class BeastEntity extends AbstractDonkeyEntity {
                 this.chargeAnimationState.start(this.age);
             }
         }
-        if(this.chargeCooldown <= 370 || !isCharging()) {
+        if(this.chargeTimeout <= (maxChargeCooldown() - chargeDuration()) || !isCharging()) {
             this.setCharging(false);
             this.targetDir = Vec3d.ZERO;
         }
         if(!this.isCharging()) {
             this.chargeAnimationState.stop();
         }
-        if(chargeCooldown > 0) {
-            --this.chargeCooldown;
+        if(chargeTimeout > 0) {
+            --this.chargeTimeout;
         }
 
         if (this.getWorld().isClient) {
@@ -533,6 +525,15 @@ public class BeastEntity extends AbstractDonkeyEntity {
         } else {
             super.handleStatus(status);
         }
+    }
+
+    public PlayerEntity getPlayerByUuid(UUID uuid) {
+        for (int i = 0; i < this.getWorld().getPlayers().size(); ++i) {
+            PlayerEntity playerEntity = this.getWorld().getPlayers().get(i);
+            if (!uuid.equals(playerEntity.getUuid())) continue;
+            return playerEntity;
+        }
+        return null;
     }
 
     @Override

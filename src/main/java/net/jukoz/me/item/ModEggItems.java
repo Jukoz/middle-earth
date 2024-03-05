@@ -15,6 +15,8 @@ public class ModEggItems {
             new SpawnEggItem(ModEntities.BARROW_WIGHT, 1852734, 2456136, new Item.Settings()));
     public static final Item CAVE_TROLL_SPAWN_EGG = registerItem("cave_troll_spawn_egg",
             new SpawnEggItem(ModEntities.CAVE_TROLL, 4671043, 3485226, new Item.Settings()));
+    public static final Item STONE_TROLL_SPAWN_EGG = registerItem("stone_troll_spawn_egg",
+            new SpawnEggItem(ModEntities.STONE_TROLL, 10517857, 5257516, new Item.Settings()));
     public static final Item DURIN_FOLK_SPAWN_EGG = registerItem("durin_folk_spawn_egg",
             new SpawnEggItem(ModEntities.DURIN_FOLK, 4541263, 8090735, new Item.Settings()));
     public static final Item HOBBIT_SPAWN_EGG = registerItem("hobbit_spawn_egg",

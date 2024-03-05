@@ -19,6 +19,8 @@ public class SimpleItemModel {
             add(ModResourceItems.WATER_PHIAL);
             add(ModResourceItems.STARLIGHT_PHIAL);
 
+            add(ModDecorativeItems.TROLL_STATUE);
+
             add(ModFoodItems.TOMATO);
             add(ModFoodItems.BELL_PEPPER);
             add(ModFoodItems.CUCUMBER);
@@ -53,7 +55,6 @@ public class SimpleItemModel {
             add(ModEquipmentItems.NAZGUL_BOOTS);
 
             add(ModEquipmentItems.STEEL_TROLL_ARMOR);
-            add(ModEquipmentItems.BEAST_CHAINS);
             add(ModEquipmentItems.MORDOR_ORC_HELMET);
             add(ModEquipmentItems.MORDOR_ORC_CHESTPLATE);
             add(ModEquipmentItems.MORDOR_ORC_LEGGINGS);
