@@ -46,6 +46,8 @@ public class SimpleItemModel {
             add(ModFoodItems.VEGETABLE_SOUP);
             add(ModFoodItems.RAW_HORSE);
             add(ModFoodItems.COOKED_HORSE);
+            add(ModFoodItems.RAW_RAT);
+            add(ModFoodItems.COOKED_RAT);
 
             add(ModEquipmentItems.NAZGUL_CLOAK_HOOD);
             add(ModEquipmentItems.NAZGUL_CLOAK);
@@ -58,7 +60,12 @@ public class SimpleItemModel {
             add(ModEquipmentItems.MORDOR_ORC_LEGGINGS);
             add(ModEquipmentItems.MORDOR_ORC_BOOTS);
 
+            add(ModEquipmentItems.ROHIRRIC_HORSE_ARMOR);
+
             add(ModResourceItems.GLOWWORM_BOTTLE);
+
+            add(ModResourceItems.COPPER_COIN);
+            add(ModResourceItems.SILVER_COIN);
 
             add(ModResourceItems.RED_AGATE_SHARD);
             add(ModResourceItems.SAPPHIRE_SHARD);
@@ -121,6 +128,9 @@ public class SimpleItemModel {
             add(ModResourceItems.MITHRIL_INGOT);
             add(ModResourceItems.MITHRIL_NUGGET);
             add(ModResourceItems.MITHRIL_ROD);
+
+            add(ModResourceItems.PINECONE);
+            add(ModResourceItems.LIT_PINECONE);
         }
     };
 }

@@ -132,6 +132,10 @@ public class ModResourceItems {
 
     public static final Item PEBBLE = registerItem("pebble",
             new PebbleItem(new FabricItemSettings()));
+    public static final Item PINECONE = registerItem("pinecone",
+            new PineconeItem(new FabricItemSettings()));
+    public static final Item LIT_PINECONE = registerItem("lit_pinecone",
+            new LitPineconeItem(new FabricItemSettings().maxCount(16)));
 
     public static final Item STRAW = registerItem("straw",
             new Item(new FabricItemSettings()));
@@ -145,7 +149,11 @@ public class ModResourceItems {
             
     public static final Item GLOWWORM_BOTTLE = registerItem("glowworm_bottle",
             new GlowwormBottle(new FabricItemSettings().maxCount(1).food(
-                    new FoodComponent.Builder().hunger(2).saturationModifier(0.3f).build())));
+                    new FoodComponent.Builder().hunger(2).saturationModifier(0.3f).alwaysEdible().build())));
+
+    public static final Item COPPER_COIN = registerItem("copper_coin", new Item(new FabricItemSettings()));
+    public static final Item SILVER_COIN = registerItem("silver_coin", new Item(new FabricItemSettings()));
+
 
     public static final Item FLAX = registerItem("flax", new Item(new FabricItemSettings()));
     public static final Item FLAX_SEEDS = registerItem("flax_seeds", new AliasedBlockItem(ModNatureBlocks.FLAX_CROP, new FabricItemSettings()));

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "minecraft:fox_food"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:egg"
+    }
+  ],
+  "result": {
+    "item": "me:berry_pie"
+  }
+}
