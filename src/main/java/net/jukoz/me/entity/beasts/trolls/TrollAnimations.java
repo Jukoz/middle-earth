@@ -118,46 +118,14 @@ public class TrollAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.48f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation IDLE = Animation.Builder.create(1.44f).looping()
-            .addBoneAnimation("body",
-                    new Transformation(Transformation.Targets.TRANSLATE,
-                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.72f, AnimationHelper.createTranslationalVector(0f, 2f, 0f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(1.44f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
-                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.72f, AnimationHelper.createTranslationalVector(0f, 2f, 0f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(1.44f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR)))
+    public static final Animation IDLE = Animation.Builder.create(3f).looping()
             .addBoneAnimation("boneJaw",
                     new Transformation(Transformation.Targets.ROTATE,
-                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                            new Keyframe(1.4f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.48f, AnimationHelper.createRotationalVector(12.5f, 0f, 0f),
+                            new Keyframe(1.8f, AnimationHelper.createRotationalVector(10f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.96f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("armRight",
-                    new Transformation(Transformation.Targets.TRANSLATE,
-                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.72f, AnimationHelper.createTranslationalVector(0f, 2f, 0f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(1.44f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR)))
-            .addBoneAnimation("armLeft",
-                    new Transformation(Transformation.Targets.TRANSLATE,
-                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(0.72f, AnimationHelper.createTranslationalVector(0f, 2f, 0f),
-                                    Transformation.Interpolations.LINEAR),
-                            new Keyframe(1.44f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
+                            new Keyframe(2.2f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation EATING = Animation.Builder.create(1.92f)
             .addBoneAnimation("head",
