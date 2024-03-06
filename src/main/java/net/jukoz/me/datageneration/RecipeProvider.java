@@ -92,7 +92,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createBrickRecipe(exporter, record.log().asItem(), record.wood(), 3);
             createBrickRecipe(exporter, record.strippedLog().asItem(), record.strippedWood(), 3);
             createWallsRecipe(exporter, record.wood(), record.woodWall());
+            createWallsRecipe(exporter, record.strippedWood(), record.strippedWoodWall());
             createFenceRecipe(exporter, record.wood().asItem(), record.woodFence());
+            createFenceRecipe(exporter, record.strippedWood().asItem(), record.strippedWoodFence());
             createSlabsRecipe(exporter, record.planks(), record.planksSlab());
             createSlabsRecipe(exporter, record.wood(), record.woodSlab());
             createSlabsRecipe(exporter, record.strippedWood(), record.strippedWoodSlab());
@@ -283,6 +285,26 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         for(SimpleStairModel.Stair stair : SimpleStairModel.vanillaStrippedStairs){
             createStairsRecipe(exporter, stair.origin(), stair.stairs());
+        }
+
+        for(SimpleWallModel.Wall wall : SimpleWallModel.vanillaWalls){
+            createWallsRecipe(exporter, wall.block(), wall.wall());
+        }
+
+        for(SimpleWallModel.Wall wall : SimpleWallModel.vanillaStrippedWalls){
+            createWallsRecipe(exporter, wall.block(), wall.wall());
+        }
+
+        for(SimpleWallModel.Wall wall : SimpleWallModel.vanillaWoodWalls){
+            createWallsRecipe(exporter, wall.block(), wall.wall());
+        }
+
+        for(SimpleFenceModel.Fence fence : SimpleFenceModel.vanillaStrippedFences){
+            createFenceRecipe(exporter, fence.block().asItem(), fence.fence());
+        }
+
+        for(SimpleFenceModel.Fence fence : SimpleFenceModel.vanillaWoodFences){
+            createFenceRecipe(exporter, fence.block().asItem(), fence.fence());
         }
 
         for(SimplePaneModel.Pane pane : SimplePaneModel.panes){

@@ -15,6 +15,7 @@ public class HelpingGenerator {
     public static void generateFiles() {
         StoneBlockSets.registerModBlockSets();
 
+
         for (StoneBlockSets.SimpleBlockSetMain set : StoneBlockSets.setsMain) {
             SimpleBlockModel.blocks.add(set.base());
             //SimpleBlockModel.cobbleableStoneBlocks.add(set.base());
@@ -327,6 +328,34 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(chair.base());
             MineablePickaxe.blocks.add(chair.base());
         }
+
+        SimpleWallModel.vanillaWalls.forEach(block -> {
+            Walls.walls.add(block.wall());
+        });
+
+        SimpleWallModel.vanillaWoodWalls.forEach(block -> {
+            Walls.walls.add(block.wall());
+            MineableAxe.blocks.add(block.wall());
+            Logs.logs.add(block.wall());
+        });
+
+        SimpleWallModel.vanillaStrippedWalls.forEach(block -> {
+            Walls.walls.add(block.wall());
+            MineableAxe.blocks.add(block.wall());
+            Logs.logs.add(block.wall());
+        });
+
+        SimpleFenceModel.vanillaWoodFences.forEach(block -> {
+            Fences.fences.add(block.fence());
+            MineableAxe.blocks.add(block.fence());
+            Logs.logs.add(block.fence());
+        });
+
+        SimpleFenceModel.vanillaStrippedFences.forEach(block -> {
+            Fences.fences.add(block.fence());
+            MineableAxe.blocks.add(block.fence());
+            Logs.logs.add(block.fence());
+        });
         
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {

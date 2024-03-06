@@ -113,7 +113,7 @@ public class ModelProvider extends FabricModelProvider {
             Identifier id = ModelIds.getBlockModelId(block.origin());
             Block slab = block.slab();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
             Identifier bottom = Models.SLAB.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
             Identifier top = Models.SLAB_TOP.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
 
@@ -219,6 +219,20 @@ public class ModelProvider extends FabricModelProvider {
 
         for (SimpleWallModel.Wall block : SimpleWallModel.blocks) {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
+            Block wall = block.wall();
+
+            Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+
+            Identifier post = Models.TEMPLATE_WALL_POST.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier low = Models.TEMPLATE_WALL_SIDE.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier tall = Models.TEMPLATE_WALL_SIDE_TALL.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+
+            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
+                    .createWallBlockState(wall, post, low, tall));
+        }
+
+        for (SimpleWallModel.Wall block : SimpleWallModel.vanillaWalls) {
+            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath()));
             Block wall = block.wall();
 
             Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -727,6 +741,11 @@ public class ModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         for (SimpleWallModel.Wall wall : SimpleWallModel.blocks) {
+            Identifier id = Registries.BLOCK.getId(wall.wall());
+            itemModelGenerator.register(wall.wall().asItem(), new Model(Optional.of(id.withPath("block/" + id.getPath() + "_inventory")), Optional.empty()));
+        }
+
+        for (SimpleWallModel.Wall wall : SimpleWallModel.vanillaWalls) {
             Identifier id = Registries.BLOCK.getId(wall.wall());
             itemModelGenerator.register(wall.wall().asItem(), new Model(Optional.of(id.withPath("block/" + id.getPath() + "_inventory")), Optional.empty()));
         }

@@ -21,6 +21,12 @@ public class SimpleWallModel {
         }
     };
 
+    public static List<Wall> vanillaWalls = new ArrayList<>() {
+        {
+            add(new SimpleWallModel.Wall(Blocks.PACKED_MUD, ModBlocks.PACKED_MUD_WALL));
+        }
+    };
+
     public static List<Wall> vanillaStrippedWalls = new ArrayList<>() {
         {
             add(new SimpleWallModel.Wall(Blocks.STRIPPED_OAK_WOOD, ModBlocks.STRIPPED_OAK_WOOD_WALL));

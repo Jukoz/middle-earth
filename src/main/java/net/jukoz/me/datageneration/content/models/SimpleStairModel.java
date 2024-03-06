@@ -36,6 +36,8 @@ public class SimpleStairModel {
             add(new Stair(Blocks.COARSE_DIRT, ModBlocks.COARSE_DIRT_STAIRS));
             add(new Stair(Blocks.MUD, ModBlocks.MUD_STAIRS));
 
+            add(new Stair(Blocks.PACKED_MUD, ModBlocks.PACKED_MUD_STAIRS));
+
             add(new Stair(Blocks.BLACK_WOOL, ModBlocks.BLACK_WOOL_STAIRS));
             add(new Stair(Blocks.BLUE_WOOL, ModBlocks.BLUE_WOOL_STAIRS));
             add(new Stair(Blocks.BROWN_WOOL, ModBlocks.BROWN_WOOL_STAIRS));

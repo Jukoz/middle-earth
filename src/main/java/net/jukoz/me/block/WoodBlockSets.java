@@ -112,8 +112,8 @@ public class WoodBlockSets {
         Block gate = ModBlocks.registerWoodBlock(name + "_fence_gate",  new FenceGateBlock(FabricBlockSettings.copyOf(planks)
                 .strength(strength).sounds(BlockSoundGroup.WOOD), WoodType.OAK),false);
 
-        Block button = ModBlocks.registerWoodBlock(name + "_button",  new ButtonBlock(FabricBlockSettings.copyOf(planks).strength(PLATE_BUTTON_STRENGTH)
-                .sounds(BlockSoundGroup.WOOD), BlockSetType.OAK, 5, true),false);
+        Block button = ModBlocks.registerWoodBlock(name + "_button",  new ButtonBlock(FabricBlockSettings.copyOf(planks).noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY)
+                .sounds(BlockSoundGroup.WOOD), BlockSetType.OAK, 30, true),false);
 
         Block pressurePlate = ModBlocks.registerWoodBlock(name + "_pressure_plate",  new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING,
                 FabricBlockSettings.copyOf(planks).strength(PLATE_BUTTON_STRENGTH).sounds(BlockSoundGroup.WOOD), BlockSetType.OAK),false);

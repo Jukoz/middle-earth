@@ -246,6 +246,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableHoe.add(ModBlocks.STRAW_STAIRS);
         mineableHoe.add(ModBlocks.STRAW_WALL);
 
+        mineableAxe.add(ModDecorativeBlocks.WOOD_PILE);
+
         mineablePickaxe.add(ModBlocks.STONE_VERTICAL_SLAB);
         mineablePickaxe.add(ModBlocks.COBBLESTONE_VERTICAL_SLAB);
         mineablePickaxe.add(ModBlocks.MOSSY_COBBLESTONE_VERTICAL_SLAB);
@@ -363,6 +365,11 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineableShovel.add(ModBlocks.ROOTED_DIRT_SLAB);
         
+        mineablePickaxe.add(ModBlocks.PACKED_MUD_SLAB);
+        mineablePickaxe.add(ModBlocks.PACKED_MUD_VERTICAL_SLAB);
+        mineablePickaxe.add(ModBlocks.PACKED_MUD_STAIRS);
+        mineablePickaxe.add(ModBlocks.PACKED_MUD_WALL);
+
         mineablePickaxe.add(ModBlocks.QUARTZ_BLOCK);
         mineablePickaxe.add(ModBlocks.BUDDING_QUARTZ);
         mineablePickaxe.add(ModBlocks.SMALL_QUARTZ_BUD);

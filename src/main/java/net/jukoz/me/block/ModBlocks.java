@@ -26,9 +26,7 @@ public class ModBlocks {
     public static final float DIRT_STRENGTH = 0.6f;
     public static final float SLAB_RESISTANCE = 6.0f; // From explosions
 
-    //TODO Vanilla wood walls and fences and slabs and stairs
     //TODO Second vertical slab model for sandstone, pillars, etc
-    //TODO Packed Mud stairs and slabs
     //TODO Hobbit Window
     //TODO Buds Loot Tables
     //TODO Wheatgrass grayscale
@@ -321,6 +319,15 @@ public class ModBlocks {
             new SlabBlock(FabricBlockSettings.copyOf(Blocks.ROOTED_DIRT)), true);
     public static final Block MUD_SLAB = registerMiscBlock("mud_slab",
             new SlabBlock(FabricBlockSettings.copyOf(Blocks.ROOTED_DIRT)), true);
+
+    public static final Block PACKED_MUD_SLAB = registerMiscBlock("packed_mud_slab",
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)), true);
+    public static final Block PACKED_MUD_VERTICAL_SLAB = registerMiscBlock("packed_mud_vertical_slab",
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)), true);
+    public static final Block PACKED_MUD_STAIRS = registerMiscBlock("packed_mud_stairs",
+            new StairsBlock(Blocks.PACKED_MUD.getDefaultState(), FabricBlockSettings.copyOf(Blocks.PACKED_MUD)), true);
+    public static final Block PACKED_MUD_WALL = registerMiscBlock("packed_mud_wall",
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)), true);
 
     public static final Block BLACK_WOOL_SLAB = registerMiscBlock("black_wool_slab",
             new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
