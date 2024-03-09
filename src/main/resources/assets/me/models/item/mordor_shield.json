@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "lotr:item/template_shield",
 	"textures": {
 		"0": "me:item/mordor_shield"
 	},
