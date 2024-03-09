@@ -4,6 +4,7 @@ import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.block.ModBlocks;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.biome.Biome;
 
 import java.awt.*;
@@ -174,5 +175,11 @@ public class MEBiomesData {
         wastePondBiomes.add(MEBiomeKeys.MORDOR_MOUNTAINS);
         wastePondBiomes.add(MEBiomeKeys.MORDOR_WASTES);
         wastePondBiomes.add(MEBiomeKeys.NURN);
+    }
+
+    public static MEBiome getBiomeByKey(RegistryEntry<Biome> biome) {
+        return biomes.stream().filter(
+                b -> b.biome.getValue().toString().equalsIgnoreCase(biome.getKey().get().getValue().toString()))
+                .findFirst().get();
     }
 }
