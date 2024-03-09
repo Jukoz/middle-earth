@@ -71,7 +71,7 @@ public class ModTreePlacedFeatures {
     public static void bootstrap(Registerable<PlacedFeature> context) {
         var configuredFeatureRegistryEntryLookup = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
         register(context, ACACIA_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(TreeConfiguredFeatures.ACACIA),
-                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(scarceTree,
                         Blocks.ACACIA_SAPLING));
 
         register(context, BIRCH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.BIRCH_TREE_KEY),

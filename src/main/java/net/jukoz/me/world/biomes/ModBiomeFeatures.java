@@ -176,6 +176,12 @@ public class ModBiomeFeatures {
     public static void addBlackStonePile(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_BLACKSTONE);
     }
+    public static void addHaradFoliage(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_BROWN_GRASS);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_GREEN_SHRUB);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_TAN_SHRUB);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_YELLOW_FLOWER);
+    }
     public static void addCorruptedMoss(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_CORRUPTED_MOSS);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_CORRUPTED_MOSS_CARPET);
@@ -305,6 +311,9 @@ public class ModBiomeFeatures {
     // endregion
 
     // region ORES
+    public static void addAndesiteOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.ANDESITE_ORE);
+    }
     public static void addAshBlockOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.ASH_BLOCK_ORE);
     }
@@ -320,17 +329,32 @@ public class ModBiomeFeatures {
     public static void addBlackConcretePowder(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.BLACK_CONCRETE_POWDER_ORE);
     }
+    public static void addCalciteOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.CALCITE_ORE);
+    }
     public static void addCoarseDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.COARSE_DIRT_ORE);
+    }
+    public static void addDioriteOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.DIORITE_ORE);
+    }
+    public static void addDolomiteOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.DOLOMITE_ORE);
     }
     public static void addDryDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.DRY_DIRT_ORE);
     }
+    public static void addGraniteOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.GRANITE_ORE);
+    }
     public static void addGravelOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.GRAVEL_ORE);
     }
-    public static void addOldPodzolOre(List<RegistryKey<PlacedFeature>> vegetation) {
-        vegetation.add(OrePlacedFeatures.OLD_PODZOL_ORE);
+    public static void addStoneGrassOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.STONE_GRASS_ORE);
+    }
+    public static void addLimestoneOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.LIMESTONE_ORE);
     }
     public static void addMudOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.MUD_ORE);
@@ -338,8 +362,23 @@ public class ModBiomeFeatures {
     public static void addPodzolOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.PODZOL_ORE);
     }
+    public static void addOldPodzolOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.OLD_PODZOL_ORE);
+    }
     public static void addSandOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.SAND_ORE);
+    }
+    public static void addCalciteStoneOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.CALCITE_STONE_ORE);
+    }
+    public static void addGrassStoneOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.GRASS_STONE_ORE);
+    }
+    public static void addCalciteTuffOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.CALCITE_TUFF_ORE);
+    }
+    public static void addStoneTuffOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.STONE_TUFF_ORE);
     }
     public static void addLightGrayConcretePowderOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.LIGHT_GRAY_CONCRETE_POWDER_ORE);
