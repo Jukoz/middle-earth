@@ -316,6 +316,9 @@
   "item.me.rohirric_plate_leggings": "Rohirric Plate Leggings",
   "item.me.rohirric_plate_boots": "Rohirric Plate Boots",
 
+  "item.me.dwarven_partisan_helmet": "Dwarven Partisan Helmet",
+  "item.me.dwarven_partisan_chestplate": "Dwarven Partisan Chestplate",
+
   "item.me.erebor_mail_helmet": "Erebor Mail Helmet",
   "item.me.erebor_mail_chestplate": "Erebor Mail Chestplate",
   "item.me.erebor_mail_leggings": "Erebor Mail Leggings",
@@ -2553,6 +2556,9 @@
   "tooltip.me.customizations" : "§6Custom Parts: §f",
 
   "tooltip.me.generic" : "Generic",
+
+  "tooltip.me.dwarven" : "Dwarves",
+  "tooltip.me.elven" : "Elven",
 
   "tooltip.me.shire" : "Shire",
   "tooltip.me.gondor" : "Gondor",

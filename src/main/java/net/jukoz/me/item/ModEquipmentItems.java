@@ -136,6 +136,17 @@ public class ModEquipmentItems {
     public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
             new CustomHorseArmorItem(10, "rohirric", new FabricItemSettings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
 
+
+    //DWARVES
+    public static final Item DWARVEN_PARTISAN_HELMET = registerGeneratedItem("dwarven_partisan_helmet",
+            new CustomHelmetItem(ModArmorMaterials.DWARVEN_PARTISAN, ArmorItem.Type.HELMET, new FabricItemSettings()));
+    public static final Item DWARVEN_PARTISAN_CHESTPLATE = registerGeneratedItem("dwarven_partisan_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.DWARVEN_PARTISAN, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
+    public static final Item DWARVEN_PARTISAN_LEGGINGS = registerGeneratedItem("dwarven_partisan_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.DWARVEN_PARTISAN, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item DWARVEN_PARTISAN_BOOTS = registerGeneratedItem("dwarven_partisan_boots",
+            new CustomBootsItem(ModArmorMaterials.DWARVEN_PARTISAN, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
     //EREBOR
     public static final Item EREBOR_MAIL_HELMET = registerGeneratedItem("erebor_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.EREBOR_MAIL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));

@@ -61,6 +61,9 @@ public enum ModArmors {
     ROHIRRIC_PLATE_ARMOR("rohirric_plate", new RohirricPlateHelmetArmorModel<>(RohirricPlateHelmetArmorModel.getTexturedModelData().createModel()), null,
             true, true, false, false, false, ModEquipmentItems.ROHIRRIC_PLATE_HELMET, ModEquipmentItems.ROHIRRIC_PLATE_CHESTPLATE, ModEquipmentItems.ROHIRRIC_PLATE_LEGGINGS, ModEquipmentItems.ROHIRRIC_PLATE_BOOTS),
 
+    DWARVEN_PARTISAN("dwarven_partisan", null, null,
+            true, true, false, false, false, ModEquipmentItems.DWARVEN_PARTISAN_HELMET, ModEquipmentItems.DWARVEN_PARTISAN_CHESTPLATE, ModEquipmentItems.DWARVEN_PARTISAN_LEGGINGS, ModEquipmentItems.DWARVEN_PARTISAN_BOOTS),
+
     EREBOR_MAIL_ARMOR("erebor_mail", null, null,
             true, true, true, false, false, ModEquipmentItems.EREBOR_MAIL_HELMET, ModEquipmentItems.EREBOR_MAIL_CHESTPLATE, ModEquipmentItems.EREBOR_MAIL_LEGGINGS, ModEquipmentItems.EREBOR_MAIL_BOOTS),
 
