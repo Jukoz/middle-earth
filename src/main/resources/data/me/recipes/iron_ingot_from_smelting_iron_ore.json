@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "me:raw_lead"
+    "tag": "minecraft:iron_ores"
   },
-  "result": "me:lead_ingot",
+  "result": "minecraft:iron_ingot",
   "experience": 0.7,
   "cookingtime": 200
 }

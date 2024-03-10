@@ -2,16 +2,16 @@
   "type": "me:alloy_furnace",
   "ingredients": [
     {
-      "tag": "me:iron"
+      "item": "minecraft:iron_ingot"
     },
     {
-      "item": "me:ashen_stone"
+      "item": "minecraft:iron_ingot"
     },
     {
-      "tag": "me:iron"
+      "item": "me:ash"
     },
     {
-      "item": "me:ashen_stone"
+      "item": "me:ash"
     }
   ],
   "output": {

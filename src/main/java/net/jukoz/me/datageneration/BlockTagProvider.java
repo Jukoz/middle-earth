@@ -72,7 +72,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         TagKey<Block> tin_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "tin_ores"));
         TagKey<Block> lead_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "lead_ores"));
         TagKey<Block> silver_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "silver_ores"));
-        TagKey<Block> mithril_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "mihtril_pres"));
+        TagKey<Block> mithril_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "mithril_ores"));
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {

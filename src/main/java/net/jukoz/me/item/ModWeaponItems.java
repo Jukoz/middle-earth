@@ -80,15 +80,15 @@ public class ModWeaponItems {
     public static final Item DUNLAND_PIKE = registerItemWithModel("dunland_pike",
             new ReachWeaponItem(ModToolMaterials.STEEL, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH, new FabricItemSettings()), true);
 
-    public static final Item DWARVEN_SWORD = registerItemWithModel("dwarven_sword",
+    public static final Item LONGBEARD_SWORD = registerItemWithModel("longbeard_sword",
             new SwordItem(ModToolMaterials.DWARVEN_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
-    public static final Item DWARVEN_DAGGER = registerItemWithModel("dwarven_dagger",
+    public static final Item LONGBEARD_DAGGER = registerItemWithModel("longbeard_dagger",
             new ReachWeaponItem(ModToolMaterials.DWARVEN_STEEL, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED, DAGGER_REACH, new FabricItemSettings()), false);
-    public static final Item DWARVEN_BATTLEAXE = registerItemWithModel("dwarven_battleaxe",
+    public static final Item LONGBEARD_BATTLEAXE = registerItemWithModel("longbeard_battleaxe",
             new AxeItem(ModToolMaterials.DWARVEN_STEEL, BATTLEAXE_DAMAGE, BATTLEAXE_ATTACKS_SPEED, new FabricItemSettings()), true);
-    public static final Item DWARVEN_SPEAR = registerItemWithModel("dwarven_spear",
+    public static final Item LONGBEARD_SPEAR = registerItemWithModel("longbeard_spear",
             new ReachWeaponItem(ModToolMaterials.DWARVEN_STEEL, SPEAR_DAMAGE, SPEAR_ATTACKS_SPEED, TWO_HAND_REACH, new FabricItemSettings()), true);
-    public static final Item DWARVEN_PIKE = registerItemWithModel("dwarven_pike",
+    public static final Item LONGBEARD_PIKE = registerItemWithModel("longbeard_pike",
             new ReachWeaponItem(ModToolMaterials.DWARVEN_STEEL, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH, new FabricItemSettings()), true);
 
     public static final Item GONDOR_SWORD = registerItemWithModel("gondorian_sword",

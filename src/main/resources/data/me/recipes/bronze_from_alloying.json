@@ -2,16 +2,16 @@
   "type": "me:alloy_furnace",
   "ingredients": [
     {
-      "tag": "me:copper"
+      "item": "minecraft:copper_ingot"
     },
     {
-      "tag": "me:copper"
+      "item": "minecraft:copper_ingot"
     },
     {
-      "tag": "me:copper"
+      "item": "minecraft:copper_ingot"
     },
     {
-      "tag": "me:tin"
+      "item": "me:tin_ingot"
     }
   ],
   "output": {

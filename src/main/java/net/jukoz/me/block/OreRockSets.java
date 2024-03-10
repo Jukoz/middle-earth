@@ -67,49 +67,49 @@ public class OreRockSets {
         if(ores.contains(ORES.COAL_ORE)){
             coal_ore = ModNatureBlocks.registerBlock(
                     rockName + "coal_ore", new ExperienceDroppingBlock(FabricBlockSettings.copyOf(Blocks.COAL_ORE).strength(
-                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), true);
         }
 
         if(ores.contains(ORES.COPPER_ORE)) {
             copper_ore = ModNatureBlocks.registerBlock(
                     rockName + "copper_ore", new Block(FabricBlockSettings.copyOf(Blocks.COPPER_ORE).strength(
-                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), true);
         }
 
         if(ores.contains(ORES.TIN_ORE)) {
             tin_ore = ModNatureBlocks.registerBlock(
                     rockName + "tin_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
-                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), true);
         }
 
         if(ores.contains(ORES.LEAD_ORE)) {
             lead_ore = ModNatureBlocks.registerBlock(
                     rockName + "lead_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
-                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), true);
         }
 
         if(ores.contains(ORES.SILVER_ORE)) {
             silver_ore = ModNatureBlocks.registerBlock(
                     rockName + "silver_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
-                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), true);
         }
 
         if(ores.contains(ORES.GOLD_ORE)) {
             gold_ore = ModNatureBlocks.registerBlock(
                     rockName + "gold_ore", new Block(FabricBlockSettings.copyOf(Blocks.GOLD_ORE).strength(
-                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), true);
         }
 
         if(ores.contains(ORES.IRON_ORE)) {
             iron_ore = ModNatureBlocks.registerBlock(
                     rockName + "iron_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
-                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), true);
         }
 
         if(ores.contains(ORES.MITHRIL_ORE)) {
             mithril_ore = ModNatureBlocks.registerBlock(
                     rockName + "mithril_ore", new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(
-                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), false);
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool()), true);
         }
 
         return new OreRockSet(coal_ore, copper_ore, tin_ore, lead_ore, silver_ore, gold_ore, iron_ore, mithril_ore, origin);

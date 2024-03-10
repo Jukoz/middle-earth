@@ -77,6 +77,7 @@
   "item.me.dwarven_steel_nugget": "Dwarven Steel Nugget",
   "item.me.dwarven_steel_rod": "Dwarven Steel Rod",
   "item.me.morgul_steel_ingot": "Morgul Steel Ingot",
+  "item.me.morgul_steel_nugget": "Morgul Steel Nugget",
   "item.me.morgul_steel_rod": "Morgul Steel Rod",
   "item.me.raw_mithril": "Raw Mithril",
   "item.me.mithril_ingot": "Mithril Ingot",
@@ -155,14 +156,6 @@
   "item.me.mithril_axolotl_bucket": "Mithril Axolotl Bucket",
   "item.me.mithril_tadpole_bucket": "Mithril Tadpole Bucket",
 
-  "#Comment:": "Item - Dwarven",
-  "item.me.dwarven_sword": "Dwarven Sword",
-
-"#Comment:": "Item - Mordor Orc",
-  "item.me.mordor_orc_sword": "Mordor Orc Sword",
-  
-  "item.me.morgul_blade": "Morgul Blade",
-
 "#Comment:": "Item - Anduin",
   "item.me.anduin_sword": "Anduin Sword",
   "item.me.anduin_dagger": "Anduin Dagger",
@@ -193,17 +186,12 @@
   "item.me.dunland_spear": "Dunland Spear",
   "item.me.dunland_pike": "Dunland Pike",
   
-"#Comment:": "Item - Dwarven",
-  "item.me.dwarven_sword": "Dwarven Sword",
-  "item.me.dwarven_dagger": "Dwarven Dagger",
-  "item.me.dwarven_battleaxe": "Dwarven Battleaxe",
-  "item.me.dwarven_spear": "Dwarven Spear",
-  "item.me.dwarven_pike": "Dwarven Pike",
-  "item.me.dwarven_sword": "Dwarven Sword",
-  "item.me.dwarven_pickaxe": "Dwarven Pickaxe",
-  "item.me.dwarven_axe": "Dwarven Axe",
-  "item.me.dwarven_shovel": "Dwarven Shovel",
-  "item.me.dwarven_hoe": "Dwarven Hoe",
+"#Comment:": "Item - Longbeard",
+  "item.me.longbeard_sword": "Longbeard Sword",
+  "item.me.longbeard_dagger": "Longbeard Dagger",
+  "item.me.longbeard_battleaxe": "Longbeard Battleaxe",
+  "item.me.longbeard_spear": "Longbeard Spear",
+  "item.me.longbeard_pike": "Longbeard Pike",
 
 "#Comment:": "Item - Gondor",
   "item.me.gondorian_sword": "Gondorian Sword",

@@ -78,6 +78,9 @@ public class ModResourceItems {
 
     public static final Item MORGUL_STEEL_INGOT = registerItem("morgul_steel_ingot",
             new Item(new FabricItemSettings()));
+    public static final Item MORGUL_STEEL_NUGGET = registerItem("morgul_steel_nugget",
+            new Item(new FabricItemSettings()));
+
 
     public static final Item RAW_MITHRIL = registerItem("raw_mithril",
             new Item(new FabricItemSettings().fireproof()));

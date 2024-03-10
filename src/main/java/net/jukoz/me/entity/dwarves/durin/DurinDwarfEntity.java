@@ -61,7 +61,7 @@ public class DurinDwarfEntity extends PathAwareEntity {
         } else if (randomVal < 0.8f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModToolItems.DWARVEN_STEEL_PICKAXE));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_SWORD));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LONGBEARD_SWORD));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         }
 

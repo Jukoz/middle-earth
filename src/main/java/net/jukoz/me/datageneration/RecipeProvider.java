@@ -59,7 +59,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createStoneTableRecipe(exporter, record.base().asItem(), record.table());
             createStoneChairRecipe(exporter, record.base().asItem(), record.chair());
         }
-        
+
         for (StoneBlockSets.SimpleBlockSet record : StoneBlockSets.sets) {
             if(record.toString().contains("mossy_")){
                 createMossyRecipe(exporter, record.source(), record.base());
@@ -285,6 +285,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         //endregion
 
+        //region MANUAL BLOCK RECIPES
         createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.BLACK_DYE, ModDecorativeBlocks.BLACK_STAINED_LEAD_GLASS, 8);
         createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.BLUE_DYE, ModDecorativeBlocks.BLUE_STAINED_LEAD_GLASS, 8);
         createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.BROWN_DYE, ModDecorativeBlocks.BROWN_STAINED_LEAD_GLASS, 8);
@@ -305,11 +306,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createLayerRecipe(exporter, Blocks.GRAVEL.asItem(), ModBlocks.GRAVEL_LAYER);
         createLayerRecipe(exporter, Blocks.SAND.asItem(), ModBlocks.SAND_LAYER);
 
-        // Seeds
-        createSeedsRecipe(exporter, ModFoodItems.TOMATO, ModResourceItems.TOMATO_SEEDS);
-        createSeedsRecipe(exporter, ModFoodItems.BELL_PEPPER, ModResourceItems.BELL_PEPPER_SEEDS);
-        createSeedsRecipe(exporter, ModFoodItems.CUCUMBER, ModResourceItems.CUCUMBER_SEEDS);
-        createSeedsRecipe(exporter, ModFoodItems.LETTUCE, ModResourceItems.LETTUCE_SEEDS);
+
 
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD, ModBlocks.LEAD_BLOCK, 4);
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_SLAB, ModBlocks.LEAD_BLOCK, 8);
@@ -355,25 +352,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.LEAD_ROD))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModResourceItems.LEAD_ROD, 4)
-                .pattern("I")
-                .pattern("I")
-                .input('I', ModResourceItems.LEAD_INGOT)
-                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.LEAD_INGOT),
-                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.LEAD_INGOT))
-                .offerTo(exporter);
-
-
-        createPickaxeRecipe(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModToolItems.JADE_PICKAXE);
-        createAxeRecipe(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModToolItems.JADE_AXE);
-        createShovelRecipe(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModToolItems.JADE_SHOVEL);
-        createHoeRecipe(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModToolItems.JADE_HOE);
 
         createBrickRecipe(exporter, ModResourceItems.ASH, ModBlocks.ASH_BLOCK, 1);
         createBrickRecipe(exporter, ModBlocks.ASH_BLOCK.asItem(), Blocks.TUFF, 1);
 
-        createBucketRecipe(exporter, ModResourceItems.BRONZE_INGOT, ModToolItems.BRONZE_BUCKET);
-        createBucketRecipe(exporter, ModResourceItems.MITHRIL_INGOT, ModToolItems.MITHRIL_BUCKET);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.ASHEN_STONE.base(), 4)
                 .pattern("AS")
@@ -383,6 +365,54 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(ModBlocks.ASH_BLOCK),
                         FabricRecipeProvider.conditionsFromItem(ModBlocks.ASH_BLOCK))
                 .offerTo(exporter);
+
+        //endregion
+
+        //region SMITHING
+        createToolSetRecipes(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModToolItems.JADE_PICKAXE, ModToolItems.JADE_AXE, ModToolItems.JADE_SHOVEL, ModToolItems.JADE_HOE);
+
+        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.BRONZE_INGOT, ModToolItems.BRONZE_PICKAXE, ModToolItems.BRONZE_AXE, ModToolItems.BRONZE_SHOVEL, ModToolItems.BRONZE_HOE);
+        
+        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.ORC_STEEL_INGOT, ModToolItems.ORC_STEEL_PICKAXE, ModToolItems.ORC_STEEL_AXE, ModToolItems.ORC_STEEL_SHOVEL, ModToolItems.ORC_STEEL_HOE);
+        
+        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.URUK_STEEL_INGOT, ModToolItems.URUK_STEEL_PICKAXE, ModToolItems.URUK_STEEL_AXE, ModToolItems.URUK_STEEL_SHOVEL, ModToolItems.URUK_STEEL_HOE);
+        
+        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.STEEL_INGOT, ModToolItems.STEEL_PICKAXE, ModToolItems.STEEL_AXE, ModToolItems.STEEL_SHOVEL, ModToolItems.STEEL_HOE);
+        
+        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.ELVEN_STEEL_INGOT, ModToolItems.ELVEN_STEEL_PICKAXE, ModToolItems.ELVEN_STEEL_AXE, ModToolItems.ELVEN_STEEL_SHOVEL, ModToolItems.ELVEN_STEEL_HOE);
+        
+        createToolSetRecipes(exporter, ModResourceItems.DWARVEN_STEEL_ROD, ModResourceItems.DWARVEN_STEEL_INGOT, ModToolItems.DWARVEN_STEEL_PICKAXE, ModToolItems.DWARVEN_STEEL_AXE, ModToolItems.DWARVEN_STEEL_SHOVEL, ModToolItems.DWARVEN_STEEL_HOE);
+
+        createToolSetRecipes(exporter, ModResourceItems.DWARVEN_STEEL_ROD, ModResourceItems.MITHRIL_INGOT, ModToolItems.MITHRIL_PICKAXE, ModToolItems.MITHRIL_AXE, ModToolItems.MITHRIL_SHOVEL, ModToolItems.MITHRIL_HOE);
+
+        createBucketRecipe(exporter, ModResourceItems.BRONZE_INGOT, ModToolItems.BRONZE_BUCKET);
+        createBucketRecipe(exporter, ModResourceItems.MITHRIL_INGOT, ModToolItems.MITHRIL_BUCKET);
+
+        createMetalsRecipe(exporter, ModResourceItems.TIN_NUGGET, ModResourceItems.TIN_INGOT, ModResourceItems.TIN_ROD);
+        createMetalsRecipe(exporter, ModResourceItems.LEAD_NUGGET, ModResourceItems.LEAD_INGOT, ModResourceItems.LEAD_ROD);
+        createMetalsRecipe(exporter, ModResourceItems.SILVER_NUGGET, ModResourceItems.SILVER_INGOT, ModResourceItems.SILVER_ROD);
+        createMetalsRecipe(exporter, ModResourceItems.MITHRIL_NUGGET, ModResourceItems.MITHRIL_INGOT, ModResourceItems.MITHRIL_ROD);
+
+        createMetalsRecipe(exporter, ModResourceItems.BRONZE_NUGGET, ModResourceItems.BRONZE_INGOT, ModResourceItems.BRONZE_ROD);
+        createMetalsRecipe(exporter, ModResourceItems.ORC_STEEL_NUGGET, ModResourceItems.ORC_STEEL_INGOT, ModResourceItems.ORC_STEEL_ROD);
+        createMetalsRecipe(exporter, ModResourceItems.URUK_STEEL_NUGGET, ModResourceItems.URUK_STEEL_INGOT, ModResourceItems.URUK_STEEL_ROD);
+        createMetalsRecipe(exporter, ModResourceItems.STEEL_NUGGET, ModResourceItems.STEEL_INGOT, ModResourceItems.STEEL_ROD);
+        createMetalsRecipe(exporter, ModResourceItems.ELVEN_STEEL_NUGGET, ModResourceItems.ELVEN_STEEL_INGOT, ModResourceItems.ELVEN_STEEL_ROD);
+        createMetalsRecipe(exporter, ModResourceItems.DWARVEN_STEEL_NUGGET, ModResourceItems.DWARVEN_STEEL_INGOT, ModResourceItems.DWARVEN_STEEL_ROD);
+        createMetalsRecipe(exporter, ModResourceItems.MORGUL_STEEL_NUGGET, ModResourceItems.MORGUL_STEEL_INGOT, ModResourceItems.MORGUL_STEEL_ROD);
+
+        createRodRecipe(exporter, Items.COPPER_INGOT, ModResourceItems.COPPER_ROD);
+        createRodRecipe(exporter, Items.GOLD_INGOT, ModResourceItems.GOLD_ROD);
+        createRodRecipe(exporter, Items.IRON_INGOT, ModResourceItems.IRON_ROD);
+        //endregion
+
+        //region SEEDS
+        createSeedsRecipe(exporter, ModFoodItems.TOMATO, ModResourceItems.TOMATO_SEEDS);
+        createSeedsRecipe(exporter, ModFoodItems.BELL_PEPPER, ModResourceItems.BELL_PEPPER_SEEDS);
+        createSeedsRecipe(exporter, ModFoodItems.CUCUMBER, ModResourceItems.CUCUMBER_SEEDS);
+        createSeedsRecipe(exporter, ModFoodItems.LETTUCE, ModResourceItems.LETTUCE_SEEDS);
+
+        //endregion
     }
 
     //region BLOCK RECIPE METHODS
@@ -628,7 +658,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     }
 
     private void createPickaxeRecipe(Consumer<RecipeJsonProvider> exporter, Item inputRod, Item inputMaterial, Item output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output, 1)
                 .pattern("MMM")
                 .pattern(" R ")
                 .pattern(" R ")
@@ -640,7 +670,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     }
 
     private void createAxeRecipe(Consumer<RecipeJsonProvider> exporter, Item inputRod, Item inputMaterial, Item output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output, 1)
                 .pattern("MM ")
                 .pattern("MR ")
                 .pattern(" R ")
@@ -652,7 +682,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     }
 
     private void createShovelRecipe(Consumer<RecipeJsonProvider> exporter, Item inputRod, Item inputMaterial, Item output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output, 1)
                 .pattern(" M ")
                 .pattern(" R ")
                 .pattern(" R ")
@@ -664,7 +694,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     }
 
     private void createHoeRecipe(Consumer<RecipeJsonProvider> exporter, Item inputRod, Item inputMaterial, Item output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output, 1)
                 .pattern("MM ")
                 .pattern(" R ")
                 .pattern(" R ")
@@ -682,6 +712,79 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .input('M', inputMaterial)
                 .criterion(FabricRecipeProvider.hasItem(inputMaterial),
                         FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+    }
+
+    private void createToolSetRecipes(Consumer<RecipeJsonProvider> exporter, Item inputRod, Item inputMaterial, Item outputPickaxe,  Item outputAxe, Item outputShovel, Item outputHoe) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, outputPickaxe, 1)
+                .pattern("MMM")
+                .pattern(" R ")
+                .pattern(" R ")
+                .input('M', inputMaterial)
+                .input('R', inputRod)
+                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
+                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, outputAxe, 1)
+                .pattern("MM")
+                .pattern("MR")
+                .pattern(" R")
+                .input('M', inputMaterial)
+                .input('R', inputRod)
+                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
+                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, outputShovel, 1)
+                .pattern("M")
+                .pattern("R")
+                .pattern("R")
+                .input('M', inputMaterial)
+                .input('R', inputRod)
+                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
+                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, outputHoe, 1)
+                .pattern("MM")
+                .pattern(" R")
+                .pattern(" R")
+                .input('M', inputMaterial)
+                .input('R', inputRod)
+                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
+                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+    }
+    private void createRodRecipe(Consumer<RecipeJsonProvider> exporter, Item ingot, Item rod) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, rod, 4)
+                .pattern("I")
+                .pattern("I")
+                .input('I', ingot)
+                .criterion(FabricRecipeProvider.hasItem(ingot),
+                        FabricRecipeProvider.conditionsFromItem(ingot))
+                .offerTo(exporter);
+    }
+
+    private void createMetalsRecipe(Consumer<RecipeJsonProvider> exporter, Item nugget, Item ingot, Item rod) {
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ingot, 1)
+                .input(nugget, 9)
+                .criterion(FabricRecipeProvider.hasItem(nugget),
+                        FabricRecipeProvider.conditionsFromItem(nugget))
+                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID,Registries.ITEM.getId(ingot).getPath() + "_from_nuggets"));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, nugget, 9)
+                .input(ingot)
+                .criterion(FabricRecipeProvider.hasItem(ingot),
+                        FabricRecipeProvider.conditionsFromItem(ingot))
+                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID,Registries.ITEM.getId(nugget).getPath() + "_from_ingot"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, rod, 4)
+                .pattern("I")
+                .pattern("I")
+                .input('I', ingot)
+                .criterion(FabricRecipeProvider.hasItem(ingot),
+                        FabricRecipeProvider.conditionsFromItem(ingot))
                 .offerTo(exporter);
     }
     //endregion

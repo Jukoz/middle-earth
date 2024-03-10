@@ -5,17 +5,17 @@
       "item": "minecraft:iron_ingot"
     },
     {
-      "item": "minecraft:coal"
-    },
-    {
       "item": "minecraft:iron_ingot"
     },
     {
-      "item": "minecraft:coal"
+      "item": "me:lead_ingot"
+    },
+    {
+      "item": "me:ash"
     }
   ],
   "output": {
-    "item": "me:dwarven_steel_ingot",
-    "count": 2
+    "item": "me:uruk_steel_ingot",
+    "count": 3
   }
 }

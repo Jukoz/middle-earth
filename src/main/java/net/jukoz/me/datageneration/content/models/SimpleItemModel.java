@@ -121,6 +121,7 @@ public class SimpleItemModel {
             add(ModResourceItems.DWARVEN_STEEL_ROD);
 
             add(ModResourceItems.MORGUL_STEEL_INGOT);
+            add(ModResourceItems.MORGUL_STEEL_NUGGET);
             add(ModResourceItems.MORGUL_STEEL_ROD);
 
             add(ModResourceItems.RAW_MITHRIL);
