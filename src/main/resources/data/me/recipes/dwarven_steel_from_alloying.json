@@ -8,10 +8,10 @@
       "item": "minecraft:iron_ingot"
     },
     {
-      "item": "minecraft:iron_ingot"
+      "item": "me:tin_ingot"
     },
     {
-      "item": "me:epmosto"
+      "item": "minecraft:coal"
     }
   ],
   "output": {

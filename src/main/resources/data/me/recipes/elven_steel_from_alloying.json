@@ -8,10 +8,10 @@
       "item": "minecraft:iron_ingot"
     },
     {
-      "item": "me:silver_ingot"
+      "item": "minecraft:iron_ingot"
     },
     {
-      "tag": "me:glowy"
+      "item": "me:silver_nugget"
     }
   ],
   "output": {
