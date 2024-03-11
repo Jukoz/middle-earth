@@ -21,18 +21,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ArtisanTableScreenHandler extends ScreenHandler {
-
-    public static final int PLAYER_INVENTORY_SIZE = 36;
-    public static final int INPUT_ID_1 = 1;
-    public static final int INPUT_ID_2 = 2;
-    public static final int INPUT_ID_3 = 3;
-    public static final int INPUT_ID_4 = 4;
-    public static final int INPUT_ID_5 = 5;
-    public static final int OUTPUT_ID = 6;
-    private static final int INVENTORY_START = 2;
-    private static final int INVENTORY_END = 29;
-    private static final int OUTPUT_START = 29;
-    private static final int OUTPUT_END = 38;
     private final ScreenHandlerContext context;
     private final Property selectedRecipe;
     private final World world;
@@ -72,12 +60,12 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.context = context;
         this.world = playerInventory.player.getWorld();
 
-        this.inputSlot0 = this.addSlot(new Slot(this.input, 0, 31, 12));
-        this.inputSlot1 = this.addSlot(new Slot(this.input, 1, 9, 34));
+        this.inputSlot0 = this.addSlot(new Slot(this.input, 0, 31, 14));
+        this.inputSlot1 = this.addSlot(new Slot(this.input, 1, 12, 34));
         this.inputSlot2 = this.addSlot(new Slot(this.input, 2, 31, 34));
-        this.inputSlot3 = this.addSlot(new Slot(this.input, 3, 53, 34));
-        this.inputSlot4 = this.addSlot(new Slot(this.input, 4, 20, 56));
-        this.inputSlot5 = this.addSlot(new Slot(this.input, 5, 42, 56));
+        this.inputSlot3 = this.addSlot(new Slot(this.input, 3, 50, 34));
+        this.inputSlot4 = this.addSlot(new Slot(this.input, 4, 21, 53));
+        this.inputSlot5 = this.addSlot(new Slot(this.input, 5, 41, 53));
         this.outputSlot = this.addSlot(new Slot(this.output, 6, 184, 33) {
             @Override
             public boolean canInsert(ItemStack stack) {

@@ -2302,6 +2302,7 @@
   "block.me.dwarven_lantern": "Dwarven Lantern",
   "block.me.silver_lantern": "Silver Lantern",
   "block.me.alloy_furnace": "Alloy Furnace",
+  "block.me.artisan_table": "Artisan Table",
   "block.me.wood_pile": "Wood Pile",
 
 
@@ -2329,5 +2330,6 @@
   
 "Comment": "GUI",
   "screen.me.alloy_furnace": "Alloy Furnace",
+  "container.artisan_table": "Artisan Table",
   "screen.me.wood_pile": "Wood Pile"
 }

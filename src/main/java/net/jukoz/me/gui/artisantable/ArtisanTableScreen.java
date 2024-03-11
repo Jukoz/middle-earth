@@ -18,15 +18,6 @@ import java.util.List;
 
 public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler> {
     private static final Identifier TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/gui/artisan_table.png");
-    private static final int SCROLLBAR_WIDTH = 12;
-    private static final int SCROLLBAR_HEIGHT = 15;
-    private static final int RECIPE_LIST_COLUMNS = 4;
-    private static final int RECIPE_LIST_ROWS = 3;
-    private static final int RECIPE_ENTRY_WIDTH = 16;
-    private static final int RECIPE_ENTRY_HEIGHT = 18;
-    private static final int SCROLLBAR_AREA_HEIGHT = 54;
-    private static final int RECIPE_LIST_OFFSET_X = 52;
-    private static final int RECIPE_LIST_OFFSET_Y = 14;
     private float scrollAmount;
     private boolean mouseClicked;
     private int scrollOffset;
@@ -37,14 +28,13 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         this.backgroundWidth = 232;
         this.backgroundHeight = 166;
         handler.setContentsChangedListener(this::onInventoryChange);
-        this.titleY -= 4;
     }
 
     @Override
     protected void init() {
         super.init();
         titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
-        titleY -= 2;
+        titleY -= 1;
     }
 
     @Override

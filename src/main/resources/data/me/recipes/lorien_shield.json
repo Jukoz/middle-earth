@@ -2,7 +2,7 @@
   "type": "me:artisan_table",
   "ingredients": [
     {
-      "item": "minecraft:iron_ingot"
+      "item": "me:elven_steel_ingot"
     },
     {
       "item": "minecraft:oak_planks"
