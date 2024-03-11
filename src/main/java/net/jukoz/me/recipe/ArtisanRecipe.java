@@ -3,9 +3,7 @@ package net.jukoz.me.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.jukoz.me.block.ModDecorativeBlocks;
-import net.minecraft.block.Blocks;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
@@ -32,9 +30,6 @@ public class ArtisanRecipe implements Recipe<Inventory> {
 
     @Override
     public boolean matches(Inventory inventory, World world) {
-        System.out.println("Start Matching");
-
-        if(world.isClient()) return false;
         int i = 0;
         for (int j = 0; j < inventory.size(); ++j) {
             ItemStack itemStack = inventory.getStack(j);
@@ -46,7 +41,6 @@ public class ArtisanRecipe implements Recipe<Inventory> {
         for (int j = 0; j < inputs.size(); j++) {
             if(!inputs.get(j).test(inventory.getStack(j))) return false;
         }
-        System.out.println("Found a match");
         return true;
     }
 
