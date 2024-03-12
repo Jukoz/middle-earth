@@ -55,8 +55,10 @@ public class ModBiomeSource extends BiomeSource {
                     processedBiome = MEBiomesData.wastePond.biome;
                 } else if(MEBiomesData.mirkwoodSwampBiomes.contains(biome)) {
                     processedBiome = MEBiomesData.mirkwoodSwamp.biome;
-                }else if(MEBiomesData.oasisBiomes.contains(biome)) {
+                } else if(MEBiomesData.oasisBiomes.contains(biome)) {
                     processedBiome = MEBiomesData.oasis.biome;
+                } else if(MEBiomesData.frozenBiomes.contains(biome)) {
+                    processedBiome = MEBiomesData.frozenPond.biome;
                 } else {
                     processedBiome = MEBiomesData.pond.biome;
                 }

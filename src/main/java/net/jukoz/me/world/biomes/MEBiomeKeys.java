@@ -27,6 +27,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> FANGORN = MEBiomeKeys.register("fangorn");
     public static final RegistryKey<Biome> FORODWAITH = MEBiomeKeys.register("forodwaith");
     public static final RegistryKey<Biome> FROZEN_OCEAN = MEBiomeKeys.register("frozen_ocean");
+    public static final RegistryKey<Biome> FROZEN_POND = MEBiomeKeys.register("frozen_pond");
     public static final RegistryKey<Biome> GONDOR = MEBiomeKeys.register("gondor");
     public static final RegistryKey<Biome> GREY_PLAINS = MEBiomeKeys.register("grey_plains");
     public static final RegistryKey<Biome> HARAD = MEBiomeKeys.register("harad");

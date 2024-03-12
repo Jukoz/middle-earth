@@ -15,6 +15,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.PredicatedStateProvider;
 
 import java.util.List;
@@ -45,41 +46,38 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> OLD_PODZOL_ORE = registerKey("old_podzol_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PODZOL_ORE = registerKey("podzol_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SAND_ORE = registerKey("sand_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SNOW_BLOCK_ORE = registerKey("snow_block_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> CALCITE_STONE_ORE = registerKey("calcite_stone_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRASS_STONE_ORE = registerKey("grass_stone_ore");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> CALCITE_TUFF_ORE = registerKey("calcite_tuff_ore");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> STONE_TUFF_ORE = registerKey("stone_tuff_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> TUFF_ORE = registerKey("stone_tuff_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> LIGHT_GRAY_CONCRETE_POWDER_ORE = registerKey("light_gray_concrete_powder_ore");
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
         TagMatchRuleTest dirtTest = new TagMatchRuleTest(BlockTags.DIRT);
         BlockMatchRuleTest grassTest = new BlockMatchRuleTest(Blocks.GRASS_BLOCK);
-        BlockMatchRuleTest ashenStoneTest = new BlockMatchRuleTest(StoneBlockSets.ASHEN_STONE.base());
-        BlockMatchRuleTest calciteTest = new BlockMatchRuleTest(Blocks.CALCITE);
-        BlockMatchRuleTest gonluinTest = new BlockMatchRuleTest(StoneBlockSets.GONLUIN.base());
         TagMatchRuleTest stoneTest = new TagMatchRuleTest(BlockTags.BASE_STONE_OVERWORLD);
 
         ConfiguredFeatures.register(featureRegisterable, ANDESITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.ANDESITE.getDefaultState(), 64, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, ASH_BLOCK_ORE, Feature.ORE,
-                new OreFeatureConfig(ashenStoneTest, ModBlocks.ASH_BLOCK.getDefaultState(), 48, 0.4f));
+                new OreFeatureConfig(stoneTest, ModBlocks.ASH_BLOCK.getDefaultState(), 48, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, ASHEN_DIRT_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, ModBlocks.ASHEN_DIRT.getDefaultState(), 64, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, ASHEN_DIRT_STONE_ORE, Feature.ORE,
-                new OreFeatureConfig(ashenStoneTest, ModBlocks.ASHEN_DIRT.getDefaultState(), 64, 0.4f));
+                new OreFeatureConfig(stoneTest, ModBlocks.ASHEN_DIRT.getDefaultState(), 64, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, BASALT_ORE, Feature.ORE,
-                new OreFeatureConfig(ashenStoneTest, Blocks.BASALT.getDefaultState(), 64, 0.4f));
+                new OreFeatureConfig(stoneTest, Blocks.BASALT.getDefaultState(), 64, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, BLACK_CONCRETE_POWDER_ORE, Feature.ORE,
-                new OreFeatureConfig(ashenStoneTest, Blocks.BLACK_CONCRETE_POWDER.getDefaultState(), 48, 0.4f));
+                new OreFeatureConfig(stoneTest, Blocks.BLACK_CONCRETE_POWDER.getDefaultState(), 48, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, CALCITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.CALCITE.getDefaultState(), 64));
 
         ConfiguredFeatures.register(featureRegisterable, BLUE_TUFF_ORE, Feature.ORE,
-                new OreFeatureConfig(gonluinTest, StoneBlockSets.BLUE_TUFF.base().getDefaultState(), 64));
+                new OreFeatureConfig(stoneTest, StoneBlockSets.BLUE_TUFF.base().getDefaultState(), 64));
 
         ConfiguredFeatures.register(featureRegisterable, COARSE_DIRT_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, Blocks.COARSE_DIRT.getDefaultState(), 48, 0.4f));
@@ -89,7 +87,7 @@ public class OreConfiguredFeatures {
                         BlockPredicate.matchingBlocks(List.of(Blocks.GRASS_BLOCK, Blocks.STONE)), UniformIntProvider.create(1, 3), 1));
 
         ConfiguredFeatures.register(featureRegisterable, DIORITE_ORE, Feature.ORE,
-                new OreFeatureConfig(calciteTest, Blocks.DIORITE.getDefaultState(), 64, 0.4f));
+                new OreFeatureConfig(stoneTest, Blocks.DIORITE.getDefaultState(), 64, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, DOLOMITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, StoneBlockSets.DOLOMITE.base().getDefaultState(), 64, 0.25f));
@@ -105,7 +103,7 @@ public class OreConfiguredFeatures {
                         BlockPredicate.matchingBlocks(List.of(Blocks.GRASS_BLOCK, Blocks.STONE)), UniformIntProvider.create(1, 3), 1));
 
         ConfiguredFeatures.register(featureRegisterable, FROZEN_STONE_ORE, Feature.ORE,
-                new OreFeatureConfig(gonluinTest, StoneBlockSets.FROZEN_STONE.base().getDefaultState(), 64, 0.4f));
+                new OreFeatureConfig(stoneTest, StoneBlockSets.FROZEN_STONE.base().getDefaultState(), 64, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, GRAVEL_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, Blocks.GRAVEL.getDefaultState(), 48, 0.4f));
@@ -115,7 +113,7 @@ public class OreConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, STONE_GRASS_ORE, Feature.DISK,
                 new DiskFeatureConfig(PredicatedStateProvider.of(Blocks.GRASS_BLOCK),
-                        BlockPredicate.matchingBlockTag(BlockTags.BASE_STONE_OVERWORLD), UniformIntProvider.create(2, 5), 1));
+                        BlockPredicate.matchingBlockTag(BlockTags.BASE_STONE_OVERWORLD), UniformIntProvider.create(2, 6), 1));
         ConfiguredFeatures.register(featureRegisterable, GONLUIN_GRASS_ORE, Feature.DISK,
                 new DiskFeatureConfig(PredicatedStateProvider.of(Blocks.GRASS_BLOCK),
                         BlockPredicate.matchingBlocks(List.of(StoneBlockSets.GONLUIN.base())), UniformIntProvider.create(3, 6), 1));
@@ -135,14 +133,15 @@ public class OreConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, SAND_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, Blocks.SAND.getDefaultState(), 48, 0.4f));
 
+        ConfiguredFeatures.register(featureRegisterable, SNOW_BLOCK_ORE, Feature.ORE,
+                new OreFeatureConfig(stoneTest, Blocks.SNOW_BLOCK.getDefaultState(), 64, 0.5f));
+
         ConfiguredFeatures.register(featureRegisterable, CALCITE_STONE_ORE, Feature.ORE,
-                new OreFeatureConfig(calciteTest, Blocks.STONE.getDefaultState(), 48, 0.4f));
+                new OreFeatureConfig(stoneTest, Blocks.STONE.getDefaultState(), 64, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, GRASS_STONE_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, Blocks.STONE.getDefaultState(), 64, 0.25f));
 
-        ConfiguredFeatures.register(featureRegisterable, CALCITE_TUFF_ORE, Feature.ORE,
-                new OreFeatureConfig(calciteTest, Blocks.TUFF.getDefaultState(), 48, 0.4f));
-        ConfiguredFeatures.register(featureRegisterable, STONE_TUFF_ORE, Feature.ORE,
+        ConfiguredFeatures.register(featureRegisterable, TUFF_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.TUFF.getDefaultState(), 48, 0.25f));
 
         ConfiguredFeatures.register(featureRegisterable, LIGHT_GRAY_CONCRETE_POWDER_ORE, Feature.ORE,

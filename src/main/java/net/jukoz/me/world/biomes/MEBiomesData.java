@@ -17,18 +17,17 @@ import java.util.List;
 public class MEBiomesData {
     private static List<MEBiome> biomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> waterBiomes = new ArrayList<>();
+    public static List<RegistryKey<Biome>> frozenBiomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> wastePondBiomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> mirkwoodSwampBiomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> oasisBiomes = new ArrayList<>();
 
     public static MEBiome defaultBiome;
+    public static MEBiome frozenPond;
     public static MEBiome oasis;
     public static MEBiome pond;
     public static MEBiome wastePond;
     public static MEBiome mirkwoodSwamp;
-
-    /// Only supports height value from -22 to 41
-    public static final int MINIMAL_HEIGHT = -22;
 
 
     public static void addBiome(Color color, MEBiome biome) {
@@ -65,6 +64,7 @@ public class MEBiomesData {
 
     public static void loadBiomes() {
         defaultBiome = new MEBiome(-21, MEBiomeKeys.OCEAN, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE);
+        frozenPond = new MEBiome(-10, MEBiomeKeys.FROZEN_POND,  Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE);
         oasis = new MEBiome(-10, MEBiomeKeys.OASIS,  Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE);
         pond = new MEBiome(-10, MEBiomeKeys.POND,  Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE);
         mirkwoodSwamp = new MEBiome(-12, MEBiomeKeys.MIRKWOOD_SWAMP, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE);
@@ -73,6 +73,7 @@ public class MEBiomesData {
         // Water Biomes :
         addBiome(new Color(55, 90, 195), defaultBiome);
         addBiome(new Color(104, 168, 222), oasis);
+        addBiome(new Color(104, 168, 222), frozenPond);
         addBiome(new Color(110, 154, 218), pond);
         addBiome(new Color(89, 136, 129), mirkwoodSwamp);
         addBiome(new Color(75, 108, 143), wastePond);
@@ -81,7 +82,7 @@ public class MEBiomesData {
         addBiome(new Color(69, 92, 228), new MEBiome(-16, MEBiomeKeys.LONG_LAKE, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(79, 91, 161), new MEBiome(-16, MEBiomeKeys.NURN_RIVER, ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(88, 94, 130), new MEBiome(-16, MEBiomeKeys.NURN_SEA, ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT, Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(75, 106, 199), new MEBiome(-14, MEBiomeKeys.OCEAN_COAST, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(75, 106, 199), new MEBiome(-16, MEBiomeKeys.OCEAN_COAST, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(83, 129, 186), new MEBiome(-9, MEBiomeKeys.RIVER, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(66, 97, 157), new MEBiome(-17, MEBiomeKeys.SEA_OF_RHUN, Blocks.SAND, Blocks.STONE, Blocks.STONE, Blocks.STONE));
 
@@ -104,7 +105,7 @@ public class MEBiomesData {
         addBiome(new Color(106, 155, 104), new MEBiome(4, MEBiomeKeys.EREGION, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(171, 193, 128), new MEBiome(4, MEBiomeKeys.ERIADOR, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(54, 75, 12), new MEBiome(6, MEBiomeKeys.FANGORN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(236, 236, 236), new MEBiome(8, MEBiomeKeys.FORODWAITH, Blocks.SNOW, Blocks.SNOW_BLOCK, Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(236, 236, 236), new MEBiome(14, MEBiomeKeys.FORODWAITH, Blocks.SNOW_BLOCK, Blocks.SNOW_BLOCK, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(91, 189, 85), new MEBiome(4, MEBiomeKeys.GONDOR, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.CALCITE, Blocks.STONE));
         addBiome(new Color(92, 147, 92), new MEBiome(6, MEBiomeKeys.GREY_PLAINS, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(204, 196, 113), new MEBiome(7, MEBiomeKeys.HARAD, Blocks.GRASS_BLOCK, Blocks.SANDSTONE, Blocks.STONE, Blocks.STONE));
@@ -149,6 +150,7 @@ public class MEBiomesData {
         addBiome(new Color(219, 245, 215), new MEBiome(51, MEBiomeKeys.WHITE_MOUNTAINS, Blocks.CALCITE, Blocks.CALCITE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(22, 102, 31), new MEBiome(5, MEBiomeKeys.WOODLAND_REALM, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.STONE));
 
+        waterBiomes.add(MEBiomeKeys.FROZEN_POND);
         waterBiomes.add(MEBiomeKeys.FROZEN_OCEAN);
         waterBiomes.add(MEBiomeKeys.LONG_LAKE);
         waterBiomes.add(MEBiomeKeys.NURN_RIVER);
@@ -157,6 +159,10 @@ public class MEBiomesData {
         waterBiomes.add(MEBiomeKeys.OCEAN_COAST);
         waterBiomes.add(MEBiomeKeys.RIVER);
         waterBiomes.add(MEBiomeKeys.SEA_OF_RHUN);
+
+        frozenBiomes.add(MEBiomeKeys.NORTHERN_WASTELANDS);
+        frozenBiomes.add(MEBiomeKeys.SOUTHERN_FOROCHEL);
+        frozenBiomes.add(MEBiomeKeys.FORODWAITH);
 
         mirkwoodSwampBiomes.add(MEBiomeKeys.DARK_MIRKWOOD);
         mirkwoodSwampBiomes.add(MEBiomeKeys.DARK_MIRKWOOD_EDGE);

@@ -11,6 +11,7 @@ import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
+import net.minecraft.world.gen.heightprovider.TrapezoidHeightProvider;
 import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
 import net.minecraft.world.gen.placementmodifier.*;
 
@@ -33,7 +34,6 @@ public class OrePlacedFeatures {
     public static final RegistryKey<PlacedFeature> FROZEN_STONE_ORE = registerKey("frozen_stone_ore");
     public static final RegistryKey<PlacedFeature> GRANITE_ORE = registerKey("granite_ore");
     public static final RegistryKey<PlacedFeature> GRAVEL_ORE = registerKey("gravel_ore");
-    public static final RegistryKey<PlacedFeature> GONLUIN_GRASS_ORE = registerKey("gonluin_grass_ore");
     public static final RegistryKey<PlacedFeature> STONE_GRASS_ORE = registerKey("stone_grass_ore");
     public static final RegistryKey<PlacedFeature> STONE_GRASS_ABUNDANT_ORE = registerKey("stone_grass_abundant_ore");
     public static final RegistryKey<PlacedFeature> OLD_PODZOL_ORE = registerKey("old_podzol_ore");
@@ -41,10 +41,10 @@ public class OrePlacedFeatures {
     public static final RegistryKey<PlacedFeature> MUD_ORE = registerKey("mud_ore");
     public static final RegistryKey<PlacedFeature> PODZOL_ORE = registerKey("podzol_ore");
     public static final RegistryKey<PlacedFeature> SAND_ORE = registerKey("sand_ore");
+    public static final RegistryKey<PlacedFeature> SNOW_ORE = registerKey("snow_ore");
     public static final RegistryKey<PlacedFeature> CALCITE_STONE_ORE = registerKey("calcite_stone_ore");
     public static final RegistryKey<PlacedFeature> GRASS_STONE_ORE = registerKey("grass_stone_ore");
-    public static final RegistryKey<PlacedFeature> CALCITE_TUFF_ORE = registerKey("calcite_tuff_ore");
-    public static final RegistryKey<PlacedFeature> STONE_TUFF_ORE = registerKey("stone_tuff_ore");
+    public static final RegistryKey<PlacedFeature> TUFF_ORE = registerKey("tuff_ore");
     public static final RegistryKey<PlacedFeature> LIGHT_GRAY_CONCRETE_POWDER_ORE = registerKey("light_gray_concrete_powder_ore");
 
     public static void bootstrap(Registerable<PlacedFeature> featureRegisterable) {
@@ -65,10 +65,10 @@ public class OrePlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> dryDirt = registryEntryLookup.getOrThrow(OreConfiguredFeatures.DRY_DIRT_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> forestMoss = registryEntryLookup.getOrThrow(OreConfiguredFeatures.FOREST_MOSS_DISK);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> frozenStone = registryEntryLookup.getOrThrow(OreConfiguredFeatures.FROZEN_STONE_ORE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> snowBlock = registryEntryLookup.getOrThrow(OreConfiguredFeatures.SNOW_BLOCK_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> granite = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRANITE_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> gravel = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRAVEL_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> stoneGrass = registryEntryLookup.getOrThrow(OreConfiguredFeatures.STONE_GRASS_ORE);
-        RegistryEntry.Reference<ConfiguredFeature<?, ?>> gonluinGrass = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GONLUIN_GRASS_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oldPodzol = registryEntryLookup.getOrThrow(OreConfiguredFeatures.OLD_PODZOL_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> limestone = registryEntryLookup.getOrThrow(OreConfiguredFeatures.LIMESTONE_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> mud = registryEntryLookup.getOrThrow(OreConfiguredFeatures.MUD_ORE);
@@ -76,8 +76,7 @@ public class OrePlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> sand = registryEntryLookup.getOrThrow(OreConfiguredFeatures.SAND_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> calciteStone = registryEntryLookup.getOrThrow(OreConfiguredFeatures.CALCITE_STONE_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> grassStone = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRASS_STONE_ORE);
-        RegistryEntry.Reference<ConfiguredFeature<?, ?>> calciteTuff = registryEntryLookup.getOrThrow(OreConfiguredFeatures.CALCITE_TUFF_ORE);
-        RegistryEntry.Reference<ConfiguredFeature<?, ?>> stoneTuff = registryEntryLookup.getOrThrow(OreConfiguredFeatures.STONE_TUFF_ORE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> stoneTuff = registryEntryLookup.getOrThrow(OreConfiguredFeatures.TUFF_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> lightGrayConcretePowder = registryEntryLookup.getOrThrow(OreConfiguredFeatures.LIGHT_GRAY_CONCRETE_POWDER_ORE);
 
         PlacementModifier abundant = PlacedFeatures.createCountExtraModifier(2, 0.5f, 1);
@@ -105,7 +104,7 @@ public class OrePlacedFeatures {
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, CORRUPTED_MOSS_DISK, corruptedMoss, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, DIORITE_ORE, diorite, veryCommon,
+        PlacedFeatures.register(featureRegisterable, DIORITE_ORE, diorite, abundant,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, DOLOMITE_ORE, dolomite, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
@@ -115,14 +114,12 @@ public class OrePlacedFeatures {
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FOREST_MOSS_DISK, forestMoss, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, FROZEN_STONE_ORE, frozenStone, PlacedFeatures.createCountExtraModifier(2, 0.5f, 1),
-                HeightRangePlacementModifier.of(UniformHeightProvider.create(YOffset.fixed(180), YOffset.fixed(320))),
+        PlacedFeatures.register(featureRegisterable, FROZEN_STONE_ORE, frozenStone, PlacedFeatures.createCountExtraModifier(3, 0.5f, 1),
+                HeightRangePlacementModifier.of(TrapezoidHeightProvider.create(YOffset.fixed(180), YOffset.fixed(460))),
                 PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, GRANITE_ORE, granite, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, GRAVEL_ORE, gravel, uncommon,
-                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, GONLUIN_GRASS_ORE, gonluinGrass, abundant,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, STONE_GRASS_ORE, stoneGrass, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
@@ -138,13 +135,14 @@ public class OrePlacedFeatures {
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, SAND_ORE, sand, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, CALCITE_STONE_ORE, calciteStone, veryCommon,
+        PlacedFeatures.register(featureRegisterable, SNOW_ORE, snowBlock, PlacedFeatures.createCountExtraModifier(3, 0.5f, 1),
+                HeightRangePlacementModifier.of(TrapezoidHeightProvider.create(YOffset.fixed(180), YOffset.fixed(460))),
+                PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, CALCITE_STONE_ORE, calciteStone, abundant,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, GRASS_STONE_ORE, grassStone, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, CALCITE_TUFF_ORE, calciteTuff, common,
-                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, STONE_TUFF_ORE, stoneTuff, veryCommon,
+        PlacedFeatures.register(featureRegisterable, TUFF_ORE, stoneTuff, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, LIGHT_GRAY_CONCRETE_POWDER_ORE, lightGrayConcretePowder, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
