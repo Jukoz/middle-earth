@@ -70,7 +70,7 @@ public class ModWeaponItems {
             new BowItem(new FabricItemSettings().maxDamage(640)));
 
     public static final Item DUNLAND_CLUB = registerItemWithModel("dunland_club",
-            new SwordItem(ModToolMaterials.STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
+            new SwordItem(ToolMaterials.WOOD, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, new FabricItemSettings()), false);
     public static final Item DUNLAND_DAGGER = registerItemWithModel("dunland_dagger",
             new ReachWeaponItem(ModToolMaterials.STEEL, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED, DAGGER_REACH, new FabricItemSettings()), false);
     public static final Item DUNLAND_SPEAR = registerItemWithModel("dunland_spear",
