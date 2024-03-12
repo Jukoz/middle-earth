@@ -1,0 +1,27 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "minecraft:shield"
+    },
+    {
+      "item": "me:orc_steel_nugget"
+    },
+    {
+      "item": "me:misty_orcs_eye_banner_pattern"
+    },
+    {
+      "item": "me:orc_steel_nugget"
+    },
+    {
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "item": "minecraft:bone_meal"
+    }
+  ],
+  "output": {
+    "item": "me:misty_mountains_shield",
+    "count": 1
+  }
+}

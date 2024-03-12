@@ -5,23 +5,23 @@
       "item": "minecraft:shield"
     },
     {
-      "item": "me:elven_steel_nugget"
+      "item": "me:steel_nugget"
     },
     {
-      "item": "me:lothlorien_banner_pattern"
+      "item": "me:rohan_banner_pattern"
     },
     {
-      "item": "me:elven_steel_nugget"
+      "item": "me:steel_nugget"
     },
     {
-      "item": "minecraft:yellow_dye"
+      "item": "minecraft:green_dye"
     },
     {
       "item": "minecraft:yellow_dye"
     }
   ],
   "output": {
-    "item": "me:lothlorien_shield",
+    "item": "me:rohan_shield",
     "count": 1
   }
 }

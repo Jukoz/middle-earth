@@ -5,23 +5,23 @@
       "item": "minecraft:shield"
     },
     {
-      "item": "me:steel_nugget"
+      "item": "me:orc_steel_nugget"
     },
     {
-      "item": "me:gondor_banner_pattern"
+      "item": "me:mordor_great_eye_banner_pattern"
     },
     {
-      "item": "me:steel_nugget"
+      "item": "me:orc_steel_nugget"
     },
     {
       "item": "minecraft:black_dye"
     },
     {
-      "item": "minecraft:white_dye"
+      "item": "minecraft:red_dye"
     }
   ],
   "output": {
-    "item": "me:gondor_shield",
+    "item": "me:mordor_shield",
     "count": 1
   }
 }

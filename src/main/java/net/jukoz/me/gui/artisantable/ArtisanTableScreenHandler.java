@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
@@ -49,7 +50,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.inputStack = ItemStack.EMPTY;
         this.contentsChangedListener = () -> {
         };
-        this.input = new SimpleInventory(7) {
+        this.input = new SimpleInventory(6) {
             public void markDirty() {
                 super.markDirty();
                 ArtisanTableScreenHandler.this.onContentChanged(this);
@@ -93,6 +94,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
                         ArtisanTableScreenHandler.this.lastTakeTime = l;
                     }
                 });
+                super.onTakeItem(player, itemStack);
             }
 
             private List<ItemStack> getInputStacks() {
@@ -192,7 +194,15 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
 
         if(invSlot.hasStack()) {
             ItemStack originalStack = invSlot.getStack();
-            if(slot < this.input.size()) {
+            Item item = originalStack.getItem();
+            stack = originalStack.copy();
+            if (slot == 6){
+                item.onCraft(originalStack, player.getWorld(), player);
+                if (!this.insertItem(originalStack, 7, this.slots.size(), true)) {
+                    return ItemStack.EMPTY;
+                }
+                invSlot.onQuickTransfer(originalStack, stack);
+            } else if(slot < this.input.size()) {
                 if(!this.insertItem(originalStack, this.input.size(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
@@ -204,6 +214,9 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
             } else {
                 invSlot.markDirty();
             }
+
+            invSlot.onTakeItem(player, originalStack);
+            this.sendContentUpdates();
         }
         return stack;
     }
