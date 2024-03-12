@@ -9,6 +9,7 @@ import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.jukoz.me.recipe.ModRecipes;
 import net.jukoz.me.sound.ModSounds;
+import net.jukoz.me.utils.LootModifiers;
 import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 import net.jukoz.me.world.gen.ModWorldGeneration;
 import net.jukoz.me.world.spawners.ModEntitySpawning;
@@ -68,6 +69,8 @@ public class MiddleEarth implements ModInitializer {
 		MEBiomeKeys.registerModBiomes();
 		MEBiomesData.loadBiomes();
 		ModWorldGeneration.generateModWorldGen();
+
+		LootModifiers.modifyLootTables();
 
 		try {
 			middleEarthMapDatas = new MiddleEarthMapDatas(getClass().getClassLoader());

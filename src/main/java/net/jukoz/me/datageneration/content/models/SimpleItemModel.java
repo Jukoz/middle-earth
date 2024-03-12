@@ -1,6 +1,7 @@
 package net.jukoz.me.datageneration.content.models;
 
 import net.jukoz.me.block.ModNatureBlocks;
+import net.jukoz.me.item.ModDecorativeItems;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
@@ -17,6 +18,8 @@ public class SimpleItemModel {
             add(ModResourceItems.EMPTY_PHIAL);
             add(ModResourceItems.WATER_PHIAL);
             add(ModResourceItems.STARLIGHT_PHIAL);
+
+            add(ModDecorativeItems.TROLL_STATUE);
 
             add(ModFoodItems.TOMATO);
             add(ModFoodItems.BELL_PEPPER);
@@ -43,6 +46,8 @@ public class SimpleItemModel {
             add(ModFoodItems.VEGETABLE_SOUP);
             add(ModFoodItems.RAW_HORSE);
             add(ModFoodItems.COOKED_HORSE);
+            add(ModFoodItems.RAW_RAT);
+            add(ModFoodItems.COOKED_RAT);
 
             add(ModEquipmentItems.NAZGUL_CLOAK_HOOD);
             add(ModEquipmentItems.NAZGUL_CLOAK);
@@ -50,11 +55,12 @@ public class SimpleItemModel {
             add(ModEquipmentItems.NAZGUL_BOOTS);
 
             add(ModEquipmentItems.STEEL_TROLL_ARMOR);
-            add(ModEquipmentItems.BEAST_CHAINS);
             add(ModEquipmentItems.MORDOR_ORC_HELMET);
             add(ModEquipmentItems.MORDOR_ORC_CHESTPLATE);
             add(ModEquipmentItems.MORDOR_ORC_LEGGINGS);
             add(ModEquipmentItems.MORDOR_ORC_BOOTS);
+
+            add(ModEquipmentItems.ROHIRRIC_HORSE_ARMOR);
 
             add(ModResourceItems.GLOWWORM_BOTTLE);
 
@@ -122,6 +128,9 @@ public class SimpleItemModel {
             add(ModResourceItems.MITHRIL_INGOT);
             add(ModResourceItems.MITHRIL_NUGGET);
             add(ModResourceItems.MITHRIL_ROD);
+
+            add(ModResourceItems.PINECONE);
+            add(ModResourceItems.LIT_PINECONE);
         }
     };
 }

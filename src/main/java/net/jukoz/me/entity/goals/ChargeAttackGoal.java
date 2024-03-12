@@ -1,7 +1,6 @@
 package net.jukoz.me.entity.goals;
 
 import net.jukoz.me.entity.beasts.BeastEntity;
-import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.Path;
@@ -19,17 +18,18 @@ public class ChargeAttackGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        return this.mob.getChargeCooldown() == 0 &&
+        return this.mob.getChargeTimeout() == 0 &&
                 (mob.getTarget() != null) &&
                 this.mob.getRandom().nextInt(ChargeAttackGoal.toGoalTicks(40)) == 0 &&
                 this.mob.distanceTo(mob.getTarget()) >= 10 &&
-                canNavigateToEntity(this.mob.getTarget());
+                canNavigateToEntity(this.mob.getTarget()) &&
+                this.mob.canCharge();
     }
 
     @Override
     public void start() {
         this.mob.setCharging(true);
-        this.mob.setChargeCooldown(this.MAX_COOLDOWN);
+        this.mob.setChargeTimeout(this.MAX_COOLDOWN);
         this.checkCanNavigateCooldown = 0;
     }
 

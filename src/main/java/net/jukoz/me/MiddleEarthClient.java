@@ -16,7 +16,10 @@ import net.jukoz.me.datageneration.content.tags.Crops;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.balrog.BalrogRenderer;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntityRenderer;
+import net.jukoz.me.entity.beasts.trolls.petrified.PetrifiedTrollRenderer;
+import net.jukoz.me.entity.beasts.trolls.stone.StoneTrollRenderer;
 import net.jukoz.me.entity.crab.CrabRenderer;
+import net.jukoz.me.entity.deer.DeerRenderer;
 import net.jukoz.me.entity.duck.DuckRenderer;
 import net.jukoz.me.entity.dwarves.durin.DurinDwarfRenderer;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfRenderer;
@@ -25,6 +28,8 @@ import net.jukoz.me.entity.hobbits.shire.ShireHobbitRenderer;
 import net.jukoz.me.entity.model.ModEntityModels;
 import net.jukoz.me.entity.nazguls.NazgulRenderer;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
+import net.jukoz.me.entity.pheasant.PheasantModel;
+import net.jukoz.me.entity.pheasant.PheasantRenderer;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntityRenderer;
 import net.jukoz.me.entity.projectile.spear.JavelinEntityRenderer;
 import net.jukoz.me.entity.snail.SnailRenderer;
@@ -34,7 +39,6 @@ import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollRenderer;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollRenderer;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jukoz.me.gui.ModScreenHandlers;
-import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jukoz.me.gui.wood_pile.WoodPileScreen;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
@@ -61,6 +65,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.BARROW_WIGHT, BarrowWightEntityRenderer::new);
         // Entities
         EntityRendererRegistry.register(ModEntities.CAVE_TROLL, CaveTrollRenderer::new);
+        EntityRendererRegistry.register(ModEntities.STONE_TROLL, StoneTrollRenderer::new);
+        EntityRendererRegistry.register(ModEntities.PETRIFIED_TROLL, PetrifiedTrollRenderer::new);
         EntityRendererRegistry.register(ModEntities.DURIN_FOLK, DurinDwarfRenderer::new);
         EntityRendererRegistry.register(ModEntities.HOBBIT, ShireHobbitRenderer::new);
         EntityRendererRegistry.register(ModEntities.GALADHRIM_ELF, GaladhrimElfRenderer::new);
@@ -73,6 +79,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         // Items
         ModelLoadingRegistry.INSTANCE.registerModelProvider(((manager, out) -> new VariantsModelProvider().provideExtraModels(manager, out)));
         EntityRendererRegistry.register(ModEntities.PEBBLE, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.PINECONE, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.LIT_PINECONE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.SPEAR, JavelinEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
 
@@ -85,9 +93,11 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.GOOSE, GooseRenderer::new);
         EntityRendererRegistry.register(ModEntities.DUCK, DuckRenderer::new);
         EntityRendererRegistry.register(ModEntities.SWAN, SwanRenderer::new);
+        EntityRendererRegistry.register(ModEntities.PHEASANT, PheasantRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNAIL, SnailRenderer::new);
+        EntityRendererRegistry.register(ModEntities.DEER, DeerRenderer::new);
 
-        ModModelPredicateProvider.registerBowModel();
+        ModModelPredicateProvider.registerAllPredicates();
 
         HandledScreens.register(ModScreenHandlers.ALLOY_SCREEN_HANDLER, AlloyFurnaceScreen::new);
         HandledScreens.register(ModScreenHandlers.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);

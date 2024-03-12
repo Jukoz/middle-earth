@@ -15,6 +15,8 @@ public class ModEggItems {
             new SpawnEggItem(ModEntities.BARROW_WIGHT, 1852734, 2456136, new Item.Settings()));
     public static final Item CAVE_TROLL_SPAWN_EGG = registerItem("cave_troll_spawn_egg",
             new SpawnEggItem(ModEntities.CAVE_TROLL, 4671043, 3485226, new Item.Settings()));
+    public static final Item STONE_TROLL_SPAWN_EGG = registerItem("stone_troll_spawn_egg",
+            new SpawnEggItem(ModEntities.STONE_TROLL, 10517857, 5257516, new Item.Settings()));
     public static final Item DURIN_FOLK_SPAWN_EGG = registerItem("durin_folk_spawn_egg",
             new SpawnEggItem(ModEntities.DURIN_FOLK, 4541263, 8090735, new Item.Settings()));
     public static final Item HOBBIT_SPAWN_EGG = registerItem("hobbit_spawn_egg",
@@ -39,13 +41,16 @@ public class ModEggItems {
             new SpawnEggItem(ModEntities.CRAB, 15350073,15764576, new Item.Settings()));
     public static final Item GOOSE_SPAWN_EGG = registerItem("goose_spawn_egg",
             new SpawnEggItem(ModEntities.GOOSE, 8421504,13882323, new Item.Settings()));
+    public static final Item DEER_SPAWN_EGG = registerItem("deer_spawn_egg",
+            new SpawnEggItem(ModEntities.DEER, 9132338, 14403249, new Item.Settings()));
     public static final Item DUCK_SPAWN_EGG = registerItem("duck_spawn_egg",
             new SpawnEggItem(ModEntities.DUCK, 7810816,32526, new Item.Settings()));
     public static final Item SWAN_SPAWN_EGG = registerItem("swan_spawn_egg",
             new SpawnEggItem(ModEntities.SWAN, 14869218,11842231, new Item.Settings()));
+    public static final Item PHEASANT_SPAWN_EGG = registerItem("pheasant_spawn_egg",
+            new SpawnEggItem(ModEntities.PHEASANT,6172963, 13740645, new Item.Settings()));
     public static final Item SNAIL_SPAWN_EGG = registerItem("snail_spawn_egg",
             new SpawnEggItem(ModEntities.SNAIL, 7765379, 7165482, new Item.Settings()));
-
 
 
     private static Item registerItem(String name, Item item) {
