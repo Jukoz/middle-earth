@@ -3,6 +3,7 @@ package net.jukoz.me;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.jukoz.me.block.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntityRenderer;
@@ -51,6 +52,10 @@ import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.utils.ModArmors;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
 import net.jukoz.me.network.ModNetworks;
+import net.jukoz.me.particles.ModParticleTypes;
+import net.jukoz.me.particles.custom.MallornLeavesParticle;
+import net.jukoz.me.particles.custom.MirkwoodLeavesParticle;
+import net.jukoz.me.utils.ParticleManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.color.world.BiomeColors;
@@ -161,6 +166,9 @@ public class MiddleEarthClient implements ClientModInitializer {
         ArmorRenderer.register(new ModArmorRenderer(armor.getHelmetModel(), armor.getChestPlateModel(), armor.getSimpleName(), armor.hasInnerLayer() , armor.hasVanillaArmorModel(), armor.hasCape(), armor.hasHood(), armor.isDyeable()),
                     armor.getItems());
         }
+
+        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MALLORN_LEAVES_PARTICLE, MallornLeavesParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE, MirkwoodLeavesParticle.Factory::new);
 
         initializeRenderLayerMap();
     }

@@ -155,6 +155,8 @@ public class StoneBlockSets {
     public static SimpleBlockSet MOSSY_DIORITE_TILES = registerStoneSet("mossy_diorite_tiles", DIORITE_BRICKS.base.getHardness(), DIORITE_BRICKS.base.getBlastResistance(), DIORITE_TILES.base);
     public static SimpleBlockSet CRACKED_DIORITE_TILES = registerStoneSet("cracked_diorite_tiles", DIORITE_BRICKS.base.getHardness(), DIORITE_BRICKS.base.getBlastResistance(), DIORITE_TILES.base);
 
+    public static SimpleBlockSet BLACKSTONE_TILES = registerStoneSet("blackstone_tiles", Blocks.POLISHED_BLACKSTONE_BRICKS.getHardness(), Blocks.POLISHED_BLACKSTONE_BRICKS.getBlastResistance(), Blocks.POLISHED_BLACKSTONE_BRICKS);
+
     //public static SimpleBlockSet MOSSY_POLISHED_BASALT = registerStoneSet("mossy_polished_basalt", Blocks.BASALT.getHardness(), Blocks.BASALT.getBlastResistance(), Blocks.POLISHED_BASALT);
     //public static SimpleBlockSet CRACKED_POLISHED_BASALT = registerStoneSet("cracked_polished_basalt", Blocks.BASALT.getHardness(), Blocks.BASALT.getBlastResistance(), Blocks.POLISHED_BASALT);
     public static SimpleBlockSet BASALT_BRICKS = registerStoneSet("basalt_bricks", Blocks.STONE_BRICKS.getHardness(), Blocks.STONE_BRICKS.getBlastResistance(), Blocks.SMOOTH_BASALT);
@@ -334,6 +336,8 @@ public class StoneBlockSets {
             MOSSY_POLISHED_DIORITE,
             CRACKED_POLISHED_DIORITE,
 
+            BLACKSTONE_TILES,
+
             BASALT_BRICKS,
             MOSSY_BASALT_BRICKS,
             CRACKED_BASALT_BRICKS,
@@ -342,6 +346,7 @@ public class StoneBlockSets {
             QUARTZITE_BRICKS,
             QUARTZITE_TILES,
 
+            COBBLED_JADEITE,
             POLISHED_JADEITE,
             CRACKED_POLISHED_JADEITE,
             JADEITE_BRICKS,

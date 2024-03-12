@@ -2,10 +2,7 @@ package net.jukoz.me.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.special.StoneChairBlock;
-import net.jukoz.me.block.special.WoodChairBlock;
-import net.jukoz.me.block.special.StoolBlock;
-import net.jukoz.me.block.special.TableBlock;
+import net.jukoz.me.block.special.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnace;
 import net.jukoz.me.block.special.toggeable_lights.DwarvenLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.SilverLanternBlock;

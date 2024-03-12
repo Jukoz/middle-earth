@@ -42,7 +42,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
             } else if(record.source() != null){
                 createBrickRecipe(exporter, record.source().asItem(), record.base(), 4);
-                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 4);
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.source(), 2);
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.verticalSlab(), record.source(),2);
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.source());
@@ -187,10 +187,12 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                     offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.origin(), 2);
                     offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.block(), 1);
                     offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.origin(), 1);
+                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.wall(), 1);
                 }
             }
             createSlabsRecipe(exporter, record.block(), record.slab());
             createStairsRecipe(exporter, record.block(), record.stairs());
+            createWallsRecipe(exporter, record.block(), record.wall());
         }
         //endregion
 
@@ -254,6 +256,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         }
 
         for(SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledBlocks) {
+            createChiseledRecipe(exporter, block.origin(), block.base(), 1);
+        }
+        for(SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledPolishedBlocksTopBottom) {
             createChiseledRecipe(exporter, block.origin(), block.base(), 1);
         }
         for(SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledBlocksTopBottom) {

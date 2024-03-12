@@ -99,7 +99,6 @@ public class HelpingGenerator {
             SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.log(), set.woodFence()));
             SimpleFenceModel.strippedFences.add(new SimpleFenceModel.Fence(set.strippedWood(), set.strippedWoodFence()));
 
-
             SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
             SimpleSlabModel.woodSlabs.add(new SimpleSlabModel.Slab(set.wood(), set.woodSlab()));
             SimpleSlabModel.strippedSlabs.add(new SimpleSlabModel.Slab(set.strippedWood(), set.strippedWoodSlab()));
@@ -275,24 +274,29 @@ public class HelpingGenerator {
             SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.block(), set.slab()));
             SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.block(), set.slab(), set.verticalSlab()));
             SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.block(), set.stairs()));
+            SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.block(), set.wall()));
 
             BlockDrops.blocks.add(set.block());
             BlockDrops.blocks.add(set.slab());
             BlockDrops.blocks.add(set.verticalSlab());
             BlockDrops.blocks.add(set.stairs());
+            BlockDrops.blocks.add(set.wall());
 
             if(set.origin() != null && set.origin().toString().contains("planks")){
                 MineableAxe.blocks.add(set.block());
                 MineableAxe.blocks.add(set.slab());
                 MineableAxe.blocks.add(set.verticalSlab());
                 MineableAxe.blocks.add(set.stairs());
+                MineableAxe.blocks.add(set.wall());
             } else {
                 MineablePickaxe.blocks.add(set.block());
                 MineablePickaxe.blocks.add(set.slab());
                 MineablePickaxe.blocks.add(set.verticalSlab());
                 MineablePickaxe.blocks.add(set.stairs());
+                MineablePickaxe.blocks.add(set.wall());
             }
 
+            Walls.walls.add(set.wall());
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab set : SimpleVerticalSlabModel.vanillaVerticalSlabs) {

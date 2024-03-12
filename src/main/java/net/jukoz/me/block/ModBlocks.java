@@ -124,9 +124,9 @@ public class ModBlocks {
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
     public static final Block CHISELED_ANDESITE_BRICKS = registerStoneBlock("chiseled_andesite_bricks",
-            new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+            new PillarBlock(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     public static final Block CHISELED_POLISHED_ANDESITE = registerStoneBlock("chiseled_polished_andesite",
-            new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+            new PillarBlock(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     
     public static final Block CHISELED_GRANITE_BRICKS = registerStoneBlock("chiseled_granite_bricks",
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
@@ -330,232 +330,232 @@ public class ModBlocks {
             new WallBlock(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)), true);
 
     public static final Block BLACK_WOOL_SLAB = registerMiscBlock("black_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block BLUE_WOOL_SLAB = registerMiscBlock("blue_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block BROWN_WOOL_SLAB = registerMiscBlock("brown_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block CYAN_WOOL_SLAB = registerMiscBlock("cyan_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block GRAY_WOOL_SLAB = registerMiscBlock("gray_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block GREEN_WOOL_SLAB = registerMiscBlock("green_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block LIGHT_BLUE_WOOL_SLAB = registerMiscBlock("light_blue_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block LIGHT_GRAY_WOOL_SLAB = registerMiscBlock("light_gray_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block LIME_WOOL_SLAB = registerMiscBlock("lime_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block MAGENTA_WOOL_SLAB = registerMiscBlock("magenta_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block ORANGE_WOOL_SLAB = registerMiscBlock("orange_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block PINK_WOOL_SLAB = registerMiscBlock("pink_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block PURPLE_WOOL_SLAB = registerMiscBlock("purple_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block RED_WOOL_SLAB = registerMiscBlock("red_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block WHITE_WOOL_SLAB = registerMiscBlock("white_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block YELLOW_WOOL_SLAB = registerMiscBlock("yellow_wool_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     //endregion
 
     //region VANILLA VERTICAL SLABS
     public static final Block OAK_WOOD_SLAB = registerWoodBlock("oak_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.OAK_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.OAK_SLAB).burnable()), true);
     public static final Block SPRUCE_WOOD_SLAB = registerWoodBlock("spruce_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_SLAB).burnable()), true);
     public static final Block BIRCH_WOOD_SLAB = registerWoodBlock("birch_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_SLAB).burnable()), true);
     public static final Block JUNGLE_WOOD_SLAB = registerWoodBlock("jungle_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SLAB).burnable()), true);
     public static final Block ACACIA_WOOD_SLAB = registerWoodBlock("acacia_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_SLAB).burnable()), true);
     public static final Block DARK_OAK_WOOD_SLAB = registerWoodBlock("dark_oak_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_SLAB).burnable()), true);
     public static final Block MANGROVE_WOOD_SLAB = registerWoodBlock("mangrove_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_SLAB).burnable()), true);
     public static final Block CHERRY_WOOD_SLAB = registerWoodBlock("cherry_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_SLAB).burnable()), true);
 
     public static final Block OAK_WOOD_VERTICAL_SLAB = registerWoodBlock("oak_wood_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.OAK_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.OAK_SLAB).burnable()), true);
     public static final Block SPRUCE_WOOD_VERTICAL_SLAB = registerWoodBlock("spruce_wood_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_SLAB).burnable()), true);
     public static final Block BIRCH_WOOD_VERTICAL_SLAB = registerWoodBlock("birch_wood_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_SLAB).burnable()), true);
     public static final Block JUNGLE_WOOD_VERTICAL_SLAB = registerWoodBlock("jungle_wood_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SLAB).burnable()), true);
     public static final Block ACACIA_WOOD_VERTICAL_SLAB = registerWoodBlock("acacia_wood_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_SLAB).burnable()), true);
     public static final Block DARK_OAK_WOOD_VERTICAL_SLAB = registerWoodBlock("dark_oak_wood_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_SLAB).burnable()), true);
     public static final Block MANGROVE_WOOD_VERTICAL_SLAB = registerWoodBlock("mangrove_wood_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_SLAB).burnable()), true);
     public static final Block CHERRY_WOOD_VERTICAL_SLAB = registerWoodBlock("cherry_wood_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_SLAB).burnable()), true);
 
     public static final Block OAK_WOOD_STAIRS = registerWoodBlock("oak_wood_stairs",
-            new StairsBlock(Blocks.OAK_WOOD.getDefaultState(), FabricBlockSettings.copyOf(Blocks.OAK_STAIRS)), true);
+            new StairsBlock(Blocks.OAK_WOOD.getDefaultState(), FabricBlockSettings.copyOf(Blocks.OAK_STAIRS).burnable()), true);
     public static final Block SPRUCE_WOOD_STAIRS = registerWoodBlock("spruce_wood_stairs",
-            new StairsBlock(Blocks.OAK_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.SPRUCE_STAIRS)), true);
+            new StairsBlock(Blocks.OAK_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.SPRUCE_STAIRS).burnable()), true);
     public static final Block BIRCH_WOOD_STAIRS = registerWoodBlock("birch_wood_stairs",
-            new StairsBlock(Blocks.BIRCH_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.BIRCH_STAIRS)), true);
+            new StairsBlock(Blocks.BIRCH_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.BIRCH_STAIRS).burnable()), true);
     public static final Block JUNGLE_WOOD_STAIRS = registerWoodBlock("jungle_wood_stairs",
-            new StairsBlock(Blocks.JUNGLE_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.JUNGLE_STAIRS)), true);
+            new StairsBlock(Blocks.JUNGLE_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.JUNGLE_STAIRS).burnable()), true);
     public static final Block ACACIA_WOOD_STAIRS = registerWoodBlock("acacia_wood_stairs",
-            new StairsBlock(Blocks.ACACIA_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.ACACIA_STAIRS)), true);
+            new StairsBlock(Blocks.ACACIA_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.ACACIA_STAIRS).burnable()), true);
     public static final Block DARK_OAK_WOOD_STAIRS = registerWoodBlock("dark_oak_wood_stairs",
-            new StairsBlock(Blocks.DARK_OAK_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.DARK_OAK_STAIRS)), true);
+            new StairsBlock(Blocks.DARK_OAK_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.DARK_OAK_STAIRS).burnable()), true);
     public static final Block MANGROVE_WOOD_STAIRS = registerWoodBlock("mangrove_wood_stairs",
-            new StairsBlock(Blocks.MANGROVE_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.MANGROVE_STAIRS)), true);
+            new StairsBlock(Blocks.MANGROVE_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.MANGROVE_STAIRS).burnable()), true);
     public static final Block CHERRY_WOOD_STAIRS = registerWoodBlock("cherry_wood_stairs",
-            new StairsBlock(Blocks.CHERRY_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.CHERRY_STAIRS)), true);
+            new StairsBlock(Blocks.CHERRY_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.CHERRY_STAIRS).burnable()), true);
 
     public static final Block OAK_WOOD_WALL = registerWoodBlock("oak_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).burnable()), true);
     public static final Block SPRUCE_WOOD_WALL = registerWoodBlock("spruce_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_WOOD).burnable()), true);
     public static final Block BIRCH_WOOD_WALL = registerWoodBlock("birch_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_WOOD).burnable()), true);
     public static final Block JUNGLE_WOOD_WALL = registerWoodBlock("jungle_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_WOOD).burnable()), true);
     public static final Block ACACIA_WOOD_WALL = registerWoodBlock("acacia_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_WOOD).burnable()), true);
     public static final Block DARK_OAK_WOOD_WALL = registerWoodBlock("dark_oak_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_WOOD).burnable()), true);
     public static final Block MANGROVE_WOOD_WALL = registerWoodBlock("mangrove_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_WOOD).burnable()), true);
     public static final Block CHERRY_WOOD_WALL = registerWoodBlock("cherry_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_WOOD).burnable()), true);
 
     public static final Block OAK_WOOD_FENCE = registerWoodBlock("oak_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).burnable()), true);
     public static final Block SPRUCE_WOOD_FENCE = registerWoodBlock("spruce_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_WOOD).burnable()), true);
     public static final Block BIRCH_WOOD_FENCE = registerWoodBlock("birch_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_WOOD).burnable()), true);
     public static final Block JUNGLE_WOOD_FENCE = registerWoodBlock("jungle_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_WOOD).burnable()), true);
     public static final Block ACACIA_WOOD_FENCE = registerWoodBlock("acacia_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_WOOD).burnable()), true);
     public static final Block DARK_OAK_WOOD_FENCE = registerWoodBlock("dark_oak_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_WOOD).burnable()), true);
     public static final Block MANGROVE_WOOD_FENCE = registerWoodBlock("mangrove_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_WOOD).burnable()), true);
     public static final Block CHERRY_WOOD_FENCE = registerWoodBlock("cherry_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_WOOD).burnable()), true);
 
     public static final Block STRIPPED_OAK_WOOD_SLAB = registerWoodBlock("stripped_oak_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.OAK_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.OAK_SLAB).burnable()), true);
     public static final Block STRIPPED_SPRUCE_WOOD_SLAB = registerWoodBlock("stripped_spruce_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_SLAB).burnable()), true);
     public static final Block STRIPPED_BIRCH_WOOD_SLAB = registerWoodBlock("stripped_birch_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_SLAB).burnable()), true);
     public static final Block STRIPPED_JUNGLE_WOOD_SLAB = registerWoodBlock("stripped_jungle_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SLAB).burnable()), true);
     public static final Block STRIPPED_ACACIA_WOOD_SLAB = registerWoodBlock("stripped_acacia_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_SLAB).burnable()), true);
     public static final Block STRIPPED_DARK_OAK_WOOD_SLAB = registerWoodBlock("stripped_dark_oak_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_SLAB).burnable()), true);
     public static final Block STRIPPED_MANGROVE_WOOD_SLAB = registerWoodBlock("stripped_mangrove_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_SLAB).burnable()), true);
     public static final Block STRIPPED_CHERRY_WOOD_SLAB = registerWoodBlock("stripped_cherry_wood_slab",
-            new SlabBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_SLAB)), true);
+            new SlabBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_SLAB).burnable()), true);
 
     public static final Block STRIPPED_OAK_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_oak_wood_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.OAK_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.OAK_SLAB).burnable()), true);
     public static final Block STRIPPED_SPRUCE_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_spruce_wood_vertical_slab",
             new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_SLAB)), true);
     public static final Block STRIPPED_BIRCH_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_birch_wood_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_SLAB).burnable()), true);
     public static final Block STRIPPED_JUNGLE_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_jungle_wood_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SLAB).burnable()), true);
     public static final Block STRIPPED_ACACIA_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_acacia_wood_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_SLAB).burnable()), true);
     public static final Block STRIPPED_DARK_OAK_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_dark_oak_wood_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_SLAB).burnable()), true);
     public static final Block STRIPPED_MANGROVE_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_mangrove_wood_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_SLAB).burnable()), true);
     public static final Block STRIPPED_CHERRY_WOOD_VERTICAL_SLAB = registerWoodBlock("stripped_cherry_wood_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_SLAB).burnable()), true);
 
     public static final Block STRIPPED_OAK_WOOD_STAIRS = registerWoodBlock("stripped_oak_wood_stairs",
-            new StairsBlock(Blocks.STRIPPED_OAK_WOOD.getDefaultState(), FabricBlockSettings.copyOf(Blocks.OAK_STAIRS)), true);
+            new StairsBlock(Blocks.STRIPPED_OAK_WOOD.getDefaultState(), FabricBlockSettings.copyOf(Blocks.OAK_STAIRS).burnable()), true);
     public static final Block STRIPPED_SPRUCE_WOOD_STAIRS = registerWoodBlock("stripped_spruce_wood_stairs",
-            new StairsBlock(Blocks.STRIPPED_OAK_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.SPRUCE_STAIRS)), true);
+            new StairsBlock(Blocks.STRIPPED_OAK_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.SPRUCE_STAIRS).burnable()), true);
     public static final Block STRIPPED_BIRCH_WOOD_STAIRS = registerWoodBlock("stripped_birch_wood_stairs",
-            new StairsBlock(Blocks.STRIPPED_BIRCH_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.BIRCH_STAIRS)), true);
+            new StairsBlock(Blocks.STRIPPED_BIRCH_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.BIRCH_STAIRS).burnable()), true);
     public static final Block STRIPPED_JUNGLE_WOOD_STAIRS = registerWoodBlock("stripped_jungle_wood_stairs",
-            new StairsBlock(Blocks.STRIPPED_JUNGLE_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.JUNGLE_STAIRS)), true);
+            new StairsBlock(Blocks.STRIPPED_JUNGLE_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.JUNGLE_STAIRS).burnable()), true);
     public static final Block STRIPPED_ACACIA_WOOD_STAIRS = registerWoodBlock("stripped_acacia_wood_stairs",
-            new StairsBlock(Blocks.STRIPPED_ACACIA_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.ACACIA_STAIRS)), true);
+            new StairsBlock(Blocks.STRIPPED_ACACIA_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.ACACIA_STAIRS).burnable()), true);
     public static final Block STRIPPED_DARK_OAK_WOOD_STAIRS = registerWoodBlock("stripped_dark_oak_wood_stairs",
-            new StairsBlock(Blocks.STRIPPED_DARK_OAK_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.DARK_OAK_STAIRS)), true);
+            new StairsBlock(Blocks.STRIPPED_DARK_OAK_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.DARK_OAK_STAIRS).burnable()), true);
     public static final Block STRIPPED_MANGROVE_WOOD_STAIRS = registerWoodBlock("stripped_mangrove_wood_stairs",
-            new StairsBlock(Blocks.STRIPPED_MANGROVE_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.MANGROVE_STAIRS)), true);
+            new StairsBlock(Blocks.STRIPPED_MANGROVE_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.MANGROVE_STAIRS).burnable()), true);
     public static final Block STRIPPED_CHERRY_WOOD_STAIRS = registerWoodBlock("stripped_cherry_wood_stairs",
-            new StairsBlock(Blocks.STRIPPED_CHERRY_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.CHERRY_STAIRS)), true);
+            new StairsBlock(Blocks.STRIPPED_CHERRY_WOOD.getDefaultState(),FabricBlockSettings.copyOf(Blocks.CHERRY_STAIRS).burnable()), true);
 
     public static final Block STRIPPED_OAK_WOOD_WALL = registerWoodBlock("stripped_oak_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).burnable()), true);
     public static final Block STRIPPED_SPRUCE_WOOD_WALL = registerWoodBlock("stripped_spruce_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_WOOD).burnable()), true);
     public static final Block STRIPPED_BIRCH_WOOD_WALL = registerWoodBlock("stripped_birch_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_WOOD).burnable()), true);
     public static final Block STRIPPED_JUNGLE_WOOD_WALL = registerWoodBlock("stripped_jungle_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_WOOD).burnable()), true);
     public static final Block STRIPPED_ACACIA_WOOD_WALL = registerWoodBlock("stripped_acacia_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_WOOD).burnable()), true);
     public static final Block STRIPPED_DARK_OAK_WOOD_WALL = registerWoodBlock("stripped_dark_oak_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_WOOD).burnable()), true);
     public static final Block STRIPPED_MANGROVE_WOOD_WALL = registerWoodBlock("stripped_mangrove_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_WOOD).burnable()), true);
     public static final Block STRIPPED_CHERRY_WOOD_WALL = registerWoodBlock("stripped_cherry_wood_wall",
-            new WallBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_WOOD)), true);
+            new WallBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_WOOD).burnable()), true);
 
     public static final Block STRIPPED_OAK_WOOD_FENCE = registerWoodBlock("stripped_oak_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).burnable()), true);
     public static final Block STRIPPED_SPRUCE_WOOD_FENCE = registerWoodBlock("stripped_spruce_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_WOOD).burnable()), true);
     public static final Block STRIPPED_BIRCH_WOOD_FENCE = registerWoodBlock("stripped_birch_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_WOOD).burnable()), true);
     public static final Block STRIPPED_JUNGLE_WOOD_FENCE = registerWoodBlock("stripped_jungle_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_WOOD).burnable()), true);
     public static final Block STRIPPED_ACACIA_WOOD_FENCE = registerWoodBlock("stripped_acacia_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_WOOD).burnable()), true);
     public static final Block STRIPPED_DARK_OAK_WOOD_FENCE = registerWoodBlock("stripped_dark_oak_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_WOOD).burnable()), true);
     public static final Block STRIPPED_MANGROVE_WOOD_FENCE = registerWoodBlock("stripped_mangrove_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_WOOD).burnable()), true);
     public static final Block STRIPPED_CHERRY_WOOD_FENCE = registerWoodBlock("stripped_cherry_wood_fence",
-            new FenceBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_WOOD)), true);
+            new FenceBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_WOOD).burnable()), true);
     
     public static final Block OAK_VERTICAL_SLAB = registerWoodBlock("oak_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.OAK_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.OAK_SLAB).burnable()), true);
     public static final Block SPRUCE_VERTICAL_SLAB = registerWoodBlock("spruce_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_SLAB).burnable()), true);
     public static final Block BIRCH_VERTICAL_SLAB = registerWoodBlock("birch_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_SLAB).burnable()), true);
     public static final Block JUNGLE_VERTICAL_SLAB = registerWoodBlock("jungle_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SLAB).burnable()), true);
     public static final Block ACACIA_VERTICAL_SLAB = registerWoodBlock("acacia_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_SLAB).burnable()), true);
     public static final Block DARK_OAK_VERTICAL_SLAB = registerWoodBlock("dark_oak_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_SLAB).burnable()), true);
     public static final Block MANGROVE_VERTICAL_SLAB = registerWoodBlock("mangrove_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_SLAB).burnable()), true);
     public static final Block CHERRY_VERTICAL_SLAB = registerWoodBlock("cherry_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_SLAB).burnable()), true);
     public static final Block BAMBOO_VERTICAL_SLAB = registerWoodBlock("bamboo_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.BAMBOO_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.BAMBOO_SLAB).burnable()), true);
     public static final Block CRIMSON_VERTICAL_SLAB = registerWoodBlock("crimson_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.CRIMSON_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.CRIMSON_SLAB).burnable()), true);
     public static final Block WARPED_VERTICAL_SLAB = registerWoodBlock("warped_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WARPED_SLAB)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WARPED_SLAB).burnable()), true);
 
     public static final Block STONE_VERTICAL_SLAB = registerStoneBlock("stone_vertical_slab",
             new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.STONE_SLAB)), true);
@@ -647,37 +647,37 @@ public class ModBlocks {
             new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB)), true);
 
     public static final Block BLACK_WOOL_VERTICAL_SLAB = registerMiscBlock("black_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block BLUE_WOOL_VERTICAL_SLAB = registerMiscBlock("blue_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block BROWN_WOOL_VERTICAL_SLAB = registerMiscBlock("brown_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block CYAN_WOOL_VERTICAL_SLAB = registerMiscBlock("cyan_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block GRAY_WOOL_VERTICAL_SLAB = registerMiscBlock("gray_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block GREEN_WOOL_VERTICAL_SLAB = registerMiscBlock("green_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block LIGHT_BLUE_WOOL_VERTICAL_SLAB = registerMiscBlock("light_blue_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block LIGHT_GRAY_WOOL_VERTICAL_SLAB = registerMiscBlock("light_gray_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block LIME_WOOL_VERTICAL_SLAB = registerMiscBlock("lime_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block MAGENTA_WOOL_VERTICAL_SLAB = registerMiscBlock("magenta_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block ORANGE_WOOL_VERTICAL_SLAB = registerMiscBlock("orange_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block PINK_WOOL_VERTICAL_SLAB = registerMiscBlock("pink_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block PURPLE_WOOL_VERTICAL_SLAB = registerMiscBlock("purple_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block RED_WOOL_VERTICAL_SLAB = registerMiscBlock("red_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block WHITE_WOOL_VERTICAL_SLAB = registerMiscBlock("white_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block YELLOW_WOOL_VERTICAL_SLAB = registerMiscBlock("yellow_wool_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     //endregion
 
     //region VANILLA STAIRS
@@ -689,37 +689,37 @@ public class ModBlocks {
             new StairsBlock(Blocks.MUD.getDefaultState(), FabricBlockSettings.copyOf(Blocks.MUD)), true);
 
     public static final Block BLACK_WOOL_STAIRS = registerMiscBlock("black_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block BLUE_WOOL_STAIRS = registerMiscBlock("blue_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block BROWN_WOOL_STAIRS = registerMiscBlock("brown_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block CYAN_WOOL_STAIRS = registerMiscBlock("cyan_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block GRAY_WOOL_STAIRS = registerMiscBlock("gray_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block GREEN_WOOL_STAIRS = registerMiscBlock("green_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block LIGHT_BLUE_WOOL_STAIRS = registerMiscBlock("light_blue_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block LIGHT_GRAY_WOOL_STAIRS = registerMiscBlock("light_gray_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block LIME_WOOL_STAIRS = registerMiscBlock("lime_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block MAGENTA_WOOL_STAIRS = registerMiscBlock("magenta_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block ORANGE_WOOL_STAIRS = registerMiscBlock("orange_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block PINK_WOOL_STAIRS = registerMiscBlock("pink_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block PURPLE_WOOL_STAIRS = registerMiscBlock("purple_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block RED_WOOL_STAIRS = registerMiscBlock("red_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block WHITE_WOOL_STAIRS = registerMiscBlock("white_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     public static final Block YELLOW_WOOL_STAIRS = registerMiscBlock("yellow_wool_stairs",
-            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
+            new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).burnable()), true);
     //endregion
 
     //region VANILLA LAYERS
