@@ -121,20 +121,47 @@ public class ModEquipmentItems {
     public static final Item ROHIRRIC_SCALE_BOOTS = registerGeneratedItem("rohirric_scale_boots",
             new CustomBootsItem(ModArmorMaterials.ROHIRRIC_SCALE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
-    public static final Item ROHIRRIC_PLATE_HELMET = registerGeneratedItem("rohirric_plate_helmet",
-            new CustomHelmetItem(ModArmorMaterials.ROHIRRIC_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
-    public static final Item ROHIRRIC_PLATE_CHESTPLATE = registerGeneratedItem("rohirric_plate_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
-    public static final Item ROHIRRIC_PLATE_LEGGINGS = registerGeneratedItem("rohirric_plate_leggings",
-            new CustomLeggingsItem(ModArmorMaterials.ROHIRRIC_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
-    public static final Item ROHIRRIC_PLATE_BOOTS = registerGeneratedItem("rohirric_plate_boots",
-            new CustomBootsItem(ModArmorMaterials.ROHIRRIC_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+    public static final Item ROHIRRIC_ROYAL_GUARD_HELMET = registerGeneratedItem("rohirric_royal_guard_helmet",
+            new CustomHelmetItem(ModArmorMaterials.ROHIRRIC_ROYAL_GUARD_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
+    public static final Item ROHIRRIC_ROYAL_GUARD_CHESTPLATE = registerGeneratedItem("rohirric_royal_guard_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_ROYAL_GUARD_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
+    public static final Item ROHIRRIC_ROYAL_GUARD_LEGGINGS = registerGeneratedItem("rohirric_royal_guard_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.ROHIRRIC_ROYAL_GUARD_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item ROHIRRIC_ROYAL_GUARD_BOOTS = registerGeneratedItem("rohirric_royal_guard_boots",
+            new CustomBootsItem(ModArmorMaterials.ROHIRRIC_ROYAL_GUARD_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
+    public static final Item EORLING_MARSHALL_HELMET = registerGeneratedItem("eorling_marshall_helmet",
+            new CustomHelmetItem(ModArmorMaterials.EORLING_MARSHALL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
+    public static final Item EORLING_MARSHALL_CHESTEORLING_MARSHALL = registerGeneratedItem("eorling_marshall_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.EORLING_MARSHALL_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
+    public static final Item EORLING_MARSHALL_LEGGINGS = registerGeneratedItem("eorling_marshall_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.EORLING_MARSHALL_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item EORLING_MARSHALL_BOOTS = registerGeneratedItem("eorling_marshall_boots",
+            new CustomBootsItem(ModArmorMaterials.EORLING_MARSHALL_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
+    public static final Item HORSE_LORD_HELMET = registerGeneratedItem("horse_lord_helmet",
+            new CustomHelmetItem(ModArmorMaterials.HORSE_LORD_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
+    public static final Item HORSE_LORD_CHESTHORSE_LORD = registerGeneratedItem("horse_lord_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.HORSE_LORD_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
+    public static final Item HORSE_LORD_LEGGINGS = registerGeneratedItem("horse_lord_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.HORSE_LORD_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item HORSE_LORD_BOOTS = registerGeneratedItem("horse_lord_boots",
+            new CustomBootsItem(ModArmorMaterials.HORSE_LORD_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item ROHIRRIC_SHIELD = registerItem("rohirric_shield",
             new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
 
     public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
             new CustomHorseArmorItem(10, "rohirric", new FabricItemSettings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
+
+
+    //DWARVES
+    public static final Item DWARVEN_PARTISAN_CHESTPLATE = registerGeneratedItem("dwarven_partisan_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.DWARVEN_PARTISAN, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
+    public static final Item DWARVEN_PARTISAN_LEGGINGS = registerGeneratedItem("dwarven_partisan_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.DWARVEN_PARTISAN, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item DWARVEN_PARTISAN_BOOTS = registerGeneratedItem("dwarven_partisan_boots",
+            new CustomBootsItem(ModArmorMaterials.DWARVEN_PARTISAN, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     //EREBOR
     public static final Item EREBOR_MAIL_HELMET = registerGeneratedItem("erebor_mail_helmet",
@@ -206,6 +233,15 @@ public class ModEquipmentItems {
             new CustomLeggingsItem(ModArmorMaterials.LORIEN_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
     public static final Item LORIEN_PLATE_BOOTS = registerGeneratedItem("lorien_plate_boots",
             new CustomBootsItem(ModArmorMaterials.LORIEN_PLATE_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
+
+    public static final Item LORIEN_COMMANDER_HELMET = registerGeneratedItem("lorien_commander_helmet",
+            new CustomHelmetItem(ModArmorMaterials.LORIEN_COMMANDER_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(), List.of(CustomHelmetItem.Customizations.HOOD)));
+    public static final Item LORIEN_COMMANDER_CHESTCOMMANDER = registerGeneratedItem("lorien_commander_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.LORIEN_COMMANDER_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
+    public static final Item LORIEN_COMMANDER_LEGGINGS = registerGeneratedItem("lorien_commander_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.LORIEN_COMMANDER_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item LORIEN_COMMANDER_BOOTS = registerGeneratedItem("lorien_commander_boots",
+            new CustomBootsItem(ModArmorMaterials.LORIEN_COMMANDER_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item LORIEN_SHIELD = registerItem("lorien_shield",
             new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));

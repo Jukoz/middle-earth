@@ -63,10 +63,19 @@ public enum ModArmorMaterials implements ArmorMaterial {
             () -> Ingredient.ofItems(Items.IRON_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null),
 
     ROHIRRIC_SCALE_ARMOR("rohirric_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(Items.IRON_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null),
+
+    ROHIRRIC_ROYAL_GUARD_ARMOR("rohirric_royal_guard", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null),
 
-    ROHIRRIC_PLATE_ARMOR("rohirric_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+    EORLING_MARSHALL_ARMOR("eorling_marshall", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null),
+
+    HORSE_LORD_ARMOR("horse_lord", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null),
+
+    DWARVEN_PARTISAN("dwarven_partisan", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,
+            () -> Ingredient.ofItems(Items.LEATHER), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dwarven")),
 
     EREBOR_MAIL_ARMOR("erebor_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(Items.IRON_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")),
@@ -87,6 +96,9 @@ public enum ModArmorMaterials implements ArmorMaterial {
             () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null),
 
     LORIEN_PLATE_ARMOR("lorien_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null),
+
+    LORIEN_COMMANDER_ARMOR("lorien_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null),
 
     MORDOR_ORC_MAIL_ARMOR("mordor_orc_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON,

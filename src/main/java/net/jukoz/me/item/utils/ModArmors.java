@@ -55,11 +55,20 @@ public enum ModArmors {
     ROHIRRIC_MAIL_ARMOR("rohirric_mail", null, null,
             true, true, true, false, false, ModEquipmentItems.ROHIRRIC_MAIL_HELMET, ModEquipmentItems.ROHIRRIC_MAIL_CHESTPLATE, ModEquipmentItems.ROHIRRIC_MAIL_LEGGINGS, ModEquipmentItems.ROHIRRIC_MAIL_BOOTS),
 
-    ROHIRRIC_SCALE_ARMOR("rohirric_scale", new RohirricScaleHelmetArmorModel<>(RohirricScaleHelmetArmorModel.getTexturedModelData().createModel()), null,
+    ROHIRRIC_SCALE_ARMOR("rohirric_scale", null, null,
             true, true, true, false, false, ModEquipmentItems.ROHIRRIC_SCALE_HELMET, ModEquipmentItems.ROHIRRIC_SCALE_CHESTPLATE, ModEquipmentItems.ROHIRRIC_SCALE_LEGGINGS, ModEquipmentItems.ROHIRRIC_SCALE_BOOTS),
 
-    ROHIRRIC_PLATE_ARMOR("rohirric_plate", new RohirricPlateHelmetArmorModel<>(RohirricPlateHelmetArmorModel.getTexturedModelData().createModel()), null,
-            true, true, false, false, false, ModEquipmentItems.ROHIRRIC_PLATE_HELMET, ModEquipmentItems.ROHIRRIC_PLATE_CHESTPLATE, ModEquipmentItems.ROHIRRIC_PLATE_LEGGINGS, ModEquipmentItems.ROHIRRIC_PLATE_BOOTS),
+    ROHIRRIC_ROYAL_GUARD_ARMOR("rohirric_royal_guard", new RohirricHelmetArmorModel<>(RohirricHelmetArmorModel.getTexturedModelData().createModel(), "rohirric_royal_guard"), null,
+            true, true, true, false, false, ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_HELMET, ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_CHESTPLATE, ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_LEGGINGS, ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_BOOTS),
+
+    EORLING_MARSHALL_ARMOR("eorling_marshall", new RohirricHelmetArmorModel<>(RohirricHelmetArmorModel.getTexturedModelData().createModel(), "eorling_marshall"), null,
+            true, true, true, false, false, ModEquipmentItems.EORLING_MARSHALL_HELMET, ModEquipmentItems.EORLING_MARSHALL_CHESTEORLING_MARSHALL, ModEquipmentItems.EORLING_MARSHALL_LEGGINGS, ModEquipmentItems.EORLING_MARSHALL_BOOTS),
+
+    HORSE_LORD_ARMOR("horse_lord", new RohirricHelmetArmorModel<>(RohirricHelmetArmorModel.getTexturedModelData().createModel(), "horse_lord"), null,
+            true, true, true, false, false, ModEquipmentItems.HORSE_LORD_HELMET, ModEquipmentItems.HORSE_LORD_CHESTHORSE_LORD, ModEquipmentItems.HORSE_LORD_LEGGINGS, ModEquipmentItems.HORSE_LORD_BOOTS),
+
+    DWARVEN_PARTISAN("dwarven_partisan", null, null,
+            true, true, false, false, false, ModEquipmentItems.DWARVEN_PARTISAN_CHESTPLATE, ModEquipmentItems.DWARVEN_PARTISAN_LEGGINGS, ModEquipmentItems.DWARVEN_PARTISAN_BOOTS),
 
     EREBOR_MAIL_ARMOR("erebor_mail", null, null,
             true, true, true, false, false, ModEquipmentItems.EREBOR_MAIL_HELMET, ModEquipmentItems.EREBOR_MAIL_CHESTPLATE, ModEquipmentItems.EREBOR_MAIL_LEGGINGS, ModEquipmentItems.EREBOR_MAIL_BOOTS),
@@ -82,6 +91,9 @@ public enum ModArmors {
     LORIEN_PLATE_ARMOR("lorien_plate", new LorienHelmetArmorModel<>(LorienHelmetArmorModel.getTexturedModelData().createModel(), "plate"), null,
             true, true, true, true, false, ModEquipmentItems.LORIEN_PLATE_HELMET, ModEquipmentItems.LORIEN_PLATE_CHESTPLATE, ModEquipmentItems.LORIEN_PLATE_LEGGINGS, ModEquipmentItems.LORIEN_PLATE_BOOTS),
     
+    LORIEN_COMMANDER_ARMOR("lorien_commander", new LorienCommanderHelmetArmorModel<>(LorienCommanderHelmetArmorModel.getTexturedModelData().createModel()), null,
+            true, true, true, true, false, ModEquipmentItems.LORIEN_COMMANDER_HELMET, ModEquipmentItems.LORIEN_COMMANDER_CHESTCOMMANDER, ModEquipmentItems.LORIEN_COMMANDER_LEGGINGS, ModEquipmentItems.LORIEN_COMMANDER_BOOTS),
+
     MORDOR_ORC_MAIL_ARMOR("mordor_orc_mail", null, null,
             true, true, false, false, false, ModEquipmentItems.MORDOR_ORC_MAIL_HELMET, ModEquipmentItems.MORDOR_ORC_MAIL_CHESTPLATE, ModEquipmentItems.MORDOR_ORC_MAIL_LEGGINGS, ModEquipmentItems.MORDOR_ORC_MAIL_BOOTS),
 

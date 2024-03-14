@@ -42,6 +42,7 @@ public class CustomBootsItem extends ArmorItem implements DyeableItem {
             if(material.getSubFaction() != null){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(material.getSubFaction()));
             }
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier" + this.material.getTier()));
             tooltip.add(Text.of(""));
 
         } else {
