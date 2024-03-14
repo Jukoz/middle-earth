@@ -221,10 +221,10 @@ public class GaladhrimElfEntity extends NpcEntity{
     }
 
     private void leaderEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.LORIEN_PLATE_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.LORIEN_PLATE_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_PLATE_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_PLATE_BOOTS));
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.LORIEN_COMMANDER_HELMET));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.LORIEN_COMMANDER_CHESTCOMMANDER));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_COMMANDER_LEGGINGS));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_COMMANDER_BOOTS));
 
         float val = random.nextFloat();
 

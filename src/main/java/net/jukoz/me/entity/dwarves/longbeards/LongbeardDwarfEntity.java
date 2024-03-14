@@ -127,13 +127,7 @@ public class LongbeardDwarfEntity extends NpcEntity {
 
         DyeableItem item = (DyeableItem)ModEquipmentItems.GAMBESON;
         ItemStack leatherHelmet = new ItemStack((Item)(DyeableItem)Items.LEATHER_HELMET);
-        ItemStack leatherChestplate = new ItemStack((Item)(DyeableItem)Items.LEATHER_CHESTPLATE);
-        ItemStack leatherLeggings = new ItemStack((Item)(DyeableItem)Items.LEATHER_LEGGINGS);
-        ItemStack leatherBoots = new ItemStack((Item)(DyeableItem)Items.LEATHER_BOOTS);
         item.setColor(leatherHelmet, colors[colorIndex]);
-        item.setColor(leatherChestplate, colors[colorIndex]);
-        item.setColor(leatherLeggings, colors[colorIndex]);
-        item.setColor(leatherBoots, colors[colorIndex]);
 
         float val = random.nextFloat();
         if(val >= 0.30f){
@@ -144,18 +138,19 @@ public class LongbeardDwarfEntity extends NpcEntity {
 
         float val1 = random.nextFloat();
         if(val1 >= 0.30f){
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.FUR_CLOAK));
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.DWARVEN_PARTISAN_CHESTPLATE));
         } else  {
-            equipStack(EquipmentSlot.CHEST, leatherChestplate);
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.FUR_CLOAK));
+
         }
 
         float val2 = random.nextFloat();
 
         if(val2 >= 0.50f){
-            equipStack(EquipmentSlot.LEGS, leatherLeggings);
+            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.DWARVEN_PARTISAN_LEGGINGS));
         }
 
-        equipStack(EquipmentSlot.FEET, leatherBoots);
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.DWARVEN_PARTISAN_BOOTS));
 
 
         float val3 = random.nextFloat();

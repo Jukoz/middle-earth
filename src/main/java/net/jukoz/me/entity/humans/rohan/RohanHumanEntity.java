@@ -222,15 +222,22 @@ public class RohanHumanEntity extends NpcEntity {
     }
 
     private void veteranEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_BOOTS));
-
         float val = random.nextFloat();
-        if(val >= 0.75f){
+        if(val >= 0.10f) {
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_HELMET));
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_CHESTPLATE));
+            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_LEGGINGS));
+            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_BOOTS));
+        } else {
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.EORLING_MARSHALL_HELMET));
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.EORLING_MARSHALL_CHESTEORLING_MARSHALL));
+            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.EORLING_MARSHALL_LEGGINGS));
+            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.EORLING_MARSHALL_BOOTS));
+        }
+        float val1 = random.nextFloat();
+        if(val1 >= 0.75f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_BATTLEAXE));
-        } else if (val < 0.75f && val >= 0.50f) {
+        } else if (val1 < 0.75f && val1 >= 0.50f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_LONGSWORD));
         } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_PIKE));
@@ -239,10 +246,10 @@ public class RohanHumanEntity extends NpcEntity {
     }
 
     private void leaderEquipment(Random random) {
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.ROHIRRIC_PLATE_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_PLATE_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_PLATE_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.ROHIRRIC_PLATE_BOOTS));
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HORSE_LORD_HELMET));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.HORSE_LORD_HELMET));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.HORSE_LORD_HELMET));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.HORSE_LORD_HELMET));
 
         equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_LONGSWORD));
         equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.ROHIRRIC_SHIELD));
