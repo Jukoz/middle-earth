@@ -141,7 +141,7 @@ public class ModEquipmentItems {
 
     public static final Item HORSE_LORD_HELMET = registerGeneratedItem("horse_lord_helmet",
             new CustomHelmetItem(ModArmorMaterials.HORSE_LORD_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
-    public static final Item HORSE_LORD_CHESTHORSE_LORD = registerGeneratedItem("horse_lord_chestplate",
+    public static final Item HORSE_LORD_CHESTPLATE = registerGeneratedItem("horse_lord_chestplate",
             new CustomChestplateItem(ModArmorMaterials.HORSE_LORD_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
     public static final Item HORSE_LORD_LEGGINGS = registerGeneratedItem("horse_lord_leggings",
             new CustomLeggingsItem(ModArmorMaterials.HORSE_LORD_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
