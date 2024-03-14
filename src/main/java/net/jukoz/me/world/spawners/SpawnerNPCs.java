@@ -19,10 +19,10 @@ import net.minecraft.world.spawner.Spawner;
 import java.util.List;
 
 public class SpawnerNPCs implements Spawner {
-    private static final int SPAWN_DISTANCE = 28;
+    private static final int SPAWN_DISTANCE = 32;
     private static final int SPAWN_RAND = 8;
-    private static final int BASE_COOLDOWN = 11;
-    private static final int COOLDOWN_RANGE = 3;
+    private static final int BASE_COOLDOWN = 48;
+    private static final int COOLDOWN_RANGE = 6;
     private int cooldown = BASE_COOLDOWN + COOLDOWN_RANGE;
 
     @Override
