@@ -53,9 +53,7 @@ import net.jukoz.me.item.utils.ModArmors;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
 import net.jukoz.me.network.ModNetworks;
 import net.jukoz.me.particles.ModParticleTypes;
-import net.jukoz.me.particles.custom.MallornLeavesParticle;
-import net.jukoz.me.particles.custom.MirkwoodLeavesParticle;
-import net.jukoz.me.utils.ParticleManager;
+import net.jukoz.me.particles.custom.LeavesParticle;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.color.world.BiomeColors;
@@ -167,8 +165,8 @@ public class MiddleEarthClient implements ClientModInitializer {
                     armor.getItems());
         }
 
-        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MALLORN_LEAVES_PARTICLE, MallornLeavesParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE, MirkwoodLeavesParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MALLORN_LEAVES_PARTICLE, LeavesParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE, LeavesParticle.Factory::new);
 
         initializeRenderLayerMap();
     }
