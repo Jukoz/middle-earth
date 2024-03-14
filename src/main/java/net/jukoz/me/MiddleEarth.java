@@ -6,6 +6,7 @@ import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.utils.ModItemGroups;
+import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.jukoz.me.recipe.ModRecipes;
 import net.jukoz.me.sound.ModSounds;
@@ -22,20 +23,6 @@ import org.slf4j.LoggerFactory;
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "me";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
-	//TODO Vanilla wood walls and fences and slabs and stairs
-	//TODO Second vertical slab model for sandstone, pillars, etc
-	//TODO Packed Mud stairs and slabs
-	//TODO Hobbit Window
-	//TODO Wood Chair Tweak UVS ?
-	//TODO Buds Loot Tables
-	//TODO Switch wood furniture from logs to stripped
-	//TODO Wood Stairs and slabs
-	//TODO Wheatgrass grayscale
-	//TODO Pedestal Block
-	//TODO Stone Lectern
-	//TODO Tall Shrooms Placement like plant rn no good
-	//TODO Lang
 
 	// 1 : 6000 (24,000)
 	// 2 : 12 000 (48,000)
@@ -65,7 +52,9 @@ public class MiddleEarth implements ModInitializer {
 		StoneBlockSets.registerModBlockSets();
 		ModDecorativeItems.registerModItems();
 		ModBlocks.registerModBlocks();
+		ModBlocks.registerFlammableBlocks();
 		ModDecorativeBlocks.registerModBlocks();
+		ModDecorativeBlocks.registerFlammableFurniture();
 		ModNatureBlocks.registerModBlocks();
 		RoofBlockSets.registerModBlockSets();
 
@@ -78,6 +67,7 @@ public class MiddleEarth implements ModInitializer {
 		ModEntitySpawning.addSpawns();
 
 		ModSounds.registerModSounds();
+		ModParticleTypes.registerParticleTypes();
 
 		ModDimensions.register();
 		MEBiomeKeys.registerModBiomes();

@@ -21,10 +21,10 @@ public class ModEntitySpawning {
 
         spawns.put(MEBiomeKeys.SHIRE, List.of(new EntitySpawningSettings(ModEntities.HOBBIT, 2, 5)));
 
-        spawns.put(MEBiomeKeys.RIVENDELL, List.of(new EntitySpawningSettings(ModEntities.GALADHRIM_ELF, 2, 5)));
-        spawns.put(MEBiomeKeys.LINDON, List.of(new EntitySpawningSettings(ModEntities.GALADHRIM_ELF, 2, 5)));
-        spawns.put(MEBiomeKeys.LOTHLORIEN, List.of(new EntitySpawningSettings(ModEntities.GALADHRIM_ELF, 2, 5)));
-        spawns.put(MEBiomeKeys.LORIEN_EDGE, List.of(new EntitySpawningSettings(ModEntities.GALADHRIM_ELF, 1, 3)));
+        spawns.put(MEBiomeKeys.RIVENDELL, List.of(new EntitySpawningSettings(ModEntities.LORIEN_SOLDIER, 2, 5)));
+        spawns.put(MEBiomeKeys.LINDON, List.of(new EntitySpawningSettings(ModEntities.LORIEN_SOLDIER, 2, 5)));
+        spawns.put(MEBiomeKeys.LOTHLORIEN, List.of(new EntitySpawningSettings(ModEntities.LORIEN_SOLDIER, 2, 5)));
+        spawns.put(MEBiomeKeys.LORIEN_EDGE, List.of(new EntitySpawningSettings(ModEntities.LORIEN_SOLDIER, 1, 3)));
 
         spawns.put(MEBiomeKeys.BLUE_MOUNTAINS, List.of(new EntitySpawningSettings(ModEntities.DURIN_FOLK, 2, 5)));
         spawns.put(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, List.of(new EntitySpawningSettings(ModEntities.DURIN_FOLK, 1, 3)));
@@ -35,11 +35,11 @@ public class ModEntitySpawning {
 
         spawns.put(MEBiomeKeys.MIRKWOOD, List.of(new EntitySpawningSettings(ModEntities.MIRKWOOD_SPIDER, 1, 5)));
         spawns.put(MEBiomeKeys.DARK_MIRKWOOD, List.of(new EntitySpawningSettings(ModEntities.MIRKWOOD_SPIDER, 1, 5),
-                new EntitySpawningSettings(ModEntities.MORDOR_ORC, 1, 3)));
+                new EntitySpawningSettings(ModEntities.MORDOR_ORC_SNAGA, 1, 3)));
 
-        spawns.put(MEBiomeKeys.DOL_GULDUR, List.of(new EntitySpawningSettings(ModEntities.MORDOR_ORC, 2, 5)));
-        spawns.put(MEBiomeKeys.MORDOR, List.of(new EntitySpawningSettings(ModEntities.MORDOR_ORC, 2, 5)));
-        spawns.put(MEBiomeKeys.NURN, List.of(new EntitySpawningSettings(ModEntities.MORDOR_ORC, 1, 3)));
+        spawns.put(MEBiomeKeys.DOL_GULDUR, List.of(new EntitySpawningSettings(ModEntities.MORDOR_ORC_SNAGA, 2, 5)));
+        spawns.put(MEBiomeKeys.MORDOR, List.of(new EntitySpawningSettings(ModEntities.MORDOR_ORC_SNAGA, 2, 5)));
+        spawns.put(MEBiomeKeys.NURN, List.of(new EntitySpawningSettings(ModEntities.MORDOR_ORC_SNAGA, 1, 3)));
 
         spawns.put(MEBiomeKeys.BEACH, List.of(new EntitySpawningSettings(ModEntities.CRAB, 1, 3)));
     }

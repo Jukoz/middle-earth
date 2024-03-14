@@ -3,12 +3,13 @@
   "category": "building",
   "key": {
     "#": {
-      "tag": "fabric:quartz"
+      "item": "me:quartz_shard"
     }
   },
   "pattern": [
-    "##",
-    "##"
+    "###",
+    "###",
+    "###"
   ],
   "result": {
     "item": "minecraft:quartz_block"
