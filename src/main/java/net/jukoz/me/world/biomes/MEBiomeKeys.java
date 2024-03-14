@@ -8,6 +8,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 
 public class MEBiomeKeys extends BiomeKeys {
+    // region SURFACE
     public static final RegistryKey<Biome> ANDUIN_VALES = MEBiomeKeys.register("anduin_vales");
     public static final RegistryKey<Biome> BARROW_DOWNS = MEBiomeKeys.register("barrow_downs");
     public static final RegistryKey<Biome> BLUE_MOUNTAINS = MEBiomeKeys.register("blue_mountains");
@@ -79,6 +80,12 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> WASTE_POND = MEBiomeKeys.register("waste_pond");
     public static final RegistryKey<Biome> WHITE_MOUNTAINS = MEBiomeKeys.register("white_mountains");
     public static final RegistryKey<Biome> WOODLAND_REALM = MEBiomeKeys.register("woodland_realm");
+    // endregion
+
+    // region CAVES
+    public static final RegistryKey<Biome> LUSH_CAVE = MEBiomeKeys.register("lush_cave");
+
+    // endregion
 
     private static RegistryKey<Biome> register(String name) {
         return RegistryKey.of(RegistryKeys.BIOME, new Identifier(MiddleEarth.MOD_ID, name));

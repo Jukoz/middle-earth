@@ -36,6 +36,7 @@ public class ModBiomeSource extends BiomeSource {
     @Override
     public RegistryEntry<Biome> getBiome(int x, int y, int z, MultiNoiseUtil.MultiNoiseSampler noise) {
         int i = BiomeCoords.toBlock(x);
+        int j = BiomeCoords.toBlock(y);
         int k = BiomeCoords.toBlock(z);
 
         MEBiome meBiome = MiddleEarth.GetWorldMapDatas().getBiomeFromWorldCoordinate(MiddleEarth.MAP_ITERATION, i, k);
@@ -49,8 +50,10 @@ public class ModBiomeSource extends BiomeSource {
 
         if(!MEBiomesData.waterBiomes.contains(biome)) {
             float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
-
-            if(height <= MiddleEarthChunkGenerator.WATER_HEIGHT + 1.25f) {
+            if(j < height - 12) {
+                processedBiome = MEBiomeKeys.LUSH_CAVE;
+            }
+            else if(height <= MiddleEarthChunkGenerator.WATER_HEIGHT + 1.25f) {
                 if(MEBiomesData.wastePondBiomes.contains(biome)) {
                     processedBiome = MEBiomesData.wastePond.biome;
                 } else if(MEBiomesData.mirkwoodSwampBiomes.contains(biome)) {

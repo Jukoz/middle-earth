@@ -3,6 +3,8 @@ package net.jukoz.me.world.chunkgen;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.StoneBlockSets;
+import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.utils.noises.SimplexNoise;
 import net.jukoz.me.world.biomes.MEBiome;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
@@ -34,10 +36,14 @@ import net.minecraft.world.gen.noise.NoiseConfig;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
 public class MiddleEarthChunkGenerator extends ChunkGenerator {
+    public static final int EPMOSTO_LEVEL = -32;
+    public static final int DIFTOMIN_LEVEL = 0;
+    public static final int DEEPSLATE_LEVEL = 32;
     public static final int STONE_HEIGHT = 36;
     public static final int WATER_HEIGHT = 64;
     public static final int LAVA_HEIGHT = -60;
@@ -127,7 +133,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.UMBAR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WASTE_POND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WHITE_MOUNTAINS),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.WOODLAND_REALM)
+                    biomeRegistry.getOrThrow(MEBiomeKeys.WOODLAND_REALM),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LUSH_CAVE)
                 ))
             )
         );
@@ -157,11 +164,16 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             for(int z = 0; z < 16; z++) {
                 int posX = (chunk.getPos().x * 16) + x;
                 int posZ = (chunk.getPos().z * 16) + z;
-                MEBiome meBiome;
+                MEBiome meBiome = null;
 
                 if(middleEarthMapDatas.isWorldCoordinateInBound(posX, posZ)) {
-                    RegistryEntry<Biome> biome = region.getBiome(new BlockPos(posX, DIRT_HEIGHT, posZ));
-                    meBiome = MEBiomesData.getBiomeByKey(biome);
+                    RegistryEntry<Biome> biome = region.getBiome(new BlockPos(posX, chunk.getTopY(), posZ));
+                    try {
+                        meBiome = MEBiomesData.getBiomeByKey(biome);
+                    } catch (NoSuchElementException e) {
+                        MiddleEarth.LOGGER.error(e.toString());
+                    }
+
                     if(meBiome == null) {
                         meBiome = MEBiomesData.defaultBiome;
                     }
@@ -170,20 +182,29 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
 
                 float height = MiddleEarthHeightMap.getHeight(posX, posZ);
+                int caveBlendNoise = (int) (2 * BlendedNoise.noise((double) x / 32,  (double) z / 32));
 
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, bottomY, z), Blocks.BEDROCK.getDefaultState(), false);
                 for(int y = bottomY + 1; y <= LAVA_HEIGHT; y++) {
                     chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.LAVA.getDefaultState(), false);
                 }
 
-                for(int y = bottomY + 1; y < STONE_HEIGHT + height; y++) {
-                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), meBiome.deepStoneBlock.getDefaultState());
+                for(int y = bottomY + 1; y < EPMOSTO_LEVEL + caveBlendNoise; y++) {
+                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSets.EPMOSTO.base().getDefaultState());
                 }
-                if(Math.random() < 0.5f) chunk.setBlockState(chunk.getPos().getBlockPos(x, chunk.getBottomY() + 1, z), Blocks.BEDROCK.getDefaultState(), false);
-                for(int y = (int) (STONE_HEIGHT + height); y < HEIGHT + height; y++) {
-                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), meBiome.stoneBlock.getDefaultState(), false);
+                if(Math.random() < 0.5f) chunk.setBlockState(chunk.getPos().getBlockPos(x, chunk.getBottomY() + 1, z),
+                        Blocks.BEDROCK.getDefaultState(), false);
+
+                for(int y = EPMOSTO_LEVEL + caveBlendNoise; y < DIFTOMIN_LEVEL + caveBlendNoise; y++) {
+                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSets.DIFTOMIN.base().getDefaultState());
                 }
-                for(int y = (int) (HEIGHT + height); y < DIRT_HEIGHT + height; y++) {
+                for(int y = DIFTOMIN_LEVEL + caveBlendNoise; y < DEEPSLATE_LEVEL + caveBlendNoise; y++) {
+                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), Blocks.DEEPSLATE.getDefaultState());
+                }
+                for(int y = DEEPSLATE_LEVEL + caveBlendNoise; y < HEIGHT + height; y++) {
+                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), meBiome.stoneBlock.getDefaultState());
+                }
+                for(int y = (int) (HEIGHT + height); y < DIRT_HEIGHT + height + height; y++) {
                     chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), meBiome.underSurfaceBlock.getDefaultState(), false);
                 }
 
