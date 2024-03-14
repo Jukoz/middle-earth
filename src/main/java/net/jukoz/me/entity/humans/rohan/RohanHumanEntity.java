@@ -230,7 +230,7 @@ public class RohanHumanEntity extends NpcEntity {
             equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_BOOTS));
         } else {
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.EORLING_MARSHALL_HELMET));
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.EORLING_MARSHALL_CHESTEORLING_MARSHALL));
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.EORLING_MARSHALL_CHESTPLATE));
             equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.EORLING_MARSHALL_LEGGINGS));
             equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.EORLING_MARSHALL_BOOTS));
         }
