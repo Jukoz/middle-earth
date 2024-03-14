@@ -115,53 +115,43 @@ public class GaladhrimElfEntity extends NpcEntity{
 
     private void militiaEquipment(Random random){
         int[] colors = {
-                0x4d4a57
+                0x767b85,
+                0x747983,
+                0x61626e,
+                0x505258
         };
-        int colorIndex = random.nextInt(1);
-
         DyeableItem item = (DyeableItem)ModEquipmentItems.TUNIC_CLOAK;
-        ItemStack tunicCloak = new ItemStack((Item)(DyeableItem)ModEquipmentItems.TUNIC_CLOAK);
-        ItemStack hood = new ItemStack((Item)(DyeableItem)ModEquipmentItems.CLOAK_HOOD);
-        ItemStack leatherHelmet = new ItemStack((Item)(DyeableItem)Items.LEATHER_HELMET);
-        ItemStack leatherChestplate = new ItemStack((Item)(DyeableItem)Items.LEATHER_CHESTPLATE);
-        ItemStack leatherLeggings = new ItemStack((Item)(DyeableItem)Items.LEATHER_LEGGINGS);
-        ItemStack leatherBoots = new ItemStack((Item)(DyeableItem)Items.LEATHER_BOOTS);
-        item.setColor(tunicCloak, colors[colorIndex]);
-        item.setColor(hood, colors[colorIndex]);
-        item.setColor(leatherHelmet, colors[colorIndex]);
-        item.setColor(leatherChestplate, colors[colorIndex]);
-        item.setColor(leatherLeggings, colors[colorIndex]);
-        item.setColor(leatherBoots, colors[colorIndex]);
+        ItemStack tunicCloak = new ItemStack(ModEquipmentItems.TUNIC_CLOAK);
+        ItemStack hood = new ItemStack(ModEquipmentItems.CLOAK_HOOD);
+        ItemStack leatherHelmet = new ItemStack(Items.LEATHER_HELMET);
+        ItemStack leatherChestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
+        ItemStack leatherLeggings = new ItemStack(Items.LEATHER_LEGGINGS);
+        ItemStack leatherBoots = new ItemStack(Items.LEATHER_BOOTS);
+        item.setColor(hood, colors[0]);
+        item.setColor(tunicCloak, colors[0]);
+        item.setColor(leatherHelmet, colors[1]);
+        item.setColor(leatherChestplate, colors[1]);
+        item.setColor(leatherLeggings, colors[2]);
+        item.setColor(leatherBoots, colors[3]);
 
-        float val = random.nextFloat();
-        if(val >= 0.30f){
+        if(random.nextFloat() >= 0.30f){
             equipStack(EquipmentSlot.HEAD, hood);
-        } else  {
-            equipStack(EquipmentSlot.HEAD, leatherHelmet);
-        }
-
-        float val1 = random.nextFloat();
-        if(val1 >= 0.30f){
             equipStack(EquipmentSlot.CHEST, tunicCloak);
         } else  {
+            equipStack(EquipmentSlot.HEAD, leatherHelmet);
             equipStack(EquipmentSlot.CHEST, leatherChestplate);
         }
-
-        float val2 = random.nextFloat();
-
-        if(val2 >= 0.50f){
+        if(random.nextFloat() >= 0.50f){
             equipStack(EquipmentSlot.LEGS, leatherLeggings);
         }
-
         equipStack(EquipmentSlot.FEET, leatherBoots);
 
-
-        float val3 = random.nextFloat();
-        if(val3 >= 0.55f){
+        float rand = random.nextFloat();
+        if(rand >= 0.55f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-        } else if (val3 < 0.55f && val3 > 0.20f) {
+        } else if (rand > 0.20f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_BATTLESTAFF));
-        } else if (val3 <= 0.20f) {
+        } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_DAGGER));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         }
@@ -174,14 +164,13 @@ public class GaladhrimElfEntity extends NpcEntity{
         equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_MAIL_LEGGINGS));
         equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_MAIL_BOOTS));
 
-
         float val3 = random.nextFloat();
         if(val3 >= 0.55f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_BOW));
-        } else if (val3 < 0.55f && val3 > 0.20f) {
+        } else if (val3 > 0.20f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
-        } else if (val3 <= 0.20f) {
+        } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
         }
@@ -197,7 +186,7 @@ public class GaladhrimElfEntity extends NpcEntity{
         if(val >= 0.75f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SWORD));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
-        } else if (val < 0.75f && val >= 0.50f) {
+        } else if (val >= 0.50f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_LONGSWORD));
         } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));
@@ -211,8 +200,7 @@ public class GaladhrimElfEntity extends NpcEntity{
         equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_PLATE_LEGGINGS));
         equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_PLATE_BOOTS));
 
-        float val = random.nextFloat();
-        if(val >= 0.50f){
+        if(random.nextFloat() >= 0.50f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SWORD));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
         } else {
@@ -226,9 +214,7 @@ public class GaladhrimElfEntity extends NpcEntity{
         equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_COMMANDER_LEGGINGS));
         equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_COMMANDER_BOOTS));
 
-        float val = random.nextFloat();
-
-        if (val < 0.50f) {
+        if (random.nextFloat() < 0.50f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_LONGSWORD));
         } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));

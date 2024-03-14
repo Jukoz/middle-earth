@@ -37,6 +37,8 @@ public class BanditHumanRenderer extends BipedEntityRenderer<BanditHumanEntity, 
                         PATH + "bandit2.png");
                 resourceLocation.put(BanditHumanVariant.PALE_GREY_ORANGE,
                         PATH + "bandit3.png");
+                resourceLocation.put(BanditHumanVariant.BALD_GREEN_BLUE,
+                        PATH + "bandit4.png");
             });
 
     @Override

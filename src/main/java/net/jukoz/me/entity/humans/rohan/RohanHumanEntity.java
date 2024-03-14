@@ -120,50 +120,44 @@ public class RohanHumanEntity extends NpcEntity {
 
     private void militiaEquipment(Random random){
         int[] colors = {
-                0x2b5e2c
+                0x446635,
+                0x2b5e2c,
+                0x5c5e50,
+                0x6b564c
         };
-        int colorIndex = random.nextInt(1);
-
         DyeableItem item = (DyeableItem)ModEquipmentItems.GAMBESON;
-        ItemStack gambeson = new ItemStack((Item)(DyeableItem)ModEquipmentItems.GAMBESON);
-        ItemStack leatherHelmet = new ItemStack((Item)(DyeableItem)Items.LEATHER_HELMET);
-        ItemStack leatherChestplate = new ItemStack((Item)(DyeableItem)Items.LEATHER_CHESTPLATE);
-        ItemStack leatherLeggings = new ItemStack((Item)(DyeableItem)Items.LEATHER_LEGGINGS);
-        ItemStack leatherBoots = new ItemStack((Item)(DyeableItem)Items.LEATHER_BOOTS);
-        item.setColor(gambeson, colors[colorIndex]);
-        item.setColor(leatherHelmet, colors[colorIndex]);
-        item.setColor(leatherChestplate, colors[colorIndex]);
-        item.setColor(leatherLeggings, colors[colorIndex]);
-        item.setColor(leatherBoots, colors[colorIndex]);
+        ItemStack gambeson = new ItemStack(ModEquipmentItems.GAMBESON);
+        ItemStack leatherHelmet = new ItemStack(Items.LEATHER_HELMET);
+        ItemStack leatherChestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
+        ItemStack leatherLeggings = new ItemStack(Items.LEATHER_LEGGINGS);
+        ItemStack leatherBoots = new ItemStack(Items.LEATHER_BOOTS);
+        item.setColor(gambeson, colors[1]);
+        item.setColor(leatherHelmet, colors[0]);
+        item.setColor(leatherChestplate, colors[1]);
+        item.setColor(leatherLeggings, colors[2]);
+        item.setColor(leatherBoots, colors[3]);
 
-        float val = random.nextFloat();
-        if(val >= 0.20f){
+        if(random.nextFloat() >= 0.20f){
             equipStack(EquipmentSlot.HEAD, leatherHelmet);
         }
 
-        float val1 = random.nextFloat();
-        if(val1 >= 0.30f){
+        if(random.nextFloat() >= 0.30f){
             equipStack(EquipmentSlot.CHEST, gambeson);
         } else  {
             equipStack(EquipmentSlot.CHEST, leatherChestplate);
         }
-
-        float val2 = random.nextFloat();
-
-        if(val2 >= 0.50f){
+        if(random.nextFloat() >= 0.50f){
             equipStack(EquipmentSlot.LEGS, leatherLeggings);
         }
-
         equipStack(EquipmentSlot.FEET, leatherBoots);
 
-
         float val3 = random.nextFloat();
-        if(val3 >= 0.55f){
+        if(val3 >= 0.7f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-        } else if (val3 < 0.55f && val3 > 0.20f) {
+        } else if (val3 < 0.7f && val3 > 0.3f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        } else if (val3 <= 0.20f) {
+        } else if (val3 <= 0.3f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_DAGGER));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         }
@@ -192,12 +186,12 @@ public class RohanHumanEntity extends NpcEntity {
 
 
         float val3 = random.nextFloat();
-        if(val3 >= 0.55f){
+        if(val3 >= 0.6f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_BOW));
-        } else if (val3 < 0.55f && val3 > 0.20f) {
+        } else if (val3 >= 0.3f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.ROHIRRIC_SHIELD));
-        } else if (val3 <= 0.20f) {
+        } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_PIKE));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.ROHIRRIC_SHIELD));
         }
@@ -212,18 +206,17 @@ public class RohanHumanEntity extends NpcEntity {
         float val = random.nextFloat();
         if(val >= 0.75f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_BATTLEAXE));
-        } else if (val < 0.75f && val > 0.45f) {
+        } else if (val > 0.45f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_SWORD));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.ROHIRRIC_SHIELD));
-        } else if (val <= 0.45f) {
+        } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_PIKE));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.ROHIRRIC_SHIELD));
         }
     }
 
     private void veteranEquipment(Random random){
-        float val = random.nextFloat();
-        if(val >= 0.10f) {
+        if(random.nextFloat() >= 0.10f) {
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_HELMET));
             equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_CHESTPLATE));
             equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_LEGGINGS));
@@ -237,7 +230,7 @@ public class RohanHumanEntity extends NpcEntity {
         float val1 = random.nextFloat();
         if(val1 >= 0.75f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_BATTLEAXE));
-        } else if (val1 < 0.75f && val1 >= 0.50f) {
+        } else if (val1 >= 0.50f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_LONGSWORD));
         } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_PIKE));

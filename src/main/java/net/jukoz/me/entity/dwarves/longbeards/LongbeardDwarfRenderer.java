@@ -30,7 +30,7 @@ public class LongbeardDwarfRenderer extends BipedEntityRenderer<LongbeardDwarfEn
             Util.make(Maps.newEnumMap(LongbeardDwarfVariant.class), (resourceLocation) -> {
                 resourceLocation.put(LongbeardDwarfVariant.GINGER,
                         PATH + "dwarf1.png");
-                resourceLocation.put(LongbeardDwarfVariant.BlACK,
+                resourceLocation.put(LongbeardDwarfVariant.BLACK,
                         PATH + "dwarf2.png");
                 resourceLocation.put(LongbeardDwarfVariant.OLD,
                         PATH + "dwarf3.png");

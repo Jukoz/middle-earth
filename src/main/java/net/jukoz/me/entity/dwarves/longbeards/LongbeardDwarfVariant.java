@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 public enum LongbeardDwarfVariant {
     GINGER(0),
-    BlACK(1),
+    BLACK(1),
     OLD(2),
     DARK_BLONDE(3),
     BLACK_BALD(4),
