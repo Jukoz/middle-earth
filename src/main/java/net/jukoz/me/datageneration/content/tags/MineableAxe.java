@@ -10,7 +10,6 @@ import java.util.List;
 public class MineableAxe {
     public static List<Block> blocks = new ArrayList<>() {
         {
-            add(ModDecorativeBlocks.WOOD_PILE);
         }
     };
 }
