@@ -1,0 +1,24 @@
+{
+  "variants": {
+    "snowy=false": [
+      {
+        "model": "me:block/old_podzol"
+      },
+      {
+        "model": "me:block/old_podzol",
+        "y": 90
+      },
+      {
+        "model": "me:block/old_podzol",
+        "y": 180
+      },
+      {
+        "model": "me:block/old_podzol",
+        "y": 270
+      }
+    ],
+    "snowy=true": {
+      "model": "minecraft:block/grass_block_snow"
+    }
+  }
+}

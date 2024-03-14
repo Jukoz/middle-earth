@@ -9,6 +9,7 @@ import org.joml.Vector2i;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -331,8 +332,8 @@ public class MiddleEarthMapDatas {
     public Color getHeightFromWorldCoordinates(int xWorld, int zWorld) {
         if(!isWorldCoordinateInBound(xWorld, zWorld)) return null;
 
-        int xMapCoordinate = Math.round((float) xWorld / PIXEL_WEIGHT);
-        int zMapCoordinate = Math.round((float) zWorld / PIXEL_WEIGHT);
+        int xMapCoordinate = (int)Math.floor((double) xWorld / PIXEL_WEIGHT);
+        int zMapCoordinate = (int)Math.floor((double) zWorld / PIXEL_WEIGHT);
 
         BufferedImage heightRegion = getHeightImageByCoordinate(xMapCoordinate, zMapCoordinate);
 

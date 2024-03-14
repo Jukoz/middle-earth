@@ -2,7 +2,9 @@
   "replace": false,
   "values": [
     "me:ashen_dirt",
+    "me:old_podzol",
     "me:dry_dirt",
-    "me:mirkwood_podzol"
+    "me:corrupted_moss_block",
+    "me:forest_moss_block"
   ]
 }

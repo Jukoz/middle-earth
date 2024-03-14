@@ -1,6 +1,7 @@
 package net.jukoz.me.datageneration.content.models;
 
 import net.jukoz.me.block.ModBlocks;
+import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.StoneBlockSets;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;

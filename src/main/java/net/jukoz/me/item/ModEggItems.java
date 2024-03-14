@@ -68,8 +68,9 @@ public class ModEggItems {
             new SpawnEggItem(ModEntities.BARROW_WIGHT, 1852734, 2456136, new Item.Settings()));
     public static final Item CAVE_TROLL_SPAWN_EGG = registerItem("cave_troll_spawn_egg",
             new SpawnEggItem(ModEntities.CAVE_TROLL, 4671043, 3485226, new Item.Settings()));
-    public static final Item HILL_TROLL_SPAWN_EGG = registerItem("hill_troll_spawn_egg",
-            new SpawnEggItem(ModEntities.HILL_TROLL, 10517857, 5257516, new Item.Settings()));
+
+    public static final Item STONE_TROLL_SPAWN_EGG = registerItem("stone_troll_spawn_egg",
+            new SpawnEggItem(ModEntities.STONE_TROLL, 10517857, 5257516, new Item.Settings()));
     public static final Item SNOW_TROLL_SPAWN_EGG = registerItem("snow_troll_spawn_egg",
             new SpawnEggItem(ModEntities.SNOW_TROLL, 12770027, 9739424, new Item.Settings()));
     public static final Item MIRKWOOD_SPIDER_SPAWN_EGG = registerItem("mirkwood_spider_spawn_egg",

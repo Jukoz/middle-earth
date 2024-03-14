@@ -24,6 +24,7 @@ import net.minecraft.util.math.random.RandomSeed;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
+import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.StructureAccessor;
@@ -48,7 +49,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     private static final int CAVE_STRETCH_V = 50;
     private static float minNoise = 10000;
     private static float maxNoise = -10000;
-
     RegistryEntryLookup<Biome> biomeRegistry;
     public static final Codec<MiddleEarthChunkGenerator> CODEC = RecordCodecBuilder.create((instance) ->
             instance.group(RegistryOps.getEntryLookupCodec(RegistryKeys.BIOME))
@@ -77,6 +77,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.FANGORN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FORODWAITH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FROZEN_OCEAN),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.FROZEN_POND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GONDOR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GREY_PLAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD),
@@ -88,6 +89,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.LONG_LAKE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LORIEN_EDGE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LOTHLORIEN),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.OASIS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.POND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD_EDGE),
@@ -158,12 +160,12 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 MEBiome meBiome;
 
                 if(middleEarthMapDatas.isWorldCoordinateInBound(posX, posZ)) {
-                    meBiome = middleEarthMapDatas.getBiomeFromWorldCoordinate(MiddleEarth.MAP_ITERATION, posX, posZ);
+                    RegistryEntry<Biome> biome = region.getBiome(new BlockPos(posX, DIRT_HEIGHT, posZ));
+                    meBiome = MEBiomesData.getBiomeByKey(biome);
+                    if(meBiome == null) {
+                        meBiome = MEBiomesData.defaultBiome;
+                    }
                 } else {
-                    meBiome = MEBiomesData.defaultBiome;
-                }
-
-                if(meBiome == null) {
                     meBiome = MEBiomesData.defaultBiome;
                 }
 
@@ -186,9 +188,11 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
 
                 BlockState surfaceBlock = meBiome.surfaceBlock.getDefaultState();
+
                 if(DIRT_HEIGHT + height < WATER_HEIGHT && meBiome.surfaceBlock == Blocks.GRASS_BLOCK) {
                     surfaceBlock = Blocks.DIRT.getDefaultState();
                 }
+
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (DIRT_HEIGHT + height), z), surfaceBlock, false);
 
                 for(int y = (int) (DIRT_HEIGHT + height + 1); y <= WATER_HEIGHT; y++) {

@@ -16,6 +16,8 @@ public class SimpleItemModel {
             add(ModResourceItems.WATER_PHIAL);
             add(ModResourceItems.STARLIGHT_PHIAL);
 
+            add(ModDecorativeItems.TROLL_STATUE);
+
             add(ModFoodItems.TOMATO);
             add(ModFoodItems.BELL_PEPPER);
             add(ModFoodItems.CUCUMBER);
