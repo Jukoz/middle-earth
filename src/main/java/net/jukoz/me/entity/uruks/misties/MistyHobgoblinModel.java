@@ -1,24 +1,21 @@
-package net.jukoz.me.entity.uruks.mordor;
+package net.jukoz.me.entity.uruks.misties;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.entity.model.CrossbowPosing;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.MathHelper;
+
 @Environment(value= EnvType.CLIENT)
-public class MordorUrukModel<T extends MobEntity>
+public class MistyHobgoblinModel<T extends MobEntity>
         extends BipedEntityModel<T> {
 
-    public MordorUrukModel(ModelPart root) {
+    public MistyHobgoblinModel(ModelPart root) {
         super(root);
     }
 
@@ -41,9 +38,9 @@ public class MordorUrukModel<T extends MobEntity>
     public void setAngles(T mobEntity, float f, float g, float h, float i, float j) {
         super.setAngles(mobEntity, f, g, h, i, j);
         ItemStack itemStack = ((LivingEntity)mobEntity).getMainHandStack();
-        MordorUrukEntity.State state = ((MordorUrukEntity)mobEntity).getState();
+        MistyUrukEntity.State state = ((MistyUrukEntity)mobEntity).getState();
 
-        if(state == MordorUrukEntity.State.ATTACKING) {
+        if(state == MistyUrukEntity.State.ATTACKING) {
             // Walk added
             this.leftArm.pitch = MathHelper.cos(f * 0.6662f) * 2.0f * g * 0.5f;
             this.leftArm.yaw = 0.0f;

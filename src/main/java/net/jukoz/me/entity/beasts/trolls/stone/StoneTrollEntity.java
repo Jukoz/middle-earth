@@ -3,10 +3,13 @@ package net.jukoz.me.entity.beasts.trolls.stone;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.beasts.BeastEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
-import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
+import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.*;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
+import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
+import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
+import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.damage.DamageSource;
@@ -14,7 +17,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NbtCompound;
@@ -45,10 +47,14 @@ public class StoneTrollEntity extends TrollEntity {
         this.goalSelector.add(8, new LookAroundGoal(this));
         this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((BeastEntity) this));
         this.targetSelector.add(2, new BeastAttackWithOwnerGoal((BeastEntity)this));
-        this.targetSelector.add(3, new TargetPlayerGoal(this));
-        this.targetSelector.add(4, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(5, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
-        this.targetSelector.add(6, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
+        this.targetSelector.add(4, new TargetPlayerGoal(this));
+        this.targetSelector.add(5, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
+        this.targetSelector.add(6, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
+        this.targetSelector.add(7, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
+        this.targetSelector.add(8, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
+        this.targetSelector.add(9, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+        this.targetSelector.add(10, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
     @Override

@@ -43,7 +43,7 @@ public class GondorHumanRenderer extends BipedEntityRenderer<GondorHumanEntity, 
     public void render(GondorHumanEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
 
-        poseStack.scale(1.0f, 1.0f, 1.0f);
+        poseStack.scale(0.95f, 0.95f, 0.95f);
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 }

@@ -14,35 +14,35 @@ import net.minecraft.util.Util;
 
 import java.util.Map;
 
-public class MordorUrukRenderer extends BipedEntityRenderer<MordorUrukEntity, MordorUrukModel<MordorUrukEntity>> {
+public class MordorBlackUrukRenderer extends BipedEntityRenderer<MordorBlackUrukEntity, MordorBlackUrukModel<MordorBlackUrukEntity>> {
     private static final String PATH = "textures/entities/uruks/mordor/";
 
-    public MordorUrukRenderer(EntityRendererFactory.Context ctx) {
-        super(ctx, new MordorUrukModel<>(ctx.getPart(ModEntityModelLayers.URUK)), 0.5f);
-        this.addFeature(new ArmorFeatureRenderer<>(this, new MordorUrukModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)),
-                new MordorUrukModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), ctx.getModelManager()));
+    public MordorBlackUrukRenderer(EntityRendererFactory.Context ctx) {
+        super(ctx, new MordorBlackUrukModel<>(ctx.getPart(ModEntityModelLayers.URUK)), 0.5f);
+        this.addFeature(new ArmorFeatureRenderer<>(this, new MordorBlackUrukModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)),
+                new MordorBlackUrukModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), ctx.getModelManager()));
     }
 
     @Override
-    public Identifier getTexture(MordorUrukEntity entity) {
+    public Identifier getTexture(MordorBlackUrukEntity entity) {
         return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
-    public static final Map<MordorUrukVariant, String> LOCATION_BY_VARIANT =
-            Util.make(Maps.newEnumMap(MordorUrukVariant.class), (resourceLocation) -> {
-                resourceLocation.put(MordorUrukVariant.LIGHT_BROWN_RED,
+    public static final Map<MordorBlackUrukVariant, String> LOCATION_BY_VARIANT =
+            Util.make(Maps.newEnumMap(MordorBlackUrukVariant.class), (resourceLocation) -> {
+                resourceLocation.put(MordorBlackUrukVariant.LIGHT_BROWN_RED,
                         PATH + "uruk1.png");
-                resourceLocation.put(MordorUrukVariant.PALE_BLUE_YELLOW,
+                resourceLocation.put(MordorBlackUrukVariant.PALE_BLUE_YELLOW,
                         PATH + "uruk2.png");
-                resourceLocation.put(MordorUrukVariant.PALE_GREY_ORANGE,
+                resourceLocation.put(MordorBlackUrukVariant.PALE_GREY_ORANGE,
                         PATH + "uruk3.png");
             });
 
     @Override
-    public void render(MordorUrukEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
+    public void render(MordorBlackUrukEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
 
-        poseStack.scale(0.95f, 0.95f, 0.95f);
+        poseStack.scale(0.92f, 0.92f, 0.92f);
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 }

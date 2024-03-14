@@ -1,11 +1,10 @@
 package net.jukoz.me.entity;
 
-import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.CustomBowAttackGoal;
-import net.jukoz.me.item.ModWeaponItems;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -24,14 +23,13 @@ import org.jetbrains.annotations.Nullable;
 public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
     private Item bow;
-    private final CustomBowAttackGoal<NpcEntity> bowAttackGoal = new CustomBowAttackGoal<NpcEntity>(this, 1.0, 16, 24.0f);
-    private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.4, false);
+    private final CustomBowAttackGoal<NpcEntity> bowAttackGoal = new CustomBowAttackGoal<NpcEntity>(this, 1.0, 16, 30.0f);
+    private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.5, false);
     public RANK rank;
 
     protected NpcEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.updateAttackType();
-        this.experiencePoints = 7;
     }
 
     @Nullable
@@ -48,7 +46,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(5, new LookAroundGoal(this));
-        this.targetSelector.add(1, new RevengeGoal(this));
+        this.targetSelector.add(1, new RevengeGoal(this, this.getClass()).setGroupRevenge());
     }
 
     public void updateAttackType() {
@@ -139,7 +137,21 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
     @Override
     public int getXpToDrop() {
-        return super.getXpToDrop();
+        int exp = 0;
+        switch (this.getRank()){
+            case MILITIA -> exp = 10;
+            case SOLDIER -> exp = 15;
+            case KNIGHT -> exp = 20;
+            case VETERAN -> exp = 25;
+            case LEADER -> exp = 30;
+        }
+        return exp;
+    }
+
+
+    @Override
+    protected void applyDamage(DamageSource source, float amount) {
+        super.applyDamage(source, amount);
     }
 
     public enum RANK{

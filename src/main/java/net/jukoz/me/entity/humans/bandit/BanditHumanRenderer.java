@@ -37,13 +37,15 @@ public class BanditHumanRenderer extends BipedEntityRenderer<BanditHumanEntity, 
                         PATH + "bandit2.png");
                 resourceLocation.put(BanditHumanVariant.PALE_GREY_ORANGE,
                         PATH + "bandit3.png");
+                resourceLocation.put(BanditHumanVariant.BALD_GREEN_BLUE,
+                        PATH + "bandit4.png");
             });
 
     @Override
     public void render(BanditHumanEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
 
-        poseStack.scale(1.0f, 1.0f, 1.0f);
+        poseStack.scale(0.95f, 0.95f, 0.95f);
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 }

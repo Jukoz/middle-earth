@@ -14,33 +14,33 @@ import net.minecraft.util.Util;
 
 import java.util.Map;
 
-public class MistyOrcRenderer extends BipedEntityRenderer<MistyOrcEntity, MistyOrcModel<MistyOrcEntity>> {
+public class MistyGoblinRenderer extends BipedEntityRenderer<MistyGoblinEntity, MistyGoblinModel<MistyGoblinEntity>> {
     private static final String PATH = "textures/entities/orcs/misties/";
 
-    public MistyOrcRenderer(EntityRendererFactory.Context ctx) {
-        super(ctx, new MistyOrcModel<>(ctx.getPart(ModEntityModelLayers.ORC)), 0.5f);
-        this.addFeature(new ArmorFeatureRenderer<>(this, new MistyOrcModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)),
-                new MistyOrcModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), ctx.getModelManager()));
+    public MistyGoblinRenderer(EntityRendererFactory.Context ctx) {
+        super(ctx, new MistyGoblinModel<>(ctx.getPart(ModEntityModelLayers.ORC)), 0.5f);
+        this.addFeature(new ArmorFeatureRenderer<>(this, new MistyGoblinModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)),
+                new MistyGoblinModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), ctx.getModelManager()));
 
     }
 
     @Override
-    public Identifier getTexture(MistyOrcEntity entity) {
+    public Identifier getTexture(MistyGoblinEntity entity) {
         return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
-    public static final Map<MistyOrcVariant, String> LOCATION_BY_VARIANT =
-            Util.make(Maps.newEnumMap(MistyOrcVariant.class), (resourceLocation) -> {
-                resourceLocation.put(MistyOrcVariant.LIGHT_BROWN_RED,
+    public static final Map<MistyGoblinVariant, String> LOCATION_BY_VARIANT =
+            Util.make(Maps.newEnumMap(MistyGoblinVariant.class), (resourceLocation) -> {
+                resourceLocation.put(MistyGoblinVariant.LIGHT_BROWN_RED,
                         PATH + "orc1.png");
-                resourceLocation.put(MistyOrcVariant.PALE_BLUE_YELLOW,
+                resourceLocation.put(MistyGoblinVariant.PALE_BLUE_YELLOW,
                         PATH + "orc2.png");
-                resourceLocation.put(MistyOrcVariant.PALE_GREY_ORANGE,
+                resourceLocation.put(MistyGoblinVariant.PALE_GREY_ORANGE,
                         PATH + "orc3.png");
             });
 
     @Override
-    public void render(MistyOrcEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
+    public void render(MistyGoblinEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
 
         poseStack.scale(0.75f, 0.75f, 0.75f);

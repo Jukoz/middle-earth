@@ -229,7 +229,6 @@
   "item.me.lorien_spear": "Lórien Spear",
   "item.me.lorien_pike": "Lórien Pike",
   "item.me.lorien_bow": "Lórien Bow",
-
   
 "#Comment:": "Item - Mordor Orc",
   "item.me.mordor_orc_sword": "Mordor Orc Sword",
@@ -324,7 +323,6 @@
   "item.me.horse_lord_leggings": "Horse Lord Leggings",
   "item.me.horse_lord_boots": "Horse Lord Boots",
 
-
   "item.me.dwarven_partisan_chestplate": "Dwarven Partisan Chestplate",
   "item.me.dwarven_partisan_leggings": "Dwarven Partisan Leggings",
   "item.me.dwarven_partisan_boots": "Dwarven Partisan Boots",
@@ -345,7 +343,6 @@
   "item.me.erebor_commander_chestplate": "Erebor Commander Chestplate",
   "item.me.erebor_commander_leggings": "Erebor Commander Leggings",
   "item.me.erebor_commander_boots": "Erebor Commander Boots",
-
 
   "item.me.lorien_mail_helmet": "Lórien Mail Helmet",
   "item.me.lorien_mail_chestplate": "Lórien Mail Chestplate",
@@ -491,8 +488,10 @@
   "item.me.duck_spawn_egg": "Duck Spawn Egg",
   "item.me.swan_spawn_egg": "Swan Spawn Egg",
   
-  "item.me.hobbit_spawn_egg": "Hobbit Spawn Egg",
-  
+  "item.me.hobbit_civilian_spawn_egg": "Hobbit Civilian Spawn Egg",
+  "item.me.hobbit_bounder_spawn_egg": "Hobbit Bounder Spawn Egg",
+  "item.me.hobbit_shirriff_spawn_egg": "Hobbit Shirriff Spawn Egg",
+
   "item.me.gondorian_militia_spawn_egg": "Gondorian Militia Spawn Egg",
   "item.me.gondorian_soldier_spawn_egg": "Gondorian Soldier Spawn Egg",
   "item.me.gondorian_knight_spawn_egg": "Gondorian Knight Spawn Egg",
@@ -504,8 +503,12 @@
   "item.me.rohirrim_knight_spawn_egg": "Rohirrim Knight Spawn Egg",
   "item.me.rohirrim_veteran_spawn_egg": "Rohirrim Veteran Spawn Egg",
   "item.me.rohirrim_leader_spawn_egg": "Rohirrim Leader Spawn Egg",
-  
-  "item.me.durin_folk_spawn_egg": "Durin Folk Spawn Egg",
+
+  "item.me.longbeard_militia_spawn_egg": "Longbeard Militia Spawn Egg",
+  "item.me.longbeard_soldier_spawn_egg": "Longbeard Soldier Spawn Egg",
+  "item.me.longbeard_elite_spawn_egg": "Longbeard Elite Spawn Egg",
+  "item.me.longbeard_veteran_spawn_egg": "Longbeard Veteran Spawn Egg",
+  "item.me.longbeard_leader_spawn_egg": "Longbeard Leader Spawn Egg",
 
   "item.me.lorien_militia_spawn_egg": "Lórien Militia Spawn Egg",
   "item.me.lorien_soldier_spawn_egg": "Lórien Soldier Spawn Egg",
@@ -515,11 +518,15 @@
 
   "item.me.mordor_orc_snaga_spawn_egg": "Mordor Orc Snaga Spawn Egg",
   "item.me.mordor_orc_soldier_spawn_egg": "Mordor Orc Soldier Spawn Egg",
-  "item.me.mordor_uruk_spawn_egg": "Mordor Uruk Spawn Egg",
+  "item.me.mordor_black_uruk_soldier_spawn_egg": "Mordor Black Uruk Soldier Spawn Egg",
+  "item.me.mordor_black_uruk_veteran_spawn_egg": "Mordor Black Uruk Veteran Spawn Egg",
+  "item.me.mordor_black_uruk_leader_spawn_egg": "Mordor Black Uruk Leader Spawn Egg",
 
-  "item.me.misty_orc_snaga_spawn_egg": "Misty Orc Snaga Spawn Egg",
-  "item.me.misty_orc_warrior_spawn_egg": "Misty Orc Warrior Spawn Egg",
-  "item.me.misty_uruk_spawn_egg": "Misty Uruk Spawn Egg",
+  "item.me.misty_goblin_snaga_spawn_egg": "Misty Goblin Snaga Spawn Egg",
+  "item.me.misty_goblin_warrior_spawn_egg": "Misty Goblin Warrior Spawn Egg",
+  "item.me.misty_hobgoblin_soldier_spawn_egg": "Misty Hobgoblin Soldier Spawn Egg",
+  "item.me.misty_hobgoblin_veteran_spawn_egg": "Misty Hobgoblin Veteran Spawn Egg",
+  "item.me.misty_hobgoblin_leader_spawn_egg": "Misty Hobgoblin Leader Spawn Egg",
 
   "item.me.bandit_militia_spawn_egg": "Bandit Militia Spawn Egg",
   "item.me.bandit_soldier_spawn_egg": "Bandit Soldier Spawn Egg",
@@ -548,10 +555,11 @@
   "entity.me.pheasant": "Pheasant",
   "entity.me.snail": "Snail",
   "entity.me.deer": "Deer",
-  "entity.me.durin_folk": "Durin Folk",
-  "entity.me.galadhrim_elf": "Galadhrim Elf",
-  "entity.me.hobbit": "Hobbit",
-  
+
+  "entity.me.hobbit_civilian": "Hobbit Civilian",
+  "entity.me.hobbit_bounder": "Hobbit Bounder",
+  "entity.me.hobbit_shirriff": "Hobbit Shirriff",
+
   "entity.me.gondorian_militia": "Gondorian Militia",
   "entity.me.gondorian_soldier": "Gondorian Soldier",
   "entity.me.gondorian_knight": "Gondorian Knight",
@@ -564,6 +572,12 @@
   "entity.me.rohirrim_veteran": "Rohirrim Veteran",
   "entity.me.rohirrim_leader": "Rohirrim Leader",
 
+  "entity.me.longbeard_militia": "Longbeard Militia",
+  "entity.me.longbeard_soldier": "Longbeard Soldier",
+  "entity.me.longbeard_elite": "Longbeard Elite",
+  "entity.me.longbeard_veteran": "Longbeard Veteran",
+  "entity.me.longbeard_leader": "Longbeard Leader",
+
   "entity.me.lorien_militia": "Lórien Militia",
   "entity.me.lorien_soldier": "Lórien Soldier",
   "entity.me.lorien_knight": "Lórien Knight",
@@ -572,11 +586,15 @@
   
   "entity.me.mordor_orc_snaga": "Mordor Orc Snaga",
   "entity.me.mordor_orc_soldier": "Mordor Orc Soldier",
-  "entity.me.mordor_uruk": "Mordor Uruk",
+  "entity.me.mordor_black_uruk_soldier": "Mordor Black Uruk Soldier",
+  "entity.me.mordor_black_uruk_veteran": "Mordor Black Uruk Veteran",
+  "entity.me.mordor_black_uruk_leader": "Mordor Black Uruk Leader",
 
-  "entity.me.misty_orc_snaga": "Misty Orc Snaga",
-  "entity.me.misty_orc_warrior": "Misty Orc Warrior",
-  "entity.me.misty_uruk": "Misty Uruk",
+  "entity.me.misty_goblin_snaga": "Misty Goblin Snaga",
+  "entity.me.misty_goblin_warrior": "Misty Goblin Warrior",
+  "entity.me.misty_hobgoblin_soldier": "Misty Hobgoblin Soldier",
+  "entity.me.misty_hobgoblin_veteran": "Misty Hobgoblin Veteran",
+  "entity.me.misty_hobgoblin_leader": "Misty Hobgoblin Leader",
 
   "entity.me.nazgul": "Nazgûl",
 
@@ -2940,10 +2958,10 @@
   "item.me.mordor_great_eye_banner_pattern.desc": "The Great Eye of Sauron",
   "item.me.mordor_eye_banner_pattern": "Mordor Eye Banner Pattern (Alt)",
   "item.me.mordor_eye_banner_pattern.desc": "The Eye of Sauron",
-  "item.me.misty_orcs_eye_banner_pattern": "Misty Orcs Eye Banner Pattern",
-  "item.me.misty_orcs_eye_banner_pattern.desc": "The Eye of Sauron",
-  "item.me.misty_orcs_peaks_banner_pattern": "Misty Orcs Peaks Banner Pattern",
-  "item.me.misty_orcs_peaks_banner_pattern.desc": "The three Peaks of Moria",
+  "item.me.misty_goblins_eye_banner_pattern": "Misty Goblins Eye Banner Pattern",
+  "item.me.misty_goblins_eye_banner_pattern.desc": "The Eye of Sauron",
+  "item.me.misty_goblins_peaks_banner_pattern": "Misty Goblins Peaks Banner Pattern",
+  "item.me.misty_goblins_peaks_banner_pattern.desc": "The three Peaks of Moria",
 
 "#Comment": "SOUNDS",
   "sounds.me.nazgul_fade": "Nazgûl Fading",
