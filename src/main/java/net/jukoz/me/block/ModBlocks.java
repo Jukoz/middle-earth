@@ -2,6 +2,7 @@ package net.jukoz.me.block;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.LayersBlock;
 import net.jukoz.me.block.special.StoneMyceliumBlock;
@@ -33,8 +34,6 @@ public class ModBlocks {
     //TODO Pedestal Block
     //TODO Stone Lectern
     //TODO Tall Shrooms Placement like plant rn no good
-    //TODO Lang
-    //TODO Modded blocks strippeable
 
     //region STONE PILLARS AND CHISELED
     public static final Block STONE_PILLAR = registerStoneBlock("stone_pillar",
@@ -53,11 +52,23 @@ public class ModBlocks {
 
     public static final Block GONLUIN_PILLAR = registerStoneBlock("gonluin_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block MOSSY_GONLUIN_PILLAR = registerStoneBlock("mossy_gonluin_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CRACKED_GONLUIN_PILLAR = registerStoneBlock("cracked_gonluin_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+
 
     public static final Block BLUE_TUFF_PILLAR = registerStoneBlock("blue_tuff_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block MOSSY_BLUE_TUFF_PILLAR = registerStoneBlock("mossy_blue_tuff_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CRACKED_BLUE_TUFF_PILLAR = registerStoneBlock("cracked_blue_tuff_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
     public static final Block FROZEN_PILLAR = registerStoneBlock("frozen_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+
+    public static final Block DOLOMITE_PILLAR = registerStoneBlock("dolomite_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
     public static final Block CALCITE_PILLAR = registerStoneBlock("calcite_pillar",
@@ -108,7 +119,10 @@ public class ModBlocks {
     public static final Block CHISELED_BLUE_TUFF_BRICKS = registerStoneBlock("chiseled_blue_tuff_bricks",
             new PillarBlock(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     public static final Block CHISELED_POLISHED_BLUE_TUFF = registerStoneBlock("chiseled_polished_blue_tuff",
-            new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+            new PillarBlock(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+
+    public static final Block CHISELED_DOLOMITE_BRICKS = registerStoneBlock("chiseled_dolomite_bricks",
+            new PillarBlock(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
     public static final Block CHISELED_CALCITE_BRICKS = registerStoneBlock("chiseled_calcite_bricks",
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
@@ -784,5 +798,58 @@ public class ModBlocks {
 
     public static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
         return type == EntityType.OCELOT || type == EntityType.PARROT;
+    }
+
+    public static void registerFlammableBlocks(){
+        FlammableBlockRegistry.getDefaultInstance().add(WHITE_WOOL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ORANGE_WOOL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(MAGENTA_WOOL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(LIGHT_BLUE_WOOL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(YELLOW_WOOL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(LIME_WOOL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(PINK_WOOL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(GRAY_WOOL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(LIGHT_GRAY_WOOL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(CYAN_WOOL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(PURPLE_WOOL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(BLUE_WOOL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(BROWN_WOOL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(GREEN_WOOL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(RED_WOOL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(BLACK_WOOL_SLAB, 30, 60);
+        
+        FlammableBlockRegistry.getDefaultInstance().add(WHITE_WOOL_VERTICAL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ORANGE_WOOL_VERTICAL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(MAGENTA_WOOL_VERTICAL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(LIGHT_BLUE_WOOL_VERTICAL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(YELLOW_WOOL_VERTICAL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(LIME_WOOL_VERTICAL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(PINK_WOOL_VERTICAL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(GRAY_WOOL_VERTICAL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(LIGHT_GRAY_WOOL_VERTICAL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(CYAN_WOOL_VERTICAL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(PURPLE_WOOL_VERTICAL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(BLUE_WOOL_VERTICAL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(BROWN_WOOL_VERTICAL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(GREEN_WOOL_VERTICAL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(RED_WOOL_VERTICAL_SLAB, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(BLACK_WOOL_VERTICAL_SLAB, 30, 60);
+
+        FlammableBlockRegistry.getDefaultInstance().add(WHITE_WOOL_STAIRS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ORANGE_WOOL_STAIRS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(MAGENTA_WOOL_STAIRS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(LIGHT_BLUE_WOOL_STAIRS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(YELLOW_WOOL_STAIRS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(LIME_WOOL_STAIRS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(PINK_WOOL_STAIRS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(GRAY_WOOL_STAIRS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(LIGHT_GRAY_WOOL_STAIRS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(CYAN_WOOL_STAIRS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(PURPLE_WOOL_STAIRS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(BLUE_WOOL_STAIRS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(BROWN_WOOL_STAIRS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(GREEN_WOOL_STAIRS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(RED_WOOL_STAIRS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(BLACK_WOOL_STAIRS, 30, 60);
     }
 }
