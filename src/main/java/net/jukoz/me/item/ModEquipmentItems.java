@@ -132,7 +132,7 @@ public class ModEquipmentItems {
 
     public static final Item EORLING_MARSHALL_HELMET = registerGeneratedItem("eorling_marshall_helmet",
             new CustomHelmetItem(ModArmorMaterials.EORLING_MARSHALL_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings()));
-    public static final Item EORLING_MARSHALL_CHESTEORLING_MARSHALL = registerGeneratedItem("eorling_marshall_chestplate",
+    public static final Item EORLING_MARSHALL_CHESTPLATE = registerGeneratedItem("eorling_marshall_chestplate",
             new CustomChestplateItem(ModArmorMaterials.EORLING_MARSHALL_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
     public static final Item EORLING_MARSHALL_LEGGINGS = registerGeneratedItem("eorling_marshall_leggings",
             new CustomLeggingsItem(ModArmorMaterials.EORLING_MARSHALL_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
@@ -236,7 +236,7 @@ public class ModEquipmentItems {
 
     public static final Item LORIEN_COMMANDER_HELMET = registerGeneratedItem("lorien_commander_helmet",
             new CustomHelmetItem(ModArmorMaterials.LORIEN_COMMANDER_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(), List.of(CustomHelmetItem.Customizations.HOOD)));
-    public static final Item LORIEN_COMMANDER_CHESTCOMMANDER = registerGeneratedItem("lorien_commander_chestplate",
+    public static final Item LORIEN_COMMANDER_CHESTPLATE = registerGeneratedItem("lorien_commander_chestplate",
             new CustomChestplateItem(ModArmorMaterials.LORIEN_COMMANDER_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
     public static final Item LORIEN_COMMANDER_LEGGINGS = registerGeneratedItem("lorien_commander_leggings",
             new CustomLeggingsItem(ModArmorMaterials.LORIEN_COMMANDER_ARMOR, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));

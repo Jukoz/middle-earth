@@ -62,7 +62,7 @@ public enum ModArmors {
             true, true, true, false, false, ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_HELMET, ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_CHESTPLATE, ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_LEGGINGS, ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_BOOTS),
 
     EORLING_MARSHALL_ARMOR("eorling_marshall", new RohirricHelmetArmorModel<>(RohirricHelmetArmorModel.getTexturedModelData().createModel(), "eorling_marshall"), null,
-            true, true, true, false, false, ModEquipmentItems.EORLING_MARSHALL_HELMET, ModEquipmentItems.EORLING_MARSHALL_CHESTEORLING_MARSHALL, ModEquipmentItems.EORLING_MARSHALL_LEGGINGS, ModEquipmentItems.EORLING_MARSHALL_BOOTS),
+            true, true, true, false, false, ModEquipmentItems.EORLING_MARSHALL_HELMET, ModEquipmentItems.EORLING_MARSHALL_CHESTPLATE, ModEquipmentItems.EORLING_MARSHALL_LEGGINGS, ModEquipmentItems.EORLING_MARSHALL_BOOTS),
 
     HORSE_LORD_ARMOR("horse_lord", new RohirricHelmetArmorModel<>(RohirricHelmetArmorModel.getTexturedModelData().createModel(), "horse_lord"), null,
             true, true, true, false, false, ModEquipmentItems.HORSE_LORD_HELMET, ModEquipmentItems.HORSE_LORD_CHESTHORSE_LORD, ModEquipmentItems.HORSE_LORD_LEGGINGS, ModEquipmentItems.HORSE_LORD_BOOTS),
@@ -92,7 +92,7 @@ public enum ModArmors {
             true, true, true, true, false, ModEquipmentItems.LORIEN_PLATE_HELMET, ModEquipmentItems.LORIEN_PLATE_CHESTPLATE, ModEquipmentItems.LORIEN_PLATE_LEGGINGS, ModEquipmentItems.LORIEN_PLATE_BOOTS),
     
     LORIEN_COMMANDER_ARMOR("lorien_commander", new LorienCommanderHelmetArmorModel<>(LorienCommanderHelmetArmorModel.getTexturedModelData().createModel()), null,
-            true, true, true, true, false, ModEquipmentItems.LORIEN_COMMANDER_HELMET, ModEquipmentItems.LORIEN_COMMANDER_CHESTCOMMANDER, ModEquipmentItems.LORIEN_COMMANDER_LEGGINGS, ModEquipmentItems.LORIEN_COMMANDER_BOOTS),
+            true, true, true, true, false, ModEquipmentItems.LORIEN_COMMANDER_HELMET, ModEquipmentItems.LORIEN_COMMANDER_CHESTPLATE, ModEquipmentItems.LORIEN_COMMANDER_LEGGINGS, ModEquipmentItems.LORIEN_COMMANDER_BOOTS),
 
     MORDOR_ORC_MAIL_ARMOR("mordor_orc_mail", null, null,
             true, true, false, false, false, ModEquipmentItems.MORDOR_ORC_MAIL_HELMET, ModEquipmentItems.MORDOR_ORC_MAIL_CHESTPLATE, ModEquipmentItems.MORDOR_ORC_MAIL_LEGGINGS, ModEquipmentItems.MORDOR_ORC_MAIL_BOOTS),
