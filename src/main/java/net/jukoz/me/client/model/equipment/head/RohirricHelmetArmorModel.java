@@ -8,16 +8,16 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
-public class RohirricScaleHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
+public class RohirricHelmetArmorModel<T extends LivingEntity> extends CustomHelmetModel<T> {
     private static final float MAX_ANGLE_HAIR = 75f;
 
     public final ModelPart hair;
 
-    public RohirricScaleHelmetArmorModel(ModelPart root) {
+    public RohirricHelmetArmorModel(ModelPart root, String name) {
         super(root);
         hair = root.getChild("head").getChild("hair");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/rohirric_scale_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + name + "_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -27,8 +27,8 @@ public class RohirricScaleHelmetArmorModel<T extends LivingEntity> extends Custo
         modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(0, -1)
-                .cuboid(0.0F, -16.0F, -6.0F, 0.0F, 11.0F, 17.0F, new Dilation(0.0F)),
-                ModelTransform.pivot(0.0F, 0.0F, -1.0F));
+                .cuboid(0.0F, -16.0F, -7.0F, 0.0F, 11.0F, 17.0F, new Dilation(0.0F)),
+                ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         head.addChild("hair", ModelPartBuilder.create().uv(0, 27)
                 .cuboid(-1.0F, -2.0F, 0.0F, 2.0F, 3.0F, 18.0F, new Dilation(0.0F)),
