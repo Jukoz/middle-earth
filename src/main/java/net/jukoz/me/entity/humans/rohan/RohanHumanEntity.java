@@ -247,9 +247,9 @@ public class RohanHumanEntity extends NpcEntity {
 
     private void leaderEquipment(Random random) {
         equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HORSE_LORD_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.HORSE_LORD_HELMET));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.HORSE_LORD_HELMET));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.HORSE_LORD_HELMET));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.HORSE_LORD_CHESTPLATE));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.HORSE_LORD_LEGGINGS));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.HORSE_LORD_BOOTS));
 
         equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_LONGSWORD));
         equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.ROHIRRIC_SHIELD));

@@ -1,11 +1,16 @@
 package net.jukoz.me.block.special;
 
+import net.jukoz.me.particles.ModParticleTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
+import net.minecraft.client.util.ParticleUtil;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleType;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -17,15 +22,18 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
 import java.util.OptionalInt;
 
 public class ModLeavesBlock extends LeavesBlock {
     final protected boolean castShadow;
-    public ModLeavesBlock(Settings settings, boolean castShadow) {
+    private final ParticleEffect particleType;
+    public ModLeavesBlock(Settings settings, boolean castShadow, ParticleEffect particleType) {
         super(settings);
         this.castShadow = castShadow;
+        this.particleType = particleType;
     }
 
     @Override
@@ -77,5 +85,19 @@ public class ModLeavesBlock extends LeavesBlock {
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
         BlockState blockState = (this.getDefaultState().with(PERSISTENT, true)).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
         return updateDistanceFromLogs(blockState, ctx.getWorld(), ctx.getBlockPos());
+    }
+
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        super.randomDisplayTick(state, world, pos, random);
+        if(this.particleType != null){
+            if (random.nextInt(10) == 0) {
+                BlockPos blockPos = pos.down();
+                BlockState blockState = world.getBlockState(blockPos);
+                if (!isFaceFullSquare(blockState.getCollisionShape(world, blockPos), Direction.UP)) {
+                    ParticleUtil.spawnParticle(world, pos, random, this.particleType);
+                }
+            }
+        }
+
     }
 }

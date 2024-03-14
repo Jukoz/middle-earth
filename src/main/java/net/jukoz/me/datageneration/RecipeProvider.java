@@ -42,7 +42,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
             } else if(record.source() != null){
                 createBrickRecipe(exporter, record.source().asItem(), record.base(), 4);
-                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 4);
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.source(), 2);
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.verticalSlab(), record.source(),2);
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.source());
@@ -90,10 +90,17 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         //region WOOD RECIPES
         for (WoodBlockSets.SimpleBlockSet record : WoodBlockSets.sets) {
             createBrickRecipe(exporter, record.log().asItem(), record.wood(), 3);
+            createBrickRecipe(exporter, record.strippedLog().asItem(), record.strippedWood(), 3);
             createWallsRecipe(exporter, record.wood(), record.woodWall());
+            createWallsRecipe(exporter, record.strippedWood(), record.strippedWoodWall());
             createFenceRecipe(exporter, record.wood().asItem(), record.woodFence());
+            createFenceRecipe(exporter, record.strippedWood().asItem(), record.strippedWoodFence());
             createSlabsRecipe(exporter, record.planks(), record.planksSlab());
+            createSlabsRecipe(exporter, record.wood(), record.woodSlab());
+            createSlabsRecipe(exporter, record.strippedWood(), record.strippedWoodSlab());
             createStairsRecipe(exporter, record.planks(), record.planksStairs());
+            createStairsRecipe(exporter, record.wood(), record.woodStairs());
+            createStairsRecipe(exporter, record.strippedWood(), record.strippedWoodStairs());
             createDoorRecipe(exporter, record.planks(), record.door());
             createTrapdoorRecipe(exporter, record.planks(), record.trapdoor());
             createWoodStoolRecipe(exporter, record.planksSlab().asItem(), record.stool());
@@ -180,10 +187,12 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                     offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.origin(), 2);
                     offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.block(), 1);
                     offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.origin(), 1);
+                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.wall(), 1);
                 }
             }
             createSlabsRecipe(exporter, record.block(), record.slab());
             createStairsRecipe(exporter, record.block(), record.stairs());
+            createWallsRecipe(exporter, record.block(), record.wall());
         }
         //endregion
 
@@ -196,7 +205,39 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             }
         }
 
+        for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.strippedVerticalSlabs) {
+            createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
+            createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
+            if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, verticalSlab.verticalSlab(), verticalSlab.block(),2);
+            }
+        }
+
+        for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.woodVerticalSlabs) {
+            createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
+            createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
+            if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, verticalSlab.verticalSlab(), verticalSlab.block(),2);
+            }
+        }
+
         for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
+            createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
+            createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
+            if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, verticalSlab.verticalSlab(), verticalSlab.block(),2);
+            }
+        }
+
+        for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaWoodVerticalSlabs) {
+            createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
+            createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
+            if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, verticalSlab.verticalSlab(), verticalSlab.block(),2);
+            }
+        }
+
+        for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaStrippedVerticalSlabs) {
             createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
             createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
             if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
@@ -217,6 +258,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         for(SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledBlocks) {
             createChiseledRecipe(exporter, block.origin(), block.base(), 1);
         }
+        for(SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledPolishedBlocksTopBottom) {
+            createChiseledRecipe(exporter, block.origin(), block.base(), 1);
+        }
         for(SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledBlocksTopBottom) {
             createChiseledRecipe(exporter, block.origin(), block.base(), 1);
         }
@@ -228,8 +272,44 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createSlabsRecipe(exporter, slab.origin(), slab.slab());
         }
 
+        for(SimpleSlabModel.Slab slab : SimpleSlabModel.vanillaWoodSlabs){
+            createSlabsRecipe(exporter, slab.origin(), slab.slab());
+        }
+
+        for(SimpleSlabModel.Slab slab : SimpleSlabModel.vanillaStrippedSlab){
+            createSlabsRecipe(exporter, slab.origin(), slab.slab());
+        }
+
         for(SimpleStairModel.Stair stair : SimpleStairModel.vanillaStairs){
             createStairsRecipe(exporter, stair.origin(), stair.stairs());
+        }
+
+        for(SimpleStairModel.Stair stair : SimpleStairModel.vanillaWoodStairs){
+            createStairsRecipe(exporter, stair.origin(), stair.stairs());
+        }
+
+        for(SimpleStairModel.Stair stair : SimpleStairModel.vanillaStrippedStairs){
+            createStairsRecipe(exporter, stair.origin(), stair.stairs());
+        }
+
+        for(SimpleWallModel.Wall wall : SimpleWallModel.vanillaWalls){
+            createWallsRecipe(exporter, wall.block(), wall.wall());
+        }
+
+        for(SimpleWallModel.Wall wall : SimpleWallModel.vanillaStrippedWalls){
+            createWallsRecipe(exporter, wall.block(), wall.wall());
+        }
+
+        for(SimpleWallModel.Wall wall : SimpleWallModel.vanillaWoodWalls){
+            createWallsRecipe(exporter, wall.block(), wall.wall());
+        }
+
+        for(SimpleFenceModel.Fence fence : SimpleFenceModel.vanillaStrippedFences){
+            createFenceRecipe(exporter, fence.block().asItem(), fence.fence());
+        }
+
+        for(SimpleFenceModel.Fence fence : SimpleFenceModel.vanillaWoodFences){
+            createFenceRecipe(exporter, fence.block().asItem(), fence.fence());
         }
 
         for(SimplePaneModel.Pane pane : SimplePaneModel.panes){
@@ -281,6 +361,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         createLayerRecipe(exporter, Blocks.GRAVEL.asItem(), ModBlocks.GRAVEL_LAYER);
         createLayerRecipe(exporter, Blocks.SAND.asItem(), ModBlocks.SAND_LAYER);
+        createLayerRecipe(exporter, ModBlocks.BLACK_SAND.asItem(), ModBlocks.BLACK_SAND_LAYER);
+        createLayerRecipe(exporter, ModBlocks.WHITE_SAND.asItem(), ModBlocks.WHITE_SAND_LAYER);
 
         // Seeds
         createSeedsRecipe(exporter, ModFoodItems.TOMATO, ModResourceItems.TOMATO_SEEDS);
@@ -339,6 +421,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .input('I', ModResourceItems.LEAD_INGOT)
                 .criterion(FabricRecipeProvider.hasItem(ModResourceItems.LEAD_INGOT),
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.LEAD_INGOT))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.ROPE, 4)
+                .pattern("W")
+                .pattern("W")
+                .input('W', Blocks.WHITE_WOOL)
+                .criterion(FabricRecipeProvider.hasItem(Blocks.WHITE_WOOL),
+                        FabricRecipeProvider.conditionsFromItem(Blocks.WHITE_WOOL))
                 .offerTo(exporter);
 
 

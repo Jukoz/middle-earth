@@ -65,7 +65,7 @@ public enum ModArmors {
             true, true, true, false, false, ModEquipmentItems.EORLING_MARSHALL_HELMET, ModEquipmentItems.EORLING_MARSHALL_CHESTPLATE, ModEquipmentItems.EORLING_MARSHALL_LEGGINGS, ModEquipmentItems.EORLING_MARSHALL_BOOTS),
 
     HORSE_LORD_ARMOR("horse_lord", new RohirricHelmetArmorModel<>(RohirricHelmetArmorModel.getTexturedModelData().createModel(), "horse_lord"), null,
-            true, true, true, false, false, ModEquipmentItems.HORSE_LORD_HELMET, ModEquipmentItems.HORSE_LORD_CHESTHORSE_LORD, ModEquipmentItems.HORSE_LORD_LEGGINGS, ModEquipmentItems.HORSE_LORD_BOOTS),
+            true, true, true, false, false, ModEquipmentItems.HORSE_LORD_HELMET, ModEquipmentItems.HORSE_LORD_CHESTPLATE, ModEquipmentItems.HORSE_LORD_LEGGINGS, ModEquipmentItems.HORSE_LORD_BOOTS),
 
     DWARVEN_PARTISAN("dwarven_partisan", null, null,
             true, true, false, false, false, ModEquipmentItems.DWARVEN_PARTISAN_CHESTPLATE, ModEquipmentItems.DWARVEN_PARTISAN_LEGGINGS, ModEquipmentItems.DWARVEN_PARTISAN_BOOTS),

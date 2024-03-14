@@ -1,13 +1,5 @@
 {
   "structures": [
-    {
-      "structure": "me:dunland_spruce",
-      "weight": 120
-    },
-	{
-      "structure": "me:dunland_pine",
-      "weight": 120
-    },
 	{
       "structure": "me:dunland_house",
       "weight": 1
