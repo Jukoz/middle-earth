@@ -27,6 +27,7 @@ import net.minecraft.world.World;
 
 public class StoneTrollEntity extends TrollEntity {
     public static final TrackedData<Integer> PETRIFYING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private final int PETRIFYING_DURATION = 300;
 
     public StoneTrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
@@ -36,13 +37,14 @@ public class StoneTrollEntity extends TrollEntity {
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BeastSitGoal(this));
-        this.goalSelector.add(2, new EscapeSunlightGoal(this, 1.2d));
-        this.goalSelector.add(4, new ChargeAttackGoal(this, 400));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, 0.9f, false));
-        this.goalSelector.add(6, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
-        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(8, new LookAroundGoal(this));
+        this.goalSelector.add(3, new AvoidSunlightGoal(this));
+        this.goalSelector.add(4, new EscapeSunlightGoal(this, 1.2d));
+        this.goalSelector.add(5, new MeleeAttackGoal(this, 0.9f, false));
+        this.goalSelector.add(6, new ChargeAttackGoal(this, 400));
+        this.goalSelector.add(7, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
+        this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(9, new LookAroundGoal(this));
         this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((BeastEntity) this));
         this.targetSelector.add(2, new BeastAttackWithOwnerGoal((BeastEntity)this));
         this.targetSelector.add(3, new TargetPlayerGoal(this));
@@ -54,7 +56,7 @@ public class StoneTrollEntity extends TrollEntity {
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(PETRIFYING, 100);
+        this.dataTracker.startTracking(PETRIFYING, PETRIFYING_DURATION);
     }
 
     @Override
@@ -90,12 +92,12 @@ public class StoneTrollEntity extends TrollEntity {
 
     @Override
     public boolean canThrow() {
-        return !this.isPetrified();
+        return !this.isPetrified() && !this.isSitting();
     }
 
     @Override
     public boolean canCharge() {
-        return !this.isPetrified();
+        return !this.isPetrified() && !this.isSitting();
     }
 
     @Override
@@ -130,10 +132,10 @@ public class StoneTrollEntity extends TrollEntity {
                 }
             }
             else {
-                this.setPetrifying(100);
+                this.setPetrifying(PETRIFYING_DURATION);
             }
         }
-        if(getPetrifying() != -1 && getPetrifying() < 100 && this.getWorld().isClient() && this.age % 3 == 0) {
+        if(getPetrifying() != -1 && getPetrifying() < PETRIFYING_DURATION && this.getWorld().isClient() && this.age % 3 == 0) {
             this.getWorld().addParticle(ParticleTypes.LARGE_SMOKE, this.getX() + ((random.nextFloat() * 2f) - 1f), this.getY() + 1d + random.nextFloat(), this.getZ() + ((random.nextFloat() * 2f) - 1f), random.nextFloat() / 8.0f, 0.2f, random.nextFloat() / 8.0f);
         }
 
