@@ -1,9 +1,10 @@
 package net.jukoz.me.world.dimension;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
-import net.jukoz.me.world.datas.MiddleEarthMapDatas;
+import net.jukoz.me.world.MiddleEarthMapConfigs;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -32,7 +33,7 @@ public class ModDimensions {
         Registry.register(Registries.CHUNK_GENERATOR, new Identifier(MiddleEarth.MOD_ID, PATH), MiddleEarthChunkGenerator.CODEC);
         WORLD_KEY = RegistryKey.of(RegistryKeys.WORLD, new Identifier(MiddleEarth.MOD_ID, PATH));
 
-        MiddleEarth.LOGGER.debug("Registering ModDimensions for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering ModDimensions for " + MiddleEarth.MOD_ID);
     }
 
     public static void teleportPlayerToME(PlayerEntity player) {
@@ -63,7 +64,7 @@ public class ModDimensions {
     }
 
     public static Vector3i getSpawnCoordinate(){
-        double worldIteration = Math.pow(2, MiddleEarth.MAP_ITERATION);
+        double worldIteration = Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION);
         int x = (int)((ME_SPAWN_LOCATION.x * worldIteration));
         int z = (int)((ME_SPAWN_LOCATION.z * worldIteration));
 

@@ -11,6 +11,7 @@ import net.jukoz.me.block.special.toggeable_lights.WallDwarvenLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.WallSilverLanternBlock;
 import net.jukoz.me.block.special.wood_pile.WoodPileBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -272,7 +273,7 @@ public class ModDecorativeBlocks {
     }
 
     public static void registerModBlocks() {
-        MiddleEarth.LOGGER.debug("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
     }
 
     public static void registerFlammableFurniture() {

@@ -6,6 +6,7 @@ import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.datageneration.content.models.SimpleItemModel;
 import net.jukoz.me.item.items.SkewerItem;
 import net.jukoz.me.item.utils.ModItemGroups;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
@@ -147,6 +148,6 @@ public class ModFoodItems {
     }
 
     public static void registerModItems() {
-        MiddleEarth.LOGGER.debug("Registering Mod Food Items for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering Mod Food Items for " + MiddleEarth.MOD_ID);
     }
 }

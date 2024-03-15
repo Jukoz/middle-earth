@@ -2,6 +2,7 @@ package net.jukoz.me.world.datas;
 
 import com.google.common.base.Stopwatch;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.world.MiddleEarthMapConfigs;
 import net.jukoz.me.world.biomes.MEBiome;
 import net.jukoz.me.world.biomes.MEBiomesData;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
@@ -9,17 +10,19 @@ import org.joml.Vector2i;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class MiddleEarthMapDatas {
-    public static final String BIOME_PATH = "data/me/biomes/i_%s";
-    public static final String HEIGHT_PATH = "data/me/heights";
-    public static final String IMAGE_NAME = "/%s_%s.png";
-    public static final int REGION_SIZE = 3000;
-    public static final int PIXEL_WEIGHT = 4;
+    public static final String BIOME_PATH = MiddleEarthMapConfigs.BIOME_PATH;
+    public static final String HEIGHT_PATH = MiddleEarthMapConfigs.HEIGHT_PATH;
+    public static final String IMAGE_NAME = MiddleEarthMapConfigs.IMAGE_NAME;
+    public static final int REGION_SIZE = MiddleEarthMapConfigs.REGION_SIZE;
+    public static final int PIXEL_WEIGHT = MiddleEarthMapConfigs.PIXEL_WEIGHT;
+
+
+
     public int iteration;
     public int xRegionAmount;
     public int zRegionAmount;
@@ -48,17 +51,17 @@ public class MiddleEarthMapDatas {
         xMaxImageCoordinate = REGION_SIZE * xRegionAmount;
         zMaxImageCoordinate = REGION_SIZE * zRegionAmount;
 
-        biomeRegions = new BufferedImage[MiddleEarth.MAP_ITERATION + 1][xRegionAmount][zRegionAmount];
+        biomeRegions = new BufferedImage[MiddleEarthMapConfigs.MAP_ITERATION + 1][xRegionAmount][zRegionAmount];
         heightRegions = new BufferedImage[xRegionAmount][zRegionAmount];
 
-        if(verifyIfBiomeGenerationNeeded() || MiddleEarth.FORCE_GENERATION){
+        if(verifyIfBiomeGenerationNeeded() || MiddleEarthMapConfigs.FORCE_GENERATION){
             System.out.println("MiddleEarthMapDatas::Need biome generation");
             stopwatch.reset().start();
             createInitialData(initialMapImage);
             createBiomeDatas();
             System.out.println("It took %s ms to create the middle-earth height datas".formatted(stopwatch.elapsed(TimeUnit.MILLISECONDS)));
         }
-        if(verifyIfHeightGenerationNeeded() || MiddleEarth.FORCE_GENERATION){
+        if(verifyIfHeightGenerationNeeded() || MiddleEarthMapConfigs.FORCE_GENERATION){
             System.out.println("MiddleEarthMapDatas::Need height generation");
             stopwatch.reset().start();
             createHeightDatas();
@@ -81,7 +84,7 @@ public class MiddleEarthMapDatas {
     }
 
     private void createBiomeDatas() throws Exception {
-        while(iteration < MiddleEarth.MAP_ITERATION){
+        while(iteration < MiddleEarthMapConfigs.MAP_ITERATION){
             ExecutorService executorService = Executors.newFixedThreadPool(threadPoolSize);
             applyNext();
             for(int xOld = 0; xOld < biomeRegions[iteration-1].length; xOld++){

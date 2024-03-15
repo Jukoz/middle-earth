@@ -3,6 +3,7 @@ package net.jukoz.me.block;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.VerticalSlabBlock;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
 
 public class RoofBlockSets {
@@ -153,6 +154,6 @@ public class RoofBlockSets {
     }
 
     public static void registerModBlockSets() {
-        MiddleEarth.LOGGER.debug("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
     }
 }

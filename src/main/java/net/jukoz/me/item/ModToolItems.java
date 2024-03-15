@@ -8,6 +8,7 @@ import net.jukoz.me.item.items.BronzeBucketItem;
 import net.jukoz.me.item.items.CustomPowderSnowBucket;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.ModToolMaterials;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluids;
@@ -157,6 +158,6 @@ public class ModToolItems {
     }
 
     public static void registerModItems() {
-        MiddleEarth.LOGGER.debug("Registering Mod Tool Items for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering Mod Tool Items for " + MiddleEarth.MOD_ID);
     }
 }

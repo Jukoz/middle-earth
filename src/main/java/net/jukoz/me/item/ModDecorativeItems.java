@@ -8,6 +8,7 @@ import net.jukoz.me.item.items.CustomSpawnEggItem;
 import net.jukoz.me.item.utils.ModBannerPatternTags;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.ModVerticallyAttachableBlockItem;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.item.BannerPatternItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -54,6 +55,6 @@ public class ModDecorativeItems {
     }
 
     public static void registerModItems() {
-        MiddleEarth.LOGGER.debug("Registering Mod Decorative Items for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering Mod Decorative Items for " + MiddleEarth.MOD_ID);
     }
 }

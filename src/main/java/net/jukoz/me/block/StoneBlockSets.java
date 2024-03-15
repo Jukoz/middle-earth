@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
 import net.jukoz.me.item.utils.ModItemGroups;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
 
 public class StoneBlockSets {
@@ -440,6 +441,6 @@ public class StoneBlockSets {
     }
 
     public static void registerModBlockSets() {
-        MiddleEarth.LOGGER.debug("Registering SimpleBlockSets for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering SimpleBlockSets for " + MiddleEarth.MOD_ID);
     }
 }

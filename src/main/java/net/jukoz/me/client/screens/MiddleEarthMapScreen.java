@@ -7,6 +7,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.world.biomes.MEBiome;
 import net.jukoz.me.world.biomes.MEBiomesData;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
+import net.jukoz.me.world.MiddleEarthMapConfigs;
 import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.gui.DrawContext;
@@ -174,7 +175,7 @@ public class MiddleEarthMapScreen extends Screen {
                 context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + (int)playerPos.getX() + ", " + (int)playerPos.getY() + ", " + (int)playerPos.getZ()), 5, 15, 0xffffff);
                 context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + currentBiomeId), 5, 25, 0xffffff);
 
-                MEBiome biome = MiddleEarth.GetWorldMapDatas().getBiomeFromWorldCoordinate(MiddleEarth.MAP_ITERATION, cursorWorldCoordinate.x, cursorWorldCoordinate.y);
+                MEBiome biome = MiddleEarth.GetWorldMapDatas().getBiomeFromWorldCoordinate(MiddleEarthMapConfigs.MAP_ITERATION, cursorWorldCoordinate.x, cursorWorldCoordinate.y);
                 if(biome == null){
                     biome = MEBiomesData.getBiomeById((short) 0);
                 }
@@ -420,7 +421,7 @@ public class MiddleEarthMapScreen extends Screen {
     }
 
     private static Vector2i getWorldSize(){
-        float worldSize = (float) Math.pow(2 , MiddleEarth.MAP_ITERATION);
+        float worldSize = (float) Math.pow(2 , MiddleEarthMapConfigs.MAP_ITERATION);
 
         return new Vector2i((int)(MAP_IMAGE_WIDTH * worldSize), (int)(MAP_IMAGE_HEIGHT * worldSize));
     }
