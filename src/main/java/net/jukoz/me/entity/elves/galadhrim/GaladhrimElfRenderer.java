@@ -27,12 +27,14 @@ public class GaladhrimElfRenderer extends BipedEntityRenderer<GaladhrimElfEntity
 
     public static final Map<GaladhrimElfVariant, String> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(GaladhrimElfVariant.class), (resourceLocation) -> {
-                resourceLocation.put(GaladhrimElfVariant.SILVER_TEAL_BLUE_WOMAN,
+                resourceLocation.put(GaladhrimElfVariant.SILVER_TEAL_BLUE,
                           PATH + "elf1.png");
-                resourceLocation.put(GaladhrimElfVariant.SILVER_CYAN_BLUE_WOMAN,
+                resourceLocation.put(GaladhrimElfVariant.SILVER_CYAN_BLUE,
                         PATH + "elf2.png");
-                resourceLocation.put(GaladhrimElfVariant.SILVER_LIME_BLUE_WOMAN,
+                resourceLocation.put(GaladhrimElfVariant.SILVER_LIME_BLUE,
                         PATH + "elf3.png");
+                resourceLocation.put(GaladhrimElfVariant.BLOND_GREEN_BLUE,
+                        PATH + "elf4.png");
             });
 
     @Override
@@ -44,7 +46,7 @@ public class GaladhrimElfRenderer extends BipedEntityRenderer<GaladhrimElfEntity
     public void render(GaladhrimElfEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
 
-        poseStack.scale(0.92f, 1.02f, 0.92f);
+        poseStack.scale(0.95f, 1.0f, 0.95f);
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 }

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "me:raw_mithril"
+  },
+  "result": "me:mithril_ingot",
+  "experience": 2,
+  "cookingtime": 125
+}

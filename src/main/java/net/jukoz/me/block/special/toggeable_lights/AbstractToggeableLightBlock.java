@@ -100,11 +100,15 @@ public abstract class AbstractToggeableLightBlock extends Block {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient && player.getAbilities().allowModifyWorld) {
-            ItemStack itemStack = player.getStackInHand(hand);
-            if(state.get(LIT) && itemStack.isIn(ItemTags.SHOVELS)){
-                extinguish(null, state, world, pos);
-            } else if(!state.get(LIT) && itemStack.isOf(Items.FLINT_AND_STEEL) ||itemStack.isOf(Items.TORCH)){
-                setLit(world, state, pos, true);
+            if(player.isCreative()){
+                world.setBlockState(pos, state.cycle(LIT));
+            } else {
+                ItemStack itemStack = player.getStackInHand(hand);
+                if (state.get(LIT) && itemStack.isIn(ItemTags.SHOVELS)) {
+                    extinguish(null, state, world, pos);
+                } else if (!state.get(LIT) && itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.TORCH)) {
+                    setLit(world, state, pos, true);
+                }
             }
         }
         return ActionResult.SUCCESS;
