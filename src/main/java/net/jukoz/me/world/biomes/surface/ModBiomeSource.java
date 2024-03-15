@@ -1,13 +1,16 @@
-package net.jukoz.me.world.biomes;
+package net.jukoz.me.world.biomes.surface;
 
 import com.mojang.serialization.Codec;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.MiddleEarthClient;
+import net.jukoz.me.utils.noises.BlendedNoise;
+import net.jukoz.me.utils.noises.SimplexNoise;
+import net.jukoz.me.world.biomes.MEBiomeKeys;
+import net.jukoz.me.world.biomes.caves.ModCaveBiomes;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
-import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeCoords;
 import net.minecraft.world.biome.source.BiomeSource;
@@ -18,7 +21,8 @@ import java.util.stream.Stream;
 
 public class ModBiomeSource extends BiomeSource {
     private final ArrayList<RegistryEntry<Biome>> biomes;
-
+    private final int CAVE_NOISE = 64;
+    private final int CAVE_OFFSET = 7220;
     public ModBiomeSource(ArrayList<RegistryEntry<Biome>> biomes) {
         this.biomes = biomes;
     }
@@ -31,6 +35,14 @@ public class ModBiomeSource extends BiomeSource {
     @Override
     protected Stream<RegistryEntry<Biome>> biomeStream() {
         return biomes.stream();
+    }
+
+    private RegistryKey<Biome> getCaveBiome(int x, int z) {
+        float temperature = (float) SimplexNoise.noise((double) x / CAVE_NOISE,  (double) z / CAVE_NOISE);
+        float humidity = (float) SimplexNoise.noise((double) (x + CAVE_OFFSET) / CAVE_NOISE, (double)(z + CAVE_OFFSET) / CAVE_NOISE);
+        RegistryKey<Biome> biome = ModCaveBiomes.defaultCaves.getClosestBiome(new Vec2f(temperature, humidity));
+        if (biome == null) return MEBiomeKeys.LUSH_CAVE;
+        else return biome;
     }
 
     @Override
@@ -51,7 +63,7 @@ public class ModBiomeSource extends BiomeSource {
         if(!MEBiomesData.waterBiomes.contains(biome)) {
             float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
             if(j < height - 12) {
-                processedBiome = MEBiomeKeys.LUSH_CAVE;
+                processedBiome = getCaveBiome(x, z);
             }
             else if(height <= MiddleEarthChunkGenerator.WATER_HEIGHT + 1.25f) {
                 if(MEBiomesData.wastePondBiomes.contains(biome)) {

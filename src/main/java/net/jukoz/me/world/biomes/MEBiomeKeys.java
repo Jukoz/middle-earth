@@ -84,6 +84,7 @@ public class MEBiomeKeys extends BiomeKeys {
 
     // region CAVES
     public static final RegistryKey<Biome> LUSH_CAVE = MEBiomeKeys.register("lush_cave");
+    public static final RegistryKey<Biome> DRIPSTONE_CAVE = MEBiomeKeys.register("dripstone_cave");
 
     // endregion
 

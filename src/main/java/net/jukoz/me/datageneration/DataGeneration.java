@@ -2,8 +2,8 @@ package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.jukoz.me.world.biomes.ModBiomes;
-import net.jukoz.me.world.biomes.ModCaveBiomes;
+import net.jukoz.me.world.biomes.surface.ModBiomes;
+import net.jukoz.me.world.biomes.caves.ModCaveBiomes;
 import net.jukoz.me.world.features.boulder.BoulderConfiguredFeatures;
 import net.jukoz.me.world.features.boulder.BoulderPlacedFeatures;
 import net.jukoz.me.world.features.misc.ModMiscConfiguredFeatures;

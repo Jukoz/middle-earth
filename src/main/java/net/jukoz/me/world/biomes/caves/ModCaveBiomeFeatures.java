@@ -1,4 +1,4 @@
-package net.jukoz.me.world.biomes;
+package net.jukoz.me.world.biomes.caves;
 
 import net.jukoz.me.world.features.underground.CavesPlacedFeatures;
 import net.minecraft.world.biome.GenerationSettings;
@@ -8,6 +8,9 @@ public class ModCaveBiomeFeatures {
 
     public static void addAmethystGeode(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, CavesPlacedFeatures.AMETHYST_GEODE);
+    }
+    public static void addCitrineGeode(GenerationSettings.LookupBackedBuilder builder) {
+        builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, CavesPlacedFeatures.CITRINE_GEODE);
     }
     public static void addGlowstoneGeode(GenerationSettings.LookupBackedBuilder builder) {
         builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, CavesPlacedFeatures.GLOWSTONE_GEODE);

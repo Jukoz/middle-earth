@@ -6,13 +6,16 @@ import net.jukoz.me.block.OreRockSets;
 import net.jukoz.me.block.StoneBlockSets;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.TagMatchRuleTest;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.floatprovider.UniformFloatProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
@@ -21,10 +24,15 @@ import org.apache.http.params.CoreConnectionPNames;
 import java.util.List;
 
 public class CavesConfiguredFeatures {
+    public static final RegistryKey<ConfiguredFeature<?, ?>> CITRINE_GEODE = registerKey("citrine_geode");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GLOWSTONE_GEODE = registerKey("glowstone_geode");
     public static final RegistryKey<ConfiguredFeature<?, ?>> RED_AGATE_GEODE = registerKey("red_agate_geode");
     public static final RegistryKey<ConfiguredFeature<?, ?>> QUARTZ_GEODE = registerKey("quartz_geode");
+
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_MAGMA = registerKey("ore_magma");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_OBSIDIAN = registerKey("ore_obsidian");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> LARGE_BLACKSTONE = registerKey("large_blackstone");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> LARGE_POLISHED_BASALT = registerKey("large_polished_basalt");
 
     // region Material Ores
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_COAL = registerKey("ore_coal");
@@ -38,6 +46,7 @@ public class CavesConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_GOLD = registerKey("ore_gold");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_MITHRIL = registerKey("ore_mithril");
     // endregion
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SPRING_LAVA = registerKey("spring_lava");
 
     static TagMatchRuleTest stoneTest = new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES);
     static BlockMatchRuleTest ashenStoneTest = new BlockMatchRuleTest(StoneBlockSets.ASHEN_STONE.base());
@@ -48,6 +57,9 @@ public class CavesConfiguredFeatures {
     static BlockMatchRuleTest diftominTest = new BlockMatchRuleTest(StoneBlockSets.DIFTOMIN.base());
     static BlockMatchRuleTest epmostoTest = new BlockMatchRuleTest(StoneBlockSets.EPMOSTO.base());
 
+    static List<OreFeatureConfig.Target> magmaList = List.of(
+            OreFeatureConfig.createTarget(diftominTest, Blocks.MAGMA_BLOCK.getDefaultState()),
+            OreFeatureConfig.createTarget(epmostoTest, Blocks.MAGMA_BLOCK.getDefaultState()));
     static List<OreFeatureConfig.Target> coalList = List.of(
             OreFeatureConfig.createTarget(stoneTest, Blocks.COAL_ORE.getDefaultState()),
             OreFeatureConfig.createTarget(ashenStoneTest, OreRockSets.ASHEN.coal_ore().getDefaultState()),
@@ -90,6 +102,8 @@ public class CavesConfiguredFeatures {
     static List<OreFeatureConfig.Target> mithrilList = List.of(OreFeatureConfig.createTarget(epmostoTest, OreRockSets.EPMOSTO.mithril_ore().getDefaultState()));
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
+        registerGeode(CITRINE_GEODE, featureRegisterable, ModBlocks.CITRINE_BLOCK, ModBlocks.BUDDING_CITRINE, ModBlocks.SMALL_CITRINE_BUD,
+                ModBlocks.MEDIUM_CITRINE_BUD, ModBlocks.LARGE_CITRINE_BUD, ModBlocks.CITRINE_CLUSTER);
         registerGeode(GLOWSTONE_GEODE, featureRegisterable, ModBlocks.GLOWSTONE_BLOCK, ModBlocks.BUDDING_GLOWSTONE, ModBlocks.SMALL_GLOWSTONE_BUD,
                 ModBlocks.MEDIUM_GLOWSTONE_BUD, ModBlocks.LARGE_GLOWSTONE_BUD, ModBlocks.GLOWSTONE_CLUSTER);
         registerGeode(QUARTZ_GEODE, featureRegisterable, ModBlocks.QUARTZ_BLOCK, ModBlocks.BUDDING_QUARTZ, ModBlocks.SMALL_QUARTZ_BUD,
@@ -97,8 +111,13 @@ public class CavesConfiguredFeatures {
         registerGeode(RED_AGATE_GEODE, featureRegisterable, ModBlocks.RED_AGATE_BLOCK, ModBlocks.BUDDING_RED_AGATE, ModBlocks.SMALL_RED_AGATE_BUD,
                 ModBlocks.MEDIUM_RED_AGATE_BUD, ModBlocks.LARGE_RED_AGATE_BUD, ModBlocks.RED_AGATE_CLUSTER);
 
+        ConfiguredFeatures.register(featureRegisterable, ORE_MAGMA, Feature.ORE, new OreFeatureConfig(magmaList, 31, 0.4f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_OBSIDIAN, Feature.ORE, new OreFeatureConfig(epmostoTest, Blocks.OBSIDIAN.getDefaultState(), 27));
+        ConfiguredFeatures.register(featureRegisterable, LARGE_BLACKSTONE,  Feature.LARGE_DRIPSTONE, new LargeDripstoneFeatureConfig(30, UniformIntProvider.create(3, 19),
+                UniformFloatProvider.create(0.4f, 2.0f), 0.33f, UniformFloatProvider.create(0.3f, 0.9f), UniformFloatProvider.create(0.4f, 1.0f),
+                UniformFloatProvider.create(0.0f, 0.3f), 4, 0.6f));
+        ConfiguredFeatures.register(featureRegisterable, LARGE_POLISHED_BASALT, Feature.ORE, new OreFeatureConfig(epmostoTest, Blocks.OBSIDIAN.getDefaultState(), 27));
 
-        ConfiguredFeatures.register(featureRegisterable, ORE_MAGMA, Feature.ORE, new OreFeatureConfig(epmostoTest, Blocks.MAGMA_BLOCK.getDefaultState(), 31));
         ConfiguredFeatures.register(featureRegisterable, ORE_COAL, Feature.ORE, new OreFeatureConfig(coalList, 17, 0.25f));
         ConfiguredFeatures.register(featureRegisterable, ORE_COPPER, Feature.ORE, new OreFeatureConfig(copperList, 15, 0.25f));
         ConfiguredFeatures.register(featureRegisterable, ORE_TIN, Feature.ORE, new OreFeatureConfig(tinList, 12, 0.25f));
@@ -109,6 +128,9 @@ public class CavesConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, ORE_JADE, Feature.ORE, new OreFeatureConfig(jadeList, 18, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, ORE_GOLD, Feature.ORE, new OreFeatureConfig(goldList, 5, 0.7f));
         ConfiguredFeatures.register(featureRegisterable, ORE_MITHRIL, Feature.ORE, new OreFeatureConfig(mithrilList, 1, 0.85f));
+
+        ConfiguredFeatures.register(featureRegisterable, SPRING_LAVA, Feature.SPRING_FEATURE, new SpringFeatureConfig(Fluids.LAVA.getDefaultState(),
+                true, 4, 1, RegistryEntryList.of(Block::getRegistryEntry, StoneBlockSets.DIFTOMIN.base(), StoneBlockSets.EPMOSTO.base())));
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {

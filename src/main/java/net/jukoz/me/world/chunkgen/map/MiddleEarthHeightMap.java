@@ -2,8 +2,8 @@ package net.jukoz.me.world.chunkgen.map;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.noises.BlendedNoise;
-import net.jukoz.me.world.biomes.MEBiome;
-import net.jukoz.me.world.biomes.MEBiomesData;
+import net.jukoz.me.world.biomes.surface.MEBiome;
+import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 
 import java.awt.*;

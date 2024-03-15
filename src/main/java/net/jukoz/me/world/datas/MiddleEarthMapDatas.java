@@ -2,14 +2,13 @@ package net.jukoz.me.world.datas;
 
 import com.google.common.base.Stopwatch;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.world.biomes.MEBiome;
-import net.jukoz.me.world.biomes.MEBiomesData;
+import net.jukoz.me.world.biomes.surface.MEBiome;
+import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
 import org.joml.Vector2i;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;

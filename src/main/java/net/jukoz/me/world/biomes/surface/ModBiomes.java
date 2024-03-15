@@ -1,5 +1,7 @@
-package net.jukoz.me.world.biomes;
+package net.jukoz.me.world.biomes.surface;
 
+import net.jukoz.me.world.biomes.BiomeColorsDTO;
+import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.spawners.ModSpawnSettingsBuilder;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -621,7 +623,7 @@ public class ModBiomes {
         ModBiomeFeatures.addBasaltPile(vegetation);
         ModBiomeFeatures.addBlackStonePile(vegetation);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.7f, false);
     }
 
     public static Biome createMordorWastesBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {

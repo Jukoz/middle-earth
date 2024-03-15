@@ -1,4 +1,4 @@
-package net.jukoz.me.world.biomes;
+package net.jukoz.me.world.biomes.surface;
 
 import net.jukoz.me.world.features.boulder.BoulderPlacedFeatures;
 import net.jukoz.me.world.features.misc.ModMiscPlacedFeatures;
