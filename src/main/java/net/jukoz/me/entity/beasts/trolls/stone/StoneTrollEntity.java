@@ -7,6 +7,8 @@ import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.*;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
+import net.jukoz.me.world.biomes.MEBiome;
+import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.damage.DamageSource;
@@ -19,15 +21,30 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class StoneTrollEntity extends TrollEntity {
     public static final TrackedData<Integer> PETRIFYING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    private final int PETRIFYING_DURATION = 300;
+    public static final List<RegistryKey<Biome>> darkBiomes = List.of(
+            MEBiomeKeys.MORDOR,
+            MEBiomeKeys.MORDOR_MOUNTAINS,
+            MEBiomeKeys.MORDOR_WASTES
+    );
+    private final int PETRIFYING_DURATION = 600;
 
     public StoneTrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
@@ -120,8 +137,11 @@ public class StoneTrollEntity extends TrollEntity {
 
     @Override
     public void tickMovement() {
-        if (this.isAlive() && !this.getWorld().isClient() && this.getPetrifying() != -1) {
-            boolean inDaylight = this.isAffectedByDaylight() && this.getEquippedStack(EquipmentSlot.CHEST).isEmpty();
+        if (this.isAlive() && !this.getWorld().isClient() && this.getPetrifying() != -1 && this.getWorld().getBiome(this.getBlockPos()).getKey().isPresent()) {
+            RegistryKey<Biome> biomeKey = this.getWorld().getBiome(this.getBlockPos()).getKey().get();
+
+            boolean inDaylight = this.isAffectedByDaylight() && this.getEquippedStack(EquipmentSlot.CHEST).isEmpty() && !darkBiomes.contains(biomeKey);
+
             if (inDaylight) {
                 this.setPetrifying(this.getPetrifying() - 1);
                 if(this.getPetrifying() <= 0) {
