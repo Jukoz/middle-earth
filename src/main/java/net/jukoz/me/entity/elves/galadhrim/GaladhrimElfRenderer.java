@@ -46,7 +46,7 @@ public class GaladhrimElfRenderer extends BipedEntityRenderer<GaladhrimElfEntity
     public void render(GaladhrimElfEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
 
-        poseStack.scale(0.92f, 1.02f, 0.92f);
+        poseStack.scale(0.95f, 1.0f, 0.95f);
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 }

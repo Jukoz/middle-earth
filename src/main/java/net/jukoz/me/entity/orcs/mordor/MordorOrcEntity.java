@@ -1,14 +1,13 @@
 package net.jukoz.me.entity.orcs.mordor;
 
 import net.jukoz.me.entity.NpcEntity;
-import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
+import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.item.ModEquipmentItems;
-import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -17,9 +16,8 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeableItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -67,7 +65,7 @@ public class MordorOrcEntity extends NpcEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
     }
@@ -82,58 +80,63 @@ public class MordorOrcEntity extends NpcEntity {
     }
 
     private void militiaEquipment(Random random){
-        float val = random.nextFloat();
-        if(val >= 0.30f){
+        int[] colors = {
+                0x544949,
+                0x563a3a,
+                0x463a3a,
+                0x3b3634
+        };
+        DyeableItem item = (DyeableItem)ModEquipmentItems.GAMBESON;
+        ItemStack leatherHelmet = new ItemStack(Items.LEATHER_HELMET);
+        ItemStack leatherChestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
+        ItemStack leatherLeggings = new ItemStack(Items.LEATHER_LEGGINGS);
+        ItemStack leatherBoots = new ItemStack(Items.LEATHER_BOOTS);
+        item.setColor(leatherHelmet, colors[0]);
+        item.setColor(leatherChestplate, colors[1]);
+        item.setColor(leatherLeggings, colors[2]);
+        item.setColor(leatherBoots, colors[3]);
+
+        if(random.nextFloat() >= 0.30f){
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.RUSTY_KETTLE_HAT));
         } else  {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
+            equipStack(EquipmentSlot.HEAD, leatherHelmet);
         }
-
-        equipStack(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
-
-        float val2 = random.nextFloat();
-
-        if(val2 >= 0.50f){
-            equipStack(EquipmentSlot.LEGS, new ItemStack(Items.LEATHER_LEGGINGS));
+        equipStack(EquipmentSlot.CHEST, leatherChestplate);
+        if(random.nextFloat() >= 0.50f){
+            equipStack(EquipmentSlot.LEGS, leatherLeggings);
         }
-
-        equipStack(EquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
-
+        equipStack(EquipmentSlot.FEET, leatherBoots);
 
         float val3 = random.nextFloat();
-        if(val3 >= 0.55f){
+        if(val3 >= 0.7f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-        } else if (val3 < 0.55f && val3 > 0.20f) {
+        } else if (val3 > 0.3f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORDOR_ORC_PIKE));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        } else if (val3 <= 0.20f) {
+        } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORDOR_ORC_DAGGER));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         }
     }
 
     private void soldierEquipment(Random random){
-        float val = random.nextFloat();
-        if(val >= 0.30f){
+        if(random.nextFloat() >= 0.30f){
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_HELMET));
         } else  {
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.RUSTY_KETTLE_HAT));
         }
-
         equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_CHESTPLATE));
-
-
         equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_LEGGINGS));
         equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_BOOTS));
 
 
         float val3 = random.nextFloat();
-        if(val3 >= 0.55f){
+        if(val3 >= 0.75f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-        } else if (val3 < 0.55f && val3 > 0.20f) {
+        } else if (val3 > 0.20f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORDOR_ORC_PIKE));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MORDOR_SHIELD));
-        } else if (val3 <= 0.20f) {
+        } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORDOR_ORC_SCIMITAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MORDOR_SHIELD));
         }

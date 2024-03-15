@@ -5,13 +5,13 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 
 import net.jukoz.me.utils.RegistryUtils;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
-import net.jukoz.me.world.features.foliages.PalmFoliagePlacer;
-import net.jukoz.me.world.features.trunks.ArcTrunkPlacer;
-import net.jukoz.me.world.features.trunks.CanopyTrunkPlacer;
-import net.jukoz.me.world.features.trunks.LargeTrunkPlacer;
-import net.jukoz.me.world.features.ModPlacedFeatures;
-import net.jukoz.me.world.features.foliages.OvalFoliagePlacer;
-import net.jukoz.me.world.features.trunks.SpruceTrunkPlacer;
+import net.jukoz.me.world.features.tree.foliages.PalmFoliagePlacer;
+import net.jukoz.me.world.features.tree.trunks.ArcTrunkPlacer;
+import net.jukoz.me.world.features.tree.trunks.CanopyTrunkPlacer;
+import net.jukoz.me.world.features.tree.trunks.LargeTrunkPlacer;
+import net.jukoz.me.world.features.tree.ModTreePlacedFeatures;
+import net.jukoz.me.world.features.tree.foliages.OvalFoliagePlacer;
+import net.jukoz.me.world.features.tree.trunks.SpruceTrunkPlacer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.gen.GenerationStep;
@@ -42,8 +42,5 @@ public class ModTreeGeneration {
     );
 
     public static void generateTrees() {
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(MEBiomeKeys.MIRKWOOD),
-                GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.MIRKWOOD_PLACED_TREE_KEY);
-
     }
 }

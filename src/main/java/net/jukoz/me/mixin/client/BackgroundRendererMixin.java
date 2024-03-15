@@ -25,7 +25,7 @@ import java.util.Optional;
 @Mixin(BackgroundRenderer.class)
 public class BackgroundRendererMixin {
     private static final float TICK_SPEED = 0.001f;
-    private static float fogStartMultiplier = 1;
+    private static float fogStartMultiplier = 0.25f;
     private static float fogEndMultiplier = 1;
 
     @Inject(method = "applyFog", at = @At("TAIL"))

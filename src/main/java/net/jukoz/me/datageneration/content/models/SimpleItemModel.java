@@ -1,5 +1,6 @@
 package net.jukoz.me.datageneration.content.models;
 
+import net.jukoz.me.item.ModDecorativeItems;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.item.Item;
@@ -15,6 +16,8 @@ public class SimpleItemModel {
             add(ModResourceItems.EMPTY_PHIAL);
             add(ModResourceItems.WATER_PHIAL);
             add(ModResourceItems.STARLIGHT_PHIAL);
+
+            add(ModDecorativeItems.TROLL_STATUE);
 
             add(ModFoodItems.TOMATO);
             add(ModFoodItems.BELL_PEPPER);
@@ -111,9 +114,10 @@ public class SimpleItemModel {
             add(ModResourceItems.MITHRIL_NUGGET);
             add(ModResourceItems.MITHRIL_ROD);
 
+            add(ModResourceItems.IRON_CHAINMAIL);
+
             add(ModResourceItems.PINECONE);
             add(ModResourceItems.LIT_PINECONE);
-            add(ModResourceItems.IRON_CHAINMAIL);
         }
     };
 }

@@ -3,10 +3,13 @@ package net.jukoz.me.entity.beasts.trolls;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.beasts.BeastEntity;
-import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
+import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.*;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
+import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
+import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
+import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntity;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.items.TrollArmorItem;
@@ -25,22 +28,28 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldEvents;
 
-// TODO Have slowly accelerate for charge
-// TODO Update Model and Animations
-// TODO Turn to stone
+import java.util.List;
+
 public class TrollEntity extends BeastEntity {
     private int throwCooldown = 100;
     public final AnimationState throwingAnimationState = new AnimationState();
     private int throwingAnimationTimeout = 0;
     public static final TrackedData<Boolean> THROWING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
+
+
+    // Temporary disabled until next update
+    @Override
+    public boolean hasArmorSlot() {
+        return false;
+    }
 
     public TrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
@@ -61,7 +70,7 @@ public class TrollEntity extends BeastEntity {
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BeastSitGoal(this));
-        this.goalSelector.add(3, new ChargeAttackGoal(this, 400));
+        this.goalSelector.add(3, new ChargeAttackGoal(this, maxChargeCooldown()));
         this.goalSelector.add(3, new MeleeAttackGoal(this, 0.9f, false));
         this.goalSelector.add(4, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
@@ -69,10 +78,14 @@ public class TrollEntity extends BeastEntity {
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((BeastEntity) this));
         this.targetSelector.add(2, new BeastAttackWithOwnerGoal((BeastEntity)this));
-        this.targetSelector.add(3, new TargetPlayerGoal(this));
+        this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
+        this.targetSelector.add(4, new TargetPlayerGoal(this));
         this.targetSelector.add(4, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(5, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
-        this.targetSelector.add(6, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(5, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
+        this.targetSelector.add(6, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
+        this.targetSelector.add(7, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
+        this.targetSelector.add(8, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+        this.targetSelector.add(9, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
     protected void initDataTracker() {
@@ -130,9 +143,6 @@ public class TrollEntity extends BeastEntity {
         }
         if(this.isThrowing() && canThrow()) {
             this.setVelocity(Vec3d.ZERO);
-            if(!this.isOnGround()) {
-                this.setThrowing(false);
-            }
             if(throwCooldown <= 180) {
                 throwAttack();
             }
@@ -218,6 +228,11 @@ public class TrollEntity extends BeastEntity {
     }
 
     @Override
+    public int chargeDuration() {
+        return 25;
+    }
+
+    @Override
     public Item getBondingItem() {
         return ModFoodItems.COOKED_HORSE;
     }
@@ -228,9 +243,8 @@ public class TrollEntity extends BeastEntity {
     }
 
     public void throwAttack() {
-
         Entity target = this.getTarget();
-        if(target != null) {
+        if(target != null && !this.getWorld().isClient) {
             this.setThrowing(false);
 
             Vec3d rotationVec = this.getRotationVec(1.0f);
@@ -246,5 +260,31 @@ public class TrollEntity extends BeastEntity {
                 this.getWorld().spawnEntity(boulder);
             }
         }
+    }
+
+    @Override
+    public void chargeAttack() {
+        List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
+
+        if(!this.isTame() && !this.getWorld().isClient) {
+            if(targetDir == Vec3d.ZERO && this.getTarget() != null) {
+                targetDir = new Vec3d( this.getTarget().getBlockPos().getX() - this.getBlockPos().getX(),
+                        this.getTarget().getBlockPos().getY() - this.getBlockPos().getY(),
+                        this.getTarget().getBlockPos().getZ() - this.getBlockPos().getZ());
+            }
+            this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
+            this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())).add(0, this.getVelocity().y, 0));
+        }
+        else if (this.getWorld().isClient) {
+            this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())).add(0, this.getVelocity().y, 0));
+        }
+
+        for(Entity entity : entities) {
+            if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity)) {
+                entity.damage(entity.getDamageSources().mobAttack(this), 16.0f);
+            }
+        }
+        this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+        this.chargeAnimationState.startIfNotRunning(this.age);
     }
 }

@@ -2,17 +2,17 @@ package net.jukoz.me.entity.humans.bandit;
 
 import net.jukoz.me.entity.NpcEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
-import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
+import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.nazguls.NazgulEntity;
-import net.jukoz.me.entity.orcs.misties.MistyOrcEntity;
+import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
-import net.jukoz.me.entity.uruks.misties.MistyUrukEntity;
-import net.jukoz.me.entity.uruks.mordor.MordorUrukEntity;
+import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
+import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.minecraft.entity.EntityData;
@@ -25,7 +25,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.item.DyeableItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -82,16 +81,16 @@ public class BanditHumanEntity extends NpcEntity{
         super.initGoals();
         int i = 2;
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorUrukEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyUrukEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyOrcEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
@@ -106,67 +105,70 @@ public class BanditHumanEntity extends NpcEntity{
     }
 
     private void militiaEquipment(Random random){
-        float val = random.nextFloat();
-        if(val >= 0.30f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HAT));
+        int[] colors = {
+                0x8c8572,
+                0x897f64,
+                0x6d685b,
+                0x504e48
+        };
+        DyeableItem item = (DyeableItem)ModEquipmentItems.GAMBESON;
+        ItemStack leatherHelmet = new ItemStack(Items.LEATHER_HELMET);
+        ItemStack leatherChestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
+        ItemStack leatherLeggings = new ItemStack(Items.LEATHER_LEGGINGS);
+        ItemStack leatherBoots = new ItemStack(Items.LEATHER_BOOTS);
+        item.setColor(leatherHelmet, colors[0]);
+        item.setColor(leatherChestplate, colors[1]);
+        item.setColor(leatherLeggings, colors[2]);
+        item.setColor(leatherBoots, colors[3]);
+
+        if(random.nextFloat() >= 0.30f){
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.RUSTY_KETTLE_HAT));
         } else  {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
+            equipStack(EquipmentSlot.HEAD, leatherHelmet);
         }
-
-        float val1 = random.nextFloat();
-        if(val1 >= 0.30f){
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GAMBESON));
-        } else  {
-            equipStack(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
+        equipStack(EquipmentSlot.CHEST, leatherChestplate);
+        if(random.nextFloat() >= 0.50f){
+            equipStack(EquipmentSlot.LEGS, leatherLeggings);
         }
-
-        float val2 = random.nextFloat();
-
-        if(val2 >= 0.50f){
-            equipStack(EquipmentSlot.LEGS, new ItemStack(Items.LEATHER_LEGGINGS));
-        }
-
-        equipStack(EquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
-
+        equipStack(EquipmentSlot.FEET, leatherBoots);
 
         float val3 = random.nextFloat();
-        if(val3 >= 0.55f){
+        if(val3 >= 0.7f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-        } else if (val3 < 0.55f && val3 > 0.20f) {
+        } else if (val3 > 0.2f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        } else if (val3 <= 0.20f) {
+        } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.IRON_DAGGER));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         }
     }
 
     private void soldierEquipment(Random random){
-        float val = random.nextFloat();
-        if(val >= 0.30f){
+        DyeableItem item = (DyeableItem)ModEquipmentItems.GAMBESON;
+        ItemStack gambeson = new ItemStack(ModEquipmentItems.GAMBESON);
+        item.setColor(gambeson, 0x897f64);
+
+        if(random.nextFloat() >= 0.30f){
             equipStack(EquipmentSlot.HEAD, new ItemStack(Items.CHAINMAIL_HELMET));
         } else  {
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HAT));
         }
-
-        float val1 = random.nextFloat();
-        if(val1 >= 0.30f){
+        if(random.nextFloat() >= 0.30f){
             equipStack(EquipmentSlot.CHEST, new ItemStack(Items.CHAINMAIL_CHESTPLATE));
         } else  {
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GAMBESON));
+            equipStack(EquipmentSlot.CHEST, gambeson);
         }
-
         equipStack(EquipmentSlot.LEGS, new ItemStack(Items.CHAINMAIL_LEGGINGS));
         equipStack(EquipmentSlot.FEET, new ItemStack(Items.CHAINMAIL_BOOTS));
 
-
         float val3 = random.nextFloat();
-        if(val3 >= 0.55f){
+        if(val3 >= 0.65f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-        } else if (val3 < 0.55f && val3 > 0.20f) {
+        } else if ( val3 > 0.3f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        } else if (val3 <= 0.20f) {
+        } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_PIKE));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         }
@@ -181,10 +183,10 @@ public class BanditHumanEntity extends NpcEntity{
         float val = random.nextFloat();
         if(val >= 0.75f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
-        } else if (val < 0.75f && val > 0.20f) {
+        } else if (val > 0.20f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        } else if (val <= 0.20f) {
+        } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_PIKE));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         }
