@@ -182,7 +182,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
 
                 float height = MiddleEarthHeightMap.getHeight(posX, posZ);
-                int caveBlendNoise = (int) (2 * BlendedNoise.noise((double) x / 32,  (double) z / 32));
+                int caveBlendNoise = (int) (4 * BlendedNoise.noise((double) x / 32,  (double) z / 32));
 
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, bottomY, z), Blocks.BEDROCK.getDefaultState(), false);
                 for(int y = bottomY + 1; y <= LAVA_HEIGHT; y++) {

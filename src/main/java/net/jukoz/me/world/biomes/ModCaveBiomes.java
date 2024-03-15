@@ -1,5 +1,6 @@
 package net.jukoz.me.world.biomes;
 
+import net.jukoz.me.world.features.underground.CavesPlacedFeatures;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registerable;
@@ -37,17 +38,6 @@ public class ModCaveBiomes {
         DefaultBiomeFeatures.addPlainsTallGrass(generationSettings);
 
         undergroundOres.add(OrePlacedFeatures.ORE_CLAY);
-
-        undergroundOres.add(OrePlacedFeatures.ORE_COAL_UPPER);
-        undergroundOres.add(OrePlacedFeatures.ORE_COAL_LOWER);
-        undergroundOres.add(OrePlacedFeatures.ORE_IRON_UPPER);
-        undergroundOres.add(OrePlacedFeatures.ORE_IRON_MIDDLE);
-        undergroundOres.add(OrePlacedFeatures.ORE_IRON_SMALL);
-        undergroundOres.add(OrePlacedFeatures.ORE_GOLD);
-        undergroundOres.add(OrePlacedFeatures.ORE_GOLD_LOWER);
-        //undergroundOres.add(OrePlacedFeatures.ORE_LAPIS);
-        //undergroundOres.add(OrePlacedFeatures.ORE_LAPIS_BURIED);
-        undergroundOres.add(OrePlacedFeatures.ORE_COPPER);
         undergroundOres.add(UndergroundPlacedFeatures.UNDERWATER_MAGMA);
         undergroundOres.add(MiscPlacedFeatures.DISK_SAND);
         undergroundOres.add(MiscPlacedFeatures.DISK_CLAY);
@@ -59,8 +49,20 @@ public class ModCaveBiomes {
     }
 
     private static void addBasicFeatures(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addAmethystGeodes(generationSettings);
+        ModCaveBiomeFeatures.addAmethystGeode(generationSettings);
+        ModCaveBiomeFeatures.addGlowstoneGeode(generationSettings);
         ModCaveBiomeFeatures.addRedAgateGeode(generationSettings);
+        ModCaveBiomeFeatures.addQuartzGeode(generationSettings);
+
+        undergroundOres.add(CavesPlacedFeatures.ORE_COAL);
+        undergroundOres.add(CavesPlacedFeatures.ORE_COAL_UPPER);
+        undergroundOres.add(CavesPlacedFeatures.ORE_COPPER);
+        undergroundOres.add(CavesPlacedFeatures.ORE_TIN);
+        undergroundOres.add(CavesPlacedFeatures.ORE_LEAD);
+        undergroundOres.add(CavesPlacedFeatures.ORE_IRON);
+        undergroundOres.add(CavesPlacedFeatures.ORE_SILVER);
+        undergroundOres.add(CavesPlacedFeatures.ORE_JADE);
+        undergroundOres.add(CavesPlacedFeatures.ORE_GOLD);
 
         undergroundOres.add(OrePlacedFeatures.ORE_DIRT);
         undergroundOres.add(OrePlacedFeatures.ORE_GRAVEL);
