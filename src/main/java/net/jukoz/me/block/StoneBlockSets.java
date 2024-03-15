@@ -219,6 +219,9 @@ public class StoneBlockSets {
     public static SimpleBlockSet MOSSY_MIXED_STONES = registerStoneSet("mossy_mixed_stones", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, MIXED_STONES.base);
     public static SimpleBlockSet CRACKED_MIXED_STONES = registerStoneSet("cracked_mixed_stones", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, MIXED_STONES.base);
 
+    public static SimpleBlockSet WHITE_DAUB = registerStoneSet("white_daub", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
+    public static SimpleBlockSet YELLOW_DAUB = registerStoneSet("yellow_daub", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
+
 
     public static SimpleBlockSetMain[] setsMain = new SimpleBlockSetMain[] {
 
@@ -244,6 +247,10 @@ public class StoneBlockSets {
     };
 
     public static SimpleBlockSet[] sets = new SimpleBlockSet[] {
+
+            WHITE_DAUB,
+            YELLOW_DAUB,
+
             ASHEN_COBBLESTONE,
             ASHEN_BRICKS,
             ASHEN_TILES,
@@ -361,6 +368,8 @@ public class StoneBlockSets {
             CRACKED_BASALT_BRICKS,
             BASALT_TILES,
 
+            COBBLED_QUARTZITE,
+            POLISHED_QUARTZITE,
             QUARTZITE_BRICKS,
             QUARTZITE_TILES,
 

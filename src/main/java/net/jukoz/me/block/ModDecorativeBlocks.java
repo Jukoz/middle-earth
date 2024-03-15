@@ -38,6 +38,20 @@ public class ModDecorativeBlocks {
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             new WoodPileBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque()));
 
+    public static final Block WOOD_FRAMED_WINDOW = registerBlockWithItem("wood_framed_window",
+            new GlassBlock(FabricBlockSettings.copyOf(Blocks.GLASS)));
+    public static final Block WOOD_FRAMED_WINDOW_PANE = registerBlockWithItem("wood_framed_window_pane",
+            new PaneBlock(FabricBlockSettings.copyOf(Blocks.GLASS_PANE)));
+
+    public static final Block WHITE_DAUB_HOBBIT_WINDOW = registerBlockWithItem("white_daub_hobbit_window",
+            new GlassBlock(FabricBlockSettings.copyOf(Blocks.GLASS)));
+    public static final Block WHITE_DAUB_HOBBIT_WINDOW_PANE = registerBlockWithItem("white_daub_hobbit_window_pane",
+            new PaneBlock(FabricBlockSettings.copyOf(Blocks.GLASS_PANE)));
+    public static final Block YELLOW_DAUB_HOBBIT_WINDOW = registerBlockWithItem("yellow_daub_hobbit_window",
+            new GlassBlock(FabricBlockSettings.copyOf(Blocks.GLASS)));
+    public static final Block YELLOW_DAUB_HOBBIT_WINDOW_PANE = registerBlockWithItem("yellow_daub_hobbit_window_pane",
+            new PaneBlock(FabricBlockSettings.copyOf(Blocks.GLASS_PANE)));
+
     public static final Block LEAD_GLASS = registerBlockWithItem("lead_glass",
             new GlassBlock(FabricBlockSettings.copyOf(Blocks.GLASS)));
     public static final Block BLACK_STAINED_LEAD_GLASS = registerBlockWithItem("black_stained_lead_glass",

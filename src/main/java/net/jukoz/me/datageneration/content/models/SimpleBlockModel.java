@@ -50,12 +50,17 @@ public class SimpleBlockModel {
             add(ModBlocks.WHITE_SAND);
             add(ModBlocks.ASH_BLOCK);
 
-            add(ModBlocks.DAUB);
-            add(ModBlocks.WATTLE_AND_DAUB);
-            add(ModBlocks.WATTLE_AND_DAUB_CROSS);
-            add(ModBlocks.WATTLE_AND_DAUB_RIGHT);
-            add(ModBlocks.WATTLE_AND_DAUB_LEFT);
-            add(ModBlocks.WATTLE_AND_DAUB_DIAMOND);
+            add(ModBlocks.WHITE_WATTLE_AND_DAUB);
+            add(ModBlocks.WHITE_WATTLE_AND_DAUB_CROSS);
+            add(ModBlocks.WHITE_WATTLE_AND_DAUB_RIGHT);
+            add(ModBlocks.WHITE_WATTLE_AND_DAUB_LEFT);
+            add(ModBlocks.WHITE_WATTLE_AND_DAUB_DIAMOND);
+
+            add(ModBlocks.YELLOW_WATTLE_AND_DAUB);
+            add(ModBlocks.YELLOW_WATTLE_AND_DAUB_CROSS);
+            add(ModBlocks.YELLOW_WATTLE_AND_DAUB_RIGHT);
+            add(ModBlocks.YELLOW_WATTLE_AND_DAUB_LEFT);
+            add(ModBlocks.YELLOW_WATTLE_AND_DAUB_DIAMOND);
         }
     };
 

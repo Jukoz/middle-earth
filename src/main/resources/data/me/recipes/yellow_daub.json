@@ -7,14 +7,14 @@
   ],
   "key": {
     "D": {
-      "item": "me:daub"
+      "item": "minecraft:yellow_dye"
     },
     "S": {
-      "item": "minecraft:stick"
+      "item": "me:white_daub"
     }
   },
   "result": {
-    "item": "me:wattle_and_daub",
-    "count": 1
+    "item": "me:yellow_daub",
+    "count":  8
   }
 }

@@ -3,8 +3,10 @@ package net.jukoz.me.block;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.LayersBlock;
+import net.jukoz.me.block.special.OxidizableVerticalSlabBlock;
 import net.jukoz.me.block.special.StoneMyceliumBlock;
 import net.jukoz.me.block.special.VerticalSlabBlock;
 import net.jukoz.me.block.special.gemstones.CustomBuddingGemBlock;
@@ -199,19 +201,27 @@ public class ModBlocks {
     public static final Block STRAW_WALL = registerMiscBlock("straw_wall",
             new WallBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)),true);
 
-    public static final Block DAUB = registerMiscBlock("daub",
+    public static final Block WHITE_WATTLE_AND_DAUB = registerMiscBlock("white_wattle_and_daub",
             new Block(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)),true);
-    public static final Block WATTLE_AND_DAUB = registerMiscBlock("wattle_and_daub",
+    public static final Block WHITE_WATTLE_AND_DAUB_CROSS = registerMiscBlock("white_wattle_and_daub_cross",
             new Block(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)),true);
-    public static final Block WATTLE_AND_DAUB_CROSS = registerMiscBlock("wattle_and_daub_cross",
+    public static final Block WHITE_WATTLE_AND_DAUB_RIGHT = registerMiscBlock("white_wattle_and_daub_right",
             new Block(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)),true);
-    public static final Block WATTLE_AND_DAUB_RIGHT = registerMiscBlock("wattle_and_daub_right",
+    public static final Block WHITE_WATTLE_AND_DAUB_LEFT = registerMiscBlock("white_wattle_and_daub_left",
             new Block(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)),true);
-    public static final Block WATTLE_AND_DAUB_LEFT = registerMiscBlock("wattle_and_daub_left",
-            new Block(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)),true);
-    public static final Block WATTLE_AND_DAUB_DIAMOND = registerMiscBlock("wattle_and_daub_diamond",
+    public static final Block WHITE_WATTLE_AND_DAUB_DIAMOND = registerMiscBlock("white_wattle_and_daub_diamond",
             new Block(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)),true);
 
+    public static final Block YELLOW_WATTLE_AND_DAUB = registerMiscBlock("yellow_wattle_and_daub",
+            new Block(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)),true);
+    public static final Block YELLOW_WATTLE_AND_DAUB_CROSS = registerMiscBlock("yellow_wattle_and_daub_cross",
+            new Block(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)),true);
+    public static final Block YELLOW_WATTLE_AND_DAUB_RIGHT = registerMiscBlock("yellow_wattle_and_daub_right",
+            new Block(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)),true);
+    public static final Block YELLOW_WATTLE_AND_DAUB_LEFT = registerMiscBlock("yellow_wattle_and_daub_left",
+            new Block(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)),true);
+    public static final Block YELLOW_WATTLE_AND_DAUB_DIAMOND = registerMiscBlock("yellow_wattle_and_daub_diamond",
+            new Block(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)),true);
     //region METAL AND GEMS
     public static final Block RAW_MITHRIL_BLOCK = registerMiscBlock("raw_mithril_block",
             new Block(FabricBlockSettings.copyOf(Blocks.RAW_IRON_BLOCK).strength(4f).requiresTool()),true);
@@ -644,13 +654,13 @@ public class ModBlocks {
     public static final Block SMOOTH_QUARTZ_VERTICAL_SLAB = registerStoneBlock("smooth_quartz_vertical_slab",
             new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.SMOOTH_QUARTZ_SLAB)), true);
     public static final Block CUT_COPPER_VERTICAL_SLAB = registerMiscBlock("cut_copper_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.CUT_COPPER_SLAB)), true);
+            new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.UNAFFECTED, FabricBlockSettings.copyOf(Blocks.CUT_COPPER_SLAB)), true);
     public static final Block EXPOSED_CUT_COPPER_VERTICAL_SLAB = registerMiscBlock("exposed_cut_copper_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.EXPOSED_CUT_COPPER_SLAB)), true);
+            new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.EXPOSED, FabricBlockSettings.copyOf(Blocks.EXPOSED_CUT_COPPER_SLAB)), true);
     public static final Block WEATHERED_CUT_COPPER_VERTICAL_SLAB = registerMiscBlock("weathered_cut_copper_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WEATHERED_CUT_COPPER_SLAB)), true);
+            new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.WEATHERED, FabricBlockSettings.copyOf(Blocks.WEATHERED_CUT_COPPER_SLAB)), true);
     public static final Block OXIDIZED_CUT_COPPER_VERTICAL_SLAB = registerMiscBlock("oxidized_cut_copper_vertical_slab",
-            new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.OXIDIZED_CUT_COPPER_SLAB)), true);
+            new OxidizableVerticalSlabBlock(Oxidizable.OxidationLevel.OXIDIZED, FabricBlockSettings.copyOf(Blocks.OXIDIZED_CUT_COPPER_SLAB)), true);
     public static final Block WAXED_CUT_COPPER_VERTICAL_SLAB = registerMiscBlock("waxed_cut_copper_vertical_slab",
             new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.WAXED_CUT_COPPER_SLAB)), true);
     public static final Block WAXED_EXPOSED_CUT_COPPER_VERTICAL_SLAB = registerMiscBlock("waxed_exposed_cut_copper_vertical_slab",
@@ -851,5 +861,16 @@ public class ModBlocks {
         FlammableBlockRegistry.getDefaultInstance().add(GREEN_WOOL_STAIRS, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(RED_WOOL_STAIRS, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(BLACK_WOOL_STAIRS, 30, 60);
+    }
+
+    public static void registerAgingCopperBlocks(){
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(CUT_COPPER_VERTICAL_SLAB, EXPOSED_CUT_COPPER_VERTICAL_SLAB);
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(EXPOSED_CUT_COPPER_VERTICAL_SLAB, WEATHERED_CUT_COPPER_VERTICAL_SLAB);
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(WEATHERED_CUT_COPPER_VERTICAL_SLAB, OXIDIZED_CUT_COPPER_VERTICAL_SLAB);
+
+        OxidizableBlocksRegistry.registerWaxableBlockPair(CUT_COPPER_VERTICAL_SLAB, WAXED_CUT_COPPER_VERTICAL_SLAB);
+        OxidizableBlocksRegistry.registerWaxableBlockPair(EXPOSED_CUT_COPPER_VERTICAL_SLAB, WAXED_EXPOSED_CUT_COPPER_VERTICAL_SLAB);
+        OxidizableBlocksRegistry.registerWaxableBlockPair(WEATHERED_CUT_COPPER_VERTICAL_SLAB, WAXED_WEATHERED_CUT_COPPER_VERTICAL_SLAB);
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OXIDIZED_CUT_COPPER_VERTICAL_SLAB, WAXED_OXIDIZED_CUT_COPPER_VERTICAL_SLAB);
     }
 }

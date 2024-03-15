@@ -53,10 +53,12 @@ public class MiddleEarth implements ModInitializer {
 		ModDecorativeItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModBlocks.registerFlammableBlocks();
+		ModBlocks.registerAgingCopperBlocks();
 		ModDecorativeBlocks.registerModBlocks();
 		ModDecorativeBlocks.registerFlammableFurniture();
 		ModNatureBlocks.registerModBlocks();
 		RoofBlockSets.registerModBlockSets();
+		RoofBlockSets.registerAgingThatchBlocks();
 
 		ModBlockEntities.registerBlockEntities();
 

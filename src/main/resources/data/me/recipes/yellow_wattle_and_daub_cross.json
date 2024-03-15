@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SDS",
+    "DSD",
+    "SDS"
+  ],
+  "key": {
+    "D": {
+      "item": "me:yellow_daub"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "me:yellow_wattle_and_daub_cross",
+    "count": 4
+  }
+}

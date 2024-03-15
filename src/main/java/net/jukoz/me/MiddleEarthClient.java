@@ -286,6 +286,13 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILD_POTATO, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILD_BEETROOT, RenderLayer.getCutout());
 
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WOOD_FRAMED_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WOOD_FRAMED_WINDOW_PANE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW_PANE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW_PANE, RenderLayer.getTranslucent());
+
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.LEAD_GLASS, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.BLUE_STAINED_LEAD_GLASS, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.BLACK_STAINED_LEAD_GLASS, RenderLayer.getTranslucent());

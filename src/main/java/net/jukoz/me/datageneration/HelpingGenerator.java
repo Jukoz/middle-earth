@@ -288,6 +288,12 @@ public class HelpingGenerator {
                 MineableAxe.blocks.add(set.verticalSlab());
                 MineableAxe.blocks.add(set.stairs());
                 MineableAxe.blocks.add(set.wall());
+            } else if (set.block().toString().contains("thatch")) {
+                MineableHoe.blocks.add(set.block());
+                MineableHoe.blocks.add(set.slab());
+                MineableHoe.blocks.add(set.verticalSlab());
+                MineableHoe.blocks.add(set.stairs());
+                MineableHoe.blocks.add(set.wall());
             } else {
                 MineablePickaxe.blocks.add(set.block());
                 MineablePickaxe.blocks.add(set.slab());

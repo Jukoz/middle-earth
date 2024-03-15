@@ -7,14 +7,14 @@
   ],
   "key": {
     "D": {
-      "item": "me:daub"
+      "item": "me:white_daub"
     },
     "S": {
       "item": "minecraft:stick"
     }
   },
   "result": {
-    "item": "me:wattle_and_daub_right",
+    "item": "me:white_wattle_and_daub_right",
     "count": 6
   }
 }
