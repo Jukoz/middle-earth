@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SimplePressurePlateModel {
     public record PressurePlate(Block block, Block pressurePlate) {}
-    public static List<PressurePlate> blocks = new ArrayList<>() {
+    public static List<PressurePlate> pressurePlates = new ArrayList<>() {
         {
         }
     };

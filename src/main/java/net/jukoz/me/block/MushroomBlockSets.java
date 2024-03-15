@@ -19,7 +19,7 @@ public class MushroomBlockSets {
     public static MushroomBlockSets.MushroomBlockSet MUSHROOM = registerMushroomSet("mushroom", Blocks.MUSHROOM_STEM);
 
 
-    public record MushroomBlockSet(Block stem, Block stemWall,
+    public record MushroomBlockSet(Block stem, Block stemWall, Block stemFence,
                                  Block planks, Block planksSlab, Block planksVerticalSlab, Block planksStairs, Block planksFence, Block planksGate,
                                  Block pressurePlate, Block button, Block door, Block trapdoor, Block stool, Block table, Block chair) {
     }
@@ -37,6 +37,8 @@ public class MushroomBlockSets {
         }
 
         Block stemWall = ModBlocks.registerWoodBlock(name + "_stem_wall", new WallBlock(AbstractBlock.Settings.copy(stem).strength(MushroomBlockSets.MUSHROOM_STRENGTH).sounds(BlockSoundGroup.WOOD)),false);
+
+        Block stemFence = ModBlocks.registerWoodBlock(name + "_stem_fence", new FenceBlock(AbstractBlock.Settings.copy(stem).strength(MushroomBlockSets.MUSHROOM_STRENGTH).sounds(BlockSoundGroup.WOOD)),false);
 
         Block planks = ModBlocks.registerWoodBlock(name + "_planks", new Block(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(MushroomBlockSets.MUSHROOM_STRENGTH).sounds(BlockSoundGroup.WOOD)),false);
 
@@ -79,7 +81,7 @@ public class MushroomBlockSets {
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(table.asItem().getDefaultStack());
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(chair.asItem().getDefaultStack());
 
-        return new MushroomBlockSet(stem, stemWall, planks, slab, verticalSlab, stairs, fence, gate, pressurePlate, button, door, trapdoor, stool, table, chair);
+        return new MushroomBlockSet(stem, stemWall, stemFence, planks, slab, verticalSlab, stairs, fence, gate, pressurePlate, button, door, trapdoor, stool, table, chair);
     }
 
     public static void registerModBlockSets() {

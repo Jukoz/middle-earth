@@ -1,6 +1,8 @@
 package net.jukoz.me.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.WoodChairBlock;
 import net.jukoz.me.block.special.StoolBlock;
@@ -8,26 +10,31 @@ import net.jukoz.me.block.special.TableBlock;
 import net.jukoz.me.block.special.VerticalSlabBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.block.special.ModLeavesBlock;
+import net.jukoz.me.particles.ModParticleTypes;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleType;
 import net.minecraft.sound.BlockSoundGroup;
+
+import java.awt.datatransfer.FlavorMap;
 
 public class WoodBlockSets {
     public static final float WOOD_STRENGTH = 2f;
     public static final float PLATE_BUTTON_STRENGTH = 0.5f;
     public static final float LEAVES_STRENGTH = 0.1f;
 
-    public static SimpleBlockSet BEECH = registerWoodSet("beech", WOOD_STRENGTH, true, ModNatureBlocks.BEECH_SAPLING, true, false);
-    public static SimpleBlockSet LARCH = registerWoodSet("larch", WOOD_STRENGTH, true, ModNatureBlocks.LARCH_SAPLING, true, false);
-    public static SimpleBlockSet BLACK_LEBETHRON = registerWoodSet("black_lebethron", WOOD_STRENGTH, false, null, true, false);
-    public static SimpleBlockSet WHITE_LEBETHRON = registerWoodSet("white_lebethron", WOOD_STRENGTH, false, null, true, false);
-    public static SimpleBlockSet MALLORN = registerWoodSet("mallorn", WOOD_STRENGTH, true, ModNatureBlocks.MALLORN_SAPLING, false, true);
-    public static SimpleBlockSet MAPLE = registerWoodSet("maple", WOOD_STRENGTH, true, ModNatureBlocks.MAPLE_SAPLING, false, false);
-    public static SimpleBlockSet MIRKWOOD = registerWoodSet("mirkwood", WOOD_STRENGTH, true, ModNatureBlocks.MIRKWOOD_SAPLING, true, true);
-    public static SimpleBlockSet PALM = registerWoodSet("palm", WOOD_STRENGTH, true, ModNatureBlocks.PALM_SAPLING,  true,  true);
-    public static SimpleBlockSet WHITE_PALM = registerWoodSet("white_palm", WOOD_STRENGTH, false, null, true, true);
-    public static SimpleBlockSet PINE = registerWoodSet("pine", WOOD_STRENGTH, true, ModNatureBlocks.PINE_SAPLING, true, false);
-    public static SimpleBlockSet WILLOW = registerWoodSet("willow", WOOD_STRENGTH, true, ModNatureBlocks.WILLOW_SAPLING, true, false);
+    public static SimpleBlockSet BEECH = registerWoodSet("beech", WOOD_STRENGTH, true, ModNatureBlocks.BEECH_SAPLING, true, false, null);
+    public static SimpleBlockSet LARCH = registerWoodSet("larch", WOOD_STRENGTH, true, ModNatureBlocks.LARCH_SAPLING, true, false, null);
+    public static SimpleBlockSet BLACK_LEBETHRON = registerWoodSet("black_lebethron", WOOD_STRENGTH, false, null, true, false, null);
+    public static SimpleBlockSet WHITE_LEBETHRON = registerWoodSet("white_lebethron", WOOD_STRENGTH, false, null, true, false, null);
+    public static SimpleBlockSet MALLORN = registerWoodSet("mallorn", WOOD_STRENGTH, true, ModNatureBlocks.MALLORN_SAPLING, false, true, ModParticleTypes.MALLORN_LEAVES_PARTICLE);
+    public static SimpleBlockSet MAPLE = registerWoodSet("maple", WOOD_STRENGTH, true, ModNatureBlocks.MAPLE_SAPLING, false, false, null);
+    public static SimpleBlockSet MIRKWOOD = registerWoodSet("mirkwood", WOOD_STRENGTH, true, ModNatureBlocks.MIRKWOOD_SAPLING, true, true, ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE);
+    public static SimpleBlockSet PALM = registerWoodSet("palm", WOOD_STRENGTH, true, ModNatureBlocks.PALM_SAPLING,  true,  true, null);
+    public static SimpleBlockSet WHITE_PALM = registerWoodSet("white_palm", WOOD_STRENGTH, false, null, true, true, null);
+    public static SimpleBlockSet PINE = registerWoodSet("pine", WOOD_STRENGTH, true, ModNatureBlocks.PINE_SAPLING, true, false, null);
+    public static SimpleBlockSet WILLOW = registerWoodSet("willow", WOOD_STRENGTH, true, ModNatureBlocks.WILLOW_SAPLING, true, false, null);
 
     public static SimpleBlockSet[] sets = new SimpleBlockSet[] {
             BEECH,
@@ -43,18 +50,19 @@ public class WoodBlockSets {
             WILLOW,
     };
 
-    public record SimpleBlockSet(Block leaves, Block log, Block wood, Block woodWall,
+    public record SimpleBlockSet(Block leaves, Block log, Block wood, Block woodSlab, Block woodVerticalSlab, Block woodStairs, Block woodWall, Block woodFence,
+                                 Block strippedLog, Block strippedWood, Block strippedWoodSlab, Block strippedWoodVerticalSlab, Block strippedWoodStairs, Block strippedWoodWall, Block strippedWoodFence,
                                  Block planks, Block planksSlab, Block planksVerticalSlab, Block planksStairs, Block planksFence, Block planksGate,
                                  Block pressurePlate, Block button, Block door, Block trapdoor, Block stool, Block table, Block chair, Block sapling) {
     }
 
-    private static SimpleBlockSet registerWoodSet(String name, float strength, boolean hasLeaves, Block sapling, boolean castShadow, boolean range) {
+    private static SimpleBlockSet registerWoodSet(String name, float strength, boolean hasLeaves, Block sapling, boolean castShadow, boolean range, ParticleEffect particleEffect) {
         Block leaves = null;
         if(hasLeaves) {
             if(range) {
                 leaves = ModNatureBlocks.registerBlock(name + "_leaves", new ModLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN)
                         .strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(ModBlocks::canSpawnOnLeaves).suffocates(ModBlocks::never)
-                        .blockVision(ModBlocks::never).burnable().pistonBehavior(PistonBehavior.DESTROY).solidBlock(ModBlocks::never), castShadow), true);
+                        .blockVision(ModBlocks::never).burnable().pistonBehavior(PistonBehavior.DESTROY).solidBlock(ModBlocks::never), castShadow, particleEffect), true);
             } else {
                 leaves = ModNatureBlocks.registerBlock(name + "_leaves", new LeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN)
                         .strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(ModBlocks::canSpawnOnLeaves).suffocates(ModBlocks::never)
@@ -63,12 +71,37 @@ public class WoodBlockSets {
         }
 
 
-        Block log = ModBlocks.registerWoodBlock(name + "_log", new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
+        Block log = ModBlocks.registerWoodBlock(name + "_log", new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
 
-        Block wood = ModBlocks.registerWoodBlock(name + "_wood", new Block(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
+        Block wood = ModBlocks.registerWoodBlock(name + "_wood", new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
 
+        Block woodSlab = ModBlocks.registerWoodBlock(name + "_wood_slab", new SlabBlock(FabricBlockSettings.copyOf(wood)
+                .strength(strength, ModBlocks.SLAB_RESISTANCE).sounds(BlockSoundGroup.WOOD)),false);
+
+        Block woodVerticalSlab = ModBlocks.registerWoodBlock(name + "_wood_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
+
+        Block woodStairs = ModBlocks.registerWoodBlock(name + "_wood_stairs", new StairsBlock(wood.getDefaultState(),
+                FabricBlockSettings.copyOf(wood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
+        
         Block woodWall = ModBlocks.registerWoodBlock(name + "_wood_wall", new WallBlock(AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
 
+        Block woodFence = ModBlocks.registerWoodBlock(name + "_wood_fence", new FenceBlock(AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
+
+        Block strippedLog = ModBlocks.registerWoodBlock("stripped_" + name + "_log", new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
+
+        Block strippedWood = ModBlocks.registerWoodBlock("stripped_" + name + "_wood", new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
+        
+        Block strippedSlab = ModBlocks.registerWoodBlock("stripped_" + name + "_wood_slab", new SlabBlock(FabricBlockSettings.copyOf(strippedWood)
+                .strength(strength, ModBlocks.SLAB_RESISTANCE).sounds(BlockSoundGroup.WOOD)),false);
+
+        Block strippedVerticalSlab = ModBlocks.registerWoodBlock("stripped_" + name + "_wood_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(strippedWood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
+
+        Block strippedStairs = ModBlocks.registerWoodBlock("stripped_" + name + "_wood_stairs", new StairsBlock(strippedWood.getDefaultState(),
+                FabricBlockSettings.copyOf(strippedWood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
+        
+        Block strippedWoodWall = ModBlocks.registerWoodBlock("stripped_" + name + "_wood_wall", new WallBlock(AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
+
+        Block strippedWoodFence = ModBlocks.registerWoodBlock("stripped_" + name + "_wood_fence", new FenceBlock(AbstractBlock.Settings.copy(wood).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
 
         Block planks = ModBlocks.registerWoodBlock(name + "_planks", new Block(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(strength).sounds(BlockSoundGroup.WOOD)),false);
 
@@ -86,14 +119,14 @@ public class WoodBlockSets {
         Block gate = ModBlocks.registerWoodBlock(name + "_fence_gate",  new FenceGateBlock(FabricBlockSettings.copyOf(planks)
                 .strength(strength).sounds(BlockSoundGroup.WOOD), WoodType.OAK),false);
 
-        Block button = ModBlocks.registerWoodBlock(name + "_button",  new ButtonBlock(FabricBlockSettings.copyOf(planks).strength(PLATE_BUTTON_STRENGTH)
-                .sounds(BlockSoundGroup.WOOD), BlockSetType.OAK, 5, true),false);
+        Block button = ModBlocks.registerWoodBlock(name + "_button",  new ButtonBlock(FabricBlockSettings.copyOf(planks).noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY)
+                .sounds(BlockSoundGroup.WOOD), BlockSetType.OAK, 30, true),false);
 
         Block pressurePlate = ModBlocks.registerWoodBlock(name + "_pressure_plate",  new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING,
                 FabricBlockSettings.copyOf(planks).strength(PLATE_BUTTON_STRENGTH).sounds(BlockSoundGroup.WOOD), BlockSetType.OAK),false);
 
         Block door = ModBlocks.registerWoodBlock(name + "_door", new DoorBlock(FabricBlockSettings.copyOf(planks)
-                .strength(strength).sounds(BlockSoundGroup.WOOD), BlockSetType.OAK),false);
+                .strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque(), BlockSetType.OAK),false);
 
         Block trapdoor = ModBlocks.registerWoodBlock(name + "_trapdoor", new TrapdoorBlock(FabricBlockSettings.copyOf(planks)
                 .strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque(), BlockSetType.OAK),false);
@@ -113,7 +146,38 @@ public class WoodBlockSets {
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(table.asItem().getDefaultStack());
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(chair.asItem().getDefaultStack());
 
-        return new SimpleBlockSet(leaves, log, wood, woodWall, planks, slab, verticalSlab, stairs, fence, gate,
+        StrippableBlockRegistry.register(log, strippedLog);
+        StrippableBlockRegistry.register(wood, strippedWood);
+
+        FlammableBlockRegistry.getDefaultInstance().add(leaves, 5, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(log, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(wood, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(woodSlab, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(woodVerticalSlab, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(woodStairs, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(woodWall, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(woodFence, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(strippedLog, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(strippedWood, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(strippedSlab, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(strippedVerticalSlab, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(strippedStairs, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(strippedWoodWall, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(strippedWoodFence, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(planks, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(slab, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(verticalSlab, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(stairs, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(fence, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(gate, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(stool, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(table, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(chair, 5, 20);
+
+
+        return new SimpleBlockSet(leaves, log, wood, woodSlab, woodVerticalSlab, woodStairs, woodWall, woodFence,
+                strippedLog, strippedWood, strippedSlab, strippedVerticalSlab, strippedStairs, strippedWoodWall, strippedWoodFence,
+                planks, slab, verticalSlab, stairs, fence, gate,
                 pressurePlate, button, door, trapdoor, stool, table, chair, sapling);
     }
 

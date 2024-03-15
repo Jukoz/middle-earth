@@ -227,6 +227,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.STONE_MYCELIUM);
         mineableShovel.add(ModBlocks.ASH_BLOCK);
         mineableShovel.add(ModBlocks.RIVER_SAND);
+        mineableShovel.add(ModBlocks.BLACK_SAND);
+        mineableShovel.add(ModBlocks.WHITE_SAND);
 
         mineablePickaxe.add(ModDecorativeBlocks.DWARVEN_LANTERN);
         mineablePickaxe.add(ModDecorativeBlocks.SILVER_LANTERN);
@@ -248,6 +250,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableHoe.add(ModBlocks.STRAW_VERTICAL_SLAB);
         mineableHoe.add(ModBlocks.STRAW_STAIRS);
         mineableHoe.add(ModBlocks.STRAW_WALL);
+
+        mineableAxe.add(ModDecorativeBlocks.WOOD_PILE);
 
         mineablePickaxe.add(ModBlocks.STONE_VERTICAL_SLAB);
         mineablePickaxe.add(ModBlocks.COBBLESTONE_VERTICAL_SLAB);
@@ -294,6 +298,51 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.WAXED_WEATHERED_CUT_COPPER_VERTICAL_SLAB);
         mineablePickaxe.add(ModBlocks.WAXED_OXIDIZED_CUT_COPPER_VERTICAL_SLAB);
 
+        mineableAxe.add(ModBlocks.OAK_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.SPRUCE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.BIRCH_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.JUNGLE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.ACACIA_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.DARK_OAK_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.MANGROVE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.CHERRY_WOOD_SLAB);
+
+        mineableAxe.add(ModBlocks.STRIPPED_OAK_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_SPRUCE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_BIRCH_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_JUNGLE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_ACACIA_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_DARK_OAK_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_MANGROVE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_CHERRY_WOOD_SLAB);
+
+        mineableAxe.add(ModBlocks.STRIPPED_OAK_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_SPRUCE_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_BIRCH_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_JUNGLE_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_ACACIA_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_DARK_OAK_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_MANGROVE_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_CHERRY_WOOD_STAIRS);
+
+        mineableAxe.add(ModBlocks.OAK_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.SPRUCE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.BIRCH_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.JUNGLE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.ACACIA_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.DARK_OAK_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.MANGROVE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.CHERRY_WOOD_VERTICAL_SLAB);
+
+        mineableAxe.add(ModBlocks.STRIPPED_OAK_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_SPRUCE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_BIRCH_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_JUNGLE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_ACACIA_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_DARK_OAK_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_MANGROVE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_CHERRY_WOOD_VERTICAL_SLAB);
+
         mineableAxe.add(ModBlocks.OAK_VERTICAL_SLAB);
         mineableAxe.add(ModBlocks.SPRUCE_VERTICAL_SLAB);
         mineableAxe.add(ModBlocks.BIRCH_VERTICAL_SLAB);
@@ -308,6 +357,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineableShovel.add(ModBlocks.GRAVEL_LAYER);
         mineableShovel.add(ModBlocks.SAND_LAYER);
+        mineableShovel.add(ModBlocks.BLACK_SAND_LAYER);
+        mineableShovel.add(ModBlocks.WHITE_SAND_LAYER);
 
         mineableShovel.add(ModBlocks.DIRT_SLAB);
         mineableShovel.add(ModBlocks.DIRT_STAIRS);
@@ -319,12 +370,17 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineableShovel.add(ModBlocks.ROOTED_DIRT_SLAB);
         
-        mineablePickaxe.add(ModBlocks.SAPPHIRE_BLOCK);
-        mineablePickaxe.add(ModBlocks.BUDDING_SAPPHIRE);
-        mineablePickaxe.add(ModBlocks.SMALL_SAPPHIRE_BUD);
-        mineablePickaxe.add(ModBlocks.MEDIUM_SAPPHIRE_BUD);
-        mineablePickaxe.add(ModBlocks.LARGE_SAPPHIRE_BUD);
-        mineablePickaxe.add(ModBlocks.SAPPHIRE_CLUSTER);
+        mineablePickaxe.add(ModBlocks.PACKED_MUD_SLAB);
+        mineablePickaxe.add(ModBlocks.PACKED_MUD_VERTICAL_SLAB);
+        mineablePickaxe.add(ModBlocks.PACKED_MUD_STAIRS);
+        mineablePickaxe.add(ModBlocks.PACKED_MUD_WALL);
+
+        mineablePickaxe.add(ModBlocks.QUARTZ_BLOCK);
+        mineablePickaxe.add(ModBlocks.BUDDING_QUARTZ);
+        mineablePickaxe.add(ModBlocks.SMALL_QUARTZ_BUD);
+        mineablePickaxe.add(ModBlocks.MEDIUM_QUARTZ_BUD);
+        mineablePickaxe.add(ModBlocks.LARGE_QUARTZ_BUD);
+        mineablePickaxe.add(ModBlocks.QUARTZ_CLUSTER);
         mineablePickaxe.add(ModBlocks.CITRINE_BLOCK);
         mineablePickaxe.add(ModBlocks.BUDDING_CITRINE);
         mineablePickaxe.add(ModBlocks.SMALL_CITRINE_BUD);
@@ -337,5 +393,11 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.MEDIUM_RED_AGATE_BUD);
         mineablePickaxe.add(ModBlocks.LARGE_RED_AGATE_BUD);
         mineablePickaxe.add(ModBlocks.RED_AGATE_CLUSTER);
+        mineablePickaxe.add(ModBlocks.GLOWSTONE_BLOCK);
+        mineablePickaxe.add(ModBlocks.BUDDING_GLOWSTONE);
+        mineablePickaxe.add(ModBlocks.SMALL_GLOWSTONE_BUD);
+        mineablePickaxe.add(ModBlocks.MEDIUM_GLOWSTONE_BUD);
+        mineablePickaxe.add(ModBlocks.LARGE_GLOWSTONE_BUD);
+        mineablePickaxe.add(ModBlocks.GLOWSTONE_CLUSTER);
     }
 }

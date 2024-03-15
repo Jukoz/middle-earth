@@ -34,6 +34,8 @@ public class MineablePickaxe {
 
             add(ModBlocks.CHISELED_BASALT_BRICKS);
 
+            add(ModBlocks.CHISELED_DOLOMITE_BRICKS);
+
             add(ModBlocks.DIFTOMIN_PILLAR);
             add(ModBlocks.CHISELED_DIFTOMIN_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_DIFTOMIN);
@@ -51,10 +53,18 @@ public class MineablePickaxe {
             add(ModBlocks.MOSSY_STONE_PILLAR);
             add(ModBlocks.CRACKED_STONE_PILLAR);
 
+            add(ModBlocks.GONLUIN_PILLAR);
+            add(ModBlocks.CRACKED_GONLUIN_PILLAR);
+
             add(ModBlocks.DEEPSLATE_PILLAR);
 
             add(ModBlocks.FROZEN_PILLAR);
 
+            add(ModBlocks.DOLOMITE_PILLAR);
+
+            add(ModBlocks.BLUE_TUFF_PILLAR);
+            add(ModBlocks.MOSSY_BLUE_TUFF_PILLAR);
+            add(ModBlocks.CRACKED_BLUE_TUFF_PILLAR);
 
             add(ModBlocks.CALCITE_PILLAR);
             add(ModBlocks.MOSSY_CALCITE_PILLAR);

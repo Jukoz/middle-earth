@@ -1,11 +1,9 @@
 package net.jukoz.me.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.special.StoneChairBlock;
-import net.jukoz.me.block.special.WoodChairBlock;
-import net.jukoz.me.block.special.StoolBlock;
-import net.jukoz.me.block.special.TableBlock;
+import net.jukoz.me.block.special.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnace;
 import net.jukoz.me.block.special.toggeable_lights.DwarvenLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.SilverLanternBlock;
@@ -16,6 +14,7 @@ import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.block.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 
@@ -171,8 +170,8 @@ public class ModDecorativeBlocks {
             new TableBlock(FabricBlockSettings.copyOf(Blocks.TUFF).requiresTool()));
     public static final Block TUFF_CHAIR = registerBlockWithItem("tuff_chair",
             new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.TUFF).requiresTool()));
-    
-    
+
+
     public static final Block OAK_STOOL = registerBlockWithItem("oak_stool",
             new StoolBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS)));
     public static final Block OAK_TABLE = registerBlockWithItem("oak_table",
@@ -214,8 +213,7 @@ public class ModDecorativeBlocks {
             new TableBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_PLANKS)));
     public static final Block DARK_OAK_CHAIR = registerBlockWithItem("dark_oak_chair",
             new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_PLANKS).nonOpaque()));
-
-
+    
     public static final Block MANGROVE_STOOL = registerBlockWithItem("mangrove_stool",
             new StoolBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_PLANKS)));
     public static final Block MANGROVE_TABLE = registerBlockWithItem("mangrove_table",
@@ -252,27 +250,68 @@ public class ModDecorativeBlocks {
             new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.WARPED_PLANKS).nonOpaque()));
     //endregion
 
+    public static final Block ROPE = registerBlockWithItem("rope",
+            new ChainBlock(FabricBlockSettings.copyOf(Blocks.CHAIN).sounds(BlockSoundGroup.WOOL).strength(0.8F).noCollision()));
 
-    
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = new Identifier(MiddleEarth.MOD_ID, name);
-        return Registry.register(Registries.BLOCK, identifier , block);
+        return Registry.register(Registries.BLOCK, identifier, block);
     }
 
     public static Block registerBlockWithItem(String name, Block block) {
         Identifier identifier = new Identifier(MiddleEarth.MOD_ID, name);
         ModBlocks.registerBlockItem(name, block);
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
-        return Registry.register(Registries.BLOCK, identifier , block);
+        return Registry.register(Registries.BLOCK, identifier, block);
     }
 
     private static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {
         return (state) -> {
-            return (Boolean)state.get(Properties.LIT) ? litLevel : 0;
+            return (Boolean) state.get(Properties.LIT) ? litLevel : 0;
         };
     }
 
     public static void registerModBlocks() {
         MiddleEarth.LOGGER.debug("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+    }
+
+    public static void registerFlammableFurniture() {
+        FlammableBlockRegistry.getDefaultInstance().add(WOOD_PILE, 5, 5);
+
+        FlammableBlockRegistry.getDefaultInstance().add(OAK_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(OAK_CHAIR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(OAK_TABLE, 5, 20);
+
+        FlammableBlockRegistry.getDefaultInstance().add(BIRCH_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(BIRCH_CHAIR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(BIRCH_TABLE, 5, 20);
+
+        FlammableBlockRegistry.getDefaultInstance().add(SPRUCE_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(SPRUCE_CHAIR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(SPRUCE_TABLE, 5, 20);
+
+        FlammableBlockRegistry.getDefaultInstance().add(DARK_OAK_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(DARK_OAK_CHAIR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(DARK_OAK_TABLE, 5, 20);
+
+        FlammableBlockRegistry.getDefaultInstance().add(ACACIA_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(ACACIA_CHAIR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(ACACIA_TABLE, 5, 20);
+
+        FlammableBlockRegistry.getDefaultInstance().add(JUNGLE_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(JUNGLE_CHAIR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(JUNGLE_TABLE, 5, 20);
+
+        FlammableBlockRegistry.getDefaultInstance().add(MANGROVE_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(MANGROVE_CHAIR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(MANGROVE_TABLE, 5, 20);
+
+        FlammableBlockRegistry.getDefaultInstance().add(CHERRY_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(CHERRY_CHAIR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(CHERRY_TABLE, 5, 20);
+
+        FlammableBlockRegistry.getDefaultInstance().add(BAMBOO_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(BAMBOO_CHAIR, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(BAMBOO_TABLE, 5, 20);
     }
 }

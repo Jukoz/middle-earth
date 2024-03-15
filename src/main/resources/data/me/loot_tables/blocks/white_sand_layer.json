@@ -1,0 +1,164 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:alternatives",
+              "children": [
+                {
+                  "type": "minecraft:item",
+                  "name": "me:white_sand_layer",
+                  "conditions": [
+                    {
+                      "condition": "minecraft:block_state_property",
+                      "block": "me:white_sand_layer",
+                      "properties": {
+                        "layers": "1"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "minecraft:item",
+                  "name": "me:white_sand_layer",
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": 2
+                    }
+                  ],
+                  "conditions": [
+                    {
+                      "condition": "minecraft:block_state_property",
+                      "block": "me:white_sand_layer",
+                      "properties": {
+                        "layers": "2"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "minecraft:item",
+                  "name": "me:white_sand_layer",
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": 3
+                    }
+                  ],
+                  "conditions": [
+                    {
+                      "condition": "minecraft:block_state_property",
+                      "block": "me:white_sand_layer",
+                      "properties": {
+                        "layers": "3"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "minecraft:item",
+                  "name": "me:white_sand_layer",
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": 4
+                    }
+                  ],
+                  "conditions": [
+                    {
+                      "condition": "minecraft:block_state_property",
+                      "block": "me:white_sand_layer",
+                      "properties": {
+                        "layers": "4"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "minecraft:item",
+                  "name": "me:white_sand_layer",
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": 5
+                    }
+                  ],
+                  "conditions": [
+                    {
+                      "condition": "minecraft:block_state_property",
+                      "block": "me:white_sand_layer",
+                      "properties": {
+                        "layers": "5"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "minecraft:item",
+                  "name": "me:white_sand_layer",
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": 6
+                    }
+                  ],
+                  "conditions": [
+                    {
+                      "condition": "minecraft:block_state_property",
+                      "block": "me:white_sand_layer",
+                      "properties": {
+                        "layers": "6"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "minecraft:item",
+                  "name": "me:white_sand_layer",
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": 7
+                    }
+                  ],
+                  "conditions": [
+                    {
+                      "condition": "minecraft:block_state_property",
+                      "block": "me:white_sand_layer",
+                      "properties": {
+                        "layers": "7"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "minecraft:item",
+                  "name": "me:white_sand_layer",
+                  "functions": [
+                    {
+                      "function": "minecraft:set_count",
+                      "count": 8
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {}
+        }
+      ]
+    }
+  ]
+}
