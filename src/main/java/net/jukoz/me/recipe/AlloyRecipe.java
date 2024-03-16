@@ -40,6 +40,12 @@ public class AlloyRecipe implements Recipe<SimpleInventory> {
         return true;
     }
 
+    public DefaultedList<Ingredient> getIngredients() {
+        DefaultedList<Ingredient> defaultedList = DefaultedList.of();
+        defaultedList.addAll(this.inputs);
+        return defaultedList;
+    }
+
     @Override
     public ItemStack craft(SimpleInventory inventory, DynamicRegistryManager registryManager) {
         return output;
