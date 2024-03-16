@@ -45,7 +45,7 @@ public class MushroomTreeConfiguredFeatures {
 
         register(context, CAVE_AMANITA_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
             BlockStateProvider.of(MushroomBlockSets.GRAY_MUSHROOM.stem()),
-            new StraightTrunkPlacer(4, 1 , 0),
+            new StraightTrunkPlacer(3, 2 , 0),
             BlockStateProvider.of(ModNatureBlocks.CAVE_AMANITA_BLOCK),
             new PineFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), ConstantIntProvider.create(2)),
             new TwoLayersFeatureSize(1, 0, 2))
@@ -69,7 +69,7 @@ public class MushroomTreeConfiguredFeatures {
 
         register(context, YELLOW_AMANITA_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
             BlockStateProvider.of(Blocks.MUSHROOM_STEM),
-            new StraightTrunkPlacer(4, 1 , 0),
+            new StraightTrunkPlacer(3, 2 , 0),
             BlockStateProvider.of(ModNatureBlocks.YELLOW_AMANITA_BLOCK),
             new PineFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), ConstantIntProvider.create(2)),
             new TwoLayersFeatureSize(1, 0, 2))

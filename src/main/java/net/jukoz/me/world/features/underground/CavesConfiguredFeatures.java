@@ -5,6 +5,9 @@ import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.OreRockSets;
 import net.jukoz.me.block.StoneBlockSets;
+import net.jukoz.me.world.features.ores.SurfaceOreFeature;
+import net.jukoz.me.world.features.ores.SurfaceOreFeatureConfig;
+import net.jukoz.me.world.gen.ModWorldGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -80,7 +83,6 @@ public class CavesConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_VIOLET_CAPS_TILLER = registerKey("patch_violet_caps_tiller");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_YELLOW_AMANITA = registerKey("patch_yellow_amanita");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_YELLOW_AMANITA_TILLER = registerKey("patch_yellow_amanita_tiller");
-
     // endregion
 
     public static final RegistryKey<ConfiguredFeature<?, ?>> SPRING_LAVA = registerKey("spring_lava");
@@ -166,7 +168,7 @@ public class CavesConfiguredFeatures {
                 ConstantIntProvider.create(3), 0.8f, 5, 0.1f, UniformIntProvider.create(4, 7), 0.7f));
         ConfiguredFeatures.register(featureRegisterable, ORE_MAGMA, Feature.ORE, new OreFeatureConfig(magmaList, 31, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, ORE_OBSIDIAN, Feature.ORE, new OreFeatureConfig(epmostoTest, Blocks.OBSIDIAN.getDefaultState(), 27));
-        ConfiguredFeatures.register(featureRegisterable, DISK_MYCELIUM, Feature.DISK, new DiskFeatureConfig(PredicatedStateProvider.of(ModBlocks.STONE_MYCELIUM), BlockPredicate.matchingBlockTag(BlockTags.BASE_STONE_OVERWORLD), UniformIntProvider.create(3, 5), 1));
+        ConfiguredFeatures.register(featureRegisterable, DISK_MYCELIUM, ModWorldGeneration.SURFACE_ORE, new SurfaceOreFeatureConfig(baseStone, ModBlocks.STONE_MYCELIUM.getDefaultState(), 56));
 
         ConfiguredFeatures.register(featureRegisterable, LARGE_BLACKSTONE,  Feature.LARGE_DRIPSTONE, new LargeDripstoneFeatureConfig(30, UniformIntProvider.create(3, 19),
                 UniformFloatProvider.create(0.4f, 2.0f), 0.33f, UniformFloatProvider.create(0.3f, 0.9f), UniformFloatProvider.create(0.4f, 1.0f),

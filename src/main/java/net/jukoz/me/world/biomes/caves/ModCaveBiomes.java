@@ -143,6 +143,7 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.ORE_COAL);
         undergroundOres.add(CavesPlacedFeatures.ORE_COAL_UPPER);
         undergroundOres.add(CavesPlacedFeatures.ORE_COPPER);
+        undergroundOres.add(CavesPlacedFeatures.ORE_COPPER_UPPER);
         undergroundOres.add(CavesPlacedFeatures.ORE_TIN);
         undergroundOres.add(CavesPlacedFeatures.ORE_LEAD);
         undergroundOres.add(CavesPlacedFeatures.ORE_IRON);
