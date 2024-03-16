@@ -1,37 +1,48 @@
 package net.jukoz.me.entity.elves.galadhrim;
 
-import net.jukoz.me.entity.goals.BowAttackGoal;
+import net.jukoz.me.entity.NpcEntity;
+import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.nazguls.NazgulEntity;
+import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
+import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
+import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class GaladhrimElfEntity extends PathAwareEntity implements RangedAttackMob {
-    private final BowAttackGoal bowAttackGoal = new BowAttackGoal(this, 1.0, 16, 24.0f);
-    private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.2, false);
+public class GaladhrimElfEntity extends NpcEntity{
 
     public GaladhrimElfEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
+        String name = this.getDefaultName().toString();
+        if(name.contains("militia")){
+            this.setRank(RANK.MILITIA);
+            this.setBow(Items.BOW);
+        } else if (name.contains("soldier")) {
+            this.setRank(RANK.SOLDIER);
+            this.setBow(ModWeaponItems.LORIEN_BOW);
+        }else if (name.contains("knight")) {
+            this.setRank(RANK.KNIGHT);
+        }else if (name.contains("veteran")) {
+            this.setRank(RANK.VETERAN);
+        }else if (name.contains("leader")) {
+            this.setRank(RANK.LEADER);
+        }
     }
 
     @Nullable
@@ -43,33 +54,7 @@ public class GaladhrimElfEntity extends PathAwareEntity implements RangedAttackM
         return entityData;
     }
 
-    @Override
-    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        super.initEquipment(random, localDifficulty);
-
-        equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_BOW));
-        equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.AIR));
-
-        float randomVal = random.nextFloat();
-
-        if (randomVal < 0.35f) {
-            int[] colors = {
-                    0x809c9c,
-                    0x808c9c,
-                    0x435e52
-            };
-            int colorIndex = random.nextInt(3);
-
-            DyeableItem item = (DyeableItem)ModEquipmentItems.CLOAK;
-            ItemStack stack = new ItemStack((Item)item);
-            item.setColor(stack, colors[colorIndex]);
-
-            equipStack(EquipmentSlot.CHEST, stack);
-        }
-    }
-
-
-    public static DefaultAttributeContainer.Builder setAttributes() {
+    public static DefaultAttributeContainer.Builder setSoldierAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 25.0)
@@ -77,45 +62,164 @@ public class GaladhrimElfEntity extends PathAwareEntity implements RangedAttackM
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0);
     }
+    public static DefaultAttributeContainer.Builder setKnightAttributes() {
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 27.0)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.5);
+    }
+    public static DefaultAttributeContainer.Builder setVeteranAttributes() {
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 29.0)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0);
+    }
+    public static DefaultAttributeContainer.Builder setLeaderAttributes() {
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25f)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 31.0)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 2.0)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.5);
+    }
 
     @Override
     protected void initGoals() {
-        int i = 0;
-        this.goalSelector.add(++i, new BowAttackGoal<>(this, 1.0, 16, 24.0f));
-        this.goalSelector.add(++i, new SwimGoal(this));
-        //this.goalSelector.add(++i, new MeleeAttackGoal(this, 1.2f, false));
-        this.goalSelector.add(++i, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(++i, new LookAroundGoal(this));
-        i = 0;
+        super.initGoals();
+        int i = 2;
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
     }
 
     @Override
-    public void attack(LivingEntity target, float pullProgress) {
-        ItemStack itemStack = this.getProjectileType(this.getStackInHand(ProjectileUtil.getHandPossiblyHolding(this, Items.BOW)));
-        PersistentProjectileEntity persistentProjectileEntity = this.createArrowProjectile(itemStack, pullProgress);
-        double d = target.getX() - this.getX();
-        double e = target.getBodyY(0.3333333333333333) - persistentProjectileEntity.getY();
-        double f = target.getZ() - this.getZ();
-        double g = Math.sqrt(d * d + f * f);
-        persistentProjectileEntity.setVelocity(d, e + g * (double)0.2f, f, 1.8f, 14 - getWorld().getDifficulty().getId() * 4);
-        this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0f, 1.0f / (this.getRandom().nextFloat() * 0.05f + 0.8f));
-        getWorld().spawnEntity(persistentProjectileEntity);
+    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
+        super.initEquipment(random, localDifficulty);
+        switch (this.getRank()){
+            case MILITIA -> militiaEquipment(random);
+            case SOLDIER -> soldierEquipment(random);
+            case KNIGHT -> knightEquipment(random);
+            case VETERAN -> veteranEquipment(random);
+            case LEADER -> leaderEquipment(random);
+        }
     }
 
-    protected PersistentProjectileEntity createArrowProjectile(ItemStack arrow, float damageModifier) {
-        return ProjectileUtil.createArrowProjectile(this, arrow, damageModifier);
+    private void militiaEquipment(Random random){
+        int[] colors = {
+                0x767b85,
+                0x747983,
+                0x61626e,
+                0x505258
+        };
+        DyeableItem item = (DyeableItem)ModEquipmentItems.TUNIC_CLOAK;
+        ItemStack tunicCloak = new ItemStack(ModEquipmentItems.TUNIC_CLOAK);
+        ItemStack hood = new ItemStack(ModEquipmentItems.CLOAK_HOOD);
+        ItemStack leatherHelmet = new ItemStack(Items.LEATHER_HELMET);
+        ItemStack leatherChestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
+        ItemStack leatherLeggings = new ItemStack(Items.LEATHER_LEGGINGS);
+        ItemStack leatherBoots = new ItemStack(Items.LEATHER_BOOTS);
+        item.setColor(hood, colors[0]);
+        item.setColor(tunicCloak, colors[0]);
+        item.setColor(leatherHelmet, colors[1]);
+        item.setColor(leatherChestplate, colors[1]);
+        item.setColor(leatherLeggings, colors[2]);
+        item.setColor(leatherBoots, colors[3]);
+
+        if(random.nextFloat() >= 0.30f){
+            equipStack(EquipmentSlot.HEAD, hood);
+            equipStack(EquipmentSlot.CHEST, tunicCloak);
+        } else  {
+            equipStack(EquipmentSlot.HEAD, leatherHelmet);
+            equipStack(EquipmentSlot.CHEST, leatherChestplate);
+        }
+        if(random.nextFloat() >= 0.50f){
+            equipStack(EquipmentSlot.LEGS, leatherLeggings);
+        }
+        equipStack(EquipmentSlot.FEET, leatherBoots);
+
+        float rand = random.nextFloat();
+        if(rand >= 0.55f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
+        } else if (rand > 0.20f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_BATTLESTAFF));
+        } else {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_DAGGER));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+        }
     }
 
-    @Override
-    public boolean canUseRangedWeapon(RangedWeaponItem weapon) {
-        return weapon == Items.BOW;
+    private void soldierEquipment(Random random){
+        
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.LORIEN_MAIL_HELMET));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.LORIEN_MAIL_CHESTPLATE));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_MAIL_LEGGINGS));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_MAIL_BOOTS));
+
+        float val3 = random.nextFloat();
+        if(val3 >= 0.55f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_BOW));
+        } else if (val3 > 0.20f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SPEAR));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+        } else {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+        }
     }
 
+    private void knightEquipment(Random random){
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.LORIEN_SCALE_HELMET));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.LORIEN_SCALE_CHESTPLATE));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_SCALE_LEGGINGS));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_SCALE_BOOTS));
+
+        float val = random.nextFloat();
+        if(val >= 0.75f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SWORD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+        } else if (val >= 0.50f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_LONGSWORD));
+        } else {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+        }
+    }
+
+    private void veteranEquipment(Random random){
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.LORIEN_PLATE_HELMET));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.LORIEN_PLATE_CHESTPLATE));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_PLATE_LEGGINGS));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_PLATE_BOOTS));
+
+        if(random.nextFloat() >= 0.50f){
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SWORD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
+        } else {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_LONGSWORD));
+        }
+    }
+
+    private void leaderEquipment(Random random){
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.LORIEN_COMMANDER_HELMET));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.LORIEN_COMMANDER_CHESTPLATE));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_COMMANDER_LEGGINGS));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_COMMANDER_BOOTS));
+
+        if (random.nextFloat() < 0.50f) {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_LONGSWORD));
+        } else {
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));
+        }
+    }
     public GaladhrimElfVariant getVariant() {
         return GaladhrimElfVariant.byId(this.getId());
     }

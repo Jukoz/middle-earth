@@ -118,11 +118,14 @@ public class ModResourceItems {
     public static final Item MITHRIL_ROD = registerItem("mithril_rod",
             new Item(new FabricItemSettings().fireproof()));
 
+    public static final Item IRON_CHAINMAIL = registerItem("iron_chainmail",
+            new Item(new FabricItemSettings()));
+
     public static final Item RED_AGATE_SHARD = registerItem("red_agate_shard",
             new Item(new FabricItemSettings()));
-    public static final Item SAPPHIRE_SHARD = registerItem("sapphire_shard",
-            new Item(new FabricItemSettings()));
     public static final Item CITRINE_SHARD = registerItem("citrine_shard",
+            new Item(new FabricItemSettings()));
+    public static final Item QUARTZ_SHARD = registerItem("quartz_shard",
             new Item(new FabricItemSettings()));
 
     public static final Item ORC_BONE = registerItem("orc_bone",
@@ -165,7 +168,6 @@ public class ModResourceItems {
     public static final Item TOMATO_SEEDS = registerItem("tomato_seeds", new AliasedBlockItem(ModNatureBlocks.TOMATO_CROP, new FabricItemSettings()));
     public static final Item BELL_PEPPER_SEEDS = registerItem("bell_pepper_seeds", new AliasedBlockItem(ModNatureBlocks.BELL_PEPPER_CROP, new FabricItemSettings()));
     public static final Item CUCUMBER_SEEDS = registerItem("cucumber_seeds", new AliasedBlockItem(ModNatureBlocks.CUCUMBER_CROP, new FabricItemSettings()));
-    public static final Item LEEK_SEEDS = registerItem("leek_seeds", new AliasedBlockItem(ModNatureBlocks.LEEK_CROP, new FabricItemSettings()));
     public static final Item LETTUCE_SEEDS = registerItem("lettuce_seeds", new AliasedBlockItem(ModNatureBlocks.LETTUCE_CROP, new FabricItemSettings()));
 
     public static Block registerBlock(String name, Block block, boolean absent) {

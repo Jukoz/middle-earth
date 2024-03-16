@@ -85,18 +85,15 @@ public class DeerEntity extends AnimalEntity {
     }
 
     protected SoundEvent getAmbientSound() {
-        return null;
+        return SoundEvents.ENTITY_HORSE_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_COW_HURT;
+        return SoundEvents.ENTITY_HORSE_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_COW_DEATH;
-    }
-    protected SoundEvent getSwimSound() {
-        return null;
+        return SoundEvents.ENTITY_HORSE_DEATH;
     }
 
     protected void playStepSound(BlockPos pos, BlockState state) {

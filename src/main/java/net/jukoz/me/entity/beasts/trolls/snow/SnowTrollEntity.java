@@ -16,4 +16,6 @@ public class SnowTrollEntity extends TrollEntity {
     public SnowTrollVariant getVariant() {
         return SnowTrollVariant.byId(this.getId());
     }
+
+
 }

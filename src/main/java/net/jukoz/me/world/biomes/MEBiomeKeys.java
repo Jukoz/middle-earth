@@ -8,7 +8,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 
 public class MEBiomeKeys extends BiomeKeys {
-    public static final RegistryKey<Biome> ANDUIN_VALES = MEBiomeKeys.register("anduin");
+    public static final RegistryKey<Biome> ANDUIN_VALES = MEBiomeKeys.register("anduin_vales");
     public static final RegistryKey<Biome> BARROW_DOWNS = MEBiomeKeys.register("barrow_downs");
     public static final RegistryKey<Biome> BLUE_MOUNTAINS = MEBiomeKeys.register("blue_mountains");
     public static final RegistryKey<Biome> BLUE_MOUNTAINS_FOOTHILLS = MEBiomeKeys.register("blue_mountains_foothills");
@@ -27,6 +27,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> FANGORN = MEBiomeKeys.register("fangorn");
     public static final RegistryKey<Biome> FORODWAITH = MEBiomeKeys.register("forodwaith");
     public static final RegistryKey<Biome> FROZEN_OCEAN = MEBiomeKeys.register("frozen_ocean");
+    public static final RegistryKey<Biome> FROZEN_POND = MEBiomeKeys.register("frozen_pond");
     public static final RegistryKey<Biome> GONDOR = MEBiomeKeys.register("gondor");
     public static final RegistryKey<Biome> GREY_PLAINS = MEBiomeKeys.register("grey_plains");
     public static final RegistryKey<Biome> HARAD = MEBiomeKeys.register("harad");
@@ -38,7 +39,6 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> LONG_LAKE = MEBiomeKeys.register("long_lake");
     public static final RegistryKey<Biome> LORIEN_EDGE = MEBiomeKeys.register("lorien_edge");
     public static final RegistryKey<Biome> LOTHLORIEN = MEBiomeKeys.register("lothlorien");
-    public static final RegistryKey<Biome> POND = MEBiomeKeys.register("pond");
     public static final RegistryKey<Biome> MIRKWOOD = MEBiomeKeys.register("mirkwood");
     public static final RegistryKey<Biome> MIRKWOOD_EDGE = MEBiomeKeys.register("mirkwood_edge");
     public static final RegistryKey<Biome> MIRKWOOD_FOOTHILLS = MEBiomeKeys.register("mirkwood_foothills");
@@ -58,6 +58,8 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> OLD_ANGMAR = MEBiomeKeys.register("old_angmar");
     public static final RegistryKey<Biome> OLD_ARTHEDAIN = MEBiomeKeys.register("old_arthedain");
     public static final RegistryKey<Biome> OLD_RHUDAUR = MEBiomeKeys.register("old_rhudaur");
+    public static final RegistryKey<Biome> OASIS = MEBiomeKeys.register("oasis");
+    public static final RegistryKey<Biome> POND = MEBiomeKeys.register("pond");
     public static final RegistryKey<Biome> RHUN = MEBiomeKeys.register("rhun");
     public static final RegistryKey<Biome> RIVENDELL = MEBiomeKeys.register("rivendell");
     public static final RegistryKey<Biome> RIVENDELL_FOOTHILLS = MEBiomeKeys.register("rivendell_foothills");

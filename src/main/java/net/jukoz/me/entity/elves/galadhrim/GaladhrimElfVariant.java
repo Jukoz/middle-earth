@@ -5,9 +5,10 @@ import java.util.Comparator;
 
 public enum GaladhrimElfVariant {
     /** [Hair Color]_[Dress Color]_[Eye Color](ID) **/
-    SILVER_TEAL_BLUE_WOMAN(0),
-    SILVER_CYAN_BLUE_WOMAN(1),
-    SILVER_LIME_BLUE_WOMAN(2);
+    SILVER_TEAL_BLUE(0),
+    SILVER_CYAN_BLUE(1),
+    SILVER_LIME_BLUE(2),
+    BLOND_GREEN_BLUE(3);
 
     private static final GaladhrimElfVariant[] BY_ID = Arrays.stream(values()).sorted(
             Comparator.comparingInt(GaladhrimElfVariant::getId)).toArray(GaladhrimElfVariant[]::new);

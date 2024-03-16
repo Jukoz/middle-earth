@@ -1,9 +1,9 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "tag": "me:mithril_ores"
+    "item": "me:diftomin_mithril_ore"
   },
   "result": "me:mithril_ingot",
   "experience": 2,
-  "cookingtime": 400
+  "cookingtime": 175
 }

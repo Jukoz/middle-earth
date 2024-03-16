@@ -6,6 +6,7 @@ import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.utils.ModItemGroups;
+import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.jukoz.me.recipe.ModRecipes;
 import net.jukoz.me.sound.ModSounds;
@@ -30,7 +31,7 @@ public class MiddleEarth implements ModInitializer {
 	// 5 : 96 000 (384,000)
 	// 6 : 192 000 (768,000)
 	// 7 : 384 000 (1,536,000)
-	public static final int MAP_ITERATION = 0;
+	public static final int MAP_ITERATION = 2;
 	public static final boolean FORCE_GENERATION = false;
 	private static MiddleEarthMapDatas middleEarthMapDatas;
 	
@@ -51,7 +52,9 @@ public class MiddleEarth implements ModInitializer {
 		StoneBlockSets.registerModBlockSets();
 		ModDecorativeItems.registerModItems();
 		ModBlocks.registerModBlocks();
+		ModBlocks.registerFlammableBlocks();
 		ModDecorativeBlocks.registerModBlocks();
+		ModDecorativeBlocks.registerFlammableFurniture();
 		ModNatureBlocks.registerModBlocks();
 		RoofBlockSets.registerModBlockSets();
 
@@ -64,6 +67,7 @@ public class MiddleEarth implements ModInitializer {
 		ModEntitySpawning.addSpawns();
 
 		ModSounds.registerModSounds();
+		ModParticleTypes.registerParticleTypes();
 
 		ModDimensions.register();
 		MEBiomeKeys.registerModBiomes();

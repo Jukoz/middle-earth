@@ -1,9 +1,8 @@
 package net.jukoz.me.entity.balrog;
 
-import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
+import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
-import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -48,7 +47,7 @@ public class BalrogEntity extends HostileEntity {
 
         this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(4, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
 
     }
