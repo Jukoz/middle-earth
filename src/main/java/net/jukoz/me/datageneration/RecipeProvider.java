@@ -413,7 +413,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .pattern("WBW")
                 .input('W', StoneBlockSets.WHITE_DAUB.base())
                 .input('G', Blocks.GLASS)
-                .input('B', Blocks.BRICKS)
+                .input('B', Items.BRICK)
                 .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.WHITE_DAUB.base()),
                         FabricRecipeProvider.conditionsFromItem(StoneBlockSets.WHITE_DAUB.base()))
                 .offerTo(exporter);
@@ -424,7 +424,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .pattern("WBW")
                 .input('W', StoneBlockSets.YELLOW_DAUB.base())
                 .input('G', Blocks.GLASS)
-                .input('B', Blocks.BRICKS)
+                .input('B', Items.BRICK)
                 .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.YELLOW_DAUB.base()),
                         FabricRecipeProvider.conditionsFromItem(StoneBlockSets.YELLOW_DAUB.base()))
                 .offerTo(exporter);

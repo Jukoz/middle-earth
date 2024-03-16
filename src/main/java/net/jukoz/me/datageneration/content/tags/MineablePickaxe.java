@@ -9,6 +9,8 @@ import java.util.List;
 public class MineablePickaxe {
     public static List<Block> blocks = new ArrayList<>() {
         {
+            add(ModBlocks.CHISELED_ASHEN_BRICKS);
+
             add(ModBlocks.CHISELED_GONLUIN_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_GONLUIN);
 
@@ -52,6 +54,8 @@ public class MineablePickaxe {
             add(ModBlocks.STONE_PILLAR);
             add(ModBlocks.MOSSY_STONE_PILLAR);
             add(ModBlocks.CRACKED_STONE_PILLAR);
+
+            add(ModBlocks.ASHEN_PILLAR);
 
             add(ModBlocks.GONLUIN_PILLAR);
             add(ModBlocks.CRACKED_GONLUIN_PILLAR);

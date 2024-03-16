@@ -35,6 +35,8 @@ public class SimplePillarModel {
             add(new StonePillar(ModBlocks.MOSSY_DEEPSLATE_PILLAR, ModBlocks.STONE_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_DEEPSLATE_PILLAR, ModBlocks.STONE_PILLAR));
 
+            add(new StonePillar(ModBlocks.ASHEN_PILLAR, StoneBlockSets.ASHEN_BRICKS.base()));
+
             add(new StonePillar(ModBlocks.GONLUIN_PILLAR, StoneBlockSets.GONLUIN_BRICKS.base()));
             add(new StonePillar(ModBlocks.MOSSY_GONLUIN_PILLAR, ModBlocks.GONLUIN_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_GONLUIN_PILLAR, ModBlocks.GONLUIN_PILLAR));
