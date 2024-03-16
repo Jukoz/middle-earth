@@ -7,9 +7,13 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.enums.BedPart;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
@@ -17,37 +21,108 @@ import net.minecraft.screen.StonecutterScreenHandler;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.state.property.Property;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
-public class ArtisanTable extends Block {
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+public class ArtisanTable extends HorizontalFacingBlock {
+    public static final EnumProperty<ArtisanTablePart> PART = EnumProperty.of("part", ArtisanTablePart.class);
     private static final Text TITLE = Text.translatable("container.artisan_table");
 
 
     public ArtisanTable(Settings settings) {
         super(settings);
+        this.setDefaultState(this.stateManager.getDefaultState().with(PART, ArtisanTablePart.LEFT).with(FACING, Direction.NORTH));
     }
 
     @Nullable
-    @Override
+    public static Direction getDirection(BlockView world, BlockPos pos) {
+        BlockState blockState = world.getBlockState(pos);
+        return blockState.getBlock() instanceof ArtisanTable ? (Direction)blockState.get(FACING) : null;
+    }
+
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        if (direction == getDirectionTowardsOtherPart((ArtisanTablePart)state.get(PART), (Direction)state.get(FACING))) {
+            return neighborState.isOf(this) && neighborState.get(PART) != state.get(PART) ? (BlockState)state : Blocks.AIR.getDefaultState();
+        } else {
+            return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        }
+    }
+
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        if (!world.isClient && player.isCreative()) {
+            ArtisanTablePart tablePart = (ArtisanTablePart)state.get(PART);
+            if (tablePart == ArtisanTablePart.LEFT) {
+                BlockPos blockPos = pos.offset(getDirectionTowardsOtherPart(tablePart, (Direction)state.get(FACING).rotateYClockwise()));
+                BlockState blockState = world.getBlockState(blockPos);
+                if (blockState.isOf(this) && blockState.get(PART) == ArtisanTablePart.RIGHT) {
+                    world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 35);
+                    world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
+                }
+            }
+            if (tablePart == ArtisanTablePart.RIGHT) {
+                BlockPos blockPos = pos.offset(getDirectionTowardsOtherPart(tablePart, (Direction)state.get(FACING).rotateYClockwise()));
+                BlockState blockState = world.getBlockState(blockPos);
+                if (blockState.isOf(this) && blockState.get(PART) == ArtisanTablePart.LEFT) {
+                    world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 35);
+                    world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
+                }
+            }
+        }
+
+        super.onBreak(world, pos, state, player);
+    }
+
+    private static Direction getDirectionTowardsOtherPart(ArtisanTablePart part, Direction direction) {
+        return part == ArtisanTablePart.LEFT ? direction : direction.getOpposite();
+    }
+
+    @Nullable
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+        Direction direction = ctx.getHorizontalPlayerFacing();
+        BlockPos blockPos = ctx.getBlockPos();
+        BlockPos blockPos2 = blockPos.offset(direction.rotateYClockwise());
+        World world = ctx.getWorld();
+        return world.getBlockState(blockPos2).canReplace(ctx) && world.getWorldBorder().contains(blockPos2) ? (BlockState)this.getDefaultState().with(FACING, direction).with(PART, ArtisanTablePart.LEFT) : null;
     }
 
-    @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    public static Direction getOppositePartDirection(BlockState state) {
+        Direction direction = (Direction)state.get(FACING);
+        return state.get(PART) == ArtisanTablePart.RIGHT ? direction.getOpposite() : direction;
     }
 
-    @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(FACING)));
+    public static DoubleBlockProperties.Type getTablePart(BlockState state) {
+        ArtisanTablePart tablePart = (ArtisanTablePart)state.get(PART);
+        return tablePart == ArtisanTablePart.RIGHT ? DoubleBlockProperties.Type.FIRST : DoubleBlockProperties.Type.SECOND;
+    }
+
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.onPlaced(world, pos, state, placer, itemStack);
+        if (!world.isClient) {
+            BlockPos blockPos = pos.offset((Direction)state.get(FACING).rotateYClockwise());
+            world.setBlockState(blockPos, (BlockState)state.with(PART, ArtisanTablePart.RIGHT), 3);
+            world.updateNeighbors(pos, Blocks.AIR);
+            state.updateNeighbors(world, pos, 3);
+        }
+    }
+
+    public long getRenderingSeed(BlockState state, BlockPos pos) {
+        BlockPos blockPos = pos.offset((Direction)state.get(FACING), state.get(PART) == ArtisanTablePart.RIGHT ? 0 : 1);
+        return MathHelper.hashCode(blockPos.getX(), pos.getY(), blockPos.getZ());
+    }
+
+    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+        return true;
     }
 
     @Override
@@ -72,8 +147,8 @@ public class ArtisanTable extends Block {
         }, TITLE);
     }
 
-    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        super.appendProperties(builder);
+        builder.add(FACING, PART);
     }
 }

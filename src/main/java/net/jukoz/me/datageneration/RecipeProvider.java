@@ -821,42 +821,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
 
     private void createToolSetRecipes(Consumer<RecipeJsonProvider> exporter, Item inputRod, Item inputMaterial, Item outputPickaxe,  Item outputAxe, Item outputShovel, Item outputHoe) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, outputPickaxe, 1)
-                .pattern("MMM")
-                .pattern(" R ")
-                .pattern(" R ")
-                .input('M', inputMaterial)
-                .input('R', inputRod)
-                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
-                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
-                .offerTo(exporter);
-
-        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, outputAxe, 1)
-                .pattern("MM")
-                .pattern("MR")
-                .pattern(" R")
-                .input('M', inputMaterial)
-                .input('R', inputRod)
-                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
-                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
-                .offerTo(exporter);
-
-        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, outputShovel, 1)
-                .pattern("M")
-                .pattern("R")
-                .pattern("R")
-                .input('M', inputMaterial)
-                .input('R', inputRod)
-                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
-                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
-                .offerTo(exporter);
-
-        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, outputHoe, 1)
-                .pattern("MM")
-                .pattern(" R")
-                .pattern(" R")
-                .input('M', inputMaterial)
-                .input('R', inputRod);
+        createPickaxeRecipe(exporter, inputRod, inputMaterial, outputPickaxe);
+        createAxeRecipe(exporter, inputRod, inputMaterial, outputAxe);
+        createShovelRecipe(exporter, inputRod, inputMaterial, outputShovel);
+        createHoeRecipe(exporter, inputRod, inputMaterial, outputHoe);
     }
     private void createBootsRecipe(Consumer<RecipeJsonProvider> exporter, Item inputMaterial, Item output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
@@ -920,12 +888,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(ingot))
                 .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID, Registries.ITEM.getId(nugget).getPath() + "_from_ingot"));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, rod, 4)
-                .pattern("I")
-                .pattern("I")
-                .input('I', ingot)
-                .criterion(FabricRecipeProvider.hasItem(ingot),
-                        FabricRecipeProvider.conditionsFromItem(ingot));
+        createRodRecipe(exporter, ingot, rod);
     }
 
 

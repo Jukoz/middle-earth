@@ -252,6 +252,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableHoe.add(ModBlocks.STRAW_WALL);
 
         mineableAxe.add(ModDecorativeBlocks.WOOD_PILE);
+        mineableAxe.add(ModDecorativeBlocks.ARTISAN_TABLE);
 
         mineablePickaxe.add(ModBlocks.STONE_VERTICAL_SLAB);
         mineablePickaxe.add(ModBlocks.COBBLESTONE_VERTICAL_SLAB);

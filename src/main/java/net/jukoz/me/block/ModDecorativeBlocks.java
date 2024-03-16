@@ -36,7 +36,7 @@ public class ModDecorativeBlocks {
     public static final Block ALLOY_FURNACE = registerBlock("alloy_furnace",
             new AlloyFurnace(FabricBlockSettings.copyOf(Blocks.STONE).strength(1.65f).requiresTool()));
     public static final Block ARTISAN_TABLE = registerBlock("artisan_table",
-            new ArtisanTable(FabricBlockSettings.copyOf(Blocks.SMITHING_TABLE).requiresTool().nonOpaque()));
+            new ArtisanTable(FabricBlockSettings.copyOf(Blocks.SMITHING_TABLE).nonOpaque()));
 
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             new WoodPileBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque()));
