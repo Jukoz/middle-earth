@@ -12,6 +12,7 @@ import net.jukoz.me.world.features.ores.OreConfiguredFeatures;
 import net.jukoz.me.world.features.ores.OrePlacedFeatures;
 import net.jukoz.me.world.features.tree.ModTreeConfiguredFeatures;
 import net.jukoz.me.world.features.tree.ModTreePlacedFeatures;
+import net.jukoz.me.world.features.tree.MushroomTreeConfiguredFeatures;
 import net.jukoz.me.world.features.underground.CavesConfiguredFeatures;
 import net.jukoz.me.world.features.underground.CavesPlacedFeatures;
 import net.jukoz.me.world.features.vegetation.ModVegetationConfiguredFeatures;
@@ -46,6 +47,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, OreConfiguredFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, CavesConfiguredFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModMiscConfiguredFeatures::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, MushroomTreeConfiguredFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModTreePlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModVegetationPlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, BoulderPlacedFeatures::bootstrap);

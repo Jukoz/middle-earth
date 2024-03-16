@@ -140,11 +140,11 @@ public class ModNatureBlocks {
     public static final Block TRUMPET_SHROOM = registerBlock("trumpet_shroom",
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
     public static final Block TALL_TRUMPET_SHROOM = registerBlock("tall_trumpet_shroom",
-            new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
+            new TallMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block TUBESHRROM = registerBlock("tubeshroom",
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM).luminance(4), null), true);
     public static final Block TALL_TUBESHROOM = registerBlock("tall_tubeshroom",
-            new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM).luminance(5)), true);
+            new TallMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM).luminance(5)), true);
     public static final Block VIOLET_CAPS = registerBlock("violet_caps",
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
     public static final Block WHITE_MUSHROOM = registerBlock("white_mushroom",

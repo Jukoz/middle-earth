@@ -3,8 +3,6 @@ package net.jukoz.me.world.biomes.caves;
 import net.jukoz.me.world.biomes.BiomeColorsDTO;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.features.underground.CavesPlacedFeatures;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -33,6 +31,8 @@ public class ModCaveBiomes {
     public static void init() {
         defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LUSH_CAVE, new Vec2f(-1.0f,0.5f)));
         defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRIPSTONE_CAVE, new Vec2f(1.0f,0.5f)));
+        defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.MUD_CAVE, new Vec2f(1.0f,1.0f)));
+        defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.FUNGUS_CAVE, new Vec2f(0.5f,0.0f)));
     }
 
     public static void bootstrap(Registerable<Biome> context) {
@@ -40,11 +40,15 @@ public class ModCaveBiomes {
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 8703593, 8703593)));
         context.register(MEBiomeKeys.DRIPSTONE_CAVE, createDripstoneCave(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
+        context.register(MEBiomeKeys.MUD_CAVE, createMudCaves(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, defaultWater, defaultWaterFog, 7435337, 7905386)));
+        context.register(MEBiomeKeys.FUNGUS_CAVE, createFungusCave(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, defaultWater, defaultWaterFog, 5869935, 6263141)));
     }
 
     public static Biome createLushCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        spawnSettings.spawn(SpawnGroup.AXOLOTLS, new SpawnSettings.SpawnEntry(EntityType.AXOLOTL, 1, 2, 4));
+        ModCaveBiomeFeatures.addAxolotls(spawnSettings);
 
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
@@ -77,9 +81,51 @@ public class ModCaveBiomes {
 
     public static Biome createMudCaves(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModCaveBiomeFeatures.addSnails(spawnSettings);
+        ModCaveBiomeFeatures.addFrogs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addBasicFeatures(generationSettings);
+        undergroundOres.add(CavesPlacedFeatures.ORE_DIRT);
+        undergroundOres.add(CavesPlacedFeatures.ORE_MUD);
+        undergroundOres.add(CavesPlacedFeatures.POOL_MUD);
+        undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true);
+    }
+
+    public static Biome createFungusCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModCaveBiomeFeatures.addFrogs(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addBasicFeatures(generationSettings);
+        undergroundOres.add(CavesPlacedFeatures.ORE_DIRT);
+        undergroundOres.add(CavesPlacedFeatures.DISK_MYCELIUM);
+        undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
+
+        undergroundOres.add(CavesPlacedFeatures.TREE_BROWN_BOLETTE);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_CAVE_AMANITA);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_CAVE_AMANITA_TILLER);
+        undergroundOres.add(CavesPlacedFeatures.TREE_CAVE_AMANITA);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_DEEP_FIRECAP);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_DEEP_FIRECAP_TILLER);
+        undergroundOres.add(CavesPlacedFeatures.TREE_DEEP_FIRECAP);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_GHOSTSHROOM);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_GHOSTSHROOM_TILLER);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_SKY_FIRECAP);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_SKY_FIRECAP_TILLER);
+        undergroundOres.add(CavesPlacedFeatures.TREE_SKY_FIRECAP);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_TUBESHROOMS);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_TALL_TUBESHROOMS);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_TRUMPET_SHROOM);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_TALL_TRUMPET_SHROOM);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_VIOLET_CAPS);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_VIOLET_CAPS_TILLER);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_YELLOW_AMANITA);
+        undergroundOres.add(CavesPlacedFeatures.PATCH_YELLOW_AMANITA_TILLER);
+        undergroundOres.add(CavesPlacedFeatures.TREE_YELLOW_AMANITA);
+
 
         return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true);
     }
@@ -124,6 +170,8 @@ public class ModCaveBiomes {
     }
 
     public static Biome createBiome(BiomeColorsDTO biomeColors, SpawnSettings.Builder spawnSettings, GenerationSettings.LookupBackedBuilder generationSettings, float temperature, boolean precipitation) {
+        ModCaveBiomeFeatures.addBats(spawnSettings);
+
         undergroundOres = undergroundOres.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList();
         for (RegistryKey<PlacedFeature> feature: undergroundOres) {
             generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, feature);

@@ -1,7 +1,11 @@
 package net.jukoz.me.world.biomes.caves;
 
+import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.world.features.underground.CavesPlacedFeatures;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.world.biome.GenerationSettings;
+import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 
 public class ModCaveBiomeFeatures {
@@ -22,4 +26,16 @@ public class ModCaveBiomeFeatures {
         builder.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, CavesPlacedFeatures.QUARTZ_GEODE);
     }
 
+    public static void addAxolotls(SpawnSettings.Builder spawnSettings) {
+        spawnSettings.spawn(SpawnGroup.AXOLOTLS, new SpawnSettings.SpawnEntry(EntityType.AXOLOTL, 12, 2, 5));
+    }
+    public static void addBats(SpawnSettings.Builder spawnSettings) {
+        spawnSettings.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(EntityType.BAT, 3, 1, 2));
+    }
+    public static void addFrogs(SpawnSettings.Builder spawnSettings) {
+        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FROG, 18, 1, 3));
+    }
+    public static void addSnails(SpawnSettings.Builder spawnSettings) {
+        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.SNAIL, 21, 1, 3));
+    }
 }
