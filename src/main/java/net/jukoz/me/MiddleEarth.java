@@ -11,7 +11,7 @@ import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.jukoz.me.recipe.ModRecipes;
 import net.jukoz.me.sound.ModSounds;
 import net.jukoz.me.utils.LootModifiers;
-import net.jukoz.me.utils.resources.ImageReader;
+import net.jukoz.me.utils.resources.FileUtils;
 import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 import net.jukoz.me.world.MiddleEarthMapGeneration;
 import net.jukoz.me.world.gen.ModWorldGeneration;
@@ -19,8 +19,6 @@ import net.jukoz.me.world.spawners.ModEntitySpawning;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.MEBiomesData;
 import net.jukoz.me.world.dimension.ModDimensions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "me";
@@ -30,7 +28,7 @@ public class MiddleEarth implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		new ImageReader(getClass().getClassLoader());
+		new FileUtils(getClass().getClassLoader());
 
 		ModStatusEffects.registerStatusEffects();
 		OreRockSets.registerModBlockSets();

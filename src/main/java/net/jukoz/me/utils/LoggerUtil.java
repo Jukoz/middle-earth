@@ -28,4 +28,8 @@ public class LoggerUtil {
     public void logError(String msg){
         LOGGER.error(msg);
     }
+    public void logWarn(String msg){
+        LOGGER.warn(msg);
+    }
+
 }
