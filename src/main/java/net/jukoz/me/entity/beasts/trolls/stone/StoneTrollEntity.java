@@ -52,22 +52,9 @@ public class StoneTrollEntity extends TrollEntity {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new BeastSitGoal(this));
+        super.initGoals();
         this.goalSelector.add(3, new AvoidSunlightGoal(this));
         this.goalSelector.add(4, new EscapeSunlightGoal(this, 1.2d));
-        this.goalSelector.add(5, new MeleeAttackGoal(this, 0.9f, false));
-        this.goalSelector.add(6, new ChargeAttackGoal(this, 400));
-        this.goalSelector.add(7, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
-        this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(9, new LookAroundGoal(this));
-        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((BeastEntity) this));
-        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((BeastEntity)this));
-        this.targetSelector.add(3, new TargetPlayerGoal(this));
-        this.targetSelector.add(4, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(5, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
-        this.targetSelector.add(6, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
     @Override
