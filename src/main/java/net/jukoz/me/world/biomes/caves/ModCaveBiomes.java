@@ -29,11 +29,15 @@ public class ModCaveBiomes {
     public static CaveBiomesMap haradCaves = new CaveBiomesMap();
 
     public static void init() {
-        defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LUSH_CAVE, new Vec2f(-1.0f,0.5f)));
-        defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRIPSTONE_CAVE, new Vec2f(1.0f,0.5f)));
+        defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.LUSH_CAVE, new Vec2f(-1.0f,0f)));
+        defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRIPSTONE_CAVE, new Vec2f(1.0f,0f)));
         defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.MUD_CAVE, new Vec2f(1.0f,1.0f)));
-        defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.FUNGUS_CAVE, new Vec2f(0.5f,0.0f)));
+        defaultCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.FUNGUS_CAVE, new Vec2f(0f,-1.0f)));
+
+        haradCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRIPSTONE_CAVE, new Vec2f(1.0f,0f)));
     }
+
+    public RegistryKey<Biome> getBiome()
 
     public static void bootstrap(Registerable<Biome> context) {
         context.register(MEBiomeKeys.LUSH_CAVE, createLushCave(context, new BiomeColorsDTO(
@@ -126,9 +130,9 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.PATCH_YELLOW_AMANITA_TILLER);
         undergroundOres.add(CavesPlacedFeatures.TREE_YELLOW_AMANITA);
 
-
         return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true);
     }
+
 
     private static void addBasicFeatures(GenerationSettings.LookupBackedBuilder generationSettings) {
         ModCaveBiomeFeatures.addAmethystGeode(generationSettings);
@@ -136,9 +140,6 @@ public class ModCaveBiomes {
         ModCaveBiomeFeatures.addGlowstoneGeode(generationSettings);
         ModCaveBiomeFeatures.addRedAgateGeode(generationSettings);
         ModCaveBiomeFeatures.addQuartzGeode(generationSettings);
-
-        undergroundOres.add(CavesPlacedFeatures.ORE_MAGMA);
-        undergroundOres.add(CavesPlacedFeatures.ORE_OBSIDIAN);
 
         undergroundOres.add(CavesPlacedFeatures.ORE_COAL);
         undergroundOres.add(CavesPlacedFeatures.ORE_COAL_UPPER);
@@ -152,6 +153,11 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.ORE_GOLD);
         undergroundOres.add(CavesPlacedFeatures.SPRING_LAVA);
         undergroundOres.add(MiscPlacedFeatures.SPRING_WATER);
+
+        undergroundOres.add(CavesPlacedFeatures.ORE_MAGMA);
+        undergroundOres.add(CavesPlacedFeatures.ORE_OBSIDIAN);
+        undergroundOres.add(CavesPlacedFeatures.PILLAR_BASALT);
+        undergroundOres.add(CavesPlacedFeatures.PILLAR_BLACKSTONE);
 
         undergroundOres.add(OrePlacedFeatures.ORE_DIRT);
         undergroundOres.add(OrePlacedFeatures.ORE_GRAVEL);

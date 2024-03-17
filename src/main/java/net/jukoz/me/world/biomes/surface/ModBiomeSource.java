@@ -63,7 +63,7 @@ public class ModBiomeSource extends BiomeSource {
         if(!MEBiomesData.waterBiomes.contains(biome)) {
             float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
             if(j < height - 12) {
-                processedBiome = getCaveBiome(x, z);
+                processedBiome = getCaveBiome(i, k);
             }
             else if(height <= MiddleEarthChunkGenerator.WATER_HEIGHT + 1.25f) {
                 if(MEBiomesData.wastePondBiomes.contains(biome)) {
