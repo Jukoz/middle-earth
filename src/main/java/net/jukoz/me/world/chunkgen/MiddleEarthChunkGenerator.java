@@ -48,6 +48,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     public static final int LAVA_HEIGHT = -60;
     public static final int HEIGHT = 24 + STONE_HEIGHT;
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
+    public static final int CAVE_NOISE = 5;
 
     MiddleEarthMapDatas middleEarthMapDatas;
     private static final int CAVE_STRETCH_H = 60;
@@ -136,7 +137,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.LUSH_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DRIPSTONE_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MUD_CAVE),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.FUNGUS_CAVE)
+                    biomeRegistry.getOrThrow(MEBiomeKeys.FUNGUS_CAVE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.BASALT_CAVE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.MAGMA_CAVE)
                 ))
             )
         );
@@ -184,7 +187,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
 
                 float height = MiddleEarthHeightMap.getHeight(posX, posZ);
-                int caveBlendNoise = (int) (4 * BlendedNoise.noise((double) x / 32,  (double) z / 32));
+                float caveBlendNoise = (float) ((2 * CAVE_NOISE * BlendedNoise.noise((double) x / 24,  (double) z / 24)) - CAVE_NOISE);
 
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, bottomY, z), Blocks.BEDROCK.getDefaultState(), false);
                 for(int y = bottomY + 1; y <= LAVA_HEIGHT; y++) {
@@ -197,14 +200,14 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 if(Math.random() < 0.5f) chunk.setBlockState(chunk.getPos().getBlockPos(x, chunk.getBottomY() + 1, z),
                         Blocks.BEDROCK.getDefaultState(), false);
 
-                for(int y = EPMOSTO_LEVEL + caveBlendNoise; y < DIFTOMIN_LEVEL + caveBlendNoise; y++) {
+                for(int y = EPMOSTO_LEVEL + (int) caveBlendNoise; y < DIFTOMIN_LEVEL + caveBlendNoise; y++) {
                     trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSets.DIFTOMIN.base().getDefaultState());
                 }
-                for(int y = DIFTOMIN_LEVEL + caveBlendNoise; y < DEEPSLATE_LEVEL + caveBlendNoise; y++) {
+                for(int y = DIFTOMIN_LEVEL + (int) caveBlendNoise; y < DEEPSLATE_LEVEL + caveBlendNoise; y++) {
                     trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), Blocks.DEEPSLATE.getDefaultState());
                 }
                 float dirtHeight = HEIGHT + height - 1;
-                for(int y = DEEPSLATE_LEVEL + caveBlendNoise; y < (dirtHeight / 2); y++) {
+                for(int y = DEEPSLATE_LEVEL + (int) caveBlendNoise; y < (dirtHeight / 2); y++) {
                     trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), meBiome.stoneBlock.getDefaultState());
                 }
                 for(int y = (int) (dirtHeight / 2); y < dirtHeight; y++) {
@@ -265,7 +268,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     @Override
     public int getWorldHeight() {
-        return 256;
+        return 384;
     }
 
 
@@ -282,7 +285,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     @Override
     public int getMinimumY() {
-        return -32;
+        return -64;
     }
 
     @Override

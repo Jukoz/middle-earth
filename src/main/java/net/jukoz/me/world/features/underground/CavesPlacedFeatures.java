@@ -24,11 +24,16 @@ public class CavesPlacedFeatures {
     public static final RegistryKey<PlacedFeature> QUARTZ_GEODE = registerKey("quartz_geode");
     // endregion
     public static final RegistryKey<PlacedFeature> ORE_MAGMA = registerKey("ore_magma");
+    public static final RegistryKey<PlacedFeature> ORE_MAGMA_ABUNDANT = registerKey("ore_magma_abundant");
     public static final RegistryKey<PlacedFeature> ORE_OBSIDIAN = registerKey("ore_obsidian");
     public static final RegistryKey<PlacedFeature> ORE_DIRT = registerKey("ore_dirt");
     public static final RegistryKey<PlacedFeature> ORE_MUD = registerKey("ore_mud");
+    public static final RegistryKey<PlacedFeature> ORE_ASH = registerKey("ore_ash");
+    public static final RegistryKey<PlacedFeature> ORE_ASHEN_DIRT = registerKey("ore_ashen_dirt");
     public static final RegistryKey<PlacedFeature> POOL_MUD = registerKey("pool_mud");
     public static final RegistryKey<PlacedFeature> DISK_MYCELIUM = registerKey("disk_mycelium");
+    public static final RegistryKey<PlacedFeature> DELTA = registerKey("delta");
+
     public static final RegistryKey<PlacedFeature> PILLAR_BASALT = registerKey("pillar_polished_basalt");
     public static final RegistryKey<PlacedFeature> PILLAR_BLACKSTONE = registerKey("pillar_blackstone");
 
@@ -90,9 +95,12 @@ public class CavesPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreObsidian = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_OBSIDIAN);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreDirt = registryEntryLookup.getOrThrow(OreConfiguredFeatures.ORE_DIRT);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreMud = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_MUD);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreAsh = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_ASH);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> oreAshenDirt = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_ASHEN_DIRT);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> poolMud = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.POOL_MUD);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> diskMycelium = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.DISK_MYCELIUM);
 
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> delta = registryEntryLookup.getOrThrow(NetherConfiguredFeatures.DELTA);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> pillarBasalt = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.PILLAR_BASALT);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> pillarBlackstone = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.PILLAR_BLACKSTONE);
 
@@ -143,12 +151,17 @@ public class CavesPlacedFeatures {
                 HeightRangePlacementModifier.uniform(YOffset.aboveBottom(6), YOffset.fixed(30)), BiomePlacementModifier.of());
 
         PlacedFeatures.register(featureRegisterable, ORE_MAGMA, oreMagma, modifiersWithCount(11, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-128), YOffset.fixed(MiddleEarthChunkGenerator.DIFTOMIN_LEVEL))));
+        PlacedFeatures.register(featureRegisterable, ORE_MAGMA_ABUNDANT, oreMagma, modifiersWithCount(14, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-128), YOffset.fixed(120))));
         PlacedFeatures.register(featureRegisterable, ORE_OBSIDIAN, oreObsidian, modifiersWithCount(7, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-92), YOffset.fixed(MiddleEarthChunkGenerator.EPMOSTO_LEVEL))));
         PlacedFeatures.register(featureRegisterable, ORE_DIRT, oreDirt, modifiersWithCount(6, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.DIFTOMIN_LEVEL), YOffset.fixed(120))));
         PlacedFeatures.register(featureRegisterable, ORE_MUD, oreMud, modifiersWithCount(15, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.DIFTOMIN_LEVEL), YOffset.fixed(120))));
+        PlacedFeatures.register(featureRegisterable, ORE_ASH, oreAsh, modifiersWithCount(21, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-48), YOffset.fixed(250))));
+        PlacedFeatures.register(featureRegisterable, ORE_ASHEN_DIRT, oreAshenDirt, modifiersWithCount(7, HeightRangePlacementModifier.uniform(YOffset.fixed(0), YOffset.fixed(160))));
+
         PlacedFeatures.register(featureRegisterable, POOL_MUD, poolMud, modifiersWithCount(9, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.DIFTOMIN_LEVEL), YOffset.fixed(120))));
         PlacedFeatures.register(featureRegisterable, DISK_MYCELIUM, diskMycelium, modifiersWithCount(40, mushroomsRange));
 
+        PlacedFeatures.register(featureRegisterable, DELTA, delta, modifiersWithCount(5, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-128), YOffset.fixed(MiddleEarthChunkGenerator.DEEPSLATE_LEVEL))));
         PlacedFeatures.register(featureRegisterable, PILLAR_BASALT, pillarBasalt, modifiersWithCount(2, diftominRange));
         PlacedFeatures.register(featureRegisterable, PILLAR_BLACKSTONE, pillarBlackstone, modifiersWithCount(2, epmostoRange));
 

@@ -37,12 +37,10 @@ public class ModBiomeSource extends BiomeSource {
         return biomes.stream();
     }
 
-    private RegistryKey<Biome> getCaveBiome(int x, int z) {
+    private RegistryKey<Biome> getCaveBiome(int x, int z, MEBiome surfaceBiome) {
         float temperature = (float) SimplexNoise.noise((double) x / CAVE_NOISE,  (double) z / CAVE_NOISE);
         float humidity = (float) SimplexNoise.noise((double) (x + CAVE_OFFSET) / CAVE_NOISE, (double)(z + CAVE_OFFSET) / CAVE_NOISE);
-        RegistryKey<Biome> biome = ModCaveBiomes.defaultCaves.getClosestBiome(new Vec2f(temperature, humidity));
-        if (biome == null) return MEBiomeKeys.LUSH_CAVE;
-        else return biome;
+        return ModCaveBiomes.getBiome(new Vec2f(temperature, humidity), surfaceBiome);
     }
 
     @Override
@@ -63,7 +61,7 @@ public class ModBiomeSource extends BiomeSource {
         if(!MEBiomesData.waterBiomes.contains(biome)) {
             float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
             if(j < height - 12) {
-                processedBiome = getCaveBiome(i, k);
+                processedBiome = getCaveBiome(i, k, meBiome);
             }
             else if(height <= MiddleEarthChunkGenerator.WATER_HEIGHT + 1.25f) {
                 if(MEBiomesData.wastePondBiomes.contains(biome)) {
