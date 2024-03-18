@@ -1,0 +1,21 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "me:lorien_plate_leggings"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "me:elven_steel_ingot"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    }
+  ],
+  "output": {
+    "item": "me:lorien_commander_leggings",
+    "count": 1
+  }
+}

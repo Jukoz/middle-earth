@@ -4,6 +4,6 @@
     "item": "me:raw_silver"
   },
   "result": "me:silver_ingot",
-  "experience": 2,
-  "cookingtime": 125
+  "experience": 1,
+  "cookingtime": 100
 }

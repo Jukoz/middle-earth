@@ -1,0 +1,27 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "minecraft:shield"
+    },
+    {
+      "item": "me:orc_steel_nugget"
+    },
+    {
+      "item": "me:mordor_great_eye_banner_pattern"
+    },
+    {
+      "item": "me:orc_steel_nugget"
+    },
+    {
+      "item": "minecraft:black_dye"
+    },
+    {
+      "item": "minecraft:red_dye"
+    }
+  ],
+  "output": {
+    "item": "me:mordor_shield",
+    "count": 1
+  }
+}

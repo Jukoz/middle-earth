@@ -4,6 +4,6 @@
     "item": "me:raw_tin"
   },
   "result": "me:tin_ingot",
-  "experience": 2,
+  "experience": 0.7,
   "cookingtime": 200
 }

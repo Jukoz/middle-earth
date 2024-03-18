@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "B B",
+    "BFB",
+    "SSS"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:bricks"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "S": {
+      "item": "minecraft:stone"
+    }
+  },
+  "result": {
+    "item": "me:alloy_furnace",
+    "count": 1
+  }
+}

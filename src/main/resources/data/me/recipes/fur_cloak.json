@@ -1,22 +1,26 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#S#",
-    "W W",
-    "W W"
-  ],
-  "key": {
-    "#": {
-      "item": "minecraft:rabbit_hide"
-    },
-    "S": {
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
       "item": "minecraft:string"
     },
-    "W": {
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "minecraft:white_wool"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "minecraft:white_wool"
+    },
+    {
       "item": "minecraft:white_wool"
     }
-  },
-  "result": {
+  ],
+  "output": {
     "item": "me:fur_cloak",
     "count": 1
   }

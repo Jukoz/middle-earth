@@ -1,0 +1,27 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "me:mordor_black_uruk_scale_chestplate"
+    },
+    {
+      "item": "me:uruk_steel_ingot"
+    },
+    {
+      "item": "me:uruk_steel_block"
+    },
+    {
+      "item": "me:uruk_steel_ingot"
+    },
+    {
+      "item": "minecraft:red_dye"
+    },
+    {
+      "item": "minecraft:red_dye"
+    }
+  ],
+  "output": {
+    "item": "me:mordor_black_uruk_plate_chestplate",
+    "count": 1
+  }
+}

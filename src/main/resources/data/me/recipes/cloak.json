@@ -1,19 +1,26 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#S#",
-    "# #",
-    "# #"
-  ],
-  "key": {
-    "#": {
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "minecraft:string"
+    },
+    {
       "item": "minecraft:white_wool"
     },
-    "S": {
-      "item": "minecraft:string"
+    {
+      "item": "minecraft:white_wool"
+    },
+    {
+      "item": "minecraft:white_wool"
+    },
+    {
+      "item": "minecraft:white_wool"
+    },
+    {
+      "item": "minecraft:white_wool"
     }
-  },
-  "result": {
+  ],
+  "output": {
     "item": "me:cloak",
     "count": 1
   }

@@ -47,6 +47,7 @@ import net.jukoz.me.entity.uruks.misties.MistyHobgoblinRenderer;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukRenderer;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jukoz.me.gui.ModScreenHandlers;
+import net.jukoz.me.gui.artisantable.ArtisanTableScreen;
 import net.jukoz.me.gui.wood_pile.WoodPileScreen;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
@@ -163,6 +164,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         ModModelPredicateProvider.registerAllPredicates();
 
         HandledScreens.register(ModScreenHandlers.ALLOY_SCREEN_HANDLER, AlloyFurnaceScreen::new);
+        HandledScreens.register(ModScreenHandlers.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
         HandledScreens.register(ModScreenHandlers.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         BlockEntityRendererRegistry.register(ModBlockEntities.ALLOY_FURNACE, AlloyFurnaceEntityRenderer::new);
 

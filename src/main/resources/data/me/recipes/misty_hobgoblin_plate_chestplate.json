@@ -1,0 +1,27 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "me:misty_hobgoblin_scale_chestplate"
+    },
+    {
+      "item": "me:uruk_steel_ingot"
+    },
+    {
+      "item": "me:uruk_steel_block"
+    },
+    {
+      "item": "me:uruk_steel_ingot"
+    },
+    {
+      "item": "minecraft:brown_wool"
+    },
+    {
+      "item": "minecraft:brown_wool"
+    }
+  ],
+  "output": {
+    "item": "me:misty_hobgoblin_plate_chestplate",
+    "count": 1
+  }
+}
