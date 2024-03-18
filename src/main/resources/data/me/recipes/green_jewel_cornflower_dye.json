@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "me:green_jewel_cornflower"
+    }
+  ],
+  "result": {
+    "item": "minecraft:green_dye"
+  }
+}

@@ -19,6 +19,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 import java.util.function.Consumer;
@@ -36,7 +37,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         for (StoneBlockSets.SimpleBlockSetMain record : StoneBlockSets.setsMain) {
             if(record.toString().contains("mossy_")){
                 createMossyRecipe(exporter, record.source(), record.base());
-            } else if(record.toString().contains("cracked_")){
+            } else if(record.toString().contains("cracked_")) {
+                createCrackedRecipe(exporter, record.source().asItem(), record.base().asItem());
+            } else if(record.toString().contains("smooth_")){
                 createCrackedRecipe(exporter, record.source().asItem(), record.base().asItem());
             } else if(record.toString().contains("cobbled_")) {
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
@@ -261,6 +264,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         for(SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledPolishedBlocksTopBottom) {
             createChiseledRecipe(exporter, block.origin(), block.base(), 1);
         }
+        for(SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledMainBlockTopBottom) {
+            createChiseledRecipe(exporter, block.origin(), block.base(), 1);
+        }
         for(SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledBlocksTopBottom) {
             createChiseledRecipe(exporter, block.origin(), block.base(), 1);
         }
@@ -401,6 +407,41 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createFilledRecipe(exporter, Items.GLOWSTONE, ModBlocks.GLOWSTONE_BLOCK, 1);
         createBrickRecipe(exporter, ModResourceItems.QUARTZ_SHARD, ModBlocks.QUARTZ_BLOCK, 1);
         createBrickRecipe(exporter, ModResourceItems.RED_AGATE_SHARD, ModBlocks.RED_AGATE_BLOCK, 1);
+
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.BRICKS, StoneBlockSets.OLD_BRICKS.base());
+
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW, 4)
+                .pattern("WBW")
+                .pattern("BGB")
+                .pattern("WBW")
+                .input('W', StoneBlockSets.WHITE_DAUB.base())
+                .input('G', Blocks.GLASS)
+                .input('B', Items.BRICK)
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.WHITE_DAUB.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.WHITE_DAUB.base()))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW, 4)
+                .pattern("WBW")
+                .pattern("BGB")
+                .pattern("WBW")
+                .input('W', StoneBlockSets.YELLOW_DAUB.base())
+                .input('G', Blocks.GLASS)
+                .input('B', Items.BRICK)
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.YELLOW_DAUB.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.YELLOW_DAUB.base()))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.EPMOSTO_CARVED_WINDOW, 2)
+                .pattern("EEE")
+                .pattern("EGE")
+                .pattern("EEE")
+                .input('E', StoneBlockSets.EPMOSTO.base())
+                .input('G', Blocks.GLASS)
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.EPMOSTO.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.EPMOSTO.base()))
+                .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LEAD_GLASS, 4)
                 .pattern("LGL")

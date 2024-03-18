@@ -4,11 +4,11 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModNatureBlocks;
+import net.jukoz.me.block.special.CustomTallPlantBlock;
 import net.jukoz.me.item.items.*;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.TallPlantBlock;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -146,7 +146,7 @@ public class ModResourceItems {
     public static final Item STRAW = registerItem("straw",
             new Item(new FabricItemSettings()));
     public static final Block REEDS = registerBlock("reeds",
-            new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.TALL_GRASS).strength(0.2f)), false);
+            new CustomTallPlantBlock(FabricBlockSettings.copyOf(Blocks.TALL_GRASS).strength(0.2f)), false);
 
     public static final Item DUCK_FEATHER = registerItem("duck_feather",
             new Item(new FabricItemSettings()));

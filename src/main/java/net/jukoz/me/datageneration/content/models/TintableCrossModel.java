@@ -33,12 +33,15 @@ public class TintableCrossModel {
             add(ModNatureBlocks.GLOWWORM_MAIN);
             add(ModNatureBlocks.GLOWWORM_WEBBING);
 
+            add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER);
+
         }
     };
     public static List<Block> tintedBlocks = new ArrayList<>() {
         {
             add(ModNatureBlocks.GRASS_TUFT);
             add(ModNatureBlocks.WILD_GRASS);
+            add(ModNatureBlocks.WHEATGRASS);
         }
     };
 
@@ -54,7 +57,6 @@ public class TintableCrossModel {
             add(ModNatureBlocks.HEATHER);
             add(ModNatureBlocks.HEATHER_BUSH);
             add(ModNatureBlocks.RED_HEATHER);
-            add(ModNatureBlocks.WHEATGRASS);
             add(ModNatureBlocks.WILDERGRASS);
             add(ModNatureBlocks.BEACH_GRASS);
             add(ModNatureBlocks.COASTAL_PANIC_GRASS);
