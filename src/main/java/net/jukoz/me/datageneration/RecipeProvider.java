@@ -451,21 +451,21 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         createToolSetRecipes(exporter, ModResourceItems.DWARVEN_STEEL_ROD, ModResourceItems.MITHRIL_INGOT, ModToolItems.MITHRIL_PICKAXE, ModToolItems.MITHRIL_AXE, ModToolItems.MITHRIL_SHOVEL, ModToolItems.MITHRIL_HOE);
 
-        createBucketRecipe(exporter, ModResourceItems.BRONZE_INGOT, ModToolItems.BRONZE_BUCKET);
-        createBucketRecipe(exporter, ModResourceItems.MITHRIL_INGOT, ModToolItems.MITHRIL_BUCKET);
+        createBucketRecipe(exporter, Items.IRON_INGOT, Items.BUCKET);
+        //createBucketRecipe(exporter, ModResourceItems.MITHRIL_INGOT, ModToolItems.MITHRIL_BUCKET);
 
-        createMetalsRecipe(exporter, ModResourceItems.TIN_NUGGET, ModResourceItems.TIN_INGOT, ModResourceItems.TIN_ROD);
-        createMetalsRecipe(exporter, ModResourceItems.LEAD_NUGGET, ModResourceItems.LEAD_INGOT, ModResourceItems.LEAD_ROD);
-        createMetalsRecipe(exporter, ModResourceItems.SILVER_NUGGET, ModResourceItems.SILVER_INGOT, ModResourceItems.SILVER_ROD);
-        createMetalsRecipe(exporter, ModResourceItems.MITHRIL_NUGGET, ModResourceItems.MITHRIL_INGOT, ModResourceItems.MITHRIL_ROD);
+        createMetalsRecipe(exporter, ModResourceItems.TIN_NUGGET, ModResourceItems.TIN_INGOT, ModResourceItems.TIN_ROD, ModBlocks.TIN_BLOCK);
+        createMetalsRecipe(exporter, ModResourceItems.LEAD_NUGGET, ModResourceItems.LEAD_INGOT, ModResourceItems.LEAD_ROD, ModBlocks.LEAD_BLOCK);
+        createMetalsRecipe(exporter, ModResourceItems.SILVER_NUGGET, ModResourceItems.SILVER_INGOT, ModResourceItems.SILVER_ROD, ModBlocks.SILVER_BLOCK);
+        createMetalsRecipe(exporter, ModResourceItems.MITHRIL_NUGGET, ModResourceItems.MITHRIL_INGOT, ModResourceItems.MITHRIL_ROD, ModBlocks.MITHRIL_BLOCK);
 
-        createMetalsRecipe(exporter, ModResourceItems.BRONZE_NUGGET, ModResourceItems.BRONZE_INGOT, ModResourceItems.BRONZE_ROD);
-        createMetalsRecipe(exporter, ModResourceItems.ORC_STEEL_NUGGET, ModResourceItems.ORC_STEEL_INGOT, ModResourceItems.ORC_STEEL_ROD);
-        createMetalsRecipe(exporter, ModResourceItems.URUK_STEEL_NUGGET, ModResourceItems.URUK_STEEL_INGOT, ModResourceItems.URUK_STEEL_ROD);
-        createMetalsRecipe(exporter, ModResourceItems.STEEL_NUGGET, ModResourceItems.STEEL_INGOT, ModResourceItems.STEEL_ROD);
-        createMetalsRecipe(exporter, ModResourceItems.ELVEN_STEEL_NUGGET, ModResourceItems.ELVEN_STEEL_INGOT, ModResourceItems.ELVEN_STEEL_ROD);
-        createMetalsRecipe(exporter, ModResourceItems.DWARVEN_STEEL_NUGGET, ModResourceItems.DWARVEN_STEEL_INGOT, ModResourceItems.DWARVEN_STEEL_ROD);
-        createMetalsRecipe(exporter, ModResourceItems.MORGUL_STEEL_NUGGET, ModResourceItems.MORGUL_STEEL_INGOT, ModResourceItems.MORGUL_STEEL_ROD);
+        createMetalsRecipe(exporter, ModResourceItems.BRONZE_NUGGET, ModResourceItems.BRONZE_INGOT, ModResourceItems.BRONZE_ROD, ModBlocks.BRONZE_BLOCK);
+        createMetalsRecipe(exporter, ModResourceItems.ORC_STEEL_NUGGET, ModResourceItems.ORC_STEEL_INGOT, ModResourceItems.ORC_STEEL_ROD, ModBlocks.ORC_STEEL_BLOCK);
+        createMetalsRecipe(exporter, ModResourceItems.URUK_STEEL_NUGGET, ModResourceItems.URUK_STEEL_INGOT, ModResourceItems.URUK_STEEL_ROD, ModBlocks.URUK_STEEL_BLOCK);
+        createMetalsRecipe(exporter, ModResourceItems.STEEL_NUGGET, ModResourceItems.STEEL_INGOT, ModResourceItems.STEEL_ROD, ModBlocks.STEEL_BLOCK);
+        createMetalsRecipe(exporter, ModResourceItems.ELVEN_STEEL_NUGGET, ModResourceItems.ELVEN_STEEL_INGOT, ModResourceItems.ELVEN_STEEL_ROD, ModBlocks.ELVEN_STEEL_BLOCK);
+        createMetalsRecipe(exporter, ModResourceItems.DWARVEN_STEEL_NUGGET, ModResourceItems.DWARVEN_STEEL_INGOT, ModResourceItems.DWARVEN_STEEL_ROD, ModBlocks.DWARVEN_STEEL_BLOCK);
+        createMetalsRecipeNoBlock(exporter, ModResourceItems.MORGUL_STEEL_NUGGET, ModResourceItems.MORGUL_STEEL_INGOT, ModResourceItems.MORGUL_STEEL_ROD);
 
         createRodRecipe(exporter, Items.COPPER_INGOT, ModResourceItems.COPPER_ROD);
         createRodRecipe(exporter, Items.GOLD_INGOT, ModResourceItems.GOLD_ROD);
@@ -875,7 +875,31 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createMetalsRecipe(Consumer<RecipeJsonProvider> exporter, Item nugget, Item ingot, Item rod) {
+    private void createMetalsRecipe(Consumer<RecipeJsonProvider> exporter, Item nugget, Item ingot, Item rod, Block block) {
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ingot, 1)
+                .input(nugget, 9)
+                .criterion(FabricRecipeProvider.hasItem(nugget),
+                        FabricRecipeProvider.conditionsFromItem(nugget))
+                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID, Registries.ITEM.getId(ingot).getPath() + "_from_nuggets"));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, nugget, 9)
+                .input(ingot)
+                .criterion(FabricRecipeProvider.hasItem(ingot),
+                        FabricRecipeProvider.conditionsFromItem(ingot))
+                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID, Registries.ITEM.getId(nugget).getPath() + "_from_ingot"));
+
+        createRodRecipe(exporter, ingot, rod);
+
+        createFilledRecipe(exporter, ingot, block, 1);
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ingot, 9)
+                .input(block)
+                .criterion(FabricRecipeProvider.hasItem(block),
+                        FabricRecipeProvider.conditionsFromItem(block))
+                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID, Registries.ITEM.getId(ingot).getPath() + "_from_block"));
+    }
+
+    private void createMetalsRecipeNoBlock(Consumer<RecipeJsonProvider> exporter, Item nugget, Item ingot, Item rod) {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ingot, 1)
                 .input(nugget, 9)
                 .criterion(FabricRecipeProvider.hasItem(nugget),

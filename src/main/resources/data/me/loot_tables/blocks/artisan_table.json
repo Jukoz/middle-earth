@@ -13,14 +13,14 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "me:beech_door",
+              "block": "me:artisan_table",
               "condition": "minecraft:block_state_property",
               "properties": {
-                "half": "lower"
+                "part": "left"
               }
             }
           ],
-          "name": "me:beech_door"
+          "name": "me:artisan_table"
         }
       ],
       "rolls": 1.0

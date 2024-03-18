@@ -42,7 +42,7 @@ import java.util.Optional;
 
 public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
     private static final String ID = "alloy_furnace";
-    public static final int MAX_PROGRESS = 800;
+    public static final int MAX_PROGRESS = 1200;
     public static final int FUEL_SLOT = 0;
     public static final int OUTPUT_SLOT = 5;
     private final DefaultedList<ItemStack> inventory =
@@ -292,7 +292,7 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
     }
 
     private void getFuel(AlloyFurnaceEntity entity, Item fuelItem) {
-        fuelTime = fuelTimeMap.get(fuelItem);
+        fuelTime = Math.round(fuelTimeMap.get(fuelItem) / 16);
         maxFuelTime = fuelTime;
         if(fuelItem == Items.LAVA_BUCKET) {
             entity.removeStack(FUEL_SLOT);

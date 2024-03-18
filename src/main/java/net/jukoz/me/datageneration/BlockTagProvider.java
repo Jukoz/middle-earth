@@ -164,10 +164,6 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
             }
         }
 
-        for (SimpleStoneChairModel.VanillaChair block : SimpleStoneChairModel.vanillaChairs) {
-
-        }
-
         SimpleStoneStoolModel.stools.forEach(seat::add);
         SimpleStoneStoolModel.vanillaStools.forEach(block -> {
             seat.add(block.base());
@@ -212,6 +208,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsStoneTools.add(OreRockSets.DEEPSLATE.tin_ore());
         needsStoneTools.add(OreRockSets.DEEPSLATE.lead_ore());
 
+        needsStoneTools.add(OreRockSets.DEEPSLATE.lead_ore());
+
         needsIronTools.add(OreRockSets.DIFTOMIN.tin_ore());
         needsIronTools.add(OreRockSets.DIFTOMIN.lead_ore());
         needsIronTools.add(OreRockSets.DIFTOMIN.silver_ore());
@@ -223,6 +221,13 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsDiamondTools.add(OreRockSets.EPMOSTO.gold_ore());
         needsDiamondTools.add(OreRockSets.EPMOSTO.iron_ore());
         needsDiamondTools.add(OreRockSets.EPMOSTO.mithril_ore());
+
+        needsStoneTools.add(ModBlocks.BRONZE_BLOCK);
+        needsStoneTools.add(ModBlocks.ORC_STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.DWARVEN_STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.ELVEN_STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.URUK_STEEL_BLOCK);
 
         mineablePickaxe.add(ModBlocks.STONE_MYCELIUM);
         mineableShovel.add(ModBlocks.ASH_BLOCK);

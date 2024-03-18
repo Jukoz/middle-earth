@@ -1,0 +1,21 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_boots"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "me:uruk_steel_ingot"
+    },
+    {
+      "item": "minecraft:leather"
+    }
+  ],
+  "output": {
+    "item": "me:mordor_black_uruk_scale_boots",
+    "count": 1
+  }
+}

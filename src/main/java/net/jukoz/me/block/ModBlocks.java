@@ -230,6 +230,19 @@ public class ModBlocks {
     public static final Block SILVER_BLOCK = registerMiscBlock("silver_block",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(4f).requiresTool()),true);
 
+    public static final Block BRONZE_BLOCK = registerMiscBlock("bronze_block",
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(5f).requiresTool()),true);
+    public static final Block ORC_STEEL_BLOCK = registerMiscBlock("orc_steel_block",
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(5.5f).requiresTool()),true);
+    public static final Block STEEL_BLOCK = registerMiscBlock("steel_block",
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(6f).requiresTool()),true);
+    public static final Block DWARVEN_STEEL_BLOCK = registerMiscBlock("dwarven_steel_block",
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(7f).requiresTool()),true);
+    public static final Block ELVEN_STEEL_BLOCK = registerMiscBlock("elven_steel_block",
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(6f).requiresTool()),true);
+    public static final Block URUK_STEEL_BLOCK = registerMiscBlock("uruk_steel_block",
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).strength(6f).requiresTool()),true);
+
     public static final Block CUT_LEAD = registerMiscBlock("cut_lead",
             new Block(FabricBlockSettings.copyOf(Blocks.CUT_COPPER).sounds(BlockSoundGroup.COPPER)),true);
     public static final Block CUT_LEAD_STAIRS = registerMiscBlock("cut_lead_stairs",

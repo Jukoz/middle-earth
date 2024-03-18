@@ -1,0 +1,27 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "tag": "minecraft:wool"
+    },
+    {
+      "item": "me:elven_steel_ingot"
+    },
+    {
+      "item": "me:elven_steel_ingot"
+    },
+    {
+      "item": "me:elven_steel_ingot"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "minecraft:leather"
+    }
+  ],
+  "output": {
+    "item": "me:lorien_horse_armor",
+    "count": 1
+  }
+}
