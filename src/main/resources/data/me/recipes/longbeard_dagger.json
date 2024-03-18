@@ -1,0 +1,15 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "me:dwarven_steel_ingot"
+    },
+    {
+      "item": "minecraft:stick"
+    }
+  ],
+  "output": {
+    "item": "me:longbeard_dagger",
+    "count": 1
+  }
+}

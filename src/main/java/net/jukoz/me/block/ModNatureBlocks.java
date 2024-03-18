@@ -31,7 +31,7 @@ public class ModNatureBlocks {
                     .sounds(BlockSoundGroup.SWEET_BERRY_BUSH)), false);
     public static final Block MORDOR_LICHEN = registerBlock("mordor_lichen",
             new MordorPlant(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
-                    .mapColor(DyeColor.GRAY)), false);
+                    .mapColor(DyeColor.GRAY)), true);
 
     public static final Block MORGUL_IVY = registerBlock("morgul_ivy",
             new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
@@ -83,6 +83,8 @@ public class ModNatureBlocks {
                     .mapColor(DyeColor.GREEN)), true);
     public static final Block YELLOW_FLOWER = registerBlock("yellow_flower",
             new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 0, FabricBlockSettings.copyOf(Blocks.DANDELION)), true);
+    public static final Block GREEN_JEWEL_CORNFLOWER = registerBlock("green_jewel_cornflower",
+            new FlowerBlock(StatusEffects.SATURATION, 0, FabricBlockSettings.copyOf(Blocks.DANDELION)), true);
 
     public static final Block DRY_GRASS = registerBlock("dry_grass",
             new HaradPlant(FabricBlockSettings.copyOf(Blocks.GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
@@ -161,7 +163,6 @@ public class ModNatureBlocks {
             new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block GHOSTSHROOM_TILLER = registerBlock("ghostshroom_tiller",
             new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
-
     public static final Block MORSEL_TILLER = registerBlock("morsel_tiller",
             new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block SKY_FIRECAP_TILLER = registerBlock("sky_firecap_tiller",
@@ -225,11 +226,11 @@ public class ModNatureBlocks {
             new StrawBerryBushBlock(FabricBlockSettings.copyOf(Blocks.SWEET_BERRY_BUSH).ticksRandomly().noCollision().breakInstantly().sounds(BlockSoundGroup.SWEET_BERRY_BUSH)), false);
 
     public static final Block WILD_PIPEWEED = registerBlock("wild_pipeweed",
-            new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
+            new CustomTallPlantBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
     public static final Block WILD_FLAX = registerCrossBlock("wild_flax",
             new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
     public static final Block WILD_TOMATO = registerBlock("wild_tomato",
-            new TallPlantBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
+            new CustomTallPlantBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
     public static final Block WILD_BELL_PEPPER = registerCrossBlock("wild_bell_pepper",
             new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
     public static final Block WILD_CUCUMBER = registerCrossBlock("wild_cucumber",

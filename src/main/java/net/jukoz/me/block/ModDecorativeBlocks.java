@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnace;
+import net.jukoz.me.block.special.artisantable.ArtisanTable;
 import net.jukoz.me.block.special.toggeable_lights.DwarvenLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.SilverLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.WallDwarvenLanternBlock;
@@ -34,9 +35,32 @@ public class ModDecorativeBlocks {
 
     public static final Block ALLOY_FURNACE = registerBlock("alloy_furnace",
             new AlloyFurnace(FabricBlockSettings.copyOf(Blocks.STONE).strength(1.65f).requiresTool()));
+    public static final Block ARTISAN_TABLE = registerBlock("artisan_table",
+            new ArtisanTable(FabricBlockSettings.copyOf(Blocks.SMITHING_TABLE).nonOpaque()));
 
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             new WoodPileBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque()));
+
+
+    public static final Block WOOD_FRAMED_WINDOW = registerBlockWithItem("wood_framed_window",
+            new GlassBlock(FabricBlockSettings.copyOf(Blocks.GLASS)));
+    public static final Block WOOD_FRAMED_WINDOW_PANE = registerBlockWithItem("wood_framed_window_pane",
+            new PaneBlock(FabricBlockSettings.copyOf(Blocks.GLASS_PANE)));
+
+    public static final Block EPMOSTO_CARVED_WINDOW = registerBlockWithItem("epmosto_carved_window",
+            new GlassBlock(FabricBlockSettings.copyOf(Blocks.GLASS)));
+    public static final Block EPMOSTO_CARVED_WINDOW_PANE = registerBlockWithItem("epmosto_carved_window_pane",
+            new PaneBlock(FabricBlockSettings.copyOf(Blocks.GLASS_PANE)));
+
+    public static final Block WHITE_DAUB_HOBBIT_WINDOW = registerBlockWithItem("white_daub_hobbit_window",
+            new GlassBlock(FabricBlockSettings.copyOf(Blocks.GLASS)));
+    public static final Block WHITE_DAUB_HOBBIT_WINDOW_PANE = registerBlockWithItem("white_daub_hobbit_window_pane",
+            new PaneBlock(FabricBlockSettings.copyOf(Blocks.GLASS_PANE)));
+    public static final Block YELLOW_DAUB_HOBBIT_WINDOW = registerBlockWithItem("yellow_daub_hobbit_window",
+            new GlassBlock(FabricBlockSettings.copyOf(Blocks.GLASS)));
+    public static final Block YELLOW_DAUB_HOBBIT_WINDOW_PANE = registerBlockWithItem("yellow_daub_hobbit_window_pane",
+            new PaneBlock(FabricBlockSettings.copyOf(Blocks.GLASS_PANE)));
+
 
     public static final Block LEAD_GLASS = registerBlockWithItem("lead_glass",
             new GlassBlock(FabricBlockSettings.copyOf(Blocks.GLASS)));

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SDD",
+    "DSD",
+    "DDS"
+  ],
+  "key": {
+    "D": {
+      "item": "me:white_daub"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "me:white_wattle_and_daub_left",
+    "count": 6
+  }
+}

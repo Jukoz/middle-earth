@@ -1,0 +1,18 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "me:steel_ingot"
+    },
+    {
+      "item": "minecraft:stick"
+    },
+    {
+      "item": "minecraft:stick"
+    }
+  ],
+  "output": {
+    "item": "me:dunland_spear",
+    "count": 1
+  }
+}

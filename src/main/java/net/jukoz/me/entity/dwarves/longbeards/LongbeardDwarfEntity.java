@@ -157,10 +157,10 @@ public class LongbeardDwarfEntity extends NpcEntity {
         if(val3 >= 0.55f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
         } else if (val3 < 0.55f && val3 > 0.20f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_SPEAR));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LONGBEARD_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         } else if (val3 <= 0.20f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_DAGGER));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LONGBEARD_DAGGER));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         }
     }
@@ -189,10 +189,10 @@ public class LongbeardDwarfEntity extends NpcEntity {
         if(val3 >= 0.55f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
         } else if (val3 < 0.55f && val3 > 0.20f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_SPEAR));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LONGBEARD_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LONGBEARD_SHIELD));
         } else if (val3 <= 0.20f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_PIKE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LONGBEARD_PIKE));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LONGBEARD_SHIELD));
         }
     }
@@ -205,12 +205,12 @@ public class LongbeardDwarfEntity extends NpcEntity {
 
         float val = random.nextFloat();
         if(val >= 0.75f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_BATTLEAXE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LONGBEARD_BATTLEAXE));
         } else if (val < 0.75f && val > 0.20f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_SWORD));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LONGBEARD_SWORD));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LONGBEARD_SHIELD));
         } else if (val <= 0.20f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_PIKE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LONGBEARD_PIKE));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LONGBEARD_SHIELD));
         }
     }
@@ -223,12 +223,12 @@ public class LongbeardDwarfEntity extends NpcEntity {
 
         float val = random.nextFloat();
         if(val >= 0.75f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_BATTLEAXE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LONGBEARD_BATTLEAXE));
         } else if (val < 0.75f && val >= 0.50f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_SWORD));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LONGBEARD_SWORD));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LONGBEARD_SHIELD));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_PIKE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LONGBEARD_PIKE));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LONGBEARD_SHIELD));
         }
     }
@@ -239,7 +239,7 @@ public class LongbeardDwarfEntity extends NpcEntity {
         equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.EREBOR_COMMANDER_LEGGINGS));
         equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.EREBOR_COMMANDER_BOOTS));
 
-        equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.DWARVEN_BATTLEAXE));
+        equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LONGBEARD_BATTLEAXE));
     }
 
     public LongbeardDwarfVariant getVariant() {

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:amethyst_shard",
+    "me:red_agate_shard",
+    "me:citrine_shard"
+  ]
+}

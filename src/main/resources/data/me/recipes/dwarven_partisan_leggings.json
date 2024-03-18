@@ -1,0 +1,27 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "tag": "minecraft:wool"
+    },
+    {
+      "tag": "minecraft:wool"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "tag": "minecraft:wool"
+    },
+    {
+      "item": "minecraft:red_dye"
+    },
+    {
+      "item": "minecraft:red_dye"
+    }
+  ],
+  "output": {
+    "item": "me:dwarven_partisan_leggings",
+    "count": 1
+  }
+}
