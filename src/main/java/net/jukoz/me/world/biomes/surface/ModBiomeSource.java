@@ -5,9 +5,11 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.utils.noises.SimplexNoise;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
+import net.jukoz.me.world.biomes.caves.CaveType;
 import net.jukoz.me.world.biomes.caves.ModCaveBiomes;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
+import net.jukoz.me.world.features.underground.CavesPlacedFeatures;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.Vec2f;
@@ -60,7 +62,10 @@ public class ModBiomeSource extends BiomeSource {
 
         if(!MEBiomesData.waterBiomes.contains(biome)) {
             float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
-            if(j < height - 12) {
+            if(j <= CavesPlacedFeatures.MAX_MITHRIL_HEIGHT && meBiome.caveType == CaveType.MISTIES) {
+                processedBiome = MEBiomeKeys.MITHRIL_CAVE;
+            }
+            else if(j < height - 12) {
                 processedBiome = getCaveBiome(i, k, meBiome);
             }
             else if(height <= MiddleEarthChunkGenerator.WATER_HEIGHT + 1.25f) {

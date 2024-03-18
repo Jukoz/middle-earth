@@ -134,10 +134,12 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.WASTE_POND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WHITE_MOUNTAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WOODLAND_REALM),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.BASIC_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LUSH_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DRIPSTONE_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MUD_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FUNGUS_CAVE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.MITHRIL_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BASALT_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MAGMA_CAVE)
                 ))
@@ -187,7 +189,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
 
                 float height = MiddleEarthHeightMap.getHeight(posX, posZ);
-                float caveBlendNoise = (float) ((2 * CAVE_NOISE * BlendedNoise.noise((double) x / 24,  (double) z / 24)) - CAVE_NOISE);
+                float caveBlendNoise = (float) ((2 * CAVE_NOISE * BlendedNoise.noise((double) posX / 24,  (double) posZ / 24)) - CAVE_NOISE);
 
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, bottomY, z), Blocks.BEDROCK.getDefaultState(), false);
                 for(int y = bottomY + 1; y <= LAVA_HEIGHT; y++) {
@@ -285,7 +287,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     @Override
     public int getMinimumY() {
-        return -64;
+        return -4;
     }
 
     @Override

@@ -9,6 +9,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.crop.*;
 import net.jukoz.me.block.special.*;
 import net.jukoz.me.item.utils.ModItemGroups;
+import net.jukoz.me.world.features.tree.MushroomTreeConfiguredFeatures;
 import net.jukoz.me.world.features.tree.saplings.DualSaplingGenerator;
 import net.jukoz.me.world.features.tree.saplings.ModLargeSaplingGenerator;
 import net.jukoz.me.world.features.tree.saplings.ModSaplingGenerator;
@@ -126,17 +127,17 @@ public class ModNatureBlocks {
                     .mapColor(DyeColor.GREEN)), true);
 
     public static final Block BROWN_BOLETE = registerBlock("brown_bolete",
-            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), MushroomTreeConfiguredFeatures.BROWN_BOLETTE_TREE_KEY), true);
     public static final Block CAVE_AMANITA = registerBlock("cave_amanita",
-            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), MushroomTreeConfiguredFeatures.CAVE_AMANITA_TREE_KEY), true);
     public static final Block DEEP_FIRECAP = registerBlock("deep_firecap",
-            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), MushroomTreeConfiguredFeatures.DEEP_FIRECAP_TREE_KEY), true);
     public static final Block GHOSTSHROOM = registerBlock("ghostshroom",
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM).luminance(4), null), true);
     public static final Block MORSEL = registerBlock("morsel",
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
     public static final Block SKY_FIRECAP = registerBlock("sky_firecap",
-            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), MushroomTreeConfiguredFeatures.SKY_FIRECAP_TREE_KEY), true);
     public static final Block TRUMPET_SHROOM = registerBlock("trumpet_shroom",
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
     public static final Block TALL_TRUMPET_SHROOM = registerBlock("tall_trumpet_shroom",
@@ -150,7 +151,7 @@ public class ModNatureBlocks {
     public static final Block WHITE_MUSHROOM = registerBlock("white_mushroom",
             new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
     public static final Block YELLOW_AMANITA = registerBlock("yellow_amanita",
-            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), null), true);
+            new MushroomPlantBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM), MushroomTreeConfiguredFeatures.YELLOW_AMANITA_TREE_KEY), true);
 
     public static final Block BROWN_BOLETE_TILLER = registerBlock("brown_bolete_tiller",
             new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
