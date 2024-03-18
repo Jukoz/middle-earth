@@ -53,6 +53,7 @@ public class CavesConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_ASHEN_DIRT = registerKey("ore_ashen_dirt");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_DRY_DIRT = registerKey("ore_dry_dirt");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_PACKED_ICE = registerKey("ore_packed_ice");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_BLUE_ICE = registerKey("ore_blue_ice");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SAND = registerKey("ore_sand");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SANDSTONE = registerKey("ore_sandstone");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SNOW = registerKey("ore_snow");
@@ -140,13 +141,16 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(deepslateTest, Blocks.SMOOTH_SANDSTONE.getDefaultState()));
     static List<OreFeatureConfig.Target> snowList = List.of(
             OreFeatureConfig.createTarget(stoneTest, Blocks.SNOW_BLOCK.getDefaultState()),
+            OreFeatureConfig.createTarget(frozenStoneTest, Blocks.SNOW_BLOCK.getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.SNOW_BLOCK.getDefaultState()));
-    static List<OreFeatureConfig.Target> powderSnowList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, Blocks.POWDER_SNOW.getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, Blocks.POWDER_SNOW.getDefaultState()));
     static List<OreFeatureConfig.Target> packedIceList = List.of(
             OreFeatureConfig.createTarget(stoneTest, Blocks.PACKED_ICE.getDefaultState()),
+            OreFeatureConfig.createTarget(frozenStoneTest, Blocks.PACKED_ICE.getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.PACKED_ICE.getDefaultState()));
+    static List<OreFeatureConfig.Target> blueIceList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, Blocks.BLUE_ICE.getDefaultState()),
+            OreFeatureConfig.createTarget(frozenStoneTest, Blocks.BLUE_ICE.getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, Blocks.BLUE_ICE.getDefaultState()));
     static List<OreFeatureConfig.Target> terracottaList = List.of(
             OreFeatureConfig.createTarget(stoneTest, Blocks.TERRACOTTA.getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.TERRACOTTA.getDefaultState()));
@@ -231,6 +235,7 @@ public class CavesConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, ORE_ASHEN_DIRT, Feature.ORE, new OreFeatureConfig(ashenDirtList, 33));
         ConfiguredFeatures.register(featureRegisterable, ORE_DRY_DIRT, Feature.ORE, new OreFeatureConfig(dryDirtList, 37));
         ConfiguredFeatures.register(featureRegisterable, ORE_PACKED_ICE, Feature.ORE, new OreFeatureConfig(packedIceList, 33));
+        ConfiguredFeatures.register(featureRegisterable, ORE_BLUE_ICE, Feature.ORE, new OreFeatureConfig(blueIceList, 33));
         ConfiguredFeatures.register(featureRegisterable, ORE_SAND, Feature.ORE, new OreFeatureConfig(sandList, 48));
         ConfiguredFeatures.register(featureRegisterable, ORE_SANDSTONE, Feature.ORE, new OreFeatureConfig(sandStoneList, 37));
         ConfiguredFeatures.register(featureRegisterable, ORE_SNOW, Feature.ORE, new OreFeatureConfig(snowList, 48));

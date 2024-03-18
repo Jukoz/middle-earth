@@ -80,7 +80,7 @@ public class MEBiomesData {
         addBiome(new Color(89, 136, 129), mirkwoodSwamp);
         addBiome(new Color(75, 108, 143), wastePond);
 
-        addBiome(new Color(101, 123, 243), new MEBiome(-18, MEBiomeKeys.FROZEN_OCEAN, Blocks.GRAVEL, StoneBlockSets.FROZEN_STONE.base(), StoneBlockSets.FROZEN_STONE.base(), Blocks.STONE, CaveType.FOROD));
+        addBiome(new Color(101, 123, 243), new MEBiome(-18, MEBiomeKeys.FROZEN_OCEAN, Blocks.GRAVEL, StoneBlockSets.FROZEN_STONE.base(), Blocks.STONE, CaveType.FOROD));
         addBiome(new Color(69, 92, 228), new MEBiome(-16, MEBiomeKeys.LONG_LAKE, Blocks.SAND, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(79, 91, 161), new MEBiome(-16, MEBiomeKeys.NURN_RIVER, ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT, Blocks.STONE));
         addBiome(new Color(88, 94, 130), new MEBiome(-16, MEBiomeKeys.NURN_SEA, ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT, Blocks.STONE));
@@ -107,7 +107,7 @@ public class MEBiomesData {
         addBiome(new Color(106, 155, 104), new MEBiome(4, MEBiomeKeys.EREGION, Blocks.GRASS_BLOCK, Blocks.DIRT, StoneBlockSets.LIMESTONE.base(), Blocks.STONE));
         addBiome(new Color(171, 193, 128), new MEBiome(4, MEBiomeKeys.ERIADOR, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(54, 75, 12), new MEBiome(6, MEBiomeKeys.FANGORN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
-        addBiome(new Color(236, 236, 236), new MEBiome(14, MEBiomeKeys.FORODWAITH, Blocks.SNOW_BLOCK, Blocks.SNOW_BLOCK, Blocks.STONE, CaveType.FOROD));
+        addBiome(new Color(236, 236, 236), new MEBiome(14, MEBiomeKeys.FORODWAITH, Blocks.SNOW_BLOCK, Blocks.SNOW_BLOCK, StoneBlockSets.FROZEN_STONE.base(), CaveType.FOROD));
         addBiome(new Color(91, 189, 85), new MEBiome(4, MEBiomeKeys.GONDOR, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.CALCITE, Blocks.STONE));
         addBiome(new Color(92, 147, 92), new MEBiome(6, MEBiomeKeys.GREY_PLAINS, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(204, 196, 113), new MEBiome(7, MEBiomeKeys.HARAD, Blocks.GRASS_BLOCK, Blocks.SANDSTONE, Blocks.STONE, CaveType.HARAD));
@@ -142,7 +142,7 @@ public class MEBiomesData {
         addBiome(new Color(84, 217, 70), new MEBiome(4, MEBiomeKeys.SHIRE, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(154, 147, 57), new MEBiome(4, MEBiomeKeys.SOUTHEAST_RHOVANION, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(121, 186, 111), new MEBiome(4, MEBiomeKeys.SOUTHERN_DUNLAND, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
-        addBiome(new Color(206, 179, 156), new MEBiome(4, MEBiomeKeys.SOUTHERN_FOROCHEL, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, CaveType.FOROD));
+        addBiome(new Color(206, 179, 156), new MEBiome(4, MEBiomeKeys.SOUTHERN_FOROCHEL, Blocks.GRASS_BLOCK, Blocks.DIRT, StoneBlockSets.FROZEN_STONE.base(), Blocks.STONE, CaveType.FOROD));
         addBiome(new Color(126, 149, 79), new MEBiome(4, MEBiomeKeys.THE_ANGLE, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(48, 109, 42), new MEBiome(7, MEBiomeKeys.THE_OLD_FOREST, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(152, 174, 113), new MEBiome(4, MEBiomeKeys.THE_WOLD, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));

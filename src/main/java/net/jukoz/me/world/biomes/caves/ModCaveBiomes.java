@@ -237,6 +237,7 @@ public class ModCaveBiomes {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
+        undergroundOres.add(CavesPlacedFeatures.ORE_BLUE_ICE);
         undergroundOres.add(CavesPlacedFeatures.ORE_PACKED_ICE);
         undergroundOres.add(CavesPlacedFeatures.ORE_SNOW);
         undergroundOres.add(CavesPlacedFeatures.PILLAR_PACKED_ICE);
