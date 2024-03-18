@@ -2,6 +2,7 @@ package net.jukoz.me.world.biomes;
 
 import com.mojang.serialization.Codec;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.world.MiddleEarthMapRuntime;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.jukoz.me.world.MiddleEarthMapConfigs;
@@ -37,8 +38,10 @@ public class ModBiomeSource extends BiomeSource {
         int i = BiomeCoords.toBlock(x);
         int k = BiomeCoords.toBlock(z);
 
-        MEBiome meBiome = MiddleEarth.GetWorldMapDatas().getBiomeFromWorldCoordinate(MiddleEarthMapConfigs.MAP_ITERATION, i, k);
+        //MEBiome meBiome = MiddleEarth.GetWorldMapDatas().getBiomeFromWorldCoordinate(MiddleEarthMapConfigs.MAP_ITERATION, i, k);
 
+        MEBiome meBiome = MiddleEarthMapRuntime.getInstance().getBiome(i, k);
+        
         if (meBiome == null) {
             return biomes.get(0);
         }

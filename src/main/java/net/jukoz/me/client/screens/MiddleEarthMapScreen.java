@@ -4,11 +4,11 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.world.MiddleEarthMapRuntime;
 import net.jukoz.me.world.biomes.MEBiome;
 import net.jukoz.me.world.biomes.MEBiomesData;
-import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.jukoz.me.world.MiddleEarthMapConfigs;
-import net.jukoz.me.world.datas.MiddleEarthMapDatas;
+import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -62,7 +62,7 @@ public class MiddleEarthMapScreen extends Screen {
 
     public MiddleEarthMapScreen() {
         super(MAP_TITLE_TEXT);
-        pixelWeight = MiddleEarthMapDatas.PIXEL_WEIGHT;
+        pixelWeight = MiddleEarthMapConfigs.PIXEL_WEIGHT;
         float zoom = 1;
         for(int i = 0; i < ZOOM_LEVELS.length; i++) {
             ZOOM_LEVELS[i] = zoom;
@@ -173,16 +173,10 @@ public class MiddleEarthMapScreen extends Screen {
                 context.drawTextWithShadow(textRenderer, Text.literal("Player information"), 0, 5, 0xffffff);
                 BlockPos playerPos = this.player.getBlockPos();
                 context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + (int)playerPos.getX() + ", " + (int)playerPos.getY() + ", " + (int)playerPos.getZ()), 5, 15, 0xffffff);
-                //context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + currentBiomeId), 5, 25, 0xffffff);
-
-                MEBiome biome = MiddleEarth.GetWorldMapDatas().getBiomeFromWorldCoordinate(MiddleEarthMapConfigs.MAP_ITERATION, cursorWorldCoordinate.x, cursorWorldCoordinate.y);
-                if(biome == null){
-                    biome = MEBiomesData.getBiomeById((short) 0);
-                }
+                context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + currentBiomeId), 5, 25, 0xffffff);
 
                 context.drawTextWithShadow(textRenderer, Text.literal("Cursor information"), 0, 45, 0xffffff);
                 context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + ((oustideBound) ? "N/A" : (int)cursorWorldCoordinate.x + ", " + ModDimensions.getHighestYAtXZ(mouseX, mouseY) + ", "+ (int)cursorWorldCoordinate.y)), 5, 55, 0xffffff);
-                //context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + ((oustideBound) ? "N/A" : biome.biome.getValue().toString())), 5, 65, 0xffffff);
 
                 if(!oustideBound && this.player.isCreative()){
                     context.drawTextWithShadow(textRenderer, Text.literal("Right Click to teleport"), mouseX + 10, mouseY, 0xcccccc);
@@ -209,7 +203,8 @@ public class MiddleEarthMapScreen extends Screen {
     private void teleport(Vector2i coord){
         if(ModDimensions.isInMiddleEarth(this.player.getWorld())){
             float y = MiddleEarthHeightMap.getHeight(coord.x, coord.y);
-            player.setPos(coord.x , y, coord.y);
+            this.player.teleport(coord.x , y, coord.y);
+            player.refreshPositionAfterTeleport( coord.x , y, coord.y);
         }
     }
 

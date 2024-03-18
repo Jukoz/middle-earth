@@ -70,7 +70,7 @@ public class MiddleEarth implements ModInitializer {
 		LootModifiers.modifyLootTables();
 
 		try {
-			middleEarthMapDatas = new MiddleEarthMapDatas(getClass().getClassLoader());
+			//middleEarthMapDatas = new MiddleEarthMapDatas(getClass().getClassLoader());
 			new MiddleEarthMapGeneration();
 		} catch (Exception e) {
 			throw new RuntimeException(e);

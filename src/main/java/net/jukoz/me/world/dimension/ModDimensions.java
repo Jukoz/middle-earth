@@ -2,6 +2,8 @@ package net.jukoz.me.world.dimension;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.MiddleEarthMapRuntime;
+import net.jukoz.me.world.MiddleEarthMapUtils;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.jukoz.me.world.MiddleEarthMapConfigs;
@@ -47,7 +49,8 @@ public class ModDimensions {
                 if(registryKey != WORLD_KEY) targetPos = new Vector3i(serverWorld.getSpawnPos().getX(), 80, serverWorld.getSpawnPos().getZ());
 
                 player.wakeUp();
-                Vector2i coordinates = MiddleEarth.GetWorldMapDatas().getWorldCoordinateFromImage(ME_SPAWN_LOCATION.x, ME_SPAWN_LOCATION.z);
+
+                Vector2i coordinates = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(ME_SPAWN_LOCATION.x, ME_SPAWN_LOCATION.z);
                 targetPos.x = coordinates.x;
                 targetPos.z = coordinates.y;
                 // Todo : GetHighestYAtXZ to fix

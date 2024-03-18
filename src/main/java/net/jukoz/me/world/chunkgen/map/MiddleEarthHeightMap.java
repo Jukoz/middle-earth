@@ -2,6 +2,8 @@ package net.jukoz.me.world.chunkgen.map;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.noises.BlendedNoise;
+import net.jukoz.me.world.MiddleEarthMapRuntime;
+import net.jukoz.me.world.MiddleEarthMapUtils;
 import net.jukoz.me.world.biomes.MEBiome;
 import net.jukoz.me.world.biomes.MEBiomesData;
 import net.jukoz.me.world.datas.MiddleEarthMapDatas;
@@ -26,11 +28,17 @@ public class MiddleEarthHeightMap {
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
     private static final int PIXEL_WEIGHT = MiddleEarthMapDatas.PIXEL_WEIGHT;
     public static final ArrayList<Float> percentages = new ArrayList<Float>();
+    private static MiddleEarthMapRuntime middleEarthMapRuntime;
 
+    public MiddleEarthHeightMap(){
+        middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
+    }
 
     private static float getImageHeight(int xWorld, int zWorld) {
+        if(middleEarthMapRuntime == null)
+            middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
 
-        Color color = MiddleEarth.GetWorldMapDatas().getHeightFromWorldCoordinates(xWorld, zWorld);
+        Color color = middleEarthMapRuntime.getHeight(xWorld, zWorld);
 
         if(color != null){
             float red = color.getRed();
@@ -69,7 +77,7 @@ public class MiddleEarthHeightMap {
         MEBiome meBiome;
         double perlin = getPerlinHeight(x, z);
 
-        if(MiddleEarth.GetWorldMapDatas().isWorldCoordinateInBound(x, z)) {
+        if(MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(x,z)) {
             float biomeHeight = getBiomeWeightHeight(x, z);
             if(biomeHeight >= MOUNTAIN_START_HEIGHT) {
                 float multiplier = (biomeHeight / MOUNTAIN_START_HEIGHT) - 1;

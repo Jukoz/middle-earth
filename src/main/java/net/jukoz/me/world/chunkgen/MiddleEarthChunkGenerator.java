@@ -4,6 +4,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.noises.SimplexNoise;
+import net.jukoz.me.world.MiddleEarthMapRuntime;
+import net.jukoz.me.world.MiddleEarthMapUtils;
 import net.jukoz.me.world.biomes.MEBiome;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.MEBiomesData;
@@ -24,7 +26,6 @@ import net.minecraft.util.math.random.RandomSeed;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
-import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.StructureAccessor;
@@ -44,7 +45,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     public static final int HEIGHT = 24 + STONE_HEIGHT;
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
 
-    MiddleEarthMapDatas middleEarthMapDatas;
+    MiddleEarthMapUtils middleEarthMapUtils;
+    MiddleEarthMapRuntime middleEarthMapRuntime;
+
     private static final int CAVE_STRETCH_H = 60;
     private static final int CAVE_STRETCH_V = 50;
     private static float minNoise = 10000;
@@ -133,7 +136,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         );
         this.biomeRegistry = biomeRegistry;
 
-        this.middleEarthMapDatas = MiddleEarth.GetWorldMapDatas();
+        this.middleEarthMapUtils = MiddleEarthMapUtils.getInstance();
+        this.middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
+
     }
 
     @Override
@@ -159,7 +164,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 int posZ = (chunk.getPos().z * 16) + z;
                 MEBiome meBiome;
 
-                if(middleEarthMapDatas.isWorldCoordinateInBound(posX, posZ)) {
+                if(middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) {
                     RegistryEntry<Biome> biome = region.getBiome(new BlockPos(posX, DIRT_HEIGHT, posZ));
                     meBiome = MEBiomesData.getBiomeByKey(biome);
                     if(meBiome == null) {

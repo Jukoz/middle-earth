@@ -10,7 +10,7 @@ public class MiddleEarthMapConfigs {
 
     // Current image is 3000 x 3000, should be a common divider
     public static final int REGION_SIZE = 3000;
-    public static final int PIXEL_WEIGHT = 3;
+    public static final int PIXEL_WEIGHT = 4;
     public static final int THREAD_POOL_SIZE = 8;
     public static final boolean FORCE_GENERATION = false;
 

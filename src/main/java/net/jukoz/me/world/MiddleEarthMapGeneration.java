@@ -20,9 +20,6 @@ public class MiddleEarthMapGeneration {
     private FileUtils fileUtils;
     private LoggerUtil loggerUtil;
 
-    private BufferedImage[][][] biomeRegions;
-    private BufferedImage[][] heightRegions;
-
     public MiddleEarthMapGeneration() throws Exception {
         fileUtils = FileUtils.getInstance();
         loggerUtil = LoggerUtil.getInstance();
@@ -47,7 +44,7 @@ public class MiddleEarthMapGeneration {
 
         if(iterationToGenerate > 0){
             loggerUtil.logInfoMsg("Begin BIOME generation;");
-            biomeRegions = generateBiomes(initialMap, iterationToGenerate);
+            generateBiomes(initialMap, iterationToGenerate);
         }
 
         loggerUtil.logInfoMsg("Validating HEIGHT generation availability;");
@@ -188,7 +185,7 @@ public class MiddleEarthMapGeneration {
                 executorService.submit(() -> {
                     String path = MiddleEarthMapConfigs.BIOME_PATH.formatted(MiddleEarthMapConfigs.MAP_ITERATION) + MiddleEarthMapConfigs.IMAGE_NAME.formatted(finalX, finalY);
                     fileUtils.saveImage(
-                            FileUtils.blur(processHeightRegion(fileUtils.getRunImage(path), MiddleEarthMapDatas.REGION_SIZE), 12, 1.0f / (8 * 8)), // 16, 1.0f / (16 * 16)
+                            FileUtils.blur(processHeightRegion(fileUtils.getRunImage(path), MiddleEarthMapDatas.REGION_SIZE), 16, 1.0f / (16 * 16)),
                             MiddleEarthMapConfigs.HEIGHT_PATH,
                             MiddleEarthMapConfigs.IMAGE_NAME.formatted(finalX, finalY),
                             FileType.Png
