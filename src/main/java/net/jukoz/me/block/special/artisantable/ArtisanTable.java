@@ -69,21 +69,13 @@ public class ArtisanTable extends HorizontalFacingBlock {
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!world.isClient && player.isCreative()) {
             ArtisanTablePart tablePart = (ArtisanTablePart)state.get(PART);
-            if (tablePart == ArtisanTablePart.LEFT) {
-                BlockPos blockPos = pos.offset(getDirectionTowardsOtherPart(tablePart, (Direction)state.get(FACING).rotateYClockwise()));
-                BlockState blockState = world.getBlockState(blockPos);
-                if (blockState.isOf(this) && blockState.get(PART) == ArtisanTablePart.RIGHT) {
-                    world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 35);
-                    world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
-                }
-            }
-            if (tablePart == ArtisanTablePart.RIGHT) {
-                BlockPos blockPos = pos.offset(getDirectionTowardsOtherPart(tablePart, (Direction)state.get(FACING).rotateYClockwise()));
-                BlockState blockState = world.getBlockState(blockPos);
-                if (blockState.isOf(this) && blockState.get(PART) == ArtisanTablePart.LEFT) {
-                    world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 35);
-                    world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
-                }
+            ArtisanTablePart tablePartOpposite = (ArtisanTablePart)state.get(PART).getOpposite(state.get(PART));
+
+            BlockPos blockPos = pos.offset(getDirectionTowardsOtherPart(tablePart, (Direction)state.get(FACING).rotateYClockwise()));
+            BlockState blockState = world.getBlockState(blockPos);
+            if (blockState.isOf(this) && blockState.get(PART) == tablePartOpposite) {
+                world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 35);
+                world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
             }
         }
 

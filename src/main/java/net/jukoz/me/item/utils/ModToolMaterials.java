@@ -19,8 +19,8 @@ public enum ModToolMaterials implements ToolMaterial
     URUK_STEEL(MiningLevels.DIAMOND, 750, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT)),
     ELVEN_STEEL(MiningLevels.DIAMOND, 750, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT)),
     DWARVEN_STEEL(MiningLevels.DIAMOND, 750, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT)),
-    MORGUL_STEEL(MiningLevels.DIAMOND, 800, 7.5f, 2.5f, 12, () -> Ingredient.ofItems(ModResourceItems.MORGUL_STEEL_INGOT)),
-    MITHRIL(MiningLevels.NETHERITE, 2031, 9.0f, 2.5f, 15, () -> Ingredient.ofItems(ModResourceItems.MITHRIL_INGOT));
+    MORGUL_STEEL(MiningLevels.DIAMOND, 800, 7.5f, 2.0f, 12, () -> Ingredient.ofItems(ModResourceItems.MORGUL_STEEL_INGOT)),
+    MITHRIL(MiningLevels.NETHERITE, 2031, 9.0f, 2.0f, 15, () -> Ingredient.ofItems(ModResourceItems.MITHRIL_INGOT));
 
     private final int miningLevel;
     private final int itemDurability;

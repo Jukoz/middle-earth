@@ -19,4 +19,12 @@ public enum ArtisanTablePart implements StringIdentifiable {
     public String asString() {
         return this.name;
     }
+
+    public ArtisanTablePart getOpposite(ArtisanTablePart part){
+        if (part == LEFT){
+            return RIGHT;
+        }else {
+            return LEFT;
+        }
+    }
 }
