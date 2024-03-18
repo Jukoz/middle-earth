@@ -1,9 +1,8 @@
-package net.jukoz.me.world.biomes;
+package net.jukoz.me.world.biomes.surface;
 
-import net.jukoz.me.entity.ModEntities;
+import net.jukoz.me.world.biomes.BiomeColorsDTO;
+import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.spawners.ModSpawnSettingsBuilder;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.biome.Biome;
@@ -11,11 +10,8 @@ import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
+import net.minecraft.world.gen.feature.*;
 import net.minecraft.registry.Registerable;
-import net.minecraft.world.gen.feature.OceanPlacedFeatures;
-import net.minecraft.world.gen.feature.PlacedFeature;
-import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -32,6 +28,7 @@ public class ModBiomes {
     public static final int nearHaradSkyFog = 12902399;
 
     private static List<RegistryKey<PlacedFeature>> vegetation = new ArrayList<>();;
+    private static ArrayList<RegistryKey<PlacedFeature>> undergroundOres = new ArrayList<>();;
 
     public static void bootstrap(Registerable<Biome> context) {
         context.register(MEBiomeKeys.ANDUIN_VALES, createAnduinBiome(context, new BiomeColorsDTO(
@@ -200,7 +197,7 @@ public class ModBiomes {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         ModBiomeFeatures.addGravelOre(vegetation);
 
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_FOREST);
@@ -626,7 +623,7 @@ public class ModBiomes {
         ModBiomeFeatures.addBasaltPile(vegetation);
         ModBiomeFeatures.addBlackStonePile(vegetation);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.7f, false);
     }
 
     public static Biome createMordorWastesBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -1069,8 +1066,9 @@ public class ModBiomes {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addOceanAnimals(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+        
+        ModBiomeFeatures.addDisks(undergroundOres);
 
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
         vegetation.add(OceanPlacedFeatures.KELP_COLD);
         vegetation.add(OceanPlacedFeatures.SEAGRASS_NORMAL);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_FOREST);
@@ -1093,7 +1091,7 @@ public class ModBiomes {
     }
 
     public static void addDefaultVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_FOREST);
         vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
         vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
@@ -1107,7 +1105,7 @@ public class ModBiomes {
     }
 
     public static void addArthedainVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_NORMAL);
         vegetation.add(VegetationPlacedFeatures.PATCH_TALL_GRASS_2);
         vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
@@ -1129,7 +1127,7 @@ public class ModBiomes {
     }
 
     public static void addEriadorVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_FOREST);
         vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
         vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
@@ -1145,12 +1143,12 @@ public class ModBiomes {
     }
 
     public static void addForodwaithVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         ModBiomeFeatures.addToughBerriesRare(vegetation);
     }
 
     public static void addHaradVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_SAVANNA);
         vegetation.add(VegetationPlacedFeatures.PATCH_TALL_GRASS);
         vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);
@@ -1161,7 +1159,7 @@ public class ModBiomes {
     }
 
     public static void addHaradDesertVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_SAVANNA);
         ModBiomeFeatures.addDryGrass(vegetation);
@@ -1169,7 +1167,7 @@ public class ModBiomes {
     }
 
     public static void addLothlorienVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_FOREST);
         vegetation.add(VegetationPlacedFeatures.FLOWER_MEADOW);
         vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
@@ -1188,7 +1186,7 @@ public class ModBiomes {
     }
 
     public static void addMirkwoodVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_FOREST);
         vegetation.add(VegetationPlacedFeatures.PATCH_TALL_GRASS_2);
         vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
@@ -1207,7 +1205,7 @@ public class ModBiomes {
     }
 
     public static void addMordorVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         ModBiomeFeatures.addMordorLichen(vegetation);
         ModBiomeFeatures.addAshBlockOre(vegetation);
         ModBiomeFeatures.addBasaltOre(vegetation);
@@ -1216,7 +1214,7 @@ public class ModBiomes {
     }
 
     public static void addNordicVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
         vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
@@ -1233,7 +1231,7 @@ public class ModBiomes {
     }
 
     public static void addOasisVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         vegetation.add(OceanPlacedFeatures.KELP_WARM);
         vegetation.add(OceanPlacedFeatures.SEAGRASS_WARM);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_SAVANNA);
@@ -1246,7 +1244,7 @@ public class ModBiomes {
     }
 
     public static void addOceanVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         vegetation.add(OceanPlacedFeatures.KELP_COLD);
         vegetation.add(OceanPlacedFeatures.SEAGRASS_NORMAL);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_FOREST);
@@ -1257,7 +1255,7 @@ public class ModBiomes {
     }
 
     public static void addRivendellVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_FOREST);
         vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
         vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
@@ -1275,7 +1273,7 @@ public class ModBiomes {
     }
 
     public static void addRhunVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_FOREST);
         vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
         vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
@@ -1291,7 +1289,7 @@ public class ModBiomes {
     }
 
     public static void addShireVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+        ModBiomeFeatures.addDisks(undergroundOres);
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_FOREST);
         vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
         vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
@@ -1318,13 +1316,26 @@ public class ModBiomes {
     }
 
     public static Biome createBiome(BiomeColorsDTO biomeColors, SpawnSettings.Builder spawnSettings, GenerationSettings.LookupBackedBuilder generationSettings, float temperature, boolean precipitation) {
-        DefaultBiomeFeatures.addAmethystGeodes(generationSettings);
-        DefaultBiomeFeatures.addMineables(generationSettings);
+        undergroundOres.add(OrePlacedFeatures.ORE_DIRT);
+        undergroundOres.add(OrePlacedFeatures.ORE_GRAVEL);
+        undergroundOres.add(OrePlacedFeatures.ORE_GRANITE_UPPER);
+        undergroundOres.add(OrePlacedFeatures.ORE_GRANITE_LOWER);
+        undergroundOres.add(OrePlacedFeatures.ORE_DIORITE_UPPER);
+        undergroundOres.add(OrePlacedFeatures.ORE_DIORITE_LOWER);
+        undergroundOres.add(OrePlacedFeatures.ORE_ANDESITE_UPPER);
+        undergroundOres.add(OrePlacedFeatures.ORE_ANDESITE_LOWER);
+        undergroundOres.add(OrePlacedFeatures.ORE_TUFF);
+        undergroundOres.add(OrePlacedFeatures.ORE_COAL_UPPER);
+        vegetation.add(UndergroundPlacedFeatures.GLOW_LICHEN);
+
         DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
 
         vegetation = vegetation.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList();
         for (RegistryKey<PlacedFeature> feature: vegetation) {
             generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, feature);
+        }
+        for (RegistryKey<PlacedFeature> feature: undergroundOres.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList()) {
+            generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, feature);
         }
 
         Biome biome = (new Biome.Builder())
@@ -1343,6 +1354,7 @@ public class ModBiomes {
                 .generationSettings(generationSettings.build())
                 .build();
         vegetation = new ArrayList<>();
+        undergroundOres = new ArrayList<>();
         return biome;
     }
 }

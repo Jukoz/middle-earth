@@ -1,18 +1,26 @@
-package net.jukoz.me.world.biomes;
+package net.jukoz.me.world.biomes.surface;
 
 import net.jukoz.me.world.features.boulder.BoulderPlacedFeatures;
-import net.jukoz.me.world.features.misc.MiscPlacedFeatures;
+import net.jukoz.me.world.features.misc.ModMiscPlacedFeatures;
 import net.jukoz.me.world.features.ores.OrePlacedFeatures;
 import net.jukoz.me.world.features.tree.ModTreePlacedFeatures;
 import net.jukoz.me.world.features.vegetation.ModVegetationPlacedFeatures;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.feature.MiscPlacedFeatures;
 import net.minecraft.world.gen.feature.PlacedFeature;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModBiomeFeatures {
+
+    public static void addDisks(ArrayList<RegistryKey<PlacedFeature>> ores) {
+        ores.add(MiscPlacedFeatures.DISK_SAND);
+        ores.add(MiscPlacedFeatures.DISK_CLAY);
+        ores.add(MiscPlacedFeatures.DISK_GRAVEL);
+    }
 
     // region TREES
     public static void addAcaciaTrees(List<RegistryKey<PlacedFeature>> vegetation) {
@@ -426,7 +434,7 @@ public class ModBiomeFeatures {
 
     // region MISC
     public static void addLavaMagmaLake(GenerationSettings.LookupBackedBuilder generationSettings) {
-        generationSettings.feature(GenerationStep.Feature.LAKES, MiscPlacedFeatures.LAVA_MAGMA_POOL);
+        generationSettings.feature(GenerationStep.Feature.LAKES, ModMiscPlacedFeatures.LAVA_MAGMA_POOL);
     }
     // endregion
 }

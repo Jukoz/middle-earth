@@ -136,7 +136,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         baseStoneOverworld.add(Blocks.CALCITE);
         for (StoneBlockSets.SimpleBlockSetMain record : StoneBlockSets.setsMain) {
-            baseStoneOverworld.add(record.base());
+            if(record.base() != StoneBlockSets.ASHEN_STONE.base()) baseStoneOverworld.add(record.base());
             if (Registries.BLOCK.getId(record.base()).getPath().contains("diftomin")){
                 needsIronTools.add(record.base());
                 needsIronTools.add(record.slab());

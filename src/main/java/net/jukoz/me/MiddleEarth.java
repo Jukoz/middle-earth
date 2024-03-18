@@ -15,7 +15,7 @@ import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 import net.jukoz.me.world.gen.ModWorldGeneration;
 import net.jukoz.me.world.spawners.ModEntitySpawning;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
-import net.jukoz.me.world.biomes.MEBiomesData;
+import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import net.jukoz.me.world.dimension.ModDimensions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

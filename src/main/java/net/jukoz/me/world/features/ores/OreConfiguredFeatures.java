@@ -54,24 +54,25 @@ public class OreConfiguredFeatures {
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
         TagMatchRuleTest dirtTest = new TagMatchRuleTest(BlockTags.DIRT);
         BlockMatchRuleTest grassTest = new BlockMatchRuleTest(Blocks.GRASS_BLOCK);
+        BlockMatchRuleTest ashenStoneTest = new BlockMatchRuleTest(StoneBlockSets.ASHEN_STONE.base());
         TagMatchRuleTest stoneTest = new TagMatchRuleTest(BlockTags.BASE_STONE_OVERWORLD);
 
         ConfiguredFeatures.register(featureRegisterable, ANDESITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.ANDESITE.getDefaultState(), 64, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, ASH_BLOCK_ORE, Feature.ORE,
-                new OreFeatureConfig(stoneTest, ModBlocks.ASH_BLOCK.getDefaultState(), 48, 0.4f));
+                new OreFeatureConfig(ashenStoneTest, ModBlocks.ASH_BLOCK.getDefaultState(), 48, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, ASHEN_DIRT_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, ModBlocks.ASHEN_DIRT.getDefaultState(), 64, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, ASHEN_DIRT_STONE_ORE, Feature.ORE,
-                new OreFeatureConfig(stoneTest, ModBlocks.ASHEN_DIRT.getDefaultState(), 64, 0.4f));
+                new OreFeatureConfig(ashenStoneTest, ModBlocks.ASHEN_DIRT.getDefaultState(), 64, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, BASALT_ORE, Feature.ORE,
-                new OreFeatureConfig(stoneTest, Blocks.BASALT.getDefaultState(), 64, 0.4f));
+                new OreFeatureConfig(ashenStoneTest, Blocks.BASALT.getDefaultState(), 64, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, BLACK_CONCRETE_POWDER_ORE, Feature.ORE,
-                new OreFeatureConfig(stoneTest, Blocks.BLACK_CONCRETE_POWDER.getDefaultState(), 48, 0.4f));
+                new OreFeatureConfig(ashenStoneTest, Blocks.BLACK_CONCRETE_POWDER.getDefaultState(), 48, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, CALCITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.CALCITE.getDefaultState(), 64));

@@ -9,7 +9,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
-public class MiscConfiguredFeatures {
+public class ModMiscConfiguredFeatures {
 
     public static final RegistryKey<ConfiguredFeature<?, ?>> LAVA_MAGMA_POOL = registerKey("lava_magma_pool");
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {

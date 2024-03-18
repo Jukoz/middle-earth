@@ -1,9 +1,6 @@
 package net.jukoz.me.world.chunkgen.map;
 
 import com.google.common.base.Stopwatch;
-import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.world.biomes.MEBiomesData;
-import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 
 import javax.imageio.ImageIO;
 import java.awt.image.*;
@@ -11,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class ImageUtils {
     private static byte[] SEED = generateSeed(50);
