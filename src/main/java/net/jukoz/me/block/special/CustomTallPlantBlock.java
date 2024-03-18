@@ -10,8 +10,8 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
-public class TallReedsBlock extends TallPlantBlock implements Fertilizable {
-    public TallReedsBlock(Settings settings) {
+public class CustomTallPlantBlock extends TallPlantBlock implements Fertilizable {
+    public CustomTallPlantBlock(Settings settings) {
         super(settings);
     }
 
