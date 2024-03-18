@@ -4,6 +4,6 @@
     "item": "me:raw_lead"
   },
   "result": "me:lead_ingot",
-  "experience": 2,
+  "experience": 0.7,
   "cookingtime": 200
 }

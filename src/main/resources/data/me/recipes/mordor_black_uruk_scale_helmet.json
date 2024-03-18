@@ -1,0 +1,21 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_helmet"
+    },
+    {
+      "item": "me:uruk_steel_ingot"
+    },
+    {
+      "item": "me:uruk_steel_ingot"
+    },
+    {
+      "item": "me:uruk_steel_ingot"
+    }
+  ],
+  "output": {
+    "item": "me:mordor_black_uruk_scale_helmet",
+    "count": 1
+  }
+}

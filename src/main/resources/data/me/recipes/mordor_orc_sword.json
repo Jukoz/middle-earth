@@ -1,0 +1,18 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "me:orc_steel_ingot"
+    },
+    {
+      "item": "me:orc_steel_ingot"
+    },
+    {
+      "item": "minecraft:stick"
+    }
+  ],
+  "output": {
+    "item": "me:mordor_orc_sword",
+    "count": 1
+  }
+}

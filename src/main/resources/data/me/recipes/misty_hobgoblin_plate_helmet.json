@@ -1,0 +1,27 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "me:misty_hobgoblin_scale_helmet"
+    },
+    {
+      "item": "me:uruk_steel_ingot"
+    },
+    {
+      "item": "me:uruk_steel_ingot"
+    },
+    {
+      "item": "me:uruk_steel_ingot"
+    },
+    {
+      "item": "me:uruk_steel_ingot"
+    },
+    {
+      "item": "me:uruk_steel_ingot"
+    }
+  ],
+  "output": {
+    "item": "me:misty_hobgoblin_plate_helmet",
+    "count": 1
+  }
+}
