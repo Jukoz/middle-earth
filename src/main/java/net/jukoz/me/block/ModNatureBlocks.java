@@ -257,9 +257,9 @@ public class ModNatureBlocks {
             new MirkwoodSpiderEggBlock(FabricBlockSettings.copyOf(Blocks.TURTLE_EGG)), true);
 
     public static final Block GLOWWORM_WEBBING = registerCrossBlock("glowworm_webbing",
-            new GlowWormBottomBlock(FabricBlockSettings.copyOf(Blocks.WEEPING_VINES_PLANT).luminance(4)), true);
+            new GlowWormBottomBlock(FabricBlockSettings.copyOf(Blocks.WEEPING_VINES_PLANT).luminance(6)), true);
     public static final Block GLOWWORM_MAIN = registerCrossBlock("glowworm_main",
-            new GlowWormBlock(FabricBlockSettings.copyOf(Blocks.WEEPING_VINES).luminance(4)), false);
+            new GlowWormBlock(FabricBlockSettings.copyOf(Blocks.WEEPING_VINES).luminance(6)), false);
 
     public static final Block TOMATO_CROP = registerBlock("tomato_crop",
             new TomatoCropBlock(FabricBlockSettings.copyOf(Blocks.POTATOES)), false);

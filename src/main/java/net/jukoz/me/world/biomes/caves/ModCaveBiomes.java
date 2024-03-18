@@ -41,13 +41,18 @@ public class ModCaveBiomes {
         ashCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.MAGMA_CAVE, new Vec2f(0.0f,-1.0f)));
 
         haradCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRIPSTONE_CAVE, new Vec2f(1.0f,0f)));
+        haradCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRY_CAVE, new Vec2f(0.0f,0f)));
         haradCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.BASIC_CAVE, new Vec2f(-1.0f,0f)));
+
+        forodCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.ICE_CAVE, new Vec2f(-0.5f,0f)));
+        forodCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRIPSTONE_CAVE, new Vec2f(1.0f,0f)));
     }
 
     public static RegistryKey<Biome> getBiome(Vec2f coordinates, MEBiome surfaceBiome) {
         return switch (surfaceBiome.caveType) {
             case ASHEN -> ashCaves.getClosestBiome(coordinates);
             case HARAD -> haradCaves.getClosestBiome(coordinates);
+            case FOROD -> forodCaves.getClosestBiome(coordinates);
             default -> defaultCaves.getClosestBiome(coordinates);
         };
     }
@@ -71,6 +76,11 @@ public class ModCaveBiomes {
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 9534809, 8878692)));
         context.register(MEBiomeKeys.MAGMA_CAVE, createMagmaCave(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 9527897, 8876132)));
+
+        context.register(MEBiomeKeys.DRY_CAVE, createDryCave(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, defaultWater, defaultWaterFog, 10928742, 11259497)));
+        context.register(MEBiomeKeys.ICE_CAVE, createIceCaves(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, defaultWater, defaultWaterFog, 11121530, 10990723)));
     }
 
     public static Biome createBasicCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -146,27 +156,28 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.DISK_MYCELIUM);
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
 
-        undergroundOres.add(CavesPlacedFeatures.TREE_BROWN_BOLETTE);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_CAVE_AMANITA);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_CAVE_AMANITA_TILLER);
-        undergroundOres.add(CavesPlacedFeatures.TREE_CAVE_AMANITA);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_DEEP_FIRECAP);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_DEEP_FIRECAP_TILLER);
-        undergroundOres.add(CavesPlacedFeatures.TREE_DEEP_FIRECAP);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_GHOSTSHROOM);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_GHOSTSHROOM_TILLER);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_SKY_FIRECAP);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_SKY_FIRECAP_TILLER);
-        undergroundOres.add(CavesPlacedFeatures.TREE_SKY_FIRECAP);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_TUBESHROOMS);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_TALL_TUBESHROOMS);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_TRUMPET_SHROOM);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_TALL_TRUMPET_SHROOM);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_VIOLET_CAPS);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_VIOLET_CAPS_TILLER);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_YELLOW_AMANITA);
-        undergroundOres.add(CavesPlacedFeatures.PATCH_YELLOW_AMANITA_TILLER);
-        undergroundOres.add(CavesPlacedFeatures.TREE_YELLOW_AMANITA);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.TREE_BROWN_BOLETTE);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_CAVE_AMANITA);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_CAVE_AMANITA_TILLER);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.TREE_CAVE_AMANITA);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_DEEP_FIRECAP);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_DEEP_FIRECAP_TILLER);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.TREE_DEEP_FIRECAP);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_GHOSTSHROOM);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_GHOSTSHROOM_TILLER);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_SKY_FIRECAP);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_SKY_FIRECAP_TILLER);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.TREE_SKY_FIRECAP);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_TUBESHROOMS);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_TALL_TUBESHROOMS);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_TRUMPET_SHROOM);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_TALL_TRUMPET_SHROOM);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_VIOLET_CAPS);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_VIOLET_CAPS_TILLER);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_YELLOW_AMANITA);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_YELLOW_AMANITA_TILLER);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.TREE_YELLOW_AMANITA);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.GLOWWORM_WEBBING);
 
         return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true);
     }
@@ -207,6 +218,33 @@ public class ModCaveBiomes {
         return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true);
     }
 
+    public static Biome createDryCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        undergroundOres.add(CavesPlacedFeatures.ORE_DRY_DIRT);
+        undergroundOres.add(CavesPlacedFeatures.ORE_SAND);
+        undergroundOres.add(CavesPlacedFeatures.ORE_SANDSTONE);
+        undergroundOres.add(CavesPlacedFeatures.ORE_TERRACOTTA);
+        undergroundOres.add(CavesPlacedFeatures.ORE_LAPIS_ABUNDANT);
+        undergroundOres.add(CavesPlacedFeatures.PILLAR_SMOOTH_SANDSTONE);
+        addBasicFeatures(generationSettings, true);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, false);
+    }
+
+    public static Biome createIceCaves(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        undergroundOres.add(CavesPlacedFeatures.ORE_PACKED_ICE);
+        undergroundOres.add(CavesPlacedFeatures.ORE_SNOW);
+        undergroundOres.add(CavesPlacedFeatures.PILLAR_PACKED_ICE);
+        addBasicFeatures(generationSettings, true);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, false);
+    }
+
     private static void addBasicFeatures(GenerationSettings.LookupBackedBuilder generationSettings, boolean vanillaRocks) {
         ModCaveBiomeFeatures.addAmethystGeode(generationSettings);
         ModCaveBiomeFeatures.addCitrineGeode(generationSettings);
@@ -219,6 +257,7 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.ORE_COPPER);
         undergroundOres.add(CavesPlacedFeatures.ORE_COPPER_UPPER);
         undergroundOres.add(CavesPlacedFeatures.ORE_TIN);
+        undergroundOres.add(CavesPlacedFeatures.ORE_LAPIS);
         undergroundOres.add(CavesPlacedFeatures.ORE_LEAD);
         undergroundOres.add(CavesPlacedFeatures.ORE_IRON);
         undergroundOres.add(CavesPlacedFeatures.ORE_SILVER);
@@ -234,6 +273,7 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.PILLAR_BLACKSTONE);
 
         undergroundOres.add(OrePlacedFeatures.ORE_GRAVEL);
+        undergroundOres.add(CavesPlacedFeatures.ORE_DOLOMITE);
         if(vanillaRocks) {
             undergroundOres.add(CavesPlacedFeatures.ORE_QUARTZITE);
             undergroundOres.add(OrePlacedFeatures.ORE_DIRT);
@@ -251,6 +291,7 @@ public class ModCaveBiomes {
 
     public static Biome createBiome(BiomeColorsDTO biomeColors, SpawnSettings.Builder spawnSettings, GenerationSettings.LookupBackedBuilder generationSettings, float temperature, boolean precipitation) {
         ModCaveBiomeFeatures.addBats(spawnSettings);
+        ModCaveBiomeFeatures.addCaveTrolls(spawnSettings);
 
         undergroundOres = undergroundOres.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList();
         for (RegistryKey<PlacedFeature> feature: undergroundOres) {

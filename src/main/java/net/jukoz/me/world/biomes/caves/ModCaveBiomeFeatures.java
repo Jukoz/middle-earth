@@ -33,9 +33,13 @@ public class ModCaveBiomeFeatures {
         spawnSettings.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(EntityType.BAT, 3, 1, 2));
     }
     public static void addFrogs(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(EntityType.FROG, 4, 1, 4));
+        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FROG, 4, 1, 4));
     }
     public static void addSnails(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(ModEntities.SNAIL, 5, 1, 3));
+        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.SNAIL, 5, 1, 3));
+    }
+
+    public static void addCaveTrolls(SpawnSettings.Builder spawnSettings) {
+        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.CAVE_TROLL, 2, 1, 3));
     }
 }

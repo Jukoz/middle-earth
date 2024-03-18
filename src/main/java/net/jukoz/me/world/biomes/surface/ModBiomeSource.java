@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 
 public class ModBiomeSource extends BiomeSource {
     private final ArrayList<RegistryEntry<Biome>> biomes;
-    private final int CAVE_NOISE = 64;
+    private final int CAVE_NOISE = 96;
     private final int CAVE_OFFSET = 7220;
     public ModBiomeSource(ArrayList<RegistryEntry<Biome>> biomes) {
         this.biomes = biomes;

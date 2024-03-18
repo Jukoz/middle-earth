@@ -91,6 +91,8 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> BASALT_CAVE = MEBiomeKeys.register("basalt_cave");
     public static final RegistryKey<Biome> MAGMA_CAVE = MEBiomeKeys.register("magma_cave");
     public static final RegistryKey<Biome> MITHRIL_CAVE = MEBiomeKeys.register("mithril_cave");
+    public static final RegistryKey<Biome> DRY_CAVE = MEBiomeKeys.register("dry_cave");
+    public static final RegistryKey<Biome> ICE_CAVE = MEBiomeKeys.register("ice_cave");
 
     // endregion
 
