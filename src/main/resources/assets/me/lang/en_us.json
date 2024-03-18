@@ -1273,6 +1273,11 @@
   "block.me.granite_chair": "Granite Chair",
 
 "#Comment:": "Block - Diorite",
+  "block.me.smooth_diorite": "Smooth Diorite",
+  "block.me.smooth_diorite_slab": "Smooth Diorite Slab",
+  "block.me.smooth_diorite_vertical_slab": "Smooth Diorite Vertical Slab",
+  "block.me.smooth_diorite_stairs": "Smooth Diorite Stairs",
+  "block.me.smooth_diorite_wall": "Smooth Diorite Wall",
   "block.me.cobbled_diorite": "Cobbled Diorite",
   "block.me.cobbled_diorite_slab": "Cobbled Diorite Slab",
   "block.me.cobbled_diorite_vertical_slab": "Cobbled Diorite Vertical Slab",

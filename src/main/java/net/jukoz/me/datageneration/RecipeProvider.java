@@ -37,7 +37,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         for (StoneBlockSets.SimpleBlockSetMain record : StoneBlockSets.setsMain) {
             if(record.toString().contains("mossy_")){
                 createMossyRecipe(exporter, record.source(), record.base());
-            } else if(record.toString().contains("cracked_")){
+            } else if(record.toString().contains("cracked_")) {
+                createCrackedRecipe(exporter, record.source().asItem(), record.base().asItem());
+            } else if(record.toString().contains("smooth_")){
                 createCrackedRecipe(exporter, record.source().asItem(), record.base().asItem());
             } else if(record.toString().contains("cobbled_")) {
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
@@ -262,6 +264,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         for(SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledPolishedBlocksTopBottom) {
             createChiseledRecipe(exporter, block.origin(), block.base(), 1);
         }
+        for(SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledMainBlockTopBottom) {
+            createChiseledRecipe(exporter, block.origin(), block.base(), 1);
+        }
         for(SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledBlocksTopBottom) {
             createChiseledRecipe(exporter, block.origin(), block.base(), 1);
         }
@@ -427,6 +432,16 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .input('B', Items.BRICK)
                 .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.YELLOW_DAUB.base()),
                         FabricRecipeProvider.conditionsFromItem(StoneBlockSets.YELLOW_DAUB.base()))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.EPMOSTO_CARVED_WINDOW, 2)
+                .pattern("EEE")
+                .pattern("EGE")
+                .pattern("EEE")
+                .input('E', StoneBlockSets.EPMOSTO.base())
+                .input('G', Blocks.GLASS)
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.EPMOSTO.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.EPMOSTO.base()))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LEAD_GLASS, 4)

@@ -10,6 +10,7 @@ public class MineablePickaxe {
     public static List<Block> blocks = new ArrayList<>() {
         {
             add(ModBlocks.CHISELED_ASHEN_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_ASHEN_STONE);
 
             add(ModBlocks.CHISELED_GONLUIN_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_GONLUIN);
@@ -41,6 +42,11 @@ public class MineablePickaxe {
             add(ModBlocks.DIFTOMIN_PILLAR);
             add(ModBlocks.CHISELED_DIFTOMIN_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_DIFTOMIN);
+
+            add(ModBlocks.EPMOSTO_PILLAR);
+            add(ModBlocks.CHISELED_EPMOSTO);
+            add(ModBlocks.CHISELED_EPMOSTO_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_EPMOSTO);
 
             add(ModBlocks.RAW_MITHRIL_BLOCK);
             add(ModBlocks.MITHRIL_BLOCK);

@@ -33,6 +33,8 @@ public class TintableCrossModel {
             add(ModNatureBlocks.GLOWWORM_MAIN);
             add(ModNatureBlocks.GLOWWORM_WEBBING);
 
+            add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER);
+
         }
     };
     public static List<Block> tintedBlocks = new ArrayList<>() {

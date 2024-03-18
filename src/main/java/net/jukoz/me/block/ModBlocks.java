@@ -114,6 +114,8 @@ public class ModBlocks {
 
     public static final Block CHISELED_ASHEN_BRICKS = registerStoneBlock("chiseled_ashen_bricks",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.DEEPSLATE)),true);
+    public static final Block CHISELED_POLISHED_ASHEN_STONE = registerStoneBlock("chiseled_polished_ashen_stone",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.DEEPSLATE)),true);
 
     public static final Block CHISELED_GONLUIN_BRICKS = registerStoneBlock("chiseled_gonluin_bricks",
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
@@ -152,9 +154,9 @@ public class ModBlocks {
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
     public static final Block CHISELED_DIORITE_BRICKS = registerStoneBlock("chiseled_diorite_bricks",
-            new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+            new PillarBlock(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     public static final Block CHISELED_POLISHED_DIORITE = registerStoneBlock("chiseled_polished_diorite",
-            new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+            new PillarBlock(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     
     public static final Block CHISELED_BASALT_BRICKS = registerStoneBlock("chiseled_basalt_bricks",
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
@@ -166,6 +168,14 @@ public class ModBlocks {
     public static final Block CHISELED_POLISHED_DIFTOMIN = registerStoneBlock("chiseled_polished_diftomin",
             new Block(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.DIFTOMIN_BRICKS_HARDNESS, StoneBlockSets.DIFTOMIN_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
+    public static final Block EPMOSTO_PILLAR = registerStoneBlock("epmosto_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.EPMOSTO_BRICKS_HARDNESS, StoneBlockSets.EPMOSTO_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_EPMOSTO = registerStoneBlock("chiseled_epmosto",
+            new PillarBlock(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.EPMOSTO_BRICKS_HARDNESS, StoneBlockSets.EPMOSTO_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_EPMOSTO_BRICKS = registerStoneBlock("chiseled_epmosto_bricks",
+            new PillarBlock(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.EPMOSTO_BRICKS_HARDNESS, StoneBlockSets.EPMOSTO_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_POLISHED_EPMOSTO = registerStoneBlock("chiseled_polished_epmosto",
+            new PillarBlock(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.EPMOSTO_BRICKS_HARDNESS, StoneBlockSets.EPMOSTO_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
     //endregion
 
