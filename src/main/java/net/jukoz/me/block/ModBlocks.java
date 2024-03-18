@@ -28,12 +28,7 @@ import java.util.List;
 public class ModBlocks {
     public static final float DIRT_STRENGTH = 0.6f;
     public static final float SLAB_RESISTANCE = 6.0f; // From explosions
-
-    //TODO Second vertical slab model for sandstone, pillars, etc
-    //TODO Pedestal Block
-    //TODO Stone Lectern
-    //TODO Tall Shrooms Placement like plant rn no good
-
+    
     //region STONE PILLARS AND CHISELED
     public static final Block STONE_PILLAR = registerStoneBlock("stone_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
@@ -176,7 +171,6 @@ public class ModBlocks {
             new PillarBlock(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.EPMOSTO_BRICKS_HARDNESS, StoneBlockSets.EPMOSTO_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     public static final Block CHISELED_POLISHED_EPMOSTO = registerStoneBlock("chiseled_polished_epmosto",
             new PillarBlock(FabricBlockSettings.copyOf(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.EPMOSTO_BRICKS_HARDNESS, StoneBlockSets.EPMOSTO_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
-
     //endregion
 
     public static final Block DRY_DIRT = registerMiscBlock("dry_dirt",

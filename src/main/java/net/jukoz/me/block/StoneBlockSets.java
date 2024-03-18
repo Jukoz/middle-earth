@@ -229,6 +229,8 @@ public class StoneBlockSets {
     public static SimpleBlockSet EXPOSED_STUCCO_DOLOMITE = registerStoneSet("exposed_stucco_dolomite", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
     public static SimpleBlockSet EXPOSED_STUCCO_MIXED_STONES = registerStoneSet("exposed_stucco_mixed_stones", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
 
+    public static SimpleBlockSet OLD_BRICKS = registerStoneSet("old_bricks", Blocks.BRICKS.getHardness(), Blocks.BRICKS.getBlastResistance(), null);
+
 
     public static SimpleBlockSetMain[] setsMain = new SimpleBlockSetMain[] {
 
@@ -261,6 +263,8 @@ public class StoneBlockSets {
             STUCCO,
             EXPOSED_STUCCO_DOLOMITE,
             EXPOSED_STUCCO_MIXED_STONES,
+
+            OLD_BRICKS,
 
             ASHEN_COBBLESTONE,
             ASHEN_BRICKS,

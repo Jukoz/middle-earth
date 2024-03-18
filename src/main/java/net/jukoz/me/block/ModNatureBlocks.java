@@ -162,7 +162,6 @@ public class ModNatureBlocks {
             new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block GHOSTSHROOM_TILLER = registerBlock("ghostshroom_tiller",
             new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
-
     public static final Block MORSEL_TILLER = registerBlock("morsel_tiller",
             new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block SKY_FIRECAP_TILLER = registerBlock("sky_firecap_tiller",
