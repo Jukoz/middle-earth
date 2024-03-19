@@ -113,7 +113,7 @@ public class CavesPlacedFeatures {
     public static final RegistryKey<PlacedFeature> SPRING_LAVA = registerKey("spring_lava");
 
     static final HeightRangePlacementModifier mushroomsRange = HeightRangePlacementModifier.trapezoid(YOffset.fixed(-40), YOffset.fixed(32));
-    static final HeightRangePlacementModifier lushRange = HeightRangePlacementModifier.trapezoid(YOffset.fixed(-4), YOffset.fixed(64));
+    static final HeightRangePlacementModifier lushRange = HeightRangePlacementModifier.trapezoid(YOffset.fixed(-4), YOffset.fixed(80));
     static final HeightRangePlacementModifier diftominRange = HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.EPMOSTO_LEVEL), YOffset.fixed(MiddleEarthChunkGenerator.DIFTOMIN_LEVEL));
     static final HeightRangePlacementModifier epmostoRange = HeightRangePlacementModifier.trapezoid(YOffset.fixed(-64), YOffset.fixed(MiddleEarthChunkGenerator.EPMOSTO_LEVEL));
 
@@ -187,7 +187,6 @@ public class CavesPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> glowwormWebbing = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.GLOWWORM_WEBBING);
         // endregion
 
-        RegistryEntry.Reference<ConfiguredFeature<?, ?>> rootedAzaleaTree = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.ROOTED_AZALEA_TREE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> caveVine = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.CAVE_VINE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> mossPatch = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.MOSS_PATCH);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> lushCavesClay = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.LUSH_CAVES_CLAY);
@@ -288,7 +287,6 @@ public class CavesPlacedFeatures {
                 BiomePlacementModifier.of());
         // endregion
 
-        PlacedFeatures.register(featureRegisterable, ROOTED_AZALEA_TREE, rootedAzaleaTree, CountPlacementModifier.of(UniformIntProvider.create(1, 2)), SquarePlacementModifier.of(), HeightRangePlacementModifier.trapezoid(YOffset.fixed(-4), YOffset.fixed(54)), EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.solid(), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1)), BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, CAVE_VINES, caveVine, CountPlacementModifier.of(188), SquarePlacementModifier.of(), lushRange, EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1)), BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, LUSH_CAVES_VEGETATION, mossPatch, CountPlacementModifier.of(125), SquarePlacementModifier.of(), lushRange, EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(1)), BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, LUSH_CAVES_CLAY, lushCavesClay, CountPlacementModifier.of(62), SquarePlacementModifier.of(), lushRange, EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(1)), BiomePlacementModifier.of());

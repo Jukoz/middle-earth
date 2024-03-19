@@ -111,7 +111,6 @@ public class ModCaveBiomes {
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.CAVE_VINES);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.LUSH_CAVES_CLAY);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.LUSH_CAVES_VEGETATION);
-        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.ROOTED_AZALEA_TREE);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.SPORE_BLOSSOM);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.CLASSIC_VINES_CAVE);
 
