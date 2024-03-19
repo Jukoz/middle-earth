@@ -115,7 +115,7 @@ public class MiddleEarthMapDatas {
 
         for (int x = 0; x < xRegionAmount; x++) {
             for (int z = 0; z < zRegionAmount; z++) {
-                BufferedImage buffImage = getBiomeImageByRegion(iteration, x, z);
+                final BufferedImage buffImage = getBiomeImageByRegion(iteration, x, z);
                 if(buffImage != null){
                     int finalX = x;
                     int finalZ = z;
@@ -142,8 +142,9 @@ public class MiddleEarthMapDatas {
             for (int rJ = 0; rJ < 2; rJ++) {
                 for (int x = 0; x < size; x++) {
                     for (int y = 0; y < size; y++) {
+                        int color = buffImage.getRGB(x, y);
                         try {
-                            int height = MEBiomesData.getBiomeByColor(buffImage.getRGB(x, y)).height;
+                            int height = MEBiomesData.getBiomeByColor(color).height;
                             if(height > 255 - 25){
                                 height = 230;
                             }
