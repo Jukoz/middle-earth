@@ -270,10 +270,14 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.ORE_MAGMA);
         undergroundOres.add(CavesPlacedFeatures.ORE_OBSIDIAN);
         undergroundOres.add(CavesPlacedFeatures.PILLAR_BASALT);
+        undergroundOres.add(CavesPlacedFeatures.ORE_BASALT);
+        undergroundOres.add(CavesPlacedFeatures.ORE_TUFF);
         undergroundOres.add(CavesPlacedFeatures.PILLAR_BLACKSTONE);
+        undergroundOres.add(CavesPlacedFeatures.ORE_BLACKSTONE);
 
         undergroundOres.add(OrePlacedFeatures.ORE_GRAVEL);
         undergroundOres.add(CavesPlacedFeatures.ORE_DOLOMITE);
+
         if(vanillaRocks) {
             undergroundOres.add(CavesPlacedFeatures.ORE_QUARTZITE);
             undergroundOres.add(OrePlacedFeatures.ORE_DIRT);
