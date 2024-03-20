@@ -46,7 +46,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     public static final int STONE_HEIGHT = 36;
     public static final int WATER_HEIGHT = 64;
     public static final int LAVA_HEIGHT = -60;
-    public static final int HEIGHT = 24 + STONE_HEIGHT;
+    public static final int HEIGHT = 27 + STONE_HEIGHT;
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
     public static final int CAVE_NOISE = 5;
 

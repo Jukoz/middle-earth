@@ -22,6 +22,16 @@ public class ModBiomeFeatures {
         ores.add(MiscPlacedFeatures.DISK_GRAVEL);
     }
 
+    public static void addRiverSand(ArrayList<RegistryKey<PlacedFeature>> ores) {
+        ores.add(OrePlacedFeatures.RIVER_SAND);
+    }
+    public static void addRiverDisks(ArrayList<RegistryKey<PlacedFeature>> ores) {
+        ores.add(OrePlacedFeatures.RIVER_SAND);
+        ores.add(OrePlacedFeatures.DISK_SAND);
+        ores.add(MiscPlacedFeatures.DISK_CLAY);
+        ores.add(MiscPlacedFeatures.DISK_GRAVEL);
+    }
+
     // region TREES
     public static void addAcaciaTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.ACACIA_PLACED_TREE_KEY);
@@ -237,6 +247,11 @@ public class ModBiomeFeatures {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_GREEN_SHRUB);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_TAN_SHRUB);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_YELLOW_FLOWER);
+    }
+    public static void addCoastalFoliage(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_COASTAL_PANIC_GRASS);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_HOROKAKA);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_GIANT_HOROKAKA);
     }
     public static void addCorruptedMoss(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_CORRUPTED_MOSS);

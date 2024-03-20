@@ -29,23 +29,18 @@ public class MiddleEarthHeightMap {
 
 
     private static float getImageHeight(int xWorld, int zWorld) {
-
         Color color = MiddleEarth.GetWorldMapDatas().getHeightFromWorldCoordinates(xWorld, zWorld);
-
         if(color != null){
             float red = color.getRed();
             float blue = color.getBlue();
-            float height = red - 25; //+ (color.getGreen() / 255f);
-            if(blue > 180){
-                height = -red;
-            }
-            else if(blue > 0 && blue > red){
-                float newHeight = height;
-                newHeight += newHeight * (blue / 200);
-                newHeight = Math.max(newHeight, height);
-                height = Math.max(-7, newHeight);
-            }
+            float height = red;
 
+            if(blue > 0) { // Water carver
+                float percentage = (16 - blue) / 16;
+                percentage = Math.max(0, Math.min(1, percentage));
+                height *= percentage;
+                height -= blue * 1.31f;
+            }
             return height;
         }
         return 0;
@@ -71,6 +66,9 @@ public class MiddleEarthHeightMap {
 
         if(MiddleEarth.GetWorldMapDatas().isWorldCoordinateInBound(x, z)) {
             float biomeHeight = getBiomeWeightHeight(x, z);
+            if(biomeHeight < 0) {
+                perlin /= (Math.max(1, Math.min(5, Math.abs(biomeHeight / 2.15f))));
+            }
             if(biomeHeight >= MOUNTAIN_START_HEIGHT) {
                 float multiplier = (biomeHeight / MOUNTAIN_START_HEIGHT) - 1;
                 biomeHeight += biomeHeight * multiplier * MOUNTAIN_EXPONENTIAL_HEIGHT;
@@ -105,18 +103,6 @@ public class MiddleEarthHeightMap {
         if(!percentages.contains(percentage)) percentages.add(percentage);
         float percentage2 = 1 - percentage;
         return (a * percentage2) + (b * percentage);
-    }
-
-    private static float getSmoothHeight(int x, int z) {
-        float total = 0;
-        for(int i = -SMOOTH_BRUSH_SIZE; i <= SMOOTH_BRUSH_SIZE; i++) {
-            for(int j = -SMOOTH_BRUSH_SIZE; j <= SMOOTH_BRUSH_SIZE; j++) {
-                if(!MiddleEarth.GetWorldMapDatas().isWorldCoordinateInBound(x + i, z + j)) total += MEBiomesData.defaultBiome.height;
-                else total += getBiomeWeightHeight(x,z);
-            }
-        }
-
-        return total / ((SMOOTH_BRUSH_SIZE * 2 + 1) * (SMOOTH_BRUSH_SIZE * 2 + 1));
     }
 
     public static float getHeight(int x, int z) {
