@@ -1,12 +1,7 @@
 package net.jukoz.me.entity.beasts.trolls.snow;
 
-import net.jukoz.me.entity.beasts.BeastEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
-import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
-import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.*;
-import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
-import net.jukoz.me.item.ModFoodItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;

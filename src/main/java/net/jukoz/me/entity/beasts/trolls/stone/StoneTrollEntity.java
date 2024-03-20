@@ -1,17 +1,8 @@
 package net.jukoz.me.entity.beasts.trolls.stone;
 
 import net.jukoz.me.entity.ModEntities;
-import net.jukoz.me.entity.beasts.BeastEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
-import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
-import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
-import net.jukoz.me.entity.goals.*;
-import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
-import net.jukoz.me.world.biomes.MEBiome;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
-import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
-import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
-import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.damage.DamageSource;
@@ -19,24 +10,16 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeKeys;
-
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class StoneTrollEntity extends TrollEntity {
