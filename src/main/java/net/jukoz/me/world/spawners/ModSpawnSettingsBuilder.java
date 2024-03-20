@@ -30,6 +30,10 @@ public class ModSpawnSettingsBuilder {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.DONKEY, 1, 1, 3));
     }
 
+    public static void addRabbits(SpawnSettings.Builder builder) {
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.RABBIT, 3, 1, 5));
+    }
+
     public static void addWolves(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.WOLF, 3, 1, 3));
     }

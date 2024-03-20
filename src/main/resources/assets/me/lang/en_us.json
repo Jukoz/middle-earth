@@ -26,6 +26,10 @@
   "advancements.alloy.dwarven_lantern.title": "Light of Khazad-dûm",
   "advancements.alloy.dwarven_lantern.description": "Craft a dwarven lantern",
 
+"#Comment": "Biomes",
+  "biome.me.anduin_vales": "Anduin Vales",
+  "biome.me.anorien": "Anorien",
+
 "#Comment:": "Item Groups",
   "itemGroup.me.stone_blocks": "Stone Blocks",
   "itemGroup.me.wood_blocks": "Wood Blocks",

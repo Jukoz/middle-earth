@@ -32,6 +32,8 @@ public class ModTreePlacedFeatures {
     public static final RegistryKey<PlacedFeature> SPARSE_LARCH_PLACED_TREE_KEY = registerKey("sparse_larch_tree");
     public static final RegistryKey<PlacedFeature> BLACK_LEBETHRON_PLACED_TREE_KEY = registerKey("black_lebethron_tree");
     public static final RegistryKey<PlacedFeature> WHITE_LEBETHRON_PLACED_TREE_KEY = registerKey("white_lebethron_tree");
+    public static final RegistryKey<PlacedFeature> COMMON_BLACK_LEBETHRON_PLACED_TREE_KEY = registerKey("common_black_lebethron_tree");
+    public static final RegistryKey<PlacedFeature> COMMON_WHITE_LEBETHRON_PLACED_TREE_KEY = registerKey("common_white_lebethron_tree");
     public static final RegistryKey<PlacedFeature> RARE_BLACK_LEBETHRON_PLACED_TREE_KEY = registerKey("rare_black_lebethron_tree");
     public static final RegistryKey<PlacedFeature> RARE_WHITE_LEBETHRON_PLACED_TREE_KEY = registerKey("rare_white_lebethron_tree");
     public static final RegistryKey<PlacedFeature> MALLORN_PLACED_TREE_KEY = registerKey("mallorn_tree");
@@ -46,6 +48,7 @@ public class ModTreePlacedFeatures {
     public static final RegistryKey<PlacedFeature> OAK_BUSH_COMMON_PLACED_TREE_KEY = registerKey("oak_bush_common_tree");
     public static final RegistryKey<PlacedFeature> COMMON_OAK_PLACED_TREE_KEY = registerKey("common_oak_tree");
     public static final RegistryKey<PlacedFeature> OAK_PLACED_TREE_KEY = registerKey("oak_tree");
+    public static final RegistryKey<PlacedFeature> OAK_VINES_PLACED_TREE_KEY = registerKey("oak_vines_tree");
     public static final RegistryKey<PlacedFeature> MEGA_OAK_PLACED_TREE_KEY = registerKey("mega_oak_tree");
     public static final RegistryKey<PlacedFeature> RARE_MEGA_OAK_PLACED_TREE_KEY = registerKey("rare_mega_oak_tree");
     public static final RegistryKey<PlacedFeature> VERY_RARE_MEGA_OAK_PLACED_TREE_KEY = registerKey("very_rare_mega_oak_tree");
@@ -117,7 +120,7 @@ public class ModTreePlacedFeatures {
                         Blocks.BIRCH_SAPLING));
 
         register(context, MEGA_DARK_OAK_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MEGA_DARK_OAK_TREE_KEY),
-                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaTree,
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(commonTree,
                         Blocks.DARK_OAK_SAPLING));
         register(context, MEGA_DARK_OAK_PLACED_COMMON_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MEGA_DARK_OAK_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(abundantTree,
@@ -134,10 +137,16 @@ public class ModTreePlacedFeatures {
                         ModNatureBlocks.LARCH_SAPLING));
 
         register(context, BLACK_LEBETHRON_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY),
-                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(commonTree,
                         ModNatureBlocks.LEBETHRON_SAPLING));
         register(context, WHITE_LEBETHRON_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(specialTree,
+                        ModNatureBlocks.LEBETHRON_SAPLING));
+        register(context, COMMON_BLACK_LEBETHRON_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(abundantTree,
+                        ModNatureBlocks.LEBETHRON_SAPLING));
+        register(context, COMMON_WHITE_LEBETHRON_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(superRareTree,
                         ModNatureBlocks.LEBETHRON_SAPLING));
         register(context, RARE_BLACK_LEBETHRON_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
@@ -183,6 +192,9 @@ public class ModTreePlacedFeatures {
                         Blocks.OAK_SAPLING));
         register(context, OAK_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.OAK_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
+                        Blocks.OAK_SAPLING));
+        register(context, OAK_VINES_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.OAK_TREE_VINES_KEY),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(commonTree,
                         Blocks.OAK_SAPLING));
         register(context, MEGA_OAK_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MEGA_OAK_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaTree,

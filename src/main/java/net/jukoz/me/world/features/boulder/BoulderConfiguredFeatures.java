@@ -20,6 +20,7 @@ import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 
 public class BoulderConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ANDESITE_BOULDER = registerKey("andesite_boulder");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> CALCITE_BOULDER = registerKey("calcite_boulder");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DIORITE_BOULDER = registerKey("diorite_boulder");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRANITE_BOULDER = registerKey("granite_boulder");
     public static final RegistryKey<ConfiguredFeature<?, ?>> LIMESTONE_BOULDER = registerKey("limestone_boulder");
@@ -30,6 +31,8 @@ public class BoulderConfiguredFeatures {
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
         ConfiguredFeatures.register(featureRegisterable, ANDESITE_BOULDER, Feature.FOREST_ROCK,
                 new SingleStateFeatureConfig(Blocks.ANDESITE.getDefaultState()));
+        ConfiguredFeatures.register(featureRegisterable, CALCITE_BOULDER, Feature.FOREST_ROCK,
+                new SingleStateFeatureConfig(Blocks.CALCITE.getDefaultState()));
         ConfiguredFeatures.register(featureRegisterable, DIORITE_BOULDER, Feature.FOREST_ROCK,
                 new SingleStateFeatureConfig(Blocks.DIORITE.getDefaultState()));
         ConfiguredFeatures.register(featureRegisterable, GRANITE_BOULDER, Feature.FOREST_ROCK,

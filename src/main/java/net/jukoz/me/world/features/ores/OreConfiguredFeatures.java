@@ -58,6 +58,9 @@ public class OreConfiguredFeatures {
         BlockMatchRuleTest grassTest = new BlockMatchRuleTest(Blocks.GRASS_BLOCK);
         BlockMatchRuleTest ashenStoneTest = new BlockMatchRuleTest(StoneBlockSets.ASHEN_STONE.base());
         TagMatchRuleTest stoneTest = new TagMatchRuleTest(BlockTags.BASE_STONE_OVERWORLD);
+        List<OreFeatureConfig.Target> calciteList = List.of(
+                OreFeatureConfig.createTarget(stoneTest, Blocks.CALCITE.getDefaultState()),
+                OreFeatureConfig.createTarget(dirtTest, Blocks.CALCITE.getDefaultState()));
 
         ConfiguredFeatures.register(featureRegisterable, ANDESITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.ANDESITE.getDefaultState(), 64, 0.4f));
@@ -77,7 +80,7 @@ public class OreConfiguredFeatures {
                 new OreFeatureConfig(ashenStoneTest, ModBlocks.BLACK_SAND.getDefaultState(), 48, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, CALCITE_ORE, Feature.ORE,
-                new OreFeatureConfig(stoneTest, Blocks.CALCITE.getDefaultState(), 64));
+                new OreFeatureConfig(calciteList, 64, 0.2f));
 
         ConfiguredFeatures.register(featureRegisterable, BLUE_TUFF_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, StoneBlockSets.BLUE_TUFF.base().getDefaultState(), 64));

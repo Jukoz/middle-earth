@@ -19,6 +19,7 @@ import java.util.List;
 
 public class BoulderPlacedFeatures {
     public static final RegistryKey<PlacedFeature> ANDESITE_BOULDER = registerKey("andesite_boulder");
+    public static final RegistryKey<PlacedFeature> CALCITE_BOULDER = registerKey("calcite_boulder");
     public static final RegistryKey<PlacedFeature> DIORITE_BOULDER = registerKey("diorite_boulder");
     public static final RegistryKey<PlacedFeature> GRANITE_BOULDER = registerKey("granite_boulder");
     public static final RegistryKey<PlacedFeature> LIMESTONE_BOULDER = registerKey("limestone_boulder");
@@ -30,6 +31,7 @@ public class BoulderPlacedFeatures {
     public static void bootstrap(Registerable<PlacedFeature> featureRegisterable) {
         RegistryEntryLookup<ConfiguredFeature<?, ?>> registryEntryLookup = featureRegisterable.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> andesite = registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.ANDESITE_BOULDER);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> calcite = registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.CALCITE_BOULDER);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> diorite = registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.DIORITE_BOULDER);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> granite = registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.GRANITE_BOULDER);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> limestone = registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.LIMESTONE_BOULDER);
@@ -40,7 +42,10 @@ public class BoulderPlacedFeatures {
 
         PlacementModifier common = PlacedFeatures.createCountExtraModifier(0, 0.5f, 1);
         PlacementModifier placeChance = PlacedFeatures.createCountExtraModifier(0, 0.25f, 1);
+
         PlacedFeatures.register(featureRegisterable, ANDESITE_BOULDER, andesite, placeChance,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, CALCITE_BOULDER, calcite, placeChance,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, DIORITE_BOULDER, diorite, placeChance,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

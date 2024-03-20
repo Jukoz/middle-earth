@@ -1,6 +1,7 @@
 package net.jukoz.me.world.features.ores;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.world.features.underground.CavesConfiguredFeatures;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
@@ -23,6 +24,7 @@ public class OrePlacedFeatures {
     public static final RegistryKey<PlacedFeature> BLACK_SAND_ORE = registerKey("black_sand_ore");
     public static final RegistryKey<PlacedFeature> BLUE_TUFF_ORE = registerKey("blue_tuff_ore");
     public static final RegistryKey<PlacedFeature> CALCITE_ORE = registerKey("calcite_ore");
+    public static final RegistryKey<PlacedFeature> RARE_CALCITE_ORE = registerKey("rare_calcite_ore");
     public static final RegistryKey<PlacedFeature> COARSE_DIRT_ORE = registerKey("coarse_dirt_ore");
     public static final RegistryKey<PlacedFeature> CORRUPTED_MOSS_DISK = registerKey("corrupted_moss_disk");
     public static final RegistryKey<PlacedFeature> DIORITE_ORE = registerKey("diorite_ore");
@@ -45,6 +47,7 @@ public class OrePlacedFeatures {
     public static final RegistryKey<PlacedFeature> SNOW_ORE = registerKey("snow_ore");
     public static final RegistryKey<PlacedFeature> CALCITE_STONE_ORE = registerKey("calcite_stone_ore");
     public static final RegistryKey<PlacedFeature> GRASS_STONE_ORE = registerKey("grass_stone_ore");
+    public static final RegistryKey<PlacedFeature> TERRACOTTA_ORE = registerKey("terracotta_ore");
     public static final RegistryKey<PlacedFeature> TUFF_ORE = registerKey("tuff_ore");
     public static final RegistryKey<PlacedFeature> ABUNDANT_TUFF_ORE = registerKey("abundant_tuff_ore");
     public static final RegistryKey<PlacedFeature> WHITE_SAND_ORE = registerKey("white_sand_ore");
@@ -79,13 +82,15 @@ public class OrePlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> sand = registryEntryLookup.getOrThrow(OreConfiguredFeatures.SAND_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> calciteStone = registryEntryLookup.getOrThrow(OreConfiguredFeatures.CALCITE_STONE_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> grassStone = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRASS_STONE_ORE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> terracotta = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_TERRACOTTA);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> stoneTuff = registryEntryLookup.getOrThrow(OreConfiguredFeatures.TUFF_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> lightGrayConcretePowder = registryEntryLookup.getOrThrow(OreConfiguredFeatures.WHITE_SAND_ORE);
 
         PlacementModifier abundant = PlacedFeatures.createCountExtraModifier(2, 0.5f, 1);
         PlacementModifier veryCommon = RarityFilterPlacementModifier.of(1);
         PlacementModifier common = RarityFilterPlacementModifier.of(2);
-        PlacementModifier uncommon = PlacedFeatures.createCountExtraModifier(0, 0.1f, 1);
+        PlacementModifier uncommon = PlacedFeatures.createCountExtraModifier(0, 0.25f, 1);
+        PlacementModifier rare = PlacedFeatures.createCountExtraModifier(0, 0.1f, 1);
 
         PlacedFeatures.register(featureRegisterable, ANDESITE_ORE, andesite, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
@@ -95,13 +100,15 @@ public class OrePlacedFeatures {
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, ASHEN_DIRT_STONE_ORE, ashenDirtStone, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, BASALT_ORE, basalt, uncommon,
+        PlacedFeatures.register(featureRegisterable, BASALT_ORE, basalt, rare,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, BLACK_SAND_ORE, blackSand, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, BLUE_TUFF_ORE, blueTuff, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, CALCITE_ORE, calcite, veryCommon,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, RARE_CALCITE_ORE, calcite, uncommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, COARSE_DIRT_ORE, coarseDirt, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
@@ -122,7 +129,7 @@ public class OrePlacedFeatures {
                 PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, GRANITE_ORE, granite, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, GRAVEL_ORE, gravel, uncommon,
+        PlacedFeatures.register(featureRegisterable, GRAVEL_ORE, gravel, rare,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, STONE_GRASS_ORE, stoneGrass, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
@@ -148,6 +155,8 @@ public class OrePlacedFeatures {
         PlacedFeatures.register(featureRegisterable, CALCITE_STONE_ORE, calciteStone, abundant,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, GRASS_STONE_ORE, grassStone, veryCommon,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, TERRACOTTA_ORE, terracotta, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, TUFF_ORE, stoneTuff, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

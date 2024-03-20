@@ -107,7 +107,7 @@ public class MEBiomesData {
         addBiome(new Color(93, 113, 92), new MEBiome(41, MEBiomeKeys.DORWINION_HILLS, Blocks.STONE, Blocks.STONE, StoneBlockSets.LIMESTONE.base()));
         addBiome(new Color(132, 137, 124), new MEBiome(35, MEBiomeKeys.DUNLAND_FOOTHILLS, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(140, 150, 84), new MEBiome(4, MEBiomeKeys.EASTERN_RHOVANION, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
-        addBiome(new Color(120, 107, 84), new MEBiome(31, MEBiomeKeys.EMYN_MUIL, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
+        addBiome(new Color(120, 107, 84), new MEBiome(31, MEBiomeKeys.EMYN_MUIL, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(117, 164, 109), new MEBiome(6, MEBiomeKeys.ENEDWAITH, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(168, 168, 170), new MEBiome(38, MEBiomeKeys.LONELY_MOUNTAIN, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(185, 185, 187), new MEBiome(29, MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS, Blocks.STONE, Blocks.STONE, Blocks.STONE));
@@ -174,7 +174,7 @@ public class MEBiomesData {
         addBiome(new Color(40, 66, 42), new MEBiome(8, MEBiomeKeys.TROLLSHAWS, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(225, 192, 133), new MEBiome(7, MEBiomeKeys.UMBAR, Blocks.GRASS_BLOCK, Blocks.SANDSTONE, Blocks.STONE, CaveType.HARAD));
         addBiome(new Color(242, 255, 240), new MEBiome(51, MEBiomeKeys.WHITE_MOUNTAINS, Blocks.CALCITE, Blocks.CALCITE, Blocks.CALCITE, Blocks.STONE));
-        addBiome(new Color(219, 245, 215), new MEBiome(31, MEBiomeKeys.WHITE_MOUNTAINS_FOOTHILLS, Blocks.STONE, Blocks.CALCITE, Blocks.CALCITE, Blocks.STONE));
+        addBiome(new Color(219, 245, 215), new MEBiome(31, MEBiomeKeys.WHITE_MOUNTAINS_FOOTHILLS, Blocks.GRASS_BLOCK, Blocks.CALCITE, Blocks.CALCITE, Blocks.STONE));
         addBiome(new Color(22, 102, 31), new MEBiome(5, MEBiomeKeys.WOODLAND_REALM, Blocks.GRASS_BLOCK, Blocks.DIRT, StoneBlockSets.LIMESTONE.base(), Blocks.STONE));
 
         waterBiomes.add(MEBiomeKeys.FROZEN_POND);

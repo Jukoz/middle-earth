@@ -75,6 +75,10 @@ public class ModBiomeFeatures {
         vegetation.add(ModTreePlacedFeatures.BLACK_LEBETHRON_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.WHITE_LEBETHRON_PLACED_TREE_KEY);
     }
+    public static void addCommonLebethronTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.COMMON_BLACK_LEBETHRON_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.COMMON_WHITE_LEBETHRON_PLACED_TREE_KEY);
+    }
     public static void addRareLebethronTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.RARE_BLACK_LEBETHRON_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.RARE_WHITE_LEBETHRON_PLACED_TREE_KEY);
@@ -113,6 +117,9 @@ public class ModBiomeFeatures {
     }
     public static void addOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.OAK_PLACED_TREE_KEY);
+    }
+    public static void addOakVinesTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.OAK_VINES_PLACED_TREE_KEY);
     }
     public static void addMegaOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.MEGA_OAK_PLACED_TREE_KEY);
@@ -180,6 +187,9 @@ public class ModBiomeFeatures {
     // region BOULDERS
     public static void addAndesiteBoulder(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(BoulderPlacedFeatures.ANDESITE_BOULDER);
+    }
+    public static void addCalciteBoulder(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(BoulderPlacedFeatures.CALCITE_BOULDER);
     }
     public static void addDioriteBoulder(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(BoulderPlacedFeatures.DIORITE_BOULDER);
@@ -384,6 +394,9 @@ public class ModBiomeFeatures {
     public static void addCalciteOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.CALCITE_ORE);
     }
+    public static void addRareCalciteOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.RARE_CALCITE_ORE);
+    }
     public static void addCoarseDirtOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.COARSE_DIRT_ORE);
     }
@@ -443,6 +456,9 @@ public class ModBiomeFeatures {
     }
     public static void addGrassStoneOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.GRASS_STONE_ORE);
+    }
+    public static void addTerracottaOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.TERRACOTTA_ORE);
     }
     public static void addTuffOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.TUFF_ORE);

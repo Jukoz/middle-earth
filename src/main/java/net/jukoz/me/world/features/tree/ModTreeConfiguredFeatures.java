@@ -44,6 +44,7 @@ public class ModTreeConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> MAPLE_TREE_KEY = registerKey("maple_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> OAK_BUSH_TREE_KEY = registerKey("oak_bush_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> OAK_TREE_KEY = registerKey("oak_tree");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> OAK_TREE_VINES_KEY = registerKey("oak_vines_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEGA_OAK_TREE_KEY = registerKey("mega_oak_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PALM_TREE_KEY = registerKey("palm_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> WHITE_PALM_TREE_KEY = registerKey("white_palm_tree");
@@ -176,6 +177,14 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.of(Blocks.OAK_LEAVES),
             new OvalFoliagePlacer(2, ConstantIntProvider.create(0), ConstantIntProvider.create(3), 0.3f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
+        register(context, OAK_TREE_VINES_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
+            BlockStateProvider.of(Blocks.OAK_LOG),
+            new CanopyTrunkPlacer(10, 2, 0.91f, 0.87f, 5.0f, 3, 0.42f, -0.1f, 1,1),
+            BlockStateProvider.of(Blocks.OAK_LEAVES),
+            new OvalFoliagePlacer(2, ConstantIntProvider.create(0), ConstantIntProvider.create(3), 0.3f),
+            new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(ImmutableList.of(new LeavesVineTreeDecorator(0.25F)))
             .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
         register(context, MEGA_OAK_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
             BlockStateProvider.of(Blocks.OAK_LOG),
