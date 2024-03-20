@@ -1,7 +1,7 @@
 package net.jukoz.me.entity.spider;
 
 import net.jukoz.me.block.ModNatureBlocks;
-import net.jukoz.me.entity.dwarves.durin.DurinDwarfEntity;
+import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.FastPonceAtTargetGoal;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
@@ -61,7 +61,7 @@ public class MirkwoodSpiderEntity extends HostileEntity {
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(4, new ActiveTargetGoal<>(this, DurinDwarfEntity.class, true));
+        this.targetSelector.add(4, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(5, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
         this.targetSelector.add(6, new ActiveTargetGoal<>(this, MordorOrcEntity.class, true));
     }

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "me:stucco"
+    },
+    {
+      "item": "me:mixed_stones"
+    }
+  ],
+  "result": {
+    "item": "me:exposed_stucco_mixed_stones",
+    "count":  2
+  }
+}

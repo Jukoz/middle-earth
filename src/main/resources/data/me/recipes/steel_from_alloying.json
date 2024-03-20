@@ -1,0 +1,21 @@
+{
+  "type": "me:alloy_furnace",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:coal"
+    }
+  ],
+  "output": {
+    "item": "me:steel_ingot",
+    "count": 3
+  }
+}

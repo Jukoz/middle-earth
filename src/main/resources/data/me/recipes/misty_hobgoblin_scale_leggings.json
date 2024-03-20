@@ -1,0 +1,27 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_leggings"
+    },
+    {
+      "item": "me:uruk_steel_ingot"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "me:uruk_steel_ingot"
+    },
+    {
+      "item": "minecraft:brown_wool"
+    },
+    {
+      "item": "minecraft:brown_wool"
+    }
+  ],
+  "output": {
+    "item": "me:misty_hobgoblin_scale_leggings",
+    "count": 1
+  }
+}

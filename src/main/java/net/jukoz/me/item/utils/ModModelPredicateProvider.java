@@ -33,10 +33,10 @@ public class ModModelPredicateProvider {
     }
 
     private static void registerShieldModel() {
-        registerShield(ModEquipmentItems.GONDOR_SHIELD);
-        registerShield(ModEquipmentItems.ROHAN_SHIELD);
+        registerShield(ModEquipmentItems.GONDORIAN_SHIELD);
+        registerShield(ModEquipmentItems.ROHIRRIC_SHIELD);
         registerShield(ModEquipmentItems.LONGBEARD_SHIELD);
-        registerShield(ModEquipmentItems.LOTHLORIEN_SHIELD);
+        registerShield(ModEquipmentItems.LORIEN_SHIELD);
         registerShield(ModEquipmentItems.MORDOR_SHIELD);
         registerShield(ModEquipmentItems.MISTY_MOUNTAINS_SHIELD);
     }

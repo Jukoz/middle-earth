@@ -2,8 +2,8 @@ package net.jukoz.me.world.datas;
 
 import com.google.common.base.Stopwatch;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.world.biomes.MEBiome;
-import net.jukoz.me.world.biomes.MEBiomesData;
+import net.jukoz.me.world.biomes.surface.MEBiome;
+import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
 import org.joml.Vector2i;
 
@@ -331,8 +331,8 @@ public class MiddleEarthMapDatas {
     public Color getHeightFromWorldCoordinates(int xWorld, int zWorld) {
         if(!isWorldCoordinateInBound(xWorld, zWorld)) return null;
 
-        int xMapCoordinate = Math.round((float) xWorld / PIXEL_WEIGHT);
-        int zMapCoordinate = Math.round((float) zWorld / PIXEL_WEIGHT);
+        int xMapCoordinate = (int)Math.floor((double) xWorld / PIXEL_WEIGHT);
+        int zMapCoordinate = (int)Math.floor((double) zWorld / PIXEL_WEIGHT);
 
         BufferedImage heightRegion = getHeightImageByCoordinate(xMapCoordinate, zMapCoordinate);
 

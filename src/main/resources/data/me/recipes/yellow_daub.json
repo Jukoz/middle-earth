@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "SDS",
+    "SSS"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:yellow_dye"
+    },
+    "S": {
+      "item": "me:white_daub"
+    }
+  },
+  "result": {
+    "item": "me:yellow_daub",
+    "count":  8
+  }
+}

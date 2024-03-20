@@ -1,0 +1,21 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "me:elven_steel_nugget"
+    },
+    {
+      "item": "me:elven_steel_ingot"
+    },
+    {
+      "item": "minecraft:stick"
+    },
+    {
+      "item": "minecraft:stick"
+    }
+  ],
+  "output": {
+    "item": "me:lorien_pike",
+    "count": 1
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "minecraft:shield"
+    },
+    {
+      "item": "me:elven_steel_nugget"
+    },
+    {
+      "item": "me:lothlorien_banner_pattern"
+    },
+    {
+      "item": "me:elven_steel_nugget"
+    },
+    {
+      "item": "minecraft:yellow_dye"
+    },
+    {
+      "item": "minecraft:yellow_dye"
+    }
+  ],
+  "output": {
+    "item": "me:lorien_shield",
+    "count": 1
+  }
+}

@@ -9,6 +9,9 @@ import java.util.List;
 public class MineablePickaxe {
     public static List<Block> blocks = new ArrayList<>() {
         {
+            add(ModBlocks.CHISELED_ASHEN_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_ASHEN_STONE);
+
             add(ModBlocks.CHISELED_GONLUIN_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_GONLUIN);
 
@@ -34,9 +37,16 @@ public class MineablePickaxe {
 
             add(ModBlocks.CHISELED_BASALT_BRICKS);
 
+            add(ModBlocks.CHISELED_DOLOMITE_BRICKS);
+
             add(ModBlocks.DIFTOMIN_PILLAR);
             add(ModBlocks.CHISELED_DIFTOMIN_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_DIFTOMIN);
+
+            add(ModBlocks.EPMOSTO_PILLAR);
+            add(ModBlocks.CHISELED_EPMOSTO);
+            add(ModBlocks.CHISELED_EPMOSTO_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_EPMOSTO);
 
             add(ModBlocks.RAW_MITHRIL_BLOCK);
             add(ModBlocks.MITHRIL_BLOCK);
@@ -47,14 +57,31 @@ public class MineablePickaxe {
             add(ModBlocks.RAW_SILVER_BLOCK);
             add(ModBlocks.SILVER_BLOCK);
 
+            add(ModBlocks.BRONZE_BLOCK);
+            add(ModBlocks.ORC_STEEL_BLOCK);
+            add(ModBlocks.STEEL_BLOCK);
+            add(ModBlocks.DWARVEN_STEEL_BLOCK);
+            add(ModBlocks.ELVEN_STEEL_BLOCK);
+            add(ModBlocks.URUK_STEEL_BLOCK);
+
             add(ModBlocks.STONE_PILLAR);
             add(ModBlocks.MOSSY_STONE_PILLAR);
             add(ModBlocks.CRACKED_STONE_PILLAR);
+
+            add(ModBlocks.ASHEN_PILLAR);
+
+            add(ModBlocks.GONLUIN_PILLAR);
+            add(ModBlocks.CRACKED_GONLUIN_PILLAR);
 
             add(ModBlocks.DEEPSLATE_PILLAR);
 
             add(ModBlocks.FROZEN_PILLAR);
 
+            add(ModBlocks.DOLOMITE_PILLAR);
+
+            add(ModBlocks.BLUE_TUFF_PILLAR);
+            add(ModBlocks.MOSSY_BLUE_TUFF_PILLAR);
+            add(ModBlocks.CRACKED_BLUE_TUFF_PILLAR);
 
             add(ModBlocks.CALCITE_PILLAR);
             add(ModBlocks.MOSSY_CALCITE_PILLAR);

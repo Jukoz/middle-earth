@@ -1,0 +1,27 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "me:lorien_mail_leggings"
+    },
+    {
+      "item": "me:elven_steel_ingot"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "me:elven_steel_ingot"
+    },
+    {
+      "item": "minecraft:blue_wool"
+    },
+    {
+      "item": "minecraft:blue_wool"
+    }
+  ],
+  "output": {
+    "item": "me:lorien_scale_leggings",
+    "count": 1
+  }
+}

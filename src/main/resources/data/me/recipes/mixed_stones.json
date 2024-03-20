@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    {
+      "item": "me:cobbled_limestone"
+    },
+    {
+      "item": "me:cobbled_granite"
+    },
+    {
+      "item": "me:cobbled_andesite"
+    }
+  ],
+  "result": {
+    "item": "me:mixed_stones",
+    "count": 4
+  }
+}

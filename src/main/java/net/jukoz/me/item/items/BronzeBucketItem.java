@@ -33,7 +33,7 @@ public class BronzeBucketItem extends BucketItem {
         this.fluid = fluid;
     }
 
-    @Override
+    /*@Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         BlockHitResult blockHitResult = raycast(world, user, this.fluid == Fluids.EMPTY ? RaycastContext.FluidHandling.SOURCE_ONLY : RaycastContext.FluidHandling.NONE);
@@ -92,5 +92,5 @@ public class BronzeBucketItem extends BucketItem {
 
     public static ItemStack getEmptiedStack(ItemStack stack, PlayerEntity player) {
         return !player.getAbilities().creativeMode ? new ItemStack(ModToolItems.BRONZE_BUCKET) : stack;
-    }
+    }*/
 }

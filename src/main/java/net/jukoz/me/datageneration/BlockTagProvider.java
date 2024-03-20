@@ -10,6 +10,7 @@ import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.content.tags.*;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
@@ -36,6 +37,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         var needsIronTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "needs_iron_tool")));
         var needsDiamondTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "needs_diamond_tool")));
         var needsNetheriteTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("fabric", "needs_tool_level_4")));
+
+        var baseStoneOverworld = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "base_stone_overworld")));
 
         var seat = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier(MiddleEarth.MOD_ID, "seat")));
         var table = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier(MiddleEarth.MOD_ID, "table")));
@@ -72,7 +75,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         TagKey<Block> tin_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "tin_ores"));
         TagKey<Block> lead_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "lead_ores"));
         TagKey<Block> silver_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "silver_ores"));
-        TagKey<Block> mithril_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "mihtril_pres"));
+        TagKey<Block> mithril_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "mithril_ores"));
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {
@@ -131,7 +134,9 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
             }
         }
 
+        baseStoneOverworld.add(Blocks.CALCITE);
         for (StoneBlockSets.SimpleBlockSetMain record : StoneBlockSets.setsMain) {
+            if(record.base() != StoneBlockSets.ASHEN_STONE.base()) baseStoneOverworld.add(record.base());
             if (Registries.BLOCK.getId(record.base()).getPath().contains("diftomin")){
                 needsIronTools.add(record.base());
                 needsIronTools.add(record.slab());
@@ -157,10 +162,6 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 needsStoneTools.add(record.stool());
                 needsStoneTools.add(record.table());
             }
-        }
-
-        for (SimpleStoneChairModel.VanillaChair block : SimpleStoneChairModel.vanillaChairs) {
-
         }
 
         SimpleStoneStoolModel.stools.forEach(seat::add);
@@ -207,6 +208,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsStoneTools.add(OreRockSets.DEEPSLATE.tin_ore());
         needsStoneTools.add(OreRockSets.DEEPSLATE.lead_ore());
 
+        needsStoneTools.add(OreRockSets.DEEPSLATE.lead_ore());
+
         needsIronTools.add(OreRockSets.DIFTOMIN.tin_ore());
         needsIronTools.add(OreRockSets.DIFTOMIN.lead_ore());
         needsIronTools.add(OreRockSets.DIFTOMIN.silver_ore());
@@ -219,9 +222,18 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsDiamondTools.add(OreRockSets.EPMOSTO.iron_ore());
         needsDiamondTools.add(OreRockSets.EPMOSTO.mithril_ore());
 
+        needsStoneTools.add(ModBlocks.BRONZE_BLOCK);
+        needsStoneTools.add(ModBlocks.ORC_STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.DWARVEN_STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.ELVEN_STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.URUK_STEEL_BLOCK);
+
         mineablePickaxe.add(ModBlocks.STONE_MYCELIUM);
         mineableShovel.add(ModBlocks.ASH_BLOCK);
         mineableShovel.add(ModBlocks.RIVER_SAND);
+        mineableShovel.add(ModBlocks.BLACK_SAND);
+        mineableShovel.add(ModBlocks.WHITE_SAND);
 
         mineablePickaxe.add(ModDecorativeBlocks.DWARVEN_LANTERN);
         mineablePickaxe.add(ModDecorativeBlocks.SILVER_LANTERN);
@@ -243,6 +255,9 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableHoe.add(ModBlocks.STRAW_VERTICAL_SLAB);
         mineableHoe.add(ModBlocks.STRAW_STAIRS);
         mineableHoe.add(ModBlocks.STRAW_WALL);
+
+        mineableAxe.add(ModDecorativeBlocks.WOOD_PILE);
+        mineableAxe.add(ModDecorativeBlocks.ARTISAN_TABLE);
 
         mineablePickaxe.add(ModBlocks.STONE_VERTICAL_SLAB);
         mineablePickaxe.add(ModBlocks.COBBLESTONE_VERTICAL_SLAB);
@@ -289,6 +304,51 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.WAXED_WEATHERED_CUT_COPPER_VERTICAL_SLAB);
         mineablePickaxe.add(ModBlocks.WAXED_OXIDIZED_CUT_COPPER_VERTICAL_SLAB);
 
+        mineableAxe.add(ModBlocks.OAK_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.SPRUCE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.BIRCH_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.JUNGLE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.ACACIA_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.DARK_OAK_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.MANGROVE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.CHERRY_WOOD_SLAB);
+
+        mineableAxe.add(ModBlocks.STRIPPED_OAK_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_SPRUCE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_BIRCH_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_JUNGLE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_ACACIA_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_DARK_OAK_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_MANGROVE_WOOD_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_CHERRY_WOOD_SLAB);
+
+        mineableAxe.add(ModBlocks.STRIPPED_OAK_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_SPRUCE_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_BIRCH_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_JUNGLE_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_ACACIA_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_DARK_OAK_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_MANGROVE_WOOD_STAIRS);
+        mineableAxe.add(ModBlocks.STRIPPED_CHERRY_WOOD_STAIRS);
+
+        mineableAxe.add(ModBlocks.OAK_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.SPRUCE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.BIRCH_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.JUNGLE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.ACACIA_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.DARK_OAK_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.MANGROVE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.CHERRY_WOOD_VERTICAL_SLAB);
+
+        mineableAxe.add(ModBlocks.STRIPPED_OAK_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_SPRUCE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_BIRCH_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_JUNGLE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_ACACIA_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_DARK_OAK_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_MANGROVE_WOOD_VERTICAL_SLAB);
+        mineableAxe.add(ModBlocks.STRIPPED_CHERRY_WOOD_VERTICAL_SLAB);
+
         mineableAxe.add(ModBlocks.OAK_VERTICAL_SLAB);
         mineableAxe.add(ModBlocks.SPRUCE_VERTICAL_SLAB);
         mineableAxe.add(ModBlocks.BIRCH_VERTICAL_SLAB);
@@ -303,6 +363,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineableShovel.add(ModBlocks.GRAVEL_LAYER);
         mineableShovel.add(ModBlocks.SAND_LAYER);
+        mineableShovel.add(ModBlocks.BLACK_SAND_LAYER);
+        mineableShovel.add(ModBlocks.WHITE_SAND_LAYER);
 
         mineableShovel.add(ModBlocks.DIRT_SLAB);
         mineableShovel.add(ModBlocks.DIRT_STAIRS);
@@ -314,12 +376,17 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineableShovel.add(ModBlocks.ROOTED_DIRT_SLAB);
         
-        mineablePickaxe.add(ModBlocks.SAPPHIRE_BLOCK);
-        mineablePickaxe.add(ModBlocks.BUDDING_SAPPHIRE);
-        mineablePickaxe.add(ModBlocks.SMALL_SAPPHIRE_BUD);
-        mineablePickaxe.add(ModBlocks.MEDIUM_SAPPHIRE_BUD);
-        mineablePickaxe.add(ModBlocks.LARGE_SAPPHIRE_BUD);
-        mineablePickaxe.add(ModBlocks.SAPPHIRE_CLUSTER);
+        mineablePickaxe.add(ModBlocks.PACKED_MUD_SLAB);
+        mineablePickaxe.add(ModBlocks.PACKED_MUD_VERTICAL_SLAB);
+        mineablePickaxe.add(ModBlocks.PACKED_MUD_STAIRS);
+        mineablePickaxe.add(ModBlocks.PACKED_MUD_WALL);
+
+        mineablePickaxe.add(ModBlocks.QUARTZ_BLOCK);
+        mineablePickaxe.add(ModBlocks.BUDDING_QUARTZ);
+        mineablePickaxe.add(ModBlocks.SMALL_QUARTZ_BUD);
+        mineablePickaxe.add(ModBlocks.MEDIUM_QUARTZ_BUD);
+        mineablePickaxe.add(ModBlocks.LARGE_QUARTZ_BUD);
+        mineablePickaxe.add(ModBlocks.QUARTZ_CLUSTER);
         mineablePickaxe.add(ModBlocks.CITRINE_BLOCK);
         mineablePickaxe.add(ModBlocks.BUDDING_CITRINE);
         mineablePickaxe.add(ModBlocks.SMALL_CITRINE_BUD);
@@ -332,5 +399,11 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.MEDIUM_RED_AGATE_BUD);
         mineablePickaxe.add(ModBlocks.LARGE_RED_AGATE_BUD);
         mineablePickaxe.add(ModBlocks.RED_AGATE_CLUSTER);
+        mineablePickaxe.add(ModBlocks.GLOWSTONE_BLOCK);
+        mineablePickaxe.add(ModBlocks.BUDDING_GLOWSTONE);
+        mineablePickaxe.add(ModBlocks.SMALL_GLOWSTONE_BUD);
+        mineablePickaxe.add(ModBlocks.MEDIUM_GLOWSTONE_BUD);
+        mineablePickaxe.add(ModBlocks.LARGE_GLOWSTONE_BUD);
+        mineablePickaxe.add(ModBlocks.GLOWSTONE_CLUSTER);
     }
 }

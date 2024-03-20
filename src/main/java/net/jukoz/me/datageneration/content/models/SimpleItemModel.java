@@ -1,8 +1,6 @@
 package net.jukoz.me.datageneration.content.models;
 
-import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.item.ModDecorativeItems;
-import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.item.Item;
@@ -49,27 +47,14 @@ public class SimpleItemModel {
             add(ModFoodItems.RAW_RAT);
             add(ModFoodItems.COOKED_RAT);
 
-            add(ModEquipmentItems.NAZGUL_CLOAK_HOOD);
-            add(ModEquipmentItems.NAZGUL_CLOAK);
-            add(ModEquipmentItems.NAZGUL_PANTS);
-            add(ModEquipmentItems.NAZGUL_BOOTS);
-
-            add(ModEquipmentItems.STEEL_TROLL_ARMOR);
-            add(ModEquipmentItems.MORDOR_ORC_HELMET);
-            add(ModEquipmentItems.MORDOR_ORC_CHESTPLATE);
-            add(ModEquipmentItems.MORDOR_ORC_LEGGINGS);
-            add(ModEquipmentItems.MORDOR_ORC_BOOTS);
-
-            add(ModEquipmentItems.ROHIRRIC_HORSE_ARMOR);
-
             add(ModResourceItems.GLOWWORM_BOTTLE);
 
             add(ModResourceItems.COPPER_COIN);
             add(ModResourceItems.SILVER_COIN);
 
             add(ModResourceItems.RED_AGATE_SHARD);
-            add(ModResourceItems.SAPPHIRE_SHARD);
             add(ModResourceItems.CITRINE_SHARD);
+            add(ModResourceItems.QUARTZ_SHARD);
 
             add(ModResourceItems.ORC_BONE);
             add(ModResourceItems.WARG_BONE);
@@ -122,12 +107,15 @@ public class SimpleItemModel {
             add(ModResourceItems.DWARVEN_STEEL_ROD);
 
             add(ModResourceItems.MORGUL_STEEL_INGOT);
+            add(ModResourceItems.MORGUL_STEEL_NUGGET);
             add(ModResourceItems.MORGUL_STEEL_ROD);
 
             add(ModResourceItems.RAW_MITHRIL);
             add(ModResourceItems.MITHRIL_INGOT);
             add(ModResourceItems.MITHRIL_NUGGET);
             add(ModResourceItems.MITHRIL_ROD);
+
+            add(ModResourceItems.IRON_CHAINMAIL);
 
             add(ModResourceItems.PINECONE);
             add(ModResourceItems.LIT_PINECONE);

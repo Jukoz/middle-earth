@@ -1,22 +1,26 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#S#",
-    "#L#",
-    "# #"
-  ],
-  "key": {
-    "#": {
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "minecraft:leather_chestplate"
+    },
+    {
       "item": "minecraft:white_wool"
     },
-    "S": {
+    {
       "item": "minecraft:string"
     },
-    "L": {
-      "item": "minecraft:leather_chestplate"
+    {
+      "item": "minecraft:white_wool"
+    },
+    {
+      "item": "minecraft:white_wool"
+    },
+    {
+      "item": "minecraft:white_wool"
     }
-  },
-  "result": {
+  ],
+  "output": {
     "item": "me:tunic_cloak",
     "count": 1
   }

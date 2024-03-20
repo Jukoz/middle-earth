@@ -54,8 +54,8 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if(state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if(blockEntity instanceof WoodPileBlockEntity woddPileBlockEntity) {
-                ItemScatterer.spawn(world, pos, woddPileBlockEntity);
+            if(blockEntity instanceof WoodPileBlockEntity woodPileBlockEntity) {
+                ItemScatterer.spawn(world, pos, woodPileBlockEntity);
             }
             super.onStateReplaced(state, world, pos, newState, moved);
         }
@@ -66,10 +66,14 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
         if (world.isClient) {
             return ActionResult.SUCCESS;
         } else {
-            if (addStackRightClick(world, pos, player, hand)){
-                NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-                if(screenHandlerFactory != null) {
-                    player.openHandledScreen(screenHandlerFactory);
+            if(player.isCreative()){
+                world.setBlockState(pos, state.cycle(STAGE));
+            } else {
+                if (addStackRightClick(world, pos, player, hand)) {
+                    NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+                    if (screenHandlerFactory != null) {
+                        player.openHandledScreen(screenHandlerFactory);
+                    }
                 }
             }
         }

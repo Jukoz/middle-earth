@@ -14,7 +14,7 @@ public class CustomPowderSnowBucket extends PowderSnowBucketItem {
         super(block, placeSound, settings);
     }
 
-    @Override
+    /*@Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         ActionResult actionResult = super.useOnBlock(context);
         PlayerEntity playerEntity = context.getPlayer();
@@ -24,5 +24,5 @@ public class CustomPowderSnowBucket extends PowderSnowBucketItem {
         }
 
         return actionResult;
-    }
+    }*/
 }

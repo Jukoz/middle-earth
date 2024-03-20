@@ -1,0 +1,21 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "me:bronze_nugget"
+    },
+    {
+      "item": "me:bronze_ingot"
+    },
+    {
+      "item": "minecraft:stick"
+    },
+    {
+      "item": "minecraft:stick"
+    }
+  ],
+  "output": {
+    "item": "me:bronze_pike",
+    "count": 1
+  }
+}
