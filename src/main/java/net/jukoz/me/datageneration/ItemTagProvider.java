@@ -34,6 +34,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> copper_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "copper_ores"));
         TagKey<Item> coal_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "coal_ores"));
 
+        TagKey<Item> saplings = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "saplings"));
+
         TagKey<Item> tin_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "tin_ores"));
         TagKey<Item> lead_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "lead_ores"));
         TagKey<Item> silver_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "silver_ores"));
@@ -43,6 +45,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
 
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "logs"))).add(Logs.getItemPlanks().toArray(new Item[0]));
+
 
         bones.add(Items.BONE);
         bones.add(ModResourceItems.ORC_BONE);
@@ -98,6 +101,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         Shingles.shingles.forEach(block -> {
             getOrCreateTagBuilder(shingles).add(block.asItem());
+        });
+
+        Saplings.saplings.forEach(sapling -> {
+            getOrCreateTagBuilder(saplings).add(sapling.asItem());
         });
     }
 }

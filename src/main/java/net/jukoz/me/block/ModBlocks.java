@@ -1,5 +1,6 @@
 package net.jukoz.me.block;
 
+import dev.architectury.registry.fuel.FuelRegistry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
@@ -827,69 +828,5 @@ public class ModBlocks {
 
     public static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
         return type == EntityType.OCELOT || type == EntityType.PARROT;
-    }
-
-    public static void registerFlammableBlocks(){
-        FlammableBlockRegistry.getDefaultInstance().add(WHITE_WOOL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(ORANGE_WOOL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(MAGENTA_WOOL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(LIGHT_BLUE_WOOL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(YELLOW_WOOL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(LIME_WOOL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(PINK_WOOL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(GRAY_WOOL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(LIGHT_GRAY_WOOL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(CYAN_WOOL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(PURPLE_WOOL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(BLUE_WOOL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(BROWN_WOOL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(GREEN_WOOL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RED_WOOL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(BLACK_WOOL_SLAB, 30, 60);
-        
-        FlammableBlockRegistry.getDefaultInstance().add(WHITE_WOOL_VERTICAL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(ORANGE_WOOL_VERTICAL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(MAGENTA_WOOL_VERTICAL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(LIGHT_BLUE_WOOL_VERTICAL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(YELLOW_WOOL_VERTICAL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(LIME_WOOL_VERTICAL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(PINK_WOOL_VERTICAL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(GRAY_WOOL_VERTICAL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(LIGHT_GRAY_WOOL_VERTICAL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(CYAN_WOOL_VERTICAL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(PURPLE_WOOL_VERTICAL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(BLUE_WOOL_VERTICAL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(BROWN_WOOL_VERTICAL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(GREEN_WOOL_VERTICAL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RED_WOOL_VERTICAL_SLAB, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(BLACK_WOOL_VERTICAL_SLAB, 30, 60);
-
-        FlammableBlockRegistry.getDefaultInstance().add(WHITE_WOOL_STAIRS, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(ORANGE_WOOL_STAIRS, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(MAGENTA_WOOL_STAIRS, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(LIGHT_BLUE_WOOL_STAIRS, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(YELLOW_WOOL_STAIRS, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(LIME_WOOL_STAIRS, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(PINK_WOOL_STAIRS, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(GRAY_WOOL_STAIRS, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(LIGHT_GRAY_WOOL_STAIRS, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(CYAN_WOOL_STAIRS, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(PURPLE_WOOL_STAIRS, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(BLUE_WOOL_STAIRS, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(BROWN_WOOL_STAIRS, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(GREEN_WOOL_STAIRS, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(RED_WOOL_STAIRS, 30, 60);
-        FlammableBlockRegistry.getDefaultInstance().add(BLACK_WOOL_STAIRS, 30, 60);
-    }
-
-    public static void registerAgingCopperBlocks(){
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(CUT_COPPER_VERTICAL_SLAB, EXPOSED_CUT_COPPER_VERTICAL_SLAB);
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(EXPOSED_CUT_COPPER_VERTICAL_SLAB, WEATHERED_CUT_COPPER_VERTICAL_SLAB);
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(WEATHERED_CUT_COPPER_VERTICAL_SLAB, OXIDIZED_CUT_COPPER_VERTICAL_SLAB);
-
-        OxidizableBlocksRegistry.registerWaxableBlockPair(CUT_COPPER_VERTICAL_SLAB, WAXED_CUT_COPPER_VERTICAL_SLAB);
-        OxidizableBlocksRegistry.registerWaxableBlockPair(EXPOSED_CUT_COPPER_VERTICAL_SLAB, WAXED_EXPOSED_CUT_COPPER_VERTICAL_SLAB);
-        OxidizableBlocksRegistry.registerWaxableBlockPair(WEATHERED_CUT_COPPER_VERTICAL_SLAB, WAXED_WEATHERED_CUT_COPPER_VERTICAL_SLAB);
-        OxidizableBlocksRegistry.registerWaxableBlockPair(OXIDIZED_CUT_COPPER_VERTICAL_SLAB, WAXED_OXIDIZED_CUT_COPPER_VERTICAL_SLAB);
     }
 }
