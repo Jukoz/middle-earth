@@ -7,9 +7,11 @@ import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.jukoz.me.block.*;
 import net.jukoz.me.datageneration.content.tags.LeavesSets;
 import net.jukoz.me.datageneration.content.tags.Saplings;
+import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.minecraft.block.cauldron.CauldronBehavior;
 
 public class ModRegistries {
 
@@ -393,6 +395,12 @@ public class ModRegistries {
         registry.add(ModResourceItems.LETTUCE_SEEDS, 0.3F);
         registry.add(ModResourceItems.TOMATO_SEEDS, 0.3F);
         registry.add(ModResourceItems.PIPEWEED_SEEDS, 0.3F);
+    }
 
+    public static void registerCauldronBehaviour(){
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ModEquipmentItems.GAMBESON, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ModEquipmentItems.CLOAK, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ModEquipmentItems.CLOAK_HOOD, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ModEquipmentItems.TUNIC_CLOAK, CauldronBehavior.CLEAN_DYEABLE_ITEM);
     }
 }

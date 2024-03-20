@@ -61,6 +61,7 @@ public class MiddleEarth implements ModInitializer {
 		ModRegistries.registerFlammableBlocks();
 		ModRegistries.registerAgingCopperBlocks();
 		ModRegistries.registerComposterBlocks();
+		ModRegistries.registerCauldronBehaviour();
 
 		ModBlockEntities.registerBlockEntities();
 
