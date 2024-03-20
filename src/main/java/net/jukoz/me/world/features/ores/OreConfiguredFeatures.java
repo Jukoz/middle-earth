@@ -4,6 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.StoneBlockSets;
+import net.jukoz.me.world.gen.ModFeatures;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
@@ -15,7 +16,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.PredicatedStateProvider;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ASHEN_DIRT_ORE = registerKey("ashen_dirt_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ASHEN_DIRT_STONE_ORE = registerKey("ashen_dirt_stone_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BASALT_ORE = registerKey("basalt_ore");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> BLACK_CONCRETE_POWDER_ORE = registerKey("black_concrete_powder_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> BLACK_SAND_ORE = registerKey("black_sand_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BLUE_TUFF_ORE = registerKey("blue_tuff_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> CALCITE_ORE = registerKey("calcite_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> COARSE_DIRT_ORE = registerKey("coarse_dirt_ore");
@@ -43,6 +43,7 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> GONLUIN_GRASS_ORE = registerKey("gonluin_grass_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> LIMESTONE_ORE = registerKey("limestone_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MUD_ORE = registerKey("mud_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PACKED_MUD_ORE = registerKey("packed_mud_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> OLD_PODZOL_ORE = registerKey("old_podzol_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PODZOL_ORE = registerKey("podzol_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SAND_ORE = registerKey("sand_ore");
@@ -50,7 +51,8 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> CALCITE_STONE_ORE = registerKey("calcite_stone_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRASS_STONE_ORE = registerKey("grass_stone_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> TUFF_ORE = registerKey("stone_tuff_ore");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> LIGHT_GRAY_CONCRETE_POWDER_ORE = registerKey("light_gray_concrete_powder_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> WHITE_SAND_ORE = registerKey("white_sand_ore");
+
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
         TagMatchRuleTest dirtTest = new TagMatchRuleTest(BlockTags.DIRT);
         BlockMatchRuleTest grassTest = new BlockMatchRuleTest(Blocks.GRASS_BLOCK);
@@ -71,8 +73,8 @@ public class OreConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, BASALT_ORE, Feature.ORE,
                 new OreFeatureConfig(ashenStoneTest, Blocks.BASALT.getDefaultState(), 64, 0.4f));
 
-        ConfiguredFeatures.register(featureRegisterable, BLACK_CONCRETE_POWDER_ORE, Feature.ORE,
-                new OreFeatureConfig(ashenStoneTest, Blocks.BLACK_CONCRETE_POWDER.getDefaultState(), 48, 0.4f));
+        ConfiguredFeatures.register(featureRegisterable, BLACK_SAND_ORE, Feature.ORE,
+                new OreFeatureConfig(ashenStoneTest, ModBlocks.BLACK_SAND.getDefaultState(), 48, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, CALCITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.CALCITE.getDefaultState(), 64));
@@ -112,9 +114,9 @@ public class OreConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, GRANITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.GRANITE.getDefaultState(), 64, 0.4f));
 
-        ConfiguredFeatures.register(featureRegisterable, STONE_GRASS_ORE, Feature.DISK,
-                new DiskFeatureConfig(PredicatedStateProvider.of(Blocks.GRASS_BLOCK),
-                        BlockPredicate.matchingBlockTag(BlockTags.BASE_STONE_OVERWORLD), UniformIntProvider.create(2, 6), 1));
+        ConfiguredFeatures.register(featureRegisterable, STONE_GRASS_ORE, ModFeatures.SURFACE_ORE,
+                new SurfaceOreFeatureConfig(stoneTest, Blocks.GRASS_BLOCK.getDefaultState(), 64));
+
         ConfiguredFeatures.register(featureRegisterable, GONLUIN_GRASS_ORE, Feature.DISK,
                 new DiskFeatureConfig(PredicatedStateProvider.of(Blocks.GRASS_BLOCK),
                         BlockPredicate.matchingBlocks(List.of(StoneBlockSets.GONLUIN.base())), UniformIntProvider.create(3, 6), 1));
@@ -127,6 +129,8 @@ public class OreConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, MUD_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, Blocks.MUD.getDefaultState(), 48, 0.4f));
+        ConfiguredFeatures.register(featureRegisterable, PACKED_MUD_ORE, Feature.ORE,
+                new OreFeatureConfig(dirtTest, Blocks.PACKED_MUD.getDefaultState(), 48, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, PODZOL_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, Blocks.PODZOL.getDefaultState(), 48, 0.4f));
@@ -145,8 +149,8 @@ public class OreConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, TUFF_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.TUFF.getDefaultState(), 48, 0.25f));
 
-        ConfiguredFeatures.register(featureRegisterable, LIGHT_GRAY_CONCRETE_POWDER_ORE, Feature.ORE,
-                new OreFeatureConfig(dirtTest, Blocks.LIGHT_GRAY_CONCRETE_POWDER.getDefaultState(), 48, 0.4f));
+        ConfiguredFeatures.register(featureRegisterable, WHITE_SAND_ORE, Feature.ORE,
+                new OreFeatureConfig(dirtTest, ModBlocks.WHITE_SAND.getDefaultState(), 48, 0.4f));
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {

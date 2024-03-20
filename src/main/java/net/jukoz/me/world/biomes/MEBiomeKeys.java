@@ -28,9 +28,9 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> EASTERN_RHOVANION = MEBiomeKeys.register("eastern_rhovanion");
     public static final RegistryKey<Biome> EMYN_MUIL = MEBiomeKeys.register("emyn_muil");
     public static final RegistryKey<Biome> ENEDWAITH = MEBiomeKeys.register("enedwaith");
-    public static final RegistryKey<Biome> EREBOR = MEBiomeKeys.register("erebor");
-    public static final RegistryKey<Biome> EREBOR_FOOTHILLS = MEBiomeKeys.register("erebor_foothills");
-    public static final RegistryKey<Biome> EREBOR_PEAKS = MEBiomeKeys.register("erebor_peaks");
+    public static final RegistryKey<Biome> LONELY_MOUNTAIN = MEBiomeKeys.register("lonely_mountain");
+    public static final RegistryKey<Biome> LONELY_MOUNTAIN_FOOTHILLS = MEBiomeKeys.register("lonely_mountain_foothills");
+    public static final RegistryKey<Biome> LONELY_MOUNTAIN_PEAKS = MEBiomeKeys.register("lonely_mountain_peaks");
     public static final RegistryKey<Biome> EREGION = MEBiomeKeys.register("eregion");
     public static final RegistryKey<Biome> ERIADOR = MEBiomeKeys.register("eriador");
     public static final RegistryKey<Biome> ETHIR_ANDUIN = MEBiomeKeys.register("ethir_anduin");

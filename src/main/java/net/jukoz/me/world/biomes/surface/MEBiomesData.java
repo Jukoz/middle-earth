@@ -109,9 +109,9 @@ public class MEBiomesData {
         addBiome(new Color(140, 150, 84), new MEBiome(4, MEBiomeKeys.EASTERN_RHOVANION, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(120, 107, 84), new MEBiome(31, MEBiomeKeys.EMYN_MUIL, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(117, 164, 109), new MEBiome(6, MEBiomeKeys.ENEDWAITH, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
-        addBiome(new Color(168, 168, 170), new MEBiome(40, MEBiomeKeys.EREBOR, Blocks.STONE, Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(185, 185, 187), new MEBiome(29, MEBiomeKeys.EREBOR_FOOTHILLS, Blocks.STONE, Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(151, 151, 153), new MEBiome(51, MEBiomeKeys.EREBOR_PEAKS, Blocks.STONE, Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(168, 168, 170), new MEBiome(38, MEBiomeKeys.LONELY_MOUNTAIN, Blocks.STONE, Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(185, 185, 187), new MEBiome(29, MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS, Blocks.STONE, Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(151, 151, 153), new MEBiome(52, MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(106, 155, 104), new MEBiome(4, MEBiomeKeys.EREGION, Blocks.GRASS_BLOCK, Blocks.DIRT, StoneBlockSets.LIMESTONE.base(), Blocks.STONE));
         addBiome(new Color(171, 193, 128), new MEBiome(4, MEBiomeKeys.ERIADOR, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(16, 156, 109), new MEBiome(4, MEBiomeKeys.ETHIR_ANDUIN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
@@ -124,9 +124,9 @@ public class MEBiomesData {
         addBiome(new Color(237, 229, 145), new MEBiome(9, MEBiomeKeys.HARAD_DESERT, Blocks.SAND, Blocks.SAND, Blocks.SANDSTONE, CaveType.HARAD));
         addBiome(new Color(180, 214, 121), new MEBiome(6, MEBiomeKeys.HARONDOR, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(156, 187, 94), new MEBiome(35, MEBiomeKeys.HILLS_OF_ELVENDIM, Blocks.STONE, Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(174, 144, 141), new MEBiome(51, MEBiomeKeys.IRON_HILLS, Blocks.STONE, Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(189, 170, 168), new MEBiome(31, MEBiomeKeys.IRON_HILLS_FOOTHILLS, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
-        addBiome(new Color(90, 159, 90), new MEBiome(7, MEBiomeKeys.IRON_HILLS_FRONTIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
+        addBiome(new Color(174, 144, 141), new MEBiome(41, MEBiomeKeys.IRON_HILLS, Blocks.STONE, Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(189, 170, 168), new MEBiome(21, MEBiomeKeys.IRON_HILLS_FOOTHILLS, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
+        addBiome(new Color(90, 159, 90), new MEBiome(9, MEBiomeKeys.IRON_HILLS_FRONTIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(4, 117, 42), new MEBiome(5, MEBiomeKeys.ITHILIEN, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.CALCITE, Blocks.STONE));
         addBiome(new Color(51, 100, 67), new MEBiome(5, MEBiomeKeys.ITHILIEN_WASTES, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.CALCITE, Blocks.STONE));
         addBiome(new Color(164, 255, 164), new MEBiome(7, MEBiomeKeys.LAMEDON, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.CALCITE, Blocks.STONE));

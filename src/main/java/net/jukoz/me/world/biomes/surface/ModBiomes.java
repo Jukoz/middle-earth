@@ -33,7 +33,7 @@ public class ModBiomes {
     public static void bootstrap(Registerable<Biome> context) {
         context.register(MEBiomeKeys.ANDUIN_VALES, createAnduinBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 8703593, 8703593)));
-        context.register(MEBiomeKeys.ANORIEN, createGondorBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.ANORIEN, createAnorienBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6799458, 6662221)));
         context.register(MEBiomeKeys.BARROW_DOWNS, createBarrowDownsBiome(context, new BiomeColorsDTO(
                 5993621, 7635851, 4812936, 3034721, 6721389, 6525545)));
@@ -69,17 +69,17 @@ public class ModBiomes {
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 8428369, 7768912)));
         context.register(MEBiomeKeys.ENEDWAITH, createEnedwaithBiome(context, new BiomeColorsDTO(
                 7181795, 10731509, 4618461, defaultWaterFog, 8761449, 7842644)));
-        context.register(MEBiomeKeys.EREBOR, createIronHillsBiome(context, new BiomeColorsDTO(
-                hillySky, 13031679, defaultWater, defaultWaterFog, 7188600, 6529388)));
-        context.register(MEBiomeKeys.EREBOR_FOOTHILLS, createIronHillsFrontierBiome(context, new BiomeColorsDTO(
-                hillySky, 12637183, defaultWater, defaultWaterFog, 6927733, 6005862)));
-        context.register(MEBiomeKeys.EREBOR_PEAKS, createIronHillsBiome(context, new BiomeColorsDTO(
-                hillySky, 13031679, defaultWater, defaultWaterFog, 8106628, 6987890)));
+        context.register(MEBiomeKeys.LONELY_MOUNTAIN, createLonelyMountainBiome(context, new BiomeColorsDTO(
+                hillySky, 13031679, defaultWater, defaultWaterFog, 7188600, 6529388), 0));
+        context.register(MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS, createLonelyMountainBiome(context, new BiomeColorsDTO(
+                hillySky, 12637183, defaultWater, defaultWaterFog, 6927733, 6005862), 1));
+        context.register(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, createLonelyMountainBiome(context, new BiomeColorsDTO(
+                hillySky, 13031679, defaultWater, defaultWaterFog, 8106628, 6987890), 2));
         context.register(MEBiomeKeys.EREGION, createEregionBiome(context, new BiomeColorsDTO(
                 7908853, 11393279, 5077445, 331050, 6858575, 6198343)));
         context.register(MEBiomeKeys.ERIADOR, createEriadorBiome(context, new BiomeColorsDTO(
                 defaultSky, 12637429, 4615389, 658236, 7582562, 6592327)));
-        context.register(MEBiomeKeys.ETHIR_ANDUIN, createGondorBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.ETHIR_ANDUIN, createEthirAnduin(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6400102, 6137428)));
         context.register(MEBiomeKeys.FANGORN, createFangornBiome(context, new BiomeColorsDTO(
                 7972607, defaultFog, 4293787, 338483, 3559947, 1789719)));
@@ -92,7 +92,7 @@ public class ModBiomes {
         context.register(MEBiomeKeys.GONDOR, createGondorBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 7582562, 6592327)));
         context.register(MEBiomeKeys.GREY_MOUNTAINS, createIronHillsBiome(context, new BiomeColorsDTO(
-                8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583)));
+                8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583), false));
         context.register(MEBiomeKeys.GREY_PLAINS, createGreyPlainsBiome(context, new BiomeColorsDTO(
                 hillySky, 12637179, defaultWater, defaultWaterFog, 5939024, 8566393)));
         context.register(MEBiomeKeys.HARAD, createHaradBiome(context, new BiomeColorsDTO(
@@ -102,11 +102,11 @@ public class ModBiomes {
         context.register(MEBiomeKeys.HARONDOR, createHarondorBiome(context, new BiomeColorsDTO(
                 nearHaradSky, nearHaradSkyFog, 5406149, 1120828, 12305028, 10860366)));
         context.register(MEBiomeKeys.HILLS_OF_ELVENDIM, createIronHillsBiome(context, new BiomeColorsDTO(
-                hillySky, defaultFog, defaultWater, defaultWaterFog, 9087338, 9218155)));
+                hillySky, defaultFog, defaultWater, defaultWaterFog, 9087338, 9218155), true));
         context.register(MEBiomeKeys.IRON_HILLS, createIronHillsBiome(context, new BiomeColorsDTO(
-                10140415, 13031679, defaultWater, defaultWaterFog, 6922099, 7119988)));
+                10140415, 13031679, defaultWater, defaultWaterFog, 6922099, 7119988), false));
         context.register(MEBiomeKeys.IRON_HILLS_FOOTHILLS, createIronHillsBiome(context, new BiomeColorsDTO(
-                8761343, defaultFog, defaultWater, defaultWaterFog, 7187321, 6793328)));
+                8761343, defaultFog, defaultWater, defaultWaterFog, 7187321, 6793328), true));
         context.register(MEBiomeKeys.IRON_HILLS_FRONTIER, createIronHillsFrontierBiome(context, new BiomeColorsDTO(
                 hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
         context.register(MEBiomeKeys.ITHILIEN, createGondorBiome(context, new BiomeColorsDTO(
@@ -149,10 +149,10 @@ public class ModBiomes {
                 3747117, 2629407, 6450777, 1513734, 5129527, 3486247)));
         context.register(MEBiomeKeys.MORDOR_WASTES, createMordorWastesBiome(context, new BiomeColorsDTO(
                 5460048, 4999240, 5860962, 731161, 6252369, 4735297)));
-        context.register(MEBiomeKeys.NINDALF, createGondorBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.NINDALF, createEthirAnduin(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6400102, 6137428)));
         context.register(MEBiomeKeys.NORTH_DOWNS, createIronHillsBiome(context, new BiomeColorsDTO(
-                hillySky, defaultFog, defaultWater, defaultWaterFog, 9414008, 9018483)));
+                hillySky, defaultFog, defaultWater, defaultWaterFog, 9414008, 9018483), true));
         context.register(MEBiomeKeys.NORTHERN_DUNLAND, createNorthDunlandBiome(context, new BiomeColorsDTO(
                 7508201, 12964294, defaultWater, defaultWaterFog, 6722387, 6198343), true));
         context.register(MEBiomeKeys.NORTHERN_WASTELANDS, createNorthernWastelands(context, new BiomeColorsDTO(
@@ -232,6 +232,7 @@ public class ModBiomes {
 
         addDefaultVegetation(generationSettings);
         ModBiomeFeatures.addCoarseDirtOre(vegetation);
+        ModBiomeFeatures.addFlowerGreenJewel(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addOakBushes(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
@@ -239,6 +240,23 @@ public class ModBiomes {
         ModBiomeFeatures.addVeryRareBirchTrees(vegetation);
         ModBiomeFeatures.addSparseLarchTrees(vegetation);
         ModBiomeFeatures.addMapleTrees(vegetation);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
+    public static Biome createAnorienBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addDefaultVegetation(generationSettings);
+        ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addOakBushes(vegetation);
+        ModBiomeFeatures.addTuftGrass(vegetation);
+        ModBiomeFeatures.addDioriteBoulder(vegetation);
+
+        vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+        ModBiomeFeatures.addRareLebethronTrees(vegetation);
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
@@ -357,6 +375,41 @@ public class ModBiomes {
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
 
+    public static Biome createLonelyMountainBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, int step) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addMountainsMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addNordicMobs(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+        float temperature = 0.4f;
+
+        if(step == 0) {
+            ModBiomeFeatures.addStoneGrassAbundantOre(vegetation);
+            ModBiomeFeatures.addCoarseDirtOre(vegetation);
+            addNordicVegetation(generationSettings);
+            ModBiomeFeatures.addCommonLarchTrees(vegetation);
+            ModBiomeFeatures.addAbundantPineTrees(vegetation);
+            ModBiomeFeatures.addAbundantSpruceTrees(vegetation);
+            ModBiomeFeatures.addCommonSpruceBushes(vegetation);
+        } else if (step == 1) {
+            ModBiomeFeatures.addStoneGrassOre(vegetation);
+            ModBiomeFeatures.addDolomiteOre(vegetation);
+            ModBiomeFeatures.addLarchTrees(vegetation);
+            ModBiomeFeatures.addPineTrees(vegetation);
+            ModBiomeFeatures.addCommonSpruceTrees(vegetation);
+            vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
+            vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
+            vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
+        } else {
+            ModBiomeFeatures.addDolomiteOre(vegetation);
+            ModBiomeFeatures.addFrozenStone(vegetation);
+            temperature = 0.0f;
+        }
+        ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addAbundantTuffOre(vegetation);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings, temperature, true);
+    }
+
     public static Biome createEregionBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
@@ -389,6 +442,29 @@ public class ModBiomes {
         ModBiomeFeatures.addWilderGrass(vegetation);
         ModBiomeFeatures.addRareBeechTrees(vegetation);
         ModBiomeFeatures.addRareBirchTrees(vegetation);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
+    public static Biome createEthirAnduin(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        ModBiomeFeatures.addDisks(undergroundOres);
+        vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_FOREST);
+        vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
+        vegetation.add(VegetationPlacedFeatures.FLOWER_SWAMP);
+        vegetation.add(VegetationPlacedFeatures.TREES_SWAMP);
+        vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE_SWAMP);
+        ModBiomeFeatures.addWaterDelta(vegetation);
+        ModBiomeFeatures.addAbundantMudOre(vegetation);
+        ModBiomeFeatures.addPackedMudOre(vegetation);
+        ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addWilderGrass(vegetation);
+        ModBiomeFeatures.addReedsFoliage(vegetation);
+        ModBiomeFeatures.addWheatGrass(vegetation);
+        ModBiomeFeatures.addRareBeechTrees(vegetation);
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
@@ -437,7 +513,7 @@ public class ModBiomes {
 
         vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
         ModBiomeFeatures.addRareBeechTrees(vegetation);
-        ModBiomeFeatures.addLebethronTrees(vegetation);
+        ModBiomeFeatures.addRareLebethronTrees(vegetation);
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
@@ -457,6 +533,21 @@ public class ModBiomes {
         ModBiomeFeatures.addSparsePineTrees(vegetation);
         ModBiomeFeatures.addRareSpruceTrees(vegetation);
         ModBiomeFeatures.addSpruceBushes(vegetation);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
+    public static Biome createGreyMountainsBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addMountainsMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addNordicMobs(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        ModBiomeFeatures.addStoneGrassOre(vegetation);
+        ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addTuffOre(vegetation);
+        addNordicVegetation(generationSettings);
+        addNordicTrees(generationSettings);
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
@@ -507,16 +598,20 @@ public class ModBiomes {
         return createBiome(biomeColors, spawnSettings, generationSettings, 0.8f, false);
     }
 
-    public static Biome createIronHillsBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+    public static Biome createIronHillsBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, boolean foothills) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addMountainsMobs(spawnSettings);
         ModSpawnSettingsBuilder.addNordicMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
-        ModBiomeFeatures.addStoneGrassAbundantOre(vegetation);
+        if(foothills) {
+            ModBiomeFeatures.addStoneGrassAbundantOre(vegetation);
+        }
+        else {
+            ModBiomeFeatures.addStoneGrassOre(vegetation);
+        }
         ModBiomeFeatures.addGravelOre(vegetation);
-        ModBiomeFeatures.addTuffOre(vegetation);
-        ModBiomeFeatures.addFrozenStone(vegetation);
+        ModBiomeFeatures.addAbundantTuffOre(vegetation);
         addNordicVegetation(generationSettings);
         addNordicTrees(generationSettings);
 
@@ -546,7 +641,7 @@ public class ModBiomes {
         ModBiomeFeatures.addRareForestMoss(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addLimestoneBoulder(vegetation);
-        ModBiomeFeatures.addLightGrayConcretePowderOre(vegetation);
+        ModBiomeFeatures.addWhiteSand(vegetation);
         ModBiomeFeatures.addOakBushes(vegetation);
         ModBiomeFeatures.addRareBirchTrees(vegetation);
         ModBiomeFeatures.addMegaBirchTrees(vegetation);
@@ -893,6 +988,7 @@ public class ModBiomes {
         ModBiomeFeatures.addDryDirtOre(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addGraniteBoulder(vegetation);
+        ModBiomeFeatures.addFlowerGreenJewel(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
         ModBiomeFeatures.addWilderGrass(vegetation);
 
@@ -988,7 +1084,7 @@ public class ModBiomes {
         ModBiomeFeatures.addOakBushes(vegetation);
 
         ModBiomeFeatures.addSparseLarchTrees(vegetation);
-        ModBiomeFeatures.addLebethronTrees(vegetation);
+        ModBiomeFeatures.addRareLebethronTrees(vegetation);
         ModBiomeFeatures.addSparsePineTrees(vegetation);
         ModBiomeFeatures.addRareSpruceTrees(vegetation);
 
@@ -1082,6 +1178,7 @@ public class ModBiomes {
 
         addMirkwoodVegetation(generationSettings);
         ModBiomeFeatures.addForestMoss(vegetation);
+        ModBiomeFeatures.addFlowerGreenJewel(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addLimestoneBoulder(vegetation);
         vegetation.add(VegetationPlacedFeatures.FLOWER_FOREST_FLOWERS);
@@ -1185,6 +1282,7 @@ public class ModBiomes {
         vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);
         vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
         vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+        ModBiomeFeatures.addFlowerGreenJewel(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
         ModBiomeFeatures.addWildLeek(vegetation);
         ModBiomeFeatures.addWildLettuce(vegetation);
@@ -1259,7 +1357,7 @@ public class ModBiomes {
         ModBiomeFeatures.addMordorLichen(vegetation);
         ModBiomeFeatures.addAshBlockOre(vegetation);
         ModBiomeFeatures.addBasaltOre(vegetation);
-        ModBiomeFeatures.addBlackConcretePowder(vegetation);
+        ModBiomeFeatures.addBlackSand(vegetation);
         ModBiomeFeatures.addCommonToughBerries(vegetation);
     }
 
@@ -1314,7 +1412,7 @@ public class ModBiomes {
         ModBiomeFeatures.addFlowerMeadow(vegetation);
         ModBiomeFeatures.addWilderGrass(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
-        ModBiomeFeatures.addLightGrayConcretePowderOre(vegetation);
+        ModBiomeFeatures.addWhiteSand(vegetation);
 
         ModBiomeFeatures.addWildLeek(vegetation);
         ModBiomeFeatures.addWildLettuce(vegetation);
