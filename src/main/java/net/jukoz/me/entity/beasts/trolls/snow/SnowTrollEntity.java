@@ -27,7 +27,7 @@ public class SnowTrollEntity extends TrollEntity {
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 180.0)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.8)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 0.75)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 0.65)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 28.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 14.0)
                 .add(EntityAttributes.HORSE_JUMP_STRENGTH, 0.0);
