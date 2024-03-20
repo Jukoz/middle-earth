@@ -30,6 +30,8 @@ public class BlockDrops {
             add(ModNatureBlocks.VIOLET_CAPS);
             add(ModNatureBlocks.WHITE_MUSHROOM);
             add(ModNatureBlocks.YELLOW_AMANITA);
+
+            add(ModDecorativeBlocks.ALLOY_FURNACE);
         }
     };
 }

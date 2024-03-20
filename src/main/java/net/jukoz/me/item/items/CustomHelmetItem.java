@@ -20,7 +20,6 @@ public class CustomHelmetItem extends ArmorItem implements DyeableItem {
     private ModArmorMaterials material;
     private List<CustomHelmetItem.Customizations> customsList;
 
-
     public CustomHelmetItem(ModArmorMaterials material, Type type, Settings settings, List<CustomHelmetItem.Customizations> customsList) {
         super(material, type, settings);
 

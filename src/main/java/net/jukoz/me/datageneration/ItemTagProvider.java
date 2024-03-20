@@ -26,6 +26,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         var bones = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "bones")));
+        var feathers = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "feathers")));
         var cloaks = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "cloaks")));
 
         TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "iron_ores"));
@@ -46,6 +47,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         bones.add(Items.BONE);
         bones.add(ModResourceItems.ORC_BONE);
         bones.add(ModResourceItems.WARG_BONE);
+
+        feathers.add(ModResourceItems.DUCK_FEATHER);
+        feathers.add(ModResourceItems.SWAN_FEATHER);
+        feathers.add(Items.FEATHER);
 
         cloaks.add(ModEquipmentItems.CLOAK);
         cloaks.add(ModEquipmentItems.TUNIC_CLOAK);
