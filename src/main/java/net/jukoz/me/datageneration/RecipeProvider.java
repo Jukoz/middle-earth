@@ -96,6 +96,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createBrickRecipe(exporter, record.strippedLog().asItem(), record.strippedWood(), 3);
             createWallsRecipe(exporter, record.wood(), record.woodWall());
             createWallsRecipe(exporter, record.strippedWood(), record.strippedWoodWall());
+            createFenceRecipe(exporter, record.planks().asItem(), record.planksFence());
             createFenceRecipe(exporter, record.wood().asItem(), record.woodFence());
             createFenceRecipe(exporter, record.strippedWood().asItem(), record.strippedWoodFence());
             createSlabsRecipe(exporter, record.planks(), record.planksSlab());
@@ -154,6 +155,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createWoodTableRecipe(exporter, record.planksSlab().asItem(), record.table());
             createWoodChairRecipe(exporter, record.planksSlab().asItem(), record.chair());
 
+            createFenceRecipe(exporter, record.planks().asItem(), record.planksFence());
             createFenceRecipe(exporter, record.stem().asItem(), record.stemFence());
 
             ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planksGate(), 1)

@@ -37,6 +37,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> lead_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "lead_ores"));
         TagKey<Item> silver_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "silver_ores"));
         TagKey<Item> mithril_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "mithril_ores"));
+        TagKey<Item> shingles = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "shingles"));
 
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
 
@@ -89,5 +90,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                         .add(set.mithril_ore().asItem());
             }
         }
+
+        Shingles.shingles.forEach(block -> {
+            getOrCreateTagBuilder(shingles).add(block.asItem());
+        });
     }
 }

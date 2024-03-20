@@ -303,6 +303,9 @@ public class HelpingGenerator {
             }
 
             Walls.walls.add(set.wall());
+            if (set.block().toString().contains("shingles")) {
+                Shingles.shingles.add(set.block());
+            }
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab set : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
