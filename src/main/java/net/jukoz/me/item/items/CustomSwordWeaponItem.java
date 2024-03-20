@@ -14,34 +14,27 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ReachWeaponItem extends SwordItem {
-    private final float rangeDistance;
+public class CustomSwordWeaponItem extends SwordItem {
     private final MutableText faction;
     private final MutableText subFaction;
-    public ReachWeaponItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, float rangeDistance, Settings settings) {
+    public CustomSwordWeaponItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
         super(toolMaterial, attackDamage, attackSpeed, settings);
-        this.rangeDistance = rangeDistance;
         this.faction = null;
         this.subFaction = null;
     }
 
-    public ReachWeaponItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, float rangeDistance, MutableText faction, Settings settings) {
+    public CustomSwordWeaponItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, MutableText faction, Settings settings) {
         super(toolMaterial, attackDamage, attackSpeed, settings);
-        this.rangeDistance = rangeDistance;
         this.faction = faction;
         this.subFaction = null;
     }
 
-    public ReachWeaponItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, float rangeDistance, MutableText faction, MutableText subFaction, Settings settings) {
+    public CustomSwordWeaponItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, MutableText faction, MutableText subFaction, Settings settings) {
         super(toolMaterial, attackDamage, attackSpeed, settings);
-        this.rangeDistance = rangeDistance;
         this.faction = faction;
         this.subFaction = subFaction;
     }
 
-    public float getRangeDistance() {
-        return rangeDistance;
-    }
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
@@ -57,7 +50,7 @@ public class ReachWeaponItem extends SwordItem {
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
         }
-        tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".reach").append(Float.toString(rangeDistance)).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".blocks_range")).formatted(Formatting.DARK_GREEN));
+        tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".reach").append(Float.toString(4.5f)).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".blocks_range")).formatted(Formatting.DARK_GREEN));
 
         super.appendTooltip(stack, world, tooltip, context);
     }
