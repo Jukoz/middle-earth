@@ -117,6 +117,24 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                             FabricRecipeProvider.conditionsFromItem(record.planks()))
                     .offerTo(exporter);
 
+            ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planks(), 4)
+                    .input(record.wood())
+                    .criterion(FabricRecipeProvider.hasItem(record.wood()),
+                            FabricRecipeProvider.conditionsFromItem(record.planks()))
+                    .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID,Registries.BLOCK.getId(record.planks()).getPath() + "_from_wood"));
+
+            ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planks(), 4)
+                    .input(record.strippedLog())
+                    .criterion(FabricRecipeProvider.hasItem(record.strippedLog()),
+                            FabricRecipeProvider.conditionsFromItem(record.planks()))
+                    .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID,Registries.BLOCK.getId(record.planks()).getPath() + "_from_stripped_log"));
+
+            ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planks(), 4)
+                    .input(record.strippedWood())
+                    .criterion(FabricRecipeProvider.hasItem(record.strippedWood()),
+                            FabricRecipeProvider.conditionsFromItem(record.planks()))
+                    .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID,Registries.BLOCK.getId(record.planks()).getPath() + "_from_stripped_wood"));
+
             ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planksGate(), 1)
                     .pattern("sls")
                     .pattern("sls")
@@ -138,7 +156,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
             if(record.stem() != null){
                 createWallsRecipe(exporter, record.stem(), record.stemWall());
-
 
                 ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planks(), 4)
                         .input(record.stem())
@@ -372,8 +389,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createLayerRecipe(exporter, Blocks.SAND.asItem(), ModBlocks.SAND_LAYER);
         createLayerRecipe(exporter, ModBlocks.BLACK_SAND.asItem(), ModBlocks.BLACK_SAND_LAYER);
         createLayerRecipe(exporter, ModBlocks.WHITE_SAND.asItem(), ModBlocks.WHITE_SAND_LAYER);
-
-
 
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD, ModBlocks.LEAD_BLOCK, 4);
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_SLAB, ModBlocks.LEAD_BLOCK, 8);
