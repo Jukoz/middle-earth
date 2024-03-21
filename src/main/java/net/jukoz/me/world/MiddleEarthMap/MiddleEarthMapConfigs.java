@@ -1,4 +1,4 @@
-package net.jukoz.me.world;
+package net.jukoz.me.world.MiddleEarthMap;
 
 import net.jukoz.me.MiddleEarth;
 

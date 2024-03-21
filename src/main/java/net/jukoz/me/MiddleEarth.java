@@ -14,7 +14,7 @@ import net.jukoz.me.sound.ModSounds;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.LootModifiers;
 import net.jukoz.me.utils.resources.FileUtils;
-import net.jukoz.me.world.MiddleEarthMapGeneration;
+import net.jukoz.me.world.MiddleEarthMap.MiddleEarthMapGeneration;
 import net.jukoz.me.world.gen.ModWorldGeneration;
 import net.jukoz.me.world.spawners.ModEntitySpawning;
 import net.jukoz.me.world.biomes.MEBiomeKeys;

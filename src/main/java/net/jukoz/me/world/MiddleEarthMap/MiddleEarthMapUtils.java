@@ -1,6 +1,5 @@
-package net.jukoz.me.world;
+package net.jukoz.me.world.MiddleEarthMap;
 
-import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.resources.FileUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -38,6 +37,7 @@ public class MiddleEarthMapUtils {
         return mc.getServer().getPlayerManager().getPlayerList();
     }
     public int getTick() {
+        if(mc == null || mc.getServer() == null) return 1;
         return mc.getServer().getTicks();
     }
 

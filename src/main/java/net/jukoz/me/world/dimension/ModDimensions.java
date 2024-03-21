@@ -2,11 +2,10 @@ package net.jukoz.me.world.dimension;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.LoggerUtil;
-import net.jukoz.me.world.MiddleEarthMapRuntime;
-import net.jukoz.me.world.MiddleEarthMapUtils;
+import net.jukoz.me.world.MiddleEarthMap.MiddleEarthMapUtils;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
-import net.jukoz.me.world.MiddleEarthMapConfigs;
+import net.jukoz.me.world.MiddleEarthMap.MiddleEarthMapConfigs;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

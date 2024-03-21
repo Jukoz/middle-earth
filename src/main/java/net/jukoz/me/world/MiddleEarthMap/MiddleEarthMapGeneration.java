@@ -1,8 +1,9 @@
-package net.jukoz.me.world;
+package net.jukoz.me.world.MiddleEarthMap;
 
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.resources.FileType;
 import net.jukoz.me.utils.resources.FileUtils;
+import net.jukoz.me.world.MiddleEarthMap.MiddleEarthMapConfigs;
 import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
 
