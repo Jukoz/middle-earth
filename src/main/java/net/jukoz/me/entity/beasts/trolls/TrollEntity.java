@@ -50,8 +50,6 @@ public class TrollEntity extends BeastEntity {
     public static final TrackedData<Boolean> THROWING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 
-
-
     // Temporary disabled until next update
     @Override
     public boolean hasArmorSlot() {

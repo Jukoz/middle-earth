@@ -66,9 +66,9 @@ public class SnowTrollModel extends SinglePartEntityModel<SnowTrollEntity> {
 
         this.animateMovement(SnowTrollAnimations.WALKING, limbSwing, limbSwingAmount, 1f, 1f);
         //this.updateAnimation(entity.idleAnimationState, SnowTrollAnimations.IDLE, ageInTicks, 1f);
-        this.updateAnimation(entity.attackAnimationState, SnowTrollAnimations.ATTACK, ageInTicks, 1.2f);
+        this.updateAnimation(entity.attackAnimationState, SnowTrollAnimations.ATTACK, ageInTicks, 1.4f);
         this.updateAnimation(entity.chargeAnimationState, SnowTrollAnimations.CHARGING, ageInTicks, 1f);
-        this.updateAnimation(entity.throwingAnimationState, SnowTrollAnimations.THROWING, ageInTicks, 1f);
+        this.updateAnimation(entity.throwingAnimationState, SnowTrollAnimations.THROWING, ageInTicks, 1.2f);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {
