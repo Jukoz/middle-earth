@@ -66,7 +66,7 @@ public class ModItemGroups {
     public static final List<ItemStack> NATURE_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup NATURE_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".nature_blocks"))
-            .icon(() -> new ItemStack(ModNatureBlocks.TAN_SHRUB.asItem()))
+            .icon(() -> new ItemStack(ModNatureBlocks.HEATHER_BUSH.asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : NATURE_BLOCKS_CONTENTS) {
                     entries.add(item);
@@ -99,7 +99,7 @@ public class ModItemGroups {
     public static final List<ItemStack> EQUIPMENT_CONTENTS = new LinkedList<>();
     public static final ItemGroup EQUIPMENT = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".equipment_items"))
-            .icon(() -> new ItemStack(ModEquipmentItems.CLOAK))
+            .icon(() -> new ItemStack(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_HELMET))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : EQUIPMENT_CONTENTS) {
                     entries.add(item);
