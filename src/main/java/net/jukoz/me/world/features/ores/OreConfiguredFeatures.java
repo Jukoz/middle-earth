@@ -28,6 +28,7 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ASHEN_DIRT_ORE = registerKey("ashen_dirt_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ASHEN_DIRT_STONE_ORE = registerKey("ashen_dirt_stone_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BASALT_ORE = registerKey("basalt_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SMOOTH_BASALT_ORE = registerKey("smooth_basalt_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BLACK_SAND_ORE = registerKey("black_sand_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BLUE_TUFF_ORE = registerKey("blue_tuff_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> CALCITE_ORE = registerKey("calcite_ore");
@@ -61,6 +62,7 @@ public class OreConfiguredFeatures {
         BlockMatchRuleTest grassTest = new BlockMatchRuleTest(Blocks.GRASS_BLOCK);
         BlockMatchRuleTest ashenStoneTest = new BlockMatchRuleTest(StoneBlockSets.ASHEN_STONE.base());
         TagMatchRuleTest stoneTest = new TagMatchRuleTest(BlockTags.BASE_STONE_OVERWORLD);
+
         List<OreFeatureConfig.Target> calciteList = List.of(
                 OreFeatureConfig.createTarget(stoneTest, Blocks.CALCITE.getDefaultState()),
                 OreFeatureConfig.createTarget(dirtTest, Blocks.CALCITE.getDefaultState()));
@@ -78,6 +80,9 @@ public class OreConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, BASALT_ORE, Feature.ORE,
                 new OreFeatureConfig(ashenStoneTest, Blocks.BASALT.getDefaultState(), 64, 0.4f));
+
+        ConfiguredFeatures.register(featureRegisterable, SMOOTH_BASALT_ORE, Feature.ORE,
+                new OreFeatureConfig(stoneTest, Blocks.SMOOTH_BASALT.getDefaultState(), 64, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, BLACK_SAND_ORE, Feature.ORE,
                 new OreFeatureConfig(ashenStoneTest, ModBlocks.BLACK_SAND.getDefaultState(), 48, 0.4f));

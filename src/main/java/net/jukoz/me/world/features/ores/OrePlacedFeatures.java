@@ -24,6 +24,7 @@ public class OrePlacedFeatures {
     public static final RegistryKey<PlacedFeature> ASHEN_DIRT_ORE = registerKey("ashen_dirt_ore");
     public static final RegistryKey<PlacedFeature> ASHEN_DIRT_STONE_ORE = registerKey("ashen_dirt_stone_ore");
     public static final RegistryKey<PlacedFeature> BASALT_ORE = registerKey("basalt_ore");
+    public static final RegistryKey<PlacedFeature> SMOOTH_BASALT_ORE = registerKey("smooth_basalt_ore");
     public static final RegistryKey<PlacedFeature> BLACK_SAND_ORE = registerKey("black_sand_ore");
     public static final RegistryKey<PlacedFeature> BLUE_TUFF_ORE = registerKey("blue_tuff_ore");
     public static final RegistryKey<PlacedFeature> CALCITE_ORE = registerKey("calcite_ore");
@@ -64,6 +65,7 @@ public class OrePlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> ashenDirt = registryEntryLookup.getOrThrow(OreConfiguredFeatures.ASHEN_DIRT_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> ashenDirtStone = registryEntryLookup.getOrThrow(OreConfiguredFeatures.ASHEN_DIRT_STONE_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> basalt = registryEntryLookup.getOrThrow(OreConfiguredFeatures.BASALT_ORE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> smoothBasalt = registryEntryLookup.getOrThrow(OreConfiguredFeatures.SMOOTH_BASALT_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> blackSand = registryEntryLookup.getOrThrow(OreConfiguredFeatures.BLACK_SAND_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> blueTuff = registryEntryLookup.getOrThrow(OreConfiguredFeatures.BLUE_TUFF_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> calcite = registryEntryLookup.getOrThrow(OreConfiguredFeatures.CALCITE_ORE);
@@ -94,6 +96,7 @@ public class OrePlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> lightGrayConcretePowder = registryEntryLookup.getOrThrow(OreConfiguredFeatures.WHITE_SAND_ORE);
 
         PlacementModifier abundant = PlacedFeatures.createCountExtraModifier(2, 0.5f, 1);
+        PlacementModifier frequent = PlacedFeatures.createCountExtraModifier(1, 0.5f, 1);
         PlacementModifier veryCommon = RarityFilterPlacementModifier.of(1);
         PlacementModifier common = RarityFilterPlacementModifier.of(2);
         PlacementModifier uncommon = PlacedFeatures.createCountExtraModifier(0, 0.25f, 1);
@@ -107,7 +110,9 @@ public class OrePlacedFeatures {
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, ASHEN_DIRT_STONE_ORE, ashenDirtStone, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, BASALT_ORE, basalt, rare,
+        PlacedFeatures.register(featureRegisterable, BASALT_ORE, basalt, uncommon,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, SMOOTH_BASALT_ORE, smoothBasalt, frequent,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, BLACK_SAND_ORE, blackSand, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

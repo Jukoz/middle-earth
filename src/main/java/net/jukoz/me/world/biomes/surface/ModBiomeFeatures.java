@@ -96,6 +96,9 @@ public class ModBiomeFeatures {
     public static void addMallornTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.MALLORN_PLACED_TREE_KEY);
     }
+    public static void addSmallMallornTress(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.SMALL_MALLORN_PLACED_TREE_KEY);
+    }
     public static void addMegaMallornTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.MEGA_MALLORN_PLACED_TREE_KEY);
     }
@@ -127,6 +130,9 @@ public class ModBiomeFeatures {
     }
     public static void addOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.OAK_PLACED_TREE_KEY);
+    }
+    public static void addRareOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.RARE_OAK_PLACED_TREE_KEY);
     }
     public static void addOakVinesTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.OAK_VINES_PLACED_TREE_KEY);
@@ -231,6 +237,9 @@ public class ModBiomeFeatures {
 
     public static void addFlowerGreenJewel(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_GREEN_JEWEL);
+    }
+    public static void addLebenninFlowers(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_LEBENNIN);
     }
     public static void addFlowerMeadow(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_MEADOW);
@@ -399,6 +408,9 @@ public class ModBiomeFeatures {
     }
     public static void addBasaltOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.BASALT_ORE);
+    }
+    public static void addSmoothBasaltOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.SMOOTH_BASALT_ORE);
     }
     public static void addBlackSand(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.BLACK_SAND_ORE);
