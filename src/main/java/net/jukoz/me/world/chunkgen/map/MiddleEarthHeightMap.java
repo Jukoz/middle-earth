@@ -34,11 +34,8 @@ public class MiddleEarthHeightMap {
     }
 
     private static float getImageHeight(int xWorld, int zWorld) {
-        if(middleEarthMapRuntime == null)
-            middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
-
+        if(middleEarthMapRuntime == null) middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
         Color color = middleEarthMapRuntime.getHeight(xWorld, zWorld);
-
         if(color != null){
             float red = color.getRed();
             float blue = color.getBlue();
