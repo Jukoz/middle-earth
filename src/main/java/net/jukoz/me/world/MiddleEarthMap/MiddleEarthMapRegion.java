@@ -11,8 +11,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 public class MiddleEarthMapRegion {
-    public final static int CAlC_REGION_SIZE = MiddleEarthMapConfigs.REGION_SIZE * MiddleEarthMapConfigs.PIXEL_WEIGHT;
-    public final static int DIST_CHECK = 2000;
+    public final static int CALC_REGION_SIZE = MiddleEarthMapConfigs.REGION_SIZE * MiddleEarthMapConfigs.PIXEL_WEIGHT;
     public final Vector2i coordinate;
     private final BufferedImage biomeImage;
     private final BufferedImage heightImage;
@@ -43,11 +42,11 @@ public class MiddleEarthMapRegion {
     }
 
     public boolean isInRange(Vector2i playerCoord) {
-        int middleCoordinateX = CAlC_REGION_SIZE * (coordinate.x + 1) - CAlC_REGION_SIZE / 2;
-        int middleCoordinateZ = CAlC_REGION_SIZE * (coordinate.y + 1) - CAlC_REGION_SIZE / 2;
+        int middleCoordinateX = CALC_REGION_SIZE * (coordinate.x + 1) - CALC_REGION_SIZE / 2;
+        int middleCoordinateZ = CALC_REGION_SIZE * (coordinate.y + 1) - CALC_REGION_SIZE / 2;
         double distance = calculateDistance(playerCoord.x, playerCoord.y, middleCoordinateX, middleCoordinateZ);
         //LoggerUtil.getInstance().logDebugMsg("IsInRange : [%s,%s] = [%s]".formatted(coordinate.x, coordinate.y, distance));
-        return distance < (CAlC_REGION_SIZE / 2) + DIST_CHECK;
+        return distance < (CALC_REGION_SIZE / 2) + MiddleEarthMapConfigs.BIOME_VALIDATION_DIST_CHECK;
     }
 
     private double calculateDistance(double x1, double y1, double x2, double y2) {

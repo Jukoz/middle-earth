@@ -38,7 +38,6 @@ public class MiddleEarthMapRuntime {
     public MEBiome getBiome(int posX, int posZ) {
         if(!middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) return MEBiomesData.defaultBiome;
 
-
         MiddleEarthMapRegion region = getRegionToUse(middleEarthMapUtils.getRegionByWorldCoordinate(posX, posZ));
         if(region == null) return MEBiomesData.defaultBiome;
 
