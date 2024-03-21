@@ -298,44 +298,4 @@ public class ModDecorativeBlocks {
     public static void registerModBlocks() {
         MiddleEarth.LOGGER.debug("Registering ModBlocks for " + MiddleEarth.MOD_ID);
     }
-
-    public static void registerFlammableFurniture() {
-        FlammableBlockRegistry.getDefaultInstance().add(WOOD_PILE, 5, 5);
-
-        FlammableBlockRegistry.getDefaultInstance().add(OAK_STOOL, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(OAK_CHAIR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(OAK_TABLE, 5, 20);
-
-        FlammableBlockRegistry.getDefaultInstance().add(BIRCH_STOOL, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(BIRCH_CHAIR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(BIRCH_TABLE, 5, 20);
-
-        FlammableBlockRegistry.getDefaultInstance().add(SPRUCE_STOOL, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(SPRUCE_CHAIR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(SPRUCE_TABLE, 5, 20);
-
-        FlammableBlockRegistry.getDefaultInstance().add(DARK_OAK_STOOL, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(DARK_OAK_CHAIR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(DARK_OAK_TABLE, 5, 20);
-
-        FlammableBlockRegistry.getDefaultInstance().add(ACACIA_STOOL, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(ACACIA_CHAIR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(ACACIA_TABLE, 5, 20);
-
-        FlammableBlockRegistry.getDefaultInstance().add(JUNGLE_STOOL, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(JUNGLE_CHAIR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(JUNGLE_TABLE, 5, 20);
-
-        FlammableBlockRegistry.getDefaultInstance().add(MANGROVE_STOOL, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(MANGROVE_CHAIR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(MANGROVE_TABLE, 5, 20);
-
-        FlammableBlockRegistry.getDefaultInstance().add(CHERRY_STOOL, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(CHERRY_CHAIR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(CHERRY_TABLE, 5, 20);
-
-        FlammableBlockRegistry.getDefaultInstance().add(BAMBOO_STOOL, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(BAMBOO_CHAIR, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(BAMBOO_TABLE, 5, 20);
-    }
 }

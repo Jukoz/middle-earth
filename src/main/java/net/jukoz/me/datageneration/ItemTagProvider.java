@@ -26,6 +26,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         var bones = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "bones")));
+        var feathers = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "feathers")));
         var cloaks = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "cloaks")));
 
         TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "iron_ores"));
@@ -33,18 +34,26 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> copper_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "copper_ores"));
         TagKey<Item> coal_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "coal_ores"));
 
+        TagKey<Item> saplings = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "saplings"));
+
         TagKey<Item> tin_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "tin_ores"));
         TagKey<Item> lead_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "lead_ores"));
         TagKey<Item> silver_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "silver_ores"));
         TagKey<Item> mithril_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "mithril_ores"));
+        TagKey<Item> shingles = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "shingles"));
 
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
 
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "logs"))).add(Logs.getItemPlanks().toArray(new Item[0]));
 
+
         bones.add(Items.BONE);
         bones.add(ModResourceItems.ORC_BONE);
         bones.add(ModResourceItems.WARG_BONE);
+
+        feathers.add(ModResourceItems.DUCK_FEATHER);
+        feathers.add(ModResourceItems.SWAN_FEATHER);
+        feathers.add(Items.FEATHER);
 
         cloaks.add(ModEquipmentItems.CLOAK);
         cloaks.add(ModEquipmentItems.TUNIC_CLOAK);
@@ -89,5 +98,13 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                         .add(set.mithril_ore().asItem());
             }
         }
+
+        Shingles.shingles.forEach(block -> {
+            getOrCreateTagBuilder(shingles).add(block.asItem());
+        });
+
+        Saplings.saplings.forEach(sapling -> {
+            getOrCreateTagBuilder(saplings).add(sapling.asItem());
+        });
     }
 }

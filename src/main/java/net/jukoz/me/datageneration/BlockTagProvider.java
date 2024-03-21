@@ -45,7 +45,6 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         var leaves = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "leaves")));
 
-
         mineableAxe.add(MineableAxe.blocks.toArray(new Block[0]));
         mineablePickaxe.add(MineablePickaxe.blocks.toArray(new Block[0]));
 
@@ -54,7 +53,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         swordEfficient.add(LeavesSets.blocks.toArray(new Block[0]));
 
-
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "saplings"))).add(Saplings.saplings.toArray(new Block[0]));
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "doors"))).add(Doors.doors.toArray(new Block[0]));
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "trapdoors"))).add(Trapdoors.trapdoors.toArray(new Block[0]));
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "buttons"))).add(Buttons.buttons.toArray(new Block[0]));
@@ -405,5 +404,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.MEDIUM_GLOWSTONE_BUD);
         mineablePickaxe.add(ModBlocks.LARGE_GLOWSTONE_BUD);
         mineablePickaxe.add(ModBlocks.GLOWSTONE_CLUSTER);
+
+        mineablePickaxe.add(ModDecorativeBlocks.ALLOY_FURNACE);
     }
 }

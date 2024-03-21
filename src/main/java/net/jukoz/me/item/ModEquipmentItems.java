@@ -35,7 +35,6 @@ public class ModEquipmentItems {
     public static final Item FUR_CLOAK = registerGeneratedItem("fur_cloak",
             new CustomChestplateItem(ModArmorMaterials.FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
 
-
     // Chainmail fur cloaks
     public static final Item CHAINMAIL_FUR_CLOAK = registerGeneratedItem("chainmail_fur_cloak",
             new CustomChestplateItem(ModArmorMaterials.CHAINMAIL_FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
@@ -325,8 +324,8 @@ public class ModEquipmentItems {
     public static final Item MISTY_MOUNTAINS_SHIELD = registerItem("misty_mountains_shield",
             new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(450), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs")));
 
-    public static final Item STEEL_TROLL_ARMOR = registerGeneratedItem("steel_troll_armor",
-            new TrollArmorItem(10, "steel", new FabricItemSettings().maxCount(1)));
+    /*public static final Item STEEL_TROLL_ARMOR = registerGeneratedItem("steel_troll_armor",
+            new TrollArmorItem(10, "steel", new FabricItemSettings().maxCount(1)));*/
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
