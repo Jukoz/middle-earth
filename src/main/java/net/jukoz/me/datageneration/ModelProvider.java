@@ -396,7 +396,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.trapdoors) {
-            blockStateModelGenerator.registerTrapdoor(trapdoor.trapdoor());
+            blockStateModelGenerator.registerOrientableTrapdoor(trapdoor.trapdoor());
         }
 
 

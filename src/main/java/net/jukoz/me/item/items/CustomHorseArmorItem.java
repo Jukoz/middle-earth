@@ -30,8 +30,6 @@ public class CustomHorseArmorItem extends HorseArmorItem {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-
-
         tooltip.add(Text.of(""));
         if (Screen.hasShiftDown()) {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(this.faction));

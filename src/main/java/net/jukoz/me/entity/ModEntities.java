@@ -32,6 +32,7 @@ import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollEntity;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollEntity;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -207,6 +208,6 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(SNAIL, SnailEntity.createSnailAttributes());
         FabricDefaultAttributeRegistry.register(DEER, DeerEntity.createDeerAttributes());
 
-        MiddleEarth.LOGGER.debug("Registering Mod Entities for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering Mod Entities for " + MiddleEarth.MOD_ID);
     }
 }

@@ -2,6 +2,7 @@ package net.jukoz.me.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.WoodChairBlock;
@@ -11,6 +12,7 @@ import net.jukoz.me.block.special.VerticalSlabBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.block.special.ModLeavesBlock;
 import net.jukoz.me.particles.ModParticleTypes;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.particle.ParticleEffect;
@@ -174,6 +176,33 @@ public class WoodBlockSets {
         FlammableBlockRegistry.getDefaultInstance().add(table, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(chair, 5, 20);
 
+        FuelRegistry registry =  FuelRegistry.INSTANCE;
+
+        registry.add(table, 300);
+        registry.add(chair, 300);
+        registry.add(stool, 300);
+        registry.add(woodSlab, 150);
+        registry.add(woodStairs, 300);
+        registry.add(woodVerticalSlab, 150);
+        registry.add(woodWall, 300);
+        registry.add(woodFence, 300);
+        registry.add(strippedSlab, 150);
+        registry.add(strippedVerticalSlab, 150);
+        registry.add(strippedStairs, 300);
+        registry.add(strippedWoodWall, 300);
+        registry.add(strippedWoodFence, 300);
+
+        registry.add(slab, 150);
+        registry.add(verticalSlab, 150);
+        registry.add(stairs, 300);
+        registry.add(fence, 300);
+        registry.add(gate, 300);
+        registry.add(button, 100);
+        registry.add(pressurePlate, 300);
+        registry.add(door, 200);
+        registry.add(trapdoor, 200);
+
+
 
         return new SimpleBlockSet(leaves, log, wood, woodSlab, woodVerticalSlab, woodStairs, woodWall, woodFence,
                 strippedLog, strippedWood, strippedSlab, strippedVerticalSlab, strippedStairs, strippedWoodWall, strippedWoodFence,
@@ -183,6 +212,6 @@ public class WoodBlockSets {
 
 
     public static void registerModBlockSets() {
-        MiddleEarth.LOGGER.debug("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
     }
 }
