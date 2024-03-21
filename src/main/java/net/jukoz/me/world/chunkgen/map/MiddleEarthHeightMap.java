@@ -1,10 +1,11 @@
 package net.jukoz.me.world.chunkgen.map;
 
-import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.noises.BlendedNoise;
+import net.jukoz.me.world.map.MiddleEarthMapConfigs;
+import net.jukoz.me.world.map.MiddleEarthMapRuntime;
+import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.jukoz.me.world.biomes.surface.MEBiome;
 import net.jukoz.me.world.biomes.surface.MEBiomesData;
-import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,12 +25,20 @@ public class MiddleEarthHeightMap {
     public static final int STONE_HEIGHT = 54;
     public static final int HEIGHT = 8 + STONE_HEIGHT;
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
-    private static final int PIXEL_WEIGHT = MiddleEarthMapDatas.PIXEL_WEIGHT;
+    private static final int PIXEL_WEIGHT = MiddleEarthMapConfigs.PIXEL_WEIGHT;
     public static final ArrayList<Float> percentages = new ArrayList<Float>();
+    private static MiddleEarthMapRuntime middleEarthMapRuntime;
 
+    public MiddleEarthHeightMap(){
+        middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
+    }
 
     private static float getImageHeight(int xWorld, int zWorld) {
-        Color color = MiddleEarth.GetWorldMapDatas().getHeightFromWorldCoordinates(xWorld, zWorld);
+        if(middleEarthMapRuntime == null)
+            middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
+
+        Color color = middleEarthMapRuntime.getHeight(xWorld, zWorld);
+
         if(color != null){
             float red = color.getRed();
             float blue = color.getBlue();
@@ -64,7 +73,7 @@ public class MiddleEarthHeightMap {
         MEBiome meBiome;
         double perlin = getPerlinHeight(x, z);
 
-        if(MiddleEarth.GetWorldMapDatas().isWorldCoordinateInBound(x, z)) {
+        if(MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(x,z)) {
             float biomeHeight = getBiomeWeightHeight(x, z);
             if(biomeHeight < 0) {
                 perlin /= (Math.max(1, Math.min(5, Math.abs(biomeHeight / 2.15f))));
@@ -103,6 +112,18 @@ public class MiddleEarthHeightMap {
         if(!percentages.contains(percentage)) percentages.add(percentage);
         float percentage2 = 1 - percentage;
         return (a * percentage2) + (b * percentage);
+    }
+
+    private static float getSmoothHeight(int x, int z) {
+        float total = 0;
+        for(int i = -SMOOTH_BRUSH_SIZE; i <= SMOOTH_BRUSH_SIZE; i++) {
+            for(int j = -SMOOTH_BRUSH_SIZE; j <= SMOOTH_BRUSH_SIZE; j++) {
+                if(MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(x + i, z + j)) total += MEBiomesData.defaultBiome.height;
+                else total += getBiomeWeightHeight(x,z);
+            }
+        }
+
+        return total / ((SMOOTH_BRUSH_SIZE * 2 + 1) * (SMOOTH_BRUSH_SIZE * 2 + 1));
     }
 
     public static float getHeight(int x, int z) {

@@ -3093,6 +3093,8 @@
   "tooltip.me.faction" : "§6Faction: §f",
   "tooltip.me.sub_faction" : "§7Sub Faction: §f",
   "tooltip.me.customizations" : "§6Custom Parts: §f",
+  "tooltip.me.reach" : "Reach: ",
+  "tooltip.me.blocks_range" : " Blocks",
 
   "tooltip.me.tier1" : "§7Base Materials",
   "tooltip.me.tier2" : "§7Refined Materials",
@@ -3116,6 +3118,10 @@
   "tooltip.me.misty_orcs" : "Misty Mountains Orcs",
   "tooltip.me.gundabad" : "Gundabad",
   "tooltip.me.moria_goblins" : "Moria Goblins",
+  "tooltip.me.anduin" : "Anduin Vale",
+  "tooltip.me.umbar" : "Umbar",
+  "tooltip.me.dunland" : "Dunland",
+  "tooltip.me.dale" : "Dale",
 
   "tooltip.me.dyeable" : "Dyeable",
   "tooltip.me.cape" : "Cape",

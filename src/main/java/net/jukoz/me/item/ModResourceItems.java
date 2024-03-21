@@ -7,6 +7,7 @@ import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.special.CustomTallPlantBlock;
 import net.jukoz.me.item.items.*;
 import net.jukoz.me.item.utils.ModItemGroups;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
@@ -189,6 +190,6 @@ public class ModResourceItems {
     }
 
     public static void registerModItems() {
-        MiddleEarth.LOGGER.debug("Registering Mod Resource Items for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering Mod Resource Items for " + MiddleEarth.MOD_ID);
     }
 }

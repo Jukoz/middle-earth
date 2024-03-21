@@ -7,6 +7,7 @@ import net.jukoz.me.block.special.StoolBlock;
 import net.jukoz.me.block.special.TableBlock;
 import net.jukoz.me.block.special.VerticalSlabBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
 
@@ -85,6 +86,6 @@ public class MushroomBlockSets {
     }
 
     public static void registerModBlockSets() {
-        MiddleEarth.LOGGER.debug("Registering MushroomBlockSets for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering MushroomBlockSets for " + MiddleEarth.MOD_ID);
     }
 }

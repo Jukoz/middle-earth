@@ -32,6 +32,9 @@ public class WildCropBlock extends PlantBlock implements Fertilizable {
     }
 
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        dropStack(world, pos, new ItemStack(this));
+        float val = random.nextFloat();
+        if(val > 0.90f){
+            dropStack(world, pos, new ItemStack(this));
+        }
     }
 }

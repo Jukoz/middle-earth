@@ -58,6 +58,9 @@ public class CavesConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SANDSTONE = registerKey("ore_sandstone");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SNOW = registerKey("ore_snow");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_TERRACOTTA = registerKey("ore_terracotta");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_TUFF = registerKey("ore_tuff");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_BASALT = registerKey("ore_basalt");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_BLACKSTONE = registerKey("ore_blackstone");
 
     public static final RegistryKey<ConfiguredFeature<?, ?>> PILLAR_BASALT = registerKey("pillar_basalt");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PILLAR_BLACKSTONE = registerKey("pillar_blackstone");
@@ -154,6 +157,12 @@ public class CavesConfiguredFeatures {
     static List<OreFeatureConfig.Target> terracottaList = List.of(
             OreFeatureConfig.createTarget(stoneTest, Blocks.TERRACOTTA.getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.TERRACOTTA.getDefaultState()));
+    static List<OreFeatureConfig.Target> tuffList = List.of(
+            OreFeatureConfig.createTarget(diftominTest, Blocks.TUFF.getDefaultState()));
+    static List<OreFeatureConfig.Target> basaltList = List.of(
+            OreFeatureConfig.createTarget(diftominTest, Blocks.SMOOTH_BASALT.getDefaultState()));
+    static List<OreFeatureConfig.Target> blackstoneList = List.of(
+            OreFeatureConfig.createTarget(epmostoTest, Blocks.BLACKSTONE.getDefaultState()));
     static List<OreFeatureConfig.Target> magmaList = List.of(
             OreFeatureConfig.createTarget(diftominTest, Blocks.MAGMA_BLOCK.getDefaultState()),
             OreFeatureConfig.createTarget(epmostoTest, Blocks.MAGMA_BLOCK.getDefaultState()));
@@ -240,6 +249,9 @@ public class CavesConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, ORE_SANDSTONE, Feature.ORE, new OreFeatureConfig(sandStoneList, 37));
         ConfiguredFeatures.register(featureRegisterable, ORE_SNOW, Feature.ORE, new OreFeatureConfig(snowList, 48));
         ConfiguredFeatures.register(featureRegisterable, ORE_TERRACOTTA, Feature.ORE, new OreFeatureConfig(terracottaList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_TUFF, Feature.ORE, new OreFeatureConfig(tuffList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_BASALT, Feature.ORE, new OreFeatureConfig(basaltList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_BLACKSTONE, Feature.ORE, new OreFeatureConfig(blackstoneList, 42));
 
         ConfiguredFeatures.register(featureRegisterable, PILLAR_BASALT, ModFeatures.PILLAR, new PillarFeatureConfig(30, UniformIntProvider.create(3, 19),
                 UniformFloatProvider.create(0.4f, 2.0f), 0.33f, UniformFloatProvider.create(0.3f, 0.9f), UniformFloatProvider.create(0.4f, 1.0f),

@@ -1,6 +1,7 @@
 package net.jukoz.me.sound;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
@@ -16,6 +17,6 @@ public class ModSounds {
     }
 
     public static void registerModSounds() {
-        MiddleEarth.LOGGER.debug("Registering Mod Entities for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering Mod Entities for " + MiddleEarth.MOD_ID);
     }
 }

@@ -15,7 +15,7 @@ public class ImageUtils {
     public static int BRUSH_SIZE = 16;
     public static float RATIO = 1.0f / (BRUSH_SIZE * BRUSH_SIZE);
 
-    public static BufferedImage fetchResourceImage(ClassLoader classLoader ,String path) throws IOException {
+    public static BufferedImage fetchResourceImage(ClassLoader classLoader, String path) throws IOException {
         URL resource = classLoader.getResource(path);
         BufferedImage img = ImageIO.read(resource);
         return img;

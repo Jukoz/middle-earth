@@ -93,7 +93,7 @@ public class HelpingGenerator {
             SimpleBlockModel.blocks.add(set.planks());
 
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.log(), set.woodWall()));
-            SimpleWallModel.strippedWalls.add(new SimpleWallModel.Wall(set.strippedWood(), set.strippedWoodWall()));
+            SimpleWallModel.strippedWalls.add(new SimpleWallModel.Wall(set.strippedWood(), set. strippedWoodWall()));
 
             SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.planks(), set.planksFence()));
             SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.log(), set.woodFence()));
@@ -187,23 +187,16 @@ public class HelpingGenerator {
             Logs.logs.add(set.log());
             Logs.logs.add(set.strippedLog());
             Logs.logs.add(set.wood());
-            Logs.logs.add(set.woodSlab());
-            Logs.logs.add(set.woodVerticalSlab());
-            Logs.logs.add(set.woodStairs());
             Logs.logs.add(set.strippedWood());
-            Logs.logs.add(set.strippedWoodSlab());
-            Logs.logs.add(set.strippedWoodVerticalSlab());
-            Logs.logs.add(set.strippedWoodStairs());
-            Logs.logs.add(set.woodWall());
-            Logs.logs.add(set.strippedWoodWall());
-            Logs.logs.add(set.woodFence());
-            Logs.logs.add(set.strippedWoodFence());
             PressurePlates.pressurePlates.add(set.pressurePlate());
             Walls.walls.add(set.woodWall());
             Walls.walls.add(set.strippedWoodWall());
             Planks.planks.add(set.planks());
             Doors.doors.add(set.door());
             Trapdoors.trapdoors.add(set.trapdoor());
+            if(set.sapling() != null){
+                Saplings.saplings.add(set.sapling());
+            }
         }
 
         for (MushroomBlockSets.MushroomBlockSet set : MushroomBlockSets.sets) {
@@ -303,6 +296,9 @@ public class HelpingGenerator {
             }
 
             Walls.walls.add(set.wall());
+            if (set.block().toString().contains("shingles")) {
+                Shingles.shingles.add(set.block());
+            }
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab set : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
@@ -346,25 +342,21 @@ public class HelpingGenerator {
         SimpleWallModel.vanillaWoodWalls.forEach(block -> {
             Walls.walls.add(block.wall());
             MineableAxe.blocks.add(block.wall());
-            Logs.logs.add(block.wall());
         });
 
         SimpleWallModel.vanillaStrippedWalls.forEach(block -> {
             Walls.walls.add(block.wall());
             MineableAxe.blocks.add(block.wall());
-            Logs.logs.add(block.wall());
         });
 
         SimpleFenceModel.vanillaWoodFences.forEach(block -> {
             Fences.fences.add(block.fence());
             MineableAxe.blocks.add(block.fence());
-            Logs.logs.add(block.fence());
         });
 
         SimpleFenceModel.vanillaStrippedFences.forEach(block -> {
             Fences.fences.add(block.fence());
             MineableAxe.blocks.add(block.fence());
-            Logs.logs.add(block.fence());
         });
         
 

@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 
 import net.jukoz.me.datageneration.content.models.TintableCrossModel;
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.features.tree.ModTreeConfiguredFeatures;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.crop.*;
@@ -162,7 +163,7 @@ public class ModNatureBlocks {
     public static final Block DEEP_FIRECAP_TILLER = registerBlock("deep_firecap_tiller",
             new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block GHOSTSHROOM_TILLER = registerBlock("ghostshroom_tiller",
-            new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
+            new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM).luminance(4)), true);
     public static final Block MORSEL_TILLER = registerBlock("morsel_tiller",
             new FlowerbedMushroomBlock(FabricBlockSettings.copyOf(Blocks.BROWN_MUSHROOM)), true);
     public static final Block SKY_FIRECAP_TILLER = registerBlock("sky_firecap_tiller",
@@ -302,6 +303,6 @@ public class ModNatureBlocks {
     }
 
     public static void registerModBlocks() {
-        MiddleEarth.LOGGER.debug("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
     }
 }

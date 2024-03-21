@@ -1,6 +1,7 @@
 package net.jukoz.me.world.gen;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.features.ores.SurfaceOreFeature;
 import net.jukoz.me.world.features.pillar.PillarFeature;
 import net.jukoz.me.world.features.pillar.PillarFeatureConfig;
@@ -16,7 +17,7 @@ public class ModFeatures {
     public static Feature<PillarFeatureConfig> PILLAR = register("pillar", new PillarFeature(PillarFeatureConfig.CODEC));
 
     public static void init() {
-        MiddleEarth.LOGGER.info("Registering new features");
+        LoggerUtil.getInstance().logInfoMsg("Registering new features");
     }
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {

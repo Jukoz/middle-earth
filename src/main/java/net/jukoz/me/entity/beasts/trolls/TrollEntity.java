@@ -13,6 +13,7 @@ import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntity;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.items.TrollArmorItem;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -31,6 +32,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
@@ -40,9 +42,12 @@ import java.util.List;
 public class TrollEntity extends BeastEntity {
     private int throwCooldown = 100;
     public final AnimationState throwingAnimationState = new AnimationState();
-    private int throwingAnimationTimeout = 0;
-    public static final TrackedData<Boolean> THROWING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
+    private int throwingAnimationTimeout = 0;
+    private int bondingTries = 0;
+    private int bondingTimeout = 0;
+
+    public static final TrackedData<Boolean> THROWING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 
     // Temporary disabled until next update
@@ -70,12 +75,12 @@ public class TrollEntity extends BeastEntity {
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BeastSitGoal(this));
-        this.goalSelector.add(3, new ChargeAttackGoal(this, maxChargeCooldown()));
-        this.goalSelector.add(3, new MeleeAttackGoal(this, 0.9f, false));
-        this.goalSelector.add(4, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(7, new LookAroundGoal(this));
+        this.goalSelector.add(4, new MeleeAttackGoal(this, 0.9f, false));
+        this.goalSelector.add(5, new ChargeAttackGoal(this, maxChargeCooldown()));
+        this.goalSelector.add(6, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
+        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(9, new LookAroundGoal(this));
         this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((BeastEntity) this));
         this.targetSelector.add(2, new BeastAttackWithOwnerGoal((BeastEntity)this));
         this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
@@ -151,6 +156,12 @@ public class TrollEntity extends BeastEntity {
             --this.throwCooldown;
         }
 
+        if (!this.getWorld().isClient) {
+            if(this.bondingTimeout > 0) {
+                this.bondingTimeout--;
+            }
+        }
+
         if (this.getWorld().isClient) {
             setupAnimationStates();
         }
@@ -216,7 +227,7 @@ public class TrollEntity extends BeastEntity {
     }
 
     public boolean canThrow() {
-        return true;
+        return !this.isSitting();
     }
 
     public void setThrowing(boolean throwing) {
@@ -235,6 +246,34 @@ public class TrollEntity extends BeastEntity {
     @Override
     public Item getBondingItem() {
         return ModFoodItems.COOKED_HORSE;
+    }
+
+    @Override
+    public void tryBonding(PlayerEntity player) {
+        if(this.bondingTimeout <= 0) {
+            if(random.nextDouble() <= 0.4d) {
+                this.bondingTries++;
+                if(bondingTries == 3) {
+                    if (player instanceof ServerPlayerEntity) {
+                        this.setOwnerUuid(player.getUuid());
+                        this.setTame(true);
+                        this.setTarget(null);
+                        Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
+                    }
+                    this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+
+                    this.chargeTimeout = 0;
+                }
+            }
+            else {
+                this.bondingTries = 0;
+                this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
+            }
+
+            player.getStackInHand(player.getActiveHand()).decrement(1);
+            this.bondingTimeout = 40;
+        }
+
     }
 
     @Override

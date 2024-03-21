@@ -166,7 +166,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
     // Getters and Setters =============================================================================================
 
     public boolean canCharge() {
-        return true;
+        return !this.isSitting();
     }
     @Override
     protected float getJumpVelocity() {
@@ -393,27 +393,21 @@ public class BeastEntity extends AbstractDonkeyEntity {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         boolean bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
 
-        if(player.getStackInHand(hand).isOf(getBondingItem())) {
-            this.tryBonding(player);
-            player.getStackInHand(hand).decrement(1);
-        }
-
         if(this.isTame() && isCommandItem(player.getStackInHand(hand)) && player.getUuid() == this.getOwnerUuid()) {
             this.setSitting(!isSitting());
+        }
+
+        if(this.isTame() && !isCommandItem(player.getStackInHand(hand))) {
+            super.interactMob(player, hand);
+        }
+
+        if(player.getStackInHand(hand).isOf(getBondingItem()) && !this.isTame() && !this.getWorld().isClient) {
+            this.tryBonding(player);
         }
 
         if (!this.hasPassengers() && !bl) {
             ItemStack itemStack = player.getStackInHand(hand);
             if (!itemStack.isEmpty()) {
-                if (this.isBreedingItem(itemStack)) {
-                    return this.interactHorse(player, itemStack);
-                }
-
-                if (!this.isTame()) {
-                    this.playAngrySound();
-                    return ActionResult.success(this.getWorld().isClient);
-                }
-
                 if (!this.hasChest() && itemStack.isOf(Items.CHEST)) {
                     this.addChest(player, itemStack);
                     return ActionResult.success(this.getWorld().isClient);
@@ -424,9 +418,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
                 }
             }
         }
-        if(this.isTame() && !isCommandItem(player.getStackInHand(hand))) {
-            super.interactMob(player, hand);
-        }
+
         return ActionResult.success(this.getWorld().isClient);
     }
 
