@@ -10,9 +10,9 @@ import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.jukoz.me.recipe.ModRecipes;
 import net.jukoz.me.sound.ModSounds;
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.LootModifiers;
 import net.jukoz.me.utils.resources.FileUtils;
-import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 import net.jukoz.me.world.MiddleEarthMapGeneration;
 import net.jukoz.me.world.gen.ModWorldGeneration;
 import net.jukoz.me.world.spawners.ModEntitySpawning;
@@ -22,13 +22,16 @@ import net.jukoz.me.world.dimension.ModDimensions;
 
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "me";
+	public static final String MOD_VERSION = "alpha-1.4.0-1.20.1";//Generation_Test
 	public static final boolean IS_DEBUG = true;
-
-	private static MiddleEarthMapDatas middleEarthMapDatas;
-
+	private LoggerUtil loggerUtil;
 	@Override
 	public void onInitialize() {
 		new FileUtils(getClass().getClassLoader());
+		loggerUtil = LoggerUtil.getInstance();
+
+		loggerUtil.logInfoMsg("");
+		loggerUtil.logInfoMsg("================ MiddleEarth ================");
 
 		ModStatusEffects.registerStatusEffects();
 		OreRockSets.registerModBlockSets();
@@ -70,14 +73,10 @@ public class MiddleEarth implements ModInitializer {
 		LootModifiers.modifyLootTables();
 
 		try {
-			//middleEarthMapDatas = new MiddleEarthMapDatas(getClass().getClassLoader());
 			new MiddleEarthMapGeneration();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	public static MiddleEarthMapDatas GetWorldMapDatas(){
-		return middleEarthMapDatas;
-	}
 }

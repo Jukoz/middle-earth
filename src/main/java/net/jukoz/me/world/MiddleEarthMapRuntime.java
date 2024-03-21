@@ -1,9 +1,13 @@
 package net.jukoz.me.world;
 
+import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.biomes.MEBiome;
 import net.jukoz.me.world.biomes.MEBiomesData;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Uuids;
 import net.minecraft.util.math.BlockPos;
 import org.joml.Vector2i;
 
@@ -13,11 +17,14 @@ import java.util.List;
 
 public class MiddleEarthMapRuntime {
     private static MiddleEarthMapRuntime single_instance = null;
-    Dictionary<Vector2i, MiddleEarthMapRegion> regions;
-    Dictionary<Vector2i, MiddleEarthMapRegion> temporaryRegions;
-
+    HashMap<Vector2i, MiddleEarthMapRegion> regions;
+    HashMap<UUID, Vector2i> regionByUuids;
     private LoggerUtil loggerUtil;
     private MiddleEarthMapUtils middleEarthMapUtils;
+
+    private int latestValidationTick = 0;
+    private int currentValidationBlockCount = 0;
+
     public static synchronized MiddleEarthMapRuntime getInstance()
     {
         if (single_instance == null)
@@ -27,8 +34,9 @@ public class MiddleEarthMapRuntime {
     }
 
     public MiddleEarthMapRuntime() {
-        regions = new Hashtable<>();
-        temporaryRegions = new Hashtable<>();
+        regions = new HashMap<>();
+        regionByUuids = new HashMap<>();
+
         loggerUtil = LoggerUtil.getInstance();
         middleEarthMapUtils = MiddleEarthMapUtils.getInstance();
     }
@@ -36,7 +44,10 @@ public class MiddleEarthMapRuntime {
     public MEBiome getBiome(int posX, int posZ) {
         if(!middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) return MEBiomesData.defaultBiome;
 
+
         MiddleEarthMapRegion region = getRegionToUse(middleEarthMapUtils.getRegionByWorldCoordinate(posX, posZ));
+        if(region == null) return MEBiomesData.defaultBiome;
+
         return region.getBiome(getImageCoordinates(posX, posZ));
     }
 
@@ -44,6 +55,8 @@ public class MiddleEarthMapRuntime {
         if(!middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) return null;
 
         MiddleEarthMapRegion region = getRegionToUse(middleEarthMapUtils.getRegionByWorldCoordinate(posX, posZ));
+        if(region == null) return null;
+
         return region.getHeightColor(getImageCoordinates(posX, posZ));
     }
 
@@ -55,35 +68,49 @@ public class MiddleEarthMapRuntime {
     }
 
     private MiddleEarthMapRegion getRegionToUse(Vector2i regionCoordinate){
-        refreshRegions();
+        purgeRegions();
 
         if(regions.get(regionCoordinate) != null) {
             return regions.get(regionCoordinate);
-        } else if(temporaryRegions.get(regionCoordinate) != null){
-            return temporaryRegions.get(regionCoordinate);
         }
-        return temporaryRegions.put(regionCoordinate, new MiddleEarthMapRegion(regionCoordinate));
+        return regions.put(regionCoordinate, new MiddleEarthMapRegion(regionCoordinate));
     }
 
+    private void purgeRegions() {
+        // Block delay
+        currentValidationBlockCount ++;
+        if(currentValidationBlockCount < MiddleEarthMapConfigs.BIOME_VALIDATION_BLOCK_DELAY) return;
+        currentValidationBlockCount = 0;
 
-    private void refreshRegions() {
-        List<ServerPlayerEntity> players = middleEarthMapUtils.getPlayers();
+        // Tick delay
+        int serverTick = middleEarthMapUtils.getTick();
+        if(serverTick - latestValidationTick < MiddleEarthMapConfigs.BIOME_VALIDATION_TICK_DELAY) return;
+        latestValidationTick = serverTick;
 
-        List<BlockPos> playerPosList = new ArrayList<>();
-        for(ServerPlayerEntity playerEntity : players){
-            playerPosList.add(playerEntity.getBlockPos());
+        // Create purge array
+        List<Vector2i> toPurge = new ArrayList<>();
+        List<Vector2i> playerCoordinates = new ArrayList<>();
+        for(ServerPlayerEntity player : middleEarthMapUtils.getPlayers()){
+            playerCoordinates.add(new Vector2i(player.getBlockX(), player.getBlockZ()));
         }
 
-
-        for(BlockPos playerPos : playerPosList){
-            Vector2i regionCoord = middleEarthMapUtils.getRegionByWorldCoordinate(playerPos.getX(), playerPos.getZ());
-            if(regions.get(regionCoord) == null){
-                regions.put(regionCoord, new MiddleEarthMapRegion(regionCoord));
-                loggerUtil.sendChat("PLayer region : [%s, %s]".formatted(regionCoord.x, regionCoord.y));
+        middleEarthMapUtils.getPlayers();
+        regions.forEach((key, value) -> {
+            boolean hasPlayerInRange = false;
+            for(Vector2i coordinate : playerCoordinates){
+                if(value.isInRange(coordinate)){
+                    hasPlayerInRange = true;
+                    break;
+                }
             }
+            if(!hasPlayerInRange)
+                toPurge.add(key);
+        });
+
+        // Purging
+        //loggerUtil.logDebugMsg("Purging [%s] regions (tick : %s)".formatted(toPurge.size(), serverTick));
+        for (Vector2i region : toPurge){
+            regions.remove(region);
         }
     }
-
-
-
 }

@@ -4,18 +4,17 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.world.MiddleEarthMapRuntime;
-import net.jukoz.me.world.biomes.MEBiome;
-import net.jukoz.me.world.biomes.MEBiomesData;
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.MiddleEarthMapConfigs;
-import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.jukoz.me.world.dimension.ModDimensions;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.text.ClickEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -23,6 +22,9 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import org.joml.Vector2i;
+
+import java.awt.datatransfer.*;
+import java.awt.*;
 
 import java.util.Optional;
 
@@ -176,11 +178,13 @@ public class MiddleEarthMapScreen extends Screen {
                 context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + currentBiomeId), 5, 25, 0xffffff);
 
                 context.drawTextWithShadow(textRenderer, Text.literal("Cursor information"), 0, 45, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + ((oustideBound) ? "N/A" : (int)cursorWorldCoordinate.x + ", " + ModDimensions.getHighestYAtXZ(mouseX, mouseY) + ", "+ (int)cursorWorldCoordinate.y)), 5, 55, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + ((oustideBound) ? "N/A" : (int)cursorWorldCoordinate.x + ", "+ (int)cursorWorldCoordinate.y)), 5, 55, 0xffffff);
 
+                /*
                 if(!oustideBound && this.player.isCreative()){
                     context.drawTextWithShadow(textRenderer, Text.literal("Right Click to teleport"), mouseX + 10, mouseY, 0xcccccc);
                 }
+                 */
             }
         }
     }
@@ -190,7 +194,7 @@ public class MiddleEarthMapScreen extends Screen {
         if(button == 1){
             if(!cursorIsOutsideOfMapBounds(mouseX, mouseY)){
                 if(this.player.isCreative() && debug){
-                    teleport(getWorldCoordinateOfCursor(mouseX, mouseY));
+                    getTeleport(getWorldCoordinateOfCursor(mouseX, mouseY));
                     this.close();
                     return true;
                 }
@@ -200,11 +204,16 @@ public class MiddleEarthMapScreen extends Screen {
         return false;
     }
 
-    private void teleport(Vector2i coord){
+    private void getTeleport(Vector2i coord){
         if(ModDimensions.isInMiddleEarth(this.player.getWorld())){
-            float y = MiddleEarthHeightMap.getHeight(coord.x, coord.y);
-            this.player.teleport(coord.x , y, coord.y);
-            player.refreshPositionAfterTeleport( coord.x , y, coord.y);
+            String tpString = "/tp %s ~ %s".formatted(coord.x, coord.y);
+            new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, tpString);
+
+            /*
+                float y = MiddleEarthHeightMap.getHeight(coord.x, coord.y);
+                this.player.teleport(coord.x , y, coord.y);
+                player.refreshPositionAfterTeleport( coord.x , y, coord.y);
+             */
         }
     }
 

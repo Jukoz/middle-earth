@@ -4,14 +4,10 @@ import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.resources.FileUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.BlockPos;
 import org.joml.Vector2i;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class MiddleEarthMapUtils {
     private static MiddleEarthMapUtils single_instance = null;
@@ -35,11 +31,14 @@ public class MiddleEarthMapUtils {
         ratioZ = (float) (MiddleEarthMapConfigs.REGION_SIZE / initial.getHeight() * Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION) * MiddleEarthMapConfigs.PIXEL_WEIGHT);
         maxImageCoordinateX = (int) (initial.getWidth() * ratioX);
         maxImageCoordinateZ = (int) (initial.getHeight() * ratioZ);
-        LoggerUtil.getInstance().logError("%s, %s".formatted(maxImageCoordinateX, maxImageCoordinateZ));
+        //LoggerUtil.getInstance().logError("%s, %s".formatted(maxImageCoordinateX, maxImageCoordinateZ));
     }
 
     public List<ServerPlayerEntity> getPlayers() {
-        return Objects.requireNonNull(MinecraftClient.getInstance().getServer()).getPlayerManager().getPlayerList();
+        return mc.getServer().getPlayerManager().getPlayerList();
+    }
+    public int getTick() {
+        return mc.getServer().getTicks();
     }
 
     public Vector2i getWorldCoordinateFromInitialMap(int x, int z){

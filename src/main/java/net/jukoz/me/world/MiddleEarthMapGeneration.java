@@ -5,7 +5,6 @@ import net.jukoz.me.utils.resources.FileType;
 import net.jukoz.me.utils.resources.FileUtils;
 import net.jukoz.me.world.biomes.MEBiomesData;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
-import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -185,7 +184,7 @@ public class MiddleEarthMapGeneration {
                 executorService.submit(() -> {
                     String path = MiddleEarthMapConfigs.BIOME_PATH.formatted(MiddleEarthMapConfigs.MAP_ITERATION) + MiddleEarthMapConfigs.IMAGE_NAME.formatted(finalX, finalY);
                     fileUtils.saveImage(
-                            FileUtils.blur(processHeightRegion(fileUtils.getRunImage(path), MiddleEarthMapDatas.REGION_SIZE), 16, 1.0f / (16 * 16)),
+                            FileUtils.blur(processHeightRegion(fileUtils.getRunImage(path), MiddleEarthMapConfigs.REGION_SIZE), 16, 1.0f / (16 * 16)),
                             MiddleEarthMapConfigs.HEIGHT_PATH,
                             MiddleEarthMapConfigs.IMAGE_NAME.formatted(finalX, finalY),
                             FileType.Png

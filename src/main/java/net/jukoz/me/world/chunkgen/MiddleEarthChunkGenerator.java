@@ -11,7 +11,6 @@ import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.MEBiomesData;
 import net.jukoz.me.world.biomes.ModBiomeSource;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
-import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryEntryLookup;

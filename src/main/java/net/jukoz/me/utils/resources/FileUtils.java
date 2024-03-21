@@ -57,6 +57,10 @@ public class FileUtils {
         }
     }
 
+
+    /**
+     * TODO : Optimise this part, it the longest process in World-Gen
+     */
     public static BufferedImage blur(BufferedImage image, int brushSize, float ratio) {
         // Create new expended image :
         int width = image.getWidth();
