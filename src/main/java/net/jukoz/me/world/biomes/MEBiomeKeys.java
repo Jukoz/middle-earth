@@ -1,6 +1,7 @@
 package net.jukoz.me.world.biomes;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
@@ -101,6 +102,6 @@ public class MEBiomeKeys extends BiomeKeys {
     }
 
     public static void registerModBiomes() {
-        MiddleEarth.LOGGER.debug("Registering ModBiomes for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering ModBiomes for " + MiddleEarth.MOD_ID);
     }
 }

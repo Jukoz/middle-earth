@@ -16,7 +16,6 @@
   "client": [
     "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
-    "client.BackgroundRendererMixin",
     "client.ClientPlayerInteractionManagerMixin",
     "client.GameRendererMixin",
     "client.InGameHudMixin",

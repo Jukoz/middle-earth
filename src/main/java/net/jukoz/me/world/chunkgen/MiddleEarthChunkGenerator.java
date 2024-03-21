@@ -2,16 +2,16 @@ package net.jukoz.me.world.chunkgen;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.utils.noises.SimplexNoise;
+import net.jukoz.me.world.MiddleEarthMap.MiddleEarthMapRuntime;
+import net.jukoz.me.world.MiddleEarthMap.MiddleEarthMapUtils;
 import net.jukoz.me.world.biomes.surface.MEBiome;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import net.jukoz.me.world.biomes.surface.ModBiomeSource;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
-import net.jukoz.me.world.datas.MiddleEarthMapDatas;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -35,7 +35,6 @@ import net.minecraft.world.gen.noise.NoiseConfig;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
@@ -50,7 +49,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
     public static final int CAVE_NOISE = 5;
 
-    MiddleEarthMapDatas middleEarthMapDatas;
+    MiddleEarthMapUtils middleEarthMapUtils;
+    MiddleEarthMapRuntime middleEarthMapRuntime;
+
     private static final int CAVE_STRETCH_H = 60;
     private static final int CAVE_STRETCH_V = 50;
     private static float minNoise = 10000;
@@ -149,7 +150,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         );
         this.biomeRegistry = biomeRegistry;
 
-        this.middleEarthMapDatas = MiddleEarth.GetWorldMapDatas();
+        this.middleEarthMapUtils = MiddleEarthMapUtils.getInstance();
+        this.middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
+
     }
 
     @Override
@@ -175,14 +178,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 int posZ = (chunk.getPos().z * 16) + z;
                 MEBiome meBiome = null;
 
-                if(middleEarthMapDatas.isWorldCoordinateInBound(posX, posZ)) {
+                if(middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) {
                     RegistryEntry<Biome> biome = region.getBiome(new BlockPos(posX, chunk.getTopY(), posZ));
-                    try {
-                        meBiome = MEBiomesData.getBiomeByKey(biome);
-                    } catch (NoSuchElementException e) {
-                        MiddleEarth.LOGGER.error(e.toString());
-                    }
-
+                    meBiome = MEBiomesData.getBiomeByKey(biome);
                     if(meBiome == null) {
                         meBiome = MEBiomesData.defaultBiome;
                     }

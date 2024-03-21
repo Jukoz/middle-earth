@@ -11,6 +11,7 @@ import net.jukoz.me.item.items.CustomSwordWeaponItem;
 import net.jukoz.me.item.items.ReachWeaponItem;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.ModToolMaterials;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -206,6 +207,6 @@ public class ModWeaponItems {
     }
 
     public static void registerModItems() {
-        MiddleEarth.LOGGER.debug("Registering Mod Weapon Items for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering Mod Weapon Items for " + MiddleEarth.MOD_ID);
     }
 }

@@ -12,6 +12,7 @@ import net.jukoz.me.block.special.VerticalSlabBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.block.special.ModLeavesBlock;
 import net.jukoz.me.particles.ModParticleTypes;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.particle.ParticleEffect;
@@ -211,6 +212,6 @@ public class WoodBlockSets {
 
 
     public static void registerModBlockSets() {
-        MiddleEarth.LOGGER.debug("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
     }
 }

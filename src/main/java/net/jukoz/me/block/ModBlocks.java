@@ -13,6 +13,7 @@ import net.jukoz.me.block.special.VerticalSlabBlock;
 import net.jukoz.me.block.special.gemstones.CustomBuddingGemBlock;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.item.utils.ModItemGroups;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
@@ -25,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ModBlocks {
     public static final float DIRT_STRENGTH = 0.6f;
@@ -819,7 +821,7 @@ public class ModBlocks {
     }
 
     public static void registerModBlocks() {
-        MiddleEarth.LOGGER.debug("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
     }
 
     public static boolean never(BlockState state, BlockView world, BlockPos pos) {

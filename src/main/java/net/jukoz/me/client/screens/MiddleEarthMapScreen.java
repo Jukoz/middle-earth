@@ -4,10 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.world.biomes.surface.MEBiome;
-import net.jukoz.me.world.biomes.surface.MEBiomesData;
-import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
-import net.jukoz.me.world.datas.MiddleEarthMapDatas;
+import net.jukoz.me.world.MiddleEarthMap.MiddleEarthMapConfigs;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -15,6 +12,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.text.ClickEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -61,7 +59,7 @@ public class MiddleEarthMapScreen extends Screen {
 
     public MiddleEarthMapScreen() {
         super(MAP_TITLE_TEXT);
-        pixelWeight = MiddleEarthMapDatas.PIXEL_WEIGHT;
+        pixelWeight = MiddleEarthMapConfigs.PIXEL_WEIGHT;
         float zoom = 1;
         for(int i = 0; i < ZOOM_LEVELS.length; i++) {
             ZOOM_LEVELS[i] = zoom;
@@ -174,18 +172,14 @@ public class MiddleEarthMapScreen extends Screen {
                 context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + (int)playerPos.getX() + ", " + (int)playerPos.getY() + ", " + (int)playerPos.getZ()), 5, 15, 0xffffff);
                 context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + currentBiomeId), 5, 25, 0xffffff);
 
-                MEBiome biome = MiddleEarth.GetWorldMapDatas().getBiomeFromWorldCoordinate(MiddleEarth.MAP_ITERATION, cursorWorldCoordinate.x, cursorWorldCoordinate.y);
-                if(biome == null){
-                    biome = MEBiomesData.getBiomeById((short) 0);
-                }
-
                 context.drawTextWithShadow(textRenderer, Text.literal("Cursor information"), 0, 45, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + ((oustideBound) ? "N/A" : (int)cursorWorldCoordinate.x + ", " + ModDimensions.getHighestYAtXZ(mouseX, mouseY) + ", "+ (int)cursorWorldCoordinate.y)), 5, 55, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + ((oustideBound) ? "N/A" : biome.biome.getValue().toString())), 5, 65, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + ((oustideBound) ? "N/A" : (int)cursorWorldCoordinate.x + ", "+ (int)cursorWorldCoordinate.y)), 5, 55, 0xffffff);
 
+                /*
                 if(!oustideBound && this.player.isCreative()){
                     context.drawTextWithShadow(textRenderer, Text.literal("Right Click to teleport"), mouseX + 10, mouseY, 0xcccccc);
                 }
+                 */
             }
         }
     }
@@ -195,7 +189,7 @@ public class MiddleEarthMapScreen extends Screen {
         if(button == 1){
             if(!cursorIsOutsideOfMapBounds(mouseX, mouseY)){
                 if(this.player.isCreative() && debug){
-                    teleport(getWorldCoordinateOfCursor(mouseX, mouseY));
+                    getTeleport(getWorldCoordinateOfCursor(mouseX, mouseY));
                     this.close();
                     return true;
                 }
@@ -205,10 +199,16 @@ public class MiddleEarthMapScreen extends Screen {
         return false;
     }
 
-    private void teleport(Vector2i coord){
+    private void getTeleport(Vector2i coord){
         if(ModDimensions.isInMiddleEarth(this.player.getWorld())){
-            float y = MiddleEarthHeightMap.getHeight(coord.x, coord.y);
-            player.setPos(coord.x , y, coord.y);
+            String tpString = "/tp %s ~ %s".formatted(coord.x, coord.y);
+            new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, tpString);
+
+            /*
+                float y = MiddleEarthHeightMap.getHeight(coord.x, coord.y);
+                this.player.teleport(coord.x , y, coord.y);
+                player.refreshPositionAfterTeleport( coord.x , y, coord.y);
+             */
         }
     }
 
@@ -420,7 +420,7 @@ public class MiddleEarthMapScreen extends Screen {
     }
 
     private static Vector2i getWorldSize(){
-        float worldSize = (float) Math.pow(2 , MiddleEarth.MAP_ITERATION);
+        float worldSize = (float) Math.pow(2 , MiddleEarthMapConfigs.MAP_ITERATION);
 
         return new Vector2i((int)(MAP_IMAGE_WIDTH * worldSize), (int)(MAP_IMAGE_HEIGHT * worldSize));
     }

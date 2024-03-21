@@ -11,33 +11,29 @@ import net.jukoz.me.registries.ModRegistries;
 import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.jukoz.me.recipe.ModRecipes;
 import net.jukoz.me.sound.ModSounds;
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.LootModifiers;
-import net.jukoz.me.world.datas.MiddleEarthMapDatas;
+import net.jukoz.me.utils.resources.FileUtils;
+import net.jukoz.me.world.MiddleEarthMap.MiddleEarthMapGeneration;
 import net.jukoz.me.world.gen.ModWorldGeneration;
 import net.jukoz.me.world.spawners.ModEntitySpawning;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import net.jukoz.me.world.dimension.ModDimensions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "me";
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
-	// 1 : 6000 (24,000)
-	// 2 : 12 000 (48,000)
-	// 3 : 24 000 (96,000)
-	// 4 : 48 000 (192,000)
-	// 5 : 96 000 (384,000)
-	// 6 : 192 000 (768,000)
-	// 7 : 384 000 (1,536,000)
-	public static final int MAP_ITERATION = 2;
-	public static final boolean FORCE_GENERATION = false;
-	private static MiddleEarthMapDatas middleEarthMapDatas;
-	
+	public static final String MOD_VERSION = "alpha-1.4.0-1.20.1";//Generation_Test
+	public static final boolean IS_DEBUG = true;
+	private LoggerUtil loggerUtil;
 	@Override
 	public void onInitialize() {
+		new FileUtils(getClass().getClassLoader());
+		loggerUtil = LoggerUtil.getInstance();
+
+		loggerUtil.logInfoMsg("");
+		loggerUtil.logInfoMsg("================ MiddleEarth ================");
+
 		ModStatusEffects.registerStatusEffects();
 		OreRockSets.registerModBlockSets();
 		ModWeaponItems.registerModItems();
@@ -82,13 +78,10 @@ public class MiddleEarth implements ModInitializer {
 		LootModifiers.modifyLootTables();
 
 		try {
-			middleEarthMapDatas = new MiddleEarthMapDatas(getClass().getClassLoader());
+			new MiddleEarthMapGeneration();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	public static MiddleEarthMapDatas GetWorldMapDatas(){
-		return middleEarthMapDatas;
-	}
 }
