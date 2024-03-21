@@ -35,6 +35,7 @@ public class BoulderEntity extends ThrownEntity {
             return;
         }
         Entity entity = entityHitResult.getEntity();
+
         if(this.getOwner() != null)  {
             Entity entity2 = this.getOwner();
             if (entity2 instanceof LivingEntity && entity2 != null) {
