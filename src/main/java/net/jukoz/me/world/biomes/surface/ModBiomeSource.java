@@ -1,7 +1,7 @@
 package net.jukoz.me.world.biomes.surface;
 
 import com.mojang.serialization.Codec;
-import net.jukoz.me.world.MiddleEarthMap.MiddleEarthMapRuntime;
+import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.jukoz.me.utils.noises.SimplexNoise;

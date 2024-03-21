@@ -1,4 +1,4 @@
-package net.jukoz.me.world.MiddleEarthMap;
+package net.jukoz.me.world.map;
 
 import net.jukoz.me.utils.resources.FileUtils;
 import net.minecraft.client.MinecraftClient;

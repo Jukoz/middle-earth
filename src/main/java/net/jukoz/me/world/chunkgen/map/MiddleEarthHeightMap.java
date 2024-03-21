@@ -1,9 +1,9 @@
 package net.jukoz.me.world.chunkgen.map;
 
 import net.jukoz.me.utils.noises.BlendedNoise;
-import net.jukoz.me.world.MiddleEarthMap.MiddleEarthMapConfigs;
-import net.jukoz.me.world.MiddleEarthMap.MiddleEarthMapRuntime;
-import net.jukoz.me.world.MiddleEarthMap.MiddleEarthMapUtils;
+import net.jukoz.me.world.map.MiddleEarthMapConfigs;
+import net.jukoz.me.world.map.MiddleEarthMapRuntime;
+import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.jukoz.me.world.biomes.surface.MEBiome;
 import net.jukoz.me.world.biomes.surface.MEBiomesData;
 

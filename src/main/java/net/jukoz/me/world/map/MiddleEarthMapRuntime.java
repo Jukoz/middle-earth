@@ -1,4 +1,4 @@
-package net.jukoz.me.world.MiddleEarthMap;
+package net.jukoz.me.world.map;
 
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.biomes.surface.MEBiome;
