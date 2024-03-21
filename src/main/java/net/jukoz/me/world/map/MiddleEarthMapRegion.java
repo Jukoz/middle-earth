@@ -1,7 +1,6 @@
-package net.jukoz.me.world.MiddleEarthMap;
+package net.jukoz.me.world.map;
 
 import net.jukoz.me.utils.resources.FileUtils;
-import net.jukoz.me.world.MiddleEarthMap.MiddleEarthMapConfigs;
 import net.jukoz.me.world.biomes.surface.MEBiome;
 import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import org.joml.Vector2i;

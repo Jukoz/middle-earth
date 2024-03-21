@@ -1,6 +1,7 @@
 package net.jukoz.me.utils.resources;
 
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.chunkgen.map.ImageUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -30,7 +31,7 @@ public class FileUtils {
 
     public BufferedImage getResourceImage(String path) {
         try{
-            return net.jukoz.me.world.chunkgen.map.ImageUtils.fetchResourceImage(classLoader, path);
+            return ImageUtils.fetchResourceImage(getClass().getClassLoader(), path);
         } catch (IOException e) {
             return null;
         }

@@ -4,7 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.world.MiddleEarthMap.MiddleEarthMapConfigs;
+import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
