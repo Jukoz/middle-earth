@@ -235,8 +235,14 @@ public class ModBiomeFeatures {
         vegetation.add(ModVegetationPlacedFeatures.WATER_DELTA);
     }
 
+    public static void addCornflower(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_CORNFLOWER);
+    }
     public static void addFlowerGreenJewel(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_GREEN_JEWEL);
+    }
+    public static void addFlowerDorwinion(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_DORWINION);
     }
     public static void addLebenninFlowers(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_LEBENNIN);
@@ -468,6 +474,9 @@ public class ModBiomeFeatures {
     }
     public static void addPodzolOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.PODZOL_ORE);
+    }
+    public static void addPowderSnowOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.POWDER_SNOW_ORE);
     }
     public static void addOldPodzolOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.OLD_PODZOL_ORE);

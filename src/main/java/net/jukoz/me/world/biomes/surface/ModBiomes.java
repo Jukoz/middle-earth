@@ -57,7 +57,7 @@ public class ModBiomes {
                 5861275, 8293250, 4551554, 467756, 4083260, 3690038), false, true));
         context.register(MEBiomeKeys.DOL_GULDUR, createMirkwoodBiome(context, new BiomeColorsDTO(
                 3684976, 5065045, 2503248, 462892, 3554356, 3424049), false, true));
-        context.register(MEBiomeKeys.DORWINION, createRhunBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.DORWINION, createDorwinionBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 4631895, 4431186)));
         context.register(MEBiomeKeys.DORWINION_HILLS, createDorwinionHillsBiome(context, new BiomeColorsDTO(
                 hillySky, defaultFog, defaultWater, defaultWaterFog, 9084547, 8427113)));
@@ -125,7 +125,7 @@ public class ModBiomes {
                 defaultSky, 11455105, defaultWater, defaultWaterFog, 10601262, 6202980)));
         context.register(MEBiomeKeys.LOTHLORIEN, createLothlorienBiome(context, new BiomeColorsDTO(
                 defaultSky, 13748853, defaultWater, defaultWaterFog, 12961832, 6989412)));
-        context.register(MEBiomeKeys.MINHIRIATH, createEriadorBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.MINHIRIATH, createMinhiriathBiome(context, new BiomeColorsDTO(
                 defaultSky, 12637429, 4615389, 658236, 8626526, 8231005)));
         context.register(MEBiomeKeys.MIRKWOOD, createMirkwoodBiome(context, new BiomeColorsDTO(
                 6849446, 6780008, 4949147, 338483, 4151612, 3823415), true, false));
@@ -138,9 +138,9 @@ public class ModBiomes {
         context.register(MEBiomeKeys.MIRKWOOD_SWAMP, createMirkwoodSwampBiome(context, new BiomeColorsDTO(
                 6981536, 8821922, 5080729, 1458241, 4546876, 4284215)));
         context.register(MEBiomeKeys.MISTY_FOOTHILLS, createMistyMountainsBiome(context, new BiomeColorsDTO(
-                hillySky, defaultFog, defaultWater, defaultWaterFog, 7777673, 7316862)));
+                hillySky, defaultFog, defaultWater, defaultWaterFog, 7777673, 7316862), true));
         context.register(MEBiomeKeys.MISTY_MOUNTAINS, createMistyMountainsBiome(context, new BiomeColorsDTO(
-                9745151, 13426943, defaultWater, defaultWaterFog, 7643011, 7709826)));
+                9745151, 13426943, defaultWater, defaultWaterFog, 7643011, 7709826), false));
         context.register(MEBiomeKeys.MORDOR, createMordorBiome(context, new BiomeColorsDTO(
                 2695203, 1905947, 6450777, 1513734, 3550502, 2169880)));
         context.register(MEBiomeKeys.MORDOR_MOUNTAINS, createMordorBiome(context, new BiomeColorsDTO(
@@ -151,8 +151,8 @@ public class ModBiomes {
                 5460048, 4999240, 5860962, 731161, 6252369, 4735297)));
         context.register(MEBiomeKeys.NINDALF, createSwampAnduin(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6263143, 5869915)));
-        context.register(MEBiomeKeys.NORTH_DOWNS, createIronHillsBiome(context, new BiomeColorsDTO(
-                hillySky, defaultFog, defaultWater, defaultWaterFog, 9414008, 9018483), true));
+        context.register(MEBiomeKeys.NORTH_DOWNS, createNorthDowns(context, new BiomeColorsDTO(
+                hillySky, defaultFog, defaultWater, defaultWaterFog, 9414008, 9018483)));
         context.register(MEBiomeKeys.NORTHERN_DUNLAND, createNorthDunlandBiome(context, new BiomeColorsDTO(
                 7508201, 12964294, defaultWater, defaultWaterFog, 6722387, 6198343), true));
         context.register(MEBiomeKeys.NORTHERN_WASTELANDS, createNorthernWastelands(context, new BiomeColorsDTO(
@@ -171,7 +171,7 @@ public class ModBiomes {
                 8954077, 11781343, 4814544, 460593, 7443043, 6982236)));
         context.register(MEBiomeKeys.OLD_ARTHEDAIN, createOldArthedainBiome(context, new BiomeColorsDTO(
                 7907327, defaultFog, defaultWater, defaultWaterFog, 12508275, 11652468)));
-        context.register(MEBiomeKeys.OLD_CARDOLAN, createEriadorBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.OLD_CARDOLAN, createOldCardolanBiome(context, new BiomeColorsDTO(
                 defaultSky, 12637429, 4615389, 658236, 9154400, 9154400)));
         context.register(MEBiomeKeys.OLD_RHUDAUR, createOldRhudaurBiome(context, new BiomeColorsDTO(
                 7508201, 10863086, 4618461, defaultWaterFog, 6722387, 6198343)));
@@ -276,9 +276,10 @@ public class ModBiomes {
     public static Biome createBelfalasBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, boolean hills) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
-        ModSpawnSettingsBuilder.addSwanMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addSwan(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
+        ModBiomeFeatures.addCornflower(vegetation);
         ModBiomeFeatures.addTuftGrass(vegetation);
         ModBiomeFeatures.addWilderGrass(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
@@ -312,6 +313,7 @@ public class ModBiomes {
         float temperature = 0.3f;
         if(foothills) {
             addNordicVegetation(generationSettings);
+            ModBiomeFeatures.addCornflower(vegetation);
             ModBiomeFeatures.addStoneGrassAbundantOre(vegetation);
             ModBiomeFeatures.addCommonLarchTrees(vegetation);
             ModBiomeFeatures.addAbundantPineTrees(vegetation);
@@ -353,9 +355,45 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addDefaultVegetation(generationSettings);
+        ModBiomeFeatures.addCornflower(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
 
         addNordicTrees(generationSettings);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
+    public static Biome createDorwinionBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addGoose(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        ModBiomeFeatures.addDisks(undergroundOres);
+        vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_FOREST);
+        vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
+        vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
+        vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);
+        vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
+        ModBiomeFeatures.addFlowerDorwinion(vegetation);
+        ModBiomeFeatures.addCornflower(vegetation);
+        ModBiomeFeatures.addTuftGrass(vegetation);
+        ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addWilderGrass(vegetation);
+        ModBiomeFeatures.addRareHeather(vegetation);
+        ModBiomeFeatures.addDryDirtOre(vegetation);
+        ModBiomeFeatures.addGravelOre(vegetation);
+
+        ModBiomeFeatures.addWildBeetroot(vegetation);
+        ModBiomeFeatures.addWildLettuce(vegetation);
+        ModBiomeFeatures.addWildOnion(vegetation);
+
+        ModBiomeFeatures.addCalciteBoulder(vegetation);
+        ModBiomeFeatures.addLimestoneBoulder(vegetation);
+        ModBiomeFeatures.addRareBeechTrees(vegetation);
+        ModBiomeFeatures.addSparseBirchTrees(vegetation);
+        ModBiomeFeatures.addVeryRareMegaOakTrees(vegetation);
+        ModBiomeFeatures.addMegaBirchTrees(vegetation);
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
@@ -366,6 +404,11 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addNordicVegetation(generationSettings);
+        ModBiomeFeatures.addTuffOre(vegetation);
+        ModBiomeFeatures.addCalciteOre(vegetation);
+        ModBiomeFeatures.addDioriteOre(vegetation);
+        ModBiomeFeatures.addLimestoneOre(vegetation);
+        ModBiomeFeatures.addStoneGrassAbundantOre(vegetation);
         ModBiomeFeatures.addBirchTrees(vegetation);
         ModBiomeFeatures.addLarchTrees(vegetation);
 
@@ -417,7 +460,7 @@ public class ModBiomes {
 
     public static Biome createEnedwaithBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addEriadorMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addDefaultVegetation(generationSettings);
@@ -469,6 +512,7 @@ public class ModBiomes {
     public static Biome createEregionBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
+        ModSpawnSettingsBuilder.addDeer(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addDefaultVegetation(generationSettings);
@@ -488,7 +532,7 @@ public class ModBiomes {
 
     public static Biome createEriadorBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addEriadorMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addEriadorVegetation(generationSettings);
@@ -680,6 +724,7 @@ public class ModBiomes {
 
         if(foothills) {
             ModBiomeFeatures.addGrassStoneOre(vegetation);
+            ModBiomeFeatures.addCornflower(vegetation);
         }
         else {
             ModBiomeFeatures.addStoneGrassOre(vegetation);
@@ -698,6 +743,7 @@ public class ModBiomes {
         ModSpawnSettingsBuilder.addNordicMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
+        ModBiomeFeatures.addCornflower(vegetation);
         addNordicVegetation(generationSettings);
         addNordicTrees(generationSettings);
         ModBiomeFeatures.addSpruceBushes(vegetation);
@@ -708,6 +754,7 @@ public class ModBiomes {
     public static Biome createIthilienBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, boolean wastes) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addDeer(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         ModBiomeFeatures.addGravelOre(vegetation);
@@ -791,6 +838,7 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addDefaultVegetation(generationSettings);
+        ModBiomeFeatures.addCornflower(vegetation);
         ModBiomeFeatures.addRareForestMoss(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addLimestoneBoulder(vegetation);
@@ -806,6 +854,7 @@ public class ModBiomes {
     public static Biome createLorienEdgeBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
+        ModSpawnSettingsBuilder.addSwan(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addLothlorienVegetation(generationSettings);
@@ -817,7 +866,7 @@ public class ModBiomes {
     public static Biome createLothlorienBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
-        ModSpawnSettingsBuilder.addSwanMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addSwan(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addLothlorienVegetation(generationSettings);
@@ -829,9 +878,28 @@ public class ModBiomes {
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
 
+    public static Biome createMinhiriathBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addEriadorMobs(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addEriadorVegetation(generationSettings);
+        ModBiomeFeatures.addAndesiteBoulder(vegetation);
+        ModBiomeFeatures.addDryDirtOre(vegetation);
+        ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addTuftGrass(vegetation);
+        ModBiomeFeatures.addWilderGrass(vegetation);
+        ModBiomeFeatures.addWheatGrass(vegetation);
+        ModBiomeFeatures.addCommonOakBush(vegetation);
+        ModBiomeFeatures.addWildCarrot(vegetation);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
     public static Biome createMirkwoodBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, boolean bigTrees, boolean dark) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addWolves(spawnSettings);
+        ModSpawnSettingsBuilder.addDeer(spawnSettings);
 
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
@@ -851,10 +919,6 @@ public class ModBiomes {
                 ModBiomeFeatures.addForestMoss(vegetation);
                 ModBiomeFeatures.addForestBlockMoss(vegetation);
             }
-        }
-
-        if(!dark) {
-            vegetation.add(VegetationPlacedFeatures.FLOWER_FOREST_FLOWERS);
         }
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
@@ -905,15 +969,27 @@ public class ModBiomes {
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
 
-    public static Biome createMistyMountainsBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+    public static Biome createMistyMountainsBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, boolean foothills) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
+        float temperature = -0.6f;
         addNordicVegetation(generationSettings);
         ModBiomeFeatures.addDolomiteOre(vegetation);
         ModBiomeFeatures.addTuffOre(vegetation);
-
-        return createBiome(biomeColors, spawnSettings, generationSettings,-0.6f, true);
+        if(foothills) {
+            temperature = 0.3f;
+            ModBiomeFeatures.addCoarseDirtOre(vegetation);
+            ModBiomeFeatures.addGravelOre(vegetation);
+            ModBiomeFeatures.addStoneGrassOre(vegetation);
+            ModBiomeFeatures.addCommonLarchTrees(vegetation);
+            ModBiomeFeatures.addAbundantPineTrees(vegetation);
+            ModBiomeFeatures.addAbundantSpruceTrees(vegetation);
+            ModBiomeFeatures.addCommonSpruceBushes(vegetation);
+        } else {
+            ModBiomeFeatures.addPowderSnowOre(vegetation);
+        }
+        return createBiome(biomeColors, spawnSettings, generationSettings,temperature, true);
     }
 
     public static Biome createMordorBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -937,6 +1013,24 @@ public class ModBiomes {
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addMudOre(vegetation);
         ModBiomeFeatures.addAshenDirtOre(vegetation);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
+    public static Biome createNorthDowns(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addMountainsMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addNordicMobs(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        ModBiomeFeatures.addWilderGrass(vegetation);
+        ModBiomeFeatures.addGrassStoneOre(vegetation);
+        ModBiomeFeatures.addAbundantTuffOre(vegetation);
+        addEriadorVegetation(generationSettings);
+
+        ModBiomeFeatures.addLarchTrees(vegetation);
+        ModBiomeFeatures.addPineTrees(vegetation);
+        ModBiomeFeatures.addSpruceTrees(vegetation);
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
@@ -993,6 +1087,7 @@ public class ModBiomes {
 
     public static Biome createNurnBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addDefaultVegetation(generationSettings);
@@ -1048,7 +1143,7 @@ public class ModBiomes {
 
     public static Biome createOldArthedainBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addEriadorMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addArthedainVegetation(generationSettings);
@@ -1058,6 +1153,27 @@ public class ModBiomes {
         ModBiomeFeatures.addVeryRareBeechTrees(vegetation);
         ModBiomeFeatures.addVeryRareBirchTrees(vegetation);
         ModBiomeFeatures.addVeryRareMegaOakTrees(vegetation);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
+    public static Biome createOldCardolanBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addEriadorMobs(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addEriadorVegetation(generationSettings);
+        vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
+        ModBiomeFeatures.addDryDirtOre(vegetation);
+        ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addRareHeather(vegetation);
+        ModBiomeFeatures.addRedHeather(vegetation);
+        ModBiomeFeatures.addWilderGrass(vegetation);
+        ModBiomeFeatures.addStoneBoulder(vegetation);
+        ModBiomeFeatures.addRareBeechTrees(vegetation);
+        ModBiomeFeatures.addRareBirchTrees(vegetation);
+        ModBiomeFeatures.addOakTrees(vegetation);
+        ModBiomeFeatures.addSparsePineTrees(vegetation);
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
@@ -1134,7 +1250,7 @@ public class ModBiomes {
         ModBiomeFeatures.addCommonPineTrees(vegetation);
         ModBiomeFeatures.addCommonSpruceTrees(vegetation);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.2f, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.4f, true);
     }
 
     public static Biome createRohanBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -1147,6 +1263,7 @@ public class ModBiomes {
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addGraniteBoulder(vegetation);
         ModBiomeFeatures.addFlowerGreenJewel(vegetation);
+        ModBiomeFeatures.addOakBushes(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
         ModBiomeFeatures.addWilderGrass(vegetation);
 
@@ -1158,12 +1275,13 @@ public class ModBiomes {
 
     public static Biome createShireBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addShireVegetation(generationSettings);
 
         if(step < 2) {
+            ModSpawnSettingsBuilder.addEriadorMobs(spawnSettings);
+            ModSpawnSettingsBuilder.addGoose(spawnSettings);
             ModBiomeFeatures.addFlowerGreenJewel(vegetation);
             ModBiomeFeatures.addRareBeechTrees(vegetation);
             ModBiomeFeatures.addRareBirchTrees(vegetation);
@@ -1175,6 +1293,7 @@ public class ModBiomes {
             }
             ModBiomeFeatures.addVeryRareMegaOakTrees(vegetation);
         } else {
+            ModSpawnSettingsBuilder.addDeer(spawnSettings);
             ModBiomeFeatures.addMossyBoulder(vegetation);
             ModBiomeFeatures.addForestMoss(vegetation);
             ModBiomeFeatures.addForestBlockMoss(vegetation);
@@ -1213,7 +1332,7 @@ public class ModBiomes {
 
     public static Biome createTheAngleBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addEriadorMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addEriadorVegetation(generationSettings);
@@ -1235,6 +1354,7 @@ public class ModBiomes {
 
     public static Biome createTheOldForestBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addDeer(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addEriadorVegetation(generationSettings);
@@ -1279,6 +1399,7 @@ public class ModBiomes {
     public static Biome createTrollshawsBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
+        ModSpawnSettingsBuilder.addDeer(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addEriadorVegetation(generationSettings);
@@ -1423,6 +1544,8 @@ public class ModBiomes {
     public static Biome createPondBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addRiverAnimals(spawnSettings);
+        ModSpawnSettingsBuilder.addDuck(spawnSettings);
+        ModSpawnSettingsBuilder.addGoose(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addOceanVegetation(generationSettings);

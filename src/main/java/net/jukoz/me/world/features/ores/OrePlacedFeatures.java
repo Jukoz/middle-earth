@@ -47,6 +47,7 @@ public class OrePlacedFeatures {
     public static final RegistryKey<PlacedFeature> MUD_ORE = registerKey("mud_ore");
     public static final RegistryKey<PlacedFeature> PACKED_MUD_ORE = registerKey("packed_mud_ore");
     public static final RegistryKey<PlacedFeature> PODZOL_ORE = registerKey("podzol_ore");
+    public static final RegistryKey<PlacedFeature> POWDER_SNOW_ORE = registerKey("powder_snow_ore");
     public static final RegistryKey<PlacedFeature> RIVER_SAND = registerKey("river_sand");
     public static final RegistryKey<PlacedFeature> DISK_SAND = registerKey("disk_sand");
     public static final RegistryKey<PlacedFeature> SAND_ORE = registerKey("sand_ore");
@@ -86,6 +87,7 @@ public class OrePlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> mud = registryEntryLookup.getOrThrow(OreConfiguredFeatures.MUD_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> packedMud = registryEntryLookup.getOrThrow(OreConfiguredFeatures.PACKED_MUD_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> podzol = registryEntryLookup.getOrThrow(OreConfiguredFeatures.PODZOL_ORE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> powderSnow = registryEntryLookup.getOrThrow(OreConfiguredFeatures.POWDER_SNOW_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> riverSand = registryEntryLookup.getOrThrow(OreConfiguredFeatures.RIVER_SAND_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> diskSand = registryEntryLookup.getOrThrow(MiscConfiguredFeatures.DISK_SAND);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> sand = registryEntryLookup.getOrThrow(OreConfiguredFeatures.SAND_ORE);
@@ -158,6 +160,8 @@ public class OrePlacedFeatures {
         PlacedFeatures.register(featureRegisterable, PACKED_MUD_ORE, packedMud, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, PODZOL_ORE, podzol, common,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, POWDER_SNOW_ORE, powderSnow, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, RIVER_SAND, riverSand,
                 CountPlacementModifier.of(2), SquarePlacementModifier.of(), PlacedFeatures.OCEAN_FLOOR_WG_HEIGHTMAP,

@@ -5,6 +5,7 @@ import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.WoodBlockSets;
 import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.world.features.underground.CavesConfiguredFeatures;
 import net.minecraft.block.*;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.registry.Registerable;
@@ -15,8 +16,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.dynamic.Range;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.util.math.intprovider.BiasedToBottomIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
@@ -30,6 +29,8 @@ import java.util.List;
 
 public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> WATER_DELTA = registerKey("water_delta");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_CORNFLOWER = registerKey("flower_cornflower");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_DORWINION = registerKey("flower_dorwinion");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_GREEN_JEWEL = registerKey("flower_green_jewel");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_LEBENNIN = registerKey("flower_lebennin");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FLOWER_MALLOS = registerKey("flower_mallos");
@@ -95,6 +96,9 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, WATER_DELTA, Feature.DELTA_FEATURE,
                 new DeltaFeatureConfig(Blocks.WATER.getDefaultState(), Blocks.GRASS_BLOCK.getDefaultState(), UniformIntProvider.create(3, 7), UniformIntProvider.create(0, 2)));
 
+        ConfiguredFeatures.register(featureRegisterable, FLOWER_CORNFLOWER, Feature.RANDOM_PATCH,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(Blocks.CORNFLOWER))));
         ConfiguredFeatures.register(featureRegisterable, FLOWER_GREEN_JEWEL, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER))));
@@ -104,6 +108,12 @@ public class ModVegetationConfiguredFeatures {
                                 new DoublePerlinNoiseSampler.NoiseParameters(-3, 1.0), 1.0f,
                                 List.of(Blocks.TALL_GRASS.getDefaultState(), Blocks.RED_TULIP.getDefaultState(), Blocks.POPPY.getDefaultState(), Blocks.AZURE_BLUET.getDefaultState(),
                                         Blocks.DANDELION.getDefaultState(), Blocks.ORANGE_TULIP.getDefaultState(), Blocks.OXEYE_DAISY.getDefaultState(), Blocks.GRASS.getDefaultState()))))));
+        ConfiguredFeatures.register(featureRegisterable, FLOWER_DORWINION, Feature.FLOWER,
+                new RandomPatchFeatureConfig(96, 6, 2, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(new DualNoiseBlockStateProvider(new Range<>(1, 3), new DoublePerlinNoiseSampler.NoiseParameters(-10, 1.0), 1.0f, 2345L,
+                                new DoublePerlinNoiseSampler.NoiseParameters(-3, 1.0), 1.0f,
+                                List.of(Blocks.TALL_GRASS.getDefaultState(), Blocks.PINK_TULIP.getDefaultState(), Blocks.WHITE_TULIP.getDefaultState(), Blocks.AZURE_BLUET.getDefaultState(),
+                                        Blocks.ALLIUM.getDefaultState(), Blocks.CORNFLOWER.getDefaultState(), Blocks.LILY_OF_THE_VALLEY.getDefaultState(), Blocks.GRASS.getDefaultState()))))));
         ConfiguredFeatures.register(featureRegisterable, FLOWER_MALLOS, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.MALLOS))));
@@ -240,23 +250,20 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, PATCH_BROWN_BOLETE, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.BROWN_BOLETE))));
-        ConfiguredFeatures.register(featureRegisterable, PATCH_BROWN_BOLETE_TILLER, Feature.RANDOM_PATCH,
-                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.BROWN_BOLETE_TILLER))));
+        ConfiguredFeatures.register(featureRegisterable, PATCH_BROWN_BOLETE_TILLER, Feature.FLOWER, new RandomPatchFeatureConfig(48, 6, 2,
+                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(CavesConfiguredFeatures.getMushroomBuilder(ModNatureBlocks.BROWN_BOLETE_TILLER))))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_MORSEL, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.MORSEL))));
-        ConfiguredFeatures.register(featureRegisterable, PATCH_MORSEL_TILLER, Feature.RANDOM_PATCH,
-                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.MORSEL_TILLER))));
+        ConfiguredFeatures.register(featureRegisterable, PATCH_MORSEL_TILLER, Feature.FLOWER, new RandomPatchFeatureConfig(48, 6, 2,
+                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(CavesConfiguredFeatures.getMushroomBuilder(ModNatureBlocks.MORSEL_TILLER))))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_WHITE_MUSHROOM, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.WHITE_MUSHROOM))));
-        ConfiguredFeatures.register(featureRegisterable, PATCH_WHITE_MUSHROOM_TILLER, Feature.RANDOM_PATCH,
-                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.WHITE_MUSHROOM_TILLER))));
+        ConfiguredFeatures.register(featureRegisterable, PATCH_WHITE_MUSHROOM_TILLER, Feature.FLOWER, new RandomPatchFeatureConfig(48, 6, 2,
+                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(CavesConfiguredFeatures.getMushroomBuilder(ModNatureBlocks.WHITE_MUSHROOM_TILLER))))));
         // endregion
 
         // region WILD CROPS

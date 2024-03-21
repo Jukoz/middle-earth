@@ -49,6 +49,7 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PACKED_MUD_ORE = registerKey("packed_mud_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> OLD_PODZOL_ORE = registerKey("old_podzol_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PODZOL_ORE = registerKey("podzol_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> POWDER_SNOW_ORE = registerKey("powder_snow_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> RIVER_SAND_ORE = registerKey("river_sand_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SAND_ORE = registerKey("sand_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SNOW_BLOCK_ORE = registerKey("snow_block_ore");
@@ -66,6 +67,10 @@ public class OreConfiguredFeatures {
         List<OreFeatureConfig.Target> calciteList = List.of(
                 OreFeatureConfig.createTarget(stoneTest, Blocks.CALCITE.getDefaultState()),
                 OreFeatureConfig.createTarget(dirtTest, Blocks.CALCITE.getDefaultState()));
+        List<OreFeatureConfig.Target> powderSnowList = List.of(
+                OreFeatureConfig.createTarget(stoneTest, Blocks.POWDER_SNOW.getDefaultState()),
+                OreFeatureConfig.createTarget(dirtTest, Blocks.POWDER_SNOW.getDefaultState()),
+                OreFeatureConfig.createTarget(new TagMatchRuleTest(BlockTags.SNOW), Blocks.POWDER_SNOW.getDefaultState()));
 
         ConfiguredFeatures.register(featureRegisterable, ANDESITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.ANDESITE.getDefaultState(), 64, 0.4f));
@@ -145,6 +150,9 @@ public class OreConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, PODZOL_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, Blocks.PODZOL.getDefaultState(), 48, 0.4f));
+
+        ConfiguredFeatures.register(featureRegisterable, POWDER_SNOW_ORE, Feature.ORE,
+                new OreFeatureConfig(powderSnowList, 37));
 
         ConfiguredFeatures.register(featureRegisterable, RIVER_SAND_ORE, Feature.DISK,
                 new DiskFeatureConfig(PredicatedStateProvider.of(ModBlocks.RIVER_SAND), BlockPredicate.matchingBlocks(List.of(Blocks.DIRT, Blocks.SAND, Blocks.GRASS_BLOCK)), UniformIntProvider.create(2, 5), 2));
