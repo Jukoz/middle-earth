@@ -98,7 +98,7 @@ public class ModToolItems {
             new ShovelItem(ModToolMaterials.MITHRIL, IRON_PICKAXE_DAMAGE, IRON_ATTACK_SPEED, new FabricItemSettings().fireproof()));
     public static final Item MITHRIL_HOE = registerItemHandheld("mithril_hoe",
             new HoeItem(ModToolMaterials.MITHRIL, IRON_HOE_DAMAGE, IRON_HOE_ATTACK_SPEED, new FabricItemSettings().fireproof()));
-
+/*
     public static final Item BRONZE_BUCKET = registerItemGenerated("bronze_bucket",
             new BronzeBucketItem(Fluids.EMPTY, new FabricItemSettings().maxCount(16)));
     public static final Item BROKEN_BRONZE_BUCKET = registerItemGenerated("broken_bronze_bucket",
@@ -144,7 +144,7 @@ public class ModToolItems {
             new EntityBucketItem(EntityType.AXOLOTL, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_AXOLOTL, new FabricItemSettings().maxCount(1).fireproof()));
     public static final Item MITHRIL_TADPOLE_BUCKET = registerItemGenerated("mithril_tadpole_bucket",
             new EntityBucketItem(EntityType.TADPOLE, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_TADPOLE, new FabricItemSettings().maxCount(1).fireproof()));
-    
+    */
     private static Item registerItemHandheld(String name, Item item) {
         ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
         SimpleHandheldItemModel.items.add(item);

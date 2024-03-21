@@ -26,6 +26,8 @@ public class ModDecorativeItems {
             new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.SILVER_LANTERN, ModDecorativeBlocks.WALL_SILVER_LANTERN, new Item.Settings(), new Direction[]{Direction.DOWN, Direction.UP}));
     public static final Item ALLOY_FURNACE = registerItem("alloy_furnace",
             new BlockItem(ModDecorativeBlocks.ALLOY_FURNACE, new Item.Settings()));
+    public static final Item ARTISAN_TABLE = registerItem("artisan_table",
+            new BlockItem(ModDecorativeBlocks.ARTISAN_TABLE, new Item.Settings()));
     public static final Item WOOD_PILE = registerItem("wood_pile",
             new BlockItem(ModDecorativeBlocks.WOOD_PILE, new Item.Settings()));
     public static final Item TROLL_STATUE = registerItem("troll_statue",

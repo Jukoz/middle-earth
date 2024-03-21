@@ -11,6 +11,7 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
+	maven { url "https://maven.shedaniel.me" }
 }
 
 dependencies {
@@ -26,6 +27,9 @@ dependencies {
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
 
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
+
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:12.0.684"
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:12.0.684"
 }
 
 processResources {
@@ -34,7 +38,6 @@ processResources {
 	filesMatching("fabric.mod.json") {
 		expand "version": project.version
 	}
-	duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 }
 
 loom {

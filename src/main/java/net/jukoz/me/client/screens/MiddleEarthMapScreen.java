@@ -4,10 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.utils.LoggerUtil;
-import net.jukoz.me.world.MiddleEarthMapConfigs;
+import net.jukoz.me.world.MiddleEarthMap.MiddleEarthMapConfigs;
 import net.jukoz.me.world.dimension.ModDimensions;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -22,9 +20,6 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import org.joml.Vector2i;
-
-import java.awt.datatransfer.*;
-import java.awt.*;
 
 import java.util.Optional;
 

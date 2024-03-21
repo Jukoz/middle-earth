@@ -45,7 +45,6 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         var leaves = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "leaves")));
 
-
         mineableAxe.add(MineableAxe.blocks.toArray(new Block[0]));
         mineablePickaxe.add(MineablePickaxe.blocks.toArray(new Block[0]));
 
@@ -54,7 +53,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         swordEfficient.add(LeavesSets.blocks.toArray(new Block[0]));
 
-
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "saplings"))).add(Saplings.saplings.toArray(new Block[0]));
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "doors"))).add(Doors.doors.toArray(new Block[0]));
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "trapdoors"))).add(Trapdoors.trapdoors.toArray(new Block[0]));
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "buttons"))).add(Buttons.buttons.toArray(new Block[0]));
@@ -75,7 +74,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         TagKey<Block> tin_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "tin_ores"));
         TagKey<Block> lead_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "lead_ores"));
         TagKey<Block> silver_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "silver_ores"));
-        TagKey<Block> mithril_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "mihtril_pres"));
+        TagKey<Block> mithril_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "mithril_ores"));
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {
@@ -136,7 +135,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         baseStoneOverworld.add(Blocks.CALCITE);
         for (StoneBlockSets.SimpleBlockSetMain record : StoneBlockSets.setsMain) {
-            baseStoneOverworld.add(record.base());
+            if(record.base() != StoneBlockSets.ASHEN_STONE.base()) baseStoneOverworld.add(record.base());
             if (Registries.BLOCK.getId(record.base()).getPath().contains("diftomin")){
                 needsIronTools.add(record.base());
                 needsIronTools.add(record.slab());
@@ -162,10 +161,6 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 needsStoneTools.add(record.stool());
                 needsStoneTools.add(record.table());
             }
-        }
-
-        for (SimpleStoneChairModel.VanillaChair block : SimpleStoneChairModel.vanillaChairs) {
-
         }
 
         SimpleStoneStoolModel.stools.forEach(seat::add);
@@ -212,6 +207,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsStoneTools.add(OreRockSets.DEEPSLATE.tin_ore());
         needsStoneTools.add(OreRockSets.DEEPSLATE.lead_ore());
 
+        needsStoneTools.add(OreRockSets.DEEPSLATE.lead_ore());
+
         needsIronTools.add(OreRockSets.DIFTOMIN.tin_ore());
         needsIronTools.add(OreRockSets.DIFTOMIN.lead_ore());
         needsIronTools.add(OreRockSets.DIFTOMIN.silver_ore());
@@ -223,6 +220,13 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsDiamondTools.add(OreRockSets.EPMOSTO.gold_ore());
         needsDiamondTools.add(OreRockSets.EPMOSTO.iron_ore());
         needsDiamondTools.add(OreRockSets.EPMOSTO.mithril_ore());
+
+        needsStoneTools.add(ModBlocks.BRONZE_BLOCK);
+        needsStoneTools.add(ModBlocks.ORC_STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.DWARVEN_STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.ELVEN_STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.URUK_STEEL_BLOCK);
 
         mineablePickaxe.add(ModBlocks.STONE_MYCELIUM);
         mineableShovel.add(ModBlocks.ASH_BLOCK);
@@ -252,6 +256,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableHoe.add(ModBlocks.STRAW_WALL);
 
         mineableAxe.add(ModDecorativeBlocks.WOOD_PILE);
+        mineableAxe.add(ModDecorativeBlocks.ARTISAN_TABLE);
 
         mineablePickaxe.add(ModBlocks.STONE_VERTICAL_SLAB);
         mineablePickaxe.add(ModBlocks.COBBLESTONE_VERTICAL_SLAB);
@@ -399,5 +404,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.MEDIUM_GLOWSTONE_BUD);
         mineablePickaxe.add(ModBlocks.LARGE_GLOWSTONE_BUD);
         mineablePickaxe.add(ModBlocks.GLOWSTONE_CLUSTER);
+
+        mineablePickaxe.add(ModDecorativeBlocks.ALLOY_FURNACE);
     }
 }

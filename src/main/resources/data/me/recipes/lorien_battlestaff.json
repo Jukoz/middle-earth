@@ -1,0 +1,21 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "me:mallorn_planks"
+    },
+    {
+      "item": "minecraft:stick"
+    },
+    {
+      "item": "minecraft:stick"
+    },
+    {
+      "item": "me:mallorn_planks"
+    }
+  ],
+  "output": {
+    "item": "me:lorien_battlestaff",
+    "count": 1
+  }
+}

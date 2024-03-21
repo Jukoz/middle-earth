@@ -19,14 +19,12 @@ public class SnowTrollRenderer extends MobEntityRenderer<SnowTrollEntity, SnowTr
 
     @Override
     public Identifier getTexture(SnowTrollEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return new Identifier(MiddleEarth.MOD_ID, PATH + "snow_troll1.png");
     }
 
     public static final Map<SnowTrollVariant, String> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(SnowTrollVariant.class), (resourceLocation) -> {
                 resourceLocation.put(SnowTrollVariant.SNOW,
-                        PATH + "troll1.png");
-                resourceLocation.put(SnowTrollVariant.ICE,
-                        PATH + "troll2.png");
+                        PATH + "snow_troll1.png");
             });
 }

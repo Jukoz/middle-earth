@@ -36,7 +36,6 @@ public class ModEquipmentItems {
     public static final Item FUR_CLOAK = registerGeneratedItem("fur_cloak",
             new CustomChestplateItem(ModArmorMaterials.FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
 
-
     // Chainmail fur cloaks
     public static final Item CHAINMAIL_FUR_CLOAK = registerGeneratedItem("chainmail_fur_cloak",
             new CustomChestplateItem(ModArmorMaterials.CHAINMAIL_FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.CAPE)));
@@ -98,7 +97,7 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.GONDORIAN_FOUNTAIN_GUARD_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item GONDORIAN_SHIELD = registerItem("gondorian_shield",
-            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
+            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(450), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
 
     public static final Item GONDORIAN_HORSE_ARMOR = registerGeneratedItem("gondorian_horse_armor",
             new CustomHorseArmorItem(7, "gondorian", new FabricItemSettings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
@@ -150,7 +149,7 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.HORSE_LORD_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item ROHIRRIC_SHIELD = registerItem("rohirric_shield",
-            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
+            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(450), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
 
     public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
             new CustomHorseArmorItem(10, "rohirric", new FabricItemSettings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
@@ -202,7 +201,7 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.EREBOR_COMMANDER_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item LONGBEARD_SHIELD = registerItem("longbeard_shield",
-            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards")));
+            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(450), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards")));
 
     public static final Item LORIEN_HORSE_ARMOR = registerGeneratedItem("lorien_horse_armor",
             new CustomHorseArmorItem(7, "lorien", new FabricItemSettings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
@@ -245,7 +244,7 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.LORIEN_COMMANDER_ARMOR, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     public static final Item LORIEN_SHIELD = registerItem("lorien_shield",
-            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
+            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(450), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
 
     //MORDOR
     public static final Item MORDOR_ORC_MAIL_HELMET = registerGeneratedItem("mordor_orc_mail_helmet",
@@ -279,7 +278,7 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.MORDOR_BLACK_URUK_PLATE_ARMOR, ArmorItem.Type.HELMET, new FabricItemSettings(), List.of(CustomHelmetItem.Customizations.SKULL)));
 
     public static final Item MORDOR_SHIELD = registerItem("mordor_shield",
-            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor")));
+            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(450), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor")));
 
     public static final Item NAZGUL_CLOAK_HOOD = registerGeneratedItem("nazgul_cloak_hood",
             new CustomHelmetItem(ModArmorMaterials.NAZGUL_CLOAK, ArmorItem.Type.HELMET, new FabricItemSettings(),List.of(CustomHelmetItem.Customizations.HOOD)));
@@ -324,10 +323,10 @@ public class ModEquipmentItems {
             new CustomChestplateItem(ModArmorMaterials.MISTY_HOBGOBLIN_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new FabricItemSettings(), List.of(CustomChestplateItem.Customizations.IMPALED_SKULLS)));
 
     public static final Item MISTY_MOUNTAINS_SHIELD = registerItem("misty_mountains_shield",
-            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(336), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs")));
+            new CustomShieldItem(new FabricItemSettings().maxCount(1).maxDamage(450), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs")));
 
-    public static final Item STEEL_TROLL_ARMOR = registerGeneratedItem("steel_troll_armor",
-            new TrollArmorItem(10, "steel", new FabricItemSettings().maxCount(1)));
+    /*public static final Item STEEL_TROLL_ARMOR = registerGeneratedItem("steel_troll_armor",
+            new TrollArmorItem(10, "steel", new FabricItemSettings().maxCount(1)));*/
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());

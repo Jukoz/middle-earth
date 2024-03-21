@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "me:diftomin_lead_ore"
+    "tag": "me:lead_ores"
   },
   "result": "me:lead_ingot",
-  "experience": 2,
-  "cookingtime": 250
+  "experience": 0.7,
+  "cookingtime": 200
 }

@@ -1,0 +1,18 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "me:steel_ingot"
+    },
+    {
+      "item": "me:steel_ingot"
+    },
+    {
+      "item": "minecraft:stick"
+    }
+  ],
+  "output": {
+    "item": "me:umbar_scimitar",
+    "count": 1
+  }
+}

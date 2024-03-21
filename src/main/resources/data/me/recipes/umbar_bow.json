@@ -1,0 +1,12 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "minecraft:bow"
+    }
+  ],
+  "output": {
+    "item": "me:umbar_bow",
+    "count": 1
+  }
+}

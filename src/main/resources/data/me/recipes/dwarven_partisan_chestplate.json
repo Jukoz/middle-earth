@@ -1,0 +1,27 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "minecraft:iron_nugget"
+    },
+    {
+      "item": "me:bronze_nugget"
+    }
+  ],
+  "output": {
+    "item": "me:dwarven_partisan_chestplate",
+    "count": 1
+  }
+}

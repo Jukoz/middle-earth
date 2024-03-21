@@ -1,15 +1,8 @@
 package net.jukoz.me.entity.beasts.trolls.stone;
 
 import net.jukoz.me.entity.ModEntities;
-import net.jukoz.me.entity.beasts.BeastEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
-import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
-import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
-import net.jukoz.me.entity.goals.*;
-import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
-import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
-import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
-import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
+import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.damage.DamageSource;
@@ -17,18 +10,26 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import java.util.List;
 
 public class StoneTrollEntity extends TrollEntity {
     public static final TrackedData<Integer> PETRIFYING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    public static final List<RegistryKey<Biome>> darkBiomes = List.of(
+            MEBiomeKeys.MORDOR,
+            MEBiomeKeys.MORDOR_MOUNTAINS,
+            MEBiomeKeys.MORDOR_WASTES
+    );
+    private final int PETRIFYING_DURATION = 600;
 
     public StoneTrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
@@ -36,31 +37,15 @@ public class StoneTrollEntity extends TrollEntity {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new BeastSitGoal(this));
-        this.goalSelector.add(2, new EscapeSunlightGoal(this, 1.2d));
-        this.goalSelector.add(4, new ChargeAttackGoal(this, 400));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, 0.9f, false));
-        this.goalSelector.add(6, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
-        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(8, new LookAroundGoal(this));
-        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((BeastEntity) this));
-        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((BeastEntity)this));
-        this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
-        this.targetSelector.add(4, new TargetPlayerGoal(this));
-        this.targetSelector.add(5, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(6, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
-        this.targetSelector.add(7, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
-        this.targetSelector.add(8, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
-        this.targetSelector.add(9, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-        this.targetSelector.add(10, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        super.initGoals();
+        this.goalSelector.add(3, new AvoidSunlightGoal(this));
+        this.goalSelector.add(4, new EscapeSunlightGoal(this, 1.2d));
     }
 
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(PETRIFYING, 100);
+        this.dataTracker.startTracking(PETRIFYING, PETRIFYING_DURATION);
     }
 
     @Override
@@ -96,12 +81,12 @@ public class StoneTrollEntity extends TrollEntity {
 
     @Override
     public boolean canThrow() {
-        return !this.isPetrified();
+        return !this.isPetrified() && !this.isSitting();
     }
 
     @Override
     public boolean canCharge() {
-        return !this.isPetrified();
+        return !this.isPetrified() && !this.isSitting();
     }
 
     @Override
@@ -124,8 +109,11 @@ public class StoneTrollEntity extends TrollEntity {
 
     @Override
     public void tickMovement() {
-        if (this.isAlive() && !this.getWorld().isClient() && this.getPetrifying() != -1) {
-            boolean inDaylight = this.isAffectedByDaylight() && this.getEquippedStack(EquipmentSlot.CHEST).isEmpty();
+        if (this.isAlive() && !this.getWorld().isClient() && this.getPetrifying() != -1 && this.getWorld().getBiome(this.getBlockPos()).getKey().isPresent()) {
+            RegistryKey<Biome> biomeKey = this.getWorld().getBiome(this.getBlockPos()).getKey().get();
+
+            boolean inDaylight = this.isAffectedByDaylight() && this.getEquippedStack(EquipmentSlot.CHEST).isEmpty() && !darkBiomes.contains(biomeKey);
+
             if (inDaylight) {
                 this.setPetrifying(this.getPetrifying() - 1);
                 if(this.getPetrifying() <= 0) {
@@ -136,10 +124,10 @@ public class StoneTrollEntity extends TrollEntity {
                 }
             }
             else {
-                this.setPetrifying(100);
+                this.setPetrifying(PETRIFYING_DURATION);
             }
         }
-        if(getPetrifying() != -1 && getPetrifying() < 100 && this.getWorld().isClient() && this.age % 3 == 0) {
+        if(getPetrifying() != -1 && getPetrifying() < PETRIFYING_DURATION && this.getWorld().isClient() && this.age % 3 == 0) {
             this.getWorld().addParticle(ParticleTypes.LARGE_SMOKE, this.getX() + ((random.nextFloat() * 2f) - 1f), this.getY() + 1d + random.nextFloat(), this.getZ() + ((random.nextFloat() * 2f) - 1f), random.nextFloat() / 8.0f, 0.2f, random.nextFloat() / 8.0f);
         }
 

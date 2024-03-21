@@ -51,6 +51,10 @@ public class ModelProvider extends FabricModelProvider {
             blockStateModelGenerator.registerSimpleCubeAll(block.base());
         }
 
+        for (SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledMainBlockTopBottom) {
+            blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+        }
+
         for (SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledBlocksTopBottom) {
             blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
         }
@@ -392,7 +396,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.trapdoors) {
-            blockStateModelGenerator.registerTrapdoor(trapdoor.trapdoor());
+            blockStateModelGenerator.registerOrientableTrapdoor(trapdoor.trapdoor());
         }
 
 

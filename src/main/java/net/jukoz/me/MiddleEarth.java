@@ -7,6 +7,7 @@ import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.particles.ModParticleTypes;
+import net.jukoz.me.registries.ModRegistries;
 import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.jukoz.me.recipe.ModRecipes;
 import net.jukoz.me.sound.ModSounds;
@@ -17,7 +18,7 @@ import net.jukoz.me.world.MiddleEarthMapGeneration;
 import net.jukoz.me.world.gen.ModWorldGeneration;
 import net.jukoz.me.world.spawners.ModEntitySpawning;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
-import net.jukoz.me.world.biomes.MEBiomesData;
+import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import net.jukoz.me.world.dimension.ModDimensions;
 
 public class MiddleEarth implements ModInitializer {
@@ -48,11 +49,15 @@ public class MiddleEarth implements ModInitializer {
 		StoneBlockSets.registerModBlockSets();
 		ModDecorativeItems.registerModItems();
 		ModBlocks.registerModBlocks();
-		ModBlocks.registerFlammableBlocks();
 		ModDecorativeBlocks.registerModBlocks();
-		ModDecorativeBlocks.registerFlammableFurniture();
 		ModNatureBlocks.registerModBlocks();
 		RoofBlockSets.registerModBlockSets();
+
+		ModRegistries.registerFuels();
+		ModRegistries.registerFlammableBlocks();
+		ModRegistries.registerAgingCopperBlocks();
+		ModRegistries.registerComposterBlocks();
+		ModRegistries.registerCauldronBehaviour();
 
 		ModBlockEntities.registerBlockEntities();
 
