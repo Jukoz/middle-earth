@@ -173,6 +173,7 @@ public class MiddleEarthMapGeneration {
         }
         return true;
     }
+
     private void generateHeight(BufferedImage initialImage) {
         ExecutorService executorService = Executors.newFixedThreadPool(MiddleEarthMapConfigs.THREAD_POOL_SIZE);
 
