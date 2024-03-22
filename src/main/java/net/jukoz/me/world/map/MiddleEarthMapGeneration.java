@@ -18,6 +18,8 @@ import static java.lang.String.format;
 public class MiddleEarthMapGeneration {
     private FileUtils fileUtils;
     private LoggerUtil loggerUtil;
+    private static final int WATER_BUFFER = 28;
+    private static final float WATER_HEIGHT_MULTIPLIER = 1.0f;
 
     public MiddleEarthMapGeneration() throws Exception {
         fileUtils = FileUtils.getInstance();
@@ -208,17 +210,17 @@ public class MiddleEarthMapGeneration {
                 for (int y = 0; y < size; y++) {
                     try {
                         int height = MEBiomesData.getBiomeByColor(biomeImage.getRGB(x, y)).height;
-                        if(height > 255 - 25){
-                            height = 230;
+                        if(height > 255){
+                            height = 255;
                         }
-                        int isNegative = (height < 0 ? 200 : 0);
+                        int water = 0;
+                        if(height < 0) {
+                            water = (int) Math.abs((height * WATER_HEIGHT_MULTIPLIER) - WATER_BUFFER);
+                            height = 0;
+                        }
                         byte decimal = 0;
 
-                        if(height > 0){
-                            height += 25;
-                        }
-
-                        newHeightRegion.setRGB(x, y, new Color(Math.abs(height), decimal, isNegative).getRGB());
+                        newHeightRegion.setRGB(x, y, new Color(Math.abs(height), decimal, water).getRGB());
                     } catch (Exception e) {
                         throw new RuntimeException("MiddleEarthMapGeneration.processHeightRegion : Failed to create color for the height [%s]".formatted(e));
                     }

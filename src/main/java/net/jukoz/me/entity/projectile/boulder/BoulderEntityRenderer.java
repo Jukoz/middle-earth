@@ -36,6 +36,9 @@ public class BoulderEntityRenderer extends EntityRenderer<BoulderEntity> {
 
     @Override
     public void render(BoulderEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+        if(entity.getOwner() == null) {
+            return;
+        }
         BlockState blockState = Blocks.STONE.getDefaultState();
         if (blockState.getRenderType() != BlockRenderType.MODEL) {
             return;
@@ -48,6 +51,7 @@ public class BoulderEntityRenderer extends EntityRenderer<BoulderEntity> {
         matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevPitch, entity.getPitch()) + 90.0F));
         BlockPos blockPos = BlockPos.ofFloored(entity.getX(), entity.getBoundingBox().maxY, entity.getZ());
         matrices.translate(-0.5, 0.0, -0.5);
+
         this.blockRenderManager.getModelRenderer().render(world, this.blockRenderManager.getModel(blockState), blockState, blockPos, matrices, vertexConsumers.getBuffer(RenderLayers.getMovingBlockLayer(blockState)), false, Random.create(), blockState.getRenderingSeed(entity.getOwner().getBlockPos()), OverlayTexture.DEFAULT_UV);
         matrices.pop();
         super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
