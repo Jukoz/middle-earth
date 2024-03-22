@@ -1,0 +1,18 @@
+{
+  "structures": [
+	{
+      "structure": "me:lorien_house",
+      "weight": 3
+    },
+	{
+      "structure": "me:lorien_temple",
+      "weight": 2
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 9,
+    "separation": 5,
+    "salt": 13238135
+  }
+}
