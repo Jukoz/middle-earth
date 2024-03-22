@@ -85,7 +85,7 @@ public class ModEntitySpawning {
                 new EntitySpawningSettings(ModEntities.MIRKWOOD_SPIDER, 2, 5, 100, true)
         );
 
-        List<EntitySpawningSettings> stoneTroll  = List.of(new EntitySpawningSettings(ModEntities.STONE_TROLL, 0, 1, 1, true));
+        List<EntitySpawningSettings> stoneTroll  = List.of(new EntitySpawningSettings(ModEntities.STONE_TROLL, 0, 1, 20, true));
         List<EntitySpawningSettings> goblinsAndBandits = Stream.concat(wildGoblinsSpawnSettings.stream(), banditSpawnSettings.stream()).toList();
         List<EntitySpawningSettings> goblinsAndStoneTroll = Stream.concat(wildGoblinsSpawnSettings.stream(), stoneTroll.stream()).toList();
         List<EntitySpawningSettings> goblinsAndLongbeards = Stream.concat(wildGoblinsSpawnSettings.stream(), wildLongBeardsSpawnSettings.stream()).toList();
