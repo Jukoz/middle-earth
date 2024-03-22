@@ -390,6 +390,7 @@ public class ModBiomes {
 
         ModBiomeFeatures.addCalciteBoulder(vegetation);
         ModBiomeFeatures.addLimestoneBoulder(vegetation);
+        ModBiomeFeatures.addOakBushes(vegetation);
         ModBiomeFeatures.addRareBeechTrees(vegetation);
         ModBiomeFeatures.addSparseBirchTrees(vegetation);
         ModBiomeFeatures.addVeryRareMegaOakTrees(vegetation);
@@ -409,6 +410,7 @@ public class ModBiomes {
         ModBiomeFeatures.addDioriteOre(vegetation);
         ModBiomeFeatures.addLimestoneOre(vegetation);
         ModBiomeFeatures.addStoneGrassAbundantOre(vegetation);
+        ModBiomeFeatures.addCommonOakBush(vegetation);
         ModBiomeFeatures.addBirchTrees(vegetation);
         ModBiomeFeatures.addLarchTrees(vegetation);
 
@@ -899,7 +901,7 @@ public class ModBiomes {
     public static Biome createMirkwoodBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, boolean bigTrees, boolean dark) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addWolves(spawnSettings);
-        ModSpawnSettingsBuilder.addDeer(spawnSettings);
+        if(!dark) ModSpawnSettingsBuilder.addDeer(spawnSettings);
 
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
@@ -1505,6 +1507,7 @@ public class ModBiomes {
     public static Biome createWoodlandRealmBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addWolves(spawnSettings);
+        ModSpawnSettingsBuilder.addDeer(spawnSettings);
 
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 

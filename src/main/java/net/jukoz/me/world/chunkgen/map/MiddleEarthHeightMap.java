@@ -25,6 +25,9 @@ public class MiddleEarthHeightMap {
     public static final int STONE_HEIGHT = 54;
     public static final int HEIGHT = 8 + STONE_HEIGHT;
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
+    public static final int WATER_MAX = 16;
+    public static final float WATER_MULTIPLIER = 1.31f;
+    public static final float WATER_PERLIN_DIVIDER = 2.2f;
     private static final int PIXEL_WEIGHT = MiddleEarthMapConfigs.PIXEL_WEIGHT;
     public static final ArrayList<Float> percentages = new ArrayList<Float>();
     private static MiddleEarthMapRuntime middleEarthMapRuntime;
@@ -42,10 +45,10 @@ public class MiddleEarthHeightMap {
             float height = red;
 
             if(blue > 0) { // Water carver
-                float percentage = (16 - blue) / 16;
+                float percentage = (WATER_MAX - blue) / WATER_MAX;
                 percentage = Math.max(0, Math.min(1, percentage));
                 height *= percentage;
-                height -= blue * 1.31f;
+                height -= blue * WATER_MULTIPLIER;
             }
             return height;
         }
@@ -73,7 +76,7 @@ public class MiddleEarthHeightMap {
         if(MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(x,z)) {
             float biomeHeight = getBiomeWeightHeight(x, z);
             if(biomeHeight < 0) {
-                perlin /= (Math.max(1, Math.min(5, Math.abs(biomeHeight / 2.15f))));
+                perlin /= (Math.max(1, Math.min(5, Math.abs(biomeHeight / WATER_PERLIN_DIVIDER))));
             }
             if(biomeHeight >= MOUNTAIN_START_HEIGHT) {
                 float multiplier = (biomeHeight / MOUNTAIN_START_HEIGHT) - 1;

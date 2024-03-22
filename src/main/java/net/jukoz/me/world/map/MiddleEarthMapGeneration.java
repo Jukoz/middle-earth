@@ -18,6 +18,8 @@ import static java.lang.String.format;
 public class MiddleEarthMapGeneration {
     private FileUtils fileUtils;
     private LoggerUtil loggerUtil;
+    private static final int WATER_BUFFER = 28;
+    private static final float WATER_HEIGHT_MULTIPLIER = 1.0f;
 
     public MiddleEarthMapGeneration() throws Exception {
         fileUtils = FileUtils.getInstance();
@@ -213,7 +215,7 @@ public class MiddleEarthMapGeneration {
                         }
                         int water = 0;
                         if(height < 0) {
-                            water = (int) Math.abs((height * 1.03f) - 28);
+                            water = (int) Math.abs((height * WATER_HEIGHT_MULTIPLIER) - WATER_BUFFER);
                             height = 0;
                         }
                         byte decimal = 0;
