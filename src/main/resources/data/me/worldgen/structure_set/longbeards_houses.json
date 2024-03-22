@@ -1,0 +1,14 @@
+{
+  "structures": [
+	{
+      "structure": "me:longbeard_house",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 16,
+    "separation": 8,
+    "salt": 127248587
+  }
+}

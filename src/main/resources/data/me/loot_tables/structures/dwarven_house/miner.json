@@ -1,15 +1,6 @@
 {
   "pools": [
     {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "me:dwarven_steel_pickaxe"
-        }
-      ]
-    },
-    {
       "rolls": {
         "min": 1,
         "max": 5
@@ -17,7 +8,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:cobblestone"
+          "name": "minecraft:tuff"
         }
       ]
     },
@@ -34,11 +25,14 @@
       ]
     },
     {
-      "rolls": 1,
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:longbeard_sword"
+          "name": "me:dwarven_lantern"
         }
       ]
     },
@@ -50,7 +44,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_ingot"
+          "name": "me:dwarven_steel_nugget"
         }
       ]
     },
@@ -69,7 +63,7 @@
     {
       "rolls": {
         "min": 0,
-        "max": 2
+        "max": 1
       },
       "entries": [
         {
