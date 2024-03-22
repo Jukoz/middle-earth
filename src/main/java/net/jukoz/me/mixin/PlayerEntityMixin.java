@@ -52,12 +52,10 @@ public class PlayerEntityMixin {
                     } else {
                         player.equipStack(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
                     }
-
                     activeItem = ItemStack.EMPTY;
                     player.playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8F, 0.8F + player.getWorld().random.nextFloat() * 0.4F);
                 }
             }
-
         }
     }
 
@@ -71,16 +69,13 @@ public class PlayerEntityMixin {
         ItemStack activeItemStack = player.getActiveItem();
         Item activeItem = activeItemStack.getItem();
 
-
         if (activeItem instanceof ShieldItem shield) {
-
             float f = 0.25F + (float) EnchantmentHelper.getEfficiency(player) * 0.05F;
             if (sprinting) {
                 f += 0.75F;
             }
-
             if (player.getRandom().nextFloat() < f) {
-                player.getItemCooldownManager().set((Item) shield, 72000);
+                player.getItemCooldownManager().set(shield, 100);
                 player.clearActiveItem();
                 player.getWorld().sendEntityStatus(player, (byte) 30);
                 callbackInfo.cancel();

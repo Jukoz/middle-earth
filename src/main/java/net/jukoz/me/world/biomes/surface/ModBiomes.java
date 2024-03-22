@@ -980,7 +980,7 @@ public class ModBiomes {
         ModBiomeFeatures.addDolomiteOre(vegetation);
         ModBiomeFeatures.addTuffOre(vegetation);
         if(foothills) {
-            temperature = 0.3f;
+            temperature = 0.2f;
             ModBiomeFeatures.addCoarseDirtOre(vegetation);
             ModBiomeFeatures.addGravelOre(vegetation);
             ModBiomeFeatures.addStoneGrassOre(vegetation);
@@ -1140,7 +1140,7 @@ public class ModBiomes {
         ModBiomeFeatures.addScarceSpruceTrees(vegetation);
         ModBiomeFeatures.addSpruceBushes(vegetation);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.1f, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.3f, true);
     }
 
     public static Biome createOldArthedainBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
