@@ -5,18 +5,14 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.item.items.CustomSpawnEggItem;
-import net.jukoz.me.item.utils.ModBannerPatternTags;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.ModVerticallyAttachableBlockItem;
 import net.jukoz.me.utils.LoggerUtil;
-import net.minecraft.item.BannerPatternItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
 
 public class ModDecorativeItems {
