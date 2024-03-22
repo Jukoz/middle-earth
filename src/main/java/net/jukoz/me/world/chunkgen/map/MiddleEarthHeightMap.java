@@ -25,6 +25,9 @@ public class MiddleEarthHeightMap {
     public static final int STONE_HEIGHT = 54;
     public static final int HEIGHT = 8 + STONE_HEIGHT;
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
+    public static final int WATER_MAX = 16;
+    public static final float WATER_MULTIPLIER = 1.31f;
+    public static final float WATER_PERLIN_DIVIDER = 2.2f;
     private static final int PIXEL_WEIGHT = MiddleEarthMapConfigs.PIXEL_WEIGHT;
     public static final ArrayList<Float> percentages = new ArrayList<Float>();
     private static MiddleEarthMapRuntime middleEarthMapRuntime;
@@ -34,25 +37,19 @@ public class MiddleEarthHeightMap {
     }
 
     private static float getImageHeight(int xWorld, int zWorld) {
-        if(middleEarthMapRuntime == null)
-            middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
-
+        if(middleEarthMapRuntime == null) middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
         Color color = middleEarthMapRuntime.getHeight(xWorld, zWorld);
-
         if(color != null){
             float red = color.getRed();
             float blue = color.getBlue();
-            float height = red - 25; //+ (color.getGreen() / 255f);
-            if(blue > 180){
-                height = -red;
-            }
-            else if(blue > 0 && blue > red){
-                float newHeight = height;
-                newHeight += newHeight * (blue / 200);
-                newHeight = Math.max(newHeight, height);
-                height = Math.max(-7, newHeight);
-            }
+            float height = red;
 
+            if(blue > 0) { // Water carver
+                float percentage = (WATER_MAX - blue) / WATER_MAX;
+                percentage = Math.max(0, Math.min(1, percentage));
+                height *= percentage;
+                height -= blue * WATER_MULTIPLIER;
+            }
             return height;
         }
         return 0;
@@ -78,6 +75,9 @@ public class MiddleEarthHeightMap {
 
         if(MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(x,z)) {
             float biomeHeight = getBiomeWeightHeight(x, z);
+            if(biomeHeight < 0) {
+                perlin /= (Math.max(1, Math.min(5, Math.abs(biomeHeight / WATER_PERLIN_DIVIDER))));
+            }
             if(biomeHeight >= MOUNTAIN_START_HEIGHT) {
                 float multiplier = (biomeHeight / MOUNTAIN_START_HEIGHT) - 1;
                 biomeHeight += biomeHeight * multiplier * MOUNTAIN_EXPONENTIAL_HEIGHT;

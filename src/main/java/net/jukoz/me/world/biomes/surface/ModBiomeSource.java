@@ -66,7 +66,7 @@ public class ModBiomeSource extends BiomeSource {
             if(j <= CavesPlacedFeatures.MAX_MITHRIL_HEIGHT && meBiome.caveType == CaveType.MISTIES) {
                 processedBiome = MEBiomeKeys.MITHRIL_CAVE;
             }
-            else if(j < height - 12) {
+            else if(j < (height - 16)) {
                 processedBiome = getCaveBiome(i, k, meBiome);
             }
             else if(height <= MiddleEarthChunkGenerator.WATER_HEIGHT + 1.25f) {

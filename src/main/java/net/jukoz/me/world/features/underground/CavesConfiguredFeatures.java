@@ -356,7 +356,7 @@ public class CavesConfiguredFeatures {
                 -16, 16, 0.05, 1));
     }
 
-    private static DataPool.Builder<BlockState> getMushroomBuilder(Block tiller) {
+    public static DataPool.Builder<BlockState> getMushroomBuilder(Block tiller) {
         DataPool.Builder<BlockState> builder = DataPool.builder();
         for (int i = 1; i <= 4; ++i) {
             for (Direction direction : Direction.Type.HORIZONTAL) {
