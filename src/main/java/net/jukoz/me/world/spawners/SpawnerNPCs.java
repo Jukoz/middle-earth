@@ -19,14 +19,17 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.spawner.Spawner;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.stream.Collectors.toCollection;
 
 public class SpawnerNPCs implements Spawner {
     private static final int SPAWN_COUNT_CAP = 32;
     private static final int SPAWN_DISTANCE = 32;
     private static final int SPAWN_RAND = 8;
     private static final int MAX_SPAWN_RAD = SPAWN_DISTANCE + SPAWN_RAND + 4;
-    private static final int BASE_COOLDOWN = 60;
+    private static final int BASE_COOLDOWN = 32;
     private static final int COOLDOWN_RANGE = 8;
     private int cooldown = BASE_COOLDOWN + COOLDOWN_RANGE;
 
@@ -66,11 +69,28 @@ public class SpawnerNPCs implements Spawner {
                 RegistryKey<Biome> biomeRegistryKey = world.getBiome(targetBlockPos).getKey().get();
 
                 EntityData entityData = null;
-                List<EntitySpawningSettings> spawningSettings = ModEntitySpawning.getSpawnsAt(biomeRegistryKey);
-                if(spawningSettings == null || spawningSettings.size() == 0) continue;
-                EntitySpawningSettings entitySpawningSettings = spawningSettings.get(random.nextInt(spawningSettings.size()));
-
-                int randomCount = random.nextInt(1 + entitySpawningSettings.getMaxCount() - entitySpawningSettings.getMinCount()); // We add +1 because we want inclusive bound.
+                List<EntitySpawningSettings> biomeSpawnSettings = ModEntitySpawning.getSpawnsAt(biomeRegistryKey);
+                if(biomeSpawnSettings == null) continue;
+                ArrayList<EntitySpawningSettings> spawningSettings = new ArrayList<>(biomeSpawnSettings);
+                if(world.isDay()) {
+                    spawningSettings.removeIf(EntitySpawningSettings::isNightOnly);
+                }
+                if(spawningSettings.size() == 0) continue;
+                int totalWeight = 0;
+                for(EntitySpawningSettings settings : spawningSettings) {
+                    totalWeight += settings.getWeight();
+                }
+                int nextWeight = random.nextInt(totalWeight) + 1;
+                totalWeight = 0;
+                EntitySpawningSettings entitySpawningSettings = spawningSettings.get(0);
+                for(EntitySpawningSettings settings : spawningSettings) {
+                    if(totalWeight + settings.getWeight() >= nextWeight) {
+                        entitySpawningSettings = settings;
+                        break;
+                    }
+                    totalWeight += settings.getWeight();
+                }
+                int randomCount = random.nextInt(1 + entitySpawningSettings.getMaxCount() - entitySpawningSettings.getMinCount());
                 int entityCount = entitySpawningSettings.getMinCount() + randomCount;
 
                 for (int m = 0; m < entityCount; ++m) {
