@@ -981,7 +981,7 @@ public class ModBiomes {
         ModBiomeFeatures.addDolomiteOre(vegetation);
         ModBiomeFeatures.addTuffOre(vegetation);
         if(foothills) {
-            temperature = 0.3f;
+            temperature = 0.2f;
             ModBiomeFeatures.addCoarseDirtOre(vegetation);
             ModBiomeFeatures.addGravelOre(vegetation);
             ModBiomeFeatures.addStoneGrassOre(vegetation);
