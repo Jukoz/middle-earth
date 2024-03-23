@@ -15,7 +15,7 @@ public class StarlightPhialItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        if(!world.getRegistryKey().getValue().equals(ModDimensions.WORLD_KEY.getValue())) {
+        if(!ModDimensions.isInMiddleEarth(world)) {
             if (!user.isCreative()) {
                 //user.getInventory().removeStack(user.getActiveHand().ordinal());
                 user.getStackInHand(hand).decrement(1);

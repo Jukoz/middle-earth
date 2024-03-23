@@ -1,0 +1,27 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "minecraft:chainmail_leggings"
+    },
+    {
+      "item": "me:iron_chainmail"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "me:iron_chainmail"
+    },
+    {
+      "item": "minecraft:red_dye"
+    },
+    {
+      "item": "minecraft:red_dye"
+    }
+  ],
+  "output": {
+    "item": "me:mordor_orc_mail_leggings",
+    "count": 1
+  }
+}

@@ -56,7 +56,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:mordor_orc_sword"
+          "name": "me:mordor_great_eye_banner_pattern"
         }
       ]
     },
@@ -68,19 +68,31 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:mordor_orc_axe"
+          "name": "me:mordor_eye_banner_pattern"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:skeleton_skull"
         }
       ]
     },
     {
       "rolls": {
-        "min": 0,
+        "min": 1,
         "max": 4
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:mordor_dirt"
+          "name": "me:ash_block"
         }
       ]
     }

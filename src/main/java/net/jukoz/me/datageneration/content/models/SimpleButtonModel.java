@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SimpleButtonModel {
     public record Button(Block block, Block button) {}
-    public static List<Button> blocks = new ArrayList<>() {
+    public static List<Button> buttons = new ArrayList<>() {
         {
         }
     };

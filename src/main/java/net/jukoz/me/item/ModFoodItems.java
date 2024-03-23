@@ -3,7 +3,12 @@ package net.jukoz.me.item;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModNatureBlocks;
+import net.jukoz.me.datageneration.content.models.SimpleItemModel;
+import net.jukoz.me.item.items.SkewerItem;
 import net.jukoz.me.item.utils.ModItemGroups;
+import net.jukoz.me.utils.LoggerUtil;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -22,6 +27,42 @@ public class ModFoodItems {
             new Item(new FabricItemSettings().food(
                     new FoodComponent.Builder().hunger(5).saturationModifier(0.6F).meat().build())));
 
+    public static final Item RAW_GOOSE = registerItem("raw_goose",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(3).saturationModifier(0.3F).meat().build())));
+    public static final Item COOKED_GOOSE = registerItem("cooked_goose",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(7).saturationModifier(0.8F).meat().build())));
+
+    public static final Item RAW_DUCK = registerItem("raw_duck",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(2).saturationModifier(0.3F).meat().build())));
+    public static final Item COOKED_DUCK = registerItem("cooked_duck",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(6).saturationModifier(0.7F).meat().build())));
+
+    public static final Item RAW_SWAN = registerItem("raw_swan",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(3).saturationModifier(0.4F).meat().build())));
+    public static final Item COOKED_SWAN = registerItem("cooked_swan",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(8).saturationModifier(0.8F).meat().build())));
+
+    public static final Item RAW_RAT = registerItem("raw_rat",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(2).saturationModifier(0.3F)
+                            .statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.3F).meat().build())));
+    public static final Item COOKED_RAT = registerItem("cooked_rat",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(5).saturationModifier(0.6F).meat().build())));
+
+    public static final Item RAW_HORSE = registerItem("raw_horse",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(4).saturationModifier(0.4F).meat().build())));
+    public static final Item COOKED_HORSE = registerItem("cooked_horse",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(9).saturationModifier(0.9F).meat().build())));
+
     public static final Item MAGGOTY_BREAD = registerItem("maggoty_bread",
             new Item(new FabricItemSettings().food(
                     new FoodComponent.Builder().hunger(5).saturationModifier(1.2f).build())));
@@ -32,11 +73,81 @@ public class ModFoodItems {
                     new FabricItemSettings().food(
                             new FoodComponent.Builder().hunger(2).saturationModifier(0.1f).build())));
 
+    public static final Item TOMATO = registerItem("tomato",
+            new Item(new FabricItemSettings().food(
+                            new FoodComponent.Builder().hunger(4).saturationModifier(0.4f).build())));
+    public static final Item BELL_PEPPER = registerItem("bell_pepper",
+            new Item(new FabricItemSettings().food(
+                            new FoodComponent.Builder().hunger(4).saturationModifier(0.5f).build())));
+    public static final Item CUCUMBER = registerItem("cucumber",
+            new Item(new FabricItemSettings().food(
+                            new FoodComponent.Builder().hunger(4).saturationModifier(0.5f).build())));
+    public static final Item GARLIC = registerItem("garlic",
+            new AliasedBlockItem(ModNatureBlocks.GARLIC_CROP,
+                    new FabricItemSettings().food(
+                            new FoodComponent.Builder().hunger(2).saturationModifier(0.2f).build())));
+    public static final Item LEEK = registerItem("leek",
+            new AliasedBlockItem(ModNatureBlocks.LEEK_CROP,
+                    new FabricItemSettings().food(
+                            new FoodComponent.Builder().hunger(2).saturationModifier(0.2f).build())));
+    public static final Item LETTUCE = registerItem("lettuce",
+            new Item(new FabricItemSettings().food(
+                            new FoodComponent.Builder().hunger(3).saturationModifier(0.3f).build())));
+    public static final Item ONION = registerItem("onion",
+            new AliasedBlockItem(ModNatureBlocks.ONION_CROP,
+                    new FabricItemSettings().food(
+                            new FoodComponent.Builder().hunger(2).saturationModifier(0.2f).build())));
+
+    public static final Item BERRY_PIE = registerItem("berry_pie",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(5).saturationModifier(0.6f).build())));
+    public static final Item BOILED_EGG = registerItem("boiled_egg",
+            new Item(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(5).saturationModifier(0.6f).build())));
+    public static final Item CRAB_SOUP = registerItem("crab_soup",
+            new StewItem(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(12).saturationModifier(0.8f).build()).maxCount(1)));
+    public static final Item FISH_STEW = registerItem("fish_stew",
+            new StewItem(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(12).saturationModifier(1.0f).build()).maxCount(1)));
+    public static final Item MEAT_BOWL = registerItem("meat_bowl",
+            new StewItem(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(14).saturationModifier(1.1f).build()).maxCount(1)));
+    public static final Item MEAT_EGG_MEAL = registerItem("meat_egg_meal",
+            new StewItem(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(11).saturationModifier(0.9f).build()).maxCount(1)));
+    public static final Item MEAT_SKEWER = registerItem("meat_skewer",
+            new SkewerItem(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(5).saturationModifier(0.6f).build()).maxCount(1)));
+    public static final Item COOKED_MEAT_SKEWER = registerItem("cooked_meat_skewer",
+            new SkewerItem(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(11).saturationModifier(1.0f).meat().build()).maxCount(1)));
+    public static final Item POULTRY_MEAL = registerItem("poultry_meal",
+            new StewItem(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(13).saturationModifier(1.0f).build()).maxCount(1)));
+    public static final Item RAT_SKEWER = registerItem("rat_skewer",
+            new SkewerItem(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(1).saturationModifier(0.1f)
+                            .statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.3F).meat().build()).maxCount(16)));
+    public static final Item COOKED_RAT_SKEWER = registerItem("cooked_rat_skewer",
+            new SkewerItem(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(7).saturationModifier(0.8f).meat().build()).maxCount(16)));
+    public static final Item VEGETABLE_SKEWER = registerItem("vegetable_skewer",
+            new SkewerItem(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(4).saturationModifier(0.5f).build()).maxCount(1)));
+    public static final Item COOKED_VEGETABLE_SKEWER = registerItem("cooked_vegetable_skewer",
+            new SkewerItem(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(10).saturationModifier(0.9f).build()).maxCount(1)));
+    public static final Item VEGETABLE_SOUP = registerItem("vegetable_soup",
+            new StewItem(new FabricItemSettings().food(
+                    new FoodComponent.Builder().hunger(10).saturationModifier(1.0f).build()).maxCount(1)));
+
     private static Item registerItem(String name, Item item) {
         ModItemGroups.FOOD_CONTENTS.add(item.getDefaultStack());
         return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
     }
+
     public static void registerModItems() {
-        MiddleEarth.LOGGER.debug("Registering Mod Food Items for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering Mod Food Items for " + MiddleEarth.MOD_ID);
     }
 }

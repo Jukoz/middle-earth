@@ -42,7 +42,7 @@ import java.util.Optional;
 
 public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
     private static final String ID = "alloy_furnace";
-    public static final int MAX_PROGRESS = 200;
+    public static final int MAX_PROGRESS = 1200;
     public static final int FUEL_SLOT = 0;
     public static final int OUTPUT_SLOT = 5;
     private final DefaultedList<ItemStack> inventory =
@@ -123,7 +123,7 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
 
     @Override
     public void markDirty() {
-        if(!world.isClient()) {
+        if(world != null && !world.isClient()) {
             PacketByteBuf data = PacketByteBufs.create();
             data.writeInt(inventory.size());
             for(int i = 0; i < inventory.size(); i++) {
@@ -224,7 +224,7 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
             if(entity.hasFuel(entity)) {
                 entity.progress++;
                 progress = true;
-                markDirty(world, blockPos, blockState); // Reloads the block in this chunk, for sync & saving.
+                markDirty(world, blockPos, blockState); // Reloads the origin in this chunk, for sync & saving.
                 if(entity.progress >= MAX_PROGRESS) {
                     craftItem(entity);
                     entity.progress = 0;
@@ -292,7 +292,7 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
     }
 
     private void getFuel(AlloyFurnaceEntity entity, Item fuelItem) {
-        fuelTime = fuelTimeMap.get(fuelItem);
+        fuelTime = Math.round(fuelTimeMap.get(fuelItem) / 16);
         maxFuelTime = fuelTime;
         if(fuelItem == Items.LAVA_BUCKET) {
             entity.removeStack(FUEL_SLOT);

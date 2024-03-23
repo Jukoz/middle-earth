@@ -1,0 +1,6 @@
+{
+  "parent": "me:block/tall_crop",
+  "textures": {
+    "crop": "me:block/tomato_crop_stage3"
+  }
+}

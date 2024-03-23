@@ -6,43 +6,58 @@ import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.utils.ModItemGroups;
-import net.jukoz.me.network.ModNetworks;
+import net.jukoz.me.particles.ModParticleTypes;
+import net.jukoz.me.registries.ModRegistries;
 import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.jukoz.me.recipe.ModRecipes;
 import net.jukoz.me.sound.ModSounds;
+import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.utils.LootModifiers;
+import net.jukoz.me.utils.resources.FileUtils;
+import net.jukoz.me.world.map.MiddleEarthMapGeneration;
+import net.jukoz.me.world.gen.ModWorldGeneration;
 import net.jukoz.me.world.spawners.ModEntitySpawning;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
-import net.jukoz.me.world.biomes.MEBiomesData;
-import net.jukoz.me.world.chunkgen.map.MapImageLoader;
+import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import net.jukoz.me.world.dimension.ModDimensions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "me";
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static final int MAP_ITERATION = 3;
+	public static final String MOD_VERSION = "alpha-1.4.0-1.20.1";
+	public static final boolean IS_DEBUG = true;
+	private LoggerUtil loggerUtil;
 	@Override
 	public void onInitialize() {
+		new FileUtils(getClass().getClassLoader());
+		loggerUtil = LoggerUtil.getInstance();
+
+		loggerUtil.logInfoMsg("");
+		loggerUtil.logInfoMsg("================ MiddleEarth ================");
+
 		ModStatusEffects.registerStatusEffects();
 		OreRockSets.registerModBlockSets();
 		ModWeaponItems.registerModItems();
 		ModEquipmentItems.registerModItems();
 		ModToolItems.registerModItems();
 		ModFoodItems.registerModItems();
-		ModRessourceItems.registerModItems();
+		ModResourceItems.registerModItems();
 		ModEggItems.registerModItems();
 		ModItemGroups.register();
 
+		WoodBlockSets.registerModBlockSets();
+		MushroomBlockSets.registerModBlockSets();
+		StoneBlockSets.registerModBlockSets();
+		ModDecorativeItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModDecorativeBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();
-		ModDecorativeItems.registerModItems();
-		SimpleBlockSets.registerModBlockSets();
-		WoodBlockSets.registerModBlockSets();
+		RoofBlockSets.registerModBlockSets();
+
+		ModRegistries.registerFuels();
+		ModRegistries.registerFlammableBlocks();
+		ModRegistries.registerAgingCopperBlocks();
+		ModRegistries.registerComposterBlocks();
+		ModRegistries.registerCauldronBehaviour();
 
 		ModBlockEntities.registerBlockEntities();
 
@@ -53,15 +68,20 @@ public class MiddleEarth implements ModInitializer {
 		ModEntitySpawning.addSpawns();
 
 		ModSounds.registerModSounds();
+		ModParticleTypes.registerParticleTypes();
 
 		ModDimensions.register();
 		MEBiomeKeys.registerModBiomes();
 		MEBiomesData.loadBiomes();
+		ModWorldGeneration.generateModWorldGen();
+
+		LootModifiers.modifyLootTables();
 
 		try {
-			MapImageLoader.loadImage(getClass().getClassLoader());
-		} catch (IOException | URISyntaxException e) {
+			new MiddleEarthMapGeneration();
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
+
 }

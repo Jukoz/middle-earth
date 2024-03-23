@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "me:mithril_ore"
-  },
-  "result": "me:mithril_ingot",
-  "experience": 7,
-  "cookingtime": 400
-}

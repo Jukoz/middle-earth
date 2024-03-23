@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.world.biomes.MEBiomeFogData;
+import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.render.Camera;
@@ -24,7 +25,7 @@ import java.util.Optional;
 @Mixin(BackgroundRenderer.class)
 public class BackgroundRendererMixin {
     private static final float TICK_SPEED = 0.001f;
-    private static float fogStartMultiplier = 1;
+    private static float fogStartMultiplier = 0.25f;
     private static float fogEndMultiplier = 1;
 
     @Inject(method = "applyFog", at = @At("TAIL"))
@@ -32,7 +33,12 @@ public class BackgroundRendererMixin {
         Entity entity = camera.getFocusedEntity();
 
         if (entity instanceof ClientPlayerEntity clientPlayerEntity) {
-            if(!clientPlayerEntity.hasStatusEffect(StatusEffects.DARKNESS) && !clientPlayerEntity.hasStatusEffect(StatusEffects.BLINDNESS)) {
+            if(
+                    !clientPlayerEntity.hasStatusEffect(StatusEffects.DARKNESS) &&
+                    !clientPlayerEntity.hasStatusEffect(StatusEffects.BLINDNESS) &&
+                    !clientPlayerEntity.isSubmergedInWater() &&
+                    ModDimensions.isInMiddleEarth(clientPlayerEntity.getWorld()))
+            {
                 Optional<RegistryKey<Biome>> biomeRegistry = clientPlayerEntity.getWorld().getBiome(clientPlayerEntity.getBlockPos()).getKey();
                 if(biomeRegistry.isPresent() && MEBiomeFogData.DATA.containsKey(biomeRegistry.get())){
                     MEBiomeFogData fogData = MEBiomeFogData.DATA.get(biomeRegistry.get());
@@ -48,6 +54,9 @@ public class BackgroundRendererMixin {
                     } else if (fogEndMultiplier > fogData.fogEnd) {
                         fogEndMultiplier = Math.max(fogEndMultiplier - (tickDelta * TICK_SPEED), fogData.fogEnd);
                     }
+                } else {
+                    fogEndMultiplier = Math.min(fogEndMultiplier + (tickDelta * TICK_SPEED), 1);
+                    fogStartMultiplier = Math.min(fogStartMultiplier + (tickDelta * TICK_SPEED), 1);
                 }
 
                 float f = MathHelper.clamp(viewDistance / 10.0F, 4.0F, 64.0F);

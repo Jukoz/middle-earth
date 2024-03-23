@@ -1,9 +1,9 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "me:tin_ore"
+    "tag": "me:tin_ores"
   },
   "result": "me:tin_ingot",
-  "experience": 2,
-  "cookingtime": 175
+  "experience": 0.7,
+  "cookingtime": 100
 }

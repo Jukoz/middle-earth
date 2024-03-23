@@ -1,10 +1,10 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "me:shire",
+  "biomes": "#me:has_structure/shire_edge_biomes",
   "step": "surface_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "beard_thin",
-  "start_pool": "me:hobbit_houses",
+  "start_pool": "me:hobbit_house",
   "size": 1,
   "start_height": {
     "absolute": -5

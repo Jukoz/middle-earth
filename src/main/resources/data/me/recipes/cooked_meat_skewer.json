@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "me:meat_skewer"
+  },
+  "result": "me:cooked_meat_skewer",
+  "experience": 0.1,
+  "cookingtime": 200
+}

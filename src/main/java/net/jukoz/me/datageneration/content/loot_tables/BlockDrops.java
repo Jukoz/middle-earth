@@ -2,7 +2,10 @@ package net.jukoz.me.datageneration.content.loot_tables;
 
 import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModDecorativeBlocks;
+import net.jukoz.me.block.ModNatureBlocks;
+import net.jukoz.me.datageneration.content.models.SimpleVerticalSlabModel;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,24 +13,25 @@ import java.util.List;
 public class BlockDrops {
     public static List<Block> blocks = new ArrayList<>() {
         {
-            add(ModBlocks.CALCITE_PILLAR);
-            add(ModBlocks.LIMESTONE_PILLAR);
-            add(ModBlocks.CHISELED_BLUE_ROCK_BRICKS);
-            add(ModBlocks.CHISELED_CALCITE);
-            add(ModBlocks.CHISELED_LIMESTONE_BRICKS);
-            add(ModBlocks.DRY_DIRT);
-            add(ModBlocks.MORDOR_DIRT);
-            add(ModBlocks.REED_BLOCK);
-            add(ModBlocks.REED_STAIRS);
-            add(ModBlocks.REED_SLAB);
-            add(ModBlocks.REED_WALL);
-            add(ModBlocks.STRAW_BLOCK);
-            add(ModBlocks.STRAW_STAIRS);
-            add(ModBlocks.STRAW_SLAB);
-            add(ModBlocks.STRAW_WALL);
-            add(ModBlocks.STONE_TRAPDOOR);
-            add(ModBlocks.BLACKSTONE_TRAPDOOR);
             add(ModDecorativeBlocks.SILVER_LANTERN);
+            add(ModDecorativeBlocks.WALL_SILVER_LANTERN);
+            add(ModDecorativeBlocks.DWARVEN_LANTERN);
+            add(ModDecorativeBlocks.WALL_DWARVEN_LANTERN);
+            add(ModDecorativeBlocks.WOOD_PILE);
+
+            add(ModNatureBlocks.BROWN_BOLETE);
+            add(ModNatureBlocks.CAVE_AMANITA);
+            add(ModNatureBlocks.DEEP_FIRECAP);
+            add(ModNatureBlocks.GHOSTSHROOM);
+            add(ModNatureBlocks.MORSEL);
+            add(ModNatureBlocks.SKY_FIRECAP);
+            add(ModNatureBlocks.TRUMPET_SHROOM);
+            add(ModNatureBlocks.TUBESHRROM);
+            add(ModNatureBlocks.VIOLET_CAPS);
+            add(ModNatureBlocks.WHITE_MUSHROOM);
+            add(ModNatureBlocks.YELLOW_AMANITA);
+
+            add(ModDecorativeBlocks.ALLOY_FURNACE);
         }
     };
 }

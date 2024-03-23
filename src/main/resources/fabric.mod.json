@@ -26,6 +26,9 @@
     ],
     "client": [
       "net.jukoz.me.MiddleEarthClient"
+    ],
+    "rei_client": [
+      "net.jukoz.me.compat.ModREIClientPlugin"
     ]
   },
   "mixins": [
@@ -33,7 +36,7 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.14.17",
+    "fabricloader": ">=0.15.7",
     "fabric-api": "*",
     "minecraft": "~1.20.1",
     "java": ">=17"

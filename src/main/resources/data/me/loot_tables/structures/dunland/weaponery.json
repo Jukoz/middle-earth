@@ -13,19 +13,7 @@
             },
             {
               "type": "minecraft:item",
-              "name": "me:dunland_spear"
-            },
-            {
-              "type": "minecraft:item",
               "name": "me:dunland_pitchfork"
-            },
-            {
-              "type": "minecraft:item",
-              "name": "me:dunland_pike"
-            },
-            {
-              "type": "minecraft:item",
-              "name": "me:dunland_dagger"
             },
             {
               "type": "minecraft:item",

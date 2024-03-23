@@ -1,8 +1,11 @@
 package net.jukoz.me.world.dimension;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
+import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -13,11 +16,12 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionOptions;
+import org.joml.Vector2i;
 import org.joml.Vector3i;
 
 
 public class ModDimensions {
-    public static final Vector3i ME_SPAWN_LOCATION = new Vector3i(440, 90, 350);
+    public static final Vector3i ME_SPAWN_LOCATION = new Vector3i(939, 90, 915);
     public static final String PATH = "middle-earth";
 
     public static final RegistryKey<DimensionOptions> DIMENSION_KEY =
@@ -30,7 +34,7 @@ public class ModDimensions {
         Registry.register(Registries.CHUNK_GENERATOR, new Identifier(MiddleEarth.MOD_ID, PATH), MiddleEarthChunkGenerator.CODEC);
         WORLD_KEY = RegistryKey.of(RegistryKeys.WORLD, new Identifier(MiddleEarth.MOD_ID, PATH));
 
-        MiddleEarth.LOGGER.debug("Registering ModDimensions for " + MiddleEarth.MOD_ID);
+        LoggerUtil.getInstance().logDebugMsg("Registering ModDimensions for " + MiddleEarth.MOD_ID);
     }
 
     public static void teleportPlayerToME(PlayerEntity player) {
@@ -44,11 +48,15 @@ public class ModDimensions {
                 if(registryKey != WORLD_KEY) targetPos = new Vector3i(serverWorld.getSpawnPos().getX(), 80, serverWorld.getSpawnPos().getZ());
 
                 player.wakeUp();
-                ((ServerPlayerEntity) player).teleport(serverWorld, targetPos.x, targetPos.y + 10, targetPos.z, 0, 0);
-                World targetWorld =  player.getWorld();
-                int highY = 1 + getHighestYAtXZ(targetPos.x, targetPos.z);
 
-                player.refreshPositionAfterTeleport(targetPos.x, highY, targetPos.z);
+                Vector2i coordinates = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(ME_SPAWN_LOCATION.x, ME_SPAWN_LOCATION.z);
+                targetPos.x = coordinates.x;
+                targetPos.z = coordinates.y;
+                // Todo : GetHighestYAtXZ to fix
+                targetPos.y = 80;
+
+                ((ServerPlayerEntity) player).teleport(serverWorld, targetPos.x , targetPos.y, targetPos.z, 0, 0);
+                player.refreshPositionAfterTeleport(targetPos.x, targetPos.y, targetPos.z);
             }
         }
     }
@@ -58,10 +66,14 @@ public class ModDimensions {
     }
 
     public static Vector3i getSpawnCoordinate(){
-        double worldIteration = Math.pow(2, MiddleEarth.MAP_ITERATION);
+        double worldIteration = Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION);
         int x = (int)((ME_SPAWN_LOCATION.x * worldIteration));
         int z = (int)((ME_SPAWN_LOCATION.z * worldIteration));
 
         return new Vector3i(x, ME_SPAWN_LOCATION.y, z);
+    }
+
+    public static boolean isInMiddleEarth(World world){
+        return world.getRegistryKey().getValue().equals(WORLD_KEY.getValue());
     }
 }

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "me:raw_rat"
+  },
+  "result": "me:cooked_rat",
+  "experience": 0.1,
+  "cookingtime": 125
+}

@@ -1,13 +1,5 @@
 {
   "structures": [
-    {
-      "structure": "me:dunland_spruce",
-      "weight": 120
-    },
-	{
-      "structure": "me:dunland_pine",
-      "weight": 120
-    },
 	{
       "structure": "me:dunland_house",
       "weight": 1
@@ -15,8 +7,8 @@
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "spacing": 1,
-    "separation": 0,
+    "spacing": 16,
+    "separation": 8,
     "salt": 5542487198
   }
 }

@@ -1,8 +1,9 @@
 {
   "replace": false,
   "values": [
-    "me:eriador",
+    "me:eregion",
     "me:old_arthedain",
+    "me:old_cardolan",
 	"me:the_angle"
   ]
 }

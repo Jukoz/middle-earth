@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#fabric:pickaxes",
+      "required": false
+    },
+    "me:dwarven_steel_pickaxe",
+    "me:orc_steel_pickaxe",
+    "me:uruk_steel_pickaxe",
+    "me:elven_steel_pickaxe",
+    "me:steel_pickaxe",
+    "me:jade_pickaxe",
+    "me:bronze_pickaxe",
+    "me:mithril_pickaxe"
+  ]
+}

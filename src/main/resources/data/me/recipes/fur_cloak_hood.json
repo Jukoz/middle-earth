@@ -1,21 +1,20 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#R#",
-    "RSR"
-  ],
-  "key": {
-    "#": {
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "minecraft:string"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
       "item": "minecraft:white_wool"
     },
-    "R": {
-      "item": "minecraft:rabbit_hide"
-    },
-    "S": {
-      "item": "minecraft:string"
+    {
+      "item": "minecraft:leather"
     }
-  },
-  "result": {
+  ],
+  "output": {
     "item": "me:fur_cloak_hood",
     "count": 1
   }
