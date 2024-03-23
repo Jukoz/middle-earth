@@ -627,6 +627,7 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         ModBiomeFeatures.addStoneGrassOre(vegetation);
+        ModBiomeFeatures.addAshBlockOre(vegetation);
         ModBiomeFeatures.addSmoothBasaltOre(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addAbundantTuffOre(vegetation);
@@ -1128,6 +1129,7 @@ public class ModBiomes {
 
         addNordicVegetation(generationSettings);
         ModBiomeFeatures.addToughBerriesRare(vegetation);
+        ModBiomeFeatures.addAshBlockOre(vegetation);
         ModBiomeFeatures.addCoarseDirtOre(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addDyingGrass(vegetation);
@@ -1140,7 +1142,7 @@ public class ModBiomes {
         ModBiomeFeatures.addScarceSpruceTrees(vegetation);
         ModBiomeFeatures.addSpruceBushes(vegetation);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.1f, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.35f, true);
     }
 
     public static Biome createOldArthedainBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {

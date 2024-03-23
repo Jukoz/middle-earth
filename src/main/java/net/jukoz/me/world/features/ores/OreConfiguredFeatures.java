@@ -4,6 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.StoneBlockSets;
+import net.jukoz.me.world.biomes.surface.ModBiomeFeatures;
 import net.jukoz.me.world.gen.ModFeatures;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
@@ -64,6 +65,10 @@ public class OreConfiguredFeatures {
         BlockMatchRuleTest ashenStoneTest = new BlockMatchRuleTest(StoneBlockSets.ASHEN_STONE.base());
         TagMatchRuleTest stoneTest = new TagMatchRuleTest(BlockTags.BASE_STONE_OVERWORLD);
 
+        List<OreFeatureConfig.Target> ashenStoneList = List.of(
+                OreFeatureConfig.createTarget(dirtTest, ModBlocks.ASH_BLOCK.getDefaultState()),
+                OreFeatureConfig.createTarget(stoneTest, ModBlocks.ASH_BLOCK.getDefaultState()),
+                OreFeatureConfig.createTarget(ashenStoneTest, ModBlocks.ASH_BLOCK.getDefaultState()));
         List<OreFeatureConfig.Target> calciteList = List.of(
                 OreFeatureConfig.createTarget(stoneTest, Blocks.CALCITE.getDefaultState()),
                 OreFeatureConfig.createTarget(dirtTest, Blocks.CALCITE.getDefaultState()));
@@ -76,7 +81,7 @@ public class OreConfiguredFeatures {
                 new OreFeatureConfig(stoneTest, Blocks.ANDESITE.getDefaultState(), 64, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, ASH_BLOCK_ORE, Feature.ORE,
-                new OreFeatureConfig(ashenStoneTest, ModBlocks.ASH_BLOCK.getDefaultState(), 48, 0.4f));
+                new OreFeatureConfig(ashenStoneList, 48, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, ASHEN_DIRT_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, ModBlocks.ASHEN_DIRT.getDefaultState(), 64, 0.4f));

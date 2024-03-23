@@ -1,10 +1,10 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#me:has_structure/mordor_camp",
+  "biomes": "#me:has_structure/gundabad_wilderness",
   "step": "surface_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "beard_thin",
-  "start_pool": "me:mordor_banners",
+  "start_pool": "me:gundabad_banners",
   "size": 1,
   "start_height": {
     "absolute": 0
