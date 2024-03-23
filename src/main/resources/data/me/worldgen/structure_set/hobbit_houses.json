@@ -3,6 +3,10 @@
     {
       "structure": "me:hobbit_houses",
       "weight": 1
+    },
+	{
+      "structure": "me:hobbit_holes",
+      "weight": 1
     }
   ],
   "placement": {

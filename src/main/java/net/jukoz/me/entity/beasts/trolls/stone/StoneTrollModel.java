@@ -26,7 +26,7 @@ public class StoneTrollModel extends SinglePartEntityModel<StoneTrollEntity> {
                 .uv(84, 96).cuboid(-5.0F, -2.0F, -4.0F, 6.0F, 36.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(-14.0F, -46.0F, 2.0F));
 
         ModelPartData left_arm = arms.addChild("left_arm", ModelPartBuilder.create().uv(0, 82).cuboid(-3.0F, -2.0F, -4.0F, 6.0F, 36.0F, 8.0F, new Dilation(0.2F))
-                .uv(56, 96).cuboid(-3.0F, -2.0F, -4.0F, 6.0F, 36.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(15.0F, -46.0F, 2.0F));
+                .uv(56, 96).mirrored().cuboid(-3.0F, -2.0F, -4.0F, 6.0F, 36.0F, 8.0F, new Dilation(0.0F)).mirrored(), ModelTransform.pivot(15.0F, -46.0F, 2.0F));
 
         ModelPartData upperbodynoarms = upperbody.addChild("upperbodynoarms", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -2.0F, -1.0F));
 

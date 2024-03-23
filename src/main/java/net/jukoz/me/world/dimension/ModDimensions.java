@@ -21,7 +21,7 @@ import org.joml.Vector3i;
 
 
 public class ModDimensions {
-    public static final Vector3i ME_SPAWN_LOCATION = new Vector3i(939, 90, 911);
+    public static final Vector3i ME_SPAWN_LOCATION = new Vector3i(939, 90, 915);
     public static final String PATH = "middle-earth";
 
     public static final RegistryKey<DimensionOptions> DIMENSION_KEY =
