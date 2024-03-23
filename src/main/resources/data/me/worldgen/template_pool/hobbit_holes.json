@@ -1,12 +1,12 @@
 {
-  "name": "me:hobbit_houses",
+  "name": "me:hobbit_holes",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "me:hobbit_house_1",
+        "location": "me:hobbit_hole_1",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }
