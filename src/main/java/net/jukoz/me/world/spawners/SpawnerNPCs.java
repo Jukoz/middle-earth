@@ -29,7 +29,7 @@ public class SpawnerNPCs implements Spawner {
     private static final int SPAWN_DISTANCE = 32;
     private static final int SPAWN_RAND = 8;
     private static final int MAX_SPAWN_RAD = SPAWN_DISTANCE + SPAWN_RAND + 4;
-    private static final int BASE_COOLDOWN = 32;
+    private static final int BASE_COOLDOWN = 30;
     private static final int COOLDOWN_RANGE = 8;
     private int cooldown = BASE_COOLDOWN + COOLDOWN_RANGE;
 

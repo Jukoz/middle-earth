@@ -18,28 +18,39 @@ If you want to help us, either make a pull request or join our discord for more 
 ## Authors
 ### Developpers
 Jukoz<br>
-Krahab<br>
-Froosty11<br>
-nullBlade<br>
+ObliviousCrab<br>
 Slooshyboi<br>
-Tom
+TomSchlom<br>
+Froosty11<br>
+nullBlade
+
 
 ### Modelers & Textures
+Boenndal<br>
+Jooble<br>
+Sindavar<br>
+Thijs<br>
+Jukoz<br>
+Khuz<br>
+ObliviousCrab<br>
+R3tt0<br>
+Thorin_The_III<br>
 Tom<br>
 WorseNotePad<br>
 JB3<br>
-Jukoz<br>
-Krahab<br>
+Tyn<br>
 Python_200<br>
-R3tt0<br>
-Thorin_The_III<br>
 Ag3ntCrab
 
 ### Builders
-JB3<br>
-Grandison<br>
+Boenndal<br>
+Thijs<br>
+Slooshyboi<br>
+Jooble<br>
 Jukoz<br>
-Krahab
+ObliviousCrab<br>
+JB3<br>
+Grandison
 
 ### Special Thanks
 dylanhugh and Angmarzku for their ideas & arts for Gundabad and more.
@@ -47,91 +58,8 @@ dylanhugh and Angmarzku for their ideas & arts for Gundabad and more.
 ## Planned features
 ### Gameplay
 - Traders
-- New smithing & attributes system
+- Next iteration on smithing & attributes system
+- Settlements
 - Brews and stews
 - Hiring units
 
-### Mobs
-#### Mordor
-- Mordor Orc
-- Olog Hai
-- Black Uruk
-- Mordor Warg
-#### Gondor
-- Gondor Citizen
-- Tower Guard
-- Ithilien Ranger
-- Gondorian Soldier/Archer
-#### Iron Hills
-- Durin Folk
-- Durin Soldier/Crossbowman
-- Hammer of Gundabad
-#### Lothlorien
-- Lorien Elf
-- Lorien Marchwarden
-- Lorien Soldier/Archer
-#### Isengard
-- Uruk-Hai
-- Isengard Orc
-- Isengard Warg
-- Berserker
-#### Shire
-- Hobbit
-- Hobbit Sherif
-- Shire Protector (Ranger spawning around the shire)
-#### Rohan
-- Rohirric Citizen
-- Rohirric Soldier/Archer
-- Riders of Rohan
-#### Gundabad
-- Goblin
-- Pale Uruk
-- Troll (Cave/Snow)
-- Gundabad Warg
-#### Rangers of the North
-- Ranger
-- Outrider
-- Steel Bowman
-#### Anduin
-- Person of the Anduin
-- Beorning
-- Éothed Rider
-#### Dale
-- Dalish Citizen
-- Dalish Soldier/Bowman
-- Pikeman of Esgaroth
-- Rhovanion Guard
-#### High Elves
-- High Elf
-- High Elf Soldier/Archer
-- Noldor Soldier
-#### Woodland Realm
-- Mirkwood Elf
-- Mirkwood Soldier/Archer
-- Mirkwood Palace Guard
-#### Umbar
-- Umbar Citizen
-- Umbar Soldier/Crossbowman
-- Corsair of Umbar
-- Black Numenorian
-#### Easterling Clans
-- Rhûnic Citizen
-- Rhûnic Clansman
-- Rhûnic Soldier/Archer
-#### Dorwinion
-- Dorwinion Elf/Human
-- Dorwinion Soldier (Elven/Human)
-- Vineguard
-#### Ered Luin
-- Ered Luin Dwarf
-- Ered Luin Soldier/Crossbowman
-- Ered Luin Phalanx
-
-#### Animals
-- Elk
-- Duck
-- Swan
-- Butterfly
-- Bear
-- Boar
-- Deer
