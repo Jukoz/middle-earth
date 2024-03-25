@@ -7,14 +7,14 @@ import net.minecraft.world.biome.SpawnSettings;
 
 public class ModSpawnSettingsBuilder {
     public static void addRiverAnimals(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.SALMON, 5, 1, 5));
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.SALMON, 12, 1, 5));
     }
     public static void addOceanAnimals(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.COD, 5, 1, 5));
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.CRAB, 2, 1, 4));
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.SQUID, 1, 1, 4));
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.DOLPHIN, 1, 1, 2));
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.TURTLE, 1, 1, 1));
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.COD, 10, 1, 5));
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.CRAB, 7, 1, 4));
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.SQUID, 6, 1, 4));
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.TURTLE, 4, 1, 2));
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.DOLPHIN, 3, 1, 2));
     }
 
     public static void addFarmAnimals(SpawnSettings.Builder builder) {

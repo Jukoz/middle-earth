@@ -193,7 +193,7 @@ public class ModNatureBlocks {
             new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.LARCH_TREE_KEY),
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
     public static final Block LEBETHRON_SAPLING = registerCrossBlock("lebethron_sapling",
-            new SaplingBlock(new DualSaplingGenerator(0.02f, ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY, ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY),
+            new SaplingBlock(new DualSaplingGenerator(0.98f, ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY, ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY),
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
     public static final Block WHITE_LEBETHRON_SAPLING = registerCrossBlock("white_lebethron_sapling",
             new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY),
@@ -208,7 +208,7 @@ public class ModNatureBlocks {
             new SaplingBlock(new ModLargeSaplingGenerator(ModTreeConfiguredFeatures.MIRKWOOD_TREE_KEY, ModTreeConfiguredFeatures.MEGA_MIRKWOOD_TREE_KEY),
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
     public static final Block PALM_SAPLING = registerCrossBlock("palm_sapling",
-            new SaplingBlock(new DualSaplingGenerator(0.05f, ModTreeConfiguredFeatures.PALM_TREE_KEY, ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY),
+            new SaplingBlock(new DualSaplingGenerator(0.95f, ModTreeConfiguredFeatures.PALM_TREE_KEY, ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY),
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
     public static final Block WHITE_PALM_SAPLING = registerCrossBlock("white_palm_sapling",
             new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY),
