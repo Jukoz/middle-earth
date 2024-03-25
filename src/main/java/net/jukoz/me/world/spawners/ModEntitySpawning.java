@@ -82,7 +82,7 @@ public class ModEntitySpawning {
                 new EntitySpawningSettings(ModEntities.MORDOR_BLACK_URUK_LEADER, 1, 1, 2)
         );
         List<EntitySpawningSettings> caveTrolls = List.of(
-                new EntitySpawningSettings(ModEntities.CAVE_TROLL, 1, 1, 17, true)
+                new EntitySpawningSettings(ModEntities.CAVE_TROLL, 1, 1, 12, true)
         );
         List<EntitySpawningSettings> mirkwoodSpiders = List.of(
                 new EntitySpawningSettings(ModEntities.MIRKWOOD_SPIDER, 2, 5, 100, true)
@@ -102,8 +102,8 @@ public class ModEntitySpawning {
 
         spawns.put(MEBiomeKeys.TROLLSHAWS, List.of(
                 new EntitySpawningSettings(ModEntities.STONE_TROLL, 1, 2, 1, true),
-                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_SNAGA, 1, 3, 1, true) ,
-                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_WARRIOR, 1, 2, 1, true)
+                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_SNAGA, 1, 3, 2, true) ,
+                new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_WARRIOR, 1, 2, 2, true)
         ));
         spawns.put(MEBiomeKeys.FORODWAITH, List.of(new EntitySpawningSettings(ModEntities.SNOW_TROLL, 0, 1)));
 

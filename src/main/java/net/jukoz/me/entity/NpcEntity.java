@@ -43,9 +43,9 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(5, new LookAroundGoal(this));
+        this.goalSelector.add(2, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(4, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this, this.getClass()).setGroupRevenge());
     }
 
@@ -99,7 +99,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
     @Override
     public boolean isPersistent() {
-        return true;
+        return false;
     }
 
     public void equipStack(EquipmentSlot slot, ItemStack stack) {

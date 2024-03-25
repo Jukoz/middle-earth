@@ -38,8 +38,8 @@ public class StoneTrollEntity extends TrollEntity {
     @Override
     protected void initGoals() {
         super.initGoals();
-        this.goalSelector.add(3, new AvoidSunlightGoal(this));
-        this.goalSelector.add(4, new EscapeSunlightGoal(this, 1.2d));
+        this.goalSelector.add(0, new AvoidSunlightGoal(this));
+        this.goalSelector.add(1, new EscapeSunlightGoal(this, 1.2d));
     }
 
     @Override

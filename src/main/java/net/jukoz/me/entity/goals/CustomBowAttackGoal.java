@@ -94,6 +94,11 @@ public class CustomBowAttackGoal<T extends LivingEntity> extends Goal {
                 ((MobEntity)this.actor).getNavigation().stop();
                 ++this.combatTicks;
             }
+            if(!livingEntity.isAlive()) {
+                ((MobEntity)this.actor).getNavigation().stop();
+                return;
+            }
+
             if (this.combatTicks >= 20) {
                 if ((double)((LivingEntity)this.actor).getRandom().nextFloat() < 0.3) {
                     boolean bl4 = this.movingToLeft = !this.movingToLeft;
