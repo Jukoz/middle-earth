@@ -79,8 +79,7 @@ public class MiddleEarthMapScreen extends Screen {
                 6.25f, // 4
             };
 
-            int guiScale = this.client.options.getGuiScale().getValue();
-
+            int guiScale = Math.max(0, Math.min(guiScaleModifiers.length - 1, this.client.options.getGuiScale().getValue()));
             windowWidth = Math.round((float)MAP_IMAGE_WIDTH / guiScaleModifiers[guiScale] / 2);
             windowHeight = Math.round((float)MAP_IMAGE_HEIGHT / guiScaleModifiers[guiScale] / 2);
 
