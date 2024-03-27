@@ -1,5 +1,6 @@
 package net.jukoz.me.world.chunkgen.map;
 
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
@@ -31,6 +32,7 @@ public class MiddleEarthHeightMap {
     private static final int PIXEL_WEIGHT = MiddleEarthMapConfigs.PIXEL_WEIGHT;
     public static final ArrayList<Float> percentages = new ArrayList<Float>();
     private static MiddleEarthMapRuntime middleEarthMapRuntime;
+    private static Float defaultWeightHeight = null;
 
     public MiddleEarthHeightMap(){
         middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
@@ -38,7 +40,10 @@ public class MiddleEarthHeightMap {
 
     private static float getImageHeight(int xWorld, int zWorld) {
         if(middleEarthMapRuntime == null) middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
+
         Color color = middleEarthMapRuntime.getHeight(xWorld, zWorld);
+
+
         if(color != null){
             float red = color.getRed();
             float blue = color.getBlue();
@@ -52,7 +57,7 @@ public class MiddleEarthHeightMap {
             }
             return height;
         }
-        return 0;
+        return MEBiomesData.defaultBiome.height * WATER_MULTIPLIER;
     }
 
     public static double getPerlinHeight(int x, int z) {
@@ -73,23 +78,26 @@ public class MiddleEarthHeightMap {
         MEBiome meBiome;
         double perlin = getPerlinHeight(x, z);
 
+        float biomeHeight = 0;
+
         if(MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(x,z)) {
-            float biomeHeight = getBiomeWeightHeight(x, z);
-            if(biomeHeight < 0) {
-                perlin /= (Math.max(1, Math.min(5, Math.abs(biomeHeight / WATER_PERLIN_DIVIDER))));
-            }
-            if(biomeHeight >= MOUNTAIN_START_HEIGHT) {
-                float multiplier = (biomeHeight / MOUNTAIN_START_HEIGHT) - 1;
-                biomeHeight += biomeHeight * multiplier * MOUNTAIN_EXPONENTIAL_HEIGHT;
-                multiplier = MOUNTAIN_HEIGHT_MULTIPLIER * multiplier;
-                perlin += multiplier * MOUNTAIN_EXPONENTIAL_HEIGHT * MOUNTAIN_HEIGHT_RANGE * BlendedNoise.noise((double) x / PERLIN_STRETCH_X2,  (double) z / PERLIN_STRETCH_Y2);
-                perlin += multiplier * (MOUNTAIN_HEIGHT_RANGE / 2) * BlendedNoise.noise((double) (2 * x) / PERLIN_STRETCH_X2,  (double) (2 * z) / PERLIN_STRETCH_Y2);
-            }
-            additionalHeight = biomeHeight + perlin;
+            biomeHeight = getBiomeWeightHeight(x, z);
         } else {
-            meBiome = MEBiomesData.defaultBiome;
-            additionalHeight = meBiome.height + perlin;
+            biomeHeight = getDefaultWeightHeight();
         }
+
+        if(biomeHeight < 0) {
+            perlin /= (Math.max(1, Math.min(5, Math.abs(biomeHeight / WATER_PERLIN_DIVIDER))));
+        }
+        if(biomeHeight >= MOUNTAIN_START_HEIGHT) {
+            float multiplier = (biomeHeight / MOUNTAIN_START_HEIGHT) - 1;
+            biomeHeight += biomeHeight * multiplier * MOUNTAIN_EXPONENTIAL_HEIGHT;
+            multiplier = MOUNTAIN_HEIGHT_MULTIPLIER * multiplier;
+            perlin += multiplier * MOUNTAIN_EXPONENTIAL_HEIGHT * MOUNTAIN_HEIGHT_RANGE * BlendedNoise.noise((double) x / PERLIN_STRETCH_X2,  (double) z / PERLIN_STRETCH_Y2);
+            perlin += multiplier * (MOUNTAIN_HEIGHT_RANGE / 2) * BlendedNoise.noise((double) (2 * x) / PERLIN_STRETCH_X2,  (double) (2 * z) / PERLIN_STRETCH_Y2);
+        }
+        additionalHeight = biomeHeight + perlin;
+
         return (float) additionalHeight;
     }
 
@@ -100,6 +108,22 @@ public class MiddleEarthHeightMap {
         float bottomRight = getImageHeight(x + PIXEL_WEIGHT, z + PIXEL_WEIGHT);
         return getHeightBetween(new float[]{topLeft, topRight, bottomLeft, bottomRight},
                 (float) (x % PIXEL_WEIGHT) / PIXEL_WEIGHT, (float) (z % PIXEL_WEIGHT) / PIXEL_WEIGHT);
+    }
+
+    private static float getDefaultWeightHeight() {
+        if(defaultWeightHeight == null) {
+            int x = 0;
+            int z = 0;
+            float topLeft = getImageHeight(x, z);
+
+            float topRight = getImageHeight(x + PIXEL_WEIGHT, z);
+            float bottomLeft = getImageHeight(x, z + PIXEL_WEIGHT);
+            float bottomRight = getImageHeight(x + PIXEL_WEIGHT, z + PIXEL_WEIGHT);
+            defaultWeightHeight =  getHeightBetween(new float[]{topLeft, topRight, bottomLeft, bottomRight},
+                    (float) (x % PIXEL_WEIGHT) / PIXEL_WEIGHT, (float) (z % PIXEL_WEIGHT) / PIXEL_WEIGHT);
+        }
+
+        return defaultWeightHeight;
     }
 
     private static float getHeightBetween(float[] heights, float xPercent, float zPercent) {
