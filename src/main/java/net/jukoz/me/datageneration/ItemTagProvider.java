@@ -35,6 +35,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> coal_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "coal_ores"));
 
         TagKey<Item> saplings = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "saplings"));
+        TagKey<Item> logs_that_burn = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "logs_that_burn"));
+        TagKey<Item> stone_crafting_materials = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "stone_crafting_materials"));
+        TagKey<Item> stone_tool_materials = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "stone_tool_materials"));
 
         TagKey<Item> tin_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "tin_ores"));
         TagKey<Item> lead_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "lead_ores"));
@@ -105,6 +108,17 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         Saplings.saplings.forEach(sapling -> {
             getOrCreateTagBuilder(saplings).add(sapling.asItem());
+        });
+
+        LogsThatBurn.logsThatBurn.forEach(log -> {
+            getOrCreateTagBuilder(logs_that_burn).add(log.asItem());
+        });
+
+        Stones.stones.forEach(stone -> {
+            getOrCreateTagBuilder(stone_crafting_materials).add(stone.asItem());
+            if(!stone.asItem().toString().contains("jadeite")){
+                getOrCreateTagBuilder(stone_tool_materials).add(stone.asItem());
+            }
         });
     }
 }

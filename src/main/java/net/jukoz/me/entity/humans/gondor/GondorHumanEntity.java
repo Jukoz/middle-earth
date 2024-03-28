@@ -98,7 +98,7 @@ public class GondorHumanEntity extends NpcEntity{
     @Override
     protected void initGoals() {
         super.initGoals();
-        int i = 2;
+        int i = 4;
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));

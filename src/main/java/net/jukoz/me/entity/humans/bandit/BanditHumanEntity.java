@@ -24,6 +24,7 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeableItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -80,6 +81,7 @@ public class BanditHumanEntity extends NpcEntity{
     protected void initGoals() {
         super.initGoals();
         int i = 2;
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
@@ -149,7 +151,7 @@ public class BanditHumanEntity extends NpcEntity{
         ItemStack gambeson = new ItemStack(ModEquipmentItems.GAMBESON);
         item.setColor(gambeson, 0x897f64);
 
-        if(random.nextFloat() >= 0.30f){
+        if(random.nextFloat() >= 0.50f){
             equipStack(EquipmentSlot.HEAD, new ItemStack(Items.CHAINMAIL_HELMET));
         } else  {
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HAT));

@@ -51,7 +51,7 @@
                       "function": "minecraft:apply_bonus"
                     }
                   ],
-                  "name": "me:citrine_shard"
+                  "name": "me:quartz_shard"
                 },
                 {
                   "type": "minecraft:item",
