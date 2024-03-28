@@ -25,8 +25,8 @@ public class CustomTallPlantBlock extends TallPlantBlock implements Fertilizable
 
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
         float val = random.nextFloat();
-        if(val > 0.90f){
-            dropStack(world, pos, new ItemStack(this));
-        }
+        dropStack(world, pos, new ItemStack(this));
+        //if(val > 0.90f){
+        //}
     }
 }
