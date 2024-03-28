@@ -48,11 +48,6 @@ public class GondorHumanEntity extends NpcEntity{
         }
     }
 
-    @Override
-    protected boolean shouldDropLoot() {
-        return false;
-    }
-
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {

@@ -149,7 +149,7 @@ public class ModResourceItems {
     public static final Item STRAW = registerItem("straw",
             new Item(new FabricItemSettings()));
     public static final Block REEDS = registerBlock("reeds",
-            new CustomTallPlantBlock(FabricBlockSettings.copyOf(Blocks.TALL_GRASS).breakInstantly()), false);
+            new CustomTallPlantBlock(FabricBlockSettings.copyOf(Blocks.TALL_GRASS).breakInstantly(), false), false);
 
     public static final Item DUCK_FEATHER = registerItem("duck_feather",
             new Item(new FabricItemSettings()));
