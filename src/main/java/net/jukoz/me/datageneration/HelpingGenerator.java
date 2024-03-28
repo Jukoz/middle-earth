@@ -30,7 +30,6 @@ public class HelpingGenerator {
             SimpleStoneTableModel.tables.add(set.table());
             SimpleStoneChairModel.chairs.add(set.chair());
 
-
             BlockDrops.blocks.add(set.base());
             BlockDrops.blocks.add(set.slab());
             BlockDrops.blocks.add(set.verticalSlab());
@@ -54,6 +53,7 @@ public class HelpingGenerator {
             MineablePickaxe.blocks.add(set.chair());
 
             Walls.walls.add(set.wall());
+            Stones.stones.add(set.base());
         }
 
         for (StoneBlockSets.SimpleBlockSet set : StoneBlockSets.sets) {
@@ -82,7 +82,12 @@ public class HelpingGenerator {
             if(set.leaves() != null) {
                 SimpleBlockModel.blocks.add(set.leaves());
                 LeavesSets.blocks.add(set.leaves());
-                if(set.sapling() != null) LeavesDrops.blocks.add(new LeavesDrops.LeavesDrop(set.leaves(), set.sapling()));
+                if(set.sapling() != null){
+                    LeavesDrops.blocks.add(new LeavesDrops.LeavesDrop(set.leaves(), set.sapling()));
+                }
+            }
+            if(set.sapling() != null){
+                BlockDrops.blocks.add(set.sapling());
             }
             SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.log()));
             SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.strippedLog()));
@@ -197,6 +202,11 @@ public class HelpingGenerator {
             if(set.sapling() != null){
                 Saplings.saplings.add(set.sapling());
             }
+
+            LogsThatBurn.logsThatBurn.add(set.log());
+            LogsThatBurn.logsThatBurn.add(set.wood());
+            LogsThatBurn.logsThatBurn.add(set.strippedLog());
+            LogsThatBurn.logsThatBurn.add(set.strippedWood());
         }
 
         for (MushroomBlockSets.MushroomBlockSet set : MushroomBlockSets.sets) {
