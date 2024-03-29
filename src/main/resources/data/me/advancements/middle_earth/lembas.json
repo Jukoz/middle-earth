@@ -1,5 +1,5 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "me:middle_earth/walk_lothlorien",
   "criteria": {
     "me:lembas": {
       "conditions": {

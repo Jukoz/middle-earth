@@ -1,12 +1,12 @@
 {
-  "parent": "me:alloy/bronze_ingot",
+  "parent": "me:alloy/root",
   "criteria": {
-    "dwarven_steel": {
+    "artisan_table": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:dwarven_steel_ingot"
+              "me:artisan_table"
             ]
           }
         ]
@@ -17,21 +17,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.alloy.dwarven_steel.description"
+      "translate": "advancements.alloy.artisan_table.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:dwarven_steel_ingot"
+      "item": "me:artisan_table"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.alloy.dwarven_steel.title"
+      "translate": "advancements.alloy.artisan_table.title"
     }
   },
   "requirements": [
     [
-      "dwarven_steel"
+      "artisan_table"
     ]
   ]
 }
