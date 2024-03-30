@@ -41,10 +41,14 @@ public class PetrifiedTrollEntity extends MobEntity {
 
     @Override
     public boolean damage(DamageSource source, float amount) {
+        if (this.getWorld().isClient) return false;
         Entity entity = source.getAttacker();
-
-        if(entity instanceof PlayerEntity) {
-            if(((PlayerEntity) entity).getMainHandStack().getItem() instanceof PickaxeItem) {
+        if(entity instanceof PlayerEntity playerEntity) {
+            if(playerEntity.isCreative()) {
+                super.setHealth(0);
+                return true;
+            }
+            if(playerEntity.getMainHandStack().getItem() instanceof PickaxeItem) {
                 return super.damage(source, 10.0f);
             }
         }

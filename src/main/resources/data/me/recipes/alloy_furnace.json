@@ -13,7 +13,7 @@
       "item": "minecraft:furnace"
     },
     "S": {
-      "item": "minecraft:stone"
+      "tag": "minecraft:stone_crafting_materials"
     }
   },
   "result": {

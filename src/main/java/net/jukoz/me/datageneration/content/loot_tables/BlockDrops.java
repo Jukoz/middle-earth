@@ -31,7 +31,16 @@ public class BlockDrops {
             add(ModNatureBlocks.WHITE_MUSHROOM);
             add(ModNatureBlocks.YELLOW_AMANITA);
 
+            add(ModNatureBlocks.WHITE_LEBETHRON_SAPLING);
+            add(ModNatureBlocks.LEBETHRON_SAPLING);
+            add(ModNatureBlocks.WHITE_PALM_SAPLING);
+
             add(ModDecorativeBlocks.ALLOY_FURNACE);
+
+            add(ModNatureBlocks.MALLOS);
+            add(ModNatureBlocks.YELLOW_FLOWER);
+            add(ModNatureBlocks.HOROKAKA);
+            add(ModNatureBlocks.GIANT_HOROKAKA);
         }
     };
 }

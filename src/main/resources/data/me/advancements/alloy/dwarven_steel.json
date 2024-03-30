@@ -1,5 +1,5 @@
 {
-  "parent": "me:alloy/root",
+  "parent": "me:alloy/bronze_ingot",
   "criteria": {
     "dwarven_steel": {
       "conditions": {

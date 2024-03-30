@@ -20,6 +20,8 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+
 public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
     private Item bow;
@@ -30,6 +32,9 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     protected NpcEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.updateAttackType();
+        for (int i = 0; i < 4; i++) {
+            Arrays.fill(this.armorDropChances, 0.0f);
+        }
     }
 
     @Nullable
@@ -43,9 +48,9 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(5, new LookAroundGoal(this));
+        this.goalSelector.add(2, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(4, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this, this.getClass()).setGroupRevenge());
     }
 
@@ -99,7 +104,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
     @Override
     public boolean isPersistent() {
-        return true;
+        return false;
     }
 
     public void equipStack(EquipmentSlot slot, ItemStack stack) {

@@ -12,8 +12,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.Text;
+import net.minecraft.text.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
@@ -79,8 +78,7 @@ public class MiddleEarthMapScreen extends Screen {
                 6.25f, // 4
             };
 
-            int guiScale = this.client.options.getGuiScale().getValue();
-
+            int guiScale = Math.max(0, Math.min(guiScaleModifiers.length - 1, this.client.options.getGuiScale().getValue()));
             windowWidth = Math.round((float)MAP_IMAGE_WIDTH / guiScaleModifiers[guiScale] / 2);
             windowHeight = Math.round((float)MAP_IMAGE_HEIGHT / guiScaleModifiers[guiScale] / 2);
 
@@ -158,22 +156,27 @@ public class MiddleEarthMapScreen extends Screen {
                     y + MARGIN + (int)mapPlayerPos.y - 4,
                     8, 8, 8, 8, 64, 64);
 
-            boolean oustideBound = cursorIsOutsideOfMapBounds(mouseX, mouseY);
+            boolean outsideBound = cursorIsOutsideOfMapBounds(mouseX, mouseY);
             cursorWorldCoordinate = getWorldCoordinateOfCursor(mouseX, mouseY);
 
             // Debug panel
             if(debug){
                 World world = this.player.getWorld();
                 Optional<RegistryKey<Biome>> biomeRegistry = world.getBiome(this.player.getBlockPos()).getKey();
-                String currentBiomeId = biomeRegistry.isPresent() ? biomeRegistry.get().getValue().toString() : "N/A";
+                MutableText text = MutableText.of(new LiteralTextContent("N/A"));
+                if(biomeRegistry.isPresent()) {
+                    String currentBiomeId = biomeRegistry.get().getValue().toString().replace(':', '.');
+                    text = MutableText.of(new LiteralTextContent("Biome: "));
+                    text.append(Text.translatable("biome." + currentBiomeId));
 
+                }
                 context.drawTextWithShadow(textRenderer, Text.literal("Player information"), 0, 5, 0xffffff);
                 BlockPos playerPos = this.player.getBlockPos();
                 context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + (int)playerPos.getX() + ", " + (int)playerPos.getY() + ", " + (int)playerPos.getZ()), 5, 15, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Biome : " + currentBiomeId), 5, 25, 0xffffff);
+                context.drawTextWithShadow(textRenderer, text, 5, 25, 0xffffff);
 
                 context.drawTextWithShadow(textRenderer, Text.literal("Cursor information"), 0, 45, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + ((oustideBound) ? "N/A" : (int)cursorWorldCoordinate.x + ", "+ (int)cursorWorldCoordinate.y)), 5, 55, 0xffffff);
+                context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + ((outsideBound) ? "N/A" : (int)cursorWorldCoordinate.x + ", "+ (int)cursorWorldCoordinate.y)), 5, 55, 0xffffff);
 
                 /*
                 if(!oustideBound && this.player.isCreative()){

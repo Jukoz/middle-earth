@@ -4,15 +4,19 @@ import net.jukoz.me.entity.NpcEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityData;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
@@ -22,13 +26,11 @@ import net.minecraft.world.spawner.Spawner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.stream.Collectors.toCollection;
-
 public class SpawnerNPCs implements Spawner {
     private static final int SPAWN_COUNT_CAP = 32;
     private static final int SPAWN_DISTANCE = 32;
     private static final int SPAWN_RAND = 8;
-    private static final int MAX_SPAWN_RAD = SPAWN_DISTANCE + SPAWN_RAND + 4;
+    private static final int MAX_SPAWN_RAD = SPAWN_DISTANCE + SPAWN_RAND + 8;
     private static final int BASE_COOLDOWN = 30;
     private static final int COOLDOWN_RANGE = 8;
     private int cooldown = BASE_COOLDOWN + COOLDOWN_RANGE;
@@ -50,9 +52,9 @@ public class SpawnerNPCs implements Spawner {
             BlockPos targetBlockPos = new BlockPos(blockPos);
             LocalDifficulty localDifficulty = world.getLocalDifficulty(blockPos);
 
-            Vec3d offset = new Vec3d(MAX_SPAWN_RAD, MAX_SPAWN_RAD, MAX_SPAWN_RAD);
-            Vec3d pos1 = blockPos.toCenterPos().add(offset);
-            Vec3d pos2 = blockPos.toCenterPos().subtract(offset);
+            Vec3d offset = new Vec3d(MAX_SPAWN_RAD, 0, MAX_SPAWN_RAD);
+            Vec3d pos1 = blockPos.toCenterPos().add(offset).add(0, 321 - playerEntity.getPos().y, 0);
+            Vec3d pos2 = blockPos.toCenterPos().subtract(offset).add(0, -63 - playerEntity.getPos().y, 0);
             int size = world.getEntitiesByClass(NpcEntity.class, new Box(pos1, pos2), (entity) -> true).size();
             if(size <= SPAWN_COUNT_CAP) {
                 float randomAngle = random.nextInt(360);
@@ -61,9 +63,6 @@ public class SpawnerNPCs implements Spawner {
                 int x = targetBlockPos.getX() + (int)(distance * Math.cos(randomAngle));
                 int z = targetBlockPos.getZ() + (int)(distance * Math.sin(randomAngle));
                 targetBlockPos = new BlockPos(x, 1 + getHighestYAtXZ(world, x, z), z);
-
-                blockState = world.getBlockState(new BlockPos(x, targetBlockPos.getY() - 1, z));
-                if(blockState.isOf(Blocks.WATER) || blockState.isOf(Blocks.LAVA)) continue;
 
                 if(world.getBiome(targetBlockPos).getKey().isEmpty()) continue;
                 RegistryKey<Biome> biomeRegistryKey = world.getBiome(targetBlockPos).getKey().get();
@@ -93,6 +92,10 @@ public class SpawnerNPCs implements Spawner {
                 int randomCount = random.nextInt(1 + entitySpawningSettings.getMaxCount() - entitySpawningSettings.getMinCount());
                 int entityCount = entitySpawningSettings.getMinCount() + randomCount;
 
+                blockState = world.getBlockState(new BlockPos(x, targetBlockPos.getY() - 1, z));
+                if(!canSpawnAt(world.getChunkAsView(targetBlockPos.getX() / 16, targetBlockPos.getZ() / 16),
+                        targetBlockPos.subtract(new Vec3i(0, 1, 0)), entitySpawningSettings.getEntity(), blockState)) continue;
+
                 for (int m = 0; m < entityCount; ++m) {
                     PathAwareEntity entity = (PathAwareEntity) entitySpawningSettings.getEntity().create(world);
                     if (entity == null) continue;
@@ -107,7 +110,12 @@ public class SpawnerNPCs implements Spawner {
     }
 
     public static int getHighestYAtXZ(World world, int x, int z) {
-        return world.getChunk(new BlockPos(x, 0, z)).sampleHeightmap(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z);
+        return world.getChunk(new BlockPos(x, 0, z)).sampleHeightmap(Heightmap.Type.MOTION_BLOCKING, x, z);
+    }
+
+    private static boolean canSpawnAt(BlockView world, BlockPos pos, EntityType type, BlockState blockState) {
+        if(!blockState.allowsSpawning(world, pos, type)) return false;
+        return (!blockState.isOf(Blocks.WATER) && !blockState.isOf(Blocks.LAVA) && !blockState.isIn(BlockTags.LOGS));
     }
 }
 

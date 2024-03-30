@@ -87,23 +87,27 @@ public class MiddleEarthMapRuntime {
             playerCoordinates.add(new Vector2i(player.getBlockX(), player.getBlockZ()));
         }
 
-        middleEarthMapUtils.getPlayers();
-        regions.forEach((key, value) -> {
-            boolean hasPlayerInRange = false;
-            for(Vector2i coordinate : playerCoordinates){
-                if(value.isInRange(coordinate)){
-                    hasPlayerInRange = true;
-                    break;
+        try{
+            middleEarthMapUtils.getPlayers();
+            regions.forEach((key, value) -> {
+                boolean hasPlayerInRange = false;
+                for(Vector2i coordinate : playerCoordinates){
+                    if(value.isInRange(coordinate)){
+                        hasPlayerInRange = true;
+                        break;
+                    }
                 }
-            }
-            if(!hasPlayerInRange)
-                toPurge.add(key);
-        });
+                if(!hasPlayerInRange)
+                    toPurge.add(key);
+            });
 
-        // Purging
-        //loggerUtil.logDebugMsg("Purging [%s] regions (tick : %s)".formatted(toPurge.size(), serverTick));
-        for (Vector2i region : toPurge){
-            regions.remove(region);
+            // Purging
+            //loggerUtil.logDebugMsg("Purging [%s] regions (tick : %s)".formatted(toPurge.size(), serverTick));
+            for (Vector2i region : toPurge){
+                regions.remove(region);
+            }
+        } catch(Exception exception){
+            loggerUtil.logError("%s : %s".formatted(toString(), exception.getMessage()));
         }
     }
 }

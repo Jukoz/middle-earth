@@ -1,13 +1,16 @@
 package net.jukoz.me.entity.beasts.trolls.snow;
 
+import net.jukoz.me.entity.NpcEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.jukoz.me.entity.goals.*;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
@@ -38,7 +41,9 @@ public class SnowTrollEntity extends TrollEntity {
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
         this.targetSelector.add(2, new TargetPlayerGoal(this));
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, MobEntity.class, true));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.add(4, new ActiveTargetGoal<>(this, NpcEntity.class, true));
+        this.targetSelector.add(5, new ActiveTargetGoal<>(this, AnimalEntity.class, true));
     }
 
     @Override
