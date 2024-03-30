@@ -67,7 +67,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 createMossyRecipe(exporter, record.source(), record.base());
             } else if(record.toString().contains("cracked_") || record.toString().contains("smooth_")){
                 createSmeltingRecipe(exporter, record.source().asItem(), record.base().asItem());
-            } else if(record.toString().contains("cobbled_")) {
+            } else if(record.toString().contains("cobbled_") || record.toString().contains("cobblestone")) {
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
                 createSmeltingRecipeIdentifier(exporter, record.base().asItem(), record.source().asItem());
             } else if(record.source() != null){
