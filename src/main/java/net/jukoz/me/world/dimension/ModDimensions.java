@@ -38,25 +38,23 @@ public class ModDimensions {
     }
 
     public static void teleportPlayerToME(PlayerEntity player) {
+        Vector2i coordinates = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(ME_SPAWN_LOCATION.x, ME_SPAWN_LOCATION.z);
+        // Todo : GetHighestYAtXZ to fix
+        Vector3i targetCoords = new Vector3i(coordinates.x, 80, coordinates.y);
+        teleportePlayerToMe(player, targetCoords);
+    }
+
+    public static void teleportePlayerToMe(PlayerEntity player, Vector3i coordinates){
         if(!player.getWorld().isClient()) {
-            RegistryKey<World> registryKey = player.getWorld().getRegistryKey() == WORLD_KEY ? World.OVERWORLD : WORLD_KEY;
+            RegistryKey<World> registryKey = WORLD_KEY;
             ServerWorld serverWorld = (ServerWorld) player.getWorld();
             if (serverWorld != null) {
                 serverWorld = serverWorld.getServer().getWorld(registryKey);
 
-                Vector3i targetPos = getSpawnCoordinate();
-                if(registryKey != WORLD_KEY) targetPos = new Vector3i(serverWorld.getSpawnPos().getX(), 80, serverWorld.getSpawnPos().getZ());
-
                 player.wakeUp();
 
-                Vector2i coordinates = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(ME_SPAWN_LOCATION.x, ME_SPAWN_LOCATION.z);
-                targetPos.x = coordinates.x;
-                targetPos.z = coordinates.y;
-                // Todo : GetHighestYAtXZ to fix
-                targetPos.y = 80;
-
-                ((ServerPlayerEntity) player).teleport(serverWorld, targetPos.x , targetPos.y, targetPos.z, 0, 0);
-                player.refreshPositionAfterTeleport(targetPos.x, targetPos.y, targetPos.z);
+                ((ServerPlayerEntity) player).teleport(serverWorld, coordinates.x , coordinates.y, coordinates.z, 0, 0);
+                player.refreshPositionAfterTeleport(coordinates.x, coordinates.y, coordinates.z);
             }
         }
     }
