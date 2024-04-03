@@ -28,14 +28,18 @@ public class DimensionTeleportCommand {
     }
 
     public static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        PosArgument posArgument = Vec3ArgumentType.getPosArgument(context, LOCATION);
-        Vec3d coordinatesInDouble = posArgument.toAbsolutePos(context.getSource());
+        try{
+            PosArgument posArgument = Vec3ArgumentType.getPosArgument(context, LOCATION);
+            Vec3d coordinatesInDouble = posArgument.toAbsolutePos(context.getSource());
 
-        Vector3i coordinates = new Vector3i((int) coordinatesInDouble.x, (int) coordinatesInDouble.y, (int) coordinatesInDouble.z);
-        ServerPlayerEntity targettedPlayer = EntityArgumentType.getPlayer(context, PLAYER);
+            Vector3i coordinates = new Vector3i((int) coordinatesInDouble.x, (int) coordinatesInDouble.y, (int) coordinatesInDouble.z);
+            ServerPlayerEntity targettedPlayer = EntityArgumentType.getPlayer(context, PLAYER);
 
-        ModDimensions.teleportePlayerToMe(Objects.requireNonNull(targettedPlayer), coordinates);
+            ModDimensions.teleportePlayerToMe(targettedPlayer, coordinates);
 
-        return 1;
+            return 1;
+        } catch (Exception e){
+            return 0;
+        }
     }
 }

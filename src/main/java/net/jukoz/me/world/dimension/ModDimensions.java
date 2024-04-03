@@ -2,6 +2,7 @@ package net.jukoz.me.world.dimension;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
@@ -39,8 +40,8 @@ public class ModDimensions {
 
     public static void teleportPlayerToME(PlayerEntity player) {
         Vector2i coordinates = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(ME_SPAWN_LOCATION.x, ME_SPAWN_LOCATION.z);
-        // Todo : GetHighestYAtXZ to fix
-        Vector3i targetCoords = new Vector3i(coordinates.x, 80, coordinates.y);
+        int height = (int) (1 + MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(coordinates.x, coordinates.y));
+        Vector3i targetCoords = new Vector3i(coordinates.x, height, coordinates.y);
         teleportePlayerToMe(player, targetCoords);
     }
 
