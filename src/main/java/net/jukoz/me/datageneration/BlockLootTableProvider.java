@@ -55,9 +55,9 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 cobbleDrops(block, StoneBlockSets.COBBLED_GONLUIN.base());
             }else if(Registries.BLOCK.getId(block).getPath().equals("limestone")){
                 cobbleDrops(block, StoneBlockSets.COBBLED_LIMESTONE.base());
-            }/*else if(Registries.BLOCK.getId(block).getPath().equals("dolomite")){
+            }else if(Registries.BLOCK.getId(block).getPath().equals("dolomite")){
                 cobbleDrops(block, StoneBlockSets.COBBLED_DOLOMITE.base());
-            }*/else if(Registries.BLOCK.getId(block).getPath().equals("quartzite")){
+            }else if(Registries.BLOCK.getId(block).getPath().equals("quartzite")){
                 cobbleDrops(block, StoneBlockSets.COBBLED_QUARTZITE.base());
             }else if(Registries.BLOCK.getId(block).getPath().equals("frozen_stone")){
                 cobbleDrops(block, StoneBlockSets.FROZEN_COBBLESTONE.base());
@@ -68,8 +68,8 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             } else {
                 addDrop(block);
             }
-
         }
+
         for (LeavesDrops.LeavesDrop drop : LeavesDrops.blocks) {
             if(drop.toString().contains("pine")){
                 addDrop(drop.block(), this.leavesDrops(drop.block(), drop.drop(), SAPLING_DROP_CHANCE)
