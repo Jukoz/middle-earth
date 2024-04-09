@@ -12,6 +12,7 @@ import net.jukoz.me.datageneration.content.models.SimpleFanModel;
 import net.jukoz.me.datageneration.content.models.TintableCrossModel;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.server.loottable.BlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
@@ -97,10 +98,6 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             addDrop(block, grassDrops(block));
         }
 
-        for(Block block : SimpleFanModel.grassLikeFans) {
-            addDrop(block, grassDrops(block));
-        }
-
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if (set.coal_ore() != null) {
                 addDrop(set.coal_ore(), oreDrops(set.coal_ore(), Items.COAL));
@@ -127,7 +124,8 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 addDrop(set.mithril_ore(),oreDrops(set.mithril_ore(), ModResourceItems.RAW_MITHRIL));
             }
         }
-        addDropWithSilkTouch(ModBlocks.STONE_MYCELIUM);
+
+        cobbleDrops(ModBlocks.STONE_MYCELIUM, Blocks.COBBLESTONE);
     }
 
     public void cobbleDrops(Block stoneBlock, Block cobbledBlock){

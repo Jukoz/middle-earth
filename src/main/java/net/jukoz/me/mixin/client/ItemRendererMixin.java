@@ -20,7 +20,7 @@ public abstract class ItemRendererMixin {
 
     @ModifyVariable(method = "renderItem", at = @At("HEAD"), argsOnly = true)
     private BakedModel renderItem(BakedModel bakedModel, ItemStack itemStack, ModelTransformationMode renderMode) {
-        if(renderMode == ModelTransformationMode.GUI) {
+        if(renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED) {
             if(SimpleBigItemModel.items.contains(itemStack.getItem())) {
                 ModelIdentifier modelIdentifier = VariantsModelProvider.getInventoryModelIdentifierVariant(itemStack.getItem()); // new ModelIdentifier(MiddleEarth.MOD_ID, itemStack.getTranslationKey(), "inventory");
                 return models.getModelManager().getModel(modelIdentifier);

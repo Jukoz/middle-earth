@@ -34,6 +34,8 @@ public class TintableCrossModel {
             add(ModNatureBlocks.GLOWWORM_WEBBING);
 
             add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER);
+            add(ModNatureBlocks.MALLOS);
+            add(ModNatureBlocks.YELLOW_FLOWER);
 
         }
     };

@@ -205,8 +205,8 @@ public class StoneBlockSets {
     //public static SimpleBlockSet MOSSY_DIFTOMIN_TILES = registerStoneSet("mossy_diftomin_tiles", COBBLED_DIFTOMIN.base.getHardness(), COBBLED_DIFTOMIN.base.getBlastResistance(), DIFTOMIN_TILES.base);
     //public static SimpleBlockSet CRACKED_DIFTOMIN_TILES = registerStoneSet("cracked_diftomin_tiles", COBBLED_DIFTOMIN.base.getHardness(), COBBLED_DIFTOMIN.base.getBlastResistance(), DIFTOMIN_TILES.base);
 
-    public static SimpleBlockSet SMOOTH_EPMOSTO = registerStoneSet("smooth_epmosto", EPMOSTO_HARDNESS, EPMOSTO_BLAST_RESISTANCE, null);
     public static SimpleBlockSetMain EPMOSTO = registerMainStoneSet("epmosto", EPMOSTO_HARDNESS, EPMOSTO_BLAST_RESISTANCE, null);
+    public static SimpleBlockSet SMOOTH_EPMOSTO = registerStoneSet("smooth_epmosto", EPMOSTO_HARDNESS, EPMOSTO_BLAST_RESISTANCE, EPMOSTO.base);
     public static SimpleBlockSet COBBLED_EPMOSTO = registerStoneSet("cobbled_epmosto", EPMOSTO_BRICKS_HARDNESS, EPMOSTO_BRICKS_BLAST_RESISTANCE, EPMOSTO.base);
     public static SimpleBlockSet MOSSY_COBBLED_EPMOSTO = registerStoneSet("mossy_cobbled_epmosto", EPMOSTO_BRICKS_HARDNESS, EPMOSTO_BRICKS_BLAST_RESISTANCE, COBBLED_EPMOSTO.base);
     public static SimpleBlockSet POLISHED_EPMOSTO = registerStoneSet("polished_epmosto", EPMOSTO.base.getHardness(), EPMOSTO.base.getBlastResistance(), EPMOSTO.base);
