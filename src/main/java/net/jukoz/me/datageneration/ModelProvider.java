@@ -523,7 +523,7 @@ public class ModelProvider extends FabricModelProvider {
 
 
         for(SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools) {
-            String id = Registries.BLOCK.getId(stool.origin()).getPath().replaceAll("_slab", "_planks");
+            String id = Registries.BLOCK.getId(stool.origin()).getPath().replaceAll("_log", "_planks").replaceAll("_stem", "_planks").replaceAll("stripped_", "");
             String stripped;
             if(Registries.BLOCK.getId(stool.origin()).getPath().contains("crimson") || Registries.BLOCK.getId(stool.origin()).getPath().contains("warped")){
                 stripped = "stripped_" + id.replaceAll("_planks", "_stem");
@@ -536,7 +536,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for(SimpleWoodTableModel.VanillaTable table : SimpleWoodTableModel.vanillaTables) {
-            String id = Registries.BLOCK.getId(table.origin()).getPath().replaceAll("_slab", "_planks");
+            String id = Registries.BLOCK.getId(table.origin()).getPath().replaceAll("_log", "_planks").replaceAll("_stem", "_planks").replaceAll("stripped_", "");
             String stripped;
             if(Registries.BLOCK.getId(table.origin()).getPath().contains("crimson") || Registries.BLOCK.getId(table.origin()).getPath().contains("warped")){
                 stripped = "stripped_" + id.replaceAll("_planks", "_stem");
@@ -549,7 +549,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for(SimpleWoodChairModel.VanillaChair chair : SimpleWoodChairModel.vanillaChairs) {
-            String id = Registries.BLOCK.getId(chair.origin()).getPath().replaceAll("_slab", "_planks");
+            String id = Registries.BLOCK.getId(chair.origin()).getPath().replaceAll("_log", "_planks").replaceAll("_stem", "_planks").replaceAll("stripped_", "");
             String stripped;
             if(Registries.BLOCK.getId(chair.origin()).getPath().contains("crimson") || Registries.BLOCK.getId(chair.origin()).getPath().contains("warped")){
                 stripped = "stripped_" + id.replaceAll("_planks", "_stem");

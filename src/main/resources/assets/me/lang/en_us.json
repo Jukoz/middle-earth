@@ -2820,6 +2820,21 @@
   "block.me.packed_mud_stairs": "Packed Mud Stairs",
   "block.me.packed_mud_wall": "Packed Mud Wall",
 
+  "block.me.tuff_slab": "Tuff Slab",
+  "block.me.tuff_vertical_slab": "Tuff Vertical Slab",
+  "block.me.tuff_stairs": "Tuff Stairs",
+  "block.me.tuff_wall": "Tuff Wall",
+
+  "block.me.calcite_slab": "Calcite Slab",
+  "block.me.calcite_vertical_slab": "Calcite Vertical Slab",
+  "block.me.calcite_stairs": "Calcite Stairs",
+  "block.me.calcite_wall": "Calcite Wall",
+
+  "block.me.smooth_basalt_slab": "Smooth Basalt Slab",
+  "block.me.smooth_basalt_vertical_slab": "Smooth Basalt Vertical Slab",
+  "block.me.smooth_basalt_stairs": "Smooth Basalt Stairs",
+  "block.me.smooth_basalt_wall": "Smooth Basalt Wall",
+
   "block.me.oak_vertical_slab": "Oak Vertical Slab",
   "block.me.spruce_vertical_slab": "Spruce Vertical Slab",
   "block.me.birch_vertical_slab": "Birch Vertical Slab",

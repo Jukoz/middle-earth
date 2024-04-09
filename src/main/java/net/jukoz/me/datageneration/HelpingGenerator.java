@@ -53,11 +53,13 @@ public class HelpingGenerator {
             MineablePickaxe.blocks.add(set.chair());
 
             Walls.walls.add(set.wall());
-            Stones.stones.add(set.base());
         }
 
         for (StoneBlockSets.SimpleBlockSet set : StoneBlockSets.sets) {
             SimpleBlockModel.blocks.add(set.base());
+            if (set.base().toString().contains("cobble") && !set.base().toString().contains("mossy")) {
+                Stones.stones.add(set.base());
+            }
             SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.base(), set.slab()));
             SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.base(), set.slab(), set.verticalSlab()));
             SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.base(), set.stairs()));
@@ -203,6 +205,9 @@ public class HelpingGenerator {
                 Saplings.saplings.add(set.sapling());
             }
 
+            WoodenSlabs.woodenSlabs.add(set.planksSlab());
+            ModdedStrippedLogs.strippedLogs.add(set.strippedLog());
+
             LogsThatBurn.logsThatBurn.add(set.log());
             LogsThatBurn.logsThatBurn.add(set.wood());
             LogsThatBurn.logsThatBurn.add(set.strippedLog());
@@ -270,6 +275,7 @@ public class HelpingGenerator {
             Planks.planks.add(set.planks());
             Doors.doors.add(set.door());
             Trapdoors.trapdoors.add(set.trapdoor());
+            WoodenSlabs.woodenSlabs.add(set.planksSlab());
         }
 
         for (RoofBlockSets.RoofBlockSet set : RoofBlockSets.sets) {

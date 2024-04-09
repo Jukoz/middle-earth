@@ -3,10 +3,7 @@ package net.jukoz.me.datageneration;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.ModBlocks;
-import net.jukoz.me.block.ModDecorativeBlocks;
-import net.jukoz.me.block.OreRockSets;
-import net.jukoz.me.block.StoneBlockSets;
+import net.jukoz.me.block.*;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.content.tags.*;
 import net.minecraft.block.Block;
@@ -45,6 +42,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         var leaves = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "leaves")));
 
+        var cobwebs = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "cobwebs")));
+
         mineableAxe.add(MineableAxe.blocks.toArray(new Block[0]));
         mineablePickaxe.add(MineablePickaxe.blocks.toArray(new Block[0]));
 
@@ -76,6 +75,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         TagKey<Block> lead_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "lead_ores"));
         TagKey<Block> silver_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "silver_ores"));
         TagKey<Block> mithril_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "mithril_ores"));
+
+
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {
@@ -163,6 +164,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 needsStoneTools.add(record.table());
             }
         }
+
+        cobwebs.add(Blocks.COBWEB);
+        cobwebs.add(ModNatureBlocks.HANGING_COBWEB);
+        cobwebs.add(ModNatureBlocks.CORNER_COBWEB);
 
         SimpleStoneStoolModel.stools.forEach(seat::add);
         SimpleStoneStoolModel.vanillaStools.forEach(block -> {
@@ -380,6 +385,21 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.PACKED_MUD_VERTICAL_SLAB);
         mineablePickaxe.add(ModBlocks.PACKED_MUD_STAIRS);
         mineablePickaxe.add(ModBlocks.PACKED_MUD_WALL);
+
+        mineablePickaxe.add(ModBlocks.TUFF_SLAB);
+        mineablePickaxe.add(ModBlocks.TUFF_VERTICAL_SLAB);
+        mineablePickaxe.add(ModBlocks.TUFF_STAIRS);
+        mineablePickaxe.add(ModBlocks.TUFF_WALL);
+
+        mineablePickaxe.add(ModBlocks.CALCITE_SLAB);
+        mineablePickaxe.add(ModBlocks.CALCITE_VERTICAL_SLAB);
+        mineablePickaxe.add(ModBlocks.CALCITE_STAIRS);
+        mineablePickaxe.add(ModBlocks.CALCITE_WALL);
+
+        mineablePickaxe.add(ModBlocks.SMOOTH_BASALT_SLAB);
+        mineablePickaxe.add(ModBlocks.SMOOTH_BASALT_VERTICAL_SLAB);
+        mineablePickaxe.add(ModBlocks.SMOOTH_BASALT_STAIRS);
+        mineablePickaxe.add(ModBlocks.SMOOTH_BASALT_WALL);
 
         mineablePickaxe.add(ModBlocks.QUARTZ_BLOCK);
         mineablePickaxe.add(ModBlocks.BUDDING_QUARTZ);

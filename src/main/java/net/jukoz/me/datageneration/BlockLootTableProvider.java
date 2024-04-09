@@ -97,6 +97,9 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         for(Block block : TintableCrossModel.grassLikeBlocks) {
             addDrop(block, grassDrops(block));
         }
+        for(Block block : TintableCrossModel.tintedBlocks) {
+            addDrop(block, grassDrops(block));
+        }
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if (set.coal_ore() != null) {

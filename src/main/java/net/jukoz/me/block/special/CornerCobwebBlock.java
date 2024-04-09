@@ -3,6 +3,7 @@ package net.jukoz.me.block.special;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.CobwebBlock;
 import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.entity.Entity;
 import net.minecraft.fluid.FluidState;
@@ -20,7 +21,7 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
-public class CornerCobwebBlock extends Block {
+public class CornerCobwebBlock extends CobwebBlock {
     public static final BooleanProperty HANGING;
     private static final DirectionProperty FACING;
 
@@ -54,11 +55,6 @@ public class CornerCobwebBlock extends Block {
 
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         return !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
-    }
-
-    @Override
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        entity.slowMovement(state, new Vec3d(0.25, 0.05f, 0.25));
     }
 
     static {

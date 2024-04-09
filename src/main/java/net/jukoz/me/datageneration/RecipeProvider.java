@@ -713,7 +713,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     }
 
     private void createWoodStoolRecipe(Consumer<RecipeJsonProvider> exporter, Item inputSlab, Item inputLegs, Block output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 3)
                 .pattern("PPP")
                 .pattern("S S")
                 .input('P', inputSlab)
@@ -724,7 +724,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     }
 
     private void createWoodTableRecipe(Consumer<RecipeJsonProvider> exporter, Item inputPlanks, Item inputLegs, Block output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 3)
                 .pattern("PPP")
                 .pattern("S S")
                 .pattern("S S")
@@ -736,7 +736,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     }
 
     private void createWoodChairRecipe(Consumer<RecipeJsonProvider> exporter, Item inputPlanks, Item inputLegs, Block output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 3)
                 .pattern("S  ")
                 .pattern("PPP")
                 .pattern("S S")
