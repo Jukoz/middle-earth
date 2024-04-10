@@ -61,7 +61,7 @@ public class ModFoodItems {
                     new FoodComponent.Builder().hunger(4).saturationModifier(0.4F).meat().build())));
     public static final Item COOKED_HORSE = registerItem("cooked_horse",
             new Item(new FabricItemSettings().food(
-                    new FoodComponent.Builder().hunger(9).saturationModifier(0.9F).meat().build())));
+                    new FoodComponent.Builder().hunger(7).saturationModifier(0.8F).meat().build())));
 
     public static final Item MAGGOTY_BREAD = registerItem("maggoty_bread",
             new Item(new FabricItemSettings().food(

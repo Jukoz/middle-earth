@@ -12,6 +12,8 @@
     "PigEntityMixin",
     "PlayerEntityMixin",
     "PlayerMixin",
+    "ShearItemMixin",
+    "SwordItemMixin",
     "TrunkPlacerTypeInvoker"
   ],
   "client": [
