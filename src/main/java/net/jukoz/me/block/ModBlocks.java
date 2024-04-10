@@ -366,40 +366,40 @@ public class ModBlocks {
     public static final Block MUD_SLAB = registerMiscBlock("mud_slab",
             new SlabBlock(FabricBlockSettings.copyOf(Blocks.ROOTED_DIRT)), true);
 
-    public static final Block PACKED_MUD_SLAB = registerMiscBlock("packed_mud_slab",
+    public static final Block PACKED_MUD_SLAB = registerStoneBlock("packed_mud_slab",
             new SlabBlock(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)), true);
-    public static final Block PACKED_MUD_VERTICAL_SLAB = registerMiscBlock("packed_mud_vertical_slab",
+    public static final Block PACKED_MUD_VERTICAL_SLAB = registerStoneBlock("packed_mud_vertical_slab",
             new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)), true);
-    public static final Block PACKED_MUD_STAIRS = registerMiscBlock("packed_mud_stairs",
+    public static final Block PACKED_MUD_STAIRS = registerStoneBlock("packed_mud_stairs",
             new StairsBlock(Blocks.PACKED_MUD.getDefaultState(), FabricBlockSettings.copyOf(Blocks.PACKED_MUD)), true);
-    public static final Block PACKED_MUD_WALL = registerMiscBlock("packed_mud_wall",
+    public static final Block PACKED_MUD_WALL = registerStoneBlock("packed_mud_wall",
             new WallBlock(FabricBlockSettings.copyOf(Blocks.PACKED_MUD)), true);
 
-    public static final Block TUFF_SLAB = registerMiscBlock("tuff_slab",
+    public static final Block TUFF_SLAB = registerStoneBlock("tuff_slab",
             new SlabBlock(FabricBlockSettings.copyOf(Blocks.TUFF)), true);
-    public static final Block TUFF_VERTICAL_SLAB = registerMiscBlock("tuff_vertical_slab",
+    public static final Block TUFF_VERTICAL_SLAB = registerStoneBlock("tuff_vertical_slab",
             new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.TUFF)), true);
-    public static final Block TUFF_STAIRS = registerMiscBlock("tuff_stairs",
+    public static final Block TUFF_STAIRS = registerStoneBlock("tuff_stairs",
             new StairsBlock(Blocks.TUFF.getDefaultState(), FabricBlockSettings.copyOf(Blocks.TUFF)), true);
-    public static final Block TUFF_WALL = registerMiscBlock("tuff_wall",
+    public static final Block TUFF_WALL = registerStoneBlock("tuff_wall",
             new WallBlock(FabricBlockSettings.copyOf(Blocks.TUFF)), true);
 
-    public static final Block CALCITE_SLAB = registerMiscBlock("calcite_slab",
+    public static final Block CALCITE_SLAB = registerStoneBlock("calcite_slab",
             new SlabBlock(FabricBlockSettings.copyOf(Blocks.CALCITE)), true);
-    public static final Block CALCITE_VERTICAL_SLAB = registerMiscBlock("calcite_vertical_slab",
+    public static final Block CALCITE_VERTICAL_SLAB = registerStoneBlock("calcite_vertical_slab",
             new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.CALCITE)), true);
-    public static final Block CALCITE_STAIRS = registerMiscBlock("calcite_stairs",
+    public static final Block CALCITE_STAIRS = registerStoneBlock("calcite_stairs",
             new StairsBlock(Blocks.CALCITE.getDefaultState(), FabricBlockSettings.copyOf(Blocks.CALCITE)), true);
-    public static final Block CALCITE_WALL = registerMiscBlock("calcite_wall",
+    public static final Block CALCITE_WALL = registerStoneBlock("calcite_wall",
             new WallBlock(FabricBlockSettings.copyOf(Blocks.CALCITE)), true);
 
-    public static final Block SMOOTH_BASALT_SLAB = registerMiscBlock("smooth_basalt_slab",
+    public static final Block SMOOTH_BASALT_SLAB = registerStoneBlock("smooth_basalt_slab",
             new SlabBlock(FabricBlockSettings.copyOf(Blocks.SMOOTH_BASALT)), true);
-    public static final Block SMOOTH_BASALT_VERTICAL_SLAB = registerMiscBlock("smooth_basalt_vertical_slab",
+    public static final Block SMOOTH_BASALT_VERTICAL_SLAB = registerStoneBlock("smooth_basalt_vertical_slab",
             new VerticalSlabBlock(FabricBlockSettings.copyOf(Blocks.SMOOTH_BASALT)), true);
-    public static final Block SMOOTH_BASALT_STAIRS = registerMiscBlock("smooth_basalt_stairs",
+    public static final Block SMOOTH_BASALT_STAIRS = registerStoneBlock("smooth_basalt_stairs",
             new StairsBlock(Blocks.SMOOTH_BASALT.getDefaultState(), FabricBlockSettings.copyOf(Blocks.SMOOTH_BASALT)), true);
-    public static final Block SMOOTH_BASALT_WALL = registerMiscBlock("smooth_basalt_wall",
+    public static final Block SMOOTH_BASALT_WALL = registerStoneBlock("smooth_basalt_wall",
             new WallBlock(FabricBlockSettings.copyOf(Blocks.SMOOTH_BASALT)), true);
 
     public static final Block BLACK_WOOL_SLAB = registerMiscBlock("black_wool_slab",
