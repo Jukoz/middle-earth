@@ -13,6 +13,8 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
@@ -55,6 +57,27 @@ public class CornerCobwebBlock extends CobwebBlock {
 
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         return !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        Direction direction = state.get(FACING);
+        switch (mirror) {
+            case LEFT_RIGHT -> {
+                if (direction.getAxis() != Direction.Axis.Z) break;
+                return state.rotate(BlockRotation.CLOCKWISE_180);
+            }
+            case FRONT_BACK -> {
+                if (direction.getAxis() != Direction.Axis.X) break;
+                return state.rotate(BlockRotation.CLOCKWISE_180);
+            }
+        }
+        return super.mirror(state, mirror);
     }
 
     static {
