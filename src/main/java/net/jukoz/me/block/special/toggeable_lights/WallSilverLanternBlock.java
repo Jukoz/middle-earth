@@ -9,6 +9,8 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.*;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -72,6 +74,27 @@ public class WallSilverLanternBlock extends SilverLanternBlock {
     }
     protected Direction attachedDirection(BlockState state) {
         return state.get(FACING);
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        Direction direction = state.get(FACING);
+        switch (mirror) {
+            case LEFT_RIGHT -> {
+                if (direction.getAxis() != Direction.Axis.Z) break;
+                return state.rotate(BlockRotation.CLOCKWISE_180);
+            }
+            case FRONT_BACK -> {
+                if (direction.getAxis() != Direction.Axis.X) break;
+                return state.rotate(BlockRotation.CLOCKWISE_180);
+            }
+        }
+        return super.mirror(state, mirror);
     }
 
     static {

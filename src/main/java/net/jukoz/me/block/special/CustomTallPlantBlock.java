@@ -11,8 +11,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
 public class CustomTallPlantBlock extends TallPlantBlock implements Fertilizable {
-    public CustomTallPlantBlock(Settings settings) {
+    private final boolean randomBoneMeal;
+    public CustomTallPlantBlock(Settings settings, boolean random) {
         super(settings);
+        this.randomBoneMeal = random;
     }
 
     public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
@@ -24,8 +26,12 @@ public class CustomTallPlantBlock extends TallPlantBlock implements Fertilizable
     }
 
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        float val = random.nextFloat();
-        if(val > 0.90f){
+        if(this.randomBoneMeal) {
+            float val = random.nextFloat();
+            if(val > 0.90f){
+                dropStack(world, pos, new ItemStack(this));
+            }
+        } else {
             dropStack(world, pos, new ItemStack(this));
         }
     }

@@ -37,6 +37,9 @@ public class SimpleStairModel {
             add(new Stair(Blocks.MUD, ModBlocks.MUD_STAIRS));
 
             add(new Stair(Blocks.PACKED_MUD, ModBlocks.PACKED_MUD_STAIRS));
+            add(new Stair(Blocks.TUFF, ModBlocks.TUFF_STAIRS));
+            add(new Stair(Blocks.CALCITE, ModBlocks.CALCITE_STAIRS));
+            add(new Stair(Blocks.SMOOTH_BASALT, ModBlocks.SMOOTH_BASALT_STAIRS));
 
             add(new Stair(Blocks.BLACK_WOOL, ModBlocks.BLACK_WOOL_STAIRS));
             add(new Stair(Blocks.BLUE_WOOL, ModBlocks.BLUE_WOOL_STAIRS));

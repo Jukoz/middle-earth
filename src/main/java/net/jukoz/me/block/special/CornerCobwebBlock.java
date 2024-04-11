@@ -3,6 +3,7 @@ package net.jukoz.me.block.special;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.CobwebBlock;
 import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.entity.Entity;
 import net.minecraft.fluid.FluidState;
@@ -12,6 +13,8 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
@@ -20,7 +23,7 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
-public class CornerCobwebBlock extends Block {
+public class CornerCobwebBlock extends CobwebBlock {
     public static final BooleanProperty HANGING;
     private static final DirectionProperty FACING;
 
@@ -57,8 +60,24 @@ public class CornerCobwebBlock extends Block {
     }
 
     @Override
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        entity.slowMovement(state, new Vec3d(0.25, 0.05f, 0.25));
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        Direction direction = state.get(FACING);
+        switch (mirror) {
+            case LEFT_RIGHT -> {
+                if (direction.getAxis() != Direction.Axis.Z) break;
+                return state.rotate(BlockRotation.CLOCKWISE_180);
+            }
+            case FRONT_BACK -> {
+                if (direction.getAxis() != Direction.Axis.X) break;
+                return state.rotate(BlockRotation.CLOCKWISE_180);
+            }
+        }
+        return super.mirror(state, mirror);
     }
 
     static {

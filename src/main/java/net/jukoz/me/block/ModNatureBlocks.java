@@ -38,10 +38,10 @@ public class ModNatureBlocks {
             new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).luminance(GlowLichenBlock.getLuminanceSupplier(5)).burnable()), true);
     public static final Block HANGING_COBWEB = registerBlock("hanging_cobweb",
-            new HangingCobwebBlock(FabricBlockSettings.copyOf(Blocks.COBWEB).drops(new Identifier(MiddleEarth.MOD_ID, "hanging_cobweb")).strength(2)), true);
+            new HangingCobwebBlock(FabricBlockSettings.copyOf(Blocks.COBWEB)), true);
 
     public static final Block CORNER_COBWEB = registerBlock("corner_cobweb",
-            new CornerCobwebBlock(FabricBlockSettings.copyOf(Blocks.COBWEB).drops(new Identifier(MiddleEarth.MOD_ID, "corner_cobweb")).strength(2)), true);
+            new CornerCobwebBlock(FabricBlockSettings.copyOf(Blocks.COBWEB)), true);
 
     public static final Block CORRUPTED_MOSS_CARPET = registerBlock("corrupted_moss_carpet",
             new CarpetBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET)), true);
@@ -193,7 +193,7 @@ public class ModNatureBlocks {
             new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.LARCH_TREE_KEY),
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
     public static final Block LEBETHRON_SAPLING = registerCrossBlock("lebethron_sapling",
-            new SaplingBlock(new DualSaplingGenerator(0.02f, ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY, ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY),
+            new SaplingBlock(new DualSaplingGenerator(0.98f, ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY, ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY),
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
     public static final Block WHITE_LEBETHRON_SAPLING = registerCrossBlock("white_lebethron_sapling",
             new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY),
@@ -208,7 +208,7 @@ public class ModNatureBlocks {
             new SaplingBlock(new ModLargeSaplingGenerator(ModTreeConfiguredFeatures.MIRKWOOD_TREE_KEY, ModTreeConfiguredFeatures.MEGA_MIRKWOOD_TREE_KEY),
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
     public static final Block PALM_SAPLING = registerCrossBlock("palm_sapling",
-            new SaplingBlock(new DualSaplingGenerator(0.05f, ModTreeConfiguredFeatures.PALM_TREE_KEY, ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY),
+            new SaplingBlock(new DualSaplingGenerator(0.95f, ModTreeConfiguredFeatures.PALM_TREE_KEY, ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY),
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
     public static final Block WHITE_PALM_SAPLING = registerCrossBlock("white_palm_sapling",
             new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY),
@@ -227,11 +227,11 @@ public class ModNatureBlocks {
             new StrawBerryBushBlock(FabricBlockSettings.copyOf(Blocks.SWEET_BERRY_BUSH).ticksRandomly().noCollision().breakInstantly().sounds(BlockSoundGroup.SWEET_BERRY_BUSH)), false);
 
     public static final Block WILD_PIPEWEED = registerBlock("wild_pipeweed",
-            new CustomTallPlantBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
+            new CustomTallPlantBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP), true), true);
     public static final Block WILD_FLAX = registerCrossBlock("wild_flax",
             new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
     public static final Block WILD_TOMATO = registerBlock("wild_tomato",
-            new CustomTallPlantBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
+            new CustomTallPlantBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP), true), true);
     public static final Block WILD_BELL_PEPPER = registerCrossBlock("wild_bell_pepper",
             new WildCropBlock(FabricBlockSettings.copyOf(Blocks.GRASS).sounds(BlockSoundGroup.CROP)), true);
     public static final Block WILD_CUCUMBER = registerCrossBlock("wild_cucumber",

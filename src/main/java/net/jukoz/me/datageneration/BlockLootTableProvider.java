@@ -12,6 +12,7 @@ import net.jukoz.me.datageneration.content.models.SimpleFanModel;
 import net.jukoz.me.datageneration.content.models.TintableCrossModel;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.server.loottable.BlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
@@ -55,9 +56,9 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 cobbleDrops(block, StoneBlockSets.COBBLED_GONLUIN.base());
             }else if(Registries.BLOCK.getId(block).getPath().equals("limestone")){
                 cobbleDrops(block, StoneBlockSets.COBBLED_LIMESTONE.base());
-            }/*else if(Registries.BLOCK.getId(block).getPath().equals("dolomite")){
+            }else if(Registries.BLOCK.getId(block).getPath().equals("dolomite")){
                 cobbleDrops(block, StoneBlockSets.COBBLED_DOLOMITE.base());
-            }*/else if(Registries.BLOCK.getId(block).getPath().equals("quartzite")){
+            }else if(Registries.BLOCK.getId(block).getPath().equals("quartzite")){
                 cobbleDrops(block, StoneBlockSets.COBBLED_QUARTZITE.base());
             }else if(Registries.BLOCK.getId(block).getPath().equals("frozen_stone")){
                 cobbleDrops(block, StoneBlockSets.FROZEN_COBBLESTONE.base());
@@ -68,8 +69,8 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             } else {
                 addDrop(block);
             }
-
         }
+
         for (LeavesDrops.LeavesDrop drop : LeavesDrops.blocks) {
             if(drop.toString().contains("pine")){
                 addDrop(drop.block(), this.leavesDrops(drop.block(), drop.drop(), SAPLING_DROP_CHANCE)
@@ -96,8 +97,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         for(Block block : TintableCrossModel.grassLikeBlocks) {
             addDrop(block, grassDrops(block));
         }
-
-        for(Block block : SimpleFanModel.grassLikeFans) {
+        for(Block block : TintableCrossModel.tintedBlocks) {
             addDrop(block, grassDrops(block));
         }
 
@@ -127,7 +127,8 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 addDrop(set.mithril_ore(),oreDrops(set.mithril_ore(), ModResourceItems.RAW_MITHRIL));
             }
         }
-        addDropWithSilkTouch(ModBlocks.STONE_MYCELIUM);
+
+        cobbleDrops(ModBlocks.STONE_MYCELIUM, Blocks.COBBLESTONE);
     }
 
     public void cobbleDrops(Block stoneBlock, Block cobbledBlock){

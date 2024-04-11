@@ -97,7 +97,7 @@ public class ModWeaponItems {
             new ReachWeaponItem(ModToolMaterials.DWARVEN_STEEL, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), new FabricItemSettings()), true);
 
     public static final Item GONDOR_SWORD = registerItemWithModel("gondorian_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), new FabricItemSettings()), false);
+            new CustomSwordWeaponItem(ModToolMaterials.STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), new FabricItemSettings()), true);
     public static final Item GONDOR_LONGSWORD = registerItemWithModel("gondorian_longsword",
             new ReachWeaponItem(ModToolMaterials.STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED - 0.2f, TWO_HAND_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), new FabricItemSettings()), true);
     public static final Item GONDOR_DAGGER = registerItemWithModel("gondorian_dagger",
@@ -153,7 +153,7 @@ public class ModWeaponItems {
             new CustomSwordWeaponItem(ModToolMaterials.MORGUL_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED + 0.1f, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), new FabricItemSettings()), false);
 
     public static final Item ROHIRRIC_SWORD = registerItemWithModel("rohirric_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), new FabricItemSettings()), false);
+            new CustomSwordWeaponItem(ModToolMaterials.STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), new FabricItemSettings()), true);
     public static final Item ROHIRRIC_LONGSWORD = registerItemWithModel("rohirric_longsword",
             new ReachWeaponItem(ModToolMaterials.STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED - 0.2f, TWO_HAND_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), new FabricItemSettings()), true);
     public static final Item ROHIRRIC_DAGGER = registerItemWithModel("rohirric_dagger",

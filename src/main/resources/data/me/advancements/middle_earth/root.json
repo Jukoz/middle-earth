@@ -9,7 +9,7 @@
   },
   "display": {
     "announce_to_chat": true,
-    "background": "me:textures/block/mallorn_log.png",
+    "background": "me:textures/block/white_daub.png",
     "description": {
       "translate": "advancements.middle_earth.root.description"
     },

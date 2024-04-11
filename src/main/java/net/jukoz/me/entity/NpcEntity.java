@@ -20,6 +20,8 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+
 public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
     private Item bow;
@@ -30,6 +32,9 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     protected NpcEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.updateAttackType();
+        for (int i = 0; i < 4; i++) {
+            Arrays.fill(this.armorDropChances, 0.0f);
+        }
     }
 
     @Nullable

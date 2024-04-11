@@ -523,30 +523,42 @@ public class ModelProvider extends FabricModelProvider {
 
 
         for(SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools) {
-            String id = Registries.BLOCK.getId(stool.origin()).getPath();
-            String baseTextureId = id.substring(0, id.lastIndexOf("_")) + "_planks";
-            baseTextureId = baseTextureId.replaceAll("stripped_", "");
+            String id = Registries.BLOCK.getId(stool.origin()).getPath().replaceAll("_log", "_planks").replaceAll("_stem", "_planks").replaceAll("stripped_", "");
+            String stripped;
+            if(Registries.BLOCK.getId(stool.origin()).getPath().contains("crimson") || Registries.BLOCK.getId(stool.origin()).getPath().contains("warped")){
+                stripped = "stripped_" + id.replaceAll("_planks", "_stem");
+            } else {
+                stripped = "stripped_" + id.replaceAll("_planks", "_log");
+            }
             registerWoodStoolModelBlockStates(blockStateModelGenerator, stool.base(),
-                    new Identifier("minecraft", "block/" + id),
-                    new Identifier("minecraft", "block/" + baseTextureId));
+                    new Identifier("minecraft", "block/" + stripped),
+                    new Identifier("minecraft", "block/" + id));
         }
 
         for(SimpleWoodTableModel.VanillaTable table : SimpleWoodTableModel.vanillaTables) {
-            String id = Registries.BLOCK.getId(table.origin()).getPath();
-            String baseTextureId = id.substring(0, id.lastIndexOf("_")) + "_planks";
-            baseTextureId = baseTextureId.replaceAll("stripped_", "");// We replace the suffix (_log or _stem) by _planks
+            String id = Registries.BLOCK.getId(table.origin()).getPath().replaceAll("_log", "_planks").replaceAll("_stem", "_planks").replaceAll("stripped_", "");
+            String stripped;
+            if(Registries.BLOCK.getId(table.origin()).getPath().contains("crimson") || Registries.BLOCK.getId(table.origin()).getPath().contains("warped")){
+                stripped = "stripped_" + id.replaceAll("_planks", "_stem");
+            } else {
+                stripped = "stripped_" + id.replaceAll("_planks", "_log");
+            }
             registerWoodTableModelBlockStates(blockStateModelGenerator, table.base(),
-                    new Identifier("minecraft", "block/" + id),
-                    new Identifier("minecraft", "block/" + baseTextureId));
+                    new Identifier("minecraft", "block/" + stripped),
+                    new Identifier("minecraft", "block/" + id));
         }
 
         for(SimpleWoodChairModel.VanillaChair chair : SimpleWoodChairModel.vanillaChairs) {
-            String id = Registries.BLOCK.getId(chair.origin()).getPath();
-            String baseTextureId = id.substring(0, id.lastIndexOf("_")) + "_planks";
-            baseTextureId = baseTextureId.replaceAll("stripped_", "");
+            String id = Registries.BLOCK.getId(chair.origin()).getPath().replaceAll("_log", "_planks").replaceAll("_stem", "_planks").replaceAll("stripped_", "");
+            String stripped;
+            if(Registries.BLOCK.getId(chair.origin()).getPath().contains("crimson") || Registries.BLOCK.getId(chair.origin()).getPath().contains("warped")){
+                stripped = "stripped_" + id.replaceAll("_planks", "_stem");
+            } else {
+                stripped = "stripped_" + id.replaceAll("_planks", "_log");
+            }
             registerWoodChairModelBlockStates(blockStateModelGenerator, chair.base(),
-                    new Identifier("minecraft", "block/" + id),
-                    new Identifier("minecraft", "block/" + baseTextureId));
+                    new Identifier("minecraft", "block/" + stripped),
+                    new Identifier("minecraft", "block/" + id));
         }
 
         registerWoodChairModelBlockStates(blockStateModelGenerator, MushroomBlockSets.MUSHROOM.chair(),

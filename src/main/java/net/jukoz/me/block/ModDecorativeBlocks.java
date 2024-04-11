@@ -134,149 +134,149 @@ public class ModDecorativeBlocks {
 
     //region VANILLA FURNITURE
     public static final Block STONE_STOOL = registerBlockWithItem("stone_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.STONE).requiresTool()));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.STONE).requiresTool().nonOpaque()));
     public static final Block STONE_TABLE = registerBlockWithItem("stone_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.STONE).requiresTool()));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.STONE).requiresTool().nonOpaque()));
     public static final Block STONE_CHAIR = registerBlockWithItem("stone_chair",
-            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.STONE).requiresTool()));
+            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.STONE).requiresTool().nonOpaque()));
 
     public static final Block CALCITE_STOOL = registerBlockWithItem("calcite_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.CALCITE).requiresTool()));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.CALCITE).requiresTool().nonOpaque()));
     public static final Block CALCITE_TABLE = registerBlockWithItem("calcite_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.CALCITE).requiresTool()));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.CALCITE).requiresTool().nonOpaque()));
     public static final Block CALCITE_CHAIR = registerBlockWithItem("calcite_chair",
-            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.CALCITE).requiresTool()));
+            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.CALCITE).requiresTool().nonOpaque()));
 
     public static final Block ANDESITE_STOOL = registerBlockWithItem("andesite_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.ANDESITE).requiresTool()));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.ANDESITE).requiresTool().nonOpaque()));
     public static final Block ANDESITE_TABLE = registerBlockWithItem("andesite_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.ANDESITE).requiresTool()));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.ANDESITE).requiresTool().nonOpaque()));
     public static final Block ANDESITE_CHAIR = registerBlockWithItem("andesite_chair",
-            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.ANDESITE).requiresTool()));
+            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.ANDESITE).requiresTool().nonOpaque()));
 
     public static final Block GRANITE_STOOL = registerBlockWithItem("granite_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.GRANITE).requiresTool()));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.GRANITE).requiresTool().nonOpaque()));
     public static final Block GRANITE_TABLE = registerBlockWithItem("granite_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.GRANITE).requiresTool()));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.GRANITE).requiresTool().nonOpaque()));
     public static final Block GRANITE_CHAIR = registerBlockWithItem("granite_chair",
-            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.GRANITE).requiresTool()));
+            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.GRANITE).requiresTool().nonOpaque()));
 
     public static final Block DIORITE_STOOL = registerBlockWithItem("diorite_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.DIORITE).requiresTool()));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.DIORITE).requiresTool().nonOpaque()));
     public static final Block DIORITE_TABLE = registerBlockWithItem("diorite_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.DIORITE).requiresTool()));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.DIORITE).requiresTool().nonOpaque()));
     public static final Block DIORITE_CHAIR = registerBlockWithItem("diorite_chair",
-            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.DIORITE).requiresTool()));
+            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.DIORITE).requiresTool().nonOpaque()));
 
     public static final Block DEEPSLATE_STOOL = registerBlockWithItem("deepslate_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE).requiresTool()));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE).requiresTool().nonOpaque()));
     public static final Block DEEPSLATE_TABLE = registerBlockWithItem("deepslate_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE).requiresTool()));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE).requiresTool().nonOpaque()));
     public static final Block DEEPSLATE_CHAIR = registerBlockWithItem("deepslate_chair",
-            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE).requiresTool()));
+            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE).requiresTool().nonOpaque()));
 
     public static final Block BLACKSTONE_STOOL = registerBlockWithItem("blackstone_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.BLACKSTONE).requiresTool()));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.BLACKSTONE).requiresTool().nonOpaque()));
     public static final Block BLACKSTONE_TABLE = registerBlockWithItem("blackstone_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.BLACKSTONE).requiresTool()));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.BLACKSTONE).requiresTool().nonOpaque()));
     public static final Block BLACKSTONE_CHAIR = registerBlockWithItem("blackstone_chair",
-            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.BLACKSTONE).requiresTool()));
+            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.BLACKSTONE).requiresTool().nonOpaque()));
 
     public static final Block BASALT_STOOL = registerBlockWithItem("basalt_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.BASALT).requiresTool()));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.BASALT).requiresTool().nonOpaque()));
     public static final Block BASALT_TABLE = registerBlockWithItem("basalt_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.BASALT).requiresTool()));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.BASALT).requiresTool().nonOpaque()));
     public static final Block BASALT_CHAIR = registerBlockWithItem("basalt_chair",
-            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.BASALT).requiresTool()));
+            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.BASALT).requiresTool().nonOpaque()));
 
     public static final Block TUFF_STOOL = registerBlockWithItem("tuff_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.TUFF).requiresTool()));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.TUFF).requiresTool().nonOpaque()));
     public static final Block TUFF_TABLE = registerBlockWithItem("tuff_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.TUFF).requiresTool()));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.TUFF).requiresTool().nonOpaque()));
     public static final Block TUFF_CHAIR = registerBlockWithItem("tuff_chair",
-            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.TUFF).requiresTool()));
+            new StoneChairBlock(FabricBlockSettings.copyOf(Blocks.TUFF).requiresTool().nonOpaque()));
 
 
     public static final Block OAK_STOOL = registerBlockWithItem("oak_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS)));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).nonOpaque()));
     public static final Block OAK_TABLE = registerBlockWithItem("oak_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS)));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).nonOpaque()));
     public static final Block OAK_CHAIR = registerBlockWithItem("oak_chair",
-            new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS)));
+            new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).nonOpaque()));
 
     public static final Block SPRUCE_STOOL = registerBlockWithItem("spruce_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_PLANKS)));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_PLANKS).nonOpaque()));
     public static final Block SPRUCE_TABLE = registerBlockWithItem("spruce_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_PLANKS)));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_PLANKS).nonOpaque()));
     public static final Block SPRUCE_CHAIR = registerBlockWithItem("spruce_chair",
-            new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_PLANKS)));
+            new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_PLANKS).nonOpaque()));
 
     public static final Block BIRCH_STOOL = registerBlockWithItem("birch_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_PLANKS)));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_PLANKS).nonOpaque()));
     public static final Block BIRCH_TABLE = registerBlockWithItem("birch_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_PLANKS)));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_PLANKS).nonOpaque()));
     public static final Block BIRCH_CHAIR = registerBlockWithItem("birch_chair",
-            new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_PLANKS)));
+            new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.BIRCH_PLANKS).nonOpaque()));
 
     public static final Block JUNGLE_STOOL = registerBlockWithItem("jungle_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_PLANKS)));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_PLANKS).nonOpaque()));
     public static final Block JUNGLE_TABLE = registerBlockWithItem("jungle_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_PLANKS)));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_PLANKS).nonOpaque()));
     public static final Block JUNGLE_CHAIR = registerBlockWithItem("jungle_chair",
-            new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_PLANKS)));
+            new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_PLANKS).nonOpaque()));
 
     public static final Block ACACIA_STOOL = registerBlockWithItem("acacia_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_PLANKS)));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_PLANKS).nonOpaque()));
     public static final Block ACACIA_TABLE = registerBlockWithItem("acacia_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_PLANKS)));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_PLANKS).nonOpaque()));
     public static final Block ACACIA_CHAIR = registerBlockWithItem("acacia_chair",
-            new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_PLANKS).nonOpaque()));
+            new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_PLANKS).nonOpaque().nonOpaque()));
 
     public static final Block DARK_OAK_STOOL = registerBlockWithItem("dark_oak_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_PLANKS)));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_PLANKS).nonOpaque()));
     public static final Block DARK_OAK_TABLE = registerBlockWithItem("dark_oak_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_PLANKS)));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_PLANKS).nonOpaque()));
     public static final Block DARK_OAK_CHAIR = registerBlockWithItem("dark_oak_chair",
             new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.DARK_OAK_PLANKS).nonOpaque()));
     
     public static final Block MANGROVE_STOOL = registerBlockWithItem("mangrove_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_PLANKS)));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_PLANKS).nonOpaque()));
     public static final Block MANGROVE_TABLE = registerBlockWithItem("mangrove_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_PLANKS)));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_PLANKS).nonOpaque()));
     public static final Block MANGROVE_CHAIR = registerBlockWithItem("mangrove_chair",
             new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_PLANKS).nonOpaque()));
 
     public static final Block CHERRY_STOOL = registerBlockWithItem("cherry_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_PLANKS)));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_PLANKS).nonOpaque()));
     public static final Block CHERRY_TABLE = registerBlockWithItem("cherry_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_PLANKS)));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_PLANKS).nonOpaque()));
     public static final Block CHERRY_CHAIR = registerBlockWithItem("cherry_chair",
             new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.CHERRY_PLANKS).nonOpaque()));
 
     public static final Block BAMBOO_STOOL = registerBlockWithItem("bamboo_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.BAMBOO_PLANKS)));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.BAMBOO_PLANKS).nonOpaque()));
     public static final Block BAMBOO_TABLE = registerBlockWithItem("bamboo_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.BAMBOO_PLANKS)));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.BAMBOO_PLANKS).nonOpaque()));
     public static final Block BAMBOO_CHAIR = registerBlockWithItem("bamboo_chair",
             new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.BAMBOO_PLANKS).nonOpaque()));
 
     public static final Block CRIMSON_STOOL = registerBlockWithItem("crimson_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.CRIMSON_PLANKS)));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.CRIMSON_PLANKS).nonOpaque()));
     public static final Block CRIMSON_TABLE = registerBlockWithItem("crimson_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.CRIMSON_PLANKS)));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.CRIMSON_PLANKS).nonOpaque()));
     public static final Block CRIMSON_CHAIR = registerBlockWithItem("crimson_chair",
             new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.CRIMSON_PLANKS).nonOpaque()));
 
     public static final Block WARPED_STOOL = registerBlockWithItem("warped_stool",
-            new StoolBlock(FabricBlockSettings.copyOf(Blocks.WARPED_PLANKS)));
+            new StoolBlock(FabricBlockSettings.copyOf(Blocks.WARPED_PLANKS).nonOpaque()));
     public static final Block WARPED_TABLE = registerBlockWithItem("warped_table",
-            new TableBlock(FabricBlockSettings.copyOf(Blocks.WARPED_PLANKS)));
+            new TableBlock(FabricBlockSettings.copyOf(Blocks.WARPED_PLANKS).nonOpaque()));
     public static final Block WARPED_CHAIR = registerBlockWithItem("warped_chair",
             new WoodChairBlock(FabricBlockSettings.copyOf(Blocks.WARPED_PLANKS).nonOpaque()));
     //endregion
 
     public static final Block ROPE = registerBlockWithItem("rope",
-            new ChainBlock(FabricBlockSettings.copyOf(Blocks.CHAIN).sounds(BlockSoundGroup.WOOL).strength(0.8F).noCollision()));
+            new ChainBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).noCollision()));
 
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = new Identifier(MiddleEarth.MOD_ID, name);

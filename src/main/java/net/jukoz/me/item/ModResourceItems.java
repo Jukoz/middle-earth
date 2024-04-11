@@ -149,7 +149,7 @@ public class ModResourceItems {
     public static final Item STRAW = registerItem("straw",
             new Item(new FabricItemSettings()));
     public static final Block REEDS = registerBlock("reeds",
-            new CustomTallPlantBlock(FabricBlockSettings.copyOf(Blocks.TALL_GRASS).strength(0.2f)), false);
+            new CustomTallPlantBlock(FabricBlockSettings.copyOf(Blocks.TALL_GRASS).breakInstantly(), false), false);
 
     public static final Item DUCK_FEATHER = registerItem("duck_feather",
             new Item(new FabricItemSettings()));
@@ -158,7 +158,7 @@ public class ModResourceItems {
             
     public static final Item GLOWWORM_BOTTLE = registerItem("glowworm_bottle",
             new GlowwormBottle(new FabricItemSettings().maxCount(1).food(
-                    new FoodComponent.Builder().hunger(2).saturationModifier(0.3f).alwaysEdible().build())));
+                    new FoodComponent.Builder().hunger(2).saturationModifier(0.3f).alwaysEdible().build()).recipeRemainder(Items.GLASS_BOTTLE)));
 
     public static final Item COPPER_COIN = registerItem("copper_coin", new Item(new FabricItemSettings()));
     public static final Item SILVER_COIN = registerItem("silver_coin", new Item(new FabricItemSettings()));

@@ -35,6 +35,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> coal_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "coal_ores"));
 
         TagKey<Item> saplings = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "saplings"));
+        TagKey<Item> wooden_slabs = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "wooden_slabs"));
+        TagKey<Item> logs_that_burn = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "logs_that_burn"));
+        TagKey<Item> stone_crafting_materials = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "stone_crafting_materials"));
+        TagKey<Item> stone_tool_materials = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "stone_tool_materials"));
 
         TagKey<Item> tin_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "tin_ores"));
         TagKey<Item> lead_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "lead_ores"));
@@ -42,8 +46,11 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> mithril_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "mithril_ores"));
         TagKey<Item> shingles = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "shingles"));
 
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
+        TagKey<Item> mod_stripped_logs = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "mod_stripped_logs"));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("me", "mod_planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
 
+
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "logs"))).add(Logs.getItemPlanks().toArray(new Item[0]));
 
 
@@ -99,12 +106,31 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
             }
         }
 
+        WoodenSlabs.woodenSlabs.forEach(block -> {
+            getOrCreateTagBuilder(wooden_slabs).add(block.asItem());
+        });
+
+        ModdedStrippedLogs.strippedLogs.forEach(block -> {
+            getOrCreateTagBuilder(mod_stripped_logs).add(block.asItem());
+        });
+
         Shingles.shingles.forEach(block -> {
             getOrCreateTagBuilder(shingles).add(block.asItem());
         });
 
         Saplings.saplings.forEach(sapling -> {
             getOrCreateTagBuilder(saplings).add(sapling.asItem());
+        });
+
+        LogsThatBurn.logsThatBurn.forEach(log -> {
+            getOrCreateTagBuilder(logs_that_burn).add(log.asItem());
+        });
+
+        Stones.stones.forEach(stone -> {
+            getOrCreateTagBuilder(stone_crafting_materials).add(stone.asItem());
+            if(!stone.asItem().toString().contains("jadeite")){
+                getOrCreateTagBuilder(stone_tool_materials).add(stone.asItem());
+            }
         });
     }
 }
