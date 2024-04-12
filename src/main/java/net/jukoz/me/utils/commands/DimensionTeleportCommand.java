@@ -35,7 +35,7 @@ public class DimensionTeleportCommand {
             Vector3i coordinates = new Vector3i((int) coordinatesInDouble.x, (int) coordinatesInDouble.y, (int) coordinatesInDouble.z);
             ServerPlayerEntity targettedPlayer = EntityArgumentType.getPlayer(context, PLAYER);
 
-            ModDimensions.teleportePlayerToMe(targettedPlayer, coordinates);
+            ModDimensions.teleportPlayerToMe(targettedPlayer, coordinates);
 
             return 1;
         } catch (Exception e){

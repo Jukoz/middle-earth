@@ -42,10 +42,10 @@ public class ModDimensions {
         Vector2i coordinates = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(ME_SPAWN_LOCATION.x, ME_SPAWN_LOCATION.z);
         int height = (int) (1 + MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(coordinates.x, coordinates.y));
         Vector3i targetCoords = new Vector3i(coordinates.x, height, coordinates.y);
-        teleportePlayerToMe(player, targetCoords);
+        teleportPlayerToMe(player, targetCoords);
     }
 
-    public static void teleportePlayerToMe(PlayerEntity player, Vector3i coordinates){
+    public static void teleportPlayerToMe(PlayerEntity player, Vector3i coordinates){
         if(!player.getWorld().isClient()) {
             RegistryKey<World> registryKey = WORLD_KEY;
             ServerWorld serverWorld = (ServerWorld) player.getWorld();
