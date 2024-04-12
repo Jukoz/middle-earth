@@ -52,7 +52,7 @@ import java.util.function.Predicate;
 public class GooseEntity extends AnimalEntity {
 
     public static final Ingredient BREEDING_INGREDIENT
-            = Ingredient.ofItems(Items.GRASS, Items.WHEAT_SEEDS);
+            = Ingredient.ofItems(Items.WHEAT_SEEDS);
     static final Predicate<ItemEntity> PICKABLE_DROP_FILTER;
     public float flapProgress;
     public float maxWingDeviation;
@@ -259,11 +259,6 @@ public class GooseEntity extends AnimalEntity {
 
     public GooseVariant getVariant() {
         return GooseVariant.byId(this.getId());
-    }
-
-
-    public boolean canBreatheInWater() {
-        return false;
     }
 
     public boolean isPushedByFluids() {

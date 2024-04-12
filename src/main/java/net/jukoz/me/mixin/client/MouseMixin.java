@@ -1,7 +1,7 @@
 package net.jukoz.me.mixin.client;
 
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntity;
-import net.jukoz.me.statusEffects.Hallucination;
+import net.jukoz.me.statusEffects.HallucinationStatusEffect;
 import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
@@ -28,7 +28,7 @@ public class MouseMixin {
                 lookAt = (LivingEntity) player.getWorld().getEntityById(id);
 
                 if(lookAt == null){
-                    ((Hallucination)player.getActiveStatusEffects().get(ModStatusEffects.HALLUCINATION).getEffectType()).stop(player);
+                    ((HallucinationStatusEffect)player.getActiveStatusEffects().get(ModStatusEffects.HALLUCINATION).getEffectType()).stop(player);
                     player.sendMessage(Text.literal("is dead _ " + player.getActiveStatusEffects().get(ModStatusEffects.HALLUCINATION).getDuration()));
                     id = -1;
                     return;

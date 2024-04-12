@@ -68,7 +68,7 @@ public class TrollEntity extends BeastEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 0.9)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 28.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 10.0)
-                .add(EntityAttributes.HORSE_JUMP_STRENGTH, 0.0);
+                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 0.0);
     }
 
     @Override
@@ -93,9 +93,9 @@ public class TrollEntity extends BeastEntity {
         this.targetSelector.add(9, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(THROWING, false);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(THROWING, false);
     }
 
     @Override
@@ -182,14 +182,10 @@ public class TrollEntity extends BeastEntity {
                 if (!itemStack.isEmpty()) {
                     NbtCompound nbtCompound = new NbtCompound();
                     nbtCompound.putByte("Slot", (byte)i);
-                    itemStack.writeNbt(nbtCompound);
-                    nbtList.add(nbtCompound);
+                    nbtList.add(itemStack.encode(this.getRegistryManager(), nbtCompound));
                 }
             }
             nbt.put("Items", nbtList);
-        }
-        if (!this.items.getStack(1).isEmpty()) {
-            nbt.put("ArmorItem", this.items.getStack(1).writeNbt(new NbtCompound()));
         }
     }
 
@@ -205,25 +201,18 @@ public class TrollEntity extends BeastEntity {
                 NbtCompound nbtCompound = nbtList.getCompound(i);
                 int j = nbtCompound.getByte("Slot") & 255;
                 if (j >= 2 && j < this.items.size()) {
-                    this.items.setStack(j, ItemStack.fromNbt(nbtCompound));
+                    this.items.setStack(j, ItemStack.fromNbt(getRegistryManager(), nbtCompound).orElse(ItemStack.EMPTY));
                 }
             }
         }
-        if (nbt.contains("ArmorItem", 10)) {
-            ItemStack itemStack = ItemStack.fromNbt(nbt.getCompound("ArmorItem"));
-            if (!itemStack.isEmpty() && this.isHorseArmor(itemStack)) {
-                this.items.setStack(1, itemStack);
-            }
-        }
-
         if (nbt.contains("SaddleItem", 10)) {
-            ItemStack itemStack = ItemStack.fromNbt(nbt.getCompound("SaddleItem"));
+            ItemStack itemStack = (ItemStack)ItemStack.fromNbt(this.getRegistryManager(), nbt.getCompound("SaddleItem")).orElse(ItemStack.EMPTY);
             if (itemStack.isOf(Items.SADDLE)) {
                 this.items.setStack(0, itemStack);
             }
         }
 
-        this.updateSaddle();
+        this.updateSaddledFlag();
     }
 
     public boolean canThrow() {
@@ -274,11 +263,6 @@ public class TrollEntity extends BeastEntity {
             this.bondingTimeout = 40;
         }
 
-    }
-
-    @Override
-    public boolean isHorseArmor(ItemStack item) {
-        return item.getItem() instanceof TrollArmorItem;
     }
 
     public void throwAttack() {
