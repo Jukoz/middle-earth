@@ -31,8 +31,6 @@ public class CustomBootsItem extends ArmorItem implements DyeableItem {
         this.material = material;
     }
 
-
-
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 

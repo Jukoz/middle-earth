@@ -12,6 +12,8 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.SmithingRecipe;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
@@ -75,7 +77,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
 
             @Override
             public void onTakeItem(PlayerEntity player, ItemStack itemStack) {
-                itemStack.onCraft(player.getWorld(), player, itemStack.getCount());
+                itemStack.onCraftByPlayer(player.getWorld(), player, itemStack.getCount());
                 ArtisanTableScreenHandler.this.output.unlockLastRecipe(player, this.getInputStacks());
                 itemStack = ArtisanTableScreenHandler.this.inputSlot0.takeStack(1);
                 ArtisanTableScreenHandler.this.inputSlot1.takeStack(1);
@@ -197,7 +199,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
             Item item = originalStack.getItem();
             stack = originalStack.copy();
             if (slot == 6){
-                item.onCraft(originalStack, player.getWorld(), player);
+                item.onCraft(originalStack, player.getWorld());
                 if (!this.insertItem(originalStack, 7, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
