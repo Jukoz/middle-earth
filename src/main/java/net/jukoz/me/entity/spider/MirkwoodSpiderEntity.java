@@ -9,7 +9,6 @@ import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
@@ -99,9 +98,9 @@ public class MirkwoodSpiderEntity extends HostileEntity {
         return new SpiderNavigation(this, world);
     }
 
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(SPIDER_FLAGS, (byte)0);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(SPIDER_FLAGS, (byte)0);
     }
 
     public void tick() {
@@ -145,10 +144,6 @@ public class MirkwoodSpiderEntity extends HostileEntity {
         if (!state.isOf(Blocks.COBWEB) && !state.isOf(ModNatureBlocks.CORNER_COBWEB) && !state.isOf(ModNatureBlocks.HANGING_COBWEB)) {
             super.slowMovement(state, multiplier);
         }
-    }
-
-    public EntityGroup getGroup() {
-        return EntityGroup.ARTHROPOD;
     }
 
     // Immune to Poison

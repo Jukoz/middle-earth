@@ -114,11 +114,6 @@ public class DuckEntity extends AnimalEntity {
         return DuckVariant.byId(this.getId());
     }
 
-
-    public boolean canBreatheInWater() {
-        return false;
-    }
-
     public boolean isPushedByFluids() {
         return true;
     }

@@ -17,6 +17,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -158,9 +159,9 @@ public class SnailEntity extends AnimalEntity {
         return new SpiderNavigation(this, world);
     }
 
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(SNAIL_FLAGS, (byte)0);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(SNAIL_FLAGS, (byte)0);
     }
 
     @Override
@@ -196,6 +197,11 @@ public class SnailEntity extends AnimalEntity {
         } else {
             this.climbingTicks = Math.max(0, this.climbingTicks - 1);
         }
+    }
+
+    @Override
+    public boolean isBreedingItem(ItemStack stack) {
+        return false;
     }
 
     public boolean isClimbing() {
