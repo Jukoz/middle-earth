@@ -89,8 +89,8 @@ public class ModEggItems {
             new SpawnEggItem(ModEntities.BANDIT_MILITIA, 4541263, 9132338, new Item.Settings()));
     public static final Item BANDIT_SOLDIER_SPAWN_EGG = registerItem("bandit_soldier_spawn_egg",
             new SpawnEggItem(ModEntities.BANDIT_SOLDIER, 4541263, 9132338, new Item.Settings()));
-    public static final Item BANDIT_KNIGHT_SPAWN_EGG = registerItem("bandit_knight_spawn_egg",
-            new SpawnEggItem(ModEntities.BANDIT_KNIGHT, 4541263, 9132338, new Item.Settings()));
+    public static final Item BANDIT_CHIEFTAIN_SPAWN_EGG = registerItem("bandit_chieftain_spawn_egg",
+            new SpawnEggItem(ModEntities.BANDIT_CHIEFTAIN, 4541263, 9132338, new Item.Settings()));
 
     public static final Item BARROW_WIGHT_SPAWN_EGG = registerItem("barrow_wight_spawn_egg",
             new SpawnEggItem(ModEntities.BARROW_WIGHT, 1852734, 2456136, new Item.Settings()));

@@ -205,6 +205,10 @@ public class BeastEntity extends AbstractDonkeyEntity {
         return null;
     }
 
+    @Override
+    public boolean isPersistent() {
+        return isTame();
+    }
 
     public boolean isSitting() {
         return this.dataTracker.get(SITTING);
