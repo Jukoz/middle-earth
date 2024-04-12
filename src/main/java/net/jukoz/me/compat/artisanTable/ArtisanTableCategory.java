@@ -37,7 +37,7 @@ public class ArtisanTableCategory implements DisplayCategory<BasicDisplay> {
 
     @Override
     public List<Widget> setupDisplay(BasicDisplay display, Rectangle bounds) {
-        final Point startPoint = new Point(bounds.getCenterX() - 87, bounds.getCenterY() - 35);
+        final Point startPoint = new Poin(bounds.getCenterX() - 87, bounds.getCenterY() - 35);
         List<Widget> widgets = new LinkedList<>();
 
         widgets.add(Widgets.createTexturedWidget(TEXTURE, new Rectangle(startPoint.x, startPoint.y, 175, 82)));

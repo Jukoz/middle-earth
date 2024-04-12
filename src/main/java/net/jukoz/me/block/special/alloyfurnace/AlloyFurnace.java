@@ -1,5 +1,6 @@
 package net.jukoz.me.block.special.alloyfurnace;
 
+import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.ModBlockEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -35,6 +36,11 @@ public class AlloyFurnace extends BlockWithEntity implements BlockEntityProvider
     public AlloyFurnace(Settings settings) {
         super(settings);
         this.setDefaultState(((this.stateManager.getDefaultState()).with(FACING, Direction.NORTH)).with(LIT, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return createCodec(AlloyFurnace::new);
     }
 
     @Override

@@ -12,6 +12,6 @@ public class ModStatusEffects {
     public static final StatusEffect HALLUCINATION = new Hallucination();
 
     public static void registerStatusEffects(){
-        Registry.register(Registries.STATUS_EFFECT, new Identifier(MiddleEarth.MOD_ID, "hallucination"), HALLUCINATION).addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, "7107DE5E-7CE8-4030-940E-514C1F160890", -0.15000000596046448, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+        Registry.register(Registries.STATUS_EFFECT, new Identifier(MiddleEarth.MOD_ID, "hallucination"), HALLUCINATION).addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, "7107DE5E-7CE8-4030-940E-514C1F160890", -0.15000000596046448, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     }
 }

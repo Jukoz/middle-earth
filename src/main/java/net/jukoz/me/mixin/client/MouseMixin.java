@@ -20,8 +20,8 @@ public class MouseMixin {
     LivingEntity lookAt;
     int id;
 
-    @Inject(method ="updateMouse()V", at = @At("HEAD"), cancellable = true)
-    private void injected(CallbackInfo cir) {
+    @Inject(method ="updateMouse", at = @At("HEAD"), cancellable = true)
+    private void injected(double timeDelta ,CallbackInfo cir) {
         PlayerEntity player = MinecraftClient.getInstance().player;
         if ( player != null && player.hasStatusEffect(ModStatusEffects.HALLUCINATION)) {
             if (lookAt != null && !lookAt.isDead() && id != -1) {

@@ -398,9 +398,9 @@ public class ModRegistries {
     }
 
     public static void registerCauldronBehaviour(){
-        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ModEquipmentItems.GAMBESON, CauldronBehavior.CLEAN_DYEABLE_ITEM);
-        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ModEquipmentItems.CLOAK, CauldronBehavior.CLEAN_DYEABLE_ITEM);
-        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ModEquipmentItems.CLOAK_HOOD, CauldronBehavior.CLEAN_DYEABLE_ITEM);
-        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ModEquipmentItems.TUNIC_CLOAK, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModEquipmentItems.GAMBESON, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModEquipmentItems.CLOAK, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModEquipmentItems.CLOAK_HOOD, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModEquipmentItems.TUNIC_CLOAK, CauldronBehavior.CLEAN_DYEABLE_ITEM);
     }
 }
