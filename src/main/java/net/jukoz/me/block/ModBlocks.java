@@ -1,9 +1,5 @@
 package net.jukoz.me.block;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.LayersBlock;
 import net.jukoz.me.block.special.OxidizableVerticalSlabBlock;
@@ -20,12 +16,12 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.ColorCode;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 public class ModBlocks {
     public static final float DIRT_STRENGTH = 0.6f;
@@ -323,11 +319,11 @@ public class ModBlocks {
     public static final Block GLOWSTONE_CLUSTER = registerMiscBlock("glowstone_cluster",
             new AmethystClusterBlock(7,3, AbstractBlock.Settings.copy(Blocks.AMETHYST_CLUSTER).luminance(state -> 10)), false);
     public static final Block LARGE_GLOWSTONE_BUD = registerMiscBlock("large_glowstone_bud",
-            new AmethystClusterBlock(5,3, AbstractBlock.Settings.copy(ModBlocks.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD).luminance(9)), false);
+            new AmethystClusterBlock(5,3, AbstractBlock.Settings.copy(ModBlocks.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD).luminance(state -> 9)), false);
     public static final Block MEDIUM_GLOWSTONE_BUD = registerMiscBlock("medium_glowstone_bud",
-            new AmethystClusterBlock(4,3, AbstractBlock.Settings.copy(ModBlocks.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.MEDIUM_AMETHYST_BUD).luminance(7)), false);
+            new AmethystClusterBlock(4,3, AbstractBlock.Settings.copy(ModBlocks.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.MEDIUM_AMETHYST_BUD).luminance(state -> 7)), false);
     public static final Block SMALL_GLOWSTONE_BUD = registerMiscBlock("small_glowstone_bud",
-            new AmethystClusterBlock(3,4, AbstractBlock.Settings.copy(ModBlocks.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.SMALL_AMETHYST_BUD).luminance(5)), false);
+            new AmethystClusterBlock(3,4, AbstractBlock.Settings.copy(ModBlocks.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.SMALL_AMETHYST_BUD).luminance(state -> 5)), false);
     public static final Block BUDDING_GLOWSTONE = registerMiscBlock("budding_glowstone",
             new CustomBuddingGemBlock(AbstractBlock.Settings.copy(Blocks.BUDDING_AMETHYST).luminance(state -> 12), List.of(SMALL_GLOWSTONE_BUD,MEDIUM_GLOWSTONE_BUD,LARGE_GLOWSTONE_BUD, GLOWSTONE_CLUSTER)), false);
 
@@ -343,17 +339,17 @@ public class ModBlocks {
     //endregion
 
     public static final Block RIVER_SAND = registerMiscBlock("river_sand",
-            new FallingBlock(AbstractBlock.Settings.copy(Blocks.SAND).sounds(BlockSoundGroup.SAND)), true);
+            new ColoredFallingBlock(new ColorCode(-8356741), AbstractBlock.Settings.copy(Blocks.SAND).sounds(BlockSoundGroup.SAND)), true);
     public static final Block BLACK_SAND = registerMiscBlock("black_sand",
-            new FallingBlock(AbstractBlock.Settings.copy(Blocks.SAND).sounds(BlockSoundGroup.SAND)), true);
+            new ColoredFallingBlock(new ColorCode(-8356741), AbstractBlock.Settings.copy(Blocks.SAND).sounds(BlockSoundGroup.SAND)), true);
     public static final Block WHITE_SAND = registerMiscBlock("white_sand",
-            new FallingBlock(AbstractBlock.Settings.copy(Blocks.SAND).sounds(BlockSoundGroup.SAND)), true);
+            new ColoredFallingBlock(new ColorCode(14406560), AbstractBlock.Settings.copy(Blocks.SAND).sounds(BlockSoundGroup.SAND)), true);
 
     public static final Block STONE_MYCELIUM = registerMiscBlock("stone_mycelium",
             new StoneMyceliumBlock(AbstractBlock.Settings.copy(Blocks.STONE).ticksRandomly()), false);
 
     public static final Block ASH_BLOCK = registerMiscBlock("ash_block",
-            new FallingBlock(AbstractBlock.Settings.copy(Blocks.SAND).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.SAND)), true);
+            new ColoredFallingBlock(new ColorCode(-8356741), AbstractBlock.Settings.copy(Blocks.SAND).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.SAND)), true);
 
     //region VANILLA SLABS
     public static final Block DIRT_SLAB = registerMiscBlock("dirt_slab",
@@ -842,7 +838,7 @@ public class ModBlocks {
 
     static void registerBlockItem(String name, Block block) {
         var item =  Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name),
-                new BlockItem(block, new FabricItemSettings()));
+                new BlockItem(block, new Item.Settings()));
         Item.BLOCK_ITEMS.put(block, item);
     }
 
