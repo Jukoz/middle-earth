@@ -35,6 +35,8 @@ public class ModBiomes {
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 8703593, 8703593)));
         context.register(MEBiomeKeys.ANORIEN, createAnorienBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6799458, 6662221)));
+        context.register(MEBiomeKeys.ANORIEN_FOOTHILLS, createAnorienBiome(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, defaultWater, defaultWaterFog, 6799458, 6662221)));
         context.register(MEBiomeKeys.BARROW_DOWNS, createBarrowDownsBiome(context, new BiomeColorsDTO(
                 5993621, 7635851, 4812936, 3034721, 6721389, 6525545)));
         context.register(MEBiomeKeys.BELFALAS, createBelfalasBiome(context, new BiomeColorsDTO(
@@ -71,7 +73,7 @@ public class ModBiomes {
                 7181795, 10731509, 4618461, defaultWaterFog, 8761449, 7842644)));
         context.register(MEBiomeKeys.LONELY_MOUNTAIN, createLonelyMountainBiome(context, new BiomeColorsDTO(
                 hillySky, 13031679, defaultWater, defaultWaterFog, 7188600, 6529388), 0));
-        context.register(MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS, createLonelyMountainBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.LONELY_MOUNTAIN_BASE, createLonelyMountainBiome(context, new BiomeColorsDTO(
                 hillySky, 12637183, defaultWater, defaultWaterFog, 6927733, 6005862), 1));
         context.register(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, createLonelyMountainBiome(context, new BiomeColorsDTO(
                 hillySky, 13031679, defaultWater, defaultWaterFog, 8106628, 6987890), 2));
@@ -105,9 +107,13 @@ public class ModBiomes {
                 hillySky, defaultFog, defaultWater, defaultWaterFog, 9087338, 9218155)));
         context.register(MEBiomeKeys.IRON_HILLS, createIronHillsBiome(context, new BiomeColorsDTO(
                 10140415, 13031679, defaultWater, defaultWaterFog, 6922099, 7119988), false));
-        context.register(MEBiomeKeys.IRON_HILLS_FOOTHILLS, createIronHillsBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.IRON_HILLS_BASE, createIronHillsBiome(context, new BiomeColorsDTO(
+                8761343, defaultFog, defaultWater, defaultWaterFog, 7187321, 6793328), true));
+        context.register(MEBiomeKeys.IRON_HILLS_PEAKS, createIronHillsBiome(context, new BiomeColorsDTO(
                 8761343, defaultFog, defaultWater, defaultWaterFog, 7187321, 6793328), true));
         context.register(MEBiomeKeys.IRON_HILLS_FRONTIER, createIronHillsFrontierBiome(context, new BiomeColorsDTO(
+                hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
+        context.register(MEBiomeKeys.IRON_FOOTHILLS, createIronHillsFrontierBiome(context, new BiomeColorsDTO(
                 hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
         context.register(MEBiomeKeys.ITHILIEN, createIthilienBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 5152072, 4889668), false));
@@ -217,9 +223,11 @@ public class ModBiomes {
                 7254527, 12638463, 5212644, 333363, 11059059, 9284946)));
         context.register(MEBiomeKeys.WASTE_POND, createLakeBiome(context, new BiomeColorsDTO(
                 8163746, 10926783, 5860963, 863008, 4020033, 2371608)));
+        context.register(MEBiomeKeys.WHITE_MOUNTAINS_BASE, createAnorienBiome(context, new BiomeColorsDTO(
+                hillySky, 12638463, defaultWater, defaultWaterFog, 7185769, 6857066)));
         context.register(MEBiomeKeys.WHITE_MOUNTAINS, createWhiteMountainsBiome(context, new BiomeColorsDTO(
                 hillySky, 12638463, defaultWater, defaultWaterFog, 7183466, 7513204), false));
-        context.register(MEBiomeKeys.WHITE_MOUNTAINS_FOOTHILLS, createWhiteMountainsBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.WHITE_MOUNTAINS_PEAKS, createWhiteMountainsBiome(context, new BiomeColorsDTO(
                 hillySky, 12638463, defaultWater, defaultWaterFog, 7185769, 6857066), true));
         context.register(MEBiomeKeys.WOODLAND_REALM, createWoodlandRealmBiome(context, new BiomeColorsDTO(
                 8497918, 10666932, 4492967, 471355, 2780195, 2713634)));

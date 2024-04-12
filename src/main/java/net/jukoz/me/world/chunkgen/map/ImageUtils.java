@@ -1,13 +1,18 @@
 package net.jukoz.me.world.chunkgen.map;
 
 import com.google.common.base.Stopwatch;
+import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.biomes.surface.MEBiome;
+import net.jukoz.me.world.biomes.surface.MEBiomesData;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.List;
 
 public class ImageUtils {
     private static byte[] SEED = generateSeed(50);
@@ -95,15 +100,6 @@ public class ImageUtils {
     private static BufferedImage createChildFromParentImage(BufferedImage child, BufferedImage parent, int halfRegionSize, int xIndex, int yIndex) {
         for(int x = halfRegionSize * xIndex; x < halfRegionSize * (xIndex+1); x++) {
             for(int y = halfRegionSize * yIndex; y < halfRegionSize * (yIndex+1); y++) {
-                /* Debug
-                    final int color = parent.getRGB(x, y);
-                    final Short id = MEBiomesData.getBiomeIdByBiome(MEBiomesData.getBiomeByColor(color));
-                    if(id == null){
-                        String errMessage = "ImageUtils::Cannot subdivide map image, no biome found for color %s at (%s, %s)".formatted(color, x, y);
-                        System.out.println(errMessage);
-                        throw new RuntimeException(errMessage);
-                    }
-                 */
                 child.setRGB((x - (halfRegionSize * xIndex)) * 2, (y - (halfRegionSize * yIndex)) * 2, parent.getRGB(x, y));
             }
         }
@@ -126,13 +122,13 @@ public class ImageUtils {
                 if(xIsUneven ^ yIsUneven){
                     if(xIsUneven){
                         if(x < width - 1)
-                            biomeColors.add(image.getRGB(x + 1,y));
-                        biomeColors.add(image.getRGB(x - 1,y));
+                            biomeColors.addAll(addBiomeToList(image.getRGB(x + 1,y), x, y));
+                        biomeColors.addAll(addBiomeToList(image.getRGB(x - 1,y), x, y));
                     }
                     if(yIsUneven){
                         if(y < height - 1)
-                            biomeColors.add(image.getRGB(x,y + 1));
-                        biomeColors.add(image.getRGB(x,y - 1));
+                            biomeColors.addAll(addBiomeToList(image.getRGB(x,y + 1), x, y));
+                        biomeColors.addAll(addBiomeToList(image.getRGB(x,y - 1), x, y));
                     }
 
                     image.setRGB(x,y, getRandomInteger(biomeColors));
@@ -140,11 +136,11 @@ public class ImageUtils {
                     biomeColors.clear();
 
                     if(yIsUneven && x > 1){
-                        biomeColors.add(image.getRGB(x,y));
-                        biomeColors.add(image.getRGB(x - 2,y));
+                        biomeColors.addAll(addBiomeToList(image.getRGB(x,y), x, y));
+                        biomeColors.addAll(addBiomeToList(image.getRGB(x - 2,y), x, y));
                         if(y < height - 1)
-                            biomeColors.add(image.getRGB(x - 1,y + 1));
-                        biomeColors.add(image.getRGB(x - 1,y - 1));
+                            biomeColors.addAll(addBiomeToList(image.getRGB(x - 1,y + 1), x, y));
+                        biomeColors.addAll(addBiomeToList(image.getRGB(x - 1,y - 1), x, y));
 
                         image.setRGB(x - 1,y, getRandomInteger(biomeColors));
                         biomeColors.clear();
@@ -156,6 +152,24 @@ public class ImageUtils {
         }
         stopwatch.reset();
         return image;
+    }
+
+    private static List<Integer> addBiomeToList(int biomeColorInteger, int x , int y) {
+        return Collections.singletonList(biomeColorInteger);
+        /*
+        try {
+            MEBiome biome = MEBiomesData.getBiomeByColor(biomeColorInteger);
+
+            List<Integer> newBiomes = new ArrayList<>();
+            for(int i = 0; i < biome.expansionWeight; i++)
+                newBiomes.add(biomeColorInteger);
+
+            return newBiomes;
+        } catch (Exception e) {
+            LoggerUtil.getInstance().logError("[%s, %s]".formatted(x,y));
+            return Collections.singletonList(biomeColorInteger);
+        }
+         */
     }
 
     private static Integer getRandomInteger(List<Integer> list) {
