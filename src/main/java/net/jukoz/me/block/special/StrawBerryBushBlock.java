@@ -1,5 +1,6 @@
 package net.jukoz.me.block.special;
 
+import com.mojang.serialization.MapCodec;
 import net.jukoz.me.item.ModFoodItems;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
@@ -36,6 +37,11 @@ public class StrawBerryBushBlock extends PlantBlock
     public StrawBerryBushBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0));
+    }
+
+    @Override
+    protected MapCodec<? extends PlantBlock> getCodec() {
+        return null;
     }
 
     @Override
@@ -103,7 +109,7 @@ public class StrawBerryBushBlock extends PlantBlock
     }
 
     @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
         return state.get(AGE) < MAX_AGE;
     }
 

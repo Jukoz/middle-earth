@@ -1,5 +1,6 @@
 package net.jukoz.me.block.special;
 
+import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.StoneBlockSets;
 import net.minecraft.block.*;
 import net.minecraft.registry.tag.BlockTags;
@@ -19,6 +20,11 @@ public class MordorPlant extends PlantBlock implements Fertilizable {
     }
 
     @Override
+    protected MapCodec<? extends PlantBlock> getCodec() {
+        return null;
+    }
+
+    @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
         return  floor.isIn(BlockTags.DIRT) || floor.isIn(BlockTags.SAND) || floor.isOf(StoneBlockSets.ASHEN_STONE.base())
                 || floor.isOf(Blocks.BASALT) || floor.isOf(Blocks.FARMLAND);
@@ -30,7 +36,7 @@ public class MordorPlant extends PlantBlock implements Fertilizable {
     }
 
     @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
         return true;
     }
 

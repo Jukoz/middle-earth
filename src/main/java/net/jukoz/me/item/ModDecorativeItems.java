@@ -1,6 +1,5 @@
 package net.jukoz.me.item;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.entity.ModEntities;
@@ -27,7 +26,7 @@ public class ModDecorativeItems {
     public static final Item WOOD_PILE = registerItem("wood_pile",
             new BlockItem(ModDecorativeBlocks.WOOD_PILE, new Item.Settings()));
     public static final Item TROLL_STATUE = registerItem("troll_statue",
-            new CustomSpawnEggItem(ModEntities.PETRIFIED_TROLL, new FabricItemSettings().maxCount(1)));
+            new CustomSpawnEggItem(ModEntities.PETRIFIED_TROLL, new Item.Settings().maxCount(1)));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(item.getDefaultStack());
