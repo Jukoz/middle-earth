@@ -1,23 +1,25 @@
 package net.jukoz.me.item.utils;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.CustomArmorMaterial;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Lazy;
+import net.minecraft.util.Identifier;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.function.Supplier;
 
-public enum ModArmorMaterials implements ArmorMaterial {
+public class ModArmorMaterials {
 
-    HOBBIT_SHIRRIFF_HAT("hobbit_shirriff_hat", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(),
+    /*HOBBIT_SHIRRIFF_HAT("hobbit_shirriff_hat", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(),
             () -> Ingredient.ofItems(Items.LEATHER), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shire"), null),
 
     GAMBESON("gambeson", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,
@@ -122,7 +124,96 @@ public enum ModArmorMaterials implements ArmorMaterial {
     MISTY_HOBGOBLIN_PLATE_ARMOR("misty_hobgoblin_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad")),
     ;
+*/
+    public static final RegistryEntry<CustomArmorMaterial> HOBBIT_SHERRIF_HAT = registerArmor("leather", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER), List.of(new CustomArmorMaterial.Layer(new Identifier("hobbit_shirriff_hat"), "", false)));
 
+    public static final RegistryEntry<CustomArmorMaterial> GAMBESON = registerArmor("gambeson", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER), List.of(new CustomArmorMaterial.Layer(new Identifier("gambeson"), "", true), new CustomArmorMaterial.Layer(new Identifier("gambeson"), "_overlay", false)));
+    public static final RegistryEntry<CustomArmorMaterial> CLOAK = registerArmor("cloak", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER), List.of(new CustomArmorMaterial.Layer(new Identifier("cloak"), "", true), new CustomArmorMaterial.Layer(new Identifier("cloak"), "_overlay", false)));
+
+    private static RegistryEntry<CustomArmorMaterial> registerArmor(String id, int tier, RegistryEntry<SoundEvent> equipSound, Supplier<Ingredient> repairIngredient, List<CustomArmorMaterial.Layer> layers) {
+        EnumMap<ArmorItem.Type, Integer> map = null;
+        float toughness;
+        float knockbackResistance;
+        int enchantability;
+        switch (tier) {
+            case 1 -> {
+                map.put(ArmorItem.Type.BOOTS, 1);
+                map.put(ArmorItem.Type.LEGGINGS, 2);
+                map.put(ArmorItem.Type.CHESTPLATE, 3);
+                map.put(ArmorItem.Type.HELMET, 1);
+                map.put(ArmorItem.Type.BODY, 4);
+                toughness = 0.0f;
+                knockbackResistance = 0.0f;
+                enchantability = 10;
+            }
+            case 2 -> {
+                map.put(ArmorItem.Type.BOOTS, 1);
+                map.put(ArmorItem.Type.LEGGINGS, 3);
+                map.put(ArmorItem.Type.CHESTPLATE, 4);
+                map.put(ArmorItem.Type.HELMET, 1);
+                map.put(ArmorItem.Type.BODY, 5);
+                toughness = 0.0f;
+                knockbackResistance = 0.0f;
+                enchantability = 10;
+            }
+            case 3 -> {
+                map.put(ArmorItem.Type.BOOTS, 2);
+                map.put(ArmorItem.Type.LEGGINGS, 4);
+                map.put(ArmorItem.Type.CHESTPLATE, 5);
+                map.put(ArmorItem.Type.HELMET, 2);
+                map.put(ArmorItem.Type.BODY, 6);
+                toughness = 0.5f;
+                knockbackResistance = 0.0f;
+                enchantability = 10;
+            }
+            case 4 -> {
+                map.put(ArmorItem.Type.BOOTS, 2);
+                map.put(ArmorItem.Type.LEGGINGS, 5);
+                map.put(ArmorItem.Type.CHESTPLATE, 6);
+                map.put(ArmorItem.Type.HELMET, 5);
+                map.put(ArmorItem.Type.BODY, 8);
+                toughness = 1.0f;
+                knockbackResistance = 0.1f;
+                enchantability = 10;
+            }
+            case 5 -> {
+                map.put(ArmorItem.Type.BOOTS, 3);
+                map.put(ArmorItem.Type.LEGGINGS, 6);
+                map.put(ArmorItem.Type.CHESTPLATE, 7);
+                map.put(ArmorItem.Type.HELMET, 3);
+                map.put(ArmorItem.Type.BODY, 10);
+                toughness = 2.0f;
+                knockbackResistance = 0.1f;
+                enchantability = 10;
+            }
+            default -> {
+                map.put(ArmorItem.Type.BOOTS, 1);
+                map.put(ArmorItem.Type.LEGGINGS, 2);
+                map.put(ArmorItem.Type.CHESTPLATE, 3);
+                map.put(ArmorItem.Type.HELMET, 1);
+                map.put(ArmorItem.Type.BODY, 3);
+                toughness = 0.0f;
+                knockbackResistance = 0.0f;
+                enchantability = 1;
+            }
+        }
+        return register(id, map, enchantability, equipSound, toughness, knockbackResistance, repairIngredient, layers);
+    }
+
+    private static RegistryEntry<CustomArmorMaterial> register(String id, EnumMap<ArmorItem.Type, Integer> defense, int enchantability, RegistryEntry<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
+        List<CustomArmorMaterial.Layer> list = List.of(new CustomArmorMaterial.Layer(new Identifier(id)));
+        return register(id, defense, enchantability, equipSound, toughness, knockbackResistance, repairIngredient, list);
+    }
+
+    private static RegistryEntry<CustomArmorMaterial> register(String id, EnumMap<ArmorItem.Type, Integer> defense, int enchantability, RegistryEntry<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient, List<CustomArmorMaterial.Layer> layers) {
+        EnumMap<ArmorItem.Type, Integer> enumMap = new EnumMap<ArmorItem.Type, Integer>(ArmorItem.Type.class);
+        for (ArmorItem.Type type : ArmorItem.Type.values()) {
+            enumMap.put(type, defense.get(type));
+        }
+        return Registry.registerReference(Registries.ARMOR_MATERIAL, new Identifier(id), new CustomArmorMaterial(enumMap, enchantability, equipSound, repairIngredient, layers, toughness, knockbackResistance));
+    }
+
+/*
     private final String name;
     private final SoundEvent equipSound;
     private final Supplier<Ingredient> repairIngredient;
@@ -248,5 +339,5 @@ public enum ModArmorMaterials implements ArmorMaterial {
 
     public int getTier() {
         return this.tier;
-    }
+    }*/
 }
