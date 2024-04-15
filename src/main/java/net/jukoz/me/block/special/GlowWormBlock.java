@@ -1,5 +1,6 @@
 package net.jukoz.me.block.special;
 
+import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.*;
@@ -42,5 +43,10 @@ public class GlowWormBlock extends AbstractPlantBlock {
 
     protected AbstractPlantStemBlock getStem() {
         return (AbstractPlantStemBlock) ModNatureBlocks.GLOWWORM_WEBBING;
+    }
+
+    @Override
+    protected MapCodec<? extends AbstractPlantBlock> getCodec() {
+        return null;
     }
 }

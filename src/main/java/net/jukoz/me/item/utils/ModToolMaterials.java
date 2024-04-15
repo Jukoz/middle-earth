@@ -61,11 +61,6 @@ public enum ModToolMaterials implements ToolMaterial
     }
 
     @Override
-    public int getMiningLevel() {
-        return this.miningLevel;
-    }
-
-    @Override
     public int getEnchantability() {
         return this.enchantability;
     }
