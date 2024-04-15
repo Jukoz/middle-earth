@@ -19,14 +19,14 @@ public class MiddleEarthHeightMap {
     public static final int PERLIN_STRETCH_Y2 = 37;
     public static final int PERLIN_HEIGHT_RANGE = 45;
     public static final float MOUNTAIN_HEIGHT_RANGE = 3.5f;
-    public static final float MOUNTAIN_EXPONENTIAL_HEIGHT = 1.107f;
+    public static final float MOUNTAIN_EXPONENTIAL_HEIGHT = 1.02f;
     public static final int MOUNTAIN_START_HEIGHT = 32; // Height depending on the Biome Data.
     public static final int PERLIN_HEIGHT_OFFSET = 8;
     public static final int STONE_HEIGHT = 54;
     public static final int HEIGHT = 8 + STONE_HEIGHT;
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
-    public static final int WATER_MAX = 16;
-    public static final float WATER_MULTIPLIER = 0.93f;
+    public static final int WATER_MAX = 24;
+    public static final float WATER_MULTIPLIER = 2.5f;
     public static final float WATER_PERLIN_DIVIDER = 1.75f;
     private static final int PIXEL_WEIGHT = MiddleEarthMapConfigs.PIXEL_WEIGHT;
     public static final ArrayList<Float> percentages = new ArrayList<Float>();
@@ -44,7 +44,6 @@ public class MiddleEarthHeightMap {
 
 
         if(color != null){
-            float red = color.getRed();
             float blue = color.getBlue();
 
             float height = color.getRed();
