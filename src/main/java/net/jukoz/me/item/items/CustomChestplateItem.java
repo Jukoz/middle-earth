@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class CustomChestplateItem extends ArmorItem implements DyeableItem {
+public class CustomChestplateItem extends ArmorItem {
     private ModArmorMaterials material;
 
     private List<Customizations> customsList;

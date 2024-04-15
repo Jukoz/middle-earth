@@ -22,8 +22,6 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeableItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
@@ -160,20 +158,20 @@ public class ModArmorRenderer implements ArmorRenderer {
 
 
     static void renderArmor(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture, boolean dyeable){
-        if(dyeable){
+        /*if(dyeable){
             renderDyeable(matrices, vertexConsumers, light, stack, model, texture);
             if(!(model == capeModel)){
                 renderDyeable(matrices, vertexConsumers, light, stack, model, new Identifier(MiddleEarth.MOD_ID,
                         texture.getPath().replaceAll(".png", "_overlay.png")));
             }
-        } else {
+        } else {*/
             ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, texture);
-        }
+        //}
     }
 
-    static void renderDyeable(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture) {
+    /*static void renderDyeable(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture) {
         VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), false, stack.hasGlint());
         Color rgb = IntToRGB.ex(((DyeableItem)stack.getItem()).getColor(stack));
         model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, rgb.getRed()/255f, rgb.getGreen()/255f, rgb.getBlue()/255f, 1.0F);
-    }
+    }*/
 }
