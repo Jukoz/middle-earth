@@ -11,6 +11,7 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.SoundCategory;
@@ -20,9 +21,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Position;
 import net.minecraft.world.World;
 
-public class JavelinItem extends ToolItem implements Vanishable {
+public class JavelinItem extends ToolItem {
     private static final float BASE_STRENGTH = 0.75f;
     private static final float CHARGE_STRENGTH = 1f;
     private static final int STRENGTH_CHARGE_TIME = 20; // 1s charge for full strength
@@ -44,39 +47,6 @@ public class JavelinItem extends ToolItem implements Vanishable {
 
     public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
         return !miner.isCreative();
-    }
-
-    public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-        if (state.isOf(Blocks.COBWEB)) {
-            return 15.0F;
-        } else {
-            return state.isIn(BlockTags.SWORD_EFFICIENT) ? 1.5F : 1.0F;
-        }
-    }
-
-    public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        stack.damage(1, attacker, (e) -> {
-            e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
-        });
-        return true;
-    }
-
-    public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-        if (state.getHardness(world, pos) != 0.0F) {
-            stack.damage(2, miner, (e) -> {
-                e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
-            });
-        }
-
-        return true;
-    }
-
-    public boolean isSuitableFor(BlockState state) {
-        return state.isOf(Blocks.COBWEB);
-    }
-
-    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-        return slot == EquipmentSlot.MAINHAND ? this.attributeModifiers : super.getAttributeModifiers(slot);
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
@@ -120,4 +90,5 @@ public class JavelinItem extends ToolItem implements Vanishable {
         }
         playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
     }
+
 }

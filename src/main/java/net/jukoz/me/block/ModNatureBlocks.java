@@ -17,9 +17,13 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+
+import java.util.Optional;
 
 import static net.jukoz.me.block.WoodBlockSets.LEAVES_STRENGTH;
 
@@ -183,39 +187,17 @@ public class ModNatureBlocks {
     public static final Block YELLOW_AMANITA_BLOCK = registerBlock("yellow_amanita_block",
             new MushroomBlock(AbstractBlock.Settings.copy(Blocks.BROWN_MUSHROOM_BLOCK)), true);
 
-    public static final Block BEECH_SAPLING = registerCrossBlock("beech_sapling",
-            new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.BEECH_TREE_KEY),
-                    AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)), true);
-    public static final Block LARCH_SAPLING = registerCrossBlock("larch_sapling",
-            new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.LARCH_TREE_KEY),
-                    AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)), true);
-    public static final Block LEBETHRON_SAPLING = registerCrossBlock("lebethron_sapling",
-            new SaplingBlock(new DualSaplingGenerator(0.98f, ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY, ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY),
-                    AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)), true);
-    public static final Block WHITE_LEBETHRON_SAPLING = registerCrossBlock("white_lebethron_sapling",
-            new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY),
-                    AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)), true);
-    public static final Block MALLORN_SAPLING = registerCrossBlock("mallorn_sapling",
-            new SaplingBlock(new ModLargeSaplingGenerator(ModTreeConfiguredFeatures.MALLORN_TREE_KEY, ModTreeConfiguredFeatures.MEGA_MALLORN_TREE_KEY),
-                    AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)), true);
-    public static final Block MAPLE_SAPLING = registerCrossBlock("maple_sapling",
-            new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.MAPLE_TREE_KEY),
-                    AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)), true);
-    public static final Block MIRKWOOD_SAPLING = registerCrossBlock("mirkwood_sapling",
-            new SaplingBlock(new ModLargeSaplingGenerator(ModTreeConfiguredFeatures.MIRKWOOD_TREE_KEY, ModTreeConfiguredFeatures.MEGA_MIRKWOOD_TREE_KEY),
-                    AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)), true);
-    public static final Block PALM_SAPLING = registerCrossBlock("palm_sapling",
-            new SaplingBlock(new DualSaplingGenerator(0.95f, ModTreeConfiguredFeatures.PALM_TREE_KEY, ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY),
-                    AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)), true);
-    public static final Block WHITE_PALM_SAPLING = registerCrossBlock("white_palm_sapling",
-            new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY),
-                    AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)), true);
-    public static final Block PINE_SAPLING = registerCrossBlock("pine_sapling",
-            new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.PINE_TREE_KEY),
-                    AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)), true);
-    public static final Block WILLOW_SAPLING = registerCrossBlock("willow_sapling",
-            new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.WILLOW_TREE_KEY),
-                    AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)), true);
+    public static final Block BEECH_SAPLING = registerSimpleSapling("beech_sapling", ModTreeConfiguredFeatures.BEECH_TREE_KEY);
+    public static final Block LARCH_SAPLING = registerSimpleSapling("larch_sapling", ModTreeConfiguredFeatures.LARCH_TREE_KEY);
+    public static final Block LEBETHRON_SAPLING = registerSimpleSapling("lebethron_sapling", ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY);
+    public static final Block WHITE_LEBETHRON_SAPLING = registerSimpleSapling("white_lebethron_sapling", ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY);
+    public static final Block MALLORN_SAPLING = registerSimpleSapling("mallorn_sapling", ModTreeConfiguredFeatures.MEGA_MALLORN_TREE_KEY);
+    public static final Block MAPLE_SAPLING = registerSimpleSapling("maple_sapling", ModTreeConfiguredFeatures.MAPLE_TREE_KEY);
+    public static final Block MIRKWOOD_SAPLING = registerSimpleSapling("mirkwood_sapling", ModTreeConfiguredFeatures.SMALL_MIRKWOOD_TREE_KEY);
+    public static final Block PALM_SAPLING = registerSimpleSapling("palm_sapling", ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY);
+    public static final Block WHITE_PALM_SAPLING = registerSimpleSapling("white_palm_sapling", ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY);
+    public static final Block PINE_SAPLING = registerSimpleSapling("pine_sapling", ModTreeConfiguredFeatures.PINE_TREE_KEY);
+    public static final Block WILLOW_SAPLING = registerSimpleSapling("willow_sapling", ModTreeConfiguredFeatures.WILLOW_TREE_KEY);
 
     public static final Block LEBETHRON_LEAVES = registerBlock("lebethron_leaves",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
@@ -282,6 +264,14 @@ public class ModNatureBlocks {
 
     public static Block registerCrossBlock(String name, Block block, boolean present) {
         Block resultBlock = registerBlock(name, block, present);
+        TintableCrossModel.notTintedBlocks.add(resultBlock);
+        return resultBlock;
+    }
+
+    public static Block registerSimpleSapling(String name, RegistryKey<ConfiguredFeature<?, ?>> treeFeature) {
+        SaplingBlock saplingBlock = new SaplingBlock(new SaplingGenerator(name, Optional.empty(), Optional.ofNullable(treeFeature), Optional.empty()),
+                AbstractBlock.Settings.copy(Blocks.OAK_SAPLING));
+        Block resultBlock = registerBlock(name, saplingBlock, true);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
         return resultBlock;
     }
