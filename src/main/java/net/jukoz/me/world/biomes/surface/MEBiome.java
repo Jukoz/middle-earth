@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class MEBiome {
     public int height;
-    public byte expansionWeight;
+    public byte[] expansionWeight;
 
     /** Between 0 and 2; */ public double noiseModifier;
     /** Between 0 and 2; */ public double heightBaseModifier;
@@ -22,19 +22,19 @@ public class MEBiome {
     public Block stoneBlock;
     public CaveType caveType;
 
-    public MEBiome(int height, RegistryKey<Biome> biome, byte expansionWeight, double noiseModifier, double heightBaseModifier, Block surfaceBlock, Block underSurfaceBlock, Block stoneBlock) {
+    public MEBiome(int height, RegistryKey<Biome> biome, byte[] expansionWeight, double noiseModifier, double heightBaseModifier, Block surfaceBlock, Block underSurfaceBlock, Block stoneBlock) {
         this(height, biome, expansionWeight, noiseModifier, heightBaseModifier,  surfaceBlock, underSurfaceBlock, stoneBlock, stoneBlock, CaveType.DEFAULT);
     }
 
-    public MEBiome(int height, RegistryKey<Biome> biome, byte expansionWeight, double noiseModifier, double heightBaseModifier,  Block surfaceBlock, Block underSurfaceBlock, Block stoneBlock, CaveType caveType) {
+    public MEBiome(int height, RegistryKey<Biome> biome, byte[] expansionWeight, double noiseModifier, double heightBaseModifier,  Block surfaceBlock, Block underSurfaceBlock, Block stoneBlock, CaveType caveType) {
         this(height, biome, expansionWeight, noiseModifier, heightBaseModifier,  surfaceBlock, underSurfaceBlock, stoneBlock, stoneBlock, caveType);
     }
 
-    public MEBiome(int height, RegistryKey<Biome> biome, byte expansionWeight, double noiseModifier, double heightBaseModifier,  Block surfaceBlock, Block underSurfaceBlock, Block upperStoneBlock, Block stoneBlock) {
+    public MEBiome(int height, RegistryKey<Biome> biome, byte[] expansionWeight, double noiseModifier, double heightBaseModifier,  Block surfaceBlock, Block underSurfaceBlock, Block upperStoneBlock, Block stoneBlock) {
         this(height, biome, expansionWeight, noiseModifier, heightBaseModifier, surfaceBlock, underSurfaceBlock, upperStoneBlock, stoneBlock, CaveType.DEFAULT);
     }
 
-    public MEBiome(int height, RegistryKey<Biome> biome, byte expansionWeight, double noiseModifier, double heightBaseModifier,  Block surfaceBlock, Block underSurfaceBlock, Block upperStoneBlock, Block stoneBlock, CaveType caveType) {
+    public MEBiome(int height, RegistryKey<Biome> biome, byte[] expansionWeight, double noiseModifier, double heightBaseModifier,  Block surfaceBlock, Block underSurfaceBlock, Block upperStoneBlock, Block stoneBlock, CaveType caveType) {
         this.height = height;
         this.biome = biome;
         this.expansionWeight = expansionWeight;

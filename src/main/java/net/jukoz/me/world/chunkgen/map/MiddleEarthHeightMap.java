@@ -13,11 +13,11 @@ import java.util.ArrayList;
 
 public class MiddleEarthHeightMap {
     public static final int SMOOTH_BRUSH_SIZE = 2;
-    public static final int PERLIN_STRETCH_X = 180;
-    public static final int PERLIN_STRETCH_Y = 135;
-    public static final int PERLIN_STRETCH_X2 = 37;
-    public static final int PERLIN_STRETCH_Y2 = 37;
-    public static final int PERLIN_HEIGHT_RANGE = 45;
+    public static final int PERLIN_STRETCH_X = 256;
+    public static final int PERLIN_STRETCH_Y = 256;
+    public static final int PERLIN_STRETCH_X2 = 32;
+    public static final int PERLIN_STRETCH_Y2 = 32;
+    public static final int PERLIN_HEIGHT_RANGE = 53;
     public static final float MOUNTAIN_HEIGHT_RANGE = 3.5f;
     public static final float MOUNTAIN_EXPONENTIAL_HEIGHT = 1.02f;
     public static final int MOUNTAIN_START_HEIGHT = 32; // Height depending on the Biome Data.
@@ -26,8 +26,8 @@ public class MiddleEarthHeightMap {
     public static final int HEIGHT = 8 + STONE_HEIGHT;
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
     public static final int WATER_MAX = 24;
-    public static final float WATER_MULTIPLIER = 2.5f;
-    public static final float WATER_PERLIN_DIVIDER = 1.75f;
+    public static final float WATER_MULTIPLIER = 2f;
+    public static final float WATER_PERLIN_DIVIDER = 3.6f;
     private static final int PIXEL_WEIGHT = MiddleEarthMapConfigs.PIXEL_WEIGHT;
     public static final ArrayList<Float> percentages = new ArrayList<Float>();
     private static MiddleEarthMapRuntime middleEarthMapRuntime;
@@ -87,7 +87,7 @@ public class MiddleEarthHeightMap {
             int green = middleEarthMapRuntime.getHeight(x, z).getGreen();
             perlin *= ((float)green) / 128f;
         } else {
-            biomeHeight = getDefaultWeightHeight();
+            biomeHeight = getDefaultWeightHeight(); //((getSmoothHeight(x, z) + ) / 2f);
         }
 
         if(biomeHeight < 0) {
@@ -150,7 +150,7 @@ public class MiddleEarthHeightMap {
                 if(MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(x + i, z + j))
                     total += MEBiomesData.defaultBiome.height;
                 else
-                    total += getBiomeWeightHeight(x,z);
+                    total += getHeight(x,z);
             }
         }
 

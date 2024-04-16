@@ -172,9 +172,7 @@ public class ImageUtils {
 
         for(int i = 0; i < list.size(); i++){
             int count = 0;
-            int weight = (MiddleEarthMapGeneration.CURRENT_ITERATION <= 1)
-                    ? 1
-                    : MEBiomesData.getBiomeByColor(list.get(i)).expansionWeight;
+            int weight = MEBiomesData.getBiomeByColor(list.get(i)).expansionWeight[(MiddleEarthMapGeneration.CURRENT_ITERATION <= 1) ? 0 : 1];
 
             for(int j = 0; j < list.size(); j ++){
                 if(list.get(i).intValue() == list.get(j).intValue()){
