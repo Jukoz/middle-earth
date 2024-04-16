@@ -53,7 +53,7 @@ public abstract class AbstractToggeableLightBlock extends Block {
         return super.getAppearance(state, renderView, pos, side, sourceState, sourcePos);
     }
 
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
         return addNbtForLevel(super.getPickStack(world, pos, state), (Integer)state.get(LEVEL_15));
     }
 
@@ -61,7 +61,7 @@ public abstract class AbstractToggeableLightBlock extends Block {
         if (level != 15) {
             NbtCompound nbtCompound = new NbtCompound();
             nbtCompound.putString(LEVEL_15.getName(), String.valueOf(level));
-            stack.setSubNbt("BlockStateTag", nbtCompound);
+            stack.set("BlockStateTag", nbtCompound);
         }
         return stack;
     }
@@ -93,11 +93,15 @@ public abstract class AbstractToggeableLightBlock extends Block {
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
-    @Override
-    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) { return false; }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected boolean canPathfindThrough(BlockState state, NavigationType type) {
+        return false;
+    }
+
+    @Override
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        Hand hand = player.getActiveHand();
         if (!world.isClient && player.getAbilities().allowModifyWorld) {
             if(player.isCreative()){
                 world.setBlockState(pos, state.cycle(LIT));

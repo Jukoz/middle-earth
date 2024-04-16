@@ -18,6 +18,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
@@ -53,15 +54,15 @@ public class WoodPileBlockEntity extends BlockEntity implements NamedScreenHandl
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
-        Inventories.readNbt(nbt, inventory);
+    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.readNbt(nbt, registryLookup);
+        Inventories.readNbt(nbt, inventory, registryLookup);
     }
 
     @Override
-    public void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
-        Inventories.writeNbt(nbt, inventory);
+    public void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.writeNbt(nbt, registryLookup);
+        Inventories.writeNbt(nbt, inventory, registryLookup);
     }
     public void setInventory(DefaultedList<ItemStack> inventory) {
         for (int i = 0; i < inventory.size(); i++) {
@@ -116,18 +117,18 @@ public class WoodPileBlockEntity extends BlockEntity implements NamedScreenHandl
 
     @Override
     public void markDirty() {
-        if(world != null && !world.isClient()) {
+        /* if(world != null && !world.isClient()) {
             PacketByteBuf data = PacketByteBufs.create();
             data.writeInt(inventory.size());
             for(int i = 0; i < inventory.size(); i++) {
-                data.writeItemStack(inventory.get(i));
+                data.writeItemStack(inventory.get(i)); // TODO writeItemStack() no longer exists...
             }
             data.writeBlockPos(getPos());
 
             for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) world, getPos())) {
                 ServerPlayNetworking.send(player, ModNetworks.ITEM_SYNC, data);
             }
-        }
+        } */
         super.markDirty();
     }
 
