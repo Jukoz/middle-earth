@@ -15,6 +15,7 @@ import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -25,15 +26,18 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeableItem;
+import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class BanditHumanEntity extends NpcEntity{
 
@@ -113,15 +117,14 @@ public class BanditHumanEntity extends NpcEntity{
                 0x6d685b,
                 0x504e48
         };
-        DyeableItem item = (DyeableItem)ModEquipmentItems.GAMBESON;
         ItemStack leatherHelmet = new ItemStack(Items.LEATHER_HELMET);
         ItemStack leatherChestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
         ItemStack leatherLeggings = new ItemStack(Items.LEATHER_LEGGINGS);
         ItemStack leatherBoots = new ItemStack(Items.LEATHER_BOOTS);
-        item.setColor(leatherHelmet, colors[0]);
-        item.setColor(leatherChestplate, colors[1]);
-        item.setColor(leatherLeggings, colors[2]);
-        item.setColor(leatherBoots, colors[3]);
+        DyedColorComponent.setColor(leatherHelmet, List.of(DyeItem.byColor(DyeColor.byId(colors[0]))));
+        DyedColorComponent.setColor(leatherChestplate, List.of(DyeItem.byColor(DyeColor.byId(colors[1]))));
+        DyedColorComponent.setColor(leatherLeggings, List.of(DyeItem.byColor(DyeColor.byId(colors[2]))));
+        DyedColorComponent.setColor(leatherBoots, List.of(DyeItem.byColor(DyeColor.byId(colors[3]))));
 
         if(random.nextFloat() >= 0.30f){
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.RUSTY_KETTLE_HAT));
@@ -147,9 +150,8 @@ public class BanditHumanEntity extends NpcEntity{
     }
 
     private void soldierEquipment(Random random){
-        DyeableItem item = (DyeableItem)ModEquipmentItems.GAMBESON;
         ItemStack gambeson = new ItemStack(ModEquipmentItems.GAMBESON);
-        item.setColor(gambeson, 0x897f64);
+        DyedColorComponent.setColor(gambeson, List.of(DyeItem.byColor(DyeColor.byId(0x897f64))));
 
         if(random.nextFloat() >= 0.50f){
             equipStack(EquipmentSlot.HEAD, new ItemStack(Items.CHAINMAIL_HELMET));
