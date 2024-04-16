@@ -53,7 +53,12 @@ public class ModSpawnSettingsBuilder {
     }
 
     public static void addSwampMobs(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FROG, 4, 1, 4));
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FROG, 8, 1, 4));
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.SNAIL, 10, 1, 4));
+    }
+
+    public static void addRareSnails(SpawnSettings.Builder builder) {
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.SNAIL, 2, 1, 3));
     }
 
     public static void addEriadorMobs(SpawnSettings.Builder builder) {

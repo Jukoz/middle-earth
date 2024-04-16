@@ -122,7 +122,7 @@ public class CavesPlacedFeatures {
 
     public static void bootstrap(Registerable<PlacedFeature> featureRegisterable) {
         RegistryEntryLookup<ConfiguredFeature<?, ?>> registryEntryLookup = featureRegisterable.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
-        RegistryEntry.Reference<ConfiguredFeature<?, ?>> amethystGeode = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.AMETHYST_GEODE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> amethystGeode = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.AMETHYST_GEODE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> citrineGeode = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.CITRINE_GEODE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> glowstoneGeode = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.GLOWSTONE_GEODE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> redAgateGeode = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.RED_AGATE_GEODE);
@@ -245,7 +245,7 @@ public class CavesPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, ORE_COAL, coalOre, modifiersWithCount(16, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.DIFTOMIN_LEVEL), YOffset.fixed(100))));
         PlacedFeatures.register(featureRegisterable, ORE_COPPER_UPPER, copperOre, modifiersWithCount(10, HeightRangePlacementModifier.trapezoid(YOffset.fixed(80), YOffset.fixed(300))));
         PlacedFeatures.register(featureRegisterable, ORE_COPPER, copperOre, modifiersWithCount(12, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.DIFTOMIN_LEVEL), YOffset.fixed(120))));
-        PlacedFeatures.register(featureRegisterable, ORE_TIN, tinOre, modifiersWithCount(9, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-16), YOffset.fixed(48))));
+        PlacedFeatures.register(featureRegisterable, ORE_TIN, tinOre, modifiersWithCount(10, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-20), YOffset.fixed(80))));
         PlacedFeatures.register(featureRegisterable, ORE_LAPIS, lapisOre, modifiersWithCount(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.DIFTOMIN_LEVEL), YOffset.fixed(MiddleEarthChunkGenerator.DEEPSLATE_LEVEL))));
         PlacedFeatures.register(featureRegisterable, ORE_LAPIS_ABUNDANT, lapisOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.DIFTOMIN_LEVEL), YOffset.fixed(MiddleEarthChunkGenerator.DEEPSLATE_LEVEL))));
         PlacedFeatures.register(featureRegisterable, ORE_LEAD, leadOre, modifiersWithCount(9, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-48), YOffset.fixed(16))));
@@ -253,8 +253,9 @@ public class CavesPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, ORE_IRON, ironOre, modifiersWithCount(12, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-128), YOffset.fixed(MiddleEarthChunkGenerator.DIFTOMIN_LEVEL))));
         PlacedFeatures.register(featureRegisterable, ORE_SILVER, silverOre, modifiersWithCount(3, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-64), YOffset.fixed(MiddleEarthChunkGenerator.DIFTOMIN_LEVEL))));
         PlacedFeatures.register(featureRegisterable, ORE_JADE, jadeOre, modifiersWithCount(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-40), YOffset.fixed(MiddleEarthChunkGenerator.DIFTOMIN_LEVEL))));
-        PlacedFeatures.register(featureRegisterable, ORE_GOLD, goldOre, modifiersWithRarity(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-44), YOffset.fixed(-20))));
-        PlacedFeatures.register(featureRegisterable, ORE_EMERALD, emeraldOre, modifiersWithRarity(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.DIFTOMIN_LEVEL), YOffset.fixed(MiddleEarthChunkGenerator.DEEPSLATE_LEVEL))));
+        PlacedFeatures.register(featureRegisterable, ORE_GOLD, goldOre, List.of(PlacedFeatures.createCountExtraModifier(1, 0.5f, 1), SquarePlacementModifier.of(),
+                HeightRangePlacementModifier.trapezoid(YOffset.fixed(-48), YOffset.fixed(-16)), BiomePlacementModifier.of()));
+        PlacedFeatures.register(featureRegisterable, ORE_EMERALD, emeraldOre, modifiersWithRarity(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.DIFTOMIN_LEVEL), YOffset.fixed(MiddleEarthChunkGenerator.DEEPSLATE_LEVEL))));
         PlacedFeatures.register(featureRegisterable, ORE_MITHRIL, mithrilOre, modifiersWithRarity(3, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(MAX_MITHRIL_HEIGHT))));
 
         // region MUSHROOMS
