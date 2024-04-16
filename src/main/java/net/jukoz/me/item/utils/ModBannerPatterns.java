@@ -2,6 +2,7 @@ package net.jukoz.me.item.utils;
 
 import net.jukoz.me.MiddleEarth;
 import net.minecraft.block.entity.BannerPattern;
+import net.minecraft.registry.Registerable;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -21,8 +22,8 @@ public class ModBannerPatterns {
         return RegistryKey.of(RegistryKeys.BANNER_PATTERN, new Identifier(id));
     }
 
-    public static void register(Registry<BannerPattern> registry) {
-        Registry.register(registry, GONDOR_BANNER_PATTERN, new BannerPattern("gon"));
+    /*public static void register(Registerable<BannerPattern> registry) {
+        Registry.register(registry, GONDOR_BANNER_PATTERN, new BannerPattern(new Identifier(MiddleEarth.MOD_ID, "gon"),"gondor" ));
         Registry.register(registry, ROHAN_BANNER_PATTERN, new BannerPattern("roh"));
         Registry.register(registry, LONGBEARD_BANNER_PATTERN, new BannerPattern("longb"));
         Registry.register(registry, LOTHLORIEN_BANNER_PATTERN, new BannerPattern("loth"));
@@ -30,5 +31,9 @@ public class ModBannerPatterns {
         Registry.register(registry, MORDOR_EYE_BANNER_PATTERN, new BannerPattern("morgreye"));
         Registry.register(registry, MISTY_ORCS_EYE_BANNER_PATTERN, new BannerPattern("misteye"));
         Registry.register(registry, MISTY_ORCS_PEAKS_BANNER_PATTERN, new BannerPattern("mistpeaks"));
+    }*/
+
+    public static void register(Registerable<BannerPattern> registry, RegistryKey<BannerPattern> key) {
+        registry.register(key, new BannerPattern(key.getValue(), "block.me.banner." + key.getValue().toShortTranslationKey()));
     }
 }
