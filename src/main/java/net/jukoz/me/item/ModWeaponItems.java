@@ -146,7 +146,7 @@ public class ModWeaponItems {
     public static final Item MORDOR_ORC_BATTLEAXE = registerItemWithModel("mordor_orc_battleaxe",
             new CustomAxeWeaponItem(ModToolMaterials.ORC_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, BATTLEAXE_DAMAGE, BATTLEAXE_ATTACKS_SPEED))), true);
     public static final Item MORDOR_ORC_PIKE = registerItemWithModel("mordor_orc_pike",
-            new ReachWeaponItem(ModToolMaterials.ORC_STEEL, PIKE_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL PIKE_DAMAGE, PIKE_ATTACKS_SPEED))), true);
+            new ReachWeaponItem(ModToolMaterials.ORC_STEEL, PIKE_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, PIKE_DAMAGE, PIKE_ATTACKS_SPEED))), true);
 
     public static final Item MORGUL_BLADE = registerItemWithModel("morgul_blade",
             new CustomSwordWeaponItem(ModToolMaterials.MORGUL_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED + 0.1f))), false);
