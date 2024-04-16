@@ -45,7 +45,7 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.KETTLE_HAT, ArmorItem.Type.HELMET, new Item.Settings()));
 
     public static final Item HOBBIT_SHIRRIFF_HAT_GREEN = registerGeneratedItem("hobbit_shirriff_hat_green",
-            new CustomHelmetItem(ModArmorMaterials.HOBBIT_SHIRRIFF_HAT, ArmorItem.Type.HELMET, new Item.Settings(),  List.of(CustomHelmetItem.Customizations.FEATHER)));
+            new CustomHelmetItem(ModArmorMaterials.HOBBIT_SHERRIF_HAT, ArmorItem.Type.HELMET, new Item.Settings(),  List.of(CustomHelmetItem.Customizations.FEATHER)));
     public static final Item HOBBIT_SHIRRIFF_HAT_BROWN = registerGeneratedItem("hobbit_shirriff_hat_brown",
             new CustomHelmetItem(ModArmorMaterials.HOBBIT_SHIRRIFF_HAT, ArmorItem.Type.HELMET, new Item.Settings(),  List.of(CustomHelmetItem.Customizations.FEATHER)));
 

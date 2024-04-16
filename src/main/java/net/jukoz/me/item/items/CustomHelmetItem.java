@@ -1,6 +1,7 @@
 package net.jukoz.me.item.items;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.item.utils.ExtendedArmorMaterial;
 import net.jukoz.me.item.utils.ModArmorMaterials;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
@@ -17,19 +18,19 @@ import java.util.List;
 
 public class CustomHelmetItem extends ArmorItem implements DyeableItem {
 
-    private ModArmorMaterials material;
+    private ExtendedArmorMaterial material;
     private List<CustomHelmetItem.Customizations> customsList;
 
-    public CustomHelmetItem(ModArmorMaterials material, Type type, Settings settings, List<CustomHelmetItem.Customizations> customsList) {
-        super(material, type, settings);
+    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings, List<CustomHelmetItem.Customizations> customsList) {
+        super(material.material(), type, settings);
 
         this.material = material;
         this.customsList = customsList;
 
     }
 
-    public CustomHelmetItem(ModArmorMaterials material, Type type, Settings settings) {
-        super(material, type, settings);
+    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings) {
+        super(material.material(), type, settings);
 
         this.material = material;
         this.customsList = null;

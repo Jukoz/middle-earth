@@ -1,5 +1,7 @@
 package net.jukoz.me.item.utils;
 
+import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Items;
@@ -9,6 +11,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.EnumMap;
@@ -16,8 +20,8 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class ModArmorMaterials {
-
-    /*HOBBIT_SHIRRIFF_HAT("hobbit_shirriff_hat", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(),
+/*
+    HOBBIT_SHIRRIFF_HAT("hobbit_shirriff_hat", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(),
             () -> Ingredient.ofItems(Items.LEATHER), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shire"), null),
 
     GAMBESON("gambeson", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,
@@ -121,16 +125,148 @@ public class ModArmorMaterials {
 
     MISTY_HOBGOBLIN_PLATE_ARMOR("misty_hobgoblin_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
             () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad")),
-    ;
 */
-    public static final RegistryEntry<ArmorMaterial> HOBBIT_SHERRIF_HAT = registerArmor("leather", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER), List.of(new ArmorMaterial.Layer(new Identifier("hobbit_shirriff_hat"), "", false)));
+    public static final ExtendedArmorMaterial HOBBIT_SHERRIF_HAT = registerArmor("hobbit_shirriff_hat", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
+            List.of(new ArmorMaterial.Layer(new Identifier("hobbit_shirriff_hat"), "", false)), new ArmorMaterial.Layer(new Identifier("hobbit_shirriff_hat"), "", false),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shire"), null);
 
-    public static final RegistryEntry<ArmorMaterial> GAMBESON = registerArmor("gambeson", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
-            List.of(new ArmorMaterial.Layer(new Identifier("gambeson"), "", true), new ArmorMaterial.Layer(new Identifier("gambeson"), "_overlay", false)));
-    public static final RegistryEntry<ArmorMaterial> CLOAK = registerArmor("cloak", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
-            List.of(new ArmorMaterial.Layer(new Identifier("cloak"), "", true), new ArmorMaterial.Layer(new Identifier("cloak"), "_overlay", false)));
+    public static final ExtendedArmorMaterial GAMBESON = registerArmor("gambeson", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
+            List.of(new ArmorMaterial.Layer(new Identifier("gambeson"), "", true), new ArmorMaterial.Layer(new Identifier("gambeson"), "_overlay", false)), new ArmorMaterial.Layer(new Identifier("gambeson"), "", false),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
 
-    private static RegistryEntry<ArmorMaterial> registerArmor(String id, int tier, RegistryEntry<SoundEvent> equipSound, Supplier<Ingredient> repairIngredient, List<ArmorMaterial.Layer> layers) {
+    public static final ExtendedArmorMaterial CLOAK = registerArmor("cloak", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
+            List.of(new ArmorMaterial.Layer(new Identifier("cloak"), "", true), new ArmorMaterial.Layer(new Identifier("cloak"), "_overlay", false)), new ArmorMaterial.Layer(new Identifier("cloak"), "", false),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
+
+    public static final ExtendedArmorMaterial TUNIC_CLOAK = registerArmor("tunic_cloak", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
+            List.of(new ArmorMaterial.Layer(new Identifier("tunic_cloak"), "", true), new ArmorMaterial.Layer(new Identifier("tunic_cloak"), "_overlay", false)), new ArmorMaterial.Layer(new Identifier("tunic_cloak"), "", false),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
+
+    public static final ExtendedArmorMaterial FUR_CLOAK = registerArmor("fur_cloak", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,
+            () -> Ingredient.ofItems(Items.IRON_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
+
+    public static final ExtendedArmorMaterial CHAINMAIL_FUR_CLOAK = registerArmor("chainmail_fur_cloak", 3, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN,
+            () -> Ingredient.ofItems(Items.IRON_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
+
+    public static final ExtendedArmorMaterial RUSTY_KETTLE_HAT = registerArmor("rusty_kettle_hat", 2, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(Items.IRON_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
+
+    public static final ExtendedArmorMaterial KETTLE_HAT = registerArmor("kettle_hat", 2, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(Items.IRON_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
+
+    public static final ExtendedArmorMaterial NAZGUL_CLOAK = registerArmor("nazgul_cloak", 3, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,
+            () -> Ingredient.ofItems(ModResourceItems.MORGUL_STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
+
+    public static final ExtendedArmorMaterial GONDORIAN_MAIL_ARMOR = registerArmor("gondorian_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(Items.IRON_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), null);
+
+    public static final ExtendedArmorMaterial GONDORIAN_REINFORCED_MAIL_ARMOR = registerArmor("gondorian_reinforced_mail", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), null);
+
+    public static final ExtendedArmorMaterial GONDORIAN_PLATE_ARMOR = registerArmor("gondorian_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), null);
+
+    public static final ExtendedArmorMaterial GONDORIAN_CITADEL_GUARD_ARMOR = registerArmor("gondorian_citadel_guard", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), null);
+
+    public static final ExtendedArmorMaterial GONDORIAN_FOUNTAIN_GUARD_ARMOR = registerArmor("gondorian_fountain_guard", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), null);
+
+    public static final ExtendedArmorMaterial ROHIRRIC_MAIL_ARMOR = registerArmor("rohirric_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(Items.IRON_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null);
+
+    public static final ExtendedArmorMaterial ROHIRRIC_SCALE_ARMOR = registerArmor("rohirric_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null);
+
+    public static final ExtendedArmorMaterial ROHIRRIC_ROYAL_GUARD_ARMOR = registerArmor("rohirric_royal_guard", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null);
+
+    public static final ExtendedArmorMaterial EORLING_MARSHALL_ARMOR = registerArmor("eorling_marshall", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null);
+
+    public static final ExtendedArmorMaterial HORSE_LORD_ARMOR = registerArmor("horse_lord", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null);
+
+    public static final ExtendedArmorMaterial DWARVEN_PARTISAN = registerArmor("dwarven_partisan", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,
+            () -> Ingredient.ofItems(Items.LEATHER),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dwarven"));
+
+    public static final ExtendedArmorMaterial EREBOR_MAIL_ARMOR = registerArmor("erebor_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(Items.IRON_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor"));
+
+    public static final ExtendedArmorMaterial EREBOR_SCALE_ARMOR = registerArmor("erebor_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor"));
+
+    public static final ExtendedArmorMaterial EREBOR_PLATE_ARMOR = registerArmor("erebor_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor"));
+
+    public static final ExtendedArmorMaterial EREBOR_COMMANDER_ARMOR = registerArmor("erebor_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor"));
+
+    public static final ExtendedArmorMaterial LORIEN_MAIL_ARMOR = registerArmor("lorien_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(Items.IRON_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null);
+
+    public static final ExtendedArmorMaterial LORIEN_SCALE_ARMOR = registerArmor("lorien_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null);
+
+    public static final ExtendedArmorMaterial LORIEN_PLATE_ARMOR = registerArmor("lorien_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null);
+
+    public static final ExtendedArmorMaterial LORIEN_COMMANDER_ARMOR = registerArmor("lorien_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null);
+
+    public static final ExtendedArmorMaterial MORDOR_ORC_MAIL_ARMOR = registerArmor("mordor_orc_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
+
+    public static final ExtendedArmorMaterial MORDOR_BLACK_URUK_SCALE_ARMOR = registerArmor("mordor_black_uruk_scale",  4, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
+
+    public static final ExtendedArmorMaterial MORDOR_BLACK_URUK_PLATE_ARMOR = registerArmor("mordor_black_uruk_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
+
+    public static final ExtendedArmorMaterial MORDOR_BLACK_URUK_COMMANDER_ARMOR = registerArmor("mordor_black_uruk_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
+
+    public static final ExtendedArmorMaterial MISTY_GOBLIN_MAIL_ARMOR = registerArmor("misty_goblin_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), null);
+
+    public static final ExtendedArmorMaterial MISTY_HOBGOBLIN_SCALE_ARMOR = registerArmor("misty_hobgoblin_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad"));
+
+    public static final ExtendedArmorMaterial MISTY_HOBGOBLIN_PLATE_ARMOR = registerArmor("misty_hobgoblin_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+            () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT),
+            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad"));
+
+    private static ExtendedArmorMaterial registerArmor(String id, int tier, RegistryEntry<SoundEvent> equipSound, Supplier<Ingredient> repairIngredient, List<ArmorMaterial.Layer> layers,
+                                                       ArmorMaterial.Layer layer, MutableText faction, MutableText subFaction) {
         EnumMap<ArmorItem.Type, Integer> map = null;
         float toughness;
         float knockbackResistance;
@@ -206,147 +342,18 @@ public class ModArmorMaterials {
                 enchantability = 1;
             }
         }
-        return register(id, map, enchantability, equipSound, toughness, knockbackResistance, repairIngredient, layers);
+        return register(id, map, durabilityMultiplier, enchantability, equipSound, toughness, knockbackResistance, repairIngredient, layers, layer, faction, subFaction, tier);
     }
 
-    private static RegistryEntry<ArmorMaterial> register(String id, EnumMap<ArmorItem.Type, Integer> defense, int enchantability, RegistryEntry<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
-        List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(new Identifier(id)));
-        return register(id, defense, enchantability, equipSound, toughness, knockbackResistance, repairIngredient, list);
-    }
-
-    private static RegistryEntry<ArmorMaterial> register(String id, EnumMap<ArmorItem.Type, Integer> defense, int enchantability, RegistryEntry<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient, List<ArmorMaterial.Layer> layers) {
+    private static ExtendedArmorMaterial register(String id, EnumMap<ArmorItem.Type, Integer> defense,
+                                                         int durabilityMultiplier, int enchantability, RegistryEntry<SoundEvent> equipSound, float toughness, float knockbackResistance,
+                                                         Supplier<Ingredient> repairIngredient, List<ArmorMaterial.Layer> layers,
+                                                         ArmorMaterial.Layer layer, MutableText faction, MutableText subFaction, int tier) {
         EnumMap<ArmorItem.Type, Integer> enumMap = new EnumMap<ArmorItem.Type, Integer>(ArmorItem.Type.class);
         for (ArmorItem.Type type : ArmorItem.Type.values()) {
             enumMap.put(type, defense.get(type));
         }
-        return Registry.registerReference(Registries.ARMOR_MATERIAL, new Identifier(id), new ArmorMaterial(enumMap, enchantability, equipSound, repairIngredient, layers, toughness, knockbackResistance));
+        ArmorMaterial material =  new ArmorMaterial(enumMap, enchantability, equipSound, repairIngredient, layers, toughness, knockbackResistance);
+        return new ExtendedArmorMaterial(Registry.registerReference(Registries.ARMOR_MATERIAL, new Identifier(id), material), durabilityMultiplier, layer, faction, subFaction, tier);
     }
-
-/*
-    private final String name;
-    private final SoundEvent equipSound;
-    private final Supplier<Ingredient> repairIngredient;
-    private final int durabilityMultiplier;
-    private final int[] protectionAmounts;
-    private final int enchantability;
-    private final float toughness;
-    private final float knockbackResistance;
-
-    private final int tier;
-
-    private final MutableText faction;
-    private final MutableText subFaction;
-
-    private static final int[] BASE_DURABILITY = { 11, 16, 15, 13 };
-
-    ModArmorMaterials(String name, int tier, SoundEvent equipSound, Supplier<Ingredient> repairIngredient, MutableText faction, MutableText subFaction) {
-        this.name = name;
-        this.equipSound = equipSound;
-        this.repairIngredient = repairIngredient;
-        this.tier = tier;
-
-        switch (tier) {
-            case 1 -> {
-                this.durabilityMultiplier = 7;
-                this.protectionAmounts = new int[]{1, 3, 2, 1};
-                this.toughness = 0.0f;
-                this.knockbackResistance = 0.0f;
-                this.enchantability = 10;
-            }
-            case 2 -> {
-                if(name.contains("rusty")){
-                    this.durabilityMultiplier = 9;
-                }else{
-                    this.durabilityMultiplier = 11;
-                }
-                this.protectionAmounts = new int[]{1, 4, 3, 1};
-                this.toughness = 0.0f;
-                this.knockbackResistance = 0.0f;
-                this.enchantability = 10;
-            }
-            case 3 -> {
-                this.durabilityMultiplier = 15;
-                this.protectionAmounts = new int[]{2, 5, 4, 2};
-                this.toughness = 0.5f;
-                this.knockbackResistance = 0.0f;
-                this.enchantability = 10;
-            }
-            case 4 -> {
-                this.durabilityMultiplier = 25;
-                this.protectionAmounts = new int[]{2, 6, 5, 2};
-                this.toughness = 1.0f;
-                this.knockbackResistance = 0.1f;
-                this.enchantability = 10;
-            }
-            case 5 -> {
-                this.durabilityMultiplier = 35;
-                this.protectionAmounts = new int[]{3, 7, 6, 3};
-                this.toughness = 2.0f;
-                this.knockbackResistance = 0.1f;
-                this.enchantability = 10;
-            }
-            default -> {
-                this.durabilityMultiplier = 1;
-                this.protectionAmounts = new int[]{1, 1, 1, 1};
-                this.toughness = 0.0f;
-                this.knockbackResistance = 0.0f;
-                this.enchantability = 1;
-            }
-        }
-
-        this.faction = faction;
-        this.subFaction = subFaction;
-    }
-
-    @Override
-    public int getDurability(ArmorItem.Type type) {
-        return BASE_DURABILITY[type.ordinal()] * this.durabilityMultiplier;
-    }
-
-    @Override
-    public int getProtection(ArmorItem.Type type) {
-        return protectionAmounts[type.ordinal()];
-    }
-
-    @Override
-    public int getEnchantability() {
-        return this.enchantability;
-    }
-
-    @Override
-    public SoundEvent getEquipSound() {
-        return this.equipSound;
-    }
-
-    @Override
-    public Ingredient getRepairIngredient() {
-        return this.repairIngredient.get();
-    }
-
-    @Override
-    public String getName() {
-        return MiddleEarth.MOD_ID + ":" + this.name;
-    }
-
-    @Override
-    public float getToughness() {
-        return this.toughness;
-    }
-
-    @Override
-    public float getKnockbackResistance() {
-        return this.knockbackResistance;
-    }
-
-    public MutableText getFaction() {
-        return this.faction;
-    }
-
-    public MutableText getSubFaction() {
-        return this.subFaction;
-    }
-
-    public int getTier() {
-        return this.tier;
-    }*/
 }
