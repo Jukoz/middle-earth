@@ -37,7 +37,7 @@ public class ModWeaponItems {
 
 
     public static final Item ANDUIN_SWORD = registerItemWithModel("anduin_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".anduin"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED).with())), false);
+            new CustomSwordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".anduin"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED))), false);
     public static final Item ANDUIN_DAGGER = registerItemWithModel("anduin_dagger",
             new ReachWeaponItem(ModToolMaterials.STEEL, DAGGER_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".anduin"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.STEEL, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED))), false);
     public static final Item ANDUIN_BATTLEAXE = registerItemWithModel("anduin_battleaxe",
