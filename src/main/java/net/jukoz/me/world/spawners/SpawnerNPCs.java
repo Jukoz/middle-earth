@@ -21,12 +21,12 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.spawner.Spawner;
+import net.minecraft.world.spawner.SpecialSpawner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpawnerNPCs implements Spawner {
+public class SpawnerNPCs implements SpecialSpawner {
     private static final int SPAWN_COUNT_CAP = 32;
     private static final int SPAWN_DISTANCE = 32;
     private static final int SPAWN_RAND = 8;
@@ -100,7 +100,7 @@ public class SpawnerNPCs implements Spawner {
                     PathAwareEntity entity = (PathAwareEntity) entitySpawningSettings.getEntity().create(world);
                     if (entity == null) continue;
                     entity.refreshPositionAndAngles(targetBlockPos, 0.0f, 0.0f);
-                    entityData = entity.initialize(world, localDifficulty, SpawnReason.NATURAL, entityData, null);
+                    entityData = entity.initialize(world, localDifficulty, SpawnReason.NATURAL, entityData);
                     world.spawnEntityAndPassengers(entity);
                     ++i;
                 }

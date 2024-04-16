@@ -33,26 +33,26 @@ public class PlayerEntityMixin {
     @Shadow
     @Final
     private PlayerInventory inventory;
-
-    @Inject(at = @At(value = "HEAD"), method = "damageShield(F)V", locals = LocalCapture.CAPTURE_FAILHARD)
-    private void damageShield(float amount, CallbackInfo callBackInfo) {
+    @Shadow
+    protected ItemStack activeItemStack;
+    @Inject(at = @At(value = "HEAD"), method = "damageShield", locals = LocalCapture.CAPTURE_FAILHARD)
+    protected void damageShield(float amount, CallbackInfo callBackInfo) {
         PlayerEntity player = (PlayerEntity) (Object) this;
-        ItemStack activeItem = player.getActiveItem();
 
-        if (activeItem.getItem() instanceof ShieldItem) {
+        if (activeItemStack.getItem() instanceof ShieldItem) {
             if (amount >= 3.0F) {
                 int i = 1 + MathHelper.floor(amount);
                 Hand hand = player.getActiveHand();
+                PlayerEntity playerEntity = (PlayerEntity) (Object) this;
+                this.activeItemStack.damage(i, playerEntity, PlayerEntity.getSlotForHand(hand));
 
-                activeItem.damage(i, (LivingEntity) player, ((playerEntity) -> player.sendToolBreakStatus(hand)));
-
-                if (activeItem.isEmpty()) {
+                if (activeItemStack.isEmpty()) {
                     if (hand == Hand.MAIN_HAND) {
                         player.equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                     } else {
                         player.equipStack(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
                     }
-                    activeItem = ItemStack.EMPTY;
+                    activeItemStack = ItemStack.EMPTY;
                     player.playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8F, 0.8F + player.getWorld().random.nextFloat() * 0.4F);
                 }
             }
@@ -63,10 +63,9 @@ public class PlayerEntityMixin {
      * @param sprinting    if player is sprinting
      * @param callbackInfo callback information
      */
-    @Inject(at = @At(value = "HEAD"), method = "disableShield(Z)V", locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    @Inject(at = @At(value = "HEAD"), method = "disableShield()V", locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     private void disableShieldHead(boolean sprinting, CallbackInfo callbackInfo) {
         PlayerEntity player = (PlayerEntity) (Object) this;
-        ItemStack activeItemStack = player.getActiveItem();
         Item activeItem = activeItemStack.getItem();
 
         if (activeItem instanceof ShieldItem shield) {
