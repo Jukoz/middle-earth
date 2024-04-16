@@ -15,20 +15,20 @@ import java.util.List;
 public class CustomSwordWeaponItem extends SwordItem {
     private final MutableText faction;
     private final MutableText subFaction;
-    public CustomSwordWeaponItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
-        super(toolMaterial, attackDamage, attackSpeed, settings);
+    public CustomSwordWeaponItem(ToolMaterial toolMaterial,  Settings settings) {
+        super(toolMaterial, settings);
         this.faction = null;
         this.subFaction = null;
     }
 
-    public CustomSwordWeaponItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, MutableText faction, Settings settings) {
-        super(toolMaterial, attackDamage, attackSpeed, settings);
+    public CustomSwordWeaponItem(ToolMaterial toolMaterial,  MutableText faction, Settings settings) {
+        super(toolMaterial, settings);
         this.faction = faction;
         this.subFaction = null;
     }
 
-    public CustomSwordWeaponItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, MutableText faction, MutableText subFaction, Settings settings) {
-        super(toolMaterial, attackDamage, attackSpeed, settings);
+    public CustomSwordWeaponItem(ToolMaterial toolMaterial,  MutableText faction, MutableText subFaction, Settings settings) {
+        super(toolMaterial, settings);
         this.faction = faction;
         this.subFaction = subFaction;
     }

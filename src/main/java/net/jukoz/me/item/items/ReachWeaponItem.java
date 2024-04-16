@@ -16,22 +16,22 @@ public class ReachWeaponItem extends SwordItem {
     private final float rangeDistance;
     private final MutableText faction;
     private final MutableText subFaction;
-    public ReachWeaponItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, float rangeDistance, Settings settings) {
-        super(toolMaterial, attackDamage, attackSpeed, settings);
+    public ReachWeaponItem(ToolMaterial toolMaterial, float rangeDistance, Settings settings) {
+        super(toolMaterial, settings);
         this.rangeDistance = rangeDistance;
         this.faction = null;
         this.subFaction = null;
     }
 
-    public ReachWeaponItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, float rangeDistance, MutableText faction, Settings settings) {
-        super(toolMaterial, attackDamage, attackSpeed, settings);
+    public ReachWeaponItem(ToolMaterial toolMaterial, float rangeDistance, MutableText faction, Settings settings) {
+        super(toolMaterial, settings);
         this.rangeDistance = rangeDistance;
         this.faction = faction;
         this.subFaction = null;
     }
 
-    public ReachWeaponItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, float rangeDistance, MutableText faction, MutableText subFaction, Settings settings) {
-        super(toolMaterial, attackDamage, attackSpeed, settings);
+    public ReachWeaponItem(ToolMaterial toolMaterial, float rangeDistance, MutableText faction, MutableText subFaction, Settings settings) {
+        super(toolMaterial, settings);
         this.rangeDistance = rangeDistance;
         this.faction = faction;
         this.subFaction = subFaction;

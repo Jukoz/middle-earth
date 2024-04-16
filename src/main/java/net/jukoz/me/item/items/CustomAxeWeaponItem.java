@@ -15,20 +15,20 @@ import java.util.List;
 public class CustomAxeWeaponItem extends AxeItem {
     private final MutableText faction;
     private final MutableText subFaction;
-    public CustomAxeWeaponItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
-        super(toolMaterial, attackDamage, attackSpeed, settings);
+    public CustomAxeWeaponItem(ToolMaterial toolMaterial, Settings settings) {
+        super(toolMaterial,  settings);
         this.faction = null;
         this.subFaction = null;
     }
 
-    public CustomAxeWeaponItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, MutableText faction, Settings settings) {
-        super(toolMaterial, attackDamage, attackSpeed, settings);
+    public CustomAxeWeaponItem(ToolMaterial toolMaterial,  MutableText faction, Settings settings) {
+        super(toolMaterial,  settings);
         this.faction = faction;
         this.subFaction = null;
     }
 
-    public CustomAxeWeaponItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, MutableText faction, MutableText subFaction, Settings settings) {
-        super(toolMaterial, attackDamage, attackSpeed, settings);
+    public CustomAxeWeaponItem(ToolMaterial toolMaterial,  MutableText faction, MutableText subFaction, Settings settings) {
+        super(toolMaterial,  settings);
         this.faction = faction;
         this.subFaction = subFaction;
     }
