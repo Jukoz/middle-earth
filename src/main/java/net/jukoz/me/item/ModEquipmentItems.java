@@ -130,13 +130,13 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.ROHIRRIC_ROYAL_GUARD_ARMOR, ArmorItem.Type.BOOTS, new Item.Settings()));
 
     public static final Item EORLING_MARSHALL_HELMET = registerGeneratedItem("eorling_marshall_helmet",
-            new CustomHelmetItem(ModArmorMaterials.EORLING_MARSHALL_ARMOR, ArmorItem.Type.HELMET, new Item.Settings()));
+            new CustomHelmetItem(ModArmorMaterials.EORLING_MARSHAL_ARMOR, ArmorItem.Type.HELMET, new Item.Settings()));
     public static final Item EORLING_MARSHALL_CHESTPLATE = registerGeneratedItem("eorling_marshall_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.EORLING_MARSHALL_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings(), List.of(CustomChestplateItem.Customizations.CAPE)));
+            new CustomChestplateItem(ModArmorMaterials.EORLING_MARSHAL_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings(), List.of(CustomChestplateItem.Customizations.CAPE)));
     public static final Item EORLING_MARSHALL_LEGGINGS = registerGeneratedItem("eorling_marshall_leggings",
-            new CustomLeggingsItem(ModArmorMaterials.EORLING_MARSHALL_ARMOR, ArmorItem.Type.LEGGINGS, new Item.Settings()));
+            new CustomLeggingsItem(ModArmorMaterials.EORLING_MARSHAL_ARMOR, ArmorItem.Type.LEGGINGS, new Item.Settings()));
     public static final Item EORLING_MARSHALL_BOOTS = registerGeneratedItem("eorling_marshall_boots",
-            new CustomBootsItem(ModArmorMaterials.EORLING_MARSHALL_ARMOR, ArmorItem.Type.BOOTS, new Item.Settings()));
+            new CustomBootsItem(ModArmorMaterials.EORLING_MARSHAL_ARMOR, ArmorItem.Type.BOOTS, new Item.Settings()));
 
     public static final Item HORSE_LORD_HELMET = registerGeneratedItem("horse_lord_helmet",
             new CustomHelmetItem(ModArmorMaterials.HORSE_LORD_ARMOR, ArmorItem.Type.HELMET, new Item.Settings()));
