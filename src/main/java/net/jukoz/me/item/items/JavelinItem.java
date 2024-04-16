@@ -25,10 +25,13 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public class JavelinItem extends ToolItem {
     private static final float BASE_STRENGTH = 0.75f;
     private static final float CHARGE_STRENGTH = 1f;
     private static final int STRENGTH_CHARGE_TIME = 20; // 1s charge for full strength
+    public static final UUID ENTITY_INTERACTION_RANGE_MODIFIER_ID = UUID.fromString("98491ef6-97b1-4584-ae82-71a8cc85cf73");
     private final float attackDamage;
     private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
 
@@ -36,8 +39,9 @@ public class JavelinItem extends ToolItem {
         super(toolMaterial, settings);
         this.attackDamage = (float)attackDamage + toolMaterial.getAttackDamage();
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", (double)this.attackDamage, EntityAttributeModifier.Operation.ADDITION));
-        builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", (double)attackSpeed, EntityAttributeModifier.Operation.ADDITION));
+        builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE.value(), new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", (double)this.attackDamage, EntityAttributeModifier.Operation.ADD_VALUE));
+        builder.put(EntityAttributes.GENERIC_ATTACK_SPEED.value(), new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", (double)attackSpeed, EntityAttributeModifier.Operation.ADD_VALUE));
+        builder.put(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE.value(), new EntityAttributeModifier(ENTITY_INTERACTION_RANGE_MODIFIER_ID, "Weapon modifier", 1.0f, EntityAttributeModifier.Operation.ADD_VALUE));
         this.attributeModifiers = builder.build();
     }
 
