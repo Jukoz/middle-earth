@@ -52,7 +52,7 @@ public class GooseBrain {
     private static void addIdleActivities(Brain<GooseEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, LookAtMobWithIntervalTask.follow(EntityType.PLAYER, 6.0F, UniformIntProvider.create(30, 60))),
-                Pair.of(0, new BreedTask(ModEntities.GOOSE, 1.0F)),
+                Pair.of(0, new BreedTask(ModEntities.GOOSE, 1.0F, 5)),
                 Pair.of(1, new TemptTask((goose) -> {return 1.25F;})),
                 Pair.of(2, WalkTowardClosestAdultTask.create(WALKING_SPEED, 1.25F)),
                 Pair.of(3, WalkTowardsWaterTask.create(6, 1.0F)),
