@@ -7,10 +7,7 @@ import net.minecraft.client.item.TooltipType;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.AnimalArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.text.MutableText;
@@ -25,6 +22,7 @@ public class CustomHorseArmorItem extends AnimalArmorItem {
 
     private final MutableText faction;
     private final MutableText subFaction;
+
 
     public CustomHorseArmorItem(RegistryEntry<ArmorMaterial> material, Type type, boolean hasOverlay, Settings settings, MutableText faction, MutableText subFaction) {
         super(material, type, hasOverlay, settings);
@@ -88,10 +86,5 @@ public class CustomHorseArmorItem extends AnimalArmorItem {
     @Override
     public boolean isEnabled(FeatureSet enabledFeatures) {
         return super.isEnabled(enabledFeatures);
-    }
-
-    @Override
-    public Type getType() {
-        return super.getType();
     }
 }
