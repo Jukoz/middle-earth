@@ -2,6 +2,7 @@ package net.jukoz.me.world.features.tree.roots;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +26,7 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 public class MirkwoodRootPlacer extends RootPlacer {
     public static final int field_38769 = 8;
     public static final int field_38770 = 15;
-    public static final Codec<MirkwoodRootPlacer> CODEC = RecordCodecBuilder.create((instance) -> {
+    public static final MapCodec<MirkwoodRootPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
         return method_43182(instance).and(MirkwoodRootPlacement.CODEC.fieldOf("mirkwood_root_placement").forGetter((rootPlacer) -> {
             return rootPlacer.mirkwoodRootPlacement;
         })).apply(instance, MirkwoodRootPlacer::new);

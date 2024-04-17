@@ -1,6 +1,11 @@
 package net.jukoz.me.world.biomes.surface;
 
+import com.mojang.datafixers.kinds.Applicative;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.jukoz.me.world.features.tree.trunks.CanopyTrunkPlacer;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
@@ -9,29 +14,39 @@ import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.caves.CaveType;
 import net.jukoz.me.world.biomes.caves.ModCaveBiomes;
 import net.jukoz.me.world.features.underground.CavesPlacedFeatures;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.entry.RegistryEntryList;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeCoords;
 import net.minecraft.world.biome.source.BiomeSource;
+import net.minecraft.world.biome.source.CheckerboardBiomeSource;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class ModBiomeSource extends BiomeSource {
-    private final ArrayList<RegistryEntry<Biome>> biomes;
+
+    public static final MapCodec<ModBiomeSource> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+            Codec.list(Biome.REGISTRY_CODEC).fieldOf("biomes").forGetter((biomeSource) -> biomeSource.biomes)).apply(instance, ModBiomeSource::new));
+
+    private final List<RegistryEntry<Biome>> biomes;
     private final int CAVE_NOISE = 96;
     private final int CAVE_OFFSET = 7220;
     private MiddleEarthMapRuntime middleEarthMapRuntime;
-    public ModBiomeSource(ArrayList<RegistryEntry<Biome>> biomes) {
+    public ModBiomeSource(List<RegistryEntry<Biome>> biomes) {
         this.biomes = biomes;
         middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
     }
 
     @Override
-    protected Codec<? extends BiomeSource> getCodec() {
+    protected MapCodec<? extends BiomeSource> getCodec() {
         return CODEC;
     }
 

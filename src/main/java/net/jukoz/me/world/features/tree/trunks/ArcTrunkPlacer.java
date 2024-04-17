@@ -2,6 +2,7 @@ package net.jukoz.me.world.features.tree.trunks;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.world.gen.ModTreeGeneration;
 import net.minecraft.block.BlockState;
@@ -26,7 +27,7 @@ public class ArcTrunkPlacer extends TrunkPlacer {
     protected final float maxAcceleration;
     protected final float velocity;
 
-    public static final Codec<ArcTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> {
+    public static final MapCodec<ArcTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
         return instance.group(
                 Codec.intRange(0,90).fieldOf("base_height").forGetter((trunkPlacer) -> {
                     return trunkPlacer.baseHeight;
