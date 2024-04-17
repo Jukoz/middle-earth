@@ -68,6 +68,7 @@ public class MiddleEarth implements ModInitializer {
 
 		ModSounds.registerModSounds();
 		ModParticleTypes.registerParticleTypes();
+		ModStatusEffects.registerStatusEffects();
 
 		ModDimensions.register();
 		MEBiomeKeys.registerModBiomes();

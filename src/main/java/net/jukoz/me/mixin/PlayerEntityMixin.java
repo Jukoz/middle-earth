@@ -96,24 +96,4 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             player.getWorld().sendEntityStatus(player, (byte) 30);
         }
     }
-
-    @Override
-    public Iterable<ItemStack> getArmorItems() {
-        return null;
-    }
-
-    @Override
-    public ItemStack getEquippedStack(EquipmentSlot slot) {
-        return null;
-    }
-
-    @Override
-    public void equipStack(EquipmentSlot slot, ItemStack stack) {
-
-    }
-
-    @Override
-    public Arm getMainArm() {
-        return null;
-    }
 }

@@ -111,7 +111,7 @@ public class ArtisanRecipe implements Recipe<Inventory> {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
                     Identifier.CODEC.fieldOf("id").forGetter(recipe -> recipe.id),
                     ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
-                    Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("inputs").forGetter(recipe -> recipe.inputs)
+                    Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs)
             ).apply(instance, ArtisanRecipe::new));
 
             this.packetCodec = PacketCodec.ofStatic(ArtisanRecipe.Serializer::write, ArtisanRecipe.Serializer::read);
