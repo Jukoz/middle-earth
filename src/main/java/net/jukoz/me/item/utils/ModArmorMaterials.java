@@ -163,7 +163,7 @@ public class ModArmorMaterials {
 
     private static ExtendedArmorMaterial registerArmor(String id, int tier, RegistryEntry<SoundEvent> equipSound, Supplier<Ingredient> repairIngredient, List<ArmorMaterial.Layer> layers,
                                                        ArmorMaterial.Layer layer, MutableText faction, MutableText subFaction) {
-        EnumMap<ArmorItem.Type, Integer> map = null;
+        EnumMap<ArmorItem.Type, Integer> map = new EnumMap<>(ArmorItem.Type.class);
         float toughness;
         float knockbackResistance;
         int enchantability;

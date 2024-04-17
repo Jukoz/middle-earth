@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 public class ItemStackSyncS2CPacket {
     public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler,
                                PacketByteBuf buf, PacketSender responseSender) {
+        /* // TODO fixme
         int size = buf.readInt();
         DefaultedList<ItemStack> list = DefaultedList.ofSize(size, ItemStack.EMPTY);
         for(int i = 0; i < size; i++) {
@@ -24,6 +25,6 @@ public class ItemStackSyncS2CPacket {
             blockEntity.setInventory(list);
         } else if(client.world.getBlockEntity(position) instanceof WoodPileBlockEntity blockEntity) {
             blockEntity.setInventory(list);
-        }
+        }*/
     }
 }

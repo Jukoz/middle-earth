@@ -25,8 +25,8 @@ import java.util.List;
 public class ShearItemMixin {
 
     @Inject(method = "createToolComponent", at = @At(value = "HEAD"), cancellable = true)
-    private static void createToolComponent(CallbackInfoReturnable<Float> cir) {
-        cir.setReturnValue(new ToolComponent(List.of(ToolComponent.Rule.ofAlwaysDropping(TagKey.of(RegistryKeys.BLOCK, new Identifier(MiddleEarth.MOD_ID, "cobwebs")), 15.0F), ToolComponent.Rule.of(BlockTags.LEAVES, 15.0F), ToolComponent.Rule.of(BlockTags.WOOL, 5.0F), ToolComponent.Rule.of(List.of(Blocks.VINE, Blocks.GLOW_LICHEN), 2.0F)), 1.0F, 1).defaultMiningSpeed());
+    private static void createToolComponent(CallbackInfoReturnable<ToolComponent> cir) {
+        cir.setReturnValue(new ToolComponent(List.of(ToolComponent.Rule.ofAlwaysDropping(TagKey.of(RegistryKeys.BLOCK, new Identifier(MiddleEarth.MOD_ID, "cobwebs")), 15.0F), ToolComponent.Rule.of(BlockTags.LEAVES, 15.0F), ToolComponent.Rule.of(BlockTags.WOOL, 5.0F), ToolComponent.Rule.of(List.of(Blocks.VINE, Blocks.GLOW_LICHEN), 2.0F)), 1.0F, 1));
     }
 
     @Inject(method = "postMine", at = @At(value = "HEAD"), cancellable = true)

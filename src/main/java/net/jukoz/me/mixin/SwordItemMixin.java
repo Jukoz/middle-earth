@@ -19,7 +19,8 @@ import java.util.List;
 public class SwordItemMixin {
 
     @Inject(method = "createToolComponent", at = @At(value = "HEAD"), cancellable = true)
-    private static void getMiningSpeedMultiplier(CallbackInfoReturnable<Float> cir) {
-        cir.setReturnValue(new ToolComponent(List.of(ToolComponent.Rule.ofAlwaysDropping(TagKey.of(RegistryKeys.BLOCK, new Identifier(MiddleEarth.MOD_ID, "cobwebs")), 15.0F), ToolComponent.Rule.of(BlockTags.SWORD_EFFICIENT, 1.5F)), 1.0F, 2).defaultMiningSpeed());
+    private static void createToolComponent(CallbackInfoReturnable<ToolComponent> cir) {
+        cir.setReturnValue(new ToolComponent(List.of(ToolComponent.Rule.ofAlwaysDropping(TagKey.of(RegistryKeys.BLOCK, new Identifier(MiddleEarth.MOD_ID, "cobwebs")), 15.0f),
+                ToolComponent.Rule.of(BlockTags.SWORD_EFFICIENT, 1.5f)), 1.0f, 2));
     }
 }
