@@ -39,8 +39,8 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
     @Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        entityData = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        entityData = super.initialize(world, difficulty, spawnReason, entityData);
         this.updateAttackType();
         return entityData;
     }
@@ -119,7 +119,8 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         return weapon == getBow();
     }
 
-    public void attack(LivingEntity target, float pullProgress) {
+    @Override
+    public void shootAt(LivingEntity target, float pullProgress) {
         ItemStack itemStack = this.getProjectileType(this.getStackInHand(ProjectileUtil.getHandPossiblyHolding(this, getBow())));
         PersistentProjectileEntity persistentProjectileEntity = this.createArrowProjectile(itemStack, pullProgress);
         double d = target.getX() - this.getX();

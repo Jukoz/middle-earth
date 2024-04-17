@@ -57,8 +57,8 @@ public class ShireHobbitEntity extends NpcEntity {
 
     @Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        entityData = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        entityData = super.initialize(world, difficulty, spawnReason, entityData);
         Random random = world.getRandom();
         this.initEquipment(random, difficulty);
         return entityData;
@@ -170,13 +170,12 @@ public class ShireHobbitEntity extends NpcEntity {
         }
     }
 
-
     public ShireHobbitVariant getVariant() {
         return ShireHobbitVariant.byId(this.getId());
     }
 
     @Override
-    public void attack(LivingEntity target, float pullProgress) {
+    public void shootAt(LivingEntity target, float pullProgress) {
         Item item = ModResourceItems.PEBBLE;
         ItemStack itemStack = new ItemStack(item);
         double d = target.getX() - this.getX();
