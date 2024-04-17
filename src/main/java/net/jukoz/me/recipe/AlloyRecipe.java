@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
 import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
@@ -40,15 +41,15 @@ public class AlloyRecipe implements Recipe<SimpleInventory> {
         return true;
     }
 
+    @Override
+    public ItemStack craft(SimpleInventory inventory, RegistryWrapper.WrapperLookup lookup) {
+        return output;
+    }
+
     public DefaultedList<Ingredient> getIngredients() {
         DefaultedList<Ingredient> defaultedList = DefaultedList.of();
         defaultedList.addAll(this.inputs);
         return defaultedList;
-    }
-
-    @Override
-    public ItemStack craft(SimpleInventory inventory, DynamicRegistryManager registryManager) {
-        return output;
     }
 
     @Override
@@ -57,13 +58,8 @@ public class AlloyRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getOutput(DynamicRegistryManager registryManager) {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
         return output;
-    }
-
-    @Override
-    public Identifier getId() {
-        return id;
     }
 
     @Override

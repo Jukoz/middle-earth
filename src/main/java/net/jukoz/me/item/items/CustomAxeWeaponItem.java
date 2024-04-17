@@ -51,4 +51,5 @@ public class CustomAxeWeaponItem extends AxeItem {
 
         super.appendTooltip(stack, context, tooltip, type);
     }
+
 }

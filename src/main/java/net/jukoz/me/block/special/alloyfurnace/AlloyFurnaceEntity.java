@@ -24,6 +24,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -95,18 +97,18 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
-        Inventories.writeNbt(nbt, inventory);
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.writeNbt(nbt, registryLookup);
+        Inventories.writeNbt(nbt, inventory, registryLookup);
         nbt.putInt(ID + ".progress", progress);
         nbt.putInt(ID + ".fuel-time", fuelTime);
         nbt.putInt(ID + ".max-fuel-time", maxFuelTime);
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        Inventories.readNbt(nbt, inventory);
-        super.readNbt(nbt);
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.readNbt(nbt, registryLookup);
+        Inventories.readNbt(nbt, inventory, registryLookup);
         progress = nbt.getInt(ID + ".progress");
         fuelTime = nbt.getInt(ID + ".fuel-time");
         maxFuelTime = nbt.getInt(ID + ".max-fuel-time");
@@ -123,18 +125,18 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
 
     @Override
     public void markDirty() {
-        if(world != null && !world.isClient()) {
+        /* if(world != null && !world.isClient()) {
             PacketByteBuf data = PacketByteBufs.create();
             data.writeInt(inventory.size());
             for(int i = 0; i < inventory.size(); i++) {
-                data.writeItemStack(inventory.get(i));
+                data.writeItemStack(inventory.get(i)); // TODO writeItemStack() no longer exists...
             }
             data.writeBlockPos(getPos());
 
             for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) world, getPos())) {
                 ServerPlayNetworking.send(player, ModNetworks.ITEM_SYNC, data);
             }
-        }
+        } */
         super.markDirty();
     }
 
@@ -246,7 +248,7 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
             inventory1.setStack(i, entity.getStack(i));
         }
 
-        Optional<AlloyRecipe> match = entity.getWorld().getRecipeManager()
+        Optional<RecipeEntry<AlloyRecipe>> match = entity.getWorld().getRecipeManager()
                 .getFirstMatch(AlloyRecipe.Type.INSTANCE, inventory1, entity.getWorld());
         if(match.isEmpty()) throw new RuntimeException("Somehow... you crafted an item without recipe?!");
 
@@ -254,8 +256,8 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
             for (int i = 1; i <= 4; i++) {
                 entity.removeStack(i, 1);
             }
-            entity.setStack(OUTPUT_SLOT, new ItemStack(match.get().output.getRegistryEntry(),
-                    entity.getStack(OUTPUT_SLOT).getCount() + match.get().output.getCount()));
+            entity.setStack(OUTPUT_SLOT, new ItemStack(match.get().value().output.getRegistryEntry(),
+                    entity.getStack(OUTPUT_SLOT).getCount() + match.get().value().output.getCount()));
             entity.markDirty();
         }
     }
@@ -266,12 +268,12 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
             inventory1.setStack(i, entity.getStack(i));
         }
 
-        Optional<AlloyRecipe> match = entity.getWorld().getRecipeManager()
+        Optional<RecipeEntry<AlloyRecipe>> match = entity.getWorld().getRecipeManager()
                 .getFirstMatch(AlloyRecipe.Type.INSTANCE, inventory1, entity.getWorld());
         if(match.isEmpty()) return false;
 
-        return canInsertAmountIntoOutput(inventory1, match.get().output.getCount())
-                && canInsertRecipeIntoOutput(inventory1, match.get().output.getItem());
+        return canInsertAmountIntoOutput(inventory1, match.get().value().output.getCount())
+                && canInsertRecipeIntoOutput(inventory1, match.get().value().output.getItem());
     }
 
     private boolean hasFuel(AlloyFurnaceEntity entity) {
@@ -292,7 +294,7 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
     }
 
     private void getFuel(AlloyFurnaceEntity entity, Item fuelItem) {
-        fuelTime = Math.round(fuelTimeMap.get(fuelItem) / 16);
+        fuelTime = Math.round((float) fuelTimeMap.get(fuelItem) / 16);
         maxFuelTime = fuelTime;
         if(fuelItem == Items.LAVA_BUCKET) {
             entity.removeStack(FUEL_SLOT);

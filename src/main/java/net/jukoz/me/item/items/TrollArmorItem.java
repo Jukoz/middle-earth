@@ -24,7 +24,7 @@ public class TrollArmorItem extends AnimalArmorItem {
 
     public TrollArmorItem(RegistryEntry<ArmorMaterial> material, Type type, boolean hasOverlay, Settings settings) {
         super(material, type, hasOverlay, settings);
-        this.entityTexture = "textures/entity/troll/armor/troll_armor_" + name + ".png";
+        this.entityTexture = "textures/entity/troll/armor/troll_armor_steel.png";
     }
 
     public Identifier getEntityTexture() {
