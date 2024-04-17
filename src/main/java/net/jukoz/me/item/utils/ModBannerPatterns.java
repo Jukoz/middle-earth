@@ -22,7 +22,7 @@ public class ModBannerPatterns {
         return RegistryKey.of(RegistryKeys.BANNER_PATTERN, new Identifier(id));
     }
 
-    /*public static void register(Registerable<BannerPattern> registry) {
+    /*public static void register(Registerable<BannerPattern> registry) { // TODO fixme
         Registry.register(registry, GONDOR_BANNER_PATTERN, new BannerPattern(new Identifier(MiddleEarth.MOD_ID, "gon"),"gondor" ));
         Registry.register(registry, ROHAN_BANNER_PATTERN, new BannerPattern("roh"));
         Registry.register(registry, LONGBEARD_BANNER_PATTERN, new BannerPattern("longb"));

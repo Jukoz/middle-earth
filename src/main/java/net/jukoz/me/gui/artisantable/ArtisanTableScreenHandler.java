@@ -14,6 +14,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.SmithingRecipe;
+import net.minecraft.recipe.StonecuttingRecipe;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
@@ -27,7 +29,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     private final ScreenHandlerContext context;
     private final Property selectedRecipe;
     private final World world;
-    private List availableRecipes;
+    private List<RecipeEntry<ArtisanRecipe>> availableRecipes;
     private ItemStack inputStack;
     long lastTakeTime;
     final Slot inputSlot0;
@@ -119,7 +121,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         return this.selectedRecipe.get();
     }
 
-    public List<ArtisanRecipe> getAvailableRecipes() {
+    public List<RecipeEntry<ArtisanRecipe>> getAvailableRecipes() {
         return this.availableRecipes;
     }
 
@@ -164,10 +166,10 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
 
     void populateResult() {
         if (!this.availableRecipes.isEmpty() && this.isInBounds(this.selectedRecipe.get())) {
-            ArtisanRecipe artisanRecipe = (ArtisanRecipe)this.availableRecipes.get(this.selectedRecipe.get());
-            ItemStack itemStack = artisanRecipe.craft(this.input, this.world.getRegistryManager());
+            RecipeEntry<ArtisanRecipe> recipeEntry = this.availableRecipes.get(this.selectedRecipe.get());
+            ItemStack itemStack = recipeEntry.value().craft(this.input, this.world.getRegistryManager());
             if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
-                this.output.setLastRecipe(artisanRecipe);
+                this.output.setLastRecipe(recipeEntry);
                 this.outputSlot.setStackNoCallbacks(itemStack);
             } else {
                 this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);

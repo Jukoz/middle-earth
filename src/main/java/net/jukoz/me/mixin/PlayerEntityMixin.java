@@ -2,8 +2,10 @@ package net.jukoz.me.mixin;
 
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -14,8 +16,10 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -29,55 +33,49 @@ import java.util.List;
 import java.util.Optional;
 
 @Mixin(PlayerEntity.class)
-public class PlayerEntityMixin {
-    @Shadow
-    @Final
-    private PlayerInventory inventory;
-    @Shadow
-    protected ItemStack activeItemStack;
+public abstract class PlayerEntityMixin extends LivingEntity {
+
+    @Shadow public abstract ItemCooldownManager getItemCooldownManager();
+
+    protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+        super(entityType, world);
+    }
+
     @Inject(at = @At(value = "HEAD"), method = "damageShield", locals = LocalCapture.CAPTURE_FAILHARD)
     protected void damageShield(float amount, CallbackInfo callBackInfo) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
-
         if (activeItemStack.getItem() instanceof ShieldItem) {
             if (amount >= 3.0F) {
                 int i = 1 + MathHelper.floor(amount);
-                Hand hand = player.getActiveHand();
-                PlayerEntity playerEntity = (PlayerEntity) (Object) this;
-                this.activeItemStack.damage(i, playerEntity, PlayerEntity.getSlotForHand(hand));
+                Hand hand = this.getActiveHand();
+                this.activeItemStack.damage(i, this, PlayerEntity.getSlotForHand(hand));
 
                 if (activeItemStack.isEmpty()) {
                     if (hand == Hand.MAIN_HAND) {
-                        player.equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                        this.equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                     } else {
-                        player.equipStack(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+                        this.equipStack(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
                     }
                     activeItemStack = ItemStack.EMPTY;
-                    player.playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8F, 0.8F + player.getWorld().random.nextFloat() * 0.4F);
+                    this.playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8F, 0.8F + this.getWorld().random.nextFloat() * 0.4F);
                 }
             }
         }
     }
 
-    /**
-     * @param sprinting    if player is sprinting
-     * @param callbackInfo callback information
-     */
     @Inject(at = @At(value = "HEAD"), method = "disableShield()V", locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private void disableShieldHead(boolean sprinting, CallbackInfo callbackInfo) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
+    private void disableShieldHead(CallbackInfo ci) {
         Item activeItem = activeItemStack.getItem();
 
         if (activeItem instanceof ShieldItem shield) {
-            float f = 0.25F + (float) EnchantmentHelper.getEfficiency(player) * 0.05F;
-            if (sprinting) {
+            float f = 0.25F + (float) EnchantmentHelper.getEfficiency(this) * 0.05F;
+            if (isSprinting()) {
                 f += 0.75F;
             }
-            if (player.getRandom().nextFloat() < f) {
-                player.getItemCooldownManager().set(shield, 100);
-                player.clearActiveItem();
-                player.getWorld().sendEntityStatus(player, (byte) 30);
-                callbackInfo.cancel();
+            if (this.getRandom().nextFloat() < f) {
+                this.getItemCooldownManager().set(shield, 100);
+                this.clearActiveItem();
+                this.getWorld().sendEntityStatus(this, (byte) 30);
+                ci.cancel();
             }
         }
     }
@@ -97,5 +95,25 @@ public class PlayerEntityMixin {
             player.clearActiveItem();
             player.getWorld().sendEntityStatus(player, (byte) 30);
         }
+    }
+
+    @Override
+    public Iterable<ItemStack> getArmorItems() {
+        return null;
+    }
+
+    @Override
+    public ItemStack getEquippedStack(EquipmentSlot slot) {
+        return null;
+    }
+
+    @Override
+    public void equipStack(EquipmentSlot slot, ItemStack stack) {
+
+    }
+
+    @Override
+    public Arm getMainArm() {
+        return null;
     }
 }

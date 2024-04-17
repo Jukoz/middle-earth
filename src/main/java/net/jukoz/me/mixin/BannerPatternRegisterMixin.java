@@ -24,6 +24,6 @@ public class BannerPatternRegisterMixin {
     )
 
     private static void registerModBannerPatterns(Registerable<BannerPattern> registry, CallbackInfo ci) {
-        ModBannerPatterns.register(registry);
+        //ModBannerPatterns.register(registry); // TODO fixme
     }
 }

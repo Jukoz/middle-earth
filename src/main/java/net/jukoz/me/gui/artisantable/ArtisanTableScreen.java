@@ -1,6 +1,8 @@
 package net.jukoz.me.gui.artisantable;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.recipe.ArtisanRecipe;
 import net.minecraft.client.MinecraftClient;
@@ -9,6 +11,9 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.StonecuttingRecipe;
+import net.minecraft.screen.StonecutterScreenHandler;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -16,6 +21,7 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.List;
 
+@Environment(value= EnvType.CLIENT)
 public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler> {
     private static final Identifier TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/gui/artisan_table.png");
     private float scrollAmount;
@@ -67,14 +73,14 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
             int i = this.x + 76;
             int j = this.y + 14;
             int k = this.scrollOffset + 12;
-            List<ArtisanRecipe> list = ((ArtisanTableScreenHandler)this.handler).getAvailableRecipes();
+            List<RecipeEntry<ArtisanRecipe>> list = (this.handler).getAvailableRecipes();
 
-            for(int l = this.scrollOffset; l < k && l < ((ArtisanTableScreenHandler)this.handler).getAvailableRecipeCount(); ++l) {
+            for(int l = this.scrollOffset; l < k && l < (this.handler).getAvailableRecipeCount(); ++l) {
                 int m = l - this.scrollOffset;
                 int n = i + m % 4 * 16;
                 int o = j + m / 4 * 18 + 2;
                 if (x >= n && x < n + 16 && y >= o && y < o + 18) {
-                    context.drawItemTooltip(this.textRenderer, ((ArtisanRecipe)list.get(l)).getOutput(this.client.world.getRegistryManager()), x, y);
+                    context.drawItemTooltip(this.textRenderer, list.get(l).value().getResult(this.client.world.getRegistryManager()), x, y);
                 }
             }
         }
@@ -100,14 +106,13 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     }
 
     private void renderRecipeIcons(DrawContext context, int x, int y, int scrollOffset) {
-        List<ArtisanRecipe> list = ((ArtisanTableScreenHandler)this.handler).getAvailableRecipes();
-
-        for(int i = this.scrollOffset; i < scrollOffset && i < ((ArtisanTableScreenHandler)this.handler).getAvailableRecipeCount(); ++i) {
+        List<RecipeEntry<ArtisanRecipe>> list = this.handler.getAvailableRecipes();
+        for (int i = this.scrollOffset; i < scrollOffset && i < (this.handler).getAvailableRecipeCount(); ++i) {
             int j = i - this.scrollOffset;
             int k = x + j % 4 * 16;
             int l = j / 4;
             int m = y + l * 18 + 2;
-            context.drawItem(((ArtisanRecipe)list.get(i)).getOutput(this.client.world.getRegistryManager()), k, m);
+            context.drawItem(list.get(i).value().getResult(this.client.world.getRegistryManager()), k, m);
         }
 
     }
