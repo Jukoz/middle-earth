@@ -89,8 +89,8 @@ public class AlloyRecipe implements Recipe<SimpleInventory> {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
                             Identifier.CODEC.fieldOf("id").forGetter(recipe -> recipe.id),
                             ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
-                            Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("output").forGetter(recipe -> recipe.inputs)
-                    ).apply(instance, AlloyRecipe::new)); // recipeFactory::create));
+                            Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("inputs").forGetter(recipe -> recipe.inputs)
+                    ).apply(instance, AlloyRecipe::new));
 
             this.packetCodec = PacketCodec.ofStatic(Serializer::write, Serializer::read);
         }

@@ -22,12 +22,14 @@ import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class ArtisanRecipe implements Recipe<Inventory> {
     public final Identifier id;
     public final ItemStack output;
-    public final DefaultedList<Ingredient> inputs;
+    public final List<Ingredient> inputs;
 
-    public ArtisanRecipe(Identifier id, ItemStack output, DefaultedList<Ingredient> recipeItems) {
+    public ArtisanRecipe(Identifier id, ItemStack output, List<Ingredient> recipeItems) {
         this.id = id;
         this.output = output;
         this.inputs = recipeItems;
@@ -106,8 +108,13 @@ public class ArtisanRecipe implements Recipe<Inventory> {
         private final PacketCodec<RegistryByteBuf, ArtisanRecipe> packetCodec;
 
         protected Serializer() {
-            codec = null;
-            packetCodec = null;
+            this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+                    Identifier.CODEC.fieldOf("id").forGetter(recipe -> recipe.id),
+                    ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
+                    Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("inputs").forGetter(recipe -> recipe.inputs)
+            ).apply(instance, ArtisanRecipe::new));
+
+            this.packetCodec = PacketCodec.ofStatic(ArtisanRecipe.Serializer::write, ArtisanRecipe.Serializer::read);
         }
 
         @Override
@@ -120,35 +127,22 @@ public class ArtisanRecipe implements Recipe<Inventory> {
             return this.packetCodec;
         }
 
-
-        public ArtisanRecipe read(Identifier id, JsonObject json) {
-            ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
-            JsonArray ingredients = JsonHelper.getArray(json, "ingredients");
-            DefaultedList<Ingredient> inputs = DefaultedList.ofSize(ingredients.size(), Ingredient.EMPTY);
-            for (int i = 0; i < ingredients.size(); i++) {
-                Ingredient ingredient = Ingredient.fromJson(ingredients.get(i), true);
-                if (ingredient.isEmpty()) continue;
-                inputs.set(i, ingredient);
-            }
-            return new ArtisanRecipe(id, output, inputs);
+        private static ArtisanRecipe read(RegistryByteBuf buf) {
+            Identifier id = buf.readIdentifier();
+            ItemStack output = ItemStack.PACKET_CODEC.decode(buf);
+            int i = buf.readVarInt();
+            DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i, Ingredient.EMPTY);
+            defaultedList.replaceAll(empty -> Ingredient.PACKET_CODEC.decode(buf));
+            return new ArtisanRecipe(id, output, defaultedList);
         }
 
-        public ArtisanRecipe read(Identifier id, PacketByteBuf buf) {
-            DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readInt(), Ingredient.EMPTY);
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromPacket(buf));
+        private static void write(RegistryByteBuf buf, ArtisanRecipe recipe) {
+            buf.writeIdentifier(recipe.id);
+            ItemStack.PACKET_CODEC.encode(buf, recipe.output);
+            buf.writeVarInt(recipe.inputs.size());
+            for (Ingredient ingredient : recipe.inputs) {
+                Ingredient.PACKET_CODEC.encode(buf, ingredient);
             }
-
-            ItemStack output = buf.readItemStack();
-            return new ArtisanRecipe(id, output, inputs);
-        }
-
-        public void write(PacketByteBuf buf, ArtisanRecipe recipe) {
-            buf.writeInt(recipe.getIngredients().size());
-            for (Ingredient ingredient : recipe.getIngredients()) {
-                ingredient.write(buf);
-            }
-            buf.writeItemStack(recipe.getOutput(null));
         }
     }
 }
