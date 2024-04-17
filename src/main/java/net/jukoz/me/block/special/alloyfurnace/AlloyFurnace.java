@@ -101,8 +101,14 @@ public class AlloyFurnace extends BlockWithEntity implements BlockEntityProvider
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.ALLOY_FURNACE, AlloyFurnaceEntity::tick);
+        return super.getTicker(world, state, type);
     }
+
+    /*@Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, ModBlockEntities.ALLOY_FURNACE, AlloyFurnaceEntity::tick);
+    }*/
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {

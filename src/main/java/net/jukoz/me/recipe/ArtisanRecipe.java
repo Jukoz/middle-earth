@@ -2,12 +2,16 @@ package net.jukoz.me.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
 import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
@@ -45,8 +49,7 @@ public class ArtisanRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public ItemStack craft(Inventory inventory, DynamicRegistryManager registryManager) {
-        System.out.println("Crafted");
+    public ItemStack craft(Inventory inventory, RegistryWrapper.WrapperLookup lookup) {
         return this.output.copy();
     }
 
@@ -56,7 +59,11 @@ public class ArtisanRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public ItemStack getOutput(DynamicRegistryManager registryManager) {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
+        return output;
+    }
+
+    public ItemStack getOutput() {
         return output;
     }
 
@@ -64,11 +71,6 @@ public class ArtisanRecipe implements Recipe<Inventory> {
         DefaultedList<Ingredient> defaultedList = DefaultedList.of();
         defaultedList.addAll(this.inputs);
         return defaultedList;
-    }
-
-    @Override
-    public Identifier getId() {
-        return id;
     }
 
     @Override

@@ -21,7 +21,7 @@ public class MordorPlant extends PlantBlock implements Fertilizable {
 
     @Override
     protected MapCodec<? extends PlantBlock> getCodec() {
-        return null;
+        return createCodec(MordorPlant::new);
     }
 
     @Override

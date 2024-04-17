@@ -1,6 +1,7 @@
 package net.jukoz.me.block.special.artisantable;
 
 import com.google.common.collect.ImmutableMap;
+import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntity;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreenHandler;
@@ -52,6 +53,11 @@ public class ArtisanTable extends HorizontalFacingBlock {
         this.setDefaultState(this.stateManager.getDefaultState().with(PART, ArtisanTablePart.LEFT).with(FACING, Direction.NORTH));
     }
 
+    @Override
+    protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
+        return createCodec(ArtisanTable::new);
+    }
+
     @Nullable
     public static Direction getDirection(BlockView world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos);
@@ -66,7 +72,9 @@ public class ArtisanTable extends HorizontalFacingBlock {
         }
     }
 
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+
+    @Override
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!world.isClient && player.isCreative()) {
             ArtisanTablePart tablePart = (ArtisanTablePart)state.get(PART);
             ArtisanTablePart tablePartOpposite = (ArtisanTablePart)state.get(PART).getOpposite(state.get(PART));
@@ -78,8 +86,7 @@ public class ArtisanTable extends HorizontalFacingBlock {
                 world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
             }
         }
-
-        super.onBreak(world, pos, state, player);
+        return super.onBreak(world, pos, state, player);
     }
 
     private static Direction getDirectionTowardsOtherPart(ArtisanTablePart part, Direction direction) {
