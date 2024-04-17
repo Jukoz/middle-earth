@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
 public class MordorPlant extends PlantBlock implements Fertilizable {
+    public static final MapCodec<MordorPlant> CODEC = MordorPlant.createCodec(MordorPlant::new);
     protected static final VoxelShape SHAPE = Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 13.0, 14.0);
 
     public MordorPlant(AbstractBlock.Settings settings) {
@@ -20,8 +21,8 @@ public class MordorPlant extends PlantBlock implements Fertilizable {
     }
 
     @Override
-    protected MapCodec<? extends PlantBlock> getCodec() {
-        return null;
+    protected MapCodec<MordorPlant> getCodec() {
+        return CODEC;
     }
 
     @Override

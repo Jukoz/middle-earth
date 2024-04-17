@@ -18,6 +18,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.World;
 
 public class GlowWormBlock extends AbstractPlantBlock {
+    public static final MapCodec<GlowWormBlock> CODEC = GlowWormBlock.createCodec(GlowWormBlock::new);
     public static final VoxelShape SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
 
     public GlowWormBlock(AbstractBlock.Settings settings) {
@@ -46,7 +47,7 @@ public class GlowWormBlock extends AbstractPlantBlock {
     }
 
     @Override
-    protected MapCodec<? extends AbstractPlantBlock> getCodec() {
-        return null;
+    protected MapCodec<GlowWormBlock> getCodec() {
+        return CODEC;
     }
 }

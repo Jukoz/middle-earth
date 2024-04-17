@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
 public class HaradPlant extends PlantBlock implements Fertilizable {
+    public static final MapCodec<HaradPlant> CODEC = HaradPlant.createCodec(HaradPlant::new);
     protected static final VoxelShape SHAPE = Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 13.0, 14.0);
 
     public HaradPlant(Settings settings) {
@@ -19,8 +20,8 @@ public class HaradPlant extends PlantBlock implements Fertilizable {
     }
 
     @Override
-    protected MapCodec<? extends PlantBlock> getCodec() {
-        return null;
+    protected MapCodec<HaradPlant> getCodec() {
+        return CODEC;
     }
 
     @Override

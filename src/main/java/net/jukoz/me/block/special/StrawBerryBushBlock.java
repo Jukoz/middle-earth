@@ -29,6 +29,7 @@ import net.minecraft.world.event.GameEvent;
 
 public class StrawBerryBushBlock extends PlantBlock
         implements Fertilizable {
+    public static final MapCodec<StrawBerryBushBlock> CODEC = StrawBerryBushBlock.createCodec(StrawBerryBushBlock::new);
     public static final int MAX_AGE = 3;
     public static final IntProperty AGE = Properties.AGE_3;
     private static final VoxelShape SMALL_SHAPE = Block.createCuboidShape(3.0, 0.0, 3.0, 13.0, 8.0, 13.0);
@@ -40,8 +41,8 @@ public class StrawBerryBushBlock extends PlantBlock
     }
 
     @Override
-    protected MapCodec<? extends PlantBlock> getCodec() {
-        return null;
+    protected MapCodec<StrawBerryBushBlock> getCodec() {
+        return CODEC;
     }
 
     @Override
