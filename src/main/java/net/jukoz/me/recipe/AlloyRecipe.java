@@ -1,24 +1,25 @@
 package net.jukoz.me.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
-import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class AlloyRecipe implements Recipe<SimpleInventory> {
     public final Identifier id;
     public final ItemStack output;
-    public final DefaultedList<Ingredient> inputs;
+    public final List<Ingredient> inputs;
 
-    public AlloyRecipe(Identifier id, ItemStack output, DefaultedList<Ingredient> recipeItems) {
+    public AlloyRecipe(Identifier id, ItemStack output, List<Ingredient> recipeItems) {
         this.id = id;
         this.output = output;
         this.inputs = recipeItems;
@@ -81,39 +82,45 @@ public class AlloyRecipe implements Recipe<SimpleInventory> {
     public static class Serializer implements RecipeSerializer<AlloyRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         public static final String ID = "alloy_furnace";
+        private final MapCodec<AlloyRecipe> codec;
+        private final PacketCodec<RegistryByteBuf, AlloyRecipe> packetCodec;
 
-        @Override
-        public AlloyRecipe read(Identifier id, JsonObject json) {
-            ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
-            JsonArray ingredients = JsonHelper.getArray(json, "ingredients");
-            DefaultedList<Ingredient> inputs = DefaultedList.ofSize(ingredients.size(), Ingredient.EMPTY);
-            for (int i = 0; i < ingredients.size(); i++) {
-                Ingredient ingredient = Ingredient.fromJson(ingredients.get(i), true);
-                if (ingredient.isEmpty()) continue;
-                inputs.set(i, ingredient);
-            }
+        protected Serializer() {
+            this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+                            Identifier.CODEC.fieldOf("id").forGetter(recipe -> recipe.id),
+                            ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
+                            Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("output").forGetter(recipe -> recipe.inputs)
+                    ).apply(instance, AlloyRecipe::new)); // recipeFactory::create));
 
-            return new AlloyRecipe(id, output, inputs);
+            this.packetCodec = PacketCodec.ofStatic(Serializer::write, Serializer::read);
         }
 
         @Override
-        public AlloyRecipe read(Identifier id, PacketByteBuf buf) {
-            DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readInt(), Ingredient.EMPTY);
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromPacket(buf));
-            }
-
-            ItemStack output = buf.readItemStack();
-            return new AlloyRecipe(id, output, inputs);
+        public MapCodec<AlloyRecipe> codec() {
+            return this.codec;
         }
 
         @Override
-        public void write(PacketByteBuf buf, AlloyRecipe recipe) {
-            buf.writeInt(recipe.getIngredients().size());
-            for (Ingredient ingredient : recipe.getIngredients()) {
-                ingredient.write(buf);
+        public PacketCodec<RegistryByteBuf, AlloyRecipe> packetCodec() {
+            return this.packetCodec;
+        }
+
+        private static AlloyRecipe read(RegistryByteBuf buf) {
+            Identifier id = buf.readIdentifier();
+            ItemStack output = ItemStack.PACKET_CODEC.decode(buf);
+            int i = buf.readVarInt();
+            DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i, Ingredient.EMPTY);
+            defaultedList.replaceAll(empty -> Ingredient.PACKET_CODEC.decode(buf));
+            return new AlloyRecipe(id, output, defaultedList);
+        }
+
+        private static void write(RegistryByteBuf buf, AlloyRecipe recipe) {
+            buf.writeIdentifier(recipe.id);
+            ItemStack.PACKET_CODEC.encode(buf, recipe.output);
+            buf.writeVarInt(recipe.inputs.size());
+            for (Ingredient ingredient : recipe.inputs) {
+                Ingredient.PACKET_CODEC.encode(buf, ingredient);
             }
-            buf.writeItemStack(recipe.getOutput(null));
         }
     }
 }

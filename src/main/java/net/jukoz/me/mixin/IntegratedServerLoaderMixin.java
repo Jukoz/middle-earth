@@ -12,8 +12,8 @@ public class IntegratedServerLoaderMixin {
         return true;
     }
 
-    @ModifyVariable(method = "start(Lnet/minecraft/client/gui/screen/Screen;Ljava/lang/String;ZZ)V",
-            at = @At("HEAD"), index = 4, argsOnly = true)
+    @ModifyVariable( method = "start(Lnet/minecraft/world/level/storage/LevelStorage$Session;Lcom/mojang/serialization/Dynamic;ZLjava/lang/Runnable;)V",
+            at = @At("HEAD"), index = 3, argsOnly = true)
     private boolean removeAdviceOnLoad(boolean original) {
         return false;
     }
