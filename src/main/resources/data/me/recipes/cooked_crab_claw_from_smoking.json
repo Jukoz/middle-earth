@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:campfire_cooking",
-  "ingredient": {
-    "item": "me:raw_crab_claw"
-  },
-  "result": "me:cooked_crab_claw",
-  "experience": 0.1,
-  "cookingtime": 250
-}

@@ -15,12 +15,10 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class AlloyRecipe implements Recipe<SimpleInventory> {
-    public final Identifier id;
     public final ItemStack output;
     public final List<Ingredient> inputs;
 
-    public AlloyRecipe(Identifier id, ItemStack output, List<Ingredient> recipeItems) {
-        this.id = id;
+    public AlloyRecipe(ItemStack output, List<Ingredient> recipeItems) {
         this.output = output;
         this.inputs = recipeItems;
     }
@@ -87,9 +85,8 @@ public class AlloyRecipe implements Recipe<SimpleInventory> {
 
         protected Serializer() {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-                            Identifier.CODEC.fieldOf("id").forGetter(recipe -> recipe.id),
                             ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
-                            Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("inputs").forGetter(recipe -> recipe.inputs)
+                            Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs)
                     ).apply(instance, AlloyRecipe::new));
 
             this.packetCodec = PacketCodec.ofStatic(Serializer::write, Serializer::read);
@@ -106,16 +103,14 @@ public class AlloyRecipe implements Recipe<SimpleInventory> {
         }
 
         private static AlloyRecipe read(RegistryByteBuf buf) {
-            Identifier id = buf.readIdentifier();
             ItemStack output = ItemStack.PACKET_CODEC.decode(buf);
             int i = buf.readVarInt();
             DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i, Ingredient.EMPTY);
             defaultedList.replaceAll(empty -> Ingredient.PACKET_CODEC.decode(buf));
-            return new AlloyRecipe(id, output, defaultedList);
+            return new AlloyRecipe(output, defaultedList);
         }
 
         private static void write(RegistryByteBuf buf, AlloyRecipe recipe) {
-            buf.writeIdentifier(recipe.id);
             ItemStack.PACKET_CODEC.encode(buf, recipe.output);
             buf.writeVarInt(recipe.inputs.size());
             for (Ingredient ingredient : recipe.inputs) {

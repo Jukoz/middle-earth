@@ -11,13 +11,10 @@ import net.jukoz.me.item.ModToolItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataOutput;
-import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.RecipeExporter;
-import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
@@ -546,7 +543,19 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createSeedsRecipe(exporter, ModFoodItems.LETTUCE, ModResourceItems.LETTUCE_SEEDS);
         createSeedsRecipe(exporter, ModResourceItems.PIPEWEED, ModResourceItems.PIPEWEED_SEEDS);
         createSeedsRecipe(exporter, ModResourceItems.FLAX, ModResourceItems.FLAX_SEEDS);
+        //endregion
 
+        //region FOOD
+        createCookedFoodRecipes(exporter, ModFoodItems.RAW_CRAB_CLAW, ModFoodItems.COOKED_CRAB_CLAW);
+        createCookedFoodRecipes(exporter, ModFoodItems.RAW_DUCK, ModFoodItems.COOKED_DUCK);
+        createCookedFoodRecipes(exporter, ModFoodItems.RAW_GOOSE, ModFoodItems.COOKED_GOOSE);
+        createCookedFoodRecipes(exporter, ModFoodItems.RAW_HORSE, ModFoodItems.COOKED_HORSE);
+        createCookedFoodRecipes(exporter, ModFoodItems.RAW_RAT, ModFoodItems.COOKED_RAT);
+        createCookedFoodRecipes(exporter, ModFoodItems.RAW_SWAN, ModFoodItems.COOKED_SWAN);
+        createCookedFoodRecipes(exporter, ModFoodItems.MEAT_SKEWER, ModFoodItems.COOKED_MEAT_SKEWER);
+        createCookedFoodRecipes(exporter, ModFoodItems.RAT_SKEWER, ModFoodItems.COOKED_RAT_SKEWER);
+        createCookedFoodRecipes(exporter, ModFoodItems.VEGETABLE_SKEWER, ModFoodItems.COOKED_VEGETABLE_SKEWER);
+        createCookedFoodRecipes(exporter, Items.EGG, ModFoodItems.BOILED_EGG);
         //endregion
 
         createHelmetRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_HELMET);
@@ -949,6 +958,12 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(ingot),
                         FabricRecipeProvider.conditionsFromItem(ingot))
                 .offerTo(exporter);
+    }
+
+    private void createCookedFoodRecipes(RecipeExporter exporter, Item rawFood, Item cookedFood) {
+        net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "smelting", RecipeSerializer.SMELTING, SmeltingRecipe::new, 200, rawFood, cookedFood, 0.35f);
+        net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, rawFood, cookedFood, 0.35f);
+        net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING, CampfireCookingRecipe::new, 600, rawFood, cookedFood, 0.35f);
     }
 
     private void createMetalsRecipe(RecipeExporter exporter, Item nugget, Item ingot, Item rod, Block block) {
