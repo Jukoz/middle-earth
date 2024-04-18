@@ -22,7 +22,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:dwarven_lantern"
+      "count": 1,
+      "id":  "me:dwarven_lantern"
     },
     "show_toast": true,
     "title": {
