@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:chainmail_fur_cloak",
+    "id": "me:chainmail_fur_cloak",
     "count": 1
   }
 }

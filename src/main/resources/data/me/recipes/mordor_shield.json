@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:mordor_shield",
+    "id": "me:mordor_shield",
     "count": 1
   }
 }

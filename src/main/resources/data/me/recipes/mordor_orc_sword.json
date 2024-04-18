@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:mordor_orc_sword",
+    "id": "me:mordor_orc_sword",
     "count": 1
   }
 }

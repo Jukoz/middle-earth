@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:dunland_spear",
+    "id": "me:dunland_spear",
     "count": 1
   }
 }

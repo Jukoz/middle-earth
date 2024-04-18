@@ -12,7 +12,7 @@
     "###"
   ],
   "result": {
-    "item": "minecraft:oak_boat"
+    "id": "minecraft:oak_boat"
   },
   "show_notification": true
 }

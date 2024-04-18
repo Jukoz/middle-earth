@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:rohirric_sword",
+    "id": "me:rohirric_sword",
     "count": 1
   }
 }

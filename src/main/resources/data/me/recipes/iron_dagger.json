@@ -13,7 +13,7 @@
     }
   },
   "result": {
-    "item": "me:iron_dagger",
+    "id": "me:iron_dagger",
     "count": 1
   }
 }

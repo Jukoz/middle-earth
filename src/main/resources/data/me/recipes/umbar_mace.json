@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:umbar_mace",
+    "id": "me:umbar_mace",
     "count": 1
   }
 }

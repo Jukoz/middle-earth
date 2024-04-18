@@ -25,12 +25,10 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ArtisanRecipe implements Recipe<Inventory> {
-    public final Identifier id;
     public final ItemStack output;
     public final List<Ingredient> inputs;
 
-    public ArtisanRecipe(Identifier id, ItemStack output, List<Ingredient> recipeItems) {
-        this.id = id;
+    public ArtisanRecipe(ItemStack output, List<Ingredient> recipeItems) {
         this.output = output;
         this.inputs = recipeItems;
     }
@@ -109,7 +107,6 @@ public class ArtisanRecipe implements Recipe<Inventory> {
 
         protected Serializer() {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-                    Identifier.CODEC.fieldOf("id").forGetter(recipe -> recipe.id),
                     ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
                     Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs)
             ).apply(instance, ArtisanRecipe::new));
@@ -128,16 +125,14 @@ public class ArtisanRecipe implements Recipe<Inventory> {
         }
 
         private static ArtisanRecipe read(RegistryByteBuf buf) {
-            Identifier id = buf.readIdentifier();
             ItemStack output = ItemStack.PACKET_CODEC.decode(buf);
             int i = buf.readVarInt();
             DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i, Ingredient.EMPTY);
             defaultedList.replaceAll(empty -> Ingredient.PACKET_CODEC.decode(buf));
-            return new ArtisanRecipe(id, output, defaultedList);
+            return new ArtisanRecipe(output, defaultedList);
         }
 
         private static void write(RegistryByteBuf buf, ArtisanRecipe recipe) {
-            buf.writeIdentifier(recipe.id);
             ItemStack.PACKET_CODEC.encode(buf, recipe.output);
             buf.writeVarInt(recipe.inputs.size());
             for (Ingredient ingredient : recipe.inputs) {

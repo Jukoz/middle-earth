@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:dalish_polearm",
+    "id": "me:dalish_polearm",
     "count": 1
   }
 }

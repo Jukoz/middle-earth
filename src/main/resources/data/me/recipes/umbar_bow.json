@@ -6,7 +6,7 @@
     }
   ],
   "output": {
-    "item": "me:umbar_bow",
+    "id": "me:umbar_bow",
     "count": 1
   }
 }

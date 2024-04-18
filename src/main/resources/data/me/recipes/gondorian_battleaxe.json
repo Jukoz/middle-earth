@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_battleaxe",
+    "id": "me:gondorian_battleaxe",
     "count": 1
   }
 }

@@ -12,7 +12,7 @@
     }
   },
   "result": {
-    "item": "me:wood_pile",
+    "id": "me:wood_pile",
     "count": 1
   }
 }

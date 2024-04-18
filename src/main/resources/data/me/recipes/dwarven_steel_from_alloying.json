@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:dwarven_steel_ingot",
+    "id": "me:dwarven_steel_ingot",
     "count": 3
   }
 }

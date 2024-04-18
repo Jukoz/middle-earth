@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:longbeard_pike",
+    "id": "me:longbeard_pike",
     "count": 1
   }
 }

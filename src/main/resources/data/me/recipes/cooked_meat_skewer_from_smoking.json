@@ -1,9 +1,12 @@
 {
-  "type": "minecraft:campfire_cooking",
+  "type": "minecraft:smoking",
+  "category": "food",
+  "cookingtime": 100,
+  "experience": 0.35,
   "ingredient": {
     "item": "me:meat_skewer"
   },
-  "result": "me:cooked_meat_skewer",
-  "experience": 0.1,
-  "cookingtime": 250
+  "result": {
+    "id": "me:cooked_meat_skewer"
+  }
 }

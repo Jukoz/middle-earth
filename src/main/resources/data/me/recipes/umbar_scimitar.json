@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:umbar_scimitar",
+    "id": "me:umbar_scimitar",
     "count": 1
   }
 }

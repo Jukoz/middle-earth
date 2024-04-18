@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:gambeson",
+    "id": "me:gambeson",
     "count": 1
   }
 }

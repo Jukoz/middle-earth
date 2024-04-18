@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:rohirric_royal_guard_helmet",
+    "id": "me:rohirric_royal_guard_helmet",
     "count": 1
   }
 }

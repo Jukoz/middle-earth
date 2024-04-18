@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_shield",
+    "id": "me:gondorian_shield",
     "count": 1
   }
 }

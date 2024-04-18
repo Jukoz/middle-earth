@@ -9,7 +9,7 @@
     }
   ],
   "output": {
-    "item": "me:mordor_orc_dagger",
+    "id": "me:mordor_orc_dagger",
     "count": 1
   }
 }

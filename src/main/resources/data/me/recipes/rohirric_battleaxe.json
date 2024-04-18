@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:rohirric_battleaxe",
+    "id": "me:rohirric_battleaxe",
     "count": 1
   }
 }

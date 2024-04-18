@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:misty_goblin_mail_chestplate",
+    "id": "me:misty_goblin_mail_chestplate",
     "count": 1
   }
 }

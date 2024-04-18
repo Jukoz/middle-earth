@@ -9,7 +9,7 @@
     }
   ],
   "output": {
-    "item": "me:longbeard_dagger",
+    "id": "me:longbeard_dagger",
     "count": 1
   }
 }

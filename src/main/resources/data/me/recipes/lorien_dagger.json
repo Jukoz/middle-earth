@@ -9,7 +9,7 @@
     }
   ],
   "output": {
-    "item": "me:lorien_dagger",
+    "id": "me:lorien_dagger",
     "count": 1
   }
 }

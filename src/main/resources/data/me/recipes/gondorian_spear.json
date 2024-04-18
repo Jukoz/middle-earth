@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_spear",
+    "id": "me:gondorian_spear",
     "count": 1
   }
 }

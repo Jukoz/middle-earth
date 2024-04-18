@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:uruk_steel_ingot",
+    "id": "me:uruk_steel_ingot",
     "count": 3
   }
 }

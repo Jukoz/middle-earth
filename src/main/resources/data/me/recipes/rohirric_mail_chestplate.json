@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:rohirric_mail_chestplate",
+    "id": "me:rohirric_mail_chestplate",
     "count": 1
   }
 }

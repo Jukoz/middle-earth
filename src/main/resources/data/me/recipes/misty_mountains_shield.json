@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:misty_mountains_shield",
+    "id": "me:misty_mountains_shield",
     "count": 1
   }
 }

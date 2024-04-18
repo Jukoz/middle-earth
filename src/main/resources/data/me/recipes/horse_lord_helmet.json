@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:horse_lord_helmet",
+    "id": "me:horse_lord_helmet",
     "count": 1
   }
 }

@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:lorien_spear",
+    "id": "me:lorien_spear",
     "count": 1
   }
 }
