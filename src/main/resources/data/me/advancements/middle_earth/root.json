@@ -16,7 +16,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:starlight_phial"
+      "count": 1,
+      "id":  "me:starlight_phial"
     },
     "show_toast": true,
     "title": {

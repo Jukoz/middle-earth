@@ -1,7 +1,24 @@
 {
+  "display": {
+    "icon": {
+      "id": "me:bronze_ingot",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.alloy.bronze_ingot.title"
+    },
+    "description": {
+      "translate": "advancements.alloy.bronze_ingot.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
   "parent": "me:alloy/root",
   "criteria": {
     "bronze_ingot": {
+      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -10,28 +27,13 @@
             ]
           }
         ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    }
-  },
-  "display": {
-    "announce_to_chat": true,
-    "description": {
-      "translate": "advancements.alloy.bronze_ingot.description"
-    },
-    "frame": "task",
-    "hidden": false,
-    "icon": {
-      "item": "me:bronze_ingot"
-    },
-    "show_toast": true,
-    "title": {
-      "translate": "advancements.alloy.bronze_ingot.title"
+      }
     }
   },
   "requirements": [
     [
       "bronze_ingot"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

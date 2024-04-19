@@ -22,7 +22,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:elven_steel_ingot"
+      "count": 1,
+      "id":  "me:elven_steel_ingot"
     },
     "show_toast": true,
     "title": {

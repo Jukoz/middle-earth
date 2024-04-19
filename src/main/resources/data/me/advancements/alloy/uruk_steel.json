@@ -22,7 +22,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:uruk_steel_ingot"
+      "count": 1,
+      "id":  "me:uruk_steel_ingot"
     },
     "show_toast": true,
     "title": {
