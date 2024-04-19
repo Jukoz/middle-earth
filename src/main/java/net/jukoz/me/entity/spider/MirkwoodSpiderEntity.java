@@ -179,6 +179,6 @@ public class MirkwoodSpiderEntity extends HostileEntity {
     }
 
     static {
-        SPIDER_FLAGS = DataTracker.registerData(net.minecraft.entity.mob.SpiderEntity.class, TrackedDataHandlerRegistry.BYTE);
+        SPIDER_FLAGS = DataTracker.registerData(MirkwoodSpiderEntity.class, TrackedDataHandlerRegistry.BYTE);
     }
 }
