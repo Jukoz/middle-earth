@@ -38,7 +38,7 @@
   },
   "requirements": [
     [
-      "me:lothlorien"
+      "lothlorien"
     ]
   ],
   "sends_telemetry_event": true
