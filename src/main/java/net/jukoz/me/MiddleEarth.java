@@ -5,6 +5,7 @@ import net.jukoz.me.block.*;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.item.*;
+import net.jukoz.me.item.utils.ModBannerPatterns;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.registries.ModRegistries;
@@ -57,6 +58,7 @@ public class MiddleEarth implements ModInitializer {
 		ModRegistries.registerAgingCopperBlocks();
 		ModRegistries.registerComposterBlocks();
 		ModRegistries.registerCauldronBehaviour();
+
 
 		ModBlockEntities.registerBlockEntities();
 
