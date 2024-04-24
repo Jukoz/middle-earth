@@ -58,6 +58,7 @@ import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.particles.custom.LeavesParticle;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.color.item.ItemColorProvider;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.color.world.GrassColors;
@@ -65,8 +66,11 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 public class MiddleEarthClient implements ClientModInitializer {
@@ -146,10 +150,10 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SPEAR, JavelinEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
 
-        /*registerDyeableItem(ModEquipmentItems.TUNIC_CLOAK);
+        registerDyeableItem(ModEquipmentItems.TUNIC_CLOAK);
         registerDyeableItem(ModEquipmentItems.CLOAK);
         registerDyeableItem(ModEquipmentItems.CLOAK_HOOD);
-        registerDyeableItem(ModEquipmentItems.GAMBESON);*/
+        registerDyeableItem(ModEquipmentItems.GAMBESON);
 
         // Animals
         EntityRendererRegistry.register(ModEntities.CRAB, CrabRenderer::new);
@@ -350,7 +354,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModResourceItems.REEDS, RenderLayer.getCutout());
     }
 
-    /*private void registerDyeableItem(Item item) {
-        ColorProviderRegistry.ITEM.register((stack, layer) -> layer == 0 ? ((DyeableItem)stack.getItem()).getColor(stack) : 0xFFFFFF, item);
-    }*/
+    private void registerDyeableItem(Item item) {
+        ColorProviderRegistry.ITEM.register((stack, layer) -> layer == 0 ? DyedColorComponent.getColor(stack, DyedColorComponent.DEFAULT_COLOR) : 0xFFFFFF, item);
+    }
 }
