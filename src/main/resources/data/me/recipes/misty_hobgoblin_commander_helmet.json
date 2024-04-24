@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:misty_hobgoblin_commander_helmet",
+    "id": "me:misty_hobgoblin_commander_helmet",
     "count": 1
   }
 }

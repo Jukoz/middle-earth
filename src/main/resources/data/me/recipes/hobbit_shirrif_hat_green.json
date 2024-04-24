@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:hobbit_shirriff_hat_green",
+    "id": "me:hobbit_shirriff_hat_green",
     "count": 1
   }
 }

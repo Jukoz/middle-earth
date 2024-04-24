@@ -9,7 +9,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "me:misty_mountains"
+                "biomes": "me:misty_mountains"
               }
             }
           }
@@ -26,7 +26,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "minecraft:snow_block"
+      "count": 1,
+      "id": "minecraft:snow_block"
     },
     "show_toast": true,
     "title": {

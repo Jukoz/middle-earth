@@ -2,6 +2,7 @@ package net.jukoz.me.world.features.tree.trunks;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.world.gen.ModTreeGeneration;
 import net.minecraft.block.BlockState;
@@ -28,7 +29,7 @@ public class LargeTrunkPlacer extends TrunkPlacer {
     protected final int iterations;
     protected final float iterationPercentage;
 
-    public static final Codec<LargeTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> {
+    public static final MapCodec<LargeTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
         return instance.group(
                 Codec.intRange(0,90).fieldOf("base_height").forGetter((trunkPlacer) -> {
                     return trunkPlacer.baseHeight;

@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:tunic_cloak",
+    "id": "me:tunic_cloak",
     "count": 1
   }
 }

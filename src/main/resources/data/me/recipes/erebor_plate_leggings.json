@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:erebor_plate_leggings",
+    "id": "me:erebor_plate_leggings",
     "count": 1
   }
 }

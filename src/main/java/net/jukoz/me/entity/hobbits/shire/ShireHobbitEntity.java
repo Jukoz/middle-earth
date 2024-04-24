@@ -14,25 +14,28 @@ import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.items.PebbleItem;
+import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeableItem;
+import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class ShireHobbitEntity extends NpcEntity {
     private static float FLEE_DISTANCE = 8f;
@@ -54,8 +57,8 @@ public class ShireHobbitEntity extends NpcEntity {
 
     @Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        entityData = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        entityData = super.initialize(world, difficulty, spawnReason, entityData);
         Random random = world.getRandom();
         this.initEquipment(random, difficulty);
         return entityData;
@@ -137,17 +140,17 @@ public class ShireHobbitEntity extends NpcEntity {
                     0x665723
             };
             int colorIndex = random.nextInt(3);
-            DyeableItem itemHood = (DyeableItem)ModEquipmentItems.CLOAK_HOOD;
-            DyeableItem item = (DyeableItem)ModEquipmentItems.CLOAK;
-            ItemStack stack = new ItemStack((Item)item);
-            item.setColor(stack, colors[colorIndex]);
+            ItemStack cloakHood = new ItemStack((Item)ModEquipmentItems.CLOAK_HOOD);
+            ItemStack cloak = new ItemStack((Item)ModEquipmentItems.CLOAK);
+
+            DyedColorComponent.setColor(cloak, List.of(DyeItem.byColor(DyeColor.byId(colors[colorIndex]))));
+
 
             if(randomVal < 0.07f) {
-                ItemStack stackHood = new ItemStack((Item)itemHood);
-                itemHood.setColor(stackHood, colors[colorIndex]);
-                equipStack(EquipmentSlot.HEAD, stackHood);
+                DyedColorComponent.setColor(cloakHood, List.of(DyeItem.byColor(DyeColor.byId(colors[colorIndex]))));
+                equipStack(EquipmentSlot.HEAD, cloakHood);
             }
-            equipStack(EquipmentSlot.CHEST, stack);
+            equipStack(EquipmentSlot.CHEST, cloak);
         }
     }
 
@@ -167,13 +170,12 @@ public class ShireHobbitEntity extends NpcEntity {
         }
     }
 
-
     public ShireHobbitVariant getVariant() {
         return ShireHobbitVariant.byId(this.getId());
     }
 
     @Override
-    public void attack(LivingEntity target, float pullProgress) {
+    public void shootAt(LivingEntity target, float pullProgress) {
         Item item = ModResourceItems.PEBBLE;
         ItemStack itemStack = new ItemStack(item);
         double d = target.getX() - this.getX();

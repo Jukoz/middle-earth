@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:dalish_spear",
+    "id": "me:dalish_spear",
     "count": 1
   }
 }

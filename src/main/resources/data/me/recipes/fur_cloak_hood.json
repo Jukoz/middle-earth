@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:fur_cloak_hood",
+    "id": "me:fur_cloak_hood",
     "count": 1
   }
 }

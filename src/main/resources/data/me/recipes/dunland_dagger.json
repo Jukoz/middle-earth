@@ -9,7 +9,7 @@
     }
   ],
   "output": {
-    "item": "me:dunland_dagger",
+    "id": "me:dunland_dagger",
     "count": 1
   }
 }

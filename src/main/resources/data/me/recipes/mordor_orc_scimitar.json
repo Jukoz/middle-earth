@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:mordor_orc_scimitar",
+    "id": "me:mordor_orc_scimitar",
     "count": 1
   }
 }

@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_reinforced_mail_helmet",
+    "id": "me:gondorian_reinforced_mail_helmet",
     "count": 1
   }
 }

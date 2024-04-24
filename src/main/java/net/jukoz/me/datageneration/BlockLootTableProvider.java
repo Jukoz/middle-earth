@@ -25,6 +25,8 @@ import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.item.EnchantmentPredicate;
+import net.minecraft.predicate.item.EnchantmentsPredicate;
+import net.minecraft.predicate.item.ItemSubPredicateTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.loot.condition.TableBonusLootCondition;
 import net.minecraft.loot.entry.LeafEntry;
@@ -32,17 +34,19 @@ import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.registry.RegistryWrapper;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class BlockLootTableProvider extends FabricBlockLootTableProvider {
-    protected static final LootCondition.Builder WITH_SILK_TOUCH = MatchToolLootCondition.builder(ItemPredicate.Builder.create()
-            .enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, NumberRange.IntRange.atLeast(1))));
     protected static final LootCondition.Builder WITH_SHEARS = MatchToolLootCondition.builder(ItemPredicate.Builder.create().items(Items.SHEARS));
     private static final LootCondition.Builder WITH_SILK_TOUCH_OR_SHEARS = WITH_SHEARS.or(WITH_SILK_TOUCH);
     private static final LootCondition.Builder WITHOUT_SILK_TOUCH_NOR_SHEARS = WITH_SILK_TOUCH_OR_SHEARS.invert();
     private static final float[] LEAVES_STICK_DROP_CHANCE = new float[]{0.02f, 0.022222223f, 0.025f, 0.033333335f, 0.1f};
 
-    protected BlockLootTableProvider(FabricDataOutput dataOutput) {
-        super(dataOutput);
+    protected BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(dataOutput, registryLookup);
     }
 
     @Override
@@ -95,10 +99,10 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         }
 
         for(Block block : TintableCrossModel.grassLikeBlocks) {
-            addDrop(block, grassDrops(block));
+            addDrop(block, shortPlantDrops(block));
         }
         for(Block block : TintableCrossModel.tintedBlocks) {
-            addDrop(block, grassDrops(block));
+            addDropWithSilkTouch(block);
         }
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
@@ -139,7 +143,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                                 .rolls(ConstantLootNumberProvider.create(1.0F))
                                 .with(ItemEntry.builder(stoneBlock)))
                         .pool(LootPool.builder()
-                                .conditionally(WITH_SILK_TOUCH.invert())
+                                .conditionally(WITHOUT_SILK_TOUCH)
                                 .rolls(ConstantLootNumberProvider.create(1.0F))
                                 .with(ItemEntry.builder(cobbledBlock))));
     }

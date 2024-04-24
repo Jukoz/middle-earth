@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:mordor_black_uruk_scale_helmet",
+    "id": "me:mordor_black_uruk_scale_helmet",
     "count": 1
   }
 }

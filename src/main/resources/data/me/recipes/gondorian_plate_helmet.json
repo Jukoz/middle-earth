@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_plate_helmet",
+    "id": "me:gondorian_plate_helmet",
     "count": 1
   }
 }

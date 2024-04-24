@@ -94,10 +94,6 @@ public class CrabEntity extends WaterCreatureEntity {
     }
 
 
-    public boolean canBreatheInWater() {
-        return true;
-    }
-
     public boolean isPushedByFluids() {
         return false;
     }

@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:bronze_ingot",
+    "id": "me:bronze_ingot",
     "count": 4
   }
 }

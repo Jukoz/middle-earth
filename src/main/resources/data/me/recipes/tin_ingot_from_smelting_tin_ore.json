@@ -3,7 +3,9 @@
   "ingredient": {
     "tag": "me:tin_ores"
   },
-  "result": "me:tin_ingot",
+  "result": {
+    "id": "me:tin_ingot"
+  },
   "experience": 0.7,
   "cookingtime": 200
 }

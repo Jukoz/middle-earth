@@ -8,26 +8,17 @@ import net.jukoz.me.client.model.equipment.chest.CustomChestplateModel;
 import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
 import net.jukoz.me.client.model.equipment.head.CustomHelmetModel;
 import net.jukoz.me.client.model.equipment.InnerArmorModel;
-import net.jukoz.me.utils.IntToRGB;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.ArmorEntityModel;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeableItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-
-import java.awt.*;
 
 public class ModArmorRenderer implements ArmorRenderer {
     private  Identifier ARMOR_LAYER_0;
@@ -160,20 +151,21 @@ public class ModArmorRenderer implements ArmorRenderer {
 
 
     static void renderArmor(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture, boolean dyeable){
-        if(dyeable){
+        /*if(dyeable){
             renderDyeable(matrices, vertexConsumers, light, stack, model, texture);
             if(!(model == capeModel)){
                 renderDyeable(matrices, vertexConsumers, light, stack, model, new Identifier(MiddleEarth.MOD_ID,
                         texture.getPath().replaceAll(".png", "_overlay.png")));
             }
-        } else {
+        } else {*/
             ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, texture);
-        }
+        //}
     }
 
-    static void renderDyeable(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture) {
+    //TODO fix dyeable = tag + new rendering
+    /*static void renderDyeable(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture) {
         VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), false, stack.hasGlint());
         Color rgb = IntToRGB.ex(((DyeableItem)stack.getItem()).getColor(stack));
         model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, rgb.getRed()/255f, rgb.getGreen()/255f, rgb.getBlue()/255f, 1.0F);
-    }
+    }*/
 }

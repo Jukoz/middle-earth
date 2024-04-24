@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:erebor_mail_boots",
+    "id": "me:erebor_mail_boots",
     "count": 1
   }
 }

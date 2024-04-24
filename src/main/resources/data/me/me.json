@@ -1,7 +1,8 @@
 {
   "display": {
-    "icon": {
-      "item": "me:mithril_ingot"
+        "icon": {
+      "count": 1,
+      "id":  "me:mithril_ingot"
     },
     "title": "Middle Earth",
     "description": "One Advancement to rule them all",

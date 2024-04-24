@@ -1,5 +1,6 @@
 package net.jukoz.me.block.special;
 
+import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.StoneBlockSets;
 import net.minecraft.block.*;
 import net.minecraft.registry.tag.BlockTags;
@@ -12,10 +13,16 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
 public class MordorPlant extends PlantBlock implements Fertilizable {
+    public static final MapCodec<MordorPlant> CODEC = MordorPlant.createCodec(MordorPlant::new);
     protected static final VoxelShape SHAPE = Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 13.0, 14.0);
 
     public MordorPlant(AbstractBlock.Settings settings) {
         super(settings);
+    }
+
+    @Override
+    protected MapCodec<MordorPlant> getCodec() {
+        return CODEC;
     }
 
     @Override
@@ -30,7 +37,7 @@ public class MordorPlant extends PlantBlock implements Fertilizable {
     }
 
     @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
         return true;
     }
 

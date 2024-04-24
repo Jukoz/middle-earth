@@ -17,7 +17,8 @@ public class CustomTallPlantBlock extends TallPlantBlock implements Fertilizable
         this.randomBoneMeal = random;
     }
 
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
+    @Override
+    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
         return true;
     }
 

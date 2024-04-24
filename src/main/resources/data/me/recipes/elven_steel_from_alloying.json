@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:elven_steel_ingot",
+    "id": "me:elven_steel_ingot",
     "count": 3
   }
 }

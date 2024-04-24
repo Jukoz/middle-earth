@@ -23,6 +23,7 @@ import net.minecraft.item.Items;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -39,7 +40,7 @@ import java.util.function.Predicate;
 public class SwanEntity extends AnimalEntity {
 
     public static final Ingredient BREEDING_INGREDIENT
-            = Ingredient.ofItems(Items.GRASS, Items.WHEAT_SEEDS);
+            = Ingredient.fromTag(ItemTags.CHICKEN_FOOD);
     public float flapProgress;
     public float maxWingDeviation;
     public float prevMaxWingDeviation;
@@ -157,10 +158,6 @@ public class SwanEntity extends AnimalEntity {
         return SwanVariant.byId(this.getId());
     }
 
-
-    public boolean canBreatheInWater() {
-        return false;
-    }
 
     public boolean isPushedByFluids() {
         return true;

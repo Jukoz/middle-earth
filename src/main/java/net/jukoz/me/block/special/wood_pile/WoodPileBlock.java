@@ -1,13 +1,16 @@
 package net.jukoz.me.block.special.wood_pile;
 
+import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.FurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.IntProperty;
@@ -25,14 +28,19 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Random;
 
 public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvider {
-
     public static final IntProperty STAGE = IntProperty.of("stage", 0, 2);
     public static final DirectionProperty HORIZONTAL_FACING = Properties.HORIZONTAL_FACING;
     private static final VoxelShape STAGE_0, STAGE_1, STAGE_2;
+    public static final MapCodec<WoodPileBlock> CODEC = FurnaceBlock.createCodec(WoodPileBlock::new);
 
     public WoodPileBlock(Settings settings) {
         super(settings);
         this.setDefaultState((this.stateManager.getDefaultState()).with(HORIZONTAL_FACING, Direction.NORTH).with(STAGE, 0));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Override
@@ -62,14 +70,14 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world.isClient) {
             return ActionResult.SUCCESS;
-        } else {
-            if(player.isCreative()){
+        }  else {
+            if (player.isCreative()) {
                 world.setBlockState(pos, state.cycle(STAGE));
             } else {
-                if (addStackRightClick(world, pos, player, hand)) {
+                if (addStackRightClick(world, pos, player, player.getActiveHand())) {
                     NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
                     if (screenHandlerFactory != null) {
                         player.openHandledScreen(screenHandlerFactory);

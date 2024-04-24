@@ -22,7 +22,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:artisan_table"
+      "count": 1,
+      "id":  "me:artisan_table"
     },
     "show_toast": true,
     "title": {

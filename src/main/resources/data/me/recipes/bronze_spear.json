@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:bronze_spear",
+    "id": "me:bronze_spear",
     "count": 1
   }
 }

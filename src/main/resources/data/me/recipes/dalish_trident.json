@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:dalish_trident",
+    "id": "me:dalish_trident",
     "count": 1
   }
 }

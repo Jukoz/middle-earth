@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_reinforced_mail_leggings",
+    "id": "me:gondorian_reinforced_mail_leggings",
     "count": 1
   }
 }

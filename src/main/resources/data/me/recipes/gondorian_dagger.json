@@ -9,7 +9,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_dagger",
+    "id": "me:gondorian_dagger",
     "count": 1
   }
 }

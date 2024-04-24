@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:dalish_pike",
+    "id": "me:dalish_pike",
     "count": 1
   }
 }

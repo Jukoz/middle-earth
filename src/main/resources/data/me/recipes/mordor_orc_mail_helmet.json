@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:mordor_orc_mail_helmet",
+    "id": "me:mordor_orc_mail_helmet",
     "count": 1
   }
 }

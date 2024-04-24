@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:anduin_battleaxe",
+    "id": "me:anduin_battleaxe",
     "count": 1
   }
 }

@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:lorien_commander_helmet",
+    "id": "me:lorien_commander_helmet",
     "count": 1
   }
 }

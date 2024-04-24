@@ -1,6 +1,7 @@
 package net.jukoz.me.world.features.tree.foliages;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.block.special.ModLeavesBlock;
 import net.jukoz.me.world.gen.ModTreeGeneration;
@@ -20,7 +21,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
     protected final float acceleration;
     protected final float velocity;
 
-    public static final Codec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+    public static final MapCodec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
             Codec.intRange(0,16).fieldOf("baseHeight").forGetter((trunkPlacer) -> {
                 return trunkPlacer.baseHeight;
             }), IntProvider.createValidatingCodec(0, 16).fieldOf("baseRadius").forGetter((trunkPlacer) -> {

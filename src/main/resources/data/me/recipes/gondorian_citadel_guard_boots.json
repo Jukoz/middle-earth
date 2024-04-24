@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_citadel_guard_boots",
+    "id": "me:gondorian_citadel_guard_boots",
     "count": 1
   }
 }

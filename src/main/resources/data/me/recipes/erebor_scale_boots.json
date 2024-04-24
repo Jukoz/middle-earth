@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:erebor_scale_boots",
+    "id": "me:erebor_scale_boots",
     "count": 1
   }
 }

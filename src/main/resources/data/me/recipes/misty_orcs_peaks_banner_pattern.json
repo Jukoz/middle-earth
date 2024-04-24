@@ -9,7 +9,7 @@
     }
   ],
   "output": {
-    "item": "me:misty_orcs_peaks_banner_pattern",
+    "id": "me:misty_orcs_peaks_banner_pattern",
     "count": 1
   }
 }

@@ -1,5 +1,6 @@
 package net.jukoz.me.block.special;
 
+import com.mojang.serialization.MapCodec;
 import net.jukoz.me.item.ModFoodItems;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
@@ -28,6 +29,7 @@ import net.minecraft.world.event.GameEvent;
 
 public class ToughBerryBushBlock extends PlantBlock
         implements Fertilizable {
+    public static final MapCodec<ToughBerryBushBlock> CODEC = ToughBerryBushBlock.createCodec(ToughBerryBushBlock::new);
     public static final int MAX_AGE = 3;
     public static final IntProperty AGE = Properties.AGE_3;
     private static final VoxelShape SMALL_SHAPE = Block.createCuboidShape(3.0, 0.0, 3.0, 13.0, 8.0, 13.0);
@@ -39,7 +41,12 @@ public class ToughBerryBushBlock extends PlantBlock
     }
 
     @Override
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+    protected MapCodec<ToughBerryBushBlock> getCodec() {
+        return CODEC;
+    }
+
+    @Override
+    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
         return new ItemStack(ModFoodItems.TOUGH_BERRIES);
     }
 
@@ -85,7 +92,8 @@ public class ToughBerryBushBlock extends PlantBlock
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        Hand hand = player.getActiveHand();
         boolean bl;
         int i = state.get(AGE);
         boolean bl2 = bl = i == MAX_AGE;
@@ -101,7 +109,7 @@ public class ToughBerryBushBlock extends PlantBlock
             world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, blockState));
             return ActionResult.success(world.isClient);
         }
-        return super.onUse(state, world, pos, player, hand, hit);
+        return super.onUse(state, world, pos, player, hit);
     }
 
     @Override
@@ -110,7 +118,7 @@ public class ToughBerryBushBlock extends PlantBlock
     }
 
     @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
         return state.get(AGE) < MAX_AGE;
     }
 

@@ -9,7 +9,13 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "me:mordor"
+                "biomes": [
+                  "me:mordor",
+                  "me:mordor_mountains",
+                  "me:mordor_mountains_foothills",
+                  "me:mordor_wastes",
+                  "me:nurn"
+                ]
               }
             }
           }
@@ -26,7 +32,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:ashen_stone"
+      "count": 1,
+      "id":  "me:ashen_stone"
     },
     "show_toast": true,
     "title": {

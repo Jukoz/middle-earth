@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_mail_leggings",
+    "id": "me:gondorian_mail_leggings",
     "count": 1
   }
 }

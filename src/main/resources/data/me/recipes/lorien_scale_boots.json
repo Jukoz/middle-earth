@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:lorien_scale_boots",
+    "id": "me:lorien_scale_boots",
     "count": 1
   }
 }

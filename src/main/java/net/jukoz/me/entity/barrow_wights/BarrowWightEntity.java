@@ -94,11 +94,10 @@ public class BarrowWightEntity extends HostileEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.getDataTracker().startTracking(CAN_SCREAM, true);
-        this.getDataTracker().startTracking(SCREAMING_TIME, 0);
-
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(CAN_SCREAM, true);
+        builder.add(SCREAMING_TIME, 0);
     }
 
     public boolean canScream() {

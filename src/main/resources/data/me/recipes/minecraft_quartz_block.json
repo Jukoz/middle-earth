@@ -12,7 +12,7 @@
     "###"
   ],
   "result": {
-    "item": "minecraft:quartz_block"
+    "id": "minecraft:quartz_block"
   },
   "show_notification": true
 }

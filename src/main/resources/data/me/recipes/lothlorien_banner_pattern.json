@@ -9,7 +9,7 @@
     }
   ],
   "output": {
-    "item": "me:lothlorien_banner_pattern",
+    "id": "me:lothlorien_banner_pattern",
     "count": 1
   }
 }

@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:bronze_pike",
+    "id": "me:bronze_pike",
     "count": 1
   }
 }

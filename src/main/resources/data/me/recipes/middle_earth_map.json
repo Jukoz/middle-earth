@@ -14,7 +14,7 @@
     }
   },
   "result": {
-    "item": "me:middle_earth_map",
+    "id": "me:middle_earth_map",
     "count": 1
   }
 }

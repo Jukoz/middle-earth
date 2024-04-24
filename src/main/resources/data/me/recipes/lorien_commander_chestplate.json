@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:lorien_commander_chestplate",
+    "id": "me:lorien_commander_chestplate",
     "count": 1
   }
 }

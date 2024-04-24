@@ -135,7 +135,7 @@ public class MiddleEarthMapScreen extends Screen {
             if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
                 this.player = abstractClientPlayerEntity;
 
-                this.renderBackground(context);
+                this.renderBackground(context, mouseX, mouseY, delta);
                 this.drawWindow(context, mouseX, mouseY);
             } else{
                 this.player = null;
@@ -151,7 +151,7 @@ public class MiddleEarthMapScreen extends Screen {
         drawMaintTextures(context, x, y, mouseX, mouseY);
         Vec2f mapPlayerPos = getCoordinateOnMap((float)player.getBlockPos().getX(), (float)player.getBlockPos().getZ(), 4,4);
         if(ModDimensions.isInMiddleEarth(player.getWorld())){
-            context.drawTexture(this.player.getSkinTexture(),
+            context.drawTexture(this.player.getSkinTextures().texture(),
                     x + MARGIN + (int)mapPlayerPos.x - 4,
                     y + MARGIN + (int)mapPlayerPos.y - 4,
                     8, 8, 8, 8, 64, 64);
@@ -163,10 +163,10 @@ public class MiddleEarthMapScreen extends Screen {
             if(debug){
                 World world = this.player.getWorld();
                 Optional<RegistryKey<Biome>> biomeRegistry = world.getBiome(this.player.getBlockPos()).getKey();
-                MutableText text = MutableText.of(new LiteralTextContent("N/A"));
+                MutableText text = Text.literal("N/A");
                 if(biomeRegistry.isPresent()) {
                     String currentBiomeId = biomeRegistry.get().getValue().toString().replace(':', '.');
-                    text = MutableText.of(new LiteralTextContent("Biome: "));
+                    text = Text.literal("Biome: ");
                     text.append(Text.translatable("biome." + currentBiomeId));
 
                 }
@@ -313,16 +313,16 @@ public class MiddleEarthMapScreen extends Screen {
 
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if(!cursorIsOutsideOfMapBounds(mouseX, mouseY)){
             Vector2i coord = getWorldCoordinateOfCursor(mouseX, mouseY);
             coord.x /= pixelWeight;
             coord.y /= pixelWeight;
 
             cursorWorldCoordinate = coord;
-            zoom((int)Math.round(amount), true);
+            zoom((int)Math.round(horizontalAmount), true);
         }
-        return super.mouseScrolled(mouseX, mouseY, amount);
+        return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
     }
 
     private void zoom(int amount, boolean towardCursor){

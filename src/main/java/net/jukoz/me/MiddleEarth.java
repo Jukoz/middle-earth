@@ -5,6 +5,7 @@ import net.jukoz.me.block.*;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.item.*;
+import net.jukoz.me.item.utils.ModBannerPatterns;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.registries.ModRegistries;
@@ -34,7 +35,6 @@ public class MiddleEarth implements ModInitializer {
 		loggerUtil.logInfoMsg("");
 		loggerUtil.logInfoMsg("================ MiddleEarth ================");
 
-		ModStatusEffects.registerStatusEffects();
 		OreRockSets.registerModBlockSets();
 		ModWeaponItems.registerModItems();
 		ModEquipmentItems.registerModItems();
@@ -59,6 +59,7 @@ public class MiddleEarth implements ModInitializer {
 		ModRegistries.registerComposterBlocks();
 		ModRegistries.registerCauldronBehaviour();
 
+
 		ModBlockEntities.registerBlockEntities();
 
 		ModScreenHandlers.registerAllScreenHandlers();
@@ -69,6 +70,7 @@ public class MiddleEarth implements ModInitializer {
 
 		ModSounds.registerModSounds();
 		ModParticleTypes.registerParticleTypes();
+		ModStatusEffects.registerStatusEffects();
 
 		ModDimensions.register();
 		MEBiomeKeys.registerModBiomes();

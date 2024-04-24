@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:rohirric_horse_armor",
+    "id": "me:rohirric_horse_armor",
     "count": 1
   }
 }

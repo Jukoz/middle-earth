@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_fountain_guard_boots",
+    "id": "me:gondorian_fountain_guard_boots",
     "count": 1
   }
 }

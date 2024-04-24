@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:erebor_scale_leggings",
+    "id": "me:erebor_scale_leggings",
     "count": 1
   }
 }

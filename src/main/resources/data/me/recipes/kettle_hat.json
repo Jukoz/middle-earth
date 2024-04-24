@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:kettle_hat",
+    "id": "me:kettle_hat",
     "count": 1
   }
 }

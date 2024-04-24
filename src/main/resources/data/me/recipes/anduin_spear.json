@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:anduin_spear",
+    "id": "me:anduin_spear",
     "count": 1
   }
 }

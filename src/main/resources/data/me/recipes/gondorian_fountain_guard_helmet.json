@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_fountain_guard_helmet",
+    "id": "me:gondorian_fountain_guard_helmet",
     "count": 1
   }
 }

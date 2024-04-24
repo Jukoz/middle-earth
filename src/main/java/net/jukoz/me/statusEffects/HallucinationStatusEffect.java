@@ -3,20 +3,17 @@ package net.jukoz.me.statusEffects;
 import net.jukoz.me.utils.HallucinationData;
 import net.jukoz.me.utils.IEntityDataSaver;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.entry.RegistryEntry;
 
 import java.util.Map;
 
-public class Hallucination extends StatusEffect {
-    public Hallucination(){
-        super(
-                StatusEffectCategory.HARMFUL,
-                0x006666
-        );
+public class HallucinationStatusEffect extends StatusEffect {
+    public HallucinationStatusEffect(StatusEffectCategory statusEffectCategory, int i) {
+        super(statusEffectCategory, i);
     }
 
     @Override
@@ -25,9 +22,9 @@ public class Hallucination extends StatusEffect {
     }
 
     @Override
-    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
         if(entity instanceof PlayerEntity){
-            Map<StatusEffect, StatusEffectInstance> map = entity.getActiveStatusEffects();
+            Map<RegistryEntry<StatusEffect>, StatusEffectInstance> map = entity.getActiveStatusEffects();
             int ticksLeft = map.get(this).getDuration();
             if(ticksLeft != -1 && ticksLeft < HallucinationData.STOPPING_TICK)
                 HallucinationData.addHallucination((IEntityDataSaver) entity, -2);
@@ -35,13 +32,8 @@ public class Hallucination extends StatusEffect {
                 HallucinationData.addHallucination((IEntityDataSaver) entity, 2);
             }
         }
-    }
-    @Override
-    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        HallucinationData.resetHallucination((IEntityDataSaver) entity);
-        HallucinationData.addHallucination((IEntityDataSaver) entity, -100);
 
-        super.onRemoved(entity, attributes, amplifier);
+        return true;
     }
 
     public void stop(LivingEntity entity){

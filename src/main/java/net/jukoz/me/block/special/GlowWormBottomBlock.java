@@ -1,5 +1,6 @@
 package net.jukoz.me.block.special;
 
+import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.minecraft.block.*;
 import net.minecraft.util.math.Direction;
@@ -11,6 +12,11 @@ public class GlowWormBottomBlock extends AbstractPlantStemBlock {
 
     public GlowWormBottomBlock(AbstractBlock.Settings settings) {
         super(settings, Direction.DOWN, SHAPE, false, 0.05);
+    }
+
+    @Override
+    protected MapCodec<? extends AbstractPlantStemBlock> getCodec() {
+        return null;
     }
 
     protected int getGrowthLength(Random random) {

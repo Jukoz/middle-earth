@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:anduin_polearm",
+    "id": "me:anduin_polearm",
     "count": 1
   }
 }

@@ -1,44 +1,41 @@
 package net.jukoz.me.item.items;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.item.utils.ModArmorMaterials;
+import net.jukoz.me.item.utils.ExtendedArmorMaterial;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.DyeableItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class CustomChestplateItem extends ArmorItem implements DyeableItem {
-    private ModArmorMaterials material;
+public class CustomChestplateItem extends ArmorItem {
+    private ExtendedArmorMaterial material;
 
     private List<Customizations> customsList;
 
-    public CustomChestplateItem(ModArmorMaterials material, Type type, Settings settings, List<Customizations> customsList) {
-        super(material, type, settings);
+    public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings, List<Customizations> customsList) {
+        super(material.material(), type, settings.maxDamage(ArmorItem.Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
         this.material = material;
         this.customsList = customsList;
     }
 
-    public CustomChestplateItem(ModArmorMaterials material, Type type, Settings settings) {
-        super(material, type, settings);
+    public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings) {
+        super(material.material(), type, settings.maxDamage(ArmorItem.Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
         this.material = material;
         this.customsList = null;
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.of(""));
         if(Screen.hasShiftDown()){
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(material.getFaction()));
-            if(material.getSubFaction() != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(material.getSubFaction()));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(material.faction()));
+            if(material.subFaction() != null){
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(material.subFaction()));
             }
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier" + this.material.getTier()));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier" + this.material.tier()));
             tooltip.add(Text.of(""));
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
@@ -49,7 +46,7 @@ public class CustomChestplateItem extends ArmorItem implements DyeableItem {
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
                 this.customsList.forEach( custom ->{
                     if(custom.name.contains("dyeable")){
-                        tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name).append(": " + String.format("#%06X", (0xFFFFFF & this.getColor(stack)))));
+                        //tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name).append(": " + String.format("#%06X", (0xFFFFFF & this.getColor(stack)))));
                     } else {
                         tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name));
                     }
@@ -59,7 +56,7 @@ public class CustomChestplateItem extends ArmorItem implements DyeableItem {
             }
         }
 
-        super.appendTooltip(stack, world, tooltip, context);
+        super.appendTooltip(stack, context, tooltip, type);
     }
 
     public enum Customizations{

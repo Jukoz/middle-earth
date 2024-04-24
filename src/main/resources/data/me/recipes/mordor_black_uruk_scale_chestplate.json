@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:mordor_black_uruk_scale_chestplate",
+    "id": "me:mordor_black_uruk_scale_chestplate",
     "count": 1
   }
 }

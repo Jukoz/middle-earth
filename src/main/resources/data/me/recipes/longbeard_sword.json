@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:longbeard_sword",
+    "id": "me:longbeard_sword",
     "count": 1
   }
 }

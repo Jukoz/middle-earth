@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:gundabad_spear",
+    "id": "me:gundabad_spear",
     "count": 1
   }
 }
