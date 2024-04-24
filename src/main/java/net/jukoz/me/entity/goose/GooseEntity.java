@@ -34,6 +34,7 @@ import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -52,7 +53,7 @@ import java.util.function.Predicate;
 public class GooseEntity extends AnimalEntity {
 
     public static final Ingredient BREEDING_INGREDIENT
-            = Ingredient.ofItems(Items.WHEAT_SEEDS);
+            = Ingredient.fromTag(ItemTags.CHICKEN_FOOD);
     static final Predicate<ItemEntity> PICKABLE_DROP_FILTER;
     public float flapProgress;
     public float maxWingDeviation;

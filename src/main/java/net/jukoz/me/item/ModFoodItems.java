@@ -28,21 +28,21 @@ public class ModFoodItems {
 
     public static final Item RAW_GOOSE = registerItem("raw_goose",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(3).saturationModifier(0.3F).build())));
+                    new FoodComponent.Builder().nutrition(3).saturationModifier(0.3F).statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.3F).build())));
     public static final Item COOKED_GOOSE = registerItem("cooked_goose",
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(7).saturationModifier(0.8F).build())));
 
     public static final Item RAW_DUCK = registerItem("raw_duck",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(2).saturationModifier(0.3F).build())));
+                    new FoodComponent.Builder().nutrition(2).saturationModifier(0.3F).statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.3F).build())));
     public static final Item COOKED_DUCK = registerItem("cooked_duck",
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(6).saturationModifier(0.7F).build())));
 
     public static final Item RAW_SWAN = registerItem("raw_swan",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(3).saturationModifier(0.4F).build())));
+                    new FoodComponent.Builder().nutrition(3).saturationModifier(0.4F).statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.3F).build())));
     public static final Item COOKED_SWAN = registerItem("cooked_swan",
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(8).saturationModifier(0.8F).build())));

@@ -162,6 +162,7 @@ public class ModArmorRenderer implements ArmorRenderer {
         //}
     }
 
+    //TODO fix dyeable = tag + new rendering
     /*static void renderDyeable(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture) {
         VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), false, stack.hasGlint());
         Color rgb = IntToRGB.ex(((DyeableItem)stack.getItem()).getColor(stack));

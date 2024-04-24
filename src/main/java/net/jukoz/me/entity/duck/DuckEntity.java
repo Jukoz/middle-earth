@@ -17,6 +17,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -30,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 public class DuckEntity extends AnimalEntity {
 
     private static final Ingredient BREEDING_INGREDIENT
-            = Ingredient.ofItems(Items.WHEAT_SEEDS);
+            = Ingredient.fromTag(ItemTags.CHICKEN_FOOD);
     public float flapProgress;
     public float maxWingDeviation;
     public float prevMaxWingDeviation;

@@ -123,6 +123,7 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
         }
     }
 
+
     @Override
     public void markDirty() {
         /* if(world != null && !world.isClient()) {
