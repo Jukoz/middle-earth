@@ -23,6 +23,7 @@ public class MEBiomeFogData {
         DATA.put(MEBiomeKeys.MIRKWOOD_FOOTHILLS, new MEBiomeFogData(0.2f, 0.8f));
         DATA.put(MEBiomeKeys.MIRKWOOD_SWAMP, new MEBiomeFogData(0.15f, 0.7f));
         DATA.put(MEBiomeKeys.MISTY_MOUNTAINS, new MEBiomeFogData(-0.1f, 0.2f));
+        DATA.put(MEBiomeKeys.MISTY_MOUNTAINS_PEAKS, new MEBiomeFogData(-0.1f, 0.2f));
         DATA.put(MEBiomeKeys.NORTHERN_DUNLAND, new MEBiomeFogData(0.2f, 0.95f));
         DATA.put(MEBiomeKeys.THE_OLD_FOREST, new MEBiomeFogData(0.1f, 0.6f));
     };

@@ -125,9 +125,15 @@ public class ImageUtils {
                 }
 
 
-                Integer color = getMostOccuringColorFromBiomeList(colorOccurences);
-                result.setRGB(x, y, (color != null ) ? color : colorOccurences.get(0));
+                try {
+                    Integer color = getMostOccuringColorFromBiomeList(colorOccurences);
+                    result.setRGB(x, y, (color != null ) ? color : colorOccurences.get(0));
+                    colorOccurences.clear();
+                } catch (Exception exception) {
+                    //LoggerUtil.getInstance().logError("ImageUtils::Can't find color at [%s,%s]".formatted(x,y));
+                }
                 colorOccurences.clear();
+
             }
         }
         return result;
@@ -144,54 +150,62 @@ public class ImageUtils {
 
                 if(x % 2 == 1)
                     colorOccurences.add(result.getRGB(x - 1, y));
-                if(y % 2 == 1)
-                    colorOccurences.add(result.getRGB(x, y - 1));
                 if(x + 1 < result.getWidth())
                     colorOccurences.add(result.getRGB(x + 1, y));
+                if(y % 2 == 1)
+                    colorOccurences.add(result.getRGB(x, y - 1));
                 if(y + 1 < result.getHeight())
                     colorOccurences.add(result.getRGB(x, y + 1));
 
-                Integer color = getMostOccuringColorFromBiomeList(colorOccurences);
-                result.setRGB(x, y, (color != null ) ? color : colorOccurences.get(0));
+                try {
+                    Integer color = getMostOccuringColorFromBiomeList(colorOccurences);
+                    result.setRGB(x, y, (color != null ) ? color : colorOccurences.get(0));
+                } catch (Exception exception) {
+                    //LoggerUtil.getInstance().logError("ImageUtils::Can't find color at [%s,%s]".formatted(x,y));
+                }
                 colorOccurences.clear();
             }
         }
         return result;
     }
 
-    private static Integer getMostOccuringColorFromBiomeList(ArrayList<Integer> list){
+    private static Integer getMostOccuringColorFromBiomeList(ArrayList<Integer> list) throws Exception {
         if(list.isEmpty()){
             LoggerUtil.getInstance().logError("ImageUtils::getMostCommonColor - List was empty!");
             return null;
         }
+        Map<Integer, Integer> counts = new HashMap<>();
 
-        int mostCommonValueIndex = 0;
-        int mostCommonValueOccurenceAmount = 0;
 
-        ArrayList<Integer> sameMax = new ArrayList<>();
+        int max = 0;
+        for(int i = 0; i < list.size(); i++) {
+            var value = counts.get(list.get(i));
+            var expansionWeight = getExpansionWeight(list.get(i));
+            if(value != null)
+                expansionWeight += value;
 
-        for(int i = 0; i < list.size(); i++){
-            int count = 0;
-            int weight = MEBiomesData.getBiomeByColor(list.get(i)).expansionWeight[(MiddleEarthMapGeneration.CURRENT_ITERATION <= 1) ? 0 : 1];
+            counts.put(list.get(i), expansionWeight);
 
-            for(int j = 0; j < list.size(); j ++){
-                if(list.get(i).intValue() == list.get(j).intValue()){
-                    count += weight;
-                }
-            }
-
-            if(count > mostCommonValueOccurenceAmount){
-                mostCommonValueOccurenceAmount = count;
-                mostCommonValueIndex = i;
-            } else if(count == mostCommonValueOccurenceAmount && count == 2){
-                sameMax.add(i);
+            if(expansionWeight > max){
+                max = expansionWeight;
             }
         }
 
-        if(!sameMax.isEmpty())
-            mostCommonValueIndex = sameMax.get(random.nextInt(sameMax.size()));
+        list.clear();
 
-        return list.get(mostCommonValueIndex);
+        int finalMax = max;
+        counts.forEach((key, value) -> {
+            if(value == finalMax)
+                list.add(key);
+        });
+
+        if(list.size() == 1)
+            return list.get(0);
+        return list.get(random.nextInt(0, list.size()));
+    }
+
+    private static int getExpansionWeight(Integer integer) throws Exception{
+        return MEBiomesData.getBiomeByColor(integer).expansionWeight[(MiddleEarthMapGeneration.CURRENT_ITERATION <= 1) ? 0 : 1];
     }
 
 

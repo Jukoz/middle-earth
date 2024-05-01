@@ -123,7 +123,7 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.OLD_CARDOLAN, banditSpawnSettings);
         spawns.put(MEBiomeKeys.EREGION, goblinsAndBandits);
         spawns.put(MEBiomeKeys.ENEDWAITH, goblinsAndBandits);
-        spawns.put(MEBiomeKeys.MISTY_FOOTHILLS, goblinsAndCaveTrolls);
+        spawns.put(MEBiomeKeys.MISTY_MOUNTAINS_BASE, goblinsAndCaveTrolls);
         spawns.put(MEBiomeKeys.MISTY_MOUNTAINS, goblinsSpawnSettings);
         spawns.put(MEBiomeKeys.GREY_MOUNTAINS, wildGoblinsSpawnSettings);
         spawns.put(MEBiomeKeys.GREY_PLAINS, goblinsAndLongbeards);

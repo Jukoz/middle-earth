@@ -43,10 +43,12 @@ public class ModBiomes {
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 5951101, 5485154), false));
         context.register(MEBiomeKeys.BELFALAS_HILLS, createBelfalasBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6011255, 5614178), true));
-        context.register(MEBiomeKeys.BLUE_MOUNTAINS, createBlueMountainsBiome(context, new BiomeColorsDTO(
-                7903952, 12241898, defaultWater, defaultWaterFog, 6791282, 7773545), false));
-        context.register(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, createBlueMountainsBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.BLUE_MOUNTAINS_BASE, createBlueMountainsBiome(context, new BiomeColorsDTO(
                 7905261, 12241911, defaultWater, defaultWaterFog, 7125373, 8703593), true));
+        context.register(MEBiomeKeys.BLUE_MOUNTAINS, createBlueMountainsBiome(context, new BiomeColorsDTO(
+                7905261, 12241911, defaultWater, defaultWaterFog, 7125373, 8703593), true));
+        context.register(MEBiomeKeys.BLUE_MOUNTAINS_PEAKS, createBlueMountainsBiome(context, new BiomeColorsDTO(
+                7905261, 12241911, defaultWater, defaultWaterFog, 7125373, 8703593), false));
         context.register(MEBiomeKeys.CORSAIR_COASTS, createCorsairCoastBiome(context, new BiomeColorsDTO(
                 nearHaradSky, defaultFog, 5212644, 333363, 12107900, 10860366)));
         context.register(MEBiomeKeys.DALE, createDaleBiome(context, new BiomeColorsDTO(
@@ -134,19 +136,29 @@ public class ModBiomes {
         context.register(MEBiomeKeys.MINHIRIATH, createMinhiriathBiome(context, new BiomeColorsDTO(
                 defaultSky, 12637429, 4615389, 658236, 8626526, 8231005)));
         context.register(MEBiomeKeys.MIRKWOOD, createMirkwoodBiome(context, new BiomeColorsDTO(
-                6849446, 6780008, 4949147, 338483, 4151612, 3823415), true, false));
+                6849446, 6780008, 7111535, 338483, 4151612, 3823415), true, false));
         context.register(MEBiomeKeys.MIRKWOOD_EDGE, createMirkwoodBiome(context, new BiomeColorsDTO(
-                7578800, 7897724, 4293787, 338483, 4546876, 4284215), false, false));
-        context.register(MEBiomeKeys.MIRKWOOD_FOOTHILLS, createMirkwoodMountainsBiome(context, new BiomeColorsDTO(
-                7575984, 7897724, 4293787, 338483, 4546876, 4284215), true));
-        context.register(MEBiomeKeys.MIRKWOOD_MOUNTAINS, createMirkwoodMountainsBiome(context, new BiomeColorsDTO(
-                7972607, 9873053, 4293787, 338483, 4678724, 4482114), false));
+                7578800, 7897724, 7111535, 338483, 4546876, 4284215), false, false));
+        context.register(MEBiomeKeys.MIRKWOOD_FOOTHILLS, createMirkwoodBiome(context, new BiomeColorsDTO(
+                6849446, 6780008, 7111535, 338483, 4151612, 3823415), true, false));
+        context.register(MEBiomeKeys.MIRKWOOD_MOUNTAINS_BASE, createMirkwoodBiome(context, new BiomeColorsDTO(
+                6849446, 6780008, 7111535, 338483, 4151612, 3823415), true, false));
+        context.register(MEBiomeKeys.MIRKWOOD_MOUNTAINS, createMirkwoodBiome(context, new BiomeColorsDTO(
+                6849446, 6780008, 7111535, 338483, 4151612, 3823415), false, false));
+        context.register(MEBiomeKeys.MIRKWOOD_MOUNTAINS_PEAKS, createMirkwoodMountainsBiome(context, new BiomeColorsDTO(
+                7972607, 9873053, 7111535, 338483, 4678724, 4482114), false));
         context.register(MEBiomeKeys.MIRKWOOD_SWAMP, createMirkwoodSwampBiome(context, new BiomeColorsDTO(
-                6981536, 8821922, 5080729, 1458241, 4546876, 4284215)));
-        context.register(MEBiomeKeys.MISTY_FOOTHILLS, createMistyMountainsBiome(context, new BiomeColorsDTO(
+                6981536, 8821922, 7111535, 1458241, 4546876, 4284215)));
+        context.register(MEBiomeKeys.MIRKWOOD_MARSHES, createMirkwoodSwampBiome(context, new BiomeColorsDTO(
+                6981536, 8821922, 7111535, 1458241, 4546876, 4284215)));
+        context.register(MEBiomeKeys.MIRKWOOD_RIVER, createMirkwoodSwampBiome(context, new BiomeColorsDTO(
+                6981536, 8821922, 7111535, 1458241, 4546876, 4284215)));
+        context.register(MEBiomeKeys.MISTY_MOUNTAINS_BASE, createMistyMountainsBiome(context, new BiomeColorsDTO(
                 hillySky, defaultFog, defaultWater, defaultWaterFog, 7777673, 7316862), true));
         context.register(MEBiomeKeys.MISTY_MOUNTAINS, createMistyMountainsBiome(context, new BiomeColorsDTO(
-                9745151, 13426943, defaultWater, defaultWaterFog, 7643011, 7709826), false));
+                hillySky, defaultFog, defaultWater, defaultWaterFog, 7777673, 7316862), false));
+        context.register(MEBiomeKeys.MISTY_MOUNTAINS_PEAKS, createMistyMountainsBiome(context, new BiomeColorsDTO(
+                hillySky, defaultFog, defaultWater, defaultWaterFog, 7777673, 7316862), false));
         context.register(MEBiomeKeys.MORDOR, createMordorBiome(context, new BiomeColorsDTO(
                 2695203, 1905947, 6450777, 1513734, 3550502, 2169880)));
         context.register(MEBiomeKeys.MORDOR_MOUNTAINS, createMordorBiome(context, new BiomeColorsDTO(
@@ -176,6 +188,8 @@ public class ModBiomes {
         context.register(MEBiomeKeys.OLD_ANGMAR, createOldAngmarBiome(context, new BiomeColorsDTO(
                 8954077, 11781343, 4814544, 460593, 7443043, 6982236)));
         context.register(MEBiomeKeys.OLD_ARTHEDAIN, createOldArthedainBiome(context, new BiomeColorsDTO(
+                7907327, defaultFog, defaultWater, defaultWaterFog, 12508275, 11652468)));
+        context.register(MEBiomeKeys.OLD_ARTHEDAIN_FOOTHILL, createOldArthedainBiome(context, new BiomeColorsDTO(
                 7907327, defaultFog, defaultWater, defaultWaterFog, 12508275, 11652468)));
         context.register(MEBiomeKeys.OLD_CARDOLAN, createOldCardolanBiome(context, new BiomeColorsDTO(
                 defaultSky, 12637429, 4615389, 658236, 9154400, 9154400)));
