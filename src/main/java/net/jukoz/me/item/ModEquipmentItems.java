@@ -16,6 +16,10 @@ import java.util.List;
 
 public class ModEquipmentItems {
 
+    public static final Item GAMBESON_CAP = registerItem("gambeson_cap",
+            new CustomHelmetItem(ModArmorMaterials.GAMBESON_CAP, ArmorItem.Type.HELMET, new Item.Settings(), List.of(CustomHelmetItem.Customizations.DYEABLE)));
+    public static final Item GAMBESON_COWL = registerItem("gambeson_cowl",
+            new CustomHelmetItem(ModArmorMaterials.GAMBESON_COWL, ArmorItem.Type.HELMET, new Item.Settings(), List.of(CustomHelmetItem.Customizations.DYEABLE)));
     public static final Item GAMBESON = registerItem("gambeson",
             new CustomChestplateItem(ModArmorMaterials.GAMBESON, ArmorItem.Type.CHESTPLATE, new Item.Settings(), List.of(CustomChestplateItem.Customizations.DYEABLE)));
 
@@ -129,13 +133,13 @@ public class ModEquipmentItems {
     public static final Item ROHIRRIC_ROYAL_GUARD_BOOTS = registerGeneratedItem("rohirric_royal_guard_boots",
             new CustomBootsItem(ModArmorMaterials.ROHIRRIC_ROYAL_GUARD_ARMOR, ArmorItem.Type.BOOTS, new Item.Settings()));
 
-    public static final Item EORLING_MARSHALL_HELMET = registerGeneratedItem("eorling_marshall_helmet",
+    public static final Item EORLING_MARSHAL_HELMET = registerGeneratedItem("eorling_marshal_helmet",
             new CustomHelmetItem(ModArmorMaterials.EORLING_MARSHAL_ARMOR, ArmorItem.Type.HELMET, new Item.Settings()));
-    public static final Item EORLING_MARSHALL_CHESTPLATE = registerGeneratedItem("eorling_marshall_chestplate",
+    public static final Item EORLING_MARSHAL_CHESTPLATE = registerGeneratedItem("eorling_marshal_chestplate",
             new CustomChestplateItem(ModArmorMaterials.EORLING_MARSHAL_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings(), List.of(CustomChestplateItem.Customizations.CAPE)));
-    public static final Item EORLING_MARSHALL_LEGGINGS = registerGeneratedItem("eorling_marshall_leggings",
+    public static final Item EORLING_MARSHAL_LEGGINGS = registerGeneratedItem("eorling_marshal_leggings",
             new CustomLeggingsItem(ModArmorMaterials.EORLING_MARSHAL_ARMOR, ArmorItem.Type.LEGGINGS, new Item.Settings()));
-    public static final Item EORLING_MARSHALL_BOOTS = registerGeneratedItem("eorling_marshall_boots",
+    public static final Item EORLING_MARSHAL_BOOTS = registerGeneratedItem("eorling_marshal_boots",
             new CustomBootsItem(ModArmorMaterials.EORLING_MARSHAL_ARMOR, ArmorItem.Type.BOOTS, new Item.Settings()));
 
     public static final Item HORSE_LORD_HELMET = registerGeneratedItem("horse_lord_helmet",
@@ -202,8 +206,6 @@ public class ModEquipmentItems {
     public static final Item LONGBEARD_SHIELD = registerItem("longbeard_shield",
             new CustomShieldItem(new Item.Settings().maxCount(1).maxDamage(450), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards")));
 
-    public static final Item LORIEN_HORSE_ARMOR = registerGeneratedItem("lorien_horse_armor",
-            new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
 
     //LOTHLORIEN
     public static final Item LORIEN_MAIL_HELMET = registerGeneratedItem("lorien_mail_helmet",
@@ -244,6 +246,9 @@ public class ModEquipmentItems {
 
     public static final Item LORIEN_SHIELD = registerItem("lorien_shield",
             new CustomShieldItem(new Item.Settings().maxCount(1).maxDamage(450), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
+
+    public static final Item LORIEN_HORSE_ARMOR = registerGeneratedItem("lorien_horse_armor",
+            new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
 
     //MORDOR
     public static final Item MORDOR_ORC_MAIL_HELMET = registerGeneratedItem("mordor_orc_mail_helmet",

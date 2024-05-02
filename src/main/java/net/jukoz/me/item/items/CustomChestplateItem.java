@@ -4,6 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.utils.ExtendedArmorMaterial;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipType;
+import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -16,13 +17,13 @@ public class CustomChestplateItem extends ArmorItem {
     private List<Customizations> customsList;
 
     public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings, List<Customizations> customsList) {
-        super(material.material(), type, settings.maxDamage(ArmorItem.Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
+        super(material.material(), type, settings.maxCount(1).maxDamage(Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
         this.material = material;
         this.customsList = customsList;
     }
 
     public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings) {
-        super(material.material(), type, settings.maxDamage(ArmorItem.Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
+        super(material.material(), type, settings.maxCount(1).maxDamage(Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
         this.material = material;
         this.customsList = null;
     }
@@ -46,7 +47,7 @@ public class CustomChestplateItem extends ArmorItem {
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
                 this.customsList.forEach( custom ->{
                     if(custom.name.contains("dyeable")){
-                        //tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name).append(": " + String.format("#%06X", (0xFFFFFF & this.getColor(stack)))));
+                        tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name).append(": " + String.format("#%06X", (0xFFFFFF & DyedColorComponent.getColor(stack, DyedColorComponent.DEFAULT_COLOR)))));
                     } else {
                         tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name));
                     }

@@ -798,6 +798,8 @@ public class ModelProvider extends FabricModelProvider {
         registerDyeableArmor(((ArmorItem) ModEquipmentItems.CLOAK_HOOD), itemModelGenerator);
         registerDyeableArmor(((ArmorItem) ModEquipmentItems.TUNIC_CLOAK), itemModelGenerator);
         registerDyeableArmor(((ArmorItem) ModEquipmentItems.GAMBESON), itemModelGenerator);
+        registerDyeableArmor(((ArmorItem) ModEquipmentItems.GAMBESON_CAP), itemModelGenerator);
+        registerDyeableArmor(((ArmorItem) ModEquipmentItems.GAMBESON_COWL), itemModelGenerator);
 
         // CLUSTERS
         itemModelGenerator.register(ModBlocks.QUARTZ_CLUSTER.asItem(), Models.GENERATED);

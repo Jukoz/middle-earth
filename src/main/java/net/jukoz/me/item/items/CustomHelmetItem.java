@@ -16,7 +16,7 @@ public class CustomHelmetItem extends ArmorItem {
     private List<CustomHelmetItem.Customizations> customsList;
 
     public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings, List<CustomHelmetItem.Customizations> customsList) {
-        super(material.material(), type, settings);
+        super(material.material(), type, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
         this.customsList = customsList;
@@ -24,7 +24,7 @@ public class CustomHelmetItem extends ArmorItem {
     }
 
     public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings) {
-        super(material.material(), type, settings);
+        super(material.material(), type, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
         this.customsList = null;

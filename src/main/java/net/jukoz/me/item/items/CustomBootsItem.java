@@ -16,14 +16,14 @@ public class CustomBootsItem extends ArmorItem{
     private List<CustomBootsItem.Customizations> customsList;
 
     public CustomBootsItem(ExtendedArmorMaterial material, Type type, Settings settings, List<CustomBootsItem.Customizations> customsList) {
-        super(material.material(), type, settings);
+        super(material.material(), type, settings.maxCount(1).maxDamage(Type.BOOTS.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
         this.customsList = customsList;
     }
 
     public CustomBootsItem(ExtendedArmorMaterial material, Type type, Settings settings) {
-        super(material.material(), type, settings);
+        super(material.material(), type, settings.maxCount(1).maxDamage(Type.BOOTS.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
     }
