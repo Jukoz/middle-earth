@@ -12,11 +12,11 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class MiddleEarthHeightMap {
-    public static final int SMOOTH_BRUSH_SIZE = 2;
-    public static final int PERLIN_STRETCH_X = 256;
-    public static final int PERLIN_STRETCH_Y = 256;
-    public static final int PERLIN_STRETCH_X2 = 32;
-    public static final int PERLIN_STRETCH_Y2 = 32;
+    public static final int SMOOTH_BRUSH_SIZE = 4;
+    public static final int PERLIN_STRETCH_X = 210;
+    public static final int PERLIN_STRETCH_Y = 180;
+    public static final int PERLIN_STRETCH_X2 = 37;
+    public static final int PERLIN_STRETCH_Y2 = 37;
     public static final int PERLIN_HEIGHT_RANGE = 53;
     public static final float MOUNTAIN_HEIGHT_RANGE = 3.5f;
     public static final float MOUNTAIN_EXPONENTIAL_HEIGHT = 1.02f;
@@ -87,7 +87,7 @@ public class MiddleEarthHeightMap {
             int green = middleEarthMapRuntime.getHeight(x, z).getGreen();
             perlin *= ((float)green) / 128f;
         } else {
-            biomeHeight = getDefaultWeightHeight(); //((getSmoothHeight(x, z) + ) / 2f);
+            biomeHeight = ((getSmoothHeight(x, z) + getDefaultWeightHeight()) / 2f);
         }
 
         if(biomeHeight < 0) {

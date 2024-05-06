@@ -201,10 +201,12 @@ public class ModBiomes {
                 waterSky, defaultFog, 4290786, defaultWaterFog, 7583083, 6592339)));
         context.register(MEBiomeKeys.RHUN, createRhunBiome(context, new BiomeColorsDTO(
                 8041727, 12773631, 4618980, defaultWaterFog, 10995507, 7181907)));
-        context.register(MEBiomeKeys.RIVENDELL, createRivendellBiome(context, new BiomeColorsDTO(
-                9090047, 13426943, defaultWater, defaultWaterFog, 7915639, 6858340)));
-        context.register(MEBiomeKeys.RIVENDELL_FOOTHILLS, createRivendellFoothillsBiome(context, new BiomeColorsDTO(
-                8695029, 12637426, defaultWater, defaultWaterFog, 8569732, 7644782)));
+        context.register(MEBiomeKeys.HIGH_MOOR, createRivendellBiome(context, new BiomeColorsDTO(
+                9090047, 13426943, defaultWater, defaultWaterFog, 8630141, 8169079)));
+        context.register(MEBiomeKeys.HIGH_MOOR_VALE, createRivendellBiome(context, new BiomeColorsDTO(
+                8695029, 12637426, defaultWater, defaultWaterFog, 8630141, 8169079)));
+        context.register(MEBiomeKeys.HIGH_MOOR_HILLS, createRivendellFoothillsBiome(context, new BiomeColorsDTO(
+                8695029, 12637426, defaultWater, defaultWaterFog, 8630141, 8169079)));
         context.register(MEBiomeKeys.RIVER, createRiverBiome(context, new BiomeColorsDTO(
                 waterSky, defaultFog, 4290790, defaultWaterFog, 7583083, 6592339)));
         context.register(MEBiomeKeys.ROHAN, createRohanBiome(context, new BiomeColorsDTO(

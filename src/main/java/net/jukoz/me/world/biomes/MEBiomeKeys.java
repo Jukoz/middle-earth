@@ -98,8 +98,9 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> OASIS = MEBiomeKeys.register("oasis");
     public static final RegistryKey<Biome> POND = MEBiomeKeys.register("pond");
     public static final RegistryKey<Biome> RHUN = MEBiomeKeys.register("rhun");
-    public static final RegistryKey<Biome> RIVENDELL = MEBiomeKeys.register("rivendell");
-    public static final RegistryKey<Biome> RIVENDELL_FOOTHILLS = MEBiomeKeys.register("rivendell_foothills");
+    public static final RegistryKey<Biome> HIGH_MOOR_VALE = MEBiomeKeys.register("high_moor_vale");
+    public static final RegistryKey<Biome> HIGH_MOOR = MEBiomeKeys.register("high_moor");
+    public static final RegistryKey<Biome> HIGH_MOOR_HILLS = MEBiomeKeys.register("high_moor_hills");
     public static final RegistryKey<Biome> SEA_OF_RHUN = MEBiomeKeys.register("sea_of_rhun");
     public static final RegistryKey<Biome> RIVER = MEBiomeKeys.register("river");
     public static final RegistryKey<Biome> ROHAN = MEBiomeKeys.register("rohan");
