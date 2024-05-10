@@ -171,6 +171,13 @@ public class ModBlocks {
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.EPMOSTO_BRICKS_HARDNESS, StoneBlockSets.EPMOSTO_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     //endregion
 
+    public static final Block GRASSY_DIRT = registerMiscBlock("grassy_dirt",
+            new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
+    public static final Block GRASSY_DIRT_SLAB = registerMiscBlock("grassy_dirt_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(GRASSY_DIRT)),true);
+    public static final Block GRASSY_DIRT_STAIRS = registerMiscBlock("grassy_dirt_stairs",
+            new StairsBlock(GRASSY_DIRT.getDefaultState(), AbstractBlock.Settings.copy(GRASSY_DIRT)),true);
+    
     public static final Block DRY_DIRT = registerMiscBlock("dry_dirt",
             new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
     public static final Block DRY_DIRT_SLAB = registerMiscBlock("dry_dirt_slab",

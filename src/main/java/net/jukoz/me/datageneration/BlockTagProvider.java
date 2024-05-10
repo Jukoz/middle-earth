@@ -243,6 +243,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModDecorativeBlocks.DWARVEN_LANTERN);
         mineablePickaxe.add(ModDecorativeBlocks.SILVER_LANTERN);
 
+        mineableShovel.add(ModBlocks.GRASSY_DIRT);
+        mineableShovel.add(ModBlocks.GRASSY_DIRT_SLAB);
+        mineableShovel.add(ModBlocks.GRASSY_DIRT_STAIRS);
+
         mineableShovel.add(ModBlocks.DRY_DIRT);
         mineableShovel.add(ModBlocks.DRY_DIRT_SLAB);
         mineableShovel.add(ModBlocks.DRY_DIRT_STAIRS);
