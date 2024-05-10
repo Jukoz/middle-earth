@@ -665,15 +665,6 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     public void registerVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin, String slabPath){
-        //blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block,
-        //        BlockStateVariant.create()
-        //                .put(VariantSettings.MODEL, MEModels.VERTICAL_SLAB.upload(block,
-        //                    TextureMap.of(TextureKey.ALL, new Identifier(MiddleEarth.MOD_ID, "block/" + texture)),
-        //                    blockStateModelGenerator.modelCollector))
-        //                .put(VariantSettings.MODEL, ModelIds.getBlockModelId(origin))
-        //                .put(VariantSettings.UVLOCK, true)
-        //).coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()));
-
         Identifier fullBlockId = ModelIds.getBlockModelId(origin);
         Identifier variantId = MEModels.VERTICAL_SLAB.upload(block,
                 TextureMap.of(TextureKey.ALL, new Identifier(MiddleEarth.MOD_ID, "block/" + slabPath)),
@@ -698,34 +689,6 @@ public class ModelProvider extends FabricModelProvider {
                         .register(Direction.WEST, true, BlockStateVariant.create()
                                 .put(VariantSettings.MODEL, fullBlockId).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R270))
         ));
-        //VariantsBlockStateSupplier.create(trapdoorBlock)
-        //        .coordinate(BlockStateVariantMap.create(Properties.HORIZONTAL_FACING, Properties.BLOCK_HALF, Properties.OPEN)
-        //        .register(Direction.NORTH, BlockHalf.BOTTOM, (Boolean)false, BlockStateVariant.create()
-        //                .put(VariantSettings.MODEL, bottomModelId))
-        //        .register(Direction.SOUTH, BlockHalf.BOTTOM, (Boolean)false, BlockStateVariant.create()
-        //                .put(VariantSettings.MODEL, bottomModelId)
-        //                .put(VariantSettings.Y, VariantSettings.Rotation.R180))
-        //        .register(Direction.EAST, BlockHalf.BOTTOM, (Boolean)false, BlockStateVariant.create()
-        //                .put(VariantSettings.MODEL, bottomModelId)
-        //                .put(VariantSettings.Y, VariantSettings.Rotation.R90))
-        //        .register(Direction.WEST, BlockHalf.BOTTOM, (Boolean)false, BlockStateVariant.create()
-        //                .put(VariantSettings.MODEL, bottomModelId)
-        //                .put(VariantSettings.Y, VariantSettings.Rotation.R270))
-        //        .register(Direction.NORTH, BlockHalf.TOP, (Boolean)false, BlockStateVariant.create()
-        //                .put(VariantSettings.MODEL, topModelId))
-        //        .register(Direction.SOUTH, BlockHalf.TOP, (Boolean)false, BlockStateVariant.create()
-        //                .put(VariantSettings.MODEL, topModelId)
-        //                .put(VariantSettings.Y, VariantSettings.Rotation.R180))
-        //        .register(Direction.EAST, BlockHalf.TOP, (Boolean)false, BlockStateVariant.create()
-        //                .put(VariantSettings.MODEL, topModelId)
-        //                .put(VariantSettings.Y, VariantSettings.Rotation.R90))
-        //        .register(Direction.WEST, BlockHalf.TOP, (Boolean)false, BlockStateVariant.create().put(VariantSettings.MODEL, topModelId).put(VariantSettings.Y, VariantSettings.Rotation.R270)).register(Direction.NORTH, BlockHalf.BOTTOM, (Boolean)true, BlockStateVariant.create().put(VariantSettings.MODEL, openModelId)).register(Direction.SOUTH, BlockHalf.BOTTOM, (Boolean)true, BlockStateVariant.create().put(VariantSettings.MODEL, openModelId).put(VariantSettings.Y, VariantSettings.Rotation.R180)).register(Direction.EAST, BlockHalf.BOTTOM, (Boolean)true, BlockStateVariant.create().put(VariantSettings.MODEL, openModelId).put(VariantSettings.Y, VariantSettings.Rotation.R90)).register(Direction.WEST, BlockHalf.BOTTOM, (Boolean)true, BlockStateVariant.create().put(VariantSettings.MODEL, openModelId).put(VariantSettings.Y, VariantSettings.Rotation.R270)).register(Direction.NORTH, BlockHalf.TOP, (Boolean)true, BlockStateVariant.create().put(VariantSettings.MODEL, openModelId).put(VariantSettings.X, VariantSettings.Rotation.R180).put(VariantSettings.Y, VariantSettings.Rotation.R180)).register(Direction.SOUTH, BlockHalf.TOP, (Boolean)true, BlockStateVariant.create().put(VariantSettings.MODEL, openModelId).put(VariantSettings.X, VariantSettings.Rotation.R180).put(VariantSettings.Y, VariantSettings.Rotation.R0)).register(Direction.EAST, BlockHalf.TOP, (Boolean)true, BlockStateVariant.create().put(VariantSettings.MODEL, openModelId).put(VariantSettings.X, VariantSettings.Rotation.R180).put(VariantSettings.Y, VariantSettings.Rotation.R270)).register(Direction.WEST, BlockHalf.TOP, (Boolean)true, BlockStateVariant.create().put(VariantSettings.MODEL, openModelId)
-        //                        .put(VariantSettings.X, VariantSettings.Rotation.R180).put(VariantSettings.Y, VariantSettings.Rotation.R90)));
-
-        //VariantsBlockStateSupplier.create(block).coordinate(BlockStateVariantMap.create(VerticalSlabBlock.DOUBLE).register(SlabType.BOTTOM, BlockStateVariant.create()
-        //        .put(VariantSettings.MODEL, bottomModelId)).register(SlabType.TOP, BlockStateVariant.create()
-        //        .put(VariantSettings.MODEL, topModelId)).register(SlabType.DOUBLE, BlockStateVariant.create()
-        //        .put(VariantSettings.MODEL, fullModelId)));
     }
 
     public void registerWoodStoolModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Identifier logTexture, Identifier plankTexture){
