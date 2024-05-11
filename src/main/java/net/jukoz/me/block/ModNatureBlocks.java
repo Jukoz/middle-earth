@@ -202,7 +202,7 @@ public class ModNatureBlocks {
             new SaplingBlock(new ModLargeSaplingGenerator(ModTreeConfiguredFeatures.MALLORN_TREE_KEY, ModTreeConfiguredFeatures.MEGA_MALLORN_TREE_KEY),
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
     public static final Block MAPLE_SAPLING = registerCrossBlock("maple_sapling",
-            new SaplingBlock(new DualSaplingGenerator(0.5f, ModTreeConfiguredFeatures.MAPLE_TREE_KEY, ModTreeConfiguredFeatures.SILVER_MAPLE_TREE_KEY),
+            new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.MAPLE_TREE_KEY),
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
     public static final Block SILVER_MAPLE_SAPLING = registerCrossBlock("silver_maple_sapling",
             new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.SILVER_MAPLE_TREE_KEY),
