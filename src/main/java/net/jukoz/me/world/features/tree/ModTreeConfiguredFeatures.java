@@ -143,14 +143,14 @@ public class ModTreeConfiguredFeatures {
         register(context, MAPLE_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
             BlockStateProvider.of(WoodBlockSets.MAPLE.log()),
             new CanopyTrunkPlacer(11, 2, 0.91f, 0.87f, 5.1f, 2, 0.37f, -0.1f, 1,1),
-            BlockStateProvider.of(WoodBlockSets.MAPLE.leaves()),
+            BlockStateProvider.of(ModNatureBlocks.MAPLE_LEAVES),
             new OvalFoliagePlacer(2, ConstantIntProvider.create(0), ConstantIntProvider.create(3), 0.3f),
             new TwoLayersFeatureSize(1, 0, 2))
             .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
         register(context, SILVER_MAPLE_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
             BlockStateProvider.of(WoodBlockSets.SILVER_MAPLE.log()),
             new CanopyTrunkPlacer(11, 2, 0.91f, 0.87f, 5.0f, 2, 0.41f, -0.1f, 1,1),
-            BlockStateProvider.of(WoodBlockSets.MAPLE.leaves()),
+            BlockStateProvider.of(ModNatureBlocks.MAPLE_LEAVES),
             new OvalFoliagePlacer(2, ConstantIntProvider.create(0), ConstantIntProvider.create(3), 0.3f),
             new TwoLayersFeatureSize(1, 0, 2))
             .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());

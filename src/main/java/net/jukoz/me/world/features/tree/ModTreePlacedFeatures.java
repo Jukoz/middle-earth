@@ -189,7 +189,7 @@ public class ModTreePlacedFeatures {
                         ModNatureBlocks.MAPLE_SAPLING));
         register(context, SILVER_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SILVER_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(superRareTree,
-                        ModNatureBlocks.MAPLE_SAPLING));
+                        ModNatureBlocks.SILVER_MAPLE_SAPLING));
 
         register(context, OAK_BUSH_COMMON_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.OAK_BUSH_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,

@@ -204,6 +204,9 @@ public class ModNatureBlocks {
     public static final Block MAPLE_SAPLING = registerCrossBlock("maple_sapling",
             new SaplingBlock(new DualSaplingGenerator(0.5f, ModTreeConfiguredFeatures.MAPLE_TREE_KEY, ModTreeConfiguredFeatures.SILVER_MAPLE_TREE_KEY),
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
+    public static final Block SILVER_MAPLE_SAPLING = registerCrossBlock("silver_maple_sapling",
+            new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.SILVER_MAPLE_TREE_KEY),
+                    FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
     public static final Block MIRKWOOD_SAPLING = registerCrossBlock("mirkwood_sapling",
             new SaplingBlock(new ModLargeSaplingGenerator(ModTreeConfiguredFeatures.MIRKWOOD_TREE_KEY, ModTreeConfiguredFeatures.MEGA_MIRKWOOD_TREE_KEY),
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
@@ -221,6 +224,8 @@ public class ModNatureBlocks {
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
 
     public static final Block LEBETHRON_LEAVES = registerBlock("lebethron_leaves",
+            new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
+    public static final Block MAPLE_LEAVES = registerBlock("maple_leaves",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
 
     public static final Block STRAWBERRY_BUSH = registerBlock("strawberry_bush",
