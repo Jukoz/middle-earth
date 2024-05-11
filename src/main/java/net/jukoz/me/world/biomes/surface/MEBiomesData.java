@@ -123,7 +123,7 @@ public class MEBiomesData {
         addBiome(new Color(204, 196, 113), new MEBiome(7, MEBiomeKeys.HARAD, Blocks.GRASS_BLOCK, Blocks.SANDSTONE, Blocks.STONE, CaveType.HARAD));
         addBiome(new Color(237, 229, 145), new MEBiome(9, MEBiomeKeys.HARAD_DESERT, Blocks.SAND, Blocks.SAND, Blocks.SANDSTONE, CaveType.HARAD));
         addBiome(new Color(180, 214, 121), new MEBiome(6, MEBiomeKeys.HARONDOR, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
-        addBiome(new Color(156, 187, 94), new MEBiome(35, MEBiomeKeys.HILLS_OF_ELVENDIM, Blocks.GRASS_BLOCK, Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(156, 187, 94), new MEBiome(35, MEBiomeKeys.HILLS_OF_EVENDIM, Blocks.GRASS_BLOCK, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(174, 144, 141), new MEBiome(41, MEBiomeKeys.IRON_HILLS, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(189, 170, 168), new MEBiome(21, MEBiomeKeys.IRON_HILLS_FOOTHILLS, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(90, 159, 90), new MEBiome(9, MEBiomeKeys.IRON_HILLS_FRONTIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));

@@ -31,6 +31,7 @@ public class RoofBlockSets {
     public static RoofBlockSet WHITE_LEBETHRON_SHINGLES = registerWoodSet("white_lebethron_shingles", WoodBlockSets.WHITE_LEBETHRON.planks());
     public static RoofBlockSet MALLORN_SHINGLES = registerWoodSet("mallorn_shingles", WoodBlockSets.MALLORN.planks());
     public static RoofBlockSet MAPLE_SHINGLES = registerWoodSet("maple_shingles", WoodBlockSets.MAPLE.planks());
+    public static RoofBlockSet SILVER_MAPLE_SHINGLES = registerWoodSet("silver_maple_shingles", WoodBlockSets.SILVER_MAPLE.planks());
     public static RoofBlockSet MIRKWOOD_SHINGLES = registerWoodSet("mirkwood_shingles", WoodBlockSets.MIRKWOOD.planks());
     public static RoofBlockSet PALM_SHINGLES = registerWoodSet("palm_shingles", WoodBlockSets.PALM.planks());
     public static RoofBlockSet PINE_SHINGLES = registerWoodSet("pine_shingles", WoodBlockSets.PINE.planks());
@@ -100,6 +101,7 @@ public class RoofBlockSets {
             WHITE_LEBETHRON_SHINGLES,
             MALLORN_SHINGLES,
             MAPLE_SHINGLES,
+            SILVER_MAPLE_SHINGLES,
             MIRKWOOD_SHINGLES,
             PALM_SHINGLES,
             PINE_SHINGLES,

@@ -11,7 +11,7 @@ public class ModSpawnSettingsBuilder {
     }
     public static void addOceanAnimals(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(EntityType.COD, 10, 1, 5));
-        builder.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(ModEntities.CRAB, 7, 1, 4));
+        builder.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(ModEntities.CRAB, 7, 1, 4));
         builder.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.SQUID, 6, 1, 4));
         builder.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.TURTLE, 4, 1, 2));
         builder.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.DOLPHIN, 3, 1, 2));
@@ -53,7 +53,12 @@ public class ModSpawnSettingsBuilder {
     }
 
     public static void addSwampMobs(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FROG, 4, 1, 4));
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FROG, 8, 1, 4));
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.SNAIL, 10, 1, 4));
+    }
+
+    public static void addRareSnails(SpawnSettings.Builder builder) {
+        builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.SNAIL, 2, 1, 3));
     }
 
     public static void addEriadorMobs(SpawnSettings.Builder builder) {

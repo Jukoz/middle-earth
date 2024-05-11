@@ -50,7 +50,7 @@ public class GooseRenderer extends MobEntityRenderer<GooseEntity, GooseModel<Goo
     public void render(GooseEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
         if(entity.isBaby()) {
-            float initialBabySize = (SIZE / 4);
+            float initialBabySize = (SIZE / 2);
             float size = initialBabySize + ((SIZE - initialBabySize) / 24000) * entity.age;
             poseStack.scale(size, size, size);
         } else {

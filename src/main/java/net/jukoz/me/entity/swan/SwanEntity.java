@@ -1,6 +1,7 @@
 package net.jukoz.me.entity.swan;
 
 import net.jukoz.me.entity.ModEntities;
+import net.jukoz.me.entity.duck.DuckEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -37,9 +38,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class SwanEntity extends AnimalEntity {
-
-    public static final Ingredient BREEDING_INGREDIENT
-            = Ingredient.ofItems(Items.GRASS, Items.WHEAT_SEEDS);
     public float flapProgress;
     public float maxWingDeviation;
     public float prevMaxWingDeviation;
@@ -61,7 +59,7 @@ public class SwanEntity extends AnimalEntity {
         this.goalSelector.add(2, new MeleeAttackGoal(this, 0.9f, false));
         this.goalSelector.add(3, new EscapeDangerGoal(this, 1.15));
         this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(5, new TemptGoal(this, 1.1, BREEDING_INGREDIENT, false));
+        this.goalSelector.add(5, new TemptGoal(this, 1.1, DuckEntity.SEEDS_BREEDING_INGREDIENT, false));
 
         this.goalSelector.add(6, new FollowParentGoal(this, 1.05));
 
@@ -150,7 +148,7 @@ public class SwanEntity extends AnimalEntity {
     }
 
     public boolean isBreedingItem(ItemStack stack) {
-        return BREEDING_INGREDIENT.test(stack);
+        return DuckEntity.SEEDS_BREEDING_INGREDIENT.test(stack);
     }
 
     public SwanVariant getVariant() {
