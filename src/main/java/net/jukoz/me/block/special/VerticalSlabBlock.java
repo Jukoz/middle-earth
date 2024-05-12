@@ -67,30 +67,11 @@ public class VerticalSlabBlock extends Block implements Waterloggable {
     @Override
     public boolean canReplace(BlockState state, ItemPlacementContext context) {
         ItemStack itemStack = context.getStack();
-
         if (state.get(DOUBLE) || !itemStack.isOf(this.asItem())) {
             return false;
         }
         if (context.canReplaceExisting()) {
-            if(Math.abs(context.getHitPos().y - (double)context.getBlockPos().getY()) >= 1.0f) return false;
-            System.out.println(Math.abs(context.getHitPos().y - (double)context.getBlockPos().getY()));
-            boolean latitude = Math.abs(context.getHitPos().z - (double)context.getBlockPos().getZ()) >= 1.0f;
-            boolean longitude = Math.abs(context.getHitPos().x - (double)context.getBlockPos().getX()) >= 1.0f;
-            Direction direction = context.getSide();
-            if (direction == Direction.NORTH) {
-                return latitude;
-            }
-            else if (direction == Direction.SOUTH) {
-                return !latitude;
-            }
-            else if (direction == Direction.WEST) {
-                return longitude;
-            }
-            else if (direction == Direction.EAST) {
-                return !longitude;
-            } else {
-                return false;
-            }
+            return context.getSide() == state.get(FACING);
         }
         return true;
     }
