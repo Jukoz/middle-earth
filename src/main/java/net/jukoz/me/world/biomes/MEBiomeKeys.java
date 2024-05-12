@@ -45,7 +45,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> HARAD = MEBiomeKeys.register("harad");
     public static final RegistryKey<Biome> HARAD_DESERT = MEBiomeKeys.register("harad_desert");
     public static final RegistryKey<Biome> HARONDOR = MEBiomeKeys.register("harondor");
-    public static final RegistryKey<Biome> HILLS_OF_ELVENDIM = MEBiomeKeys.register("hills_of_elvendim");
+    public static final RegistryKey<Biome> HILLS_OF_EVENDIM = MEBiomeKeys.register("hills_of_elvendim");
     public static final RegistryKey<Biome> IRON_HILLS = MEBiomeKeys.register("iron_hills");
     public static final RegistryKey<Biome> IRON_HILLS_FOOTHILLS = MEBiomeKeys.register("iron_hills_foothills");
     public static final RegistryKey<Biome> IRON_HILLS_FRONTIER = MEBiomeKeys.register("iron_hills_frontier");

@@ -16,7 +16,7 @@ public class ModEntitySpawning {
         List<EntitySpawningSettings> banditSpawnSettings = List.of(
                 new EntitySpawningSettings(ModEntities.BANDIT_MILITIA, 1, 4, 50, true),
                 new EntitySpawningSettings(ModEntities.BANDIT_SOLDIER, 1, 3, 40, true),
-                new EntitySpawningSettings(ModEntities.BANDIT_KNIGHT, 1, 2, 10, true)
+                new EntitySpawningSettings(ModEntities.BANDIT_CHIEFTAIN, 1, 2, 10, true)
         );
         List<EntitySpawningSettings> wildGoblinsSpawnSettings = List.of(
                 new EntitySpawningSettings(ModEntities.MISTY_GOBLIN_SNAGA, 1, 3, 45, true),

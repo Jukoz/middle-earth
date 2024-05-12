@@ -8,6 +8,7 @@ import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.MushroomBlockSets;
 import net.jukoz.me.block.crop.*;
+import net.jukoz.me.block.special.VerticalSlabBlock;
 import net.jukoz.me.datageneration.content.CustomItemModels;
 import net.jukoz.me.datageneration.content.MEModels;
 import net.jukoz.me.datageneration.content.models.*;
@@ -16,13 +17,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterials;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 
-import java.util.Iterator;
 import java.util.Optional;
 
 public class ModelProvider extends FabricModelProvider {
@@ -434,15 +434,15 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.verticalSlabs){
-            registerVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), Registries.BLOCK.getId(verticalSlab.block()).getPath());
+            registerVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), Registries.BLOCK.getId(verticalSlab.block()).getPath());
         }
 
         for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.woodVerticalSlabs){
-            registerVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), Registries.BLOCK.getId(verticalSlab.block()).getPath().replaceAll("_wood", "_log"));
+            registerVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), Registries.BLOCK.getId(verticalSlab.block()).getPath().replaceAll("_wood", "_log"));
         }
 
         for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.strippedVerticalSlabs){
-            registerVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), Registries.BLOCK.getId(verticalSlab.block()).getPath().replaceAll("_wood", "_log"));
+            registerVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), Registries.BLOCK.getId(verticalSlab.block()).getPath().replaceAll("_wood", "_log"));
         }
 
         for (SimpleLayersModel.Layers block : SimpleLayersModel.layers) {
@@ -523,30 +523,42 @@ public class ModelProvider extends FabricModelProvider {
 
 
         for(SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools) {
-            String id = Registries.BLOCK.getId(stool.origin()).getPath();
-            String baseTextureId = id.substring(0, id.lastIndexOf("_")) + "_planks";
-            baseTextureId = baseTextureId.replaceAll("stripped_", "");
+            String id = Registries.BLOCK.getId(stool.origin()).getPath().replaceAll("_log", "_planks").replaceAll("_stem", "_planks").replaceAll("stripped_", "");
+            String stripped;
+            if(Registries.BLOCK.getId(stool.origin()).getPath().contains("crimson") || Registries.BLOCK.getId(stool.origin()).getPath().contains("warped")){
+                stripped = "stripped_" + id.replaceAll("_planks", "_stem");
+            } else {
+                stripped = "stripped_" + id.replaceAll("_planks", "_log");
+            }
             registerWoodStoolModelBlockStates(blockStateModelGenerator, stool.base(),
-                    new Identifier("minecraft", "block/" + id),
-                    new Identifier("minecraft", "block/" + baseTextureId));
+                    new Identifier("minecraft", "block/" + stripped),
+                    new Identifier("minecraft", "block/" + id));
         }
 
         for(SimpleWoodTableModel.VanillaTable table : SimpleWoodTableModel.vanillaTables) {
-            String id = Registries.BLOCK.getId(table.origin()).getPath();
-            String baseTextureId = id.substring(0, id.lastIndexOf("_")) + "_planks";
-            baseTextureId = baseTextureId.replaceAll("stripped_", "");// We replace the suffix (_log or _stem) by _planks
+            String id = Registries.BLOCK.getId(table.origin()).getPath().replaceAll("_log", "_planks").replaceAll("_stem", "_planks").replaceAll("stripped_", "");
+            String stripped;
+            if(Registries.BLOCK.getId(table.origin()).getPath().contains("crimson") || Registries.BLOCK.getId(table.origin()).getPath().contains("warped")){
+                stripped = "stripped_" + id.replaceAll("_planks", "_stem");
+            } else {
+                stripped = "stripped_" + id.replaceAll("_planks", "_log");
+            }
             registerWoodTableModelBlockStates(blockStateModelGenerator, table.base(),
-                    new Identifier("minecraft", "block/" + id),
-                    new Identifier("minecraft", "block/" + baseTextureId));
+                    new Identifier("minecraft", "block/" + stripped),
+                    new Identifier("minecraft", "block/" + id));
         }
 
         for(SimpleWoodChairModel.VanillaChair chair : SimpleWoodChairModel.vanillaChairs) {
-            String id = Registries.BLOCK.getId(chair.origin()).getPath();
-            String baseTextureId = id.substring(0, id.lastIndexOf("_")) + "_planks";
-            baseTextureId = baseTextureId.replaceAll("stripped_", "");
+            String id = Registries.BLOCK.getId(chair.origin()).getPath().replaceAll("_log", "_planks").replaceAll("_stem", "_planks").replaceAll("stripped_", "");
+            String stripped;
+            if(Registries.BLOCK.getId(chair.origin()).getPath().contains("crimson") || Registries.BLOCK.getId(chair.origin()).getPath().contains("warped")){
+                stripped = "stripped_" + id.replaceAll("_planks", "_stem");
+            } else {
+                stripped = "stripped_" + id.replaceAll("_planks", "_log");
+            }
             registerWoodChairModelBlockStates(blockStateModelGenerator, chair.base(),
-                    new Identifier("minecraft", "block/" + id),
-                    new Identifier("minecraft", "block/" + baseTextureId));
+                    new Identifier("minecraft", "block/" + stripped),
+                    new Identifier("minecraft", "block/" + id));
         }
 
         registerWoodChairModelBlockStates(blockStateModelGenerator, MushroomBlockSets.MUSHROOM.chair(),
@@ -575,33 +587,44 @@ public class ModelProvider extends FabricModelProvider {
             String id = String.valueOf(Registries.BLOCK.getId(verticalSlab.block()));
             id = id.substring(id.lastIndexOf(":") + 1);
 
-            if(verticalSlab.block() == Blocks.SMOOTH_RED_SANDSTONE
-                    || verticalSlab.block() == Blocks.SMOOTH_SANDSTONE) {
-                id += "_top";
-                id = id.substring(id.indexOf("_") + 1);
-            } else if(verticalSlab.block() == Blocks.QUARTZ_BLOCK) {
-                id += "_side";
-            } else if(verticalSlab.block() == Blocks.SMOOTH_QUARTZ) {
-                id = "quartz_block_bottom";
-            } else if(verticalSlab.block() == Blocks.WAXED_CUT_COPPER
-                    || verticalSlab.block() == Blocks.WAXED_EXPOSED_CUT_COPPER
-                    || verticalSlab.block() == Blocks.WAXED_WEATHERED_CUT_COPPER
-                    || verticalSlab.block() == Blocks.WAXED_OXIDIZED_CUT_COPPER) {
-                id = id.substring(id.indexOf("_") + 1);
+            if(verticalSlab.block() == Blocks.SANDSTONE || verticalSlab.block() == Blocks.RED_SANDSTONE ||
+                    verticalSlab.block() == Blocks.CUT_SANDSTONE || verticalSlab.block() == Blocks.CUT_RED_SANDSTONE) {
+                String topId = id + "_top";
+                String bottomId = id + "_bottom";
+                if(verticalSlab.block() == Blocks.CUT_SANDSTONE || verticalSlab.block() == Blocks.CUT_RED_SANDSTONE) {
+                    topId = topId.substring(topId.indexOf("_") + 1);
+                    bottomId = bottomId.substring(bottomId.indexOf("_") + 1);
+                }
+                registerColumnVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), "minecraft", topId, bottomId, id);
+            } else {
+                if(verticalSlab.block() == Blocks.SMOOTH_RED_SANDSTONE
+                        || verticalSlab.block() == Blocks.SMOOTH_SANDSTONE) {
+                    id += "_top";
+                    id = id.substring(id.indexOf("_") + 1);
+                } else if(verticalSlab.block() == Blocks.QUARTZ_BLOCK) {
+                    id += "_side";
+                } else if(verticalSlab.block() == Blocks.SMOOTH_QUARTZ) {
+                    id = "quartz_block_bottom";
+                } else if(verticalSlab.block() == Blocks.WAXED_CUT_COPPER
+                        || verticalSlab.block() == Blocks.WAXED_EXPOSED_CUT_COPPER
+                        || verticalSlab.block() == Blocks.WAXED_WEATHERED_CUT_COPPER
+                        || verticalSlab.block() == Blocks.WAXED_OXIDIZED_CUT_COPPER) {
+                    id = id.substring(id.indexOf("_") + 1);
+                }
+                registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), id);
             }
-            registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), id);
         }
         for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaWoodVerticalSlabs) {
             String id = Registries.BLOCK.getId(verticalSlab.block()).getPath();
             String baseTextureId = id.substring(0, id.lastIndexOf("_")) + "_log";
             baseTextureId = baseTextureId.replaceAll("_wood", "_log");
-            registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), baseTextureId);
+            registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(),  baseTextureId);
         }
         for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaStrippedVerticalSlabs) {
             String id = Registries.BLOCK.getId(verticalSlab.block()).getPath();
             String baseTextureId = id.substring(0, id.lastIndexOf("_")) + "_log";
             baseTextureId = baseTextureId.replaceAll("_wood", "_log");
-            registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), baseTextureId);
+            registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), baseTextureId);
         }
 
         // Crops
@@ -639,18 +662,57 @@ public class ModelProvider extends FabricModelProvider {
         blockStateCollector.registerItemModel(coralFanBlock);
     }
 
-    public void registerVanillaVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, String texture){
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block,
-                BlockStateVariant.create().put(VariantSettings.MODEL, MEModels.VERTICAL_SLAB.upload(block,
-                        TextureMap.of(TextureKey.ALL,new Identifier("minecraft","block/" + texture)),
-                        blockStateModelGenerator.modelCollector)).put(VariantSettings.UVLOCK, true)).coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()));
+    public void registerVanillaVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin, String slabPath){
+        Identifier fullBlockId = ModelIds.getBlockModelId(origin);
+        Identifier variantId = MEModels.VERTICAL_SLAB.upload(block,
+                TextureMap.of(TextureKey.ALL,new Identifier("minecraft","block/" + slabPath)),
+                blockStateModelGenerator.modelCollector);
+        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId);
     }
 
-    public void registerVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block , String texture){
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block,
-                BlockStateVariant.create().put(VariantSettings.MODEL, MEModels.VERTICAL_SLAB.upload(block,
-                        TextureMap.of(TextureKey.ALL, new Identifier(MiddleEarth.MOD_ID, "block/" + texture)),
-                        blockStateModelGenerator.modelCollector)).put(VariantSettings.UVLOCK, true)).coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()));
+    public void registerVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin, String slabPath){
+        Identifier fullBlockId = ModelIds.getBlockModelId(origin);
+        Identifier variantId = MEModels.VERTICAL_SLAB.upload(block,
+                TextureMap.of(TextureKey.ALL, new Identifier(MiddleEarth.MOD_ID, "block/" + slabPath)),
+                blockStateModelGenerator.modelCollector);
+        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId);
+    }
+
+    public void registerColumnVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin,
+                                                           String modId, String topTexturePath, String bottomTexturePath, String sideTexturePath){
+        Identifier fullBlockId = ModelIds.getBlockModelId(origin);
+        Identifier sideTexture = new Identifier(modId, "block/" + sideTexturePath);
+
+        Identifier variantId = MEModels.VERTICAL_COLUMN_SLAB.upload(block, (new TextureMap())
+                        .put(TextureKey.TOP, new Identifier(modId, "block/" + topTexturePath))
+                        .put(TextureKey.BOTTOM, new Identifier(modId, "block/" + bottomTexturePath))
+                        .put(TextureKey.SIDE, sideTexture)
+                        .put(TextureKey.PARTICLE, sideTexture),
+                blockStateModelGenerator.modelCollector);
+
+        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId);
+    }
+
+    private void registerVerticalSlab(BlockStateModelGenerator blockStateModelGenerator, Block block, Identifier full, Identifier variant) {
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block)
+                .coordinate(BlockStateVariantMap.create(Properties.HORIZONTAL_FACING, VerticalSlabBlock.DOUBLE)
+                        .register(Direction.NORTH, false, BlockStateVariant.create()
+                                .put(VariantSettings.MODEL, variant).put(VariantSettings.UVLOCK, true))
+                        .register(Direction.EAST, false, BlockStateVariant.create()
+                                .put(VariantSettings.MODEL, variant).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R90))
+                        .register(Direction.SOUTH, false, BlockStateVariant.create()
+                                .put(VariantSettings.MODEL, variant).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R180))
+                        .register(Direction.WEST, false, BlockStateVariant.create()
+                                .put(VariantSettings.MODEL, variant).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R270))
+                        .register(Direction.NORTH, true, BlockStateVariant.create()
+                                .put(VariantSettings.MODEL, full).put(VariantSettings.UVLOCK, true))
+                        .register(Direction.EAST, true, BlockStateVariant.create()
+                                .put(VariantSettings.MODEL, full).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R90))
+                        .register(Direction.SOUTH, true, BlockStateVariant.create()
+                                .put(VariantSettings.MODEL, full).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R180))
+                        .register(Direction.WEST, true, BlockStateVariant.create()
+                                .put(VariantSettings.MODEL, full).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R270))
+                ));
     }
 
     public void registerWoodStoolModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Identifier logTexture, Identifier plankTexture){

@@ -19,6 +19,8 @@ public class BlockDrops {
             add(ModDecorativeBlocks.WALL_DWARVEN_LANTERN);
             add(ModDecorativeBlocks.WOOD_PILE);
 
+            add(ModDecorativeBlocks.ROPE);
+
             add(ModNatureBlocks.BROWN_BOLETE);
             add(ModNatureBlocks.CAVE_AMANITA);
             add(ModNatureBlocks.DEEP_FIRECAP);

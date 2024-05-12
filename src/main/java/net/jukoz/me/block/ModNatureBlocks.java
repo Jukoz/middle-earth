@@ -38,10 +38,10 @@ public class ModNatureBlocks {
             new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).luminance(GlowLichenBlock.getLuminanceSupplier(5)).burnable()), true);
     public static final Block HANGING_COBWEB = registerBlock("hanging_cobweb",
-            new HangingCobwebBlock(FabricBlockSettings.copyOf(Blocks.COBWEB).drops(new Identifier(MiddleEarth.MOD_ID, "hanging_cobweb")).strength(2)), true);
+            new HangingCobwebBlock(FabricBlockSettings.copyOf(Blocks.COBWEB)), true);
 
     public static final Block CORNER_COBWEB = registerBlock("corner_cobweb",
-            new CornerCobwebBlock(FabricBlockSettings.copyOf(Blocks.COBWEB).drops(new Identifier(MiddleEarth.MOD_ID, "corner_cobweb")).strength(2)), true);
+            new CornerCobwebBlock(FabricBlockSettings.copyOf(Blocks.COBWEB)), true);
 
     public static final Block CORRUPTED_MOSS_CARPET = registerBlock("corrupted_moss_carpet",
             new CarpetBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET)), true);
@@ -204,6 +204,9 @@ public class ModNatureBlocks {
     public static final Block MAPLE_SAPLING = registerCrossBlock("maple_sapling",
             new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.MAPLE_TREE_KEY),
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
+    public static final Block SILVER_MAPLE_SAPLING = registerCrossBlock("silver_maple_sapling",
+            new SaplingBlock(new ModSaplingGenerator(ModTreeConfiguredFeatures.SILVER_MAPLE_TREE_KEY),
+                    FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
     public static final Block MIRKWOOD_SAPLING = registerCrossBlock("mirkwood_sapling",
             new SaplingBlock(new ModLargeSaplingGenerator(ModTreeConfiguredFeatures.MIRKWOOD_TREE_KEY, ModTreeConfiguredFeatures.MEGA_MIRKWOOD_TREE_KEY),
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
@@ -221,6 +224,8 @@ public class ModNatureBlocks {
                     FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)), true);
 
     public static final Block LEBETHRON_LEAVES = registerBlock("lebethron_leaves",
+            new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
+    public static final Block MAPLE_LEAVES = registerBlock("maple_leaves",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
 
     public static final Block STRAWBERRY_BUSH = registerBlock("strawberry_bush",

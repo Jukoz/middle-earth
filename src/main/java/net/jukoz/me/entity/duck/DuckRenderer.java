@@ -47,7 +47,7 @@ public class DuckRenderer extends MobEntityRenderer<DuckEntity, DuckModel<DuckEn
     public void render(DuckEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
         if(entity.isBaby()) {
-            float initialBabySize = (SIZE / 4);
+            float initialBabySize = (SIZE / 2);
             float size = initialBabySize + ((SIZE - initialBabySize) / 24000) * entity.age;
             poseStack.scale(size, size, size);
         } else {

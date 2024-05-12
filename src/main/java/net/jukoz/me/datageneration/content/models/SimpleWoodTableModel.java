@@ -28,8 +28,8 @@ public class SimpleWoodTableModel {
             add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.MANGROVE_TABLE, Blocks.MANGROVE_SLAB, ModBlocks.STRIPPED_MANGROVE_WOOD_FENCE, Blocks.STRIPPED_MANGROVE_LOG));
             add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.BAMBOO_TABLE, Blocks.BAMBOO_BLOCK, Blocks.BAMBOO_FENCE, Blocks.STRIPPED_BAMBOO_BLOCK));
             add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.CHERRY_TABLE, Blocks.CHERRY_SLAB, ModBlocks.STRIPPED_CHERRY_WOOD_FENCE, Blocks.STRIPPED_CHERRY_LOG));
-            add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.CRIMSON_TABLE, Blocks.CRIMSON_STEM, Blocks.CRIMSON_FENCE, Blocks.STRIPPED_CRIMSON_STEM));
-            add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.WARPED_TABLE, Blocks.WARPED_STEM, Blocks.WARPED_FENCE, Blocks.STRIPPED_WARPED_STEM));
+            add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.CRIMSON_TABLE, Blocks.CRIMSON_SLAB, Blocks.CRIMSON_FENCE, Blocks.STRIPPED_CRIMSON_STEM));
+            add(new SimpleWoodTableModel.VanillaTable(ModDecorativeBlocks.WARPED_TABLE, Blocks.WARPED_SLAB, Blocks.WARPED_FENCE, Blocks.STRIPPED_WARPED_STEM));
         }
     };
 }

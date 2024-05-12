@@ -99,12 +99,11 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
     @Override
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        super.initEquipment(random, localDifficulty);
     }
 
     @Override
     public boolean isPersistent() {
-        return false;
+        return super.isPersistent();
     }
 
     public void equipStack(EquipmentSlot slot, ItemStack stack) {

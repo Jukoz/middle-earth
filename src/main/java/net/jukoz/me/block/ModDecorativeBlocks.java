@@ -276,7 +276,7 @@ public class ModDecorativeBlocks {
     //endregion
 
     public static final Block ROPE = registerBlockWithItem("rope",
-            new ChainBlock(FabricBlockSettings.copyOf(Blocks.CHAIN).sounds(BlockSoundGroup.WOOL).strength(0.8F).noCollision()));
+            new ChainBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).noCollision()));
 
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = new Identifier(MiddleEarth.MOD_ID, name);
