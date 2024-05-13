@@ -11,6 +11,10 @@ import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
 import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
 import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
 import net.jukoz.me.client.model.equipment.head.HelmetAddonModel;
+import net.jukoz.me.item.items.CustomBootsItem;
+import net.jukoz.me.item.items.CustomChestplateItem;
+import net.jukoz.me.item.items.CustomHelmetItem;
+import net.jukoz.me.item.items.CustomLeggingsItem;
 import net.jukoz.me.utils.IntToRGB;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.Model;
@@ -25,6 +29,7 @@ import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
 import java.awt.*;
@@ -33,110 +38,153 @@ public class ModArmorRenderer implements ArmorRenderer {
 
     //TODO datagen tags for dyeable -> auto do render of item client class
     //TODO fix item overlay dyeable item
-    private  String ARMOR_TEXTURE;
-
-    private HelmetAddonModel<LivingEntity> helmetModel;
-    private ChestplateAddonModel<LivingEntity> chestplateModel;
-    private static CustomHelmetModel<LivingEntity> customHelmetModel;
-    private static CustomChestplateModel<LivingEntity> customChestplateModel;
-    private static CustomLeggingsModel<LivingEntity> customLeggingsModel;
-    private static CustomBootsModel<LivingEntity> customBootsModel;
-    private static CloakCapeModel<LivingEntity> capeModel;
-    private static CloakHoodModel<LivingEntity> hoodModel;
+    private CustomHelmetModel<LivingEntity> customHelmetModel;
+    private CustomChestplateModel<LivingEntity> customChestplateModel;
+    private CustomLeggingsModel<LivingEntity> customLeggingsModel;
+    private CustomBootsModel<LivingEntity> customBootsModel;
+    private CloakCapeModel<LivingEntity> capeModel;
+    private CloakHoodModel<LivingEntity> hoodModel;
     
-    private final boolean hasCape;
-    private final boolean hasHood;
-    private final boolean dyeable;
 
-    public ModArmorRenderer(HelmetAddonModel<LivingEntity> helmetAddonModel, ChestplateAddonModel<LivingEntity> customChestplateModel, String armorName,
-                            boolean hasCape, boolean hasHood, boolean dyeable) {
-
-        helmetModel = helmetAddonModel;
-        chestplateModel = customChestplateModel;
-        ARMOR_TEXTURE = "textures/models/armor/" + armorName + ".png";
-
-        this.hasCape = hasCape;
-        this.hasHood = hasHood;
-        this.dyeable = dyeable;
+    public ModArmorRenderer() {
     }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, BipedEntityModel<LivingEntity> contextModel) {
-        if (customHelmetModel == null) {
-            customHelmetModel = new CustomHelmetModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_HELMET));
-            customChestplateModel = new CustomChestplateModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_CHESTPLATE));
-            customLeggingsModel = new CustomLeggingsModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_LEGGINGS));
-            customBootsModel = new CustomBootsModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_BOOTS));
-            capeModel = new CloakCapeModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CAPE_MODEL_LAYER));
-            hoodModel = new CloakHoodModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
-        }
+        customHelmetModel = new CustomHelmetModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_HELMET));
+        customChestplateModel = new CustomChestplateModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_CHESTPLATE));
+        customLeggingsModel = new CustomLeggingsModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_LEGGINGS));
+        customBootsModel = new CustomBootsModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_BOOTS));
+        capeModel = new CloakCapeModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CAPE_MODEL_LAYER));
+        hoodModel = new CloakHoodModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
 
         if (slot == EquipmentSlot.HEAD) {
-            contextModel.copyBipedStateTo(customHelmetModel);
-            customHelmetModel.setVisible(false);
-            customHelmetModel.head.visible = true;
-            customHelmetModel.hat.visible = true;
-            customHelmetModel.body.visible = true;
-            customHelmetModel.leftArm.visible = true;
-            customHelmetModel.rightArm.visible = true;
+            renderHelmet(stack, matrices, vertexConsumers, entity, light, contextModel);
+        } else if (slot == EquipmentSlot.CHEST) {
+            renderChestplate(stack, matrices, vertexConsumers, entity, light, contextModel);
+        } else if (slot == EquipmentSlot.LEGS) {
+            renderLeggings(stack, matrices, vertexConsumers, entity, light, contextModel);
+        } else if (slot == EquipmentSlot.FEET) {
+            renderBoots(stack, matrices, vertexConsumers, entity, light, contextModel);
+        }
+    }
 
-            renderArmor(matrices, vertexConsumers, light, stack, customHelmetModel, new Identifier(MiddleEarth.MOD_ID, ARMOR_TEXTURE.replaceAll(".png", "_helmet.png")), this.dyeable);
-            if (helmetModel != null) {
-                contextModel.copyBipedStateTo(helmetModel);
-                helmetModel.setVisible(false);
-                helmetModel.head.visible = true;
-                helmetModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.pitch);
-                renderArmor(matrices, vertexConsumers, light, stack, helmetModel, helmetModel.HELMET_ADDON_TEXTURE, this.dyeable);
+    void renderHelmet(ItemStack helmet, MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, int light, BipedEntityModel<LivingEntity> contextModel) {
+        CustomHelmetItem item = (CustomHelmetItem)helmet.getItem();
+        boolean dyeable = false;
+        contextModel.copyBipedStateTo(customHelmetModel);
+        customHelmetModel.setVisible(false);
+        customHelmetModel.head.visible = true;
+        customHelmetModel.hat.visible = true;
+        customHelmetModel.body.visible = true;
+        customHelmetModel.leftArm.visible = true;
+        customHelmetModel.rightArm.visible = true;
+
+        if(item.getCustomsList() != null) {
+            if (item.getCustomsList().contains(CustomHelmetItem.Customizations.DYEABLE)) {
+                dyeable = true;
             }
-            if(hasHood){
+        }
+
+        String texture = "textures/models/armor/" + Registries.ITEM.getId(helmet.getItem()).getPath() + ".png";
+        renderArmor(matrices, vertexConsumers, light, helmet, customHelmetModel, new Identifier(MiddleEarth.MOD_ID, texture), dyeable);
+
+        if (item.additionModel != null) {
+            contextModel.copyBipedStateTo(item.additionModel);
+            item.additionModel.setVisible(false);
+            item.additionModel.head.visible = true;
+            item.additionModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.pitch);
+            renderArmor(matrices, vertexConsumers, light, helmet, item.additionModel, new Identifier(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_addition.png")), dyeable);
+        }
+
+        if(item.getCustomsList() != null) {
+            if (item.getCustomsList().contains(CustomHelmetItem.Customizations.HOOD)) {
                 contextModel.copyBipedStateTo(hoodModel);
                 hoodModel.setVisible(false);
                 hoodModel.hat.visible = true;
-                renderArmor(matrices, vertexConsumers, light, stack, hoodModel, new Identifier(MiddleEarth.MOD_ID, ARMOR_TEXTURE.replaceAll(".png", "_hood.png")), this.dyeable);
+                renderArmor(matrices, vertexConsumers, light, helmet, hoodModel, new Identifier(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_hood.png")), dyeable);
             }
+        }
+    }
+    void renderChestplate(ItemStack chestplate, MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, int light, BipedEntityModel<LivingEntity> contextModel) {
+        CustomChestplateItem item = (CustomChestplateItem)chestplate.getItem();
+        boolean dyeable = false;
 
-        } else if (slot == EquipmentSlot.CHEST) {
-            contextModel.copyBipedStateTo(customChestplateModel);
-            customChestplateModel.setVisible(false);
-            customChestplateModel.body.visible = true;
-            customChestplateModel.rightArm.visible = true;
-            customChestplateModel.leftArm.visible = true;
-            customChestplateModel.rightLeg.visible = true;
-            customChestplateModel.leftLeg.visible = true;
-            renderArmor(matrices, vertexConsumers, light, stack, customChestplateModel, new Identifier(MiddleEarth.MOD_ID, ARMOR_TEXTURE.replaceAll(".png", "_chestplate.png")), this.dyeable);
-            if(this.chestplateModel != null) {
-                contextModel.copyBipedStateTo(chestplateModel);
-                chestplateModel.setVisible(false);
-                chestplateModel.body.visible = true;
-                chestplateModel.rightArm.visible = true;
-                chestplateModel.leftArm.visible = true;
-                renderArmor(matrices, vertexConsumers, light, stack, chestplateModel, new Identifier(MiddleEarth.MOD_ID, ARMOR_TEXTURE.replaceAll(".png", "_addon.png")), this.dyeable);
+        contextModel.copyBipedStateTo(customChestplateModel);
+        customChestplateModel.setVisible(false);
+        customChestplateModel.body.visible = true;
+        customChestplateModel.rightArm.visible = true;
+        customChestplateModel.leftArm.visible = true;
+        customChestplateModel.rightLeg.visible = true;
+        customChestplateModel.leftLeg.visible = true;
+
+        if(item.getCustomsList() != null) {
+            if (item.getCustomsList().contains(CustomChestplateItem.Customizations.DYEABLE)) {
+                dyeable = true;
             }
+        }
 
-            if (this.hasCape) {
+        String texture = "textures/models/armor/" + Registries.ITEM.getId(chestplate.getItem()).getPath() + ".png";
+        renderArmor(matrices, vertexConsumers, light, chestplate, customChestplateModel, new Identifier(MiddleEarth.MOD_ID, texture), dyeable);
+
+        if (item.additionModel != null) {
+            contextModel.copyBipedStateTo(item.additionModel);
+            item.additionModel.setVisible(false);
+            item.additionModel.body.visible = true;
+            item.additionModel.rightArm.visible = true;
+            item.additionModel.leftArm.visible = true;
+            renderArmor(matrices, vertexConsumers, light, chestplate, item.additionModel, new Identifier(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
+        }
+
+        if(item.getCustomsList() != null){
+            if(item.getCustomsList().contains(CustomChestplateItem.Customizations.CAPE)){
                 contextModel.copyBipedStateTo(capeModel);
                 capeModel.setVisible(false);
                 capeModel.body.visible = true;
                 capeModel.rightArm.visible = true;
                 capeModel.leftArm.visible = true;
-                capeModel.setAngles(entity, entity.limbAnimator.getPos(),entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.roll);
-                renderArmor(matrices, vertexConsumers, light, stack, capeModel, new Identifier(MiddleEarth.MOD_ID, ARMOR_TEXTURE.replaceAll(".png", "_cape.png")), this.dyeable);
+                //capeModel.setAngles(entity, entity.limbAnimator.getPos(),entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.roll);
+                renderArmor(matrices, vertexConsumers, light, chestplate, capeModel, new Identifier(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_cape.png")), dyeable);
             }
-
-        } else if (slot == EquipmentSlot.LEGS) {
-            contextModel.copyBipedStateTo(customLeggingsModel);
-            customLeggingsModel.setVisible(false);
-            customLeggingsModel.body.visible = true;
-            customLeggingsModel.rightLeg.visible = true;
-            customLeggingsModel.leftLeg.visible = true;
-            renderArmor(matrices, vertexConsumers, light, stack, customLeggingsModel, new Identifier(MiddleEarth.MOD_ID, ARMOR_TEXTURE.replaceAll(".png", "_leggings.png")), this.dyeable);
-        } else if (slot == EquipmentSlot.FEET) {
-            contextModel.copyBipedStateTo(customBootsModel);
-            customBootsModel.setVisible(false);
-            customBootsModel.rightLeg.visible = true;
-            customBootsModel.leftLeg.visible = true;
-            renderArmor(matrices, vertexConsumers, light, stack, customBootsModel, new Identifier(MiddleEarth.MOD_ID, ARMOR_TEXTURE.replaceAll(".png", "_boots.png")), this.dyeable);
         }
+    }
+    void renderLeggings(ItemStack leggings, MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, int light, BipedEntityModel<LivingEntity> contextModel) {
+        CustomLeggingsItem item = (CustomLeggingsItem)leggings.getItem();
+        boolean dyeable = false;
+
+        contextModel.copyBipedStateTo(customLeggingsModel);
+        customLeggingsModel.setVisible(false);
+        customLeggingsModel.body.visible = true;
+        customLeggingsModel.rightLeg.visible = true;
+        customLeggingsModel.leftLeg.visible = true;
+
+        if(item.getCustomsList() != null) {
+            if (item.getCustomsList().contains(CustomLeggingsItem.Customizations.DYEABLE)) {
+                dyeable = true;
+            }
+        }
+
+
+        String texture = "textures/models/armor/" + Registries.ITEM.getId(leggings.getItem()).getPath() + ".png";
+        renderArmor(matrices, vertexConsumers, light, leggings, customLeggingsModel, new Identifier(MiddleEarth.MOD_ID, texture), dyeable);
+    }
+    void renderBoots(ItemStack boots, MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, int light, BipedEntityModel<LivingEntity> contextModel) {
+        CustomBootsItem item = (CustomBootsItem)boots.getItem();
+        boolean dyeable = false;
+        contextModel.copyBipedStateTo(customBootsModel);
+        customBootsModel.setVisible(false);
+        customBootsModel.rightLeg.visible = true;
+        customBootsModel.leftLeg.visible = true;
+
+        if(item.getCustomsList() != null) {
+            if (item.getCustomsList().contains(CustomBootsItem.Customizations.DYEABLE)) {
+                dyeable = true;
+            }
+        }
+
+        String texture = "textures/models/armor/" + Registries.ITEM.getId(boots.getItem()).getPath() + ".png";
+        renderArmor(matrices, vertexConsumers, light, boots, customBootsModel, new Identifier(MiddleEarth.MOD_ID, texture), dyeable);
+
     }
 
     static void renderArmor(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture, boolean dyeable){

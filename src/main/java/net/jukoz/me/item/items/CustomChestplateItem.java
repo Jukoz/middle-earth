@@ -1,6 +1,7 @@
 package net.jukoz.me.item.items;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.client.model.equipment.chest.*;
 import net.jukoz.me.item.utils.ExtendedArmorMaterial;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipType;
@@ -15,17 +16,20 @@ public class CustomChestplateItem extends ArmorItem {
     private ExtendedArmorMaterial material;
 
     private List<Customizations> customsList;
+    public ChestplateAddonModel additionModel;
 
-    public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings, List<Customizations> customsList) {
+    public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings, List<Customizations> customsList, ChestplateAddonModel chestplateModel) {
         super(material.material(), type, settings.maxCount(1).maxDamage(Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
         this.material = material;
         this.customsList = customsList;
+        this.additionModel = chestplateModel;
     }
 
     public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings) {
         super(material.material(), type, settings.maxCount(1).maxDamage(Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
         this.material = material;
         this.customsList = null;
+        this.additionModel = null;
     }
 
     @Override
@@ -58,6 +62,10 @@ public class CustomChestplateItem extends ArmorItem {
         }
 
         super.appendTooltip(stack, context, tooltip, type);
+    }
+
+    public List<Customizations> getCustomsList() {
+        return customsList;
     }
 
     public enum Customizations{

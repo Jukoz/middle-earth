@@ -174,17 +174,17 @@ public class RohanHumanEntity extends NpcEntity {
         ItemStack gambeson = new ItemStack(ModEquipmentItems.GAMBESON);
         DyedColorComponent.setColor(gambeson, List.of(DyeItem.byColor(DyeColor.byId(colors[colorIndex]))));
 
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_HELMET));
+        //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_HELMET));
 
         float val = random.nextFloat();
         if(val >= 0.30f){
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_CHESTPLATE));
+            //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_CHESTPLATE));
         } else  {
             equipStack(EquipmentSlot.CHEST, gambeson);
         }
 
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_BOOTS));
+        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_LEGGINGS));
+        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_BOOTS));
 
 
         float val3 = random.nextFloat();

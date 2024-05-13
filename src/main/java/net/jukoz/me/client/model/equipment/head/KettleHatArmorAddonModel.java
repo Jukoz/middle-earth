@@ -10,11 +10,9 @@ public class KettleHatArmorAddonModel<T extends LivingEntity> extends HelmetAddo
 
     public final ModelPart kettleHat;
 
-    public KettleHatArmorAddonModel(ModelPart root, String name) {
+    public KettleHatArmorAddonModel(ModelPart root) {
         super(root);
         kettleHat = root.getChild("head").getChild("kettle_hat");
-
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + name + "_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {

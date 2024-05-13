@@ -53,8 +53,11 @@ public class CustomBootsItem extends ArmorItem{
         super.appendTooltip(stack, context, tooltip, type);
     }
 
+    public List<CustomBootsItem.Customizations> getCustomsList() {
+        return customsList;
+    }
 
-    enum Customizations{
+    public enum Customizations{
         DYEABLE("dyeable"),
         ;
 

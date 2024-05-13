@@ -8,10 +8,8 @@ import net.minecraft.util.Identifier;
 
 public class LorienHelmetArmorAddonModel<T extends LivingEntity> extends HelmetAddonModel<T> {
 
-    public LorienHelmetArmorAddonModel(ModelPart root, String tier) {
+    public LorienHelmetArmorAddonModel(ModelPart root) {
         super(root);
-
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/lorien_" + tier +"_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {

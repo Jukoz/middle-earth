@@ -13,9 +13,9 @@ import java.util.List;
 public class CustomLeggingsItem extends ArmorItem{
 
     private ExtendedArmorMaterial material;
-    private List<CustomBootsItem.Customizations> customsList;
+    private List<CustomLeggingsItem.Customizations> customsList;
 
-    public CustomLeggingsItem(ExtendedArmorMaterial material, Type type, Settings settings, List<CustomBootsItem.Customizations> customsList) {
+    public CustomLeggingsItem(ExtendedArmorMaterial material, Type type, Settings settings, List<CustomLeggingsItem.Customizations> customsList) {
         super(material.material(), type, settings.maxCount(1).maxDamage(Type.LEGGINGS.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
@@ -52,8 +52,11 @@ public class CustomLeggingsItem extends ArmorItem{
         super.appendTooltip(stack, context, tooltip, type);
     }
 
+    public List<CustomLeggingsItem.Customizations> getCustomsList() {
+        return customsList;
+    }
 
-    enum Customizations{
+    public enum Customizations{
         DYEABLE("dyeable"),
         ;
 

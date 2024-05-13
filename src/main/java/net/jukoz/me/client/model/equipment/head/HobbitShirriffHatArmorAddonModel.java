@@ -10,11 +10,9 @@ public class HobbitShirriffHatArmorAddonModel<T extends LivingEntity> extends He
 
     public final ModelPart shirriffHat;
 
-    public HobbitShirriffHatArmorAddonModel(ModelPart root, String colour) {
+    public HobbitShirriffHatArmorAddonModel(ModelPart root) {
         super(root);
         shirriffHat = root.getChild("head").getChild("shirriff_hat");
-
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/hobbit_shirriff_hat_" + colour + ".png");
     }
 
     public static TexturedModelData getTexturedModelData() {

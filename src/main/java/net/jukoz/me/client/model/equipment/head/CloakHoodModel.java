@@ -8,7 +8,7 @@ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 
-public class CloakHoodModel<T extends LivingEntity> extends BipedEntityModel<T> {
+public class CloakHoodModel<T extends LivingEntity> extends HelmetAddonModel<T> {
     private final ModelPart hood;
 
     public CloakHoodModel(ModelPart root) {

@@ -1,6 +1,9 @@
 package net.jukoz.me.item.items;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
+import net.jukoz.me.client.model.equipment.head.HelmetAddonModel;
+import net.jukoz.me.client.model.equipment.head.MordorBlackUrukCommanderHelmetArmorAddonModel;
 import net.jukoz.me.item.utils.ExtendedArmorMaterial;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipType;
@@ -14,13 +17,14 @@ public class CustomHelmetItem extends ArmorItem {
 
     private ExtendedArmorMaterial material;
     private List<CustomHelmetItem.Customizations> customsList;
+    public HelmetAddonModel additionModel;
 
-    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings, List<CustomHelmetItem.Customizations> customsList) {
+    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings, List<CustomHelmetItem.Customizations> customsList, HelmetAddonModel helmetModel) {
         super(material.material(), type, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
         this.customsList = customsList;
-
+        this.additionModel = helmetModel;
     }
 
     public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings) {
@@ -28,7 +32,7 @@ public class CustomHelmetItem extends ArmorItem {
 
         this.material = material;
         this.customsList = null;
-
+        this.additionModel = null;
     }
 
     @Override
@@ -60,11 +64,14 @@ public class CustomHelmetItem extends ArmorItem {
         }
     }
 
+    public List<CustomHelmetItem.Customizations> getCustomsList() {
+        return customsList;
+    }
 
     public enum Customizations{
         DYEABLE("dyeable"),
         SKULL("skull"),
-        HOOD("hood"),
+        HOOD("hood" ),
         FEATHER("feather"),
         ;
 

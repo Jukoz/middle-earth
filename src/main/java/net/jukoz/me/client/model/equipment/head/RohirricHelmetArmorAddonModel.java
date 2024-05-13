@@ -13,11 +13,9 @@ public class RohirricHelmetArmorAddonModel<T extends LivingEntity> extends Helme
 
     public final ModelPart hair;
 
-    public RohirricHelmetArmorAddonModel(ModelPart root, String name) {
+    public RohirricHelmetArmorAddonModel(ModelPart root) {
         super(root);
         hair = root.getChild("head").getChild("hair");
-
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + name + "_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {
