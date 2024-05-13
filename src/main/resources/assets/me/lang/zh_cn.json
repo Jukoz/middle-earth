@@ -272,6 +272,12 @@
   "item.me.bronze_tropical_fish_bucket": "青铜热带鱼桶",
   "item.me.bronze_axolotl_bucket": "青铜美西螈桶",
   "item.me.bronze_tadpole_bucket": "青铜蝌蚪桶",
+  "item.me.mithril_pufferfish_bucket": "秘银河豚桶",
+  "item.me.mithril_salmon_bucket": "秘银鲑鱼桶",
+  "item.me.mithril_cod_bucket": "秘银鳕鱼桶",
+  "item.me.mithril_tropical_fish_bucket": "秘银热带鱼桶",
+  "item.me.mithril_axolotl_bucket": "秘银美西螈桶",
+  "item.me.mithril_tadpole_bucket": "秘银蝌蚪桶",
 
   "#Comment:": "物品 - 安都因",
   "item.me.anduin_sword": "安都因剑",
@@ -581,10 +587,11 @@
   "#Comment:": "物品 - 刷怪蛋",
   "item.me.barrow_wight_spawn_egg": "古冢尸妖刷怪蛋",
   "item.me.nazgul_spawn_egg": "那兹古尔刷怪蛋",
+  "item.me.balrog_spawn_egg": "炎魔刷怪蛋",
 
   "item.me.stone_troll_spawn_egg": "岩石食人妖刷怪蛋",
   "item.me.cave_troll_spawn_egg": "洞穴食人妖刷怪蛋",
-  "item.me.snow_troll_spawn_egg": "雪地3食人妖刷怪蛋",
+  "item.me.snow_troll_spawn_egg": "雪地食人妖刷怪蛋",
   "item.me.troll_statue": "食人妖石像",
   "item.me.crab_spawn_egg": "螃蟹刷怪蛋",
   "item.me.goose_spawn_egg": "鹅刷怪蛋",
@@ -634,6 +641,7 @@
   "item.me.bandit_militia_spawn_egg": "土匪民兵刷怪蛋",
   "item.me.bandit_soldier_spawn_egg": "土匪士兵刷怪蛋",
   "item.me.bandit_chieftain_spawn_egg": "土匪头领刷怪蛋",
+  "item.me.bandit_knight_spawn_egg": "土匪骑士刷怪蛋",
 
   "item.me.mirkwood_spider_spawn_egg": "黑森林蜘蛛刷怪蛋",
   "item.me.warg_spawn_egg": "座狼刷怪蛋",
@@ -704,6 +712,7 @@
   "entity.me.bandit_militia": "土匪民兵",
   "entity.me.bandit_soldier": "土匪士兵",
   "entity.me.bandit_chieftain": "土匪头领",
+  "entity.me.bandit_knight": "土匪骑士",
 
   "entity.me.mirkwood_spider": "黑森林蜘蛛",
 
