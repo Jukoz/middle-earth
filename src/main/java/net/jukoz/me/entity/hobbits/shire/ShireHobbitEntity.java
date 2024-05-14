@@ -155,7 +155,9 @@ public class ShireHobbitEntity extends NpcEntity {
     }
 
     private void militiaEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HAT));
+        if(random.nextFloat() < 0.5f){
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HAT));
+        }
         equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GAMBESON));
         equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.IRON_DAGGER));
     }

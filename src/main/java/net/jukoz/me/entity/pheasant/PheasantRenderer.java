@@ -15,6 +15,8 @@ import java.util.Map;
 
 public class PheasantRenderer extends MobEntityRenderer<PheasantEntity, PheasantModel> {
     private static final String PATH = "textures/entities/pheasants/";
+    private static final float SIZE = 1f;
+
     public PheasantRenderer(EntityRendererFactory.Context context) {
         super(context, new PheasantModel(context.getPart(ModEntityModelLayers.PHEASANT)), 0.35F);
 
@@ -36,6 +38,13 @@ public class PheasantRenderer extends MobEntityRenderer<PheasantEntity, Pheasant
     public void render(PheasantEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
                        VertexConsumerProvider bufferSource, int packedLight) {
 
+        if(entity.isBaby()) {
+            float initialBabySize = (SIZE / 2);
+            float size = initialBabySize + ((SIZE - initialBabySize) / 24000) * entity.age;
+            poseStack.scale(size, size, size);
+        } else {
+            poseStack.scale(SIZE, SIZE, SIZE);
+        }
         poseStack.scale(1, 1, 1);
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }

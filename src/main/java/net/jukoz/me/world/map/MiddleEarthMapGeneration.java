@@ -128,20 +128,28 @@ public class MiddleEarthMapGeneration {
                             }
                         }
                     });
-
                 }
             }
-            // Shutdown the executor and wait for all threads to finish
-            executorService.shutdown();
+            // Awaits for tasks to finish
+            boolean finishedTasks = false;
             try {
-                executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+                finishedTasks = executorService.awaitTermination(20, TimeUnit.MINUTES);
             } catch (Exception e) {
                 loggerUtil.logError("Error while generating biomes");
             }
+            if(!finishedTasks) loggerUtil.logError("Didn't finished biome map generation in time, " +
+                    "please allocate more RAM, delete the /data/me folder and restart the game");
+
+            // Shutdown the executor and wait for all threads to finish
+            executorService.shutdown();
+            if(!finishedTasks) {
+                try {
+                    executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+                } catch (Exception e) {
+                    loggerUtil.logError("Error while generating biomes");
+                }
+            }
         }
-
-        // Generate iterations with subdivisions
-
         return new BufferedImage[0][][];
     }
 
@@ -180,8 +188,8 @@ public class MiddleEarthMapGeneration {
         int regionAmountX = (int) (initialImage.getWidth() / MiddleEarthMapConfigs.REGION_SIZE * Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION));
         int regionAmountY = (int) (initialImage.getHeight() / MiddleEarthMapConfigs.REGION_SIZE * Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION));
 
-        for(int x = 0; x < regionAmountX; x++){
-            for(int y = 0; y < regionAmountY; y++){
+        for(int x = 0; x < regionAmountX; x++) {
+            for (int y = 0; y < regionAmountY; y++) {
                 int finalX = x;
                 int finalY = y;
                 executorService.submit(() -> {
@@ -195,12 +203,24 @@ public class MiddleEarthMapGeneration {
                 });
             }
         }
-        // Shutdown the executor and wait for all threads to finish
-        executorService.shutdown();
+        // Awaits for tasks to finish
+        boolean finishedTasks = false;
         try {
-            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            finishedTasks = executorService.awaitTermination(15, TimeUnit.MINUTES);
         } catch (Exception e) {
             loggerUtil.logError("Error while generating biomes");
+        }
+        if(!finishedTasks) loggerUtil.logError("Didn't finished heightmap generation in time, " +
+                "please allocate more RAM, delete the /data/me folder and restart the game");
+
+        // Shutdown the executor and wait for all threads to finish
+        executorService.shutdown();
+        if(!finishedTasks) {
+            try {
+                executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            } catch (Exception e) {
+                loggerUtil.logError("Error while generating heights");
+            }
         }
     }
 

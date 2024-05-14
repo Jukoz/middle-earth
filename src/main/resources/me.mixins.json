@@ -12,6 +12,7 @@
     "PigEntityMixin",
     "PlayerEntityMixin",
     "PlayerMixin",
+    "ServerWorldMixin",
     "ShearItemMixin",
     "SwordItemMixin",
     "TrunkPlacerTypeInvoker"

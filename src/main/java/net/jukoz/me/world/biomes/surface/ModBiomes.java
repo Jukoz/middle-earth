@@ -101,7 +101,7 @@ public class ModBiomes {
                 nearHaradSky, nearHaradSkyFog, 5407446, 1120828, 13419633, 9615182)));
         context.register(MEBiomeKeys.HARONDOR, createHarondorBiome(context, new BiomeColorsDTO(
                 nearHaradSky, nearHaradSkyFog, 5406149, 1120828, 12305028, 10860366)));
-        context.register(MEBiomeKeys.HILLS_OF_ELVENDIM, createHillsOfElvendim(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.HILLS_OF_EVENDIM, createHillsOfElvendim(context, new BiomeColorsDTO(
                 hillySky, defaultFog, defaultWater, defaultWaterFog, 9087338, 9218155)));
         context.register(MEBiomeKeys.IRON_HILLS, createIronHillsBiome(context, new BiomeColorsDTO(
                 10140415, 13031679, defaultWater, defaultWaterFog, 6922099, 7119988), false));
@@ -552,6 +552,7 @@ public class ModBiomes {
     public static Biome createSwampAnduin(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addSwampMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         ModBiomeFeatures.addDisks(undergroundOres);
@@ -1296,6 +1297,7 @@ public class ModBiomes {
         if(step < 2) {
             ModSpawnSettingsBuilder.addEriadorMobs(spawnSettings);
             ModSpawnSettingsBuilder.addGoose(spawnSettings);
+            ModSpawnSettingsBuilder.addRareSnails(spawnSettings);
             ModBiomeFeatures.addFlowerGreenJewel(vegetation);
             ModBiomeFeatures.addRareBeechTrees(vegetation);
             ModBiomeFeatures.addRareBirchTrees(vegetation);
@@ -1588,7 +1590,7 @@ public class ModBiomes {
 
     public static Biome createFrozenPond(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addOceanAnimals(spawnSettings);
+        ModSpawnSettingsBuilder.addColdWaterAnimals(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
         
         ModBiomeFeatures.addDisks(undergroundOres);
