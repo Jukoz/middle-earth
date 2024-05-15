@@ -25,7 +25,7 @@ import net.jukoz.me.world.dimension.ModDimensions;
 
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "me";
-	public static final String MOD_VERSION = "alpha-1.5.0-1.20.1";
+	public static final String MOD_VERSION = "1.5.0-1.20.1-alpha";
 	public static final boolean IS_DEBUG = true;
 	private LoggerUtil loggerUtil;
 	@Override

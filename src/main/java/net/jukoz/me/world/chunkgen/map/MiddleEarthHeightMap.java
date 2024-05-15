@@ -147,10 +147,10 @@ public class MiddleEarthHeightMap {
         float total = 0;
         for(int i = -SMOOTH_BRUSH_SIZE; i <= SMOOTH_BRUSH_SIZE; i++) {
             for(int j = -SMOOTH_BRUSH_SIZE; j <= SMOOTH_BRUSH_SIZE; j++) {
-                if(MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(x + i, z + j))
+                if(!MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(x + i, z + j))
                     total += MEBiomesData.defaultBiome.height;
                 else
-                    total += getHeight(x,z);
+                    total += getImageHeight(x, z);
             }
         }
 
