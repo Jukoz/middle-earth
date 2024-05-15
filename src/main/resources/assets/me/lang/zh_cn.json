@@ -3397,12 +3397,12 @@
   "tooltip.me.reach" : "范围：",
   "tooltip.me.blocks_range" : " 方块",
 
-  "tooltip.me.tier1" : "§7基础材料",
-  "tooltip.me.tier2" : "§7精炼材料",
-  "tooltip.me.tier3" : "§7低级冶金",
-  "tooltip.me.tier4" : "§7中级冶金",
-  "tooltip.me.tier5" : "§7高级冶金",
-  "tooltip.me.tier6" : "§7秘银",
+  "tooltip.me.tier1" : "§7基础材料级",
+  "tooltip.me.tier2" : "§7精炼材料级",
+  "tooltip.me.tier3" : "§7低级冶金级",
+  "tooltip.me.tier4" : "§7中级冶金级",
+  "tooltip.me.tier5" : "§7高级冶金级",
+  "tooltip.me.tier6" : "§7秘银级",
 
   "tooltip.me.generic" : "普通",
 
