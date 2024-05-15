@@ -14,7 +14,7 @@
     }
   },
   "result": {
-    "item": "me:wood_framed_window",
+    "id": "me:wood_framed_window",
     "count": 4
   }
 }

@@ -22,7 +22,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_citadel_guard_leggings",
+    "id": "me:gondorian_citadel_guard_leggings",
     "count": 1
   }
 }

@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:mordor_orc_mail_leggings",
+    "id": "me:mordor_orc_mail_leggings",
     "count": 1
   }
 }

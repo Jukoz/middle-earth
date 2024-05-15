@@ -9,15 +9,17 @@
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
     "FoliagePlacerTypeInvoker",
+    "PigEntityMixin",
     "PlayerEntityMixin",
     "PlayerMixin",
+    "ServerWorldMixin",
+    "ShearItemMixin",
+    "SwordItemMixin",
     "TrunkPlacerTypeInvoker"
   ],
   "client": [
     "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
-    "client.ClientPlayerInteractionManagerMixin",
-    "client.GameRendererMixin",
     "client.InGameHudMixin",
     "client.ItemRendererMixin",
     "client.MouseMixin"

@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:mordor_orc_mail_chestplate",
+    "id": "me:mordor_orc_mail_chestplate",
     "count": 1
   }
 }

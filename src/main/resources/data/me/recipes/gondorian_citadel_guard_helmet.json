@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_citadel_guard_helmet",
+    "id": "me:gondorian_citadel_guard_helmet",
     "count": 1
   }
 }

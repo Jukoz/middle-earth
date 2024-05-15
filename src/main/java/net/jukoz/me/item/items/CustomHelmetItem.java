@@ -1,35 +1,30 @@
 package net.jukoz.me.item.items;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.item.utils.ModArmorMaterials;
+import net.jukoz.me.item.utils.ExtendedArmorMaterial;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.DyeableItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
-import java.text.Normalizer;
 import java.util.List;
 
-public class CustomHelmetItem extends ArmorItem implements DyeableItem {
+public class CustomHelmetItem extends ArmorItem {
 
-    private ModArmorMaterials material;
+    private ExtendedArmorMaterial material;
     private List<CustomHelmetItem.Customizations> customsList;
 
-    public CustomHelmetItem(ModArmorMaterials material, Type type, Settings settings, List<CustomHelmetItem.Customizations> customsList) {
-        super(material, type, settings);
+    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings, List<CustomHelmetItem.Customizations> customsList) {
+        super(material.material(), type, settings);
 
         this.material = material;
         this.customsList = customsList;
 
     }
 
-    public CustomHelmetItem(ModArmorMaterials material, Type type, Settings settings) {
-        super(material, type, settings);
+    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings) {
+        super(material.material(), type, settings);
 
         this.material = material;
         this.customsList = null;
@@ -37,15 +32,14 @@ public class CustomHelmetItem extends ArmorItem implements DyeableItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.of(""));
         if (Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(material.getFaction()));
-            if (material.getSubFaction() != null) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(material.getSubFaction()));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(material.faction()));
+            if (material.subFaction() != null) {
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(material.subFaction()));
             }
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier" + this.material.getTier()));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier" + this.material.tier()));
             tooltip.add(Text.of(""));
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
@@ -62,7 +56,7 @@ public class CustomHelmetItem extends ArmorItem implements DyeableItem {
             } else {
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
             }
-            super.appendTooltip(stack, world, tooltip, context);
+            super.appendTooltip(stack, context, tooltip, type);
         }
     }
 

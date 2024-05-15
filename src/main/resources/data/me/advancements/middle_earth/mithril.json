@@ -1,13 +1,11 @@
 {
-  "parent": "me:middle_earth/root",
+  "parent": "me:middle_earth/walk_misty_mountains",
   "criteria": {
     "raw_mithril": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "me:raw_mithril"
-            ]
+            "items": "me:raw_mithril"
           }
         ]
       },
@@ -22,7 +20,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:epmosto_mithril_ore"
+      "count": 1,
+      "id":  "me:epmosto_mithril_ore"
     },
     "show_toast": true,
     "title": {

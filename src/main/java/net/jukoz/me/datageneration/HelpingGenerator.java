@@ -30,7 +30,6 @@ public class HelpingGenerator {
             SimpleStoneTableModel.tables.add(set.table());
             SimpleStoneChairModel.chairs.add(set.chair());
 
-
             BlockDrops.blocks.add(set.base());
             BlockDrops.blocks.add(set.slab());
             BlockDrops.blocks.add(set.verticalSlab());
@@ -58,6 +57,9 @@ public class HelpingGenerator {
 
         for (StoneBlockSets.SimpleBlockSet set : StoneBlockSets.sets) {
             SimpleBlockModel.blocks.add(set.base());
+            if (set.base().toString().contains("cobble") && !set.base().toString().contains("mossy")) {
+                Stones.stones.add(set.base());
+            }
             SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.base(), set.slab()));
             SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.base(), set.slab(), set.verticalSlab()));
             SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.base(), set.stairs()));
@@ -82,7 +84,12 @@ public class HelpingGenerator {
             if(set.leaves() != null) {
                 SimpleBlockModel.blocks.add(set.leaves());
                 LeavesSets.blocks.add(set.leaves());
-                if(set.sapling() != null) LeavesDrops.blocks.add(new LeavesDrops.LeavesDrop(set.leaves(), set.sapling()));
+                if(set.sapling() != null){
+                    LeavesDrops.blocks.add(new LeavesDrops.LeavesDrop(set.leaves(), set.sapling()));
+                }
+            }
+            if(set.sapling() != null){
+                BlockDrops.blocks.add(set.sapling());
             }
             SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.log()));
             SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.strippedLog()));
@@ -197,6 +204,14 @@ public class HelpingGenerator {
             if(set.sapling() != null){
                 Saplings.saplings.add(set.sapling());
             }
+
+            WoodenSlabs.woodenSlabs.add(set.planksSlab());
+            ModdedStrippedLogs.strippedLogs.add(set.strippedLog());
+
+            LogsThatBurn.logsThatBurn.add(set.log());
+            LogsThatBurn.logsThatBurn.add(set.wood());
+            LogsThatBurn.logsThatBurn.add(set.strippedLog());
+            LogsThatBurn.logsThatBurn.add(set.strippedWood());
         }
 
         for (MushroomBlockSets.MushroomBlockSet set : MushroomBlockSets.sets) {
@@ -260,6 +275,7 @@ public class HelpingGenerator {
             Planks.planks.add(set.planks());
             Doors.doors.add(set.door());
             Trapdoors.trapdoors.add(set.trapdoor());
+            WoodenSlabs.woodenSlabs.add(set.planksSlab());
         }
 
         for (RoofBlockSets.RoofBlockSet set : RoofBlockSets.sets) {

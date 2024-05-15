@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_pike",
+    "id": "me:gondorian_pike",
     "count": 1
   }
 }

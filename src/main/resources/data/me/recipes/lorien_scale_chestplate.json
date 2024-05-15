@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:lorien_scale_chestplate",
+    "id": "me:lorien_scale_chestplate",
     "count": 1
   }
 }

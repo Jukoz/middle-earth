@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:morgul_blade",
+    "id": "me:morgul_blade",
     "count": 1
   }
 }

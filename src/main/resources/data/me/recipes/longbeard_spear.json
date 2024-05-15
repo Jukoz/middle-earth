@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:longbeard_spear",
+    "id": "me:longbeard_spear",
     "count": 1
   }
 }

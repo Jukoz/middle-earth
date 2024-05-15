@@ -1,7 +1,5 @@
 package net.jukoz.me.entity.beasts;
 
-import net.jukoz.me.entity.beasts.trolls.TrollEntity;
-import net.jukoz.me.item.items.TrollArmorItem;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -32,7 +30,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -55,17 +52,16 @@ public class BeastEntity extends AbstractDonkeyEntity {
     public static final int ATTACK_COOLDOWN = 10;
     public static final float RESISTANCE = 0.15f;
     protected Vec3d targetDir = Vec3d.ZERO;
-    private static final UUID BEAST_ARMOR_BONUS_ID = UUID.fromString("667E1665-8B10-40C8-8F9D-CF9B1667F295");
 
     // Initializing ====================================================================================================
     protected BeastEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(CHARGING, false);
-        this.dataTracker.startTracking(SITTING, false);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(CHARGING, false);
+        builder.add(SITTING, false);
     }
 
     @Override
@@ -110,7 +106,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
                     return false;
                 }
                 BeastEntity.this.items.setStack(slot, stack);
-                BeastEntity.this.updateSaddle();
+                BeastEntity.this.updateSaddledFlag();
                 return true;
             }
         };
@@ -127,14 +123,10 @@ public class BeastEntity extends AbstractDonkeyEntity {
                 if (!itemStack.isEmpty()) {
                     NbtCompound nbtCompound = new NbtCompound();
                     nbtCompound.putByte("Slot", (byte)i);
-                    itemStack.writeNbt(nbtCompound);
-                    nbtList.add(nbtCompound);
+                    nbtList.add(itemStack.encode(this.getRegistryManager(), nbtCompound));
                 }
             }
             nbt.put("Items", nbtList);
-        }
-        if (!this.items.getStack(1).isEmpty()) {
-            nbt.put("ArmorItem", this.items.getStack(1).writeNbt(new NbtCompound()));
         }
     }
 
@@ -150,17 +142,11 @@ public class BeastEntity extends AbstractDonkeyEntity {
                 NbtCompound nbtCompound = nbtList.getCompound(i);
                 int j = nbtCompound.getByte("Slot") & 255;
                 if (j >= 2 && j < this.items.size()) {
-                    this.items.setStack(j, ItemStack.fromNbt(nbtCompound));
+                    this.items.setStack(j, (ItemStack)ItemStack.fromNbt(this.getRegistryManager(), nbtCompound).orElse(ItemStack.EMPTY));
                 }
             }
         }
-        if (nbt.contains("ArmorItem", 10)) {
-            ItemStack itemStack = ItemStack.fromNbt(nbt.getCompound("ArmorItem"));
-            if (!itemStack.isEmpty() && this.isHorseArmor(itemStack)) {
-                this.items.setStack(1, itemStack);
-            }
-        }
-        this.updateSaddle();
+        this.updateSaddledFlag();
     }
 
     // Getters and Setters =============================================================================================
@@ -205,6 +191,10 @@ public class BeastEntity extends AbstractDonkeyEntity {
         return null;
     }
 
+    @Override
+    public boolean isPersistent() {
+        return isTame();
+    }
 
     public boolean isSitting() {
         return this.dataTracker.get(SITTING);
@@ -258,16 +248,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
     }
 
     @Override
-    public void onInventoryChanged(Inventory sender) {
-        ItemStack itemStack = this.getArmorType();
-        super.onInventoryChanged(sender);
-        ItemStack itemStack2 = this.getArmorType();
-        if (this.age > 20 && this.isHorseArmor(itemStack2) && itemStack != itemStack2) {
-            this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.5F, 1.0F);
-        }
-    }
-
-    @Override
     public StackReference getStackReference(int mappedIndex) {
         int j;
         int i = mappedIndex - 400;
@@ -276,10 +256,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
                 return this.createInventoryStackReference(i, stack -> stack.isEmpty() || stack.isOf(Items.SADDLE));
             }
             if (i == 1) {
-                if (!this.hasArmorSlot()) {
-                    return StackReference.EMPTY;
-                }
-                return this.createInventoryStackReference(i, stack -> stack.isEmpty() || this.isHorseArmor((ItemStack)stack));
+                return StackReference.EMPTY;
             }
         }
         if ((j = mappedIndex - 500 + 2) >= 2 && j < this.items.size()) {
@@ -307,42 +284,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
 
     protected void playAddChestSound() {
         this.playSound(SoundEvents.ENTITY_DONKEY_CHEST, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-    }
-
-    private void equipArmor(ItemStack stack) {
-        this.equipStack(EquipmentSlot.CHEST, stack);
-        this.setEquipmentDropChance(EquipmentSlot.CHEST, 0.0F);
-    }
-
-    public ItemStack getArmorType() {
-        return this.getEquippedStack(EquipmentSlot.CHEST);
-    }
-
-    @Override
-    public boolean hasArmorSlot() {
-        return true;
-    }
-
-    private void setArmorTypeFromStack(ItemStack stack) {
-        this.equipArmor(stack);
-        if (!this.getWorld().isClient) {
-            this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).removeModifier(BEAST_ARMOR_BONUS_ID);
-            if (this.isHorseArmor(stack)) {
-                int i = ((TrollArmorItem)stack.getItem()).getBonus();
-                if (i != 0) {
-                    this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).addTemporaryModifier(new EntityAttributeModifier(BEAST_ARMOR_BONUS_ID, "Beast armor bonus", (double)i, EntityAttributeModifier.Operation.ADDITION));
-                }
-            }
-        }
-    }
-
-    @Override
-    protected void updateSaddle() {
-        if (!this.getWorld().isClient) {
-            super.updateSaddle();
-            this.setArmorTypeFromStack(this.items.getStack(1));
-            this.setEquipmentDropChance(EquipmentSlot.CHEST, 0.0F);
-        }
     }
 
     @Override
@@ -410,10 +351,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
             if (!itemStack.isEmpty()) {
                 if (!this.hasChest() && itemStack.isOf(Items.CHEST)) {
                     this.addChest(player, itemStack);
-                    return ActionResult.success(this.getWorld().isClient);
-                }
-                if (this.hasArmorSlot() && this.isHorseArmor(itemStack) && !this.hasArmorInSlot()) {
-                    this.equipHorseArmor(player, itemStack);
                     return ActionResult.success(this.getWorld().isClient);
                 }
             }

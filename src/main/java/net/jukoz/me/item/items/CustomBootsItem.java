@@ -1,48 +1,42 @@
 package net.jukoz.me.item.items;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.item.utils.ModArmorMaterials;
+import net.jukoz.me.item.utils.ExtendedArmorMaterial;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.DyeableItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class CustomBootsItem extends ArmorItem implements DyeableItem {
+public class CustomBootsItem extends ArmorItem{
 
-    private ModArmorMaterials material;
+    private ExtendedArmorMaterial material;
     private List<CustomBootsItem.Customizations> customsList;
 
-    public CustomBootsItem(ModArmorMaterials material, Type type, Settings settings, List<CustomBootsItem.Customizations> customsList) {
-        super(material, type, settings);
+    public CustomBootsItem(ExtendedArmorMaterial material, Type type, Settings settings, List<CustomBootsItem.Customizations> customsList) {
+        super(material.material(), type, settings);
 
         this.material = material;
         this.customsList = customsList;
     }
 
-    public CustomBootsItem(ModArmorMaterials material, Type type, Settings settings) {
-        super(material, type, settings);
+    public CustomBootsItem(ExtendedArmorMaterial material, Type type, Settings settings) {
+        super(material.material(), type, settings);
 
         this.material = material;
     }
 
-
-
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.of(""));
         if(Screen.hasShiftDown()){
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(material.getFaction()));
-            if(material.getSubFaction() != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(material.getSubFaction()));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(material.faction()));
+            if(material.subFaction() != null){
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(material.subFaction()));
             }
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier" + this.material.getTier()));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier" + this.material.tier()));
             tooltip.add(Text.of(""));
 
         } else {
@@ -56,9 +50,9 @@ public class CustomBootsItem extends ArmorItem implements DyeableItem {
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
             }
         }
-
-        super.appendTooltip(stack, world, tooltip, context);
+        super.appendTooltip(stack, context, tooltip, type);
     }
+
 
     enum Customizations{
         DYEABLE("dyeable"),

@@ -1,6 +1,7 @@
 package net.jukoz.me.world.features.tree.foliages;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.world.gen.ModTreeGeneration;
 import net.minecraft.util.math.BlockPos;
@@ -17,7 +18,7 @@ public class OvalFoliagePlacer extends FoliagePlacer {
     protected final IntProvider baseRadius;
     protected final float extraSize;
 
-    public static final Codec<OvalFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+    public static final MapCodec<OvalFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
             Codec.intRange(0,16).fieldOf("baseHeight").forGetter((trunkPlacer) -> {
                 return trunkPlacer.baseHeight;
             }), IntProvider.createValidatingCodec(-16, 16).fieldOf("offset").forGetter((trunkPlacer) -> {

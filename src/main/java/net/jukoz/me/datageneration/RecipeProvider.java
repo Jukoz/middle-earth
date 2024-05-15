@@ -10,37 +10,35 @@ import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModToolItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
+import net.minecraft.data.DataOutput;
+import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
+
 
 public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvider {
 
-    protected RecipeProvider(FabricDataOutput dataOutput) {
-        super(dataOutput);
+
+    public RecipeProvider(DataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookupFuture) {
+        super(output, registryLookupFuture);
     }
 
     @Override
-    public void generate(Consumer<RecipeJsonProvider> exporter) {
+    public void generate(RecipeExporter exporter) {
 
         //region STONE RECIPES
         for (StoneBlockSets.SimpleBlockSetMain record : StoneBlockSets.setsMain) {
             if(record.toString().contains("mossy_")){
                 createMossyRecipe(exporter, record.source(), record.base());
             } else if(record.toString().contains("cracked_")) {
-                createCrackedRecipe(exporter, record.source().asItem(), record.base().asItem());
-            } else if(record.toString().contains("smooth_")){
-                createCrackedRecipe(exporter, record.source().asItem(), record.base().asItem());
+                createSmeltingRecipe(exporter, record.source().asItem(), record.base().asItem());
             } else if(record.toString().contains("cobbled_")) {
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
             } else if(record.source() != null){
@@ -68,13 +66,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         for (StoneBlockSets.SimpleBlockSet record : StoneBlockSets.sets) {
             if(record.toString().contains("mossy_")){
                 createMossyRecipe(exporter, record.source(), record.base());
-            } else if(record.toString().contains("cracked_")){
-                createCrackedRecipe(exporter, record.source().asItem(), record.base().asItem());
-            } else if(record.toString().contains("cobbled_")) {
+            } else if(record.toString().contains("cracked_") || record.toString().contains("smooth_")){
+                createSmeltingRecipe(exporter, record.source().asItem(), record.base().asItem());
+            } else if(record.toString().contains("cobbled_") || record.toString().contains("cobblestone")) {
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
+                createSmeltingRecipeIdentifier(exporter, record.base().asItem(), record.source().asItem());
             } else if(record.source() != null){
                 createBrickRecipe(exporter, record.source().asItem(), record.base(), 4);
-                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 4);
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.base(), record.source(), 1);
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.source(), 2);
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.verticalSlab(), record.source(),2);
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.source());
@@ -107,9 +106,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createStairsRecipe(exporter, record.strippedWood(), record.strippedWoodStairs());
             createDoorRecipe(exporter, record.planks(), record.door());
             createTrapdoorRecipe(exporter, record.planks(), record.trapdoor());
-            createWoodStoolRecipe(exporter, record.planksSlab().asItem(), record.stool());
-            createWoodTableRecipe(exporter, record.planksSlab().asItem(), record.table());
-            createWoodChairRecipe(exporter, record.planksSlab().asItem(), record.chair());
+            createWoodStoolRecipe(exporter, record.planksSlab().asItem(), record.strippedWoodFence().asItem(), record.stool());
+            createWoodTableRecipe(exporter, record.planksSlab().asItem(), record.strippedWoodFence().asItem(), record.table());
+            createWoodChairRecipe(exporter, record.planksSlab().asItem(), record.strippedWoodFence().asItem(), record.chair());
 
             ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planks(), 4)
                     .input(record.log())
@@ -168,9 +167,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createStairsRecipe(exporter, record.planks(), record.planksStairs());
             createDoorRecipe(exporter, record.planks(), record.door());
             createTrapdoorRecipe(exporter, record.planks(), record.trapdoor());
-            createWoodStoolRecipe(exporter, record.planksSlab().asItem(), record.stool());
-            createWoodTableRecipe(exporter, record.planksSlab().asItem(), record.table());
-            createWoodChairRecipe(exporter, record.planksSlab().asItem(), record.chair());
+            createWoodStoolRecipe(exporter, record.planksSlab().asItem(), record.stemFence().asItem(), record.stool());
+            createWoodTableRecipe(exporter, record.planksSlab().asItem(), record.stemFence().asItem(), record.table());
+            createWoodChairRecipe(exporter, record.planksSlab().asItem(), record.stemFence().asItem(), record.chair());
 
             createFenceRecipe(exporter, record.planks().asItem(), record.planksFence());
             createFenceRecipe(exporter, record.stem().asItem(), record.stemFence());
@@ -271,9 +270,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             if(pillar.toString().contains("mossy_")){
                 createMossyRecipe(exporter, pillar.origin(), pillar.base());
             } else if(pillar.toString().contains("cracked_")){
-                createCrackedRecipe(exporter, pillar.origin().asItem(), pillar.base().asItem());
+                createSmeltingRecipe(exporter, pillar.origin().asItem(), pillar.base().asItem());
             } else {
                 createPillarRecipe(exporter,pillar.origin(), pillar.base(), 3);
+                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, pillar.base().asItem(), pillar.origin());
             }
         }
 
@@ -342,15 +342,15 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         }
 
         for(SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools){
-            createWoodStoolRecipe(exporter, stool.origin().asItem(), stool.base());
+            createWoodStoolRecipe(exporter, stool.planks().asItem(), stool.legs().asItem(), stool.base());
         }
 
         for(SimpleWoodTableModel.VanillaTable table : SimpleWoodTableModel.vanillaTables){
-            createWoodTableRecipe(exporter, table.origin().asItem(), table.base());
+            createWoodTableRecipe(exporter, table.planks().asItem(), table.legs().asItem(), table.base());
         }
 
         for(SimpleWoodChairModel.VanillaChair chair : SimpleWoodChairModel.vanillaChairs){
-            createWoodChairRecipe(exporter, chair.origin().asItem(), chair.base());
+            createWoodChairRecipe(exporter, chair.planks().asItem(), chair.legs().asItem(), chair.base());
         }
 
         for(SimpleStoneStoolModel.VanillaStool stool : SimpleStoneStoolModel.vanillaStools){
@@ -364,7 +364,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         for(SimpleStoneChairModel.VanillaChair chair : SimpleStoneChairModel.vanillaChairs){
             createStoneChairRecipe(exporter, chair.origin().asItem(), chair.base());
         }
-
         //endregion
 
         //region MANUAL BLOCK RECIPES
@@ -544,7 +543,19 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createSeedsRecipe(exporter, ModFoodItems.LETTUCE, ModResourceItems.LETTUCE_SEEDS);
         createSeedsRecipe(exporter, ModResourceItems.PIPEWEED, ModResourceItems.PIPEWEED_SEEDS);
         createSeedsRecipe(exporter, ModResourceItems.FLAX, ModResourceItems.FLAX_SEEDS);
+        //endregion
 
+        //region FOOD
+        createCookedFoodRecipes(exporter, ModFoodItems.RAW_CRAB_CLAW, ModFoodItems.COOKED_CRAB_CLAW);
+        createCookedFoodRecipes(exporter, ModFoodItems.RAW_DUCK, ModFoodItems.COOKED_DUCK);
+        createCookedFoodRecipes(exporter, ModFoodItems.RAW_GOOSE, ModFoodItems.COOKED_GOOSE);
+        createCookedFoodRecipes(exporter, ModFoodItems.RAW_HORSE, ModFoodItems.COOKED_HORSE);
+        createCookedFoodRecipes(exporter, ModFoodItems.RAW_RAT, ModFoodItems.COOKED_RAT);
+        createCookedFoodRecipes(exporter, ModFoodItems.RAW_SWAN, ModFoodItems.COOKED_SWAN);
+        createCookedFoodRecipes(exporter, ModFoodItems.MEAT_SKEWER, ModFoodItems.COOKED_MEAT_SKEWER);
+        createCookedFoodRecipes(exporter, ModFoodItems.RAT_SKEWER, ModFoodItems.COOKED_RAT_SKEWER);
+        createCookedFoodRecipes(exporter, ModFoodItems.VEGETABLE_SKEWER, ModFoodItems.COOKED_VEGETABLE_SKEWER);
+        createCookedFoodRecipes(exporter, Items.EGG, ModFoodItems.BOILED_EGG);
         //endregion
 
         createHelmetRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_HELMET);
@@ -555,7 +566,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
     //region BLOCK RECIPE METHODS
 
-    private void createBrickRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output, int count) {
+    private void createBrickRecipe(RecipeExporter exporter, Item input, Block output, int count) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, count)
                 .pattern("ll")
                 .pattern("ll")
@@ -565,7 +576,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createPillarRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output, int count) {
+    private void createPillarRecipe(RecipeExporter exporter, Block input, Block output, int count) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, count)
                 .pattern("l")
                 .pattern("l")
@@ -576,7 +587,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createChiseledRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output, int count) {
+    private void createChiseledRecipe(RecipeExporter exporter, Block input, Block output, int count) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, count)
                 .pattern("l")
                 .pattern("l")
@@ -586,7 +597,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createCutPolishedRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output, int count) {
+    private void createCutPolishedRecipe(RecipeExporter exporter, Block input, Block output, int count) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, count)
                 .pattern("l")
                 .pattern("l")
@@ -596,7 +607,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createMossyRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output) {
+    private void createMossyRecipe(RecipeExporter exporter, Block input, Block output) {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
                 .input(input)
                 .input(Items.VINE)
@@ -612,14 +623,21 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID,Registries.BLOCK.getId(output).getPath() + "_moss"));
     }
 
-    private void createCrackedRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Item output) {
+    private void createSmeltingRecipe(RecipeExporter exporter, Item input, Item output) {
         CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(input),RecipeCategory.BUILDING_BLOCKS, output, 0.1f, 200)
                 .criterion(FabricRecipeProvider.hasItem(input),
                         FabricRecipeProvider.conditionsFromItem(input))
                 .offerTo(exporter);
     }
 
-    private void createStairsRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output) {
+    private void createSmeltingRecipeIdentifier(RecipeExporter exporter, Item input, Item output) {
+        CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(input),RecipeCategory.BUILDING_BLOCKS, output, 0.1f, 200)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID, Registries.ITEM.getId(output).getPath() + "_from_smelting"));
+    }
+
+    private void createStairsRecipe(RecipeExporter exporter, Block input, Block output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 4)
                 .pattern("l  ")
                 .pattern("ll ")
@@ -630,7 +648,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createSlabsRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output) {
+    private void createSlabsRecipe(RecipeExporter exporter, Block input, Block output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 6)
                 .pattern("lll")
                 .input('l', input)
@@ -639,7 +657,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createSlabsFromVerticalRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output) {
+    private void createSlabsFromVerticalRecipe(RecipeExporter exporter, Block input, Block output) {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
                 .input(input)
                 .criterion(FabricRecipeProvider.hasItem(input),
@@ -647,7 +665,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID,Registries.BLOCK.getId(input).getPath() + "_from_vertical"));
     }
 
-    private void createVerticalSlabsRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output) {
+    private void createVerticalSlabsRecipe(RecipeExporter exporter, Block input, Block output) {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
                 .input(input)
                 .criterion(FabricRecipeProvider.hasItem(input),
@@ -655,7 +673,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createDoorRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output) {
+    private void createDoorRecipe(RecipeExporter exporter, Block input, Block output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 3)
                 .pattern("ll")
                 .pattern("ll")
@@ -665,7 +683,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(input))
                 .offerTo(exporter);
     }
-    private void createTrapdoorRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output) {
+    private void createTrapdoorRecipe(RecipeExporter exporter, Block input, Block output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 2)
                 .pattern("lll")
                 .pattern("lll")
@@ -675,7 +693,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createWallsRecipe(Consumer<RecipeJsonProvider> exporter, Block input, Block output) {
+    private void createWallsRecipe(RecipeExporter exporter, Block input, Block output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 6)
                 .pattern("lll")
                 .pattern("lll")
@@ -685,7 +703,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createDyeableBlockRecipe(Consumer<RecipeJsonProvider> exporter, Block blockInput, Item dyeItem, Block output, int count) {
+    private void createDyeableBlockRecipe(RecipeExporter exporter, Block blockInput, Item dyeItem, Block output, int count) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, count)
                 .pattern("BBB")
                 .pattern("BDB")
@@ -697,7 +715,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID,Registries.BLOCK.getId(output).getPath() + "_alt"));
     }
 
-    private void createPaneRecipe(Consumer<RecipeJsonProvider> exporter, Item blockInput, Block output, int count) {
+    private void createPaneRecipe(RecipeExporter exporter, Item blockInput, Block output, int count) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, count)
                 .pattern("BBB")
                 .pattern("BBB")
@@ -707,42 +725,42 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createWoodStoolRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
+    private void createWoodStoolRecipe(RecipeExporter exporter, Item inputSlab, Item inputLegs, Block output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 3)
                 .pattern("PPP")
                 .pattern("S S")
-                .input('P', input)
-                .input('S', Items.STICK)
-                .criterion(FabricRecipeProvider.hasItem(input),
-                        FabricRecipeProvider.conditionsFromItem(input))
+                .input('P', inputSlab)
+                .input('S', inputLegs)
+                .criterion(FabricRecipeProvider.hasItem(inputSlab),
+                        FabricRecipeProvider.conditionsFromItem(inputSlab))
                 .offerTo(exporter);
     }
 
-    private void createWoodTableRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
+    private void createWoodTableRecipe(RecipeExporter exporter, Item inputPlanks, Item inputLegs, Block output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 3)
                 .pattern("PPP")
                 .pattern("S S")
                 .pattern("S S")
-                .input('P', input)
-                .input('S', Items.STICK)
-                .criterion(FabricRecipeProvider.hasItem(input),
-                        FabricRecipeProvider.conditionsFromItem(input))
+                .input('P', inputPlanks)
+                .input('S', inputLegs)
+                .criterion(FabricRecipeProvider.hasItem(inputPlanks),
+                        FabricRecipeProvider.conditionsFromItem(inputPlanks))
                 .offerTo(exporter);
     }
 
-    private void createWoodChairRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
+    private void createWoodChairRecipe(RecipeExporter exporter, Item inputPlanks, Item inputLegs, Block output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 3)
                 .pattern("S  ")
                 .pattern("PPP")
                 .pattern("S S")
-                .input('P', input)
-                .input('S', Items.STICK)
-                .criterion(FabricRecipeProvider.hasItem(input),
-                        FabricRecipeProvider.conditionsFromItem(input))
+                .input('P', inputPlanks)
+                .input('S', inputLegs)
+                .criterion(FabricRecipeProvider.hasItem(inputPlanks),
+                        FabricRecipeProvider.conditionsFromItem(inputPlanks))
                 .offerTo(exporter);
     }
 
-    private void createStoneStoolRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output) {
+    private void createStoneStoolRecipe(RecipeExporter exporter, Item input, Block output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
                 .pattern("SSS")
                 .pattern("S S")
@@ -752,7 +770,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createStoneTableRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output) {
+    private void createStoneTableRecipe(RecipeExporter exporter, Item input, Block output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
                 .pattern("SSS")
                 .pattern(" S ")
@@ -763,7 +781,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createStoneChairRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output) {
+    private void createStoneChairRecipe(RecipeExporter exporter, Item input, Block output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
                 .pattern("S  ")
                 .pattern("SSS")
@@ -774,7 +792,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createLayerRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output) {
+    private void createLayerRecipe(RecipeExporter exporter, Item input, Block output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 6)
                 .pattern("BBB")
                 .input('B', input)
@@ -783,7 +801,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createButtonRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output) {
+    private void createButtonRecipe(RecipeExporter exporter, Item input, Block output) {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
                 .input(input, 1)
                 .criterion(FabricRecipeProvider.hasItem(input),
@@ -791,7 +809,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createPressurePlateRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output) {
+    private void createPressurePlateRecipe(RecipeExporter exporter, Item input, Block output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 2)
                 .pattern("BB")
                 .input('B', input)
@@ -800,7 +818,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createFenceRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output) {
+    private void createFenceRecipe(RecipeExporter exporter, Item input, Block output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 3)
                 .pattern("lsl")
                 .pattern("lsl")
@@ -820,7 +838,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     //endregion
 
     //region ITEM RECIPE METHODS
-    private void createSeedsRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Item output) {
+    private void createSeedsRecipe(RecipeExporter exporter, Item input, Item output) {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, output, 1)
                 .input(input)
                 .criterion(FabricRecipeProvider.hasItem(input),
@@ -828,7 +846,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createPickaxeRecipe(Consumer<RecipeJsonProvider> exporter, Item inputRod, Item inputMaterial, Item output) {
+    private void createPickaxeRecipe(RecipeExporter exporter, Item inputRod, Item inputMaterial, Item output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output, 1)
                 .pattern("MMM")
                 .pattern(" R ")
@@ -840,7 +858,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createAxeRecipe(Consumer<RecipeJsonProvider> exporter, Item inputRod, Item inputMaterial, Item output) {
+    private void createAxeRecipe(RecipeExporter exporter, Item inputRod, Item inputMaterial, Item output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output, 1)
                 .pattern("MM ")
                 .pattern("MR ")
@@ -852,7 +870,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createShovelRecipe(Consumer<RecipeJsonProvider> exporter, Item inputRod, Item inputMaterial, Item output) {
+    private void createShovelRecipe(RecipeExporter exporter, Item inputRod, Item inputMaterial, Item output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output, 1)
                 .pattern(" M ")
                 .pattern(" R ")
@@ -864,7 +882,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createHoeRecipe(Consumer<RecipeJsonProvider> exporter, Item inputRod, Item inputMaterial, Item output) {
+    private void createHoeRecipe(RecipeExporter exporter, Item inputRod, Item inputMaterial, Item output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output, 1)
                 .pattern("MM ")
                 .pattern(" R ")
@@ -876,7 +894,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createBucketRecipe(Consumer<RecipeJsonProvider> exporter, Item inputMaterial, Item output) {
+    private void createBucketRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
                 .pattern("M M")
                 .pattern(" M ")
@@ -887,13 +905,13 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     }
 
 
-    private void createToolSetRecipes(Consumer<RecipeJsonProvider> exporter, Item inputRod, Item inputMaterial, Item outputPickaxe,  Item outputAxe, Item outputShovel, Item outputHoe) {
+    private void createToolSetRecipes(RecipeExporter exporter, Item inputRod, Item inputMaterial, Item outputPickaxe,  Item outputAxe, Item outputShovel, Item outputHoe) {
         createPickaxeRecipe(exporter, inputRod, inputMaterial, outputPickaxe);
         createAxeRecipe(exporter, inputRod, inputMaterial, outputAxe);
         createShovelRecipe(exporter, inputRod, inputMaterial, outputShovel);
         createHoeRecipe(exporter, inputRod, inputMaterial, outputHoe);
     }
-    private void createBootsRecipe(Consumer<RecipeJsonProvider> exporter, Item inputMaterial, Item output) {
+    private void createBootsRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
                 .pattern("M M")
                 .pattern("M M")
@@ -902,7 +920,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(inputMaterial))
                 .offerTo(exporter);
     }
-    private void createLeggingsRecipe(Consumer<RecipeJsonProvider> exporter, Item inputMaterial, Item output) {
+    private void createLeggingsRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
                 .pattern("MMM")
                 .pattern("M M")
@@ -912,7 +930,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(inputMaterial))
                 .offerTo(exporter);
     }
-        private void createChestplateRecipe(Consumer<RecipeJsonProvider> exporter, Item inputMaterial, Item output) {
+        private void createChestplateRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
             ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
                     .pattern("M M")
                     .pattern("MMM")
@@ -922,7 +940,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                             FabricRecipeProvider.conditionsFromItem(inputMaterial))
                     .offerTo(exporter);
         }
-        private void createHelmetRecipe(Consumer<RecipeJsonProvider> exporter, Item inputMaterial, Item output) {
+        private void createHelmetRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
             ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
                     .pattern("MMM")
                     .pattern("M M")
@@ -932,7 +950,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                     .offerTo(exporter);
         }
 
-    private void createRodRecipe(Consumer<RecipeJsonProvider> exporter, Item ingot, Item rod) {
+    private void createRodRecipe(RecipeExporter exporter, Item ingot, Item rod) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, rod, 4)
                 .pattern("I")
                 .pattern("I")
@@ -942,7 +960,13 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createMetalsRecipe(Consumer<RecipeJsonProvider> exporter, Item nugget, Item ingot, Item rod, Block block) {
+    private void createCookedFoodRecipes(RecipeExporter exporter, Item rawFood, Item cookedFood) {
+        net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "smelting", RecipeSerializer.SMELTING, SmeltingRecipe::new, 200, rawFood, cookedFood, 0.35f);
+        net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, rawFood, cookedFood, 0.35f);
+        net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING, CampfireCookingRecipe::new, 600, rawFood, cookedFood, 0.35f);
+    }
+
+    private void createMetalsRecipe(RecipeExporter exporter, Item nugget, Item ingot, Item rod, Block block) {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ingot, 1)
                 .input(nugget, 9)
                 .criterion(FabricRecipeProvider.hasItem(nugget),
@@ -966,7 +990,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID, Registries.ITEM.getId(ingot).getPath() + "_from_block"));
     }
 
-    private void createMetalsRecipeNoBlock(Consumer<RecipeJsonProvider> exporter, Item nugget, Item ingot, Item rod) {
+    private void createMetalsRecipeNoBlock(RecipeExporter exporter, Item nugget, Item ingot, Item rod) {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ingot, 1)
                 .input(nugget, 9)
                 .criterion(FabricRecipeProvider.hasItem(nugget),
@@ -985,7 +1009,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
     //endregion
 
-    private void createFilledRecipe(Consumer<RecipeJsonProvider> exporter, Item input, Block output, int count) {
+    private void createFilledRecipe(RecipeExporter exporter, Item input, Block output, int count) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, count)
                 .pattern("lll")
                 .pattern("lll")
@@ -995,4 +1019,5 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(input))
                 .offerTo(exporter);
     }
+    
 }

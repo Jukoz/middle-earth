@@ -129,7 +129,7 @@ public class BeastFollowOwnerGoal extends Goal {
     }
 
     private boolean canTeleportTo(BlockPos pos) {
-        PathNodeType pathNodeType = LandPathNodeMaker.getLandNodeType(this.world, pos.mutableCopy());
+        PathNodeType pathNodeType = LandPathNodeMaker.getLandNodeType(this.mob, pos);
         if (pathNodeType != PathNodeType.WALKABLE) {
             return false;
         }

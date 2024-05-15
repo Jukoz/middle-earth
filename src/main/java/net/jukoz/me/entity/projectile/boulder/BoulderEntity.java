@@ -5,7 +5,9 @@ import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.GameRules;
@@ -25,8 +27,7 @@ public class BoulderEntity extends ThrownEntity {
     }
 
     @Override
-    protected void initDataTracker() {
-
+    protected void initDataTracker(DataTracker.Builder builder) {
     }
 
     protected void onEntityHit(EntityHitResult entityHitResult) {

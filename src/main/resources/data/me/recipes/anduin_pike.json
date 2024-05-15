@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:anduin_pike",
+    "id": "me:anduin_pike",
     "count": 1
   }
 }

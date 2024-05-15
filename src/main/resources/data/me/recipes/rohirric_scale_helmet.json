@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:rohirric_scale_helmet",
+    "id": "me:rohirric_scale_helmet",
     "count": 1
   }
 }

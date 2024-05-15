@@ -30,7 +30,7 @@ public abstract class InGameHudMixin {
 
     @Shadow protected abstract void renderOverlay(DrawContext context, Identifier texture, float opacity);
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;getLastFrameDuration()F", shift = At.Shift.AFTER))
+    @Inject(method = "renderMiscOverlays", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;getLastFrameDuration()F", shift = At.Shift.AFTER))
     public void injected(DrawContext context, float tickDelta, CallbackInfo ci) {
         PlayerEntity player = MinecraftClient.getInstance().player;
         assert player != null;

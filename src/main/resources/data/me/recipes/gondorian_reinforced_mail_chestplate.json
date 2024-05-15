@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_reinforced_mail_chestplate",
+    "id": "me:gondorian_reinforced_mail_chestplate",
     "count": 1
   }
 }

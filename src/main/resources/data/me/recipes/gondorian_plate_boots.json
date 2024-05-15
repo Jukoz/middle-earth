@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_plate_boots",
+    "id": "me:gondorian_plate_boots",
     "count": 1
   }
 }

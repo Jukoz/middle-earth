@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:dalish_sword",
+    "id": "me:dalish_sword",
     "count": 1
   }
 }

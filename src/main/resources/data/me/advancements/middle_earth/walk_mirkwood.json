@@ -9,7 +9,15 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "me:mirkwood"
+                "biomes": [
+                  "me:dark_mirkwood",
+                  "me:dark_mirkwood_edge",
+                  "me:mirkwood",
+                  "me:mirkwood_foothills",
+                  "me:mirkwood_mountains",
+                  "me:mirkwood_swamp",
+                  "me:mirkwood_edge"
+                ]
               }
             }
           }
@@ -26,7 +34,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:mirkwood_log"
+      "count": 1,
+      "id":  "me:mirkwood_log"
     },
     "show_toast": true,
     "title": {

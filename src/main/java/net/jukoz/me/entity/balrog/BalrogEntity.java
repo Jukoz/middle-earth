@@ -158,10 +158,6 @@ public class BalrogEntity extends HostileEntity {
         return BalrogVariant.byId(this.getId());
     }
 
-    public boolean canBreatheInWater() {
-        return false;
-    }
-
     public boolean isPushedByFluids() {
         return false;
     }

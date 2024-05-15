@@ -9,7 +9,7 @@
     }
   ],
   "output": {
-    "item": "me:longbeard_banner_pattern",
+    "id": "me:longbeard_banner_pattern",
     "count": 1
   }
 }

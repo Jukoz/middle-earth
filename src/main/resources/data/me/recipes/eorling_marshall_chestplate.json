@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:eorling_marshall_chestplate",
+    "id": "me:eorling_marshall_chestplate",
     "count": 1
   }
 }

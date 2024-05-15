@@ -9,7 +9,7 @@
     }
   ],
   "output": {
-    "item": "me:mordor_great_eye_banner_pattern",
+    "id": "me:mordor_great_eye_banner_pattern",
     "count": 1
   }
 }

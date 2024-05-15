@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:erebor_mail_chestplate",
+    "id": "me:erebor_mail_chestplate",
     "count": 1
   }
 }

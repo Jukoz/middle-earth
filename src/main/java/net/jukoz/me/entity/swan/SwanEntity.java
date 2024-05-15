@@ -1,6 +1,7 @@
 package net.jukoz.me.entity.swan;
 
 import net.jukoz.me.entity.ModEntities;
+import net.jukoz.me.entity.duck.DuckEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -23,6 +24,7 @@ import net.minecraft.item.Items;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -38,8 +40,7 @@ import java.util.function.Predicate;
 
 public class SwanEntity extends AnimalEntity {
 
-    public static final Ingredient BREEDING_INGREDIENT
-            = Ingredient.ofItems(Items.GRASS, Items.WHEAT_SEEDS);
+    public static final Ingredient BREEDING_INGREDIENT = Ingredient.fromTag(ItemTags.CHICKEN_FOOD);
     public float flapProgress;
     public float maxWingDeviation;
     public float prevMaxWingDeviation;
@@ -61,7 +62,7 @@ public class SwanEntity extends AnimalEntity {
         this.goalSelector.add(2, new MeleeAttackGoal(this, 0.9f, false));
         this.goalSelector.add(3, new EscapeDangerGoal(this, 1.15));
         this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(5, new TemptGoal(this, 1.1, BREEDING_INGREDIENT, false));
+        this.goalSelector.add(5, new TemptGoal(this, 1.1, DuckEntity.BREEDING_INGREDIENT, false));
 
         this.goalSelector.add(6, new FollowParentGoal(this, 1.05));
 
@@ -150,17 +151,13 @@ public class SwanEntity extends AnimalEntity {
     }
 
     public boolean isBreedingItem(ItemStack stack) {
-        return BREEDING_INGREDIENT.test(stack);
+        return DuckEntity.BREEDING_INGREDIENT.test(stack);
     }
 
     public SwanVariant getVariant() {
         return SwanVariant.byId(this.getId());
     }
 
-
-    public boolean canBreatheInWater() {
-        return false;
-    }
 
     public boolean isPushedByFluids() {
         return true;

@@ -1,6 +1,7 @@
 package net.jukoz.me.world.chunkgen;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.utils.noises.BlendedNoise;
@@ -57,7 +58,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     private static float minNoise = 10000;
     private static float maxNoise = -10000;
     RegistryEntryLookup<Biome> biomeRegistry;
-    public static final Codec<MiddleEarthChunkGenerator> CODEC = RecordCodecBuilder.create((instance) ->
+    public static final MapCodec<MiddleEarthChunkGenerator> CODEC = RecordCodecBuilder.mapCodec((instance) ->
             instance.group(RegistryOps.getEntryLookupCodec(RegistryKeys.BIOME))
                     .apply(instance, instance.stable(MiddleEarthChunkGenerator::new)));
 
@@ -102,7 +103,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD_DESERT),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARONDOR),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.HILLS_OF_ELVENDIM),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.HILLS_OF_EVENDIM),
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_FOOTHILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_BASE),
@@ -193,7 +194,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     }
 
     @Override
-    protected Codec<? extends ChunkGenerator> getCodec() {
+    protected MapCodec<? extends ChunkGenerator> getCodec() {
         return CODEC;
     }
 

@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:longbeard_shield",
+    "id": "me:longbeard_shield",
     "count": 1
   }
 }

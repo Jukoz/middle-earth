@@ -4,7 +4,10 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
+import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.jukoz.me.recipe.AlloyRecipe;
 import net.jukoz.me.recipe.ArtisanRecipe;
+import net.minecraft.recipe.RecipeEntry;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,8 +18,15 @@ public class ArtisanTableDisplay extends BasicDisplay {
         super(inputs, outputs);
     }
 
-    public ArtisanTableDisplay(ArtisanRecipe recipe){
-        super(getInputs(recipe), Collections.singletonList(EntryIngredients.of(recipe.getOutput(BasicDisplay.registryAccess()))));
+    public ArtisanTableDisplay(RecipeEntry<ArtisanRecipe> recipe){
+        super(getInputList(recipe.value()), List.of(EntryIngredient.of(EntryStacks.of(recipe.value().getResult(null)))));
+    }
+
+    private static List<EntryIngredient> getInputList(ArtisanRecipe recipe) {
+        if(recipe == null) return Collections.emptyList();
+        List<EntryIngredient> list = new ArrayList<>();
+        list.add(EntryIngredients.ofIngredient(recipe.getIngredients().get(0)));
+        return list;
     }
 
     private static List<EntryIngredient> getInputs(ArtisanRecipe recipe) {

@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:umbar_pike",
+    "id": "me:umbar_pike",
     "count": 1
   }
 }

@@ -14,7 +14,7 @@
     "XXX"
   ],
   "result": {
-    "item": "me:dwarven_lantern"
+    "id": "me:dwarven_lantern"
   },
   "show_notification": true
 }

@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:dunland_pike",
+    "id": "me:dunland_pike",
     "count": 1
   }
 }

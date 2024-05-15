@@ -11,6 +11,7 @@ import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -20,16 +21,19 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.item.DyeableItem;
+import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class RohanHumanEntity extends NpcEntity {
     public RohanHumanEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
@@ -52,8 +56,8 @@ public class RohanHumanEntity extends NpcEntity {
 
     @Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        entityData = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        entityData = super.initialize(world, difficulty, spawnReason, entityData);
         Random random = world.getRandom();
         this.initEquipment(random, difficulty);
         return entityData;
@@ -125,17 +129,16 @@ public class RohanHumanEntity extends NpcEntity {
                 0x5c5e50,
                 0x6b564c
         };
-        DyeableItem item = (DyeableItem)ModEquipmentItems.GAMBESON;
         ItemStack gambeson = new ItemStack(ModEquipmentItems.GAMBESON);
         ItemStack leatherHelmet = new ItemStack(Items.LEATHER_HELMET);
         ItemStack leatherChestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
         ItemStack leatherLeggings = new ItemStack(Items.LEATHER_LEGGINGS);
         ItemStack leatherBoots = new ItemStack(Items.LEATHER_BOOTS);
-        item.setColor(gambeson, colors[1]);
-        item.setColor(leatherHelmet, colors[0]);
-        item.setColor(leatherChestplate, colors[1]);
-        item.setColor(leatherLeggings, colors[2]);
-        item.setColor(leatherBoots, colors[3]);
+        DyedColorComponent.setColor(gambeson, List.of(DyeItem.byColor(DyeColor.byId(colors[1]))));
+        DyedColorComponent.setColor(leatherHelmet, List.of(DyeItem.byColor(DyeColor.byId(colors[0]))));
+        DyedColorComponent.setColor(leatherChestplate, List.of(DyeItem.byColor(DyeColor.byId(colors[1]))));
+        DyedColorComponent.setColor(leatherLeggings, List.of(DyeItem.byColor(DyeColor.byId(colors[2]))));
+        DyedColorComponent.setColor(leatherBoots, List.of(DyeItem.byColor(DyeColor.byId(colors[3]))));
 
         if(random.nextFloat() >= 0.20f){
             equipStack(EquipmentSlot.HEAD, leatherHelmet);
@@ -168,9 +171,8 @@ public class RohanHumanEntity extends NpcEntity {
                 0x2b5e2c
         };
         int colorIndex = random.nextInt(1);
-        DyeableItem item = (DyeableItem)ModEquipmentItems.GAMBESON;
-        ItemStack stack = new ItemStack((Item)item);
-        item.setColor(stack, colors[colorIndex]);
+        ItemStack gambeson = new ItemStack(ModEquipmentItems.GAMBESON);
+        DyedColorComponent.setColor(gambeson, List.of(DyeItem.byColor(DyeColor.byId(colors[colorIndex]))));
 
         equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_HELMET));
 
@@ -178,7 +180,7 @@ public class RohanHumanEntity extends NpcEntity {
         if(val >= 0.30f){
             equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_CHESTPLATE));
         } else  {
-            equipStack(EquipmentSlot.CHEST, stack);
+            equipStack(EquipmentSlot.CHEST, gambeson);
         }
 
         equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_LEGGINGS));

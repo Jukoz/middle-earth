@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:dwarven_partisan_boots",
+    "id": "me:dwarven_partisan_boots",
     "count": 1
   }
 }

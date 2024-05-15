@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:rohirric_mail_helmet",
+    "id": "me:rohirric_mail_helmet",
     "count": 1
   }
 }

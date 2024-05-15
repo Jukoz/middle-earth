@@ -12,7 +12,7 @@
     }
   ],
   "output": {
-    "item": "me:umbar_spear",
+    "id": "me:umbar_spear",
     "count": 1
   }
 }

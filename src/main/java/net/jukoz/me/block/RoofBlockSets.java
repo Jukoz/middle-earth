@@ -1,9 +1,7 @@
 package net.jukoz.me.block;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.OxidizableVerticalSlabBlock;
 import net.jukoz.me.block.special.OxidizableWallBlock;
@@ -31,6 +29,7 @@ public class RoofBlockSets {
     public static RoofBlockSet WHITE_LEBETHRON_SHINGLES = registerWoodSet("white_lebethron_shingles", WoodBlockSets.WHITE_LEBETHRON.planks());
     public static RoofBlockSet MALLORN_SHINGLES = registerWoodSet("mallorn_shingles", WoodBlockSets.MALLORN.planks());
     public static RoofBlockSet MAPLE_SHINGLES = registerWoodSet("maple_shingles", WoodBlockSets.MAPLE.planks());
+    public static RoofBlockSet SILVER_MAPLE_SHINGLES = registerWoodSet("silver_maple_shingles", WoodBlockSets.SILVER_MAPLE.planks());
     public static RoofBlockSet MIRKWOOD_SHINGLES = registerWoodSet("mirkwood_shingles", WoodBlockSets.MIRKWOOD.planks());
     public static RoofBlockSet PALM_SHINGLES = registerWoodSet("palm_shingles", WoodBlockSets.PALM.planks());
     public static RoofBlockSet PINE_SHINGLES = registerWoodSet("pine_shingles", WoodBlockSets.PINE.planks());
@@ -100,6 +99,7 @@ public class RoofBlockSets {
             WHITE_LEBETHRON_SHINGLES,
             MALLORN_SHINGLES,
             MAPLE_SHINGLES,
+            SILVER_MAPLE_SHINGLES,
             MIRKWOOD_SHINGLES,
             PALM_SHINGLES,
             PINE_SHINGLES,
@@ -143,12 +143,12 @@ public class RoofBlockSets {
             block = ModBlocks.registerWoodBlock(name, new Block(AbstractBlock.Settings.copy(origin)),false);
         }
 
-        Block slab = ModBlocks.registerWoodBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(block)),true);
+        Block slab = ModBlocks.registerWoodBlock(name + "_slab", new SlabBlock(AbstractBlock.Settings.copy(block)),true);
 
         Block verticalSlab = ModBlocks.registerWoodBlock(name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(block)),true);
 
         Block stairs = ModBlocks.registerWoodBlock(name + "_stairs", new StairsBlock(block.getDefaultState(),
-                FabricBlockSettings.copyOf(block)),true);
+                AbstractBlock.Settings.copy(block)),true);
 
         Block wall = ModBlocks.registerWoodBlock(name + "_wall", new WallBlock(AbstractBlock.Settings.copy(block)),true);
 
@@ -177,12 +177,12 @@ public class RoofBlockSets {
             block = ModBlocks.registerStoneBlock(name, new Block(AbstractBlock.Settings.copy(origin).requiresTool()),true);
         }
 
-        Block slab = ModBlocks.registerStoneBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(block).requiresTool()),true);
+        Block slab = ModBlocks.registerStoneBlock(name + "_slab", new SlabBlock(AbstractBlock.Settings.copy(block).requiresTool()),true);
 
         Block verticalSlab = ModBlocks.registerStoneBlock(name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(block).requiresTool()),true);
 
         Block stairs = ModBlocks.registerStoneBlock(name + "_stairs", new StairsBlock(block.getDefaultState(),
-                FabricBlockSettings.copyOf(block).requiresTool()),true);
+                AbstractBlock.Settings.copy(block).requiresTool()),true);
 
         Block wall = ModBlocks.registerStoneBlock(name + "_wall", new WallBlock(AbstractBlock.Settings.copy(block).requiresTool()),true);
 
@@ -194,12 +194,12 @@ public class RoofBlockSets {
 
         Block block = ModBlocks.registerMiscBlock(name, new OxidizableBlock(level, AbstractBlock.Settings.copy(Blocks.HAY_BLOCK)),true);
 
-        Block slab = ModBlocks.registerMiscBlock(name + "_slab", new OxidizableSlabBlock(level, FabricBlockSettings.copyOf(block)),true);
+        Block slab = ModBlocks.registerMiscBlock(name + "_slab", new OxidizableSlabBlock(level, AbstractBlock.Settings.copy(block)),true);
 
         Block verticalSlab = ModBlocks.registerMiscBlock(name + "_vertical_slab", new OxidizableVerticalSlabBlock(level, AbstractBlock.Settings.copy(block)),true);
 
         Block stairs = ModBlocks.registerMiscBlock(name + "_stairs", new OxidizableStairsBlock(level, block.getDefaultState(),
-                FabricBlockSettings.copyOf(block)),true);
+                AbstractBlock.Settings.copy(block)),true);
 
         Block wall = ModBlocks.registerMiscBlock(name + "_wall", new OxidizableWallBlock(level, AbstractBlock.Settings.copy(block)),true);
 
@@ -218,12 +218,12 @@ public class RoofBlockSets {
 
         Block block = ModBlocks.registerMiscBlock(name, new Block(AbstractBlock.Settings.copy(Blocks.HAY_BLOCK)),true);
 
-        Block slab = ModBlocks.registerMiscBlock(name + "_slab", new SlabBlock(FabricBlockSettings.copyOf(block)),true);
+        Block slab = ModBlocks.registerMiscBlock(name + "_slab", new SlabBlock(AbstractBlock.Settings.copy(block)),true);
 
         Block verticalSlab = ModBlocks.registerMiscBlock(name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(block)),true);
 
         Block stairs = ModBlocks.registerMiscBlock(name + "_stairs", new StairsBlock(block.getDefaultState(),
-                FabricBlockSettings.copyOf(block)),true);
+                AbstractBlock.Settings.copy(block)),true);
 
         Block wall = ModBlocks.registerMiscBlock(name + "_wall", new WallBlock(AbstractBlock.Settings.copy(block)),true);
 

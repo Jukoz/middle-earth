@@ -17,7 +17,7 @@
     }
   },
   "result": {
-    "item": "me:meat_skewer",
+    "id": "me:meat_skewer",
     "count": 1
   }
 }

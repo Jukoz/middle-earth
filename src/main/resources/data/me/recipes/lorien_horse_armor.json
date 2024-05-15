@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:lorien_horse_armor",
+    "id": "me:lorien_horse_armor",
     "count": 1
   }
 }

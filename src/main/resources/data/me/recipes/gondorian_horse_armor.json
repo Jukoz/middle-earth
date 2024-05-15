@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_horse_armor",
+    "id": "me:gondorian_horse_armor",
     "count": 1
   }
 }

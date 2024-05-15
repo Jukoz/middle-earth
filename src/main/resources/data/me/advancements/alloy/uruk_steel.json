@@ -1,0 +1,38 @@
+{
+  "parent": "me:alloy/bronze_ingot",
+  "criteria": {
+    "uruk_steel": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:uruk_steel_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.alloy.uruk_steel.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:uruk_steel_ingot"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.alloy.uruk_steel.title"
+    }
+  },
+  "requirements": [
+    [
+      "uruk_steel"
+    ]
+  ]
+}

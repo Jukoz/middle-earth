@@ -6,7 +6,7 @@
     }
   ],
   "output": {
-    "item": "me:lorien_bow",
+    "id": "me:lorien_bow",
     "count": 1
   }
 }

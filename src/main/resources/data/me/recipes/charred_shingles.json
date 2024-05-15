@@ -3,7 +3,9 @@
   "ingredient": {
     "tag": "me:shingles"
   },
-  "result": "me:charred_shingles",
+  "result": {
+    "id": "me:charred_shingles"
+  },
   "experience": 0.1,
   "cookingtime": 200
 }

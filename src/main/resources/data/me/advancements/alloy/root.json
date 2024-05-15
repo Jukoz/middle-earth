@@ -22,7 +22,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:alloy_furnace"
+      "count": 1,
+      "id":  "me:alloy_furnace"
     },
     "show_toast": true,
     "title": {

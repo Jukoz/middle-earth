@@ -3,8 +3,12 @@ package net.jukoz.me.compat.alloyFurnace;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
+import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.jukoz.me.recipe.AlloyRecipe;
+import net.jukoz.me.recipe.ArtisanRecipe;
+import net.minecraft.recipe.RecipeEntry;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,23 +22,14 @@ public class AlloyFurnaceDisplay extends BasicDisplay {
         super(inputs, outputs);
     }
 
-    public AlloyFurnaceDisplay(AlloyRecipe recipe){
-        super(getInputs(recipe), Collections.singletonList(EntryIngredients.of(recipe.getOutput(BasicDisplay.registryAccess()))));
+    public AlloyFurnaceDisplay(RecipeEntry<AlloyRecipe> recipe){
+        super(getInputList(recipe.value()), List.of(EntryIngredient.of(EntryStacks.of(recipe.value().getResult(null)))));
     }
 
-    private static List<EntryIngredient> getInputs(AlloyRecipe recipe) {
-        if (recipe == null) return Collections.emptyList();
-        List<EntryIngredient> list = new ArrayList<>(4);
+    private static List<EntryIngredient> getInputList(AlloyRecipe recipe) {
+        if(recipe == null) return Collections.emptyList();
+        List<EntryIngredient> list = new ArrayList<>();
         list.add(EntryIngredients.ofIngredient(recipe.getIngredients().get(0)));
-        if(recipe.getIngredients().size() > 1){
-            list.add(EntryIngredients.ofIngredient(recipe.getIngredients().get(1)));
-        }
-        if(recipe.getIngredients().size() > 2){
-            list.add(EntryIngredients.ofIngredient(recipe.getIngredients().get(2)));
-        }
-        if(recipe.getIngredients().size() > 3){
-            list.add(EntryIngredients.ofIngredient(recipe.getIngredients().get(3)));
-        }
         return list;
     }
 

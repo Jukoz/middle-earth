@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:gondorian_fountain_guard_chestplate",
+    "id": "me:gondorian_fountain_guard_chestplate",
     "count": 1
   }
 }

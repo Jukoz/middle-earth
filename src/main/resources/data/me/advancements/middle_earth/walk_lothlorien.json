@@ -1,7 +1,7 @@
 {
   "parent": "me:middle_earth/root",
   "criteria": {
-    "me:lothlorien": {
+    "lothlorien": {
       "conditions": {
         "player": [
           {
@@ -9,7 +9,10 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "me:lothlorien"
+                "biomes": [
+                  "me:lothlorien",
+                  "me:lorien_edge"
+                ]
               }
             }
           }
@@ -24,9 +27,9 @@
       "translate": "advancements.middle_earth.enter_lothlorien.description"
     },
     "frame": "task",
-    "hidden": false,
     "icon": {
-      "item": "me:mallorn_leaves"
+      "count": 1,
+      "id": "me:mallorn_leaves"
     },
     "show_toast": true,
     "title": {
@@ -35,7 +38,8 @@
   },
   "requirements": [
     [
-      "me:lothlorien"
+      "lothlorien"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

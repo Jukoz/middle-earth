@@ -1,0 +1,23 @@
+{
+	"parent": "me:block/vertical_slab",
+	"textures": {
+		"particle": "me:block/epmosto",
+		"top": "me:block/epmosto",
+		"bottom": "me:block/epmosto",
+		"side": "me:block/epmosto"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 8],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#side"},
+				"east": {"uv": [0, 0, 8, 16], "texture": "#side"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#side"},
+				"west": {"uv": [8, 0, 16, 16], "texture": "#side"},
+				"up": {"uv": [0, 8, 16, 16], "texture": "#top"},
+				"down": {"uv": [0, 8, 16, 16], "texture": "#bottom"}
+			}
+		}
+	]
+}

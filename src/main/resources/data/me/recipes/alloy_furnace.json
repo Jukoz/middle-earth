@@ -13,11 +13,11 @@
       "item": "minecraft:furnace"
     },
     "S": {
-      "item": "minecraft:stone"
+      "tag": "minecraft:stone_crafting_materials"
     }
   },
   "result": {
-    "item": "me:alloy_furnace",
+    "id": "me:alloy_furnace",
     "count": 1
   }
 }

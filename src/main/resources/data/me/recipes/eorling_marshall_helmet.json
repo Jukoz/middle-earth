@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:eorling_marshall_helmet",
+    "id": "me:eorling_marshall_helmet",
     "count": 1
   }
 }

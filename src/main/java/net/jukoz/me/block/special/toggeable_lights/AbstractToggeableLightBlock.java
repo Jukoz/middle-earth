@@ -1,6 +1,8 @@
 package net.jukoz.me.block.special.toggeable_lights;
 
 import net.minecraft.block.*;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BlockStateComponent;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -16,11 +18,10 @@ import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
+import net.minecraft.state.property.*;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -43,10 +44,7 @@ public abstract class AbstractToggeableLightBlock extends Block {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{LEVEL_15, LIT, WATERLOGGED});
-    }
-    protected Iterable<Vec3d> getParticleOffsets(BlockState state) {
-        return null;
+        builder.add(LEVEL_15, LIT, WATERLOGGED);
     }
 
     @Override
@@ -54,15 +52,13 @@ public abstract class AbstractToggeableLightBlock extends Block {
         return super.getAppearance(state, renderView, pos, side, sourceState, sourcePos);
     }
 
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-        return addNbtForLevel(super.getPickStack(world, pos, state), (Integer)state.get(LEVEL_15));
+    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
+        return addNbtForLevel(super.getPickStack(world, pos, state), state.get(LEVEL_15));
     }
 
     public static ItemStack addNbtForLevel(ItemStack stack, int level) {
         if (level != 15) {
-            NbtCompound nbtCompound = new NbtCompound();
-            nbtCompound.putString(LEVEL_15.getName(), String.valueOf(level));
-            stack.setSubNbt("BlockStateTag", nbtCompound);
+            stack.set(DataComponentTypes.BLOCK_STATE, BlockStateComponent.DEFAULT.with(LEVEL_15, level));
         }
         return stack;
     }
@@ -94,11 +90,15 @@ public abstract class AbstractToggeableLightBlock extends Block {
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
-    @Override
-    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) { return false; }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected boolean canPathfindThrough(BlockState state, NavigationType type) {
+        return false;
+    }
+
+    @Override
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        Hand hand = player.getActiveHand();
         if (!world.isClient && player.getAbilities().allowModifyWorld) {
             if(player.isCreative()){
                 world.setBlockState(pos, state.cycle(LIT));
@@ -121,14 +121,14 @@ public abstract class AbstractToggeableLightBlock extends Block {
     protected static void setLit(WorldAccess world, BlockState state, BlockPos pos, boolean lit) {
         world.setBlockState(pos, state.with(LIT, lit).cycle(LEVEL_15), 2 | 3);
         if(lit){
-            world.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.5F, 1.0F);
+            world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.5F, 1.0F);
         }
     }
 
     protected static void extinguish(@Nullable PlayerEntity player, BlockState state, WorldAccess world, BlockPos pos) {
         setLit(world, state, pos, false);
 
-        world.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_CANDLE_EXTINGUISH, SoundCategory.BLOCKS, 1.5F, 1.0F);
+        world.playSound(null, pos, SoundEvents.BLOCK_CANDLE_EXTINGUISH, SoundCategory.BLOCKS, 1.5F, 1.0F);
         world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
     }
 

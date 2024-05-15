@@ -11,7 +11,7 @@
     "##"
   ],
   "result": {
-    "item": "me:straw_block"
+    "id": "me:straw_block"
   },
   "show_notification": true
 }

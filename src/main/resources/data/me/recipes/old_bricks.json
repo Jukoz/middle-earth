@@ -10,7 +10,7 @@
     }
   },
   "result": {
-    "item": "me:old_bricks",
+    "id": "me:old_bricks",
     "count": 1
   }
 }

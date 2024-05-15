@@ -1,6 +1,8 @@
 package net.jukoz.me.entity.pheasant;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.entity.ModEntities;
+import net.jukoz.me.entity.duck.DuckEntity;
 import net.jukoz.me.entity.goals.PheasantStartledGoal;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.minecraft.block.BlockState;
@@ -25,6 +27,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -57,15 +60,17 @@ public class PheasantEntity extends AnimalEntity {
         this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4));
         this.goalSelector.add(2, new PheasantStartledGoal(this));
         this.goalSelector.add(3, new FollowParentGoal(this, 1.1));
-        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(6, new LookAroundGoal(this));
+        this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
+        this.goalSelector.add(5, new TemptGoal(this, 0.9, DuckEntity.BREEDING_INGREDIENT, true));
+        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(7, new LookAroundGoal(this));
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(VARIANT, 0);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(VARIANT, 0);
     }
 
     public static DefaultAttributeContainer.Builder createPheasantAttributes() {
@@ -87,14 +92,15 @@ public class PheasantEntity extends AnimalEntity {
     }
 
     @Override
-    protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
-        return this.isBaby() ? dimensions.height * 0.85f : dimensions.height * 0.92f;
+    public boolean isBreedingItem(ItemStack stack) {
+        return stack.isIn(ItemTags.CHICKEN_FOOD);
+
     }
 
     @Nullable
     @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return null;
+    public PheasantEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return ModEntities.PHEASANT.create(world);
     }
 
     @Override
@@ -134,10 +140,10 @@ public class PheasantEntity extends AnimalEntity {
 
     /* VARIANTS */
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,
-                                 @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+                                 @Nullable EntityData entityData) {
         PheasantVariant variant = Util.getRandom(PheasantVariant.values(), this.random);
         setVariant(variant);
-        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+        return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
     public PheasantVariant getVariant() {

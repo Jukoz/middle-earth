@@ -9,7 +9,7 @@
     }
   ],
   "output": {
-    "item": "me:rohan_banner_pattern",
+    "id": "me:rohan_banner_pattern",
     "count": 1
   }
 }

@@ -43,9 +43,9 @@ public class StoneTrollEntity extends TrollEntity {
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(PETRIFYING, PETRIFYING_DURATION);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(PETRIFYING, PETRIFYING_DURATION);
     }
 
     @Override

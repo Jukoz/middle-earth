@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:lorien_mail_chestplate",
+    "id": "me:lorien_mail_chestplate",
     "count": 1
   }
 }

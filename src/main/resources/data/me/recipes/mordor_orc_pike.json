@@ -15,7 +15,7 @@
     }
   ],
   "output": {
-    "item": "me:mordor_orc_pike",
+    "id": "me:mordor_orc_pike",
     "count": 1
   }
 }

@@ -19,6 +19,8 @@ public class BlockDrops {
             add(ModDecorativeBlocks.WALL_DWARVEN_LANTERN);
             add(ModDecorativeBlocks.WOOD_PILE);
 
+            add(ModDecorativeBlocks.ROPE);
+
             add(ModNatureBlocks.BROWN_BOLETE);
             add(ModNatureBlocks.CAVE_AMANITA);
             add(ModNatureBlocks.DEEP_FIRECAP);
@@ -31,7 +33,16 @@ public class BlockDrops {
             add(ModNatureBlocks.WHITE_MUSHROOM);
             add(ModNatureBlocks.YELLOW_AMANITA);
 
+            add(ModNatureBlocks.WHITE_LEBETHRON_SAPLING);
+            add(ModNatureBlocks.LEBETHRON_SAPLING);
+            add(ModNatureBlocks.WHITE_PALM_SAPLING);
+
             add(ModDecorativeBlocks.ALLOY_FURNACE);
+
+            add(ModNatureBlocks.MALLOS);
+            add(ModNatureBlocks.YELLOW_FLOWER);
+            add(ModNatureBlocks.HOROKAKA);
+            add(ModNatureBlocks.GIANT_HOROKAKA);
         }
     };
 }

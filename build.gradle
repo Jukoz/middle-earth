@@ -1,10 +1,10 @@
 plugins {
-	id 'fabric-loom' version '1.1-SNAPSHOT'
+	id 'fabric-loom' version '1.6-SNAPSHOT'
 	id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_21
+targetCompatibility = JavaVersion.VERSION_21
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -28,8 +28,8 @@ dependencies {
 
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:12.0.684"
-	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:12.0.684"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:14.1.714"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:14.1.714"
 }
 
 processResources {
@@ -69,7 +69,7 @@ sourceSets {
 
 tasks.withType(JavaCompile).configureEach {
 	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
-	it.options.release = 17
+	it.options.release = 21
 }
 
 java {

@@ -1,5 +1,5 @@
 {
-  "parent": "me:alloy/root",
+  "parent": "me:alloy/bronze_ingot",
   "criteria": {
     "dwarven_steel": {
       "conditions": {
@@ -22,7 +22,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "me:dwarven_steel_ingot"
+      "count": 1,
+      "id":  "me:dwarven_steel_ingot"
     },
     "show_toast": true,
     "title": {

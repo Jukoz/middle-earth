@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:lorien_shield",
+    "id": "me:lorien_shield",
     "count": 1
   }
 }

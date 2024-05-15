@@ -12,6 +12,7 @@ import net.jukoz.me.datageneration.content.models.SimpleFanModel;
 import net.jukoz.me.datageneration.content.models.TintableCrossModel;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.server.loottable.BlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
@@ -24,6 +25,8 @@ import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.item.EnchantmentPredicate;
+import net.minecraft.predicate.item.EnchantmentsPredicate;
+import net.minecraft.predicate.item.ItemSubPredicateTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.loot.condition.TableBonusLootCondition;
 import net.minecraft.loot.entry.LeafEntry;
@@ -31,17 +34,19 @@ import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.registry.RegistryWrapper;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class BlockLootTableProvider extends FabricBlockLootTableProvider {
-    protected static final LootCondition.Builder WITH_SILK_TOUCH = MatchToolLootCondition.builder(ItemPredicate.Builder.create()
-            .enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, NumberRange.IntRange.atLeast(1))));
     protected static final LootCondition.Builder WITH_SHEARS = MatchToolLootCondition.builder(ItemPredicate.Builder.create().items(Items.SHEARS));
     private static final LootCondition.Builder WITH_SILK_TOUCH_OR_SHEARS = WITH_SHEARS.or(WITH_SILK_TOUCH);
     private static final LootCondition.Builder WITHOUT_SILK_TOUCH_NOR_SHEARS = WITH_SILK_TOUCH_OR_SHEARS.invert();
     private static final float[] LEAVES_STICK_DROP_CHANCE = new float[]{0.02f, 0.022222223f, 0.025f, 0.033333335f, 0.1f};
 
-    protected BlockLootTableProvider(FabricDataOutput dataOutput) {
-        super(dataOutput);
+    protected BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(dataOutput, registryLookup);
     }
 
     @Override
@@ -55,9 +60,9 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 cobbleDrops(block, StoneBlockSets.COBBLED_GONLUIN.base());
             }else if(Registries.BLOCK.getId(block).getPath().equals("limestone")){
                 cobbleDrops(block, StoneBlockSets.COBBLED_LIMESTONE.base());
-            }/*else if(Registries.BLOCK.getId(block).getPath().equals("dolomite")){
+            }else if(Registries.BLOCK.getId(block).getPath().equals("dolomite")){
                 cobbleDrops(block, StoneBlockSets.COBBLED_DOLOMITE.base());
-            }*/else if(Registries.BLOCK.getId(block).getPath().equals("quartzite")){
+            }else if(Registries.BLOCK.getId(block).getPath().equals("quartzite")){
                 cobbleDrops(block, StoneBlockSets.COBBLED_QUARTZITE.base());
             }else if(Registries.BLOCK.getId(block).getPath().equals("frozen_stone")){
                 cobbleDrops(block, StoneBlockSets.FROZEN_COBBLESTONE.base());
@@ -68,8 +73,8 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             } else {
                 addDrop(block);
             }
-
         }
+
         for (LeavesDrops.LeavesDrop drop : LeavesDrops.blocks) {
             if(drop.toString().contains("pine")){
                 addDrop(drop.block(), this.leavesDrops(drop.block(), drop.drop(), SAPLING_DROP_CHANCE)
@@ -94,11 +99,10 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         }
 
         for(Block block : TintableCrossModel.grassLikeBlocks) {
-            addDrop(block, grassDrops(block));
+            addDrop(block, shortPlantDrops(block));
         }
-
-        for(Block block : SimpleFanModel.grassLikeFans) {
-            addDrop(block, grassDrops(block));
+        for(Block block : TintableCrossModel.tintedBlocks) {
+            addDropWithSilkTouch(block);
         }
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
@@ -127,7 +131,8 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 addDrop(set.mithril_ore(),oreDrops(set.mithril_ore(), ModResourceItems.RAW_MITHRIL));
             }
         }
-        addDropWithSilkTouch(ModBlocks.STONE_MYCELIUM);
+
+        cobbleDrops(ModBlocks.STONE_MYCELIUM, Blocks.COBBLESTONE);
     }
 
     public void cobbleDrops(Block stoneBlock, Block cobbledBlock){
@@ -138,7 +143,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                                 .rolls(ConstantLootNumberProvider.create(1.0F))
                                 .with(ItemEntry.builder(stoneBlock)))
                         .pool(LootPool.builder()
-                                .conditionally(WITH_SILK_TOUCH.invert())
+                                .conditionally(WITHOUT_SILK_TOUCH)
                                 .rolls(ConstantLootNumberProvider.create(1.0F))
                                 .with(ItemEntry.builder(cobbledBlock))));
     }

@@ -21,7 +21,7 @@
     }
   ],
   "output": {
-    "item": "me:mordor_orc_battleaxe",
+    "id": "me:mordor_orc_battleaxe",
     "count": 1
   }
 }
