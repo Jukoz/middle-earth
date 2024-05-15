@@ -1,11 +1,13 @@
 package net.jukoz.me.world.map;
 
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.utils.resources.FileUtils;
 import net.jukoz.me.world.biomes.surface.MEBiome;
 import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.joml.Vector2i;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.List;
 
@@ -50,7 +52,8 @@ public class MiddleEarthMapRuntime {
         MiddleEarthMapRegion region = getRegionToUse(middleEarthMapUtils.getRegionByWorldCoordinate(posX, posZ));
         if(region == null) return null;
 
-        return region.getHeightColor(getImageCoordinates(posX, posZ));
+        Vector2i coords = getImageCoordinates(posX, posZ);
+        return region.getHeightColor(coords);
     }
 
     private Vector2i getImageCoordinates(int posX, int posZ){

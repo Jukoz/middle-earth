@@ -53,8 +53,8 @@ public class MiddleEarthMapUtils {
         Vector2i region = new Vector2i();
         x /= MiddleEarthMapConfigs.PIXEL_WEIGHT;
         z /= MiddleEarthMapConfigs.PIXEL_WEIGHT;
-        region.x = (int)((x - (x % MiddleEarthMapConfigs.REGION_SIZE)) / MiddleEarthMapConfigs.REGION_SIZE);
-        region.y = (int)((z - (z % MiddleEarthMapConfigs.REGION_SIZE)) / MiddleEarthMapConfigs.REGION_SIZE);
+        region.x = ((x - (x % MiddleEarthMapConfigs.REGION_SIZE)) / MiddleEarthMapConfigs.REGION_SIZE);
+        region.y = ((z - (z % MiddleEarthMapConfigs.REGION_SIZE)) / MiddleEarthMapConfigs.REGION_SIZE);
         return region;
     }
 

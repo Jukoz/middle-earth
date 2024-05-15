@@ -4,23 +4,29 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.resources.FileType;
 import net.jukoz.me.utils.resources.FileUtils;
+import net.jukoz.me.world.biomes.surface.MEBiome;
 import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
+import org.w3c.dom.css.RGBColor;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import static java.lang.String.format;
 
 public class MiddleEarthMapGeneration {
+    public static int CURRENT_ITERATION = 0;
+
     private FileUtils fileUtils;
     private LoggerUtil loggerUtil;
-    private static final int WATER_BUFFER = 28;
+    private static final int WATER_BUFFER = 16;
     private static final float WATER_HEIGHT_MULTIPLIER = 1.0f;
-
+    private static BufferedImage baseHeightImage;
     public MiddleEarthMapGeneration() throws Exception {
         fileUtils = FileUtils.getInstance();
         loggerUtil = LoggerUtil.getInstance();
@@ -37,8 +43,11 @@ public class MiddleEarthMapGeneration {
             throw new Exception(this + " : The image of the map in resource has created an error and operation cannot continue.");
         }
 
-        loggerUtil.logInfoMsg("Validating BIOME generation availability;");
+        loggerUtil.logInfoMsg("Validating initial map BIOME colors;");
+        if(!validateBaseColors(initialMap)) return;
 
+
+        loggerUtil.logInfoMsg("Validating BIOME generation availability;");
         int iterationToGenerate = (MiddleEarthMapConfigs.FORCE_GENERATION)
                 ? MiddleEarthMapConfigs.MAP_ITERATION + 1
                 : findAmountOfIterationToGenerate(initialMap);
@@ -48,11 +57,31 @@ public class MiddleEarthMapGeneration {
             generateBiomes(initialMap, iterationToGenerate);
         }
 
+        loggerUtil.logInfoMsg("Validating initial map HEIGHT MODIFIER generation availability;");
+        if(!validateBaseHeightDatas()){
+            loggerUtil.logInfoMsg("Begin initial map HEIGHT MODIFIER generation;");
+            generateBaseHeightImage(initialMap);
+        }
+
         loggerUtil.logInfoMsg("Validating HEIGHT generation availability;");
         if(!validateHeightDatas(initialMap)){
             loggerUtil.logInfoMsg("Begin HEIGHT generation;");
             generateHeight(initialMap);
         }
+    }
+
+    private boolean validateBaseColors(BufferedImage initialMap) {
+        for(int x = 0; x < initialMap.getWidth(); x++){
+            for(int y = 0; y < initialMap.getWidth(); y++){
+                try{
+                    MEBiomesData.getBiomeByColor(initialMap.getRGB(x,y));
+                } catch (Exception e) {
+                    loggerUtil.logError("MiddleEarthMapGeneration::Cannot find color at [%s,%s] in the inital map".formatted(x,y));
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private BufferedImage getInitialImage(){
@@ -101,9 +130,10 @@ public class MiddleEarthMapGeneration {
             generateInitialBiomes(initialImage);
             startingIteration ++;
         }
-
         for(int i = startingIteration; i < MiddleEarthMapConfigs.MAP_ITERATION + 1; i ++){
             ExecutorService executorService = Executors.newFixedThreadPool(MiddleEarthMapConfigs.THREAD_POOL_SIZE);
+
+            CURRENT_ITERATION = i;
 
             int regionAmountX = (int) (initialImage.getWidth() / MiddleEarthMapConfigs.REGION_SIZE * Math.pow(2, i - 1));
             int regionAmountY = (int) (initialImage.getHeight() / MiddleEarthMapConfigs.REGION_SIZE * Math.pow(2, i - 1));
@@ -159,7 +189,7 @@ public class MiddleEarthMapGeneration {
             for(int i = 0; i < initialImage.getWidth() / MiddleEarthMapConfigs.REGION_SIZE; i++){
                 for(int j = 0; j < initialImage.getHeight() / MiddleEarthMapConfigs.REGION_SIZE; j++){
                     BufferedImage newImage = initialImage.getSubimage(MiddleEarthMapConfigs.REGION_SIZE * i, MiddleEarthMapConfigs.REGION_SIZE * j, MiddleEarthMapConfigs.REGION_SIZE, MiddleEarthMapConfigs.REGION_SIZE);
-                    fileUtils.saveImage(newImage,MiddleEarthMapConfigs.BIOME_PATH.formatted(0), MiddleEarthMapConfigs.IMAGE_NAME.formatted(i,j), FileType.Png);
+                    fileUtils.saveImage(newImage, MiddleEarthMapConfigs.BIOME_PATH.formatted(0), MiddleEarthMapConfigs.IMAGE_NAME.formatted(i,j), FileType.Png);
                 }
             }
         } else {
@@ -182,6 +212,7 @@ public class MiddleEarthMapGeneration {
         return true;
     }
 
+    private final static int HEIGHT_BLUR_SIZE = 16;
     private void generateHeight(BufferedImage initialImage) {
         ExecutorService executorService = Executors.newFixedThreadPool(MiddleEarthMapConfigs.THREAD_POOL_SIZE);
 
@@ -195,7 +226,7 @@ public class MiddleEarthMapGeneration {
                 executorService.submit(() -> {
                     String path = MiddleEarthMapConfigs.BIOME_PATH.formatted(MiddleEarthMapConfigs.MAP_ITERATION) + MiddleEarthMapConfigs.IMAGE_NAME.formatted(finalX, finalY);
                     fileUtils.saveImage(
-                            FileUtils.blur(processHeightRegion(fileUtils.getRunImage(path), MiddleEarthMapConfigs.REGION_SIZE), 16, 1.0f / (16 * 16)),
+                            FileUtils.blur(processHeightRegion(fileUtils.getRunImage(path), MiddleEarthMapConfigs.REGION_SIZE, true, finalX, finalY), HEIGHT_BLUR_SIZE),
                             MiddleEarthMapConfigs.HEIGHT_PATH,
                             MiddleEarthMapConfigs.IMAGE_NAME.formatted(finalX, finalY),
                             FileType.Png
@@ -224,24 +255,61 @@ public class MiddleEarthMapGeneration {
         }
     }
 
-    private static BufferedImage processHeightRegion(BufferedImage biomeImage, int size) {
+    private boolean validateBaseHeightDatas() {
+        String path = MiddleEarthMapConfigs.BASE_HEIGHT_PATH + MiddleEarthMapConfigs.BASE_HEIGHT_IMAGE_NAME;
+        if(fileUtils.getRunImage(path) == null){
+            return false;
+        }
+        baseHeightImage = fileUtils.getRunImage(path);
+        return true;
+    }
+
+    private final static int BASE_HEIGHT_BLUR_SIZE = 24;
+    private void generateBaseHeightImage(BufferedImage initialMap) {
+        baseHeightImage = fileUtils.blur(processHeightRegion(initialMap, MiddleEarthMapConfigs.REGION_SIZE, false, 0,0), BASE_HEIGHT_BLUR_SIZE);
+        fileUtils.saveImage(baseHeightImage,
+                MiddleEarthMapConfigs.BASE_HEIGHT_PATH,
+                MiddleEarthMapConfigs.BASE_HEIGHT_IMAGE_NAME,
+                FileType.Png
+        );
+    }
+
+    private static BufferedImage processHeightRegion(BufferedImage biomeImage, int size, boolean hasBaseImage, int imageX, int imageZ) {
         BufferedImage newHeightRegion = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
 
             for (int x = 0; x < size; x++) {
-                for (int y = 0; y < size; y++) {
+                for (int z = 0; z < size; z++) {
                     try {
-                        int height = MEBiomesData.getBiomeByColor(biomeImage.getRGB(x, y)).height;
+                        MEBiome biome = MEBiomesData.getBiomeByColor(biomeImage.getRGB(x, z));
+
+                        int height = biome.height;
                         if(height > 255){
                             height = 255;
                         }
+
                         int water = 0;
                         if(height < 0) {
                             water = (int) Math.abs((height * WATER_HEIGHT_MULTIPLIER) - WATER_BUFFER);
                             height = 0;
                         }
-                        byte decimal = 0;
 
-                        newHeightRegion.setRGB(x, y, new Color(Math.abs(height), decimal, water).getRGB());
+                        short noiseModifier = (short) (biome.noiseModifier * 127);
+
+                        Color heightModifier = new Color(Math.abs(height), noiseModifier, 0);
+
+                        if(hasBaseImage){
+                            int baseX = (int)(((imageX * MiddleEarthMapConfigs.REGION_SIZE) + x) / Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION));
+                            int baseZ = (int)(((imageZ * MiddleEarthMapConfigs.REGION_SIZE) + z) / Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION));
+                            heightModifier = new Color(baseHeightImage.getRGB(baseX, baseZ));
+                        }
+                        int red = (int)Math.round((biome.heightBaseModifier * ((double)Math.abs(height)) + (1 - biome.heightBaseModifier) * (double)heightModifier.getRed()));
+
+                        int green = (int)((noiseModifier + heightModifier.getGreen()) / 2f);
+
+                        Color newColor = new Color(red, green, water);
+
+
+                        newHeightRegion.setRGB(x, z, newColor.getRGB());
                     } catch (Exception e) {
                         throw new RuntimeException("MiddleEarthMapGeneration.processHeightRegion : Failed to create color for the height [%s]".formatted(e));
                     }
