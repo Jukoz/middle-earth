@@ -386,8 +386,8 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.MISTY_HOBGOBLIN_PLATE_ARMOR, ArmorItem.Type.BOOTS, new Item.Settings()));
 
     public static final Item MISTY_HOBGOBLIN_COMMANDER_HELMET = registerArmorPiece("misty_hobgoblin_commander_helmet",
-            new CustomChestplateItem(ModArmorMaterials.MISTY_HOBGOBLIN_PLATE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings(),
-                    null, new MistyHobgoblinCommanderChestplateArmorAddonModel(MistyHobgoblinCommanderChestplateArmorAddonModel.getTexturedModelData().createModel())));
+            new CustomHelmetItem(ModArmorMaterials.MISTY_HOBGOBLIN_PLATE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings(),
+                    null, new MistyHobgoblinCommanderHelmetArmorAddonModel(MistyHobgoblinCommanderHelmetArmorAddonModel.getTexturedModelData().createModel())));
     public static final Item MISTY_HOBGOBLIN_COMMANDER_CHESTPLATE = registerArmorPiece("misty_hobgoblin_commander_chestplate",
             new CustomChestplateItem(ModArmorMaterials.MISTY_HOBGOBLIN_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     List.of(CustomChestplateItem.Customizations.IMPALED_SKULLS), new MistyHobgoblinCommanderChestplateArmorAddonModel(MistyHobgoblinCommanderChestplateArmorAddonModel.getTexturedModelData().createModel())));

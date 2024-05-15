@@ -1,0 +1,36 @@
+package net.jukoz.me.item.dataComponents;
+
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
+import net.jukoz.me.item.ModDataComponentTypes;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
+
+public record CapeDataComponent(boolean enabled) {
+
+    private static final Codec<CapeDataComponent> BASE_CODEC = RecordCodecBuilder.create((instance) -> {
+        return instance.group(Codec.BOOL.fieldOf("enabled").forGetter(CapeDataComponent::enabled)).apply(instance, CapeDataComponent::new);
+    });
+    public static final Codec<CapeDataComponent> CODEC  = Codec.withAlternative(BASE_CODEC, Codec.BOOL, CapeDataComponent::new);;
+    public static final PacketCodec<ByteBuf, CapeDataComponent> PACKET_CODEC  = PacketCodec.tuple(PacketCodecs.BOOL, CapeDataComponent::enabled, CapeDataComponent::new);
+    ;
+
+    public CapeDataComponent(boolean enabled){
+        this.enabled = enabled;
+    }
+
+    public static ItemStack setCape(ItemStack stack, boolean enabled){
+        ItemStack itemStack = stack.copyWithCount(1);
+
+        itemStack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(enabled));
+        return stack;
+    }
+
+    @Override
+    public boolean enabled() {
+        return enabled;
+    }
+}

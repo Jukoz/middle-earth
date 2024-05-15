@@ -33,13 +33,13 @@ public class ModArmorMaterials {
     public static final ExtendedArmorMaterial GAMBESON = registerArmor("gambeson", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
 
-    public static final ExtendedArmorMaterial CLOAK = registerArmor("cloak", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
+    public static final ExtendedArmorMaterial CLOAK = registerArmor("cloak", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
 
     public static final ExtendedArmorMaterial TUNIC_CLOAK = registerArmor("tunic_cloak", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
 
-    public static final ExtendedArmorMaterial FUR_CLOAK = registerArmor("fur_cloak", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.IRON_INGOT),
+    public static final ExtendedArmorMaterial FUR_CLOAK = registerArmor("fur_cloak", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.IRON_INGOT),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
 
     public static final ExtendedArmorMaterial CHAINMAIL_FUR_CLOAK = registerArmor("chainmail_fur_cloak", 3, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, () -> Ingredient.ofItems(Items.IRON_INGOT),
@@ -86,9 +86,6 @@ public class ModArmorMaterials {
 
     public static final ExtendedArmorMaterial GONDORIAN_FOUNTAIN_GUARD_ARMOR = registerArmor("gondorian_fountain_guard", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), null);
-
-    public static final ExtendedArmorMaterial ROHIRRIC_MAIL_ARMOR = registerArmor("rohirric_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT),
-            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null);
 
     public static final ExtendedArmorMaterial ROHIRRIC_SCALE_ARMOR = registerArmor("rohirric_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null);

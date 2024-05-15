@@ -11,6 +11,8 @@ import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
 import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
 import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
 import net.jukoz.me.client.model.equipment.head.HelmetAddonModel;
+import net.jukoz.me.item.ModDataComponentTypes;
+import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.items.CustomBootsItem;
 import net.jukoz.me.item.items.CustomChestplateItem;
 import net.jukoz.me.item.items.CustomHelmetItem;
@@ -51,12 +53,12 @@ public class ModArmorRenderer implements ArmorRenderer {
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, BipedEntityModel<LivingEntity> contextModel) {
-        customHelmetModel = new CustomHelmetModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_HELMET));
-        customChestplateModel = new CustomChestplateModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_CHESTPLATE));
-        customLeggingsModel = new CustomLeggingsModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_LEGGINGS));
-        customBootsModel = new CustomBootsModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_BOOTS));
-        capeModel = new CloakCapeModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CAPE_MODEL_LAYER));
-        hoodModel = new CloakHoodModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
+        this.customHelmetModel = new CustomHelmetModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_HELMET));
+        this.customChestplateModel = new CustomChestplateModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_CHESTPLATE));
+        this.customLeggingsModel = new CustomLeggingsModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_LEGGINGS));
+        this.customBootsModel = new CustomBootsModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_BOOTS));
+        this.capeModel = new CloakCapeModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CAPE_MODEL_LAYER));
+        this.hoodModel = new CloakHoodModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.HOOD_MODEL_LAYER));
 
         if (slot == EquipmentSlot.HEAD) {
             renderHelmet(stack, matrices, vertexConsumers, entity, light, contextModel);
@@ -136,8 +138,9 @@ public class ModArmorRenderer implements ArmorRenderer {
             renderArmor(matrices, vertexConsumers, light, chestplate, item.additionModel, new Identifier(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
         }
 
-        if(item.getCustomsList() != null){
-            if(item.getCustomsList().contains(CustomChestplateItem.Customizations.CAPE)){
+        CapeDataComponent capeDataComponent = chestplate.get(ModDataComponentTypes.CAPE_DATA);
+        if(capeDataComponent != null) {
+            if (capeDataComponent.enabled()) {
                 contextModel.copyBipedStateTo(capeModel);
                 capeModel.setVisible(false);
                 capeModel.body.visible = true;
