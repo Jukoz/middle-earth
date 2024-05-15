@@ -1935,17 +1935,17 @@
   "block.me.mixed_stones": "Mixed Stones",
   "block.me.mixed_stones_slab": "Mixed Stones Slab",
   "block.me.mixed_stones_vertical_slab": "Mixed Stones Vertical Slab",
-  "block.me.mixed_stones_stairs": "Mixed Stone Stones Stairs",
+  "block.me.mixed_stones_stairs": "Mixed Stones Stairs",
   "block.me.mixed_stones_wall": "Mixed Stones Wall",
   "block.me.mossy_mixed_stones": "Mossy Mixed Stones",
   "block.me.mossy_mixed_stones_slab": "Mossy Mixed Stones Slab",
   "block.me.mossy_mixed_stones_vertical_slab": "Mossy Mixed Stones Vertical Slab",
-  "block.me.mossy_mixed_stones_stairs": "Mossy Mixed Stone Stones Stairs",
+  "block.me.mossy_mixed_stones_stairs": "Mossy Mixed Stones Stairs",
   "block.me.mossy_mixed_stones_wall": "Mossy Mixed Stones Wall",
   "block.me.cracked_mixed_stones": "Cracked Mixed Stones",
   "block.me.cracked_mixed_stones_slab": "Cracked Mixed Stones Slab",
   "block.me.cracked_mixed_stones_vertical_slab": "Cracked Mixed Stones Vertical Slab",
-  "block.me.cracked_mixed_stones_stairs": "Cracked Mixed Stone Stones Stairs",
+  "block.me.cracked_mixed_stones_stairs": "Cracked Mixed Stones Stairs",
   "block.me.cracked_mixed_stones_wall": "Cracked Mixed Stones Wall",
   
   "#Comment:": "Block - Gems",
@@ -2433,8 +2433,8 @@
   "block.me.willow_chair": "Willow Chair",
 
 "#Comment:": "Block - Mushroom",
-  "block.me.mushroom_stem_wall": "Mushroom Wood Wall",
-  "block.me.mushroom_stem_fence": "Mushroom Wood Fence",
+  "block.me.mushroom_stem_wall": "Mushroom Stem Wall",
+  "block.me.mushroom_stem_fence": "Mushroom Stem Fence",
   "block.me.mushroom_planks": "Mushroom Planks",
   "block.me.mushroom_slab": "Mushroom Slab",
   "block.me.mushroom_vertical_slab": "Mushroom Vertical Slab",
@@ -2457,8 +2457,8 @@
 
 "#Comment:": "Block - Dark mushroom",
   "block.me.dark_mushroom_stem": "Dark Mushroom Stem",
-  "block.me.dark_mushroom_stem_wall": "Dark Mushroom Wood Wall",
-  "block.me.dark_mushroom_stem_fence": "Dark Mushroom Wood Fence",
+  "block.me.dark_mushroom_stem_wall": "Dark Mushroom Stem Wall",
+  "block.me.dark_mushroom_stem_fence": "Dark Mushroom Stem Fence",
   "block.me.dark_mushroom_planks": "Dark Mushroom Planks",
   "block.me.dark_mushroom_slab": "Dark Mushroom Slab",
   "block.me.dark_mushroom_vertical_slab": "Dark Mushroom Vertical Slab",
@@ -2481,8 +2481,8 @@
 
 "#Comment:": "Block - Gray mushroom",
   "block.me.gray_mushroom_stem": "Gray Mushroom Stem",
-  "block.me.gray_mushroom_stem_wall": "Gray Mushroom Wood Wall",
-  "block.me.gray_mushroom_stem_fence": "Gray Mushroom Wood Fence",
+  "block.me.gray_mushroom_stem_wall": "Gray Mushroom Stem Wall",
+  "block.me.gray_mushroom_stem_fence": "Gray Mushroom Stem Fence",
   "block.me.gray_mushroom_planks": "Gray Mushroom Planks",
   "block.me.gray_mushroom_slab": "Gray Mushroom Slab",
   "block.me.gray_mushroom_vertical_slab": "Gray Mushroom Vertical Slab",
@@ -3397,7 +3397,7 @@
 
   "tooltip.me.generic" : "Generic",
 
-  "tooltip.me.dwarven" : "Dwarves",
+  "tooltip.me.dwarven" : "Dwarven",
   "tooltip.me.elven" : "Elven",
 
   "tooltip.me.shire" : "Shire",
