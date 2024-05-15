@@ -61,7 +61,7 @@ public class PheasantEntity extends AnimalEntity {
         this.goalSelector.add(2, new PheasantStartledGoal(this));
         this.goalSelector.add(3, new FollowParentGoal(this, 1.1));
         this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(5, new TemptGoal(this, 0.9, DuckEntity.SEEDS_BREEDING_INGREDIENT, true));
+        this.goalSelector.add(5, new TemptGoal(this, 0.9, DuckEntity.BREEDING_INGREDIENT, true));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(7, new LookAroundGoal(this));
@@ -101,10 +101,6 @@ public class PheasantEntity extends AnimalEntity {
     @Override
     public PheasantEntity createChild(ServerWorld world, PassiveEntity entity) {
         return ModEntities.PHEASANT.create(world);
-    }
-
-    public boolean isBreedingItem(ItemStack stack) {
-        return DuckEntity.SEEDS_BREEDING_INGREDIENT.test(stack);
     }
 
     @Override

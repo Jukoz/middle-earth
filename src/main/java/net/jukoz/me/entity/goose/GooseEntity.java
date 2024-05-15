@@ -100,7 +100,7 @@ public class GooseEntity extends AnimalEntity {
         this.goalSelector.add(2, new MeleeAttackGoal(this, 0.9f, false));
         this.goalSelector.add(3, new EscapeDangerGoal(this, 1.15));
         this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(5, new TemptGoal(this, 1.1, DuckEntity.SEEDS_BREEDING_INGREDIENT, false));
+        this.goalSelector.add(5, new TemptGoal(this, 1.1, DuckEntity.BREEDING_INGREDIENT, false));
 
         this.goalSelector.add(6, new FollowParentGoal(this, 1.05));
         this.goalSelector.add(7, new GooseEntity.PickupItemGoal());
@@ -255,7 +255,7 @@ public class GooseEntity extends AnimalEntity {
     }
 
     public boolean isBreedingItem(ItemStack stack) {
-        return DuckEntity.SEEDS_BREEDING_INGREDIENT.test(stack);
+        return DuckEntity.BREEDING_INGREDIENT.test(stack);
     }
 
     public GooseVariant getVariant() {

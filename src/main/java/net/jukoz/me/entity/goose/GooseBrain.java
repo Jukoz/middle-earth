@@ -87,6 +87,6 @@ public class GooseBrain {
     }
 
     public static Ingredient getTemptItems() {
-        return DuckEntity.SEEDS_BREEDING_INGREDIENT;
+        return DuckEntity.BREEDING_INGREDIENT;
     }
 }

@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class DuckEntity extends AnimalEntity {
 
-    private static final Ingredient BREEDING_INGREDIENT = Ingredient.fromTag(ItemTags.CHICKEN_FOOD);
+    public static final Ingredient BREEDING_INGREDIENT = Ingredient.fromTag(ItemTags.CHICKEN_FOOD);
     public float flapProgress;
     public float maxWingDeviation;
     public float prevMaxWingDeviation;
@@ -44,7 +44,7 @@ public class DuckEntity extends AnimalEntity {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new EscapeDangerGoal(this, 1.15));
         this.goalSelector.add(3, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(4, new TemptGoal(this, 1.1, SEEDS_BREEDING_INGREDIENT, false));
+        this.goalSelector.add(4, new TemptGoal(this, 1.1, BREEDING_INGREDIENT, false));
 
         this.goalSelector.add(5, new FollowParentGoal(this, 1.05));
         this.goalSelector.add(6, new WanderAroundGoal(this, 1.0F));
@@ -105,7 +105,7 @@ public class DuckEntity extends AnimalEntity {
     }
 
     public boolean isBreedingItem(ItemStack stack) {
-        return SEEDS_BREEDING_INGREDIENT.test(stack);
+        return BREEDING_INGREDIENT.test(stack);
     }
 
     public DuckVariant getVariant() {
