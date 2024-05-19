@@ -80,9 +80,7 @@ public class ImageUtils {
 
         for(int x = 0; x < 2; x++){
             for(int y = 0; y < 2; y++){
-                subidivedImages[x][y] = createChildFromParentImage(
-                        new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB), parent, width / 2, x, y
-                );
+                subidivedImages[x][y] = createChildFromParentImage(parent, width, x, y);
             }
         }
 
@@ -90,8 +88,9 @@ public class ImageUtils {
     }
 
 
-    private static BufferedImage createChildFromParentImage(BufferedImage child, BufferedImage parent, int halfRegionSize, int xIndex, int yIndex) {
-        child = createVoids(child, parent, halfRegionSize, xIndex, yIndex);
+    private static BufferedImage createChildFromParentImage(BufferedImage parent, int regionSize, int xIndex, int yIndex) {
+        BufferedImage child = new BufferedImage(regionSize, regionSize, BufferedImage.TYPE_INT_ARGB);
+        child = createVoids(child, parent, regionSize/2, xIndex, yIndex);
         child = fillVoidCenters(child);
         child = fillVoidEdges(child);
         return child;
