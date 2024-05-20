@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "me:block/stripped_silver_maple_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "me:block/stripped_silver_maple_wood"
+    },
+    "axis=z": {
+      "model": "me:block/stripped_silver_maple_wood",
+      "x": 90
+    }
+  }
+}

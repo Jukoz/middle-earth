@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "me:mossy_granite_tiles"
+  },
+  "result": "me:mossy_granite_tiles_wall"
+}

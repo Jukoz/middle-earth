@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:acacia_wood_slab"
+    }
+  ],
+  "result": {
+    "item": "me:acacia_wood_vertical_slab"
+  }
+}

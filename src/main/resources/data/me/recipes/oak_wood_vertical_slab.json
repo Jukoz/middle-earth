@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:oak_wood_slab"
+    }
+  ],
+  "result": {
+    "item": "me:oak_wood_vertical_slab"
+  }
+}

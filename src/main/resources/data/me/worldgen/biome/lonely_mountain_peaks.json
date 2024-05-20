@@ -1,0 +1,76 @@
+{
+  "carvers": {},
+  "downfall": 0.5,
+  "effects": {
+    "fog_color": 13031679,
+    "foliage_color": 6987890,
+    "grass_color": 8106628,
+    "sky_color": 8233727,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_dirt",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_gravel",
+      "minecraft:ore_tuff"
+    ],
+    [],
+    [],
+    [
+      "me:abundant_tuff_ore",
+      "me:dolomite_ore",
+      "me:frozen_stone_ore",
+      "me:gravel_ore",
+      "minecraft:glow_lichen"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:goat",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 4
+      },
+      {
+        "type": "minecraft:rabbit",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 4
+      },
+      {
+        "type": "minecraft:fox",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 2
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.0
+}

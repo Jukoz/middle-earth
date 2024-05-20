@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "me:block/jadeite",
+    "side": "me:block/jadeite",
+    "top": "me:block/jadeite"
+  }
+}

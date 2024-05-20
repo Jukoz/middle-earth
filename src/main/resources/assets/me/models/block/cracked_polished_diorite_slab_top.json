@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "me:block/cracked_polished_diorite",
+    "side": "me:block/cracked_polished_diorite",
+    "top": "me:block/cracked_polished_diorite"
+  }
+}

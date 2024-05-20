@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/epmosto_tiles_slab"
+    },
+    "type=double": {
+      "model": "me:block/epmosto_tiles"
+    },
+    "type=top": {
+      "model": "me:block/epmosto_tiles_slab_top"
+    }
+  }
+}

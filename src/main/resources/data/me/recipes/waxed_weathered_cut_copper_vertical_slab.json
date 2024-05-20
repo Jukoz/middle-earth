@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "minecraft:waxed_weathered_cut_copper_slab"
+    }
+  ],
+  "result": {
+    "item": "me:waxed_weathered_cut_copper_vertical_slab"
+  }
+}

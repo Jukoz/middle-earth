@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": {
+      "item": "me:epmosto_carved_window"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "result": {
+    "count": 16,
+    "item": "me:epmosto_carved_window_pane"
+  },
+  "show_notification": true
+}

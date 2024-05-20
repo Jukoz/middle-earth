@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 8,
+  "ingredient": {
+    "item": "me:silver_block"
+  },
+  "result": "me:cut_silver_slab"
+}

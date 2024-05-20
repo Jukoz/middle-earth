@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "me:block/cracked_smooth_stone",
+    "side": "me:block/cracked_smooth_stone",
+    "top": "me:block/cracked_smooth_stone"
+  }
+}

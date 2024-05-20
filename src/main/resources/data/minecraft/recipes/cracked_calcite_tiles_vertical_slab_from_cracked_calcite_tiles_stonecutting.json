@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:cracked_calcite_tiles"
+  },
+  "result": "me:cracked_calcite_tiles_vertical_slab"
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mirkwood_shingles": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:mirkwood_shingles"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:mirkwood_shingles_slab"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_mirkwood_shingles",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:mirkwood_shingles_slab"
+    ]
+  },
+  "sends_telemetry_event": false
+}

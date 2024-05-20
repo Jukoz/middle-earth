@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:polished_blue_tuff_slab"
+    }
+  },
+  "pattern": [
+    "l",
+    "l"
+  ],
+  "result": {
+    "item": "me:chiseled_polished_blue_tuff"
+  },
+  "show_notification": true
+}

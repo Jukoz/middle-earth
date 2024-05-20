@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:white_lebethron_wood"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_white_lebethron_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:white_lebethron_log"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_white_lebethron_log",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:white_lebethron_wood"
+    ]
+  },
+  "sends_telemetry_event": false
+}

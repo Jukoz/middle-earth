@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:multiface_growth",
+  "config": {
+    "block": "me:corrupted_moss",
+    "can_be_placed_on": [
+      "minecraft:stone",
+      "minecraft:andesite",
+      "minecraft:diorite",
+      "minecraft:granite",
+      "minecraft:mossy_cobblestone",
+      "minecraft:cobblestone",
+      "minecraft:grass_block",
+      "minecraft:dirt",
+      "minecraft:spruce_log",
+      "minecraft:oak_log",
+      "minecraft:birch_log",
+      "minecraft:dark_oak_log",
+      "me:mirkwood_log",
+      "me:old_podzol"
+    ],
+    "can_place_on_ceiling": true,
+    "can_place_on_floor": true,
+    "can_place_on_wall": true,
+    "chance_of_spreading": 0.5,
+    "search_range": 20
+  }
+}

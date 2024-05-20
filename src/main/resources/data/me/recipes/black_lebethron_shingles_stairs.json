@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:black_lebethron_shingles"
+    }
+  },
+  "pattern": [
+    "l  ",
+    "ll ",
+    "lll"
+  ],
+  "result": {
+    "count": 4,
+    "item": "me:black_lebethron_shingles_stairs"
+  },
+  "show_notification": true
+}

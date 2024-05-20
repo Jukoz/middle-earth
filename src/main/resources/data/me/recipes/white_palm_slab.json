@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:white_palm_planks"
+    }
+  },
+  "pattern": [
+    "lll"
+  ],
+  "result": {
+    "count": 6,
+    "item": "me:white_palm_slab"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "minecraft:yellow_wool"
+  },
+  "result": "me:yellow_wool_vertical_slab"
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_polished_dolomite": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:polished_dolomite"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:polished_dolomite_wall_from_polished_dolomite_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_dolomite",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:polished_dolomite_wall_from_polished_dolomite_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

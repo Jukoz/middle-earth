@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:beech_wood"
+    }
+  },
+  "pattern": [
+    "l  ",
+    "ll ",
+    "lll"
+  ],
+  "result": {
+    "count": 4,
+    "item": "me:beech_wood_stairs"
+  },
+  "show_notification": true
+}

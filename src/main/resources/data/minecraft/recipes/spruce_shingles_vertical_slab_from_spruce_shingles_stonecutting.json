@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:spruce_shingles"
+  },
+  "result": "me:spruce_shingles_vertical_slab"
+}

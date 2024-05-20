@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/mossy_polished_deepslate_slab"
+    },
+    "type=double": {
+      "model": "me:block/mossy_polished_deepslate"
+    },
+    "type=top": {
+      "model": "me:block/mossy_polished_deepslate_slab_top"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:blue_tuff_tiles"
+  },
+  "result": "me:blue_tuff_tiles_slab"
+}

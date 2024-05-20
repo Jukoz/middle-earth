@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": {
+      "item": "me:uruk_steel_ingot"
+    },
+    "R": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " M ",
+    " R ",
+    " R "
+  ],
+  "result": {
+    "item": "me:uruk_steel_shovel"
+  },
+  "show_notification": true
+}

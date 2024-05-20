@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:dolomite_bricks_slab"
+    }
+  },
+  "pattern": [
+    "l",
+    "l"
+  ],
+  "result": {
+    "item": "me:chiseled_dolomite_bricks"
+  },
+  "show_notification": true
+}

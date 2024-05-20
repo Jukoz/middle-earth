@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": {
+      "item": "me:quartzite"
+    }
+  },
+  "pattern": [
+    "SSS",
+    "S S"
+  ],
+  "result": {
+    "item": "me:quartzite_stool"
+  },
+  "show_notification": true
+}

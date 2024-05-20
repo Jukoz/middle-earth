@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "me:block/granite_pillar_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "me:block/granite_pillar"
+    },
+    "axis=z": {
+      "model": "me:block/granite_pillar_horizontal",
+      "x": 90
+    }
+  }
+}

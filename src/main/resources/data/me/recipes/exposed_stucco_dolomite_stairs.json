@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:exposed_stucco_dolomite"
+    }
+  },
+  "pattern": [
+    "l  ",
+    "ll ",
+    "lll"
+  ],
+  "result": {
+    "count": 4,
+    "item": "me:exposed_stucco_dolomite_stairs"
+  },
+  "show_notification": true
+}

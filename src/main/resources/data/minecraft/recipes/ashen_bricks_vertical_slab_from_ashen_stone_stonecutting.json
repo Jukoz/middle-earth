@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:ashen_stone"
+  },
+  "result": "me:ashen_bricks_vertical_slab"
+}

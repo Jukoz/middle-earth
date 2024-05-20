@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:polished_diorite_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:polished_diorite_slab"
+  }
+}

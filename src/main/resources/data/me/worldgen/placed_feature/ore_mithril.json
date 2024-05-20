@@ -1,0 +1,27 @@
+{
+  "feature": "me:ore_mithril",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 3
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:trapezoid",
+        "max_inclusive": {
+          "absolute": -55
+        },
+        "min_inclusive": {
+          "absolute": -61
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

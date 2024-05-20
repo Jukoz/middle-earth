@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:stripped_white_palm_log"
+    }
+  },
+  "pattern": [
+    "ll",
+    "ll"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:stripped_white_palm_wood"
+  },
+  "show_notification": true
+}

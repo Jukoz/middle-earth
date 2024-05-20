@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "me:block/larch_shingles",
+    "side": "me:block/larch_shingles",
+    "top": "me:block/larch_shingles"
+  }
+}

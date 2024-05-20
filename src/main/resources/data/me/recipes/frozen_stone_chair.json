@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": {
+      "item": "me:frozen_stone"
+    }
+  },
+  "pattern": [
+    "S  ",
+    "SSS",
+    "SSS"
+  ],
+  "result": {
+    "item": "me:frozen_stone_chair"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,85 @@
+{
+  "carvers": {},
+  "downfall": 0.5,
+  "effects": {
+    "fog_color": 8293250,
+    "foliage_color": 3690038,
+    "grass_color": 4083260,
+    "sky_color": 5861275,
+    "water_color": 4551554,
+    "water_fog_color": 467756
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_dirt",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_gravel",
+      "minecraft:ore_tuff"
+    ],
+    [],
+    [],
+    [
+      "me:coarse_dirt_ore",
+      "me:mirkwood_roots_boulder",
+      "me:mirkwood_tree",
+      "me:mossy_boulder",
+      "me:mud_ore",
+      "me:oak_bush_tree",
+      "me:old_podzol_ore",
+      "me:patch_rare_morsel",
+      "me:patch_rare_morsel_tiller",
+      "me:patch_rare_white_mushroom",
+      "me:patch_rare_white_mushroom_tiller",
+      "me:patch_wild_flax",
+      "me:patch_wild_garlic",
+      "me:patch_wild_grass",
+      "me:patch_wild_onion",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:glow_lichen",
+      "minecraft:patch_berry_rare",
+      "minecraft:patch_grass_forest",
+      "minecraft:patch_grass_taiga",
+      "minecraft:patch_large_fern",
+      "minecraft:patch_tall_grass_2",
+      "minecraft:red_mushroom_normal"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:wolf",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 3
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.5
+}

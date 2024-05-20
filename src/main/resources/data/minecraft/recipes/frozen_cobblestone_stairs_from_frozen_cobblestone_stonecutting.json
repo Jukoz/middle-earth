@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "me:frozen_cobblestone"
+  },
+  "result": "me:frozen_cobblestone_stairs"
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": {
+      "item": "minecraft:calcite"
+    }
+  },
+  "pattern": [
+    "SSS",
+    " S ",
+    " S "
+  ],
+  "result": {
+    "item": "me:calcite_table"
+  },
+  "show_notification": true
+}

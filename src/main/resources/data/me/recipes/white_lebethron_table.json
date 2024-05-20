@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "me:white_lebethron_slab"
+    },
+    "S": {
+      "item": "me:stripped_white_lebethron_wood_fence"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "S S",
+    "S S"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:white_lebethron_table"
+  },
+  "show_notification": true
+}

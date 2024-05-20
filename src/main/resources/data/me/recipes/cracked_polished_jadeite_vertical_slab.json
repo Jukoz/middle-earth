@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:cracked_polished_jadeite_slab"
+    }
+  ],
+  "result": {
+    "item": "me:cracked_polished_jadeite_vertical_slab"
+  }
+}

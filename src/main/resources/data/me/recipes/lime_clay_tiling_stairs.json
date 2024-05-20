@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:lime_clay_tiling"
+    }
+  },
+  "pattern": [
+    "l  ",
+    "ll ",
+    "lll"
+  ],
+  "result": {
+    "count": 4,
+    "item": "me:lime_clay_tiling_stairs"
+  },
+  "show_notification": true
+}

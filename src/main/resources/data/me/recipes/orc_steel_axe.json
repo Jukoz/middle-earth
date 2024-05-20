@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": {
+      "item": "me:orc_steel_ingot"
+    },
+    "R": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "MM ",
+    "MR ",
+    " R "
+  ],
+  "result": {
+    "item": "me:orc_steel_axe"
+  },
+  "show_notification": true
+}

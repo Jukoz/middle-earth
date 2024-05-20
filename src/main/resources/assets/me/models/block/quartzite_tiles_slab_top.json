@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "me:block/quartzite_tiles",
+    "side": "me:block/quartzite_tiles",
+    "top": "me:block/quartzite_tiles"
+  }
+}

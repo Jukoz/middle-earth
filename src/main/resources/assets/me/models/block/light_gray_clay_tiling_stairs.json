@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "me:block/light_gray_clay_tiling",
+    "side": "me:block/light_gray_clay_tiling",
+    "top": "me:block/light_gray_clay_tiling"
+  }
+}

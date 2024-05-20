@@ -1,0 +1,99 @@
+{
+  "carvers": {},
+  "downfall": 0.5,
+  "effects": {
+    "fog_color": 12637426,
+    "foliage_color": 5803292,
+    "grass_color": 6662455,
+    "sky_color": 8695029,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_dirt",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_gravel",
+      "minecraft:ore_tuff"
+    ],
+    [],
+    [],
+    [
+      "me:beech_tree",
+      "me:birch_tree",
+      "me:coarse_dirt_ore",
+      "me:forest_moss_disk",
+      "me:gravel_ore",
+      "me:mega_birch_tree",
+      "me:mega_dark_oak_tree",
+      "me:mega_oak_common_tree",
+      "me:mossy_boulder",
+      "me:oak_bush_tree",
+      "me:oak_tree",
+      "me:patch_forest_moss",
+      "me:patch_forest_moss_carpet",
+      "me:patch_rare_morsel",
+      "me:patch_rare_morsel_tiller",
+      "me:patch_wild_beetroot",
+      "me:patch_wild_carrot",
+      "me:patch_wild_cucumber",
+      "me:patch_wild_garlic",
+      "me:patch_wild_leek",
+      "me:patch_wild_lettuce",
+      "me:patch_wild_onion",
+      "me:patch_wild_pipeweed",
+      "me:patch_wild_potato",
+      "me:patch_wilder_grass",
+      "me:pine_tree",
+      "me:podzol_ore",
+      "me:stone_boulder",
+      "me:very_rare_spruce_tree",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:flower_default",
+      "minecraft:glow_lichen",
+      "minecraft:patch_grass_forest",
+      "minecraft:patch_pumpkin",
+      "minecraft:patch_sugar_cane",
+      "minecraft:red_mushroom_normal",
+      "minecraft:trees_plains"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "me:deer",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 10
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.5
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:larch_shingles_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "me:larch_shingles_slab"
+  }
+}

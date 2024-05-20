@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "minecraft:calcite"
+    }
+  },
+  "pattern": [
+    "ll",
+    "ll"
+  ],
+  "result": {
+    "count": 4,
+    "item": "me:polished_calcite"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "me:block/cobbled_dolomite",
+    "side": "me:block/cobbled_dolomite",
+    "top": "me:block/cobbled_dolomite"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "me:block/black_lebethron_planks",
+    "side": "me:block/black_lebethron_planks",
+    "top": "me:block/black_lebethron_planks"
+  }
+}

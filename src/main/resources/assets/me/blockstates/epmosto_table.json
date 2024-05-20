@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "me:block/epmosto_table",
+      "uvlock": false
+    }
+  }
+}

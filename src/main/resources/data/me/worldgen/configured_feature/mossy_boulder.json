@@ -1,0 +1,48 @@
+{
+  "type": "minecraft:block_pile",
+  "config": {
+    "state_provider": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "minecraft:stone"
+          },
+          "weight": 3
+        },
+        {
+          "data": {
+            "Name": "minecraft:andesite"
+          },
+          "weight": 2
+        },
+        {
+          "data": {
+            "Name": "minecraft:stone_slab",
+            "Properties": {
+              "type": "bottom",
+              "waterlogged": "false"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "minecraft:mossy_cobblestone_slab",
+            "Properties": {
+              "type": "bottom",
+              "waterlogged": "false"
+            }
+          },
+          "weight": 2
+        },
+        {
+          "data": {
+            "Name": "minecraft:mossy_cobblestone"
+          },
+          "weight": 6
+        }
+      ]
+    }
+  }
+}

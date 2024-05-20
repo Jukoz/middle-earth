@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": {
+      "item": "minecraft:andesite"
+    }
+  },
+  "pattern": [
+    "S  ",
+    "SSS",
+    "SSS"
+  ],
+  "result": {
+    "item": "me:andesite_chair"
+  },
+  "show_notification": true
+}

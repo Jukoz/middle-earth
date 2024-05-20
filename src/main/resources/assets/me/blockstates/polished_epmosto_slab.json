@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/polished_epmosto_slab"
+    },
+    "type=double": {
+      "model": "me:block/polished_epmosto"
+    },
+    "type=top": {
+      "model": "me:block/polished_epmosto_slab_top"
+    }
+  }
+}

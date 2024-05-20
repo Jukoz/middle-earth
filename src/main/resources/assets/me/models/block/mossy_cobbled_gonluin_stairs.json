@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "me:block/mossy_cobbled_gonluin",
+    "side": "me:block/mossy_cobbled_gonluin",
+    "top": "me:block/mossy_cobbled_gonluin"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/purple_wool_slab"
+    },
+    "type=double": {
+      "model": "minecraft:block/purple_wool"
+    },
+    "type=top": {
+      "model": "me:block/purple_wool_slab_top"
+    }
+  }
+}

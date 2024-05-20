@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:jungle_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:jungle_slab"
+  }
+}

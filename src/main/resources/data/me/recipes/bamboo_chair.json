@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "minecraft:bamboo_block"
+    },
+    "S": {
+      "item": "minecraft:bamboo_fence"
+    }
+  },
+  "pattern": [
+    "S  ",
+    "PPP",
+    "S S"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:bamboo_chair"
+  },
+  "show_notification": true
+}

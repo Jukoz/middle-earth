@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:calcite_bricks_slab"
+    }
+  },
+  "pattern": [
+    "l",
+    "l"
+  ],
+  "result": {
+    "item": "me:chiseled_calcite_bricks"
+  },
+  "show_notification": true
+}

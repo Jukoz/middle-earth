@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": {
+      "item": "me:jadeite"
+    }
+  },
+  "pattern": [
+    "SSS",
+    " S ",
+    " S "
+  ],
+  "result": {
+    "item": "me:jadeite_table"
+  },
+  "show_notification": true
+}

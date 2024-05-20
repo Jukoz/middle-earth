@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:cracked_blue_tuff_bricks"
+    }
+  },
+  "pattern": [
+    "lll",
+    "lll"
+  ],
+  "result": {
+    "count": 6,
+    "item": "me:cracked_blue_tuff_bricks_wall"
+  },
+  "show_notification": true
+}

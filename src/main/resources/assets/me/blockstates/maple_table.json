@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "me:block/maple_table",
+      "uvlock": false
+    }
+  }
+}

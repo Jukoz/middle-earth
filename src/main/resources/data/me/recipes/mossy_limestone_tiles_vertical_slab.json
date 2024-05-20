@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:mossy_limestone_tiles_slab"
+    }
+  ],
+  "result": {
+    "item": "me:mossy_limestone_tiles_vertical_slab"
+  }
+}

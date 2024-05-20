@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:dolomite_bricks"
+    }
+  },
+  "pattern": [
+    "lll"
+  ],
+  "result": {
+    "count": 6,
+    "item": "me:dolomite_bricks_slab"
+  },
+  "show_notification": true
+}

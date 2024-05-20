@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "me:block/black_lebethron_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "me:block/black_lebethron_log"
+    },
+    "axis=z": {
+      "model": "me:block/black_lebethron_log_horizontal",
+      "x": 90
+    }
+  }
+}

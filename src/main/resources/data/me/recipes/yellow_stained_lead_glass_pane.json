@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": {
+      "item": "me:yellow_stained_lead_glass"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "result": {
+    "count": 16,
+    "item": "me:yellow_stained_lead_glass_pane"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "me:block/willow_table",
+      "uvlock": false
+    }
+  }
+}

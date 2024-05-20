@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mossy_cobbled_andesite": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:mossy_cobbled_andesite"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:mossy_cobbled_andesite_stairs_from_mossy_cobbled_andesite_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_mossy_cobbled_andesite",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:mossy_cobbled_andesite_stairs_from_mossy_cobbled_andesite_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/white_lebethron_wood_slab"
+    },
+    "type=double": {
+      "model": "me:block/white_lebethron_wood"
+    },
+    "type=top": {
+      "model": "me:block/white_lebethron_wood_slab_top"
+    }
+  }
+}

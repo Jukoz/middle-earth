@@ -1,0 +1,7 @@
+{
+  "parent": "me:block/vertical_slab",
+  "textures": {
+    "all": "me:block/cracked_jadeite_tiles",
+    "particle": "me:block/cracked_jadeite_tiles"
+  }
+}

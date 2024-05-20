@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/blue_tuff_tiles_slab"
+    },
+    "type=double": {
+      "model": "me:block/blue_tuff_tiles"
+    },
+    "type=top": {
+      "model": "me:block/blue_tuff_tiles_slab_top"
+    }
+  }
+}

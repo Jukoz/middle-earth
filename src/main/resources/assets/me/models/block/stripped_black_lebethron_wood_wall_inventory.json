@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "me:block/stripped_black_lebethron_log"
+  }
+}

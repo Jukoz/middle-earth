@@ -1,0 +1,66 @@
+{
+  "carvers": {},
+  "downfall": 0.5,
+  "effects": {
+    "fog_color": 2629407,
+    "foliage_color": 3486247,
+    "grass_color": 5129527,
+    "sky_color": 3747117,
+    "water_color": 6450777,
+    "water_fog_color": 1513734
+  },
+  "features": [
+    [],
+    [
+      "me:lava_magma_pool"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_dirt",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_gravel",
+      "minecraft:ore_tuff"
+    ],
+    [],
+    [],
+    [
+      "me:ash_block_ore",
+      "me:ashen_dirt_stone_ore",
+      "me:basalt_ore",
+      "me:black_sand_ore",
+      "me:patch_basalt",
+      "me:patch_blackstone",
+      "me:patch_common_tough_berry_bush",
+      "me:patch_mordor_lichen",
+      "minecraft:glow_lichen"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.7
+}

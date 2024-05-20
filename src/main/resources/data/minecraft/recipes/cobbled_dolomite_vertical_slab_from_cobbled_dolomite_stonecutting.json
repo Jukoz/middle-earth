@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:cobbled_dolomite"
+  },
+  "result": "me:cobbled_dolomite_vertical_slab"
+}

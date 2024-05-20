@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "me:orc_steel_nugget"
+    },
+    {
+      "item": "me:orc_steel_nugget"
+    },
+    {
+      "item": "me:orc_steel_nugget"
+    },
+    {
+      "item": "me:orc_steel_nugget"
+    },
+    {
+      "item": "me:orc_steel_nugget"
+    },
+    {
+      "item": "me:orc_steel_nugget"
+    },
+    {
+      "item": "me:orc_steel_nugget"
+    },
+    {
+      "item": "me:orc_steel_nugget"
+    },
+    {
+      "item": "me:orc_steel_nugget"
+    }
+  ],
+  "result": {
+    "item": "me:orc_steel_ingot"
+  }
+}

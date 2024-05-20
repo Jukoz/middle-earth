@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "me:block/polished_gonluin",
+    "side": "me:block/polished_gonluin",
+    "top": "me:block/polished_gonluin"
+  }
+}

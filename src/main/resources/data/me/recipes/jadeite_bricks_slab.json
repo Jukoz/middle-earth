@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:jadeite_bricks"
+    }
+  },
+  "pattern": [
+    "lll"
+  ],
+  "result": {
+    "count": 6,
+    "item": "me:jadeite_bricks_slab"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "me:block/vertical_column_slab",
+  "textures": {
+    "bottom": "minecraft:block/sandstone_bottom",
+    "particle": "minecraft:block/sandstone",
+    "side": "minecraft:block/sandstone",
+    "top": "minecraft:block/sandstone_top"
+  }
+}

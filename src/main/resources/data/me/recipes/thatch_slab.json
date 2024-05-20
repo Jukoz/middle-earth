@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:thatch"
+    }
+  },
+  "pattern": [
+    "lll"
+  ],
+  "result": {
+    "count": 6,
+    "item": "me:thatch_slab"
+  },
+  "show_notification": true
+}

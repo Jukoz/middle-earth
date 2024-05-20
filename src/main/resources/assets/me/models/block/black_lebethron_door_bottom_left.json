@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left",
+  "textures": {
+    "bottom": "me:block/black_lebethron_door_bottom",
+    "top": "me:block/black_lebethron_door_top"
+  }
+}

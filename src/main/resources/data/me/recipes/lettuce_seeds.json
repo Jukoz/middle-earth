@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "me:lettuce"
+    }
+  ],
+  "result": {
+    "item": "me:lettuce_seeds"
+  }
+}

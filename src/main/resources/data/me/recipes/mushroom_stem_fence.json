@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "minecraft:mushroom_stem"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "lsl",
+    "lsl"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:mushroom_stem_fence"
+  },
+  "show_notification": true
+}

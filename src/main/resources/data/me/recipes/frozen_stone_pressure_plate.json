@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": {
+      "item": "me:frozen_stone"
+    }
+  },
+  "pattern": [
+    "BB"
+  ],
+  "result": {
+    "count": 2,
+    "item": "me:frozen_stone_pressure_plate"
+  },
+  "show_notification": true
+}

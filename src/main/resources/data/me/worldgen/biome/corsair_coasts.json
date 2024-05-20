@@ -1,0 +1,90 @@
+{
+  "carvers": {},
+  "downfall": 0.5,
+  "effects": {
+    "fog_color": 12638463,
+    "foliage_color": 10860366,
+    "grass_color": 12107900,
+    "sky_color": 7254527,
+    "water_color": 5212644,
+    "water_fog_color": 333363
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_dirt",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_gravel",
+      "minecraft:ore_tuff"
+    ],
+    [],
+    [],
+    [
+      "me:dry_dirt_ore",
+      "me:granite_boulder",
+      "me:gravel_ore",
+      "me:palm_tree",
+      "me:patch_brown_grass",
+      "me:patch_coastal_panic_grass",
+      "me:patch_giant_horokaka",
+      "me:patch_green_shrub",
+      "me:patch_horokaka",
+      "me:patch_tan_shrub",
+      "me:patch_wild_bell_pepper",
+      "me:patch_wild_tomato",
+      "me:patch_yellow_flower",
+      "me:sand_ore",
+      "me:sandstone_boulder",
+      "me:stone_boulder",
+      "me:white_palm_tree",
+      "minecraft:glow_lichen",
+      "minecraft:patch_cactus_desert",
+      "minecraft:patch_grass_savanna",
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_tall_grass"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:rabbit",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 3
+      },
+      {
+        "type": "minecraft:llama",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 2
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.5
+}

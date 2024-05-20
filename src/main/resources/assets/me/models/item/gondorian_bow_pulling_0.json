@@ -1,0 +1,6 @@
+{
+  "parent": "me:item/bow",
+  "textures": {
+    "layer0": "me:item/gondorian_bow_pulling_0"
+  }
+}

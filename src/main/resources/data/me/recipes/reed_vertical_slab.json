@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:reed_slab"
+    }
+  ],
+  "result": {
+    "item": "me:reed_vertical_slab"
+  }
+}

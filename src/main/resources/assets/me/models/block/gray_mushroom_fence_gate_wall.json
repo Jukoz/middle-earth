@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_custom_fence_gate_wall",
+  "textures": {
+    "particle": "me:block/gray_mushroom_planks",
+    "texture": "me:block/gray_mushroom_planks"
+  }
+}

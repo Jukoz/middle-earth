@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:black_lebethron_wood_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "me:black_lebethron_wood_slab"
+  }
+}

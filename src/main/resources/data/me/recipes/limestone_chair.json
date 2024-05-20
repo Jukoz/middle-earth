@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": {
+      "item": "me:limestone"
+    }
+  },
+  "pattern": [
+    "S  ",
+    "SSS",
+    "SSS"
+  ],
+  "result": {
+    "item": "me:limestone_chair"
+  },
+  "show_notification": true
+}

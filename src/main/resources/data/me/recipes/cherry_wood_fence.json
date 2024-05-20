@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "minecraft:cherry_wood"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "lsl",
+    "lsl"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:cherry_wood_fence"
+  },
+  "show_notification": true
+}

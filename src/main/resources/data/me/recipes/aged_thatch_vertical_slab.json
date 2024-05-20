@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:aged_thatch_slab"
+    }
+  ],
+  "result": {
+    "item": "me:aged_thatch_vertical_slab"
+  }
+}

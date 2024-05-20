@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "me:block/gray_mushroom_shingles",
+    "side": "me:block/gray_mushroom_shingles",
+    "top": "me:block/gray_mushroom_shingles"
+  }
+}

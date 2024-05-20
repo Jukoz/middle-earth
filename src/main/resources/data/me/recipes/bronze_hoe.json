@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": {
+      "item": "me:bronze_ingot"
+    },
+    "R": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "MM ",
+    " R ",
+    " R "
+  ],
+  "result": {
+    "item": "me:bronze_hoe"
+  },
+  "show_notification": true
+}

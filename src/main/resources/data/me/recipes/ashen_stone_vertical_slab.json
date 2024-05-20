@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:ashen_stone_slab"
+    }
+  ],
+  "result": {
+    "item": "me:ashen_stone_vertical_slab"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/diftomin_slab"
+    },
+    "type=double": {
+      "model": "me:block/diftomin"
+    },
+    "type=top": {
+      "model": "me:block/diftomin_slab_top"
+    }
+  }
+}

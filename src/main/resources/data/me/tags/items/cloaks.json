@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "me:cloak",
+    "me:tunic_cloak",
+    "me:fur_cloak",
+    "me:chainmail_fur_cloak",
+    "me:nazgul_cloak",
+    "me:cloak_hood",
+    "me:fur_cloak_hood",
+    "me:nazgul_cloak_hood"
+  ]
+}

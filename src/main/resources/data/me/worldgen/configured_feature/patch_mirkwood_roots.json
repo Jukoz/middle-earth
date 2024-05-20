@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:block_pile",
+  "config": {
+    "state_provider": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "me:mirkwood_roots",
+            "Properties": {
+              "waterlogged": "false"
+            }
+          },
+          "weight": 3
+        }
+      ]
+    }
+  }
+}

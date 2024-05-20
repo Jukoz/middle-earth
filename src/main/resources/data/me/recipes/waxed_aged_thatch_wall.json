@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:waxed_aged_thatch"
+    }
+  },
+  "pattern": [
+    "lll",
+    "lll"
+  ],
+  "result": {
+    "count": 6,
+    "item": "me:waxed_aged_thatch_wall"
+  },
+  "show_notification": true
+}

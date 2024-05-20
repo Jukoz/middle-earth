@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "minecraft:light_gray_terracotta"
+    }
+  },
+  "pattern": [
+    " l ",
+    "lll",
+    "lll"
+  ],
+  "result": {
+    "count": 7,
+    "item": "me:light_gray_clay_tiling"
+  },
+  "show_notification": true
+}

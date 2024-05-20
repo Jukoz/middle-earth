@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left",
+  "textures": {
+    "bottom": "me:block/gray_mushroom_door_bottom",
+    "top": "me:block/gray_mushroom_door_top"
+  }
+}

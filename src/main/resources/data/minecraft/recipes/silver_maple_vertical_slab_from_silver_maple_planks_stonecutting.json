@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:silver_maple_planks"
+  },
+  "result": "me:silver_maple_vertical_slab"
+}

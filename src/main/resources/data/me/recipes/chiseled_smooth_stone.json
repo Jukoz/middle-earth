@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "minecraft:smooth_stone_slab"
+    }
+  },
+  "pattern": [
+    "l",
+    "l"
+  ],
+  "result": {
+    "item": "me:chiseled_smooth_stone"
+  },
+  "show_notification": true
+}

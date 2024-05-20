@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cracked_blue_tuff_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:cracked_blue_tuff_bricks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:cracked_blue_tuff_bricks_stairs"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_cracked_blue_tuff_bricks",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:cracked_blue_tuff_bricks_stairs"
+    ]
+  },
+  "sends_telemetry_event": false
+}

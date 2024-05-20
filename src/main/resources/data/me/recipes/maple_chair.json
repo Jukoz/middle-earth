@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "me:maple_slab"
+    },
+    "S": {
+      "item": "me:stripped_maple_wood_fence"
+    }
+  },
+  "pattern": [
+    "S  ",
+    "PPP",
+    "S S"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:maple_chair"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "me:beech_fence_gate",
+    "me:larch_fence_gate",
+    "me:black_lebethron_fence_gate",
+    "me:white_lebethron_fence_gate",
+    "me:mallorn_fence_gate",
+    "me:maple_fence_gate",
+    "me:silver_maple_fence_gate",
+    "me:mirkwood_fence_gate",
+    "me:palm_fence_gate",
+    "me:white_palm_fence_gate",
+    "me:pine_fence_gate",
+    "me:willow_fence_gate",
+    "me:dark_mushroom_fence_gate",
+    "me:gray_mushroom_fence_gate",
+    "me:mushroom_fence_gate"
+  ]
+}

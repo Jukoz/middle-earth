@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:dark_mushroom_planks"
+    }
+  },
+  "pattern": [
+    "ll",
+    "ll",
+    "ll"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:dark_mushroom_door"
+  },
+  "show_notification": true
+}

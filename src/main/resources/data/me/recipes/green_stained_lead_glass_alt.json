@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": {
+      "item": "me:lead_glass"
+    },
+    "D": {
+      "item": "minecraft:green_dye"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BDB",
+    "BBB"
+  ],
+  "result": {
+    "count": 8,
+    "item": "me:green_stained_lead_glass"
+  },
+  "show_notification": true
+}

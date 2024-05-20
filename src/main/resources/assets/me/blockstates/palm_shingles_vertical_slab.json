@@ -1,0 +1,42 @@
+{
+  "variants": {
+    "double=false,facing=east": {
+      "model": "me:block/palm_shingles_vertical_slab",
+      "uvlock": true,
+      "y": 90
+    },
+    "double=false,facing=north": {
+      "model": "me:block/palm_shingles_vertical_slab",
+      "uvlock": true
+    },
+    "double=false,facing=south": {
+      "model": "me:block/palm_shingles_vertical_slab",
+      "uvlock": true,
+      "y": 180
+    },
+    "double=false,facing=west": {
+      "model": "me:block/palm_shingles_vertical_slab",
+      "uvlock": true,
+      "y": 270
+    },
+    "double=true,facing=east": {
+      "model": "me:block/palm_shingles",
+      "uvlock": true,
+      "y": 90
+    },
+    "double=true,facing=north": {
+      "model": "me:block/palm_shingles",
+      "uvlock": true
+    },
+    "double=true,facing=south": {
+      "model": "me:block/palm_shingles",
+      "uvlock": true,
+      "y": 180
+    },
+    "double=true,facing=west": {
+      "model": "me:block/palm_shingles",
+      "uvlock": true,
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:diftomin_bricks"
+  },
+  "result": "me:diftomin_bricks_slab"
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "me:block/cracked_jadeite_bricks",
+    "side": "me:block/cracked_jadeite_bricks",
+    "top": "me:block/cracked_jadeite_bricks"
+  }
+}

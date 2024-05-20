@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:dolomite_bricks"
+    }
+  },
+  "pattern": [
+    "ll",
+    "ll"
+  ],
+  "result": {
+    "count": 4,
+    "item": "me:dolomite_tiles"
+  },
+  "show_notification": true
+}

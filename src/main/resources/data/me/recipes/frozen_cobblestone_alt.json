@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": {
+      "item": "minecraft:cobblestone"
+    },
+    "D": {
+      "item": "minecraft:ice"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BDB",
+    "BBB"
+  ],
+  "result": {
+    "count": 8,
+    "item": "me:frozen_cobblestone"
+  },
+  "show_notification": true
+}

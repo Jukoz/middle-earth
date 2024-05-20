@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:mixed_stones_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "me:mixed_stones_slab"
+  }
+}

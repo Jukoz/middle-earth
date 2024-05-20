@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:willow_wood_vertical_slab_from_willow_wood_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_willow_wood": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:willow_wood"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_willow_wood",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:willow_wood_vertical_slab_from_willow_wood_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

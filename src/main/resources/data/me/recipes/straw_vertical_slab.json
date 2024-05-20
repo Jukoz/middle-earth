@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:straw_slab"
+    }
+  ],
+  "result": {
+    "item": "me:straw_vertical_slab"
+  }
+}

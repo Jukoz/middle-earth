@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:gray_mushroom_planks"
+  },
+  "result": "me:gray_mushroom_vertical_slab"
+}

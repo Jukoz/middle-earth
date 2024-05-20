@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:cracked_smooth_stone"
+  },
+  "result": "me:cracked_smooth_stone_slab"
+}

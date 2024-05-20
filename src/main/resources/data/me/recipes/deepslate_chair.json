@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": {
+      "item": "minecraft:deepslate"
+    }
+  },
+  "pattern": [
+    "S  ",
+    "SSS",
+    "SSS"
+  ],
+  "result": {
+    "item": "me:deepslate_chair"
+  },
+  "show_notification": true
+}

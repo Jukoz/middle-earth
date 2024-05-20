@@ -1,0 +1,98 @@
+{
+  "carvers": {},
+  "downfall": 0.5,
+  "effects": {
+    "fog_color": 12638463,
+    "foliage_color": 6590810,
+    "grass_color": 7971954,
+    "sky_color": 8104447,
+    "water_color": 5145060,
+    "water_fog_color": 330291
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_dirt",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_gravel",
+      "minecraft:ore_tuff"
+    ],
+    [],
+    [],
+    [
+      "me:patch_coastal_panic_grass",
+      "me:patch_giant_horokaka",
+      "me:patch_horokaka",
+      "me:patch_reeds",
+      "minecraft:flower_default",
+      "minecraft:glow_lichen",
+      "minecraft:kelp_cold",
+      "minecraft:patch_grass_forest",
+      "minecraft:patch_pumpkin",
+      "minecraft:patch_sugar_cane",
+      "minecraft:seagrass_normal"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [
+      {
+        "type": "minecraft:cod",
+        "maxCount": 5,
+        "minCount": 1,
+        "weight": 10
+      }
+    ],
+    "water_creature": [
+      {
+        "type": "me:crab",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 7
+      },
+      {
+        "type": "minecraft:squid",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 6
+      },
+      {
+        "type": "minecraft:turtle",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 4
+      },
+      {
+        "type": "minecraft:dolphin",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 3
+      }
+    ]
+  },
+  "temperature": 0.5
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:white_palm_wood"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "me:white_palm_planks"
+  }
+}

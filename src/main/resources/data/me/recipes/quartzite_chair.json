@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": {
+      "item": "me:quartzite"
+    }
+  },
+  "pattern": [
+    "S  ",
+    "SSS",
+    "SSS"
+  ],
+  "result": {
+    "item": "me:quartzite_chair"
+  },
+  "show_notification": true
+}

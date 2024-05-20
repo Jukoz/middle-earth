@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:polished_diftomin"
+  },
+  "result": "me:diftomin_bricks_vertical_slab"
+}

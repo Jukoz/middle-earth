@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:stucco"
+  },
+  "result": "me:stucco_slab"
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "me:gray_mushroom_slab"
+    },
+    "S": {
+      "item": "me:gray_mushroom_stem_fence"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "S S",
+    "S S"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:gray_mushroom_table"
+  },
+  "show_notification": true
+}

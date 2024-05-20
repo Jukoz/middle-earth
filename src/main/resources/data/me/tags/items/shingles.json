@@ -1,0 +1,32 @@
+{
+  "replace": false,
+  "values": [
+    "me:oak_shingles",
+    "me:spruce_shingles",
+    "me:birch_shingles",
+    "me:jungle_shingles",
+    "me:acacia_shingles",
+    "me:dark_oak_shingles",
+    "me:mangrove_shingles",
+    "me:cherry_shingles",
+    "me:bamboo_shingles",
+    "me:crimson_shingles",
+    "me:warped_shingles",
+    "me:beech_shingles",
+    "me:larch_shingles",
+    "me:black_lebethron_shingles",
+    "me:white_lebethron_shingles",
+    "me:mallorn_shingles",
+    "me:maple_shingles",
+    "me:silver_maple_shingles",
+    "me:mirkwood_shingles",
+    "me:palm_shingles",
+    "me:pine_shingles",
+    "me:willow_shingles",
+    "me:dark_mushroom_shingles",
+    "me:gray_mushroom_shingles",
+    "me:mushroom_shingles",
+    "me:charred_shingles",
+    "me:weathered_shingles"
+  ]
+}

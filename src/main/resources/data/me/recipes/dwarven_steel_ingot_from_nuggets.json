@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "me:dwarven_steel_nugget"
+    },
+    {
+      "item": "me:dwarven_steel_nugget"
+    },
+    {
+      "item": "me:dwarven_steel_nugget"
+    },
+    {
+      "item": "me:dwarven_steel_nugget"
+    },
+    {
+      "item": "me:dwarven_steel_nugget"
+    },
+    {
+      "item": "me:dwarven_steel_nugget"
+    },
+    {
+      "item": "me:dwarven_steel_nugget"
+    },
+    {
+      "item": "me:dwarven_steel_nugget"
+    },
+    {
+      "item": "me:dwarven_steel_nugget"
+    }
+  ],
+  "result": {
+    "item": "me:dwarven_steel_ingot"
+  }
+}

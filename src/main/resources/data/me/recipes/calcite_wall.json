@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "minecraft:calcite"
+    }
+  },
+  "pattern": [
+    "lll",
+    "lll"
+  ],
+  "result": {
+    "count": 6,
+    "item": "me:calcite_wall"
+  },
+  "show_notification": true
+}

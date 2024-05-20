@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "me:item/hobbit_shirriff_hat_brown"
+  }
+}

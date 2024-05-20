@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "me:cracked_polished_jadeite"
+  },
+  "result": "me:cracked_polished_jadeite_stairs"
+}

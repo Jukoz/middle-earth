@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:steel_ingot"
+    }
+  },
+  "pattern": [
+    "lll",
+    "lll",
+    "lll"
+  ],
+  "result": {
+    "item": "me:steel_block"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,108 @@
+{
+  "carvers": {},
+  "downfall": 0.5,
+  "effects": {
+    "fog_color": 11393279,
+    "foliage_color": 6198343,
+    "grass_color": 6858575,
+    "sky_color": 7908853,
+    "water_color": 5077445,
+    "water_fog_color": 331050
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_dirt",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_gravel",
+      "minecraft:ore_tuff"
+    ],
+    [],
+    [],
+    [
+      "me:beech_tree",
+      "me:birch_tree",
+      "me:gravel_ore",
+      "me:larch_tree",
+      "me:oak_tree",
+      "me:patch_forest_moss",
+      "me:patch_wild_beetroot",
+      "me:patch_wild_cucumber",
+      "me:patch_wild_flax",
+      "me:patch_wild_garlic",
+      "me:pine_tree",
+      "me:podzol_ore",
+      "me:rare_mega_oak_tree",
+      "me:spruce_tree",
+      "me:stone_boulder",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:flower_default",
+      "minecraft:glow_lichen",
+      "minecraft:patch_grass_forest",
+      "minecraft:patch_pumpkin",
+      "minecraft:patch_sugar_cane",
+      "minecraft:red_mushroom_normal"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:sheep",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 12
+      },
+      {
+        "type": "minecraft:pig",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 10
+      },
+      {
+        "type": "minecraft:chicken",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 10
+      },
+      {
+        "type": "minecraft:cow",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 8
+      },
+      {
+        "type": "me:deer",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 10
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.5
+}

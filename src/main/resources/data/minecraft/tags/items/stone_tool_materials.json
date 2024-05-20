@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "me:ashen_cobblestone",
+    "me:cobbled_gonluin",
+    "me:frozen_cobblestone",
+    "me:cobbled_calcite",
+    "me:cobbled_dolomite",
+    "me:cobbled_limestone",
+    "me:cobbled_blue_tuff",
+    "me:cobbled_andesite",
+    "me:cobbled_granite",
+    "me:cobbled_diorite",
+    "me:cobbled_quartzite",
+    "me:cobbled_diftomin",
+    "me:cobbled_epmosto"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:white_lebethron_planks"
+    }
+  ],
+  "result": {
+    "item": "me:white_lebethron_button"
+  }
+}

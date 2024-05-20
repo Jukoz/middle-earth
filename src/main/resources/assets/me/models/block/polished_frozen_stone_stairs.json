@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "me:block/polished_frozen_stone",
+    "side": "me:block/polished_frozen_stone",
+    "top": "me:block/polished_frozen_stone"
+  }
+}

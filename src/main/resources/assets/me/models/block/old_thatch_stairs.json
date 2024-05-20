@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "me:block/old_thatch",
+    "side": "me:block/old_thatch",
+    "top": "me:block/old_thatch"
+  }
+}

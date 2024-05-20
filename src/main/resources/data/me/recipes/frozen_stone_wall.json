@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:frozen_stone"
+    }
+  },
+  "pattern": [
+    "lll",
+    "lll"
+  ],
+  "result": {
+    "count": 6,
+    "item": "me:frozen_stone_wall"
+  },
+  "show_notification": true
+}

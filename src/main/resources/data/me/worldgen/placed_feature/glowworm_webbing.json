@@ -1,0 +1,45 @@
+{
+  "feature": "me:glowworm_webbing",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 47
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:trapezoid",
+        "max_inclusive": {
+          "absolute": 48
+        },
+        "min_inclusive": {
+          "absolute": -48
+        }
+      }
+    },
+    {
+      "type": "minecraft:environment_scan",
+      "allowed_search_condition": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "minecraft:air"
+      },
+      "direction_of_search": "up",
+      "max_steps": 12,
+      "target_condition": {
+        "type": "minecraft:has_sturdy_face",
+        "direction": "down"
+      }
+    },
+    {
+      "type": "minecraft:random_offset",
+      "xz_spread": 0,
+      "y_spread": -1
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

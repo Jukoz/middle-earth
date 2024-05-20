@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": {
+      "item": "me:dwarven_steel_ingot"
+    },
+    "R": {
+      "item": "me:dwarven_steel_rod"
+    }
+  },
+  "pattern": [
+    " M ",
+    " R ",
+    " R "
+  ],
+  "result": {
+    "item": "me:dwarven_steel_shovel"
+  },
+  "show_notification": true
+}

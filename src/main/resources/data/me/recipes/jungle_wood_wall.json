@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "minecraft:jungle_wood"
+    }
+  },
+  "pattern": [
+    "lll",
+    "lll"
+  ],
+  "result": {
+    "count": 6,
+    "item": "me:jungle_wood_wall"
+  },
+  "show_notification": true
+}

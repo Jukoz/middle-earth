@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:mossy_polished_deepslate"
+  },
+  "result": "me:mossy_polished_deepslate_slab"
+}

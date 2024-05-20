@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "me:brick_clay_tiling_wall"
+  },
+  "result": "me:brick_clay_tiling_stairs"
+}

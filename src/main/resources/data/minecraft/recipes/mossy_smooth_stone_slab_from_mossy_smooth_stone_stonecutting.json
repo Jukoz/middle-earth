@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:mossy_smooth_stone"
+  },
+  "result": "me:mossy_smooth_stone_slab"
+}

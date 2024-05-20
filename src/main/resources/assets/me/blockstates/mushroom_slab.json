@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/mushroom_slab"
+    },
+    "type=double": {
+      "model": "me:block/mushroom_planks"
+    },
+    "type=top": {
+      "model": "me:block/mushroom_slab_top"
+    }
+  }
+}

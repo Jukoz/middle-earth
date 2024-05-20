@@ -1,0 +1,8 @@
+{
+  "parent": "me:block/wood_stool",
+  "textures": {
+    "particle": "me:block/stripped_mallorn_log",
+    "side": "me:block/stripped_mallorn_log",
+    "top": "me:block/mallorn_planks"
+  }
+}

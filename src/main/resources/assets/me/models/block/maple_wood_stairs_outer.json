@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "me:block/maple_log",
+    "side": "me:block/maple_log",
+    "top": "me:block/maple_log"
+  }
+}

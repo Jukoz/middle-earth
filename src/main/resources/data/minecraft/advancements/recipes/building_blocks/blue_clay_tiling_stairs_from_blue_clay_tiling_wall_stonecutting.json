@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blue_clay_tiling_wall": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:blue_clay_tiling_wall"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:blue_clay_tiling_stairs_from_blue_clay_tiling_wall_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_blue_clay_tiling_wall",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:blue_clay_tiling_stairs_from_blue_clay_tiling_wall_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

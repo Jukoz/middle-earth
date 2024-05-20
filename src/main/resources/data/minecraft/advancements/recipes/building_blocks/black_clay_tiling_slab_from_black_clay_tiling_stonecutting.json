@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_black_clay_tiling": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:black_clay_tiling"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:black_clay_tiling_slab_from_black_clay_tiling_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_black_clay_tiling",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:black_clay_tiling_slab_from_black_clay_tiling_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

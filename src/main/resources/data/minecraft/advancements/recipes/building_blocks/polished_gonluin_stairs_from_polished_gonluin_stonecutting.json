@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_polished_gonluin": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:polished_gonluin"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:polished_gonluin_stairs_from_polished_gonluin_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_gonluin",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:polished_gonluin_stairs_from_polished_gonluin_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

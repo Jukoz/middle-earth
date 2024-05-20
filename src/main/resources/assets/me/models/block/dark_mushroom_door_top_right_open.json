@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_right_open",
+  "textures": {
+    "bottom": "me:block/dark_mushroom_door_bottom",
+    "top": "me:block/dark_mushroom_door_top"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "me:block/jungle_shingles",
+    "side": "me:block/jungle_shingles",
+    "top": "me:block/jungle_shingles"
+  }
+}

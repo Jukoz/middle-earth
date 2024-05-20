@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:mossy_polished_andesite"
+  },
+  "result": "me:mossy_polished_andesite_slab"
+}

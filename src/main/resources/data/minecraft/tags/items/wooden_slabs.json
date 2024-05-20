@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "me:beech_slab",
+    "me:larch_slab",
+    "me:black_lebethron_slab",
+    "me:white_lebethron_slab",
+    "me:mallorn_slab",
+    "me:maple_slab",
+    "me:silver_maple_slab",
+    "me:mirkwood_slab",
+    "me:palm_slab",
+    "me:white_palm_slab",
+    "me:pine_slab",
+    "me:willow_slab",
+    "me:dark_mushroom_slab",
+    "me:gray_mushroom_slab",
+    "me:mushroom_slab"
+  ]
+}

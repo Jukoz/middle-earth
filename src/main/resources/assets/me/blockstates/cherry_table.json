@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "me:block/cherry_table",
+      "uvlock": false
+    }
+  }
+}

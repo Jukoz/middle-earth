@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "me:beech_pressure_plate",
+    "me:larch_pressure_plate",
+    "me:black_lebethron_pressure_plate",
+    "me:white_lebethron_pressure_plate",
+    "me:mallorn_pressure_plate",
+    "me:maple_pressure_plate",
+    "me:silver_maple_pressure_plate",
+    "me:mirkwood_pressure_plate",
+    "me:palm_pressure_plate",
+    "me:white_palm_pressure_plate",
+    "me:pine_pressure_plate",
+    "me:willow_pressure_plate",
+    "me:dark_mushroom_pressure_plate",
+    "me:gray_mushroom_pressure_plate",
+    "me:mushroom_pressure_plate"
+  ]
+}

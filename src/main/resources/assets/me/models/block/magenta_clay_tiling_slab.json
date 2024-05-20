@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "me:block/magenta_clay_tiling",
+    "side": "me:block/magenta_clay_tiling",
+    "top": "me:block/magenta_clay_tiling"
+  }
+}

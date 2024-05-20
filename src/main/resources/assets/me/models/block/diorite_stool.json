@@ -1,0 +1,7 @@
+{
+  "parent": "me:block/stone_stool_template",
+  "textures": {
+    "all": "minecraft:block/diorite",
+    "particle": "minecraft:block/diorite"
+  }
+}

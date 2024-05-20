@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/mossy_granite_bricks_slab"
+    },
+    "type=double": {
+      "model": "me:block/mossy_granite_bricks"
+    },
+    "type=top": {
+      "model": "me:block/mossy_granite_bricks_slab_top"
+    }
+  }
+}

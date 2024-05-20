@@ -1,0 +1,63 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:grass_block",
+        "Properties": {
+          "snowy": "false"
+        }
+      }
+    },
+    "foliage_placer": {
+      "type": "me:oval_foliage",
+      "baseHeight": 2,
+      "baseRadius": 3,
+      "extraSize": 0.4,
+      "offset": 0
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "me:mallorn_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": false,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 1,
+      "lower_size": 0,
+      "upper_size": 2
+    },
+    "trunk_placer": {
+      "type": "me:canopy_trunk",
+      "base_height": 9,
+      "base_radius": 0.9,
+      "iteration": 2,
+      "iteration_percentage": 0.45,
+      "random_height": 2,
+      "roots_offset": 0,
+      "straight_trunk": 1,
+      "tip_radius": 0.87,
+      "trunk_noise": -0.15,
+      "velocity": 5.2
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "me:mallorn_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

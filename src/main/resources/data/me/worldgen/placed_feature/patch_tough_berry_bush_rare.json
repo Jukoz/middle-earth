@@ -1,0 +1,19 @@
+{
+  "feature": "me:patch_tuft_grass",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 320
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

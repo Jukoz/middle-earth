@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:dark_mushroom_planks"
+    }
+  ],
+  "result": {
+    "item": "me:dark_mushroom_button"
+  }
+}

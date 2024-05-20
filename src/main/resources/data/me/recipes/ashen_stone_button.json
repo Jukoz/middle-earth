@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:ashen_stone"
+    }
+  ],
+  "result": {
+    "item": "me:ashen_stone_button"
+  }
+}

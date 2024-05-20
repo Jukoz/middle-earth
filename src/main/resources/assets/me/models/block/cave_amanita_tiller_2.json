@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/flowerbed_2",
+  "textures": {
+    "flowerbed": "me:block/cave_amanita_tiller",
+    "stem": "me:block/cave_amanita_tiller_stem"
+  }
+}

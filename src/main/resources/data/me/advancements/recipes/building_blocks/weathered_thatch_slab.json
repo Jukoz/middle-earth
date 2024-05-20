@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:weathered_thatch_slab"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_weathered_thatch": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:weathered_thatch"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_weathered_thatch",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:weathered_thatch_slab"
+    ]
+  },
+  "sends_telemetry_event": false
+}

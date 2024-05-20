@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:willow_wood"
+  },
+  "result": "me:willow_wood_vertical_slab"
+}

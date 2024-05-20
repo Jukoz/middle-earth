@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mixed_stones": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:mixed_stones"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:mixed_stones_wall_from_mixed_stones_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_mixed_stones",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:mixed_stones_wall_from_mixed_stones_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_gonluin": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:gonluin"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:gonluin_vertical_slab_from_gonluin_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_gonluin",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:gonluin_vertical_slab_from_gonluin_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

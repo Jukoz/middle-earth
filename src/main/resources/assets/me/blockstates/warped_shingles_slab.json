@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/warped_shingles_slab"
+    },
+    "type=double": {
+      "model": "me:block/warped_shingles"
+    },
+    "type=top": {
+      "model": "me:block/warped_shingles_slab_top"
+    }
+  }
+}

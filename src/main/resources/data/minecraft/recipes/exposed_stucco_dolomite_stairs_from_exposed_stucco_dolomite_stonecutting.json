@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "me:exposed_stucco_dolomite"
+  },
+  "result": "me:exposed_stucco_dolomite_stairs"
+}

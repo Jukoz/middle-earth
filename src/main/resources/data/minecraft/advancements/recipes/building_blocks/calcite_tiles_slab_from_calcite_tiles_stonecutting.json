@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_calcite_tiles": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:calcite_tiles"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:calcite_tiles_slab_from_calcite_tiles_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_calcite_tiles",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:calcite_tiles_slab_from_calcite_tiles_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

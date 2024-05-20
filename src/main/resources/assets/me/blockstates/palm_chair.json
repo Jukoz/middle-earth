@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "me:block/palm_chair",
+      "uvlock": false,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/palm_chair",
+      "uvlock": false
+    },
+    "facing=south": {
+      "model": "me:block/palm_chair",
+      "uvlock": false,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/palm_chair",
+      "uvlock": false,
+      "y": 270
+    }
+  }
+}

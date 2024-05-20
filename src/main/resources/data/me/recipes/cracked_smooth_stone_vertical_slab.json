@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:cracked_smooth_stone_slab"
+    }
+  ],
+  "result": {
+    "item": "me:cracked_smooth_stone_vertical_slab"
+  }
+}

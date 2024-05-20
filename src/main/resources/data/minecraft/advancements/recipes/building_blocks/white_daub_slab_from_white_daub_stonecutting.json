@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:white_daub_slab_from_white_daub_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_white_daub": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:white_daub"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_white_daub",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:white_daub_slab_from_white_daub_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

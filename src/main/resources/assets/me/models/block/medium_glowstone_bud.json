@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "me:block/medium_glowstone_bud"
+  }
+}

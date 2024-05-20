@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "me:tomato_crop",
+    "me:bell_pepper_crop",
+    "me:cucumber_crop",
+    "me:flax_crop",
+    "me:garlic_crop",
+    "me:leek_crop",
+    "me:lettuce_crop",
+    "me:onion_crop",
+    "me:pipeweed_crop"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": {
+      "item": "minecraft:brick"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "W": {
+      "item": "me:white_daub"
+    }
+  },
+  "pattern": [
+    "WBW",
+    "BGB",
+    "WBW"
+  ],
+  "result": {
+    "count": 4,
+    "item": "me:white_daub_hobbit_window"
+  },
+  "show_notification": true
+}

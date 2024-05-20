@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "me:limestone_tiles"
+  },
+  "result": "me:limestone_tiles_stairs"
+}

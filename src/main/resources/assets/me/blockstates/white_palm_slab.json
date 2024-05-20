@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/white_palm_slab"
+    },
+    "type=double": {
+      "model": "me:block/white_palm_planks"
+    },
+    "type=top": {
+      "model": "me:block/white_palm_slab_top"
+    }
+  }
+}

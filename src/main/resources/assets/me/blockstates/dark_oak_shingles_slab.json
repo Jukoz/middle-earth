@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/dark_oak_shingles_slab"
+    },
+    "type=double": {
+      "model": "me:block/dark_oak_shingles"
+    },
+    "type=top": {
+      "model": "me:block/dark_oak_shingles_slab_top"
+    }
+  }
+}

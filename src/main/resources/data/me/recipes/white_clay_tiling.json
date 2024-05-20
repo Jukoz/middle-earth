@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "minecraft:white_terracotta"
+    }
+  },
+  "pattern": [
+    " l ",
+    "lll",
+    "lll"
+  ],
+  "result": {
+    "count": 7,
+    "item": "me:white_clay_tiling"
+  },
+  "show_notification": true
+}

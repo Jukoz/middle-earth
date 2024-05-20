@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/orange_clay_tiling_slab"
+    },
+    "type=double": {
+      "model": "me:block/orange_clay_tiling"
+    },
+    "type=top": {
+      "model": "me:block/orange_clay_tiling_slab_top"
+    }
+  }
+}

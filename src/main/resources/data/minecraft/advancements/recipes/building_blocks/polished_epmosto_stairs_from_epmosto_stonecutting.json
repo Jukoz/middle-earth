@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_epmosto": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:epmosto"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:polished_epmosto_stairs_from_epmosto_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_epmosto",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:polished_epmosto_stairs_from_epmosto_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

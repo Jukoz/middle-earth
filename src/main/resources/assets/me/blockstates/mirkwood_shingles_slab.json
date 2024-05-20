@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/mirkwood_shingles_slab"
+    },
+    "type=double": {
+      "model": "me:block/mirkwood_shingles"
+    },
+    "type=top": {
+      "model": "me:block/mirkwood_shingles_slab_top"
+    }
+  }
+}

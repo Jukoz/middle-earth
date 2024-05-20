@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_morgul_steel_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:morgul_steel_nugget"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:morgul_steel_ingot_from_nuggets"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_morgul_steel_nugget",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:morgul_steel_ingot_from_nuggets"
+    ]
+  },
+  "sends_telemetry_event": false
+}

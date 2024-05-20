@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_charred_shingles": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:charred_shingles"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:charred_shingles_vertical_slab_from_charred_shingles_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_charred_shingles",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:charred_shingles_vertical_slab_from_charred_shingles_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

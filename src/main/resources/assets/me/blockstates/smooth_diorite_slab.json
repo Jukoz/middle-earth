@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/smooth_diorite_slab"
+    },
+    "type=double": {
+      "model": "me:block/smooth_diorite"
+    },
+    "type=top": {
+      "model": "me:block/smooth_diorite_slab_top"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "me:block/tuff_stool",
+      "uvlock": false,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/tuff_stool",
+      "uvlock": false
+    },
+    "facing=south": {
+      "model": "me:block/tuff_stool",
+      "uvlock": false,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/tuff_stool",
+      "uvlock": false,
+      "y": 270
+    }
+  }
+}

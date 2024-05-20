@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/quartzite_slab"
+    },
+    "type=double": {
+      "model": "me:block/quartzite"
+    },
+    "type=top": {
+      "model": "me:block/quartzite_slab_top"
+    }
+  }
+}

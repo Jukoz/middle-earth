@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/mossy_polished_diorite_slab"
+    },
+    "type=double": {
+      "model": "me:block/mossy_polished_diorite"
+    },
+    "type=top": {
+      "model": "me:block/mossy_polished_diorite_slab_top"
+    }
+  }
+}

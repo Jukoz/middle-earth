@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/cherry_wood_slab"
+    },
+    "type=double": {
+      "model": "minecraft:block/cherry_wood"
+    },
+    "type=top": {
+      "model": "me:block/cherry_wood_slab_top"
+    }
+  }
+}

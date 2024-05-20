@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "minecraft:cherry_wood"
+  },
+  "result": "me:cherry_wood_vertical_slab"
+}

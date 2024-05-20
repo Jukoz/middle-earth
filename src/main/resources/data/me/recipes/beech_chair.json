@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "me:beech_slab"
+    },
+    "S": {
+      "item": "me:stripped_beech_wood_fence"
+    }
+  },
+  "pattern": [
+    "S  ",
+    "PPP",
+    "S S"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:beech_chair"
+  },
+  "show_notification": true
+}

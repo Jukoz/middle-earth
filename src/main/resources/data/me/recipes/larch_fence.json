@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:larch_planks"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "lsl",
+    "lsl"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:larch_fence"
+  },
+  "show_notification": true
+}

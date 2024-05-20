@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:beech_planks"
+    }
+  },
+  "pattern": [
+    "ll",
+    "ll",
+    "ll"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:beech_door"
+  },
+  "show_notification": true
+}

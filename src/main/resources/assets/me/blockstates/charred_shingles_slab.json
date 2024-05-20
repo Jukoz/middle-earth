@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/charred_shingles_slab"
+    },
+    "type=double": {
+      "model": "me:block/charred_shingles"
+    },
+    "type=top": {
+      "model": "me:block/charred_shingles_slab_top"
+    }
+  }
+}

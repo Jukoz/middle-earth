@@ -1,0 +1,126 @@
+{
+  "carvers": {},
+  "downfall": 0.5,
+  "effects": {
+    "fog_color": 12638463,
+    "foliage_color": 6263141,
+    "grass_color": 5869935,
+    "sky_color": 7907327,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [],
+    [],
+    [
+      "me:amethyst_geode",
+      "me:citrine_geode",
+      "me:glowstone_geode",
+      "me:red_agate_geode",
+      "me:quartz_geode"
+    ],
+    [],
+    [],
+    [],
+    [
+      "me:disk_mycelium",
+      "me:ore_basalt",
+      "me:ore_black_stone",
+      "me:ore_coal",
+      "me:ore_coal_upper",
+      "me:ore_copper",
+      "me:ore_copper_upper",
+      "me:ore_dirt",
+      "me:ore_dolomite",
+      "me:ore_emerald",
+      "me:ore_gold",
+      "me:ore_iron",
+      "me:ore_jade",
+      "me:ore_lapis",
+      "me:ore_lead",
+      "me:ore_magma",
+      "me:ore_obsidian",
+      "me:ore_quartzite",
+      "me:ore_silver",
+      "me:ore_tin",
+      "me:ore_tuff",
+      "me:pillar_blackstone",
+      "me:pillar_polished_basalt",
+      "me:spring_lava",
+      "minecraft:disk_gravel",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_dirt",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_gravel",
+      "minecraft:ore_tuff",
+      "minecraft:spring_water"
+    ],
+    [],
+    [],
+    [
+      "minecraft:glow_lichen",
+      "me:brown_bolette_tree",
+      "me:patch_cave_amanita",
+      "me:patch_cave_amanita_tiller",
+      "me:cave_amanita_tree",
+      "me:patch_deep_firecap",
+      "me:patch_deep_firecap_tiller",
+      "me:deep_firecap_tree",
+      "me:patch_ghostshroom",
+      "me:patch_ghostshroom_tiller",
+      "me:patch_sky_firecap",
+      "me:patch_sky_firecap_tiller",
+      "me:tree_sky_firecap",
+      "me:patch_tubeshrooms",
+      "me:patch_tall_ubeshrooms",
+      "me:patch_trumpet_shroom",
+      "me:patch_tall_trumpet_shroom",
+      "me:patch_violet_caps",
+      "me:patch_violet_caps_tiller",
+      "me:patch_yellow_amanita",
+      "me:patch_yellow_amanita_tiller",
+      "me:tree_yellow_amanita",
+      "me:glowworm_webbing"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 3
+      }
+    ],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "me:snail",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 5
+      },
+      {
+        "type": "me:cave_troll",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 2
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.5
+}

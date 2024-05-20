@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "minecraft:white_terracotta"
+  },
+  "result": "me:white_clay_tiling_slab"
+}

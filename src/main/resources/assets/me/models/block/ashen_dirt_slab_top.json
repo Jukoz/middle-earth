@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "me:block/ashen_dirt",
+    "side": "me:block/ashen_dirt",
+    "top": "me:block/ashen_dirt"
+  }
+}

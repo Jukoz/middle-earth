@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "me:diftomin_tiles"
+  },
+  "result": "me:diftomin_tiles_wall"
+}

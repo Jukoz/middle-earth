@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "me:block/warped_table",
+      "uvlock": false
+    }
+  }
+}

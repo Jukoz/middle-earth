@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:black_lebethron_planks"
+  },
+  "result": "me:black_lebethron_vertical_slab"
+}

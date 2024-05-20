@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "me:mixed_stones"
+  },
+  "result": "me:mixed_stones_stairs"
+}

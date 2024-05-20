@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "me:block/wild_tomato_bottom"
+    },
+    "half=upper": {
+      "model": "me:block/wild_tomato_top"
+    }
+  }
+}

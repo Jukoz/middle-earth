@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "minecraft:mushroom_stem"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "me:mushroom_planks"
+  }
+}

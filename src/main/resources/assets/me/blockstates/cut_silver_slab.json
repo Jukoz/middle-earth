@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/cut_silver_slab"
+    },
+    "type=double": {
+      "model": "me:block/cut_silver"
+    },
+    "type=top": {
+      "model": "me:block/cut_silver_slab_top"
+    }
+  }
+}

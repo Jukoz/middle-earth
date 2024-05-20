@@ -1,0 +1,42 @@
+{
+  "variants": {
+    "double=false,facing=east": {
+      "model": "me:block/yellow_wool_vertical_slab",
+      "uvlock": true,
+      "y": 90
+    },
+    "double=false,facing=north": {
+      "model": "me:block/yellow_wool_vertical_slab",
+      "uvlock": true
+    },
+    "double=false,facing=south": {
+      "model": "me:block/yellow_wool_vertical_slab",
+      "uvlock": true,
+      "y": 180
+    },
+    "double=false,facing=west": {
+      "model": "me:block/yellow_wool_vertical_slab",
+      "uvlock": true,
+      "y": 270
+    },
+    "double=true,facing=east": {
+      "model": "minecraft:block/yellow_wool",
+      "uvlock": true,
+      "y": 90
+    },
+    "double=true,facing=north": {
+      "model": "minecraft:block/yellow_wool",
+      "uvlock": true
+    },
+    "double=true,facing=south": {
+      "model": "minecraft:block/yellow_wool",
+      "uvlock": true,
+      "y": 180
+    },
+    "double=true,facing=west": {
+      "model": "minecraft:block/yellow_wool",
+      "uvlock": true,
+      "y": 270
+    }
+  }
+}

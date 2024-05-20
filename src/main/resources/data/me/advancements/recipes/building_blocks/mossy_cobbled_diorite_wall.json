@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mossy_cobbled_diorite": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:mossy_cobbled_diorite"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:mossy_cobbled_diorite_wall"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_mossy_cobbled_diorite",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:mossy_cobbled_diorite_wall"
+    ]
+  },
+  "sends_telemetry_event": false
+}

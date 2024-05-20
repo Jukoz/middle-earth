@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:yellow_daub_wall"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_yellow_daub": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:yellow_daub"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_yellow_daub",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:yellow_daub_wall"
+    ]
+  },
+  "sends_telemetry_event": false
+}

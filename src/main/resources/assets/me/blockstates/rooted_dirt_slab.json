@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/rooted_dirt_slab"
+    },
+    "type=double": {
+      "model": "minecraft:block/rooted_dirt"
+    },
+    "type=top": {
+      "model": "me:block/rooted_dirt_slab_top"
+    }
+  }
+}

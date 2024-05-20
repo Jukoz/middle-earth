@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:cut_lead_slab"
+    }
+  ],
+  "result": {
+    "item": "me:cut_lead_vertical_slab"
+  }
+}

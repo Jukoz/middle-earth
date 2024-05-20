@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:calcite_bricks_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "me:calcite_bricks_slab"
+  }
+}

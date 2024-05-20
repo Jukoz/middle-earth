@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "me:willow_slab"
+    },
+    "S": {
+      "item": "me:stripped_willow_wood_fence"
+    }
+  },
+  "pattern": [
+    "S  ",
+    "PPP",
+    "S S"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:willow_chair"
+  },
+  "show_notification": true
+}

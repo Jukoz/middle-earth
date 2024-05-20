@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:blue_tuff_slab"
+    }
+  ],
+  "result": {
+    "item": "me:blue_tuff_vertical_slab"
+  }
+}

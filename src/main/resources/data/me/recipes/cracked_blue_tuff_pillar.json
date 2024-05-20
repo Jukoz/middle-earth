@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "me:blue_tuff_pillar"
+  },
+  "result": "me:cracked_blue_tuff_pillar"
+}

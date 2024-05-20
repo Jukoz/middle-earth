@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:mossy_deepslate_tiles"
+  },
+  "result": "me:mossy_deepslate_tiles_slab"
+}

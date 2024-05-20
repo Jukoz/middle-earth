@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:waxed_aged_thatch"
+  },
+  "result": "me:waxed_aged_thatch_vertical_slab"
+}

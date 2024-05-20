@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": {
+      "item": "me:elven_steel_ingot"
+    },
+    "R": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "MMM",
+    " R ",
+    " R "
+  ],
+  "result": {
+    "item": "me:elven_steel_pickaxe"
+  },
+  "show_notification": true
+}

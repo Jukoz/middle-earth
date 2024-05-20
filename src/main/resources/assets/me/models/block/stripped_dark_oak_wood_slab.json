@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "minecraft:block/stripped_dark_oak_log",
+    "side": "minecraft:block/stripped_dark_oak_log",
+    "top": "minecraft:block/stripped_dark_oak_log"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "me:block/tall_trumpet_shroom_bottom"
+    },
+    "half=upper": {
+      "model": "me:block/tall_trumpet_shroom_top"
+    }
+  }
+}

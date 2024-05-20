@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:white_palm_vertical_slab_from_white_palm_planks_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_white_palm_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:white_palm_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_white_palm_planks",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:white_palm_vertical_slab_from_white_palm_planks_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

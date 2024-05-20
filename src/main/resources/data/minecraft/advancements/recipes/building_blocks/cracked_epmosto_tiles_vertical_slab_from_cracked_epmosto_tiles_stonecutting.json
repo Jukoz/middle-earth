@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cracked_epmosto_tiles": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:cracked_epmosto_tiles"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:cracked_epmosto_tiles_vertical_slab_from_cracked_epmosto_tiles_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_cracked_epmosto_tiles",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:cracked_epmosto_tiles_vertical_slab_from_cracked_epmosto_tiles_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

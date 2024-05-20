@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "me:jadeite_bricks"
+  },
+  "result": "me:jadeite_bricks_wall"
+}

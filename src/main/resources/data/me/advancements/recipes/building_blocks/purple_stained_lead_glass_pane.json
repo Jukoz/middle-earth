@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_purple_stained_lead_glass": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:purple_stained_lead_glass"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:purple_stained_lead_glass_pane"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_purple_stained_lead_glass",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:purple_stained_lead_glass_pane"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "me:block/wood_table",
+  "textures": {
+    "particle": "minecraft:block/stripped_acacia_log",
+    "side": "minecraft:block/stripped_acacia_log",
+    "top": "minecraft:block/acacia_planks"
+  }
+}

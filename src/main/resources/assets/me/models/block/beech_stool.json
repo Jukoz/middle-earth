@@ -1,0 +1,8 @@
+{
+  "parent": "me:block/wood_stool",
+  "textures": {
+    "particle": "me:block/stripped_beech_log",
+    "side": "me:block/stripped_beech_log",
+    "top": "me:block/beech_planks"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/silver_maple_shingles_slab"
+    },
+    "type=double": {
+      "model": "me:block/silver_maple_shingles"
+    },
+    "type=top": {
+      "model": "me:block/silver_maple_shingles_slab_top"
+    }
+  }
+}

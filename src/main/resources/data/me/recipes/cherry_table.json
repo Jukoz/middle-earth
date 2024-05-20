@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "minecraft:cherry_slab"
+    },
+    "S": {
+      "item": "me:stripped_cherry_wood_fence"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "S S",
+    "S S"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:cherry_table"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:blue_tuff"
+    }
+  ],
+  "result": {
+    "item": "me:blue_tuff_button"
+  }
+}

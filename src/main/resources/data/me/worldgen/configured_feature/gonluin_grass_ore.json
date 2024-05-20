@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:disk",
+  "config": {
+    "half_height": 1,
+    "radius": {
+      "type": "minecraft:uniform",
+      "value": {
+        "max_inclusive": 6,
+        "min_inclusive": 3
+      }
+    },
+    "state_provider": {
+      "fallback": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:grass_block",
+          "Properties": {
+            "snowy": "false"
+          }
+        }
+      },
+      "rules": []
+    },
+    "target": {
+      "type": "minecraft:matching_blocks",
+      "blocks": "me:gonluin"
+    }
+  }
+}

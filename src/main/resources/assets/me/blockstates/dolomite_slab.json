@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/dolomite_slab"
+    },
+    "type=double": {
+      "model": "me:block/dolomite"
+    },
+    "type=top": {
+      "model": "me:block/dolomite_slab_top"
+    }
+  }
+}

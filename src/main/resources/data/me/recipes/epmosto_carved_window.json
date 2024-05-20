@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "E": {
+      "item": "me:epmosto"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    }
+  },
+  "pattern": [
+    "EEE",
+    "EGE",
+    "EEE"
+  ],
+  "result": {
+    "count": 2,
+    "item": "me:epmosto_carved_window"
+  },
+  "show_notification": true
+}

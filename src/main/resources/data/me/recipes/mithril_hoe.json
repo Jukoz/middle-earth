@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": {
+      "item": "me:mithril_ingot"
+    },
+    "R": {
+      "item": "me:dwarven_steel_rod"
+    }
+  },
+  "pattern": [
+    "MM ",
+    " R ",
+    " R "
+  ],
+  "result": {
+    "item": "me:mithril_hoe"
+  },
+  "show_notification": true
+}

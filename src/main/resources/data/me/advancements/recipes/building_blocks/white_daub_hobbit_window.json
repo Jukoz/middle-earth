@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:white_daub_hobbit_window"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_white_daub": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:white_daub"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_white_daub",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:white_daub_hobbit_window"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_basalt_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:basalt_bricks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:mossy_basalt_bricks_moss"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_basalt_bricks",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:mossy_basalt_bricks_moss"
+    ]
+  },
+  "sends_telemetry_event": false
+}

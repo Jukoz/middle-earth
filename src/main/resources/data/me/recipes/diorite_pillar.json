@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:diorite_bricks"
+    }
+  },
+  "pattern": [
+    "l",
+    "l",
+    "l"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:diorite_pillar"
+  },
+  "show_notification": true
+}

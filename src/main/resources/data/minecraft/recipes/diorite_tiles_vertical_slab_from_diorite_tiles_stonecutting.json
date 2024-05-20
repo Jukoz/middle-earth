@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:diorite_tiles"
+  },
+  "result": "me:diorite_tiles_vertical_slab"
+}

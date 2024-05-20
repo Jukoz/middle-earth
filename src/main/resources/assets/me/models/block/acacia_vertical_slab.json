@@ -1,0 +1,7 @@
+{
+  "parent": "me:block/vertical_slab",
+  "textures": {
+    "all": "minecraft:block/acacia_planks",
+    "particle": "minecraft:block/acacia_planks"
+  }
+}

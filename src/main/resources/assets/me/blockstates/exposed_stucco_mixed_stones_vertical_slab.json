@@ -1,0 +1,42 @@
+{
+  "variants": {
+    "double=false,facing=east": {
+      "model": "me:block/exposed_stucco_mixed_stones_vertical_slab",
+      "uvlock": true,
+      "y": 90
+    },
+    "double=false,facing=north": {
+      "model": "me:block/exposed_stucco_mixed_stones_vertical_slab",
+      "uvlock": true
+    },
+    "double=false,facing=south": {
+      "model": "me:block/exposed_stucco_mixed_stones_vertical_slab",
+      "uvlock": true,
+      "y": 180
+    },
+    "double=false,facing=west": {
+      "model": "me:block/exposed_stucco_mixed_stones_vertical_slab",
+      "uvlock": true,
+      "y": 270
+    },
+    "double=true,facing=east": {
+      "model": "me:block/exposed_stucco_mixed_stones",
+      "uvlock": true,
+      "y": 90
+    },
+    "double=true,facing=north": {
+      "model": "me:block/exposed_stucco_mixed_stones",
+      "uvlock": true
+    },
+    "double=true,facing=south": {
+      "model": "me:block/exposed_stucco_mixed_stones",
+      "uvlock": true,
+      "y": 180
+    },
+    "double=true,facing=west": {
+      "model": "me:block/exposed_stucco_mixed_stones",
+      "uvlock": true,
+      "y": 270
+    }
+  }
+}

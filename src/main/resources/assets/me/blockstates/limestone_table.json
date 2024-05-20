@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "me:block/limestone_table",
+      "uvlock": false
+    }
+  }
+}

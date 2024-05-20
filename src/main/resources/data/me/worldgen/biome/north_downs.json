@@ -1,0 +1,95 @@
+{
+  "carvers": {},
+  "downfall": 0.5,
+  "effects": {
+    "fog_color": 12638463,
+    "foliage_color": 9018483,
+    "grass_color": 9414008,
+    "sky_color": 8233727,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_dirt",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_gravel",
+      "minecraft:ore_tuff"
+    ],
+    [],
+    [],
+    [
+      "me:abundant_tuff_ore",
+      "me:flower_green_jewel",
+      "me:granite_boulder",
+      "me:grass_stone_ore",
+      "me:larch_tree",
+      "me:patch_wild_flax",
+      "me:patch_wild_grass",
+      "me:patch_wild_leek",
+      "me:patch_wild_lettuce",
+      "me:patch_wild_onion",
+      "me:patch_wilder_grass",
+      "me:pine_tree",
+      "me:spruce_tree",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:flower_default",
+      "minecraft:glow_lichen",
+      "minecraft:patch_grass_forest",
+      "minecraft:patch_pumpkin",
+      "minecraft:patch_sugar_cane",
+      "minecraft:red_mushroom_normal",
+      "minecraft:trees_plains"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:goat",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 4
+      },
+      {
+        "type": "minecraft:rabbit",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 4
+      },
+      {
+        "type": "minecraft:fox",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 2
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.5
+}

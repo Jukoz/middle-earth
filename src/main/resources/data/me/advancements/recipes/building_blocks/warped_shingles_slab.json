@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:warped_shingles_slab"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_warped_shingles": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:warped_shingles"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_warped_shingles",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:warped_shingles_slab"
+    ]
+  },
+  "sends_telemetry_event": false
+}

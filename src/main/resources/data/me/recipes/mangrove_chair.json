@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "minecraft:mangrove_slab"
+    },
+    "S": {
+      "item": "me:stripped_mangrove_wood_fence"
+    }
+  },
+  "pattern": [
+    "S  ",
+    "PPP",
+    "S S"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:mangrove_chair"
+  },
+  "show_notification": true
+}

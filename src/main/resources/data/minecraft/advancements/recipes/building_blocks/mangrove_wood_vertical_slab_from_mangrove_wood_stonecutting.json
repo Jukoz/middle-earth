@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mangrove_wood": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:mangrove_wood"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:mangrove_wood_vertical_slab_from_mangrove_wood_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_mangrove_wood",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:mangrove_wood_vertical_slab_from_mangrove_wood_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

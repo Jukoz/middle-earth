@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cracked_polished_gonluin_slab": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:cracked_polished_gonluin_slab"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:cracked_polished_gonluin_vertical_slab"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_cracked_polished_gonluin_slab",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:cracked_polished_gonluin_vertical_slab"
+    ]
+  },
+  "sends_telemetry_event": false
+}

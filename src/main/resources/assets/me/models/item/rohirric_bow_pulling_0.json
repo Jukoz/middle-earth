@@ -1,0 +1,6 @@
+{
+  "parent": "me:item/bow",
+  "textures": {
+    "layer0": "me:item/rohirric_bow_pulling_0"
+  }
+}

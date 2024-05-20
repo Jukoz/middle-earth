@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:reed_block"
+  },
+  "result": "me:reed_vertical_slab"
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:stripped_larch_wood"
+  },
+  "result": "me:stripped_larch_wood_vertical_slab"
+}

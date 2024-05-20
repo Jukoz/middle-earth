@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "me:block/larch_log",
+    "side": "me:block/larch_log",
+    "top": "me:block/larch_log"
+  }
+}

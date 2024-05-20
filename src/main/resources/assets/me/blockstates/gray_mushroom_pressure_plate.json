@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "me:block/gray_mushroom_pressure_plate"
+    },
+    "powered=true": {
+      "model": "me:block/gray_mushroom_pressure_plate_down"
+    }
+  }
+}

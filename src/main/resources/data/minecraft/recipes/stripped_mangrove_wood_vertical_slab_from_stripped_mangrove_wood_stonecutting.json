@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "minecraft:stripped_mangrove_wood"
+  },
+  "result": "me:stripped_mangrove_wood_vertical_slab"
+}

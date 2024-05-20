@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "me:block/tuff_table",
+      "uvlock": false
+    }
+  }
+}

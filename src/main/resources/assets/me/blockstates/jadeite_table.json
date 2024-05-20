@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "me:block/jadeite_table",
+      "uvlock": false
+    }
+  }
+}

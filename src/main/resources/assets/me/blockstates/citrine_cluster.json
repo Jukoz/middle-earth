@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "me:block/citrine_cluster",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "me:block/citrine_cluster",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/citrine_cluster",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "me:block/citrine_cluster",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "me:block/citrine_cluster"
+    },
+    "facing=west": {
+      "model": "me:block/citrine_cluster",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

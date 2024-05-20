@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "me:block/cut_lead",
+    "side": "me:block/cut_lead",
+    "top": "me:block/cut_lead"
+  }
+}

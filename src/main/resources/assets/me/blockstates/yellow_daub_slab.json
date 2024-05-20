@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/yellow_daub_slab"
+    },
+    "type=double": {
+      "model": "me:block/yellow_daub"
+    },
+    "type=top": {
+      "model": "me:block/yellow_daub_slab_top"
+    }
+  }
+}

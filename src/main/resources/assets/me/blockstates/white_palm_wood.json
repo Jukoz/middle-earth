@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "me:block/white_palm_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "me:block/white_palm_wood"
+    },
+    "axis=z": {
+      "model": "me:block/white_palm_wood",
+      "x": 90
+    }
+  }
+}

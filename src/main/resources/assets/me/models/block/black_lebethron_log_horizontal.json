@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "me:block/black_lebethron_log_top",
+    "side": "me:block/black_lebethron_log"
+  }
+}

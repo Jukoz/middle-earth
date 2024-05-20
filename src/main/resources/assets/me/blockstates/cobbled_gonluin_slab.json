@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/cobbled_gonluin_slab"
+    },
+    "type=double": {
+      "model": "me:block/cobbled_gonluin"
+    },
+    "type=top": {
+      "model": "me:block/cobbled_gonluin_slab_top"
+    }
+  }
+}

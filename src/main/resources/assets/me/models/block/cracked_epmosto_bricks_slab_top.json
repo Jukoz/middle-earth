@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "me:block/cracked_epmosto_bricks",
+    "side": "me:block/cracked_epmosto_bricks",
+    "top": "me:block/cracked_epmosto_bricks"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "me:lebethron_leaves",
+    "me:maple_leaves",
+    "me:beech_leaves",
+    "me:larch_leaves",
+    "me:mallorn_leaves",
+    "me:mirkwood_leaves",
+    "me:palm_leaves",
+    "me:pine_leaves",
+    "me:willow_leaves"
+  ]
+}

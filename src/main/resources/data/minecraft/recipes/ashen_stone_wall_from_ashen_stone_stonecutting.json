@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "me:ashen_stone"
+  },
+  "result": "me:ashen_stone_wall"
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "me:block/cobbled_andesite",
+    "side": "me:block/cobbled_andesite",
+    "top": "me:block/cobbled_andesite"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_brick_clay_tiling_wall": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:brick_clay_tiling_wall"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:brick_clay_tiling_stairs_from_brick_clay_tiling_wall_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_brick_clay_tiling_wall",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:brick_clay_tiling_stairs_from_brick_clay_tiling_wall_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "me:block/white_palm_table",
+      "uvlock": false
+    }
+  }
+}

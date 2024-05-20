@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:tin_ingot_from_nuggets"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tin_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:tin_nugget"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_tin_nugget",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:tin_ingot_from_nuggets"
+    ]
+  },
+  "sends_telemetry_event": false
+}

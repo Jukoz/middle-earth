@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/stucco_slab"
+    },
+    "type=double": {
+      "model": "me:block/stucco"
+    },
+    "type=top": {
+      "model": "me:block/stucco_slab_top"
+    }
+  }
+}

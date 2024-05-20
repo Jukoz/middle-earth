@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/ashen_tiles_slab"
+    },
+    "type=double": {
+      "model": "me:block/ashen_tiles"
+    },
+    "type=top": {
+      "model": "me:block/ashen_tiles_slab_top"
+    }
+  }
+}

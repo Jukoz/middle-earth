@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "me:block/stone_table",
+      "uvlock": false
+    }
+  }
+}

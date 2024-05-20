@@ -1,0 +1,7 @@
+{
+  "parent": "me:block/stone_chair_template",
+  "textures": {
+    "all": "me:block/diftomin",
+    "particle": "me:block/diftomin"
+  }
+}

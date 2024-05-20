@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_post",
+  "textures": {
+    "texture": "me:block/stripped_black_lebethron_log"
+  }
+}

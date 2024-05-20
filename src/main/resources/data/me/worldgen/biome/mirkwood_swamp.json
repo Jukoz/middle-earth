@@ -1,0 +1,91 @@
+{
+  "carvers": {},
+  "downfall": 0.5,
+  "effects": {
+    "fog_color": 8821922,
+    "foliage_color": 4284215,
+    "grass_color": 4546876,
+    "sky_color": 6981536,
+    "water_color": 5080729,
+    "water_fog_color": 1458241
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_dirt",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_gravel",
+      "minecraft:ore_tuff"
+    ],
+    [],
+    [],
+    [
+      "me:coarse_dirt_ore",
+      "me:mirkwood_tree",
+      "me:mossy_boulder",
+      "me:mud_ore",
+      "me:oak_bush_tree",
+      "me:old_podzol_ore",
+      "me:patch_forest_moss",
+      "me:patch_reeds",
+      "me:patch_wheat_grass",
+      "me:patch_wild_flax",
+      "me:patch_wild_garlic",
+      "me:patch_wild_grass",
+      "me:patch_wild_onion",
+      "me:water_delta",
+      "me:willow_tree",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:glow_lichen",
+      "minecraft:patch_berry_rare",
+      "minecraft:patch_grass_forest",
+      "minecraft:patch_grass_taiga",
+      "minecraft:patch_large_fern",
+      "minecraft:patch_tall_grass_2",
+      "minecraft:red_mushroom_normal"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:frog",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 8
+      },
+      {
+        "type": "me:snail",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 10
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.5
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "me:item/anduin_battleaxe_inventory"
+  }
+}

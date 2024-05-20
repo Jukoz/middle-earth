@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:andesite_tiles"
+  },
+  "result": "me:andesite_tiles_slab"
+}

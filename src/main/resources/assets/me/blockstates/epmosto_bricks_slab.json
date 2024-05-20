@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/epmosto_bricks_slab"
+    },
+    "type=double": {
+      "model": "me:block/epmosto_bricks"
+    },
+    "type=top": {
+      "model": "me:block/epmosto_bricks_slab_top"
+    }
+  }
+}

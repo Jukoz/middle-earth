@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "me:block/white_lebethron_table",
+      "uvlock": false
+    }
+  }
+}

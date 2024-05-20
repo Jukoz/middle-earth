@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": {
+      "item": "me:steel_ingot"
+    },
+    "R": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " M ",
+    " R ",
+    " R "
+  ],
+  "result": {
+    "item": "me:steel_shovel"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "me:block/diorite_table",
+      "uvlock": false
+    }
+  }
+}

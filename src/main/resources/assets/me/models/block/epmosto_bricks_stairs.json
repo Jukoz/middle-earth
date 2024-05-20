@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "me:block/epmosto_bricks",
+    "side": "me:block/epmosto_bricks",
+    "top": "me:block/epmosto_bricks"
+  }
+}

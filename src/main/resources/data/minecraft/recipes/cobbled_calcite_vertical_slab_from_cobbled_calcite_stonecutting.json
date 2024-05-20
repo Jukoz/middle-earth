@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:cobbled_calcite"
+  },
+  "result": "me:cobbled_calcite_vertical_slab"
+}

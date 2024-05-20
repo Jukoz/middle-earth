@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cut_lead_vertical_slab": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:cut_lead_vertical_slab"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:cut_lead_vertical_slab_from_vertical"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_cut_lead_vertical_slab",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:cut_lead_vertical_slab_from_vertical"
+    ]
+  },
+  "sends_telemetry_event": false
+}

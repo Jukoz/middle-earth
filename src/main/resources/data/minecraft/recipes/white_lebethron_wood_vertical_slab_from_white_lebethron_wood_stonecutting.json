@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:white_lebethron_wood"
+  },
+  "result": "me:white_lebethron_wood_vertical_slab"
+}

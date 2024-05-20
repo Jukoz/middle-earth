@@ -1,0 +1,63 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:grass_block",
+        "Properties": {
+          "snowy": "false"
+        }
+      }
+    },
+    "foliage_placer": {
+      "type": "me:oval_foliage",
+      "baseHeight": 2,
+      "baseRadius": 3,
+      "extraSize": 0.4,
+      "offset": 0
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:oak_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": false,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 1,
+      "lower_size": 0,
+      "upper_size": 2
+    },
+    "trunk_placer": {
+      "type": "me:canopy_trunk",
+      "base_height": 20,
+      "base_radius": 1.8,
+      "iteration": 3,
+      "iteration_percentage": 0.38,
+      "random_height": 3,
+      "roots_offset": 2,
+      "straight_trunk": 0,
+      "tip_radius": 0.55,
+      "trunk_noise": -0.15,
+      "velocity": 5.7
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:oak_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

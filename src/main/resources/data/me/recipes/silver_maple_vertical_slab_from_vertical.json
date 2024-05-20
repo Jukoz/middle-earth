@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:silver_maple_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "me:silver_maple_slab"
+  }
+}

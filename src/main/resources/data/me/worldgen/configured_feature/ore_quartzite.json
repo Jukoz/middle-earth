@@ -1,0 +1,63 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "discard_chance_on_air_exposure": 0.3,
+    "size": 24,
+    "targets": [
+      {
+        "state": {
+          "Name": "me:quartzite"
+        },
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:stone_ore_replaceables"
+        }
+      },
+      {
+        "state": {
+          "Name": "me:quartzite"
+        },
+        "target": {
+          "block": "me:ashen_stone",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "me:quartzite"
+        },
+        "target": {
+          "block": "me:frozen_stone",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "me:quartzite"
+        },
+        "target": {
+          "block": "me:gonluin",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "me:quartzite"
+        },
+        "target": {
+          "block": "me:limestone",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "me:quartzite"
+        },
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:deepslate_ore_replaceables"
+        }
+      }
+    ]
+  }
+}

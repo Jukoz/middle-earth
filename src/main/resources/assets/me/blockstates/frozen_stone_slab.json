@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/frozen_stone_slab"
+    },
+    "type=double": {
+      "model": "me:block/frozen_stone"
+    },
+    "type=top": {
+      "model": "me:block/frozen_stone_slab_top"
+    }
+  }
+}

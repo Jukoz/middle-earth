@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "A": {
+      "item": "me:ash_block"
+    },
+    "S": {
+      "item": "minecraft:stone"
+    }
+  },
+  "pattern": [
+    "AS",
+    "SA"
+  ],
+  "result": {
+    "count": 4,
+    "item": "me:ashen_stone"
+  },
+  "show_notification": true
+}

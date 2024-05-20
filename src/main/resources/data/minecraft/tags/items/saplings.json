@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "me:beech_sapling",
+    "me:larch_sapling",
+    "me:mallorn_sapling",
+    "me:mirkwood_sapling",
+    "me:palm_sapling",
+    "me:pine_sapling",
+    "me:willow_sapling"
+  ]
+}

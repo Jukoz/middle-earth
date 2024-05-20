@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:ashen_bricks"
+  },
+  "result": "me:ashen_bricks_slab"
+}

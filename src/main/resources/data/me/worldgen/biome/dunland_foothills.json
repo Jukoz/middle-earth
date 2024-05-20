@@ -1,0 +1,89 @@
+{
+  "carvers": {},
+  "downfall": 0.5,
+  "effects": {
+    "fog_color": 10863086,
+    "foliage_color": 6198343,
+    "grass_color": 6722387,
+    "sky_color": 7508201,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_dirt",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_gravel",
+      "minecraft:ore_tuff"
+    ],
+    [],
+    [],
+    [
+      "me:abundant_larch_tree",
+      "me:abundant_pine_tree",
+      "me:andesite_boulder",
+      "me:coarse_dirt_ore",
+      "me:common_spruce_bush_tree",
+      "me:dolomite_ore",
+      "me:foothills_spruce_tree",
+      "me:gravel_ore",
+      "me:patch_brown_bolete",
+      "me:patch_brown_bolete_tiller",
+      "me:patch_morsel",
+      "me:patch_morsel_tiller",
+      "me:patch_white_mushroom",
+      "me:patch_white_mushroom_tiller",
+      "me:patch_wild_beetroot",
+      "me:patch_wild_grass",
+      "me:patch_wild_potato",
+      "me:podzol_ore",
+      "me:stone_grass_ore",
+      "me:tuff_ore",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:flower_default",
+      "minecraft:glow_lichen",
+      "minecraft:patch_berry_rare",
+      "minecraft:patch_grass_taiga",
+      "minecraft:patch_large_fern",
+      "minecraft:red_mushroom_normal"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:goat",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 4
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.5
+}

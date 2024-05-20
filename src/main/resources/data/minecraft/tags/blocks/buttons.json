@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "me:beech_button",
+    "me:larch_button",
+    "me:black_lebethron_button",
+    "me:white_lebethron_button",
+    "me:mallorn_button",
+    "me:maple_button",
+    "me:silver_maple_button",
+    "me:mirkwood_button",
+    "me:palm_button",
+    "me:white_palm_button",
+    "me:pine_button",
+    "me:willow_button",
+    "me:dark_mushroom_button",
+    "me:gray_mushroom_button",
+    "me:mushroom_button"
+  ]
+}

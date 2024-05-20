@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:forest_rock",
+  "config": {
+    "state": {
+      "Name": "me:mirkwood_roots",
+      "Properties": {
+        "waterlogged": "false"
+      }
+    }
+  }
+}

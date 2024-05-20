@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:cracked_mixed_stones"
+  },
+  "result": "me:cracked_mixed_stones_vertical_slab"
+}

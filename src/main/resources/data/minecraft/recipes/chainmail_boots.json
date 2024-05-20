@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": {
+      "item": "me:iron_chainmail"
+    }
+  },
+  "pattern": [
+    "M M",
+    "M M"
+  ],
+  "result": {
+    "item": "minecraft:chainmail_boots"
+  },
+  "show_notification": true
+}

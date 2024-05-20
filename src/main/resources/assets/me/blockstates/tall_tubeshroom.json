@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "me:block/tall_tubeshroom_bottom"
+    },
+    "half=upper": {
+      "model": "me:block/tall_tubeshroom_top"
+    }
+  }
+}

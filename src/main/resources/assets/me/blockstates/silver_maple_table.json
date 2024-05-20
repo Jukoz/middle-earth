@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "me:block/silver_maple_table",
+      "uvlock": false
+    }
+  }
+}

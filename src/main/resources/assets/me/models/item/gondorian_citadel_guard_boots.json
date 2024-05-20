@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "me:item/gondorian_citadel_guard_boots"
+  }
+}

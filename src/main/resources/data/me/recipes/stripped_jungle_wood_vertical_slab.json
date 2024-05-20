@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:stripped_jungle_wood_slab"
+    }
+  ],
+  "result": {
+    "item": "me:stripped_jungle_wood_vertical_slab"
+  }
+}

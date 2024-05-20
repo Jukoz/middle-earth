@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/thatch_slab"
+    },
+    "type=double": {
+      "model": "me:block/thatch"
+    },
+    "type=top": {
+      "model": "me:block/thatch_slab_top"
+    }
+  }
+}

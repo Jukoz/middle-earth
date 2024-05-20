@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:mushroom_planks"
+    }
+  },
+  "pattern": [
+    " l ",
+    "lll",
+    "lll"
+  ],
+  "result": {
+    "count": 7,
+    "item": "me:mushroom_shingles"
+  },
+  "show_notification": true
+}

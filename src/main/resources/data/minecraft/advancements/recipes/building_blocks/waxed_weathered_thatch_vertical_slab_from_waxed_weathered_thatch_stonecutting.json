@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:waxed_weathered_thatch_vertical_slab_from_waxed_weathered_thatch_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_waxed_weathered_thatch": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:waxed_weathered_thatch"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_waxed_weathered_thatch",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:waxed_weathered_thatch_vertical_slab_from_waxed_weathered_thatch_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

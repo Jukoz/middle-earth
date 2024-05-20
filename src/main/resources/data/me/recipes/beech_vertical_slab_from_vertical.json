@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:beech_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "me:beech_slab"
+  }
+}

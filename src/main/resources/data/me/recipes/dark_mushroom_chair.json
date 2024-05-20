@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "me:dark_mushroom_slab"
+    },
+    "S": {
+      "item": "me:dark_mushroom_stem_fence"
+    }
+  },
+  "pattern": [
+    "S  ",
+    "PPP",
+    "S S"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:dark_mushroom_chair"
+  },
+  "show_notification": true
+}

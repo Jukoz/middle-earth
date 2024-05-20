@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_gonluin_pillar": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:gonluin_pillar"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:mossy_gonluin_pillar_moss"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_gonluin_pillar",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:mossy_gonluin_pillar_moss"
+    ]
+  },
+  "sends_telemetry_event": false
+}

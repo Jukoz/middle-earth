@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "me:elven_steel_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "me:elven_steel_ingot"
+  }
+}

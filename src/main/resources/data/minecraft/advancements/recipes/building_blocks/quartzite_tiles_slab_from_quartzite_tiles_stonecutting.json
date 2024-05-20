@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_quartzite_tiles": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:quartzite_tiles"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:quartzite_tiles_slab_from_quartzite_tiles_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_quartzite_tiles",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:quartzite_tiles_slab_from_quartzite_tiles_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

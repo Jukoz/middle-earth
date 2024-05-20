@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:end_stone_brick_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:end_stone_brick_slab"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/beech_slab"
+    },
+    "type=double": {
+      "model": "me:block/beech_planks"
+    },
+    "type=top": {
+      "model": "me:block/beech_slab_top"
+    }
+  }
+}

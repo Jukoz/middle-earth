@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "me:ash_block",
+    "me:river_sand",
+    "me:black_sand",
+    "me:white_sand",
+    "me:dry_dirt",
+    "me:dry_dirt_slab",
+    "me:dry_dirt_stairs",
+    "me:ashen_dirt",
+    "me:ashen_dirt_slab",
+    "me:ashen_dirt_stairs",
+    "me:gravel_layer",
+    "me:sand_layer",
+    "me:black_sand_layer",
+    "me:white_sand_layer",
+    "me:dirt_slab",
+    "me:dirt_stairs",
+    "me:mud_slab",
+    "me:mud_stairs",
+    "me:coarse_dirt_slab",
+    "me:coarse_dirt_stairs",
+    "me:rooted_dirt_slab",
+    "me:rooted_dirt_slab"
+  ]
+}

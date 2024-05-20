@@ -1,0 +1,7 @@
+{
+  "parent": "me:block/stone_chair_template",
+  "textures": {
+    "all": "me:block/blue_tuff",
+    "particle": "me:block/blue_tuff"
+  }
+}

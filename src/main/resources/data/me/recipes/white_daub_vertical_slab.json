@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:white_daub_slab"
+    }
+  ],
+  "result": {
+    "item": "me:white_daub_vertical_slab"
+  }
+}

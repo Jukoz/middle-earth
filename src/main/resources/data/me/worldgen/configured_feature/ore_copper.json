@@ -1,0 +1,72 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "discard_chance_on_air_exposure": 0.25,
+    "size": 15,
+    "targets": [
+      {
+        "state": {
+          "Name": "minecraft:copper_ore"
+        },
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:stone_ore_replaceables"
+        }
+      },
+      {
+        "state": {
+          "Name": "me:ashen_copper_ore"
+        },
+        "target": {
+          "block": "me:ashen_stone",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "me:calcite_copper_ore"
+        },
+        "target": {
+          "block": "minecraft:calcite",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "me:frozen_copper_ore"
+        },
+        "target": {
+          "block": "me:frozen_stone",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "me:gonluin_copper_ore"
+        },
+        "target": {
+          "block": "me:gonluin",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "me:limestone_copper_ore"
+        },
+        "target": {
+          "block": "me:limestone",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:deepslate_copper_ore"
+        },
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:deepslate_ore_replaceables"
+        }
+      }
+    ]
+  }
+}

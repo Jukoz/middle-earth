@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "minecraft:oak_slab"
+    },
+    "S": {
+      "item": "me:stripped_oak_wood_fence"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "S S"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:oak_stool"
+  },
+  "show_notification": true
+}

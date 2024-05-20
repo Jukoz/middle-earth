@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:limestone_bricks_slab"
+    }
+  ],
+  "result": {
+    "item": "me:limestone_bricks_vertical_slab"
+  }
+}

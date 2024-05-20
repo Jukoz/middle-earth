@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "me:block/mossy_polished_gonluin",
+    "side": "me:block/mossy_polished_gonluin",
+    "top": "me:block/mossy_polished_gonluin"
+  }
+}

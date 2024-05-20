@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:mushroom_planks"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "lsl",
+    "lsl"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:mushroom_fence"
+  },
+  "show_notification": true
+}

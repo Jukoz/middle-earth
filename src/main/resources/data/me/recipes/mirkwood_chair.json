@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "me:mirkwood_slab"
+    },
+    "S": {
+      "item": "me:stripped_mirkwood_wood_fence"
+    }
+  },
+  "pattern": [
+    "S  ",
+    "PPP",
+    "S S"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:mirkwood_chair"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mossy_cobbled_gonluin": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:mossy_cobbled_gonluin"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:mossy_cobbled_gonluin_vertical_slab_from_mossy_cobbled_gonluin_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_mossy_cobbled_gonluin",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:mossy_cobbled_gonluin_vertical_slab_from_mossy_cobbled_gonluin_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:cracked_epmosto_tiles_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "me:cracked_epmosto_tiles_slab"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "minecraft:red_sandstone"
+  },
+  "result": "me:red_sandstone_vertical_slab"
+}

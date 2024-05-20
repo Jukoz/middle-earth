@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/polished_jadeite_slab"
+    },
+    "type=double": {
+      "model": "me:block/polished_jadeite"
+    },
+    "type=top": {
+      "model": "me:block/polished_jadeite_slab_top"
+    }
+  }
+}

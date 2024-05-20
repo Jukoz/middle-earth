@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "chance": 0.125,
+              "condition": "minecraft:random_chance"
+            }
+          ],
+          "name": "me:tomato_seeds"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "me:tomato"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

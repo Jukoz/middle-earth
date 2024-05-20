@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:cobbled_granite_slab"
+    }
+  ],
+  "result": {
+    "item": "me:cobbled_granite_vertical_slab"
+  }
+}

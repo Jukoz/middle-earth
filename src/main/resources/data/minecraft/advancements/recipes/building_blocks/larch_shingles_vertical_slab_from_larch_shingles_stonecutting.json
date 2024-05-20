@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_larch_shingles": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:larch_shingles"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:larch_shingles_vertical_slab_from_larch_shingles_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_larch_shingles",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:larch_shingles_vertical_slab_from_larch_shingles_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

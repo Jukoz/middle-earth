@@ -1,0 +1,42 @@
+{
+  "variants": {
+    "double=false,facing=east": {
+      "model": "me:block/stone_vertical_slab",
+      "uvlock": true,
+      "y": 90
+    },
+    "double=false,facing=north": {
+      "model": "me:block/stone_vertical_slab",
+      "uvlock": true
+    },
+    "double=false,facing=south": {
+      "model": "me:block/stone_vertical_slab",
+      "uvlock": true,
+      "y": 180
+    },
+    "double=false,facing=west": {
+      "model": "me:block/stone_vertical_slab",
+      "uvlock": true,
+      "y": 270
+    },
+    "double=true,facing=east": {
+      "model": "minecraft:block/stone",
+      "uvlock": true,
+      "y": 90
+    },
+    "double=true,facing=north": {
+      "model": "minecraft:block/stone",
+      "uvlock": true
+    },
+    "double=true,facing=south": {
+      "model": "minecraft:block/stone",
+      "uvlock": true,
+      "y": 180
+    },
+    "double=true,facing=west": {
+      "model": "minecraft:block/stone",
+      "uvlock": true,
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "minecraft:oak_wood"
+  },
+  "result": "me:oak_wood_vertical_slab"
+}

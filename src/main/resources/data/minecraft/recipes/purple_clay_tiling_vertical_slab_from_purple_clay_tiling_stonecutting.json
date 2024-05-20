@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:purple_clay_tiling"
+  },
+  "result": "me:purple_clay_tiling_vertical_slab"
+}

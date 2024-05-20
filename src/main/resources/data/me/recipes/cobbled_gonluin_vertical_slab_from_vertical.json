@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:cobbled_gonluin_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "me:cobbled_gonluin_slab"
+  }
+}

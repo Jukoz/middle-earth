@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/jadeite_slab"
+    },
+    "type=double": {
+      "model": "me:block/jadeite"
+    },
+    "type=top": {
+      "model": "me:block/jadeite_slab_top"
+    }
+  }
+}

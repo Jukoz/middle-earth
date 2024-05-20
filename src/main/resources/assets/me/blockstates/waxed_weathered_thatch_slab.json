@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/waxed_weathered_thatch_slab"
+    },
+    "type=double": {
+      "model": "me:block/waxed_weathered_thatch"
+    },
+    "type=top": {
+      "model": "me:block/waxed_weathered_thatch_slab_top"
+    }
+  }
+}

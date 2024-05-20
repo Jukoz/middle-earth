@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:cobbled_deepslate_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:cobbled_deepslate_slab"
+  }
+}

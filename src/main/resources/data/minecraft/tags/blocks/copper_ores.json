@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "me:gonluin_copper_ore",
+    "me:frozen_copper_ore",
+    "me:ashen_copper_ore",
+    "me:limestone_copper_ore",
+    "me:calcite_copper_ore"
+  ]
+}

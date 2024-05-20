@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "me:elven_steel_nugget"
+    },
+    {
+      "item": "me:elven_steel_nugget"
+    },
+    {
+      "item": "me:elven_steel_nugget"
+    },
+    {
+      "item": "me:elven_steel_nugget"
+    },
+    {
+      "item": "me:elven_steel_nugget"
+    },
+    {
+      "item": "me:elven_steel_nugget"
+    },
+    {
+      "item": "me:elven_steel_nugget"
+    },
+    {
+      "item": "me:elven_steel_nugget"
+    },
+    {
+      "item": "me:elven_steel_nugget"
+    }
+  ],
+  "result": {
+    "item": "me:elven_steel_ingot"
+  }
+}

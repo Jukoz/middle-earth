@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:spruce_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "minecraft:spruce_slab"
+  }
+}

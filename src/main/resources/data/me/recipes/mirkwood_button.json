@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:mirkwood_planks"
+    }
+  ],
+  "result": {
+    "item": "me:mirkwood_button"
+  }
+}

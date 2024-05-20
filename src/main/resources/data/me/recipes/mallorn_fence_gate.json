@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:mallorn_planks"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "sls",
+    "sls"
+  ],
+  "result": {
+    "item": "me:mallorn_fence_gate"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:bone",
+    "me:orc_bone",
+    "me:warg_bone"
+  ]
+}

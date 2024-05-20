@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/flowerbed_1",
+  "textures": {
+    "flowerbed": "me:block/sky_firecap_tiller",
+    "stem": "me:block/sky_firecap_tiller_stem"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:mirkwood_wood_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "me:mirkwood_wood_slab"
+  }
+}

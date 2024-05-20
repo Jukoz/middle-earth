@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:gray_mushroom_planks"
+    }
+  },
+  "pattern": [
+    "lll",
+    "lll"
+  ],
+  "result": {
+    "count": 2,
+    "item": "me:gray_mushroom_trapdoor"
+  },
+  "show_notification": true
+}

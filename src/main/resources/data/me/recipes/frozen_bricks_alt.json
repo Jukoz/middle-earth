@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": {
+      "item": "minecraft:stone_bricks"
+    },
+    "D": {
+      "item": "minecraft:ice"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BDB",
+    "BBB"
+  ],
+  "result": {
+    "count": 8,
+    "item": "me:frozen_bricks"
+  },
+  "show_notification": true
+}

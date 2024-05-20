@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:white_wool_slab"
+    }
+  ],
+  "result": {
+    "item": "me:white_wool_vertical_slab"
+  }
+}

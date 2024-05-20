@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:silver_maple_wood"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "me:silver_maple_planks"
+  }
+}

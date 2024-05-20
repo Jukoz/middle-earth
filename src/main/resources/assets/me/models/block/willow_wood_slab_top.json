@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "me:block/willow_log",
+    "side": "me:block/willow_log",
+    "top": "me:block/willow_log"
+  }
+}

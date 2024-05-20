@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "me:block/mushroom_shingles",
+    "side": "me:block/mushroom_shingles",
+    "top": "me:block/mushroom_shingles"
+  }
+}

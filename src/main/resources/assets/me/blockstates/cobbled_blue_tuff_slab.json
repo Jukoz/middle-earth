@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/cobbled_blue_tuff_slab"
+    },
+    "type=double": {
+      "model": "me:block/cobbled_blue_tuff"
+    },
+    "type=top": {
+      "model": "me:block/cobbled_blue_tuff_slab_top"
+    }
+  }
+}

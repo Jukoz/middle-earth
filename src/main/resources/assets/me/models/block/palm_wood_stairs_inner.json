@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "me:block/palm_log",
+    "side": "me:block/palm_log",
+    "top": "me:block/palm_log"
+  }
+}

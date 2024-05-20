@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:pink_wool_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "me:pink_wool_slab"
+  }
+}

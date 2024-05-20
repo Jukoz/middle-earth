@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "me:mossy_mixed_stones"
+  },
+  "result": "me:mossy_mixed_stones_stairs"
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "me:block/larch_planks",
+    "side": "me:block/larch_planks",
+    "top": "me:block/larch_planks"
+  }
+}

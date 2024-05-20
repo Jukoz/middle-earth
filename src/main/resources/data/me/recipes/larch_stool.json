@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "me:larch_slab"
+    },
+    "S": {
+      "item": "me:stripped_larch_wood_fence"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "S S"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:larch_stool"
+  },
+  "show_notification": true
+}

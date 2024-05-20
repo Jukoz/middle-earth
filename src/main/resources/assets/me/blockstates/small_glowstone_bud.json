@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "me:block/small_glowstone_bud",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "me:block/small_glowstone_bud",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/small_glowstone_bud",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "me:block/small_glowstone_bud",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "me:block/small_glowstone_bud"
+    },
+    "facing=west": {
+      "model": "me:block/small_glowstone_bud",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

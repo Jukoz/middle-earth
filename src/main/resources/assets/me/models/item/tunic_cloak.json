@@ -1,0 +1,69 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "me:item/tunic_cloak_quartz_trim",
+      "predicate": {
+        "trim_type": 0.1
+      }
+    },
+    {
+      "model": "me:item/tunic_cloak_iron_trim",
+      "predicate": {
+        "trim_type": 0.2
+      }
+    },
+    {
+      "model": "me:item/tunic_cloak_netherite_trim",
+      "predicate": {
+        "trim_type": 0.3
+      }
+    },
+    {
+      "model": "me:item/tunic_cloak_redstone_trim",
+      "predicate": {
+        "trim_type": 0.4
+      }
+    },
+    {
+      "model": "me:item/tunic_cloak_copper_trim",
+      "predicate": {
+        "trim_type": 0.5
+      }
+    },
+    {
+      "model": "me:item/tunic_cloak_gold_trim",
+      "predicate": {
+        "trim_type": 0.6
+      }
+    },
+    {
+      "model": "me:item/tunic_cloak_emerald_trim",
+      "predicate": {
+        "trim_type": 0.7
+      }
+    },
+    {
+      "model": "me:item/tunic_cloak_diamond_trim",
+      "predicate": {
+        "trim_type": 0.8
+      }
+    },
+    {
+      "model": "me:item/tunic_cloak_lapis_trim",
+      "predicate": {
+        "trim_type": 0.9
+      }
+    },
+    {
+      "model": "me:item/tunic_cloak_amethyst_trim",
+      "predicate": {
+        "trim_type": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "me:item/tunic_cloak",
+    "layer1": "me:item/tunic_cloak_overlay"
+  }
+}

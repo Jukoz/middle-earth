@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:palm_planks"
+  },
+  "result": "me:palm_vertical_slab"
+}

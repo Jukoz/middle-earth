@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "minecraft:green_terracotta"
+  },
+  "result": "me:green_clay_tiling"
+}

@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "me:beech_trapdoor",
+    "me:larch_trapdoor",
+    "me:black_lebethron_trapdoor",
+    "me:white_lebethron_trapdoor",
+    "me:mallorn_trapdoor",
+    "me:maple_trapdoor",
+    "me:silver_maple_trapdoor",
+    "me:mirkwood_trapdoor",
+    "me:palm_trapdoor",
+    "me:white_palm_trapdoor",
+    "me:pine_trapdoor",
+    "me:willow_trapdoor",
+    "me:dark_mushroom_trapdoor",
+    "me:gray_mushroom_trapdoor",
+    "me:mushroom_trapdoor"
+  ]
+}

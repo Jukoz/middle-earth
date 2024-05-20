@@ -1,0 +1,7 @@
+{
+  "parent": "me:block/stone_table_template",
+  "textures": {
+    "all": "minecraft:block/andesite",
+    "particle": "minecraft:block/andesite"
+  }
+}

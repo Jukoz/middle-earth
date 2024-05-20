@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "pattern": [
+    "I",
+    "I"
+  ],
+  "result": {
+    "count": 4,
+    "item": "me:gold_rod"
+  },
+  "show_notification": true
+}

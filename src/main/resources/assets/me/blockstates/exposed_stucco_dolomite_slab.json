@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/exposed_stucco_dolomite_slab"
+    },
+    "type=double": {
+      "model": "me:block/exposed_stucco_dolomite"
+    },
+    "type=top": {
+      "model": "me:block/exposed_stucco_dolomite_slab_top"
+    }
+  }
+}

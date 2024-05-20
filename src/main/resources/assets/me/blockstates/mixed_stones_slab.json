@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/mixed_stones_slab"
+    },
+    "type=double": {
+      "model": "me:block/mixed_stones"
+    },
+    "type=top": {
+      "model": "me:block/mixed_stones_slab_top"
+    }
+  }
+}

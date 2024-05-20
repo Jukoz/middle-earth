@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:white_palm_planks"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "lsl",
+    "lsl"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:white_palm_fence"
+  },
+  "show_notification": true
+}

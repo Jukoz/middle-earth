@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:brown_clay_tiling_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "me:brown_clay_tiling_slab"
+  }
+}

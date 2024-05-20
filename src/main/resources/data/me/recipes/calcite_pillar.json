@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:calcite_bricks"
+    }
+  },
+  "pattern": [
+    "l",
+    "l",
+    "l"
+  ],
+  "result": {
+    "count": 3,
+    "item": "me:calcite_pillar"
+  },
+  "show_notification": true
+}

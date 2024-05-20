@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "me:block/blackstone_table",
+      "uvlock": false
+    }
+  }
+}

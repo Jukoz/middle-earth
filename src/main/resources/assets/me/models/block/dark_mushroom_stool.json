@@ -1,0 +1,8 @@
+{
+  "parent": "me:block/wood_stool",
+  "textures": {
+    "particle": "me:block/dark_mushroom_stem",
+    "side": "me:block/dark_mushroom_stem",
+    "top": "me:block/dark_mushroom_planks"
+  }
+}

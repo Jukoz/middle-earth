@@ -1,0 +1,8 @@
+{
+  "parent": "me:block/wood_table",
+  "textures": {
+    "particle": "me:block/stripped_silver_maple_log",
+    "side": "me:block/stripped_silver_maple_log",
+    "top": "me:block/silver_maple_planks"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_stripped_white_lebethron_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:white_lebethron_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "me:white_lebethron_planks_from_stripped_log"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_stripped_white_lebethron_log",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "me:white_lebethron_planks_from_stripped_log"
+    ]
+  },
+  "sends_telemetry_event": false
+}

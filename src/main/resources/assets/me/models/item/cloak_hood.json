@@ -1,0 +1,69 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "me:item/cloak_hood_quartz_trim",
+      "predicate": {
+        "trim_type": 0.1
+      }
+    },
+    {
+      "model": "me:item/cloak_hood_iron_trim",
+      "predicate": {
+        "trim_type": 0.2
+      }
+    },
+    {
+      "model": "me:item/cloak_hood_netherite_trim",
+      "predicate": {
+        "trim_type": 0.3
+      }
+    },
+    {
+      "model": "me:item/cloak_hood_redstone_trim",
+      "predicate": {
+        "trim_type": 0.4
+      }
+    },
+    {
+      "model": "me:item/cloak_hood_copper_trim",
+      "predicate": {
+        "trim_type": 0.5
+      }
+    },
+    {
+      "model": "me:item/cloak_hood_gold_trim",
+      "predicate": {
+        "trim_type": 0.6
+      }
+    },
+    {
+      "model": "me:item/cloak_hood_emerald_trim",
+      "predicate": {
+        "trim_type": 0.7
+      }
+    },
+    {
+      "model": "me:item/cloak_hood_diamond_trim",
+      "predicate": {
+        "trim_type": 0.8
+      }
+    },
+    {
+      "model": "me:item/cloak_hood_lapis_trim",
+      "predicate": {
+        "trim_type": 0.9
+      }
+    },
+    {
+      "model": "me:item/cloak_hood_amethyst_trim",
+      "predicate": {
+        "trim_type": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "me:item/cloak_hood",
+    "layer1": "me:item/cloak_hood_overlay"
+  }
+}

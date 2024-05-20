@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "me:block/stripped_maple_log",
+    "side": "me:block/stripped_maple_log",
+    "top": "me:block/stripped_maple_log"
+  }
+}

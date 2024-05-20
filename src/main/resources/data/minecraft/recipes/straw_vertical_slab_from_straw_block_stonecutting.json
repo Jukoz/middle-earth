@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:straw_block"
+  },
+  "result": "me:straw_vertical_slab"
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "me:quartzite"
+    }
+  ],
+  "result": {
+    "item": "me:quartzite_button"
+  }
+}

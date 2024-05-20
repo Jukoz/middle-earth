@@ -1,0 +1,82 @@
+{
+  "carvers": {},
+  "downfall": 0.5,
+  "effects": {
+    "fog_color": 12902399,
+    "foliage_color": 6592350,
+    "grass_color": 7253092,
+    "sky_color": 7254527,
+    "water_color": 5407446,
+    "water_fog_color": 1120828
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_dirt",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_gravel",
+      "minecraft:ore_tuff"
+    ],
+    [],
+    [],
+    [
+      "me:patch_brown_grass",
+      "me:patch_green_shrub",
+      "me:patch_tan_shrub",
+      "me:patch_wild_bell_pepper",
+      "me:patch_wild_tomato",
+      "me:patch_yellow_flower",
+      "minecraft:flower_default",
+      "minecraft:glow_lichen",
+      "minecraft:kelp_warm",
+      "minecraft:patch_grass_savanna",
+      "minecraft:patch_pumpkin",
+      "minecraft:patch_sugar_cane",
+      "minecraft:seagrass_warm"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:camel",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 1
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [
+      {
+        "type": "minecraft:salmon",
+        "maxCount": 5,
+        "minCount": 1,
+        "weight": 12
+      }
+    ],
+    "water_creature": []
+  },
+  "temperature": 0.5
+}

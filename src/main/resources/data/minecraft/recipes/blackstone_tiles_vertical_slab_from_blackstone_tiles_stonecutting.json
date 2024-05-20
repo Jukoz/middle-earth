@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "me:blackstone_tiles"
+  },
+  "result": "me:blackstone_tiles_vertical_slab"
+}

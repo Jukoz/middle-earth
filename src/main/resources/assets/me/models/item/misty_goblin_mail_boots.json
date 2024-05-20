@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "me:item/misty_goblin_mail_boots"
+  }
+}

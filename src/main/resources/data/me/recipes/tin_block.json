@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "l": {
+      "item": "me:tin_ingot"
+    }
+  },
+  "pattern": [
+    "lll",
+    "lll",
+    "lll"
+  ],
+  "result": {
+    "item": "me:tin_block"
+  },
+  "show_notification": true
+}
