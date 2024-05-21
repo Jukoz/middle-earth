@@ -63,7 +63,8 @@ public class MEBiomesData {
         try{
             return biomes.stream().filter(x -> x.color.getRGB() == rgb).findFirst().get();
         } catch (Exception e){
-            LoggerUtil.getInstance().logError("MeBiomes::No registered biome has %s for color".formatted(rgb));
+            Color color = new Color(rgb);
+            LoggerUtil.getInstance().logError("MeBiomes::No registered biome has %s for color".formatted(color.toString()));
             throw new Exception();
         }
     }
