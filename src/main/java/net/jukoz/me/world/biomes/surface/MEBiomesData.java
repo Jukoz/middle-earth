@@ -3,6 +3,7 @@ package net.jukoz.me.world.biomes.surface;
 import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.biomes.MEBiomeDataConfig;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.caves.CaveType;
 import net.minecraft.block.Blocks;
@@ -32,6 +33,7 @@ public class MEBiomesData {
     public static MEBiome pond;
     public static MEBiome wastePond;
     public static MEBiome mirkwoodSwamp;
+
 
     // Expansion weights
     private static byte[] RIVER_WEIGHT = {2, 4};
@@ -137,7 +139,7 @@ public class MEBiomesData {
         addBiome(new Color(132, 137, 124), new MEBiome(24, MEBiomeKeys.DUNLAND_FOOTHILLS, EDGE_WEIGHT, FOOTHILL_NOISE_MODIFIER, FOOTHILL_HEIGHT_MODIFIER, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(162, 197, 133), new MEBiome(4, MEBiomeKeys.EAST_BIGHT, LAND_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(140, 150, 84), new MEBiome(4, MEBiomeKeys.EASTERN_RHOVANION, LAND_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
-        addBiome(new Color(120, 107, 84), new MEBiome(37, MEBiomeKeys.EMYN_MUIL, LAND_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.STONE, Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(120, 107, 84), new MEBiome(57, MEBiomeKeys.EMYN_MUIL, LAND_WEIGHT, 0.7f, 0.67f, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(117, 164, 109), new MEBiome(6, MEBiomeKeys.ENEDWAITH, LAND_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(185, 185, 187), new MEBiome(60, MEBiomeKeys.LONELY_MOUNTAIN_BASE, EDGE_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.55f, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(168, 168, 170), new MEBiome(73, MEBiomeKeys.LONELY_MOUNTAIN, EDGE_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.65f, Blocks.STONE, Blocks.STONE, Blocks.STONE));
@@ -174,9 +176,9 @@ public class MEBiomesData {
         addBiome(new Color(76, 85, 77), new MEBiome(56, MEBiomeKeys.MIRKWOOD_MOUNTAINS_BASE, EDGE_WEIGHT, FOOTHILL_NOISE_MODIFIER, 0.43f, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(90, 101, 91), new MEBiome(80, MEBiomeKeys.MIRKWOOD_MOUNTAINS, EDGE_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.68f, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(108, 122, 110), new MEBiome(120, MEBiomeKeys.MIRKWOOD_MOUNTAINS_PEAKS, MOUNTAIN_WEIGHT, MOUNTAIN_PEAKS_NOISE_MODIFIER, MOUNTAIN_HEIGHT_MODIFIER, Blocks.STONE, Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(129, 131, 125), new MEBiome(43, MEBiomeKeys.MISTY_MOUNTAINS_BASE, EDGE_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.16f, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, CaveType.MISTIES));
-        addBiome(new Color(121, 121, 121), new MEBiome(73, MEBiomeKeys.MISTY_MOUNTAINS, MOUNTAIN_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.43f, Blocks.STONE, Blocks.STONE, Blocks.STONE, CaveType.MISTIES));
-        addBiome(new Color(110, 110, 110), new MEBiome(87, MEBiomeKeys.MISTY_MOUNTAINS_PEAKS, EDGE_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.62f, Blocks.SNOW_BLOCK, Blocks.STONE, Blocks.STONE, CaveType.MISTIES));
+        addBiome(new Color(129, 131, 125), new MEBiome(35, MEBiomeKeys.MISTY_MOUNTAINS_BASE, EDGE_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.32f, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, CaveType.MISTIES));
+        addBiome(new Color(121, 121, 121), new MEBiome(67, MEBiomeKeys.MISTY_MOUNTAINS, MOUNTAIN_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.41f, Blocks.STONE, Blocks.STONE, Blocks.STONE, CaveType.MISTIES));
+        addBiome(new Color(110, 110, 110), new MEBiome(94, MEBiomeKeys.MISTY_MOUNTAINS_PEAKS, EDGE_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.65f, Blocks.SNOW_BLOCK, Blocks.STONE, Blocks.STONE, CaveType.MISTIES));
         addBiome(new Color(60, 42, 42), new MEBiome(6, MEBiomeKeys.MORDOR, LAND_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, StoneBlockSets.ASHEN_STONE.base(), StoneBlockSets.ASHEN_STONE.base(), StoneBlockSets.ASHEN_STONE.base(), CaveType.ASHEN));
         addBiome(new Color(36, 31, 31), new MEBiome(47, MEBiomeKeys.MORDOR_MOUNTAINS, LAND_WEIGHT, MOUNTAIN_NOISE_MODIFIER, MOUNTAIN_HEIGHT_MODIFIER, StoneBlockSets.ASHEN_STONE.base(), StoneBlockSets.ASHEN_STONE.base(), StoneBlockSets.ASHEN_STONE.base(), CaveType.ASHEN));
         addBiome(new Color(47, 42, 42), new MEBiome(30, MEBiomeKeys.MORDOR_MOUNTAINS_FOOTHILLS, MOUNTAIN_WEIGHT, FOOTHILL_NOISE_MODIFIER, FOOTHILL_HEIGHT_MODIFIER, StoneBlockSets.ASHEN_STONE.base(), StoneBlockSets.ASHEN_STONE.base(), StoneBlockSets.ASHEN_STONE.base(), CaveType.ASHEN));
@@ -195,8 +197,8 @@ public class MEBiomesData {
         addBiome(new Color(115, 135, 74), new MEBiome(5, MEBiomeKeys.OLD_RHUDAUR, LAND_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(172, 176, 113), new MEBiome(4, MEBiomeKeys.RHUN, LAND_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(155, 193, 160), new MEBiome(3, MEBiomeKeys.HIGH_MOOR_VALE, LAND_WEIGHT, 0.1f, 0.99f, Blocks.GRASS_BLOCK, Blocks.DIRT, StoneBlockSets.LIMESTONE.base(), Blocks.STONE));
-        addBiome(new Color(137, 171, 142), new MEBiome(38, MEBiomeKeys.HIGH_MOOR, LAND_WEIGHT, 0.3f, 0.99f, Blocks.GRASS_BLOCK, Blocks.DIRT, StoneBlockSets.LIMESTONE.base(), Blocks.STONE));
-        addBiome(new Color(126, 157, 130), new MEBiome(51, MEBiomeKeys.HIGH_MOOR_HILLS, LAND_WEIGHT, 0.5f, 0.37f, Blocks.STONE, Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(137, 171, 142), new MEBiome(36, MEBiomeKeys.HIGH_MOOR, LAND_WEIGHT, 0.3f, 0.99f, Blocks.GRASS_BLOCK, Blocks.DIRT, StoneBlockSets.LIMESTONE.base(), Blocks.STONE));
+        addBiome(new Color(126, 157, 130), new MEBiome(43, MEBiomeKeys.HIGH_MOOR_HILLS, LAND_WEIGHT, 0.4f, 0.47f, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(183, 229, 102), new MEBiome(4, MEBiomeKeys.ROHAN, LAND_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(84, 217, 70), new MEBiome(6, MEBiomeKeys.SHIRE, LAND_WEIGHT, FOOTHILL_NOISE_MODIFIER, FOOTHILL_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(75, 184, 64), new MEBiome(6, MEBiomeKeys.SHIRE_EDGE, EDGE_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
@@ -215,8 +217,9 @@ public class MEBiomesData {
         addBiome(new Color(219, 245, 215), new MEBiome(70, MEBiomeKeys.WHITE_MOUNTAINS, LAND_WEIGHT, MOUNTAIN_NOISE_MODIFIER, MOUNTAIN_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.CALCITE, Blocks.CALCITE, Blocks.STONE));
         addBiome(new Color(242, 255, 240), new MEBiome(86, MEBiomeKeys.WHITE_MOUNTAINS_PEAKS, LAND_WEIGHT, MOUNTAIN_PEAKS_NOISE_MODIFIER, MOUNTAIN_PEAKS_HEIGHT_MODIFIER,Blocks.CALCITE, Blocks.CALCITE, Blocks.CALCITE, Blocks.STONE));
         addBiome(new Color(22, 102, 31), new MEBiome(5, MEBiomeKeys.WOODLAND_REALM, LAND_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, StoneBlockSets.LIMESTONE.base(), Blocks.STONE));
-        addBiome(new Color(49, 107, 46), new MEBiome(28, MEBiomeKeys.WOODLAND_FOOTHILLS, EDGE_WEIGHT, FOOTHILL_NOISE_MODIFIER, FOOTHILL_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
-        addBiome(new Color(79, 124, 76), new MEBiome(47, MEBiomeKeys.WOODLAND_HILLS, EDGE_WEIGHT, FOOTHILL_NOISE_MODIFIER, FOOTHILL_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
+        addBiome(new Color(49, 107, 46), new MEBiome(37, MEBiomeKeys.WOODLAND_FOOTHILLS, EDGE_WEIGHT, 0.47f, 0.47f, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
+        addBiome(new Color(79, 124, 76), new MEBiome(63, MEBiomeKeys.WOODLAND_HILLS, EDGE_WEIGHT, 0.62f, 0.76f, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
+
 
         riverbiomes.add(MEBiomeKeys.RIVER);
         riverbiomes.add(MEBiomeKeys.NURN_RIVER);
