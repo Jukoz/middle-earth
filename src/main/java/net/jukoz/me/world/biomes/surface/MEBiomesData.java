@@ -170,9 +170,9 @@ public class MEBiomesData {
         addBiome(new Color(145, 164, 109), new MEBiome(4, MEBiomeKeys.MINHIRIATH, LAND_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(10, 54, 15), new MEBiome(8, MEBiomeKeys.MIRKWOOD, LAND_WEIGHT, FOOTHILL_NOISE_MODIFIER, FOOTHILL_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(18, 73, 24), new MEBiome(5, MEBiomeKeys.MIRKWOOD_EDGE, EDGE_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
-        addBiome(new Color(46, 83, 50), new MEBiome(32, MEBiomeKeys.MIRKWOOD_FOOTHILLS, EDGE_WEIGHT, FOOTHILL_NOISE_MODIFIER, FOOTHILL_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
-        addBiome(new Color(76, 85, 77), new MEBiome(56, MEBiomeKeys.MIRKWOOD_MOUNTAINS_BASE, EDGE_WEIGHT, FOOTHILL_NOISE_MODIFIER, FOOTHILL_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
-        addBiome(new Color(90, 101, 91), new MEBiome(80, MEBiomeKeys.MIRKWOOD_MOUNTAINS, EDGE_WEIGHT, MOUNTAIN_NOISE_MODIFIER, FOOTHILL_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
+        addBiome(new Color(46, 83, 50), new MEBiome(32, MEBiomeKeys.MIRKWOOD_FOOTHILLS, EDGE_WEIGHT, FOOTHILL_NOISE_MODIFIER, 0.28f, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
+        addBiome(new Color(76, 85, 77), new MEBiome(56, MEBiomeKeys.MIRKWOOD_MOUNTAINS_BASE, EDGE_WEIGHT, FOOTHILL_NOISE_MODIFIER, 0.43f, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
+        addBiome(new Color(90, 101, 91), new MEBiome(80, MEBiomeKeys.MIRKWOOD_MOUNTAINS, EDGE_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.68f, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(108, 122, 110), new MEBiome(120, MEBiomeKeys.MIRKWOOD_MOUNTAINS_PEAKS, MOUNTAIN_WEIGHT, MOUNTAIN_PEAKS_NOISE_MODIFIER, MOUNTAIN_HEIGHT_MODIFIER, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(129, 131, 125), new MEBiome(43, MEBiomeKeys.MISTY_MOUNTAINS_BASE, EDGE_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.16f, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, CaveType.MISTIES));
         addBiome(new Color(121, 121, 121), new MEBiome(73, MEBiomeKeys.MISTY_MOUNTAINS, MOUNTAIN_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.43f, Blocks.STONE, Blocks.STONE, Blocks.STONE, CaveType.MISTIES));
@@ -196,7 +196,7 @@ public class MEBiomesData {
         addBiome(new Color(172, 176, 113), new MEBiome(4, MEBiomeKeys.RHUN, LAND_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(155, 193, 160), new MEBiome(3, MEBiomeKeys.HIGH_MOOR_VALE, LAND_WEIGHT, 0.1f, 0.99f, Blocks.GRASS_BLOCK, Blocks.DIRT, StoneBlockSets.LIMESTONE.base(), Blocks.STONE));
         addBiome(new Color(137, 171, 142), new MEBiome(38, MEBiomeKeys.HIGH_MOOR, LAND_WEIGHT, 0.3f, 0.99f, Blocks.GRASS_BLOCK, Blocks.DIRT, StoneBlockSets.LIMESTONE.base(), Blocks.STONE));
-        addBiome(new Color(126, 157, 130), new MEBiome(51, MEBiomeKeys.HIGH_MOOR_HILLS, LAND_WEIGHT, 0.5f, 0.77f, Blocks.STONE, Blocks.STONE, Blocks.STONE));
+        addBiome(new Color(126, 157, 130), new MEBiome(51, MEBiomeKeys.HIGH_MOOR_HILLS, LAND_WEIGHT, 0.5f, 0.37f, Blocks.STONE, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(183, 229, 102), new MEBiome(4, MEBiomeKeys.ROHAN, LAND_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(84, 217, 70), new MEBiome(6, MEBiomeKeys.SHIRE, LAND_WEIGHT, FOOTHILL_NOISE_MODIFIER, FOOTHILL_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(75, 184, 64), new MEBiome(6, MEBiomeKeys.SHIRE_EDGE, EDGE_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));

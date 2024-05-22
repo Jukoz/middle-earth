@@ -1,6 +1,7 @@
 package net.jukoz.me.world.map;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.datageneration.DataGeneration;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.resources.FileType;
 import net.jukoz.me.utils.resources.FileUtils;
@@ -257,8 +258,7 @@ public class MiddleEarthMapGeneration {
 
     private static BufferedImage processHeightRegion(BufferedImage biomeImage, int size, boolean hasBaseImage, int imageX, int imageZ, int brushSize) {
         BufferedImage newHeightRegion = new BufferedImage(size + brushSize*2, size + brushSize*2, BufferedImage.TYPE_INT_RGB);
-        int baseX = 0;
-        int baseZ = 0;
+
         for (int x = 0; x < size + brushSize*2; x++) {
             for (int z = 0; z < size + brushSize*2; z++) {
                 try {
@@ -276,23 +276,15 @@ public class MiddleEarthMapGeneration {
 
                     short noiseModifier = (short) (biome.noiseModifier * 127);
 
-                    Color heightModifier = new Color(Math.abs(height), noiseModifier, 0);
+                    Color heightModifier = (hasBaseImage)
+                            ? getBaseImageHeightModifier(x, z, imageX, imageZ, brushSize)
+                            : new Color(Math.abs(height), noiseModifier, 0);
 
-                    if(hasBaseImage){
-                        baseX = (int)(((imageX * MiddleEarthMapConfigs.REGION_SIZE) + x - brushSize) / Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION));
-                        baseZ = (int)(((imageZ * MiddleEarthMapConfigs.REGION_SIZE) + z - brushSize) / Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION));
-                        if(baseX < 0 || baseX >= MiddleEarthMapConfigs.REGION_SIZE || baseZ < 0 || baseZ >= MiddleEarthMapConfigs.REGION_SIZE) {
-                            baseX = 0; // default biome corner
-                            baseZ = 0;
-                        }
-                        heightModifier = new Color(baseHeightImage.getRGB(baseX, baseZ));
-                    }
                     int red = (int)Math.round((biome.heightBaseModifier * ((double)Math.abs(height)) + (1 - biome.heightBaseModifier) * (double)heightModifier.getRed()));
 
                     int green = (int)((noiseModifier + heightModifier.getGreen()) / 2f);
 
                     Color newColor = new Color(red, green, water);
-
 
                     newHeightRegion.setRGB(x, z, newColor.getRGB());
                 } catch (Exception e) {
@@ -302,6 +294,53 @@ public class MiddleEarthMapGeneration {
         }
 
         return newHeightRegion;
+    }
+
+    private static Color getBaseImageHeightModifier(int x, int z, int imageX, int imageZ, int brushSize) {
+        double iterationDivider = Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION);
+
+        float posX = (float) (((imageX * MiddleEarthMapConfigs.REGION_SIZE) + x - brushSize) / iterationDivider);
+        float posZ = (float) (((imageZ * MiddleEarthMapConfigs.REGION_SIZE) + z - brushSize) / iterationDivider);
+
+        int baseX = (int) (posX);
+        int baseZ = (int) (posZ);
+
+        Color initialColor = getColorFromBaseMap(baseX, baseZ);
+        Color rightColor = getColorFromBaseMap(baseX + 1, baseZ);
+        Color bottomColor = getColorFromBaseMap(baseX, baseZ + 1);
+        Color botRightColor = getColorFromBaseMap(baseX + 1, baseZ + 1);
+
+        float weightX = posX - baseX;
+        float weightZ = posZ - baseZ;
+
+        Color interpolatedTopColor = interpolateColor(initialColor, rightColor, weightX);
+        Color interpolatedBottomColor = interpolateColor(bottomColor, botRightColor, weightX);
+
+        return interpolateColor(interpolatedTopColor, interpolatedBottomColor, weightZ);
+    }
+
+    private static Color getColorFromBaseMap(int x, int z){
+        if(x < 0 || x >= MiddleEarthMapConfigs.REGION_SIZE || z < 0 || z >= MiddleEarthMapConfigs.REGION_SIZE) {
+            x = 0; // default biome corner
+            z = 0;
+        }
+        return new Color(baseHeightImage.getRGB(x, z));
+    }
+
+    private static Color interpolateColor(Color color1, Color color2, float weight) {
+        weight = Math.abs(weight);
+        float newWeight = 1.0f - weight;
+
+        int red = (int)(newWeight * color1.getRed() + weight * color2.getRed());
+        int green = (int)(newWeight * color1.getGreen() + weight * color2.getGreen());
+        int blue = (int)(newWeight * color1.getBlue() + weight * color2.getBlue());
+
+        try{
+            return new Color(red, green, blue);
+        } catch (Exception e){
+            LoggerUtil.getInstance().logError(e.getMessage());
+            return color1;
+        }
     }
 }
 
