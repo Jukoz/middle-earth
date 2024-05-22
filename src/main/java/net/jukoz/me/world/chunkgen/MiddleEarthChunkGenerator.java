@@ -276,6 +276,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 } else if(slopeAngle > 36) {
                     surfaceBlock = meBiome.upperStoneBlock.getDefaultState();
                     underSurfaceBlock = surfaceBlock;
+                } else if(slopeAngle > 34) {
+                    if(surfaceBlock.getBlock() == Blocks.GRASS_BLOCK) surfaceBlock = Blocks.COARSE_DIRT.getDefaultState();
                 }
 
                 for(int y = (int) (HEIGHT + height); y < DIRT_HEIGHT + height; y++) {
@@ -291,7 +293,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     }
 
     private float getTerrainSlope(float height, int x, int z) {
-        int offset = MiddleEarthMapConfigs.PIXEL_WEIGHT;
+        int offset = 3;
         float eastHeight = MiddleEarthHeightMap.getHeight(x + offset, z);
         float southHeight = MiddleEarthHeightMap.getHeight(x, z + offset);
 

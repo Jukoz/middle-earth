@@ -525,7 +525,7 @@ public class ModBiomes {
         float temperature = 0.4f;
 
         if(step == 0) {
-            ModBiomeFeatures.addStoneGrassAbundantOre(vegetation);
+            //ModBiomeFeatures.addStoneGrassAbundantOre(vegetation);
             ModBiomeFeatures.addCoarseDirtOre(vegetation);
             addNordicVegetation(generationSettings);
             ModBiomeFeatures.addCommonLarchTrees(vegetation);
@@ -533,7 +533,7 @@ public class ModBiomes {
             ModBiomeFeatures.addAbundantSpruceTrees(vegetation);
             ModBiomeFeatures.addCommonSpruceBushes(vegetation);
         } else if (step == 1) {
-            ModBiomeFeatures.addStoneGrassOre(vegetation);
+            //ModBiomeFeatures.addStoneGrassOre(vegetation);
             ModBiomeFeatures.addDolomiteOre(vegetation);
             ModBiomeFeatures.addLarchTrees(vegetation);
             ModBiomeFeatures.addPineTrees(vegetation);
