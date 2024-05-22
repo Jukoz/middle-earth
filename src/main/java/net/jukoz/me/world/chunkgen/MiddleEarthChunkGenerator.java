@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.utils.noises.SimplexNoise;
+import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.jukoz.me.world.biomes.surface.MEBiome;
@@ -234,6 +235,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
                 float height = MiddleEarthHeightMap.getHeight(posX, posZ);
                 float caveBlendNoise = (float) ((2 * CAVE_NOISE * BlendedNoise.noise((double) posX / 24,  (double) posZ / 24)) - CAVE_NOISE);
+                float slopeAngle = getTerrainSlope(height, posX, posZ);
+
 
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, bottomY, z), Blocks.BEDROCK.getDefaultState(), false);
                 for(int y = bottomY + 1; y <= LAVA_HEIGHT; y++) {
@@ -261,16 +264,23 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
 
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 1), z), meBiome.stoneBlock.getDefaultState(), false);
-                for(int y = (int) (HEIGHT + height); y < DIRT_HEIGHT + height; y++) {
-                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), meBiome.underSurfaceBlock.getDefaultState(), false);
-                }
+
 
                 BlockState surfaceBlock = meBiome.surfaceBlock.getDefaultState();
-
+                BlockState underSurfaceBlock = meBiome.underSurfaceBlock.getDefaultState();
                 if(DIRT_HEIGHT + height < WATER_HEIGHT && meBiome.surfaceBlock == Blocks.GRASS_BLOCK) {
                     surfaceBlock = Blocks.DIRT.getDefaultState();
+                } else if(slopeAngle > 60) {
+                    surfaceBlock = meBiome.stoneBlock.getDefaultState();
+                    underSurfaceBlock = surfaceBlock;
+                } else if(slopeAngle > 36) {
+                    surfaceBlock = meBiome.upperStoneBlock.getDefaultState();
+                    underSurfaceBlock = surfaceBlock;
                 }
 
+                for(int y = (int) (HEIGHT + height); y < DIRT_HEIGHT + height; y++) {
+                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), underSurfaceBlock, false);
+                }
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (DIRT_HEIGHT + height), z), surfaceBlock, false);
 
                 for(int y = (int) (DIRT_HEIGHT + height + 1); y <= WATER_HEIGHT; y++) {
@@ -278,7 +288,18 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
             }
         }
+    }
 
+    private float getTerrainSlope(float height, int x, int z) {
+        int offset = MiddleEarthMapConfigs.PIXEL_WEIGHT;
+        float eastHeight = MiddleEarthHeightMap.getHeight(x + offset, z);
+        float southHeight = MiddleEarthHeightMap.getHeight(x, z + offset);
+
+        float eastSlope = Math.abs((eastHeight - height) / offset);
+        float southSlope = Math.abs((southHeight - height) / offset);
+        float highestSlope = Math.max(eastSlope, southSlope);
+
+        return (float) Math.toDegrees(Math.atan(highestSlope));
     }
 
     private void trySetBlock(Chunk chunk, BlockPos blockPos, BlockState blockState) {

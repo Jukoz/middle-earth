@@ -30,9 +30,11 @@ public class MiddleEarthMapGeneration {
     private static final float WATER_HEIGHT_MULTIPLIER = 1.0f;
     private static BufferedImage baseHeightImage;
     public MiddleEarthMapGeneration() throws Exception {
-        fileUtils = FileUtils.getInstance();
-        loggerUtil = LoggerUtil.getInstance();
-        generate();
+        if(!DataGeneration.isDataGen) {
+            fileUtils = FileUtils.getInstance();
+            loggerUtil = LoggerUtil.getInstance();
+            generate();
+        }
     }
 
     public void generate() throws Exception {
