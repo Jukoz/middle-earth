@@ -773,7 +773,7 @@ public class ModBiomes {
             ModBiomeFeatures.addCornflower(vegetation);
         }
         else {
-            ModBiomeFeatures.addStoneGrassOre(vegetation);
+            //ModBiomeFeatures.addStoneGrassOre(vegetation);
         }
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addAbundantTuffOre(vegetation);

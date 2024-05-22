@@ -1,6 +1,7 @@
 package net.jukoz.me.world.map;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.datageneration.DataGeneration;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.resources.FileType;
 import net.jukoz.me.utils.resources.FileUtils;
@@ -29,9 +30,11 @@ public class MiddleEarthMapGeneration {
     private static final float WATER_HEIGHT_MULTIPLIER = 1.0f;
     private static BufferedImage baseHeightImage;
     public MiddleEarthMapGeneration() throws Exception {
-        fileUtils = FileUtils.getInstance();
-        loggerUtil = LoggerUtil.getInstance();
-        generate();
+        if(!DataGeneration.isDataGen) {
+            fileUtils = FileUtils.getInstance();
+            loggerUtil = LoggerUtil.getInstance();
+            generate();
+        }
     }
 
     public void generate() throws Exception {

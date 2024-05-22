@@ -156,9 +156,9 @@ public class MEBiomesData {
         addBiome(new Color(156, 187, 94), new MEBiome(35, MEBiomeKeys.HILLS_OF_EVENDIM, LAND_WEIGHT,FOOTHILL_NOISE_MODIFIER, FOOTHILL_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.STONE, Blocks.STONE));
         addBiome(new Color(90, 159, 90), new MEBiome(8, MEBiomeKeys.IRON_HILLS_FRONTIER, LAND_WEIGHT, FOOTHILL_NOISE_MODIFIER, FOOTHILL_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
         addBiome(new Color(109, 175, 109), new MEBiome(25, MEBiomeKeys.IRON_FOOTHILLS, LAND_WEIGHT, MOUNTAIN_NOISE_MODIFIER, FOOTHILL_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
-        addBiome(new Color(189, 170, 168), new MEBiome(32, MEBiomeKeys.IRON_HILLS_BASE, EDGE_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.48f, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
-        addBiome(new Color(174, 144, 141), new MEBiome(51, MEBiomeKeys.IRON_HILLS, MOUNTAIN_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.57f, Blocks.STONE, Blocks.STONE, Blocks.STONE));
-        addBiome(new Color(173, 130, 127), new MEBiome(72, MEBiomeKeys.IRON_HILLS_PEAKS, MOUNTAIN_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.68f, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE));
+        addBiome(new Color(189, 170, 168), new MEBiome(32, MEBiomeKeys.IRON_HILLS_BASE, EDGE_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.48f, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.TUFF));
+        addBiome(new Color(174, 144, 141), new MEBiome(51, MEBiomeKeys.IRON_HILLS, MOUNTAIN_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.57f, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.TUFF));
+        addBiome(new Color(173, 130, 127), new MEBiome(72, MEBiomeKeys.IRON_HILLS_PEAKS, MOUNTAIN_WEIGHT, MOUNTAIN_NOISE_MODIFIER, 0.68f, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.STONE, Blocks.TUFF));
         addBiome(new Color(4, 117, 42), new MEBiome(5, MEBiomeKeys.ITHILIEN, LAND_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.CALCITE, Blocks.STONE));
         addBiome(new Color(51, 100, 67), new MEBiome(5, MEBiomeKeys.ITHILIEN_WASTES, LAND_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.CALCITE, Blocks.STONE));
         addBiome(new Color(164, 255, 164), new MEBiome(7, MEBiomeKeys.LAMEDON, LAND_WEIGHT, LAND_NOISE_MODIFIER, LAND_HEIGHT_MODIFIER, Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.CALCITE, Blocks.STONE));
