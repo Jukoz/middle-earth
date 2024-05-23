@@ -165,7 +165,7 @@ public class ImageUtils {
     }
 
     private static int getExpansionWeight(Integer integer) throws Exception{
-        return MEBiomesData.getBiomeByColor(integer).expansionWeight[(MiddleEarthMapGeneration.CURRENT_ITERATION <= 1) ? 0 : 1];
+        return MEBiomesData.getBiomeByColor(integer).biomeGenerationData.biomeWeight[(MiddleEarthMapGeneration.CURRENT_ITERATION <= 1) ? 0 : 1];
     }
 
 

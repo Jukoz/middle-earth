@@ -1,5 +1,8 @@
 package net.jukoz.me.world.biomes.surface;
 
+import net.jukoz.me.world.biomes.BiomeGenerationData;
+import net.jukoz.me.world.biomes.BlocksLayeringData;
+import net.jukoz.me.world.biomes.SlopeMap;
 import net.jukoz.me.world.biomes.caves.CaveType;
 import net.minecraft.block.Block;
 import net.minecraft.registry.RegistryKey;
@@ -9,41 +12,25 @@ import java.awt.*;
 
 public class MEBiome {
     public int height;
-    public byte[] expansionWeight;
-
-    /** Between 0 and 2; */ public double noiseModifier;
-    /** Between 0 and 2; */ public double heightBaseModifier;
-
     public Color color;
     public RegistryKey<Biome> biome;
-    public Block surfaceBlock;
-    public Block underSurfaceBlock;
-    public Block upperStoneBlock;
-    public Block stoneBlock;
+
+    public BiomeGenerationData biomeGenerationData;
+    public SlopeMap slopeMap;
+    public BlocksLayeringData blocksLayering;
+
     public CaveType caveType;
 
-    public MEBiome(int height, RegistryKey<Biome> biome, byte[] expansionWeight, double noiseModifier, double heightBaseModifier, Block surfaceBlock, Block underSurfaceBlock, Block stoneBlock) {
-        this(height, biome, expansionWeight, noiseModifier, heightBaseModifier,  surfaceBlock, underSurfaceBlock, stoneBlock, stoneBlock, CaveType.DEFAULT);
+    public MEBiome(int height, RegistryKey<Biome> biome, BiomeGenerationData biomeGenerationData, SlopeMap slopeMap, BlocksLayeringData blocksLayering) {
+        this(height, biome, biomeGenerationData, slopeMap, blocksLayering, CaveType.DEFAULT);
     }
 
-    public MEBiome(int height, RegistryKey<Biome> biome, byte[] expansionWeight, double noiseModifier, double heightBaseModifier,  Block surfaceBlock, Block underSurfaceBlock, Block stoneBlock, CaveType caveType) {
-        this(height, biome, expansionWeight, noiseModifier, heightBaseModifier,  surfaceBlock, underSurfaceBlock, stoneBlock, stoneBlock, caveType);
-    }
-
-    public MEBiome(int height, RegistryKey<Biome> biome, byte[] expansionWeight, double noiseModifier, double heightBaseModifier,  Block surfaceBlock, Block underSurfaceBlock, Block upperStoneBlock, Block stoneBlock) {
-        this(height, biome, expansionWeight, noiseModifier, heightBaseModifier, surfaceBlock, underSurfaceBlock, upperStoneBlock, stoneBlock, CaveType.DEFAULT);
-    }
-
-    public MEBiome(int height, RegistryKey<Biome> biome, byte[] expansionWeight, double noiseModifier, double heightBaseModifier,  Block surfaceBlock, Block underSurfaceBlock, Block upperStoneBlock, Block stoneBlock, CaveType caveType) {
+    public MEBiome(int height, RegistryKey<Biome> biome, BiomeGenerationData biomeGenerationData, SlopeMap slopeMap, BlocksLayeringData blocksLayering, CaveType caveType) {
         this.height = height;
         this.biome = biome;
-        this.expansionWeight = expansionWeight;
-        this.noiseModifier = noiseModifier;
-        this.heightBaseModifier = heightBaseModifier;
-        this.surfaceBlock = surfaceBlock;
-        this.underSurfaceBlock = underSurfaceBlock;
-        this.upperStoneBlock = upperStoneBlock;
-        this.stoneBlock = stoneBlock;
+        this.biomeGenerationData = biomeGenerationData;
+        this.slopeMap = slopeMap;
+        this.blocksLayering = blocksLayering;
         this.caveType = caveType;
     }
 }

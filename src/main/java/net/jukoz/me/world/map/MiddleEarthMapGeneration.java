@@ -276,13 +276,13 @@ public class MiddleEarthMapGeneration {
                         height = 0;
                     }
 
-                    short noiseModifier = (short) (biome.noiseModifier * 127);
+                    short noiseModifier = (short) (biome.biomeGenerationData.noiseModifier * 127);
 
                     Color heightModifier = (hasBaseImage)
                             ? getBaseImageHeightModifier(x, z, imageX, imageZ, brushSize)
                             : new Color(Math.abs(height), noiseModifier, 0);
 
-                    int red = (int)Math.round((biome.heightBaseModifier * ((double)Math.abs(height)) + (1 - biome.heightBaseModifier) * (double)heightModifier.getRed()));
+                    int red = (int)Math.round((biome.biomeGenerationData.heightModifier * ((double)Math.abs(height)) + (1 - biome.biomeGenerationData.heightModifier) * (double)heightModifier.getRed()));
 
                     int green = (int)((noiseModifier + heightModifier.getGreen()) / 2f);
 
