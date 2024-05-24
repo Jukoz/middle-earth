@@ -354,13 +354,11 @@ public class ModBiomes {
         if(foothills) {
             addNordicVegetation(generationSettings);
             ModBiomeFeatures.addCornflower(vegetation);
-            ModBiomeFeatures.addStoneGrassAbundantOre(vegetation);
-            ModBiomeFeatures.addCommonLarchTrees(vegetation);
-            ModBiomeFeatures.addAbundantPineTrees(vegetation);
-            ModBiomeFeatures.addAbundantSpruceTrees(vegetation);
-            ModBiomeFeatures.addCommonSpruceBushes(vegetation);
+            ModBiomeFeatures.addSparseLarchTrees(vegetation);
+            ModBiomeFeatures.addSparsePineTrees(vegetation);
+            ModBiomeFeatures.addScarceSpruceTrees(vegetation);
+            ModBiomeFeatures.addSpruceBushes(vegetation);
         } else {
-            ModBiomeFeatures.addFrozenStone(vegetation);
             temperature = 0f;
 
         }
@@ -526,7 +524,7 @@ public class ModBiomes {
 
         if(step == 0) {
             //ModBiomeFeatures.addStoneGrassAbundantOre(vegetation);
-            ModBiomeFeatures.addCoarseDirtOre(vegetation);
+            //ModBiomeFeatures.addCoarseDirtOre(vegetation);
             addNordicVegetation(generationSettings);
             ModBiomeFeatures.addLarchTrees(vegetation);
             ModBiomeFeatures.addPineTrees(vegetation);
@@ -534,7 +532,7 @@ public class ModBiomes {
             ModBiomeFeatures.addCommonSpruceBushes(vegetation);
         } else if (step == 1) {
             //ModBiomeFeatures.addStoneGrassOre(vegetation);
-            ModBiomeFeatures.addDolomiteOre(vegetation);
+            //ModBiomeFeatures.addDolomiteOre(vegetation);
             ModBiomeFeatures.addSparseLarchTrees(vegetation);
             ModBiomeFeatures.addSparsePineTrees(vegetation);
             ModBiomeFeatures.addScarceSpruceTrees(vegetation);
@@ -542,7 +540,7 @@ public class ModBiomes {
             vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
             vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
         } else {
-            ModBiomeFeatures.addDolomiteOre(vegetation);
+            //ModBiomeFeatures.addDolomiteOre(vegetation);
             //ModBiomeFeatures.addFrozenStone(vegetation);
             //temperature = 0.0f;
         }
@@ -1569,7 +1567,7 @@ public class ModBiomes {
             ModBiomeFeatures.addScarceSpruceTrees(vegetation);
             ModBiomeFeatures.addSpruceBushes(vegetation);
         } else {
-            ModBiomeFeatures.addSnowOre(vegetation);
+            //ModBiomeFeatures.addSnowOre(vegetation);
             //ModBiomeFeatures.addCalciteStoneOre(vegetation);
         }
 
