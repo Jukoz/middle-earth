@@ -5,9 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.utils.noises.SimplexNoise;
-import net.jukoz.me.world.biomes.BlocksLayeringData;
 import net.jukoz.me.world.biomes.SlopeMap;
-import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.jukoz.me.world.biomes.surface.MEBiome;
@@ -109,8 +107,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_FOOTHILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_BASE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_PEAKS),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_FRONTIER),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_RIVERSIDE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_PLAINS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DALE_RIVERSIDE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ITHILIEN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ITHILIEN_WASTES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LAMEDON),
@@ -119,6 +117,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.LONELY_MOUNTAIN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LONELY_MOUNTAIN_BASE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LONELY_MOUNTAIN_TAIGA),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LONG_LAKE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LONG_MARSHES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LORIEN_EDGE),

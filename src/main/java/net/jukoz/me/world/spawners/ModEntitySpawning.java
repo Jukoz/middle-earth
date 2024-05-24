@@ -143,11 +143,12 @@ public class ModEntitySpawning {
 
         spawns.put(MEBiomeKeys.LONELY_MOUNTAIN_BASE, longBeardsSpawnSettings);
         spawns.put(MEBiomeKeys.LONELY_MOUNTAIN, longBeardsSpawnSettings);
+        spawns.put(MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, goblinsAndLongbeards);
         spawns.put(MEBiomeKeys.IRON_HILLS, longBeardsSpawnSettings);
         spawns.put(MEBiomeKeys.IRON_HILLS_BASE, longBeardsSpawnSettings);
         spawns.put(MEBiomeKeys.IRON_FOOTHILLS, longBeardsSpawnSettings);
-        spawns.put(MEBiomeKeys.IRON_HILLS_FRONTIER, goblinsAndLongbeards);
-        spawns.put(MEBiomeKeys.IRON_HILLS_RIVERSIDE, goblinsAndLongbeards);
+        spawns.put(MEBiomeKeys.IRON_HILLS_PLAINS, goblinsAndLongbeards);
+        spawns.put(MEBiomeKeys.DALE_RIVERSIDE, goblinsAndLongbeards);
 
         spawns.put(MEBiomeKeys.MIRKWOOD, List.of(new EntitySpawningSettings(ModEntities.MIRKWOOD_SPIDER, 1, 5)));
         spawns.put(MEBiomeKeys.DARK_MIRKWOOD, mordorAndSpiders);

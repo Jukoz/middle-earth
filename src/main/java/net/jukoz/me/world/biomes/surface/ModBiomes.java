@@ -55,6 +55,8 @@ public class ModBiomes {
                 nearHaradSky, defaultFog, 5212644, 333363, 12107900, 10860366)));
         context.register(MEBiomeKeys.DALE, createDaleBiome(context, new BiomeColorsDTO(
                 8230911, 12178175, defaultWater, defaultWaterFog, 6400105, 8703593)));
+        context.register(MEBiomeKeys.DALE_RIVERSIDE, createNorthernRhovanionTaiga(context, new BiomeColorsDTO(
+                hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
         context.register(MEBiomeKeys.DARK_ANDUIN_VALES, createAnduinBiome(context, new BiomeColorsDTO(
                 7246271, 8951443, 4354703, 1128527, 8032632, 7901046)));
         context.register(MEBiomeKeys.DARK_MIRKWOOD, createMirkwoodBiome(context, new BiomeColorsDTO(
@@ -83,6 +85,8 @@ public class ModBiomes {
                 hillySky, 12637183, defaultWater, defaultWaterFog, 6927733, 6005862), 1));
         context.register(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, createLonelyMountainBiome(context, new BiomeColorsDTO(
                 hillySky, 13031679, defaultWater, defaultWaterFog, 8106628, 6987890), 2));
+        context.register(MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, createNorthernRhovanionTaiga(context, new BiomeColorsDTO(
+                hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
         context.register(MEBiomeKeys.EREGION, createEregionBiome(context, new BiomeColorsDTO(
                 7908853, 11393279, 5077445, 331050, 6858575, 6198343)));
         context.register(MEBiomeKeys.ERIADOR, createEriadorBiome(context, new BiomeColorsDTO(
@@ -117,11 +121,9 @@ public class ModBiomes {
                 8761343, defaultFog, defaultWater, defaultWaterFog, 7187321, 6793328), true));
         context.register(MEBiomeKeys.IRON_HILLS_PEAKS, createIronHillsBiome(context, new BiomeColorsDTO(
                 8761343, defaultFog, defaultWater, defaultWaterFog, 7187321, 6793328), true));
-        context.register(MEBiomeKeys.IRON_HILLS_FRONTIER, createIronHillsFrontierBiome(context, new BiomeColorsDTO(
-                hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
-        context.register(MEBiomeKeys.IRON_HILLS_RIVERSIDE, createIronHillsFrontierBiome(context, new BiomeColorsDTO(
-                hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
-        context.register(MEBiomeKeys.IRON_FOOTHILLS, createIronHillsFrontierBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.IRON_HILLS_PLAINS, createNorthernRhovanionTaiga(context, new BiomeColorsDTO(
+                hillySky, 12637183, defaultWater, defaultWaterFog, 7713657, 7580788)));
+        context.register(MEBiomeKeys.IRON_FOOTHILLS, createNorthernRhovanionTaiga(context, new BiomeColorsDTO(
                 hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
         context.register(MEBiomeKeys.ITHILIEN, createIthilienBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 5152072, 4889668), false));
@@ -785,7 +787,7 @@ public class ModBiomes {
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
 
-    public static Biome createIronHillsFrontierBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+    public static Biome createNorthernRhovanionTaiga(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
         ModSpawnSettingsBuilder.addNordicMobs(spawnSettings);

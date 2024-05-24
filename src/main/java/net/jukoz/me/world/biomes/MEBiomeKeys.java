@@ -51,8 +51,8 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> HIGH_MOOR_HILLS = MEBiomeKeys.register("high_moor_hills");
     public static final RegistryKey<Biome> HILLS_OF_EVENDIM = MEBiomeKeys.register("hills_of_evendim");
 
-    public static final RegistryKey<Biome> IRON_HILLS_FRONTIER = MEBiomeKeys.register("iron_hills_frontier");
-    public static final RegistryKey<Biome> IRON_HILLS_RIVERSIDE = MEBiomeKeys.register("iron_hills_riverside");
+    public static final RegistryKey<Biome> IRON_HILLS_PLAINS = MEBiomeKeys.register("iron_hills_frontier");
+    public static final RegistryKey<Biome> DALE_RIVERSIDE = MEBiomeKeys.register("iron_hills_riverside");
     public static final RegistryKey<Biome> IRON_FOOTHILLS = MEBiomeKeys.register("iron_foothills");
     public static final RegistryKey<Biome> IRON_HILLS_BASE = MEBiomeKeys.register("iron_hills_base");
     public static final RegistryKey<Biome> IRON_HILLS = MEBiomeKeys.register("iron_hills");
@@ -66,6 +66,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> LONELY_MOUNTAIN = MEBiomeKeys.register("lonely_mountain");
     public static final RegistryKey<Biome> LONELY_MOUNTAIN_BASE = MEBiomeKeys.register("lonely_mountain_base");
     public static final RegistryKey<Biome> LONELY_MOUNTAIN_PEAKS = MEBiomeKeys.register("lonely_mountain_peaks");
+    public static final RegistryKey<Biome> LONELY_MOUNTAIN_TAIGA = MEBiomeKeys.register("lonely_mountain_taiga");
     public static final RegistryKey<Biome> LONG_LAKE = MEBiomeKeys.register("long_lake");
     public static final RegistryKey<Biome> LONG_MARSHES = MEBiomeKeys.register("long_marshes");
     public static final RegistryKey<Biome> LORIEN_EDGE = MEBiomeKeys.register("lorien_edge");
