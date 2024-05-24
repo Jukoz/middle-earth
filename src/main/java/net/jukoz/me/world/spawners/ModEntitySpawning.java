@@ -147,6 +147,7 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.IRON_HILLS_BASE, longBeardsSpawnSettings);
         spawns.put(MEBiomeKeys.IRON_FOOTHILLS, longBeardsSpawnSettings);
         spawns.put(MEBiomeKeys.IRON_HILLS_FRONTIER, goblinsAndLongbeards);
+        spawns.put(MEBiomeKeys.IRON_HILLS_RIVERSIDE, goblinsAndLongbeards);
 
         spawns.put(MEBiomeKeys.MIRKWOOD, List.of(new EntitySpawningSettings(ModEntities.MIRKWOOD_SPIDER, 1, 5)));
         spawns.put(MEBiomeKeys.DARK_MIRKWOOD, mordorAndSpiders);
@@ -155,6 +156,7 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.ROHAN, rohanSpawnSettings);
 
         spawns.put(MEBiomeKeys.ANORIEN, gondorAndMordor);
+        spawns.put(MEBiomeKeys.ANORIEN_RIVERSIDE, gondorAndMordor);
         spawns.put(MEBiomeKeys.LEBENNIN, ruralGondorSpawnSettings);
         spawns.put(MEBiomeKeys.LAMEDON, ruralGondorSpawnSettings);
         spawns.put(MEBiomeKeys.GONDOR, ruralGondorSpawnSettings);

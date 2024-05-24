@@ -12,6 +12,7 @@ public class MEBiomeKeys extends BiomeKeys {
     // region SURFACE
     public static final RegistryKey<Biome> ANDUIN_VALES = MEBiomeKeys.register("anduin_vales");
     public static final RegistryKey<Biome> ANORIEN = MEBiomeKeys.register("anorien");
+    public static final RegistryKey<Biome> ANORIEN_RIVERSIDE = MEBiomeKeys.register("anorien_riverside");
     public static final RegistryKey<Biome> ANORIEN_FOOTHILLS = MEBiomeKeys.register("anorien_foothills");
     public static final RegistryKey<Biome> BARROW_DOWNS = MEBiomeKeys.register("barrow_downs");
     public static final RegistryKey<Biome> BELFALAS = MEBiomeKeys.register("belfalas");
@@ -51,6 +52,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> HILLS_OF_EVENDIM = MEBiomeKeys.register("hills_of_evendim");
 
     public static final RegistryKey<Biome> IRON_HILLS_FRONTIER = MEBiomeKeys.register("iron_hills_frontier");
+    public static final RegistryKey<Biome> IRON_HILLS_RIVERSIDE = MEBiomeKeys.register("iron_hills_riverside");
     public static final RegistryKey<Biome> IRON_FOOTHILLS = MEBiomeKeys.register("iron_foothills");
     public static final RegistryKey<Biome> IRON_HILLS_BASE = MEBiomeKeys.register("iron_hills_base");
     public static final RegistryKey<Biome> IRON_HILLS = MEBiomeKeys.register("iron_hills");

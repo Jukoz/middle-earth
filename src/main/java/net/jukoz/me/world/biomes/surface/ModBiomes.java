@@ -35,6 +35,8 @@ public class ModBiomes {
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 8703593, 8703593)));
         context.register(MEBiomeKeys.ANORIEN, createAnorienBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6799458, 6662221)));
+        context.register(MEBiomeKeys.ANORIEN_RIVERSIDE, createAnorienBiome(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, defaultWater, defaultWaterFog, 6799458, 6662221)));
         context.register(MEBiomeKeys.ANORIEN_FOOTHILLS, createAnorienBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6799458, 6662221)));
         context.register(MEBiomeKeys.BARROW_DOWNS, createBarrowDownsBiome(context, new BiomeColorsDTO(
@@ -116,6 +118,8 @@ public class ModBiomes {
         context.register(MEBiomeKeys.IRON_HILLS_PEAKS, createIronHillsBiome(context, new BiomeColorsDTO(
                 8761343, defaultFog, defaultWater, defaultWaterFog, 7187321, 6793328), true));
         context.register(MEBiomeKeys.IRON_HILLS_FRONTIER, createIronHillsFrontierBiome(context, new BiomeColorsDTO(
+                hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
+        context.register(MEBiomeKeys.IRON_HILLS_RIVERSIDE, createIronHillsFrontierBiome(context, new BiomeColorsDTO(
                 hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
         context.register(MEBiomeKeys.IRON_FOOTHILLS, createIronHillsFrontierBiome(context, new BiomeColorsDTO(
                 hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
