@@ -167,10 +167,10 @@ public class MEBiomeDataConfigs {
 
     // region Biome Generation Data
     // Expansion weights
-    private static final byte[] RIVER_WEIGHT = {2, 4};
-    private static final byte[] OCEAN_WEIGHT = {2, 5};
+    private static final byte[] RIVER_WEIGHT = {2, 2};
+    private static final byte[] OCEAN_WEIGHT = {2, 3};
     private static final byte[] MOUNTAIN_WEIGHT = {1, 4};
-    private static final byte[] LAND_WEIGHT = {1, 5};
+    private static final byte[] LAND_WEIGHT = {1, 4};
 
     // Noise Modifiers
     private static final double WATER_NOISE_MODIFIER = 0.4f;
