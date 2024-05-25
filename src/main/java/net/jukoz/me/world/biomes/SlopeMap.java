@@ -30,7 +30,7 @@ public class SlopeMap {
 
     public Block getBlockAtAngle(float angle) {
         for(SlopeData slopeData : slopeDatas) {
-            if(angle < slopeData.angle) {
+            if(angle <= slopeData.angle) {
                 return slopeData.block;
             }
         }

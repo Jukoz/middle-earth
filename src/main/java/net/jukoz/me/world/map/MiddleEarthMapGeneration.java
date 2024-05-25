@@ -270,10 +270,12 @@ public class MiddleEarthMapGeneration {
                         height = 255;
                     }
 
+                    int waterHeightDifference = biome.waterHeight - MEBiome.DEFAULT_WATER_HEIGHT;
                     int water = 0;
-                    if(height < 0) {
-                        water = (int) Math.abs((height * WATER_HEIGHT_MULTIPLIER) - WATER_BUFFER);
-                        height = 0;
+                    int waterHeight = height - waterHeightDifference;
+                    if(waterHeight < 0) {
+                        water = (int) Math.abs((waterHeight * WATER_HEIGHT_MULTIPLIER) - WATER_BUFFER);
+                        height = Math.max(0, height);
                     }
 
                     short noiseModifier = (short) (biome.biomeGenerationData.noiseModifier * 127);

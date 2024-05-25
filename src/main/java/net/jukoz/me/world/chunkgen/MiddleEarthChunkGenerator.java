@@ -55,8 +55,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     private static final int CAVE_STRETCH_H = 60;
     private static final int CAVE_STRETCH_V = 50;
-    private static float minNoise = 10000;
-    private static float maxNoise = -10000;
     RegistryEntryLookup<Biome> biomeRegistry;
     public static final MapCodec<MiddleEarthChunkGenerator> CODEC = RecordCodecBuilder.mapCodec((instance) ->
             instance.group(RegistryOps.getEntryLookupCodec(RegistryKeys.BIOME))
@@ -301,14 +299,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     surfaceBlock = Blocks.DIRT.getDefaultState();
                     underSurfaceBlock = surfaceBlock;
                 } else {
-                    ArrayList<SlopeMap.SlopeData> slopeDatas = meBiome.slopeMap.slopeDatas;
-                    for(SlopeMap.SlopeData slopeData : slopeDatas) {
-                        if(slopeAngle <= slopeData.angle) {
-                            surfaceBlock = slopeData.block.getDefaultState();
-                            break;
-                        }
-                    }
-                    //surfaceBlock = meBiome.slopeMap.getBlockAtAngle(slopeAngle).getDefaultState();
+                    surfaceBlock = meBiome.slopeMap.getBlockAtAngle(slopeAngle).getDefaultState();
                     if(surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState()) underSurfaceBlock = Blocks.DIRT.getDefaultState();
                     else underSurfaceBlock = surfaceBlock;
                 }
@@ -318,7 +309,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (DIRT_HEIGHT + height), z), surfaceBlock, false);
 
-                for(int y = (int) (DIRT_HEIGHT + height + 1); y <= WATER_HEIGHT; y++) {
+                for(int y = (int) (DIRT_HEIGHT + height + 1); y <= meBiome.waterHeight; y++) {
                     chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.WATER.getDefaultState(), false);
                 }
             }
