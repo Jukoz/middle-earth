@@ -21,10 +21,25 @@ import java.util.function.Supplier;
 
 public class ModArmorMaterials {
 
-    public static final ExtendedArmorMaterial HOBBIT_SHERRIF_HAT = registerArmor("hobbit_shirriff_hat", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
+    public static final ExtendedArmorMaterial STRAW_HAT = registerArmor("straw_hat", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(ModResourceItems.STRAW),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shire"), null);
 
+    public static final ExtendedArmorMaterial WOVEN_HAT = registerArmor("woven_hat", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shire"), null);
+
+    public static final ExtendedArmorMaterial HOBBIT_SHIRRIFF_HAT = registerArmor("hobbit_shirriff_hat", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shire"), null);
+
+    public static final ExtendedArmorMaterial CHAIN_ARMOR = registerArmor("chain_armor", 3, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, () -> Ingredient.ofItems(Items.IRON_INGOT),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
+
+    public static final ExtendedArmorMaterial OPEN_FACE = registerArmor("open_face", 4, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
+
     public static final ExtendedArmorMaterial GAMBESON_CAP = registerArmor("gambeson_cap", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
+
+    public static final ExtendedArmorMaterial STURDY_BOOTS = registerArmor("sturdy_boots", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
 
     public static final ExtendedArmorMaterial GAMBESON_COWL = registerArmor("gambeson_cowl", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),

@@ -40,6 +40,7 @@ public class ModArmorRenderer implements ArmorRenderer {
 
     //TODO datagen tags for dyeable -> auto do render of item client class
     //TODO fix item overlay dyeable item
+    //TODO dyeable specify if overlay
     private CustomHelmetModel<LivingEntity> customHelmetModel;
     private CustomChestplateModel<LivingEntity> customChestplateModel;
     private CustomLeggingsModel<LivingEntity> customLeggingsModel;
@@ -96,7 +97,11 @@ public class ModArmorRenderer implements ArmorRenderer {
             item.additionModel.setVisible(false);
             item.additionModel.head.visible = true;
             item.additionModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.pitch);
-            renderArmor(matrices, vertexConsumers, light, helmet, item.additionModel, new Identifier(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_addition.png")), dyeable);
+            if(texture.contains("_helmet")){
+                renderArmor(matrices, vertexConsumers, light, helmet, item.additionModel, new Identifier(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_addition.png")), dyeable);
+            } else {
+                renderArmor(matrices, vertexConsumers, light, helmet, item.additionModel, new Identifier(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
+            }
         }
 
         if(item.getCustomsList() != null) {
@@ -192,10 +197,6 @@ public class ModArmorRenderer implements ArmorRenderer {
 
     static void renderArmor(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture, boolean dyeable){
         if(dyeable){
-            /*renderDyeable(matrices, vertexConsumers, light, stack, model, texture);
-            if(!(model == capeModel)){
-                renderDyeable(matrices, vertexConsumers, light, stack, model, new Identifier(MiddleEarth.MOD_ID, texture.getPath().replaceAll(".png", "_overlay.png")));
-            }*/
             renderDyeable(matrices, vertexConsumers, light, stack, model, texture);
             ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, new Identifier(MiddleEarth.MOD_ID, texture.getPath().replaceAll(".png", "_overlay.png")));
         } else {

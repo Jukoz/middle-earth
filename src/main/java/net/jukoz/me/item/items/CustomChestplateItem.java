@@ -3,12 +3,14 @@ package net.jukoz.me.item.items;
 import dev.architectury.platform.Mod;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.model.equipment.chest.*;
+import net.jukoz.me.event.KeyInputHandler;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.utils.ExtendedArmorMaterial;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipType;
 import net.minecraft.component.type.DyedColorComponent;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
@@ -92,6 +94,24 @@ public class CustomChestplateItem extends ArmorItem {
     }
 
     @Override
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+        if(KeyInputHandler.capeKey.isPressed()){
+            CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
+
+            if(capeDataComponent != null){
+                if(capeDataComponent.enabled()){
+                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(false));
+                } else {
+                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true));
+                }
+            } else {
+                stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true));
+            }
+        }
+
+    }
+
+    /*@Override
     public TypedActionResult<ItemStack> use(World world, @NotNull PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
         CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
@@ -105,8 +125,8 @@ public class CustomChestplateItem extends ArmorItem {
         } else {
             stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true));
         }
-        return super.use(world, user, hand);
-    }
+
+    }*/
 
     public enum Customizations{
         DYEABLE("dyeable"),

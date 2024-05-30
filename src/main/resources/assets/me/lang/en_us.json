@@ -3364,11 +3364,11 @@
   "tooltip.me.reach" : "Reach: ",
   "tooltip.me.blocks_range" : " Blocks",
 
-  "tooltip.me.tier1" : "§7Base Materials",
-  "tooltip.me.tier2" : "§7Refined Materials",
-  "tooltip.me.tier3" : "§7Low Grade Metallurgy",
-  "tooltip.me.tier4" : "§7Medium Grade Metallurgy",
-  "tooltip.me.tier5" : "§7High Grade Metallurgy",
+  "tooltip.me.tier1" : "§7Base Materials [I]",
+  "tooltip.me.tier2" : "§7Refined Materials [II]",
+  "tooltip.me.tier3" : "§7Low Grade Metallurgy [III]",
+  "tooltip.me.tier4" : "§7Medium Grade Metallurgy [IV]",
+  "tooltip.me.tier5" : "§7High Grade Metallurgy [V]",
   "tooltip.me.tier6" : "§7Mithril",
 
   "tooltip.me.generic" : "Generic",

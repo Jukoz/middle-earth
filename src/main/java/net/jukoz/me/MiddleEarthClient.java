@@ -45,6 +45,7 @@ import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollRenderer;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollRenderer;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinRenderer;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukRenderer;
+import net.jukoz.me.event.KeyInputHandler;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreen;
@@ -81,6 +82,8 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+
+        KeyInputHandler.register();
 
         ModEntityModels.getModels();
         EntityRendererRegistry.register(ModEntities.BARROW_WIGHT, BarrowWightEntityRenderer::new);

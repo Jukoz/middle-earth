@@ -163,11 +163,7 @@ public class ShireHobbitEntity extends NpcEntity {
     private void soldierEquipment(Random random){
         float  randomVal = random.nextFloat();
         equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
-        if(randomVal < 0.50f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HOBBIT_SHIRRIFF_HAT_BROWN));
-        } else {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HOBBIT_SHIRRIFF_HAT_GREEN));
-        }
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.SHIRRIFF_HAT));
     }
 
     public ShireHobbitVariant getVariant() {
