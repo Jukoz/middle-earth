@@ -93,7 +93,10 @@ public class ModBiomeSource extends BiomeSource {
                     processedBiome = MEBiomesData.oasis.biome;
                 } else if(MEBiomesData.frozenBiomes.contains(biome)) {
                     processedBiome = MEBiomesData.frozenPond.biome;
-                } else {
+                } else if(MEBiomesData.anduinWaterBiomes.contains(biome)){
+                    processedBiome = MEBiomesData.greatRiver.biome;
+                }
+                else {
                     processedBiome = MEBiomesData.pond.biome;
                 }
             } else processedBiome = biome;

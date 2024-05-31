@@ -35,11 +35,11 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> EMYN_MUIL = MEBiomeKeys.register("emyn_muil");
     public static final RegistryKey<Biome> EMYN_MUIL_CLIFFS = MEBiomeKeys.register("emyn_muil_cliffs");
     public static final RegistryKey<Biome> EMYN_MUIL_PEAKS = MEBiomeKeys.register("emyn_muil_peaks");
-
     public static final RegistryKey<Biome> ENEDWAITH = MEBiomeKeys.register("enedwaith");
      public static final RegistryKey<Biome> EREGION = MEBiomeKeys.register("eregion");
     public static final RegistryKey<Biome> ERIADOR = MEBiomeKeys.register("eriador");
     public static final RegistryKey<Biome> ETHIR_ANDUIN = MEBiomeKeys.register("ethir_anduin");
+    public static final RegistryKey<Biome> FALLS_OF_RAUROS_PEAKS = MEBiomeKeys.register("falls_of_rauros_peaks");
     public static final RegistryKey<Biome> FANGORN = MEBiomeKeys.register("fangorn");
     public static final RegistryKey<Biome> FORODWAITH = MEBiomeKeys.register("forodwaith");
     public static final RegistryKey<Biome> FROZEN_OCEAN = MEBiomeKeys.register("frozen_ocean");
