@@ -51,7 +51,7 @@ public class ModBiomes {
                 7905261, 12241911, defaultWater, defaultWaterFog, 7125373, 8703593), true));
         context.register(MEBiomeKeys.BLUE_MOUNTAINS_PEAKS, createBlueMountainsBiome(context, new BiomeColorsDTO(
                 7905261, 12241911, defaultWater, defaultWaterFog, 7125373, 8703593), false));
-        context.register(MEBiomeKeys.BROWN_LANDS, createSwampAnduin(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.BROWN_LANDS, createMordorWastesBiome(context, new BiomeColorsDTO(
                 7905261, 12241911, defaultWater, defaultWaterFog, 7125373, 8703593)));
         context.register(MEBiomeKeys.CORSAIR_COASTS, createCorsairCoastBiome(context, new BiomeColorsDTO(
                 nearHaradSky, defaultFog, 5212644, 333363, 12107900, 10860366)));
@@ -99,8 +99,6 @@ public class ModBiomes {
                 defaultSky, 12637429, 4615389, 658236, 7582562, 6592327)));
         context.register(MEBiomeKeys.ETHIR_ANDUIN, createSwampAnduin(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6400102, 6137428)));
-        context.register(MEBiomeKeys.FALLS_OF_RAUROS_PEAKS, createEmynMuilBiome(context, new BiomeColorsDTO(
-                6980296, 10402016, 4618461, defaultWaterFog, 9666387, 9731143)));
         context.register(MEBiomeKeys.FANGORN, createFangornBiome(context, new BiomeColorsDTO(
                 7972607, defaultFog, 4293787, 338483, 3559947, 1789719)));
         context.register(MEBiomeKeys.FORODWAITH, createForodwaithBiome(context, new BiomeColorsDTO(
@@ -199,12 +197,8 @@ public class ModBiomes {
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6263143, 5869915)));
         context.register(MEBiomeKeys.NORTH_DOWNS, createNorthDowns(context, new BiomeColorsDTO(
                 hillySky, defaultFog, defaultWater, defaultWaterFog, 9414008, 9018483)));
-        context.register(MEBiomeKeys.NORTHERN_BROWN_LANDS, createSwampAnduin(context, new BiomeColorsDTO(
-                7905261, 12241911, defaultWater, defaultWaterFog, 7125373, 8703593)));
         context.register(MEBiomeKeys.NORTHERN_DUNLAND, createNorthDunlandBiome(context, new BiomeColorsDTO(
                 7508201, 12964294, defaultWater, defaultWaterFog, 6722387, 6198343), true));
-        context.register(MEBiomeKeys.NORTHERN_FANGORN, createFangornBiome(context, new BiomeColorsDTO(
-                7972607, defaultFog, 4293787, 338483, 3559947, 1789719)));
         context.register(MEBiomeKeys.NORTHERN_MIRKWOOD_SWAMP, createMirkwoodSwampBiome(context, new BiomeColorsDTO(
                 6849692, 8427421, 7111535, 1458241, 4546876, 4284215)));
         context.register(MEBiomeKeys.NORTHERN_MIRKWOOD_MARSHES, createMirkwoodSwampBiome(context, new BiomeColorsDTO(
@@ -272,8 +266,6 @@ public class ModBiomes {
         context.register(MEBiomeKeys.THE_OLD_FOREST, createTheOldForestBiome(context, new BiomeColorsDTO(
                 6785744, 10004675, 4421513, 402733, 2311707, 2050588)));
         context.register(MEBiomeKeys.THE_WOLD, createRohanBiome(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 12309403, 12242068)));
-        context.register(MEBiomeKeys.THE_NORTHERN_WOLD, createRohanBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 12309403, 12242068)));
         context.register(MEBiomeKeys.TOLFALAS, createTolfalasBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10927716, 9615182)));

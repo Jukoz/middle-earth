@@ -39,7 +39,6 @@ public class MEBiomeKeys extends BiomeKeys {
      public static final RegistryKey<Biome> EREGION = MEBiomeKeys.register("eregion");
     public static final RegistryKey<Biome> ERIADOR = MEBiomeKeys.register("eriador");
     public static final RegistryKey<Biome> ETHIR_ANDUIN = MEBiomeKeys.register("ethir_anduin");
-    public static final RegistryKey<Biome> FALLS_OF_RAUROS_PEAKS = MEBiomeKeys.register("falls_of_rauros_peaks");
     public static final RegistryKey<Biome> FANGORN = MEBiomeKeys.register("fangorn");
     public static final RegistryKey<Biome> FORODWAITH = MEBiomeKeys.register("forodwaith");
     public static final RegistryKey<Biome> FROZEN_OCEAN = MEBiomeKeys.register("frozen_ocean");
@@ -99,9 +98,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> NEN_HITHOEL_FOREST = MEBiomeKeys.register("nen_hithoel_forest");
     public static final RegistryKey<Biome> NINDALF = MEBiomeKeys.register("nindalf");
     public static final RegistryKey<Biome> NORTH_DOWNS = MEBiomeKeys.register("north_downs");
-    public static final RegistryKey<Biome> NORTHERN_BROWN_LANDS = MEBiomeKeys.register("northern_brown_lands");
     public static final RegistryKey<Biome> NORTHERN_DUNLAND = MEBiomeKeys.register("northern_dunland");
-    public static final RegistryKey<Biome> NORTHERN_FANGORN = MEBiomeKeys.register("northern_fangorn");
     public static final RegistryKey<Biome> NORTHERN_MIRKWOOD_MARSHES = MEBiomeKeys.register("northern_mirkwood_marshes");
     public static final RegistryKey<Biome> NORTHERN_MIRKWOOD_SWAMP = MEBiomeKeys.register("northern_mirkwood_swamp");
     public static final RegistryKey<Biome> NORTHERN_WASTELANDS = MEBiomeKeys.register("northern_wastelands");
@@ -118,7 +115,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> OASIS = MEBiomeKeys.register("oasis");
     public static final RegistryKey<Biome> POND = MEBiomeKeys.register("pond");
     public static final RegistryKey<Biome> RHUN = MEBiomeKeys.register("rhun");
-       public static final RegistryKey<Biome> SEA_OF_RHUN = MEBiomeKeys.register("sea_of_rhun");
+    public static final RegistryKey<Biome> SEA_OF_RHUN = MEBiomeKeys.register("sea_of_rhun");
     public static final RegistryKey<Biome> RIVER = MEBiomeKeys.register("river");
     public static final RegistryKey<Biome> RIVER_RUNNING = MEBiomeKeys.register("river_running");
     public static final RegistryKey<Biome> ROHAN = MEBiomeKeys.register("rohan");
@@ -133,7 +130,6 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> THE_ANGLE = MEBiomeKeys.register("the_angle");
     public static final RegistryKey<Biome> THE_OLD_FOREST = MEBiomeKeys.register("the_old_forest");
     public static final RegistryKey<Biome> THE_WOLD = MEBiomeKeys.register("the_wold");
-    public static final RegistryKey<Biome> THE_NORTHERN_WOLD = MEBiomeKeys.register("the_northern_wold");
     public static final RegistryKey<Biome> TOLFALAS = MEBiomeKeys.register("tolfalas");
     public static final RegistryKey<Biome> TROLLSHAWS = MEBiomeKeys.register("trollshaws");
     public static final RegistryKey<Biome> UMBAR = MEBiomeKeys.register("umbar");
