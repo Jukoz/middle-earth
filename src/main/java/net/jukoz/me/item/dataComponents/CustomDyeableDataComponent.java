@@ -3,46 +3,58 @@ package net.jukoz.me.item.dataComponents;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModDataComponentTypes;
-import net.minecraft.client.item.TooltipType;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.item.DyeItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.TooltipAppender;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
-
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
-import java.util.function.Consumer;
 
-public record CustomDyeableDataComponent(int rgb, boolean overlay) {
+public record CustomDyeableDataComponent(int customRgb, boolean overlay) {
     private static final Codec<CustomDyeableDataComponent> BASE_CODEC = RecordCodecBuilder.create((instance) -> {
-        return instance.group(Codec.INT.fieldOf("rgb").forGetter(CustomDyeableDataComponent::rgb), Codec.BOOL.optionalFieldOf("overlay", true).forGetter(CustomDyeableDataComponent::overlay)).apply(instance, CustomDyeableDataComponent::new);
+        return instance.group(Codec.INT.fieldOf("customRgb").forGetter(CustomDyeableDataComponent::customRgb), Codec.BOOL.optionalFieldOf("overlay", true).forGetter(CustomDyeableDataComponent::overlay)).apply(instance, CustomDyeableDataComponent::new);
     });
     public static final Codec<CustomDyeableDataComponent> CODEC;
     public static final PacketCodec<ByteBuf, CustomDyeableDataComponent> PACKET_CODEC;
     public static final int DEFAULT_COLOR = -6265536;
 
-    public CustomDyeableDataComponent(int rgb, boolean overlay) {
-        this.rgb = rgb;
+    public CustomDyeableDataComponent(int customRgb, boolean overlay) {
+        this.customRgb = customRgb;
         this.overlay = overlay;
     }
 
     public static int getColor(ItemStack stack, int defaultColor) {
         CustomDyeableDataComponent dyedColorComponent = (CustomDyeableDataComponent) stack.get(ModDataComponentTypes.DYE_DATA);
-        return dyedColorComponent != null ? ColorHelper.Argb.fullAlpha(dyedColorComponent.rgb()) : defaultColor;
+        return dyedColorComponent != null ? ColorHelper.Argb.fullAlpha(dyedColorComponent.customRgb()) : defaultColor;
+    }
+
+    public static boolean getOverlay(ItemStack stack) {
+        CustomDyeableDataComponent dyedColorComponent = (CustomDyeableDataComponent) stack.get(ModDataComponentTypes.DYE_DATA);
+        return dyedColorComponent != null ? dyedColorComponent.overlay : true;
+    }
+
+    public static CustomDyeableDataComponent withOverlay(boolean overlay) {
+        return new CustomDyeableDataComponent(DEFAULT_COLOR, overlay);
+    }
+
+    public static ItemStack setOverlay(ItemStack stack, Boolean overlay){
+        ItemStack itemStack = stack.copyWithCount(1);
+        CustomDyeableDataComponent dyedColorComponent = (CustomDyeableDataComponent) itemStack.get(ModDataComponentTypes.DYE_DATA);
+
+        itemStack.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(DEFAULT_COLOR, overlay));
+
+        return itemStack;
     }
 
     public static ItemStack setColor(ItemStack stack, List<DyeItem> dyes) {
-        if (!stack.isIn(ItemTags.DYEABLE)) {
+        if (!stack.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "dyeable")))) {
             return ItemStack.EMPTY;
         } else {
             ItemStack itemStack = stack.copyWithCount(1);
@@ -51,14 +63,14 @@ public record CustomDyeableDataComponent(int rgb, boolean overlay) {
             int k = 0;
             int l = 0;
             int m = 0;
-            DyedColorComponent dyedColorComponent = (DyedColorComponent) itemStack.get(DataComponentTypes.DYED_COLOR);
+            CustomDyeableDataComponent dyedColorComponent = (CustomDyeableDataComponent) itemStack.get(ModDataComponentTypes.DYE_DATA);
             int n;
             int o;
             int p;
             if (dyedColorComponent != null) {
-                n = ColorHelper.Argb.getRed(dyedColorComponent.rgb());
-                o = ColorHelper.Argb.getGreen(dyedColorComponent.rgb());
-                p = ColorHelper.Argb.getBlue(dyedColorComponent.rgb());
+                n = ColorHelper.Argb.getRed(dyedColorComponent.customRgb());
+                o = ColorHelper.Argb.getGreen(dyedColorComponent.customRgb());
+                p = ColorHelper.Argb.getBlue(dyedColorComponent.customRgb());
                 l += Math.max(n, Math.max(o, p));
                 i += n;
                 j += o;
@@ -89,32 +101,25 @@ public record CustomDyeableDataComponent(int rgb, boolean overlay) {
             p = (int) ((float) p * f / g);
             s = ColorHelper.Argb.getArgb(0, n, o, p);
             boolean bl = dyedColorComponent == null;
-            itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(s, bl));
+            itemStack.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(s, bl));
             return itemStack;
         }
     }
 
-    public DyedColorComponent withShowInTooltip(boolean showInTooltip) {
-        return new DyedColorComponent(this.rgb, showInTooltip);
-    }
 
-    public int rgb() {
-        return this.rgb;
-    }
-
-    public boolean showInTooltip() {
-        return this.overlay;
-    }
-
-    static {
-        CODEC = Codec.withAlternative(BASE_CODEC, Codec.INT, (rgb) -> {
-            return new CustomDyeableDataComponent(rgb, true);
-        });
-        PACKET_CODEC = PacketCodec.tuple(PacketCodecs.INTEGER, CustomDyeableDataComponent::rgb, PacketCodecs.BOOL, CustomDyeableDataComponent::overlay, CustomDyeableDataComponent::new);
+    public int customRgb() {
+        return this.customRgb;
     }
 
     @Override
     public boolean overlay() {
         return overlay;
+    }
+
+    static {
+        CODEC = Codec.withAlternative(BASE_CODEC, Codec.INT, (customRgb) -> {
+            return new CustomDyeableDataComponent(customRgb, true);
+        });
+        PACKET_CODEC = PacketCodec.tuple(PacketCodecs.INTEGER, CustomDyeableDataComponent::customRgb, PacketCodecs.BOOL, CustomDyeableDataComponent::overlay, CustomDyeableDataComponent::new);
     }
 }

@@ -144,7 +144,7 @@ public class ModArmorMaterials {
     public static final ExtendedArmorMaterial MORDOR_ORC_MAIL_ARMOR = registerArmor("mordor_orc_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
 
-    public static final ExtendedArmorMaterial MORDOR_BLACK_URUK_SCALE_ARMOR = registerArmor("mordor_black_uruk_scale",  4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT),
+    public static final ExtendedArmorMaterial MORDOR_T4 = registerArmor("mordor_t4",  4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
 
     public static final ExtendedArmorMaterial MORDOR_BLACK_URUK_PLATE_ARMOR = registerArmor("mordor_black_uruk_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT),

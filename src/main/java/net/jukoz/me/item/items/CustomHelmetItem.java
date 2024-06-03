@@ -1,9 +1,7 @@
 package net.jukoz.me.item.items;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
 import net.jukoz.me.client.model.equipment.head.HelmetAddonModel;
-import net.jukoz.me.client.model.equipment.head.MordorBlackUrukCommanderHelmetArmorAddonModel;
 import net.jukoz.me.item.utils.ExtendedArmorMaterial;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipType;

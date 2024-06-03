@@ -111,23 +111,6 @@ public class CustomChestplateItem extends ArmorItem {
 
     }
 
-    /*@Override
-    public TypedActionResult<ItemStack> use(World world, @NotNull PlayerEntity user, Hand hand) {
-        ItemStack stack = user.getStackInHand(hand);
-        CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
-
-        if(capeDataComponent != null){
-            if(capeDataComponent.enabled()){
-                stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(false));
-            } else {
-                stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true));
-            }
-        } else {
-            stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true));
-        }
-
-    }*/
-
     public enum Customizations{
         DYEABLE("dyeable"),
         CAPE("cape"),

@@ -1,14 +1,12 @@
 package net.jukoz.me.client.model.equipment.chest;
 
-import net.jukoz.me.MiddleEarth;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Identifier;
 
-public class GondorCustomChestplateArmorAddonModel<T extends LivingEntity> extends ChestplateAddonModel<T> {
+public class HaltChestplateModel<T extends LivingEntity> extends ChestplateAddonModel<T> {
 
-    public GondorCustomChestplateArmorAddonModel(ModelPart root) {
+    public HaltChestplateModel(ModelPart root) {
         super(root);
     }
 

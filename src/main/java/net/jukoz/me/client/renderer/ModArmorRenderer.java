@@ -7,12 +7,11 @@ import net.jukoz.me.client.model.equipment.CustomBootsModel;
 import net.jukoz.me.client.model.equipment.CustomChestplateModel;
 import net.jukoz.me.client.model.equipment.CustomHelmetModel;
 import net.jukoz.me.client.model.equipment.CustomLeggingsModel;
-import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
 import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
 import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
-import net.jukoz.me.client.model.equipment.head.HelmetAddonModel;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
+import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.items.CustomBootsItem;
 import net.jukoz.me.item.items.CustomChestplateItem;
 import net.jukoz.me.item.items.CustomHelmetItem;
@@ -27,7 +26,6 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -198,7 +196,9 @@ public class ModArmorRenderer implements ArmorRenderer {
     static void renderArmor(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture, boolean dyeable){
         if(dyeable){
             renderDyeable(matrices, vertexConsumers, light, stack, model, texture);
-            ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, new Identifier(MiddleEarth.MOD_ID, texture.getPath().replaceAll(".png", "_overlay.png")));
+            if(CustomDyeableDataComponent.getOverlay(stack)) {
+                ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, new Identifier(MiddleEarth.MOD_ID, texture.getPath().replaceAll(".png", "_overlay.png")));
+            }
         } else {
             ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, texture);
         }
@@ -206,7 +206,7 @@ public class ModArmorRenderer implements ArmorRenderer {
 
     static void renderDyeable(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture) {
         VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), false, stack.hasGlint());
-        Color rgb = IntToRGB.ex(DyedColorComponent.getColor(stack, 12135725));
+        Color rgb = IntToRGB.ex(CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR));
         model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, rgb.getRed()/255f, rgb.getGreen()/255f, rgb.getBlue()/255f, 1.0F);
     }
 }
