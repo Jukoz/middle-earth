@@ -58,6 +58,10 @@ public class ModNatureBlocks {
             new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).burnable()), true);
 
+    public static final Block STICKY_SNOW = registerBlock("sticky_snow",
+            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
+                    .mapColor(DyeColor.GREEN).burnable()), true);
+
     public static final Block FOREST_MOSS = registerBlock("forest_moss",
             new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).burnable()), true);
@@ -200,6 +204,11 @@ public class ModNatureBlocks {
     public static final Block WILLOW_SAPLING = registerSimpleSapling("willow_sapling", ModTreeConfiguredFeatures.WILLOW_TREE_KEY);
 
     public static final Block LEBETHRON_LEAVES = registerBlock("lebethron_leaves",
+            new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
+
+    public static final Block DRY_PINE_LEAVES = registerBlock("dry_pine_leaves",
+            new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
+    public static final Block PINE_BRANCHES = registerBlock("pine_branches",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
 
     public static final Block STRAWBERRY_BUSH = registerBlock("strawberry_bush",

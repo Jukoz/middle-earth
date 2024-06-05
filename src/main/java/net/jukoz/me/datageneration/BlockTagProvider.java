@@ -247,12 +247,27 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableShovel.add(ModBlocks.GRASSY_DIRT_SLAB);
         mineableShovel.add(ModBlocks.GRASSY_DIRT_STAIRS);
 
+        mineableShovel.add(ModBlocks.ASHEN_SAND);
+        mineableShovel.add(ModBlocks.ASHEN_SAND_LAYER);
+
+        mineableShovel.add(ModBlocks.ASHEN_GRAVEL);
+        mineableShovel.add(ModBlocks.ASHEN_GRAVEL_LAYER);
+
         mineableShovel.add(ModBlocks.DRY_DIRT);
         mineableShovel.add(ModBlocks.DRY_DIRT_SLAB);
         mineableShovel.add(ModBlocks.DRY_DIRT_STAIRS);
+
         mineableShovel.add(ModBlocks.ASHEN_DIRT);
         mineableShovel.add(ModBlocks.ASHEN_DIRT_SLAB);
         mineableShovel.add(ModBlocks.ASHEN_DIRT_STAIRS);
+
+        mineableShovel.add(ModBlocks.COBBLY_ASHEN_DIRT);
+        mineableShovel.add(ModBlocks.COBBLY_ASHEN_DIRT_SLAB);
+        mineableShovel.add(ModBlocks.COBBLY_ASHEN_DIRT_STAIRS);
+
+        mineableShovel.add(ModBlocks.COBBLY_DIRT);
+        mineableShovel.add(ModBlocks.COBBLY_DIRT_SLAB);
+        mineableShovel.add(ModBlocks.COBBLY_DIRT_STAIRS);
 
         mineableHoe.add(ModBlocks.REED_BLOCK);
         mineableHoe.add(ModBlocks.REED_SLAB);

@@ -15,6 +15,8 @@ public class SimpleStairModel {
             add(new Stair(ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_STAIRS));
             add(new Stair(ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_STAIRS));
             add(new Stair(ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT_STAIRS));
+            add(new Stair(ModBlocks.COBBLY_ASHEN_DIRT, ModBlocks.COBBLY_ASHEN_DIRT_STAIRS));
+            add(new Stair(ModBlocks.COBBLY_DIRT, ModBlocks.COBBLY_DIRT_STAIRS));
             add(new Stair(ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_STAIRS));
             add(new Stair(ModBlocks.CUT_LEAD, ModBlocks.CUT_LEAD_STAIRS));
             add(new Stair(ModBlocks.CUT_SILVER, ModBlocks.CUT_SILVER_STAIRS));

@@ -12,6 +12,7 @@ import net.jukoz.me.block.special.wood_pile.WoodPileBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.state.property.Properties;
@@ -39,10 +40,19 @@ public class ModDecorativeBlocks {
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             new WoodPileBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque()));
 
-
     public static final Block WOOD_FRAMED_WINDOW = registerBlockWithItem("wood_framed_window",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
     public static final Block WOOD_FRAMED_WINDOW_PANE = registerBlockWithItem("wood_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block WATTLE_FRAMED_WINDOW = registerBlockWithItem("wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("wattle_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block DARK_WATTLE_FRAMED_WINDOW = registerBlockWithItem("dark_wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block DARK_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("dark_wattle_framed_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
     public static final Block EPMOSTO_CARVED_WINDOW = registerBlockWithItem("epmosto_carved_window",
@@ -58,7 +68,6 @@ public class ModDecorativeBlocks {
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
     public static final Block YELLOW_DAUB_HOBBIT_WINDOW_PANE = registerBlockWithItem("yellow_daub_hobbit_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
-
 
     public static final Block LEAD_GLASS = registerBlockWithItem("lead_glass",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
@@ -274,6 +283,25 @@ public class ModDecorativeBlocks {
 
     public static final Block ROPE = registerBlockWithItem("rope",
             new ChainBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).noCollision()));
+
+    public static final Block CHIMNEY = registerBlockWithItem("chimney",
+            new ChimneyBlock(AbstractBlock.Settings.copy(Blocks.STONE_BRICKS)));
+
+    public static final Block BIG_BRAZIER = registerBlockWithItem("big_brazier",
+            new BrazierBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque()));
+    public static final Block SMALL_BRAZIER = registerBlockWithItem("small_brazier",
+            new SmallBrazierBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque()));
+
+    public static final Block FIRE_BOWL = registerBlockWithItem("fire_bowl",
+            new FireBowlBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque()));
+
+    public static final Block BONFIRE = registerBlockWithItem("bonfire",
+            new BonfireBlock(AbstractBlock.Settings.copy(Blocks.CAMPFIRE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque()));
+
+    public static final Block SCONCE = registerBlock("sconce",
+            new SconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque(), ParticleTypes.FLAME));
+    public static final Block WALL_SCONCE = registerBlock("wall_sconce",
+            new WallSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque(), ParticleTypes.FLAME));
 
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = new Identifier(MiddleEarth.MOD_ID, name);

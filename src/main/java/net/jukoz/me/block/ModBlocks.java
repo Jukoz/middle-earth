@@ -177,6 +177,13 @@ public class ModBlocks {
             new SlabBlock(AbstractBlock.Settings.copy(GRASSY_DIRT)),true);
     public static final Block GRASSY_DIRT_STAIRS = registerMiscBlock("grassy_dirt_stairs",
             new StairsBlock(GRASSY_DIRT.getDefaultState(), AbstractBlock.Settings.copy(GRASSY_DIRT)),true);
+
+    public static final Block COBBLY_DIRT = registerMiscBlock("cobbly_dirt",
+            new Block(AbstractBlock.Settings.copy(Blocks.COARSE_DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
+    public static final Block COBBLY_DIRT_SLAB = registerMiscBlock("cobbly_dirt_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(COBBLY_DIRT)),true);
+    public static final Block COBBLY_DIRT_STAIRS = registerMiscBlock("cobbly_dirt_stairs",
+            new StairsBlock(COBBLY_DIRT.getDefaultState(), AbstractBlock.Settings.copy(COBBLY_DIRT)),true);
     
     public static final Block DRY_DIRT = registerMiscBlock("dry_dirt",
             new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
@@ -190,7 +197,24 @@ public class ModBlocks {
             new SlabBlock(AbstractBlock.Settings.copy(ASHEN_DIRT)),true);
     public static final Block ASHEN_DIRT_STAIRS = registerMiscBlock("ashen_dirt_stairs",
             new StairsBlock(ASHEN_DIRT.getDefaultState(), AbstractBlock.Settings.copy(ASHEN_DIRT)),true);
-    
+
+    public static final Block COBBLY_ASHEN_DIRT = registerMiscBlock("cobbly_ashen_dirt",
+            new Block(AbstractBlock.Settings.copy(Blocks.COARSE_DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
+    public static final Block COBBLY_ASHEN_DIRT_SLAB = registerMiscBlock("cobbly_ashen_dirt_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(COBBLY_ASHEN_DIRT)),true);
+    public static final Block COBBLY_ASHEN_DIRT_STAIRS = registerMiscBlock("cobbly_ashen_dirt_stairs",
+            new StairsBlock(COBBLY_ASHEN_DIRT.getDefaultState(), AbstractBlock.Settings.copy(ASHEN_DIRT)),true);
+
+    public static final Block ASHEN_SAND = registerMiscBlock("ashen_sand",
+            new ColoredFallingBlock(new ColorCode(14406560), AbstractBlock.Settings.copy(Blocks.SAND).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
+    public static final Block ASHEN_SAND_LAYER = registerMiscBlock("ashen_sand_layer",
+            new LayersBlock(AbstractBlock.Settings.copy(Blocks.SAND), Blocks.SAND), false);
+
+    public static final Block ASHEN_GRAVEL = registerMiscBlock("ashen_gravel",
+            new ColoredFallingBlock(new ColorCode(14406560), AbstractBlock.Settings.copy(Blocks.GRAVEL).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
+    public static final Block ASHEN_GRAVEL_LAYER = registerMiscBlock("ashen_gravel_layer",
+            new LayersBlock(AbstractBlock.Settings.copy(Blocks.GRAVEL), Blocks.GRAVEL), false);
+
     public static final Block REED_BLOCK = registerMiscBlock("reed_block",
             new HayBlock(AbstractBlock.Settings.copy(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)),true);
     public static final Block REED_STAIRS = registerMiscBlock("reed_stairs",
@@ -220,7 +244,22 @@ public class ModBlocks {
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
     public static final Block WHITE_WATTLE_AND_DAUB_LEFT = registerMiscBlock("white_wattle_and_daub_left",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block WHITE_WATTLE_AND_DAUB_PILLAR = registerMiscBlock("white_wattle_and_daub_pillar",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
     public static final Block WHITE_WATTLE_AND_DAUB_DIAMOND = registerMiscBlock("white_wattle_and_daub_diamond",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+
+    public static final Block DARK_WATTLE_AND_DAUB = registerMiscBlock("dark_wattle_and_daub",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block DARK_WATTLE_AND_DAUB_CROSS = registerMiscBlock("dark_wattle_and_daub_cross",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block DARK_WATTLE_AND_DAUB_RIGHT = registerMiscBlock("dark_wattle_and_daub_right",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block DARK_WATTLE_AND_DAUB_LEFT = registerMiscBlock("dark_wattle_and_daub_left",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block DARK_WATTLE_AND_DAUB_PILLAR = registerMiscBlock("dark_wattle_and_daub_pillar",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block DARK_WATTLE_AND_DAUB_DIAMOND = registerMiscBlock("dark_wattle_and_daub_diamond",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
 
     public static final Block YELLOW_WATTLE_AND_DAUB = registerMiscBlock("yellow_wattle_and_daub",
@@ -230,6 +269,8 @@ public class ModBlocks {
     public static final Block YELLOW_WATTLE_AND_DAUB_RIGHT = registerMiscBlock("yellow_wattle_and_daub_right",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
     public static final Block YELLOW_WATTLE_AND_DAUB_LEFT = registerMiscBlock("yellow_wattle_and_daub_left",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block YELLOW_WATTLE_AND_DAUB_PILLAR = registerMiscBlock("yellow_wattle_and_daub_pillar",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
     public static final Block YELLOW_WATTLE_AND_DAUB_DIAMOND = registerMiscBlock("yellow_wattle_and_daub_diamond",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);

@@ -13,6 +13,8 @@ public class SimplePaneModel {
     public static List<Pane> panes = new ArrayList<>() {
         {
             add(new Pane(ModDecorativeBlocks.WOOD_FRAMED_WINDOW, ModDecorativeBlocks.WOOD_FRAMED_WINDOW_PANE));
+            add(new Pane(ModDecorativeBlocks.WATTLE_FRAMED_WINDOW, ModDecorativeBlocks.WATTLE_FRAMED_WINDOW_PANE));
+            add(new Pane(ModDecorativeBlocks.DARK_WATTLE_FRAMED_WINDOW, ModDecorativeBlocks.DARK_WATTLE_FRAMED_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW, ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW, ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.EPMOSTO_CARVED_WINDOW, ModDecorativeBlocks.EPMOSTO_CARVED_WINDOW_PANE));

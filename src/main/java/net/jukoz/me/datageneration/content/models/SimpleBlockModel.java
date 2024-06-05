@@ -20,8 +20,17 @@ public class SimpleBlockModel {
 
     public static List<Block> blocks = new ArrayList<>() {
         {
+            add(ModBlocks.COBBLY_DIRT);
+
             add(ModBlocks.DRY_DIRT);
+
             add(ModBlocks.ASHEN_DIRT);
+
+            add(ModBlocks.ASHEN_SAND);
+
+            add(ModBlocks.ASHEN_GRAVEL);
+
+            add(ModBlocks.COBBLY_ASHEN_DIRT);
 
             //METALS
             add(ModBlocks.RAW_MITHRIL_BLOCK);
@@ -61,12 +70,21 @@ public class SimpleBlockModel {
             add(ModBlocks.WHITE_WATTLE_AND_DAUB_CROSS);
             add(ModBlocks.WHITE_WATTLE_AND_DAUB_RIGHT);
             add(ModBlocks.WHITE_WATTLE_AND_DAUB_LEFT);
+            add(ModBlocks.WHITE_WATTLE_AND_DAUB_PILLAR);
             add(ModBlocks.WHITE_WATTLE_AND_DAUB_DIAMOND);
+
+            add(ModBlocks.DARK_WATTLE_AND_DAUB);
+            add(ModBlocks.DARK_WATTLE_AND_DAUB_CROSS);
+            add(ModBlocks.DARK_WATTLE_AND_DAUB_RIGHT);
+            add(ModBlocks.DARK_WATTLE_AND_DAUB_LEFT);
+            add(ModBlocks.DARK_WATTLE_AND_DAUB_PILLAR);
+            add(ModBlocks.DARK_WATTLE_AND_DAUB_DIAMOND);
 
             add(ModBlocks.YELLOW_WATTLE_AND_DAUB);
             add(ModBlocks.YELLOW_WATTLE_AND_DAUB_CROSS);
             add(ModBlocks.YELLOW_WATTLE_AND_DAUB_RIGHT);
             add(ModBlocks.YELLOW_WATTLE_AND_DAUB_LEFT);
+            add(ModBlocks.YELLOW_WATTLE_AND_DAUB_PILLAR);
             add(ModBlocks.YELLOW_WATTLE_AND_DAUB_DIAMOND);
         }
     };
