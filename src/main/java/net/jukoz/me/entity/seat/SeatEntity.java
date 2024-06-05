@@ -1,11 +1,17 @@
 package net.jukoz.me.entity.seat;
 
+import net.jukoz.me.MiddleEarth;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.vehicle.VehicleEntity;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+
+import javax.swing.text.html.HTML;
 
 public class SeatEntity extends VehicleEntity {
 
@@ -21,7 +27,7 @@ public class SeatEntity extends VehicleEntity {
     @Override
     public void tick() {
         if(!this.getWorld().isClient){
-            if(!this.hasPassengers()){
+            if(!this.hasPassengers() || !this.getWorld().getBlockState(this.getBlockPos()).isIn(TagKey.of(RegistryKeys.BLOCK, new Identifier(MiddleEarth.MOD_ID, "seat")))){
                 this.remove(RemovalReason.DISCARDED);
             }
         }
@@ -30,6 +36,7 @@ public class SeatEntity extends VehicleEntity {
     @Override
     protected void removePassenger(Entity passenger) {
         super.removePassenger(passenger);
+        passenger.teleport(this.getX(), this.getY(), this.getZ());
     }
 
     @Override
