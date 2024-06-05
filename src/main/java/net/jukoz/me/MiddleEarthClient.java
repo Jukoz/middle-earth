@@ -38,6 +38,8 @@ import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
 import net.jukoz.me.entity.pheasant.PheasantRenderer;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntityRenderer;
 import net.jukoz.me.entity.projectile.spear.JavelinEntityRenderer;
+import net.jukoz.me.entity.seat.SeatEntity;
+import net.jukoz.me.entity.seat.SeatRenderer;
 import net.jukoz.me.entity.snail.SnailRenderer;
 import net.jukoz.me.entity.spider.MirkwoodSpiderRenderer;
 import net.jukoz.me.entity.swan.SwanRenderer;
@@ -159,6 +161,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.PHEASANT, PheasantRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNAIL, SnailRenderer::new);
         EntityRendererRegistry.register(ModEntities.DEER, DeerRenderer::new);
+
+        EntityRendererRegistry.register(ModEntities.SEAT_ENTITY, SeatRenderer::new);
 
         ModModelPredicateProvider.registerAllPredicates();
 

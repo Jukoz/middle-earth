@@ -25,6 +25,7 @@ import net.jukoz.me.entity.projectile.pinecone.LitPineconeEntity;
 import net.jukoz.me.entity.projectile.pebble.PebbleEntity;
 import net.jukoz.me.entity.projectile.pinecone.PineconeEntity;
 import net.jukoz.me.entity.projectile.spear.SpearEntity;
+import net.jukoz.me.entity.seat.SeatEntity;
 import net.jukoz.me.entity.snail.SnailEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.swan.SwanEntity;
@@ -133,6 +134,8 @@ public class ModEntities {
     public static final EntityType<SnailEntity> SNAIL = registerEntity("snail", SnailEntity::new, SpawnGroup.CREATURE, 0.3f, 0.3f);
     public static final EntityType<DeerEntity> DEER = registerEntity("deer", DeerEntity::new, SpawnGroup.CREATURE, 1.3f, 1.8f);
 
+    // Seat
+    public static final EntityType<SeatEntity> SEAT_ENTITY = registerEntity("seat_entity", SeatEntity::new, SpawnGroup.MISC, 0.1F, 0.1F);
 
     public static <T extends Entity> EntityType<T> registerEntity(String name, EntityType.EntityFactory<T> entity, SpawnGroup spawnGroup,
                                                                   float width, float height) {
