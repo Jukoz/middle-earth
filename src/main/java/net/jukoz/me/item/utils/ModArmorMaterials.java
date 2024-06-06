@@ -102,6 +102,18 @@ public class ModArmorMaterials {
     public static final ExtendedArmorMaterial GONDORIAN_FOUNTAIN_GUARD_ARMOR = registerArmor("gondorian_fountain_guard", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), null);
 
+    public static final ExtendedArmorMaterial ROHIRRIC_LEATHER = registerArmor("rohirric_leather", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null);
+
+    public static final ExtendedArmorMaterial ROHIRRIC_MILITIA = registerArmor("rohirric_militia", 3, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null);
+
+    public static final ExtendedArmorMaterial ROHIRRIC_MAIL = registerArmor("rohirric_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null);
+
+    public static final ExtendedArmorMaterial ROHIRRIC_SOLDIER = registerArmor("rohirric_militia", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.LEATHER),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null);
+
     public static final ExtendedArmorMaterial ROHIRRIC_SCALE_ARMOR = registerArmor("rohirric_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null);
 
