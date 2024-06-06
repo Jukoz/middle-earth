@@ -21,6 +21,8 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.ROPE);
 
+            add(ModDecorativeBlocks.CUSHION);
+
             add(ModNatureBlocks.BROWN_BOLETE);
             add(ModNatureBlocks.CAVE_AMANITA);
             add(ModNatureBlocks.DEEP_FIRECAP);

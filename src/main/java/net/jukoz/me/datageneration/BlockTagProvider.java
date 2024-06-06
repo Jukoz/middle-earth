@@ -194,6 +194,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
             table.add(block.base());
         });
 
+        seat.add(ModDecorativeBlocks.CUSHION);
+
         needsStoneTools.add(OreRockSets.GONLUIN.copper_ore());
         needsStoneTools.add(OreRockSets.GONLUIN.tin_ore());
 

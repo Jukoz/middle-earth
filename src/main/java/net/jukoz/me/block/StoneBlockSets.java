@@ -74,6 +74,21 @@ public class StoneBlockSets {
     //public static SimpleBlockSet MOSSY_DOLOMITE_TILES = registerStoneSet("mossy_dolomite_tiles", COBBLED_DOLOMITE.base.getHardness(), COBBLED_DOLOMITE.base.getBlastResistance(), DOLOMITE_TILES.base);
     //public static SimpleBlockSet CRACKED_DOLOMITE_TILES = registerStoneSet("cracked_dolomite_tiles", COBBLED_DOLOMITE.base.getHardness(), COBBLED_DOLOMITE.base.getBlastResistance(), DOLOMITE_TILES.base);
 
+    public static SimpleBlockSetMain IRONSTONE = registerMainStoneSet("ironstone", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
+    public static SimpleBlockSet SMOOTH_IRONSTONE = registerStoneSet("smooth_ironstone", IRONSTONE.base.getHardness(), IRONSTONE.base.getBlastResistance(), IRONSTONE.base);
+    public static SimpleBlockSet COBBLED_IRONSTONE = registerStoneSet("cobbled_ironstone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, IRONSTONE.base);
+    //public static SimpleBlockSet MOSSY_COBBLED_IRONSTONE = registerStoneSet("mossy_cobbled_ironstone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, COBBLED_IRONSTONE.base);
+    public static SimpleBlockSet POLISHED_IRONSTONE = registerStoneSet("polished_ironstone", IRONSTONE.base.getHardness(), IRONSTONE.base.getBlastResistance(), IRONSTONE.base);
+    //public static SimpleBlockSet MOSSY_POLISHED_IRONSTONE = registerStoneSet("mossy_polished_ironstone", IRONSTONE.base.getHardness(), IRONSTONE.base.getBlastResistance(), POLISHED_IRONSTONE.base);
+    //public static SimpleBlockSet CRACKED_POLISHED_IRONSTONE = registerStoneSet("cracked_polished_ironstone", IRONSTONE.base.getHardness(), IRONSTONE.base.getBlastResistance(), POLISHED_IRONSTONE.base);
+    public static SimpleBlockSet IRONSTONE_BRICKS = registerStoneSet("ironstone_bricks", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, POLISHED_IRONSTONE.base);
+    //public static SimpleBlockSet MOSSY_IRONSTONE_BRICKS = registerStoneSet("mossy_ironstone_bricks", COBBLED_IRONSTONE.base.getHardness(), COBBLED_IRONSTONE.base.getBlastResistance(), IRONSTONE_BRICKS.base);
+    //public static SimpleBlockSet CRACKED_IRONSTONE_BRICKS = registerStoneSet("cracked_ironstone_bricks", COBBLED_IRONSTONE.base.getHardness(), COBBLED_IRONSTONE.base.getBlastResistance(), IRONSTONE_BRICKS.base);
+    public static SimpleBlockSet IRONSTONE_TILES = registerStoneSet("ironstone_tiles", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, IRONSTONE_BRICKS.base);
+    //public static SimpleBlockSet MOSSY_IRONSTONE_TILES = registerStoneSet("mossy_ironstone_tiles", COBBLED_IRONSTONE.base.getHardness(), COBBLED_IRONSTONE.base.getBlastResistance(), IRONSTONE_TILES.base);
+    //public static SimpleBlockSet CRACKED_IRONSTONE_TILES = registerStoneSet("cracked_ironstone_tiles", COBBLED_IRONSTONE.base.getHardness(), COBBLED_IRONSTONE.base.getBlastResistance(), IRONSTONE_TILES.base);
+
+
     public static SimpleBlockSetMain FROZEN_STONE = registerMainStoneSet("frozen_stone", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet FROZEN_COBBLESTONE = registerStoneSet("frozen_cobblestone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, FROZEN_STONE.base);
     //public static SimpleBlockSet MOSSY_FROZEN_COBBLESTONE = registerStoneSet("mossy_frozen_cobblestone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, FROZEN_STONE.base);
@@ -244,6 +259,8 @@ public class StoneBlockSets {
             FROZEN_STONE,
 
             DOLOMITE,
+            
+            IRONSTONE,
 
             LIMESTONE,
 
@@ -311,6 +328,12 @@ public class StoneBlockSets {
             POLISHED_DOLOMITE,
             MOSSY_POLISHED_DOLOMITE,
             CRACKED_POLISHED_DOLOMITE,
+
+            SMOOTH_IRONSTONE,
+            COBBLED_IRONSTONE,
+            IRONSTONE_BRICKS,
+            IRONSTONE_TILES,
+            POLISHED_IRONSTONE,
 
             COBBLED_LIMESTONE,
             MOSSY_COBBLED_LIMESTONE,

@@ -143,6 +143,9 @@ public class ModDecorativeBlocks {
     public static final Block YELLOW_STAINED_LEAD_GLASS_PANE = registerBlockWithItem("yellow_stained_lead_glass_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
+    public static final Block CUSHION = registerBlockWithItem("cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+
     //region VANILLA FURNITURE
     public static final Block STONE_STOOL = registerBlockWithItem("stone_stool",
             new StoolBlock(AbstractBlock.Settings.copy(Blocks.STONE).requiresTool().nonOpaque()));

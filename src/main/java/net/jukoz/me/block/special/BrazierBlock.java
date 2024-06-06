@@ -60,10 +60,6 @@ public class BrazierBlock extends Block {
         return SHAPE;
     }
 
-    protected BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
-    }
-
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         if (state.get(LIT)) {
