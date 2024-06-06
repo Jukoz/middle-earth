@@ -236,44 +236,97 @@ public class ModBlocks {
     public static final Block STRAW_WALL = registerMiscBlock("straw_wall",
             new WallBlock(AbstractBlock.Settings.copy(Blocks.HAY_BLOCK).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)),true);
 
-    public static final Block WHITE_WATTLE_AND_DAUB = registerMiscBlock("white_wattle_and_daub",
+    public static final Block WATTLE_AND_BRICK = registerMiscBlock("wattle_and_brick",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-    public static final Block WHITE_WATTLE_AND_DAUB_CROSS = registerMiscBlock("white_wattle_and_daub_cross",
+    public static final Block WATTLE_AND_BRICK_CROSS = registerMiscBlock("wattle_and_brick_cross",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-    public static final Block WHITE_WATTLE_AND_DAUB_RIGHT = registerMiscBlock("white_wattle_and_daub_right",
+    public static final Block WATTLE_AND_BRICK_RIGHT = registerMiscBlock("wattle_and_brick_right",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-    public static final Block WHITE_WATTLE_AND_DAUB_LEFT = registerMiscBlock("white_wattle_and_daub_left",
+    public static final Block WATTLE_AND_BRICK_LEFT = registerMiscBlock("wattle_and_brick_left",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-    public static final Block WHITE_WATTLE_AND_DAUB_PILLAR = registerMiscBlock("white_wattle_and_daub_pillar",
+    public static final Block WATTLE_AND_BRICK_PILLAR = registerMiscBlock("wattle_and_brick_pillar",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-    public static final Block WHITE_WATTLE_AND_DAUB_DIAMOND = registerMiscBlock("white_wattle_and_daub_diamond",
-            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-
-    public static final Block DARK_WATTLE_AND_DAUB = registerMiscBlock("dark_wattle_and_daub",
-            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-    public static final Block DARK_WATTLE_AND_DAUB_CROSS = registerMiscBlock("dark_wattle_and_daub_cross",
-            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-    public static final Block DARK_WATTLE_AND_DAUB_RIGHT = registerMiscBlock("dark_wattle_and_daub_right",
-            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-    public static final Block DARK_WATTLE_AND_DAUB_LEFT = registerMiscBlock("dark_wattle_and_daub_left",
-            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-    public static final Block DARK_WATTLE_AND_DAUB_PILLAR = registerMiscBlock("dark_wattle_and_daub_pillar",
-            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-    public static final Block DARK_WATTLE_AND_DAUB_DIAMOND = registerMiscBlock("dark_wattle_and_daub_diamond",
+    public static final Block WATTLE_AND_BRICK_DIAMOND = registerMiscBlock("wattle_and_brick_diamond",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
 
-    public static final Block YELLOW_WATTLE_AND_DAUB = registerMiscBlock("yellow_wattle_and_daub",
+    public static final Block WATTLE_AND_WHITE_DAUB = registerMiscBlock("wattle_and_white_daub",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-    public static final Block YELLOW_WATTLE_AND_DAUB_CROSS = registerMiscBlock("yellow_wattle_and_daub_cross",
+    public static final Block WATTLE_AND_WHITE_DAUB_CROSS = registerMiscBlock("wattle_and_white_daub_cross",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-    public static final Block YELLOW_WATTLE_AND_DAUB_RIGHT = registerMiscBlock("yellow_wattle_and_daub_right",
+    public static final Block WATTLE_AND_WHITE_DAUB_RIGHT = registerMiscBlock("wattle_and_white_daub_right",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-    public static final Block YELLOW_WATTLE_AND_DAUB_LEFT = registerMiscBlock("yellow_wattle_and_daub_left",
+    public static final Block WATTLE_AND_WHITE_DAUB_LEFT = registerMiscBlock("wattle_and_white_daub_left",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-    public static final Block YELLOW_WATTLE_AND_DAUB_PILLAR = registerMiscBlock("yellow_wattle_and_daub_pillar",
+    public static final Block WATTLE_AND_WHITE_DAUB_PILLAR = registerMiscBlock("wattle_and_white_daub_pillar",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
-    public static final Block YELLOW_WATTLE_AND_DAUB_DIAMOND = registerMiscBlock("yellow_wattle_and_daub_diamond",
+    public static final Block WATTLE_AND_WHITE_DAUB_DIAMOND = registerMiscBlock("wattle_and_white_daub_diamond",
             new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+
+    public static final Block BLACK_WATTLE_AND_WHITE_DAUB = registerMiscBlock("black_wattle_and_white_daub",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block BLACK_WATTLE_AND_WHITE_DAUB_CROSS = registerMiscBlock("black_wattle_and_white_daub_cross",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block BLACK_WATTLE_AND_WHITE_DAUB_RIGHT = registerMiscBlock("black_wattle_and_white_daub_right",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block BLACK_WATTLE_AND_WHITE_DAUB_LEFT = registerMiscBlock("black_wattle_and_white_daub_left",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block BLACK_WATTLE_AND_WHITE_DAUB_PILLAR = registerMiscBlock("black_wattle_and_white_daub_pillar",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block BLACK_WATTLE_AND_WHITE_DAUB_DIAMOND = registerMiscBlock("black_wattle_and_white_daub_diamond",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+
+    public static final Block GREEN_WATTLE_AND_WHITE_DAUB = registerMiscBlock("green_wattle_and_white_daub",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block GREEN_WATTLE_AND_WHITE_DAUB_CROSS = registerMiscBlock("green_wattle_and_white_daub_cross",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block GREEN_WATTLE_AND_WHITE_DAUB_RIGHT = registerMiscBlock("green_wattle_and_white_daub_right",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block GREEN_WATTLE_AND_WHITE_DAUB_LEFT = registerMiscBlock("green_wattle_and_white_daub_left",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block GREEN_WATTLE_AND_WHITE_DAUB_PILLAR = registerMiscBlock("green_wattle_and_white_daub_pillar",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block GREEN_WATTLE_AND_WHITE_DAUB_DIAMOND = registerMiscBlock("green_wattle_and_white_daub_diamond",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+
+    public static final Block RED_WATTLE_AND_WHITE_DAUB = registerMiscBlock("red_wattle_and_white_daub",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block RED_WATTLE_AND_WHITE_DAUB_CROSS = registerMiscBlock("red_wattle_and_white_daub_cross",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block RED_WATTLE_AND_WHITE_DAUB_RIGHT = registerMiscBlock("red_wattle_and_white_daub_right",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block RED_WATTLE_AND_WHITE_DAUB_LEFT = registerMiscBlock("red_wattle_and_white_daub_left",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block RED_WATTLE_AND_WHITE_DAUB_PILLAR = registerMiscBlock("red_wattle_and_white_daub_pillar",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block RED_WATTLE_AND_WHITE_DAUB_DIAMOND = registerMiscBlock("red_wattle_and_white_daub_diamond",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+
+    public static final Block DARK_WATTLE_AND_DARK_DAUB = registerMiscBlock("dark_wattle_and_dark_daub",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block DARK_WATTLE_AND_DARK_DAUB_CROSS = registerMiscBlock("dark_wattle_and_dark_daub_cross",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block DARK_WATTLE_AND_DARK_DAUB_RIGHT = registerMiscBlock("dark_wattle_and_dark_daub_right",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block DARK_WATTLE_AND_DARK_DAUB_LEFT = registerMiscBlock("dark_wattle_and_dark_daub_left",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block DARK_WATTLE_AND_DARK_DAUB_PILLAR = registerMiscBlock("dark_wattle_and_dark_daub_pillar",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block DARK_WATTLE_AND_DARK_DAUB_DIAMOND = registerMiscBlock("dark_wattle_and_dark_daub_diamond",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+
+    public static final Block WATTLE_AND_YELLOW_DAUB = registerMiscBlock("wattle_and_yellow_daub",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block WATTLE_AND_YELLOW_DAUB_CROSS = registerMiscBlock("wattle_and_yellow_daub_cross",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block WATTLE_AND_YELLOW_DAUB_RIGHT = registerMiscBlock("wattle_and_yellow_daub_right",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block WATTLE_AND_YELLOW_DAUB_LEFT = registerMiscBlock("wattle_and_yellow_daub_left",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block WATTLE_AND_YELLOW_DAUB_PILLAR = registerMiscBlock("wattle_and_yellow_daub_pillar",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+    public static final Block WATTLE_AND_YELLOW_DAUB_DIAMOND = registerMiscBlock("wattle_and_yellow_daub_diamond",
+            new Block(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)),true);
+
     //region METAL AND GEMS
     public static final Block RAW_MITHRIL_BLOCK = registerMiscBlock("raw_mithril_block",
             new Block(AbstractBlock.Settings.copy(Blocks.RAW_IRON_BLOCK).strength(4f).requiresTool()),true);
