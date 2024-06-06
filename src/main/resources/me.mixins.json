@@ -20,6 +20,7 @@
   "client": [
     "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
+    "client.BipedEntityModelMixin",
     "client.InGameHudMixin",
     "client.ItemRendererMixin",
     "client.MouseMixin"

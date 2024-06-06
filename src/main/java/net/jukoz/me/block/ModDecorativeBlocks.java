@@ -14,6 +14,7 @@ import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 
@@ -39,6 +40,9 @@ public class ModDecorativeBlocks {
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             new WoodPileBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque()));
 
+    public static final Block FIRE_OF_ORTHANC = registerBlock("fire_of_orthanc",
+            new FireOfOrthancBlock(AbstractBlock.Settings.create().requiresTool().mapColor(MapColor.BLACK)
+                    .sounds(BlockSoundGroup.METAL).strength(6f).burnable().solidBlock(Blocks::never).nonOpaque()));
 
     public static final Block WOOD_FRAMED_WINDOW = registerBlockWithItem("wood_framed_window",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));

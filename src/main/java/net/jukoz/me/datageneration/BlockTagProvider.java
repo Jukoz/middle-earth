@@ -233,6 +233,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(ModBlocks.DWARVEN_STEEL_BLOCK);
         needsIronTools.add(ModBlocks.ELVEN_STEEL_BLOCK);
         needsIronTools.add(ModBlocks.URUK_STEEL_BLOCK);
+        needsIronTools.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
 
         mineablePickaxe.add(ModBlocks.STONE_MYCELIUM);
         mineableShovel.add(ModBlocks.ASH_BLOCK);
