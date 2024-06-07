@@ -6,6 +6,7 @@ import net.jukoz.me.client.model.equipment.chest.*;
 import net.jukoz.me.event.KeyInputHandler;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
+import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.utils.ExtendedArmorMaterial;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipType;
@@ -24,20 +25,17 @@ import java.util.List;
 
 public class CustomChestplateItem extends ArmorItem {
     private ExtendedArmorMaterial material;
-    private List<Customizations> customsList;
     public ChestplateAddonModel additionModel;
 
-    public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings, List<Customizations> customsList, ChestplateAddonModel chestplateModel) {
+    public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings, ChestplateAddonModel chestplateModel) {
         super(material.material(), type, settings.maxCount(1).maxDamage(Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
         this.material = material;
-        this.customsList = customsList;
         this.additionModel = chestplateModel;
     }
 
     public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings) {
         super(material.material(), type, settings.maxCount(1).maxDamage(Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
         this.material = material;
-        this.customsList = null;
         this.additionModel = null;
     }
 
@@ -54,43 +52,30 @@ public class CustomChestplateItem extends ArmorItem {
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
         }
+
         CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
+        CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
 
-        if(this.customsList != null){
-            if(Screen.hasAltDown()){
-                tooltip.add(Text.of(""));
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
-                /*this.customsList.forEach( custom ->{
-                    if(custom.name.contains("dyeable")){
-                        tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name).append(": " + String.format("#%06X", (0xFFFFFF & DyedColorComponent.getColor(stack, DyedColorComponent.DEFAULT_COLOR)))));
-                    } else if (capeDataComponent != null){
-                        if(capeDataComponent.enabled()){
-                            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".cape").append(": Enabled"));
-                        } else {
-                            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".cape").append(": Disabled"));
-                        }
-                    } else {
-                        tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name));
-                    }
-                });*/
+        if(Screen.hasAltDown()){
+            tooltip.add(Text.of(""));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
 
-                if (capeDataComponent != null) {
-                    if (capeDataComponent.enabled()) {
-                        tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".cape").append(": Enabled"));
-                    } else {
-                        tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".cape").append(": Disabled"));
-                    }
-                }
-            }else {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
+            if(dyeDataComponent != null){
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
             }
+
+            if (capeDataComponent != null) {
+                if (capeDataComponent.enabled()) {
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".cape").append(": Enabled"));
+                } else {
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".cape").append(": Disabled"));
+                }
+            }
+        }else {
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
         }
 
         super.appendTooltip(stack, context, tooltip, type);
-    }
-
-    public List<Customizations> getCustomsList() {
-        return customsList;
     }
 
     @Override
@@ -100,27 +85,13 @@ public class CustomChestplateItem extends ArmorItem {
 
             if(capeDataComponent != null){
                 if(capeDataComponent.enabled()){
-                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(false));
+                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(false, capeDataComponent.target()));
                 } else {
-                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true));
+                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true, capeDataComponent.target()));
                 }
             } else {
-                stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true));
+                stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true, "base_cape"));
             }
-        }
-
-    }
-
-    public enum Customizations{
-        DYEABLE("dyeable"),
-        CAPE("cape"),
-        IMPALED_SKULLS("impaled_skulls"),
-        POUCH("pouch"),
-        ;
-
-        public final String name;
-        Customizations(String name){
-            this.name = name;
         }
     }
 }

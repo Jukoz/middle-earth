@@ -12,6 +12,7 @@ import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
+import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.items.CustomBootsItem;
 import net.jukoz.me.item.items.CustomChestplateItem;
 import net.jukoz.me.item.items.CustomHelmetItem;
@@ -31,6 +32,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
@@ -70,7 +72,7 @@ public class ModArmorRenderer implements ArmorRenderer {
         }
     }
 
-    void renderHelmet(ItemStack helmet, MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, int light, BipedEntityModel<LivingEntity> contextModel) {
+    void renderHelmet(@NotNull ItemStack helmet, MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, int light, BipedEntityModel<LivingEntity> contextModel) {
         CustomHelmetItem item = (CustomHelmetItem)helmet.getItem();
         boolean dyeable = false;
         contextModel.copyBipedStateTo(customHelmetModel);
@@ -81,10 +83,8 @@ public class ModArmorRenderer implements ArmorRenderer {
         customHelmetModel.leftArm.visible = true;
         customHelmetModel.rightArm.visible = true;
 
-        if(item.getCustomsList() != null) {
-            if (item.getCustomsList().contains(CustomHelmetItem.Customizations.DYEABLE)) {
+        if(helmet.get(ModDataComponentTypes.DYE_DATA) != null) {
                 dyeable = true;
-            }
         }
 
         String texture = "textures/models/armor/" + Registries.ITEM.getId(helmet.getItem()).getPath() + ".png";
@@ -102,14 +102,26 @@ public class ModArmorRenderer implements ArmorRenderer {
             }
         }
 
-        if(item.getCustomsList() != null) {
+        HoodDataComponent hoodDataComponent = helmet.get(ModDataComponentTypes.HOOD_DATA);
+
+        if(hoodDataComponent != null) {
+            if (hoodDataComponent.enabled()) {
+                contextModel.copyBipedStateTo(hoodModel);
+                hoodModel.setVisible(false);
+                hoodModel.hat.visible = true;
+                renderArmor(matrices, vertexConsumers, light, helmet, hoodModel, new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.target() + ".png"), dyeable);
+
+            }
+        }
+
+        /*if(item.getCustomsList() != null) {
             if (item.getCustomsList().contains(CustomHelmetItem.Customizations.HOOD)) {
                 contextModel.copyBipedStateTo(hoodModel);
                 hoodModel.setVisible(false);
                 hoodModel.hat.visible = true;
                 renderArmor(matrices, vertexConsumers, light, helmet, hoodModel, new Identifier(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_hood.png")), dyeable);
             }
-        }
+        }*/
     }
     void renderChestplate(ItemStack chestplate, MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, int light, BipedEntityModel<LivingEntity> contextModel) {
         CustomChestplateItem item = (CustomChestplateItem)chestplate.getItem();
@@ -123,10 +135,8 @@ public class ModArmorRenderer implements ArmorRenderer {
         customChestplateModel.rightLeg.visible = true;
         customChestplateModel.leftLeg.visible = true;
 
-        if(item.getCustomsList() != null) {
-            if (item.getCustomsList().contains(CustomChestplateItem.Customizations.DYEABLE)) {
-                dyeable = true;
-            }
+        if(chestplate.get(ModDataComponentTypes.DYE_DATA) != null) {
+            dyeable = true;
         }
 
         String texture = "textures/models/armor/" + Registries.ITEM.getId(chestplate.getItem()).getPath() + ".png";
@@ -150,7 +160,7 @@ public class ModArmorRenderer implements ArmorRenderer {
                 capeModel.rightArm.visible = true;
                 capeModel.leftArm.visible = true;
                 //capeModel.setAngles(entity, entity.limbAnimator.getPos(),entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.roll);
-                renderArmor(matrices, vertexConsumers, light, chestplate, capeModel, new Identifier(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_cape.png")), dyeable);
+                renderArmor(matrices, vertexConsumers, light, chestplate, capeModel, new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + capeDataComponent.target() + ".png"), dyeable);
             }
         }
     }
@@ -164,12 +174,9 @@ public class ModArmorRenderer implements ArmorRenderer {
         customLeggingsModel.rightLeg.visible = true;
         customLeggingsModel.leftLeg.visible = true;
 
-        if(item.getCustomsList() != null) {
-            if (item.getCustomsList().contains(CustomLeggingsItem.Customizations.DYEABLE)) {
-                dyeable = true;
-            }
+        if(leggings.get(ModDataComponentTypes.DYE_DATA) != null) {
+            dyeable = true;
         }
-
 
         String texture = "textures/models/armor/" + Registries.ITEM.getId(leggings.getItem()).getPath() + ".png";
         renderArmor(matrices, vertexConsumers, light, leggings, customLeggingsModel, new Identifier(MiddleEarth.MOD_ID, texture), dyeable);
@@ -182,10 +189,8 @@ public class ModArmorRenderer implements ArmorRenderer {
         customBootsModel.rightLeg.visible = true;
         customBootsModel.leftLeg.visible = true;
 
-        if(item.getCustomsList() != null) {
-            if (item.getCustomsList().contains(CustomBootsItem.Customizations.DYEABLE)) {
-                dyeable = true;
-            }
+        if(boots.get(ModDataComponentTypes.DYE_DATA) != null) {
+            dyeable = true;
         }
 
         String texture = "textures/models/armor/" + Registries.ITEM.getId(boots.getItem()).getPath() + ".png";

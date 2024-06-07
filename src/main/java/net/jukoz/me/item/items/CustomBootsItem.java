@@ -1,6 +1,8 @@
 package net.jukoz.me.item.items;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.item.ModDataComponentTypes;
+import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.utils.ExtendedArmorMaterial;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipType;
@@ -13,14 +15,6 @@ import java.util.List;
 public class CustomBootsItem extends ArmorItem{
 
     private ExtendedArmorMaterial material;
-    private List<CustomBootsItem.Customizations> customsList;
-
-    public CustomBootsItem(ExtendedArmorMaterial material, Type type, Settings settings, List<CustomBootsItem.Customizations> customsList) {
-        super(material.material(), type, settings.maxCount(1).maxDamage(Type.BOOTS.getMaxDamage(material.durabilityModifier())));
-
-        this.material = material;
-        this.customsList = customsList;
-    }
 
     public CustomBootsItem(ExtendedArmorMaterial material, Type type, Settings settings) {
         super(material.material(), type, settings.maxCount(1).maxDamage(Type.BOOTS.getMaxDamage(material.durabilityModifier())));
@@ -42,28 +36,19 @@ public class CustomBootsItem extends ArmorItem{
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
         }
-        if (this.customsList != null) {
-            if (Screen.hasAltDown()) {
-                tooltip.add(Text.of(""));
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
-            } else {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
+
+        CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
+
+        if (Screen.hasAltDown()) {
+            tooltip.add(Text.of(""));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
+
+            if(dyeDataComponent != null){
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
             }
+        } else {
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
         }
         super.appendTooltip(stack, context, tooltip, type);
-    }
-
-    public List<CustomBootsItem.Customizations> getCustomsList() {
-        return customsList;
-    }
-
-    public enum Customizations{
-        DYEABLE("dyeable"),
-        ;
-
-        public final String name;
-        Customizations(String name){
-            this.name = name;
-        }
     }
 }
