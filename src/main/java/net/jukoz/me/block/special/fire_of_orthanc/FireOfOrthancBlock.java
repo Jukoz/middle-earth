@@ -1,4 +1,4 @@
-package net.jukoz.me.block.special;
+package net.jukoz.me.block.special.fire_of_orthanc;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Block;
@@ -10,6 +10,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
@@ -19,13 +21,15 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
+import net.minecraft.world.explosion.Explosion;
+import org.jetbrains.annotations.Nullable;
 
 public class FireOfOrthancBlock extends Block {
     public static final MapCodec<FireOfOrthancBlock> CODEC = createCodec(FireOfOrthancBlock::new);
     public static final VoxelShape OUTLINE_SHAPE = VoxelShapes.union(
             Block.createCuboidShape(3.0, 3.0, 3.0, 13.0, 13.0, 13.0),
             Block.createCuboidShape(6.0, 13.0, 6.0, 10.0, 15.0, 10.0));
-    public static float explosionForce = 11.5f;
 
     public FireOfOrthancBlock(Settings settings) {
         super(settings);
@@ -50,13 +54,27 @@ public class FireOfOrthancBlock extends Block {
         }
     }
 
-    public void explode(World world, BlockPos pos, PlayerEntity player) {
-        if(!world.isClient()) {
-            float randX = (float) (Math.random() - 0.5f);
-            float randY = (float) Math.random() / 3;
-            float randZ = (float) (Math.random() - 0.5f);
-            world.createExplosion(player, pos.getX() + randX, pos.getY() + randY, pos.getZ() + randZ, explosionForce, World.ExplosionSourceType.TNT);
+    public void explode(World world, BlockPos pos, @Nullable LivingEntity igniter) {
+        if (!world.isClient) {
+            FireOfOrthancEntity fireOfOrthancEntity = new FireOfOrthancEntity(world, (double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5, igniter, true);
+            world.spawnEntity(fireOfOrthancEntity);
+            world.emitGameEvent(igniter, GameEvent.PRIME_FUSE, pos);
+        } else {
+            world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.25F, 0.8F);
         }
+    }
+
+    public void onDestroyedByExplosion(World world, BlockPos pos, Explosion explosion) {
+        if (!world.isClient) {
+            FireOfOrthancEntity fireOfOrthancEntity = new FireOfOrthancEntity(world, (double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5, explosion.getCausingEntity(), false);
+            int i = fireOfOrthancEntity.getFuse();
+            fireOfOrthancEntity.setFuse((short)(world.random.nextInt(i / 2) + i / 2));
+            world.spawnEntity(fireOfOrthancEntity);
+        }
+    }
+
+    public boolean shouldDropItemsOnExplosion(Explosion explosion) {
+        return false;
     }
 
     @Override
