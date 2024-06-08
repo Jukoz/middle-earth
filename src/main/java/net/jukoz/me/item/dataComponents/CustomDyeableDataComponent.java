@@ -68,14 +68,16 @@ public record CustomDyeableDataComponent(int customRgb, boolean overlay) {
             int o;
             int p;
             if (dyedColorComponent != null) {
-                n = ColorHelper.Argb.getRed(dyedColorComponent.customRgb());
-                o = ColorHelper.Argb.getGreen(dyedColorComponent.customRgb());
-                p = ColorHelper.Argb.getBlue(dyedColorComponent.customRgb());
-                l += Math.max(n, Math.max(o, p));
-                i += n;
-                j += o;
-                k += p;
-                ++m;
+                if(dyedColorComponent.customRgb != CustomDyeableDataComponent.DEFAULT_COLOR){
+                    n = ColorHelper.Argb.getRed(dyedColorComponent.customRgb());
+                    o = ColorHelper.Argb.getGreen(dyedColorComponent.customRgb());
+                    p = ColorHelper.Argb.getBlue(dyedColorComponent.customRgb());
+                    l += Math.max(n, Math.max(o, p));
+                    i += n;
+                    j += o;
+                    k += p;
+                    ++m;
+                }
             }
 
             int s;
@@ -100,7 +102,7 @@ public record CustomDyeableDataComponent(int customRgb, boolean overlay) {
             o = (int) ((float) o * f / g);
             p = (int) ((float) p * f / g);
             s = ColorHelper.Argb.getArgb(0, n, o, p);
-            boolean bl = dyedColorComponent == null;
+            boolean bl = dyedColorComponent == null || dyedColorComponent.overlay();
             itemStack.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(s, bl));
             return itemStack;
         }

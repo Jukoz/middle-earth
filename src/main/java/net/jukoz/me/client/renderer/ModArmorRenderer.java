@@ -31,6 +31,8 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
@@ -83,7 +85,7 @@ public class ModArmorRenderer implements ArmorRenderer {
         customHelmetModel.leftArm.visible = true;
         customHelmetModel.rightArm.visible = true;
 
-        if(helmet.get(ModDataComponentTypes.DYE_DATA) != null) {
+        if(helmet.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "dyeable")))) {
                 dyeable = true;
         }
 
@@ -113,15 +115,6 @@ public class ModArmorRenderer implements ArmorRenderer {
 
             }
         }
-
-        /*if(item.getCustomsList() != null) {
-            if (item.getCustomsList().contains(CustomHelmetItem.Customizations.HOOD)) {
-                contextModel.copyBipedStateTo(hoodModel);
-                hoodModel.setVisible(false);
-                hoodModel.hat.visible = true;
-                renderArmor(matrices, vertexConsumers, light, helmet, hoodModel, new Identifier(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_hood.png")), dyeable);
-            }
-        }*/
     }
     void renderChestplate(ItemStack chestplate, MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, int light, BipedEntityModel<LivingEntity> contextModel) {
         CustomChestplateItem item = (CustomChestplateItem)chestplate.getItem();
@@ -135,7 +128,7 @@ public class ModArmorRenderer implements ArmorRenderer {
         customChestplateModel.rightLeg.visible = true;
         customChestplateModel.leftLeg.visible = true;
 
-        if(chestplate.get(ModDataComponentTypes.DYE_DATA) != null) {
+        if(chestplate.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "dyeable")))) {
             dyeable = true;
         }
 
@@ -159,7 +152,7 @@ public class ModArmorRenderer implements ArmorRenderer {
                 capeModel.body.visible = true;
                 capeModel.rightArm.visible = true;
                 capeModel.leftArm.visible = true;
-                //capeModel.setAngles(entity, entity.limbAnimator.getPos(),entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.roll);
+                capeModel.setAngles(entity, entity.limbAnimator.getPos(),entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.roll);
                 renderArmor(matrices, vertexConsumers, light, chestplate, capeModel, new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + capeDataComponent.target() + ".png"), dyeable);
             }
         }
@@ -174,7 +167,7 @@ public class ModArmorRenderer implements ArmorRenderer {
         customLeggingsModel.rightLeg.visible = true;
         customLeggingsModel.leftLeg.visible = true;
 
-        if(leggings.get(ModDataComponentTypes.DYE_DATA) != null) {
+        if(leggings.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "dyeable")))) {
             dyeable = true;
         }
 
@@ -189,7 +182,7 @@ public class ModArmorRenderer implements ArmorRenderer {
         customBootsModel.rightLeg.visible = true;
         customBootsModel.leftLeg.visible = true;
 
-        if(boots.get(ModDataComponentTypes.DYE_DATA) != null) {
+        if(boots.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "dyeable")))) {
             dyeable = true;
         }
 

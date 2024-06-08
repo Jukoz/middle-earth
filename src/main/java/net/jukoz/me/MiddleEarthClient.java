@@ -14,6 +14,7 @@ import net.jukoz.me.client.model.equipment.head.RohirricHelmetArmorAddonModel;
 import net.jukoz.me.client.renderer.ModArmorRenderer;
 import net.jukoz.me.datageneration.VariantsModelProvider;
 import net.jukoz.me.datageneration.content.models.SimpleDoubleBlockModel;
+import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleFlowerBedModel;
 import net.jukoz.me.datageneration.content.models.TintableCrossModel;
 import net.jukoz.me.datageneration.content.tags.Crops;
@@ -52,6 +53,7 @@ import net.jukoz.me.gui.artisantable.ArtisanTableScreen;
 import net.jukoz.me.gui.wood_pile.WoodPileScreen;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
 import net.jukoz.me.network.ModNetworks;
 import net.jukoz.me.particles.ModParticleTypes;
@@ -152,12 +154,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SPEAR, JavelinEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
 
-        registerDyeableItem(ModEquipmentItems.TUNIC_CLOAK);
-        registerDyeableItem(ModEquipmentItems.CLOAK);
-        registerDyeableItem(ModEquipmentItems.CLOAK_HOOD);
-        registerDyeableItem(ModEquipmentItems.GAMBESON);
-        registerDyeableItem(ModEquipmentItems.GAMBESON_CAP);
-        registerDyeableItem(ModEquipmentItems.GAMBESON_COWL);
+        SimpleDyeableItemModel.items.forEach(this::registerDyeableItem);
 
         // Animals
         EntityRendererRegistry.register(ModEntities.CRAB, CrabRenderer::new);
@@ -361,6 +358,6 @@ public class MiddleEarthClient implements ClientModInitializer {
     }
 
     private void registerDyeableItem(Item item) {
-        ColorProviderRegistry.ITEM.register((stack, layer) -> layer == 0 ? DyedColorComponent.getColor(stack, DyedColorComponent.DEFAULT_COLOR) : 0xFFFFFF, item);
+        ColorProviderRegistry.ITEM.register((stack, layer) -> layer == 0 ? CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR) : 0xFFFFFF, item);
     }
 }

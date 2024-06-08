@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.OreRockSets;
+import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
 import net.jukoz.me.datageneration.content.tags.*;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
@@ -28,6 +29,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var bones = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "bones")));
         var feathers = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "feathers")));
         var cloaks = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "cloaks")));
+        var dyeable = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "dyeable")));
 
         TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "iron_ores"));
         TagKey<Item> gold_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "gold_ores"));
@@ -105,6 +107,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                         .add(set.mithril_ore().asItem());
             }
         }
+
+        SimpleDyeableItemModel.items.forEach(dyeable::add);
 
         WoodenSlabs.woodenSlabs.forEach(block -> {
             getOrCreateTagBuilder(wooden_slabs).add(block.asItem());

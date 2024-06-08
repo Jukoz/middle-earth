@@ -28,7 +28,7 @@ public record HoodDataComponent(boolean enabled, String target) {
         ItemStack itemStack = stack.copyWithCount(1);
 
         itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(enabled, target));
-        return stack;
+        return itemStack;
     }
 
     @Override

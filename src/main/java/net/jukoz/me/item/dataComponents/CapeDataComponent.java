@@ -29,7 +29,7 @@ public record CapeDataComponent(boolean enabled, String target) {
         ItemStack itemStack = stack.copyWithCount(1);
 
         itemStack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(enabled, target));
-        return stack;
+        return itemStack;
     }
 
     @Override

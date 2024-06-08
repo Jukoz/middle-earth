@@ -7,7 +7,10 @@ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+
+import java.util.Vector;
 
 public class CloakCapeModel<T extends LivingEntity>  extends ChestplateAddonModel<T>  {
     private static final float MAX_ANGLE_CLOAK = 80f;
@@ -69,17 +72,22 @@ public class CloakCapeModel<T extends LivingEntity>  extends ChestplateAddonMode
         double degree;
 
         if (entity.isInSneakingPose()) {
-            this.cape.pivotZ = 0.15f;
-            this.cape.pivotY = 0.15f;
+            this.cape.pivotZ = 0.0f;
+            this.cape.pivotY = 0.0f;
             degree = 5f + (speed * (MAX_ANGLE_CLOAK / 2));
         } else {
             this.cape.pivotZ = 0;
-            this.cape.pivotY = 0.5f;
-            degree = 5 + (MAX_ANGLE_CLOAK * speed);
+            this.cape.pivotY = 0.0f;
+            degree = (MAX_ANGLE_CLOAK * speed);
         }
-        degree = Math.max(7.5f, degree);
+        degree = Math.max(0.0F, degree);
         degree = Math.min(MAX_ANGLE_CLOAK, degree);
 
-        this.cape.pitch = ToRad.ex(degree);
+        double result = entity.getRotationVector().dotProduct(velocity);
+
+        if(result > 0) {
+            this.cape.pitch = ToRad.ex(degree);
+        }
     }
+
 }

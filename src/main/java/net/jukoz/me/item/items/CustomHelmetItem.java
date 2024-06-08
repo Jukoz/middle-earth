@@ -4,7 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.model.equipment.head.HelmetAddonModel;
 import net.jukoz.me.event.KeyInputHandler;
 import net.jukoz.me.item.ModDataComponentTypes;
-import net.jukoz.me.item.dataComponents.CapeDataComponent;
+import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.utils.ExtendedArmorMaterial;
@@ -51,6 +51,7 @@ public class CustomHelmetItem extends ArmorItem {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
         }
 
+        HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
         CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
 
         if (Screen.hasAltDown()) {
@@ -59,6 +60,13 @@ public class CustomHelmetItem extends ArmorItem {
 
             if(dyeDataComponent != null){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
+            }
+            if (hoodDataComponent != null) {
+                if (hoodDataComponent.enabled()) {
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".hood").append(": Enabled ").append(hoodDataComponent.target()));
+                } else {
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".hood").append(": Disabled"));
+                }
             }
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
