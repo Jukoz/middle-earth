@@ -27,8 +27,12 @@ public class MiddleEarthMapRegion {
     }
 
     public MEBiome getBiome(Vector2i imageCoordinates){
-        if(biomeImage != null){
-            return MEBiomesData.getBiomeByColor(biomeImage.getRGB(imageCoordinates.x, imageCoordinates.y));
+        try {
+            if(biomeImage != null){
+                return MEBiomesData.getBiomeByColor(biomeImage.getRGB(imageCoordinates.x, imageCoordinates.y));
+            }
+        } catch (Exception exception){
+            return MEBiomesData.defaultBiome;
         }
         return MEBiomesData.defaultBiome;
     }

@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public class MEModels {
     public static final Model VERTICAL_SLAB;
+    public static final Model VERTICAL_COLUMN_SLAB;
     public static final Model WOOD_STOOL;
     public static final Model WOOD_TABLE;
     public static final Model WOOD_CHAIR;
@@ -21,6 +22,7 @@ public class MEModels {
 
     static {
         VERTICAL_SLAB = block("vertical_slab", TextureKey.ALL, TextureKey.PARTICLE);
+        VERTICAL_COLUMN_SLAB = block("vertical_column_slab", TextureKey.TOP, TextureKey.BOTTOM, TextureKey.SIDE, TextureKey.PARTICLE);
         WOOD_STOOL = block("wood_stool", TextureKey.TOP, TextureKey.SIDE, TextureKey.PARTICLE);
         WOOD_TABLE = block("wood_table", TextureKey.TOP, TextureKey.SIDE, TextureKey.PARTICLE);
         WOOD_CHAIR = block("wood_chair", TextureKey.TOP, TextureKey.SIDE, TextureKey.PARTICLE);

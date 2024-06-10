@@ -50,7 +50,7 @@ public class BanditHumanEntity extends NpcEntity{
         } else if (name.contains("soldier")) {
             this.setRank(RANK.SOLDIER);
             this.setBow(Items.BOW);
-        }else if (name.contains("knight")) {
+        }else if (name.contains("chieftain")) {
             this.setRank(RANK.KNIGHT);
         }
     }
@@ -106,7 +106,7 @@ public class BanditHumanEntity extends NpcEntity{
         switch (this.getRank()){
             case MILITIA -> militiaEquipment(random);
             case SOLDIER -> soldierEquipment(random);
-            case KNIGHT -> knightEquipment(random);
+            case KNIGHT -> chieftainEquipment(random);
         }
     }
 
@@ -149,7 +149,9 @@ public class BanditHumanEntity extends NpcEntity{
 
     private void soldierEquipment(Random random){
         ItemStack gambeson = new ItemStack(ModEquipmentItems.GAMBESON);
+        ItemStack leatherBoots = new ItemStack(ModEquipmentItems.GAMBESON);
         DyedColorComponent.setColor(gambeson, List.of(DyeItem.byColor(DyeColor.byId(0x897f64))));
+        DyedColorComponent.setColor(leatherBoots, List.of(DyeItem.byColor(DyeColor.byId(0x504e48))));
 
         if(random.nextFloat() >= 0.50f){
             equipStack(EquipmentSlot.HEAD, new ItemStack(Items.CHAINMAIL_HELMET));
@@ -162,12 +164,12 @@ public class BanditHumanEntity extends NpcEntity{
             equipStack(EquipmentSlot.CHEST, gambeson);
         }
         equipStack(EquipmentSlot.LEGS, new ItemStack(Items.CHAINMAIL_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(Items.CHAINMAIL_BOOTS));
+        equipStack(EquipmentSlot.FEET, leatherBoots);
 
         float val3 = random.nextFloat();
         if(val3 >= 0.65f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-        } else if ( val3 > 0.3f) {
+        } else if (val3 > 0.3f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         } else {
@@ -176,7 +178,7 @@ public class BanditHumanEntity extends NpcEntity{
         }
     }
 
-    private void knightEquipment(Random random){
+    private void chieftainEquipment(Random random){
         equipStack(EquipmentSlot.HEAD, new ItemStack(Items.CHAINMAIL_HELMET));
         equipStack(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
         equipStack(EquipmentSlot.LEGS, new ItemStack(Items.CHAINMAIL_LEGGINGS));

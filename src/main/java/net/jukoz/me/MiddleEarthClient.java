@@ -144,7 +144,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(ModEntities.BANDIT_MILITIA, BanditHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.BANDIT_SOLDIER, BanditHumanRenderer::new);
-        EntityRendererRegistry.register(ModEntities.BANDIT_KNIGHT, BanditHumanRenderer::new);
+        EntityRendererRegistry.register(ModEntities.BANDIT_CHIEFTAIN, BanditHumanRenderer::new);
 
         // Items
         ModelLoadingRegistry.INSTANCE.registerModelProvider(((manager, out) -> new VariantsModelProvider().provideExtraModels(manager, out)));

@@ -237,10 +237,14 @@ public class TrollEntity extends BeastEntity {
         return ModFoodItems.COOKED_HORSE;
     }
 
+    public int getBondingTimeout() {
+        return bondingTimeout;
+    }
+
     @Override
     public void tryBonding(PlayerEntity player) {
         if(this.bondingTimeout <= 0) {
-            if(random.nextDouble() <= 0.4d) {
+            if(random.nextFloat() <= 0.4f) {
                 this.bondingTries++;
                 if(bondingTries == 3) {
                     if (player instanceof ServerPlayerEntity) {
@@ -254,11 +258,6 @@ public class TrollEntity extends BeastEntity {
                     this.chargeTimeout = 0;
                 }
             }
-            else {
-                this.bondingTries = 0;
-                this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
-            }
-
             player.getStackInHand(player.getActiveHand()).decrement(1);
             this.bondingTimeout = 40;
         }
