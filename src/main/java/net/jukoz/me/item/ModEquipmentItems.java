@@ -58,7 +58,6 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.WOVEN_HAT, ArmorItem.Type.HELMET, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false)),
                     null));
 
-
     public static final Item ARMING_COAT = registerDyeableArmorPiece("arming_coat",
             new CustomChestplateItem(ModArmorMaterials.GENERIC_T1, ArmorItem.Type.CHESTPLATE, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true)),
                     null));
@@ -66,6 +65,11 @@ public class ModEquipmentItems {
     public static final Item ARMING_SKIRT = registerDyeableArmorPiece("arming_skirt",
             new CustomLeggingsItem(ModArmorMaterials.GENERIC_T1, ArmorItem.Type.LEGGINGS, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true))));
 
+    public static final Item SHOES = registerArmorPiece("shoes",
+            new CustomBootsItem(ModArmorMaterials.GENERIC_T1, ArmorItem.Type.BOOTS, new Item.Settings()));
+
+    public static final Item WORK_SHOES = registerArmorPiece("work_shoes",
+            new CustomBootsItem(ModArmorMaterials.GENERIC_T1, ArmorItem.Type.BOOTS, new Item.Settings()));
 
     public static final Item LEATHER_CAP = registerDyeableArmorPiece("leather_cap",
             new CustomHelmetItem(ModArmorMaterials.GAMBESON_CAP, ArmorItem.Type.HELMET, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false)),
@@ -90,8 +94,11 @@ public class ModEquipmentItems {
             new CustomChestplateItem(ModArmorMaterials.GAMBESON, ArmorItem.Type.CHESTPLATE, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true)),
                     null));
 
-
     public static final Item STURDY_BOOTS = registerArmorPiece("sturdy_boots",
+            new CustomBootsItem(ModArmorMaterials.STURDY_BOOTS, ArmorItem.Type.BOOTS, new Item.Settings()));
+    public static final Item TRAVELLING_BOOTS = registerArmorPiece("travelling_boots",
+            new CustomBootsItem(ModArmorMaterials.STURDY_BOOTS, ArmorItem.Type.BOOTS, new Item.Settings()));
+    public static final Item HIGH_CUT_BOOTS = registerArmorPiece("high_cut_boots",
             new CustomBootsItem(ModArmorMaterials.STURDY_BOOTS, ArmorItem.Type.BOOTS, new Item.Settings()));
 
     public static final Item CHAIN_COIF = registerArmorPiece("chain_coif",
@@ -101,7 +108,6 @@ public class ModEquipmentItems {
     public static final Item KETTLE_HAT = registerArmorPiece("kettle_hat",
             new CustomHelmetItem(ModArmorMaterials.KETTLE_HAT, ArmorItem.Type.HELMET, new Item.Settings(),
                     new KettleHatArmorAddonModel(KettleHatArmorAddonModel.getTexturedModelData().createModel())));
-
 
     public static final Item CHAIN_SHIRT = registerArmorPiece("chain_shirt",
             new CustomChestplateItem(ModArmorMaterials.CHAIN_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
@@ -366,6 +372,27 @@ public class ModEquipmentItems {
 
     //endregion
 
+    //region ELVES
+    //region GENERIC
+
+    public static final Item ELVEN_ARMING_SKIRT = registerDyeableArmorPiece("elven_arming_skirt",
+            new CustomLeggingsItem(ModArmorMaterials.ELVEN_T1, ArmorItem.Type.LEGGINGS, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true))));
+
+    public static final Item ELVEN_BOOTS = registerArmorPiece("elven_boots",
+            new CustomBootsItem(ModArmorMaterials.STURDY_BOOTS, ArmorItem.Type.BOOTS, new Item.Settings()));
+
+    public static final Item ELVEN_CHAIN_COIF = registerArmorPiece("elven_chain_coif",
+            new CustomHelmetItem(ModArmorMaterials.CHAIN_ARMOR, ArmorItem.Type.HELMET, new Item.Settings(),
+                    null));
+
+    public static final Item ELVEN_CHAIN_HAUBERK = registerArmorPiece("elven_chain_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.CHAIN_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+                    null));
+
+    public static final Item ELVEN_CHAIN_SKIRT = registerArmorPiece("elven_chain_skirt",
+            new CustomLeggingsItem(ModArmorMaterials.CHAIN_ARMOR, ArmorItem.Type.LEGGINGS, new Item.Settings()));
+    //endregion
+
     //region LOTHLORIEN
     public static final Item LORIEN_MAIL_HELMET = registerArmorPiece("lorien_mail_helmet",
             new CustomHelmetItem(ModArmorMaterials.LORIEN_MAIL_ARMOR, ArmorItem.Type.HELMET, new Item.Settings(),
@@ -417,6 +444,7 @@ public class ModEquipmentItems {
     public static final Item LORIEN_HORSE_ARMOR = registerGeneratedItem("lorien_horse_armor",
             new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
 
+    //endregion
     //endregion
 
     //region ORCS
