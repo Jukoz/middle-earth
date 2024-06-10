@@ -62,7 +62,7 @@ public class FileUtils {
     /**
      * TODO : Optimise this part, it the longest process in World-Gen
      */
-    public static BufferedImage blur(BufferedImage image, int brushSize, float ratio) {
+    public static BufferedImage blur(BufferedImage image, int brushSize) {
         // Create new expended image :
         int width = image.getWidth();
         int height = image.getHeight();
@@ -91,7 +91,7 @@ public class FileUtils {
         }
 
         float[] blurKernel = new float[brushSize * brushSize];
-        Arrays.fill(blurKernel, ratio);
+        Arrays.fill(blurKernel, 1.0f / (brushSize * brushSize));
         Kernel kernel = new Kernel(brushSize, brushSize, blurKernel);
         ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
 

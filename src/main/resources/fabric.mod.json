@@ -4,17 +4,17 @@
   "version": "${version}",
 
   "name": "Middle-earth",
-  "description": "Bringing Middle-earth to Minecraft!",
+  "description": "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!",
   "authors": [
-    "Jukoz, Krahab"
+    " Lead Dev: Jukoz, ObliviousCrab\n\nDeveloppers: Jukoz, ObliviousCrab, Slooshyboi, TomSchlom, Froosty11, nullBlade\n\nArtists: Boenndal, Jooble, Sindavar, Thijs, Jukoz, Khuz, ObliviousCrab, R3tt0, Thorin_The_III, Tom, WorseNotePad, JB3, Tyn, Python_200, Ag3ntCrab\n\nBuilders: Boenndal, Thijs, Slooshyboi, Jooble, Jukoz, ObliviousCrab, JB3, Grandison"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/Jukoz/me"
+    "homepage": "https://modrinth.com/mod/middle-earth",
+    "sources": "https://github.com/Jukoz/middle-earth"
   },
 
   "license": "MIT",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/me/icon.png",
 
   "environment": "*",
   "entrypoints": {

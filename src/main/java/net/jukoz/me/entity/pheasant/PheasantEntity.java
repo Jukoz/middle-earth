@@ -1,6 +1,8 @@
 package net.jukoz.me.entity.pheasant;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.entity.ModEntities;
+import net.jukoz.me.entity.duck.DuckEntity;
 import net.jukoz.me.entity.goals.PheasantStartledGoal;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.minecraft.block.BlockState;
@@ -58,9 +60,11 @@ public class PheasantEntity extends AnimalEntity {
         this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4));
         this.goalSelector.add(2, new PheasantStartledGoal(this));
         this.goalSelector.add(3, new FollowParentGoal(this, 1.1));
-        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(6, new LookAroundGoal(this));
+        this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
+        this.goalSelector.add(5, new TemptGoal(this, 0.9, DuckEntity.BREEDING_INGREDIENT, true));
+        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(7, new LookAroundGoal(this));
     }
 
     @Override
@@ -95,8 +99,8 @@ public class PheasantEntity extends AnimalEntity {
 
     @Nullable
     @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return null;
+    public PheasantEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return ModEntities.PHEASANT.create(world);
     }
 
     @Override

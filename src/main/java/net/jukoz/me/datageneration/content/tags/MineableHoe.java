@@ -11,8 +11,11 @@ public class MineableHoe {
     public static List<Block> blocks = new ArrayList<>() {
     {
         add(ModNatureBlocks.LEBETHRON_LEAVES);
+
         add(ModNatureBlocks.DRY_PINE_LEAVES);
         add(ModNatureBlocks.PINE_BRANCHES);
+
+        add(ModNatureBlocks.MAPLE_LEAVES);
 
         add(ModBlocks.REED_BLOCK);
         add(ModBlocks.REED_SLAB);

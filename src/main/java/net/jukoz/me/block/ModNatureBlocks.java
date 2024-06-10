@@ -197,6 +197,7 @@ public class ModNatureBlocks {
     public static final Block WHITE_LEBETHRON_SAPLING = registerSimpleSapling("white_lebethron_sapling", ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY);
     public static final Block MALLORN_SAPLING = registerSimpleSapling("mallorn_sapling", ModTreeConfiguredFeatures.MEGA_MALLORN_TREE_KEY);
     public static final Block MAPLE_SAPLING = registerSimpleSapling("maple_sapling", ModTreeConfiguredFeatures.MAPLE_TREE_KEY);
+    public static final Block SILVER_MAPLE_SAPLING = registerSimpleSapling("silver_maple_sapling", ModTreeConfiguredFeatures.SILVER_MAPLE_TREE_KEY);
     public static final Block MIRKWOOD_SAPLING = registerSimpleSapling("mirkwood_sapling", ModTreeConfiguredFeatures.SMALL_MIRKWOOD_TREE_KEY);
     public static final Block PALM_SAPLING = registerSimpleSapling("palm_sapling", ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY);
     public static final Block WHITE_PALM_SAPLING = registerSimpleSapling("white_palm_sapling", ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY);
@@ -204,6 +205,8 @@ public class ModNatureBlocks {
     public static final Block WILLOW_SAPLING = registerSimpleSapling("willow_sapling", ModTreeConfiguredFeatures.WILLOW_TREE_KEY);
 
     public static final Block LEBETHRON_LEAVES = registerBlock("lebethron_leaves",
+            new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
+    public static final Block MAPLE_LEAVES = registerBlock("maple_leaves",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
 
     public static final Block DRY_PINE_LEAVES = registerBlock("dry_pine_leaves",

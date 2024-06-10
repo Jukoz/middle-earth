@@ -72,7 +72,7 @@ public class ModEntities {
     //Bandits
     public static final EntityType<BanditHumanEntity> BANDIT_MILITIA = registerEntity("bandit_militia", BanditHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
     public static final EntityType<BanditHumanEntity> BANDIT_SOLDIER = registerEntity("bandit_soldier", BanditHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
-    public static final EntityType<BanditHumanEntity> BANDIT_KNIGHT = registerEntity("bandit_knight", BanditHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
+    public static final EntityType<BanditHumanEntity> BANDIT_CHIEFTAIN = registerEntity("bandit_chieftain", BanditHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
 
     // Dwarfs
     public static final EntityType<LongbeardDwarfEntity> LONGBEARD_MILITIA = registerEntity("longbeard_militia", LongbeardDwarfEntity::new, SpawnGroup.CREATURE, 0.8f, 1.9f);
@@ -201,7 +201,7 @@ public class ModEntities {
 
         FabricDefaultAttributeRegistry.register(BANDIT_MILITIA, BanditHumanEntity.setSoldierAttributes());
         FabricDefaultAttributeRegistry.register(BANDIT_SOLDIER, BanditHumanEntity.setSoldierAttributes());
-        FabricDefaultAttributeRegistry.register(BANDIT_KNIGHT, BanditHumanEntity.setKnightAttributes());
+        FabricDefaultAttributeRegistry.register(BANDIT_CHIEFTAIN, BanditHumanEntity.setKnightAttributes());
         // Animals
         FabricDefaultAttributeRegistry.register(CRAB, CrabEntity.createCrabAttributes());
         FabricDefaultAttributeRegistry.register(GOOSE, GooseEntity.createGooseAttributes());

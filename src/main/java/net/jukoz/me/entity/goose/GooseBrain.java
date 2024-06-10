@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import net.jukoz.me.entity.ModEntities;
+import net.jukoz.me.entity.duck.DuckEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
@@ -86,6 +87,6 @@ public class GooseBrain {
     }
 
     public static Ingredient getTemptItems() {
-        return GooseEntity.BREEDING_INGREDIENT;
+        return DuckEntity.BREEDING_INGREDIENT;
     }
 }

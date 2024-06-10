@@ -3,7 +3,10 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "minecraft:fox_food"
+      "tag": "me:berries"
+    },
+    {
+      "item": "minecraft:wheat"
     },
     {
       "item": "minecraft:sugar"
