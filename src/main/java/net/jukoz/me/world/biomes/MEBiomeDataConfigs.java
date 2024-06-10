@@ -91,16 +91,17 @@ public class MEBiomeDataConfigs {
             .addSlopeData(60, Blocks.STONE)
             .addSlopeData(MAX_ANGLE, Blocks.TUFF);
 
-    public static SlopeMap whiteMountains = new SlopeMap().addSlopeData(29f, Blocks.GRASS_BLOCK)
-            .addSlopeData(30, Blocks.COARSE_DIRT)
+    public static SlopeMap whiteMountains = new SlopeMap()
+            .addSlopeData(22f, Blocks.GRASS_BLOCK)
+            .addSlopeData(28, Blocks.COARSE_DIRT)
             .addSlopeData(42, Blocks.STONE)
-            .addSlopeData(54, Blocks.DIORITE)
-            .addSlopeData(MAX_ANGLE, Blocks.CALCITE);
-    public static SlopeMap whitePeaks = new SlopeMap().addSlopeData(24, Blocks.SNOW_BLOCK)
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.DOLOMITE.base());
+    public static SlopeMap whitePeaks = new SlopeMap()
+            .addSlopeData(24, Blocks.SNOW_BLOCK)
             .addSlopeData(36, Blocks.DEEPSLATE)
             .addSlopeData(45, Blocks.TUFF)
-            .addSlopeData(54, Blocks.DIORITE)
-            .addSlopeData(MAX_ANGLE, Blocks.CALCITE);
+            .addSlopeData(54, Blocks.CALCITE)
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.DOLOMITE.base());
 
     public static SlopeMap grassPlains = new SlopeMap().addSlopeData(25, Blocks.GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)

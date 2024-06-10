@@ -287,11 +287,11 @@ public class ModBiomes {
                 6385822, 5198943, 4544130, 338483, 4478786, 4017979), true, true));
         context.register(MEBiomeKeys.WITHERED_HEATH, createWitheredHeathBiome(context, new BiomeColorsDTO(
                 9479110, 11780310, 5141697, 460593, 8881498, 10328434)));
-        context.register(MEBiomeKeys.WHITE_MOUNTAINS_BASE, createAnorienBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.WHITE_MOUNTAINS_BASE, createWhiteMountainsBiome(context, new BiomeColorsDTO(
                 hillySky, 12638463, defaultWater, defaultWaterFog, 7185769, 6857066)));
-        context.register(MEBiomeKeys.WHITE_MOUNTAINS, createWhiteMountainsBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.WHITE_MOUNTAINS, createWhiteMountainsFaces(context, new BiomeColorsDTO(
                 hillySky, 12638463, defaultWater, defaultWaterFog, 7183466, 7513204), false));
-        context.register(MEBiomeKeys.WHITE_MOUNTAINS_PEAKS, createWhiteMountainsBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.WHITE_MOUNTAINS_PEAKS, createWhiteMountainsFaces(context, new BiomeColorsDTO(
                 hillySky, 12638463, defaultWater, defaultWaterFog, 7185769, 6857066), true));
         context.register(MEBiomeKeys.WOODLAND_REALM, createWoodlandRealmBiome(context, new BiomeColorsDTO(
                 8497918, 10666932, 4492967, 471355, 2780195, 2713634)));
@@ -1603,21 +1603,27 @@ public class ModBiomes {
         return createBiome(biomeColors, spawnSettings, generationSettings, 0.4f, true);
     }
 
-    public static Biome createWhiteMountainsBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, boolean foothills) {
+    public static Biome createWhiteMountainsBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addMountainsMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
+        float temperature = 0.5f;
         addNordicVegetation(generationSettings);
-        float temperature = 0.35f;
+        ModBiomeFeatures.addLarchTrees(vegetation);
+        ModBiomeFeatures.addPineTrees(vegetation);
+        ModBiomeFeatures.addScarceSpruceTrees(vegetation);
+        ModBiomeFeatures.addSpruceBushes(vegetation);
 
-        if(foothills) {
-            temperature = 0.4f;
-            ModBiomeFeatures.addLarchTrees(vegetation);
-            ModBiomeFeatures.addPineTrees(vegetation);
-            ModBiomeFeatures.addScarceSpruceTrees(vegetation);
-            ModBiomeFeatures.addSpruceBushes(vegetation);
-        }
+        return createBiome(biomeColors, spawnSettings, generationSettings, temperature, true);
+    }
+
+    public static Biome createWhiteMountainsFaces(Registerable<Biome> context, BiomeColorsDTO biomeColors, boolean cold) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addMountainVegetation(generationSettings);
+        float temperature = (cold) ? 0.5f : 0.5f;
 
         return createBiome(biomeColors, spawnSettings, generationSettings, temperature, true);
     }
