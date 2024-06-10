@@ -37,7 +37,7 @@ public record CustomDyeableDataComponent(int customRgb, boolean overlay) {
 
     public static boolean getOverlay(ItemStack stack) {
         CustomDyeableDataComponent dyedColorComponent = (CustomDyeableDataComponent) stack.get(ModDataComponentTypes.DYE_DATA);
-        return dyedColorComponent != null ? dyedColorComponent.overlay : true;
+        return dyedColorComponent != null ? dyedColorComponent.overlay : false;
     }
 
     public static CustomDyeableDataComponent withOverlay(boolean overlay) {

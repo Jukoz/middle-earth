@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.jukoz.me.block.*;
+import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
 import net.jukoz.me.datageneration.content.tags.LeavesSets;
 import net.jukoz.me.datageneration.content.tags.Saplings;
 import net.jukoz.me.item.ModEquipmentItems;
@@ -398,9 +399,9 @@ public class ModRegistries {
     }
 
     public static void registerCauldronBehaviour(){
-        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModEquipmentItems.GAMBESON, CauldronBehavior.CLEAN_DYEABLE_ITEM);
-        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModEquipmentItems.CLOAK, CauldronBehavior.CLEAN_DYEABLE_ITEM);
-        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModEquipmentItems.CLOAK_HOOD, CauldronBehavior.CLEAN_DYEABLE_ITEM);
-        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModEquipmentItems.TUNIC_CLOAK, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+
+        SimpleDyeableItemModel.items.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+        });
     }
 }

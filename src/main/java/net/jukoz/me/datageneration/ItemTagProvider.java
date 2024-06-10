@@ -65,7 +65,6 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         feathers.add(Items.FEATHER);
 
         cloaks.add(ModEquipmentItems.CLOAK);
-        cloaks.add(ModEquipmentItems.TUNIC_CLOAK);
         cloaks.add(ModEquipmentItems.FUR_CLOAK);
         cloaks.add(ModEquipmentItems.CHAINMAIL_FUR_CLOAK);
         cloaks.add(ModEquipmentItems.NAZGUL_CLOAK);

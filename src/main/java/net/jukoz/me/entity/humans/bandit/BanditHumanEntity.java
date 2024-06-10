@@ -127,8 +127,6 @@ public class BanditHumanEntity extends NpcEntity{
         DyedColorComponent.setColor(leatherBoots, List.of(DyeItem.byColor(DyeColor.byId(colors[3]))));
 
         if(random.nextFloat() >= 0.30f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.RUSTY_KETTLE_HAT));
-        } else  {
             equipStack(EquipmentSlot.HEAD, leatherHelmet);
         }
         equipStack(EquipmentSlot.CHEST, leatherChestplate);

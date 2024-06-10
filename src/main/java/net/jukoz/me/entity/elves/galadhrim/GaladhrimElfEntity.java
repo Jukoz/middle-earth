@@ -124,13 +124,11 @@ public class GaladhrimElfEntity extends NpcEntity{
                 0x61626e,
                 0x505258
         };
-        ItemStack tunicCloak = new ItemStack(ModEquipmentItems.TUNIC_CLOAK);
         ItemStack hood = new ItemStack(ModEquipmentItems.CLOAK_HOOD);
         ItemStack leatherHelmet = new ItemStack(Items.LEATHER_HELMET);
         ItemStack leatherChestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
         ItemStack leatherLeggings = new ItemStack(Items.LEATHER_LEGGINGS);
         ItemStack leatherBoots = new ItemStack(Items.LEATHER_BOOTS);
-        DyedColorComponent.setColor(tunicCloak, List.of(DyeItem.byColor(DyeColor.byId(colors[0]))));
         DyedColorComponent.setColor(hood, List.of(DyeItem.byColor(DyeColor.byId(colors[0]))));
         DyedColorComponent.setColor(leatherHelmet, List.of(DyeItem.byColor(DyeColor.byId(colors[1]))));
         DyedColorComponent.setColor(leatherChestplate, List.of(DyeItem.byColor(DyeColor.byId(colors[1]))));
@@ -139,7 +137,6 @@ public class GaladhrimElfEntity extends NpcEntity{
 
         if(random.nextFloat() >= 0.30f){
             equipStack(EquipmentSlot.HEAD, hood);
-            equipStack(EquipmentSlot.CHEST, tunicCloak);
         } else  {
             equipStack(EquipmentSlot.HEAD, leatherHelmet);
             equipStack(EquipmentSlot.CHEST, leatherChestplate);

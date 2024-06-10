@@ -36,6 +36,9 @@ public class ModArmorMaterials {
     public static final ExtendedArmorMaterial OPEN_FACE = registerArmor("open_face", 4, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
 
+    public static final ExtendedArmorMaterial GENERIC_T1 = registerArmor("generic_t1", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
+
     public static final ExtendedArmorMaterial GAMBESON_CAP = registerArmor("gambeson_cap", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
 

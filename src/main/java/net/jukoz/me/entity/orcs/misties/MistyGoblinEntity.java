@@ -97,8 +97,6 @@ public class MistyGoblinEntity extends NpcEntity {
         DyedColorComponent.setColor(leatherBoots, List.of(DyeItem.byColor(DyeColor.byId(colors[3]))));
 
         if(random.nextFloat() >= 0.30f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.RUSTY_KETTLE_HAT));
-        } else  {
             equipStack(EquipmentSlot.HEAD, leatherHelmet);
         }
         equipStack(EquipmentSlot.CHEST, leatherChestplate);
@@ -123,8 +121,6 @@ public class MistyGoblinEntity extends NpcEntity {
         float val = random.nextFloat();
         if(val >= 0.30f){
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_GOBLIN_MAIL_HELMET));
-        } else  {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.RUSTY_KETTLE_HAT));
         }
         equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_GOBLIN_MAIL_CHESTPLATE));
         equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_GOBLIN_MAIL_LEGGINGS));
