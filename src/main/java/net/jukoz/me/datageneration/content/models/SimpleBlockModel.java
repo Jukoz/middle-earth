@@ -136,8 +136,12 @@ public class SimpleBlockModel {
 
     public static List<ChiseledBlock> chiseledMainBlockTopBottom = new ArrayList<>() {
         {
+            add(new ChiseledBlock(ModBlocks.CHISELED_GONLUIN, StoneBlockSets.GONLUIN.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_EPMOSTO, StoneBlockSets.EPMOSTO.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_IRONSTONE, StoneBlockSets.IRONSTONE.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_HEMATITE, StoneBlockSets.HEMATITE.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_GNEISS, StoneBlockSets.GNEISS.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_ZIGILABAD, StoneBlockSets.ZIGILABAD.slab()));
         }
     };
 
@@ -149,6 +153,9 @@ public class SimpleBlockModel {
             add(new ChiseledBlock(ModBlocks.CHISELED_DIORITE_BRICKS, StoneBlockSets.DIORITE_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_DOLOMITE_BRICKS, StoneBlockSets.DOLOMITE_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_IRONSTONE_BRICKS, StoneBlockSets.IRONSTONE_BRICKS.slab()));
+            //add(new ChiseledBlock(ModBlocks.CHISELED_HEMATITE_BRICKS, StoneBlockSets.HEMATITE_BRICKS.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_GNEISS_BRICKS, StoneBlockSets.GNEISS_BRICKS.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_ZIGILABAD_BRICKS, StoneBlockSets.ZIGILABAD_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_EPMOSTO_BRICKS, StoneBlockSets.EPMOSTO_BRICKS.slab()));
         }
     };
@@ -158,6 +165,9 @@ public class SimpleBlockModel {
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_ANDESITE, Blocks.POLISHED_ANDESITE_SLAB));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_DIORITE, Blocks.POLISHED_DIORITE_SLAB));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_IRONSTONE, StoneBlockSets.POLISHED_IRONSTONE.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_HEMATITE, StoneBlockSets.POLISHED_HEMATITE.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_GNEISS, StoneBlockSets.POLISHED_GNEISS.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_ZIGILABAD, StoneBlockSets.POLISHED_ZIGILABAD.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_BLUE_TUFF, StoneBlockSets.POLISHED_BLUE_TUFF.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_ASHEN_STONE, StoneBlockSets.POLISHED_ASHEN_STONE.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_EPMOSTO, StoneBlockSets.POLISHED_EPMOSTO.slab()));

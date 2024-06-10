@@ -5,11 +5,11 @@
       "item": "me:stucco"
     },
     {
-      "item": "me:dolomite"
+      "item": "me:mixed_stones"
     }
   ],
   "result": {
-    "id": "me:exposed_stucco_dolomite",
+    "id": "me:mixed_stones_brickwork",
     "count":  2
   }
 }
