@@ -81,12 +81,22 @@ public class CustomHelmetItem extends ArmorItem {
 
             if(hoodDataComponent != null){
                 if(hoodDataComponent.enabled()){
-                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(false, hoodDataComponent.target()));
+                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(false, false, hoodDataComponent.target()));
                 } else {
-                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, hoodDataComponent.target()));
+                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, false, hoodDataComponent.target()));
                 }
-            } else {
-                stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, "base_hood"));
+            }
+        }
+
+        if(KeyInputHandler.hoodDownKey.isPressed()){
+            HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
+
+            if(hoodDataComponent != null){
+                if(hoodDataComponent.down()){
+                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, false, hoodDataComponent.target()));
+                } else {
+                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, true, hoodDataComponent.target()));
+                }
             }
         }
     }

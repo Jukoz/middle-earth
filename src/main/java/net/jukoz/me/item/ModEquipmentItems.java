@@ -227,7 +227,9 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.ROHIRRIC_LEATHER, ArmorItem.Type.HELMET, new Item.Settings()));
 
     public static final Item ROHIRRIC_COAT = registerDyeableArmorPiece("rohirric_coat",
-            new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_LEATHER, ArmorItem.Type.CHESTPLATE, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true)),
+            new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_LEATHER, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true))
+                    .component(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true, "rohirric_cape")),
                     null));
     public static final Item ROHIRRIC_REINFORCED_COAT = registerDyeableArmorPiece("rohirric_reinforced_coat",
             new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_LEATHER, ArmorItem.Type.CHESTPLATE, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true)),

@@ -16,12 +16,16 @@ public class ModRecipeSerializer {
 
     public static SpecialRecipeSerializer<CustomArmorDyeRecipe> CUSTOM_ARMOR_DYE;
     public static SpecialRecipeSerializer<ArmorCapeRecipe> CUSTOM_ARMOR_CAPE;
+    public static SpecialRecipeSerializer<ArmorCapeRemovalRecipe> CUSTOM_ARMOR_CAPE_REMOVAL;
     public static SpecialRecipeSerializer<ArmorHoodRecipe> CUSTOM_ARMOR_HOOD;
+    public static SpecialRecipeSerializer<ArmorHoodRemovalRecipe> CUSTOM_ARMOR_HOOD_REMOVAL;
 
     public static void registerRecipeSerializers(){
         CUSTOM_ARMOR_DYE = register("custom_armor_dye", new SpecialRecipeSerializer<CustomArmorDyeRecipe>(CustomArmorDyeRecipe::new));
         CUSTOM_ARMOR_CAPE = register("custom_armor_cape", new SpecialRecipeSerializer<ArmorCapeRecipe>(ArmorCapeRecipe::new));
+        CUSTOM_ARMOR_CAPE_REMOVAL = register("custom_armor_cape_removal", new SpecialRecipeSerializer<ArmorCapeRemovalRecipe>(ArmorCapeRemovalRecipe::new));
         CUSTOM_ARMOR_HOOD = register("custom_armor_hood", new SpecialRecipeSerializer<ArmorHoodRecipe>(ArmorHoodRecipe::new));
+        CUSTOM_ARMOR_HOOD_REMOVAL = register("custom_armor_hood_removal", new SpecialRecipeSerializer<ArmorHoodRemovalRecipe>(ArmorHoodRemovalRecipe::new));
 
         LoggerUtil.getInstance().logDebugMsg("Registering Mod Recipe Serializers for " + MiddleEarth.MOD_ID);
     }

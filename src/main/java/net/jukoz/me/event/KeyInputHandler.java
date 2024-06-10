@@ -12,9 +12,11 @@ public class KeyInputHandler {
     public static final String ME_KEY_CATEGORY = "key.category.me.me";
     public static final String ME_KEY_CAPE = "key.me.cape";
     public static final String ME_KEY_HOOD = "key.me.hood";
+    public static final String ME_KEY_HOOD_DOWN = "key.me.hood_down";
 
     public static KeyBinding capeKey;
     public static KeyBinding hoodKey;
+    public static KeyBinding hoodDownKey;
 
     public static void registerKeyInputs(){
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -27,7 +29,14 @@ public class KeyInputHandler {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(hoodKey.isPressed()){
                 assert client.player != null;
-                client.player.sendMessage(Text.of("HOOD Toggled"));
+                client.player.sendMessage(Text.of("Hood Toggled"));
+            }
+        });
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if(hoodDownKey.isPressed()){
+                assert client.player != null;
+                client.player.sendMessage(Text.of("Hood Down toggle"));
             }
         });
     }
@@ -44,6 +53,13 @@ public class KeyInputHandler {
                 ME_KEY_HOOD,
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_U,
+                ME_KEY_CATEGORY
+        ));
+
+        hoodDownKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                ME_KEY_HOOD_DOWN,
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_J,
                 ME_KEY_CATEGORY
         ));
 

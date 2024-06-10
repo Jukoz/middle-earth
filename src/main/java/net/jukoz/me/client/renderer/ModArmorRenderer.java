@@ -111,8 +111,11 @@ public class ModArmorRenderer implements ArmorRenderer {
                 contextModel.copyBipedStateTo(hoodModel);
                 hoodModel.setVisible(false);
                 hoodModel.hat.visible = true;
-                renderArmor(matrices, vertexConsumers, light, helmet, hoodModel, new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.target() + ".png"), dyeable);
-
+                if(hoodDataComponent.down()){
+                    renderArmor(matrices, vertexConsumers, light, helmet, hoodModel, new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.target() + "_down.png"), false);
+                } else {
+                    renderArmor(matrices, vertexConsumers, light, helmet, hoodModel, new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.target() + ".png"), false);
+                }
             }
         }
     }
@@ -153,7 +156,7 @@ public class ModArmorRenderer implements ArmorRenderer {
                 capeModel.rightArm.visible = true;
                 capeModel.leftArm.visible = true;
                 capeModel.setAngles(entity, entity.limbAnimator.getPos(),entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.roll);
-                renderArmor(matrices, vertexConsumers, light, chestplate, capeModel, new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + capeDataComponent.target() + ".png"), dyeable);
+                renderArmor(matrices, vertexConsumers, light, chestplate, capeModel, new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + capeDataComponent.target() + ".png"), false);
             }
         }
     }

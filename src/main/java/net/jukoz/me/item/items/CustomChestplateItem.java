@@ -89,8 +89,6 @@ public class CustomChestplateItem extends ArmorItem {
                 } else {
                     stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true, capeDataComponent.target()));
                 }
-            } else {
-                stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true, "base_cape"));
             }
         }
     }
