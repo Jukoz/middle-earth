@@ -160,24 +160,11 @@ public class MiddleEarthMapGeneration {
                     });
                 }
             }
-            // Awaits for tasks to finish
-            boolean finishedTasks = false;
+            executorService.shutdown();
             try {
-                finishedTasks = executorService.awaitTermination(20, TimeUnit.MINUTES);
+                executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
             } catch (Exception e) {
                 loggerUtil.logError("Error while generating biomes");
-            }
-            if(!finishedTasks) loggerUtil.logError("Didn't finished biome map generation in time, " +
-                    "please allocate more RAM, delete the /data/me folder and restart the game");
-
-            // Shutdown the executor and wait for all threads to finish
-            executorService.shutdown();
-            if(!finishedTasks) {
-                try {
-                    executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-                } catch (Exception e) {
-                    loggerUtil.logError("Error while generating biomes");
-                }
             }
         }
         return new BufferedImage[0][][];
@@ -234,24 +221,11 @@ public class MiddleEarthMapGeneration {
                 });
             }
         }
-        // Awaits for tasks to finish
-        boolean finishedTasks = false;
+        executorService.shutdown();
         try {
-            finishedTasks = executorService.awaitTermination(15, TimeUnit.MINUTES);
+            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         } catch (Exception e) {
             loggerUtil.logError("Error while generating biomes");
-        }
-        if(!finishedTasks) loggerUtil.logError("Didn't finished heightmap generation in time, " +
-                "please allocate more RAM, delete the /data/me folder and restart the game");
-
-        // Shutdown the executor and wait for all threads to finish
-        executorService.shutdown();
-        if(!finishedTasks) {
-            try {
-                executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-            } catch (Exception e) {
-                loggerUtil.logError("Error while generating heights");
-            }
         }
     }
 

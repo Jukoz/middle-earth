@@ -16,7 +16,7 @@ public class MiddleEarthMapConfigs {
      */
     public static final int MAP_ITERATION = 3;
 
-    private static final String MOD_DATA = "data/me/%s/".formatted(MiddleEarth.MOD_VERSION);
+    private static final String MOD_DATA = "data/me/%s".formatted(MiddleEarth.MOD_VERSION);
     public static final String BIOME_PATH = "%s/biomes/i_%s".formatted(MOD_DATA, "%s");
     public static final String HEIGHT_PATH = "%s/heights/i_%s".formatted(MOD_DATA, MAP_ITERATION);
     public static final String BASE_HEIGHT_PATH = "%s/heights/base".formatted(MOD_DATA);
