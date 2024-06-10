@@ -1586,8 +1586,6 @@ public class ModBiomes {
 
     public static Biome createWitheredHeathBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addMountainsMobs(spawnSettings);
-        ModSpawnSettingsBuilder.addNordicMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
