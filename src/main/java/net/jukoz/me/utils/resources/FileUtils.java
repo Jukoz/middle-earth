@@ -5,6 +5,7 @@ import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import org.joml.Vector2i;
+import org.joml.sampling.Convolution;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,10 +15,13 @@ import java.awt.image.Kernel;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class FileUtils {
 
     private static FileUtils single_instance = null;
+    private static HashMap<Integer, float[]> gaussianBlurKernels = new HashMap<>();
+    private static final float GAUSSIAN_SIGMA = 3.81f;
 
     public static synchronized FileUtils getInstance()
     {
@@ -111,9 +115,15 @@ public class FileUtils {
             graphics.drawImage(image, brushSize, brushSize, null);
         }
 
-        float[] blurKernel = new float[brushSize * brushSize];
-        float kernelValue = 1.0f / (brushSize * brushSize);
-        Arrays.fill(blurKernel, kernelValue);
+        float[] blurKernel = new float[brushSize*brushSize];
+
+        if(gaussianBlurKernels.containsKey(brushSize)) {
+            blurKernel = gaussianBlurKernels.get(brushSize);
+        }
+        else {
+            Convolution.gaussianKernel(brushSize, brushSize, GAUSSIAN_SIGMA, blurKernel);
+            gaussianBlurKernels.put(brushSize, blurKernel);
+        }
         Kernel kernel = new Kernel(brushSize, brushSize, blurKernel);
         ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
 

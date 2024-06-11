@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.utils.noises.SimplexNoise;
+import net.jukoz.me.world.biomes.BlocksLayeringData;
 import net.jukoz.me.world.biomes.SlopeMap;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
@@ -147,6 +148,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORDOR_MOUNTAINS_FOOTHILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORDOR_WASTES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MOUNT_GUNDABAD),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.NAN_CURUNIR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NEN_HITHOEL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NEN_HITHOEL_FOREST),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NEN_HITHOEL_SHORES),
@@ -228,8 +230,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     }
 
-
-
     @Override
     public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
         int bottomY = chunk.getBottomY();
@@ -273,27 +273,14 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
 
                 float dirtHeight = HEIGHT + height - 1;
-                BlockState stoneBlock = meBiome.blocksLayering.layers.getFirst().block.getDefaultState();
-                BlockState upperStoneBlock = stoneBlock;
-                if (meBiome.blocksLayering.layers.size() > 1) upperStoneBlock = meBiome.blocksLayering.layers.get(1).block.getDefaultState();
-                for(int y = DEEPSLATE_LEVEL + (int) caveBlendNoise; y < (dirtHeight / 2); y++) {
-                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), stoneBlock);
+                int currentHeight = DEEPSLATE_LEVEL + (int) caveBlendNoise;
+                for(BlocksLayeringData.LayerData layerData : meBiome.blocksLayering.layers) {
+                    int blocks = (int) ((dirtHeight - currentHeight) * layerData.percentage);
+                    for(int y = 0; y < blocks; y++) {
+                        trySetBlock(chunk, chunk.getPos().getBlockPos(x, currentHeight + y, z), layerData.block.getDefaultState());
+                    }
+                    currentHeight += blocks;
                 }
-                for(int y = (int) (dirtHeight / 2); y < dirtHeight; y++) {
-                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), upperStoneBlock);
-                }
-                //chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 1), z), stoneBlock, false);
-                //int currentHeight = DEEPSLATE_LEVEL + (int) caveBlendNoise;
-                //for(BlocksLayeringData.LayerData layerData : meBiome.blocksLayering.layers) {
-                //    int blocks = (int) (dirtHeight * layerData.percentage);
-                //    for(int y = 0; y < blocks; y++) {
-                //        trySetBlock(chunk, chunk.getPos().getBlockPos(x, currentHeight + y, z), layerData.block.getDefaultState());
-                //    }
-                //    currentHeight += blocks;
-                //}
-
-                //chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 1), z), meBiome.stoneBlock.getDefaultState(), false);
-
                 BlockState surfaceBlock = meBiome.slopeMap.slopeDatas.getFirst().block.getDefaultState();
                 BlockState underSurfaceBlock;
 

@@ -203,7 +203,7 @@ public class MiddleEarthMapGeneration {
         return true;
     }
 
-    private final static int HEIGHT_BLUR_SIZE = 16;
+    private final static int HEIGHT_BLUR_SIZE = 17;
     private void generateHeight(BufferedImage initialImage) {
         long start = System.currentTimeMillis();
         ExecutorService executorService = Executors.newFixedThreadPool(MiddleEarthMapConfigs.THREAD_POOL_SIZE);
@@ -248,7 +248,7 @@ public class MiddleEarthMapGeneration {
         return true;
     }
 
-    private final static int BASE_HEIGHT_BLUR_SIZE = 24;
+    private final static int BASE_HEIGHT_BLUR_SIZE = 25;
     private void generateBaseHeightImage(BufferedImage initialMap) {
         baseHeightImage = fileUtils.blur(processHeightRegion(initialMap, MiddleEarthMapConfigs.REGION_SIZE, false, 0,0, 0), BASE_HEIGHT_BLUR_SIZE, false);
         fileUtils.saveImage(baseHeightImage,

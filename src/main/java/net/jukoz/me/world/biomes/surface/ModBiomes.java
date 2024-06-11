@@ -195,6 +195,8 @@ public class ModBiomes {
                 5460048, 4999240, 5860962, 731161, 6252369, 4735297)));
         context.register(MEBiomeKeys.MOUNT_GUNDABAD, createGreyMountainsBiome(context, new BiomeColorsDTO(
                 8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583), 1));
+        context.register(MEBiomeKeys.NAN_CURUNIR, createNanCurunirBiome(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, 5076423, defaultWaterFog, 5406786, 4554563)));
         context.register(MEBiomeKeys.NEN_HITHOEL, createLakeBiome(context, new BiomeColorsDTO(
                 waterSky, 12638463, 6853316, 6853316, 10995507, 7181907)));
         context.register(MEBiomeKeys.NEN_HITHOEL_FOREST, createTrollshawsBiome(context, new BiomeColorsDTO(
@@ -203,7 +205,7 @@ public class ModBiomes {
                 6980296, 10402016, 4618461, defaultWaterFog, 9666387, 9731143)));
         context.register(MEBiomeKeys.NINDALF, createSwampAnduin(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6263143, 5869915)));
-        context.register(MEBiomeKeys.NORTH_DOWNS, createNorthDowns(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.NORTH_DOWNS, createNorthDownsBiome(context, new BiomeColorsDTO(
                 hillySky, defaultFog, defaultWater, defaultWaterFog, 9414008, 9018483)));
         context.register(MEBiomeKeys.NORTHERN_DUNLAND, createNorthDunlandBiome(context, new BiomeColorsDTO(
                 7508201, 12964294, defaultWater, defaultWaterFog, 6722387, 6198343), true));
@@ -1060,17 +1062,12 @@ public class ModBiomes {
         if(step == 0) {
             ModBiomeFeatures.addCoarseDirtOre(vegetation);
             ModBiomeFeatures.addGravelOre(vegetation);
-            //ModBiomeFeatures.addStoneGrassOre(vegetation);
-            ModBiomeFeatures.addCommonLarchTrees(vegetation);
-            ModBiomeFeatures.addAbundantPineTrees(vegetation);
-            ModBiomeFeatures.addAbundantSpruceTrees(vegetation);
+            ModBiomeFeatures.addLarchTrees(vegetation);
+            ModBiomeFeatures.addPineTrees(vegetation);
+            ModBiomeFeatures.addSpruceTrees(vegetation);
             ModBiomeFeatures.addCommonSpruceBushes(vegetation);
-        } else if(step == 1){
-            ModBiomeFeatures.addSnowOre(vegetation);
-        } else {
+        } else if (step == 2){
             temperature = -0.3f;
-            ModBiomeFeatures.addPowderSnowOre(vegetation);
-            ModBiomeFeatures.addSnowOre(vegetation);
         }
 
         return createBiome(biomeColors, spawnSettings, generationSettings,temperature, true);
@@ -1101,7 +1098,25 @@ public class ModBiomes {
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
 
-    public static Biome createNorthDowns(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+    public static Biome createNanCurunirBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        ModBiomeFeatures.addWilderGrass(vegetation);
+        ModBiomeFeatures.addOakBushes(vegetation);
+        addDefaultVegetation(generationSettings);
+
+        ModBiomeFeatures.addOakTrees(vegetation);
+        ModBiomeFeatures.addRareBeechTrees(vegetation);
+        ModBiomeFeatures.addBirchTrees(vegetation);
+        ModBiomeFeatures.addPineTrees(vegetation);
+        ModBiomeFeatures.addSpruceTrees(vegetation);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
+    public static Biome createNorthDownsBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addMountainsMobs(spawnSettings);
         ModSpawnSettingsBuilder.addNordicMobs(spawnSettings);
