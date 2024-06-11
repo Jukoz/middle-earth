@@ -653,6 +653,7 @@
   "item.me.deer_spawn_egg": "Deer Spawn Egg",
 
 "#Comment:": "Item - Entities",
+  "item.me.fire_of_orthanc": "Fire of Orthanc",
   "item.me.pebble": "Pebble",
   "item.me.pinecone": "Pinecone",
   "item.me.lit_pinecone": "Lit Pinecone",
@@ -3222,6 +3223,7 @@
   "block.me.silver_lantern": "Silver Lantern",
   "block.me.alloy_furnace": "Alloy Furnace",
   "block.me.artisan_table": "Artisan Table",
+  "block.me.fire_of_orthanc": "Fire of Orthanc",
   "block.me.wood_pile": "Wood Pile",
   "block.me.rope": "Rope",
 
