@@ -5,6 +5,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.jukoz.me.world.chunkgen.ProceduralStructures;
 import net.jukoz.me.world.features.tree.trunks.CanopyTrunkPlacer;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
@@ -99,6 +100,8 @@ public class ModBiomeSource extends BiomeSource {
                 else {
                     processedBiome = MEBiomesData.pond.biome;
                 }
+            } else if(biome.isOf(MEBiomeKeys.NAN_CURUNIR.getRegistryRef()) && ProceduralStructures.isInsideIsengard(i, k)) {
+                processedBiome = MEBiomeKeys.ISENGARD;
             } else processedBiome = biome;
         } else processedBiome = biome;
 

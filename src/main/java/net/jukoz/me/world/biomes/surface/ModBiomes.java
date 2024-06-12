@@ -137,6 +137,10 @@ public class ModBiomes {
                 hillySky, 12637183, defaultWater, defaultWaterFog, 7713657, 7580788)));
         context.register(MEBiomeKeys.IRON_FOOTHILLS, createNorthernRhovanionTaiga(context, new BiomeColorsDTO(
                 hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
+        context.register(MEBiomeKeys.ISENGARD, createIsengardBiome(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, 5076423, defaultWaterFog, 5932619, 5867338), true));
+        context.register(MEBiomeKeys.ISENGARD_HILL, createIsengardBiome(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, 5076423, defaultWaterFog, 5932619, 5867338), false));
         context.register(MEBiomeKeys.ITHILIEN, createIthilienBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 5152072, 4889668), false));
         context.register(MEBiomeKeys.ITHILIEN_WASTES, createIthilienBiome(context, new BiomeColorsDTO(
@@ -816,6 +820,26 @@ public class ModBiomes {
         ModBiomeFeatures.addAbundantTuffOre(vegetation);
         addNordicVegetation(generationSettings);
         addNordicTrees(generationSettings);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
+    public static Biome createIsengardBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, boolean trees) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        ModBiomeFeatures.addWilderGrass(vegetation);
+        ModBiomeFeatures.addOakBushes(vegetation);
+        addDefaultVegetation(generationSettings);
+
+        if(trees) {
+            ModBiomeFeatures.addOakTrees(vegetation);
+            ModBiomeFeatures.addRareBeechTrees(vegetation);
+            ModBiomeFeatures.addRareBirchTrees(vegetation);
+            ModBiomeFeatures.addSparsePineTrees(vegetation);
+            ModBiomeFeatures.addRareSpruceTrees(vegetation);
+        }
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }

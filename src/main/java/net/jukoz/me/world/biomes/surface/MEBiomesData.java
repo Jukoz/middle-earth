@@ -149,6 +149,8 @@ public class MEBiomesData {
         addBiome(new Color(189, 170, 168), new MEBiome(32, MEBiomeKeys.IRON_HILLS_BASE, MEBiomeDataConfigs.mountainModifier.heightModifier(0.48f), MEBiomeDataConfigs.ironHills, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(174, 144, 141), new MEBiome(51, MEBiomeKeys.IRON_HILLS, MEBiomeDataConfigs.mountainModifier.heightModifier(0.57f), MEBiomeDataConfigs.ironHills, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(173, 130, 127), new MEBiome(72, MEBiomeKeys.IRON_HILLS_PEAKS, MEBiomeDataConfigs.mountainModifier.heightModifier(0.68f), MEBiomeDataConfigs.ironHills, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(97, 157, 89), new MEBiome(5, MEBiomeKeys.ISENGARD, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(106, 162, 98), new MEBiome(32, MEBiomeKeys.ISENGARD_HILL, MEBiomeDataConfigs.landModifier.heightModifier(0.51f), MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(4, 117, 42), new MEBiome(5, MEBiomeKeys.ITHILIEN, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers));
         addBiome(new Color(51, 100, 67), new MEBiome(5, MEBiomeKeys.ITHILIEN_WASTES, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers));
         addBiome(new Color(164, 255, 164), new MEBiome(7, MEBiomeKeys.LAMEDON, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers));

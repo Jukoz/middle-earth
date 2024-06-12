@@ -63,7 +63,8 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> IRON_HILLS_BASE = MEBiomeKeys.register("iron_hills_base");
     public static final RegistryKey<Biome> IRON_HILLS = MEBiomeKeys.register("iron_hills");
     public static final RegistryKey<Biome> IRON_HILLS_PEAKS = MEBiomeKeys.register("iron_hills_peaks");
-    // Ithilien
+    public static final RegistryKey<Biome> ISENGARD = MEBiomeKeys.register("isengard");
+    public static final RegistryKey<Biome> ISENGARD_HILL = MEBiomeKeys.register("isengard_hill");
     public static final RegistryKey<Biome> ITHILIEN = MEBiomeKeys.register("ithilien");
     public static final RegistryKey<Biome> ITHILIEN_WASTES = MEBiomeKeys.register("ithilien_wastes");
     public static final RegistryKey<Biome> LAMEDON = MEBiomeKeys.register("lamedon");

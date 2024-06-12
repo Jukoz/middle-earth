@@ -3,10 +3,12 @@ package net.jukoz.me.world.chunkgen;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.block.StoneBlockSets;
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.utils.noises.SimplexNoise;
 import net.jukoz.me.world.biomes.BlocksLayeringData;
 import net.jukoz.me.world.biomes.SlopeMap;
+import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.jukoz.me.world.biomes.surface.MEBiome;
@@ -22,6 +24,7 @@ import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.random.CheckedRandom;
 import net.minecraft.util.math.random.ChunkRandom;
 import net.minecraft.util.math.random.RandomSeed;
@@ -78,6 +81,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.BROWN_LANDS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.CORSAIR_COASTS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DALE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DALE_RIVERSIDE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DARK_MIRKWOOD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DARK_MIRKWOOD_EDGE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DARK_ANDUIN_VALES),
@@ -115,7 +119,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_BASE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_PEAKS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_PLAINS),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.DALE_RIVERSIDE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.ISENGARD),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.ISENGARD_HILL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ITHILIEN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ITHILIEN_WASTES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LAMEDON),
@@ -301,6 +306,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 for(int y = (int) (DIRT_HEIGHT + height + 1); y <= meBiome.waterHeight; y++) {
                     chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.WATER.getDefaultState(), false);
                 }
+
+                ProceduralStructures.generateStructures(meBiome, chunk, posX, (int) (DIRT_HEIGHT + height), posZ);
             }
         }
     }
@@ -383,6 +390,5 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     @Override
     public void getDebugHudText(List<String> text, NoiseConfig noiseConfig, BlockPos pos) {
-
     }
 }
