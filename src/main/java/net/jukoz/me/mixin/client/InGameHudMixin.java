@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(InGameHud.class)
 public abstract class InGameHudMixin {
     @Unique
-    private static final Identifier HALLUCINATION_OUTLINE = new Identifier(MiddleEarth.MOD_ID, "textures/misc/hallucination_outline.png");
+    private static final Identifier HALLUCINATION_OUTLINE = Identifier.of(MiddleEarth.MOD_ID, "textures/misc/hallucination_outline.png");
 
     @Shadow @Final private MinecraftClient client;
 

@@ -80,7 +80,7 @@ public class ModArmorRenderer implements ArmorRenderer {
                 contextModel.copyBipedStateTo(helmetModel);
                 helmetModel.setVisible(false);
                 helmetModel.head.visible = true;
-                helmetModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.pitch);
+                helmetModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.pitch);
                 renderArmor(matrices, vertexConsumers, light, stack, helmetModel, helmetModel.HELMET_ADDON_TEXTURE, this.dyeable);
             }
             if(hasHood){
@@ -125,7 +125,7 @@ public class ModArmorRenderer implements ArmorRenderer {
                 capeModel.body.visible = true;
                 capeModel.rightArm.visible = true;
                 capeModel.leftArm.visible = true;
-                capeModel.setAngles(entity, entity.limbAnimator.getPos(),entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.roll);
+                capeModel.setAngles(entity, entity.limbAnimator.getPos(),entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.roll);
                 renderArmor(matrices, vertexConsumers, light, stack, capeModel, ARMOR_LAYER_CAPE, this.dyeable);
             }
         } else if (slot == EquipmentSlot.LEGS) {

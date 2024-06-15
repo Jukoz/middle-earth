@@ -281,12 +281,12 @@ public class ModDecorativeBlocks {
             new ChainBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).noCollision()));
 
     public static Block registerBlock(String name, Block block) {
-        Identifier identifier = new Identifier(MiddleEarth.MOD_ID, name);
+        Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);
         return Registry.register(Registries.BLOCK, identifier, block);
     }
 
     public static Block registerBlockWithItem(String name, Block block) {
-        Identifier identifier = new Identifier(MiddleEarth.MOD_ID, name);
+        Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);
         ModBlocks.registerBlockItem(name, block);
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
         return Registry.register(Registries.BLOCK, identifier, block);
