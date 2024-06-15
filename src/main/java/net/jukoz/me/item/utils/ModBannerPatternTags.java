@@ -17,6 +17,6 @@ public class ModBannerPatternTags {
     public static final TagKey<BannerPattern> MISTY_ORCS_PEAKS_PATTERN_ITEM = of("misty_orcs_peaks");
 
     private static TagKey<BannerPattern> of(String name) {
-        return TagKey.of(RegistryKeys.BANNER_PATTERN, new Identifier(MiddleEarth.MOD_ID, "pattern_item/" + name));
+        return TagKey.of(RegistryKeys.BANNER_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "pattern_item/" + name));
     }
 }

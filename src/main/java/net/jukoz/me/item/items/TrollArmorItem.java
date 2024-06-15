@@ -28,7 +28,7 @@ public class TrollArmorItem extends AnimalArmorItem {
     }
 
     public Identifier getEntityTexture() {
-        return new Identifier(MiddleEarth.MOD_ID ,this.entityTexture);
+        return Identifier.of(MiddleEarth.MOD_ID ,this.entityTexture);
     }
 
     @Override

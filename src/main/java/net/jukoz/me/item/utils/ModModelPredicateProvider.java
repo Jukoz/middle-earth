@@ -21,14 +21,14 @@ public class ModModelPredicateProvider {
         registerBow(ModWeaponItems.UMBAR_BOW);
     }
     private static void registerBow(Item bow) {
-        ModelPredicateProviderRegistry.register(bow, new Identifier("pull"),
+        ModelPredicateProviderRegistry.register(bow, Identifier.of("pull"),
                 (stack, world, entity, seed) -> {
                    if(entity == null) return 0.0f;
                    else if (entity.getActiveItem() != stack) return 0.0f;
                    return (float)(stack.getMaxUseTime() - entity.getItemUseTimeLeft()) / 20.0f;
                 });
 
-        ModelPredicateProviderRegistry.register(bow, new Identifier("pulling"),
+        ModelPredicateProviderRegistry.register(bow, Identifier.of("pulling"),
                 (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0f : 0.0f);
     }
 
@@ -42,7 +42,7 @@ public class ModModelPredicateProvider {
     }
 
     private static void registerShield(Item shield) {
-        ModelPredicateProviderRegistry.register(shield, new Identifier("blocking"),
+        ModelPredicateProviderRegistry.register(shield, Identifier.of("blocking"),
                 (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F);
     }
 }
