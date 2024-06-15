@@ -1,22 +1,15 @@
 package net.jukoz.me.item.items;
 
-import com.google.common.collect.ImmutableMultimap;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.item.utils.ModToolMaterials;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipType;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentType;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;

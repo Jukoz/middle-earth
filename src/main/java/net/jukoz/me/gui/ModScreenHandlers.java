@@ -21,11 +21,11 @@ public class ModScreenHandlers {
         ARTISAN_SCREEN_HANDLER = new ScreenHandlerType<>(ArtisanTableScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
         WOOD_PILE_SCREEN_HANDLER = new ScreenHandlerType<>(WoodPileScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
 
-        Registry.register(Registries.SCREEN_HANDLER, new Identifier(MiddleEarth.MOD_ID, "alloy_furnace"),
+        Registry.register(Registries.SCREEN_HANDLER, Identifier.of(MiddleEarth.MOD_ID, "alloy_furnace"),
                 ALLOY_SCREEN_HANDLER);
-        Registry.register(Registries.SCREEN_HANDLER, new Identifier(MiddleEarth.MOD_ID, "artisan_table"),
+        Registry.register(Registries.SCREEN_HANDLER, Identifier.of(MiddleEarth.MOD_ID, "artisan_table"),
                 ARTISAN_SCREEN_HANDLER);
-        Registry.register(Registries.SCREEN_HANDLER, new Identifier(MiddleEarth.MOD_ID, "wood_pile"),
+        Registry.register(Registries.SCREEN_HANDLER, Identifier.of(MiddleEarth.MOD_ID, "wood_pile"),
                 WOOD_PILE_SCREEN_HANDLER);
     }
 }

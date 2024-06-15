@@ -15,11 +15,11 @@ public class ModBlockEntities {
 
     public static void registerBlockEntities() {
         ALLOY_FURNACE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                new Identifier(MiddleEarth.MOD_ID, "alloy_furnace"),
+                Identifier.of(MiddleEarth.MOD_ID, "alloy_furnace"),
                 FabricBlockEntityTypeBuilder.create(AlloyFurnaceEntity::new,
                         ModDecorativeBlocks.ALLOY_FURNACE).build(null));
         WOOD_PILE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                new Identifier(MiddleEarth.MOD_ID, "wood_pile"),
+                Identifier.of(MiddleEarth.MOD_ID, "wood_pile"),
                 FabricBlockEntityTypeBuilder.create(WoodPileBlockEntity::new,
                         ModDecorativeBlocks.WOOD_PILE).build(null));
     }

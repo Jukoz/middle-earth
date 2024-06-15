@@ -21,6 +21,6 @@ public class ModFeatures {
     }
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {
-        return (F) Registry.register(Registries.FEATURE, new Identifier(MiddleEarth.MOD_ID, name), feature);
+        return (F) Registry.register(Registries.FEATURE, Identifier.of(MiddleEarth.MOD_ID, name), feature);
     }
 }

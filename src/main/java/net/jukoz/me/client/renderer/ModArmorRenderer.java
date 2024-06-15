@@ -45,11 +45,11 @@ public class ModArmorRenderer implements ArmorRenderer {
                             boolean hasInnerLayer, boolean hasVanillaArmorModel, boolean hasCape, boolean hasHood, boolean dyeable) {
         helmetModel = customHelmetModel;
         chestplateModel = customChestplateModel;
-        ARMOR_LAYER_0 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_0.png");
-        ARMOR_LAYER_1 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_1.png");
-        ARMOR_LAYER_2 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_2.png");
-        ARMOR_LAYER_CAPE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_cape.png");
-        ARMOR_LAYER_HOOD = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_hood.png");
+        ARMOR_LAYER_0 = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_0.png");
+        ARMOR_LAYER_1 = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_1.png");
+        ARMOR_LAYER_2 = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_2.png");
+        ARMOR_LAYER_CAPE = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_cape.png");
+        ARMOR_LAYER_HOOD = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_hood.png");
 
         this.hasInnerLayer = hasInnerLayer;
         this.hasVanillaArmorModel = hasVanillaArmorModel;
