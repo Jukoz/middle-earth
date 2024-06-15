@@ -4,6 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnace;
 import net.jukoz.me.block.special.artisantable.ArtisanTable;
+import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancBlock;
 import net.jukoz.me.block.special.toggeable_lights.DwarvenLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.SilverLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.WallDwarvenLanternBlock;
@@ -14,6 +15,7 @@ import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 
@@ -39,6 +41,9 @@ public class ModDecorativeBlocks {
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             new WoodPileBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque()));
 
+    public static final Block FIRE_OF_ORTHANC = registerBlock("fire_of_orthanc",
+            new FireOfOrthancBlock(AbstractBlock.Settings.create().requiresTool().mapColor(MapColor.BLACK)
+                    .sounds(BlockSoundGroup.METAL).strength(6f).burnable().solidBlock(Blocks::never).nonOpaque()));
 
     public static final Block WOOD_FRAMED_WINDOW = registerBlockWithItem("wood_framed_window",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));

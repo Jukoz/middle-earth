@@ -226,6 +226,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsDiamondTools.add(OreRockSets.EPMOSTO.gold_ore());
         needsDiamondTools.add(OreRockSets.EPMOSTO.iron_ore());
         needsDiamondTools.add(OreRockSets.EPMOSTO.mithril_ore());
+        needsDiamondTools.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
 
         needsStoneTools.add(ModBlocks.BRONZE_BLOCK);
         needsStoneTools.add(ModBlocks.ORC_STEEL_BLOCK);
@@ -240,6 +241,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableShovel.add(ModBlocks.BLACK_SAND);
         mineableShovel.add(ModBlocks.WHITE_SAND);
 
+        mineablePickaxe.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
         mineablePickaxe.add(ModDecorativeBlocks.DWARVEN_LANTERN);
         mineablePickaxe.add(ModDecorativeBlocks.SILVER_LANTERN);
 
