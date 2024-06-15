@@ -1,6 +1,8 @@
 package net.jukoz.me.mixin.client;
 
 import net.jukoz.me.item.ModDecorativeItems;
+import net.jukoz.me.item.items.ReachWeaponItem;
+import net.jukoz.me.item.utils.WeaponTypes;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.LivingEntity;
@@ -44,5 +46,11 @@ public class BipedEntityModelMixin {
             this.leftArm.pitch = pitch;
             this.leftArm.yaw = 0.0F;
         }
+        /*if(itemStack.getItem() instanceof ReachWeaponItem && ((ReachWeaponItem) itemStack.getItem()).getType() == WeaponTypes.SPEAR) {
+            float pitch = -2.60f;
+            this.rightArm.pitch = pitch;
+            this.rightArm.yaw = 0.0F;
+            this.rightArm.roll = 0.0F;
+        }*/
     }
 }

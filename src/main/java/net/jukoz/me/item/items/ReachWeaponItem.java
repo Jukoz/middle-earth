@@ -18,8 +18,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
+import net.minecraft.registry.Registries;
+import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 
 import java.util.List;
@@ -95,5 +95,13 @@ public class ReachWeaponItem extends SwordItem {
 
     public WeaponTypes getType() {
         return type;
+    }
+
+    @Override
+    public Text getName(ItemStack stack) {
+        if(Registries.ITEM.getId(stack.getItem()).getPath().contains("_noble") || Registries.ITEM.getId(stack.getItem()).getPath().contains("_elite")){
+            return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.GOLD);
+        }
+        return super.getName(stack);
     }
 }

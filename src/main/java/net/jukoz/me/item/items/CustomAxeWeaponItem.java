@@ -5,6 +5,7 @@ import net.jukoz.me.item.utils.WeaponTypes;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipType;
 import net.minecraft.item.*;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -59,4 +60,11 @@ public class CustomAxeWeaponItem extends AxeItem {
         super.appendTooltip(stack, context, tooltip, type);
     }
 
+    @Override
+    public Text getName(ItemStack stack) {
+        if(Registries.ITEM.getId(stack.getItem()).getPath().contains("_noble") || Registries.ITEM.getId(stack.getItem()).getPath().contains("_elite")){
+            return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.GOLD);
+        }
+        return super.getName(stack);
+    }
 }
