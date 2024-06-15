@@ -14,11 +14,11 @@ public class ModModelPredicateProvider {
     }
 
     private static void registerBowModel() {
-        registerBow(ModWeaponItems.DALISH_BOW);
-        registerBow(ModWeaponItems.GONDOR_BOW);
+        //registerBow(ModWeaponItems.DALISH_BOW);
+        registerBow(ModWeaponItems.GONDORIAN_BOW);
         registerBow(ModWeaponItems.LORIEN_BOW);
         registerBow(ModWeaponItems.ROHIRRIC_BOW);
-        registerBow(ModWeaponItems.UMBAR_BOW);
+        //registerBow(ModWeaponItems.UMBAR_BOW);
     }
     private static void registerBow(Item bow) {
         ModelPredicateProviderRegistry.register(bow, new Identifier("pull"),

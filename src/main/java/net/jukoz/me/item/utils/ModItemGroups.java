@@ -88,7 +88,7 @@ public class ModItemGroups {
     public static final List<ItemStack> WEAPONS_CONTENTS = new LinkedList<>();
     public static final ItemGroup WEAPONS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".weapon_items"))
-            .icon(() -> new ItemStack(ModWeaponItems.GONDOR_SWORD))
+            .icon(() -> new ItemStack(ModWeaponItems.GONDORIAN_SWORD))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : WEAPONS_CONTENTS) {
                     entries.add(item);

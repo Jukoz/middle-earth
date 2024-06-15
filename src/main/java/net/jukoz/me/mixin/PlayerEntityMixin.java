@@ -1,6 +1,7 @@
 package net.jukoz.me.mixin;
 
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
+import net.jukoz.me.item.items.ReachWeaponItem;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -26,11 +27,14 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static net.minecraft.entity.EquipmentSlot.OFFHAND;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
@@ -53,7 +57,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                     if (hand == Hand.MAIN_HAND) {
                         this.equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                     } else {
-                        this.equipStack(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+                        this.equipStack(OFFHAND, ItemStack.EMPTY);
                     }
                     activeItemStack = ItemStack.EMPTY;
                     this.playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8F, 0.8F + this.getWorld().random.nextFloat() * 0.4F);
@@ -96,4 +100,37 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             player.getWorld().sendEntityStatus(player, (byte) 30);
         }
     }
+
+    /*@Inject(method = "getEquippedStack", at = @At("HEAD"), cancellable = true)
+    public void getEquippedStack_Pre(EquipmentSlot slot, CallbackInfoReturnable<ItemStack> cir) {
+        boolean handTwoHanded = false;
+        ItemStack stackMainHand = null;
+        if(this.getHandItems().iterator().hasNext()){
+            stackMainHand = this.getHandItems().iterator().next();
+        }
+        if(stackMainHand != null){
+            if (stackMainHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackMainHand.getItem()).type.twoHanded)) {
+                handTwoHanded = true;
+            }
+        }
+
+        boolean offHandTwoHanded = false;
+        ItemStack stackOffHand = null;
+        if(this.getHandItems().iterator().hasNext()){
+            stackOffHand = this.getHandItems().iterator().next();
+        }
+        if(stackOffHand != null){
+            if (stackOffHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackOffHand.getItem()).type.twoHanded)) {
+                offHandTwoHanded = true;
+            }
+        }
+
+        if (slot == OFFHAND) {
+            if (handTwoHanded || offHandTwoHanded) {
+                cir.setReturnValue(ItemStack.EMPTY);
+                cir.cancel();
+                return;
+            }
+        }
+    }*/
 }
