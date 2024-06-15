@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.SmithingRecipe;
 import net.minecraft.recipe.StonecuttingRecipe;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
@@ -154,6 +155,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.inputStack = itemStack.copy();
         this.updateInput(inventory, itemStack);
     }
+
 
     private void updateInput(Inventory input, ItemStack stack) {
         this.availableRecipes.clear();

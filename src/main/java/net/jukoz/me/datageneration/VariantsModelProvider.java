@@ -19,9 +19,8 @@ public class VariantsModelProvider implements ExtraModelProvider {
         }
     }
 
-    public static ModelIdentifier getInventoryModelIdentifierVariant(Item item) {
-        return new ModelIdentifier(
-                MiddleEarth.MOD_ID, VariantsModelProvider.getKey(item.getTranslationKey()) + "_inventory", "inventory");
+    public static Identifier getInventoryModelIdentifierVariant(Item item) {
+        return Identifier.of(MiddleEarth.MOD_ID, VariantsModelProvider.getKey(item.getTranslationKey()) + "_inventory");
     }
 
     public static String getKey(String path) {

@@ -8,6 +8,7 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,7 +23,7 @@ public abstract class ItemRendererMixin {
     private BakedModel renderItem(BakedModel bakedModel, ItemStack itemStack, ModelTransformationMode renderMode) {
         if(renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED) {
             if(SimpleBigItemModel.items.contains(itemStack.getItem())) {
-                ModelIdentifier modelIdentifier = VariantsModelProvider.getInventoryModelIdentifierVariant(itemStack.getItem()); // new ModelIdentifier(MiddleEarth.MOD_ID, itemStack.getTranslationKey(), "inventory");
+                Identifier modelIdentifier = VariantsModelProvider.getInventoryModelIdentifierVariant(itemStack.getItem()); // new ModelIdentifier(MiddleEarth.MOD_ID, itemStack.getTranslationKey(), "inventory");
                 return models.getModelManager().getModel(modelIdentifier);
             }
         }

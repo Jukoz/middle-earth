@@ -25,7 +25,7 @@ public class ModModelPredicateProvider {
                 (stack, world, entity, seed) -> {
                    if(entity == null) return 0.0f;
                    else if (entity.getActiveItem() != stack) return 0.0f;
-                   return (float)(stack.getMaxUseTime() - entity.getItemUseTimeLeft()) / 20.0f;
+                   return (float)(stack.getMaxUseTime(entity) - entity.getItemUseTimeLeft()) / 20.0f;
                 });
 
         ModelPredicateProviderRegistry.register(bow, Identifier.of("pulling"),

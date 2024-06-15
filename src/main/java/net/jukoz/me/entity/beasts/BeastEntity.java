@@ -265,10 +265,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
         return super.getStackReference(mappedIndex);
     }
 
-    protected int getInventorySize() {
-        return this.hasChest() ? 17 : super.getInventorySize();
-    }
-
     public int getInventoryColumns() {
         return 5;
     }
@@ -479,10 +475,5 @@ public class BeastEntity extends AbstractDonkeyEntity {
     @Override
     public boolean cannotBeSilenced() {
         return super.cannotBeSilenced();
-    }
-
-    @Override
-    public EntityView method_48926() {
-        return null;
     }
 }

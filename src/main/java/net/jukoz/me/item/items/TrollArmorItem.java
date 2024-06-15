@@ -2,7 +2,6 @@ package net.jukoz.me.item.items;
 
 import net.fabricmc.fabric.api.item.v1.EnchantingContext;
 import net.jukoz.me.MiddleEarth;
-import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AnimalArmorItem;
@@ -41,9 +40,8 @@ public class TrollArmorItem extends AnimalArmorItem {
         return super.allowContinuingBlockBreaking(player, oldStack, newStack);
     }
 
-    @Override
-    public AttributeModifiersComponent getAttributeModifiers(ItemStack stack) {
-        return super.getAttributeModifiers(stack);
+    public Type getType() {
+        return super.getType();
     }
 
     @Override
@@ -52,7 +50,7 @@ public class TrollArmorItem extends AnimalArmorItem {
     }
 
     @Override
-    public boolean canBeEnchantedWith(ItemStack stack, Enchantment enchantment, EnchantingContext context) {
+    public boolean canBeEnchantedWith(ItemStack stack, RegistryEntry<Enchantment> enchantment, EnchantingContext context) {
         return super.canBeEnchantedWith(stack, enchantment, context);
     }
 

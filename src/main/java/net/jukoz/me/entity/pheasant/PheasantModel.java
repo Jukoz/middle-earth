@@ -70,10 +70,9 @@ public class PheasantModel extends SinglePartEntityModel<PheasantEntity> {
         return TexturedModelData.of(modelData, 64, 48);
     }
 
-
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-        pheasant.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+        pheasant.render(matrices, vertices, light, overlay, color);
     }
 
     @Override
