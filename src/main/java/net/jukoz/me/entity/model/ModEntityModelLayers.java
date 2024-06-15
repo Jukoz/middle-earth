@@ -58,7 +58,7 @@ public final class ModEntityModelLayers {
      * The modelData is used to know the UV map to use for the 3D model
      * **/
     private static EntityModelLayer registerEntityModelLayer(String registryName, TexturedModelData modelData) {
-        EntityModelLayer entityModelLayer = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, registryName), MAIN);
+        EntityModelLayer entityModelLayer = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, registryName), MAIN);
         EntityModelLayerRegistry.registerModelLayer(entityModelLayer, () -> modelData);
         return entityModelLayer;
     }
