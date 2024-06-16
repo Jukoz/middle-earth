@@ -2,6 +2,7 @@ package net.jukoz.me.gui.artisantable;
 
 import com.google.common.collect.Lists;
 import net.jukoz.me.block.ModDecorativeBlocks;
+import net.jukoz.me.block.special.alloyfurnace.MultipleStackRecipeInput;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.recipe.ArtisanRecipe;
 import net.jukoz.me.recipe.ModRecipes;
@@ -13,10 +14,6 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.SmithingRecipe;
-import net.minecraft.recipe.StonecuttingRecipe;
-import net.minecraft.recipe.input.SingleStackRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
@@ -24,6 +21,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArtisanTableScreenHandler extends ScreenHandler {
@@ -157,19 +155,27 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
 
-    private void updateInput(Inventory input, ItemStack stack) {
+    private void updateInput(Inventory inventory, ItemStack stack) {
+        List<ItemStack> inputs = new ArrayList<>();
+        for (int i = 0; i < inventory.size(); i++) {
+            inputs.add(inventory.getStack(i));
+        }
         this.availableRecipes.clear();
         this.selectedRecipe.set(-1);
         this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
         if (!stack.isEmpty()) {
-            this.availableRecipes = this.world.getRecipeManager().getAllMatches(ModRecipes.ARTISAN_TABLE, input, this.world);
+            this.availableRecipes = this.world.getRecipeManager().getAllMatches(ModRecipes.ARTISAN_TABLE, new MultipleStackRecipeInput(inputs), this.world);
         }
     }
 
     void populateResult() {
         if (!this.availableRecipes.isEmpty() && this.isInBounds(this.selectedRecipe.get())) {
+            List<ItemStack> inputs = new ArrayList<>();
+            for (int i = 0; i < this.input.size(); i++) {
+                inputs.add(this.input.getStack(i));
+            }
             RecipeEntry<ArtisanRecipe> recipeEntry = this.availableRecipes.get(this.selectedRecipe.get());
-            ItemStack itemStack = recipeEntry.value().craft(this.input, this.world.getRegistryManager());
+            ItemStack itemStack = recipeEntry.value().craft(new MultipleStackRecipeInput(inputs), this.world.getRegistryManager());
             if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
                 this.output.setLastRecipe(recipeEntry);
                 this.outputSlot.setStackNoCallbacks(itemStack);

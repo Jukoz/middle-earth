@@ -8,7 +8,6 @@ import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.datageneration.content.loot_tables.CropDrops;
 import net.jukoz.me.datageneration.content.loot_tables.LeavesDrops;
-import net.jukoz.me.datageneration.content.models.SimpleFanModel;
 import net.jukoz.me.datageneration.content.models.TintableCrossModel;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
@@ -23,10 +22,6 @@ import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.predicate.NumberRange;
-import net.minecraft.predicate.item.EnchantmentPredicate;
-import net.minecraft.predicate.item.EnchantmentsPredicate;
-import net.minecraft.predicate.item.ItemSubPredicateTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.loot.condition.TableBonusLootCondition;
 import net.minecraft.loot.entry.LeafEntry;
@@ -36,7 +31,6 @@ import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.registry.RegistryWrapper;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class BlockLootTableProvider extends FabricBlockLootTableProvider {
