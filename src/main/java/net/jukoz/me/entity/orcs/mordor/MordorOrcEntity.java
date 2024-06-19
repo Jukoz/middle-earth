@@ -122,11 +122,11 @@ public class MordorOrcEntity extends NpcEntity {
 
     private void soldierEquipment(Random random){
         if(random.nextFloat() >= 0.30f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_HELMET));
+            //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_HELMET));
         }
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_BOOTS));
+       // equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_CHESTPLATE));
+       // equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_LEGGINGS));
+       // equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MORDOR_ORC_MAIL_BOOTS));
 
 
         float val3 = random.nextFloat();

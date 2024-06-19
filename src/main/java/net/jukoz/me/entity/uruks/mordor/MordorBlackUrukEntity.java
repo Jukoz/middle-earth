@@ -96,10 +96,10 @@ public class MordorBlackUrukEntity extends NpcEntity {
     }
 
     private void knightEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MORDOR_BLACK_URUK_SCALE_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MORDOR_BLACK_URUK_SCALE_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MORDOR_BLACK_URUK_SCALE_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MORDOR_BLACK_URUK_SCALE_BOOTS));
+        //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MORDOR_BLACK_URUK_SCALE_HELMET));
+        //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MORDOR_BLACK_URUK_SCALE_CHESTPLATE));
+        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MORDOR_BLACK_URUK_SCALE_LEGGINGS));
+        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MORDOR_BLACK_URUK_SCALE_BOOTS));
 
         float val = random.nextFloat();
         if(val >= 0.75f){

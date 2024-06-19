@@ -1,5 +1,6 @@
 package net.jukoz.me;
 
+import dev.architectury.platform.Mod;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
@@ -11,7 +12,7 @@ import net.jukoz.me.client.model.equipment.*;
 import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
 import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
 import net.jukoz.me.client.model.equipment.head.RohirricHelmetArmorAddonModel;
-import net.jukoz.me.client.renderer.ModArmorRenderer;
+import net.jukoz.me.client.renderer.*;
 import net.jukoz.me.datageneration.VariantsModelProvider;
 import net.jukoz.me.datageneration.content.models.SimpleDoubleBlockModel;
 import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
@@ -51,6 +52,7 @@ import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreen;
 import net.jukoz.me.gui.wood_pile.WoodPileScreen;
+import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
@@ -67,10 +69,12 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+
+import java.util.Objects;
 
 public class MiddleEarthClient implements ClientModInitializer {
 
@@ -182,9 +186,34 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(CAPE_MODEL_LAYER, CloakCapeModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HOOD_MODEL_LAYER, CloakHoodModel::getTexturedModelData);
 
-        ModEquipmentItems.armorPiecesList.forEach(armor -> {
-            ArmorRenderer.register(new ModArmorRenderer(), armor.asItem());
+        ModEquipmentItems.armorPiecesListHelmets.forEach(armor -> {
+            ArmorRenderer.register(new HelmetArmorRenderer(), armor.asItem());
         });
+        ModEquipmentItems.armorPiecesListChestplates.forEach(armor -> {
+            ArmorRenderer.register(new ChestplateArmorRenderer(), armor.asItem());
+        });
+        ModEquipmentItems.armorPiecesListLeggings.forEach(armor -> {
+            ArmorRenderer.register(new LeggingsArmorRenderer(), armor.asItem());
+        });
+        ModEquipmentItems.armorPiecesListBoots.forEach(armor -> {
+            ArmorRenderer.register(new BootsArmorRenderer(), armor.asItem());
+        });
+
+        ModEquipmentItems.armorPiecesListRustyHelmets.forEach(armor -> {
+            ArmorRenderer.register(new DegradedHelmetArmorRenderer(), armor.asItem());
+        });
+        ModEquipmentItems.armorPiecesListRustyChestplates.forEach(armor -> {
+            ArmorRenderer.register(new DegradedChestplateArmorRenderer(), armor.asItem());
+        });
+        ModEquipmentItems.armorPiecesListRustyLeggings.forEach(armor -> {
+            ArmorRenderer.register(new DegradedLeggingsArmorRenderer(), armor.asItem());
+        });
+        ModEquipmentItems.armorPiecesListRustyBoots.forEach(armor -> {
+            ArmorRenderer.register(new DegradedBootsArmorRenderer(), armor.asItem());
+        });
+
+        ArmorRenderer.register(new HoodRenderer(), ModEquipmentItems.CLOAK_HOOD);
+        ArmorRenderer.register(new CapeRenderer(), ModEquipmentItems.CLOAK);
 
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MALLORN_LEAVES_PARTICLE, LeavesParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE, LeavesParticle.Factory::new);
@@ -358,6 +387,9 @@ public class MiddleEarthClient implements ClientModInitializer {
     }
 
     private void registerDyeableItem(Item item) {
-        ColorProviderRegistry.ITEM.register((stack, layer) -> layer == 0 ? CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR) : 0xFFFFFF, item);
+
+        if (Objects.requireNonNull(new ItemStack(item).get(ModDataComponentTypes.DYE_DATA)).overlay()){
+            ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex > 0 ? - 0xFFFFFF : CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR), item);
+        }
     }
 }

@@ -3392,6 +3392,8 @@
   "container.artisan_table": "Artisan Table",
   "screen.me.wood_pile": "Wood Pile",
 
+
+
 "Comment": "Tooltips",
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",
   "tooltip.me.alt" : "Hold §3ALT§f to see custom parts information.",
@@ -3412,6 +3414,7 @@
 
   "tooltip.me.dwarven" : "Dwarven",
   "tooltip.me.elven" : "Elven",
+  "tooltip.me.orc" : "Orc",
 
   "tooltip.me.shire" : "Shire",
   "tooltip.me.gondor" : "Gondor",
@@ -3434,5 +3437,22 @@
   "tooltip.me.impaled_skulls" : "Impaled Skulls",
   "tooltip.me.skull" : "Skull",
   "tooltip.me.pouch" : "Pouch",
-  "tooltip.me.feather" : "Feather"
+  "tooltip.me.feather" : "Feather",
+
+"Comment": "Capes",
+  "tooltip.me.base_cape": "Basic Cape",
+  
+  "tooltip.me.gondorian_captain_cape": "Gondorian Captain Cape",
+  "tooltip.me.gondorian_hero_cape": "Gondorian Hero Cape",
+  "tooltip.me.gondorian_kings_guard_cape": "Gondorian King's Guard Cape",
+  "tooltip.me.gondorian_citadel_guard_cape": "Gondorian Citadel Guard Cape",
+  "tooltip.me.gondorian_fountain_guard_cape": "Gondorian Fountain Guard Cape",
+  
+  "tooltip.me.rohirric_cape": "Rohirric Cape",
+  "tooltip.me.rohirric_royal_guard_cape": "Rohirric Royal Guard Cape",
+  "tooltip.me.eorling_marshal_cape": "Eorling Marshal Cape",
+  "tooltip.me.horse_lord_cape": "Horse Lord Cape",
+  
+  "tooltip.me.lorien_cape": "Lórien Cape",
+  "tooltip.me.lorien_commander_cape": "Lórien commander Cape"
 }

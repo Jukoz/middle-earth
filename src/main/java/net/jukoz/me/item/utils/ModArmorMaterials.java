@@ -21,6 +21,9 @@ import java.util.function.Supplier;
 
 public class ModArmorMaterials {
 
+    public static final ExtendedArmorMaterial CAPE = registerArmor("cape", 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
+
     public static final ExtendedArmorMaterial STRAW_HAT = registerArmor("straw_hat", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(ModResourceItems.STRAW),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shire"), null);
 
@@ -72,10 +75,10 @@ public class ModArmorMaterials {
     public static final ExtendedArmorMaterial CHAINMAIL_FUR_CLOAK = registerArmor("chainmail_fur_cloak", 3, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, () -> Ingredient.ofItems(Items.IRON_INGOT),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
 
-    public static final ExtendedArmorMaterial RUSTY_KETTLE_HAT = registerArmor("rusty_kettle_hat", 2, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT),
+    public static final ExtendedArmorMaterial RUSTY_KETTLE_HAT = registerArmor("rusty_kettle_hat", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
 
-    public static final ExtendedArmorMaterial KETTLE_HAT = registerArmor("kettle_hat", 2, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT),
+    public static final ExtendedArmorMaterial KETTLE_HAT = registerArmor("kettle_hat", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), null);
 
     public static final ExtendedArmorMaterial NAZGUL_CLOAK = registerArmor("nazgul_cloak", 3, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(ModResourceItems.MORGUL_STEEL_INGOT),
@@ -165,10 +168,16 @@ public class ModArmorMaterials {
     public static final ExtendedArmorMaterial LORIEN_COMMANDER_ARMOR = registerArmor("lorien_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null);
 
-    public static final ExtendedArmorMaterial MORDOR_ORC_MAIL_ARMOR = registerArmor("mordor_orc_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT),
-            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
+    public static final ExtendedArmorMaterial ORC_MAIl_GENERIC = registerArmor("orc_mail_generic", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".orc"));
+
+    public static final ExtendedArmorMaterial ORC_T4_GENERIC = registerArmor("orc_t4_generic", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".orc"));
 
     public static final ExtendedArmorMaterial MORDOR_T4 = registerArmor("mordor_t4",  4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
+
+    public static final ExtendedArmorMaterial MORDOR_ORC_T5 = registerArmor("mordor_orc_t5",  5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
 
     public static final ExtendedArmorMaterial MORDOR_BLACK_URUK_PLATE_ARMOR = registerArmor("mordor_black_uruk_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT),
@@ -194,6 +203,17 @@ public class ModArmorMaterials {
         int enchantability;
         int durabilityMultiplier;
         switch (tier) {
+            case 0 -> {
+                map.put(ArmorItem.Type.BOOTS, 0);
+                map.put(ArmorItem.Type.LEGGINGS, 0);
+                map.put(ArmorItem.Type.CHESTPLATE, 0);
+                map.put(ArmorItem.Type.HELMET, 0);
+                map.put(ArmorItem.Type.BODY, 0);
+                durabilityMultiplier = 5;
+                toughness = 0.0f;
+                knockbackResistance = 0.0f;
+                enchantability = 10;
+            }
             case 1 -> {
                 map.put(ArmorItem.Type.BOOTS, 1);
                 map.put(ArmorItem.Type.LEGGINGS, 2);

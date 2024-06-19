@@ -142,7 +142,7 @@ public class LongbeardDwarfEntity extends NpcEntity {
 
         float val1 = random.nextFloat();
         if(val1 >= 0.30f){
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.DWARVEN_PARTISAN_CHESTPLATE));
+            //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.DWARVEN_PARTISAN_CHESTPLATE));
         } else  {
             equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.FUR_CLOAK));
 
@@ -151,10 +151,10 @@ public class LongbeardDwarfEntity extends NpcEntity {
         float val2 = random.nextFloat();
 
         if(val2 >= 0.50f){
-            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.DWARVEN_PARTISAN_LEGGINGS));
+            //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.DWARVEN_PARTISAN_LEGGINGS));
         }
 
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.DWARVEN_PARTISAN_BOOTS));
+        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.DWARVEN_PARTISAN_BOOTS));
 
 
         float val3 = random.nextFloat();
@@ -173,20 +173,18 @@ public class LongbeardDwarfEntity extends NpcEntity {
 
         float val = random.nextFloat();
         if(val >= 0.30f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.EREBOR_MAIL_HELMET));
+            //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.EREBOR_MAIL_HELMET));
         } else  {
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.FUR_CLOAK_HOOD));
         }
 
         float val1 = random.nextFloat();
         if(val1 >= 0.30f){
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.EREBOR_MAIL_CHESTPLATE));
-        } else  {
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.CHAINMAIL_FUR_CLOAK));
+            //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.EREBOR_MAIL_CHESTPLATE));
         }
 
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.EREBOR_MAIL_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.EREBOR_MAIL_BOOTS));
+        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.EREBOR_MAIL_LEGGINGS));
+        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.EREBOR_MAIL_BOOTS));
 
 
         float val3 = random.nextFloat();
@@ -202,10 +200,10 @@ public class LongbeardDwarfEntity extends NpcEntity {
     }
 
     private void knightEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.EREBOR_SCALE_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.EREBOR_SCALE_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.EREBOR_SCALE_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.EREBOR_SCALE_BOOTS));
+        //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.EREBOR_SCALE_HELMET));
+        //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.EREBOR_SCALE_CHESTPLATE));
+        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.EREBOR_SCALE_LEGGINGS));
+        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.EREBOR_SCALE_BOOTS));
 
         float val = random.nextFloat();
         if(val >= 0.75f){
@@ -220,10 +218,10 @@ public class LongbeardDwarfEntity extends NpcEntity {
     }
 
     private void veteranEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.EREBOR_PLATE_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.EREBOR_PLATE_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.EREBOR_PLATE_BOOTS));
+        //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.EREBOR_PLATE_HELMET));
+        //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.EREBOR_PLATE_CHESTPLATE));
+        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.EREBOR_PLATE_LEGGINGS));
+        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.EREBOR_PLATE_BOOTS));
 
         float val = random.nextFloat();
         if(val >= 0.75f){
@@ -238,10 +236,10 @@ public class LongbeardDwarfEntity extends NpcEntity {
     }
 
     private void leaderEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.EREBOR_COMMANDER_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.EREBOR_COMMANDER_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.EREBOR_COMMANDER_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.EREBOR_COMMANDER_BOOTS));
+        //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.EREBOR_COMMANDER_HELMET));
+        //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.EREBOR_COMMANDER_CHESTPLATE));
+        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.EREBOR_COMMANDER_LEGGINGS));
+        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.EREBOR_COMMANDER_BOOTS));
 
         equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LONGBEARD_BATTLEAXE));
     }

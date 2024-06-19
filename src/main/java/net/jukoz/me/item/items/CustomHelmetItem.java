@@ -63,9 +63,9 @@ public class CustomHelmetItem extends ArmorItem {
             }
             if (hoodDataComponent != null) {
                 if (hoodDataComponent.enabled()) {
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".hood").append(": Enabled ").append(hoodDataComponent.target()));
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood()).append(": Enabled "));
                 } else {
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".hood").append(": Disabled"));
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood()).append(": Disabled"));
                 }
             }
         } else {
@@ -81,9 +81,9 @@ public class CustomHelmetItem extends ArmorItem {
 
             if(hoodDataComponent != null){
                 if(hoodDataComponent.enabled()){
-                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(false, false, hoodDataComponent.target()));
+                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(false, false, hoodDataComponent.hood()));
                 } else {
-                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, false, hoodDataComponent.target()));
+                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, false, hoodDataComponent.hood()));
                 }
             }
         }
@@ -93,9 +93,9 @@ public class CustomHelmetItem extends ArmorItem {
 
             if(hoodDataComponent != null){
                 if(hoodDataComponent.down()){
-                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, false, hoodDataComponent.target()));
+                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, false, hoodDataComponent.hood()));
                 } else {
-                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, true, hoodDataComponent.target()));
+                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, true, hoodDataComponent.hood()));
                 }
             }
         }

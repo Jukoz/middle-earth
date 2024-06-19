@@ -66,9 +66,9 @@ public class CustomChestplateItem extends ArmorItem {
 
             if (capeDataComponent != null) {
                 if (capeDataComponent.enabled()) {
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".cape").append(": Enabled ").append(capeDataComponent.target()));
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape()).append(": Enabled "));
                 } else {
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".cape").append(": Disabled"));
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape()).append(": Disabled"));
                 }
             }
         }else {
@@ -85,9 +85,9 @@ public class CustomChestplateItem extends ArmorItem {
 
             if(capeDataComponent != null){
                 if(capeDataComponent.enabled()){
-                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(false, capeDataComponent.target()));
+                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(false, capeDataComponent.cape()));
                 } else {
-                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true, capeDataComponent.target()));
+                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true, capeDataComponent.cape()));
                 }
             }
         }
