@@ -627,6 +627,10 @@ public class ModelProvider extends FabricModelProvider {
             registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), baseTextureId);
         }
 
+        SimpleTopWaterModel.topWaterBlocks.forEach( block -> {
+            registerTopWaterblock(blockStateModelGenerator, block);
+        });
+
         // Crops
         blockStateModelGenerator.registerCrop(ModNatureBlocks.BELL_PEPPER_CROP, BellpepperCropBlock.AGE, 0, 1, 2, 3, 4);
         blockStateModelGenerator.registerCrop(ModNatureBlocks.CUCUMBER_CROP, CucumberCropBlock.AGE, 0, 1, 2, 3);
@@ -808,6 +812,11 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerParentedItemModel(layers, ModelIds.getBlockSubModelId(layers, "_height2"));
     }
 
+    private void registerTopWaterblock(BlockStateModelGenerator blockStateModelGenerator, Block block) {
+        blockStateModelGenerator.registerItemModel(block);
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createBlockStateWithRandomHorizontalRotations(block, ModelIds.getBlockModelId(block)));
+    }
+
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         for (SimpleWallModel.Wall wall : SimpleWallModel.blocks) {
@@ -877,4 +886,6 @@ public class ModelProvider extends FabricModelProvider {
                 }
         );
     }
+
+
 }

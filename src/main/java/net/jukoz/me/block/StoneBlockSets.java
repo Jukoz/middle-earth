@@ -35,6 +35,8 @@ public class StoneBlockSets {
     public static SimpleBlockSet ASHEN_TILES = registerStoneSet("ashen_tiles", ASHEN_BRICKS.base.getHardness(), ASHEN_BRICKS.base.getBlastResistance(), ASHEN_BRICKS.base);
     public static SimpleBlockSet POLISHED_ASHEN_STONE = registerStoneSet("polished_ashen_stone", ASHEN_STONE.base.getHardness(), ASHEN_STONE.base.getBlastResistance(), ASHEN_STONE.base);
 
+    public static SimpleBlockSetMain PUMICE = registerMainStoneSet("pumice", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
+
     public static SimpleBlockSetMain GONLUIN = registerMainStoneSet("gonluin", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet COBBLED_GONLUIN = registerStoneSet("cobbled_gonluin", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, GONLUIN.base);
     public static SimpleBlockSet MOSSY_COBBLED_GONLUIN = registerStoneSet("mossy_cobbled_gonluin", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, COBBLED_GONLUIN.base);
@@ -298,6 +300,8 @@ public class StoneBlockSets {
     public static SimpleBlockSetMain[] setsMain = new SimpleBlockSetMain[] {
 
             ASHEN_STONE,
+
+            PUMICE,
 
             GONLUIN,
 

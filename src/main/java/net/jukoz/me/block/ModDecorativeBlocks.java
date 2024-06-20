@@ -143,8 +143,23 @@ public class ModDecorativeBlocks {
     public static final Block YELLOW_STAINED_LEAD_GLASS_PANE = registerBlockWithItem("yellow_stained_lead_glass_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
-    public static final Block CUSHION = registerBlockWithItem("cushion",
+    public static final Block BLUE_CUSHION = registerBlockWithItem("blue_cushion",
             new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+    public static final Block BROWN_CUSHION = registerBlockWithItem("brown_cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+    public static final Block DARK_BLUE_CUSHION = registerBlockWithItem("dark_blue_cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+    public static final Block DARK_BROWN_CUSHION = registerBlockWithItem("dark_brown_cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+    public static final Block DARK_GREEN_CUSHION = registerBlockWithItem("dark_green_cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+    public static final Block DARK_RED_CUSHION = registerBlockWithItem("dark_red_cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+    public static final Block GREEN_CUSHION = registerBlockWithItem("green_cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+    public static final Block RED_CUSHION = registerBlockWithItem("red_cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+
 
     //region VANILLA FURNITURE
     public static final Block STONE_STOOL = registerBlockWithItem("stone_stool",

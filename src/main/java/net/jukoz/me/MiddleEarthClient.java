@@ -38,7 +38,6 @@ import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
 import net.jukoz.me.entity.pheasant.PheasantRenderer;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntityRenderer;
 import net.jukoz.me.entity.projectile.spear.JavelinEntityRenderer;
-import net.jukoz.me.entity.seat.SeatEntity;
 import net.jukoz.me.entity.seat.SeatRenderer;
 import net.jukoz.me.entity.snail.SnailRenderer;
 import net.jukoz.me.entity.spider.MirkwoodSpiderRenderer;
@@ -51,7 +50,6 @@ import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreen;
 import net.jukoz.me.gui.wood_pile.WoodPileScreen;
-import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.utils.ModArmors;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
@@ -68,7 +66,6 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 
 public class MiddleEarthClient implements ClientModInitializer {
@@ -213,6 +210,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.HEATHER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.HEATHER_BUSH, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.RED_HEATHER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.DEAD_HEATHER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WHEATGRASS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILD_GRASS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILDERGRASS, RenderLayer.getCutout());
@@ -221,6 +219,9 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.HOROKAKA, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.GIANT_HOROKAKA, RenderLayer.getCutout());
 
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.SMALL_LILY_PADS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.DUCKWEED, RenderLayer.getCutout());
+
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GRASSY_DIRT, RenderLayer.getCutout());
 
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> {
@@ -228,12 +229,12 @@ public class MiddleEarthClient implements ClientModInitializer {
                 return GrassColors.getDefaultColor();
             }
             return BiomeColors.getGrassColor(view, pos);
-        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS, ModBlocks.GRASSY_DIRT);
+        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS, ModBlocks.GRASSY_DIRT, ModBlocks.TURF);
 
         ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
             BlockState blockState = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
             return FoliageColors.getDefaultColor();
-        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS, ModBlocks.GRASSY_DIRT);
+        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS, ModBlocks.GRASSY_DIRT, ModBlocks.TURF);
 
         for(Block block : SimpleDoubleBlockModel.doubleBlocks){
             BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());

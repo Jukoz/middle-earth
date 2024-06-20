@@ -8,9 +8,6 @@ import net.jukoz.me.block.crop.*;
 import net.jukoz.me.block.special.*;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.world.features.tree.MushroomTreeConfiguredFeatures;
-import net.jukoz.me.world.features.tree.saplings.DualSaplingGenerator;
-import net.jukoz.me.world.features.tree.saplings.ModLargeSaplingGenerator;
-import net.jukoz.me.world.features.tree.saplings.ModSaplingGenerator;
 import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
@@ -110,6 +107,9 @@ public class ModNatureBlocks {
     public static final Block RED_HEATHER = registerBlock("red_heather",
             new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), true);
+    public static final Block DEAD_HEATHER = registerBlock("dead_heather",
+            new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.GREEN)), true);
     public static final Block WHEATGRASS = registerBlock("wheatgrass",
             new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), true);
@@ -133,6 +133,13 @@ public class ModNatureBlocks {
     public static final Block GIANT_HOROKAKA = registerBlock("giant_horokaka",
             new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.NONE)
                     .mapColor(DyeColor.GREEN)), true);
+
+    public static final Block SMALL_LILY_PADS = registerBlock("small_lily_pads",
+            new LilyPadBlock(AbstractBlock.Settings.copy(Blocks.LILY_PAD)), false);
+
+
+    public static final Block DUCKWEED = registerBlock("duckweed",
+            new LilyPadBlock(AbstractBlock.Settings.copy(Blocks.LILY_PAD)), false);
 
     public static final Block BROWN_BOLETE = registerBlock("brown_bolete",
             new MushroomPlantBlock(MushroomTreeConfiguredFeatures.BROWN_BOLETTE_TREE_KEY, AbstractBlock.Settings.copy(Blocks.BROWN_MUSHROOM)), true);

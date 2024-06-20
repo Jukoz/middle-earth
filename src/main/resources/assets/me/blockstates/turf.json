@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "me:block/cushion"
+      "model": "me:block/turf"
     }
   }
 }

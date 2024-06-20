@@ -194,7 +194,14 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
             table.add(block.base());
         });
 
-        seat.add(ModDecorativeBlocks.CUSHION);
+        seat.add(ModDecorativeBlocks.BLUE_CUSHION);
+        seat.add(ModDecorativeBlocks.BROWN_CUSHION);
+        seat.add(ModDecorativeBlocks.DARK_BLUE_CUSHION);
+        seat.add(ModDecorativeBlocks.DARK_BROWN_CUSHION);
+        seat.add(ModDecorativeBlocks.DARK_GREEN_CUSHION);
+        seat.add(ModDecorativeBlocks.DARK_RED_CUSHION);
+        seat.add(ModDecorativeBlocks.GREEN_CUSHION);
+        seat.add(ModDecorativeBlocks.RED_CUSHION);
 
         needsStoneTools.add(OreRockSets.GONLUIN.copper_ore());
         needsStoneTools.add(OreRockSets.GONLUIN.tin_ore());
@@ -248,6 +255,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableShovel.add(ModBlocks.GRASSY_DIRT);
         mineableShovel.add(ModBlocks.GRASSY_DIRT_SLAB);
         mineableShovel.add(ModBlocks.GRASSY_DIRT_STAIRS);
+
+        mineableShovel.add(ModBlocks.TURF);
+        mineableShovel.add(ModBlocks.TURF_SLAB);
+        mineableShovel.add(ModBlocks.TURF_STAIRS);
 
         mineableShovel.add(ModBlocks.ASHEN_SAND);
         mineableShovel.add(ModBlocks.ASHEN_SAND_LAYER);

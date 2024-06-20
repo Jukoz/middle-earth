@@ -220,6 +220,13 @@ public class ModBlocks {
     public static final Block GRASSY_DIRT_STAIRS = registerMiscBlock("grassy_dirt_stairs",
             new StairsBlock(GRASSY_DIRT.getDefaultState(), AbstractBlock.Settings.copy(GRASSY_DIRT)),true);
 
+    public static final Block TURF = registerMiscBlock("turf",
+            new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
+    public static final Block TURF_SLAB = registerMiscBlock("turf_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(TURF)),true);
+    public static final Block TURF_STAIRS = registerMiscBlock("turf_stairs",
+            new StairsBlock(TURF.getDefaultState(), AbstractBlock.Settings.copy(TURF)),true);
+
     public static final Block COBBLY_DIRT = registerMiscBlock("cobbly_dirt",
             new Block(AbstractBlock.Settings.copy(Blocks.COARSE_DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
     public static final Block COBBLY_DIRT_SLAB = registerMiscBlock("cobbly_dirt_slab",
