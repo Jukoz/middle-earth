@@ -60,9 +60,9 @@ public class ModDecorativeBlocks {
     public static final Block DARK_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("dark_wattle_framed_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
-    public static final Block EPMOSTO_CARVED_WINDOW = registerBlockWithItem("epmosto_carved_window",
+    public static final Block MEDGON_CARVED_WINDOW = registerBlockWithItem("medgon_carved_window",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
-    public static final Block EPMOSTO_CARVED_WINDOW_PANE = registerBlockWithItem("epmosto_carved_window_pane",
+    public static final Block MEDGON_CARVED_WINDOW_PANE = registerBlockWithItem("medgon_carved_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
     public static final Block WHITE_DAUB_HOBBIT_WINDOW = registerBlockWithItem("white_daub_hobbit_window",

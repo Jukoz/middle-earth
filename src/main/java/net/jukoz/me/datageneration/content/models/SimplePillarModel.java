@@ -76,8 +76,8 @@ public class SimplePillarModel {
             add(new StonePillar(ModBlocks.JADEITE_PILLAR, StoneBlockSets.JADEITE_BRICKS.base()));
             add(new StonePillar(ModBlocks.CRACKED_JADEITE_PILLAR, ModBlocks.JADEITE_PILLAR));
 
-            add(new StonePillar(ModBlocks.DIFTOMIN_PILLAR, StoneBlockSets.DIFTOMIN_BRICKS.base()));
-            add(new StonePillar(ModBlocks.EPMOSTO_PILLAR, StoneBlockSets.EPMOSTO_BRICKS.base()));
+            add(new StonePillar(ModBlocks.NURGON_PILLAR, StoneBlockSets.NURGON_BRICKS.base()));
+            add(new StonePillar(ModBlocks.MEDGON_PILLAR, StoneBlockSets.MEDGON_BRICKS.base()));
 
         }
     };

@@ -63,6 +63,10 @@ public class TintableCrossModel {
             add(ModNatureBlocks.WILDERGRASS);
             add(ModNatureBlocks.BEACH_GRASS);
             add(ModNatureBlocks.COASTAL_PANIC_GRASS);
+            add(ModNatureBlocks.SEDUM);
+            add(ModNatureBlocks.YELLOW_SEDUM);
+            add(ModNatureBlocks.SHORT_CATTAILS);
+            add(ModNatureBlocks.SHORT_BULRUSH);
         }
     };
 }

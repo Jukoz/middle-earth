@@ -196,21 +196,21 @@ public class ModBlocks {
     public static final Block CHISELED_BASALT_BRICKS = registerStoneBlock("chiseled_basalt_bricks",
             new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
-    public static final Block DIFTOMIN_PILLAR = registerStoneBlock("diftomin_pillar",
-            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.DIFTOMIN_BRICKS_HARDNESS, StoneBlockSets.DIFTOMIN_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
-    public static final Block CHISELED_DIFTOMIN_BRICKS = registerStoneBlock("chiseled_diftomin_bricks",
-            new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.DIFTOMIN_BRICKS_HARDNESS, StoneBlockSets.DIFTOMIN_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
-    public static final Block CHISELED_POLISHED_DIFTOMIN = registerStoneBlock("chiseled_polished_diftomin",
-            new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.DIFTOMIN_BRICKS_HARDNESS, StoneBlockSets.DIFTOMIN_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block NURGON_PILLAR = registerStoneBlock("nurgon_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.NURGON_BRICKS_HARDNESS, StoneBlockSets.NURGON_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_NURGON_BRICKS = registerStoneBlock("chiseled_nurgon_bricks",
+            new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.NURGON_BRICKS_HARDNESS, StoneBlockSets.NURGON_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_POLISHED_NURGON = registerStoneBlock("chiseled_polished_nurgon",
+            new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.NURGON_BRICKS_HARDNESS, StoneBlockSets.NURGON_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
-    public static final Block EPMOSTO_PILLAR = registerStoneBlock("epmosto_pillar",
-            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.EPMOSTO_BRICKS_HARDNESS, StoneBlockSets.EPMOSTO_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
-    public static final Block CHISELED_EPMOSTO = registerStoneBlock("chiseled_epmosto",
-            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.EPMOSTO_BRICKS_HARDNESS, StoneBlockSets.EPMOSTO_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
-    public static final Block CHISELED_EPMOSTO_BRICKS = registerStoneBlock("chiseled_epmosto_bricks",
-            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.EPMOSTO_BRICKS_HARDNESS, StoneBlockSets.EPMOSTO_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
-    public static final Block CHISELED_POLISHED_EPMOSTO = registerStoneBlock("chiseled_polished_epmosto",
-            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.EPMOSTO_BRICKS_HARDNESS, StoneBlockSets.EPMOSTO_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block MEDGON_PILLAR = registerStoneBlock("medgon_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.MEDGON_BRICKS_HARDNESS, StoneBlockSets.MEDGON_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_MEDGON = registerStoneBlock("chiseled_medgon",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.MEDGON_BRICKS_HARDNESS, StoneBlockSets.MEDGON_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_MEDGON_BRICKS = registerStoneBlock("chiseled_medgon_bricks",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.MEDGON_BRICKS_HARDNESS, StoneBlockSets.MEDGON_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_POLISHED_MEDGON = registerStoneBlock("chiseled_polished_medgon",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.MEDGON_BRICKS_HARDNESS, StoneBlockSets.MEDGON_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     //endregion
 
     public static final Block GRASSY_DIRT = registerMiscBlock("grassy_dirt",

@@ -469,14 +469,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(StoneBlockSets.YELLOW_DAUB.base()))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.EPMOSTO_CARVED_WINDOW, 2)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.MEDGON_CARVED_WINDOW, 2)
                 .pattern("EEE")
                 .pattern("EGE")
                 .pattern("EEE")
-                .input('E', StoneBlockSets.EPMOSTO.base())
+                .input('E', StoneBlockSets.MEDGON.base())
                 .input('G', Blocks.GLASS)
-                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.EPMOSTO.base()),
-                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.EPMOSTO.base()))
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.MEDGON.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.MEDGON.base()))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LEAD_GLASS, 4)

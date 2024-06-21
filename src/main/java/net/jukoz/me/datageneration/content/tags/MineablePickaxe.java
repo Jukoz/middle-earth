@@ -52,14 +52,14 @@ public class MineablePickaxe {
             add(ModBlocks.CHISELED_POLISHED_GNEISS);
             add(ModBlocks.CHISELED_GNEISS_BRICKS);
 
-            add(ModBlocks.DIFTOMIN_PILLAR);
-            add(ModBlocks.CHISELED_DIFTOMIN_BRICKS);
-            add(ModBlocks.CHISELED_POLISHED_DIFTOMIN);
+            add(ModBlocks.NURGON_PILLAR);
+            add(ModBlocks.CHISELED_NURGON_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_NURGON);
 
-            add(ModBlocks.EPMOSTO_PILLAR);
-            add(ModBlocks.CHISELED_EPMOSTO);
-            add(ModBlocks.CHISELED_EPMOSTO_BRICKS);
-            add(ModBlocks.CHISELED_POLISHED_EPMOSTO);
+            add(ModBlocks.MEDGON_PILLAR);
+            add(ModBlocks.CHISELED_MEDGON);
+            add(ModBlocks.CHISELED_MEDGON_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_MEDGON);
 
             add(ModBlocks.RAW_MITHRIL_BLOCK);
             add(ModBlocks.MITHRIL_BLOCK);

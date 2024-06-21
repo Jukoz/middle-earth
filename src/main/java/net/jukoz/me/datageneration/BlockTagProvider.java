@@ -114,13 +114,13 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         }
 
         for (StoneBlockSets.SimpleBlockSet record : StoneBlockSets.sets) {
-            if (Registries.BLOCK.getId(record.base()).getPath().contains("diftomin")){
+            if (Registries.BLOCK.getId(record.base()).getPath().contains("nurgon")){
                 needsIronTools.add(record.base());
                 needsIronTools.add(record.slab());
                 needsIronTools.add(record.verticalSlab());
                 needsIronTools.add(record.stairs());
                 needsIronTools.add(record.wall());
-            }else if (Registries.BLOCK.getId(record.base()).getPath().contains("epmosto")){
+            }else if (Registries.BLOCK.getId(record.base()).getPath().contains("medgon")){
                 needsDiamondTools.add(record.base());
                 needsDiamondTools.add(record.slab());
                 needsDiamondTools.add(record.verticalSlab());
@@ -138,7 +138,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         baseStoneOverworld.add(Blocks.CALCITE);
         for (StoneBlockSets.SimpleBlockSetMain record : StoneBlockSets.setsMain) {
             if(record.base() != StoneBlockSets.ASHEN_STONE.base()) baseStoneOverworld.add(record.base());
-            if (Registries.BLOCK.getId(record.base()).getPath().contains("diftomin")){
+            if (Registries.BLOCK.getId(record.base()).getPath().contains("nurgon")){
                 needsIronTools.add(record.base());
                 needsIronTools.add(record.slab());
                 needsIronTools.add(record.verticalSlab());
@@ -146,7 +146,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 needsIronTools.add(record.wall());
                 needsIronTools.add(record.stool());
                 needsIronTools.add(record.table());
-            }else if (Registries.BLOCK.getId(record.base()).getPath().contains("epmosto")){
+            }else if (Registries.BLOCK.getId(record.base()).getPath().contains("medgon")){
                 needsDiamondTools.add(record.base());
                 needsDiamondTools.add(record.slab());
                 needsDiamondTools.add(record.verticalSlab());
@@ -224,17 +224,17 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         needsStoneTools.add(OreRockSets.DEEPSLATE.lead_ore());
 
-        needsIronTools.add(OreRockSets.DIFTOMIN.tin_ore());
-        needsIronTools.add(OreRockSets.DIFTOMIN.lead_ore());
-        needsIronTools.add(OreRockSets.DIFTOMIN.silver_ore());
-        needsIronTools.add(OreRockSets.DIFTOMIN.gold_ore());
-        needsIronTools.add(OreRockSets.DIFTOMIN.iron_ore());
+        needsIronTools.add(OreRockSets.NURGON.tin_ore());
+        needsIronTools.add(OreRockSets.NURGON.lead_ore());
+        needsIronTools.add(OreRockSets.NURGON.silver_ore());
+        needsIronTools.add(OreRockSets.NURGON.gold_ore());
+        needsIronTools.add(OreRockSets.NURGON.iron_ore());
 
-        needsDiamondTools.add(OreRockSets.EPMOSTO.lead_ore());
-        needsDiamondTools.add(OreRockSets.EPMOSTO.silver_ore());
-        needsDiamondTools.add(OreRockSets.EPMOSTO.gold_ore());
-        needsDiamondTools.add(OreRockSets.EPMOSTO.iron_ore());
-        needsDiamondTools.add(OreRockSets.EPMOSTO.mithril_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.lead_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.silver_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.gold_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.iron_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.mithril_ore());
 
         needsStoneTools.add(ModBlocks.BRONZE_BLOCK);
         needsStoneTools.add(ModBlocks.ORC_STEEL_BLOCK);
