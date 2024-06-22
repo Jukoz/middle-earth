@@ -29,6 +29,9 @@ public class ModDecorativeItems {
     public static final Item ARTISAN_TABLE = registerItem("artisan_table",
             new BlockItem(ModDecorativeBlocks.ARTISAN_TABLE, new Item.Settings()));
 
+    public static final Item REINFORCED_CHEST = registerItem("reinforced_chest",
+            new BlockItem(ModDecorativeBlocks.REINFORCED_CHEST, new Item.Settings()));
+
     public static final Item WOOD_PILE = registerItem("wood_pile",
             new BlockItem(ModDecorativeBlocks.WOOD_PILE, new Item.Settings()));
 

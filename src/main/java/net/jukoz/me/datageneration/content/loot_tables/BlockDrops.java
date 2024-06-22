@@ -45,12 +45,16 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.ALLOY_FURNACE);
 
+            add(ModDecorativeBlocks.REINFORCED_CHEST);
+
             add(ModNatureBlocks.MALLOS);
             add(ModNatureBlocks.YELLOW_FLOWER);
             add(ModNatureBlocks.HOROKAKA);
             add(ModNatureBlocks.GIANT_HOROKAKA);
 
             add(ModNatureBlocks.SMALL_LILY_PADS);
+            add(ModNatureBlocks.SMALL_FLOWERING_LILY_PADS);
+            add(ModNatureBlocks.LILY_PADS);
             add(ModNatureBlocks.DUCKWEED);
         }
     };

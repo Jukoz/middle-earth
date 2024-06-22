@@ -3554,6 +3554,7 @@
   "block.me.silver_lantern": "Silver Lantern",
   "block.me.alloy_furnace": "Alloy Furnace",
   "block.me.artisan_table": "Artisan Table",
+  "block.me.reinforced_chest": "Reinforced Chest",
   "block.me.wood_pile": "Wood Pile",
   "block.me.rope": "Rope",
 
@@ -3720,6 +3721,7 @@
 "Comment": "GUI",
   "screen.me.alloy_furnace": "Alloy Furnace",
   "container.artisan_table": "Artisan Table",
+  "screen.me.reinforced_chest": "Reinforced Chest",
   "screen.me.wood_pile": "Wood Pile",
 
 "Comment": "Tooltips",

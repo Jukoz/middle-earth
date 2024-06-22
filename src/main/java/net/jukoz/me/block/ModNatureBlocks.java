@@ -139,6 +139,10 @@ public class ModNatureBlocks {
     public static final Block TALL_BULRUSH = registerBlock("tall_bulrush",
             new CustomTallPlantBlock(AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), false), true);
 
+    public static final Block SHRIVELED_SHRUB = registerBlock("shriveled_shrub",
+            new DeadBushBlock(AbstractBlock.Settings.copy(Blocks.DEAD_BUSH).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.BROWN)), true);
+
     public static final Block BEACH_GRASS = registerBlock("beach_grass",
             new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), true);
@@ -154,6 +158,10 @@ public class ModNatureBlocks {
                     .mapColor(DyeColor.GREEN)), true);
 
     public static final Block SMALL_LILY_PADS = registerBlock("small_lily_pads",
+            new LilyPadBlock(AbstractBlock.Settings.copy(Blocks.LILY_PAD).noCollision()), false);
+    public static final Block SMALL_FLOWERING_LILY_PADS = registerBlock("small_flowering_lily_pads",
+            new LilyPadBlock(AbstractBlock.Settings.copy(Blocks.LILY_PAD).noCollision()), false);
+    public static final Block LILY_PADS = registerBlock("lily_pads",
             new LilyPadBlock(AbstractBlock.Settings.copy(Blocks.LILY_PAD).noCollision()), false);
     public static final Block DUCKWEED = registerBlock("duckweed",
             new LilyPadBlock(AbstractBlock.Settings.copy(Blocks.LILY_PAD).noCollision()), false);

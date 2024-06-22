@@ -236,6 +236,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsDiamondTools.add(OreRockSets.MEDGON.iron_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.mithril_ore());
 
+        needsDiamondTools.add(ModDecorativeBlocks.REINFORCED_CHEST);
+
         needsStoneTools.add(ModBlocks.BRONZE_BLOCK);
         needsStoneTools.add(ModBlocks.ORC_STEEL_BLOCK);
         needsIronTools.add(ModBlocks.STEEL_BLOCK);

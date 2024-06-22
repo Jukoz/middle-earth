@@ -4,6 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnace;
 import net.jukoz.me.block.special.artisantable.ArtisanTable;
+import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestBlock;
 import net.jukoz.me.block.special.toggeable_lights.DwarvenLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.SilverLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.WallDwarvenLanternBlock;
@@ -12,9 +13,12 @@ import net.jukoz.me.block.special.wood_pile.WoodPileBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.enums.Instrument;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 
@@ -36,6 +40,9 @@ public class ModDecorativeBlocks {
             new AlloyFurnace(AbstractBlock.Settings.copy(Blocks.STONE).strength(1.65f).requiresTool()));
     public static final Block ARTISAN_TABLE = registerBlock("artisan_table",
             new ArtisanTable(AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque()));
+
+    public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest",
+            new ReinforcedChestBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(Instrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque().requiresTool()));
 
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             new WoodPileBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque()));

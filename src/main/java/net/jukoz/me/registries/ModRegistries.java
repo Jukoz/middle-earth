@@ -313,6 +313,8 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.GIANT_HOROKAKA, 0.65f);
         registry.add(ModNatureBlocks.HOROKAKA, 0.50f);
 
+        registry.add(ModNatureBlocks.SHRIVELED_SHRUB, 0.30f);
+
         registry.add(ModNatureBlocks.BROWN_BOLETE, 0.65f);
         registry.add(ModNatureBlocks.CAVE_AMANITA, 0.65f);
         registry.add(ModNatureBlocks.DEEP_FIRECAP, 0.65f);
