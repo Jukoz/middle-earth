@@ -8,10 +8,10 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(ChunkRegion.class)
 public class ChunkRegionMixin {
 
-    @ModifyVariable(method = "<init>", at = @At("HEAD"), ordinal = 0)
-    private static int ChunkRegion(int placementRadius) {
+    /*@ModifyVariable(method = "<init>", at = @At("HEAD"), ordinal = 0)
+    private static ChunkRegion ChunkRegion(ChunkRegion value) {
         if(placementRadius > 0) placementRadius++;
         else if (placementRadius < 0) placementRadius--;
         return placementRadius;
-    }
+    }*/
 }

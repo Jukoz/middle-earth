@@ -388,7 +388,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
             }
             double e = Math.max(0.0, 1.0 - d);
             target.setVelocity(target.getVelocity().multiply(1f + (0.8f * e))); //.add(0.0, (double)0.1f * e, 0.0));
-            this.applyDamageEffects(this, target);
         }
         this.playSound(SoundEvents.ENTITY_HOGLIN_ATTACK, 1.5f, 0.8f);
         return bl;
