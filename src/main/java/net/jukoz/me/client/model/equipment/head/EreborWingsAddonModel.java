@@ -6,9 +6,9 @@ import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
-public class EreborCommanderHelmetArmorAddonModel<T extends LivingEntity> extends HelmetAddonModel<T> {
+public class EreborWingsAddonModel<T extends LivingEntity> extends HelmetAddonModel<T> {
 
-    public EreborCommanderHelmetArmorAddonModel(ModelPart root) {
+    public EreborWingsAddonModel(ModelPart root) {
         super(root);
 
         HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/erebor_commander_helmet_addon.png");

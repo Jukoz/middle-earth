@@ -325,6 +325,17 @@ public class ModEquipmentItems {
 
     //region EREBOR
 
+    public static final Item EREBOR_PLATE_HELMET = registerArmorPiece("erebor_plate_helmet",
+            new CustomHelmetItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings(),
+                    new EreborHelmetAddonModel(EreborHelmetAddonModel.getTexturedModelData().createModel())));
+    public static final Item EREBOR_PLATE_CHESTPLATE = registerArmorPiece("erebor_plate_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+                    new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())));
+    public static final Item EREBOR_PLATE_LEGGINGS = registerArmorPiece("erebor_plate_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new Item.Settings()));
+    public static final Item EREBOR_PLATE_BOOTS = registerArmorPiece("erebor_plate_boots",
+            new CustomBootsItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.BOOTS, new Item.Settings()));
+    
     public static final Item LONGBEARD_SHIELD = registerItem("longbeard_shield",
             new CustomShieldItem(new Item.Settings().maxCount(1).maxDamage(450), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards")));
 
