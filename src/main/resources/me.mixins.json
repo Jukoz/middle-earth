@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "BannerPatternRegisterMixin",
+    "BlockMixin",
     "ChunkRegionMixin",
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
@@ -20,6 +21,7 @@
   "client": [
     "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
+    "client.BipedEntityModelMixin",
     "client.InGameHudMixin",
     "client.ItemRendererMixin",
     "client.MouseMixin"

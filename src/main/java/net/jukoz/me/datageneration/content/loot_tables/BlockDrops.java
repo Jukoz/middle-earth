@@ -15,6 +15,7 @@ public class BlockDrops {
             add(ModDecorativeBlocks.DWARVEN_LANTERN);
             add(ModDecorativeBlocks.WALL_DWARVEN_LANTERN);
             add(ModDecorativeBlocks.WOOD_PILE);
+            add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
 
             add(ModDecorativeBlocks.ROPE);
 

@@ -13,6 +13,7 @@ import net.minecraft.item.VerticallyAttachableBlockItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
 
 public class ModDecorativeItems {
@@ -34,6 +35,9 @@ public class ModDecorativeItems {
 
     public static final Item WOOD_PILE = registerItem("wood_pile",
             new BlockItem(ModDecorativeBlocks.WOOD_PILE, new Item.Settings()));
+
+    public static final Item FIRE_OF_ORTHANC = registerItem("fire_of_orthanc",
+            new BlockItem(ModDecorativeBlocks.FIRE_OF_ORTHANC, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
 
     public static final Item TROLL_STATUE = registerItem("troll_statue",
             new CustomSpawnEggItem(ModEntities.PETRIFIED_TROLL, new Item.Settings().maxCount(1)));
