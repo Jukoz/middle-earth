@@ -479,9 +479,21 @@ public class ModBlocks {
 
 
     public static final Block STONE_TRAPDOOR = registerStoneBlock("stone_trapdoor",
-            new TrapdoorBlock(BlockSetType.STONE, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)), true);
+            new TrapdoorBlock(BlockSetType.STONE, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR).strength(StoneBlockSets.STONE_HARDNESS, StoneBlockSets.STONE_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)), true);
+    public static final Block GRANITE_TRAPDOOR = registerStoneBlock("granite_trapdoor",
+            new TrapdoorBlock(BlockSetType.STONE, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR).strength(StoneBlockSets.STONE_HARDNESS, StoneBlockSets.STONE_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)), true);
+    public static final Block DIORITE_TRAPDOOR = registerStoneBlock("diorite_trapdoor",
+            new TrapdoorBlock(BlockSetType.STONE, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR).strength(StoneBlockSets.STONE_HARDNESS, StoneBlockSets.STONE_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)), true);
+    public static final Block ANDESITE_TRAPDOOR = registerStoneBlock("andesite_trapdoor",
+            new TrapdoorBlock(BlockSetType.STONE, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR).strength(StoneBlockSets.STONE_HARDNESS, StoneBlockSets.STONE_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)), true);
+    public static final Block DEEPSLATE_TRAPDOOR = registerStoneBlock("deepslate_trapdoor",
+            new TrapdoorBlock(BlockSetType.STONE, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR).strength(StoneBlockSets.DEEPSLATE_HARDNESS, StoneBlockSets.DEEPSLATE_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)), true);
+    public static final Block TUFF_TRAPDOOR = registerStoneBlock("tuff_trapdoor",
+            new TrapdoorBlock(BlockSetType.STONE, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR).strength(StoneBlockSets.STONE_HARDNESS, StoneBlockSets.STONE_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)), true);
+    public static final Block BASALT_TRAPDOOR = registerStoneBlock("basalt_trapdoor",
+            new TrapdoorBlock(BlockSetType.STONE, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR).strength(StoneBlockSets.STONE_HARDNESS, StoneBlockSets.STONE_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)), true);
     public static final Block BLACKSTONE_TRAPDOOR = registerStoneBlock("blackstone_trapdoor",
-            new TrapdoorBlock(BlockSetType.POLISHED_BLACKSTONE, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)), true);
+            new TrapdoorBlock(BlockSetType.POLISHED_BLACKSTONE, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR).strength(StoneBlockSets.STONE_HARDNESS, StoneBlockSets.STONE_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)), true);
 
     public static final Block SILVERS_BARS = registerMiscBlock("silver_bars",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.IRON_BARS).sounds(BlockSoundGroup.METAL)), true);

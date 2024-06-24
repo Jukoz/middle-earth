@@ -58,6 +58,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.base(), 1);
             createWallsRecipe(exporter, record.base(), record.wall());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.wall(), record.base(), 1);
+            createTrapdoorRecipe(exporter, record.base(), record.trapdoor());
             createStoneStoolRecipe(exporter, record.base().asItem(), record.stool());
             createStoneTableRecipe(exporter, record.base().asItem(), record.table());
             createStoneChairRecipe(exporter, record.base().asItem(), record.chair());
@@ -341,6 +342,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createPaneRecipe(exporter, pane.glass().asItem(), pane.pane(), 16);
         }
 
+        for(SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.vanillaStoneTrapdoors){
+            createTrapdoorRecipe(exporter, trapdoor.block(), trapdoor.trapdoor());
+        }
+
         for(SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools){
             createWoodStoolRecipe(exporter, stool.planks().asItem(), stool.legs().asItem(), stool.base());
         }
@@ -430,9 +435,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createSlabsRecipe(exporter, ModBlocks.COBBLY_DIRT, ModBlocks.COBBLY_DIRT_SLAB);
 
         createPaneRecipe(exporter, ModResourceItems.SILVER_INGOT, ModBlocks.SILVERS_BARS, 6);
-
-        createTrapdoorRecipe(exporter, Blocks.STONE, ModBlocks.STONE_TRAPDOOR);
-        createTrapdoorRecipe(exporter, Blocks.BLACKSTONE, ModBlocks.BLACKSTONE_TRAPDOOR);
 
         createDyeableBlockRecipe(exporter, Blocks.STONE, Blocks.ICE.asItem(), StoneBlockSets.FROZEN_STONE.base(), 8);
         createDyeableBlockRecipe(exporter, Blocks.COBBLESTONE, Blocks.ICE.asItem(), StoneBlockSets.FROZEN_COBBLESTONE.base(), 8);

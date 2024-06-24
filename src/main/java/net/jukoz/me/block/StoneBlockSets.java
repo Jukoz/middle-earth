@@ -5,6 +5,7 @@ import net.jukoz.me.block.special.*;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
+import net.minecraft.sound.BlockSoundGroup;
 
 public class StoneBlockSets {
     public static final float STONE_HARDNESS = Blocks.STONE.getHardness();
@@ -523,7 +524,7 @@ public class StoneBlockSets {
     public record SimpleBlockSet(Block source, Block base, Block slab, Block verticalSlab, Block stairs, Block wall) {
     }
 
-    public record SimpleBlockSetMain(Block source, Block base, Block slab, Block verticalSlab, Block stairs, Block wall, Block pressurePlate, Block button, Block stool, Block table, Block chair) {
+    public record SimpleBlockSetMain(Block source, Block base, Block slab, Block verticalSlab, Block stairs, Block wall, Block pressurePlate, Block button, Block trapdoor, Block stool, Block table, Block chair) {
     }
 
     private static SimpleBlockSet registerStoneSet(String name, float hardness, float blastResistance, Block source) {
@@ -557,6 +558,9 @@ public class StoneBlockSets {
 
         Block button = ModBlocks.registerStoneBlock(name + "_button", new ButtonBlock(BlockSetType.STONE, 20, AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool()),false);
 
+        Block trapdoor = ModBlocks.registerStoneBlock(name + "_trapdoor", new TrapdoorBlock(BlockSetType.STONE, AbstractBlock.Settings.copy(base)
+                .strength(hardness, blastResistance).sounds(BlockSoundGroup.STONE).nonOpaque()),false);
+
         Block stool = ModBlocks.registerBlock(name + "_stool", new StoolBlock(AbstractBlock.Settings.copy(base)
                 .strength(hardness, blastResistance).requiresTool().nonOpaque()),false);
 
@@ -569,7 +573,7 @@ public class StoneBlockSets {
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(table.asItem().getDefaultStack());
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(chair.asItem().getDefaultStack());
 
-        return new SimpleBlockSetMain(source, base, slab, verticalSlab, stairs, wall, pressurePlate, button, stool, table, chair);
+        return new SimpleBlockSetMain(source, base, slab, verticalSlab, stairs, wall, pressurePlate, button, trapdoor, stool, table, chair);
     }
 
     public static void registerModBlockSets() {

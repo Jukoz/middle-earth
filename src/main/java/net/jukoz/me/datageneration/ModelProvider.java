@@ -399,6 +399,13 @@ public class ModelProvider extends FabricModelProvider {
             blockStateModelGenerator.registerOrientableTrapdoor(trapdoor.trapdoor());
         }
 
+        for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.stoneTrapdoors) {
+            registerTrapdoor(blockStateModelGenerator, trapdoor.trapdoor());
+        }
+
+        for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.vanillaStoneTrapdoors) {
+            registerVanillaTrapdoor(blockStateModelGenerator, trapdoor.trapdoor());
+        }
 
         for(SimpleDoorModel.Door door : SimpleDoorModel.doors){
             blockStateModelGenerator.registerDoor(door.door());
@@ -815,6 +822,30 @@ public class ModelProvider extends FabricModelProvider {
     private void registerTopWaterblock(BlockStateModelGenerator blockStateModelGenerator, Block block) {
         blockStateModelGenerator.registerItemModel(block);
         blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createBlockStateWithRandomHorizontalRotations(block, ModelIds.getBlockModelId(block)));
+    }
+
+    public void registerTrapdoor(BlockStateModelGenerator blockStateModelGenerator, Block trapdoorBlock) {
+        TextureMap textureMap = TextureMap.texture(new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(trapdoorBlock).getPath().replaceAll("_trapdoor", "")));
+        Identifier identifier = Models.TEMPLATE_TRAPDOOR_TOP.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
+        Identifier identifier2 = Models.TEMPLATE_TRAPDOOR_BOTTOM.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
+        Identifier identifier3 = Models.TEMPLATE_TRAPDOOR_OPEN.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createTrapdoorBlockState(trapdoorBlock, identifier, identifier2, identifier3));
+        blockStateModelGenerator.registerParentedItemModel(trapdoorBlock, identifier2);
+    }
+
+    public void registerVanillaTrapdoor(BlockStateModelGenerator blockStateModelGenerator, Block trapdoorBlock) {
+        TextureMap textureMap;
+        if(Registries.BLOCK.getId(trapdoorBlock).getPath().contains("basalt")){
+            textureMap = TextureMap.texture(new Identifier("block/" + Registries.BLOCK.getId(trapdoorBlock).getPath().replaceAll("_trapdoor", "_side")));
+
+        } else {
+            textureMap = TextureMap.texture(new Identifier("block/" + Registries.BLOCK.getId(trapdoorBlock).getPath().replaceAll("_trapdoor", "")));
+        }
+        Identifier identifier = Models.TEMPLATE_TRAPDOOR_TOP.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
+        Identifier identifier2 = Models.TEMPLATE_TRAPDOOR_BOTTOM.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
+        Identifier identifier3 = Models.TEMPLATE_TRAPDOOR_OPEN.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createTrapdoorBlockState(trapdoorBlock, identifier, identifier2, identifier3));
+        blockStateModelGenerator.registerParentedItemModel(trapdoorBlock, identifier2);
     }
 
     @Override
