@@ -68,7 +68,7 @@ public class ArmorCapeRecipe extends SpecialCraftingRecipe {
         }
 
         if (!itemStack.isEmpty()) {
-            return CapeDataComponent.setCape(itemStack, true, ModCapes.BASE_CAPE);
+            return CapeDataComponent.setCape(itemStack, true, ModCapes.valueOf(cape.get(ModDataComponentTypes.CAPE_DATA).cape().toUpperCase()));
         } else {
             return ItemStack.EMPTY;
         }

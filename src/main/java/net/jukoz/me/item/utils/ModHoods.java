@@ -5,6 +5,7 @@ import net.minecraft.util.StringIdentifiable;
 public enum ModHoods implements StringIdentifiable {
 
     BASE_HOOD("base_hood"),
+    FUR_HOOD("FUR_HOOD"),
 
     LORIEN_HOOD("lorien_hood"),
     ;

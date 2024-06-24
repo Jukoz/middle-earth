@@ -212,8 +212,8 @@ public class MiddleEarthClient implements ClientModInitializer {
             ArmorRenderer.register(new DegradedBootsArmorRenderer(), armor.asItem());
         });
 
-        ArmorRenderer.register(new HoodRenderer(), ModEquipmentItems.CLOAK_HOOD);
-        ArmorRenderer.register(new CapeRenderer(), ModEquipmentItems.CLOAK);
+        ArmorRenderer.register(new HoodRenderer(), ModEquipmentItems.CLOAK_HOOD, ModEquipmentItems.FUR_CLOAK_HOOD);
+        ArmorRenderer.register(new CapeRenderer(), ModEquipmentItems.CLOAK, ModEquipmentItems.FUR_CLOAK);
 
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MALLORN_LEAVES_PARTICLE, LeavesParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE, LeavesParticle.Factory::new);

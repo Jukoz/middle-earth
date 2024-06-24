@@ -1,16 +1,14 @@
 package net.jukoz.me.client.model.equipment.head;
 
-import net.jukoz.me.MiddleEarth;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Identifier;
 
-public class GondorianHelmetArmorAddonModel<T extends LivingEntity> extends HelmetAddonModel<T> {
+public class GondorianHelmetModel<T extends LivingEntity> extends HelmetAddonModel<T> {
 
     public final ModelPart addons;
 
-    public GondorianHelmetArmorAddonModel(ModelPart root) {
+    public GondorianHelmetModel(ModelPart root) {
         super(root);
         addons = root.getChild("head").getChild("addons");
     }

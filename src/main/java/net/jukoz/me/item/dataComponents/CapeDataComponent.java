@@ -28,13 +28,13 @@ public record CapeDataComponent(boolean enabled, String cape) {
     }
 
     public static CapeDataComponent newCape(ModCapes cape) {
-        return new CapeDataComponent(true, cape.getName());
+        return new CapeDataComponent(true, cape.getName().toLowerCase());
     }
 
     public static ItemStack setCape(ItemStack stack, boolean enabled, ModCapes cape){
         ItemStack itemStack = stack.copyWithCount(1);
 
-        itemStack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(enabled, cape.getName()));
+        itemStack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(enabled, cape.getName().toLowerCase()));
         return itemStack;
     }
 

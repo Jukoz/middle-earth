@@ -49,7 +49,6 @@ public class CloakCapeModel<T extends LivingEntity>  extends ChestplateAddonMode
                 .uv(53, 50).mirrored().cuboid(-6.5F, -1.8F, -1F, 13.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
                 .uv(0, 51).mirrored().cuboid(-9.5F, -1.8F, -3F, 19.0F, 13.0F, 6.0F, new Dilation(0.2F)).mirrored(false), ModelTransform.pivot(-0.0F, 13.1558F, 0.0F));
 
-
         ModelPartData right_arm = modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(),
                 ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         right_arm.addChild("right_arm_shoulder_cape", ModelPartBuilder.create().uv(24, 16).cuboid(-4.0F, -3.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(1.1F)), ModelTransform.pivot(-0.0F, -0.0F, 0.0F));
@@ -57,6 +56,9 @@ public class CloakCapeModel<T extends LivingEntity>  extends ChestplateAddonMode
         ModelPartData left_arm = modelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create(),
                 ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         left_arm.addChild("left_arm_shoulder_cape", ModelPartBuilder.create().uv(40, 16).mirrored().cuboid(0.0F, -3.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(1.1F)).mirrored(false), ModelTransform.pivot(0.0F, -0.0F, 0.0F));
+
+        body.addChild("fur", ModelPartBuilder.create().uv(82, 69).cuboid(-9.0F, -2.0F, -2.5F, 18.0F, 6.0F, 5.0F, new Dilation(1.3F))
+                .uv(82, 0).cuboid(-9.0F, -2.0F, -2.5F, 18.0F, 6.0F, 5.0F, new Dilation(1.1F)), ModelTransform.pivot(0.0F, -0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

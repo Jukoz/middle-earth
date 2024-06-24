@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.jukoz.me.item.ModDataComponentTypes;
-import net.jukoz.me.item.utils.ModCapes;
 import net.jukoz.me.item.utils.ModHoods;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.codec.PacketCodec;
@@ -27,14 +26,14 @@ public record HoodDataComponent(boolean enabled, boolean down, String hood) {
         this.down = down;
     }
 
-    public static HoodDataComponent newhood(ModHoods hood) {
-        return new HoodDataComponent(true, false, hood.getName());
+    public static HoodDataComponent newHood(ModHoods hood) {
+        return new HoodDataComponent(true, false, hood.getName().toLowerCase());
     }
 
     public static ItemStack setHood(ItemStack stack, boolean enabled, ModHoods hood) {
         ItemStack itemStack = stack.copyWithCount(1);
 
-        itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(enabled, false, hood.asString()));
+        itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(enabled, false, hood.asString().toLowerCase()));
         return itemStack;
     }
 

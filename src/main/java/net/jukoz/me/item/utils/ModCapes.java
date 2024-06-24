@@ -5,6 +5,7 @@ import net.minecraft.util.StringIdentifiable;
 public enum ModCapes implements StringIdentifiable {
 
     BASE_CAPE("base_cape"),
+    FUR_CLOAK("fur_cloak"),
 
     GONDORIAN_CAPTAIN_CAPE("gondorian_captain_cape"),
     GONDORIAN_HERO_CAPE("gondorian_hero_cape"),
@@ -16,6 +17,11 @@ public enum ModCapes implements StringIdentifiable {
     ROHIRRIC_ROYAL_GUARD_CAPE("rohirric_royal_guard_cape"),
     EORLING_MARHSAL_CAPE("eorling_marshal_cape"),
     HORSE_LORD_CAPE("horse_lord_cape"),
+
+    DALISH_HEYDAY_CAPE("dalish_heyday_cape"),
+    BARDING_SERGEANT_CAPE("barding_sergeant_cape"),
+
+    EREBOR_CAPE("erebor_cape"),
 
     LORIEN_CAPE("lorien_cape"),
     LORIEN_COMMANDER_CAPE("lorien_commander_cape"),

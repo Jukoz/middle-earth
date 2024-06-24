@@ -38,18 +38,19 @@ public class ModEquipmentItems {
     //region GENERIC
     // Dyeable cloaks
     public static final Item CLOAK_HOOD = registerGeneratedItem("cloak_hood",
-            new HoodHelmetItem(new Item.Settings().component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newhood(ModHoods.BASE_HOOD))));
+            new HoodHelmetItem(new Item.Settings()
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.BASE_HOOD))));
     public static final Item CLOAK = registerGeneratedItem("cloak",
             new CapeChestplateItem(new Item.Settings()
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BASE_CAPE))));
 
     // Fur cloaks
-    public static final Item FUR_CLOAK_HOOD = registerArmorPiece("fur_cloak_hood",
-            new CustomHelmetItem(ModArmorMaterials.FUR_CLOAK, ArmorItem.Type.HELMET, new Item.Settings(),
-                    null));
-    public static final Item FUR_CLOAK = registerArmorPiece("fur_cloak",
-            new CustomChestplateItem(ModArmorMaterials.FUR_CLOAK, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
-                    null));
+    public static final Item FUR_CLOAK_HOOD = registerGeneratedItem("fur_cloak_hood",
+            new HoodHelmetItem(new Item.Settings()
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.FUR_HOOD))));
+    public static final Item FUR_CLOAK = registerGeneratedItem("fur_cloak",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.FUR_CLOAK))));
 
     public static final Item STRAW_HAT = registerArmorPiece("straw_hat",
             new CustomHelmetItem(ModArmorMaterials.STRAW_HAT, ArmorItem.Type.HELMET, new Item.Settings(),
@@ -60,15 +61,18 @@ public class ModEquipmentItems {
                     new HatArmorAddonModel(HatArmorAddonModel.getTexturedModelData().createModel())));
 
     public static final Item BYCOCKET = registerDyeableArmorPiece("bycocket",
-            new CustomHelmetItem(ModArmorMaterials.WOVEN_HAT, ArmorItem.Type.HELMET, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false)),
+            new CustomHelmetItem(ModArmorMaterials.WOVEN_HAT, ArmorItem.Type.HELMET, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false, -6265536)),
                     null));
 
     public static final Item ARMING_COAT = registerDyeableArmorPiece("arming_coat",
-            new CustomChestplateItem(ModArmorMaterials.GENERIC_T1, ArmorItem.Type.CHESTPLATE, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true)),
+            new CustomChestplateItem(ModArmorMaterials.GENERIC_T1, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475)),
                     null));
 
     public static final Item ARMING_SKIRT = registerDyeableArmorPiece("arming_skirt",
-            new CustomLeggingsItem(ModArmorMaterials.GENERIC_T1, ArmorItem.Type.LEGGINGS, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true))));
+            new CustomLeggingsItem(ModArmorMaterials.GENERIC_T1, ArmorItem.Type.LEGGINGS, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))));
 
     public static final Item SHOES = registerArmorPiece("shoes",
             new CustomBootsItem(ModArmorMaterials.GENERIC_T1, ArmorItem.Type.BOOTS, new Item.Settings()));
@@ -77,26 +81,32 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.GENERIC_T1, ArmorItem.Type.BOOTS, new Item.Settings()));
 
     public static final Item LEATHER_CAP = registerDyeableArmorPiece("leather_cap",
-            new CustomHelmetItem(ModArmorMaterials.GAMBESON_CAP, ArmorItem.Type.HELMET, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false)),
+            new CustomHelmetItem(ModArmorMaterials.GAMBESON_CAP, ArmorItem.Type.HELMET, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false, 15256475)),
                     null));
 
     public static final Item GAMBESON_CAP = registerDyeableArmorPiece("gambeson_cap",
-            new CustomHelmetItem(ModArmorMaterials.GAMBESON_CAP, ArmorItem.Type.HELMET, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false)),
+            new CustomHelmetItem(ModArmorMaterials.GAMBESON_CAP, ArmorItem.Type.HELMET, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false, 15256475)),
                     null));
     public static final Item GAMBESON_COWL = registerDyeableArmorPiece("gambeson_cowl",
-            new CustomHelmetItem(ModArmorMaterials.GAMBESON_COWL, ArmorItem.Type.HELMET, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true)),
+            new CustomHelmetItem(ModArmorMaterials.GAMBESON_COWL, ArmorItem.Type.HELMET, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475)),
                     null));
 
     public static final Item GAMBESON = registerDyeableArmorPiece("gambeson",
-            new CustomChestplateItem(ModArmorMaterials.GAMBESON, ArmorItem.Type.CHESTPLATE, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true)),
+            new CustomChestplateItem(ModArmorMaterials.GAMBESON, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475)),
                     null));
 
     public static final Item LEATHER_VEST = registerDyeableArmorPiece("leather_vest",
-            new CustomChestplateItem(ModArmorMaterials.GAMBESON, ArmorItem.Type.CHESTPLATE, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false)),
+            new CustomChestplateItem(ModArmorMaterials.GAMBESON, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false, -6265536)),
                     null));
 
     public static final Item LEATHER_SCALE_VEST = registerDyeableArmorPiece("leather_scale_vest",
-            new CustomChestplateItem(ModArmorMaterials.GAMBESON, ArmorItem.Type.CHESTPLATE, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true)),
+            new CustomChestplateItem(ModArmorMaterials.GAMBESON, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, -6265536)),
                     null));
 
     public static final Item STURDY_BOOTS = registerArmorPiece("sturdy_boots",
@@ -131,7 +141,8 @@ public class ModEquipmentItems {
 
     //region HOBBITS
     public static final Item SHIRRIFF_HAT = registerDyeableArmorPiece("shirriff_hat",
-            new CustomHelmetItem(ModArmorMaterials.HOBBIT_SHIRRIFF_HAT, ArmorItem.Type.HELMET, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true)),
+            new CustomHelmetItem(ModArmorMaterials.HOBBIT_SHIRRIFF_HAT, ArmorItem.Type.HELMET, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, -6265536)),
                     new HatArmorAddonModel(HatArmorAddonModel.getTexturedModelData().createModel())));
 
     //endregion
@@ -142,15 +153,17 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.GONDORIAN_BOOTS, ArmorItem.Type.BOOTS, new Item.Settings()));
 
     public static final Item GONDORIAN_LEATHER_CUIRASS = registerDyeableArmorPiece("gondorian_leather_cuirass",
-            new CustomChestplateItem(ModArmorMaterials.GONDORIAN_LEATHER_CUIRASS, ArmorItem.Type.CHESTPLATE, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true)),
+            new CustomChestplateItem(ModArmorMaterials.GONDORIAN_LEATHER_CUIRASS, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, -6265536)),
                     null));
     public static final Item GONDORIAN_LEATHER_CHESTPLATE = registerDyeableArmorPiece("gondorian_leather_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.GONDORIAN_LEATHER_CUIRASS, ArmorItem.Type.CHESTPLATE, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true)),
+            new CustomChestplateItem(ModArmorMaterials.GONDORIAN_LEATHER_CUIRASS, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, -6265536)),
                     null));
 
     public static final Item GONDORIAN_CABASSET_HELMET = registerArmorPiece("gondorian_cabasset_helmet",
             new CustomHelmetItem(ModArmorMaterials.GONDORIAN_CABASSET, ArmorItem.Type.HELMET, new Item.Settings(),
-                    new GondorianHelmetArmorAddonModel(GondorianHelmetArmorAddonModel.getTexturedModelData().createModel())));
+                    new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())));
 
     public static final Item GONDORIAN_TABBARD = registerArmorPiece("gondorian_tabbard",
             new CustomChestplateItem(ModArmorMaterials.GONDORIAN_TABBARD, ArmorItem.Type.CHESTPLATE, new Item.Settings()));
@@ -160,14 +173,14 @@ public class ModEquipmentItems {
 
     public static final Item GONDORIAN_SOLDIER_HELMET = registerArmorPiece("gondorian_soldier_helmet",
             new CustomHelmetItem(ModArmorMaterials.GONDORIAN_SOLDIER, ArmorItem.Type.HELMET, new Item.Settings(),
-                    new GondorianHelmetArmorAddonModel(GondorianHelmetArmorAddonModel.getTexturedModelData().createModel())));
+                    new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())));
 
     public static final Item GONDORIAN_SOLDIER_CHESTPLATE = registerArmorPiece("gondorian_soldier_chestplate",
             new CustomChestplateItem(ModArmorMaterials.GONDORIAN_SOLDIER, ArmorItem.Type.CHESTPLATE, new Item.Settings()));
 
     public static final Item GONDORIAN_PLATE_HELMET = registerArmorPiece("gondorian_plate_helmet",
             new CustomHelmetItem(ModArmorMaterials.GONDORIAN_PLATE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings(),
-                    new GondorianHelmetArmorAddonModel(GondorianHelmetArmorAddonModel.getTexturedModelData().createModel())));
+                    new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())));
     public static final Item GONDORIAN_PLATE_CHESTPLATE = registerArmorPiece("gondorian_plate_chestplate",
             new CustomChestplateItem(ModArmorMaterials.GONDORIAN_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())));
@@ -178,11 +191,11 @@ public class ModEquipmentItems {
 
     public static final Item GONDORIAN_CAPTAIN_HELMET = registerArmorPiece("gondorian_captain_helmet",
             new CustomHelmetItem(ModArmorMaterials.GONDORIAN_CAPTAIN_ARMOR, ArmorItem.Type.HELMET, new Item.Settings(),
-                    new GondorianHelmetArmorAddonModel(GondorianHelmetArmorAddonModel.getTexturedModelData().createModel())));
+                    new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())));
 
     public static final Item GONDORIAN_KINGS_GUARD_HELMET = registerArmorPiece("gondorian_kings_guard_helmet",
             new CustomHelmetItem(ModArmorMaterials.GONDORIAN_KINGS_GUARD_ARMOR, ArmorItem.Type.HELMET, new Item.Settings(),
-                    new GondorianHelmetArmorAddonModel(GondorianHelmetArmorAddonModel.getTexturedModelData().createModel())));
+                    new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())));
     public static final Item GONDORIAN_KINGS_GUARD_CHESTKPLATE = registerArmorPiece("gondorian_kings_guard_chestplate",
             new CustomChestplateItem(ModArmorMaterials.GONDORIAN_KINGS_GUARD_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings()
                         .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GONDORIAN_KINGS_GUARD_CAPE)),
@@ -194,7 +207,7 @@ public class ModEquipmentItems {
 
     public static final Item GONDORIAN_CITADEL_GUARD_HELMET = registerArmorPiece("gondorian_citadel_guard_helmet",
             new CustomHelmetItem(ModArmorMaterials.GONDORIAN_CITADEL_GUARD_ARMOR, ArmorItem.Type.HELMET, new Item.Settings(),
-                    new GondorianHelmetArmorAddonModel(GondorianHelmetArmorAddonModel.getTexturedModelData().createModel())));
+                    new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())));
     public static final Item GONDORIAN_CITADEL_GUARD_CHESTPLATE = registerArmorPiece("gondorian_citadel_guard_chestplate",
             new CustomChestplateItem(ModArmorMaterials.GONDORIAN_CITADEL_GUARD_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings()
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GONDORIAN_CITADEL_GUARD_CAPE)),
@@ -206,7 +219,7 @@ public class ModEquipmentItems {
     
     public static final Item GONDORIAN_FOUNTAIN_GUARD_HELMET = registerArmorPiece("gondorian_fountain_guard_helmet",
             new CustomHelmetItem(ModArmorMaterials.GONDORIAN_FOUNTAIN_GUARD_ARMOR, ArmorItem.Type.HELMET, new Item.Settings(),
-                    new GondorianHelmetArmorAddonModel(GondorianHelmetArmorAddonModel.getTexturedModelData().createModel())));
+                    new GondorianHelmetModel(GondorianHelmetModel.getTexturedModelData().createModel())));
     public static final Item GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE = registerArmorPiece("gondorian_fountain_guard_chestplate",
             new CustomChestplateItem(ModArmorMaterials.GONDORIAN_FOUNTAIN_GUARD_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings()
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GONDORIAN_FOUNTAIN_GUARD_CAPE)),
@@ -230,26 +243,28 @@ public class ModEquipmentItems {
 
     public static final Item ROHIRRIC_COAT = registerDyeableArmorPiece("rohirric_coat",
             new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_LEATHER, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true))
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     null));
     public static final Item ROHIRRIC_REINFORCED_COAT = registerDyeableArmorPiece("rohirric_reinforced_coat",
             new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_LEATHER, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true))
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     null));
 
     public static final Item ROHIRRIC_LEATHER_VEST = registerDyeableArmorPiece("rohirric_leather_vest",
             new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_LEATHER, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true))
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     null));
     public static final Item ROHIRRIC_LEATHER_SCALE_VEST = registerDyeableArmorPiece("rohirric_leather_scale_vest",
-            new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_LEATHER, ArmorItem.Type.CHESTPLATE, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true))
+            new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_LEATHER, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     null));
     public static final Item ROHIRRIC_GAMBESON = registerDyeableArmorPiece("rohirric_gambeson",
-            new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_LEATHER, ArmorItem.Type.CHESTPLATE, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true))
+            new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_LEATHER, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     null));
 
@@ -257,11 +272,13 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.ROHIRRIC_MILITIA, ArmorItem.Type.HELMET, new Item.Settings()));
 
     public static final Item ROHIRRIC_MAIL_SHIRT = registerDyeableArmorPiece("rohirric_mail_shirt",
-            new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_MAIL, ArmorItem.Type.CHESTPLATE, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true))
+            new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_MAIL, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     null));
     public static final Item ROHIRRIC_MAIL_SHIRT_OPEN = registerDyeableArmorPiece("rohirric_mail_shirt_open",
-            new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_MAIL, ArmorItem.Type.CHESTPLATE, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true))
+            new CustomChestplateItem(ModArmorMaterials.ROHIRRIC_MAIL, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     null));
     public static final Item ROHIRRIC_MAIL_HAUBERK = registerArmorPiece("rohirric_mail_hauberk",
@@ -314,6 +331,50 @@ public class ModEquipmentItems {
     public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
             new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
     //endregion
+    
+    //region DALE
+    public static final Item DALISH_BOOTS = registerArmorPiece("dalish_boots",
+            new CustomBootsItem(ModArmorMaterials.DALE_T2, ArmorItem.Type.BOOTS, new Item.Settings()));
+
+    public static final Item DALISH_CHAIN_HAUBERK = registerArmorPiece("dalish_chain_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.DALE_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings(), null));
+
+    public static final Item DALISH_CHAIN_COAT = registerArmorPiece("dalish_chain_coat",
+            new CustomLeggingsItem(ModArmorMaterials.DALE_T3, ArmorItem.Type.LEGGINGS, new Item.Settings()));
+
+    public static final Item DALISH_BURGONET = registerArmorPiece("dalish_burgonet",
+            new CustomHelmetItem(ModArmorMaterials.DALE_T4, ArmorItem.Type.HELMET, new Item.Settings(),
+                    new DaleHelmetModel(DaleHelmetModel.getTexturedModelData().createModel())));
+
+    public static final Item DALISH_HEYDAY_HELMET = registerArmorPiece("dalish_heyday_helmet",
+            new CustomHelmetItem(ModArmorMaterials.DALE_T4, ArmorItem.Type.HELMET, new Item.Settings(),
+                    new DaleTallSpikeHelmetModel(DaleTallSpikeHelmetModel.getTexturedModelData().createModel())));
+    public static final Item DALISH_HEYDAY_CHESTPLATE = registerArmorPiece("dalish_heyday_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.DALE_T4, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.DALISH_HEYDAY_CAPE)), null));
+    public static final Item DALISH_HEYDAY_ARMING_COAT = registerArmorPiece("dalish_heyday_arming_coat",
+            new CustomLeggingsItem(ModArmorMaterials.DALE_T4, ArmorItem.Type.LEGGINGS, new Item.Settings()));
+    public static final Item DALISH_HEYDAY_BOOTS = registerArmorPiece("dalish_heyday_boots",
+            new CustomBootsItem(ModArmorMaterials.DALE_T4, ArmorItem.Type.BOOTS, new Item.Settings()));
+
+    public static final Item BARDING_SOLDIER_HELMET = registerArmorPiece("barding_soldier_helmet",
+            new CustomHelmetItem(ModArmorMaterials.BARDING_SOLDIER, ArmorItem.Type.HELMET, new Item.Settings(),
+                    new DaleHelmetModel(DaleHelmetModel.getTexturedModelData().createModel())));
+    public static final Item BARDING_SOLDIER_CHESTPLATE = registerArmorPiece("barding_soldier_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.BARDING_SOLDIER, ArmorItem.Type.CHESTPLATE, new Item.Settings(), null));
+
+    public static final Item BARDING_CHAIN_SKIRT = registerArmorPiece("barding_chain_skirt",
+            new CustomLeggingsItem(ModArmorMaterials.BARDING_SOLDIER, ArmorItem.Type.LEGGINGS, new Item.Settings()));
+    public static final Item DALISH_PLATED_BOOTS = registerArmorPiece("dalish_plated_boots",
+            new CustomBootsItem(ModArmorMaterials.BARDING_SOLDIER, ArmorItem.Type.BOOTS, new Item.Settings()));
+
+    public static final Item BARDING_SERGEANT_HELMET = registerArmorPiece("barding_sergeant_helmet",
+            new CustomHelmetItem(ModArmorMaterials.BARDING_SOLDIER, ArmorItem.Type.HELMET, new Item.Settings(),
+                    new DaleHelmetModel(DaleHelmetModel.getTexturedModelData().createModel())));
+    public static final Item BARDING_SERGEANT_CHESTPLATE = registerArmorPiece("barding_sergeant_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.BARDING_SOLDIER, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BARDING_SERGEANT_CAPE)), null));
+    //endregion
 
     //endregion
 
@@ -327,13 +388,25 @@ public class ModEquipmentItems {
 
     public static final Item EREBOR_PLATE_HELMET = registerArmorPiece("erebor_plate_helmet",
             new CustomHelmetItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings(),
-                    new EreborHelmetAddonModel(EreborHelmetAddonModel.getTexturedModelData().createModel())));
+                    new EreborHelmetModel(EreborHelmetModel.getTexturedModelData().createModel())));
     public static final Item EREBOR_PLATE_CHESTPLATE = registerArmorPiece("erebor_plate_chestplate",
             new CustomChestplateItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())));
     public static final Item EREBOR_PLATE_LEGGINGS = registerArmorPiece("erebor_plate_leggings",
             new CustomLeggingsItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new Item.Settings()));
     public static final Item EREBOR_PLATE_BOOTS = registerArmorPiece("erebor_plate_boots",
+            new CustomBootsItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.BOOTS, new Item.Settings()));
+
+    public static final Item EREBOR_GATE_GUARD_HELMET = registerArmorPiece("erebor_gate_guard_helmet",
+            new CustomHelmetItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings(),
+                    new EreborHelmetModel(EreborHelmetModel.getTexturedModelData().createModel())));
+    public static final Item EREBOR_GATE_GUARD_CHESTPLATE = registerArmorPiece("erebor_gate_guard_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.EREBOR_CAPE)),
+                    new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())));
+    public static final Item EREBOR_GATE_GUARD_LEGGINGS = registerArmorPiece("erebor_gate_guard_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new Item.Settings()));
+    public static final Item EREBOR_GATE_GUARD_BOOTS = registerArmorPiece("erebor_gate_guard_boots",
             new CustomBootsItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.BOOTS, new Item.Settings()));
     
     public static final Item LONGBEARD_SHIELD = registerItem("longbeard_shield",
@@ -347,7 +420,8 @@ public class ModEquipmentItems {
     //region GENERIC
 
     public static final Item ELVEN_ARMING_SKIRT = registerDyeableArmorPiece("elven_arming_skirt",
-            new CustomLeggingsItem(ModArmorMaterials.ELVEN_T1, ArmorItem.Type.LEGGINGS, new Item.Settings().component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true))));
+            new CustomLeggingsItem(ModArmorMaterials.ELVEN_T1, ArmorItem.Type.LEGGINGS, new Item.Settings()
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))));
 
     public static final Item ELVEN_BOOTS = registerArmorPiece("elven_boots",
             new CustomBootsItem(ModArmorMaterials.STURDY_BOOTS, ArmorItem.Type.BOOTS, new Item.Settings()));
@@ -367,7 +441,7 @@ public class ModEquipmentItems {
     //region LOTHLORIEN
     public static final Item LORIEN_PLATE_HELMET = registerArmorPiece("lorien_plate_helmet",
             new CustomHelmetItem(ModArmorMaterials.LORIEN_PLATE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings()
-                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newhood(ModHoods.LORIEN_HOOD)),
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.LORIEN_HOOD)),
                     new LorienHelmetArmorAddonModel(LorienHelmetArmorAddonModel.getTexturedModelData().createModel())));
     public static final Item LORIEN_PLATE_CHESTPLATE = registerArmorPiece("lorien_plate_chestplate",
             new CustomChestplateItem(ModArmorMaterials.LORIEN_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings()

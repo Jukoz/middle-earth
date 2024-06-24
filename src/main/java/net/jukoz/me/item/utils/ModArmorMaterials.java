@@ -141,6 +141,18 @@ public class ModArmorMaterials {
     public static final ExtendedArmorMaterial HORSE_LORD_ARMOR = registerArmor("horse_lord", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), null);
 
+    public static final ExtendedArmorMaterial DALE_T2 = registerArmor("dale_t2", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), null);
+
+    public static final ExtendedArmorMaterial DALE_T3 = registerArmor("dale_t3", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), null);
+
+    public static final ExtendedArmorMaterial DALE_T4 = registerArmor("dale_t4", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), null);
+
+    public static final ExtendedArmorMaterial BARDING_SOLDIER = registerArmor("barding_soldier", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT),
+            null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), null);
+
     public static final ExtendedArmorMaterial DWARVEN_PARTISAN = registerArmor("dwarven_partisan", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER),
             null, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dwarven"));
 

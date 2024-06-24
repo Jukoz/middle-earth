@@ -17,7 +17,7 @@ import net.minecraft.util.math.ColorHelper;
 import java.util.Iterator;
 import java.util.List;
 
-public record CustomDyeableDataComponent(int customRgb,  boolean overlay) {
+public record CustomDyeableDataComponent(int customRgb, boolean overlay) {
     private static final Codec<CustomDyeableDataComponent> BASE_CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(Codec.INT.fieldOf("customRgb").forGetter(CustomDyeableDataComponent::customRgb), Codec.BOOL.optionalFieldOf("overlay", true).forGetter(CustomDyeableDataComponent::overlay)).apply(instance, CustomDyeableDataComponent::new);
     });
@@ -40,8 +40,8 @@ public record CustomDyeableDataComponent(int customRgb,  boolean overlay) {
         return dyedColorComponent != null ? dyedColorComponent.overlay : false;
     }
 
-    public static CustomDyeableDataComponent withOverlay(boolean overlay) {
-        return new CustomDyeableDataComponent(DEFAULT_COLOR, overlay);
+    public static CustomDyeableDataComponent withOverlay(boolean overlay, int defaultColor) {
+        return new CustomDyeableDataComponent(defaultColor, overlay);
     }
 
     public static ItemStack setOverlay(ItemStack stack, Boolean overlay){
