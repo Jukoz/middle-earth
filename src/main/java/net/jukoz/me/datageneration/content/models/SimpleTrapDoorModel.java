@@ -26,6 +26,7 @@ public class SimpleTrapDoorModel {
             add(new Trapdoor(Blocks.GRANITE, ModBlocks.GRANITE_TRAPDOOR));
             add(new Trapdoor(Blocks.DIORITE, ModBlocks.DIORITE_TRAPDOOR));
             add(new Trapdoor(Blocks.ANDESITE, ModBlocks.ANDESITE_TRAPDOOR));
+            add(new Trapdoor(Blocks.CALCITE, ModBlocks.CALCITE_TRAPDOOR));
             add(new Trapdoor(Blocks.DEEPSLATE, ModBlocks.DEEPSLATE_TRAPDOOR));
             add(new Trapdoor(Blocks.TUFF, ModBlocks.TUFF_TRAPDOOR));
             add(new Trapdoor(Blocks.BASALT, ModBlocks.BASALT_TRAPDOOR));

@@ -315,23 +315,23 @@ public class ModDecorativeBlocks {
             new ChainBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).noCollision()));
 
     public static final Block CHIMNEY = registerBlockWithItem("chimney",
-            new ChimneyBlock(AbstractBlock.Settings.copy(Blocks.STONE_BRICKS)));
+            new ChimneyBlock(AbstractBlock.Settings.copy(Blocks.STONE_BRICKS).requiresTool()));
 
     public static final Block BIG_BRAZIER = registerBlockWithItem("big_brazier",
-            new BrazierBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque()));
+            new BrazierBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
     public static final Block SMALL_BRAZIER = registerBlockWithItem("small_brazier",
-            new SmallBrazierBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque()));
+            new SmallBrazierBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block FIRE_BOWL = registerBlockWithItem("fire_bowl",
-            new FireBowlBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque()));
+            new FireBowlBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block BONFIRE = registerBlockWithItem("bonfire",
-            new BonfireBlock(AbstractBlock.Settings.copy(Blocks.CAMPFIRE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque()));
+            new BonfireBlock(AbstractBlock.Settings.copy(Blocks.CAMPFIRE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
     public static final Block SCONCE = registerBlock("sconce",
-            new SconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque(), ParticleTypes.FLAME));
+            new SconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
     public static final Block WALL_SCONCE = registerBlock("wall_sconce",
-            new WallSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque(), ParticleTypes.FLAME));
+            new WallSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
 
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = new Identifier(MiddleEarth.MOD_ID, name);

@@ -727,6 +727,12 @@
 
 "#Comment:": "Block - Vanilla +",
   "block.me.stone_trapdoor": "Stone Trapdoor",
+  "block.me.granite_trapdoor": "Granite Trapdoor",
+  "block.me.diorite_trapdoor": "Diorite Trapdoor",
+  "block.me.andesite_trapdoor": "Andesite Trapdoor",
+  "block.me.deepslate_trapdoor": "Deepslate Trapdoor",
+  "block.me.tuff_trapdoor": "Tuff Trapdoor",
+  "block.me.basalt_trapdoor": "Basalt Trapdoor",
   "block.me.blackstone_trapdoor": "Blackstone Trapdoor",
   "block.me.old_podzol": "Old Podzol",
   "block.me.stone_mycelium": "Stone Mycelium",
@@ -928,10 +934,86 @@
 
   "block.me.ashen_stone_pressure_plate": "Ashen Stone Pressure Plate",
   "block.me.ashen_stone_button": "Ashen Stone Button",
+  "block.me.ashen_stone_trapdoor": "Ashen Stone Trapdoor",
 
   "block.me.ashen_stone_stool": "Ashen_stone Stool",
   "block.me.ashen_stone_table": "Ashen_stone Table",
   "block.me.ashen_stone_chair": "Ashen_stone Chair",
+
+"#Comment:": "Block - Pumice",
+  "block.me.cobbled_pumice": "Cobbled Pumice",
+  "block.me.cobbled_pumice_slab": "Cobbled Pumice Slab",
+  "block.me.cobbled_pumice_vertical_slab": "Cobbled Pumice Vertical Slab",
+  "block.me.cobbled_pumice_stairs": "Cobbled Pumice Stairs",
+  "block.me.cobbled_pumice_wall": "Cobbled Pumice Wall",
+  "block.me.mossy_cobbled_pumice": "Mossy Cobbled Pumice",
+  "block.me.mossy_cobbled_pumice_slab": "Mossy Cobbled Pumice Slab",
+  "block.me.mossy_cobbled_pumice_vertical_slab": "Mossy Cobbled Pumice Vertical Slab",
+  "block.me.mossy_cobbled_pumice_stairs": "Mossy Cobbled Pumice Stairs",
+  "block.me.mossy_cobbled_pumice_wall": "Mossy Cobbled Pumice Wall",
+  "block.me.pumice": "Pumice",
+  "block.me.pumice_slab": "Pumice Slab",
+  "block.me.pumice_vertical_slab": "Pumice Vertical Slab",
+  "block.me.pumice_stairs": "Pumice Stairs",
+  "block.me.pumice_wall": "Pumice Wall",
+  "block.me.pumice_pillar": "Pumice Pillar",
+  "block.me.mossy_pumice_pillar": "Mossy Pumice Pillar",
+  "block.me.cracked_pumice_pillar": "Cracked Pumice Pillar",
+  "block.me.pumice_bricks": "Pumice Bricks",
+  "block.me.pumice_bricks_slab": "Pumice Bricks Slab",
+  "block.me.pumice_bricks_vertical_slab": "Pumice Bricks Vertical Slab",
+  "block.me.pumice_bricks_stairs": "Pumice Bricks Stairs",
+  "block.me.pumice_bricks_wall": "Pumice Bricks Wall",
+  "block.me.mossy_pumice_bricks": "Mossy Pumice Bricks",
+  "block.me.mossy_pumice_bricks_slab": "Mossy Pumice Bricks Slab",
+  "block.me.mossy_pumice_bricks_vertical_slab": "Mossy Pumice Bricks Vertical Slab",
+  "block.me.mossy_pumice_bricks_stairs": "Mossy Pumice Bricks Stairs",
+  "block.me.mossy_pumice_bricks_wall": "Mossy Pumice Bricks Wall",
+  "block.me.cracked_pumice_bricks": "Cracked Pumice Bricks",
+  "block.me.cracked_pumice_bricks_slab": "Cracked Pumice Bricks Slab",
+  "block.me.cracked_pumice_bricks_vertical_slab": "Cracked Pumice Bricks Vertical Slab",
+  "block.me.cracked_pumice_bricks_stairs": "Cracked Pumice Bricks Stairs",
+  "block.me.cracked_pumice_bricks_wall": "Cracked Pumice Bricks Wall",
+  "block.me.pumice_tiles": "Pumice Tiles",
+  "block.me.pumice_tiles_slab": "Pumice Tiles Slab",
+  "block.me.pumice_tiles_vertical_slab": "Pumice Tiles Vertical Slab",
+  "block.me.pumice_tiles_stairs": "Pumice Tiles Stairs",
+  "block.me.pumice_tiles_wall": "Pumice Tiles Wall",
+  "block.me.mossy_pumice_tiles": "Mossy Pumice Tiles",
+  "block.me.mossy_pumice_tiles_slab": "Mossy Pumice Tiles Slab",
+  "block.me.mossy_pumice_tiles_vertical_slab": "Mossy Pumice Tiles Vertical Slab",
+  "block.me.mossy_pumice_tiles_stairs": "Mossy Pumice Tiles Stairs",
+  "block.me.mossy_pumice_tiles_wall": "Mossy Pumice Tiles Wall",
+  "block.me.cracked_pumice_tiles": "Cracked Pumice Tiles",
+  "block.me.cracked_pumice_tiles_slab": "Cracked Pumice Tiles Slab",
+  "block.me.cracked_pumice_tiles_vertical_slab": "Cracked Pumice Tiles Vertical Slab",
+  "block.me.cracked_pumice_tiles_stairs": "Cracked Pumice Tiles Stairs",
+  "block.me.cracked_pumice_tiles_wall": "Cracked Pumice Tiles Wall",
+  "block.me.polished_pumice": "Polished Pumice",
+  "block.me.polished_pumice_slab": "Polished Pumice Slab",
+  "block.me.polished_pumice_vertical_slab": "Polished Pumice Vertical Slab",
+  "block.me.polished_pumice_stairs": "Polished Pumice Stairs",
+  "block.me.polished_pumice_wall": "Polished Pumice Wall",
+  "block.me.mossy_polished_pumice": "Mossy polished Pumice",
+  "block.me.mossy_polished_pumice_slab": "Mossy Polished Pumice Slab",
+  "block.me.mossy_polished_pumice_vertical_slab": "Mossy Polished Pumice Vertical Slab",
+  "block.me.mossy_polished_pumice_stairs": "Mossy Polished Pumice Stairs",
+  "block.me.mossy_polished_pumice_wall": "Mossy Polished Pumice Wall",
+  "block.me.cracked_polished_pumice": "Cracked polished Pumice",
+  "block.me.cracked_polished_pumice_slab": "Cracked Polished Pumice Slab",
+  "block.me.cracked_polished_pumice_vertical_slab": "Cracked Polished Pumice Vertical Slab",
+  "block.me.cracked_polished_pumice_stairs": "Cracked Polished Pumice Stairs",
+  "block.me.cracked_polished_pumice_wall": "Cracked Polished Pumice Wall",
+  "block.me.chiseled_polished_pumice": "Chiseled Polished Pumice",
+  "block.me.chiseled_pumice_bricks": "Chiseled Pumice Bricks",
+
+  "block.me.pumice_pressure_plate": "Ashen Stone Pressure Plate",
+  "block.me.pumice_button": "Pumice Button",
+  "block.me.pumice_trapdoor": "Pumice Trapdoor",
+
+  "block.me.pumice_stool": "Pumice Stool",
+  "block.me.pumice_table": "Pumice Table",
+  "block.me.pumice_chair": "Pumice Chair",
 
 "#Comment:": "Block - Calcite",
   "block.me.cobbled_calcite": "Cobbled Calcite",
@@ -994,6 +1076,8 @@
   "block.me.cracked_polished_calcite_wall": "Cracked Polished Calcite Wall",
   "block.me.chiseled_polished_calcite": "Chiseled Polished Calcite",
   "block.me.chiseled_calcite_bricks": "Chiseled Calcite Bricks",
+
+  "block.me.calcite_trapdoor": "Calcite Trapdoor",
 
   "block.me.calcite_stool": "Calcite Stool",
   "block.me.calcite_table": "Calcite Table",
@@ -1068,6 +1152,7 @@
 
   "block.me.dolomite_pressure_plate": "Dolomite Pressure Plate",
   "block.me.dolomite_button": "Dolomite Button",
+  "block.me.dolomite_trapdoor": "Dolomite Trapdoor",
 
   "block.me.dolomite_stool": "Dolomite Stool",
   "block.me.dolomite_table": "Dolomite Table",
@@ -1139,10 +1224,12 @@
   "block.me.cracked_polished_gonluin_wall": "Cracked Polished Gonluin Wall",
   "block.me.chiseled_polished_gonluin": "Chiseled Polished Gonluin",
   "block.me.chiseled_gonluin_bricks": "Chiseled Gonluin Bricks",
+  "block.me.chiseled_gonluin": "Chiseled Gonluin",
 
   "block.me.gonluin_pressure_plate": "Gonluin Pressure Plate",
   "block.me.gonluin_button": "Gonluin Button",
-  
+  "block.me.gonluin_trapdoor": "Gonluin Trapdoor",
+
   "block.me.gonluin_stool": "Gonluin Stool",
   "block.me.gonluin_table": "Gonluin Table",
   "block.me.gonluin_chair": "Gonluin Chair",
@@ -1216,6 +1303,7 @@
 
   "block.me.blue_tuff_pressure_plate": "Blue Tuff Pressure Plate",
   "block.me.blue_tuff_button": "Blue Tuff Button",
+  "block.me.blue_tuff_trapdoor": "Blue Tuff Trapdoor",
 
   "block.me.blue_tuff_stool": "Blue Tuff Stool",
   "block.me.blue_tuff_table": "Blue Tuff Table",
@@ -1302,6 +1390,7 @@
 
   "block.me.limestone_pressure_plate": "Limestone Pressure Plate",
   "block.me.limestone_button": "Limestone Button",
+  "block.me.limestone_trapdoor": "Limestone Trapdoor",
 
   "block.me.limestone_stool": "Limestone Stool",
   "block.me.limestone_table": "Limestone Table",
@@ -1325,6 +1414,12 @@
   "block.me.cracked_blackstone_tiles_wall": "Cracked Blackstone Tiles Wall",
 
 "#Comment:": "Block - Granite",
+  "block.me.smooth_granite": "Smooth Granite",
+  "block.me.smooth_granite_slab": "Smooth Granite Slab",
+  "block.me.smooth_granite_vertical_slab": "Smooth Granite Vertical Slab",
+  "block.me.smooth_granite_stairs": "Smooth Granite Stairs",
+  "block.me.smooth_granite_stairs": "Smooth Granite Stairs",
+  "block.me.smooth_granite_wall": "Smooth Granite Wall",
   "block.me.cobbled_granite": "Cobbled Granite",
   "block.me.cobbled_granite_slab": "Cobbled Granite Slab",
   "block.me.cobbled_granite_vertical_slab": "Cobbled Granite Vertical Slab",
@@ -1648,7 +1743,8 @@
   
   "block.me.jadeite_pressure_plate": "Jadeite Pressure Plate",
   "block.me.jadeite_button": "Jadeite Button",
-  
+  "block.me.jadeite_trapdoor": "Jadeite Trapdoor",
+
   "block.me.jadeite_stool": "Jadeite Stool",
   "block.me.jadeite_table": "Jadeite Table",
   "block.me.jadeite_chair": "Jadeite Chair",
@@ -1717,6 +1813,7 @@
 
   "block.me.quartzite_pressure_plate": "Quartzite Pressure Plate",
   "block.me.quartzite_button": "Quartzite Button",
+  "block.me.quartzite_trapdoor": "Quartzite Trapdoor",
 
   "block.me.quartzite_stool": "Quartzite Stool",
   "block.me.quartzite_table": "Quartzite Table",
@@ -1797,6 +1894,7 @@
   
   "block.me.ironstone_pressure_plate": "Ironstone Pressure Plate",
   "block.me.ironstone_button": "Ironstone Button",
+  "block.me.ironstone_trapdoor": "Ironstone Trapdoor",
 
   "block.me.ironstone_stool": "Ironstone Stool",
   "block.me.ironstone_table": "Ironstone Table",
@@ -1875,8 +1973,15 @@
   "block.me.chiseled_hematite_bricks": "Chiseled Hematite Bricks",
   "block.me.chiseled_hematite": "Chiseled Hematite",
 
+  "block.me.hematite_brickwork": "Hematite Brickwork",
+  "block.me.hematite_brickwork_slab": "Hematite Brickwork Slab",
+  "block.me.hematite_brickwork_vertical_slab": "Hematite Brickwork Vertical Slab",
+  "block.me.hematite_brickwork_stairs": "Hematite Brickwork Stairs",
+  "block.me.hematite_brickwork_wall": "Hematite Brickwork Wall",
+
   "block.me.hematite_pressure_plate": "Hematite Pressure Plate",
   "block.me.hematite_button": "Hematite Button",
+  "block.me.hematite_trapdoor": "Hematite Trapdoor",
 
   "block.me.hematite_stool": "Hematite Stool",
   "block.me.hematite_table": "Hematite Table",
@@ -1963,6 +2068,7 @@
 
   "block.me.gneiss_pressure_plate": "Gneiss Pressure Plate",
   "block.me.gneiss_button": "Gneiss Button",
+  "block.me.gneiss_trapdoor": "Gneiss Trapdoor",
 
   "block.me.gneiss_stool": "Gneiss Stool",
   "block.me.gneiss_table": "Gneiss Table",
@@ -2049,6 +2155,7 @@
 
   "block.me.zigilabad_pressure_plate": "Zigil'Abad Pressure Plate",
   "block.me.zigilabad_button": "Zigil'Abad Button",
+  "block.me.zigilabad_trapdoor": "Zigil'Abad Trapdoor",
 
   "block.me.zigilabad_stool": "Zigil'Abad Stool",
   "block.me.zigilabad_table": "Zigil'Abad Table",
@@ -2118,7 +2225,8 @@
 
   "block.me.nurgon_pressure_plate": "Núrgon Pressure Plate",
   "block.me.nurgon_button": "Núrgon Button",
-  
+  "block.me.nurgon_trapdoor": "Núrgon Trapdoor",
+
   "block.me.nurgon_stool": "Núrgon Stool",
   "block.me.nurgon_table": "Núrgon Table",
   "block.me.nurgon_chair": "Núrgon Chair",
@@ -2201,7 +2309,8 @@
 
   "block.me.medgon_pressure_plate": "Medgon Pressure Plate",
   "block.me.medgon_button": "Medgon Button",
-  
+  "block.me.medgon_trapdoor": "Medgon Trapdoor",
+
   "block.me.medgon_stool": "Medgon Stool",
   "block.me.medgon_table": "Medgon Table",
   "block.me.medgon_chair": "Medgon Chair",
@@ -2267,8 +2376,10 @@
   "block.me.cracked_polished_frozen_stone_wall": "Cracked Polished Frozen Stone Wall",
   "block.me.chiseled_polished_frozen_stone": "Chiseled Polished Frozen Stone",
   "block.me.chiseled_frozen_bricks": "Chiseled Frozen Bricks",
+
   "block.me.frozen_stone_pressure_plate": "Frozen Stone Pressure Plate",
   "block.me.frozen_stone_button": "Frozen Stone Button",
+  "block.me.frozen_stone_trapdoor": "Frozen Stone Trapdoor",
 
   "block.me.frozen_stone_stool": "Frozen Stone Stool",
   "block.me.frozen_stone_table": "Frozen Stone Table",
@@ -2319,9 +2430,9 @@
   
 "#Comment:": "Block - Dirt",
   "block.me.dry_dirt": "Dry Dirt",
-  "block.me.ashen_dirt": "Ashen Dirt",
   "block.me.dry_dirt_slab": "Dry Dirt Slab",
   "block.me.dry_dirt_stairs": "Dry Dirt Stairs",
+  "block.me.ashen_dirt": "Ashen Dirt",
   "block.me.ashen_dirt_slab": "Ashen Dirt Slab",
   "block.me.ashen_dirt_stairs": "Ashen Dirt Stairs",
   "block.me.dirt_slab": "Dirt Slab",
@@ -2332,6 +2443,22 @@
   "block.me.coarse_dirt_stairs": "Coarse Dirt Stairs",
   "block.me.mud_slab": "Mud Slab",
   "block.me.mud_stairs": "Mud Stairs",
+
+  "block.me.cobbly_dirt": "Cobbly Dirt",
+  "block.me.cobbly_dirt_slab": "Cobbly Dirt Slab",
+  "block.me.cobbly_dirt_stairs": "Cobbly Dirt Stairs",
+
+  "block.me.cobbly_ashen_dirt": "Cobbly Ashen Dirt",
+  "block.me.cobbly_ashen_dirt_slab": "Cobbly Ashen Dirt Slab",
+  "block.me.cobbly_ashen_dirt_stairs": "Cobbly Ashen Dirt Stairs",
+
+  "block.me.grassy_dirt": "Grassy Dirt",
+  "block.me.grassy_dirt_slab": "Grassy Dirt Slab",
+  "block.me.grassy_dirt_stairs": "Grassy Dirt Stairs",
+
+  "block.me.turf": "Turf",
+  "block.me.turf_slab": "Turf Slab",
+  "block.me.turf_stairs": "Turf Stairs",
 
 "#Comment:": "Block - Beech",
   "block.me.beech_leaves": "Beech Leaves",
@@ -2703,6 +2830,8 @@
 
 "#Comment:": "Block - Pine",
   "block.me.pine_leaves": "Pine Leaves",
+  "block.me.pine_branches": "Pine Branches",
+  "block.me.dry_pine_leaves": "Dry Pine Leaves",
   "block.me.pine_log": "Pine Log",
   "block.me.pine_wood": "Pine Wood",
   "block.me.pine_wood_wall": "Pine Wood Wall",
@@ -2726,6 +2855,11 @@
   "block.me.pine_shingles_slab": "Pine Shingles Slab",
   "block.me.pine_shingles_vertical_slab": "Pine Shingles Vertical Slab",
   "block.me.pine_shingles_wall": "Pine Shingles Wall",
+  "block.me.pine_roofing": "Pine Roofing",
+  "block.me.pine_roofing_stairs": "Pine Roofing Stairs",
+  "block.me.pine_roofing_slab": "Pine Roofing Slab",
+  "block.me.pine_roofing_vertical_slab": "Pine Roofing Vertical Slab",
+  "block.me.pine_roofing_wall": "Pine Roofing Wall",
 
   "block.me.pine_wood_slab": "Pine Wood Slab",
   "block.me.pine_wood_vertical_slab": "Pine Wood Vertical Slab",
@@ -3029,6 +3163,12 @@
   "block.me.old_thatch_stairs": "Old Thatch Stairs",
   "block.me.old_thatch_wall": "Old Thatch Wall",
 
+  "block.me.rotten_thatch": "Rotten Thatch",
+  "block.me.rotten_thatch_slab": "Rotten Thatch Slab",
+  "block.me.rotten_thatch_vertical_slab": "Rotten Thatch Vertical Slab",
+  "block.me.rotten_thatch_stairs": "Rotten Thatch Stairs",
+  "block.me.rotten_thatch_wall": "Rotten Thatch Wall",
+
   "block.me.waxed_thatch": "Waxed Thatch",
   "block.me.waxed_thatch_slab": "Waxed Thatch Slab",
   "block.me.waxed_thatch_vertical_slab": "Waxed Thatch Vertical Slab",
@@ -3052,8 +3192,14 @@
   "block.me.waxed_old_thatch_vertical_slab": "Waxed Old Thatch Vertical Slab",
   "block.me.waxed_old_thatch_stairs": "Waxed Old Thatch Stairs",
   "block.me.waxed_old_thatch_wall": "Waxed Old Thatch Wall",
+
+  "block.me.waxed_rotten_thatch": "Waxed Rotten Thatch",
+  "block.me.waxed_rotten_thatch_slab": "Waxed Rotten Thatch Slab",
+  "block.me.waxed_rotten_thatch_vertical_slab": "Waxed Rotten Thatch Vertical Slab",
+  "block.me.waxed_rotten_thatch_stairs": "Waxed Rotten Thatch Stairs",
+  "block.me.waxed_rotten_thatch_wall": "Waxed Rotten Thatch Wall",
   
-"#Comment:": "Block - Vanilla Furniture",
+"#Comment:": "Block - Furniture",
 
   "block.me.oak_stool": "Oak Stool",
   "block.me.oak_table": "Oak Table",
@@ -3099,6 +3245,22 @@
   "block.me.warped_table": "Warped Table",
   "block.me.warped_chair": "Warped Chair",
 
+  "block.me.blue_cushion": "Blue Cushion",
+  "block.me.brown_cushion": "Brown Cushion",
+  "block.me.dark_blue_cushion": "Dark Blue Cushion",
+  "block.me.dark_brown_cushion": "Dark Brown Cushion",
+  "block.me.dark_green_cushion": "Dark Green Cushion",
+  "block.me.dark_red_cushion": "Dark Red Cushion",
+  "block.me.green_cushion": "Green Cushion",
+  "block.me.red_cushion": "Red Cushion",
+
+  "block.me.chimney": "Chimney",
+  "block.me.big_brazier": "Big Brazier",
+  "block.me.small_brazier": "Small Brazier",
+  "block.me.fire_bowl": "Fire Bowl",
+  "block.me.bonfire": "Bonfire",
+  "block.me.sconce": "Sconce",
+
 "#Comment:": "Block - Plants",
   "block.me.brown_grass": "Brown Grass",
   "block.me.green_shrub": "Green Shrub",
@@ -3120,6 +3282,7 @@
   "block.me.dying_grass": "Dying Grass",
   "block.me.grass_tuft": "Grass Tuft",
   "block.me.heather": "Heather",
+  "block.me.dead_heather": "Dead Heather",
   "block.me.heather_bush": "Heather Bush",
   "block.me.red_heather": "Red Heather",
   "block.me.wheatgrass": "Wheatgrass",
@@ -3129,6 +3292,19 @@
   "block.me.coastal_panic_grass": "Coastal Panic Grass",
   "block.me.horokaka": "Horokaka",
   "block.me.giant_horokaka": "Giant Horokaka",
+
+  "block.me.sedum": "Sedum",
+  "block.me.yellow_sedum": "Yellow Sedum",
+  "block.me.short_cattails": "Short Cattails",
+  "block.me.tall_cattails": "Tall Cattails",
+  "block.me.tall_bulrush": "Tall Bulrush",
+  "block.me.short_bulrush": "Short Bulrush",
+  "block.me.shriveled_shrub": "Shriveled Shrub",
+
+  "block.me.duckweed": "Duckweed",
+  "block.me.lily_pads": "Lily Pads",
+  "block.me.small_lily_pads": "Small Lily Pads",
+  "block.me.small_flowering_lily_pads": "Small Flowering Lily Pads",
 
   "block.me.strawberry_bush": "Strawberry Bush",
   "block.me.tan_shrub": "Tan Shrub",
@@ -3442,11 +3618,18 @@
   "block.me.mithril_block": "Mithril Block",
 
 "#Comment:": "Block - Misc",
+  "block.me.sticky_snow": "Sticky Snow",
+
   "block.me.river_sand": "River Sand",
   "block.me.black_sand": "Black Sand",
   "block.me.white_sand": "White Sand",
   "block.me.gravel_layer": "Gravel Layer",
   "block.me.sand_layer": "Sand Layer",
+
+  "block.me.ashen_gravel": "Ashen Gravel",
+  "block.me.ashen_gravel_layer": "Ashen Gravel Layer",
+  "block.me.ashen_sand": "Ashen Sand",
+  "block.me.ashen_sand_layer": "Ashen Sand Layer",
 
   "block.me.black_sand_layer": "Black Sand Layer",
   "block.me.white_sand_layer": "White Sand Layer",
@@ -3467,36 +3650,87 @@
   "block.me.mixed_stones_brickwork_stairs": "Mixed Stones Brickwork Stairs",
   "block.me.mixed_stones_brickwork_wall": "Mixed Stones Brickwork Wall",
 
+  "block.me.wattle_and_brick": "Wattle and Brick",
+  "block.me.wattle_and_brick_cross": "Wattle and Brick Cross",
+  "block.me.wattle_and_brick_right": "Wattle and Brick Right",
+  "block.me.wattle_and_brick_left": "Wattle and Brick Left",
+  "block.me.wattle_and_brick_diamond": "Wattle and Brick Diamond",
+  "block.me.wattle_and_brick_pillar": "Wattle and Brick Pillar",
+
+  "block.me.wattle_and_brick_window": "Wattle and Brick Window",
+  "block.me.wattle_and_brick_window_pane": "Wattle and Brick Window Pane",
+
   "block.me.white_daub": "White Daub",
   "block.me.white_daub_slab": "White Daub Slab",
   "block.me.white_daub_vertical_slab": "White Daub Vertical Slab",
   "block.me.white_daub_stairs": "White Daub Stairs",
   "block.me.white_daub_wall": "White Daub Wall",
-  "block.me.white_wattle_and_daub": "White Wattle and Daub",
-  "block.me.white_wattle_and_daub_cross": "White Wattle and Daub Cross",
-  "block.me.white_wattle_and_daub_right": "White Wattle and Daub Right",
-  "block.me.white_wattle_and_daub_left": "White Wattle and Daub Left",
-  "block.me.white_wattle_and_daub_diamond": "White Wattle and Daub Diamond",
+  "block.me.wattle_and_white_daub": "Wattle and White Daub",
+  "block.me.wattle_and_white_daub_cross": "Wattle and White Daub Cross",
+  "block.me.wattle_and_white_daub_right": "Wattle and White Daub Right",
+  "block.me.wattle_and_white_daub_left": "Wattle and White Daub Left",
+  "block.me.wattle_and_white_daub_diamond": "Wattle and White Daub Diamond",
+  "block.me.wattle_and_white_daub_pillar": "Wattle and White Daub Pillar",
+
+  "block.me.black_wattle_and_white_daub": "Black Wattle and White Daub",
+  "block.me.black_wattle_and_white_daub_cross": "Black Wattle and White Daub Cross",
+  "block.me.black_wattle_and_white_daub_right": "Black Wattle and White Daub Right",
+  "block.me.black_wattle_and_white_daub_left": "Black Wattle and White Daub Left",
+  "block.me.black_wattle_and_white_daub_diamond": "Black Wattle and White Daub Diamond",
+  "block.me.black_wattle_and_white_daub_pillar": "Black Wattle and White Daub Pillar",
+
+  "block.me.green_wattle_and_white_daub": "Green Wattle and White Daub",
+  "block.me.green_wattle_and_white_daub_cross": "Green Wattle and White Daub Cross",
+  "block.me.green_wattle_and_white_daub_right": "Green Wattle and White Daub Right",
+  "block.me.green_wattle_and_white_daub_left": "Green Wattle and White Daub Left",
+  "block.me.green_wattle_and_white_daub_diamond": "Green Wattle and White Daub Diamond",
+  "block.me.green_wattle_and_white_daub_pillar": "Green Wattle and White Daub Pillar",
+
+  "block.me.red_wattle_and_white_daub": "Red Wattle and White Daub",
+  "block.me.red_wattle_and_white_daub_cross": "Red Wattle and White Daub Cross",
+  "block.me.red_wattle_and_white_daub_right": "Red Wattle and White Daub Right",
+  "block.me.red_wattle_and_white_daub_left": "Red Wattle and White Daub Left",
+  "block.me.red_wattle_and_white_daub_diamond": "Red Wattle and White Daub Diamond",
+  "block.me.red_wattle_and_white_daub_pillar": "Red Wattle and White Daub Pillar",
 
   "block.me.white_daub_hobbit_window": "White Daub Hobbit Window",
   "block.me.white_daub_hobbit_window_pane": "White Daub Hobbit Window Pane",
+
+  "block.me.dark_daub": "Dark Daub",
+  "block.me.dark_daub_slab": "Dark Daub Slab",
+  "block.me.dark_daub_vertical_slab": "Dark Daub Vertical Slab",
+  "block.me.dark_daub_stairs": "Dark Daub Stairs",
+  "block.me.dark_daub_wall": "Dark Daub Wall",
+  "block.me.dark_wattle_and_dark_daub": "Dark Wattle and Dark Daub",
+  "block.me.dark_wattle_and_dark_daub_cross": "Dark Wattle and Dark Daub Cross",
+  "block.me.dark_wattle_and_dark_daub_right": "Dark Wattle and Dark Daub Right",
+  "block.me.dark_wattle_and_dark_daub_left": "Dark Wattle and Dark Daub Left",
+  "block.me.dark_wattle_and_dark_daub_diamond": "Dark Wattle and Dark Daub Diamond",
+  "block.me.dark_wattle_and_dark_daub_pillar": "Dark Wattle and Dark Daub Pillar",
 
   "block.me.yellow_daub": "Yellow Daub",
   "block.me.yellow_daub_slab": "Yellow Daub Slab",
   "block.me.yellow_daub_vertical_slab": "Yellow Daub Vertical Slab",
   "block.me.yellow_daub_stairs": "Yellow Daub Stairs",
-  "block.me.yellow_daub_wall": "Yellow Daub Wall",
-  "block.me.yellow_wattle_and_daub": "Yellow Wattle and Daub",
-  "block.me.yellow_wattle_and_daub_cross": "Yellow Wattle and Daub Cross",
-  "block.me.yellow_wattle_and_daub_right": "Yellow Wattle and Daub Right",
-  "block.me.yellow_wattle_and_daub_left": "Yellow Wattle and Daub Left",
-  "block.me.yellow_wattle_and_daub_diamond": "Yellow Wattle and Daub Diamond",
+  "block.me.yellow_daub_wall": "Yellow Daub Stairs Wall",
+  "block.me.wattle_and_yellow_daub": "Wattle and Yellow Daub",
+  "block.me.wattle_and_yellow_daub_cross": "Wattle and Yellow Daub Cross",
+  "block.me.wattle_and_yellow_daub_right": "Wattle and Yellow Daub Right",
+  "block.me.wattle_and_yellow_daub_left": "Wattle and Yellow Daub Left",
+  "block.me.wattle_and_yellow_daub_diamond": "Wattle and Yellow Daub Diamond",
+  "block.me.wattle_and_yellow_daub_pillar": "Wattle and Yellow Daub Pillar",
 
   "block.me.yellow_daub_hobbit_window": "Yellow Daub Hobbit Window",
   "block.me.yellow_daub_hobbit_window_pane": "Yellow Daub Hobbit Window Pane",
 
   "block.me.wood_framed_window": "Wood Framed Window",
   "block.me.wood_framed_window_pane": "Wood Framed Window Pane",
+
+  "block.me.wattle_framed_window": "Wattle Framed Window",
+  "block.me.wattle_framed_window_pane": "Wattle Framed Window Pane",
+
+  "block.me.dark_wattle_framed_window": "Dark Wattle Framed Window",
+  "block.me.dark_wattle_framed_window_pane": "Dark Wattle Framed Window Pane",
 
   "block.me.black_wool_slab": "Black Wool Slab",
   "block.me.blue_wool_slab": "Blue Wool Slab",

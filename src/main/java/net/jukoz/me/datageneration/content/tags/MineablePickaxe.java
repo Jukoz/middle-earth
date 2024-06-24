@@ -1,6 +1,7 @@
 package net.jukoz.me.datageneration.content.tags;
 
 import net.jukoz.me.block.ModBlocks;
+import net.jukoz.me.block.ModDecorativeBlocks;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -124,6 +125,22 @@ public class MineablePickaxe {
             
             add(ModBlocks.JADEITE_PILLAR);
             add(ModBlocks.CRACKED_JADEITE_PILLAR);
+
+            add(ModBlocks.STONE_TRAPDOOR);
+            add(ModBlocks.GRANITE_TRAPDOOR);
+            add(ModBlocks.DIORITE_TRAPDOOR);
+            add(ModBlocks.ANDESITE_TRAPDOOR);
+            add(ModBlocks.DEEPSLATE_TRAPDOOR);
+            add(ModBlocks.TUFF_TRAPDOOR);
+            add(ModBlocks.BASALT_TRAPDOOR);
+            add(ModBlocks.BLACKSTONE_TRAPDOOR);
+
+            add(ModDecorativeBlocks.BIG_BRAZIER);
+            add(ModDecorativeBlocks.SMALL_BRAZIER);
+            add(ModDecorativeBlocks.FIRE_BOWL);
+            add(ModDecorativeBlocks.BONFIRE);
+            add(ModDecorativeBlocks.SCONCE);
+            add(ModDecorativeBlocks.WALL_SCONCE);
         }
     };
 }
