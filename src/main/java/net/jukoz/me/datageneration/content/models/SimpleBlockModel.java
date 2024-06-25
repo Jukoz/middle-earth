@@ -153,6 +153,7 @@ public class SimpleBlockModel {
             add(new ChiseledBlock(ModBlocks.CHISELED_DIORITE_BRICKS, StoneBlockSets.DIORITE_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_DOLOMITE_BRICKS, StoneBlockSets.DOLOMITE_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_IRONSTONE_BRICKS, StoneBlockSets.IRONSTONE_BRICKS.slab()));
+            //TODO : Waiting for texture
             //add(new ChiseledBlock(ModBlocks.CHISELED_HEMATITE_BRICKS, StoneBlockSets.HEMATITE_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_GNEISS_BRICKS, StoneBlockSets.GNEISS_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_ZIGILABAD_BRICKS, StoneBlockSets.ZIGILABAD_BRICKS.slab()));
