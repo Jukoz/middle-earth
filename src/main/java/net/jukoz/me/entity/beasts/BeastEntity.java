@@ -45,9 +45,9 @@ public class BeastEntity extends AbstractDonkeyEntity {
     public final AnimationState sittingAnimationState = new AnimationState();
 
     private int idleAnimationTimeout = 0;
-    private int attackTicksLeft = 0;
+    protected int attackTicksLeft = 0;
 
-    protected int chargeTimeout;
+    protected int chargeTimeout; // ticking cooldown of the charge attack
 
     public static final int ATTACK_COOLDOWN = 10;
     public static final float RESISTANCE = 0.15f;
@@ -152,7 +152,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
     // Getters and Setters =============================================================================================
 
     public boolean canCharge() {
-        return !this.isSitting();
+        return !this.isSitting() && !this.hasPassengers();
     }
     @Override
     protected float getJumpVelocity() {
@@ -230,7 +230,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
         return 20;
     }
 
-    private float getAttackDamage() {
+    protected float getAttackDamage() {
         return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
     }
 
@@ -373,29 +373,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
     }
 
     public void chargeAttack() {
-    }
-
-    @Override
-    public boolean tryAttack(Entity target) {
-        this.attackTicksLeft = ATTACK_COOLDOWN;
-        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
-        float f = this.getAttackDamage();
-        float g = (int)f > 0 ? f / 2.0f + (float)this.random.nextInt((int)f) : f;
-        boolean bl = target.damage(this.getDamageSources().mobAttack(this), g);
-        if (bl) {
-            double d;
-            if (target instanceof LivingEntity) {
-                LivingEntity livingEntity = (LivingEntity)target;
-                d = livingEntity.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE);
-            } else {
-                d = 0.0;
-            }
-            double e = Math.max(0.0, 1.0 - d);
-            target.setVelocity(target.getVelocity().multiply(1f + (0.8f * e))); //.add(0.0, (double)0.1f * e, 0.0));
-            this.applyDamageEffects(this, target);
-        }
-        this.playSound(SoundEvents.ENTITY_HOGLIN_ATTACK, 1.5f, 0.8f);
-        return bl;
     }
 
     // Tick Management =================================================================================================

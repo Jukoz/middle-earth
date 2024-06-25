@@ -593,6 +593,7 @@
   "item.me.barrow_wight_spawn_egg": "Barrow Wight Spawn Egg",
   "item.me.nazgul_spawn_egg": "Nazgûl Spawn Egg",
 
+  "item.me.warg_spawn_egg": "Warg Spawn Egg",
   "item.me.stone_troll_spawn_egg": "Stone Troll Spawn Egg",
   "item.me.cave_troll_spawn_egg": "Cave Troll Spawn Egg",
   "item.me.snow_troll_spawn_egg": "Snow Troll Spawn Egg",
@@ -658,6 +659,7 @@
   "item.me.lit_pinecone": "Lit Pinecone",
 
 "#Comment:": "ENTITIES",
+  "entity.me.warg": "Warg",
   "entity.me.cave_troll": "Cave Troll",
   "entity.me.snow_troll": "Snow Troll",
   "entity.me.stone_troll": "Stone Troll",
