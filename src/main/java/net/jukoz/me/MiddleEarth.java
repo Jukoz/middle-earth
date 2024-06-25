@@ -50,6 +50,7 @@ public class MiddleEarth implements ModInitializer {
 		MushroomBlockSets.registerModBlockSets();
 		StoneBlockSets.registerModBlockSets();
 		ModDecorativeItems.registerModItems();
+		ModNatureBlockItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModDecorativeBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();
@@ -60,7 +61,6 @@ public class MiddleEarth implements ModInitializer {
 		ModRegistries.registerAgingCopperBlocks();
 		ModRegistries.registerComposterBlocks();
 		ModRegistries.registerCauldronBehaviour();
-
 
 		ModBlockEntities.registerBlockEntities();
 

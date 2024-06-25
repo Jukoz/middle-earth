@@ -1,0 +1,9 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "me:block/cushion",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "me:block/brown_cushion",
+		"particle": "block/brown_wool"
+	}
+}

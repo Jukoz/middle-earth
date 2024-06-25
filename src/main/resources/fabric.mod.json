@@ -35,6 +35,8 @@
     "me.mixins.json"
   ],
 
+  "accessWidener" : "me.accesswidener",
+
   "depends": {
     "fabricloader": ">=0.15.7",
     "fabric-api": "*",
