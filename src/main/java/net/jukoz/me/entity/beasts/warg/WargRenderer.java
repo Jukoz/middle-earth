@@ -4,6 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.feature.HorseArmorFeatureRenderer;
 import net.minecraft.util.Identifier;
 
 public class WargRenderer extends MobEntityRenderer<WargEntity, WargModel> {
@@ -11,6 +12,7 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargModel> {
 
     public WargRenderer(EntityRendererFactory.Context context) {
         super(context, new WargModel(context.getPart(ModEntityModelLayers.WARG)), 0.8f);
+        this.addFeature(new WargArmorFeatureRenderer(this, context.getModelLoader()));
     }
 
     @Override
