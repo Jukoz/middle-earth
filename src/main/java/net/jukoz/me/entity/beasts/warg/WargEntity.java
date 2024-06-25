@@ -9,6 +9,7 @@ import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
+import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModFoodItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -123,6 +124,17 @@ public class WargEntity extends BeastEntity {
             }
         }
     }
+
+    @Override
+    public boolean hasArmorSlot() {
+        return true;
+    }
+
+    @Override
+    public boolean isHorseArmor(ItemStack stack) {
+        return stack.isOf(ModEquipmentItems.WARG_ARMOR);
+    }
+
     public boolean hasCharged() {
         return hasCharged;
     }

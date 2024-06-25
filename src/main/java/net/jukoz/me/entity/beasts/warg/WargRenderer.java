@@ -1,10 +1,10 @@
 package net.jukoz.me.entity.beasts.warg;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.entity.beasts.warg.armor.WargArmorFeatureRenderer;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.feature.HorseArmorFeatureRenderer;
 import net.minecraft.util.Identifier;
 
 public class WargRenderer extends MobEntityRenderer<WargEntity, WargModel> {

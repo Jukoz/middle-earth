@@ -1,6 +1,7 @@
 package net.jukoz.me.item.items;
 
 import net.fabricmc.fabric.api.item.v1.EnchantingContext;
+import net.jukoz.me.MiddleEarth;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,7 +27,7 @@ public class CustomAnimalArmorItem extends ArmorItem {
     public CustomAnimalArmorItem(RegistryEntry<ArmorMaterial> material, Type type, boolean hasOverlay, Item.Settings settings) {
         super(material, ArmorItem.Type.BODY, settings);
         this.type = type;
-        Identifier identifier = type.textureIdFunction.apply(material.getKey().orElseThrow().getValue());
+        Identifier identifier = new Identifier(MiddleEarth.MOD_ID, type.textureIdFunction.apply(material.getKey().orElseThrow().getValue()).getPath());
         this.entityTexture = identifier.withSuffixedPath(".png");
         this.overlayTexture = hasOverlay ? identifier.withSuffixedPath("_overlay.png") : null;
     }
@@ -55,7 +56,7 @@ public class CustomAnimalArmorItem extends ArmorItem {
     }
 
     public static enum Type {
-        WARG(id -> id.withPath("textures/entity/warg/armor/warg_armor"), SoundEvents.ENTITY_ITEM_BREAK);
+        WARG(id -> id.withPath("textures/entities/warg/armor/warg_armor"), SoundEvents.ENTITY_ITEM_BREAK);
 
         final Function<Identifier, Identifier> textureIdFunction;
         final SoundEvent breakSound;

@@ -2,25 +2,24 @@ package net.jukoz.me.entity.beasts.warg;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 
 public class WargModel extends SinglePartEntityModel<WargEntity> {
     private final ModelPart root;
-    private final ModelPart head;
     public WargModel(ModelPart root) {
         this.root = root;
-        this.head = root.getChild("root").getChild("upperBody").getChild("head");
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.of(0.0F, 6.0F, -2.0F, 0.0F, 1.5708F, 0.0F));
 
-        ModelPartData upperBody = root.addChild("upperBody", ModelPartBuilder.create(), ModelTransform.pivot(-2.6142F, 2.1138F, 1.5F));
+        ModelPartData upperBody = root.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(-2.6142F, 2.1138F, 1.5F));
 
-        ModelPartData head = upperBody.addChild("head", ModelPartBuilder.create().uv(39, 35).cuboid(-1.3858F, -4.1138F, -6.0F, 10.0F, 6.0F, 9.0F, new Dilation(0.0F))
+        ModelPartData head = upperBody.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(39, 35).cuboid(-1.3858F, -4.1138F, -6.0F, 10.0F, 6.0F, 9.0F, new Dilation(0.0F))
                 .uv(60, 51).cuboid(-1.3858F, -2.1138F, -3.0F, 15.0F, 5.0F, 3.0F, new Dilation(0.0F))
                 .uv(60, 59).cuboid(7.6142F, 2.8862F, -3.0F, 6.0F, 1.0F, 3.0F, new Dilation(0.05F))
                 .uv(37, 18).cuboid(-2.0F, 1.25F, -5.0F, 10.0F, 3.0F, 7.0F, new Dilation(0.0F)), ModelTransform.of(14.0F, -3.0F, 0.0F, 0.0F, 0.0F, 0.2618F));
@@ -56,16 +55,8 @@ public class WargModel extends SinglePartEntityModel<WargEntity> {
     @Override
     public void setAngles(WargEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
-        this.setHeadAngles(headYaw, headPitch);
     }
 
-    private void setHeadAngles(float headYaw, float headPitch) {
-        headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
-        headPitch = MathHelper.clamp(headPitch, -25.0F, 40.0F);
-
-        this.head.yaw = headYaw * 0.017453292F;
-        this.head.pitch = headPitch * 0.017453292F;
-    }
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
         root.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);

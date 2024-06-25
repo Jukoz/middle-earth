@@ -1,5 +1,7 @@
-package net.jukoz.me.entity.beasts.warg;
+package net.jukoz.me.entity.beasts.warg.armor;
 
+import net.jukoz.me.entity.beasts.warg.WargEntity;
+import net.jukoz.me.entity.beasts.warg.WargModel;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
 import net.jukoz.me.item.items.CustomAnimalArmorItem;
 import net.minecraft.client.render.OverlayTexture;
@@ -18,11 +20,11 @@ import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.math.ColorHelper;
 
 public class WargArmorFeatureRenderer extends FeatureRenderer<WargEntity, WargModel> {
-    private final WargModel model;
+    private final WargArmorModel model;
 
     public WargArmorFeatureRenderer(FeatureRendererContext<WargEntity, WargModel> context, EntityModelLoader loader) {
         super(context);
-        this.model = new WargModel(loader.getModelPart(ModEntityModelLayers.WARG_ARMOR));
+        this.model = new WargArmorModel(loader.getModelPart(ModEntityModelLayers.WARG_ARMOR));
     }
 
     @Override
@@ -37,8 +39,6 @@ public class WargArmorFeatureRenderer extends FeatureRenderer<WargEntity, WargMo
             return;
         }
         ((WargModel)this.getContextModel()).copyStateTo(this.model);
-        this.model.animateModel(wargEntity, limbAngle, limbDistance, tickDelta);
-        this.model.setAngles(wargEntity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
         if (itemStack.isIn(ItemTags.DYEABLE)) {
             int m = DyedColorComponent.getColor(itemStack, -6265536);
             n = (float) ColorHelper.Argb.getRed(m) / 255.0f;

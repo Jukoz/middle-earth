@@ -328,7 +328,7 @@ public class ModEquipmentItems {
             new TrollArmorItem(10, "steel", new Item.Settings().maxCount(1)));*/
 
     // GENERIC
-    //public static final Item WARG_ARMOR = registerItem("warg_armor", new CustomAnimalArmorItem(ArmorMaterials.DIAMOND, CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10))));
+    public static final Item WARG_ARMOR = registerItem("warg_armor", new CustomAnimalArmorItem(ArmorMaterials.DIAMOND, CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10))));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
