@@ -1,6 +1,6 @@
 package net.jukoz.me.gui.alloyfurnace;
 
-import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntity;
+import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -87,7 +87,7 @@ public class AlloyFurnaceScreenHandler extends ScreenHandler{
     public float getScaledProgress() {
         int progress = this.propertyDelegate.get(0);
 
-        return (float) progress / AlloyFurnaceEntity.MAX_PROGRESS;
+        return (float) progress / ForgeBlockEntity.MAX_PROGRESS;
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory) {

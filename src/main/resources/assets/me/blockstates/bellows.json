@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "me:block/bellows",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/bellows"
+    },
+    "facing=south": {
+      "model": "me:block/bellows",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/bellows",
+      "y": 270
+    },
+    "facing=down": {
+      "model": "me:block/bellows",
+      "y": 0
+    }
+  }
+}

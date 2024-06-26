@@ -1,13 +1,15 @@
-package net.jukoz.me.block.special.alloyfurnace;
+package net.jukoz.me.block.special.forge;
 
 import com.mojang.serialization.MapCodec;
-import net.jukoz.me.block.ModBlockEntities;
+import net.jukoz.me.block.special.artisantable.ArtisanTablePart;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.sound.SoundCategory;
@@ -15,6 +17,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.*;
 import net.minecraft.util.function.BooleanBiFunction;
@@ -26,21 +29,21 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
-public class AlloyFurnace extends BlockWithEntity implements BlockEntityProvider {
-    private static final VoxelShape RAYCAST_SHAPE = createCuboidShape(2.0, 12.0, 2.0, 14.0, 16.0, 14.0);
-    protected static final VoxelShape OUTLINE_SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), RAYCAST_SHAPE, BooleanBiFunction.ONLY_FIRST);
+public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
+    public static final EnumProperty<ForgePart> PART = EnumProperty.of("part", ForgePart.class);
     public static final DirectionProperty FACING = Properties.HOPPER_FACING;
     public static final BooleanProperty LIT = Properties.LIT;
-    public AlloyFurnace(Settings settings) {
+    public ForgeBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(((this.stateManager.getDefaultState()).with(FACING, Direction.NORTH)).with(LIT, false));
+        this.setDefaultState(((this.stateManager.getDefaultState()).with(FACING, Direction.NORTH)).with(LIT, false).with(PART, ForgePart.BOTTOM));
     }
 
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return createCodec(AlloyFurnace::new);
+        return createCodec(ForgeBlock::new);
     }
 
     @Override
@@ -52,17 +55,50 @@ public class AlloyFurnace extends BlockWithEntity implements BlockEntityProvider
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if(state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if(blockEntity instanceof AlloyFurnaceEntity alloyBlockEntity) {
-                ItemScatterer.spawn(world, pos, alloyBlockEntity);
+            if(blockEntity instanceof ForgeBlockEntity forgeBlockEntity) {
+                ItemScatterer.spawn(world, pos, forgeBlockEntity);
             }
             super.onStateReplaced(state, world, pos, newState, moved);
         }
     }
-
     @Nullable
-    @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+        BlockPos pos = ctx.getBlockPos().add(0,1,0);
+        World world = ctx.getWorld();
+        Direction direction = ctx.getHorizontalPlayerFacing().getOpposite();
+
+        //return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(LIT, false).with(PART, ForgePart.BOTTOM);
+        return world.getBlockState(pos).canReplace(ctx) && world.getWorldBorder().contains(pos) ? (BlockState)this.getDefaultState().with(FACING, direction).with(PART, ForgePart.BOTTOM) : null;
+    }
+
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.onPlaced(world, pos, state, placer, itemStack);
+        if (!world.isClient) {
+            BlockPos blockPos = pos.add(0,1,0);
+            world.setBlockState(blockPos, (BlockState)state.with(PART, ForgePart.TOP), 3);
+            world.updateNeighbors(pos, Blocks.AIR);
+            state.updateNeighbors(world, pos, 3);
+        }
+    }
+
+    @Override
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        if (!world.isClient && player.isCreative()) {
+            ForgePart tablePart = (ForgePart)state.get(PART);
+            ForgePart tablePartOpposite = (ForgePart)state.get(PART).getOpposite(state.get(PART));
+            BlockPos blockPos;
+            if(tablePart == ForgePart.BOTTOM){
+                blockPos = pos.add(0,1,0);
+            } else {
+                blockPos = pos.add(0,-1,0);
+            }
+            BlockState blockState = world.getBlockState(blockPos);
+            if (blockState.isOf(this) && blockState.get(PART) == tablePartOpposite) {
+                world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 35);
+                world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
+            }
+        }
+        return super.onBreak(world, pos, state, player);
     }
 
     @Override
@@ -79,14 +115,17 @@ public class AlloyFurnace extends BlockWithEntity implements BlockEntityProvider
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING);
         builder.add(LIT);
+        builder.add(PART);
     }
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if(!world.isClient) {
-            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-            if(screenHandlerFactory != null) {
-                player.openHandledScreen(screenHandlerFactory);
+            if(state.get(PART) == ForgePart.BOTTOM){
+                NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+                if(screenHandlerFactory != null) {
+                    player.openHandledScreen(screenHandlerFactory);
+                }
             }
         }
         return ActionResult.SUCCESS;
@@ -95,7 +134,7 @@ public class AlloyFurnace extends BlockWithEntity implements BlockEntityProvider
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new AlloyFurnaceEntity(pos, state);
+        return new ForgeBlockEntity(pos, state);
     }
 
     @Nullable
@@ -107,13 +146,8 @@ public class AlloyFurnace extends BlockWithEntity implements BlockEntityProvider
     /*@Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.ALLOY_FURNACE, AlloyFurnaceEntity::tick);
+        return checkType(type, ModBlockEntities.FORGE, ForgeBlockEntity::tick);
     }*/
-
-    @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return OUTLINE_SHAPE;
-    }
 
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {

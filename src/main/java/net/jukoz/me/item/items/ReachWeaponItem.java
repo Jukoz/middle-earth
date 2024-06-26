@@ -1,19 +1,14 @@
 package net.jukoz.me.item.items;
 
-import com.google.common.collect.ImmutableMultimap;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.item.utils.ModToolMaterials;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipType;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
@@ -62,12 +57,16 @@ public class ReachWeaponItem extends SwordItem {
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.of(""));
+        ProfileComponent profileComponent = stack.get(DataComponentTypes.PROFILE);
         if (Screen.hasShiftDown()) {
             if(this.faction != null){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(this.faction));
             }
             if (this.subFaction != null) {
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(this.subFaction));
+            }
+            if (profileComponent != null && profileComponent.name().isPresent()) {
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artisan").append(profileComponent.name().get()).formatted(Formatting.GRAY));
             }
             tooltip.add(Text.of(""));
         } else {

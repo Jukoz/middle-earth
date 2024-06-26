@@ -35,6 +35,8 @@ public class MiddleEarth implements ModInitializer {
 		loggerUtil.logInfoMsg("");
 		loggerUtil.logInfoMsg("================ MiddleEarth ================");
 
+		ModDataComponentTypes.registerModComponentTypes();
+
 		ModCommandRegistry.register();
 		ModStatusEffects.registerStatusEffects();
 		OreRockSets.registerModBlockSets();

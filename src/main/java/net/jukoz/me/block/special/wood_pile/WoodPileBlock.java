@@ -1,16 +1,13 @@
 package net.jukoz.me.block.special.wood_pile;
 
 import com.mojang.serialization.MapCodec;
-import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.FurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.IntProperty;
@@ -24,8 +21,6 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvider {
     public static final IntProperty STAGE = IntProperty.of("stage", 0, 2);

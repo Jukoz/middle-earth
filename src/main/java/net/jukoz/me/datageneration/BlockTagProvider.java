@@ -463,6 +463,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.LARGE_GLOWSTONE_BUD);
         mineablePickaxe.add(ModBlocks.GLOWSTONE_CLUSTER);
 
-        mineablePickaxe.add(ModDecorativeBlocks.ALLOY_FURNACE);
+        mineablePickaxe.add(ModDecorativeBlocks.FORGE);
+        mineablePickaxe.add(ModDecorativeBlocks.TREADTED_ANVIL);
     }
 }

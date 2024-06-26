@@ -25,8 +25,12 @@ public class ModDecorativeItems {
     public static final Item SCONCE = registerItem("sconce",
             new VerticallyAttachableBlockItem(ModDecorativeBlocks.SCONCE, ModDecorativeBlocks.WALL_SCONCE, new Item.Settings(), Direction.DOWN));
 
-    public static final Item ALLOY_FURNACE = registerItem("alloy_furnace",
-            new BlockItem(ModDecorativeBlocks.ALLOY_FURNACE, new Item.Settings()));
+    public static final Item FORGE = registerItem("forge",
+            new BlockItem(ModDecorativeBlocks.FORGE, new Item.Settings()));
+    public static final Item TREATED_ANVIL = registerItem("treated_anvil",
+            new BlockItem(ModDecorativeBlocks.TREADTED_ANVIL, new Item.Settings()));
+    public static final Item BELLOWS = registerItem("bellows",
+            new BlockItem(ModDecorativeBlocks.BELLOWS, new Item.Settings()));
     public static final Item ARTISAN_TABLE = registerItem("artisan_table",
             new BlockItem(ModDecorativeBlocks.ARTISAN_TABLE, new Item.Settings()));
 

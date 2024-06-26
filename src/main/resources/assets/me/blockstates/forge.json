@@ -1,0 +1,82 @@
+{
+  "variants": {
+    "facing=east,lit=false,part=bottom": {
+      "model": "me:block/forge_bottom",
+      "y": 90
+    },
+    "facing=east,lit=true,part=bottom": {
+      "model": "me:block/forge_bottom_on",
+      "y": 90
+    },
+    "facing=north,lit=false,part=bottom": {
+      "model": "me:block/forge_bottom"
+    },
+    "facing=north,lit=true,part=bottom": {
+      "model": "me:block/forge_bottom_on"
+    },
+    "facing=south,lit=false,part=bottom": {
+      "model": "me:block/forge_bottom",
+      "y": 180
+    },
+    "facing=south,lit=true,part=bottom": {
+      "model": "me:block/forge_bottom_on",
+      "y": 180
+    },
+    "facing=west,lit=false,part=bottom": {
+      "model": "me:block/forge_bottom",
+      "y": 270
+    },
+    "facing=west,lit=true,part=bottom": {
+      "model": "me:block/forge_bottom_on",
+      "y": 270
+    },
+    "facing=down,lit=false,part=bottom": {
+      "model": "me:block/forge_bottom",
+      "y": 0
+    },
+    "facing=down,lit=true,part=bottom": {
+      "model": "me:block/forge_bottom_on",
+      "y": 0
+    },
+
+
+    "facing=east,lit=false,part=top": {
+      "model": "me:block/forge_top",
+      "y": 90
+    },
+    "facing=east,lit=true,part=top": {
+      "model": "me:block/forge_top_on",
+      "y": 90
+    },
+    "facing=north,lit=false,part=top": {
+      "model": "me:block/forge_top"
+    },
+    "facing=north,lit=true,part=top": {
+      "model": "me:block/forge_top_on"
+    },
+    "facing=south,lit=false,part=top": {
+      "model": "me:block/forge_top",
+      "y": 180
+    },
+    "facing=south,lit=true,part=top": {
+      "model": "me:block/forge_top_on",
+      "y": 180
+    },
+    "facing=west,lit=false,part=top": {
+      "model": "me:block/forge_top",
+      "y": 270
+    },
+    "facing=west,lit=true,part=top": {
+      "model": "me:block/forge_top_on",
+      "y": 270
+    },
+    "facing=down,lit=false,part=top": {
+      "model": "me:block/forge_top",
+      "y": 0
+    },
+    "facing=down,lit=true,part=top": {
+      "model": "me:block/forge_top_on",
+      "y": 0
+    }
+  }
+}

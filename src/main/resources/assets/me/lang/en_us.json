@@ -20,7 +20,7 @@
   "advancements.middle_earth.mithril.description": "Mine some Mithril!",
   
   "advancements.alloy.root.title": "Alloys",
-  "advancements.alloy.root.description": "All begins with the alloy furnace!",
+  "advancements.alloy.root.description": "All begins with the Forge!",
   "advancements.alloy.artisan_table.title": "Artisan work",
   "advancements.alloy.artisan_table.description": "Craft the artisan table",
   "advancements.alloy.bronze_ingot.title": "Bronze Age",
@@ -3787,7 +3787,7 @@
 "#Comment:": "Block - Decoratives",
   "block.me.dwarven_lantern": "Dwarven Lantern",
   "block.me.silver_lantern": "Silver Lantern",
-  "block.me.alloy_furnace": "Alloy Furnace",
+  "block.me.forge": "Forge",
   "block.me.artisan_table": "Artisan Table",
 
   "block.me.reinforced_chest": "Reinforced Chest",
@@ -3959,7 +3959,7 @@
   "sounds.me.nazgul_scream": "Nazgûl Screaming",
   
 "Comment": "GUI",
-  "screen.me.alloy_furnace": "Alloy Furnace",
+  "screen.me.forge": "Forge",
   "container.artisan_table": "Artisan Table",
   "screen.me.reinforced_chest": "Reinforced Chest",
   "screen.me.wood_pile": "Wood Pile",
@@ -3971,6 +3971,7 @@
   "tooltip.me.sub_faction" : "§7Sub Faction: §f",
   "tooltip.me.customizations" : "§6Custom Parts: §f",
   "tooltip.me.reach" : "Reach: ",
+  "tooltip.me.artisan" : "Artisan: ",
   "tooltip.me.blocks_range" : " Blocks",
 
   "tooltip.me.tier1" : "§7Base Materials",

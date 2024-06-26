@@ -1,4 +1,4 @@
-package net.jukoz.me.block.special.alloyfurnace;
+package net.jukoz.me.block.special.forge;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
@@ -14,12 +14,12 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
-public class AlloyFurnaceEntityRenderer implements BlockEntityRenderer<AlloyFurnaceEntity> {
-    public AlloyFurnaceEntityRenderer(BlockEntityRendererFactory.Context context) {
+public class ForgeBlockEntityRenderer implements BlockEntityRenderer<ForgeBlockEntity> {
+    public ForgeBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
     }
 
     @Override
-    public void render(AlloyFurnaceEntity entity, float tickDelta, MatrixStack matrices,
+    public void render(ForgeBlockEntity entity, float tickDelta, MatrixStack matrices,
                        VertexConsumerProvider vertexConsumers, int light, int overlay) {
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
         //BlockModelRenderer blockRenderer = MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer();
@@ -30,7 +30,7 @@ public class AlloyFurnaceEntityRenderer implements BlockEntityRenderer<AlloyFurn
         matrices.scale(0.5f, 0.5f, 0.5f);
 
         matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) Math.toRadians(-90)));
-        switch (entity.getCachedState().get(AlloyFurnace.FACING)) {
+        switch (entity.getCachedState().get(ForgeBlock.FACING)) {
             case NORTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(180)));
             case EAST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(90)));
             case SOUTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(0)));

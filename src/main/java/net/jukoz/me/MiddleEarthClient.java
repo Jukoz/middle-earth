@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.jukoz.me.block.*;
-import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntityRenderer;
+import net.jukoz.me.block.special.forge.ForgeBlockEntityRenderer;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
 import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
@@ -170,7 +170,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         HandledScreens.register(ModScreenHandlers.ALLOY_SCREEN_HANDLER, AlloyFurnaceScreen::new);
         HandledScreens.register(ModScreenHandlers.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
         HandledScreens.register(ModScreenHandlers.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
-        BlockEntityRendererFactories.register(ModBlockEntities.ALLOY_FURNACE, AlloyFurnaceEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.FORGE, ForgeBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
 
         ModNetworks.registerS2CPackets();
@@ -386,6 +386,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.BONFIRE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.SCONCE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WALL_SCONCE, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.BELLOWS, RenderLayer.getCutout());
     }
 
     /*private void registerDyeableItem(Item item) {

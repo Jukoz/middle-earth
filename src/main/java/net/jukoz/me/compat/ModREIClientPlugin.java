@@ -24,7 +24,7 @@ public class ModREIClientPlugin implements REIClientPlugin {
         registry.add(new AlloyFurnaceCategory());
 
         registry.addWorkstations(ArtisanTableCategory.ARTISAN_TABLE, EntryStacks.of(ModDecorativeBlocks.ARTISAN_TABLE));
-        registry.addWorkstations(AlloyFurnaceCategory.ALLOY_FURNACE, EntryStacks.of(ModDecorativeBlocks.ALLOY_FURNACE));
+        registry.addWorkstations(AlloyFurnaceCategory.ALLOY_FURNACE, EntryStacks.of(ModDecorativeBlocks.FORGE));
     }
 
     @Override

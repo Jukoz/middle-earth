@@ -32,7 +32,7 @@ public class AlloyFurnaceCategory implements DisplayCategory<BasicDisplay> {
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModDecorativeBlocks.ALLOY_FURNACE.asItem().getDefaultStack());
+        return EntryStacks.of(ModDecorativeBlocks.FORGE.asItem().getDefaultStack());
     }
 
     @Override
