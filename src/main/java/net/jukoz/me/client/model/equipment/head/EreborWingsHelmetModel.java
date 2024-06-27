@@ -1,17 +1,13 @@
 package net.jukoz.me.client.model.equipment.head;
 
-import net.jukoz.me.MiddleEarth;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Identifier;
 
-public class EreborWingsAddonModel<T extends LivingEntity> extends HelmetAddonModel<T> {
+public class EreborWingsHelmetModel<T extends LivingEntity> extends HelmetAddonModel<T> {
 
-    public EreborWingsAddonModel(ModelPart root) {
+    public EreborWingsHelmetModel(ModelPart root) {
         super(root);
-
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/erebor_commander_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -21,8 +17,14 @@ public class EreborWingsAddonModel<T extends LivingEntity> extends HelmetAddonMo
         modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        head.addChild("wing_right", ModelPartBuilder.create().uv(32, 0).mirrored().cuboid(-0.2F, -9.8F, 0.0F, 15.0F, 7.0F, 1.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(5.0F, 2.0F, 5.0F, 1.2955F, -0.7926F, -1.1932F));
-        head.addChild("wing_left", ModelPartBuilder.create().uv(32, 0).cuboid(-14.8F, -9.8F, 0.0F, 15.0F, 7.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(-5.0F, 2.0F, 5.0F, 1.2955F, 0.7926F, 1.1932F));
+
+        head.addChild("eye_addon", ModelPartBuilder.create().uv(46, 63).cuboid(-4.5F, -3.5F, -4.475F, 9.0F, 1.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+
+        ModelPartData wings = head.addChild("wings", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.5F, 0.5F));
+
+        wings.addChild("rightwing_r1", ModelPartBuilder.create().uv(32, 0).cuboid(-9.0585F, -4.0F, -6.3165F, 15.0F, 8.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -7.2624F, 4.1083F, 1.1849F, 0.9521F, 1.1082F));
+
+        wings.addChild("leftwing_r1", ModelPartBuilder.create().uv(32, 0).mirrored().cuboid(-5.9415F, -4.0F, -6.3165F, 15.0F, 8.0F, 1.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(0.0F, -7.2624F, 4.1083F, 1.1849F, -0.9521F, -1.1082F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
@@ -31,7 +33,7 @@ public class EreborWingsAddonModel<T extends LivingEntity> extends HelmetAddonMo
         modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(modelData, 64, 32);
+        return TexturedModelData.of(modelData, 64, 64);
     }
 
     @Override

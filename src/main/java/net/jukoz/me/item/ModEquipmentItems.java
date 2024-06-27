@@ -397,16 +397,38 @@ public class ModEquipmentItems {
     public static final Item EREBOR_PLATE_BOOTS = registerArmorPiece("erebor_plate_boots",
             new CustomBootsItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.BOOTS, new Item.Settings()));
 
-    public static final Item EREBOR_GATE_GUARD_HELMET = registerArmorPiece("erebor_gate_guard_helmet",
+    public static final Item RAVENHILL_WATCHWARDEN_HELMET = registerArmorPiece("ravenhill_watchwarden_helmet",
+            new CustomHelmetItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings(), null));
+    public static final Item RAVENHILL_WATCHWARDEN_CHESTPLATE = registerArmorPiece("ravenhill_watchwarden_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+                    new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())));
+    public static final Item RAVENHILL_WATCHWARDEN_LEGGINGS = registerArmorPiece("ravenhill_watchwarden_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new Item.Settings()));
+    public static final Item RAVENHILL_WATCHWARDEN_BOOTS = registerArmorPiece("ravenhill_watchwarden_boots",
+            new CustomBootsItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.BOOTS, new Item.Settings()));
+
+    public static final Item RAVENHILL_SENTINEL_HELMET = registerArmorPiece("ravenhill_sentinel_helmet",
+            new CustomHelmetItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings(),
+                    new EreborWingsHelmetModel(EreborWingsHelmetModel.getTexturedModelData().createModel())));
+    public static final Item RAVENHILL_SENTINEL_CHESTPLATE = registerArmorPiece("ravenhill_sentinel_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.RAVENHILL_SENTINEL_CAPE)),
+                    new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())));
+    public static final Item RAVENHILL_SENTINEL_LEGGINGS = registerArmorPiece("ravenhill_sentinel_leggings",
+            new CustomLeggingsItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new Item.Settings()));
+    public static final Item RAVENHILL_SENTINEL_BOOTS = registerArmorPiece("ravenhill_sentinel_boots",
+            new CustomBootsItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.BOOTS, new Item.Settings()));
+
+    public static final Item EREBOR_GATEWARDEN_HELMET = registerArmorPiece("erebor_gatewarden_helmet",
             new CustomHelmetItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings(),
                     new EreborHelmetModel(EreborHelmetModel.getTexturedModelData().createModel())));
-    public static final Item EREBOR_GATE_GUARD_CHESTPLATE = registerArmorPiece("erebor_gate_guard_chestplate",
+    public static final Item EREBOR_GATEWARDEN_CHESTPLATE = registerArmorPiece("erebor_gatewarden_chestplate",
             new CustomChestplateItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings()
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.EREBOR_CAPE)),
                     new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())));
-    public static final Item EREBOR_GATE_GUARD_LEGGINGS = registerArmorPiece("erebor_gate_guard_leggings",
+    public static final Item EREBOR_GATEWARDEN_LEGGINGS = registerArmorPiece("erebor_gatewarden_leggings",
             new CustomLeggingsItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.LEGGINGS, new Item.Settings()));
-    public static final Item EREBOR_GATE_GUARD_BOOTS = registerArmorPiece("erebor_gate_guard_boots",
+    public static final Item EREBOR_GATEWARDEN_BOOTS = registerArmorPiece("erebor_gatewarden_boots",
             new CustomBootsItem(ModArmorMaterials.EREBOR_PLATE_ARMOR, ArmorItem.Type.BOOTS, new Item.Settings()));
     
     public static final Item LONGBEARD_SHIELD = registerItem("longbeard_shield",
