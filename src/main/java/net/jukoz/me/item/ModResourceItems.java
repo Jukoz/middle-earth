@@ -8,6 +8,7 @@ import net.jukoz.me.item.items.*;
 import net.jukoz.me.item.utils.ModBannerPatternTags;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.type.FoodComponent;
@@ -149,7 +150,7 @@ public class ModResourceItems {
     public static final Item STRAW = registerItem("straw",
             new Item(new Item.Settings()));
     public static final Block REEDS = registerBlock("reeds",
-            new CustomTallPlantBlock(FabricBlockSettings.copyOf(Blocks.TALL_GRASS).breakInstantly(), false), false);
+            new CustomTallPlantBlock(AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), false), false);
 
     public static final Item DUCK_FEATHER = registerItem("duck_feather",
             new Item(new Item.Settings()));

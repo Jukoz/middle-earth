@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "me:block/chimney"
+    },
+    "lit=true": {
+      "model": "me:block/chimney"
+    }
+  }
+}

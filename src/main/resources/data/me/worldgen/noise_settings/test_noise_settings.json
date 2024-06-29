@@ -2519,7 +2519,7 @@
         "type": "minecraft:condition",
         "if_true": {
           "type": "minecraft:vertical_gradient",
-          "random_name": "me:epmosto",
+          "random_name": "me:medgon",
           "true_at_and_below": {
             "absolute": -32
           },
@@ -2530,7 +2530,7 @@
         "then_run": {
           "type": "minecraft:block",
           "result_state": {
-            "Name": "me:epmosto",
+            "Name": "me:medgon",
             "Properties": {
               "axis": "y"
             }
@@ -2541,7 +2541,7 @@
         "type": "minecraft:condition",
         "if_true": {
           "type": "minecraft:vertical_gradient",
-          "random_name": "me:diftomin",
+          "random_name": "me:nurgon",
           "true_at_and_below": {
             "absolute": 0
           },
@@ -2552,7 +2552,7 @@
         "then_run": {
           "type": "minecraft:block",
           "result_state": {
-            "Name": "me:diftomin"
+            "Name": "me:nurgon"
           }
         }
       },
