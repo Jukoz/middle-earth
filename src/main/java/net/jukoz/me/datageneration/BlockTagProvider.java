@@ -237,6 +237,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsDiamondTools.add(OreRockSets.MEDGON.mithril_ore());
 
         needsDiamondTools.add(ModDecorativeBlocks.REINFORCED_CHEST);
+        needsDiamondTools.add(ModDecorativeBlocks.TREADTED_ANVIL);
 
         needsDiamondTools.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
 

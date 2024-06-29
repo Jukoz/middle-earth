@@ -1,8 +1,7 @@
 package net.jukoz.me.gui;
 
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreenHandler;
+import net.jukoz.me.gui.forge.ForgeScreenHandler;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreenHandler;
 import net.jukoz.me.gui.wood_pile.WoodPileScreenHandler;
 import net.minecraft.registry.Registries;
@@ -12,12 +11,12 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 
 public class ModScreenHandlers {
-    public static ScreenHandlerType<AlloyFurnaceScreenHandler> ALLOY_SCREEN_HANDLER;
+    public static ScreenHandlerType<ForgeScreenHandler> ALLOY_SCREEN_HANDLER;
     public static ScreenHandlerType<ArtisanTableScreenHandler> ARTISAN_SCREEN_HANDLER;
     public static ScreenHandlerType<WoodPileScreenHandler> WOOD_PILE_SCREEN_HANDLER;
 
     public static void registerAllScreenHandlers() {
-        ALLOY_SCREEN_HANDLER = new ScreenHandlerType<>(AlloyFurnaceScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
+        ALLOY_SCREEN_HANDLER = new ScreenHandlerType<>(ForgeScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
         ARTISAN_SCREEN_HANDLER = new ScreenHandlerType<>(ArtisanTableScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
         WOOD_PILE_SCREEN_HANDLER = new ScreenHandlerType<>(WoodPileScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
 

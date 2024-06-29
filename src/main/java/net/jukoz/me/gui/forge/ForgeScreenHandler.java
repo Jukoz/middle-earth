@@ -1,4 +1,4 @@
-package net.jukoz.me.gui.alloyfurnace;
+package net.jukoz.me.gui.forge;
 
 import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.gui.ModScreenHandlers;
@@ -8,31 +8,32 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ArrayPropertyDelegate;
+import net.minecraft.screen.Property;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 
-public class AlloyFurnaceScreenHandler extends ScreenHandler{
+public class ForgeScreenHandler extends ScreenHandler{
     private final Inventory inventory;
     private final PropertyDelegate propertyDelegate;
 
-    public AlloyFurnaceScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new SimpleInventory(6), new ArrayPropertyDelegate(3));
+    public ForgeScreenHandler(int syncId, PlayerInventory playerInventory) {
+        this(syncId, playerInventory, new SimpleInventory(6), new ArrayPropertyDelegate(4));
     }
 
-    public AlloyFurnaceScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
+    public ForgeScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
         super(ModScreenHandlers.ALLOY_SCREEN_HANDLER, syncId);
         checkSize(inventory, 6);
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);
         this.propertyDelegate = delegate;
 
-        this.addSlot(new AlloyFurnaceFuelSlot(inventory, this, 0, 53, 53));
+        this.addSlot(new ForgeFuelSlot(inventory, this, 0, 53, 53));
         this.addSlot(new Slot(inventory, 1, 26, 17));
         this.addSlot(new Slot(inventory, 2, 44, 17));
         this.addSlot(new Slot(inventory, 3, 62, 17));
         this.addSlot(new Slot(inventory, 4, 80, 17));
-        this.addSlot(new AlloyFurnaceOutputSlot(playerInventory.player, inventory, 5, 129, 35));
+        this.addSlot(new ForgeOutputSlot(playerInventory.player, inventory, 5, 129, 35));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -70,6 +71,10 @@ public class AlloyFurnaceScreenHandler extends ScreenHandler{
 
     public boolean isCooking() {
         return propertyDelegate.get(1) > 0;
+    }
+
+    public boolean hasBellows() {
+        return propertyDelegate.get(3) > 0;
     }
 
     public float getScaledCooking() {

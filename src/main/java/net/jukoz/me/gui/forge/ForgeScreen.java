@@ -1,4 +1,4 @@
-package net.jukoz.me.gui.alloyfurnace;
+package net.jukoz.me.gui.forge;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.jukoz.me.MiddleEarth;
@@ -9,11 +9,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class AlloyFurnaceScreen extends HandledScreen<AlloyFurnaceScreenHandler> {
+public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
     private static final Identifier TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/gui/alloy_furnace.png");
     private static final int PROGRESS_ARROW_SIZE = 24;
     private static final int COOKING_FIRE_SIZE = 14;
-    public AlloyFurnaceScreen(AlloyFurnaceScreenHandler handler, PlayerInventory inventory, Text title) {
+    public ForgeScreen(ForgeScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
     }
 
@@ -32,6 +32,7 @@ public class AlloyFurnaceScreen extends HandledScreen<AlloyFurnaceScreenHandler>
         int y = (height - backgroundHeight) / 2;
         context.drawTexture(TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
 
+        renderModeText(context, x, y);
         renderProgressArrow(context, x, y);
     }
 
@@ -42,6 +43,14 @@ public class AlloyFurnaceScreen extends HandledScreen<AlloyFurnaceScreenHandler>
         }
         if(handler.isCrafting()) {
             context.drawTexture(TEXTURE, x + 94, y + 34, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17);
+        }
+    }
+
+    private void renderModeText(DrawContext context, int x, int y) {
+        if(handler.hasBellows()){
+            context.drawTextWithShadow(this.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mode").append(" Alloying"), x + 94, y + 65, 0xFF6060);
+        } else {
+            context.drawTextWithShadow(this.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mode").append(" Heating"), x + 94, y + 65, 0xFF6060);
         }
     }
 

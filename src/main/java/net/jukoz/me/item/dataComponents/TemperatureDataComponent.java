@@ -32,4 +32,5 @@ public record TemperatureDataComponent(int temperature) implements TooltipAppend
     public int temperature() {
         return temperature;
     }
+
 }

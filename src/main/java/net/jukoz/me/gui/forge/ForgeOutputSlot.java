@@ -1,15 +1,15 @@
-package net.jukoz.me.gui.alloyfurnace;
+package net.jukoz.me.gui.forge;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 
-public class AlloyFurnaceOutputSlot extends Slot {
+public class ForgeOutputSlot extends Slot {
     private final PlayerEntity player;
     private int amount;
 
-    public AlloyFurnaceOutputSlot(PlayerEntity player, Inventory inventory, int index, int x, int y) {
+    public ForgeOutputSlot(PlayerEntity player, Inventory inventory, int index, int x, int y) {
         super(inventory, index, x, y);
         this.player = player;
     }

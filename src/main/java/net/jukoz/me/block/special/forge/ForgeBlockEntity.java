@@ -2,7 +2,8 @@ package net.jukoz.me.block.special.forge;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
-import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreenHandler;
+import net.jukoz.me.block.ModDecorativeBlocks;
+import net.jukoz.me.gui.forge.ForgeScreenHandler;
 import net.jukoz.me.recipe.AlloyRecipe;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.Block;
@@ -19,11 +20,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -33,7 +38,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.Optional;
-
 
 public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
     private static final String ID = "forge";
@@ -47,7 +51,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
     private int progress = 0;
     private int fuelTime = 0;
     private int maxFuelTime = 0;
-
+    private int mode = 0;
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGE, pos, state);
@@ -58,6 +62,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
                     case 0 -> ForgeBlockEntity.this.progress;
                     case 1 -> ForgeBlockEntity.this.fuelTime;
                     case 2 -> ForgeBlockEntity.this.maxFuelTime;
+                    case 3 -> ForgeBlockEntity.this.mode;
                     default -> 0;
                 };
             }
@@ -68,12 +73,13 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
                     case 0 -> ForgeBlockEntity.this.progress = value;
                     case 1 -> ForgeBlockEntity.this.fuelTime = value;
                     case 2 -> ForgeBlockEntity.this.maxFuelTime = value;
+                    case 3 -> ForgeBlockEntity.this.mode = value;
                 }
             }
 
             @Override
             public int size() {
-                return 3;
+                return 4;
             }
         };
     }
@@ -86,7 +92,25 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new AlloyFurnaceScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+        return new ForgeScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+    }
+
+    public int hasBellows(World world, BlockPos pos, BlockState state){
+        Direction direction = state.get(Properties.HORIZONTAL_FACING);
+        BlockPos pos1 = pos.offset(direction.rotateYClockwise());
+        BlockPos pos2 = pos.offset(direction.rotateYClockwise().getOpposite());
+
+        if(world.getBlockState(pos1).isOf(ModDecorativeBlocks.BELLOWS) && world.getBlockState(pos2).isOf(ModDecorativeBlocks.BELLOWS)){
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
     }
 
     @Override
@@ -96,6 +120,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         nbt.putInt(ID + ".progress", progress);
         nbt.putInt(ID + ".fuel-time", fuelTime);
         nbt.putInt(ID + ".max-fuel-time", maxFuelTime);
+        nbt.putInt(ID + ".mode", mode);
     }
 
     @Override
@@ -105,6 +130,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         progress = nbt.getInt(ID + ".progress");
         fuelTime = nbt.getInt(ID + ".fuel-time");
         maxFuelTime = nbt.getInt(ID + ".max-fuel-time");
+        mode = nbt.getInt(ID + ".mode");
     }
 
     public ItemStack getRenderStack() {
@@ -214,8 +240,10 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     public static void tick(World world, BlockPos blockPos, BlockState blockState, ForgeBlockEntity entity) {
         if(world.isClient()) return;
+
         entity.fuelTime = Math.max(0, entity.fuelTime - 1);
         boolean progress = false;
+        entity.mode = entity.hasBellows(world, blockPos, blockState);
         if(hasRecipe(entity)) {
             if(entity.hasFuel(entity)) {
                 entity.progress++;

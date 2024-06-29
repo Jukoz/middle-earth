@@ -1,8 +1,12 @@
 package net.jukoz.me.block.special.forge;
 
 import com.mojang.serialization.MapCodec;
+import net.jukoz.me.block.ModBlockEntities;
+import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.special.artisantable.ArtisanTablePart;
+import net.jukoz.me.block.special.bellows.BellowsBlock;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -12,6 +16,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -34,7 +39,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final EnumProperty<ForgePart> PART = EnumProperty.of("part", ForgePart.class);
-    public static final DirectionProperty FACING = Properties.HOPPER_FACING;
+    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty LIT = Properties.LIT;
     public ForgeBlock(Settings settings) {
         super(settings);
@@ -67,7 +72,6 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
         World world = ctx.getWorld();
         Direction direction = ctx.getHorizontalPlayerFacing().getOpposite();
 
-        //return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(LIT, false).with(PART, ForgePart.BOTTOM);
         return world.getBlockState(pos).canReplace(ctx) && world.getWorldBorder().contains(pos) ? (BlockState)this.getDefaultState().with(FACING, direction).with(PART, ForgePart.BOTTOM) : null;
     }
 
@@ -128,8 +132,10 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
                 }
             }
         }
+
         return ActionResult.SUCCESS;
     }
+
 
     @Nullable
     @Override
@@ -140,14 +146,13 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return super.getTicker(world, state, type);
+        return ForgeBlock.validateTicker(world, type, ModBlockEntities.FORGE);
     }
 
-    /*@Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.FORGE, ForgeBlockEntity::tick);
-    }*/
+    @Nullable
+    protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<ForgeBlockEntity> expectedType) {
+        return world.isClient ? null : ForgeBlock.validateTicker(givenType, expectedType, ForgeBlockEntity::tick);
+    }
 
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {

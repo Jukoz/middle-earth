@@ -11,7 +11,7 @@ import net.jukoz.me.compat.alloyFurnace.AlloyFurnaceCategory;
 import net.jukoz.me.compat.alloyFurnace.AlloyFurnaceDisplay;
 import net.jukoz.me.compat.artisanTable.ArtisanTableCategory;
 import net.jukoz.me.compat.artisanTable.ArtisanTableDisplay;
-import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
+import net.jukoz.me.gui.forge.ForgeScreen;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreen;
 import net.jukoz.me.recipe.AlloyRecipe;
 import net.jukoz.me.recipe.ArtisanRecipe;
@@ -36,6 +36,6 @@ public class ModREIClientPlugin implements REIClientPlugin {
     @Override
     public void registerScreens(ScreenRegistry registry) {
         registry.registerClickArea(screen -> new Rectangle(75, 30, 20, 30), ArtisanTableScreen.class, ArtisanTableCategory.ARTISAN_TABLE);
-        registry.registerClickArea(screen -> new Rectangle(75, 30, 20, 30), AlloyFurnaceScreen.class, AlloyFurnaceCategory.ALLOY_FURNACE);
+        registry.registerClickArea(screen -> new Rectangle(75, 30, 20, 30), ForgeScreen.class, AlloyFurnaceCategory.ALLOY_FURNACE);
     }
 }
