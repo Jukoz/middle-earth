@@ -3,10 +3,7 @@ package net.jukoz.me.entity.swan;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.duck.DuckEntity;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
@@ -41,12 +38,9 @@ import java.util.function.Predicate;
 public class SwanEntity extends AnimalEntity {
 
     public static final Ingredient BREEDING_INGREDIENT = Ingredient.fromTag(ItemTags.CHICKEN_FOOD);
-    public float flapProgress;
-    public float maxWingDeviation;
-    public float prevMaxWingDeviation;
-    public float prevFlapProgress;
-    private float flapSpeed = 1.0F;
-    private float field_28640 = 1.0F;
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState idleAnimationState = new AnimationState();
+    private int idleAnimationTimeout = this.random.nextInt(100) + 950;
 
 
     public SwanEntity(EntityType<? extends AnimalEntity> entityType, World world) {
@@ -62,7 +56,7 @@ public class SwanEntity extends AnimalEntity {
         this.goalSelector.add(2, new MeleeAttackGoal(this, 0.9f, false));
         this.goalSelector.add(3, new EscapeDangerGoal(this, 1.15));
         this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(5, new TemptGoal(this, 1.1, DuckEntity.BREEDING_INGREDIENT, false));
+        this.goalSelector.add(5, new TemptGoal(this, 1.1, BREEDING_INGREDIENT, false));
 
         this.goalSelector.add(6, new FollowParentGoal(this, 1.05));
 
@@ -71,8 +65,6 @@ public class SwanEntity extends AnimalEntity {
         this.goalSelector.add(9, new WanderAroundGoal(this, 1.0F));
 
         this.goalSelector.add(10, new FleeEntityGoal<>(this, WolfEntity.class, 8.0F, 0.9, 1.2));
-
-        //this.goalSelector.add(13, new BirdFlightGoal(this));
     }
 
 
@@ -81,8 +73,7 @@ public class SwanEntity extends AnimalEntity {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0)
-                .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.4000000059604645);
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0);
     }
 
     protected EntityNavigation createNavigation(World world) {
@@ -93,6 +84,29 @@ public class SwanEntity extends AnimalEntity {
         return birdNavigation;
     }
 
+    private void setupAnimationStates() {
+        if (this.idleAnimationTimeout <= 0) {
+            this.idleAnimationTimeout = this.random.nextInt(100) + 950;
+            this.idleAnimationState.start(this.age);
+        } else {
+            --this.idleAnimationTimeout;
+        }
+        if (this.isSwimming()) {
+            this.swimAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.swimAnimationState.stop();
+        }
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(this.getWorld().isClient()) {
+            setupAnimationStates();
+        }
+    }
+
     @Override
     public void tickMovement() {
         super.tickMovement();
@@ -100,30 +114,14 @@ public class SwanEntity extends AnimalEntity {
     }
 
     private void flapWings() {
-        this.prevFlapProgress = this.flapProgress;
-        this.prevMaxWingDeviation = this.maxWingDeviation;
-        this.maxWingDeviation += (float)(!this.isOnGround() && !this.hasVehicle() ? 4 : -1) * 0.3F;
-        this.maxWingDeviation = MathHelper.clamp(this.maxWingDeviation, 0.0F, 1.0F);
-        if (!this.isOnGround() && this.flapSpeed < 1.0F) {
-            this.flapSpeed = 1.0F;
-        }
-
-        this.flapSpeed *= 0.9F;
         Vec3d vec3d = this.getVelocity();
         if (!this.isOnGround() && vec3d.y < 0.0) {
             this.setVelocity(vec3d.multiply(1.0, 0.6, 1.0));
         }
-
-        this.flapProgress += this.flapSpeed * 2.0F;
-    }
-
-    protected boolean isFlappingWings() {
-        return this.speed > this.field_28640;
     }
 
     protected void addFlapEffects() {
         this.playSound(SoundEvents.ENTITY_PARROT_FLY, 0.15F, 1.0F);
-        this.field_28640 = this.speed + this.maxWingDeviation / 2.0F;
     }
 
     protected SoundEvent getAmbientSound() {
@@ -151,7 +149,7 @@ public class SwanEntity extends AnimalEntity {
     }
 
     public boolean isBreedingItem(ItemStack stack) {
-        return DuckEntity.BREEDING_INGREDIENT.test(stack);
+        return BREEDING_INGREDIENT.test(stack);
     }
 
     public SwanVariant getVariant() {

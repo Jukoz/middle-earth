@@ -3,6 +3,7 @@ package net.jukoz.me.entity.swan;
 import com.google.common.collect.Maps;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
+import net.jukoz.me.entity.pheasant.PheasantModel;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
@@ -15,7 +16,7 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.Map;
 
-public class SwanRenderer extends MobEntityRenderer<SwanEntity, SwanModel<SwanEntity>> {
+public class SwanRenderer extends MobEntityRenderer<SwanEntity, SwanModel> {
     private static final String PATH = "textures/entities/swan/";
     private static final float SIZE = 1f;
 
@@ -24,7 +25,7 @@ public class SwanRenderer extends MobEntityRenderer<SwanEntity, SwanModel<SwanEn
     }
 
     protected SwanRenderer(EntityRendererFactory.Context ctx, float shadowRadius, EntityModelLayer layer) {
-        super(ctx, new SwanModel<>(ctx.getPart(layer)), shadowRadius);
+        super(ctx, new SwanModel(ctx.getPart(layer)), shadowRadius);
     }
 
     protected float getLyingAngle(SwanEntity swanEntity) {
@@ -34,7 +35,7 @@ public class SwanRenderer extends MobEntityRenderer<SwanEntity, SwanModel<SwanEn
     public static final Map<SwanVariant, String> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(SwanVariant.class), (resourceLocation) -> {
                 resourceLocation.put(SwanVariant.WHITE,
-                        PATH + "swan1.png");
+                        PATH + "swan.png");
             });
 
     public Identifier getTexture(SwanEntity entity) {
@@ -52,11 +53,5 @@ public class SwanRenderer extends MobEntityRenderer<SwanEntity, SwanModel<SwanEn
             poseStack.scale(SIZE, SIZE, SIZE);
         }
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
-    }
-
-    protected float getAnimationProgress(ChickenEntity chickenEntity, float f) {
-        float g = MathHelper.lerp(f, chickenEntity.prevFlapProgress, chickenEntity.flapProgress);
-        float h = MathHelper.lerp(f, chickenEntity.prevMaxWingDeviation, chickenEntity.maxWingDeviation);
-        return (MathHelper.sin(g) + 1.0F) * h;
     }
 }
