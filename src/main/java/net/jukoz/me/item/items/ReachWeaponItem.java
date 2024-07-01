@@ -1,17 +1,11 @@
 package net.jukoz.me.item.items;
 
-import com.google.common.collect.ImmutableMultimap;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.item.utils.ModToolMaterials;
-import net.jukoz.me.item.utils.WeaponTypes;
+import net.jukoz.me.item.utils.ModWeaponTypes;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipType;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentType;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
@@ -32,9 +26,9 @@ public class ReachWeaponItem extends SwordItem {
     private final MutableText faction;
     private final MutableText subFaction;
 
-    public final WeaponTypes type;
+    public final ModWeaponTypes type;
 
-    public ReachWeaponItem(ToolMaterial toolMaterial, WeaponTypes type) {
+    public ReachWeaponItem(ToolMaterial toolMaterial, ModWeaponTypes type) {
         super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
         this.rangeDistance = type.attackRange;
         this.faction = null;
@@ -42,7 +36,7 @@ public class ReachWeaponItem extends SwordItem {
         this.type = type;
     }
 
-    public ReachWeaponItem(ToolMaterial toolMaterial, MutableText faction, WeaponTypes type) {
+    public ReachWeaponItem(ToolMaterial toolMaterial, MutableText faction, ModWeaponTypes type) {
         super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
         this.rangeDistance = type.attackRange;
         this.faction = faction;
@@ -50,7 +44,7 @@ public class ReachWeaponItem extends SwordItem {
         this.type = type;
     }
 
-    public ReachWeaponItem(ToolMaterial toolMaterial, MutableText faction, MutableText subFaction, WeaponTypes type) {
+    public ReachWeaponItem(ToolMaterial toolMaterial, MutableText faction, MutableText subFaction, ModWeaponTypes type) {
         super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
         this.rangeDistance = type.attackRange;
         this.faction = faction;
@@ -58,10 +52,10 @@ public class ReachWeaponItem extends SwordItem {
         this.type = type;
     }
 
-    public static AttributeModifiersComponent createAttributeModifiers(ToolMaterial material, int baseAttackDamage, float attackSpeed, float rangeDistance) {
+    public static AttributeModifiersComponent createAttributeModifiers(ToolMaterial material, float baseAttackDamage, float attackSpeed, float rangeDistance) {
         return AttributeModifiersComponent.builder()
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier",
-                        (float)baseAttackDamage + material.getAttackDamage(), EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
+                        baseAttackDamage + material.getAttackDamage(), EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier",
                         attackSpeed, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                 .add(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE, new EntityAttributeModifier(ENTITY_INTERACTION_RANGE_MODIFIER_ID, "Weapon modifier",
@@ -93,7 +87,7 @@ public class ReachWeaponItem extends SwordItem {
         return rangeDistance;
     }
 
-    public WeaponTypes getType() {
+    public ModWeaponTypes getType() {
         return type;
     }
 

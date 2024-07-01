@@ -1,9 +1,13 @@
 package net.jukoz.me.item.items;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.item.utils.WeaponTypes;
+import net.jukoz.me.item.utils.ModWeaponTypes;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipType;
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.MutableText;
@@ -16,27 +20,36 @@ public class CustomAxeWeaponItem extends AxeItem {
     private final MutableText faction;
     private final MutableText subFaction;
 
-    private final WeaponTypes type;
+    private final ModWeaponTypes type;
 
-    public CustomAxeWeaponItem(ToolMaterial toolMaterial, WeaponTypes type) {
-        super(toolMaterial, new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed)));
+    public CustomAxeWeaponItem(ToolMaterial toolMaterial, ModWeaponTypes type) {
+        super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, type.attack, type.attackSpeed)));
         this.faction = null;
         this.subFaction = null;
         this.type = type;
     }
 
-    public CustomAxeWeaponItem(ToolMaterial toolMaterial,  MutableText faction, WeaponTypes type) {
-        super(toolMaterial, new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed)));
+    public CustomAxeWeaponItem(ToolMaterial toolMaterial,  MutableText faction, ModWeaponTypes type) {
+        super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, type.attack, type.attackSpeed)));
         this.faction = faction;
         this.subFaction = null;
         this.type = type;
     }
 
-    public CustomAxeWeaponItem(ToolMaterial toolMaterial,  MutableText faction, MutableText subFaction, WeaponTypes type) {
-        super(toolMaterial, new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed)));
+    public CustomAxeWeaponItem(ToolMaterial toolMaterial,  MutableText faction, MutableText subFaction, ModWeaponTypes type) {
+        super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, type.attack, type.attackSpeed)));
         this.faction = faction;
         this.subFaction = subFaction;
         this.type = type;
+    }
+
+    public static AttributeModifiersComponent createAttributeModifiersAxe(ToolMaterial material, float baseAttackDamage, float attackSpeed) {
+        return AttributeModifiersComponent.builder()
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier",
+                        baseAttackDamage + material.getAttackDamage(), EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier",
+                        attackSpeed, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
+                .build();
     }
 
     @Override

@@ -1,8 +1,6 @@
 package net.jukoz.me.mixin.client;
 
 import net.jukoz.me.item.ModDecorativeItems;
-import net.jukoz.me.item.items.ReachWeaponItem;
-import net.jukoz.me.item.utils.WeaponTypes;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.LivingEntity;
