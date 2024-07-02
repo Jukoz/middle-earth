@@ -1,19 +1,21 @@
 package net.jukoz.me.world.dimension;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.client.screens.OnboardingScreen;
+import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.item.items.StarlightPhialItem;
 import net.jukoz.me.utils.LoggerUtil;
-import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionOptions;
@@ -23,7 +25,7 @@ import org.joml.Vector3i;
 
 public class ModDimensions {
     public static final Vector3i ME_SPAWN_LOCATION = new Vector3i(939, 90, 915);
-    public static final String PATH = "middle-earth";
+    public static final String PATH = "middle_earth";
 
     public static final RegistryKey<DimensionOptions> DIMENSION_KEY =
             RegistryKey.of(RegistryKeys.DIMENSION, new Identifier(MiddleEarth.MOD_ID, PATH));
@@ -46,6 +48,8 @@ public class ModDimensions {
     }
 
     public static void teleportPlayerToMe(PlayerEntity player, Vector3i coordinates){
+        openOnboardingScreen(player, coordinates);
+        /*
         if(!player.getWorld().isClient()) {
             RegistryKey<World> registryKey = WORLD_KEY;
             ServerWorld serverWorld = (ServerWorld) player.getWorld();
@@ -57,6 +61,19 @@ public class ModDimensions {
                 ((ServerPlayerEntity) player).teleport(serverWorld, coordinates.x , coordinates.y, coordinates.z, 0, 0);
                 player.refreshPositionAfterTeleport(coordinates.x, coordinates.y, coordinates.z);
             }
+        }
+         */
+    }
+
+    public static void openOnboardingScreen(PlayerEntity player, Vector3i coordinates){
+        MinecraftClient mc = MinecraftClient.getInstance();
+        if(player.getWorld().isClient) {
+            if (mc.currentScreen == null) {
+                mc.setScreen(new OnboardingScreen());
+            }
+        }
+        if(!player.isCreative() && player.getStackInHand(Hand.MAIN_HAND).isOf(ModResourceItems.STARLIGHT_PHIAL)){
+            player.getStackInHand(Hand.MAIN_HAND).decrement(1);
         }
     }
 
