@@ -182,14 +182,15 @@ public class ModResourceItems {
             new BannerPatternItem(ModBannerPatternTags.LONGBEARD_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item LOTHLORIEN_BANNER_PATTERN = registerItem("lothlorien_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.LOTHLORIEN_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
-    public static final Item MORDOR_GREAT_EYE_BANNER_PATTERN = registerItem("mordor_great_eye_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.MORDOR_GREAT_EYE_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
-    public static final Item MORDOR_EYE_BANNER_PATTERN = registerItem("mordor_eye_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.MORDOR_EYE_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
-    public static final Item MISTY_ORCS_EYE_BANNER_PATTERN = registerItem("misty_orcs_eye_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.MISTY_ORCS_EYE_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
-    public static final Item MISTY_ORCS_PEAKS_BANNER_PATTERN = registerItem("misty_orcs_peaks_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.MISTY_ORCS_PEAKS_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+    public static final Item MORDOR_BANNER_PATTERN = registerItem("mordor_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.MORDOR_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+    public static final Item MISTY_ORCS_BANNER_PATTERN = registerItem("misty_orcs_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.MISTY_ORCS_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+    public static final Item ISENGARD_BANNER_PATTERN = registerItem("isengard_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.ISENGARD_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+
+    public static final Item DRAGON_BANNER_PATTERN = registerItem("dragon_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.DRAGON_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static Block registerBlock(String name, Block block, boolean absent) {
         if(!absent) registerBlockItem(name, block);
