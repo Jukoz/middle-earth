@@ -1,0 +1,15 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "me:ash"
+    }
+  ],
+  "output": {
+    "id": "me:mordor_banner_pattern",
+    "count": 1
+  }
+}

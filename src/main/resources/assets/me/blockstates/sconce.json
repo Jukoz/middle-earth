@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "me:block/sconce"
+    },
+    "lit=true": {
+      "model": "me:block/sconce_lit"
+    }
+  }
+}

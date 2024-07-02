@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "me:block/fire_bowl"
+    },
+    "lit=true": {
+      "model": "me:block/fire_bowl_lit"
+    }
+  }
+}

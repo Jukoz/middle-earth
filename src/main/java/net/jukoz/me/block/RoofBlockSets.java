@@ -33,6 +33,7 @@ public class RoofBlockSets {
     public static RoofBlockSet MIRKWOOD_SHINGLES = registerWoodSet("mirkwood_shingles", WoodBlockSets.MIRKWOOD.planks());
     public static RoofBlockSet PALM_SHINGLES = registerWoodSet("palm_shingles", WoodBlockSets.PALM.planks());
     public static RoofBlockSet PINE_SHINGLES = registerWoodSet("pine_shingles", WoodBlockSets.PINE.planks());
+    public static RoofBlockSet PINE_ROOFING = registerWoodSet("pine_roofing", PINE_SHINGLES.block);
     public static RoofBlockSet WILLOW_SHINGLES = registerWoodSet("willow_shingles", WoodBlockSets.WILLOW.planks());
     public static RoofBlockSet GRAY_MUSHROOM_SHINGLES = registerWoodSet("gray_mushroom_shingles", MushroomBlockSets.GRAY_MUSHROOM.planks());
     public static RoofBlockSet DARK_MUSHROOM_SHINGLES = registerWoodSet("dark_mushroom_shingles", MushroomBlockSets.DARK_MUSHROOM.planks());
@@ -64,22 +65,26 @@ public class RoofBlockSets {
     public static RoofBlockSet WEATHERED_THATCH = registerThatchSet("weathered_thatch", Oxidizable.OxidationLevel.EXPOSED);
     public static RoofBlockSet AGED_THATCH = registerThatchSet("aged_thatch", Oxidizable.OxidationLevel.WEATHERED);
     public static RoofBlockSet OLD_THATCH = registerThatchSet("old_thatch", Oxidizable.OxidationLevel.OXIDIZED);
+    public static RoofBlockSet ROTTEN_THATCH = registerThatchSet("rotten_thatch", Oxidizable.OxidationLevel.OXIDIZED);
 
     public static RoofBlockSet WAXED_THATCH = registerWaxedThatchSet("waxed_thatch");
     public static RoofBlockSet WAXED_WEATHERED_THATCH = registerWaxedThatchSet("waxed_weathered_thatch");
     public static RoofBlockSet WAXED_AGED_THATCH = registerWaxedThatchSet("waxed_aged_thatch");
     public static RoofBlockSet WAXED_OLD_THATCH = registerWaxedThatchSet("waxed_old_thatch");
+    public static RoofBlockSet WAXED_ROTTEN_THATCH = registerWaxedThatchSet("waxed_rotten_thatch");
 
     public static RoofBlockSet[] sets = new RoofBlockSet[] {
             THATCH,
             WEATHERED_THATCH,
             AGED_THATCH,
             OLD_THATCH,
+            ROTTEN_THATCH,
 
             WAXED_THATCH,
             WAXED_WEATHERED_THATCH,
             WAXED_AGED_THATCH,
             WAXED_OLD_THATCH,
+            WAXED_ROTTEN_THATCH,
 
             OAK_SHINGLES,
             SPRUCE_SHINGLES,
@@ -103,6 +108,7 @@ public class RoofBlockSets {
             MIRKWOOD_SHINGLES,
             PALM_SHINGLES,
             PINE_SHINGLES,
+            PINE_ROOFING,
             WILLOW_SHINGLES,
             DARK_MUSHROOM_SHINGLES,
             GRAY_MUSHROOM_SHINGLES,
