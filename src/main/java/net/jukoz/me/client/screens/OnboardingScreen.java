@@ -12,11 +12,12 @@ import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.utils.ModBannerPatterns;
 import net.jukoz.me.utils.Factions;
-import net.jukoz.me.world.dimension.ModDimensions;
-import net.minecraft.block.BannerBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BannerBlockEntity;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.LayeredDrawer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -29,34 +30,24 @@ import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.decoration.ArmorStandEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.screen.SmithingScreenHandler;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec2f;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class OnboardingScreen extends Screen {
-    private static final Identifier WINDOW_TEXTURE = new Identifier(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
+    private static final Identifier MAP_BACKGROUND = new Identifier(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
     private static final Identifier MAP_UI_TEXTURE = new Identifier(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
     private static final Identifier MAP_TEXTURE = new Identifier(MiddleEarth.MOD_ID,"textures/map.png");
     private static final Text ONBOARDING_TEXT = Text.of("Onboarding");
@@ -68,6 +59,15 @@ public class OnboardingScreen extends Screen {
     private static List<FactionNpcPreviewData> NPC_PREVIEWS = new ArrayList<>();
 
     private ModelPart bannerField;
+
+    private List<Float> guiScaleModifier = new ArrayList<Float>(){{
+        add(1f); // Auto
+        add(1.25f);
+        add(1f);
+        add(0.75f);
+        add(0.5f);
+    }};
+
     @Nullable
     private LongbeardDwarfEntity dwarfEntity;
     @Nullable
@@ -93,7 +93,7 @@ public class OnboardingScreen extends Screen {
                 this.player = abstractClientPlayerEntity;
 
                 this.renderBackground(context, mouseX, mouseY, delta);
-                this.drawWindow(context);
+                this.drawWindow(context, this.client.options.getGuiScale().getValue());
             } else {
                 this.player = null;
             }
@@ -127,18 +127,15 @@ public class OnboardingScreen extends Screen {
         this.entity.equipStack(EquipmentSlot.OFFHAND, prevData.OFF_HAND);
     }
 
-    public void drawWindow(DrawContext context) {
+    public void drawWindow(DrawContext context, int guiScale) {
         RenderSystem.enableBlend();
         int xCenter = (context.getScaledWindowWidth() / 2);
         int yCenter = (context.getScaledWindowHeight() / 2);
 
-        drawMap(context, xCenter, yCenter);
+        drawMap(context, (float) xCenter / 2 * 3, yCenter, guiScale);
 
         drawNpcPreview(context, xCenter, yCenter);
-        context.drawTexture(this.player.getSkinTextures().texture(),
-                xCenter- 4,
-                yCenter - 4,
-                8, 8, 8, 8, 64, 64);
+        drawFactionBanner(context, xCenter, yCenter / 2f * 3f);
     }
 
     private void drawNpcPreview(DrawContext context, float anchorX, float anchorY){
@@ -149,26 +146,58 @@ public class OnboardingScreen extends Screen {
         InventoryScreen.drawEntity(context, x, y, size, VECTOR, ENTITY_ROTATION, (Quaternionf)null, this.entity);
     }
 
-    private void drawMap(DrawContext context, float anchorX, float anchorY){
-        int size = 3000;
-        float x = anchorX - (size / 2f);
-        float y = anchorY - (size / 2f);
+    private void drawMap(DrawContext context, float anchorX, float anchorY, int guiScale){
+        int size = (int) (250 * guiScaleModifier.get(guiScale));
 
-        // TODO : Fix the map and border texture, it repeats itself where it shouldn't.
-        context.drawTexture(WINDOW_TEXTURE, (int) anchorX, (int) anchorY,
+        int margin = 5;
+
+        context.drawTexture(MAP_BACKGROUND,
+                (int) anchorX - ((size + margin) / 2),
+                (int) anchorY - ((size + margin) / 2),
                 0, 0,
-                25,
-                25,
-                25,
-                25
+                size + margin,
+                size + margin,
+                size + margin,
+                size + margin
         );
 
-        context.drawTexture(MAP_TEXTURE, (int) anchorX, (int) anchorY,
+        context.drawTexture(MAP_TEXTURE,
+                (int) anchorX - (size / 2),
+                (int) anchorY - (size / 2),
                 0, 0,
-                25,
-                25,
-                25,
-                25
+                size,
+                size,
+                size,
+                size
+        );
+
+        drawMapMarkers(context, anchorX, anchorY, size, guiScale);
+    }
+
+    private void drawMapMarkers(DrawContext context, float anchorX, float anchorY, int size, int guiScale) {
+        int markerSize = (int) (8);
+        context.drawTexture(MAP_UI_TEXTURE,
+                (int) anchorX - ((size) / 2) + (size / 2),
+                (int) anchorY - ((size) / 2) + (size / 4),
+                54, 0,
+                markerSize,
+                markerSize
+        );
+
+        context.drawTexture(MAP_UI_TEXTURE,
+                (int) anchorX - ((size) / 2) + (size / 2),
+                (int) anchorY - ((size) / 2) + ((size / 3) * 2),
+                54, 8,
+                markerSize,
+                markerSize
+        );
+
+        context.drawTexture(MAP_UI_TEXTURE,
+                (int) anchorX - ((size) / 2) + ((size / 3) * 2),
+                (int) anchorY - ((size) / 2) + ((size / 3)),
+                54, 16,
+                markerSize,
+                markerSize
         );
     }
 
@@ -210,29 +239,45 @@ public class OnboardingScreen extends Screen {
         ));
     }
 
-/**
- *     TODO : Waiting for banner fix
- *     private void drawFactionBanner(DrawContext context, float anchorX, float anchorY){
- *         float size = 30f;
- *         float x = anchorX + (size / 2f);
- *         float y = anchorY + (size / 2f);
- *
- *         MatrixStack matrixStack = new MatrixStack();
- *         matrixStack.push();
- *         matrixStack.translate((float)x + 0.5F, (float)(y + 16), 0.0F);
- *         matrixStack.scale(6.0F, -6.0F, 1.0F);
- *         matrixStack.translate(0.5F, 0.5F, 0.0F);
- *         matrixStack.translate(0.5F, 0.5F, 0.5F);
- *         float f = 0.6666667F;
- *         matrixStack.scale(0.6666667F, -0.6666667F, -0.6666667F);
- *         this.bannerField.pitch = 0.0F;
- *         this.bannerField.pivotY = -32.0F;
- *
- *
- *         BannerPatternsComponent bannerPatternsComponent = (new BannerPatternsComponent.Builder()).add(pattern, DyeColor.WHITE).build();
- *         BannerBlockEntityRenderer.renderCanvas(matrixStack, context.getVertexConsumers(), 15728880, OverlayTexture.DEFAULT_UV, this.bannerField, ModelLoader.BANNER_BASE, true, DyeColor.GRAY, bannerPatternsComponent);
- *         matrixStack.pop();
- *         context.draw();
- *     }
- */
+
+      private void drawFactionBanner(DrawContext context, float anchorX, float anchorY){
+          float size = 30f;
+          float ratioX = 0f;
+          float ratioY = 3f;
+
+          float x = anchorX;
+          float y = anchorY;
+
+
+          MatrixStack matrixStack = new MatrixStack();
+          matrixStack.translate(x - ((size * ratioX) / 2f), y - ((size * ratioY) / 2f), 0);
+          matrixStack.push();
+          matrixStack.scale(-size, size, 1.0F);
+
+
+
+          //(new BannerPatternsComponent.Builder().add(ModBannerPatterns.DRAGON_BANNER_PATTERN, DyeColor.BLACK)))
+          List<RegistryEntry<BannerPattern>> list = new ArrayList<>();
+
+          var bannerPatternRegistry = this.client.world.getRegistryManager().get(RegistryKeys.BANNER_PATTERN);
+
+          list.add(bannerPatternRegistry.getEntry(BannerPatterns.CURLY_BORDER).get());
+          list.add(bannerPatternRegistry.getEntry(BannerPatterns.GRADIENT_UP).get());
+          list.add(bannerPatternRegistry.getEntry(BannerPatterns.TRIANGLE_BOTTOM).get());
+          list.add(bannerPatternRegistry.getEntry(BannerPatterns.TRIANGLES_BOTTOM).get());
+          list.add(bannerPatternRegistry.getEntry(ModBannerPatterns.DRAGON_BANNER_PATTERN).get());
+
+          BannerPatternsComponent bannerPatternsComponent = new BannerPatternsComponent.Builder()
+                  .add(list.get(0), DyeColor.BLACK)
+                  .add(list.get(1), DyeColor.BROWN)
+                  .add(list.get(2), DyeColor.BLACK)
+                  .add(list.get(3), DyeColor.GREEN)
+                  .add(list.get(4), DyeColor.RED)
+                  .build();
+
+          BannerBlockEntityRenderer.renderCanvas(matrixStack, context.getVertexConsumers(), 15728880, OverlayTexture.DEFAULT_UV, this.bannerField, ModelLoader.BANNER_BASE, true, DyeColor.CYAN, bannerPatternsComponent);
+          matrixStack.pop();
+          context.draw();
+      }
+
 }
