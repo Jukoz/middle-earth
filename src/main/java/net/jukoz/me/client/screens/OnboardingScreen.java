@@ -1,6 +1,7 @@
 package net.jukoz.me.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import me.shedaniel.rei.api.client.overlay.ScreenOverlay;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
@@ -22,7 +23,9 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.block.entity.BannerBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
@@ -40,6 +43,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
+import org.joml.Vector2f;
+import org.joml.Vector2i;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
@@ -136,6 +141,7 @@ public class OnboardingScreen extends Screen {
 
         drawNpcPreview(context, xCenter, yCenter);
         drawFactionBanner(context, xCenter, yCenter / 2f * 3f);
+
     }
 
     private void drawNpcPreview(DrawContext context, float anchorX, float anchorY){
@@ -147,9 +153,9 @@ public class OnboardingScreen extends Screen {
     }
 
     private void drawMap(DrawContext context, float anchorX, float anchorY, int guiScale){
-        int size = (int) (250 * guiScaleModifier.get(guiScale));
+        int size = (int) (400 * guiScaleModifier.get(guiScale));
 
-        int margin = 5;
+        int margin = 4;
 
         context.drawTexture(MAP_BACKGROUND,
                 (int) anchorX - ((size + margin) / 2),
@@ -171,30 +177,46 @@ public class OnboardingScreen extends Screen {
                 size
         );
 
-        drawMapMarkers(context, anchorX, anchorY, size, guiScale);
+        drawMapMarkers(context, (int) anchorX - ((float) size / 2) - margin, (int) anchorY - ((float) size / 2) - margin, size, guiScale);
     }
 
     private void drawMapMarkers(DrawContext context, float anchorX, float anchorY, int size, int guiScale) {
         int markerSize = (int) (8);
+        int x = (int) anchorX;
+        int y = (int) anchorY;
+
+        int mapSize = 96000;
+        Vector2f coord01 = new Vector2f(48000, 48000);
+        coord01.x = ((float) size / mapSize * coord01.x);
+        coord01.y = ((float) size / mapSize * coord01.y);
+
+        Vector2f coord02 = new Vector2f(64700, 23000);
+        coord02.x = ((float) size / mapSize * coord02.x);
+        coord02.y = ((float) size / mapSize * coord02.y);
+
+        Vector2f coord03 = new Vector2f(62000, 57000);
+        coord03.x = ((float) size / mapSize * coord03.x);
+        coord03.y = ((float) size / mapSize * coord03.y);
+
         context.drawTexture(MAP_UI_TEXTURE,
-                (int) anchorX - ((size) / 2) + (size / 2),
-                (int) anchorY - ((size) / 2) + (size / 4),
+                (int) (x + (coord01.x)),
+                (int) (y + (coord01.y)),
                 54, 0,
                 markerSize,
                 markerSize
         );
 
         context.drawTexture(MAP_UI_TEXTURE,
-                (int) anchorX - ((size) / 2) + (size / 2),
-                (int) anchorY - ((size) / 2) + ((size / 3) * 2),
+                (int) (x + (coord02.x)),
+                (int) (y + (coord02.y)),
                 54, 8,
                 markerSize,
                 markerSize
         );
 
         context.drawTexture(MAP_UI_TEXTURE,
-                (int) anchorX - ((size) / 2) + ((size / 3) * 2),
-                (int) anchorY - ((size) / 2) + ((size / 3)),
+                (int) (x + (coord03.x)),
+                (int) (y + (coord03.y)),
                 54, 16,
                 markerSize,
                 markerSize
@@ -238,46 +260,46 @@ public class OnboardingScreen extends Screen {
                 ModEquipmentItems.GONDORIAN_SHIELD
         ));
     }
+    private void drawFactionBanner(DrawContext context, float anchorX, float anchorY){
+        // TODO : Make it so day cycle doesn't affect brightness
+        DiffuseLighting.disableGuiDepthLighting();
+
+        float size = 30f;
+        float ratioX = 0f;
+        float ratioY = 3f;
+
+        float x = anchorX;
+        float y = anchorY;
 
 
-      private void drawFactionBanner(DrawContext context, float anchorX, float anchorY){
-          float size = 30f;
-          float ratioX = 0f;
-          float ratioY = 3f;
+        MatrixStack matrixStack = new MatrixStack();
+        matrixStack.translate(x - ((size * ratioX) / 2f), y - ((size * ratioY) / 2f), 0);
+        matrixStack.push();
+        matrixStack.scale(-size, size, 1.0F);
+        this.bannerField.pitch = 0.0F;
 
-          float x = anchorX;
-          float y = anchorY;
+        List<RegistryEntry<BannerPattern>> list = new ArrayList<>();
 
+        var bannerPatternRegistry = this.client.world.getRegistryManager().get(RegistryKeys.BANNER_PATTERN);
 
-          MatrixStack matrixStack = new MatrixStack();
-          matrixStack.translate(x - ((size * ratioX) / 2f), y - ((size * ratioY) / 2f), 0);
-          matrixStack.push();
-          matrixStack.scale(-size, size, 1.0F);
+        list.add(bannerPatternRegistry.getEntry(BannerPatterns.CURLY_BORDER).get());
+        list.add(bannerPatternRegistry.getEntry(BannerPatterns.GRADIENT_UP).get());
+        list.add(bannerPatternRegistry.getEntry(BannerPatterns.TRIANGLE_BOTTOM).get());
+        list.add(bannerPatternRegistry.getEntry(BannerPatterns.TRIANGLES_BOTTOM).get());
+        list.add(bannerPatternRegistry.getEntry(ModBannerPatterns.DRAGON_BANNER_PATTERN).get());
 
+        BannerPatternsComponent bannerPatternsComponent = new BannerPatternsComponent.Builder()
+        .add(list.get(0), DyeColor.WHITE)
+        .add(list.get(1), DyeColor.BROWN)
+        .add(list.get(2), DyeColor.BLACK)
+        .add(list.get(3), DyeColor.GREEN)
+        .add(list.get(4), DyeColor.RED)
+        .build();
 
-
-          //(new BannerPatternsComponent.Builder().add(ModBannerPatterns.DRAGON_BANNER_PATTERN, DyeColor.BLACK)))
-          List<RegistryEntry<BannerPattern>> list = new ArrayList<>();
-
-          var bannerPatternRegistry = this.client.world.getRegistryManager().get(RegistryKeys.BANNER_PATTERN);
-
-          list.add(bannerPatternRegistry.getEntry(BannerPatterns.CURLY_BORDER).get());
-          list.add(bannerPatternRegistry.getEntry(BannerPatterns.GRADIENT_UP).get());
-          list.add(bannerPatternRegistry.getEntry(BannerPatterns.TRIANGLE_BOTTOM).get());
-          list.add(bannerPatternRegistry.getEntry(BannerPatterns.TRIANGLES_BOTTOM).get());
-          list.add(bannerPatternRegistry.getEntry(ModBannerPatterns.DRAGON_BANNER_PATTERN).get());
-
-          BannerPatternsComponent bannerPatternsComponent = new BannerPatternsComponent.Builder()
-                  .add(list.get(0), DyeColor.BLACK)
-                  .add(list.get(1), DyeColor.BROWN)
-                  .add(list.get(2), DyeColor.BLACK)
-                  .add(list.get(3), DyeColor.GREEN)
-                  .add(list.get(4), DyeColor.RED)
-                  .build();
-
-          BannerBlockEntityRenderer.renderCanvas(matrixStack, context.getVertexConsumers(), 15728880, OverlayTexture.DEFAULT_UV, this.bannerField, ModelLoader.BANNER_BASE, true, DyeColor.CYAN, bannerPatternsComponent);
-          matrixStack.pop();
-          context.draw();
-      }
+        BannerBlockEntityRenderer.renderCanvas(matrixStack, context.getVertexConsumers(), 16777215, OverlayTexture.DEFAULT_UV, this.bannerField, ModelLoader.BANNER_BASE, true, DyeColor.BLUE, bannerPatternsComponent);
+        matrixStack.pop();
+        context.draw();
+        DiffuseLighting.enableGuiDepthLighting();
+        }
 
 }
