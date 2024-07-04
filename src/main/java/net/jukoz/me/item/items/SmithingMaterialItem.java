@@ -26,26 +26,5 @@ public class SmithingMaterialItem extends Item {
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         TemperatureDataComponent temperatureDataComponent = stack.get(ModDataComponentTypes.TEMPERATURE_DATA);
-        ProfileComponent profileComponent = stack.get(DataComponentTypes.PROFILE);
-
-        if(temperatureDataComponent != null){
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".temperature").append(ScreenTexts.SPACE).append(String.valueOf(temperatureDataComponent.temperature())).formatted(Formatting.GRAY));
-        }
-
-        if (profileComponent != null && profileComponent.name().isPresent()) {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artisan").append(profileComponent.name().get()).formatted(Formatting.GRAY));
-        }
-    }
-
-    @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        TemperatureDataComponent temperatureDataComponent = stack.get(ModDataComponentTypes.TEMPERATURE_DATA);
-
-        int temp;
-        if(temperatureDataComponent != null){
-            temp = temperatureDataComponent.temperature() - 1;
-        }
-
-        super.inventoryTick(stack, world, entity, slot, selected);
     }
 }

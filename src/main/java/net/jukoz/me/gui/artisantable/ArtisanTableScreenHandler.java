@@ -1,10 +1,13 @@
 package net.jukoz.me.gui.artisantable;
 
 import com.google.common.collect.Lists;
+import com.mojang.authlib.GameProfile;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.recipe.ArtisanRecipe;
 import net.jukoz.me.recipe.ModRecipes;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
@@ -89,7 +92,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
                 ArtisanTableScreenHandler.this.inputSlot5.takeStack(1);
 
                 if (!itemStack.isEmpty()) {
-                    ArtisanTableScreenHandler.this.populateResult();
+                    ArtisanTableScreenHandler.this.populateResult(player);
                 }
                 context.run((world, pos) -> {
                     long l = world.getTime();
@@ -140,7 +143,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     public boolean onButtonClick(PlayerEntity player, int id) {
         if (this.isInBounds(id)) {
             this.selectedRecipe.set(id);
-            this.populateResult();
+            this.populateResult(player);
         }
         return true;
     }
@@ -164,10 +167,11 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         }
     }
 
-    void populateResult() {
+    void populateResult(PlayerEntity player) {
         if (!this.availableRecipes.isEmpty() && this.isInBounds(this.selectedRecipe.get())) {
             RecipeEntry<ArtisanRecipe> recipeEntry = this.availableRecipes.get(this.selectedRecipe.get());
             ItemStack itemStack = recipeEntry.value().craft(this.input, this.world.getRegistryManager());
+            itemStack.set(DataComponentTypes.PROFILE, new ProfileComponent(new GameProfile(player.getUuid(), player.getName().getString())));
             if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
                 this.output.setLastRecipe(recipeEntry);
                 this.outputSlot.setStackNoCallbacks(itemStack);

@@ -25,7 +25,7 @@ public record TemperatureDataComponent(int temperature) implements TooltipAppend
 
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> tooltip, TooltipType type) {
-        tooltip.accept(Text.translatable("me." + MiddleEarth.MOD_ID + ".temperature").append(ScreenTexts.SPACE).append(String.valueOf(this.temperature)).formatted(Formatting.GRAY));
+        tooltip.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".temperature").append(ScreenTexts.SPACE).append(String.valueOf(this.temperature)).formatted(Formatting.GRAY));
     }
 
     @Override

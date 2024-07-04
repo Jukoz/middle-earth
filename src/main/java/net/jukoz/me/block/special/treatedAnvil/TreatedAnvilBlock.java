@@ -8,6 +8,7 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -67,7 +68,10 @@ public class TreatedAnvilBlock extends Block {
 
     @Override
     protected void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {
-        if (player.getStackInHand(player.getActiveHand()).isOf(ModResourceItems.SMITHING_HAMMER)){
+        ItemStack stack = player.getEquippedStack(EquipmentSlot.MAINHAND);
+
+        if (stack.isOf(ModResourceItems.SMITHING_HAMMER) && player.getAttackCooldownProgress(0.5f) > 0.9f){
+            stack.use(world, player, player.getActiveHand());
             if (!world.isClient){
                 player.getStackInHand(player.getActiveHand()).damage(1, player, EquipmentSlot.MAINHAND);
             }
