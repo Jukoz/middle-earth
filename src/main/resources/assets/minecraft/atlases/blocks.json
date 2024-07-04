@@ -1,5 +1,20 @@
 {
   "sources": [
-    { "type": "single", "resource": "me:model/reinforced_chest" }
+    { "type": "single", "resource": "me:model/reinforced_chest" },
+    {
+      "type": "paletted_permutations",
+      "textures": [
+        "trims/items/leggings_trim",
+        "trims/items/chestplate_trim",
+        "trims/items/helmet_trim",
+        "trims/items/boots_trim",
+        "me:trims/items/axe_head_trim"
+      ],
+      "palette_key": "trims/color_palettes/trim_palette",
+      "permutations": {
+        "bronze": "me:trims/color_palettes/bronze",
+        "steel": "me:trims/color_palettes/steel"
+      }
+    }
   ]
 }

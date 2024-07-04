@@ -1,5 +1,8 @@
 package net.jukoz.me.datageneration;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.jukoz.me.MiddleEarth;
@@ -13,17 +16,26 @@ import net.jukoz.me.datageneration.content.CustomItemModels;
 import net.jukoz.me.datageneration.content.MEModels;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
 import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.ArmorMaterials;
 import net.minecraft.item.Item;
+import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 public class ModelProvider extends FabricModelProvider {
 
@@ -848,6 +860,9 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerParentedItemModel(trapdoorBlock, identifier2);
     }
 
+    public static final Identifier TRIM_TYPE = new Identifier("trim_type");
+    private static final List<ItemTrimMaterial> TRIM_MATERIALS = List.of(new ItemTrimMaterial("bronze", 0.001f, Map.of()), new ItemTrimMaterial("steel", 0.002f, Map.of()));
+
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         for (SimpleWallModel.Wall wall : SimpleWallModel.blocks) {
@@ -906,6 +921,8 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModBlocks.SMALL_GLOWSTONE_BUD.asItem(), Models.GENERATED);
         itemModelGenerator.register(ModBlocks.MEDIUM_GLOWSTONE_BUD.asItem(), Models.GENERATED);
         itemModelGenerator.register(ModBlocks.LARGE_GLOWSTONE_BUD.asItem(), Models.GENERATED);
+
+        registerPalettedItem(ModResourceItems.AXE_HEAD, itemModelGenerator);
     }
 
     public final void registerDyeableArmor(ArmorItem armor, ItemModelGenerator itemModelGenerator) {
@@ -919,4 +936,44 @@ public class ModelProvider extends FabricModelProvider {
     }
 
 
+    public final void registerPalettedItem(Item item, ItemModelGenerator itemModelGenerator) {
+        Identifier identifierItem = new Identifier(MiddleEarth.MOD_ID, "item/" + Registries.ITEM.getId(item).getPath());
+
+        Identifier identifier2 = TextureMap.getId(item);
+
+        Models.GENERATED.upload(identifierItem, TextureMap.layer0(identifierItem), itemModelGenerator.writer, (id, textures) -> this.registerPalettedItemJson(item, id, textures, itemModelGenerator));
+        for (ItemTrimMaterial trimMaterial : TRIM_MATERIALS) {
+            String string = trimMaterial.name;
+            Identifier identifier4 = itemModelGenerator.suffixTrim(identifierItem, string);
+            String string2 = Registries.ITEM.getId(item).getPath() + "_trim_" + string;
+            Identifier identifier5 = new Identifier(MiddleEarth.MOD_ID, string2).withPrefixedPath("trims/items/");
+
+            itemModelGenerator.uploadArmor(identifier4, identifier2, identifier5);
+        }
+    }
+
+    public final JsonObject registerPalettedItemJson(Item item, Identifier id, Map<TextureKey, Identifier> textures, ItemModelGenerator itemModelGenerator) {
+        Identifier identifierItem = new Identifier(MiddleEarth.MOD_ID, "item/" + Registries.ITEM.getId(item).getPath());
+
+        JsonObject jsonObject = Models.GENERATED_TWO_LAYERS.createJson(identifierItem, textures);
+        JsonArray jsonArray = new JsonArray();
+        for (ItemTrimMaterial trimMaterial : TRIM_MATERIALS) {
+            JsonObject jsonObject2 = new JsonObject();
+            JsonObject jsonObject3 = new JsonObject();
+            jsonObject3.addProperty(TRIM_TYPE.getPath(), Float.valueOf(trimMaterial.itemModelIndex()));
+            jsonObject2.add("predicate", jsonObject3);
+            jsonObject2.addProperty("model", itemModelGenerator.suffixTrim(id, trimMaterial.name).toString());
+            jsonArray.add(jsonObject2);
+        }
+        jsonObject.add("overrides", jsonArray);
+
+        return jsonObject;
+    }
+
+    record ItemTrimMaterial(String name, float itemModelIndex, Map<RegistryEntry<ArmorMaterial>, String> overrideArmorMaterials) {
+
+        public String getAppliedName(RegistryEntry<ArmorMaterial> armorMaterial) {
+            return this.overrideArmorMaterials.getOrDefault(armorMaterial, this.name);
+        }
+    }
 }

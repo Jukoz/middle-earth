@@ -175,6 +175,14 @@ public class ModResourceItems {
     public static final Item CUCUMBER_SEEDS = registerItem("cucumber_seeds", new AliasedBlockItem(ModNatureBlocks.CUCUMBER_CROP, new Item.Settings()));
     public static final Item LETTUCE_SEEDS = registerItem("lettuce_seeds", new AliasedBlockItem(ModNatureBlocks.LETTUCE_CROP, new Item.Settings()));
 
+    public static final Item SWORD_BLADE = registerItem("sword_blade",
+            new SmithingMaterialItem(new Item.Settings().maxCount(1)));
+    public static final Item AXE_HEAD = registerItem("axe_head",
+            new SmithingMaterialItem(new Item.Settings().maxCount(1)));
+
+    /*public static final Item TEST_ARMOR_TRIM_SMITHING_TEMPLATE = registerItem("test_armor_trim_smithing_template",
+            new Item(new Item.Settings()));*/
+
     public static final Item GONDOR_BANNER_PATTERN = registerItem("gondor_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.GONDOR_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item ROHAN_BANNER_PATTERN = registerItem("rohan_banner_pattern",

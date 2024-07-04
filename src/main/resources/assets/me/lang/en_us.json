@@ -4010,5 +4010,8 @@
   "tooltip.me.feather" : "Feather",
 
   "tooltip.me.temperature" : "Temperature:",
-  "tooltip.me.mode" : "Mode:"
+  "tooltip.me.mode" : "Mode:",
+
+  "trim_pattern.me.smithing_part" : "Smithing Part",
+  "trim_material.me.bronze" : "Bronze"
 }
