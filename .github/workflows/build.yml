@@ -4,9 +4,6 @@ run-name: Automatically building nightly-version...
 on:
   push:
     branches: [ dev ]
-  workflow_dispatch:
-  schedule:
-    - cron: "0 0 * * *"  # daily auto-run
 
 jobs:
   build:
@@ -16,7 +13,7 @@ jobs:
         # java 17 for minecraft 1.20.x
         # java 21 for minecraft 1.21.x
         java: [
-          17,
+          21,
         ]
     runs-on: ubuntu-latest
     steps:
