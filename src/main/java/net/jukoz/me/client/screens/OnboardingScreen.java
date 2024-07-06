@@ -30,6 +30,8 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.block.entity.BannerBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.model.ModelLoader;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteContents;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.entity.Entity;
@@ -105,6 +107,16 @@ public class OnboardingScreen extends Screen {
         }
     }
 
+    protected Vector2i getStartCenter(DrawContext context){
+        int marginTop = 100;
+        Vector2i center = new Vector2i(
+            (int) (context.getScaledWindowWidth() / 2f),
+            context.getScaledWindowHeight() + marginTop
+        );
+        return center;
+
+    }
+
     protected void setup() {
         ButtonWidget debugButton = ButtonWidget.builder(Text.literal("Debug"), button -> {
                     debug = !debug;
@@ -134,6 +146,13 @@ public class OnboardingScreen extends Screen {
 
     public void drawWindow(DrawContext context, int guiScale) {
         RenderSystem.enableBlend();
+
+        Vector2i center = getStartCenter(context);
+        float marginPercent = 3.5f; // PER Side
+        float panelPercent = (100f - (marginPercent * 2f)) / 3f; // PER panel (3)
+
+        context.drawTexture(MAP_BACKGROUND, 0, 0, 0,0,256, 256, 128, 128, 128, 128);
+
         int xCenter = (context.getScaledWindowWidth() / 2);
         int yCenter = (context.getScaledWindowHeight() / 2);
 
@@ -141,7 +160,6 @@ public class OnboardingScreen extends Screen {
 
         drawNpcPreview(context, xCenter, yCenter);
         drawFactionBanner(context, xCenter, yCenter / 2f * 3f);
-
     }
 
     private void drawNpcPreview(DrawContext context, float anchorX, float anchorY){
@@ -181,6 +199,7 @@ public class OnboardingScreen extends Screen {
     }
 
     private void drawMapMarkers(DrawContext context, float anchorX, float anchorY, int size, int guiScale) {
+        // TODO : Clean this up to be data driven!
         int markerSize = (int) (8);
         int x = (int) anchorX;
         int y = (int) anchorY;
