@@ -3,6 +3,7 @@ run-name: Automatically building nightly-version...
 
 on:
   push:
+    branches: [ dev ]
   workflow_dispatch:
   schedule:
     - cron: "0 0 * * *"  # daily auto-run
