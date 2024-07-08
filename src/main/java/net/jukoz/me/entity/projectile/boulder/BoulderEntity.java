@@ -41,7 +41,6 @@ public class BoulderEntity extends ThrownEntity {
             Entity entity2 = this.getOwner();
             if (entity2 instanceof LivingEntity && entity2 != null) {
                 entity.damage(this.getDamageSources().mobProjectile(this, (LivingEntity) entity2), 10.0f);
-                this.applyDamageEffects((LivingEntity)entity2, entity);
             }
         }
     }

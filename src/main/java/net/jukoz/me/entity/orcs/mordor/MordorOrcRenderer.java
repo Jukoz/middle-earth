@@ -26,7 +26,7 @@ public class MordorOrcRenderer extends BipedEntityRenderer<MordorOrcEntity, Mord
 
     @Override
     public Identifier getTexture(MordorOrcEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     public static final Map<MordorOrcVariant, String> LOCATION_BY_VARIANT =

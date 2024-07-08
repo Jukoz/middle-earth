@@ -26,7 +26,7 @@ public class GondorHumanRenderer extends BipedEntityRenderer<GondorHumanEntity, 
 
     @Override
     public Identifier getTexture(GondorHumanEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     public static final Map<GondorHumanVariant, String> LOCATION_BY_VARIANT =

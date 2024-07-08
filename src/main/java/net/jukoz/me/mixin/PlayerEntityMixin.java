@@ -71,7 +71,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         Item activeItem = activeItemStack.getItem();
 
         if (activeItem instanceof ShieldItem shield) {
-            float f = 0.25F + (float) EnchantmentHelper.getEfficiency(this) * 0.05F;
+            float f = 0.25F; //+ (float) EnchantmentHelper.getEfficiency(this) * 0.05F; //TODO Test this
             if (isSprinting()) {
                 f += 0.75F;
             }

@@ -14,7 +14,7 @@ public class HobbitShirriffHatArmorModel<T extends LivingEntity> extends CustomH
         super(root);
         shirriffHat = root.getChild("head").getChild("shirriff_hat");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/hobbit_shirriff_hat_" + colour + ".png");
+        HELMET_ADDON_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/hobbit_shirriff_hat_" + colour + ".png");
     }
 
     public static TexturedModelData getTexturedModelData() {

@@ -193,7 +193,7 @@ public class ModWeaponItems {
         } else {
             SimpleHandheldItemModel.items.add(item);
         }
-        return Items.register(new Identifier(MiddleEarth.MOD_ID, name), item);
+        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerItemWithSpearModel(String name, Item item) {
@@ -206,7 +206,7 @@ public class ModWeaponItems {
     private static Item registerBowItem(String name, Item item) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleBowItemModel.items.add(item);
-        return Items.register(new Identifier(MiddleEarth.MOD_ID, name), item);
+        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     public static void registerModItems() {

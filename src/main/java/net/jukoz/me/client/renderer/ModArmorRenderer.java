@@ -45,11 +45,11 @@ public class ModArmorRenderer implements ArmorRenderer {
                             boolean hasInnerLayer, boolean hasVanillaArmorModel, boolean hasCape, boolean hasHood, boolean dyeable) {
         helmetModel = customHelmetModel;
         chestplateModel = customChestplateModel;
-        ARMOR_LAYER_0 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_0.png");
-        ARMOR_LAYER_1 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_1.png");
-        ARMOR_LAYER_2 = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_2.png");
-        ARMOR_LAYER_CAPE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_cape.png");
-        ARMOR_LAYER_HOOD = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_hood.png");
+        ARMOR_LAYER_0 = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_0.png");
+        ARMOR_LAYER_1 = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_1.png");
+        ARMOR_LAYER_2 = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_layer_2.png");
+        ARMOR_LAYER_CAPE = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_cape.png");
+        ARMOR_LAYER_HOOD = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + armorName + "_hood.png");
 
         this.hasInnerLayer = hasInnerLayer;
         this.hasVanillaArmorModel = hasVanillaArmorModel;
@@ -80,7 +80,7 @@ public class ModArmorRenderer implements ArmorRenderer {
                 contextModel.copyBipedStateTo(helmetModel);
                 helmetModel.setVisible(false);
                 helmetModel.head.visible = true;
-                helmetModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.pitch);
+                helmetModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.pitch);
                 renderArmor(matrices, vertexConsumers, light, stack, helmetModel, helmetModel.HELMET_ADDON_TEXTURE, this.dyeable);
             }
             if(hasHood){
@@ -125,7 +125,7 @@ public class ModArmorRenderer implements ArmorRenderer {
                 capeModel.body.visible = true;
                 capeModel.rightArm.visible = true;
                 capeModel.leftArm.visible = true;
-                capeModel.setAngles(entity, entity.limbAnimator.getPos(),entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.roll);
+                capeModel.setAngles(entity, entity.limbAnimator.getPos(),entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.roll);
                 renderArmor(matrices, vertexConsumers, light, stack, capeModel, ARMOR_LAYER_CAPE, this.dyeable);
             }
         } else if (slot == EquipmentSlot.LEGS) {

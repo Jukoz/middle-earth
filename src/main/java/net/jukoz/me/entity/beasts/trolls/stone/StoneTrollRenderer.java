@@ -17,7 +17,7 @@ public class StoneTrollRenderer extends MobEntityRenderer<StoneTrollEntity, Ston
 
     @Override
     public Identifier getTexture(StoneTrollEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, PATH + "stone_troll1.png");
+        return Identifier.of(MiddleEarth.MOD_ID, PATH + "stone_troll1.png");
     }
 
     public void render(StoneTrollEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,

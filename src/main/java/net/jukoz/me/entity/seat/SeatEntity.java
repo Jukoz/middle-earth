@@ -27,7 +27,7 @@ public class SeatEntity extends VehicleEntity {
     @Override
     public void tick() {
         if(!this.getWorld().isClient){
-            if(!this.hasPassengers() || !this.getWorld().getBlockState(this.getBlockPos()).isIn(TagKey.of(RegistryKeys.BLOCK, new Identifier(MiddleEarth.MOD_ID, "seat")))){
+            if(!this.hasPassengers() || !this.getWorld().getBlockState(this.getBlockPos()).isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")))){
                 this.remove(RemovalReason.DISCARDED);
             }
         }
@@ -36,7 +36,7 @@ public class SeatEntity extends VehicleEntity {
     @Override
     protected void removePassenger(Entity passenger) {
         super.removePassenger(passenger);
-        passenger.teleport(this.getX(), this.getY(), this.getZ());
+        passenger.requestTeleportAndDismount(this.getX(), this.getY(), this.getZ());
     }
 
     @Override
