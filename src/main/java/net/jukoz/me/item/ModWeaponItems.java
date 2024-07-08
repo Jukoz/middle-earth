@@ -200,7 +200,7 @@ public class ModWeaponItems {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleSpearModel.items.add(item);
 
-        return Items.register(new Identifier(MiddleEarth.MOD_ID, name), item);
+        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerBowItem(String name, Item item) {

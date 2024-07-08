@@ -2,6 +2,7 @@ package net.jukoz.me.mixin.client;
 
 import net.jukoz.me.datageneration.VariantsModelProvider;
 import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
+import net.jukoz.me.datageneration.content.models.SimpleSpearModel;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.ItemModels;
@@ -30,7 +31,7 @@ public abstract class ItemRendererMixin {
             at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private BakedModel renderItem(BakedModel model, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         if(renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED) {
-            if(SimpleBigItemModel.items.contains(stack.getItem())) {
+            if(SimpleBigItemModel.items.contains(stack.getItem()) || SimpleSpearModel.items.contains(stack.getItem())) {
                 Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(stack.getItem());
                 return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
             }
