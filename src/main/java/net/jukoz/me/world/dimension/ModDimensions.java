@@ -28,14 +28,14 @@ public class ModDimensions {
     public static final String PATH = "middle_earth";
 
     public static final RegistryKey<DimensionOptions> DIMENSION_KEY =
-            RegistryKey.of(RegistryKeys.DIMENSION, new Identifier(MiddleEarth.MOD_ID, PATH));
+            RegistryKey.of(RegistryKeys.DIMENSION, Identifier.of(MiddleEarth.MOD_ID, PATH));
 
     public static RegistryKey<World> WORLD_KEY =
             RegistryKey.of(RegistryKeys.WORLD, DIMENSION_KEY.getValue());
 
     public static void register() {
-        Registry.register(Registries.CHUNK_GENERATOR, new Identifier(MiddleEarth.MOD_ID, PATH), MiddleEarthChunkGenerator.CODEC);
-        WORLD_KEY = RegistryKey.of(RegistryKeys.WORLD, new Identifier(MiddleEarth.MOD_ID, PATH));
+        Registry.register(Registries.CHUNK_GENERATOR, Identifier.of(MiddleEarth.MOD_ID, PATH), MiddleEarthChunkGenerator.CODEC);
+        WORLD_KEY = RegistryKey.of(RegistryKeys.WORLD, Identifier.of(MiddleEarth.MOD_ID, PATH));
 
         LoggerUtil.getInstance().logDebugMsg("Registering ModDimensions for " + MiddleEarth.MOD_ID);
     }

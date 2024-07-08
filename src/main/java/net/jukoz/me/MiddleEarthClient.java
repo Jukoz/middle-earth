@@ -2,7 +2,7 @@ package net.jukoz.me;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.jukoz.me.block.*;
@@ -15,6 +15,7 @@ import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
 import net.jukoz.me.client.model.equipment.head.RohirricHelmetArmorModel;
 import net.jukoz.me.client.renderer.ModArmorRenderer;
 import net.jukoz.me.datageneration.VariantsModelProvider;
+import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleDoubleBlockModel;
 import net.jukoz.me.datageneration.content.models.SimpleFlowerBedModel;
 import net.jukoz.me.datageneration.content.models.TintableCrossModel;
@@ -58,25 +59,28 @@ import net.jukoz.me.item.utils.ModModelPredicateProvider;
 import net.jukoz.me.network.ModNetworks;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.particles.custom.LeavesParticle;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.color.world.BiomeColors;
-import net.minecraft.client.color.world.FoliageColors;
-import net.minecraft.client.color.world.GrassColors;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+
 import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.FoliageColors;
+import net.minecraft.world.biome.GrassColors;
 
 public class MiddleEarthClient implements ClientModInitializer {
 
-    public static final EntityModelLayer INNER_ARMOR_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "armor"), "layer_0");
-    public static final EntityModelLayer HELMET_ADDON_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "armor"), "helmet_addon");
-    public static final EntityModelLayer CAPE_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "armor"), "cape");
-    public static final EntityModelLayer HOOD_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "armor"), "hood");
+    public static final EntityModelLayer INNER_ARMOR_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "layer_0");
+    public static final EntityModelLayer HELMET_ADDON_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "helmet_addon");
+    public static final EntityModelLayer CAPE_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "cape");
+    public static final EntityModelLayer HOOD_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "hood");
 
     @Override
     public void onInitializeClient() {
@@ -139,9 +143,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.BANDIT_MILITIA, BanditHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.BANDIT_SOLDIER, BanditHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.BANDIT_CHIEFTAIN, BanditHumanRenderer::new);
-
-        // Items
-        ModelLoadingRegistry.INSTANCE.registerModelProvider(((manager, out) -> new VariantsModelProvider().provideExtraModels(manager, out)));
+        
         EntityRendererRegistry.register(ModEntities.FIRE_OF_ORTHANC, FireOfOrthancEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.PEBBLE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.PINECONE, FlyingItemEntityRenderer::new);
@@ -184,6 +186,14 @@ public class MiddleEarthClient implements ClientModInitializer {
         ArmorRenderer.register(new ModArmorRenderer(armor.getHelmetModel(), armor.getChestPlateModel(), armor.getSimpleName(), armor.hasInnerLayer() , armor.hasVanillaArmorModel(), armor.hasCape(), armor.hasHood(), armor.isDyeable()),
                     armor.getItems());
         }
+
+        ModelLoadingPlugin.register(pluginContext -> {
+            for(Item item : SimpleBigItemModel.items) {
+                Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
+                pluginContext.addModels(identifier);
+            }
+        });
+
 
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MALLORN_LEAVES_PARTICLE, LeavesParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE, LeavesParticle.Factory::new);
