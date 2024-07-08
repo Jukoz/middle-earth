@@ -155,6 +155,7 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.DISK_MYCELIUM);
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
 
+        // TODO bring back the fungus trees without crashing
         //generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.TREE_BROWN_BOLETTE);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_CAVE_AMANITA);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.PATCH_CAVE_AMANITA_TILLER);
