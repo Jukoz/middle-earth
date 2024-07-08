@@ -322,11 +322,11 @@ public class ModNatureBlocks {
 
     public static Block registerBlock(String name, Block block, boolean present) {
         if(present) ModNatureBlocks.registerBlockItem(name, block);
-        return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }
 
     static void registerBlockItem(String name, Block block) {
-        var item =  Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name),
+        var item =  Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name),
                 new BlockItem(block, new Item.Settings()));
         Item.BLOCK_ITEMS.put(block, item);
 

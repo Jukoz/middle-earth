@@ -40,7 +40,7 @@ public class DuckRenderer extends MobEntityRenderer<DuckEntity, DuckModel<DuckEn
             });
 
     public Identifier getTexture(DuckEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     @Override

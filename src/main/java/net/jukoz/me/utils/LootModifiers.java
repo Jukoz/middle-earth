@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 
 public class LootModifiers {
 
-    private static final Identifier HORSE_LOOT_TABLE_IDENTIFIER = new Identifier("minecraft", "entities/horse");
+    private static final Identifier HORSE_LOOT_TABLE_IDENTIFIER = Identifier.of("minecraft", "entities/horse");
 
     public static void modifyLootTables(){
         LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {

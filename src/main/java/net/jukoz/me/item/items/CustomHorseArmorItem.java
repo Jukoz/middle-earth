@@ -3,11 +3,11 @@ package net.jukoz.me.item.items;
 import net.fabricmc.fabric.api.item.v1.EnchantingContext;
 import net.jukoz.me.MiddleEarth;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipType;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.text.MutableText;
@@ -64,8 +64,8 @@ public class CustomHorseArmorItem extends AnimalArmorItem {
     }
 
     @Override
-    public AttributeModifiersComponent getAttributeModifiers(ItemStack stack) {
-        return super.getAttributeModifiers(stack);
+    public AttributeModifiersComponent getAttributeModifiers() {
+        return super.getAttributeModifiers();
     }
 
     @Override
@@ -74,9 +74,10 @@ public class CustomHorseArmorItem extends AnimalArmorItem {
     }
 
     @Override
-    public boolean canBeEnchantedWith(ItemStack stack, Enchantment enchantment, EnchantingContext context) {
+    public boolean canBeEnchantedWith(ItemStack stack, RegistryEntry<Enchantment> enchantment, EnchantingContext context) {
         return super.canBeEnchantedWith(stack, enchantment, context);
     }
+
 
     @Override
     public TypedActionResult<ItemStack> equipAndSwap(Item item, World world, PlayerEntity user, Hand hand) {

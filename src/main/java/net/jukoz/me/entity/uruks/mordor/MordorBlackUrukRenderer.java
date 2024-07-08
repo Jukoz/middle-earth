@@ -25,7 +25,7 @@ public class MordorBlackUrukRenderer extends BipedEntityRenderer<MordorBlackUruk
 
     @Override
     public Identifier getTexture(MordorBlackUrukEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     public static final Map<MordorBlackUrukVariant, String> LOCATION_BY_VARIANT =

@@ -24,9 +24,9 @@ import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class MiddleEarthMapScreen extends Screen {
-    private static final Identifier WINDOW_TEXTURE = new Identifier(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
-    private static final Identifier MAP_UI_TEXTURE = new Identifier(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
-    private static final Identifier MAP_TEXTURE = new Identifier(MiddleEarth.MOD_ID,"textures/map.png");
+    private static final Identifier WINDOW_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
+    private static final Identifier MAP_UI_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
+    private static final Identifier MAP_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
     private static final Text MAP_TITLE_TEXT = Text.of("Middle-earth Map");
     public static final int MARGIN = 5;
 

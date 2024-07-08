@@ -54,6 +54,6 @@ public class FireOfOrthancEntityRenderer extends EntityRenderer<FireOfOrthancEnt
 
     @Override
     public Identifier getTexture(FireOfOrthancEntity entity) {
-        return new Identifier("minecraft", "textures/block/stone.png"); //new Identifier(MiddleEarth.MOD_ID, "textures/block/fire_of_orthanc_main.png");
+        return Identifier.of("minecraft", "textures/block/stone.png"); //new Identifier(MiddleEarth.MOD_ID, "textures/block/fire_of_orthanc_main.png");
     }
 }

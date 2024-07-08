@@ -1,16 +1,13 @@
 package net.jukoz.me.item.utils;
 
 import com.google.common.base.Suppliers;
-import net.fabricmc.yarn.constants.MiningLevels;
 import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
-import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Lazy;
 
 import java.util.function.Supplier;
 

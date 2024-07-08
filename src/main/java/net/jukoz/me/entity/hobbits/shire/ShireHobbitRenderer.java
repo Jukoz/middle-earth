@@ -42,7 +42,7 @@ public class ShireHobbitRenderer extends BipedEntityRenderer<ShireHobbitEntity, 
 
     @Override
     public Identifier getTexture(ShireHobbitEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     public void render(ShireHobbitEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,
