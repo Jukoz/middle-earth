@@ -36,6 +36,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -266,12 +268,14 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     private static void craftItem(ForgeBlockEntity entity) {
         SimpleInventory inventory1 = new SimpleInventory(entity.size());
+        List<ItemStack> inputs = new ArrayList<>();
         for (int i = 0; i < entity.size(); i++) {
             inventory1.setStack(i, entity.getStack(i));
+            if(i != FUEL_SLOT && i != OUTPUT_SLOT) inputs.add(entity.getStack(i));
         }
 
         Optional<RecipeEntry<AlloyRecipe>> match = entity.getWorld().getRecipeManager()
-                .getFirstMatch(AlloyRecipe.Type.INSTANCE, inventory1, entity.getWorld());
+                .getFirstMatch(AlloyRecipe.Type.INSTANCE, new MultipleStackRecipeInput(inputs), entity.getWorld());
         if(match.isEmpty()) throw new RuntimeException("Somehow... you crafted an item without recipe?!");
 
         if(hasRecipe(entity)) {
@@ -286,12 +290,14 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     private static boolean hasRecipe(ForgeBlockEntity entity) {
         SimpleInventory inventory1 = new SimpleInventory(entity.size());
+        List<ItemStack> inputs = new ArrayList<>();
         for (int i = 0; i < entity.size(); i++) {
             inventory1.setStack(i, entity.getStack(i));
+            if(i != FUEL_SLOT && i != OUTPUT_SLOT) inputs.add(entity.getStack(i));
         }
 
         Optional<RecipeEntry<AlloyRecipe>> match = entity.getWorld().getRecipeManager()
-                .getFirstMatch(AlloyRecipe.Type.INSTANCE, inventory1, entity.getWorld());
+                .getFirstMatch(AlloyRecipe.Type.INSTANCE, new MultipleStackRecipeInput(inputs), entity.getWorld());
         if(match.isEmpty()) return false;
 
         return canInsertAmountIntoOutput(inventory1, match.get().value().output.getCount())

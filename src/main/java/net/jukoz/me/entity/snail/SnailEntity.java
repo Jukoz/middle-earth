@@ -151,7 +151,7 @@ public class SnailEntity extends AnimalEntity {
     }
 
     @Override
-    protected void jump() {
+    public void jump() {
         // Snail is not able to jump
     }
 

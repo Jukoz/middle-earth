@@ -16,7 +16,7 @@ import net.jukoz.me.block.special.wood_pile.WoodPileBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
-import net.minecraft.block.enums.Instrument;
+import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -48,7 +48,7 @@ public class ModDecorativeBlocks {
             new ArtisanTable(AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque()));
 
     public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest",
-            new ReinforcedChestBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(Instrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque().requiresTool()));
+            new ReinforcedChestBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque().requiresTool()));
 
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             new WoodPileBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque()));
@@ -344,12 +344,12 @@ public class ModDecorativeBlocks {
             new WallSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
 
     public static Block registerBlock(String name, Block block) {
-        Identifier identifier = new Identifier(MiddleEarth.MOD_ID, name);
+        Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);
         return Registry.register(Registries.BLOCK, identifier, block);
     }
 
     public static Block registerBlockWithItem(String name, Block block) {
-        Identifier identifier = new Identifier(MiddleEarth.MOD_ID, name);
+        Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);
         ModBlocks.registerBlockItem(name, block);
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
         return Registry.register(Registries.BLOCK, identifier, block);

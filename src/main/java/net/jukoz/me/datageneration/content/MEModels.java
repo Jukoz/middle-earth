@@ -17,7 +17,7 @@ public class MEModels {
     public static final Model STONE_CHAIR;
 
     private static Model block(String parent, TextureKey... requiredTextureKeys) {
-        return new Model(Optional.of(new Identifier("me", "block/" + parent)), Optional.empty(), requiredTextureKeys);
+        return new Model(Optional.of(Identifier.of("me", "block/" + parent)), Optional.empty(), requiredTextureKeys);
     }
 
     static {

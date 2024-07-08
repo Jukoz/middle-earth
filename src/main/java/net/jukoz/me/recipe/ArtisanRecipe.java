@@ -3,6 +3,7 @@ package net.jukoz.me.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.block.ModDecorativeBlocks;
+import net.jukoz.me.block.special.alloyfurnace.MultipleStackRecipeInput;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
@@ -14,7 +15,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class ArtisanRecipe implements Recipe<Inventory> {
+public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
     public final ItemStack output;
     public final List<Ingredient> inputs;
 
@@ -28,23 +29,23 @@ public class ArtisanRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public boolean matches(Inventory inventory, World world) {
+    public boolean matches(MultipleStackRecipeInput input, World world) {
         int i = 0;
-        for (int j = 0; j < inventory.size(); ++j) {
-            ItemStack itemStack = inventory.getStack(j);
+        for (int j = 0; j < input.getSize(); j++) {
+            ItemStack itemStack = input.getStackInSlot(j);
             if (itemStack.isEmpty()) continue;
-            ++i;
+            i++;
         }
         if(i != this.inputs.size()) return false;
 
         for (int j = 0; j < inputs.size(); j++) {
-            if(!inputs.get(j).test(inventory.getStack(j))) return false;
+            if(!inputs.get(j).test(input.getStackInSlot(j))) return false;
         }
         return true;
     }
 
     @Override
-    public ItemStack craft(Inventory inventory, RegistryWrapper.WrapperLookup lookup) {
+    public ItemStack craft(MultipleStackRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         return this.output.copy();
     }
 

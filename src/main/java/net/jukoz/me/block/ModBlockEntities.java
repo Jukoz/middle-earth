@@ -17,15 +17,15 @@ public class ModBlockEntities {
 
     public static void registerBlockEntities() {
         FORGE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                new Identifier(MiddleEarth.MOD_ID, "forge"),
+                Identifier.of(MiddleEarth.MOD_ID, "forge"),
                 FabricBlockEntityTypeBuilder.create(ForgeBlockEntity::new,
                         ModDecorativeBlocks.FORGE).build(null));
         REINFORCED_CHEST = Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                new Identifier(MiddleEarth.MOD_ID, "reinforced_chest"),
+                Identifier.of(MiddleEarth.MOD_ID, "reinforced_chest"),
                 FabricBlockEntityTypeBuilder.create(ReinforcedChestBlockEntity::new,
                         ModDecorativeBlocks.REINFORCED_CHEST).build(null));
         WOOD_PILE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                new Identifier(MiddleEarth.MOD_ID, "wood_pile"),
+                Identifier.of(MiddleEarth.MOD_ID, "wood_pile"),
                 FabricBlockEntityTypeBuilder.create(WoodPileBlockEntity::new,
                         ModDecorativeBlocks.WOOD_PILE).build(null));
     }
