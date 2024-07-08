@@ -28,8 +28,9 @@ dependencies {
 
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:15.0.728"
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:15.0.728"
+	// https://linkie.shedaniel.dev/dependencies
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:16.0.729"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:16.0.729"
 }
 
 processResources {
