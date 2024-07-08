@@ -10,7 +10,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class AlloyFurnaceScreen extends HandledScreen<AlloyFurnaceScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/gui/alloy_furnace.png");
+    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/alloy_furnace.png");
     private static final int PROGRESS_ARROW_SIZE = 24;
     private static final int COOKING_FIRE_SIZE = 14;
     public AlloyFurnaceScreen(AlloyFurnaceScreenHandler handler, PlayerInventory inventory, Text title) {

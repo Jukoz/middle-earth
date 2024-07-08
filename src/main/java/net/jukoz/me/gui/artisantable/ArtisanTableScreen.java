@@ -23,7 +23,7 @@ import java.util.List;
 
 @Environment(value= EnvType.CLIENT)
 public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/gui/artisan_table.png");
+    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/artisan_table.png");
     private float scrollAmount;
     private boolean mouseClicked;
     private int scrollOffset;

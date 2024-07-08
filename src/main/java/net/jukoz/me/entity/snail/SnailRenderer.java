@@ -37,7 +37,7 @@ public class SnailRenderer extends MobEntityRenderer<SnailEntity, SnailModel<Sna
 
     @Override
     public Identifier getTexture(SnailEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     @Override

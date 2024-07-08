@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ArtisanTableCategory implements DisplayCategory<BasicDisplay> {
-    public static final Identifier TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/gui/artisan_table_rei.png");
+    public static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/artisan_table_rei.png");
     public static final CategoryIdentifier<ArtisanTableDisplay> ARTISAN_TABLE = CategoryIdentifier.of(MiddleEarth.MOD_ID, "artisan_table");
     @Override
     public CategoryIdentifier<? extends BasicDisplay> getCategoryIdentifier() {

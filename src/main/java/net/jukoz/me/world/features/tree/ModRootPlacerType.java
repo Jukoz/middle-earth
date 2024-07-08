@@ -15,6 +15,6 @@ public class ModRootPlacerType {
             "mirkwood_root_placer", MirkwoodRootPlacer.CODEC);
 
     private static <P extends RootPlacer> RootPlacerType register(String id, MapCodec<P> codec) {
-        return Registry.register(Registries.ROOT_PLACER_TYPE, new Identifier(MiddleEarth.MOD_ID, id), new RootPlacerType(codec));
+        return Registry.register(Registries.ROOT_PLACER_TYPE, Identifier.of(MiddleEarth.MOD_ID, id), new RootPlacerType(codec));
     }
 }

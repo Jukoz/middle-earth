@@ -48,7 +48,7 @@ public class LongbeardDwarfRenderer extends BipedEntityRenderer<LongbeardDwarfEn
 
     @Override
     public Identifier getTexture(LongbeardDwarfEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     @Override

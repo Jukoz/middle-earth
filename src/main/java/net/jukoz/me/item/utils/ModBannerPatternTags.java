@@ -18,6 +18,6 @@ public class ModBannerPatternTags {
     public static final TagKey<BannerPattern> DRAGON_PATTERN_ITEM = of("dragon");
 
     private static TagKey<BannerPattern> of(String name) {
-        return TagKey.of(RegistryKeys.BANNER_PATTERN, new Identifier(MiddleEarth.MOD_ID, "pattern_item/" + name));
+        return TagKey.of(RegistryKeys.BANNER_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "pattern_item/" + name));
     }
 }

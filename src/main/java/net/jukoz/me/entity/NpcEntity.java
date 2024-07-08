@@ -132,7 +132,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     }
 
     protected PersistentProjectileEntity createArrowProjectile(ItemStack arrow, float damageModifier) {
-        return ProjectileUtil.createArrowProjectile(this, arrow, damageModifier);
+        return ProjectileUtil.createArrowProjectile(this, arrow, damageModifier, null);
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {

@@ -44,8 +44,9 @@ public class DeerModel extends SinglePartEntityModel<DeerEntity> {
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-        this.deer.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+        this.deer.render(matrices, vertices, light, overlay, color);
+
     }
 
     @Override

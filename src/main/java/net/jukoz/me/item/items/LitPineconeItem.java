@@ -25,7 +25,7 @@ public class LitPineconeItem extends PineconeItem{
             return;
         }
         PlayerEntity playerEntity = (PlayerEntity)user;
-        int i = this.getMaxUseTime(stack) - remainingUseTicks;
+        int i = this.getMaxUseTime(stack, user) - remainingUseTicks;
         if (i < 7) {
             return;
         }

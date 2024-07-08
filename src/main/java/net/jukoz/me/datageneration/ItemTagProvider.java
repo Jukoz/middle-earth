@@ -25,33 +25,33 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        var bones = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "bones")));
-        var feathers = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "feathers")));
-        var cloaks = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "cloaks")));
+        var bones = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
+        var feathers = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "feathers")));
+        var cloaks = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "cloaks")));
 
-        TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "iron_ores"));
-        TagKey<Item> gold_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "gold_ores"));
-        TagKey<Item> copper_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "copper_ores"));
-        TagKey<Item> coal_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "coal_ores"));
+        TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "iron_ores"));
+        TagKey<Item> gold_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "gold_ores"));
+        TagKey<Item> copper_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "copper_ores"));
+        TagKey<Item> coal_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "coal_ores"));
 
-        TagKey<Item> saplings = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "saplings"));
-        TagKey<Item> wooden_slabs = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "wooden_slabs"));
-        TagKey<Item> logs_that_burn = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "logs_that_burn"));
-        TagKey<Item> stone_crafting_materials = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "stone_crafting_materials"));
-        TagKey<Item> stone_tool_materials = TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "stone_tool_materials"));
+        TagKey<Item> saplings = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "saplings"));
+        TagKey<Item> wooden_slabs = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "wooden_slabs"));
+        TagKey<Item> logs_that_burn = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "logs_that_burn"));
+        TagKey<Item> stone_crafting_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "stone_crafting_materials"));
+        TagKey<Item> stone_tool_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "stone_tool_materials"));
 
-        TagKey<Item> tin_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "tin_ores"));
-        TagKey<Item> lead_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "lead_ores"));
-        TagKey<Item> silver_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "silver_ores"));
-        TagKey<Item> mithril_ores = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "mithril_ores"));
-        TagKey<Item> shingles = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "shingles"));
+        TagKey<Item> tin_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("me", "tin_ores"));
+        TagKey<Item> lead_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("me", "lead_ores"));
+        TagKey<Item> silver_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("me", "silver_ores"));
+        TagKey<Item> mithril_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("me", "mithril_ores"));
+        TagKey<Item> shingles = TagKey.of(RegistryKeys.ITEM, Identifier.of("me", "shingles"));
 
-        TagKey<Item> mod_stripped_logs = TagKey.of(RegistryKeys.ITEM, new Identifier("me", "mod_stripped_logs"));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("me", "mod_planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
+        TagKey<Item> mod_stripped_logs = TagKey.of(RegistryKeys.ITEM, Identifier.of("me", "mod_stripped_logs"));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("me", "mod_planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
 
 
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("minecraft", "logs"))).add(Logs.getItemPlanks().toArray(new Item[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "logs"))).add(Logs.getItemPlanks().toArray(new Item[0]));
 
 
         bones.add(Items.BONE);

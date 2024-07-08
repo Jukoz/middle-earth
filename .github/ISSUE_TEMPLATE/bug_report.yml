@@ -1,0 +1,104 @@
+name: Bug Report
+
+description: Report the bug you have met while playing the Middle-earth mod.
+
+labels: ['bug']
+
+body:
+  - type: checkboxes
+    attributes:
+      label: Before Reporting...
+      options:
+        - label: My bug has not been reported by others yet.
+          required: true
+
+  - type: dropdown
+    attributes:
+      label: Minecraft Version
+      description: The version of MC you were using when the bug occurred.
+      options:
+        - "1.20.1"
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: Middle-earth Mod Version
+      description: The version of the mod you were using when the bug occurred.
+      options:
+        - "alpha-1.4.2-1.20.1"
+        - "alpha-1.4.1-1.20.1"
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Operating System
+      description: The operating system you were using when the bug occurred.
+      placeholder: Windows 10
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: Bug Type
+      description: What is this bug related to?
+      options:
+        - "🦌 Entity"
+        - "🗺️ World Generation"
+        - "🧱 Block / Item"
+        - "⚠️ Game Crash"
+        - "⚙️ Others"
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Describe the Bug
+      description: Describe everything about the bug as detailed as possible.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: How to Reproduce the Bug
+      description: Tell us the steps to reproduce the bug.
+      value: |
+        1.
+        2.
+        3.
+        ...
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Crash Report and Log Files
+      description: Please **upload** crash report and log files of the bug, if you have; Please **do not** copy and paste whole content of the file here.
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Screenshots and Video Recordings
+      description: Please upload screenshots and video recordings of the bug, if you have
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Other Mods
+      description: Please list any other mods that were running when the crash happened.
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Additional Context
+      description: Add any extra context about the bug here.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "Thank you for taking the time to make this bug report and help improve Middle-earth!"

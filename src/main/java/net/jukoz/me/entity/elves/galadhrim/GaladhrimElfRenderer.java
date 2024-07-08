@@ -39,7 +39,7 @@ public class GaladhrimElfRenderer extends BipedEntityRenderer<GaladhrimElfEntity
 
     @Override
     public Identifier getTexture(GaladhrimElfEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     @Override

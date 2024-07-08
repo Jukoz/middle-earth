@@ -38,7 +38,7 @@ public class SwanRenderer extends MobEntityRenderer<SwanEntity, SwanModel<SwanEn
             });
 
     public Identifier getTexture(SwanEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     @Override

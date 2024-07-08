@@ -27,7 +27,7 @@ public class MirkwoodSpiderRenderer extends MobEntityRenderer<MirkwoodSpiderEnti
 
     @Override
     public Identifier getTexture(MirkwoodSpiderEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     public static final Map<MirkwoodSpiderVariants, String> LOCATION_BY_VARIANT =

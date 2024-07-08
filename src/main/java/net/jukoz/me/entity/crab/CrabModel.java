@@ -188,19 +188,19 @@ public class CrabModel extends EntityModel<CrabEntity> {
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-        armRight.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        armLeft.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        legSwimmerLeft.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        legSwimmerRight.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        legRightFirst.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        legRightSecond.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        legRightThird.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        legLeftFirst.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        legLeftSecond.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        legLeftThird.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        eyeRight.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        eyeLeft.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        body.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+        armRight.render(matrices, vertices, light, overlay, color);
+        armLeft.render(matrices, vertices, light, overlay, color);
+        legSwimmerLeft.render(matrices, vertices, light, overlay, color);
+        legSwimmerRight.render(matrices, vertices, light, overlay, color);
+        legRightFirst.render(matrices, vertices, light, overlay, color);
+        legRightSecond.render(matrices, vertices, light, overlay, color);
+        legRightThird.render(matrices, vertices, light, overlay, color);
+        legLeftFirst.render(matrices, vertices, light, overlay, color);
+        legLeftSecond.render(matrices, vertices, light, overlay, color);
+        legLeftThird.render(matrices, vertices, light, overlay, color);
+        eyeRight.render(matrices, vertices, light, overlay, color);
+        eyeLeft.render(matrices, vertices, light, overlay, color);
+        body.render(matrices, vertices, light, overlay, color);
     }
 }

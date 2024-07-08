@@ -265,10 +265,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
         return super.getStackReference(mappedIndex);
     }
 
-    protected int getInventorySize() {
-        return this.hasChest() ? 17 : super.getInventorySize();
-    }
-
     public int getInventoryColumns() {
         return 5;
     }
@@ -392,7 +388,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
             }
             double e = Math.max(0.0, 1.0 - d);
             target.setVelocity(target.getVelocity().multiply(1f + (0.8f * e))); //.add(0.0, (double)0.1f * e, 0.0));
-            this.applyDamageEffects(this, target);
         }
         this.playSound(SoundEvents.ENTITY_HOGLIN_ATTACK, 1.5f, 0.8f);
         return bl;
@@ -479,10 +474,5 @@ public class BeastEntity extends AbstractDonkeyEntity {
     @Override
     public boolean cannotBeSilenced() {
         return super.cannotBeSilenced();
-    }
-
-    @Override
-    public EntityView method_48926() {
-        return null;
     }
 }

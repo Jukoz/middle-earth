@@ -15,7 +15,7 @@ public class DeerRenderer extends MobEntityRenderer<DeerEntity, DeerModel> {
 
     @Override
     public Identifier getTexture(DeerEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, PATH + "deer1.png");
+        return Identifier.of(MiddleEarth.MOD_ID, PATH + "deer1.png");
     }
 
 

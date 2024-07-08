@@ -18,7 +18,7 @@ public class MistyHobgoblinCommanderHelmetArmorModel<T extends LivingEntity> ext
         wingRight = root.getChild("head").getChild("addon").getChild("wing_right");
         wingLeft = root.getChild("head").getChild("addon").getChild("wing_left");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/misty_hobgoblin_commander_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/misty_hobgoblin_commander_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {

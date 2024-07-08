@@ -971,7 +971,7 @@ public class ModBlocks {
             BlockDrops.blocks.add(block);
         }
         registerBlockItem(name, block);
-        return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }
 
     public static Block registerStoneBlock(String name, Block block, boolean drop) {
@@ -980,7 +980,7 @@ public class ModBlocks {
         }
         registerBlockItem(name, block);
         ModItemGroups.STONE_BLOCKS_CONTENTS.add(block.asItem().getDefaultStack());
-        return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }
 
     public static Block registerWoodBlock(String name, Block block, boolean drop) {
@@ -989,7 +989,7 @@ public class ModBlocks {
         }
         registerBlockItem(name, block);
         ModItemGroups.WOOD_BLOCKS_CONTENTS.add(block.asItem().getDefaultStack());
-        return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }
 
     public static Block registerMiscBlock(String name, Block block, boolean drop) {
@@ -998,11 +998,11 @@ public class ModBlocks {
         }
         registerBlockItem(name, block);
         ModItemGroups.MISC_BLOCKS_CONTENTS.add(block.asItem().getDefaultStack());
-        return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }
 
     static void registerBlockItem(String name, Block block) {
-        var item =  Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name),
+        var item =  Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name),
                 new BlockItem(block, new Item.Settings()));
         Item.BLOCK_ITEMS.put(block, item);
     }

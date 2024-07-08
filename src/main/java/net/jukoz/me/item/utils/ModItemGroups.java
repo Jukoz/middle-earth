@@ -142,17 +142,17 @@ public class ModItemGroups {
             .build();
 
     public static void register() {
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "stone_blocks"), STONE_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "wood_blocks"), WOOD_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "misc_blocks"), MISC_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "decorative"), DECORATIVES_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "nature_blocks"), NATURE_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "food_items"), FOOD);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "weapon_items"), WEAPONS);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "equipment_items"), EQUIPMENT);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "tool_items"), TOOLS);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "resource_items"), RESOURCES);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "spawn_egg_items"), SPAWN_EGGS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "stone_blocks"), STONE_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "wood_blocks"), WOOD_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "misc_blocks"), MISC_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "decorative"), DECORATIVES_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "nature_blocks"), NATURE_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "food_items"), FOOD);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "weapon_items"), WEAPONS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "equipment_items"), EQUIPMENT);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "tool_items"), TOOLS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "resource_items"), RESOURCES);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "spawn_egg_items"), SPAWN_EGGS);
     }
 
 }

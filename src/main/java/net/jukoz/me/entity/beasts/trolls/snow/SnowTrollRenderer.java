@@ -19,7 +19,7 @@ public class SnowTrollRenderer extends MobEntityRenderer<SnowTrollEntity, SnowTr
 
     @Override
     public Identifier getTexture(SnowTrollEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, PATH + "snow_troll1.png");
+        return Identifier.of(MiddleEarth.MOD_ID, PATH + "snow_troll1.png");
     }
 
     public static final Map<SnowTrollVariant, String> LOCATION_BY_VARIANT =

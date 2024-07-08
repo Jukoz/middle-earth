@@ -31,7 +31,7 @@ public class BoulderEntityRenderer extends EntityRenderer<BoulderEntity> {
 
     @Override
     public Identifier getTexture(BoulderEntity entity) {
-        return new Identifier("minecraft", "textures/block/stone.png");
+        return Identifier.of("minecraft", "textures/block/stone.png");
     }
 
     @Override

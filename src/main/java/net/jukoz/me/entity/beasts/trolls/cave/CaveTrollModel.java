@@ -90,8 +90,8 @@ public class CaveTrollModel extends SinglePartEntityModel<CaveTrollEntity> {
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-        root.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+        root.render(matrices, vertices, light, overlay, color);
     }
 
     @Override

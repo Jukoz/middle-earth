@@ -28,7 +28,7 @@ public class PineconeItem extends PebbleItem{
             return;
         }
         PlayerEntity playerEntity = (PlayerEntity)user;
-        int i = this.getMaxUseTime(stack) - remainingUseTicks;
+        int i = this.getMaxUseTime(stack, user) - remainingUseTicks;
         if (i < 7) {
             return;
         }

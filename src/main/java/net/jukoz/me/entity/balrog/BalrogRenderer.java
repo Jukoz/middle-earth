@@ -36,7 +36,7 @@ public class BalrogRenderer extends MobEntityRenderer<BalrogEntity, BalrogModel<
             });
 
     public Identifier getTexture(BalrogEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     @Override

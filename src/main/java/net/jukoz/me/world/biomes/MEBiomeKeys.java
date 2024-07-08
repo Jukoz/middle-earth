@@ -138,7 +138,7 @@ public class MEBiomeKeys extends BiomeKeys {
     // endregion
 
     private static RegistryKey<Biome> register(String name) {
-        return RegistryKey.of(RegistryKeys.BIOME, new Identifier(MiddleEarth.MOD_ID, name));
+        return RegistryKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, name));
     }
 
     public static void registerModBiomes() {

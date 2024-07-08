@@ -81,14 +81,12 @@ public class GooseModel<T extends GooseEntity> extends EntityModel<GooseEntity> 
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-        neck.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        body.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        right_wing.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        left_wing.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        right_leg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        left_leg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+        neck.render(matrices, vertices, light, overlay, color);
+        body.render(matrices, vertices, light, overlay, color);
+        right_wing.render(matrices, vertices, light, overlay, color);
+        left_wing.render(matrices, vertices, light, overlay, color);
+        right_leg.render(matrices, vertices, light, overlay, color);
+        left_leg.render(matrices, vertices, light, overlay, color);
     }
-
 }

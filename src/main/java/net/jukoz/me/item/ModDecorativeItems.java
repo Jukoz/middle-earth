@@ -44,7 +44,7 @@ public class ModDecorativeItems {
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(item.getDefaultStack());
-        return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     public static void registerModItems() {

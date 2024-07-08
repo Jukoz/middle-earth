@@ -66,9 +66,10 @@ public class StoneTrollModel extends SinglePartEntityModel<StoneTrollEntity> {
                 .uv(17, 194).cuboid(-3.5F, -3.5F, 0.0F, 7.0F, 7.0F, 22.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.1993F, 0.0145F, -0.0979F));
         return TexturedModelData.of(modelData, 256, 256);
     }
+
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-        r.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+        r.render(matrices, vertices, light, overlay, color);
     }
 
     @Override

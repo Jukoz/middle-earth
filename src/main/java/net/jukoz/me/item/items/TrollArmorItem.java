@@ -2,19 +2,16 @@ package net.jukoz.me.item.items;
 
 import net.fabricmc.fabric.api.item.v1.EnchantingContext;
 import net.jukoz.me.MiddleEarth;
-import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.AnimalArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+
 
 public class TrollArmorItem extends AnimalArmorItem {
 
@@ -28,7 +25,7 @@ public class TrollArmorItem extends AnimalArmorItem {
     }
 
     public Identifier getEntityTexture() {
-        return new Identifier(MiddleEarth.MOD_ID ,this.entityTexture);
+        return Identifier.of(MiddleEarth.MOD_ID ,this.entityTexture);
     }
 
     @Override
@@ -42,17 +39,12 @@ public class TrollArmorItem extends AnimalArmorItem {
     }
 
     @Override
-    public AttributeModifiersComponent getAttributeModifiers(ItemStack stack) {
-        return super.getAttributeModifiers(stack);
-    }
-
-    @Override
     public ItemStack getRecipeRemainder(ItemStack stack) {
         return super.getRecipeRemainder(stack);
     }
 
     @Override
-    public boolean canBeEnchantedWith(ItemStack stack, Enchantment enchantment, EnchantingContext context) {
+    public boolean canBeEnchantedWith(ItemStack stack, RegistryEntry<Enchantment> enchantment, EnchantingContext context) {
         return super.canBeEnchantedWith(stack, enchantment, context);
     }
 

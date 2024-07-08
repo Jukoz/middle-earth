@@ -92,7 +92,6 @@ public class BalrogEntity extends HostileEntity {
             }
             double e = Math.max(0.0, 1.0 - d);
             target.setVelocity(target.getVelocity().multiply(1f + (0.8f * e))); //.add(0.0, (double)0.1f * e, 0.0));
-            this.applyDamageEffects(this, target);
         }
         this.playSound(SoundEvents.ENTITY_WARDEN_ATTACK_IMPACT, 1.5f, 0.8f);
         return bl;

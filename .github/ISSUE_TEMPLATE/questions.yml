@@ -1,0 +1,37 @@
+name: Questions
+
+description: Ask what you want to know about Middle-earth mod.
+
+labels: ['question']
+
+body:
+  - type: checkboxes
+    attributes:
+      label: Before Asking...
+      options:
+        - label: My question has not been proposed by others yet.
+          required: true
+
+  - type: dropdown
+    attributes:
+      label: Question Type
+      description: What is your question related to?
+      options:
+        - "⚙️ General"
+        - "🦢 Entity"
+        - "🚩 Faction"
+        - "⚔️ Combat"
+        - "🗺️ World Generation"
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Describe Your Question
+      description: Describe everything about your question as detailed as possible.
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "Thank you for taking the time to make this question and help improve Middle-earth!"

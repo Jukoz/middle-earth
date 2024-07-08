@@ -11,7 +11,7 @@ public class MistyHobgoblinCommanderChestplateArmorModel<T extends LivingEntity>
     public MistyHobgoblinCommanderChestplateArmorModel(ModelPart root) {
         super(root);
 
-        CHESTPLATE_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/misty_hobgoblin_commander_chestplate_addon.png");
+        CHESTPLATE_ADDON_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/misty_hobgoblin_commander_chestplate_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {

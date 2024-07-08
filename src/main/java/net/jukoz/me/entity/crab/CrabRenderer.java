@@ -38,7 +38,7 @@ public class CrabRenderer extends MobEntityRenderer<CrabEntity, CrabModel> {
             });
 
     public Identifier getTexture(CrabEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     @Override

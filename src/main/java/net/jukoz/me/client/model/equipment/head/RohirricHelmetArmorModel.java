@@ -17,7 +17,7 @@ public class RohirricHelmetArmorModel<T extends LivingEntity> extends CustomHelm
         super(root);
         hair = root.getChild("head").getChild("hair");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + name + "_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + name + "_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {

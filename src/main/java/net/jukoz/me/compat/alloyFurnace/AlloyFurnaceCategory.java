@@ -17,7 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AlloyFurnaceCategory implements DisplayCategory<BasicDisplay> {
-    public static final Identifier TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/gui/alloy_furnace_rei.png");
+    public static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/alloy_furnace_rei.png");
     public static final CategoryIdentifier<AlloyFurnaceDisplay> ALLOY_FURNACE = CategoryIdentifier.of(MiddleEarth.MOD_ID, "alloy_furnace");
 
     @Override

@@ -11,17 +11,17 @@ public class ModRecipes {
 
     public static void registerRecipes() {
         Registry.register(Registries.RECIPE_SERIALIZER,
-                new Identifier(MiddleEarth.MOD_ID, AlloyRecipe.Serializer.ID),
+                Identifier.of(MiddleEarth.MOD_ID, AlloyRecipe.Serializer.ID),
                 AlloyRecipe.Serializer.INSTANCE);
         Registry.register(Registries.RECIPE_TYPE,
-                new Identifier(MiddleEarth.MOD_ID, AlloyRecipe.Type.ID),
+                Identifier.of(MiddleEarth.MOD_ID, AlloyRecipe.Type.ID),
                 AlloyRecipe.Type.INSTANCE);
 
         Registry.register(Registries.RECIPE_SERIALIZER,
-                new Identifier(MiddleEarth.MOD_ID, ArtisanRecipe.Serializer.ID),
+                Identifier.of(MiddleEarth.MOD_ID, ArtisanRecipe.Serializer.ID),
                 ArtisanRecipe.Serializer.INSTANCE);
         ARTISAN_TABLE = Registry.register(Registries.RECIPE_TYPE,
-                new Identifier(MiddleEarth.MOD_ID, ArtisanRecipe.Type.ID),
+                Identifier.of(MiddleEarth.MOD_ID, ArtisanRecipe.Type.ID),
                 ArtisanRecipe.Type.INSTANCE);
     }
 }

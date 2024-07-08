@@ -22,7 +22,7 @@ public class NazgulRenderer extends BipedEntityRenderer<NazgulEntity, NazgulMode
 
     @Override
     public Identifier getTexture(NazgulEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, PATH);
+        return Identifier.of(MiddleEarth.MOD_ID, PATH);
     }
 
     @Override

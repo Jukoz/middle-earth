@@ -18,6 +18,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
@@ -31,7 +32,7 @@ public class JavelinItem extends ToolItem {
     private static final float BASE_STRENGTH = 0.75f;
     private static final float CHARGE_STRENGTH = 1f;
     private static final int STRENGTH_CHARGE_TIME = 20; // 1s charge for full strength
-    public static final UUID ENTITY_INTERACTION_RANGE_MODIFIER_ID = UUID.fromString("98491ef6-97b1-4584-ae82-71a8cc85cf73");
+    public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of("98491ef6-97b1-4584-ae82-71a8cc85cf73");
     private final float attackDamage;
     private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
 
@@ -39,9 +40,9 @@ public class JavelinItem extends ToolItem {
         super(toolMaterial, settings);
         this.attackDamage = (float)attackDamage + toolMaterial.getAttackDamage();
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE.value(), new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", (double)this.attackDamage, EntityAttributeModifier.Operation.ADD_VALUE));
-        builder.put(EntityAttributes.GENERIC_ATTACK_SPEED.value(), new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", (double)attackSpeed, EntityAttributeModifier.Operation.ADD_VALUE));
-        builder.put(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE.value(), new EntityAttributeModifier(ENTITY_INTERACTION_RANGE_MODIFIER_ID, "Weapon modifier", 1.0f, EntityAttributeModifier.Operation.ADD_VALUE));
+        builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE.value(), new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID, (double)this.attackDamage, EntityAttributeModifier.Operation.ADD_VALUE));
+        builder.put(EntityAttributes.GENERIC_ATTACK_SPEED.value(), new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID, (double)attackSpeed, EntityAttributeModifier.Operation.ADD_VALUE));
+        builder.put(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE.value(), new EntityAttributeModifier(ENTITY_INTERACTION_RANGE_MODIFIER_ID, 1.0f, EntityAttributeModifier.Operation.ADD_VALUE));
         this.attributeModifiers = builder.build();
     }
 
@@ -65,9 +66,10 @@ public class JavelinItem extends ToolItem {
     }
 
     @Override
-    public int getMaxUseTime(ItemStack stack) {
+    public int getMaxUseTime(ItemStack stack, LivingEntity user) {
         return 72000;
     }
+
 
     @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
@@ -75,7 +77,7 @@ public class JavelinItem extends ToolItem {
             return;
         }
         PlayerEntity playerEntity = (PlayerEntity)user;
-        int i = this.getMaxUseTime(stack) - remainingUseTicks;
+        int i = this.getMaxUseTime(stack, user) - remainingUseTicks;
         if (i < 7) {
             return;
         }
