@@ -3,7 +3,6 @@ package net.jukoz.me.item;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
 import net.jukoz.me.utils.LoggerUtil;
-import net.minecraft.component.DataComponentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -17,7 +16,7 @@ public class ModDataComponentTypes {
     });
 
     private static <T> DataComponentType<T> register(String id, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
-        return Registry.register(Registries.DATA_COMPONENT_TYPE, new Identifier(MiddleEarth.MOD_ID, id), ((DataComponentType.Builder)builderOperator.apply(DataComponentType.builder())).build());
+        return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(MiddleEarth.MOD_ID, id), ((DataComponentType.Builder)builderOperator.apply(DataComponentType.builder())).build());
     }
 
     public static void registerModComponentTypes() {
