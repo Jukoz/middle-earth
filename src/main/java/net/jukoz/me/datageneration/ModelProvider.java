@@ -856,7 +856,7 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerParentedItemModel(trapdoorBlock, identifier2);
     }
 
-    public static final Identifier TRIM_TYPE = new Identifier("trim_type");
+    public static final Identifier TRIM_TYPE = Identifier.of("trim_type");
     private static final List<ItemTrimMaterial> TRIM_MATERIALS = List.of(
             new ItemTrimMaterial("quartz", 0.1f, Map.of()),
             new ItemTrimMaterial("iron", 0.2f, Map.of(ArmorMaterials.IRON, "iron_darker")),
@@ -967,7 +967,7 @@ public class ModelProvider extends FabricModelProvider {
 
 
     public final void registerPalettedItem(Item item, ItemModelGenerator itemModelGenerator) {
-        Identifier identifierItem = new Identifier(MiddleEarth.MOD_ID, "item/" + Registries.ITEM.getId(item).getPath());
+        Identifier identifierItem = Identifier.of(MiddleEarth.MOD_ID, "item/" + Registries.ITEM.getId(item).getPath());
 
         Identifier identifier2 = TextureMap.getId(item);
 
@@ -983,14 +983,14 @@ public class ModelProvider extends FabricModelProvider {
 
             Identifier identifier4 = itemModelGenerator.suffixTrim(identifierItem, string);
             String string2 = Registries.ITEM.getId(item).getPath() + "_trim_" + string;
-            Identifier identifier5 = new Identifier(MiddleEarth.MOD_ID, string2).withPrefixedPath("trims/items/");
+            Identifier identifier5 = Identifier.of(MiddleEarth.MOD_ID, string2).withPrefixedPath("trims/items/");
 
             itemModelGenerator.uploadArmor(identifier4, identifier2, identifier5);
         }
     }
 
     public final JsonObject registerPalettedItemJson(Item item, Identifier id, Map<TextureKey, Identifier> textures, ItemModelGenerator itemModelGenerator) {
-        Identifier identifierItem = new Identifier(MiddleEarth.MOD_ID, "item/" + Registries.ITEM.getId(item).getPath());
+        Identifier identifierItem = Identifier.of(MiddleEarth.MOD_ID, "item/" + Registries.ITEM.getId(item).getPath());
 
         JsonObject jsonObject = Models.GENERATED_TWO_LAYERS.createJson(identifierItem, textures);
         JsonArray jsonArray = new JsonArray();

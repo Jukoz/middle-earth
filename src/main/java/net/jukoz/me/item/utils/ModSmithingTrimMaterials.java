@@ -34,6 +34,6 @@ public class ModSmithingTrimMaterials {
     }
 
     private static RegistryKey<ArmorTrimMaterial> of(String id) {
-        return RegistryKey.of(RegistryKeys.TRIM_MATERIAL, new Identifier(id));
+        return RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(id));
     }
 }
