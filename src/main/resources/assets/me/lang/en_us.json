@@ -283,6 +283,23 @@
   "item.me.bronze_axolotl_bucket": "Bronze Axolotl Bucket",
   "item.me.bronze_tadpole_bucket": "Bronze Tadpole Bucket",
 
+"#Comment:": "Item - Smithing",
+  "item.me.smithing_hammer": "Smithing Hammer",
+
+  "item.me.rod": "Rod",
+  "item.me.large_rod": "Large Rod",
+
+  "item.me.pickaxe_head": "Pickaxe Head",
+  "item.me.axe_head": "Axe Head",
+  "item.me.shovel_head": "Shovel Head",
+  "item.me.hoe_head": "Hoe Head",
+
+  "item.me.blade": "Blade",
+  "item.me.short_blade": "Short Blade",
+  "item.me.long_blade": "Long Blade",
+  "item.me.great_axe_head": "Great Axe Head",
+  "item.me.sword_hilt": "Sword Hilt",
+
 "#Comment:": "Item - Anduin",
   "item.me.anduin_sword": "Anduin Sword",
   "item.me.anduin_dagger": "Anduin Dagger",
@@ -3788,6 +3805,8 @@
   "block.me.dwarven_lantern": "Dwarven Lantern",
   "block.me.silver_lantern": "Silver Lantern",
   "block.me.forge": "Forge",
+  "block.me.bellows": "Bellows",
+  "block.me.treated_anvil": "Treated Anvil",
   "block.me.artisan_table": "Artisan Table",
 
   "block.me.reinforced_chest": "Reinforced Chest",
@@ -4013,5 +4032,16 @@
   "tooltip.me.mode" : "Mode:",
 
   "trim_pattern.me.smithing_part" : "Smithing Part",
-  "trim_material.me.bronze" : "Bronze"
+  "trim_material.me.jade" : "Jade",
+  "trim_material.me.tin" : "Tin",
+  "trim_material.me.lead" : "Lead",
+  "trim_material.me.silver" : "silver",
+  "trim_material.me.bronze" : "Bronze",
+  "trim_material.me.steel" : "Steel",
+  "trim_material.me.orc_steel" : "Orc Steel",
+  "trim_material.me.uruk_steel" : "Uruk Steel",
+  "trim_material.me.elven_steel" : "Elven Steel",
+  "trim_material.me.dwarven_steel" : "Dwarven Steel",
+  "trim_material.me.morgul_steel" : "Morgul Steel",
+  "trim_material.me.mithril" : "Mithril"
 }

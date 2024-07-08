@@ -8,26 +8,40 @@ import net.jukoz.me.recipe.ArtisanRecipe;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.StonecuttingRecipe;
-import net.minecraft.screen.StonecutterScreenHandler;
+import net.minecraft.screen.*;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import java.util.List;
 
 @Environment(value= EnvType.CLIENT)
-public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler> {
+public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler> implements ScreenHandlerListener {
     private static final Identifier TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/gui/artisan_table.png");
     private float scrollAmount;
     private boolean mouseClicked;
     private int scrollOffset;
     private boolean canCraft;
+
+    private static final Vector3f field_45497 = new Vector3f();
+    private static final Quaternionf ARMOR_STAND_ROTATION = new Quaternionf().rotationXYZ(0.43633232f, 0.0f, (float)Math.PI);
+
+    private ArmorStandEntity armorStand;
+
 
     public ArtisanTableScreen(ArtisanTableScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -41,6 +55,49 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         super.init();
         titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
         titleY -= 1;
+
+        ((ArtisanTableScreenHandler)this.handler).addListener(this);
+
+        this.armorStand = new ArmorStandEntity(this.client.world, 0.0, 0.0, 0.0);
+        this.armorStand.setHideBasePlate(true);
+        this.armorStand.setShowArms(true);
+        this.armorStand.bodyYaw = 210.0f;
+        this.armorStand.setPitch(25.0f);
+        this.armorStand.headYaw = this.armorStand.getYaw();
+        this.armorStand.prevHeadYaw = this.armorStand.getYaw();
+        this.equipArmorStand(((ArtisanTableScreenHandler)this.handler).getSlot(6).getStack());
+    }
+
+
+    @Override
+    public void onSlotUpdate(ScreenHandler handler, int slotId, ItemStack stack) {
+        if (slotId == 6) {
+            this.equipArmorStand(stack);
+        }
+    }
+
+    @Override
+    public void onPropertyUpdate(ScreenHandler handler, int property, int value) {
+
+    }
+
+    private void equipArmorStand(ItemStack stack) {
+        if (this.armorStand == null) {
+            return;
+        }
+        for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
+            this.armorStand.equipStack(equipmentSlot, ItemStack.EMPTY);
+        }
+        if (!stack.isEmpty()) {
+            ItemStack itemStack = stack.copy();
+            Item item = stack.getItem();
+            if (item instanceof ArmorItem) {
+                ArmorItem armorItem = (ArmorItem)item;
+                this.armorStand.equipStack(armorItem.getSlotType(), itemStack);
+            } else {
+                this.armorStand.equipStack(EquipmentSlot.OFFHAND, itemStack);
+            }
+        }
     }
 
     @Override
@@ -58,6 +115,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         int n = this.scrollOffset + 12;
         this.renderRecipeBackground(context, mouseX, mouseY, l, m, n);
         this.renderRecipeIcons(context, l, m, n);
+        InventoryScreen.drawEntity(context, this.x + 206, this.y + 75, 30.0f, field_45497, ARMOR_STAND_ROTATION, null, this.armorStand);
     }
 
     @Override
@@ -84,7 +142,6 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
                 }
             }
         }
-
     }
 
     private void renderRecipeBackground(DrawContext context, int mouseX, int mouseY, int x, int y, int scrollOffset) {
@@ -183,6 +240,5 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
             this.scrollAmount = 0.0F;
             this.scrollOffset = 0;
         }
-
     }
 }

@@ -1,0 +1,9 @@
+{
+  "asset_name": "morgul_steel",
+  "description": {
+    "color": "#576353",
+    "translate": "trim_material.me.morgul_steel"
+  },
+  "ingredient": "me:morgul_steel_ingot",
+  "item_model_index": 0.012
+}

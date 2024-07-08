@@ -1,0 +1,9 @@
+{
+  "asset_name": "dwarven_steel",
+  "description": {
+    "color": "#676F77",
+    "translate": "trim_material.me.dwarven_steel"
+  },
+  "ingredient": "me:dwarven_steel_ingot",
+  "item_model_index": 0.011
+}

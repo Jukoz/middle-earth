@@ -1,6 +1,7 @@
 package net.jukoz.me.block.special.treatedAnvil;
 
 import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.item.ModToolItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -70,7 +71,7 @@ public class TreatedAnvilBlock extends Block {
     protected void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {
         ItemStack stack = player.getEquippedStack(EquipmentSlot.MAINHAND);
 
-        if (stack.isOf(ModResourceItems.SMITHING_HAMMER) && player.getAttackCooldownProgress(0.5f) > 0.9f){
+        if (stack.isOf(ModToolItems.SMITHING_HAMMER) && player.getAttackCooldownProgress(0.5f) > 0.9f){
             stack.use(world, player, player.getActiveHand());
             if (!world.isClient){
                 player.getStackInHand(player.getActiveHand()).damage(1, player, EquipmentSlot.MAINHAND);

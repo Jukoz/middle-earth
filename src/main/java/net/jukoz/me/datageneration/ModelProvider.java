@@ -1,7 +1,6 @@
 package net.jukoz.me.datageneration;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -24,7 +23,6 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ArmorMaterials;
 import net.minecraft.item.Item;
-import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.state.property.Properties;
@@ -34,8 +32,6 @@ import net.minecraft.util.math.Direction;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
 
 public class ModelProvider extends FabricModelProvider {
 
@@ -861,7 +857,29 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     public static final Identifier TRIM_TYPE = new Identifier("trim_type");
-    private static final List<ItemTrimMaterial> TRIM_MATERIALS = List.of(new ItemTrimMaterial("bronze", 0.001f, Map.of()), new ItemTrimMaterial("steel", 0.002f, Map.of()));
+    private static final List<ItemTrimMaterial> TRIM_MATERIALS = List.of(
+            new ItemTrimMaterial("quartz", 0.1f, Map.of()),
+            new ItemTrimMaterial("iron", 0.2f, Map.of(ArmorMaterials.IRON, "iron_darker")),
+            new ItemTrimMaterial("netherite", 0.3f, Map.of(ArmorMaterials.NETHERITE, "netherite_darker")),
+            new ItemTrimMaterial("redstone", 0.4f, Map.of()),
+            new ItemTrimMaterial("copper", 0.5f, Map.of()),
+            new ItemTrimMaterial("gold", 0.6f, Map.of(ArmorMaterials.GOLD, "gold_darker")),
+            new ItemTrimMaterial("emerald", 0.7f, Map.of()),
+            new ItemTrimMaterial("diamond", 0.8f, Map.of(ArmorMaterials.DIAMOND, "diamond_darker")),
+            new ItemTrimMaterial("lapis", 0.9f, Map.of()),
+            new ItemTrimMaterial("amethyst", 1.0f, Map.of()),
+            new ItemTrimMaterial("jade", 0.001f, Map.of()),
+            new ItemTrimMaterial("tin", 0.002f, Map.of()),
+            new ItemTrimMaterial("lead", 0.003f, Map.of()),
+            new ItemTrimMaterial("silver", 0.004f, Map.of()),
+            new ItemTrimMaterial("bronze", 0.005f, Map.of()),
+            new ItemTrimMaterial("steel", 0.006f, Map.of()),
+            new ItemTrimMaterial("orc_steel", 0.007f, Map.of()),
+            new ItemTrimMaterial("uruk_steel", 0.008f, Map.of()),
+            new ItemTrimMaterial("elven_steel", 0.009f, Map.of()),
+            new ItemTrimMaterial("dwarven_steel", 0.011f, Map.of()),
+            new ItemTrimMaterial("morgul_steel", 0.012f, Map.of()),
+            new ItemTrimMaterial("mithril", 0.013f, Map.of()));
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
@@ -922,7 +940,19 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModBlocks.MEDIUM_GLOWSTONE_BUD.asItem(), Models.GENERATED);
         itemModelGenerator.register(ModBlocks.LARGE_GLOWSTONE_BUD.asItem(), Models.GENERATED);
 
+        registerPalettedItem(ModResourceItems.ROD, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.LARGE_ROD, itemModelGenerator);
+
+        registerPalettedItem(ModResourceItems.PICKAXE_HEAD, itemModelGenerator);
         registerPalettedItem(ModResourceItems.AXE_HEAD, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.SHOVEL_HEAD, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.HOE_HEAD, itemModelGenerator);
+
+        registerPalettedItem(ModResourceItems.BLADE, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.SHORT_BLADE, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.LONG_BLADE, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.GREAT_AXE_HEAD, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.SWORD_HILT, itemModelGenerator);
     }
 
     public final void registerDyeableArmor(ArmorItem armor, ItemModelGenerator itemModelGenerator) {
@@ -943,7 +973,14 @@ public class ModelProvider extends FabricModelProvider {
 
         Models.GENERATED.upload(identifierItem, TextureMap.layer0(identifierItem), itemModelGenerator.writer, (id, textures) -> this.registerPalettedItemJson(item, id, textures, itemModelGenerator));
         for (ItemTrimMaterial trimMaterial : TRIM_MATERIALS) {
-            String string = trimMaterial.name;
+
+            String string;
+            if(trimMaterial.name.contains("iron")){
+                string = trimMaterial.name + "_darker";
+            } else {
+                string = trimMaterial.name;
+            }
+
             Identifier identifier4 = itemModelGenerator.suffixTrim(identifierItem, string);
             String string2 = Registries.ITEM.getId(item).getPath() + "_trim_" + string;
             Identifier identifier5 = new Identifier(MiddleEarth.MOD_ID, string2).withPrefixedPath("trims/items/");
@@ -962,7 +999,13 @@ public class ModelProvider extends FabricModelProvider {
             JsonObject jsonObject3 = new JsonObject();
             jsonObject3.addProperty(TRIM_TYPE.getPath(), Float.valueOf(trimMaterial.itemModelIndex()));
             jsonObject2.add("predicate", jsonObject3);
-            jsonObject2.addProperty("model", itemModelGenerator.suffixTrim(id, trimMaterial.name).toString());
+            String string;
+            if(trimMaterial.name.contains("iron")){
+                string = trimMaterial.name + "_darker";
+            } else {
+                string = trimMaterial.name;
+            }
+            jsonObject2.addProperty("model", itemModelGenerator.suffixTrim(id, string).toString());
             jsonArray.add(jsonObject2);
         }
         jsonObject.add("overrides", jsonArray);

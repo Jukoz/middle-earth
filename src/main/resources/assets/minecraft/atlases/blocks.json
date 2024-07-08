@@ -1,19 +1,76 @@
 {
   "sources": [
-    { "type": "single", "resource": "me:model/reinforced_chest" },
+    {
+      "type": "single",
+      "resource": "me:model/reinforced_chest"
+    },
+    {
+      "type": "paletted_permutations",
+      "textures": [
+        "me:trims/items/axe_head_trim",
+        "me:trims/items/blade_trim",
+        "me:trims/items/great_axe_head_trim",
+        "me:trims/items/hoe_head_trim",
+        "me:trims/items/long_blade_trim",
+        "me:trims/items/pickaxe_head_trim",
+        "me:trims/items/shovel_head_trim",
+        "me:trims/items/short_blade_trim",
+        "me:trims/items/sword_hilt_trim",
+        "me:trims/items/rod_trim",
+        "me:trims/items/large_rod_trim"
+      ],
+      "palette_key": "trims/color_palettes/trim_palette",
+      "permutations": {
+        "quartz": "trims/color_palettes/quartz",
+        "iron": "trims/color_palettes/iron",
+        "gold": "trims/color_palettes/gold",
+        "diamond": "trims/color_palettes/diamond",
+        "netherite": "trims/color_palettes/netherite",
+        "redstone": "trims/color_palettes/redstone",
+        "copper": "trims/color_palettes/copper",
+        "emerald": "trims/color_palettes/emerald",
+        "lapis": "trims/color_palettes/lapis",
+        "amethyst": "trims/color_palettes/amethyst",
+        "iron_darker": "trims/color_palettes/iron_darker",
+        "gold_darker": "trims/color_palettes/gold_darker",
+        "diamond_darker": "trims/color_palettes/diamond_darker",
+        "netherite_darker": "trims/color_palettes/netherite_darker",
+        "jade": "me:trims/color_palettes/jade",
+        "tin": "me:trims/color_palettes/tin",
+        "lead": "me:trims/color_palettes/lead",
+        "silver": "me:trims/color_palettes/silver",
+        "bronze": "me:trims/color_palettes/bronze",
+        "steel": "me:trims/color_palettes/steel",
+        "orc_steel": "me:trims/color_palettes/orc_steel",
+        "uruk_steel": "me:trims/color_palettes/uruk_steel",
+        "elven_steel": "me:trims/color_palettes/elven_steel",
+        "dwarven_steel": "me:trims/color_palettes/dwarven_steel",
+        "morgul_steel": "me:trims/color_palettes/morgul_steel",
+        "mithril": "me:trims/color_palettes/mithril"
+      }
+    },
     {
       "type": "paletted_permutations",
       "textures": [
         "trims/items/leggings_trim",
         "trims/items/chestplate_trim",
         "trims/items/helmet_trim",
-        "trims/items/boots_trim",
-        "me:trims/items/axe_head_trim"
+        "trims/items/boots_trim"
       ],
       "palette_key": "trims/color_palettes/trim_palette",
       "permutations": {
+        "jade": "me:trims/color_palettes/jade",
+        "tin": "me:trims/color_palettes/tin",
+        "lead": "me:trims/color_palettes/lead",
+        "silver": "me:trims/color_palettes/silver",
         "bronze": "me:trims/color_palettes/bronze",
-        "steel": "me:trims/color_palettes/steel"
+        "steel": "me:trims/color_palettes/steel",
+        "orc_steel": "me:trims/color_palettes/orc_steel",
+        "uruk_steel": "me:trims/color_palettes/uruk_steel",
+        "elven_steel": "me:trims/color_palettes/elven_steel",
+        "dwarven_steel": "me:trims/color_palettes/dwarven_steel",
+        "morgul_steel": "me:trims/color_palettes/morgul_steel",
+        "mithril": "me:trims/color_palettes/mithril"
       }
     }
   ]

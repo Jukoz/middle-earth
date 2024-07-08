@@ -38,8 +38,18 @@
       ],
       "palette_key": "trims/color_palettes/trim_palette",
       "permutations": {
+        "jade": "me:trims/color_palettes/jade",
+        "tin": "me:trims/color_palettes/tin",
+        "lead": "me:trims/color_palettes/lead",
+        "silver": "me:trims/color_palettes/silver",
         "bronze": "me:trims/color_palettes/bronze",
-        "steel": "me:trims/color_palettes/steel"
+        "steel": "me:trims/color_palettes/steel",
+        "orc_steel": "me:trims/color_palettes/orc_steel",
+        "uruk_steel": "me:trims/color_palettes/uruk_steel",
+        "elven_steel": "me:trims/color_palettes/elven_steel",
+        "dwarven_steel": "me:trims/color_palettes/dwarven_steel",
+        "morgul_steel": "me:trims/color_palettes/morgul_steel",
+        "mithril": "me:trims/color_palettes/mithril"
       }
     }
   ]

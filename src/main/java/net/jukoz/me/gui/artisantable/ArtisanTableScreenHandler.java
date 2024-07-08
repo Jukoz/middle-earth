@@ -68,13 +68,19 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.context = context;
         this.world = playerInventory.player.getWorld();
 
+        //this.inputSlot0 = this.addSlot(new Slot(this.input, 0, 12, 14));
         this.inputSlot0 = this.addSlot(new Slot(this.input, 0, 31, 14));
+        //this.inputSlot0 = this.addSlot(new Slot(this.input, 0, 50, 14));
+
         this.inputSlot1 = this.addSlot(new Slot(this.input, 1, 12, 34));
         this.inputSlot2 = this.addSlot(new Slot(this.input, 2, 31, 34));
         this.inputSlot3 = this.addSlot(new Slot(this.input, 3, 50, 34));
-        this.inputSlot4 = this.addSlot(new Slot(this.input, 4, 21, 53));
-        this.inputSlot5 = this.addSlot(new Slot(this.input, 5, 41, 53));
-        this.outputSlot = this.addSlot(new Slot(this.output, 6, 184, 33) {
+
+        this.inputSlot4 = this.addSlot(new Slot(this.input, 4, 12, 53));
+        //this.inputSlot4 = this.addSlot(new Slot(this.input, 4, 31, 53));
+        this.inputSlot5 = this.addSlot(new Slot(this.input, 5, 50, 53));
+
+        this.outputSlot = this.addSlot(new Slot(this.output, 6, 165, 33) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return false;

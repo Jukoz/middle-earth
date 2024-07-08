@@ -1,6 +1,5 @@
 package net.jukoz.me.item;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.special.CustomTallPlantBlock;
@@ -92,35 +91,6 @@ public class ModResourceItems {
     public static final Item MITHRIL_NUGGET = registerItem("mithril_nugget",
             new Item(new Item.Settings().fireproof()));
 
-    public static final Item COPPER_ROD = registerItem("copper_rod",
-            new Item(new Item.Settings()));
-    public static final Item TIN_ROD = registerItem("tin_rod",
-            new Item(new Item.Settings()));
-    public static final Item LEAD_ROD = registerItem("lead_rod",
-            new Item(new Item.Settings()));
-    public static final Item BRONZE_ROD = registerItem("bronze_rod",
-            new Item(new Item.Settings()));
-    public static final Item SILVER_ROD = registerItem("silver_rod",
-            new Item(new Item.Settings()));
-    public static final Item GOLD_ROD = registerItem("gold_rod",
-            new Item(new Item.Settings()));
-    public static final Item IRON_ROD = registerItem("iron_rod",
-            new Item(new Item.Settings()));
-    public static final Item ORC_STEEL_ROD = registerItem("orc_steel_rod",
-            new Item(new Item.Settings()));
-    public static final Item URUK_STEEL_ROD = registerItem("uruk_steel_rod",
-            new Item(new Item.Settings()));
-    public static final Item STEEL_ROD = registerItem("steel_rod",
-            new Item(new Item.Settings()));
-    public static final Item ELVEN_STEEL_ROD = registerItem("elven_steel_rod",
-            new Item(new Item.Settings()));
-    public static final Item DWARVEN_STEEL_ROD = registerItem("dwarven_steel_rod",
-            new Item(new Item.Settings()));
-    public static final Item MORGUL_STEEL_ROD = registerItem("morgul_steel_rod",
-            new Item(new Item.Settings()));
-    public static final Item MITHRIL_ROD = registerItem("mithril_rod",
-            new Item(new Item.Settings().fireproof()));
-
     public static final Item IRON_CHAINMAIL = registerItem("iron_chainmail",
             new Item(new Item.Settings()));
 
@@ -160,9 +130,6 @@ public class ModResourceItems {
             new GlowwormBottle(new Item.Settings().maxCount(1).food(
                     new FoodComponent.Builder().nutrition(2).saturationModifier(0.3f).alwaysEdible().build()).recipeRemainder(Items.GLASS_BOTTLE)));
 
-    public static final Item SMITHING_HAMMER = registerItem("smithing_hammer",
-            new SmithingHammerItem(new Item.Settings()));
-
     public static final Item COPPER_COIN = registerItem("copper_coin", new Item(new Item.Settings()));
     public static final Item SILVER_COIN = registerItem("silver_coin", new Item(new Item.Settings()));
 
@@ -175,9 +142,29 @@ public class ModResourceItems {
     public static final Item CUCUMBER_SEEDS = registerItem("cucumber_seeds", new AliasedBlockItem(ModNatureBlocks.CUCUMBER_CROP, new Item.Settings()));
     public static final Item LETTUCE_SEEDS = registerItem("lettuce_seeds", new AliasedBlockItem(ModNatureBlocks.LETTUCE_CROP, new Item.Settings()));
 
-    public static final Item SWORD_BLADE = registerItem("sword_blade",
+    public static final Item ROD = registerItem("rod",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item LARGE_ROD = registerItem("large_rod",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+
+    public static final Item PICKAXE_HEAD = registerItem("pickaxe_head",
             new SmithingMaterialItem(new Item.Settings().maxCount(16)));
     public static final Item AXE_HEAD = registerItem("axe_head",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item SHOVEL_HEAD = registerItem("shovel_head",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item HOE_HEAD = registerItem("hoe_head",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+
+    public static final Item SHORT_BLADE = registerItem("short_blade",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item BLADE = registerItem("blade",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item LONG_BLADE = registerItem("long_blade",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item GREAT_AXE_HEAD = registerItem("great_axe_head",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item SWORD_HILT = registerItem("sword_hilt",
             new SmithingMaterialItem(new Item.Settings().maxCount(16)));
 
     public static final Item GONDOR_BANNER_PATTERN = registerItem("gondor_banner_pattern",

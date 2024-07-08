@@ -1,0 +1,9 @@
+{
+  "asset_name": "elven_steel",
+  "description": {
+    "color": "#F2F0E9",
+    "translate": "trim_material.me.elven_steel"
+  },
+  "ingredient": "me:elven_steel_ingot",
+  "item_model_index": 0.009
+}

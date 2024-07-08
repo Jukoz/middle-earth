@@ -5,6 +5,7 @@ import net.jukoz.me.datageneration.content.models.SimpleHandheldItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleItemModel;
 import net.jukoz.me.item.items.BronzeBucketItem;
 import net.jukoz.me.item.items.CustomPowderSnowBucket;
+import net.jukoz.me.item.items.SmithingHammerItem;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.ModToolMaterials;
 import net.jukoz.me.utils.LoggerUtil;
@@ -25,6 +26,9 @@ public class ModToolItems {
     private static final float IRON_ATTACK_SPEED = -2.5f;
     private static final float IRON_AXE_ATTACK_SPEED = -3.1f;
     private static final float IRON_HOE_ATTACK_SPEED = -2f;
+
+    public static final Item SMITHING_HAMMER = registerItemHandheld("smithing_hammer",
+            new SmithingHammerItem(new Item.Settings()));
 
     public static final Item JADE_PICKAXE = registerItemHandheld("jade_pickaxe",
             new PickaxeItem(ModToolMaterials.JADE, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.JADE, 0.0f, -3.0f))));
