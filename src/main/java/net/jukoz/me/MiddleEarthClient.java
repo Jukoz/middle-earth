@@ -144,13 +144,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.BANDIT_MILITIA, BanditHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.BANDIT_SOLDIER, BanditHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.BANDIT_CHIEFTAIN, BanditHumanRenderer::new);
-
-        // Items
-        /*ModelLoadingPlugin.register(pluginContext -> {
-            pluginContext.addModels();
-        });
-        ModelLoadingRegistry.INSTANCE.registerModelProvider(((manager, out) -> new VariantsModelProvider().provideExtraModels(manager, out)));*/
-        //TODO need to convert mixin to new ModelLoadingPlugin
+        
         EntityRendererRegistry.register(ModEntities.FIRE_OF_ORTHANC, FireOfOrthancEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.PEBBLE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.PINECONE, FlyingItemEntityRenderer::new);
