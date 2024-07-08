@@ -21,7 +21,7 @@ public class ModBlockEntities {
                 FabricBlockEntityTypeBuilder.create(AlloyFurnaceEntity::new,
                         ModDecorativeBlocks.ALLOY_FURNACE).build(null));
         REINFORCED_CHEST = Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                new Identifier(MiddleEarth.MOD_ID, "reinforced_chest"),
+                Identifier.of(MiddleEarth.MOD_ID, "reinforced_chest"),
                 FabricBlockEntityTypeBuilder.create(ReinforcedChestBlockEntity::new,
                         ModDecorativeBlocks.REINFORCED_CHEST).build(null));
         WOOD_PILE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
