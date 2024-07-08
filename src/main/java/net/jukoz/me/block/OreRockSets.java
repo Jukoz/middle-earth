@@ -13,8 +13,8 @@ import java.util.List;
 public class OreRockSets {
     public static final float STONE_STRENGTH = 2.0f;
     public static final float DEEPSLATE_STRENGTH = 2.5f;
-    public static final float DIFTOMIN_STRENGTH = 3.0f;
-    public static final float EPMOSTO_STRENGTH = 4.0f;
+    public static final float NURGON_STRENGTH = 3.0f;
+    public static final float MEDGON_STRENGTH = 4.0f;
 
 
     public static OreRockSet STONE = registerOreSet("", STONE_STRENGTH,
@@ -33,11 +33,11 @@ public class OreRockSets {
     public static OreRockSet DEEPSLATE = registerOreSet("deepslate_", DEEPSLATE_STRENGTH,
             Arrays.asList(ORES.TIN_ORE, ORES.LEAD_ORE), Blocks.DEEPSLATE);
 
-    public static OreRockSet DIFTOMIN = registerOreSet("diftomin_", DIFTOMIN_STRENGTH,
-            Arrays.asList(ORES.TIN_ORE, ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE), StoneBlockSets.DIFTOMIN.base());
+    public static OreRockSet NURGON = registerOreSet("nurgon_", NURGON_STRENGTH,
+            Arrays.asList(ORES.TIN_ORE, ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE), StoneBlockSets.NURGON.base());
 
-    public static OreRockSet EPMOSTO = registerOreSet("epmosto_", EPMOSTO_STRENGTH,
-            Arrays.asList(ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE, ORES.MITHRIL_ORE), StoneBlockSets.EPMOSTO.base());
+    public static OreRockSet MEDGON = registerOreSet("medgon_", MEDGON_STRENGTH,
+            Arrays.asList(ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE, ORES.MITHRIL_ORE), StoneBlockSets.MEDGON.base());
 
     public static OreRockSet[] sets = new OreRockSet[] {
             STONE,
@@ -47,8 +47,8 @@ public class OreRockSets {
             LIMESTONE,
             CALCITE,
             DEEPSLATE,
-            DIFTOMIN,
-            EPMOSTO,
+            NURGON,
+            MEDGON,
     };
 
     public record OreRockSet(Block coal_ore, Block copper_ore, Block tin_ore, Block lead_ore, Block silver_ore, Block gold_ore, Block iron_ore, Block mithril_ore, Block origin) {

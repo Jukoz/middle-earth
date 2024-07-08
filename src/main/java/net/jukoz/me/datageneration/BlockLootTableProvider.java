@@ -57,10 +57,10 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     @Override
     public void generate() {
         for (Block block : BlockDrops.blocks) {
-            if(Registries.BLOCK.getId(block).getPath().equals("diftomin")){
-                cobbleDrops(block, StoneBlockSets.COBBLED_DIFTOMIN.base());
-            }else if(Registries.BLOCK.getId(block).getPath().equals("epmosto")){
-                cobbleDrops(block, StoneBlockSets.COBBLED_EPMOSTO.base());
+            if(Registries.BLOCK.getId(block).getPath().equals("nurgon")){
+                cobbleDrops(block, StoneBlockSets.COBBLED_NURGON.base());
+            }else if(Registries.BLOCK.getId(block).getPath().equals("medgon")){
+                cobbleDrops(block, StoneBlockSets.COBBLED_MEDGON.base());
             }else if(Registries.BLOCK.getId(block).getPath().equals("gonluin")){
                 cobbleDrops(block, StoneBlockSets.COBBLED_GONLUIN.base());
             }else if(Registries.BLOCK.getId(block).getPath().equals("limestone")){

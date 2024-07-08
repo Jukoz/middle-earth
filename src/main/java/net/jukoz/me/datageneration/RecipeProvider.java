@@ -58,6 +58,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.base(), 1);
             createWallsRecipe(exporter, record.base(), record.wall());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.wall(), record.base(), 1);
+            createTrapdoorRecipe(exporter, record.base(), record.trapdoor());
             createStoneStoolRecipe(exporter, record.base().asItem(), record.stool());
             createStoneTableRecipe(exporter, record.base().asItem(), record.table());
             createStoneChairRecipe(exporter, record.base().asItem(), record.chair());
@@ -341,6 +342,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createPaneRecipe(exporter, pane.glass().asItem(), pane.pane(), 16);
         }
 
+        for(SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.vanillaStoneTrapdoors){
+            createTrapdoorRecipe(exporter, trapdoor.block(), trapdoor.trapdoor());
+        }
+
         for(SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools){
             createWoodStoolRecipe(exporter, stool.planks().asItem(), stool.legs().asItem(), stool.base());
         }
@@ -388,6 +393,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createLayerRecipe(exporter, Blocks.SAND.asItem(), ModBlocks.SAND_LAYER);
         createLayerRecipe(exporter, ModBlocks.BLACK_SAND.asItem(), ModBlocks.BLACK_SAND_LAYER);
         createLayerRecipe(exporter, ModBlocks.WHITE_SAND.asItem(), ModBlocks.WHITE_SAND_LAYER);
+        createLayerRecipe(exporter, ModBlocks.ASHEN_SAND.asItem(), ModBlocks.ASHEN_SAND_LAYER);
+        createLayerRecipe(exporter, ModBlocks.ASHEN_GRAVEL.asItem(), ModBlocks.ASHEN_GRAVEL_LAYER);
 
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD, ModBlocks.LEAD_BLOCK, 4);
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_SLAB, ModBlocks.LEAD_BLOCK, 8);
@@ -409,16 +416,25 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createSlabsRecipe(exporter, ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_SLAB);
         createWallsRecipe(exporter, ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_WALL);
 
+        createStairsRecipe(exporter, ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_STAIRS);
+        createSlabsRecipe(exporter, ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB);
+
+        createStairsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_STAIRS);
+        createSlabsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_SLAB);
+        
         createStairsRecipe(exporter, ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_SLAB);
 
         createStairsRecipe(exporter, ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT_SLAB);
 
-        createPaneRecipe(exporter, ModResourceItems.SILVER_INGOT, ModBlocks.SILVERS_BARS, 6);
+        createStairsRecipe(exporter, ModBlocks.COBBLY_ASHEN_DIRT, ModBlocks.COBBLY_ASHEN_DIRT_STAIRS);
+        createSlabsRecipe(exporter, ModBlocks.COBBLY_ASHEN_DIRT, ModBlocks.COBBLY_ASHEN_DIRT_SLAB);
 
-        createTrapdoorRecipe(exporter, Blocks.STONE, ModBlocks.STONE_TRAPDOOR);
-        createTrapdoorRecipe(exporter, Blocks.BLACKSTONE, ModBlocks.BLACKSTONE_TRAPDOOR);
+        createStairsRecipe(exporter, ModBlocks.COBBLY_DIRT, ModBlocks.COBBLY_DIRT_STAIRS);
+        createSlabsRecipe(exporter, ModBlocks.COBBLY_DIRT, ModBlocks.COBBLY_DIRT_SLAB);
+
+        createPaneRecipe(exporter, ModResourceItems.SILVER_INGOT, ModBlocks.SILVERS_BARS, 6);
 
         createDyeableBlockRecipe(exporter, Blocks.STONE, Blocks.ICE.asItem(), StoneBlockSets.FROZEN_STONE.base(), 8);
         createDyeableBlockRecipe(exporter, Blocks.COBBLESTONE, Blocks.ICE.asItem(), StoneBlockSets.FROZEN_COBBLESTONE.base(), 8);
@@ -455,14 +471,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(StoneBlockSets.YELLOW_DAUB.base()))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.EPMOSTO_CARVED_WINDOW, 2)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.MEDGON_CARVED_WINDOW, 2)
                 .pattern("EEE")
                 .pattern("EGE")
                 .pattern("EEE")
-                .input('E', StoneBlockSets.EPMOSTO.base())
+                .input('E', StoneBlockSets.MEDGON.base())
                 .input('G', Blocks.GLASS)
-                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.EPMOSTO.base()),
-                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.EPMOSTO.base()))
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.MEDGON.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.MEDGON.base()))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LEAD_GLASS, 4)

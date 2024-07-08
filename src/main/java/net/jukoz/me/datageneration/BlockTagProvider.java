@@ -114,13 +114,13 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         }
 
         for (StoneBlockSets.SimpleBlockSet record : StoneBlockSets.sets) {
-            if (Registries.BLOCK.getId(record.base()).getPath().contains("diftomin")){
+            if (Registries.BLOCK.getId(record.base()).getPath().contains("nurgon")){
                 needsIronTools.add(record.base());
                 needsIronTools.add(record.slab());
                 needsIronTools.add(record.verticalSlab());
                 needsIronTools.add(record.stairs());
                 needsIronTools.add(record.wall());
-            }else if (Registries.BLOCK.getId(record.base()).getPath().contains("epmosto")){
+            }else if (Registries.BLOCK.getId(record.base()).getPath().contains("medgon")){
                 needsDiamondTools.add(record.base());
                 needsDiamondTools.add(record.slab());
                 needsDiamondTools.add(record.verticalSlab());
@@ -138,7 +138,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         baseStoneOverworld.add(Blocks.CALCITE);
         for (StoneBlockSets.SimpleBlockSetMain record : StoneBlockSets.setsMain) {
             if(record.base() != StoneBlockSets.ASHEN_STONE.base()) baseStoneOverworld.add(record.base());
-            if (Registries.BLOCK.getId(record.base()).getPath().contains("diftomin")){
+            if (Registries.BLOCK.getId(record.base()).getPath().contains("nurgon")){
                 needsIronTools.add(record.base());
                 needsIronTools.add(record.slab());
                 needsIronTools.add(record.verticalSlab());
@@ -146,7 +146,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 needsIronTools.add(record.wall());
                 needsIronTools.add(record.stool());
                 needsIronTools.add(record.table());
-            }else if (Registries.BLOCK.getId(record.base()).getPath().contains("epmosto")){
+            }else if (Registries.BLOCK.getId(record.base()).getPath().contains("medgon")){
                 needsDiamondTools.add(record.base());
                 needsDiamondTools.add(record.slab());
                 needsDiamondTools.add(record.verticalSlab());
@@ -194,6 +194,15 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
             table.add(block.base());
         });
 
+        seat.add(ModDecorativeBlocks.BLUE_CUSHION);
+        seat.add(ModDecorativeBlocks.BROWN_CUSHION);
+        seat.add(ModDecorativeBlocks.DARK_BLUE_CUSHION);
+        seat.add(ModDecorativeBlocks.DARK_BROWN_CUSHION);
+        seat.add(ModDecorativeBlocks.DARK_GREEN_CUSHION);
+        seat.add(ModDecorativeBlocks.DARK_RED_CUSHION);
+        seat.add(ModDecorativeBlocks.GREEN_CUSHION);
+        seat.add(ModDecorativeBlocks.RED_CUSHION);
+
         needsStoneTools.add(OreRockSets.GONLUIN.copper_ore());
         needsStoneTools.add(OreRockSets.GONLUIN.tin_ore());
 
@@ -215,17 +224,20 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         needsStoneTools.add(OreRockSets.DEEPSLATE.lead_ore());
 
-        needsIronTools.add(OreRockSets.DIFTOMIN.tin_ore());
-        needsIronTools.add(OreRockSets.DIFTOMIN.lead_ore());
-        needsIronTools.add(OreRockSets.DIFTOMIN.silver_ore());
-        needsIronTools.add(OreRockSets.DIFTOMIN.gold_ore());
-        needsIronTools.add(OreRockSets.DIFTOMIN.iron_ore());
+        needsIronTools.add(OreRockSets.NURGON.tin_ore());
+        needsIronTools.add(OreRockSets.NURGON.lead_ore());
+        needsIronTools.add(OreRockSets.NURGON.silver_ore());
+        needsIronTools.add(OreRockSets.NURGON.gold_ore());
+        needsIronTools.add(OreRockSets.NURGON.iron_ore());
 
-        needsDiamondTools.add(OreRockSets.EPMOSTO.lead_ore());
-        needsDiamondTools.add(OreRockSets.EPMOSTO.silver_ore());
-        needsDiamondTools.add(OreRockSets.EPMOSTO.gold_ore());
-        needsDiamondTools.add(OreRockSets.EPMOSTO.iron_ore());
-        needsDiamondTools.add(OreRockSets.EPMOSTO.mithril_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.lead_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.silver_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.gold_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.iron_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.mithril_ore());
+
+        needsDiamondTools.add(ModDecorativeBlocks.REINFORCED_CHEST);
+
         needsDiamondTools.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
 
         needsStoneTools.add(ModBlocks.BRONZE_BLOCK);
@@ -245,12 +257,35 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModDecorativeBlocks.DWARVEN_LANTERN);
         mineablePickaxe.add(ModDecorativeBlocks.SILVER_LANTERN);
 
+        mineableShovel.add(ModBlocks.GRASSY_DIRT);
+        mineableShovel.add(ModBlocks.GRASSY_DIRT_SLAB);
+        mineableShovel.add(ModBlocks.GRASSY_DIRT_STAIRS);
+
+        mineableShovel.add(ModBlocks.TURF);
+        mineableShovel.add(ModBlocks.TURF_SLAB);
+        mineableShovel.add(ModBlocks.TURF_STAIRS);
+
+        mineableShovel.add(ModBlocks.ASHEN_SAND);
+        mineableShovel.add(ModBlocks.ASHEN_SAND_LAYER);
+
+        mineableShovel.add(ModBlocks.ASHEN_GRAVEL);
+        mineableShovel.add(ModBlocks.ASHEN_GRAVEL_LAYER);
+
         mineableShovel.add(ModBlocks.DRY_DIRT);
         mineableShovel.add(ModBlocks.DRY_DIRT_SLAB);
         mineableShovel.add(ModBlocks.DRY_DIRT_STAIRS);
+
         mineableShovel.add(ModBlocks.ASHEN_DIRT);
         mineableShovel.add(ModBlocks.ASHEN_DIRT_SLAB);
         mineableShovel.add(ModBlocks.ASHEN_DIRT_STAIRS);
+
+        mineableShovel.add(ModBlocks.COBBLY_ASHEN_DIRT);
+        mineableShovel.add(ModBlocks.COBBLY_ASHEN_DIRT_SLAB);
+        mineableShovel.add(ModBlocks.COBBLY_ASHEN_DIRT_STAIRS);
+
+        mineableShovel.add(ModBlocks.COBBLY_DIRT);
+        mineableShovel.add(ModBlocks.COBBLY_DIRT_SLAB);
+        mineableShovel.add(ModBlocks.COBBLY_DIRT_STAIRS);
 
         mineableHoe.add(ModBlocks.REED_BLOCK);
         mineableHoe.add(ModBlocks.REED_SLAB);

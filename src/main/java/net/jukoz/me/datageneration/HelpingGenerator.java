@@ -26,6 +26,7 @@ public class HelpingGenerator {
             SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.base(), set.wall()));
             SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(set.base(), set.pressurePlate()));
             SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(set.base(), set.button()));
+            SimpleTrapDoorModel.stoneTrapdoors.add(new SimpleTrapDoorModel.Trapdoor(set.base(), set.trapdoor()));
             SimpleStoneStoolModel.stools.add(set.stool());
             SimpleStoneTableModel.tables.add(set.table());
             SimpleStoneChairModel.chairs.add(set.chair());
@@ -37,6 +38,7 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.wall());
             BlockDrops.blocks.add(set.pressurePlate());
             BlockDrops.blocks.add(set.button());
+            BlockDrops.blocks.add(set.trapdoor());
             BlockDrops.blocks.add(set.stool());
             BlockDrops.blocks.add(set.table());
             BlockDrops.blocks.add(set.chair());
@@ -48,6 +50,7 @@ public class HelpingGenerator {
             MineablePickaxe.blocks.add(set.stairs());
             MineablePickaxe.blocks.add(set.pressurePlate());
             MineablePickaxe.blocks.add(set.button());
+            MineablePickaxe.blocks.add(set.trapdoor());
             MineablePickaxe.blocks.add(set.stool());
             MineablePickaxe.blocks.add(set.table());
             MineablePickaxe.blocks.add(set.chair());
