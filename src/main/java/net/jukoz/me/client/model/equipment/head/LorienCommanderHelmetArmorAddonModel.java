@@ -14,7 +14,7 @@ public class LorienCommanderHelmetArmorAddonModel<T extends LivingEntity> extend
         super(root);
         spike = root.getChild("head").getChild("spike");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/lorien_commander_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/lorien_commander_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {

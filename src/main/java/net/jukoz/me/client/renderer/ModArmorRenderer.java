@@ -52,7 +52,7 @@ public class ModArmorRenderer implements ArmorRenderer {
         if(dyeable){
             renderDyeable(matrices, vertexConsumers, light, stack, model, texture);
             if(CustomDyeableDataComponent.getOverlay(stack)) {
-                ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, new Identifier(MiddleEarth.MOD_ID, texture.getPath().replaceAll(".png", "_overlay.png")));
+                ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, Identifier.of(MiddleEarth.MOD_ID, texture.getPath().replaceAll(".png", "_overlay.png")));
             }
         } else {
             ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, texture);

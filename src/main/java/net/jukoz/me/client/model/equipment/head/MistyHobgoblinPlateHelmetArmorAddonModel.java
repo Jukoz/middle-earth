@@ -16,7 +16,7 @@ public class MistyHobgoblinPlateHelmetArmorAddonModel<T extends LivingEntity> ex
         wingRight = root.getChild("head").getChild("wing_right");
         wingLeft = root.getChild("head").getChild("wing_left");
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/misty_hobgoblin_plate_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/misty_hobgoblin_plate_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {

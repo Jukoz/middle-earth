@@ -8,12 +8,12 @@ import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.datageneration.content.loot_tables.CropDrops;
 import net.jukoz.me.datageneration.content.loot_tables.LeavesDrops;
-import net.jukoz.me.datageneration.content.models.SimpleFanModel;
 import net.jukoz.me.datageneration.content.models.TintableCrossModel;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.server.loottable.BlockLootTableGenerator;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
@@ -34,6 +34,7 @@ import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 
 import java.util.List;
@@ -41,21 +42,25 @@ import java.util.concurrent.CompletableFuture;
 
 public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     protected static final LootCondition.Builder WITH_SHEARS = MatchToolLootCondition.builder(ItemPredicate.Builder.create().items(Items.SHEARS));
-    private static final LootCondition.Builder WITH_SILK_TOUCH_OR_SHEARS = WITH_SHEARS.or(WITH_SILK_TOUCH);
-    private static final LootCondition.Builder WITHOUT_SILK_TOUCH_NOR_SHEARS = WITH_SILK_TOUCH_OR_SHEARS.invert();
-    private static final float[] LEAVES_STICK_DROP_CHANCE = new float[]{0.02f, 0.022222223f, 0.025f, 0.033333335f, 0.1f};
+    private final LootCondition.Builder WITH_SILK_TOUCH_OR_SHEARS = WITH_SHEARS.or(this.createSilkTouchCondition());
+    private final LootCondition.Builder WITHOUT_SILK_TOUCH_NOR_SHEARS = WITH_SILK_TOUCH_OR_SHEARS.invert();
+    private final float[] LEAVES_STICK_DROP_CHANCE = new float[]{0.02f, 0.022222223f, 0.025f, 0.033333335f, 0.1f};
+
+    private final CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup;
 
     protected BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, registryLookup);
+
+        this.registryLookup = registryLookup;
     }
 
     @Override
     public void generate() {
         for (Block block : BlockDrops.blocks) {
-            if(Registries.BLOCK.getId(block).getPath().equals("diftomin")){
-                cobbleDrops(block, StoneBlockSets.COBBLED_DIFTOMIN.base());
-            }else if(Registries.BLOCK.getId(block).getPath().equals("epmosto")){
-                cobbleDrops(block, StoneBlockSets.COBBLED_EPMOSTO.base());
+            if(Registries.BLOCK.getId(block).getPath().equals("nurgon")){
+                cobbleDrops(block, StoneBlockSets.COBBLED_NURGON.base());
+            }else if(Registries.BLOCK.getId(block).getPath().equals("medgon")){
+                cobbleDrops(block, StoneBlockSets.COBBLED_MEDGON.base());
             }else if(Registries.BLOCK.getId(block).getPath().equals("gonluin")){
                 cobbleDrops(block, StoneBlockSets.COBBLED_GONLUIN.base());
             }else if(Registries.BLOCK.getId(block).getPath().equals("limestone")){
@@ -74,6 +79,13 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 addDrop(block);
             }
         }
+        RegistryWrapper.Impl<Enchantment> enchantmentRegistry;
+
+        try {
+            enchantmentRegistry = registryLookup.get().getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+        } catch (Exception ignored) {
+            throw new IllegalStateException("Data generation without registries failed!");
+        }
 
         for (LeavesDrops.LeavesDrop drop : LeavesDrops.blocks) {
             if(drop.toString().contains("pine")){
@@ -81,7 +93,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                         .pool(LootPool.builder()
                                 .rolls(ConstantLootNumberProvider.create(1.0F)).conditionally(WITHOUT_SILK_TOUCH_NOR_SHEARS)
                                 .with(((LeafEntry.Builder)this.addSurvivesExplosionCondition(drop.drop(), ItemEntry.builder(ModResourceItems.PINECONE)))
-                                        .conditionally(TableBonusLootCondition.builder(Enchantments.FORTUNE, new float[]{0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F})))));
+                                        .conditionally(TableBonusLootCondition.builder(enchantmentRegistry.getOrThrow(Enchantments.FORTUNE), new float[]{0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F})))));
 
             } else {
                 addDrop(drop.block(), this.leavesDrops(drop.block(), drop.drop(), SAPLING_DROP_CHANCE));
@@ -136,23 +148,37 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     }
 
     public void cobbleDrops(Block stoneBlock, Block cobbledBlock){
+        RegistryWrapper.Impl<Enchantment> enchantmentRegistry;
+
+        try {
+            enchantmentRegistry = registryLookup.get().getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+        } catch (Exception ignored) {
+            throw new IllegalStateException("Data generation without registries failed!");
+        }
         addDrop(stoneBlock,
                 LootTable.builder()
                         .pool(LootPool.builder()
-                                .conditionally(WITH_SILK_TOUCH)
+                                .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().subPredicate(ItemSubPredicateTypes.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(enchantmentRegistry.getOrThrow(Enchantments.SILK_TOUCH), NumberRange.IntRange.atLeast(1)))))))
                                 .rolls(ConstantLootNumberProvider.create(1.0F))
                                 .with(ItemEntry.builder(stoneBlock)))
                         .pool(LootPool.builder()
-                                .conditionally(WITHOUT_SILK_TOUCH)
+                                .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().subPredicate(ItemSubPredicateTypes.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(enchantmentRegistry.getOrThrow(Enchantments.SILK_TOUCH), NumberRange.IntRange.atLeast(1)))))).invert())
                                 .rolls(ConstantLootNumberProvider.create(1.0F))
                                 .with(ItemEntry.builder(cobbledBlock))));
     }
 
     public LootTable.Builder leavesDrops(Block leaves, Block drop, float ... chance) {
-        return BlockLootTableGenerator.dropsWithSilkTouchOrShears(leaves, ((LeafEntry.Builder)this.addSurvivesExplosionCondition(leaves, ItemEntry.builder(drop)))
-                .conditionally(TableBonusLootCondition.builder(Enchantments.FORTUNE, chance))).pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f))
+        RegistryWrapper.Impl<Enchantment> enchantmentRegistry;
+
+        try {
+            enchantmentRegistry = registryLookup.get().getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+        } catch (Exception ignored) {
+            throw new IllegalStateException("Data generation without registries failed!");
+        }
+        return drops(leaves, this.createWithShearsOrSilkTouchCondition(), ((LeafEntry.Builder)this.addSurvivesExplosionCondition(leaves, ItemEntry.builder(drop)))
+                .conditionally(TableBonusLootCondition.builder(enchantmentRegistry.getOrThrow(Enchantments.FORTUNE), chance))).pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f))
                 .conditionally(WITHOUT_SILK_TOUCH_NOR_SHEARS).with((LootPoolEntry.Builder<?>)((LeafEntry.Builder)this.applyExplosionDecay(leaves, ItemEntry.builder(Items.STICK)
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 2.0f)))))
-                .conditionally(TableBonusLootCondition.builder(Enchantments.FORTUNE, LEAVES_STICK_DROP_CHANCE))));
+                .conditionally(TableBonusLootCondition.builder(enchantmentRegistry.getOrThrow(Enchantments.FORTUNE), LEAVES_STICK_DROP_CHANCE))));
     }
 }

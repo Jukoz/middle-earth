@@ -1,8 +1,10 @@
 package net.jukoz.me.client.model.equipment.head;
 
+import net.jukoz.me.MiddleEarth;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Identifier;
 
 public class DaleTallSpikeHelmetModel<T extends LivingEntity> extends HelmetAddonModel<T> {
 

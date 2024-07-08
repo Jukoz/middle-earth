@@ -1,0 +1,58 @@
+name: Suggestions
+
+description: Suggest something that would help improve Middle-earth mod.
+
+labels: ['enhancement']
+
+body:
+  - type: checkboxes
+    attributes:
+      label: Before Suggesting...
+      options:
+        - label: I have read the planned features on https://github.com/Jukoz/middle-earth#planned-features
+          required: true
+        - label: My suggestion has not been proposed by others yet.
+          required: true
+        - label: My suggestion will not infringe the copyright of others.
+          required: true
+
+  - type: dropdown
+    attributes:
+      label: Suggestion Type
+      description: What is your suggestion related to?
+      options:
+        - "🎨 Art"
+        - "⚔️ Combat"
+        - "🗺️ World"
+        - "🧱 Block / Item"
+        - "🧙‍♂️ Entity"
+        - "🎵 Sound / Music"
+        - "🏛️ Structure"
+        - "⚙️ Others"
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Describe Your Suggestion
+      description: Describe everything about your suggestion as detailed as possible.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Screenshots and Videos
+      description: Please upload screenshots and videos of your suggestion if needed.
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Additional Context
+      description: Add any extra context about your suggestion here.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "Thank you for taking the time to make this suggestion and help improve Middle-earth!"

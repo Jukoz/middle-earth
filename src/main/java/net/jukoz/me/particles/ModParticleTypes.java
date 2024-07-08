@@ -13,8 +13,8 @@ public class ModParticleTypes {
     public static final SimpleParticleType MIRKWOOD_LEAVES_PARTICLE = FabricParticleTypes.simple();
 
     public static void registerParticleTypes(){
-        Registry.register(Registries.PARTICLE_TYPE, new Identifier(MiddleEarth.MOD_ID, "mallorn_leaves_particles"), MALLORN_LEAVES_PARTICLE);
-        Registry.register(Registries.PARTICLE_TYPE, new Identifier(MiddleEarth.MOD_ID, "mirkwood_leaves_particles"), MIRKWOOD_LEAVES_PARTICLE);
+        Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MiddleEarth.MOD_ID, "mallorn_leaves_particles"), MALLORN_LEAVES_PARTICLE);
+        Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MiddleEarth.MOD_ID, "mirkwood_leaves_particles"), MIRKWOOD_LEAVES_PARTICLE);
     }
 
 }

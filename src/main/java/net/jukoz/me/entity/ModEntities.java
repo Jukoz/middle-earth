@@ -3,6 +3,7 @@ package net.jukoz.me.entity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancEntity;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntity;
 import net.jukoz.me.entity.beasts.trolls.petrified.PetrifiedTrollEntity;
 import net.jukoz.me.entity.beasts.trolls.stone.StoneTrollEntity;
@@ -25,6 +26,7 @@ import net.jukoz.me.entity.projectile.pinecone.LitPineconeEntity;
 import net.jukoz.me.entity.projectile.pebble.PebbleEntity;
 import net.jukoz.me.entity.projectile.pinecone.PineconeEntity;
 import net.jukoz.me.entity.projectile.spear.SpearEntity;
+import net.jukoz.me.entity.seat.SeatEntity;
 import net.jukoz.me.entity.snail.SnailEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.swan.SwanEntity;
@@ -118,6 +120,7 @@ public class ModEntities {
     public static final EntityType<PetrifiedTrollEntity> PETRIFIED_TROLL = registerEntity("petrified_troll", PetrifiedTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
 
     ///* Weapons *///
+    public static final EntityType<FireOfOrthancEntity> FIRE_OF_ORTHANC = registerEntity("fire_of_orthanc", FireOfOrthancEntity::new, SpawnGroup.MISC, 0.65F, 0.65F);
     public static final EntityType<PebbleEntity> PEBBLE = registerEntity("pebble", PebbleEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
     public static final EntityType<PineconeEntity> PINECONE = registerEntity("pinecone", PineconeEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
     public static final EntityType<LitPineconeEntity> LIT_PINECONE = registerEntity("lit_pinecone", LitPineconeEntity::new, SpawnGroup.MISC, 0.25F, 0.25F);
@@ -133,11 +136,13 @@ public class ModEntities {
     public static final EntityType<SnailEntity> SNAIL = registerEntity("snail", SnailEntity::new, SpawnGroup.CREATURE, 0.3f, 0.3f);
     public static final EntityType<DeerEntity> DEER = registerEntity("deer", DeerEntity::new, SpawnGroup.CREATURE, 1.3f, 1.8f);
 
+    // Seat
+    public static final EntityType<SeatEntity> SEAT_ENTITY = registerEntity("seat_entity", SeatEntity::new, SpawnGroup.MISC, 0.1F, 0.1F);
 
     public static <T extends Entity> EntityType<T> registerEntity(String name, EntityType.EntityFactory<T> entity, SpawnGroup spawnGroup,
                                                                   float width, float height) {
         return Registry.register(Registries.ENTITY_TYPE,
-                new Identifier(MiddleEarth.MOD_ID, name),FabricEntityTypeBuilder.create(spawnGroup, entity).dimensions(EntityDimensions.fixed(width, height)).build());
+                Identifier.of(MiddleEarth.MOD_ID, name),FabricEntityTypeBuilder.create(spawnGroup, entity).dimensions(EntityDimensions.fixed(width, height)).build());
     }
 
     public static void registerModEntities() {

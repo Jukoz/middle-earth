@@ -2,6 +2,7 @@ package net.jukoz.me.datageneration.content.models;
 
 import net.jukoz.me.item.ModDecorativeItems;
 import net.jukoz.me.item.ModFoodItems;
+import net.jukoz.me.item.ModNatureBlockItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.item.Item;
 

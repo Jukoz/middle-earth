@@ -140,7 +140,7 @@ public class GooseEntity extends AnimalEntity {
     }
 
     public boolean canEquip(ItemStack stack) {
-        EquipmentSlot equipmentSlot = MobEntity.getPreferredEquipmentSlot(stack);
+        EquipmentSlot equipmentSlot = getPreferredEquipmentSlot(stack);
         if (!this.getEquippedStack(equipmentSlot).isEmpty()) {
             return false;
         } else {
@@ -179,14 +179,14 @@ public class GooseEntity extends AnimalEntity {
 
     }
 
-    protected void drop(DamageSource source) {
+    @Override
+    protected void drop(ServerWorld world, DamageSource damageSource) {
         ItemStack itemStack = this.getEquippedStack(EquipmentSlot.MAINHAND);
         if (!itemStack.isEmpty()) {
             this.dropStack(itemStack);
             this.equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
         }
-
-        super.drop(source);
+        super.drop(world, damageSource);
     }
 
     protected EntityNavigation createNavigation(World world) {

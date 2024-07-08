@@ -306,6 +306,6 @@ public class ModArmorMaterials {
             enumMap.put(type, defense.get(type));
         }
         ArmorMaterial material =  new ArmorMaterial(enumMap, enchantability, equipSound, repairIngredient, layers, toughness, knockbackResistance);
-        return new ExtendedArmorMaterial(Registry.registerReference(Registries.ARMOR_MATERIAL, new Identifier(id), material), durabilityMultiplier, faction, subFaction, tier);
+        return new ExtendedArmorMaterial(Registry.registerReference(Registries.ARMOR_MATERIAL, Identifier.of(id), material), durabilityMultiplier, faction, subFaction, tier);
     }
 }
