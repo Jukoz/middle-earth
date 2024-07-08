@@ -17,6 +17,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BannerBlockEntity;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.block.entity.BannerPatterns;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.LayeredDrawer;
 import net.minecraft.client.gui.screen.Screen;
@@ -49,11 +50,16 @@ import org.joml.Vector2f;
 import org.joml.Vector2i;
 import org.joml.Vector3f;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class OnboardingScreen extends Screen {
+    private static final Identifier FACTION_SELECTION_UI = new Identifier(MiddleEarth.MOD_ID,"textures/gui/faction_selection.png");
+    private static final Identifier FACTION_SELECTION_BANNER_UI = new Identifier(MiddleEarth.MOD_ID,"textures/gui/faction_selection_banner.png");
+
+
     private static final Identifier MAP_BACKGROUND = new Identifier(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
     private static final Identifier MAP_UI_TEXTURE = new Identifier(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
     private static final Identifier MAP_TEXTURE = new Identifier(MiddleEarth.MOD_ID,"textures/map.png");
@@ -100,24 +106,132 @@ public class OnboardingScreen extends Screen {
                 this.player = abstractClientPlayerEntity;
 
                 this.renderBackground(context, mouseX, mouseY, delta);
-                this.drawWindow(context, this.client.options.getGuiScale().getValue());
+                int guiScale = this.client.options.getGuiScale().getValue();
+                this.drawPanels(context, guiScale);
+
+                //this.drawWindow(context, this.client.options.getGuiScale().getValue());
             } else {
                 this.player = null;
             }
         }
     }
 
-    protected Vector2i getStartCenter(DrawContext context){
-        int marginTop = 100;
-        Vector2i center = new Vector2i(
-            (int) (context.getScaledWindowWidth() / 2f),
-            context.getScaledWindowHeight() + marginTop
-        );
-        return center;
+    protected void drawPanels(DrawContext context, int guiScale){
+        int mainPanelWidth = 169;
+        int mainPanelHeight = 207;
+        int minimalMargin = 8;
 
+        drawFactionSelectionPanel(context, mainPanelWidth, mainPanelHeight, minimalMargin);
+        drawInformationPanel(context, mainPanelWidth, mainPanelHeight);
+        drawMapPanel(context, mainPanelWidth, mainPanelHeight, minimalMargin);
     }
 
+    private void drawInformationPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight) {
+        int startX = (int) ((context.getScaledWindowWidth() / 2f) - (mainPanelWidth / 2f));
+        int startY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f));
+
+        context.drawTexture(FACTION_SELECTION_UI,
+                startX,
+                startY,
+                0, 0,
+                mainPanelWidth,
+                mainPanelHeight
+        );
+
+        drawFactionBanner(context, startX + mainPanelWidth - 60, startY + 3);
+    }
+
+    private void drawFactionSelectionPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight, int minimalMargin) {
+        int endX = (int) ((context.getScaledWindowWidth() / 2f) - (mainPanelWidth / 2f) - minimalMargin);
+        int startX = Math.max(minimalMargin, endX - mainPanelWidth);
+        int startY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f));
+
+        int widthX = endX - Math.max(minimalMargin, startX);
+
+        int centerX = startX + (int) ((widthX / 2f));
+
+        // Draw alignment option
+        startY += drawAlignmentSelection(context, centerX, startY, widthX, "Good");
+        startY += drawAlignmentSelection(context, centerX, startY, widthX, "Longbeard");
+        startY += drawAlignmentSelection(context, centerX, startY, widthX, "Erebor");
+
+        drawNpcPreview(context, centerX, startY + 75);
+        drawFactionRandomizer(context, centerX, (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight);
+    }
+
+    protected int drawAlignmentSelection(DrawContext context, int centerX, int startY, int widthX, String tempText){
+        int sizeX = 102;
+        int sizeY = 18;
+
+        // Text panel
+        context.drawTexture(FACTION_SELECTION_UI,
+                (int) (centerX - (sizeX / 2f)),
+                startY,
+                0, 227,
+                sizeX,
+                sizeY
+        );
+
+        // Dynamic text panel
+        String name = tempText;
+
+        context.drawText(textRenderer, name,
+                (int)(centerX - textRenderer.getWidth(name) / 2f),
+                startY + (int) ((sizeY / 2f) - (textRenderer.fontHeight / 2f)), 0, false);
+
+        int arrowStartY = (int) (startY + (sizeY / 2f) - (11 / 2f));
+        // Left arrow
+        context.drawTexture(FACTION_SELECTION_UI,
+                (int) (centerX - (sizeX / 2f) - 7) - 5,
+                arrowStartY,
+                216, 17,
+                7,
+                11
+        );
+        // Right arrow
+        context.drawTexture(FACTION_SELECTION_UI,
+                (int) (centerX + (sizeX / 2f)) + 5,
+                arrowStartY,
+                225, 17,
+                7,
+                11
+        );
+
+        return sizeY + 5;
+    }
+
+    protected void drawFactionRandomizer(DrawContext context, int centerX, int endY) {
+        int sizeX = 52;
+        int sizeY = 18;
+
+        context.drawTexture(FACTION_SELECTION_UI,
+                (int) (centerX - (sizeX / 2f)),
+                endY - sizeY,
+                123, 208,
+                sizeX,
+                sizeY
+        );
+    }
+
+
+    private void drawMapPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight, int minimalMargin) {
+        int startX = (int) ((context.getScaledWindowWidth() / 2f) + (mainPanelWidth / 2f)) + minimalMargin;
+        int widthX = context.getScaledWindowWidth() - startX - minimalMargin;
+
+        context.drawTexture(MAP_TEXTURE,
+                startX,
+                (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)),
+                0, 0,
+                Math.min(widthX, mainPanelWidth -minimalMargin),
+                Math.min(widthX, mainPanelWidth)
+        );
+    }
+
+
+
     protected void setup() {
+        DiffuseLighting.disableGuiDepthLighting();
+
         ButtonWidget debugButton = ButtonWidget.builder(Text.literal("Debug"), button -> {
                     debug = !debug;
                 })
@@ -144,32 +258,106 @@ public class OnboardingScreen extends Screen {
         this.entity.equipStack(EquipmentSlot.OFFHAND, prevData.OFF_HAND);
     }
 
-    public void drawWindow(DrawContext context, int guiScale) {
-        RenderSystem.enableBlend();
-
-        Vector2i center = getStartCenter(context);
-        float marginPercent = 3.5f; // PER Side
-        float panelPercent = (100f - (marginPercent * 2f)) / 3f; // PER panel (3)
-
-        context.drawTexture(MAP_BACKGROUND, 0, 0, 0,0,256, 256, 128, 128, 128, 128);
-
-        int xCenter = (context.getScaledWindowWidth() / 2);
-        int yCenter = (context.getScaledWindowHeight() / 2);
-
-        drawMap(context, (float) xCenter / 2 * 3, yCenter, guiScale);
-
-        drawNpcPreview(context, xCenter, yCenter);
-        drawFactionBanner(context, xCenter, yCenter / 2f * 3f);
-    }
 
     private void drawNpcPreview(DrawContext context, float anchorX, float anchorY){
-        float size = 30f;
+        float size = 50f;
         float x = anchorX;
         float y = anchorY + (size / 2f);
 
+        DiffuseLighting.disableGuiDepthLighting();
+        DiffuseLighting.disableForLevel();
         InventoryScreen.drawEntity(context, x, y, size, VECTOR, ENTITY_ROTATION, (Quaternionf)null, this.entity);
     }
 
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if(keyCode == 27){
+            this.close();
+            return true;
+        }
+        if (keyCode == 256) {
+            this.close();
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    private void drawFactionBanner(DrawContext context, float startX, float startY){
+        // TODO : Make it so day cycle doesn't affect brightness
+        DiffuseLighting.disableGuiDepthLighting();
+
+        float size = 32f;
+
+        float x = startX;
+        float y = startY;
+
+        int borderMarginX = 2;
+        int borderMarginY = 2;
+
+        MatrixStack matrixStack = new MatrixStack();
+        matrixStack.translate(x + borderMarginX + (size / 2f) + 4, y + borderMarginY, 0f);
+        matrixStack.push();
+        matrixStack.scale(-size, size, 0.1f);
+        this.bannerField.pitch = 0.0F;
+
+        List<RegistryEntry<BannerPattern>> list = new ArrayList<>();
+
+        var bannerPatternRegistry = this.client.world.getRegistryManager().get(RegistryKeys.BANNER_PATTERN);
+
+        list.add(bannerPatternRegistry.getEntry(BannerPatterns.CURLY_BORDER).get());
+        list.add(bannerPatternRegistry.getEntry(BannerPatterns.GRADIENT_UP).get());
+        list.add(bannerPatternRegistry.getEntry(BannerPatterns.TRIANGLE_BOTTOM).get());
+        list.add(bannerPatternRegistry.getEntry(BannerPatterns.TRIANGLES_BOTTOM).get());
+        list.add(bannerPatternRegistry.getEntry(ModBannerPatterns.DRAGON_BANNER_PATTERN).get());
+
+        BannerPatternsComponent bannerPatternsComponent = new BannerPatternsComponent.Builder()
+        .add(list.get(0), DyeColor.WHITE)
+        .add(list.get(1), DyeColor.BROWN)
+        .add(list.get(2), DyeColor.BLACK)
+        .add(list.get(3), DyeColor.GREEN)
+        .add(list.get(4), DyeColor.RED)
+        .build();
+
+        BannerBlockEntityRenderer.renderCanvas(matrixStack, context.getVertexConsumers(), 15728880, OverlayTexture.DEFAULT_UV, this.bannerField, ModelLoader.BANNER_BASE, true, DyeColor.BLUE, bannerPatternsComponent);
+        matrixStack.pop();
+        context.draw();
+        DiffuseLighting.enableGuiDepthLighting();
+
+        context.drawTexture(FACTION_SELECTION_BANNER_UI,
+                (int) x - 2,
+                (int) y - 2,
+                0, 0,
+                48,
+                112
+        );
+    }
+
+    static {
+        VECTOR = new Vector3f();
+        // Vanilla values from SmithingScreen
+        ENTITY_ROTATION = (new Quaternionf()).rotationXYZ(0.43633232F, 0.0F, 3.1415927F);
+
+        NPC_PREVIEWS.add(new FactionNpcPreviewData(
+                Factions.EREBOR,
+                ModEquipmentItems.EREBOR_PLATE_HELMET,
+                ModEquipmentItems.EREBOR_PLATE_CHESTPLATE,
+                ModEquipmentItems.EREBOR_PLATE_LEGGINGS,
+                ModEquipmentItems.EREBOR_PLATE_BOOTS,
+                ModWeaponItems.LONGBEARD_SWORD,
+                ModEquipmentItems.LONGBEARD_SHIELD
+        ));
+        NPC_PREVIEWS.add(new FactionNpcPreviewData(
+                Factions.GONDOR,
+                ModEquipmentItems.GONDORIAN_PLATE_HELMET,
+                ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE,
+                ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS,
+                ModEquipmentItems.GONDORIAN_PLATE_BOOTS,
+                ModWeaponItems.GONDOR_LONGSWORD,
+                ModEquipmentItems.GONDORIAN_SHIELD
+        ));
+    }
+
+    /*
     private void drawMap(DrawContext context, float anchorX, float anchorY, int guiScale){
         int size = (int) (400 * guiScaleModifier.get(guiScale));
 
@@ -242,83 +430,5 @@ public class OnboardingScreen extends Screen {
         );
     }
 
-    @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if(keyCode == 27){
-            this.close();
-            return true;
-        }
-        if (keyCode == 256) {
-            this.close();
-            return true;
-        }
-        return super.keyPressed(keyCode, scanCode, modifiers);
-    }
-
-    static {
-        VECTOR = new Vector3f();
-        // Vanilla values from SmithingScreen
-        ENTITY_ROTATION = (new Quaternionf()).rotationXYZ(0.43633232F, 0.0F, 3.1415927F);
-
-        NPC_PREVIEWS.add(new FactionNpcPreviewData(
-                Factions.EREBOR,
-                ModEquipmentItems.EREBOR_PLATE_HELMET,
-                ModEquipmentItems.EREBOR_PLATE_CHESTPLATE,
-                ModEquipmentItems.EREBOR_PLATE_LEGGINGS,
-                ModEquipmentItems.EREBOR_PLATE_BOOTS,
-                ModWeaponItems.LONGBEARD_SWORD,
-                ModEquipmentItems.LONGBEARD_SHIELD
-        ));
-        NPC_PREVIEWS.add(new FactionNpcPreviewData(
-                Factions.GONDOR,
-                ModEquipmentItems.GONDORIAN_PLATE_HELMET,
-                ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE,
-                ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS,
-                ModEquipmentItems.GONDORIAN_PLATE_BOOTS,
-                ModWeaponItems.GONDOR_LONGSWORD,
-                ModEquipmentItems.GONDORIAN_SHIELD
-        ));
-    }
-    private void drawFactionBanner(DrawContext context, float anchorX, float anchorY){
-        // TODO : Make it so day cycle doesn't affect brightness
-        DiffuseLighting.disableGuiDepthLighting();
-
-        float size = 30f;
-        float ratioX = 0f;
-        float ratioY = 3f;
-
-        float x = anchorX;
-        float y = anchorY;
-
-
-        MatrixStack matrixStack = new MatrixStack();
-        matrixStack.translate(x - ((size * ratioX) / 2f), y - ((size * ratioY) / 2f), 0);
-        matrixStack.push();
-        matrixStack.scale(-size, size, 1.0F);
-        this.bannerField.pitch = 0.0F;
-
-        List<RegistryEntry<BannerPattern>> list = new ArrayList<>();
-
-        var bannerPatternRegistry = this.client.world.getRegistryManager().get(RegistryKeys.BANNER_PATTERN);
-
-        list.add(bannerPatternRegistry.getEntry(BannerPatterns.CURLY_BORDER).get());
-        list.add(bannerPatternRegistry.getEntry(BannerPatterns.GRADIENT_UP).get());
-        list.add(bannerPatternRegistry.getEntry(BannerPatterns.TRIANGLE_BOTTOM).get());
-        list.add(bannerPatternRegistry.getEntry(BannerPatterns.TRIANGLES_BOTTOM).get());
-        list.add(bannerPatternRegistry.getEntry(ModBannerPatterns.DRAGON_BANNER_PATTERN).get());
-
-        BannerPatternsComponent bannerPatternsComponent = new BannerPatternsComponent.Builder()
-        .add(list.get(0), DyeColor.WHITE)
-        .add(list.get(1), DyeColor.BROWN)
-        .add(list.get(2), DyeColor.BLACK)
-        .add(list.get(3), DyeColor.GREEN)
-        .add(list.get(4), DyeColor.RED)
-        .build();
-
-        BannerBlockEntityRenderer.renderCanvas(matrixStack, context.getVertexConsumers(), 16777215, OverlayTexture.DEFAULT_UV, this.bannerField, ModelLoader.BANNER_BASE, true, DyeColor.BLUE, bannerPatternsComponent);
-        matrixStack.pop();
-        context.draw();
-        DiffuseLighting.enableGuiDepthLighting();
-        }
-
+     */
 }
