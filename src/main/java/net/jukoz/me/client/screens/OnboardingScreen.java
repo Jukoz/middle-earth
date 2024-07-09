@@ -56,13 +56,13 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class OnboardingScreen extends Screen {
-    private static final Identifier FACTION_SELECTION_UI = new Identifier(MiddleEarth.MOD_ID,"textures/gui/faction_selection.png");
-    private static final Identifier FACTION_SELECTION_BANNER_UI = new Identifier(MiddleEarth.MOD_ID,"textures/gui/faction_selection_banner.png");
+    private static final Identifier FACTION_SELECTION_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection.png");
+    private static final Identifier FACTION_SELECTION_BANNER_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_banner.png");
 
 
-    private static final Identifier MAP_BACKGROUND = new Identifier(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
-    private static final Identifier MAP_UI_TEXTURE = new Identifier(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
-    private static final Identifier MAP_TEXTURE = new Identifier(MiddleEarth.MOD_ID,"textures/map.png");
+    private static final Identifier MAP_BACKGROUND = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
+    private static final Identifier MAP_UI_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
+    private static final Identifier MAP_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
     private static final Text ONBOARDING_TEXT = Text.of("Onboarding");
     private static boolean debug = false;
     AbstractClientPlayerEntity player;
