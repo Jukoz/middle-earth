@@ -1,29 +1,28 @@
 package net.jukoz.me.mixin.client;
 
-import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.datageneration.VariantsModelProvider;
 import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
+import com.llamalad7.mixinextras.sugar.Local;
+import net.jukoz.me.item.ModDataComponentTypes;
+import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ItemRenderer.class)
 public abstract class ItemRendererMixin {
@@ -41,6 +40,15 @@ public abstract class ItemRendererMixin {
                 return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
             }
         }
+        if(isItemHot(stack)) {
+            Identifier identifier = VariantsModelProvider.getHotModelIdentifierVariant(stack.getItem());
+            return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
+        }
         return model;
     }
+
+    private static boolean isItemHot(ItemStack stack) {
+        return stack.getComponents().contains(ModDataComponentTypes.TEMPERATURE_DATA);
+    }
+
 }

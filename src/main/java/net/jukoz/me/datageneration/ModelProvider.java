@@ -858,16 +858,6 @@ public class ModelProvider extends FabricModelProvider {
 
     public static final Identifier TRIM_TYPE = Identifier.of("trim_type");
     private static final List<ItemTrimMaterial> TRIM_MATERIALS = List.of(
-            new ItemTrimMaterial("quartz", 0.1f, Map.of()),
-            new ItemTrimMaterial("iron", 0.2f, Map.of(ArmorMaterials.IRON, "iron_darker")),
-            new ItemTrimMaterial("netherite", 0.3f, Map.of(ArmorMaterials.NETHERITE, "netherite_darker")),
-            new ItemTrimMaterial("redstone", 0.4f, Map.of()),
-            new ItemTrimMaterial("copper", 0.5f, Map.of()),
-            new ItemTrimMaterial("gold", 0.6f, Map.of(ArmorMaterials.GOLD, "gold_darker")),
-            new ItemTrimMaterial("emerald", 0.7f, Map.of()),
-            new ItemTrimMaterial("diamond", 0.8f, Map.of(ArmorMaterials.DIAMOND, "diamond_darker")),
-            new ItemTrimMaterial("lapis", 0.9f, Map.of()),
-            new ItemTrimMaterial("amethyst", 1.0f, Map.of()),
             new ItemTrimMaterial("jade", 0.001f, Map.of()),
             new ItemTrimMaterial("tin", 0.002f, Map.of()),
             new ItemTrimMaterial("lead", 0.003f, Map.of()),
@@ -879,7 +869,18 @@ public class ModelProvider extends FabricModelProvider {
             new ItemTrimMaterial("elven_steel", 0.009f, Map.of()),
             new ItemTrimMaterial("dwarven_steel", 0.011f, Map.of()),
             new ItemTrimMaterial("morgul_steel", 0.012f, Map.of()),
-            new ItemTrimMaterial("mithril", 0.013f, Map.of()));
+            new ItemTrimMaterial("mithril", 0.013f, Map.of()),
+            new ItemTrimMaterial("quartz", 0.1f, Map.of()),
+            new ItemTrimMaterial("iron", 0.2f, Map.of(ArmorMaterials.IRON, "iron_darker")),
+            new ItemTrimMaterial("netherite", 0.3f, Map.of(ArmorMaterials.NETHERITE, "netherite_darker")),
+            new ItemTrimMaterial("redstone", 0.4f, Map.of()),
+            new ItemTrimMaterial("copper", 0.5f, Map.of()),
+            new ItemTrimMaterial("gold", 0.6f, Map.of(ArmorMaterials.GOLD, "gold_darker")),
+            new ItemTrimMaterial("emerald", 0.7f, Map.of()),
+            new ItemTrimMaterial("diamond", 0.8f, Map.of(ArmorMaterials.DIAMOND, "diamond_darker")),
+            new ItemTrimMaterial("lapis", 0.9f, Map.of()),
+            new ItemTrimMaterial("amethyst", 1.0f, Map.of())
+    );
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
@@ -904,6 +905,18 @@ public class ModelProvider extends FabricModelProvider {
         for (Item item : SimpleBigItemModel.items) {
             itemModelGenerator.register(item, CustomItemModels.BIG_WEAPON);
             itemModelGenerator.register(item, "_inventory", Models.HANDHELD);
+        }
+
+        for (Item item : HotMetalsModel.items) {
+            itemModelGenerator.register(item, "_hot", Models.GENERATED);
+        }
+
+        for (Item item : HotMetalsModel.ingots) {
+            Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"), TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "ingot_hot")), itemModelGenerator.writer);
+        }
+
+        for (Item item : HotMetalsModel.nuggets) {
+            Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"), TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "nugget_hot")), itemModelGenerator.writer);
         }
 
         for (Item item : SimpleBowItemModel.items) {
@@ -998,7 +1011,6 @@ public class ModelProvider extends FabricModelProvider {
             JsonObject jsonObject2 = new JsonObject();
             JsonObject jsonObject3 = new JsonObject();
             jsonObject3.addProperty(TRIM_TYPE.getPath(), Float.valueOf(trimMaterial.itemModelIndex()));
-            jsonObject3.addProperty("temperature", Boolean.valueOf(false));
             jsonObject2.add("predicate", jsonObject3);
             String string;
             if(trimMaterial.name.contains("iron")){
@@ -1010,23 +1022,9 @@ public class ModelProvider extends FabricModelProvider {
             jsonArray.add(jsonObject2);
         }
 
-        jsonArray = predicateTemperature(jsonArray, true, identifierItem);
-
         jsonObject.add("overrides", jsonArray);
 
         return jsonObject;
-    }
-
-    public JsonArray predicateTemperature(JsonArray array, boolean bool, Identifier id){
-        JsonObject jsonObject5 = new JsonObject();
-        JsonObject jsonObject6 = new JsonObject();
-        jsonObject5.addProperty("temperature", Boolean.valueOf(bool));
-        jsonObject6.add("predicate", jsonObject5);
-        jsonObject6.addProperty("model", id + "_hot");
-
-        array.add(jsonObject6);
-
-        return array;
     }
 
     record ItemTrimMaterial(String name, float itemModelIndex, Map<RegistryEntry<ArmorMaterial>, String> overrideArmorMaterials) {
