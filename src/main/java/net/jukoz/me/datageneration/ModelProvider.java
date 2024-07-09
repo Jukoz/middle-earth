@@ -998,6 +998,7 @@ public class ModelProvider extends FabricModelProvider {
             JsonObject jsonObject2 = new JsonObject();
             JsonObject jsonObject3 = new JsonObject();
             jsonObject3.addProperty(TRIM_TYPE.getPath(), Float.valueOf(trimMaterial.itemModelIndex()));
+            jsonObject3.addProperty("temperature", Boolean.valueOf(false));
             jsonObject2.add("predicate", jsonObject3);
             String string;
             if(trimMaterial.name.contains("iron")){
@@ -1008,9 +1009,24 @@ public class ModelProvider extends FabricModelProvider {
             jsonObject2.addProperty("model", itemModelGenerator.suffixTrim(id, string).toString());
             jsonArray.add(jsonObject2);
         }
+
+        jsonArray = predicateTemperature(jsonArray, true, identifierItem);
+
         jsonObject.add("overrides", jsonArray);
 
         return jsonObject;
+    }
+
+    public JsonArray predicateTemperature(JsonArray array, boolean bool, Identifier id){
+        JsonObject jsonObject5 = new JsonObject();
+        JsonObject jsonObject6 = new JsonObject();
+        jsonObject5.addProperty("temperature", Boolean.valueOf(bool));
+        jsonObject6.add("predicate", jsonObject5);
+        jsonObject6.addProperty("model", id + "_hot");
+
+        array.add(jsonObject6);
+
+        return array;
     }
 
     record ItemTrimMaterial(String name, float itemModelIndex, Map<RegistryEntry<ArmorMaterial>, String> overrideArmorMaterials) {
