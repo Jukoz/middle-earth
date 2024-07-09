@@ -12,7 +12,7 @@ import java.util.function.UnaryOperator;
 
 public class ModDataComponentTypes {
 
-    public static final ComponentType<TemperatureDataComponent> TEMPERATURE_DATA = register("temprature", (builder) -> {
+    public static final ComponentType<TemperatureDataComponent> TEMPERATURE_DATA = register("temperature", (builder) -> {
         return builder.codec(TemperatureDataComponent.CODEC).packetCodec(TemperatureDataComponent.PACKET_CODEC);
     });
 
