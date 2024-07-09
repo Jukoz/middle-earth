@@ -25,9 +25,9 @@ public class PheasantRenderer extends MobEntityRenderer<PheasantEntity, Pheasant
     public static final Map<PheasantVariant, Identifier> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(PheasantVariant.class), (map) -> {
                 map.put(PheasantVariant.MALE,
-                        new Identifier(MiddleEarth.MOD_ID, PATH + "pheasant1m.png"));
+                        Identifier.of(MiddleEarth.MOD_ID, PATH + "pheasant1m.png"));
                 map.put(PheasantVariant.FEMALE,
-                        new Identifier(MiddleEarth.MOD_ID, PATH + "pheasant1f.png"));
+                        Identifier.of(MiddleEarth.MOD_ID, PATH + "pheasant1f.png"));
             });
 
     @Override

@@ -26,7 +26,7 @@ public class BanditHumanRenderer extends BipedEntityRenderer<BanditHumanEntity, 
 
     @Override
     public Identifier getTexture(BanditHumanEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     public static final Map<BanditHumanVariant, String> LOCATION_BY_VARIANT =

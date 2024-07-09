@@ -51,14 +51,15 @@ public class SwanModel<T extends SwanEntity> extends EntityModel<SwanEntity> {
                 .uv(0, 8).cuboid(-1.0F, 4.0F, -3.0F, 2.0F, 0.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(2.5F, 20.0F, 3.0F));
         return TexturedModelData.of(modelData, 64, 64);
     }
+
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-        head.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        body.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        right_wing.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        left_wing.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        right_leg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-        left_leg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+        head.render(matrices, vertices, light, overlay, color);
+        body.render(matrices, vertices, light, overlay, color);
+        right_wing.render(matrices, vertices, light, overlay, color);
+        left_wing.render(matrices, vertices, light, overlay, color);
+        right_leg.render(matrices, vertices, light, overlay, color);
+        left_leg.render(matrices, vertices, light, overlay, color);
     }
 
     @Override

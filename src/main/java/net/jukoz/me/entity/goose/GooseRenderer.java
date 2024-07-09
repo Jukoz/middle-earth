@@ -43,7 +43,7 @@ public class GooseRenderer extends MobEntityRenderer<GooseEntity, GooseModel<Goo
             });
 
     public Identifier getTexture(GooseEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     @Override

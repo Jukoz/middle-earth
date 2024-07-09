@@ -2,17 +2,20 @@ package net.jukoz.me;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.jukoz.me.block.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntityRenderer;
+import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
+import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
 import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
 import net.jukoz.me.client.model.equipment.InnerArmorModel;
 import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
 import net.jukoz.me.client.model.equipment.head.RohirricHelmetArmorModel;
 import net.jukoz.me.client.renderer.ModArmorRenderer;
 import net.jukoz.me.datageneration.VariantsModelProvider;
+import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleDoubleBlockModel;
 import net.jukoz.me.datageneration.content.models.SimpleFlowerBedModel;
 import net.jukoz.me.datageneration.content.models.TintableCrossModel;
@@ -38,6 +41,7 @@ import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
 import net.jukoz.me.entity.pheasant.PheasantRenderer;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntityRenderer;
 import net.jukoz.me.entity.projectile.spear.JavelinEntityRenderer;
+import net.jukoz.me.entity.seat.SeatRenderer;
 import net.jukoz.me.entity.snail.SnailRenderer;
 import net.jukoz.me.entity.spider.MirkwoodSpiderRenderer;
 import net.jukoz.me.entity.swan.SwanRenderer;
@@ -49,32 +53,34 @@ import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreen;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreen;
 import net.jukoz.me.gui.wood_pile.WoodPileScreen;
-import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.utils.ModArmors;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
 import net.jukoz.me.network.ModNetworks;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.particles.custom.LeavesParticle;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.color.world.BiomeColors;
-import net.minecraft.client.color.world.FoliageColors;
-import net.minecraft.client.color.world.GrassColors;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+
 import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.FoliageColors;
+import net.minecraft.world.biome.GrassColors;
 
 public class MiddleEarthClient implements ClientModInitializer {
 
-    public static final EntityModelLayer INNER_ARMOR_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "armor"), "layer_0");
-    public static final EntityModelLayer HELMET_ADDON_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "armor"), "helmet_addon");
-    public static final EntityModelLayer CAPE_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "armor"), "cape");
-    public static final EntityModelLayer HOOD_MODEL_LAYER = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, "armor"), "hood");
+    public static final EntityModelLayer INNER_ARMOR_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "layer_0");
+    public static final EntityModelLayer HELMET_ADDON_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "helmet_addon");
+    public static final EntityModelLayer CAPE_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "cape");
+    public static final EntityModelLayer HOOD_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "hood");
 
     @Override
     public void onInitializeClient() {
@@ -137,9 +143,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.BANDIT_MILITIA, BanditHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.BANDIT_SOLDIER, BanditHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.BANDIT_CHIEFTAIN, BanditHumanRenderer::new);
-
-        // Items
-        ModelLoadingRegistry.INSTANCE.registerModelProvider(((manager, out) -> new VariantsModelProvider().provideExtraModels(manager, out)));
+        
+        EntityRendererRegistry.register(ModEntities.FIRE_OF_ORTHANC, FireOfOrthancEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.PEBBLE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.PINECONE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.LIT_PINECONE, FlyingItemEntityRenderer::new);
@@ -160,12 +165,15 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SNAIL, SnailRenderer::new);
         EntityRendererRegistry.register(ModEntities.DEER, DeerRenderer::new);
 
+        EntityRendererRegistry.register(ModEntities.SEAT_ENTITY, SeatRenderer::new);
+
         ModModelPredicateProvider.registerAllPredicates();
 
         HandledScreens.register(ModScreenHandlers.ALLOY_SCREEN_HANDLER, AlloyFurnaceScreen::new);
         HandledScreens.register(ModScreenHandlers.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
         HandledScreens.register(ModScreenHandlers.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
-        BlockEntityRendererRegistry.register(ModBlockEntities.ALLOY_FURNACE, AlloyFurnaceEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.ALLOY_FURNACE, AlloyFurnaceEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
 
         ModNetworks.registerS2CPackets();
 
@@ -178,6 +186,14 @@ public class MiddleEarthClient implements ClientModInitializer {
         ArmorRenderer.register(new ModArmorRenderer(armor.getHelmetModel(), armor.getChestPlateModel(), armor.getSimpleName(), armor.hasInnerLayer() , armor.hasVanillaArmorModel(), armor.hasCape(), armor.hasHood(), armor.isDyeable()),
                     armor.getItems());
         }
+
+        ModelLoadingPlugin.register(pluginContext -> {
+            for(Item item : SimpleBigItemModel.items) {
+                Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
+                pluginContext.addModels(identifier);
+            }
+        });
+
 
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MALLORN_LEAVES_PARTICLE, LeavesParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE, LeavesParticle.Factory::new);
@@ -209,26 +225,42 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.HEATHER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.HEATHER_BUSH, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.RED_HEATHER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.DEAD_HEATHER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WHEATGRASS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILD_GRASS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILDERGRASS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.BEACH_GRASS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.COASTAL_PANIC_GRASS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.SEDUM, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.YELLOW_SEDUM, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.SHORT_CATTAILS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.SHORT_BULRUSH, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.SHRIVELED_SHRUB, RenderLayer.getCutout());
+
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.HOROKAKA, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.GIANT_HOROKAKA, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.SMALL_LILY_PADS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.SMALL_FLOWERING_LILY_PADS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.LILY_PADS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.DUCKWEED, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GRASSY_DIRT, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.FIRE_OF_ORTHANC, RenderLayer.getCutout());
 
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> {
             if (view == null || pos == null) {
                 return GrassColors.getDefaultColor();
             }
             return BiomeColors.getGrassColor(view, pos);
-        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS);
+        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS, ModBlocks.GRASSY_DIRT, ModBlocks.TURF);
 
         ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
             BlockState blockState = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
             return FoliageColors.getDefaultColor();
-        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS);
-
+        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS, ModBlocks.GRASSY_DIRT, ModBlocks.TURF);
 
         for(Block block : SimpleDoubleBlockModel.doubleBlocks){
             BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
@@ -241,6 +273,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WHITE_MUSHROOM, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WHITE_MUSHROOM_TILLER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.MOSS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.STICKY_SNOW, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.FOREST_MOSS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.CORRUPTED_MOSS, RenderLayer.getCutout());
 
@@ -303,13 +336,19 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WOOD_FRAMED_WINDOW, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WOOD_FRAMED_WINDOW_PANE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WATTLE_AND_BRICK_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WATTLE_AND_BRICK_WINDOW_PANE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WATTLE_FRAMED_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WATTLE_FRAMED_WINDOW_PANE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.DARK_WATTLE_FRAMED_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.DARK_WATTLE_FRAMED_WINDOW_PANE, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW_PANE, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW_PANE, RenderLayer.getTranslucent());
 
-        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.EPMOSTO_CARVED_WINDOW, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.EPMOSTO_CARVED_WINDOW_PANE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.MEDGON_CARVED_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.MEDGON_CARVED_WINDOW_PANE, RenderLayer.getTranslucent());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.LEAD_GLASS, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.BLUE_STAINED_LEAD_GLASS, RenderLayer.getTranslucent());
@@ -348,6 +387,15 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.YELLOW_STAINED_LEAD_GLASS_PANE, RenderLayer.getTranslucent());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModResourceItems.REEDS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.TALL_CATTAILS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.TALL_BULRUSH, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.BIG_BRAZIER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.SMALL_BRAZIER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.FIRE_BOWL, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.BONFIRE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.SCONCE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WALL_SCONCE, RenderLayer.getCutout());
     }
 
     /*private void registerDyeableItem(Item item) {

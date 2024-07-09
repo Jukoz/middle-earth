@@ -131,6 +131,11 @@ public class ModRegistries {
         OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.AGED_THATCH.verticalSlab(), RoofBlockSets.OLD_THATCH.verticalSlab());
         OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.AGED_THATCH.stairs(), RoofBlockSets.OLD_THATCH.stairs());
         OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.AGED_THATCH.wall(), RoofBlockSets.OLD_THATCH.wall());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.OLD_THATCH.block(), RoofBlockSets.ROTTEN_THATCH.block());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.OLD_THATCH.slab(), RoofBlockSets.ROTTEN_THATCH.slab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.OLD_THATCH.verticalSlab(), RoofBlockSets.ROTTEN_THATCH.verticalSlab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.OLD_THATCH.stairs(), RoofBlockSets.ROTTEN_THATCH.stairs());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.OLD_THATCH.wall(), RoofBlockSets.ROTTEN_THATCH.wall());
 
         OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.THATCH.block(), RoofBlockSets.WAXED_THATCH.block());
         OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.THATCH.slab(), RoofBlockSets.WAXED_THATCH.slab());
@@ -152,6 +157,11 @@ public class ModRegistries {
         OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.OLD_THATCH.verticalSlab(), RoofBlockSets.WAXED_OLD_THATCH.verticalSlab());
         OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.OLD_THATCH.stairs(), RoofBlockSets.WAXED_OLD_THATCH.stairs());
         OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.OLD_THATCH.wall(), RoofBlockSets.WAXED_OLD_THATCH.wall());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.ROTTEN_THATCH.block(), RoofBlockSets.WAXED_ROTTEN_THATCH.block());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.ROTTEN_THATCH.slab(), RoofBlockSets.WAXED_ROTTEN_THATCH.slab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.ROTTEN_THATCH.verticalSlab(), RoofBlockSets.WAXED_ROTTEN_THATCH.verticalSlab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.ROTTEN_THATCH.stairs(), RoofBlockSets.WAXED_ROTTEN_THATCH.stairs());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.ROTTEN_THATCH.wall(), RoofBlockSets.WAXED_ROTTEN_THATCH.wall());
     }
 
     public static void registerFuels(){
@@ -292,11 +302,18 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.WILDERGRASS, 0.30f);
         registry.add(ModNatureBlocks.BEACH_GRASS, 0.30f);
         registry.add(ModNatureBlocks.COASTAL_PANIC_GRASS, 0.30f);
+        registry.add(ModNatureBlocks.SEDUM, 0.30f);
+        registry.add(ModNatureBlocks.YELLOW_SEDUM, 0.30f);
+        registry.add(ModNatureBlocks.SHORT_CATTAILS, 0.30f);
+        registry.add(ModNatureBlocks.SHORT_BULRUSH, 0.30f);
         registry.add(ModNatureBlocks.HEATHER, 0.50f);
         registry.add(ModNatureBlocks.RED_HEATHER, 0.50f);
+        registry.add(ModNatureBlocks.DEAD_HEATHER, 0.30f);
         registry.add(ModNatureBlocks.HEATHER_BUSH, 0.65f);
         registry.add(ModNatureBlocks.GIANT_HOROKAKA, 0.65f);
         registry.add(ModNatureBlocks.HOROKAKA, 0.50f);
+
+        registry.add(ModNatureBlocks.SHRIVELED_SHRUB, 0.30f);
 
         registry.add(ModNatureBlocks.BROWN_BOLETE, 0.65f);
         registry.add(ModNatureBlocks.CAVE_AMANITA, 0.65f);
@@ -335,7 +352,12 @@ public class ModRegistries {
             registry.add(block, 0.3F);
         });
         registry.add(ModNatureBlocks.LEBETHRON_LEAVES, 0.3F);
+
+        registry.add(ModNatureBlocks.DRY_PINE_LEAVES, 0.3F);
+        registry.add(ModNatureBlocks.PINE_BRANCHES, 0.3F);
+
         registry.add(ModNatureBlocks.MAPLE_LEAVES, 0.3F);
+
 
         registry.add(ModNatureBlocks.WILD_PIPEWEED, 0.5F);
         registry.add(ModNatureBlocks.WILD_FLAX, 0.5F);

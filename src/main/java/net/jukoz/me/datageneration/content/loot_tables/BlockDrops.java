@@ -1,11 +1,8 @@
 package net.jukoz.me.datageneration.content.loot_tables;
 
-import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
-import net.jukoz.me.datageneration.content.models.SimpleVerticalSlabModel;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +15,18 @@ public class BlockDrops {
             add(ModDecorativeBlocks.DWARVEN_LANTERN);
             add(ModDecorativeBlocks.WALL_DWARVEN_LANTERN);
             add(ModDecorativeBlocks.WOOD_PILE);
+            add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
 
             add(ModDecorativeBlocks.ROPE);
+
+            add(ModDecorativeBlocks.BLUE_CUSHION);
+            add(ModDecorativeBlocks.BROWN_CUSHION);
+            add(ModDecorativeBlocks.DARK_BLUE_CUSHION);
+            add(ModDecorativeBlocks.DARK_BROWN_CUSHION);
+            add(ModDecorativeBlocks.DARK_GREEN_CUSHION);
+            add(ModDecorativeBlocks.DARK_RED_CUSHION);
+            add(ModDecorativeBlocks.GREEN_CUSHION);
+            add(ModDecorativeBlocks.RED_CUSHION);
 
             add(ModNatureBlocks.BROWN_BOLETE);
             add(ModNatureBlocks.CAVE_AMANITA);
@@ -39,10 +46,17 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.ALLOY_FURNACE);
 
+            add(ModDecorativeBlocks.REINFORCED_CHEST);
+
             add(ModNatureBlocks.MALLOS);
             add(ModNatureBlocks.YELLOW_FLOWER);
             add(ModNatureBlocks.HOROKAKA);
             add(ModNatureBlocks.GIANT_HOROKAKA);
+
+            add(ModNatureBlocks.SMALL_LILY_PADS);
+            add(ModNatureBlocks.SMALL_FLOWERING_LILY_PADS);
+            add(ModNatureBlocks.LILY_PADS);
+            add(ModNatureBlocks.DUCKWEED);
         }
     };
 }

@@ -15,7 +15,7 @@ public class MistyHobgoblinScaleChestplateArmorModel<T extends LivingEntity> ext
         super(root);
         shoulderAddon = root.getChild("left_arm").getChild("shoulder_addon");
 
-        CHESTPLATE_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/misty_hobgoblin_scale_chestplate_addon.png");
+        CHESTPLATE_ADDON_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/misty_hobgoblin_scale_chestplate_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {

@@ -34,7 +34,7 @@ public class PebbleItem extends Item{
     }
 
     @Override
-    public int getMaxUseTime(ItemStack stack) {
+    public int getMaxUseTime(ItemStack stack, LivingEntity user) {
         return 72000;
     }
 
@@ -44,7 +44,7 @@ public class PebbleItem extends Item{
             return;
         }
         PlayerEntity playerEntity = (PlayerEntity)user;
-        int i = this.getMaxUseTime(stack) - remainingUseTicks;
+        int i = this.getMaxUseTime(stack, user) - remainingUseTicks;
         if (i < 7) {
             return;
         }

@@ -329,13 +329,13 @@ public class ModEquipmentItems {
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
-        return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerGeneratedItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
-        return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     public static void registerModItems() {

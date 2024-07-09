@@ -64,8 +64,8 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (Block wood : SimpleBlockModel.woodBlocks) {
-            TextureMap textureMap = new TextureMap().put(TextureKey.ALL, new
-                    Identifier(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(wood).getPath().replaceAll("_wood", "_log")));
+            TextureMap textureMap = new TextureMap().put(TextureKey.ALL,
+                    Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(wood).getPath().replaceAll("_wood", "_log")));
             Identifier identifier = Models.CUBE_COLUMN.upload(wood, textureMap, blockStateModelGenerator.modelCollector);
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createAxisRotatedBlockState(wood, identifier));}
 
@@ -97,7 +97,7 @@ public class ModelProvider extends FabricModelProvider {
             Identifier id = ModelIds.getBlockModelId(block.origin());
             Block slab = block.slab();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
             Identifier bottom = Models.SLAB.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
             Identifier top = Models.SLAB_TOP.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
 
@@ -109,7 +109,7 @@ public class ModelProvider extends FabricModelProvider {
             Identifier id = ModelIds.getBlockModelId(block.origin());
             Block slab = block.slab();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
             Identifier bottom = Models.SLAB.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
             Identifier top = Models.SLAB_TOP.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
 
@@ -121,7 +121,7 @@ public class ModelProvider extends FabricModelProvider {
             Identifier id = ModelIds.getBlockModelId(block.origin());
             Block slab = block.slab();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
             Identifier bottom = Models.SLAB.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
             Identifier top = Models.SLAB_TOP.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
 
@@ -133,7 +133,7 @@ public class ModelProvider extends FabricModelProvider {
             Identifier id = ModelIds.getBlockModelId(block.origin());
             Block slab = block.slab();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
             Identifier bottom = Models.SLAB.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
             Identifier top = Models.SLAB_TOP.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
 
@@ -145,7 +145,7 @@ public class ModelProvider extends FabricModelProvider {
             Identifier id = ModelIds.getBlockModelId(block.origin());
             Block slab = block.slab();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
             Identifier bottom = Models.SLAB.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
             Identifier top = Models.SLAB_TOP.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
 
@@ -166,7 +166,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleStairModel.Stair block : SimpleStairModel.woodStairs) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
             Block stairs = block.stairs();
 
             Identifier inner = Models.INNER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -178,7 +178,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleStairModel.Stair block : SimpleStairModel.strippedStairs) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
             Block stairs = block.stairs();
 
             Identifier inner = Models.INNER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -190,7 +190,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleStairModel.Stair block : SimpleStairModel.vanillaWoodStairs) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
             Block stairs = block.stairs();
 
             Identifier inner = Models.INNER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -202,7 +202,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleStairModel.Stair block : SimpleStairModel.vanillaStrippedStairs) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log")));
             Block stairs = block.stairs();
 
             Identifier inner = Models.INNER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -240,7 +240,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleWallModel.Wall block : SimpleWallModel.vanillaWalls) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath()));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath()));
             Block wall = block.wall();
 
             Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -254,7 +254,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleWallModel.Wall block : SimpleWallModel.strippedWalls) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
             Block wall = block.wall();
 
             Identifier inventory = Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -270,7 +270,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleWallModel.Wall block : SimpleWallModel.vanillaStrippedWalls) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
             Block wall = block.wall();
 
             Identifier inventory = Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -286,7 +286,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleWallModel.Wall block : SimpleWallModel.vanillaWoodWalls) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
             Block wall = block.wall();
 
             Identifier inventory = Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -316,7 +316,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleFenceModel.Fence block : SimpleFenceModel.strippedFences) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
             Block fence = block.fence();
 
             Identifier post = Models.FENCE_POST.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -330,7 +330,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleFenceModel.Fence block : SimpleFenceModel.vanillaStrippedFences) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
             Block fence = block.fence();
 
             Identifier post = Models.FENCE_POST.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -344,7 +344,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleFenceModel.Fence block : SimpleFenceModel.vanillaWoodFences) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(new Identifier("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
+            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log")));
             Block fence = block.fence();
 
             Identifier post = Models.FENCE_POST.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -399,6 +399,13 @@ public class ModelProvider extends FabricModelProvider {
             blockStateModelGenerator.registerOrientableTrapdoor(trapdoor.trapdoor());
         }
 
+        for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.stoneTrapdoors) {
+            registerTrapdoor(blockStateModelGenerator, trapdoor.trapdoor());
+        }
+
+        for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.vanillaStoneTrapdoors) {
+            registerVanillaTrapdoor(blockStateModelGenerator, trapdoor.trapdoor());
+        }
 
         for(SimpleDoorModel.Door door : SimpleDoorModel.doors){
             blockStateModelGenerator.registerDoor(door.door());
@@ -459,51 +466,51 @@ public class ModelProvider extends FabricModelProvider {
 
         for(Block block : SimpleWoodStoolModel.stools){
             registerWoodStoolModelBlockStates(blockStateModelGenerator, block,
-                    new Identifier(MiddleEarth.MOD_ID, "block/stripped_" + Registries.BLOCK.getId(block).getPath().replaceAll("_stool", "_log")),
-                    new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_stool", "_planks")));
+                    Identifier.of(MiddleEarth.MOD_ID, "block/stripped_" + Registries.BLOCK.getId(block).getPath().replaceAll("_stool", "_log")),
+                    Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_stool", "_planks")));
         }
 
 
         for(Block block : SimpleStoneStoolModel.stools){
             registerStoneStoolModelBlockStates(blockStateModelGenerator, block,
-                    new Identifier(MiddleEarth.MOD_ID, "block/" +
+                    Identifier.of(MiddleEarth.MOD_ID, "block/" +
                             Registries.BLOCK.getId(block).getPath().replaceAll("_stool", "")));
         }
         for(SimpleStoneStoolModel.VanillaStool stool : SimpleStoneStoolModel.vanillaStools){
             String id = "block/" + Registries.BLOCK.getId(stool.origin()).getPath();
             if(stool.origin() == Blocks.BASALT) id += "_side";
             registerStoneStoolModelBlockStates(blockStateModelGenerator, stool.base(),
-                    new Identifier("minecraft", id));
+                    Identifier.of("minecraft", id));
         }
 
         for(Block block : SimpleStoneTableModel.tables){
-            registerStoneTableModelBlockStates(blockStateModelGenerator, block, new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_table", "")));
+            registerStoneTableModelBlockStates(blockStateModelGenerator, block, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_table", "")));
         }
         for(SimpleStoneTableModel.VanillaTable stool : SimpleStoneTableModel.vanillaTables) {
             String id = "block/" + Registries.BLOCK.getId(stool.origin()).getPath();
             if(stool.origin() == Blocks.BASALT) id += "_side";
-            registerStoneTableModelBlockStates(blockStateModelGenerator, stool.base(), new Identifier("minecraft", id));
+            registerStoneTableModelBlockStates(blockStateModelGenerator, stool.base(), Identifier.of("minecraft", id));
         }
 
         for(Block block : SimpleStoneChairModel.chairs){
-            registerStoneChairModelBlockStates(blockStateModelGenerator, block, new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_chair", "")));
+            registerStoneChairModelBlockStates(blockStateModelGenerator, block, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_chair", "")));
         }
         for(SimpleStoneChairModel.VanillaChair stool : SimpleStoneChairModel.vanillaChairs){
             String id = "block/" + Registries.BLOCK.getId(stool.origin()).getPath();
             if(stool.origin() == Blocks.BASALT) id += "_side";
-            registerStoneChairModelBlockStates(blockStateModelGenerator, stool.base(), new Identifier("minecraft", id));
+            registerStoneChairModelBlockStates(blockStateModelGenerator, stool.base(), Identifier.of("minecraft", id));
         }
 
         for(Block block : SimpleWoodTableModel.tables){
             registerWoodTableModelBlockStates(blockStateModelGenerator, block,
-                    new Identifier(MiddleEarth.MOD_ID, "block/stripped_" + Registries.BLOCK.getId(block).getPath().replaceAll("_table", "_log")),
-                    new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_table", "_planks")));
+                    Identifier.of(MiddleEarth.MOD_ID, "block/stripped_" + Registries.BLOCK.getId(block).getPath().replaceAll("_table", "_log")),
+                    Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_table", "_planks")));
         }
 
         for(Block block : SimpleWoodChairModel.chairs){
             registerWoodChairModelBlockStates(blockStateModelGenerator, block,
-                    new Identifier(MiddleEarth.MOD_ID, "block/stripped_" + Registries.BLOCK.getId(block).getPath().replaceAll("_chair", "_log")),
-                    new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_chair", "_planks")));
+                    Identifier.of(MiddleEarth.MOD_ID, "block/stripped_" + Registries.BLOCK.getId(block).getPath().replaceAll("_chair", "_log")),
+                    Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_chair", "_planks")));
         }
 
 
@@ -512,14 +519,14 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.MUSHROOM.stool(),
-                new Identifier("minecraft", "block/mushroom_stem"),
-                new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.MUSHROOM.stool()).getPath().replaceAll("_stool", "_planks")));
+                Identifier.of("minecraft", "block/mushroom_stem"),
+                Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.MUSHROOM.stool()).getPath().replaceAll("_stool", "_planks")));
         registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.DARK_MUSHROOM.stool(),
-                new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.DARK_MUSHROOM.stool()).getPath().replaceAll("_stool", "_stem")),
-                new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.DARK_MUSHROOM.stool()).getPath().replaceAll("_stool", "_planks")));
+                Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.DARK_MUSHROOM.stool()).getPath().replaceAll("_stool", "_stem")),
+                Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.DARK_MUSHROOM.stool()).getPath().replaceAll("_stool", "_planks")));
         registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.GRAY_MUSHROOM.stool(),
-                new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.GRAY_MUSHROOM.stool()).getPath().replaceAll("_stool", "_stem")),
-                new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.GRAY_MUSHROOM.stool()).getPath().replaceAll("_stool", "_planks")));
+                Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.GRAY_MUSHROOM.stool()).getPath().replaceAll("_stool", "_stem")),
+                Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.GRAY_MUSHROOM.stool()).getPath().replaceAll("_stool", "_planks")));
 
 
         for(SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools) {
@@ -531,8 +538,8 @@ public class ModelProvider extends FabricModelProvider {
                 stripped = "stripped_" + id.replaceAll("_planks", "_log");
             }
             registerWoodStoolModelBlockStates(blockStateModelGenerator, stool.base(),
-                    new Identifier("minecraft", "block/" + stripped),
-                    new Identifier("minecraft", "block/" + id));
+                    Identifier.of("minecraft", "block/" + stripped),
+                    Identifier.of("minecraft", "block/" + id));
         }
 
         for(SimpleWoodTableModel.VanillaTable table : SimpleWoodTableModel.vanillaTables) {
@@ -544,8 +551,8 @@ public class ModelProvider extends FabricModelProvider {
                 stripped = "stripped_" + id.replaceAll("_planks", "_log");
             }
             registerWoodTableModelBlockStates(blockStateModelGenerator, table.base(),
-                    new Identifier("minecraft", "block/" + stripped),
-                    new Identifier("minecraft", "block/" + id));
+                    Identifier.of("minecraft", "block/" + stripped),
+                    Identifier.of("minecraft", "block/" + id));
         }
 
         for(SimpleWoodChairModel.VanillaChair chair : SimpleWoodChairModel.vanillaChairs) {
@@ -557,30 +564,30 @@ public class ModelProvider extends FabricModelProvider {
                 stripped = "stripped_" + id.replaceAll("_planks", "_log");
             }
             registerWoodChairModelBlockStates(blockStateModelGenerator, chair.base(),
-                    new Identifier("minecraft", "block/" + stripped),
-                    new Identifier("minecraft", "block/" + id));
+                    Identifier.of("minecraft", "block/" + stripped),
+                    Identifier.of("minecraft", "block/" + id));
         }
 
         registerWoodChairModelBlockStates(blockStateModelGenerator, MushroomBlockSets.MUSHROOM.chair(),
-                new Identifier("minecraft", "block/mushroom_stem"),
-                new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.MUSHROOM.chair()).getPath().replaceAll("_chair", "_planks")));
+                Identifier.of("minecraft", "block/mushroom_stem"),
+                Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.MUSHROOM.chair()).getPath().replaceAll("_chair", "_planks")));
         registerWoodChairModelBlockStates(blockStateModelGenerator, MushroomBlockSets.DARK_MUSHROOM.chair(),
-                new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.DARK_MUSHROOM.chair()).getPath().replaceAll("_chair", "_stem")),
-                new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.DARK_MUSHROOM.chair()).getPath().replaceAll("_chair", "_planks")));
+                Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.DARK_MUSHROOM.chair()).getPath().replaceAll("_chair", "_stem")),
+                Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.DARK_MUSHROOM.chair()).getPath().replaceAll("_chair", "_planks")));
         registerWoodChairModelBlockStates(blockStateModelGenerator, MushroomBlockSets.GRAY_MUSHROOM.chair(),
-                new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.GRAY_MUSHROOM.chair()).getPath().replaceAll("_chair", "_stem")),
-                new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.GRAY_MUSHROOM.chair()).getPath().replaceAll("_chair", "_planks")));
+                Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.GRAY_MUSHROOM.chair()).getPath().replaceAll("_chair", "_stem")),
+                Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.GRAY_MUSHROOM.chair()).getPath().replaceAll("_chair", "_planks")));
 
 
         registerWoodTableModelBlockStates(blockStateModelGenerator, MushroomBlockSets.MUSHROOM.table(),
-                new Identifier("minecraft", "block/mushroom_stem"),
-                new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.MUSHROOM.table()).getPath().replaceAll("_table", "_planks")));
+                Identifier.of("minecraft", "block/mushroom_stem"),
+                Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.MUSHROOM.table()).getPath().replaceAll("_table", "_planks")));
         registerWoodTableModelBlockStates(blockStateModelGenerator, MushroomBlockSets.DARK_MUSHROOM.table(),
-                new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.DARK_MUSHROOM.table()).getPath().replaceAll("_table", "_stem")),
-                new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.DARK_MUSHROOM.table()).getPath().replaceAll("_table", "_planks")));
+                Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.DARK_MUSHROOM.table()).getPath().replaceAll("_table", "_stem")),
+                Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.DARK_MUSHROOM.table()).getPath().replaceAll("_table", "_planks")));
         registerWoodTableModelBlockStates(blockStateModelGenerator, MushroomBlockSets.GRAY_MUSHROOM.table(),
-                new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.GRAY_MUSHROOM.table()).getPath().replaceAll("_table", "_stem")),
-                new Identifier(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.GRAY_MUSHROOM.table()).getPath().replaceAll("_table", "_planks")));
+                Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.GRAY_MUSHROOM.table()).getPath().replaceAll("_table", "_stem")),
+                Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(MushroomBlockSets.GRAY_MUSHROOM.table()).getPath().replaceAll("_table", "_planks")));
 
 
         for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
@@ -627,6 +634,10 @@ public class ModelProvider extends FabricModelProvider {
             registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), baseTextureId);
         }
 
+        SimpleTopWaterModel.topWaterBlocks.forEach( block -> {
+            registerTopWaterblock(blockStateModelGenerator, block);
+        });
+
         // Crops
         blockStateModelGenerator.registerCrop(ModNatureBlocks.BELL_PEPPER_CROP, BellpepperCropBlock.AGE, 0, 1, 2, 3, 4);
         blockStateModelGenerator.registerCrop(ModNatureBlocks.CUCUMBER_CROP, CucumberCropBlock.AGE, 0, 1, 2, 3);
@@ -665,7 +676,7 @@ public class ModelProvider extends FabricModelProvider {
     public void registerVanillaVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin, String slabPath){
         Identifier fullBlockId = ModelIds.getBlockModelId(origin);
         Identifier variantId = MEModels.VERTICAL_SLAB.upload(block,
-                TextureMap.of(TextureKey.ALL,new Identifier("minecraft","block/" + slabPath)),
+                TextureMap.of(TextureKey.ALL,Identifier.of("minecraft","block/" + slabPath)),
                 blockStateModelGenerator.modelCollector);
         registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId);
     }
@@ -673,7 +684,7 @@ public class ModelProvider extends FabricModelProvider {
     public void registerVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin, String slabPath){
         Identifier fullBlockId = ModelIds.getBlockModelId(origin);
         Identifier variantId = MEModels.VERTICAL_SLAB.upload(block,
-                TextureMap.of(TextureKey.ALL, new Identifier(MiddleEarth.MOD_ID, "block/" + slabPath)),
+                TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + slabPath)),
                 blockStateModelGenerator.modelCollector);
         registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId);
     }
@@ -681,11 +692,11 @@ public class ModelProvider extends FabricModelProvider {
     public void registerColumnVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin,
                                                            String modId, String topTexturePath, String bottomTexturePath, String sideTexturePath){
         Identifier fullBlockId = ModelIds.getBlockModelId(origin);
-        Identifier sideTexture = new Identifier(modId, "block/" + sideTexturePath);
+        Identifier sideTexture = Identifier.of(modId, "block/" + sideTexturePath);
 
         Identifier variantId = MEModels.VERTICAL_COLUMN_SLAB.upload(block, (new TextureMap())
-                        .put(TextureKey.TOP, new Identifier(modId, "block/" + topTexturePath))
-                        .put(TextureKey.BOTTOM, new Identifier(modId, "block/" + bottomTexturePath))
+                        .put(TextureKey.TOP, Identifier.of(modId, "block/" + topTexturePath))
+                        .put(TextureKey.BOTTOM, Identifier.of(modId, "block/" + bottomTexturePath))
                         .put(TextureKey.SIDE, sideTexture)
                         .put(TextureKey.PARTICLE, sideTexture),
                 blockStateModelGenerator.modelCollector);
@@ -791,7 +802,7 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     private void registerLayers(BlockStateModelGenerator blockStateModelGenerator, Block layers, Block origin) {
-        TextureMap textureMap = TextureMap.all(new Identifier("minecraft", Registries.BLOCK.getId(layers).getPath().replaceAll("_layers", "")));
+        TextureMap textureMap = TextureMap.all(Identifier.of("minecraft", Registries.BLOCK.getId(layers).getPath().replaceAll("_layers", "")));
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(layers).coordinate(BlockStateVariantMap.create(Properties.LAYERS).register((height) -> {
             BlockStateVariant var10000 = BlockStateVariant.create();
             VariantSetting var10001 = VariantSettings.MODEL;
@@ -801,11 +812,40 @@ public class ModelProvider extends FabricModelProvider {
                 int var10003 = height;
                 var2 = ModelIds.getBlockSubModelId(var10002, "_height" + var10003 * 2);
             } else {
-                var2 = new Identifier("minecraft", "block/" + Registries.BLOCK.getId(origin).getPath());
+                var2 = Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(origin).getPath());
             }
             return var10000.put(var10001, var2);
         })));
         blockStateModelGenerator.registerParentedItemModel(layers, ModelIds.getBlockSubModelId(layers, "_height2"));
+    }
+
+    private void registerTopWaterblock(BlockStateModelGenerator blockStateModelGenerator, Block block) {
+        blockStateModelGenerator.registerItemModel(block);
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createBlockStateWithRandomHorizontalRotations(block, ModelIds.getBlockModelId(block)));
+    }
+
+    public void registerTrapdoor(BlockStateModelGenerator blockStateModelGenerator, Block trapdoorBlock) {
+        TextureMap textureMap = TextureMap.texture(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(trapdoorBlock).getPath().replaceAll("_trapdoor", "")));
+        Identifier identifier = Models.TEMPLATE_TRAPDOOR_TOP.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
+        Identifier identifier2 = Models.TEMPLATE_TRAPDOOR_BOTTOM.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
+        Identifier identifier3 = Models.TEMPLATE_TRAPDOOR_OPEN.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createTrapdoorBlockState(trapdoorBlock, identifier, identifier2, identifier3));
+        blockStateModelGenerator.registerParentedItemModel(trapdoorBlock, identifier2);
+    }
+
+    public void registerVanillaTrapdoor(BlockStateModelGenerator blockStateModelGenerator, Block trapdoorBlock) {
+        TextureMap textureMap;
+        if(Registries.BLOCK.getId(trapdoorBlock).getPath().contains("basalt")){
+            textureMap = TextureMap.texture(Identifier.of("block/" + Registries.BLOCK.getId(trapdoorBlock).getPath().replaceAll("_trapdoor", "_side")));
+
+        } else {
+            textureMap = TextureMap.texture(Identifier.of("block/" + Registries.BLOCK.getId(trapdoorBlock).getPath().replaceAll("_trapdoor", "")));
+        }
+        Identifier identifier = Models.TEMPLATE_TRAPDOOR_TOP.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
+        Identifier identifier2 = Models.TEMPLATE_TRAPDOOR_BOTTOM.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
+        Identifier identifier3 = Models.TEMPLATE_TRAPDOOR_OPEN.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createTrapdoorBlockState(trapdoorBlock, identifier, identifier2, identifier3));
+        blockStateModelGenerator.registerParentedItemModel(trapdoorBlock, identifier2);
     }
 
     @Override
@@ -877,4 +917,6 @@ public class ModelProvider extends FabricModelProvider {
                 }
         );
     }
+
+
 }

@@ -44,8 +44,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
 public class MiddleEarthChunkGenerator extends ChunkGenerator {
-    public static final int EPMOSTO_LEVEL = -32;
-    public static final int DIFTOMIN_LEVEL = 0;
+    public static final int MEDGON_LEVEL = -32;
+    public static final int NURGON_LEVEL = 0;
     public static final int DEEPSLATE_LEVEL = 32;
     public static final int STONE_HEIGHT = 36;
     public static final int WATER_HEIGHT = 64;
@@ -264,16 +264,16 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.LAVA.getDefaultState(), false);
                 }
 
-                for(int y = bottomY + 1; y < EPMOSTO_LEVEL + caveBlendNoise; y++) {
-                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSets.EPMOSTO.base().getDefaultState());
+                for(int y = bottomY + 1; y < MEDGON_LEVEL + caveBlendNoise; y++) {
+                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSets.MEDGON.base().getDefaultState());
                 }
                 if(Math.random() < 0.5f) chunk.setBlockState(chunk.getPos().getBlockPos(x, chunk.getBottomY() + 1, z),
                         Blocks.BEDROCK.getDefaultState(), false);
 
-                for(int y = EPMOSTO_LEVEL + (int) caveBlendNoise; y < DIFTOMIN_LEVEL + caveBlendNoise; y++) {
-                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSets.DIFTOMIN.base().getDefaultState());
+                for(int y = MEDGON_LEVEL + (int) caveBlendNoise; y < NURGON_LEVEL + caveBlendNoise; y++) {
+                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSets.NURGON.base().getDefaultState());
                 }
-                for(int y = DIFTOMIN_LEVEL + (int) caveBlendNoise; y < DEEPSLATE_LEVEL + caveBlendNoise; y++) {
+                for(int y = NURGON_LEVEL + (int) caveBlendNoise; y < DEEPSLATE_LEVEL + caveBlendNoise; y++) {
                     trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), Blocks.DEEPSLATE.getDefaultState());
                 }
 
@@ -360,10 +360,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         return 384;
     }
 
-
     @Override
-    public CompletableFuture<Chunk> populateNoise(Executor executor, Blender blender, NoiseConfig noiseConfig, StructureAccessor structureAccessor, Chunk chunk) {
-
+    public CompletableFuture<Chunk> populateNoise(Blender blender, NoiseConfig noiseConfig, StructureAccessor structureAccessor, Chunk chunk) {
         return CompletableFuture.completedFuture(chunk);
     }
 

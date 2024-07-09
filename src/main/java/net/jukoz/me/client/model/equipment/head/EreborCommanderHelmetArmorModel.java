@@ -11,7 +11,7 @@ public class EreborCommanderHelmetArmorModel<T extends LivingEntity> extends Cus
     public EreborCommanderHelmetArmorModel(ModelPart root) {
         super(root);
 
-        HELMET_ADDON_TEXTURE = new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/erebor_commander_helmet_addon.png");
+        HELMET_ADDON_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/erebor_commander_helmet_addon.png");
     }
 
     public static TexturedModelData getTexturedModelData() {

@@ -15,6 +15,9 @@ public class SimpleDoubleBlockModel {
 
             add(ModNatureBlocks.TALL_TUBESHROOM);
             add(ModNatureBlocks.TALL_TRUMPET_SHROOM);
+
+            add(ModNatureBlocks.TALL_CATTAILS);
+            add(ModNatureBlocks.TALL_BULRUSH);
         }
     };
 

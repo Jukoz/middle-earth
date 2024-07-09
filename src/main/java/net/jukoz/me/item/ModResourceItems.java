@@ -8,6 +8,7 @@ import net.jukoz.me.item.items.*;
 import net.jukoz.me.item.utils.ModBannerPatternTags;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.type.FoodComponent;
@@ -149,7 +150,7 @@ public class ModResourceItems {
     public static final Item STRAW = registerItem("straw",
             new Item(new Item.Settings()));
     public static final Block REEDS = registerBlock("reeds",
-            new CustomTallPlantBlock(FabricBlockSettings.copyOf(Blocks.TALL_GRASS).breakInstantly(), false), false);
+            new CustomTallPlantBlock(AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), false), false);
 
     public static final Item DUCK_FEATHER = registerItem("duck_feather",
             new Item(new Item.Settings()));
@@ -181,21 +182,22 @@ public class ModResourceItems {
             new BannerPatternItem(ModBannerPatternTags.LONGBEARD_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item LOTHLORIEN_BANNER_PATTERN = registerItem("lothlorien_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.LOTHLORIEN_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
-    public static final Item MORDOR_GREAT_EYE_BANNER_PATTERN = registerItem("mordor_great_eye_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.MORDOR_GREAT_EYE_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
-    public static final Item MORDOR_EYE_BANNER_PATTERN = registerItem("mordor_eye_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.MORDOR_EYE_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
-    public static final Item MISTY_ORCS_EYE_BANNER_PATTERN = registerItem("misty_orcs_eye_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.MISTY_ORCS_EYE_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
-    public static final Item MISTY_ORCS_PEAKS_BANNER_PATTERN = registerItem("misty_orcs_peaks_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.MISTY_ORCS_PEAKS_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+    public static final Item MORDOR_BANNER_PATTERN = registerItem("mordor_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.MORDOR_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+    public static final Item MISTY_ORCS_BANNER_PATTERN = registerItem("misty_orcs_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.MISTY_ORCS_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+    public static final Item ISENGARD_BANNER_PATTERN = registerItem("isengard_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.ISENGARD_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+
+    public static final Item DRAGON_BANNER_PATTERN = registerItem("dragon_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.DRAGON_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static Block registerBlock(String name, Block block, boolean absent) {
         if(!absent) registerBlockItem(name, block);
-        return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }
     static Item registerBlockItem(String name, Block block) {
-        var item =  Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name),
+        var item =  Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name),
                 new BlockItem(block, new Item.Settings()));
 
         Item.BLOCK_ITEMS.put(block, item);
@@ -205,7 +207,7 @@ public class ModResourceItems {
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.RESOURCES_CONTENTS.add(item.getDefaultStack());
-        return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     public static void registerModItems() {

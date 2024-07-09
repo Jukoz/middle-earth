@@ -5,7 +5,6 @@ import net.jukoz.me.block.*;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.item.*;
-import net.jukoz.me.item.utils.ModBannerPatterns;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.registries.ModRegistries;
@@ -25,7 +24,7 @@ import net.jukoz.me.world.dimension.ModDimensions;
 
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "me";
-	public static final String MOD_VERSION = "1.5.0-1.20.6-alpha";
+	public static final String MOD_VERSION = "1.5.0-1.21.0-alpha";
 	public static final boolean IS_DEBUG = true;
 	private LoggerUtil loggerUtil;
 	@Override
@@ -51,6 +50,7 @@ public class MiddleEarth implements ModInitializer {
 		MushroomBlockSets.registerModBlockSets();
 		StoneBlockSets.registerModBlockSets();
 		ModDecorativeItems.registerModItems();
+		ModNatureBlockItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModDecorativeBlocks.registerModBlocks();
 		ModNatureBlocks.registerModBlocks();
@@ -61,7 +61,6 @@ public class MiddleEarth implements ModInitializer {
 		ModRegistries.registerAgingCopperBlocks();
 		ModRegistries.registerComposterBlocks();
 		ModRegistries.registerCauldronBehaviour();
-
 
 		ModBlockEntities.registerBlockEntities();
 
@@ -88,5 +87,4 @@ public class MiddleEarth implements ModInitializer {
 			throw new RuntimeException(e);
 		}
 	}
-
 }
