@@ -270,6 +270,15 @@ public class ModBiomeFeatures {
     public static void addPumicePileSparse(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_PUMICE_SPARSE);
     }
+    public static void addPumiceColumn(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PUMICE_COLUMN);
+    }
+    public static void addPumiceColumnRare(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PUMICE_COLUMN_RARE);
+    }
+    public static void addPumiceColumnLarge(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PUMICE_COLUMN_LARGE);
+    }
     public static void addHaradFoliage(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_BROWN_GRASS);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_GREEN_SHRUB);

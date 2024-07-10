@@ -6,7 +6,9 @@ import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.block.WoodBlockSets;
 import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.world.features.columns.ColumnFeatureConfig;
 import net.jukoz.me.world.features.underground.CavesConfiguredFeatures;
+import net.jukoz.me.world.gen.ModFeatures;
 import net.minecraft.block.*;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.registry.Registerable;
@@ -17,6 +19,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.dynamic.Range;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
@@ -40,6 +43,8 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_BASALT = registerKey("patch_basalt");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_BLACKSTONE = registerKey("patch_blackstone");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_PUMICE = registerKey("patch_pumice");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PUMICE_COLUMN = registerKey("pumice_column");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PUMICE_COLUMN_LARGE = registerKey("pumice_column_large");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_BROWN_GRASS = registerKey("patch_brown_grass");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_COASTAL_PANIC_GRASS = registerKey("patch_coastal_panic_grass");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_CORRUPTED_MOSS = registerKey("patch_corrupted_moss");
@@ -128,6 +133,11 @@ public class ModVegetationConfiguredFeatures {
                 new BlockPileFeatureConfig(BlockStateProvider.of(Blocks.BLACKSTONE)));
         ConfiguredFeatures.register(featureRegisterable, PATCH_PUMICE, Feature.BLOCK_PILE,
                 new BlockPileFeatureConfig(BlockStateProvider.of(StoneBlockSets.PUMICE.base())));
+
+        ConfiguredFeatures.register(featureRegisterable, PUMICE_COLUMN, ModFeatures.COLUMN,
+                new ColumnFeatureConfig(ConstantIntProvider.create(1), UniformIntProvider.create(1, 4), StoneBlockSets.PUMICE.base().getDefaultState()));
+        ConfiguredFeatures.register(featureRegisterable, PUMICE_COLUMN_LARGE, ModFeatures.COLUMN,
+                new ColumnFeatureConfig(UniformIntProvider.create(2, 3), UniformIntProvider.create(5, 10), StoneBlockSets.PUMICE.base().getDefaultState()));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_BROWN_GRASS, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,

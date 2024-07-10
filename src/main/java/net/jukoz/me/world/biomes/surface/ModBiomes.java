@@ -1176,7 +1176,9 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addMordorVegetation(generationSettings);
+        ModBiomeFeatures.addMordorLichen(vegetation);
         ModBiomeFeatures.addPumicePileRare(vegetation);
+        ModBiomeFeatures.addPumiceColumnRare(vegetation);
         ModBiomeFeatures.addAshenDirtStoneOre(vegetation);
         ModBiomeFeatures.addAshenStoneGravelOre(vegetation);
         ModBiomeFeatures.addAshenStoneSandOre(vegetation);
@@ -1193,6 +1195,8 @@ public class ModBiomes {
 
         addMordorVegetation(generationSettings);
         ModBiomeFeatures.addPumicePileSparse(vegetation);
+        ModBiomeFeatures.addPumiceColumn(vegetation);
+        ModBiomeFeatures.addPumiceColumnLarge(vegetation);
         ModBiomeFeatures.addAshenDirtStoneOre(vegetation);
         ModBiomeFeatures.addAshenStoneGravelOre(vegetation);
         ModBiomeFeatures.addAshenStoneSandOre(vegetation);
@@ -1227,6 +1231,7 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addMordorVegetation(generationSettings);
+        ModBiomeFeatures.addMordorLichen(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addMudOre(vegetation);
         ModBiomeFeatures.addAshenDirtOre(vegetation);
@@ -1647,6 +1652,7 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addMordorVegetation(generationSettings);
+        ModBiomeFeatures.addMordorLichen(vegetation);
         ModBiomeFeatures.addAshenDirtOre(vegetation);
         ModBiomeFeatures.addAshenDirtStoneOre(vegetation);
         ModBiomeFeatures.addBasaltPile(vegetation);
@@ -2013,8 +2019,6 @@ public class ModBiomes {
     }
 
     public static void addMordorVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
-        ModBiomeFeatures.addDisks(undergroundOres);
-        ModBiomeFeatures.addMordorLichen(vegetation);
         ModBiomeFeatures.addAshBlockOre(vegetation);
         ModBiomeFeatures.addCommonToughBerries(vegetation);
     }
