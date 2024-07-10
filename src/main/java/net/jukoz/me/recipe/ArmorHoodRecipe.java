@@ -21,11 +21,9 @@ import net.minecraft.world.World;
 
 
 public class ArmorHoodRecipe extends SpecialCraftingRecipe {
-
     public ArmorHoodRecipe(CraftingRecipeCategory category) {
         super(category);
     }
-
 
     @Override
     public boolean matches(CraftingRecipeInput input, World world) {

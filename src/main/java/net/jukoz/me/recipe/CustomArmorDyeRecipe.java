@@ -31,7 +31,6 @@ public class CustomArmorDyeRecipe extends SpecialCraftingRecipe {
     public boolean matches(CraftingRecipeInput craftingRecipeInput, World world) {
         ItemStack itemStack = ItemStack.EMPTY;
         ArrayList<ItemStack> list = Lists.newArrayList();
-        System.out.println("trying to match");
 
         for (int i = 0; i < craftingRecipeInput.getSize(); ++i) {
             ItemStack itemStack2 = craftingRecipeInput.getStackInSlot(i);
@@ -40,7 +39,6 @@ public class CustomArmorDyeRecipe extends SpecialCraftingRecipe {
                 if (!itemStack.isEmpty()) {
                     return false;
                 }
-                System.out.println("dyeable found");
                 itemStack = itemStack2;
                 continue;
             }

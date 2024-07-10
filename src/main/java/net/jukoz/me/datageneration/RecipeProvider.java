@@ -8,6 +8,7 @@ import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModToolItems;
+import net.jukoz.me.recipe.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataOutput;
@@ -578,6 +579,12 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createChestplateRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_CHESTPLATE);
         createLeggingsRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_LEGGINGS);
         createBootsRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_BOOTS);
+
+        ComplexRecipeJsonBuilder.create(CustomArmorDyeRecipe::new).offerTo(exporter, "custom_armor_dye");
+        ComplexRecipeJsonBuilder.create(ArmorHoodRecipe::new).offerTo(exporter, "custom_armor_hood");
+        ComplexRecipeJsonBuilder.create(ArmorHoodRemovalRecipe::new).offerTo(exporter, "custom_armor_hood_removal");
+        ComplexRecipeJsonBuilder.create(ArmorCapeRecipe::new).offerTo(exporter, "custom_armor_cape");
+        ComplexRecipeJsonBuilder.create(ArmorCapeRemovalRecipe::new).offerTo(exporter, "custom_armor_cape_removal");
     }
 
     //region BLOCK RECIPE METHODS
