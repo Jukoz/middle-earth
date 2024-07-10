@@ -28,6 +28,10 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ASH_BLOCK_ORE = registerKey("ash_block_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ASHEN_DIRT_ORE = registerKey("ashen_dirt_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ASHEN_DIRT_STONE_ORE = registerKey("ashen_dirt_stone_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ASHEN_GRAVEL = registerKey("ashen_gravel");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ASHEN_SAND = registerKey("ashen_sand");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ASHEN_STONE_GRAVEL = registerKey("ashen_stone_gravel");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ASHEN_STONE_SAND = registerKey("ashen_stone_sand");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BASALT_ORE = registerKey("basalt_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SMOOTH_BASALT_ORE = registerKey("smooth_basalt_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BLACK_SAND_ORE = registerKey("black_sand_ore");
@@ -87,6 +91,16 @@ public class OreConfiguredFeatures {
                 new OreFeatureConfig(dirtTest, ModBlocks.ASHEN_DIRT.getDefaultState(), 64, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, ASHEN_DIRT_STONE_ORE, Feature.ORE,
                 new OreFeatureConfig(ashenStoneTest, ModBlocks.ASHEN_DIRT.getDefaultState(), 64, 0.4f));
+
+        ConfiguredFeatures.register(featureRegisterable, ASHEN_GRAVEL, Feature.ORE,
+                new OreFeatureConfig(dirtTest, ModBlocks.ASHEN_GRAVEL.getDefaultState(), 48, 0.4f));
+        ConfiguredFeatures.register(featureRegisterable, ASHEN_SAND, Feature.ORE,
+                new OreFeatureConfig(dirtTest, ModBlocks.ASHEN_SAND.getDefaultState(), 48, 0.25f));
+
+        ConfiguredFeatures.register(featureRegisterable, ASHEN_STONE_GRAVEL, Feature.ORE,
+                new OreFeatureConfig(ashenStoneTest, ModBlocks.ASHEN_GRAVEL.getDefaultState(), 48, 0.4f));
+        ConfiguredFeatures.register(featureRegisterable, ASHEN_STONE_SAND, Feature.ORE,
+                new OreFeatureConfig(ashenStoneTest, ModBlocks.ASHEN_SAND.getDefaultState(), 48, 0.25f));
 
         ConfiguredFeatures.register(featureRegisterable, BASALT_ORE, Feature.ORE,
                 new OreFeatureConfig(ashenStoneTest, Blocks.BASALT.getDefaultState(), 64, 0.4f));

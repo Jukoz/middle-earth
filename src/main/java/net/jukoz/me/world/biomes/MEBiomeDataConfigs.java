@@ -81,12 +81,12 @@ public class MEBiomeDataConfigs {
             .addSlopeData(42, Blocks.SMOOTH_BASALT)
             .addSlopeData(56, StoneBlockSets.ASHEN_STONE.base())
             .addSlopeData(MAX_ANGLE, Blocks.BLACKSTONE);
-    public static SlopeMap mordorMountainsPeaks = new SlopeMap().addSlopeData(26, ModBlocks.ASH_BLOCK)
+    public static SlopeMap mordorMountainsPeaks = new SlopeMap().addSlopeData(26, ModBlocks.ASHEN_GRAVEL)
             .addSlopeData(40, Blocks.SMOOTH_BASALT)
             .addSlopeData(54, StoneBlockSets.ASHEN_STONE.base())
             .addSlopeData(MAX_ANGLE, Blocks.BLACKSTONE);
 
-    public static SlopeMap southernMordorMountains = new SlopeMap().addSlopeData(25, ModBlocks.ASHEN_DIRT)
+    public static SlopeMap southernMordorMountains = new SlopeMap().addSlopeData(25, ModBlocks.ASHEN_GRAVEL)
             .addSlopeData(30, ModBlocks.ASH_BLOCK)
             .addSlopeData(44, Blocks.SMOOTH_BASALT)
             .addSlopeData(58, Blocks.DEEPSLATE)

@@ -23,6 +23,10 @@ public class OrePlacedFeatures {
     public static final RegistryKey<PlacedFeature> ASH_BLOCK_ORE = registerKey("ash_block_ore");
     public static final RegistryKey<PlacedFeature> ASHEN_DIRT_ORE = registerKey("ashen_dirt_ore");
     public static final RegistryKey<PlacedFeature> ASHEN_DIRT_STONE_ORE = registerKey("ashen_dirt_stone_ore");
+    public static final RegistryKey<PlacedFeature> ASHEN_GRAVEL = registerKey("ashen_gravel");
+    public static final RegistryKey<PlacedFeature> ASHEN_SAND = registerKey("ashen_sand");
+    public static final RegistryKey<PlacedFeature> ASHEN_STONE_GRAVEL = registerKey("ashen_stone_gravel");
+    public static final RegistryKey<PlacedFeature> ASHEN_STONE_SAND = registerKey("ashen_stone_sand");
     public static final RegistryKey<PlacedFeature> BASALT_ORE = registerKey("basalt_ore");
     public static final RegistryKey<PlacedFeature> SMOOTH_BASALT_ORE = registerKey("smooth_basalt_ore");
     public static final RegistryKey<PlacedFeature> BLACK_SAND_ORE = registerKey("black_sand_ore");
@@ -65,6 +69,10 @@ public class OrePlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> ashBlock = registryEntryLookup.getOrThrow(OreConfiguredFeatures.ASH_BLOCK_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> ashenDirt = registryEntryLookup.getOrThrow(OreConfiguredFeatures.ASHEN_DIRT_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> ashenDirtStone = registryEntryLookup.getOrThrow(OreConfiguredFeatures.ASHEN_DIRT_STONE_ORE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> ashenGravel = registryEntryLookup.getOrThrow(OreConfiguredFeatures.ASHEN_GRAVEL);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> ashenSand = registryEntryLookup.getOrThrow(OreConfiguredFeatures.ASHEN_SAND);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> ashenStoneGravel = registryEntryLookup.getOrThrow(OreConfiguredFeatures.ASHEN_STONE_GRAVEL);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> ashenStoneSand = registryEntryLookup.getOrThrow(OreConfiguredFeatures.ASHEN_STONE_SAND);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> basalt = registryEntryLookup.getOrThrow(OreConfiguredFeatures.BASALT_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> smoothBasalt = registryEntryLookup.getOrThrow(OreConfiguredFeatures.SMOOTH_BASALT_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> blackSand = registryEntryLookup.getOrThrow(OreConfiguredFeatures.BLACK_SAND_ORE);
@@ -111,6 +119,14 @@ public class OrePlacedFeatures {
         PlacedFeatures.register(featureRegisterable, ASHEN_DIRT_ORE, ashenDirt, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, ASHEN_DIRT_STONE_ORE, ashenDirtStone, common,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, ASHEN_GRAVEL, ashenGravel, veryCommon,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, ASHEN_SAND, ashenSand, veryCommon,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, ASHEN_STONE_GRAVEL, ashenStoneGravel, common,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, ASHEN_STONE_SAND, ashenStoneSand, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, BASALT_ORE, basalt, uncommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

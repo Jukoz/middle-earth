@@ -5,6 +5,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.jukoz.me.world.biomes.MEBiomeDataConfigs;
 import net.jukoz.me.world.chunkgen.ProceduralStructures;
 import net.jukoz.me.world.features.tree.trunks.CanopyTrunkPlacer;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
@@ -81,15 +82,16 @@ public class ModBiomeSource extends BiomeSource {
             float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
             if(j <= CavesPlacedFeatures.MAX_MITHRIL_HEIGHT && meBiome.caveType == CaveType.MISTIES) {
                 processedBiome = MEBiomeKeys.MITHRIL_CAVE;
-            }
-            else if(j < (height - 16)) {
+            } else if(biome == MEBiomesData.deadMarshes.biome || biome == MEBiomesData.deadMarshesWater.biome) {
+                height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthChunkGenerator.getMarshesHeight(i, k, height);
+                if(j < (height - 16)) processedBiome = getCaveBiome(i, k, meBiome);
+                else if(height < MiddleEarthChunkGenerator.WATER_HEIGHT) processedBiome = MEBiomesData.deadMarshesWater.biome;
+                else processedBiome = MEBiomesData.deadMarshes.biome;
+            } else if(j < (height - 16)) {
                 processedBiome = getCaveBiome(i, k, meBiome);
-            }
-            else if(height <= meBiome.waterHeight + 1.25f) {
+            } else if(height <= meBiome.waterHeight + 1.25f) {
                 if(MEBiomesData.wastePondBiomes.contains(biome)) {
                     processedBiome = MEBiomesData.wastePond.biome;
-                } else if(MEBiomesData.deadMarshesBiomes.contains(biome)) {
-                    processedBiome = MEBiomesData.deadMarshesWater.biome;
                 } else if(MEBiomesData.mirkwoodSwampBiomes.contains(biome)) {
                     processedBiome = MEBiomesData.mirkwoodSwamp.biome;
                 } else if(MEBiomesData.oasisBiomes.contains(biome)) {

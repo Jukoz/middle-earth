@@ -61,6 +61,17 @@ public class MiddleEarthHeightMap {
         return MEBiomesData.defaultBiome.height * 2.0f;
     }
 
+    public static float getImageNoiseModifier(int xWorld, int zWorld) {
+        if(middleEarthMapRuntime == null) middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
+
+        Color color = middleEarthMapRuntime.getHeight(xWorld, zWorld);
+
+        if(color != null) {
+            return color.getGreen();
+        }
+        return 0.5f;
+    }
+
     public static double getPerlinHeight(int x, int z) {
         double perlin = 1 * BlendedNoise.noise((double) x / PERLIN_STRETCH_X,(double) z / PERLIN_STRETCH_Y);
         perlin += 0.5f * BlendedNoise.noise((double) x * 2 / PERLIN_STRETCH_X,(double) z * 2 / PERLIN_STRETCH_Y);

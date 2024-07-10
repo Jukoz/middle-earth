@@ -8,6 +8,7 @@ import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.utils.noises.SimplexNoise;
 import net.jukoz.me.world.biomes.BlocksLayeringData;
 import net.jukoz.me.world.biomes.SlopeMap;
+import net.jukoz.me.world.biomes.surface.ModBiomes;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
@@ -274,6 +275,13 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 float caveBlendNoise = (float) ((2 * CAVE_NOISE * BlendedNoise.noise((double) posX / 24,  (double) posZ / 24)) - CAVE_NOISE);
                 float slopeAngle = getTerrainSlope(height, posX, posZ);
 
+                int waterHeight = meBiome.waterHeight;
+                if(meBiome.biome == MEBiomeKeys.DEAD_MARSHES || meBiome.biome == MEBiomeKeys.DEAD_MARSHES_WATER) {
+                    float oldHeight = height;
+                    height = getMarshesHeight(posX, posZ, height);
+                    float percentage = Math.min(MiddleEarthHeightMap.getImageNoiseModifier(posX, posZ), 0.3f) / 0.3f;
+                    height = MiddleEarthHeightMap.lerp(height, oldHeight, percentage);
+                }
 
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, bottomY, z), Blocks.BEDROCK.getDefaultState(), false);
                 for(int y = bottomY + 1; y <= LAVA_HEIGHT; y++) {
@@ -298,21 +306,13 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 for(BlocksLayeringData.LayerData layerData : meBiome.blocksLayering.layers) {
                     int blocks = (int) ((dirtHeight - currentHeight) * layerData.percentage);
                     for(int y = 0; y < blocks; y++) {
-                        if(currentHeight + y < DIRT_HEIGHT + height - 7) {
-                            trySetBlock(chunk, chunk.getPos().getBlockPos(x, currentHeight + y, z), layerData.block.getDefaultState());
-                        } else {
-                            chunk.setBlockState(chunk.getPos().getBlockPos(x, currentHeight + y, z), layerData.block.getDefaultState(), false);
-                        }
+                        trySetBlock(chunk, chunk.getPos().getBlockPos(x, currentHeight + y, z), layerData.block.getDefaultState());
                     }
                     currentHeight += blocks;
                 }
                 BlockState surfaceBlock = meBiome.slopeMap.slopeDatas.getFirst().block.getDefaultState();
                 BlockState underSurfaceBlock;
 
-                int waterHeight = meBiome.waterHeight;
-                if(meBiome.biome == MEBiomeKeys.DEAD_MARSHES || meBiome.biome == MEBiomeKeys.DEAD_MARSHES_WATER) {
-                    waterHeight += 2;
-                }
 
                 if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState()) {
                     surfaceBlock = Blocks.DIRT.getDefaultState();
@@ -323,6 +323,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     else underSurfaceBlock = surfaceBlock;
                 }
 
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 1), z), underSurfaceBlock, false);
                 for(int y = (int) (HEIGHT + height); y < DIRT_HEIGHT + height; y++) {
                     chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), underSurfaceBlock, false);
                 }
@@ -364,6 +365,12 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         if(noise < 0.4f && noise3 < 0.75f && miniNoise < 0.8f) { //
             chunk.setBlockState(blockPos, blockState, false);
         }
+    }
+
+    public static float getMarshesHeight(int x, int z, float height) {
+        height = -2 + (2.0f * (float) BlendedNoise.noise((double) x / 19,  (double) z / 19));
+        height += (float) BlendedNoise.noise((double) x / 11,  (double) z / 11);
+        return height;
     }
     
     @Override

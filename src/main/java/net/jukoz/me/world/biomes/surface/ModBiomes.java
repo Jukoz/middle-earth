@@ -68,9 +68,9 @@ public class ModBiomes {
         context.register(MEBiomeKeys.DARK_MIRKWOOD_EDGE, createMirkwoodBiome(context, new BiomeColorsDTO(
                 5861275, 8293250, 4551554, 467756, 4083260, 3690038), false, true));
         context.register(MEBiomeKeys.DEAD_MARSHES, createDeadMarshesBiome(context, new BiomeColorsDTO(
-                6651029, 7108218, 4614002, 198924, 6322270, 5794902)));
-        context.register(MEBiomeKeys.DEAD_MARSHES_WATER, createWastePondBiome(context, new BiomeColorsDTO(
-                6651029, 7108218, 4614002, 198924, 6322270, 5794902)));
+                11908531, 7108218, 3289373, 198924, 6115374, 5794902)));
+        context.register(MEBiomeKeys.DEAD_MARSHES_WATER, createDeadMarshesWaterBiome(context, new BiomeColorsDTO(
+                11908531, 7108218, 3289373, 198924, 6115374, 5794902)));
         context.register(MEBiomeKeys.DOL_GULDUR, createMirkwoodBiome(context, new BiomeColorsDTO(
                 3684976, 5065045, 2503248, 462892, 3554356, 3424049), false, true));
         context.register(MEBiomeKeys.DOL_GULDUR_HILL, createMirkwoodBiome(context, new BiomeColorsDTO(
@@ -123,7 +123,7 @@ public class ModBiomes {
                 8628223, 10599910, 3750089, 263470, 3494723, 4478280)));
         context.register(MEBiomeKeys.GONDOR, createGondorBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 7582562, 6592327)));
-        context.register(MEBiomeKeys.GORGOROTH, createMordorBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.GORGOROTH, createGorgorothBiome(context, new BiomeColorsDTO(
                 2564128, 1709079, 4869697, 1513734, 3156775, 2169880)));
         context.register(MEBiomeKeys.GREY_MOUNTAINS_BASE, createGreyMountainsBiome(context, new BiomeColorsDTO(
                 8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583), 0));
@@ -205,11 +205,11 @@ public class ModBiomes {
                 hillySky, defaultFog, defaultWater, defaultWaterFog, 7777673, 7316862), 2));
         context.register(MEBiomeKeys.MORDOR, createMordorBiome(context, new BiomeColorsDTO(
                 2695203, 1905947, 6450777, 1513734, 3550502, 2695966)));
-        context.register(MEBiomeKeys.MORDOR_MOUNTAINS, createMordorBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.MORDOR_MOUNTAINS, createMordorMountainsBiome(context, new BiomeColorsDTO(
                 4142646, 3090215, 6450777, 1513734, 3550502, 2169880)));
-        context.register(MEBiomeKeys.MORDOR_MOUNTAINS_FOOTHILLS, createMordorBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.MORDOR_MOUNTAINS_FOOTHILLS, createMordorMountainsBiome(context, new BiomeColorsDTO(
                 3747117, 2629407, 6450777, 1513734, 5129527, 3486247)));
-        context.register(MEBiomeKeys.MORDOR_MOUNTAINS_PEAKS, createMordorBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.MORDOR_MOUNTAINS_PEAKS, createMordorMountainsBiome(context, new BiomeColorsDTO(
                 4142646, 3090215, 6450777, 1513734, 3550502, 2169880)));
         context.register(MEBiomeKeys.MORDOR_WASTES, createMordorWastesBiome(context, new BiomeColorsDTO(
                 5460048, 4999240, 5860962, 731161, 6252369, 4735297)));
@@ -293,11 +293,11 @@ public class ModBiomes {
                 8695029, 12637426, defaultWater, defaultWaterFog, 6662455, 5803292), 2));
         context.register(MEBiomeKeys.SOUTHERN_DUNLAND, createNorthDunlandBiome(context, new BiomeColorsDTO(
                 7508201, 10863086, defaultWater, defaultWaterFog, 8302697, 7252827), false));
-        context.register(MEBiomeKeys.SOUTHERN_EPHEL_DUATH, createMordorBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.SOUTHERN_EPHEL_DUATH, createMordorMountainsBiome(context, new BiomeColorsDTO(
                 4142646, 3090215, 6450777, 1513734, 3550502, 2169880)));
-        context.register(MEBiomeKeys.SOUTHERN_EPHEL_DUATH_BASE, createMordorBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.SOUTHERN_EPHEL_DUATH_BASE, createMordorMountainsBiome(context, new BiomeColorsDTO(
                 3747117, 2629407, 6450777, 1513734, 5129527, 3486247)));
-        context.register(MEBiomeKeys.SOUTHERN_EPHEL_DUATH_PEAKS, createMordorBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.SOUTHERN_EPHEL_DUATH_PEAKS, createMordorMountainsBiome(context, new BiomeColorsDTO(
                 4142646, 3090215, 6450777, 1513734, 3550502, 2169880)));
         context.register(MEBiomeKeys.SOUTHEAST_RHOVANION, createRhunBiome(context, new BiomeColorsDTO(
                 7905517, 11055575, defaultWater, defaultWaterFog, 8950352, 7836758)));
@@ -491,10 +491,28 @@ public class ModBiomes {
         ModBiomeFeatures.addAshenDirtOre(vegetation);
         ModBiomeFeatures.addOakBushes(vegetation);
         ModBiomeFeatures.addRareSmallSwampOakTrees(vegetation);
+        ModBiomeFeatures.addShriveledShrubs(vegetation);
         ModBiomeFeatures.addWheatGrass(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
         ModBiomeFeatures.addAbundantWaterDelta(vegetation);
+        vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_PLAIN);
+        vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_FOREST);
         vegetation.add(VegetationPlacedFeatures.PATCH_TALL_GRASS);
+        vegetation.add(VegetationPlacedFeatures.PATCH_TALL_GRASS_2);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
+    public static Biome createDeadMarshesWaterBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        undergroundOres.add(MiscPlacedFeatures.DISK_CLAY);
+        ModBiomeFeatures.addAshenGravelOre(undergroundOres);
+        ModBiomeFeatures.addAshenSandOre(undergroundOres);
+        vegetation.add(OceanPlacedFeatures.KELP_WARM);
+        vegetation.add(OceanPlacedFeatures.SEAGRASS_NORMAL);
+        vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_FOREST);
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
@@ -1158,10 +1176,48 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addMordorVegetation(generationSettings);
+        ModBiomeFeatures.addPumicePileRare(vegetation);
         ModBiomeFeatures.addAshenDirtStoneOre(vegetation);
+        ModBiomeFeatures.addAshenStoneGravelOre(vegetation);
+        ModBiomeFeatures.addAshenStoneSandOre(vegetation);
         ModBiomeFeatures.addLavaMagmaLake(generationSettings);
         ModBiomeFeatures.addBasaltPile(vegetation);
         ModBiomeFeatures.addBlackStonePile(vegetation);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.7f, false);
+    }
+
+    public static Biome createGorgorothBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addMordorVegetation(generationSettings);
+        ModBiomeFeatures.addPumicePileSparse(vegetation);
+        ModBiomeFeatures.addAshenDirtStoneOre(vegetation);
+        ModBiomeFeatures.addAshenStoneGravelOre(vegetation);
+        ModBiomeFeatures.addAshenStoneSandOre(vegetation);
+        ModBiomeFeatures.addLavaMagmaLake(generationSettings);
+        ModBiomeFeatures.addBlackSand(vegetation);
+        ModBiomeFeatures.addBasaltPile(vegetation);
+        ModBiomeFeatures.addBlackStonePile(vegetation);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.7f, false);
+    }
+
+    public static Biome createMordorMountainsBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        ModBiomeFeatures.addMordorLichen(vegetation);
+        ModBiomeFeatures.addAshBlockOre(vegetation);
+        ModBiomeFeatures.addPumicePileRare(vegetation);
+        ModBiomeFeatures.addAshenStoneGravelOre(vegetation);
+        ModBiomeFeatures.addAshenStoneSandOre(vegetation);
+        ModBiomeFeatures.addAshenDirtStoneOre(vegetation);
+        ModBiomeFeatures.addBasaltPile(vegetation);
+        ModBiomeFeatures.addBlackStonePile(vegetation);
+        ModBiomeFeatures.addShriveledShrubs(vegetation);
+        ModBiomeFeatures.addCommonToughBerries(vegetation);
 
         return createBiome(biomeColors, spawnSettings, generationSettings, 0.7f, false);
     }
@@ -1595,6 +1651,7 @@ public class ModBiomes {
         ModBiomeFeatures.addAshenDirtStoneOre(vegetation);
         ModBiomeFeatures.addBasaltPile(vegetation);
         ModBiomeFeatures.addBlackStonePile(vegetation);
+        ModBiomeFeatures.addPumicePileRare(vegetation);
         ModBiomeFeatures.addDeadPineTrees(vegetation);
         ModBiomeFeatures.addSparsePineTrees(vegetation);
 
@@ -1959,8 +2016,6 @@ public class ModBiomes {
         ModBiomeFeatures.addDisks(undergroundOres);
         ModBiomeFeatures.addMordorLichen(vegetation);
         ModBiomeFeatures.addAshBlockOre(vegetation);
-        ModBiomeFeatures.addBasaltOre(vegetation);
-        ModBiomeFeatures.addBlackSand(vegetation);
         ModBiomeFeatures.addCommonToughBerries(vegetation);
     }
 
