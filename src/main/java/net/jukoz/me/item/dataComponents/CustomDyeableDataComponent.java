@@ -54,7 +54,7 @@ public record CustomDyeableDataComponent(int customRgb, boolean overlay) {
     }
 
     public static ItemStack setColor(ItemStack stack, List<DyeItem> dyes) {
-        if (!stack.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "dyeable")))) {
+        if (!stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
             return ItemStack.EMPTY;
         } else {
             ItemStack itemStack = stack.copyWithCount(1);
@@ -81,12 +81,12 @@ public record CustomDyeableDataComponent(int customRgb, boolean overlay) {
             }
 
             int s;
-            for (Iterator var16 = dyes.iterator(); var16.hasNext(); ++m) {
-                DyeItem dyeItem = (DyeItem) var16.next();
-                float[] fs = dyeItem.getColor().getColorComponents();
-                int q = (int) (fs[0] * 255.0F);
-                int r = (int) (fs[1] * 255.0F);
-                s = (int) (fs[2] * 255.0F);
+            for(Iterator var16 = dyes.iterator(); var16.hasNext(); ++m) {
+                DyeItem dyeItem = (DyeItem)var16.next();
+                p = dyeItem.getColor().getEntityColor();
+                int q = ColorHelper.Argb.getRed(p);
+                int r = ColorHelper.Argb.getGreen(p);
+                s = ColorHelper.Argb.getBlue(p);
                 l += Math.max(q, Math.max(r, s));
                 i += q;
                 j += r;

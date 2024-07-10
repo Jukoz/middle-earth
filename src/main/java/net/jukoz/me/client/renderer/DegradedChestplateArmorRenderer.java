@@ -46,7 +46,7 @@ public class DegradedChestplateArmorRenderer implements ArmorRenderer {
             customChestplateModel.rightLeg.visible = true;
             customChestplateModel.leftLeg.visible = true;
 
-            if (stack.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "dyeable")))) {
+            if (stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
                 dyeable = true;
             }
 
@@ -56,7 +56,7 @@ public class DegradedChestplateArmorRenderer implements ArmorRenderer {
                 texture = "textures/models/armor/" + Registries.ITEM.getId(stack.getItem()).getPath() + ".png";
             }
 
-            ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customChestplateModel, new Identifier(MiddleEarth.MOD_ID, texture), dyeable);
+            ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customChestplateModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
 
             if (item.additionModel != null) {
                 contextModel.copyBipedStateTo(item.additionModel);
@@ -64,7 +64,7 @@ public class DegradedChestplateArmorRenderer implements ArmorRenderer {
                 item.additionModel.body.visible = true;
                 item.additionModel.rightArm.visible = true;
                 item.additionModel.leftArm.visible = true;
-                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, item.additionModel, new Identifier(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
+                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, item.additionModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
             }
 
             CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
@@ -75,8 +75,8 @@ public class DegradedChestplateArmorRenderer implements ArmorRenderer {
                     capeModel.body.visible = true;
                     capeModel.rightArm.visible = true;
                     capeModel.leftArm.visible = true;
-                    capeModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float) entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.roll);
-                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, capeModel, new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + capeDataComponent.cape() + ".png"), false);
+                    capeModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float) entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.roll);
+                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + capeDataComponent.cape() + ".png"), false);
                 }
             }
         }

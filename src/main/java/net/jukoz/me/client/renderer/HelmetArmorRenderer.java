@@ -45,22 +45,22 @@ public class HelmetArmorRenderer implements ArmorRenderer {
             customHelmetModel.leftArm.visible = true;
             customHelmetModel.rightArm.visible = true;
 
-            if(stack.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "dyeable")))) {
+            if(stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
                 dyeable = true;
             }
 
             String texture = "textures/models/armor/" + Registries.ITEM.getId(stack.getItem()).getPath() + ".png";
-            ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customHelmetModel, new Identifier(MiddleEarth.MOD_ID, texture), dyeable);
+            ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customHelmetModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
 
             if (item.additionModel != null) {
                 contextModel.copyBipedStateTo(item.additionModel);
                 item.additionModel.setVisible(false);
                 item.additionModel.head.visible = true;
-                item.additionModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getTickDelta(), contextModel.head.yaw, contextModel.head.pitch);
+                item.additionModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.pitch);
                 if(texture.contains("_helmet")){
-                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, item.additionModel, new Identifier(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_addition.png")), dyeable);
+                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, item.additionModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_addition.png")), dyeable);
                 } else {
-                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, item.additionModel, new Identifier(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
+                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, item.additionModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
                 }
             }
 
@@ -72,9 +72,9 @@ public class HelmetArmorRenderer implements ArmorRenderer {
                     hoodModel.setVisible(false);
                     hoodModel.hat.visible = true;
                     if(hoodDataComponent.down()){
-                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.hood().toLowerCase() + "_down.png"), false);
+                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.hood().toLowerCase() + "_down.png"), false);
                     } else {
-                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, new Identifier(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.hood().toLowerCase() + ".png"), false);
+                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.hood().toLowerCase() + ".png"), false);
                     }
                 }
             }

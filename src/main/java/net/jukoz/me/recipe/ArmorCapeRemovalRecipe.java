@@ -12,6 +12,7 @@ import net.minecraft.item.WrittenBookItem;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
@@ -23,12 +24,31 @@ public class ArmorCapeRemovalRecipe extends SpecialCraftingRecipe {
         super(category);
     }
 
-    public boolean matches(RecipeInputInventory recipeInputInventory, World world) {
+    @Override
+    public DefaultedList<ItemStack> getRemainder(CraftingRecipeInput input) {
+        DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(input.getSize(), ItemStack.EMPTY);
+
+        for(int i = 0; i < defaultedList.size(); ++i) {
+            ItemStack itemStack = input.getStackInSlot(i);
+            if (itemStack.getItem().hasRecipeRemainder()) {
+                defaultedList.set(i, new ItemStack(itemStack.getItem().getRecipeRemainder()));
+            } else if (itemStack.getItem() instanceof ShearsItem) {
+                defaultedList.set(i, itemStack.copyWithCount(1));
+                break;
+            }
+        }
+
+        return defaultedList;
+    }
+
+
+    @Override
+    public boolean matches(CraftingRecipeInput input, World world) {
         ItemStack itemStackChest = ItemStack.EMPTY;
         ItemStack itemStackShears = ItemStack.EMPTY;
 
-        for(int i = 0; i < recipeInputInventory.size(); ++i) {
-            ItemStack itemStack2 = recipeInputInventory.getStack(i);
+        for(int i = 0; i < input.getSize(); ++i) {
+            ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomChestplateItem && itemStack2.get(ModDataComponentTypes.CAPE_DATA) != null) {
                     if (!itemStackChest.isEmpty()) {
@@ -46,11 +66,12 @@ public class ArmorCapeRemovalRecipe extends SpecialCraftingRecipe {
         return !itemStackChest.isEmpty() && !itemStackShears.isEmpty();
     }
 
-    public ItemStack craft(RecipeInputInventory recipeInputInventory, RegistryWrapper.WrapperLookup wrapperLookup) {
+    @Override
+    public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         ItemStack itemStack = ItemStack.EMPTY;
 
-        for(int i = 0; i < recipeInputInventory.size(); ++i) {
-            ItemStack itemStack2 = recipeInputInventory.getStack(i);
+        for(int i = 0; i < input.getSize(); ++i) {
+            ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomChestplateItem && itemStack2.get(ModDataComponentTypes.CAPE_DATA) != null) {
                     if (!itemStack.isEmpty()) {
@@ -72,23 +93,6 @@ public class ArmorCapeRemovalRecipe extends SpecialCraftingRecipe {
         } else {
             return ItemStack.EMPTY;
         }
-    }
-
-    @Override
-    public DefaultedList<ItemStack> getRemainder(RecipeInputInventory inventory) {
-        DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(inventory.size(), ItemStack.EMPTY);
-
-        for(int i = 0; i < defaultedList.size(); ++i) {
-            ItemStack itemStack = inventory.getStack(i);
-            if (itemStack.getItem().hasRecipeRemainder()) {
-                defaultedList.set(i, new ItemStack(itemStack.getItem().getRecipeRemainder()));
-            } else if (itemStack.getItem() instanceof ShearsItem) {
-                defaultedList.set(i, itemStack.copyWithCount(1));
-                break;
-            }
-        }
-
-        return defaultedList;
     }
 
     public boolean fits(int width, int height) {

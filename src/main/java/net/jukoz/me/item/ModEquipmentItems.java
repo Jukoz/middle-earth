@@ -586,7 +586,7 @@ public class ModEquipmentItems {
             case CustomBootsItem bootsItem -> armorPiecesListBoots.add(bootsItem);
             default -> throw new IllegalStateException("Unexpected value: " + item);
         }
-        return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerRustyArmorPiece(String name, Item item) {
@@ -599,7 +599,7 @@ public class ModEquipmentItems {
             case CustomBootsItem bootsItem -> armorPiecesListRustyBoots.add(bootsItem);
             default -> throw new IllegalStateException("Unexpected value: " + item);
         }
-        return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerArmorPiece(String name, Item item) {
@@ -612,7 +612,7 @@ public class ModEquipmentItems {
             case CustomBootsItem bootsItem -> armorPiecesListBoots.add(bootsItem);
             default -> throw new IllegalStateException("Unexpected value: " + item);
         }
-        return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     public static void registerModItems() {

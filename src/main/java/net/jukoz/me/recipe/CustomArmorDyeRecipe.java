@@ -3,6 +3,7 @@ package net.jukoz.me.recipe;
 import com.google.common.collect.Lists;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
+import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
@@ -10,76 +11,77 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomArmorDyeRecipe extends SpecialCraftingRecipe {
-
     public CustomArmorDyeRecipe(CraftingRecipeCategory craftingRecipeCategory) {
         super(craftingRecipeCategory);
     }
 
-    public boolean matches(RecipeInputInventory recipeInputInventory, World world) {
+    @Override
+    public boolean matches(CraftingRecipeInput craftingRecipeInput, World world) {
         ItemStack itemStack = ItemStack.EMPTY;
-        List<ItemStack> list = Lists.newArrayList();
+        ArrayList<ItemStack> list = Lists.newArrayList();
+        System.out.println("trying to match");
 
-        for(int i = 0; i < recipeInputInventory.size(); ++i) {
-            ItemStack itemStack2 = recipeInputInventory.getStack(i);
-            if (!itemStack2.isEmpty()) {
-                if (itemStack2.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "dyeable")))) {
-                    if (!itemStack.isEmpty()) {
-                        return false;
-                    }
-
-                    itemStack = itemStack2;
-                } else {
-                    if (!(itemStack2.getItem() instanceof DyeItem)) {
-                        return false;
-                    }
-
-                    list.add(itemStack2);
+        for (int i = 0; i < craftingRecipeInput.getSize(); ++i) {
+            ItemStack itemStack2 = craftingRecipeInput.getStackInSlot(i);
+            if (itemStack2.isEmpty()) continue;
+            if (itemStack2.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+                if (!itemStack.isEmpty()) {
+                    return false;
                 }
+                System.out.println("dyeable found");
+                itemStack = itemStack2;
+                continue;
             }
+            if (itemStack2.getItem() instanceof DyeItem) {
+                System.out.println("dye found");
+                list.add(itemStack2);
+                continue;
+            }
+            return false;
         }
-
         return !itemStack.isEmpty() && !list.isEmpty();
     }
 
-    public ItemStack craft(RecipeInputInventory recipeInputInventory, RegistryWrapper.WrapperLookup wrapperLookup) {
-        List<DyeItem> list = Lists.newArrayList();
+    @Override
+    public ItemStack craft(CraftingRecipeInput craftingRecipeInput, RegistryWrapper.WrapperLookup lookup) {
+        ArrayList<DyeItem> list = Lists.newArrayList();
         ItemStack itemStack = ItemStack.EMPTY;
 
-        for(int i = 0; i < recipeInputInventory.size(); ++i) {
-            ItemStack itemStack2 = recipeInputInventory.getStack(i);
-            if (!itemStack2.isEmpty()) {
-                if (itemStack2.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "dyeable")))) {
-                    if (!itemStack.isEmpty()) {
-                        return ItemStack.EMPTY;
-                    }
-
-                    itemStack = itemStack2.copy();
-                } else {
-                    Item var8 = itemStack2.getItem();
-                    if (!(var8 instanceof DyeItem)) {
-                        return ItemStack.EMPTY;
-                    }
-
-                    DyeItem dyeItem = (DyeItem)var8;
-                    list.add(dyeItem);
+        for (int i = 0; i < craftingRecipeInput.getSize(); ++i) {
+            ItemStack itemStack2 = craftingRecipeInput.getStackInSlot(i);
+            if (itemStack2.isEmpty()) continue;
+            if (itemStack2.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+                if (!itemStack.isEmpty()) {
+                    return ItemStack.EMPTY;
                 }
+                System.out.println("dyeable found");
+                itemStack = itemStack2.copy();
+                continue;
             }
-        }
-
-        if (!itemStack.isEmpty() && !list.isEmpty()) {
-            return CustomDyeableDataComponent.setColor(itemStack, list);
-        } else {
+            Item item = itemStack2.getItem();
+            if (item instanceof DyeItem dyeItem) {
+                System.out.println("dye found");
+                list.add(dyeItem);
+                continue;
+            }
             return ItemStack.EMPTY;
         }
+        if (itemStack.isEmpty() || list.isEmpty()) {
+            return ItemStack.EMPTY;
+        }
+        return CustomDyeableDataComponent.setColor(itemStack, list);
     }
 
     public boolean fits(int width, int height) {

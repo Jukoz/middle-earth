@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 
@@ -25,12 +26,14 @@ public class ArmorHoodRecipe extends SpecialCraftingRecipe {
         super(category);
     }
 
-    public boolean matches(RecipeInputInventory recipeInputInventory, World world) {
+
+    @Override
+    public boolean matches(CraftingRecipeInput input, World world) {
         ItemStack itemStackHelmet = ItemStack.EMPTY;
         ItemStack itemStackHood = ItemStack.EMPTY;
 
-        for(int i = 0; i < recipeInputInventory.size(); ++i) {
-            ItemStack itemStack2 = recipeInputInventory.getStack(i);
+        for(int i = 0; i < input.getSize(); ++i) {
+            ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomHelmetItem) {
                     if (!itemStackHelmet.isEmpty()) {
@@ -48,12 +51,13 @@ public class ArmorHoodRecipe extends SpecialCraftingRecipe {
         return !itemStackHelmet.isEmpty() && !itemStackHood.isEmpty();
     }
 
-    public ItemStack craft(RecipeInputInventory recipeInputInventory, RegistryWrapper.WrapperLookup wrapperLookup) {
+    @Override
+    public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         ItemStack itemStack = ItemStack.EMPTY;
         ItemStack hood = ItemStack.EMPTY;
 
-        for(int i = 0; i < recipeInputInventory.size(); ++i) {
-            ItemStack itemStack2 = recipeInputInventory.getStack(i);
+        for(int i = 0; i < input.getSize(); ++i) {
+            ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomHelmetItem) {
                     if (!itemStack.isEmpty()) {
@@ -82,6 +86,6 @@ public class ArmorHoodRecipe extends SpecialCraftingRecipe {
     }
 
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipeSerializer.CUSTOM_ARMOR_CAPE;
+        return ModRecipeSerializer.CUSTOM_ARMOR_HOOD;
     }
 }

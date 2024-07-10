@@ -12,25 +12,19 @@ import net.minecraft.util.Identifier;
 
 import java.util.logging.Logger;
 
-public class ModRecipeSerializer {
+public class ModRecipeSerializer<T extends Recipe<?>> {
 
-    public static SpecialRecipeSerializer<CustomArmorDyeRecipe> CUSTOM_ARMOR_DYE;
-    public static SpecialRecipeSerializer<ArmorCapeRecipe> CUSTOM_ARMOR_CAPE;
-    public static SpecialRecipeSerializer<ArmorCapeRemovalRecipe> CUSTOM_ARMOR_CAPE_REMOVAL;
-    public static SpecialRecipeSerializer<ArmorHoodRecipe> CUSTOM_ARMOR_HOOD;
-    public static SpecialRecipeSerializer<ArmorHoodRemovalRecipe> CUSTOM_ARMOR_HOOD_REMOVAL;
-
-    public static void registerRecipeSerializers(){
-        CUSTOM_ARMOR_DYE = register("custom_armor_dye", new SpecialRecipeSerializer<CustomArmorDyeRecipe>(CustomArmorDyeRecipe::new));
-        CUSTOM_ARMOR_CAPE = register("custom_armor_cape", new SpecialRecipeSerializer<ArmorCapeRecipe>(ArmorCapeRecipe::new));
-        CUSTOM_ARMOR_CAPE_REMOVAL = register("custom_armor_cape_removal", new SpecialRecipeSerializer<ArmorCapeRemovalRecipe>(ArmorCapeRemovalRecipe::new));
-        CUSTOM_ARMOR_HOOD = register("custom_armor_hood", new SpecialRecipeSerializer<ArmorHoodRecipe>(ArmorHoodRecipe::new));
-        CUSTOM_ARMOR_HOOD_REMOVAL = register("custom_armor_hood_removal", new SpecialRecipeSerializer<ArmorHoodRemovalRecipe>(ArmorHoodRemovalRecipe::new));
-
-        LoggerUtil.getInstance().logDebugMsg("Registering Mod Recipe Serializers for " + MiddleEarth.MOD_ID);
-    }
+    public static final SpecialRecipeSerializer<CustomArmorDyeRecipe> CUSTOM_ARMOR_DYE = register("custom_armor_dye", new SpecialRecipeSerializer<CustomArmorDyeRecipe>(CustomArmorDyeRecipe::new));;
+    public static final SpecialRecipeSerializer<ArmorCapeRecipe> CUSTOM_ARMOR_CAPE= register("custom_armor_cape", new SpecialRecipeSerializer<ArmorCapeRecipe>(ArmorCapeRecipe::new));
+    public static final SpecialRecipeSerializer<ArmorCapeRemovalRecipe> CUSTOM_ARMOR_CAPE_REMOVAL= register("custom_armor_cape_removal", new SpecialRecipeSerializer<ArmorCapeRemovalRecipe>(ArmorCapeRemovalRecipe::new));
+    public static final SpecialRecipeSerializer<ArmorHoodRecipe> CUSTOM_ARMOR_HOOD= register("custom_armor_hood", new SpecialRecipeSerializer<ArmorHoodRecipe>(ArmorHoodRecipe::new));
+    public static final SpecialRecipeSerializer<ArmorHoodRemovalRecipe> CUSTOM_ARMOR_HOOD_REMOVAL= register("custom_armor_hood_removal", new SpecialRecipeSerializer<ArmorHoodRemovalRecipe>(ArmorHoodRemovalRecipe::new));
 
     static <S extends RecipeSerializer<T>, T extends Recipe<?>> S register(String id, S serializer) {
-        return Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(MiddleEarth.MOD_ID, id), serializer);
+        return Registry.register(Registries.RECIPE_SERIALIZER, Identifier.of(MiddleEarth.MOD_ID, id), serializer);
+    }
+
+    public static void registerRecipeSerializers(){
+        LoggerUtil.getInstance().logDebugMsg("Registering Mod Recipe Serializers for " + MiddleEarth.MOD_ID);
     }
 }

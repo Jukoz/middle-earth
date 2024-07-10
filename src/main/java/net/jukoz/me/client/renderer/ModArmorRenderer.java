@@ -60,8 +60,8 @@ public class ModArmorRenderer implements ArmorRenderer {
     }
 
     static void renderDyeable(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture) {
-        VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), false, stack.hasGlint());
-        Color rgb = IntToRGB.ex(CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR));
-        model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, rgb.getRed()/255f, rgb.getGreen()/255f, rgb.getBlue()/255f, 1.0F);
+        VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), stack.hasGlint());
+        int color = CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR);
+        model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
     }
 }
