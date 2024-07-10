@@ -132,6 +132,9 @@ public class ModBiomeFeatures {
     public static void addOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.OAK_PLACED_TREE_KEY);
     }
+    public static void addRareSmallSwampOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.RARE_SMALL_SWAMP_OAK_PLACED_TREE_KEY);
+    }
     public static void addRareOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.RARE_OAK_PLACED_TREE_KEY);
     }
@@ -234,6 +237,9 @@ public class ModBiomeFeatures {
     // region FOLIAGE
     public static void addWaterDelta(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.WATER_DELTA);
+    }
+    public static void addAbundantWaterDelta(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.ABUNDANT_WATER_DELTA);
     }
 
     public static void addCornflower(List<RegistryKey<PlacedFeature>> vegetation) {

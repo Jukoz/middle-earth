@@ -88,6 +88,8 @@ public class ModBiomeSource extends BiomeSource {
             else if(height <= meBiome.waterHeight + 1.25f) {
                 if(MEBiomesData.wastePondBiomes.contains(biome)) {
                     processedBiome = MEBiomesData.wastePond.biome;
+                } else if(MEBiomesData.deadMarshesBiomes.contains(biome)) {
+                    processedBiome = MEBiomesData.deadMarshesWater.biome;
                 } else if(MEBiomesData.mirkwoodSwampBiomes.contains(biome)) {
                     processedBiome = MEBiomesData.mirkwoodSwamp.biome;
                 } else if(MEBiomesData.oasisBiomes.contains(biome)) {

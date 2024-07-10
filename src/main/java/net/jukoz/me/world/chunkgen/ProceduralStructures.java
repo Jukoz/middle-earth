@@ -13,7 +13,7 @@ public class ProceduralStructures {
     private static final int mapMultiplier = (int) Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION + MiddleEarthMapConfigs.PIXEL_WEIGHT - 2);
 
     public static void generateStructures(MEBiome meBiome, Chunk chunk, int x, int y, int z) {
-        if(meBiome.biome.isOf(MEBiomeKeys.NAN_CURUNIR.getRegistryRef())) generateIsengard(chunk, x, y, z);
+        if(meBiome.biome == MEBiomeKeys.NAN_CURUNIR) generateIsengard(chunk, x, y, z);
     }
 
     // region Isengard
@@ -27,7 +27,7 @@ public class ProceduralStructures {
     public static final float isengardRingThickness = 5;
     private static final float isengardWallsHeight = 18;
     private static final float isengardPathSize = 0.034f;
-    private static final BlockState isengardBlock = StoneBlockSets.SMOOTH_EPMOSTO.base().getDefaultState();
+    private static final BlockState isengardBlock = StoneBlockSets.SMOOTH_MEDGON.base().getDefaultState();
 
     private static void generateIsengard(Chunk chunk, int x, int y, int z) {
         Vec2f coordinates = new Vec2f(x, z);
@@ -56,11 +56,6 @@ public class ProceduralStructures {
                     for(int i = -1; i < (isengardWallsHeight - dropHeight); i++) {
                         chunk.setBlockState(chunk.getPos().getBlockPos(x, y + i, z), isengardBlock, false);
                     }
-                }
-            } else if(isInsideIsengard(x, z)) {
-                Vec2f direction = (centerOrthanc.add(coordinates.negate())).normalize();
-                if(Math.abs(direction.dot(Vec2f.EAST_UNIT)) <= isengardPathSize && z > centerOrthanc.y) {
-                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.DIRT_PATH.getDefaultState(), false);
                 }
             }
         }

@@ -24,6 +24,7 @@ public class MEBiomesData {
     public static List<RegistryKey<Biome>> mirkwoodSwampBiomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> oasisBiomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> anduinWaterBiomes = new ArrayList<>();
+    public static List<RegistryKey<Biome>> deadMarshesBiomes = new ArrayList<>();
 
     public static MEBiome defaultBiome;
     public static MEBiome frozenPond;
@@ -32,6 +33,7 @@ public class MEBiomesData {
     public static MEBiome greatRiver;
     public static MEBiome wastePond;
     public static MEBiome mirkwoodSwamp;
+    public static MEBiome deadMarshesWater;
 
     public static void addBiome(Color color, MEBiome biome) {
         biome.color = color;
@@ -67,14 +69,15 @@ public class MEBiomesData {
     }
 
     public static void loadBiomes() {
-        defaultBiome = new MEBiome(-13, MEBiomeKeys.OCEAN, MEBiomeDataConfigs.oceanModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers);
+        defaultBiome = new MEBiome(-17, MEBiomeKeys.OCEAN, MEBiomeDataConfigs.oceanModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers);
         // Ponds
         frozenPond = new MEBiome(-10, MEBiomeKeys.FROZEN_POND, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers, CaveType.FOROD);
         oasis = new MEBiome(-10, MEBiomeKeys.OASIS, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.beach, MEBiomeDataConfigs.sandstoneLayers, CaveType.HARAD);
         pond = new MEBiome(-10, MEBiomeKeys.POND, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers);
         mirkwoodSwamp = new MEBiome(-10, MEBiomeKeys.MIRKWOOD_SWAMP, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers);
-        greatRiver = new MEBiome(-3, MEBiomeKeys.GREAT_RIVER, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.river, MEBiomeDataConfigs.stoneLayers);
+        greatRiver = new MEBiome(-10, MEBiomeKeys.GREAT_RIVER, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.river, MEBiomeDataConfigs.stoneLayers);
         wastePond = new MEBiome(-10, MEBiomeKeys.WASTE_POND, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.ashenDirt, MEBiomeDataConfigs.ashenStoneLayers);
+        deadMarshesWater = new MEBiome(-10, MEBiomeKeys.DEAD_MARSHES_WATER, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.ashenDirt, MEBiomeDataConfigs.ashenStoneLayers);
 
         // Water Biomes :
         addBiome(new Color(55, 90, 195), defaultBiome);
@@ -82,14 +85,16 @@ public class MEBiomesData {
         addBiome(new Color(104, 168, 222), frozenPond);
         addBiome(new Color(110, 154, 218), pond);
         addBiome(new Color(75, 108, 143), wastePond);
+        addBiome(new Color(90, 124, 161), deadMarshesWater);
 
-        addBiome(new Color(101, 123, 243), new MEBiome(-8, MEBiomeKeys.FROZEN_OCEAN, MEBiomeDataConfigs.oceanModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers, CaveType.FOROD));
-        addBiome(new Color(69, 92, 228), new MEBiome(-7, MEBiomeKeys.LONG_LAKE, MEBiomeDataConfigs.oceanModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers));
-        addBiome(new Color(79, 91, 161), new MEBiome(-3, MEBiomeKeys.NURN_RIVER, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.river, MEBiomeDataConfigs.stoneLayers));
-        addBiome(new Color(88, 94, 130), new MEBiome(-6, MEBiomeKeys.NURN_SEA, MEBiomeDataConfigs.oceanModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers));
-        addBiome(new Color(75, 106, 199), new MEBiome(-4, MEBiomeKeys.OCEAN_COAST, MEBiomeDataConfigs.oceanModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers));
-        addBiome(new Color(83, 129, 186), new MEBiome(-1, MEBiomeKeys.RIVER, MEBiomeDataConfigs.smallRiverModifier, MEBiomeDataConfigs.river, MEBiomeDataConfigs.stoneLayers));
-        addBiome(new Color(77, 119, 137), new MEBiome(-1, MEBiomeKeys.FOREST_RIVER, MEBiomeDataConfigs.smallRiverModifier, MEBiomeDataConfigs.river, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(78, 99, 122), new MEBiome(-4, MEBiomeKeys.EMYN_MUIL_POND, MEBiomeDataConfigs.emynMuilModifier, MEBiomeDataConfigs.emynMuil, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(101, 123, 243), new MEBiome(-12, MEBiomeKeys.FROZEN_OCEAN, MEBiomeDataConfigs.oceanModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers, CaveType.FOROD));
+        addBiome(new Color(69, 92, 228), new MEBiome(-10, MEBiomeKeys.LONG_LAKE, MEBiomeDataConfigs.oceanModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(79, 91, 161), new MEBiome(-7, MEBiomeKeys.NURN_RIVER, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.river, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(88, 94, 130), new MEBiome(-12, MEBiomeKeys.NURN_SEA, MEBiomeDataConfigs.oceanModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(75, 106, 199), new MEBiome(-11, MEBiomeKeys.OCEAN_COAST, MEBiomeDataConfigs.oceanModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(83, 129, 186), new MEBiome(-6, MEBiomeKeys.RIVER, MEBiomeDataConfigs.smallRiverModifier, MEBiomeDataConfigs.river, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(77, 119, 137), new MEBiome(-6, MEBiomeKeys.FOREST_RIVER, MEBiomeDataConfigs.smallRiverModifier, MEBiomeDataConfigs.river, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(99, 138, 186), greatRiver);
         addBiome(new Color(66, 97, 157), new MEBiome(-8, MEBiomeKeys.SEA_OF_RHUN, MEBiomeDataConfigs.oceanModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(28, 107, 86), mirkwoodSwamp);
@@ -98,8 +103,8 @@ public class MEBiomesData {
 
         // Land Biomes :
         addBiome(new Color(156, 207, 113), new MEBiome(4, MEBiomeKeys.ANDUIN_VALES, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
-        addBiome(new Color(71, 169, 66), new MEBiome(0, MEBiomeKeys.ANORIEN_RIVERSIDE, MEBiomeDataConfigs.landModifier.heightModifier(0.98f).noiseModifier(0.1f), MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers));
-        addBiome(new Color(79, 187, 73), new MEBiome(10, MEBiomeKeys.ANORIEN, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers));
+        addBiome(new Color(71, 169, 66), new MEBiome(0, MEBiomeKeys.ANORIEN_RIVERSIDE, MEBiomeDataConfigs.plainsModifier.heightModifier(0.98f).noiseModifier(0.1f), MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers));
+        addBiome(new Color(79, 187, 73), new MEBiome(10, MEBiomeKeys.ANORIEN, MEBiomeDataConfigs.plainsModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers));
         addBiome(new Color(107, 205, 102), new MEBiome(19, MEBiomeKeys.ANORIEN_FOOTHILLS, MEBiomeDataConfigs.foothillModifier.heightModifier(0.28f), MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers));
         addBiome(new Color(96, 171, 89), new MEBiome(6, MEBiomeKeys.BARROW_DOWNS, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(38, 207, 94), new MEBiome(4, MEBiomeKeys.BELFALAS, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers));
@@ -109,16 +114,20 @@ public class MEBiomesData {
         addBiome(new Color(217, 224, 255), new MEBiome(95, MEBiomeKeys.BLUE_MOUNTAINS_PEAKS, MEBiomeDataConfigs.bmPeaksModifier, MEBiomeDataConfigs.blueMountainsPeaks, MEBiomeDataConfigs.gonluinLayers));
         addBiome(new Color(88, 82, 71), new MEBiome(4, MEBiomeKeys.BROWN_LANDS, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(193, 188, 131), new MEBiome(6, MEBiomeKeys.CORSAIR_COASTS, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.nearHarad, MEBiomeDataConfigs.sandstoneLayers, CaveType.HARAD));
+        addBiome(new Color(77, 69, 65), new MEBiome(4, MEBiomeKeys.DAGORLAD, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(132, 164, 78), new MEBiome(4, MEBiomeKeys.DALE, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(125, 176, 106), new MEBiome(0, MEBiomeKeys.DALE_RIVERSIDE, MEBiomeDataConfigs.landModifier.heightModifier(0.98f).noiseModifier(0.1f), MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(18, 26, 19), new MEBiome(6, MEBiomeKeys.DARK_MIRKWOOD, MEBiomeDataConfigs.mirkwoodModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(26, 45, 28), new MEBiome(5, MEBiomeKeys.DARK_MIRKWOOD_EDGE, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(166, 191, 114), new MEBiome(4, MEBiomeKeys.DARK_ANDUIN_VALES, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
-        addBiome(new Color(44, 39, 51), new MEBiome(4, MEBiomeKeys.DOL_GULDUR, MEBiomeDataConfigs.foothillModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(48, 94, 66), new MEBiome(0, MEBiomeKeys.DEAD_MARSHES, MEBiomeDataConfigs.plainsModifier.noiseModifier(0.27f), MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(44, 39, 51), new MEBiome(11, MEBiomeKeys.DOL_GULDUR, MEBiomeDataConfigs.foothillModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(53, 45, 66), new MEBiome(31, MEBiomeKeys.DOL_GULDUR_HILL, MEBiomeDataConfigs.mountainModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(82, 146, 80), new MEBiome(4, MEBiomeKeys.DORWINION, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.limeStoneHills, MEBiomeDataConfigs.limeStoneLayers));
         addBiome(new Color(93, 113, 92), new MEBiome(34, MEBiomeKeys.DORWINION_HILLS, MEBiomeDataConfigs.foothillModifier, MEBiomeDataConfigs.limeStoneHills, MEBiomeDataConfigs.limeStoneLayers));
         addBiome(new Color(132, 137, 124), new MEBiome(34, MEBiomeKeys.DUNLAND_FOOTHILLS, MEBiomeDataConfigs.foothillModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(162, 197, 133), new MEBiome(4, MEBiomeKeys.EAST_BIGHT, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(101, 89, 80), new MEBiome(5, MEBiomeKeys.EASTERN_NURN,MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(140, 150, 84), new MEBiome(4, MEBiomeKeys.EASTERN_RHOVANION, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(120, 107, 84), new MEBiome(57, MEBiomeKeys.EMYN_MUIL_CLIFFS, MEBiomeDataConfigs.emynMuilModifier, MEBiomeDataConfigs.emynMuil, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(133, 122, 103), new MEBiome(74, MEBiomeKeys.EMYN_MUIL, MEBiomeDataConfigs.emynMuilModifier.heightModifier(0.32f), MEBiomeDataConfigs.emynMuil, MEBiomeDataConfigs.stoneLayers));
@@ -135,6 +144,7 @@ public class MEBiomesData {
         addBiome(new Color(121, 131, 112), new MEBiome(24, MEBiomeKeys.FANGORN_FOOTHILLS, MEBiomeDataConfigs.foothillModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(236, 236, 236), new MEBiome(14, MEBiomeKeys.FORODWAITH, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.forodwaith, MEBiomeDataConfigs.frozenLayers, CaveType.FOROD));
         addBiome(new Color(91, 189, 85), new MEBiome(4, MEBiomeKeys.GONDOR, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers));
+        addBiome(new Color(56, 36, 36), new MEBiome(6, MEBiomeKeys.GORGOROTH, MEBiomeDataConfigs.plainsModifier, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers));
         addBiome(new Color(92, 147, 92), new MEBiome(6, MEBiomeKeys.GREY_PLAINS, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(125, 113, 113), new MEBiome(30, MEBiomeKeys.GREY_MOUNTAINS_BASE, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f), MEBiomeDataConfigs.greyMountains, MEBiomeDataConfigs.greyMountainsLayers));
         addBiome(new Color(110, 98, 98), new MEBiome(61, MEBiomeKeys.GREY_MOUNTAINS, MEBiomeDataConfigs.mountainModifier.heightModifier(0.355f), MEBiomeDataConfigs.greyMountains, MEBiomeDataConfigs.greyMountainsLayers));
@@ -169,10 +179,12 @@ public class MEBiomesData {
         addBiome(new Color(129, 131, 125), new MEBiome(37, MEBiomeKeys.MISTY_MOUNTAINS_BASE, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f), MEBiomeDataConfigs.mistyMountains, MEBiomeDataConfigs.mistyMountainsLayers, CaveType.MISTIES));
         addBiome(new Color(121, 121, 121), new MEBiome(70, MEBiomeKeys.MISTY_MOUNTAINS, MEBiomeDataConfigs.mountainModifier.heightModifier(0.34f), MEBiomeDataConfigs.mistyMountains, MEBiomeDataConfigs.mistyMountainsLayers, CaveType.MISTIES));
         addBiome(new Color(110, 110, 110), new MEBiome(90, MEBiomeKeys.MISTY_MOUNTAINS_PEAKS, MEBiomeDataConfigs.mountainModifier.heightModifier(0.39f), MEBiomeDataConfigs.mistiesPeaks, MEBiomeDataConfigs.mistyMountainsLayers, CaveType.MISTIES));
-        addBiome(new Color(60, 42, 42), new MEBiome(6, MEBiomeKeys.MORDOR, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.gorgoroth, MEBiomeDataConfigs.ashenStoneLayers));
-        addBiome(new Color(36, 31, 31), new MEBiome(47, MEBiomeKeys.MORDOR_MOUNTAINS, MEBiomeDataConfigs.mountainModifier, MEBiomeDataConfigs.mordorMountainsPeaks, MEBiomeDataConfigs.ashenStoneLayers));
-        addBiome(new Color(47, 42, 42), new MEBiome(30, MEBiomeKeys.MORDOR_MOUNTAINS_FOOTHILLS, MEBiomeDataConfigs.mountainModifier, MEBiomeDataConfigs.mordorMountains, MEBiomeDataConfigs.ashenStoneLayers));
-        addBiome(new Color(88, 82, 71), new MEBiome(3, MEBiomeKeys.MORDOR_WASTES, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.ashenDirt, MEBiomeDataConfigs.ashenStoneLayers));
+        addBiome(new Color(60, 42, 42), new MEBiome(7, MEBiomeKeys.MORDOR, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers, CaveType.ASHEN));
+        addBiome(new Color(36, 31, 31), new MEBiome(67, MEBiomeKeys.MORDOR_MOUNTAINS, MEBiomeDataConfigs.mordorMountainModifier, MEBiomeDataConfigs.mordorMountainsPeaks, MEBiomeDataConfigs.ashenStoneLayers, CaveType.ASHEN));
+        addBiome(new Color(47, 42, 42), new MEBiome(35, MEBiomeKeys.MORDOR_MOUNTAINS_FOOTHILLS, MEBiomeDataConfigs.mordorMountainModifier.heightModifier(0.33f), MEBiomeDataConfigs.mordorMountains, MEBiomeDataConfigs.ashenStoneLayers, CaveType.ASHEN));
+        addBiome(new Color(26, 23, 23), new MEBiome(82, MEBiomeKeys.MORDOR_MOUNTAINS_PEAKS, MEBiomeDataConfigs.mordorMountainModifier.heightModifier(0.38f), MEBiomeDataConfigs.mordorMountains, MEBiomeDataConfigs.ashenStoneLayers, CaveType.ASHEN));
+        addBiome(new Color(88, 82, 71), new MEBiome(3, MEBiomeKeys.MORDOR_WASTES, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.ashenDirt, MEBiomeDataConfigs.ashenStoneLayers, CaveType.ASHEN));
+        addBiome(new Color(45, 58, 44), new MEBiome(3, MEBiomeKeys.MORGUL_VALE, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.ashenStoneLayers, CaveType.ASHEN));
         addBiome(new Color(99, 94, 94), new MEBiome(87, MEBiomeKeys.MOUNT_GUNDABAD, MEBiomeDataConfigs.mountainModifier.heightModifier(0.59f), MEBiomeDataConfigs.greyMountains, MEBiomeDataConfigs.greyMountainsLayers, CaveType.MISTIES));
         addBiome(new Color(97, 155, 89), new MEBiome(5, MEBiomeKeys.NAN_CURUNIR, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(104, 146, 196), new MEBiome(-4, MEBiomeKeys.NEN_HITHOEL, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers));
@@ -185,11 +197,13 @@ public class MEBiomesData {
         addBiome(new Color(16, 60, 37), new MEBiome(4, MEBiomeKeys.NORTHERN_MIRKWOOD_SWAMP,  MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(160, 165, 149), new MEBiome(6, MEBiomeKeys.NORTHERN_WASTELANDS, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.frozenLayers, CaveType.FOROD));
         addBiome(new Color(74, 77, 51), new MEBiome(5, MEBiomeKeys.NURN,MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(69, 59, 50), new MEBiome(6, MEBiomeKeys.NURN_EDGE,MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(73, 82, 53), new MEBiome(6, MEBiomeKeys.OLD_ANGMAR, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(200, 238, 128), new MEBiome(4, MEBiomeKeys.OLD_ARTHEDAIN, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(193, 222, 140), new MEBiome(23, MEBiomeKeys.OLD_ARTHEDAIN_FOOTHILL, MEBiomeDataConfigs.foothillModifier.heightModifier(0.2f), MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(156, 185, 97), new MEBiome(4, MEBiomeKeys.OLD_CARDOLAN, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(115, 135, 74), new MEBiome(5, MEBiomeKeys.OLD_RHUDAUR, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(65, 160, 59), new MEBiome(4, MEBiomeKeys.OSGILIATH, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers));
         addBiome(new Color(172, 176, 113), new MEBiome(4, MEBiomeKeys.RHUN, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(155, 193, 160), new MEBiome(3, MEBiomeKeys.HIGH_MOOR_VALE, MEBiomeDataConfigs.landModifier.noiseModifier(0.1f).heightModifier(0.99f), MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers));
         addBiome(new Color(137, 171, 142), new MEBiome(36, MEBiomeKeys.HIGH_MOOR, MEBiomeDataConfigs.landModifier.noiseModifier(0.3f).heightModifier(0.66f), MEBiomeDataConfigs.limeStoneHills, MEBiomeDataConfigs.limeStoneLayers));
@@ -203,11 +217,16 @@ public class MEBiomesData {
         addBiome(new Color(154, 147, 57), new MEBiome(4, MEBiomeKeys.SOUTHEAST_RHOVANION, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(121, 186, 111), new MEBiome(4, MEBiomeKeys.SOUTHERN_DUNLAND, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(206, 179, 156), new MEBiome(4, MEBiomeKeys.SOUTHERN_FOROCHEL, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.frozenLayers, CaveType.FOROD));
+        addBiome(new Color(39, 37, 37), new MEBiome(67, MEBiomeKeys.SOUTHERN_EPHEL_DUATH, MEBiomeDataConfigs.mordorMountainModifier, MEBiomeDataConfigs.southernMordorMountains, MEBiomeDataConfigs.ashenStoneLayers, CaveType.ASHEN));
+        addBiome(new Color(49, 46, 46), new MEBiome(34, MEBiomeKeys.SOUTHERN_EPHEL_DUATH_BASE, MEBiomeDataConfigs.mordorMountainModifier.heightModifier(0.33f), MEBiomeDataConfigs.southernMordorMountains, MEBiomeDataConfigs.ashenStoneLayers, CaveType.ASHEN));
+        addBiome(new Color(23, 21, 21), new MEBiome(82, MEBiomeKeys.SOUTHERN_EPHEL_DUATH_PEAKS, MEBiomeDataConfigs.mordorMountainModifier.heightModifier(0.38f), MEBiomeDataConfigs.southernMordorMountainsPeaks, MEBiomeDataConfigs.ashenStoneLayers, CaveType.ASHEN));
         addBiome(new Color(126, 149, 79), new MEBiome(4, MEBiomeKeys.THE_ANGLE, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(48, 109, 42), new MEBiome(7, MEBiomeKeys.THE_OLD_FOREST, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(152, 174, 113), new MEBiome(4, MEBiomeKeys.THE_WOLD, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(156, 150, 150), new MEBiome(13, MEBiomeKeys.TOLFALAS, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(58, 54, 46), new MEBiome(8, MEBiomeKeys.TOROGWAITH, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers, CaveType.ASHEN));
         addBiome(new Color(40, 66, 42), new MEBiome(8, MEBiomeKeys.TROLLSHAWS, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(73, 46, 46), new MEBiome(5, MEBiomeKeys.UDUN, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers));
         addBiome(new Color(225, 192, 133), new MEBiome(7, MEBiomeKeys.UMBAR, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers, CaveType.HARAD));
         addBiome(new Color(24, 60, 28), new MEBiome(8, MEBiomeKeys.WEBBED_WOODS, MEBiomeDataConfigs.mirkwoodModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(138, 134, 112), new MEBiome(8, MEBiomeKeys.WITHERED_HEATH, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
@@ -223,6 +242,8 @@ public class MEBiomesData {
         riverbiomes.add(MEBiomeKeys.NURN_RIVER);
         riverbiomes.add(MEBiomeKeys.FROZEN_RIVER);
 
+        waterBiomes.add(MEBiomeKeys.EMYN_MUIL_POND);
+        waterBiomes.add(MEBiomeKeys.DEAD_MARSHES_WATER);
         waterBiomes.add(MEBiomeKeys.FROZEN_POND);
         waterBiomes.add(MEBiomeKeys.FROZEN_OCEAN);
         waterBiomes.add(MEBiomeKeys.LONG_LAKE);
@@ -256,10 +277,13 @@ public class MEBiomesData {
         oasisBiomes.add(MEBiomeKeys.HARAD_DESERT);
         oasisBiomes.add(MEBiomeKeys.UMBAR);
 
+        wastePondBiomes.add(MEBiomeKeys.DAGORLAD);
         wastePondBiomes.add(MEBiomeKeys.MORDOR);
         wastePondBiomes.add(MEBiomeKeys.MORDOR_MOUNTAINS);
         wastePondBiomes.add(MEBiomeKeys.MORDOR_WASTES);
         wastePondBiomes.add(MEBiomeKeys.NURN);
+
+        deadMarshesBiomes.add(MEBiomeKeys.DEAD_MARSHES);
     }
 
     public static MEBiome getBiomeByKey(RegistryEntry<Biome> biome) {
