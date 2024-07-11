@@ -65,6 +65,8 @@ public class ModWeaponItems {
     public static final Item NETHERITE_SPEAR = registerItemWithSpearModel("netherite_spear",
             new ReachWeaponItem(ToolMaterials.NETHERITE, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), ModWeaponTypes.SPEAR));
     //endregion
+    
+    //region MEN
 
     //region GONDOR
     public static final Item GONDORIAN_SWORD = registerItemWithModel("gondorian_sword",
@@ -116,6 +118,37 @@ public class ModWeaponItems {
 
     public static final Item ROHIRRIC_BOW = registerBowItem("rohirric_bow",
             new CustomBowWeaponItem(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), new Item.Settings().maxDamage(640)));
+    //endregion
+
+    //region DALE
+    public static final Item DALISH_SWORD = registerItemWithModel("dalish_sword",
+            new CustomSwordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), ModWeaponTypes.SWORD), true);
+    public static final Item DALISH_HEYDAY_SWORD = registerItemWithModel("dalish_heyday_sword",
+            new CustomSwordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), ModWeaponTypes.SWORD), true);
+    public static final Item DALISH_NOBLE_SWORD = registerItemWithModel("dalish_noble_sword",
+            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), ModWeaponTypes.SWORD), true);
+    public static final Item DALISH_HEYDAY_SCIMITAR = registerItemWithModel("dalish_heyday_scimitar",
+            new CustomSwordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), ModWeaponTypes.SWORD), true);
+    public static final Item DALISH_LONGSWORD = registerItemWithModel("dalish_longsword",
+            new ReachWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), ModWeaponTypes.LONGSWORD), true);
+    public static final Item DALISH_HEYDAY_LONGSWORD = registerItemWithModel("dalish_heyday_longsword",
+            new ReachWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), ModWeaponTypes.LONGSWORD), true);
+    public static final Item DALISH_NOBLE_LONGSWORD = registerItemWithModel("dalish_noble_longsword",
+            new ReachWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), ModWeaponTypes.LONGSWORD), true);
+    public static final Item DALISH_DAGGER = registerItemWithModel("dalish_dagger",
+            new ReachWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), ModWeaponTypes.DAGGER), false);
+    public static final Item DALISH_HEYDAY_DAGGER = registerItemWithModel("dalish_heyday_dagger",
+            new ReachWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), ModWeaponTypes.DAGGER), false);
+    public static final Item DALISH_NOBLE_DAGGER = registerItemWithModel("dalish_noble_dagger",
+            new ReachWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), ModWeaponTypes.DAGGER), false);
+    public static final Item DALISH_AXE = registerItemWithModel("dalish_axe",
+            new CustomAxeWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), ModWeaponTypes.AXE), true);
+    public static final Item DALISH_HEYDAY_AXE = registerItemWithModel("dalish_heyday_axe",
+            new CustomAxeWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), ModWeaponTypes.AXE), true);
+    public static final Item DALISH_NOBLE_AXE = registerItemWithModel("dalish_noble_axe",
+            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale"), ModWeaponTypes.AXE), true);
+    //endregion
+    
     //endregion
 
     //region LOTHLORIEN
