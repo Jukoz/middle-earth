@@ -58,6 +58,7 @@ public class SimpleItemModel {
 
             add(ModResourceItems.ORC_BONE);
             add(ModResourceItems.WARG_BONE);
+            add(ModResourceItems.FANG);
 
             add(ModResourceItems.ASH);
 

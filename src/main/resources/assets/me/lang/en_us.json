@@ -223,14 +223,17 @@
   "item.me.mithril_rod": "Mithril Rod",
 
 "#Comment:": "Item - General",
-  "item.me.orc_bone": "Orc Bone",
-  "item.me.warg_bone": "Warg Bone",
-  "item.me.warg_fur": "Warg Fur",
   "item.me.gold_ring": "Gold Ring",
   "item.me.middle_earth_map": "Middle Earth Map",
   "item.me.pebble": "Pebble",
   "item.me.ash": "Ash",
   "item.me.iron_chainmail": "Iron Chainmail",
+
+"#Comment:": "Item - Mob Drops",
+  "item.me.orc_bone": "Orc Bone",
+  "item.me.warg_bone": "Warg Bone",
+  "item.me.warg_fur": "Warg Fur",
+  "item.me.fang": "Fang",
 
 "#Comment:": "Item - Phial",
   "item.me.empty_phial": "Empty Phial",
