@@ -1,6 +1,5 @@
 package net.jukoz.me.item.items;
 
-import dev.architectury.platform.Mod;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.model.equipment.chest.*;
 import net.jukoz.me.event.KeyInputHandler;

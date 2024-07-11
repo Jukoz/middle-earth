@@ -43,7 +43,6 @@ public class CustomArmorDyeRecipe extends SpecialCraftingRecipe {
                 continue;
             }
             if (itemStack2.getItem() instanceof DyeItem) {
-                System.out.println("dye found");
                 list.add(itemStack2);
                 continue;
             }
@@ -64,13 +63,11 @@ public class CustomArmorDyeRecipe extends SpecialCraftingRecipe {
                 if (!itemStack.isEmpty()) {
                     return ItemStack.EMPTY;
                 }
-                System.out.println("dyeable found");
                 itemStack = itemStack2.copy();
                 continue;
             }
             Item item = itemStack2.getItem();
             if (item instanceof DyeItem dyeItem) {
-                System.out.println("dye found");
                 list.add(dyeItem);
                 continue;
             }
