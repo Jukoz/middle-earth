@@ -37,7 +37,7 @@ public class ModDimensions {
         Registry.register(Registries.CHUNK_GENERATOR, Identifier.of(MiddleEarth.MOD_ID, PATH), MiddleEarthChunkGenerator.CODEC);
         WORLD_KEY = RegistryKey.of(RegistryKeys.WORLD, Identifier.of(MiddleEarth.MOD_ID, PATH));
 
-        LoggerUtil.getInstance().logDebugMsg("Registering ModDimensions for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering ModDimensions for " + MiddleEarth.MOD_ID);
     }
 
     public static void teleportPlayerToME(PlayerEntity player) {

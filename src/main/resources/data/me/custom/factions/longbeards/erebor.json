@@ -1,0 +1,27 @@
+{
+  "parent": "longbeards",
+  "name": "erebor",
+  "type": "minor",
+  "race": "dwarf",
+  "preview_gear": {
+    "head": "me:erebor_commander_helmet",
+    "chest": "me:erebor_commander_chestplate",
+    "legs": "me:erebor_commander_leggings",
+    "boots": "me:erebor_commander_boots",
+    "main_hand": "me:longbeard_sword",
+    "offhand_hand": "me:longbeard_shield"
+  },
+  "banner": {
+    "color": "black",
+    "patterns": [
+      {
+        "id": "me:dragon",
+        "color": "#ffffff"
+      },
+      {
+        "id": "minecraft:gradiant",
+        "color": "#0000ff"
+      }
+    ]
+  }
+}

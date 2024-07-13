@@ -1,38 +1,34 @@
 package net.jukoz.me.client.screens;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import me.shedaniel.rei.api.client.overlay.ScreenOverlay;
+import me.shedaniel.clothconfig2.api.Tooltip;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.data.FactionNpcPreviewData;
+import net.jukoz.me.datageneration.content.models.SimpleButtonModel;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.utils.ModBannerPatterns;
+import net.jukoz.me.resource.data.Alignment;
+import net.jukoz.me.resource.data.faction.Faction;
+import net.jukoz.me.resource.data.faction.ModFactions;
 import net.jukoz.me.utils.Factions;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BannerBlockEntity;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.LayeredDrawer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.block.entity.BannerBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.model.ModelLoader;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteContents;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.entity.Entity;
@@ -40,24 +36,26 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TextContent;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
-import org.joml.Vector2f;
-import org.joml.Vector2i;
 import org.joml.Vector3f;
 
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class OnboardingScreen extends Screen {
     private static final Identifier FACTION_SELECTION_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection.png");
     private static final Identifier FACTION_SELECTION_BANNER_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_banner.png");
+    private static final Identifier FACTION_SELECTION_BUTTONS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_buttons.png");
 
 
     private static final Identifier MAP_BACKGROUND = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
@@ -73,13 +71,9 @@ public class OnboardingScreen extends Screen {
 
     private ModelPart bannerField;
 
-    private List<Float> guiScaleModifier = new ArrayList<Float>(){{
-        add(1f); // Auto
-        add(1.25f);
-        add(1f);
-        add(0.75f);
-        add(0.5f);
-    }};
+    private int currentAlignement = 0;
+    private int currentFaction = 0;
+    private int currentSubFaction = 0;
 
     @Nullable
     private LongbeardDwarfEntity dwarfEntity;
@@ -87,15 +81,20 @@ public class OnboardingScreen extends Screen {
     private GondorHumanEntity gondorHumanEntity;
     @Nullable
     LivingEntity entity;
+    Map<Alignment, List<Faction>> factions = new HashMap<>();
 
     public OnboardingScreen() {
         super(ONBOARDING_TEXT);
     }
-
     @Override
     protected void init() {
         setup();
         this.bannerField = this.client.getEntityModelLoader().getModelPart(EntityModelLayers.BANNER).getChild("flag");
+
+        // Create faction list
+        factions.put(Alignment.Good, ModFactions.getFactions(Alignment.Good));
+        factions.put(Alignment.Neutral, ModFactions.getFactions(Alignment.Neutral));
+        factions.put(Alignment.Evil,  ModFactions.getFactions(Alignment.Evil));
     }
 
     @Override
@@ -151,50 +150,61 @@ public class OnboardingScreen extends Screen {
         int centerX = startX + (int) ((widthX / 2f));
 
         // Draw alignment option
-        startY += drawAlignmentSelection(context, centerX, startY, widthX, "Good");
-        startY += drawAlignmentSelection(context, centerX, startY, widthX, "Longbeard");
-        startY += drawAlignmentSelection(context, centerX, startY, widthX, "Erebor");
+        Alignment alignment = Alignment.values()[currentAlignement];
+        Faction faction = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFaction) : null;
+        Faction subFaction = (faction != null) ? faction.getSubfaction(currentSubFaction) : null;
+        int voidMargin = 23;
+
+        startY += drawSelectionElement(context, centerX, startY, widthX,95, alignment.getLangKey());
+
+        if(faction != null)
+            startY += drawSelectionElement(context, centerX, startY, widthX, 114, faction.getLangKey());
+        else
+            startY += voidMargin;
+
+        if(subFaction != null)
+            startY += drawSelectionElement(context, centerX, startY, widthX, 133, subFaction.getLangKey());
+        else
+            startY += voidMargin;
 
         drawNpcPreview(context, centerX, startY + 75);
         drawFactionRandomizer(context, centerX, (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight);
     }
 
-    protected int drawAlignmentSelection(DrawContext context, int centerX, int startY, int widthX, String tempText){
+    protected int drawSelectionElement(DrawContext context, int centerX, int startY, int widthX, int uvY, String key){
         int sizeX = 102;
         int sizeY = 18;
 
         // Text panel
-        context.drawTexture(FACTION_SELECTION_UI,
+        context.drawTexture(FACTION_SELECTION_BUTTONS,
                 (int) (centerX - (sizeX / 2f)),
                 startY,
-                0, 227,
+                0, uvY,
                 sizeX,
                 sizeY
         );
 
         // Dynamic text panel
-        String name = tempText;
-
-        context.drawText(textRenderer, name,
-                (int)(centerX - textRenderer.getWidth(name) / 2f),
+        context.drawText(textRenderer, Text.translatable(key),
+                (int)(centerX - textRenderer.getWidth(Text.translatable(key)) / 2f),
                 startY + (int) ((sizeY / 2f) - (textRenderer.fontHeight / 2f)), 0, false);
 
-        int arrowStartY = (int) (startY + (sizeY / 2f) - (11 / 2f));
+        int arrowStartY = (int) (startY + (sizeY / 2f) - (13 / 2f));
         // Left arrow
-        context.drawTexture(FACTION_SELECTION_UI,
+        context.drawTexture(FACTION_SELECTION_BUTTONS,
                 (int) (centerX - (sizeX / 2f) - 7) - 5,
                 arrowStartY,
-                216, 17,
-                7,
-                11
+                192, 1,
+                9,
+                13
         );
         // Right arrow
-        context.drawTexture(FACTION_SELECTION_UI,
+        context.drawTexture(FACTION_SELECTION_BUTTONS,
                 (int) (centerX + (sizeX / 2f)) + 5,
                 arrowStartY,
-                225, 17,
-                7,
-                11
+                201, 1,
+                9,
+                13
         );
 
         return sizeY + 5;
@@ -204,10 +214,10 @@ public class OnboardingScreen extends Screen {
         int sizeX = 52;
         int sizeY = 18;
 
-        context.drawTexture(FACTION_SELECTION_UI,
+        context.drawTexture(FACTION_SELECTION_BUTTONS,
                 (int) (centerX - (sizeX / 2f)),
                 endY - sizeY,
-                123, 208,
+                103, 74,
                 sizeX,
                 sizeY
         );
@@ -216,14 +226,32 @@ public class OnboardingScreen extends Screen {
 
     private void drawMapPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight, int minimalMargin) {
         int startX = (int) ((context.getScaledWindowWidth() / 2f) + (mainPanelWidth / 2f)) + minimalMargin;
-        int widthX = context.getScaledWindowWidth() - startX - minimalMargin;
-
+        int widthX = Math.min(context.getScaledWindowWidth() - startX, mainPanelWidth -minimalMargin);
         context.drawTexture(MAP_TEXTURE,
                 startX,
                 (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)),
                 0, 0,
-                Math.min(widthX, mainPanelWidth -minimalMargin),
-                Math.min(widthX, mainPanelWidth)
+                widthX -minimalMargin,
+                widthX
+        );
+
+        int sizeX = 52;
+        int sizeY = 18;
+
+        context.drawTexture(FACTION_SELECTION_BUTTONS,
+                (int)(startX + (widthX / 2f)) - (sizeX + 10),
+                (int)((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight - sizeY,
+                103, 111,
+                sizeX,
+                sizeY
+        );
+
+        context.drawTexture(FACTION_SELECTION_BUTTONS,
+                (int)(startX + (widthX / 2f)),
+                (int)((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight - sizeY,
+                103, 19,
+                sizeX,
+                sizeY
         );
     }
 
@@ -339,6 +367,7 @@ public class OnboardingScreen extends Screen {
 
         NPC_PREVIEWS.add(new FactionNpcPreviewData(
                 Factions.EREBOR,
+
                 ModEquipmentItems.EREBOR_PLATE_HELMET,
                 ModEquipmentItems.EREBOR_PLATE_CHESTPLATE,
                 ModEquipmentItems.EREBOR_PLATE_LEGGINGS,
