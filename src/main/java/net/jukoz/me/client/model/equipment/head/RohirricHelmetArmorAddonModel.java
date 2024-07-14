@@ -24,12 +24,12 @@ public class RohirricHelmetArmorAddonModel<T extends LivingEntity> extends Helme
 
         modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(0, -1)
-                .cuboid(0.0F, -15.7F, -7.0F, 0.0F, 11.0F, 17.0F, new Dilation(0.0F)),
-                ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(30, 17)
+                .cuboid(0.0F, -14.5F, -9.5F, 0.0F, 11.0F, 17.0F, new Dilation(0.0F)),
+                ModelTransform.pivot(0.0F, -1.0F, 0.0F));
 
         head.addChild("hair", ModelPartBuilder.create().uv(0, 27)
-                .cuboid(-1.0F, -1.7F, 0.0F, 2.0F, 3.0F, 18.0F, new Dilation(0.0F)),
+                        .cuboid(-1.0F, -1.7F, 0.0F, 2.0F, 3.0F, 18.0F, new Dilation(0.0F)),
                 ModelTransform.of(0.0F, -9.0F, 5.0F, -1.5708F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

@@ -9,5 +9,5 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.MutableText;
 
 
-public record ExtendedArmorMaterial(RegistryEntry<ArmorMaterial> material, int durabilityModifier, MutableText faction, MutableText subFaction, int tier) {
+public record ExtendedArmorMaterial(RegistryEntry<ArmorMaterial> material, int durabilityModifier, int tier) {
 }

@@ -57,7 +57,7 @@ public class HelmetArmorRenderer implements ArmorRenderer {
                 item.additionModel.setVisible(false);
                 item.additionModel.head.visible = true;
                 item.additionModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.pitch);
-                if(texture.contains("_helmet")){
+                if(texture.contains("_helmet.png")){
                     ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, item.additionModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_addition.png")), dyeable);
                 } else {
                     ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, item.additionModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);

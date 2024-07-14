@@ -4030,7 +4030,7 @@
   "tooltip.me.erebor" : "Erebor",
   "tooltip.me.lothlorien" : "Lothlórien",
   "tooltip.me.mordor" : "Mordor",
-  "tooltip.me.misty_orcs" : "Misty Mountains Orcs",
+  "tooltip.me.misty_mountains_orcs" : "Misty Mountains Orcs",
   "tooltip.me.gundabad" : "Gundabad",
   "tooltip.me.moria_goblins" : "Moria Goblins",
   "tooltip.me.anduin" : "Anduin Vale",
@@ -4048,7 +4048,11 @@
 
 "Comment": "Capes",
   "tooltip.me.base_cape": "Basic Cape",
-  
+
+  "tooltip.me.base_cloak": "Basic Cloak",
+
+  "tooltip.me.surcoat": "Surcoat",
+
   "tooltip.me.gondorian_captain_cape": "Gondorian Captain Cape",
   "tooltip.me.gondorian_hero_cape": "Gondorian Hero Cape",
   "tooltip.me.gondorian_kings_guard_cape": "Gondorian King's Guard Cape",

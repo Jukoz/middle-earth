@@ -7,6 +7,8 @@ import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.utils.ExtendedArmorMaterial;
+import net.jukoz.me.utils.ModFactions;
+import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ArmorItem;
@@ -19,30 +21,55 @@ import java.util.List;
 
 public class CustomHelmetItem extends ArmorItem {
 
+    public ModFactions faction;
+    public ModSubFactions subFaction;
+
     private ExtendedArmorMaterial material;
     public HelmetAddonModel additionModel;
 
-    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings, HelmetAddonModel helmetModel) {
+    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings, ModFactions faction, HelmetAddonModel helmetModel) {
         super(material.material(), type, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
         this.additionModel = helmetModel;
+        this.faction = faction;
+        this.subFaction = null;
     }
 
-    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings) {
+    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings, ModSubFactions subFaction, HelmetAddonModel helmetModel) {
+        super(material.material(), type, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
+
+        this.material = material;
+        this.additionModel = helmetModel;
+        this.faction = subFaction.getParent();
+        this.subFaction = subFaction;
+    }
+
+    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings, ModFactions faction) {
         super(material.material(), type, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
         this.additionModel = null;
+        this.faction = faction;
+        this.subFaction = null;
+    }
+
+    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings, ModSubFactions subFaction) {
+        super(material.material(), type, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
+
+        this.material = material;
+        this.additionModel = null;
+        this.faction = subFaction.getParent();
+        this.subFaction = subFaction;
     }
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.of(""));
         if (Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(material.faction()));
-            if (material.subFaction() != null) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(material.subFaction()));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
+            if (subFaction != null) {
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName()));
             }
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier" + this.material.tier()));
             tooltip.add(Text.of(""));

@@ -67,16 +67,18 @@ public record CustomDyeableDataComponent(int customRgb, boolean overlay) {
             int n;
             int o;
             int p;
-            if (dyedColorComponent != null) {
-                if(dyedColorComponent.customRgb != CustomDyeableDataComponent.DEFAULT_COLOR){
-                    n = ColorHelper.Argb.getRed(dyedColorComponent.customRgb());
-                    o = ColorHelper.Argb.getGreen(dyedColorComponent.customRgb());
-                    p = ColorHelper.Argb.getBlue(dyedColorComponent.customRgb());
-                    l += Math.max(n, Math.max(o, p));
-                    i += n;
-                    j += o;
-                    k += p;
-                    ++m;
+            if(dyedColorComponent != null){
+                if (!(dyedColorComponent.customRgb == stack.getItem().getDefaultStack().get(ModDataComponentTypes.DYE_DATA).customRgb())) {
+                    if(dyedColorComponent.customRgb != CustomDyeableDataComponent.DEFAULT_COLOR){
+                        n = ColorHelper.Argb.getRed(dyedColorComponent.customRgb());
+                        o = ColorHelper.Argb.getGreen(dyedColorComponent.customRgb());
+                        p = ColorHelper.Argb.getBlue(dyedColorComponent.customRgb());
+                        l += Math.max(n, Math.max(o, p));
+                        i += n;
+                        j += o;
+                        k += p;
+                        ++m;
+                    }
                 }
             }
 
