@@ -71,7 +71,6 @@ public class SimpleSlabModel {
 
             add(new Slab(Blocks.PACKED_MUD, ModBlocks.PACKED_MUD_SLAB));
             add(new Slab(Blocks.CALCITE, ModBlocks.CALCITE_SLAB));
-            add(new Slab(Blocks.TUFF, ModBlocks.TUFF_SLAB));
             add(new Slab(Blocks.SMOOTH_BASALT, ModBlocks.SMOOTH_BASALT_SLAB));
 
             add(new Slab(Blocks.BLACK_WOOL, ModBlocks.BLACK_WOOL_SLAB));

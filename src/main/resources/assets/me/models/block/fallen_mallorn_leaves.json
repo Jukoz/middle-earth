@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/carpet",
+  "textures": {
+    "wool": "me:block/fallen_mallorn_leaves"
+  }
+}
