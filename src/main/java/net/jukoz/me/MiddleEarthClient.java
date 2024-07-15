@@ -434,9 +434,8 @@ public class MiddleEarthClient implements ClientModInitializer {
     }
 
     private void registerDyeableItem(Item item) {
-
         if (Objects.requireNonNull(new ItemStack(item).get(ModDataComponentTypes.DYE_DATA)).overlay()){
-            ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex > 0 ? - 0xFFFFFF : CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR), item);
+            ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex > 0 ? -1 : CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR), item);
         }
     }
 }

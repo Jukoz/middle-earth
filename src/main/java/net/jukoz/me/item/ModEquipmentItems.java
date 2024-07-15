@@ -452,8 +452,7 @@ public class ModEquipmentItems {
                     new DaleHelmetModel(DaleHelmetModel.getTexturedModelData().createModel())));
 
     public static final Item DALISH_SCALE_HAUBERK = registerArmorPiece("dalish_scale_hauberk",
-            new CustomChestplateItem(ModArmorMaterials.DALE_T4, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BARDING_SURCOAT)),
+            new CustomChestplateItem(ModArmorMaterials.DALE_T4, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModFactions.DALE));
 
     public static final Item DALISH_HEYDAY_HELMET = registerArmorPiece("dalish_heyday_helmet",
