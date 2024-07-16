@@ -10,7 +10,7 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.chunk.Chunk;
 
 public class ProceduralStructures {
-    private static final int mapMultiplier = (int) Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION + MiddleEarthMapConfigs.PIXEL_WEIGHT - 2);
+    public static final int mapMultiplier = (int) Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION + MiddleEarthMapConfigs.PIXEL_WEIGHT - 2);
 
     public static void generateStructures(MEBiome meBiome, Chunk chunk, int x, int y, int z) {
         if(meBiome.biome == MEBiomeKeys.NAN_CURUNIR) generateIsengard(chunk, x, y, z);

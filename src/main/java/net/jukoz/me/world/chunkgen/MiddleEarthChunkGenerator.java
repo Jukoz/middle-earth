@@ -58,8 +58,11 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     MiddleEarthMapUtils middleEarthMapUtils;
     MiddleEarthMapRuntime middleEarthMapRuntime;
 
+    public static final int mapMultiplier = (int) Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION + MiddleEarthMapConfigs.PIXEL_WEIGHT - 2);
+    public static final Vec2f mountDoom = new Vec2f(2131.5f, 1715.2f).multiply(mapMultiplier);
     private static final int CAVE_STRETCH_H = 60;
     private static final int CAVE_STRETCH_V = 50;
+
     RegistryEntryLookup<Biome> biomeRegistry;
     public static final MapCodec<MiddleEarthChunkGenerator> CODEC = RecordCodecBuilder.mapCodec((instance) ->
             instance.group(RegistryOps.getEntryLookupCodec(RegistryKeys.BIOME))
@@ -163,7 +166,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORDOR_MOUNTAINS_PEAKS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORDOR_WASTES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORGUL_VALE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.MORGUL_RIVER),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MOUNT_GUNDABAD),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.MOUNT_DOOM),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NAN_CURUNIR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NEN_HITHOEL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NEN_HITHOEL_FOREST),
@@ -272,10 +277,17 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
 
                 float height = MiddleEarthHeightMap.getHeight(posX, posZ);
+
                 float caveBlendNoise = (float) ((2 * CAVE_NOISE * BlendedNoise.noise((double) posX / 24,  (double) posZ / 24)) - CAVE_NOISE);
                 float slopeAngle = getTerrainSlope(height, posX, posZ);
-
                 int waterHeight = meBiome.waterHeight;
+
+                if(meBiome.biome == MEBiomeKeys.MOUNT_DOOM) {
+                    float percentage = (float) Math.sqrt(mountDoom.distanceSquared(new Vec2f(posX, posZ))) / 50;
+                    percentage = Math.min(1, Math.max(0.0f, percentage));
+                    percentage = (float) Math.pow(percentage, 2.45f);
+                    height = height * percentage;
+                }
                 if(meBiome.biome == MEBiomeKeys.DEAD_MARSHES || meBiome.biome == MEBiomeKeys.DEAD_MARSHES_WATER) {
                     float oldHeight = height;
                     height = getMarshesHeight(posX, posZ, height);
@@ -329,9 +341,16 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (DIRT_HEIGHT + height), z), surfaceBlock, false);
 
-                for(int y = (int) (DIRT_HEIGHT + height + 1); y <= waterHeight; y++) {
-                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.WATER.getDefaultState(), false);
+                if(meBiome.biome == MEBiomeKeys.MOUNT_DOOM) {
+                    for(int y = (int) (DIRT_HEIGHT + height + 1); y <= 90; y++) {
+                        chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.LAVA.getDefaultState(), false);
+                    }
+                } else {
+                    for(int y = (int) (DIRT_HEIGHT + height + 1); y <= waterHeight; y++) {
+                        chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.WATER.getDefaultState(), false);
+                    }
                 }
+
 
                 ProceduralStructures.generateStructures(meBiome, chunk, posX, (int) (DIRT_HEIGHT + height), posZ);
             }
