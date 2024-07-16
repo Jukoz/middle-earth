@@ -1,5 +1,5 @@
 {
-	"credit": "Made with Blockbench",
+	"parent": "me:item/spear",
 	"texture_size": [48, 48],
 	"textures": {
 		"0": "me:item/uruk_hai_spear",

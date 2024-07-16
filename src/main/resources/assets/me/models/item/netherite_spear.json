@@ -1,5 +1,5 @@
 {
-	"credit": "Made with Blockbench",
+	"parent": "me:item/spear",
 	"texture_size": [16, 48],
 	"textures": {
 		"1": "me:item/netherite_spear_head",
@@ -148,31 +148,7 @@
 			}
 		}
 	],
-	"display": {
-		"thirdperson_righthand": {
-			"rotation": [0, 90, 0],
-			"translation": [0, 2.5, 1.25]
-		},
-		"thirdperson_lefthand": {
-			"rotation": [0, 90, 0],
-			"translation": [0, 2.5, 1.25]
-		},
-		"firstperson_righthand": {
-			"rotation": [0, -90, 0],
-			"translation": [2.5, 1, 0]
-		},
-		"firstperson_lefthand": {
-			"rotation": [0, -90, 0],
-			"translation": [2.5, 1, 0]
-		},
-		"ground": {
-			"scale": [0.49805, 0.49805, 0.49805]
-		},
-		"head": {
-			"rotation": [-90, 0, 0],
-			"translation": [0, 7, 0]
-		}
-	},
+
 	"groups": [
 		{
 			"name": "Spear",

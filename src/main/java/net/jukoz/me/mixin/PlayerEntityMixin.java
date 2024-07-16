@@ -1,9 +1,13 @@
 package net.jukoz.me.mixin;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.jukoz.me.item.items.ReachWeaponItem;
+import net.jukoz.me.utils.IEntityDataSaver;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.utils.PlayerMovementData;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -21,6 +25,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -108,7 +113,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     @Inject(method = "getEquippedStack", at = @At("HEAD"), cancellable = true)
-    public void getEquippedStack_Pre(EquipmentSlot slot, CallbackInfoReturnable<ItemStack> cir) {
+    public void getEquippedStack(EquipmentSlot slot, CallbackInfoReturnable<ItemStack> cir) {
         boolean twoHanded = false;
         ItemStack stackMainHand = this.getInventory().getMainHandStack();
 
@@ -124,5 +129,27 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 cir.cancel();
             }
         }
+    }
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    public void tick(CallbackInfo ci) {
+        PlayerMovementData.addAFKTime((IEntityDataSaver) this,1);
+    }
+
+    @Inject(method = "travel", at = @At("HEAD"))
+    public void travel(CallbackInfo ci, @Local Vec3d movementInput) {
+        if(movementInput.length() > 0.01f) {
+            PlayerMovementData.resetAFK((IEntityDataSaver) this);
+        }
+    }
+
+    @Inject(method = "attack", at = @At("HEAD"))
+    public void attack(Entity target, CallbackInfo ci) {
+        PlayerMovementData.resetAFK((IEntityDataSaver) this);
+    }
+
+    @Inject(method = "resetLastAttackedTicks", at = @At("HEAD"))
+    public void resetLastAttackedTicks(CallbackInfo ci) {
+        PlayerMovementData.resetAFK((IEntityDataSaver) this);
     }
 }
