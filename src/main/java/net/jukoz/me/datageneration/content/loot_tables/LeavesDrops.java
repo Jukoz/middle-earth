@@ -11,8 +11,6 @@ public class LeavesDrops {
     public record LeavesDrop(Block block, Block drop) {}
     public static List<LeavesDrop> blocks = new ArrayList<>() {
         {
-            add(new LeavesDrop(ModNatureBlocks.GRAY_BEECH_LEAVES, ModNatureBlocks.BEECH_SAPLING));
-
             add(new LeavesDrop(ModNatureBlocks.LEBETHRON_LEAVES, ModNatureBlocks.LEBETHRON_SAPLING));
 
             add(new LeavesDrop(ModNatureBlocks.BERRY_HOLLY_LEAVES, ModNatureBlocks.HOLLY_SAPLING));
@@ -23,12 +21,11 @@ public class LeavesDrops {
 
             add(new LeavesDrop(ModNatureBlocks.MAPLE_LEAVES, ModNatureBlocks.MAPLE_SAPLING));
             add(new LeavesDrop(ModNatureBlocks.ORANGE_MAPLE_LEAVES, ModNatureBlocks.MAPLE_SAPLING));
+            add(new LeavesDrop(ModNatureBlocks.RED_MAPLE_LEAVES, ModNatureBlocks.MAPLE_SAPLING));
             add(new LeavesDrop(ModNatureBlocks.YELLOW_MAPLE_LEAVES, ModNatureBlocks.MAPLE_SAPLING));
 
             add(new LeavesDrop(ModNatureBlocks.PINE_BRANCHES, ModNatureBlocks.PINE_SAPLING));
             add(new LeavesDrop(ModNatureBlocks.DRY_PINE_LEAVES, ModNatureBlocks.PINE_SAPLING));
-
-            add(new LeavesDrop(ModNatureBlocks.GRAY_WILLOW_LEAVES, ModNatureBlocks.WILLOW_SAPLING));
         }
     };
 }

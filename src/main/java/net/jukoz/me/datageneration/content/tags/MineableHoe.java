@@ -10,8 +10,6 @@ import java.util.List;
 public class MineableHoe {
     public static List<Block> blocks = new ArrayList<>() {
     {
-        add(ModNatureBlocks.GRAY_BEECH_LEAVES);
-
         add(ModNatureBlocks.LEBETHRON_LEAVES);
 
         add(ModNatureBlocks.BERRY_HOLLY_LEAVES);
@@ -22,13 +20,11 @@ public class MineableHoe {
 
         add(ModNatureBlocks.MAPLE_LEAVES);
         add(ModNatureBlocks.ORANGE_MAPLE_LEAVES);
+        add(ModNatureBlocks.RED_MAPLE_LEAVES);
         add(ModNatureBlocks.YELLOW_MAPLE_LEAVES);
 
         add(ModNatureBlocks.DRY_PINE_LEAVES);
         add(ModNatureBlocks.PINE_BRANCHES);
-
-        add(ModNatureBlocks.GRAY_WILLOW_LEAVES);
-
 
         add(ModBlocks.REED_BLOCK);
         add(ModBlocks.REED_SLAB);

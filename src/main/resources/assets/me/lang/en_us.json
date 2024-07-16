@@ -2465,7 +2465,6 @@
 
 "#Comment:": "Block - Beech",
   "block.me.beech_leaves": "Beech Leaves",
-  "block.me.gray_beech_leaves": "Gray Beech Leaves",
   "block.me.beech_log": "Beech Log",
   "block.me.beech_wood": "Beech Wood",
   "block.me.beech_wood_wall": "Beech Wood Wall",
@@ -2764,6 +2763,7 @@
 "#Comment:": "Block - Maple",
   "block.me.maple_leaves": "Maple Leaves",
   "block.me.orange_maple_leaves": "Orange Maple Leaves",
+  "block.me.red_maple_leaves": "Red Maple Leaves",
   "block.me.yellow_maple_leaves": "Yellow Maple Leaves",
   "block.me.maple_log": "Maple Log",
   "block.me.maple_wood": "Maple Wood",
@@ -3062,7 +3062,6 @@
 
 "#Comment:": "Block - Willow",
   "block.me.willow_leaves": "Willow Leaves",
-  "block.me.gray_willow_leaves": "Gray Willow Leaves",
   "block.me.willow_log": "Willow Log",
   "block.me.willow_wood": "Willow Wood",
   "block.me.willow_wood_wall": "Willow Wood Wall",
