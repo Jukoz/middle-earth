@@ -14,6 +14,6 @@ public enum Alignment {
     }
 
     public String getLangKey() {
-        return Identifier.of(MiddleEarth.MOD_ID, "alignement." + toString()).toTranslationKey();
+        return Identifier.of(MiddleEarth.MOD_ID, "alignment." + toString()).toTranslationKey();
     }
 }

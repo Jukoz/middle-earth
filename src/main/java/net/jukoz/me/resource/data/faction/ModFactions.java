@@ -32,17 +32,17 @@ public class ModFactions {
             JsonObject jsonObject = (JsonObject) jsonParser.parse(
                     new InputStreamReader(resource.getInputStream(), "UTF-8"));
 
-            registerFactionByAlignment(jsonParser, Alignment.Good.toString(), jsonObject, resources);
-            registerFactionByAlignment(jsonParser,  Alignment.Neutral.toString(), jsonObject, resources);
-            registerFactionByAlignment(jsonParser,  Alignment.Evil.toString(), jsonObject, resources);
+            registerFactionByAlignment(jsonParser, Alignment.Good, jsonObject, resources);
+            registerFactionByAlignment(jsonParser,  Alignment.Neutral, jsonObject, resources);
+            registerFactionByAlignment(jsonParser,  Alignment.Evil, jsonObject, resources);
         } catch (Exception e){
             LoggerUtil.logError("ModFactions:registerFactions -> " + e);
         }
     }
 
-    private static void registerFactionByAlignment(JsonParser jsonParser, String alignement, JsonObject jsonObject, Map<Identifier, Resource> resources) throws IOException {
-        LoggerUtil.logDebugMsg("ModFactions:registerFactions -> "+ alignement +" faction amount = " + jsonObject.getAsJsonArray(alignement).size());
-        for(JsonElement element : jsonObject.getAsJsonArray(alignement)){
+    private static void registerFactionByAlignment(JsonParser jsonParser, Alignment alignment, JsonObject jsonObject, Map<Identifier, Resource> resources) throws IOException {
+        LoggerUtil.logDebugMsg("ModFactions:registerFactions -> "+ alignment.toString() +" faction amount = " + jsonObject.getAsJsonArray(alignment.toString()).size());
+        for(JsonElement element : jsonObject.getAsJsonArray(alignment.toString())){
             Identifier id = Identifier.of(MiddleEarth.MOD_ID, ID_PREFIX + element.getAsString());
             Resource factionResource = resources.get(Identifier.of(MiddleEarth.MOD_ID, CustomServerDataResourceReloadListener.PATH + "/factions/" + element.getAsString() + ".json"));
             JsonObject factionJsonObject = (JsonObject) jsonParser.parse(
@@ -55,14 +55,14 @@ public class ModFactions {
                     JsonObject subFactionJsonObject = (JsonObject) jsonParser.parse(
                             new InputStreamReader(subFactionResource.getInputStream(), "UTF-8"));
                     Identifier subFacId = Identifier.of(MiddleEarth.MOD_ID, ID_PREFIX + element.getAsString() + "." + subFacElement.getAsString());
-                    subFactions.put(subFacId, new Faction(Alignment.Good, subFactionJsonObject, subFacId));
+                    subFactions.put(subFacId, new Faction(alignment, subFactionJsonObject, subFacId));
                     LoggerUtil.logDebugMsg("ModFactions:registerFactions -> Adding subfaction : " + subFacId);
                 }
-                factions.put(id, new Faction(Alignment.Good, factionJsonObject, id, subFactions));
+                factions.put(id, new Faction(alignment, factionJsonObject, id, subFactions));
             }
             else {
                 LoggerUtil.logDebugMsg("ModFactions:New Faction -> No subfaction");
-                factions.put(id, new Faction(Alignment.Good, factionJsonObject, id));
+                factions.put(id, new Faction(alignment, factionJsonObject, id));
             }
             LoggerUtil.logDebugMsg("ModFactions:registerFactions -> Adding faction : " + id);
         }

@@ -1,9 +1,8 @@
 package net.jukoz.me.world.dimension;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.client.screens.OnboardingScreen;
+import net.jukoz.me.client.screens.FactionSelectionScreen;
 import net.jukoz.me.item.ModResourceItems;
-import net.jukoz.me.item.items.StarlightPhialItem;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
@@ -69,7 +68,7 @@ public class ModDimensions {
         MinecraftClient mc = MinecraftClient.getInstance();
         if(player.getWorld().isClient) {
             if (mc.currentScreen == null) {
-                mc.setScreen(new OnboardingScreen());
+                mc.setScreen(new FactionSelectionScreen());
             }
         }
         if(!player.isCreative() && player.getStackInHand(Hand.MAIN_HAND).isOf(ModResourceItems.STARLIGHT_PHIAL)){

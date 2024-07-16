@@ -1,11 +1,9 @@
 package net.jukoz.me.client.screens;
 
-import me.shedaniel.clothconfig2.api.Tooltip;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.data.FactionNpcPreviewData;
-import net.jukoz.me.datageneration.content.models.SimpleButtonModel;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
@@ -16,6 +14,7 @@ import net.jukoz.me.resource.data.Alignment;
 import net.jukoz.me.resource.data.faction.Faction;
 import net.jukoz.me.resource.data.faction.ModFactions;
 import net.jukoz.me.utils.Factions;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.client.gui.DrawContext;
@@ -36,10 +35,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TextContent;
-import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -52,7 +48,7 @@ import java.util.List;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
-public class OnboardingScreen extends Screen {
+public class FactionSelectionScreen extends Screen {
     private static final Identifier FACTION_SELECTION_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection.png");
     private static final Identifier FACTION_SELECTION_BANNER_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_banner.png");
     private static final Identifier FACTION_SELECTION_BUTTONS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_buttons.png");
@@ -83,7 +79,16 @@ public class OnboardingScreen extends Screen {
     LivingEntity entity;
     Map<Alignment, List<Faction>> factions = new HashMap<>();
 
-    public OnboardingScreen() {
+    public ButtonWidget firstButtonLeft;
+    public ButtonWidget firstButtonRight;
+
+    public ButtonWidget secondButtonLeft;
+    public ButtonWidget secondButtonRight;
+
+    public ButtonWidget thirdButtonLeft;
+    public ButtonWidget thirdButtonRight;
+
+    public FactionSelectionScreen() {
         super(ONBOARDING_TEXT);
     }
     @Override
@@ -95,6 +100,7 @@ public class OnboardingScreen extends Screen {
         factions.put(Alignment.Good, ModFactions.getFactions(Alignment.Good));
         factions.put(Alignment.Neutral, ModFactions.getFactions(Alignment.Neutral));
         factions.put(Alignment.Evil,  ModFactions.getFactions(Alignment.Evil));
+        LoggerUtil.logDebugMsg("Evil faction amount : " + ModFactions.getFactions(Alignment.Evil).size());
     }
 
     @Override
@@ -106,7 +112,7 @@ public class OnboardingScreen extends Screen {
 
                 this.renderBackground(context, mouseX, mouseY, delta);
                 int guiScale = this.client.options.getGuiScale().getValue();
-                this.drawPanels(context, guiScale);
+                this.drawPanels(context, guiScale, mouseX, mouseY);
 
                 //this.drawWindow(context, this.client.options.getGuiScale().getValue());
             } else {
@@ -115,12 +121,12 @@ public class OnboardingScreen extends Screen {
         }
     }
 
-    protected void drawPanels(DrawContext context, int guiScale){
+    protected void drawPanels(DrawContext context, int guiScale, int mouseX, int mouseY){
         int mainPanelWidth = 169;
         int mainPanelHeight = 207;
         int minimalMargin = 8;
 
-        drawFactionSelectionPanel(context, mainPanelWidth, mainPanelHeight, minimalMargin);
+        drawFactionSelectionPanel(context, mainPanelWidth, mainPanelHeight, minimalMargin, mouseX, mouseY);
         drawInformationPanel(context, mainPanelWidth, mainPanelHeight);
         drawMapPanel(context, mainPanelWidth, mainPanelHeight, minimalMargin);
     }
@@ -140,7 +146,7 @@ public class OnboardingScreen extends Screen {
         drawFactionBanner(context, startX + mainPanelWidth - 60, startY + 3);
     }
 
-    private void drawFactionSelectionPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight, int minimalMargin) {
+    private void drawFactionSelectionPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight, int minimalMargin, int mouseX, int mouseY) {
         int endX = (int) ((context.getScaledWindowWidth() / 2f) - (mainPanelWidth / 2f) - minimalMargin);
         int startX = Math.max(minimalMargin, endX - mainPanelWidth);
         int startY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f));
@@ -153,17 +159,18 @@ public class OnboardingScreen extends Screen {
         Alignment alignment = Alignment.values()[currentAlignement];
         Faction faction = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFaction) : null;
         Faction subFaction = (faction != null) ? faction.getSubfaction(currentSubFaction) : null;
+
         int voidMargin = 23;
 
-        startY += drawSelectionElement(context, centerX, startY, widthX,95, alignment.getLangKey());
+        startY += drawSelectionElement(context, centerX, startY, widthX,95, alignment.getLangKey(), mouseX, mouseY);
 
         if(faction != null)
-            startY += drawSelectionElement(context, centerX, startY, widthX, 114, faction.getLangKey());
+            startY += drawSelectionElement(context, centerX, startY, widthX, 114, faction.getLangKey(), mouseX, mouseY);
         else
             startY += voidMargin;
 
         if(subFaction != null)
-            startY += drawSelectionElement(context, centerX, startY, widthX, 133, subFaction.getLangKey());
+            startY += drawSelectionElement(context, centerX, startY, widthX, 133, subFaction.getLangKey(), mouseX, mouseY);
         else
             startY += voidMargin;
 
@@ -171,7 +178,7 @@ public class OnboardingScreen extends Screen {
         drawFactionRandomizer(context, centerX, (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight);
     }
 
-    protected int drawSelectionElement(DrawContext context, int centerX, int startY, int widthX, int uvY, String key){
+    protected int drawSelectionElement(DrawContext context, int centerX, int startY, int widthX, int uvY, String key, int mouseX, int mouseY){
         int sizeX = 102;
         int sizeY = 18;
 
@@ -191,21 +198,64 @@ public class OnboardingScreen extends Screen {
 
         int arrowStartY = (int) (startY + (sizeY / 2f) - (13 / 2f));
         // Left arrow
+        boolean mouseIsOverLeft =
+            mouseX >= (int) (centerX - (sizeX / 2f) - 9) - 5 && mouseX <= (int) (centerX - (sizeX / 2f) - 9) - 5 + 9
+            && mouseY >= arrowStartY && mouseY <= arrowStartY + 13;
+
         context.drawTexture(FACTION_SELECTION_BUTTONS,
-                (int) (centerX - (sizeX / 2f) - 7) - 5,
+                (int) (centerX - (sizeX / 2f) - 9) - 5,
                 arrowStartY,
-                192, 1,
+                192, (mouseIsOverLeft) ? 16 : 1,
                 9,
                 13
         );
+
+        if(firstButtonLeft == null){
+            firstButtonLeft = ButtonWidget.builder(Text.literal("First Button Left"), button -> {
+                        currentAlignement --;
+                        if(currentAlignement < 0)
+                            currentAlignement = Alignment.values().length - 1;
+
+                        currentFaction = 0;
+                        currentSubFaction = 0;
+                    })
+                    .dimensions(
+                            (int) (centerX - (sizeX / 2f) - 9) - 5,
+                            arrowStartY, 9, 13)
+                    .build();
+            addDrawableChild(firstButtonLeft);
+        }
+
         // Right arrow
+        boolean mouseIsOverRight =
+                mouseX >= (int) (centerX + (sizeX / 2f)) + 5 && mouseX <= (int) (centerX + (sizeX / 2f)) + 5 + 9
+                        && mouseY >= arrowStartY && mouseY <= arrowStartY + 13;
         context.drawTexture(FACTION_SELECTION_BUTTONS,
                 (int) (centerX + (sizeX / 2f)) + 5,
                 arrowStartY,
-                201, 1,
+                201, (mouseIsOverRight) ? 16 : 1,
                 9,
                 13
         );
+
+        if(firstButtonRight == null) {
+            firstButtonRight = ButtonWidget.builder(Text.literal("First Button Right"), button -> {
+                        currentAlignement ++;
+                        if(currentAlignement >= Alignment.values().length)
+                            currentAlignement = 0;
+
+                        currentFaction = 0;
+                        currentSubFaction = 0;
+                        LoggerUtil.logDebugMsg(currentFaction + " is now the faction");
+                        LoggerUtil.logDebugMsg(currentSubFaction + " is now the faction");
+                    })
+                    .dimensions(
+                            (int) (centerX + (sizeX / 2f)) + 5,
+                            arrowStartY, 9, 13)
+                    .build();
+
+            addDrawableChild(firstButtonRight);
+        }
 
         return sizeY + 5;
     }

@@ -4042,15 +4042,15 @@
   "tooltip.me.feather" : "Feather",
 
   "#Comment:": "Alignment",
-  "me.alignement.good" : "Good",
-  "me.alignement.neutral" : "Neutral",
-  "me.alignement.evil" : "Evil",
+  "me.alignment.good" : "Good",
+  "me.alignment.neutral" : "Neutral",
+  "me.alignment.evil" : "Evil",
 
   "#Comment:": "Factions",
   "me.faction.gondor" : "Gondor",
   "me.faction.gondor.anorien" : "Anorien",
   "me.faction.longbeards" : "Longbeards",
   "me.faction.longbeards.erebor" : "Erebor",
-  "me.faction.mordor" : "Gondor",
-  "me.faction.mordor.gorgoroth" : "Anorien"
+  "me.faction.mordor" : "Mordor",
+  "me.faction.mordor.gorgoroth" : "Gorgoroth"
 }

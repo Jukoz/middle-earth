@@ -29,6 +29,11 @@ public class Faction {
         LoggerUtil.logDebugMsg("Faction::Created a new faction -> " + id);
     }
 
+    @Override
+    public String toString() {
+    return id.toString();
+    }
+
     public HashMap<Identifier,Faction> getSubFactions(){
         return subFactions;
     }
