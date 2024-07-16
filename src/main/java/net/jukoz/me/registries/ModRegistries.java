@@ -366,7 +366,11 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.DRY_PINE_LEAVES, 0.2F);
         registry.add(ModNatureBlocks.PINE_BRANCHES, 0.2F);
 
+        registry.add(ModNatureBlocks.GRAY_WILLOW_LEAVES, 0.3F);
+
         registry.add(ModNatureBlocks.MAPLE_LEAVES, 0.3F);
+        registry.add(ModNatureBlocks.ORANGE_MAPLE_LEAVES, 0.3F);
+        registry.add(ModNatureBlocks.YELLOW_MAPLE_LEAVES, 0.3F);
 
 
         registry.add(ModNatureBlocks.WILD_PIPEWEED, 0.5F);

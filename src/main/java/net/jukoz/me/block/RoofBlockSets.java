@@ -37,14 +37,19 @@ public class RoofBlockSets {
     public static RoofBlockSet MALLORN_SHINGLES = registerWoodSet("mallorn_shingles", WoodBlockSets.MALLORN.planks());
     public static RoofBlockSet MALLORN_ROOFING = registerWoodSet("mallorn_roofing", MALLORN_SHINGLES.block);
     public static RoofBlockSet MAPLE_SHINGLES = registerWoodSet("maple_shingles", WoodBlockSets.MAPLE.planks());
+    public static RoofBlockSet MAPLE_ROOFING = registerWoodSet("maple_roofing", MAPLE_SHINGLES.block);
     public static RoofBlockSet SILVER_MAPLE_SHINGLES = registerWoodSet("silver_maple_shingles", WoodBlockSets.SILVER_MAPLE.planks());
+    public static RoofBlockSet SILVER_MAPLE_ROOFING = registerWoodSet("silver_maple_roofing", SILVER_MAPLE_SHINGLES.block);
     public static RoofBlockSet MIRKWOOD_SHINGLES = registerWoodSet("mirkwood_shingles", WoodBlockSets.MIRKWOOD.planks());
+    public static RoofBlockSet MIRKWOOD_ROOFING = registerWoodSet("mirkwood_roofing", MIRKWOOD_SHINGLES.block);
     public static RoofBlockSet PALM_SHINGLES = registerWoodSet("palm_shingles", WoodBlockSets.PALM.planks());
     public static RoofBlockSet PINE_SHINGLES = registerWoodSet("pine_shingles", WoodBlockSets.PINE.planks());
     public static RoofBlockSet PINE_ROOFING = registerWoodSet("pine_roofing", PINE_SHINGLES.block);
     public static RoofBlockSet BLACK_PINE_SHINGLES = registerWoodSet("black_pine_shingles", WoodBlockSets.BLACK_PINE.planks());
     public static RoofBlockSet BLACK_PINE_ROOFING = registerWoodSet("black_pine_roofing", BLACK_PINE_SHINGLES.block);
     public static RoofBlockSet WILLOW_SHINGLES = registerWoodSet("willow_shingles", WoodBlockSets.WILLOW.planks());
+    public static RoofBlockSet WILLOW_ROOFING = registerWoodSet("willow_roofing", WILLOW_SHINGLES.block);
+
     public static RoofBlockSet GRAY_MUSHROOM_SHINGLES = registerWoodSet("gray_mushroom_shingles", MushroomBlockSets.GRAY_MUSHROOM.planks());
     public static RoofBlockSet DARK_MUSHROOM_SHINGLES = registerWoodSet("dark_mushroom_shingles", MushroomBlockSets.DARK_MUSHROOM.planks());
     public static RoofBlockSet MUSHROOM_SHINGLES = registerWoodSet("mushroom_shingles", MushroomBlockSets.MUSHROOM.planks());
@@ -122,14 +127,18 @@ public class RoofBlockSets {
             MALLORN_SHINGLES,
             MALLORN_ROOFING,
             MAPLE_SHINGLES,
+            MAPLE_ROOFING,
             SILVER_MAPLE_SHINGLES,
+            SILVER_MAPLE_ROOFING,
             MIRKWOOD_SHINGLES,
+            MIRKWOOD_ROOFING,
             PALM_SHINGLES,
             PINE_SHINGLES,
             PINE_ROOFING,
             BLACK_PINE_SHINGLES,
             BLACK_PINE_ROOFING,
             WILLOW_SHINGLES,
+            WILLOW_ROOFING,
             DARK_MUSHROOM_SHINGLES,
             GRAY_MUSHROOM_SHINGLES,
             MUSHROOM_SHINGLES,

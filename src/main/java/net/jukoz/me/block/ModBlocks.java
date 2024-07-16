@@ -221,6 +221,13 @@ public class ModBlocks {
     public static final Block GRASSY_DIRT_STAIRS = registerMiscBlock("grassy_dirt_stairs",
             new StairsBlock(GRASSY_DIRT.getDefaultState(), AbstractBlock.Settings.copy(GRASSY_DIRT)),true);
 
+    public static final Block MIRE = registerMiscBlock("mire",
+            new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
+    public static final Block MIRE_SLAB = registerMiscBlock("mire_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(MIRE)),true);
+    public static final Block MIRE_STAIRS = registerMiscBlock("mire_stairs",
+            new StairsBlock(MIRE.getDefaultState(), AbstractBlock.Settings.copy(MIRE)),true);
+
     public static final Block TURF = registerMiscBlock("turf",
             new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
     public static final Block TURF_SLAB = registerMiscBlock("turf_slab",

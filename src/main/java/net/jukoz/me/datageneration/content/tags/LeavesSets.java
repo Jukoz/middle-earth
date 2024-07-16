@@ -19,8 +19,14 @@ public class LeavesSets {
 
             add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES);
 
+            add(ModNatureBlocks.MAPLE_LEAVES);
+            add(ModNatureBlocks.ORANGE_MAPLE_LEAVES);
+            add(ModNatureBlocks.YELLOW_MAPLE_LEAVES);
+
             add(ModNatureBlocks.DRY_PINE_LEAVES);
             add(ModNatureBlocks.PINE_BRANCHES);
+
+            add(ModNatureBlocks.GRAY_WILLOW_LEAVES);
         }
     };
 }
