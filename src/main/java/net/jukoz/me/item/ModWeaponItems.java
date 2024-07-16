@@ -20,8 +20,20 @@ import net.minecraft.util.Identifier;
 public class ModWeaponItems {
 
     //region GENERIC
+    public static final Item JADE_SWORD = registerItemWithModel("jade_sword",
+            new ReachWeaponItem(ModToolMaterials.JADE, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), ModWeaponTypes.SWORD), false);
     public static final Item BRONZE_SWORD = registerItemWithModel("bronze_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.BRONZE, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), ModWeaponTypes.SWORD), false);
+            new ReachWeaponItem(ModToolMaterials.BRONZE, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), ModWeaponTypes.SWORD), false);
+    public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
+            new ReachWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), ModWeaponTypes.SWORD), false);
+    public static final Item ORC_STEEL_SWORD = registerItemWithModel("orc_steel_sword",
+            new ReachWeaponItem(ModToolMaterials.ORC_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), ModWeaponTypes.SWORD), false);
+    public static final Item URUK_STEEL_SWORD = registerItemWithModel("uruk_steel_sword",
+            new ReachWeaponItem(ModToolMaterials.URUK_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), ModWeaponTypes.SWORD), false);
+    public static final Item ELVEN_STEEL_SWORD = registerItemWithModel("elven_steel_sword",
+            new ReachWeaponItem(ModToolMaterials.ELVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), ModWeaponTypes.SWORD), false);
+    public static final Item DWARVEN_STEEL_SWORD = registerItemWithModel("dwarven_steel_sword",
+            new ReachWeaponItem(ModToolMaterials.DWARVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), ModWeaponTypes.SWORD), false);
 
     public static final Item WOODEN_DAGGER = registerItemWithModel("wooden_dagger",
             new ReachWeaponItem(ToolMaterials.WOOD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), ModWeaponTypes.DAGGER), false);
