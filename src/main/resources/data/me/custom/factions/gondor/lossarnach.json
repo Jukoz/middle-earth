@@ -1,6 +1,6 @@
 {
   "parent": "gondor",
-  "name": "anorien",
+  "name": "lossarnach",
   "type": "subfaction",
   "race": "human",
   "preview_gear": {
@@ -12,7 +12,7 @@
     "off_hand": "me:gondorian_shield"
   },
   "banner": {
-    "color": "cyan",
+    "color": "yellow",
     "patterns": [
       {
         "id": "me:dragon",

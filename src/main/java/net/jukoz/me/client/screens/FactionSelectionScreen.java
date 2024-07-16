@@ -7,6 +7,7 @@ import net.jukoz.me.client.screens.data.FactionNpcPreviewData;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
+import net.jukoz.me.entity.humans.gondor.GondorHumanModel;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.utils.ModBannerPatterns;
@@ -33,8 +34,10 @@ import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
@@ -67,33 +70,30 @@ public class FactionSelectionScreen extends Screen {
 
     private ModelPart bannerField;
 
-    private int currentAlignement = 0;
-    private int currentFaction = 0;
-    private int currentSubFaction = 0;
+    private int currentAlignementIndex = 0;
+    private int currentFactionIndex = 0;
+    private int currentSubFactionIndex = 0;
 
-    @Nullable
     private LongbeardDwarfEntity dwarfEntity;
-    @Nullable
-    private GondorHumanEntity gondorHumanEntity;
+    private GondorHumanEntity humanEntity;
     @Nullable
     LivingEntity entity;
     Map<Alignment, List<Faction>> factions = new HashMap<>();
 
-    public ButtonWidget firstButtonLeft;
-    public ButtonWidget firstButtonRight;
-
-    public ButtonWidget secondButtonLeft;
-    public ButtonWidget secondButtonRight;
-
-    public ButtonWidget thirdButtonLeft;
-    public ButtonWidget thirdButtonRight;
+    public ButtonWidget alignmentButtonLeft;
+    public ButtonWidget alignmentButtonRight;
+    public ButtonWidget factionButtonLeft;
+    public ButtonWidget factionButtonRight;
+    public ButtonWidget subfactionButtonLeft;
+    public ButtonWidget subfactionButtonRight;
+    private int mouseX;
+    private int mouseY;
 
     public FactionSelectionScreen() {
         super(ONBOARDING_TEXT);
     }
     @Override
     protected void init() {
-        setup();
         this.bannerField = this.client.getEntityModelLoader().getModelPart(EntityModelLayers.BANNER).getChild("flag");
 
         // Create faction list
@@ -101,27 +101,118 @@ public class FactionSelectionScreen extends Screen {
         factions.put(Alignment.Neutral, ModFactions.getFactions(Alignment.Neutral));
         factions.put(Alignment.Evil,  ModFactions.getFactions(Alignment.Evil));
         LoggerUtil.logDebugMsg("Evil faction amount : " + ModFactions.getFactions(Alignment.Evil).size());
+
+        // Initialize Buttons
+        // Alignment
+        ButtonWidget.PressAction alignmentActionLeft = new ButtonWidget.PressAction() {
+            @Override
+            public void onPress(ButtonWidget button) {
+                currentAlignementIndex--;
+                if(currentAlignementIndex < 0)
+                    currentAlignementIndex = Alignment.values().length - 1;
+
+                updateAlignment();
+            }
+        };
+
+        ButtonWidget.PressAction alignmentActionRight = new ButtonWidget.PressAction() {
+            @Override
+            public void onPress(ButtonWidget button) {
+                currentAlignementIndex++;
+                if(currentAlignementIndex >= Alignment.values().length)
+                    currentAlignementIndex = 0;
+                updateAlignment();
+            }
+        };
+
+        alignmentButtonLeft = ButtonWidget.builder(Text.of("Left alignment selection clicked"), alignmentActionLeft).build();
+        alignmentButtonRight = ButtonWidget.builder(Text.of("Right alignment selection clicked"), alignmentActionRight).build();
+        addDrawableChild(alignmentButtonLeft);
+        addDrawableChild(alignmentButtonRight);
+
+        // Faction
+        ButtonWidget.PressAction factionActionLeft = new ButtonWidget.PressAction() {
+            @Override
+            public void onPress(ButtonWidget button) {
+                currentFactionIndex--;
+                if(currentFactionIndex < 0)
+                    currentFactionIndex = factions.get(Alignment.values()[currentAlignementIndex]).size() - 1;
+                currentSubFactionIndex = 0;
+                updateFaction(factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex));
+            }
+        };
+
+        ButtonWidget.PressAction factionActionRight = new ButtonWidget.PressAction() {
+            @Override
+            public void onPress(ButtonWidget button) {
+                currentFactionIndex++;
+                if(currentFactionIndex >= factions.get(Alignment.values()[currentAlignementIndex]).size())
+                    currentFactionIndex = 0;
+                updateFaction(factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex));
+            }
+        };
+
+        factionButtonLeft = ButtonWidget.builder(Text.of("Left faction selection clicked"), factionActionLeft).build();
+        factionButtonRight = ButtonWidget.builder(Text.of("Right faction selection clicked"), factionActionRight).build();
+        addDrawableChild(factionButtonLeft);
+        addDrawableChild(factionButtonRight);
+
+        // Subfaction
+        ButtonWidget.PressAction subfactionActionLeft = new ButtonWidget.PressAction() {
+            @Override
+            public void onPress(ButtonWidget button) {
+                currentSubFactionIndex--;
+                if(currentSubFactionIndex < 0)
+                    currentSubFactionIndex = factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex).getSubFactions().size() - 1;
+            }
+        };
+
+        ButtonWidget.PressAction subfactionActionRight = new ButtonWidget.PressAction() {
+            @Override
+            public void onPress(ButtonWidget button) {
+                currentSubFactionIndex++;
+                if(currentSubFactionIndex >= factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex).getSubFactions().size())
+                    currentSubFactionIndex = 0;
+            }
+        };
+
+        subfactionButtonLeft = ButtonWidget.builder(Text.of("Left subfaction selection clicked"), subfactionActionLeft).build();
+        subfactionButtonRight = ButtonWidget.builder(Text.of("Right subfaction selection clicked"), subfactionActionRight).build();
+        addDrawableChild(subfactionButtonLeft);
+        addDrawableChild(subfactionButtonRight);
+
+        humanEntity = new GondorHumanEntity(ModEntities.GONDORIAN_LEADER, this.client.world);
+        dwarfEntity = new LongbeardDwarfEntity(ModEntities.LONGBEARD_LEADER, this.client.world);
     }
+
+    private void updateAlignment() {
+        currentFactionIndex = 0;
+        currentSubFactionIndex = 0;
+    }
+
+    private void updateFaction(Faction faction) {
+        currentSubFactionIndex = 0;
+    }
+
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         Entity cameraEntity = this.client.getCameraEntity();
         if (cameraEntity != null) {
             if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
+                this.mouseX = mouseX;
+                this.mouseY = mouseY;
                 this.player = abstractClientPlayerEntity;
-
                 this.renderBackground(context, mouseX, mouseY, delta);
                 int guiScale = this.client.options.getGuiScale().getValue();
-                this.drawPanels(context, guiScale, mouseX, mouseY);
-
-                //this.drawWindow(context, this.client.options.getGuiScale().getValue());
+                this.drawPanels(context, guiScale);
             } else {
                 this.player = null;
             }
         }
     }
 
-    protected void drawPanels(DrawContext context, int guiScale, int mouseX, int mouseY){
+    protected void drawPanels(DrawContext context, int guiScale){
         int mainPanelWidth = 169;
         int mainPanelHeight = 207;
         int minimalMargin = 8;
@@ -156,108 +247,88 @@ public class FactionSelectionScreen extends Screen {
         int centerX = startX + (int) ((widthX / 2f));
 
         // Draw alignment option
-        Alignment alignment = Alignment.values()[currentAlignement];
-        Faction faction = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFaction) : null;
-        Faction subFaction = (faction != null) ? faction.getSubfaction(currentSubFaction) : null;
+        Alignment alignment = Alignment.values()[currentAlignementIndex];
+        Faction faction = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFactionIndex) : null;
+        Faction subFaction = (faction != null) ? faction.getSubfaction(currentSubFactionIndex) : null;
 
-        int voidMargin = 23;
+        boolean showbuttons = Alignment.values().length > 1;
+        startY += drawSelectionWidget(context, 0,95, centerX, startY, alignment.getLangKey(), alignmentButtonLeft, alignmentButtonRight, showbuttons);
+        showbuttons = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).size() > 1 : false;
+        startY += drawSelectionWidget(context, 0,114, centerX, startY, (faction == null) ? null : faction.getLangKey(), factionButtonLeft, factionButtonRight, showbuttons);
+        showbuttons = (faction != null) ? (faction.getSubFactions() != null && faction.getSubFactions().size() > 1) : false;
+        startY += drawSelectionWidget(context, 0,133, centerX, startY, (subFaction == null) ? null : subFaction.getLangKey(), subfactionButtonLeft, subfactionButtonRight, showbuttons);
 
-        startY += drawSelectionElement(context, centerX, startY, widthX,95, alignment.getLangKey(), mouseX, mouseY);
-
-        if(faction != null)
-            startY += drawSelectionElement(context, centerX, startY, widthX, 114, faction.getLangKey(), mouseX, mouseY);
-        else
-            startY += voidMargin;
-
-        if(subFaction != null)
-            startY += drawSelectionElement(context, centerX, startY, widthX, 133, subFaction.getLangKey(), mouseX, mouseY);
-        else
-            startY += voidMargin;
-
+        updatePreviewEquipment(faction, subFaction);
         drawNpcPreview(context, centerX, startY + 75);
         drawFactionRandomizer(context, centerX, (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight);
     }
 
-    protected int drawSelectionElement(DrawContext context, int centerX, int startY, int widthX, int uvY, String key, int mouseX, int mouseY){
-        int sizeX = 102;
-        int sizeY = 18;
+    protected int drawSelectionWidget(DrawContext context, int uvX, int uvY, int centerX, int startY, String key, ButtonWidget buttonLeft, ButtonWidget buttonRight, boolean showButtons){
+        int panelSizeX = 102;
+        int panelSizeY = 18;
+        int buttonSizeX = 9;
+        int buttonSizeY = 13;
+        int margin = 5;
 
-        // Text panel
+        if(key == null) {
+            buttonLeft.active = false;
+            buttonRight.active = false;
+            return panelSizeY + margin;
+        }
+
+        // Text Background
         context.drawTexture(FACTION_SELECTION_BUTTONS,
-                (int) (centerX - (sizeX / 2f)),
+                (int) (centerX - (panelSizeX / 2f)),
                 startY,
                 0, uvY,
-                sizeX,
-                sizeY
+                panelSizeX,
+                panelSizeY
         );
 
         // Dynamic text panel
-        context.drawText(textRenderer, Text.translatable(key),
-                (int)(centerX - textRenderer.getWidth(Text.translatable(key)) / 2f),
-                startY + (int) ((sizeY / 2f) - (textRenderer.fontHeight / 2f)), 0, false);
+        MutableText text = Text.translatable(key);
+        text.asTruncatedString(16);
+        context.drawText(textRenderer, text,
+                (int)(centerX - textRenderer.getWidth(text) / 2f),
+                startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)),
+                0, false);
 
-        int arrowStartY = (int) (startY + (sizeY / 2f) - (13 / 2f));
-        // Left arrow
-        boolean mouseIsOverLeft =
-            mouseX >= (int) (centerX - (sizeX / 2f) - 9) - 5 && mouseX <= (int) (centerX - (sizeX / 2f) - 9) - 5 + 9
-            && mouseY >= arrowStartY && mouseY <= arrowStartY + 13;
+        if(!showButtons){
+            buttonLeft.active = false;
+            buttonRight.active = false;
+            return panelSizeY + margin;
+        }
+        buttonLeft.active = true;
+        buttonRight.active = true;
+
+        //  Left button
+        int leftButtonStartX = (int) (centerX - (panelSizeX / 2f) - buttonSizeX) - margin;
+        int leftButtonStartY = (int) (startY + (panelSizeY / 2f) - (buttonSizeY / 2f));
 
         context.drawTexture(FACTION_SELECTION_BUTTONS,
-                (int) (centerX - (sizeX / 2f) - 9) - 5,
-                arrowStartY,
-                192, (mouseIsOverLeft) ? 16 : 1,
-                9,
-                13
+                leftButtonStartX, leftButtonStartY,
+                192, (isMouseOver(leftButtonStartX, buttonSizeX, leftButtonStartY, buttonSizeY)) ? 13 : 0,
+                buttonSizeX, buttonSizeY
         );
+        buttonRight.setDimensionsAndPosition(buttonSizeX, buttonSizeY, leftButtonStartX, leftButtonStartY);
 
-        if(firstButtonLeft == null){
-            firstButtonLeft = ButtonWidget.builder(Text.literal("First Button Left"), button -> {
-                        currentAlignement --;
-                        if(currentAlignement < 0)
-                            currentAlignement = Alignment.values().length - 1;
+        //  Right button
+        int rightButtonStartX = (int) (centerX + (panelSizeX / 2f)) + margin;
+        int rightButtonStartY = (int) (startY + (panelSizeY / 2f) - (buttonSizeY / 2f));
 
-                        currentFaction = 0;
-                        currentSubFaction = 0;
-                    })
-                    .dimensions(
-                            (int) (centerX - (sizeX / 2f) - 9) - 5,
-                            arrowStartY, 9, 13)
-                    .build();
-            addDrawableChild(firstButtonLeft);
-        }
-
-        // Right arrow
-        boolean mouseIsOverRight =
-                mouseX >= (int) (centerX + (sizeX / 2f)) + 5 && mouseX <= (int) (centerX + (sizeX / 2f)) + 5 + 9
-                        && mouseY >= arrowStartY && mouseY <= arrowStartY + 13;
         context.drawTexture(FACTION_SELECTION_BUTTONS,
-                (int) (centerX + (sizeX / 2f)) + 5,
-                arrowStartY,
-                201, (mouseIsOverRight) ? 16 : 1,
-                9,
-                13
+                rightButtonStartX, rightButtonStartY,
+                201, (isMouseOver(rightButtonStartX, buttonSizeX, rightButtonStartY, buttonSizeY)) ? 13 : 0,
+                buttonSizeX, buttonSizeY
         );
+        buttonLeft.setDimensionsAndPosition(buttonSizeX, buttonSizeY, rightButtonStartX, rightButtonStartY);
 
-        if(firstButtonRight == null) {
-            firstButtonRight = ButtonWidget.builder(Text.literal("First Button Right"), button -> {
-                        currentAlignement ++;
-                        if(currentAlignement >= Alignment.values().length)
-                            currentAlignement = 0;
+        return panelSizeY + margin;
+    }
 
-                        currentFaction = 0;
-                        currentSubFaction = 0;
-                        LoggerUtil.logDebugMsg(currentFaction + " is now the faction");
-                        LoggerUtil.logDebugMsg(currentSubFaction + " is now the faction");
-                    })
-                    .dimensions(
-                            (int) (centerX + (sizeX / 2f)) + 5,
-                            arrowStartY, 9, 13)
-                    .build();
-
-            addDrawableChild(firstButtonRight);
-        }
-
-        return sizeY + 5;
+    private boolean isMouseOver(int startX, int sizeX, int startY, int sizeY) {
+        return mouseX >= startX && mouseX <= startX + sizeX
+                && mouseY >= startY && mouseY <= startY + sizeY;
     }
 
     protected void drawFactionRandomizer(DrawContext context, int centerX, int endY) {
@@ -308,34 +379,30 @@ public class FactionSelectionScreen extends Screen {
 
 
     protected void setup() {
-        DiffuseLighting.disableGuiDepthLighting();
 
-        ButtonWidget debugButton = ButtonWidget.builder(Text.literal("Debug"), button -> {
-                    debug = !debug;
-                })
-                .dimensions(0, 0, 50, 50).build();
-        addDrawableChild(debugButton);
+    }
+
+    private void updatePreviewEquipment(Faction faction, Faction subFaction){
+        if(faction == null) return;
+        if(subFaction != null) faction = subFaction;
 
 
-        this.dwarfEntity = new LongbeardDwarfEntity(ModEntities.LONGBEARD_ELITE, this.client.world);
-        this.gondorHumanEntity = new GondorHumanEntity(ModEntities.GONDORIAN_LEADER, this.client.world);
+        this.entity = this.humanEntity; // TODO : Make this dynamic
 
-        FactionNpcPreviewData prevData = NPC_PREVIEWS.stream().filter(f -> f.FACTION == Factions.EREBOR).findFirst().get();
-        this.entity = this.dwarfEntity;
+        if(this.entity == null) return;
 
         this.entity.bodyYaw = 210f;
         this.entity.setPitch(0f);
         this.entity.headYaw = this.entity.getBodyYaw();
         this.entity.prevHeadYaw = this.entity.getBodyYaw();
 
-        this.entity.equipStack(EquipmentSlot.HEAD, prevData.HEAD);
-        this.entity.equipStack(EquipmentSlot.CHEST, prevData.CHEST);
-        this.entity.equipStack(EquipmentSlot.LEGS, prevData.LEGS);
-        this.entity.equipStack(EquipmentSlot.FEET, prevData.FEET);
-        this.entity.equipStack(EquipmentSlot.MAINHAND, prevData.MAIN_HAND);
-        this.entity.equipStack(EquipmentSlot.OFFHAND, prevData.OFF_HAND);
+        this.entity.equipStack(EquipmentSlot.HEAD, new ItemStack(faction.getPreviewGearAt(EquipmentSlot.HEAD)));
+        this.entity.equipStack(EquipmentSlot.CHEST, new ItemStack(faction.getPreviewGearAt(EquipmentSlot.CHEST)));
+        this.entity.equipStack(EquipmentSlot.LEGS, new ItemStack(faction.getPreviewGearAt(EquipmentSlot.LEGS)));
+        this.entity.equipStack(EquipmentSlot.FEET, new ItemStack(faction.getPreviewGearAt(EquipmentSlot.FEET)));
+        this.entity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(faction.getPreviewGearAt(EquipmentSlot.MAINHAND)));
+        this.entity.equipStack(EquipmentSlot.OFFHAND, new ItemStack(faction.getPreviewGearAt(EquipmentSlot.OFFHAND)));
     }
-
 
     private void drawNpcPreview(DrawContext context, float anchorX, float anchorY){
         float size = 50f;
@@ -344,6 +411,7 @@ public class FactionSelectionScreen extends Screen {
 
         DiffuseLighting.disableGuiDepthLighting();
         DiffuseLighting.disableForLevel();
+        if(this.entity == null) return;
         InventoryScreen.drawEntity(context, x, y, size, VECTOR, ENTITY_ROTATION, (Quaternionf)null, this.entity);
     }
 

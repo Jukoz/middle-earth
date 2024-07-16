@@ -4047,10 +4047,19 @@
   "me.alignment.evil" : "Evil",
 
   "#Comment:": "Factions",
+  "me.faction.dale" : "Dale",
   "me.faction.gondor" : "Gondor",
   "me.faction.gondor.anorien" : "Anorien",
+  "me.faction.gondor.lossarnach" : "Lossarnach",
   "me.faction.longbeards" : "Longbeards",
   "me.faction.longbeards.erebor" : "Erebor",
   "me.faction.mordor" : "Mordor",
-  "me.faction.mordor.gorgoroth" : "Gorgoroth"
+  "me.faction.mordor.gorgoroth" : "Gorgoroth",
+
+  "#Comment:": "Races",
+  "me.race.dwarf" : "Dwarf",
+  "me.race.elf" : "Elf",
+  "me.race.human" : "Human",
+  "me.race.hobbit" : "Hobbit",
+  "me.race.orc" : "Orc"
 }

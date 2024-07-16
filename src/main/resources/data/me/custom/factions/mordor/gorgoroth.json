@@ -9,7 +9,7 @@
     "legs": "me:mordor_orc_mail_leggings",
     "boots": "me:mordor_orc_mail_boots",
     "main_hand": "me:mordor_orc_sword",
-    "offhand_hand": "me:mordor_shield"
+    "off_hand": "me:mordor_shield"
   },
   "banner": {
     "color": "green",

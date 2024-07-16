@@ -68,26 +68,6 @@ public class ModFactions {
         }
     }
 
-    /*
-
-
-    public static void reset(){
-        if(factions == null)
-            factions = new HashMap<>();
-        else
-            factions.clear();
-    }
-
-    public static void addFromJson(JsonObject jsonObject, Identifier id){
-        if(factions == null)
-            factions = new HashMap<>();
-
-        factions.put(id, new Faction(Alignment.Good, jsonObject, id));
-    }
-
-
-
- */
     public static List<Faction> getFactions(Alignment alignment){
         return factions.values().stream().filter(x -> x.getAlignment() == alignment).collect(Collectors.toList());
     }
