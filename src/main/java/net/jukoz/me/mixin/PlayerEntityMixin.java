@@ -2,6 +2,7 @@ package net.jukoz.me.mixin;
 
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.jukoz.me.item.items.ReachWeaponItem;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -40,6 +41,11 @@ import static net.minecraft.entity.EquipmentSlot.OFFHAND;
 public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Shadow public abstract ItemCooldownManager getItemCooldownManager();
+
+    @Shadow public abstract PlayerInventory getInventory();
+
+    @Shadow @Final
+    PlayerInventory inventory;
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -101,36 +107,22 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
-    /*@Inject(method = "getEquippedStack", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getEquippedStack", at = @At("HEAD"), cancellable = true)
     public void getEquippedStack_Pre(EquipmentSlot slot, CallbackInfoReturnable<ItemStack> cir) {
-        boolean handTwoHanded = false;
-        ItemStack stackMainHand = null;
-        if(this.getHandItems().iterator().hasNext()){
-            stackMainHand = this.getHandItems().iterator().next();
-        }
+        boolean twoHanded = false;
+        ItemStack stackMainHand = this.getInventory().getMainHandStack();
+
         if(stackMainHand != null){
             if (stackMainHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackMainHand.getItem()).type.twoHanded)) {
-                handTwoHanded = true;
-            }
-        }
-
-        boolean offHandTwoHanded = false;
-        ItemStack stackOffHand = null;
-        if(this.getHandItems().iterator().hasNext()){
-            stackOffHand = this.getHandItems().iterator().next();
-        }
-        if(stackOffHand != null){
-            if (stackOffHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackOffHand.getItem()).type.twoHanded)) {
-                offHandTwoHanded = true;
+                twoHanded = true;
             }
         }
 
         if (slot == OFFHAND) {
-            if (handTwoHanded || offHandTwoHanded) {
+            if (twoHanded) {
                 cir.setReturnValue(ItemStack.EMPTY);
                 cir.cancel();
-                return;
             }
         }
-    }*/
+    }
 }
