@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.resource.data.Alignment;
+import net.jukoz.me.resource.data.Race;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
@@ -19,6 +20,7 @@ import java.util.List;
 public class Faction {
     private final Identifier id;
     private final Alignment alignment;
+    private final Race race;
     private HashMap<Identifier, Faction> subFactions = null;
 
     private HashMap<EquipmentSlot, Item> previewGear = null;
@@ -32,8 +34,15 @@ public class Faction {
     public Faction(Alignment alignment, JsonObject json, Identifier id) {
         this.alignment = alignment;
         this.id = id;
+        this.race = parseRace(json);
         buildPreviewGear(json);
         LoggerUtil.logDebugMsg("Faction::Created a new faction -> " + id);
+    }
+
+    private Race parseRace(JsonObject json) {
+        String jsonValue = json.get("race").getAsString();
+        LoggerUtil.logDebugMsg("Faction::"+id+":found race -> " + jsonValue);
+        return Race.fromString(jsonValue);
     }
 
     private void buildPreviewGear(JsonObject json) {
@@ -69,6 +78,14 @@ public class Faction {
         return previewGear.get(slot);
     }
 
+    public Race getRace() {
+        if(this.race == null){
+            LoggerUtil.logDebugMsg("Faction::"+id+":Couldn't find race -> returning "+ Race.Human.toString());
+            return Race.Human;
+        }
+
+        return this.race;
+    }
     public HashMap<Identifier,Faction> getSubFactions(){
         return subFactions;
     }

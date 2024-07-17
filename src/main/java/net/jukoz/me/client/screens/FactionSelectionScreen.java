@@ -6,12 +6,16 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.data.FactionNpcPreviewData;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
+import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
+import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanModel;
+import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.utils.ModBannerPatterns;
 import net.jukoz.me.resource.data.Alignment;
+import net.jukoz.me.resource.data.Race;
 import net.jukoz.me.resource.data.faction.Faction;
 import net.jukoz.me.resource.data.faction.ModFactions;
 import net.jukoz.me.utils.Factions;
@@ -45,10 +49,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Environment(EnvType.CLIENT)
 public class FactionSelectionScreen extends Screen {
@@ -65,6 +66,7 @@ public class FactionSelectionScreen extends Screen {
     AbstractClientPlayerEntity player;
     private static final Quaternionf ENTITY_ROTATION;
     private static final Vector3f VECTOR;
+    private static final int MINIMAL_MARGIN = 8;
 
     private static List<FactionNpcPreviewData> NPC_PREVIEWS = new ArrayList<>();
 
@@ -76,6 +78,10 @@ public class FactionSelectionScreen extends Screen {
 
     private LongbeardDwarfEntity dwarfEntity;
     private GondorHumanEntity humanEntity;
+    private MordorOrcEntity orcEntity;
+    private GaladhrimElfEntity elfEntity;
+    private ShireHobbitEntity hobbitEntity;
+
     @Nullable
     LivingEntity entity;
     Map<Alignment, List<Faction>> factions = new HashMap<>();
@@ -86,6 +92,8 @@ public class FactionSelectionScreen extends Screen {
     public ButtonWidget factionButtonRight;
     public ButtonWidget subfactionButtonLeft;
     public ButtonWidget subfactionButtonRight;
+    public ButtonWidget factionRandomizerButton;
+
     private int mouseX;
     private int mouseY;
 
@@ -100,8 +108,6 @@ public class FactionSelectionScreen extends Screen {
         factions.put(Alignment.Good, ModFactions.getFactions(Alignment.Good));
         factions.put(Alignment.Neutral, ModFactions.getFactions(Alignment.Neutral));
         factions.put(Alignment.Evil,  ModFactions.getFactions(Alignment.Evil));
-        LoggerUtil.logDebugMsg("Evil faction amount : " + ModFactions.getFactions(Alignment.Evil).size());
-
         // Initialize Buttons
         // Alignment
         ButtonWidget.PressAction alignmentActionLeft = new ButtonWidget.PressAction() {
@@ -111,7 +117,9 @@ public class FactionSelectionScreen extends Screen {
                 if(currentAlignementIndex < 0)
                     currentAlignementIndex = Alignment.values().length - 1;
 
-                updateAlignment();
+                currentFactionIndex = 0;
+                currentSubFactionIndex = 0;
+                updatePreviewEquipment();
             }
         };
 
@@ -121,7 +129,9 @@ public class FactionSelectionScreen extends Screen {
                 currentAlignementIndex++;
                 if(currentAlignementIndex >= Alignment.values().length)
                     currentAlignementIndex = 0;
-                updateAlignment();
+                currentFactionIndex = 0;
+                currentSubFactionIndex = 0;
+                updatePreviewEquipment();
             }
         };
 
@@ -139,6 +149,7 @@ public class FactionSelectionScreen extends Screen {
                     currentFactionIndex = factions.get(Alignment.values()[currentAlignementIndex]).size() - 1;
                 currentSubFactionIndex = 0;
                 updateFaction(factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex));
+                updatePreviewEquipment();
             }
         };
 
@@ -149,6 +160,7 @@ public class FactionSelectionScreen extends Screen {
                 if(currentFactionIndex >= factions.get(Alignment.values()[currentAlignementIndex]).size())
                     currentFactionIndex = 0;
                 updateFaction(factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex));
+                updatePreviewEquipment();
             }
         };
 
@@ -164,6 +176,7 @@ public class FactionSelectionScreen extends Screen {
                 currentSubFactionIndex--;
                 if(currentSubFactionIndex < 0)
                     currentSubFactionIndex = factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex).getSubFactions().size() - 1;
+                updatePreviewEquipment();
             }
         };
 
@@ -173,6 +186,7 @@ public class FactionSelectionScreen extends Screen {
                 currentSubFactionIndex++;
                 if(currentSubFactionIndex >= factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex).getSubFactions().size())
                     currentSubFactionIndex = 0;
+                updatePreviewEquipment();
             }
         };
 
@@ -181,13 +195,52 @@ public class FactionSelectionScreen extends Screen {
         addDrawableChild(subfactionButtonLeft);
         addDrawableChild(subfactionButtonRight);
 
-        humanEntity = new GondorHumanEntity(ModEntities.GONDORIAN_LEADER, this.client.world);
-        dwarfEntity = new LongbeardDwarfEntity(ModEntities.LONGBEARD_LEADER, this.client.world);
-    }
+        ButtonWidget.PressAction factionRandomizer = new ButtonWidget.PressAction() {
+            private int randomize(int tentativeLeft){
+                Random random = new Random();
+                // Alignment randomizer
+                currentAlignementIndex = random.nextInt(Alignment.values().length);
+                Alignment alignment = Alignment.values()[currentAlignementIndex];
 
-    private void updateAlignment() {
-        currentFactionIndex = 0;
-        currentSubFactionIndex = 0;
+                // Recursive trigger
+                if(factions.get(alignment) == null || factions.get(alignment).isEmpty()){
+                    if(tentativeLeft > 0){
+                        return tentativeLeft + randomize(tentativeLeft - 1);
+                    }
+                }
+
+                // Faction randomizer
+                currentFactionIndex =
+                        (factions.get(alignment) == null || factions.get(alignment).isEmpty())
+                                ? 0
+                                : random.nextInt(factions.get(alignment).size());
+                Faction faction =
+                        (factions.get(alignment) == null || factions.get(alignment).isEmpty() || currentFactionIndex >= factions.get(alignment).size())
+                                ? null
+                                : factions.get(alignment).get(currentFactionIndex);
+
+                // Subfaction randomizer
+                currentSubFactionIndex =
+                        (faction == null || faction.getSubFactions() == null || faction.getSubFactions().isEmpty())
+                                ? 0
+                                : random.nextInt(faction.getSubFactions().size());
+                return 0;
+            }
+            @Override
+            public void onPress(ButtonWidget button) {
+                this.randomize(5);
+                updatePreviewEquipment();
+            }
+        };
+        factionRandomizerButton = ButtonWidget.builder(Text.of("Faction randomizer clicked"), factionRandomizer).build();
+        addDrawableChild(factionRandomizerButton);
+
+        humanEntity = new GondorHumanEntity(ModEntities.GONDORIAN_SOLDIER, this.client.world);
+        dwarfEntity = new LongbeardDwarfEntity(ModEntities.LONGBEARD_SOLDIER, this.client.world);
+        elfEntity = new GaladhrimElfEntity(ModEntities.LORIEN_SOLDIER, this.client.world);
+        orcEntity = new MordorOrcEntity(ModEntities.MORDOR_ORC_SOLDIER, this.client.world);
+        hobbitEntity = new ShireHobbitEntity(ModEntities.HOBBIT_CIVILIAN, this.client.world);
+        updatePreviewEquipment();
     }
 
     private void updateFaction(Faction faction) {
@@ -215,11 +268,10 @@ public class FactionSelectionScreen extends Screen {
     protected void drawPanels(DrawContext context, int guiScale){
         int mainPanelWidth = 169;
         int mainPanelHeight = 207;
-        int minimalMargin = 8;
 
-        drawFactionSelectionPanel(context, mainPanelWidth, mainPanelHeight, minimalMargin, mouseX, mouseY);
+        drawFactionSelectionPanel(context, mainPanelWidth, mainPanelHeight, MINIMAL_MARGIN, mouseX, mouseY);
         drawInformationPanel(context, mainPanelWidth, mainPanelHeight);
-        drawMapPanel(context, mainPanelWidth, mainPanelHeight, minimalMargin);
+        drawMapPanel(context, mainPanelWidth, mainPanelHeight, MINIMAL_MARGIN);
     }
 
     private void drawInformationPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight) {
@@ -258,9 +310,9 @@ public class FactionSelectionScreen extends Screen {
         showbuttons = (faction != null) ? (faction.getSubFactions() != null && faction.getSubFactions().size() > 1) : false;
         startY += drawSelectionWidget(context, 0,133, centerX, startY, (subFaction == null) ? null : subFaction.getLangKey(), subfactionButtonLeft, subfactionButtonRight, showbuttons);
 
-        updatePreviewEquipment(faction, subFaction);
-        drawNpcPreview(context, centerX, startY + 75);
-        drawFactionRandomizer(context, centerX, (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight);
+        int endY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight;
+        drawNpcPreview(context, centerX, endY);
+        drawFactionRandomizer(context, centerX, endY);
     }
 
     protected int drawSelectionWidget(DrawContext context, int uvX, int uvY, int centerX, int startY, String key, ButtonWidget buttonLeft, ButtonWidget buttonRight, boolean showButtons){
@@ -334,14 +386,17 @@ public class FactionSelectionScreen extends Screen {
     protected void drawFactionRandomizer(DrawContext context, int centerX, int endY) {
         int sizeX = 52;
         int sizeY = 18;
+        int startX = (int) (centerX - (sizeX / 2f));
+        int startY = endY - sizeY;
 
         context.drawTexture(FACTION_SELECTION_BUTTONS,
-                (int) (centerX - (sizeX / 2f)),
-                endY - sizeY,
-                103, 74,
+                startX,
+                startY,
+                103, (isMouseOver(startX, sizeX, startY, sizeY)) ? 92 : 74,
                 sizeX,
                 sizeY
         );
+        factionRandomizerButton.setDimensionsAndPosition(sizeX, sizeY, startX, startY);
     }
 
 
@@ -382,12 +437,21 @@ public class FactionSelectionScreen extends Screen {
 
     }
 
+    private void updatePreviewEquipment() {
+        Alignment alignment = Alignment.values()[currentAlignementIndex];
+        Faction faction = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFactionIndex) : null;
+        Faction subFaction = (faction != null) ? faction.getSubfaction(currentSubFactionIndex) : null;
+        updatePreviewEquipment(faction, subFaction);
+    }
+
     private void updatePreviewEquipment(Faction faction, Faction subFaction){
-        if(faction == null) return;
+        if(faction == null) {
+            this.entity = null;
+            return;
+        }
         if(subFaction != null) faction = subFaction;
 
-
-        this.entity = this.humanEntity; // TODO : Make this dynamic
+        updateEntityFromFaction(faction);
 
         if(this.entity == null) return;
 
@@ -404,10 +468,23 @@ public class FactionSelectionScreen extends Screen {
         this.entity.equipStack(EquipmentSlot.OFFHAND, new ItemStack(faction.getPreviewGearAt(EquipmentSlot.OFFHAND)));
     }
 
+    private void updateEntityFromFaction(Faction faction) {
+        this.entity =
+                switch ( faction.getRace() )
+                {
+                    case Race.Human -> humanEntity;
+                    case Race.Dwarf -> dwarfEntity;
+                    case Race.Orc -> orcEntity;
+                    case Race.Elf -> elfEntity;
+                    case Race.Hobbit -> hobbitEntity;
+                    default -> humanEntity;
+                };
+    }
+
     private void drawNpcPreview(DrawContext context, float anchorX, float anchorY){
         float size = 50f;
         float x = anchorX;
-        float y = anchorY + (size / 2f);
+        float y = anchorY - 18 - MINIMAL_MARGIN;
 
         DiffuseLighting.disableGuiDepthLighting();
         DiffuseLighting.disableForLevel();

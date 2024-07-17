@@ -4,11 +4,28 @@ import net.jukoz.me.MiddleEarth;
 import net.minecraft.util.Identifier;
 
 public enum Race {
-    Dwarf,
-    Elf,
-    Human,
-    Hobbit,
-    Orc;
+    Dwarf("dwarf"),
+    Elf("elf"),
+    Human("human"),
+    Hobbit("hobbit"),
+    Orc("orc");
+    private String jsonValue;
+
+    Race(String raceKey) {
+        this.jsonValue = raceKey;
+    }
+
+    public String getRaceKey() {
+        return this.jsonValue;
+    }
+    public static Race fromString(String text) {
+        for (Race race : Race.values()) {
+            if (race.jsonValue.equalsIgnoreCase(text)) {
+                return race;
+            }
+        }
+        return null;
+    }
 
     @Override
     public String toString() {

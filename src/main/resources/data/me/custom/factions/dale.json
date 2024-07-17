@@ -1,6 +1,7 @@
 {
   "name": "dale",
   "type": "major",
+  "race": "human",
   "preview_gear": {
     "head": "me:erebor_commander_helmet",
     "chest": "me:erebor_commander_chestplate",
