@@ -24,17 +24,32 @@ public class RoofBlockSets {
     public static RoofBlockSet WARPED_SHINGLES = registerWoodSet("warped_shingles", Blocks.WARPED_PLANKS);
 
     public static RoofBlockSet BEECH_SHINGLES = registerWoodSet("beech_shingles", WoodBlockSets.BEECH.planks());
-    public static RoofBlockSet LARCH_SHINGLES = registerWoodSet("larch_shingles", WoodBlockSets.LARCH.planks());
+    public static RoofBlockSet BEECH_ROOFING = registerWoodSet("beech_roofing", BEECH_SHINGLES.block);
     public static RoofBlockSet BLACK_LEBETHRON_SHINGLES = registerWoodSet("black_lebethron_shingles", WoodBlockSets.BLACK_LEBETHRON.planks());
+    public static RoofBlockSet BLACK_LEBETHRON_ROOFING = registerWoodSet("black_lebethron_roofing", BLACK_LEBETHRON_SHINGLES.block);
     public static RoofBlockSet WHITE_LEBETHRON_SHINGLES = registerWoodSet("white_lebethron_shingles", WoodBlockSets.WHITE_LEBETHRON.planks());
+    public static RoofBlockSet CHESTNUT_SHINGLES = registerWoodSet("chestnut_shingles", WoodBlockSets.CHESTNUT.planks());
+    public static RoofBlockSet CHESTNUT_ROOFING = registerWoodSet("chestnut_roofing", CHESTNUT_SHINGLES.block);
+    public static RoofBlockSet HOLLY_SHINGLES = registerWoodSet("holly_shingles", WoodBlockSets.HOLLY.planks());
+    public static RoofBlockSet HOLLY_ROOFING = registerWoodSet("holly_roofing", HOLLY_SHINGLES.block);
+    public static RoofBlockSet LARCH_SHINGLES = registerWoodSet("larch_shingles", WoodBlockSets.LARCH.planks());
+    public static RoofBlockSet LARCH_ROOFING = registerWoodSet("larch_roofing", LARCH_SHINGLES.block);
     public static RoofBlockSet MALLORN_SHINGLES = registerWoodSet("mallorn_shingles", WoodBlockSets.MALLORN.planks());
+    public static RoofBlockSet MALLORN_ROOFING = registerWoodSet("mallorn_roofing", MALLORN_SHINGLES.block);
     public static RoofBlockSet MAPLE_SHINGLES = registerWoodSet("maple_shingles", WoodBlockSets.MAPLE.planks());
+    public static RoofBlockSet MAPLE_ROOFING = registerWoodSet("maple_roofing", MAPLE_SHINGLES.block);
     public static RoofBlockSet SILVER_MAPLE_SHINGLES = registerWoodSet("silver_maple_shingles", WoodBlockSets.SILVER_MAPLE.planks());
+    public static RoofBlockSet SILVER_MAPLE_ROOFING = registerWoodSet("silver_maple_roofing", SILVER_MAPLE_SHINGLES.block);
     public static RoofBlockSet MIRKWOOD_SHINGLES = registerWoodSet("mirkwood_shingles", WoodBlockSets.MIRKWOOD.planks());
+    public static RoofBlockSet MIRKWOOD_ROOFING = registerWoodSet("mirkwood_roofing", MIRKWOOD_SHINGLES.block);
     public static RoofBlockSet PALM_SHINGLES = registerWoodSet("palm_shingles", WoodBlockSets.PALM.planks());
     public static RoofBlockSet PINE_SHINGLES = registerWoodSet("pine_shingles", WoodBlockSets.PINE.planks());
     public static RoofBlockSet PINE_ROOFING = registerWoodSet("pine_roofing", PINE_SHINGLES.block);
+    public static RoofBlockSet BLACK_PINE_SHINGLES = registerWoodSet("black_pine_shingles", WoodBlockSets.BLACK_PINE.planks());
+    public static RoofBlockSet BLACK_PINE_ROOFING = registerWoodSet("black_pine_roofing", BLACK_PINE_SHINGLES.block);
     public static RoofBlockSet WILLOW_SHINGLES = registerWoodSet("willow_shingles", WoodBlockSets.WILLOW.planks());
+    public static RoofBlockSet WILLOW_ROOFING = registerWoodSet("willow_roofing", WILLOW_SHINGLES.block);
+
     public static RoofBlockSet GRAY_MUSHROOM_SHINGLES = registerWoodSet("gray_mushroom_shingles", MushroomBlockSets.GRAY_MUSHROOM.planks());
     public static RoofBlockSet DARK_MUSHROOM_SHINGLES = registerWoodSet("dark_mushroom_shingles", MushroomBlockSets.DARK_MUSHROOM.planks());
     public static RoofBlockSet MUSHROOM_SHINGLES = registerWoodSet("mushroom_shingles", MushroomBlockSets.MUSHROOM.planks());
@@ -99,17 +114,31 @@ public class RoofBlockSets {
             WARPED_SHINGLES,
 
             BEECH_SHINGLES,
+            BEECH_ROOFING,
             LARCH_SHINGLES,
+            LARCH_ROOFING,
             BLACK_LEBETHRON_SHINGLES,
+            BLACK_LEBETHRON_ROOFING,
             WHITE_LEBETHRON_SHINGLES,
+            CHESTNUT_SHINGLES,
+            CHESTNUT_ROOFING,
+            HOLLY_SHINGLES,
+            HOLLY_ROOFING,
             MALLORN_SHINGLES,
+            MALLORN_ROOFING,
             MAPLE_SHINGLES,
+            MAPLE_ROOFING,
             SILVER_MAPLE_SHINGLES,
+            SILVER_MAPLE_ROOFING,
             MIRKWOOD_SHINGLES,
+            MIRKWOOD_ROOFING,
             PALM_SHINGLES,
             PINE_SHINGLES,
             PINE_ROOFING,
+            BLACK_PINE_SHINGLES,
+            BLACK_PINE_ROOFING,
             WILLOW_SHINGLES,
+            WILLOW_ROOFING,
             DARK_MUSHROOM_SHINGLES,
             GRAY_MUSHROOM_SHINGLES,
             MUSHROOM_SHINGLES,
