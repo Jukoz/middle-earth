@@ -1,7 +1,7 @@
 package net.jukoz.me.mixin.client;
 
 import net.jukoz.me.item.ModDecorativeItems;
-import net.jukoz.me.item.items.ReachWeaponItem;
+import net.jukoz.me.item.items.weapons.ReachWeaponItem;
 import net.jukoz.me.item.utils.ModWeaponTypes;
 import net.jukoz.me.utils.IEntityDataSaver;
 import net.jukoz.me.utils.PlayerMovementData;

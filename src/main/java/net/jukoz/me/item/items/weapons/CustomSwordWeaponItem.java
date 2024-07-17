@@ -1,4 +1,4 @@
-package net.jukoz.me.item.items;
+package net.jukoz.me.item.items.weapons;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.utils.ModWeaponTypes;
@@ -25,25 +25,25 @@ public class CustomSwordWeaponItem extends SwordItem {
 
     private final ModWeaponTypes type;
 
-    public CustomSwordWeaponItem(ToolMaterial toolMaterial, ModWeaponTypes type) {
-        super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersSword(toolMaterial, type.attack, type.attackSpeed)));
-        this.faction = null;
+    public CustomSwordWeaponItem(ToolMaterial toolMaterial) {
+        super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
+        this.faction = Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic");
         this.subFaction = null;
-        this.type = type;
+        this.type = ModWeaponTypes.SWORD;
     }
 
-    public CustomSwordWeaponItem(ToolMaterial toolMaterial,  MutableText faction, ModWeaponTypes type) {
-        super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersSword(toolMaterial, type.attack, type.attackSpeed)));
+    public CustomSwordWeaponItem(ToolMaterial toolMaterial,  MutableText faction) {
+        super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
         this.faction = faction;
         this.subFaction = null;
-        this.type = type;
+        this.type = ModWeaponTypes.SWORD;
     }
 
-    public CustomSwordWeaponItem(ToolMaterial toolMaterial,  MutableText faction, MutableText subFaction, ModWeaponTypes type) {
-        super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersSword(toolMaterial, type.attack, type.attackSpeed)));
+    public CustomSwordWeaponItem(ToolMaterial toolMaterial,  MutableText faction, MutableText subFaction) {
+        super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
         this.faction = faction;
         this.subFaction = subFaction;
-        this.type = type;
+        this.type = ModWeaponTypes.SWORD;
     }
 
     public static AttributeModifiersComponent createAttributeModifiersSword(ToolMaterial material, float baseAttackDamage, float attackSpeed) {

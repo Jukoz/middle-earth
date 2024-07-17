@@ -1,4 +1,4 @@
-package net.jukoz.me.item.items;
+package net.jukoz.me.item.items.weapons.ranged;
 
 import net.jukoz.me.MiddleEarth;
 import net.minecraft.client.gui.screen.Screen;
