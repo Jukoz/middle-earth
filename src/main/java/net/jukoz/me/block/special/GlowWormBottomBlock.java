@@ -8,6 +8,8 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 
 public class GlowWormBottomBlock extends AbstractPlantStemBlock {
+    public static final MapCodec<GlowWormBottomBlock> CODEC = GlowWormBottomBlock.createCodec(GlowWormBottomBlock::new);
+
     protected static final VoxelShape SHAPE = Block.createCuboidShape(4.0, 9.0, 4.0, 12.0, 16.0, 12.0);
 
     public GlowWormBottomBlock(AbstractBlock.Settings settings) {
@@ -16,7 +18,7 @@ public class GlowWormBottomBlock extends AbstractPlantStemBlock {
 
     @Override
     protected MapCodec<? extends AbstractPlantStemBlock> getCodec() {
-        return null;
+        return CODEC;
     }
 
     protected int getGrowthLength(Random random) {
