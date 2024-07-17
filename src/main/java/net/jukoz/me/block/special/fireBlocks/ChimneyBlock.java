@@ -20,7 +20,6 @@ public class ChimneyBlock extends AbstractToggleableFireBlock {
 
     public static final MapCodec<ChimneyBlock> CODEC = ChimneyBlock.createCodec(ChimneyBlock::new);
 
-
     protected static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(Block.createCuboidShape(0, 0, 0, 16, 4, 16), Block.createCuboidShape(3, 4, 3, 13, 16, 13), BooleanBiFunction.OR);
     public static final BooleanProperty LIT = Properties.LIT;
 

@@ -299,6 +299,12 @@ public class ModNatureBlocks {
             new MangroveRootsBlock(AbstractBlock.Settings.copy(Blocks.MANGROVE_ROOTS)), true);
     public static final Block MIRKWOOD_HANGING_ROOTS = registerBlock("mirkwood_hanging_roots",
             new HangingRootsBlock(AbstractBlock.Settings.copy(Blocks.HANGING_ROOTS)), true);
+
+    public static final Block MIRKWOOD_VINES = registerCrossBlock("mirkwood_vines",
+            new MirkwoodVinesBottomBlock(AbstractBlock.Settings.copy(Blocks.WEEPING_VINES_PLANT)), true);
+    public static final Block MIRKWOOD_VINES_PLANT = registerCrossBlock("mirkwood_vines_plant",
+            new MirkwoodVinesBlock(AbstractBlock.Settings.copy(Blocks.WEEPING_VINES)), false);
+
     public static final Block MIRKWOOD_SPIDER_EGG = registerBlock("mirkwood_spider_egg",
             new MirkwoodSpiderEggBlock(AbstractBlock.Settings.copy(Blocks.TURTLE_EGG)), true);
 

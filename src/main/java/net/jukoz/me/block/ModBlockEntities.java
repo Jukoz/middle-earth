@@ -53,6 +53,6 @@ public class ModBlockEntities {
         CHIMNEY = Registry.register(Registries.BLOCK_ENTITY_TYPE,
                 Identifier.of(MiddleEarth.MOD_ID, "chimney"),
                 FabricBlockEntityTypeBuilder.create(ChimneyBlockEntity::new,
-                        ModDecorativeBlocks.BONFIRE).build(null));
+                        ModDecorativeBlocks.CHIMNEY).build(null));
     }
 }
