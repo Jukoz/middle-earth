@@ -221,6 +221,13 @@ public class ModBlocks {
     public static final Block GRASSY_DIRT_STAIRS = registerMiscBlock("grassy_dirt_stairs",
             new StairsBlock(GRASSY_DIRT.getDefaultState(), AbstractBlock.Settings.copy(GRASSY_DIRT)),true);
 
+    public static final Block MIRE = registerMiscBlock("mire",
+            new MudBlock(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
+    public static final Block MIRE_SLAB = registerMiscBlock("mire_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(MIRE)),true);
+    public static final Block MIRE_STAIRS = registerMiscBlock("mire_stairs",
+            new StairsBlock(MIRE.getDefaultState(), AbstractBlock.Settings.copy(MIRE)),true);
+
     public static final Block TURF = registerMiscBlock("turf",
             new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
     public static final Block TURF_SLAB = registerMiscBlock("turf_slab",
@@ -535,14 +542,7 @@ public class ModBlocks {
     public static final Block PACKED_MUD_WALL = registerStoneBlock("packed_mud_wall",
             new WallBlock(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)), true);
 
-    public static final Block TUFF_SLAB = registerStoneBlock("tuff_slab",
-            new SlabBlock(AbstractBlock.Settings.copy(Blocks.TUFF)), true);
-    public static final Block TUFF_VERTICAL_SLAB = registerStoneBlock("tuff_vertical_slab",
-            new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.TUFF)), true);
-    public static final Block TUFF_STAIRS = registerStoneBlock("tuff_stairs",
-            new StairsBlock(Blocks.TUFF.getDefaultState(), AbstractBlock.Settings.copy(Blocks.TUFF)), true);
-    public static final Block TUFF_WALL = registerStoneBlock("tuff_wall",
-            new WallBlock(AbstractBlock.Settings.copy(Blocks.TUFF)), true);
+
 
     public static final Block CALCITE_SLAB = registerStoneBlock("calcite_slab",
             new SlabBlock(AbstractBlock.Settings.copy(Blocks.CALCITE)), true);
@@ -822,6 +822,8 @@ public class ModBlocks {
             new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.DEEPSLATE_BRICK_SLAB)), true);
     public static final Block DEEPSLATE_TILE_VERTICAL_SLAB = registerStoneBlock("deepslate_tile_vertical_slab",
             new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.DEEPSLATE_TILE_SLAB)), true);
+    public static final Block TUFF_VERTICAL_SLAB = registerStoneBlock("tuff_vertical_slab",
+            new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.TUFF)), true);
     public static final Block BRICK_VERTICAL_SLAB = registerStoneBlock("brick_vertical_slab",
             new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.BRICK_SLAB)), true);
     public static final Block MUD_BRICK_VERTICAL_SLAB = registerStoneBlock("mud_brick_vertical_slab",
