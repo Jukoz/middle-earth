@@ -4204,13 +4204,13 @@
   "sounds.me.nazgul_fade": "Nazgûl Fading",
   "sounds.me.nazgul_scream": "Nazgûl Screaming",
   
-"Comment": "GUI",
+"#Comment": "GUI",
   "screen.me.alloy_furnace": "Alloy Furnace",
   "container.artisan_table": "Artisan Table",
   "screen.me.reinforced_chest": "Reinforced Chest",
   "screen.me.wood_pile": "Wood Pile",
 
-"Comment": "Tooltips",
+"#Comment": "Tooltips",
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",
   "tooltip.me.alt" : "Hold §3ALT§f to see custom parts information.",
   "tooltip.me.weapon_type" : "§eWeapon Type: §f",
