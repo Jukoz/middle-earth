@@ -683,6 +683,7 @@ public class ModBiomes {
         ModBiomeFeatures.addPodzolOre(vegetation);
         ModBiomeFeatures.addBirchTrees(vegetation);
         ModBiomeFeatures.addBeechTrees(vegetation);
+        ModBiomeFeatures.addHollyTrees(vegetation);
         ModBiomeFeatures.addLarchTrees(vegetation);
         ModBiomeFeatures.addOakTrees(vegetation);
         ModBiomeFeatures.addRareMegaOakTrees(vegetation);
@@ -748,6 +749,7 @@ public class ModBiomes {
         ModBiomeFeatures.addRareWhiteMushroom(vegetation);
 
         ModBiomeFeatures.addOakBushes(vegetation);
+        ModBiomeFeatures.addHollyTrees(vegetation);
         ModBiomeFeatures.addMegaBirchCommonTrees(vegetation);
         ModBiomeFeatures.addMegaDarkOakCommonTrees(vegetation);
         ModBiomeFeatures.addMegaOakCommonTrees(vegetation);
@@ -961,6 +963,7 @@ public class ModBiomes {
             ModBiomeFeatures.addBeechTrees(vegetation);
             ModBiomeFeatures.addBirchTrees(vegetation);
             ModBiomeFeatures.addCommonLebethronTrees(vegetation);
+            ModBiomeFeatures.addChestnutTrees(vegetation);
             ModBiomeFeatures.addMegaOakTrees(vegetation);
         } else {
             ModBiomeFeatures.addCommonToughBerries(undergroundOres);
@@ -1452,6 +1455,7 @@ public class ModBiomes {
         ModBiomeFeatures.addStoneBoulder(vegetation);
         ModBiomeFeatures.addRareBeechTrees(vegetation);
         ModBiomeFeatures.addRareBirchTrees(vegetation);
+        ModBiomeFeatures.addChestnutTrees(vegetation);
         ModBiomeFeatures.addOakTrees(vegetation);
         ModBiomeFeatures.addSparsePineTrees(vegetation);
 
@@ -1585,6 +1589,7 @@ public class ModBiomes {
             vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
             ModBiomeFeatures.addBeechTrees(vegetation);
             ModBiomeFeatures.addBirchTrees(vegetation);
+            ModBiomeFeatures.addChestnutTrees(vegetation);
             ModBiomeFeatures.addMegaDarkOakTrees(vegetation);
             ModBiomeFeatures.addOakBushes(vegetation);
             ModBiomeFeatures.addOakTrees(vegetation);
