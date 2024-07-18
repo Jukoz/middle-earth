@@ -15,10 +15,7 @@ import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
 import net.jukoz.me.client.model.equipment.head.RohirricHelmetArmorModel;
 import net.jukoz.me.client.renderer.ModArmorRenderer;
 import net.jukoz.me.datageneration.VariantsModelProvider;
-import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
-import net.jukoz.me.datageneration.content.models.SimpleDoubleBlockModel;
-import net.jukoz.me.datageneration.content.models.SimpleFlowerBedModel;
-import net.jukoz.me.datageneration.content.models.TintableCrossModel;
+import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.content.tags.Crops;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntityRenderer;
@@ -189,6 +186,11 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         ModelLoadingPlugin.register(pluginContext -> {
             for(Item item : SimpleBigItemModel.items) {
+                Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
+                pluginContext.addModels(identifier);
+            }
+
+            for(Item item : SimpleSpearModel.items) {
                 Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
                 pluginContext.addModels(identifier);
             }

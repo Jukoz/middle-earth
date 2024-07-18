@@ -19,10 +19,8 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.item.DyeItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
@@ -42,7 +40,7 @@ public class GondorHumanEntity extends NpcEntity{
             this.setBow(Items.BOW);
         } else if (name.contains("soldier")) {
             this.setRank(RANK.SOLDIER);
-            this.setBow(ModWeaponItems.GONDOR_BOW);
+            this.setBow(ModWeaponItems.GONDORIAN_BOW);
         }else if (name.contains("knight")) {
             this.setRank(RANK.KNIGHT);
         }else if (name.contains("veteran")) {
@@ -157,10 +155,10 @@ public class GondorHumanEntity extends NpcEntity{
         if(val3 >= 0.7f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
         } else if (val3 >= 0.3f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_SPEAR));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_DAGGER));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_DAGGER));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         }
     }
@@ -190,12 +188,12 @@ public class GondorHumanEntity extends NpcEntity{
 
         float val3 = random.nextFloat();
         if(val3 >= 0.6f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_BOW));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_BOW));
         } else if (val3 > 0.30f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_SPEAR));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.GONDORIAN_SHIELD));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_PIKE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.GONDORIAN_SHIELD));
         }
     }
@@ -208,12 +206,10 @@ public class GondorHumanEntity extends NpcEntity{
 
         float val = random.nextFloat();
         if(val >= 0.75f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_BATTLEAXE));
-        } else if (val > 0.20f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_SWORD));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_SWORD));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.GONDORIAN_SHIELD));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_PIKE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.GONDORIAN_SHIELD));
         }
     }
@@ -226,11 +222,9 @@ public class GondorHumanEntity extends NpcEntity{
 
         float val = random.nextFloat();
         if(val >= 0.75f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_BATTLEAXE));
-        } else if (val >= 0.50f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_LONGSWORD));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_LONGSWORD));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_PIKE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.GONDORIAN_SHIELD));
         }
     }
@@ -243,14 +237,14 @@ public class GondorHumanEntity extends NpcEntity{
             equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_LEGGINGS));
             equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_BOOTS));
 
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_LONGSWORD));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_LONGSWORD));
         } else {
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_HELMET));
             equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE));
             equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS));
             equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_BOOTS));
 
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDOR_PIKE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_SPEAR));
         }
     }
 

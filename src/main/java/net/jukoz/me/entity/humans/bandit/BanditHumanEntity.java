@@ -141,7 +141,7 @@ public class BanditHumanEntity extends NpcEntity{
         if(val3 >= 0.7f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
         } else if (val3 > 0.2f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_SPEAR));
+            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.IRON_DAGGER));
@@ -172,10 +172,10 @@ public class BanditHumanEntity extends NpcEntity{
         if(val3 >= 0.65f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
         } else if (val3 > 0.3f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_SPEAR));
+            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_PIKE));
+            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_PIKE));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         }
     }
@@ -193,7 +193,7 @@ public class BanditHumanEntity extends NpcEntity{
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_PIKE));
+            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_PIKE));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         }
     }

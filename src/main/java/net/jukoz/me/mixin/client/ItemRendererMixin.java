@@ -1,9 +1,8 @@
 package net.jukoz.me.mixin.client;
 
-import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.datageneration.VariantsModelProvider;
 import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
-import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.datageneration.content.models.SimpleSpearModel;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.ItemModels;
@@ -13,17 +12,13 @@ import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemRenderer.class)
 public abstract class ItemRendererMixin {
@@ -36,7 +31,7 @@ public abstract class ItemRendererMixin {
             at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private BakedModel renderItem(BakedModel model, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         if(renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED) {
-            if(SimpleBigItemModel.items.contains(stack.getItem())) {
+            if(SimpleBigItemModel.items.contains(stack.getItem()) || SimpleSpearModel.items.contains(stack.getItem())) {
                 Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(stack.getItem());
                 return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
             }
