@@ -4205,13 +4205,13 @@
   "sounds.me.nazgul_fade": "那兹古尔消逝",
   "sounds.me.nazgul_scream": "那兹古尔嚎叫",
 
-  "Comment": "界面",
+  "#Comment": "界面",
   "screen.me.alloy_furnace": "合金熔炉",
   "container.artisan_table": "工匠台",
   "screen.me.reinforced_chest": "加固箱子",
   "screen.me.wood_pile": "木堆",
 
-  "Comment": "工具提示",
+  "#Comment": "工具提示",
   "tooltip.me.shift" : "按住 §3SHIFT§f 查看信息。",
   "tooltip.me.alt" : "按住 §3ALT§f 查看自定义部件信息。",
   "tooltip.me.weapon_type" : "§e武器类型：§f",
