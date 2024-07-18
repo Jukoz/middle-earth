@@ -597,7 +597,6 @@
   "item.me.flax_seeds": "Flax Seeds",
 
 "#Comment:": "Item - Resources",
-  "item.me.straw": "Straw",
   "item.me.pipeweed": "Pipeweed",
   "item.me.flax": "Flax",
   "item.me.red_agate_shard": "Red Agate Shard",
@@ -616,7 +615,7 @@
   "item.me.goose_spawn_egg": "Goose Spawn Egg",
   "item.me.duck_spawn_egg": "Duck Spawn Egg",
   "item.me.swan_spawn_egg": "Swan Spawn Egg",
-  
+
   "item.me.hobbit_civilian_spawn_egg": "Hobbit Civilian Spawn Egg",
   "item.me.hobbit_bounder_spawn_egg": "Hobbit Bounder Spawn Egg",
   "item.me.hobbit_shirriff_spawn_egg": "Hobbit Shirriff Spawn Egg",
@@ -660,7 +659,7 @@
   "item.me.bandit_militia_spawn_egg": "Bandit Militia Spawn Egg",
   "item.me.bandit_soldier_spawn_egg": "Bandit Soldier Spawn Egg",
   "item.me.bandit_chieftain_spawn_egg": "Bandit Chieftain Spawn Egg",
-  
+
   "item.me.mirkwood_spider_spawn_egg": "Mirkwood Spider Spawn Egg",
   "item.me.warg_spawn_egg": "Warg Spawn Egg",
   "item.me.snail_spawn_egg": "Snail Spawn Egg",
@@ -714,7 +713,7 @@
   "entity.me.lorien_knight": "Lórien Knight",
   "entity.me.lorien_veteran": "Lórien Veteran",
   "entity.me.lorien_leader": "Lórien Leader",
-  
+
   "entity.me.mordor_orc_snaga": "Mordor Orc Snaga",
   "entity.me.mordor_orc_soldier": "Mordor Orc Soldier",
   "entity.me.mordor_black_uruk_soldier": "Mordor Black Uruk Soldier",
@@ -732,11 +731,11 @@
   "entity.me.bandit_militia": "Bandit Militia",
   "entity.me.bandit_soldier": "Bandit Soldier",
   "entity.me.bandit_chieftain": "Bandit Chieftain",
-  
+
   "entity.me.mirkwood_spider": "Mirkwood Spider",
 
   "entity.me.balrog": "Balrog",
-  
+
   "entity.me.pebble": "Pebble",
   "entity.me.pinecone": "Pinecone",
   "entity.me.lit_pinecone": "Lit Pinecone",
@@ -797,7 +796,7 @@
   "block.me.red_stained_lead_glass": "Red Stained Lead Glass",
   "block.me.white_stained_lead_glass": "White Stained Lead Glass",
   "block.me.yellow_stained_lead_glass": "Yellow Stained Lead Glass",
-  
+
   "block.me.lead_glass_pane": "Lead Glass Pane",
   "block.me.black_stained_lead_glass_pane": "Black Stained Lead Glass Pane",
   "block.me.blue_stained_lead_glass_pane": "Blue Stained Lead Glass Pane",
@@ -952,9 +951,9 @@
   "block.me.ashen_stone_button": "Ashen Stone Button",
   "block.me.ashen_stone_trapdoor": "Ashen Stone Trapdoor",
 
-  "block.me.ashen_stone_stool": "Ashen_stone Stool",
-  "block.me.ashen_stone_table": "Ashen_stone Table",
-  "block.me.ashen_stone_chair": "Ashen_stone Chair",
+  "block.me.ashen_stone_stool": "Ashen Stone Stool",
+  "block.me.ashen_stone_table": "Ashen Stone Table",
+  "block.me.ashen_stone_chair": "Ashen Stone Chair",
 
 "#Comment:": "Block - Pumice",
   "block.me.cobbled_pumice": "Cobbled Pumice",
@@ -1023,7 +1022,7 @@
   "block.me.chiseled_polished_pumice": "Chiseled Polished Pumice",
   "block.me.chiseled_pumice_bricks": "Chiseled Pumice Bricks",
 
-  "block.me.pumice_pressure_plate": "Ashen Stone Pressure Plate",
+  "block.me.pumice_pressure_plate": "Pumice Pressure Plate",
   "block.me.pumice_button": "Pumice Button",
   "block.me.pumice_trapdoor": "Pumice Trapdoor",
 
@@ -1173,7 +1172,7 @@
   "block.me.dolomite_stool": "Dolomite Stool",
   "block.me.dolomite_table": "Dolomite Table",
   "block.me.dolomite_chair": "Dolomite Chair",
-  
+
 "#Comment:": "Block - Gonluin",
   "block.me.cobbled_gonluin": "Cobbled Gonluin",
   "block.me.cobbled_gonluin_slab": "Cobbled Gonluin Slab",
@@ -1249,7 +1248,7 @@
   "block.me.gonluin_stool": "Gonluin Stool",
   "block.me.gonluin_table": "Gonluin Table",
   "block.me.gonluin_chair": "Gonluin Chair",
-  
+
 "#Comment:": "Block - Blue Tuff",
   "block.me.cobbled_blue_tuff": "Cobbled Blue Tuff",
   "block.me.cobbled_blue_tuff_slab": "Cobbled Blue Tuff Slab",
@@ -1434,7 +1433,6 @@
   "block.me.smooth_granite_slab": "Smooth Granite Slab",
   "block.me.smooth_granite_vertical_slab": "Smooth Granite Vertical Slab",
   "block.me.smooth_granite_stairs": "Smooth Granite Stairs",
-  "block.me.smooth_granite_stairs": "Smooth Granite Stairs",
   "block.me.smooth_granite_wall": "Smooth Granite Wall",
   "block.me.cobbled_granite": "Cobbled Granite",
   "block.me.cobbled_granite_slab": "Cobbled Granite Slab",
@@ -1565,7 +1563,7 @@
   "block.me.diorite_stool": "Diorite Stool",
   "block.me.diorite_table": "Diorite Table",
   "block.me.diorite_chair": "Diorite Chair",
-  
+
 "#Comment:": "Block - Andesite",
   "block.me.cobbled_andesite": "Cobbled Andesite",
   "block.me.cobbled_andesite_slab": "Cobbled Andesite Slab",
@@ -1627,9 +1625,9 @@
 
   "block.me.andesite_stool": "Andesite Stool",
   "block.me.andesite_table": "Andesite Table",
-  "block.me.andesite_chair": "Andesite Chair", 
-  
-"#Comment:": "Block - Basalt",
+  "block.me.andesite_chair": "Andesite Chair",
+
+"#Comment:": "Block - Old Brick",
 
   "block.me.old_bricks": "Old Bricks",
   "block.me.old_bricks_slab": "Old Bricks Slab",
