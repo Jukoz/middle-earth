@@ -4,11 +4,11 @@
   "type": "subfaction",
   "race": "human",
   "preview_gear": {
-    "head": "me:gondorian_fountain_guard_helmet",
-    "chest": "me:gondorian_fountain_guard_chestplate",
-    "legs": "me:gondorian_fountain_guard_leggings",
-    "boots": "me:gondorian_fountain_guard_boots",
-    "main_hand": "me:gondorian_sword",
+    "head": "me:gondorian_plate_helmet",
+    "chest": "me:gondorian_plate_chestplate",
+    "legs": "me:gondorian_plate_leggings",
+    "boots": "me:gondorian_plate_boots",
+    "main_hand": "me:gondorian_noble_spear",
     "off_hand": "me:gondorian_shield"
   },
   "banner": {

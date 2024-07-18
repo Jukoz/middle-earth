@@ -8,9 +8,18 @@
     "chest": "me:erebor_commander_chestplate",
     "legs": "me:erebor_commander_leggings",
     "boots": "me:erebor_commander_boots",
-    "main_hand": "me:longbeard_sword",
+    "main_hand": "me:erebor_noble_longsword",
     "off_hand": "me:longbeard_shield"
   },
+  "spawn": {},
+    "map_preview_center": {
+      "x": 100,
+      "y": 200
+    },
+    "sets": [
+
+    ],
+
   "banner": {
     "color": "black",
     "patterns": [

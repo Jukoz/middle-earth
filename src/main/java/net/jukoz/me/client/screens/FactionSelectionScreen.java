@@ -49,11 +49,14 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
+import java.awt.event.KeyEvent;
 import java.util.*;
+import java.util.logging.Logger;
 
 @Environment(EnvType.CLIENT)
 public class FactionSelectionScreen extends Screen {
     private static final Identifier FACTION_SELECTION_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection.png");
+    private static final Identifier FACTION_SELECTION_SEARCH_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_search.png");
     private static final Identifier FACTION_SELECTION_BANNER_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_banner.png");
     private static final Identifier FACTION_SELECTION_BUTTONS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_buttons.png");
 
@@ -85,7 +88,8 @@ public class FactionSelectionScreen extends Screen {
     @Nullable
     LivingEntity entity;
     Map<Alignment, List<Faction>> factions = new HashMap<>();
-
+    public ButtonWidget screenClick;
+    public ButtonWidget searchBarToggleButton;
     public ButtonWidget alignmentButtonLeft;
     public ButtonWidget alignmentButtonRight;
     public ButtonWidget factionButtonLeft;
@@ -96,6 +100,10 @@ public class FactionSelectionScreen extends Screen {
 
     private int mouseX;
     private int mouseY;
+    private boolean searchResultToggle = false;
+    private boolean searchBarToggle = false;
+    private int currentSearchInputIndex = 0;
+    private String searchBarInput = "";
 
     public FactionSelectionScreen() {
         super(ONBOARDING_TEXT);
@@ -109,30 +117,33 @@ public class FactionSelectionScreen extends Screen {
         factions.put(Alignment.Neutral, ModFactions.getFactions(Alignment.Neutral));
         factions.put(Alignment.Evil,  ModFactions.getFactions(Alignment.Evil));
         // Initialize Buttons
-        // Alignment
-        ButtonWidget.PressAction alignmentActionLeft = new ButtonWidget.PressAction() {
-            @Override
-            public void onPress(ButtonWidget button) {
-                currentAlignementIndex--;
-                if(currentAlignementIndex < 0)
-                    currentAlignementIndex = Alignment.values().length - 1;
+        // Search bar
+        searchBarToggle = false;
+        ButtonWidget.PressAction searchBarInputToggle = button -> {
+            if(!searchBarToggle)
+                searchBarToggle = true;
+        };
+        searchBarToggleButton = ButtonWidget.builder(Text.of("Toggle search bar input"), searchBarInputToggle).build();
+        addDrawableChild(searchBarToggleButton);
 
-                currentFactionIndex = 0;
-                currentSubFactionIndex = 0;
-                updatePreviewEquipment();
-            }
+        // Alignment
+        ButtonWidget.PressAction alignmentActionLeft = button -> {
+            currentAlignementIndex--;
+            if(currentAlignementIndex < 0)
+                currentAlignementIndex = Alignment.values().length - 1;
+
+            currentFactionIndex = 0;
+            currentSubFactionIndex = 0;
+            updatePreviewEquipment();
         };
 
-        ButtonWidget.PressAction alignmentActionRight = new ButtonWidget.PressAction() {
-            @Override
-            public void onPress(ButtonWidget button) {
-                currentAlignementIndex++;
-                if(currentAlignementIndex >= Alignment.values().length)
-                    currentAlignementIndex = 0;
-                currentFactionIndex = 0;
-                currentSubFactionIndex = 0;
-                updatePreviewEquipment();
-            }
+        ButtonWidget.PressAction alignmentActionRight = button -> {
+            currentAlignementIndex++;
+            if(currentAlignementIndex >= Alignment.values().length)
+                currentAlignementIndex = 0;
+            currentFactionIndex = 0;
+            currentSubFactionIndex = 0;
+            updatePreviewEquipment();
         };
 
         alignmentButtonLeft = ButtonWidget.builder(Text.of("Left alignment selection clicked"), alignmentActionLeft).build();
@@ -141,27 +152,20 @@ public class FactionSelectionScreen extends Screen {
         addDrawableChild(alignmentButtonRight);
 
         // Faction
-        ButtonWidget.PressAction factionActionLeft = new ButtonWidget.PressAction() {
-            @Override
-            public void onPress(ButtonWidget button) {
-                currentFactionIndex--;
-                if(currentFactionIndex < 0)
-                    currentFactionIndex = factions.get(Alignment.values()[currentAlignementIndex]).size() - 1;
-                currentSubFactionIndex = 0;
-                updateFaction(factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex));
-                updatePreviewEquipment();
-            }
+        ButtonWidget.PressAction factionActionLeft = button -> {
+            currentFactionIndex--;
+            if(currentFactionIndex < 0)
+                currentFactionIndex = factions.get(Alignment.values()[currentAlignementIndex]).size() - 1;
+            currentSubFactionIndex = 0;
+            updatePreviewEquipment();
         };
 
-        ButtonWidget.PressAction factionActionRight = new ButtonWidget.PressAction() {
-            @Override
-            public void onPress(ButtonWidget button) {
-                currentFactionIndex++;
-                if(currentFactionIndex >= factions.get(Alignment.values()[currentAlignementIndex]).size())
-                    currentFactionIndex = 0;
-                updateFaction(factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex));
-                updatePreviewEquipment();
-            }
+        ButtonWidget.PressAction factionActionRight = button -> {
+            currentFactionIndex++;
+            if(currentFactionIndex >= factions.get(Alignment.values()[currentAlignementIndex]).size())
+                currentFactionIndex = 0;
+            currentSubFactionIndex = 0;
+            updatePreviewEquipment();
         };
 
         factionButtonLeft = ButtonWidget.builder(Text.of("Left faction selection clicked"), factionActionLeft).build();
@@ -170,24 +174,18 @@ public class FactionSelectionScreen extends Screen {
         addDrawableChild(factionButtonRight);
 
         // Subfaction
-        ButtonWidget.PressAction subfactionActionLeft = new ButtonWidget.PressAction() {
-            @Override
-            public void onPress(ButtonWidget button) {
-                currentSubFactionIndex--;
-                if(currentSubFactionIndex < 0)
-                    currentSubFactionIndex = factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex).getSubFactions().size() - 1;
-                updatePreviewEquipment();
-            }
+        ButtonWidget.PressAction subfactionActionLeft = button -> {
+            currentSubFactionIndex--;
+            if(currentSubFactionIndex < 0)
+                currentSubFactionIndex = factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex).getSubFactions().size() - 1;
+            updatePreviewEquipment();
         };
 
-        ButtonWidget.PressAction subfactionActionRight = new ButtonWidget.PressAction() {
-            @Override
-            public void onPress(ButtonWidget button) {
-                currentSubFactionIndex++;
-                if(currentSubFactionIndex >= factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex).getSubFactions().size())
-                    currentSubFactionIndex = 0;
-                updatePreviewEquipment();
-            }
+        ButtonWidget.PressAction subfactionActionRight = button -> {
+            currentSubFactionIndex++;
+            if(currentSubFactionIndex >= factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex).getSubFactions().size())
+                currentSubFactionIndex = 0;
+            updatePreviewEquipment();
         };
 
         subfactionButtonLeft = ButtonWidget.builder(Text.of("Left subfaction selection clicked"), subfactionActionLeft).build();
@@ -241,12 +239,19 @@ public class FactionSelectionScreen extends Screen {
         orcEntity = new MordorOrcEntity(ModEntities.MORDOR_ORC_SOLDIER, this.client.world);
         hobbitEntity = new ShireHobbitEntity(ModEntities.HOBBIT_CIVILIAN, this.client.world);
         updatePreviewEquipment();
-    }
 
-    private void updateFaction(Faction faction) {
-        currentSubFactionIndex = 0;
+        // Screen click
+        ButtonWidget.PressAction screenClickButton = new ButtonWidget.PressAction() {
+            @Override
+            public void onPress(ButtonWidget button) {
+                LoggerUtil.logDebugMsg("clicked in the screen");
+                searchBarToggle = false;
+                searchResultToggle = false;
+            }
+        };
+        screenClick = ButtonWidget.builder(Text.of("Click on screen"), screenClickButton).build();
+        addDrawableChild(screenClick);
     }
-
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
@@ -256,6 +261,7 @@ public class FactionSelectionScreen extends Screen {
                 this.mouseX = mouseX;
                 this.mouseY = mouseY;
                 this.player = abstractClientPlayerEntity;
+                screenClick.setDimensionsAndPosition(context.getScaledWindowWidth(), context.getScaledWindowHeight(), 0,0);
                 this.renderBackground(context, mouseX, mouseY, delta);
                 int guiScale = this.client.options.getGuiScale().getValue();
                 this.drawPanels(context, guiScale);
@@ -265,13 +271,50 @@ public class FactionSelectionScreen extends Screen {
         }
     }
 
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if(keyCode == 27){
+            this.close();
+            return true;
+        }
+        if (keyCode == 256) {
+            this.close();
+            return true;
+        }
+        if(searchBarToggle){
+            if(keyCode == 257){
+                triggerSearch();
+            }
+            if(((keyCode >= 65 && keyCode <= 90) || keyCode == 32) && searchBarInput.length() < 12) {
+                String character = String.valueOf((char)keyCode);
+                if(modifiers == 0)
+                    character = character.toLowerCase();
+                searchBarInput += character;
+                currentSearchInputIndex ++;
+            }
+            else if(!searchBarInput.isEmpty()){
+                if((keyCode == 259))
+                    searchBarInput = searchBarInput.substring(0, searchBarInput.length() - 1);
+                else if(keyCode == 261)
+                    searchBarInput = "";
+            }
+            LoggerUtil.logDebugMsg(keyCode + "");
+        }
+
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    private void triggerSearch() {
+        searchResultToggle = true;
+    }
+
     protected void drawPanels(DrawContext context, int guiScale){
         int mainPanelWidth = 169;
         int mainPanelHeight = 207;
 
-        drawFactionSelectionPanel(context, mainPanelWidth, mainPanelHeight, MINIMAL_MARGIN, mouseX, mouseY);
+        drawFactionSelectionPanel(context, mainPanelWidth, mainPanelHeight, mouseX, mouseY);
+        drawMapPanel(context, mainPanelWidth, mainPanelHeight);
         drawInformationPanel(context, mainPanelWidth, mainPanelHeight);
-        drawMapPanel(context, mainPanelWidth, mainPanelHeight, MINIMAL_MARGIN);
     }
 
     private void drawInformationPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight) {
@@ -289,12 +332,12 @@ public class FactionSelectionScreen extends Screen {
         drawFactionBanner(context, startX + mainPanelWidth - 60, startY + 3);
     }
 
-    private void drawFactionSelectionPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight, int minimalMargin, int mouseX, int mouseY) {
-        int endX = (int) ((context.getScaledWindowWidth() / 2f) - (mainPanelWidth / 2f) - minimalMargin);
-        int startX = Math.max(minimalMargin, endX - mainPanelWidth);
+    private void drawFactionSelectionPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight, int mouseX, int mouseY) {
+        int endX = (int) ((context.getScaledWindowWidth() / 2f) - (mainPanelWidth / 2f) - MINIMAL_MARGIN);
+        int startX = Math.max(MINIMAL_MARGIN, endX - mainPanelWidth);
         int startY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f));
 
-        int widthX = endX - Math.max(minimalMargin, startX);
+        int widthX = endX - Math.max(MINIMAL_MARGIN, startX);
 
         int centerX = startX + (int) ((widthX / 2f));
 
@@ -303,16 +346,145 @@ public class FactionSelectionScreen extends Screen {
         Faction faction = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFactionIndex) : null;
         Faction subFaction = (faction != null) ? faction.getSubfaction(currentSubFactionIndex) : null;
 
-        boolean showbuttons = Alignment.values().length > 1;
-        startY += drawSelectionWidget(context, 0,95, centerX, startY, alignment.getLangKey(), alignmentButtonLeft, alignmentButtonRight, showbuttons);
-        showbuttons = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).size() > 1 : false;
-        startY += drawSelectionWidget(context, 0,114, centerX, startY, (faction == null) ? null : faction.getLangKey(), factionButtonLeft, factionButtonRight, showbuttons);
-        showbuttons = (faction != null) ? (faction.getSubFactions() != null && faction.getSubFactions().size() > 1) : false;
-        startY += drawSelectionWidget(context, 0,133, centerX, startY, (subFaction == null) ? null : subFaction.getLangKey(), subfactionButtonLeft, subfactionButtonRight, showbuttons);
+        int newStartY = startY + drawFactionSearchBarWidget(context, centerX, startY, "Search...");
+
+        boolean showbuttons = !searchResultToggle && Alignment.values().length > 1;
+        newStartY += drawSelectionWidget(context, 0,95, centerX, newStartY, alignment.getLangKey(), alignmentButtonLeft, alignmentButtonRight, showbuttons);
+        showbuttons =  !searchResultToggle && !factions.get(alignment).isEmpty() && factions.get(alignment).size() > 1;
+        newStartY += drawSelectionWidget(context, 0,114, centerX, newStartY, (faction == null) ? null : faction.getLangKey(), factionButtonLeft, factionButtonRight, showbuttons);
+        showbuttons = !searchResultToggle && faction != null && (faction.getSubFactions() != null && faction.getSubFactions().size() > 1);
+        drawSelectionWidget(context, 0,133, centerX, newStartY, (subFaction == null) ? null : subFaction.getLangKey(), subfactionButtonLeft, subfactionButtonRight, showbuttons);
+
+        drawSearchResultWidget(context, centerX, startY);
 
         int endY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight;
-        drawNpcPreview(context, centerX, endY);
-        drawFactionRandomizer(context, centerX, endY);
+        if(!searchResultToggle){
+            drawNpcPreview(context, centerX, endY);
+            drawFactionRandomizer(context, centerX, endY);
+            factionRandomizerButton.active = true;
+        } else{
+            factionRandomizerButton.active = false;
+        }
+    }
+
+    private void drawSearchResultWidget(DrawContext context, int centerX, int startY) {
+        int panelSizeX = 102;
+        int previousPanelSizeY = 18;
+        int panelSizeY = 4;
+        int sideMargins = MINIMAL_MARGIN / 2;
+
+        // Search bar button
+        int startX = (int) (centerX - (panelSizeX / 2f));
+        startY += previousPanelSizeY + sideMargins / 2;
+
+        // Popup
+        if(searchResultToggle){
+            List<String> temporaryValues = new ArrayList<>();
+            temporaryValues.add("Longbeard");
+            temporaryValues.add("Gondor");
+            temporaryValues.add("Dale");
+
+            // Top
+            context.drawTexture(FACTION_SELECTION_SEARCH_UI,
+                    startX, startY,
+                    0, 38,
+                    panelSizeX,
+                    4
+            );
+            // Center
+            for(int i = 0; i < 25; i++){
+                context.drawTexture(FACTION_SELECTION_SEARCH_UI,
+                        startX, startY + panelSizeY * (1 + i),
+                        0, 43,
+                        panelSizeX, panelSizeY
+                );
+            }
+
+            // End
+            context.drawTexture(FACTION_SELECTION_SEARCH_UI,
+                    startX,
+                    startY + 104,
+                    0, 48,
+                    panelSizeX,
+                    4
+            );
+
+            context.drawTexture(FACTION_SELECTION_SEARCH_UI,
+                    startX + panelSizeX - 5,
+                    startY + 1,
+                    103, 39,
+                    4,
+                    9
+            );
+
+            int newStartY = startY + panelSizeY;
+            for(int i = 0; i < temporaryValues.size(); i++){
+                MutableText text = Text.translatable(temporaryValues.get(i));
+                text.asTruncatedString(15);
+
+                context.drawTexture(FACTION_SELECTION_SEARCH_UI,
+                        startX, newStartY,
+                        0, isMouseOver(startX, 95, newStartY, 14) ? 69 : 55,
+                        95, 14
+                );
+
+                context.drawText(textRenderer, text,
+                        startX + MINIMAL_MARGIN,
+                        newStartY + 3,
+                        0, false);
+                newStartY += 14;
+                /*
+                                newStartY += textRenderer.fontHeight + sideMargins;
+                if(i != temporaryValues.size() - 1){
+                    context.drawTexture(FACTION_SELECTION_SEARCH_UI,
+                            startX, newStartY,
+                            0, 52,
+                            102, 3
+                    );
+                    newStartY += sideMargins;
+                }
+                 */
+            }
+        }
+    }
+
+    protected int drawFactionSearchBarWidget(DrawContext context, int centerX, int startY, String key) {
+        int panelSizeX = 102;
+        int panelSizeY = 18;
+        int sideMargins = MINIMAL_MARGIN / 2;
+        int magnifyingGlassSizeX = 14;
+        int magnifyingGlassSizeY = 14;
+
+        // Search bar button
+        int startX = (int) (centerX - (panelSizeX / 2f));
+        context.drawTexture(FACTION_SELECTION_SEARCH_UI,
+                startX,
+                startY,
+                0,
+                isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
+                panelSizeX,
+                panelSizeY
+        );
+        searchBarToggleButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
+
+        MutableText text = Text.translatable((!searchBarToggle && searchBarInput.isEmpty()) ? key : searchBarInput);
+        text.asTruncatedString(16);
+        context.drawText(textRenderer, text,
+                startX + magnifyingGlassSizeX + MINIMAL_MARGIN,
+                startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,
+                16777215, false);
+
+
+        // Search bar magnifying
+        context.drawTexture(FACTION_SELECTION_SEARCH_UI,
+                startX + sideMargins,
+                startY + 2,
+                102, 0,
+                magnifyingGlassSizeX,
+                magnifyingGlassSizeY
+        );
+
+        return panelSizeY + MINIMAL_MARGIN / 2;
     }
 
     protected int drawSelectionWidget(DrawContext context, int uvX, int uvY, int centerX, int startY, String key, ButtonWidget buttonLeft, ButtonWidget buttonRight, boolean showButtons){
@@ -320,13 +492,16 @@ public class FactionSelectionScreen extends Screen {
         int panelSizeY = 18;
         int buttonSizeX = 9;
         int buttonSizeY = 13;
-        int margin = 5;
+        int sideMargins = MINIMAL_MARGIN / 2;
 
         if(key == null) {
-            buttonLeft.active = false;
-            buttonRight.active = false;
-            return panelSizeY + margin;
+            if(buttonLeft != null)
+                buttonLeft.active = false;
+            if(buttonRight != null)
+                buttonRight.active = false;
+            return panelSizeY + sideMargins;
         }
+
 
         // Text Background
         context.drawTexture(FACTION_SELECTION_BUTTONS,
@@ -342,19 +517,22 @@ public class FactionSelectionScreen extends Screen {
         text.asTruncatedString(16);
         context.drawText(textRenderer, text,
                 (int)(centerX - textRenderer.getWidth(text) / 2f),
-                startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)),
+                startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,
                 0, false);
 
         if(!showButtons){
             buttonLeft.active = false;
             buttonRight.active = false;
-            return panelSizeY + margin;
+            return panelSizeY + sideMargins;
         }
-        buttonLeft.active = true;
-        buttonRight.active = true;
+
+        if(buttonLeft != null)
+            buttonLeft.active = true;
+        if(buttonRight != null)
+            buttonRight.active = true;
 
         //  Left button
-        int leftButtonStartX = (int) (centerX - (panelSizeX / 2f) - buttonSizeX) - margin;
+        int leftButtonStartX = (int) (centerX - (panelSizeX / 2f) - buttonSizeX) - sideMargins;
         int leftButtonStartY = (int) (startY + (panelSizeY / 2f) - (buttonSizeY / 2f));
 
         context.drawTexture(FACTION_SELECTION_BUTTONS,
@@ -362,10 +540,11 @@ public class FactionSelectionScreen extends Screen {
                 192, (isMouseOver(leftButtonStartX, buttonSizeX, leftButtonStartY, buttonSizeY)) ? 13 : 0,
                 buttonSizeX, buttonSizeY
         );
-        buttonRight.setDimensionsAndPosition(buttonSizeX, buttonSizeY, leftButtonStartX, leftButtonStartY);
+        if(buttonRight != null)
+            buttonRight.setDimensionsAndPosition(buttonSizeX, buttonSizeY, leftButtonStartX, leftButtonStartY);
 
         //  Right button
-        int rightButtonStartX = (int) (centerX + (panelSizeX / 2f)) + margin;
+        int rightButtonStartX = (int) (centerX + (panelSizeX / 2f)) + sideMargins;
         int rightButtonStartY = (int) (startY + (panelSizeY / 2f) - (buttonSizeY / 2f));
 
         context.drawTexture(FACTION_SELECTION_BUTTONS,
@@ -373,9 +552,10 @@ public class FactionSelectionScreen extends Screen {
                 201, (isMouseOver(rightButtonStartX, buttonSizeX, rightButtonStartY, buttonSizeY)) ? 13 : 0,
                 buttonSizeX, buttonSizeY
         );
-        buttonLeft.setDimensionsAndPosition(buttonSizeX, buttonSizeY, rightButtonStartX, rightButtonStartY);
+        if(buttonLeft != null)
+            buttonLeft.setDimensionsAndPosition(buttonSizeX, buttonSizeY, rightButtonStartX, rightButtonStartY);
 
-        return panelSizeY + margin;
+        return panelSizeY + sideMargins;
     }
 
     private boolean isMouseOver(int startX, int sizeX, int startY, int sizeY) {
@@ -400,16 +580,22 @@ public class FactionSelectionScreen extends Screen {
     }
 
 
-    private void drawMapPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight, int minimalMargin) {
-        int startX = (int) ((context.getScaledWindowWidth() / 2f) + (mainPanelWidth / 2f)) + minimalMargin;
-        int widthX = Math.min(context.getScaledWindowWidth() - startX, mainPanelWidth -minimalMargin);
+    private void drawMapPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight) {
+        int startX = (int) ((context.getScaledWindowWidth() / 2f) + (mainPanelWidth / 2f)) + MINIMAL_MARGIN;
+        int startY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f));
+        int widthX = Math.min(context.getScaledWindowWidth() - startX, mainPanelWidth -MINIMAL_MARGIN);
         context.drawTexture(MAP_TEXTURE,
-                startX,
-                (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)),
+                startX, startY,
                 0, 0,
-                widthX -minimalMargin,
+                widthX -MINIMAL_MARGIN,
                 widthX
         );
+        int selectionWidgetSizeX = 102;
+        int selectionWidgetSizeY = 18;
+        int selectionWidgetStartX = (int) (startX + ((widthX -MINIMAL_MARGIN) / 2f));
+        int selectionWidgetStartY = startY + widthX + (MINIMAL_MARGIN /2);
+
+        drawSelectionWidget(context, 0, 133, selectionWidgetStartX, selectionWidgetStartY, "none", null, null, true);
 
         int sizeX = 52;
         int sizeY = 18;
@@ -429,12 +615,6 @@ public class FactionSelectionScreen extends Screen {
                 sizeX,
                 sizeY
         );
-    }
-
-
-
-    protected void setup() {
-
     }
 
     private void updatePreviewEquipment() {
@@ -482,7 +662,7 @@ public class FactionSelectionScreen extends Screen {
     }
 
     private void drawNpcPreview(DrawContext context, float anchorX, float anchorY){
-        float size = 50f;
+        float size = 40f;
         float x = anchorX;
         float y = anchorY - 18 - MINIMAL_MARGIN;
 
@@ -490,19 +670,6 @@ public class FactionSelectionScreen extends Screen {
         DiffuseLighting.disableForLevel();
         if(this.entity == null) return;
         InventoryScreen.drawEntity(context, x, y, size, VECTOR, ENTITY_ROTATION, (Quaternionf)null, this.entity);
-    }
-
-    @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if(keyCode == 27){
-            this.close();
-            return true;
-        }
-        if (keyCode == 256) {
-            this.close();
-            return true;
-        }
-        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     private void drawFactionBanner(DrawContext context, float startX, float startY){
@@ -553,32 +720,6 @@ public class FactionSelectionScreen extends Screen {
                 48,
                 112
         );
-    }
-
-    static {
-        VECTOR = new Vector3f();
-        // Vanilla values from SmithingScreen
-        ENTITY_ROTATION = (new Quaternionf()).rotationXYZ(0.43633232F, 0.0F, 3.1415927F);
-
-        NPC_PREVIEWS.add(new FactionNpcPreviewData(
-                Factions.EREBOR,
-
-                ModEquipmentItems.EREBOR_PLATE_HELMET,
-                ModEquipmentItems.EREBOR_PLATE_CHESTPLATE,
-                ModEquipmentItems.EREBOR_PLATE_LEGGINGS,
-                ModEquipmentItems.EREBOR_PLATE_BOOTS,
-                ModWeaponItems.LONGBEARD_SWORD,
-                ModEquipmentItems.LONGBEARD_SHIELD
-        ));
-        NPC_PREVIEWS.add(new FactionNpcPreviewData(
-                Factions.GONDOR,
-                ModEquipmentItems.GONDORIAN_PLATE_HELMET,
-                ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE,
-                ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS,
-                ModEquipmentItems.GONDORIAN_PLATE_BOOTS,
-                ModWeaponItems.GONDOR_LONGSWORD,
-                ModEquipmentItems.GONDORIAN_SHIELD
-        ));
     }
 
     /*
@@ -655,4 +796,9 @@ public class FactionSelectionScreen extends Screen {
     }
 
      */
+    static {
+        VECTOR = new Vector3f();
+        // Vanilla values from SmithingScreen
+        ENTITY_ROTATION = (new Quaternionf()).rotationXYZ(0.43633232F, 0.0F, 3.1415927F);
+    }
 }

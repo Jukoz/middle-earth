@@ -7,7 +7,7 @@
     "chest": "me:erebor_commander_chestplate",
     "legs": "me:erebor_commander_leggings",
     "boots": "me:erebor_commander_boots",
-    "main_hand": "me:longbeard_sword",
-    "off_hand": "me:longbeard_shield"
+    "main_hand": "me:dalish_noble_sword",
+    "off_hand": ""
   }
 }
