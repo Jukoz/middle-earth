@@ -21,15 +21,15 @@
     ],
 
   "banner": {
-    "color": "black",
+    "color": "blue",
     "patterns": [
       {
-        "id": "me:dragon",
-        "color": "#ffffff"
+        "id": "minecraft:gradiant",
+        "color": "gray"
       },
       {
-        "id": "minecraft:gradiant",
-        "color": "#0000ff"
+        "id": "me:longbeard",
+        "color": "white"
       }
     ]
   }

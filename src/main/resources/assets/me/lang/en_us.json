@@ -4009,6 +4009,18 @@
   
   "block.me.rope": "Rope",
 
+"#Comment:": "Block - Decoratives - Banners",
+  "block.me.durin_banner": "Durin's Banner",
+  "block.me.isengard_banner": "Isengard Banner",
+  "block.me.gondor_banner": "Gondor Banner",
+  "block.me.gondor_white_banner": "Gondor White Banner",
+  "block.me.lothlorien_banner": "Lothlorien Banner",
+  "block.me.misty_orcs_eye_banner": "Misty Orcs Eye Banner",
+  "block.me.misty_orcs_peaks_banner": "Misty Orcs Peaks Banner",
+  "block.me.mordor_banner": "Mordor Banner",
+  "block.me.mordor_great_eye_banner": "Mordor Great Eye Banner",
+  "block.me.rohan_banner": "Rohan Banner",
+
 
 "#Comment:": "Items - Banners",
   "item.me.gondor_banner_pattern": "Gondor Banner Pattern",

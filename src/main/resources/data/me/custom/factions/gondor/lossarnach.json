@@ -12,15 +12,11 @@
     "off_hand": "me:gondorian_shield"
   },
   "banner": {
-    "color": "yellow",
+    "color": "white",
     "patterns": [
       {
-        "id": "me:dragon",
-        "color": "#000000"
-      },
-      {
-        "id": "minecraft:gradiant",
-        "color": "#ffff00"
+        "id": "me:gondor",
+        "color": "black"
       }
     ]
   }
