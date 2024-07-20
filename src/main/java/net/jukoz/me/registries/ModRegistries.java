@@ -351,12 +351,24 @@ public class ModRegistries {
         LeavesSets.blocks.forEach(block -> {
             registry.add(block, 0.3F);
         });
+
         registry.add(ModNatureBlocks.LEBETHRON_LEAVES, 0.3F);
 
-        registry.add(ModNatureBlocks.DRY_PINE_LEAVES, 0.3F);
-        registry.add(ModNatureBlocks.PINE_BRANCHES, 0.3F);
+        registry.add(ModNatureBlocks.BERRY_HOLLY_LEAVES, 0.4F);
+
+        registry.add(ModNatureBlocks.DRY_LARCH_LEAVES, 0.2F);
+
+        registry.add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES, 0.4F);
+
+        registry.add(ModNatureBlocks.FALLEN_MALLORN_LEAVES, 0.3F);
+
+        registry.add(ModNatureBlocks.DRY_PINE_LEAVES, 0.2F);
+        registry.add(ModNatureBlocks.PINE_BRANCHES, 0.2F);
 
         registry.add(ModNatureBlocks.MAPLE_LEAVES, 0.3F);
+        registry.add(ModNatureBlocks.ORANGE_MAPLE_LEAVES, 0.3F);
+        registry.add(ModNatureBlocks.RED_MAPLE_LEAVES, 0.3F);
+        registry.add(ModNatureBlocks.YELLOW_MAPLE_LEAVES, 0.3F);
 
 
         registry.add(ModNatureBlocks.WILD_PIPEWEED, 0.5F);
