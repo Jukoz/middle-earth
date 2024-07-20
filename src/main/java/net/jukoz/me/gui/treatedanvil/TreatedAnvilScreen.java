@@ -1,4 +1,4 @@
-package net.jukoz.me.gui.forge;
+package net.jukoz.me.gui.treatedanvil;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.jukoz.me.MiddleEarth;
@@ -9,12 +9,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
-    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/alloy_furnace.png");
+public class TreatedAnvilScreen extends HandledScreen<TreatedAnvilScreenHandler> {
+    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/anvil.png");
     private static final int PROGRESS_ARROW_SIZE = 24;
     private static final int COOKING_FIRE_SIZE = 14;
 
-    public ForgeScreen(ForgeScreenHandler handler, PlayerInventory inventory, Text title) {
+    public TreatedAnvilScreen(TreatedAnvilScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
     }
 
@@ -33,25 +33,17 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         int y = (height - backgroundHeight) / 2;
         context.drawTexture(TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
 
-        renderModeText(context, x, y);
         renderProgressArrow(context, x, y);
+        renderShapeArrows(context, x, y);
     }
 
     private void renderProgressArrow(DrawContext context, int x, int y) {
-        if(handler.isCooking()) {
-            int cookingTime = (int) (handler.getScaledCooking() * COOKING_FIRE_SIZE);
+        if(handler.isBonking()) {
+            int cookingTime = (int) (handler.getScaledBonking() * COOKING_FIRE_SIZE);
             context.drawTexture(TEXTURE, x + 53, y + 50 - cookingTime, 176, COOKING_FIRE_SIZE - cookingTime, COOKING_FIRE_SIZE, cookingTime);
         }
-        if(handler.isCrafting()) {
+        if(handler.isBonking()) {
             context.drawTexture(TEXTURE, x + 94, y + 34, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17);
-        }
-    }
-
-    private void renderModeText(DrawContext context, int x, int y) {
-        if(handler.hasBellows()){
-            context.drawTextWithShadow(this.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mode").append(" Alloying"), x + 94, y + 65, 0xFF6060);
-        } else {
-            context.drawTextWithShadow(this.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mode").append(" Heating"), x + 94, y + 65, 0xFF6060);
         }
     }
 
@@ -60,5 +52,10 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         renderBackground(context, mouseX,mouseY,delta);
         super.render(context, mouseX, mouseY, delta);
         drawMouseoverTooltip(context, mouseX, mouseY);
+    }
+
+    private void renderShapeArrows(DrawContext context, int x, int y) {
+        context.drawTexture(TEXTURE, x + 47, y + 36, 177, 43, 7, 11);
+        context.drawTexture(TEXTURE, x + 82, y + 36, 177, 31, 7, 11);
     }
 }

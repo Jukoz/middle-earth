@@ -41,6 +41,7 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final EnumProperty<ForgePart> PART = EnumProperty.of("part", ForgePart.class);
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty LIT = Properties.LIT;
+
     public ForgeBlock(Settings settings) {
         super(settings);
         this.setDefaultState(((this.stateManager.getDefaultState()).with(FACING, Direction.NORTH)).with(LIT, false).with(PART, ForgePart.BOTTOM));
