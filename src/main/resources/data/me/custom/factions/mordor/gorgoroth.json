@@ -2,8 +2,8 @@
   "parent": "mordor",
   "name": "gorgoroth",
   "type": "minor",
-  "race": "orc",
-  "preview_gear": {
+  "preview": {
+    "race": "orc",
     "head": "me:mordor_orc_mail_helmet",
     "chest": "me:mordor_orc_mail_chestplate",
     "legs": "me:mordor_orc_mail_leggings",
@@ -12,15 +12,15 @@
     "off_hand": "me:mordor_shield"
   },
   "banner": {
-    "color": "green",
+    "base_color": "black",
     "patterns": [
       {
         "id": "me:mordor_great_eye",
-        "color": "#ffffff"
+        "dye_color": "white"
       },
       {
-        "id": "minecraft:gradiant",
-        "color": "#0000ff"
+        "id": "minecraft:gradient",
+        "dye_color": "red"
       }
     ]
   }

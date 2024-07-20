@@ -1,5 +1,7 @@
 {
-  "race": "dwarf",
+  "preview": {
+    "race": "dwarf"
+  },
   "sub": [
     "erebor"
   ]

@@ -1,5 +1,7 @@
 {
-  "race": "orc",
+  "preview": {
+    "race": "orc"
+  },
   "sub": [
     "gorgoroth"
   ]

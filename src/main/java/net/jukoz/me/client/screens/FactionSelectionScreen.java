@@ -9,16 +9,13 @@ import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
-import net.jukoz.me.entity.humans.gondor.GondorHumanModel;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
-import net.jukoz.me.item.ModEquipmentItems;
-import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.item.ModBannerItems;
 import net.jukoz.me.item.utils.ModBannerPatterns;
 import net.jukoz.me.resource.data.Alignment;
 import net.jukoz.me.resource.data.Race;
 import net.jukoz.me.resource.data.faction.Faction;
 import net.jukoz.me.resource.data.faction.ModFactions;
-import net.jukoz.me.utils.Factions;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.block.entity.BannerPatterns;
@@ -26,6 +23,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ScrollableWidget;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.DiffuseLighting;
@@ -39,6 +37,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.MutableText;
@@ -49,9 +49,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import java.awt.event.KeyEvent;
 import java.util.*;
-import java.util.logging.Logger;
 
 @Environment(EnvType.CLIENT)
 public class FactionSelectionScreen extends Screen {
@@ -90,6 +88,7 @@ public class FactionSelectionScreen extends Screen {
     Map<Alignment, List<Faction>> factions = new HashMap<>();
     public ButtonWidget screenClick;
     public ButtonWidget searchBarToggleButton;
+    public ScrollableWidget searchResultScrollBar;
     public ButtonWidget alignmentButtonLeft;
     public ButtonWidget alignmentButtonRight;
     public ButtonWidget factionButtonLeft;
@@ -125,6 +124,9 @@ public class FactionSelectionScreen extends Screen {
         };
         searchBarToggleButton = ButtonWidget.builder(Text.of("Toggle search bar input"), searchBarInputToggle).build();
         addDrawableChild(searchBarToggleButton);
+
+        // Search Result ScrollBar
+        // TODO : Add scrollbar button
 
         // Alignment
         ButtonWidget.PressAction alignmentActionLeft = button -> {
@@ -298,7 +300,6 @@ public class FactionSelectionScreen extends Screen {
                 else if(keyCode == 261)
                     searchBarInput = "";
             }
-            LoggerUtil.logDebugMsg(keyCode + "");
         }
 
         return super.keyPressed(keyCode, scanCode, modifiers);
@@ -355,9 +356,10 @@ public class FactionSelectionScreen extends Screen {
         showbuttons = !searchResultToggle && faction != null && (faction.getSubFactions() != null && faction.getSubFactions().size() > 1);
         drawSelectionWidget(context, 0,133, centerX, newStartY, (subFaction == null) ? null : subFaction.getLangKey(), subfactionButtonLeft, subfactionButtonRight, showbuttons);
 
-        drawSearchResultWidget(context, centerX, startY);
-
         int endY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight;
+
+        drawSearchResultWidget(context, centerX, startY, endY);
+
         if(!searchResultToggle){
             drawNpcPreview(context, centerX, endY);
             drawFactionRandomizer(context, centerX, endY);
@@ -367,10 +369,14 @@ public class FactionSelectionScreen extends Screen {
         }
     }
 
-    private void drawSearchResultWidget(DrawContext context, int centerX, int startY) {
-        int panelSizeX = 102;
+    private void drawSearchResultWidget(DrawContext context, int centerX, int startY, int endY) {
         int previousPanelSizeY = 18;
-        int panelSizeY = 4;
+
+        int panelSizeX = 102;
+        int panelSizeY = 14;
+        int panelBorderSizeY = 4;
+        int footerPanelSizeY = 11;
+
         int sideMargins = MINIMAL_MARGIN / 2;
 
         // Search bar button
@@ -379,35 +385,61 @@ public class FactionSelectionScreen extends Screen {
 
         // Popup
         if(searchResultToggle){
-            List<String> temporaryValues = new ArrayList<>();
-            temporaryValues.add("Longbeard");
-            temporaryValues.add("Gondor");
-            temporaryValues.add("Dale");
-
+            int valueTotal = 0;
+            Map<Alignment, List<Faction>> foundFactions = factions;
+            for(int i = 0; i < foundFactions.size(); i++){
+                List<Faction> f = foundFactions.get(Alignment.values()[i]);
+                if(f == null || f.isEmpty()) continue;
+                valueTotal ++; // Per alignment with values
+                for(int j = 0; j < f.size(); j++){
+                    valueTotal ++; // Per faction
+                    HashMap<Identifier, Faction> subF = f.get(j).getSubFactions();
+                    if(subF == null || subF.isEmpty()) continue;
+                    valueTotal += subF.size(); // Per subFactions
+                }
+            }
             // Top
             context.drawTexture(FACTION_SELECTION_SEARCH_UI,
                     startX, startY,
                     0, 38,
                     panelSizeX,
-                    4
+                    panelBorderSizeY
             );
             // Center
-            for(int i = 0; i < 25; i++){
+            startY += panelBorderSizeY;
+            int valueAmount = Math.min(
+                    (endY - startY - panelBorderSizeY) / panelSizeY,
+                    valueTotal
+            );
+
+            for(int i = 0; i < valueAmount; i++){
                 context.drawTexture(FACTION_SELECTION_SEARCH_UI,
-                        startX, startY + panelSizeY * (1 + i),
+                        startX, startY + panelSizeY * i,
                         0, 43,
                         panelSizeX, panelSizeY
                 );
             }
 
+            // Footer
+            context.drawTexture(FACTION_SELECTION_SEARCH_UI,
+                    startX,
+                    startY + (valueAmount * panelSizeY),
+                    0, 58,
+                    panelSizeX,
+                    footerPanelSizeY
+            );
+
             // End
             context.drawTexture(FACTION_SELECTION_SEARCH_UI,
                     startX,
-                    startY + 104,
-                    0, 48,
+                    startY + (valueAmount * panelSizeY) + footerPanelSizeY,
+                    0, 70,
                     panelSizeX,
-                    4
+                    panelBorderSizeY
             );
+
+            // Scroll Bar Button
+            startY -= panelBorderSizeY;
 
             context.drawTexture(FACTION_SELECTION_SEARCH_UI,
                     startX + panelSizeX - 5,
@@ -417,7 +449,34 @@ public class FactionSelectionScreen extends Screen {
                     9
             );
 
-            int newStartY = startY + panelSizeY;
+            int indexOffset = 0; // TODO : Adjust with scrollbar value/height
+
+            int valuePanelSizeX = 93;
+            int valuePanelSizeY = 14;
+
+            int valuePanelStartX = startX + 3;
+            // Create pool of resources with buttons
+            for(int i = 0; i < valueAmount; i ++){
+                int valuePanelStartY = startY + panelBorderSizeY + (i * panelSizeY);
+
+                boolean mouseIsOver = isMouseOver(startX, valuePanelSizeX, valuePanelStartY, valuePanelSizeY);
+                int uvY = mouseIsOver ? 89 : 75;
+
+                if(i == 0){
+                    uvY = 131;
+                } else if(i % 3 == 0){
+                    uvY = mouseIsOver ? 117 : 103;
+                }
+
+                context.drawTexture(FACTION_SELECTION_SEARCH_UI,
+                        valuePanelStartX, valuePanelStartY,
+                        0, uvY,
+                        valuePanelSizeX, valuePanelSizeY
+                );
+            }
+
+
+/*
             for(int i = 0; i < temporaryValues.size(); i++){
                 MutableText text = Text.translatable(temporaryValues.get(i));
                 text.asTruncatedString(15);
@@ -444,7 +503,6 @@ public class FactionSelectionScreen extends Screen {
                     newStartY += sideMargins;
                 }
                  */
-            }
         }
     }
 
@@ -650,7 +708,7 @@ public class FactionSelectionScreen extends Screen {
 
     private void updateEntityFromFaction(Faction faction) {
         this.entity =
-                switch ( faction.getRace() )
+                switch ( faction.getPreviewRace() )
                 {
                     case Race.Human -> humanEntity;
                     case Race.Dwarf -> dwarfEntity;
@@ -673,7 +731,6 @@ public class FactionSelectionScreen extends Screen {
     }
 
     private void drawFactionBanner(DrawContext context, float startX, float startY){
-        // TODO : Make it so day cycle doesn't affect brightness
         DiffuseLighting.disableGuiDepthLighting();
 
         float size = 32f;
@@ -684,31 +741,38 @@ public class FactionSelectionScreen extends Screen {
         int borderMarginX = 2;
         int borderMarginY = 2;
 
+        // Positioning
         MatrixStack matrixStack = new MatrixStack();
         matrixStack.translate(x + borderMarginX + (size / 2f) + 4, y + borderMarginY, 0f);
         matrixStack.push();
         matrixStack.scale(-size, size, 0.1f);
         this.bannerField.pitch = 0.0F;
 
-        List<RegistryEntry<BannerPattern>> list = new ArrayList<>();
+
+        // Banner creation
+        Alignment alignment = Alignment.values()[currentAlignementIndex];
+        Faction faction = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFactionIndex) : null;
+        Faction subFaction = (faction != null) ? faction.getSubfaction(currentSubFactionIndex) : null;
+        if(subFaction != null) faction = subFaction;
+        if(faction == null) return;
+
+        DyeColor color = faction.getBaseBannerColor();
+        List<Faction.BannerPatternWithColor> patterns = faction.getBannerPatternsWithColors(this.client.world);
+        if(patterns == null || patterns.isEmpty()) {
+            LoggerUtil.logError("FactionSelectionScreen::drawFactionBanner - Cannot create banner because values are empty or null");
+            return;
+        }
 
         var bannerPatternRegistry = this.client.world.getRegistryManager().get(RegistryKeys.BANNER_PATTERN);
 
-        list.add(bannerPatternRegistry.getEntry(BannerPatterns.CURLY_BORDER).get());
-        list.add(bannerPatternRegistry.getEntry(BannerPatterns.GRADIENT_UP).get());
-        list.add(bannerPatternRegistry.getEntry(BannerPatterns.TRIANGLE_BOTTOM).get());
-        list.add(bannerPatternRegistry.getEntry(BannerPatterns.TRIANGLES_BOTTOM).get());
-        list.add(bannerPatternRegistry.getEntry(ModBannerPatterns.DRAGON_BANNER_PATTERN).get());
+        BannerPatternsComponent.Builder bannerBuilder = new BannerPatternsComponent.Builder();
+        for(Faction.BannerPatternWithColor entry : patterns){
+            if(entry == null) continue;
+            RegistryEntry<BannerPattern> pattern = bannerPatternRegistry.getEntry(entry.pattern);
+            bannerBuilder.add(pattern, entry.color);
+        }
 
-        BannerPatternsComponent bannerPatternsComponent = new BannerPatternsComponent.Builder()
-        .add(list.get(0), DyeColor.WHITE)
-        .add(list.get(1), DyeColor.BROWN)
-        .add(list.get(2), DyeColor.BLACK)
-        .add(list.get(3), DyeColor.GREEN)
-        .add(list.get(4), DyeColor.RED)
-        .build();
-
-        BannerBlockEntityRenderer.renderCanvas(matrixStack, context.getVertexConsumers(), 15728880, OverlayTexture.DEFAULT_UV, this.bannerField, ModelLoader.BANNER_BASE, true, DyeColor.BLUE, bannerPatternsComponent);
+        BannerBlockEntityRenderer.renderCanvas(matrixStack, context.getVertexConsumers(), 15728880, OverlayTexture.DEFAULT_UV, this.bannerField, ModelLoader.BANNER_BASE, true, color, bannerBuilder.build());
         matrixStack.pop();
         context.draw();
         DiffuseLighting.enableGuiDepthLighting();

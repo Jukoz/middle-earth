@@ -2,8 +2,8 @@
   "parent": "longbeards",
   "name": "erebor",
   "type": "minor",
-  "race": "dwarf",
-  "preview_gear": {
+  "preview": {
+    "race": "dwarf",
     "head": "me:erebor_commander_helmet",
     "chest": "me:erebor_commander_chestplate",
     "legs": "me:erebor_commander_leggings",
@@ -19,17 +19,16 @@
     "sets": [
 
     ],
-
   "banner": {
-    "color": "blue",
+    "base_color": "blue",
     "patterns": [
       {
-        "id": "minecraft:gradiant",
-        "color": "gray"
+        "id": "me:mordor_great_eye",
+        "dye_color": "white"
       },
       {
-        "id": "me:longbeard",
-        "color": "white"
+        "id": "minecraft:gradient",
+        "dye_color": "blue"
       }
     ]
   }

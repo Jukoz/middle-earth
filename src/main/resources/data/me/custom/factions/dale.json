@@ -1,13 +1,22 @@
 {
   "name": "dale",
   "type": "major",
-  "race": "human",
-  "preview_gear": {
+  "preview": {
+    "race": "human",
     "head": "me:erebor_commander_helmet",
     "chest": "me:erebor_commander_chestplate",
     "legs": "me:erebor_commander_leggings",
     "boots": "me:erebor_commander_boots",
     "main_hand": "me:dalish_noble_sword",
     "off_hand": ""
+  },
+  "banner": {
+    "base_color": "red",
+    "patterns": [
+      {
+        "id": "me:dragon",
+        "dye_color": "white"
+      }
+    ]
   }
 }

@@ -2,21 +2,21 @@
   "parent": "gondor",
   "name": "lossarnach",
   "type": "subfaction",
-  "race": "human",
-  "preview_gear": {
+  "preview": {
+    "race": "human",
     "head": "me:gondorian_plate_helmet",
     "chest": "me:gondorian_plate_chestplate",
     "legs": "me:gondorian_plate_leggings",
     "boots": "me:gondorian_plate_boots",
-    "main_hand": "me:gondorian_noble_spear",
+    "main_hand": "me:gondorian_sword",
     "off_hand": "me:gondorian_shield"
   },
   "banner": {
-    "color": "white",
+    "base_color": "white",
     "patterns": [
       {
         "id": "me:gondor",
-        "color": "black"
+        "dye_color": "black"
       }
     ]
   }

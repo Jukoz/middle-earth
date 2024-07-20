@@ -1,5 +1,12 @@
 package net.jukoz.me.item;
 
+import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.entry.EntryStack;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
+import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.jukoz.me.item.utils.ModBannerPatterns;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.block.entity.BannerPattern;
@@ -10,16 +17,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Unit;
-import net.minecraft.village.raid.Raid;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModBannerItems {
     private static final Text DURIN_BANNER_TRANSLATION_KEY = Text.translatable("block.me.durin_banner").formatted(Formatting.GOLD);
+    public static final List<BannerPatternsComponent.Layer> DURIN_BANNER_LAYERS = new ArrayList<>();
+
     private static final Text ISENGARD_BANNER_TRANSLATION_KEY = Text.translatable("block.me.isengard_banner").formatted(Formatting.GOLD);
     private static final Text GONDOR_BANNER_TRANSLATION_KEY = Text.translatable("block.me.gondor_banner").formatted(Formatting.GOLD);
     private static final Text GONDOR_WHITE_BANNER_TRANSLATION_KEY = Text.translatable("block.me.gondor_white_banner").formatted(Formatting.GOLD);
@@ -44,10 +54,14 @@ public class ModBannerItems {
     }
 
     public static ItemStack getDurinBanner(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
+        DURIN_BANNER_LAYERS.add(new BannerPatternsComponent.Layer(bannerPatternLookup.getOrThrow(BannerPatterns.GRADIENT_UP), DyeColor.GRAY));
+        DURIN_BANNER_LAYERS.add(new BannerPatternsComponent.Layer(bannerPatternLookup.getOrThrow(ModBannerPatterns.LONGBEARD_BANNER_PATTERN), DyeColor.WHITE));
+
         ItemStack itemStack = new ItemStack(Items.BLUE_BANNER);
+
         BannerPatternsComponent bannerPatternsComponent = (new BannerPatternsComponent.Builder())
-                .add(bannerPatternLookup, BannerPatterns.GRADIENT_UP, DyeColor.GRAY)
-                .add(bannerPatternLookup, ModBannerPatterns.LONGBEARD_BANNER_PATTERN, DyeColor.WHITE)
+                .add(DURIN_BANNER_LAYERS.get(0))
+                .add(DURIN_BANNER_LAYERS.get(1))
                 .build();
         return formatBanner(itemStack, bannerPatternsComponent, DURIN_BANNER_TRANSLATION_KEY);
     }
@@ -65,6 +79,7 @@ public class ModBannerItems {
         BannerPatternsComponent bannerPatternsComponent = (new BannerPatternsComponent.Builder())
                 .add(bannerPatternLookup, ModBannerPatterns.GONDOR_BANNER_PATTERN, DyeColor.WHITE)
                 .build();
+
         return formatBanner(itemStack, bannerPatternsComponent, GONDOR_BANNER_TRANSLATION_KEY);
     }
 

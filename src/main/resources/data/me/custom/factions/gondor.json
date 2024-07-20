@@ -1,5 +1,7 @@
 {
-  "race": "human",
+  "preview": {
+    "race": "human"
+  },
   "sub": [
     "anorien",
     "lossarnach"
