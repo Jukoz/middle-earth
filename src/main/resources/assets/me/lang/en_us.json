@@ -4021,6 +4021,7 @@
   "tooltip.me.customizations" : "§6Custom Parts: §f",
   "tooltip.me.reach" : "Reach: ",
   "tooltip.me.blocks_range" : " Blocks",
+  "tooltip.me.backstab" : "§7 +50% damage when backstabbing",
 
   "tooltip.me.sword" : "Sword",
   "tooltip.me.axe" : "Axe",

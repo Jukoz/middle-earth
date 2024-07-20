@@ -75,7 +75,6 @@ public class ReachWeaponItem extends ToolItem {
             if (this.subFaction != null) {
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(this.subFaction));
             }
-            tooltip.add(Text.of(""));
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
         }
