@@ -38,6 +38,9 @@ public class WargArmorFeatureRenderer extends FeatureRenderer<WargEntity, WargMo
         if (!(item instanceof CustomAnimalArmorItem) || (animalArmorItem = (CustomAnimalArmorItem)item).getArmorType() != CustomAnimalArmorItem.Type.WARG) {
             return;
         }
+
+        this.model.setAngles(wargEntity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+
         ((WargModel)this.getContextModel()).copyStateTo(this.model);
         if (itemStack.isIn(ItemTags.DYEABLE)) {
             int m = DyedColorComponent.getColor(itemStack, -6265536);

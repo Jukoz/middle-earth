@@ -44,7 +44,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
     public final AnimationState chargeAnimationState = new AnimationState();
     public final AnimationState sittingAnimationState = new AnimationState();
 
-    private int idleAnimationTimeout = 0;
+    protected int idleAnimationTimeout = 1000;
     protected int attackTicksLeft = 0;
 
     protected int chargeTimeout; // ticking cooldown of the charge attack

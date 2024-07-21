@@ -2,6 +2,7 @@ package net.jukoz.me.entity.beasts.warg;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.beasts.BeastEntity;
+import net.jukoz.me.entity.deer.DeerEntity;
 import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.*;
@@ -11,8 +12,11 @@ import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModFoodItems;
+import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -32,6 +36,8 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class WargEntity extends BeastEntity {
+    public final AnimationState startSittingAnimationState = new AnimationState();
+    public final AnimationState stopSittingAnimationState = new AnimationState();
     private boolean hasCharged = false;
     public WargEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
@@ -39,13 +45,18 @@ public class WargEntity extends BeastEntity {
 
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4f)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5f)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0f)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 38.0f)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0f)
                 .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 1.0f);
+    }
+
+    @Override
+    public boolean isInAttackRange(LivingEntity entity) {
+        return (super.isInAttackRange(entity) && this.isTame()) || (this.getAttackBox().expand(1.5f).intersects(entity.getBoundingBox()) && !this.isTame());
     }
 
     @Override
@@ -62,12 +73,12 @@ public class WargEntity extends BeastEntity {
         this.targetSelector.add(2, new BeastAttackWithOwnerGoal((BeastEntity)this));
         this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
         this.targetSelector.add(4, new TargetPlayerGoal(this));
-        this.targetSelector.add(4, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
-        this.targetSelector.add(5, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
-        this.targetSelector.add(6, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
-        this.targetSelector.add(7, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
-        this.targetSelector.add(8, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-        this.targetSelector.add(9, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(5, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
+        this.targetSelector.add(6, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
+        this.targetSelector.add(7, new ActiveTargetGoal<>(this, GondorHumanEntity.class, true));
+        this.targetSelector.add(8, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
+        this.targetSelector.add(9, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
+        this.targetSelector.add(10, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
     }
 
     @Override
@@ -98,8 +109,30 @@ public class WargEntity extends BeastEntity {
                 this.setHasCharged(false);
             }
         }
+
+        if(this.getWorld().isClient()) {
+            setupAnimationStates();
+        }
     }
 
+
+    @Override
+    protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
+        return ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.75f);
+    }
+
+    @Override
+    public void tickMovement() {
+        super.tickMovement();
+
+        if(this.isAttacking()) {
+            this.setMovementSpeed((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 10);
+        }
+    }
+
+    @Override
+    protected void setupAnimationStates() {
+    }
 
     public boolean isCommandItem(ItemStack stack) {
         return stack.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "bones")));
