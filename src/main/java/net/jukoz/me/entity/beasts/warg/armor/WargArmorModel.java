@@ -20,7 +20,7 @@ public WargArmorModel(ModelPart root) {
         public static TexturedModelData getTexturedModelData() {
                 ModelData modelData = new ModelData();
                 ModelPartData modelPartData = modelData.getRoot();
-                ModelPartData armor = modelPartData.addChild("armor", ModelPartBuilder.create(), ModelTransform.of(0.0F, 6.0F, -3.0F, 0.0F, 1.5708F, 0.0F));
+                ModelPartData armor = modelPartData.addChild("armor", ModelPartBuilder.create(), ModelTransform.of(-1.0F, 6.0F, -2.0F, 0.0F, 1.5708F, 0.0F));
 
                 ModelPartData body = armor.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(-2.6142F, 2.1138F, 1.5F));
 
@@ -35,6 +35,8 @@ public WargArmorModel(ModelPart root) {
                 ModelPartData lowerBody = body.addChild("lowerBody", ModelPartBuilder.create(), ModelTransform.pivot(-0.3858F, -1.1138F, -1.5F));
 
                 ModelPartData bodyArmour = lowerBody.addChild("bodyArmour", ModelPartBuilder.create(), ModelTransform.pivot(-11.9F, 6.0F, 4.1F));
+
+                ModelPartData cube = bodyArmour.addChild("cube", ModelPartBuilder.create().uv(0, 0).cuboid(-26.8F, -12.0F, -1.9F, 28.0F, 13.0F, 10.0F, new Dilation(0.1F)), ModelTransform.of(0.0F, 0.0F, 0.0F, -3.1416F, 0.0F, 3.1416F));
                 return TexturedModelData.of(modelData, 128, 128);
         }
 
@@ -54,6 +56,12 @@ public WargArmorModel(ModelPart root) {
                 else {
                         this.animateMovement(WargAnimations.WALK, limbAngle, limbDistance, 1.5f, 1.5f);
                 }
+
+                this.updateAnimation(entity.idleAnimationState, WargAnimations.GROOM, animationProgress, 1f);
+                this.updateAnimation(entity.attackAnimationState, WargAnimations.BITE, animationProgress, 1f);
+                this.updateAnimation(entity.startSittingAnimationState, WargAnimations.SITTING_DOWN, animationProgress, 1f);
+                this.updateAnimation(entity.stopSittingAnimationState, WargAnimations.STANDING_UP, animationProgress, 1f);
+                this.updateAnimation(entity.sittingAnimationState, WargAnimations.SITTING, animationProgress, 1f);
         }
 
         public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {

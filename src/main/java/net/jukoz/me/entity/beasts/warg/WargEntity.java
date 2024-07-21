@@ -10,32 +10,40 @@ import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
+import net.jukoz.me.entity.pheasant.PheasantEntity;
+import net.jukoz.me.entity.pheasant.PheasantVariant;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModFoodItems;
-import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class WargEntity extends BeastEntity {
+    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(WargEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public final AnimationState startSittingAnimationState = new AnimationState();
     public final AnimationState stopSittingAnimationState = new AnimationState();
     private boolean hasCharged = false;
@@ -82,6 +90,24 @@ public class WargEntity extends BeastEntity {
     }
 
     @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(VARIANT, 0);
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putInt("Variant", this.getTypeVariant());
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        this.dataTracker.set(VARIANT, nbt.getInt("Variant"));
+    }
+
+    @Override
     public void tick() {
         super.tick();
 
@@ -108,6 +134,13 @@ public class WargEntity extends BeastEntity {
                 this.setCharging(false);
                 this.setHasCharged(false);
             }
+        }
+
+        if(this.isSitting()) {
+            this.sittingAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.sittingAnimationState.stop();
         }
 
         if(this.getWorld().isClient()) {
@@ -189,5 +222,25 @@ public class WargEntity extends BeastEntity {
     @Override
     public int maxChargeCooldown() {
         return 50;
+    }
+
+    /* VARIANTS */
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,
+                                 @Nullable EntityData entityData) {
+        WargVariant variant = Util.getRandom(WargVariant.values(), this.random);
+        setVariant(variant);
+        return super.initialize(world, difficulty, spawnReason, entityData);
+    }
+
+    public WargVariant getVariant() {
+        return WargVariant.byId(this.getTypeVariant() & 255);
+    }
+
+    private int getTypeVariant() {
+        return this.dataTracker.get(VARIANT);
+    }
+
+    private void setVariant(WargVariant variant) {
+        this.dataTracker.set(VARIANT, variant.getId() & 255);
     }
 }

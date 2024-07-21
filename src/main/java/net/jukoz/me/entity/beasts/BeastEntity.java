@@ -115,6 +115,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
+        nbt.putBoolean("Sitting", this.isSitting());
         nbt.putBoolean("ChestedBeast", this.hasChest());
         if (this.hasChest()) {
             NbtList nbtList = new NbtList();
@@ -133,6 +134,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
+        this.setSitting(nbt.getBoolean("Sitting"));
         this.setHasChest(nbt.getBoolean("ChestedBeast"));
         this.onChestedStatusChanged();
         if (this.hasChest()) {
