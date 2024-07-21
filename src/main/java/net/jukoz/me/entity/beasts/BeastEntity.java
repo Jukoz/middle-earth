@@ -153,6 +153,10 @@ public class BeastEntity extends AbstractDonkeyEntity {
 
     // Getters and Setters =============================================================================================
 
+    public boolean canCarryChest() {
+        return true;
+    }
+
     public boolean canCharge() {
         return !this.isSitting() && !this.hasPassengers();
     }
@@ -276,12 +280,14 @@ public class BeastEntity extends AbstractDonkeyEntity {
     }
 
     private void addChest(PlayerEntity player, ItemStack chest) {
-        this.setHasChest(true);
-        this.playAddChestSound();
-        if (!player.getAbilities().creativeMode) {
-            chest.decrement(1);
+        if(canCarryChest()) {
+            this.setHasChest(true);
+            this.playAddChestSound();
+            if (!player.getAbilities().creativeMode) {
+                chest.decrement(1);
+            }
+            this.onChestedStatusChanged();
         }
-        this.onChestedStatusChanged();
     }
 
     protected void playAddChestSound() {
@@ -333,6 +339,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
     }
 
 
+    @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         boolean bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
 
@@ -340,7 +347,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
             this.setSitting(!isSitting());
         }
 
-        if(this.isTame() && !isCommandItem(player.getStackInHand(hand))) {
+        if(this.isTame() && !isCommandItem(player.getStackInHand(hand)) && !(player.getStackInHand(hand).isOf(Items.CHEST) && !canCarryChest())) {
             super.interactMob(player, hand);
         }
 
@@ -351,7 +358,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
         if (!this.hasPassengers() && !bl) {
             ItemStack itemStack = player.getStackInHand(hand);
             if (!itemStack.isEmpty()) {
-                if (!this.hasChest() && itemStack.isOf(Items.CHEST)) {
+                if (!this.hasChest() && itemStack.isOf(Items.CHEST) && this.canCarryChest()) {
                     this.addChest(player, itemStack);
                     return ActionResult.success(this.getWorld().isClient);
                 }

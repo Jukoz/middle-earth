@@ -224,6 +224,11 @@ public class WargEntity extends BeastEntity {
         return 50;
     }
 
+    @Override
+    public boolean canCarryChest() {
+        return false;
+    }
+
     /* VARIANTS */
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,
                                  @Nullable EntityData entityData) {

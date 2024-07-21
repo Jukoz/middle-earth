@@ -2,9 +2,9 @@ package net.jukoz.me.entity.beasts.warg;
 
 import com.google.common.collect.Maps;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.entity.beasts.warg.armor.WargArmorFeatureRenderer;
+import net.jukoz.me.entity.beasts.warg.features.WargArmorFeatureRenderer;
+import net.jukoz.me.entity.beasts.warg.features.WargSaddleFeatureRenderer;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
-import net.jukoz.me.entity.pheasant.PheasantVariant;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
@@ -18,6 +18,7 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargModel> {
     public WargRenderer(EntityRendererFactory.Context context) {
         super(context, new WargModel(context.getPart(ModEntityModelLayers.WARG)), 0.8f);
         this.addFeature(new WargArmorFeatureRenderer(this, context.getModelLoader()));
+        this.addFeature(new WargSaddleFeatureRenderer(this, context.getModelLoader()));
     }
 
     public static final Map<WargVariant, Identifier> LOCATION_BY_VARIANT =
