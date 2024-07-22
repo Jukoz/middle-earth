@@ -22,6 +22,8 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -46,7 +48,9 @@ public class WargEntity extends BeastEntity {
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(WargEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public final AnimationState startSittingAnimationState = new AnimationState();
     public final AnimationState stopSittingAnimationState = new AnimationState();
+    public int idleAnimationTimeout = this.random.nextInt(600) + 1700;
     private boolean hasCharged = false;
+    private boolean startedSitting = false;
     public WargEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -136,13 +140,6 @@ public class WargEntity extends BeastEntity {
             }
         }
 
-        if(this.isSitting()) {
-            this.sittingAnimationState.startIfNotRunning(this.age);
-        }
-        else {
-            this.sittingAnimationState.stop();
-        }
-
         if(this.getWorld().isClient()) {
             setupAnimationStates();
         }
@@ -159,12 +156,34 @@ public class WargEntity extends BeastEntity {
         super.tickMovement();
 
         if(this.isAttacking()) {
-            this.setMovementSpeed((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 10);
+            this.setSitting(false);
+            this.idleAnimationTimeout = this.random.nextInt(600) + 1700;
+
+        }
+        else if (--idleAnimationTimeout <= 0){
+            this.setSitting(!this.isSitting());
         }
     }
 
     @Override
     protected void setupAnimationStates() {
+        if(this.isSitting()) {
+            if(!this.sittingAnimationState.isRunning()) {
+                this.stopSittingAnimationState.stop();
+                this.startSittingAnimationState.startIfNotRunning(this.age);
+                this.startedSitting = true;
+            }
+            if(!this.startSittingAnimationState.isRunning() && startedSitting) {
+                this.sittingAnimationState.startIfNotRunning(this.age);
+                this.startedSitting = false;
+            }
+        }
+
+        else {
+            this.stopSittingAnimationState.startIfNotRunning(this.age);
+            this.startSittingAnimationState.stop();
+            this.sittingAnimationState.stop();
+        }
     }
 
     public boolean isCommandItem(ItemStack stack) {

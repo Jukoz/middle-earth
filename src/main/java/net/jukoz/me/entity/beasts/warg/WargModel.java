@@ -63,7 +63,7 @@ public class WargModel extends SinglePartEntityModel<WargEntity> {
             this.animateMovement(WargAnimations.RUN, limbAngle, limbDistance, 1f, 1f);
         }
         else {
-            this.animateMovement(WargAnimations.WALK, limbAngle, limbDistance, 1.5f, 1.5f);
+            this.animateMovement(WargAnimations.WALK, limbAngle, limbDistance, 2f, 2f);
         }
 
         this.updateAnimation(entity.idleAnimationState, WargAnimations.GROOM, animationProgress, 1f);
