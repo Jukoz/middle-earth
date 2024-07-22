@@ -45,10 +45,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class WargEntity extends BeastEntity {
+
+    private static final double WALKING_SPEED = 0.25;
+    private static final double HUNTING_SPEED = 2;
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(WargEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public final AnimationState startSittingAnimationState = new AnimationState();
     public final AnimationState stopSittingAnimationState = new AnimationState();
-    public int idleAnimationTimeout = this.random.nextInt(600) + 1700;
+    public int idleAnimationTimeout = 100;
     private boolean hasCharged = false;
     private boolean startedSitting = false;
     public WargEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
@@ -57,13 +60,13 @@ public class WargEntity extends BeastEntity {
 
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5f)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2)
-                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0f)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 38.0f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0f)
-                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 1.0f);
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, WALKING_SPEED)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0d)
+                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2d)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0d)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 38.0d)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0d)
+                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 1.0d);
     }
 
     @Override
@@ -74,8 +77,7 @@ public class WargEntity extends BeastEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new BeastSitGoal(this));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, 1.1f, false));
+        this.goalSelector.add(4, new MeleeAttackGoal(this, HUNTING_SPEED, false));
         this.goalSelector.add(5, new ChargeAttackGoal(this, maxChargeCooldown()));
         this.goalSelector.add(6, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
@@ -148,7 +150,7 @@ public class WargEntity extends BeastEntity {
 
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
-        return ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.75f);
+        return ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 1.5f);
     }
 
     @Override
@@ -160,8 +162,13 @@ public class WargEntity extends BeastEntity {
             this.idleAnimationTimeout = this.random.nextInt(600) + 1700;
 
         }
-        else if (--idleAnimationTimeout <= 0){
+        else if (--idleAnimationTimeout <= 0 && !this.isTame()){
             this.setSitting(!this.isSitting());
+            this.idleAnimationTimeout = 100;
+        }
+
+        if(this.isSitting()) {
+            this.getNavigation().stop();
         }
     }
 
@@ -175,14 +182,13 @@ public class WargEntity extends BeastEntity {
             }
             if(!this.startSittingAnimationState.isRunning() && startedSitting) {
                 this.sittingAnimationState.startIfNotRunning(this.age);
-                this.startedSitting = false;
             }
         }
-
-        else {
+        else if (startedSitting){
             this.stopSittingAnimationState.startIfNotRunning(this.age);
             this.startSittingAnimationState.stop();
             this.sittingAnimationState.stop();
+            this.startedSitting = false;
         }
     }
 
@@ -200,7 +206,7 @@ public class WargEntity extends BeastEntity {
                             this.getTarget().getBlockPos().getY() - this.getBlockPos().getY(),
                             this.getTarget().getBlockPos().getZ() - this.getBlockPos().getZ());
                 }
-                this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
+                this.setYaw((float) Math.toDegrees(Math.atan2(targetDir.x, -targetDir.z)));
                 this.setVelocity(targetDir.multiply(1,0,1).normalize().add(0,0.6,0).multiply(0.7f));
             }
             else if (this.getWorld().isClient) {
