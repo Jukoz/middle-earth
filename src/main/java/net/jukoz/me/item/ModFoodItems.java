@@ -55,9 +55,16 @@ public class ModFoodItems {
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(5).saturationModifier(0.6F).build())));
 
+    public static final Item RAW_VENISON = registerItem("raw_venison",
+            new Item(new Item.Settings().food(
+                    new FoodComponent.Builder().nutrition(2).saturationModifier(0.4F).build())));
+    public static final Item COOKED_VENISON = registerItem("cooked_venison",
+            new Item(new Item.Settings().food(
+                    new FoodComponent.Builder().nutrition(6).saturationModifier(0.8F).build())));
+
     public static final Item RAW_HORSE = registerItem("raw_horse",
             new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(4).saturationModifier(0.4F).build())));
+                    new FoodComponent.Builder().nutrition(3).saturationModifier(0.4F).build())));
     public static final Item COOKED_HORSE = registerItem("cooked_horse",
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(7).saturationModifier(0.8F).build())));
