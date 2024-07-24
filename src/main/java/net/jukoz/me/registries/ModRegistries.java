@@ -235,12 +235,12 @@ public class ModRegistries {
 
         registry.add(ModWeaponItems.ROHIRRIC_BOW, 300);
         registry.add(ModWeaponItems.LORIEN_BOW, 300);
-        registry.add(ModWeaponItems.GONDOR_BOW, 300);
-        registry.add(ModWeaponItems.UMBAR_BOW, 300);
-        registry.add(ModWeaponItems.DALISH_BOW, 300);
+        registry.add(ModWeaponItems.GONDORIAN_BOW, 300);
+        //registry.add(ModWeaponItems.UMBAR_BOW, 300);
+        //registry.add(ModWeaponItems.DALISH_BOW, 300);
 
         registry.add(ModWeaponItems.WOODEN_DAGGER, 150);
-        registry.add(ModWeaponItems.DUNLAND_CLUB, 300);
+        //registry.add(ModWeaponItems.DUNLAND_CLUB, 300);
 
         registry.add(ModDecorativeBlocks.OAK_STOOL, 300);
         registry.add(ModDecorativeBlocks.OAK_CHAIR, 300);
@@ -359,12 +359,24 @@ public class ModRegistries {
         LeavesSets.blocks.forEach(block -> {
             registry.add(block, 0.3F);
         });
+
         registry.add(ModNatureBlocks.LEBETHRON_LEAVES, 0.3F);
 
-        registry.add(ModNatureBlocks.DRY_PINE_LEAVES, 0.3F);
-        registry.add(ModNatureBlocks.PINE_BRANCHES, 0.3F);
+        registry.add(ModNatureBlocks.BERRY_HOLLY_LEAVES, 0.4F);
+
+        registry.add(ModNatureBlocks.DRY_LARCH_LEAVES, 0.2F);
+
+        registry.add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES, 0.4F);
+
+        registry.add(ModNatureBlocks.FALLEN_MALLORN_LEAVES, 0.3F);
+
+        registry.add(ModNatureBlocks.DRY_PINE_LEAVES, 0.2F);
+        registry.add(ModNatureBlocks.PINE_BRANCHES, 0.2F);
 
         registry.add(ModNatureBlocks.MAPLE_LEAVES, 0.3F);
+        registry.add(ModNatureBlocks.ORANGE_MAPLE_LEAVES, 0.3F);
+        registry.add(ModNatureBlocks.RED_MAPLE_LEAVES, 0.3F);
+        registry.add(ModNatureBlocks.YELLOW_MAPLE_LEAVES, 0.3F);
 
 
         registry.add(ModNatureBlocks.WILD_PIPEWEED, 0.5F);

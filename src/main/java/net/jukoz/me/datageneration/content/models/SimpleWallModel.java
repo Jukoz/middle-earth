@@ -24,7 +24,6 @@ public class SimpleWallModel {
     public static List<Wall> vanillaWalls = new ArrayList<>() {
         {
             add(new SimpleWallModel.Wall(Blocks.PACKED_MUD, ModBlocks.PACKED_MUD_WALL));
-            add(new SimpleWallModel.Wall(Blocks.TUFF, ModBlocks.TUFF_WALL));
             add(new SimpleWallModel.Wall(Blocks.CALCITE, ModBlocks.CALCITE_WALL));
             add(new SimpleWallModel.Wall(Blocks.SMOOTH_BASALT, ModBlocks.SMOOTH_BASALT_WALL));
         }

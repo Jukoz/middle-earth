@@ -109,10 +109,10 @@ public class MistyGoblinEntity extends NpcEntity {
         if(val3 >= 0.7f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
         } else if (val3 > 0.3f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SPEAR));
+            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_DAGGER));
+            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_DAGGER));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
         }
     }
@@ -131,10 +131,10 @@ public class MistyGoblinEntity extends NpcEntity {
         if(val3 >= 0.6f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
         } else if (val3 > 0.3f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SPEAR));
+            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MORDOR_SHIELD));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SCIMITAR));
+            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SCIMITAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MORDOR_SHIELD));
         }
     }

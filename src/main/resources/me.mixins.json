@@ -13,6 +13,7 @@
     "PigEntityMixin",
     "PlayerEntityMixin",
     "PlayerMixin",
+    "ServerPlayNetworkHandlerMixin",
     "ServerWorldMixin",
     "ShearItemMixin",
     "SwordItemMixin",

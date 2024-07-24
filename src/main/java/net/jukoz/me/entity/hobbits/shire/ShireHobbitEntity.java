@@ -13,7 +13,7 @@ import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModWeaponItems;
-import net.jukoz.me.item.items.PebbleItem;
+import net.jukoz.me.item.items.weapons.ranged.PebbleItem;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
