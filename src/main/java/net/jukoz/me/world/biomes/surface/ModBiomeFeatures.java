@@ -1,5 +1,6 @@
 package net.jukoz.me.world.biomes.surface;
 
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.features.boulder.BoulderPlacedFeatures;
 import net.jukoz.me.world.features.misc.ModMiscPlacedFeatures;
 import net.jukoz.me.world.features.ores.OrePlacedFeatures;
@@ -262,6 +263,12 @@ public class ModBiomeFeatures {
     }
     public static void addMossyBoulder(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(BoulderPlacedFeatures.MOSSY_BOULDER);
+    }
+    // endregion
+
+    // region FIELDS
+    public static void addHeatherField(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FIELD_HEATHER);
     }
     // endregion
 

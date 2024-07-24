@@ -45,12 +45,14 @@ public class ModBiomes {
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 5951101, 5485154), false));
         context.register(MEBiomeKeys.BELFALAS_HILLS, createBelfalasBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6011255, 5614178), true));
+              context.register(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, createBlueMountainsBiome(context, new BiomeColorsDTO(
+                7905261, 12241911, defaultWater, defaultWaterFog, 6652524, 6652524), false));
         context.register(MEBiomeKeys.BLUE_MOUNTAINS_BASE, createBlueMountainsBiome(context, new BiomeColorsDTO(
-                7905261, 12241911, defaultWater, defaultWaterFog, 8159036, 6976310), false));
+                7905261, 12241911, defaultWater, defaultWaterFog, 5796446, 6652524), false));
         context.register(MEBiomeKeys.BLUE_MOUNTAINS, createBlueMountainsBiome(context, new BiomeColorsDTO(
-                7905261, 12241911, defaultWater, defaultWaterFog, 6976310, 5201452), false));
+                7905261, 12241911, defaultWater, defaultWaterFog, 5270363, 5796446), false));
         context.register(MEBiomeKeys.BLUE_MOUNTAINS_PEAKS, createBlueMountainsBiome(context, new BiomeColorsDTO(
-                7905261, 12241911, defaultWater, defaultWaterFog, 5201452, 4608807), true));
+                7905261, 12241911, defaultWater, defaultWaterFog, 4677202, 5270363), true));
         context.register(MEBiomeKeys.BROWN_LANDS, createMordorWastesBiome(context, new BiomeColorsDTO(
                 7570864, 8292235, 5075593, 1259598, 8032632, 7901046)));
         context.register(MEBiomeKeys.CORSAIR_COASTS, createCorsairCoastBiome(context, new BiomeColorsDTO(
@@ -166,7 +168,7 @@ public class ModBiomes {
         context.register(MEBiomeKeys.LEBENNIN, createLebennin(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 5883985, 7449969)));
         context.register(MEBiomeKeys.LINDON, createLindonBiome(context, new BiomeColorsDTO(
-                8827134, 12771327, defaultWater, defaultWaterFog, 6929025, 5157703)));
+                8827134, 12771327, defaultWater, defaultWaterFog, 6523989, 5667402)));
         context.register(MEBiomeKeys.LONG_LAKE, createLakeBiome(context, new BiomeColorsDTO(
                 waterSky, defaultFog, 4352228, 525619, 7576434, 6588506)));
         context.register(MEBiomeKeys.LONG_MARSHES, createMirkwoodSwampBiome(context, new BiomeColorsDTO(
@@ -1046,12 +1048,15 @@ public class ModBiomes {
         ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
+        // Boenndal :
+        // Add heather fields, mix with heath, dry heather and dying grass
+        // Need to be thick, probably better to do it via sub biome
+
         addDefaultVegetation(generationSettings);
         ModBiomeFeatures.addCornflower(vegetation);
         ModBiomeFeatures.addRareForestMoss(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addLimestoneBoulder(vegetation);
-        ModBiomeFeatures.addWhiteSand(vegetation);
         ModBiomeFeatures.addOakBushes(vegetation);
         ModBiomeFeatures.addRareBirchTrees(vegetation);
         ModBiomeFeatures.addMegaBirchTrees(vegetation);

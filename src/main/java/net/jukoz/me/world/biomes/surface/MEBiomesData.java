@@ -112,6 +112,7 @@ public class MEBiomesData {
         addBiome(new Color(96, 171, 89), new MEBiome(6, MEBiomeKeys.BARROW_DOWNS, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(38, 207, 94), new MEBiome(4, MEBiomeKeys.BELFALAS, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers));
         addBiome(new Color(35, 173, 81), new MEBiome(37, MEBiomeKeys.BELFALAS_HILLS, MEBiomeDataConfigs.mountainModifier, MEBiomeDataConfigs.whiteMountains, MEBiomeDataConfigs.gondorLayers));
+        addBiome(new Color(76, 175, 117), new MEBiome(35, MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, MEBiomeDataConfigs.bmModifier.heightModifier(0.23f), MEBiomeDataConfigs.blueMountainsBase, MEBiomeDataConfigs.gonluinLayers));
         addBiome(new Color(178, 183, 210), new MEBiome(53, MEBiomeKeys.BLUE_MOUNTAINS_BASE, MEBiomeDataConfigs.bmModifier, MEBiomeDataConfigs.blueMountainsBase, MEBiomeDataConfigs.gonluinLayers));
         addBiome(new Color(200, 209, 255), new MEBiome(82, MEBiomeKeys.BLUE_MOUNTAINS, MEBiomeDataConfigs.bmModifier, MEBiomeDataConfigs.blueMountains, MEBiomeDataConfigs.gonluinLayers));
         addBiome(new Color(217, 224, 255), new MEBiome(97, MEBiomeKeys.BLUE_MOUNTAINS_PEAKS, MEBiomeDataConfigs.bmPeaksModifier, MEBiomeDataConfigs.blueMountainsPeaks, MEBiomeDataConfigs.gonluinLayers));
