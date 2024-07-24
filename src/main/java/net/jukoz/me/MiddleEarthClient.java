@@ -194,6 +194,14 @@ public class MiddleEarthClient implements ClientModInitializer {
             }
         });
         ModelLoadingPlugin.register(pluginContext -> {
+            for(Item item : HotMetalsModel.ingots) {
+                Identifier identifier = VariantsModelProvider.getHotModelIdentifierVariant(item);
+                pluginContext.addModels(identifier);
+            }
+            for(Item item : HotMetalsModel.nuggets) {
+                Identifier identifier = VariantsModelProvider.getHotModelIdentifierVariant(item);
+                pluginContext.addModels(identifier);
+            }
             for(Item item : HotMetalsModel.items) {
                 Identifier identifier = VariantsModelProvider.getHotModelIdentifierVariant(item);
                 pluginContext.addModels(identifier);
