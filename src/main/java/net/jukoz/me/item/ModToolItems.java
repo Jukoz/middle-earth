@@ -48,14 +48,14 @@ public class ModToolItems {
     public static final Item BRONZE_HOE = registerItemHandheld("bronze_hoe",
             new HoeItem(ModToolMaterials.BRONZE, new Item.Settings().attributeModifiers(HoeItem.createAttributeModifiers(ModToolMaterials.BRONZE, -2.0f, -1.0f))));
 
-    public static final Item ORC_STEEL_PICKAXE = registerItemHandheld("orc_steel_pickaxe",
-            new PickaxeItem(ModToolMaterials.ORC_STEEL, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, 1.0f, -2.8f))));
-    public static final Item ORC_STEEL_AXE = registerItemHandheld("orc_steel_axe",
-            new AxeItem(ModToolMaterials.ORC_STEEL, new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, 6.0f, -3.1f))));
-    public static final Item ORC_STEEL_SHOVEL = registerItemHandheld("orc_steel_shovel",
-            new ShovelItem(ModToolMaterials.ORC_STEEL, new Item.Settings().attributeModifiers(ShovelItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, 1.5f, -3.0f))));
-    public static final Item ORC_STEEL_HOE = registerItemHandheld("orc_steel_hoe",
-            new HoeItem(ModToolMaterials.ORC_STEEL, new Item.Settings().attributeModifiers(HoeItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, -2.0f, -1.0f))));
+    public static final Item SLAG_PICKAXE = registerItemHandheld("slag_pickaxe",
+            new PickaxeItem(ModToolMaterials.SLAG, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.SLAG, 1.0f, -2.8f))));
+    public static final Item SLAG_AXE = registerItemHandheld("slag_axe",
+            new AxeItem(ModToolMaterials.SLAG, new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.SLAG, 6.0f, -3.1f))));
+    public static final Item SLAG_SHOVEL = registerItemHandheld("slag_shovel",
+            new ShovelItem(ModToolMaterials.SLAG, new Item.Settings().attributeModifiers(ShovelItem.createAttributeModifiers(ModToolMaterials.SLAG, 1.5f, -3.0f))));
+    public static final Item SLAG_HOE = registerItemHandheld("slag_hoe",
+            new HoeItem(ModToolMaterials.SLAG, new Item.Settings().attributeModifiers(HoeItem.createAttributeModifiers(ModToolMaterials.SLAG, -2.0f, -1.0f))));
 
     public static final Item STEEL_PICKAXE = registerItemHandheld("steel_pickaxe",
             new PickaxeItem(ModToolMaterials.STEEL, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.STEEL, 1.0f, -2.8f))));

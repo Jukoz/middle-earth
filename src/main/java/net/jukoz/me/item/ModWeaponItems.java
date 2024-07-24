@@ -111,15 +111,15 @@ public class ModWeaponItems {
             new CustomBowWeaponItem(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), new Item.Settings().maxDamage(640)));
 
     public static final Item GUNDABAD_SCIMITAR = registerItemWithModel("gundabad_scimitar",
-            new CustomSwordWeaponItem(ModToolMaterials.ORC_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED))), false);
+            new CustomSwordWeaponItem(ModToolMaterials.SLAG, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.SLAG, SWORD_DAMAGE, SWORD_ATTACKS_SPEED))), false);
      public static final Item GUNDABAD_FALCHION = registerItemWithModel("gundabad_falchion",
-            new CustomSwordWeaponItem(ModToolMaterials.ORC_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED))), false);
+            new CustomSwordWeaponItem(ModToolMaterials.SLAG, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.SLAG, SWORD_DAMAGE, SWORD_ATTACKS_SPEED))), false);
     public static final Item GUNDABAD_DAGGER = registerItemWithModel("gundabad_dagger",
-            new ReachWeaponItem(ModToolMaterials.ORC_STEEL, DAGGER_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED))), false);
+            new ReachWeaponItem(ModToolMaterials.SLAG, DAGGER_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.SLAG, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED))), false);
     public static final Item GUNDABAD_SPEAR = registerItemWithModel("gundabad_spear",
-            new ReachWeaponItem(ModToolMaterials.ORC_STEEL, TWO_HAND_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, SPEAR_DAMAGE, SPEAR_ATTACKS_SPEED, TWO_HAND_REACH))), true);
+            new ReachWeaponItem(ModToolMaterials.SLAG, TWO_HAND_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.SLAG, SPEAR_DAMAGE, SPEAR_ATTACKS_SPEED, TWO_HAND_REACH))), true);
     public static final Item GUNDABAD_BARDICHE = registerItemWithModel("gundabad_bardiche",
-            new ReachWeaponItem(ModToolMaterials.ORC_STEEL, PIKE_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, BATTLEAXE_DAMAGE, POLEARM_ATTACKS_SPEED, PIKE_REACH))), true);
+            new ReachWeaponItem(ModToolMaterials.SLAG, PIKE_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.SLAG, BATTLEAXE_DAMAGE, POLEARM_ATTACKS_SPEED, PIKE_REACH))), true);
 
     public static final Item LORIEN_SWORD = registerItemWithModel("lorien_sword",
             new CustomSwordWeaponItem(ModToolMaterials.ELVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.ELVEN_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED))), false);
@@ -138,15 +138,15 @@ public class ModWeaponItems {
             new CustomBowWeaponItem(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().maxDamage(640)));
 
     public static final Item MORDOR_ORC_SCIMITAR = registerItemWithModel("mordor_orc_scimitar",
-            new CustomSwordWeaponItem(ModToolMaterials.ORC_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED))), false);
+            new CustomSwordWeaponItem(ModToolMaterials.SLAG, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.SLAG, SWORD_DAMAGE, SWORD_ATTACKS_SPEED))), false);
     public static final Item MORDOR_ORC_SWORD = registerItemWithModel("mordor_orc_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.ORC_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED))), false);
+            new CustomSwordWeaponItem(ModToolMaterials.SLAG, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.SLAG, SWORD_DAMAGE, SWORD_ATTACKS_SPEED))), false);
     public static final Item MORDOR_ORC_DAGGER = registerItemWithModel("mordor_orc_dagger",
-            new ReachWeaponItem(ModToolMaterials.ORC_STEEL, DAGGER_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED))), false);
+            new ReachWeaponItem(ModToolMaterials.SLAG, DAGGER_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.SLAG, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED))), false);
     public static final Item MORDOR_ORC_BATTLEAXE = registerItemWithModel("mordor_orc_battleaxe",
-            new AxeItem(ToolMaterials.IRON, new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, BATTLEAXE_DAMAGE, BATTLEAXE_ATTACKS_SPEED))), true);
+            new AxeItem(ToolMaterials.IRON, new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.SLAG, BATTLEAXE_DAMAGE, BATTLEAXE_ATTACKS_SPEED))), true);
     public static final Item MORDOR_ORC_PIKE = registerItemWithModel("mordor_orc_pike",
-            new ReachWeaponItem(ModToolMaterials.ORC_STEEL, PIKE_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.ORC_STEEL, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH))), true);
+            new ReachWeaponItem(ModToolMaterials.SLAG, PIKE_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.SLAG, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH))), true);
 
     public static final Item MORGUL_BLADE = registerItemWithModel("morgul_blade",
             new CustomSwordWeaponItem(ModToolMaterials.MORGUL_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED + 0.1f))), false);

@@ -72,7 +72,7 @@ public class MineablePickaxe {
             add(ModBlocks.SILVER_BLOCK);
 
             add(ModBlocks.BRONZE_BLOCK);
-            add(ModBlocks.ORC_STEEL_BLOCK);
+            add(ModBlocks.SLAG_BLOCK);
             add(ModBlocks.STEEL_BLOCK);
             add(ModBlocks.DWARVEN_STEEL_BLOCK);
             add(ModBlocks.ELVEN_STEEL_BLOCK);

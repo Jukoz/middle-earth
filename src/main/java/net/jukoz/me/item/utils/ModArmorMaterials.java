@@ -133,7 +133,7 @@ public class ModArmorMaterials {
             List.of(new ArmorMaterial.Layer(Identifier.of("lorien_commander"), "", false)), new ArmorMaterial.Layer(Identifier.of("lorien_commander"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null);
 
-    public static final ExtendedArmorMaterial MORDOR_ORC_MAIL_ARMOR = registerArmor("mordor_orc_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT),
+    public static final ExtendedArmorMaterial MORDOR_ORC_MAIL_ARMOR = registerArmor("mordor_orc_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.SLAG_SCRAP),
             List.of(new ArmorMaterial.Layer(Identifier.of("mordor_orc_mail"), "", false)), new ArmorMaterial.Layer(Identifier.of("mordor_orc_mail"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
 
@@ -149,7 +149,7 @@ public class ModArmorMaterials {
             List.of(new ArmorMaterial.Layer(Identifier.of("mordor_black_uruk_commander"), "", false)), new ArmorMaterial.Layer(Identifier.of("mordor_black_uruk_commander"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
 
-    public static final ExtendedArmorMaterial MISTY_GOBLIN_MAIL_ARMOR = registerArmor("misty_goblin_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT),
+    public static final ExtendedArmorMaterial MISTY_GOBLIN_MAIL_ARMOR = registerArmor("misty_goblin_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.SLAG_SCRAP),
             List.of(new ArmorMaterial.Layer(Identifier.of("misty_goblin_mail"), "", false)), new ArmorMaterial.Layer(Identifier.of("misty_goblin_mail"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), null);
 

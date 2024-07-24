@@ -1,0 +1,9 @@
+{
+  "asset_name": "slag",
+  "description": {
+    "color": "#85645c",
+    "translate": "trim_material.me.slag"
+  },
+  "ingredient": "me:slag_scrap",
+  "item_model_index": 0.007
+}

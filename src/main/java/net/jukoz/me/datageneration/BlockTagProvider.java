@@ -242,7 +242,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsDiamondTools.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
 
         needsStoneTools.add(ModBlocks.BRONZE_BLOCK);
-        needsStoneTools.add(ModBlocks.ORC_STEEL_BLOCK);
+        needsStoneTools.add(ModBlocks.SLAG_BLOCK);
         needsIronTools.add(ModBlocks.STEEL_BLOCK);
         needsIronTools.add(ModBlocks.DWARVEN_STEEL_BLOCK);
         needsIronTools.add(ModBlocks.ELVEN_STEEL_BLOCK);

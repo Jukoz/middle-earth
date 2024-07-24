@@ -864,7 +864,7 @@ public class ModelProvider extends FabricModelProvider {
             new ItemTrimMaterial("silver", 0.004f, Map.of()),
             new ItemTrimMaterial("bronze", 0.005f, Map.of()),
             new ItemTrimMaterial("steel", 0.006f, Map.of()),
-            new ItemTrimMaterial("orc_steel", 0.007f, Map.of()),
+            new ItemTrimMaterial("slag", 0.007f, Map.of()),
             new ItemTrimMaterial("uruk_steel", 0.008f, Map.of()),
             new ItemTrimMaterial("elven_steel", 0.009f, Map.of()),
             new ItemTrimMaterial("dwarven_steel", 0.011f, Map.of()),
@@ -912,11 +912,11 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (Item item : HotMetalsModel.ingots) {
-            Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"), TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "ingot_hot")), itemModelGenerator.writer);
+            Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"), TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "item/ingot_hot")), itemModelGenerator.writer);
         }
 
         for (Item item : HotMetalsModel.nuggets) {
-            Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"), TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "nugget_hot")), itemModelGenerator.writer);
+            Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"), TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "item/nugget_hot")), itemModelGenerator.writer);
         }
 
         for (Item item : SimpleBowItemModel.items) {

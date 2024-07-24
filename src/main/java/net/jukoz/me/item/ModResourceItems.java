@@ -42,11 +42,6 @@ public class ModResourceItems {
     public static final Item LEAD_NUGGET = registerItem("lead_nugget",
             new Item(new Item.Settings()));
 
-    public static final Item BRONZE_INGOT = registerItem("bronze_ingot",
-            new Item(new Item.Settings()));
-    public static final Item BRONZE_NUGGET = registerItem("bronze_nugget",
-            new Item(new Item.Settings()));
-
     public static final Item RAW_SILVER = registerItem("raw_silver",
             new Item(new Item.Settings()));
     public static final Item SILVER_INGOT = registerItem("silver_ingot",
@@ -54,9 +49,14 @@ public class ModResourceItems {
     public static final Item SILVER_NUGGET = registerItem("silver_nugget",
             new Item(new Item.Settings()));
 
-    public static final Item ORC_STEEL_INGOT = registerItem("orc_steel_ingot",
+    public static final Item BRONZE_INGOT = registerItem("bronze_ingot",
+            new Item(new Item.Settings()));
+    public static final Item BRONZE_NUGGET = registerItem("bronze_nugget",
+            new Item(new Item.Settings()));
+
+    public static final Item SLAG_SCRAP = registerItem("slag_scrap",
             new SmithingMaterialItem(new Item.Settings()));
-    public static final Item ORC_STEEL_NUGGET = registerItem("orc_steel_nugget",
+    public static final Item SLAG_CHUNK = registerItem("slag_chunk",
             new Item(new Item.Settings()));
 
     public static final Item URUK_STEEL_INGOT = registerItem("uruk_steel_ingot",

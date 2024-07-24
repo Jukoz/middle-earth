@@ -77,8 +77,8 @@ public class SimpleItemModel {
             add(ModResourceItems.SILVER_INGOT);
             add(ModResourceItems.SILVER_NUGGET);
 
-            add(ModResourceItems.ORC_STEEL_INGOT);
-            add(ModResourceItems.ORC_STEEL_NUGGET);
+            add(ModResourceItems.SLAG_SCRAP);
+            add(ModResourceItems.SLAG_CHUNK);
 
             add(ModResourceItems.URUK_STEEL_INGOT);
             add(ModResourceItems.URUK_STEEL_NUGGET);
