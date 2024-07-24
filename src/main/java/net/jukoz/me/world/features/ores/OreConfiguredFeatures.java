@@ -40,6 +40,7 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> COARSE_DIRT_ORE = registerKey("coarse_dirt_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> CORRUPTED_MOSS_DISK = registerKey("corrupted_moss_disk");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DIORITE_ORE = registerKey("diorite_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DIRT_TO_GRASS_ORE = registerKey("dirt_to_grass_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DOLOMITE_ORE = registerKey("dolomite_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DRIPSTONE_ORE = registerKey("dripstone_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DRY_DIRT_ORE = registerKey("dry_dirt_ore");
@@ -50,6 +51,7 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> STONE_GRASS_ORE = registerKey("stone_grass_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GONLUIN_GRASS_ORE = registerKey("gonluin_grass_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> LIMESTONE_ORE = registerKey("limestone_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MIRE_ORE = registerKey("mire_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MUD_ORE = registerKey("mud_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PACKED_MUD_ORE = registerKey("packed_mud_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> OLD_PODZOL_ORE = registerKey("old_podzol_ore");
@@ -58,6 +60,7 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> RIVER_SAND_ORE = registerKey("river_sand_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SAND_ORE = registerKey("sand_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SNOW_BLOCK_ORE = registerKey("snow_block_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SOUL_SAND_ORE = registerKey("soul_sand_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> CALCITE_STONE_ORE = registerKey("calcite_stone_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRASS_STONE_ORE = registerKey("grass_stone_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> TUFF_ORE = registerKey("stone_tuff_ore");
@@ -127,6 +130,9 @@ public class OreConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, DIORITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.DIORITE.getDefaultState(), 64, 0.4f));
 
+        ConfiguredFeatures.register(featureRegisterable, DIRT_TO_GRASS_ORE, Feature.ORE,
+                new OreFeatureConfig(dirtTest, Blocks.GRASS_BLOCK.getDefaultState(), 64, 0.2f));
+
         ConfiguredFeatures.register(featureRegisterable, DOLOMITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, StoneBlockSets.DOLOMITE.base().getDefaultState(), 64, 0.25f));
 
@@ -162,6 +168,9 @@ public class OreConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, LIMESTONE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, StoneBlockSets.LIMESTONE.base().getDefaultState(), 64, 0.25f));
 
+        ConfiguredFeatures.register(featureRegisterable, MIRE_ORE, Feature.ORE,
+                new OreFeatureConfig(dirtTest, ModBlocks.MIRE.getDefaultState(), 48, 0.4f));
+
         ConfiguredFeatures.register(featureRegisterable, MUD_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, Blocks.MUD.getDefaultState(), 48, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, PACKED_MUD_ORE, Feature.ORE,
@@ -181,6 +190,9 @@ public class OreConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, SNOW_BLOCK_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.SNOW_BLOCK.getDefaultState(), 64, 0.5f));
+
+        ConfiguredFeatures.register(featureRegisterable, SOUL_SAND_ORE, Feature.ORE,
+                new OreFeatureConfig(dirtTest, Blocks.SOUL_SAND.getDefaultState(), 32, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, CALCITE_STONE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.STONE.getDefaultState(), 64, 0.4f));
