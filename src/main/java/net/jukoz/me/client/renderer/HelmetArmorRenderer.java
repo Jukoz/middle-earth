@@ -72,9 +72,9 @@ public class HelmetArmorRenderer implements ArmorRenderer {
                     hoodModel.setVisible(false);
                     hoodModel.hat.visible = true;
                     if(hoodDataComponent.down()){
-                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.hood().toLowerCase() + "_down.png"), false);
+                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().toLowerCase() + "_down.png"), false);
                     } else {
-                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.hood().toLowerCase() + ".png"), false);
+                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().toLowerCase() + ".png"), false);
                     }
                 }
             }

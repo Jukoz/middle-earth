@@ -28,8 +28,9 @@ public enum ModCapes implements StringIdentifiable {
     EREBOR_CAPE("erebor_cape"),
     RAVENHILL_SENTINEL_CAPE("ravenhill_sentinel_cape"),
 
-    LORIEN_CAPE("lorien_cape"),
-    LORIEN_COMMANDER_CAPE("lorien_commander_cape"),
+    LORIEN_MARCHWARDEN_CAPE("lorien_marchwarden_cape"),
+    GALADDHRIM_CAPE("galadhrim_cape"),
+    GALADHRIM_LORD_CAPE("galadhrim_lord_cape"),
     ;
 
     private final String name;

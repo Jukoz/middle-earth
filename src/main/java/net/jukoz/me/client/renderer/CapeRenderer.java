@@ -64,7 +64,7 @@ public class CapeRenderer implements ArmorRenderer {
                     capeModel.rightLeg.visible = true;
                     capeModel.leftLeg.visible = true;
                     capeModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float) entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.roll);
-                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + capeDataComponent.cape().toLowerCase() + ".png"), false);
+                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().toLowerCase() + ".png"), false);
                 }
             }
         }

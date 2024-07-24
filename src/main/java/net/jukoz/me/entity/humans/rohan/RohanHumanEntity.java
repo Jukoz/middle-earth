@@ -220,9 +220,8 @@ public class RohanHumanEntity extends NpcEntity {
     private void veteranEquipment(Random random){
         if(random.nextFloat() >= 0.10f) {
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_HELMET));
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_CHESTPLATE));
-            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_LEGGINGS));
-            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_BOOTS));
+            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_HAUBERK));
+            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_JACKET));
         } else {
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.EORLING_MARSHAL_HELMET));
             equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.EORLING_MARSHAL_CHESTPLATE));

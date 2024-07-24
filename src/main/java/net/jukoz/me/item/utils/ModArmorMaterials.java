@@ -132,7 +132,7 @@ public class ModArmorMaterials {
     public static final ExtendedArmorMaterial ROHIRRIC_SCALE_ARMOR = registerArmor("rohirric_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
     );
 
-    public static final ExtendedArmorMaterial ROHIRRIC_ROYAL_GUARD_ARMOR = registerArmor("rohirric_royal_guard", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
+    public static final ExtendedArmorMaterial ROHIRRIC_ROYAL_GUARD_ARMOR = registerArmor("rohirric_royal_guard", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
     );
 
     public static final ExtendedArmorMaterial EORLING_MARSHAL_ARMOR = registerArmor("eorling_marshal", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
@@ -171,16 +171,22 @@ public class ModArmorMaterials {
     public static final ExtendedArmorMaterial EREBOR_COMMANDER_ARMOR = registerArmor("erebor_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT)
     );
 
-    public static final ExtendedArmorMaterial LORIEN_MAIL_ARMOR = registerArmor("lorien_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)
+    public static final ExtendedArmorMaterial LORIEN_T1 = registerArmor("lorien_t1", 1, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.LEATHER)
     );
 
-    public static final ExtendedArmorMaterial LORIEN_SCALE_ARMOR = registerArmor("lorien_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT)
+    public static final ExtendedArmorMaterial LORIEN_T2 = registerArmor("lorien_t2", 2, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.LEATHER)
     );
 
-    public static final ExtendedArmorMaterial LORIEN_PLATE_ARMOR = registerArmor("lorien_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT)
+    public static final ExtendedArmorMaterial LORIEN_T3 = registerArmor("lorien_t3", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT)
     );
 
-    public static final ExtendedArmorMaterial LORIEN_COMMANDER_ARMOR = registerArmor("lorien_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT)
+    public static final ExtendedArmorMaterial LORIEN_T4 = registerArmor("lorien_t4", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT)
+    );
+
+    public static final ExtendedArmorMaterial GALADHRIM_ARMOR = registerArmor("galadhrim", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT)
+    );
+
+    public static final ExtendedArmorMaterial GALADHRIM_LORD_ARMOR = registerArmor("galadhrim_lord", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT)
     );
 
     public static final ExtendedArmorMaterial ORC_MAIl_GENERIC = registerArmor("orc_mail_generic", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT)
@@ -199,6 +205,12 @@ public class ModArmorMaterials {
     );
 
     public static final ExtendedArmorMaterial MORDOR_BLACK_URUK_COMMANDER_ARMOR = registerArmor("mordor_black_uruk_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT)
+    );
+
+    public static final ExtendedArmorMaterial URUK_HAI_LEATHER_ARMOR = registerArmor("uruk_hai_leather", 2, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.LEATHER)
+    );
+
+    public static final ExtendedArmorMaterial URUK_HAI_PLATE_ARMOR = registerArmor("uruk_hai_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT)
     );
 
     public static final ExtendedArmorMaterial MISTY_GOBLIN_MAIL_ARMOR = registerArmor("misty_goblin_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT)

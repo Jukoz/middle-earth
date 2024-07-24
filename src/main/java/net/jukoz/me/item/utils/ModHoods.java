@@ -7,7 +7,7 @@ public enum ModHoods implements StringIdentifiable {
     BASE_HOOD("base_hood"),
     FUR_HOOD("FUR_HOOD"),
 
-    LORIEN_HOOD("lorien_hood"),
+    GALADHRIM_HOOD("galadhrim_hood"),
     ;
 
     private final String name;

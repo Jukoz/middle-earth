@@ -39,7 +39,7 @@ public class RohirricHelmetArmorAddonModel<T extends LivingEntity> extends Helme
         modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(modelData, 64, 48);
+        return TexturedModelData.of(modelData, 64, 64);
     }
 
     @Override

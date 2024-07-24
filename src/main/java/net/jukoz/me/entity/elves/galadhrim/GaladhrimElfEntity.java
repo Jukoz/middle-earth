@@ -195,10 +195,10 @@ public class GaladhrimElfEntity extends NpcEntity{
     }
 
     private void veteranEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.LORIEN_PLATE_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.LORIEN_PLATE_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_PLATE_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_PLATE_BOOTS));
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.GALADHRIM_HELMET));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GALADHRIM_CHESTPLATE));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.GALADHRIM_LEGGINGS));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.GALADHRIM_BOOTS));
 
         if(random.nextFloat() >= 0.50f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SWORD));
@@ -209,10 +209,10 @@ public class GaladhrimElfEntity extends NpcEntity{
     }
 
     private void leaderEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.LORIEN_COMMANDER_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.LORIEN_COMMANDER_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.LORIEN_COMMANDER_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_COMMANDER_BOOTS));
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.GALADHRIM_LORD_HELMET));
+        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GALADHRIM_LORD_CHESTPLATE));
+        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.GALADHRIM_LORD_LEGGINGS));
+        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.GALADHRIM_LORD_BOOTS));
 
         if (random.nextFloat() < 0.50f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_LONGSWORD));

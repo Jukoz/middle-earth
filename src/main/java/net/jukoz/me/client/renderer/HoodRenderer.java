@@ -34,7 +34,7 @@ public class HoodRenderer implements ArmorRenderer {
 
         HoodHelmetItem item = (HoodHelmetItem)stack.getItem();
         boolean dyeable = false;
-        String texture = "textures/models/armor/" + Registries.ITEM.getId(stack.getItem()).getPath() + ".png";
+        String texture = "textures/models/hood/" + Registries.ITEM.getId(stack.getItem()).getPath() + ".png";
 
         if (slot == EquipmentSlot.HEAD) {
 
@@ -50,9 +50,9 @@ public class HoodRenderer implements ArmorRenderer {
                     hoodModel.setVisible(false);
                     hoodModel.hat.visible = true;
                     if(hoodDataComponent.down()){
-                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.hood().toLowerCase() + "_down.png"), false);
+                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().toLowerCase() + "_down.png"), false);
                     } else {
-                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.hood().toLowerCase() + ".png"), false);
+                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().toLowerCase() + ".png"), false);
                     }
                 }
             }
