@@ -58,11 +58,14 @@ public class ModTreeConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> OAK_BUSH_TREE_KEY = registerKey("silver_oak_bush_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> OAK_TREE_KEY = registerKey("oak_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> OAK_TREE_VINES_KEY = registerKey("oak_vines_tree");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> OAK_SMALL_TREE_VINES_KEY = registerKey("oak_small_vines_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEGA_OAK_TREE_KEY = registerKey("mega_oak_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PALM_TREE_KEY = registerKey("palm_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> WHITE_PALM_TREE_KEY = registerKey("white_palm_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PINE_TREE_KEY = registerKey("pine_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DEAD_PINE_TREE_KEY = registerKey("dead_pine_tree");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DRY_PINE_TREE_KEY = registerKey("dry_pine_tree");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DRY_PINE_BUSH_TREE_KEY = registerKey("dry_pine_bush_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BLACK_PINE_TREE_KEY = registerKey("black_pine_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DEAD_BLACK_PINE_TREE_KEY = registerKey("dead_black_pine_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SPRUCE_TREE_KEY = registerKey("spruce_tree");
@@ -280,6 +283,14 @@ public class ModTreeConfiguredFeatures {
             new TwoLayersFeatureSize(1, 0, 2))
             .decorators(ImmutableList.of(new LeavesVineTreeDecorator(0.25F)))
             .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
+        register(context, OAK_SMALL_TREE_VINES_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
+            BlockStateProvider.of(Blocks.OAK_LOG),
+            new StraightTrunkPlacer(4, 2, 0),
+            BlockStateProvider.of(Blocks.OAK_LEAVES),
+            new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 3),
+            new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(ImmutableList.of(new LeavesVineTreeDecorator(0.25F)))
+            .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
         register(context, MEGA_OAK_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
             BlockStateProvider.of(Blocks.OAK_LOG),
             new CanopyTrunkPlacer(20, 3, 1.8f, 0.55f, 5.7f, 3, 0.38f, -0.15f, 2, 0),
@@ -307,7 +318,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.of(WoodBlockSets.PINE.log()),
             new SpruceTrunkPlacer(14, 3),
             BlockStateProvider.of(WoodBlockSets.PINE.leaves()),
-            new PineFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(1), UniformIntProvider.create(4, 4)),
+            new PineFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(1), UniformIntProvider.create(3, 4)),
             new TwoLayersFeatureSize(1, 0, 2))
             .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
         register(context, DEAD_PINE_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
@@ -317,12 +328,24 @@ public class ModTreeConfiguredFeatures {
             new PineFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(1), ConstantIntProvider.create(1)),
             new TwoLayersFeatureSize(1, 0, 2))
             .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
+        register(context, DRY_PINE_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
+            BlockStateProvider.of(WoodBlockSets.PINE.log()),
+            new SpruceTrunkPlacer(14, 3),
+            BlockStateProvider.of(ModNatureBlocks.DRY_PINE_LEAVES),
+            new PineFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(1), UniformIntProvider.create(2, 3)),
+            new TwoLayersFeatureSize(1, 0, 2))
+            .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
+        register(context, DRY_PINE_BUSH_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
+            BlockStateProvider.of(ModNatureBlocks.PINE_BRANCHES),
+            new StraightTrunkPlacer(1, 0, 0), BlockStateProvider.of(ModNatureBlocks.DRY_PINE_LEAVES),
+            new BushFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(1), 2),
+            new TwoLayersFeatureSize(0, 0, 0)).build());
 
         register(context, BLACK_PINE_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
             BlockStateProvider.of(WoodBlockSets.BLACK_PINE.log()),
             new SpruceTrunkPlacer(13, 3),
             BlockStateProvider.of(WoodBlockSets.BLACK_PINE.leaves()),
-            new PineFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(1), UniformIntProvider.create(4, 4)),
+            new PineFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(1), UniformIntProvider.create(3, 4)),
             new TwoLayersFeatureSize(1, 0, 2))
             .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
         register(context, DEAD_BLACK_PINE_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
