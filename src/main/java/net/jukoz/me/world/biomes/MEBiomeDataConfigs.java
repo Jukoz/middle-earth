@@ -181,6 +181,11 @@ public class MEBiomeDataConfigs {
     public static BlocksLayeringData sandstoneLayers = new BlocksLayeringData().addLayerData(0.9f, Blocks.STONE)
             .addLayerData(0.1f, Blocks.SANDSTONE);
 
+    public static SlopeMap golfOfLhunShoresLayers = new SlopeMap()
+            .addSlopeData(26, ModBlocks.WHITE_SAND)
+            .addSlopeData(28, Blocks.SAND)
+            .addSlopeData(33, Blocks.COARSE_DIRT)
+            .addSlopeData(MAX_ANGLE, Blocks.CLAY);
     public static BlocksLayeringData gondorLayers = new BlocksLayeringData().addLayerData(0.5f, Blocks.STONE)
             .addLayerData(0.4f, Blocks.CALCITE)
             .addLayerData(0.1f, Blocks.DIORITE);

@@ -22,6 +22,8 @@ public class ModBiomes {
     public static final int defaultFog = 12638463;
     public static final int defaultWater = 4159204;
     public static final int defaultWaterFog = 329011;
+    public static final int defaultOceanWaterFog = 5340313;
+    public static final int defaultOceanWater = 3360865;
     public static final int hillySky = 8233727;
     public static final int waterSky = 8103167;
     public static final int nearHaradSky = 7254527;
@@ -123,6 +125,10 @@ public class ModBiomes {
                 8628223, 10599910, 3750089, 263470, 3494723, 4478280)));
         context.register(MEBiomeKeys.FROZEN_POND, createFrozenPond(context, new BiomeColorsDTO(
                 8628223, 10599910, 3750089, 263470, 3494723, 4478280)));
+        context.register(MEBiomeKeys.GOLF_OF_LHUN_CLIFFS, createLindonBiome(context, new BiomeColorsDTO(
+                8827134, 12771327, defaultOceanWater, defaultOceanWaterFog, 6523989, 5667402)));
+        context.register(MEBiomeKeys.GOLF_OF_LHUN_SHORES, createLindonBiome(context, new BiomeColorsDTO(
+                8827134, 12771327, defaultOceanWater, defaultOceanWaterFog, 6523989, 5667402)));
         context.register(MEBiomeKeys.GONDOR, createGondorBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 7582562, 6592327)));
         context.register(MEBiomeKeys.GORGOROTH, createGorgorothBiome(context, new BiomeColorsDTO(
@@ -254,9 +260,9 @@ public class ModBiomes {
         context.register(MEBiomeKeys.OASIS, createOasisBiome(context, new BiomeColorsDTO(
                 nearHaradSky, nearHaradSkyFog, 5407446, 1120828, 7253092, 6592350)));
         context.register(MEBiomeKeys.OCEAN, createOceanBiome(context, new BiomeColorsDTO(
-                waterSky, defaultFog, 4157145, defaultWaterFog, 7576434, 6588506)));
+                waterSky, defaultFog, defaultOceanWater, defaultOceanWaterFog, 7576434, 6588506)));
         context.register(MEBiomeKeys.OCEAN_COAST, createOceanCoastBiome(context, new BiomeColorsDTO(
-                8104447, defaultFog, 5145060, 330291, 7971954, 6590810)));
+                8104447, defaultFog, defaultOceanWater, defaultOceanWaterFog, 7971954, 6590810)));
         context.register(MEBiomeKeys.OLD_ANGMAR, createOldAngmarBiome(context, new BiomeColorsDTO(
                 8954077, 11781343, 4814544, 460593, 7443043, 6982236)));
         context.register(MEBiomeKeys.OLD_ARTHEDAIN, createOldArthedainBiome(context, new BiomeColorsDTO(

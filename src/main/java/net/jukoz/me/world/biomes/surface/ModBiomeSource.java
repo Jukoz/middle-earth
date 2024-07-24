@@ -90,7 +90,9 @@ public class ModBiomeSource extends BiomeSource {
             } else if(j < (height - 16)) {
                 processedBiome = getCaveBiome(i, k, meBiome);
             } else if(height <= meBiome.waterHeight + 1.25f) {
-                if(MEBiomesData.wastePondBiomes.contains(biome)) {
+                if(MEBiomesData.coastalBiomes.contains(biome)){
+                    processedBiome = MEBiomesData.oceanCoast.biome;
+                } else if(MEBiomesData.wastePondBiomes.contains(biome)) {
                     processedBiome = MEBiomesData.wastePond.biome;
                 } else if(MEBiomesData.mirkwoodSwampBiomes.contains(biome)) {
                     processedBiome = MEBiomesData.mirkwoodSwamp.biome;
