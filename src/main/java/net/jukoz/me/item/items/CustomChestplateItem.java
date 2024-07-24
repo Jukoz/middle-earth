@@ -71,7 +71,7 @@ public class CustomChestplateItem extends ArmorItem {
             if(subFaction != null){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
             }
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier" + this.material.tier()));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier_" + this.material.tier().toString().toLowerCase()));
             tooltip.add(Text.of(""));
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));

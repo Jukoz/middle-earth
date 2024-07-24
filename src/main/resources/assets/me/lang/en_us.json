@@ -18,7 +18,7 @@
   "advancements.middle_earth.strawberry.description": "The taste of strawberries",
   "advancements.middle_earth.mithril.title": "As light as feathers",
   "advancements.middle_earth.mithril.description": "Mine some Mithril!",
-  
+
   "advancements.alloy.root.title": "Alloys",
   "advancements.alloy.root.description": "All begins with the alloy furnace!",
   "advancements.alloy.artisan_table.title": "Artisan work",
@@ -236,7 +236,7 @@
   "item.me.empty_phial": "Empty Phial",
   "item.me.water_phial": "Water Phial",
   "item.me.starlight_phial": "Starlight Phial",
-  
+
 "#Comment:": "Item - Tools",
   "item.me.jade_pickaxe": "Jade Pickaxe",
   "item.me.jade_axe": "Jade Axe",
@@ -290,7 +290,7 @@
   "item.me.anduin_polearm": "Anduin Polearm",
   "item.me.anduin_spear": "Anduin Spear",
   "item.me.anduin_pike": "Anduin Pike",
-  
+
 "#Comment:": "Item - Bronze",
   "item.me.bronze_sword": "Bronze Sword",
   "item.me.bronze_dagger": "Bronze Dagger",
@@ -312,7 +312,7 @@
   "item.me.dunland_pitchfork": "Dunland Pitchfork",
   "item.me.dunland_spear": "Dunland Spear",
   "item.me.dunland_pike": "Dunland Pike",
-  
+
 "#Comment:": "Item - Longbeard",
   "item.me.longbeard_sword": "Longbeard Sword",
   "item.me.longbeard_dagger": "Longbeard Dagger",
@@ -328,7 +328,7 @@
   "item.me.gondorian_spear": "Gondorian Spear",
   "item.me.gondorian_pike": "Gondorian Pike",
   "item.me.gondorian_bow": "Gondorian Bow",
-  
+
   "#Comment:": "Item - Gundabad",
   "item.me.gundabad_scimitar": "Gundabad Scimitar",
   "item.me.gundabad_falchion": "Gundabad Falchion",
@@ -344,7 +344,7 @@
   "item.me.lorien_spear": "Lórien Spear",
   "item.me.lorien_pike": "Lórien Pike",
   "item.me.lorien_bow": "Lórien Bow",
-  
+
 "#Comment:": "Item - Mordor Orc",
   "item.me.mordor_orc_sword": "Mordor Orc Sword",
   "item.me.mordor_orc_scimitar": "Mordor Orc Scimitar",
@@ -355,9 +355,9 @@
   "item.me.mordor_orc_axe": "Mordor Orc Axe",
   "item.me.mordor_orc_shovel": "Mordor Orc Shovel",
   "item.me.mordor_orc_hoe": "Mordor Orc Hoe",
-  
+
   "item.me.morgul_blade": "Morgul Blade",
-  
+
 "#Comment:": "Item - Rohan",
   "item.me.rohirric_sword": "Rohirric Sword",
   "item.me.rohirric_longsword": "Rohirric Longsword",
@@ -382,134 +382,264 @@
   "item.me.wooden_dagger": "Wooden Dagger",
 
 "#Comment:": "Armours",
-  "item.me.gambeson": "Gambeson",
-  "item.me.cloak": "Cloak",
-  "item.me.cloak_hood": "Cloak Hood",
-  "item.me.tunic_cloak": "Tunic Cloak",
+  "item.me.cape": "Cape",
+  "item.me.hood": "Hood",
   "item.me.fur_cloak": "Fur Cloak",
-  "item.me.fur_cloak_hood": "Fur Cloak Hood",
-  "item.me.chainmail_fur_cloak": "Chainmail Fur Cloak",
+  "item.me.fur_hood": "Fur Hood",
 
+  "item.me.straw_hat": "Straw Hat",
+  "item.me.woven_hat": "Woven Hat",
+  "item.me.bycocket": "Bycocket",
+
+  "item.me.arming_coat": "Arming Coat",
+
+  "item.me.arming_skirt": "Arming Skirt",
+
+  "item.me.shoes": "Shoes",
+  "item.me.work_shoes": "Work Shoes",
+
+  "item.me.leather_cap": "Leather Cap",
+  "item.me.gambeson_cap": "Gambeson Cap",
+  "item.me.gambeson_cowl": "Gambeson Cowl",
+
+  "item.me.leather_vest": "Leather Vest",
+  "item.me.leather_scale_vest": "Leather Scale Vest",
+  "item.me.gambeson": "Gambeson",
+
+  "item.me.sturdy_boots": "Sturdy Boots",
+  "item.me.travelling_boots": "Travelling Boots",
+  "item.me.high_cut_boots": "High Cut Boots",
+
+
+  "item.me.chain_coif": "Chain Coif",
   "item.me.kettle_hat": "Kettle hat",
-  "item.me.rusty_kettle_hat": "Rusty Kettle hat",
+  "item.me.open_face_helmet": "Open Face Helmet",
 
-  "item.me.hobbit_shirriff_hat_green": "Green Hobbit Shirriff Hat",
-  "item.me.hobbit_shirriff_hat_brown": "Brown Hobbit Shirriff Hat",
+  "item.me.chain_hauberk": "Chain Hauberk",
 
-  "item.me.gondorian_mail_helmet": "Gondorian Mail Helmet",
-  "item.me.gondorian_mail_chestplate": "Gondorian Mail Chestplate",
-  "item.me.gondorian_mail_leggings": "Gondorian Mail Leggings",
-  "item.me.gondorian_mail_boots": "Gondorian Mail Boots",
-  "item.me.gondorian_reinforced_mail_helmet": "Gondorian Reinforced Mail Helmet",
-  "item.me.gondorian_reinforced_mail_chestplate": "Gondorian Reinforced Mail Chestplate",
-  "item.me.gondorian_reinforced_mail_leggings": "Gondorian Reinforced Mail Leggings",
-  "item.me.gondorian_reinforced_mail_boots": "Gondorian Reinforced Mail Boots",
+  "item.me.chain_skirt": "Chain Skirt",
+
+  "item.me.sallet": "Sallet",
+
+  "item.me.shirriff_hat": "Shirriff Hat",
+
+  "item.me.gondorian_boots": "Gondorian Boots",
+
+  "item.me.gondorian_cabasset_helmet": "Gondorian Cabasset Helmet",
+
+  "item.me.gondorian_tabbard": "Gondorian Tabbard",
+  "item.me.gondorian_leather_cuirass": "Gondorian Leather Cuirass",
+  "item.me.gondorian_leather_chestplate": "Gondorian Leather Chestplate",
+
+  "item.me.gondorian_chain_coat": "Gondorian Chain Coat",
+
+  "item.me.gondorian_soldier_helmet": "Gondorian Soldier Helmet",
+
+  "item.me.gondorian_soldier_chestplate": "Gondorian Soldier Chestplate",
+
   "item.me.gondorian_plate_helmet": "Gondorian Plate Helmet",
   "item.me.gondorian_plate_chestplate": "Gondorian Plate Chestplate",
   "item.me.gondorian_plate_leggings": "Gondorian Plate Leggings",
   "item.me.gondorian_plate_boots": "Gondorian Plate Boots",
+
+  "item.me.gondorian_captain_helmet": "Gondorian Captain Helmet",
+
+  "item.me.gondorian_kings_guard_helmet": "Gondorian King's Guard Helmet",
+  "item.me.gondorian_kings_guard_chestplate": "Gondorian King's Guard Chestplate",
+  "item.me.gondorian_kings_guard_leggings": "Gondorian King's Guard Leggings",
+  "item.me.gondorian_kings_guard_boots": "Gondorian King's Guard Boots",
+
   "item.me.gondorian_citadel_guard_helmet": "Gondorian Citadel Guard Helmet",
   "item.me.gondorian_citadel_guard_chestplate": "Gondorian Citadel Guard Chestplate",
   "item.me.gondorian_citadel_guard_leggings": "Gondorian Citadel Guard Leggings",
   "item.me.gondorian_citadel_guard_boots": "Gondorian Citadel Guard Boots",
+
   "item.me.gondorian_fountain_guard_helmet": "Gondorian Fountain Guard Helmet",
   "item.me.gondorian_fountain_guard_chestplate": "Gondorian Fountain Guard Chestplate",
   "item.me.gondorian_fountain_guard_leggings": "Gondorian Fountain Guard Leggings",
   "item.me.gondorian_fountain_guard_boots": "Gondorian Fountain Guard Boots",
-  
-  "item.me.rohirric_mail_helmet": "Rohirric Mail Helmet",
-  "item.me.rohirric_mail_chestplate": "Rohirric Mail Chestplate",
-  "item.me.rohirric_mail_leggings": "Rohirric Mail Leggings",
-  "item.me.rohirric_mail_boots": "Rohirric Mail Boots",
-  "item.me.rohirric_scale_helmet": "Rohirric Scale Helmet",
-  "item.me.rohirric_scale_chestplate": "Rohirric Scale Chestplate",
-  "item.me.rohirric_scale_leggings": "Rohirric Scale Leggings",
-  "item.me.rohirric_scale_boots": "Rohirric Scale Boots",
+
+  "item.me.rohirric_coat": "Rohirric Coat",
+  "item.me.rohirric_reinforced_coat": "Rohirric Reinforced Coat",
+
+  "item.me.rohirric_leather_helmet": "Rohirric Leather Helmet",
+  "item.me.rohirric_reinforced_leather_helmet": "Rohirric Reinforced Leather Helmet",
+  "item.me.rohirric_ornemented_leather_helmet": "Rohirric Ornemented Leather Helmet",
+
+  "item.me.rohirric_leather_vest": "Rohirric Leather Vest",
+  "item.me.rohirric_leather_scale_vest": "Rohirric Leather Scale Vest",
+  "item.me.rohirric_gambeson": "Rohirric Gambeson",
+
+  "item.me.rohirric_militia_helmet": "Rohirric Militia Helmet",
+  "item.me.rohirric_braced_militia_helmet": "Rohirric Braced Militia Helmet",
+  "item.me.rohirric_reinforced_militia_helmet": "Rohirric Reinforced Militia Helmet",
+  "item.me.rohirric_ornemented_militia_helmet": "Rohirric Ornemented Militia Helmet",
+
+  "item.me.rohirric_mail_shirt": "Rohirric Mail Shirt",
+  "item.me.rohirric_mail_shirt_open": "Rohirric Mail Shirt Open",
+  "item.me.rohirric_mail_hauberk": "Rohirric Mail Hauberk",
+
+  "item.me.rohirric_soldier_helmet": "Rohirric Soldier Helmet",
+  "item.me.rohirric_ornemented_soldier_helmet": "Rohirric Ornemented Soldier Helmet",
   "item.me.rohirric_royal_guard_helmet": "Rohirric Royal Guard Helmet",
-  "item.me.rohirric_royal_guard_chestplate": "Rohirric Royal Guard Chestplate",
-  "item.me.rohirric_royal_guard_leggings": "Rohirric Royal Guard Leggings",
-  "item.me.rohirric_royal_guard_boots": "Rohirric Royal Guard Boots",
+
+  "item.me.rohirric_scale_hauberk": "Rohirric Scale Hauberk",
+  "item.me.rohirric_ornemented_scale_hauberk": "Rohirric Ornemented Scale Hauberk",
+
+  "item.me.rohirric_scale_jacket": "Rohirric Scale Jacket",
 
   "item.me.eorling_marshal_helmet": "Eorling Marshal Helmet",
   "item.me.eorling_marshal_chestplate": "Eorling Marshal Chestplate",
   "item.me.eorling_marshal_leggings": "Eorling Marshal Leggings",
   "item.me.eorling_marshal_boots": "Eorling Marshal Boots",
-
   "item.me.horse_lord_helmet": "Horse Lord Helmet",
   "item.me.horse_lord_chestplate": "Horse Lord Chestplate",
   "item.me.horse_lord_leggings": "Horse Lord Leggings",
   "item.me.horse_lord_boots": "Horse Lord Boots",
 
+  "item.me.dalish_arming_coat_black_fur": "Dalish Arming Coat Black Fur",
+  "item.me.dalish_arming_coat_brown_fur": "Dalish Arming Coat Brown Fur",
+  "item.me.dalish_arming_coat_tan_fur": "Dalish Arming Coat Tan Fur",
+  "item.me.dalish_heyday_arming_coat": "Dalish Heyday Arming Coat",
+
+  "item.me.dalish_boots": "Dalish Boots",
+
+  "item.me.dalish_helmet": "Dalish Helmet",
+  "item.me.dalish_helmet_black_fur": "Dalish Helmet Black Fur",
+  "item.me.dalish_helmet_brown_fur": "Dalish Helmet Brown Fur",
+  "item.me.dalish_helmet_tan_fur": "Dalish Helmet Tan Fur",
+
+  "item.me.dalish_chain_hauberk": "Dalish chain Hauberk",
+
+  "item.me.dalish_chain_coat": "Dalish Chain Coat",
+
+  "item.me.dalish_burgonet": "Dalish Burgonet",
+
+  "item.me.dalish_scale_hauberk": "Dalish Scale Hauberk",
+
+  "item.me.dalish_heyday_helmet": "Dalish Heyday Helmet",
+  "item.me.dalish_heyday_chestplate": "Dalish Heyday Chestplate",
+  "item.me.dalish_heyday_chain_coat": "Dalish Heyday Chain Coat",
+  "item.me.dalish_heyday_boots": "Dalish Heyday Boots",
+
+  "item.me.barding_soldier_helmet": "Barding Soldier Helmet",
+  "item.me.barding_soldier_chestplate": "Barding Soldier Chestplate",
+  "item.me.barding_chain_skirt": "Barding Chain Skirt",
+  "item.me.dalish_plated_boots": "Dalish Plated Boots",
+
+  "item.me.barding_sergeant_helmet": "Barding Seargeant Helmet",
+  "item.me.barding_sergeant_chestplate": "Barding Seargeant Chestplate",
+
   "item.me.dwarven_partisan_chestplate": "Dwarven Partisan Chestplate",
   "item.me.dwarven_partisan_leggings": "Dwarven Partisan Leggings",
-  "item.me.dwarven_partisan_boots": "Dwarven Partisan Boots",
 
-  "item.me.erebor_mail_helmet": "Erebor Mail Helmet",
-  "item.me.erebor_mail_chestplate": "Erebor Mail Chestplate",
-  "item.me.erebor_mail_leggings": "Erebor Mail Leggings",
-  "item.me.erebor_mail_boots": "Erebor Mail Boots",
-  "item.me.erebor_scale_helmet": "Erebor Scale Helmet",
-  "item.me.erebor_scale_chestplate": "Erebor Scale Chestplate",
-  "item.me.erebor_scale_leggings": "Erebor Scale Leggings",
-  "item.me.erebor_scale_boots": "Erebor Scale Boots",
   "item.me.erebor_plate_helmet": "Erebor Plate Helmet",
   "item.me.erebor_plate_chestplate": "Erebor Plate Chestplate",
   "item.me.erebor_plate_leggings": "Erebor Plate Leggings",
   "item.me.erebor_plate_boots": "Erebor Plate Boots",
-  "item.me.erebor_commander_helmet": "Erebor Commander Helmet",
-  "item.me.erebor_commander_chestplate": "Erebor Commander Chestplate",
-  "item.me.erebor_commander_leggings": "Erebor Commander Leggings",
-  "item.me.erebor_commander_boots": "Erebor Commander Boots",
 
-  "item.me.lorien_mail_helmet": "Lórien Mail Helmet",
-  "item.me.lorien_mail_chestplate": "Lórien Mail Chestplate",
-  "item.me.lorien_mail_leggings": "Lórien Mail Leggings",
-  "item.me.lorien_mail_boots": "Lórien Mail Boots",
-  "item.me.lorien_scale_helmet": "Lórien Scale Helmet",
-  "item.me.lorien_scale_chestplate": "Lórien Scale Chestplate",
-  "item.me.lorien_scale_leggings": "Lórien Scale Leggings",
-  "item.me.lorien_scale_boots": "Lórien Scale Boots",
-  "item.me.lorien_plate_helmet": "Lórien Plate Helmet",
-  "item.me.lorien_plate_chestplate": "Lórien Plate Chestplate",
-  "item.me.lorien_plate_leggings": "Lórien Plate Leggings",
-  "item.me.lorien_plate_boots": "Lórien Plate Boots",
-  "item.me.lorien_commander_helmet": "Lórien Commander Helmet",
-  "item.me.lorien_commander_chestplate": "Lórien Commander Chestplate",
-  "item.me.lorien_commander_leggings": "Lórien Commander Leggings",
-  "item.me.lorien_commander_boots": "Lórien Commander Boots",
+  "item.me.ravenhill_watchwarden_helmet": "Ravenhill Watchwarden Helmet",
+  "item.me.ravenhill_watchwarden_chestplate": "Ravenhill Watchwarden Chestplate",
+  "item.me.ravenhill_watchwarden_leggings": "Ravenhill Watchwarden Leggings",
+  "item.me.ravenhill_watchwarden_boots": "Ravenhill Watchwarden Boots",
 
-  "item.me.mordor_orc_mail_helmet": "Mordor Orc Mail Helmet",
-  "item.me.mordor_orc_mail_chestplate": "Mordor Orc Mail Chestplate",
-  "item.me.mordor_orc_mail_leggings": "Mordor Orc Mail Leggings",
-  "item.me.mordor_orc_mail_boots": "Mordor Orc Mail Boots",
-  "item.me.mordor_black_uruk_scale_helmet": "Mordor Black Uruk Scale Helmet",
-  "item.me.mordor_black_uruk_scale_chestplate": "Mordor Black Uruk Scale Chestplate",
-  "item.me.mordor_black_uruk_scale_leggings": "Mordor Black Uruk Scale Leggings",
-  "item.me.mordor_black_uruk_scale_boots": "Mordor Black Uruk Scale Boots",
-  "item.me.mordor_black_uruk_plate_helmet": "Mordor Black Uruk Plate Helmet",
-  "item.me.mordor_black_uruk_plate_chestplate": "Mordor Black Uruk Plate Chestplate",
-  "item.me.mordor_black_uruk_plate_leggings": "Mordor Black Uruk Plate Leggings",
-  "item.me.mordor_black_uruk_plate_boots": "Mordor Black Uruk Plate Boots",
-  "item.me.mordor_black_uruk_commander_helmet": "Mordor Black Uruk Commander Helmet",
+  "item.me.ravenhill_sentinel_helmet": "Ravenhill Sentinel Helmet",
+  "item.me.ravenhill_sentinel_chestplate": "Ravenhill Sentinel Chestplate",
+  "item.me.ravenhill_sentinel_leggings": "Ravenhill Sentinel Leggings",
+  "item.me.ravenhill_sentinel_boots": "Ravenhill Sentinel Boots",
+
+  "item.me.erebor_gatewarden_helmet": "Erebor Gatewarden Helmet",
+  "item.me.erebor_gatewarden_chestplate": "Erebor Gatewarden Chestplate",
+  "item.me.erebor_gatewarden_leggings": "Erebor Gatewarden Leggings",
+  "item.me.erebor_gatewarden_boots": "Erebor Gatewarden Boots",
+
+  "item.me.elven_arming_coat": "Elven Arming Coat",
+
+  "item.me.elven_arming_skirt": "Elven Arming Skirt",
+  "item.me.elven_open_arming_skirt": "Elven Open Arming Skirt",
+
+  "item.me.elven_boots": "Elven Boots",
+
+  "item.me.elven_chain_coif": "Elven Chain Coif",
+
+  "item.me.elven_chain_hauberk": "Elven Chain Hauberk",
+
+  "item.me.elven_chain_skirt": "Elven Chain Skirt",
+
+  "item.me.lorien_diadem": "Lórien Diadem",
+
+  "item.me.lorien_leather_helmet": "Lórien Leather Helmet",
+
+  "item.me.lorien_arming_coat": "Lórien Arming Coat",
+
+  "item.me.lorien_arming_skirt": "Lórien Arming Skirt",
+
+  "item.me.lorien_chain_coif_diadem": "Lórien Chain Coif Diadem",
+  "item.me.lorien_short_chain_coif_diadem": "Lórien Short Chain Coif Diadem",
+
+  "item.me.lorien_chain_hauberk": "Lórien Chain Hauberk",
+  "item.me.lorien_marchwarden_chain_hauberk": "Lórien Marchwarden Chain Hauberk",
+
+  "item.me.lorien_soldier_helmet": "Lórien Soldier Helmet",
+
+  "item.me.lorien_soldier_chain_hauberk": "Lórien Soldier Chain Hauberk",
+  "item.me.lorien_soldier_scale_hauberk": "Lórien Soldier Scale Hauberk",
+
+  "item.me.lorien_scale_coat": "Lórien Scale Coat",
+
+  "item.me.galadhrim_helmet": "Galadhrim Helmet",
+  "item.me.galadhrim_chestplate": "Galadhrim Chestplate",
+  "item.me.galadhrim_leggings": "Galadhrim Leggings",
+  "item.me.galadhrim_boots": "Galadhrim Boots",
+
+  "item.me.galadhrim_lord_helmet": "Galadhrim Lord Helmet",
+  "item.me.galadhrim_lord_chestplate": "Galadhrim Lord Chestplate",
+  "item.me.galadhrim_lord_leggings": "Galadhrim Lord Leggings",
+  "item.me.galadhrim_lord_boots": "Galadhrim Lord Boots",
+
+  "item.me.orc_mail_coif": "Orc Mail Coif",
+
+  "item.me.orc_mail_hauberk": "Orc Mail Hauberk",
+
+  "item.me.orc_mail_coat": "Orc Mail Coat",
+
+  "item.me.orc_sallet": "Orc Sallet",
+
+  "item.me.orc_gorget_hauberk": "Orc Gorget Hauberk",
+
+  "item.me.orc_plate_boots": "Orc Plate Boots",
+
+  "item.me.mordor_orc_chestplate": "Mordor Orc Chestplate",
+
+  "item.me.black_uruk_plate_helmet": "Black Uruk Plate Helmet",
+  "item.me.black_uruk_plate_chestplate": "Black Uruk Plate Chestplate",
+  "item.me.black_uruk_plate_leggings": "Black Uruk Plate Leggings",
+  "item.me.black_uruk_plate_boots": "Black Uruk Plate Boots",
+
+  "item.me.black_uruk_commander_helmet": "Black Uruk Commander Helmet",
+  "item.me.black_uruk_commander_chestplate": "Black Uruk Commander Chestplate",
+
   "item.me.nazgul_cloak_hood": "Nazgûl Cloak Hood",
   "item.me.nazgul_cloak": "Nazgûl Cloak",
   "item.me.nazgul_pants": "Nazgûl Pants",
   "item.me.nazgul_boots": "Nazgûl Boots",
 
-  "item.me.misty_goblin_mail_helmet": "Misty Goblin Mail Helmet",
-  "item.me.misty_goblin_mail_chestplate": "Misty Goblin Mail Chestplate",
-  "item.me.misty_goblin_mail_leggings": "Misty Goblin Mail Leggings",
-  "item.me.misty_goblin_mail_boots": "Misty Goblin Mail Boots",
-  "item.me.misty_hobgoblin_scale_helmet": "Misty Hobgoblin Scale Helmet",
-  "item.me.misty_hobgoblin_scale_chestplate": "Misty Hobgoblin Scale Chestplate",
-  "item.me.misty_hobgoblin_scale_leggings": "Misty Hobgoblin Scale Leggings",
-  "item.me.misty_hobgoblin_scale_boots": "Misty Hobgoblin Scale Boots",
-  "item.me.misty_hobgoblin_plate_helmet": "Misty Hobgoblin Plate Helmet",
-  "item.me.misty_hobgoblin_plate_chestplate": "Misty Hobgoblin Plate Chestplate",
-  "item.me.misty_hobgoblin_plate_leggings": "Misty Hobgoblin Plate Leggings",
-  "item.me.misty_hobgoblin_plate_boots": "Misty Hobgoblin Plate Boots",
-  "item.me.misty_hobgoblin_commander_helmet": "Misty Hobgoblin Commander Helmet",
-  "item.me.misty_hobgoblin_commander_chestplate": "Misty Hobgoblin Commander Chestplate",
+  "item.me.uruk_hai_leather_scout_cap": "Uruk-Hai Leather Scout Cap",
+
+  "item.me.uruk_hai_plate_helmet": "Uruk-Hai Plate Helmet",
+  "item.me.uruk_hai_plate_painted_helmet": "Uruk-Hai Plate Painted Helmet",
+  "item.me.uruk_hai_sapper_helmet": "Uruk-Hai Sapper Helmet",
+  "item.me.uruk_hai_sapper_painted_helmet": "Uruk-Hai Sapper Painted Helmet",
+  "item.me.uruk_hai_berserker_helmet": "Uruk-Hai Berserker Helmet",
+  "item.me.uruk_hai_berserker_painted_helmet": "Uruk-Hai Berserker Painted Helmet",
+  "item.me.uruk_hai_commander_helmet": "Uruk-Hai Commander Helmet",
+  "item.me.uruk_hai_commander_painted_helmet": "Uruk-Hai Commander Painted Helmet",
+
+  "item.me.uruk_hai_plate_chestplate": "Uruk-Hai Plate Chestplate",
+
+  "item.me.uruk_hai_plate_leggings": "Uruk-Hai Plate Leggings",
+
+  "item.me.uruk_hai_plate_boots": "Uruk-Hai Plate Boots",
 
   "item.me.steel_troll_armor": "Steel Troll Armor",
 
@@ -1621,7 +1751,7 @@
   "block.me.old_bricks_vertical_slab": "Old Bricks Vertical Slab",
   "block.me.old_bricks_stairs": "Old Bricks Stairs",
   "block.me.old_bricks_wall": "Old Bricks Wall",
-  
+
   "#Comment:": "Block - Basalt",
   "block.me.cobbled_basalt": "Cobbled Basalt",
   "block.me.cobbled_basalt_slab": "Cobbled Basalt Slab",
@@ -1741,7 +1871,7 @@
   "block.me.cracked_polished_jadeite_wall": "Cracked Polished Jadeite Wall",
   "block.me.chiseled_polished_jadeite": "Chiseled Polished Jadeite",
   "block.me.chiseled_jadeite_bricks": "Chiseled Jadeite Bricks",
-  
+
   "block.me.jadeite_pressure_plate": "Jadeite Pressure Plate",
   "block.me.jadeite_button": "Jadeite Button",
   "block.me.jadeite_trapdoor": "Jadeite Trapdoor",
@@ -1892,7 +2022,7 @@
   "block.me.chiseled_polished_ironstone": "Chiseled Polished Ironstone",
   "block.me.chiseled_ironstone_bricks": "Chiseled Ironstone Bricks",
   "block.me.chiseled_ironstone": "Chiseled Ironstone",
-  
+
   "block.me.ironstone_pressure_plate": "Ironstone Pressure Plate",
   "block.me.ironstone_button": "Ironstone Button",
   "block.me.ironstone_trapdoor": "Ironstone Trapdoor",
@@ -2231,7 +2361,7 @@
   "block.me.nurgon_stool": "Núrgon Stool",
   "block.me.nurgon_table": "Núrgon Table",
   "block.me.nurgon_chair": "Núrgon Chair",
-  
+
 "#Comment:": "Block - Medgon",
   "block.me.smooth_medgon": "Smooth Medgon",
   "block.me.smooth_medgon_slab": "Smooth Medgon Slab",
@@ -2385,7 +2515,7 @@
   "block.me.frozen_stone_stool": "Frozen Stone Stool",
   "block.me.frozen_stone_table": "Frozen Stone Table",
   "block.me.frozen_stone_chair": "Frozen Stone Chair",
-  
+
 "#Comment:": "Block - Mixed Stones",
   "block.me.mixed_stones": "Mixed Stones",
   "block.me.mixed_stones_slab": "Mixed Stones Slab",
@@ -2402,7 +2532,7 @@
   "block.me.cracked_mixed_stones_vertical_slab": "Cracked Mixed Stones Vertical Slab",
   "block.me.cracked_mixed_stones_stairs": "Cracked Mixed Stones Stairs",
   "block.me.cracked_mixed_stones_wall": "Cracked Mixed Stones Wall",
-  
+
   "#Comment:": "Block - Gems",
   "block.me.quartz_block": "Quartz Block",
   "block.me.budding_quartz": "Budding Quartz",
@@ -2428,7 +2558,7 @@
   "block.me.small_glowstone_bud": "Small Glowstone Bud",
   "block.me.medium_glowstone_bud": "Medium Glowstone Bud",
   "block.me.large_glowstone_bud": "Large Glowstone Bud",
-  
+
 "#Comment:": "Block - Dirt",
   "block.me.dry_dirt": "Dry Dirt",
   "block.me.dry_dirt_slab": "Dry Dirt Slab",
@@ -2670,18 +2800,18 @@
   "block.me.maple_shingles_slab": "Maple Shingles Slab",
   "block.me.maple_shingles_vertical_slab": "Maple Shingles Vertical Slab",
   "block.me.maple_shingles_wall": "Maple Shingles Wall",
-  
+
   "block.me.maple_wood_slab": "Maple Wood Slab",
   "block.me.maple_wood_vertical_slab": "Maple Wood Vertical Slab",
   "block.me.maple_wood_stairs": "Maple Wood Stairs",
   "block.me.stripped_maple_wood_slab": "Stripped Maple Wood Slab",
   "block.me.stripped_maple_wood_vertical_slab": "Stripped Maple Wood Vertical Slab",
   "block.me.stripped_maple_wood_stairs": "Stripped Maple Wood Stairs",
-  
+
   "block.me.maple_stool": "Maple Stool",
   "block.me.maple_table": "Maple Table",
   "block.me.maple_chair": "Maple Chair",
-  
+
 "#Comment:": "Block - Silver Maple",
   "block.me.silver_maple_log": "Silver Maple Log",
   "block.me.silver_maple_wood": "Maple Wood",
@@ -3199,13 +3329,13 @@
   "block.me.waxed_rotten_thatch_vertical_slab": "Waxed Rotten Thatch Vertical Slab",
   "block.me.waxed_rotten_thatch_stairs": "Waxed Rotten Thatch Stairs",
   "block.me.waxed_rotten_thatch_wall": "Waxed Rotten Thatch Wall",
-  
+
 "#Comment:": "Block - Furniture",
 
   "block.me.oak_stool": "Oak Stool",
   "block.me.oak_table": "Oak Table",
   "block.me.oak_chair": "Oak Chair",
-  
+
   "block.me.spruce_stool": "Spruce Stool",
   "block.me.spruce_table": "Spruce Table",
   "block.me.spruce_chair": "Spruce Chair",
@@ -3522,7 +3652,7 @@
   "block.me.bamboo_shingles_wall": "Bamboo Shingles Wall",
   "block.me.crimson_shingles_wall": "Crimson Shingles Wall",
   "block.me.warped_shingles_wall": "Warped Shingles Wall",
-  
+
   "block.me.cobblestone_vertical_slab": "Cobblestone Vertical Slab",
   "block.me.mossy_cobblestone_vertical_slab": "Mossy Cobblestone Vertical Slab",
   "block.me.smooth_stone_vertical_slab": "Smooth Stone Vertical Slab",
@@ -3749,7 +3879,7 @@
   "block.me.red_wool_slab": "Red Wool Slab",
   "block.me.white_wool_slab": "White Wool Slab",
   "block.me.yellow_wool_slab": "Yellow Wool Slab",
-  
+
   "block.me.black_wool_vertical_slab": "Black Wool Vertical Slab",
   "block.me.blue_wool_vertical_slab": "Blue Wool Vertical Slab",
   "block.me.brown_wool_vertical_slab": "Brown Wool Vertical Slab",
@@ -3795,7 +3925,7 @@
   "block.me.fire_of_orthanc": "Fire of Orthanc",
 
   "block.me.wood_pile": "Wood Pile",
-  
+
   "block.me.rope": "Rope",
 
 
@@ -3992,7 +4122,7 @@
 "#Comment": "SOUNDS",
   "sounds.me.nazgul_fade": "Nazgûl Fading",
   "sounds.me.nazgul_scream": "Nazgûl Screaming",
-  
+
 "Comment": "GUI",
   "screen.me.alloy_furnace": "Alloy Furnace",
   "container.artisan_table": "Artisan Table",
@@ -4010,12 +4140,13 @@
   "tooltip.me.reach" : "Reach: ",
   "tooltip.me.blocks_range" : " Blocks",
 
-  "tooltip.me.tier1" : "§fBasic Armor",
-  "tooltip.me.tier2" : "§aLight Armor",
-  "tooltip.me.tier3" : "§9Medium Armor",
-  "tooltip.me.tier4" : "§5Sturdy Armor",
-  "tooltip.me.tier5" : "§cHeavy Armor",
-  "tooltip.me.tier6" : "§bMithril",
+  "tooltip.me.tier_clothing" : "§fClothing",
+  "tooltip.me.tier_basic" : "§fBasic Armor",
+  "tooltip.me.tier_light" : "§aLight Armor",
+  "tooltip.me.tier_medium" : "§9Medium Armor",
+  "tooltip.me.tier_sturdy" : "§5Sturdy Armor",
+  "tooltip.me.tier_heavy" : "§cHeavy Armor",
+  "tooltip.me.tier_mithril" : "§bMithril",
 
   "tooltip.me.generic" : "Generic",
 
@@ -4047,7 +4178,10 @@
   "tooltip.me.feather" : "Feather",
 
 "Comment": "Capes",
+  "tooltip.me.base_hood": "Basic Hood",
+  "tooltip.me.fur_hood": "Fur Hood",
   "tooltip.me.base_cape": "Basic Cape",
+  "tooltip.me.fur_cloak": "Fur Cloak",
 
   "tooltip.me.base_cloak": "Basic Cloak",
 
@@ -4058,14 +4192,19 @@
   "tooltip.me.gondorian_kings_guard_cape": "Gondorian King's Guard Cape",
   "tooltip.me.gondorian_citadel_guard_cape": "Gondorian Citadel Guard Cape",
   "tooltip.me.gondorian_fountain_guard_cape": "Gondorian Fountain Guard Cape",
-  
+
   "tooltip.me.rohirric_cape": "Rohirric Cape",
   "tooltip.me.rohirric_royal_guard_cape": "Rohirric Royal Guard Cape",
   "tooltip.me.eorling_marshal_cape": "Eorling Marshal Cape",
   "tooltip.me.horse_lord_cape": "Horse Lord Cape",
 
-  "tooltip.me.erebor_cape": "Erebor Cape",
+  "tooltip.me.dalish_heyday_cape": "Dalish Heyday Cape",
+  "tooltip.me.barding_sergeant_cape": "Barding Sergeant Cape",
 
-  "tooltip.me.lorien_cape": "Lórien Cape",
-  "tooltip.me.lorien_commander_cape": "Lórien commander Cape"
+  "tooltip.me.erebor_cape": "Erebor Cape",
+  "tooltip.me.ravenhill_sentinel_cape": "Ravenhill Sentinel Cape",
+
+  "tooltip.me.lorien_marchwarden_cape": "Lórien Marchwarden Cape",
+  "tooltip.me.galadhrim_cape": "Galadhrim Cape",
+  "tooltip.me.lorien_lord_cape": "Galadhrim Lord Cape"
 }

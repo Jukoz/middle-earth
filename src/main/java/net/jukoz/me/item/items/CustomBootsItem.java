@@ -14,8 +14,7 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 
-public class CustomBootsItem extends ArmorItem{
-
+public class CustomBootsItem extends ArmorItem {
     public ModFactions faction;
     public ModSubFactions subFaction;
 
@@ -45,13 +44,11 @@ public class CustomBootsItem extends ArmorItem{
             if(subFaction != null){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName()));
             }
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier" + this.material.tier()));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier_" + this.material.tier().toString().toLowerCase()));
             tooltip.add(Text.of(""));
-
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
         }
-
         CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
 
         if (Screen.hasAltDown()) {

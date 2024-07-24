@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.MiddleEarthClient;
 import net.jukoz.me.client.model.equipment.CustomLeggingsModel;
-import net.jukoz.me.item.items.CustomLeggingsItem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
@@ -28,7 +27,6 @@ public class DegradedLeggingsArmorRenderer implements ArmorRenderer {
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, BipedEntityModel<LivingEntity> contextModel) {
         this.customLeggingsModel = new CustomLeggingsModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_LEGGINGS));
 
-        CustomLeggingsItem item = (CustomLeggingsItem)stack.getItem();
         boolean dyeable = false;
         String texture;
 

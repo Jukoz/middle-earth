@@ -3,6 +3,7 @@ package net.jukoz.me.item.utils;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
@@ -13,224 +14,55 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 
 import java.util.EnumMap;
-import java.util.List;
 import java.util.function.Supplier;
 
 public class ModArmorMaterials {
 
-    public static final ExtendedArmorMaterial CAPE = registerArmor("cape", 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
+    public static final ExtendedArmorMaterial STRAW_T1 = registerArmor(Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModResourceItems.STRAW);
 
-    public static final ExtendedArmorMaterial STRAW_HAT = registerArmor("straw_hat", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(ModResourceItems.STRAW)
-    );
+    public static final ExtendedArmorMaterial LEATHER_T0 = registerArmor(Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, Items.LEATHER);
+    public static final ExtendedArmorMaterial LEATHER_T1 = registerArmor(Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, Items.LEATHER);
+    public static final ExtendedArmorMaterial LEATHER_T2 = registerArmor(Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, Items.LEATHER);
+    public static final ExtendedArmorMaterial LEATHER_T3 = registerArmor(Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, Items.LEATHER);
 
-    public static final ExtendedArmorMaterial WOVEN_HAT = registerArmor("woven_hat", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
+    public static final ExtendedArmorMaterial IRON_T2 = registerArmor(Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, Items.IRON_INGOT);
+    public static final ExtendedArmorMaterial IRON_T3 = registerArmor(Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, Items.IRON_INGOT);
 
-    public static final ExtendedArmorMaterial HOBBIT_SHIRRIFF_HAT = registerArmor("hobbit_shirriff_hat", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
+    public static final ExtendedArmorMaterial BRONZE_T2 = registerArmor(Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.BRONZE_INGOT);
+    public static final ExtendedArmorMaterial BRONZE_T3 = registerArmor(Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.BRONZE_INGOT);
+    public static final ExtendedArmorMaterial BRONZE_T4 = registerArmor(Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.BRONZE_INGOT);
 
-    public static final ExtendedArmorMaterial CHAIN_ARMOR = registerArmor("chain_armor", 3, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, () -> Ingredient.ofItems(Items.IRON_INGOT)
-    );
+    public static final ExtendedArmorMaterial SLAG_T2 = registerArmor(Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.ORC_STEEL_INGOT);
+    public static final ExtendedArmorMaterial SLAG_T3 = registerArmor(Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.ORC_STEEL_INGOT);
+    public static final ExtendedArmorMaterial SLAG_T4 = registerArmor(Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.ORC_STEEL_INGOT);
 
-    public static final ExtendedArmorMaterial ELVEN_CHAIN_ARMOR = registerArmor("elven_chain_armor", 3, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, () -> Ingredient.ofItems(Items.IRON_INGOT)
-    );
+    public static final ExtendedArmorMaterial STEEL_T3 = registerArmor(Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.STEEL_INGOT);
+    public static final ExtendedArmorMaterial STEEL_T4 = registerArmor(Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.STEEL_INGOT);
+    public static final ExtendedArmorMaterial STEEL_T5 = registerArmor(Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ModResourceItems.STEEL_INGOT);
 
-    public static final ExtendedArmorMaterial OPEN_FACE = registerArmor("open_face", 3, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
-    );
+    public static final ExtendedArmorMaterial DWARVEN_STEEL_T3 = registerArmor(Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.DWARVEN_STEEL_INGOT);
+    public static final ExtendedArmorMaterial DWARVEN_STEEL_T4 = registerArmor(Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.DWARVEN_STEEL_INGOT);
+    public static final ExtendedArmorMaterial DWARVEN_STEEL_T5 = registerArmor(Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ModResourceItems.DWARVEN_STEEL_INGOT);
 
-    public static final ExtendedArmorMaterial SALLET = registerArmor("sallet", 3, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
-    );
+    public static final ExtendedArmorMaterial ELVEN_STEEL_T3 = registerArmor(Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.ELVEN_STEEL_INGOT);
+    public static final ExtendedArmorMaterial ELVEN_STEEL_T4 = registerArmor(Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.ELVEN_STEEL_INGOT);
+    public static final ExtendedArmorMaterial ELVEN_STEEL_T5 = registerArmor(Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ModResourceItems.ELVEN_STEEL_INGOT);
 
-    public static final ExtendedArmorMaterial GENERIC_T1 = registerArmor("generic_t1", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
+    public static final ExtendedArmorMaterial URUK_STEEL_T3 = registerArmor(Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.URUK_STEEL_INGOT);
+    public static final ExtendedArmorMaterial URUK_STEEL_T4 = registerArmor(Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.URUK_STEEL_INGOT);
+    public static final ExtendedArmorMaterial URUK_STEEL_T5 = registerArmor(Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ModResourceItems.URUK_STEEL_INGOT);
 
-    public static final ExtendedArmorMaterial ELVEN_T1 = registerArmor("elven_t1", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
 
-    public static final ExtendedArmorMaterial GAMBESON_CAP = registerArmor("gambeson_cap", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
+    public static final ExtendedArmorMaterial MORGUL_STEEL_T3 = registerArmor(Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.MORGUL_STEEL_INGOT);
 
-    public static final ExtendedArmorMaterial STURDY_BOOTS = registerArmor("sturdy_boots", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial ELVEN_T2 = registerArmor("elven_t2", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial GAMBESON_COWL = registerArmor("gambeson_cowl", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial GAMBESON = registerArmor("gambeson", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial CLOAK = registerArmor("cloak", 1, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial TUNIC_CLOAK = registerArmor("tunic_cloak", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial FUR_CLOAK = registerArmor("fur_cloak", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.IRON_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial CHAINMAIL_FUR_CLOAK = registerArmor("chainmail_fur_cloak", 3, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, () -> Ingredient.ofItems(Items.IRON_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial RUSTY_KETTLE_HAT = registerArmor("rusty_kettle_hat", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial KETTLE_HAT = registerArmor("kettle_hat", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial NAZGUL_CLOAK = registerArmor("nazgul_cloak", 3, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(ModResourceItems.MORGUL_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial GONDORIAN_BOOTS = registerArmor("gondorian_boots", 2, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial GONDORIAN_LEATHER_CUIRASS = registerArmor("gondorian_leather_cuirass", 2, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial GONDORIAN_CABASSET = registerArmor("gondorian_cabasset", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial GONDORIAN_CHAIN_COAT = registerArmor("gondorian_chain_coat", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial GONDORIAN_TABBARD = registerArmor("gondorian_tabbard_open", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial GONDORIAN_SOLDIER = registerArmor("gondorian_soldier", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial GONDORIAN_PLATE_ARMOR = registerArmor("gondorian_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
-    );
-    
-    public static final ExtendedArmorMaterial GONDORIAN_CAPTAIN_ARMOR = registerArmor("gondorian_captain", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
-    );
-    
-    public static final ExtendedArmorMaterial GONDORIAN_KINGS_GUARD_ARMOR = registerArmor("gondorian_kings_guard", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial GONDORIAN_CITADEL_GUARD_ARMOR = registerArmor("gondorian_citadel_guard", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial GONDORIAN_FOUNTAIN_GUARD_ARMOR = registerArmor("gondorian_fountain_guard", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial ROHIRRIC_LEATHER = registerArmor("rohirric_leather", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial ROHIRRIC_MILITIA = registerArmor("rohirric_militia", 3, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial ROHIRRIC_MAIL = registerArmor("rohirric_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial ROHIRRIC_SOLDIER = registerArmor("rohirric_militia", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial ROHIRRIC_SCALE_ARMOR = registerArmor("rohirric_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial ROHIRRIC_ROYAL_GUARD_ARMOR = registerArmor("rohirric_royal_guard", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial EORLING_MARSHAL_ARMOR = registerArmor("eorling_marshal", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial HORSE_LORD_ARMOR = registerArmor("horse_lord", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial DALE_T1 = registerArmor("dale_t1", 1, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial DALE_T2 = registerArmor("dale_t2", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial DALE_T3 = registerArmor("dale_t3", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial DALE_T4 = registerArmor("dale_t4", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial BARDING_SOLDIER = registerArmor("barding_soldier", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial DWARVEN_PARTISAN = registerArmor("dwarven_partisan", 2, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial EREBOR_MAIL_ARMOR = registerArmor("erebor_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.IRON_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial EREBOR_SCALE_ARMOR = registerArmor("erebor_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial EREBOR_PLATE_ARMOR = registerArmor("erebor_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial EREBOR_COMMANDER_ARMOR = registerArmor("erebor_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial LORIEN_T1 = registerArmor("lorien_t1", 1, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial LORIEN_T2 = registerArmor("lorien_t2", 2, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial LORIEN_T3 = registerArmor("lorien_t3", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial LORIEN_T4 = registerArmor("lorien_t4", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial GALADHRIM_ARMOR = registerArmor("galadhrim", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial GALADHRIM_LORD_ARMOR = registerArmor("galadhrim_lord", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial ORC_MAIl_GENERIC = registerArmor("orc_mail_generic", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial ORC_T4_GENERIC = registerArmor("orc_t4_generic", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial MORDOR_T4 = registerArmor("mordor_t4",  4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial MORDOR_ORC_T5 = registerArmor("mordor_orc_t5",  5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial MORDOR_BLACK_URUK_PLATE_ARMOR = registerArmor("mordor_black_uruk_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial MORDOR_BLACK_URUK_COMMANDER_ARMOR = registerArmor("mordor_black_uruk_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial URUK_HAI_LEATHER_ARMOR = registerArmor("uruk_hai_leather", 2, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(Items.LEATHER)
-    );
-
-    public static final ExtendedArmorMaterial URUK_HAI_PLATE_ARMOR = registerArmor("uruk_hai_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial MISTY_GOBLIN_MAIL_ARMOR = registerArmor("misty_goblin_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial MISTY_HOBGOBLIN_SCALE_ARMOR = registerArmor("misty_hobgoblin_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT)
-    );
-
-    public static final ExtendedArmorMaterial MISTY_HOBGOBLIN_PLATE_ARMOR = registerArmor("misty_hobgoblin_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT)
-    );
-
-    private static ExtendedArmorMaterial registerArmor(String id, int tier, RegistryEntry<SoundEvent> equipSound, Supplier<Ingredient> repairIngredient) {
+    private static ExtendedArmorMaterial registerArmor(Tiers tier, RegistryEntry<SoundEvent> equipSound, Item repairIngredient) {
         EnumMap<ArmorItem.Type, Integer> map = new EnumMap<>(ArmorItem.Type.class);
-        List<ArmorMaterial.Layer> layers = null;
         float toughness;
         float knockbackResistance;
         int enchantability;
         int durabilityMultiplier;
         switch (tier) {
-            case 0 -> {
+            case CLOTHING -> {
                 map.put(ArmorItem.Type.BOOTS, 0);
                 map.put(ArmorItem.Type.LEGGINGS, 0);
                 map.put(ArmorItem.Type.CHESTPLATE, 0);
@@ -241,7 +73,7 @@ public class ModArmorMaterials {
                 knockbackResistance = 0.0f;
                 enchantability = 10;
             }
-            case 1 -> {
+            case BASIC -> {
                 map.put(ArmorItem.Type.BOOTS, 1);
                 map.put(ArmorItem.Type.LEGGINGS, 2);
                 map.put(ArmorItem.Type.CHESTPLATE, 3);
@@ -252,7 +84,7 @@ public class ModArmorMaterials {
                 knockbackResistance = 0.0f;
                 enchantability = 10;
             }
-            case 2 -> {
+            case LIGHT -> {
                 map.put(ArmorItem.Type.BOOTS, 1);
                 map.put(ArmorItem.Type.LEGGINGS, 3);
                 map.put(ArmorItem.Type.CHESTPLATE, 4);
@@ -263,7 +95,7 @@ public class ModArmorMaterials {
                 knockbackResistance = 0.0f;
                 enchantability = 10;
             }
-            case 3 -> {
+            case MEDIUM -> {
                 map.put(ArmorItem.Type.BOOTS, 2);
                 map.put(ArmorItem.Type.LEGGINGS, 4);
                 map.put(ArmorItem.Type.CHESTPLATE, 5);
@@ -274,7 +106,7 @@ public class ModArmorMaterials {
                 knockbackResistance = 0.0f;
                 enchantability = 10;
             }
-            case 4 -> {
+            case STURDY -> {
                 map.put(ArmorItem.Type.BOOTS, 2);
                 map.put(ArmorItem.Type.LEGGINGS, 5);
                 map.put(ArmorItem.Type.CHESTPLATE, 6);
@@ -286,7 +118,7 @@ public class ModArmorMaterials {
                 enchantability = 10;
 
             }
-            case 5 -> {
+            case HEAVY -> {
                 map.put(ArmorItem.Type.BOOTS, 3);
                 map.put(ArmorItem.Type.LEGGINGS, 6);
                 map.put(ArmorItem.Type.CHESTPLATE, 7);
@@ -309,17 +141,27 @@ public class ModArmorMaterials {
                 enchantability = 1;
             }
         }
-        return register(id, map, durabilityMultiplier, enchantability, equipSound, toughness, knockbackResistance, repairIngredient, layers, tier);
+        return register(map, durabilityMultiplier, enchantability, equipSound, toughness, knockbackResistance, () -> Ingredient.ofItems(repairIngredient), tier);
     }
 
-    private static ExtendedArmorMaterial register(String id, EnumMap<ArmorItem.Type, Integer> defense,
-                                                         int durabilityMultiplier, int enchantability, RegistryEntry<SoundEvent> equipSound, float toughness, float knockbackResistance,
-                                                         Supplier<Ingredient> repairIngredient, List<ArmorMaterial.Layer> layers, int tier) {
+    private static ExtendedArmorMaterial register(EnumMap<ArmorItem.Type, Integer> defense,
+                                                  int durabilityMultiplier, int enchantability, RegistryEntry<SoundEvent> equipSound, float toughness, float knockbackResistance,
+                                                  Supplier<Ingredient> repairIngredient, Tiers tier) {
         EnumMap<ArmorItem.Type, Integer> enumMap = new EnumMap<ArmorItem.Type, Integer>(ArmorItem.Type.class);
         for (ArmorItem.Type type : ArmorItem.Type.values()) {
             enumMap.put(type, defense.get(type));
         }
-        ArmorMaterial material =  new ArmorMaterial(enumMap, enchantability, equipSound, repairIngredient, layers, toughness, knockbackResistance);
-        return new ExtendedArmorMaterial(Registry.registerReference(Registries.ARMOR_MATERIAL, Identifier.of(id), material), durabilityMultiplier, tier);
+        ArmorMaterial material =  new ArmorMaterial(enumMap, enchantability, equipSound, repairIngredient, null, toughness, knockbackResistance);
+        return new ExtendedArmorMaterial(Registry.registerReference(Registries.ARMOR_MATERIAL, Identifier.of(""), material), durabilityMultiplier, tier);
+    }
+
+    public enum Tiers {
+        CLOTHING,
+        BASIC,
+        LIGHT,
+        MEDIUM,
+        STURDY,
+        HEAVY,
+        ;
     }
 }

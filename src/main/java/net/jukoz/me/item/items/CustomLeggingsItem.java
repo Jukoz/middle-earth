@@ -14,15 +14,14 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 
-public class CustomLeggingsItem extends ArmorItem{
-
+public class CustomLeggingsItem extends ArmorItem {
     public ModFactions faction;
     public ModSubFactions subFaction;
 
     private ExtendedArmorMaterial material;
 
     public CustomLeggingsItem(ExtendedArmorMaterial material, Type type, Settings settings, ModFactions faction) {
-        super(material.material(), type, settings.maxCount(1).maxDamage(Type.LEGGINGS.getMaxDamage(material.durabilityModifier())));
+        super(material.material(), type, settings.maxCount(1).maxDamage(Type.BOOTS.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
         this.faction = faction;
@@ -30,7 +29,7 @@ public class CustomLeggingsItem extends ArmorItem{
     }
 
     public CustomLeggingsItem(ExtendedArmorMaterial material, Type type, Settings settings, ModSubFactions subFaction) {
-        super(material.material(), type, settings.maxCount(1).maxDamage(Type.LEGGINGS.getMaxDamage(material.durabilityModifier())));
+        super(material.material(), type, settings.maxCount(1).maxDamage(Type.BOOTS.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
         this.faction = subFaction.getParent();
@@ -45,7 +44,7 @@ public class CustomLeggingsItem extends ArmorItem{
             if(subFaction != null){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName()));
             }
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier" + this.material.tier()));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier_" + this.material.tier().toString().toLowerCase()));
             tooltip.add(Text.of(""));
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));

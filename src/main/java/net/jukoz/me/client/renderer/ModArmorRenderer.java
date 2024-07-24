@@ -2,23 +2,7 @@ package net.jukoz.me.client.renderer;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.MiddleEarthClient;
-import net.jukoz.me.client.model.equipment.CustomBootsModel;
-import net.jukoz.me.client.model.equipment.CustomChestplateModel;
-import net.jukoz.me.client.model.equipment.CustomHelmetModel;
-import net.jukoz.me.client.model.equipment.CustomLeggingsModel;
-import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
-import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
-import net.jukoz.me.item.ModDataComponentTypes;
-import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
-import net.jukoz.me.item.dataComponents.HoodDataComponent;
-import net.jukoz.me.item.items.CustomBootsItem;
-import net.jukoz.me.item.items.CustomChestplateItem;
-import net.jukoz.me.item.items.CustomHelmetItem;
-import net.jukoz.me.item.items.CustomLeggingsItem;
-import net.jukoz.me.utils.IntToRGB;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -30,13 +14,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
-
-import java.awt.*;
 
 public class ModArmorRenderer implements ArmorRenderer {
 

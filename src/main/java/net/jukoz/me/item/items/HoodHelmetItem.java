@@ -16,24 +16,14 @@ import java.util.List;
 public class HoodHelmetItem extends ArmorItem {
 
     public HoodHelmetItem(Settings settings) {
-        super(ModArmorMaterials.CAPE.material(), Type.HELMET, settings
+        super(ModArmorMaterials.LEATHER_T0.material(), Type.HELMET, settings
                 .maxCount(1)
-                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.CAPE.durabilityModifier())));
+                .maxDamage(Type.CHESTPLATE.getMaxDamage(ModArmorMaterials.LEATHER_T0.durabilityModifier())));
     }
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.of(""));
-        if(Screen.hasShiftDown()){
-            /*tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(material.faction()));
-            if(material.subFaction() != null){
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(material.subFaction()));
-            }*/
-            tooltip.add(Text.of(""));
-        } else {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
-        }
-
         HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
         CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
 
@@ -45,7 +35,8 @@ public class HoodHelmetItem extends ArmorItem {
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
             }
 
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".hood").append(hoodDataComponent.hood()));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood()));
+
 
         }else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));

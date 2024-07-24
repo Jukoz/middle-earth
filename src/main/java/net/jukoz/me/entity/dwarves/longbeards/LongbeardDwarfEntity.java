@@ -135,7 +135,7 @@ public class LongbeardDwarfEntity extends NpcEntity {
 
         float val = random.nextFloat();
         if(val >= 0.30f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.FUR_CLOAK_HOOD));
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.FUR_HOOD));
         } else  {
             equipStack(EquipmentSlot.HEAD, leatherHelmet);
         }
@@ -175,7 +175,7 @@ public class LongbeardDwarfEntity extends NpcEntity {
         if(val >= 0.30f){
             //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.EREBOR_MAIL_HELMET));
         } else  {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.FUR_CLOAK_HOOD));
+            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.FUR_HOOD));
         }
 
         float val1 = random.nextFloat();

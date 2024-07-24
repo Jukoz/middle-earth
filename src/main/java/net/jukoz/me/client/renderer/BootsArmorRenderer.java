@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.MiddleEarthClient;
 import net.jukoz.me.client.model.equipment.CustomBootsModel;
-import net.jukoz.me.item.items.CustomBootsItem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
@@ -28,7 +27,6 @@ public class BootsArmorRenderer implements ArmorRenderer {
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, BipedEntityModel<LivingEntity> contextModel) {
         this.customBootsModel = new CustomBootsModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(MiddleEarthClient.CUSTOM_ARMOR_BOOTS));
 
-        CustomBootsItem item = (CustomBootsItem)stack.getItem();
         boolean dyeable = false;
 
         if (slot == EquipmentSlot.FEET) {

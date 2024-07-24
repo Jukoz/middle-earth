@@ -8,7 +8,6 @@ import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
 import net.jukoz.me.datageneration.content.tags.*;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
@@ -64,11 +63,11 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         feathers.add(ModResourceItems.SWAN_FEATHER);
         feathers.add(Items.FEATHER);
 
-        cloaks.add(ModEquipmentItems.CLOAK);
+        cloaks.add(ModEquipmentItems.CAPE);
         cloaks.add(ModEquipmentItems.FUR_CLOAK);
         cloaks.add(ModEquipmentItems.NAZGUL_CLOAK);
-        cloaks.add(ModEquipmentItems.CLOAK_HOOD);
-        cloaks.add(ModEquipmentItems.FUR_CLOAK_HOOD);
+        cloaks.add(ModEquipmentItems.HOOD);
+        cloaks.add(ModEquipmentItems.FUR_HOOD);
         cloaks.add(ModEquipmentItems.NAZGUL_CLOAK_HOOD);
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {

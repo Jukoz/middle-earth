@@ -124,7 +124,7 @@ public class GaladhrimElfEntity extends NpcEntity{
                 0x61626e,
                 0x505258
         };
-        ItemStack hood = new ItemStack(ModEquipmentItems.CLOAK_HOOD);
+        ItemStack hood = new ItemStack(ModEquipmentItems.HOOD);
         ItemStack leatherHelmet = new ItemStack(Items.LEATHER_HELMET);
         ItemStack leatherChestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
         ItemStack leatherLeggings = new ItemStack(Items.LEATHER_LEGGINGS);
