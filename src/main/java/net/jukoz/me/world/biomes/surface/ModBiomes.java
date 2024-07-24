@@ -46,11 +46,11 @@ public class ModBiomes {
         context.register(MEBiomeKeys.BELFALAS_HILLS, createBelfalasBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6011255, 5614178), true));
         context.register(MEBiomeKeys.BLUE_MOUNTAINS_BASE, createBlueMountainsBiome(context, new BiomeColorsDTO(
-                7905261, 12241911, defaultWater, defaultWaterFog, 7125373, 8703593), true));
+                7905261, 12241911, defaultWater, defaultWaterFog, 8159036, 6976310), false));
         context.register(MEBiomeKeys.BLUE_MOUNTAINS, createBlueMountainsBiome(context, new BiomeColorsDTO(
-                7905261, 12241911, defaultWater, defaultWaterFog, 7125373, 8703593), true));
+                7905261, 12241911, defaultWater, defaultWaterFog, 6976310, 5201452), false));
         context.register(MEBiomeKeys.BLUE_MOUNTAINS_PEAKS, createBlueMountainsBiome(context, new BiomeColorsDTO(
-                7905261, 12241911, defaultWater, defaultWaterFog, 7125373, 8703593), false));
+                7905261, 12241911, defaultWater, defaultWaterFog, 5201452, 4608807), true));
         context.register(MEBiomeKeys.BROWN_LANDS, createMordorWastesBiome(context, new BiomeColorsDTO(
                 7570864, 8292235, 5075593, 1259598, 8032632, 7901046)));
         context.register(MEBiomeKeys.CORSAIR_COASTS, createCorsairCoastBiome(context, new BiomeColorsDTO(
@@ -424,23 +424,23 @@ public class ModBiomes {
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
 
-    public static Biome createBlueMountainsBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, boolean foothills) {
+    public static Biome createBlueMountainsBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, boolean peaks) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addMountainsMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
-        float temperature = 0.3f;
-        if(foothills) {
+        float temperature = 0.5f;
+        if(peaks){
+            ModBiomeFeatures.addCornflower(vegetation);
+            temperature = 0.3f;
+        } else{
+            ModBiomeFeatures.addBlueTuff(vegetation);
             addNordicVegetation(generationSettings);
             ModBiomeFeatures.addCornflower(vegetation);
             ModBiomeFeatures.addSparseLarchTrees(vegetation);
             ModBiomeFeatures.addSparsePineTrees(vegetation);
             ModBiomeFeatures.addScarceSpruceTrees(vegetation);
             ModBiomeFeatures.addSpruceBushes(vegetation);
-        } else {
-            temperature = 0f;
-
         }
-        ModBiomeFeatures.addBlueTuff(vegetation);
 
         return createBiome(biomeColors, spawnSettings, generationSettings, temperature, true);
     }
