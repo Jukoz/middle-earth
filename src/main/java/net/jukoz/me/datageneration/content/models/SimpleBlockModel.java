@@ -21,6 +21,8 @@ public class SimpleBlockModel {
         {
             add(ModBlocks.COBBLY_DIRT);
 
+            add(ModBlocks.MIRE);
+
             add(ModBlocks.DRY_DIRT);
 
             add(ModBlocks.ASHEN_DIRT);

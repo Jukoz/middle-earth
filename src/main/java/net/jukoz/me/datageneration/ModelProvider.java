@@ -919,6 +919,10 @@ public class ModelProvider extends FabricModelProvider {
             Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"), TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "item/nugget_hot")), itemModelGenerator.writer);
         }
 
+        for (Item item : SimpleSpearModel.items) {
+            itemModelGenerator.register(item, "_inventory", Models.HANDHELD);
+        }
+
         for (Item item : SimpleBowItemModel.items) {
             for(int i = 0; i < 3; i++) {
                 itemModelGenerator.register(item, "_pulling_" + i, CustomItemModels.BOW);

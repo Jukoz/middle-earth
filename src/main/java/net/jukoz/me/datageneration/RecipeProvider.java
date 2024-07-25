@@ -420,6 +420,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         createStairsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_SLAB);
+
+        createStairsRecipe(exporter, ModBlocks.MIRE, ModBlocks.MIRE_STAIRS);
+        createSlabsRecipe(exporter, ModBlocks.MIRE, ModBlocks.MIRE_SLAB);
         
         createStairsRecipe(exporter, ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_SLAB);

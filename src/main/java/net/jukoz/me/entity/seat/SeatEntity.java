@@ -36,7 +36,7 @@ public class SeatEntity extends VehicleEntity {
     @Override
     protected void removePassenger(Entity passenger) {
         super.removePassenger(passenger);
-        passenger.requestTeleportAndDismount(this.getX(), this.getY(), this.getZ());
+        passenger.requestTeleport(this.getX(), this.getY(), this.getZ());
     }
 
     @Override

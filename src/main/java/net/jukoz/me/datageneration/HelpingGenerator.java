@@ -85,7 +85,6 @@ public class HelpingGenerator {
 
         for (WoodBlockSets.SimpleBlockSet set : WoodBlockSets.sets) {
             if(set.leaves() != null) {
-                SimpleBlockModel.blocks.add(set.leaves());
                 LeavesSets.blocks.add(set.leaves());
                 if(set.sapling() != null){
                     LeavesDrops.blocks.add(new LeavesDrops.LeavesDrop(set.leaves(), set.sapling()));
@@ -216,6 +215,8 @@ public class HelpingGenerator {
             LogsThatBurn.logsThatBurn.add(set.strippedLog());
             LogsThatBurn.logsThatBurn.add(set.strippedWood());
         }
+
+        SimpleBlockModel.blocks.addAll(LeavesSets.blocks);
 
         for (MushroomBlockSets.MushroomBlockSet set : MushroomBlockSets.sets) {
             if(!Objects.equals(Registries.BLOCK.getId(set.stem()).getPath(), "mushroom_stem")) {

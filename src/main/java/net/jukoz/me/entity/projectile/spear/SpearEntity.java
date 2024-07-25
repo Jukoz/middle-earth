@@ -22,7 +22,7 @@ public class SpearEntity extends ThrownItemEntity {
 
     public SpearEntity(EntityType<? extends SpearEntity> entityType, World world) {
         super(entityType, world);
-        this.item = ModWeaponItems.GONDOR_SPEAR;
+        this.item = ModWeaponItems.GONDORIAN_SPEAR;
     }
 
     public SpearEntity(World world, Item item, LivingEntity owner, float dmg) {

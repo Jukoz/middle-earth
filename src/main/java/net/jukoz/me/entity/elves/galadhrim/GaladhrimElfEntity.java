@@ -153,7 +153,7 @@ public class GaladhrimElfEntity extends NpcEntity{
         if(rand >= 0.55f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
         } else if (rand > 0.20f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_BATTLESTAFF));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SPEAR));
         } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_DAGGER));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
@@ -174,7 +174,7 @@ public class GaladhrimElfEntity extends NpcEntity{
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
         }
     }
@@ -190,9 +190,9 @@ public class GaladhrimElfEntity extends NpcEntity{
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SWORD));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
         } else if (val >= 0.50f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_LONGSWORD));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_GLAIVE));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
         }
     }
@@ -207,7 +207,7 @@ public class GaladhrimElfEntity extends NpcEntity{
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SWORD));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LORIEN_SHIELD));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_LONGSWORD));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_GLAIVE));
         }
     }
 
@@ -218,9 +218,9 @@ public class GaladhrimElfEntity extends NpcEntity{
         equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.LORIEN_COMMANDER_BOOTS));
 
         if (random.nextFloat() < 0.50f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_LONGSWORD));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_GLAIVE));
         } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_PIKE));
+            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.LORIEN_SPEAR));
         }
     }
     public GaladhrimElfVariant getVariant() {

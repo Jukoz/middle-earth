@@ -266,6 +266,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableShovel.add(ModBlocks.TURF_SLAB);
         mineableShovel.add(ModBlocks.TURF_STAIRS);
 
+        mineableShovel.add(ModBlocks.MIRE);
+        mineableShovel.add(ModBlocks.MIRE_SLAB);
+        mineableShovel.add(ModBlocks.MIRE_STAIRS);
+
         mineableShovel.add(ModBlocks.ASHEN_SAND);
         mineableShovel.add(ModBlocks.ASHEN_SAND_LAYER);
 
@@ -424,10 +428,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.PACKED_MUD_STAIRS);
         mineablePickaxe.add(ModBlocks.PACKED_MUD_WALL);
 
-        mineablePickaxe.add(ModBlocks.TUFF_SLAB);
         mineablePickaxe.add(ModBlocks.TUFF_VERTICAL_SLAB);
-        mineablePickaxe.add(ModBlocks.TUFF_STAIRS);
-        mineablePickaxe.add(ModBlocks.TUFF_WALL);
 
         mineablePickaxe.add(ModBlocks.CALCITE_SLAB);
         mineablePickaxe.add(ModBlocks.CALCITE_VERTICAL_SLAB);

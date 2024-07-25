@@ -1,8 +1,8 @@
 package net.jukoz.me.datageneration;
-
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+
 
 public class VariantsModelProvider {
     public static Identifier getInventoryModelIdentifierVariant(Item item) {

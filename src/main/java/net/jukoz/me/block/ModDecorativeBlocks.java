@@ -5,6 +5,7 @@ import net.jukoz.me.block.special.*;
 import net.jukoz.me.block.special.bellows.BellowsBlock;
 import net.jukoz.me.block.special.forge.ForgeBlock;
 import net.jukoz.me.block.special.artisantable.ArtisanTable;
+import net.jukoz.me.block.special.fireBlocks.*;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestBlock;
 import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancBlock;
 import net.jukoz.me.block.special.toggeable_lights.DwarvenLanternBlock;
