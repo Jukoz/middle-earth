@@ -483,7 +483,7 @@ public class ModEquipmentItems {
     public static final Item BARDING_CHAIN_SKIRT = registerArmorPiece("barding_chain_skirt",
             new CustomLeggingsItem(ModArmorMaterials.STEEL_T5, ArmorItem.Type.LEGGINGS, new Item.Settings(),
                     ModFactions.DALE));
-    public static final Item DALISH_PLATED_BOOTS = registerArmorPiece("dalish_plated_boots",
+    public static final Item BARDING_PLATED_BOOTS = registerArmorPiece("barding_plated_boots",
             new CustomBootsItem(ModArmorMaterials.STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModFactions.DALE));
 
@@ -587,16 +587,16 @@ public class ModEquipmentItems {
 
     public static final Item ELVEN_ARMING_COAT = registerDyeableArmorPiece("elven_arming_coat",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475)),
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 4805220)),
                     ModFactions.NONE));
 
     public static final Item ELVEN_ARMING_SKIRT = registerDyeableArmorPiece("elven_arming_skirt",
             new CustomLeggingsItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.LEGGINGS, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475)),
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 4805220)),
                     ModFactions.NONE));
     public static final Item ELVEN_OPEN_ARMING_SKIRT = registerDyeableArmorPiece("elven_open_arming_skirt",
             new CustomLeggingsItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.LEGGINGS, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475)),
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 4805220)),
                     ModFactions.NONE));
 
     public static final Item ELVEN_BOOTS = registerArmorPiece("elven_boots",
