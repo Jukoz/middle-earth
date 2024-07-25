@@ -138,8 +138,8 @@ public class ShireHobbitEntity extends NpcEntity {
                     0x665723
             };
             int colorIndex = random.nextInt(3);
-            ItemStack cloakHood = new ItemStack((Item)ModEquipmentItems.CLOAK_HOOD);
-            ItemStack cloak = new ItemStack((Item)ModEquipmentItems.CLOAK);
+            ItemStack cloakHood = new ItemStack((Item)ModEquipmentItems.HOOD);
+            ItemStack cloak = new ItemStack((Item)ModEquipmentItems.CAPE);
 
             DyedColorComponent.setColor(cloak, List.of(DyeItem.byColor(DyeColor.byId(colors[colorIndex]))));
 
@@ -163,11 +163,7 @@ public class ShireHobbitEntity extends NpcEntity {
     private void soldierEquipment(Random random){
         float  randomVal = random.nextFloat();
         equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
-        if(randomVal < 0.50f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HOBBIT_SHIRRIFF_HAT_BROWN));
-        } else {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HOBBIT_SHIRRIFF_HAT_GREEN));
-        }
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.SHIRRIFF_HAT));
     }
 
     public ShireHobbitVariant getVariant() {

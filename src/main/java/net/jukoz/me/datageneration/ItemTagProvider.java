@@ -4,10 +4,10 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.OreRockSets;
+import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
 import net.jukoz.me.datageneration.content.tags.*;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
@@ -28,6 +28,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var bones = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
         var feathers = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "feathers")));
         var cloaks = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "cloaks")));
+        var dyeable = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")));
 
         TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "iron_ores"));
         TagKey<Item> gold_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "gold_ores"));
@@ -62,13 +63,11 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         feathers.add(ModResourceItems.SWAN_FEATHER);
         feathers.add(Items.FEATHER);
 
-        cloaks.add(ModEquipmentItems.CLOAK);
-        cloaks.add(ModEquipmentItems.TUNIC_CLOAK);
+        cloaks.add(ModEquipmentItems.CAPE);
         cloaks.add(ModEquipmentItems.FUR_CLOAK);
-        cloaks.add(ModEquipmentItems.CHAINMAIL_FUR_CLOAK);
         cloaks.add(ModEquipmentItems.NAZGUL_CLOAK);
-        cloaks.add(ModEquipmentItems.CLOAK_HOOD);
-        cloaks.add(ModEquipmentItems.FUR_CLOAK_HOOD);
+        cloaks.add(ModEquipmentItems.HOOD);
+        cloaks.add(ModEquipmentItems.FUR_HOOD);
         cloaks.add(ModEquipmentItems.NAZGUL_CLOAK_HOOD);
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
@@ -105,6 +104,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                         .add(set.mithril_ore().asItem());
             }
         }
+
+        SimpleDyeableItemModel.items.forEach(dyeable::add);
 
         WoodenSlabs.woodenSlabs.forEach(block -> {
             getOrCreateTagBuilder(wooden_slabs).add(block.asItem());
