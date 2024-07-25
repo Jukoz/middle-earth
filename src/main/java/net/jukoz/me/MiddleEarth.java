@@ -7,6 +7,7 @@ import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.particles.ModParticleTypes;
+import net.jukoz.me.recipe.ModRecipeSerializer;
 import net.jukoz.me.registries.ModRegistries;
 import net.jukoz.me.resource.CustomServerDataResourceReloadListener;
 import net.jukoz.me.statusEffects.ModStatusEffects;
@@ -34,8 +35,11 @@ public class MiddleEarth implements ModInitializer {
 		LoggerUtil.logInfoMsg("");
 		LoggerUtil.logInfoMsg("================ MiddleEarth ================");
 
+		ModDataComponentTypes.registerModComponentTypes();
+
 		ModCommandRegistry.register();
 		ModStatusEffects.registerStatusEffects();
+
 		OreRockSets.registerModBlockSets();
 		ModWeaponItems.registerModItems();
 		ModEquipmentItems.registerModItems();
@@ -65,6 +69,7 @@ public class MiddleEarth implements ModInitializer {
 
 		ModScreenHandlers.registerAllScreenHandlers();
 		ModRecipes.registerRecipes();
+		ModRecipeSerializer.registerRecipeSerializers();
 
 		ModEntities.registerModEntities();
 		ModEntitySpawning.addSpawns();

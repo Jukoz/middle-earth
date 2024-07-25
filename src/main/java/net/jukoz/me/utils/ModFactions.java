@@ -1,25 +1,27 @@
 package net.jukoz.me.utils;
 
 public enum ModFactions {
-    NONE("generic", true),
+    NONE("generic"),
 
-    LONGBEARDS("longbeards", true),
+    SHIRE("shire"),
+    GONDOR("gondor"),
+    ROHAN("rohan"),
+    DALE("dale"),
+    LOTHLORIEN("lothlorien"),
+    LONGBEARDS("longbeards"),
 
-    MORDOR("mordor", true);
+    MORDOR("mordor"),
+    MISTY_MOUNTAINS_ORCS("misty_mountains_orcs"),
+    ISENGARD("isengard"),
+    ;
 
     private final String name;
-    private final boolean good;
-    private final boolean minor;
 
-    ModFactions(String name, boolean good, boolean minor){
+    ModFactions(String name){
         this.name = name;
-        this.good = good;
-        this.minor = minor;
     }
 
-    ModFactions(String name, boolean good){
-        this.name = name;
-        this.good = good;
-        this.minor = false;
+    public String getName() {
+        return name;
     }
 }
