@@ -110,7 +110,7 @@ public class ModItemGroups {
     public static final List<ItemStack> TOOLS_CONTENTS = new LinkedList<>();
     public static final ItemGroup TOOLS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".tool_items"))
-            .icon(() -> new ItemStack(ModToolItems.DWARVEN_STEEL_PICKAXE))
+            .icon(() -> new ItemStack(ModToolItems.KHAZAD_STEEL_PICKAXE))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : TOOLS_CONTENTS) {
                     entries.add(item);

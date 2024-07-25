@@ -244,9 +244,9 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsStoneTools.add(ModBlocks.BRONZE_BLOCK);
         needsStoneTools.add(ModBlocks.SLAG_BLOCK);
         needsIronTools.add(ModBlocks.STEEL_BLOCK);
-        needsIronTools.add(ModBlocks.DWARVEN_STEEL_BLOCK);
-        needsIronTools.add(ModBlocks.ELVEN_STEEL_BLOCK);
-        needsIronTools.add(ModBlocks.URUK_STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.KHAZAD_STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.EDHEL_STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.BURZUM_STEEL_BLOCK);
 
         mineablePickaxe.add(ModBlocks.STONE_MYCELIUM);
         mineableShovel.add(ModBlocks.ASH_BLOCK);

@@ -1,9 +1,0 @@
-{
-  "asset_name": "uruk_steel",
-  "description": {
-    "color": "#5B544B",
-    "translate": "trim_material.me.uruk_steel"
-  },
-  "ingredient": "me:uruk_steel_ingot",
-  "item_model_index": 0.008
-}

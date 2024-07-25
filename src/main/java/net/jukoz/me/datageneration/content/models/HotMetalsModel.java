@@ -14,11 +14,11 @@ public class HotMetalsModel {
             add(Items.IRON_INGOT);
             add(Items.GOLD_INGOT);
             add(ModResourceItems.BRONZE_INGOT);
-            add(ModResourceItems.SLAG_SCRAP);
+            add(ModResourceItems.SLAG_INGOT);
             add(ModResourceItems.STEEL_INGOT);
-            add(ModResourceItems.DWARVEN_STEEL_INGOT);
-            add(ModResourceItems.ELVEN_STEEL_INGOT);
-            add(ModResourceItems.URUK_STEEL_INGOT);
+            add(ModResourceItems.KHAZAD_STEEL_INGOT);
+            add(ModResourceItems.EDHEL_STEEL_INGOT);
+            add(ModResourceItems.BURZUM_STEEL_INGOT);
             add(ModResourceItems.MORGUL_STEEL_INGOT);
             add(ModResourceItems.MITHRIL_INGOT);
         }
@@ -29,11 +29,11 @@ public class HotMetalsModel {
             add(Items.IRON_NUGGET);
             add(Items.GOLD_NUGGET);
             add(ModResourceItems.BRONZE_NUGGET);
-            add(ModResourceItems.SLAG_CHUNK);
+            add(ModResourceItems.SLAG_SCRAP);
             add(ModResourceItems.STEEL_NUGGET);
-            add(ModResourceItems.DWARVEN_STEEL_NUGGET);
-            add(ModResourceItems.ELVEN_STEEL_NUGGET);
-            add(ModResourceItems.URUK_STEEL_NUGGET);
+            add(ModResourceItems.KHAZAD_STEEL_NUGGET);
+            add(ModResourceItems.EDHEL_STEEL_NUGGET);
+            add(ModResourceItems.BURZUM_STEEL_NUGGET);
             add(ModResourceItems.MORGUL_STEEL_NUGGET);
             add(ModResourceItems.MITHRIL_NUGGET);
         }

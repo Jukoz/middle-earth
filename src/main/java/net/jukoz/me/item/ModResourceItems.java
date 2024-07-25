@@ -54,14 +54,14 @@ public class ModResourceItems {
     public static final Item BRONZE_NUGGET = registerItem("bronze_nugget",
             new Item(new Item.Settings()));
 
-    public static final Item SLAG_SCRAP = registerItem("slag_scrap",
+    public static final Item SLAG_INGOT = registerItem("slag_ingot",
             new SmithingMaterialItem(new Item.Settings()));
-    public static final Item SLAG_CHUNK = registerItem("slag_chunk",
+    public static final Item SLAG_SCRAP = registerItem("slag_scrap",
             new Item(new Item.Settings()));
 
-    public static final Item URUK_STEEL_INGOT = registerItem("uruk_steel_ingot",
+    public static final Item BURZUM_STEEL_INGOT = registerItem("burzum_steel_ingot",
             new SmithingMaterialItem(new Item.Settings()));
-    public static final Item URUK_STEEL_NUGGET = registerItem("uruk_steel_nugget",
+    public static final Item BURZUM_STEEL_NUGGET = registerItem("burzum_steel_nugget",
             new Item(new Item.Settings()));
 
     public static final Item STEEL_INGOT = registerItem("steel_ingot",
@@ -69,14 +69,14 @@ public class ModResourceItems {
     public static final Item STEEL_NUGGET = registerItem("steel_nugget",
             new Item(new Item.Settings()));
 
-    public static final Item ELVEN_STEEL_INGOT = registerItem("elven_steel_ingot",
+    public static final Item EDHEL_STEEL_INGOT = registerItem("edhel_steel_ingot",
             new SmithingMaterialItem(new Item.Settings()));
-    public static final Item ELVEN_STEEL_NUGGET = registerItem("elven_steel_nugget",
+    public static final Item EDHEL_STEEL_NUGGET = registerItem("edhel_steel_nugget",
             new Item(new Item.Settings()));
 
-    public static final Item DWARVEN_STEEL_INGOT = registerItem("dwarven_steel_ingot",
+    public static final Item KHAZAD_STEEL_INGOT = registerItem("khazad_steel_ingot",
             new SmithingMaterialItem(new Item.Settings()));
-    public static final Item DWARVEN_STEEL_NUGGET = registerItem("dwarven_steel_nugget",
+    public static final Item KHAZAD_STEEL_NUGGET = registerItem("khazad_steel_nugget",
             new Item(new Item.Settings()));
 
     public static final Item MORGUL_STEEL_INGOT = registerItem("morgul_steel_ingot",

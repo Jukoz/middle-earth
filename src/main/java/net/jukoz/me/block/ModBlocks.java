@@ -401,11 +401,11 @@ public class ModBlocks {
             new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(5.5f).requiresTool()),true);
     public static final Block STEEL_BLOCK = registerMiscBlock("steel_block",
             new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(6f).requiresTool()),true);
-    public static final Block DWARVEN_STEEL_BLOCK = registerMiscBlock("dwarven_steel_block",
+    public static final Block KHAZAD_STEEL_BLOCK = registerMiscBlock("khazad_steel_block",
             new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(7f).requiresTool()),true);
-    public static final Block ELVEN_STEEL_BLOCK = registerMiscBlock("elven_steel_block",
+    public static final Block EDHEL_STEEL_BLOCK = registerMiscBlock("edhel_steel_block",
             new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(6f).requiresTool()),true);
-    public static final Block URUK_STEEL_BLOCK = registerMiscBlock("uruk_steel_block",
+    public static final Block BURZUM_STEEL_BLOCK = registerMiscBlock("burzum_steel_block",
             new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(6f).requiresTool()),true);
 
     public static final Block CUT_LEAD = registerMiscBlock("cut_lead",

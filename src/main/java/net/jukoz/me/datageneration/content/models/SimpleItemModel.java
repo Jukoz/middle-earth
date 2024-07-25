@@ -2,7 +2,6 @@ package net.jukoz.me.datageneration.content.models;
 
 import net.jukoz.me.item.ModDecorativeItems;
 import net.jukoz.me.item.ModFoodItems;
-import net.jukoz.me.item.ModNatureBlockItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.item.Item;
 
@@ -77,20 +76,20 @@ public class SimpleItemModel {
             add(ModResourceItems.SILVER_INGOT);
             add(ModResourceItems.SILVER_NUGGET);
 
+            add(ModResourceItems.SLAG_INGOT);
             add(ModResourceItems.SLAG_SCRAP);
-            add(ModResourceItems.SLAG_CHUNK);
 
-            add(ModResourceItems.URUK_STEEL_INGOT);
-            add(ModResourceItems.URUK_STEEL_NUGGET);
+            add(ModResourceItems.BURZUM_STEEL_INGOT);
+            add(ModResourceItems.BURZUM_STEEL_NUGGET);
 
             add(ModResourceItems.STEEL_INGOT);
             add(ModResourceItems.STEEL_NUGGET);
 
-            add(ModResourceItems.ELVEN_STEEL_INGOT);
-            add(ModResourceItems.ELVEN_STEEL_NUGGET);
+            add(ModResourceItems.EDHEL_STEEL_INGOT);
+            add(ModResourceItems.EDHEL_STEEL_NUGGET);
 
-            add(ModResourceItems.DWARVEN_STEEL_INGOT);
-            add(ModResourceItems.DWARVEN_STEEL_NUGGET);
+            add(ModResourceItems.KHAZAD_STEEL_INGOT);
+            add(ModResourceItems.KHAZAD_STEEL_NUGGET);
 
             add(ModResourceItems.MORGUL_STEEL_INGOT);
             add(ModResourceItems.MORGUL_STEEL_NUGGET);

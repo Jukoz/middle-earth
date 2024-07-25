@@ -105,15 +105,15 @@ public class ModArmorMaterials {
             List.of(new ArmorMaterial.Layer(Identifier.of("erebor_mail"), "", false)), new ArmorMaterial.Layer(Identifier.of("erebor_mail"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor"));
 
-    public static final ExtendedArmorMaterial EREBOR_SCALE_ARMOR = registerArmor("erebor_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT),
+    public static final ExtendedArmorMaterial EREBOR_SCALE_ARMOR = registerArmor("erebor_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.KHAZAD_STEEL_INGOT),
             List.of(new ArmorMaterial.Layer(Identifier.of("erebor_scale"), "", false)), new ArmorMaterial.Layer(Identifier.of("erebor_scale"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor"));
 
-    public static final ExtendedArmorMaterial EREBOR_PLATE_ARMOR = registerArmor("erebor_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT),
+    public static final ExtendedArmorMaterial EREBOR_PLATE_ARMOR = registerArmor("erebor_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.KHAZAD_STEEL_INGOT),
             List.of(new ArmorMaterial.Layer(Identifier.of("erebor_plate"), "", false)), new ArmorMaterial.Layer(Identifier.of("erebor_plate"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor"));
 
-    public static final ExtendedArmorMaterial EREBOR_COMMANDER_ARMOR = registerArmor("erebor_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT),
+    public static final ExtendedArmorMaterial EREBOR_COMMANDER_ARMOR = registerArmor("erebor_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.KHAZAD_STEEL_INGOT),
             List.of(new ArmorMaterial.Layer(Identifier.of("erebor_commander"), "", false)), new ArmorMaterial.Layer(Identifier.of("erebor_commander"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor"));
 
@@ -121,43 +121,43 @@ public class ModArmorMaterials {
             List.of(new ArmorMaterial.Layer(Identifier.of("lorien_mail"), "", false)), new ArmorMaterial.Layer(Identifier.of("lorien_mail"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null);
 
-    public static final ExtendedArmorMaterial LORIEN_SCALE_ARMOR = registerArmor("lorien_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT),
+    public static final ExtendedArmorMaterial LORIEN_SCALE_ARMOR = registerArmor("lorien_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.EDHEL_STEEL_INGOT),
             List.of(new ArmorMaterial.Layer(Identifier.of("lorien_scale"), "", false)), new ArmorMaterial.Layer(Identifier.of("lorien_scale"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null);
 
-    public static final ExtendedArmorMaterial LORIEN_PLATE_ARMOR = registerArmor("lorien_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT),
+    public static final ExtendedArmorMaterial LORIEN_PLATE_ARMOR = registerArmor("lorien_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.EDHEL_STEEL_INGOT),
             List.of(new ArmorMaterial.Layer(Identifier.of("lorien_plate"), "", false)), new ArmorMaterial.Layer(Identifier.of("lorien_plate"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null);
 
-    public static final ExtendedArmorMaterial LORIEN_COMMANDER_ARMOR = registerArmor("lorien_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT),
+    public static final ExtendedArmorMaterial LORIEN_COMMANDER_ARMOR = registerArmor("lorien_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.EDHEL_STEEL_INGOT),
             List.of(new ArmorMaterial.Layer(Identifier.of("lorien_commander"), "", false)), new ArmorMaterial.Layer(Identifier.of("lorien_commander"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), null);
 
-    public static final ExtendedArmorMaterial MORDOR_ORC_MAIL_ARMOR = registerArmor("mordor_orc_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.SLAG_SCRAP),
+    public static final ExtendedArmorMaterial MORDOR_ORC_MAIL_ARMOR = registerArmor("mordor_orc_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.SLAG_INGOT),
             List.of(new ArmorMaterial.Layer(Identifier.of("mordor_orc_mail"), "", false)), new ArmorMaterial.Layer(Identifier.of("mordor_orc_mail"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
 
-    public static final ExtendedArmorMaterial MORDOR_BLACK_URUK_SCALE_ARMOR = registerArmor("mordor_black_uruk_scale",  4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT),
+    public static final ExtendedArmorMaterial MORDOR_BLACK_URUK_SCALE_ARMOR = registerArmor("mordor_black_uruk_scale",  4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.BURZUM_STEEL_INGOT),
             List.of(new ArmorMaterial.Layer(Identifier.of("mordor_black_uruk_scale"), "", false)), new ArmorMaterial.Layer(Identifier.of("mordor_black_uruk_scale"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
 
-    public static final ExtendedArmorMaterial MORDOR_BLACK_URUK_PLATE_ARMOR = registerArmor("mordor_black_uruk_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT),
+    public static final ExtendedArmorMaterial MORDOR_BLACK_URUK_PLATE_ARMOR = registerArmor("mordor_black_uruk_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.BURZUM_STEEL_INGOT),
             List.of(new ArmorMaterial.Layer(Identifier.of("mordor_black_uruk_plate"), "", false)), new ArmorMaterial.Layer(Identifier.of("mordor_black_uruk_plate"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
 
-    public static final ExtendedArmorMaterial MORDOR_BLACK_URUK_COMMANDER_ARMOR = registerArmor("mordor_black_uruk_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT),
+    public static final ExtendedArmorMaterial MORDOR_BLACK_URUK_COMMANDER_ARMOR = registerArmor("mordor_black_uruk_commander", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.BURZUM_STEEL_INGOT),
             List.of(new ArmorMaterial.Layer(Identifier.of("mordor_black_uruk_commander"), "", false)), new ArmorMaterial.Layer(Identifier.of("mordor_black_uruk_commander"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor"), null);
 
-    public static final ExtendedArmorMaterial MISTY_GOBLIN_MAIL_ARMOR = registerArmor("misty_goblin_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.SLAG_SCRAP),
+    public static final ExtendedArmorMaterial MISTY_GOBLIN_MAIL_ARMOR = registerArmor("misty_goblin_mail", 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.SLAG_INGOT),
             List.of(new ArmorMaterial.Layer(Identifier.of("misty_goblin_mail"), "", false)), new ArmorMaterial.Layer(Identifier.of("misty_goblin_mail"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), null);
 
-    public static final ExtendedArmorMaterial MISTY_HOBGOBLIN_SCALE_ARMOR = registerArmor("misty_hobgoblin_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT),
+    public static final ExtendedArmorMaterial MISTY_HOBGOBLIN_SCALE_ARMOR = registerArmor("misty_hobgoblin_scale", 4, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.BURZUM_STEEL_INGOT),
             List.of(new ArmorMaterial.Layer(Identifier.of("misty_hobgoblin_scale"), "", false)), new ArmorMaterial.Layer(Identifier.of("misty_hobgoblin_scale"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad"));
 
-    public static final ExtendedArmorMaterial MISTY_HOBGOBLIN_PLATE_ARMOR = registerArmor("misty_hobgoblin_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT),
+    public static final ExtendedArmorMaterial MISTY_HOBGOBLIN_PLATE_ARMOR = registerArmor("misty_hobgoblin_plate", 5, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> Ingredient.ofItems(ModResourceItems.BURZUM_STEEL_INGOT),
             List.of(new ArmorMaterial.Layer(Identifier.of("misty_hobgoblin_plate"), "", false)), new ArmorMaterial.Layer(Identifier.of("misty_hobgoblin_plate"), "", false),
             Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad"));
 

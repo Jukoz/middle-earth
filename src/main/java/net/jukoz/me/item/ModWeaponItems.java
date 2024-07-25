@@ -85,15 +85,15 @@ public class ModWeaponItems {
             new ReachWeaponItem(ModToolMaterials.STEEL, PIKE_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dunland"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.STEEL, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH))), true);
 
     public static final Item LONGBEARD_SWORD = registerItemWithModel("longbeard_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.DWARVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.DWARVEN_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED))), false);
+            new CustomSwordWeaponItem(ModToolMaterials.KHAZAD_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.KHAZAD_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED))), false);
     public static final Item LONGBEARD_DAGGER = registerItemWithModel("longbeard_dagger",
-            new ReachWeaponItem(ModToolMaterials.DWARVEN_STEEL, DAGGER_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.DWARVEN_STEEL, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED))), false);
+            new ReachWeaponItem(ModToolMaterials.KHAZAD_STEEL, DAGGER_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.KHAZAD_STEEL, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED))), false);
     public static final Item LONGBEARD_BATTLEAXE = registerItemWithModel("longbeard_battleaxe",
-            new AxeItem(ToolMaterials.IRON, new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.DWARVEN_STEEL, BATTLEAXE_DAMAGE, BATTLEAXE_ATTACKS_SPEED))), true);
+            new AxeItem(ToolMaterials.IRON, new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.KHAZAD_STEEL, BATTLEAXE_DAMAGE, BATTLEAXE_ATTACKS_SPEED))), true);
     public static final Item LONGBEARD_SPEAR = registerItemWithModel("longbeard_spear",
-            new ReachWeaponItem(ModToolMaterials.DWARVEN_STEEL, TWO_HAND_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.DWARVEN_STEEL, SPEAR_DAMAGE, SPEAR_ATTACKS_SPEED, TWO_HAND_REACH))), true);
+            new ReachWeaponItem(ModToolMaterials.KHAZAD_STEEL, TWO_HAND_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.KHAZAD_STEEL, SPEAR_DAMAGE, SPEAR_ATTACKS_SPEED, TWO_HAND_REACH))), true);
     public static final Item LONGBEARD_PIKE = registerItemWithModel("longbeard_pike",
-            new ReachWeaponItem(ModToolMaterials.DWARVEN_STEEL, PIKE_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.DWARVEN_STEEL, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH))), true);
+            new ReachWeaponItem(ModToolMaterials.KHAZAD_STEEL, PIKE_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.KHAZAD_STEEL, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH))), true);
 
     public static final Item GONDOR_SWORD = registerItemWithModel("gondorian_sword",
             new CustomSwordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED))), true);
@@ -122,17 +122,17 @@ public class ModWeaponItems {
             new ReachWeaponItem(ModToolMaterials.SLAG, PIKE_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs"), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gundabad"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.SLAG, BATTLEAXE_DAMAGE, POLEARM_ATTACKS_SPEED, PIKE_REACH))), true);
 
     public static final Item LORIEN_SWORD = registerItemWithModel("lorien_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.ELVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.ELVEN_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED))), false);
+            new CustomSwordWeaponItem(ModToolMaterials.EDHEL_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.EDHEL_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED))), false);
     public static final Item LORIEN_LONGSWORD = registerItemWithModel("lorien_longsword",
-            new ReachWeaponItem(ModToolMaterials.ELVEN_STEEL, TWO_HAND_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.ELVEN_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED - 0.2f, TWO_HAND_REACH))), true);
+            new ReachWeaponItem(ModToolMaterials.EDHEL_STEEL, TWO_HAND_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.EDHEL_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED - 0.2f, TWO_HAND_REACH))), true);
     public static final Item LORIEN_DAGGER = registerItemWithModel("lorien_dagger",
-            new ReachWeaponItem(ModToolMaterials.ELVEN_STEEL, DAGGER_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.ELVEN_STEEL, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED))), false);
+            new ReachWeaponItem(ModToolMaterials.EDHEL_STEEL, DAGGER_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.EDHEL_STEEL, DAGGER_DAMAGE, DAGGER_ATTACKS_SPEED))), false);
     public static final Item LORIEN_SPEAR = registerItemWithModel("lorien_spear",
-            new ReachWeaponItem(ModToolMaterials.ELVEN_STEEL, TWO_HAND_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.ELVEN_STEEL, SPEAR_DAMAGE, SPEAR_ATTACKS_SPEED, TWO_HAND_REACH))), true);
+            new ReachWeaponItem(ModToolMaterials.EDHEL_STEEL, TWO_HAND_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.EDHEL_STEEL, SPEAR_DAMAGE, SPEAR_ATTACKS_SPEED, TWO_HAND_REACH))), true);
     public static final Item LORIEN_BATTLESTAFF = registerItemWithModel("lorien_battlestaff",
-            new ReachWeaponItem(ModToolMaterials.ELVEN_STEEL, PIKE_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.ELVEN_STEEL, 0, SPEAR_ATTACKS_SPEED, TWO_HAND_REACH))), true);
+            new ReachWeaponItem(ModToolMaterials.EDHEL_STEEL, PIKE_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.EDHEL_STEEL, 0, SPEAR_ATTACKS_SPEED, TWO_HAND_REACH))), true);
     public static final Item LORIEN_PIKE = registerItemWithModel("lorien_pike",
-            new ReachWeaponItem(ModToolMaterials.ELVEN_STEEL, PIKE_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.ELVEN_STEEL, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH))), true);
+            new ReachWeaponItem(ModToolMaterials.EDHEL_STEEL, PIKE_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.EDHEL_STEEL, PIKE_DAMAGE, PIKE_ATTACKS_SPEED, PIKE_REACH))), true);
 
     public static final Item LORIEN_BOW = registerBowItem("lorien_bow",
             new CustomBowWeaponItem(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().maxDamage(640)));
@@ -180,7 +180,7 @@ public class ModWeaponItems {
             new CustomBowWeaponItem(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".umbar"), new Item.Settings().maxDamage(640)));
 
     public static final Item STING = registerItemWithModel("sting",
-            new ReachWeaponItem(ModToolMaterials.ELVEN_STEEL, DAGGER_REACH, new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.ELVEN_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED + 1, -1.0f))), false);
+            new ReachWeaponItem(ModToolMaterials.EDHEL_STEEL, DAGGER_REACH, new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ModToolMaterials.EDHEL_STEEL, SWORD_DAMAGE, SWORD_ATTACKS_SPEED + 1, -1.0f))), false);
 
     public static final Item IRON_DAGGER = registerItemWithModel("iron_dagger",
             new ReachWeaponItem(ToolMaterials.IRON, DAGGER_REACH, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic"), new Item.Settings().attributeModifiers(ReachWeaponItem.createAttributeModifiers(ToolMaterials.IRON, DAGGER_DAMAGE , DAGGER_ATTACKS_SPEED -0.1f, DAGGER_REACH))), false);
