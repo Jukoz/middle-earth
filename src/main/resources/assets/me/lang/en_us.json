@@ -4468,10 +4468,16 @@
   "me.faction.mordor" : "Mordor",
   "me.faction.mordor.gorgoroth" : "Gorgoroth",
 
+"#Comment": "Factions fallback",
+  "me.faction.example.fallback": "Example...",
+
 "#Comment:": "Races",
   "me.race.dwarf" : "Dwarf",
   "me.race.elf" : "Elf",
   "me.race.human" : "Human",
   "me.race.hobbit" : "Hobbit",
-  "me.race.orc" : "Orc"
+  "me.race.orc" : "Orc",
+
+  "#Comment": "Onboarding UI",
+  "me.ui.selection.none" : "None"
 }

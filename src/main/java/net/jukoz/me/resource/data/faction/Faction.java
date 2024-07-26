@@ -6,21 +6,27 @@ import com.google.gson.JsonObject;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.resource.data.Alignment;
 import net.jukoz.me.resource.data.Race;
+import net.jukoz.me.resource.data.faction.utils.FactionNpcPreviewData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import org.spongepowered.asm.mixin.Mutable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.logging.Logger;
 
 
 public class Faction {
@@ -36,7 +42,8 @@ public class Faction {
     private final Alignment alignment;
     private Race preview_race;
     private HashMap<Identifier, Faction> subFactions = null;
-    private HashMap<EquipmentSlot, Item> previewGear = null;
+    private FactionNpcPreviewData previewGear = null;
+
     private DyeColor baseBannerColor;
     private List<Identifier> bannerPatternIds;
     private List<DyeColor> bannerDyeColors;
@@ -68,14 +75,14 @@ public class Faction {
         if(jsonObject == null) return;
 
         this.preview_race = parseRace(jsonObject);
-
-        previewGear = new HashMap<>();
-        previewGear.put(EquipmentSlot.HEAD,  getItem(getValue(jsonObject, "head")));
-        previewGear.put(EquipmentSlot.CHEST,  getItem(getValue(jsonObject, "chest")));
-        previewGear.put(EquipmentSlot.LEGS,  getItem(getValue(jsonObject, "legs")));
-        previewGear.put(EquipmentSlot.FEET,  getItem(getValue(jsonObject, "feet")));
-        previewGear.put(EquipmentSlot.MAINHAND,  getItem(getValue(jsonObject, "main_hand")));
-        previewGear.put(EquipmentSlot.OFFHAND,  getItem(getValue(jsonObject, "off_hand")));
+        previewGear = new FactionNpcPreviewData(
+                getItem(getValue(jsonObject, "head")),
+                getItem(getValue(jsonObject, "chest")),
+                getItem(getValue(jsonObject, "legs")),
+                getItem(getValue(jsonObject, "feet")),
+                getItem(getValue(jsonObject, "main_hand")),
+                getItem(getValue(jsonObject, "off_hand"))
+        );
     }
 
     private void buildBanner(JsonObject json){
@@ -112,7 +119,7 @@ public class Faction {
     return id.toString();
     }
 
-    public Item getPreviewGearAt(EquipmentSlot slot){
+    public ItemStack getPreviewGearAt(EquipmentSlot slot){
         if(previewGear == null) return null;
         return previewGear.get(slot);
     }
@@ -165,7 +172,13 @@ public class Faction {
         return id.toString();
     }
 
-    public String getLangKey() {
-        return id.toTranslationKey();
+    public MutableText getName() {
+        return Text.translatable(id.toTranslationKey());
+    }
+
+    public MutableText tryGetShortName() {
+        String target = id.toTranslationKey().concat(".fallback");
+        String fallback = Text.translatable(id.toTranslationKey()).getString();
+        return MutableText.of(new TranslatableTextContent(target, fallback, TranslatableTextContent.EMPTY_ARGUMENTS));
     }
 }

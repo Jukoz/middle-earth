@@ -1,9 +1,10 @@
-package net.jukoz.me.client.screens.data;
+package net.jukoz.me.resource.data.faction.utils;
 
 import net.jukoz.me.utils.Factions;
 import org.joml.Vector3i;
 
 public class SpawnPoint {
+    // TODO : implement
     public final Factions FACTION;
     public final Vector3i WORLD_SPAWN;
     public final Vector3i MAP_COORDINATE;
