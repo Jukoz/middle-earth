@@ -1,5 +1,5 @@
 {
-  "#Comment:": "Advancements",
+"#Comment:": "Advancements",
   "advancements.middle_earth.root.title": "Middle Earth",
   "advancements.middle_earth.root.description": "Enter Middle-earth!",
   "advancements.middle_earth.enter_mordor.title": "One does not simply...",
@@ -38,7 +38,7 @@
   "advancements.alloy.dwarven_lantern.title": "Light of Khazad-dûm",
   "advancements.alloy.dwarven_lantern.description": "Craft a dwarven lantern",
 
-  "#Comment": "Biomes",
+"#Comment": "Biomes",
   "biome.me.anduin_vales": "Anduin Vales",
   "biome.me.anorien": "Anorien",
   "biome.me.anorien_foothills": "Anorien Foothills",
@@ -157,7 +157,7 @@
   "biome.me.dry_cave": "Dry Cave",
   "biome.me.ice_cave": "Ice Cave",
 
-  "#Comment:": "Item Groups",
+"#Comment:": "Item Groups",
   "itemGroup.me.stone_blocks": "Stone Blocks",
   "itemGroup.me.wood_blocks": "Wood Blocks",
   "itemGroup.me.misc_blocks": "Misc Blocks",
@@ -170,10 +170,10 @@
   "itemGroup.me.resource_items": "Resources",
   "itemGroup.me.spawn_egg_items": "Spawn Eggs",
 
-  "#Comment:": "Status Effects",
+"#Comment:": "Status Effects",
   "effect.me.hallucination" : "Hallucination",
 
-  "#Comment:": "Item - Ores",
+"#Comment:": "Item - Ores",
   "item.me.copper_rod": "Copper Rod",
   "item.me.raw_tin": "Raw Tin",
   "item.me.tin_ingot": "Tin Ingot",
@@ -222,7 +222,7 @@
   "item.me.mithril_nugget": "Mithril Nugget",
   "item.me.mithril_rod": "Mithril Rod",
 
-  "#Comment:": "Item - General",
+"#Comment:": "Item - General",
   "item.me.orc_bone": "Orc Bone",
   "item.me.warg_bone": "Warg Bone",
   "item.me.warg_fur": "Warg Fur",
@@ -231,12 +231,12 @@
   "item.me.ash": "Ash",
   "item.me.iron_chainmail": "Iron Chainmail",
 
-  "#Comment:": "Item - Phial",
+"#Comment:": "Item - Phial",
   "item.me.empty_phial": "Empty Phial",
   "item.me.water_phial": "Water Phial",
   "item.me.starlight_phial": "Starlight Phial",
 
-  "#Comment:": "Item - Tools",
+"#Comment:": "Item - Tools",
   "item.me.jade_pickaxe": "Jade Pickaxe",
   "item.me.jade_axe": "Jade Axe",
   "item.me.jade_shovel": "Jade Shovel",
@@ -282,7 +282,7 @@
   "item.me.bronze_axolotl_bucket": "Bronze Axolotl Bucket",
   "item.me.bronze_tadpole_bucket": "Bronze Tadpole Bucket",
 
-  "#Comment:": "Item - Erebor",
+"#Comment:": "Item - Erebor",
   "item.me.erebor_sword": "Erebor Sword",
   "item.me.erebor_noble_sword": "Erebor Noble Sword",
   "item.me.erebor_longsword": "Erebor Longsword",
@@ -292,7 +292,7 @@
   "item.me.erebor_axe": "Erebor Axe",
   "item.me.erebor_noble_axe": "Erebor Noble Axe",
 
-  "#Comment:": "Item - Gondor",
+"#Comment:": "Item - Gondor",
   "item.me.gondorian_sword": "Gondorian Sword",
   "item.me.gondorian_noble_sword": "Gondorian Noble Sword",
   "item.me.gondorian_longsword": "Gondorian Longsword",
@@ -305,7 +305,7 @@
   "item.me.gondorian_noble_spear": "Gondorian Noble Spear",
   "item.me.gondorian_bow": "Gondorian Bow",
 
-  "#Comment:": "Item - Lorien",
+"#Comment:": "Item - Lorien",
   "item.me.lorien_sword": "Lórien Sword",
   "item.me.lorien_noble_sword": "Lórien Noble Sword",
   "item.me.lorien_glaive": "Lórien Glaive",
@@ -318,7 +318,7 @@
   "item.me.lorien_noble_spear": "Lórien Noble Spear",
   "item.me.lorien_bow": "Lórien Bow",
 
-  "#Comment:": "Item - Mordor Orc",
+"#Comment:": "Item - Mordor Orc",
   "item.me.mordor_orc_sword": "Mordor Orc Sword",
   "item.me.mordor_orc_scimitar": "Mordor Orc Scimitar",
   "item.me.mordor_orc_dagger": "Mordor Orc Dagger",
@@ -331,7 +331,7 @@
 
   "item.me.morgul_blade": "Morgul Blade",
 
-  "#Comment:": "Item - Rohan",
+"#Comment:": "Item - Rohan",
   "item.me.rohirric_sword": "Rohirric Sword",
   "item.me.rohirric_noble_sword": "Rohirric Noble Sword",
   "item.me.rohirric_longsword": "Rohirric Longsword",
@@ -344,7 +344,7 @@
   "item.me.rohirric_noble_spear": "Rohirric Noble Spear",
   "item.me.rohirric_bow": "Rohirric Bow",
 
-  "#Comment:": "Item - Dalish",
+"#Comment:": "Item - Dalish",
   "item.me.dalish_sword": "Dalish Sword",
   "item.me.dalish_heyday_sword": "Dalish Heyday Sword",
   "item.me.dalish_heyday_scimitar": "Dalish Heyday Scimitar",
@@ -359,7 +359,7 @@
   "item.me.dalish_heyday_dagger": "Dalish Heyday Dagger",
   "item.me.dalish_noble_dagger": "Dalish Noble Dagger",
 
-  "#Comment:": "Item - Uruk-Hai",
+"#Comment:": "Item - Uruk-Hai",
   "item.me.uruk_hai_sword": "Uruk-Hai Sword",
   "item.me.uruk_hai_elite_scimitar": "Uruk-Hai Elite Scimitar",
   "item.me.uruk_hai_warblade": "Uruk-Hai Warblade",
@@ -371,7 +371,7 @@
   "item.me.uruk_hai_axe": "Uruk-Hai Axe",
   "item.me.uruk_hai_elite_axe": "Uruk-Hai Elite Axe",
 
-  "#Comment:": "Item - Misc Weapons",
+"#Comment:": "Item - Misc Weapons",
   "item.me.wooden_dagger": "Wooden Dagger",
   "item.me.stone_dagger": "Stone Dagger",
   "item.me.jade_dagger": "Jade Dagger",
@@ -408,7 +408,7 @@
   "item.me.diamond_spear": "Diamond Spear",
   "item.me.netherite_spear": "Netherite Spear",
 
-  "#Comment:": "Armours",
+"#Comment:": "Armours",
   "item.me.cape": "Cape",
   "item.me.hood": "Hood",
   "item.me.fur_cloak": "Fur Cloak",
@@ -670,7 +670,7 @@
 
   "item.me.steel_troll_armor": "Steel Troll Armor",
 
-  "#Comment:": "Shields",
+"#Comment:": "Shields",
   "item.me.rohirric_shield": "Rohirric Shield",
   "item.me.gondorian_shield": "Gondorian Shield",
   "item.me.longbeard_shield": "Longbeard Shield",
@@ -678,12 +678,12 @@
   "item.me.mordor_shield": "Mordor Shield",
   "item.me.misty_mountains_shield": "Misty Mountains Shield",
 
-  "#Comment:": "Item - Horse Armor",
+"#Comment:": "Item - Horse Armor",
   "item.me.rohirric_horse_armor": "Rohirric Horse Armor",
   "item.me.gondorian_horse_armor": "Gondorian Horse Armor",
   "item.me.lorien_horse_armor": "Lórien Horse Armor",
 
-  "#Comment:": "Item - Food",
+"#Comment:": "Item - Food",
   "item.me.lembas": "Lembas",
   "item.me.maggoty_bread": "Maggoty Bread",
   "item.me.strawberry": "Strawberry",
@@ -724,7 +724,7 @@
 
   "item.me.glowworm_bottle": "Glowworm Bottle",
 
-  "#Comment:": "Item - Resources",
+"#Comment:": "Item - Resources",
   "item.me.straw": "Straw",
   "item.me.duck_feather": "Duck Feather",
   "item.me.swan_feather": "Swan Feather",
@@ -732,7 +732,7 @@
   "item.me.copper_coin": "Copper Coin",
   "item.me.silver_coin": "Silver Coin",
 
-  "#Comment:": "Item - Seeds",
+"#Comment:": "Item - Seeds",
   "item.me.tomato_seeds": "Tomato Seeds",
   "item.me.bell_pepper_seeds": "Bell Pepper Seeds",
   "item.me.cucumber_seeds": "Cucumber Seeds",
@@ -740,14 +740,14 @@
   "item.me.pipeweed_seeds": "Pipeweed Seeds",
   "item.me.flax_seeds": "Flax Seeds",
 
-  "#Comment:": "Item - Resources",
+"#Comment:": "Item - Resources",
   "item.me.pipeweed": "Pipeweed",
   "item.me.flax": "Flax",
   "item.me.red_agate_shard": "Red Agate Shard",
   "item.me.citrine_shard": "Citrine Shard",
   "item.me.quartz_shard": "Quartz Shard",
 
-  "#Comment:": "Item - Spawn Eggs",
+"#Comment:": "Item - Spawn Eggs",
   "item.me.barrow_wight_spawn_egg": "Barrow Wight Spawn Egg",
   "item.me.nazgul_spawn_egg": "Nazgûl Spawn Egg",
 
@@ -810,13 +810,13 @@
   "item.me.pheasant_spawn_egg": "Pheasant Spawn Egg",
   "item.me.deer_spawn_egg": "Deer Spawn Egg",
 
-  "#Comment:": "Item - Entities",
+"#Comment:": "Item - Entities",
   "item.me.fire_of_orthanc": "Fire of Orthanc",
   "item.me.pebble": "Pebble",
   "item.me.pinecone": "Pinecone",
   "item.me.lit_pinecone": "Lit Pinecone",
 
-  "#Comment:": "ENTITIES",
+"#Comment:": "ENTITIES",
   "entity.me.cave_troll": "Cave Troll",
   "entity.me.snow_troll": "Snow Troll",
   "entity.me.stone_troll": "Stone Troll",
@@ -884,7 +884,7 @@
   "entity.me.pinecone": "Pinecone",
   "entity.me.lit_pinecone": "Lit Pinecone",
 
-  "#Comment:": "Block - Vanilla +",
+"#Comment:": "Block - Vanilla +",
   "block.me.stone_trapdoor": "Stone Trapdoor",
   "block.me.granite_trapdoor": "Granite Trapdoor",
   "block.me.diorite_trapdoor": "Diorite Trapdoor",
@@ -897,7 +897,7 @@
   "block.me.stone_mycelium": "Stone Mycelium",
   "block.me.ash_block": "Ash Block",
 
-  "#Comment:": "Block - Farm",
+"#Comment:": "Block - Farm",
   "block.me.straw_block": "Straw Block",
   "block.me.straw_stairs": "Straw Stairs",
   "block.me.straw_slab": "Straw Slab",
@@ -922,7 +922,7 @@
   "block.me.wild_carrot": "Wild Carrot",
   "block.me.wild_beetroot": "Wild Beetroot",
 
-  "#Comment:": "Block - Glass",
+"#Comment:": "Block - Glass",
   "block.me.lead_glass": "Lead Glass",
   "block.me.black_stained_lead_glass": "Black Stained Lead Glass",
   "block.me.blue_stained_lead_glass": "Blue Stained Lead Glass",
@@ -960,7 +960,7 @@
   "block.me.yellow_stained_lead_glass_pane": "Yellow Stained Lead Glass Pane",
 
 
-  "#Comment:": "Block - Stone",
+"#Comment:": "Block - Stone",
   "block.me.stone_vertical_slab": "Stone Vertical Slab",
   "block.me.stone_pillar": "Stone Pillar",
   "block.me.mossy_stone_pillar": "Mossy Stone Pillar",
@@ -996,7 +996,7 @@
   "block.me.stone_table": "Stone Table",
   "block.me.stone_chair": "Stone Chair",
 
-  "#Comment:": "Block - Deepslate",
+"#Comment:": "Block - Deepslate",
   "block.me.cobbled_deepslate_vertical_slab": "Cobbled Deepslate Vertical Slab",
   "block.me.deepslate_pillar": "Deepslate Pillar",
   "block.me.mossy_deepslate_pillar": "Mossy Deepslate Pillar",
@@ -1029,7 +1029,7 @@
   "block.me.deepslate_table": "Deepslate Table",
   "block.me.deepslate_chair": "Deepslate Chair",
 
-  "#Comment:": "Block - Ashen Stone",
+"#Comment:": "Block - Ashen Stone",
   "block.me.ashen_cobblestone": "Ashen Cobblestone",
   "block.me.ashen_cobblestone_slab": "Ashen Cobblestone Slab",
   "block.me.ashen_cobblestone_vertical_slab": "Ashen Cobblestone Vertical Slab",
@@ -1099,7 +1099,7 @@
   "block.me.ashen_stone_table": "Ashen Stone Table",
   "block.me.ashen_stone_chair": "Ashen Stone Chair",
 
-  "#Comment:": "Block - Pumice",
+"#Comment:": "Block - Pumice",
   "block.me.cobbled_pumice": "Cobbled Pumice",
   "block.me.cobbled_pumice_slab": "Cobbled Pumice Slab",
   "block.me.cobbled_pumice_vertical_slab": "Cobbled Pumice Vertical Slab",
@@ -1174,7 +1174,7 @@
   "block.me.pumice_table": "Pumice Table",
   "block.me.pumice_chair": "Pumice Chair",
 
-  "#Comment:": "Block - Calcite",
+"#Comment:": "Block - Calcite",
   "block.me.cobbled_calcite": "Cobbled Calcite",
   "block.me.cobbled_calcite_slab": "Cobbled Calcite Slab",
   "block.me.cobbled_calcite_vertical_slab": "Cobbled Calcite Vertical Slab",
@@ -1242,7 +1242,7 @@
   "block.me.calcite_table": "Calcite Table",
   "block.me.calcite_chair": "Calcite Chair",
 
-  "#Comment:": "Block - Dolomite",
+"#Comment:": "Block - Dolomite",
   "block.me.cobbled_dolomite": "Cobbled Dolomite",
   "block.me.cobbled_dolomite_slab": "Cobbled Dolomite Slab",
   "block.me.cobbled_dolomite_vertical_slab": "Cobbled Dolomite Vertical Slab",
@@ -1317,7 +1317,7 @@
   "block.me.dolomite_table": "Dolomite Table",
   "block.me.dolomite_chair": "Dolomite Chair",
 
-  "#Comment:": "Block - Gonluin",
+"#Comment:": "Block - Gonluin",
   "block.me.cobbled_gonluin": "Cobbled Gonluin",
   "block.me.cobbled_gonluin_slab": "Cobbled Gonluin Slab",
   "block.me.cobbled_gonluin_vertical_slab": "Cobbled Gonluin Vertical Slab",
@@ -1393,7 +1393,7 @@
   "block.me.gonluin_table": "Gonluin Table",
   "block.me.gonluin_chair": "Gonluin Chair",
 
-  "#Comment:": "Block - Blue Tuff",
+"#Comment:": "Block - Blue Tuff",
   "block.me.cobbled_blue_tuff": "Cobbled Blue Tuff",
   "block.me.cobbled_blue_tuff_slab": "Cobbled Blue Tuff Slab",
   "block.me.cobbled_blue_tuff_vertical_slab": "Cobbled Blue Tuff Vertical Slab",
@@ -1468,19 +1468,19 @@
   "block.me.blue_tuff_table": "Blue Tuff Table",
   "block.me.blue_tuff_chair": "Blue Tuff Chair",
 
-  "#Comment:": "Block - Tuff",
+"#Comment:": "Block - Tuff",
 
   "block.me.tuff_stool": "Tuff Stool",
   "block.me.tuff_table": "Tuff Table",
   "block.me.tuff_chair": "Tuff Chair",
 
-  "#Comment:": "Block - Blackstone",
+"#Comment:": "Block - Blackstone",
 
   "block.me.blackstone_stool": "Blackstone Stool",
   "block.me.blackstone_table": "Blackstone Table",
   "block.me.blackstone_chair": "Blackstone Chair",
 
-  "#Comment:": "Block - Limestone",
+"#Comment:": "Block - Limestone",
   "block.me.cobbled_limestone": "Cobbled Limestone",
   "block.me.cobbled_limestone_slab": "Cobbled Limestone Slab",
   "block.me.cobbled_limestone_vertical_slab": "Cobbled Limestone Vertical Slab",
@@ -1555,7 +1555,7 @@
   "block.me.limestone_table": "Limestone Table",
   "block.me.limestone_chair": "Limestone Chair",
 
-  "#Comment:": "Block - Blackstone",
+"#Comment:": "Block - Blackstone",
   "block.me.blackstone_tiles": "Blackstone Tiles",
   "block.me.blackstone_tiles_slab": "Blackstone Tiles Slab",
   "block.me.blackstone_tiles_vertical_slab": "Blackstone Tiles Vertical Slab",
@@ -1572,7 +1572,7 @@
   "block.me.cracked_blackstone_tiles_stairs": "Cracked Blackstone Tiles Stairs",
   "block.me.cracked_blackstone_tiles_wall": "Cracked Blackstone Tiles Wall",
 
-  "#Comment:": "Block - Granite",
+"#Comment:": "Block - Granite",
   "block.me.smooth_granite": "Smooth Granite",
   "block.me.smooth_granite_slab": "Smooth Granite Slab",
   "block.me.smooth_granite_vertical_slab": "Smooth Granite Vertical Slab",
@@ -1640,7 +1640,7 @@
   "block.me.granite_table": "Granite Table",
   "block.me.granite_chair": "Granite Chair",
 
-  "#Comment:": "Block - Diorite",
+"#Comment:": "Block - Diorite",
   "block.me.smooth_diorite": "Smooth Diorite",
   "block.me.smooth_diorite_slab": "Smooth Diorite Slab",
   "block.me.smooth_diorite_vertical_slab": "Smooth Diorite Vertical Slab",
@@ -1708,7 +1708,7 @@
   "block.me.diorite_table": "Diorite Table",
   "block.me.diorite_chair": "Diorite Chair",
 
-  "#Comment:": "Block - Andesite",
+"#Comment:": "Block - Andesite",
   "block.me.cobbled_andesite": "Cobbled Andesite",
   "block.me.cobbled_andesite_slab": "Cobbled Andesite Slab",
   "block.me.cobbled_andesite_vertical_slab": "Cobbled Andesite Vertical Slab",
@@ -1771,7 +1771,7 @@
   "block.me.andesite_table": "Andesite Table",
   "block.me.andesite_chair": "Andesite Chair",
 
-  "#Comment:": "Block - Old Brick",
+"#Comment:": "Block - Old Brick",
 
   "block.me.old_bricks": "Old Bricks",
   "block.me.old_bricks_slab": "Old Bricks Slab",
@@ -1779,7 +1779,7 @@
   "block.me.old_bricks_stairs": "Old Bricks Stairs",
   "block.me.old_bricks_wall": "Old Bricks Wall",
 
-  "#Comment:": "Block - Basalt",
+"#Comment:": "Block - Basalt",
   "block.me.cobbled_basalt": "Cobbled Basalt",
   "block.me.cobbled_basalt_slab": "Cobbled Basalt Slab",
   "block.me.cobbled_basalt_vertical_slab": "Cobbled Basalt Vertical Slab",
@@ -1837,7 +1837,7 @@
   "block.me.basalt_table": "Basalt Table",
   "block.me.basalt_chair": "Basalt Chair",
 
-  "#Comment:": "Block - Jadeite",
+"#Comment:": "Block - Jadeite",
   "block.me.cobbled_jadeite": "Cobbled Jadeite",
   "block.me.cobbled_jadeite_slab": "Cobbled Jadeite Slab",
   "block.me.cobbled_jadeite_vertical_slab": "Cobbled Jadeite Vertical Slab",
@@ -1907,7 +1907,7 @@
   "block.me.jadeite_table": "Jadeite Table",
   "block.me.jadeite_chair": "Jadeite Chair",
 
-  "#Comment:": "Block - Quartzite",
+"#Comment:": "Block - Quartzite",
   "block.me.cobbled_quartzite": "Cobbled Quartzite",
   "block.me.cobbled_quartzite_slab": "Cobbled Quartzite Slab",
   "block.me.cobbled_quartzite_vertical_slab": "Cobbled Quartzite Vertical Slab",
@@ -1977,7 +1977,7 @@
   "block.me.quartzite_table": "Quartzite Table",
   "block.me.quartzite_chair": "Quartzite Chair",
 
-  "#Comment:": "Block - Ironstone",
+"#Comment:": "Block - Ironstone",
   "block.me.smooth_ironstone": "Smooth Ironstone",
   "block.me.smooth_ironstone_slab": "Smooth Ironstone Slab",
   "block.me.smooth_ironstone_vertical_slab": "Smooth Ironstone Vertical Slab",
@@ -2058,7 +2058,7 @@
   "block.me.ironstone_table": "Ironstone Table",
   "block.me.ironstone_chair": "Ironstone Chair",
 
-  "#Comment:": "Block - Hematite",
+"#Comment:": "Block - Hematite",
   "block.me.smooth_hematite": "Smooth Hematite",
   "block.me.smooth_hematite_slab": "Smooth Hematite Slab",
   "block.me.smooth_hematite_vertical_slab": "Smooth Hematite Vertical Slab",
@@ -2145,7 +2145,7 @@
   "block.me.hematite_table": "Hematite Table",
   "block.me.hematite_chair": "Hematite Chair",
 
-  "#Comment:": "Block - Gneiss",
+"#Comment:": "Block - Gneiss",
   "block.me.smooth_gneiss": "Smooth Gneiss",
   "block.me.smooth_gneiss_slab": "Smooth Gneiss Slab",
   "block.me.smooth_gneiss_vertical_slab": "Smooth Gneiss Vertical Slab",
@@ -2232,7 +2232,7 @@
   "block.me.gneiss_table": "Gneiss Table",
   "block.me.gneiss_chair": "Gneiss Chair",
 
-  "#Comment:": "Block - Zigilabad",
+"#Comment:": "Block - Zigilabad",
   "block.me.smooth_zigilabad": "Smooth Zigil'Abad",
   "block.me.smooth_zigilabad_slab": "Smooth Zigil'Abad Slab",
   "block.me.smooth_zigilabad_vertical_slab": "Smooth Zigil'Abad Vertical Slab",
@@ -2319,7 +2319,7 @@
   "block.me.zigilabad_table": "Zigil'Abad Table",
   "block.me.zigilabad_chair": "Zigil'Abad Chair",
 
-  "#Comment:": "Block - Núrgon",
+"#Comment:": "Block - Núrgon",
   "block.me.cobbled_nurgon": "Cobbled Núrgon",
   "block.me.cobbled_nurgon_slab": "Cobbled Núrgon Slab",
   "block.me.cobbled_nurgon_vertical_slab": "Cobbled Núrgon Vertical Slab",
@@ -2389,7 +2389,7 @@
   "block.me.nurgon_table": "Núrgon Table",
   "block.me.nurgon_chair": "Núrgon Chair",
 
-  "#Comment:": "Block - Medgon",
+"#Comment:": "Block - Medgon",
   "block.me.smooth_medgon": "Smooth Medgon",
   "block.me.smooth_medgon_slab": "Smooth Medgon Slab",
   "block.me.smooth_medgon_vertical_slab": "Smooth Medgon Vertical Slab",
@@ -2473,7 +2473,7 @@
   "block.me.medgon_table": "Medgon Table",
   "block.me.medgon_chair": "Medgon Chair",
 
-  "#Comment:": "Block - Frozen Stone",
+"#Comment:": "Block - Frozen Stone",
   "block.me.frozen_cobblestone": "Frozen Cobblestone",
   "block.me.frozen_cobblestone_slab": "Frozen Cobblestone Slab",
   "block.me.frozen_cobblestone_vertical_slab": "Frozen Cobblestone Vertical Slab",
@@ -2543,7 +2543,7 @@
   "block.me.frozen_stone_table": "Frozen Stone Table",
   "block.me.frozen_stone_chair": "Frozen Stone Chair",
 
-  "#Comment:": "Block - Mixed Stones",
+"#Comment:": "Block - Mixed Stones",
   "block.me.mixed_stones": "Mixed Stones",
   "block.me.mixed_stones_slab": "Mixed Stones Slab",
   "block.me.mixed_stones_vertical_slab": "Mixed Stones Vertical Slab",
@@ -2560,7 +2560,7 @@
   "block.me.cracked_mixed_stones_stairs": "Cracked Mixed Stones Stairs",
   "block.me.cracked_mixed_stones_wall": "Cracked Mixed Stones Wall",
 
-  "#Comment:": "Block - Gems",
+"#Comment:": "Block - Gems",
   "block.me.quartz_block": "Quartz Block",
   "block.me.budding_quartz": "Budding Quartz",
   "block.me.quartz_cluster": "Quartz Cluster",
@@ -2586,7 +2586,7 @@
   "block.me.medium_glowstone_bud": "Medium Glowstone Bud",
   "block.me.large_glowstone_bud": "Large Glowstone Bud",
 
-  "#Comment:": "Block - Dirt",
+"#Comment:": "Block - Dirt",
   "block.me.dry_dirt": "Dry Dirt",
   "block.me.dry_dirt_slab": "Dry Dirt Slab",
   "block.me.dry_dirt_stairs": "Dry Dirt Stairs",
@@ -2622,7 +2622,7 @@
   "block.me.mire_slab": "Mire Slab",
   "block.me.mire_stairs": "Mire Stairs",
 
-  "#Comment:": "Block - Beech",
+"#Comment:": "Block - Beech",
   "block.me.beech_leaves": "Beech Leaves",
   "block.me.beech_log": "Beech Log",
   "block.me.beech_wood": "Beech Wood",
@@ -2664,7 +2664,7 @@
   "block.me.beech_table": "Beech Table",
   "block.me.beech_chair": "Beech Chair",
 
-  "#Comment:": "Block - Larch",
+"#Comment:": "Block - Larch",
   "block.me.larch_leaves": "Larch Leaves",
   "block.me.dry_larch_leaves": "Dry Larch Leaves",
   "block.me.larch_log": "Larch Log",
@@ -2707,7 +2707,7 @@
   "block.me.larch_table": "Larch Table",
   "block.me.larch_chair": "Larch Chair",
 
-  "#Comment:": "Block - Black Lebethron",
+"#Comment:": "Block - Black Lebethron",
   "block.me.lebethron_leaves": "Lebethron Leaves",
   "block.me.black_lebethron_log": "Black Lebethron Log",
   "block.me.black_lebethron_wood": "Black Lebethron Wood",
@@ -2749,7 +2749,7 @@
   "block.me.black_lebethron_table": "Black Lebethron Table",
   "block.me.black_lebethron_chair": "Black Lebethron Chair",
 
-  "#Comment:": "Block - White Lebethron",
+"#Comment:": "Block - White Lebethron",
   "block.me.white_lebethron_log": "White Lebethron Log",
   "block.me.white_lebethron_wood": "White Lebethron Wood",
   "block.me.white_lebethron_wood_wall": "White Lebethron Wood Wall",
@@ -2790,7 +2790,7 @@
   "block.me.white_lebethron_table": "White Lebethron Table",
   "block.me.white_lebethron_chair": "White Lebethron Chair",
 
-  "#Comment:": "Block - Chestnut",
+"#Comment:": "Block - Chestnut",
   "block.me.chestnut_leaves": "Chestnut Leaves",
   "block.me.chestnut_log": "Chestnut Log",
   "block.me.chestnut_wood": "Chestnut Wood",
@@ -2832,7 +2832,7 @@
   "block.me.chestnut_table": "Chestnut Table",
   "block.me.chestnut_chair": "Chestnut Chair",
 
-  "#Comment:": "Block - Holly",
+"#Comment:": "Block - Holly",
   "block.me.holly_leaves": "Holly Leaves",
   "block.me.berry_holly_leaves": "Berry Holly Leaves",
   "block.me.holly_log": "Holly Log",
@@ -2875,7 +2875,7 @@
   "block.me.holly_table": "Holly Table",
   "block.me.holly_chair": "Holly Chair",
 
-  "#Comment:": "Block - Mallorn",
+"#Comment:": "Block - Mallorn",
   "block.me.mallorn_leaves": "Mallorn Leaves",
   "block.me.flowering_mallorn_leaves": "Flowering Mallorn Leaves",
   "block.me.fallen_mallorn_leaves": "Fallen Mallorn Leaves",
@@ -2919,7 +2919,7 @@
   "block.me.mallorn_table": "Mallorn Table",
   "block.me.mallorn_chair": "Mallorn Chair",
 
-  "#Comment:": "Block - Maple",
+"#Comment:": "Block - Maple",
   "block.me.maple_leaves": "Maple Leaves",
   "block.me.orange_maple_leaves": "Orange Maple Leaves",
   "block.me.red_maple_leaves": "Red Maple Leaves",
@@ -2964,7 +2964,7 @@
   "block.me.maple_table": "Maple Table",
   "block.me.maple_chair": "Maple Chair",
 
-  "#Comment:": "Block - Silver Maple",
+"#Comment:": "Block - Silver Maple",
   "block.me.silver_maple_log": "Silver Maple Log",
   "block.me.silver_maple_wood": "Silver Maple Wood",
   "block.me.silver_maple_wood_wall": "Silver Maple Wood Wall",
@@ -3005,7 +3005,7 @@
   "block.me.silver_maple_table": "Silver Maple Table",
   "block.me.silver_maple_chair": "Silver Maple Chair",
 
-  "#Comment:": "Block - Mirkwood",
+"#Comment:": "Block - Mirkwood",
   "block.me.mirkwood_leaves": "Mirkwood Leaves",
   "block.me.mirkwood_vines": "Mirkwood Vines",
   "block.me.mirkwood_vines_plant": "Mirkwood Vines Plant",
@@ -3049,7 +3049,7 @@
   "block.me.mirkwood_table": "Mirkwood Table",
   "block.me.mirkwood_chair": "Mirkwood Chair",
 
-  "#Comment:": "Block - Palm",
+"#Comment:": "Block - Palm",
   "block.me.palm_leaves": "Palm Leaves",
   "block.me.palm_log": "Palm Log",
   "block.me.palm_wood": "Palm Wood",
@@ -3091,7 +3091,7 @@
   "block.me.palm_table": "Palm Table",
   "block.me.palm_chair": "Palm Chair",
 
-  "#Comment:": "Block - White Palm",
+"#Comment:": "Block - White Palm",
   "block.me.white_palm_leaves": "White Palm Leaves",
   "block.me.white_palm_log": "White Palm Log",
   "block.me.white_palm_wood": "White Palm Wood",
@@ -3133,7 +3133,7 @@
   "block.me.white_palm_table": "White Palm Table",
   "block.me.white_palm_chair": "White Palm Chair",
 
-  "#Comment:": "Block - Pine",
+"#Comment:": "Block - Pine",
   "block.me.pine_leaves": "Pine Leaves",
   "block.me.pine_branches": "Pine Branches",
   "block.me.dry_pine_leaves": "Dry Pine Leaves",
@@ -3177,7 +3177,7 @@
   "block.me.pine_table": "Pine Table",
   "block.me.pine_chair": "Pine Chair",
 
-  "#Comment:": "Block - Black Pine",
+"#Comment:": "Block - Black Pine",
   "block.me.black_pine_leaves": "Black Pine Leaves",
   "block.me.black_pine_branches": "Black Pine Branches",
   "block.me.dry_black_pine_leaves": "Dry Black Pine Leaves",
@@ -3221,7 +3221,7 @@
   "block.me.black_pine_table": "Black Pine Table",
   "block.me.black_pine_chair": "Black Pine Chair",
 
-  "#Comment:": "Block - Willow",
+"#Comment:": "Block - Willow",
   "block.me.willow_leaves": "Willow Leaves",
   "block.me.willow_log": "Willow Log",
   "block.me.willow_wood": "Willow Wood",
@@ -3263,7 +3263,7 @@
   "block.me.willow_table": "Willow Table",
   "block.me.willow_chair": "Willow Chair",
 
-  "#Comment:": "Block - Mushroom",
+"#Comment:": "Block - Mushroom",
   "block.me.mushroom_stem_wall": "Mushroom Stem Wall",
   "block.me.mushroom_stem_fence": "Mushroom Stem Fence",
   "block.me.mushroom_planks": "Mushroom Planks",
@@ -3286,7 +3286,7 @@
   "block.me.mushroom_table": "Mushroom Table",
   "block.me.mushroom_chair": "Mushroom Chair",
 
-  "#Comment:": "Block - Dark mushroom",
+"#Comment:": "Block - Dark mushroom",
   "block.me.dark_mushroom_stem": "Dark Mushroom Stem",
   "block.me.dark_mushroom_stem_wall": "Dark Mushroom Stem Wall",
   "block.me.dark_mushroom_stem_fence": "Dark Mushroom Stem Fence",
@@ -3310,7 +3310,7 @@
   "block.me.dark_mushroom_table": "Dark Mushroom Table",
   "block.me.dark_mushroom_chair": "Dark Mushroom Chair",
 
-  "#Comment:": "Block - Gray mushroom",
+"#Comment:": "Block - Gray mushroom",
   "block.me.gray_mushroom_stem": "Gray Mushroom Stem",
   "block.me.gray_mushroom_stem_wall": "Gray Mushroom Stem Wall",
   "block.me.gray_mushroom_stem_fence": "Gray Mushroom Stem Fence",
@@ -3334,7 +3334,7 @@
   "block.me.gray_mushroom_table": "Gray Mushroom Table",
   "block.me.gray_mushroom_chair": "Gray Mushroom Chair",
 
-  "#Comment:": "Block - Roofs",
+"#Comment:": "Block - Roofs",
   "block.me.oak_shingles": "Oak Shingles",
   "block.me.oak_shingles_stairs": "Oak Shingles Stairs",
   "block.me.oak_shingles_slab": "Oak Shingles Slab",
@@ -3553,7 +3553,7 @@
   "block.me.waxed_rotten_thatch_stairs": "Waxed Rotten Thatch Stairs",
   "block.me.waxed_rotten_thatch_wall": "Waxed Rotten Thatch Wall",
 
-  "#Comment:": "Block - Furniture",
+"#Comment:": "Block - Furniture",
 
   "block.me.oak_stool": "Oak Stool",
   "block.me.oak_table": "Oak Table",
@@ -3615,7 +3615,7 @@
   "block.me.bonfire": "Bonfire",
   "block.me.sconce": "Sconce",
 
-  "#Comment:": "Block - Plants",
+"#Comment:": "Block - Plants",
   "block.me.brown_grass": "Brown Grass",
   "block.me.green_shrub": "Green Shrub",
   "block.me.mallos": "Mallos",
@@ -3714,7 +3714,7 @@
   "block.me.mirkwood_roots": "Mirkwood Roots",
   "block.me.mirkwood_hanging_roots": "Mirkwood Hanging Roots",
 
-  "#Comment:": "Block - Vanilla Additions",
+"#Comment:": "Block - Vanilla Additions",
   "block.me.packed_mud_slab": "Packed Mud Slab",
   "block.me.packed_mud_vertical_slab": "Packed Mud Vertical Slab",
   "block.me.packed_mud_stairs": "Packed Mud Stairs",
@@ -3913,21 +3913,21 @@
   "block.me.waxed_weathered_cut_copper_vertical_slab": "Waxed Weathered Cut Copper Vertical Slab",
   "block.me.waxed_oxidized_cut_copper_vertical_slab": "Waxed Oxidized Cut Copper Vertical Slab",
 
-  "#Comment:": "Block - Coal ores",
+"#Comment:": "Block - Coal ores",
   "block.me.gonluin_coal_ore": "Gonluin Coal Ore",
   "block.me.ashen_coal_ore": "Ashen Coal Ore",
   "block.me.frozen_coal_ore": "Frozen Coal Ore",
   "block.me.calcite_coal_ore": "Calcite Coal Ore",
   "block.me.limestone_coal_ore": "Limestone Coal Ore",
 
-  "#Comment:": "Block - Copper ores",
+"#Comment:": "Block - Copper ores",
   "block.me.gonluin_copper_ore": "Gonluin Copper Ore",
   "block.me.ashen_copper_ore": "Ashen Copper Ore",
   "block.me.frozen_copper_ore": "Frozen Copper Ore",
   "block.me.calcite_copper_ore": "Calcite Copper Ore",
   "block.me.limestone_copper_ore": "Limestone Copper Ore",
 
-  "#Comment:": "Block - Tin Blocks",
+"#Comment:": "Block - Tin Blocks",
   "block.me.tin_ore": "Tin Ore",
   "block.me.gonluin_tin_ore": "Gonluin Tin Ore",
   "block.me.ashen_tin_ore": "Ashen Tin Ore",
@@ -3939,7 +3939,7 @@
   "block.me.tin_block": "Tin Block",
   "block.me.raw_tin_block": "Block of Raw Tin",
 
-  "#Comment:": "Block - Lead Blocks",
+"#Comment:": "Block - Lead Blocks",
   "block.me.deepslate_lead_ore": "Deepslate Lead Ore",
   "block.me.nurgon_lead_ore": "Núrgon Lead Ore",
   "block.me.medgon_lead_ore": "Medgon Lead Ore",
@@ -3954,27 +3954,27 @@
   "block.me.cut_silver_slab": "Cut Silver Slab",
   "block.me.cut_silver_vertical_slab": "Cut Silver Vertical Slab",
 
-  "#Comment:": "Block - Silver Blocks",
+"#Comment:": "Block - Silver Blocks",
   "block.me.nurgon_silver_ore": "Núrgon Silver Ore",
   "block.me.medgon_silver_ore": "Medgon Silver Ore",
   "block.me.raw_silver_block": "Block of Raw Silver",
   "block.me.silver_block": "Silver Block",
   "block.me.silver_bars": "Silver Bars",
 
-  "#Comment:": "Block - Gold ores",
+"#Comment:": "Block - Gold ores",
   "block.me.nurgon_gold_ore": "Núrgon Gold Ore",
   "block.me.medgon_gold_ore": "Medgon Gold Ore",
 
-  "#Comment:": "Block - Iron ores",
+"#Comment:": "Block - Iron ores",
   "block.me.nurgon_iron_ore": "Núrgon Iron Ore",
   "block.me.medgon_iron_ore": "Medgon Iron Ore",
 
-  "#Comment:": "Block - Mithril Blocks",
+"#Comment:": "Block - Mithril Blocks",
   "block.me.medgon_mithril_ore": "Medgon Mithril Ore",
   "block.me.raw_mithril_block": "Block of Raw Mithril",
   "block.me.mithril_block": "Mithril Block",
 
-  "#Comment:": "Block - Misc",
+"#Comment:": "Block - Misc",
   "block.me.sticky_snow": "Sticky Snow",
 
   "block.me.river_sand": "River Sand",
@@ -4140,7 +4140,7 @@
   "block.me.white_wool_stairs": "White Wool Stairs",
   "block.me.yellow_wool_stairs": "Yellow Wool Stairs",
 
-  "#Comment:": "Block - Decoratives",
+"#Comment:": "Block - Decoratives",
   "block.me.dwarven_lantern": "Dwarven Lantern",
   "block.me.silver_lantern": "Silver Lantern",
   "block.me.alloy_furnace": "Alloy Furnace",
@@ -4155,7 +4155,7 @@
   "block.me.rope": "Rope",
 
 
-  "#Comment:": "Items - Banners",
+"#Comment:": "Items - Banners",
   "item.me.gondor_banner_pattern": "Gondor Banner Pattern",
   "item.me.gondor_banner_pattern.desc": "White Tree of Gondor",
   "item.me.rohan_banner_pattern": "Rohan Banner Pattern",
@@ -4174,7 +4174,7 @@
   "item.me.dragon_banner_pattern": "Dragon Banner Pattern",
   "item.me.dragon_banner_pattern.desc": "A great Dragon",
 
-  "#Comment:": "Blocks - Banners",
+"#Comment:": "Blocks - Banners",
   "block.me.banner.gondor.black": "Black Gondor Tree",
   "block.me.banner.gondor.blue": "Blue Gondor Tree",
   "block.me.banner.gondor.brown": "Brown Gondor Tree",
@@ -4345,17 +4345,17 @@
   "block.me.banner.dragon.white": "White Dragon",
   "block.me.banner.dragon.yellow": "Yellow Dragon",
 
-  "#Comment": "SOUNDS",
+"#Comment": "SOUNDS",
   "sounds.me.nazgul_fade": "Nazgûl Fading",
   "sounds.me.nazgul_scream": "Nazgûl Screaming",
 
-  "#Comment": "GUI",
+"#Comment": "GUI",
   "screen.me.alloy_furnace": "Alloy Furnace",
   "container.artisan_table": "Artisan Table",
   "screen.me.reinforced_chest": "Reinforced Chest",
   "screen.me.wood_pile": "Wood Pile",
 
-  "#Comment": "Tooltips",
+"#Comment": "Tooltips",
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",
   "tooltip.me.alt" : "Hold §3ALT§f to see custom parts information.",
   "tooltip.me.weapon_type" : "§eWeapon Type: §f",
@@ -4409,7 +4409,7 @@
   "tooltip.me.pouch" : "Pouch",
   "tooltip.me.feather" : "Feather",
 
-  "#Comment": "Capes",
+"#Comment": "Capes",
   "tooltip.me.base_hood": "Basic Hood",
   "tooltip.me.fur_hood": "Fur Hood",
   "tooltip.me.base_cape": "Basic Cape",
@@ -4441,6 +4441,6 @@
   "tooltip.me.galadhrim_hood": "Galadhrim Hood",
   "tooltip.me.galadhrim_lord_cape": "Galadhrim Lord Cape",
 
-  "#Comment": "MISC",
+"#Comment": "MISC",
   "misc.me.map_title_text": "Middle-earth Map"
 }
