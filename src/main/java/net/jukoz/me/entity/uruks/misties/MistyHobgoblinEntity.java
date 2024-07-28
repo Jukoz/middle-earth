@@ -96,10 +96,10 @@ public class MistyHobgoblinEntity extends NpcEntity {
     }
 
     private void knightEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_BOOTS));
+        //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_HELMET));
+        //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_CHESTPLATE));
+        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_LEGGINGS));
+        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_BOOTS));
 
         float val = random.nextFloat();
         if(val >= 0.75f){
@@ -114,10 +114,10 @@ public class MistyHobgoblinEntity extends NpcEntity {
     }
 
     private void veteranEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_BOOTS));
+        //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_HELMET));
+        //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_CHESTPLATE));
+        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_LEGGINGS));
+        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_BOOTS));
 
         float val = random.nextFloat();
         if(val >= 0.50f){
@@ -130,10 +130,10 @@ public class MistyHobgoblinEntity extends NpcEntity {
 
     private void leaderEquipment(Random random){
         {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_HELMET));
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_CHESTPLATE));
-            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_LEGGINGS));
-            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_BOOTS));
+            //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_HELMET));
+            //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_CHESTPLATE));
+            //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_LEGGINGS));
+            //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_BOOTS));
 
             float val = random.nextFloat();
             if(val >= 0.50f){
