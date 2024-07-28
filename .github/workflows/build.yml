@@ -38,8 +38,14 @@ jobs:
       - name: build
         run: ./gradlew build
 
-      - name: capture build artifacts
+      - name: capture build mod jar
         uses: actions/upload-artifact@v4
         with:
-          name: Artifacts
+          name: Middle-earth Nightly
           path: build/libs/
+
+      - name: capture build data
+        uses: actions/upload-artifact@v4
+        with:
+          name: data
+          path: build/datagen/data
