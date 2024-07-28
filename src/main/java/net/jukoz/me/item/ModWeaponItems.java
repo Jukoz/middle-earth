@@ -26,11 +26,11 @@ public class ModWeaponItems {
             new CustomSwordWeaponItem(ModToolMaterials.STEEL), false);
     public static final Item ORC_STEEL_SWORD = registerItemWithModel("orc_steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.SLAG), false);
-    public static final Item BURZUM_STEEL_SWORD = registerItemWithModel("BURZUM_STEEL_sword",
+    public static final Item BURZUM_STEEL_SWORD = registerItemWithModel("burzum_steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL), false);
-    public static final Item EDHEL_STEEL_SWORD = registerItemWithModel("EDHEL_STEEL_sword",
+    public static final Item EDHEL_STEEL_SWORD = registerItemWithModel("edhel_steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.EDHEL_STEEL), false);
-    public static final Item KHAZAD_STEEL_SWORD = registerItemWithModel("KHAZAD_STEEL_sword",
+    public static final Item KHAZAD_STEEL_SWORD = registerItemWithModel("khazad_steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.KHAZAD_STEEL), false);
 
     public static final Item WOODEN_DAGGER = registerItemWithModel("wooden_dagger",
@@ -62,11 +62,11 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ModToolMaterials.STEEL));
     public static final Item ORC_STEEL_SPEAR = registerItemWithSpearModel("orc_steel_spear",
             new CustomSpearWeaponItem(ModToolMaterials.SLAG));
-    public static final Item BURZUM_STEEL_SPEAR = registerItemWithSpearModel("BURZUM_STEEL_spear",
+    public static final Item BURZUM_STEEL_SPEAR = registerItemWithSpearModel("burzul_steel_spear",
             new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL));
-    public static final Item EDHEL_STEEL_SPEAR = registerItemWithSpearModel("EDHEL_STEEL_spear",
+    public static final Item EDHEL_STEEL_SPEAR = registerItemWithSpearModel("edhel_steel_spear",
             new CustomSpearWeaponItem(ModToolMaterials.EDHEL_STEEL));
-    public static final Item KHAZAD_STEEL_SPEAR = registerItemWithSpearModel("KHAZAD_STEEL_spear",
+    public static final Item KHAZAD_STEEL_SPEAR = registerItemWithSpearModel("khazad_steel_spear",
             new CustomSpearWeaponItem(ModToolMaterials.KHAZAD_STEEL));
     public static final Item GOLDEN_SPEAR = registerItemWithSpearModel("golden_spear",
             new CustomSpearWeaponItem(ToolMaterials.GOLD));
@@ -75,7 +75,7 @@ public class ModWeaponItems {
     public static final Item NETHERITE_SPEAR = registerItemWithSpearModel("netherite_spear",
             new CustomSpearWeaponItem(ToolMaterials.NETHERITE));
     //endregion
-    
+
     //region MEN
 
     //region GONDOR
@@ -103,7 +103,7 @@ public class ModWeaponItems {
     public static final Item GONDORIAN_BOW = registerBowItem("gondorian_bow",
             new CustomBowWeaponItem(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), new Item.Settings().maxDamage(640)));
     //endregion
-    
+
     //region ROHAN
     public static final Item ROHIRRIC_SWORD = registerItemWithModel("rohirric_sword",
             new CustomSwordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")), true);
@@ -158,9 +158,9 @@ public class ModWeaponItems {
     public static final Item DALISH_NOBLE_AXE = registerItemWithModel("dalish_noble_axe",
             new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
     //endregion
-    
+
     //endregion
-    
+
     //region LOTHLORIEN
     public static final Item LORIEN_SWORD = registerItemWithModel("lorien_sword",
             new CustomSwordWeaponItem(ModToolMaterials.EDHEL_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")), true);
@@ -182,7 +182,7 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ModToolMaterials.EDHEL_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
     public static final Item LORIEN_NOBLE_SPEAR = registerItemWithSpearModel("lorien_noble_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_EDHEL_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
-    
+
     public static final Item LORIEN_BOW = registerBowItem("lorien_bow",
             new CustomBowWeaponItem(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().maxDamage(640)));
     //endregion
