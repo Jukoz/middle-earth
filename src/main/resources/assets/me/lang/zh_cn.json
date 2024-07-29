@@ -176,10 +176,10 @@
 
   "#Comment:": "物品 - 矿石",
   "item.me.copper_rod": "铜棒",
-  "item.me.raw_tin": "粗锌",
-  "item.me.tin_ingot": "锌锭",
-  "item.me.tin_nugget": "锌粒",
-  "item.me.tin_rod": "锌棒",
+  "item.me.raw_tin": "粗锡",
+  "item.me.tin_ingot": "锡锭",
+  "item.me.tin_nugget": "锡粒",
+  "item.me.tin_rod": "锡棒",
   "item.me.raw_lead": "粗铅",
   "item.me.lead_ingot": "铅锭",
   "item.me.lead_nugget": "铅粒",
@@ -224,13 +224,16 @@
   "item.me.mithril_rod": "秘银棒",
 
   "#Comment:": "物品 - 通用",
-  "item.me.orc_bone": "奥克骨头",
-  "item.me.warg_bone": "座狼骨头",
-  "item.me.warg_fur": "座狼毛皮",
   "item.me.gold_ring": "金戒指",
   "item.me.middle_earth_map": "中洲地图",
   "item.me.ash": "灰烬",
   "item.me.iron_chainmail": "铁锁链",
+
+  "#Comment:": "物品 - 怪物掉落",
+  "item.me.orc_bone": "奥克骨头",
+  "item.me.warg_bone": "座狼骨头",
+  "item.me.warg_fur": "座狼毛皮",
+  "item.me.fang": "獠牙",
 
   "#Comment:": "物品 - 水晶瓶",
   "item.me.empty_phial": "空水晶瓶",
@@ -319,6 +322,19 @@
   "item.me.lorien_noble_spear": "罗瑞恩贵族矛",
   "item.me.lorien_bow": "罗瑞恩弓",
 
+  "#Comment:": "物品 - 魔多奥克",
+  "item.me.mordor_orc_sword": "魔多奥克剑",
+  "item.me.mordor_orc_scimitar": "魔多奥克弯刀",
+  "item.me.mordor_orc_dagger": "魔多奥克匕首",
+  "item.me.mordor_orc_battleaxe": "魔多奥克战斧",
+  "item.me.mordor_orc_pike": "魔多奥克长矛",
+  "item.me.mordor_orc_pickaxe": "魔多奥克镐",
+  "item.me.mordor_orc_axe": "魔多奥克斧",
+  "item.me.mordor_orc_shovel": "魔多奥克锹",
+  "item.me.mordor_orc_hoe": "魔多奥克锄",
+
+  "item.me.morgul_blade": "魔古尔之刃",
+
   "#Comment:": "物品 - 洛汗",
   "item.me.rohirric_sword": "洛汗剑",
   "item.me.rohirric_noble_sword": "洛汗贵族剑",
@@ -397,132 +413,263 @@
   "item.me.netherite_spear": "下界合金矛",
 
   "#Comment:": "盔甲",
+  "item.me.cape": "披风",
+  "item.me.hood": "兜帽",
+  "item.me.fur_cloak": "毛皮斗篷",
+  "item.me.fur_hood": "毛皮兜帽",
+
+  "item.me.straw_hat": "稻草帽",
+  "item.me.woven_hat": "编织帽",
+  "item.me.bycocket": "罗宾汉帽",
+
+  "item.me.arming_coat": "武装外套",
+
+  "item.me.arming_skirt": "武装裙甲",
+
+  "item.me.shoes": "鞋",
+  "item.me.work_shoes": "工作鞋",
+
+  "item.me.leather_cap": "皮革帽",
+  "item.me.gambeson_cap": "软甲帽",
+  "item.me.gambeson_cowl": "软甲风帽",
+
+  "item.me.leather_vest": "皮革背心",
+  "item.me.leather_scale_vest": "皮革鳞片背心",
   "item.me.gambeson": "软甲",
-  "item.me.cloak": "斗篷",
-  "item.me.cloak_hood": "斗篷兜帽",
-  "item.me.tunic_cloak": "长袍斗篷",
-  "item.me.fur_cloak": "皮毛斗篷",
-  "item.me.fur_cloak_hood": "皮毛斗篷兜帽",
-  "item.me.chainmail_fur_cloak": "锁链皮毛斗篷",
 
+  "item.me.sturdy_boots": "厚重靴子",
+  "item.me.travelling_boots": "旅行靴子",
+  "item.me.high_cut_boots": "高帮靴子",
+
+  "item.me.chain_coif": "锁链圆帽",
   "item.me.kettle_hat": "圆顶帽",
-  "item.me.rusty_kettle_hat": "褪色圆顶帽",
+  "item.me.open_face_helmet": "无覆面头盔",
 
-  "item.me.hobbit_shirriff_hat_green": "绿色霍比特夏警帽",
-  "item.me.hobbit_shirriff_hat_brown": "棕色霍比特夏警帽",
+  "item.me.chain_hauberk": "锁链帷子",
 
-  "item.me.gondorian_mail_helmet": "刚铎锁链头盔",
-  "item.me.gondorian_mail_chestplate": "刚铎锁链胸甲",
-  "item.me.gondorian_mail_leggings": "刚铎锁链护腿",
-  "item.me.gondorian_mail_boots": "刚铎锁链靴子",
-  "item.me.gondorian_reinforced_mail_helmet": "刚铎加固锁链头盔",
-  "item.me.gondorian_reinforced_mail_chestplate": "刚铎加固锁链胸甲",
-  "item.me.gondorian_reinforced_mail_leggings": "刚铎加固锁链护腿",
-  "item.me.gondorian_reinforced_mail_boots": "刚铎加固锁链靴子",
+  "item.me.chain_skirt": "锁链裙甲",
+
+  "item.me.sallet": "轻盔",
+
+  "item.me.shirriff_hat": "霍比特夏警帽",
+
+  "item.me.gondorian_boots": "刚铎靴子",
+
+  "item.me.gondorian_cabasset_helmet": "刚铎高顶头盔",
+
+  "item.me.gondorian_tabbard": "刚铎战袍",
+  "item.me.gondorian_leather_cuirass": "刚铎皮革胸衣",
+  "item.me.gondorian_leather_chestplate": "刚铎皮革胸甲",
+
+  "item.me.gondorian_chain_coat": "刚铎锁链外套",
+
+  "item.me.gondorian_soldier_helmet": "刚铎士兵头盔",
+
+  "item.me.gondorian_soldier_chestplate": "刚铎士兵胸甲",
+
   "item.me.gondorian_plate_helmet": "刚铎板甲头盔",
   "item.me.gondorian_plate_chestplate": "刚铎板甲胸甲",
   "item.me.gondorian_plate_leggings": "刚铎板甲护腿",
   "item.me.gondorian_plate_boots": "刚铎板甲靴子",
+
+  "item.me.gondorian_captain_helmet": "刚铎队长头盔",
+
+  "item.me.gondorian_kings_guard_helmet": "刚铎国王守卫头盔",
+  "item.me.gondorian_kings_guard_chestplate": "刚铎国王守卫胸甲",
+  "item.me.gondorian_kings_guard_leggings": "刚铎国王守卫护腿",
+  "item.me.gondorian_kings_guard_boots": "刚铎国王守卫靴子",
+
   "item.me.gondorian_citadel_guard_helmet": "刚铎王城禁卫头盔",
   "item.me.gondorian_citadel_guard_chestplate": "刚铎王城禁卫胸甲",
   "item.me.gondorian_citadel_guard_leggings": "刚铎王城禁卫护腿",
   "item.me.gondorian_citadel_guard_boots": "刚铎王城禁卫靴子",
+
   "item.me.gondorian_fountain_guard_helmet": "刚铎喷泉守卫头盔",
   "item.me.gondorian_fountain_guard_chestplate": "刚铎喷泉守卫胸甲",
   "item.me.gondorian_fountain_guard_leggings": "刚铎喷泉守卫护腿",
   "item.me.gondorian_fountain_guard_boots": "刚铎喷泉守卫靴子",
 
-  "item.me.rohirric_mail_helmet": "洛汗锁链头盔",
-  "item.me.rohirric_mail_chestplate": "洛汗锁链胸甲",
-  "item.me.rohirric_mail_leggings": "洛汗锁链护腿",
-  "item.me.rohirric_mail_boots": "洛汗锁链靴子",
-  "item.me.rohirric_scale_helmet": "洛汗鳞片头盔",
-  "item.me.rohirric_scale_chestplate": "洛汗鳞片胸甲",
-  "item.me.rohirric_scale_leggings": "洛汗鳞片护腿",
-  "item.me.rohirric_scale_boots": "洛汗鳞片靴子",
+  "item.me.rohirric_coat": "洛汗外套",
+  "item.me.rohirric_reinforced_coat": "洛汗加固外套",
+
+  "item.me.rohirric_leather_helmet": "洛汗皮革头盔",
+  "item.me.rohirric_reinforced_leather_helmet": "洛汗加固皮革头盔",
+  "item.me.rohirric_ornemented_leather_helmet": "洛汗饰样皮革头盔",
+
+  "item.me.rohirric_leather_vest": "洛汗皮革背心",
+  "item.me.rohirric_leather_scale_vest": "洛汗皮革鳞片背心",
+  "item.me.rohirric_gambeson": "洛汗软甲",
+
+  "item.me.rohirric_militia_helmet": "洛汗民兵头盔",
+  "item.me.rohirric_braced_militia_helmet": "洛汗系带民兵头盔",
+  "item.me.rohirric_reinforced_militia_helmet": "洛汗加固民兵头盔",
+  "item.me.rohirric_ornemented_militia_helmet": "洛汗饰样民兵头盔",
+
+  "item.me.rohirric_mail_shirt": "洛汗锁子衬衣",
+  "item.me.rohirric_mail_shirt_open": "洛汗锁子衬衣 (敞开式)",
+  "item.me.rohirric_mail_hauberk": "洛汗锁子帷子",
+
+  "item.me.rohirric_soldier_helmet": "洛汗士兵头盔",
+  "item.me.rohirric_ornemented_soldier_helmet": "洛汗饰样士兵头盔",
   "item.me.rohirric_royal_guard_helmet": "洛汗皇家守卫头盔",
-  "item.me.rohirric_royal_guard_chestplate": "洛汗皇家守卫胸甲",
-  "item.me.rohirric_royal_guard_leggings": "洛汗皇家守卫护腿",
-  "item.me.rohirric_royal_guard_boots": "洛汗皇家守卫靴子",
-  "item.me.eorling_marshall_helmet": "埃奥尔元帅头盔",
-  "item.me.eorling_marshall_chestplate": "埃奥尔元帅胸甲",
-  "item.me.eorling_marshall_leggings": "埃奥尔元帅护腿",
-  "item.me.eorling_marshall_boots": "埃奥尔元帅靴子",
+
+  "item.me.rohirric_scale_hauberk": "洛汗鳞片帷子",
+  "item.me.rohirric_ornemented_scale_hauberk": "洛汗饰样鳞片帷子",
+
+  "item.me.rohirric_scale_jacket": "洛汗鳞片夹克",
+
+  "item.me.eorling_marshal_helmet": "埃奥尔元帅头盔",
+  "item.me.eorling_marshal_chestplate": "埃奥尔元帅胸甲",
+  "item.me.eorling_marshal_leggings": "埃奥尔元帅护腿",
+  "item.me.eorling_marshal_boots": "埃奥尔元帅靴子",
   "item.me.horse_lord_helmet": "驭马主头盔",
   "item.me.horse_lord_chestplate": "驭马主胸甲",
   "item.me.horse_lord_leggings": "驭马主护腿",
   "item.me.horse_lord_boots": "驭马主靴子",
 
+  "item.me.dalish_arming_coat_black_fur": "河谷邦武装外套 (黑色毛皮)",
+  "item.me.dalish_arming_coat_brown_fur": "河谷邦武装外套 (棕色毛皮)",
+  "item.me.dalish_arming_coat_tan_fur": "河谷邦武装外套 (鞣制毛皮)",
+  "item.me.dalish_heyday_arming_coat": "河谷邦盛世武装外套",
+
+  "item.me.dalish_boots": "河谷邦靴子",
+
+  "item.me.dalish_helmet": "河谷邦头盔",
+  "item.me.dalish_helmet_black_fur": "河谷邦头盔 (黑色毛皮)",
+  "item.me.dalish_helmet_brown_fur": "河谷邦头盔 (棕色毛皮)",
+  "item.me.dalish_helmet_tan_fur": "河谷邦头盔 (鞣制毛皮)",
+
+  "item.me.dalish_chain_hauberk": "河谷邦锁链帷子",
+
+  "item.me.dalish_chain_coat": "河谷邦锁链外套",
+
+  "item.me.dalish_burgonet": "河谷邦钢头盔",
+
+  "item.me.dalish_scale_hauberk": "河谷邦鳞片帷子",
+
+  "item.me.dalish_heyday_helmet": "河谷邦盛世头盔",
+  "item.me.dalish_heyday_chestplate": "河谷邦盛世胸甲",
+  "item.me.dalish_heyday_chain_coat": "河谷邦盛世锁链外套",
+  "item.me.dalish_heyday_boots": "河谷邦盛世靴子",
+
+  "item.me.barding_soldier_helmet": "巴德士兵头盔",
+  "item.me.barding_soldier_chestplate": "巴德士兵胸甲",
+  "item.me.barding_chain_skirt": "巴德锁链裙甲",
+  "item.me.barding_plated_boots": "巴德板甲靴子",
+
+  "item.me.barding_sergeant_helmet": "巴德将领头盔",
+  "item.me.barding_sergeant_chestplate": "巴德将领胸甲",
+
   "item.me.dwarven_partisan_chestplate": "矮人游击胸甲",
   "item.me.dwarven_partisan_leggings": "矮人游击护腿",
-  "item.me.dwarven_partisan_boots": "矮人游击靴子",
 
-  "item.me.erebor_mail_helmet": "埃瑞博锁链头盔",
-  "item.me.erebor_mail_chestplate": "埃瑞博锁链胸甲",
-  "item.me.erebor_mail_leggings": "埃瑞博锁链护腿",
-  "item.me.erebor_mail_boots": "埃瑞博锁链靴子",
-  "item.me.erebor_scale_helmet": "埃瑞博鳞片头盔",
-  "item.me.erebor_scale_chestplate": "埃瑞博鳞片胸甲",
-  "item.me.erebor_scale_leggings": "埃瑞博鳞片护腿",
-  "item.me.erebor_scale_boots": "埃瑞博鳞片靴子",
   "item.me.erebor_plate_helmet": "埃瑞博板甲头盔",
   "item.me.erebor_plate_chestplate": "埃瑞博板甲胸甲",
   "item.me.erebor_plate_leggings": "埃瑞博板甲护腿",
   "item.me.erebor_plate_boots": "埃瑞博板甲靴子",
-  "item.me.erebor_commander_helmet": "埃瑞博指挥官头盔",
-  "item.me.erebor_commander_chestplate": "埃瑞博指挥官胸甲",
-  "item.me.erebor_commander_leggings": "埃瑞博指挥官护腿",
-  "item.me.erebor_commander_boots": "埃瑞博指挥官靴子",
 
-  "item.me.lorien_mail_helmet": "罗瑞恩锁链头盔",
-  "item.me.lorien_mail_chestplate": "罗瑞恩锁链胸甲",
-  "item.me.lorien_mail_leggings": "罗瑞恩锁链护腿",
-  "item.me.lorien_mail_boots": "罗瑞恩锁链靴子",
-  "item.me.lorien_scale_helmet": "罗瑞恩鳞片头盔",
-  "item.me.lorien_scale_chestplate": "罗瑞恩鳞片胸甲",
-  "item.me.lorien_scale_leggings": "罗瑞恩鳞片护腿",
-  "item.me.lorien_scale_boots": "罗瑞恩鳞片靴子",
-  "item.me.lorien_plate_helmet": "罗瑞恩板甲头盔",
-  "item.me.lorien_plate_chestplate": "罗瑞恩板甲胸甲",
-  "item.me.lorien_plate_leggings": "罗瑞恩板甲护腿",
-  "item.me.lorien_plate_boots": "罗瑞恩板甲靴子",
-  "item.me.lorien_commander_helmet": "罗瑞恩指挥官头盔",
-  "item.me.lorien_commander_chestplate": "罗瑞恩指挥官胸甲",
-  "item.me.lorien_commander_leggings": "罗瑞恩指挥官护腿",
-  "item.me.lorien_commander_boots": "罗瑞恩指挥官靴子",
+  "item.me.ravenhill_watchwarden_helmet": "渡鸦岭守望者头盔",
+  "item.me.ravenhill_watchwarden_chestplate": "渡鸦岭守望者胸甲",
+  "item.me.ravenhill_watchwarden_leggings": "渡鸦岭守望者护腿",
+  "item.me.ravenhill_watchwarden_boots": "渡鸦岭守望者靴子",
 
-  "item.me.mordor_orc_mail_helmet": "魔多奥克锁链头盔",
-  "item.me.mordor_orc_mail_chestplate": "魔多奥克锁链胸甲",
-  "item.me.mordor_orc_mail_leggings": "魔多奥克锁链护腿",
-  "item.me.mordor_orc_mail_boots": "魔多奥克锁链靴子",
-  "item.me.mordor_black_uruk_scale_helmet": "魔多黑乌鲁克鳞片头盔",
-  "item.me.mordor_black_uruk_scale_chestplate": "魔多黑乌鲁克鳞片胸甲",
-  "item.me.mordor_black_uruk_scale_leggings": "魔多黑乌鲁克鳞片护腿",
-  "item.me.mordor_black_uruk_scale_boots": "魔多黑乌鲁克鳞片靴子",
-  "item.me.mordor_black_uruk_plate_helmet": "魔多黑乌鲁克板甲头盔",
-  "item.me.mordor_black_uruk_plate_chestplate": "魔多黑乌鲁克板甲胸甲",
-  "item.me.mordor_black_uruk_plate_leggings": "魔多黑乌鲁克板甲护腿",
-  "item.me.mordor_black_uruk_plate_boots": "魔多黑乌鲁克板甲靴子",
-  "item.me.mordor_black_uruk_commander_helmet": "魔多黑乌鲁克指挥官头盔",
+  "item.me.ravenhill_sentinel_helmet": "渡鸦岭哨卫头盔",
+  "item.me.ravenhill_sentinel_chestplate": "渡鸦岭哨卫胸甲",
+  "item.me.ravenhill_sentinel_leggings": "渡鸦岭哨卫护腿",
+  "item.me.ravenhill_sentinel_boots": "渡鸦岭哨卫靴子",
+
+  "item.me.erebor_gatewarden_helmet": "埃瑞博守门人头盔",
+  "item.me.erebor_gatewarden_chestplate": "埃瑞博守门人胸甲",
+  "item.me.erebor_gatewarden_leggings": "埃瑞博守门人护腿",
+  "item.me.erebor_gatewarden_boots": "埃瑞博守门人靴子",
+
+  "item.me.elven_arming_coat": "精灵冠冕武装外套",
+
+  "item.me.elven_arming_skirt": "精灵冠冕武装裙甲",
+  "item.me.elven_open_arming_skirt": "精灵冠冕武装裙甲 (敞开式)",
+
+  "item.me.elven_boots": "精灵冠冕靴子",
+
+  "item.me.elven_chain_coif": "精灵冠冕锁链圆帽",
+
+  "item.me.elven_chain_hauberk": "精灵冠冕锁链帷子",
+
+  "item.me.elven_chain_skirt": "精灵冠冕锁链裙甲",
+
+  "item.me.lorien_diadem": "罗瑞恩冠冕",
+
+  "item.me.lorien_leather_helmet": "罗瑞恩皮革头盔",
+
+  "item.me.lorien_arming_coat": "罗瑞恩武装外套",
+
+  "item.me.lorien_arming_skirt": "罗瑞恩武装裙甲",
+
+  "item.me.lorien_chain_coif_diadem": "罗瑞恩锁链圆帽冠冕",
+  "item.me.lorien_short_chain_coif_diadem": "罗瑞恩低锁链圆帽冠冕",
+
+  "item.me.lorien_chain_hauberk": "罗瑞恩锁链帷子",
+  "item.me.lorien_marchwarden_chain_hauberk": "罗瑞恩边界守卫锁链帷子",
+
+  "item.me.lorien_soldier_helmet": "罗瑞恩士兵头盔",
+
+  "item.me.lorien_soldier_chain_hauberk": "罗瑞恩士兵锁链帷子",
+  "item.me.lorien_soldier_scale_hauberk": "罗瑞恩士兵鳞片帷子",
+
+  "item.me.lorien_scale_coat": "罗瑞恩鳞片外套",
+
+  "item.me.galadhrim_helmet": "加拉兹民头盔",
+  "item.me.galadhrim_chestplate": "加拉兹民胸甲",
+  "item.me.galadhrim_leggings": "加拉兹民护腿",
+  "item.me.galadhrim_boots": "加拉兹民靴子",
+
+  "item.me.galadhrim_lord_helmet": "加拉兹民领主头盔",
+  "item.me.galadhrim_lord_chestplate": "加拉兹民领主胸甲",
+  "item.me.galadhrim_lord_leggings": "加拉兹民领主护腿",
+  "item.me.galadhrim_lord_boots": "加拉兹民领主靴子",
+
+  "item.me.orc_mail_coif": "奥克锁子圆帽",
+
+  "item.me.orc_mail_hauberk": "奥克锁子帷子",
+
+  "item.me.orc_mail_coat": "奥克锁子外套",
+
+  "item.me.orc_sallet": "奥克轻盔",
+
+  "item.me.orc_gorget_hauberk": "奥克护颈帷子",
+
+  "item.me.orc_plate_boots": "奥克板甲靴子",
+
+  "item.me.mordor_orc_chestplate": "魔多奥克胸甲",
+
+  "item.me.black_uruk_plate_helmet": "魔多黑乌鲁克板甲头盔",
+  "item.me.black_uruk_plate_chestplate": "魔多黑乌鲁克板甲胸甲",
+  "item.me.black_uruk_plate_leggings": "魔多黑乌鲁克板甲护腿",
+  "item.me.black_uruk_plate_boots": "魔多黑乌鲁克板甲靴子",
+
+  "item.me.black_uruk_commander_helmet": "魔多黑乌鲁克指挥官头盔",
+  "item.me.black_uruk_commander_chestplate": "黑乌鲁克指挥胸甲",
+
   "item.me.nazgul_cloak_hood": "那兹古尔斗篷兜帽",
   "item.me.nazgul_cloak": "那兹古尔斗篷",
   "item.me.nazgul_pants": "那兹古尔裤子",
   "item.me.nazgul_boots": "那兹古尔靴子",
 
-  "item.me.misty_goblin_mail_helmet": "迷雾山脉半兽人锁链头盔",
-  "item.me.misty_goblin_mail_chestplate": "迷雾山脉半兽人锁链胸甲",
-  "item.me.misty_goblin_mail_leggings": "迷雾山脉半兽人锁链护腿",
-  "item.me.misty_goblin_mail_boots": "迷雾山脉半兽人锁链靴子",
-  "item.me.misty_hobgoblin_scale_helmet": "迷雾山脉大半兽人鳞片头盔",
-  "item.me.misty_hobgoblin_scale_chestplate": "迷雾山脉大半兽人鳞片胸甲",
-  "item.me.misty_hobgoblin_scale_leggings": "迷雾山脉大半兽人鳞片护腿",
-  "item.me.misty_hobgoblin_scale_boots": "迷雾山脉大半兽人鳞片靴子",
-  "item.me.misty_hobgoblin_plate_helmet": "迷雾山脉大半兽人板甲头盔",
-  "item.me.misty_hobgoblin_plate_chestplate": "迷雾山脉大半兽人板甲胸甲",
-  "item.me.misty_hobgoblin_plate_leggings": "迷雾山脉大半兽人板甲护腿",
-  "item.me.misty_hobgoblin_plate_boots": "迷雾山脉大半兽人板甲靴子",
-  "item.me.misty_hobgoblin_commander_helmet": "迷雾山脉大半兽人指挥官头盔",
-  "item.me.misty_hobgoblin_commander_chestplate": "迷雾山脉大半兽人指挥官胸甲",
+  "item.me.uruk_hai_leather_scout_cap": "乌鲁克族皮革斥候帽",
+
+  "item.me.uruk_hai_plate_helmet": "乌鲁克族板甲头盔",
+  "item.me.uruk_hai_plate_painted_helmet": "乌鲁克族板甲纹饰头盔",
+  "item.me.uruk_hai_sapper_helmet": "乌鲁克族工兵头盔",
+  "item.me.uruk_hai_sapper_painted_helmet": "乌鲁克族工兵纹饰头盔",
+  "item.me.uruk_hai_berserker_helmet": "乌鲁克族狂战士头盔",
+  "item.me.uruk_hai_berserker_painted_helmet": "乌鲁克族狂战士纹饰头盔",
+  "item.me.uruk_hai_commander_helmet": "乌鲁克族指挥头盔",
+  "item.me.uruk_hai_commander_painted_helmet": "乌鲁克族指挥纹饰头盔",
+
+  "item.me.uruk_hai_plate_chestplate": "乌鲁克族板甲胸甲",
+
+  "item.me.uruk_hai_plate_leggings": "乌鲁克族板甲护腿",
+
+  "item.me.uruk_hai_plate_boots": "乌鲁克族板甲靴子",
 
   "item.me.steel_troll_armor": "食人妖钢甲",
 
@@ -552,6 +699,8 @@
   "item.me.cooked_duck": "熟鸭肉",
   "item.me.raw_swan": "生天鹅肉",
   "item.me.cooked_swan": "熟天鹅肉",
+  "item.me.raw_venison": "生鹿肉",
+  "item.me.cooked_venison": "熟鹿肉",
   "item.me.raw_horse": "生马肉",
   "item.me.cooked_horse": "熟马肉",
   "item.me.raw_rat": "生鼠肉",
@@ -607,6 +756,7 @@
   "item.me.barrow_wight_spawn_egg": "古冢尸妖刷怪蛋",
   "item.me.nazgul_spawn_egg": "那兹古尔刷怪蛋",
 
+  "item.me.warg_spawn_egg": "座狼刷怪蛋",
   "item.me.stone_troll_spawn_egg": "岩石食人妖刷怪蛋",
   "item.me.cave_troll_spawn_egg": "洞穴食人妖刷怪蛋",
   "item.me.snow_troll_spawn_egg": "雪地食人妖刷怪蛋",
@@ -661,7 +811,6 @@
   "item.me.bandit_chieftain_spawn_egg": "土匪头领刷怪蛋",
 
   "item.me.mirkwood_spider_spawn_egg": "黑森林蜘蛛刷怪蛋",
-  "item.me.warg_spawn_egg": "座狼刷怪蛋",
   "item.me.snail_spawn_egg": "蜗牛刷怪蛋",
   "item.me.pheasant_spawn_egg": "野鸡刷怪蛋",
   "item.me.deer_spawn_egg": "鹿刷怪蛋",
@@ -955,7 +1104,7 @@
   "block.me.ashen_stone_table": "灰烬岩桌",
   "block.me.ashen_stone_chair": "灰烬岩椅",
 
-"#Comment:": "方块 - 浮石",
+  "#Comment:": "方块 - 浮石",
   "block.me.cobbled_pumice": "浮石圆石",
   "block.me.cobbled_pumice_slab": "浮石圆石台阶",
   "block.me.cobbled_pumice_vertical_slab": "浮石圆石竖台阶",
@@ -1833,7 +1982,7 @@
   "block.me.quartzite_table": "石英岩桌",
   "block.me.quartzite_chair": "石英岩椅",
 
-"#Comment:": "方块 - 铁石",
+  "#Comment:": "方块 - 铁石",
   "block.me.smooth_ironstone": "平滑铁石",
   "block.me.smooth_ironstone_slab": "平滑铁石台阶",
   "block.me.smooth_ironstone_vertical_slab": "平滑铁石竖台阶",
@@ -1914,7 +2063,7 @@
   "block.me.ironstone_table": "铁石桌",
   "block.me.ironstone_chair": "铁石椅",
 
-"#Comment:": "方块 - 黑胆石",
+  "#Comment:": "方块 - 黑胆石",
   "block.me.smooth_hematite": "平滑黑胆石",
   "block.me.smooth_hematite_slab": "平滑黑胆石台阶",
   "block.me.smooth_hematite_vertical_slab": "平滑黑胆石竖台阶",
@@ -2001,7 +2150,7 @@
   "block.me.hematite_table": "黑胆石桌",
   "block.me.hematite_chair": "黑胆石椅",
 
-"#Comment:": "方块 - 片麻岩",
+  "#Comment:": "方块 - 片麻岩",
   "block.me.smooth_gneiss": "平滑片麻岩",
   "block.me.smooth_gneiss_slab": "平滑片麻岩台阶",
   "block.me.smooth_gneiss_vertical_slab": "平滑片麻岩竖台阶",
@@ -4012,22 +4161,22 @@
 
 
   "#Comment:": "物品 - 旗帜",
-  "item.me.gondor_banner_pattern": "刚铎旗帜样式",
+  "item.me.gondor_banner_pattern": "刚铎旗帜图案",
   "item.me.gondor_banner_pattern.desc": "刚铎的白树",
-  "item.me.rohan_banner_pattern": "洛汗旗帜样式",
+  "item.me.rohan_banner_pattern": "洛汗旗帜图案",
   "item.me.rohan_banner_pattern.desc": "洛汗的马首",
-  "item.me.longbeard_banner_pattern": "长须矮人旗帜样式",
+  "item.me.longbeard_banner_pattern": "长须矮人旗帜图案",
   "item.me.longbeard_banner_pattern.desc": "都林的徽记",
-  "item.me.lothlorien_banner_pattern": "洛丝罗瑞恩旗帜样式",
+  "item.me.lothlorien_banner_pattern": "洛丝罗瑞恩旗帜图案",
   "item.me.lothlorien_banner_pattern.desc": "罗瑞恩之树",
-  "item.me.mordor_banner_pattern": "魔多旗帜样式",
+  "item.me.mordor_banner_pattern": "魔多旗帜图案",
   "item.me.mordor_banner_pattern.desc": "索隆的巨眼",
-  "item.me.misty_orcs_banner_pattern": "迷雾山脉奥克旗帜样式",
+  "item.me.misty_orcs_banner_pattern": "迷雾山脉奥克旗帜图案",
   "item.me.misty_orcs_banner_pattern.desc": "迷雾山脉的奥克标识",
-  "item.me.isengard_banner_pattern": "艾森加德旗帜样式",
+  "item.me.isengard_banner_pattern": "艾森加德旗帜图案",
   "item.me.isengard_banner_pattern.desc": "萨茹曼的白掌",
 
-  "item.me.dragon_banner_pattern": "火龙旗帜样式",
+  "item.me.dragon_banner_pattern": "火龙旗帜图案",
   "item.me.dragon_banner_pattern.desc": "一只大火龙",
 
   "#Comment:": "方块 - 旗帜",
@@ -4220,6 +4369,15 @@
   "tooltip.me.customizations" : "§6自定义部件：§f",
   "tooltip.me.reach" : "范围：",
   "tooltip.me.blocks_range" : " 方块",
+  "tooltip.me.backstab" : "§7 背刺时提高 50% 伤害",
+
+  "tooltip.me.tier_clothing" : "§f服装 (0)",
+  "tooltip.me.tier_basic" : "§f普甲 (1)",
+  "tooltip.me.tier_light" : "§a轻甲 (2)",
+  "tooltip.me.tier_medium" : "§9中甲 (3)",
+  "tooltip.me.tier_sturdy" : "§5固甲 (4)",
+  "tooltip.me.tier_heavy" : "§c重甲 (5)",
+  "tooltip.me.tier_mithril" : "§b秘银 (6)",
 
   "tooltip.me.sword" : "剑",
   "tooltip.me.axe" : "斧",
@@ -4227,17 +4385,11 @@
   "tooltip.me.spear" : "矛",
   "tooltip.me.longsword" : "长剑",
 
-  "tooltip.me.tier1" : "§7基础材料级",
-  "tooltip.me.tier2" : "§7精炼材料级",
-  "tooltip.me.tier3" : "§7低级冶金级",
-  "tooltip.me.tier4" : "§7中级冶金级",
-  "tooltip.me.tier5" : "§7高级冶金级",
-  "tooltip.me.tier6" : "§7秘银级",
-
   "tooltip.me.generic" : "普通",
 
   "tooltip.me.dwarven" : "矮人",
   "tooltip.me.elven" : "精灵",
+  "tooltip.me.orc" : "奥克",
 
   "tooltip.me.shire" : "夏尔",
   "tooltip.me.gondor" : "刚铎",
@@ -4246,7 +4398,7 @@
   "tooltip.me.erebor" : "埃瑞博",
   "tooltip.me.lothlorien" : "洛丝罗瑞恩",
   "tooltip.me.mordor" : "魔多",
-  "tooltip.me.misty_orcs" : "迷雾山脉奥克",
+  "tooltip.me.misty_mountains_orcs" : "迷雾山脉奥克",
   "tooltip.me.gundabad" : "贡达巴德",
   "tooltip.me.moria_goblins" : "墨瑞亚半兽人",
   "tooltip.me.isengard" : "艾森加德",
@@ -4261,5 +4413,40 @@
   "tooltip.me.impaled_skulls" : "头颅尖桩",
   "tooltip.me.skull" : "头颅",
   "tooltip.me.pouch" : "袋子",
-  "tooltip.me.feather" : "羽毛"
+  "tooltip.me.feather" : "羽毛",
+
+  "#Comment": "披风",
+  "tooltip.me.base_hood": "普通兜帽",
+  "tooltip.me.fur_hood": "毛皮兜帽",
+  "tooltip.me.base_cape": "普通披风",
+  "tooltip.me.fur_cloak": "毛皮斗篷",
+
+  "tooltip.me.base_cloak": "普通斗篷",
+
+  "tooltip.me.surcoat": "罩衣",
+
+  "tooltip.me.gondorian_captain_cape": "刚铎队长披风",
+  "tooltip.me.gondorian_hero_cape": "刚铎英雄披风",
+  "tooltip.me.gondorian_kings_guard_cape": "刚铎国王守卫披风",
+  "tooltip.me.gondorian_citadel_guard_cape": "刚铎王城守卫披风",
+  "tooltip.me.gondorian_fountain_guard_cape": "刚铎喷泉守卫披风",
+
+  "tooltip.me.rohirric_cape": "洛汗披风",
+  "tooltip.me.rohirric_royal_guard_cape": "洛汗皇家守卫披风",
+  "tooltip.me.eorling_marshal_cape": "埃奥尔元帅披风",
+  "tooltip.me.horse_lord_cape": "驭马主披风",
+
+  "tooltip.me.dalish_heyday_cape": "河谷邦盛世披风",
+  "tooltip.me.barding_sergeant_cape": "巴德将领披风",
+
+  "tooltip.me.erebor_cape": "埃瑞博披风",
+  "tooltip.me.ravenhill_sentinel_cape": "渡鸦岭哨卫披风",
+
+  "tooltip.me.lorien_marchwarden_cape": "罗瑞恩边界守卫披风",
+  "tooltip.me.galadhrim_cape": "加拉兹民披风",
+  "tooltip.me.galadhrim_hood": "加拉兹民兜帽",
+  "tooltip.me.galadhrim_lord_cape": "加拉兹民领主披风",
+
+  "#Comment": "杂项",
+  "misc.me.map_title_text": "中洲地图"
 }

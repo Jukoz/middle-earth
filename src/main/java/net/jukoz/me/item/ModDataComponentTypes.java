@@ -2,6 +2,9 @@ package net.jukoz.me.item;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
+import net.jukoz.me.item.dataComponents.CapeDataComponent;
+import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
+import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
@@ -14,6 +17,17 @@ public class ModDataComponentTypes {
 
     public static final ComponentType<TemperatureDataComponent> TEMPERATURE_DATA = register("temperature", (builder) -> {
         return builder.codec(TemperatureDataComponent.CODEC).packetCodec(TemperatureDataComponent.PACKET_CODEC);
+    });
+    public static final ComponentType<CapeDataComponent> CAPE_DATA = register("cape", (builder) -> {
+        return builder.codec(CapeDataComponent.CODEC).packetCodec(CapeDataComponent.PACKET_CODEC);
+    });
+
+    public static final ComponentType<HoodDataComponent> HOOD_DATA = register("hood", (builder) -> {
+        return builder.codec(HoodDataComponent.CODEC).packetCodec(HoodDataComponent.PACKET_CODEC);
+    });
+
+    public static final ComponentType<CustomDyeableDataComponent> DYE_DATA = register("dye", (builder) -> {
+        return builder.codec(CustomDyeableDataComponent.CODEC).packetCodec(CustomDyeableDataComponent.PACKET_CODEC);
     });
 
     private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {

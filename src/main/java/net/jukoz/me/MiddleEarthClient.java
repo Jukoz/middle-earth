@@ -7,14 +7,19 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.jukoz.me.block.*;
 import net.jukoz.me.block.special.forge.ForgeBlockEntityRenderer;
+import net.jukoz.me.client.model.equipment.*;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
 import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
-import net.jukoz.me.client.model.equipment.InnerArmorModel;
 import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
-import net.jukoz.me.client.model.equipment.head.RohirricHelmetArmorModel;
-import net.jukoz.me.client.renderer.ModArmorRenderer;
+import net.jukoz.me.client.model.equipment.head.RohirricHelmetArmorAddonModel;
+import net.jukoz.me.client.renderer.*;
 import net.jukoz.me.datageneration.VariantsModelProvider;
+import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
+import net.jukoz.me.datageneration.content.models.SimpleDoubleBlockModel;
+import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
+import net.jukoz.me.datageneration.content.models.SimpleFlowerBedModel;
+import net.jukoz.me.datageneration.content.models.TintableCrossModel;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.content.tags.Crops;
 import net.jukoz.me.entity.ModEntities;
@@ -47,12 +52,15 @@ import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollRenderer;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinRenderer;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukRenderer;
 import net.jukoz.me.gui.forge.ForgeScreen;
+import net.jukoz.me.event.KeyInputHandler;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreen;
 import net.jukoz.me.gui.treatedanvil.TreatedAnvilScreen;
 import net.jukoz.me.gui.wood_pile.WoodPileScreen;
+import net.jukoz.me.item.ModDataComponentTypes;
+import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
-import net.jukoz.me.item.utils.ModArmors;
+import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
 import net.jukoz.me.network.ModNetworks;
 import net.jukoz.me.particles.ModParticleTypes;
@@ -67,20 +75,28 @@ import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.FoliageColors;
 import net.minecraft.world.biome.GrassColors;
 
-public class MiddleEarthClient implements ClientModInitializer {
+import java.util.Objects;
 
-    public static final EntityModelLayer INNER_ARMOR_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "layer_0");
+public class MiddleEarthClient implements ClientModInitializer {
+    
+    public static final EntityModelLayer CUSTOM_ARMOR_HELMET = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "_1");
+    public static final EntityModelLayer CUSTOM_ARMOR_CHESTPLATE = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "_2");
+    public static final EntityModelLayer CUSTOM_ARMOR_LEGGINGS = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "_3");
+    public static final EntityModelLayer CUSTOM_ARMOR_BOOTS = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "_4");
     public static final EntityModelLayer HELMET_ADDON_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "helmet_addon");
     public static final EntityModelLayer CAPE_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "cape");
     public static final EntityModelLayer HOOD_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "hood");
 
+
     @Override
     public void onInitializeClient() {
+
+        KeyInputHandler.register();
 
         ModEntityModels.getModels();
         EntityRendererRegistry.register(ModEntities.BARROW_WIGHT, BarrowWightEntityRenderer::new);
@@ -148,10 +164,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SPEAR, JavelinEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
 
-        /*registerDyeableItem(ModEquipmentItems.TUNIC_CLOAK);
-        registerDyeableItem(ModEquipmentItems.CLOAK);
-        registerDyeableItem(ModEquipmentItems.CLOAK_HOOD);
-        registerDyeableItem(ModEquipmentItems.GAMBESON);*/
+        SimpleDyeableItemModel.items.forEach(this::registerDyeableItem);
 
         // Animals
         EntityRendererRegistry.register(ModEntities.CRAB, CrabRenderer::new);
@@ -175,15 +188,42 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         ModNetworks.registerS2CPackets();
 
-        EntityModelLayerRegistry.registerModelLayer(INNER_ARMOR_MODEL_LAYER, InnerArmorModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(HELMET_ADDON_MODEL_LAYER, RohirricHelmetArmorModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_HELMET, CustomHelmetModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_CHESTPLATE, CustomChestplateModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_LEGGINGS, CustomLeggingsModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_BOOTS, CustomBootsModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(HELMET_ADDON_MODEL_LAYER, RohirricHelmetArmorAddonModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(CAPE_MODEL_LAYER, CloakCapeModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HOOD_MODEL_LAYER, CloakHoodModel::getTexturedModelData);
 
-        for (ModArmors armor : ModArmors.values()) {
-        ArmorRenderer.register(new ModArmorRenderer(armor.getHelmetModel(), armor.getChestPlateModel(), armor.getSimpleName(), armor.hasInnerLayer() , armor.hasVanillaArmorModel(), armor.hasCape(), armor.hasHood(), armor.isDyeable()),
-                    armor.getItems());
-        }
+        ModEquipmentItems.armorPiecesListHelmets.forEach(armor -> {
+            ArmorRenderer.register(new HelmetArmorRenderer(), armor.asItem());
+        });
+        ModEquipmentItems.armorPiecesListChestplates.forEach(armor -> {
+            ArmorRenderer.register(new ChestplateArmorRenderer(), armor.asItem());
+        });
+        ModEquipmentItems.armorPiecesListLeggings.forEach(armor -> {
+            ArmorRenderer.register(new LeggingsArmorRenderer(), armor.asItem());
+        });
+        ModEquipmentItems.armorPiecesListBoots.forEach(armor -> {
+            ArmorRenderer.register(new BootsArmorRenderer(), armor.asItem());
+        });
+
+        ModEquipmentItems.armorPiecesListRustyHelmets.forEach(armor -> {
+            ArmorRenderer.register(new DegradedHelmetArmorRenderer(), armor.asItem());
+        });
+        ModEquipmentItems.armorPiecesListRustyChestplates.forEach(armor -> {
+            ArmorRenderer.register(new DegradedChestplateArmorRenderer(), armor.asItem());
+        });
+        ModEquipmentItems.armorPiecesListRustyLeggings.forEach(armor -> {
+            ArmorRenderer.register(new DegradedLeggingsArmorRenderer(), armor.asItem());
+        });
+        ModEquipmentItems.armorPiecesListRustyBoots.forEach(armor -> {
+            ArmorRenderer.register(new DegradedBootsArmorRenderer(), armor.asItem());
+        });
+
+        ArmorRenderer.register(new HoodRenderer(), ModEquipmentItems.HOOD, ModEquipmentItems.FUR_HOOD);
+        ArmorRenderer.register(new CapeRenderer(), ModEquipmentItems.CAPE, ModEquipmentItems.FUR_CLOAK);
 
         ModelLoadingPlugin.register(pluginContext -> {
             for(Item item : SimpleBigItemModel.items) {
@@ -422,7 +462,9 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.BELLOWS, RenderLayer.getCutout());
     }
 
-    /*private void registerDyeableItem(Item item) {
-        ColorProviderRegistry.ITEM.register((stack, layer) -> layer == 0 ? ((DyeableItem)stack.getItem()).getColor(stack) : 0xFFFFFF, item);
-    }*/
+    private void registerDyeableItem(Item item) {
+        if (Objects.requireNonNull(new ItemStack(item).get(ModDataComponentTypes.DYE_DATA)).overlay()){
+            ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex > 0 ? -1 : CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR), item);
+        }
+    }
 }

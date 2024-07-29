@@ -172,19 +172,13 @@ public class GondorHumanEntity extends NpcEntity{
         DyedColorComponent.setColor(gambeson, List.of(DyeItem.byColor(DyeColor.byId(colors[colorIndex]))));
 
         if(random.nextFloat() >= 0.30f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.GONDORIAN_MAIL_HELMET));
         } else  {
             equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HAT));
         }
         if(random.nextFloat() >= 0.30f){
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GONDORIAN_MAIL_CHESTPLATE));
         } else  {
             equipStack(EquipmentSlot.CHEST, gambeson);
         }
-
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.GONDORIAN_MAIL_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.GONDORIAN_MAIL_BOOTS));
-
 
         float val3 = random.nextFloat();
         if(val3 >= 0.6f){
@@ -199,10 +193,6 @@ public class GondorHumanEntity extends NpcEntity{
     }
 
     private void knightEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.GONDORIAN_REINFORCED_MAIL_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GONDORIAN_REINFORCED_MAIL_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.GONDORIAN_REINFORCED_MAIL_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.GONDORIAN_REINFORCED_MAIL_BOOTS));
 
         float val = random.nextFloat();
         if(val >= 0.75f){

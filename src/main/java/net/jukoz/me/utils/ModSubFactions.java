@@ -1,21 +1,26 @@
 package net.jukoz.me.utils;
 
 public enum ModSubFactions {
-    EREBOR("longbeards", ModFactions.LONGBEARDS);
+    NONE("generic", null),
+
+    EREBOR("erebor", ModFactions.LONGBEARDS),
+
+    ;
 
     private final String name;
-    private final ModFactions faction;
-    private final boolean minor;
 
-    ModSubFactions(String name, ModFactions faction, boolean minor){
+    private final ModFactions parent;
+
+    ModSubFactions(String name, ModFactions parent){
         this.name = name;
-        this.faction = faction;
-        this.minor = minor;
+        this.parent = parent;
     }
 
-    ModSubFactions(String name, ModFactions faction){
-        this.name = name;
-        this.faction = faction;
-        this.minor = false;
+    public ModFactions getParent() {
+        return parent;
+    }
+
+    public String getName() {
+        return name;
     }
 }
