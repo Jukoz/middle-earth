@@ -142,6 +142,9 @@ public class ModBiomeFeatures {
     public static void addCommonOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.COMMON_OAK_PLACED_TREE_KEY);
     }
+    public static void addRareOakBushes(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.OAK_BUSH_PLACED_TREE_KEY);
+    }
     public static void addOakTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.OAK_PLACED_TREE_KEY);
     }
@@ -292,6 +295,12 @@ public class ModBiomeFeatures {
     public static void addLebenninFlowers(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_LEBENNIN);
     }
+    public static void addLossarnachFlowers(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_LOSSARNACH);
+    }
+    public static void addLossarnachFlowersCommon(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_LOSSARNACH_COMMON);
+    }
     public static void addFlowerMeadow(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_MEADOW);
     }
@@ -358,6 +367,10 @@ public class ModBiomeFeatures {
     }
     public static void addHeatherBush(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_HEATHER_BUSH);
+    }
+    public static void addHorokaka(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_HOROKAKA);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_GIANT_HOROKAKA);
     }
     public static void addRedHeather(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_HEATHER_BUSH);

@@ -22,8 +22,10 @@ public class ModBiomes {
     public static final int defaultFog = 12638463;
     public static final int defaultWater = 4159204;
     public static final int defaultWaterFog = 329011;
-    public static final int defaultOceanWaterFog = 5340313;
-    public static final int defaultOceanWater = 3360865;
+    public static final int defaultShoreWater = 4157124;
+    public static final int defaultCoastWater = 4155044;
+    public static final int defaultOceanWater = 3956102;
+    public static final int defaultOceanWaterFog = 2309971;
     public static final int hillySky = 8233727;
     public static final int waterSky = 8103167;
     public static final int nearHaradSky = 7254527;
@@ -37,7 +39,7 @@ public class ModBiomes {
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 8703593, 8703593)));
         context.register(MEBiomeKeys.ANORIEN, createAnorienBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6799458, 6662221)));
-        context.register(MEBiomeKeys.ANORIEN_RIVERSIDE, createAnorienBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.ANORIEN_RIVERSIDE, createGondorRiverSideBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6799458, 6662221)));
         context.register(MEBiomeKeys.ANORIEN_FOOTHILLS, createAnorienBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6799458, 6662221)));
@@ -45,9 +47,13 @@ public class ModBiomes {
                 5993621, 7635851, 4812936, 3034721, 6721389, 6525545)));
         context.register(MEBiomeKeys.BELFALAS, createBelfalasBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 5951101, 5485154), false));
+        context.register(MEBiomeKeys.BELFALAS_BEACH, createBelfalasShoresBiome(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, defaultShoreWater, defaultWaterFog, 7323271, 6665073)));
         context.register(MEBiomeKeys.BELFALAS_HILLS, createBelfalasBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6011255, 5614178), true));
-              context.register(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, createBlueMountainsBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.BLACKROOT_VALE, createBlackRootVale(context, new BiomeColorsDTO(
+                8036582, 12176100, 5076939, defaultWaterFog, 6400098, 6069598), false));
+        context.register(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS, createBlueMountainsBiome(context, new BiomeColorsDTO(
                 7905261, 12241911, defaultWater, defaultWaterFog, 6652524, 6652524), false));
         context.register(MEBiomeKeys.BLUE_MOUNTAINS_BASE, createBlueMountainsBiome(context, new BiomeColorsDTO(
                 7905261, 12241911, defaultWater, defaultWaterFog, 5796446, 6652524), false));
@@ -62,6 +68,8 @@ public class ModBiomes {
         context.register(MEBiomeKeys.DAGORLAD, createMordorWastesBiome(context, new BiomeColorsDTO(
                 7239328, 7632257, 4874882, 992318, 6971996, 8092011)));
         context.register(MEBiomeKeys.DALE, createDaleBiome(context, new BiomeColorsDTO(
+                8230911, 12178175, defaultWater, defaultWaterFog, 6400105, 8703593)));
+        context.register(MEBiomeKeys.DALE_CITY, createDaleBiome(context, new BiomeColorsDTO(
                 8230911, 12178175, defaultWater, defaultWaterFog, 6400105, 8703593)));
         context.register(MEBiomeKeys.DALE_RIVERSIDE, createNorthernRhovanionTaiga(context, new BiomeColorsDTO(
                 hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
@@ -126,9 +134,9 @@ public class ModBiomes {
         context.register(MEBiomeKeys.FROZEN_POND, createFrozenPond(context, new BiomeColorsDTO(
                 8628223, 10599910, 3750089, 263470, 3494723, 4478280)));
         context.register(MEBiomeKeys.GOLF_OF_LHUN_CLIFFS, createLindonBiome(context, new BiomeColorsDTO(
-                8827134, 12771327, defaultOceanWater, defaultOceanWaterFog, 6523989, 5667402)));
+                8827134, 12771327, defaultShoreWater, defaultWaterFog, 6523989, 5667402)));
         context.register(MEBiomeKeys.GOLF_OF_LHUN_SHORES, createLindonBiome(context, new BiomeColorsDTO(
-                8827134, 12771327, defaultOceanWater, defaultOceanWaterFog, 6523989, 5667402)));
+                8827134, 12771327, defaultShoreWater, defaultWaterFog, 6523989, 5667402)));
         context.register(MEBiomeKeys.GONDOR, createGondorBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 7582562, 6592327)));
         context.register(MEBiomeKeys.GORGOROTH, createGorgorothBiome(context, new BiomeColorsDTO(
@@ -173,6 +181,8 @@ public class ModBiomes {
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 9162899, 8043898)));
         context.register(MEBiomeKeys.LEBENNIN, createLebennin(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 5883985, 7449969)));
+        context.register(MEBiomeKeys.LEBENNIN_SHORES, createGondorRiverSideBiome(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, defaultShoreWater, defaultWaterFog, 5883985, 7449969)));
         context.register(MEBiomeKeys.LINDON, createLindonBiome(context, new BiomeColorsDTO(
                 8827134, 12771327, defaultWater, defaultWaterFog, 6523989, 5667402)));
         context.register(MEBiomeKeys.LONG_LAKE, createLakeBiome(context, new BiomeColorsDTO(
@@ -181,6 +191,10 @@ public class ModBiomes {
                 8295660, 10993126, 6853265, 1919305, 5676922, 5282655)));
         context.register(MEBiomeKeys.LORIEN_EDGE, createLorienEdgeBiome(context, new BiomeColorsDTO(
                 defaultSky, 11455105, defaultWater, defaultWaterFog, 10601262, 6202980)));
+        context.register(MEBiomeKeys.LOSSARNACH, createLossarnach(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, defaultWater, defaultWaterFog, 8240485, 7909996), 0));
+        context.register(MEBiomeKeys.LOSSARNACH_VALLEY, createLossarnach(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, defaultWater, defaultWaterFog, 8896601, 9355638), 1));
         context.register(MEBiomeKeys.LOTHLORIEN, createLothlorienBiome(context, new BiomeColorsDTO(
                 defaultSky, 13748853, defaultWater, defaultWaterFog, 12961832, 6989412)));
         context.register(MEBiomeKeys.MINHIRIATH, createMinhiriathBiome(context, new BiomeColorsDTO(
@@ -262,7 +276,7 @@ public class ModBiomes {
         context.register(MEBiomeKeys.OCEAN, createOceanBiome(context, new BiomeColorsDTO(
                 waterSky, defaultFog, defaultOceanWater, defaultOceanWaterFog, 7576434, 6588506)));
         context.register(MEBiomeKeys.OCEAN_COAST, createOceanCoastBiome(context, new BiomeColorsDTO(
-                8104447, defaultFog, defaultOceanWater, defaultOceanWaterFog, 7971954, 6590810)));
+                8104447, defaultFog, defaultCoastWater, defaultOceanWaterFog, 7971954, 6590810)));
         context.register(MEBiomeKeys.OLD_ANGMAR, createOldAngmarBiome(context, new BiomeColorsDTO(
                 8954077, 11781343, 4814544, 460593, 7443043, 6982236)));
         context.register(MEBiomeKeys.OLD_ARTHEDAIN, createOldArthedainBiome(context, new BiomeColorsDTO(
@@ -275,6 +289,8 @@ public class ModBiomes {
                 7508201, 10863086, 4618461, defaultWaterFog, 6722387, 6198343)));
         context.register(MEBiomeKeys.OSGILIATH, createGondorBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 8104558, 7445848)));
+        context.register(MEBiomeKeys.PELENNOR_FIELDS, createPelennorFields(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, defaultWater, defaultWaterFog, 8628846, 8169054)));
         context.register(MEBiomeKeys.POND, createPondBiome(context, new BiomeColorsDTO(
                 waterSky, defaultFog, 4290786, defaultWaterFog, 7583083, 6592339)));
         context.register(MEBiomeKeys.RHUN, createRhunBiome(context, new BiomeColorsDTO(
@@ -427,6 +443,55 @@ public class ModBiomes {
             vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
             ModBiomeFeatures.addRareBirchTrees(vegetation);
             ModBiomeFeatures.addRareLebethronTrees(vegetation);
+            ModBiomeFeatures.addRareOakBushes(vegetation);
+        }
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
+    public static Biome createBelfalasShoresBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addGondorVegetation(generationSettings);
+        ModBiomeFeatures.addDioriteBoulder(vegetation);
+        ModBiomeFeatures.addHorokaka(vegetation);
+        ModBiomeFeatures.addRareOakBushes(vegetation);
+
+        vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
+    public static Biome createBlackRootVale(Registerable<Biome> context, BiomeColorsDTO biomeColors, boolean forest) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        ModBiomeFeatures.addFlowerGreenJewel(vegetation);
+        ModBiomeFeatures.addTuftGrass(vegetation);
+        ModBiomeFeatures.addWilderGrass(vegetation);
+        ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addCalciteBoulder(vegetation);
+        ModBiomeFeatures.addAndesiteBoulder(vegetation);
+        ModBiomeFeatures.addSpruceBushes(vegetation);
+        ModBiomeFeatures.addDryPineBushes(vegetation);
+
+        if(forest) {
+            ModSpawnSettingsBuilder.addDeer(spawnSettings);
+            addNordicVegetation(generationSettings);
+            ModBiomeFeatures.addLarchTrees(vegetation);
+            ModBiomeFeatures.addCommonLebethronTrees(vegetation);
+            ModBiomeFeatures.addPineTrees(vegetation);
+            ModBiomeFeatures.addBlackPineTrees(vegetation);
+            ModBiomeFeatures.addRareSpruceTrees(vegetation);
+            ModBiomeFeatures.addPodzolOre(vegetation);
+        } else {
+            ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+            addGondorVegetation(generationSettings);
+            vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+            ModBiomeFeatures.addWildGrass(vegetation);
+            ModBiomeFeatures.addRareLebethronTrees(vegetation);
+            ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
         }
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
@@ -795,6 +860,20 @@ public class ModBiomes {
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
 
+    public static Biome createGondorRiverSideBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addGondorVegetation(generationSettings);
+        ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addDioriteBoulder(vegetation);
+        ModBiomeFeatures.addDryGrass(vegetation);
+
+        vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
     public static Biome createGreyMountainsBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addMountainsMobs(spawnSettings);
@@ -1094,6 +1173,46 @@ public class ModBiomes {
         ModBiomeFeatures.addOakTrees(vegetation);
         ModBiomeFeatures.addSparseBirchTrees(vegetation);
         ModBiomeFeatures.addMegaMallornTrees(vegetation);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
+    public static Biome createLossarnach(Registerable<Biome> context, BiomeColorsDTO biomeColors, int step) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addGondorVegetation(generationSettings);
+        ModBiomeFeatures.addWildBellPepper(vegetation);
+        ModBiomeFeatures.addWheatGrass(vegetation);
+        ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addWilderGrass(vegetation);
+
+        if(step == 0) { // Plains
+            ModBiomeFeatures.addLossarnachFlowers(vegetation);
+            ModBiomeFeatures.addGravelOre(vegetation);
+            ModBiomeFeatures.addDioriteBoulder(vegetation);
+            vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+            ModBiomeFeatures.addOakBushes(vegetation);
+            ModBiomeFeatures.addVeryRareBirchTrees(vegetation);
+            ModBiomeFeatures.addRareBeechTrees(vegetation);
+            ModBiomeFeatures.addRareOakTrees(vegetation);
+            ModBiomeFeatures.addRareLebethronTrees(vegetation);
+        } else if (step == 1) { // Flower valley
+            ModBiomeFeatures.addLossarnachFlowersCommon(vegetation);
+            ModBiomeFeatures.addWildPotato(vegetation);
+            ModBiomeFeatures.addSparsePineTrees(vegetation);
+            ModBiomeFeatures.addRareBirchTrees(vegetation);
+            ModBiomeFeatures.addRareOakTrees(vegetation);
+            ModBiomeFeatures.addRareLebethronTrees(vegetation);
+            ModBiomeFeatures.addChestnutTrees(vegetation);
+        } else { // Forest
+
+        }
+
+
+
+
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
@@ -1946,6 +2065,22 @@ public class ModBiomes {
 
         addOceanVegetation(generationSettings);
         ModBiomeFeatures.addCoastalFoliage(vegetation);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings);
+    }
+
+    public static Biome createPelennorFields(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addGondorVegetation(generationSettings);
+        ModBiomeFeatures.addDioriteBoulder(vegetation);
+        ModBiomeFeatures.addWilderGrass(vegetation);
+        ModBiomeFeatures.addTuftGrass(vegetation);
+
+        vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+        ModBiomeFeatures.addRareLebethronTrees(vegetation);
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }

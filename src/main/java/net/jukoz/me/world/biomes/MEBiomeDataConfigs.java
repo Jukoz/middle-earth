@@ -121,9 +121,11 @@ public class MEBiomeDataConfigs {
 
     public static SlopeMap whiteMountains = new SlopeMap()
             .addSlopeData(22f, Blocks.GRASS_BLOCK)
-            .addSlopeData(28, Blocks.COARSE_DIRT)
-            .addSlopeData(42, Blocks.STONE)
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.DOLOMITE.base());
+            .addSlopeData(25, Blocks.COARSE_DIRT)
+            .addSlopeData(37, Blocks.STONE)
+            .addSlopeData(48, StoneBlockSets.DOLOMITE.base())
+            .addSlopeData(60, Blocks.DIORITE)
+            .addSlopeData(MAX_ANGLE, Blocks.CALCITE);
     public static SlopeMap whitePeaks = new SlopeMap()
             .addSlopeData(24, Blocks.SNOW_BLOCK)
             .addSlopeData(36, Blocks.DEEPSLATE)
@@ -134,10 +136,23 @@ public class MEBiomeDataConfigs {
     public static SlopeMap grassPlains = new SlopeMap().addSlopeData(25, Blocks.GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
+    public static SlopeMap sandShores = new SlopeMap().addSlopeData(27, Blocks.SAND)
+            .addSlopeData(30, Blocks.SANDSTONE)
+            .addSlopeData(36, Blocks.COARSE_DIRT)
+            .addSlopeData(MAX_ANGLE, Blocks.STONE);
+    public static SlopeMap whiteSandShores = new SlopeMap().addSlopeData(27, ModBlocks.WHITE_SAND)
+            .addSlopeData(30, Blocks.SANDSTONE)
+            .addSlopeData(36, Blocks.COARSE_DIRT)
+            .addSlopeData(MAX_ANGLE, Blocks.STONE);
     public static SlopeMap river = new SlopeMap().addSlopeData(30, ModBlocks.RIVER_SAND)
             .addSlopeData(36, Blocks.DIRT)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
 
+    public static SlopeMap golfOfLhunShoresLayers = new SlopeMap()
+            .addSlopeData(26, ModBlocks.WHITE_SAND)
+            .addSlopeData(28, Blocks.SAND)
+            .addSlopeData(33, Blocks.COARSE_DIRT)
+            .addSlopeData(MAX_ANGLE, Blocks.CLAY);
 
     public static SlopeMap forodwaith = new SlopeMap().addSlopeData(30, Blocks.SNOW_BLOCK)
             .addSlopeData(MAX_ANGLE, StoneBlockSets.FROZEN_STONE.base());
@@ -181,11 +196,6 @@ public class MEBiomeDataConfigs {
     public static BlocksLayeringData sandstoneLayers = new BlocksLayeringData().addLayerData(0.9f, Blocks.STONE)
             .addLayerData(0.1f, Blocks.SANDSTONE);
 
-    public static SlopeMap golfOfLhunShoresLayers = new SlopeMap()
-            .addSlopeData(26, ModBlocks.WHITE_SAND)
-            .addSlopeData(28, Blocks.SAND)
-            .addSlopeData(33, Blocks.COARSE_DIRT)
-            .addSlopeData(MAX_ANGLE, Blocks.CLAY);
     public static BlocksLayeringData gondorLayers = new BlocksLayeringData().addLayerData(0.5f, Blocks.STONE)
             .addLayerData(0.4f, Blocks.CALCITE)
             .addLayerData(0.1f, Blocks.DIORITE);
