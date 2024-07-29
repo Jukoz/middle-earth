@@ -2,7 +2,9 @@ package net.jukoz.me.client.screens;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.MiddleEarthClient;
 import net.jukoz.me.client.screens.utils.CycledSelectionButtonType;
 import net.jukoz.me.client.screens.utils.widgets.CycledSelectionWidget;
 import net.jukoz.me.entity.ModEntities;
@@ -11,11 +13,13 @@ import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
+import net.jukoz.me.network.TeleportRequest;
 import net.jukoz.me.resource.data.Alignment;
 import net.jukoz.me.resource.data.Race;
 import net.jukoz.me.resource.data.faction.Faction;
 import net.jukoz.me.resource.data.faction.ModFactions;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -35,12 +39,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -88,6 +96,8 @@ public class FactionSelectionScreen extends Screen {
     private CycledSelectionWidget factionSelectionWidget;
     private CycledSelectionWidget subfactionSelectionWidget;
     public ButtonWidget factionRandomizerButton;
+    public ButtonWidget spawnSelectionConfirmButton;
+    public ButtonWidget spawnSelectionRandomizerButton;
 
     private int mouseX;
     private int mouseY;
@@ -244,6 +254,30 @@ public class FactionSelectionScreen extends Screen {
         hobbitEntity = new ShireHobbitEntity(ModEntities.HOBBIT_CIVILIAN, this.client.world);
         updatePreviewEquipment();
 
+        // Random spawn selection
+        ButtonWidget.PressAction randomSpawnSelectionAction = button -> {
+            // TODO : create the logic for randomized spawn selection
+        };
+
+        spawnSelectionRandomizerButton = ButtonWidget.builder(Text.of("Click on random spawn selection button"), randomSpawnSelectionAction).build();
+        addDrawableChild(spawnSelectionRandomizerButton);
+
+        // Confirm spawn selection
+        ButtonWidget.PressAction confirmSpawnSelectionAction = button -> {
+            Alignment alignment = Alignment.values()[currentAlignementIndex];
+            Faction faction = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFactionIndex) : null;
+            Faction subFaction = (faction != null) ? faction.getSubfaction(currentSubFactionIndex) : null;
+
+            if(subFaction != null) faction = subFaction;
+
+            if(faction == null || faction.getSpawnCoordinates() == null || faction.getSpawnCoordinates().isEmpty()) return;
+            ClientPlayNetworking.send(new TeleportRequest(faction.getSpawnCoordinates().get(0).x, faction.getSpawnCoordinates().get(0).z));
+            // TODO : Add the appropriate data to the player
+        };
+
+        spawnSelectionConfirmButton = ButtonWidget.builder(Text.of("Click on spawn selection confirm button"), confirmSpawnSelectionAction).build();
+        addDrawableChild(spawnSelectionConfirmButton);
+
         // Screen click
         ButtonWidget.PressAction screenClickButton = new ButtonWidget.PressAction() {
             @Override
@@ -251,6 +285,7 @@ public class FactionSelectionScreen extends Screen {
                 LoggerUtil.logDebugMsg("clicked in the screen");
                 searchBarToggle = false;
                 searchResultToggle = false;
+                screenClick.active = false;
             }
         };
         screenClick = ButtonWidget.builder(Text.of("Click on screen"), screenClickButton).build();
@@ -309,6 +344,7 @@ public class FactionSelectionScreen extends Screen {
 
     private void triggerSearch() {
         searchResultToggle = true;
+        screenClick.active = true;
     }
 
     protected void drawPanels(DrawContext context){
@@ -337,7 +373,7 @@ public class FactionSelectionScreen extends Screen {
 
     private void drawFactionSelectionPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight, int mouseX, int mouseY) {
         int endX = (int) ((context.getScaledWindowWidth() / 2f) - (mainPanelWidth / 2f) - MINIMAL_MARGIN);
-        int startX = Math.max(MINIMAL_MARGIN, endX - mainPanelWidth);
+        int startX = Math.max(MINIMAL_MARGIN, endX  - mainPanelWidth);
         int startY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f));
 
         int widthX = endX - Math.max(MINIMAL_MARGIN, startX);
@@ -588,25 +624,32 @@ public class FactionSelectionScreen extends Screen {
                 widthX
         );
 
-
+        // Draw selection option
         int sizeX = 52;
         int sizeY = 18;
+        int buttonStartX = (int)(startX + (widthX / 2f)) - (sizeX + 10);
+        int buttonStartY = (int)((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight - sizeY;
 
         context.drawTexture(FACTION_SELECTION_BUTTONS,
-                (int)(startX + (widthX / 2f)) - (sizeX + 10),
-                (int)((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight - sizeY,
-                103, 111,
+                buttonStartX,
+                buttonStartY,
+                103, isMouseOver(buttonStartX, sizeX, buttonStartY, sizeY) ? 129 : 111,
                 sizeX,
                 sizeY
         );
+        spawnSelectionRandomizerButton.setDimensionsAndPosition(sizeX, sizeY, buttonStartX, buttonStartY);
 
+
+
+        buttonStartX = (int)(startX + (widthX / 2f));
         context.drawTexture(FACTION_SELECTION_BUTTONS,
-                (int)(startX + (widthX / 2f)),
-                (int)((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight - sizeY,
-                103, 19,
+                buttonStartX,
+                buttonStartY,
+                103, isMouseOver(buttonStartX, sizeX, buttonStartY, sizeY) ? 37 : 19,
                 sizeX,
                 sizeY
         );
+        spawnSelectionConfirmButton.setDimensionsAndPosition(sizeX, sizeY, buttonStartX, buttonStartY);
     }
 
     private void updatePreviewEquipment() {

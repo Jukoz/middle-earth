@@ -11,10 +11,10 @@ import net.minecraft.util.Identifier;
 
 public class CycledSelectionWidget {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/cycled_selection_widget.png");
-    private ButtonWidget buttonLeft;
-    private ButtonWidget buttonRight;
-    private ButtonWidget selectionButton;
-    private CycledSelectionButtonType buttonType;
+    private final ButtonWidget buttonLeft;
+    private final ButtonWidget buttonRight;
+    private final ButtonWidget selectionButton;
+    private final CycledSelectionButtonType buttonType;
     private boolean shouldDisplay = true;
     static final int MARGIN = 4;
     static final int ARROW_SIZE_X = 7;
@@ -30,8 +30,12 @@ public class CycledSelectionWidget {
     public CycledSelectionWidget(ButtonWidget.PressAction leftAction, ButtonWidget.PressAction rightAction, ButtonWidget.PressAction selectionAction, CycledSelectionButtonType buttonType){
         this.buttonType = buttonType;
         buttonLeft = ButtonWidget.builder(Text.of("Cycled Selection Left"), leftAction).build();
+        buttonLeft.setDimensions(ARROW_SIZE_X, ARROW_SIZE_Y);
         buttonRight = ButtonWidget.builder(Text.of("Cycled Selection Right"), rightAction).build();
+        buttonRight.setDimensions(ARROW_SIZE_X, ARROW_SIZE_Y);
+
         selectionButton = ButtonWidget.builder(Text.of("Cycled Selection"), selectionAction).build();
+        selectionButton.setDimensions(PANEL_SIZE_X, PANEL_SIZE_Y);
         if(selectionAction == null)
             selectionButton.active = false;
     }
@@ -55,6 +59,9 @@ public class CycledSelectionWidget {
 
     public void enableVisuals(boolean activate){
         shouldDisplay = activate;
+        buttonLeft.active = activate;
+        buttonRight.active = activate;
+        selectionButton.active = activate;
     }
 
     public int drawAnchored(DrawContext context, int anchorX, int startY, boolean isLeftAnchor, MutableText text, TextRenderer textRenderer, int mouseX, int mouseY){
@@ -78,6 +85,10 @@ public class CycledSelectionWidget {
     }
 
     protected int draw(DrawContext context, int startX, int startY, MutableText text, TextRenderer textRenderer){
+        if(!shouldDisplay){
+            return 0;
+        }
+
         int x = startX;
         int y = startY;
 
@@ -88,14 +99,14 @@ public class CycledSelectionWidget {
 
         // Left arrow
         if(buttonLeft.active){
-            buttonLeft.setDimensionsAndPosition(ARROW_SIZE_X, ARROW_SIZE_Y, x, y + arrowStartOffsetY);
+            buttonLeft.setPosition(x, y + arrowStartOffsetY);
             buttonIsHovered = buttonLeft.active && isMouseOver(ARROW_SIZE_X, ARROW_SIZE_Y, x, y + arrowStartOffsetY);
             context.drawTexture(TEXTURE, x, y + arrowStartOffsetY, 206, buttonIsHovered ? 11 : 0, ARROW_SIZE_X, ARROW_SIZE_Y);
         }
 
         // Center Button
         x += ARROW_SIZE_X + MARGIN;
-        selectionButton.setDimensionsAndPosition(PANEL_SIZE_X, PANEL_SIZE_Y, x, y + buttonStartOffsetY);
+        selectionButton.setPosition(x, y + buttonStartOffsetY);
         buttonIsHovered = selectionButton.active && isMouseOver(PANEL_SIZE_X, PANEL_SIZE_Y, x, y + buttonStartOffsetY);
         context.drawTexture(TEXTURE, x, y + buttonStartOffsetY, buttonIsHovered ? buttonType.hoveredUvX : buttonType.uvX, buttonIsHovered ? buttonType.hoveredUvY : buttonType.uvY, PANEL_SIZE_X, PANEL_SIZE_Y);
 
@@ -109,7 +120,7 @@ public class CycledSelectionWidget {
         x += PANEL_SIZE_X + MARGIN;
         // Left arrow
         if(buttonRight.active){
-            buttonRight.setDimensionsAndPosition(ARROW_SIZE_X, ARROW_SIZE_Y, x, y + arrowStartOffsetY);
+            buttonRight.setPosition(x, y + arrowStartOffsetY);
             buttonIsHovered = isMouseOver(ARROW_SIZE_X, ARROW_SIZE_Y, x, y + arrowStartOffsetY);
             context.drawTexture(TEXTURE, x, y + arrowStartOffsetY, 215, buttonIsHovered ? 11 : 0, ARROW_SIZE_X, ARROW_SIZE_Y);
         }

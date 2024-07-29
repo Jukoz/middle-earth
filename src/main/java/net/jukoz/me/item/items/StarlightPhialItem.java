@@ -8,6 +8,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+import org.joml.Vector3i;
 
 public class StarlightPhialItem extends Item {
     public StarlightPhialItem(Settings settings) {
@@ -17,8 +18,9 @@ public class StarlightPhialItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if(!ModDimensions.isInMiddleEarth(world)) {
-            ModDimensions.teleportPlayerToME(user);
+            ModDimensions.openOnboardingScreen(user);
         }
         return TypedActionResult.success(user.getStackInHand(hand));
     }
+
 }

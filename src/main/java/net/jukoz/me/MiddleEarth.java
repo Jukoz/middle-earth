@@ -6,6 +6,7 @@ import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.utils.ModItemGroups;
+import net.jukoz.me.network.ModNetworks;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.recipe.ModRecipeSerializer;
 import net.jukoz.me.registries.ModRegistries;
@@ -86,6 +87,8 @@ public class MiddleEarth implements ModInitializer {
 		LootModifiers.modifyLootTables();
 
 		CustomServerDataResourceReloadListener.register();
+
+		ModNetworks.registerC2SPackets();
 
 		try {
 			new MiddleEarthMapGeneration();

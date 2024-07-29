@@ -11,6 +11,19 @@
     "main_hand": "me:gondorian_sword",
     "off_hand": "me:gondorian_shield"
   },
+  "spawn": {
+    "map_preview_center": {
+      "x": 100,
+      "y": 200
+    },
+    "sets": [
+      {
+        "x": 54000,
+        "y": 200,
+        "z": 57000
+      }
+    ]
+  },
   "banner": {
     "base_color": "white",
     "patterns": [

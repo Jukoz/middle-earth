@@ -7,7 +7,10 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.resource.data.Alignment;
 import net.jukoz.me.resource.data.Race;
 import net.jukoz.me.resource.data.faction.utils.FactionNpcPreviewData;
+import net.jukoz.me.resource.data.faction.utils.SpawnPoint;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.map.MiddleEarthMapConfigs;
+import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.client.world.ClientWorld;
@@ -21,6 +24,8 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import org.joml.Vector2i;
+import org.joml.Vector3i;
 import org.spongepowered.asm.mixin.Mutable;
 
 import java.util.ArrayList;
@@ -48,6 +53,8 @@ public class Faction {
     private List<Identifier> bannerPatternIds;
     private List<DyeColor> bannerDyeColors;
     DyeColor defaultDye = DyeColor.PURPLE;
+    private List<Vector3i> spawnCoordinates;
+    private Vector2i mapPreviewCoordinate;
 
 
     public Faction(Alignment alignment, JsonObject json, Identifier id, HashMap<Identifier, Faction> subFactions){
@@ -60,6 +67,7 @@ public class Faction {
         this.alignment = alignment;
         this.id = id;
         buildPreview(json);
+        buildSpawnInformation(json);
         buildBanner(json);
         LoggerUtil.logDebugMsg("Faction::Created a new faction -> " + id);
     }
@@ -79,7 +87,7 @@ public class Faction {
                 getItem(getValue(jsonObject, "head")),
                 getItem(getValue(jsonObject, "chest")),
                 getItem(getValue(jsonObject, "legs")),
-                getItem(getValue(jsonObject, "feet")),
+                getItem(getValue(jsonObject, "boots")),
                 getItem(getValue(jsonObject, "main_hand")),
                 getItem(getValue(jsonObject, "off_hand"))
         );
@@ -105,6 +113,34 @@ public class Faction {
 
         baseBannerColor = DyeColor.byName(getValue(jsonObject, "base_color"), DyeColor.PINK);
     }
+
+    private void buildSpawnInformation(JsonObject json){
+        JsonObject jsonObject = json.getAsJsonObject("spawn");
+        if(jsonObject == null) return;
+
+        JsonObject mapCoordinateJsonObject = jsonObject.getAsJsonObject("map_preview_center");
+        if(mapCoordinateJsonObject == null) return;
+        mapPreviewCoordinate = new Vector2i(
+                mapCoordinateJsonObject.get("x").getAsInt(),
+                mapCoordinateJsonObject.get("y").getAsInt()
+        );
+
+        JsonArray spawnSets = jsonObject.getAsJsonArray("sets");
+        if(spawnSets == null) return;
+        spawnCoordinates = new ArrayList<>();
+
+        for (JsonElement element : spawnSets){
+            JsonObject elementObj = element.getAsJsonObject();
+            Vector3i newCoordinate = new Vector3i(
+                    elementObj.get("x").getAsInt(),
+                    elementObj.get("y").getAsInt(),
+                    elementObj.get("z").getAsInt()
+            );
+            spawnCoordinates.add(newCoordinate);
+        }
+        LoggerUtil.logDebugMsg("Faction::"+id+":found spawn -> " + spawnCoordinates.size());
+    }
+
 
     private String getValue(JsonObject jsonObject, String key){
         return String.valueOf(jsonObject.get(key)).replace("\"", "");
@@ -167,6 +203,9 @@ public class Faction {
     public Alignment getAlignment(){
         return alignment;
     }
+
+    public Vector2i getMapPreviewCoordinate() { return mapPreviewCoordinate; }
+    public List<Vector3i> getSpawnCoordinates() { return spawnCoordinates; }
 
     public String getId() {
         return id.toString();

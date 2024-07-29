@@ -1,8 +1,10 @@
 package net.jukoz.me.world.dimension;
 
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.FactionSelectionScreen;
 import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.network.TeleportRequest;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
@@ -14,6 +16,8 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -39,6 +43,12 @@ public class ModDimensions {
         LoggerUtil.logDebugMsg("Registering ModDimensions for " + MiddleEarth.MOD_ID);
     }
 
+    public static Vector3i getDimensionHeight(int x, int z) {
+        LoggerUtil.logDebugMsg("" + MiddleEarthHeightMap.getHeight(x, z));
+        int height = (int) (1 + MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(x, z));
+        return new Vector3i(x, height, z);
+    }
+
     public static void teleportPlayerToME(PlayerEntity player) {
         Vector2i coordinates = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(ME_SPAWN_LOCATION.x, ME_SPAWN_LOCATION.z);
         int height = (int) (1 + MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(coordinates.x, coordinates.y));
@@ -47,8 +57,6 @@ public class ModDimensions {
     }
 
     public static void teleportPlayerToMe(PlayerEntity player, Vector3i coordinates){
-        openOnboardingScreen(player, coordinates);
-        /*
         if(!player.getWorld().isClient()) {
             RegistryKey<World> registryKey = WORLD_KEY;
             ServerWorld serverWorld = (ServerWorld) player.getWorld();
@@ -61,10 +69,25 @@ public class ModDimensions {
                 player.refreshPositionAfterTeleport(coordinates.x, coordinates.y, coordinates.z);
             }
         }
-         */
     }
 
-    public static void openOnboardingScreen(PlayerEntity player, Vector3i coordinates){
+    public static void teleportPlayerToMe(TeleportRequest packet, ServerPlayNetworking.Context context){
+        context.player().stopRiding();
+        Vector3i coordinates = packet.getCoordinates();
+
+        ServerWorld serverWorld = (ServerWorld) context.player().getWorld();
+        if (serverWorld != null) {
+            RegistryKey<World> registryKey = WORLD_KEY;
+            serverWorld = serverWorld.getServer().getWorld(registryKey);
+
+            context.player().wakeUp();
+
+            context.player().teleport(serverWorld, coordinates.x, coordinates.y, coordinates.z, context.player().getYaw(), context.player().getPitch());
+            context.player().refreshPositionAfterTeleport(coordinates.x, coordinates.y, coordinates.z);
+        }
+    }
+
+    public static void openOnboardingScreen(PlayerEntity player){
         MinecraftClient mc = MinecraftClient.getInstance();
         if(player.getWorld().isClient) {
             if (mc.currentScreen == null) {
