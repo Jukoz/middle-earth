@@ -56,19 +56,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:mordor_great_eye_banner_pattern"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "me:mordor_eye_banner_pattern"
+          "name": "me:mordor_banner_pattern"
         }
       ]
     },
