@@ -1,4 +1,4 @@
-package net.jukoz.me.compat.alloyFurnace;
+package net.jukoz.me.compat.forge;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -16,18 +16,18 @@ import net.minecraft.util.Identifier;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AlloyFurnaceCategory implements DisplayCategory<BasicDisplay> {
-    public static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/alloy_furnace_rei.png");
-    public static final CategoryIdentifier<AlloyFurnaceDisplay> ALLOY_FURNACE = CategoryIdentifier.of(MiddleEarth.MOD_ID, "alloy_furnace");
+public class ForgeCategory implements DisplayCategory<BasicDisplay> {
+    public static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/forge_rei.png");
+    public static final CategoryIdentifier<ForgeDisplay> FORGE = CategoryIdentifier.of(MiddleEarth.MOD_ID, "forge");
 
     @Override
     public CategoryIdentifier<? extends BasicDisplay> getCategoryIdentifier() {
-        return ALLOY_FURNACE;
+        return FORGE;
     }
 
     @Override
     public Text getTitle() {
-        return Text.translatable("screen." + MiddleEarth.MOD_ID + ".alloy_furnace");
+        return Text.translatable("screen." + MiddleEarth.MOD_ID + ".forge");
     }
 
     @Override

@@ -13,11 +13,11 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class AlloyRecipe implements Recipe<MultipleStackRecipeInput> {
+public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
     public final ItemStack output;
     public final List<Ingredient> inputs;
 
-    public AlloyRecipe(ItemStack output, List<Ingredient> recipeItems) {
+    public AlloyingRecipe(ItemStack output, List<Ingredient> recipeItems) {
         this.output = output;
         this.inputs = recipeItems;
     }
@@ -70,46 +70,46 @@ public class AlloyRecipe implements Recipe<MultipleStackRecipeInput> {
         return Type.INSTANCE;
     }
 
-    public static class Type implements RecipeType<AlloyRecipe> {
+    public static class Type implements RecipeType<AlloyingRecipe> {
         private Type() {}
         public static final Type INSTANCE = new Type();
-        public static final String ID = "alloy_furnace";
+        public static final String ID = "alloying";
     }
 
-    public static class Serializer implements RecipeSerializer<AlloyRecipe> {
+    public static class Serializer implements RecipeSerializer<AlloyingRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final String ID = "alloy_furnace";
-        private final MapCodec<AlloyRecipe> codec;
-        private final PacketCodec<RegistryByteBuf, AlloyRecipe> packetCodec;
+        public static final String ID = "alloying";
+        private final MapCodec<AlloyingRecipe> codec;
+        private final PacketCodec<RegistryByteBuf, AlloyingRecipe> packetCodec;
 
         protected Serializer() {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
                             ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
                             Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs)
-                    ).apply(instance, AlloyRecipe::new));
+                    ).apply(instance, AlloyingRecipe::new));
 
             this.packetCodec = PacketCodec.ofStatic(Serializer::write, Serializer::read);
         }
 
         @Override
-        public MapCodec<AlloyRecipe> codec() {
+        public MapCodec<AlloyingRecipe> codec() {
             return this.codec;
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, AlloyRecipe> packetCodec() {
+        public PacketCodec<RegistryByteBuf, AlloyingRecipe> packetCodec() {
             return this.packetCodec;
         }
 
-        private static AlloyRecipe read(RegistryByteBuf buf) {
+        private static AlloyingRecipe read(RegistryByteBuf buf) {
             ItemStack output = ItemStack.PACKET_CODEC.decode(buf);
             int i = buf.readVarInt();
             DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i, Ingredient.EMPTY);
             defaultedList.replaceAll(empty -> Ingredient.PACKET_CODEC.decode(buf));
-            return new AlloyRecipe(output, defaultedList);
+            return new AlloyingRecipe(output, defaultedList);
         }
 
-        private static void write(RegistryByteBuf buf, AlloyRecipe recipe) {
+        private static void write(RegistryByteBuf buf, AlloyingRecipe recipe) {
             ItemStack.PACKET_CODEC.encode(buf, recipe.output);
             buf.writeVarInt(recipe.inputs.size());
             for (Ingredient ingredient : recipe.inputs) {

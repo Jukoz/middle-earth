@@ -2,12 +2,9 @@ package net.jukoz.me.block.special.treatedAnvil;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
-import net.jukoz.me.block.special.forge.ForgeBlockEntity;
-import net.jukoz.me.gui.forge.ForgeScreenHandler;
 import net.jukoz.me.gui.treatedanvil.TreatedAnvilScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -94,7 +91,6 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements NamedScreenH
         return BlockEntityUpdateS2CPacket.create(this);
     }
 
-
     @Override
     public int[] getAvailableSlots(Direction side) {
         int[] slots = new int[inventory.size()];
@@ -102,6 +98,11 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements NamedScreenH
             slots[i] = i;
         }
         return slots;
+    }
+
+    @Override
+    public void markDirty() {
+        super.markDirty();
     }
 
     @Override

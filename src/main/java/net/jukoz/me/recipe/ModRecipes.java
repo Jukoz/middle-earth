@@ -11,11 +11,11 @@ public class ModRecipes {
 
     public static void registerRecipes() {
         Registry.register(Registries.RECIPE_SERIALIZER,
-                Identifier.of(MiddleEarth.MOD_ID, AlloyRecipe.Serializer.ID),
-                AlloyRecipe.Serializer.INSTANCE);
+                Identifier.of(MiddleEarth.MOD_ID, AlloyingRecipe.Serializer.ID),
+                AlloyingRecipe.Serializer.INSTANCE);
         Registry.register(Registries.RECIPE_TYPE,
-                Identifier.of(MiddleEarth.MOD_ID, AlloyRecipe.Type.ID),
-                AlloyRecipe.Type.INSTANCE);
+                Identifier.of(MiddleEarth.MOD_ID, AlloyingRecipe.Type.ID),
+                AlloyingRecipe.Type.INSTANCE);
 
         Registry.register(Registries.RECIPE_SERIALIZER,
                 Identifier.of(MiddleEarth.MOD_ID, ArtisanRecipe.Serializer.ID),

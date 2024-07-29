@@ -30,7 +30,7 @@ public class TreatedAnvilScreenHandler extends ScreenHandler {
 
         this.addSlot(new Slot(inventory, 0, 23, 34));
         this.addSlot(new Slot(inventory, 1, 61, 34));
-        this.addSlot(new Slot(inventory, 3, 134, 34));
+        this.addSlot(new Slot(inventory, 2, 134, 34));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

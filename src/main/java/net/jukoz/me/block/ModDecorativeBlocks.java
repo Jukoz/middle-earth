@@ -40,7 +40,7 @@ public class ModDecorativeBlocks {
             new WallDwarvenLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
 
     public static final Block FORGE = registerBlock("forge",
-            new ForgeBlock(AbstractBlock.Settings.copy(Blocks.STONE).strength(1.65f).requiresTool()));
+            new ForgeBlock(AbstractBlock.Settings.copy(Blocks.BRICKS).strength(1.65f).requiresTool()));
     public static final Block TREADTED_ANVIL = registerBlock("treated_anvil",
             new TreatedAnvilBlock(AbstractBlock.Settings.copy(Blocks.STONE).strength(1.65f).requiresTool().nonOpaque()));
     public static final Block BELLOWS = registerBlock("bellows",

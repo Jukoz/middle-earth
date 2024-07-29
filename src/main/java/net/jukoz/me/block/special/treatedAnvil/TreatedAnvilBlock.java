@@ -1,10 +1,6 @@
 package net.jukoz.me.block.special.treatedAnvil;
 
 import com.mojang.serialization.MapCodec;
-import net.jukoz.me.block.special.forge.ForgeBlock;
-import net.jukoz.me.block.special.forge.ForgeBlockEntity;
-import net.jukoz.me.block.special.forge.ForgePart;
-import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModToolItems;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -57,8 +53,8 @@ public class TreatedAnvilBlock extends BlockWithEntity implements BlockEntityPro
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if(state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if(blockEntity instanceof ForgeBlockEntity forgeBlockEntity) {
-                ItemScatterer.spawn(world, pos, forgeBlockEntity);
+            if(blockEntity instanceof TreatedAnvilBlockEntity treatedAnvilBlockEntity) {
+                ItemScatterer.spawn(world, pos, treatedAnvilBlockEntity);
             }
             super.onStateReplaced(state, world, pos, newState, moved);
         }

@@ -57,7 +57,6 @@ import net.jukoz.me.item.utils.ModModelPredicateProvider;
 import net.jukoz.me.network.ModNetworks;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.particles.custom.LeavesParticle;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.color.world.BiomeColors;
@@ -167,7 +166,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         ModModelPredicateProvider.registerAllPredicates();
 
-        HandledScreens.register(ModScreenHandlers.ALLOY_SCREEN_HANDLER, ForgeScreen::new);
+        HandledScreens.register(ModScreenHandlers.FORGE_SCREEN_HANDLER, ForgeScreen::new);
         HandledScreens.register(ModScreenHandlers.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
         HandledScreens.register(ModScreenHandlers.TREATED_ANVIL_SCREEN_HANDLER, TreatedAnvilScreen::new);
         HandledScreens.register(ModScreenHandlers.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);

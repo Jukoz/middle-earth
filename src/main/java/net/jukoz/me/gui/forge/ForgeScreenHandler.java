@@ -8,7 +8,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.Property;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
@@ -22,18 +21,18 @@ public class ForgeScreenHandler extends ScreenHandler{
     }
 
     public ForgeScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
-        super(ModScreenHandlers.ALLOY_SCREEN_HANDLER, syncId);
+        super(ModScreenHandlers.FORGE_SCREEN_HANDLER, syncId);
         checkSize(inventory, 6);
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);
         this.propertyDelegate = delegate;
 
-        this.addSlot(new ForgeFuelSlot(inventory, this, 0, 53, 53));
-        this.addSlot(new Slot(inventory, 1, 26, 17));
-        this.addSlot(new Slot(inventory, 2, 44, 17));
-        this.addSlot(new Slot(inventory, 3, 62, 17));
-        this.addSlot(new Slot(inventory, 4, 80, 17));
-        this.addSlot(new ForgeOutputSlot(playerInventory.player, inventory, 5, 129, 35));
+        this.addSlot(new ForgeFuelSlot(inventory, this, 0, 39, 53));
+        this.addSlot(new Slot(inventory, 1, 12, 17));
+        this.addSlot(new Slot(inventory, 2, 30, 17));
+        this.addSlot(new Slot(inventory, 3, 48, 17));
+        this.addSlot(new Slot(inventory, 4, 66, 17));
+        this.addSlot(new ForgeOutputSlot(playerInventory.player, inventory, 5, 144, 17));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

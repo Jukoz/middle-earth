@@ -4,7 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.gui.forge.ForgeScreenHandler;
-import net.jukoz.me.recipe.AlloyRecipe;
+import net.jukoz.me.recipe.AlloyingRecipe;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -274,8 +274,8 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
             if(i != FUEL_SLOT && i != OUTPUT_SLOT) inputs.add(entity.getStack(i));
         }
 
-        Optional<RecipeEntry<AlloyRecipe>> match = entity.getWorld().getRecipeManager()
-                .getFirstMatch(AlloyRecipe.Type.INSTANCE, new MultipleStackRecipeInput(inputs), entity.getWorld());
+        Optional<RecipeEntry<AlloyingRecipe>> match = entity.getWorld().getRecipeManager()
+                .getFirstMatch(AlloyingRecipe.Type.INSTANCE, new MultipleStackRecipeInput(inputs), entity.getWorld());
         if(match.isEmpty()) throw new RuntimeException("Somehow... you crafted an item without recipe?!");
 
         if(hasRecipe(entity)) {
@@ -296,8 +296,8 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
             if(i != FUEL_SLOT && i != OUTPUT_SLOT) inputs.add(entity.getStack(i));
         }
 
-        Optional<RecipeEntry<AlloyRecipe>> match = entity.getWorld().getRecipeManager()
-                .getFirstMatch(AlloyRecipe.Type.INSTANCE, new MultipleStackRecipeInput(inputs), entity.getWorld());
+        Optional<RecipeEntry<AlloyingRecipe>> match = entity.getWorld().getRecipeManager()
+                .getFirstMatch(AlloyingRecipe.Type.INSTANCE, new MultipleStackRecipeInput(inputs), entity.getWorld());
         if(match.isEmpty()) return false;
 
         return canInsertAmountIntoOutput(inventory1, match.get().value().output.getCount())
