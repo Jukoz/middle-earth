@@ -7,9 +7,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public enum Alignment {
-    Good,
-    Neutral,
-    Evil;
+    GOOD,
+    NEUTRAL,
+    EVIL;
 
     @Override
     public String toString() {

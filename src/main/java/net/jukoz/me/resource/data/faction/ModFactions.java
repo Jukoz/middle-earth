@@ -32,9 +32,9 @@ public class ModFactions {
             JsonObject jsonObject = (JsonObject) jsonParser.parse(
                     new InputStreamReader(resource.getInputStream(), "UTF-8"));
 
-            registerFactionByAlignment(jsonParser, Alignment.Good, jsonObject, resources);
-            registerFactionByAlignment(jsonParser,  Alignment.Neutral, jsonObject, resources);
-            registerFactionByAlignment(jsonParser,  Alignment.Evil, jsonObject, resources);
+            registerFactionByAlignment(jsonParser, Alignment.GOOD, jsonObject, resources);
+            registerFactionByAlignment(jsonParser,  Alignment.NEUTRAL, jsonObject, resources);
+            registerFactionByAlignment(jsonParser,  Alignment.EVIL, jsonObject, resources);
         } catch (Exception e){
             LoggerUtil.logError("ModFactions:registerFactions -> " + e);
         }

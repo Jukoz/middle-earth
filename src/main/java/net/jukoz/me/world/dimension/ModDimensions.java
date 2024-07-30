@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.FactionSelectionScreen;
 import net.jukoz.me.item.ModResourceItems;
-import net.jukoz.me.network.TeleportRequest;
+import net.jukoz.me.network.packets.TeleportRequestPacket;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
@@ -44,7 +44,7 @@ public class ModDimensions {
     }
 
     public static Vector3i getDimensionHeight(int x, int z) {
-        LoggerUtil.logDebugMsg("" + MiddleEarthHeightMap.getHeight(x, z));
+        MiddleEarthHeightMap.getHeight(x, z);
         int height = (int) (1 + MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(x, z));
         return new Vector3i(x, height, z);
     }
@@ -71,7 +71,7 @@ public class ModDimensions {
         }
     }
 
-    public static void teleportPlayerToMe(TeleportRequest packet, ServerPlayNetworking.Context context){
+    public static void teleportPlayerToMe(TeleportRequestPacket packet, ServerPlayNetworking.Context context){
         context.player().stopRiding();
         Vector3i coordinates = packet.getCoordinates();
 

@@ -1,9 +1,12 @@
 package net.jukoz.me.block.special.alloyfurnace;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.StateSaverAndLoader;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreenHandler;
 import net.jukoz.me.recipe.AlloyRecipe;
+import net.jukoz.me.resource.PlayerData;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -88,6 +91,10 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+        LoggerUtil.logDebugMsg(player.getName().toString());
+        PlayerData data = StateSaverAndLoader.getPlayerState(player);
+        LoggerUtil.logDebugMsg(player.getName() + " " + data.getAlignment() + " - " + data.faction + " - " + data.subfaction);
+
         return new AlloyFurnaceScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 

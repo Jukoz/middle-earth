@@ -3,8 +3,9 @@ package net.jukoz.me.client.screens;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.MiddleEarthClient;
+import net.jukoz.me.StateSaverAndLoader;
 import net.jukoz.me.client.screens.utils.CycledSelectionButtonType;
 import net.jukoz.me.client.screens.utils.widgets.CycledSelectionWidget;
 import net.jukoz.me.entity.ModEntities;
@@ -13,13 +14,15 @@ import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
-import net.jukoz.me.network.TeleportRequest;
+import net.jukoz.me.network.packets.IdentityPacket;
+import net.jukoz.me.network.packets.TeleportRequestPacket;
+import net.jukoz.me.resource.PlayerData;
 import net.jukoz.me.resource.data.Alignment;
 import net.jukoz.me.resource.data.Race;
 import net.jukoz.me.resource.data.faction.Faction;
 import net.jukoz.me.resource.data.faction.ModFactions;
+import net.jukoz.me.utils.IEntityDataSaver;
 import net.jukoz.me.utils.LoggerUtil;
-import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -38,17 +41,14 @@ import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -114,9 +114,9 @@ public class FactionSelectionScreen extends Screen {
         this.bannerField = this.client.getEntityModelLoader().getModelPart(EntityModelLayers.BANNER).getChild("flag");
 
         // Create faction list
-        factions.put(Alignment.Good, ModFactions.getFactions(Alignment.Good));
-        factions.put(Alignment.Neutral, ModFactions.getFactions(Alignment.Neutral));
-        factions.put(Alignment.Evil,  ModFactions.getFactions(Alignment.Evil));
+        factions.put(Alignment.GOOD, ModFactions.getFactions(Alignment.GOOD));
+        factions.put(Alignment.NEUTRAL, ModFactions.getFactions(Alignment.NEUTRAL));
+        factions.put(Alignment.EVIL,  ModFactions.getFactions(Alignment.EVIL));
         // Initialize Buttons
         // Search bar
         searchBarToggle = false;
@@ -256,7 +256,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Random spawn selection
         ButtonWidget.PressAction randomSpawnSelectionAction = button -> {
-            // TODO : create the logic for randomized spawn selection
+            // TODO : Add proper logic to randomized spawn selection
         };
 
         spawnSelectionRandomizerButton = ButtonWidget.builder(Text.of("Click on random spawn selection button"), randomSpawnSelectionAction).build();
@@ -271,8 +271,9 @@ public class FactionSelectionScreen extends Screen {
             if(subFaction != null) faction = subFaction;
 
             if(faction == null || faction.getSpawnCoordinates() == null || faction.getSpawnCoordinates().isEmpty()) return;
-            ClientPlayNetworking.send(new TeleportRequest(faction.getSpawnCoordinates().get(0).x, faction.getSpawnCoordinates().get(0).z));
-            // TODO : Add the appropriate data to the player
+            LoggerUtil.logDebugMsg("Before : "+ ((IEntityDataSaver)player).getPersistentData().getInt("alignment"));
+            ClientPlayNetworking.send(new TeleportRequestPacket(faction.getSpawnCoordinates().get(0).x, faction.getSpawnCoordinates().get(0).z));
+            ClientPlayNetworking.send(new IdentityPacket(currentAlignementIndex, currentFactionIndex, currentSubFactionIndex));
         };
 
         spawnSelectionConfirmButton = ButtonWidget.builder(Text.of("Click on spawn selection confirm button"), confirmSpawnSelectionAction).build();
