@@ -40,10 +40,10 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
     private void renderProgressArrow(DrawContext context, int x, int y) {
         if(handler.isCooking()) {
             int cookingTime = (int) (handler.getScaledCooking() * COOKING_FIRE_SIZE);
-            context.drawTexture(TEXTURE, x + 53, y + 50 - cookingTime, 176, COOKING_FIRE_SIZE - cookingTime, COOKING_FIRE_SIZE, cookingTime);
+            context.drawTexture(TEXTURE, x + 40, y + 50 - cookingTime, 176, COOKING_FIRE_SIZE - cookingTime, COOKING_FIRE_SIZE, cookingTime);
         }
         if(handler.isCrafting()) {
-            context.drawTexture(TEXTURE, x + 94, y + 34, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17);
+            context.drawTexture(TEXTURE, x + 79, y + 34, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17);
         }
     }
 

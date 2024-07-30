@@ -127,7 +127,6 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
         return ActionResult.SUCCESS;
     }
 
-
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {

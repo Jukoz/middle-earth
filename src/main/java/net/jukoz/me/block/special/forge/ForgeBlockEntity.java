@@ -23,7 +23,11 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.recipe.AbstractCookingRecipe;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.RecipeManager;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
@@ -295,9 +299,12 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
             inventory1.setStack(i, entity.getStack(i));
             if(i != FUEL_SLOT && i != OUTPUT_SLOT) inputs.add(entity.getStack(i));
         }
+        if(inputs.isEmpty()) return false;
 
+        MultipleStackRecipeInput input = new MultipleStackRecipeInput(inputs);
         Optional<RecipeEntry<AlloyingRecipe>> match = entity.getWorld().getRecipeManager()
-                .getFirstMatch(AlloyingRecipe.Type.INSTANCE, new MultipleStackRecipeInput(inputs), entity.getWorld());
+                .getFirstMatch(AlloyingRecipe.Type.INSTANCE, input, entity.getWorld());
+
         if(match.isEmpty()) return false;
 
         return canInsertAmountIntoOutput(inventory1, match.get().value().output.getCount())
@@ -332,9 +339,14 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
     }
 
     private static boolean canInsertAmountIntoOutput(SimpleInventory inventory1, int count) {
-        return inventory1.getStack(OUTPUT_SLOT).getMaxCount() > inventory1.getStack(OUTPUT_SLOT).getCount() + (count- 1);
+        int maxCount = inventory1.getStack(OUTPUT_SLOT).getMaxCount();
+        if(inventory1.getStack(OUTPUT_SLOT) == ItemStack.EMPTY) maxCount = 64;
+        int newCount = inventory1.getStack(OUTPUT_SLOT).getCount() + (count- 1);
+        return maxCount > newCount;
     }
     private static boolean canInsertRecipeIntoOutput(SimpleInventory inventory1, Item item) {
-        return inventory1.getStack(OUTPUT_SLOT).getItem() == item || inventory1.getStack(OUTPUT_SLOT).isEmpty();
+        boolean sameItem = inventory1.getStack(OUTPUT_SLOT).getItem() == item;
+        boolean isEmpty = inventory1.getStack(OUTPUT_SLOT).isEmpty();
+        return sameItem || isEmpty;
     }
 }

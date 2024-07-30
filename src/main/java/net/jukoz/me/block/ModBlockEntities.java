@@ -30,7 +30,7 @@ public class ModBlockEntities {
                 FabricBlockEntityTypeBuilder.create(ForgeBlockEntity::new,
                         ModDecorativeBlocks.FORGE).build(null));
         TREATED_ANVIL = Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                Identifier.of(MiddleEarth.MOD_ID, "forge"),
+                Identifier.of(MiddleEarth.MOD_ID, "treated_anvil"),
                 FabricBlockEntityTypeBuilder.create(TreatedAnvilBlockEntity::new,
                         ModDecorativeBlocks.TREADTED_ANVIL).build(null));
         REINFORCED_CHEST = Registry.register(Registries.BLOCK_ENTITY_TYPE,
