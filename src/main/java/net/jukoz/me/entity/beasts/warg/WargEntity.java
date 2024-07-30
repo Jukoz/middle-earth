@@ -44,6 +44,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+// TODO Replace animations with new animations
+// TODO Make warg heal by feeding
 public class WargEntity extends BeastEntity {
 
     private static final double WALKING_SPEED = 0.25;
