@@ -2,6 +2,7 @@ package net.jukoz.me;
 
 import net.fabricmc.api.ModInitializer;
 import net.jukoz.me.block.*;
+import net.jukoz.me.config.ModConfigs;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.item.*;
@@ -35,6 +36,8 @@ public class MiddleEarth implements ModInitializer {
 
 		loggerUtil.logInfoMsg("");
 		loggerUtil.logInfoMsg("================ MiddleEarth ================");
+
+		ModConfigs.registerConfigs();
 
 		ModDataComponentTypes.registerModComponentTypes();
 
