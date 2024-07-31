@@ -2,6 +2,7 @@ package net.jukoz.me.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.special.bellows.BellowsBlockEntity;
 import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.block.special.fireBlocks.*;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestBlockEntity;
@@ -17,6 +18,7 @@ public class ModBlockEntities {
     public static BlockEntityType<ForgeBlockEntity> FORGE;
     public static BlockEntityType<TreatedAnvilBlockEntity> TREATED_ANVIL;
     public static BlockEntityType<ReinforcedChestBlockEntity> REINFORCED_CHEST;
+    public static BlockEntityType<BellowsBlockEntity> BELLOWS;
     public static BlockEntityType<WoodPileBlockEntity> WOOD_PILE;
     public static BlockEntityType<BrazierBlockEntity> BIG_BRAZIER;
     public static BlockEntityType<SmallBrazierBlockEntity> SMALL_BRAZIER;
@@ -37,6 +39,10 @@ public class ModBlockEntities {
                 Identifier.of(MiddleEarth.MOD_ID, "reinforced_chest"),
                 FabricBlockEntityTypeBuilder.create(ReinforcedChestBlockEntity::new,
                         ModDecorativeBlocks.REINFORCED_CHEST).build(null));
+        BELLOWS = Registry.register(Registries.BLOCK_ENTITY_TYPE,
+                Identifier.of(MiddleEarth.MOD_ID, "bellows"),
+                FabricBlockEntityTypeBuilder.create(BellowsBlockEntity::new,
+                        ModDecorativeBlocks.BELLOWS).build(null));
         WOOD_PILE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
                 Identifier.of(MiddleEarth.MOD_ID, "wood_pile"),
                 FabricBlockEntityTypeBuilder.create(WoodPileBlockEntity::new,

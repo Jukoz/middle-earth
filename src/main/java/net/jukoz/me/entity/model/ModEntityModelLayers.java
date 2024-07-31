@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.special.bellows.BellowsBlockEntityRenderer;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.jukoz.me.entity.balrog.BalrogModel;
 import net.jukoz.me.entity.barrow_wights.BarrowWightModel;
@@ -13,7 +14,6 @@ import net.jukoz.me.entity.crab.CrabModel;
 import net.jukoz.me.entity.deer.DeerModel;
 import net.jukoz.me.entity.duck.DuckModel;
 import net.jukoz.me.entity.goose.GooseModel;
-import net.jukoz.me.entity.humans.gondor.GondorHumanModel;
 import net.jukoz.me.entity.nazguls.NazgulModel;
 import net.jukoz.me.entity.pheasant.PheasantModel;
 import net.jukoz.me.entity.snail.SnailModel;
@@ -54,6 +54,7 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer SNAIL = ModEntityModelLayers.registerEntityModelLayer("snail", SnailModel.getTexturedModelData());
     public static final EntityModelLayer DEER = ModEntityModelLayers.registerEntityModelLayer("deer", DeerModel.getTexturedModelData());
 
+    public static final EntityModelLayer BELLOWS = ModEntityModelLayers.registerEntityModelLayer("bellows", BellowsBlockEntityRenderer.getTexturedModelData());
     public static final EntityModelLayer REINFORCED_CHEST = ModEntityModelLayers.registerEntityModelLayer("reinforced_chest", ReinforcedChestEntityRenderer.getTexturedModelData());
 
 

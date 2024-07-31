@@ -5,6 +5,18 @@
       "resource": "me:model/reinforced_chest"
     },
     {
+      "type": "single",
+      "resource": "me:model/bellows/bellows_0"
+    },
+    {
+      "type": "single",
+      "resource": "me:model/bellows/bellows_1"
+    },
+    {
+      "type": "single",
+      "resource": "me:model/bellows/bellows_2"
+    },
+    {
       "type": "paletted_permutations",
       "textures": [
         "me:trims/items/axe_head_trim",

@@ -1,9 +1,8 @@
 package net.jukoz.me.block.special.bellows;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
@@ -16,12 +15,22 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
 
-public class BellowsBlock extends Block {
+public class BellowsBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
     public BellowsBlock(Settings settings) {
         super(settings);
         this.setDefaultState(((this.stateManager.getDefaultState()).with(FACING, Direction.NORTH)));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return createCodec(BellowsBlock::new);
+    }
+
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new BellowsBlockEntity(pos, state);
     }
 
     @Override
