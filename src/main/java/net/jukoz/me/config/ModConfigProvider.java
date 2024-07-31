@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModConfigProvider implements SimpleConfig.DefaultConfig {
+    public static final String COMMENT_PREFIX = "# ";
+    public static final String SECTION_PREFIX = "# ";
+    public static final String VALUE_PREFIX = "    ";
 
     private String configContents = "";
 
@@ -15,18 +18,25 @@ public class ModConfigProvider implements SimpleConfig.DefaultConfig {
 
     private final List<Pair> configsList = new ArrayList<>();
 
-    public void addSection(String sectionName) {
-        configContents += "# " + sectionName + "\n";
-    }
-
-    public void addSpace(){
+    public void addLineJump(){
         configContents += "\n";
     }
 
-    public void addKeyValuePair(Pair<String, ?> keyValuePair, String comment) {
+    public void addComment(String comment){
+        configContents += COMMENT_PREFIX + comment + " \n";
+    }
+
+    public void addSection(String sectionName) {
+        configContents += SECTION_PREFIX + sectionName + " \n";
+    }
+
+    public void addDescription(String comment){
+        configContents += VALUE_PREFIX + COMMENT_PREFIX + comment + " \n";
+    }
+    public void addKeyValuePair(Pair<String, ?> keyValuePair, String acceptedValues) {
         configsList.add(keyValuePair);
-        configContents += keyValuePair.getFirst() + "=" + keyValuePair.getSecond() + " #"
-                + comment + " | default: " + keyValuePair.getSecond() + "\n";
+        addDescription("Accept values: " + acceptedValues + " | Default: " + keyValuePair.getSecond());
+        configContents += VALUE_PREFIX + keyValuePair.getFirst() + "=" + keyValuePair.getSecond() + "\n";
     }
 
     @Override

@@ -40,6 +40,7 @@ public class SimpleConfig {
     private final HashMap<String, String> config = new HashMap<>();
     private final ConfigRequest request;
     private boolean broken = false;
+    private static final String FILE_TYPE = ".toml";
 
     public interface DefaultConfig {
         String get( String namespace );
@@ -99,7 +100,7 @@ public class SimpleConfig {
      */
     public static ConfigRequest of( String filename ) {
         Path path = FabricLoader.getInstance().getConfigDir();
-        return new ConfigRequest( path.resolve( filename + ".properties" ).toFile(), filename );
+        return new ConfigRequest( path.resolve( filename + FILE_TYPE).toFile(), filename );
     }
 
     private void createConfig() throws IOException {
@@ -122,13 +123,12 @@ public class SimpleConfig {
         }
     }
 
-    // Modification by Kaupenjoe
     private void parseConfigEntry( String entry, int line ) {
-        if( !entry.isEmpty() && !entry.startsWith( "#" ) ) {
+        if( !entry.isEmpty() && !entry.startsWith( ModConfigProvider.COMMENT_PREFIX ) ) {
             String[] parts = entry.split("=", 2);
             if( parts.length == 2 ) {
                 // Recognizes comments after a value
-                String temp = parts[1].split(" #")[0];
+                String temp = parts[1].split(ModConfigProvider.COMMENT_PREFIX)[0];
                 config.put( parts[0], temp );
             }else{
                 throw new RuntimeException("Syntax error in config file on line " + line + "!");
@@ -246,7 +246,6 @@ public class SimpleConfig {
      *
      * @return true if the operation was successful
      */
-    // Slightly modified by the MiddleEarth Mod Team 2024
     public boolean delete() {
         LoggerUtil.getInstance().logWarn( "Config '" + request.filename + "' was removed from existence! Restart the game to regenerate it." );
         return request.file.delete();
