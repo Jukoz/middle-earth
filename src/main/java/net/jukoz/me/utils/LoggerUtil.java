@@ -31,4 +31,8 @@ public class LoggerUtil {
     public void logError(String msg) {
         LOGGER.error(msg);
     }
+
+    public void logTrace(Exception e) { LOGGER.trace(String.valueOf(e)); }
+
+    public void logWarn(String msg) { LOGGER.warn(msg); }
 }
