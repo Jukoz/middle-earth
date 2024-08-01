@@ -4,17 +4,17 @@ import net.minecraft.util.StringIdentifiable;
 
 public enum ModShieldTypes implements StringIdentifiable {
 
-    LIGHT("light", 4),
-    MEDIUM("medium", 4),
-    HEAVY("heavy", 4),
+    LIGHT_SHIELD("light_shield", 250),
+    MEDIUM_SHIELD("medium_shield", 336),
+    HEAVY_SHIELD("heavy_shield", 500),
     ;
 
     public final String name;
-    public final float cooldown;
+    public final int durability;
 
-    ModShieldTypes(String name, float cooldown){
+    ModShieldTypes(String name, int durability){
         this.name = name;
-        this.cooldown = cooldown;
+        this.durability = durability;
     }
 
     @Override

@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"2": "me:item/rohirric_shield"
+		"2": "me:item/rohirric_plainsman_shield"
 	},
 	"elements": [
 		{
@@ -202,26 +202,23 @@
 			}
 		}
 	],
-	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/rohirric_shield_blocking"}
-	],
 	"display": {
 		"thirdperson_righthand": {
-			"rotation": [0, 90, 0],
-			"translation": [10.01, 6, -5]
+			"rotation": [45, 145, 0],
+			"translation": [-2, 13.75, -3.5]
 		},
 		"thirdperson_lefthand": {
-			"rotation": [0, 90, 0],
-			"translation": [10, 6, 13]
+			"rotation": [45, 145, 0],
+			"translation": [10.25, 8.75, 3.5]
 		},
 		"firstperson_righthand": {
-			"rotation": [0, 180, 5],
-			"translation": [-10, 0.5, -10],
+			"rotation": [0, 180, 0],
+			"translation": [-15, 3, -12],
 			"scale": [1.25, 1.25, 1.25]
 		},
 		"firstperson_lefthand": {
-			"rotation": [0, 180, 5],
-			"translation": [10, -1.5, -10],
+			"rotation": [0, 180, 0],
+			"translation": [5, 3, -9],
 			"scale": [1.25, 1.25, 1.25]
 		},
 		"ground": {
@@ -230,7 +227,7 @@
 		},
 		"gui": {
 			"rotation": [24, -45, -5],
-			"translation": [1, 1.5, 0],
+			"translation": [1, 2.25, 0],
 			"scale": [0.5707, 0.5707, 0.5707]
 		},
 		"head": {

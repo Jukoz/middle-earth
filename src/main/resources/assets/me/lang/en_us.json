@@ -686,10 +686,28 @@
 
 "#Comment:": "Shields",
   "item.me.rohirric_shield": "Rohirric Shield",
+  "item.me.rohirric_bucking_horse_shield": "Rohirric Bucking Horse Shield",
+  "item.me.rohirric_horse_shield": "Rohirric Horse Shield",
+  "item.me.rohirric_plainsman_shield": "Rohirric Plainsman Shield",
+  "item.me.rohirric_twin_horses_shield": "Rohirric Twin Horses Shield",
+  "item.me.rohirric_eorling_shield": "Rohirric Eorling Shield",
+  "item.me.rohirric_ornamented_shield": "Rohirric Ornamented Shield",
+  "item.me.rohirric_royal_guard_shield": "Rohirric Royal Guard Shield",
+
   "item.me.gondorian_shield": "Gondorian Shield",
+  "item.me.gondorian_tower_shield": "Gondorian Tower Shield",
+  "item.me.gondorian_kings_guard_tower_shield": "Gondorian King's Guard Tower Shield",
+  "item.me.last_alliance_heirloom_tower_shield": "Last Alliance Heirloom Tower Shield",
+  "item.me.gondorian_hero_shield": "Gondorian Hero Shield",
+  "item.me.gondorian_knight_shield": "Gondorian Knight Shield",
+  "item.me.gondorian_ornamented_knight_shield": "Gondorian Ornamented Knight Shield",
+
   "item.me.longbeard_shield": "Longbeard Shield",
+
   "item.me.lorien_shield": "Lórien Shield",
+
   "item.me.mordor_shield": "Mordor Shield",
+
   "item.me.misty_mountains_shield": "Misty Mountains Shield",
 
 "#Comment:": "Item - Horse Armor",
@@ -4373,6 +4391,7 @@
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",
   "tooltip.me.alt" : "Hold §3ALT§f to see custom parts information.",
   "tooltip.me.weapon_type" : "§eWeapon Type: §f",
+  "tooltip.me.shield_type" : "§eShield Type: §f",
   "tooltip.me.faction" : "§6Faction: §f",
   "tooltip.me.sub_faction" : "§7Sub Faction: §f",
   "tooltip.me.customizations" : "§6Custom Parts: §f",
@@ -4393,6 +4412,10 @@
   "tooltip.me.dagger" : "Dagger",
   "tooltip.me.spear" : "Spear",
   "tooltip.me.longsword" : "Longsword",
+
+  "tooltip.me.light_shield" : "§fLight Shield",
+  "tooltip.me.medium_shield" : "§9Medium Shield",
+  "tooltip.me.heavy_shield" : "§cHeavy Shield",
 
   "tooltip.me.generic" : "Generic",
 

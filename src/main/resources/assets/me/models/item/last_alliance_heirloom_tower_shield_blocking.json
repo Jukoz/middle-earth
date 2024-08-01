@@ -1,0 +1,237 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"1": "me:item/last_alliance_heirloom_tower_shield"
+	},
+	"elements": [
+		{
+			"name": "gondorian_tower_shield_0",
+			"from": [-4, -14, 1],
+			"to": [2, 17, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, -5.5, 1.5]},
+			"faces": {
+				"north": {"uv": [4.5, 0, 6, 7.75], "texture": "#1"},
+				"east": {"uv": [2.25, 0, 2.5, 7.75], "texture": "#1"},
+				"south": {"uv": [2.5, 0, 1, 7.75], "texture": "#1"},
+				"west": {"uv": [1, 0, 1.25, 7.75], "texture": "#1"},
+				"up": {"uv": [1, 0, 2.5, 0.25], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [1, 7.5, 2.5, 7.75], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "gondorian_tower_shield_1",
+			"from": [2, -12, 1],
+			"to": [4, 16, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, -5.5, 1.5]},
+			"faces": {
+				"north": {"uv": [4, 0.25, 4.5, 7.25], "texture": "#1"},
+				"east": {"uv": [2.75, 0.25, 3, 7.25], "texture": "#1"},
+				"south": {"uv": [2.5, 0.25, 3, 7.25], "texture": "#1"},
+				"west": {"uv": [2.5, 0.25, 2.75, 7.25], "texture": "#1"},
+				"up": {"uv": [3, 0.25, 2.5, 0.5], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [3, 7, 2.5, 7.25], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "gondorian_tower_shield_2",
+			"from": [-6, -12, 1],
+			"to": [-4, 16, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, -5.5, 1.5]},
+			"faces": {
+				"north": {"uv": [6, 0.25, 6.5, 7.25], "texture": "#1"},
+				"east": {"uv": [0.75, 0.25, 1, 7.25], "texture": "#1"},
+				"south": {"uv": [0.5, 0.25, 1, 7.25], "texture": "#1"},
+				"west": {"uv": [0.5, 0.25, 0.75, 7.25], "texture": "#1"},
+				"up": {"uv": [1, 0.25, 0.5, 0.5], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [1, 7, 0.5, 7.25], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "gondorian_tower_shield_3",
+			"from": [4, -6, 1],
+			"to": [6, 15, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, -5.5, 1.5]},
+			"faces": {
+				"north": {"uv": [3.5, 0.5, 4, 5.75], "texture": "#1"},
+				"east": {"uv": [3.25, 0.5, 3.5, 5.75], "texture": "#1"},
+				"south": {"uv": [3, 0.5, 3.5, 5.75], "texture": "#1"},
+				"west": {"uv": [3.25, 0.5, 3.5, 5.75], "texture": "#1"},
+				"up": {"uv": [3.5, 0.5, 3, 0.75], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [3.5, 5.5, 3, 5.75], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "gondorian_tower_shield_4",
+			"from": [-8, -6, 1],
+			"to": [-6, 15, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, -5.5, 1.5]},
+			"faces": {
+				"north": {"uv": [6.5, 0.5, 7, 5.75], "texture": "#1"},
+				"east": {"uv": [0.25, 0.5, 0.5, 5.75], "texture": "#1"},
+				"south": {"uv": [0, 0.5, 0.5, 5.75], "texture": "#1"},
+				"west": {"uv": [0, 0.5, 0.25, 5.75], "texture": "#1"},
+				"up": {"uv": [0, 0.5, 0.5, 0.75], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [0, 5.5, 0, 5.75], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "gondorian_tower_shield_5",
+			"from": [4, -9, 1],
+			"to": [5, -6, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, -5.5, 1.5]},
+			"faces": {
+				"north": {"uv": [3.75, 5.75, 4, 6.5], "texture": "#1"},
+				"east": {"uv": [3, 5.75, 3.25, 6.5], "texture": "#1"},
+				"south": {"uv": [3, 5.75, 3.25, 6.5], "texture": "#1"},
+				"west": {"uv": [3, 5.75, 3.25, 6.5], "texture": "#1"},
+				"up": {"uv": [3, 5.75, 3.25, 6], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [3, 6.25, 3.25, 6.5], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "gondorian_tower_shield_6",
+			"from": [-7, -9, 1],
+			"to": [-6, -6, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, -5.5, 1.5]},
+			"faces": {
+				"north": {"uv": [6.5, 5.75, 6.75, 6.5], "texture": "#1"},
+				"east": {"uv": [0.25, 5.75, 0.5, 6.5], "texture": "#1"},
+				"south": {"uv": [0.25, 5.75, 0.5, 6.5], "texture": "#1"},
+				"west": {"uv": [0.25, 5.75, 0.5, 6.5], "texture": "#1"},
+				"up": {"uv": [0.25, 5.75, 0.5, 6], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [0.25, 6.25, 0.5, 6.5], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "gondorian_tower_shield_7",
+			"from": [2, -13, 1],
+			"to": [3, -12, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, -5.5, 1.5]},
+			"faces": {
+				"north": {"uv": [6, 7.25, 6.25, 7.5], "texture": "#1"},
+				"east": {"uv": [2.5, 7.25, 2.75, 7.5], "texture": "#1"},
+				"south": {"uv": [2.5, 7.25, 2.75, 7.5], "texture": "#1"},
+				"west": {"uv": [2.5, 7.25, 2.75, 7.5], "texture": "#1"},
+				"up": {"uv": [2.5, 7.25, 2.75, 7.5], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [2.5, 7.25, 2.75, 7.5], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "gondorian_tower_shield_8",
+			"from": [-5, -13, 1],
+			"to": [-4, -12, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, -5.5, 1.5]},
+			"faces": {
+				"north": {"uv": [4.25, 7.25, 4.5, 7.5], "texture": "#1"},
+				"east": {"uv": [0.75, 7.25, 1, 7.5], "texture": "#1"},
+				"south": {"uv": [0.75, 7.25, 1, 7.5], "texture": "#1"},
+				"west": {"uv": [0.75, 7.25, 1, 7.5], "texture": "#1"},
+				"up": {"uv": [0.75, 7.25, 1, 7.5], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [0.75, 7.25, 1, 7.5], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "gondorian_tower_shield_9",
+			"from": [-2.9999, -15, 1],
+			"to": [1, -14, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, -5.5, 1.5]},
+			"faces": {
+				"north": {"uv": [4.75, 7.75, 5.75, 8], "texture": "#1"},
+				"east": {"uv": [1.25, 7.75, 1.5, 8], "texture": "#1"},
+				"south": {"uv": [1.25, 7.75, 2.25, 8], "texture": "#1"},
+				"west": {"uv": [2, 7.75, 2.25, 8], "texture": "#1"},
+				"up": {"uv": [1.25, 7.75, 2.25, 8], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [1.25, 7.75, 2.25, 8], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "gondorian_tower_shield_10",
+			"from": [-2, -16, 1],
+			"to": [0, -15, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, -5.5, 1.5]},
+			"faces": {
+				"north": {"uv": [5, 8, 5.5, 8.25], "texture": "#1"},
+				"east": {"uv": [1.5, 8, 1.75, 8.25], "texture": "#1"},
+				"south": {"uv": [1.5, 8, 2, 8.25], "texture": "#1"},
+				"west": {"uv": [1.75, 8, 2, 8.25], "texture": "#1"},
+				"up": {"uv": [1.5, 8, 2, 8.25], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [1.5, 8, 2, 8.25], "rotation": 180, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Handle",
+			"from": [-5, 3, -5],
+			"to": [-3, 9, 1],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-4, 3, -4]},
+			"faces": {
+				"north": {"uv": [10, 0, 10.5, 1.5], "texture": "#1"},
+				"east": {"uv": [7, 0, 8.5, 1.5], "texture": "#1"},
+				"south": {"uv": [10.5, 0, 11, 1.5], "texture": "#1"},
+				"west": {"uv": [8.5, 0, 10, 1.5], "texture": "#1"},
+				"up": {"uv": [10, 2, 8.5, 1.5], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [8.5, 1.5, 7, 2], "rotation": 270, "texture": "#1"}
+			}
+		},
+		{
+			"name": "Handle",
+			"from": [1, 3, -5],
+			"to": [3, 9, 1],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 3, -4]},
+			"faces": {
+				"north": {"uv": [10, 0, 10.5, 1.5], "texture": "#1"},
+				"east": {"uv": [7, 0, 8.5, 1.5], "texture": "#1"},
+				"south": {"uv": [10.5, 0, 11, 1.5], "texture": "#1"},
+				"west": {"uv": [8.5, 0, 10, 1.5], "texture": "#1"},
+				"up": {"uv": [10, 2, 8.5, 1.5], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [8.5, 1.5, 7, 2], "rotation": 270, "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [45, 145, 0],
+			"translation": [-2.24, 10.75, -8.75]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [45, 145, 0],
+			"translation": [11, 3.75, -1.25]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 180, 0],
+			"translation": [-12.25, -4, -12],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 180, 0],
+			"translation": [8.25, -2.5, -9],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"ground": {
+			"translation": [2, 2.75, 2],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [24, -45, -5],
+			"translation": [1, 0.75, 0],
+			"scale": [0.43789, 0.43789, 0.43789]
+		},
+		"head": {
+			"rotation": [90, 0, 0],
+			"translation": [0, 6.5, 10.25]
+		},
+		"fixed": {
+			"rotation": [-1, 180, 0],
+			"translation": [-15.75, 9, -12],
+			"scale": [1.75, 1.75, 1.75]
+		}
+	},
+	"groups": [
+		{
+			"name": "root",
+			"origin": [8, 0, 8],
+			"color": 0,
+			"children": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+		}
+	]
+}
