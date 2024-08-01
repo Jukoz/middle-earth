@@ -47,7 +47,8 @@ import java.util.Optional;
 
 public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
     private static final String ID = "forge";
-    public static final int MAX_PROGRESS = 1200;
+    public static final int MAX_PROGRESS = 1000;
+    public static final int MAX_BOOST_TIME = 12;
     public static final int FUEL_SLOT = 0;
     public static final int OUTPUT_SLOT = 5;
     private final DefaultedList<ItemStack> inventory =
@@ -55,6 +56,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
     protected final PropertyDelegate propertyDelegate;
     protected final Map<Item, Integer> fuelTimeMap = AbstractFurnaceBlockEntity.createFuelTimeMap();
     private int progress = 0;
+    private int boostTime = 0;
     private int fuelTime = 0;
     private int maxFuelTime = 0;
     private int mode = 0;
@@ -124,6 +126,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         super.writeNbt(nbt, registryLookup);
         Inventories.writeNbt(nbt, inventory, registryLookup);
         nbt.putInt(ID + ".progress", progress);
+        nbt.putInt(ID + ".boost-time", boostTime);
         nbt.putInt(ID + ".fuel-time", fuelTime);
         nbt.putInt(ID + ".max-fuel-time", maxFuelTime);
         nbt.putInt(ID + ".mode", mode);
@@ -134,6 +137,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         super.readNbt(nbt, registryLookup);
         Inventories.readNbt(nbt, inventory, registryLookup);
         progress = nbt.getInt(ID + ".progress");
+        boostTime = nbt.getInt(ID + ".boost-time");
         fuelTime = nbt.getInt(ID + ".fuel-time");
         maxFuelTime = nbt.getInt(ID + ".max-fuel-time");
         mode = nbt.getInt(ID + ".mode");
@@ -244,15 +248,22 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         inventory.clear();
     }
 
+    public void bellowsBoost() {
+        boostTime = MAX_BOOST_TIME;
+    }
+
     public static void tick(World world, BlockPos blockPos, BlockState blockState, ForgeBlockEntity entity) {
         if(world.isClient()) return;
 
         entity.fuelTime = Math.max(0, entity.fuelTime - 1);
+        entity.boostTime = Math.max(0, entity.boostTime - 1);
         boolean progress = false;
         entity.mode = entity.hasBellows(world, blockPos, blockState);
         if(hasRecipe(entity)) {
             if(entity.hasFuel(entity)) {
-                entity.progress++;
+                int progressValue = 1;
+                if(entity.boostTime > 0) progressValue = 5;
+                entity.progress += progressValue;
                 progress = true;
                 markDirty(world, blockPos, blockState); // Reloads the origin in this chunk, for sync & saving.
                 if(entity.progress >= MAX_PROGRESS) {

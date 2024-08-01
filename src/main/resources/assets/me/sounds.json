@@ -1,4 +1,12 @@
 {
+  "bellows_push": {
+    "subtitle": "sounds.me.bellows_push",
+    "sounds": [
+      "me:bellows/bellows_push1",
+      "me:bellows/bellows_push2",
+      "me:bellows/bellows_push3"
+    ]
+  },
   "nazgul_fade": {
     "subtitle": "sounds.me.nazgul_fade",
     "sounds": [
