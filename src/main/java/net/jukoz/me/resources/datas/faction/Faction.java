@@ -1,18 +1,13 @@
-package net.jukoz.me.resource.data.faction;
+package net.jukoz.me.resources.datas.faction;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.resource.data.Alignment;
-import net.jukoz.me.resource.data.Race;
-import net.jukoz.me.resource.data.faction.utils.FactionNpcPreviewData;
-import net.jukoz.me.resource.data.faction.utils.SpawnPoint;
+import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.datas.Race;
+import net.jukoz.me.resources.datas.faction.utils.FactionNpcPreviewData;
 import net.jukoz.me.utils.LoggerUtil;
-import net.jukoz.me.world.map.MiddleEarthMapConfigs;
-import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.minecraft.block.entity.BannerPattern;
-import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
@@ -26,12 +21,10 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import org.joml.Vector2i;
 import org.joml.Vector3i;
-import org.spongepowered.asm.mixin.Mutable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
 
 
 public class Faction {

@@ -1,4 +1,4 @@
-package net.jukoz.me.resource.data;
+package net.jukoz.me.resources.datas;
 
 import net.jukoz.me.MiddleEarth;
 import net.minecraft.util.Identifier;

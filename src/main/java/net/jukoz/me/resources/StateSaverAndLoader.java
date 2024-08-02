@@ -1,8 +1,10 @@
-package net.jukoz.me;
+package net.jukoz.me.resources;
 
-import com.google.gson.JsonElement;
-import net.jukoz.me.resource.PlayerData;
-import net.jukoz.me.resource.data.Alignment;
+import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.persistent_datas.AffiliationData;
+import net.jukoz.me.resources.persistent_datas.PlayerData;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
@@ -12,6 +14,7 @@ import net.minecraft.world.PersistentStateManager;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -19,17 +22,46 @@ import java.util.UUID;
  * Documentation : <a href="https://fabricmc.net/wiki/tutorial:persistent_states">link</a>
  */
 public class StateSaverAndLoader extends PersistentState {
-    public boolean setWorldSpawn = false;
     public HashMap<UUID, PlayerData> players = new HashMap<>();
     @Override
     public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        nbt.putBoolean("set_world_spawn", setWorldSpawn);
+        NbtCompound playersNbt = new NbtCompound();
+        players.forEach((uuid, playerData) -> {
+            NbtCompound playerNbt = new NbtCompound();
+            if(playerData.hasAffilition()){
+                AffiliationData affiliationData = playerData.getAffiliationData();
+                playerNbt.putInt("alignment", affiliationData.alignment);
+                playerNbt.putInt("faction", affiliationData.faction);
+                playerNbt.putInt("subfaction", affiliationData.subfaction);
+            }
+
+            playersNbt.put(uuid.toString(), playerNbt);
+        });
+        nbt.put("players", playersNbt);
+
         return nbt;
     }
 
     public static StateSaverAndLoader createFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
         StateSaverAndLoader state = new StateSaverAndLoader();
-        state.setWorldSpawn = tag.getBoolean("set_world_spawn");
+
+        NbtCompound playersNbt = tag.getCompound("players");
+        playersNbt.getKeys().forEach(key -> {
+            PlayerData playerData = new PlayerData();
+            try{
+                int alignment = playersNbt.getCompound(key).getInt("alignment");
+                int faction = playersNbt.getCompound(key).getInt("faction");
+                int subfaction = playersNbt.getCompound(key).getInt("subfaction");
+                AffiliationData affiliationData = new AffiliationData(alignment, faction, subfaction);
+                playerData.setAffiliationData(affiliationData);
+            } catch(Exception e){
+
+            }
+
+            UUID uuid = UUID.fromString(key);
+            state.players.put(uuid, playerData);
+        });
+
         return state;
     }
 
@@ -59,7 +91,7 @@ public class StateSaverAndLoader extends PersistentState {
     }
 
     public static PlayerData getPlayerState(LivingEntity player) {
-        StateSaverAndLoader serverState = getServerState(player.getWorld().getServer());
+        StateSaverAndLoader serverState = getServerState(Objects.requireNonNull(player.getWorld().getServer()));
 
         // Either get the player by the uuid, or we don't have data for him yet, make a new player state
         PlayerData playerState = serverState.players.computeIfAbsent(player.getUuid(), uuid -> new PlayerData());
@@ -69,9 +101,8 @@ public class StateSaverAndLoader extends PersistentState {
 
     public int getPlayerTotal(Alignment alignment) {
         int total = 0;
-
         for(PlayerData playerData : players.values()){
-            if(playerData != null && playerData.alignment == alignment.ordinal())
+            if(playerData != null && playerData.hasAffilition() && playerData.getAffiliationData().alignment == alignment.ordinal())
                 total ++;
         }
 

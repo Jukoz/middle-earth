@@ -1,7 +1,6 @@
-package net.jukoz.me.resource.data;
+package net.jukoz.me.resources.datas;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;

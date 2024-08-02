@@ -12,7 +12,7 @@ import net.jukoz.me.network.ModNetworks;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.recipe.ModRecipeSerializer;
 import net.jukoz.me.registries.ModRegistries;
-import net.jukoz.me.resource.CustomServerDataResourceReloadListener;
+import net.jukoz.me.resources.CustomServerDataResourceReloadListener;
 import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.jukoz.me.recipe.ModRecipes;
 import net.jukoz.me.sound.ModSounds;

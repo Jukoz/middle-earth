@@ -1,11 +1,11 @@
-package net.jukoz.me.resource.data.faction;
+package net.jukoz.me.resources.datas.faction;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.resource.CustomServerDataResourceReloadListener;
-import net.jukoz.me.resource.data.Alignment;
+import net.jukoz.me.resources.CustomServerDataResourceReloadListener;
+import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.resource.Resource;
 import net.minecraft.util.Identifier;

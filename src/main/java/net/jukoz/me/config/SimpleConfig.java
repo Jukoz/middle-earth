@@ -141,13 +141,12 @@ public class SimpleConfig {
         String identifier = "Config '" + request.filename + "'";
 
         if( !request.file.exists() ) {
-            LoggerUtil.getInstance().logInfoMsg( identifier + " is missing, generating default one..." );
+            LoggerUtil.logInfoMsg( identifier + " is missing, generating default one..." );
 
             try {
                 createConfig();
             } catch (IOException e) {
-                LoggerUtil.getInstance().logError( identifier + " failed to generate!" );
-                LoggerUtil.getInstance().logTrace( e );
+                LoggerUtil.logError( identifier + " failed to generate!", e);
                 broken = true;
             }
         }
@@ -156,8 +155,7 @@ public class SimpleConfig {
             try {
                 loadConfig();
             } catch (Exception e) {
-                LoggerUtil.getInstance().logError( identifier + " failed to load!" );
-                LoggerUtil.getInstance().logTrace( e );
+                LoggerUtil.logError( identifier + " failed to load!", e);
                 broken = true;
             }
         }
@@ -247,7 +245,7 @@ public class SimpleConfig {
      * @return true if the operation was successful
      */
     public boolean delete() {
-        LoggerUtil.getInstance().logWarn( "Config '" + request.filename + "' was removed from existence! Restart the game to regenerate it." );
+        LoggerUtil.logWarn( "Config '" + request.filename + "' was removed from existence! Restart the game to regenerate it." );
         return request.file.delete();
     }
 

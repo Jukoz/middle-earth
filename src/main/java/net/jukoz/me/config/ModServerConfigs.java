@@ -50,6 +50,6 @@ public class ModServerConfigs {
         ENABLE_MOUNT_BROADHOOF_GOAT = CONFIG.getOrDefault("enableMountBroadhoofGoat", true);
         ENABLE_SPAWN_OVERRIDE = CONFIG.getOrDefault("enableSpawnOverride", true);
 
-        LoggerUtil.getInstance().logDebugMsg("All server configs (" + configs.getConfigsList().size() + ") have been set properly");
+        LoggerUtil.logDebugMsg("All server configs (" + configs.getConfigsList().size() + ") have been set properly");
     }
 }

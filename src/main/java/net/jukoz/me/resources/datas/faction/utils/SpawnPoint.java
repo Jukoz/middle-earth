@@ -1,4 +1,4 @@
-package net.jukoz.me.resource.data.faction.utils;
+package net.jukoz.me.resources.datas.faction.utils;
 
 import net.jukoz.me.utils.Factions;
 import org.joml.Vector3i;

@@ -1,6 +1,5 @@
-package net.jukoz.me.resource.data.faction.utils;
+package net.jukoz.me.resources.datas.faction.utils;
 
-import net.jukoz.me.utils.Factions;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

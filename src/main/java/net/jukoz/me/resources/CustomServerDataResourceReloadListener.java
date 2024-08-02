@@ -1,22 +1,15 @@
-package net.jukoz.me.resource;
+package net.jukoz.me.resources;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.resource.data.Alignment;
-import net.jukoz.me.resource.data.faction.ModFactions;
+import net.jukoz.me.resources.datas.faction.ModFactions;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 public class CustomServerDataResourceReloadListener {

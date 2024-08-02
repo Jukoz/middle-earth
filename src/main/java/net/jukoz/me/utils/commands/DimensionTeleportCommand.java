@@ -21,10 +21,10 @@ public class DimensionTeleportCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
         dispatcher.register((CommandManager.literal(ModCommandRegistry.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2)))
-                        .then((CommandManager.literal(TP))
-                            .then(CommandManager.argument(PLAYER, EntityArgumentType.player())
-                                .then(CommandManager.argument(LOCATION, Vec3ArgumentType.vec3())
-                                        .executes(DimensionTeleportCommand::run)))));
+                .then((CommandManager.literal(TP))
+                .then(CommandManager.argument(PLAYER, EntityArgumentType.player())
+                .then(CommandManager.argument(LOCATION, Vec3ArgumentType.vec3())
+                .executes(DimensionTeleportCommand::run)))));
     }
 
     public static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
