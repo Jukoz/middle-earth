@@ -6,11 +6,9 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.CampfireBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
@@ -20,8 +18,6 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -57,7 +53,7 @@ public class BellowsBlock extends BlockWithEntity {
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(2, 0, 2, 14, 9, 14);
+        return Block.createCuboidShape(3, 0, 3, 13, 7, 14);
     }
 
     @Override
@@ -69,10 +65,21 @@ public class BellowsBlock extends BlockWithEntity {
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         BellowsBlockEntity bellowsBlockEntity = (BellowsBlockEntity) world.getBlockEntity(pos);
         if(bellowsBlockEntity != null) {
-            bellowsBlockEntity.onUse(state, world, pos, player, hit);
+            bellowsBlockEntity.pumpBellows(state, world, pos);
             return ActionResult.CONSUME;
         }
         return ActionResult.FAIL;
+    }
+
+    @Override
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+        super.onEntityCollision(state, world, pos, entity);
+        BellowsBlockEntity bellowsBlockEntity = (BellowsBlockEntity) world.getBlockEntity(pos);
+        if(bellowsBlockEntity != null) {
+            if(entity.getVelocity().y < -0.1f) {
+                bellowsBlockEntity.pumpBellows(state, world, pos);
+            }
+        }
     }
 
     @Override

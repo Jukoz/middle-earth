@@ -14,7 +14,6 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -52,7 +51,7 @@ public class BellowsBlockEntity extends BlockEntity {
         animationProgress = nbt.getInt(ID + ".animation");
     }
 
-    public void onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+    public void pumpBellows(BlockState state, World world, BlockPos pos) {
         if(animationProgress == 0) {
             animating = true;
             Vec3i direction = state.get(BellowsBlock.FACING).getVector();

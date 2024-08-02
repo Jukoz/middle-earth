@@ -47,8 +47,8 @@ import java.util.Optional;
 
 public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
     private static final String ID = "forge";
-    public static final int MAX_PROGRESS = 1000;
-    public static final int MAX_BOOST_TIME = 12;
+    public static final int MAX_PROGRESS = 1200;
+    public static final int MAX_BOOST_TIME = 10;
     public static final int FUEL_SLOT = 0;
     public static final int OUTPUT_SLOT = 5;
     private final DefaultedList<ItemStack> inventory =
@@ -262,7 +262,9 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         if(hasRecipe(entity)) {
             if(entity.hasFuel(entity)) {
                 int progressValue = 1;
-                if(entity.boostTime > 0) progressValue = 5;
+                if(entity.boostTime > 0) {
+                    progressValue = 8;
+                }
                 entity.progress += progressValue;
                 progress = true;
                 markDirty(world, blockPos, blockState); // Reloads the origin in this chunk, for sync & saving.
