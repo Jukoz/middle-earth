@@ -36,8 +36,19 @@ public class LoggerUtil {
         updateInstance();
         LOGGER.error(msg);
     }
+
     public static void logError(String msg, Exception e) {
         updateInstance();
         LOGGER.error(msg, e);
+    }
+
+    public static void logTrace(String msg) {
+        updateInstance();
+        LOGGER.trace(msg);
+    }
+
+    public static void logWarn(String msg) {
+        updateInstance();
+        LOGGER.warn(msg);
     }
 }
