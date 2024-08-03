@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.jukoz.me.network.packets.SpawnDataPacket;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.network.packets.AffiliationPacket;
 import net.jukoz.me.network.packets.TeleportRequestPacket;
@@ -12,6 +13,7 @@ import net.jukoz.me.resources.persistent_datas.AffiliationData;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.util.math.BlockPos;
 
 public class ModNetworks {
     /**
@@ -20,7 +22,10 @@ public class ModNetworks {
      */
     public static void registerS2CPackets() {
         PayloadTypeRegistry.playS2C().register(AffiliationPacket.ID, AffiliationPacket.CODEC);
-        ClientPlayNetworking.registerGlobalReceiver(AffiliationPacket.ID, ModNetworks::onIdentityPacketReceived);
+        ClientPlayNetworking.registerGlobalReceiver(AffiliationPacket.ID, ModNetworks::onAffiliationPacketReceived);
+
+        PayloadTypeRegistry.playS2C().register(SpawnDataPacket.ID, SpawnDataPacket.CODEC);
+        ClientPlayNetworking.registerGlobalReceiver(SpawnDataPacket.ID, ModNetworks::onSpawnDataPacketReceived);
 
         // TODO fixme & ItemStackSyncS2CPacket::receive
         // ClientPlayNetworking.registerGlobalReceiver(ITEM_SYNC, ItemStackSyncS2CPacket::receive);
@@ -31,18 +36,23 @@ public class ModNetworks {
      */
     public static void registerC2SPackets() {
         ServerPlayConnectionEvents.JOIN.register(ModNetworks::onPlayerJoin);
-        ServerPlayConnectionEvents.DISCONNECT.register(ModNetworks::onPlayerDisconnect);
 
         PayloadTypeRegistry.playC2S().register(TeleportRequestPacket.ID, TeleportRequestPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(AffiliationPacket.ID, AffiliationPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(SpawnDataPacket.ID, SpawnDataPacket.CODEC);
 
         ServerPlayNetworking.registerGlobalReceiver(TeleportRequestPacket.ID, ModNetworks::onTeleportRequestPacketReceived);
-        ServerPlayNetworking.registerGlobalReceiver(AffiliationPacket.ID, ModNetworks::onIdentityPacketReceived);
+        ServerPlayNetworking.registerGlobalReceiver(AffiliationPacket.ID, ModNetworks::onAffiliationPacketReceived);
+        ServerPlayNetworking.registerGlobalReceiver(SpawnDataPacket.ID, ModNetworks::onSpawnDataPacketReceived);
     }
 
     // region Server to Client requests
-    private static void onIdentityPacketReceived(AffiliationPacket affiliationPacket, ClientPlayNetworking.Context context) {
+    private static void onAffiliationPacketReceived(AffiliationPacket affiliationPacket, ClientPlayNetworking.Context context) {
         AffiliationPacket.apply(affiliationPacket, context);
+    }
+
+    private static void onSpawnDataPacketReceived(SpawnDataPacket spawnDataPacket, ClientPlayNetworking.Context context) {
+        SpawnDataPacket.apply(spawnDataPacket, context);
     }
     // endregion
 
@@ -51,33 +61,32 @@ public class ModNetworks {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             PlayerData playerState = StateSaverAndLoader.getPlayerState(handler.getPlayer());
             if(playerState.hasAffilition()){
+                // Affiliation data
                 AffiliationData affiliationData = playerState.getAffiliationData();
-                int alignment = affiliationData.alignment;
-                int faction = affiliationData.faction;
-                int subfaction = affiliationData.subfaction;
+                if(affiliationData != null){
+                    int alignment = affiliationData.alignment;
+                    int faction = affiliationData.faction;
+                    int subfaction = affiliationData.subfaction;
+                    AffiliationPacket affiliationPacket = new AffiliationPacket(alignment, faction, subfaction);
+                    server.execute(() -> {
+                        ServerPlayNetworking.send(handler.getPlayer(), affiliationPacket);
+                    });
+                }
 
-                AffiliationPacket affiliationPacket = new AffiliationPacket(alignment, faction, subfaction);
-                server.execute(() -> {
-                    ServerPlayNetworking.send(handler.getPlayer(), affiliationPacket);
-                });
+                // Spawn coordinates
+                BlockPos overworldSpawnBlockPos = playerState.getOverworldSpawnBlockpos();
+                BlockPos middleEarthSpawnBlockPos = playerState.getMiddleEarthSpawnBlockpos();
+                if(overworldSpawnBlockPos != null && middleEarthSpawnBlockPos != null){
+                    SpawnDataPacket spawnDataPacket = new SpawnDataPacket(
+                            overworldSpawnBlockPos.getX(), overworldSpawnBlockPos.getY(), overworldSpawnBlockPos.getZ(),
+                            middleEarthSpawnBlockPos.getX(), middleEarthSpawnBlockPos.getY(), middleEarthSpawnBlockPos.getZ()
+                    );
+
+                    server.execute(() -> {
+                        ServerPlayNetworking.send(handler.getPlayer(), spawnDataPacket);
+                    });
+                }
             }
-        });
-    }
-
-    private static void onPlayerDisconnect(ServerPlayNetworkHandler serverPlayNetworkHandler, MinecraftServer minecraftServer) {
-        PlayerData playerState = StateSaverAndLoader.getPlayerState(serverPlayNetworkHandler.getPlayer());
-
-        playerState.toString();
-
-        AffiliationData affiliationData = playerState.getAffiliationData();
-        int alignment = affiliationData.alignment;
-        int faction = affiliationData.faction;
-        int subfaction = affiliationData.subfaction;
-
-        AffiliationPacket affiliationPacket = new AffiliationPacket(alignment, faction, subfaction);
-
-        minecraftServer.execute(() -> {
-            ServerPlayNetworking.send(serverPlayNetworkHandler.getPlayer(), affiliationPacket);
         });
     }
 
@@ -85,8 +94,12 @@ public class ModNetworks {
         TeleportRequestPacket.apply(teleportRequestPacket, context);
     }
 
-    private static void onIdentityPacketReceived(AffiliationPacket affiliationPacket, ServerPlayNetworking.Context context) {
+    private static void onAffiliationPacketReceived(AffiliationPacket affiliationPacket, ServerPlayNetworking.Context context) {
         AffiliationPacket.apply(affiliationPacket, context);
+    }
+
+    private static void onSpawnDataPacketReceived(SpawnDataPacket spawnDataPacket, ServerPlayNetworking.Context context) {
+        SpawnDataPacket.apply(spawnDataPacket, context);
     }
     // endregion
 }

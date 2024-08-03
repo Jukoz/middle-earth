@@ -19,7 +19,7 @@ import net.minecraft.util.Identifier;
 
 public record AffiliationPacket(int alignment, int faction, int subfaction) implements CustomPayload
 {
-    public static final CustomPayload.Id<AffiliationPacket> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "identity_packet"));
+    public static final CustomPayload.Id<AffiliationPacket> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "affiliation_packet"));
 
     public static final PacketCodec<RegistryByteBuf, AffiliationPacket> CODEC = PacketCodec.tuple(
             PacketCodecs.INTEGER, AffiliationPacket::alignment,

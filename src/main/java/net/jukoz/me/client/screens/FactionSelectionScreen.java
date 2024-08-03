@@ -13,6 +13,7 @@ import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.network.packets.AffiliationPacket;
+import net.jukoz.me.network.packets.SpawnDataPacket;
 import net.jukoz.me.network.packets.TeleportRequestPacket;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.Race;
@@ -20,6 +21,7 @@ import net.jukoz.me.resources.datas.faction.Faction;
 import net.jukoz.me.resources.datas.faction.ModFactions;
 import net.jukoz.me.utils.IEntityDataSaver;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -44,6 +46,7 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -267,8 +270,20 @@ public class FactionSelectionScreen extends Screen {
 
             if(faction == null || faction.getSpawnCoordinates() == null || faction.getSpawnCoordinates().isEmpty()) return;
             LoggerUtil.logDebugMsg("Before : "+ ((IEntityDataSaver)player).getPersistentData().getInt("alignment"));
-            ClientPlayNetworking.send(new TeleportRequestPacket(faction.getSpawnCoordinates().get(0).x, faction.getSpawnCoordinates().get(0).z));
+            int x = faction.getSpawnCoordinates().get(0).x;
+            int z = faction.getSpawnCoordinates().get(0).z;
+
+            ClientPlayNetworking.send(new TeleportRequestPacket(x, z));
             ClientPlayNetworking.send(new AffiliationPacket(currentAlignementIndex, currentFactionIndex, currentSubFactionIndex));
+            if(player != null){
+                BlockPos overworldBlockPos = player.getBlockPos();
+                BlockPos middleEarthblockPos = new BlockPos(x, (int) MiddleEarthHeightMap.getHeight(x, z), z);
+
+                ClientPlayNetworking.send(new SpawnDataPacket(
+                        overworldBlockPos.getX(), overworldBlockPos.getY(), overworldBlockPos.getZ(),
+                        middleEarthblockPos.getX(), middleEarthblockPos.getY(), middleEarthblockPos.getZ()
+                ));
+            }
         };
 
         spawnSelectionConfirmButton = ButtonWidget.builder(Text.of("Click on spawn selection confirm button"), confirmSpawnSelectionAction).build();
