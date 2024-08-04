@@ -17,7 +17,7 @@ public class ForgeScreenHandler extends ScreenHandler{
     private final PropertyDelegate propertyDelegate;
 
     public ForgeScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new SimpleInventory(6), new ArrayPropertyDelegate(4));
+        this(syncId, playerInventory, new SimpleInventory(6), new ArrayPropertyDelegate(5));
     }
 
     public ForgeScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
@@ -82,6 +82,32 @@ public class ForgeScreenHandler extends ScreenHandler{
         if(maxCooking == 0) maxCooking = 200;
 
         return (float) cooking / maxCooking;
+    }
+
+    public float getScaledStoredLiquid() {
+        int storedLiquid = this.propertyDelegate.get(4);
+        return (float) storedLiquid / ForgeBlockEntity.MAX_STORAGE;
+    }
+
+    public int getStoredLiquid() {
+        return this.propertyDelegate.get(4);
+    }
+
+    public int checkMaxOutput(){
+        int liquid = propertyDelegate.get(4);
+        if(liquid > 432){
+            return 4;
+        }
+        if(liquid > 288){
+            return 3;
+        }
+        if(liquid > 144){
+            return 2;
+        }
+        if(liquid > 16){
+            return 1;
+        }
+        return 0;
     }
 
     public boolean isCrafting() {

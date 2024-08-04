@@ -48,6 +48,7 @@ import java.util.Optional;
 public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
     private static final String ID = "forge";
     public static final int MAX_PROGRESS = 1200;
+    public static final int MAX_STORAGE = 2304;
     public static final int MAX_BOOST_TIME = 10;
     public static final int FUEL_SLOT = 0;
     public static final int OUTPUT_SLOT = 5;
@@ -60,6 +61,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
     private int fuelTime = 0;
     private int maxFuelTime = 0;
     private int mode = 0;
+    private int storage = 0;
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGE, pos, state);
@@ -71,6 +73,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
                     case 1 -> ForgeBlockEntity.this.fuelTime;
                     case 2 -> ForgeBlockEntity.this.maxFuelTime;
                     case 3 -> ForgeBlockEntity.this.mode;
+                    case 4 -> ForgeBlockEntity.this.storage;
                     default -> 0;
                 };
             }
@@ -82,12 +85,13 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
                     case 1 -> ForgeBlockEntity.this.fuelTime = value;
                     case 2 -> ForgeBlockEntity.this.maxFuelTime = value;
                     case 3 -> ForgeBlockEntity.this.mode = value;
+                    case 4 -> ForgeBlockEntity.this.storage = value;
                 }
             }
 
             @Override
             public int size() {
-                return 4;
+                return 5;
             }
         };
     }
@@ -130,6 +134,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         nbt.putInt(ID + ".fuel-time", fuelTime);
         nbt.putInt(ID + ".max-fuel-time", maxFuelTime);
         nbt.putInt(ID + ".mode", mode);
+        nbt.putInt(ID + ".storage", storage);
     }
 
     @Override
@@ -141,6 +146,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         fuelTime = nbt.getInt(ID + ".fuel-time");
         maxFuelTime = nbt.getInt(ID + ".max-fuel-time");
         mode = nbt.getInt(ID + ".mode");
+        storage = nbt.getInt(ID + ".storage");
     }
 
     public ItemStack getRenderStack() {
@@ -299,8 +305,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
             for (int i = 1; i <= 4; i++) {
                 entity.removeStack(i, 1);
             }
-            entity.setStack(OUTPUT_SLOT, new ItemStack(match.get().value().output.getRegistryEntry(),
-                    entity.getStack(OUTPUT_SLOT).getCount() + match.get().value().output.getCount()));
+            entity.storage = entity.storage + match.get().value().output.getCount() * 144;
             entity.markDirty();
         }
     }
@@ -321,7 +326,8 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         if(match.isEmpty()) return false;
 
         return canInsertAmountIntoOutput(inventory1, match.get().value().output.getCount())
-                && canInsertRecipeIntoOutput(inventory1, match.get().value().output.getItem());
+                && canInsertRecipeIntoOutput(inventory1, match.get().value().output.getItem())
+                && canInsertLiquid(entity.storage, match);
     }
 
     private boolean hasFuel(ForgeBlockEntity entity) {
@@ -361,5 +367,9 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         boolean sameItem = inventory1.getStack(OUTPUT_SLOT).getItem() == item;
         boolean isEmpty = inventory1.getStack(OUTPUT_SLOT).isEmpty();
         return sameItem || isEmpty;
+    }
+
+    private static boolean canInsertLiquid(int storage, Optional<RecipeEntry<AlloyingRecipe>> match ) {
+        return (storage + match.get().value().output.getCount() * 144) <= MAX_STORAGE;
     }
 }
