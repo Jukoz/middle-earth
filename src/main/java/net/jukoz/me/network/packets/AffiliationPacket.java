@@ -33,10 +33,7 @@ public record AffiliationPacket(int alignment, int faction, int subfaction) impl
             MinecraftServer server = context.server();
             ServerPlayerEntity player = server.getPlayerManager().getPlayer(context.player().getUuid());
 
-            StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(server);
-
             PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
-            LoggerUtil.logDebugMsg(String.valueOf(serverState.getPlayerTotal(Alignment.GOOD)));
 
             AffiliationData affiliationData = new AffiliationData( packet.alignment, packet.faction, packet.subfaction);
             playerState.setAffiliationData(affiliationData);
@@ -48,10 +45,7 @@ public record AffiliationPacket(int alignment, int faction, int subfaction) impl
     }
     public static void apply(AffiliationPacket packet, ClientPlayNetworking.Context context) {
         context.client().execute(() -> {
-            AffiliationData affiliationData = new AffiliationData(packet.alignment, packet.faction, packet.subfaction);
-
-            PlayerData data = new PlayerData(affiliationData);
-            context.client().player.sendMessage(Text.of("Data have been received > "+ data));
+            // Nothing for now
         });
     }
 

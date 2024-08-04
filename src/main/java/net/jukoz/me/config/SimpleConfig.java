@@ -124,12 +124,12 @@ public class SimpleConfig {
     }
 
     private void parseConfigEntry( String entry, int line ) {
-        if( !entry.isEmpty() && !entry.startsWith( ModConfigProvider.COMMENT_PREFIX ) ) {
+        if( !entry.isEmpty() && !entry.contains(ModConfigProvider.COMMENT_PREFIX)) {
             String[] parts = entry.split("=", 2);
             if( parts.length == 2 ) {
                 // Recognizes comments after a value
-                String temp = parts[1].split(ModConfigProvider.COMMENT_PREFIX)[0];
-                config.put( parts[0], temp );
+                String temp = (parts[1].split(ModConfigProvider.COMMENT_PREFIX))[0];
+                config.put( parts[0].replace(" ", ""), temp );
             }else{
                 throw new RuntimeException("Syntax error in config file on line " + line + "!");
             }

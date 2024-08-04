@@ -1,12 +1,12 @@
 package net.jukoz.me.resources.persistent_datas;
 
-import net.jukoz.me.resources.datas.Alignment;
 import net.minecraft.util.math.BlockPos;
+import org.joml.Vector3i;
 
 public class PlayerData {
     private AffiliationData affiliationData;
-    private BlockPos overworldSpawnBlockpos;
-    private BlockPos middleEarthSpawnBlockpos;
+    private BlockPos overworldSpawnCoordinates;
+    private BlockPos middleEarthSpawnCoordinates;
 
     public PlayerData(){
         this.affiliationData = null;
@@ -29,19 +29,22 @@ public class PlayerData {
     @Override
     public String toString() {
         if(hasAffilition())
-            return affiliationData.toString() + "_Overworld=" + overworldSpawnBlockpos.toString() + ";_MiddleEarth=" +middleEarthSpawnBlockpos.toString();
+            return affiliationData + "_Overworld=" + overworldSpawnCoordinates + ";_MiddleEarth=" + middleEarthSpawnCoordinates;
         else
             return "No Data";
     }
 
-    public void setOverworldSpawn(BlockPos overworldSpawnBlockpos) {
-        this.overworldSpawnBlockpos = overworldSpawnBlockpos;
+    public void setOverworldSpawn(BlockPos overworldSpawnCoordinate) {
+        this.overworldSpawnCoordinates = overworldSpawnCoordinate;
     }
-    public BlockPos getOverworldSpawnBlockpos() { return overworldSpawnBlockpos; }
-
-    public void setMiddleEarthSpawn(BlockPos middleEarthSpawnBlockpos) {
-        this.middleEarthSpawnBlockpos = middleEarthSpawnBlockpos;
+    public BlockPos getOverworldSpawnCoordinates() {
+        return overworldSpawnCoordinates;
     }
-    public BlockPos getMiddleEarthSpawnBlockpos() { return middleEarthSpawnBlockpos; }
 
+    public void setMiddleEarthSpawn(BlockPos middleEarthSpawnCoordinates) {
+        this.middleEarthSpawnCoordinates = middleEarthSpawnCoordinates;
+    }
+    public BlockPos getMiddleEarthSpawnCoordinates() {
+        return middleEarthSpawnCoordinates;
+    }
 }

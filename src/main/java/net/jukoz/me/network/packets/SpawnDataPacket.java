@@ -2,6 +2,7 @@ package net.jukoz.me.network.packets;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.Alignment;
@@ -17,6 +18,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import org.joml.Vector3i;
 
 public record SpawnDataPacket(int overworldX, int overworldY, int overworldZ, int middleEarthX, int middleEarthY, int middleEarthZ) implements CustomPayload
 {
@@ -34,16 +36,15 @@ public record SpawnDataPacket(int overworldX, int overworldY, int overworldZ, in
 
     public static void apply(SpawnDataPacket packet, ServerPlayNetworking.Context context) {
         context.player().getServer().execute(() -> {
+            LoggerUtil.logDebugMsg("SpawnDataPacket::" + context.player());
+
             MinecraftServer server = context.server();
             ServerPlayerEntity player = server.getPlayerManager().getPlayer(context.player().getUuid());
 
-            StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(server);
-
             PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
-            LoggerUtil.logDebugMsg(String.valueOf(serverState.getPlayerTotal(Alignment.GOOD)));
 
-            BlockPos overworldSpawnBlockpos = new BlockPos( packet.overworldX, packet.overworldY, packet.overworldZ);
-            BlockPos middleEarthSpawnBlockpos = new BlockPos( packet.middleEarthX, packet.middleEarthY, packet.middleEarthZ);
+            BlockPos overworldSpawnBlockpos = new BlockPos(packet.overworldX, packet.overworldY, packet.overworldZ);
+            BlockPos middleEarthSpawnBlockpos = new BlockPos(packet.middleEarthX, packet.middleEarthY, packet.middleEarthZ);
             playerState.setOverworldSpawn(overworldSpawnBlockpos);
             playerState.setMiddleEarthSpawn(middleEarthSpawnBlockpos);
 
@@ -54,12 +55,7 @@ public record SpawnDataPacket(int overworldX, int overworldY, int overworldZ, in
     }
     public static void apply(SpawnDataPacket packet, ClientPlayNetworking.Context context) {
         context.client().execute(() -> {
-            BlockPos overworldSpawnBlockpos = new BlockPos( packet.overworldX, packet.overworldY, packet.overworldZ);
-            BlockPos middleEarthSpawnBlockpos = new BlockPos( packet.middleEarthX, packet.middleEarthY, packet.middleEarthZ);
-
-            PlayerData data = new PlayerData();
-            data.setOverworldSpawn(overworldSpawnBlockpos);
-            data.setMiddleEarthSpawn(middleEarthSpawnBlockpos);
+            LoggerUtil.logDebugMsg("SpawnDataPacket::ReceiveClientside::" + packet.toString());
         });
     }
 
@@ -69,4 +65,10 @@ public record SpawnDataPacket(int overworldX, int overworldY, int overworldZ, in
         return ID;
     }
 
+    @Override
+    public String toString() {
+        Vector3i overworld = new Vector3i(overworldX, overworldY, overworldZ);
+        Vector3i middleEarth = new Vector3i(middleEarthX, middleEarthY, middleEarthZ);
+        return "Middle_Earth="+middleEarth.x+","+middleEarth.y+","+middleEarth.z+";Overworld="+overworld.x+","+overworld.y+","+overworld.z+";";
+    }
 }

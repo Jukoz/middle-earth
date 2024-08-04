@@ -9,12 +9,15 @@ public class ModServerConfigs {
     private final static String PATH = MiddleEarth.MOD_ID + "/config-common";
     private static ModConfigProvider configs;
 
+
+    /**Should players be allowed to change factions when they use the starlight phial?**/
+    public static boolean ENABLE_FACTION_RESET;
+    /**Should players respawn at their selected spawn location in Middle-earth if they die without having a bed assigned?**/
+    public static boolean ENABLE_SPAWN_OVERRIDE;
+    /**Should players be able to return to the overworld by reusing the starlight phial?**/
+    public static boolean ENABLE_RETURN_TO_OVERWORLD;
     /** Allows broadhoof goats to be mounted by players and npcs. **/
     public static boolean ENABLE_MOUNT_BROADHOOF_GOAT;
-    /** Allows players to change faction everytime they go in the ME dimension. **/
-    public static boolean ENABLE_FACTION_CHANGE;
-    /** Override the player's respawn coordinate when they die without their bed when they are in the ME dimension. **/
-    public static boolean ENABLE_SPAWN_OVERRIDE;
     public static void registerConfigs() {
         configs = new ModConfigProvider();
         createServerConfigs();
@@ -31,12 +34,14 @@ public class ModServerConfigs {
         configs.addComment("World configurations");
         configs.addDescription("Should players respawn at their selected spawn location in Middle-earth if they die without having a bed assigned?");
         configs.addKeyValuePair(new Pair<>("enableSpawnOverride", true), "boolean");
+        configs.addDescription("Should players be able to return to the overworld by reusing the starlight phial?");
+        configs.addKeyValuePair(new Pair<>("enableReturnToOverworld", true), "boolean");
         configs.addLineJump();
 
         // Faction configurations
         configs.addComment("Faction configurations");
-        configs.addDescription("Should players be allowed to change factions every time they use the starlight phial?");
-        configs.addKeyValuePair(new Pair<>("enableFactionUpdate", true), "boolean");
+        configs.addDescription("Should players be allowed to change factions when they use the starlight phial?");
+        configs.addKeyValuePair(new Pair<>("enableFactionReset", true), "boolean");
         configs.addLineJump();
 
         // Mount configurations
@@ -46,9 +51,10 @@ public class ModServerConfigs {
     }
 
     private static void assignServerConfigs() {
-        ENABLE_FACTION_CHANGE = CONFIG.getOrDefault("enableFactionUpdate", true);
-        ENABLE_MOUNT_BROADHOOF_GOAT = CONFIG.getOrDefault("enableMountBroadhoofGoat", true);
         ENABLE_SPAWN_OVERRIDE = CONFIG.getOrDefault("enableSpawnOverride", true);
+        ENABLE_RETURN_TO_OVERWORLD = CONFIG.getOrDefault("enableReturnToOverworld", true);
+        ENABLE_FACTION_RESET = CONFIG.getOrDefault("enableFactionReset", true);
+        ENABLE_MOUNT_BROADHOOF_GOAT = CONFIG.getOrDefault("enableMountBroadhoofGoat", true);
 
         LoggerUtil.logDebugMsg("All server configs (" + configs.getConfigsList().size() + ") have been set properly");
     }

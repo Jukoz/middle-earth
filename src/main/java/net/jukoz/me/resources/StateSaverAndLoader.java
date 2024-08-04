@@ -1,5 +1,6 @@
 package net.jukoz.me.resources;
 
+import com.jcraft.jorbis.Block;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.persistent_datas.AffiliationData;
@@ -9,13 +10,17 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Debug;
+import org.joml.Vector3i;
 
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 
 /**
@@ -35,6 +40,18 @@ public class StateSaverAndLoader extends PersistentState {
                 playerNbt.putInt("subfaction", affiliationData.subfaction);
             }
 
+            BlockPos overworldSpawn = playerData.getOverworldSpawnCoordinates();
+            if(overworldSpawn != null){
+                playerNbt.putIntArray("ow", new int[]{overworldSpawn.getX(), overworldSpawn.getY(), overworldSpawn.getZ()});
+                LoggerUtil.logDebugMsg("Overworld="+overworldSpawn+";");
+            }
+
+            BlockPos middleEarthSpawn = playerData.getMiddleEarthSpawnCoordinates();
+            if(playerData.getMiddleEarthSpawnCoordinates() != null){
+                playerNbt.putIntArray("me", new int[]{middleEarthSpawn.getX(), middleEarthSpawn.getY(), middleEarthSpawn.getZ()});
+                LoggerUtil.logDebugMsg("Middle_Earth="+middleEarthSpawn+";");
+            }
+
             playersNbt.put(uuid.toString(), playerNbt);
         });
         nbt.put("players", playersNbt);
@@ -52,8 +69,31 @@ public class StateSaverAndLoader extends PersistentState {
                 int alignment = playersNbt.getCompound(key).getInt("alignment");
                 int faction = playersNbt.getCompound(key).getInt("faction");
                 int subfaction = playersNbt.getCompound(key).getInt("subfaction");
+
                 AffiliationData affiliationData = new AffiliationData(alignment, faction, subfaction);
                 playerData.setAffiliationData(affiliationData);
+
+                int[] overworldPos = playersNbt.getCompound(key).getIntArray("ow");
+                if(overworldPos.length == 3){
+                    BlockPos overworldSpawn = new BlockPos(
+                            overworldPos[0],
+                            overworldPos[1],
+                            overworldPos[2]
+                    );
+                    playerData.setOverworldSpawn(overworldSpawn);
+                    LoggerUtil.logDebugMsg("Overworld="+overworldSpawn+";");
+                }
+
+                int[] middleEarthPos = playersNbt.getCompound(key).getIntArray("me");
+                if(middleEarthPos.length == 3){
+                    BlockPos middleEarthSpawn = new BlockPos(
+                            middleEarthPos[0],
+                            middleEarthPos[1],
+                            middleEarthPos[2]
+                    );
+                    playerData.setMiddleEarthSpawn(middleEarthSpawn);
+                    LoggerUtil.logDebugMsg("MiddleEarth="+middleEarthSpawn+";");
+                }
             } catch(Exception e){
 
             }
@@ -91,21 +131,12 @@ public class StateSaverAndLoader extends PersistentState {
     }
 
     public static PlayerData getPlayerState(LivingEntity player) {
-        StateSaverAndLoader serverState = getServerState(Objects.requireNonNull(player.getWorld().getServer()));
+        // If it crashes, it means that you ain't using it correctly.
+        StateSaverAndLoader serverState = getServerState(player.getWorld().getServer());
 
         // Either get the player by the uuid, or we don't have data for him yet, make a new player state
         PlayerData playerState = serverState.players.computeIfAbsent(player.getUuid(), uuid -> new PlayerData());
 
         return playerState;
-    }
-
-    public int getPlayerTotal(Alignment alignment) {
-        int total = 0;
-        for(PlayerData playerData : players.values()){
-            if(playerData != null && playerData.hasAffilition() && playerData.getAffiliationData().alignment == alignment.ordinal())
-                total ++;
-        }
-
-        return total;
     }
 }

@@ -12,6 +12,7 @@ import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
+import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.network.packets.AffiliationPacket;
 import net.jukoz.me.network.packets.SpawnDataPacket;
 import net.jukoz.me.network.packets.TeleportRequestPacket;
@@ -23,6 +24,7 @@ import net.jukoz.me.utils.IEntityDataSaver;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.minecraft.block.entity.BannerPattern;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
@@ -45,6 +47,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
@@ -64,7 +67,7 @@ public class FactionSelectionScreen extends Screen {
     private static final Identifier MAP_BACKGROUND = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
     private static final Identifier MAP_UI_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
     private static final Identifier MAP_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
-    private static final Text ONBOARDING_TEXT = Text.of("Onboarding");
+    private static final Text FACTION_SELECTION_TITLE = Text.of("faction_selection_screen");
     private static boolean debug = false;
     AbstractClientPlayerEntity player;
     private static final Quaternionf ENTITY_ROTATION;
@@ -105,8 +108,9 @@ public class FactionSelectionScreen extends Screen {
     private String searchBarInput = "";
 
     public FactionSelectionScreen() {
-        super(ONBOARDING_TEXT);
+        super(FACTION_SELECTION_TITLE);
     }
+
     @Override
     protected void init() {
         this.bannerField = this.client.getEntityModelLoader().getModelPart(EntityModelLayers.BANNER).getChild("flag");
@@ -269,7 +273,6 @@ public class FactionSelectionScreen extends Screen {
             if(subFaction != null) faction = subFaction;
 
             if(faction == null || faction.getSpawnCoordinates() == null || faction.getSpawnCoordinates().isEmpty()) return;
-            LoggerUtil.logDebugMsg("Before : "+ ((IEntityDataSaver)player).getPersistentData().getInt("alignment"));
             int x = faction.getSpawnCoordinates().get(0).x;
             int z = faction.getSpawnCoordinates().get(0).z;
 
@@ -533,6 +536,7 @@ public class FactionSelectionScreen extends Screen {
             }
 
 
+            // WIP - Will be continued to be worked on
 /*
             for(int i = 0; i < temporaryValues.size(); i++){
                 MutableText text = Text.translatable(temporaryValues.get(i));
@@ -774,6 +778,7 @@ public class FactionSelectionScreen extends Screen {
         );
     }
 
+    // Very WIP, will be worked on once I start making the map widget
     /*
     private void drawMap(DrawContext context, float anchorX, float anchorY, int guiScale){
         int size = (int) (400 * guiScaleModifier.get(guiScale));
