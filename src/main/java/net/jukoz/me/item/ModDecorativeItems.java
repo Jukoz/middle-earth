@@ -48,6 +48,6 @@ public class ModDecorativeItems {
     }
 
     public static void registerModItems() {
-        LoggerUtil.getInstance().logDebugMsg("Registering Mod Decorative Items for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering Mod Decorative Items for " + MiddleEarth.MOD_ID);
     }
 }

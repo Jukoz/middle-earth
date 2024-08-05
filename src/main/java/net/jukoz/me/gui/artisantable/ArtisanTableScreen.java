@@ -12,8 +12,6 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.StonecuttingRecipe;
-import net.minecraft.screen.StonecutterScreenHandler;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;

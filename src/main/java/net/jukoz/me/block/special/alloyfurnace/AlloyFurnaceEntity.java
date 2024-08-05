@@ -4,6 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreenHandler;
 import net.jukoz.me.recipe.AlloyRecipe;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

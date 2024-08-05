@@ -253,6 +253,6 @@ public class ModWeaponItems {
     }
 
     public static void registerModItems() {
-        LoggerUtil.getInstance().logDebugMsg("Registering Mod Weapon Items for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering Mod Weapon Items for " + MiddleEarth.MOD_ID);
     }
 }

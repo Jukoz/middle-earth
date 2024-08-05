@@ -1010,7 +1010,7 @@ public class ModBlocks {
     }
 
     public static void registerModBlocks() {
-        LoggerUtil.getInstance().logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
     }
 
     public static boolean never(BlockState state, BlockView world, BlockPos pos) {

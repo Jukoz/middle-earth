@@ -19,6 +19,6 @@ public class ModStatusEffects {
     }
 
     public static void registerStatusEffects() {
-        LoggerUtil.getInstance().logDebugMsg("Registering Mod Status Effects for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering Mod Status Effects for " + MiddleEarth.MOD_ID);
     }
 }

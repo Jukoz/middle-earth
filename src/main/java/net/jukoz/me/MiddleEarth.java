@@ -8,9 +8,11 @@ import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.utils.ModItemGroups;
+import net.jukoz.me.network.ModNetworks;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.recipe.ModRecipeSerializer;
 import net.jukoz.me.registries.ModRegistries;
+import net.jukoz.me.resources.CustomServerDataResourceReloadListener;
 import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.jukoz.me.recipe.ModRecipes;
 import net.jukoz.me.sound.ModSounds;
@@ -29,14 +31,12 @@ public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "me";
 	public static final String MOD_VERSION = "1.5.0-1.21.0-alpha";
 	public static final boolean IS_DEBUG = true;
-	private LoggerUtil loggerUtil;
 	@Override
 	public void onInitialize() {
 		new FileUtils(getClass().getClassLoader());
-		loggerUtil = LoggerUtil.getInstance();
 
-		loggerUtil.logInfoMsg("");
-		loggerUtil.logInfoMsg("================ MiddleEarth ================");
+		LoggerUtil.logInfoMsg("");
+		LoggerUtil.logInfoMsg("================ MiddleEarth ================");
 
 		ModServerConfigs.registerConfigs();
 		ModClientConfigs.registerConfigs();
@@ -90,6 +90,10 @@ public class MiddleEarth implements ModInitializer {
 		ModWorldGeneration.generateModWorldGen();
 
 		LootModifiers.modifyLootTables();
+
+		CustomServerDataResourceReloadListener.register();
+
+		ModNetworks.registerC2SPackets();
 
 		try {
 			new MiddleEarthMapGeneration();

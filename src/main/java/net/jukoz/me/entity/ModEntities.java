@@ -213,6 +213,6 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(SNAIL, SnailEntity.createSnailAttributes());
         FabricDefaultAttributeRegistry.register(DEER, DeerEntity.createDeerAttributes());
 
-        LoggerUtil.getInstance().logDebugMsg("Registering Mod Entities for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering Mod Entities for " + MiddleEarth.MOD_ID);
     }
 }

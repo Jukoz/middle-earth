@@ -31,6 +31,6 @@ public class ModDataComponentTypes {
     }
 
     public static void registerModComponentTypes() {
-        LoggerUtil.getInstance().logDebugMsg("Registering Mod Component Types Items for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering Mod Component Types Items for " + MiddleEarth.MOD_ID);
     }
 }

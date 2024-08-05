@@ -357,6 +357,6 @@ public class ModDecorativeBlocks {
     }
 
     public static void registerModBlocks() {
-        LoggerUtil.getInstance().logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
     }
 }
