@@ -1,6 +1,5 @@
 package net.jukoz.me.resources.persistent_datas;
 
-import net.jukoz.me.network.packets.AffiliationPacket;
 import net.jukoz.me.resources.datas.Alignment;
 
 public class AffiliationData {

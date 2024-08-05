@@ -5,9 +5,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.recipe.ArtisanRecipe;
-import net.jukoz.me.resources.StateSaverAndLoader;
-import net.jukoz.me.resources.persistent_datas.PlayerData;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -15,8 +12,6 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.StonecuttingRecipe;
-import net.minecraft.screen.StonecutterScreenHandler;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -37,13 +32,6 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         this.backgroundWidth = 232;
         this.backgroundHeight = 166;
         handler.setContentsChangedListener(this::onInventoryChange);
-
-        // Example
-        if(inventory != null && inventory.player != null){
-            LoggerUtil.logDebugMsg(inventory.player.getName().toString());
-            PlayerData data = StateSaverAndLoader.getPlayerState(inventory.player);
-            inventory.player.sendMessage(Text.of(inventory.player.getName() + " " + data.toString()));
-        }
     }
 
     @Override

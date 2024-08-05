@@ -1,7 +1,6 @@
 package net.jukoz.me.resources.persistent_datas;
 
 import net.minecraft.util.math.BlockPos;
-import org.joml.Vector3i;
 
 public class PlayerData {
     private AffiliationData affiliationData;

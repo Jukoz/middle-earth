@@ -1,7 +1,5 @@
 package net.jukoz.me.network.packets;
 
-import com.jcraft.jorbis.Block;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.resources.StateSaverAndLoader;
@@ -13,7 +11,6 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import org.joml.Vector3i;
 
 
 public record TeleportToMeSpawnRequestPacket(boolean temp) implements CustomPayload

@@ -2,22 +2,15 @@ package net.jukoz.me.client.screens;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.network.packets.TeleportRequestPacket;
 import net.jukoz.me.network.packets.TeleportToMeSpawnRequestPacket;
-import net.jukoz.me.resources.StateSaverAndLoader;
-import net.jukoz.me.resources.persistent_datas.PlayerData;
-import net.jukoz.me.utils.LoggerUtil;
-import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import org.joml.Vector3i;
 
 public class OnboardingSelectionScreen extends Screen {
     private static final Text ONBOARDING_SELECTION_TITLE = Text.of("onboarding_selection_screen");

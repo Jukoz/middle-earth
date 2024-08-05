@@ -7,14 +7,12 @@ import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.persistent_datas.AffiliationData;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.resources.datas.Alignment;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public record AffiliationPacket(int alignment, int faction, int subfaction) implements CustomPayload

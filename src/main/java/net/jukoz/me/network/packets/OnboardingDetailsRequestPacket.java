@@ -8,10 +8,6 @@ import net.jukoz.me.client.screens.OnboardingSelectionScreen;
 import net.jukoz.me.config.ModServerConfigs;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.resources.StateSaverAndLoader;
-import net.jukoz.me.resources.datas.Alignment;
-import net.jukoz.me.resources.persistent_datas.AffiliationData;
-import net.jukoz.me.resources.persistent_datas.PlayerData;
-import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,10 +19,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.logging.Logger;
 
 public record OnboardingDetailsRequestPacket(boolean havePlayerData, boolean canChangeFaction, boolean canReturnToOverworld) implements CustomPayload
 {

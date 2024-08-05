@@ -12,7 +12,6 @@ import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
-import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.network.packets.AffiliationPacket;
 import net.jukoz.me.network.packets.SpawnDataPacket;
 import net.jukoz.me.network.packets.TeleportRequestPacket;
@@ -20,11 +19,9 @@ import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.Race;
 import net.jukoz.me.resources.datas.faction.Faction;
 import net.jukoz.me.resources.datas.faction.ModFactions;
-import net.jukoz.me.utils.IEntityDataSaver;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.minecraft.block.entity.BannerPattern;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
@@ -47,7 +44,6 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
@@ -296,7 +292,6 @@ public class FactionSelectionScreen extends Screen {
         ButtonWidget.PressAction screenClickButton = new ButtonWidget.PressAction() {
             @Override
             public void onPress(ButtonWidget button) {
-                LoggerUtil.logDebugMsg("clicked in the screen");
                 searchBarToggle = false;
                 searchResultToggle = false;
                 screenClick.active = false;
@@ -326,18 +321,19 @@ public class FactionSelectionScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if(keyCode == 27){
+        // Keybind : Escape || Other Escape
+        if(keyCode == 27 || keyCode == 256){
             this.close();
             return true;
         }
-        if (keyCode == 256) {
-            this.close();
-            return true;
-        }
+
         if(searchBarToggle){
+            // Keybind : Enter
             if(keyCode == 257){
                 triggerSearch();
             }
+            // Keybind : Alphabet [a-z]
+            // Keybind : Space bar
             if(((keyCode >= 65 && keyCode <= 90) || keyCode == 32) && searchBarInput.length() < 12) {
                 String character = String.valueOf((char)keyCode);
                 if(modifiers == 0)
@@ -346,8 +342,10 @@ public class FactionSelectionScreen extends Screen {
                 currentSearchInputIndex ++;
             }
             else if(!searchBarInput.isEmpty()){
+                // Keybind : Return
                 if((keyCode == 259))
                     searchBarInput = searchBarInput.substring(0, searchBarInput.length() - 1);
+                // Keybind : Delete
                 else if(keyCode == 261)
                     searchBarInput = "";
             }
