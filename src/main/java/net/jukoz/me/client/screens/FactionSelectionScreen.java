@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.utils.CycledSelectionButtonType;
 import net.jukoz.me.client.screens.utils.widgets.CycledSelectionWidget;
+import net.jukoz.me.client.screens.utils.widgets.SearchBarWidget;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
@@ -56,24 +57,18 @@ import java.util.*;
 @Environment(EnvType.CLIENT)
 public class FactionSelectionScreen extends Screen {
     private static final Identifier FACTION_SELECTION_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection.png");
-    private static final Identifier SEARCH_WIDGET = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/search_widget.png");
     private static final Identifier FACTION_SELECTION_BANNER_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_banner.png");
     private static final Identifier FACTION_SELECTION_BUTTONS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_buttons.png");
     private static final Identifier MAP_BACKGROUND = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
     private static final Identifier MAP_UI_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
     private static final Identifier MAP_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
     private static final Text FACTION_SELECTION_TITLE = Text.of("faction_selection_screen");
-    private static boolean debug = false;
     AbstractClientPlayerEntity player;
     private static final Quaternionf ENTITY_ROTATION;
     private static final Vector3f VECTOR;
     private static final int MINIMAL_MARGIN = 4;
-
-
     private boolean focusEnabled;
-
     private ModelPart bannerField;
-
     private int currentAlignementIndex = 0;
     private int currentFactionIndex = 0;
     private int currentSubFactionIndex = 0;
@@ -87,22 +82,15 @@ public class FactionSelectionScreen extends Screen {
     @Nullable
     LivingEntity entity;
     Map<Alignment, List<Faction>> factions = new HashMap<>();
-    public ButtonWidget screenClick;
-    public ButtonWidget searchBarToggleButton;
-    public ScrollableWidget searchResultScrollBar;
+    private SearchBarWidget searchBarWidget;
     private CycledSelectionWidget alignmentSelectionWidget;
     private CycledSelectionWidget factionSelectionWidget;
     private CycledSelectionWidget subfactionSelectionWidget;
     public ButtonWidget factionRandomizerButton;
     public ButtonWidget spawnSelectionConfirmButton;
     public ButtonWidget spawnSelectionRandomizerButton;
-
     private int mouseX;
     private int mouseY;
-    private boolean searchResultToggle = false;
-    private boolean searchBarToggle = false;
-    private int currentSearchInputIndex = 0;
-    private String searchBarInput = "";
 
     public FactionSelectionScreen() {
         super(FACTION_SELECTION_TITLE);
@@ -119,16 +107,8 @@ public class FactionSelectionScreen extends Screen {
         factions.put(Alignment.EVIL,  ModFactions.getFactions(Alignment.EVIL));
         // Initialize Buttons
         // Search bar
-        searchBarToggle = false;
-        ButtonWidget.PressAction searchBarInputToggle = button -> {
-            if(!searchBarToggle)
-                searchBarToggle = true;
-        };
-        searchBarToggleButton = ButtonWidget.builder(Text.of("Toggle search bar input"), searchBarInputToggle).build();
-        addDrawableChild(searchBarToggleButton);
-
-        // Search Result ScrollBar
-        // TODO : Add scrollbar button
+        searchBarWidget = new SearchBarWidget();
+        addDrawableChild(searchBarWidget.getSearchBarToggleButton());
 
         // Alignment
         ButtonWidget.PressAction alignmentActionLeft = button -> {
@@ -150,9 +130,8 @@ public class FactionSelectionScreen extends Screen {
             updatePreviewEquipment();
         };
 
-
         alignmentSelectionWidget = new CycledSelectionWidget(
-                alignmentActionRight,
+                alignmentActionLeft,
                 alignmentActionRight,
                 null,
                 CycledSelectionButtonType.GOLD);
@@ -290,17 +269,7 @@ public class FactionSelectionScreen extends Screen {
         spawnSelectionConfirmButton = ButtonWidget.builder(Text.of("Click on spawn selection confirm button"), confirmSpawnSelectionAction).build();
         addDrawableChild(spawnSelectionConfirmButton);
 
-        // Screen click
-        ButtonWidget.PressAction screenClickButton = new ButtonWidget.PressAction() {
-            @Override
-            public void onPress(ButtonWidget button) {
-                searchBarToggle = false;
-                searchResultToggle = false;
-                screenClick.active = false;
-            }
-        };
-        screenClick = ButtonWidget.builder(Text.of("Click on screen"), screenClickButton).build();
-        addDrawableChild(screenClick);
+        addDrawableChild(searchBarWidget.getScreenClickButton());
     }
 
     @Override
@@ -311,7 +280,6 @@ public class FactionSelectionScreen extends Screen {
                 this.mouseX = mouseX;
                 this.mouseY = mouseY;
                 this.player = abstractClientPlayerEntity;
-                screenClick.setDimensionsAndPosition(context.getScaledWindowWidth(), context.getScaledWindowHeight(), 0,0);
                 this.renderBackground(context, mouseX, mouseY, delta);
                 this.drawPanels(context);
             } else {
@@ -332,37 +300,11 @@ public class FactionSelectionScreen extends Screen {
         if(keyCode == KeyEvent.VK_CODE_INPUT && !focusEnabled && !CycledSelectionWidget.focusEnabled()){
             focusEnabled = true;
             CycledSelectionWidget.toggleFocus();
+            SearchBarWidget.toggleFocus();
             return true;
         }
-
-        if(searchBarToggle){
-            // Keybind : Enter
-            if(keyCode == 257){
-                triggerSearch();
-            }
-            if(((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z) || keyCode == KeyEvent.VK_SPACE) && searchBarInput.length() < 12) {
-                String character = String.valueOf((char)keyCode);
-                if(modifiers == 0)
-                    character = character.toLowerCase();
-                searchBarInput += character;
-                currentSearchInputIndex ++;
-            }
-            else if(!searchBarInput.isEmpty()){
-                // Keybind : Return
-                if((keyCode == 259))
-                    searchBarInput = searchBarInput.substring(0, searchBarInput.length() - 1);
-                // Keybind : Delete
-                else if(keyCode == 261)
-                    searchBarInput = "";
-            }
-        }
-
+        searchBarWidget.keyPressed(keyCode, scanCode, modifiers);
         return super.keyPressed(keyCode, scanCode, modifiers);
-    }
-
-    private void triggerSearch() {
-        searchResultToggle = true;
-        screenClick.active = true;
     }
 
     protected void drawPanels(DrawContext context){
@@ -403,222 +345,42 @@ public class FactionSelectionScreen extends Screen {
         Faction faction = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFactionIndex) : null;
         Faction subFaction = (faction != null) ? faction.getSubfaction(currentSubFactionIndex) : null;
 
-        int newStartY = startY + drawFactionSearchBarWidget(context, centerX, startY, "Search...");
+        int searchMargin = 11; // Arrow size
+        int newStartY = startY + searchBarWidget.drawSearchBarAnchored(context, endX - searchMargin, startY, false, textRenderer);
+        searchBarWidget.updateMouse(mouseX, mouseY);
+        int endY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight;
+        searchBarWidget.setEndY(endY);
+
+        if(searchBarWidget.searchIsToggled()) {
+            alignmentSelectionWidget.enableArrows(false);
+            factionSelectionWidget.enableArrows(false);
+            subfactionSelectionWidget.enableArrows(false);
+            factionRandomizerButton.active = false;
+            searchBarWidget.drawSearchResultsAnchored(context, endX - searchMargin, startY, false, factions);
+            return;
+        }
 
         // Alignment
-        factionSelectionWidget.enableArrows(!searchResultToggle && Alignment.values().length > 1);
+        factionSelectionWidget.enableArrows(Alignment.values().length > 1);
         newStartY += MINIMAL_MARGIN + alignmentSelectionWidget.drawAnchored(context, endX, newStartY, false, alignment.getName(), textRenderer, mouseX, mouseY);
 
         // Faction
-        factionSelectionWidget.enableArrows(!searchResultToggle && !factions.get(alignment).isEmpty() && factions.get(alignment).size() > 1);
+        factionSelectionWidget.enableArrows(!factions.get(alignment).isEmpty() && factions.get(alignment).size() > 1);
         if(!factions.get(alignment).isEmpty()){
             newStartY += MINIMAL_MARGIN + factionSelectionWidget.drawAnchored(context, endX, newStartY, false, (faction == null) ? null : faction.tryGetShortName(), textRenderer, mouseX, mouseY);
 
             // Subfaction
-            subfactionSelectionWidget.enableArrows(!searchResultToggle && faction != null && (faction.getSubFactions() != null && faction.getSubFactions().size() > 1));
+            subfactionSelectionWidget.enableArrows(faction != null && (faction.getSubFactions() != null && faction.getSubFactions().size() > 1));
             if(faction != null && (faction.getSubFactions() != null && !faction.getSubFactions().isEmpty()))
                 subfactionSelectionWidget.drawAnchored(context, endX, newStartY, false, (subFaction == null) ? null : subFaction.tryGetShortName(), textRenderer, mouseX, mouseY);
         }
+        drawNpcPreview(context, centerX, endY);
+        drawFactionRandomizer(context, centerX, endY);
 
-        int endY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight;
-
-        drawSearchResultWidget(context, centerX, startY, endY);
-
-        if(!searchResultToggle){
-            drawNpcPreview(context, centerX, endY);
-            drawFactionRandomizer(context, centerX, endY);
+        if(!factionRandomizerButton.active)
             factionRandomizerButton.active = true;
-        } else{
-            factionRandomizerButton.active = false;
-        }
     }
 
-    private void drawSearchResultWidget(DrawContext context, int centerX, int startY, int endY) {
-        int previousPanelSizeY = 18;
-
-        int panelSizeX = 102;
-        int panelSizeY = 14;
-        int panelBorderSizeY = 4;
-        int footerPanelSizeY = 11;
-
-        int sideMargins = MINIMAL_MARGIN / 2;
-
-        // Search bar button
-        int startX = (int) (centerX - (panelSizeX / 2f));
-        startY += previousPanelSizeY + sideMargins / 2;
-
-        // Popup
-        if(searchResultToggle){
-            int valueTotal = 0;
-            Map<Alignment, List<Faction>> foundFactions = factions;
-            for(int i = 0; i < foundFactions.size(); i++){
-                List<Faction> f = foundFactions.get(Alignment.values()[i]);
-                if(f == null || f.isEmpty()) continue;
-                valueTotal ++; // Per alignment with values
-                for(int j = 0; j < f.size(); j++){
-                    valueTotal ++; // Per faction
-                    HashMap<Identifier, Faction> subF = f.get(j).getSubFactions();
-                    if(subF == null || subF.isEmpty()) continue;
-                    valueTotal += subF.size(); // Per subFactions
-                }
-            }
-            // Top
-            context.drawTexture(SEARCH_WIDGET,
-                    startX, startY,
-                    0, 38,
-                    panelSizeX,
-                    panelBorderSizeY
-            );
-            // Center
-            startY += panelBorderSizeY;
-            int valueAmount = Math.min(
-                    (endY - startY - panelBorderSizeY) / panelSizeY,
-                    valueTotal
-            );
-
-            for(int i = 0; i < valueAmount; i++){
-                context.drawTexture(SEARCH_WIDGET,
-                        startX, startY + panelSizeY * i,
-                        0, 43,
-                        panelSizeX, panelSizeY
-                );
-            }
-
-            // Footer
-            context.drawTexture(SEARCH_WIDGET,
-                    startX,
-                    startY + (valueAmount * panelSizeY),
-                    0, 58,
-                    panelSizeX,
-                    footerPanelSizeY
-            );
-
-            // End
-            context.drawTexture(SEARCH_WIDGET,
-                    startX,
-                    startY + (valueAmount * panelSizeY) + footerPanelSizeY,
-                    0, 70,
-                    panelSizeX,
-                    panelBorderSizeY
-            );
-
-            // Scroll Bar Button
-            startY -= panelBorderSizeY;
-
-            context.drawTexture(SEARCH_WIDGET,
-                    startX + panelSizeX - 5,
-                    startY + 1,
-                    103, 39,
-                    4,
-                    9
-            );
-
-            int indexOffset = 0; // TODO : Adjust with scrollbar value/height
-
-            int valuePanelSizeX = 93;
-            int valuePanelSizeY = 14;
-
-            int valuePanelStartX = startX + 3;
-            // Create pool of resources with buttons
-            for(int i = 0; i < valueAmount; i ++){
-                int valuePanelStartY = startY + panelBorderSizeY + (i * panelSizeY);
-
-                boolean mouseIsOver = isMouseOver(startX, valuePanelSizeX, valuePanelStartY, valuePanelSizeY);
-                int uvY = mouseIsOver ? 89 : 75;
-
-                if(i == 0){
-                    uvY = 131;
-                } else if(i % 3 == 0){
-                    uvY = mouseIsOver ? 117 : 103;
-                }
-
-                context.drawTexture(SEARCH_WIDGET,
-                        valuePanelStartX, valuePanelStartY,
-                        0, uvY,
-                        valuePanelSizeX, valuePanelSizeY
-                );
-            }
-
-
-            // WIP - Will be continued to be worked on
-/*
-            for(int i = 0; i < temporaryValues.size(); i++){
-                MutableText text = Text.translatable(temporaryValues.get(i));
-                text.asTruncatedString(15);
-
-                context.drawTexture(FACTION_SELECTION_SEARCH_UI,
-                        startX, newStartY,
-                        0, isMouseOver(startX, 95, newStartY, 14) ? 69 : 55,
-                        95, 14
-                );
-
-                context.drawText(textRenderer, text,
-                        startX + MINIMAL_MARGIN,
-                        newStartY + 3,
-                        0, false);
-                newStartY += 14;
-                /*
-                                newStartY += textRenderer.fontHeight + sideMargins;
-                if(i != temporaryValues.size() - 1){
-                    context.drawTexture(FACTION_SELECTION_SEARCH_UI,
-                            startX, newStartY,
-                            0, 52,
-                            102, 3
-                    );
-                    newStartY += sideMargins;
-                }
-                 */
-        }
-    }
-
-    protected int drawFactionSearchBarWidget(DrawContext context, int centerX, int startY, String key) {
-        int panelSizeX = 102;
-        int panelSizeY = 18;
-        int sideMargins = MINIMAL_MARGIN / 2;
-        int magnifyingGlassSizeX = 14;
-        int magnifyingGlassSizeY = 14;
-
-        // Search bar button
-        int startX = (int) (centerX - (panelSizeX / 2f));
-        context.drawTexture(SEARCH_WIDGET,
-                startX,
-                startY,
-                0,
-                searchBarToggleButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
-                panelSizeX,
-                panelSizeY
-        );
-        searchBarToggleButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
-        if(focusEnabled && searchBarToggleButton.isFocused()){
-            context.drawTexture(SEARCH_WIDGET,
-                    startX,
-                    startY,
-                    0, 147,
-                    panelSizeX,
-                    panelSizeY
-            );
-        }
-
-
-        MutableText text = Text.translatable((!searchBarToggle && searchBarInput.isEmpty()) ? key : searchBarInput);
-        text.asTruncatedString(16);
-        context.drawText(textRenderer, text,
-                startX + magnifyingGlassSizeX + MINIMAL_MARGIN,
-                startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,
-                16777215, false);
-
-
-        // Search bar magnifying
-        context.drawTexture(SEARCH_WIDGET,
-                startX + sideMargins,
-                startY + 2,
-                102, 0,
-                magnifyingGlassSizeX,
-                magnifyingGlassSizeY
-        );
-
-        return panelSizeY + MINIMAL_MARGIN / 2;
-    }
 
     private boolean isMouseOver(int startX, int sizeX, int startY, int sizeY) {
         return mouseX >= startX && mouseX <= startX + sizeX

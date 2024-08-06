@@ -4473,7 +4473,8 @@
   "me.continue_character": "Continue",
   "me.reset_character": "Reset Alignment",
 
-"#Comment": "Onboarding UI",
-  "me.ui.selection.none" : "None"
+"#Comment": "UI",
+  "me.ui.selection.none" : "None",
+  "me.ui.search.label" : "Search..."
 
 }
