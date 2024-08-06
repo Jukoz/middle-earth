@@ -5,6 +5,8 @@ public enum CycledSelectionButtonType {
     SILVER(0, 38),
     GOLD(0, 76);
 
+    public final static int FOCUS_UV_X = 103;
+    public final static int FOCUS_UV_Y = 95;
     public final static int WIDTH = 102;
     public final static int HEIGHT = 18;
     public final int uvX;

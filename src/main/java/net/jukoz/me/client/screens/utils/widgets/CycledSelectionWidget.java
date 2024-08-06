@@ -11,6 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class CycledSelectionWidget {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/cycled_selection_widget.png");
+    private static boolean focusEnabled = false;
     private final ButtonWidget buttonLeft;
     private final ButtonWidget buttonRight;
     private final ButtonWidget selectionButton;
@@ -38,6 +39,7 @@ public class CycledSelectionWidget {
         selectionButton.setDimensions(PANEL_SIZE_X, PANEL_SIZE_Y);
         if(selectionAction == null)
             selectionButton.active = false;
+        focusEnabled = false;
     }
 
     public ButtonWidget getButtonLeft() {
@@ -100,15 +102,19 @@ public class CycledSelectionWidget {
         // Left arrow
         if(buttonLeft.active){
             buttonLeft.setPosition(x, y + arrowStartOffsetY);
-            buttonIsHovered = buttonLeft.active && isMouseOver(ARROW_SIZE_X, ARROW_SIZE_Y, x, y + arrowStartOffsetY);
+            buttonIsHovered = buttonLeft.isFocused() || isMouseOver(ARROW_SIZE_X, ARROW_SIZE_Y, x, y + arrowStartOffsetY);
             context.drawTexture(TEXTURE, x, y + arrowStartOffsetY, 206, buttonIsHovered ? 11 : 0, ARROW_SIZE_X, ARROW_SIZE_Y);
+            if(buttonLeft.isFocused() && focusEnabled)
+                context.drawTexture(TEXTURE, x, y + arrowStartOffsetY, 206, 33, ARROW_SIZE_X, ARROW_SIZE_Y);
         }
 
         // Center Button
         x += ARROW_SIZE_X + MARGIN;
         selectionButton.setPosition(x, y + buttonStartOffsetY);
-        buttonIsHovered = selectionButton.active && isMouseOver(PANEL_SIZE_X, PANEL_SIZE_Y, x, y + buttonStartOffsetY);
+        buttonIsHovered = selectionButton.active && (selectionButton.isFocused() || isMouseOver(PANEL_SIZE_X, PANEL_SIZE_Y, x, y + buttonStartOffsetY));
         context.drawTexture(TEXTURE, x, y + buttonStartOffsetY, buttonIsHovered ? buttonType.hoveredUvX : buttonType.uvX, buttonIsHovered ? buttonType.hoveredUvY : buttonType.uvY, PANEL_SIZE_X, PANEL_SIZE_Y);
+        if(selectionButton.isFocused() && focusEnabled)
+            context.drawTexture(TEXTURE, x, y + buttonStartOffsetY, CycledSelectionButtonType.FOCUS_UV_X, CycledSelectionButtonType.FOCUS_UV_Y, PANEL_SIZE_X, PANEL_SIZE_Y);
 
         if(text == null)
             text = Text.translatable("me.ui.selection.none");
@@ -121,8 +127,10 @@ public class CycledSelectionWidget {
         // Left arrow
         if(buttonRight.active){
             buttonRight.setPosition(x, y + arrowStartOffsetY);
-            buttonIsHovered = isMouseOver(ARROW_SIZE_X, ARROW_SIZE_Y, x, y + arrowStartOffsetY);
+            buttonIsHovered = buttonRight.isFocused() || isMouseOver(ARROW_SIZE_X, ARROW_SIZE_Y, x, y + arrowStartOffsetY);
             context.drawTexture(TEXTURE, x, y + arrowStartOffsetY, 215, buttonIsHovered ? 11 : 0, ARROW_SIZE_X, ARROW_SIZE_Y);
+            if(buttonRight.isFocused() && focusEnabled)
+                context.drawTexture(TEXTURE, x, y + arrowStartOffsetY, 215, 33, ARROW_SIZE_X, ARROW_SIZE_Y);
         }
 
         return PANEL_SIZE_Y;
@@ -131,5 +139,12 @@ public class CycledSelectionWidget {
     private boolean isMouseOver(int sizeX, int sizeY, int startX, int startY) {
         return mouseX >= startX && mouseX <= startX + sizeX
                 && mouseY >= startY && mouseY <= startY + sizeY;
+    }
+
+    public static boolean focusEnabled() {
+        return focusEnabled;
+    }
+    public static void toggleFocus() {
+        focusEnabled = !focusEnabled;
     }
 }

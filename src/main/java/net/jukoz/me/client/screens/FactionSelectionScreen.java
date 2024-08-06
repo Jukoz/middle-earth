@@ -50,6 +50,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
+import java.awt.event.KeyEvent;
 import java.util.*;
 
 @Environment(EnvType.CLIENT)
@@ -58,8 +59,6 @@ public class FactionSelectionScreen extends Screen {
     private static final Identifier SEARCH_WIDGET = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/search_widget.png");
     private static final Identifier FACTION_SELECTION_BANNER_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_banner.png");
     private static final Identifier FACTION_SELECTION_BUTTONS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_buttons.png");
-
-
     private static final Identifier MAP_BACKGROUND = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
     private static final Identifier MAP_UI_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
     private static final Identifier MAP_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
@@ -70,6 +69,8 @@ public class FactionSelectionScreen extends Screen {
     private static final Vector3f VECTOR;
     private static final int MINIMAL_MARGIN = 4;
 
+
+    private boolean focusEnabled;
 
     private ModelPart bannerField;
 
@@ -105,6 +106,7 @@ public class FactionSelectionScreen extends Screen {
 
     public FactionSelectionScreen() {
         super(FACTION_SELECTION_TITLE);
+        focusEnabled = false;
     }
 
     @Override
@@ -311,7 +313,6 @@ public class FactionSelectionScreen extends Screen {
                 this.player = abstractClientPlayerEntity;
                 screenClick.setDimensionsAndPosition(context.getScaledWindowWidth(), context.getScaledWindowHeight(), 0,0);
                 this.renderBackground(context, mouseX, mouseY, delta);
-                int guiScale = this.client.options.getGuiScale().getValue();
                 this.drawPanels(context);
             } else {
                 this.player = null;
@@ -322,8 +323,15 @@ public class FactionSelectionScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         // Keybind : Escape || Other Escape
-        if(keyCode == 27 || keyCode == 256){
+        if(keyCode == KeyEvent.VK_ESCAPE){
             this.close();
+            return true;
+        }
+
+        // Keybind : Tabulation
+        if(keyCode == KeyEvent.VK_CODE_INPUT && !focusEnabled && !CycledSelectionWidget.focusEnabled()){
+            focusEnabled = true;
+            CycledSelectionWidget.toggleFocus();
             return true;
         }
 
@@ -332,9 +340,7 @@ public class FactionSelectionScreen extends Screen {
             if(keyCode == 257){
                 triggerSearch();
             }
-            // Keybind : Alphabet [a-z]
-            // Keybind : Space bar
-            if(((keyCode >= 65 && keyCode <= 90) || keyCode == 32) && searchBarInput.length() < 12) {
+            if(((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z) || keyCode == KeyEvent.VK_SPACE) && searchBarInput.length() < 12) {
                 String character = String.valueOf((char)keyCode);
                 if(modifiers == 0)
                     character = character.toLowerCase();
@@ -578,11 +584,21 @@ public class FactionSelectionScreen extends Screen {
                 startX,
                 startY,
                 0,
-                isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
+                searchBarToggleButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
                 panelSizeX,
                 panelSizeY
         );
         searchBarToggleButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
+        if(focusEnabled && searchBarToggleButton.isFocused()){
+            context.drawTexture(SEARCH_WIDGET,
+                    startX,
+                    startY,
+                    0, 147,
+                    panelSizeX,
+                    panelSizeY
+            );
+        }
+
 
         MutableText text = Text.translatable((!searchBarToggle && searchBarInput.isEmpty()) ? key : searchBarInput);
         text.asTruncatedString(16);
@@ -614,15 +630,24 @@ public class FactionSelectionScreen extends Screen {
         int sizeY = 18;
         int startX = (int) (centerX - (sizeX / 2f));
         int startY = endY - sizeY;
-
+        boolean mouseOver = isMouseOver(startX, sizeX, startY, sizeY);
         context.drawTexture(FACTION_SELECTION_BUTTONS,
                 startX,
                 startY,
-                103, (isMouseOver(startX, sizeX, startY, sizeY)) ? 92 : 74,
+                103, (factionRandomizerButton.isFocused() || mouseOver) ? 92 : 74,
                 sizeX,
                 sizeY
         );
         factionRandomizerButton.setDimensionsAndPosition(sizeX, sizeY, startX, startY);
+        if(focusEnabled && factionRandomizerButton.isFocused()){
+            context.drawTexture(FACTION_SELECTION_BUTTONS,
+                    startX,
+                    startY,
+                    103, 148,
+                    sizeX,
+                    sizeY
+            );
+        }
     }
 
 
@@ -643,26 +668,44 @@ public class FactionSelectionScreen extends Screen {
         int buttonStartX = (int)(startX + (widthX / 2f)) - (sizeX + 10);
         int buttonStartY = (int)((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight - sizeY;
 
+        boolean mouseOver = isMouseOver(buttonStartX, sizeX, buttonStartY, sizeY);
         context.drawTexture(FACTION_SELECTION_BUTTONS,
                 buttonStartX,
                 buttonStartY,
-                103, isMouseOver(buttonStartX, sizeX, buttonStartY, sizeY) ? 129 : 111,
+                103, spawnSelectionRandomizerButton.isFocused() || mouseOver ? 129 : 111,
                 sizeX,
                 sizeY
         );
         spawnSelectionRandomizerButton.setDimensionsAndPosition(sizeX, sizeY, buttonStartX, buttonStartY);
-
-
+        if(focusEnabled && spawnSelectionRandomizerButton.isFocused()){
+            context.drawTexture(FACTION_SELECTION_BUTTONS,
+                    buttonStartX,
+                    buttonStartY,
+                    103, 148,
+                    sizeX,
+                    sizeY
+            );
+        }
 
         buttonStartX = (int)(startX + (widthX / 2f));
+        mouseOver = isMouseOver(buttonStartX, sizeX, buttonStartY, sizeY);
         context.drawTexture(FACTION_SELECTION_BUTTONS,
                 buttonStartX,
                 buttonStartY,
-                103, isMouseOver(buttonStartX, sizeX, buttonStartY, sizeY) ? 37 : 19,
+                103, spawnSelectionConfirmButton.isFocused() || mouseOver ? 37 : 19,
                 sizeX,
                 sizeY
         );
         spawnSelectionConfirmButton.setDimensionsAndPosition(sizeX, sizeY, buttonStartX, buttonStartY);
+        if(focusEnabled && spawnSelectionConfirmButton.isFocused()){
+            context.drawTexture(FACTION_SELECTION_BUTTONS,
+                    buttonStartX,
+                    buttonStartY,
+                    103, 148,
+                    sizeX,
+                    sizeY
+            );
+        }
     }
 
     private void updatePreviewEquipment() {
