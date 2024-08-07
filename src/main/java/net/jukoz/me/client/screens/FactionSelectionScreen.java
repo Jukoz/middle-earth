@@ -338,17 +338,16 @@ public class FactionSelectionScreen extends Screen {
 
         int widthX = endX - Math.max(MINIMAL_MARGIN, startX);
 
-        int centerX = startX + (int) ((widthX / 2f));
-
         // Draw alignment option
         Alignment alignment = Alignment.values()[currentAlignementIndex];
         Faction faction = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFactionIndex) : null;
         Faction subFaction = (faction != null) ? faction.getSubfaction(currentSubFactionIndex) : null;
 
-        int searchMargin = 11; // Arrow size
-        int newStartY = startY + searchBarWidget.drawSearchBarAnchored(context, endX - searchMargin, startY, false, textRenderer);
-        searchBarWidget.updateMouse(mouseX, mouseY);
+        int centerX = endX - CycledSelectionWidget.TOTAL_WIDTH / 2;
         int endY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight;
+
+        int newStartY = startY + searchBarWidget.drawSearchBarCentered(context, centerX, startY, textRenderer);
+        searchBarWidget.updateMouse(mouseX, mouseY);
         searchBarWidget.setEndY(endY);
 
         if(searchBarWidget.searchIsToggled()) {
@@ -356,7 +355,7 @@ public class FactionSelectionScreen extends Screen {
             factionSelectionWidget.enableArrows(false);
             subfactionSelectionWidget.enableArrows(false);
             factionRandomizerButton.active = false;
-            searchBarWidget.drawSearchResultsAnchored(context, endX - searchMargin, startY, false, factions);
+            searchBarWidget.drawSearchResultsCentered(context, centerX, startY, factions);
             return;
         }
 

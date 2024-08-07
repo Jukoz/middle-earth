@@ -37,6 +37,7 @@ public class SearchBarWidget {
     int endY = 0;
     public SearchBarWidget(){
         searchBarToggle = false;
+        searchResultToggle = false;
         focusEnabled = false;
         setButtons();
     }
@@ -328,7 +329,7 @@ public class SearchBarWidget {
     }
 
     public boolean searchIsToggled() {
-        return searchBarToggle;
+        return searchResultToggle;
     }
 
     private boolean isMouseOver(int startX, int sizeX, int startY, int sizeY) {
