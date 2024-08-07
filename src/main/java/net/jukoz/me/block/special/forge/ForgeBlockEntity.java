@@ -1,11 +1,13 @@
 package net.jukoz.me.block.special.forge;
 
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.gui.forge.ForgeScreenHandler;
+import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.network.packets.ForgeOutputPacket;
 import net.jukoz.me.recipe.AlloyingRecipe;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -24,11 +26,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.recipe.AbstractCookingRecipe;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeManager;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
@@ -62,6 +60,11 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
     private int fuelTime = 0;
     private int maxFuelTime = 0;
     private int mode = 0;
+
+    public void setStorage(int storage) {
+        this.storage = storage;
+    }
+
     private int storage = 0;
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
@@ -75,6 +78,9 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
                     case 2 -> ForgeBlockEntity.this.maxFuelTime;
                     case 3 -> ForgeBlockEntity.this.mode;
                     case 4 -> ForgeBlockEntity.this.storage;
+                    case 5 -> ForgeBlockEntity.this.getPos().getX();
+                    case 6 -> ForgeBlockEntity.this.getPos().getZ();
+                    case 7 -> ForgeBlockEntity.this.getPos().getY();
                     default -> 0;
                 };
             }
@@ -92,7 +98,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
             @Override
             public int size() {
-                return 5;
+                return 8;
             }
         };
     }
@@ -257,6 +263,11 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     public void bellowsBoost() {
         boostTime = MAX_BOOST_TIME;
+    }
+
+    public static void lowerAmount(ForgeOutputPacket packet, ServerPlayNetworking.Context context){
+        Optional<ForgeBlockEntity> forgeBlockEntity = context.player().getWorld().getBlockEntity(new BlockPos(packet.entityX(), packet.entityZ(), packet.entityY()), ModBlockEntities.FORGE);
+        forgeBlockEntity.ifPresent(entity -> entity.storage = entity.storage - packet.amount());
     }
 
     public static void tick(World world, BlockPos blockPos, BlockState blockState, ForgeBlockEntity entity) {

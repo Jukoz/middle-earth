@@ -11,13 +11,14 @@ import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import org.joml.Vector3d;
 
 public class ForgeScreenHandler extends ScreenHandler{
     private final Inventory inventory;
     private final PropertyDelegate propertyDelegate;
 
     public ForgeScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new SimpleInventory(6), new ArrayPropertyDelegate(5));
+        this(syncId, playerInventory, new SimpleInventory(6), new ArrayPropertyDelegate(8));
     }
 
     public ForgeScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
@@ -126,6 +127,10 @@ public class ForgeScreenHandler extends ScreenHandler{
                 this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
+    }
+
+    public Vector3d returnEntityCoords(){
+        return new Vector3d(this.propertyDelegate.get(5), this.propertyDelegate.get(6), this.propertyDelegate.get(7));
     }
 
     private void addPlayerHotbar(PlayerInventory playerInventory) {

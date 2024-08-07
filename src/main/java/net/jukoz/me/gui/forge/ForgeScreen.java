@@ -1,14 +1,17 @@
 package net.jukoz.me.gui.forge;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.network.packets.ForgeOutputPacket;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.gui.widget.ToggleButtonWidget;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -55,9 +58,8 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         this.leftExtractCycleButton.setTextures(LEFT_CYCLE_EXTRACT_BUTTON_TEXTURES);
 
         this.extractButton = new TexturedButtonWidget(x + 142, y + 52, 20 ,20, EXTRACT_BUTTON_TEXTURES, (button)-> {
-            //ForgeScreen.this.client.getNetworkHandler().
-                    System.out.println("Beep");
-                    }, Text.translatable("button." + MiddleEarth.MOD_ID + ".extract_metal"));
+            ClientPlayNetworking.send(new ForgeOutputPacket(144,(int) handler.returnEntityCoords().x, (int) handler.returnEntityCoords().z,(int) handler.returnEntityCoords().y));
+            }, Text.translatable("button." + MiddleEarth.MOD_ID + ".extract_metal"));
 
         this.extractButton.setTooltip(Tooltip.of(Text.literal(String.valueOf(this.outputMode))));
 

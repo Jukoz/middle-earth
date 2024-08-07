@@ -52,6 +52,9 @@ public class ModNetworks {
 
         PayloadTypeRegistry.playC2S().register(OnboardingDetailsRequestPacket.ID, OnboardingDetailsRequestPacket.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(OnboardingDetailsRequestPacket.ID, ModNetworks::onOnboardingDetailsRequestPacketReceived);
+
+        PayloadTypeRegistry.playC2S().register(ForgeOutputPacket.ID, ForgeOutputPacket.CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(ForgeOutputPacket.ID, ModNetworks::onForgeOutputRequestPacketReceived);
     }
 
     private static void onTeleportToMeSpawnRequestPacket(TeleportToMeSpawnRequestPacket teleportToMeSpawnRequestPacket, ServerPlayNetworking.Context context) {
@@ -69,6 +72,10 @@ public class ModNetworks {
 
     private static void onOnboardingDetailsRequestPacketReceived(OnboardingDetailsRequestPacket onboardingDetailsRequestPacket, ClientPlayNetworking.Context context) {
         OnboardingDetailsRequestPacket.apply(onboardingDetailsRequestPacket, context);
+    }
+
+    private static void onForgeOutputRequestPacketReceived(ForgeOutputPacket forgeOutputPacket, ServerPlayNetworking.Context context) {
+        ForgeOutputPacket.apply(forgeOutputPacket, context);
     }
     // endregion
 
