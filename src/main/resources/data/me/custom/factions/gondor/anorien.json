@@ -1,0 +1,36 @@
+{
+  "parent": "gondor",
+  "name": "anorien",
+  "type": "subfaction",
+  "preview": {
+    "race": "human",
+    "head": "me:gondorian_fountain_guard_helmet",
+    "chest": "me:gondorian_fountain_guard_chestplate",
+    "legs": "me:gondorian_fountain_guard_leggings",
+    "boots": "me:gondorian_fountain_guard_boots",
+    "main_hand": "me:gondorian_noble_sword",
+    "off_hand": "me:gondorian_shield"
+  },
+  "spawn": {
+    "map_preview_center": {
+      "x": 100,
+      "y": 200
+    },
+    "sets": [
+      {
+        "x": 62500,
+        "y": 200,
+        "z": 57200
+      }
+    ]
+  },
+  "banner": {
+    "base_color": "white",
+    "patterns": [
+      {
+        "id": "me:gondor",
+        "dye_color": "yellow"
+      }
+    ]
+  }
+}

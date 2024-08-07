@@ -23,7 +23,7 @@ public class DwarfModel {
                     .create().uv(0, 0)
                     .cuboid(-4.0f, -8.0f, -4.0f, 8.0f, 8.0f, 8.0f, dilation), ModelTransform.pivot(0.0f, 0.0f, 0.0f));
 
-            head.addChild(NOSE, ModelPartBuilder.create().uv(0, 5).cuboid(-1f, 0, 0, 2.0f, 2.0f, 1.0f, dilation),
+            head.addChild(NOSE, ModelPartBuilder.create().uv(0, 5).cuboid(-1f, 0, 0.25f, 2.0f, 2.0f, 1.0f, dilation),
                     ModelTransform.of(0f, -4.0f, -5.0f, 0, 0, 0));
 
             head.addChild(BEARD, ModelPartBuilder.create().uv(56, 25).cuboid(0, 0, -4f, 7.0f, 5.0f, 2.0f, dilation),

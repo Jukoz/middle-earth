@@ -207,6 +207,6 @@ public class ModResourceItems {
     }
 
     public static void registerModItems() {
-        LoggerUtil.getInstance().logDebugMsg("Registering Mod Resource Items for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering Mod Resource Items for " + MiddleEarth.MOD_ID);
     }
 }

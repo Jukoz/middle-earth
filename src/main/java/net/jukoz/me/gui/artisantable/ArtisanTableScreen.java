@@ -18,7 +18,6 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.StonecuttingRecipe;
 import net.minecraft.screen.*;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;

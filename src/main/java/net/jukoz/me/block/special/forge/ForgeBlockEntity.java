@@ -5,6 +5,7 @@ import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.gui.forge.ForgeScreenHandler;
 import net.jukoz.me.recipe.AlloyingRecipe;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

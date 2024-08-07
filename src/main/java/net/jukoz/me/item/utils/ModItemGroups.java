@@ -11,6 +11,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -57,6 +58,7 @@ public class ModItemGroups {
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".decorative_blocks"))
             .icon(() -> new ItemStack(ModDecorativeItems.DWARVEN_LANTERN))
             .entries((displayContext, entries) -> {
+                ModBannerItems.addBannersToItemGroup(displayContext.lookup().getWrapperOrThrow(RegistryKeys.BANNER_PATTERN));
                 for (ItemStack item : DECORATIVES_BLOCKS_CONTENT) {
                     entries.add(item);
                 }

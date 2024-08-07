@@ -142,6 +142,6 @@ public class MEBiomeKeys extends BiomeKeys {
     }
 
     public static void registerModBiomes() {
-        LoggerUtil.getInstance().logDebugMsg("Registering ModBiomes for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering ModBiomes for " + MiddleEarth.MOD_ID);
     }
 }

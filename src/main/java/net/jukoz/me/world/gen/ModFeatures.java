@@ -17,7 +17,7 @@ public class ModFeatures {
     public static Feature<PillarFeatureConfig> PILLAR = register("pillar", new PillarFeature(PillarFeatureConfig.CODEC));
 
     public static void init() {
-        LoggerUtil.getInstance().logInfoMsg("Registering new features");
+        LoggerUtil.logInfoMsg("Registering new features");
     }
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {
