@@ -3,9 +3,9 @@
 	"parent": "me:item/lorien_small_shield_template",
 	"texture_size": [64, 64],
 	"textures": {
-		"2": "me:item/lorien_shield"
+		"2": "me:item/lorien_mallorn_shield"
 	},
 	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/lorien_shield_blocking"}
+		{"predicate": {"blocking": 1}, "model": "me:item/lorien_mallorn_shield_blocking"}
 	]
 }

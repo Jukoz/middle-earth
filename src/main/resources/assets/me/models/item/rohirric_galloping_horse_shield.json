@@ -3,9 +3,9 @@
 	"parent": "me:item/small_round_shield_template",
 	"texture_size": [64, 64],
 	"textures": {
-		"8": "me:item/rohirric_twin_horses_shield"
+		"8": "me:item/rohirric_galloping_horse_shield"
 	},
 	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/rohirric_twin_horses_shield_blocking"}
+		{"predicate": {"blocking": 1}, "model": "me:item/rohirric_galloping_horse_shield_blocking"}
 	]
 }

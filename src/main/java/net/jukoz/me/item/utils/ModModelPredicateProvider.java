@@ -33,25 +33,7 @@ public class ModModelPredicateProvider {
     }
 
     private static void registerShieldModel() {
-        registerShield(ModEquipmentItems.GONDORIAN_SHIELD);
-        registerShield(ModEquipmentItems.GONDORIAN_TOWER_SHIELD);
-        registerShield(ModEquipmentItems.GONDORIAN_KINGS_GUARD_TOWER_SHIELD);
-        registerShield(ModEquipmentItems.LAST_ALLIANCE_HEILOOM_TOWER_SHIELD);
-        registerShield(ModEquipmentItems.GONDORIAN_HERO_SHIELD);
-        registerShield(ModEquipmentItems.GONDORIAN_KNIGHT_SHIELD);
-        registerShield(ModEquipmentItems.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD);
-        registerShield(ModEquipmentItems.ROHIRRIC_SHIELD);
-        registerShield(ModEquipmentItems.ROHIRRIC_BUCKING_HORSE_SHIELD);
-        registerShield(ModEquipmentItems.ROHIRRIC_HORSE_SHIELD);
-        registerShield(ModEquipmentItems.ROHIRRIC_PLAINSMAN_SHIELD);
-        registerShield(ModEquipmentItems.ROHIRRIC_TWIN_HORSES_SHIELD);
-        registerShield(ModEquipmentItems.ROHIRRIC_EORLING_SHIELD);
-        registerShield(ModEquipmentItems.ROHIRRIC_ORNAMENTED_SHIELD);
-        registerShield(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_SHIELD);
-        registerShield(ModEquipmentItems.LONGBEARD_SHIELD);
-        registerShield(ModEquipmentItems.LORIEN_SHIELD);
-        registerShield(ModEquipmentItems.MORDOR_SHIELD);
-        registerShield(ModEquipmentItems.MISTY_MOUNTAINS_SHIELD);
+        ModEquipmentItems.shields.forEach(ModModelPredicateProvider::registerShield);
     }
 
     private static void registerShield(Item shield) {

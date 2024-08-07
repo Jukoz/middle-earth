@@ -3,9 +3,9 @@
 	"parent": "me:item/very_small_round_shield_template",
 	"texture_size": [64, 64],
 	"textures": {
-		"1": "me:item/gondorian_hero_shield"
+		"1": "me:item/round_shield"
 	},
 	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/gondorian_hero_shield_blocking"}
+		{"predicate": {"blocking": 1}, "model": "me:item/round_shield_blocking"}
 	]
 }
