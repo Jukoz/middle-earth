@@ -27,11 +27,12 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
         float width = (float) Math.ceil(config.width) + (random.nextFloat() * config.randomSize);
         float baseHeight = context.getConfig().height + (random.nextFloat() * config.randomSize);
 
+        float forSize = Math.max(length, width) * 2f;
         float angle = random.nextFloat() * 180;
 
-        for(int x = (int) -length-2; x <= length+2; ++x) {
-            for(int z = (int) -length-2; z <= length+2; ++z) {
-                for(int y = (int) -baseHeight-2; y <= baseHeight+2; ++y) {
+        for(int x = (int) -forSize; x <= forSize; ++x) {
+            for(int z = (int) -forSize; z <= forSize; ++z) {
+                for(int y = (int) -baseHeight-3; y <= baseHeight+3; ++y) {
                     if (this.isPointInside(x, y, z, length, width, baseHeight, angle, config.randomness, random)) {
                         BlockState blockState = config.blockStates.get(random.nextBetween(0, config.blockStates.size() - 1));
                         this.setBlockState(structureWorldAccess, blockPos.mutableCopy().add(x, y, z), blockState);
@@ -42,7 +43,6 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
 
         return true;
     }
-
 
     private boolean isPointInside(int x, int y, int z, float length, float width, float baseHeight, float angle, float randomNoise, Random random) {
         float randomness = -randomNoise + (random.nextFloat() * randomNoise * 2);
