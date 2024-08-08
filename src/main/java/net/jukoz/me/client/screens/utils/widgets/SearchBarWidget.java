@@ -127,7 +127,7 @@ public class SearchBarWidget {
                 magnifyingGlassSizeY
         );
 
-        return panelSizeY + MINIMAL_MARGIN / 2;
+        return panelSizeY + MINIMAL_MARGIN;
     }
 
     public int drawSearchResultsCentered(DrawContext context, int centerX, int startY, Map<Alignment, List<Faction>> factions) {
@@ -300,7 +300,7 @@ public class SearchBarWidget {
     }
 
     public void keyPressed(int keyCode, int scanCode, int modifiers) {
-        if(searchBarToggle){
+        if(searchBarToggle && searchBarToggleButton.isFocused()){
             // Keybind : Enter
             if(keyCode == 257){
                 triggerSearch();
