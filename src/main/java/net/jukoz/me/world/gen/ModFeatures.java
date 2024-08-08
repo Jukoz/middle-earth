@@ -2,6 +2,8 @@ package net.jukoz.me.world.gen;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.features.boulder.BigBoulderFeature;
+import net.jukoz.me.world.features.boulder.BigBoulderFeatureConfig;
 import net.jukoz.me.world.features.columns.ColumnFeature;
 import net.jukoz.me.world.features.columns.ColumnFeatureConfig;
 import net.jukoz.me.world.features.ores.SurfaceOreFeature;
@@ -18,6 +20,7 @@ public class ModFeatures {
     public static Feature<OreFeatureConfig> SURFACE_ORE = register("surface_ore", new SurfaceOreFeature(OreFeatureConfig.CODEC));
     public static Feature<PillarFeatureConfig> PILLAR = register("pillar", new PillarFeature(PillarFeatureConfig.CODEC));
     public static Feature<ColumnFeatureConfig> COLUMN = register("column", new ColumnFeature(ColumnFeatureConfig.CODEC));
+    public static Feature<BigBoulderFeatureConfig> BIG_BOULDER = register("big_boulder", new BigBoulderFeature(BigBoulderFeatureConfig.CODEC));
 
     public static void init() {
         LoggerUtil.getInstance().logInfoMsg("Registering new features");

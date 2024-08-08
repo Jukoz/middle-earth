@@ -54,10 +54,12 @@ public class OvalFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected void generate(TestableWorld world, BlockPlacer placer, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, int offset) {
+    protected void generate(TestableWorld world, BlockPlacer placer, Random random, TreeFeatureConfig config, int trunkHeight,
+                            TreeNode treeNode, int foliageHeight, int radius, int offset) {
         BlockPos.Mutable mutable = new BlockPos.Mutable();
-        for(int x = -radius; x <= radius; ++x) {
-            for(int z = -radius; z <= radius; ++z) {
+        int bounds = radius + 1;
+        for(int x = -bounds; x <= bounds; ++x) {
+            for(int z = -bounds; z <= bounds; ++z) {
                 for(int y = -baseHeight; y <= baseHeight; ++y) {
                     if (!this.isPositionInvalid(random, x, offset + y, z, radius, false)) {
                         if (isPointInside(x, y, z, radius)) {
