@@ -45,7 +45,7 @@ public class GooseBrain {
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
                 new StayAboveWaterTask(1.0F),
                 new LookAroundTask(45, 90),
-                new WanderAroundTask(),
+                //new WanderAroundTask(), //TODO renamed need to finc replacement, if we ever even use brains (we should)
                 new TemptationCooldownTask(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
                 new TemptationCooldownTask(MemoryModuleType.GAZE_COOLDOWN_TICKS)));
     }
