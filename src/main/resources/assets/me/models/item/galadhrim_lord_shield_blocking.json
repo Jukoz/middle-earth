@@ -1,0 +1,42 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "me:item/galadhrim_lord_shield",
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [45, -45, 0],
+			"translation": [1.25, -0.25, -4.75]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [45, -45, 0],
+			"translation": [1.25, -0.25, -4.75]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 0, -3],
+			"translation": [-1.25, -4, 0]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 0, -3],
+			"translation": [-1.25, -4, 0]
+		},
+		"ground": {
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [-165.64, 50.76, -175.87],
+			"translation": [0, 1.25, 0],
+			"scale": [0.47109, 0.47109, 0.47109]
+		},
+		"fixed": {
+			"translation": [0, 0, -1.75],
+			"scale": [1.75, 1.75, 1.75]
+		}
+	},
+	"groups": [
+		{
+			"name": "root",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+		}
+	]
+}

@@ -875,8 +875,17 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModFactions.ISENGARD));
 
+    public static final Item URUK_HAI_HEATER_SHIELD = registerShield("uruk_hai_heater_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
     public static final Item URUK_HAI_SHIELD = registerShield("uruk_hai_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor")));
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
+    public static final Item URUK_HAI_WHITE_HAND_SHIELD = registerShield("uruk_hai_white_hand_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
+    public static final Item URUK_HAI_WHITE_PALMPRINT_SHIELD = registerShield("uruk_hai_white_palmprint_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
+    public static final Item URUK_HAI_S_RUNE_SHIELD = registerShield("uruk_hai_s_rune_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
+
 
     //endregion
 

@@ -3,6 +3,6 @@
 	"parent": "me:item/uruk_hai_heavy_shield_template",
 	"texture_size": [64, 64],
 	"textures": {
-		"1": "me:item/uruk_hai_shield"
+		"1": "me:item/uruk_hai_s_rune_shield"
 	}
 }
