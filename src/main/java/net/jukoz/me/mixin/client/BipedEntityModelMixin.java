@@ -8,6 +8,7 @@ import net.jukoz.me.utils.PlayerMovementData;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
@@ -16,6 +17,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mixin(BipedEntityModel.class)
 public class BipedEntityModelMixin {
@@ -29,14 +33,18 @@ public class BipedEntityModelMixin {
 
     @Inject(at = @At("TAIL"), method = "positionRightArm")
     private void positionRightArm(LivingEntity entity, CallbackInfo ci) {
-        if(this.rightArmPose == BipedEntityModel.ArmPose.ITEM) {
+        List<ItemStack> handItems = new ArrayList<>();
+        entity.getHandItems().forEach(handItems::add);
+        if(handItems.get(0) != null) {
             tryItemAnimation(entity.getMainHandStack(), entity, true);
         }
     }
 
     @Inject(at = @At("TAIL"), method = "positionLeftArm")
     private void positionLeftArm(LivingEntity entity, CallbackInfo ci) {
-        if(this.leftArmPose == BipedEntityModel.ArmPose.ITEM) {
+        List<ItemStack> handItems = new ArrayList<>();
+        entity.getHandItems().forEach(handItems::add);
+        if(handItems.get(1) != null) {
             tryItemAnimation(entity.getOffHandStack(), entity, false);
         }
     }
@@ -59,6 +67,11 @@ public class BipedEntityModelMixin {
                 int afkTime = PlayerMovementData.readAFK((IEntityDataSaver) playerEntity);
                 if(rightHand && afkTime > 60) {
                     this.rightArm.pitch = -1.4f;
+                }
+            } else if(entity instanceof MobEntity mob) {
+                if(mob.isAiDisabled()) {
+                    if(rightHand) this.rightArm.pitch = -1.4f;
+                    else this.leftArm.pitch = -1.4f;
                 }
             }
         } else if (itemStack.getItem() == ModDecorativeItems.TORCH_OF_ORTHANC) {
