@@ -87,6 +87,7 @@ public class MineablePickaxe {
             add(ModBlocks.ASHEN_PILLAR);
 
             add(ModBlocks.GONLUIN_PILLAR);
+            add(ModBlocks.MOSSY_GONLUIN_PILLAR);
             add(ModBlocks.CRACKED_GONLUIN_PILLAR);
 
             add(ModBlocks.DEEPSLATE_PILLAR);
@@ -94,8 +95,8 @@ public class MineablePickaxe {
             add(ModBlocks.FROZEN_PILLAR);
 
             add(ModBlocks.DOLOMITE_PILLAR);
-            add(ModBlocks.MOSSY_DOLOMITE_PILLAR);
-            add(ModBlocks.CRACKED_DOLOMITE_PILLAR);
+            //add(ModBlocks.MOSSY_DOLOMITE_PILLAR);
+            //add(ModBlocks.CRACKED_DOLOMITE_PILLAR);
 
             add(ModBlocks.IRONSTONE_PILLAR);
 

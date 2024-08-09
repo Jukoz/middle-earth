@@ -48,8 +48,8 @@ public class SimplePillarModel {
             add(new StonePillar(ModBlocks.FROZEN_PILLAR, StoneBlockSets.FROZEN_BRICKS.base()));
 
             add(new StonePillar(ModBlocks.DOLOMITE_PILLAR, StoneBlockSets.DOLOMITE_BRICKS.base()));
-            add(new StonePillar(ModBlocks.MOSSY_DOLOMITE_PILLAR, ModBlocks.DOLOMITE_PILLAR));
-            add(new StonePillar(ModBlocks.CRACKED_DOLOMITE_PILLAR, ModBlocks.DOLOMITE_PILLAR));
+            //add(new StonePillar(ModBlocks.MOSSY_DOLOMITE_PILLAR, ModBlocks.DOLOMITE_PILLAR));
+            //add(new StonePillar(ModBlocks.CRACKED_DOLOMITE_PILLAR, ModBlocks.DOLOMITE_PILLAR));
 
             add(new StonePillar(ModBlocks.IRONSTONE_PILLAR, StoneBlockSets.IRONSTONE_BRICKS.base()));
 

@@ -72,11 +72,11 @@ public class StoneBlockSets {
     public static SimpleBlockSet MOSSY_POLISHED_DOLOMITE = registerStoneSet("mossy_polished_dolomite", DOLOMITE.base.getHardness(), DOLOMITE.base.getBlastResistance(), POLISHED_DOLOMITE.base);
     public static SimpleBlockSet CRACKED_POLISHED_DOLOMITE = registerStoneSet("cracked_polished_dolomite", DOLOMITE.base.getHardness(), DOLOMITE.base.getBlastResistance(), POLISHED_DOLOMITE.base);
     public static SimpleBlockSet DOLOMITE_BRICKS = registerStoneSet("dolomite_bricks", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, POLISHED_DOLOMITE.base);
-    public static SimpleBlockSet MOSSY_DOLOMITE_BRICKS = registerStoneSet("mossy_dolomite_bricks", COBBLED_DOLOMITE.base.getHardness(), COBBLED_DOLOMITE.base.getBlastResistance(), DOLOMITE_BRICKS.base);
-    public static SimpleBlockSet CRACKED_DOLOMITE_BRICKS = registerStoneSet("cracked_dolomite_bricks", COBBLED_DOLOMITE.base.getHardness(), COBBLED_DOLOMITE.base.getBlastResistance(), DOLOMITE_BRICKS.base);
+    //public static SimpleBlockSet MOSSY_DOLOMITE_BRICKS = registerStoneSet("mossy_dolomite_bricks", COBBLED_DOLOMITE.base.getHardness(), COBBLED_DOLOMITE.base.getBlastResistance(), DOLOMITE_BRICKS.base);
+    //public static SimpleBlockSet CRACKED_DOLOMITE_BRICKS = registerStoneSet("cracked_dolomite_bricks", COBBLED_DOLOMITE.base.getHardness(), COBBLED_DOLOMITE.base.getBlastResistance(), DOLOMITE_BRICKS.base);
     public static SimpleBlockSet DOLOMITE_TILES = registerStoneSet("dolomite_tiles", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, DOLOMITE_BRICKS.base);
-    public static SimpleBlockSet MOSSY_DOLOMITE_TILES = registerStoneSet("mossy_dolomite_tiles", COBBLED_DOLOMITE.base.getHardness(), COBBLED_DOLOMITE.base.getBlastResistance(), DOLOMITE_TILES.base);
-    public static SimpleBlockSet CRACKED_DOLOMITE_TILES = registerStoneSet("cracked_dolomite_tiles", COBBLED_DOLOMITE.base.getHardness(), COBBLED_DOLOMITE.base.getBlastResistance(), DOLOMITE_TILES.base);
+    //public static SimpleBlockSet MOSSY_DOLOMITE_TILES = registerStoneSet("mossy_dolomite_tiles", COBBLED_DOLOMITE.base.getHardness(), COBBLED_DOLOMITE.base.getBlastResistance(), DOLOMITE_TILES.base);
+    //public static SimpleBlockSet CRACKED_DOLOMITE_TILES = registerStoneSet("cracked_dolomite_tiles", COBBLED_DOLOMITE.base.getHardness(), COBBLED_DOLOMITE.base.getBlastResistance(), DOLOMITE_TILES.base);
 
     public static SimpleBlockSet DOLOMITE_BRICKWORK = registerStoneSet("dolomite_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
 
@@ -384,11 +384,11 @@ public class StoneBlockSets {
             COBBLED_DOLOMITE,
             MOSSY_COBBLED_DOLOMITE,
             DOLOMITE_BRICKS,
-            MOSSY_DOLOMITE_BRICKS,
-            CRACKED_DOLOMITE_BRICKS,
+            //MOSSY_DOLOMITE_BRICKS,
+            //CRACKED_DOLOMITE_BRICKS,
             DOLOMITE_TILES,
-            MOSSY_DOLOMITE_TILES,
-            CRACKED_DOLOMITE_TILES,
+            //MOSSY_DOLOMITE_TILES,
+            //CRACKED_DOLOMITE_TILES,
             POLISHED_DOLOMITE,
             MOSSY_POLISHED_DOLOMITE,
             CRACKED_POLISHED_DOLOMITE,

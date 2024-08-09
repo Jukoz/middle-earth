@@ -1243,6 +1243,16 @@
   "block.me.calcite_chair": "Calcite Chair",
 
 "#Comment:": "Block - Dolomite",
+  "block.me.smooth_dolomite": "Smooth Dolomite",
+  "block.me.smooth_dolomite_slab": "Smooth Dolomite Slab",
+  "block.me.smooth_dolomite_vertical_slab": "Smooth Dolomite Vertical Slab",
+  "block.me.smooth_dolomite_stairs": "Smooth Dolomite Stairs",
+  "block.me.smooth_dolomite_wall": "Smooth Dolomite Wall",
+  "block.me.cracked_smooth_dolomite": "Cracked Smooth Dolomite",
+  "block.me.cracked_smooth_dolomite_slab": "Cracked Smooth Dolomite Slab",
+  "block.me.cracked_smooth_dolomite_vertical_slab": "Cracked Smooth Dolomite Vertical Slab",
+  "block.me.cracked_smooth_dolomite_stairs": "Cracked Smooth Dolomite Stairs",
+  "block.me.cracked_smooth_dolomite_wall": "Cracked Smooth Dolomite Wall",
   "block.me.cobbled_dolomite": "Cobbled Dolomite",
   "block.me.cobbled_dolomite_slab": "Cobbled Dolomite Slab",
   "block.me.cobbled_dolomite_vertical_slab": "Cobbled Dolomite Vertical Slab",
@@ -1308,6 +1318,7 @@
   "block.me.cracked_polished_dolomite_wall": "Cracked Polished Dolomite Wall",
   "block.me.chiseled_polished_dolomite": "Chiseled Polished Dolomite",
   "block.me.chiseled_dolomite_bricks": "Chiseled Dolomite Bricks",
+  "block.me.chiseled_dolomite": "Chiseled Dolomite",
 
   "block.me.dolomite_pressure_plate": "Dolomite Pressure Plate",
   "block.me.dolomite_button": "Dolomite Button",
@@ -3649,6 +3660,12 @@
 
   "block.me.sedum": "Sedum",
   "block.me.yellow_sedum": "Yellow Sedum",
+
+  "block.me.bracken": "Bracken",
+
+  "block.me.dead_rushes": "Dead Rushes",
+  "block.me.false_oatgrass": "False Oatgrass",
+
   "block.me.short_cattails": "Short Cattails",
   "block.me.tall_cattails": "Tall Cattails",
   "block.me.tall_bulrush": "Tall Bulrush",
