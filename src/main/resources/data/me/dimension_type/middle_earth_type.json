@@ -13,7 +13,7 @@
   "piglin_safe" : false,
   "height": 384,
   "min_y": -64,
-  "effects": "me:middle-earth",
+  "effects": "me:middle_earth",
   "monster_spawn_block_light_limit": 1,
   "monster_spawn_light_level": 7
 }

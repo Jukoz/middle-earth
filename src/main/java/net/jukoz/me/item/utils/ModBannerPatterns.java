@@ -14,6 +14,12 @@ public class ModBannerPatterns {
     public static final RegistryKey<BannerPattern> MISTY_ORCS_BANNER_PATTERN = key("misty_orcs");
     public static final RegistryKey<BannerPattern> ISENGARD_BANNER_PATTERN = key("isengard");
 
+    // Variants
+    public static final RegistryKey<BannerPattern> MORDOR_EYE_BANNER_PATTERN = key("mordor_eye");
+    public static final RegistryKey<BannerPattern> MORDOR_GREAT_EYE_BANNER_PATTERN = key("mordor_great_eye");
+    public static final RegistryKey<BannerPattern> MISTY_ORCS_EYE_BANNER_PATTERN = key("misty_orcs_eye");
+    public static final RegistryKey<BannerPattern> MISTY_ORCS_PEAKS_BANNER_PATTERN = key("misty_orcs_peaks");
+
     public static final RegistryKey<BannerPattern> DRAGON_BANNER_PATTERN = key("dragon");
 
     private static RegistryKey<BannerPattern> key(String id) {

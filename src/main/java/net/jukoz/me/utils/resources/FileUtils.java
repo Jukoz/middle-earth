@@ -54,7 +54,7 @@ public class FileUtils {
             File f = new File(path + fileName);
             ImageIO.write(bufferedImage, fileType.extension, f);
         } catch(Exception e){
-            LoggerUtil.getInstance().logError("Image Utils couldn't save image for {0}.".formatted(path + fileName));
+            LoggerUtil.logError("Image Utils couldn't save image for {0}.".formatted(path + fileName));
         }
     }
 

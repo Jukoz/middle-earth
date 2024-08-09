@@ -577,6 +577,6 @@ public class StoneBlockSets {
     }
 
     public static void registerModBlockSets() {
-        LoggerUtil.getInstance().logDebugMsg("Registering SimpleBlockSets for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering SimpleBlockSets for " + MiddleEarth.MOD_ID);
     }
 }
