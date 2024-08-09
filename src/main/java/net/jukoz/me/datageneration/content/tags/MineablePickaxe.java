@@ -144,7 +144,6 @@ public class MineablePickaxe {
             add(ModDecorativeBlocks.SMALL_BRAZIER);
             add(ModDecorativeBlocks.FIRE_BOWL);
             add(ModDecorativeBlocks.BONFIRE);
-            add(ModDecorativeBlocks.SCONCE);
             add(ModDecorativeBlocks.WALL_SCONCE);
         }
     };
