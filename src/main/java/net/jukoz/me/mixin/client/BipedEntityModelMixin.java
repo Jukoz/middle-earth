@@ -70,7 +70,8 @@ public class BipedEntityModelMixin {
                 }
             } else if(entity instanceof MobEntity mob) {
                 if(mob.isAiDisabled()) {
-                    this.rightArm.pitch = -1.4f;
+                    if(rightHand) this.rightArm.pitch = -1.4f;
+                    else this.leftArm.pitch = -1.4f;
                 }
             }
         } else if (itemStack.getItem() == ModDecorativeItems.TORCH_OF_ORTHANC) {
