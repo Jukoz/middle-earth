@@ -37,13 +37,11 @@ public class StateSaverAndLoader extends PersistentState {
             BlockPos overworldSpawn = playerData.getOverworldSpawnCoordinates();
             if(overworldSpawn != null){
                 playerNbt.putIntArray("ow", new int[]{overworldSpawn.getX(), overworldSpawn.getY(), overworldSpawn.getZ()});
-                LoggerUtil.logDebugMsg("Overworld="+overworldSpawn+";");
             }
 
             BlockPos middleEarthSpawn = playerData.getMiddleEarthSpawnCoordinates();
             if(playerData.getMiddleEarthSpawnCoordinates() != null){
                 playerNbt.putIntArray("me", new int[]{middleEarthSpawn.getX(), middleEarthSpawn.getY(), middleEarthSpawn.getZ()});
-                LoggerUtil.logDebugMsg("Middle_Earth="+middleEarthSpawn+";");
             }
 
             playersNbt.put(uuid.toString(), playerNbt);
@@ -75,7 +73,6 @@ public class StateSaverAndLoader extends PersistentState {
                             overworldPos[2]
                     );
                     playerData.setOverworldSpawn(overworldSpawn);
-                    LoggerUtil.logDebugMsg("Overworld="+overworldSpawn+";");
                 }
 
                 int[] middleEarthPos = playersNbt.getCompound(key).getIntArray("me");
@@ -86,7 +83,6 @@ public class StateSaverAndLoader extends PersistentState {
                             middleEarthPos[2]
                     );
                     playerData.setMiddleEarthSpawn(middleEarthSpawn);
-                    LoggerUtil.logDebugMsg("MiddleEarth="+middleEarthSpawn+";");
                 }
             } catch(Exception e){
 
