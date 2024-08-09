@@ -25,6 +25,13 @@ public class CustomAxeWeaponItem extends AxeItem {
 
     private final ModWeaponTypes type;
 
+    public CustomAxeWeaponItem(Settings settings, ToolMaterial toolMaterial) {
+        super(toolMaterial, settings.attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
+        this.faction = Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic");
+        this.subFaction = null;
+        this.type = ModWeaponTypes.AXE;
+    }
+
     public CustomAxeWeaponItem(ToolMaterial toolMaterial) {
         super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
         this.faction = Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic");

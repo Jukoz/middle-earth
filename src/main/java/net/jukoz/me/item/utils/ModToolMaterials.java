@@ -15,7 +15,7 @@ public enum ModToolMaterials implements ToolMaterial
 {
     JADE(BlockTags.INCORRECT_FOR_STONE_TOOL, 256, 4.0f, 1.0f, 5, () -> Ingredient.ofItems(StoneBlockSets.JADEITE.base())),
     BRONZE(BlockTags.INCORRECT_FOR_IRON_TOOL, 200, 5.0f, 1.0f, 5, () -> Ingredient.ofItems(ModResourceItems.BRONZE_INGOT)),
-    ORC_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 500, 6.5f, 2.0f, 7, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT)),
+    SLAG(BlockTags.INCORRECT_FOR_IRON_TOOL, 200, 5.0f, 1.0f, 5, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT)),
     STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)),
     NOBLE_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)),
     URUK_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT)),
