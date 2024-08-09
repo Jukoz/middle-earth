@@ -6,6 +6,6 @@
 		"2": "me:item/gondorian_ornamented_knight_shield"
 	},
 	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "me:item/gondorian_knight_shield_blocking"}
+		{"predicate": {"blocking": 1}, "model": "me:item/gondorian_ornamented_knight_shield_blocking"}
 	]
 }

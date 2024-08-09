@@ -4,5 +4,8 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"1": "me:item/uruk_hai_shield"
-	}
+	},
+	"overrides": [
+		{"predicate": {"blocking": 1}, "model": "me:item/uruk_hai_shield_blocking"}
+	]
 }

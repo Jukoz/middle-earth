@@ -685,9 +685,14 @@
   "item.me.steel_troll_armor": "Steel Troll Armor",
 
 "#Comment:": "Shields",
+  "item.me.round_shield": "Round Shield",
+  "item.me.heater_shield": "Heater Shield",
+  "item.me.kite_shield": "Kite Shield",
+
   "item.me.rohirric_shield": "Rohirric Shield",
   "item.me.rohirric_bucking_horse_shield": "Rohirric Bucking Horse Shield",
-  "item.me.rohirric_horse_shield": "Rohirric Horse Shield",
+  "item.me.rohirric_galloping_horse_shield": "Rohirric Galloping Horse Shield",
+  "item.me.rohirric_horse_head_shield": "Rohirric Horse Head Shield",
   "item.me.rohirric_plainsman_shield": "Rohirric Plainsman Shield",
   "item.me.rohirric_twin_horses_shield": "Rohirric Twin Horses Shield",
   "item.me.rohirric_eorling_shield": "Rohirric Eorling Shield",
@@ -705,8 +710,19 @@
   "item.me.longbeard_shield": "Longbeard Shield",
 
   "item.me.lorien_shield": "Lórien Shield",
+  "item.me.lorien_laurels_shield": "Lórien Laurels Shield",
+  "item.me.lorien_mallorn_shield": "Lórien Mallorn Shield",
+  "item.me.galadhrim_shield": "Galadhirm Shield",
+  "item.me.galadhrim_lord_shield": "Galadhirm Lord Shield",
 
+  "item.me.black_numenorean_tower_shield": "Black Númenórean Shield",
   "item.me.mordor_shield": "Mordor Shield",
+
+  "item.me.uruk_hai_heater_shield": "Uruk-Hai Heater Shield",
+  "item.me.uruk_hai_shield": "Uruk-Hai Shield",
+  "item.me.uruk_hai_white_hand_shield": "Uruk-Hai White Hand Shield",
+  "item.me.uruk_hai_white_palmprint_shield": "Uruk-Hai White Palmprint Shield",
+  "item.me.uruk_hai_s_rune_shield": "Uruk-Hai S Rune Shield",
 
   "item.me.misty_mountains_shield": "Misty Mountains Shield",
 

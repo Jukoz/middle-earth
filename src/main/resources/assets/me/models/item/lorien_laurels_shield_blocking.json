@@ -1,6 +1,6 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "me:item/black_numenorean_tower_shield",
+	"parent": "me:item/lorien_laurels_shield",
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [45, -45, 0],
