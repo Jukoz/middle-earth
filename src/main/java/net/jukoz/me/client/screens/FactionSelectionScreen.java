@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.utils.CycledSelectionButtonType;
 import net.jukoz.me.client.screens.utils.widgets.CycledSelectionWidget;
+import net.jukoz.me.client.screens.utils.widgets.MapWidget;
 import net.jukoz.me.client.screens.utils.widgets.PlayableNpcPreviewWidget;
 import net.jukoz.me.client.screens.utils.widgets.SearchBarWidget;
 import net.jukoz.me.network.packets.AffiliationPacket;
@@ -36,6 +37,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import org.joml.Vector2i;
 
 import java.awt.event.KeyEvent;
 import java.util.*;
@@ -45,9 +47,7 @@ public class FactionSelectionScreen extends Screen {
     private static final Identifier FACTION_SELECTION_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection.png");
     private static final Identifier FACTION_SELECTION_BANNER_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_banner.png");
     private static final Identifier FACTION_SELECTION_BUTTONS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_buttons.png");
-    private static final Identifier MAP_BACKGROUND = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
-    private static final Identifier MAP_UI_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
-    private static final Identifier MAP_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
+    private static final Identifier MAP_SELECTION = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_map.png");
     private static final Text FACTION_SELECTION_TITLE = Text.of("faction_selection_screen");
     AbstractClientPlayerEntity player;
     private static final int MINIMAL_MARGIN = 4;
@@ -63,8 +63,19 @@ public class FactionSelectionScreen extends Screen {
     private CycledSelectionWidget factionSelectionWidget;
     private CycledSelectionWidget subfactionSelectionWidget;
     public ButtonWidget factionRandomizerButton;
-    public ButtonWidget spawnSelectionConfirmButton;
+
+    // Map buttons
+    public ButtonWidget mapZoomInButton;
+    public ButtonWidget mapZoomOutButton;
+    public ButtonWidget mapViewAllButton;
+    public boolean mapViewAllToggle = false;
+    public ButtonWidget mapFocusButton;
+    public boolean mapFocusToggle = false;
+    private MapWidget mapWidget;
+    private CycledSelectionWidget spawnPointCycledSelection;
     public ButtonWidget spawnSelectionRandomizerButton;
+    public ButtonWidget spawnSelectionConfirmButton;
+
     private int mouseX;
     private int mouseY;
 
@@ -90,6 +101,18 @@ public class FactionSelectionScreen extends Screen {
         playableNpcPreviewWidget = new PlayableNpcPreviewWidget(this.client.world);
         updateEquipment();
 
+        addFactionSelectionPanelButtons();
+        mapWidget = new MapWidget(114, 114);
+        addMapPanelButtonsAndWidgets();
+
+        addDrawableChild(searchBarWidget.getScreenClickButton());
+    }
+
+    /**
+     * Add all faction selection buttons
+     * - Cycled widgets & Randomizer
+     */
+    private void addFactionSelectionPanelButtons() {
         // Alignment
         ButtonWidget.PressAction alignmentActionLeft = button -> {
             currentAlignementIndex--;
@@ -205,6 +228,67 @@ public class FactionSelectionScreen extends Screen {
         };
         factionRandomizerButton = ButtonWidget.builder(Text.of("Faction randomizer clicked"), factionRandomizer).build();
         addDrawableChild(factionRandomizerButton);
+    }
+
+    /**
+     * Add all map buttons
+     * - Map widgets & Cycled widgets & Randomizer & Confirms
+     */
+    private void addMapPanelButtonsAndWidgets() {
+        // Focus all spawn points (from data)
+        ButtonWidget.PressAction viewAllAction = button -> {
+            // TODO : Add widget method here
+            LoggerUtil.logDebugMsg("View all action!");
+            mapViewAllToggle = true;
+            mapFocusToggle = false;
+        };
+        mapViewAllButton = ButtonWidget.builder(Text.of("View all"), viewAllAction).build();
+        addDrawableChild(mapViewAllButton);
+
+        // Focus current spawn point (from data)
+        ButtonWidget.PressAction focusCurrentAction = button -> {
+            // TODO : Add widget method here
+            LoggerUtil.logDebugMsg("Focus current action!");
+            mapFocusToggle = true;
+            mapViewAllToggle = false;
+        };
+        mapFocusButton = ButtonWidget.builder(Text.of("Focus current"), focusCurrentAction).build();
+        addDrawableChild(mapFocusButton);
+
+        // Zoom out the map to have a more broad view
+        ButtonWidget.PressAction zoomOutAction = button -> {
+            // TODO : Add widget method here
+            LoggerUtil.logDebugMsg("Zoom out action!");
+        };
+        mapZoomOutButton = ButtonWidget.builder(Text.of("Zoom out"), zoomOutAction).build();
+        addDrawableChild(mapZoomOutButton);
+
+        // Zoom into the map to have a closeup view
+        ButtonWidget.PressAction zoomInAction = button -> {
+            // TODO : Add widget method here
+            LoggerUtil.logDebugMsg("Zoom in action!");
+        };
+        mapZoomInButton = ButtonWidget.builder(Text.of("Zoom in"), zoomInAction).build();
+        addDrawableChild(mapZoomInButton);
+
+        // Spawn Point Selection
+        ButtonWidget.PressAction spawnPointActionLeft = button -> {
+            // TODO : Add logic
+            LoggerUtil.logDebugMsg("Spawn point action left!");
+        };
+
+        ButtonWidget.PressAction spawnPointActionRight = button -> {
+            // TODO : Add logic
+            LoggerUtil.logDebugMsg("Spawn point action right!");
+        };
+
+        spawnPointCycledSelection = new CycledSelectionWidget(
+                spawnPointActionLeft,
+                spawnPointActionRight,
+                null,
+                CycledSelectionButtonType.NORMAL);
+        addDrawableChild(spawnPointCycledSelection.getButtonLeft());
+        addDrawableChild(spawnPointCycledSelection.getButtonRight());
 
         // Random spawn selection
         ButtonWidget.PressAction randomSpawnSelectionAction = button -> {
@@ -241,8 +325,6 @@ public class FactionSelectionScreen extends Screen {
 
         spawnSelectionConfirmButton = ButtonWidget.builder(Text.of("Click on spawn selection confirm button"), confirmSpawnSelectionAction).build();
         addDrawableChild(spawnSelectionConfirmButton);
-
-        addDrawableChild(searchBarWidget.getScreenClickButton());
     }
 
     private void updateEquipment(){
@@ -297,8 +379,8 @@ public class FactionSelectionScreen extends Screen {
         int mainPanelHeight = 207;
 
         drawFactionSelectionPanel(context, mainPanelWidth, mainPanelHeight, mouseX, mouseY);
-        drawMapPanel(context, mainPanelWidth, mainPanelHeight);
         drawInformationPanel(context, mainPanelWidth, mainPanelHeight);
+        drawMapPanel(context, mainPanelWidth, mainPanelHeight);
     }
 
     private void drawInformationPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight) {
@@ -313,15 +395,13 @@ public class FactionSelectionScreen extends Screen {
                 mainPanelHeight
         );
 
-        drawFactionBanner(context, startX + mainPanelWidth - 50, startY + 5);
+        drawFactionBanner(context, startX + mainPanelWidth - 50, startY + 6);
     }
 
     private void drawFactionSelectionPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight, int mouseX, int mouseY) {
         int endX = (int) ((context.getScaledWindowWidth() / 2f) - (mainPanelWidth / 2f) - MINIMAL_MARGIN);
         int startX = Math.max(MINIMAL_MARGIN, endX  - mainPanelWidth);
         int startY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f));
-
-        int widthX = endX - Math.max(MINIMAL_MARGIN, startX);
 
         // Draw alignment option
         Alignment alignment = Alignment.values()[currentAlignementIndex];
@@ -332,6 +412,12 @@ public class FactionSelectionScreen extends Screen {
         int endY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight;
 
         int newStartY = startY + searchBarWidget.drawSearchBarCentered(context, centerX, startY, textRenderer);
+
+        // Rendered first to be in the background
+        playableNpcPreviewWidget.drawCenteredAnchoredBottom(context, centerX, endY - 18 - (MINIMAL_MARGIN * 2));
+        drawFactionRandomizer(context, centerX, endY);
+
+        // List all widgets one after the other
         searchBarWidget.updateMouse(mouseX, mouseY);
         searchBarWidget.setEndY(endY);
 
@@ -358,8 +444,6 @@ public class FactionSelectionScreen extends Screen {
             if(faction != null && (faction.getSubFactions() != null && !faction.getSubFactions().isEmpty()))
                 subfactionSelectionWidget.drawAnchored(context, endX, newStartY, false, (subFaction == null) ? null : subFaction.tryGetShortName(), textRenderer, mouseX, mouseY);
         }
-        playableNpcPreviewWidget.drawCenteredAnchoredBottom(context, centerX, endY - 18 - (MINIMAL_MARGIN * 2));
-        drawFactionRandomizer(context, centerX, endY);
 
         if(!factionRandomizerButton.active)
             factionRandomizerButton.active = true;
@@ -400,18 +484,85 @@ public class FactionSelectionScreen extends Screen {
     private void drawMapPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight) {
         int startX = (int) ((context.getScaledWindowWidth() / 2f) + (mainPanelWidth / 2f)) + MINIMAL_MARGIN;
         int startY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f));
-        int widthX = Math.min(context.getScaledWindowWidth() - startX, mainPanelWidth -MINIMAL_MARGIN);
-        context.drawTexture(MAP_TEXTURE,
+
+        int mapBackgroundWidth = 124;
+        int mapBackgroundHeight = 124;
+
+        context.drawTexture(MAP_SELECTION,
                 startX, startY,
                 0, 0,
-                widthX -MINIMAL_MARGIN,
-                widthX
+                mapBackgroundWidth,
+                mapBackgroundHeight
         );
+
+        mapWidget.drawAnchored(context,startX + 5, startY + 5, true);
+
+        // Arbritary
+        int buttonStartX = startX + MINIMAL_MARGIN + 2;
+        int buttonSize = 10;
+        startY += mapBackgroundHeight;
+
+        int smallButtonsStartY = startY - buttonSize - MINIMAL_MARGIN - 2;
+        // View all
+        context.drawTexture(MAP_SELECTION,
+                buttonStartX, smallButtonsStartY,
+                246, (mapViewAllToggle) ? 20 : mapViewAllButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
+                buttonSize,
+                buttonSize
+        );
+        mapViewAllButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
+        if(mapViewAllButton.isFocused() && focusEnabled){
+            highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
+        }
+
+        // Focus current
+        buttonStartX += buttonSize + MINIMAL_MARGIN;
+        context.drawTexture(MAP_SELECTION,
+                buttonStartX, smallButtonsStartY,
+                235, (mapFocusToggle) ? 20 : mapFocusButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
+                buttonSize,
+                buttonSize
+        );
+        mapFocusButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
+        if(mapFocusButton.isFocused() && focusEnabled){
+            highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
+        }
+
+        // Zoom in
+        buttonStartX = startX + mapBackgroundWidth - MINIMAL_MARGIN - buttonSize - 2;
+        context.drawTexture(MAP_SELECTION,
+                buttonStartX, smallButtonsStartY,
+                224, mapZoomInButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
+                buttonSize,
+                buttonSize
+        );
+        mapZoomInButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
+        if(mapZoomInButton.isFocused() && focusEnabled){
+            highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
+        }
+
+        // Zoom out
+        buttonStartX -= buttonSize + MINIMAL_MARGIN;
+        context.drawTexture(MAP_SELECTION,
+                buttonStartX, smallButtonsStartY,
+                213, mapZoomOutButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
+                buttonSize,
+                buttonSize
+        );
+        mapZoomOutButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
+        if(mapZoomOutButton.isFocused() && focusEnabled){
+            highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
+        }
+
+        // Spawn point option
+        startY += MINIMAL_MARGIN;
+        spawnPointCycledSelection.drawAnchored(context, startX,  startY,true, Text.translatable("Minas Tirith"), textRenderer, mouseX, mouseY);
+        spawnPointCycledSelection.enableArrows(true); // TODO : update when faction changes
 
         // Draw selection option
         int sizeX = 52;
         int sizeY = 18;
-        int buttonStartX = (int)(startX + (widthX / 2f)) - (sizeX + 10);
+        buttonStartX = (int)(startX + (mapBackgroundWidth / 2f)) - (sizeX + MINIMAL_MARGIN);
         int buttonStartY = (int)((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight - sizeY;
 
         boolean mouseOver = isMouseOver(buttonStartX, sizeX, buttonStartY, sizeY);
@@ -433,7 +584,7 @@ public class FactionSelectionScreen extends Screen {
             );
         }
 
-        buttonStartX = (int)(startX + (widthX / 2f));
+        buttonStartX = (int)(startX + (mapBackgroundWidth / 2f)) + MINIMAL_MARGIN;
         mouseOver = isMouseOver(buttonStartX, sizeX, buttonStartY, sizeY);
         context.drawTexture(FACTION_SELECTION_BUTTONS,
                 buttonStartX,
@@ -452,6 +603,16 @@ public class FactionSelectionScreen extends Screen {
                     sizeY
             );
         }
+    }
+
+    private void highlightedFocusMapButton(DrawContext context, int startX, int startY){
+        context.drawTexture(MAP_SELECTION,
+                startX,
+                startY,
+                200, 0,
+                12,
+                12
+        );
     }
 
     private void drawFactionBanner(DrawContext context, float startX, float startY){
@@ -585,4 +746,23 @@ public class FactionSelectionScreen extends Screen {
     }
 
      */
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        mapWidget.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+        mapWidget.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+        return true;
+    }
+
+
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+        mapWidget.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+        return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+    }
 }
