@@ -38,6 +38,8 @@ public class ModDecorativeItems {
 
     public static final Item FIRE_OF_ORTHANC = registerItem("fire_of_orthanc",
             new BlockItem(ModDecorativeBlocks.FIRE_OF_ORTHANC, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+    public static final Item TORCH_OF_ORTHANC = registerItem("torch_of_orthanc",
+            new BlockItem(ModDecorativeBlocks.TORCH_OF_ORTHANC, new Item.Settings()));
 
     public static final Item TROLL_STATUE = registerItem("troll_statue",
             new CustomSpawnEggItem(ModEntities.PETRIFIED_TROLL, new Item.Settings().maxCount(1)));

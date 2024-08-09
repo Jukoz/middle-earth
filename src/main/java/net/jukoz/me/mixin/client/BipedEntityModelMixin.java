@@ -61,6 +61,12 @@ public class BipedEntityModelMixin {
                     this.rightArm.pitch = -1.4f;
                 }
             }
+        } else if (itemStack.getItem() == ModDecorativeItems.TORCH_OF_ORTHANC) {
+            if(rightHand) {
+                this.rightArm.pitch = -1.4f;
+            } else {
+                this.leftArm.pitch = -1.4f;
+            }
         }
     }
 }
