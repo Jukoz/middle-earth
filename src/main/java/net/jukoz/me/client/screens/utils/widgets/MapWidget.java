@@ -59,7 +59,8 @@ public class MapWidget {
         this.startX = startX;
         this.startY = startY;
 
-        //                 (int)(3000 / 26.25), // 0 - 26.25 [full zoom in - full zoom out]
+        // TODO : In progress
+        // (int)(3000 / 26.25), // 0 - 26.25 [full zoom in - full zoom out]
         context.drawTexture(MAP_TEXTURE, startX, startY,
                 // UV (x,y)
                 uvX, uvY,
@@ -67,16 +68,14 @@ public class MapWidget {
                 mapHeight,
                 3000 / (3000 / mapWidth),
                 3000 / (3000 / mapHeight)
-                //(int)(3000 / 26.25) // 0 - 26.25 [full zoom in - full zoom out]
         );
-
-        //MiddleEarthMapConfigs.MAP_TO_COORDINATE_RATIO;
     }
 
 
 
     public void mouseClicked(double mouseX, double mouseY, int button) {
-        LoggerUtil.logDebugMsg("Mouse is clicked at " + mouseX + ", " + mouseY);
+        // TODO : Marker click? Need a better system..
+        //LoggerUtil.logDebugMsg("Mouse is clicked at " + mouseX + ", " + mouseY);
     }
 
     public void mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
@@ -87,13 +86,17 @@ public class MapWidget {
             float maxRatioX = (float) mapWidth / MiddleEarthMapConfigs.REGION_SIZE * newUvX;
             float maxRatioY = (float) mapHeight / MiddleEarthMapConfigs.REGION_SIZE * newUvY;
 
-            LoggerUtil.logDebugMsg(maxRatioX + " (" + newUvX + "), " + maxRatioY + " (" + newUvY + ")");
+            // TODO : Need better control over drag
+            // Removed temporarily, will be continued
 
+            //LoggerUtil.logDebugMsg(maxRatioX + " (" + newUvX + "), " + maxRatioY + " (" + newUvY + ")");
+            /*
             if(maxRatioX >= 0 && maxRatioX <= 1)
                 this.uvX = newUvX;
 
             if(maxRatioY >= 0 && maxRatioY <= 1)
                 this.uvY = newUvY;
+             */
         }
     }
 
@@ -103,7 +106,8 @@ public class MapWidget {
     }
 
     public void mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        LoggerUtil.logDebugMsg("Mouse is scrolled at " + mouseX + ", " + mouseY);
+        // TODO : Zoom control
+        //LoggerUtil.logDebugMsg("Mouse is scrolled at " + mouseX + ", " + mouseY);
     }
 
     public void setSize(int mapWidth, int mapHeight) {

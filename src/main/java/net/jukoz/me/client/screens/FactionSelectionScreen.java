@@ -413,9 +413,11 @@ public class FactionSelectionScreen extends Screen {
 
         int newStartY = startY + searchBarWidget.drawSearchBarCentered(context, centerX, startY, textRenderer);
 
-        // Rendered first to be in the background
-        playableNpcPreviewWidget.drawCenteredAnchoredBottom(context, centerX, endY - 18 - (MINIMAL_MARGIN * 2));
-        drawFactionRandomizer(context, centerX, endY);
+        if(!searchBarWidget.searchIsToggled()){
+            // Rendered first to be in the background
+            playableNpcPreviewWidget.drawCenteredAnchoredBottom(context, centerX, endY - 18 - (MINIMAL_MARGIN * 2));
+            drawFactionRandomizer(context, centerX, endY);
+        }
 
         // List all widgets one after the other
         searchBarWidget.updateMouse(mouseX, mouseY);
