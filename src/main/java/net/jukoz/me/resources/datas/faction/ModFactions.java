@@ -41,7 +41,6 @@ public class ModFactions {
     }
 
     private static void registerFactionByAlignment(JsonParser jsonParser, Alignment alignment, JsonObject jsonObject, Map<Identifier, Resource> resources) throws IOException {
-        LoggerUtil.logDebugMsg("ModFactions:registerFactions -> "+ alignment.toString() +" faction amount = " + jsonObject.getAsJsonArray(alignment.toString()).size());
         for(JsonElement element : jsonObject.getAsJsonArray(alignment.toString())){
             Identifier id = Identifier.of(MiddleEarth.MOD_ID, ID_PREFIX + element.getAsString());
             Resource factionResource = resources.get(Identifier.of(MiddleEarth.MOD_ID, CustomServerDataResourceReloadListener.PATH + "/factions/" + element.getAsString() + ".json"));
@@ -56,15 +55,12 @@ public class ModFactions {
                             new InputStreamReader(subFactionResource.getInputStream(), "UTF-8"));
                     Identifier subFacId = Identifier.of(MiddleEarth.MOD_ID, ID_PREFIX + element.getAsString() + "." + subFacElement.getAsString());
                     subFactions.put(subFacId, new Faction(alignment, subFactionJsonObject, subFacId));
-                    LoggerUtil.logDebugMsg("ModFactions:registerFactions -> Adding subfaction : " + subFacId);
                 }
                 factions.put(id, new Faction(alignment, factionJsonObject, id, subFactions));
             }
             else {
-                LoggerUtil.logDebugMsg("ModFactions:New Faction -> No subfaction");
                 factions.put(id, new Faction(alignment, factionJsonObject, id));
             }
-            LoggerUtil.logDebugMsg("ModFactions:registerFactions -> Adding faction : " + id);
         }
     }
 
