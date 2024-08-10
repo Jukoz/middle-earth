@@ -3,12 +3,12 @@
 	"parent": "me:item/uruk_hai_s_rune_shield",
 	"display": {
 		"thirdperson_righthand": {
-			"rotation": [45, -45, 0],
-			"translation": [1.5, 0.25, -5]
+			"rotation": [180, -90, 90],
+			"translation": [4, -2, 3.75]
 		},
 		"thirdperson_lefthand": {
-			"rotation": [45, -45, 0],
-			"translation": [1.5, 0.25, -5]
+			"rotation": [180, -90, 90],
+			"translation": [4, -2, 3.75]
 		},
 		"firstperson_righthand": {
 			"rotation": [0, 0, 10.25],
