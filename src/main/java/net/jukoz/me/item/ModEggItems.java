@@ -137,6 +137,6 @@ public class ModEggItems {
     }
 
     public static void registerModItems() {
-        LoggerUtil.getInstance().logDebugMsg("Registering Mod Egg Items for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering Mod Egg Items for " + MiddleEarth.MOD_ID);
     }
 }

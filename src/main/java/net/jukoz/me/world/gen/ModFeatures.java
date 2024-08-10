@@ -23,7 +23,7 @@ public class ModFeatures {
     public static Feature<BigBoulderFeatureConfig> BIG_BOULDER = register("big_boulder", new BigBoulderFeature(BigBoulderFeatureConfig.CODEC));
 
     public static void init() {
-        LoggerUtil.getInstance().logInfoMsg("Registering new features");
+        LoggerUtil.logInfoMsg("Registering new features");
     }
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {

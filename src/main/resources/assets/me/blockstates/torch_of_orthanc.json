@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "me:block/torch_of_orthanc"
+    },
+    "lit=true": {
+      "model": "me:block/torch_of_orthanc_lit"
+    }
+  }
+}

@@ -32,9 +32,9 @@ public class ModArmorMaterials {
     public static final ExtendedArmorMaterial BRONZE_T3 = registerArmor(Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.BRONZE_INGOT);
     public static final ExtendedArmorMaterial BRONZE_T4 = registerArmor(Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.BRONZE_INGOT);
 
-    public static final ExtendedArmorMaterial SLAG_T2 = registerArmor(Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.ORC_STEEL_INGOT);
-    public static final ExtendedArmorMaterial SLAG_T3 = registerArmor(Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.ORC_STEEL_INGOT);
-    public static final ExtendedArmorMaterial SLAG_T4 = registerArmor(Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.ORC_STEEL_INGOT);
+    public static final ExtendedArmorMaterial SLAG_T2 = registerArmor(Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.SLAG_INGOT);
+    public static final ExtendedArmorMaterial SLAG_T3 = registerArmor(Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.SLAG_INGOT);
+    public static final ExtendedArmorMaterial SLAG_T4 = registerArmor(Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.SLAG_INGOT);
 
     public static final ExtendedArmorMaterial STEEL_T3 = registerArmor(Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.STEEL_INGOT);
     public static final ExtendedArmorMaterial STEEL_T4 = registerArmor(Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.STEEL_INGOT);

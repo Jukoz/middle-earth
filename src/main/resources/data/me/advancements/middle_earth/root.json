@@ -2,7 +2,7 @@
   "criteria": {
     "entered_middle_earth": {
       "conditions": {
-        "to": "me:middle-earth"
+        "to": "me:middle_earth"
       },
       "trigger": "minecraft:changed_dimension"
     }

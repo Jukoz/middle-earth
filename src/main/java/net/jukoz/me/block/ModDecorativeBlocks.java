@@ -51,6 +51,8 @@ public class ModDecorativeBlocks {
     public static final Block FIRE_OF_ORTHANC = registerBlock("fire_of_orthanc",
             new FireOfOrthancBlock(AbstractBlock.Settings.create().requiresTool().mapColor(MapColor.BLACK)
                     .sounds(BlockSoundGroup.METAL).strength(6f).burnable().solidBlock(Blocks::never).nonOpaque()));
+    public static final Block TORCH_OF_ORTHANC = registerBlock("torch_of_orthanc",
+            new TorchOfOrthancBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
 
     public static final Block WOOD_FRAMED_WINDOW = registerBlockWithItem("wood_framed_window",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
@@ -357,6 +359,6 @@ public class ModDecorativeBlocks {
     }
 
     public static void registerModBlocks() {
-        LoggerUtil.getInstance().logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
     }
 }

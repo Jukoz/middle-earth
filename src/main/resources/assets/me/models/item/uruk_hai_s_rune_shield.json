@@ -1,0 +1,11 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "me:item/uruk_hai_heavy_shield_template",
+	"texture_size": [64, 64],
+	"textures": {
+		"1": "me:item/uruk_hai_s_rune_shield"
+	},
+	"overrides": [
+		{"predicate": {"blocking": 1}, "model": "me:item/uruk_hai_s_rune_shield_blocking"}
+	]
+}

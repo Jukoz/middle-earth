@@ -1,14 +1,9 @@
 package net.jukoz.me.network;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntity;
-import net.jukoz.me.block.special.wood_pile.WoodPileBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
 
 public class ItemStackSyncS2CPacket {
     public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler,

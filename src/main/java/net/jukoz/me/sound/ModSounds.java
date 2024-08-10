@@ -17,6 +17,6 @@ public class ModSounds {
     }
 
     public static void registerModSounds() {
-        LoggerUtil.getInstance().logDebugMsg("Registering Mod Entities for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering Mod Entities for " + MiddleEarth.MOD_ID);
     }
 }

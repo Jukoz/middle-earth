@@ -23,6 +23,6 @@ public class ModClientConfigs {
     }
 
     private static void assignClientConfigs() {
-        LoggerUtil.getInstance().logDebugMsg("All client configs (" + configs.getConfigsList().size() + ") have been set properly");
+        LoggerUtil.logDebugMsg("All client configs (" + configs.getConfigsList().size() + ") have been set properly");
     }
 }

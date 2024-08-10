@@ -90,7 +90,7 @@ public class ImageUtils {
                     result.setRGB(x, y, (color != null ) ? color : colorOccurences.get(0));
                     colorOccurences.clear();
                 } catch (Exception exception) {
-                    //LoggerUtil.getInstance().logError("ImageUtils::Can't find color at [%s,%s]".formatted(x,y));
+                    //LoggerUtil.logError("ImageUtils::Can't find color at [%s,%s]".formatted(x,y));
                 }
                 colorOccurences.clear();
 
@@ -121,7 +121,7 @@ public class ImageUtils {
                     Integer color = getMostOccuringColorFromBiomeList(colorOccurences);
                     result.setRGB(x, y, (color != null ) ? color : colorOccurences.get(0));
                 } catch (Exception exception) {
-                    //LoggerUtil.getInstance().logError("ImageUtils::Can't find color at [%s,%s]".formatted(x,y));
+                    //LoggerUtil.logError("ImageUtils::Can't find color at [%s,%s]".formatted(x,y));
                 }
                 colorOccurences.clear();
             }
@@ -131,7 +131,7 @@ public class ImageUtils {
 
     private static Integer getMostOccuringColorFromBiomeList(ArrayList<Integer> list) throws Exception {
         if(list.isEmpty()){
-            LoggerUtil.getInstance().logError("ImageUtils::getMostCommonColor - List was empty!");
+            LoggerUtil.logError("ImageUtils::getMostCommonColor - List was empty!");
             return null;
         }
         Map<Integer, Integer> counts = new HashMap<>();

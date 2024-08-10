@@ -22,10 +22,10 @@ public class ModWeaponItems {
             new CustomSwordWeaponItem(ModToolMaterials.JADE), false);
     public static final Item BRONZE_SWORD = registerItemWithModel("bronze_sword",
             new CustomSwordWeaponItem(ModToolMaterials.BRONZE), false);
+    public static final Item SLAG_FALCHION = registerItemWithModel("slag_falchion",
+            new CustomSwordWeaponItem(ModToolMaterials.SLAG), true);
     public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.STEEL), false);
-    public static final Item ORC_STEEL_SWORD = registerItemWithModel("orc_steel_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.ORC_STEEL), false);
     public static final Item URUK_STEEL_SWORD = registerItemWithModel("uruk_steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.URUK_STEEL), false);
     public static final Item ELVEN_STEEL_SWORD = registerItemWithModel("elven_steel_sword",
@@ -39,6 +39,8 @@ public class ModWeaponItems {
             new CustomDaggerWeaponItem(ToolMaterials.STONE), false);
     public static final Item BRONZE_DAGGER = registerItemWithModel("bronze_dagger",
             new CustomDaggerWeaponItem(ModToolMaterials.BRONZE), false);
+    public static final Item SLAG_DAGGER = registerItemWithModel("slag_dagger",
+            new CustomDaggerWeaponItem(ModToolMaterials.SLAG), false);
     public static final Item IRON_DAGGER = registerItemWithModel("iron_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.IRON), false);
     public static final Item GOLDEN_DAGGER = registerItemWithModel("golden_dagger",
@@ -47,6 +49,9 @@ public class ModWeaponItems {
             new CustomDaggerWeaponItem(ToolMaterials.DIAMOND), false);
     public static final Item NETHERITE_DAGGER = registerItemWithModel("netherite_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.NETHERITE), false);
+
+    public static final Item SLAG_LONGBLADE = registerItemWithModel("slag_longblade",
+            new CustomLongswordWeaponItem(ModToolMaterials.SLAG), true);
 
     public static final Item WOODEN_SPEAR = registerItemWithSpearModel("wooden_spear",
             new CustomSpearWeaponItem(ToolMaterials.WOOD));
@@ -60,8 +65,8 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ToolMaterials.IRON));
     public static final Item STEEL_SPEAR = registerItemWithSpearModel("steel_spear",
             new CustomSpearWeaponItem(ModToolMaterials.STEEL));
-    public static final Item ORC_STEEL_SPEAR = registerItemWithSpearModel("orc_steel_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.ORC_STEEL));
+    public static final Item SLAG_SPEAR = registerItemWithSpearModel("slag_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.SLAG));
     public static final Item URUK_STEEL_SPEAR = registerItemWithSpearModel("uruk_steel_spear",
             new CustomSpearWeaponItem(ModToolMaterials.URUK_STEEL));
     public static final Item ELVEN_STEEL_SPEAR = registerItemWithSpearModel("elven_steel_spear",
@@ -253,6 +258,6 @@ public class ModWeaponItems {
     }
 
     public static void registerModItems() {
-        LoggerUtil.getInstance().logDebugMsg("Registering Mod Weapon Items for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering Mod Weapon Items for " + MiddleEarth.MOD_ID);
     }
 }

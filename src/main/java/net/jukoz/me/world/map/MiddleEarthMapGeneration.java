@@ -25,21 +25,17 @@ public class MiddleEarthMapGeneration {
     public static int CURRENT_ITERATION = 0;
 
     private FileUtils fileUtils;
-    private LoggerUtil loggerUtil;
     private static final int WATER_BUFFER = 16;
     private static final float WATER_HEIGHT_MULTIPLIER = 1.0f;
     private static BufferedImage baseHeightImage;
     public MiddleEarthMapGeneration() throws Exception {
-        if(!DataGeneration.isDataGen) {
-            fileUtils = FileUtils.getInstance();
-            loggerUtil = LoggerUtil.getInstance();
-            generate();
-        }
+        fileUtils = FileUtils.getInstance();
+        generate();
     }
 
     public void generate() throws Exception {
-        loggerUtil.logInfoMsg("");
-        loggerUtil.logInfoMsg("================ MiddleEarthMapGeneration ================");
+        LoggerUtil.logInfoMsg("");
+        LoggerUtil.logInfoMsg("================ MiddleEarthMapGeneration ================");
 
         BufferedImage initialMap = getInitialImage();
 
@@ -47,29 +43,29 @@ public class MiddleEarthMapGeneration {
             throw new Exception(this + " : The image of the map in resource has created an error and operation cannot continue.");
         }
 
-        loggerUtil.logInfoMsg("Validating initial map BIOME colors;");
+        LoggerUtil.logInfoMsg("Validating initial map BIOME colors;");
         if(!validateBaseColors(initialMap)) return;
 
 
-        loggerUtil.logInfoMsg("Validating BIOME generation availability;");
+        LoggerUtil.logInfoMsg("Validating BIOME generation availability;");
         int iterationToGenerate = (MiddleEarthMapConfigs.FORCE_GENERATION)
                 ? MiddleEarthMapConfigs.MAP_ITERATION + 1
                 : findAmountOfIterationToGenerate(initialMap);
 
         if(iterationToGenerate > 0){
-            loggerUtil.logInfoMsg("Begin BIOME generation;");
+            LoggerUtil.logInfoMsg("Begin BIOME generation;");
             generateBiomes(initialMap, iterationToGenerate);
         }
 
-        loggerUtil.logInfoMsg("Validating initial map HEIGHT MODIFIER generation availability;");
+        LoggerUtil.logInfoMsg("Validating initial map HEIGHT MODIFIER generation availability;");
         if(!validateBaseHeightDatas()){
-            loggerUtil.logInfoMsg("Begin initial map HEIGHT MODIFIER generation;");
+            LoggerUtil.logInfoMsg("Begin initial map HEIGHT MODIFIER generation;");
             generateBaseHeightImage(initialMap);
         }
 
-        loggerUtil.logInfoMsg("Validating HEIGHT generation availability;");
+        LoggerUtil.logInfoMsg("Validating HEIGHT generation availability;");
         if(!validateHeightDatas(initialMap)){
-            loggerUtil.logInfoMsg("Begin HEIGHT generation;");
+            LoggerUtil.logInfoMsg("Begin HEIGHT generation;");
             generateHeight(initialMap);
         }
     }
@@ -80,7 +76,7 @@ public class MiddleEarthMapGeneration {
                 try{
                     MEBiomesData.getBiomeByColor(initialMap.getRGB(x,y));
                 } catch (Exception e) {
-                    loggerUtil.logError("MiddleEarthMapGeneration::Cannot find color at [%s,%s] in the inital map".formatted(x,y));
+                    LoggerUtil.logError("MiddleEarthMapGeneration::Cannot find color at [%s,%s] in the inital map".formatted(x,y));
                     return false;
                 }
             }
@@ -89,15 +85,15 @@ public class MiddleEarthMapGeneration {
     }
 
     private BufferedImage getInitialImage(){
-        loggerUtil.logInfoMsg("Validating ORIGINAL image existence;");
+        LoggerUtil.logInfoMsg("Validating ORIGINAL image existence;");
         BufferedImage initialImage = fileUtils.getResourceImage(MiddleEarthMapConfigs.INITIAL_IMAGE);
         if(initialImage == null){
-            loggerUtil.logError("Initial map image couldn't be found!");
+            LoggerUtil.logError("Initial map image couldn't be found!");
             return null;
         }
-        loggerUtil.logInfoMsg("Validating ORIGINAL image size;");
+        LoggerUtil.logInfoMsg("Validating ORIGINAL image size;");
         if(initialImage.getWidth() % MiddleEarthMapConfigs.REGION_SIZE != 0 || initialImage.getHeight() % MiddleEarthMapConfigs.REGION_SIZE != 0){
-            loggerUtil.logError("Initial map image has the wrong size!");
+            LoggerUtil.logError("Initial map image has the wrong size!");
             return null;
         }
 
@@ -119,7 +115,7 @@ public class MiddleEarthMapGeneration {
                 for(int y = 0; y < currentRegionAmountY; y ++) {
                     String path = MiddleEarthMapConfigs.BIOME_PATH.formatted(i) + MiddleEarthMapConfigs.IMAGE_NAME.formatted(x,y);
                     if(fileUtils.getRunImage(path) == null){
-                        loggerUtil.logError("Lacking biome file at : [%s]".formatted(path));
+                        LoggerUtil.logError("TO REMOVE - Lacking biome file at : [%s]".formatted(path));
                         return absoluteMapIteration - i;
                     }
                 }
@@ -168,7 +164,7 @@ public class MiddleEarthMapGeneration {
             try {
                 executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
             } catch (Exception e) {
-                loggerUtil.logError("Error while generating biomes");
+                LoggerUtil.logError("Error while generating biomes");
             }
         }
         return new BufferedImage[0][][];
@@ -176,7 +172,7 @@ public class MiddleEarthMapGeneration {
 
     private void generateInitialBiomes(BufferedImage initialImage){
         if(initialImage.getWidth() != MiddleEarthMapConfigs.REGION_SIZE || initialImage.getWidth() !=  MiddleEarthMapConfigs.REGION_SIZE){
-            loggerUtil.logError("TO REMOVE - Need splitting for the initial image!");
+            LoggerUtil.logError("TO REMOVE - Need splitting for the initial image!");
             for(int i = 0; i < initialImage.getWidth() / MiddleEarthMapConfigs.REGION_SIZE; i++){
                 for(int j = 0; j < initialImage.getHeight() / MiddleEarthMapConfigs.REGION_SIZE; j++){
                     BufferedImage newImage = initialImage.getSubimage(MiddleEarthMapConfigs.REGION_SIZE * i, MiddleEarthMapConfigs.REGION_SIZE * j, MiddleEarthMapConfigs.REGION_SIZE, MiddleEarthMapConfigs.REGION_SIZE);
@@ -231,7 +227,7 @@ public class MiddleEarthMapGeneration {
         try {
             executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         } catch (Exception e) {
-            loggerUtil.logError("Error while generating heights");
+            LoggerUtil.logError("Error while generating heights");
         }
 
         long finish = System.currentTimeMillis();

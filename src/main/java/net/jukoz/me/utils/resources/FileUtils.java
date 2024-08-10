@@ -93,13 +93,14 @@ public class FileUtils {
             File f = new File(path + fileName);
             ImageIO.write(bufferedImage, fileType.extension, f);
         } catch(Exception e){
-            LoggerUtil.getInstance().logError("Image Utils couldn't save image for {0}.".formatted(path + fileName));
+            LoggerUtil.logError("Image Utils couldn't save image for {0}.".formatted(path + fileName));
         }
     }
 
 
     /**
      * TODO : Optimise this part, it the longest process in World-Gen
+     * about 60s before -> about 40s now
      */
     public static BufferedImage blur(BufferedImage image, int brushSize, boolean crop) {
         int width = image.getWidth();
@@ -113,6 +114,26 @@ public class FileUtils {
             graphics.setColor(MEBiomesData.defaultBiome.color);
             graphics.fillRect(0, 0, width + 2*brushSize, height + 2*brushSize);
             graphics.drawImage(image, brushSize, brushSize, null);
+        } else {
+            imageWithBorders = new BufferedImage(newWidth, newHeight, image.getType());
+            Graphics2D g2d = imageWithBorders.createGraphics();
+
+            // Copy image content (center)
+            g2d.drawImage(image, brushSize, brushSize, null);
+
+            // extend left & right
+            g2d.drawImage(image, 0, brushSize, brushSize, height + brushSize, 0, 0, 1, height, null);
+            g2d.drawImage(image, newWidth - brushSize, brushSize, newWidth, height + brushSize, width - 1, 0, width, height, null);
+
+            // extend up & down
+            g2d.drawImage(image, brushSize, 0, brushSize + width, brushSize, 0, 0, width, 1, null);
+            g2d.drawImage(image, brushSize, newHeight - brushSize, brushSize + width, newHeight, 0, height - 1, width, height, null);
+
+            // extend corners
+            g2d.drawImage(image, 0, 0, brushSize, brushSize, 0, 0, 1, 1, null);
+            g2d.drawImage(image, newWidth - brushSize, 0, newWidth, brushSize, width - 1, 0, width, 1, null);
+            g2d.drawImage(image, 0, newHeight - brushSize, brushSize, newHeight, 0, height - 1, 1, height, null);
+            g2d.drawImage(image, newWidth - brushSize, newHeight - brushSize, newWidth, newHeight, width - 1, height - 1, width, height, null);
         }
 
         float[] blurKernel = new float[brushSize*brushSize];
@@ -130,7 +151,12 @@ public class FileUtils {
         BufferedImage blurredImage = new BufferedImage(width, height, image.getType());
         op.filter(image, blurredImage);
 
-        if(crop) return blurredImage.getSubimage(brushSize, brushSize, width - brushSize*2, height - brushSize*2);
-        else return blurredImage;
+        if(crop) {
+            return blurredImage.getSubimage(brushSize, brushSize, width - brushSize*2, height - brushSize*2);
+        } else {
+            BufferedImage subImage = blurredImage.getSubimage(brushSize, brushSize, width, height);
+            g2d.dispose();
+            return subImage;
+        }
     }
 }
