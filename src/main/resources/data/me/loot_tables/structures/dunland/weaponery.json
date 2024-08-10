@@ -9,11 +9,11 @@
           "children": [
             {
               "type": "minecraft:item",
-              "name": "me:dunland_club"
+              "name": "me:bronze_sword"
             },
             {
               "type": "minecraft:item",
-              "name": "me:dunland_pitchfork"
+              "name": "me:bronze_spear"
             },
             {
               "type": "minecraft:item",

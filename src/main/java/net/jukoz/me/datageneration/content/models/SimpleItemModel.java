@@ -2,7 +2,6 @@ package net.jukoz.me.datageneration.content.models;
 
 import net.jukoz.me.item.ModDecorativeItems;
 import net.jukoz.me.item.ModFoodItems;
-import net.jukoz.me.item.ModNatureBlockItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.item.Item;
 
@@ -87,9 +86,9 @@ public class SimpleItemModel {
 
             add(ModResourceItems.IRON_ROD);
 
-            add(ModResourceItems.ORC_STEEL_INGOT);
-            add(ModResourceItems.ORC_STEEL_NUGGET);
-            add(ModResourceItems.ORC_STEEL_ROD);
+            add(ModResourceItems.SLAG_INGOT);
+            add(ModResourceItems.SLAG_NUGGET);
+            add(ModResourceItems.SLAG_ROD);
 
             add(ModResourceItems.URUK_STEEL_INGOT);
             add(ModResourceItems.URUK_STEEL_NUGGET);

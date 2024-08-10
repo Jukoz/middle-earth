@@ -30,9 +30,9 @@ public class HobbitModel {
                         .cuboid(-2.5f, -2.0f, -2.0f, 4.0f, 12.0f, 4.0f, dilation),
                 ModelTransform.pivot(-7.0f, 2.5f, 0.0f));
 
-        rightArm.addChild(RIGHT_SLEEVE, ModelPartBuilder.create().uv(40, 32).cuboid(0f, 0f, 0f, 3.0f, 12.0f, 4.0f, dilation.add(0.25f)),
-                ModelTransform.pivot(-2f, -2f, -2f));
-        leftArm.addChild(LEFT_SLEEVE, ModelPartBuilder.create().uv(48, 48).cuboid(0f, 0f, 0f, 3.0f, 12.0f, 4.0f, dilation.add(0.25f)),
+        rightArm.addChild(RIGHT_SLEEVE, ModelPartBuilder.create().uv(40, 32).cuboid(0f, 0f, 0f, 4.0f, 12.0f, 4.0f, dilation.add(0.25f)),
+                ModelTransform.pivot(-2.5f, -2f, -2f));
+        leftArm.addChild(LEFT_SLEEVE, ModelPartBuilder.create().uv(48, 48).cuboid(0f, 0f, 0f, 4.0f, 12.0f, 4.0f, dilation.add(0.25f)),
                 ModelTransform.pivot(-1f, -2f, -2f));
 
         root.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create().uv(16, 16)
@@ -57,7 +57,7 @@ public class HobbitModel {
                         .cuboid(-2.0f, 0.0f, -2.0f, 4.0f, 12.0f, 4.0f, dilation.add(0.25f)),
                 ModelTransform.pivot(0, 0.0f, 0.0f));
 
-        root.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create().uv(32, 0).cuboid(-4.0f, -8.0f, -4.0f, 8.0f, 8.0f, 8.0f, dilation.add(0.5f)),
+        root.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create().uv(32, 0).cuboid(-4.0f, -8.0f, -4.0f, 8.0f, 8.0f, 8.0f, dilation.add(0.25f)),
                 ModelTransform.pivot(0.0f, 0.0f, 0.0f));                // 54
 
         return TexturedModelData.of(modelData, 64, 64);

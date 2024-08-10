@@ -33,7 +33,6 @@ public class MiddleEarthMapRuntime {
         regions = new HashMap<>();
         regionByUuids = new HashMap<>();
 
-        loggerUtil = LoggerUtil.getInstance();
         middleEarthMapUtils = MiddleEarthMapUtils.getInstance();
     }
 

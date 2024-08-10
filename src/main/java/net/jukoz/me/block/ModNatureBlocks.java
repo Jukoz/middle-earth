@@ -127,6 +127,10 @@ public class ModNatureBlocks {
             new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), true);
 
+    public static final Block BRACKEN = registerBlock("bracken",
+            new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.GREEN)), true);
+
     public static final Block SHORT_CATTAILS = registerBlock("short_cattails",
             new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), true);
@@ -141,6 +145,13 @@ public class ModNatureBlocks {
 
     public static final Block SHRIVELED_SHRUB = registerBlock("shriveled_shrub",
             new DeadBushBlock(AbstractBlock.Settings.copy(Blocks.DEAD_BUSH).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.BROWN)), true);
+
+    public static final Block DEAD_RUSHES = registerBlock("dead_rushes",
+            new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.NONE)
+                    .mapColor(DyeColor.BROWN)), true);
+    public static final Block FALSE_OATGRASS = registerBlock("false_oatgrass",
+            new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.NONE)
                     .mapColor(DyeColor.BROWN)), true);
 
     public static final Block BEACH_GRASS = registerBlock("beach_grass",
@@ -361,6 +372,6 @@ public class ModNatureBlocks {
     }
 
     public static void registerModBlocks() {
-        LoggerUtil.getInstance().logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
     }
 }

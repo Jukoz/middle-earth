@@ -272,6 +272,6 @@ public class RoofBlockSets {
     }
 
     public static void registerModBlockSets() {
-        LoggerUtil.getInstance().logDebugMsg("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
     }
 }

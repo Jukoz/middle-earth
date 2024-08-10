@@ -86,6 +86,6 @@ public class MushroomBlockSets {
     }
 
     public static void registerModBlockSets() {
-        LoggerUtil.getInstance().logDebugMsg("Registering MushroomBlockSets for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering MushroomBlockSets for " + MiddleEarth.MOD_ID);
     }
 }

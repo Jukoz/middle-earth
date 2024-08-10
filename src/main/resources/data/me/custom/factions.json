@@ -1,0 +1,12 @@
+{
+    "good" : [
+      "dale",
+      "gondor",
+      "longbeards"
+    ],
+    "neutral": [
+    ],
+    "evil": [
+      "mordor"
+    ]
+}
