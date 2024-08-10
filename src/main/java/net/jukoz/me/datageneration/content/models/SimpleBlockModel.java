@@ -190,6 +190,18 @@ public class SimpleBlockModel {
         }
     };
 
+    public static List<ChiseledPolishedBlock> chiseledTilesBlocksTopBottom = new ArrayList<>() {
+        {
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_DOLOMITE_TILES, StoneBlockSets.DOLOMITE_TILES.slab()));
+        }
+    };
+
+    public static List<ChiseledPolishedBlock> chiseledSmoothBlocksTopBottom = new ArrayList<>() {
+        {
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_SMOOTH_DOLOMITE, StoneBlockSets.SMOOTH_DOLOMITE.slab()));
+        }
+    };
+
     public static List<Block> woodBlocks = new ArrayList<>() {
         {
 
