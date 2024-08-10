@@ -1,7 +1,6 @@
 package net.jukoz.me.datageneration.content.models;
 
 import net.jukoz.me.block.ModBlocks;
-import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.StoneBlockSets;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -47,7 +46,7 @@ public class SimpleBlockModel {
             add(ModBlocks.CUT_SILVER);
 
             add(ModBlocks.BRONZE_BLOCK);
-            add(ModBlocks.ORC_STEEL_BLOCK);
+            add(ModBlocks.SLAG_BLOCK);
             add(ModBlocks.STEEL_BLOCK);
             add(ModBlocks.DWARVEN_STEEL_BLOCK);
             add(ModBlocks.ELVEN_STEEL_BLOCK);
