@@ -5,10 +5,13 @@ import java.util.Comparator;
 
 public enum WargVariant {
     BROWN(0),
-    WHITE(1),
-    GREY(2),
-    BLACK(3),
-    LIGHT_GREY(4);
+    BLACK(1),
+    GRAY(2),
+    LIGHT_GRAY(3),
+    GRAY_FACE(4),
+    RED_BALD(5),
+    TAN(6),
+    TAN_GRAY(7);
 
     private static final WargVariant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(WargVariant::getId)).toArray(WargVariant[]::new);
     private final int id;

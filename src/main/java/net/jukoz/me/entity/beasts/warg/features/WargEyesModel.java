@@ -9,11 +9,12 @@ import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
-public class WargSaddleModel extends SinglePartEntityModel<WargEntity> {
+public class WargEyesModel extends SinglePartEntityModel<WargEntity> {
     private final ModelPart warg;
-    public WargSaddleModel(ModelPart root) {
+    public WargEyesModel(ModelPart root) {
         this.warg = root.getChild("root");
     }
+
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
@@ -23,28 +24,18 @@ public class WargSaddleModel extends SinglePartEntityModel<WargEntity> {
 
         ModelPartData upperBody = body.addChild("upperBody", ModelPartBuilder.create(), ModelTransform.pivot(-0.3858F, -1.1138F, -1.5F));
 
-        ModelPartData saddle = upperBody.addChild("saddle", ModelPartBuilder.create(), ModelTransform.pivot(1.0F, -4.0F, -4.0F));
-
-        ModelPartData saddleFurRight_r1 = saddle.addChild("saddleFurRight_r1", ModelPartBuilder.create().uv(77, 62).cuboid(-0.5F, -8.0F, -3.0F, 1.0F, 10.0F, 9.0F, new Dilation(0.3F)), ModelTransform.of(-7.0F, 5.8F, -0.7F, 1.5708F, -1.7017F, -1.5708F));
-
-        ModelPartData saddleFurLeft_r1 = saddle.addChild("saddleFurLeft_r1", ModelPartBuilder.create().uv(57, 62).cuboid(-0.5F, -8.0F, -3.0F, 1.0F, 10.0F, 9.0F, new Dilation(0.3F)), ModelTransform.of(-7.0F, 5.8F, 10.7F, 1.5708F, -1.4399F, -1.5708F));
-
-        ModelPartData saddleFurTop_r1 = saddle.addChild("saddleFurTop_r1", ModelPartBuilder.create().uv(59, 51).mirrored().cuboid(-2.5F, -1.2F, -3.0F, 9.0F, 2.0F, 9.0F, new Dilation(0.3F)).mirrored(false), ModelTransform.of(-7.0F, -1.0F, 3.0F, 0.0F, -1.5708F, 0.0F));
-
-        ModelPartData saddleMat_r1 = saddle.addChild("saddleMat_r1", ModelPartBuilder.create().uv(0, 68).cuboid(-2.5F, -1.2F, -6.0F, 9.0F, 16.0F, 12.0F, new Dilation(0.3F))
-                .uv(11, 5).cuboid(-2.5F, -1.2F, -13.0F, 9.0F, 16.0F, 19.0F, new Dilation(0.4F)), ModelTransform.of(0.0F, 0.0F, 3.0F, 0.0F, -1.5708F, 0.0F));
+        ModelPartData head = upperBody.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create().uv(39, 35).cuboid(-1.3858F, -4.1138F, -5.0F, 10.0F, 6.0F, 9.0F, new Dilation(0.025F)), ModelTransform.of(14.3858F, -1.8862F, 1.5F, 0.0F, 0.0F, 0.2618F));
         return TexturedModelData.of(modelData, 128, 128);
-    }
-
-
-    @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-        warg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
     }
 
     @Override
     public ModelPart getPart() {
-        return warg;
+        return this.warg;
+    }
+
+    @Override
+    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
+        warg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
     }
 
     @Override

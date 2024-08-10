@@ -25,14 +25,20 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargModel> {
             Util.make(Maps.newEnumMap(WargVariant.class), (map) -> {
                 map.put(WargVariant.BROWN,
                         new Identifier(MiddleEarth.MOD_ID, PATH + "warg_brown.png"));
-                map.put(WargVariant.WHITE,
-                        new Identifier(MiddleEarth.MOD_ID, PATH + "warg_white.png"));
-                map.put(WargVariant.GREY,
-                        new Identifier(MiddleEarth.MOD_ID, PATH + "warg_grey.png"));
                 map.put(WargVariant.BLACK,
                         new Identifier(MiddleEarth.MOD_ID, PATH + "warg_black.png"));
-                map.put(WargVariant.LIGHT_GREY,
-                        new Identifier(MiddleEarth.MOD_ID, PATH + "warg_light_grey.png"));
+                map.put(WargVariant.GRAY,
+                        new Identifier(MiddleEarth.MOD_ID, PATH + "warg_gray.png"));
+                map.put(WargVariant.LIGHT_GRAY,
+                        new Identifier(MiddleEarth.MOD_ID, PATH + "warg_light_gray.png"));
+                map.put(WargVariant.GRAY_FACE,
+                        new Identifier(MiddleEarth.MOD_ID, PATH + "warg_gray_face.png"));
+                map.put(WargVariant.RED_BALD,
+                        new Identifier(MiddleEarth.MOD_ID, PATH + "warg_red_bald.png"));
+                map.put(WargVariant.TAN,
+                        new Identifier(MiddleEarth.MOD_ID, PATH + "warg_tan.png"));
+                map.put(WargVariant.TAN_GRAY,
+                        new Identifier(MiddleEarth.MOD_ID, PATH + "warg_tan_gray.png"));
             });
 
     @Override

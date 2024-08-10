@@ -44,8 +44,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-// TODO Replace animations with new animations
 // TODO Make warg heal by feeding
+// TODO Add Eye Feature
+// TODO Add Grooming
 public class WargEntity extends BeastEntity {
 
     private static final double WALKING_SPEED = 0.25;
@@ -53,7 +54,7 @@ public class WargEntity extends BeastEntity {
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(WargEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public final AnimationState startSittingAnimationState = new AnimationState();
     public final AnimationState stopSittingAnimationState = new AnimationState();
-    public int idleAnimationTimeout = 100;
+    public int idleAnimationTimeout = this.random.nextInt(600) + 1700;
     private boolean hasCharged = false;
     private boolean startedSitting = false;
     public WargEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
@@ -166,7 +167,7 @@ public class WargEntity extends BeastEntity {
         }
         else if (--idleAnimationTimeout <= 0 && !this.isTame()){
             this.setSitting(!this.isSitting());
-            this.idleAnimationTimeout = 100;
+            this.idleAnimationTimeout = this.random.nextInt(600) + 1700;
         }
 
         if(this.isSitting()) {
