@@ -1,6 +1,5 @@
 package net.jukoz.me.datageneration;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.*;
@@ -523,7 +522,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.BRONZE_INGOT, ModToolItems.BRONZE_PICKAXE, ModToolItems.BRONZE_AXE, ModToolItems.BRONZE_SHOVEL, ModToolItems.BRONZE_HOE);
         
-        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.ORC_STEEL_INGOT, ModToolItems.SLAG_PICKAXE, ModToolItems.SLAG_AXE, ModToolItems.SLAG_SHOVEL, ModToolItems.SLAG_HOE);
+        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.SLAG_INGOT, ModToolItems.SLAG_PICKAXE, ModToolItems.SLAG_AXE, ModToolItems.SLAG_SHOVEL, ModToolItems.SLAG_HOE);
         
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.URUK_STEEL_INGOT, ModToolItems.URUK_STEEL_PICKAXE, ModToolItems.URUK_STEEL_AXE, ModToolItems.URUK_STEEL_SHOVEL, ModToolItems.URUK_STEEL_HOE);
         
@@ -544,7 +543,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createMetalsRecipe(exporter, ModResourceItems.MITHRIL_NUGGET, ModResourceItems.MITHRIL_INGOT, ModResourceItems.MITHRIL_ROD, ModBlocks.MITHRIL_BLOCK);
 
         createMetalsRecipe(exporter, ModResourceItems.BRONZE_NUGGET, ModResourceItems.BRONZE_INGOT, ModResourceItems.BRONZE_ROD, ModBlocks.BRONZE_BLOCK);
-        createMetalsRecipe(exporter, ModResourceItems.ORC_STEEL_NUGGET, ModResourceItems.ORC_STEEL_INGOT, ModResourceItems.ORC_STEEL_ROD, ModBlocks.ORC_STEEL_BLOCK);
+        createMetalsRecipe(exporter, ModResourceItems.SLAG_NUGGET, ModResourceItems.SLAG_INGOT, ModResourceItems.SLAG_ROD, ModBlocks.SLAG_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.URUK_STEEL_NUGGET, ModResourceItems.URUK_STEEL_INGOT, ModResourceItems.URUK_STEEL_ROD, ModBlocks.URUK_STEEL_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.STEEL_NUGGET, ModResourceItems.STEEL_INGOT, ModResourceItems.STEEL_ROD, ModBlocks.STEEL_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.ELVEN_STEEL_NUGGET, ModResourceItems.ELVEN_STEEL_INGOT, ModResourceItems.ELVEN_STEEL_ROD, ModBlocks.ELVEN_STEEL_BLOCK);

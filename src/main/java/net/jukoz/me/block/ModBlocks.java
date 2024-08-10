@@ -412,7 +412,7 @@ public class ModBlocks {
 
     public static final Block BRONZE_BLOCK = registerMiscBlock("bronze_block",
             new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(5f).requiresTool()),true);
-    public static final Block ORC_STEEL_BLOCK = registerMiscBlock("orc_steel_block",
+    public static final Block SLAG_BLOCK = registerMiscBlock("slag_block",
             new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(5.5f).requiresTool()),true);
     public static final Block STEEL_BLOCK = registerMiscBlock("steel_block",
             new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(6f).requiresTool()),true);
