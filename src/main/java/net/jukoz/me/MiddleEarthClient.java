@@ -1,5 +1,6 @@
 package net.jukoz.me;
 
+import dev.architectury.platform.Mod;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
@@ -60,6 +61,7 @@ import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
+import net.jukoz.me.item.utils.ModArmorModels;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
 import net.jukoz.me.network.ModNetworks;
 import net.jukoz.me.particles.ModParticleTypes;
@@ -193,6 +195,19 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(HELMET_ADDON_MODEL_LAYER, RohirricHelmetArmorAddonModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(CAPE_MODEL_LAYER, CloakCapeModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HOOD_MODEL_LAYER, CloakHoodModel::getTexturedModelData);
+
+        for(ModArmorModels.ModHelmetModels model : ModArmorModels.ModHelmetModels.values()){
+            ArmorRenderer.register(new HelmetArmorRenderer(model.getModel()), model.getItem());
+        }
+        for(ModArmorModels.ModRustyHelmetModels model : ModArmorModels.ModRustyHelmetModels.values()){
+            ArmorRenderer.register(new DegradedHelmetArmorRenderer(model.getModel()), model.getItem());
+        }
+        for(ModArmorModels.ModChestplateModels model : ModArmorModels.ModChestplateModels.values()){
+            ArmorRenderer.register(new ChestplateArmorRenderer(model.getModel()), model.getItem());
+        }
+        for(ModArmorModels.ModRustyChestplateModels model : ModArmorModels.ModRustyChestplateModels.values()){
+            ArmorRenderer.register(new DegradedChestplateArmorRenderer(model.getModel()), model.getItem());
+        }
 
         ModEquipmentItems.armorPiecesListHelmets.forEach(armor -> {
             ArmorRenderer.register(new HelmetArmorRenderer(), armor.asItem());

@@ -25,30 +25,10 @@ public class CustomChestplateItem extends ArmorItem {
     public ModSubFactions subFaction;
 
     private ExtendedArmorMaterial material;
-    public ChestplateAddonModel additionModel;
-
-    public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings, ModFactions faction, ChestplateAddonModel chestplateModel) {
-        super(material.material(), type, settings.maxCount(1).maxDamage(Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
-        this.material = material;
-        this.additionModel = chestplateModel;
-
-        this.faction = faction;
-        this.subFaction = null;
-    }
-
-    public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings, ModSubFactions subFaction, ChestplateAddonModel chestplateModel) {
-        super(material.material(), type, settings.maxCount(1).maxDamage(Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
-        this.material = material;
-        this.additionModel = chestplateModel;
-
-        this.faction = subFaction.getParent();
-        this.subFaction = subFaction;
-    }
 
     public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings, ModFactions faction) {
         super(material.material(), type, settings.maxCount(1).maxDamage(Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
         this.material = material;
-        this.additionModel = null;
 
         this.faction = faction;
         this.subFaction = null;
@@ -57,7 +37,6 @@ public class CustomChestplateItem extends ArmorItem {
     public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings, ModSubFactions subFaction) {
         super(material.material(), type, settings.maxCount(1).maxDamage(Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
         this.material = material;
-        this.additionModel = null;
 
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
