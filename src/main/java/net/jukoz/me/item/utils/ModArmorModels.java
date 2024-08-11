@@ -2,6 +2,7 @@ package net.jukoz.me.item.utils;
 
 import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
 import net.jukoz.me.client.model.equipment.chest.HaltChestplateModel;
+import net.jukoz.me.client.model.equipment.chest.HobgoblinPlateChestplateModel;
 import net.jukoz.me.client.model.equipment.head.*;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.minecraft.entity.LivingEntity;
@@ -65,6 +66,11 @@ public class ModArmorModels {
         URUK_HAI_BERSERKER_PAINTED_HELMET(ModEquipmentItems.URUK_HAI_BERSERKER_PAINTED_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_COMMANDER_HELMET(ModEquipmentItems.URUK_HAI_COMMANDER_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_COMMANDER_PAINTED_HELMET(ModEquipmentItems.URUK_HAI_COMMANDER_PAINTED_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+
+        GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
         ;
 
         private final Item item;
@@ -85,6 +91,7 @@ public class ModArmorModels {
     }
 
     public enum ModRustyHelmetModels{
+        MORDOR_ORC_SNOUT_HELMET(ModEquipmentItems.MORDOR_ORC_SNOUT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
         ORC_SALLET(ModEquipmentItems.ORC_SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),
         ;
 
@@ -119,6 +126,8 @@ public class ModArmorModels {
         BLACK_URUK_COMMANDER_CHESTPLATE(ModEquipmentItems.BLACK_URUK_COMMANDER_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
 
         URUK_HAI_PLATE_CHESTPLATE(ModEquipmentItems.URUK_HAI_PLATE_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
+
+        GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE, new HobgoblinPlateChestplateModel<>(HobgoblinPlateChestplateModel.getTexturedModelData().createModel())),
 
         ;
 

@@ -650,6 +650,15 @@
 
   "item.me.orc_plate_boots": "Orc Plate Boots",
 
+  "item.me.mordor_orc_helmet": "Mordor Orc Helmet",
+  "item.me.mordor_orc_eye_helmet": "Mordor Orc Eye Helmet",
+  "item.me.mordor_orc_great_eye_helmet": "Mordor Orc Great Eye Helmet",
+  "item.me.mordor_orc_mandible_helmet": "Mordor Orc Mandible Helmet",
+  "item.me.mordor_orc_oversight_helmet": "Mordor Orc Oversight Helmet",
+  "item.me.mordor_orc_snout_helmet": "Mordor Orc Snout Helmet",
+
+  "item.me.mordor_orc_scale_coat": "Mordor Orc Scale Coat",
+
   "item.me.mordor_orc_chestplate": "Mordor Orc Chestplate",
 
   "item.me.black_uruk_plate_helmet": "Black Uruk Plate Helmet",
@@ -681,6 +690,16 @@
   "item.me.uruk_hai_plate_leggings": "Uruk-Hai Plate Leggings",
 
   "item.me.uruk_hai_plate_boots": "Uruk-Hai Plate Boots",
+
+  "item.me.hobgoblin_chain_hauberk": "Hobgoblin Chain Hauberk",
+
+  "item.me.gundabad_hobgoblin_plate_crested_helmet": "Gundabad Hobgoblin Plate Crested Helmet",
+  "item.me.gundabad_hobgoblin_plate_large_crest_helmet": "Gundabad Hobgoblin Plate Large Crest Helmet",
+  "item.me.gundabad_hobgoblin_plate_long_horn_helmet": "Gundabad Hobgoblin Plate Long Horn Helmet",
+  "item.me.gundabad_hobgoblin_plate_small_horn_helmet": "Gundabad Hobgoblin Plate Small Horn Helmet",
+  "item.me.gundabad_hobgoblin_plate_chestplate": "Gundabad Hobgoblin Plate Chestplate",
+  "item.me.gundabad_hobgoblin_chain_coat": "Gundabad Hobgoblin Chain Coat",
+  "item.me.gundabad_hobgoblin_plated_boots": "Gundabad Hobgoblin Plated Boots",
 
   "item.me.steel_troll_armor": "Steel Troll Armor",
 

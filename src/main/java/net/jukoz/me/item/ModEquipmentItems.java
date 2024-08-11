@@ -735,6 +735,29 @@ public class ModEquipmentItems {
     //endregion
 
     //region MORDOR
+    public static final Item MORDOR_ORC_HELMET = registerRustyArmorPiece("mordor_orc_helmet",
+            new CustomHelmetItem(ModArmorMaterials.SLAG_T2, ArmorItem.Type.HELMET, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item MORDOR_ORC_EYE_HELMET = registerRustyArmorPiece("mordor_orc_eye_helmet",
+            new CustomHelmetItem(ModArmorMaterials.SLAG_T2, ArmorItem.Type.HELMET, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item MORDOR_ORC_GREAT_EYE_HELMET = registerRustyArmorPiece("mordor_orc_great_eye_helmet",
+            new CustomHelmetItem(ModArmorMaterials.SLAG_T3, ArmorItem.Type.HELMET, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item MORDOR_ORC_MANDIBLE_HELMET = registerRustyArmorPiece("mordor_orc_mandible_helmet",
+            new CustomHelmetItem(ModArmorMaterials.SLAG_T3, ArmorItem.Type.HELMET, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item MORDOR_ORC_OVERSIGHT_HELMET = registerRustyArmorPiece("mordor_orc_oversight_helmet",
+            new CustomHelmetItem(ModArmorMaterials.SLAG_T4, ArmorItem.Type.HELMET, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item MORDOR_ORC_SNOUT_HELMET = registerCustomModelRustyArmorPiece("mordor_orc_snout_helmet",
+            new CustomHelmetItem(ModArmorMaterials.SLAG_T4, ArmorItem.Type.HELMET, new Item.Settings(),
+                    ModFactions.MORDOR));
+
+    public static final Item MORDOR_ORC_SCALE_COAT = registerArmorPiece("mordor_orc_scale_coat",
+            new CustomLeggingsItem(ModArmorMaterials.SLAG_T4, ArmorItem.Type.LEGGINGS, new Item.Settings(),
+                    ModFactions.MORDOR));
+
     public static final Item MORDOR_ORC_CHESTPLATE = registerRustyArmorPiece("mordor_orc_chestplate",
             new CustomChestplateItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModFactions.MORDOR));
@@ -833,6 +856,32 @@ public class ModEquipmentItems {
     //endregion
 
     //region MISTY MOUNTAINS ORCS
+
+    public static final Item HOBGOBLIN_CHAIN_HAUBERK = registerArmorPiece("hobgoblin_chain_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.URUK_STEEL_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+                    ModFactions.MISTY_MOUNTAINS_ORCS));
+    
+    public static final Item GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_crested_helmet",
+            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+                    ModSubFactions.GUNDABAD));
+    public static final Item GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_large_crest_helmet",
+            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+                    ModSubFactions.GUNDABAD));
+    public static final Item GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_long_horn_helmet",
+            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+                    ModSubFactions.GUNDABAD));
+    public static final Item GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_small_horn_helmet",
+            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+                    ModSubFactions.GUNDABAD));
+    public static final Item GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_chestplate",
+            new CustomChestplateItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+                    ModSubFactions.GUNDABAD));
+    public static final Item GUNDABAD_HOBGOBLIN_CHAIN_COAT = registerArmorPiece("gundabad_hobgoblin_chain_coat",
+            new CustomLeggingsItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.LEGGINGS, new Item.Settings(),
+                    ModSubFactions.GUNDABAD));
+    public static final Item GUNDABAD_HOBGOBLIN_PLATED_BOOTS = registerArmorPiece("gundabad_hobgoblin_plated_boots",
+            new CustomBootsItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
+                    ModSubFactions.GUNDABAD));
 
     public static final Item MISTY_MOUNTAINS_SHIELD = registerShield("misty_mountains_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs")));
