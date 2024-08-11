@@ -29,8 +29,8 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SingleStackInventory;
@@ -67,7 +67,7 @@ public class WargEntity extends BeastEntity {
     public int idleAnimationTimeout = this.random.nextInt(600) + 1700;
     private boolean hasCharged = false;
     private boolean startedSitting = false;
-    public WargEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
+    public WargEntity(EntityType<? extends WargEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -85,6 +85,11 @@ public class WargEntity extends BeastEntity {
     @Override
     public boolean isInAttackRange(LivingEntity entity) {
         return (super.isInAttackRange(entity) && this.isTame()) || (this.getAttackBox().expand(1.5f).intersects(entity.getBoundingBox()) && !this.isTame());
+    }
+
+    @Override
+    public boolean canUseSlot(EquipmentSlot slot) {
+        return true;
     }
 
     @Override

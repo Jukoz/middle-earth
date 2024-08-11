@@ -32,7 +32,7 @@ public class StoneTrollEntity extends TrollEntity {
     );
     private final int PETRIFYING_DURATION = 600;
 
-    public StoneTrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
+    public StoneTrollEntity(EntityType<? extends StoneTrollEntity> entityType, World world) {
         super(entityType, world);
     }
 

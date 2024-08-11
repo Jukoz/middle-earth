@@ -1,5 +1,6 @@
 package net.jukoz.me.entity.beasts;
 
+import net.jukoz.me.entity.beasts.warg.WargEntity;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -9,7 +10,8 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.passive.AbstractDonkeyEntity;
+import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.Item;
@@ -33,9 +35,10 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 // Beasts are mostly aggressive Entities which work much like wolves, while also allowing the player to mount them.
-public class BeastEntity extends AbstractDonkeyEntity {
+public class BeastEntity extends AbstractHorseEntity {
     public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> SITTING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> CHEST = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
@@ -52,7 +55,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
     protected Vec3d targetDir = Vec3d.ZERO;
 
     // Initializing ====================================================================================================
-    protected BeastEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
+    protected BeastEntity(EntityType<? extends BeastEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -60,6 +63,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
         super.initDataTracker(builder);
         builder.add(CHARGING, false);
         builder.add(SITTING, false);
+        builder.add(CHEST, false);
     }
 
     @Override
@@ -150,6 +154,14 @@ public class BeastEntity extends AbstractDonkeyEntity {
     }
 
     // Getters and Setters =============================================================================================
+
+    public boolean hasChest() {
+        return this.dataTracker.get(CHEST);
+    }
+
+    public void setHasChest(boolean hasChest) {
+        this.dataTracker.set(CHEST, hasChest);
+    }
 
     public boolean canCarryChest() {
         return true;
@@ -270,7 +282,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
     }
 
     public int getInventoryColumns() {
-        return 5;
+        return this.hasChest() ? 5 : 0;
     }
 
     private void addChest(PlayerEntity player, ItemStack chest) {
@@ -318,11 +330,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
 
     public void tryBonding(PlayerEntity player) {
         if(random.nextDouble() <= 0.1d) {
-            if (player instanceof ServerPlayerEntity) {
-                this.setOwnerUuid(player.getUuid());
-                this.setTame(true);
-                Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
-            }
+            this.tameBeast(player);
             this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
 
             this.chargeTimeout = 0;
@@ -332,17 +340,33 @@ public class BeastEntity extends AbstractDonkeyEntity {
         }
     }
 
+    protected void tameBeast(PlayerEntity player) {
+        if (player instanceof ServerPlayerEntity) {
+            this.setOwnerUuid(player.getUuid());
+            this.setTame(true);
+            Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
+        }
+    }
 
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         boolean bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
 
-        if(this.isTame() && isCommandItem(player.getStackInHand(hand)) && player.getUuid() == this.getOwnerUuid()) {
-            this.setSitting(!isSitting());
-        }
+        ItemStack itemStack = player.getStackInHand(hand);
 
-        if(this.isTame() && !isCommandItem(player.getStackInHand(hand)) && !(player.getStackInHand(hand).isOf(Items.CHEST) && !canCarryChest())) {
-            super.interactMob(player, hand);
+        if(this.isTame()) {
+            if(isCommandItem(itemStack) && player.getUuid() == this.getOwnerUuid()) {
+                this.setSitting(!isSitting());
+            }
+
+            if (itemStack.isOf(Items.CHEST) && !this.hasChest()) {
+                this.addChest(player, itemStack);
+                return ActionResult.success(((World)this.getWorld()).isClient);
+            }
+
+            if(!(isCommandItem(itemStack) || isBreedingItem(itemStack) || itemStack.isOf(Items.CHEST))) {
+                super.interactMob(player, hand);
+            }
         }
 
         if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && !this.getWorld().isClient) {
@@ -350,7 +374,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
         }
 
         if (!this.hasPassengers() && !bl) {
-            ItemStack itemStack = player.getStackInHand(hand);
             if (!itemStack.isEmpty()) {
                 if (!this.hasChest() && itemStack.isOf(Items.CHEST) && this.canCarryChest()) {
                     this.addChest(player, itemStack);

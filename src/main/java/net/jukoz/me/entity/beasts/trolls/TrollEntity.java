@@ -57,7 +57,7 @@ public class TrollEntity extends BeastEntity {
         return false;
     }*/
 
-    public TrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
+    public TrollEntity(EntityType<? extends TrollEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -168,6 +168,11 @@ public class TrollEntity extends BeastEntity {
         }
     }
 
+    @Override
+    protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
+        return (float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f;
+    }
+
     public boolean isCommandItem(ItemStack stack) {
         return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
     }
@@ -263,28 +268,31 @@ public class TrollEntity extends BeastEntity {
     public int getBondingTimeout() {
         return bondingTimeout;
     }
+    public void setBondingTimeout(int bondingTimeout) {
+        this.bondingTimeout = bondingTimeout;
+    }
 
     @Override
     public void tryBonding(PlayerEntity player) {
-        if(this.bondingTimeout <= 0) {
+
+        if(player.isCreative()) {
+            tameBeast(player);
+            this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+            this.setChargeTimeout(0);
+        }
+        else if(this.getBondingTimeout() <= 0) {
             if(random.nextFloat() <= 0.4f) {
                 this.bondingTries++;
                 if(bondingTries == 3) {
-                    if (player instanceof ServerPlayerEntity) {
-                        this.setOwnerUuid(player.getUuid());
-                        this.setTame(true);
-                        this.setTarget(null);
-                        Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
-                    }
+                    tameBeast(player);
                     this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
-
-                    this.chargeTimeout = 0;
+                    this.setChargeTimeout(0);
                 }
             }
             player.getStackInHand(player.getActiveHand()).decrement(1);
-            this.bondingTimeout = 40;
-        }
+            this.setBondingTimeout(40);
 
+        }
     }
 
     public void throwAttack() {

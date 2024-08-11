@@ -11,7 +11,6 @@ import net.jukoz.me.entity.beasts.trolls.petrified.PetrifiedTrollModel;
 import net.jukoz.me.entity.beasts.trolls.stone.StoneTrollModel;
 import net.jukoz.me.entity.beasts.warg.WargModel;
 import net.jukoz.me.entity.beasts.warg.features.WargArmorModel;
-import net.jukoz.me.entity.beasts.warg.features.WargEyesModel;
 import net.jukoz.me.entity.beasts.warg.features.WargSaddleModel;
 import net.jukoz.me.entity.crab.CrabModel;
 import net.jukoz.me.entity.deer.DeerModel;
@@ -40,7 +39,6 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer ORC = ModEntityModelLayers.registerEntityModelLayer("orc", OrcModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer URUK = ModEntityModelLayers.registerEntityModelLayer("uruk", UrukModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer WARG = ModEntityModelLayers.registerEntityModelLayer("warg", WargModel.getTexturedModelData());
-    public static final EntityModelLayer WARG_EYES = ModEntityModelLayers.registerEntityModelLayer("warg_eyes", WargEyesModel.getTexturedModelData());
     public static final EntityModelLayer WARG_ARMOR = ModEntityModelLayers.registerEntityModelLayer("warg_armor", WargArmorModel.getTexturedModelData());
     public static final EntityModelLayer WARG_SADDLE = ModEntityModelLayers.registerEntityModelLayer("warg_saddle", WargSaddleModel.getTexturedModelData());
     public static final EntityModelLayer CAVE_TROLL = ModEntityModelLayers.registerEntityModelLayer("cave_troll", CaveTrollModel.getTexturedModelData());

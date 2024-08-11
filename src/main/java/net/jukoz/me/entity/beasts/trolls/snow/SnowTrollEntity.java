@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class SnowTrollEntity extends TrollEntity {
-    public SnowTrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
+    public SnowTrollEntity(EntityType<? extends SnowTrollEntity> entityType, World world) {
         super(entityType, world);
     }
 
