@@ -170,10 +170,6 @@ public class BeastEntity extends AbstractHorseEntity {
     public boolean canCharge() {
         return !this.isSitting() && !this.hasPassengers();
     }
-    @Override
-    protected float getJumpVelocity() {
-        return 0.5f * this.getJumpVelocityMultiplier() + this.getJumpBoostVelocityModifier();
-    }
 
     @Override
     public int getJumpCooldown() {

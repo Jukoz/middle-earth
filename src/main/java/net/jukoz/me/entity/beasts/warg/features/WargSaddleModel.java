@@ -51,11 +51,11 @@ public class WargSaddleModel extends SinglePartEntityModel<WargEntity> {
     public void setAngles(WargEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
 
-        if(entity.hasControllingPassenger() || entity.isAttacking()) {
-            this.animateMovement(WargAnimations.RUN, limbAngle, limbDistance, 1f, 1f);
+        if((entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting()) || entity.isAttacking()) {
+            this.animateMovement(WargAnimations.RUN, limbAngle, limbDistance, 1.2f, 1.2f);
         }
         else {
-            this.animateMovement(WargAnimations.WALK, limbAngle, limbDistance, 1f, 1f);
+            this.animateMovement(WargAnimations.WALK, limbAngle, limbDistance, 1.5f, 1.5f);
         }
 
         this.updateAnimation(entity.idleAnimationState, WargAnimations.GROOM, animationProgress, 1f);

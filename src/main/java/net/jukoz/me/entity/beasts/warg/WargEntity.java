@@ -3,9 +3,11 @@ package net.jukoz.me.entity.beasts.warg;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.beasts.BeastEntity;
 import net.jukoz.me.entity.deer.DeerEntity;
+import net.jukoz.me.entity.duck.DuckEntity;
 import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.*;
+import net.jukoz.me.entity.goose.GooseEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
@@ -29,8 +31,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AbstractHorseEntity;
-import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SingleStackInventory;
@@ -49,6 +50,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -78,8 +80,7 @@ public class WargEntity extends BeastEntity {
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2d)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0d)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 38.0d)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0d)
-                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 1.0d);
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0d);
     }
 
     @Override
@@ -111,6 +112,12 @@ public class WargEntity extends BeastEntity {
         this.targetSelector.add(8, new ActiveTargetGoal<>(this, RohanHumanEntity.class, true));
         this.targetSelector.add(9, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
         this.targetSelector.add(10, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+        this.targetSelector.add(11, new ActiveTargetGoal<>(this, SheepEntity.class, true));
+        this.targetSelector.add(12, new ActiveTargetGoal<>(this, GoatEntity.class, true));
+        this.targetSelector.add(13, new ActiveTargetGoal<>(this, DeerEntity.class, true));
+        this.targetSelector.add(14, new ActiveTargetGoal<>(this, PheasantEntity.class, true));
+        this.targetSelector.add(15, new ActiveTargetGoal<>(this, GooseEntity.class, true));
+        this.targetSelector.add(16, new ActiveTargetGoal<>(this, DuckEntity.class, true));
     }
 
     @Override
@@ -143,7 +150,7 @@ public class WargEntity extends BeastEntity {
             List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
 
             for(Entity entity : entities) {
-                if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity)) {
+                if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
                     entity.damage(entity.getDamageSources().mobAttack(this), 10.0f);
                     if(entity.hasVehicle()) {
                         entity.dismountVehicle();
@@ -189,14 +196,30 @@ public class WargEntity extends BeastEntity {
 
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
-        return ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 1.5f);
+        return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 1.5f) : ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f);
+    }
+
+    @Override
+    public boolean canSprintAsVehicle() {
+        return true;
+    }
+
+    @Override
+    protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
+        float f = this.limbAnimator.getSpeed();
+        float g = this.limbAnimator.getPos() * (MathHelper.PI / 180) * 18;
+        float h = passenger.isSprinting() ? 2 : 1;
+
+        double y = (MathHelper.cos(g * h * 1.2f) * f * (0.06 + (0.035 * (h - 1)))) - 0.1;
+
+        return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
     }
 
     @Override
     public void tickMovement() {
         super.tickMovement();
 
-        if(this.isAttacking()) {
+        if(this.isAttacking() || this.getAttacker() != null) {
             this.setSitting(false);
             this.idleAnimationTimeout = this.random.nextInt(600) + 1700;
 
