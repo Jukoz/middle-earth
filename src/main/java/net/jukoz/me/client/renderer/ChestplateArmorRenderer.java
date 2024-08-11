@@ -4,7 +4,9 @@ import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.MiddleEarthClient;
 import net.jukoz.me.client.model.equipment.CustomChestplateModel;
+import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
 import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
+import net.jukoz.me.client.model.equipment.head.HelmetAddonModel;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.items.CustomChestplateItem;
@@ -24,8 +26,14 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
 
     private CustomChestplateModel<LivingEntity> customChestplateModel;
     private CloakCapeModel<LivingEntity> capeModel;
+    private ChestplateAddonModel<LivingEntity> chestplateModel;
+    
 
     public ChestplateArmorRenderer() {
+    }
+
+    public ChestplateArmorRenderer(ChestplateAddonModel<LivingEntity> chestplateModel) {
+        this.chestplateModel = chestplateModel;
     }
 
     @Override
@@ -52,13 +60,13 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
             String texture = "textures/models/armor/" + Registries.ITEM.getId(stack.getItem()).getPath() + ".png";
             ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customChestplateModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
 
-            if (item.additionModel != null) {
-                contextModel.copyBipedStateTo(item.additionModel);
-                item.additionModel.setVisible(false);
-                item.additionModel.body.visible = true;
-                item.additionModel.rightArm.visible = true;
-                item.additionModel.leftArm.visible = true;
-                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, item.additionModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
+            if (this.chestplateModel != null) {
+                contextModel.copyBipedStateTo(this.chestplateModel);
+                this.chestplateModel.setVisible(false);
+                this.chestplateModel.body.visible = true;
+                this.chestplateModel.rightArm.visible = true;
+                this.chestplateModel.leftArm.visible = true;
+                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
             }
 
             CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
