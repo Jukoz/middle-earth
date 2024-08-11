@@ -110,6 +110,13 @@ public class ModNatureBlocks {
     public static final Block DEAD_HEATHER = registerBlock("dead_heather",
             new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), true);
+    public static final Block DRY_HEATHER = registerBlock("dry_heather",
+            new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.GREEN)), true);
+    public static final Block HEATH = registerBlock("heath",
+            new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.GREEN)), true);
+
     public static final Block WHEATGRASS = registerBlock("wheatgrass",
             new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), true);
@@ -124,10 +131,6 @@ public class ModNatureBlocks {
             new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), true);
     public static final Block YELLOW_SEDUM = registerBlock("yellow_sedum",
-            new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
-                    .mapColor(DyeColor.GREEN)), true);
-
-    public static final Block BRACKEN = registerBlock("bracken",
             new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), true);
 
@@ -153,6 +156,9 @@ public class ModNatureBlocks {
     public static final Block FALSE_OATGRASS = registerBlock("false_oatgrass",
             new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.NONE)
                     .mapColor(DyeColor.BROWN)), true);
+    public static final Block BRACKEN = registerBlock("bracken",
+            new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
+                    .mapColor(DyeColor.GREEN)), true);
 
     public static final Block BEACH_GRASS = registerBlock("beach_grass",
             new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
