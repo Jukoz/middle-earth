@@ -1,20 +1,17 @@
 package net.jukoz.me.client.screens.utils.widgets;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 
-public class MapWidget {
+public class MapWidget extends ModWidget {
     private static final Identifier MAP_UI_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
     private static final Identifier MAP_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
     int startX = 0;
     int startY = 0;
     private int mapWidth;
     private int mapHeight;
-    int mouseX = 0;
-    int mouseY = 0;
 
     int uvX = 0;
     int uvY = 0;
@@ -22,11 +19,6 @@ public class MapWidget {
     public MapWidget(int mapWidth, int mapHeight) {
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
-    }
-
-    public void updateMouse(int mouseX, int mouseY){
-        this.mouseX = mouseX;
-        this.mouseY = mouseY;
     }
 
     public void setStartCoordinates(int startX, int startY){
@@ -73,13 +65,16 @@ public class MapWidget {
 
 
 
-    public void mouseClicked(double mouseX, double mouseY, int button) {
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
         // TODO : Marker click? Need a better system..
         //LoggerUtil.logDebugMsg("Mouse is clicked at " + mouseX + ", " + mouseY);
+        return true;
     }
 
-    public void mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
-        if(button == 0 &&  isMouseInside(mouseX, mouseY)){
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+        if(button == 0 &&  isMouseOver(mapWidth, mapHeight, startX, startY)){
             int newUvX = (int) (this.uvX - deltaX);
             int newUvY = (int) (this.uvY - deltaY);
 
@@ -98,16 +93,14 @@ public class MapWidget {
                 this.uvY = newUvY;
              */
         }
+        return true;
     }
 
-    private boolean isMouseInside(double mouseX, double mouseY){
-        return (mouseX >= startX && mouseX <= startX + mapWidth
-                && mouseY >= startY && mouseY <= startY + mapHeight);
-    }
-
-    public void mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         // TODO : Zoom control
         //LoggerUtil.logDebugMsg("Mouse is scrolled at " + mouseX + ", " + mouseY);
+        return true;
     }
 
     public void setSize(int mapWidth, int mapHeight) {

@@ -30,13 +30,14 @@ public class BipedEntityModelMixin {
     @Shadow @Final public ModelPart rightArm;
 
     @Shadow @Final public ModelPart leftArm;
+    private final static float VERTICAL_ANGLE = -1.4f;
 
     @Inject(at = @At("TAIL"), method = "positionRightArm")
     private void positionRightArm(LivingEntity entity, CallbackInfo ci) {
         List<ItemStack> handItems = new ArrayList<>();
         entity.getHandItems().forEach(handItems::add);
         if(handItems.get(0) != null) {
-            tryItemAnimation(entity.getMainHandStack(), entity, true);
+            tryItemAnimation(handItems.get(0), entity, true);
         }
     }
 
@@ -65,20 +66,21 @@ public class BipedEntityModelMixin {
         } else if(itemStack.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) itemStack.getItem()).type == ModWeaponTypes.SPEAR)) {
             if(entity instanceof PlayerEntity playerEntity) {
                 int afkTime = PlayerMovementData.readAFK((IEntityDataSaver) playerEntity);
-                if(rightHand && afkTime > 60) {
-                    this.rightArm.pitch = -1.4f;
-                }
-            } else if(entity instanceof MobEntity mob) {
-                if(mob.isAiDisabled()) {
-                    if(rightHand) this.rightArm.pitch = -1.4f;
-                    else this.leftArm.pitch = -1.4f;
+                if(afkTime > 60){
+                    if(rightHand) this.rightArm.pitch = VERTICAL_ANGLE;
+                    else this.leftArm.pitch = VERTICAL_ANGLE;
+                } else if(entity instanceof MobEntity mob) {
+                    if (mob.isAiDisabled()) {
+                        if (rightHand) this.rightArm.pitch = VERTICAL_ANGLE;
+                        else this.leftArm.pitch = VERTICAL_ANGLE;
+                    }
                 }
             }
         } else if (itemStack.getItem() == ModDecorativeItems.TORCH_OF_ORTHANC) {
             if(rightHand) {
-                this.rightArm.pitch = -1.4f;
+                this.rightArm.pitch = VERTICAL_ANGLE;
             } else {
-                this.leftArm.pitch = -1.4f;
+                this.leftArm.pitch = VERTICAL_ANGLE;
             }
         }
     }
