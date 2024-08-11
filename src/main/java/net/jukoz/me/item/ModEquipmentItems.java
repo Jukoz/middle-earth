@@ -146,7 +146,7 @@ public class ModEquipmentItems {
     public static final Item SALLET = registerCustomModelArmorPiece("sallet",
             new CustomHelmetItem(ModArmorMaterials.STEEL_T4, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.NONE));
-    
+
     public static final Item ROUND_SHIELD = registerShield("round_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic")));
     public static final Item HEATER_SHIELD = registerShield("heater_shield",
