@@ -689,9 +689,7 @@
   "item.me.uruk_hai_commander_painted_helmet": "Uruk-Hai Commander Painted Helmet",
 
   "item.me.uruk_hai_plate_chestplate": "Uruk-Hai Plate Chestplate",
-
   "item.me.uruk_hai_plate_leggings": "Uruk-Hai Plate Leggings",
-
   "item.me.uruk_hai_plate_boots": "Uruk-Hai Plate Boots",
 
   "item.me.hobgoblin_chain_hauberk": "Hobgoblin Chain Hauberk",
@@ -705,6 +703,8 @@
   "item.me.gundabad_hobgoblin_plated_boots": "Gundabad Hobgoblin Plated Boots",
 
   "item.me.steel_troll_armor": "Steel Troll Armor",
+  "item.me.warg_leather_armor": "Warg Leather Armor",
+  "item.me.warg_plate_armor": "Warg Plate Armor",
 
 "#Comment:": "Shields",
   "item.me.round_shield": "Round Shield",

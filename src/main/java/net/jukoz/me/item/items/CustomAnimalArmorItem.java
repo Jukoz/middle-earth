@@ -56,7 +56,8 @@ public class CustomAnimalArmorItem extends ArmorItem {
     }
 
     public static enum Type {
-        WARG(id -> id.withPath("textures/entities/warg/feature/warg_armor"), SoundEvents.ENTITY_ITEM_BREAK);
+        WARG_LEATHER(id -> id.withPath("textures/entities/warg/feature/warg_leaher_armor"), SoundEvents.ENTITY_ITEM_BREAK),
+        WARG_PLATE(id -> id.withPath("textures/entities/warg/feature/warg_plate_armor"), SoundEvents.ENTITY_ITEM_BREAK);
 
         final Function<Identifier, Identifier> textureIdFunction;
         final SoundEvent breakSound;

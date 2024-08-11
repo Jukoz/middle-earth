@@ -280,7 +280,7 @@ public class WargEntity extends BeastEntity {
 
     @Override
     public boolean isHorseArmor(ItemStack stack) {
-        return stack.isOf(ModEquipmentItems.WARG_ARMOR);
+        return (stack.isOf(ModEquipmentItems.WARG_LEATHER_ARMOR) || stack.isOf(ModEquipmentItems.WARG_PLATE_ARMOR));
     }
 
     public boolean hasCharged() {
