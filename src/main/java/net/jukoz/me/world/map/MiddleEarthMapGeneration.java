@@ -232,7 +232,7 @@ public class MiddleEarthMapGeneration {
 
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
-        LoggerUtil.getInstance().logInfoMsg("TIME BLUR FOR HEIGHT: " + timeElapsed);
+        LoggerUtil.logInfoMsg("TIME BLUR FOR HEIGHT: " + timeElapsed);
     }
 
     private boolean validateBaseHeightDatas() {
@@ -338,7 +338,7 @@ public class MiddleEarthMapGeneration {
         try{
             return new Color(red, green, blue);
         } catch (Exception e){
-            LoggerUtil.getInstance().logError(e.getMessage());
+            LoggerUtil.logError(e.getMessage());
             return color1;
         }
     }

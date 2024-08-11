@@ -105,18 +105,21 @@ public class FileUtils {
     public static BufferedImage blur(BufferedImage image, int brushSize, boolean crop) {
         int width = image.getWidth();
         int height = image.getHeight();
+        int newWidth = width + (2 * brushSize);
+        int newHeight = height + (2 * brushSize);
 
         BufferedImage imageWithBorders = image;
-        if(!crop) {
-            imageWithBorders = new BufferedImage(width + 2*brushSize, height + 2*brushSize, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D graphics = imageWithBorders.createGraphics();
+        Graphics2D g2d;
+        if(!crop) { // CLAMP_TO_BORDER
+            imageWithBorders = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+            g2d = imageWithBorders.createGraphics();
 
-            graphics.setColor(MEBiomesData.defaultBiome.color);
-            graphics.fillRect(0, 0, width + 2*brushSize, height + 2*brushSize);
-            graphics.drawImage(image, brushSize, brushSize, null);
-        } else {
+            g2d.setColor(MEBiomesData.defaultBiome.color);
+            g2d.fillRect(0, 0, newWidth, newHeight);
+            g2d.drawImage(image, brushSize, brushSize, null);
+        } else { // CLAM_TO_EDGE
             imageWithBorders = new BufferedImage(newWidth, newHeight, image.getType());
-            Graphics2D g2d = imageWithBorders.createGraphics();
+            g2d = imageWithBorders.createGraphics();
 
             // Copy image content (center)
             g2d.drawImage(image, brushSize, brushSize, null);
@@ -154,9 +157,7 @@ public class FileUtils {
         if(crop) {
             return blurredImage.getSubimage(brushSize, brushSize, width - brushSize*2, height - brushSize*2);
         } else {
-            BufferedImage subImage = blurredImage.getSubimage(brushSize, brushSize, width, height);
-            g2d.dispose();
-            return subImage;
+            return blurredImage;
         }
     }
 }
