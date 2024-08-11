@@ -46,7 +46,7 @@ public class BipedEntityModelMixin {
         List<ItemStack> handItems = new ArrayList<>();
         entity.getHandItems().forEach(handItems::add);
         if(handItems.get(1) != null) {
-            tryItemAnimation(entity.getOffHandStack(), entity, false);
+            tryItemAnimation(handItems.get(1), entity, false);
         }
     }
 
