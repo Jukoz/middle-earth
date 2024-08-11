@@ -13,10 +13,9 @@ import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModWeaponItems;
-import net.jukoz.me.item.items.PebbleItem;
+import net.jukoz.me.item.items.weapons.ranged.PebbleItem;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -26,7 +25,6 @@ import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.random.Random;
@@ -140,8 +138,8 @@ public class ShireHobbitEntity extends NpcEntity {
                     0x665723
             };
             int colorIndex = random.nextInt(3);
-            ItemStack cloakHood = new ItemStack((Item)ModEquipmentItems.CLOAK_HOOD);
-            ItemStack cloak = new ItemStack((Item)ModEquipmentItems.CLOAK);
+            ItemStack cloakHood = new ItemStack((Item)ModEquipmentItems.HOOD);
+            ItemStack cloak = new ItemStack((Item)ModEquipmentItems.CAPE);
 
             DyedColorComponent.setColor(cloak, List.of(DyeItem.byColor(DyeColor.byId(colors[colorIndex]))));
 
@@ -165,11 +163,7 @@ public class ShireHobbitEntity extends NpcEntity {
     private void soldierEquipment(Random random){
         float  randomVal = random.nextFloat();
         equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
-        if(randomVal < 0.50f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HOBBIT_SHIRRIFF_HAT_BROWN));
-        } else {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HOBBIT_SHIRRIFF_HAT_GREEN));
-        }
+        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.SHIRRIFF_HAT));
     }
 
     public ShireHobbitVariant getVariant() {

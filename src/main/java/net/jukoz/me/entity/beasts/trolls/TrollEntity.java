@@ -51,11 +51,11 @@ public class TrollEntity extends BeastEntity {
     public static final TrackedData<Boolean> THROWING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 
-    // Temporary disabled until next update
+    /* Temporary disabled until next update
     @Override
     public boolean hasArmorSlot() {
         return false;
-    }
+    }*/
 
     public TrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
@@ -169,7 +169,7 @@ public class TrollEntity extends BeastEntity {
     }
 
     public boolean isCommandItem(ItemStack stack) {
-        return stack.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "bones")));
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
     }
 
     @Override

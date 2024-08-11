@@ -1,16 +1,13 @@
 package net.jukoz.me.item.utils;
 
 import com.google.common.base.Suppliers;
-import net.fabricmc.yarn.constants.MiningLevels;
 import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
-import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Lazy;
 
 import java.util.function.Supplier;
 
@@ -18,11 +15,15 @@ public enum ModToolMaterials implements ToolMaterial
 {
     JADE(BlockTags.INCORRECT_FOR_STONE_TOOL, 256, 4.0f, 1.0f, 5, () -> Ingredient.ofItems(StoneBlockSets.JADEITE.base())),
     BRONZE(BlockTags.INCORRECT_FOR_IRON_TOOL, 200, 5.0f, 1.0f, 5, () -> Ingredient.ofItems(ModResourceItems.BRONZE_INGOT)),
-    ORC_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 500, 6.5f, 2.0f, 7, () -> Ingredient.ofItems(ModResourceItems.ORC_STEEL_INGOT)),
+    SLAG(BlockTags.INCORRECT_FOR_IRON_TOOL, 200, 5.0f, 1.0f, 5, () -> Ingredient.ofItems(ModResourceItems.SLAG_INGOT)),
     STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)),
+    NOBLE_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT)),
     URUK_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT)),
+    NOBLE_URUK_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.URUK_STEEL_INGOT)),
     ELVEN_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT)),
+    NOBLE_ELVEN_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT)),
     DWARVEN_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT)),
+    NOBLE_DWARVEN_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT)),
     MORGUL_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 800, 7.5f, 2.0f, 12, () -> Ingredient.ofItems(ModResourceItems.MORGUL_STEEL_INGOT)),
     MITHRIL(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2031, 9.0f, 2.0f, 15, () -> Ingredient.ofItems(ModResourceItems.MITHRIL_INGOT));
 

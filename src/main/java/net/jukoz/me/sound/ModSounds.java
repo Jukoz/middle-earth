@@ -12,11 +12,11 @@ public class ModSounds {
     public static SoundEvent NAZGUL_SCREAM = registerSoundEvent("nazgul_scream");
 
     private static SoundEvent registerSoundEvent(String name) {
-        Identifier id = new Identifier(MiddleEarth.MOD_ID, name);
+        Identifier id = Identifier.of(MiddleEarth.MOD_ID, name);
         return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
     }
 
     public static void registerModSounds() {
-        LoggerUtil.getInstance().logDebugMsg("Registering Mod Entities for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering Mod Entities for " + MiddleEarth.MOD_ID);
     }
 }

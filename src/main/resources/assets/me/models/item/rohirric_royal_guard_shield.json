@@ -1,0 +1,11 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "me:item/small_round_shield_template",
+	"texture_size": [64, 64],
+	"textures": {
+		"8": "me:item/rohirric_royal_guard_shield"
+	},
+	"overrides": [
+		{"predicate": {"blocking": 1}, "model": "me:item/rohirric_royal_guard_shield_blocking"}
+	]
+}

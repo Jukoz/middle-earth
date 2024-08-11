@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.jukoz.me.entity.balrog.BalrogModel;
 import net.jukoz.me.entity.barrow_wights.BarrowWightModel;
 import net.jukoz.me.entity.beasts.trolls.petrified.PetrifiedTrollModel;
@@ -60,12 +61,14 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer SNAIL = ModEntityModelLayers.registerEntityModelLayer("snail", SnailModel.getTexturedModelData());
     public static final EntityModelLayer DEER = ModEntityModelLayers.registerEntityModelLayer("deer", DeerModel.getTexturedModelData());
 
+    public static final EntityModelLayer REINFORCED_CHEST = ModEntityModelLayers.registerEntityModelLayer("reinforced_chest", ReinforcedChestEntityRenderer.getTexturedModelData());
+
 
     /**
      * The modelData is used to know the UV map to use for the 3D model
      * **/
     private static EntityModelLayer registerEntityModelLayer(String registryName, TexturedModelData modelData) {
-        EntityModelLayer entityModelLayer = new EntityModelLayer(new Identifier(MiddleEarth.MOD_ID, registryName), MAIN);
+        EntityModelLayer entityModelLayer = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, registryName), MAIN);
         EntityModelLayerRegistry.registerModelLayer(entityModelLayer, () -> modelData);
         return entityModelLayer;
     }

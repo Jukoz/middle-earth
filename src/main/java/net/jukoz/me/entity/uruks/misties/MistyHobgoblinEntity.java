@@ -96,50 +96,50 @@ public class MistyHobgoblinEntity extends NpcEntity {
     }
 
     private void knightEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_BOOTS));
+        //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_HELMET));
+        //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_CHESTPLATE));
+        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_LEGGINGS));
+        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_BOOTS));
 
         float val = random.nextFloat();
         if(val >= 0.75f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_BARDICHE));
+            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_BARDICHE));
         } else if (val < 0.75f && val > 0.20f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_FALCHION));
+            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_FALCHION));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MISTY_MOUNTAINS_SHIELD));
         } else if (val <= 0.20f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SPEAR));
+            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SPEAR));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MISTY_MOUNTAINS_SHIELD));
         }
     }
 
     private void veteranEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_BOOTS));
+        //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_HELMET));
+        //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_CHESTPLATE));
+        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_LEGGINGS));
+        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_BOOTS));
 
         float val = random.nextFloat();
         if(val >= 0.50f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_BARDICHE));
+            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_BARDICHE));
         }  else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_FALCHION));
+            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_FALCHION));
             equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MISTY_MOUNTAINS_SHIELD));
         }
     }
 
     private void leaderEquipment(Random random){
         {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_HELMET));
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_CHESTPLATE));
-            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_LEGGINGS));
-            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_BOOTS));
+            //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_HELMET));
+            //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_CHESTPLATE));
+            //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_LEGGINGS));
+            //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_BOOTS));
 
             float val = random.nextFloat();
             if(val >= 0.50f){
-                equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_BARDICHE));
+                //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_BARDICHE));
             }  else {
-                equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_FALCHION));
+                //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_FALCHION));
                 equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MISTY_MOUNTAINS_SHIELD));
             }
         }

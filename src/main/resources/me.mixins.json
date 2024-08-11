@@ -5,13 +5,15 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "BannerPatternRegisterMixin",
-    "ChunkRegionMixin",
+    "BlockMixin",
+    "ChunkGeneratorMixin",
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
     "FoliagePlacerTypeInvoker",
     "PigEntityMixin",
     "PlayerEntityMixin",
     "PlayerMixin",
+    "ServerPlayNetworkHandlerMixin",
     "ServerWorldMixin",
     "ShearItemMixin",
     "SwordItemMixin",
@@ -20,6 +22,7 @@
   "client": [
     "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
+    "client.BipedEntityModelMixin",
     "client.InGameHudMixin",
     "client.ItemRendererMixin",
     "client.MouseMixin"

@@ -1,6 +1,7 @@
 package net.jukoz.me.datageneration.content.tags;
 
 import net.jukoz.me.block.ModBlocks;
+import net.jukoz.me.block.ModDecorativeBlocks;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class MineablePickaxe {
             add(ModBlocks.CHISELED_ASHEN_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_ASHEN_STONE);
 
+            add(ModBlocks.CHISELED_GONLUIN);
             add(ModBlocks.CHISELED_GONLUIN_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_GONLUIN);
 
@@ -37,16 +39,30 @@ public class MineablePickaxe {
 
             add(ModBlocks.CHISELED_BASALT_BRICKS);
 
+            add(ModBlocks.CHISELED_DOLOMITE);
             add(ModBlocks.CHISELED_DOLOMITE_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_DOLOMITE);
 
-            add(ModBlocks.DIFTOMIN_PILLAR);
-            add(ModBlocks.CHISELED_DIFTOMIN_BRICKS);
-            add(ModBlocks.CHISELED_POLISHED_DIFTOMIN);
+            add(ModBlocks.CHISELED_IRONSTONE);
+            add(ModBlocks.CHISELED_POLISHED_IRONSTONE);
+            add(ModBlocks.CHISELED_IRONSTONE_BRICKS);
 
-            add(ModBlocks.EPMOSTO_PILLAR);
-            add(ModBlocks.CHISELED_EPMOSTO);
-            add(ModBlocks.CHISELED_EPMOSTO_BRICKS);
-            add(ModBlocks.CHISELED_POLISHED_EPMOSTO);
+            add(ModBlocks.CHISELED_HEMATITE);
+            add(ModBlocks.CHISELED_POLISHED_HEMATITE);
+            //add(ModBlocks.CHISELED_HEMATITE_BRICKS);
+
+            add(ModBlocks.CHISELED_GNEISS);
+            add(ModBlocks.CHISELED_POLISHED_GNEISS);
+            add(ModBlocks.CHISELED_GNEISS_BRICKS);
+
+            add(ModBlocks.NURGON_PILLAR);
+            add(ModBlocks.CHISELED_NURGON_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_NURGON);
+
+            add(ModBlocks.MEDGON_PILLAR);
+            add(ModBlocks.CHISELED_MEDGON);
+            add(ModBlocks.CHISELED_MEDGON_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_MEDGON);
 
             add(ModBlocks.RAW_MITHRIL_BLOCK);
             add(ModBlocks.MITHRIL_BLOCK);
@@ -58,7 +74,7 @@ public class MineablePickaxe {
             add(ModBlocks.SILVER_BLOCK);
 
             add(ModBlocks.BRONZE_BLOCK);
-            add(ModBlocks.ORC_STEEL_BLOCK);
+            add(ModBlocks.SLAG_BLOCK);
             add(ModBlocks.STEEL_BLOCK);
             add(ModBlocks.DWARVEN_STEEL_BLOCK);
             add(ModBlocks.ELVEN_STEEL_BLOCK);
@@ -71,6 +87,7 @@ public class MineablePickaxe {
             add(ModBlocks.ASHEN_PILLAR);
 
             add(ModBlocks.GONLUIN_PILLAR);
+            add(ModBlocks.MOSSY_GONLUIN_PILLAR);
             add(ModBlocks.CRACKED_GONLUIN_PILLAR);
 
             add(ModBlocks.DEEPSLATE_PILLAR);
@@ -78,6 +95,14 @@ public class MineablePickaxe {
             add(ModBlocks.FROZEN_PILLAR);
 
             add(ModBlocks.DOLOMITE_PILLAR);
+            //add(ModBlocks.MOSSY_DOLOMITE_PILLAR);
+            //add(ModBlocks.CRACKED_DOLOMITE_PILLAR);
+
+            add(ModBlocks.IRONSTONE_PILLAR);
+
+            add(ModBlocks.GNEISS_PILLAR);
+
+            add(ModBlocks.ZIGILABAD_PILLAR);
 
             add(ModBlocks.BLUE_TUFF_PILLAR);
             add(ModBlocks.MOSSY_BLUE_TUFF_PILLAR);
@@ -105,6 +130,21 @@ public class MineablePickaxe {
             
             add(ModBlocks.JADEITE_PILLAR);
             add(ModBlocks.CRACKED_JADEITE_PILLAR);
+
+            add(ModBlocks.STONE_TRAPDOOR);
+            add(ModBlocks.GRANITE_TRAPDOOR);
+            add(ModBlocks.DIORITE_TRAPDOOR);
+            add(ModBlocks.ANDESITE_TRAPDOOR);
+            add(ModBlocks.DEEPSLATE_TRAPDOOR);
+            add(ModBlocks.TUFF_TRAPDOOR);
+            add(ModBlocks.BASALT_TRAPDOOR);
+            add(ModBlocks.BLACKSTONE_TRAPDOOR);
+
+            add(ModDecorativeBlocks.BIG_BRAZIER);
+            add(ModDecorativeBlocks.SMALL_BRAZIER);
+            add(ModDecorativeBlocks.FIRE_BOWL);
+            add(ModDecorativeBlocks.BONFIRE);
+            add(ModDecorativeBlocks.WALL_SCONCE);
         }
     };
 }

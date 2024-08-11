@@ -2,7 +2,6 @@ package net.jukoz.me.item;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModNatureBlocks;
-import net.jukoz.me.item.items.SkewerItem;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.component.type.FoodComponent;
@@ -111,49 +110,49 @@ public class ModFoodItems {
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(3).saturationModifier(0.6f).build())));
     public static final Item CRAB_SOUP = registerItem("crab_soup",
-            new StewItem(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(8).saturationModifier(0.8f).build()).maxCount(1)));
+            new Item(new Item.Settings().food(
+                    new FoodComponent.Builder().nutrition(8).saturationModifier(0.8f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
     public static final Item FISH_STEW = registerItem("fish_stew",
-            new StewItem(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(8).saturationModifier(1.0f).build()).maxCount(1)));
+            new Item(new Item.Settings().food(
+                    new FoodComponent.Builder().nutrition(8).saturationModifier(1.0f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
     public static final Item MEAT_BOWL = registerItem("meat_bowl",
-            new StewItem(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(10).saturationModifier(1.1f).build()).maxCount(1)));
+            new Item(new Item.Settings().food(
+                    new FoodComponent.Builder().nutrition(10).saturationModifier(1.1f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
     public static final Item MEAT_EGG_MEAL = registerItem("meat_egg_meal",
-            new StewItem(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(9).saturationModifier(0.9f).build()).maxCount(1)));
+            new Item(new Item.Settings().food(
+                    new FoodComponent.Builder().nutrition(9).saturationModifier(0.9f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
     public static final Item MEAT_SKEWER = registerItem("meat_skewer",
-            new SkewerItem(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(5).saturationModifier(0.6f).build()).maxCount(1)));
+            new Item(new Item.Settings().food(
+                    new FoodComponent.Builder().nutrition(5).saturationModifier(0.6f).usingConvertsTo(Items.STICK).build()).maxCount(1)));
     public static final Item COOKED_MEAT_SKEWER = registerItem("cooked_meat_skewer",
-            new SkewerItem(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(8).saturationModifier(0.8f).build()).maxCount(1)));
+            new Item(new Item.Settings().food(
+                    new FoodComponent.Builder().nutrition(8).saturationModifier(0.8f).usingConvertsTo(Items.STICK).build()).maxCount(1)));
     public static final Item POULTRY_MEAL = registerItem("poultry_meal",
-            new StewItem(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(8).saturationModifier(0.8f).build()).maxCount(1)));
+            new Item(new Item.Settings().food(
+                    new FoodComponent.Builder().nutrition(8).saturationModifier(0.8f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
     public static final Item RAT_SKEWER = registerItem("rat_skewer",
-            new SkewerItem(new Item.Settings().food(
+            new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(1).saturationModifier(0.1f)
-                            .statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.3F).build()).maxCount(16)));
+                            .statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.3F).usingConvertsTo(Items.STICK).build()).maxCount(16)));
     public static final Item COOKED_RAT_SKEWER = registerItem("cooked_rat_skewer",
-            new SkewerItem(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(7).saturationModifier(0.8f).build()).maxCount(16)));
+            new Item(new Item.Settings().food(
+                    new FoodComponent.Builder().nutrition(7).saturationModifier(0.8f).usingConvertsTo(Items.STICK).build()).maxCount(16)));
     public static final Item VEGETABLE_SKEWER = registerItem("vegetable_skewer",
-            new SkewerItem(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(4).saturationModifier(0.3f).build()).maxCount(1)));
+            new Item(new Item.Settings().food(
+                    new FoodComponent.Builder().nutrition(4).saturationModifier(0.3f).usingConvertsTo(Items.STICK).build()).maxCount(1)));
     public static final Item COOKED_VEGETABLE_SKEWER = registerItem("cooked_vegetable_skewer",
-            new SkewerItem(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(6).saturationModifier(0.6f).build()).maxCount(1)));
+            new Item(new Item.Settings().food(
+                    new FoodComponent.Builder().nutrition(6).saturationModifier(0.6f).usingConvertsTo(Items.STICK).build()).maxCount(1)));
     public static final Item VEGETABLE_SOUP = registerItem("vegetable_soup",
-            new StewItem(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(6).saturationModifier(0.6f).build()).maxCount(1)));
+            new Item(new Item.Settings().food(
+                    new FoodComponent.Builder().nutrition(6).saturationModifier(0.6f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.FOOD_CONTENTS.add(item.getDefaultStack());
-        return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     public static void registerModItems() {
-        LoggerUtil.getInstance().logDebugMsg("Registering Mod Food Items for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering Mod Food Items for " + MiddleEarth.MOD_ID);
     }
 }

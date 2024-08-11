@@ -4,18 +4,26 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.*;
+import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
 import net.jukoz.me.datageneration.content.tags.LeavesSets;
 import net.jukoz.me.datageneration.content.tags.Saplings;
-import net.jukoz.me.item.ModEquipmentItems;
-import net.jukoz.me.item.ModFoodItems;
-import net.jukoz.me.item.ModResourceItems;
-import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.item.*;
+import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
+import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.stat.Stats;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.ItemActionResult;
 
 public class ModRegistries {
 
-    public static void registerFlammableBlocks(){
+    public static void registerFlammableBlocks() {
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.WHITE_WOOL_SLAB, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.ORANGE_WOOL_SLAB, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.MAGENTA_WOOL_SLAB, 30, 60);
@@ -106,7 +114,7 @@ public class ModRegistries {
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_TABLE, 5, 20);
     }
 
-    public static void registerAgingCopperBlocks(){
+    public static void registerAgingCopperBlocks() {
         OxidizableBlocksRegistry.registerOxidizableBlockPair(ModBlocks.CUT_COPPER_VERTICAL_SLAB, ModBlocks.EXPOSED_CUT_COPPER_VERTICAL_SLAB);
         OxidizableBlocksRegistry.registerOxidizableBlockPair(ModBlocks.EXPOSED_CUT_COPPER_VERTICAL_SLAB, ModBlocks.WEATHERED_CUT_COPPER_VERTICAL_SLAB);
         OxidizableBlocksRegistry.registerOxidizableBlockPair(ModBlocks.WEATHERED_CUT_COPPER_VERTICAL_SLAB, ModBlocks.OXIDIZED_CUT_COPPER_VERTICAL_SLAB);
@@ -131,6 +139,11 @@ public class ModRegistries {
         OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.AGED_THATCH.verticalSlab(), RoofBlockSets.OLD_THATCH.verticalSlab());
         OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.AGED_THATCH.stairs(), RoofBlockSets.OLD_THATCH.stairs());
         OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.AGED_THATCH.wall(), RoofBlockSets.OLD_THATCH.wall());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.OLD_THATCH.block(), RoofBlockSets.ROTTEN_THATCH.block());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.OLD_THATCH.slab(), RoofBlockSets.ROTTEN_THATCH.slab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.OLD_THATCH.verticalSlab(), RoofBlockSets.ROTTEN_THATCH.verticalSlab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.OLD_THATCH.stairs(), RoofBlockSets.ROTTEN_THATCH.stairs());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.OLD_THATCH.wall(), RoofBlockSets.ROTTEN_THATCH.wall());
 
         OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.THATCH.block(), RoofBlockSets.WAXED_THATCH.block());
         OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.THATCH.slab(), RoofBlockSets.WAXED_THATCH.slab());
@@ -152,10 +165,15 @@ public class ModRegistries {
         OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.OLD_THATCH.verticalSlab(), RoofBlockSets.WAXED_OLD_THATCH.verticalSlab());
         OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.OLD_THATCH.stairs(), RoofBlockSets.WAXED_OLD_THATCH.stairs());
         OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.OLD_THATCH.wall(), RoofBlockSets.WAXED_OLD_THATCH.wall());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.ROTTEN_THATCH.block(), RoofBlockSets.WAXED_ROTTEN_THATCH.block());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.ROTTEN_THATCH.slab(), RoofBlockSets.WAXED_ROTTEN_THATCH.slab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.ROTTEN_THATCH.verticalSlab(), RoofBlockSets.WAXED_ROTTEN_THATCH.verticalSlab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.ROTTEN_THATCH.stairs(), RoofBlockSets.WAXED_ROTTEN_THATCH.stairs());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.ROTTEN_THATCH.wall(), RoofBlockSets.WAXED_ROTTEN_THATCH.wall());
     }
 
-    public static void registerFuels(){
-        FuelRegistry registry =  FuelRegistry.INSTANCE;
+    public static void registerFuels() {
+        FuelRegistry registry = FuelRegistry.INSTANCE;
 
         registry.add(ModNatureBlocks.MIRKWOOD_ROOTS, 300);
         registry.add(ModNatureBlocks.GREEN_SHRUB, 100);
@@ -217,12 +235,12 @@ public class ModRegistries {
 
         registry.add(ModWeaponItems.ROHIRRIC_BOW, 300);
         registry.add(ModWeaponItems.LORIEN_BOW, 300);
-        registry.add(ModWeaponItems.GONDOR_BOW, 300);
-        registry.add(ModWeaponItems.UMBAR_BOW, 300);
-        registry.add(ModWeaponItems.DALISH_BOW, 300);
+        registry.add(ModWeaponItems.GONDORIAN_BOW, 300);
+        //registry.add(ModWeaponItems.UMBAR_BOW, 300);
+        //registry.add(ModWeaponItems.DALISH_BOW, 300);
 
         registry.add(ModWeaponItems.WOODEN_DAGGER, 150);
-        registry.add(ModWeaponItems.DUNLAND_CLUB, 300);
+        //registry.add(ModWeaponItems.DUNLAND_CLUB, 300);
 
         registry.add(ModDecorativeBlocks.OAK_STOOL, 300);
         registry.add(ModDecorativeBlocks.OAK_CHAIR, 300);
@@ -261,7 +279,7 @@ public class ModRegistries {
         registry.add(ModDecorativeBlocks.BAMBOO_TABLE, 300);
     }
 
-    public static void registerComposterBlocks(){
+    public static void registerComposterBlocks() {
         CompostingChanceRegistry registry = CompostingChanceRegistry.INSTANCE;
 
         registry.add(MushroomBlockSets.GRAY_MUSHROOM.stem(), 0.50f);
@@ -292,11 +310,21 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.WILDERGRASS, 0.30f);
         registry.add(ModNatureBlocks.BEACH_GRASS, 0.30f);
         registry.add(ModNatureBlocks.COASTAL_PANIC_GRASS, 0.30f);
+        registry.add(ModNatureBlocks.SEDUM, 0.30f);
+        registry.add(ModNatureBlocks.YELLOW_SEDUM, 0.30f);
+        registry.add(ModNatureBlocks.BRACKEN, 0.30f);
+        registry.add(ModNatureBlocks.DEAD_RUSHES, 0.30f);
+        registry.add(ModNatureBlocks.FALSE_OATGRASS, 0.30f);
+        registry.add(ModNatureBlocks.SHORT_CATTAILS, 0.30f);
+        registry.add(ModNatureBlocks.SHORT_BULRUSH, 0.30f);
         registry.add(ModNatureBlocks.HEATHER, 0.50f);
         registry.add(ModNatureBlocks.RED_HEATHER, 0.50f);
+        registry.add(ModNatureBlocks.DEAD_HEATHER, 0.30f);
         registry.add(ModNatureBlocks.HEATHER_BUSH, 0.65f);
         registry.add(ModNatureBlocks.GIANT_HOROKAKA, 0.65f);
         registry.add(ModNatureBlocks.HOROKAKA, 0.50f);
+
+        registry.add(ModNatureBlocks.SHRIVELED_SHRUB, 0.30f);
 
         registry.add(ModNatureBlocks.BROWN_BOLETE, 0.65f);
         registry.add(ModNatureBlocks.CAVE_AMANITA, 0.65f);
@@ -334,8 +362,25 @@ public class ModRegistries {
         LeavesSets.blocks.forEach(block -> {
             registry.add(block, 0.3F);
         });
+
         registry.add(ModNatureBlocks.LEBETHRON_LEAVES, 0.3F);
+
+        registry.add(ModNatureBlocks.BERRY_HOLLY_LEAVES, 0.4F);
+
+        registry.add(ModNatureBlocks.DRY_LARCH_LEAVES, 0.2F);
+
+        registry.add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES, 0.4F);
+
+        registry.add(ModNatureBlocks.FALLEN_MALLORN_LEAVES, 0.3F);
+
+        registry.add(ModNatureBlocks.DRY_PINE_LEAVES, 0.2F);
+        registry.add(ModNatureBlocks.PINE_BRANCHES, 0.2F);
+
         registry.add(ModNatureBlocks.MAPLE_LEAVES, 0.3F);
+        registry.add(ModNatureBlocks.ORANGE_MAPLE_LEAVES, 0.3F);
+        registry.add(ModNatureBlocks.RED_MAPLE_LEAVES, 0.3F);
+        registry.add(ModNatureBlocks.YELLOW_MAPLE_LEAVES, 0.3F);
+
 
         registry.add(ModNatureBlocks.WILD_PIPEWEED, 0.5F);
         registry.add(ModNatureBlocks.WILD_FLAX, 0.5F);
@@ -398,10 +443,27 @@ public class ModRegistries {
         registry.add(ModResourceItems.PIPEWEED_SEEDS, 0.3F);
     }
 
-    public static void registerCauldronBehaviour(){
-        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModEquipmentItems.GAMBESON, CauldronBehavior.CLEAN_DYEABLE_ITEM);
-        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModEquipmentItems.CLOAK, CauldronBehavior.CLEAN_DYEABLE_ITEM);
-        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModEquipmentItems.CLOAK_HOOD, CauldronBehavior.CLEAN_DYEABLE_ITEM);
-        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ModEquipmentItems.TUNIC_CLOAK, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+    public static final CauldronBehavior CLEAN_CUSTOM_DYEABLE_ITEM = (state, world, pos, player, hand, stack) -> {
+        if (!stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+        if (!stack.contains(ModDataComponentTypes.DYE_DATA)) {
+            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+        if (!world.isClient) {
+            CustomDyeableDataComponent dyeableDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
+
+            stack.set(ModDataComponentTypes.DYE_DATA,
+                    CustomDyeableDataComponent.withOverlay(dyeableDataComponent.overlay(), CustomDyeableDataComponent.DEFAULT_COLOR));
+            player.incrementStat(Stats.CLEAN_ARMOR);
+            LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
+        }
+        return ItemActionResult.success(world.isClient);
+    };
+
+    public static void registerCauldronBehaviour() {
+        SimpleDyeableItemModel.items.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, CLEAN_CUSTOM_DYEABLE_ITEM);
+        });
     }
 }

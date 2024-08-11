@@ -1,6 +1,5 @@
 package net.jukoz.me.datageneration.content.models;
 
-import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.minecraft.block.Block;
 
@@ -33,10 +32,12 @@ public class TintableCrossModel {
             add(ModNatureBlocks.GLOWWORM_MAIN);
             add(ModNatureBlocks.GLOWWORM_WEBBING);
 
+            add(ModNatureBlocks.MIRKWOOD_VINES);
+            add(ModNatureBlocks.MIRKWOOD_VINES_PLANT);
+
             add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER);
             add(ModNatureBlocks.MALLOS);
             add(ModNatureBlocks.YELLOW_FLOWER);
-
         }
     };
     public static List<Block> tintedBlocks = new ArrayList<>() {
@@ -59,9 +60,17 @@ public class TintableCrossModel {
             add(ModNatureBlocks.HEATHER);
             add(ModNatureBlocks.HEATHER_BUSH);
             add(ModNatureBlocks.RED_HEATHER);
+            add(ModNatureBlocks.DEAD_HEATHER);
             add(ModNatureBlocks.WILDERGRASS);
             add(ModNatureBlocks.BEACH_GRASS);
             add(ModNatureBlocks.COASTAL_PANIC_GRASS);
+            add(ModNatureBlocks.SEDUM);
+            add(ModNatureBlocks.YELLOW_SEDUM);
+            add(ModNatureBlocks.BRACKEN);
+            add(ModNatureBlocks.SHORT_CATTAILS);
+            add(ModNatureBlocks.SHORT_BULRUSH);
+
+            add(ModNatureBlocks.SHRIVELED_SHRUB);
         }
     };
 }

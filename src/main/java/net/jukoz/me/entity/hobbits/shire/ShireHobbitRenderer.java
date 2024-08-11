@@ -19,7 +19,7 @@ import java.util.Map;
 @Environment(value= EnvType.CLIENT)
 public class ShireHobbitRenderer extends BipedEntityRenderer<ShireHobbitEntity, ShireHobbitModel<ShireHobbitEntity>> {
     private static final String PATH = "textures/entities/hobbits/shire/";
-    private static final float SIZE = 0.65f;
+    private static final float SIZE = 0.55f;
 
     public ShireHobbitRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new ShireHobbitModel<>(ctx.getPart(ModEntityModelLayers.HOBBIT)), 0.5f);
@@ -42,7 +42,7 @@ public class ShireHobbitRenderer extends BipedEntityRenderer<ShireHobbitEntity, 
 
     @Override
     public Identifier getTexture(ShireHobbitEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     public void render(ShireHobbitEntity entity, float entityYaw, float partialTick, MatrixStack poseStack,

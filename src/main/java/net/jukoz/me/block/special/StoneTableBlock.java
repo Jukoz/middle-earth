@@ -19,6 +19,8 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.stream.Stream;
+
 public class StoneTableBlock extends Block implements Waterloggable {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
@@ -52,7 +54,10 @@ public class StoneTableBlock extends Block implements Waterloggable {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.combineAndSimplify(Block.createCuboidShape(1, 12, 1, 15, 16, 15),
-                Block.createCuboidShape(4, 0, 4, 12, 12, 12), BooleanBiFunction.OR);
+        return Stream.of(
+                Block.createCuboidShape(2, 0, 2, 14, 4, 14),
+                Block.createCuboidShape(0, 13, 0, 16, 16, 16),
+                Block.createCuboidShape(4, 4, 4, 12, 13, 12)
+        ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();
     }
 }

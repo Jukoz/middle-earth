@@ -24,25 +24,25 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        var mineablePickaxe = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "mineable/pickaxe")));
-        var mineableAxe = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "mineable/axe")));
-        var mineableShovel = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "mineable/shovel")));
-        var mineableHoe = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "mineable/hoe")));
-        var swordEfficient = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "sword_efficient")));
+        var mineablePickaxe = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "mineable/pickaxe")));
+        var mineableAxe = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "mineable/axe")));
+        var mineableShovel = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "mineable/shovel")));
+        var mineableHoe = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "mineable/hoe")));
+        var swordEfficient = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "sword_efficient")));
 
-        var needsStoneTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "needs_stone_tool")));
-        var needsIronTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "needs_iron_tool")));
-        var needsDiamondTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "needs_diamond_tool")));
-        var needsNetheriteTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("fabric", "needs_tool_level_4")));
+        var needsStoneTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "needs_stone_tool")));
+        var needsIronTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "needs_iron_tool")));
+        var needsDiamondTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "needs_diamond_tool")));
+        var needsNetheriteTools = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("fabric", "needs_tool_level_4")));
 
-        var baseStoneOverworld = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "base_stone_overworld")));
+        var baseStoneOverworld = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "base_stone_overworld")));
 
-        var seat = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier(MiddleEarth.MOD_ID, "seat")));
-        var table = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier(MiddleEarth.MOD_ID, "table")));
+        var seat = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")));
+        var table = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "table")));
 
-        var leaves = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "leaves")));
+        var leaves = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "leaves")));
 
-        var cobwebs = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "cobwebs")));
+        var cobwebs = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "cobwebs")));
 
         mineableAxe.add(MineableAxe.blocks.toArray(new Block[0]));
         mineablePickaxe.add(MineablePickaxe.blocks.toArray(new Block[0]));
@@ -52,29 +52,29 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         swordEfficient.add(LeavesSets.blocks.toArray(new Block[0]));
 
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "saplings"))).add(Saplings.saplings.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "doors"))).add(Doors.doors.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "trapdoors"))).add(Trapdoors.trapdoors.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "buttons"))).add(Buttons.buttons.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "fences"))).add(Fences.fences.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "wooden_fences"))).add(Fences.fences.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "fence_gates"))).add(FenceGates.fenceGates.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "logs"))).add(Logs.logs.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "pressure_plates"))).add(PressurePlates.pressurePlates.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "walls"))).add(Walls.walls.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "planks"))).add(Planks.planks.toArray(new Block[0]));
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "crops"))).add(Crops.crops.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "saplings"))).add(Saplings.saplings.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "doors"))).add(Doors.doors.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "trapdoors"))).add(Trapdoors.trapdoors.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "buttons"))).add(Buttons.buttons.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "fences"))).add(Fences.fences.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "wooden_fences"))).add(Fences.fences.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "fence_gates"))).add(FenceGates.fenceGates.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "logs"))).add(Logs.logs.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "pressure_plates"))).add(PressurePlates.pressurePlates.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "walls"))).add(Walls.walls.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "planks"))).add(Planks.planks.toArray(new Block[0]));
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "crops"))).add(Crops.crops.toArray(new Block[0]));
 
         //Ores
-        TagKey<Block> iron_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "iron_ores"));
-        TagKey<Block> gold_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "gold_ores"));
-        TagKey<Block> copper_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "copper_ores"));
-        TagKey<Block> coal_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("minecraft", "coal_ores"));
+        TagKey<Block> iron_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "iron_ores"));
+        TagKey<Block> gold_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "gold_ores"));
+        TagKey<Block> copper_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "copper_ores"));
+        TagKey<Block> coal_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "coal_ores"));
 
-        TagKey<Block> tin_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "tin_ores"));
-        TagKey<Block> lead_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "lead_ores"));
-        TagKey<Block> silver_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "silver_ores"));
-        TagKey<Block> mithril_ores = TagKey.of(RegistryKeys.BLOCK, new Identifier("me", "mithril_ores"));
+        TagKey<Block> tin_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "tin_ores"));
+        TagKey<Block> lead_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "lead_ores"));
+        TagKey<Block> silver_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "silver_ores"));
+        TagKey<Block> mithril_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of("me", "mithril_ores"));
 
 
 
@@ -114,13 +114,13 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         }
 
         for (StoneBlockSets.SimpleBlockSet record : StoneBlockSets.sets) {
-            if (Registries.BLOCK.getId(record.base()).getPath().contains("diftomin")){
+            if (Registries.BLOCK.getId(record.base()).getPath().contains("nurgon")){
                 needsIronTools.add(record.base());
                 needsIronTools.add(record.slab());
                 needsIronTools.add(record.verticalSlab());
                 needsIronTools.add(record.stairs());
                 needsIronTools.add(record.wall());
-            }else if (Registries.BLOCK.getId(record.base()).getPath().contains("epmosto")){
+            }else if (Registries.BLOCK.getId(record.base()).getPath().contains("medgon")){
                 needsDiamondTools.add(record.base());
                 needsDiamondTools.add(record.slab());
                 needsDiamondTools.add(record.verticalSlab());
@@ -138,7 +138,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         baseStoneOverworld.add(Blocks.CALCITE);
         for (StoneBlockSets.SimpleBlockSetMain record : StoneBlockSets.setsMain) {
             if(record.base() != StoneBlockSets.ASHEN_STONE.base()) baseStoneOverworld.add(record.base());
-            if (Registries.BLOCK.getId(record.base()).getPath().contains("diftomin")){
+            if (Registries.BLOCK.getId(record.base()).getPath().contains("nurgon")){
                 needsIronTools.add(record.base());
                 needsIronTools.add(record.slab());
                 needsIronTools.add(record.verticalSlab());
@@ -146,7 +146,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 needsIronTools.add(record.wall());
                 needsIronTools.add(record.stool());
                 needsIronTools.add(record.table());
-            }else if (Registries.BLOCK.getId(record.base()).getPath().contains("epmosto")){
+            }else if (Registries.BLOCK.getId(record.base()).getPath().contains("medgon")){
                 needsDiamondTools.add(record.base());
                 needsDiamondTools.add(record.slab());
                 needsDiamondTools.add(record.verticalSlab());
@@ -194,6 +194,15 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
             table.add(block.base());
         });
 
+        seat.add(ModDecorativeBlocks.BLUE_CUSHION);
+        seat.add(ModDecorativeBlocks.BROWN_CUSHION);
+        seat.add(ModDecorativeBlocks.DARK_BLUE_CUSHION);
+        seat.add(ModDecorativeBlocks.DARK_BROWN_CUSHION);
+        seat.add(ModDecorativeBlocks.DARK_GREEN_CUSHION);
+        seat.add(ModDecorativeBlocks.DARK_RED_CUSHION);
+        seat.add(ModDecorativeBlocks.GREEN_CUSHION);
+        seat.add(ModDecorativeBlocks.RED_CUSHION);
+
         needsStoneTools.add(OreRockSets.GONLUIN.copper_ore());
         needsStoneTools.add(OreRockSets.GONLUIN.tin_ore());
 
@@ -215,20 +224,24 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         needsStoneTools.add(OreRockSets.DEEPSLATE.lead_ore());
 
-        needsIronTools.add(OreRockSets.DIFTOMIN.tin_ore());
-        needsIronTools.add(OreRockSets.DIFTOMIN.lead_ore());
-        needsIronTools.add(OreRockSets.DIFTOMIN.silver_ore());
-        needsIronTools.add(OreRockSets.DIFTOMIN.gold_ore());
-        needsIronTools.add(OreRockSets.DIFTOMIN.iron_ore());
+        needsIronTools.add(OreRockSets.NURGON.tin_ore());
+        needsIronTools.add(OreRockSets.NURGON.lead_ore());
+        needsIronTools.add(OreRockSets.NURGON.silver_ore());
+        needsIronTools.add(OreRockSets.NURGON.gold_ore());
+        needsIronTools.add(OreRockSets.NURGON.iron_ore());
 
-        needsDiamondTools.add(OreRockSets.EPMOSTO.lead_ore());
-        needsDiamondTools.add(OreRockSets.EPMOSTO.silver_ore());
-        needsDiamondTools.add(OreRockSets.EPMOSTO.gold_ore());
-        needsDiamondTools.add(OreRockSets.EPMOSTO.iron_ore());
-        needsDiamondTools.add(OreRockSets.EPMOSTO.mithril_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.lead_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.silver_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.gold_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.iron_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.mithril_ore());
+
+        needsDiamondTools.add(ModDecorativeBlocks.REINFORCED_CHEST);
+
+        needsDiamondTools.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
 
         needsStoneTools.add(ModBlocks.BRONZE_BLOCK);
-        needsStoneTools.add(ModBlocks.ORC_STEEL_BLOCK);
+        needsStoneTools.add(ModBlocks.SLAG_BLOCK);
         needsIronTools.add(ModBlocks.STEEL_BLOCK);
         needsIronTools.add(ModBlocks.DWARVEN_STEEL_BLOCK);
         needsIronTools.add(ModBlocks.ELVEN_STEEL_BLOCK);
@@ -240,15 +253,43 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableShovel.add(ModBlocks.BLACK_SAND);
         mineableShovel.add(ModBlocks.WHITE_SAND);
 
+        mineablePickaxe.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
         mineablePickaxe.add(ModDecorativeBlocks.DWARVEN_LANTERN);
         mineablePickaxe.add(ModDecorativeBlocks.SILVER_LANTERN);
+
+        mineableShovel.add(ModBlocks.GRASSY_DIRT);
+        mineableShovel.add(ModBlocks.GRASSY_DIRT_SLAB);
+        mineableShovel.add(ModBlocks.GRASSY_DIRT_STAIRS);
+
+        mineableShovel.add(ModBlocks.TURF);
+        mineableShovel.add(ModBlocks.TURF_SLAB);
+        mineableShovel.add(ModBlocks.TURF_STAIRS);
+
+        mineableShovel.add(ModBlocks.MIRE);
+        mineableShovel.add(ModBlocks.MIRE_SLAB);
+        mineableShovel.add(ModBlocks.MIRE_STAIRS);
+
+        mineableShovel.add(ModBlocks.ASHEN_SAND);
+        mineableShovel.add(ModBlocks.ASHEN_SAND_LAYER);
+
+        mineableShovel.add(ModBlocks.ASHEN_GRAVEL);
+        mineableShovel.add(ModBlocks.ASHEN_GRAVEL_LAYER);
 
         mineableShovel.add(ModBlocks.DRY_DIRT);
         mineableShovel.add(ModBlocks.DRY_DIRT_SLAB);
         mineableShovel.add(ModBlocks.DRY_DIRT_STAIRS);
+
         mineableShovel.add(ModBlocks.ASHEN_DIRT);
         mineableShovel.add(ModBlocks.ASHEN_DIRT_SLAB);
         mineableShovel.add(ModBlocks.ASHEN_DIRT_STAIRS);
+
+        mineableShovel.add(ModBlocks.COBBLY_ASHEN_DIRT);
+        mineableShovel.add(ModBlocks.COBBLY_ASHEN_DIRT_SLAB);
+        mineableShovel.add(ModBlocks.COBBLY_ASHEN_DIRT_STAIRS);
+
+        mineableShovel.add(ModBlocks.COBBLY_DIRT);
+        mineableShovel.add(ModBlocks.COBBLY_DIRT_SLAB);
+        mineableShovel.add(ModBlocks.COBBLY_DIRT_STAIRS);
 
         mineableHoe.add(ModBlocks.REED_BLOCK);
         mineableHoe.add(ModBlocks.REED_SLAB);
@@ -386,10 +427,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.PACKED_MUD_STAIRS);
         mineablePickaxe.add(ModBlocks.PACKED_MUD_WALL);
 
-        mineablePickaxe.add(ModBlocks.TUFF_SLAB);
         mineablePickaxe.add(ModBlocks.TUFF_VERTICAL_SLAB);
-        mineablePickaxe.add(ModBlocks.TUFF_STAIRS);
-        mineablePickaxe.add(ModBlocks.TUFF_WALL);
 
         mineablePickaxe.add(ModBlocks.CALCITE_SLAB);
         mineablePickaxe.add(ModBlocks.CALCITE_VERTICAL_SLAB);

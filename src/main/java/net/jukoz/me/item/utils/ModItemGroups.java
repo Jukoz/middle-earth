@@ -11,6 +11,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -57,6 +58,7 @@ public class ModItemGroups {
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".decorative_blocks"))
             .icon(() -> new ItemStack(ModDecorativeItems.DWARVEN_LANTERN))
             .entries((displayContext, entries) -> {
+                ModBannerItems.addBannersToItemGroup(displayContext.lookup().getWrapperOrThrow(RegistryKeys.BANNER_PATTERN));
                 for (ItemStack item : DECORATIVES_BLOCKS_CONTENT) {
                     entries.add(item);
                 }
@@ -88,7 +90,7 @@ public class ModItemGroups {
     public static final List<ItemStack> WEAPONS_CONTENTS = new LinkedList<>();
     public static final ItemGroup WEAPONS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".weapon_items"))
-            .icon(() -> new ItemStack(ModWeaponItems.GONDOR_SWORD))
+            .icon(() -> new ItemStack(ModWeaponItems.GONDORIAN_SWORD))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : WEAPONS_CONTENTS) {
                     entries.add(item);
@@ -142,17 +144,17 @@ public class ModItemGroups {
             .build();
 
     public static void register() {
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "stone_blocks"), STONE_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "wood_blocks"), WOOD_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "misc_blocks"), MISC_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "decorative"), DECORATIVES_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "nature_blocks"), NATURE_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "food_items"), FOOD);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "weapon_items"), WEAPONS);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "equipment_items"), EQUIPMENT);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "tool_items"), TOOLS);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "resource_items"), RESOURCES);
-        Registry.register(Registries.ITEM_GROUP, new Identifier(MiddleEarth.MOD_ID, "spawn_egg_items"), SPAWN_EGGS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "stone_blocks"), STONE_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "wood_blocks"), WOOD_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "misc_blocks"), MISC_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "decorative"), DECORATIVES_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "nature_blocks"), NATURE_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "food_items"), FOOD);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "weapon_items"), WEAPONS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "equipment_items"), EQUIPMENT);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "tool_items"), TOOLS);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "resource_items"), RESOURCES);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "spawn_egg_items"), SPAWN_EGGS);
     }
 
 }

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "me:block/small_brazier"
+    },
+    "lit=true": {
+      "model": "me:block/small_brazier_lit"
+    }
+  }
+}

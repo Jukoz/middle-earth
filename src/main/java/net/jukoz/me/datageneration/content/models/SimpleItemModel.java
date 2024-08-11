@@ -89,9 +89,9 @@ public class SimpleItemModel {
 
             add(ModResourceItems.IRON_ROD);
 
-            add(ModResourceItems.ORC_STEEL_INGOT);
-            add(ModResourceItems.ORC_STEEL_NUGGET);
-            add(ModResourceItems.ORC_STEEL_ROD);
+            add(ModResourceItems.SLAG_INGOT);
+            add(ModResourceItems.SLAG_NUGGET);
+            add(ModResourceItems.SLAG_ROD);
 
             add(ModResourceItems.URUK_STEEL_INGOT);
             add(ModResourceItems.URUK_STEEL_NUGGET);

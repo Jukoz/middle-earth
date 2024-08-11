@@ -63,7 +63,7 @@ public class MEBiomesData {
         try{
             return biomes.stream().filter(x -> x.color.getRGB() == rgb).findFirst().get();
         } catch (Exception e){
-            LoggerUtil.getInstance().logError("MeBiomes::No registered biome has %s for color".formatted(rgb));
+            LoggerUtil.logError("MeBiomes::No registered biome has %s for color".formatted(rgb));
             throw new Exception();
         }
     }
@@ -72,7 +72,7 @@ public class MEBiomesData {
         try{
             return biomes.get(id);
         } catch (Exception e){
-            LoggerUtil.getInstance().logError("MeBiomes::No registered biome has %s for id".formatted(id));
+            LoggerUtil.logError("MeBiomes::No registered biome has %s for id".formatted(id));
             return null;
         }
     }
@@ -81,7 +81,7 @@ public class MEBiomesData {
         try{
             return biomes.get(id).color.getRGB();
         } catch (Exception e){
-            LoggerUtil.getInstance().logError("MeBiomes::No registered biome has %s for id".formatted(id));
+            LoggerUtil.logError("MeBiomes::No registered biome has %s for id".formatted(id));
         }
         return null;
     }

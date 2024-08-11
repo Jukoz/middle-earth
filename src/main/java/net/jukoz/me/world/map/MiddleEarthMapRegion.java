@@ -22,8 +22,8 @@ public class MiddleEarthMapRegion {
         biomeImage = FileUtils.getInstance().getRunImage(biomePath);
         heightImage = FileUtils.getInstance().getRunImage(heightPath);
 
-        //LoggerUtil.getInstance().sendChat(biomePath);
-        //LoggerUtil.getInstance().sendChat(heightPath);
+        //LoggerUtil.sendChat(biomePath);
+        //LoggerUtil.sendChat(heightPath);
     }
 
     public MEBiome getBiome(Vector2i imageCoordinates){
@@ -48,7 +48,7 @@ public class MiddleEarthMapRegion {
         int middleCoordinateX = CALC_REGION_SIZE * (coordinate.x + 1) - CALC_REGION_SIZE / 2;
         int middleCoordinateZ = CALC_REGION_SIZE * (coordinate.y + 1) - CALC_REGION_SIZE / 2;
         double distance = calculateDistance(playerCoord.x, playerCoord.y, middleCoordinateX, middleCoordinateZ);
-        //LoggerUtil.getInstance().logDebugMsg("IsInRange : [%s,%s] = [%s]".formatted(coordinate.x, coordinate.y, distance));
+        //LoggerUtil.logDebugMsg("IsInRange : [%s,%s] = [%s]".formatted(coordinate.x, coordinate.y, distance));
         return distance < (CALC_REGION_SIZE / 2) + MiddleEarthMapConfigs.BIOME_VALIDATION_DIST_CHECK;
     }
 

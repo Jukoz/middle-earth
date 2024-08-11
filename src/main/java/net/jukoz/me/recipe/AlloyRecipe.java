@@ -2,19 +2,18 @@ package net.jukoz.me.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.inventory.SimpleInventory;
+import net.jukoz.me.block.special.alloyfurnace.MultipleStackRecipeInput;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 import java.util.List;
 
-public class AlloyRecipe implements Recipe<SimpleInventory> {
+public class AlloyRecipe implements Recipe<MultipleStackRecipeInput> {
     public final ItemStack output;
     public final List<Ingredient> inputs;
 
@@ -23,32 +22,32 @@ public class AlloyRecipe implements Recipe<SimpleInventory> {
         this.inputs = recipeItems;
     }
 
+    public DefaultedList<Ingredient> getIngredients() {
+        DefaultedList<Ingredient> defaultedList = DefaultedList.of();
+        defaultedList.addAll(this.inputs);
+        return defaultedList;
+    }
+
     @Override
-    public boolean matches(SimpleInventory inventory, World world) {
+    public boolean matches(MultipleStackRecipeInput input, World world) {
         if(world.isClient()) return false;
         int i = 0;
-        for (int j = 1; j < inventory.size() - 1; ++j) { // We avoid first and last indexes, because it's for fuel & output.
-            ItemStack itemStack = inventory.getStack(j);
+        for (int j = 0; j < input.getSize(); j++) {
+            ItemStack itemStack = input.getStackInSlot(j);
             if (itemStack.isEmpty()) continue;
-            ++i;
+            i++;
         }
         if(i != this.inputs.size()) return false;
 
         for (int j = 0; j < inputs.size(); j++) {
-            if(!inputs.get(j).test(inventory.getStack(j + 1))) return false;
+            if(!inputs.get(j).test(input.getStackInSlot(j))) return false;
         }
         return true;
     }
 
     @Override
-    public ItemStack craft(SimpleInventory inventory, RegistryWrapper.WrapperLookup lookup) {
+    public ItemStack craft(MultipleStackRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         return output;
-    }
-
-    public DefaultedList<Ingredient> getIngredients() {
-        DefaultedList<Ingredient> defaultedList = DefaultedList.of();
-        defaultedList.addAll(this.inputs);
-        return defaultedList;
     }
 
     @Override

@@ -4,6 +4,9 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnace;
 import net.jukoz.me.block.special.artisantable.ArtisanTable;
+import net.jukoz.me.block.special.fireBlocks.*;
+import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestBlock;
+import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancBlock;
 import net.jukoz.me.block.special.toggeable_lights.DwarvenLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.SilverLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.WallDwarvenLanternBlock;
@@ -12,8 +15,11 @@ import net.jukoz.me.block.special.wood_pile.WoodPileBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
+import net.minecraft.block.enums.NoteBlockInstrument;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 
@@ -36,18 +42,41 @@ public class ModDecorativeBlocks {
     public static final Block ARTISAN_TABLE = registerBlock("artisan_table",
             new ArtisanTable(AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque()));
 
+    public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest",
+            new ReinforcedChestBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque().requiresTool()));
+
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             new WoodPileBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque()));
 
+    public static final Block FIRE_OF_ORTHANC = registerBlock("fire_of_orthanc",
+            new FireOfOrthancBlock(AbstractBlock.Settings.create().requiresTool().mapColor(MapColor.BLACK)
+                    .sounds(BlockSoundGroup.METAL).strength(6f).burnable().solidBlock(Blocks::never).nonOpaque()));
+    public static final Block TORCH_OF_ORTHANC = registerBlock("torch_of_orthanc",
+            new TorchOfOrthancBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
 
     public static final Block WOOD_FRAMED_WINDOW = registerBlockWithItem("wood_framed_window",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
     public static final Block WOOD_FRAMED_WINDOW_PANE = registerBlockWithItem("wood_framed_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
-    public static final Block EPMOSTO_CARVED_WINDOW = registerBlockWithItem("epmosto_carved_window",
+    public static final Block WATTLE_AND_BRICK_WINDOW = registerBlockWithItem("wattle_and_brick_window",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
-    public static final Block EPMOSTO_CARVED_WINDOW_PANE = registerBlockWithItem("epmosto_carved_window_pane",
+    public static final Block WATTLE_AND_BRICK_WINDOW_PANE = registerBlockWithItem("wattle_and_brick_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block WATTLE_FRAMED_WINDOW = registerBlockWithItem("wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("wattle_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block DARK_WATTLE_FRAMED_WINDOW = registerBlockWithItem("dark_wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block DARK_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("dark_wattle_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block MEDGON_CARVED_WINDOW = registerBlockWithItem("medgon_carved_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block MEDGON_CARVED_WINDOW_PANE = registerBlockWithItem("medgon_carved_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
     public static final Block WHITE_DAUB_HOBBIT_WINDOW = registerBlockWithItem("white_daub_hobbit_window",
@@ -58,7 +87,6 @@ public class ModDecorativeBlocks {
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
     public static final Block YELLOW_DAUB_HOBBIT_WINDOW_PANE = registerBlockWithItem("yellow_daub_hobbit_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
-
 
     public static final Block LEAD_GLASS = registerBlockWithItem("lead_glass",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
@@ -128,6 +156,24 @@ public class ModDecorativeBlocks {
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
     public static final Block YELLOW_STAINED_LEAD_GLASS_PANE = registerBlockWithItem("yellow_stained_lead_glass_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block BLUE_CUSHION = registerBlockWithItem("blue_cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+    public static final Block BROWN_CUSHION = registerBlockWithItem("brown_cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+    public static final Block DARK_BLUE_CUSHION = registerBlockWithItem("dark_blue_cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+    public static final Block DARK_BROWN_CUSHION = registerBlockWithItem("dark_brown_cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+    public static final Block DARK_GREEN_CUSHION = registerBlockWithItem("dark_green_cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+    public static final Block DARK_RED_CUSHION = registerBlockWithItem("dark_red_cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+    public static final Block GREEN_CUSHION = registerBlockWithItem("green_cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+    public static final Block RED_CUSHION = registerBlockWithItem("red_cushion",
+            new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
+
 
     //region VANILLA FURNITURE
     public static final Block STONE_STOOL = registerBlockWithItem("stone_stool",
@@ -275,13 +321,32 @@ public class ModDecorativeBlocks {
     public static final Block ROPE = registerBlockWithItem("rope",
             new ChainBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).noCollision()));
 
+    public static final Block CHIMNEY = registerBlockWithItem("chimney",
+            new ChimneyBlock(AbstractBlock.Settings.copy(Blocks.STONE_BRICKS).requiresTool()));
+
+    public static final Block BIG_BRAZIER = registerBlockWithItem("big_brazier",
+            new BrazierBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+    public static final Block SMALL_BRAZIER = registerBlockWithItem("small_brazier",
+            new SmallBrazierBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+
+    public static final Block FIRE_BOWL = registerBlockWithItem("fire_bowl",
+            new FireBowlBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+
+    public static final Block BONFIRE = registerBlockWithItem("bonfire",
+            new BonfireBlock(AbstractBlock.Settings.copy(Blocks.CAMPFIRE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+
+    public static final Block SCONCE = registerBlock("sconce",
+            new SconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
+    public static final Block WALL_SCONCE = registerBlock("wall_sconce",
+            new WallSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
+
     public static Block registerBlock(String name, Block block) {
-        Identifier identifier = new Identifier(MiddleEarth.MOD_ID, name);
+        Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);
         return Registry.register(Registries.BLOCK, identifier, block);
     }
 
     public static Block registerBlockWithItem(String name, Block block) {
-        Identifier identifier = new Identifier(MiddleEarth.MOD_ID, name);
+        Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);
         ModBlocks.registerBlockItem(name, block);
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
         return Registry.register(Registries.BLOCK, identifier, block);
@@ -294,6 +359,6 @@ public class ModDecorativeBlocks {
     }
 
     public static void registerModBlocks() {
-        LoggerUtil.getInstance().logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
     }
 }

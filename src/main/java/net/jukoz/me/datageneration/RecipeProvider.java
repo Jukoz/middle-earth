@@ -1,6 +1,5 @@
 package net.jukoz.me.datageneration;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.*;
@@ -8,6 +7,7 @@ import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModToolItems;
+import net.jukoz.me.recipe.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataOutput;
@@ -58,6 +58,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.base(), 1);
             createWallsRecipe(exporter, record.base(), record.wall());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.wall(), record.base(), 1);
+            createTrapdoorRecipe(exporter, record.base(), record.trapdoor());
             createStoneStoolRecipe(exporter, record.base().asItem(), record.stool());
             createStoneTableRecipe(exporter, record.base().asItem(), record.table());
             createStoneChairRecipe(exporter, record.base().asItem(), record.chair());
@@ -120,19 +121,19 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                     .input(record.wood())
                     .criterion(FabricRecipeProvider.hasItem(record.wood()),
                             FabricRecipeProvider.conditionsFromItem(record.planks()))
-                    .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID,Registries.BLOCK.getId(record.planks()).getPath() + "_from_wood"));
+                    .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID,Registries.BLOCK.getId(record.planks()).getPath() + "_from_wood"));
 
             ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planks(), 4)
                     .input(record.strippedLog())
                     .criterion(FabricRecipeProvider.hasItem(record.strippedLog()),
                             FabricRecipeProvider.conditionsFromItem(record.planks()))
-                    .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID,Registries.BLOCK.getId(record.planks()).getPath() + "_from_stripped_log"));
+                    .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID,Registries.BLOCK.getId(record.planks()).getPath() + "_from_stripped_log"));
 
             ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planks(), 4)
                     .input(record.strippedWood())
                     .criterion(FabricRecipeProvider.hasItem(record.strippedWood()),
                             FabricRecipeProvider.conditionsFromItem(record.planks()))
-                    .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID,Registries.BLOCK.getId(record.planks()).getPath() + "_from_stripped_wood"));
+                    .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID,Registries.BLOCK.getId(record.planks()).getPath() + "_from_stripped_wood"));
 
             ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planksGate(), 1)
                     .pattern("sls")
@@ -341,6 +342,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createPaneRecipe(exporter, pane.glass().asItem(), pane.pane(), 16);
         }
 
+        for(SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.vanillaStoneTrapdoors){
+            createTrapdoorRecipe(exporter, trapdoor.block(), trapdoor.trapdoor());
+        }
+
         for(SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools){
             createWoodStoolRecipe(exporter, stool.planks().asItem(), stool.legs().asItem(), stool.base());
         }
@@ -388,6 +393,8 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createLayerRecipe(exporter, Blocks.SAND.asItem(), ModBlocks.SAND_LAYER);
         createLayerRecipe(exporter, ModBlocks.BLACK_SAND.asItem(), ModBlocks.BLACK_SAND_LAYER);
         createLayerRecipe(exporter, ModBlocks.WHITE_SAND.asItem(), ModBlocks.WHITE_SAND_LAYER);
+        createLayerRecipe(exporter, ModBlocks.ASHEN_SAND.asItem(), ModBlocks.ASHEN_SAND_LAYER);
+        createLayerRecipe(exporter, ModBlocks.ASHEN_GRAVEL.asItem(), ModBlocks.ASHEN_GRAVEL_LAYER);
 
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD, ModBlocks.LEAD_BLOCK, 4);
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_SLAB, ModBlocks.LEAD_BLOCK, 8);
@@ -409,16 +416,28 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createSlabsRecipe(exporter, ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_SLAB);
         createWallsRecipe(exporter, ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_WALL);
 
+        createStairsRecipe(exporter, ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_STAIRS);
+        createSlabsRecipe(exporter, ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB);
+
+        createStairsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_STAIRS);
+        createSlabsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_SLAB);
+
+        createStairsRecipe(exporter, ModBlocks.MIRE, ModBlocks.MIRE_STAIRS);
+        createSlabsRecipe(exporter, ModBlocks.MIRE, ModBlocks.MIRE_SLAB);
+        
         createStairsRecipe(exporter, ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_SLAB);
 
         createStairsRecipe(exporter, ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT_SLAB);
 
-        createPaneRecipe(exporter, ModResourceItems.SILVER_INGOT, ModBlocks.SILVERS_BARS, 6);
+        createStairsRecipe(exporter, ModBlocks.COBBLY_ASHEN_DIRT, ModBlocks.COBBLY_ASHEN_DIRT_STAIRS);
+        createSlabsRecipe(exporter, ModBlocks.COBBLY_ASHEN_DIRT, ModBlocks.COBBLY_ASHEN_DIRT_SLAB);
 
-        createTrapdoorRecipe(exporter, Blocks.STONE, ModBlocks.STONE_TRAPDOOR);
-        createTrapdoorRecipe(exporter, Blocks.BLACKSTONE, ModBlocks.BLACKSTONE_TRAPDOOR);
+        createStairsRecipe(exporter, ModBlocks.COBBLY_DIRT, ModBlocks.COBBLY_DIRT_STAIRS);
+        createSlabsRecipe(exporter, ModBlocks.COBBLY_DIRT, ModBlocks.COBBLY_DIRT_SLAB);
+
+        createPaneRecipe(exporter, ModResourceItems.SILVER_INGOT, ModBlocks.SILVERS_BARS, 6);
 
         createDyeableBlockRecipe(exporter, Blocks.STONE, Blocks.ICE.asItem(), StoneBlockSets.FROZEN_STONE.base(), 8);
         createDyeableBlockRecipe(exporter, Blocks.COBBLESTONE, Blocks.ICE.asItem(), StoneBlockSets.FROZEN_COBBLESTONE.base(), 8);
@@ -455,14 +474,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(StoneBlockSets.YELLOW_DAUB.base()))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.EPMOSTO_CARVED_WINDOW, 2)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.MEDGON_CARVED_WINDOW, 2)
                 .pattern("EEE")
                 .pattern("EGE")
                 .pattern("EEE")
-                .input('E', StoneBlockSets.EPMOSTO.base())
+                .input('E', StoneBlockSets.MEDGON.base())
                 .input('G', Blocks.GLASS)
-                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.EPMOSTO.base()),
-                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.EPMOSTO.base()))
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.MEDGON.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.MEDGON.base()))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LEAD_GLASS, 4)
@@ -503,7 +522,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.BRONZE_INGOT, ModToolItems.BRONZE_PICKAXE, ModToolItems.BRONZE_AXE, ModToolItems.BRONZE_SHOVEL, ModToolItems.BRONZE_HOE);
         
-        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.ORC_STEEL_INGOT, ModToolItems.ORC_STEEL_PICKAXE, ModToolItems.ORC_STEEL_AXE, ModToolItems.ORC_STEEL_SHOVEL, ModToolItems.ORC_STEEL_HOE);
+        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.SLAG_INGOT, ModToolItems.SLAG_PICKAXE, ModToolItems.SLAG_AXE, ModToolItems.SLAG_SHOVEL, ModToolItems.SLAG_HOE);
         
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.URUK_STEEL_INGOT, ModToolItems.URUK_STEEL_PICKAXE, ModToolItems.URUK_STEEL_AXE, ModToolItems.URUK_STEEL_SHOVEL, ModToolItems.URUK_STEEL_HOE);
         
@@ -524,7 +543,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createMetalsRecipe(exporter, ModResourceItems.MITHRIL_NUGGET, ModResourceItems.MITHRIL_INGOT, ModResourceItems.MITHRIL_ROD, ModBlocks.MITHRIL_BLOCK);
 
         createMetalsRecipe(exporter, ModResourceItems.BRONZE_NUGGET, ModResourceItems.BRONZE_INGOT, ModResourceItems.BRONZE_ROD, ModBlocks.BRONZE_BLOCK);
-        createMetalsRecipe(exporter, ModResourceItems.ORC_STEEL_NUGGET, ModResourceItems.ORC_STEEL_INGOT, ModResourceItems.ORC_STEEL_ROD, ModBlocks.ORC_STEEL_BLOCK);
+        createMetalsRecipe(exporter, ModResourceItems.SLAG_NUGGET, ModResourceItems.SLAG_INGOT, ModResourceItems.SLAG_ROD, ModBlocks.SLAG_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.URUK_STEEL_NUGGET, ModResourceItems.URUK_STEEL_INGOT, ModResourceItems.URUK_STEEL_ROD, ModBlocks.URUK_STEEL_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.STEEL_NUGGET, ModResourceItems.STEEL_INGOT, ModResourceItems.STEEL_ROD, ModBlocks.STEEL_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.ELVEN_STEEL_NUGGET, ModResourceItems.ELVEN_STEEL_INGOT, ModResourceItems.ELVEN_STEEL_ROD, ModBlocks.ELVEN_STEEL_BLOCK);
@@ -563,6 +582,12 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createChestplateRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_CHESTPLATE);
         createLeggingsRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_LEGGINGS);
         createBootsRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_BOOTS);
+
+        ComplexRecipeJsonBuilder.create(CustomArmorDyeRecipe::new).offerTo(exporter, "custom_armor_dye");
+        ComplexRecipeJsonBuilder.create(ArmorHoodRecipe::new).offerTo(exporter, "custom_armor_hood");
+        ComplexRecipeJsonBuilder.create(ArmorHoodRemovalRecipe::new).offerTo(exporter, "custom_armor_hood_removal");
+        ComplexRecipeJsonBuilder.create(ArmorCapeRecipe::new).offerTo(exporter, "custom_armor_cape");
+        ComplexRecipeJsonBuilder.create(ArmorCapeRemovalRecipe::new).offerTo(exporter, "custom_armor_cape_removal");
     }
 
     //region BLOCK RECIPE METHODS
@@ -614,14 +639,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .input(Items.VINE)
                 .criterion(FabricRecipeProvider.hasItem(input),
                         FabricRecipeProvider.conditionsFromItem(input))
-                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID,Registries.BLOCK.getId(output).getPath() + "_vine"));
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID,Registries.BLOCK.getId(output).getPath() + "_vine"));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
                 .input(input)
                 .input(Blocks.MOSS_BLOCK)
                 .criterion(FabricRecipeProvider.hasItem(input),
                         FabricRecipeProvider.conditionsFromItem(input))
-                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID,Registries.BLOCK.getId(output).getPath() + "_moss"));
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID,Registries.BLOCK.getId(output).getPath() + "_moss"));
     }
 
     private void createSmeltingRecipe(RecipeExporter exporter, Item input, Item output) {
@@ -635,7 +660,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(input),RecipeCategory.BUILDING_BLOCKS, output, 0.1f, 200)
                 .criterion(FabricRecipeProvider.hasItem(input),
                         FabricRecipeProvider.conditionsFromItem(input))
-                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID, Registries.ITEM.getId(output).getPath() + "_from_smelting"));
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output).getPath() + "_from_smelting"));
     }
 
     private void createStairsRecipe(RecipeExporter exporter, Block input, Block output) {
@@ -663,7 +688,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .input(input)
                 .criterion(FabricRecipeProvider.hasItem(input),
                         FabricRecipeProvider.conditionsFromItem(input))
-                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID,Registries.BLOCK.getId(input).getPath() + "_from_vertical"));
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID,Registries.BLOCK.getId(input).getPath() + "_from_vertical"));
     }
 
     private void createVerticalSlabsRecipe(RecipeExporter exporter, Block input, Block output) {
@@ -713,7 +738,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .input('D', dyeItem)
                 .criterion(FabricRecipeProvider.hasItem(blockInput),
                         FabricRecipeProvider.conditionsFromItem(blockInput))
-                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID,Registries.BLOCK.getId(output).getPath() + "_alt"));
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID,Registries.BLOCK.getId(output).getPath() + "_alt"));
     }
 
     private void createPaneRecipe(RecipeExporter exporter, Item blockInput, Block output, int count) {
@@ -972,13 +997,13 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .input(nugget, 9)
                 .criterion(FabricRecipeProvider.hasItem(nugget),
                         FabricRecipeProvider.conditionsFromItem(nugget))
-                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID, Registries.ITEM.getId(ingot).getPath() + "_from_nuggets"));
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ingot).getPath() + "_from_nuggets"));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, nugget, 9)
                 .input(ingot)
                 .criterion(FabricRecipeProvider.hasItem(ingot),
                         FabricRecipeProvider.conditionsFromItem(ingot))
-                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID, Registries.ITEM.getId(nugget).getPath() + "_from_ingot"));
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(nugget).getPath() + "_from_ingot"));
 
         createRodRecipe(exporter, ingot, rod);
 
@@ -988,7 +1013,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .input(block)
                 .criterion(FabricRecipeProvider.hasItem(block),
                         FabricRecipeProvider.conditionsFromItem(block))
-                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID, Registries.ITEM.getId(ingot).getPath() + "_from_block"));
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ingot).getPath() + "_from_block"));
     }
 
     private void createMetalsRecipeNoBlock(RecipeExporter exporter, Item nugget, Item ingot, Item rod) {
@@ -996,13 +1021,13 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .input(nugget, 9)
                 .criterion(FabricRecipeProvider.hasItem(nugget),
                         FabricRecipeProvider.conditionsFromItem(nugget))
-                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID, Registries.ITEM.getId(ingot).getPath() + "_from_nuggets"));
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ingot).getPath() + "_from_nuggets"));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, nugget, 9)
                 .input(ingot)
                 .criterion(FabricRecipeProvider.hasItem(ingot),
                         FabricRecipeProvider.conditionsFromItem(ingot))
-                .offerTo(exporter, new Identifier(MiddleEarth.MOD_ID, Registries.ITEM.getId(nugget).getPath() + "_from_ingot"));
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(nugget).getPath() + "_from_ingot"));
 
         createRodRecipe(exporter, ingot, rod);
     }

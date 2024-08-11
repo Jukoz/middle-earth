@@ -4,6 +4,9 @@ import com.google.common.collect.ImmutableMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.entity.beasts.warg.WargModel;
+import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.MiddleEarthClient;
+import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.jukoz.me.entity.crab.CrabModel;
 import net.jukoz.me.entity.nazguls.NazgulModel;
 import net.jukoz.me.entity.snail.SnailModel;
@@ -12,6 +15,7 @@ import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollModel;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollModel;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;
+import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.HorseEntityModel;
@@ -33,6 +37,8 @@ public class ModEntityModels {
         builder.put(ModEntityModelLayers.CAVE_TROLL, CaveTrollModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.SNOW_TROLL, SnowTrollModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.SPIDER, MirkwoodSpiderModel.getTexturedModelData());
+
+        builder.put(ModEntityModelLayers.REINFORCED_CHEST, ReinforcedChestEntityRenderer.getSingleTexturedModelData());
 
         // Animals
         builder.put(ModEntityModelLayers.CRAB, CrabModel.getTexturedModelData());

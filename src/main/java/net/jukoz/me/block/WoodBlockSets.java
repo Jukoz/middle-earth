@@ -26,6 +26,8 @@ public class WoodBlockSets {
     public static SimpleBlockSet LARCH = registerWoodSet("larch", WOOD_STRENGTH, true, ModNatureBlocks.LARCH_SAPLING, true, false, null);
     public static SimpleBlockSet BLACK_LEBETHRON = registerWoodSet("black_lebethron", WOOD_STRENGTH, false, null, true, false, null);
     public static SimpleBlockSet WHITE_LEBETHRON = registerWoodSet("white_lebethron", WOOD_STRENGTH, false, null, true, false, null);
+    public static SimpleBlockSet CHESTNUT = registerWoodSet("chestnut", WOOD_STRENGTH, true, ModNatureBlocks.CHESTNUT_SAPLING, true, false, null);
+    public static SimpleBlockSet HOLLY = registerWoodSet("holly", WOOD_STRENGTH, true, ModNatureBlocks.HOLLY_SAPLING, true, false, null);
     public static SimpleBlockSet MALLORN = registerWoodSet("mallorn", WOOD_STRENGTH, true, ModNatureBlocks.MALLORN_SAPLING, false, true, ModParticleTypes.MALLORN_LEAVES_PARTICLE);
     public static SimpleBlockSet MAPLE = registerWoodSet("maple", WOOD_STRENGTH, false, null, false, false, null);
     public static SimpleBlockSet SILVER_MAPLE = registerWoodSet("silver_maple", WOOD_STRENGTH, false, null, false, false, null);
@@ -33,6 +35,7 @@ public class WoodBlockSets {
     public static SimpleBlockSet PALM = registerWoodSet("palm", WOOD_STRENGTH, true, ModNatureBlocks.PALM_SAPLING,  true,  true, null);
     public static SimpleBlockSet WHITE_PALM = registerWoodSet("white_palm", WOOD_STRENGTH, false, null, true, true, null);
     public static SimpleBlockSet PINE = registerWoodSet("pine", WOOD_STRENGTH, true, ModNatureBlocks.PINE_SAPLING, true, false, null);
+    public static SimpleBlockSet BLACK_PINE = registerWoodSet("black_pine", WOOD_STRENGTH, true, ModNatureBlocks.BLACK_PINE_SAPLING, true, false, null);
     public static SimpleBlockSet WILLOW = registerWoodSet("willow", WOOD_STRENGTH, true, ModNatureBlocks.WILLOW_SAPLING, true, false, null);
 
     public static SimpleBlockSet[] sets = new SimpleBlockSet[] {
@@ -40,6 +43,8 @@ public class WoodBlockSets {
             LARCH,
             BLACK_LEBETHRON,
             WHITE_LEBETHRON,
+            CHESTNUT,
+            HOLLY,
             MALLORN,
             MAPLE,
             SILVER_MAPLE,
@@ -47,13 +52,14 @@ public class WoodBlockSets {
             PALM,
             WHITE_PALM,
             PINE,
+            BLACK_PINE,
             WILLOW,
     };
 
     public record SimpleBlockSet(Block leaves, Block log, Block wood, Block woodSlab, Block woodVerticalSlab, Block woodStairs, Block woodWall, Block woodFence,
                                  Block strippedLog, Block strippedWood, Block strippedWoodSlab, Block strippedWoodVerticalSlab, Block strippedWoodStairs, Block strippedWoodWall, Block strippedWoodFence,
                                  Block planks, Block planksSlab, Block planksVerticalSlab, Block planksStairs, Block planksFence, Block planksGate,
-                                 Block pressurePlate, Block button, Block door, Block trapdoor, Block stool, Block table, Block chair, Block sapling) {
+                                 Block door, Block trapdoor, Block pressurePlate, Block button, Block stool, Block table, Block chair, Block sapling) {
     }
 
     private static SimpleBlockSet registerWoodSet(String name, float strength, boolean hasLeaves, Block sapling, boolean castShadow, boolean range, ParticleEffect particleEffect) {
@@ -119,17 +125,17 @@ public class WoodBlockSets {
         Block gate = ModBlocks.registerWoodBlock(name + "_fence_gate",  new FenceGateBlock(WoodType.OAK, AbstractBlock.Settings.copy(planks)
                 .strength(strength).sounds(BlockSoundGroup.WOOD)),false);
 
-        Block button = ModBlocks.registerWoodBlock(name + "_button",  new ButtonBlock(BlockSetType.OAK, 30, AbstractBlock.Settings.copy(planks).noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY)
-                .sounds(BlockSoundGroup.WOOD)),false);
-
-        Block pressurePlate = ModBlocks.registerWoodBlock(name + "_pressure_plate",  new PressurePlateBlock(BlockSetType.OAK,
-                AbstractBlock.Settings.copy(planks).strength(PLATE_BUTTON_STRENGTH).sounds(BlockSoundGroup.WOOD)),false);
-
         Block door = ModBlocks.registerWoodBlock(name + "_door", new DoorBlock(BlockSetType.OAK, AbstractBlock.Settings.copy(planks)
                 .strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
 
         Block trapdoor = ModBlocks.registerWoodBlock(name + "_trapdoor", new TrapdoorBlock(BlockSetType.OAK, AbstractBlock.Settings.copy(planks)
                 .strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
+
+        Block pressurePlate = ModBlocks.registerWoodBlock(name + "_pressure_plate",  new PressurePlateBlock(BlockSetType.OAK,
+                AbstractBlock.Settings.copy(planks).strength(PLATE_BUTTON_STRENGTH).sounds(BlockSoundGroup.WOOD)),false);
+
+        Block button = ModBlocks.registerWoodBlock(name + "_button",  new ButtonBlock(BlockSetType.OAK, 30, AbstractBlock.Settings.copy(planks).noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY)
+                .sounds(BlockSoundGroup.WOOD)),false);
 
         Block stool = ModBlocks.registerBlock(name + "_stool", new StoolBlock(AbstractBlock.Settings.copy(planks)
                 .strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
@@ -205,11 +211,11 @@ public class WoodBlockSets {
         return new SimpleBlockSet(leaves, log, wood, woodSlab, woodVerticalSlab, woodStairs, woodWall, woodFence,
                 strippedLog, strippedWood, strippedSlab, strippedVerticalSlab, strippedStairs, strippedWoodWall, strippedWoodFence,
                 planks, slab, verticalSlab, stairs, fence, gate,
-                pressurePlate, button, door, trapdoor, stool, table, chair, sapling);
+                door, trapdoor, pressurePlate, button, stool, table, chair, sapling);
     }
 
 
     public static void registerModBlockSets() {
-        LoggerUtil.getInstance().logDebugMsg("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering WoodBlockSets for " + MiddleEarth.MOD_ID);
     }
 }

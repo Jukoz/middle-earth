@@ -1,0 +1,5 @@
+{
+  "sources": [
+    { "type": "single", "resource": "me:model/reinforced_chest" }
+  ]
+}

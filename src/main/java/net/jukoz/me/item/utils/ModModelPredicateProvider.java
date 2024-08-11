@@ -14,35 +14,30 @@ public class ModModelPredicateProvider {
     }
 
     private static void registerBowModel() {
-        registerBow(ModWeaponItems.DALISH_BOW);
-        registerBow(ModWeaponItems.GONDOR_BOW);
+        //registerBow(ModWeaponItems.DALISH_BOW);
+        registerBow(ModWeaponItems.GONDORIAN_BOW);
         registerBow(ModWeaponItems.LORIEN_BOW);
         registerBow(ModWeaponItems.ROHIRRIC_BOW);
-        registerBow(ModWeaponItems.UMBAR_BOW);
+        //registerBow(ModWeaponItems.UMBAR_BOW);
     }
     private static void registerBow(Item bow) {
-        ModelPredicateProviderRegistry.register(bow, new Identifier("pull"),
+        ModelPredicateProviderRegistry.register(bow, Identifier.of("pull"),
                 (stack, world, entity, seed) -> {
                    if(entity == null) return 0.0f;
                    else if (entity.getActiveItem() != stack) return 0.0f;
-                   return (float)(stack.getMaxUseTime() - entity.getItemUseTimeLeft()) / 20.0f;
+                   return (float)(stack.getMaxUseTime(entity) - entity.getItemUseTimeLeft()) / 20.0f;
                 });
 
-        ModelPredicateProviderRegistry.register(bow, new Identifier("pulling"),
+        ModelPredicateProviderRegistry.register(bow, Identifier.of("pulling"),
                 (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0f : 0.0f);
     }
 
     private static void registerShieldModel() {
-        registerShield(ModEquipmentItems.GONDORIAN_SHIELD);
-        registerShield(ModEquipmentItems.ROHIRRIC_SHIELD);
-        registerShield(ModEquipmentItems.LONGBEARD_SHIELD);
-        registerShield(ModEquipmentItems.LORIEN_SHIELD);
-        registerShield(ModEquipmentItems.MORDOR_SHIELD);
-        registerShield(ModEquipmentItems.MISTY_MOUNTAINS_SHIELD);
+        ModEquipmentItems.shields.forEach(ModModelPredicateProvider::registerShield);
     }
 
     private static void registerShield(Item shield) {
-        ModelPredicateProviderRegistry.register(shield, new Identifier("blocking"),
+        ModelPredicateProviderRegistry.register(shield, Identifier.of("blocking"),
                 (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F);
     }
 }
