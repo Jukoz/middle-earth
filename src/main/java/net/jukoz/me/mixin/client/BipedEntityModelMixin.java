@@ -66,14 +66,14 @@ public class BipedEntityModelMixin {
         } else if(itemStack.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) itemStack.getItem()).type == ModWeaponTypes.SPEAR)) {
             if(entity instanceof PlayerEntity playerEntity) {
                 int afkTime = PlayerMovementData.readAFK((IEntityDataSaver) playerEntity);
-                if(afkTime > 60){
-                    if(rightHand) this.rightArm.pitch = VERTICAL_ANGLE;
+                if(afkTime > 60) {
+                    if (rightHand) this.rightArm.pitch = VERTICAL_ANGLE;
                     else this.leftArm.pitch = VERTICAL_ANGLE;
-                } else if(entity instanceof MobEntity mob) {
-                    if (mob.isAiDisabled()) {
-                        if (rightHand) this.rightArm.pitch = VERTICAL_ANGLE;
-                        else this.leftArm.pitch = VERTICAL_ANGLE;
-                    }
+                }
+            } else if(entity instanceof MobEntity mob) {
+                if (mob.isAiDisabled()) {
+                    if (rightHand) this.rightArm.pitch = VERTICAL_ANGLE;
+                    else this.leftArm.pitch = VERTICAL_ANGLE;
                 }
             }
         } else if (itemStack.getItem() == ModDecorativeItems.TORCH_OF_ORTHANC) {
