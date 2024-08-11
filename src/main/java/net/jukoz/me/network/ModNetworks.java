@@ -5,7 +5,8 @@ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.jukoz.me.network.packets.*;
+import net.jukoz.me.network.packets.C2S.*;
+import net.jukoz.me.network.packets.S2C.OnboardingDetailParsedPacket;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.persistent_datas.AffiliationData;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
@@ -19,14 +20,8 @@ public class ModNetworks {
      * Register Server to Client packets
      */
     public static void registerS2CPackets() {
-        PayloadTypeRegistry.playS2C().register(AffiliationPacket.ID, AffiliationPacket.CODEC);
-        ClientPlayNetworking.registerGlobalReceiver(AffiliationPacket.ID, ModNetworks::onAffiliationPacketReceived);
-
-        PayloadTypeRegistry.playS2C().register(SpawnDataPacket.ID, SpawnDataPacket.CODEC);
-        ClientPlayNetworking.registerGlobalReceiver(SpawnDataPacket.ID, ModNetworks::onSpawnDataPacketReceived);
-
-        PayloadTypeRegistry.playS2C().register(OnboardingDetailsRequestPacket.ID, OnboardingDetailsRequestPacket.CODEC);
-        ClientPlayNetworking.registerGlobalReceiver(OnboardingDetailsRequestPacket.ID, ModNetworks::onOnboardingDetailsRequestPacketReceived);
+        PayloadTypeRegistry.playS2C().register(OnboardingDetailParsedPacket.ID, OnboardingDetailParsedPacket.CODEC);
+        ClientPlayNetworking.registerGlobalReceiver(OnboardingDetailParsedPacket.ID, ModNetworks::onOnboardingDetailsRequestPacketReceived);
 
         // TODO fixme & ItemStackSyncS2CPacket::receive
         // ClientPlayNetworking.registerGlobalReceiver(ITEM_SYNC, ItemStackSyncS2CPacket::receive);
@@ -50,25 +45,19 @@ public class ModNetworks {
         PayloadTypeRegistry.playC2S().register(SpawnDataPacket.ID, SpawnDataPacket.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(SpawnDataPacket.ID, ModNetworks::onSpawnDataPacketReceived);
 
-        PayloadTypeRegistry.playC2S().register(OnboardingDetailsRequestPacket.ID, OnboardingDetailsRequestPacket.CODEC);
-        ServerPlayNetworking.registerGlobalReceiver(OnboardingDetailsRequestPacket.ID, ModNetworks::onOnboardingDetailsRequestPacketReceived);
+        PayloadTypeRegistry.playC2S().register(OnboardingDetailFetchingPacket.ID, OnboardingDetailFetchingPacket.CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(OnboardingDetailFetchingPacket.ID, ModNetworks::onOnboardingDetailsRequestPacketReceived);
     }
+
 
     private static void onTeleportToMeSpawnRequestPacket(TeleportToMeSpawnRequestPacket teleportToMeSpawnRequestPacket, ServerPlayNetworking.Context context) {
         TeleportToMeSpawnRequestPacket.apply(teleportToMeSpawnRequestPacket, context);
     }
 
     // region Server to Client requests
-    private static void onAffiliationPacketReceived(AffiliationPacket affiliationPacket, ClientPlayNetworking.Context context) {
-        AffiliationPacket.apply(affiliationPacket, context);
-    }
 
-    private static void onSpawnDataPacketReceived(SpawnDataPacket spawnDataPacket, ClientPlayNetworking.Context context) {
-        SpawnDataPacket.apply(spawnDataPacket, context);
-    }
-
-    private static void onOnboardingDetailsRequestPacketReceived(OnboardingDetailsRequestPacket onboardingDetailsRequestPacket, ClientPlayNetworking.Context context) {
-        OnboardingDetailsRequestPacket.apply(onboardingDetailsRequestPacket, context);
+    private static void onOnboardingDetailsRequestPacketReceived(OnboardingDetailParsedPacket onboardingDetailFetchingPacket, ClientPlayNetworking.Context context) {
+        OnboardingDetailParsedPacket.apply(onboardingDetailFetchingPacket, context);
     }
     // endregion
 
@@ -118,8 +107,8 @@ public class ModNetworks {
         SpawnDataPacket.apply(spawnDataPacket, context);
     }
 
-    private static void onOnboardingDetailsRequestPacketReceived(OnboardingDetailsRequestPacket onboardingDetailsRequestPacket, ServerPlayNetworking.Context context) {
-        OnboardingDetailsRequestPacket.apply(onboardingDetailsRequestPacket, context);
+    private static void onOnboardingDetailsRequestPacketReceived(OnboardingDetailFetchingPacket onboardingDetailFetchingPacket, ServerPlayNetworking.Context context) {
+        OnboardingDetailFetchingPacket.apply(onboardingDetailFetchingPacket, context);
     }
     // endregion
 }
