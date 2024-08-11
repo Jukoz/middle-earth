@@ -1,8 +1,10 @@
 package net.jukoz.me.client.screens;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.network.packets.TeleportToMeSpawnRequestPacket;
+import net.jukoz.me.network.packets.C2S.TeleportToMeSpawnRequestPacket;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -14,6 +16,7 @@ import net.minecraft.util.Identifier;
 
 import java.awt.event.KeyEvent;
 
+@Environment(EnvType.CLIENT)
 public class OnboardingSelectionScreen extends Screen {
     private static final Text ONBOARDING_SELECTION_TITLE = Text.of("onboarding_selection_screen");
     private static final Identifier BUTTON_WIDGET = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/button_widget.png");

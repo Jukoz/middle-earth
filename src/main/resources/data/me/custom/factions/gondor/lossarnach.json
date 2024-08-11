@@ -8,8 +8,8 @@
     "chest": "me:gondorian_plate_chestplate",
     "legs": "me:gondorian_plate_leggings",
     "boots": "me:gondorian_plate_boots",
-    "main_hand": "me:gondorian_sword",
-    "off_hand": "me:gondorian_shield"
+    "main_hand": "me:gondorian_spear",
+    "off_hand": "me:gondorian_longsword"
   },
   "spawn": {
     "map_preview_center": {

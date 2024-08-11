@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SearchBarWidget {
+public class SearchBarWidget extends ModWidget{
     private static final Identifier SEARCH_WIDGET = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/search_widget.png");
     private static final int MINIMAL_MARGIN = 4;
     static final int SEARCH_BAR_PANEL_X = 102;
@@ -32,8 +32,6 @@ public class SearchBarWidget {
     private String searchBarInput = "";
     public ButtonWidget screenClick;
     private static boolean focusEnabled = false;
-    int mouseX = 0;
-    int mouseY = 0;
     int endY = 0;
     public SearchBarWidget(){
         searchBarToggle = false;
@@ -62,11 +60,6 @@ public class SearchBarWidget {
             screenClick.active = false;
         };
         screenClick = ButtonWidget.builder(Text.of("Click on screen"), screenClickAction).build();
-    }
-
-    public void updateMouse(int mouseX, int mouseY){
-        this.mouseX = mouseX;
-        this.mouseY = mouseY;
     }
 
     public void setEndY(int endY){
@@ -234,7 +227,7 @@ public class SearchBarWidget {
             for(int i = 0; i < valueAmount; i ++){
                 int valuePanelStartY = startY + panelBorderSizeY + (i * panelSizeY);
 
-                boolean mouseIsOver = isMouseOver(startX, valuePanelSizeX, valuePanelStartY, valuePanelSizeY);
+                boolean mouseIsOver = isMouseOver(valuePanelSizeX, valuePanelSizeY, startX, valuePanelStartY);
                 int uvY = mouseIsOver ? 89 : 75;
 
                 if(i == 0){
@@ -299,7 +292,8 @@ public class SearchBarWidget {
         searchResultToggle = enabled;
     }
 
-    public void keyPressed(int keyCode, int scanCode, int modifiers) {
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if(searchBarToggle && searchBarToggleButton.isFocused()){
             // Keybind : Enter
             if(keyCode == 257){
@@ -321,6 +315,7 @@ public class SearchBarWidget {
                     searchBarInput = "";
             }
         }
+        return true;
     }
 
     private void triggerSearch() {
@@ -330,10 +325,5 @@ public class SearchBarWidget {
 
     public boolean searchIsToggled() {
         return searchResultToggle;
-    }
-
-    private boolean isMouseOver(int startX, int sizeX, int startY, int sizeY) {
-        return mouseX >= startX && mouseX <= startX + sizeX
-                && mouseY >= startY && mouseY <= startY + sizeY;
     }
 }
