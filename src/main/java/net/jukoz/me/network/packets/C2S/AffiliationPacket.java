@@ -1,6 +1,5 @@
-package net.jukoz.me.network.packets;
+package net.jukoz.me.network.packets.C2S;
 
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.resources.StateSaverAndLoader;
@@ -33,17 +32,8 @@ public record AffiliationPacket(int alignment, int faction, int subfaction) impl
 
             PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
 
-            AffiliationData affiliationData = new AffiliationData( packet.alignment, packet.faction, packet.subfaction);
+            AffiliationData affiliationData = new AffiliationData(packet.alignment, packet.faction, packet.subfaction);
             playerState.setAffiliationData(affiliationData);
-
-            server.execute(() -> {
-                ServerPlayNetworking.send(player, packet);
-            });
-        });
-    }
-    public static void apply(AffiliationPacket packet, ClientPlayNetworking.Context context) {
-        context.client().execute(() -> {
-            // Nothing for now
         });
     }
 

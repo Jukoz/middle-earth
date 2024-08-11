@@ -4,6 +4,7 @@ import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
@@ -61,6 +62,7 @@ public class FileUtils {
 
     /**
      * TODO : Optimise this part, it the longest process in World-Gen
+     * about 60s before -> about 40s now
      */
     public static BufferedImage blur(BufferedImage image, int brushSize) {
         // Create new expended image :
@@ -70,25 +72,24 @@ public class FileUtils {
         int newHeight = height + (2 * brushSize);
 
         BufferedImage expendedImage = new BufferedImage(newWidth, newHeight, image.getType());
-        // Copy image content
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                expendedImage.setRGB(x + brushSize, y + brushSize, image.getRGB(x, y));
-            }
-        }
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < brushSize; x++) {
-                expendedImage.setRGB(x, y + brushSize, image.getRGB(0, y)); // Left edge
-                expendedImage.setRGB(width + brushSize + x, y + brushSize, image.getRGB(width - 1, y)); // Right edge
-            }
-        }
+        Graphics2D g2d = expendedImage.createGraphics();
 
-        for (int x = 0; x < width + 2 * brushSize; x++) {
-            for (int y = 0; y < brushSize; y++) {
-                expendedImage.setRGB(x, y, expendedImage.getRGB(x, brushSize)); // Top edge
-                expendedImage.setRGB(x, height + brushSize + y, expendedImage.getRGB(x, height + brushSize - 1)); // Bottom edge
-            }
-        }
+        // Copy image content (center)
+        g2d.drawImage(image, brushSize, brushSize, null);
+
+        // extend left & right
+        g2d.drawImage(image, 0, brushSize, brushSize, height + brushSize, 0, 0, 1, height, null);
+        g2d.drawImage(image, newWidth - brushSize, brushSize, newWidth, height + brushSize, width - 1, 0, width, height, null);
+
+        // extend up & down
+        g2d.drawImage(image, brushSize, 0, brushSize + width, brushSize, 0, 0, width, 1, null);
+        g2d.drawImage(image, brushSize, newHeight - brushSize, brushSize + width, newHeight, 0, height - 1, width, height, null);
+
+        // extend corners
+        g2d.drawImage(image, 0, 0, brushSize, brushSize, 0, 0, 1, 1, null);
+        g2d.drawImage(image, newWidth - brushSize, 0, newWidth, brushSize, width - 1, 0, width, 1, null);
+        g2d.drawImage(image, 0, newHeight - brushSize, brushSize, newHeight, 0, height - 1, 1, height, null);
+        g2d.drawImage(image, newWidth - brushSize, newHeight - brushSize, newWidth, newHeight, width - 1, height - 1, width, height, null);
 
         float[] blurKernel = new float[brushSize * brushSize];
         Arrays.fill(blurKernel, 1.0f / (brushSize * brushSize));
@@ -97,7 +98,8 @@ public class FileUtils {
 
         expendedImage = op.filter(expendedImage, null);
 
-
-        return expendedImage.getSubimage(brushSize, brushSize, width, height);
+        BufferedImage subImage = expendedImage.getSubimage(brushSize, brushSize, width, height);
+        g2d.dispose();
+        return subImage;
     }
 }

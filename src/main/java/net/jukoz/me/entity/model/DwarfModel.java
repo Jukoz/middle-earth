@@ -40,7 +40,7 @@ public class DwarfModel {
             head.addChild(NORI_BEARD_RIGHT, ModelPartBuilder.create().uv(64, 0).cuboid(-3f, 0.7f, -4f, 2.0f, 5.0f, 2.0f, dilation),
                     ModelTransform.of(0f, 0f, 0f, BEARD_PITCH_ANGLE, 0, 0.55f));
 
-            modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create().uv(32, 0).cuboid(-4.0f, -8.0f, -4.0f, 8.0f, 8.0f, 8.0f, dilation.add(0.5f)), ModelTransform.pivot(0.0f, 0.0f, 0.0f));
+            modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create().uv(32, 0).cuboid(-4.0f, -8.0f, -4.0f, 8.0f, 8.0f, 8.0f, dilation.add(0.25f)), ModelTransform.pivot(0.0f, 0.0f, 0.0f));
             modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create().uv(16, 16).cuboid(-4.0f, 0.0f, -2.0f, 8.0f, 12.0f, 4.0f, dilation), ModelTransform.pivot(0.0f, 0.0f, 0.0f));
 
             ModelPartData rightArm = modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create()

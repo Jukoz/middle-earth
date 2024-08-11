@@ -5,13 +5,10 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.utils.CycledSelectionButtonType;
-import net.jukoz.me.client.screens.utils.widgets.CycledSelectionWidget;
-import net.jukoz.me.client.screens.utils.widgets.MapWidget;
-import net.jukoz.me.client.screens.utils.widgets.PlayableNpcPreviewWidget;
-import net.jukoz.me.client.screens.utils.widgets.SearchBarWidget;
-import net.jukoz.me.network.packets.AffiliationPacket;
-import net.jukoz.me.network.packets.SpawnDataPacket;
-import net.jukoz.me.network.packets.TeleportRequestPacket;
+import net.jukoz.me.client.screens.utils.widgets.*;
+import net.jukoz.me.network.packets.C2S.AffiliationPacket;
+import net.jukoz.me.network.packets.C2S.SpawnDataPacket;
+import net.jukoz.me.network.packets.C2S.TeleportRequestPacket;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.faction.Faction;
 import net.jukoz.me.resources.datas.faction.ModFactions;
@@ -37,7 +34,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import org.joml.Vector2i;
 
 import java.awt.event.KeyEvent;
 import java.util.*;
@@ -51,7 +47,6 @@ public class FactionSelectionScreen extends Screen {
     private static final Text FACTION_SELECTION_TITLE = Text.of("faction_selection_screen");
     AbstractClientPlayerEntity player;
     private static final int MINIMAL_MARGIN = 4;
-    private boolean focusEnabled;
     private ModelPart bannerField;
     private int currentAlignementIndex = 0;
     private int currentFactionIndex = 0;
@@ -76,12 +71,9 @@ public class FactionSelectionScreen extends Screen {
     public ButtonWidget spawnSelectionRandomizerButton;
     public ButtonWidget spawnSelectionConfirmButton;
 
-    private int mouseX;
-    private int mouseY;
-
     public FactionSelectionScreen() {
         super(FACTION_SELECTION_TITLE);
-        focusEnabled = false;
+        ModWidget.enableFocus(false);
     }
 
     @Override
@@ -138,8 +130,9 @@ public class FactionSelectionScreen extends Screen {
                 alignmentActionRight,
                 null,
                 CycledSelectionButtonType.GOLD);
-        addDrawableChild(alignmentSelectionWidget.getButtonLeft());
-        addDrawableChild(alignmentSelectionWidget.getButtonRight());
+        for(ButtonWidget button: alignmentSelectionWidget.getButtons()){
+            addDrawableChild(button);
+        }
 
         // Faction
         ButtonWidget.PressAction factionActionLeft = button -> {
@@ -163,8 +156,9 @@ public class FactionSelectionScreen extends Screen {
                 factionActionRight,
                 null,
                 CycledSelectionButtonType.SILVER);
-        addDrawableChild(factionSelectionWidget.getButtonLeft());
-        addDrawableChild(factionSelectionWidget.getButtonRight());
+        for(ButtonWidget button: factionSelectionWidget.getButtons()){
+            addDrawableChild(button);
+        }
 
         // Subfaction
         ButtonWidget.PressAction subfactionActionLeft = button -> {
@@ -186,8 +180,14 @@ public class FactionSelectionScreen extends Screen {
                 subfactionActionRight,
                 null,
                 CycledSelectionButtonType.NORMAL);
-        addDrawableChild(subfactionSelectionWidget.getButtonLeft());
-        addDrawableChild(subfactionSelectionWidget.getButtonRight());
+
+        for(ButtonWidget button: subfactionSelectionWidget.getButtons()){
+            addDrawableChild(button);
+        }
+
+        for(ButtonWidget button: playableNpcPreviewWidget.getButtons()){
+            addDrawableChild(button);
+        }
 
         ButtonWidget.PressAction factionRandomizer = new ButtonWidget.PressAction() {
             private int randomize(int tentativeLeft){
@@ -287,8 +287,10 @@ public class FactionSelectionScreen extends Screen {
                 spawnPointActionRight,
                 null,
                 CycledSelectionButtonType.NORMAL);
-        addDrawableChild(spawnPointCycledSelection.getButtonLeft());
-        addDrawableChild(spawnPointCycledSelection.getButtonRight());
+
+        for(ButtonWidget button: spawnPointCycledSelection.getButtons()){
+            addDrawableChild(button);
+        }
 
         // Random spawn selection
         ButtonWidget.PressAction randomSpawnSelectionAction = button -> {
@@ -336,7 +338,7 @@ public class FactionSelectionScreen extends Screen {
         if(faction != null)
             playableNpcPreviewWidget.updateEntity(faction.getPreviewGear(), faction.getPreviewRace());
         else
-            playableNpcPreviewWidget.displayDefaultEntity();
+            playableNpcPreviewWidget.updateToDefaultEntity();
     }
 
     @Override
@@ -344,8 +346,7 @@ public class FactionSelectionScreen extends Screen {
         Entity cameraEntity = this.client.getCameraEntity();
         if (cameraEntity != null) {
             if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
-                this.mouseX = mouseX;
-                this.mouseY = mouseY;
+                ModWidget.updateMouse(mouseX, mouseY);
                 this.player = abstractClientPlayerEntity;
                 this.renderBackground(context, mouseX, mouseY, delta);
                 this.drawPanels(context);
@@ -358,27 +359,37 @@ public class FactionSelectionScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         // Keybind : Escape || Other Escape
+        if(!playableNpcPreviewWidget.keyPressed(keyCode, scanCode, modifiers)
+        || !searchBarWidget.keyPressed(keyCode, scanCode, modifiers))
+            return true;
+
+
         if(keyCode == KeyEvent.VK_ESCAPE){
             this.close();
             return true;
         }
 
         // Keybind : Tabulation
-        if(keyCode == KeyEvent.VK_CODE_INPUT && !focusEnabled && !CycledSelectionWidget.focusEnabled()){
-            focusEnabled = true;
+        if(keyCode == KeyEvent.VK_CODE_INPUT && !ModWidget.getFocusEnabled() && !CycledSelectionWidget.focusEnabled()){
+            ModWidget.enableFocus(true);
             CycledSelectionWidget.toggleFocus();
             SearchBarWidget.toggleFocus();
             return true;
         }
-        searchBarWidget.keyPressed(keyCode, scanCode, modifiers);
         return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    @Override
+    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
+        playableNpcPreviewWidget.keyReleased(keyCode, scanCode, modifiers);
+        return super.keyReleased(keyCode, scanCode, modifiers);
     }
 
     protected void drawPanels(DrawContext context){
         int mainPanelWidth = 169;
         int mainPanelHeight = 207;
 
-        drawFactionSelectionPanel(context, mainPanelWidth, mainPanelHeight, mouseX, mouseY);
+        drawFactionSelectionPanel(context, mainPanelWidth, mainPanelHeight);
         drawInformationPanel(context, mainPanelWidth, mainPanelHeight);
         drawMapPanel(context, mainPanelWidth, mainPanelHeight);
     }
@@ -398,7 +409,7 @@ public class FactionSelectionScreen extends Screen {
         drawFactionBanner(context, startX + mainPanelWidth - 50, startY + 6);
     }
 
-    private void drawFactionSelectionPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight, int mouseX, int mouseY) {
+    private void drawFactionSelectionPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight) {
         int endX = (int) ((context.getScaledWindowWidth() / 2f) - (mainPanelWidth / 2f) - MINIMAL_MARGIN);
         int startX = Math.max(MINIMAL_MARGIN, endX  - mainPanelWidth);
         int startY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f));
@@ -420,7 +431,6 @@ public class FactionSelectionScreen extends Screen {
         }
 
         // List all widgets one after the other
-        searchBarWidget.updateMouse(mouseX, mouseY);
         searchBarWidget.setEndY(endY);
 
         if(searchBarWidget.searchIsToggled()) {
@@ -434,17 +444,17 @@ public class FactionSelectionScreen extends Screen {
 
         // Alignment
         factionSelectionWidget.enableArrows(Alignment.values().length > 1);
-        newStartY += MINIMAL_MARGIN + alignmentSelectionWidget.drawAnchored(context, endX, newStartY, false, alignment.getName(), textRenderer, mouseX, mouseY);
+        newStartY += MINIMAL_MARGIN + alignmentSelectionWidget.drawAnchored(context, endX, newStartY, false, alignment.getName(), textRenderer);
 
         // Faction
         factionSelectionWidget.enableArrows(!factions.get(alignment).isEmpty() && factions.get(alignment).size() > 1);
         if(!factions.get(alignment).isEmpty()){
-            newStartY += MINIMAL_MARGIN + factionSelectionWidget.drawAnchored(context, endX, newStartY, false, (faction == null) ? null : faction.tryGetShortName(), textRenderer, mouseX, mouseY);
+            newStartY += MINIMAL_MARGIN + factionSelectionWidget.drawAnchored(context, endX, newStartY, false, (faction == null) ? null : faction.tryGetShortName(), textRenderer);
 
             // Subfaction
             subfactionSelectionWidget.enableArrows(faction != null && (faction.getSubFactions() != null && faction.getSubFactions().size() > 1));
             if(faction != null && (faction.getSubFactions() != null && !faction.getSubFactions().isEmpty()))
-                subfactionSelectionWidget.drawAnchored(context, endX, newStartY, false, (subFaction == null) ? null : subFaction.tryGetShortName(), textRenderer, mouseX, mouseY);
+                subfactionSelectionWidget.drawAnchored(context, endX, newStartY, false, (subFaction == null) ? null : subFaction.tryGetShortName(), textRenderer);
         }
 
         if(!factionRandomizerButton.active)
@@ -453,8 +463,7 @@ public class FactionSelectionScreen extends Screen {
 
 
     private boolean isMouseOver(int startX, int sizeX, int startY, int sizeY) {
-        return mouseX >= startX && mouseX <= startX + sizeX
-                && mouseY >= startY && mouseY <= startY + sizeY;
+        return ModWidget.isMouseOver(sizeX, sizeY, startX, startY);
     }
 
     protected void drawFactionRandomizer(DrawContext context, int centerX, int endY) {
@@ -471,7 +480,7 @@ public class FactionSelectionScreen extends Screen {
                 sizeY
         );
         factionRandomizerButton.setDimensionsAndPosition(sizeX, sizeY, startX, startY);
-        if(focusEnabled && factionRandomizerButton.isFocused()){
+        if(ModWidget.getFocusEnabled() && factionRandomizerButton.isFocused()){
             context.drawTexture(FACTION_SELECTION_BUTTONS,
                     startX,
                     startY,
@@ -513,7 +522,7 @@ public class FactionSelectionScreen extends Screen {
                 buttonSize
         );
         mapViewAllButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
-        if(mapViewAllButton.isFocused() && focusEnabled){
+        if(mapViewAllButton.isFocused() && ModWidget.getFocusEnabled()){
             highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
         }
 
@@ -526,7 +535,7 @@ public class FactionSelectionScreen extends Screen {
                 buttonSize
         );
         mapFocusButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
-        if(mapFocusButton.isFocused() && focusEnabled){
+        if(mapFocusButton.isFocused() && ModWidget.getFocusEnabled()){
             highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
         }
 
@@ -539,7 +548,7 @@ public class FactionSelectionScreen extends Screen {
                 buttonSize
         );
         mapZoomInButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
-        if(mapZoomInButton.isFocused() && focusEnabled){
+        if(mapZoomInButton.isFocused() && ModWidget.getFocusEnabled()){
             highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
         }
 
@@ -552,13 +561,13 @@ public class FactionSelectionScreen extends Screen {
                 buttonSize
         );
         mapZoomOutButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
-        if(mapZoomOutButton.isFocused() && focusEnabled){
+        if(mapZoomOutButton.isFocused() && ModWidget.getFocusEnabled()){
             highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
         }
 
         // Spawn point option
         startY += MINIMAL_MARGIN;
-        spawnPointCycledSelection.drawAnchored(context, startX,  startY,true, Text.translatable("Minas Tirith"), textRenderer, mouseX, mouseY);
+        spawnPointCycledSelection.drawAnchored(context, startX,  startY,true, Text.translatable("Minas Tirith"), textRenderer);
         spawnPointCycledSelection.enableArrows(true); // TODO : update when faction changes
 
         // Draw selection option
@@ -576,7 +585,7 @@ public class FactionSelectionScreen extends Screen {
                 sizeY
         );
         spawnSelectionRandomizerButton.setDimensionsAndPosition(sizeX, sizeY, buttonStartX, buttonStartY);
-        if(focusEnabled && spawnSelectionRandomizerButton.isFocused()){
+        if(ModWidget.getFocusEnabled() && spawnSelectionRandomizerButton.isFocused()){
             context.drawTexture(FACTION_SELECTION_BUTTONS,
                     buttonStartX,
                     buttonStartY,
@@ -596,7 +605,7 @@ public class FactionSelectionScreen extends Screen {
                 sizeY
         );
         spawnSelectionConfirmButton.setDimensionsAndPosition(sizeX, sizeY, buttonStartX, buttonStartY);
-        if(focusEnabled && spawnSelectionConfirmButton.isFocused()){
+        if(ModWidget.getFocusEnabled() && spawnSelectionConfirmButton.isFocused()){
             context.drawTexture(FACTION_SELECTION_BUTTONS,
                     buttonStartX,
                     buttonStartY,
@@ -752,15 +761,21 @@ public class FactionSelectionScreen extends Screen {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         mapWidget.mouseClicked(mouseX, mouseY, button);
+        playableNpcPreviewWidget.mouseClicked(mouseX, mouseY, button);
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
         mapWidget.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
-        return true;
+        return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
     }
 
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        playableNpcPreviewWidget.mouseReleased(mouseX, mouseY, button);
+        return super.mouseReleased(mouseX, mouseY, button);
+    }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {

@@ -1,12 +1,12 @@
 {
   "parent": "me:alloy/root",
   "criteria": {
-    "orc_steel": {
+    "slag": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:orc_steel_ingot"
+              "me:slag_ingot"
             ]
           }
         ]
@@ -17,22 +17,22 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.alloy.orc_steel.description"
+      "translate": "advancements.alloy.slag.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:orc_steel_ingot"
+      "id":  "me:slag_ingot"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.alloy.orc_steel.title"
+      "translate": "advancements.alloy.slag.title"
     }
   },
   "requirements": [
     [
-      "orc_steel"
+      "slag"
     ]
   ]
 }
