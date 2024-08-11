@@ -378,28 +378,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
     public void chargeAttack() {
     }
 
-    @Override
-    public boolean tryAttack(Entity target) {
-        this.attackTicksLeft = ATTACK_COOLDOWN;
-        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
-        float f = this.getAttackDamage();
-        float g = (int)f > 0 ? f / 2.0f + (float)this.random.nextInt((int)f) : f;
-        boolean bl = target.damage(this.getDamageSources().mobAttack(this), g);
-        if (bl) {
-            double d;
-            if (target instanceof LivingEntity) {
-                LivingEntity livingEntity = (LivingEntity)target;
-                d = livingEntity.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE);
-            } else {
-                d = 0.0;
-            }
-            double e = Math.max(0.0, 1.0 - d);
-            target.setVelocity(target.getVelocity().multiply(1f + (0.8f * e))); //.add(0.0, (double)0.1f * e, 0.0));
-        }
-        this.playSound(SoundEvents.ENTITY_HOGLIN_ATTACK, 1.5f, 0.8f);
-        return bl;
-    }
-
     // Tick Management =================================================================================================
     @Override
     public void tick() {

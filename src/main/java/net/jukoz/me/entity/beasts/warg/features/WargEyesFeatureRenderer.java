@@ -9,7 +9,7 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.util.Identifier;
 
 public class WargEyesFeatureRenderer extends EyesFeatureRenderer<WargEntity, WargModel> {
-    private static final RenderLayer SKIN = RenderLayer.getEyes(new Identifier(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_eyes.png"));
+    private static final RenderLayer SKIN = RenderLayer.getEyes(Identifier.of(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_eyes.png"));
     public WargEyesFeatureRenderer(FeatureRendererContext<WargEntity, WargModel> featureRendererContext) {
         super(featureRendererContext);
     }

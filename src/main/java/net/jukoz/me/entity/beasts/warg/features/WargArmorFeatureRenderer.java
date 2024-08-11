@@ -28,9 +28,6 @@ public class WargArmorFeatureRenderer extends FeatureRenderer<WargEntity, WargMo
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, WargEntity wargEntity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        float p;
-        float o;
-        float n;
         CustomAnimalArmorItem animalArmorItem;
         ItemStack itemStack = wargEntity.getBodyArmor();
         Item item = itemStack.getItem();
@@ -41,17 +38,7 @@ public class WargArmorFeatureRenderer extends FeatureRenderer<WargEntity, WargMo
         this.model.setAngles(wargEntity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
 
         ((WargModel)this.getContextModel()).copyStateTo(this.model);
-        if (itemStack.isIn(ItemTags.DYEABLE)) {
-            int m = DyedColorComponent.getColor(itemStack, -6265536);
-            n = (float) ColorHelper.Argb.getRed(m) / 255.0f;
-            o = (float)ColorHelper.Argb.getGreen(m) / 255.0f;
-            p = (float)ColorHelper.Argb.getBlue(m) / 255.0f;
-        } else {
-            n = 1.0f;
-            o = 1.0f;
-            p = 1.0f;
-        }
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getEntityTexture()));
-        this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, n, o, p, 1.0f);
+        this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, -1);
     }
 }

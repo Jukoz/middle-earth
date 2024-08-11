@@ -80,8 +80,8 @@ public class WargModel extends SinglePartEntityModel<WargEntity> {
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-        warg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
+        this.warg.render(matrices, vertexConsumer, light, overlay, color);
     }
 
     @Override

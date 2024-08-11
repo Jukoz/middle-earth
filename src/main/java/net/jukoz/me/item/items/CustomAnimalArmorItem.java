@@ -27,7 +27,7 @@ public class CustomAnimalArmorItem extends ArmorItem {
     public CustomAnimalArmorItem(RegistryEntry<ArmorMaterial> material, Type type, boolean hasOverlay, Item.Settings settings) {
         super(material, ArmorItem.Type.BODY, settings);
         this.type = type;
-        Identifier identifier = new Identifier(MiddleEarth.MOD_ID, type.textureIdFunction.apply(material.getKey().orElseThrow().getValue()).getPath());
+        Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, type.textureIdFunction.apply(material.getKey().orElseThrow().getValue()).getPath());
         this.entityTexture = identifier.withSuffixedPath(".png");
         this.overlayTexture = hasOverlay ? identifier.withSuffixedPath("_overlay.png") : null;
     }

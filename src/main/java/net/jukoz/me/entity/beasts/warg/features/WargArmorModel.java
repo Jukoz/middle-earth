@@ -65,7 +65,7 @@ public WargArmorModel(ModelPart root) {
                 this.updateAnimation(entity.sittingAnimationState, WargAnimations.SIT, animationProgress, 1f);
         }
 
-        public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-                warg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+        public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
+                warg.render(matrices, vertexConsumer, light, overlay, color);
         }
 }

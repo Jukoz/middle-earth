@@ -30,7 +30,10 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
+import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SingleStackInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -176,7 +179,7 @@ public class WargEntity extends BeastEntity {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "warg_food")));
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food")));
     }
 
     @Override
@@ -224,7 +227,7 @@ public class WargEntity extends BeastEntity {
     }
 
     public boolean isCommandItem(ItemStack stack) {
-        return stack.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "bones")));
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
     }
 
     @Override
@@ -248,11 +251,6 @@ public class WargEntity extends BeastEntity {
     }
 
     @Override
-    public boolean hasArmorSlot() {
-        return true;
-    }
-
-    @Override
     public boolean isHorseArmor(ItemStack stack) {
         return stack.isOf(ModEquipmentItems.WARG_ARMOR);
     }
@@ -267,7 +265,7 @@ public class WargEntity extends BeastEntity {
 
     @Override
     public boolean isBondingItem(ItemStack itemStack) {
-        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "warg_food")));
+        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food")));
     }
 
     @Override
