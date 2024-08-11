@@ -1,4 +1,4 @@
-package net.jukoz.me.network.packets;
+package net.jukoz.me.network.packets.C2S;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
