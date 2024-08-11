@@ -11,6 +11,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
@@ -90,11 +91,11 @@ public class StoneTrollEntity extends TrollEntity {
     }
 
     @Override
-    public Item getBondingItem() {
+    public boolean isBondingItem(ItemStack itemStack) {
         if(!this.isPetrified()) {
-            return super.getBondingItem();
+            return super.isBondingItem(itemStack);
         }
-        return null;
+        return false;
     }
 
     @Override

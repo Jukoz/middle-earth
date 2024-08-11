@@ -4,7 +4,6 @@ import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -12,7 +11,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -351,7 +349,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
             super.interactMob(player, hand);
         }
 
-        if(player.getStackInHand(hand).isOf(getBondingItem()) && !this.isTame() && !this.getWorld().isClient) {
+        if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && !this.getWorld().isClient) {
             this.tryBonding(player);
         }
 
@@ -368,8 +366,8 @@ public class BeastEntity extends AbstractDonkeyEntity {
         return ActionResult.success(this.getWorld().isClient);
     }
 
-    public Item getBondingItem() {
-        return null;
+    public boolean isBondingItem(ItemStack itemStack) {
+        return false;
     }
 
     @Override

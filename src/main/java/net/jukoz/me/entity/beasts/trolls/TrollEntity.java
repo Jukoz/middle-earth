@@ -257,8 +257,8 @@ public class TrollEntity extends BeastEntity {
     }
 
     @Override
-    public Item getBondingItem() {
-        return ModFoodItems.COOKED_HORSE;
+    public boolean isBondingItem(ItemStack itemStack) {
+        return itemStack.isOf(ModFoodItems.COOKED_HORSE);
     }
 
     public int getBondingTimeout() {

@@ -14,11 +14,15 @@ import net.jukoz.me.entity.pheasant.PheasantEntity;
 import net.jukoz.me.entity.pheasant.PheasantVariant;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModFoodItems;
+import net.minecraft.block.BlockState;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -33,9 +37,15 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -44,9 +54,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-// TODO Make warg heal by feeding
-// TODO Add Eye Feature
-// TODO Add Grooming
 public class WargEntity extends BeastEntity {
 
     private static final double WALKING_SPEED = 0.25;
@@ -150,6 +157,27 @@ public class WargEntity extends BeastEntity {
         }
     }
 
+    @Override
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        ItemStack itemStack = player.getStackInHand(hand);
+
+        if(this.isTame()) {
+            if (this.isBreedingItem(itemStack) && this.getHealth() < this.getMaxHealth()) {
+                itemStack.decrementUnlessCreative(1, player);
+                FoodComponent foodComponent = itemStack.get(DataComponentTypes.FOOD);
+                float f = foodComponent != null ? (float)foodComponent.nutrition() : 1.0f;
+                this.heal(2.0f * f);
+                return ActionResult.success(this.getWorld().isClient());
+            }
+        }
+
+        return super.interactMob(player, hand);
+    }
+
+    @Override
+    public boolean isBreedingItem(ItemStack stack) {
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "warg_food")));
+    }
 
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
@@ -238,8 +266,8 @@ public class WargEntity extends BeastEntity {
     }
 
     @Override
-    public Item getBondingItem() {
-        return Items.MUTTON;
+    public boolean isBondingItem(ItemStack itemStack) {
+        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "warg_food")));
     }
 
     @Override
@@ -275,5 +303,54 @@ public class WargEntity extends BeastEntity {
 
     private void setVariant(WargVariant variant) {
         this.dataTracker.set(VARIANT, variant.getId() & 255);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.ENTITY_WOLF_DEATH;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return SoundEvents.ENTITY_WOLF_HURT;
+    }
+    @Override
+    protected void playHurtSound(DamageSource damageSource) {
+        this.playSound(this.getHurtSound(damageSource), 1.0f, 0.7f);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.ENTITY_WOLF_AMBIENT;
+    }
+
+    @Override
+    public void playAmbientSound() {
+        this.playSound(this.getAmbientSound(), 1.0f, 0.7f);
+    }
+
+    @Nullable
+    @Override
+    public SoundEvent getAmbientStandSound() {
+        return SoundEvents.ENTITY_WOLF_HOWL;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAngrySound() {
+        return SoundEvents.ENTITY_WOLF_GROWL;
+    }
+
+    @Override
+    public void playAngrySound() {
+        this.playSound(this.getAngrySound(), 1.0f, 0.7f);
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.15f, 0.7f);
     }
 }
