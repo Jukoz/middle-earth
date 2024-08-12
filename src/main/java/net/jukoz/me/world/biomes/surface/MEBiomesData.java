@@ -145,7 +145,7 @@ public class MEBiomesData {
         addBiome(new Color(117, 164, 109), new MEBiome(6, MEBiomeKeys.ENEDWAITH, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(185, 185, 187), new MEBiome(60, MEBiomeKeys.LONELY_MOUNTAIN_BASE, MEBiomeDataConfigs.mountainModifier.heightModifier(0.55f), MEBiomeDataConfigs.lonelyMountain, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(168, 168, 170), new MEBiome(73, MEBiomeKeys.LONELY_MOUNTAIN, MEBiomeDataConfigs.mountainModifier.heightModifier(0.65f), MEBiomeDataConfigs.lonelyMountain, MEBiomeDataConfigs.stoneLayers));
-        addBiome(new Color(151, 151, 153), new MEBiome(100, MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, MEBiomeDataConfigs.mountainModifier.heightModifier(0.76f), MEBiomeDataConfigs.lonelyMountainPeak, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(151, 151, 153), new MEBiome(94, MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, MEBiomeDataConfigs.mountainModifier.heightModifier(0.76f), MEBiomeDataConfigs.lonelyMountainPeak, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(90, 159, 90), new MEBiome(7, MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(106, 155, 104), new MEBiome(4, MEBiomeKeys.EREGION, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.limeStoneLayers));
         addBiome(new Color(171, 193, 128), new MEBiome(4, MEBiomeKeys.ERIADOR, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));

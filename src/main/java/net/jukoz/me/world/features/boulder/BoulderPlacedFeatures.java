@@ -105,7 +105,7 @@ public class BoulderPlacedFeatures {
         PlacementModifier sparse = PlacedFeatures.createCountExtraModifier(0, 0.025f, 1);
         PlacementModifier scarce = PlacedFeatures.createCountExtraModifier(0, 0.02f, 1);
         PlacementModifier rare = PlacedFeatures.createCountExtraModifier(0, 0.01f, 1);
-        PlacementModifier veryRare = PlacedFeatures.createCountExtraModifier(0, 0.004f, 1);
+        PlacementModifier veryRare = PlacedFeatures.createCountExtraModifier(0, 0.005f, 1);
 
         PlacedFeatures.register(featureRegisterable, ANDESITE_BOULDER, andesite, uncommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
