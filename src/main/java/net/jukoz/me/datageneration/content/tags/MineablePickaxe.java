@@ -39,7 +39,9 @@ public class MineablePickaxe {
 
             add(ModBlocks.CHISELED_BASALT_BRICKS);
 
+            add(ModBlocks.CHISELED_DOLOMITE);
             add(ModBlocks.CHISELED_DOLOMITE_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_DOLOMITE);
 
             add(ModBlocks.CHISELED_IRONSTONE);
             add(ModBlocks.CHISELED_POLISHED_IRONSTONE);
@@ -72,7 +74,7 @@ public class MineablePickaxe {
             add(ModBlocks.SILVER_BLOCK);
 
             add(ModBlocks.BRONZE_BLOCK);
-            add(ModBlocks.ORC_STEEL_BLOCK);
+            add(ModBlocks.SLAG_BLOCK);
             add(ModBlocks.STEEL_BLOCK);
             add(ModBlocks.DWARVEN_STEEL_BLOCK);
             add(ModBlocks.ELVEN_STEEL_BLOCK);
@@ -85,6 +87,7 @@ public class MineablePickaxe {
             add(ModBlocks.ASHEN_PILLAR);
 
             add(ModBlocks.GONLUIN_PILLAR);
+            add(ModBlocks.MOSSY_GONLUIN_PILLAR);
             add(ModBlocks.CRACKED_GONLUIN_PILLAR);
 
             add(ModBlocks.DEEPSLATE_PILLAR);
@@ -92,6 +95,8 @@ public class MineablePickaxe {
             add(ModBlocks.FROZEN_PILLAR);
 
             add(ModBlocks.DOLOMITE_PILLAR);
+            //add(ModBlocks.MOSSY_DOLOMITE_PILLAR);
+            //add(ModBlocks.CRACKED_DOLOMITE_PILLAR);
 
             add(ModBlocks.IRONSTONE_PILLAR);
 
@@ -139,7 +144,6 @@ public class MineablePickaxe {
             add(ModDecorativeBlocks.SMALL_BRAZIER);
             add(ModDecorativeBlocks.FIRE_BOWL);
             add(ModDecorativeBlocks.BONFIRE);
-            add(ModDecorativeBlocks.SCONCE);
             add(ModDecorativeBlocks.WALL_SCONCE);
         }
     };

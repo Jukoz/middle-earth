@@ -223,13 +223,16 @@
   "item.me.mithril_rod": "Mithril Rod",
 
 "#Comment:": "Item - General",
-  "item.me.orc_bone": "Orc Bone",
-  "item.me.warg_bone": "Warg Bone",
-  "item.me.warg_fur": "Warg Fur",
   "item.me.gold_ring": "Gold Ring",
   "item.me.middle_earth_map": "Middle Earth Map",
   "item.me.ash": "Ash",
   "item.me.iron_chainmail": "Iron Chainmail",
+
+"#Comment:": "Item - Mob Drops",
+  "item.me.orc_bone": "Orc Bone",
+  "item.me.warg_bone": "Warg Bone",
+  "item.me.warg_fur": "Warg Fur",
+  "item.me.fang": "Fang",
 
 "#Comment:": "Item - Phial",
   "item.me.empty_phial": "Empty Phial",
@@ -505,7 +508,7 @@
 
   "item.me.rohirric_leather_helmet": "Rohirric Leather Helmet",
   "item.me.rohirric_reinforced_leather_helmet": "Rohirric Reinforced Leather Helmet",
-  "item.me.rohirric_ornemented_leather_helmet": "Rohirric Ornemented Leather Helmet",
+  "item.me.rohirric_ornamented_leather_helmet": "Rohirric Ornamented Leather Helmet",
 
   "item.me.rohirric_leather_vest": "Rohirric Leather Vest",
   "item.me.rohirric_leather_scale_vest": "Rohirric Leather Scale Vest",
@@ -514,18 +517,18 @@
   "item.me.rohirric_militia_helmet": "Rohirric Militia Helmet",
   "item.me.rohirric_braced_militia_helmet": "Rohirric Braced Militia Helmet",
   "item.me.rohirric_reinforced_militia_helmet": "Rohirric Reinforced Militia Helmet",
-  "item.me.rohirric_ornemented_militia_helmet": "Rohirric Ornemented Militia Helmet",
+  "item.me.rohirric_ornamented_militia_helmet": "Rohirric Ornamented Militia Helmet",
 
   "item.me.rohirric_mail_shirt": "Rohirric Mail Shirt",
   "item.me.rohirric_mail_shirt_open": "Rohirric Mail Shirt Open",
   "item.me.rohirric_mail_hauberk": "Rohirric Mail Hauberk",
 
   "item.me.rohirric_soldier_helmet": "Rohirric Soldier Helmet",
-  "item.me.rohirric_ornemented_soldier_helmet": "Rohirric Ornemented Soldier Helmet",
+  "item.me.rohirric_ornamented_soldier_helmet": "Rohirric Ornamented Soldier Helmet",
   "item.me.rohirric_royal_guard_helmet": "Rohirric Royal Guard Helmet",
 
   "item.me.rohirric_scale_hauberk": "Rohirric Scale Hauberk",
-  "item.me.rohirric_ornemented_scale_hauberk": "Rohirric Ornemented Scale Hauberk",
+  "item.me.rohirric_ornamented_scale_hauberk": "Rohirric Ornamented Scale Hauberk",
 
   "item.me.rohirric_scale_jacket": "Rohirric Scale Jacket",
 
@@ -650,6 +653,15 @@
 
   "item.me.orc_plate_boots": "Orc Plate Boots",
 
+  "item.me.mordor_orc_helmet": "Mordor Orc Helmet",
+  "item.me.mordor_orc_eye_helmet": "Mordor Orc Eye Helmet",
+  "item.me.mordor_orc_great_eye_helmet": "Mordor Orc Great Eye Helmet",
+  "item.me.mordor_orc_mandible_helmet": "Mordor Orc Mandible Helmet",
+  "item.me.mordor_orc_oversight_helmet": "Mordor Orc Oversight Helmet",
+  "item.me.mordor_orc_snout_helmet": "Mordor Orc Snout Helmet",
+
+  "item.me.mordor_orc_scale_coat": "Mordor Orc Scale Coat",
+
   "item.me.mordor_orc_chestplate": "Mordor Orc Chestplate",
 
   "item.me.black_uruk_plate_helmet": "Black Uruk Plate Helmet",
@@ -677,12 +689,22 @@
   "item.me.uruk_hai_commander_painted_helmet": "Uruk-Hai Commander Painted Helmet",
 
   "item.me.uruk_hai_plate_chestplate": "Uruk-Hai Plate Chestplate",
-
   "item.me.uruk_hai_plate_leggings": "Uruk-Hai Plate Leggings",
-
   "item.me.uruk_hai_plate_boots": "Uruk-Hai Plate Boots",
 
+  "item.me.hobgoblin_chain_hauberk": "Hobgoblin Chain Hauberk",
+
+  "item.me.gundabad_hobgoblin_plate_crested_helmet": "Gundabad Hobgoblin Plate Crested Helmet",
+  "item.me.gundabad_hobgoblin_plate_large_crest_helmet": "Gundabad Hobgoblin Plate Large Crest Helmet",
+  "item.me.gundabad_hobgoblin_plate_long_horn_helmet": "Gundabad Hobgoblin Plate Long Horn Helmet",
+  "item.me.gundabad_hobgoblin_plate_small_horn_helmet": "Gundabad Hobgoblin Plate Small Horn Helmet",
+  "item.me.gundabad_hobgoblin_plate_chestplate": "Gundabad Hobgoblin Plate Chestplate",
+  "item.me.gundabad_hobgoblin_chain_coat": "Gundabad Hobgoblin Chain Coat",
+  "item.me.gundabad_hobgoblin_plated_boots": "Gundabad Hobgoblin Plated Boots",
+
   "item.me.steel_troll_armor": "Steel Troll Armor",
+  "item.me.warg_leather_armor": "Warg Leather Armor",
+  "item.me.warg_plate_armor": "Warg Plate Armor",
 
 "#Comment:": "Shields",
   "item.me.round_shield": "Round Shield",
@@ -745,6 +767,8 @@
   "item.me.cooked_duck": "Cooked Duck",
   "item.me.raw_swan": "Raw Swan",
   "item.me.cooked_swan": "Cooked Swan",
+  "item.me.raw_venison": "Raw Venison",
+  "item.me.cooked_venison": "Cooked Venison",
   "item.me.raw_horse": "Raw Horse",
   "item.me.cooked_horse": "Cooked Horse",
   "item.me.raw_rat": "Raw Rat",
@@ -800,6 +824,7 @@
   "item.me.barrow_wight_spawn_egg": "Barrow Wight Spawn Egg",
   "item.me.nazgul_spawn_egg": "Nazgûl Spawn Egg",
 
+  "item.me.warg_spawn_egg": "Warg Spawn Egg",
   "item.me.stone_troll_spawn_egg": "Stone Troll Spawn Egg",
   "item.me.cave_troll_spawn_egg": "Cave Troll Spawn Egg",
   "item.me.snow_troll_spawn_egg": "Snow Troll Spawn Egg",
@@ -866,6 +891,7 @@
   "item.me.lit_pinecone": "Lit Pinecone",
 
 "#Comment:": "ENTITIES",
+  "entity.me.warg": "Warg",
   "entity.me.cave_troll": "Cave Troll",
   "entity.me.snow_troll": "Snow Troll",
   "entity.me.stone_troll": "Stone Troll",
@@ -1024,7 +1050,7 @@
   "block.me.mossy_stone_tiles_slab": "Mossy Stone Tiles Slab",
   "block.me.mossy_stone_tiles_vertical_slab": "Mossy Stone Tiles Vertical Slab",
   "block.me.mossy_stone_tiles_stairs": "Mossy Stone Tiles Stairs",
-  "block.me.mossy_stone_tiles_wall": "Mossy Mossy Stone Tiles Wall",
+  "block.me.mossy_stone_tiles_wall": "Mossy Stone Tiles Wall",
   "block.me.cracked_stone_tiles": "Cracked Stone Tiles",
   "block.me.cracked_stone_tiles_slab": "Cracked Stone Tiles Slab",
   "block.me.cracked_stone_tiles_vertical_slab": "Cracked Stone Tiles Vertical Slab",
@@ -1055,7 +1081,7 @@
   "block.me.mossy_deepslate_bricks_slab": "Mossy Deepslate Bricks Slab",
   "block.me.mossy_deepslate_bricks_vertical_slab": "Mossy Deepslate Bricks Vertical Slab",
   "block.me.mossy_deepslate_bricks_stairs": "Mossy Deepslate Bricks Stairs",
-  "block.me.mossy_deepslate_bricks_wall": "Mossy Mossy Deepslate Bricks Wall",
+  "block.me.mossy_deepslate_bricks_wall": "Mossy Deepslate Bricks Wall",
   "block.me.deepslate_tile_vertical_slab": "Deepslate Tile Vertical Slab",
   "block.me.mossy_deepslate_tiles": "Mossy Deepslate Tiles",
   "block.me.mossy_deepslate_tiles_slab": "Mossy Deepslate Tiles Slab",
@@ -1292,6 +1318,16 @@
   "block.me.calcite_chair": "Calcite Chair",
 
 "#Comment:": "Block - Dolomite",
+  "block.me.smooth_dolomite": "Smooth Dolomite",
+  "block.me.smooth_dolomite_slab": "Smooth Dolomite Slab",
+  "block.me.smooth_dolomite_vertical_slab": "Smooth Dolomite Vertical Slab",
+  "block.me.smooth_dolomite_stairs": "Smooth Dolomite Stairs",
+  "block.me.smooth_dolomite_wall": "Smooth Dolomite Wall",
+  "block.me.cracked_smooth_dolomite": "Cracked Smooth Dolomite",
+  "block.me.cracked_smooth_dolomite_slab": "Cracked Smooth Dolomite Slab",
+  "block.me.cracked_smooth_dolomite_vertical_slab": "Cracked Smooth Dolomite Vertical Slab",
+  "block.me.cracked_smooth_dolomite_stairs": "Cracked Smooth Dolomite Stairs",
+  "block.me.cracked_smooth_dolomite_wall": "Cracked Smooth Dolomite Wall",
   "block.me.cobbled_dolomite": "Cobbled Dolomite",
   "block.me.cobbled_dolomite_slab": "Cobbled Dolomite Slab",
   "block.me.cobbled_dolomite_vertical_slab": "Cobbled Dolomite Vertical Slab",
@@ -1357,6 +1393,7 @@
   "block.me.cracked_polished_dolomite_wall": "Cracked Polished Dolomite Wall",
   "block.me.chiseled_polished_dolomite": "Chiseled Polished Dolomite",
   "block.me.chiseled_dolomite_bricks": "Chiseled Dolomite Bricks",
+  "block.me.chiseled_dolomite": "Chiseled Dolomite",
 
   "block.me.dolomite_pressure_plate": "Dolomite Pressure Plate",
   "block.me.dolomite_button": "Dolomite Button",
@@ -3698,6 +3735,12 @@
 
   "block.me.sedum": "Sedum",
   "block.me.yellow_sedum": "Yellow Sedum",
+
+  "block.me.bracken": "Bracken",
+
+  "block.me.dead_rushes": "Dead Rushes",
+  "block.me.false_oatgrass": "False Oatgrass",
+
   "block.me.short_cattails": "Short Cattails",
   "block.me.tall_cattails": "Tall Cattails",
   "block.me.tall_bulrush": "Tall Bulrush",
@@ -4198,6 +4241,7 @@
   "block.me.reinforced_chest": "Reinforced Chest",
 
   "block.me.fire_of_orthanc": "Fire of Orthanc",
+  "block.me.torch_of_orthanc": "Torch of Orthanc",
 
   "block.me.wood_pile": "Wood Pile",
 
@@ -4528,7 +4572,8 @@
   "me.continue_character": "Continue",
   "me.reset_character": "Reset Alignment",
 
-"#Comment": "Onboarding UI",
-  "me.ui.selection.none" : "None"
+"#Comment": "UI",
+  "me.ui.selection.none" : "None",
+  "me.ui.search.label" : "Search..."
 
 }

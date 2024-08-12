@@ -148,6 +148,10 @@ public class Faction {
     return id.toString();
     }
 
+    public FactionNpcPreviewData getPreviewGear(){
+        return previewGear;
+    }
+
     public ItemStack getPreviewGearAt(EquipmentSlot slot){
         if(previewGear == null) return null;
         return previewGear.get(slot);

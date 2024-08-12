@@ -6,7 +6,7 @@ import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.world.World;
 
 public class CaveTrollEntity extends TrollEntity {
-    public CaveTrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
+    public CaveTrollEntity(EntityType<? extends CaveTrollEntity> entityType, World world) {
         super(entityType, world);
     }
 

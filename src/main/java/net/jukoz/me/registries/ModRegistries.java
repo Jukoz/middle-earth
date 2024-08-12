@@ -312,6 +312,9 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.COASTAL_PANIC_GRASS, 0.30f);
         registry.add(ModNatureBlocks.SEDUM, 0.30f);
         registry.add(ModNatureBlocks.YELLOW_SEDUM, 0.30f);
+        registry.add(ModNatureBlocks.BRACKEN, 0.30f);
+        registry.add(ModNatureBlocks.DEAD_RUSHES, 0.30f);
+        registry.add(ModNatureBlocks.FALSE_OATGRASS, 0.30f);
         registry.add(ModNatureBlocks.SHORT_CATTAILS, 0.30f);
         registry.add(ModNatureBlocks.SHORT_BULRUSH, 0.30f);
         registry.add(ModNatureBlocks.HEATHER, 0.50f);

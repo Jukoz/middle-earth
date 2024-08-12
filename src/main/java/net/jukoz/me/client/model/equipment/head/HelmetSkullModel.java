@@ -24,7 +24,7 @@ public class HelmetSkullModel<T extends LivingEntity> extends HelmetAddonModel<T
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         head.addChild("skull_parts", ModelPartBuilder.create().uv(0, 0).cuboid(-3.0F, -41.0F, -3.0F, 6.0F, 7.0F, 6.0F, new Dilation(0.0F))
                 .uv(0, 13).cuboid(-3.0F, -41.0F, -3.0F, 6.0F, 7.0F, 6.0F, new Dilation(0.2F))
-                .uv(0, 26).cuboid(-3.0F, -41.0F, -3.0F, 6.0F, 9.0F, 6.0F, new Dilation(0.4F))
+                .uv(24, 0).cuboid(-3.0F, -41.0F, -3.0F, 6.0F, 9.0F, 6.0F, new Dilation(0.4F))
                 .uv(36, 53).cuboid(-0.5F, -43.0F, -0.5F, 1.0F, 10.0F, 1.0F, new Dilation(0.0F))
                 .uv(40, 60).cuboid(-5.0F, -39.3F, -1.0F, 10.0F, 2.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 25.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

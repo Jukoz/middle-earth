@@ -57,9 +57,9 @@ public class ModResourceItems {
     public static final Item SILVER_NUGGET = registerItem("silver_nugget",
             new Item(new Item.Settings()));
 
-    public static final Item ORC_STEEL_INGOT = registerItem("orc_steel_ingot",
+    public static final Item SLAG_INGOT = registerItem("slag_ingot",
             new Item(new Item.Settings()));
-    public static final Item ORC_STEEL_NUGGET = registerItem("orc_steel_nugget",
+    public static final Item SLAG_NUGGET = registerItem("slag_nugget",
             new Item(new Item.Settings()));
 
     public static final Item URUK_STEEL_INGOT = registerItem("uruk_steel_ingot",
@@ -109,7 +109,7 @@ public class ModResourceItems {
             new Item(new Item.Settings()));
     public static final Item IRON_ROD = registerItem("iron_rod",
             new Item(new Item.Settings()));
-    public static final Item ORC_STEEL_ROD = registerItem("orc_steel_rod",
+    public static final Item SLAG_ROD = registerItem("slag_rod",
             new Item(new Item.Settings()));
     public static final Item URUK_STEEL_ROD = registerItem("uruk_steel_rod",
             new Item(new Item.Settings()));
@@ -137,6 +137,8 @@ public class ModResourceItems {
     public static final Item ORC_BONE = registerItem("orc_bone",
             new Item(new Item.Settings()));
     public static final Item WARG_BONE = registerItem("warg_bone",
+            new Item(new Item.Settings()));
+    public static final Item FANG = registerItem("fang",
             new Item(new Item.Settings()));
 
     public static final Item ASH = registerItem("ash",

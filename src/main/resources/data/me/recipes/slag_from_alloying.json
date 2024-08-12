@@ -1,0 +1,21 @@
+{
+  "type": "me:alloy_furnace",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "me:ash"
+    },
+    {
+      "item": "me:ash"
+    }
+  ],
+  "output": {
+    "id": "me:slag_ingot",
+    "count": 2
+  }
+}

@@ -97,7 +97,7 @@ public class BeastFollowOwnerGoal extends Goal {
             return;
         }
         this.updateCountdownTicks = this.getTickCount(10);
-        if (this.mob.squaredDistanceTo(this.owner) >= 144.0) {
+        if (this.mob.squaredDistanceTo(this.owner) >= 400.0 && !this.mob.isAttacking()) {
             this.tryTeleport();
         } else {
             this.navigation.startMovingTo(this.owner, this.speed);
