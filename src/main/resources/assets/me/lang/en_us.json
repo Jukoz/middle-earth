@@ -223,13 +223,16 @@
   "item.me.mithril_rod": "Mithril Rod",
 
 "#Comment:": "Item - General",
-  "item.me.orc_bone": "Orc Bone",
-  "item.me.warg_bone": "Warg Bone",
-  "item.me.warg_fur": "Warg Fur",
   "item.me.gold_ring": "Gold Ring",
   "item.me.middle_earth_map": "Middle Earth Map",
   "item.me.ash": "Ash",
   "item.me.iron_chainmail": "Iron Chainmail",
+
+"#Comment:": "Item - Mob Drops",
+  "item.me.orc_bone": "Orc Bone",
+  "item.me.warg_bone": "Warg Bone",
+  "item.me.warg_fur": "Warg Fur",
+  "item.me.fang": "Fang",
 
 "#Comment:": "Item - Phial",
   "item.me.empty_phial": "Empty Phial",
@@ -686,9 +689,7 @@
   "item.me.uruk_hai_commander_painted_helmet": "Uruk-Hai Commander Painted Helmet",
 
   "item.me.uruk_hai_plate_chestplate": "Uruk-Hai Plate Chestplate",
-
   "item.me.uruk_hai_plate_leggings": "Uruk-Hai Plate Leggings",
-
   "item.me.uruk_hai_plate_boots": "Uruk-Hai Plate Boots",
 
   "item.me.hobgoblin_chain_hauberk": "Hobgoblin Chain Hauberk",
@@ -702,6 +703,8 @@
   "item.me.gundabad_hobgoblin_plated_boots": "Gundabad Hobgoblin Plated Boots",
 
   "item.me.steel_troll_armor": "Steel Troll Armor",
+  "item.me.warg_leather_armor": "Warg Leather Armor",
+  "item.me.warg_plate_armor": "Warg Plate Armor",
 
 "#Comment:": "Shields",
   "item.me.round_shield": "Round Shield",
@@ -763,6 +766,8 @@
   "item.me.cooked_duck": "Cooked Duck",
   "item.me.raw_swan": "Raw Swan",
   "item.me.cooked_swan": "Cooked Swan",
+  "item.me.raw_venison": "Raw Venison",
+  "item.me.cooked_venison": "Cooked Venison",
   "item.me.raw_horse": "Raw Horse",
   "item.me.cooked_horse": "Cooked Horse",
   "item.me.raw_rat": "Raw Rat",
@@ -818,6 +823,7 @@
   "item.me.barrow_wight_spawn_egg": "Barrow Wight Spawn Egg",
   "item.me.nazgul_spawn_egg": "Nazgûl Spawn Egg",
 
+  "item.me.warg_spawn_egg": "Warg Spawn Egg",
   "item.me.stone_troll_spawn_egg": "Stone Troll Spawn Egg",
   "item.me.cave_troll_spawn_egg": "Cave Troll Spawn Egg",
   "item.me.snow_troll_spawn_egg": "Snow Troll Spawn Egg",
@@ -884,6 +890,7 @@
   "item.me.lit_pinecone": "Lit Pinecone",
 
 "#Comment:": "ENTITIES",
+  "entity.me.warg": "Warg",
   "entity.me.cave_troll": "Cave Troll",
   "entity.me.snow_troll": "Snow Troll",
   "entity.me.stone_troll": "Stone Troll",
