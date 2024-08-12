@@ -64,6 +64,7 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> CALCITE_STONE_ORE = registerKey("calcite_stone_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRASS_STONE_ORE = registerKey("grass_stone_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> TUFF_ORE = registerKey("stone_tuff_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> TURF_ORE = registerKey("turf_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> WHITE_SAND_ORE = registerKey("white_sand_ore");
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
@@ -201,6 +202,9 @@ public class OreConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, TUFF_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.TUFF.getDefaultState(), 48, 0.25f));
+
+        ConfiguredFeatures.register(featureRegisterable, TURF_ORE, Feature.ORE,
+                new OreFeatureConfig(dirtTest, ModBlocks.TURF.getDefaultState(), 64, 0.25f));
 
         ConfiguredFeatures.register(featureRegisterable, WHITE_SAND_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, ModBlocks.WHITE_SAND.getDefaultState(), 48, 0.4f));

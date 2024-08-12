@@ -86,6 +86,10 @@ public class BoulderConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEDIUM_BOULDER_SANDSTONE = registerKey("medium_boulder_sandstone");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BIG_BOULDER_SANDSTONE = registerKey("big_boulder_mossy_sandstone");
 
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SMALL_BOULDER_STONE = registerKey("small_boulder_stone");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MEDIUM_BOULDER_STONE = registerKey("medium_boulder_stone");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> BIG_BOULDER_STONE = registerKey("big_boulder_vstone");
+
     // region Configs
     private static final float smallWidth = 1.5f;
     private static final float smallLength = 2.1f;
@@ -315,6 +319,13 @@ public class BoulderConfiguredFeatures {
                 new BigBoulderFeatureConfig(mediumWidth, mediumLength, mediumHeight, mediumRandomSize, mediumRandomness, sandStone));
         ConfiguredFeatures.register(featureRegisterable, BIG_BOULDER_SANDSTONE, ModFeatures.BIG_BOULDER,
                 new BigBoulderFeatureConfig(bigWidth, bigLength, bigHeight, bigRandomSize, bigRandomness, sandStone));
+
+        ConfiguredFeatures.register(featureRegisterable, SMALL_BOULDER_STONE, ModFeatures.BIG_BOULDER,
+                new BigBoulderFeatureConfig(smallWidth, smallLength, smallHeight, smallRandomSize, smallRandomness, stone));
+        ConfiguredFeatures.register(featureRegisterable, MEDIUM_BOULDER_STONE, ModFeatures.BIG_BOULDER,
+                new BigBoulderFeatureConfig(mediumWidth, mediumLength, mediumHeight, mediumRandomSize, mediumRandomness, stone));
+        ConfiguredFeatures.register(featureRegisterable, BIG_BOULDER_STONE, ModFeatures.BIG_BOULDER,
+                new BigBoulderFeatureConfig(bigWidth, bigLength, bigHeight, bigRandomSize, bigRandomness, stone));
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {

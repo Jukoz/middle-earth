@@ -63,6 +63,7 @@ public class OrePlacedFeatures {
     public static final RegistryKey<PlacedFeature> GRASS_STONE_ORE = registerKey("grass_stone_ore");
     public static final RegistryKey<PlacedFeature> TERRACOTTA_ORE = registerKey("terracotta_ore");
     public static final RegistryKey<PlacedFeature> TUFF_ORE = registerKey("tuff_ore");
+    public static final RegistryKey<PlacedFeature> TURF_ORE = registerKey("turf_ore");
     public static final RegistryKey<PlacedFeature> ABUNDANT_TUFF_ORE = registerKey("abundant_tuff_ore");
     public static final RegistryKey<PlacedFeature> WHITE_SAND_ORE = registerKey("white_sand_ore");
 
@@ -109,6 +110,7 @@ public class OrePlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> grassStone = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRASS_STONE_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> terracotta = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_TERRACOTTA);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> stoneTuff = registryEntryLookup.getOrThrow(OreConfiguredFeatures.TUFF_ORE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> turf = registryEntryLookup.getOrThrow(OreConfiguredFeatures.TURF_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> lightGrayConcretePowder = registryEntryLookup.getOrThrow(OreConfiguredFeatures.WHITE_SAND_ORE);
 
         PlacementModifier abundant = PlacedFeatures.createCountExtraModifier(2, 0.5f, 1);
@@ -209,6 +211,8 @@ public class OrePlacedFeatures {
         PlacedFeatures.register(featureRegisterable, TERRACOTTA_ORE, terracotta, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, TUFF_ORE, stoneTuff, veryCommon,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, TURF_ORE, turf, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, ABUNDANT_TUFF_ORE, stoneTuff, abundant,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
