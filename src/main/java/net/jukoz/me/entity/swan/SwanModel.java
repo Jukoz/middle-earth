@@ -63,8 +63,11 @@ public class SwanModel extends SinglePartEntityModel<SwanEntity> {
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-        swan.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+        swan.render(matrices, vertexConsumer, light, overlay, color);
+        head.render(matrices, vertices, light, overlay, color);
+        right_wing.render(matrices, vertices, light, overlay, color);
+        left_wing.render(matrices, vertices, light, overlay, color);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class MistyHobgoblinRenderer extends BipedEntityRenderer<MistyHobgoblinEn
 
     @Override
     public Identifier getTexture(MistyHobgoblinEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return Identifier.of(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     public static final Map<MistyHobgoblinVariant, String> LOCATION_BY_VARIANT =

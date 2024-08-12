@@ -12,10 +12,19 @@ public class MineableHoe {
     {
         add(ModNatureBlocks.LEBETHRON_LEAVES);
 
-        add(ModNatureBlocks.DRY_PINE_LEAVES);
-        add(ModNatureBlocks.PINE_BRANCHES);
+        add(ModNatureBlocks.BERRY_HOLLY_LEAVES);
+
+        add(ModNatureBlocks.DRY_LARCH_LEAVES);
+
+        add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES);
 
         add(ModNatureBlocks.MAPLE_LEAVES);
+        add(ModNatureBlocks.ORANGE_MAPLE_LEAVES);
+        add(ModNatureBlocks.RED_MAPLE_LEAVES);
+        add(ModNatureBlocks.YELLOW_MAPLE_LEAVES);
+
+        add(ModNatureBlocks.DRY_PINE_LEAVES);
+        add(ModNatureBlocks.PINE_BRANCHES);
 
         add(ModBlocks.REED_BLOCK);
         add(ModBlocks.REED_SLAB);

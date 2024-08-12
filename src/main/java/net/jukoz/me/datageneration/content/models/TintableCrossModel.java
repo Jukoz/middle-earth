@@ -32,6 +32,9 @@ public class TintableCrossModel {
             add(ModNatureBlocks.GLOWWORM_MAIN);
             add(ModNatureBlocks.GLOWWORM_WEBBING);
 
+            add(ModNatureBlocks.MIRKWOOD_VINES);
+            add(ModNatureBlocks.MIRKWOOD_VINES_PLANT);
+
             add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER);
             add(ModNatureBlocks.MALLOS);
             add(ModNatureBlocks.YELLOW_FLOWER);
@@ -63,6 +66,7 @@ public class TintableCrossModel {
             add(ModNatureBlocks.COASTAL_PANIC_GRASS);
             add(ModNatureBlocks.SEDUM);
             add(ModNatureBlocks.YELLOW_SEDUM);
+            add(ModNatureBlocks.BRACKEN);
             add(ModNatureBlocks.SHORT_CATTAILS);
             add(ModNatureBlocks.SHORT_BULRUSH);
 

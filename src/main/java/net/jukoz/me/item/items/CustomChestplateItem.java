@@ -1,74 +1,97 @@
 package net.jukoz.me.item.items;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.event.KeyInputHandler;
+import net.jukoz.me.item.ModDataComponentTypes;
+import net.jukoz.me.item.dataComponents.CapeDataComponent;
+import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.utils.ExtendedArmorMaterial;
+import net.jukoz.me.utils.ModFactions;
+import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipType;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
+import net.minecraft.world.World;
 
 import java.util.List;
 
 public class CustomChestplateItem extends ArmorItem {
+
+    public ModFactions faction;
+    public ModSubFactions subFaction;
+
     private ExtendedArmorMaterial material;
 
-    private List<Customizations> customsList;
-
-    public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings, List<Customizations> customsList) {
-        super(material.material(), type, settings.maxDamage(ArmorItem.Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
+    public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings, ModFactions faction) {
+        super(material.material(), type, settings.maxCount(1).maxDamage(Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
         this.material = material;
-        this.customsList = customsList;
+
+        this.faction = faction;
+        this.subFaction = null;
     }
 
-    public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings) {
-        super(material.material(), type, settings.maxDamage(ArmorItem.Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
+    public CustomChestplateItem(ExtendedArmorMaterial material, Type type, Settings settings, ModSubFactions subFaction) {
+        super(material.material(), type, settings.maxCount(1).maxDamage(Type.CHESTPLATE.getMaxDamage(material.durabilityModifier())));
         this.material = material;
-        this.customsList = null;
+
+        this.faction = subFaction.getParent();
+        this.subFaction = subFaction;
     }
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.of(""));
         if(Screen.hasShiftDown()){
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(material.faction()));
-            if(material.subFaction() != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(material.subFaction()));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
+            if(subFaction != null){
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
             }
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier" + this.material.tier()));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier_" + this.material.tier().toString().toLowerCase()));
             tooltip.add(Text.of(""));
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
         }
-        if(this.customsList != null){
-            if(Screen.hasAltDown()){
-                tooltip.add(Text.of(""));
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
-                this.customsList.forEach( custom ->{
-                    if(custom.name.contains("dyeable")){
-                        //tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name).append(": " + String.format("#%06X", (0xFFFFFF & this.getColor(stack)))));
-                    } else {
-                        tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + custom.name));
-                    }
-                });
-            }else {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
+
+        CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
+        CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
+
+        if(Screen.hasAltDown()){
+            tooltip.add(Text.of(""));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
+
+            if(dyeDataComponent != null){
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
             }
+
+            if (capeDataComponent != null) {
+                if (capeDataComponent.enabled()) {
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape()).append(": Enabled "));
+                } else {
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape()).append(": Disabled"));
+                }
+            }
+        }else {
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
         }
 
         super.appendTooltip(stack, context, tooltip, type);
     }
 
-    public enum Customizations{
-        DYEABLE("dyeable"),
-        CAPE("cape"),
-        IMPALED_SKULLS("impaled_skulls"),
-        POUCH("pouch"),
-        ;
+    @Override
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+        if(KeyInputHandler.capeKey.isPressed()){
+            CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
 
-        public final String name;
-        Customizations(String name){
-            this.name = name;
+            if(capeDataComponent != null){
+                if(capeDataComponent.enabled()){
+                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(false, capeDataComponent.cape()));
+                } else {
+                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true, capeDataComponent.cape()));
+                }
+            }
         }
     }
 }

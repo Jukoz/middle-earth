@@ -33,6 +33,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
@@ -50,13 +51,13 @@ public class TrollEntity extends BeastEntity {
     public static final TrackedData<Boolean> THROWING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 
-    // Temporary disabled until next update
+    /* Temporary disabled until next update
     @Override
     public boolean hasArmorSlot() {
         return false;
-    }
+    }*/
 
-    public TrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
+    public TrollEntity(EntityType<? extends TrollEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -167,8 +168,13 @@ public class TrollEntity extends BeastEntity {
         }
     }
 
+    @Override
+    protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
+        return (float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f;
+    }
+
     public boolean isCommandItem(ItemStack stack) {
-        return stack.isIn(TagKey.of(RegistryKeys.ITEM, new Identifier(MiddleEarth.MOD_ID, "bones")));
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
     }
 
     @Override
@@ -215,6 +221,28 @@ public class TrollEntity extends BeastEntity {
         this.updateSaddledFlag();
     }
 
+    @Override
+    public boolean tryAttack(Entity target) {
+        this.attackTicksLeft = ATTACK_COOLDOWN;
+        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+        float f = this.getAttackDamage();
+        float g = (int)f > 0 ? f / 2.0f + (float)this.random.nextInt((int)f) : f;
+        boolean bl = target.damage(this.getDamageSources().mobAttack(this), g);
+        if (bl) {
+            double d;
+            if (target instanceof LivingEntity) {
+                LivingEntity livingEntity = (LivingEntity)target;
+                d = livingEntity.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE);
+            } else {
+                d = 0.0;
+            }
+            double e = Math.max(0.0, 1.0 - d);
+            target.setVelocity(target.getVelocity().multiply(1f + (0.8f * e))); //.add(0.0, (double)0.1f * e, 0.0));
+        }
+        this.playSound(SoundEvents.ENTITY_HOGLIN_ATTACK, 1.5f, 0.8f);
+        return bl;
+    }
+
     public boolean canThrow() {
         return !this.isSitting();
     }
@@ -233,35 +261,38 @@ public class TrollEntity extends BeastEntity {
     }
 
     @Override
-    public Item getBondingItem() {
-        return ModFoodItems.COOKED_HORSE;
+    public boolean isBondingItem(ItemStack itemStack) {
+        return itemStack.isOf(ModFoodItems.COOKED_HORSE);
     }
 
     public int getBondingTimeout() {
         return bondingTimeout;
     }
+    public void setBondingTimeout(int bondingTimeout) {
+        this.bondingTimeout = bondingTimeout;
+    }
 
     @Override
     public void tryBonding(PlayerEntity player) {
-        if(this.bondingTimeout <= 0) {
+
+        if(player.isCreative()) {
+            tameBeast(player);
+            this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+            this.setChargeTimeout(0);
+        }
+        else if(this.getBondingTimeout() <= 0) {
             if(random.nextFloat() <= 0.4f) {
                 this.bondingTries++;
                 if(bondingTries == 3) {
-                    if (player instanceof ServerPlayerEntity) {
-                        this.setOwnerUuid(player.getUuid());
-                        this.setTame(true);
-                        this.setTarget(null);
-                        Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
-                    }
+                    tameBeast(player);
                     this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
-
-                    this.chargeTimeout = 0;
+                    this.setChargeTimeout(0);
                 }
             }
             player.getStackInHand(player.getActiveHand()).decrement(1);
-            this.bondingTimeout = 40;
-        }
+            this.setBondingTimeout(40);
 
+        }
     }
 
     public void throwAttack() {

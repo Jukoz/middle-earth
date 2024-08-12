@@ -1,0 +1,38 @@
+{
+  "parent": "me:alloy/root",
+  "criteria": {
+    "slag": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:slag_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.alloy.slag.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:slag_ingot"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.alloy.slag.title"
+    }
+  },
+  "requirements": [
+    [
+      "slag"
+    ]
+  ]
+}

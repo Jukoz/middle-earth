@@ -64,6 +64,10 @@ public class ModBlocks {
 
     public static final Block DOLOMITE_PILLAR = registerStoneBlock("dolomite_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    /*public static final Block MOSSY_DOLOMITE_PILLAR = registerStoneBlock("mossy_dolomite_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CRACKED_DOLOMITE_PILLAR = registerStoneBlock("cracked_dolomite_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);*/
 
     public static final Block IRONSTONE_PILLAR = registerStoneBlock("ironstone_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
@@ -134,7 +138,11 @@ public class ModBlocks {
     public static final Block CHISELED_POLISHED_BLUE_TUFF = registerStoneBlock("chiseled_polished_blue_tuff",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
+    public static final Block CHISELED_DOLOMITE = registerStoneBlock("chiseled_dolomite",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     public static final Block CHISELED_DOLOMITE_BRICKS = registerStoneBlock("chiseled_dolomite_bricks",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_POLISHED_DOLOMITE = registerStoneBlock("chiseled_polished_dolomite",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
     public static final Block CHISELED_IRONSTONE = registerStoneBlock("chiseled_ironstone",
@@ -220,6 +228,13 @@ public class ModBlocks {
             new SlabBlock(AbstractBlock.Settings.copy(GRASSY_DIRT)),true);
     public static final Block GRASSY_DIRT_STAIRS = registerMiscBlock("grassy_dirt_stairs",
             new StairsBlock(GRASSY_DIRT.getDefaultState(), AbstractBlock.Settings.copy(GRASSY_DIRT)),true);
+
+    public static final Block MIRE = registerMiscBlock("mire",
+            new MudBlock(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
+    public static final Block MIRE_SLAB = registerMiscBlock("mire_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(MIRE)),true);
+    public static final Block MIRE_STAIRS = registerMiscBlock("mire_stairs",
+            new StairsBlock(MIRE.getDefaultState(), AbstractBlock.Settings.copy(MIRE)),true);
 
     public static final Block TURF = registerMiscBlock("turf",
             new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
@@ -397,7 +412,7 @@ public class ModBlocks {
 
     public static final Block BRONZE_BLOCK = registerMiscBlock("bronze_block",
             new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(5f).requiresTool()),true);
-    public static final Block ORC_STEEL_BLOCK = registerMiscBlock("orc_steel_block",
+    public static final Block SLAG_BLOCK = registerMiscBlock("slag_block",
             new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(5.5f).requiresTool()),true);
     public static final Block STEEL_BLOCK = registerMiscBlock("steel_block",
             new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(6f).requiresTool()),true);
@@ -535,14 +550,7 @@ public class ModBlocks {
     public static final Block PACKED_MUD_WALL = registerStoneBlock("packed_mud_wall",
             new WallBlock(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)), true);
 
-    public static final Block TUFF_SLAB = registerStoneBlock("tuff_slab",
-            new SlabBlock(AbstractBlock.Settings.copy(Blocks.TUFF)), true);
-    public static final Block TUFF_VERTICAL_SLAB = registerStoneBlock("tuff_vertical_slab",
-            new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.TUFF)), true);
-    public static final Block TUFF_STAIRS = registerStoneBlock("tuff_stairs",
-            new StairsBlock(Blocks.TUFF.getDefaultState(), AbstractBlock.Settings.copy(Blocks.TUFF)), true);
-    public static final Block TUFF_WALL = registerStoneBlock("tuff_wall",
-            new WallBlock(AbstractBlock.Settings.copy(Blocks.TUFF)), true);
+
 
     public static final Block CALCITE_SLAB = registerStoneBlock("calcite_slab",
             new SlabBlock(AbstractBlock.Settings.copy(Blocks.CALCITE)), true);
@@ -822,6 +830,8 @@ public class ModBlocks {
             new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.DEEPSLATE_BRICK_SLAB)), true);
     public static final Block DEEPSLATE_TILE_VERTICAL_SLAB = registerStoneBlock("deepslate_tile_vertical_slab",
             new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.DEEPSLATE_TILE_SLAB)), true);
+    public static final Block TUFF_VERTICAL_SLAB = registerStoneBlock("tuff_vertical_slab",
+            new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.TUFF)), true);
     public static final Block BRICK_VERTICAL_SLAB = registerStoneBlock("brick_vertical_slab",
             new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.BRICK_SLAB)), true);
     public static final Block MUD_BRICK_VERTICAL_SLAB = registerStoneBlock("mud_brick_vertical_slab",
@@ -971,7 +981,7 @@ public class ModBlocks {
             BlockDrops.blocks.add(block);
         }
         registerBlockItem(name, block);
-        return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }
 
     public static Block registerStoneBlock(String name, Block block, boolean drop) {
@@ -980,7 +990,7 @@ public class ModBlocks {
         }
         registerBlockItem(name, block);
         ModItemGroups.STONE_BLOCKS_CONTENTS.add(block.asItem().getDefaultStack());
-        return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }
 
     public static Block registerWoodBlock(String name, Block block, boolean drop) {
@@ -989,7 +999,7 @@ public class ModBlocks {
         }
         registerBlockItem(name, block);
         ModItemGroups.WOOD_BLOCKS_CONTENTS.add(block.asItem().getDefaultStack());
-        return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }
 
     public static Block registerMiscBlock(String name, Block block, boolean drop) {
@@ -998,17 +1008,17 @@ public class ModBlocks {
         }
         registerBlockItem(name, block);
         ModItemGroups.MISC_BLOCKS_CONTENTS.add(block.asItem().getDefaultStack());
-        return Registry.register(Registries.BLOCK, new Identifier(MiddleEarth.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }
 
     static void registerBlockItem(String name, Block block) {
-        var item =  Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name),
+        var item =  Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name),
                 new BlockItem(block, new Item.Settings()));
         Item.BLOCK_ITEMS.put(block, item);
     }
 
     public static void registerModBlocks() {
-        LoggerUtil.getInstance().logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
     }
 
     public static boolean never(BlockState state, BlockView world, BlockPos pos) {

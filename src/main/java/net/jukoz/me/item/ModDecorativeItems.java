@@ -38,16 +38,18 @@ public class ModDecorativeItems {
 
     public static final Item FIRE_OF_ORTHANC = registerItem("fire_of_orthanc",
             new BlockItem(ModDecorativeBlocks.FIRE_OF_ORTHANC, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+    public static final Item TORCH_OF_ORTHANC = registerItem("torch_of_orthanc",
+            new BlockItem(ModDecorativeBlocks.TORCH_OF_ORTHANC, new Item.Settings()));
 
     public static final Item TROLL_STATUE = registerItem("troll_statue",
             new CustomSpawnEggItem(ModEntities.PETRIFIED_TROLL, new Item.Settings().maxCount(1)));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(item.getDefaultStack());
-        return Registry.register(Registries.ITEM, new Identifier(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     public static void registerModItems() {
-        LoggerUtil.getInstance().logDebugMsg("Registering Mod Decorative Items for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering Mod Decorative Items for " + MiddleEarth.MOD_ID);
     }
 }

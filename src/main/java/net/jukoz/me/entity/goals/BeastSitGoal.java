@@ -21,9 +21,6 @@ public class BeastSitGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.mob.isTame()) {
-            return false;
-        }
         if (this.mob.isInsideWaterOrBubbleColumn()) {
             return false;
         }

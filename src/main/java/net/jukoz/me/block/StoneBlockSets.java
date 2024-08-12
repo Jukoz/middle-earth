@@ -64,6 +64,8 @@ public class StoneBlockSets {
     public static SimpleBlockSet CRACKED_CALCITE_TILES = registerStoneSet("cracked_calcite_tiles", COBBLED_CALCITE.base.getHardness(), COBBLED_CALCITE.base.getBlastResistance(), CALCITE_TILES.base);
 
     public static SimpleBlockSetMain DOLOMITE = registerMainStoneSet("dolomite", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
+    public static SimpleBlockSet SMOOTH_DOLOMITE = registerStoneSet("smooth_dolomite", DOLOMITE.base.getHardness(), DOLOMITE.base.getBlastResistance(), DOLOMITE.base);
+    public static SimpleBlockSet CRACKED_SMOOTH_DOLOMITE = registerStoneSet("cracked_smooth_dolomite", SMOOTH_DOLOMITE.base.getHardness(), SMOOTH_DOLOMITE.base.getBlastResistance(), SMOOTH_DOLOMITE.base);
     public static SimpleBlockSet COBBLED_DOLOMITE = registerStoneSet("cobbled_dolomite", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, DOLOMITE.base);
     public static SimpleBlockSet MOSSY_COBBLED_DOLOMITE = registerStoneSet("mossy_cobbled_dolomite", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, COBBLED_DOLOMITE.base);
     public static SimpleBlockSet POLISHED_DOLOMITE = registerStoneSet("polished_dolomite", DOLOMITE.base.getHardness(), DOLOMITE.base.getBlastResistance(), DOLOMITE.base);
@@ -377,10 +379,16 @@ public class StoneBlockSets {
             MOSSY_CALCITE_TILES,
             CRACKED_CALCITE_TILES,
 
+            SMOOTH_DOLOMITE,
+            CRACKED_SMOOTH_DOLOMITE,
             COBBLED_DOLOMITE,
             MOSSY_COBBLED_DOLOMITE,
             DOLOMITE_BRICKS,
+            //MOSSY_DOLOMITE_BRICKS,
+            //CRACKED_DOLOMITE_BRICKS,
             DOLOMITE_TILES,
+            //MOSSY_DOLOMITE_TILES,
+            //CRACKED_DOLOMITE_TILES,
             POLISHED_DOLOMITE,
             MOSSY_POLISHED_DOLOMITE,
             CRACKED_POLISHED_DOLOMITE,
@@ -577,6 +585,6 @@ public class StoneBlockSets {
     }
 
     public static void registerModBlockSets() {
-        LoggerUtil.getInstance().logDebugMsg("Registering SimpleBlockSets for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering SimpleBlockSets for " + MiddleEarth.MOD_ID);
     }
 }

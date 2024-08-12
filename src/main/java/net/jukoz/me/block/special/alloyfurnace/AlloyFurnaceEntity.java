@@ -1,13 +1,10 @@
 package net.jukoz.me.block.special.alloyfurnace;
 
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.gui.alloyfurnace.AlloyFurnaceScreenHandler;
-import net.jukoz.me.network.ModNetworks;
 import net.jukoz.me.recipe.AlloyRecipe;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -23,14 +20,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -38,6 +32,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -245,12 +241,14 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
 
     private static void craftItem(AlloyFurnaceEntity entity) {
         SimpleInventory inventory1 = new SimpleInventory(entity.size());
+        List<ItemStack> inputs = new ArrayList<>();
         for (int i = 0; i < entity.size(); i++) {
             inventory1.setStack(i, entity.getStack(i));
+            if(i != FUEL_SLOT && i != OUTPUT_SLOT) inputs.add(entity.getStack(i));
         }
 
         Optional<RecipeEntry<AlloyRecipe>> match = entity.getWorld().getRecipeManager()
-                .getFirstMatch(AlloyRecipe.Type.INSTANCE, inventory1, entity.getWorld());
+                .getFirstMatch(AlloyRecipe.Type.INSTANCE, new MultipleStackRecipeInput(inputs), entity.getWorld());
         if(match.isEmpty()) throw new RuntimeException("Somehow... you crafted an item without recipe?!");
 
         if(hasRecipe(entity)) {
@@ -265,12 +263,14 @@ public class AlloyFurnaceEntity extends BlockEntity implements NamedScreenHandle
 
     private static boolean hasRecipe(AlloyFurnaceEntity entity) {
         SimpleInventory inventory1 = new SimpleInventory(entity.size());
+        List<ItemStack> inputs = new ArrayList<>();
         for (int i = 0; i < entity.size(); i++) {
             inventory1.setStack(i, entity.getStack(i));
+            if(i != FUEL_SLOT && i != OUTPUT_SLOT) inputs.add(entity.getStack(i));
         }
 
         Optional<RecipeEntry<AlloyRecipe>> match = entity.getWorld().getRecipeManager()
-                .getFirstMatch(AlloyRecipe.Type.INSTANCE, inventory1, entity.getWorld());
+                .getFirstMatch(AlloyRecipe.Type.INSTANCE, new MultipleStackRecipeInput(inputs), entity.getWorld());
         if(match.isEmpty()) return false;
 
         return canInsertAmountIntoOutput(inventory1, match.get().value().output.getCount())
