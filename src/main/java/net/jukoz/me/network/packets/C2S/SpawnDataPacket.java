@@ -1,6 +1,5 @@
-package net.jukoz.me.network.packets;
+package net.jukoz.me.network.packets.C2S;
 
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.resources.StateSaverAndLoader;
@@ -33,7 +32,6 @@ public record SpawnDataPacket(int overworldX, int overworldY, int overworldZ, in
 
     public static void apply(SpawnDataPacket packet, ServerPlayNetworking.Context context) {
         context.player().getServer().execute(() -> {
-            LoggerUtil.logDebugMsg("SpawnDataPacket::" + context.player());
 
             MinecraftServer server = context.server();
             ServerPlayerEntity player = server.getPlayerManager().getPlayer(context.player().getUuid());
@@ -44,15 +42,6 @@ public record SpawnDataPacket(int overworldX, int overworldY, int overworldZ, in
             BlockPos middleEarthSpawnBlockpos = new BlockPos(packet.middleEarthX, packet.middleEarthY, packet.middleEarthZ);
             playerState.setOverworldSpawn(overworldSpawnBlockpos);
             playerState.setMiddleEarthSpawn(middleEarthSpawnBlockpos);
-
-            server.execute(() -> {
-                ServerPlayNetworking.send(player, packet);
-            });
-        });
-    }
-    public static void apply(SpawnDataPacket packet, ClientPlayNetworking.Context context) {
-        context.client().execute(() -> {
-            LoggerUtil.logDebugMsg("SpawnDataPacket::ReceiveClientside::" + packet.toString());
         });
     }
 

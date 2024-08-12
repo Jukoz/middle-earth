@@ -1,18 +1,18 @@
 package net.jukoz.me.entity.beasts;
 
+import net.jukoz.me.entity.beasts.warg.WargEntity;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.passive.AbstractDonkeyEntity;
+import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -35,26 +35,27 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 // Beasts are mostly aggressive Entities which work much like wolves, while also allowing the player to mount them.
-public class BeastEntity extends AbstractDonkeyEntity {
+public class BeastEntity extends AbstractHorseEntity {
     public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> SITTING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> CHEST = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState chargeAnimationState = new AnimationState();
     public final AnimationState sittingAnimationState = new AnimationState();
 
-    private int idleAnimationTimeout = 0;
-    private int attackTicksLeft = 0;
+    protected int idleAnimationTimeout = 1000;
+    protected int attackTicksLeft = 0;
 
-    protected int chargeTimeout;
+    protected int chargeTimeout; // ticking cooldown of the charge attack
 
     public static final int ATTACK_COOLDOWN = 10;
     public static final float RESISTANCE = 0.15f;
     protected Vec3d targetDir = Vec3d.ZERO;
 
     // Initializing ====================================================================================================
-    protected BeastEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
+    protected BeastEntity(EntityType<? extends BeastEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -62,6 +63,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
         super.initDataTracker(builder);
         builder.add(CHARGING, false);
         builder.add(SITTING, false);
+        builder.add(CHEST, false);
     }
 
     @Override
@@ -115,6 +117,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
+        nbt.putBoolean("Sitting", this.isSitting());
         nbt.putBoolean("ChestedBeast", this.hasChest());
         if (this.hasChest()) {
             NbtList nbtList = new NbtList();
@@ -133,6 +136,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
+        this.setSitting(nbt.getBoolean("Sitting"));
         this.setHasChest(nbt.getBoolean("ChestedBeast"));
         this.onChestedStatusChanged();
         if (this.hasChest()) {
@@ -151,12 +155,20 @@ public class BeastEntity extends AbstractDonkeyEntity {
 
     // Getters and Setters =============================================================================================
 
-    public boolean canCharge() {
-        return !this.isSitting();
+    public boolean hasChest() {
+        return this.dataTracker.get(CHEST);
     }
-    @Override
-    protected float getJumpVelocity() {
-        return 0.5f * this.getJumpVelocityMultiplier() + this.getJumpBoostVelocityModifier();
+
+    public void setHasChest(boolean hasChest) {
+        this.dataTracker.set(CHEST, hasChest);
+    }
+
+    public boolean canCarryChest() {
+        return true;
+    }
+
+    public boolean canCharge() {
+        return !this.isSitting() && !this.hasPassengers();
     }
 
     @Override
@@ -230,7 +242,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
         return 20;
     }
 
-    private float getAttackDamage() {
+    protected float getAttackDamage() {
         return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
     }
 
@@ -266,16 +278,18 @@ public class BeastEntity extends AbstractDonkeyEntity {
     }
 
     public int getInventoryColumns() {
-        return 5;
+        return this.hasChest() ? 5 : 0;
     }
 
     private void addChest(PlayerEntity player, ItemStack chest) {
-        this.setHasChest(true);
-        this.playAddChestSound();
-        if (!player.getAbilities().creativeMode) {
-            chest.decrement(1);
+        if(canCarryChest()) {
+            this.setHasChest(true);
+            this.playAddChestSound();
+            if (!player.getAbilities().creativeMode) {
+                chest.decrement(1);
+            }
+            this.onChestedStatusChanged();
         }
-        this.onChestedStatusChanged();
     }
 
     protected void playAddChestSound() {
@@ -312,11 +326,7 @@ public class BeastEntity extends AbstractDonkeyEntity {
 
     public void tryBonding(PlayerEntity player) {
         if(random.nextDouble() <= 0.1d) {
-            if (player instanceof ServerPlayerEntity) {
-                this.setOwnerUuid(player.getUuid());
-                this.setTame(true);
-                Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
-            }
+            this.tameBeast(player);
             this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
 
             this.chargeTimeout = 0;
@@ -326,26 +336,42 @@ public class BeastEntity extends AbstractDonkeyEntity {
         }
     }
 
+    protected void tameBeast(PlayerEntity player) {
+        if (player instanceof ServerPlayerEntity) {
+            this.setOwnerUuid(player.getUuid());
+            this.setTame(true);
+            Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
+        }
+    }
 
+    @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         boolean bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
 
-        if(this.isTame() && isCommandItem(player.getStackInHand(hand)) && player.getUuid() == this.getOwnerUuid()) {
-            this.setSitting(!isSitting());
+        ItemStack itemStack = player.getStackInHand(hand);
+
+        if(this.isTame()) {
+            if(isCommandItem(itemStack) && player.getUuid() == this.getOwnerUuid()) {
+                this.setSitting(!isSitting());
+            }
+
+            if (itemStack.isOf(Items.CHEST) && !this.hasChest()) {
+                this.addChest(player, itemStack);
+                return ActionResult.success(((World)this.getWorld()).isClient);
+            }
+
+            if(!(isCommandItem(itemStack) || isBreedingItem(itemStack) || itemStack.isOf(Items.CHEST))) {
+                super.interactMob(player, hand);
+            }
         }
 
-        if(this.isTame() && !isCommandItem(player.getStackInHand(hand))) {
-            super.interactMob(player, hand);
-        }
-
-        if(player.getStackInHand(hand).isOf(getBondingItem()) && !this.isTame() && !this.getWorld().isClient) {
+        if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && !this.getWorld().isClient) {
             this.tryBonding(player);
         }
 
         if (!this.hasPassengers() && !bl) {
-            ItemStack itemStack = player.getStackInHand(hand);
             if (!itemStack.isEmpty()) {
-                if (!this.hasChest() && itemStack.isOf(Items.CHEST)) {
+                if (!this.hasChest() && itemStack.isOf(Items.CHEST) && this.canCarryChest()) {
                     this.addChest(player, itemStack);
                     return ActionResult.success(this.getWorld().isClient);
                 }
@@ -355,8 +381,8 @@ public class BeastEntity extends AbstractDonkeyEntity {
         return ActionResult.success(this.getWorld().isClient);
     }
 
-    public Item getBondingItem() {
-        return null;
+    public boolean isBondingItem(ItemStack itemStack) {
+        return false;
     }
 
     @Override
@@ -369,28 +395,6 @@ public class BeastEntity extends AbstractDonkeyEntity {
     }
 
     public void chargeAttack() {
-    }
-
-    @Override
-    public boolean tryAttack(Entity target) {
-        this.attackTicksLeft = ATTACK_COOLDOWN;
-        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
-        float f = this.getAttackDamage();
-        float g = (int)f > 0 ? f / 2.0f + (float)this.random.nextInt((int)f) : f;
-        boolean bl = target.damage(this.getDamageSources().mobAttack(this), g);
-        if (bl) {
-            double d;
-            if (target instanceof LivingEntity) {
-                LivingEntity livingEntity = (LivingEntity)target;
-                d = livingEntity.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE);
-            } else {
-                d = 0.0;
-            }
-            double e = Math.max(0.0, 1.0 - d);
-            target.setVelocity(target.getVelocity().multiply(1f + (0.8f * e))); //.add(0.0, (double)0.1f * e, 0.0));
-        }
-        this.playSound(SoundEvents.ENTITY_HOGLIN_ATTACK, 1.5f, 0.8f);
-        return bl;
     }
 
     // Tick Management =================================================================================================

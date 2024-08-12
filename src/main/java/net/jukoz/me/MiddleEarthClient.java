@@ -26,6 +26,7 @@ import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntityRenderer;
 import net.jukoz.me.entity.beasts.trolls.petrified.PetrifiedTrollRenderer;
 import net.jukoz.me.entity.beasts.trolls.stone.StoneTrollRenderer;
+import net.jukoz.me.entity.beasts.warg.WargRenderer;
 import net.jukoz.me.entity.crab.CrabRenderer;
 import net.jukoz.me.entity.deer.DeerRenderer;
 import net.jukoz.me.entity.duck.DuckRenderer;
@@ -60,6 +61,7 @@ import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
+import net.jukoz.me.item.utils.ModArmorModels;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
 import net.jukoz.me.network.ModNetworks;
 import net.jukoz.me.particles.ModParticleTypes;
@@ -148,6 +150,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(ModEntities.NAZGUL, NazgulRenderer::new);
 
+        EntityRendererRegistry.register(ModEntities.WARG, WargRenderer::new);
         EntityRendererRegistry.register(ModEntities.MIRKWOOD_SPIDER, MirkwoodSpiderRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNOW_TROLL, SnowTrollRenderer::new);
         //EntityRendererRegistry.register(ModEntities.BALROG, BalrogRenderer::new);
@@ -193,6 +196,19 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(HELMET_ADDON_MODEL_LAYER, RohirricHelmetArmorAddonModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(CAPE_MODEL_LAYER, CloakCapeModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HOOD_MODEL_LAYER, CloakHoodModel::getTexturedModelData);
+
+        for(ModArmorModels.ModHelmetModels model : ModArmorModels.ModHelmetModels.values()){
+            ArmorRenderer.register(new HelmetArmorRenderer(model.getModel()), model.getItem());
+        }
+        for(ModArmorModels.ModRustyHelmetModels model : ModArmorModels.ModRustyHelmetModels.values()){
+            ArmorRenderer.register(new DegradedHelmetArmorRenderer(model.getModel()), model.getItem());
+        }
+        for(ModArmorModels.ModChestplateModels model : ModArmorModels.ModChestplateModels.values()){
+            ArmorRenderer.register(new ChestplateArmorRenderer(model.getModel()), model.getItem());
+        }
+        for(ModArmorModels.ModRustyChestplateModels model : ModArmorModels.ModRustyChestplateModels.values()){
+            ArmorRenderer.register(new DegradedChestplateArmorRenderer(model.getModel()), model.getItem());
+        }
 
         ModEquipmentItems.armorPiecesListHelmets.forEach(armor -> {
             ArmorRenderer.register(new HelmetArmorRenderer(), armor.asItem());

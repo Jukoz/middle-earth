@@ -568,6 +568,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createCookedFoodRecipes(exporter, ModFoodItems.RAW_CRAB_CLAW, ModFoodItems.COOKED_CRAB_CLAW);
         createCookedFoodRecipes(exporter, ModFoodItems.RAW_DUCK, ModFoodItems.COOKED_DUCK);
         createCookedFoodRecipes(exporter, ModFoodItems.RAW_GOOSE, ModFoodItems.COOKED_GOOSE);
+        createCookedFoodRecipes(exporter, ModFoodItems.RAW_VENISON, ModFoodItems.COOKED_VENISON);
         createCookedFoodRecipes(exporter, ModFoodItems.RAW_HORSE, ModFoodItems.COOKED_HORSE);
         createCookedFoodRecipes(exporter, ModFoodItems.RAW_RAT, ModFoodItems.COOKED_RAT);
         createCookedFoodRecipes(exporter, ModFoodItems.RAW_SWAN, ModFoodItems.COOKED_SWAN);

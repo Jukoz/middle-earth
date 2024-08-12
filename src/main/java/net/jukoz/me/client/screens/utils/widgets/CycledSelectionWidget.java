@@ -9,7 +9,10 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class CycledSelectionWidget {
+import java.util.ArrayList;
+import java.util.List;
+
+public class CycledSelectionWidget extends ModWidget{
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/cycled_selection_widget.png");
     private static boolean focusEnabled = false;
     private final ButtonWidget buttonLeft;
@@ -17,16 +20,12 @@ public class CycledSelectionWidget {
     private final ButtonWidget selectionButton;
     private final CycledSelectionButtonType buttonType;
     private boolean shouldDisplay = true;
-    static final int MARGIN = 4;
     static final int ARROW_SIZE_X = 7;
     static final int ARROW_SIZE_Y = 11;
     static final int PANEL_SIZE_X = CycledSelectionButtonType.WIDTH;
     static final int PANEL_SIZE_Y = CycledSelectionButtonType.HEIGHT;
     public static final int TOTAL_WIDTH = ((MARGIN + ARROW_SIZE_X) * 2) + PANEL_SIZE_X;
     public static final int TOTAL_HEIGHT = Math.max(PANEL_SIZE_Y, ARROW_SIZE_Y);
-
-    int mouseX = 0;
-    int mouseY = 0;
 
     public CycledSelectionWidget(ButtonWidget.PressAction leftAction, ButtonWidget.PressAction rightAction, ButtonWidget.PressAction selectionAction, CycledSelectionButtonType buttonType){
         this.buttonType = buttonType;
@@ -42,16 +41,13 @@ public class CycledSelectionWidget {
         focusEnabled = false;
     }
 
-    public ButtonWidget getButtonLeft() {
-        return buttonLeft;
-    }
+    public List<ButtonWidget> getButtons(){
+        ArrayList<ButtonWidget> listOfButtons = new ArrayList<>();
+        listOfButtons.add(buttonLeft);
+        listOfButtons.add(selectionButton);
+        listOfButtons.add(buttonRight);
 
-    public ButtonWidget getButtonRight() {
-        return buttonRight;
-    }
-
-    public ButtonWidget getSelectionButton() {
-        return selectionButton;
+        return listOfButtons;
     }
 
     public void enableArrows(boolean activate){
@@ -66,23 +62,15 @@ public class CycledSelectionWidget {
         selectionButton.active = activate;
     }
 
-    public int drawAnchored(DrawContext context, int anchorX, int startY, boolean isLeftAnchor, MutableText text, TextRenderer textRenderer, int mouseX, int mouseY){
+    public int drawAnchored(DrawContext context, int anchorX, int startY, boolean isLeftAnchor, MutableText text, TextRenderer textRenderer){
         int startX = anchorX;
         if(!isLeftAnchor)
             startX -= TOTAL_WIDTH;
-
-        this.mouseX = mouseX;
-        this.mouseY = mouseY;
-
         return draw(context, startX, startY, text, textRenderer);
     }
 
-    public int drawCentered(DrawContext context, int centerX, int startY, MutableText text, TextRenderer textRenderer, int mouseX, int mouseY){
+    public int drawCentered(DrawContext context, int centerX, int startY, MutableText text, TextRenderer textRenderer){
         int startX = centerX - (TOTAL_WIDTH / 2);
-
-        this.mouseX = mouseX;
-        this.mouseY = mouseY;
-
         return draw(context, startX, startY, text, textRenderer);
     }
 
@@ -134,11 +122,6 @@ public class CycledSelectionWidget {
         }
 
         return PANEL_SIZE_Y;
-    }
-
-    private boolean isMouseOver(int sizeX, int sizeY, int startX, int startY) {
-        return mouseX >= startX && mouseX <= startX + sizeX
-                && mouseY >= startY && mouseY <= startY + sizeY;
     }
 
     public static boolean focusEnabled() {
