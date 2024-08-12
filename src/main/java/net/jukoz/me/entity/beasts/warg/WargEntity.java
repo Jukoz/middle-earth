@@ -303,7 +303,7 @@ public class WargEntity extends BeastEntity {
 
     @Override
     public int maxChargeCooldown() {
-        return 50;
+        return 200;
     }
 
     @Override
