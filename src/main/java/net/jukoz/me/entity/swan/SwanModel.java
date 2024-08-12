@@ -1,83 +1,110 @@
 package net.jukoz.me.entity.swan;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.jukoz.me.entity.deer.DeerAnimations;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import org.joml.Vector3f;
 
-public class SwanModel<T extends SwanEntity> extends EntityModel<SwanEntity> {
+@Environment(value= EnvType.CLIENT)
+public class SwanModel extends SinglePartEntityModel<SwanEntity> {
+    private final ModelPart swan;
+    private final ModelPart headAndNeck;
     private final ModelPart head;
-    private final ModelPart body;
-    private final ModelPart right_wing;
-    private final ModelPart left_wing;
-    private final ModelPart right_leg;
-    private final ModelPart left_leg;
+    private final ModelPart rightWing;
+    private final ModelPart leftWing;
+
     public SwanModel(ModelPart root) {
-        this.head = root.getChild("head");
-        this.body = root.getChild("body");
-        this.right_wing = root.getChild("right_wing");
-        this.left_wing = root.getChild("left_wing");
-        this.right_leg = root.getChild("right_leg");
-        this.left_leg = root.getChild("left_leg");
+        this.swan = root.getChild("root");
+        this.headAndNeck = swan.getChild("body").getChild("headAndNeck");
+        this.head = swan.getChild("body").getChild("headAndNeck").getChild("head");
+        this.rightWing = swan.getChild("body").getChild("rightWing");
+        this.leftWing = swan.getChild("body").getChild("leftWing");
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData head = modelPartData.addChild("head", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 14.0F, -2.75F));
+        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 23.0F, 0.0F));
 
-        ModelPartData cube_r1 = head.addChild("cube_r1", ModelPartBuilder.create().uv(7, 8).cuboid(-1.0F, -6.0F, 17.25F, 2.0F, 3.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 11.0F, 2.0F, 1.8762F, 0.0F, 0.0F));
+        ModelPartData body = root.addChild("body", ModelPartBuilder.create().uv(0, 0).cuboid(-3.5F, -3.5F, -5.0F, 7.0F, 7.0F, 10.0F, new Dilation(0.0F)), ModelTransform.pivot(-0.5F, -6.5F, 0.0F));
 
-        ModelPartData cube_r2 = head.addChild("cube_r2", ModelPartBuilder.create().uv(0, 0).cuboid(6.5F, -14.75F, 10.75F, 3.0F, 5.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(-8.0F, 3.0F, 10.5F, 1.789F, 0.0F, 0.0F));
+        ModelPartData leftWing = body.addChild("leftWing", ModelPartBuilder.create(), ModelTransform.pivot(4.0F, -2.75F, -4.5F));
 
-        ModelPartData cube_r3 = head.addChild("cube_r3", ModelPartBuilder.create().uv(13, 19).cuboid(-1.0F, -15.0F, 10.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 11.0F, 2.0F, 0.8727F, 0.0F, 0.0F));
+        ModelPartData leftInnerWing = leftWing.addChild("leftInnerWing", ModelPartBuilder.create().uv(30, 11).cuboid(-0.5F, -0.75F, -0.5F, 1.0F, 6.0F, 6.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-        ModelPartData cube_r4 = head.addChild("cube_r4", ModelPartBuilder.create().uv(0, 19).cuboid(-1.025F, -14.0F, -6.0F, 2.05F, 6.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 10.0F, 2.25F, -0.2618F, 0.0F, 0.0F));
+        ModelPartData leftMiddleWing = leftInnerWing.addChild("leftMiddleWing", ModelPartBuilder.create().uv(48, 3).cuboid(-0.5F, -3.0F, 0.0F, 1.0F, 6.0F, 6.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 2.25F, 5.5F));
 
-        ModelPartData body = modelPartData.addChild("body", ModelPartBuilder.create().uv(0, 0).cuboid(-3.0F, -3.0F, -6.5F, 6.0F, 6.0F, 13.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 17.0F, 1.5F));
+        ModelPartData leftOuterWing = leftMiddleWing.addChild("leftOuterWing", ModelPartBuilder.create().uv(37, -6).cuboid(0.0F, -2.5F, 0.0F, 0.0F, 5.0F, 6.0F, new Dilation(0.0F)), ModelTransform.pivot(0.5F, -0.5F, 6.0F));
 
-        ModelPartData right_wing = modelPartData.addChild("right_wing", ModelPartBuilder.create(), ModelTransform.pivot(3.0F, 15.0F, 2.0F));
+        ModelPartData rightWing = body.addChild("rightWing", ModelPartBuilder.create(), ModelTransform.pivot(-4.0F, -2.75F, -4.5F));
 
-        ModelPartData cube_r5 = right_wing.addChild("cube_r5", ModelPartBuilder.create().uv(0, 19).cuboid(3.0F, -10.0F, -2.0F, 1.0F, 5.0F, 11.0F, new Dilation(0.0F)), ModelTransform.of(-3.0F, 8.0F, -1.0F, 0.2618F, 0.0F, 0.0F));
+        ModelPartData rightInnerWing = rightWing.addChild("rightInnerWing", ModelPartBuilder.create().uv(30, 11).mirrored().cuboid(-0.5F, -0.75F, -0.5F, 1.0F, 6.0F, 6.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-        ModelPartData left_wing = modelPartData.addChild("left_wing", ModelPartBuilder.create(), ModelTransform.pivot(-3.0F, 15.0F, 2.0F));
+        ModelPartData rightMiddleWing = rightInnerWing.addChild("rightMiddleWing", ModelPartBuilder.create().uv(48, 3).mirrored().cuboid(-0.5F, -3.0F, 0.0F, 1.0F, 6.0F, 6.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(0.0F, 2.25F, 5.5F));
 
-        ModelPartData cube_r6 = left_wing.addChild("cube_r6", ModelPartBuilder.create().uv(13, 24).cuboid(-4.0F, -10.0F, -2.0F, 1.0F, 5.0F, 11.0F, new Dilation(0.0F)), ModelTransform.of(3.0F, 8.0F, -1.0F, 0.2618F, 0.0F, 0.0F));
+        ModelPartData rightOuterWing = rightMiddleWing.addChild("rightOuterWing", ModelPartBuilder.create().uv(37, -6).mirrored().cuboid(0.0F, -2.5F, 0.0F, 0.0F, 5.0F, 6.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(-0.5F, -0.5F, 6.0F));
 
-        ModelPartData right_leg = modelPartData.addChild("right_leg", ModelPartBuilder.create().uv(0, 8).cuboid(-0.5F, 0.0F, 0.0F, 1.0F, 4.0F, 0.0F, new Dilation(0.0F))
-                .uv(6, 0).cuboid(-1.0F, 4.0F, -3.0F, 2.0F, 0.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(-2.5F, 20.0F, 3.0F));
+        ModelPartData headAndNeck = body.addChild("headAndNeck", ModelPartBuilder.create(), ModelTransform.pivot(0.5F, -2.5F, -4.0F));
 
-        ModelPartData left_leg = modelPartData.addChild("left_leg", ModelPartBuilder.create().uv(9, 19).cuboid(-0.5F, 0.0F, 0.0F, 1.0F, 4.0F, 0.0F, new Dilation(0.0F))
-                .uv(0, 8).cuboid(-1.0F, 4.0F, -3.0F, 2.0F, 0.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(2.5F, 20.0F, 3.0F));
+        ModelPartData neck = headAndNeck.addChild("neck", ModelPartBuilder.create().uv(12, 17).cuboid(-1.5F, -1.75F, -4.0F, 3.0F, 5.0F, 3.0F, new Dilation(0.0F))
+                .uv(0, 20).cuboid(-1.5F, -4.75F, -1.0F, 3.0F, 8.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(-0.5F, -1.25F, 1.0F));
+
+        ModelPartData head = headAndNeck.addChild("head", ModelPartBuilder.create().uv(0, 0).cuboid(-1.0F, -1.0F, -6.5F, 2.0F, 1.0F, 2.0F, new Dilation(0.0F))
+                .uv(0, 55).cuboid(-1.5F, -3.0F, -4.5F, 3.0F, 3.0F, 6.0F, new Dilation(0.0F)), ModelTransform.pivot(-0.5F, -6.0F, 1.5F));
+
+        ModelPartData tail = body.addChild("tail", ModelPartBuilder.create().uv(32, 23).cuboid(-3.5F, -2.25F, -0.25F, 7.0F, 2.0F, 8.0F, new Dilation(0.0F))
+                .uv(7, 26).cuboid(-3.5F, -0.25F, -0.25F, 7.0F, 3.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -1.25F, 5.25F));
+
+        ModelPartData leftLeg = root.addChild("leftLeg", ModelPartBuilder.create().uv(0, 3).cuboid(-1.0F, -2.0F, -0.5F, 2.0F, 3.0F, 1.0F, new Dilation(0.0F))
+                .uv(26, 23).cuboid(-2.0F, 1.0F, -2.5F, 4.0F, 3.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(1.0F, -3.0F, 0.5F));
+
+        ModelPartData rightLeg = root.addChild("rightLeg", ModelPartBuilder.create().uv(0, 3).mirrored().cuboid(-1.0F, -2.0F, -0.5F, 2.0F, 3.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
+                .uv(26, 23).mirrored().cuboid(-2.0F, 1.0F, -2.5F, 4.0F, 3.0F, 3.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(-2.0F, -3.0F, 0.5F));
         return TexturedModelData.of(modelData, 64, 64);
     }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-        head.render(matrices, vertices, light, overlay, color);
-        body.render(matrices, vertices, light, overlay, color);
-        right_wing.render(matrices, vertices, light, overlay, color);
-        left_wing.render(matrices, vertices, light, overlay, color);
-        right_leg.render(matrices, vertices, light, overlay, color);
-        left_leg.render(matrices, vertices, light, overlay, color);
+        swan.render(matrices, vertices, light, overlay, color);
     }
 
     @Override
-    public void setAngles(SwanEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.right_leg.pitch = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.left_leg.pitch = MathHelper.cos(limbSwing * 0.6662F + 3.1415927F) * 1.4F * limbSwingAmount;
-        this.right_wing.roll = 0;
-        this.left_wing.roll = -0;
-        this.head.pitch = 0;
-        if(!entity.isOnGround()) {
-            float angle = MathHelper.cos(MathHelper.cos(ageInTicks * 0.5f));
-            this.right_wing.roll = -4 + (4 * angle);
-            this.left_wing.roll = 4 - (4 * angle);
-        } else if(entity.isAttacking()) {
-            float angle = MathHelper.cos(MathHelper.cos(ageInTicks * 0.4f));
-            this.right_wing.roll = -3 + (2 * angle);
-            this.left_wing.roll = 3 - (2 * angle);
-            this.head.pitch = (float) Math.toRadians(-70);
+    public ModelPart getPart() {
+        return swan;
+    }
+
+    @Override
+    public void setAngles(SwanEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.getPart().traverse().forEach(ModelPart::resetTransform);
+        this.setHeadAngles(headYaw, headPitch);
+
+        if(!entity.isOnGround() && !entity.isTouchingWater()) {
+            float angle = MathHelper.cos(MathHelper.cos(animationProgress * 0.5f));
+            this.rightWing.roll = 4 + (4 * angle);
+            this.leftWing.roll = -4 - (4 * angle);
         }
+
+        if(entity.isBaby()) {
+            this.head.scale(new Vector3f(0.8f,0.8f,0.8f));
+        }
+
+        this.animateMovement(SwanAnimations.WALK, limbAngle, limbDistance, 4f, 4f);
+        this.updateAnimation(entity.swimAnimationState, SwanAnimations.SWIM, animationProgress, 1f);
+        this.updateAnimation(entity.idleAnimationState, SwanAnimations.WINGCLEAN, animationProgress, 1f);
+        this.updateAnimation(entity.attackAnimationState, SwanAnimations.ATTACK, animationProgress, 1.7f);
+    }
+
+    private void setHeadAngles(float headYaw, float headPitch) {
+        headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
+        headPitch = MathHelper.clamp(headPitch, -25.0F, 40.0F);
+
+        this.headAndNeck.yaw = headYaw * 0.017453292F;
+        this.headAndNeck.pitch = headPitch * 0.017453292F;
     }
 }
