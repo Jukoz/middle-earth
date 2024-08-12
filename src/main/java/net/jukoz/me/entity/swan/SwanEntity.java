@@ -2,6 +2,8 @@ package net.jukoz.me.entity.swan;
 
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.duck.DuckEntity;
+import net.jukoz.me.entity.pheasant.PheasantEntity;
+import net.jukoz.me.entity.pheasant.PheasantVariant;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -10,6 +12,9 @@ import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
@@ -18,6 +23,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
@@ -37,6 +43,7 @@ import java.util.function.Predicate;
 
 public class SwanEntity extends AnimalEntity {
 
+    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public static final Ingredient BREEDING_INGREDIENT = Ingredient.fromTag(ItemTags.CHICKEN_FOOD);
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
@@ -76,12 +83,32 @@ public class SwanEntity extends AnimalEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0);
     }
 
+    @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(VARIANT, 0);
+    }
+
+    /* Slooshes brainstuff for maybe future references
     protected EntityNavigation createNavigation(World world) {
         BirdNavigation birdNavigation = new BirdNavigation(this, world);
         birdNavigation.setCanPathThroughDoors(true);
         birdNavigation.setCanSwim(true);
         birdNavigation.setCanEnterOpenDoors(true);
         return birdNavigation;
+    }
+    */
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putInt("Variant", this.getTypeVariant());
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        this.dataTracker.set(VARIANT, nbt.getInt("Variant"));
     }
 
     private void setupAnimationStates() {
@@ -91,7 +118,7 @@ public class SwanEntity extends AnimalEntity {
         } else {
             --this.idleAnimationTimeout;
         }
-        if (this.isSwimming()) {
+        if (this.isTouchingWater()) {
             this.swimAnimationState.startIfNotRunning(this.age);
         }
         else {
@@ -152,10 +179,6 @@ public class SwanEntity extends AnimalEntity {
         return BREEDING_INGREDIENT.test(stack);
     }
 
-    public SwanVariant getVariant() {
-        return SwanVariant.byId(this.getId());
-    }
-
 
     public boolean isPushedByFluids() {
         return true;
@@ -164,5 +187,17 @@ public class SwanEntity extends AnimalEntity {
     @Override
     public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
+    }
+
+    public SwanVariant getVariant() {
+        return SwanVariant.byId(this.getTypeVariant() & 255);
+    }
+
+    private int getTypeVariant() {
+        return this.dataTracker.get(VARIANT);
+    }
+
+    private void setVariant(SwanVariant variant) {
+        this.dataTracker.set(VARIANT, variant.getId() & 255);
     }
 }

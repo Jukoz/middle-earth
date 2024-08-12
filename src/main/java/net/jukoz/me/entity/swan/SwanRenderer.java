@@ -3,7 +3,9 @@ package net.jukoz.me.entity.swan;
 import com.google.common.collect.Maps;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
+import net.jukoz.me.entity.pheasant.PheasantEntity;
 import net.jukoz.me.entity.pheasant.PheasantModel;
+import net.jukoz.me.entity.pheasant.PheasantVariant;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
@@ -32,14 +34,21 @@ public class SwanRenderer extends MobEntityRenderer<SwanEntity, SwanModel> {
         return 180.0F;
     }
 
-    public static final Map<SwanVariant, String> LOCATION_BY_VARIANT =
-            Util.make(Maps.newEnumMap(SwanVariant.class), (resourceLocation) -> {
-                resourceLocation.put(SwanVariant.WHITE,
-                        PATH + "swan.png");
+    public static final Map<SwanVariant, Identifier> LOCATION_BY_VARIANT =
+            Util.make(Maps.newEnumMap(SwanVariant.class), (map) -> {
+                map.put(SwanVariant.WHITE,
+                        new Identifier(MiddleEarth.MOD_ID, PATH + "white_swan.png"));
+                map.put(SwanVariant.BLACK,
+                        new Identifier(MiddleEarth.MOD_ID, PATH + "black_swan.png"));
+                map.put(SwanVariant.TRUMPETER,
+                        new Identifier(MiddleEarth.MOD_ID, PATH + "trumpeter_swan.png"));
+                map.put(SwanVariant.WHOOPER,
+                        new Identifier(MiddleEarth.MOD_ID, PATH + "whooper_swan.png"));
             });
 
+    @Override
     public Identifier getTexture(SwanEntity entity) {
-        return new Identifier(MiddleEarth.MOD_ID, LOCATION_BY_VARIANT.get(entity.getVariant()));
+        return LOCATION_BY_VARIANT.get(entity.getVariant());
     }
 
     @Override
