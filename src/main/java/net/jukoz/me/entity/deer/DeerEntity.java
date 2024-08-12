@@ -81,7 +81,6 @@ public class DeerEntity extends AnimalEntity {
         }
     }
 
-
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {

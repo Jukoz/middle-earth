@@ -1,11 +1,15 @@
 package net.jukoz.me.world.chunkgen;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.block.StoneBlockSets;
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.utils.noises.SimplexNoise;
+import net.jukoz.me.world.biomes.BlocksLayeringData;
+import net.jukoz.me.world.biomes.SlopeMap;
+import net.jukoz.me.world.biomes.surface.ModBiomes;
+import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.jukoz.me.world.biomes.surface.MEBiome;
@@ -21,6 +25,7 @@ import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.random.CheckedRandom;
 import net.minecraft.util.math.random.ChunkRandom;
 import net.minecraft.util.math.random.RandomSeed;
@@ -53,10 +58,11 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     MiddleEarthMapUtils middleEarthMapUtils;
     MiddleEarthMapRuntime middleEarthMapRuntime;
 
+    public static final int mapMultiplier = (int) Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION + MiddleEarthMapConfigs.PIXEL_WEIGHT - 2);
+    public static final Vec2f mountDoom = new Vec2f(2131.5f, 1715.2f).multiply(mapMultiplier);
     private static final int CAVE_STRETCH_H = 60;
     private static final int CAVE_STRETCH_V = 50;
-    private static float minNoise = 10000;
-    private static float maxNoise = -10000;
+
     RegistryEntryLookup<Biome> biomeRegistry;
     public static final MapCodec<MiddleEarthChunkGenerator> CODEC = RecordCodecBuilder.mapCodec((instance) ->
             instance.group(RegistryOps.getEntryLookupCodec(RegistryKeys.BIOME))
@@ -68,37 +74,59 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.OCEAN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ANDUIN_VALES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ANORIEN),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.ANORIEN_RIVERSIDE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ANORIEN_FOOTHILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BARROW_DOWNS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BELFALAS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BELFALAS_HILLS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.BELFALAS_BEACH),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.BLACKROOT_VALE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BLUE_MOUNTAINS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.BLUE_MOUNTAINS_FOOTHILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BLUE_MOUNTAINS_BASE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BLUE_MOUNTAINS_PEAKS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.BROWN_LANDS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.CORSAIR_COASTS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DALE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DALE_CITY),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DAGORLAD),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DALE_RIVERSIDE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DARK_MIRKWOOD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DARK_MIRKWOOD_EDGE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DARK_ANDUIN_VALES),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.DOL_GULDUR ),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DEAD_MARSHES),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DEAD_MARSHES_WATER),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DOL_GULDUR),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DOL_GULDUR_HILL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DORWINION),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DORWINION_HILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DUNLAND_FOOTHILLS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.EAST_BIGHT),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.EASTERN_NURN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.EASTERN_RHOVANION),
                     biomeRegistry.getOrThrow(MEBiomeKeys.EMYN_MUIL),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.EMYN_MUIL_CLIFFS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.EMYN_MUIL_PEAKS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.EMYN_MUIL_POND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ENEDWAITH),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.LONELY_MOUNTAIN),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.LONELY_MOUNTAIN_BASE),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.EREGION),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ERIADOR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ETHIR_ANDUIN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FANGORN),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.FANGORN_FOOTHILLS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.FOREST_RIVER),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GREAT_RIVER),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GUNDABAD_PLAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FORODWAITH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FROZEN_OCEAN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FROZEN_POND),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GOLF_OF_LHUN_CLIFFS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GOLF_OF_LHUN_SHORES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GONDOR),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GORGOROTH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GREY_MOUNTAINS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GREY_MOUNTAINS_BASE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GREY_MOUNTAINS_PEAKS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GREY_PLAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD_DESERT),
@@ -108,14 +136,24 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_FOOTHILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_BASE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_PEAKS),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_FRONTIER),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.IRON_HILLS_PLAINS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.ISENGARD),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.ISENGARD_HILL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ITHILIEN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ITHILIEN_WASTES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LAMEDON),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LEBENNIN),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LEBENNIN_SHORES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LINDON),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LONELY_MOUNTAIN),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LONELY_MOUNTAIN_BASE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LONELY_MOUNTAIN_TAIGA),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LONG_LAKE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LONG_MARSHES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LORIEN_EDGE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LOSSARNACH),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.LOSSARNACH_VALLEY),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LOTHLORIEN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OASIS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.POND),
@@ -128,19 +166,30 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD_MOUNTAINS_PEAKS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD_MARSHES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD_SWAMP),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD_RIVER),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MISTY_MOUNTAINS_BASE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MISTY_MOUNTAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MISTY_MOUNTAINS_PEAKS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORDOR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORDOR_MOUNTAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORDOR_MOUNTAINS_FOOTHILLS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.MORDOR_MOUNTAINS_PEAKS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORDOR_WASTES),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.MORGUL_VALE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.MORGUL_RIVER),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.MOUNT_GUNDABAD),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.MOUNT_DOOM),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.NAN_CURUNIR),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.NEN_HITHOEL),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.NEN_HITHOEL_FOREST),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.NEN_HITHOEL_SHORES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NINDALF),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NORTH_DOWNS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_DUNLAND),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_MIRKWOOD_MARSHES),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_MIRKWOOD_SWAMP),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NORTHERN_WASTELANDS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NURN),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.NURN_EDGE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NURN_RIVER),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NURN_SEA),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OCEAN_COAST),
@@ -149,30 +198,44 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.OLD_ARTHEDAIN_FOOTHILL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OLD_CARDOLAN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OLD_RHUDAUR),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.OSGILIATH),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.PELENNOR_FIELDS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.RIVER),
                     biomeRegistry.getOrThrow(MEBiomeKeys.RHUN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HIGH_MOOR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HIGH_MOOR_VALE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HIGH_MOOR_HILLS),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.RIVER),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ROHAN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SEA_OF_RHUN),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.SARN_GEBIR_WILDLANDS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.SARN_GEBIR_SHORES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SHIRE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SHIRE_EDGE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SHIRE_WOODS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHEAST_RHOVANION),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHERN_DUNLAND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHERN_FOROCHEL),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHERN_EPHEL_DUATH),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHERN_EPHEL_DUATH_BASE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHERN_EPHEL_DUATH_PEAKS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.THE_ANGLE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.THE_OLD_FOREST),
                     biomeRegistry.getOrThrow(MEBiomeKeys.THE_WOLD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.TOLFALAS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.TOROGWAITH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.TROLLSHAWS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.UDUN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.UMBAR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WASTE_POND),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.WEBBED_WOODS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.WITHERED_HEATH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WHITE_MOUNTAINS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WHITE_MOUNTAINS_BASE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WHITE_MOUNTAINS_PEAKS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WOODLAND_REALM),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.WOODLAND_FOOTHILLS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.WOODLAND_HILLS),
+
                     biomeRegistry.getOrThrow(MEBiomeKeys.BASIC_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.LUSH_CAVE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DRIPSTONE_CAVE),
@@ -205,8 +268,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     }
 
-
-
     @Override
     public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
         int bottomY = chunk.getBottomY();
@@ -215,7 +276,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 int posX = (chunk.getPos().x * 16) + x;
                 int posZ = (chunk.getPos().z * 16) + z;
                 MEBiome meBiome = null;
-
                 if(middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) {
                     RegistryEntry<Biome> biome = region.getBiome(new BlockPos(posX, chunk.getTopY(), posZ));
                     meBiome = MEBiomesData.getBiomeByKey(biome);
@@ -227,7 +287,23 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
 
                 float height = MiddleEarthHeightMap.getHeight(posX, posZ);
+
                 float caveBlendNoise = (float) ((2 * CAVE_NOISE * BlendedNoise.noise((double) posX / 24,  (double) posZ / 24)) - CAVE_NOISE);
+                float slopeAngle = getTerrainSlope(height, posX, posZ);
+                int waterHeight = meBiome.waterHeight;
+
+                if(meBiome.biome == MEBiomeKeys.MOUNT_DOOM) {
+                    float percentage = (float) Math.sqrt(mountDoom.distanceSquared(new Vec2f(posX, posZ))) / 50;
+                    percentage = Math.min(1, Math.max(0.0f, percentage));
+                    percentage = (float) Math.pow(percentage, 2.45f);
+                    height = height * percentage;
+                }
+                if(meBiome.biome == MEBiomeKeys.DEAD_MARSHES || meBiome.biome == MEBiomeKeys.DEAD_MARSHES_WATER) {
+                    float oldHeight = height;
+                    height = getMarshesHeight(posX, posZ, height);
+                    float percentage = Math.min(MiddleEarthHeightMap.getImageNoiseModifier(posX, posZ), 0.3f) / 0.3f;
+                    height = MiddleEarthHeightMap.lerp(height, oldHeight, percentage);
+                }
 
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, bottomY, z), Blocks.BEDROCK.getDefaultState(), false);
                 for(int y = bottomY + 1; y <= LAVA_HEIGHT; y++) {
@@ -246,33 +322,61 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 for(int y = NURGON_LEVEL + (int) caveBlendNoise; y < DEEPSLATE_LEVEL + caveBlendNoise; y++) {
                     trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), Blocks.DEEPSLATE.getDefaultState());
                 }
+
                 float dirtHeight = HEIGHT + height - 1;
-                for(int y = DEEPSLATE_LEVEL + (int) caveBlendNoise; y < (dirtHeight / 2); y++) {
-                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), meBiome.stoneBlock.getDefaultState());
+                int currentHeight = DEEPSLATE_LEVEL + (int) caveBlendNoise;
+                int totalLayersHeight = (int) (dirtHeight - currentHeight);
+                for(BlocksLayeringData.LayerData layerData : meBiome.blocksLayering.layers) {
+                    int blocks = (int) (totalLayersHeight * layerData.percentage);
+                    for(int y = 0; y <= blocks; y++) {
+                        trySetBlock(chunk, chunk.getPos().getBlockPos(x, currentHeight++, z), layerData.block.getDefaultState());
+                    }
                 }
-                for(int y = (int) (dirtHeight / 2); y < dirtHeight; y++) {
-                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), meBiome.upperStoneBlock.getDefaultState());
-                }
+                BlockState surfaceBlock = meBiome.slopeMap.slopeDatas.getFirst().block.getDefaultState();
+                BlockState underSurfaceBlock;
 
-                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 1), z), meBiome.stoneBlock.getDefaultState(), false);
-                for(int y = (int) (HEIGHT + height); y < DIRT_HEIGHT + height; y++) {
-                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), meBiome.underSurfaceBlock.getDefaultState(), false);
-                }
 
-                BlockState surfaceBlock = meBiome.surfaceBlock.getDefaultState();
-
-                if(DIRT_HEIGHT + height < WATER_HEIGHT && meBiome.surfaceBlock == Blocks.GRASS_BLOCK) {
+                if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState()) {
                     surfaceBlock = Blocks.DIRT.getDefaultState();
+                    underSurfaceBlock = surfaceBlock;
+                } else {
+                    surfaceBlock = meBiome.slopeMap.getBlockAtAngle(slopeAngle).getDefaultState();
+                    if(surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState()) underSurfaceBlock = Blocks.DIRT.getDefaultState();
+                    else underSurfaceBlock = surfaceBlock;
                 }
 
+                chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 1), z), underSurfaceBlock, false);
+                for(int y = (int) (HEIGHT + height); y < DIRT_HEIGHT + height; y++) {
+                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), underSurfaceBlock, false);
+                }
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (DIRT_HEIGHT + height), z), surfaceBlock, false);
 
-                for(int y = (int) (DIRT_HEIGHT + height + 1); y <= WATER_HEIGHT; y++) {
-                    chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.WATER.getDefaultState(), false);
+                if(meBiome.biome == MEBiomeKeys.MOUNT_DOOM) {
+                    for(int y = (int) (DIRT_HEIGHT + height + 1); y <= 90; y++) {
+                        chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.LAVA.getDefaultState(), false);
+                    }
+                } else {
+                    for(int y = (int) (DIRT_HEIGHT + height + 1); y <= waterHeight; y++) {
+                        chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.WATER.getDefaultState(), false);
+                    }
                 }
+
+
+                ProceduralStructures.generateStructures(meBiome, chunk, posX, (int) (DIRT_HEIGHT + height), posZ);
             }
         }
+    }
 
+    private float getTerrainSlope(float height, int x, int z) {
+        int offset = 3;
+        float eastHeight = MiddleEarthHeightMap.getHeight(x + offset, z);
+        float southHeight = MiddleEarthHeightMap.getHeight(x, z + offset);
+
+        float eastSlope = Math.abs((eastHeight - height) / offset);
+        float southSlope = Math.abs((southHeight - height) / offset);
+        float highestSlope = Math.max(eastSlope, southSlope);
+
+        return (float) Math.toDegrees(Math.atan(highestSlope));
     }
 
     private void trySetBlock(Chunk chunk, BlockPos blockPos, BlockState blockState) {
@@ -290,6 +394,12 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         if(noise < 0.4f && noise3 < 0.75f && miniNoise < 0.8f) { //
             chunk.setBlockState(blockPos, blockState, false);
         }
+    }
+
+    public static float getMarshesHeight(int x, int z, float height) {
+        height = -2 + (2.0f * (float) BlendedNoise.noise((double) x / 19,  (double) z / 19));
+        height += (float) BlendedNoise.noise((double) x / 11,  (double) z / 11);
+        return height;
     }
     
     @Override
@@ -339,6 +449,5 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     @Override
     public void getDebugHudText(List<String> text, NoiseConfig noiseConfig, BlockPos pos) {
-
     }
 }

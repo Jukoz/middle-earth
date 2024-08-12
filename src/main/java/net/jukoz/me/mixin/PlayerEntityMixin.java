@@ -3,6 +3,7 @@ package net.jukoz.me.mixin;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
+import net.jukoz.me.item.items.CustomSiegeShieldItem;
 import net.jukoz.me.item.items.weapons.CustomDaggerWeaponItem;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
 import net.jukoz.me.utils.IEntityDataSaver;
@@ -120,7 +121,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         ItemStack stackMainHand = this.getInventory().getMainHandStack();
 
         if(stackMainHand != null){
-            if (stackMainHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackMainHand.getItem()).type.twoHanded)) {
+            if ((stackMainHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackMainHand.getItem()).type.twoHanded))
+                    || (stackMainHand.getItem() instanceof CustomSiegeShieldItem)) {
                 twoHanded = true;
             }
         }

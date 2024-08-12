@@ -4,10 +4,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public enum SwanVariant {
-    WHITE(0);
+    WHITE(0),
+    BLACK(1),
+    TRUMPETER(2),
+    WHOOPER(3);
 
-    private static final SwanVariant[] BY_ID = Arrays.stream(values()).sorted(
-            Comparator.comparingInt(SwanVariant::getId)).toArray(SwanVariant[]::new);
+    private static final SwanVariant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(SwanVariant::getId)).toArray(SwanVariant[]::new);
 
     private final int id;
 
