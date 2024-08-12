@@ -843,6 +843,7 @@ public class ModEquipmentItems {
 
     public static final Item URUK_HAI_HEATER_SHIELD = registerShield("uruk_hai_heater_shield",
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
+
     public static final Item URUK_HAI_SHIELD = registerShield("uruk_hai_shield",
             new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
     public static final Item URUK_HAI_WHITE_HAND_SHIELD = registerShield("uruk_hai_white_hand_shield",
@@ -852,6 +853,8 @@ public class ModEquipmentItems {
     public static final Item URUK_HAI_S_RUNE_SHIELD = registerShield("uruk_hai_s_rune_shield",
             new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
 
+    public static final Item URUK_HAI_SIEGE_SHIELD = registerShield("uruk_hai_siege_shield",
+            new CustomSiegeShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
 
     //endregion
 
