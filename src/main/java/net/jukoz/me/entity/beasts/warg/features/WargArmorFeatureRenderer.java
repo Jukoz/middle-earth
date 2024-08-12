@@ -33,7 +33,7 @@ public class WargArmorFeatureRenderer extends FeatureRenderer<WargEntity, WargMo
 
         ItemStack itemStack = wargEntity.getBodyArmor();
         Item item = itemStack.getItem();
-        if(item instanceof CustomAnimalArmorItem animalArmorItem){
+        if(item instanceof CustomAnimalArmorItem animalArmorItem) {
             if (animalArmorItem.getArmorType() == CustomAnimalArmorItem.Type.WARG) {
                 ((WargModel)this.getContextModel()).copyStateTo(this.model);
 

@@ -54,8 +54,8 @@ public class ModArmorMaterials {
 
     public static final ExtendedArmorMaterial MORGUL_STEEL_T3 = registerArmor(Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.MORGUL_STEEL_INGOT);
 
-    public static final RegistryEntry<ArmorMaterial> LEATHER = registerMountArmor("leather", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.MORGUL_STEEL_INGOT);
-    public static final RegistryEntry<ArmorMaterial> PLATE = registerMountArmor("plate", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.MORGUL_STEEL_INGOT);
+    public static final RegistryEntry<ArmorMaterial> LEATHER = registerMountArmor("leather", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.MORGUL_STEEL_INGOT);
+    public static final RegistryEntry<ArmorMaterial> PLATE = registerMountArmor("plate", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.MORGUL_STEEL_INGOT);
 
 
     private static ExtendedArmorMaterial registerArmor(Tiers tier, RegistryEntry<SoundEvent> equipSound, Item repairIngredient) {
@@ -165,37 +165,37 @@ public class ModArmorMaterials {
         int enchantability = 0;
         int durabilityMultiplier;
         switch (tier) {
-            case CLOTHING -> {
-                map.put(ArmorItem.Type.BOOTS, 0);
-                map.put(ArmorItem.Type.LEGGINGS, 0);
-                map.put(ArmorItem.Type.CHESTPLATE, 0);
-                map.put(ArmorItem.Type.HELMET, 0);
-                map.put(ArmorItem.Type.BODY, 0);
-                durabilityMultiplier = 5;
-                toughness = 0.0f;
-                knockbackResistance = 0.0f;
-                enchantability = 10;
-            }
-            case BASIC -> {
-                map.put(ArmorItem.Type.BOOTS, 1);
-                map.put(ArmorItem.Type.LEGGINGS, 2);
-                map.put(ArmorItem.Type.CHESTPLATE, 3);
-                map.put(ArmorItem.Type.HELMET, 1);
-                map.put(ArmorItem.Type.BODY, 4);
-                durabilityMultiplier = 7;
-                toughness = 0.0f;
-                knockbackResistance = 0.0f;
-                enchantability = 10;
-            }
             case LIGHT -> {
                 map.put(ArmorItem.Type.BOOTS, 1);
                 map.put(ArmorItem.Type.LEGGINGS, 3);
                 map.put(ArmorItem.Type.CHESTPLATE, 4);
                 map.put(ArmorItem.Type.HELMET, 1);
-                map.put(ArmorItem.Type.BODY, 5);
+                map.put(ArmorItem.Type.BODY, 4);
                 durabilityMultiplier = 11;
                 toughness = 0.0f;
                 knockbackResistance = 0.0f;
+                enchantability = 10;
+            }
+            case MEDIUM -> {
+                map.put(ArmorItem.Type.BOOTS, 2);
+                map.put(ArmorItem.Type.LEGGINGS, 4);
+                map.put(ArmorItem.Type.CHESTPLATE, 5);
+                map.put(ArmorItem.Type.HELMET, 2);
+                map.put(ArmorItem.Type.BODY, 6);
+                durabilityMultiplier = 15;
+                toughness = 0.5f;
+                knockbackResistance = 0.0f;
+                enchantability = 10;
+            }
+            case HEAVY -> {
+                map.put(ArmorItem.Type.BOOTS, 3);
+                map.put(ArmorItem.Type.LEGGINGS, 6);
+                map.put(ArmorItem.Type.CHESTPLATE, 7);
+                map.put(ArmorItem.Type.HELMET, 3);
+                map.put(ArmorItem.Type.BODY, 10);
+                durabilityMultiplier = 35;
+                toughness = 2.0f;
+                knockbackResistance = 0.1f;
                 enchantability = 10;
             }
         }
