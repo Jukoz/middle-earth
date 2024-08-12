@@ -24,7 +24,6 @@ public class MineableHoe {
         add(ModNatureBlocks.YELLOW_MAPLE_LEAVES);
 
         add(ModNatureBlocks.DRY_PINE_LEAVES);
-        add(ModNatureBlocks.PINE_BRANCHES);
 
         add(ModBlocks.REED_BLOCK);
         add(ModBlocks.REED_SLAB);
