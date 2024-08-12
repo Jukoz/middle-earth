@@ -5,6 +5,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.MiddleEarthClient;
 import net.jukoz.me.client.model.equipment.CustomHelmetModel;
 import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
+import net.jukoz.me.client.model.equipment.head.HelmetAddonModel;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.items.CustomHelmetItem;
@@ -24,8 +25,13 @@ public class HelmetArmorRenderer implements ArmorRenderer {
 
     private CustomHelmetModel<LivingEntity> customHelmetModel;
     private CloakHoodModel<LivingEntity> hoodModel;
+    private HelmetAddonModel<LivingEntity> helmetModel;
 
     public HelmetArmorRenderer() {
+    }
+
+    public HelmetArmorRenderer(HelmetAddonModel<LivingEntity> helmetModel) {
+        this.helmetModel = helmetModel;
     }
 
     @Override
@@ -52,15 +58,15 @@ public class HelmetArmorRenderer implements ArmorRenderer {
             String texture = "textures/models/armor/" + Registries.ITEM.getId(stack.getItem()).getPath() + ".png";
             ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customHelmetModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
 
-            if (item.additionModel != null) {
-                contextModel.copyBipedStateTo(item.additionModel);
-                item.additionModel.setVisible(false);
-                item.additionModel.head.visible = true;
-                item.additionModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.pitch);
+            if (this.helmetModel != null) {
+                contextModel.copyBipedStateTo(this.helmetModel);
+                this.helmetModel.setVisible(false);
+                this.helmetModel.head.visible = true;
+                this.helmetModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(),(float)entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.pitch);
                 if(texture.contains("_helmet.png")){
-                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, item.additionModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_addition.png")), dyeable);
+                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.helmetModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_addition.png")), dyeable);
                 } else {
-                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, item.additionModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
+                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.helmetModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
                 }
             }
 

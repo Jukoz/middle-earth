@@ -505,7 +505,7 @@
 
   "item.me.rohirric_leather_helmet": "Rohirric Leather Helmet",
   "item.me.rohirric_reinforced_leather_helmet": "Rohirric Reinforced Leather Helmet",
-  "item.me.rohirric_ornemented_leather_helmet": "Rohirric Ornemented Leather Helmet",
+  "item.me.rohirric_ornamented_leather_helmet": "Rohirric Ornamented Leather Helmet",
 
   "item.me.rohirric_leather_vest": "Rohirric Leather Vest",
   "item.me.rohirric_leather_scale_vest": "Rohirric Leather Scale Vest",
@@ -514,18 +514,18 @@
   "item.me.rohirric_militia_helmet": "Rohirric Militia Helmet",
   "item.me.rohirric_braced_militia_helmet": "Rohirric Braced Militia Helmet",
   "item.me.rohirric_reinforced_militia_helmet": "Rohirric Reinforced Militia Helmet",
-  "item.me.rohirric_ornemented_militia_helmet": "Rohirric Ornemented Militia Helmet",
+  "item.me.rohirric_ornamented_militia_helmet": "Rohirric Ornamented Militia Helmet",
 
   "item.me.rohirric_mail_shirt": "Rohirric Mail Shirt",
   "item.me.rohirric_mail_shirt_open": "Rohirric Mail Shirt Open",
   "item.me.rohirric_mail_hauberk": "Rohirric Mail Hauberk",
 
   "item.me.rohirric_soldier_helmet": "Rohirric Soldier Helmet",
-  "item.me.rohirric_ornemented_soldier_helmet": "Rohirric Ornemented Soldier Helmet",
+  "item.me.rohirric_ornamented_soldier_helmet": "Rohirric Ornamented Soldier Helmet",
   "item.me.rohirric_royal_guard_helmet": "Rohirric Royal Guard Helmet",
 
   "item.me.rohirric_scale_hauberk": "Rohirric Scale Hauberk",
-  "item.me.rohirric_ornemented_scale_hauberk": "Rohirric Ornemented Scale Hauberk",
+  "item.me.rohirric_ornamented_scale_hauberk": "Rohirric Ornamented Scale Hauberk",
 
   "item.me.rohirric_scale_jacket": "Rohirric Scale Jacket",
 
@@ -650,6 +650,15 @@
 
   "item.me.orc_plate_boots": "Orc Plate Boots",
 
+  "item.me.mordor_orc_helmet": "Mordor Orc Helmet",
+  "item.me.mordor_orc_eye_helmet": "Mordor Orc Eye Helmet",
+  "item.me.mordor_orc_great_eye_helmet": "Mordor Orc Great Eye Helmet",
+  "item.me.mordor_orc_mandible_helmet": "Mordor Orc Mandible Helmet",
+  "item.me.mordor_orc_oversight_helmet": "Mordor Orc Oversight Helmet",
+  "item.me.mordor_orc_snout_helmet": "Mordor Orc Snout Helmet",
+
+  "item.me.mordor_orc_scale_coat": "Mordor Orc Scale Coat",
+
   "item.me.mordor_orc_chestplate": "Mordor Orc Chestplate",
 
   "item.me.black_uruk_plate_helmet": "Black Uruk Plate Helmet",
@@ -681,6 +690,16 @@
   "item.me.uruk_hai_plate_leggings": "Uruk-Hai Plate Leggings",
 
   "item.me.uruk_hai_plate_boots": "Uruk-Hai Plate Boots",
+
+  "item.me.hobgoblin_chain_hauberk": "Hobgoblin Chain Hauberk",
+
+  "item.me.gundabad_hobgoblin_plate_crested_helmet": "Gundabad Hobgoblin Plate Crested Helmet",
+  "item.me.gundabad_hobgoblin_plate_large_crest_helmet": "Gundabad Hobgoblin Plate Large Crest Helmet",
+  "item.me.gundabad_hobgoblin_plate_long_horn_helmet": "Gundabad Hobgoblin Plate Long Horn Helmet",
+  "item.me.gundabad_hobgoblin_plate_small_horn_helmet": "Gundabad Hobgoblin Plate Small Horn Helmet",
+  "item.me.gundabad_hobgoblin_plate_chestplate": "Gundabad Hobgoblin Plate Chestplate",
+  "item.me.gundabad_hobgoblin_chain_coat": "Gundabad Hobgoblin Chain Coat",
+  "item.me.gundabad_hobgoblin_plated_boots": "Gundabad Hobgoblin Plated Boots",
 
   "item.me.steel_troll_armor": "Steel Troll Armor",
 
