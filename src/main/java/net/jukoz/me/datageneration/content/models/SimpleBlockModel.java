@@ -143,7 +143,7 @@ public class SimpleBlockModel {
             add(new ChiseledBlock(ModBlocks.CHISELED_IRONSTONE, StoneBlockSets.IRONSTONE.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_HEMATITE, StoneBlockSets.HEMATITE.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_GNEISS, StoneBlockSets.GNEISS.slab()));
-            add(new ChiseledBlock(ModBlocks.CHISELED_ZIGILABAD, StoneBlockSets.ZIGILABAD.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_ZIGILABAN, StoneBlockSets.ZIGILABAN.slab()));
         }
     };
 
@@ -158,7 +158,7 @@ public class SimpleBlockModel {
             //TODO : Waiting for texture
             //add(new ChiseledBlock(ModBlocks.CHISELED_HEMATITE_BRICKS, StoneBlockSets.HEMATITE_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_GNEISS_BRICKS, StoneBlockSets.GNEISS_BRICKS.slab()));
-            add(new ChiseledBlock(ModBlocks.CHISELED_ZIGILABAD_BRICKS, StoneBlockSets.ZIGILABAD_BRICKS.slab()));
+            add(new ChiseledBlock(ModBlocks.CHISELED_ZIGILABAN_BRICKS, StoneBlockSets.ZIGILABAN_BRICKS.slab()));
             add(new ChiseledBlock(ModBlocks.CHISELED_MEDGON_BRICKS, StoneBlockSets.MEDGON_BRICKS.slab()));
         }
     };
@@ -172,7 +172,7 @@ public class SimpleBlockModel {
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_TUFF, Blocks.POLISHED_TUFF_SLAB));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_HEMATITE, StoneBlockSets.POLISHED_HEMATITE.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_GNEISS, StoneBlockSets.POLISHED_GNEISS.slab()));
-            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_ZIGILABAD, StoneBlockSets.POLISHED_ZIGILABAD.slab()));
+            add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_ZIGILABAN, StoneBlockSets.POLISHED_ZIGILABAN.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_BLUE_TUFF, StoneBlockSets.POLISHED_BLUE_TUFF.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_ASHEN_STONE, StoneBlockSets.POLISHED_ASHEN_STONE.slab()));
             add(new ChiseledPolishedBlock(ModBlocks.CHISELED_POLISHED_MEDGON, StoneBlockSets.POLISHED_MEDGON.slab()));

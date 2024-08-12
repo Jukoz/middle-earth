@@ -127,19 +127,19 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet GNEISS_BRICKWORK = registerStoneSet("gneiss_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
 
-    public static SimpleBlockSetMain ZIGILABAD = registerMainStoneSet("zigilabad", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
-    //public static SimpleBlockSet SMOOTH_ZIGILABAD = registerStoneSet("smooth_zigilabad", ZIGILABAD.base.getHardness(), ZIGILABAD.base.getBlastResistance(), ZIGILABAD.base);
-    //public static SimpleBlockSet COBBLED_ZIGILABAD = registerStoneSet("cobbled_zigilabad", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, ZIGILABAD.base);
-    //public static SimpleBlockSet MOSSY_COBBLED_ZIGILABAD = registerStoneSet("mossy_cobbled_zigilabad", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, COBBLED_ZIGILABAD.base);
-    public static SimpleBlockSet POLISHED_ZIGILABAD = registerStoneSet("polished_zigilabad", ZIGILABAD.base.getHardness(), ZIGILABAD.base.getBlastResistance(), ZIGILABAD.base);
-    //public static SimpleBlockSet MOSSY_POLISHED_ZIGILABAD = registerStoneSet("mossy_polished_zigilabad", ZIGILABAD.base.getHardness(), ZIGILABAD.base.getBlastResistance(), POLISHED_ZIGILABAD.base);
-    //public static SimpleBlockSet CRACKED_POLISHED_ZIGILABAD = registerStoneSet("cracked_polished_zigilabad", ZIGILABAD.base.getHardness(), ZIGILABAD.base.getBlastResistance(), POLISHED_ZIGILABAD.base);
-    public static SimpleBlockSet ZIGILABAD_BRICKS = registerStoneSet("zigilabad_bricks", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, POLISHED_ZIGILABAD.base);
-    //public static SimpleBlockSet MOSSY_ZIGILABAD_BRICKS = registerStoneSet("mossy_zigilabad_bricks", COBBLED_ZIGILABAD.base.getHardness(), COBBLED_ZIGILABAD.base.getBlastResistance(), ZIGILABAD_BRICKS.base);
-    //public static SimpleBlockSet CRACKED_ZIGILABAD_BRICKS = registerStoneSet("cracked_zigilabad_bricks", COBBLED_ZIGILABAD.base.getHardness(), COBBLED_ZIGILABAD.base.getBlastResistance(), ZIGILABAD_BRICKS.base);
-    public static SimpleBlockSet ZIGILABAD_TILES = registerStoneSet("zigilabad_tiles", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, ZIGILABAD_BRICKS.base);
-    //public static SimpleBlockSet MOSSY_ZIGILABAD_TILES = registerStoneSet("mossy_zigilabad_tiles", COBBLED_ZIGILABAD.base.getHardness(), COBBLED_ZIGILABAD.base.getBlastResistance(), ZIGILABAD_TILES.base);
-    //public static SimpleBlockSet CRACKED_ZIGILABAD_TILES = registerStoneSet("cracked_zigilabad_tiles", COBBLED_ZIGILABAD.base.getHardness(), COBBLED_ZIGILABAD.base.getBlastResistance(), ZIGILABAD_TILES.base);
+    public static SimpleBlockSetMain ZIGILABAN = registerMainStoneSet("zigilaban", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
+    //public static SimpleBlockSet SMOOTH_ZIGILABAN = registerStoneSet("smooth_zigilaban", ZIGILABAN.base.getHardness(), ZIGILABAN.base.getBlastResistance(), ZIGILABAN.base);
+    //public static SimpleBlockSet COBBLED_ZIGILABAN = registerStoneSet("cobbled_zigilaban", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, ZIGILABAN.base);
+    //public static SimpleBlockSet MOSSY_COBBLED_ZIGILABAN = registerStoneSet("mossy_cobbled_zigilaban", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, COBBLED_ZIGILABAN.base);
+    public static SimpleBlockSet POLISHED_ZIGILABAN = registerStoneSet("polished_zigilaban", ZIGILABAN.base.getHardness(), ZIGILABAN.base.getBlastResistance(), ZIGILABAN.base);
+    //public static SimpleBlockSet MOSSY_POLISHED_ZIGILABAN = registerStoneSet("mossy_polished_zigilaban", ZIGILABAN.base.getHardness(), ZIGILABAN.base.getBlastResistance(), POLISHED_ZIGILABAN.base);
+    //public static SimpleBlockSet CRACKED_POLISHED_ZIGILABAN = registerStoneSet("cracked_polished_zigilaban", ZIGILABAN.base.getHardness(), ZIGILABAN.base.getBlastResistance(), POLISHED_ZIGILABAN.base);
+    public static SimpleBlockSet ZIGILABAN_BRICKS = registerStoneSet("zigilaban_bricks", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, POLISHED_ZIGILABAN.base);
+    //public static SimpleBlockSet MOSSY_ZIGILABAN_BRICKS = registerStoneSet("mossy_zigilaban_bricks", COBBLED_ZIGILABAN.base.getHardness(), COBBLED_ZIGILABAN.base.getBlastResistance(), ZIGILABAN_BRICKS.base);
+    //public static SimpleBlockSet CRACKED_ZIGILABAN_BRICKS = registerStoneSet("cracked_zigilaban_bricks", COBBLED_ZIGILABAN.base.getHardness(), COBBLED_ZIGILABAN.base.getBlastResistance(), ZIGILABAN_BRICKS.base);
+    public static SimpleBlockSet ZIGILABAN_TILES = registerStoneSet("zigilaban_tiles", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, ZIGILABAN_BRICKS.base);
+    //public static SimpleBlockSet MOSSY_ZIGILABAN_TILES = registerStoneSet("mossy_zigilaban_tiles", COBBLED_ZIGILABAN.base.getHardness(), COBBLED_ZIGILABAN.base.getBlastResistance(), ZIGILABAN_TILES.base);
+    //public static SimpleBlockSet CRACKED_ZIGILABAN_TILES = registerStoneSet("cracked_zigilaban_tiles", COBBLED_ZIGILABAN.base.getHardness(), COBBLED_ZIGILABAN.base.getBlastResistance(), ZIGILABAN_TILES.base);
 
     public static SimpleBlockSetMain FROZEN_STONE = registerMainStoneSet("frozen_stone", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet FROZEN_COBBLESTONE = registerStoneSet("frozen_cobblestone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, FROZEN_STONE.base);
@@ -346,7 +346,7 @@ public class StoneBlockSets {
             
             GNEISS,
 
-            ZIGILABAD,
+            ZIGILABAN,
 
             LIMESTONE,
             
@@ -446,9 +446,9 @@ public class StoneBlockSets {
 
             GNEISS_BRICKWORK,
 
-            ZIGILABAD_BRICKS,
-            ZIGILABAD_TILES,
-            POLISHED_ZIGILABAD,
+            ZIGILABAN_BRICKS,
+            ZIGILABAN_TILES,
+            POLISHED_ZIGILABAN,
 
             COBBLED_LIMESTONE,
             MOSSY_COBBLED_LIMESTONE,

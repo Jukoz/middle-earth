@@ -108,7 +108,7 @@ public class MineablePickaxe {
 
             add(ModBlocks.GNEISS_PILLAR);
 
-            add(ModBlocks.ZIGILABAD_PILLAR);
+            add(ModBlocks.ZIGILABAN_PILLAR);
 
             add(ModBlocks.BLUE_TUFF_PILLAR);
             add(ModBlocks.MOSSY_BLUE_TUFF_PILLAR);
