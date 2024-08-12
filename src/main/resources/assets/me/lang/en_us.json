@@ -46,6 +46,7 @@
   "biome.me.belfalas": "Belfalas",
   "biome.me.belfalas_hills": "Belfalas Hills",
   "biome.me.blue_mountains": "Blue Mountains",
+  "biome.me.blue_mountains_foothills": "Blue Mountains Foothills",
   "biome.me.blue_mountains_base": "Blue Mountains Base",
   "biome.me.blue_mountains_peaks": "Blue Mountains Peaks",
   "biome.me.corsair_coasts": "Corsair Coasts",
@@ -67,6 +68,8 @@
   "biome.me.forodwaith": "Forodwaith",
   "biome.me.frozen_ocean": "Frozen Ocean",
   "biome.me.frozen_pond": "Frozen Pond",
+  "biome.me.golf_of_lhun_cliffs": "Gold Of Lhûn Cliffs",
+  "biome.me.golf_of_lhun_shores": "Gold Of Lhûn Shores",
   "biome.me.gondor": "Gondor",
   "biome.me.grey_mountains": "Grey Mountains",
   "biome.me.grey_plains": "Grey Plains",
@@ -701,6 +704,7 @@
   "item.me.gundabad_hobgoblin_plate_chestplate": "Gundabad Hobgoblin Plate Chestplate",
   "item.me.gundabad_hobgoblin_chain_coat": "Gundabad Hobgoblin Chain Coat",
   "item.me.gundabad_hobgoblin_plated_boots": "Gundabad Hobgoblin Plated Boots",
+  "item.me.gundabad_hobgoblin_plate_trophy_chestplate": "Gundabad Hobgoblin Plate Trophy Chestplate",
 
   "item.me.steel_troll_armor": "Steel Troll Armor",
   "item.me.warg_leather_armor": "Warg Leather Armor",
@@ -745,6 +749,7 @@
   "item.me.uruk_hai_white_hand_shield": "Uruk-Hai White Hand Shield",
   "item.me.uruk_hai_white_palmprint_shield": "Uruk-Hai White Palmprint Shield",
   "item.me.uruk_hai_s_rune_shield": "Uruk-Hai S Rune Shield",
+  "item.me.uruk_hai_siege_shield": "Uruk-Hai Siege Shield",
 
   "item.me.misty_mountains_shield": "Misty Mountains Shield",
 
