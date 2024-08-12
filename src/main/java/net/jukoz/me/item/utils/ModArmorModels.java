@@ -3,6 +3,7 @@ package net.jukoz.me.item.utils;
 import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
 import net.jukoz.me.client.model.equipment.chest.HaltChestplateModel;
 import net.jukoz.me.client.model.equipment.chest.HobgoblinPlateChestplateModel;
+import net.jukoz.me.client.model.equipment.chest.HobgoblinTrophyPlateChestplateModel;
 import net.jukoz.me.client.model.equipment.head.*;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.minecraft.entity.LivingEntity;
@@ -128,7 +129,7 @@ public class ModArmorModels {
         URUK_HAI_PLATE_CHESTPLATE(ModEquipmentItems.URUK_HAI_PLATE_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
 
         GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE, new HobgoblinPlateChestplateModel<>(HobgoblinPlateChestplateModel.getTexturedModelData().createModel())),
-
+        GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE, new HobgoblinTrophyPlateChestplateModel<>(HobgoblinTrophyPlateChestplateModel.getTexturedModelData().createModel())),
         ;
 
         private final Item item;
