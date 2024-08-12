@@ -26,7 +26,7 @@ public class MiddleEarthHeightMap {
     public static final int HEIGHT = 8 + STONE_HEIGHT;
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
     public static final int WATER_MAX = 24;
-    public static final float WATER_MULTIPLIER = 2f;
+    public static final float WATER_MULTIPLIER = 1.8f;
     public static final float WATER_PERLIN_DIVIDER = 3.6f;
     private static final int PIXEL_WEIGHT = MiddleEarthMapConfigs.PIXEL_WEIGHT;
     public static final ArrayList<Float> percentages = new ArrayList<Float>();
@@ -42,21 +42,34 @@ public class MiddleEarthHeightMap {
 
         Color color = middleEarthMapRuntime.getHeight(xWorld, zWorld);
 
-
-        if(color != null){
+        if(color != null) {
             float blue = color.getBlue();
-
             float height = color.getRed();
 
             if(blue > 0) { // Water carver
+                MEBiome meBiome = middleEarthMapRuntime.getBiome(xWorld, zWorld);
                 float percentage = (WATER_MAX - blue) / WATER_MAX;
                 percentage = Math.max(0, Math.min(1, percentage));
+                float waterDifference = (float) (meBiome.waterHeight - MEBiome.DEFAULT_WATER_HEIGHT);
+                height -= waterDifference;
                 height *= percentage;
+                height += waterDifference;
                 height -= blue * WATER_MULTIPLIER;
             }
             return height;
         }
-        return MEBiomesData.defaultBiome.height * WATER_MULTIPLIER;
+        return MEBiomesData.defaultBiome.height * 2.0f;
+    }
+
+    public static float getImageNoiseModifier(int xWorld, int zWorld) {
+        if(middleEarthMapRuntime == null) middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
+
+        Color color = middleEarthMapRuntime.getHeight(xWorld, zWorld);
+
+        if(color != null) {
+            return color.getGreen();
+        }
+        return 0.5f;
     }
 
     public static double getPerlinHeight(int x, int z) {

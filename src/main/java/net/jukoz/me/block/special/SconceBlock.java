@@ -5,6 +5,7 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -17,12 +18,16 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.event.GameEvent;
+import org.jetbrains.annotations.Nullable;
 
 public class SconceBlock extends net.minecraft.block.TorchBlock {
 
@@ -35,19 +40,34 @@ public class SconceBlock extends net.minecraft.block.TorchBlock {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if(world.isClient){
-            return ActionResult.SUCCESS;
-        } else {
-            if(player.getStackInHand(player.getActiveHand()).isOf(Items.FLINT_AND_STEEL) && !state.get(LIT)){
-                world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0F, 1.5F);
+        Hand hand = player.getActiveHand();
+        if (!world.isClient && player.getAbilities().allowModifyWorld) {
+            if(player.isCreative()){
                 world.setBlockState(pos, state.cycle(LIT));
-            } else if (player.getStackInHand(player.getActiveHand()).isIn(ItemTags.SHOVELS) && state.get(LIT)) {
-                world.playSound(null, pos, SoundEvents.BLOCK_CANDLE_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                world.setBlockState(pos, state.cycle(LIT));
+            } else {
+                ItemStack itemStack = player.getStackInHand(hand);
+                if (state.get(LIT) && itemStack.isIn(ItemTags.SHOVELS)) {
+                    extinguish(null, state, world, pos);
+                } else if (!state.get(LIT) && itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.TORCH)) {
+                    setLit(world, state, pos, true);
+                }
             }
         }
+        return ActionResult.SUCCESS;
+    }
 
-        return super.onUse(state, world, pos, player, hit);
+    protected static void setLit(WorldAccess world, BlockState state, BlockPos pos, boolean lit) {
+        world.setBlockState(pos, state.with(LIT, lit), 2 | 3);
+        if(lit){
+            world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.5F, 1.0F);
+        }
+    }
+
+    protected static void extinguish(@Nullable PlayerEntity player, BlockState state, WorldAccess world, BlockPos pos) {
+        setLit(world, state, pos, false);
+
+        world.playSound(null, pos, SoundEvents.BLOCK_CANDLE_EXTINGUISH, SoundCategory.BLOCKS, 1.5F, 1.0F);
+        world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {

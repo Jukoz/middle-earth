@@ -73,9 +73,9 @@ public class ModCaveBiomes {
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
 
         context.register(MEBiomeKeys.BASALT_CAVE, createBasaltCave(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 9534809, 8878692)));
+                4142646, 3090215, 6450777, 1513734, 3550502, 2169880)));
         context.register(MEBiomeKeys.MAGMA_CAVE, createMagmaCave(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 9527897, 8876132)));
+                4142646, 3090215, 6450777, 1513734, 3550502, 2169880)));
 
         context.register(MEBiomeKeys.DRY_CAVE, createDryCave(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 10928742, 11259497)));
