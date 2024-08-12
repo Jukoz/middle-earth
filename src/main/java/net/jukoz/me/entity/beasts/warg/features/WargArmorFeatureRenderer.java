@@ -4,6 +4,7 @@ import net.jukoz.me.entity.beasts.warg.WargEntity;
 import net.jukoz.me.entity.beasts.warg.WargModel;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
 import net.jukoz.me.item.items.CustomAnimalArmorItem;
+import net.jukoz.me.item.items.CustomHorseArmorItem;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -13,6 +14,7 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.type.DyedColorComponent;
+import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.ItemTags;
@@ -28,17 +30,19 @@ public class WargArmorFeatureRenderer extends FeatureRenderer<WargEntity, WargMo
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, WargEntity wargEntity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        CustomAnimalArmorItem animalArmorItem;
+
         ItemStack itemStack = wargEntity.getBodyArmor();
         Item item = itemStack.getItem();
-        if (!(item instanceof CustomAnimalArmorItem) || (animalArmorItem = (CustomAnimalArmorItem)item).getArmorType() != CustomAnimalArmorItem.Type.WARG_PLATE) {
-            return;
+        if(item instanceof CustomAnimalArmorItem animalArmorItem){
+            if (animalArmorItem.getArmorType() == CustomAnimalArmorItem.Type.WARG) {
+                ((WargModel)this.getContextModel()).copyStateTo(this.model);
+
+                this.model.setAngles(wargEntity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+
+                VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getEntityTexture()));
+                this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, -1);
+                return;
+            }
         }
-
-        this.model.setAngles(wargEntity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-
-        ((WargModel)this.getContextModel()).copyStateTo(this.model);
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getEntityTexture()));
-        this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, -1);
     }
 }
