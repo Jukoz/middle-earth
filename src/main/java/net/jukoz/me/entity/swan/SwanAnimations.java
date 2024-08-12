@@ -364,7 +364,7 @@ public class SwanAnimations {
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("root",
                     new Transformation(Transformation.Targets.TRANSLATE,
-                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -4f, 0f),
+                            new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("leftWing",
                     new Transformation(Transformation.Targets.ROTATE,

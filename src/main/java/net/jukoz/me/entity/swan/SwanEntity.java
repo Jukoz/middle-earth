@@ -5,6 +5,8 @@ import net.jukoz.me.entity.duck.DuckEntity;
 import net.jukoz.me.entity.pheasant.PheasantEntity;
 import net.jukoz.me.entity.pheasant.PheasantVariant;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.FluidBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
@@ -20,6 +22,8 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -27,7 +31,9 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -81,7 +87,7 @@ public class SwanEntity extends AnimalEntity {
     public static DefaultAttributeContainer.Builder createSwanAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0);
     }
@@ -141,6 +147,23 @@ public class SwanEntity extends AnimalEntity {
     public void tickMovement() {
         super.tickMovement();
         this.flapWings();
+        this.updateFloating();
+
+    }
+    private void updateFloating() {
+        if (this.isTouchingWater()) {
+            ShapeContext shapeContext = ShapeContext.of(this);
+            if (!shapeContext.isAbove(FluidBlock.COLLISION_SHAPE, this.getBlockPos(), true) || this.getWorld().getFluidState(this.getBlockPos().up()).isIn(FluidTags.WATER)) {
+                this.setVelocity(this.getVelocity().multiply(0.5).add(0.0, 0.05, 0.0));
+            } else {
+                this.setOnGround(true);
+            }
+        }
+    }
+
+    @Override
+    public boolean canWalkOnFluid(FluidState state) {
+        return state.isIn(FluidTags.WATER);
     }
 
     private void flapWings() {
