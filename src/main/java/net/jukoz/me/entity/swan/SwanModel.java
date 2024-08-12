@@ -1,5 +1,7 @@
 package net.jukoz.me.entity.swan;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.jukoz.me.entity.deer.DeerAnimations;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
@@ -7,7 +9,10 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import org.joml.Vector3f;
 
+@Environment(value= EnvType.CLIENT)
 public class SwanModel extends SinglePartEntityModel<SwanEntity> {
     private final ModelPart swan;
     private final ModelPart head;
@@ -16,7 +21,7 @@ public class SwanModel extends SinglePartEntityModel<SwanEntity> {
 
     public SwanModel(ModelPart root) {
         this.swan = root.getChild("root");
-        this.head = swan.getChild("body").getChild("headAndNeck").getChild("head");
+        this.head = swan.getChild("body").getChild("headAndNeck");
         this.rightWing = swan.getChild("body").getChild("rightWing");
         this.leftWing = swan.getChild("body").getChild("leftWing");
     }
@@ -77,18 +82,16 @@ public class SwanModel extends SinglePartEntityModel<SwanEntity> {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
         this.setHeadAngles(headYaw, headPitch);
 
-        this.rightWing.roll = 0;
-        this.leftWing.roll = 0;
-
         if(!entity.isOnGround() && !entity.isTouchingWater()) {
             float angle = MathHelper.cos(MathHelper.cos(animationProgress * 0.5f));
             this.rightWing.roll = 4 + (4 * angle);
             this.leftWing.roll = -4 - (4 * angle);
         }
 
-        this.animateMovement(SwanAnimations.WALK, limbAngle, limbDistance, 1f, 1f);
+        this.animateMovement(SwanAnimations.WALK, limbAngle, limbDistance, 4f, 4f);
         this.updateAnimation(entity.swimAnimationState, SwanAnimations.SWIM, animationProgress, 1f);
         this.updateAnimation(entity.idleAnimationState, SwanAnimations.WINGCLEAN, animationProgress, 1f);
+        this.updateAnimation(entity.attackAnimationState, SwanAnimations.ATTACK, animationProgress, 1.7f);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {

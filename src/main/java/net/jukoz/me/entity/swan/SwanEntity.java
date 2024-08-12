@@ -7,6 +7,7 @@ import net.jukoz.me.entity.pheasant.PheasantVariant;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
@@ -51,11 +52,11 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class SwanEntity extends AnimalEntity {
-
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public static final Ingredient BREEDING_INGREDIENT = Ingredient.fromTag(ItemTags.CHICKEN_FOOD);
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState attackAnimationState = new AnimationState();
     private int idleAnimationTimeout = this.random.nextInt(100) + 950;
 
 
@@ -69,8 +70,8 @@ public class SwanEntity extends AnimalEntity {
 
         this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
 
-        this.goalSelector.add(2, new MeleeAttackGoal(this, 0.9f, false));
-        this.goalSelector.add(3, new EscapeDangerGoal(this, 1.15));
+        this.goalSelector.add(2, new MeleeAttackGoal(this, 1.5f, false));
+        this.goalSelector.add(3, new EscapeDangerGoal(this, 1.5f));
         this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
         this.goalSelector.add(5, new TemptGoal(this, 1.1, BREEDING_INGREDIENT, false));
 
@@ -87,7 +88,7 @@ public class SwanEntity extends AnimalEntity {
     public static DefaultAttributeContainer.Builder createSwanAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0);
     }
@@ -121,7 +122,7 @@ public class SwanEntity extends AnimalEntity {
     }
 
     private void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0) {
+        if (this.idleAnimationTimeout <= 0 && !this.isAttacking()) {
             this.idleAnimationTimeout = this.random.nextInt(100) + 950;
             this.idleAnimationState.start(this.age);
         } else {
@@ -148,8 +149,8 @@ public class SwanEntity extends AnimalEntity {
         super.tickMovement();
         this.flapWings();
         this.updateFloating();
-
     }
+
     private void updateFloating() {
         if (this.isTouchingWater()) {
             ShapeContext shapeContext = ShapeContext.of(this);
@@ -177,6 +178,21 @@ public class SwanEntity extends AnimalEntity {
         this.playSound(SoundEvents.ENTITY_PARROT_FLY, 0.15F, 1.0F);
     }
 
+    @Override
+    public boolean tryAttack(Entity target) {
+        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+        return super.tryAttack(target);
+    }
+
+    @Override
+    public void handleStatus(byte status) {
+        if(status == EntityStatuses.PLAY_ATTACK_SOUND) {
+            this.attackAnimationState.start(this.age);
+        }
+        super.handleStatus(status);
+
+    }
+
     protected SoundEvent getAmbientSound() {
         return SoundEvents.ENTITY_CHICKEN_AMBIENT;
     }
@@ -198,13 +214,17 @@ public class SwanEntity extends AnimalEntity {
 
     @Nullable
     public SwanEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-        return (SwanEntity) ModEntities.SWAN.create(serverWorld);
+        SwanEntity child = ModEntities.SWAN.create(serverWorld);
+        SwanVariant variant = Util.getRandom(SwanVariant.values(), this.random);
+
+        child.setVariant(variant);
+
+        return child;
     }
 
     public boolean isBreedingItem(ItemStack stack) {
         return BREEDING_INGREDIENT.test(stack);
     }
-
 
     public boolean isPushedByFluids() {
         return true;
