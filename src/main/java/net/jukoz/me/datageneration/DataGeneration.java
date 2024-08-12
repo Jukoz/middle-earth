@@ -21,8 +21,11 @@ import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
 
 public class DataGeneration implements DataGeneratorEntrypoint {
+    public static boolean isDataGen = false;
+
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
+        isDataGen = true;
 
         HelpingGenerator.generateFiles();
 
