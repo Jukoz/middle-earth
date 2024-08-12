@@ -42,6 +42,8 @@ public class SimpleItemModel {
             add(ModFoodItems.VEGETABLE_SKEWER);
             add(ModFoodItems.COOKED_VEGETABLE_SKEWER);
             add(ModFoodItems.VEGETABLE_SOUP);
+            add(ModFoodItems.RAW_VENISON);
+            add(ModFoodItems.COOKED_VENISON);
             add(ModFoodItems.RAW_HORSE);
             add(ModFoodItems.COOKED_HORSE);
             add(ModFoodItems.RAW_RAT);
@@ -58,6 +60,7 @@ public class SimpleItemModel {
 
             add(ModResourceItems.ORC_BONE);
             add(ModResourceItems.WARG_BONE);
+            add(ModResourceItems.FANG);
 
             add(ModResourceItems.ASH);
 

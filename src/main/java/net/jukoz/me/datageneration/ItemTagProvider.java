@@ -7,11 +7,13 @@ import net.jukoz.me.block.OreRockSets;
 import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
 import net.jukoz.me.datageneration.content.tags.*;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
@@ -28,6 +30,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var bones = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
         var feathers = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "feathers")));
         var cloaks = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "cloaks")));
+        var warg_food = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food")));
         var dyeable = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")));
 
         TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "iron_ores"));
@@ -54,6 +57,17 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "logs"))).add(Logs.getItemPlanks().toArray(new Item[0]));
 
+
+        warg_food.add(Items.RABBIT);
+        warg_food.add(Items.CHICKEN);
+        warg_food.add(Items.PORKCHOP);
+        warg_food.add(Items.BEEF);
+        warg_food.add(Items.MUTTON);
+        warg_food.add(ModFoodItems.RAW_HORSE);
+        warg_food.add(ModFoodItems.RAW_DUCK);
+        warg_food.add(ModFoodItems.RAW_GOOSE);
+        warg_food.add(ModFoodItems.RAW_SWAN);
+        warg_food.add(ModFoodItems.RAW_VENISON);
 
         bones.add(Items.BONE);
         bones.add(ModResourceItems.ORC_BONE);

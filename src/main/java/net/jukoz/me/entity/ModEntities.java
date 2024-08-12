@@ -7,6 +7,7 @@ import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancEntity;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntity;
 import net.jukoz.me.entity.beasts.trolls.petrified.PetrifiedTrollEntity;
 import net.jukoz.me.entity.beasts.trolls.stone.StoneTrollEntity;
+import net.jukoz.me.entity.beasts.warg.WargEntity;
 import net.jukoz.me.entity.crab.CrabEntity;
 import net.jukoz.me.entity.deer.DeerEntity;
 import net.jukoz.me.entity.duck.DuckEntity;
@@ -110,6 +111,9 @@ public class ModEntities {
     // Nazgul
     public static final EntityType<NazgulEntity> NAZGUL = registerEntity("nazgul", NazgulEntity::new, SpawnGroup.CREATURE, 0.8f, 1.9f);
 
+    // Wargs
+    public static final EntityType<WargEntity> WARG = registerEntity("warg", WargEntity::new, SpawnGroup.CREATURE, 1.4f, 1.4f);
+
     // Spiders
     public static final EntityType<MirkwoodSpiderEntity> MIRKWOOD_SPIDER = registerEntity("mirkwood_spider", MirkwoodSpiderEntity::new, SpawnGroup.CREATURE, 1.15f, 0.9f);
 
@@ -193,6 +197,8 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(MISTY_HOBGOBLIN_LEADER, MordorBlackUrukEntity.setLeaderAttributes());
 
         FabricDefaultAttributeRegistry.register(NAZGUL, NazgulEntity.setAttributes());
+
+        FabricDefaultAttributeRegistry.register(WARG, WargEntity.setAttributes());
 
         FabricDefaultAttributeRegistry.register(MIRKWOOD_SPIDER, MirkwoodSpiderEntity.setAttributes());
 

@@ -889,9 +889,9 @@ public class ModEquipmentItems {
     /*public static final Item STEEL_TROLL_ARMOR = registerGeneratedItem("steel_troll_armor",
             new TrollArmorItem(10, "steel", new Item.Settings().maxCount(1)));*/
 
-    //endregion
-
-    //endregion
+    // GENERIC
+    public static final Item WARG_LEATHER_ARMOR = registerItem("warg_leather_armor", new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4))));
+    public static final Item WARG_PLATE_ARMOR = registerItem("warg_plate_armor", new CustomAnimalArmorItem(ModArmorMaterials.PLATE, CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10))));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());

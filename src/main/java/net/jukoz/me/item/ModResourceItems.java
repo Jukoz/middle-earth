@@ -138,6 +138,8 @@ public class ModResourceItems {
             new Item(new Item.Settings()));
     public static final Item WARG_BONE = registerItem("warg_bone",
             new Item(new Item.Settings()));
+    public static final Item FANG = registerItem("fang",
+            new Item(new Item.Settings()));
 
     public static final Item ASH = registerItem("ash",
             new Item(new Item.Settings()));
