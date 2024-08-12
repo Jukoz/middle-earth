@@ -1,6 +1,8 @@
 package net.jukoz.me.block.special.fire_of_orthanc;
 
 import com.mojang.serialization.MapCodec;
+import net.jukoz.me.item.ModDecorativeItems;
+import net.jukoz.me.item.ModToolItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -27,16 +29,14 @@ import org.jetbrains.annotations.Nullable;
 
 public class FireOfOrthancBlock extends Block {
     public static final MapCodec<FireOfOrthancBlock> CODEC = createCodec(FireOfOrthancBlock::new);
-    public static final VoxelShape OUTLINE_SHAPE = VoxelShapes.union(
-            Block.createCuboidShape(3.0, 3.0, 3.0, 13.0, 13.0, 13.0),
-            Block.createCuboidShape(6.0, 13.0, 6.0, 10.0, 15.0, 10.0));
+    public static final VoxelShape OUTLINE_SHAPE = Block.createCuboidShape(2, 0, 2, 14, 12, 14);
 
     public FireOfOrthancBlock(Settings settings) {
         super(settings);
     }
 
     protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!stack.isOf(Items.FLINT_AND_STEEL) && !stack.isOf(Items.FIRE_CHARGE)) {
+        if (!stack.isOf(ModDecorativeItems.TORCH_OF_ORTHANC)) {
             return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
         } else {
             explode(world, pos, player);

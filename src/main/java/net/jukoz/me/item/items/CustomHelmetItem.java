@@ -79,7 +79,9 @@ public class CustomHelmetItem extends ArmorItem {
         super.appendTooltip(stack, context, tooltip, type);
     }
 
-    @Override
+
+    //TODO fix with packets
+    /*@Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if(KeyInputHandler.hoodKey.isPressed()){
             HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
@@ -104,5 +106,5 @@ public class CustomHelmetItem extends ArmorItem {
                 }
             }
         }
-    }
+    }*/
 }

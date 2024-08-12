@@ -293,6 +293,12 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         for(SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledPolishedBlocks) {
             createCutPolishedRecipe(exporter, block.origin(), block.base(), 1);
         }
+        for(SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledTilesBlocksTopBottom) {
+            createCutPolishedRecipe(exporter, block.origin(), block.base(), 1);
+        }
+        for(SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledSmoothBlocksTopBottom) {
+            createCutPolishedRecipe(exporter, block.origin(), block.base(), 1);
+        }
 
         for(SimpleSlabModel.Slab slab : SimpleSlabModel.vanillaSlabs){
             createSlabsRecipe(exporter, slab.origin(), slab.slab());
