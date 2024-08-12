@@ -3,7 +3,9 @@ package net.jukoz.me.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.network.packets.C2S.TeleportRequestPacket;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.gui.DrawContext;
@@ -178,11 +180,10 @@ public class MiddleEarthMapScreen extends Screen {
                 context.drawTextWithShadow(textRenderer, Text.literal("Cursor information"), 0, 45, 0xffffff);
                 context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + ((outsideBound) ? "N/A" : (int)cursorWorldCoordinate.x + ", "+ (int)cursorWorldCoordinate.y)), 5, 55, 0xffffff);
 
-                /*
-                if(!oustideBound && this.player.isCreative()){
+
+                if(!outsideBound && this.player.isCreative()){
                     context.drawTextWithShadow(textRenderer, Text.literal("Right Click to teleport"), mouseX + 10, mouseY, 0xcccccc);
                 }
-                 */
             }
         }
     }
@@ -203,15 +204,8 @@ public class MiddleEarthMapScreen extends Screen {
     }
 
     private void getTeleport(Vector2i coord){
-        if(ModDimensions.isInMiddleEarth(this.player.getWorld())){
-            String tpString = "/tp %s ~ %s".formatted(coord.x, coord.y);
-            new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, tpString);
-
-            /*
-                float y = MiddleEarthHeightMap.getHeight(coord.x, coord.y);
-                this.player.teleport(coord.x , y, coord.y);
-                player.refreshPositionAfterTeleport( coord.x , y, coord.y);
-             */
+        if(ModDimensions.isInMiddleEarth(this.player.getWorld()) && this.player.isCreative()){
+            ClientPlayNetworking.send(new TeleportRequestPacket(coord.x, coord.y));
         }
     }
 
