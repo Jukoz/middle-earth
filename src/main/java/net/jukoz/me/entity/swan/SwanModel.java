@@ -15,13 +15,15 @@ import org.joml.Vector3f;
 @Environment(value= EnvType.CLIENT)
 public class SwanModel extends SinglePartEntityModel<SwanEntity> {
     private final ModelPart swan;
+    private final ModelPart headAndNeck;
     private final ModelPart head;
     private final ModelPart rightWing;
     private final ModelPart leftWing;
 
     public SwanModel(ModelPart root) {
         this.swan = root.getChild("root");
-        this.head = swan.getChild("body").getChild("headAndNeck");
+        this.headAndNeck = swan.getChild("body").getChild("headAndNeck");
+        this.head = swan.getChild("body").getChild("headAndNeck").getChild("head");
         this.rightWing = swan.getChild("body").getChild("rightWing");
         this.leftWing = swan.getChild("body").getChild("leftWing");
     }
@@ -88,6 +90,10 @@ public class SwanModel extends SinglePartEntityModel<SwanEntity> {
             this.leftWing.roll = -4 - (4 * angle);
         }
 
+        if(entity.isBaby()) {
+            this.head.scale(new Vector3f(0.8f,0.8f,0.8f));
+        }
+
         this.animateMovement(SwanAnimations.WALK, limbAngle, limbDistance, 4f, 4f);
         this.updateAnimation(entity.swimAnimationState, SwanAnimations.SWIM, animationProgress, 1f);
         this.updateAnimation(entity.idleAnimationState, SwanAnimations.WINGCLEAN, animationProgress, 1f);
@@ -98,7 +104,7 @@ public class SwanModel extends SinglePartEntityModel<SwanEntity> {
         headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
         headPitch = MathHelper.clamp(headPitch, -25.0F, 40.0F);
 
-        this.head.yaw = headYaw * 0.017453292F;
-        this.head.pitch = headPitch * 0.017453292F;
+        this.headAndNeck.yaw = headYaw * 0.017453292F;
+        this.headAndNeck.pitch = headPitch * 0.017453292F;
     }
 }

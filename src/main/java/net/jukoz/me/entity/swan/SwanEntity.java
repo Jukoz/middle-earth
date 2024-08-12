@@ -122,7 +122,10 @@ public class SwanEntity extends AnimalEntity {
     }
 
     private void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0 && !this.isAttacking()) {
+        if(this.isAttacking()) {
+            this.idleAnimationTimeout = this.random.nextInt(100) + 950;
+        }
+        if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = this.random.nextInt(100) + 950;
             this.idleAnimationState.start(this.age);
         } else {
