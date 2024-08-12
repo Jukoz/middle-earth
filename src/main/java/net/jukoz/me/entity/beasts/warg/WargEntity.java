@@ -43,6 +43,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -80,7 +81,9 @@ public class WargEntity extends BeastEntity {
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2d)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0d)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 38.0d)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0d);
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0d)
+                .add(EntityAttributes.GENERIC_STEP_HEIGHT, 1.15d)
+                .add(EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, 6.0d);
     }
 
     @Override
@@ -279,6 +282,25 @@ public class WargEntity extends BeastEntity {
     }
 
     @Override
+    public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
+        int i;
+        if (fallDistance > 1.0f) {
+            this.playSound(SoundEvents.ENTITY_WOLF_STEP, 2.5f, 0.7f);
+        }
+        if ((i = this.computeFallDamage(fallDistance, damageMultiplier)) <= 0) {
+            return false;
+        }
+        this.damage(damageSource, i);
+        if (this.hasPassengers()) {
+            for (Entity entity : this.getPassengersDeep()) {
+                entity.damage(damageSource, i);
+            }
+        }
+        this.playBlockFallSound();
+        return true;
+    }
+
+    @Override
     public boolean isHorseArmor(ItemStack stack) {
         return (stack.isOf(ModEquipmentItems.WARG_LEATHER_ARMOR) || stack.isOf(ModEquipmentItems.WARG_PLATE_ARMOR));
     }
@@ -378,5 +400,15 @@ public class WargEntity extends BeastEntity {
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.15f, 0.7f);
+    }
+
+    @Override
+    protected void playWalkSound(BlockSoundGroup group) {
+        this.playSound(SoundEvents.ENTITY_WOLF_STEP, 1.0f, 0.7f);
+    }
+
+    @Override
+    protected void playJumpSound() {
+        this.playSound(SoundEvents.ENTITY_WOLF_STEP, 1.1f, 0.7f);
     }
 }
