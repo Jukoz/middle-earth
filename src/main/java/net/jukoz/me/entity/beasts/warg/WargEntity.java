@@ -208,9 +208,9 @@ public class WargEntity extends BeastEntity {
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
         float f = this.limbAnimator.getSpeed();
         float g = this.limbAnimator.getPos() * (MathHelper.PI / 180) * 18;
-        float h = passenger.isSprinting() ? 2 : 1;
+        float h = passenger.isSprinting() ? 1 : 0;
 
-        double y = (MathHelper.cos(g * h * 1.2f) * f * (0.06 + (0.035 * (h - 1)))) - 0.1;
+        double y = (MathHelper.cos(g * 2 * 1.2f - (MathHelper.PI * (h - 1))) * f * (0.06 + (0.035 * h))) - 0.1;
 
         return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
     }
