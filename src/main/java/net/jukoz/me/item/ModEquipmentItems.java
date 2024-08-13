@@ -1,8 +1,6 @@
 package net.jukoz.me.item;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.client.model.equipment.chest.*;
-import net.jukoz.me.client.model.equipment.head.*;
 import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleItemModel;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
@@ -489,7 +487,7 @@ public class ModEquipmentItems {
     public static final Item BARDING_CHAIN_SKIRT = registerArmorPiece("barding_chain_skirt",
             new CustomLeggingsItem(ModArmorMaterials.STEEL_T5, ArmorItem.Type.LEGGINGS, new Item.Settings(),
                     ModFactions.DALE));
-    public static final Item BARDING_PLATED_BOOTS = registerArmorPiece("barding_plated_boots",
+    public static final Item BARDING_PLATE_BOOTS = registerArmorPiece("barding_plate_boots",
             new CustomBootsItem(ModArmorMaterials.STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModFactions.DALE));
 
@@ -864,7 +862,7 @@ public class ModEquipmentItems {
             new CustomChestplateItem(ModArmorMaterials.URUK_STEEL_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModFactions.MISTY_MOUNTAINS_ORCS));
     
-    public static final Item GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_crested_helmet",
+    public static final Item GUNDABAD_HOBGOBLIN_PLATE_CREST_HELMET = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_crest_helmet",
             new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
     public static final Item GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_large_crest_helmet",
@@ -882,7 +880,7 @@ public class ModEquipmentItems {
     public static final Item GUNDABAD_HOBGOBLIN_CHAIN_COAT = registerArmorPiece("gundabad_hobgoblin_chain_coat",
             new CustomLeggingsItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.LEGGINGS, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
-    public static final Item GUNDABAD_HOBGOBLIN_PLATED_BOOTS = registerArmorPiece("gundabad_hobgoblin_plated_boots",
+    public static final Item GUNDABAD_HOBGOBLIN_PLATE_BOOTS = registerArmorPiece("gundabad_hobgoblin_plate_boots",
             new CustomBootsItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
 
