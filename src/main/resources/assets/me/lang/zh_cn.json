@@ -572,7 +572,7 @@
   "item.me.barding_soldier_helmet": "巴德士兵头盔",
   "item.me.barding_soldier_chestplate": "巴德士兵胸甲",
   "item.me.barding_chain_skirt": "巴德锁链裙甲",
-  "item.me.barding_plate_boots": "巴德板条靴子",
+  "item.me.barding_plated_boots": "巴德板条靴子",
 
   "item.me.barding_sergeant_helmet": "巴德将领头盔",
   "item.me.barding_sergeant_chestplate": "巴德将领胸甲",
@@ -697,13 +697,13 @@
 
   "item.me.hobgoblin_chain_hauberk": "大半兽人锁子帷子",
 
-  "item.me.gundabad_hobgoblin_plate_crest_helmet": "贡达巴德大半兽人板条头饰头盔",
+  "item.me.gundabad_hobgoblin_plate_crested_helmet": "贡达巴德大半兽人板条头饰头盔",
   "item.me.gundabad_hobgoblin_plate_large_crest_helmet": "贡达巴德大半兽人板条大头饰头盔",
   "item.me.gundabad_hobgoblin_plate_long_horn_helmet": "贡达巴德大半兽人板条大角头盔",
   "item.me.gundabad_hobgoblin_plate_small_horn_helmet": "贡达巴德大半兽人板条小角头盔",
   "item.me.gundabad_hobgoblin_plate_chestplate": "贡达巴德大半兽人板条胸甲",
   "item.me.gundabad_hobgoblin_chain_coat": "贡达巴德大半兽人锁链外套",
-  "item.me.gundabad_hobgoblin_plate_boots": "贡达巴德大半兽人板条靴子",
+  "item.me.gundabad_hobgoblin_plated_boots": "贡达巴德大半兽人板条靴子",
   "item.me.gundabad_hobgoblin_plate_trophy_chestplate": "贡达巴德大半兽人板条战利胸甲",
 
   "item.me.steel_troll_armor": "钢食人妖铠",
