@@ -101,7 +101,7 @@ public class WargEntity extends BeastEntity {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(4, new MeleeAttackGoal(this, HUNTING_SPEED, false));
         this.goalSelector.add(5, new ChargeAttackGoal(this, maxChargeCooldown()));
-        this.goalSelector.add(6, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
+        this.goalSelector.add(6, new BeastFollowOwnerGoal(this, HUNTING_SPEED, 10.0f, 2.0f));
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(9, new LookAroundGoal(this));
@@ -223,9 +223,15 @@ public class WargEntity extends BeastEntity {
         super.tickMovement();
 
         if(this.isAttacking() || this.getAttacker() != null) {
-            this.setSitting(false);
-            this.idleAnimationTimeout = this.random.nextInt(600) + 1700;
+            if(!this.isTame() || this.isTame() && this.getAttacker() != null) {
+                this.setSitting(false);
+            }
 
+            if(!this.hasControllingPassenger()) {
+                this.setRunning(true);
+            }
+
+            this.idleAnimationTimeout = this.random.nextInt(600) + 1700;
         }
         else if (--idleAnimationTimeout <= 0 && !this.isTame()){
             this.setSitting(!this.isSitting());
