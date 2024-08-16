@@ -853,6 +853,12 @@
   "item.me.rohirrim_veteran_spawn_egg": "Rohirrim Veteran Spawn Egg",
   "item.me.rohirrim_leader_spawn_egg": "Rohirrim Leader Spawn Egg",
 
+  "item.me.dalish_militia_spawn_egg": "Dalish Militia Spawn Egg",
+  "item.me.dalish_soldier_spawn_egg": "Dalish Soldier Spawn Egg",
+  "item.me.dalish_knight_spawn_egg": "Dalish Knight Spawn Egg",
+  "item.me.dalish_veteran_spawn_egg": "Dalish Veteran Spawn Egg",
+  "item.me.dalish_leader_spawn_egg": "Dalish Leader Spawn Egg",
+
   "item.me.longbeard_militia_spawn_egg": "Longbeard Militia Spawn Egg",
   "item.me.longbeard_soldier_spawn_egg": "Longbeard Soldier Spawn Egg",
   "item.me.longbeard_elite_spawn_egg": "Longbeard Elite Spawn Egg",
@@ -876,6 +882,12 @@
   "item.me.misty_hobgoblin_soldier_spawn_egg": "Misty Hobgoblin Soldier Spawn Egg",
   "item.me.misty_hobgoblin_veteran_spawn_egg": "Misty Hobgoblin Veteran Spawn Egg",
   "item.me.misty_hobgoblin_leader_spawn_egg": "Misty Hobgoblin Leader Spawn Egg",
+
+  "item.me.isengard_orc_snaga_spawn_egg": "Isengard Orc Snaga Spawn Egg",
+  "item.me.isengard_orc_warrior_spawn_egg": "Isengard Orc Warrior Spawn Egg",
+  "item.me.isengard_uruk_hai_soldier_spawn_egg": "Isengard Uruk-Hai Soldier Spawn Egg",
+  "item.me.isengard_uruk_hai_veteran_spawn_egg": "Isengard Uruk-Hai Veteran Spawn Egg",
+  "item.me.isengard_uruk_hai_leader_spawn_egg": "Isengard Uruk-Hai Leader Spawn Egg",
 
   "item.me.bandit_militia_spawn_egg": "Bandit Militia Spawn Egg",
   "item.me.bandit_soldier_spawn_egg": "Bandit Soldier Spawn Egg",
@@ -923,6 +935,12 @@
   "entity.me.rohirrim_veteran": "Rohirrim Veteran",
   "entity.me.rohirrim_leader": "Rohirrim Leader",
 
+  "entity.me.dalish_militia": "Dalish Militia",
+  "entity.me.dalish_soldier": "Dalish Soldier",
+  "entity.me.dalish_knight": "Dalish Knight",
+  "entity.me.dalish_veteran": "Dalish Veteran",
+  "entity.me.dalish_leader": "Dalish Leader",
+
   "entity.me.longbeard_militia": "Longbeard Militia",
   "entity.me.longbeard_soldier": "Longbeard Soldier",
   "entity.me.longbeard_elite": "Longbeard Elite",
@@ -946,6 +964,12 @@
   "entity.me.misty_hobgoblin_soldier": "Misty Hobgoblin Soldier",
   "entity.me.misty_hobgoblin_veteran": "Misty Hobgoblin Veteran",
   "entity.me.misty_hobgoblin_leader": "Misty Hobgoblin Leader",
+
+  "entity.me.isengard_orc_snaga": "Isengard Orc Snaga",
+  "entity.me.isengard_orc_warrior": "Isengard Orc Warrior",
+  "entity.me.isengard_uruk_hai_soldier": "Isengard Uruk-Hai Soldier",
+  "entity.me.isengard_uruk_hai_veteran": "Isengard Uruk-Hai Veteran",
+  "entity.me.isengard_uruk_hai_leader": "Isengard Uruk-Hai Leader",
 
   "entity.me.nazgul": "Nazgûl",
 
