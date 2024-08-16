@@ -1572,6 +1572,8 @@
   "block.me.blackstone_chair": "Blackstone Chair",
 
 "#Comment:": "Block - Limestone",
+  "block.me.pointed_limestone": "Pointed Limestone",
+
   "block.me.cobbled_limestone": "Cobbled Limestone",
   "block.me.cobbled_limestone_slab": "Cobbled Limestone Slab",
   "block.me.cobbled_limestone_vertical_slab": "Cobbled Limestone Vertical Slab",

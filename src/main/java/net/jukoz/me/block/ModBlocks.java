@@ -1,15 +1,13 @@
 package net.jukoz.me.block;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.special.LayersBlock;
-import net.jukoz.me.block.special.OxidizableVerticalSlabBlock;
-import net.jukoz.me.block.special.StoneMyceliumBlock;
-import net.jukoz.me.block.special.VerticalSlabBlock;
+import net.jukoz.me.block.special.*;
 import net.jukoz.me.block.special.gemstones.CustomBuddingGemBlock;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -194,7 +192,10 @@ public class ModBlocks {
             new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     public static final Block CHISELED_POLISHED_LIMESTONE = registerStoneBlock("chiseled_polished_limestone",
             new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
-    
+
+    public static final Block POINTED_LIMESTONE = registerStoneBlock("pointed_limestone",
+            new PointedBlock(AbstractBlock.Settings.copy(Blocks.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never)), true);
+
     public static final Block CHISELED_SMOOTH_STONE = registerStoneBlock("chiseled_smooth_stone",
             new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
