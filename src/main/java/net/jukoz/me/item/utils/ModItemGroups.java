@@ -7,6 +7,7 @@ import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.WoodBlockSets;
 import net.jukoz.me.item.*;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -58,9 +59,16 @@ public class ModItemGroups {
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".decorative_blocks"))
             .icon(() -> new ItemStack(ModDecorativeItems.DWARVEN_LANTERN))
             .entries((displayContext, entries) -> {
-                ModBannerItems.addBannersToItemGroup(displayContext.lookup().getWrapperOrThrow(RegistryKeys.BANNER_PATTERN));
+                //ModBannerItems.addBannersToItemGroup(displayContext.lookup().getWrapperOrThrow(RegistryKeys.BANNER_PATTERN));
                 for (ItemStack item : DECORATIVES_BLOCKS_CONTENT) {
                     entries.add(item);
+                }
+                for(ItemStack item : ModBannerItems.getList(displayContext.lookup().getWrapperOrThrow(RegistryKeys.BANNER_PATTERN))) {
+                    try {
+                        entries.add(item);
+                    } catch (Exception e) {
+                        LoggerUtil.logError(e.toString());
+                    }
                 }
             })
             .build();
