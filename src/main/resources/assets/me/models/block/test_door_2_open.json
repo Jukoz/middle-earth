@@ -1,0 +1,8 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "me:block/big_door_part_open",
+	"textures": {
+		"0": "me:block/test_door_2",
+		"particle": "me:block/test_door_2"
+	}
+}

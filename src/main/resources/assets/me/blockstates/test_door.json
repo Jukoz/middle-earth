@@ -1,0 +1,157 @@
+{
+  "variants": {
+    "facing=east,part=1,open=false": {
+      "model": "me:block/test_door_1",
+      "y": 90
+    },
+    "facing=east,part=2,open=false": {
+      "model": "me:block/test_door_2",
+      "y": 90
+    },
+    "facing=east,part=3,open=false": {
+      "model": "me:block/test_door_3",
+      "y": 90
+    },
+    "facing=east,part=4,open=false": {
+      "model": "me:block/test_door_4",
+      "y": 90
+    },
+    "facing=north,part=1,open=false": {
+      "model": "me:block/test_door_1"
+    },
+    "facing=north,part=2,open=false": {
+      "model": "me:block/test_door_2"
+    },
+    "facing=north,part=3,open=false": {
+      "model": "me:block/test_door_3"
+    },
+    "facing=north,part=4,open=false": {
+      "model": "me:block/test_door_4"
+    },
+    "facing=south,part=1,open=false": {
+      "model": "me:block/test_door_1",
+      "y": 180
+    },
+    "facing=south,part=2,open=false": {
+      "model": "me:block/test_door_2",
+      "y": 180
+    },
+    "facing=south,part=3,open=false": {
+      "model": "me:block/test_door_3",
+      "y": 180
+    },
+    "facing=south,part=4,open=false": {
+      "model": "me:block/test_door_4",
+      "y": 180
+    },
+    "facing=west,part=1,open=false": {
+      "model": "me:block/test_door_1",
+      "y": 270
+    },
+    "facing=west,part=2,open=false": {
+      "model": "me:block/test_door_2",
+      "y": 270
+    },
+    "facing=west,part=3,open=false": {
+      "model": "me:block/test_door_3",
+      "y": 270
+    },
+    "facing=west,part=4,open=false": {
+      "model": "me:block/test_door_4",
+      "y": 270
+    },
+    "facing=down,part=1,open=false": {
+      "model": "me:block/test_door_1",
+      "y": 0
+    },
+    "facing=down,part=2,open=false": {
+      "model": "me:block/test_door_2",
+      "y": 0
+    },
+    "facing=down,part=3,open=false": {
+      "model": "me:block/test_door_3",
+      "y": 0
+    },
+    "facing=down,part=4,open=false": {
+      "model": "me:block/test_door_4",
+      "y": 0
+    },
+
+    "facing=east,part=1,open=true": {
+      "model": "me:block/test_door_1_open",
+      "y": 90
+    },
+    "facing=east,part=2,open=true": {
+      "model": "me:block/test_door_2_open",
+      "y": 90
+    },
+    "facing=east,part=3,open=true": {
+      "model": "me:block/test_door_3_open",
+      "y": 90
+    },
+    "facing=east,part=4,open=true": {
+      "model": "me:block/test_door_4_open",
+      "y": 90
+    },
+    "facing=north,part=1,open=true": {
+      "model": "me:block/test_door_1_open"
+    },
+    "facing=north,part=2,open=true": {
+      "model": "me:block/test_door_2_open"
+    },
+    "facing=north,part=3,open=true": {
+      "model": "me:block/test_door_3_open"
+    },
+    "facing=north,part=4,open=true": {
+      "model": "me:block/test_door_4_open"
+    },
+    "facing=south,part=1,open=true": {
+      "model": "me:block/test_door_1_open",
+      "y": 180
+    },
+    "facing=south,part=2,open=true": {
+      "model": "me:block/test_door_2_open",
+      "y": 180
+    },
+    "facing=south,part=3,open=true": {
+      "model": "me:block/test_door_3_open",
+      "y": 180
+    },
+    "facing=south,part=4,open=true": {
+      "model": "me:block/test_door_4_open",
+      "y": 180
+    },
+    "facing=west,part=1,open=true": {
+      "model": "me:block/test_door_1_open",
+      "y": 270
+    },
+    "facing=west,part=2,open=true": {
+      "model": "me:block/test_door_2_open",
+      "y": 270
+    },
+    "facing=west,part=3,open=true": {
+      "model": "me:block/test_door_3_open",
+      "y": 270
+    },
+    "facing=west,part=4,open=true": {
+      "model": "me:block/test_door_4_open",
+      "y": 270
+    },
+    "facing=down,part=1,open=true": {
+      "model": "me:block/test_door_1_open",
+      "y": 0
+    },
+    "facing=down,part=2,open=true": {
+      "model": "me:block/test_door_2_open",
+      "y": 0
+    },
+    "facing=down,part=3,open=true": {
+      "model": "me:block/test_door_3_open",
+      "y": 0
+    },
+    "facing=down,part=4,open=true": {
+      "model": "me:block/test_door_4_open",
+      "y": 0
+    }
+  }
+}
