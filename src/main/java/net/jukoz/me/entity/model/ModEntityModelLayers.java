@@ -7,6 +7,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.jukoz.me.entity.balrog.BalrogModel;
 import net.jukoz.me.entity.barrow_wights.BarrowWightModel;
+import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatModel;
 import net.jukoz.me.entity.beasts.trolls.petrified.PetrifiedTrollModel;
 import net.jukoz.me.entity.beasts.trolls.stone.StoneTrollModel;
 import net.jukoz.me.entity.beasts.warg.WargModel;
@@ -38,6 +39,7 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer NAZGUL = ModEntityModelLayers.registerEntityModelLayer("nazgul", NazgulModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer ORC = ModEntityModelLayers.registerEntityModelLayer("orc", OrcModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer URUK = ModEntityModelLayers.registerEntityModelLayer("uruk", UrukModel.getTexturedModelData(Dilation.NONE));
+    public static final EntityModelLayer BROADHOOF_GOAT = ModEntityModelLayers.registerEntityModelLayer("broadhoof_goat", BroadhoofGoatModel.getTexturedModelData());
     public static final EntityModelLayer WARG = ModEntityModelLayers.registerEntityModelLayer("warg", WargModel.getTexturedModelData());
     public static final EntityModelLayer WARG_ARMOR = ModEntityModelLayers.registerEntityModelLayer("warg_armor", WargArmorModel.getTexturedModelData());
     public static final EntityModelLayer WARG_SADDLE = ModEntityModelLayers.registerEntityModelLayer("warg_saddle", WargSaddleModel.getTexturedModelData());

@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancEntity;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntity;
+import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.jukoz.me.entity.beasts.trolls.petrified.PetrifiedTrollEntity;
 import net.jukoz.me.entity.beasts.trolls.stone.StoneTrollEntity;
 import net.jukoz.me.entity.beasts.warg.WargEntity;
@@ -114,6 +115,9 @@ public class ModEntities {
     // Wargs
     public static final EntityType<WargEntity> WARG = registerEntity("warg", WargEntity::new, SpawnGroup.CREATURE, 1.4f, 1.4f);
 
+    // Goat
+    public static final EntityType<BroadhoofGoatEntity> BROADHOOF_GOAT = registerEntity("broadhoof_goat", BroadhoofGoatEntity::new, SpawnGroup.CREATURE, 1f, 1f);
+
     // Spiders
     public static final EntityType<MirkwoodSpiderEntity> MIRKWOOD_SPIDER = registerEntity("mirkwood_spider", MirkwoodSpiderEntity::new, SpawnGroup.CREATURE, 1.15f, 0.9f);
 
@@ -197,6 +201,8 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(MISTY_HOBGOBLIN_LEADER, MordorBlackUrukEntity.setLeaderAttributes());
 
         FabricDefaultAttributeRegistry.register(NAZGUL, NazgulEntity.setAttributes());
+
+        FabricDefaultAttributeRegistry.register(BROADHOOF_GOAT, BroadhoofGoatEntity.setAttributes());
 
         FabricDefaultAttributeRegistry.register(WARG, WargEntity.setAttributes());
 
