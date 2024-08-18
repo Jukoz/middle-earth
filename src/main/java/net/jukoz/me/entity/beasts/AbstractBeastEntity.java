@@ -1,6 +1,5 @@
 package net.jukoz.me.entity.beasts;
 
-import net.jukoz.me.entity.beasts.warg.WargEntity;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -11,10 +10,8 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AbstractHorseEntity;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -28,17 +25,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 
 import java.util.UUID;
 import java.util.function.Predicate;
 
 // Beasts are mostly aggressive Entities which work much like wolves, while also allowing the player to mount them.
-public class BeastEntity extends AbstractHorseEntity {
-    public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    public static final TrackedData<Boolean> SITTING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final TrackedData<Boolean> CHEST = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+public class AbstractBeastEntity extends AbstractHorseEntity {
+    public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> SITTING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> CHEST = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
@@ -55,7 +51,7 @@ public class BeastEntity extends AbstractHorseEntity {
     protected Vec3d targetDir = Vec3d.ZERO;
 
     // Initializing ====================================================================================================
-    protected BeastEntity(EntityType<? extends BeastEntity> entityType, World world) {
+    protected AbstractBeastEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -99,7 +95,7 @@ public class BeastEntity extends AbstractHorseEntity {
 
             @Override
             public ItemStack get() {
-                return BeastEntity.this.items.getStack(slot);
+                return AbstractBeastEntity.this.items.getStack(slot);
             }
 
             @Override
@@ -107,8 +103,8 @@ public class BeastEntity extends AbstractHorseEntity {
                 if (!predicate.test(stack)) {
                     return false;
                 }
-                BeastEntity.this.items.setStack(slot, stack);
-                BeastEntity.this.updateSaddledFlag();
+                AbstractBeastEntity.this.items.setStack(slot, stack);
+                AbstractBeastEntity.this.updateSaddledFlag();
                 return true;
             }
         };

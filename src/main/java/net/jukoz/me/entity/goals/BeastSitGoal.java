@@ -1,15 +1,14 @@
 package net.jukoz.me.entity.goals;
 
-import net.jukoz.me.entity.beasts.BeastEntity;
-import net.jukoz.me.entity.beasts.trolls.TrollEntity;
+import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.minecraft.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
 
 public class BeastSitGoal extends Goal {
-    private final BeastEntity mob;
+    private final AbstractBeastEntity mob;
 
-    public BeastSitGoal(BeastEntity mob) {
+    public BeastSitGoal(AbstractBeastEntity mob) {
         this.mob = mob;
         this.setControls(EnumSet.of(Goal.Control.JUMP, Goal.Control.MOVE));
     }

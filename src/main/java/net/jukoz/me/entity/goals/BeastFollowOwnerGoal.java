@@ -1,7 +1,6 @@
 package net.jukoz.me.entity.goals;
 
-import net.jukoz.me.entity.beasts.BeastEntity;
-import net.jukoz.me.entity.beasts.trolls.TrollEntity;
+import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.LivingEntity;
@@ -17,7 +16,7 @@ public class BeastFollowOwnerGoal extends Goal {
     private static final int HORIZONTAL_RANGE = 2;
     private static final int HORIZONTAL_VARIATION = 3;
     private static final int VERTICAL_VARIATION = 1;
-    private final BeastEntity mob;
+    private final AbstractBeastEntity mob;
     private LivingEntity owner;
     private final WorldView world;
     private final double speed;
@@ -28,7 +27,7 @@ public class BeastFollowOwnerGoal extends Goal {
     private float oldWaterPathfindingPenalty;
     private final boolean leavesAllowed;
 
-    public BeastFollowOwnerGoal(BeastEntity mob, double speed, float minDistance, float maxDistance, boolean leavesAllowed) {
+    public BeastFollowOwnerGoal(AbstractBeastEntity mob, double speed, float minDistance, float maxDistance, boolean leavesAllowed) {
         this.mob = mob;
         this.world = mob.getWorld();
         this.speed = speed;

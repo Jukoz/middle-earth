@@ -1,7 +1,7 @@
 package net.jukoz.me.entity.beasts.warg;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.entity.beasts.BeastEntity;
+import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.jukoz.me.entity.deer.DeerEntity;
 import net.jukoz.me.entity.duck.DuckEntity;
 import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
@@ -13,14 +13,11 @@ import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.pheasant.PheasantEntity;
-import net.jukoz.me.entity.pheasant.PheasantVariant;
 import net.jukoz.me.item.ModEquipmentItems;
-import net.jukoz.me.item.ModFoodItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -28,20 +25,12 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SingleStackInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
@@ -60,7 +49,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class WargEntity extends BeastEntity {
+public class WargEntity extends AbstractBeastEntity {
 
     private static final double WALKING_SPEED = 0.25;
     private static final double HUNTING_SPEED = 2;
@@ -105,8 +94,8 @@ public class WargEntity extends BeastEntity {
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(9, new LookAroundGoal(this));
-        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((BeastEntity) this));
-        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((BeastEntity)this));
+        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
+        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity)this));
         this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
         this.targetSelector.add(4, new TargetPlayerGoal(this));
         this.targetSelector.add(5, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
