@@ -104,7 +104,18 @@ public class TrollEntity extends AbstractBeastEntity {
 
     @Override
     protected void setupAnimationStates() {
-        super.setupAnimationStates();
+        if (this.idleAnimationTimeout <= 0) {
+            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
+            this.idleAnimationState.start(this.age);
+        } else {
+            --this.idleAnimationTimeout;
+        }
+        if(this.isSitting()) {
+            this.sittingAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.sittingAnimationState.stop();
+        }
 
         if(this.isThrowing() && this.throwingAnimationTimeout <= 0) {
             this.throwingAnimationTimeout = 100;
@@ -156,10 +167,6 @@ public class TrollEntity extends AbstractBeastEntity {
             if(this.bondingTimeout > 0) {
                 this.bondingTimeout--;
             }
-        }
-
-        if (this.getWorld().isClient) {
-            setupAnimationStates();
         }
     }
 

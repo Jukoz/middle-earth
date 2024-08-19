@@ -1,29 +1,33 @@
 package net.jukoz.me.entity.beasts.broadhoof;
 
+import net.jukoz.me.entity.beasts.warg.WargAnimations;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.MathHelper;
 
 public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntity> {
     private final ModelPart broadhoofGoat;
+    private final ModelPart head;
     private final ModelPart horns;
     private final ModelPart[] leftHorns = new ModelPart[BroadhoofGoatHorns.values().length];
     private final ModelPart[] rightHorns = new ModelPart[BroadhoofGoatHorns.values().length];
     public BroadhoofGoatModel(ModelPart root) {
         this.broadhoofGoat = root.getChild("broadhoof_goat");
+        this.head = broadhoofGoat.getChild(EntityModelPartNames.BODY).getChild(EntityModelPartNames.HEAD);
 
-        this.horns = broadhoofGoat.getChild(EntityModelPartNames.BODY).getChild(EntityModelPartNames.HEAD).getChild("horns");
+        this.horns = this.head.getChild("horns");
 
-        this.leftHorns[0] = horns.getChild("tiny_left_horn_r1");
-        this.rightHorns[0] = horns.getChild("tiny_right_horn_r1");
+        this.leftHorns[0] = horns.getChild("tiny_left_horn");
+        this.rightHorns[0] = horns.getChild("tiny_right_horn");
 
-        this.leftHorns[1] = horns.getChild("normal_left_horn_r1");
-        this.rightHorns[1] = horns.getChild("normal_right_horn_r1");
+        this.leftHorns[1] = horns.getChild("normal_left_horn");
+        this.rightHorns[1] = horns.getChild("normal_right_horn");
 
-        this.leftHorns[2] = horns.getChild("long_left_horn_r1");
-        this.rightHorns[2] = horns.getChild("long_right_horn_r1");
+        this.leftHorns[2] = horns.getChild("long_left_horn");
+        this.rightHorns[2] = horns.getChild("long_right_horn");
 
         this.leftHorns[3] = horns.getChild("curly_left_horn");
         this.rightHorns[3] = horns.getChild("curly_right_horn");
@@ -60,11 +64,11 @@ public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntit
 
         ModelPartData horns = head.addChild("horns", ModelPartBuilder.create(), ModelTransform.pivot(-11.0F, -11.0208F, -7.4645F));
 
-        ModelPartData long_left_horn_r1 = horns.addChild("long_left_horn_r1", ModelPartBuilder.create().uv(0, 113).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 13.0F, new Dilation(0.0F)), ModelTransform.of(13.0F, -1.0F, 2.0F, 1.4443F, 0.0338F, 0.2597F));
+        ModelPartData long_left_horn = horns.addChild("long_left_horn", ModelPartBuilder.create().uv(0, 113).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 13.0F, new Dilation(0.0F)), ModelTransform.of(13.0F, -1.0F, 2.0F, 1.4443F, 0.0338F, 0.2597F));
 
-        ModelPartData normal_left_horn_r1 = horns.addChild("normal_left_horn_r1", ModelPartBuilder.create().uv(23, 0).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 8.0F, new Dilation(0.0F)), ModelTransform.of(13.0F, -1.0F, 3.0F, 0.7854F, 0.0F, 0.0F));
+        ModelPartData normal_left_horn = horns.addChild("normal_left_horn", ModelPartBuilder.create().uv(23, 0).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 8.0F, new Dilation(0.0F)), ModelTransform.of(13.0F, -1.0F, 3.0F, 0.7854F, 0.0F, 0.0F));
 
-        ModelPartData tiny_left_horn_r1 = horns.addChild("tiny_left_horn_r1", ModelPartBuilder.create().uv(28, 5).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(13.0F, -1.0F, 3.0F, 0.7854F, 0.0F, 0.0F));
+        ModelPartData tiny_left_horn = horns.addChild("tiny_left_horn", ModelPartBuilder.create().uv(28, 5).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(13.0F, -1.0F, 3.0F, 0.7854F, 0.0F, 0.0F));
 
         ModelPartData curly_left_horn = horns.addChild("curly_left_horn", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
@@ -92,11 +96,11 @@ public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntit
                 .uv(67, 94).cuboid(-1.0F, -12.0F, -1.0F, 3.0F, 3.0F, 12.0F, new Dilation(0.0F))
                 .uv(73, 109).cuboid(-1.0F, -12.0F, -5.0F, 3.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -2.0F, 3.0F, 0.7854F, 0.0F, 0.0F));
 
-        ModelPartData long_right_horn_r1 = horns.addChild("long_right_horn_r1", ModelPartBuilder.create().uv(0, 113).mirrored().cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 13.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(9.0F, -1.0F, 2.0F, 1.4443F, -0.0338F, -0.2597F));
+        ModelPartData long_right_horn = horns.addChild("long_right_horn", ModelPartBuilder.create().uv(0, 113).mirrored().cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 13.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(9.0F, -1.0F, 2.0F, 1.4443F, -0.0338F, -0.2597F));
 
-        ModelPartData normal_right_horn_r1 = horns.addChild("normal_right_horn_r1", ModelPartBuilder.create().uv(23, 0).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 8.0F, new Dilation(0.0F)), ModelTransform.of(9.0F, -1.0F, 3.0F, 0.7854F, 0.0F, 0.0F));
+        ModelPartData normal_right_horn = horns.addChild("normal_right_horn", ModelPartBuilder.create().uv(23, 0).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 8.0F, new Dilation(0.0F)), ModelTransform.of(9.0F, -1.0F, 3.0F, 0.7854F, 0.0F, 0.0F));
 
-        ModelPartData tiny_right_horn_r1 = horns.addChild("tiny_right_horn_r1", ModelPartBuilder.create().uv(28, 5).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(9.0F, -1.0F, 3.0F, 0.7854F, 0.0F, 0.0F));
+        ModelPartData tiny_right_horn = horns.addChild("tiny_right_horn", ModelPartBuilder.create().uv(28, 5).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(9.0F, -1.0F, 3.0F, 0.7854F, 0.0F, 0.0F));
 
         ModelPartData curly_right_horn = horns.addChild("curly_right_horn", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
@@ -147,10 +151,33 @@ public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntit
     @Override
     public void setAngles(BroadhoofGoatEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
+        this.setHeadAngles(headYaw, headPitch);
 
-        for(int i = 0; i < BroadhoofGoatHorns.values().length; i++) {
+        for(int i = 0 ; i < BroadhoofGoatHorns.values().length; i++) {
             this.leftHorns[i].visible = (entity.getHorns().getId() == i) && entity.hasLeftHorn();
             this.rightHorns[i].visible = (entity.getHorns().getId() == i) && entity.hasRightHorn();
         }
+
+        if((entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting()) || (entity.isAttacking() && !entity.hasControllingPassenger())) {
+            this.animateMovement(BroadhoofGoatAnimations.RUN, limbAngle, limbDistance, 1.2f, 1.2f);
+        }
+        else {
+            this.animateMovement(BroadhoofGoatAnimations.WALK, limbAngle, limbDistance, 3f, 3f);
+        }
+
+        this.updateAnimation(entity.idleAnimationState, BroadhoofGoatAnimations.EAT, animationProgress, 1f);
+        this.updateAnimation(entity.attackAnimationState, BroadhoofGoatAnimations.RAM_ATTACK, animationProgress, 1f);
+        this.updateAnimation(entity.startSittingAnimationState, BroadhoofGoatAnimations.LAY_DOWN, animationProgress, 3f);
+        this.updateAnimation(entity.stopSittingAnimationState, BroadhoofGoatAnimations.STAND_UP, animationProgress, 3f);
+        this.updateAnimation(entity.sittingAnimationState, BroadhoofGoatAnimations.LYING, animationProgress, 1f);
+        this.updateAnimation(entity.chargeAnimationState, BroadhoofGoatAnimations.CHARGE_ATTACK, animationProgress, 1f);
+    }
+
+    private void setHeadAngles(float headYaw, float headPitch) {
+        headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
+        headPitch = MathHelper.clamp(headPitch, -25.0F, 40.0F);
+
+        this.head.yaw = headYaw * 0.017453292F;
+        this.head.pitch = headPitch * 0.017453292F;
     }
 }

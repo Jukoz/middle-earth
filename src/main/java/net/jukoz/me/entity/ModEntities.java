@@ -116,7 +116,7 @@ public class ModEntities {
     public static final EntityType<WargEntity> WARG = registerEntity("warg", WargEntity::new, SpawnGroup.CREATURE, 1.4f, 1.4f);
 
     // Goat
-    public static final EntityType<BroadhoofGoatEntity> BROADHOOF_GOAT = registerEntity("broadhoof_goat", BroadhoofGoatEntity::new, SpawnGroup.CREATURE, 1f, 1f);
+    public static final EntityType<BroadhoofGoatEntity> BROADHOOF_GOAT = registerEntity("broadhoof_goat", BroadhoofGoatEntity::new, SpawnGroup.CREATURE, 1.4f, 1.4f);
 
     // Spiders
     public static final EntityType<MirkwoodSpiderEntity> MIRKWOOD_SPIDER = registerEntity("mirkwood_spider", MirkwoodSpiderEntity::new, SpawnGroup.CREATURE, 1.15f, 0.9f);

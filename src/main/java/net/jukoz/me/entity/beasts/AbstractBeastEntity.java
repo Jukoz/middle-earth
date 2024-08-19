@@ -39,10 +39,16 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState chargeAnimationState = new AnimationState();
+    public final AnimationState startChargeAnimationState = new AnimationState();
+    public final AnimationState stopChargeAnimationState = new AnimationState();
     public final AnimationState sittingAnimationState = new AnimationState();
+    public final AnimationState startSittingAnimationState = new AnimationState();
+    public final AnimationState stopSittingAnimationState = new AnimationState();
 
     protected int idleAnimationTimeout = 1000;
     protected int attackTicksLeft = 0;
+    protected boolean hasCharged = false;
+    protected boolean startedSitting = false;
 
     protected int chargeTimeout; // ticking cooldown of the charge attack
 
@@ -68,18 +74,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     protected void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
-            this.idleAnimationState.start(this.age);
-        } else {
-            --this.idleAnimationTimeout;
-        }
-        if(this.isSitting()) {
-            this.sittingAnimationState.startIfNotRunning(this.age);
-        }
-        else {
-            this.sittingAnimationState.stop();
-        }
+
     }
 
     @Override
@@ -172,7 +167,6 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         return this.chargeTimeout;
     }
 
-
     public double getMountedHeightOffset() {
         float f = Math.min(0.25F, this.limbAnimator.getSpeed());
         float g = this.limbAnimator.getPos();
@@ -197,6 +191,14 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
             return getPlayerByUuid(this.getOwnerUuid());
         }
         return null;
+    }
+
+    public boolean hasCharged() {
+        return hasCharged;
+    }
+
+    public void setHasCharged(boolean hasCharged) {
+        this.hasCharged = hasCharged;
     }
 
     @Override
@@ -308,6 +310,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
             this.chargeTimeout = maxChargeCooldown();
         }
     }
+
 
     @Override
     public void startJumping(int height) {

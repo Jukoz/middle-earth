@@ -54,11 +54,8 @@ public class WargEntity extends AbstractBeastEntity {
     private static final double WALKING_SPEED = 0.25;
     private static final double HUNTING_SPEED = 2;
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(WargEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    public final AnimationState startSittingAnimationState = new AnimationState();
-    public final AnimationState stopSittingAnimationState = new AnimationState();
     public int idleAnimationTimeout = this.random.nextInt(600) + 1700;
-    private boolean hasCharged = false;
-    private boolean startedSitting = false;
+
     public WargEntity(EntityType<? extends WargEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -158,10 +155,6 @@ public class WargEntity extends AbstractBeastEntity {
                 this.setHasCharged(false);
             }
         }
-
-        if(this.getWorld().isClient()) {
-            setupAnimationStates();
-        }
     }
 
     @Override
@@ -260,13 +253,15 @@ public class WargEntity extends AbstractBeastEntity {
                             this.getTarget().getBlockPos().getY() - this.getBlockPos().getY(),
                             this.getTarget().getBlockPos().getZ() - this.getBlockPos().getZ());
                 }
-                this.setYaw((float) Math.toDegrees(Math.atan2(targetDir.x, -targetDir.z)));
                 this.setVelocity(targetDir.multiply(1,0,1).normalize().add(0,0.6,0).multiply(0.7f));
             }
             else if (this.getWorld().isClient) {
                 this.setHasCharged(true);
                 this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().add(0,0.35,0).multiply(1.3f));
             }
+        }
+        if(!this.isTame() && !this.getWorld().isClient) {
+            this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
         }
     }
 

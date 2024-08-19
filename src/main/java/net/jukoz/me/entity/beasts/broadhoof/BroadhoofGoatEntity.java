@@ -1,27 +1,40 @@
 package net.jukoz.me.entity.beasts.broadhoof;
 
 import net.jukoz.me.entity.beasts.AbstractBeastEntity;
-import net.jukoz.me.entity.beasts.warg.WargEntity;
-import net.jukoz.me.entity.beasts.warg.WargVariant;
+import net.jukoz.me.entity.goals.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class BroadhoofGoatEntity extends AbstractBeastEntity {
+
+    private static final double WALKING_SPEED = 0.15;
+    private static final double HUNTING_SPEED = 2;
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> HORNS = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
 
     public BroadhoofGoatEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
@@ -29,7 +42,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25d)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, WALKING_SPEED)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 18.0d)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.4d)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0d)
@@ -37,6 +50,19 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0d)
                 .add(EntityAttributes.GENERIC_STEP_HEIGHT, 1.15d)
                 .add(EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, 6.0d);
+    }
+
+    @Override
+    protected void initGoals() {
+        this.goalSelector.add(1, new SwimGoal(this));
+        this.goalSelector.add(4, new MeleeAttackGoal(this, HUNTING_SPEED, false));
+        this.goalSelector.add(6, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
+        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(9, new LookAroundGoal(this));
+        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
+        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity)this));
+        this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
     }
 
     @Override
@@ -58,6 +84,84 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         super.readCustomDataFromNbt(nbt);
         this.dataTracker.set(VARIANT, nbt.getInt("Variant"));
         this.dataTracker.set(HORNS, nbt.getInt("Horns"));
+    }
+
+    @Override
+    public void chargeAttack() {
+        List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2,0,0.2));
+
+        if (this.getWorld().isClient && this.isTame()) {
+            this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())).add(0, this.getVelocity().y, 0));
+        }
+
+        for(Entity entity : entities) {
+            if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity)) {
+                entity.damage(entity.getDamageSources().mobAttack(this), 8.0f);
+                entity.pushAwayFrom(this);
+                this.setCharging(false);
+            }
+        }
+        this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+        this.chargeAnimationState.startIfNotRunning(this.age);
+    }
+
+
+    @Override
+    public int maxChargeCooldown() {
+        return 200;
+    }
+
+    @Override
+    public int chargeDuration() {
+        return 10;
+    }
+
+    @Override
+    public void tickMovement() {
+        super.tickMovement();
+
+        if(this.isSitting()) {
+            this.getNavigation().stop();
+        }
+    }
+
+    protected void setupAnimationStates() {
+        if(this.isSitting()) {
+            if(!this.sittingAnimationState.isRunning()) {
+                this.stopSittingAnimationState.stop();
+                this.startSittingAnimationState.startIfNotRunning(this.age);
+                this.startedSitting = true;
+            }
+            if(!this.startSittingAnimationState.isRunning() && startedSitting) {
+                this.sittingAnimationState.startIfNotRunning(this.age);
+            }
+        }
+        else if (startedSitting){
+            this.stopSittingAnimationState.startIfNotRunning(this.age);
+            this.startSittingAnimationState.stop();
+            this.sittingAnimationState.stop();
+            this.startedSitting = false;
+        }
+    }
+
+    @Override
+    public boolean isCommandItem(ItemStack stack) {
+        return stack.isOf(Items.STICK);
+    }
+
+    @Override
+    protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
+        return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 1.5f) : ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f);
+    }
+
+    @Override
+    public boolean canSprintAsVehicle() {
+        return true;
+    }
+
+    @Override
+    public boolean isBondingItem(ItemStack itemStack) {
+        return itemStack.isOf(Items.WHEAT);
     }
 
     /* VARIANTS */
