@@ -3,7 +3,10 @@ package net.jukoz.me.entity.beasts;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -31,10 +34,11 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 // Beasts are mostly aggressive Entities which work much like wolves, while also allowing the player to mount them.
-public class AbstractBeastEntity extends AbstractHorseEntity {
-    public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    public static final TrackedData<Boolean> SITTING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final TrackedData<Boolean> CHEST = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+public class BeastEntity extends AbstractHorseEntity {
+    public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> SITTING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> CHEST = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> RUNNING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
@@ -66,6 +70,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         builder.add(CHARGING, false);
         builder.add(SITTING, false);
         builder.add(CHEST, false);
+        builder.add(RUNNING, false);
     }
 
     @Override
@@ -157,9 +162,20 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     public boolean canCarryChest() {
         return true;
     }
+    public final boolean cannotFollowOwner() {
+        return this.isSitting() || this.hasVehicle() || this.mightBeLeashed() || this.getOwner() != null && this.getOwner().isSpectator();
+    }
 
     public boolean canCharge() {
         return !this.isSitting() && !this.hasPassengers();
+    }
+
+    public boolean isRunning() {
+        return this.dataTracker.get(RUNNING);
+    }
+
+    public void setRunning(boolean running) {
+        this.dataTracker.set(RUNNING, running);
     }
 
     @Override
@@ -350,7 +366,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         ItemStack itemStack = player.getStackInHand(hand);
 
         if(this.isTame()) {
-            if(isCommandItem(itemStack) && player.getUuid() == this.getOwnerUuid()) {
+            if(isCommandItem(itemStack) && player == getOwner()) {
                 this.setSitting(!isSitting());
             }
 
@@ -394,6 +410,57 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     public void chargeAttack() {
+    }
+
+    // Follow Owner Behaviour ==========================================================================================
+
+    public boolean shouldTryTeleportToOwner() {
+        LivingEntity livingEntity = this.getOwner();
+        return livingEntity != null && this.squaredDistanceTo(this.getOwner()) >= 200.0;
+    }
+
+    public void tryTeleportToOwner() {
+        LivingEntity livingEntity = this.getOwner();
+        if (livingEntity != null) {
+            this.tryTeleportNear(livingEntity.getBlockPos());
+        }
+    }
+
+    private void tryTeleportNear(BlockPos pos) {
+        for (int i = 0; i < 10; ++i) {
+            int j = this.random.nextBetween(-3, 3);
+            int k = this.random.nextBetween(-3, 3);
+            if (Math.abs(j) < 2 && Math.abs(k) < 2) continue;
+            int l = this.random.nextBetween(-1, 1);
+            if (!this.tryTeleportTo(pos.getX() + j, pos.getY() + l, pos.getZ() + k)) continue;
+            return;
+        }
+    }
+
+    private boolean tryTeleportTo(int x, int y, int z) {
+        if (!this.canTeleportTo(new BlockPos(x, y, z))) {
+            return false;
+        }
+        this.refreshPositionAndAngles((double)x + 0.5, y, (double)z + 0.5, this.getYaw(), this.getPitch());
+        this.navigation.stop();
+        return true;
+    }
+
+    private boolean canTeleportTo(BlockPos pos) {
+        PathNodeType pathNodeType = LandPathNodeMaker.getLandNodeType(this, pos);
+        if (pathNodeType != PathNodeType.WALKABLE) {
+            return false;
+        }
+        BlockState blockState = ((World)this.getWorld()).getBlockState(pos.down());
+        if (!this.canTeleportOntoLeaves() && blockState.getBlock() instanceof LeavesBlock) {
+            return false;
+        }
+        BlockPos blockPos = pos.subtract(this.getBlockPos());
+        return this.getWorld().isSpaceEmpty(this, this.getBoundingBox().offset(blockPos));
+    }
+
+    protected boolean canTeleportOntoLeaves() {
+        return false;
     }
 
     // Tick Management =================================================================================================
