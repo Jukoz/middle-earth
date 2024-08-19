@@ -34,17 +34,15 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 // Beasts are mostly aggressive Entities which work much like wolves, while also allowing the player to mount them.
-public class BeastEntity extends AbstractHorseEntity {
-    public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    public static final TrackedData<Boolean> SITTING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final TrackedData<Boolean> CHEST = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final TrackedData<Boolean> RUNNING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+public class AbstractBeastEntity extends AbstractHorseEntity {
+    public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> SITTING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> CHEST = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> RUNNING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState chargeAnimationState = new AnimationState();
-    public final AnimationState startChargeAnimationState = new AnimationState();
-    public final AnimationState stopChargeAnimationState = new AnimationState();
     public final AnimationState sittingAnimationState = new AnimationState();
     public final AnimationState startSittingAnimationState = new AnimationState();
     public final AnimationState stopSittingAnimationState = new AnimationState();
@@ -508,8 +506,6 @@ public class BeastEntity extends AbstractHorseEntity {
     public void handleStatus(byte status) {
         if (status == EntityStatuses.PLAY_ATTACK_SOUND) {
             this.attackTicksLeft = ATTACK_COOLDOWN;
-        }
-        if(status == 4){
             this.attackAnimationState.start(this.age);
         }
         if (status == EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES) {

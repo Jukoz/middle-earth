@@ -29,6 +29,11 @@ public class BeastAttackWithOwnerGoal extends TrackTargetGoal {
             return false;
         }
         this.attacking = livingEntity.getAttacking();
+
+        if(this.attacking instanceof AbstractBeastEntity && ((AbstractBeastEntity) this.attacking).getOwner() == this.mob.getOwner()) {
+            return false;
+        }
+
         int i = livingEntity.getLastAttackTime();
         return i != this.lastAttackTime && this.canTrack(this.attacking, TargetPredicate.DEFAULT);
     }

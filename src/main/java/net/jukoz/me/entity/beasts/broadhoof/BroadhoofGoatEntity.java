@@ -3,6 +3,8 @@ package net.jukoz.me.entity.beasts.broadhoof;
 import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.jukoz.me.entity.goals.*;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -16,7 +18,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
@@ -54,12 +59,12 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(4, new MeleeAttackGoal(this, HUNTING_SPEED, false));
-        this.goalSelector.add(6, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f, false));
+        this.goalSelector.add(6, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f));
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(9, new LookAroundGoal(this));
         this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
-        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity)this));
+        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity) this));
         this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
     }
 
@@ -82,6 +87,37 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         super.readCustomDataFromNbt(nbt);
         this.dataTracker.set(VARIANT, nbt.getInt("Variant"));
         this.dataTracker.set(HORNS, nbt.getInt("Horns"));
+    }
+
+    @Override
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        ItemStack itemStack = player.getStackInHand(hand);
+
+        if(this.isTame()) {
+            if (this.isBreedingItem(itemStack) && this.getHealth() < this.getMaxHealth()) {
+                itemStack.decrementUnlessCreative(1, player);
+                FoodComponent foodComponent = itemStack.get(DataComponentTypes.FOOD);
+                float f = foodComponent != null ? (float)foodComponent.nutrition() : 1.0f;
+                this.heal(2.0f * f);
+                return ActionResult.success(this.getWorld().isClient());
+            }
+        }
+
+        return super.interactMob(player, hand);
+    }
+
+    @Override
+    public boolean isBreedingItem(ItemStack stack) {
+        return stack.isIn(ItemTags.GOAT_FOOD);
+    }
+
+    @Override
+    public boolean tryAttack(Entity target) {
+        if(super.tryAttack(target)) {
+            this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -168,7 +204,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     @Override
     public boolean isBondingItem(ItemStack itemStack) {
-        return itemStack.isOf(Items.WHEAT);
+        return itemStack.isIn(ItemTags.GOAT_FOOD);
     }
 
     /* VARIANTS */
