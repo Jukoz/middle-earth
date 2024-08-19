@@ -11,9 +11,11 @@ public class BroadhoofGoatSaddleModel extends SinglePartEntityModel<BroadhoofGoa
 
     private final ModelPart broadhoofGoat;
     private final ModelPart head;
+    private final ModelPart reins;
     public BroadhoofGoatSaddleModel(ModelPart root) {
         this.broadhoofGoat = root.getChild("broadhoof_goat");
         this.head = broadhoofGoat.getChild(EntityModelPartNames.BODY).getChild(EntityModelPartNames.HEAD);
+        this.reins = head.getChild("saddle_things").getChild("reins");
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -29,12 +31,12 @@ public class BroadhoofGoatSaddleModel extends SinglePartEntityModel<BroadhoofGoa
 
         ModelPartData saddle_things = head.addChild("saddle_things", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-        ModelPartData right_rein_r1 = saddle_things.addChild("right_rein_r1", ModelPartBuilder.create().uv(81, -3).mirrored().cuboid(-4.1F, -7.0F, -8.0F, 0.0F, 3.0F, 15.0F, new Dilation(0.0F)).mirrored(false)
+        ModelPartData reins = saddle_things.addChild("reins", ModelPartBuilder.create().uv(81, -3).mirrored().cuboid(-4.1F, -7.0F, -8.0F, 0.0F, 3.0F, 15.0F, new Dilation(0.0F)).mirrored(false)
                 .uv(81, -3).cuboid(4.1F, -7.0F, -8.0F, 0.0F, 3.0F, 15.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -2.0F, 1.0F, 0.48F, 0.0F, 0.0F));
 
-        ModelPartData mouth_things_right_r1 = saddle_things.addChild("mouth_things_right_r1", ModelPartBuilder.create().uv(62, 50).mirrored().cuboid(-2.0F, -3.0F, 1.0F, 1.0F, 2.0F, 2.0F, new Dilation(0.0F)).mirrored(false)
+        ModelPartData mouth_things = saddle_things.addChild("mouth_things", ModelPartBuilder.create().uv(62, 50).mirrored().cuboid(-2.0F, -3.0F, 1.0F, 1.0F, 2.0F, 2.0F, new Dilation(0.0F)).mirrored(false)
                 .uv(62, 50).cuboid(5.0F, -3.0F, 1.0F, 1.0F, 2.0F, 2.0F, new Dilation(0.0F))
-                .uv(66, 47).cuboid(-1.0F, -7.0F, -1.0F, 6.0F, 7.0F, 11.0F, new Dilation(0.1F)), ModelTransform.of(-2.0F, 0.0F, -8.0F, 0.7854F, 0.0F, 0.0F));
+                .uv(66, 47).cuboid(-1.0F, -7.0F, -1.0F, 6.0F, 7.0F, 11.0F, new Dilation(0.2F)), ModelTransform.of(-2.0F, 0.0F, -8.0F, 0.7854F, 0.0F, 0.0F));
         return TexturedModelData.of(modelData, 128, 128);
     }
 
@@ -47,6 +49,8 @@ public class BroadhoofGoatSaddleModel extends SinglePartEntityModel<BroadhoofGoa
     public void setAngles(BroadhoofGoatEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
         this.setHeadAngles(headYaw, headPitch);
+
+        this.reins.visible = entity.hasControllingPassenger();
 
         if((entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting()) || (entity.isAttacking() && !entity.hasControllingPassenger())) {
             this.animateMovement(BroadhoofGoatAnimations.RUN, limbAngle, limbDistance, 1.2f, 1.2f);
