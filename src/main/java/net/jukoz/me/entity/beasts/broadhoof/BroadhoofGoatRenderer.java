@@ -2,6 +2,8 @@ package net.jukoz.me.entity.beasts.broadhoof;
 
 import com.google.common.collect.Maps;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.entity.beasts.broadhoof.features.BroadhoofGoatArmorFeatureRenderer;
+import net.jukoz.me.entity.beasts.broadhoof.features.BroadhoofGoatSaddleFeatureRenderer;
 import net.jukoz.me.entity.beasts.warg.WargEntity;
 import net.jukoz.me.entity.beasts.warg.WargModel;
 import net.jukoz.me.entity.beasts.warg.WargVariant;
@@ -21,6 +23,8 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
 
     public BroadhoofGoatRenderer(EntityRendererFactory.Context context) {
         super(context, new BroadhoofGoatModel(context.getPart(ModEntityModelLayers.BROADHOOF_GOAT)), 0.8f);
+        this.addFeature(new BroadhoofGoatArmorFeatureRenderer(this, context.getModelLoader()));
+        this.addFeature(new BroadhoofGoatSaddleFeatureRenderer(this, context.getModelLoader()));
     }
 
     @Override

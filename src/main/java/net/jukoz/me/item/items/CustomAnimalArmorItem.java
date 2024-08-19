@@ -60,6 +60,11 @@ public class CustomAnimalArmorItem extends ArmorItem {
             return id.withPath((path) -> {
                 return "textures/entities/warg/feature/warg_armor_" + path;
             });
+        }, SoundEvents.ENTITY_ITEM_BREAK),
+        BROADHOOF_GOAT((id) -> {
+            return id.withPath((path) -> {
+                return "textures/entities/broadhoof_goat/feature/broadhoof_goat_armor_" + path;
+            });
         }, SoundEvents.ENTITY_ITEM_BREAK);
         final Function<Identifier, Identifier> textureIdFunction;
         final SoundEvent breakSound;

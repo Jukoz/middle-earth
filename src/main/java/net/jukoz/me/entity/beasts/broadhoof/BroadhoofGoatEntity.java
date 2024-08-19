@@ -2,10 +2,8 @@ package net.jukoz.me.entity.beasts.broadhoof;
 
 import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.jukoz.me.entity.goals.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
+import net.jukoz.me.item.ModEquipmentItems;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -105,6 +103,15 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         this.chargeAnimationState.startIfNotRunning(this.age);
     }
 
+    @Override
+    public boolean isHorseArmor(ItemStack stack) {
+        return stack.isOf(ModEquipmentItems.BROADHOOF_GOAT_ARMOR);
+    }
+
+    @Override
+    public boolean canUseSlot(EquipmentSlot slot) {
+        return true;
+    }
 
     @Override
     public int maxChargeCooldown() {
