@@ -69,10 +69,12 @@ public class MEBiomeDataConfigs {
             .addSlopeData(60, Blocks.TUFF)
             .addSlopeData(MAX_ANGLE, Blocks.DEEPSLATE);
 
-    public static SlopeMap ironHills = new SlopeMap().addSlopeData(33, Blocks.GRASS_BLOCK)
-            .addSlopeData(36, Blocks.COARSE_DIRT)
-            .addSlopeData(60, Blocks.STONE)
-            .addSlopeData(MAX_ANGLE, Blocks.TUFF);
+    public static SlopeMap ironHills = new SlopeMap().addSlopeData(32, Blocks.GRASS_BLOCK)
+            .addSlopeData(35, Blocks.COARSE_DIRT)
+            .addSlopeData(38, Blocks.STONE)
+            .addSlopeData(40, Blocks.TUFF)
+            .addSlopeData(54, StoneBlockSets.IRONSTONE.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.HEMATITE.base());
 
     public static SlopeMap limeStoneHills = new SlopeMap().addSlopeData(34, Blocks.GRASS_BLOCK)
             .addSlopeData(37, Blocks.COARSE_DIRT)
