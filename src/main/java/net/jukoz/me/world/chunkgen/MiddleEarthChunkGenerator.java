@@ -3,12 +3,9 @@ package net.jukoz.me.world.chunkgen;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.block.StoneBlockSets;
-import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.utils.noises.SimplexNoise;
 import net.jukoz.me.world.biomes.BlocksLayeringData;
-import net.jukoz.me.world.biomes.SlopeMap;
-import net.jukoz.me.world.biomes.surface.ModBiomes;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
@@ -42,7 +39,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
 
 public class MiddleEarthChunkGenerator extends ChunkGenerator {
     public static final int MEDGON_LEVEL = -32;
@@ -77,6 +73,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.ANORIEN_RIVERSIDE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ANORIEN_FOOTHILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BARROW_DOWNS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.BELERIAND_ISLAND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BELFALAS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BELFALAS_HILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.BELFALAS_BEACH),
@@ -110,7 +107,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.EMYN_MUIL_POND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ENEDWAITH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.EREGION),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.ERIADOR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ETHIR_ANDUIN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FANGORN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FANGORN_FOOTHILLS),

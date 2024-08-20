@@ -1,0 +1,6 @@
+{
+  "angry_texture": "minecraft:entity/wolf/wolf_ashen_angry",
+  "biomes": "#minecraft:is_snowy_taiga",
+  "tame_texture": "minecraft:entity/wolf/wolf_ashen_tame",
+  "wild_texture": "minecraft:entity/wolf/wolf_ashen"
+}

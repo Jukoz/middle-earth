@@ -15,6 +15,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> ANORIEN_RIVERSIDE = MEBiomeKeys.register("anorien_riverside");
     public static final RegistryKey<Biome> ANORIEN_FOOTHILLS = MEBiomeKeys.register("anorien_foothills");
     public static final RegistryKey<Biome> BARROW_DOWNS = MEBiomeKeys.register("barrow_downs");
+    public static final RegistryKey<Biome> BELERIAND_ISLAND = MEBiomeKeys.register("beleriand_island");
     public static final RegistryKey<Biome> BELFALAS = MEBiomeKeys.register("belfalas");
     public static final RegistryKey<Biome> BELFALAS_HILLS = MEBiomeKeys.register("belfalas_hills");
     public static final RegistryKey<Biome> BELFALAS_BEACH = MEBiomeKeys.register("belfalas_beach");
@@ -47,7 +48,6 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> EMYN_MUIL_POND = MEBiomeKeys.register("emyn_muil_pond");
     public static final RegistryKey<Biome> ENEDWAITH = MEBiomeKeys.register("enedwaith");
     public static final RegistryKey<Biome> EREGION = MEBiomeKeys.register("eregion");
-    public static final RegistryKey<Biome> ERIADOR = MEBiomeKeys.register("eriador");
     public static final RegistryKey<Biome> ETHIR_ANDUIN = MEBiomeKeys.register("ethir_anduin");
     public static final RegistryKey<Biome> FANGORN = MEBiomeKeys.register("fangorn");
     public static final RegistryKey<Biome> FANGORN_FOOTHILLS = MEBiomeKeys.register("fangorn_foothills");
