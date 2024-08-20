@@ -2,6 +2,9 @@ package net.jukoz.me.block;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
+import net.jukoz.me.block.special.doors.LargeDoor2x2;
+import net.jukoz.me.block.special.doors.LargeDoor4x2;
+import net.jukoz.me.block.special.doors.LargeDoor5x2;
 import net.jukoz.me.block.special.gemstones.CustomBuddingGemBlock;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.item.utils.ModItemGroups;
@@ -14,7 +17,6 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ColorCode;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -26,10 +28,7 @@ public class ModBlocks {
     public static final float DIRT_STRENGTH = 0.6f;
     public static final float SLAB_RESISTANCE = 6.0f; // From explosions
 
-    public static final Block GREEN_HOBBIT_DOOR = registerDoorBlock("green_hobbit_door",
-            new LargeDoorBlock(16,8, AbstractBlock.Settings.create()));
-    public static final Block TEST_DOOR = registerDoorBlock("test_door",
-            new LargeDoor2x2(2,2, AbstractBlock.Settings.create()));
+
 
     //region STONE PILLARS AND CHISELED
     public static final Block STONE_PILLAR = registerStoneBlock("stone_pillar",
@@ -1006,12 +1005,6 @@ public class ModBlocks {
             BlockDrops.blocks.add(block);
         }
         registerBlockItem(name, block);
-        return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
-    }
-
-    public static Block registerDoorBlock(String name, Block block) {
-        registerBlockItem(name, block);
-        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
         return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }
 

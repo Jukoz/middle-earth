@@ -4,6 +4,9 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnace;
 import net.jukoz.me.block.special.artisantable.ArtisanTable;
+import net.jukoz.me.block.special.doors.LargeDoor2x2;
+import net.jukoz.me.block.special.doors.LargeDoor4x2;
+import net.jukoz.me.block.special.doors.LargeDoor5x2;
 import net.jukoz.me.block.special.fireBlocks.*;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestBlock;
 import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancBlock;
@@ -340,6 +343,26 @@ public class ModDecorativeBlocks {
     public static final Block WALL_SCONCE = registerBlock("wall_sconce",
             new WallSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
 
+    public static final Block LARCH_HOBBIT_DOOR = registerDoorBlock("larch_hobbit_door",
+            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final Block SPRUCE_HOBBIT_DOOR = registerDoorBlock("spruce_hobbit_door",
+            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+
+    public static final Block BLUE_HOBBIT_DOOR = registerDoorBlock("blue_hobbit_door",
+            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final Block GREEN_HOBBIT_DOOR = registerDoorBlock("green_hobbit_door",
+            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final Block RED_HOBBIT_DOOR = registerDoorBlock("red_hobbit_door",
+            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final Block YELLOW_HOBBIT_DOOR = registerDoorBlock("yellow_hobbit_door",
+            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+
+    public static final Block REINFORCED_SPRUCE_DOOR = registerDoorBlock("reinforced_spruce_door",
+            new LargeDoor4x2(4,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+
+    public static final Block GREAT_DWARVEN_GATE = registerDoorBlock("great_dwarven_gate",
+            new LargeDoor5x2(5,2, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);
         return Registry.register(Registries.BLOCK, identifier, block);
@@ -350,6 +373,12 @@ public class ModDecorativeBlocks {
         ModBlocks.registerBlockItem(name, block);
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
         return Registry.register(Registries.BLOCK, identifier, block);
+    }
+
+    public static Block registerDoorBlock(String name, Block block) {
+        ModBlocks.registerBlockItem(name, block);
+        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
+        return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }
 
     private static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {

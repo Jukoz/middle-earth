@@ -21,6 +21,14 @@ public class MineableAxe {
             add(ModDecorativeBlocks.RED_CUSHION);
 
             add(ModNatureBlocks.PINE_BRANCHES);
+
+            add(ModDecorativeBlocks.BLUE_HOBBIT_DOOR);
+            add(ModDecorativeBlocks.GREEN_HOBBIT_DOOR);
+            add(ModDecorativeBlocks.RED_HOBBIT_DOOR);
+            add(ModDecorativeBlocks.YELLOW_HOBBIT_DOOR);
+            add(ModDecorativeBlocks.LARCH_HOBBIT_DOOR);
+            add(ModDecorativeBlocks.SPRUCE_HOBBIT_DOOR);
+            add(ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR);
         }
     };
 }
