@@ -36,6 +36,7 @@ public class Faction {
     ).apply(instance, Faction::new));
 
     private final Identifier id;
+    private final String translatableKey;
     private final Alignment alignment;
     private List<Race> official_races;
     private final FactionNpcPreviewData previewGears;
@@ -51,6 +52,8 @@ public class Faction {
      */
     public Faction(String id, String alignment, List<String> races, NbtCompound previewGearNbt, NbtCompound bannerDataNbt, NbtCompound spawnsNbt) {
         this.id = Identifier.of(MiddleEarth.MOD_ID, id);
+        this.translatableKey = "faction.".concat(this.id.toTranslationKey());
+
         this.alignment = Alignment.valueOf(alignment.toUpperCase());
 
         this.official_races = new ArrayList<>();
@@ -61,8 +64,8 @@ public class Faction {
         this.previewGears = new FactionNpcPreviewData(previewGearNbt);
         this.bannerData = new BannerData(bannerDataNbt);
         this.spawnsData = new SpawnsData(spawnsNbt);
-        LoggerUtil.logDebugMsg("Adding faction : " + id);
         ModFactionRegistry.addFaction(this, this.id);
+        LoggerUtil.logDebugMsg("Adding faction : \n[Id] : " + this.id + "\n" + "[TranslatableKey] : " + this.translatableKey);
     }
 
     private List<String> getRaceNames() {
@@ -169,8 +172,8 @@ public class Faction {
     }
 
     public MutableText tryGetShortName() {
-        String target = id.toTranslationKey().concat(".fallback");
-        String fallback = Text.translatable(id.toTranslationKey()).getString();
+        String target = translatableKey.concat(".fallback");
+        String fallback = Text.translatable(translatableKey).getString();
         return MutableText.of(new TranslatableTextContent(target, fallback, TranslatableTextContent.EMPTY_ARGUMENTS));
     }
 

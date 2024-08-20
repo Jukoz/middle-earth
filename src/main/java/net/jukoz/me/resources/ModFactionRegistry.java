@@ -5,6 +5,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.faction.Faction;
 import net.jukoz.me.utils.LoggerUtil;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.registry.*;
 import net.minecraft.util.Identifier;
 
@@ -49,10 +50,10 @@ public class ModFactionRegistry {
                 subFactions.add(faction);
                 temporaryFactions.put(parentFactionId, subFactions);
             }
-        } else {
+        } else if(factions.get(id) == null){ // Prevent overwrites
+
             List<Faction> subFactions = temporaryFactions.get(id);
             if(subFactions != null && !subFactions.isEmpty()){
-
                 for(Faction subFaction : subFactions){
                     faction.addSubfaction(subFaction);
                 }
@@ -66,7 +67,7 @@ public class ModFactionRegistry {
         HashMap<Identifier, Faction> foundFactions = new HashMap<>();
 
         for(Faction faction : factions.values().stream().filter(x -> x.getAlignment() == alignment).toList()){
-                foundFactions.put(faction.getId(), faction);
+            foundFactions.put(faction.getId(), faction);
         }
         return foundFactions;
     }
