@@ -1,7 +1,7 @@
 package net.jukoz.me.item.items;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.jukoz.me.network.packets.C2S.OnboardingDetailFetchingPacket;
+import net.jukoz.me.network.packets.c2s.OnboardingDetailFetchingPacket;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

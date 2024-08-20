@@ -1,11 +1,8 @@
 package net.jukoz.me.world.dimension;
 
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.network.packets.C2S.TeleportRequestPacket;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.utils.LoggerUtil;
-import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
@@ -20,7 +17,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionOptions;
-import org.joml.Vector2i;
 import org.joml.Vector3i;
 
 public class ModDimensions {
@@ -52,14 +48,6 @@ public class ModDimensions {
         return new Vector3i(x, height, z);
     }
 
-    public static void teleportPlayerToME(PlayerEntity player) {
-        Vector3i spawnCoordinates = getSpawnCoordinate();
-        Vector2i coordinates = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(spawnCoordinates.x, spawnCoordinates.z);
-        int height = (int) (1 + MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(coordinates.x, coordinates.y));
-        Vector3i targetCoords = new Vector3i(coordinates.x, height, coordinates.y);
-        teleportPlayerToMe(player, targetCoords);
-    }
-
     public static void teleportPlayerToMe(PlayerEntity player, Vector3i coordinates){
         if(!player.getWorld().isClient()) {
             RegistryKey<World> registryKey = ME_WORLD_KEY;
@@ -73,31 +61,6 @@ public class ModDimensions {
                 player.refreshPositionAfterTeleport(coordinates.x, coordinates.y, coordinates.z);
             }
         }
-    }
-
-    public static void teleportPlayerToMe(TeleportRequestPacket packet, ServerPlayNetworking.Context context){
-        context.player().stopRiding();
-        Vector3i coordinates = packet.getCoordinates();
-
-        ServerWorld serverWorld = (ServerWorld) context.player().getWorld();
-        if (serverWorld != null) {
-            RegistryKey<World> registryKey = ME_WORLD_KEY;
-            serverWorld = serverWorld.getServer().getWorld(registryKey);
-
-            context.player().wakeUp();
-
-            context.player().teleport(serverWorld, coordinates.x, coordinates.y, coordinates.z, context.player().getYaw(), context.player().getPitch());
-            context.player().refreshPositionAfterTeleport(coordinates.x, coordinates.y, coordinates.z);
-        }
-    }
-
-    public static Vector3i getSpawnCoordinate(){
-        Vector3i spawnCoordinate = new Vector3i(939, 90, 915);;
-        double worldIteration = Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION);
-        int x = (int)((spawnCoordinate.x * worldIteration));
-        int z = (int)((spawnCoordinate.z * worldIteration));
-
-        return new Vector3i(x, spawnCoordinate.y, z);
     }
 
     public static boolean isInMiddleEarth(World world){
@@ -128,4 +91,16 @@ public class ModDimensions {
         }
     }
 
+    /**
+     * For future usage only, not necessary for now
+     * @return world coordinate for current map coordinate selected based on map iteration/pixel weight
+     */
+    public static Vector3i getSpawnCoordinate(){
+        Vector3i spawnCoordinate = new Vector3i(939, 90, 915);;
+        double worldIteration = Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION);
+        int x = (int)((spawnCoordinate.x * worldIteration));
+        int z = (int)((spawnCoordinate.z * worldIteration));
+
+        return new Vector3i(x, spawnCoordinate.y, z);
+    }
 }

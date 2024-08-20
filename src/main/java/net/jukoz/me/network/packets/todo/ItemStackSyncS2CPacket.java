@@ -1,4 +1,4 @@
-package net.jukoz.me.network;
+package net.jukoz.me.network.packets.todo;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;

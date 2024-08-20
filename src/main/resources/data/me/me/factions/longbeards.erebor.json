@@ -1,0 +1,45 @@
+{
+  "id": "longbeards.erebor",
+  "alignment": "Good",
+  "races": [
+    "dwarf"
+  ],
+  "preview_gears": {
+    "head": "me:barding_sergeant_helmet",
+    "chest": "me:barding_sergeant_chestplate",
+    "legs": "me:barding_chain_skirt",
+    "feet": "me:barding_plated_boots",
+    "mainhand": "me:dalish_noble_sword",
+    "offhand": ""
+  },
+  "banner": {
+    "base_color": "red",
+    "patterns": [
+      {
+        "id": "me:dragon",
+        "dye_color": "white"
+      }
+    ]
+  },
+  "spawns": {
+    "map_view_center": {
+      "x": 5,
+      "y": 5
+    },
+    "dynamic_spawns": [
+      {
+        "id": "me:dale_countryside",
+        "x": 1,
+        "z": 1
+      }
+    ],
+    "custom_spawns": [
+      {
+        "id": "me:dale_city",
+        "x": 1.25,
+        "y": 1.25,
+        "z": 1.25
+      }
+    ]
+  }
+}

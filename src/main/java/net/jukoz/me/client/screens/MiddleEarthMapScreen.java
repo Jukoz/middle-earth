@@ -5,7 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.network.packets.C2S.TeleportRequestPacket;
+import net.jukoz.me.network.packets.c2s.TeleportRequestPacket;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.gui.DrawContext;

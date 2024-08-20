@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.network.packets.C2S.TeleportToMeSpawnRequestPacket;
+import net.jukoz.me.network.packets.c2s.TeleportToMeSpawnRequestPacket;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -46,7 +46,7 @@ public class OnboardingSelectionScreen extends Screen {
         if(canResetCharacter){
             ButtonWidget.PressAction resetCharacterAction = button -> {
                 MinecraftClient mc = MinecraftClient.getInstance();
-                mc.setScreenAndRender(new FactionSelectionScreen());
+                mc.setScreen(new FactionSelectionScreen());
             };
             resetCharacterButton = ButtonWidget.builder(Text.of("reset_character"), resetCharacterAction).build();
             addDrawableChild(resetCharacterButton);

@@ -1,39 +1,52 @@
-package net.jukoz.me.network.packets.C2S;
+package net.jukoz.me.network.packets.c2s;
 
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.network.contexts.ServerPacketContext;
+import net.jukoz.me.network.packets.ClientToServerPacket;
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
-import org.joml.Vector3i;
 
 
-public record TeleportRequestPacket(int coordinateX, int coordinateZ) implements CustomPayload
+public class  TeleportRequestPacket extends ClientToServerPacket<TeleportRequestPacket>
 {
     public static final CustomPayload.Id<TeleportRequestPacket> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "teleport_request_packet"));
     public static final PacketCodec<RegistryByteBuf, TeleportRequestPacket> CODEC = PacketCodec.tuple(
-            PacketCodecs.INTEGER, TeleportRequestPacket::coordinateX,
-            PacketCodecs.INTEGER, TeleportRequestPacket::coordinateZ,
+            PacketCodecs.VAR_INT, p -> p.xCoordinate,
+            PacketCodecs.VAR_INT, p -> p.zCoordinate,
             TeleportRequestPacket::new
     );
 
-    public static void apply(TeleportRequestPacket packet, ServerPlayNetworking.Context context) {
-        context.player().getServer().execute(() -> {
-            ModDimensions.teleportPlayerToMe(packet, context);
-        });
+    private final int xCoordinate;
+    private final int zCoordinate;
+
+    public TeleportRequestPacket(int xCoordinate, int zCoordinate){
+        this.xCoordinate = xCoordinate;
+        this.zCoordinate = zCoordinate;
     }
 
     @Override
-    public CustomPayload.Id<? extends CustomPayload> getId()
-    {
+    public Id<TeleportRequestPacket> getId() {
         return ID;
     }
 
-    public Vector3i getCoordinates()
-    {
-        return ModDimensions.getDimensionHeight(coordinateX, coordinateZ);
+    @Override
+    public PacketCodec<RegistryByteBuf, TeleportRequestPacket> streamCodec() {
+        return CODEC;
+    }
+
+    @Override
+    public void process(ServerPacketContext context) {
+        try{
+            context.player().getServer().execute(() -> {
+                ModDimensions.teleportPlayerToMe(context.player(), ModDimensions.getDimensionHeight(xCoordinate, zCoordinate));
+            });
+        } catch (Exception e){
+            LoggerUtil.logError("TeleportRequestPacket::Apply - Tried applying the teleport request packet",e);
+        }
     }
 }

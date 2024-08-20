@@ -1,7 +1,8 @@
-package net.jukoz.me.network.packets.C2S;
+package net.jukoz.me.network.packets.c2s;
 
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.network.contexts.ServerPacketContext;
+import net.jukoz.me.network.packets.ClientToServerPacket;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.LoggerUtil;
@@ -16,39 +17,66 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.joml.Vector3i;
 
-public record SpawnDataPacket(int overworldX, int overworldY, int overworldZ, int middleEarthX, int middleEarthY, int middleEarthZ) implements CustomPayload
+public class  SpawnDataPacket extends ClientToServerPacket<SpawnDataPacket>
 {
     public static final CustomPayload.Id<SpawnDataPacket> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "spawn_data_packet"));
 
     public static final PacketCodec<RegistryByteBuf, SpawnDataPacket> CODEC = PacketCodec.tuple(
-            PacketCodecs.INTEGER, SpawnDataPacket::overworldX,
-            PacketCodecs.INTEGER, SpawnDataPacket::overworldY,
-            PacketCodecs.INTEGER, SpawnDataPacket::overworldZ,
-            PacketCodecs.INTEGER, SpawnDataPacket::middleEarthX,
-            PacketCodecs.INTEGER, SpawnDataPacket::middleEarthY,
-            PacketCodecs.INTEGER, SpawnDataPacket::middleEarthZ,
+            PacketCodecs.VAR_INT, p -> p.overworldX,
+            PacketCodecs.VAR_INT, p -> p.overworldY,
+            PacketCodecs.VAR_INT, p -> p.overworldZ,
+            PacketCodecs.VAR_INT, p -> p.middleEarthX,
+            PacketCodecs.VAR_INT, p -> p.middleEarthY,
+            PacketCodecs.VAR_INT, p -> p.middleEarthZ,
             SpawnDataPacket::new
     );
 
-    public static void apply(SpawnDataPacket packet, ServerPlayNetworking.Context context) {
-        context.player().getServer().execute(() -> {
+    private final int overworldX;
+    private final int overworldY;
+    private final int overworldZ;
 
-            MinecraftServer server = context.server();
-            ServerPlayerEntity player = server.getPlayerManager().getPlayer(context.player().getUuid());
+    private final int middleEarthX;
+    private final int middleEarthY;
+    private final int middleEarthZ;
 
-            PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
+    public SpawnDataPacket(int overworldX, int overworldY, int overworldZ, int middleEarthX, int middleEarthY, int middleEarthZ){
+        this.overworldX = overworldX;
+        this.overworldY = overworldY;
+        this.overworldZ = overworldZ;
 
-            BlockPos overworldSpawnBlockpos = new BlockPos(packet.overworldX, packet.overworldY, packet.overworldZ);
-            BlockPos middleEarthSpawnBlockpos = new BlockPos(packet.middleEarthX, packet.middleEarthY, packet.middleEarthZ);
-            playerState.setOverworldSpawn(overworldSpawnBlockpos);
-            playerState.setMiddleEarthSpawn(middleEarthSpawnBlockpos);
-        });
+        this.middleEarthX = middleEarthX;
+        this.middleEarthY = middleEarthY;
+        this.middleEarthZ = middleEarthZ;
     }
 
     @Override
-    public CustomPayload.Id<? extends CustomPayload> getId()
-    {
+    public Id<SpawnDataPacket> getId() {
         return ID;
+    }
+
+    @Override
+    public PacketCodec<RegistryByteBuf, SpawnDataPacket> streamCodec() {
+        return CODEC;
+    }
+
+    @Override
+    public void process(ServerPacketContext context) {
+        try{
+            context.player().getServer().execute(() -> {
+
+                MinecraftServer server = context.player().server;
+                ServerPlayerEntity player = server.getPlayerManager().getPlayer(context.player().getUuid());
+
+                PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
+
+                BlockPos overworldSpawnBlockpos = new BlockPos(overworldX, overworldY, overworldZ);
+                BlockPos middleEarthSpawnBlockpos = new BlockPos(middleEarthX, middleEarthY, middleEarthZ);
+                playerState.setOverworldSpawn(overworldSpawnBlockpos);
+                playerState.setMiddleEarthSpawn(middleEarthSpawnBlockpos);
+            });
+        } catch (Exception e){
+            LoggerUtil.logError("SpawnDataPacket::Apply - Tried applying the spawn data packet",e);
+        }
     }
 
     @Override

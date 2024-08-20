@@ -63,7 +63,8 @@ import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.utils.ModArmorModels;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
-import net.jukoz.me.network.ModNetworks;
+import net.jukoz.me.network.ModClientNetworkHandler;
+import net.jukoz.me.network.connections.ConnectionToServer;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.particles.custom.LeavesParticle;
 import net.minecraft.block.Block;
@@ -96,6 +97,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        ModClientNetworkHandler.register(new ConnectionToServer());
 
         KeyInputHandler.register();
 
@@ -186,8 +188,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         HandledScreens.register(ModScreenHandlers.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         BlockEntityRendererFactories.register(ModBlockEntities.ALLOY_FURNACE, AlloyFurnaceEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
-
-        ModNetworks.registerS2CPackets();
 
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_HELMET, CustomHelmetModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_CHESTPLATE, CustomChestplateModel::getTexturedModelData);

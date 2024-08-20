@@ -1,26 +1,21 @@
 package net.jukoz.me.resources.datas.faction;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.resources.CustomServerDataResourceReloadListener;
-import net.jukoz.me.resources.datas.Alignment;
-import net.jukoz.me.utils.LoggerUtil;
-import net.minecraft.resource.Resource;
-import net.minecraft.util.Identifier;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
+import net.jukoz.me.resources.datas.Alignment;
+import net.minecraft.util.Identifier;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ModFactions {
-    public static final String ID_PREFIX = "faction.";
     public static HashMap<Identifier, Faction> factions;
-    public static void registerFactions(Map<Identifier, Resource> resources) {
+
+    public static List<Faction> getFactions(Alignment alignment){
+        return factions.values().stream().filter(x -> x.getAlignment() == alignment).collect(Collectors.toList());
+    }
+
+    /*
+     public static void registerFactions(Map<Identifier, Resource> resources) {
         LoggerUtil.logDebugMsg("ModFactions:registerFactions -> begin");
         factions = new HashMap<>();
 
@@ -47,6 +42,7 @@ public class ModFactions {
             JsonObject factionJsonObject = (JsonObject) jsonParser.parse(
                     new InputStreamReader(factionResource.getInputStream(), "UTF-8"));
 
+            Faction faction = null;
             if(factionJsonObject.get("sub") != null && !factionJsonObject.getAsJsonArray("sub").isEmpty()){
                 HashMap<Identifier, Faction> subFactions = new HashMap<>();
                 for(JsonElement subFacElement : factionJsonObject.getAsJsonArray("sub")){
@@ -54,17 +50,18 @@ public class ModFactions {
                     JsonObject subFactionJsonObject = (JsonObject) jsonParser.parse(
                             new InputStreamReader(subFactionResource.getInputStream(), "UTF-8"));
                     Identifier subFacId = Identifier.of(MiddleEarth.MOD_ID, ID_PREFIX + element.getAsString() + "." + subFacElement.getAsString());
-                    subFactions.put(subFacId, new Faction(alignment, subFactionJsonObject, subFacId));
+                    Faction subFaction = new Faction(alignment, subFactionJsonObject, subFacId);
+                    subFactions.put(subFacId, subFaction);
                 }
-                factions.put(id, new Faction(alignment, factionJsonObject, id, subFactions));
+                faction = new Faction(alignment, factionJsonObject, id, subFactions);
             }
             else {
-                factions.put(id, new Faction(alignment, factionJsonObject, id));
+                faction = new Faction(alignment, factionJsonObject, id);
             }
+            factions.put(id, faction);
+            ModFactionRegistry.FACTIONS.add(RegistryKey.of(ModFactionRegistry.FACTION_KEY, faction.getId()), faction, new RegistryEntryInfo(Optional.of(new VersionedIdentifier(MiddleEarth.MOD_ID, faction.getId().toString(), MiddleEarth.MOD_VERSION)), Lifecycle.stable()));
         }
     }
 
-    public static List<Faction> getFactions(Alignment alignment){
-        return factions.values().stream().filter(x -> x.getAlignment() == alignment).collect(Collectors.toList());
-    }
+     */
 }

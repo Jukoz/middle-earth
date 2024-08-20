@@ -1,12 +1,8 @@
 package net.jukoz.me.block.special.wood_pile;
 
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.ModDecorativeBlocks;
-import net.jukoz.me.network.ModNetworks;
 import net.jukoz.me.utils.ImplementedInventory;
 import net.jukoz.me.gui.wood_pile.WoodPileScreenHandler;
 import net.minecraft.block.BlockState;
@@ -17,18 +13,13 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
 import static net.jukoz.me.block.special.wood_pile.WoodPileBlock.STAGE;
