@@ -4733,6 +4733,8 @@
 
 "#Comment": "UI",
   "me.ui.selection.none" : "None",
-  "me.ui.search.label" : "Search..."
+  "me.ui.search.label" : "Search...",
+
+  "block.me.large_door.blocked": "Something seems to prevent the door from moving."
 
 }

@@ -1,8 +1,6 @@
 package net.jukoz.me.datageneration;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.mojang.serialization.Decoder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.jukoz.me.MiddleEarth;
@@ -11,25 +9,26 @@ import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.MushroomBlockSets;
 import net.jukoz.me.block.crop.*;
+import net.jukoz.me.block.special.LargeDoor2x2;
+import net.jukoz.me.block.special.LargeDoorBlock;
 import net.jukoz.me.block.special.VerticalSlabBlock;
 import net.jukoz.me.datageneration.content.CustomItemModels;
 import net.jukoz.me.datageneration.content.MEModels;
 import net.jukoz.me.datageneration.content.models.*;
-import net.jukoz.me.item.ModEquipmentItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.enums.DoorHinge;
 import net.minecraft.data.client.*;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.ArmorMaterials;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 
-import java.util.Iterator;
 import java.util.Map;
 
 import java.util.Optional;
@@ -682,6 +681,9 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerAmethyst(ModBlocks.SMALL_QUARTZ_BUD);
         blockStateModelGenerator.registerAmethyst(ModBlocks.MEDIUM_QUARTZ_BUD);
         blockStateModelGenerator.registerAmethyst(ModBlocks.LARGE_QUARTZ_BUD);
+
+        //registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModBlocks.GREEN_HOBBIT_DOOR, LargeDoorBlock.PART);
+        //registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModBlocks.TEST_DOOR, LargeDoor2x2.PART);
     }
 
     public final void registerFanModel(BlockStateModelGenerator blockStateCollector, Block coralFanBlock) {
@@ -804,6 +806,28 @@ public class ModelProvider extends FabricModelProvider {
         Identifier identifier = blockStateModelGenerator.createSubModel(doubleBlock, "_top", tintType.getCrossModel(), TextureMap::cross);
         Identifier identifier2 = blockStateModelGenerator.createSubModel(doubleBlock, "_bottom", tintType.getCrossModel(), TextureMap::cross);
         blockStateModelGenerator.registerDoubleBlock(doubleBlock, identifier, identifier2);
+    }
+
+    public final void registerLargeDoor(BlockStateModelGenerator blockStateModelGenerator, LargeDoorBlock largeDoor, IntProperty part){
+        var statesMap = BlockStateVariantMap.create(Properties.HORIZONTAL_FACING, Properties.OPEN, Properties.DOOR_HINGE, part);
+        for (int i = 0; i < largeDoor.getDoorWidth() * largeDoor.getDoorHeight(); i++){
+            for(int k = 2; k < 6; k++){
+                statesMap.register(Direction.byId(k), false, DoorHinge.LEFT, i, BlockStateVariant.create()
+                        .put(VariantSettings.MODEL, Identifier.of(MiddleEarth.MOD_ID,
+                                Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)).put(VariantSettings.UVLOCK, false));
+                statesMap.register(Direction.byId(k), true, DoorHinge.LEFT, i, BlockStateVariant.create()
+                        .put(VariantSettings.MODEL, Identifier.of(MiddleEarth.MOD_ID,
+                                Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)).put(VariantSettings.UVLOCK, false));
+                statesMap.register(Direction.byId(k), false, DoorHinge.RIGHT, i, BlockStateVariant.create()
+                        .put(VariantSettings.MODEL, Identifier.of(MiddleEarth.MOD_ID,
+                                Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)).put(VariantSettings.UVLOCK, false));
+                statesMap.register(Direction.byId(k), true, DoorHinge.RIGHT, i, BlockStateVariant.create()
+                        .put(VariantSettings.MODEL, Identifier.of(MiddleEarth.MOD_ID,
+                                Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)).put(VariantSettings.UVLOCK, false));
+            }
+        }
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(largeDoor)
+                .coordinate(statesMap));
     }
 
     public final void registerLeadGlassPane(BlockStateModelGenerator blockStateModelGenerator, Block glass, Block glassPane) {

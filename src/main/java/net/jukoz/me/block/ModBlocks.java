@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ColorCode;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -25,9 +26,10 @@ public class ModBlocks {
     public static final float DIRT_STRENGTH = 0.6f;
     public static final float SLAB_RESISTANCE = 6.0f; // From explosions
 
-    public static final Block TEST_DOOR = registerStoneBlock("test_door",
-            new LargeDoorBlocks(AbstractBlock.Settings.copy(Blocks.OAK_DOOR)),true);
-
+    public static final Block GREEN_HOBBIT_DOOR = registerDoorBlock("green_hobbit_door",
+            new LargeDoorBlock(16,8, AbstractBlock.Settings.create()));
+    public static final Block TEST_DOOR = registerDoorBlock("test_door",
+            new LargeDoor2x2(2,2, AbstractBlock.Settings.create()));
 
     //region STONE PILLARS AND CHISELED
     public static final Block STONE_PILLAR = registerStoneBlock("stone_pillar",
@@ -198,7 +200,7 @@ public class ModBlocks {
             new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
     public static final Block POINTED_LIMESTONE = registerStoneBlock("pointed_limestone",
-            new PointedBlock(AbstractBlock.Settings.copy(Blocks.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never)), true);
+            new PointedBlock(AbstractBlock.Settings.copy(Blocks.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never)), false);
 
     public static final Block CHISELED_SMOOTH_STONE = registerStoneBlock("chiseled_smooth_stone",
             new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
@@ -1003,6 +1005,11 @@ public class ModBlocks {
         if(drop){
             BlockDrops.blocks.add(block);
         }
+        registerBlockItem(name, block);
+        return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
+    }
+
+    public static Block registerDoorBlock(String name, Block block) {
         registerBlockItem(name, block);
         return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }

@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "me:block/big_door_part",
 	"textures": {
-		"0": "me:block/test_door_4",
-		"particle": "me:block/test_door_4"
+		"0": "me:block/test_door_0",
+		"particle": "me:block/test_door_0"
 	}
 }
