@@ -1,8 +1,5 @@
 package net.jukoz.me.block.special;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 
 public class LargeDoor2x2 extends LargeDoorBlock{
@@ -13,7 +10,7 @@ public class LargeDoor2x2 extends LargeDoorBlock{
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(PART, HORIZONTAL_FACING, OPEN, HINGE);
+    public IntProperty getPart() {
+        return PART;
     }
 }

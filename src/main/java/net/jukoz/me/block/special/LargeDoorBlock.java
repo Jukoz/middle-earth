@@ -35,9 +35,10 @@ public class LargeDoorBlock extends Block {
     public static final BooleanProperty OPEN = Properties.OPEN;
     public static final EnumProperty<DoorHinge> HINGE = Properties.DOOR_HINGE;
 
-    public static final MapCodec<LargeDoorBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-        return instance.group(Codec.INT.fieldOf("door_height").forGetter(LargeDoorBlock::getDoorHeight), Codec.INT.fieldOf("door_width").forGetter(LargeDoorBlock::getDoorWidth), createSettingsCodec()).apply(instance, LargeDoorBlock::new);
-    });
+    public static final MapCodec<LargeDoorBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance
+            .group(Codec.INT.fieldOf("door_height").forGetter(LargeDoorBlock::getDoorHeight),
+                    Codec.INT.fieldOf("door_width").forGetter(LargeDoorBlock::getDoorWidth),
+                    createSettingsCodec()).apply(instance, LargeDoorBlock::new));
 
     private final int doorHeight;
     private final int doorWidth;
@@ -55,20 +56,12 @@ public class LargeDoorBlock extends Block {
         super(settings);
         doorHeight = height;
         doorWidth = width;
-        this.setDefaultState((((this.stateManager.getDefaultState()).with(HORIZONTAL_FACING, Direction.NORTH)).with(PART, 0)).with(OPEN, false).with(HINGE, DoorHinge.LEFT));
-    }
-
-    public int getDoorHeight() {
-        return doorHeight;
-    }
-
-    public int getDoorWidth() {
-        return doorWidth;
+        this.setDefaultState((((this.stateManager.getDefaultState()).with(HORIZONTAL_FACING, Direction.NORTH)).with(getPart(), 0)).with(OPEN, false).with(HINGE, DoorHinge.LEFT));
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(PART, HORIZONTAL_FACING, OPEN, HINGE);
+        builder.add(getPart(), HORIZONTAL_FACING, OPEN, HINGE);
     }
 
     @Nullable
@@ -90,7 +83,7 @@ public class LargeDoorBlock extends Block {
         }
 
         if(canPlace){
-            return this.getDefaultState().with(HORIZONTAL_FACING, direction).with(OPEN, false).with(PART, 0).with(HINGE, DoorHinge.LEFT);
+            return this.getDefaultState().with(HORIZONTAL_FACING, direction).with(OPEN, false).with(getPart(), 0).with(HINGE, DoorHinge.LEFT);
         } else{
             return null;
         }
@@ -102,7 +95,7 @@ public class LargeDoorBlock extends Block {
             for (int i = 0; i < doorWidth; i++){
                 int partIndex = doorHeight * i;
                 for (int j = 0; j < doorHeight; j++) {
-                    world.setBlockState(blockPos, (BlockState)state.with(PART, partIndex), 3);
+                    world.setBlockState(blockPos, (BlockState)state.with(getPart(), partIndex), 3);
                     blockPos = blockPos.up();
                     partIndex++;
                 }
@@ -113,7 +106,7 @@ public class LargeDoorBlock extends Block {
 
     @Override
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        int part = state.get(PART);
+        int part = state.get(getPart());
         int column = part / doorHeight;
         int line = part % doorHeight;
 
@@ -153,7 +146,7 @@ public class LargeDoorBlock extends Block {
     }
 
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        int part = state.get(PART);
+        int part = state.get(getPart());
         int column = part / doorHeight;
         int line = part % doorHeight;
 
@@ -198,7 +191,7 @@ public class LargeDoorBlock extends Block {
                 for (int i = 0; i < doorWidth; i++){
                     int partIndex = doorHeight * i;
                     for (int j = 0; j < doorHeight; j++) {
-                        world.setBlockState(blockPos, (BlockState)state.with(OPEN, false).with(PART, partIndex), 3);
+                        world.setBlockState(blockPos, state.with(OPEN, false).with(getPart(), partIndex), 3);
                         blockPos = blockPos.up();
                         partIndex++;
                     }
@@ -244,7 +237,7 @@ public class LargeDoorBlock extends Block {
                 for (int j = 0; j < doorWidth; j++){
                     int partIndex = doorHeight * j;
                     for (int k = 0; k < doorHeight; k++) {
-                        world.setBlockState(blockPos, state.with(OPEN, true).with(PART, partIndex), 3);
+                        world.setBlockState(blockPos, state.with(OPEN, true).with(getPart(), partIndex), 3);
                         blockPos = blockPos.up();
                         partIndex++;
                     }
@@ -274,6 +267,18 @@ public class LargeDoorBlock extends Block {
 
     protected BlockState mirror(BlockState state, BlockMirror mirror) {
         return mirror == BlockMirror.NONE ? state : (BlockState)state.rotate(mirror.getRotation((Direction)state.get(HORIZONTAL_FACING)));
+    }
+
+    public int getDoorHeight() {
+        return doorHeight;
+    }
+
+    public int getDoorWidth() {
+        return doorWidth;
+    }
+
+    public IntProperty getPart() {
+        return PART;
     }
 
     protected boolean canPathfindThrough(BlockState state, NavigationType type) {

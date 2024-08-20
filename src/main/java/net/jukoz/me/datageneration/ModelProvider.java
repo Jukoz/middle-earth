@@ -682,8 +682,8 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerAmethyst(ModBlocks.MEDIUM_QUARTZ_BUD);
         blockStateModelGenerator.registerAmethyst(ModBlocks.LARGE_QUARTZ_BUD);
 
-        //registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModBlocks.GREEN_HOBBIT_DOOR, LargeDoorBlock.PART);
-        //registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModBlocks.TEST_DOOR, LargeDoor2x2.PART);
+        registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModBlocks.GREEN_HOBBIT_DOOR, LargeDoorBlock.PART);
+        registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModBlocks.TEST_DOOR, LargeDoor2x2.PART);
     }
 
     public final void registerFanModel(BlockStateModelGenerator blockStateCollector, Block coralFanBlock) {

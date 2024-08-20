@@ -1011,6 +1011,7 @@ public class ModBlocks {
 
     public static Block registerDoorBlock(String name, Block block) {
         registerBlockItem(name, block);
+        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
         return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }
 
