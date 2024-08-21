@@ -3,12 +3,14 @@ package net.jukoz.me.entity.beasts.broadhoof;
 import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.jukoz.me.entity.goals.*;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -25,10 +27,13 @@ import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.InstrumentTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
@@ -39,8 +44,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-// TODO Sounds
-// TODO Horns
 public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     private static final double WALKING_SPEED = 0.15;
@@ -174,7 +177,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
                 entity.damage(entity.getDamageSources().mobAttack(this), 8.0f);
                 entity.pushAwayFrom(this);
 
-                if(this.random.nextInt(10) == 0) {
+                if(this.random.nextInt(10) == 0 && !this.isTame()) {
                     this.dropHorn();
                 }
 
@@ -319,5 +322,64 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     public boolean hasLeftHorn() {
         return this.dataTracker.get(LEFT_HORN);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.ENTITY_GOAT_DEATH;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return SoundEvents.ENTITY_GOAT_HURT;
+    }
+    @Override
+    protected void playHurtSound(DamageSource damageSource) {
+        this.playSound(this.getHurtSound(damageSource), 1.0f, 0.7f);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.ENTITY_GOAT_AMBIENT;
+    }
+
+    @Override
+    public void playAmbientSound() {
+        this.playSound(this.getAmbientSound(), 1.0f, 0.7f);
+    }
+
+    @Nullable
+    @Override
+    public SoundEvent getAmbientStandSound() {
+        return SoundEvents.ENTITY_GOAT_SCREAMING_AMBIENT;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAngrySound() {
+        return SoundEvents.ENTITY_GOAT_PREPARE_RAM;
+    }
+
+    @Override
+    public void playAngrySound() {
+        this.playSound(this.getAngrySound(), 1.0f, 0.7f);
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(SoundEvents.ENTITY_GOAT_STEP, 0.15f, 0.7f);
+    }
+
+    @Override
+    protected void playWalkSound(BlockSoundGroup group) {
+        this.playSound(SoundEvents.ENTITY_GOAT_STEP, 1.0f, 0.7f);
+    }
+
+    @Override
+    protected void playJumpSound() {
+        this.playSound(SoundEvents.ENTITY_GOAT_LONG_JUMP, 1.0f, 0.7f);
     }
 }
