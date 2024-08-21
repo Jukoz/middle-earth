@@ -23,6 +23,7 @@ public class MineablePickaxe {
             add(ModBlocks.CHISELED_CALCITE_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_CALCITE);
 
+            add(ModBlocks.CHISELED_LIMESTONE);
             add(ModBlocks.CHISELED_LIMESTONE_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_LIMESTONE);
 
