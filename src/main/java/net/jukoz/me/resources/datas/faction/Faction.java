@@ -10,6 +10,7 @@ import net.jukoz.me.resources.datas.faction.utils.BannerData;
 import net.jukoz.me.resources.datas.faction.utils.FactionNpcPreviewData;
 import net.jukoz.me.resources.datas.faction.utils.SpawnsData;
 import net.jukoz.me.utils.LoggerUtil;
+import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.MutableText;
@@ -17,6 +18,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import org.joml.Vector3d;
 import org.joml.Vector3i;
 
 import java.util.ArrayList;
@@ -68,6 +70,16 @@ public class Faction {
         LoggerUtil.logDebugMsg("Adding faction : \n[Id] : " + this.id + "\n" + "[TranslatableKey] : " + this.translatableKey);
     }
 
+    public Faction(String name, Alignment alignment, FactionNpcPreviewData factionNpcPreviewData, BannerData bannerData, SpawnsData spawnsData, List<Race> races){
+        this.id = Identifier.of(MiddleEarth.MOD_ID, name);
+        this.translatableKey = "faction.".concat(this.id.toTranslationKey());
+        this.alignment = alignment;
+        this.previewGears = factionNpcPreviewData;
+        this.bannerData = bannerData;;
+        this.spawnsData = spawnsData;
+        this.official_races = races;
+    }
+
     private List<String> getRaceNames() {
         List<String> races = new ArrayList<>();
         for(Race race : official_races){
@@ -77,7 +89,7 @@ public class Faction {
     }
 
     private String getIdValue() {
-        return this.id.toString();
+        return this.id.getPath();
     }
     private NbtCompound getPreviewGearNbt() {
         return this.previewGears.getNbt();
@@ -161,7 +173,7 @@ public class Faction {
         return alignment.name();
     }
 
-    public List<Vector3i> getSpawnCoordinates() { return spawnsData.getTemporaryCoordinate(); }
+    public SpawnsData getSpawnData() { return spawnsData; }
 
     public Identifier getId() {
         return id;

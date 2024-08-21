@@ -1,6 +1,7 @@
 package net.jukoz.me.resources;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.persistent_datas.AffiliationData;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.LoggerUtil;
@@ -8,6 +9,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
@@ -29,9 +31,10 @@ public class StateSaverAndLoader extends PersistentState {
             NbtCompound playerNbt = new NbtCompound();
             if(playerData.hasAffilition()){
                 AffiliationData affiliationData = playerData.getAffiliationData();
-                playerNbt.putInt("alignment", affiliationData.alignment);
-                playerNbt.putInt("faction", affiliationData.faction);
-                playerNbt.putInt("subfaction", affiliationData.subfaction);
+                playerNbt.putString("alignment", affiliationData.alignment.toString().toLowerCase());
+                playerNbt.putString("faction_id", affiliationData.faction.getPath().toLowerCase());
+                playerNbt.putString("subfaction_id", affiliationData.subfaction.getPath().toLowerCase());
+                playerNbt.putString("spawn_id", affiliationData.subfaction.getPath().toLowerCase());
             }
 
             BlockPos overworldSpawn = playerData.getOverworldSpawnCoordinates();
@@ -58,11 +61,12 @@ public class StateSaverAndLoader extends PersistentState {
         playersNbt.getKeys().forEach(key -> {
             PlayerData playerData = new PlayerData();
             try{
-                int alignment = playersNbt.getCompound(key).getInt("alignment");
-                int faction = playersNbt.getCompound(key).getInt("faction");
-                int subfaction = playersNbt.getCompound(key).getInt("subfaction");
+                Alignment alignment = Alignment.valueOf(playersNbt.getCompound(key).getString("alignment"));
+                Identifier factionId = Identifier.of(MiddleEarth.MOD_ID, playersNbt.getCompound(key).getString("faction_id"));
+                Identifier subfactionId = Identifier.of(MiddleEarth.MOD_ID, playersNbt.getCompound(key).getString("subfaction_id"));
+                Identifier spawnId = Identifier.of(MiddleEarth.MOD_ID, playersNbt.getCompound(key).getString("spawn_id"));
 
-                AffiliationData affiliationData = new AffiliationData(alignment, faction, subfaction);
+                AffiliationData affiliationData = new AffiliationData(alignment.name(), factionId.getPath(), subfactionId.getPath(), spawnId.getPath());
                 playerData.setAffiliationData(affiliationData);
 
                 int[] overworldPos = playersNbt.getCompound(key).getIntArray("ow");

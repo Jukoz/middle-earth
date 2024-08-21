@@ -2,6 +2,7 @@ package net.jukoz.me.resources.datas.faction.utils;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -13,6 +14,7 @@ import org.joml.Vector3i;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class SpawnsData {
@@ -20,6 +22,12 @@ public class SpawnsData {
     HashMap<Identifier, Vector2i> dynamicSpawns;
     HashMap<Identifier, Vec3d> customSpawns;
 
+
+    public SpawnsData(Vector2i mapViewCenter, HashMap<Identifier, Vector2i> dynamicSpawns, HashMap<Identifier, Vec3d> customSpawns){
+        this.mapViewCenter = mapViewCenter;
+        this.dynamicSpawns = dynamicSpawns;
+        this.customSpawns = customSpawns;
+    }
 
     public SpawnsData(NbtCompound spawnsNbt) {
         NbtCompound mapViewCenterNbt = spawnsNbt.getCompound("map_view_center");
@@ -81,6 +89,14 @@ public class SpawnsData {
         nbt.put("custom_spawns", customSpawnSetsNbt);
 
         return nbt;
+    }
+
+    public HashMap<Identifier, Vector2i> getDynamicSpawns(){
+        return dynamicSpawns;
+    }
+
+    public HashMap<Identifier, Vec3d> getCustomSpawns(){
+        return customSpawns;
     }
 
     public List<Vector3i> getTemporaryCoordinate() {

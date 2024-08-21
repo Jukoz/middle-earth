@@ -7,24 +7,29 @@ import net.jukoz.me.network.packets.c2s.TeleportRequestPacket;
 import net.jukoz.me.resources.ModFactionRegistry;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.faction.Faction;
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
+import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import org.joml.Vector2i;
+import org.joml.Vector3d;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class FactionSelectionController {
     private Map<Alignment, List<Faction>> factions = new HashMap<>();
     private int currentAlignementIndex;
     private int currentFactionIndex;
     private int currentSubFactionIndex;
+    private int currentSpawnIndex;
+
     public FactionSelectionController(){
         factions.put(Alignment.GOOD, ModFactionRegistry.getFactionsByAlignment(Alignment.GOOD).values().stream().toList());
         factions.put(Alignment.NEUTRAL, ModFactionRegistry.getFactionsByAlignment(Alignment.NEUTRAL).values().stream().toList());
         factions.put(Alignment.EVIL, ModFactionRegistry.getFactionsByAlignment(Alignment.EVIL).values().stream().toList());
+        currentSpawnIndex = 0;
     }
 
     public int randomizeFaction(int tentativeLeft){
@@ -105,23 +110,30 @@ public class FactionSelectionController {
     }
 
     public void confirmSpawnSelection(AbstractClientPlayerEntity player){
-        Faction faction = getCurrentFaction();
-        if(faction == null || faction.getSpawnCoordinates() == null || faction.getSpawnCoordinates().isEmpty()) return;
+        Faction faction = getCurrentlySelectedFaction();
+        if(faction == null || (faction.getSpawnData().getDynamicSpawns().isEmpty() && faction.getSpawnData().getCustomSpawns().isEmpty())) return;
 
-        int x = faction.getSpawnCoordinates().get(0).x;
-        int z = faction.getSpawnCoordinates().get(0).z;
-
+        Vector2i dynamicSpawn = getCurrentSpawn().values().stream().toList().get(currentSpawnIndex);
+        int x = dynamicSpawn.x;
+        int z = dynamicSpawn.y;
+        
         ClientPlayNetworking.send(new TeleportRequestPacket(x, z));
-        ClientPlayNetworking.send(new AffiliationPacket(currentAlignementIndex, currentFactionIndex, currentSubFactionIndex));
+        ClientPlayNetworking.send(new AffiliationPacket(getCurrentAlignment().name(), getCurrentFaction().getName(), getCurrentSubfaction().getName(), getCurrentSpawn().keySet().stream().toList().get(0).getPath()));
         if(player != null){
             BlockPos overworldBlockPos = player.getBlockPos();
             BlockPos middleEarthblockPos = new BlockPos(x, (int) MiddleEarthHeightMap.getHeight(x, z), z);
-
             ClientPlayNetworking.send(new SpawnDataPacket(
                     overworldBlockPos.getX(), overworldBlockPos.getY(), overworldBlockPos.getZ(),
-                    middleEarthblockPos.getX(), middleEarthblockPos.getY(), middleEarthblockPos.getZ()
+                    middleEarthblockPos.getX(), ModDimensions.getDimensionHeight(middleEarthblockPos.getX(), middleEarthblockPos.getZ()).y, middleEarthblockPos.getZ()
             ));
         }
+    }
+
+    private HashMap<Identifier, Vector2i> getCurrentSpawn() {
+        HashMap<Identifier, Vector2i> foundSpawn = new HashMap<>();
+        Optional<Identifier> foundId = getCurrentlySelectedFaction().getSpawnData().getDynamicSpawns().keySet().stream().findFirst();
+        foundId.ifPresent(identifier -> foundSpawn.put(identifier, getCurrentlySelectedFaction().getSpawnData().getDynamicSpawns().get(identifier)));
+        return foundSpawn;
     }
 
     public Alignment getCurrentAlignment(){
@@ -136,6 +148,15 @@ public class FactionSelectionController {
         Faction faction = getCurrentFaction();
         if(faction == null) return null;
         return faction.getSubfaction(currentSubFactionIndex);
+    }
+
+    public Faction getCurrentlySelectedFaction(){
+        Faction faction = getCurrentFaction();
+        Faction subfaction = getCurrentSubfaction();
+        if(subfaction != null)
+            faction = subfaction;
+
+        return faction;
     }
 
     public boolean haveSubfaction(){

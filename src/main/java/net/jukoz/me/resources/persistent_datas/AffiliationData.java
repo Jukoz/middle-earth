@@ -1,34 +1,29 @@
 package net.jukoz.me.resources.persistent_datas;
 
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.resources.datas.Alignment;
+import net.minecraft.util.Identifier;
 
 public class AffiliationData {
-    public int alignment;
-    public int faction;
-    public int subfaction;
+    public Alignment alignment;
+    public Identifier faction;
+    public Identifier subfaction;
+    public Identifier spawnId;
 
-    public AffiliationData(Alignment alignment, int faction, int subfaction) {
-        this(alignment.ordinal(), faction, subfaction);
+    public AffiliationData(String alignment, String faction, String subfaction, String spawnId) {
+        this.alignment = Alignment.valueOf(alignment);
+        this.faction = Identifier.of(MiddleEarth.MOD_ID, faction);
+        this.subfaction = Identifier.of(MiddleEarth.MOD_ID, subfaction);
+        this.spawnId = Identifier.of(MiddleEarth.MOD_ID, spawnId);
     }
 
-    public AffiliationData(int alignment, int faction, int subfaction) {
-        this.alignment = alignment;
-        this.faction = faction;
-        this.subfaction = subfaction;
-    }
 
-    /**
-     * Will give the alignment in Enum format
-     * @return the alignment in Enum format, with GOOD as default value.
-     */
     public Alignment getAlignment(){
-        if(alignment < Alignment.values().length)
-            return Alignment.values()[alignment];
-        return Alignment.GOOD; // Default value
+        return alignment;
     }
 
     @Override
     public String toString() {
-        return "AffiliationData{Alignment= " + getAlignment().toString() + "; Faction= " + faction + "; Subfaction= " + subfaction + ";}";
+        return "AffiliationData{Alignment= " + getAlignment().toString() + "; Faction= " + faction + "; Subfaction= " + subfaction + "; Spawn= " + spawnId + ";}";
     }
 }

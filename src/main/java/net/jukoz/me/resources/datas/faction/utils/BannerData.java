@@ -27,11 +27,11 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class BannerData {
-    public class BannerPatternWithColor {
+    public static class BannerPatternWithColor {
         public Identifier id;
         public DyeColor color;
         public BannerPattern pattern;
-        BannerPatternWithColor(Identifier id, DyeColor color){
+        public BannerPatternWithColor(Identifier id, DyeColor color){
             this.id = id;
             this.color = color;
             this.pattern = null;
@@ -50,6 +50,16 @@ public class BannerData {
     private DyeColor baseBannerColor;
     private final List<BannerPatternWithColor> bannerPatternWithColors;
     public static final DyeColor DEFAULT_DYE = DyeColor.PINK;
+
+    public BannerData(DyeColor baseBannerColor, List<BannerPatternWithColor> bannerPatternWithColors){
+        this.baseBannerColor = baseBannerColor;
+
+        if (bannerPatternWithColors != null)
+            this.bannerPatternWithColors = bannerPatternWithColors;
+        else
+            this.bannerPatternWithColors = new ArrayList<>();
+
+    }
 
     public BannerData(NbtCompound bannerDataNbt) {
         baseBannerColor = DyeColor.byName(bannerDataNbt.getString("base_color"), DEFAULT_DYE);

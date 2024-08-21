@@ -19,21 +19,25 @@ public class  AffiliationPacket extends ClientToServerPacket<AffiliationPacket>
     public static final CustomPayload.Id<AffiliationPacket> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "affiliation_packet"));
 
     public static final PacketCodec<RegistryByteBuf, AffiliationPacket> CODEC = PacketCodec.tuple(
-            PacketCodecs.VAR_INT, p -> p.alignment,
-            PacketCodecs.VAR_INT, p -> p.faction,
-            PacketCodecs.VAR_INT, p -> p.subfaction,
+            PacketCodecs.STRING, p -> p.alignmentName,
+            PacketCodecs.STRING, p -> p.factionName,
+            PacketCodecs.STRING, p -> p.subfactionName,
+            PacketCodecs.STRING, p -> p.spawnName,
             AffiliationPacket::new
     );
 
-    private final int alignment;
-    private final int faction;
-    private final int subfaction;
+    private final String alignmentName;
+    private final String factionName;
+    private final String subfactionName;
+    private final String spawnName;
 
 
-    public AffiliationPacket(int alignment, int faction, int subfaction){
-        this.alignment = alignment;
-        this.faction = faction;
-        this.subfaction = subfaction;
+    public AffiliationPacket(String alignmentName, String factionName, String subfactionName, String spawnName){
+        this.alignmentName = alignmentName;
+        this.factionName = factionName;
+        this.subfactionName = subfactionName;
+        this.spawnName = spawnName;
+        LoggerUtil.logDebugMsg("trying to save");
     }
 
     @Override
@@ -52,15 +56,11 @@ public class  AffiliationPacket extends ClientToServerPacket<AffiliationPacket>
             try{
                 PlayerData playerState = StateSaverAndLoader.getPlayerState(context.player());
 
-                AffiliationData affiliationData = new AffiliationData(alignment, faction, subfaction);
+                AffiliationData affiliationData = new AffiliationData(alignmentName, factionName, subfactionName, spawnName);
                 playerState.setAffiliationData(affiliationData);
             } catch (Exception e){
                 LoggerUtil.logError("AffiliationPacket::Tried getting affiliation packet and couldn't fetch any.", e);
             }
         });
-    }
-
-    public Alignment getAlignment(){
-        return Alignment.values()[alignment];
     }
 }

@@ -6,6 +6,7 @@ import net.jukoz.me.network.packets.ClientToServerPacket;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -22,12 +23,12 @@ public class  SpawnDataPacket extends ClientToServerPacket<SpawnDataPacket>
     public static final CustomPayload.Id<SpawnDataPacket> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "spawn_data_packet"));
 
     public static final PacketCodec<RegistryByteBuf, SpawnDataPacket> CODEC = PacketCodec.tuple(
-            PacketCodecs.VAR_INT, p -> p.overworldX,
-            PacketCodecs.VAR_INT, p -> p.overworldY,
-            PacketCodecs.VAR_INT, p -> p.overworldZ,
-            PacketCodecs.VAR_INT, p -> p.middleEarthX,
-            PacketCodecs.VAR_INT, p -> p.middleEarthY,
-            PacketCodecs.VAR_INT, p -> p.middleEarthZ,
+            PacketCodecs.INTEGER, p -> p.overworldX,
+            PacketCodecs.INTEGER, p -> p.overworldY,
+            PacketCodecs.INTEGER, p -> p.overworldZ,
+            PacketCodecs.INTEGER, p -> p.middleEarthX,
+            PacketCodecs.INTEGER, p -> p.middleEarthY,
+            PacketCodecs.INTEGER, p -> p.middleEarthZ,
             SpawnDataPacket::new
     );
 

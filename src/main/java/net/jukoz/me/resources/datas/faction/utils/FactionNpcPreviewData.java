@@ -17,6 +17,10 @@ import java.util.Map;
 public class FactionNpcPreviewData{
     private HashMap<EquipmentSlot, ItemStack> gears;
 
+    public FactionNpcPreviewData(){
+        this.gears = new HashMap<>();
+    }
+
     /**
      * Faction Npc Preview Data constructor, for showcasing specific entities with armors and weapons
      * @param head Head equipment [Helmet]
