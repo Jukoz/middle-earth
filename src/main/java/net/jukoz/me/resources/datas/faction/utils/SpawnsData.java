@@ -99,10 +99,11 @@ public class SpawnsData {
         return customSpawns;
     }
 
-    public List<Vector3i> getTemporaryCoordinate() {
-        List<Vector3i> temporaryList = new ArrayList<>();
-        Vector2i dynamicCoord = dynamicSpawns.values().stream().toList().get(0);
-        temporaryList.add(new Vector3i(dynamicCoord.x, 0, dynamicCoord.y));
-        return temporaryList;
+    public Vector2i findDynamicSpawn(Identifier spawnId) {
+        return dynamicSpawns.get(spawnId);
+    }
+
+    public Vec3d findCustomSpawn(Identifier spawnId) {
+        return customSpawns.get(spawnId);
     }
 }

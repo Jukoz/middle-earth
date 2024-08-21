@@ -13,6 +13,7 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3i;
 
 
@@ -45,8 +46,10 @@ public class TeleportToMeSpawnRequestPacket extends ClientToServerPacket<Telepor
             context.player().getServer().execute(() -> {
                 PlayerData data = StateSaverAndLoader.getPlayerState(context.player());
                 if(data != null){
-                    BlockPos coordinates = data.getMiddleEarthSpawnCoordinates();
-                    ModDimensions.teleportPlayerToMe(context.player(), new Vector3i(coordinates.getX(), coordinates.getY(), coordinates.getZ()));
+                    if(data.hasAffilition()){
+                        Vec3d spawnCoordinates = data.getAffiliationData().getMiddleEarthSpawnCoordinate();
+                        ModDimensions.teleportPlayerToMe(context.player(), new Vec3d(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z));
+                    }
                 }
             });
         } catch (Exception e){

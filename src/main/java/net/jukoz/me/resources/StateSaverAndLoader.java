@@ -26,6 +26,8 @@ public class StateSaverAndLoader extends PersistentState {
     public HashMap<UUID, PlayerData> players = new HashMap<>();
     @Override
     public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        LoggerUtil.logDebugMsg("Writing NBT");
+
         NbtCompound playersNbt = new NbtCompound();
         players.forEach((uuid, playerData) -> {
             NbtCompound playerNbt = new NbtCompound();
@@ -33,18 +35,12 @@ public class StateSaverAndLoader extends PersistentState {
                 AffiliationData affiliationData = playerData.getAffiliationData();
                 playerNbt.putString("alignment", affiliationData.alignment.toString().toLowerCase());
                 playerNbt.putString("faction_id", affiliationData.faction.getPath().toLowerCase());
-                playerNbt.putString("subfaction_id", affiliationData.subfaction.getPath().toLowerCase());
-                playerNbt.putString("spawn_id", affiliationData.subfaction.getPath().toLowerCase());
+                playerNbt.putString("spawn_id", affiliationData.spawnId.getPath().toLowerCase());
             }
 
             BlockPos overworldSpawn = playerData.getOverworldSpawnCoordinates();
             if(overworldSpawn != null){
                 playerNbt.putIntArray("ow", new int[]{overworldSpawn.getX(), overworldSpawn.getY(), overworldSpawn.getZ()});
-            }
-
-            BlockPos middleEarthSpawn = playerData.getMiddleEarthSpawnCoordinates();
-            if(playerData.getMiddleEarthSpawnCoordinates() != null){
-                playerNbt.putIntArray("me", new int[]{middleEarthSpawn.getX(), middleEarthSpawn.getY(), middleEarthSpawn.getZ()});
             }
 
             playersNbt.put(uuid.toString(), playerNbt);
@@ -56,21 +52,31 @@ public class StateSaverAndLoader extends PersistentState {
 
     public static StateSaverAndLoader createFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
         StateSaverAndLoader state = new StateSaverAndLoader();
-
         NbtCompound playersNbt = tag.getCompound("players");
+        LoggerUtil.logDebugMsg("Creating from NBT");
         playersNbt.getKeys().forEach(key -> {
             PlayerData playerData = new PlayerData();
             try{
-                Alignment alignment = Alignment.valueOf(playersNbt.getCompound(key).getString("alignment"));
-                Identifier factionId = Identifier.of(MiddleEarth.MOD_ID, playersNbt.getCompound(key).getString("faction_id"));
-                Identifier subfactionId = Identifier.of(MiddleEarth.MOD_ID, playersNbt.getCompound(key).getString("subfaction_id"));
-                Identifier spawnId = Identifier.of(MiddleEarth.MOD_ID, playersNbt.getCompound(key).getString("spawn_id"));
-
-                AffiliationData affiliationData = new AffiliationData(alignment.name(), factionId.getPath(), subfactionId.getPath(), spawnId.getPath());
-                playerData.setAffiliationData(affiliationData);
-
+                String alignmentValue = playersNbt.getCompound(key).getString("alignment");
+                boolean hasAlignment = alignmentValue != null && !alignmentValue.isEmpty();
+                String factionIdValue = playersNbt.getCompound(key).getString("faction_id");
+                boolean hasFaction = factionIdValue != null && !factionIdValue.isEmpty();
+                String spawnIdValue = playersNbt.getCompound(key).getString("spawn_id");
+                boolean hasSpawn = spawnIdValue != null && !spawnIdValue.isEmpty();
                 int[] overworldPos = playersNbt.getCompound(key).getIntArray("ow");
-                if(overworldPos.length == 3){
+                boolean hasOverworldPos = overworldPos != null && overworldPos.length == 3;
+
+                if(hasAlignment && hasFaction && hasSpawn){
+                    LoggerUtil.logDebugMsg(alignmentValue);
+                    Alignment alignment = Alignment.valueOf(alignmentValue);
+                    Identifier factionId = Identifier.of(MiddleEarth.MOD_ID, factionIdValue);
+                    Identifier spawnId = Identifier.of(MiddleEarth.MOD_ID, spawnIdValue);
+
+                    AffiliationData affiliationData = new AffiliationData(alignment.name(), factionId.getPath(), spawnId.getPath());
+                    playerData.setAffiliationData(affiliationData);
+                }
+
+                if(hasOverworldPos){
                     BlockPos overworldSpawn = new BlockPos(
                             overworldPos[0],
                             overworldPos[1],
@@ -78,18 +84,8 @@ public class StateSaverAndLoader extends PersistentState {
                     );
                     playerData.setOverworldSpawn(overworldSpawn);
                 }
-
-                int[] middleEarthPos = playersNbt.getCompound(key).getIntArray("me");
-                if(middleEarthPos.length == 3){
-                    BlockPos middleEarthSpawn = new BlockPos(
-                            middleEarthPos[0],
-                            middleEarthPos[1],
-                            middleEarthPos[2]
-                    );
-                    playerData.setMiddleEarthSpawn(middleEarthSpawn);
-                }
             } catch(Exception e){
-
+                LoggerUtil.logError("StateSaverAndLoader",e);
             }
 
             UUID uuid = UUID.fromString(key);

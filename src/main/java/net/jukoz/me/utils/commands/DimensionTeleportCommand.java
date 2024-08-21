@@ -10,9 +10,6 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
-import org.joml.Vector3i;
-
-import java.util.Objects;
 
 public class DimensionTeleportCommand {
     private static final String TP = "tp";
@@ -30,13 +27,11 @@ public class DimensionTeleportCommand {
     public static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         try{
             PosArgument posArgument = Vec3ArgumentType.getPosArgument(context, LOCATION);
-            Vec3d coordinatesInDouble = posArgument.toAbsolutePos(context.getSource());
+            Vec3d coordinates = posArgument.toAbsolutePos(context.getSource());
 
-            Vector3i coordinates = new Vector3i((int) coordinatesInDouble.x, (int) coordinatesInDouble.y, (int) coordinatesInDouble.z);
             ServerPlayerEntity targettedPlayer = EntityArgumentType.getPlayer(context, PLAYER);
 
             ModDimensions.teleportPlayerToMe(targettedPlayer, coordinates);
-
             return 1;
         } catch (Exception e){
             return 0;

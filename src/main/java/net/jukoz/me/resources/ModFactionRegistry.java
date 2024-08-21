@@ -161,5 +161,14 @@ public class ModFactionRegistry {
 
         return faction;
     }
+
+    public static Faction findFactionById(Identifier factionId) {
+        List<String> splittedId = Arrays.stream(factionId.getPath().split("\\.")).toList();
+        Faction foundFaction = factions.get(Identifier.of(MiddleEarth.MOD_ID, splittedId.get(0)));
+
+        if(foundFaction != null && splittedId.size() == 2)
+            foundFaction = foundFaction.findSubfaction(factionId);
+        return foundFaction;
+    }
 }
 

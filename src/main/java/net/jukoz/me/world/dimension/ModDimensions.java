@@ -15,6 +15,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionOptions;
 import org.joml.Vector3i;
@@ -48,7 +49,7 @@ public class ModDimensions {
         return new Vector3i(x, height, z);
     }
 
-    public static void teleportPlayerToMe(PlayerEntity player, Vector3i coordinates){
+    public static void teleportPlayerToMe(PlayerEntity player, Vec3d coordinates){
         if(!player.getWorld().isClient()) {
             RegistryKey<World> registryKey = ME_WORLD_KEY;
             ServerWorld serverWorld = (ServerWorld) player.getWorld();

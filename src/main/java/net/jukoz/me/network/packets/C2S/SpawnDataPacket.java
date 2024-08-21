@@ -26,28 +26,16 @@ public class  SpawnDataPacket extends ClientToServerPacket<SpawnDataPacket>
             PacketCodecs.INTEGER, p -> p.overworldX,
             PacketCodecs.INTEGER, p -> p.overworldY,
             PacketCodecs.INTEGER, p -> p.overworldZ,
-            PacketCodecs.INTEGER, p -> p.middleEarthX,
-            PacketCodecs.INTEGER, p -> p.middleEarthY,
-            PacketCodecs.INTEGER, p -> p.middleEarthZ,
             SpawnDataPacket::new
     );
 
     private final int overworldX;
     private final int overworldY;
     private final int overworldZ;
-
-    private final int middleEarthX;
-    private final int middleEarthY;
-    private final int middleEarthZ;
-
-    public SpawnDataPacket(int overworldX, int overworldY, int overworldZ, int middleEarthX, int middleEarthY, int middleEarthZ){
+    public SpawnDataPacket(int overworldX, int overworldY, int overworldZ){
         this.overworldX = overworldX;
         this.overworldY = overworldY;
         this.overworldZ = overworldZ;
-
-        this.middleEarthX = middleEarthX;
-        this.middleEarthY = middleEarthY;
-        this.middleEarthZ = middleEarthZ;
     }
 
     @Override
@@ -71,9 +59,7 @@ public class  SpawnDataPacket extends ClientToServerPacket<SpawnDataPacket>
                 PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
 
                 BlockPos overworldSpawnBlockpos = new BlockPos(overworldX, overworldY, overworldZ);
-                BlockPos middleEarthSpawnBlockpos = new BlockPos(middleEarthX, middleEarthY, middleEarthZ);
                 playerState.setOverworldSpawn(overworldSpawnBlockpos);
-                playerState.setMiddleEarthSpawn(middleEarthSpawnBlockpos);
             });
         } catch (Exception e){
             LoggerUtil.logError("SpawnDataPacket::Apply - Tried applying the spawn data packet",e);
@@ -82,8 +68,6 @@ public class  SpawnDataPacket extends ClientToServerPacket<SpawnDataPacket>
 
     @Override
     public String toString() {
-        Vector3i overworld = new Vector3i(overworldX, overworldY, overworldZ);
-        Vector3i middleEarth = new Vector3i(middleEarthX, middleEarthY, middleEarthZ);
-        return "Middle_Earth="+middleEarth.x+","+middleEarth.y+","+middleEarth.z+";Overworld="+overworld.x+","+overworld.y+","+overworld.z+";";
+        return "Overworld="+overworldX+","+overworldY+","+overworldZ+";";
     }
 }

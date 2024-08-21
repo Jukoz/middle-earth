@@ -10,6 +10,8 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
+import org.joml.Vector3i;
 
 
 public class  TeleportRequestPacket extends ClientToServerPacket<TeleportRequestPacket>
@@ -43,7 +45,9 @@ public class  TeleportRequestPacket extends ClientToServerPacket<TeleportRequest
     public void process(ServerPacketContext context) {
         try{
             context.player().getServer().execute(() -> {
-                ModDimensions.teleportPlayerToMe(context.player(), ModDimensions.getDimensionHeight(xCoordinate, zCoordinate));
+                Vector3i foundCoordinates = ModDimensions.getDimensionHeight(xCoordinate, zCoordinate);
+                Vec3d coordinates = new Vec3d(foundCoordinates.x, foundCoordinates.y, foundCoordinates.z);
+                ModDimensions.teleportPlayerToMe(context.player(), coordinates);
             });
         } catch (Exception e){
             LoggerUtil.logError("TeleportRequestPacket::Apply - Tried applying the teleport request packet",e);

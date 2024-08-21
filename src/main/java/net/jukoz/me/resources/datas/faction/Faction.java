@@ -198,4 +198,9 @@ public class Faction {
             subFactions.put(faction.id, faction);
         }
     }
+
+    public Faction findSubfaction(Identifier id) {
+        LoggerUtil.logDebugMsg("Trying to find subfaction : " + id);
+        return subFactions.get(id);
+    }
 }

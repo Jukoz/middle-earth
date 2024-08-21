@@ -118,14 +118,10 @@ public class FactionSelectionController {
         int z = dynamicSpawn.y;
         
         ClientPlayNetworking.send(new TeleportRequestPacket(x, z));
-        ClientPlayNetworking.send(new AffiliationPacket(getCurrentAlignment().name(), getCurrentFaction().getName(), getCurrentSubfaction().getName(), getCurrentSpawn().keySet().stream().toList().get(0).getPath()));
+        ClientPlayNetworking.send(new AffiliationPacket(getCurrentAlignment().name(), getCurrentlySelectedFaction().getName(), getCurrentSpawn().keySet().stream().toList().get(0).getPath()));
         if(player != null){
             BlockPos overworldBlockPos = player.getBlockPos();
-            BlockPos middleEarthblockPos = new BlockPos(x, (int) MiddleEarthHeightMap.getHeight(x, z), z);
-            ClientPlayNetworking.send(new SpawnDataPacket(
-                    overworldBlockPos.getX(), overworldBlockPos.getY(), overworldBlockPos.getZ(),
-                    middleEarthblockPos.getX(), ModDimensions.getDimensionHeight(middleEarthblockPos.getX(), middleEarthblockPos.getZ()).y, middleEarthblockPos.getZ()
-            ));
+            ClientPlayNetworking.send(new SpawnDataPacket(overworldBlockPos.getX(), overworldBlockPos.getY(), overworldBlockPos.getZ()));
         }
     }
 

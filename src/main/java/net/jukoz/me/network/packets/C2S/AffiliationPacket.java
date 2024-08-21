@@ -6,7 +6,6 @@ import net.jukoz.me.network.packets.ClientToServerPacket;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.persistent_datas.AffiliationData;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
-import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -21,23 +20,19 @@ public class  AffiliationPacket extends ClientToServerPacket<AffiliationPacket>
     public static final PacketCodec<RegistryByteBuf, AffiliationPacket> CODEC = PacketCodec.tuple(
             PacketCodecs.STRING, p -> p.alignmentName,
             PacketCodecs.STRING, p -> p.factionName,
-            PacketCodecs.STRING, p -> p.subfactionName,
             PacketCodecs.STRING, p -> p.spawnName,
             AffiliationPacket::new
     );
 
     private final String alignmentName;
     private final String factionName;
-    private final String subfactionName;
     private final String spawnName;
 
 
-    public AffiliationPacket(String alignmentName, String factionName, String subfactionName, String spawnName){
+    public AffiliationPacket(String alignmentName, String factionName, String spawnName){
         this.alignmentName = alignmentName;
         this.factionName = factionName;
-        this.subfactionName = subfactionName;
         this.spawnName = spawnName;
-        LoggerUtil.logDebugMsg("trying to save");
     }
 
     @Override
@@ -56,7 +51,7 @@ public class  AffiliationPacket extends ClientToServerPacket<AffiliationPacket>
             try{
                 PlayerData playerState = StateSaverAndLoader.getPlayerState(context.player());
 
-                AffiliationData affiliationData = new AffiliationData(alignmentName, factionName, subfactionName, spawnName);
+                AffiliationData affiliationData = new AffiliationData(alignmentName, factionName, spawnName);
                 playerState.setAffiliationData(affiliationData);
             } catch (Exception e){
                 LoggerUtil.logError("AffiliationPacket::Tried getting affiliation packet and couldn't fetch any.", e);
