@@ -14,16 +14,24 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.GoatHornItem;
+import net.minecraft.item.Instrument;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntryList;
+import net.minecraft.registry.tag.InstrumentTags;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -31,12 +39,16 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+// TODO Sounds
+// TODO Horns
 public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     private static final double WALKING_SPEED = 0.15;
     private static final double HUNTING_SPEED = 2;
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> HORNS = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Boolean> LEFT_HORN = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> RIGHT_HORN = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 
     public BroadhoofGoatEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
@@ -58,11 +70,12 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, HUNTING_SPEED, false));
-        this.goalSelector.add(6, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f));
-        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(9, new LookAroundGoal(this));
+        this.goalSelector.add(2, new MeleeAttackGoal(this, HUNTING_SPEED, false));
+        this.goalSelector.add(3, new ChargeAttackGoal(this, maxChargeCooldown()));
+        this.goalSelector.add(4, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f));
+        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
         this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity) this));
         this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
@@ -73,6 +86,8 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         super.initDataTracker(builder);
         builder.add(VARIANT, 0);
         builder.add(HORNS, 0);
+        builder.add(LEFT_HORN, true);
+        builder.add(RIGHT_HORN, true);
     }
 
     @Override
@@ -80,6 +95,8 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         super.writeCustomDataToNbt(nbt);
         nbt.putInt("Variant", this.getTypeVariant());
         nbt.putInt("Horns", this.getTypeHorns());
+        nbt.putBoolean("HasLeftHorn", this.hasLeftHorn());
+        nbt.putBoolean("HasRightHorn", this.hasRightHorn());
     }
 
     @Override
@@ -87,6 +104,8 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         super.readCustomDataFromNbt(nbt);
         this.dataTracker.set(VARIANT, nbt.getInt("Variant"));
         this.dataTracker.set(HORNS, nbt.getInt("Horns"));
+        this.dataTracker.set(LEFT_HORN, nbt.getBoolean("HasLeftHorn"));
+        this.dataTracker.set(RIGHT_HORN, nbt.getBoolean("HasRightHorn"));
     }
 
     @Override
@@ -107,6 +126,19 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     @Override
+    protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
+        float f = this.limbAnimator.getSpeed();
+        float g = this.limbAnimator.getPos() * (MathHelper.PI / 180) * 18;
+        // h is the frequency, which is calculated by dividing the speed of the animation by the duration of the animation.
+        float h = passenger.isSprinting() ? (1.2f/0.74f) : 3;
+        float j = passenger.isSprinting() ? 1 : 0;
+
+        double y = MathHelper.cos(g * h + (MathHelper.PI * (j - 1))) * f * (0.06 + (0.075 * j));
+
+        return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
+    }
+
+    @Override
     public boolean isBreedingItem(ItemStack stack) {
         return stack.isIn(ItemTags.GOAT_FOOD);
     }
@@ -124,7 +156,16 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     public void chargeAttack() {
         List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2,0,0.2));
 
-        if (this.getWorld().isClient && this.isTame()) {
+        if(!this.isTame() && !this.getWorld().isClient) {
+            if(targetDir == Vec3d.ZERO && this.getTarget() != null) {
+                targetDir = new Vec3d( this.getTarget().getBlockPos().getX() - this.getBlockPos().getX(),
+                        this.getTarget().getBlockPos().getY() - this.getBlockPos().getY(),
+                        this.getTarget().getBlockPos().getZ() - this.getBlockPos().getZ());
+            }
+            this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
+            this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())).add(0, this.getVelocity().y, 0));
+        }
+        else if (this.getWorld().isClient) {
             this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())).add(0, this.getVelocity().y, 0));
         }
 
@@ -132,6 +173,11 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
             if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity)) {
                 entity.damage(entity.getDamageSources().mobAttack(this), 8.0f);
                 entity.pushAwayFrom(this);
+
+                if(this.random.nextInt(10) == 0) {
+                    this.dropHorn();
+                }
+
                 this.setCharging(false);
             }
         }
@@ -166,6 +212,31 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         if(this.isSitting()) {
             this.getNavigation().stop();
         }
+    }
+
+    public boolean dropHorn() {
+        boolean bl = this.hasLeftHorn();
+        boolean bl2 = this.hasRightHorn();
+        if (!bl && !bl2) {
+            return false;
+        }
+        TrackedData<Boolean> trackedData = !bl ? RIGHT_HORN : (!bl2 ? LEFT_HORN : (this.random.nextBoolean() ? LEFT_HORN : RIGHT_HORN));
+        this.dataTracker.set(trackedData, false);
+        Vec3d vec3d = this.getPos();
+        ItemStack itemStack = this.getGoatHornStack();
+        double d = MathHelper.nextBetween(this.random, -0.2f, 0.2f);
+        double e = MathHelper.nextBetween(this.random, 0.3f, 0.7f);
+        double f = MathHelper.nextBetween(this.random, -0.2f, 0.2f);
+        ItemEntity itemEntity = new ItemEntity(this.getWorld(), vec3d.getX(), vec3d.getY(), vec3d.getZ(), itemStack, d, e, f);
+        this.getWorld().spawnEntity(itemEntity);
+        return true;
+    }
+
+    public ItemStack getGoatHornStack() {
+        Random random = Random.create(this.getUuid().hashCode());
+        TagKey<Instrument> tagKey = this.random.nextBoolean() ? InstrumentTags.SCREAMING_GOAT_HORNS : InstrumentTags.REGULAR_GOAT_HORNS;
+        RegistryEntryList.Named<Instrument> registryEntryList = Registries.INSTRUMENT.getOrCreateEntryList(tagKey);
+        return GoatHornItem.getStackForInstrument(Items.GOAT_HORN, registryEntryList.getRandom(random).get());
     }
 
     protected void setupAnimationStates() {
@@ -243,10 +314,10 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     public boolean hasRightHorn() {
-        return true;
+        return this.dataTracker.get(RIGHT_HORN);
     }
 
     public boolean hasLeftHorn() {
-        return true;
+        return this.dataTracker.get(LEFT_HORN);
     }
 }
