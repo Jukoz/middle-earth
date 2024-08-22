@@ -1655,6 +1655,8 @@
   "block.me.chiseled_polished_limestone": "Chiseled Polished Limestone",
   "block.me.chiseled_limestone_bricks": "Chiseled Limestone Bricks",
   "block.me.chiseled_limestone": "Chiseled Limestone",
+  "block.me.chiseled_limestone_tiles": "Chiseled Limestone Tiles",
+  "block.me.chiseled_smooth_limestone": "Chiseled Smooth Limestone",
 
   "block.me.limestone_brickwork": "Limestone Brickwork",
   "block.me.limestone_brickwork_slab": "Limestone Brickwork Slab",
@@ -3960,6 +3962,9 @@
   "block.me.bonfire": "Bonfire",
   "block.me.sconce": "Sconce",
 
+  "block.me.ground_book": "Ground Book",
+  "block.me.dwarven_ground_book": "Dwarven Ground Book",
+
 "#Comment:": "Block - Plants",
   "block.me.brown_grass": "Brown Grass",
   "block.me.green_shrub": "Green Shrub",
@@ -4513,6 +4518,11 @@
   "block.me.reinforced_spruce_door": "Reinforced Spruce Door",
 
   "block.me.great_dwarven_gate": "Great Dwarven Gate",
+  "block.me.varnished_dwarven_door": "Varnished Dwarven Door",
+
+  "block.me.great_elven_gate": "Great Elven Gate",
+
+  "block.me.great_orcish_gate": "Great Orcish Gate",
 
 "#Comment:": "Items - Banners",
   "item.me.gondor_banner_pattern": "Gondor Banner Pattern",
@@ -4725,6 +4735,7 @@
   "tooltip.me.reach" : "Reach: ",
   "tooltip.me.blocks_range" : " Blocks",
   "tooltip.me.backstab" : "§7 +50% damage when backstabbing",
+  "tooltip.me.door_size" : "Door size: ",
 
   "tooltip.me.tier_clothing" : "§fClothing",
   "tooltip.me.tier_basic" : "§fBasic Armor",

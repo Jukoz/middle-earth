@@ -31,6 +31,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class LargeDoorBlock extends Block {
 
+    //TODO CLEAN CLASS
+    //TODO EXPLOSION
+
     public static final IntProperty PART = IntProperty.of("part", 0, 127);
     public static final DirectionProperty HORIZONTAL_FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty OPEN = Properties.OPEN;

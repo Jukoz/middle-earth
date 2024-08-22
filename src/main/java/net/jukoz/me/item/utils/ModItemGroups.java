@@ -59,7 +59,6 @@ public class ModItemGroups {
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".decorative_blocks"))
             .icon(() -> new ItemStack(ModDecorativeItems.DWARVEN_LANTERN))
             .entries((displayContext, entries) -> {
-                //ModBannerItems.addBannersToItemGroup(displayContext.lookup().getWrapperOrThrow(RegistryKeys.BANNER_PATTERN));
                 for (ItemStack item : DECORATIVES_BLOCKS_CONTENT) {
                     entries.add(item);
                 }

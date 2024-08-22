@@ -4,9 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnace;
 import net.jukoz.me.block.special.artisantable.ArtisanTable;
-import net.jukoz.me.block.special.doors.LargeDoor2x2;
-import net.jukoz.me.block.special.doors.LargeDoor4x2;
-import net.jukoz.me.block.special.doors.LargeDoor5x2;
+import net.jukoz.me.block.special.doors.*;
 import net.jukoz.me.block.special.fireBlocks.*;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestBlock;
 import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancBlock;
@@ -177,7 +175,6 @@ public class ModDecorativeBlocks {
     public static final Block RED_CUSHION = registerBlockWithItem("red_cushion",
             new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
 
-
     //region VANILLA FURNITURE
     public static final Block STONE_STOOL = registerBlockWithItem("stone_stool",
             new StoolBlock(AbstractBlock.Settings.copy(Blocks.STONE).requiresTool().nonOpaque()));
@@ -343,6 +340,11 @@ public class ModDecorativeBlocks {
     public static final Block WALL_SCONCE = registerBlock("wall_sconce",
             new WallSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
 
+    public static final Block GROUND_BOOK = registerBlockWithItem("ground_book",
+            new GroundBookBlock(AbstractBlock.Settings.create().breakInstantly().nonOpaque().noCollision()));
+    public static final Block DWARVEN_GROUND_BOOK = registerBlockWithItem("dwarven_ground_book",
+            new GroundBookBlock(AbstractBlock.Settings.create().breakInstantly().nonOpaque().noCollision()));
+
     public static final Block LARCH_HOBBIT_DOOR = registerDoorBlock("larch_hobbit_door",
             new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final Block SPRUCE_HOBBIT_DOOR = registerDoorBlock("spruce_hobbit_door",
@@ -362,6 +364,14 @@ public class ModDecorativeBlocks {
 
     public static final Block GREAT_DWARVEN_GATE = registerDoorBlock("great_dwarven_gate",
             new LargeDoor5x2(5,2, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+    public static final Block VARNISHED_DWARVEN_DOOR = registerDoorBlock("varnished_dwarven_door",
+            new LargeDoor4x2(4,2, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+
+    public static final Block GREAT_ELVEN_GATE = registerDoorBlock("great_elven_gate",
+            new LargeDoor6x2(6,2, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+
+    public static final Block GREAT_ORCISH_GATE = registerDoorBlock("great_orcish_gate",
+            new LargeDoor10x4(10,4, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
 
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);
@@ -376,8 +386,6 @@ public class ModDecorativeBlocks {
     }
 
     public static Block registerDoorBlock(String name, Block block) {
-        ModBlocks.registerBlockItem(name, block);
-        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
         return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }
 

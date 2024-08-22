@@ -9,11 +9,9 @@ import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.MushroomBlockSets;
 import net.jukoz.me.block.crop.*;
-import net.jukoz.me.block.special.doors.LargeDoor2x2;
-import net.jukoz.me.block.special.doors.LargeDoor4x2;
+import net.jukoz.me.block.special.doors.*;
 import net.jukoz.me.block.special.LargeDoorBlock;
 import net.jukoz.me.block.special.VerticalSlabBlock;
-import net.jukoz.me.block.special.doors.LargeDoor5x2;
 import net.jukoz.me.datageneration.content.CustomItemModels;
 import net.jukoz.me.datageneration.content.MEModels;
 import net.jukoz.me.datageneration.content.models.*;
@@ -694,6 +692,11 @@ public class ModelProvider extends FabricModelProvider {
         registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR, LargeDoor4x2.PART);
 
         registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.GREAT_DWARVEN_GATE, LargeDoor5x2.PART);
+        registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR, LargeDoor4x2.PART);
+
+        registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.GREAT_ELVEN_GATE, LargeDoor6x2.PART);
+
+        registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.GREAT_ORCISH_GATE, LargeDoor10x4.PART);
     }
 
     public final void registerFanModel(BlockStateModelGenerator blockStateCollector, Block coralFanBlock) {
@@ -956,6 +959,10 @@ public class ModelProvider extends FabricModelProvider {
 
         for (Item item : SimpleHandheldItemModel.items) {
             itemModelGenerator.register(item, Models.HANDHELD);
+        }
+
+        for (Item item : SimpleDoorInventoryModel.items) {
+            itemModelGenerator.register(item, Models.GENERATED);
         }
 
         for (Item item : SimpleBigItemModel.items) {
