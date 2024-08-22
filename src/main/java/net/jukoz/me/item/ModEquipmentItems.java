@@ -156,7 +156,7 @@ public class ModEquipmentItems {
     //endregion
 
     //region HOBBITS
-    public static final Item SHIRRIFF_HAT = registerCustomModelDyeableArmorPiece("shirriff_hat",
+    public static final Item SHIRRIFF_HAT = registerCustomModelArmorPiece("shirriff_hat",
             new CustomHelmetItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.HELMET, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, -6265536)),
                     ModFactions.SHIRE));
@@ -721,7 +721,7 @@ public class ModEquipmentItems {
             new CustomLeggingsItem(ModArmorMaterials.SLAG_T3, ArmorItem.Type.LEGGINGS, new Item.Settings(),
                     ModFactions.NONE));
 
-    public static final Item ORC_SALLET = registerCustomModelRustyArmorPiece("orc_sallet",
+    public static final Item ORC_SALLET = registerCustomModelArmorPiece("orc_sallet",
             new CustomHelmetItem(ModArmorMaterials.SLAG_T4, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.NONE));
 
@@ -750,7 +750,7 @@ public class ModEquipmentItems {
     public static final Item MORDOR_ORC_OVERSIGHT_HELMET = registerRustyArmorPiece("mordor_orc_oversight_helmet",
             new CustomHelmetItem(ModArmorMaterials.SLAG_T4, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.MORDOR));
-    public static final Item MORDOR_ORC_SNOUT_HELMET = registerCustomModelRustyArmorPiece("mordor_orc_snout_helmet",
+    public static final Item MORDOR_ORC_SNOUT_HELMET = registerCustomModelArmorPiece("mordor_orc_snout_helmet",
             new CustomHelmetItem(ModArmorMaterials.SLAG_T4, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.MORDOR));
 
@@ -953,18 +953,6 @@ public class ModEquipmentItems {
             case CustomBootsItem bootsItem -> armorPiecesListBoots.add(bootsItem);
             default -> throw new IllegalStateException("Unexpected value: " + item);
         }
-        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
-    }
-
-    private static Item registerCustomModelDyeableArmorPiece(String name, Item item) {
-        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
-        SimpleDyeableItemModel.items.add(item);
-        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
-    }
-
-    private static Item registerCustomModelRustyArmorPiece(String name, Item item) {
-        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
-        SimpleItemModel.items.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
