@@ -1,15 +1,16 @@
 package net.jukoz.me.block;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.special.LayersBlock;
-import net.jukoz.me.block.special.OxidizableVerticalSlabBlock;
-import net.jukoz.me.block.special.StoneMyceliumBlock;
-import net.jukoz.me.block.special.VerticalSlabBlock;
+import net.jukoz.me.block.special.*;
+import net.jukoz.me.block.special.doors.LargeDoor2x2;
+import net.jukoz.me.block.special.doors.LargeDoor4x2;
+import net.jukoz.me.block.special.doors.LargeDoor5x2;
 import net.jukoz.me.block.special.gemstones.CustomBuddingGemBlock;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -26,6 +27,8 @@ import java.util.List;
 public class ModBlocks {
     public static final float DIRT_STRENGTH = 0.6f;
     public static final float SLAB_RESISTANCE = 6.0f; // From explosions
+
+
 
     //region STONE PILLARS AND CHISELED
     public static final Block STONE_PILLAR = registerStoneBlock("stone_pillar",
@@ -190,11 +193,20 @@ public class ModBlocks {
     public static final Block CHISELED_POLISHED_CALCITE = registerStoneBlock("chiseled_polished_calcite",
             new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
+    public static final Block CHISELED_LIMESTONE = registerStoneBlock("chiseled_limestone",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     public static final Block CHISELED_LIMESTONE_BRICKS = registerStoneBlock("chiseled_limestone_bricks",
-            new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     public static final Block CHISELED_POLISHED_LIMESTONE = registerStoneBlock("chiseled_polished_limestone",
-            new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
-    
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_LIMESTONE_TILES = registerStoneBlock("chiseled_limestone_tiles",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_SMOOTH_LIMESTONE = registerStoneBlock("chiseled_smooth_limestone",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+
+    public static final Block POINTED_LIMESTONE = registerStoneBlock("pointed_limestone",
+            new PointedBlock(AbstractBlock.Settings.copy(Blocks.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never)), false);
+
     public static final Block CHISELED_SMOOTH_STONE = registerStoneBlock("chiseled_smooth_stone",
             new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
