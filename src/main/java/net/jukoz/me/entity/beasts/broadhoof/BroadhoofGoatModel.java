@@ -171,6 +171,7 @@ public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntit
         this.updateAnimation(entity.stopSittingAnimationState, BroadhoofGoatAnimations.STAND_UP, animationProgress, 3f);
         this.updateAnimation(entity.sittingAnimationState, BroadhoofGoatAnimations.LYING, animationProgress, 1f);
         this.updateAnimation(entity.chargeAnimationState, BroadhoofGoatAnimations.CHARGE_ATTACK, animationProgress, 1f);
+        this.updateAnimation(entity.jumpAnimationState, BroadhoofGoatAnimations.JUMP, animationProgress, 1f);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {

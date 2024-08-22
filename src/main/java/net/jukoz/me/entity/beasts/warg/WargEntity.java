@@ -63,11 +63,11 @@ public class WargEntity extends AbstractBeastEntity {
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, WALKING_SPEED)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0d)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 18.0d)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2d)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0d)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 38.0d)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0d)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 9.0d)
                 .add(EntityAttributes.GENERIC_STEP_HEIGHT, 1.15d)
                 .add(EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, 6.0d);
     }
@@ -134,20 +134,6 @@ public class WargEntity extends AbstractBeastEntity {
         if(this.isCharging()) {
             if(!chargeAnimationState.isRunning()) {
                 this.chargeAnimationState.start(this.age);
-            }
-
-            List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
-
-            for(Entity entity : entities) {
-                if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
-                    entity.damage(entity.getDamageSources().mobAttack(this), 10.0f);
-                    if(entity.hasVehicle()) {
-                        entity.dismountVehicle();
-                    }
-
-                    this.setCharging(false);
-                    this.setHasCharged(false);
-                }
             }
 
             if(this.chargeTimeout <= maxChargeCooldown() - 10 && !this.isInAir()) {
@@ -268,6 +254,20 @@ public class WargEntity extends AbstractBeastEntity {
         }
         if(!this.isTame() && !this.getWorld().isClient) {
             this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
+        }
+
+        List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
+
+        for(Entity entity : entities) {
+            if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
+                entity.damage(entity.getDamageSources().mobAttack(this), 12.0f);
+                if(entity.hasVehicle()) {
+                    entity.dismountVehicle();
+                }
+
+                this.setCharging(false);
+                this.setHasCharged(false);
+            }
         }
     }
 

@@ -45,13 +45,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class BroadhoofGoatEntity extends AbstractBeastEntity {
-
     private static final double WALKING_SPEED = 0.15;
     private static final double HUNTING_SPEED = 2;
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> HORNS = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> LEFT_HORN = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> RIGHT_HORN = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public final AnimationState jumpAnimationState = new AnimationState();
 
 
     public BroadhoofGoatEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
@@ -61,13 +61,14 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, WALKING_SPEED)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 18.0d)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0d)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.4d)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0d)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 38.0d)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0d)
                 .add(EntityAttributes.GENERIC_STEP_HEIGHT, 1.15d)
-                .add(EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, 6.0d);
+                .add(EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, 6.0d)
+                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 0.95);
     }
 
     @Override
@@ -136,7 +137,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         float h = passenger.isSprinting() ? (1.2f/0.74f) : 3;
         float j = passenger.isSprinting() ? 1 : 0;
 
-        double y = MathHelper.cos(g * h + (MathHelper.PI * (j - 1))) * f * (0.06 + (0.075 * j));
+        double y = MathHelper.cos(g * h + (MathHelper.PI * (j - 1))) * f * (0.06 + (0.1 * j));
 
         return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
     }
@@ -189,6 +190,49 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     @Override
+    protected void jump(float strength, Vec3d movementInput) {
+        if(this.isSitting()) {
+            this.setSitting(false);
+        }
+        else if(this.hasControllingPassenger()) {
+            if(this.chargeTimeout <= 0 && this.getControllingPassenger().isSprinting()) {
+                this.setCharging(true);
+                this.chargeTimeout = maxChargeCooldown();
+            }
+            else if(!this.getControllingPassenger().isSprinting()) {
+                double d = this.getJumpVelocity(strength);
+                Vec3d vec3d = this.getVelocity().multiply(1.5);
+                this.setVelocity(vec3d.x, d, vec3d.z);
+                this.setInAir(true);
+                this.velocityDirty = true;
+                if (movementInput.z > 0.0) {
+                    float f = MathHelper.sin(this.getYaw() * ((float)Math.PI / 180));
+                    float g = MathHelper.cos(this.getYaw() * ((float)Math.PI / 180));
+                    this.setVelocity(this.getVelocity().add(-0.4f * f * strength, 0.0, 0.4f * g * strength));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void startJumping(int height) {
+        if(!this.isSitting() && this.hasControllingPassenger()){
+            if(this.isSprinting()) {
+                this.playSound(SoundEvents.ENTITY_CAMEL_DASH, 1.0f, 1.0f);
+                this.setCharging(true);
+            }
+            else {
+                this.jumping = true;
+                this.updateAnger();
+                this.playJumpSound();
+            }
+        }
+        else {
+            this.setSitting(false);
+        }
+    }
+
+    @Override
     public boolean isHorseArmor(ItemStack stack) {
         return stack.isOf(ModEquipmentItems.BROADHOOF_GOAT_ARMOR);
     }
@@ -205,7 +249,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     @Override
     public int chargeDuration() {
-        return 10;
+        return 16;
     }
 
     @Override
