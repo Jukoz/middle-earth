@@ -68,8 +68,8 @@
   "biome.me.forodwaith": "Forodwaith",
   "biome.me.frozen_ocean": "Frozen Ocean",
   "biome.me.frozen_pond": "Frozen Pond",
-  "biome.me.golf_of_lhun_cliffs": "Gold Of Lhûn Cliffs",
-  "biome.me.golf_of_lhun_shores": "Gold Of Lhûn Shores",
+  "biome.me.gulf_of_lhun_cliffs": "Gulf of Lhûn Cliffs",
+  "biome.me.gulf_of_lhun_shores": "Gulf of Lhûn Shores",
   "biome.me.gondor": "Gondor",
   "biome.me.grey_mountains": "Grey Mountains",
   "biome.me.grey_plains": "Grey Plains",
@@ -456,7 +456,6 @@
   "item.me.sturdy_boots": "Sturdy Boots",
   "item.me.travelling_boots": "Travelling Boots",
   "item.me.high_cut_boots": "High Cut Boots",
-
 
   "item.me.chain_coif": "Chain Coif",
   "item.me.kettle_hat": "Kettle hat",
@@ -883,7 +882,6 @@
   "item.me.bandit_chieftain_spawn_egg": "Bandit Chieftain Spawn Egg",
 
   "item.me.mirkwood_spider_spawn_egg": "Mirkwood Spider Spawn Egg",
-  "item.me.warg_spawn_egg": "Warg Spawn Egg",
   "item.me.snail_spawn_egg": "Snail Spawn Egg",
   "item.me.pheasant_spawn_egg": "Pheasant Spawn Egg",
   "item.me.deer_spawn_egg": "Deer Spawn Egg",
@@ -1037,7 +1035,6 @@
   "block.me.red_stained_lead_glass_pane": "Red Stained Lead Glass Pane",
   "block.me.white_stained_lead_glass_pane": "White Stained Lead Glass Pane",
   "block.me.yellow_stained_lead_glass_pane": "Yellow Stained Lead Glass Pane",
-
 
 "#Comment:": "Block - Stone",
   "block.me.stone_vertical_slab": "Stone Vertical Slab",
@@ -4507,7 +4504,6 @@
   "block.me.wood_pile": "Wood Pile",
 
   "block.me.rope": "Rope",
-
   "block.me.blue_hobbit_door": "Blue Hobbit Door",
   "block.me.green_hobbit_door": "Green Hobbit Door",
   "block.me.red_hobbit_door": "Red Hobbit Door",
@@ -4523,7 +4519,7 @@
   "block.me.great_elven_gate": "Great Elven Gate",
 
   "block.me.great_orcish_gate": "Great Orcish Gate",
-
+  
 "#Comment:": "Items - Banners",
   "item.me.gondor_banner_pattern": "Gondor Banner Pattern",
   "item.me.gondor_banner_pattern.desc": "White Tree of Gondor",

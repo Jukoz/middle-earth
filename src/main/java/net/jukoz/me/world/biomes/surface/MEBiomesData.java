@@ -153,8 +153,8 @@ public class MEBiomesData {
         addBiome(new Color(54, 75, 12), new MEBiome(6, MEBiomeKeys.FANGORN, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(121, 131, 112), new MEBiome(24, MEBiomeKeys.FANGORN_FOOTHILLS, MEBiomeDataConfigs.foothillModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(236, 236, 236), new MEBiome(14, MEBiomeKeys.FORODWAITH, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.forodwaith, MEBiomeDataConfigs.frozenLayers, CaveType.FOROD));
-        addBiome(new Color(74, 213, 138), new MEBiome(30, MEBiomeKeys.GOLF_OF_LHUN_CLIFFS, MEBiomeDataConfigs.landModifier.heightModifier(0.76f), MEBiomeDataConfigs.grassPlains , MEBiomeDataConfigs.limeStoneLayers));
-        addBiome(new Color(222, 227, 191), new MEBiome(0, MEBiomeKeys.GOLF_OF_LHUN_SHORES, MEBiomeDataConfigs.landModifier.heightModifier(0.97f).heightModifier(0.1f).noiseModifier(0.05f), MEBiomeDataConfigs.golfOfLhunShoresLayers, MEBiomeDataConfigs.limeStoneLayers));
+        addBiome(new Color(74, 213, 138), new MEBiome(30, MEBiomeKeys.GULF_OF_LHUN_CLIFFS, MEBiomeDataConfigs.landModifier.heightModifier(0.76f), MEBiomeDataConfigs.grassPlains , MEBiomeDataConfigs.limeStoneLayers));
+        addBiome(new Color(222, 227, 191), new MEBiome(0, MEBiomeKeys.GULF_OF_LHUN_SHORES, MEBiomeDataConfigs.landModifier.heightModifier(0.97f).heightModifier(0.1f).noiseModifier(0.05f), MEBiomeDataConfigs.gulfOfLhunShoresLayers, MEBiomeDataConfigs.limeStoneLayers));
         addBiome(new Color(91, 189, 85), new MEBiome(4, MEBiomeKeys.GONDOR, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers));
         addBiome(new Color(56, 36, 36), new MEBiome(6, MEBiomeKeys.GORGOROTH, MEBiomeDataConfigs.plainsModifier, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers, CaveType.ASHEN));
         addBiome(new Color(92, 147, 92), new MEBiome(6, MEBiomeKeys.GREY_PLAINS, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
@@ -254,8 +254,8 @@ public class MEBiomesData {
         addBiome(new Color(49, 107, 46), new MEBiome(37, MEBiomeKeys.WOODLAND_FOOTHILLS, MEBiomeDataConfigs.mountainModifier.noiseModifier(0.47f).heightModifier(0.47f), MEBiomeDataConfigs.limeStoneHills, MEBiomeDataConfigs.limeStoneLayers));
         addBiome(new Color(79, 124, 76), new MEBiome(63, MEBiomeKeys.WOODLAND_HILLS, MEBiomeDataConfigs.mountainModifier.noiseModifier(0.62f).heightModifier(0.76f), MEBiomeDataConfigs.limeStoneHills, MEBiomeDataConfigs.limeStoneLayers));
 
-        coastalBiomes.add(MEBiomeKeys.GOLF_OF_LHUN_CLIFFS);
-        coastalBiomes.add(MEBiomeKeys.GOLF_OF_LHUN_SHORES);
+        coastalBiomes.add(MEBiomeKeys.GULF_OF_LHUN_CLIFFS);
+        coastalBiomes.add(MEBiomeKeys.GULF_OF_LHUN_SHORES);
 
         riverbiomes.add(MEBiomeKeys.RIVER);
         riverbiomes.add(MEBiomeKeys.NURN_RIVER);
