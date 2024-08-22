@@ -11,6 +11,7 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
@@ -107,6 +108,8 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     }
 
     public void equipStack(EquipmentSlot slot, ItemStack stack) {
+        if(stack == null)
+            stack = new ItemStack(Items.AIR);
         super.equipStack(slot, stack);
         if (!this.getWorld().isClient) {
             this.updateAttackType();

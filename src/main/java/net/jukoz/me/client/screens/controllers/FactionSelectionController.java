@@ -1,25 +1,29 @@
 package net.jukoz.me.client.screens.controllers;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.jukoz.me.network.packets.c2s.AffiliationPacket;
-import net.jukoz.me.network.packets.c2s.SpawnDataPacket;
-import net.jukoz.me.network.packets.c2s.TeleportRequestPacket;
+import net.jukoz.me.network.packets.C2S.PacketSetAffiliation;
+import net.jukoz.me.network.packets.C2S.PacketTeleportToCustomCoordinate;
+import net.jukoz.me.network.packets.C2S.PacketTeleportToDynamicCoordinate;
+import net.jukoz.me.network.packets.C2S.PacketSetSpawnData;
 import net.jukoz.me.resources.ModFactionRegistry;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.faction.Faction;
-import net.jukoz.me.utils.LoggerUtil;
-import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
-import net.jukoz.me.world.dimension.ModDimensions;
+import net.jukoz.me.resources.datas.faction.utils.SpawnsData;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import org.joml.Vector2i;
-import org.joml.Vector3d;
 
 import java.util.*;
 
 public class FactionSelectionController {
     private Map<Alignment, List<Faction>> factions = new HashMap<>();
+    /**
+     * Identifier and if the spawn data is from the dynamic pool. True(Dynamic) : False(Custom)
+     */
+    private Map<Identifier, Boolean> spawns = new HashMap<>();
+
     private int currentAlignementIndex;
     private int currentFactionIndex;
     private int currentSubFactionIndex;
@@ -29,8 +33,18 @@ public class FactionSelectionController {
         factions.put(Alignment.GOOD, ModFactionRegistry.getFactionsByAlignment(Alignment.GOOD).values().stream().toList());
         factions.put(Alignment.NEUTRAL, ModFactionRegistry.getFactionsByAlignment(Alignment.NEUTRAL).values().stream().toList());
         factions.put(Alignment.EVIL, ModFactionRegistry.getFactionsByAlignment(Alignment.EVIL).values().stream().toList());
+        updateSpawnList();
+    }
+
+    private void updateSpawnList() {
+        Faction currentFaction = getCurrentlySelectedFaction();
+        if(currentFaction == null) return;
+        SpawnsData foundSpawnsData = currentFaction.getSpawnData();
+        if(foundSpawnsData == null) return;
+        spawns = foundSpawnsData.getSpawnList();
         currentSpawnIndex = 0;
     }
+
 
     public int randomizeFaction(int tentativeLeft){
         Random random = new Random();
@@ -84,14 +98,14 @@ public class FactionSelectionController {
     public void factionUpdate(boolean add) {
         if(add){
             currentFactionIndex++;
-            if(currentFactionIndex >= factions.get(Alignment.values()[currentAlignementIndex]).size())
+            if(currentFactionIndex >= factions.get(getCurrentAlignment()).size())
                 currentFactionIndex = 0;
             currentSubFactionIndex = 0;
         }
         else{
             currentFactionIndex--;
             if(currentFactionIndex < 0)
-                currentFactionIndex = factions.get(Alignment.values()[currentAlignementIndex]).size() - 1;
+                currentFactionIndex = factions.get(getCurrentAlignment()).size() - 1;
             currentSubFactionIndex = 0;
         }
     }
@@ -99,37 +113,55 @@ public class FactionSelectionController {
     public void subfactionUpdate(boolean add){
         if(add){
             currentSubFactionIndex++;
-            if(currentSubFactionIndex >= factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex).getSubFactions().size())
+            if(currentSubFactionIndex >= getCurrentFaction().getSubFactions().size())
                 currentSubFactionIndex = 0;
         }
         else{
             currentSubFactionIndex--;
             if(currentSubFactionIndex < 0)
-                currentSubFactionIndex = factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex).getSubFactions().size() - 1;
+                currentSubFactionIndex = getCurrentFaction().getSubFactions().size() - 1;
         }
+    }
+
+    public void spawnIndexUpdate(boolean add){
+        if(add){
+            currentSpawnIndex++;
+            if(currentSpawnIndex >= spawns.size())
+                currentSpawnIndex = 0;
+        }
+        else{
+            currentSpawnIndex--;
+            if(currentSpawnIndex < 0)
+                currentSpawnIndex = spawns.size() - 1;
+        }
+    }
+
+    private Identifier getCurrentSpawnIdentifier(){
+        return spawns.keySet().stream().toList().get(currentSpawnIndex);
+    }
+    public String getCurrentSpawnKey(){
+        Identifier spawnId = getCurrentSpawnIdentifier();
+        return SpawnsData.getTranslatableKey(spawnId);
     }
 
     public void confirmSpawnSelection(AbstractClientPlayerEntity player){
         Faction faction = getCurrentlySelectedFaction();
-        if(faction == null || (faction.getSpawnData().getDynamicSpawns().isEmpty() && faction.getSpawnData().getCustomSpawns().isEmpty())) return;
+        if(faction == null || spawns == null || spawns.isEmpty()) return;
 
-        Vector2i dynamicSpawn = getCurrentSpawn().values().stream().toList().get(currentSpawnIndex);
-        int x = dynamicSpawn.x;
-        int z = dynamicSpawn.y;
-        
-        ClientPlayNetworking.send(new TeleportRequestPacket(x, z));
-        ClientPlayNetworking.send(new AffiliationPacket(getCurrentAlignment().name(), getCurrentlySelectedFaction().getName(), getCurrentSpawn().keySet().stream().toList().get(0).getPath()));
+        Identifier currentSpawnIdentifier = getCurrentSpawnIdentifier();
+        if(spawns.get(currentSpawnIdentifier)){
+            Vector2i coordinates = getCurrentlySelectedFaction().getSpawnData().findDynamicSpawn(currentSpawnIdentifier);
+            ClientPlayNetworking.send(new PacketTeleportToDynamicCoordinate(coordinates.x, coordinates.y));
+        } else {
+            Vec3d coordinates = getCurrentlySelectedFaction().getSpawnData().findCustomSpawn(currentSpawnIdentifier);
+            ClientPlayNetworking.send(new PacketTeleportToCustomCoordinate(coordinates.x, coordinates.y, coordinates.z));
+        }
+
+        ClientPlayNetworking.send(new PacketSetAffiliation(getCurrentAlignment().name(), getCurrentlySelectedFaction().getName(), currentSpawnIdentifier.getPath()));
         if(player != null){
             BlockPos overworldBlockPos = player.getBlockPos();
-            ClientPlayNetworking.send(new SpawnDataPacket(overworldBlockPos.getX(), overworldBlockPos.getY(), overworldBlockPos.getZ()));
+            ClientPlayNetworking.send(new PacketSetSpawnData(overworldBlockPos.getX(), overworldBlockPos.getY(), overworldBlockPos.getZ()));
         }
-    }
-
-    private HashMap<Identifier, Vector2i> getCurrentSpawn() {
-        HashMap<Identifier, Vector2i> foundSpawn = new HashMap<>();
-        Optional<Identifier> foundId = getCurrentlySelectedFaction().getSpawnData().getDynamicSpawns().keySet().stream().findFirst();
-        foundId.ifPresent(identifier -> foundSpawn.put(identifier, getCurrentlySelectedFaction().getSpawnData().getDynamicSpawns().get(identifier)));
-        return foundSpawn;
     }
 
     public Alignment getCurrentAlignment(){

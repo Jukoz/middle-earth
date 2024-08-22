@@ -1,13 +1,13 @@
 package net.jukoz.me.network.connections;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.jukoz.me.network.packets.C2S.PacketTeleportToDynamicCoordinate;
 import net.jukoz.me.network.packets.ClientToServerPacket;
-import net.jukoz.me.network.packets.c2s.TeleportRequestPacket;
 
 public class ConnectionToServer implements IConnectionToServer{
     @Override
     public boolean isOnServer() {
-        return ClientPlayNetworking.canSend(TeleportRequestPacket.ID);
+        return ClientPlayNetworking.canSend(PacketTeleportToDynamicCoordinate.ID);
     }
 
     @Override

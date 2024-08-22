@@ -4715,12 +4715,17 @@
 "#Comment": "Factions fallback",
   "faction.me.example.fallback": "Example...",
 
-"#Comment:": "Races",
+"#Comment": "Spawns",
+  "spawn.me.longbeards.erebor.ravenhill" : "Ravenhill",
+  "spawn.me.longbeards.erebor.outskirt" : "Outskirts",
+
+  "#Comment:": "Races",
   "race.me.dwarf" : "Dwarf",
   "race.me.elf" : "Elf",
   "race.me.human" : "Human",
   "race.me.hobbit" : "Hobbit",
   "race.me.orc" : "Orc",
+  "race.me.uruk" : "Uruk",
 
 "#Comment:": "UI Onboarding",
   "ui.me.continue_character": "Continue",

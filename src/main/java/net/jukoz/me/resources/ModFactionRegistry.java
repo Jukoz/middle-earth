@@ -20,6 +20,7 @@ import net.minecraft.registry.*;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.dimension.DimensionOptions;
 import org.joml.Vector2i;
 
@@ -92,6 +93,13 @@ public class ModFactionRegistry {
     }
 
     private static void registerDwarvenFactions(Registerable<Faction> context, RegistryEntryLookup<Faction> factionRegistryEntryLookup) {
+        // region [LONGBEARDS]
+        register(context, factionRegistryEntryLookup, of("longbeards"),
+                new Faction("longbeards", Alignment.GOOD,
+                        null, null, null, List.of(Race.DWARF)
+                )
+        );
+
         register(context, factionRegistryEntryLookup, of("longbeards.erebor"),
                 new Faction("longbeards.erebor", Alignment.GOOD,
                         new FactionNpcPreviewData(
@@ -102,48 +110,23 @@ public class ModFactionRegistry {
                                 ModWeaponItems.EREBOR_NOBLE_SWORD,
                                 ModEquipmentItems.HEATER_SHIELD
                         ),
-                        new BannerData(DyeColor.BLACK, new ArrayList<>(){
-                            {
-                                add(new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.BLUE));
-                                add(new BannerData.BannerPatternWithColor(ModBannerPatterns.LONGBEARD_BANNER_PATTERN.getValue(), DyeColor.ORANGE));
-                            }
-                        }),
-                        new SpawnsData(new Vector2i(0,0), new HashMap<>(){
-                            {
-                                put(Identifier.of(MiddleEarth.MOD_ID, "longbeards.erebor.spawn.a"), new Vector2i(64500, 23200));
-                            }
-                        }, new HashMap<>()),
-                        new ArrayList<>(){
-                            {
-                                add(Race.Dwarf);
-                            }
-                        }
-                )
-        );
-        register(context, factionRegistryEntryLookup, of("longbeards"),
-                new Faction("longbeards", Alignment.GOOD,
-                        new FactionNpcPreviewData(
-                                ModEquipmentItems.RAVENHILL_SENTINEL_HELMET,
-                                ModEquipmentItems.RAVENHILL_SENTINEL_CHESTPLATE,
-                                ModEquipmentItems.RAVENHILL_SENTINEL_LEGGINGS,
-                                ModEquipmentItems.RAVENHILL_SENTINEL_BOOTS,
-                                ModWeaponItems.EREBOR_NOBLE_SWORD,
-                                ModEquipmentItems.HEATER_SHIELD
+                        new BannerData(DyeColor.BLACK, List.of(
+                                new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.BLUE),
+                                new BannerData.BannerPatternWithColor(ModBannerPatterns.LONGBEARD_BANNER_PATTERN.getValue(), DyeColor.WHITE)
+                                )
                         ),
-                        new BannerData(DyeColor.BLACK, new ArrayList<>(){
-                            {
-                                add(new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.BLUE));
-                                add(new BannerData.BannerPatternWithColor(ModBannerPatterns.LONGBEARD_BANNER_PATTERN.getValue(), DyeColor.ORANGE));
-                            }
-                        }),
-                        new SpawnsData(new Vector2i(0,0), new HashMap<>(), new HashMap<>()),
-                        new ArrayList<>(){
-                            {
-                                add(Race.Dwarf);
-                            }
-                        }
+                        new SpawnsData(new Vector2i(0,0),
+                                new HashMap<>(){{
+                                    put(Identifier.of(MiddleEarth.MOD_ID, "longbeards.erebor.ravenhill"), new Vector2i(64500, 23200));
+                                }},
+                                new HashMap<>(){{
+                                    put(Identifier.of(MiddleEarth.MOD_ID, "longbeards.erebor.outskirt"), new Vec3d(48000, 200, 48000));
+                                }}
+                        ),
+                        List.of(Race.DWARF)
                 )
         );
+        // endregion
     }
 
     private static RegistryKey<Faction> of(String name) {

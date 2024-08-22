@@ -1,4 +1,4 @@
-package net.jukoz.me.network.packets.c2s;
+package net.jukoz.me.network.packets.C2S;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.network.contexts.ServerPacketContext;
@@ -13,15 +13,15 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 
-public class  AffiliationPacket extends ClientToServerPacket<AffiliationPacket>
+public class PacketSetAffiliation extends ClientToServerPacket<PacketSetAffiliation>
 {
-    public static final CustomPayload.Id<AffiliationPacket> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "affiliation_packet"));
+    public static final CustomPayload.Id<PacketSetAffiliation> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_affiliation_packet"));
 
-    public static final PacketCodec<RegistryByteBuf, AffiliationPacket> CODEC = PacketCodec.tuple(
+    public static final PacketCodec<RegistryByteBuf, PacketSetAffiliation> CODEC = PacketCodec.tuple(
             PacketCodecs.STRING, p -> p.alignmentName,
             PacketCodecs.STRING, p -> p.factionName,
             PacketCodecs.STRING, p -> p.spawnName,
-            AffiliationPacket::new
+            PacketSetAffiliation::new
     );
 
     private final String alignmentName;
@@ -29,19 +29,19 @@ public class  AffiliationPacket extends ClientToServerPacket<AffiliationPacket>
     private final String spawnName;
 
 
-    public AffiliationPacket(String alignmentName, String factionName, String spawnName){
+    public PacketSetAffiliation(String alignmentName, String factionName, String spawnName){
         this.alignmentName = alignmentName;
         this.factionName = factionName;
         this.spawnName = spawnName;
     }
 
     @Override
-    public Id<AffiliationPacket> getId() {
+    public Id<PacketSetAffiliation> getId() {
         return ID;
     }
 
     @Override
-    public PacketCodec<RegistryByteBuf, AffiliationPacket> streamCodec() {
+    public PacketCodec<RegistryByteBuf, PacketSetAffiliation> streamCodec() {
         return CODEC;
     }
 

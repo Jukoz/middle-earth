@@ -1,11 +1,11 @@
-package net.jukoz.me.network.packets.c2s;
+package net.jukoz.me.network.packets.C2S;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.config.ModServerConfigs;
 import net.jukoz.me.network.contexts.ServerPacketContext;
-import net.jukoz.me.network.packets.s2c.OnboardingDetailParsedPacket;
 import net.jukoz.me.network.packets.ClientToServerPacket;
+import net.jukoz.me.network.packets.S2C.PacketOnboardingResult;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.dimension.ModDimensions;
@@ -17,33 +17,33 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-public class  OnboardingDetailFetchingPacket extends ClientToServerPacket<OnboardingDetailFetchingPacket>
+public class PacketOnboardingRequest extends ClientToServerPacket<PacketOnboardingRequest>
 {
-    public static final CustomPayload.Id<OnboardingDetailFetchingPacket> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "onboarding_details_fetching_packet"));
-    public static final PacketCodec<RegistryByteBuf, OnboardingDetailFetchingPacket> CODEC = PacketCodec.tuple(
+    public static final CustomPayload.Id<PacketOnboardingRequest> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_onboarding_request"));
+    public static final PacketCodec<RegistryByteBuf, PacketOnboardingRequest> CODEC = PacketCodec.tuple(
             PacketCodecs.BOOL, p -> p.havePlayerData,
             PacketCodecs.BOOL, p -> p.canChangeFaction,
             PacketCodecs.BOOL, p -> p.canReturnToOverworld,
-            OnboardingDetailFetchingPacket::new
+            PacketOnboardingRequest::new
     );
 
     private final boolean havePlayerData;
     private final boolean canChangeFaction;
     private final boolean canReturnToOverworld;
 
-    public OnboardingDetailFetchingPacket(boolean havePlayerData, boolean canChangeFaction, boolean canReturnToOverworld) {
+    public PacketOnboardingRequest(boolean havePlayerData, boolean canChangeFaction, boolean canReturnToOverworld) {
         this.havePlayerData = havePlayerData;
         this.canChangeFaction = canChangeFaction;
         this.canReturnToOverworld = canReturnToOverworld;
     }
 
     @Override
-    public Id<OnboardingDetailFetchingPacket> getId() {
+    public Id<PacketOnboardingRequest> getId() {
         return ID;
     }
 
     @Override
-    public PacketCodec<RegistryByteBuf, OnboardingDetailFetchingPacket> streamCodec() {
+    public PacketCodec<RegistryByteBuf, PacketOnboardingRequest> streamCodec() {
         return CODEC;
     }
 
@@ -54,7 +54,7 @@ public class  OnboardingDetailFetchingPacket extends ClientToServerPacket<Onboar
                 MinecraftServer server = context.player().getServer();
                 ServerPlayerEntity player = context.player();
 
-                OnboardingDetailParsedPacket newPacket = new OnboardingDetailParsedPacket(
+                PacketOnboardingResult newPacket = new PacketOnboardingResult(
                         StateSaverAndLoader.getPlayerState(context.player()).hasAffilition(),
                         ModServerConfigs.ENABLE_FACTION_RESET,
                         ModServerConfigs.ENABLE_RETURN_TO_OVERWORLD
@@ -62,6 +62,7 @@ public class  OnboardingDetailFetchingPacket extends ClientToServerPacket<Onboar
 
                 server.execute(() -> {
                     if(ModServerConfigs.ENABLE_RETURN_TO_OVERWORLD && ModDimensions.isInMiddleEarth(player.getWorld())){
+                        // TODO : open screen for confirmation
                         ModDimensions.teleportPlayerToOverworld(context.player());
                         return;
                     }

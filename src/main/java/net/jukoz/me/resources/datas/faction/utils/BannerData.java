@@ -1,30 +1,20 @@
 package net.jukoz.me.resources.datas.faction.utils;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.fabricmc.fabric.api.util.NbtType;
-import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPattern;
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Optional;
 
 public class BannerData {
     public static class BannerPatternWithColor {
@@ -61,10 +51,16 @@ public class BannerData {
 
     }
 
-    public BannerData(NbtCompound bannerDataNbt) {
-        baseBannerColor = DyeColor.byName(bannerDataNbt.getString("base_color"), DEFAULT_DYE);
+    public BannerData(Optional<NbtCompound> optionalBannerDataNbt) {
+        if(optionalBannerDataNbt.isEmpty()){
+            bannerPatternWithColors = null;
+            return;
+        }
+        NbtCompound compound = optionalBannerDataNbt.get();
 
-        NbtList patterns = bannerDataNbt.getList("patterns", NbtType.COMPOUND);
+        baseBannerColor = DyeColor.byName(compound.getString("base_color"), DEFAULT_DYE);
+
+        NbtList patterns = compound.getList("patterns", NbtType.COMPOUND);
         this.bannerPatternWithColors = new ArrayList<>();
 
         JsonParser jsonParser = new JsonParser();
@@ -96,7 +92,10 @@ public class BannerData {
         return baseBannerColor;
     }
 
-    public NbtCompound getNbt() {
+    public Optional<NbtCompound> getNbt() {
+        if(baseBannerColor == null || bannerPatternWithColors == null || bannerPatternWithColors.isEmpty())
+            return Optional.empty();
+
         NbtCompound nbt = new NbtCompound();
         nbt.putString("base_color",  getBaseDye().name().toLowerCase());
         NbtList list = new NbtList();
@@ -108,6 +107,6 @@ public class BannerData {
         }
         nbt.put("patterns", list);
 
-        return nbt;
+        return Optional.of(nbt);
     }
 }

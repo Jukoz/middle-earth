@@ -2,20 +2,14 @@ package net.jukoz.me.resources.datas.faction.utils;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Vector2i;
-import org.joml.Vector3i;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class SpawnsData {
     Vector2i mapViewCenter;
@@ -29,12 +23,17 @@ public class SpawnsData {
         this.customSpawns = customSpawns;
     }
 
-    public SpawnsData(NbtCompound spawnsNbt) {
-        NbtCompound mapViewCenterNbt = spawnsNbt.getCompound("map_view_center");
+    public SpawnsData(Optional<NbtCompound> spawnsNbt) {
+        if(spawnsNbt.isEmpty()){
+            return;
+        }
+        NbtCompound compound = spawnsNbt.get();
+
+        NbtCompound mapViewCenterNbt = compound.getCompound("map_view_center");
         mapViewCenter = new Vector2i(mapViewCenterNbt.getInt("x"), mapViewCenterNbt.getInt("y"));
 
         JsonParser jsonParser = new JsonParser();
-        NbtList dynamicSpawnsNbtList = spawnsNbt.getList("dynamic_spawns", NbtElement.COMPOUND_TYPE);
+        NbtList dynamicSpawnsNbtList = compound.getList("dynamic_spawns", NbtElement.COMPOUND_TYPE);
         dynamicSpawns = new HashMap<>();
         String intRegex = "[^0-9]";
         for(NbtElement element: dynamicSpawnsNbtList){
@@ -45,7 +44,7 @@ public class SpawnsData {
             Vector2i coordinate = new Vector2i(x,z);
             dynamicSpawns.put(id, coordinate);
         }
-        NbtList customSpawnsNbtList = spawnsNbt.getList("custom_spawns", NbtElement.COMPOUND_TYPE);
+        NbtList customSpawnsNbtList = compound.getList("custom_spawns", NbtElement.COMPOUND_TYPE);
         customSpawns = new HashMap<>();
         String doubleRegex = "[^0-9.]";
         for(NbtElement element: customSpawnsNbtList){
@@ -59,7 +58,10 @@ public class SpawnsData {
         }
     }
 
-    public NbtCompound getNbt() {
+    public Optional<NbtCompound> getNbt() {
+        if(mapViewCenter == null || (dynamicSpawns == null || dynamicSpawns.isEmpty()) && (customSpawns == null || customSpawns.isEmpty()))
+            return Optional.empty();
+
         NbtCompound nbt = new NbtCompound();
 
         NbtCompound mapViewCenterNbt = new NbtCompound();
@@ -88,7 +90,7 @@ public class SpawnsData {
         }
         nbt.put("custom_spawns", customSpawnSetsNbt);
 
-        return nbt;
+        return Optional.of(nbt);
     }
 
     public HashMap<Identifier, Vector2i> getDynamicSpawns(){
@@ -105,5 +107,23 @@ public class SpawnsData {
 
     public Vec3d findCustomSpawn(Identifier spawnId) {
         return customSpawns.get(spawnId);
+    }
+
+    public static String getTranslatableKey(Identifier id){
+        return "spawn.".concat(id.toTranslationKey());
+    }
+
+    public HashMap<Identifier, Boolean> getSpawnList(){
+        HashMap<Identifier, Boolean> spawnList = new HashMap<>();
+        if(dynamicSpawns != null)
+            for(Identifier id : dynamicSpawns.keySet()){
+                spawnList.put(id, true);
+            }
+        if(customSpawns != null)
+            for(Identifier id : customSpawns.keySet()){
+                spawnList.put(id, false);
+            }
+
+        return spawnList;
     }
 }

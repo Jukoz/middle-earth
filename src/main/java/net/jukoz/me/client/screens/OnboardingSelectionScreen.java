@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.network.packets.c2s.TeleportToMeSpawnRequestPacket;
+import net.jukoz.me.network.packets.C2S.PacketTeleportToCurrentSpawn;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -54,7 +54,7 @@ public class OnboardingSelectionScreen extends Screen {
     }
 
     private void teleportPlayerToMiddleEarth() {
-        ClientPlayNetworking.send(new TeleportToMeSpawnRequestPacket(true));
+        ClientPlayNetworking.send(new PacketTeleportToCurrentSpawn(true));
     }
 
     @Override

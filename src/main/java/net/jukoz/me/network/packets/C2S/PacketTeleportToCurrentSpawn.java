@@ -1,4 +1,4 @@
-package net.jukoz.me.network.packets.c2s;
+package net.jukoz.me.network.packets.C2S;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.network.contexts.ServerPacketContext;
@@ -12,29 +12,27 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import org.joml.Vector3i;
 
 
-public class TeleportToMeSpawnRequestPacket extends ClientToServerPacket<TeleportToMeSpawnRequestPacket> {
-    public static final CustomPayload.Id<TeleportToMeSpawnRequestPacket> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "teleport_to_me_spawn_request_packet"));
-    public static final PacketCodec<RegistryByteBuf, TeleportToMeSpawnRequestPacket> CODEC = PacketCodec.tuple(
+public class PacketTeleportToCurrentSpawn extends ClientToServerPacket<PacketTeleportToCurrentSpawn> {
+    public static final CustomPayload.Id<PacketTeleportToCurrentSpawn> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_teleport_current_spawn"));
+    public static final PacketCodec<RegistryByteBuf, PacketTeleportToCurrentSpawn> CODEC = PacketCodec.tuple(
             PacketCodecs.BOOL, p -> p.value,
-            TeleportToMeSpawnRequestPacket::new
+            PacketTeleportToCurrentSpawn::new
     );
     private Boolean value;
 
-    public TeleportToMeSpawnRequestPacket(boolean newValue){
+    public PacketTeleportToCurrentSpawn(boolean newValue){
         this.value = newValue;
     }
     @Override
-    public Id<TeleportToMeSpawnRequestPacket> getId() {
+    public Id<PacketTeleportToCurrentSpawn> getId() {
         return ID;
     }
 
     @Override
-    public PacketCodec<RegistryByteBuf, TeleportToMeSpawnRequestPacket> streamCodec() {
+    public PacketCodec<RegistryByteBuf, PacketTeleportToCurrentSpawn> streamCodec() {
         return CODEC;
     }
 

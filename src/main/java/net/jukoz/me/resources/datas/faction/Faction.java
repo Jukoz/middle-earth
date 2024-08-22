@@ -24,6 +24,7 @@ import org.joml.Vector3i;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 
 public class Faction {
@@ -32,9 +33,9 @@ public class Faction {
             Codec.STRING.fieldOf("id").forGetter(Faction::getIdValue),
             Codec.STRING.fieldOf("alignment").forGetter(Faction::getAlignmentString),
             Codec.list(Codec.STRING, 1, 5).fieldOf("races").forGetter(Faction::getRaceNames),
-            NbtCompound.CODEC.fieldOf("preview_gears").forGetter(Faction::getPreviewGearNbt),
-            NbtCompound.CODEC.fieldOf("banner").forGetter(Faction::getBannerNbt),
-            NbtCompound.CODEC.fieldOf("spawns").forGetter(Faction::getSpawnDataNbt)
+            NbtCompound.CODEC.optionalFieldOf("preview_gears").forGetter(Faction::getPreviewGearNbt),
+            NbtCompound.CODEC.optionalFieldOf("banner").forGetter(Faction::getBannerNbt),
+            NbtCompound.CODEC.optionalFieldOf("spawns").forGetter(Faction::getSpawnDataNbt)
     ).apply(instance, Faction::new));
 
     private final Identifier id;
@@ -52,7 +53,7 @@ public class Faction {
      * @param alignment Alignment name, based on the alignment enum
      * @param races all races, first value is used as preview race
      */
-    public Faction(String id, String alignment, List<String> races, NbtCompound previewGearNbt, NbtCompound bannerDataNbt, NbtCompound spawnsNbt) {
+    public Faction(String id, String alignment, List<String> races, Optional<NbtCompound> previewGearNbt, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt) {
         this.id = Identifier.of(MiddleEarth.MOD_ID, id);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
 
@@ -91,14 +92,20 @@ public class Faction {
     private String getIdValue() {
         return this.id.getPath();
     }
-    private NbtCompound getPreviewGearNbt() {
+    private Optional<NbtCompound> getPreviewGearNbt() {
+        if(this.previewGears == null)
+            return Optional.empty();
         return this.previewGears.getNbt();
     }
 
-    private NbtCompound getBannerNbt() {
+    private Optional<NbtCompound> getBannerNbt() {
+        if(this.bannerData == null)
+            return Optional.empty();
         return this.bannerData.getNbt();
     }
-    private NbtCompound getSpawnDataNbt() {
+    private Optional<NbtCompound> getSpawnDataNbt() {
+        if(this.spawnsData == null)
+            return Optional.empty();
         return this.spawnsData.getNbt();
     }
 
@@ -115,13 +122,28 @@ public class Faction {
             }
         }
 
+        String previewGearString = "None";
+        if(this.previewGears != null){
+            previewGearString = previewGears.getNbt().toString();
+        }
+
+        String bannerDataString = "None";
+        if(this.bannerData != null){
+            bannerDataString = bannerData.getNbt().toString();
+        }
+
+        String spawnDataString = "None";
+        if(this.spawnsData != null){
+            spawnDataString = spawnsData.getNbt().toString();
+        }
+
         String print = messsage + "\n" +
                 "Id: " + id + "\n" +
                 "Alignment: " + alignment + "\n" +
                 "Races: " + races + "\n" +
-                "PreviewGear: " + previewGears.getNbt().toString() + "\n" +
-                "BannerData: " + bannerData.getNbt().toString() + "\n" +
-                "SpawnData: " + spawnsData.getNbt().toString() + "\n" +
+                "PreviewGear: " + previewGearString + "\n" +
+                "BannerData: " + bannerDataString + "\n" +
+                "SpawnData: " + spawnDataString + "\n" +
                 "Subfactions: " + subfactionsText;
 
         LoggerUtil.logDebugMsg(print);
@@ -150,8 +172,8 @@ public class Faction {
 
     public Race getPreviewRace() {
         if(this.official_races == null || this.official_races.isEmpty()){
-            LoggerUtil.logDebugMsg("Faction::"+id+":Couldn't find race -> returning "+ Race.Human.toString());
-            return Race.Human;
+            LoggerUtil.logDebugMsg("Faction::"+id+":Couldn't find race -> returning "+ Race.HUMAN.toString());
+            return Race.HUMAN;
         }
 
         return this.official_races.get(0);

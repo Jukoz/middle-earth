@@ -70,6 +70,7 @@ public class FactionSelectionScreen extends Screen {
 
     @Override
     protected void init() {
+        assert this.client != null;
         this.bannerField = this.client.getEntityModelLoader().getModelPart(EntityModelLayers.BANNER).getChild("flag");
         controller = new FactionSelectionController();
 
@@ -204,12 +205,10 @@ public class FactionSelectionScreen extends Screen {
         // Spawn Point Selection
         spawnPointCycledSelection = new CycledSelectionWidget(
                 button -> {
-                    // TODO : Add logic
-                    LoggerUtil.logDebugMsg("Spawn point action left!");
+                    controller.spawnIndexUpdate(false);
                 },
                 button -> {
-                    // TODO : Add logic
-                    LoggerUtil.logDebugMsg("Spawn point action right!");
+                    controller.spawnIndexUpdate(true);
                 },
                 null,
                 CycledSelectionButtonType.NORMAL);
@@ -236,7 +235,7 @@ public class FactionSelectionScreen extends Screen {
     }
 
     private void updateEquipment(){
-        Faction faction = controller.getCurrentFaction();
+        Faction faction = controller.getCurrentlySelectedFaction();
         if(faction != null)
             playableNpcPreviewWidget.updateEntity(faction.getPreviewGear(), faction.getPreviewRace());
         else
@@ -370,6 +369,8 @@ public class FactionSelectionScreen extends Screen {
     }
 
     protected void drawFactionRandomizer(DrawContext context, int centerX, int endY) {
+        if(factionRandomizerButton == null) return;
+
         int sizeX = 52;
         int sizeY = 18;
         int startX = (int) (centerX - (sizeX / 2f));
@@ -470,8 +471,8 @@ public class FactionSelectionScreen extends Screen {
 
         // Spawn point option
         startY += MINIMAL_MARGIN;
-        spawnPointCycledSelection.drawAnchored(context, startX,  startY,true, Text.translatable("Minas Tirith"), textRenderer);
-        spawnPointCycledSelection.enableArrows(true); // TODO : update when faction changes
+        spawnPointCycledSelection.drawAnchored(context, startX,  startY,true, Text.translatable(controller.getCurrentSpawnKey()), textRenderer);
+        spawnPointCycledSelection.enableArrows(true);
 
         // Draw selection option
         int sizeX = 52;

@@ -4,11 +4,13 @@ import net.jukoz.me.MiddleEarth;
 import net.minecraft.util.Identifier;
 
 public enum Race {
-    Dwarf("dwarf"),
-    Elf("elf"),
-    Human("human"),
-    Hobbit("hobbit"),
-    Orc("orc");
+    DWARF("dwarf"),
+    ELF("elf"),
+    HUMAN("human"),
+    HOBBIT("hobbit"),
+    ORC("orc"),
+    URUK("uruk");
+
     private String jsonValue;
 
     Race(String raceKey) {

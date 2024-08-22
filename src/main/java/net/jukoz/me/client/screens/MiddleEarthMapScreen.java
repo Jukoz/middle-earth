@@ -5,7 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.network.packets.c2s.TeleportRequestPacket;
+import net.jukoz.me.network.packets.C2S.PacketTeleportToDynamicCoordinate;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.gui.DrawContext;
@@ -205,7 +205,7 @@ public class MiddleEarthMapScreen extends Screen {
 
     private void getTeleport(Vector2i coord){
         if(ModDimensions.isInMiddleEarth(this.player.getWorld()) && this.player.isCreative()){
-            ClientPlayNetworking.send(new TeleportRequestPacket(coord.x, coord.y));
+            ClientPlayNetworking.send(new PacketTeleportToDynamicCoordinate(coord.x, coord.y));
         }
     }
 
