@@ -4735,5 +4735,9 @@
   "ui.me.map_title_text": "Middle-earth Map",
 
 "#Comment": "UI Search",
-  "ui.me.search.label" : "Search..."
+  "ui.me.search.label" : "Search...",
+
+"#Comment": "Commands",
+  "command.me.set_player_spawn.success" : "Succesfully modified {0} spawn point for {1}",
+  "command.me.clear_player_data.success" : "Succesfully cleared the stored player data for {0}"
 }

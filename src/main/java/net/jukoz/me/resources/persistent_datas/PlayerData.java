@@ -38,4 +38,9 @@ public class PlayerData {
     public BlockPos getOverworldSpawnCoordinates() {
         return overworldSpawnCoordinates;
     }
+
+    public void clearData() {
+        this.affiliationData = null;
+        this.overworldSpawnCoordinates = null;
+    }
 }

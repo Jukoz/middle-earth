@@ -67,8 +67,7 @@ public class StateSaverAndLoader extends PersistentState {
                 boolean hasOverworldPos = overworldPos != null && overworldPos.length == 3;
 
                 if(hasAlignment && hasFaction && hasSpawn){
-                    LoggerUtil.logDebugMsg(alignmentValue);
-                    Alignment alignment = Alignment.valueOf(alignmentValue);
+                    Alignment alignment = Alignment.valueOf(alignmentValue.toUpperCase());
                     Identifier factionId = Identifier.of(MiddleEarth.MOD_ID, factionIdValue);
                     Identifier spawnId = Identifier.of(MiddleEarth.MOD_ID, spawnIdValue);
 

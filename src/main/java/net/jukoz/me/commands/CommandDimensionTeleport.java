@@ -1,4 +1,4 @@
-package net.jukoz.me.utils.commands;
+package net.jukoz.me.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
@@ -11,7 +11,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 
-public class DimensionTeleportCommand {
+public class CommandDimensionTeleport {
     private static final String TP = "tp";
     private static final String PLAYER = "player";
     private static final String LOCATION = "location";
@@ -21,7 +21,7 @@ public class DimensionTeleportCommand {
                 .then((CommandManager.literal(TP))
                 .then(CommandManager.argument(PLAYER, EntityArgumentType.player())
                 .then(CommandManager.argument(LOCATION, Vec3ArgumentType.vec3())
-                .executes(DimensionTeleportCommand::run)))));
+                .executes(CommandDimensionTeleport::run)))));
     }
 
     public static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {

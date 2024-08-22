@@ -1,9 +1,8 @@
-package net.jukoz.me.utils.commands;
+package net.jukoz.me.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import net.jukoz.me.config.ModServerConfigs;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.LoggerUtil;
@@ -14,7 +13,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
-public class GetPlayerInformationCommand {
+public class CommandFetchPlayerInformations {
     private static final String INFO = "info";
     private static final String PLAYER = "player";
 
@@ -23,7 +22,7 @@ public class GetPlayerInformationCommand {
                 .requires(source -> source.hasPermissionLevel(2)))
                 .then((CommandManager.literal(INFO))
                 .then(CommandManager.argument(PLAYER, EntityArgumentType.player())
-                .executes(GetPlayerInformationCommand::run))));
+                .executes(CommandFetchPlayerInformations::run))));
     }
 
     private static int run(CommandContext<ServerCommandSource> context) {

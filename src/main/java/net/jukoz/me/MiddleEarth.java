@@ -19,7 +19,7 @@ import net.jukoz.me.recipe.ModRecipes;
 import net.jukoz.me.sound.ModSounds;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.LootModifiers;
-import net.jukoz.me.utils.commands.ModCommandRegistry;
+import net.jukoz.me.commands.ModCommandRegistry;
 import net.jukoz.me.utils.resources.FileUtils;
 import net.jukoz.me.world.map.MiddleEarthMapGeneration;
 import net.jukoz.me.world.gen.ModWorldGeneration;

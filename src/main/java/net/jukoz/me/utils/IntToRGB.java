@@ -1,7 +1,5 @@
 package net.jukoz.me.utils;
 
-import net.minecraft.util.math.Vec3d;
-
 import java.awt.*;
 
 public class IntToRGB {
