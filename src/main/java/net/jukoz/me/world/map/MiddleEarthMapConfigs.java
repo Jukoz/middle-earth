@@ -29,7 +29,7 @@ public class MiddleEarthMapConfigs {
      */
     public static final int REGION_SIZE = 3000;
     public static final int PIXEL_WEIGHT = 4;
-    public static final int THREAD_POOL_SIZE = 8;
+    public static final int THREAD_POOL_SIZE = 16;
     public static final int BIOME_VALIDATION_TICK_DELAY = 1000;
     public static final int BIOME_VALIDATION_BLOCK_DELAY = 5000;
     public final static int BIOME_VALIDATION_DIST_CHECK = 2000;

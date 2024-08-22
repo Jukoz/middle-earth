@@ -13,18 +13,19 @@ public class ProceduralStructures {
     public static final int mapMultiplier = (int) Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION + MiddleEarthMapConfigs.PIXEL_WEIGHT - 2);
 
     public static void generateStructures(MEBiome meBiome, Chunk chunk, int x, int y, int z) {
-        if(meBiome.biome == MEBiomeKeys.NAN_CURUNIR) generateIsengard(chunk, x, y, z);
+        if(meBiome.biome == MEBiomeKeys.NAN_CURUNIR || meBiome.biome == MEBiomeKeys.ISENGARD_HILL) generateIsengard(chunk, x, y, z);
     }
 
     // region Isengard
     public static final Vec2f centerOrthanc = new Vec2f(1402, 1464).multiply(mapMultiplier);
-    private static final float radiusOrthanc = 10.12f;
+    private static final float radiusOrthanc = 12.12f;
     private static final float topRadiusOrthanc = 4.63f;
     private static final int bottomOrthanc = 72;
-    private static final int topOrthanc = 182;
+    private static final int topOrthanc = 224;
 
     public static final float isengardRingRadius = 6.7f * mapMultiplier;
     public static final float isengardRingThickness = 5;
+    public static final float isengardRingHillThickness = 7;
     private static final float isengardWallsHeight = 18;
     private static final float isengardPathSize = 0.034f;
     private static final BlockState isengardBlock = StoneBlockSets.SMOOTH_MEDGON.base().getDefaultState();
@@ -40,8 +41,8 @@ public class ProceduralStructures {
                     chunk.setBlockState(chunk.getPos().getBlockPos(x, i, z), isengardBlock, false);
                 }
             }
-        } else if(distance < isengardRingRadius + isengardRingThickness) {
-            if(distance > isengardRingRadius - isengardRingThickness) {
+        } else if(distance < isengardRingRadius + isengardRingThickness + isengardRingHillThickness) { // Walls
+            if (distance > isengardRingRadius - isengardRingThickness - isengardRingHillThickness) {
                 Vec2f direction = (centerOrthanc.add(coordinates.negate())).normalize();
                 float dropHeight = Math.abs(distance - isengardRingRadius) / 3;
 
@@ -65,6 +66,18 @@ public class ProceduralStructures {
         Vec2f coordinates = new Vec2f(x, z);
         float distance = (float) Math.sqrt(centerOrthanc.distanceSquared(coordinates));
         return distance <= isengardRingRadius - isengardRingThickness;
+    }
+
+    public static float addRingHillsIsengard(int x, int z) {
+        Vec2f coordinates = new Vec2f(x, z);
+        float distance = (float) Math.sqrt(centerOrthanc.distanceSquared(coordinates));
+        if(distance < isengardRingRadius + isengardRingThickness + isengardRingHillThickness) { // Around Walls
+            if (distance > isengardRingRadius - isengardRingThickness - isengardRingHillThickness) {
+                float percentage = (isengardRingRadius - distance) / (isengardRingThickness + isengardRingHillThickness);
+                return (float) Math.pow(percentage, 0.7f);
+            }
+        }
+        return 0;
     }
     // endregion
 }

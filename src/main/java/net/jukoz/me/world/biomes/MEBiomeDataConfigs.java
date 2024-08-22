@@ -10,8 +10,8 @@ public class MEBiomeDataConfigs {
     private static final int MAX_ANGLE = 90;
 
     public static SlopeMap ashenDirt = new SlopeMap().addSlopeData(25, ModBlocks.ASHEN_DIRT)
-            .addSlopeData(32, Blocks.DIRT)
-            .addSlopeData(MAX_ANGLE, Blocks.STONE);
+            .addSlopeData(32, ModBlocks.ASHEN_GRAVEL)
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.ASHEN_STONE.base());
 
     public static SlopeMap blueMountainsBase = new SlopeMap()
             .addSlopeData(30, Blocks.GRASS_BLOCK)
@@ -51,6 +51,10 @@ public class MEBiomeDataConfigs {
             .addSlopeData(36, ModBlocks.ASH_BLOCK)
             .addSlopeData(44, Blocks.BASALT)
             .addSlopeData(MAX_ANGLE, Blocks.BLACKSTONE);
+    public static SlopeMap mordorGrass = new SlopeMap().addSlopeData(25, Blocks.GRASS_BLOCK)
+            .addSlopeData(32, ModBlocks.ASHEN_DIRT)
+            .addSlopeData(37, ModBlocks.ASHEN_GRAVEL)
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.ASHEN_STONE.base());
 
     public static SlopeMap greyMountains = new SlopeMap().addSlopeData(26, Blocks.GRASS_BLOCK)
             .addSlopeData(29, Blocks.COARSE_DIRT)

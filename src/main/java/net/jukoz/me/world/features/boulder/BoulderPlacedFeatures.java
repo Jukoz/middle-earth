@@ -152,7 +152,7 @@ public class BoulderPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, BIG_BOULDER_BLUE_TUFF, registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.BIG_BOULDER_BLUE_TUFF),
                 veryRare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, SMALL_BOULDER_CALCITE, registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.SMALL_BOULDER_CALCITE),
-                sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+                scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, MEDIUM_BOULDER_CALCITE, registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.MEDIUM_BOULDER_CALCITE),
                 rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, BIG_BOULDER_CALCITE, registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.BIG_BOULDER_CALCITE),

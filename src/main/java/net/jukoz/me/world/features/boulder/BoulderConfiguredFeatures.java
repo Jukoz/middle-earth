@@ -93,9 +93,9 @@ public class BoulderConfiguredFeatures {
     // region Configs
     private static final float smallWidth = 1.5f;
     private static final float smallLength = 2.1f;
-    private static final float smallHeight = 1.55f;
+    private static final float smallHeight = 1.6f;
     private static final float smallRandomSize = 0.6f;
-    private static final float smallRandomness = 0.19f;
+    private static final float smallRandomness = 0.21f;
 
     private static final float mediumWidth = 2.6f;
     private static final float mediumLength = 4.0f;
@@ -103,11 +103,11 @@ public class BoulderConfiguredFeatures {
     private static final float mediumRandomSize = 0.95f;
     private static final float mediumRandomness = 0.26f;
 
-    private static final float bigWidth = 4.5f;
+    private static final float bigWidth = 4.1f;
     private static final float bigLength = 5.85f;
-    private static final float bigHeight = 4.3f;
+    private static final float bigHeight = 4.35f;
     private static final float bigRandomSize = 1.7f;
-    private static final float bigRandomness = 0.27f;
+    private static final float bigRandomness = 0.34f;
     // endregion
 
     private static final List<BlockState> andesite = Arrays.asList(
