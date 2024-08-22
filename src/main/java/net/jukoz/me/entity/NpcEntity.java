@@ -9,9 +9,7 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.RangedWeaponItem;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.random.Random;
@@ -21,6 +19,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.function.Predicate;
 
 public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
@@ -118,10 +117,21 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         return weapon == getBow();
     }
 
+    public ItemStack getProjectileType(ItemStack stack) {
+        if (stack.getItem() instanceof BowItem) {
+            Predicate<ItemStack> predicate = ((RangedWeaponItem)stack.getItem()).getHeldProjectiles();
+            ItemStack itemStack = RangedWeaponItem.getHeldProjectile(this, predicate);
+            return itemStack.isEmpty() ? new ItemStack(Items.ARROW) : itemStack;
+        } else {
+            return ItemStack.EMPTY;
+        }
+    }
+
     @Override
     public void shootAt(LivingEntity target, float pullProgress) {
-        ItemStack itemStack = this.getProjectileType(this.getStackInHand(ProjectileUtil.getHandPossiblyHolding(this, getBow())));
-        PersistentProjectileEntity persistentProjectileEntity = this.createArrowProjectile(itemStack, pullProgress);
+        ItemStack itemStack = this.getStackInHand(ProjectileUtil.getHandPossiblyHolding(this, getBow()));
+        ItemStack itemStack2 = this.getProjectileType(itemStack);
+        PersistentProjectileEntity persistentProjectileEntity = this.createArrowProjectile(itemStack2, pullProgress, itemStack);
         double d = target.getX() - this.getX();
         double e = target.getBodyY(0.3333333333333333) - persistentProjectileEntity.getY();
         double f = target.getZ() - this.getZ();
@@ -131,8 +141,8 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         this.getWorld().spawnEntity(persistentProjectileEntity);
     }
 
-    protected PersistentProjectileEntity createArrowProjectile(ItemStack arrow, float damageModifier) {
-        return ProjectileUtil.createArrowProjectile(this, arrow, damageModifier, null);
+    protected PersistentProjectileEntity createArrowProjectile(ItemStack arrow, float damageModifier, @Nullable ItemStack shotFrom) {
+        return ProjectileUtil.createArrowProjectile(this, arrow, damageModifier, shotFrom);
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
