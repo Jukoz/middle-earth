@@ -3,12 +3,9 @@ package net.jukoz.me.world.chunkgen;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.block.StoneBlockSets;
-import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.utils.noises.SimplexNoise;
 import net.jukoz.me.world.biomes.BlocksLayeringData;
-import net.jukoz.me.world.biomes.SlopeMap;
-import net.jukoz.me.world.biomes.surface.ModBiomes;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
@@ -42,7 +39,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
 
 public class MiddleEarthChunkGenerator extends ChunkGenerator {
     public static final int MEDGON_LEVEL = -32;
@@ -120,8 +116,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.FORODWAITH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FROZEN_OCEAN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FROZEN_POND),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.GOLF_OF_LHUN_CLIFFS),
-                    biomeRegistry.getOrThrow(MEBiomeKeys.GOLF_OF_LHUN_SHORES),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GULF_OF_LHUN_CLIFFS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GULF_OF_LHUN_SHORES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GONDOR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GORGOROTH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GREY_MOUNTAINS),

@@ -35,10 +35,12 @@ import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfRenderer;
 import net.jukoz.me.entity.goose.GooseRenderer;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitRenderer;
 import net.jukoz.me.entity.humans.bandit.BanditHumanRenderer;
+import net.jukoz.me.entity.humans.dale.DaleHumanRenderer;
 import net.jukoz.me.entity.humans.gondor.GondorHumanRenderer;
 import net.jukoz.me.entity.humans.rohan.RohanHumanRenderer;
 import net.jukoz.me.entity.model.ModEntityModels;
 import net.jukoz.me.entity.nazguls.NazgulRenderer;
+import net.jukoz.me.entity.orcs.isengard.IsengardOrcRenderer;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinRenderer;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
 import net.jukoz.me.entity.pheasant.PheasantRenderer;
@@ -50,6 +52,7 @@ import net.jukoz.me.entity.spider.MirkwoodSpiderRenderer;
 import net.jukoz.me.entity.swan.SwanRenderer;
 import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollRenderer;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollRenderer;
+import net.jukoz.me.entity.uruks.isengard.mordor.IsengardUrukHaiRenderer;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinRenderer;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukRenderer;
 import net.jukoz.me.event.KeyInputHandler;
@@ -122,6 +125,12 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.ROHIRRIM_VETERAN, RohanHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.ROHIRRIM_LEADER, RohanHumanRenderer::new);
 
+        EntityRendererRegistry.register(ModEntities.DALISH_MILITIA, DaleHumanRenderer::new);
+        EntityRendererRegistry.register(ModEntities.DALISH_SOLDIER, DaleHumanRenderer::new);
+        EntityRendererRegistry.register(ModEntities.DALISH_KNIGHT, DaleHumanRenderer::new);
+        EntityRendererRegistry.register(ModEntities.DALISH_VETERAN, DaleHumanRenderer::new);
+        EntityRendererRegistry.register(ModEntities.DALISH_LEADER, DaleHumanRenderer::new);
+
         EntityRendererRegistry.register(ModEntities.LONGBEARD_MILITIA, LongbeardDwarfRenderer::new);
         EntityRendererRegistry.register(ModEntities.LONGBEARD_SOLDIER, LongbeardDwarfRenderer::new);
         EntityRendererRegistry.register(ModEntities.LONGBEARD_ELITE, LongbeardDwarfRenderer::new);
@@ -139,13 +148,18 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.MORDOR_BLACK_URUK_SOLDIER, MordorBlackUrukRenderer::new);
         EntityRendererRegistry.register(ModEntities.MORDOR_BLACK_URUK_VETERAN, MordorBlackUrukRenderer::new);
         EntityRendererRegistry.register(ModEntities.MORDOR_BLACK_URUK_LEADER, MordorBlackUrukRenderer::new);
-
-
+        
         EntityRendererRegistry.register(ModEntities.MISTY_GOBLIN_SNAGA, MistyGoblinRenderer::new);
         EntityRendererRegistry.register(ModEntities.MISTY_GOBLIN_WARRIOR, MistyGoblinRenderer::new);
         EntityRendererRegistry.register(ModEntities.MISTY_HOBGOBLIN_SOLDIER, MistyHobgoblinRenderer::new);
         EntityRendererRegistry.register(ModEntities.MISTY_HOBGOBLIN_VETERAN, MistyHobgoblinRenderer::new);
         EntityRendererRegistry.register(ModEntities.MISTY_HOBGOBLIN_LEADER, MistyHobgoblinRenderer::new);
+
+        EntityRendererRegistry.register(ModEntities.ISENGARD_ORC_SNAGA, IsengardOrcRenderer::new);
+        EntityRendererRegistry.register(ModEntities.ISENGARD_ORC_WARRIOR, IsengardOrcRenderer::new);
+        EntityRendererRegistry.register(ModEntities.ISENGARD_URUK_HAI_SOLDIER, IsengardUrukHaiRenderer::new);
+        EntityRendererRegistry.register(ModEntities.ISENGARD_URUK_HAI_VETERAN, IsengardUrukHaiRenderer::new);
+        EntityRendererRegistry.register(ModEntities.ISENGARD_URUK_HAI_LEADER, IsengardUrukHaiRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.STONE_TROLL, StoneTrollRenderer::new);
         EntityRendererRegistry.register(ModEntities.PETRIFIED_TROLL, PetrifiedTrollRenderer::new);
@@ -312,6 +326,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GRASSY_DIRT, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.FIRE_OF_ORTHANC, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POINTED_LIMESTONE, RenderLayer.getCutout());
 
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> {
             if (view == null || pos == null) {

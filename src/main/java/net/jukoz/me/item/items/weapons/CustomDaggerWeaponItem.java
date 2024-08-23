@@ -2,8 +2,10 @@ package net.jukoz.me.item.items.weapons;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.utils.ModWeaponTypes;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.item.ToolMaterial;
@@ -11,6 +13,8 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
@@ -25,6 +29,10 @@ public class CustomDaggerWeaponItem extends ReachWeaponItem {
 
     public CustomDaggerWeaponItem(ToolMaterial toolMaterial, MutableText faction) {
         super(toolMaterial, faction, ModWeaponTypes.DAGGER);
+    }
+
+    public CustomDaggerWeaponItem(ToolMaterial toolMaterial, MutableText faction, MutableText subFaction) {
+        super(toolMaterial, faction, subFaction, ModWeaponTypes.DAGGER);
     }
 
     @Override
@@ -44,10 +52,6 @@ public class CustomDaggerWeaponItem extends ReachWeaponItem {
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
         }
-    }
-
-    public CustomDaggerWeaponItem(ToolMaterial toolMaterial, MutableText faction, MutableText subFaction) {
-        super(toolMaterial, faction, subFaction, ModWeaponTypes.DAGGER);
     }
 
     public static boolean canBackStab(Entity target, Entity attacker) {

@@ -16,9 +16,11 @@ import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goose.GooseEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
+import net.jukoz.me.entity.humans.dale.DaleHumanEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.nazguls.NazgulEntity;
+import net.jukoz.me.entity.orcs.isengard.IsengardOrcEntity;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.pheasant.PheasantEntity;
@@ -33,6 +35,7 @@ import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.swan.SwanEntity;
 import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollEntity;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollEntity;
+import net.jukoz.me.entity.uruks.isengard.mordor.IsengardUrukHaiEntity;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.utils.LoggerUtil;
@@ -71,6 +74,14 @@ public class ModEntities {
     public static final EntityType<RohanHumanEntity> ROHIRRIM_VETERAN = registerEntity("rohirrim_veteran", RohanHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
     public static final EntityType<RohanHumanEntity> ROHIRRIM_LEADER = registerEntity("rohirrim_leader", RohanHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
 
+    //Dale
+    public static final EntityType<DaleHumanEntity> DALISH_MILITIA = registerEntity("dalish_militia", DaleHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
+    public static final EntityType<DaleHumanEntity> DALISH_SOLDIER = registerEntity("dalish_soldier", DaleHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
+    public static final EntityType<DaleHumanEntity> DALISH_KNIGHT = registerEntity("dalish_knight", DaleHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
+    public static final EntityType<DaleHumanEntity> DALISH_VETERAN = registerEntity("dalish_veteran", DaleHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
+    public static final EntityType<DaleHumanEntity> DALISH_LEADER = registerEntity("dalish_leader", DaleHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
+
+
     //Bandits
     public static final EntityType<BanditHumanEntity> BANDIT_MILITIA = registerEntity("bandit_militia", BanditHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
     public static final EntityType<BanditHumanEntity> BANDIT_SOLDIER = registerEntity("bandit_soldier", BanditHumanEntity::new, SpawnGroup.CREATURE, 0.7F, 1.9F);
@@ -97,6 +108,9 @@ public class ModEntities {
     //Misties
     public static final EntityType<MistyGoblinEntity> MISTY_GOBLIN_SNAGA = registerEntity("misty_goblin_snaga", MistyGoblinEntity::new, SpawnGroup.CREATURE, 0.7f, 1.9f);
     public static final EntityType<MistyGoblinEntity> MISTY_GOBLIN_WARRIOR = registerEntity("misty_goblin_warrior", MistyGoblinEntity::new, SpawnGroup.CREATURE, 0.7f, 1.9f);
+    //Isengard
+    public static final EntityType<IsengardOrcEntity> ISENGARD_ORC_SNAGA = registerEntity("isengard_orc_snaga", IsengardOrcEntity::new, SpawnGroup.CREATURE, 0.7f, 1.9f);
+    public static final EntityType<IsengardOrcEntity> ISENGARD_ORC_WARRIOR = registerEntity("isengard_orc_warrior", IsengardOrcEntity::new, SpawnGroup.CREATURE, 0.7f, 1.9f);
 
     //URUKS
     //Mordor
@@ -107,6 +121,12 @@ public class ModEntities {
     public static final EntityType<MistyHobgoblinEntity> MISTY_HOBGOBLIN_SOLDIER = registerEntity("misty_hobgoblin_soldier", MistyHobgoblinEntity::new, SpawnGroup.CREATURE, 0.85f, 1.9f);
     public static final EntityType<MistyHobgoblinEntity> MISTY_HOBGOBLIN_VETERAN = registerEntity("misty_hobgoblin_veteran", MistyHobgoblinEntity::new, SpawnGroup.CREATURE, 0.85f, 1.9f);
     public static final EntityType<MistyHobgoblinEntity> MISTY_HOBGOBLIN_LEADER = registerEntity("misty_hobgoblin_leader", MistyHobgoblinEntity::new, SpawnGroup.CREATURE, 0.85f, 1.9f);
+
+    //Isengard
+    public static final EntityType<IsengardUrukHaiEntity> ISENGARD_URUK_HAI_SOLDIER = registerEntity("isengard_uruk_hai_soldier", IsengardUrukHaiEntity::new, SpawnGroup.CREATURE, 0.85f, 1.9f);
+    public static final EntityType<IsengardUrukHaiEntity> ISENGARD_URUK_HAI_VETERAN = registerEntity("isengard_uruk_hai_veteran", IsengardUrukHaiEntity::new, SpawnGroup.CREATURE, 0.85f, 1.9f);
+    public static final EntityType<IsengardUrukHaiEntity> ISENGARD_URUK_HAI_LEADER = registerEntity("isengard_uruk_hai_leader", IsengardUrukHaiEntity::new, SpawnGroup.CREATURE, 0.85f, 1.9f);
+
 
     // Nazgul
     public static final EntityType<NazgulEntity> NAZGUL = registerEntity("nazgul", NazgulEntity::new, SpawnGroup.CREATURE, 0.8f, 1.9f);
@@ -160,6 +180,7 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(HOBBIT_CIVILIAN, ShireHobbitEntity.setSoldierAttributes());
         FabricDefaultAttributeRegistry.register(HOBBIT_BOUNDER, ShireHobbitEntity.setSoldierAttributes());
         FabricDefaultAttributeRegistry.register(HOBBIT_SHIRRIFF, ShireHobbitEntity.setKnightAttributes());
+        
         FabricDefaultAttributeRegistry.register(GONDORIAN_MILITIA, GondorHumanEntity.setSoldierAttributes());
         FabricDefaultAttributeRegistry.register(GONDORIAN_SOLDIER, GondorHumanEntity.setSoldierAttributes());
         FabricDefaultAttributeRegistry.register(GONDORIAN_KNIGHT, GondorHumanEntity.setKnightAttributes());
@@ -171,6 +192,12 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(ROHIRRIM_KNIGHT, RohanHumanEntity.setKnightAttributes());
         FabricDefaultAttributeRegistry.register(ROHIRRIM_VETERAN, RohanHumanEntity.setVeteranAttributes());
         FabricDefaultAttributeRegistry.register(ROHIRRIM_LEADER, RohanHumanEntity.setLeaderAttributes());
+
+        FabricDefaultAttributeRegistry.register(DALISH_MILITIA, DaleHumanEntity.setSoldierAttributes());
+        FabricDefaultAttributeRegistry.register(DALISH_SOLDIER, DaleHumanEntity.setSoldierAttributes());
+        FabricDefaultAttributeRegistry.register(DALISH_KNIGHT, DaleHumanEntity.setKnightAttributes());
+        FabricDefaultAttributeRegistry.register(DALISH_VETERAN, DaleHumanEntity.setVeteranAttributes());
+        FabricDefaultAttributeRegistry.register(DALISH_LEADER, DaleHumanEntity.setLeaderAttributes());
 
         FabricDefaultAttributeRegistry.register(LONGBEARD_MILITIA, LongbeardDwarfEntity.setSoldierAttributes());
         FabricDefaultAttributeRegistry.register(LONGBEARD_SOLDIER, LongbeardDwarfEntity.setSoldierAttributes());
@@ -195,6 +222,12 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(MISTY_HOBGOBLIN_SOLDIER, MordorBlackUrukEntity.setKnightAttributes());
         FabricDefaultAttributeRegistry.register(MISTY_HOBGOBLIN_VETERAN, MordorBlackUrukEntity.setVeteranAttributes());
         FabricDefaultAttributeRegistry.register(MISTY_HOBGOBLIN_LEADER, MordorBlackUrukEntity.setLeaderAttributes());
+
+        FabricDefaultAttributeRegistry.register(ISENGARD_ORC_SNAGA, IsengardOrcEntity.setSoldierAttributes());
+        FabricDefaultAttributeRegistry.register(ISENGARD_ORC_WARRIOR, IsengardOrcEntity.setSoldierAttributes());
+        FabricDefaultAttributeRegistry.register(ISENGARD_URUK_HAI_SOLDIER, IsengardUrukHaiEntity.setKnightAttributes());
+        FabricDefaultAttributeRegistry.register(ISENGARD_URUK_HAI_VETERAN, IsengardUrukHaiEntity.setVeteranAttributes());
+        FabricDefaultAttributeRegistry.register(ISENGARD_URUK_HAI_LEADER, IsengardUrukHaiEntity.setLeaderAttributes());
 
         FabricDefaultAttributeRegistry.register(NAZGUL, NazgulEntity.setAttributes());
 

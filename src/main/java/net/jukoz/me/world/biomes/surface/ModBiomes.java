@@ -133,9 +133,9 @@ public class ModBiomes {
                 8628223, 10599910, 3750089, 263470, 3494723, 4478280)));
         context.register(MEBiomeKeys.FROZEN_POND, createFrozenPond(context, new BiomeColorsDTO(
                 8628223, 10599910, 3750089, 263470, 3494723, 4478280)));
-        context.register(MEBiomeKeys.GOLF_OF_LHUN_CLIFFS, createLindonBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.GULF_OF_LHUN_CLIFFS, createLindonBiome(context, new BiomeColorsDTO(
                 8827134, 12771327, defaultShoreWater, defaultWaterFog, 6523989, 5667402)));
-        context.register(MEBiomeKeys.GOLF_OF_LHUN_SHORES, createLindonBiome(context, new BiomeColorsDTO(
+        context.register(MEBiomeKeys.GULF_OF_LHUN_SHORES, createLindonBiome(context, new BiomeColorsDTO(
                 8827134, 12771327, defaultShoreWater, defaultWaterFog, 6523989, 5667402)));
         context.register(MEBiomeKeys.GONDOR, createGondorBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 7582562, 6592327)));
