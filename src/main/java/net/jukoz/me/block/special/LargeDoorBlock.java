@@ -308,7 +308,7 @@ public class LargeDoorBlock extends Block {
                         blockPos = blockPos1.offset((Direction)state.get(HORIZONTAL_FACING).rotateYClockwise(), i + 1);
                     }
                 } else {
-                    player.sendMessage(Text.translatable("block.me.large_door.blocked"), true);
+                    player.sendMessage(Text.translatable("alert.me.large_door.blocked"), true);
                 }
             }else {
                 blockPos = pos.offset(state.get(HORIZONTAL_FACING).rotateYCounterclockwise(), column);
@@ -354,7 +354,7 @@ public class LargeDoorBlock extends Block {
                         blockPos = blockPos1.offset((Direction)state.get(HORIZONTAL_FACING), j + 1);
                     }
                 }else {
-                    player.sendMessage(Text.translatable("block.me.large_door.blocked"), true);
+                    player.sendMessage(Text.translatable("alert.me.large_door.blocked"), true);
                 }
             }
         }else {
@@ -403,7 +403,7 @@ public class LargeDoorBlock extends Block {
                         blockPos = blockPos1.offset((Direction)state.get(HORIZONTAL_FACING).rotateYCounterclockwise(), i + 1);
                     }
                 } else {
-                    player.sendMessage(Text.translatable("block.me.large_door.blocked"), true);
+                    player.sendMessage(Text.translatable("alert.me.large_door.blocked"), true);
                 }
             }else {
                 blockPos = pos.offset(state.get(HORIZONTAL_FACING).rotateYClockwise(), column);
@@ -449,7 +449,7 @@ public class LargeDoorBlock extends Block {
                         blockPos = blockPos1.offset((Direction)state.get(HORIZONTAL_FACING), j + 1);
                     }
                 }else {
-                    player.sendMessage(Text.translatable("block.me.large_door.blocked"), true);
+                    player.sendMessage(Text.translatable("alert.me.large_door.blocked"), true);
                 }
             }
         }
