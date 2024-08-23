@@ -137,7 +137,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         float h = passenger.isSprinting() ? (1.2f/0.74f) : 3;
         float j = passenger.isSprinting() ? 1 : 0;
 
-        double y = MathHelper.cos(g * h + (MathHelper.PI * (j - 1))) * f * (0.06 + (0.1 * j));
+        double y = MathHelper.cos(g * h + (MathHelper.PI * (j - 1))) * f * (0.06 + (0.1 * j)) - 0.1;
 
         return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
     }
@@ -167,10 +167,10 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
                         this.getTarget().getBlockPos().getZ() - this.getBlockPos().getZ());
             }
             this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
-            this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())).add(0, this.getVelocity().y, 0));
+            this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d - ((double)MathHelper.abs(this.chargeTimeout - (maxChargeCooldown() - chargeDuration()) - (chargeDuration() * 0.2f)) / chargeDuration())).add(0, this.getVelocity().y, 0));
         }
         else if (this.getWorld().isClient) {
-            this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())).add(0, this.getVelocity().y, 0));
+            this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d - ((double)MathHelper.abs(this.chargeTimeout - (maxChargeCooldown() - chargeDuration()) - (chargeDuration() * 0.2f)) / chargeDuration())).add(0, this.getVelocity().y, 0));
         }
 
         for(Entity entity : entities) {
@@ -191,44 +191,31 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     @Override
     protected void jump(float strength, Vec3d movementInput) {
-        if(this.isSitting()) {
-            this.setSitting(false);
+        if(this.hasControllingPassenger() && !this.getControllingPassenger().isSprinting()) {
+            double d = this.getJumpVelocity(strength);
+            Vec3d vec3d = this.getVelocity().multiply(1.5);
+            this.setVelocity(vec3d.x, d, vec3d.z);
+            this.setInAir(true);
+            this.velocityDirty = true;
+            if (movementInput.z > 0.0) {
+                float f = MathHelper.sin(this.getYaw() * ((float)Math.PI / 180));
+                float g = MathHelper.cos(this.getYaw() * ((float)Math.PI / 180));
+                this.setVelocity(this.getVelocity().add(-0.4f * f * strength, 0.0, 0.4f * g * strength));
+            }
         }
-        else if(this.hasControllingPassenger()) {
-            if(this.chargeTimeout <= 0 && this.getControllingPassenger().isSprinting()) {
-                this.setCharging(true);
-                this.chargeTimeout = maxChargeCooldown();
-            }
-            else if(!this.getControllingPassenger().isSprinting()) {
-                double d = this.getJumpVelocity(strength);
-                Vec3d vec3d = this.getVelocity().multiply(1.5);
-                this.setVelocity(vec3d.x, d, vec3d.z);
-                this.setInAir(true);
-                this.velocityDirty = true;
-                if (movementInput.z > 0.0) {
-                    float f = MathHelper.sin(this.getYaw() * ((float)Math.PI / 180));
-                    float g = MathHelper.cos(this.getYaw() * ((float)Math.PI / 180));
-                    this.setVelocity(this.getVelocity().add(-0.4f * f * strength, 0.0, 0.4f * g * strength));
-                }
-            }
+        else {
+            super.jump(strength, movementInput);
         }
     }
 
     @Override
     public void startJumping(int height) {
-        if(!this.isSitting() && this.hasControllingPassenger()){
-            if(this.isSprinting()) {
-                this.playSound(SoundEvents.ENTITY_CAMEL_DASH, 1.0f, 1.0f);
-                this.setCharging(true);
-            }
-            else {
-                this.jumping = true;
-                this.updateAnger();
-                this.playJumpSound();
-            }
+        if(this.hasControllingPassenger() && !this.getControllingPassenger().isSprinting()) {
+            this.jumping = true;
+            this.playJumpSound();
         }
         else {
-            this.setSitting(false);
+            super.startJumping(height);
         }
     }
 
@@ -302,6 +289,13 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
             this.startSittingAnimationState.stop();
             this.sittingAnimationState.stop();
             this.startedSitting = false;
+        }
+
+        if(this.isInAir()) {
+            this.jumpAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.jumpAnimationState.stop();
         }
     }
 
