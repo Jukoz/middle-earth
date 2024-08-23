@@ -13,7 +13,15 @@ import java.util.*;
 
 public class SpawnsData {
     Vector2i mapViewCenter;
+
+    /**
+     * Spawns without height (Will be based on the map iteration in the future)
+     */
     HashMap<Identifier, Vector2i> dynamicSpawns;
+
+    /**
+     * Spawns with every values hardcoded, mainly used for servers for custom spawns
+     */
     HashMap<Identifier, Vec3d> customSpawns;
 
 
@@ -27,13 +35,19 @@ public class SpawnsData {
         if(spawnsNbt.isEmpty()){
             return;
         }
-        NbtCompound compound = spawnsNbt.get();
+        deserializeNbt(spawnsNbt.get());
+    }
 
-        NbtCompound mapViewCenterNbt = compound.getCompound("map_view_center");
+    private void deserializeNbt(NbtCompound nbtCompound) {
+        JsonParser jsonParser = new JsonParser();
+
+        // Get Map view center
+        NbtCompound mapViewCenterNbt = nbtCompound.getCompound("map_view_center");
         mapViewCenter = new Vector2i(mapViewCenterNbt.getInt("x"), mapViewCenterNbt.getInt("y"));
 
-        JsonParser jsonParser = new JsonParser();
-        NbtList dynamicSpawnsNbtList = compound.getList("dynamic_spawns", NbtElement.COMPOUND_TYPE);
+        // Get all dynamic spawns (XZ)
+        // Regex to convert string to decimal only (remove extra char from the nbt elements)
+        NbtList dynamicSpawnsNbtList = nbtCompound.getList("dynamic_spawns", NbtElement.COMPOUND_TYPE);
         dynamicSpawns = new HashMap<>();
         String intRegex = "[^0-9]";
         for(NbtElement element: dynamicSpawnsNbtList){
@@ -44,7 +58,10 @@ public class SpawnsData {
             Vector2i coordinate = new Vector2i(x,z);
             dynamicSpawns.put(id, coordinate);
         }
-        NbtList customSpawnsNbtList = compound.getList("custom_spawns", NbtElement.COMPOUND_TYPE);
+
+        // Get all custom spawns (XYZ)
+        // Regex to convert string to double only (remove extra char from the mbt elements)
+        NbtList customSpawnsNbtList = nbtCompound.getList("custom_spawns", NbtElement.COMPOUND_TYPE);
         customSpawns = new HashMap<>();
         String doubleRegex = "[^0-9.]";
         for(NbtElement element: customSpawnsNbtList){
@@ -58,17 +75,21 @@ public class SpawnsData {
         }
     }
 
-    public Optional<NbtCompound> getNbt() {
+
+
+    public Optional<NbtCompound> serializeNbt() {
         if(mapViewCenter == null || (dynamicSpawns == null || dynamicSpawns.isEmpty()) && (customSpawns == null || customSpawns.isEmpty()))
             return Optional.empty();
 
         NbtCompound nbt = new NbtCompound();
 
+        // Write Map view center
         NbtCompound mapViewCenterNbt = new NbtCompound();
         mapViewCenterNbt.putInt("x", mapViewCenter.x);
         mapViewCenterNbt.putInt("y", mapViewCenter.y);
         nbt.put("map_view_center", mapViewCenterNbt);
 
+        // Write all dynamic spawns
         NbtList dynamicSpawnsNbt = new NbtList();
         for(Identifier key : dynamicSpawns.keySet()){
             NbtCompound compound = new NbtCompound();
@@ -79,6 +100,7 @@ public class SpawnsData {
         }
         nbt.put("dynamic_spawns", dynamicSpawnsNbt);
 
+        // Write all custom spawns
         NbtList customSpawnSetsNbt = new NbtList();
         for(Identifier key : customSpawns.keySet()){
             NbtCompound compound = new NbtCompound();

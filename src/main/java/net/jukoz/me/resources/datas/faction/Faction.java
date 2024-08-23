@@ -106,7 +106,7 @@ public class Faction {
     private Optional<NbtCompound> getSpawnDataNbt() {
         if(this.spawnsData == null)
             return Optional.empty();
-        return this.spawnsData.getNbt();
+        return this.spawnsData.serializeNbt();
     }
 
     public void debugPrint(String messsage) {
@@ -134,7 +134,7 @@ public class Faction {
 
         String spawnDataString = "None";
         if(this.spawnsData != null){
-            spawnDataString = spawnsData.getNbt().toString();
+            spawnDataString = spawnsData.serializeNbt().toString();
         }
 
         String print = messsage + "\n" +
