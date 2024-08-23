@@ -3,7 +3,8 @@
 	"texture_size": [22, 22],
 	"ambientocclusion": false,
 	"textures": {
-		"0": "me:block/dead_rushes"
+		"0": "me:block/dead_rushes",
+		"particle": "me:block/dead_rushes"
 	},
 	"elements": [
 		{

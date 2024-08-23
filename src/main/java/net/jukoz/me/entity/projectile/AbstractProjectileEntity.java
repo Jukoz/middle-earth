@@ -15,37 +15,30 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 
-public abstract class AbstractProjectleEntity extends ThrownItemEntity {
-    public Item item;
+public abstract class AbstractProjectileEntity extends ThrownItemEntity {
     private float damage;
 
-    public AbstractProjectleEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
+    public AbstractProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public AbstractProjectleEntity(EntityType<? extends ThrownItemEntity> entityType, double d, double e, double f, World world) {
+    public AbstractProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, double d, double e, double f, World world) {
         super(entityType, d, e, f, world);
     }
 
-    public AbstractProjectleEntity(EntityType<? extends ThrownItemEntity> entityType, LivingEntity livingEntity, World world) {
+    public AbstractProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, LivingEntity livingEntity, World world) {
         super(entityType, livingEntity, world);
-    }
-
-    protected Item getDefaultItem() {
-        return item;
-    }
-
-    private ParticleEffect getParticleParameters() {
-        return new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(item));
     }
 
     public void handleStatus(byte status) {
         if (status == 3) {
-            ParticleEffect particleEffect = this.getParticleParameters();
+            double d = 0.08;
+
             for(int i = 0; i < 8; ++i) {
-                getWorld().addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0, 0.0, 0.0);
+                this.getWorld().addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, this.getStack()), this.getX(), this.getY(), this.getZ(), ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08);
             }
         }
+
     }
 
     protected void onEntityHit(EntityHitResult entityHitResult) {
