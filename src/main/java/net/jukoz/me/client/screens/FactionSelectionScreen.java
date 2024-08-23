@@ -2,18 +2,14 @@ package net.jukoz.me.client.screens;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.client.screens.controllers.FactionSelectionController;
 import net.jukoz.me.client.screens.utils.CycledSelectionButtonType;
 import net.jukoz.me.client.screens.utils.widgets.*;
-import net.jukoz.me.network.packets.C2S.AffiliationPacket;
-import net.jukoz.me.network.packets.C2S.SpawnDataPacket;
-import net.jukoz.me.network.packets.C2S.TeleportRequestPacket;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.faction.Faction;
-import net.jukoz.me.resources.datas.faction.ModFactions;
+import net.jukoz.me.resources.datas.faction.utils.BannerData;
 import net.jukoz.me.utils.LoggerUtil;
-import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -33,7 +29,6 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 
 import java.awt.event.KeyEvent;
 import java.util.*;
@@ -45,13 +40,10 @@ public class FactionSelectionScreen extends Screen {
     private static final Identifier FACTION_SELECTION_BUTTONS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_buttons.png");
     private static final Identifier MAP_SELECTION = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_map.png");
     private static final Text FACTION_SELECTION_TITLE = Text.of("faction_selection_screen");
-    AbstractClientPlayerEntity player;
     private static final int MINIMAL_MARGIN = 4;
+    private FactionSelectionController controller;
+    private AbstractClientPlayerEntity player;
     private ModelPart bannerField;
-    private int currentAlignementIndex = 0;
-    private int currentFactionIndex = 0;
-    private int currentSubFactionIndex = 0;
-    Map<Alignment, List<Faction>> factions = new HashMap<>();
     private SearchBarWidget searchBarWidget;
     private PlayableNpcPreviewWidget playableNpcPreviewWidget;
     private CycledSelectionWidget alignmentSelectionWidget;
@@ -78,12 +70,10 @@ public class FactionSelectionScreen extends Screen {
 
     @Override
     protected void init() {
+        assert this.client != null;
         this.bannerField = this.client.getEntityModelLoader().getModelPart(EntityModelLayers.BANNER).getChild("flag");
+        controller = new FactionSelectionController();
 
-        // Create faction list
-        factions.put(Alignment.GOOD, ModFactions.getFactions(Alignment.GOOD));
-        factions.put(Alignment.NEUTRAL, ModFactions.getFactions(Alignment.NEUTRAL));
-        factions.put(Alignment.EVIL,  ModFactions.getFactions(Alignment.EVIL));
         // Initialize Buttons
         // Search bar
         searchBarWidget = new SearchBarWidget();
@@ -106,28 +96,15 @@ public class FactionSelectionScreen extends Screen {
      */
     private void addFactionSelectionPanelButtons() {
         // Alignment
-        ButtonWidget.PressAction alignmentActionLeft = button -> {
-            currentAlignementIndex--;
-            if(currentAlignementIndex < 0)
-                currentAlignementIndex = Alignment.values().length - 1;
-
-            currentFactionIndex = 0;
-            currentSubFactionIndex = 0;
-            updateEquipment();
-        };
-
-        ButtonWidget.PressAction alignmentActionRight = button -> {
-            currentAlignementIndex++;
-            if(currentAlignementIndex >= Alignment.values().length)
-                currentAlignementIndex = 0;
-            currentFactionIndex = 0;
-            currentSubFactionIndex = 0;
-            updateEquipment();
-        };
-
         alignmentSelectionWidget = new CycledSelectionWidget(
-                alignmentActionLeft,
-                alignmentActionRight,
+                button -> {
+                    controller.alignmentUpdate(false);
+                    updateEquipment();
+                },
+                button -> {
+                    controller.alignmentUpdate(true);
+                    updateEquipment();
+                },
                 null,
                 CycledSelectionButtonType.GOLD);
         for(ButtonWidget button: alignmentSelectionWidget.getButtons()){
@@ -135,25 +112,15 @@ public class FactionSelectionScreen extends Screen {
         }
 
         // Faction
-        ButtonWidget.PressAction factionActionLeft = button -> {
-            currentFactionIndex--;
-            if(currentFactionIndex < 0)
-                currentFactionIndex = factions.get(Alignment.values()[currentAlignementIndex]).size() - 1;
-            currentSubFactionIndex = 0;
-            updateEquipment();
-        };
-
-        ButtonWidget.PressAction factionActionRight = button -> {
-            currentFactionIndex++;
-            if(currentFactionIndex >= factions.get(Alignment.values()[currentAlignementIndex]).size())
-                currentFactionIndex = 0;
-            currentSubFactionIndex = 0;
-            updateEquipment();
-        };
-
         factionSelectionWidget = new CycledSelectionWidget(
-                factionActionLeft,
-                factionActionRight,
+                button -> {
+                    controller.factionUpdate(false);
+                    updateEquipment();
+                },
+                button -> {
+                    controller.factionUpdate(true);
+                    updateEquipment();
+                },
                 null,
                 CycledSelectionButtonType.SILVER);
         for(ButtonWidget button: factionSelectionWidget.getButtons()){
@@ -161,23 +128,15 @@ public class FactionSelectionScreen extends Screen {
         }
 
         // Subfaction
-        ButtonWidget.PressAction subfactionActionLeft = button -> {
-            currentSubFactionIndex--;
-            if(currentSubFactionIndex < 0)
-                currentSubFactionIndex = factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex).getSubFactions().size() - 1;
-            updateEquipment();
-        };
-
-        ButtonWidget.PressAction subfactionActionRight = button -> {
-            currentSubFactionIndex++;
-            if(currentSubFactionIndex >= factions.get(Alignment.values()[currentAlignementIndex]).get(currentFactionIndex).getSubFactions().size())
-                currentSubFactionIndex = 0;
-            updateEquipment();
-        };
-
         subfactionSelectionWidget = new CycledSelectionWidget(
-                subfactionActionLeft,
-                subfactionActionRight,
+                button -> {
+                    controller.subfactionUpdate(false);
+                    updateEquipment();
+                },
+                button -> {
+                    controller.subfactionUpdate(true);
+                    updateEquipment();
+                },
                 null,
                 CycledSelectionButtonType.NORMAL);
 
@@ -188,45 +147,13 @@ public class FactionSelectionScreen extends Screen {
         for(ButtonWidget button: playableNpcPreviewWidget.getButtons()){
             addDrawableChild(button);
         }
-
-        ButtonWidget.PressAction factionRandomizer = new ButtonWidget.PressAction() {
-            private int randomize(int tentativeLeft){
-                Random random = new Random();
-                // Alignment randomizer
-                currentAlignementIndex = random.nextInt(Alignment.values().length);
-                Alignment alignment = Alignment.values()[currentAlignementIndex];
-
-                // Recursive trigger
-                if(factions.get(alignment) == null || factions.get(alignment).isEmpty()){
-                    if(tentativeLeft > 0){
-                        return tentativeLeft + randomize(tentativeLeft - 1);
-                    }
-                }
-
-                // Faction randomizer
-                currentFactionIndex =
-                        (factions.get(alignment) == null || factions.get(alignment).isEmpty())
-                                ? 0
-                                : random.nextInt(factions.get(alignment).size());
-                Faction faction =
-                        (factions.get(alignment) == null || factions.get(alignment).isEmpty() || currentFactionIndex >= factions.get(alignment).size())
-                                ? null
-                                : factions.get(alignment).get(currentFactionIndex);
-
-                // Subfaction randomizer
-                currentSubFactionIndex =
-                        (faction == null || faction.getSubFactions() == null || faction.getSubFactions().isEmpty())
-                                ? 0
-                                : random.nextInt(faction.getSubFactions().size());
-                return 0;
-            }
-            @Override
-            public void onPress(ButtonWidget button) {
-                this.randomize(5);
-                updateEquipment();
-            }
-        };
-        factionRandomizerButton = ButtonWidget.builder(Text.of("Faction randomizer clicked"), factionRandomizer).build();
+        // Faction Randomizer
+        factionRandomizerButton = ButtonWidget.builder(
+                Text.of("Faction randomizer clicked"),
+                button -> {
+                    controller.randomizeFaction(5);
+                    updateEquipment();
+                }).build();
         addDrawableChild(factionRandomizerButton);
     }
 
@@ -236,55 +163,53 @@ public class FactionSelectionScreen extends Screen {
      */
     private void addMapPanelButtonsAndWidgets() {
         // Focus all spawn points (from data)
-        ButtonWidget.PressAction viewAllAction = button -> {
-            // TODO : Add widget method here
-            LoggerUtil.logDebugMsg("View all action!");
-            mapViewAllToggle = true;
-            mapFocusToggle = false;
-        };
-        mapViewAllButton = ButtonWidget.builder(Text.of("View all"), viewAllAction).build();
+        mapViewAllButton = ButtonWidget.builder(
+                Text.of("View all"),
+                button -> {
+                    // TODO : Add widget method here
+                    LoggerUtil.logDebugMsg("View all action!");
+                    mapViewAllToggle = true;
+                    mapFocusToggle = false;
+                }).build();
         addDrawableChild(mapViewAllButton);
 
         // Focus current spawn point (from data)
-        ButtonWidget.PressAction focusCurrentAction = button -> {
-            // TODO : Add widget method here
-            LoggerUtil.logDebugMsg("Focus current action!");
-            mapFocusToggle = true;
-            mapViewAllToggle = false;
-        };
-        mapFocusButton = ButtonWidget.builder(Text.of("Focus current"), focusCurrentAction).build();
+        mapFocusButton = ButtonWidget.builder(
+                Text.of("Focus current"),
+                button -> {
+                    // TODO : Add widget method here
+                    LoggerUtil.logDebugMsg("Focus current action!");
+                    mapFocusToggle = true;
+                    mapViewAllToggle = false;
+                }).build();
         addDrawableChild(mapFocusButton);
 
         // Zoom out the map to have a more broad view
-        ButtonWidget.PressAction zoomOutAction = button -> {
-            // TODO : Add widget method here
-            LoggerUtil.logDebugMsg("Zoom out action!");
-        };
-        mapZoomOutButton = ButtonWidget.builder(Text.of("Zoom out"), zoomOutAction).build();
+        mapZoomOutButton = ButtonWidget.builder(
+                Text.of("Zoom out"),
+                button -> {
+                    // TODO : Add widget method here
+                    LoggerUtil.logDebugMsg("Zoom out action!");
+                }).build();
         addDrawableChild(mapZoomOutButton);
 
         // Zoom into the map to have a closeup view
-        ButtonWidget.PressAction zoomInAction = button -> {
-            // TODO : Add widget method here
-            LoggerUtil.logDebugMsg("Zoom in action!");
-        };
-        mapZoomInButton = ButtonWidget.builder(Text.of("Zoom in"), zoomInAction).build();
+        mapZoomInButton = ButtonWidget.builder(
+                Text.of("Zoom in"),
+                button -> {
+                    // TODO : Add widget method here
+                    LoggerUtil.logDebugMsg("Zoom in action!");
+                }).build();
         addDrawableChild(mapZoomInButton);
 
         // Spawn Point Selection
-        ButtonWidget.PressAction spawnPointActionLeft = button -> {
-            // TODO : Add logic
-            LoggerUtil.logDebugMsg("Spawn point action left!");
-        };
-
-        ButtonWidget.PressAction spawnPointActionRight = button -> {
-            // TODO : Add logic
-            LoggerUtil.logDebugMsg("Spawn point action right!");
-        };
-
         spawnPointCycledSelection = new CycledSelectionWidget(
-                spawnPointActionLeft,
-                spawnPointActionRight,
+                button -> {
+                    controller.spawnIndexUpdate(false);
+                },
+                button -> {
+                    controller.spawnIndexUpdate(true);
+                },
                 null,
                 CycledSelectionButtonType.NORMAL);
 
@@ -293,48 +218,24 @@ public class FactionSelectionScreen extends Screen {
         }
 
         // Random spawn selection
-        ButtonWidget.PressAction randomSpawnSelectionAction = button -> {
-            // TODO : Add proper logic to randomized spawn selection
-        };
-
-        spawnSelectionRandomizerButton = ButtonWidget.builder(Text.of("Click on random spawn selection button"), randomSpawnSelectionAction).build();
+        spawnSelectionRandomizerButton = ButtonWidget.builder(
+                Text.of("Click on random spawn selection button"),
+                button -> {
+                    // TODO : Add proper logic to randomized spawn selection
+                }).build();
         addDrawableChild(spawnSelectionRandomizerButton);
 
         // Confirm spawn selection
-        ButtonWidget.PressAction confirmSpawnSelectionAction = button -> {
-            Alignment alignment = Alignment.values()[currentAlignementIndex];
-            Faction faction = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFactionIndex) : null;
-            Faction subFaction = (faction != null) ? faction.getSubfaction(currentSubFactionIndex) : null;
-
-            if(subFaction != null) faction = subFaction;
-
-            if(faction == null || faction.getSpawnCoordinates() == null || faction.getSpawnCoordinates().isEmpty()) return;
-            int x = faction.getSpawnCoordinates().get(0).x;
-            int z = faction.getSpawnCoordinates().get(0).z;
-
-            ClientPlayNetworking.send(new TeleportRequestPacket(x, z));
-            ClientPlayNetworking.send(new AffiliationPacket(currentAlignementIndex, currentFactionIndex, currentSubFactionIndex));
-            if(player != null){
-                BlockPos overworldBlockPos = player.getBlockPos();
-                BlockPos middleEarthblockPos = new BlockPos(x, (int) MiddleEarthHeightMap.getHeight(x, z), z);
-
-                ClientPlayNetworking.send(new SpawnDataPacket(
-                        overworldBlockPos.getX(), overworldBlockPos.getY(), overworldBlockPos.getZ(),
-                        middleEarthblockPos.getX(), middleEarthblockPos.getY(), middleEarthblockPos.getZ()
-                ));
-            }
-        };
-
-        spawnSelectionConfirmButton = ButtonWidget.builder(Text.of("Click on spawn selection confirm button"), confirmSpawnSelectionAction).build();
+        spawnSelectionConfirmButton = ButtonWidget.builder(
+                Text.of("Click on spawn selection confirm button"),
+                button -> {
+                    controller.confirmSpawnSelection(player);
+                }).build();
         addDrawableChild(spawnSelectionConfirmButton);
     }
 
     private void updateEquipment(){
-        Alignment alignment = Alignment.values()[currentAlignementIndex];
-        Faction faction = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFactionIndex) : null;
-        Faction subFaction = (faction != null) ? faction.getSubfaction(currentSubFactionIndex) : null;
-        if(subFaction != null) faction = subFaction;
-
+        Faction faction = controller.getCurrentlySelectedFaction();
         if(faction != null)
             playableNpcPreviewWidget.updateEntity(faction.getPreviewGear(), faction.getPreviewRace());
         else
@@ -415,9 +316,9 @@ public class FactionSelectionScreen extends Screen {
         int startY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f));
 
         // Draw alignment option
-        Alignment alignment = Alignment.values()[currentAlignementIndex];
-        Faction faction = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFactionIndex) : null;
-        Faction subFaction = (faction != null) ? faction.getSubfaction(currentSubFactionIndex) : null;
+        Alignment alignment = controller.getCurrentAlignment();
+        Faction faction = controller.getCurrentFaction();
+        Faction subFaction = controller.getCurrentSubfaction();
 
         int centerX = endX - CycledSelectionWidget.TOTAL_WIDTH / 2;
         int endY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight;
@@ -438,7 +339,7 @@ public class FactionSelectionScreen extends Screen {
             factionSelectionWidget.enableArrows(false);
             subfactionSelectionWidget.enableArrows(false);
             factionRandomizerButton.active = false;
-            searchBarWidget.drawSearchResultsCentered(context, centerX, startY, factions);
+            searchBarWidget.drawSearchResultsCentered(context, centerX, startY, controller.getFactions()); // Todo : only give what's necessary/need to be showcased
             return;
         }
 
@@ -447,13 +348,14 @@ public class FactionSelectionScreen extends Screen {
         newStartY += MINIMAL_MARGIN + alignmentSelectionWidget.drawAnchored(context, endX, newStartY, false, alignment.getName(), textRenderer);
 
         // Faction
-        factionSelectionWidget.enableArrows(!factions.get(alignment).isEmpty() && factions.get(alignment).size() > 1);
-        if(!factions.get(alignment).isEmpty()){
+        int currentFactionCountForAlignment = controller.getCurrentAlignmentFactionCount();
+        factionSelectionWidget.enableArrows(currentFactionCountForAlignment > 1);
+        if(faction != null){
             newStartY += MINIMAL_MARGIN + factionSelectionWidget.drawAnchored(context, endX, newStartY, false, (faction == null) ? null : faction.tryGetShortName(), textRenderer);
 
             // Subfaction
-            subfactionSelectionWidget.enableArrows(faction != null && (faction.getSubFactions() != null && faction.getSubFactions().size() > 1));
-            if(faction != null && (faction.getSubFactions() != null && !faction.getSubFactions().isEmpty()))
+            subfactionSelectionWidget.enableArrows(controller.haveSubfaction() && (faction.getSubFactions() != null && faction.getSubFactions().size() > 1));
+            if(controller.haveSubfaction())
                 subfactionSelectionWidget.drawAnchored(context, endX, newStartY, false, (subFaction == null) ? null : subFaction.tryGetShortName(), textRenderer);
         }
 
@@ -467,6 +369,8 @@ public class FactionSelectionScreen extends Screen {
     }
 
     protected void drawFactionRandomizer(DrawContext context, int centerX, int endY) {
+        if(factionRandomizerButton == null) return;
+
         int sizeX = 52;
         int sizeY = 18;
         int startX = (int) (centerX - (sizeX / 2f));
@@ -567,8 +471,8 @@ public class FactionSelectionScreen extends Screen {
 
         // Spawn point option
         startY += MINIMAL_MARGIN;
-        spawnPointCycledSelection.drawAnchored(context, startX,  startY,true, Text.translatable("Minas Tirith"), textRenderer);
-        spawnPointCycledSelection.enableArrows(true); // TODO : update when faction changes
+        spawnPointCycledSelection.drawAnchored(context, startX,  startY,true, Text.translatable(controller.getCurrentSpawnKey()), textRenderer);
+        spawnPointCycledSelection.enableArrows(true);
 
         // Draw selection option
         int sizeX = 52;
@@ -646,14 +550,14 @@ public class FactionSelectionScreen extends Screen {
 
 
         // Banner creation
-        Alignment alignment = Alignment.values()[currentAlignementIndex];
-        Faction faction = (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFactionIndex) : null;
-        Faction subFaction = (faction != null) ? faction.getSubfaction(currentSubFactionIndex) : null;
-        if(subFaction != null) faction = subFaction;
+        Faction faction = controller.getCurrentFaction();
+        Faction subfaction = controller.getCurrentSubfaction();
+        if(subfaction != null)
+            faction = subfaction;
         if(faction == null) return;
 
         DyeColor color = faction.getBaseBannerColor();
-        List<Faction.BannerPatternWithColor> patterns = faction.getBannerPatternsWithColors(this.client.world);
+        List<BannerData.BannerPatternWithColor> patterns = faction.getBannerPatternsWithColors(this.client.world);
         if(patterns == null || patterns.isEmpty()) {
             LoggerUtil.logError("FactionSelectionScreen::drawFactionBanner - Cannot create banner because values are empty or null");
             return;
@@ -662,7 +566,7 @@ public class FactionSelectionScreen extends Screen {
         var bannerPatternRegistry = this.client.world.getRegistryManager().get(RegistryKeys.BANNER_PATTERN);
 
         BannerPatternsComponent.Builder bannerBuilder = new BannerPatternsComponent.Builder();
-        for(Faction.BannerPatternWithColor entry : patterns){
+        for(BannerData.BannerPatternWithColor entry : patterns){
             if(entry == null) continue;
             RegistryEntry<BannerPattern> pattern = bannerPatternRegistry.getEntry(entry.pattern);
             bannerBuilder.add(pattern, entry.color);

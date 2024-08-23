@@ -5,7 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.network.packets.C2S.TeleportRequestPacket;
+import net.jukoz.me.network.packets.C2S.PacketTeleportToDynamicCoordinate;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.gui.DrawContext;
@@ -29,7 +29,7 @@ public class MiddleEarthMapScreen extends Screen {
     private static final Identifier WINDOW_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
     private static final Identifier MAP_UI_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
     private static final Identifier MAP_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
-    private static final Text MAP_TITLE_TEXT = Text.translatable("misc." + MiddleEarth.MOD_ID + ".map_title_text");
+    private static final Text MAP_TITLE_TEXT = Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_title_text");
     public static final int MARGIN = 5;
 
     public static final int MAP_IMAGE_WIDTH = 3000;
@@ -205,7 +205,7 @@ public class MiddleEarthMapScreen extends Screen {
 
     private void getTeleport(Vector2i coord){
         if(ModDimensions.isInMiddleEarth(this.player.getWorld()) && this.player.isCreative()){
-            ClientPlayNetworking.send(new TeleportRequestPacket(coord.x, coord.y));
+            ClientPlayNetworking.send(new PacketTeleportToDynamicCoordinate(coord.x, coord.y));
         }
     }
 

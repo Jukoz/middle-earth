@@ -4839,42 +4839,50 @@
   "tooltip.me.galadhrim_hood": "Galadhrim Hood",
   "tooltip.me.galadhrim_lord_cape": "Galadhrim Lord Cape",
 
-"#Comment": "MISC",
-  "misc.me.map_title_text": "Middle-earth Map",
-
 "#Comment:": "Alignment",
-  "me.alignment.good" : "Good",
-  "me.alignment.neutral" : "Neutral",
-  "me.alignment.evil" : "Evil",
+  "alignment.me.good" : "Good",
+  "alignment.me.neutral" : "Neutral",
+  "alignment.me.evil" : "Evil",
 
 "#Comment:": "Factions",
-  "me.faction.dale" : "Dale",
-  "me.faction.gondor" : "Gondor",
-  "me.faction.gondor.anorien" : "Anorien",
-  "me.faction.gondor.lossarnach" : "Lossarnach",
-  "me.faction.longbeards" : "Longbeards",
-  "me.faction.longbeards.erebor" : "Erebor",
-  "me.faction.mordor" : "Mordor",
-  "me.faction.mordor.gorgoroth" : "Gorgoroth",
+  "faction.me.dale" : "Dale",
+  "faction.me.gondor" : "Gondor",
+  "faction.me.gondor.anorien" : "Anorien",
+  "faction.me.gondor.lossarnach" : "Lossarnach",
+  "faction.me.longbeards" : "Longbeards",
+  "faction.me.longbeards.erebor" : "Erebor",
+  "faction.me.mordor" : "Mordor",
+  "faction.me.mordor.gorgoroth" : "Gorgoroth",
 
 "#Comment": "Factions fallback",
-  "me.faction.example.fallback": "Example...",
+  "faction.me.example.fallback": "Example...",
 
-"#Comment:": "Races",
-  "me.race.dwarf" : "Dwarf",
-  "me.race.elf" : "Elf",
-  "me.race.human" : "Human",
-  "me.race.hobbit" : "Hobbit",
-  "me.race.orc" : "Orc",
+"#Comment": "Spawns",
+  "spawn.me.longbeards.erebor.ravenhill" : "Ravenhill",
+  "spawn.me.longbeards.erebor.outskirt" : "Outskirts",
 
-"#Comment:": "Onboarding",
-  "me.continue_character": "Continue",
-  "me.reset_character": "Reset Alignment",
+  "#Comment:": "Races",
+  "race.me.dwarf" : "Dwarf",
+  "race.me.elf" : "Elf",
+  "race.me.human" : "Human",
+  "race.me.hobbit" : "Hobbit",
+  "race.me.orc" : "Orc",
+  "race.me.uruk" : "Uruk",
 
-"#Comment": "UI",
-  "me.ui.selection.none" : "None",
-  "me.ui.search.label" : "Search...",
+"#Comment:": "UI Onboarding",
+  "ui.me.continue_character": "Continue",
+  "ui.me.reset_character": "Reset Alignment",
 
-  "block.me.large_door.blocked": "Something seems to prevent the door from moving."
+"#Comment": "UI Map",
+  "ui.me.map_title_text": "Middle-earth Map",
 
+"#Comment": "UI Search",
+  "ui.me.search.label" : "Search...",
+
+"#Comment": "Commands",
+  "command.me.set_player_spawn.success" : "Succesfully modified {0} spawn point for {1}",
+  "command.me.clear_player_data.success" : "Succesfully cleared the stored player data for {0}",
+
+"#Comment": "Alert",
+  "alert.me.large_door.blocked": "Something seems to prevent the door from moving."
 }
