@@ -16,6 +16,6 @@ public enum Alignment {
     }
 
     public MutableText getName() {
-        return Text.translatable(Identifier.of(MiddleEarth.MOD_ID, "alignment." + toString()).toTranslationKey());
+        return Text.translatable("alignment.".concat(Identifier.of(MiddleEarth.MOD_ID, toString()).toTranslationKey()));
     }
 }

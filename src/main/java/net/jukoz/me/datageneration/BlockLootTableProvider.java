@@ -55,6 +55,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         this.registryLookup = registryLookup;
     }
 
+
     @Override
     public void generate() {
         for (Block block : BlockDrops.blocks) {

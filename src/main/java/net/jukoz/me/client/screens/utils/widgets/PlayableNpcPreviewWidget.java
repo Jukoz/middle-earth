@@ -16,6 +16,7 @@ import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.snail.SnailEntity;
+import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.Race;
@@ -55,6 +56,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
     private LongbeardDwarfEntity dwarfEntity;
     private GondorHumanEntity humanEntity;
     private MordorOrcEntity orcEntity;
+    private MordorBlackUrukEntity urukEntity;
     private GaladhrimElfEntity elfEntity;
     private ShireHobbitEntity hobbitEntity;
     private LivingEntity entity;
@@ -83,6 +85,9 @@ public class PlayableNpcPreviewWidget extends ModWidget{
 
         orcEntity = new MordorOrcEntity(ModEntities.MORDOR_ORC_SOLDIER, world);
         orcEntity.setAiDisabled(true);
+
+        urukEntity = new MordorBlackUrukEntity(ModEntities.MORDOR_BLACK_URUK_SOLDIER, world);
+        urukEntity.setAiDisabled(true);
 
         hobbitEntity = new ShireHobbitEntity(ModEntities.HOBBIT_CIVILIAN, world);
         hobbitEntity.setAiDisabled(true);
@@ -194,11 +199,12 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         this.entity =
                 switch ( race )
                 {
-                    case Race.Human -> humanEntity;
-                    case Race.Dwarf -> dwarfEntity;
-                    case Race.Orc -> orcEntity;
-                    case Race.Elf -> elfEntity;
-                    case Race.Hobbit -> hobbitEntity;
+                    case Race.HUMAN -> humanEntity;
+                    case Race.DWARF -> dwarfEntity;
+                    case Race.ORC -> orcEntity;
+                    case Race.URUK -> urukEntity;
+                    case Race.ELF -> elfEntity;
+                    case Race.HOBBIT -> hobbitEntity;
                     default -> defaultEntity;
                 };
     }

@@ -103,7 +103,7 @@ public class SearchBarWidget extends ModWidget{
             );
         }
 
-        MutableText text = Text.translatable((!searchBarToggle && searchBarInput.isEmpty()) ? "me.ui.search.label" : searchBarInput);
+        MutableText text = Text.translatable((!searchBarToggle && searchBarInput.isEmpty()) ? "ui.me.search.label" : searchBarInput);
         text.asTruncatedString(16);
         context.drawText(textRenderer, text,
                 startX + magnifyingGlassSizeX + MINIMAL_MARGIN,
