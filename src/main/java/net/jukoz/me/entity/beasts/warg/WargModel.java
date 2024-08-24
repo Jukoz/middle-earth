@@ -66,7 +66,9 @@ public class WargModel extends SinglePartEntityModel<WargEntity> {
     @Override
     public void setAngles(WargEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
-        this.setHeadAngles(headYaw, headPitch);
+        if(!entity.hasControllingPassenger()) {
+            this.setHeadAngles(headYaw, headPitch);
+        }
 
         if((entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting()) || entity.isRunning()) {
             this.animateMovement(WargAnimations.RUN, limbAngle, limbDistance, 1.2f, 1.2f);

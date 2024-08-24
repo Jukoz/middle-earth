@@ -25,7 +25,7 @@ public class BroadhoofGoatSaddleModel extends SinglePartEntityModel<BroadhoofGoa
         ModelPartData body = broadhoof_goat.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -11.0F, 2.0F));
 
         ModelPartData saddle = body.addChild("saddle", ModelPartBuilder.create().uv(74, 19).cuboid(-7.0F, -23.0F, 13.0F, 14.0F, 14.0F, 13.0F, new Dilation(0.3F))
-                .uv(92, 72).cuboid(-7.0F, -25.0F, 25.0F, 14.0F, 4.0F, 4.0F, new Dilation(0.3F)), ModelTransform.pivot(0.0F, 12.0F, -21.0F));
+                .uv(92, 72).cuboid(-7.0F, -25.0F, 25.0F, 14.0F, 4.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 12.0F, -21.0F));
 
         ModelPartData head = body.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.of(0.0F, -6.0F, -9.0F, -0.2182F, 0.0F, 0.0F));
 

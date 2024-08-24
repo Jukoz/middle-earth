@@ -56,7 +56,7 @@ public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntit
 
         ModelPartData cube_r1 = head.addChild("cube_r1", ModelPartBuilder.create().uv(100, 91).cuboid(-4.0F, -2.0F, -1.0F, 8.0F, 7.0F, 6.0F, new Dilation(-0.1F)), ModelTransform.of(0.0F, -9.0F, -9.0F, 0.3054F, 0.0F, 0.0F));
 
-        ModelPartData beard_r1 = head.addChild("beard_r1", ModelPartBuilder.create().uv(3, 47).mirrored().cuboid(0.0F, -5.0F, -2.0F, 0.0F, 11.0F, 6.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(0.0F, 2.0F, -4.0F, 2.9232F, 0.0F, 3.1321F));
+        ModelPartData beard_r1 = head.addChild("beard_r1", ModelPartBuilder.create().uv(3, 47).cuboid(0.0F, -5.0F, -2.0F, 0.0F, 11.0F, 6.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(0.0F, 2.0F, -4.0F, 2.9232F, 0.0F, 3.1321F));
 
         ModelPartData neck_r1 = head.addChild("neck_r1", ModelPartBuilder.create().uv(36, 2).cuboid(-5.0F, -6.0F, -1.0F, 6.0F, 6.0F, 8.0F, new Dilation(0.0F)), ModelTransform.of(2.0F, 2.1213F, -1.636F, 0.7854F, 0.0F, 0.0F));
 

@@ -67,19 +67,20 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 38.0d)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0d)
                 .add(EntityAttributes.GENERIC_STEP_HEIGHT, 1.15d)
-                .add(EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, 6.0d)
-                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 0.95);
+                .add(EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, 9.0d)
+                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 1.2);
     }
 
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new MeleeAttackGoal(this, HUNTING_SPEED, false));
-        this.goalSelector.add(3, new ChargeAttackGoal(this, maxChargeCooldown()));
-        this.goalSelector.add(4, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(7, new LookAroundGoal(this));
+        this.goalSelector.add(2, new BeastSitGoal(this));
+        this.goalSelector.add(3, new MeleeAttackGoal(this, HUNTING_SPEED, false));
+        this.goalSelector.add(4, new ChargeAttackGoal(this, maxChargeCooldown()));
+        this.goalSelector.add(5, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f));
+        this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(8, new LookAroundGoal(this));
         this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
         this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity) this));
         this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
@@ -231,7 +232,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     @Override
     public int maxChargeCooldown() {
-        return 200;
+        return 120;
     }
 
     @Override
@@ -306,7 +307,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
-        return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 1.5f) : ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f);
+        return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 1.8f) : ((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5f);
     }
 
     @Override

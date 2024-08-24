@@ -164,6 +164,10 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         return this.isSitting() || this.hasVehicle() || this.mightBeLeashed() || this.getOwner() != null && this.getOwner().isSpectator();
     }
 
+    public boolean shouldAttackWhenMounted() {
+        return false;
+    }
+
     public boolean canCharge() {
         return !this.isSitting() && !this.hasPassengers();
     }
@@ -410,57 +414,6 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     public void chargeAttack() {
     }
 
-    // Follow Owner Behaviour ==========================================================================================
-
-    public boolean shouldTryTeleportToOwner() {
-        LivingEntity livingEntity = this.getOwner();
-        return livingEntity != null && this.squaredDistanceTo(this.getOwner()) >= 200.0;
-    }
-
-    public void tryTeleportToOwner() {
-        LivingEntity livingEntity = this.getOwner();
-        if (livingEntity != null) {
-            this.tryTeleportNear(livingEntity.getBlockPos());
-        }
-    }
-
-    private void tryTeleportNear(BlockPos pos) {
-        for (int i = 0; i < 10; ++i) {
-            int j = this.random.nextBetween(-3, 3);
-            int k = this.random.nextBetween(-3, 3);
-            if (Math.abs(j) < 2 && Math.abs(k) < 2) continue;
-            int l = this.random.nextBetween(-1, 1);
-            if (!this.tryTeleportTo(pos.getX() + j, pos.getY() + l, pos.getZ() + k)) continue;
-            return;
-        }
-    }
-
-    private boolean tryTeleportTo(int x, int y, int z) {
-        if (!this.canTeleportTo(new BlockPos(x, y, z))) {
-            return false;
-        }
-        this.refreshPositionAndAngles((double)x + 0.5, y, (double)z + 0.5, this.getYaw(), this.getPitch());
-        this.navigation.stop();
-        return true;
-    }
-
-    private boolean canTeleportTo(BlockPos pos) {
-        PathNodeType pathNodeType = LandPathNodeMaker.getLandNodeType(this, pos);
-        if (pathNodeType != PathNodeType.WALKABLE) {
-            return false;
-        }
-        BlockState blockState = ((World)this.getWorld()).getBlockState(pos.down());
-        if (!this.canTeleportOntoLeaves() && blockState.getBlock() instanceof LeavesBlock) {
-            return false;
-        }
-        BlockPos blockPos = pos.subtract(this.getBlockPos());
-        return this.getWorld().isSpaceEmpty(this, this.getBoundingBox().offset(blockPos));
-    }
-
-    protected boolean canTeleportOntoLeaves() {
-        return false;
-    }
-
     // Tick Management =================================================================================================
     @Override
     public void tick() {
@@ -485,6 +438,12 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         }
         if(chargeTimeout > 0) {
             --this.chargeTimeout;
+        }
+
+        if(this.hasControllingPassenger() && !this.shouldAttackWhenMounted()) {
+            this.setAttacker(null);
+            this.setAttacking(null);
+            this.setTarget(null);
         }
 
         if (this.getWorld().isClient) {

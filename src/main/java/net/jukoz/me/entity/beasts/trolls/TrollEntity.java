@@ -245,6 +245,11 @@ public class TrollEntity extends AbstractBeastEntity {
         return bl;
     }
 
+    @Override
+    public boolean shouldAttackWhenMounted() {
+        return true;
+    }
+
     public boolean canThrow() {
         return !this.isSitting();
     }

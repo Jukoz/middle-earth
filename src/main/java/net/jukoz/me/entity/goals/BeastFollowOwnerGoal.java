@@ -78,19 +78,12 @@ public class BeastFollowOwnerGoal extends Goal {
 
     @Override
     public void tick() {
-        boolean bl = this.mob.shouldTryTeleportToOwner();
+        this.mob.getLookControl().lookAt(this.owner, 10.0f, this.mob.getMaxLookPitchChange());
 
-        if(!bl) {
-            this.mob.getLookControl().lookAt(this.owner, 10.0f, this.mob.getMaxLookPitchChange());
-        }
         if (--this.updateCountdownTicks > 0) {
             return;
         }
         this.updateCountdownTicks = this.getTickCount(10);
-        if (bl) {
-            this.mob.tryTeleportToOwner();
-        } else {
-            this.navigation.startMovingTo(this.owner, this.speed);
-        }
+        this.navigation.startMovingTo(this.owner, this.speed);
     }
 }

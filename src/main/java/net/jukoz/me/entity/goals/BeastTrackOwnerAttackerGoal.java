@@ -24,6 +24,9 @@ public class BeastTrackOwnerAttackerGoal extends TrackTargetGoal {
         if (!this.mob.isTame() || this.mob.isSitting()) {
             return false;
         }
+        if(!this.mob.shouldAttackWhenMounted() && this.mob.hasControllingPassenger()) {
+            return false;
+        }
         LivingEntity livingEntity = this.mob.getOwner();
         if (livingEntity == null) {
             return false;
