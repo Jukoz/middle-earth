@@ -117,6 +117,9 @@ public class MineablePickaxe {
             add(ModBlocks.MOSSY_BLUE_TUFF_PILLAR);
             add(ModBlocks.CRACKED_BLUE_TUFF_PILLAR);
 
+            add(ModBlocks.GREEN_TUFF_PILLAR);
+            add(ModBlocks.CRACKED_GREEN_TUFF_PILLAR);
+
             add(ModBlocks.CALCITE_PILLAR);
             add(ModBlocks.MOSSY_CALCITE_PILLAR);
             add(ModBlocks.CRACKED_CALCITE_PILLAR);
@@ -155,6 +158,10 @@ public class MineablePickaxe {
 
             add(ModDecorativeBlocks.BIG_BRAZIER);
             add(ModDecorativeBlocks.SMALL_BRAZIER);
+
+            add(ModDecorativeBlocks.GILDED_BIG_BRAZIER);
+            add(ModDecorativeBlocks.GILDED_SMALL_BRAZIER);
+
             add(ModDecorativeBlocks.FIRE_BOWL);
             add(ModDecorativeBlocks.BONFIRE);
             add(ModDecorativeBlocks.WALL_SCONCE);

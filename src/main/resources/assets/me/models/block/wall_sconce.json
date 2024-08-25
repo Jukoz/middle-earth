@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "me:block/wall_sconce",
+		"0": "me:block/sconce",
 		"2": "me:block/brazier_log",
-		"particle": "me:block/wall_sconce"
+		"particle": "me:block/sconce"
 	},
 	"elements": [
 		{
