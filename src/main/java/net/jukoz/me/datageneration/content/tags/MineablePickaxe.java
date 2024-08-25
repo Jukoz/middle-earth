@@ -23,8 +23,11 @@ public class MineablePickaxe {
             add(ModBlocks.CHISELED_CALCITE_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_CALCITE);
 
+            add(ModBlocks.CHISELED_LIMESTONE);
             add(ModBlocks.CHISELED_LIMESTONE_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_LIMESTONE);
+            add(ModBlocks.CHISELED_LIMESTONE_TILES);
+            add(ModBlocks.CHISELED_SMOOTH_LIMESTONE);
 
             add(ModBlocks.CHISELED_SMOOTH_STONE);
 
@@ -155,6 +158,13 @@ public class MineablePickaxe {
             add(ModDecorativeBlocks.FIRE_BOWL);
             add(ModDecorativeBlocks.BONFIRE);
             add(ModDecorativeBlocks.WALL_SCONCE);
+
+            add(ModDecorativeBlocks.GREAT_DWARVEN_GATE);
+            add(ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR);
+
+            add(ModDecorativeBlocks.GREAT_ELVEN_GATE);
+
+            add(ModDecorativeBlocks.GREAT_ORCISH_GATE);
         }
     };
 }

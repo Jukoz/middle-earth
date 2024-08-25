@@ -55,8 +55,8 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> FORODWAITH = MEBiomeKeys.register("forodwaith");
     public static final RegistryKey<Biome> FROZEN_OCEAN = MEBiomeKeys.register("frozen_ocean");
     public static final RegistryKey<Biome> FROZEN_POND = MEBiomeKeys.register("frozen_pond");
-    public static final RegistryKey<Biome> GOLF_OF_LHUN_SHORES = MEBiomeKeys.register("golf_of_lhun_shores");
-    public static final RegistryKey<Biome> GOLF_OF_LHUN_CLIFFS = MEBiomeKeys.register("golf_of_lhun_cliffs");
+    public static final RegistryKey<Biome> GULF_OF_LHUN_SHORES = MEBiomeKeys.register("gulf_of_lhun_shores");
+    public static final RegistryKey<Biome> GULF_OF_LHUN_CLIFFS = MEBiomeKeys.register("gulf_of_lhun_cliffs");
     public static final RegistryKey<Biome> GONDOR = MEBiomeKeys.register("gondor");
     public static final RegistryKey<Biome> GORGOROTH = MEBiomeKeys.register("gorgoroth");
     public static final RegistryKey<Biome> GREY_MOUNTAINS = MEBiomeKeys.register("grey_mountains");

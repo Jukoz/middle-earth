@@ -154,7 +154,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(36, Blocks.DIRT)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
 
-    public static SlopeMap golfOfLhunShoresLayers = new SlopeMap()
+    public static SlopeMap gulfOfLhunShoresLayers = new SlopeMap()
             .addSlopeData(26, ModBlocks.WHITE_SAND)
             .addSlopeData(28, Blocks.SAND)
             .addSlopeData(33, Blocks.COARSE_DIRT)

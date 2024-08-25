@@ -3,7 +3,8 @@
 	"texture_size": [22, 22],
 	"ambientocclusion": false,
 	"textures": {
-		"0": "me:block/bracken"
+		"0": "me:block/bracken",
+		"particle": "me:block/bracken"
 	},
 	"elements": [
 		{

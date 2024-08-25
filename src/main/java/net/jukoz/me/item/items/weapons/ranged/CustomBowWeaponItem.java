@@ -9,10 +9,12 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class CustomBowWeaponItem extends BowItem {
     private final MutableText faction;
     private final MutableText subFaction;
+
     public CustomBowWeaponItem(Settings settings) {
         super(settings);
         this.faction = null;
@@ -29,6 +31,10 @@ public class CustomBowWeaponItem extends BowItem {
         super(settings);
         this.faction = faction;
         this.subFaction = subFaction;
+    }
+
+    public Predicate<ItemStack> getProjectiles() {
+        return BOW_PROJECTILES;
     }
 
     @Override
