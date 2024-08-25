@@ -329,6 +329,11 @@ public class ModDecorativeBlocks {
     public static final Block SMALL_BRAZIER = registerBlockWithItem("small_brazier",
             new SmallBrazierBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
+    public static final Block GILDED_BIG_BRAZIER = registerBlockWithItem("gilded_big_brazier",
+            new GildedBrazierBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+    public static final Block GILDED_SMALL_BRAZIER = registerBlockWithItem("gilded_small_brazier",
+            new GildedSmallBrazierBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+
     public static final Block FIRE_BOWL = registerBlockWithItem("fire_bowl",
             new FireBowlBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
@@ -338,6 +343,11 @@ public class ModDecorativeBlocks {
     public static final Block SCONCE = registerBlock("sconce",
             new SconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
     public static final Block WALL_SCONCE = registerBlock("wall_sconce",
+            new WallSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
+
+    public static final Block GILDED_SCONCE = registerBlock("gilded_sconce",
+            new SconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
+    public static final Block GILDED_WALL_SCONCE = registerBlock("gilded_wall_sconce",
             new WallSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
 
     public static final Block GROUND_BOOK = registerBlockWithItem("ground_book",

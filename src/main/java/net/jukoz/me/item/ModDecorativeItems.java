@@ -26,6 +26,8 @@ public class ModDecorativeItems {
 
     public static final Item SCONCE = registerItem("sconce",
             new VerticallyAttachableBlockItem(ModDecorativeBlocks.SCONCE, ModDecorativeBlocks.WALL_SCONCE, new Item.Settings(), Direction.DOWN));
+    public static final Item GILDED_SCONCE = registerItem("gilded_sconce",
+            new VerticallyAttachableBlockItem(ModDecorativeBlocks.GILDED_SCONCE, ModDecorativeBlocks.GILDED_WALL_SCONCE, new Item.Settings(), Direction.DOWN));
 
     public static final Item ALLOY_FURNACE = registerItem("alloy_furnace",
             new BlockItem(ModDecorativeBlocks.ALLOY_FURNACE, new Item.Settings()));
