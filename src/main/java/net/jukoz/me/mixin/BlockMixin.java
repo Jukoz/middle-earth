@@ -1,6 +1,8 @@
 package net.jukoz.me.mixin;
 
 import net.jukoz.me.block.ModDecorativeBlocks;
+import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancEntity;
+import net.jukoz.me.entity.ModEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.FallingBlockEntity;
@@ -30,19 +32,21 @@ public abstract class BlockMixin {
         if(!explosion.shouldDestroy()) return;
         Block block = this.asBlock();
 
-        if(block != Blocks.TNT && block != ModDecorativeBlocks.FIRE_OF_ORTHANC) {
-            if(Math.random() < RANDOM_FLYING_BLOCK) {
-                float distance = (float) pos.getSquaredDistance(explosion.getPosition());
-                if(distance < explosion.power / DISCARD_DISTANCE) return;
+        if(explosion.getEntity() == null || explosion.getEntity().getType() == ModEntities.FIRE_OF_ORTHANC) {
+            if(block != Blocks.TNT && block != ModDecorativeBlocks.FIRE_OF_ORTHANC) {
+                if(Math.random() < RANDOM_FLYING_BLOCK) {
+                    float distance = (float) pos.getSquaredDistance(explosion.getPosition());
+                    if(distance < explosion.power / DISCARD_DISTANCE) return;
 
-                FallingBlockEntity fallingBlockEntity = FallingBlockEntity.spawnFromBlock(world, pos, block.getDefaultState());
-                fallingBlockEntity.dropItem = false;
-                fallingBlockEntity.setDestroyedOnLanding();
-                Vec3d velocity = pos.toCenterPos().subtract(explosion.getPosition()).normalize();
-                float factor = FORCE / distance;
-                velocity.multiply(factor);
-                velocity.add(0, VERTICAL_MULTIPLIER * factor, 0);
-                fallingBlockEntity.setVelocity(velocity);
+                    FallingBlockEntity fallingBlockEntity = FallingBlockEntity.spawnFromBlock(world, pos, block.getDefaultState());
+                    fallingBlockEntity.dropItem = false;
+                    fallingBlockEntity.setDestroyedOnLanding();
+                    Vec3d velocity = pos.toCenterPos().subtract(explosion.getPosition()).normalize();
+                    float factor = FORCE / distance;
+                    velocity.multiply(factor);
+                    velocity.add(0, VERTICAL_MULTIPLIER * factor, 0);
+                    fallingBlockEntity.setVelocity(velocity);
+                }
             }
         }
     }
