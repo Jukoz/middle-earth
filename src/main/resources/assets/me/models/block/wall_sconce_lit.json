@@ -1,10 +1,10 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "me:block/wall_sconce",
+		"0": "me:block/sconce",
 		"1": "me:block/small_fire",
 		"3": "me:block/brazier_log_lit",
-		"particle": "me:block/wall_sconce"
+		"particle": "me:block/sconce"
 	},
 	"elements": [
 		{
