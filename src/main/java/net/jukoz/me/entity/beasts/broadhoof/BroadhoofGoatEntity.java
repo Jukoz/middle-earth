@@ -183,6 +183,10 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
         double y = MathHelper.cos(g * h + (MathHelper.PI * (j - 1))) * f * (0.06 + (0.1 * j)) - 0.1;
 
+        if(this.isSitting()) {
+            y = -0.5;
+        }
+
         return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
     }
 
