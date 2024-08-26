@@ -262,7 +262,12 @@ public class WargEntity extends AbstractBeastEntity {
             if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
                 entity.damage(entity.getDamageSources().mobAttack(this), 12.0f);
                 if(entity.hasVehicle()) {
-                    entity.dismountVehicle();
+                    if(entity instanceof PlayerEntity) {
+                        entity.stopRiding();
+                    }
+                    else {
+                        entity.dismountVehicle();
+                    }
                 }
 
                 this.setCharging(false);
