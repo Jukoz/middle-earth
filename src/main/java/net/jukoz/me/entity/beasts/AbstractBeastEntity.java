@@ -1,5 +1,6 @@
 package net.jukoz.me.entity.beasts;
 
+import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -7,18 +8,21 @@ import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
 import net.minecraft.entity.ai.pathing.PathNodeType;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -384,6 +388,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
 
         if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && !this.getWorld().isClient) {
             this.tryBonding(player);
+            this.eat(player, hand, itemStack);
         }
 
         if (!this.hasPassengers() && !bl) {
@@ -460,6 +465,33 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     // =================================================================================================================
+
+    protected void setChildAttribute(PassiveEntity other, AbstractHorseEntity child, RegistryEntry<EntityAttribute> attribute, double min, double max) {
+        double d = this.calculateAttributeBaseValue(this.getAttributeBaseValue(attribute), other.getAttributeBaseValue(attribute), min, max, this.random);
+        child.getAttributeInstance(attribute).setBaseValue(d);
+    }
+
+    static double calculateAttributeBaseValue(double parentBase, double otherParentBase, double min, double max, Random random) {
+        double g;
+        if (max <= min) {
+            throw new IllegalArgumentException("Incorrect range for an attribute");
+        }
+        parentBase = MathHelper.clamp(parentBase, min, max);
+        otherParentBase = MathHelper.clamp(otherParentBase, min, max);
+        double d = 0.15 * (max - min);
+        double f = (parentBase + otherParentBase) / 2.0;
+        double e = Math.abs(parentBase - otherParentBase) + d * 2.0;
+        double h = f + e * (g = (random.nextDouble() + random.nextDouble() + random.nextDouble()) / 3.0 - 0.5);
+        if (h > max) {
+            double i = h - max;
+            return max - i;
+        }
+        if (h < min) {
+            double i = min - h;
+            return min + i;
+        }
+        return h;
+    }
 
     @Override
     public void handleStatus(byte status) {

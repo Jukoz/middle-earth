@@ -1,5 +1,6 @@
 package net.jukoz.me.entity.beasts.broadhoof;
 
+import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.jukoz.me.entity.goals.*;
 import net.jukoz.me.item.ModEquipmentItems;
@@ -9,12 +10,14 @@ import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.GoatHornItem;
 import net.minecraft.item.Instrument;
@@ -23,10 +26,12 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.InstrumentTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -43,8 +48,16 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.DoubleSupplier;
+import java.util.function.IntUnaryOperator;
 
 public class BroadhoofGoatEntity extends AbstractBeastEntity {
+    private static final float MIN_MOVEMENT_SPEED_BONUS = (float)BroadhoofGoatEntity.getChildMovementSpeedBonus(() -> 0.0);
+    private static final float MAX_MOVEMENT_SPEED_BONUS = (float)BroadhoofGoatEntity.getChildMovementSpeedBonus(() -> 1.0);
+    private static final float MIN_JUMP_STRENGTH_BONUS = (float)BroadhoofGoatEntity.getChildJumpStrengthBonus(() -> 0.0);
+    private static final float MAX_JUMP_STRENGTH_BONUS = (float)BroadhoofGoatEntity.getChildJumpStrengthBonus(() -> 1.0);
+    private static final float MIN_HEALTH_BONUS = BroadhoofGoatEntity.getChildHealthBonus(max -> 0);
+    private static final float MAX_HEALTH_BONUS = BroadhoofGoatEntity.getChildHealthBonus(max -> max - 1);
     private static final double WALKING_SPEED = 0.15;
     private static final double HUNTING_SPEED = 2;
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -52,6 +65,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     private static final TrackedData<Boolean> LEFT_HORN = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> RIGHT_HORN = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState jumpAnimationState = new AnimationState();
+    private static final EntityDimensions BABY_BASE_DIMENSIONS = ModEntities.BROADHOOF_GOAT.getDimensions().scaled(0.5f);
 
 
     public BroadhoofGoatEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
@@ -61,15 +75,23 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, WALKING_SPEED)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0d)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 50.0d)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.4d)
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0d)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 38.0d)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0d)
                 .add(EntityAttributes.GENERIC_STEP_HEIGHT, 1.15d)
                 .add(EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, 9.0d)
-                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 1.2);
+                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 1);
     }
+
+    @Override
+    protected void initAttributes(Random random) {
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(this.getChildHealthBonus(random::nextInt));
+        this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(this.getChildMovementSpeedBonus(random::nextDouble));
+        this.getAttributeInstance(EntityAttributes.GENERIC_JUMP_STRENGTH).setBaseValue(this.getChildJumpStrengthBonus(random::nextDouble));
+    }
+
 
     @Override
     protected void initGoals() {
@@ -77,9 +99,10 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         this.goalSelector.add(2, new BeastSitGoal(this));
         this.goalSelector.add(3, new MeleeAttackGoal(this, HUNTING_SPEED, false));
         this.goalSelector.add(4, new ChargeAttackGoal(this, maxChargeCooldown()));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(7, new LookAroundGoal(this));
+        this.goalSelector.add(5, new AnimalMateGoal(this, 1.0));
+        this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(8, new LookAroundGoal(this));
         this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
         this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity) this));
         this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
@@ -112,17 +135,38 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         this.dataTracker.set(RIGHT_HORN, nbt.getBoolean("HasRightHorn"));
     }
 
+    protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
+        return 22.0f + (float)randomIntGetter.applyAsInt(8) + (float)randomIntGetter.applyAsInt(9);
+    }
+
+    protected static double getChildJumpStrengthBonus(DoubleSupplier randomDoubleGetter) {
+        return (double)0.8f + randomDoubleGetter.getAsDouble() * 0.2 + randomDoubleGetter.getAsDouble() * 0.2 + randomDoubleGetter.getAsDouble() * 0.2;
+    }
+
+    protected static double getChildMovementSpeedBonus(DoubleSupplier randomDoubleGetter) {
+        return ((double)0.2f + randomDoubleGetter.getAsDouble() * 0.15 + randomDoubleGetter.getAsDouble() * 0.15 + randomDoubleGetter.getAsDouble() * 0.15) * 0.25;
+    }
+
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
         if(this.isTame()) {
-            if (this.isBreedingItem(itemStack) && this.getHealth() < this.getMaxHealth()) {
-                itemStack.decrementUnlessCreative(1, player);
-                FoodComponent foodComponent = itemStack.get(DataComponentTypes.FOOD);
-                float f = foodComponent != null ? (float)foodComponent.nutrition() : 1.0f;
-                this.heal(2.0f * f);
-                return ActionResult.success(this.getWorld().isClient());
+            if (this.isBreedingItem(itemStack)) {
+                if(this.getHealth() < this.getMaxHealth()) {
+                    itemStack.decrementUnlessCreative(1, player);
+                    FoodComponent foodComponent = itemStack.get(DataComponentTypes.FOOD);
+                    float f = foodComponent != null ? (float)foodComponent.nutrition() : 1.0f;
+                    this.heal(2.0f * f);
+                    return ActionResult.success(this.getWorld().isClient());
+                }
+                else if (!this.getWorld().isClient && this.getBreedingAge() == 0 && this.canEat()) {
+                    this.eat(player, hand, itemStack);
+                    this.lovePlayer(player);
+                    return ActionResult.SUCCESS;
+                } else if (this.isBaby()) {
+                    this.growUp(24000);
+                }
             }
         }
 
@@ -140,6 +184,39 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         double y = MathHelper.cos(g * h + (MathHelper.PI * (j - 1))) * f * (0.06 + (0.1 * j)) - 0.1;
 
         return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
+    }
+
+    @Override
+    @Nullable
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        BroadhoofGoatEntity broadhoofEntity = (BroadhoofGoatEntity)entity;
+        BroadhoofGoatEntity broadhoofEntity2 = ModEntities.BROADHOOF_GOAT.create(world);
+        if (broadhoofEntity2 != null) {
+            int i = this.random.nextInt(9);
+            BroadhoofGoatVariant broadhoofVariant = i < 4 ? this.getVariant() : (i < 8 ? broadhoofEntity.getVariant() : Util.getRandom(BroadhoofGoatVariant.values(), this.random));
+            int j = this.random.nextInt(5);
+            BroadhoofGoatHorns broadhoofHorns = j < 2 ? this.getHorns() : (j < 4 ? broadhoofEntity.getHorns() : Util.getRandom(BroadhoofGoatHorns.values(), this.random));
+            broadhoofEntity2.setBroadhoofVariant(broadhoofVariant, broadhoofHorns);
+            this.setChildAttributes(entity, broadhoofEntity2);
+        }
+        return broadhoofEntity2;
+    }
+
+    @Override
+    protected void setChildAttributes(PassiveEntity other, AbstractHorseEntity child) {
+        this.setChildAttribute(other, child, EntityAttributes.GENERIC_MAX_HEALTH, MIN_HEALTH_BONUS, MAX_HEALTH_BONUS);
+        this.setChildAttribute(other, child, EntityAttributes.GENERIC_JUMP_STRENGTH, MIN_JUMP_STRENGTH_BONUS, MAX_JUMP_STRENGTH_BONUS);
+        this.setChildAttribute(other, child, EntityAttributes.GENERIC_MOVEMENT_SPEED, MIN_MOVEMENT_SPEED_BONUS, MAX_MOVEMENT_SPEED_BONUS);
+    }
+
+    @Override
+    public EntityDimensions getBaseDimensions(EntityPose pose) {
+        return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getBaseDimensions(pose);
+    }
+
+    @Override
+    public boolean canBreedWith(AnimalEntity other) {
+        return other instanceof BroadhoofGoatEntity;
     }
 
     @Override
@@ -291,7 +368,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
             this.startedSitting = false;
         }
 
-        if(this.isInAir()) {
+        if(this.isInAir() && this.hasControllingPassenger()) {
             this.jumpAnimationState.startIfNotRunning(this.age);
         }
         else {
@@ -329,6 +406,11 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         this.setHorns(horns);
 
         return super.initialize(world, difficulty, spawnReason, entityData);
+    }
+
+    private void setBroadhoofVariant(BroadhoofGoatVariant variant, BroadhoofGoatHorns horns) {
+        this.setVariant(variant);
+        this.setHorns(horns);
     }
 
     public BroadhoofGoatVariant getVariant() {

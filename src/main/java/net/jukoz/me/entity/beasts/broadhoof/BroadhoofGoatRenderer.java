@@ -11,8 +11,10 @@ import net.jukoz.me.entity.beasts.warg.features.WargArmorFeatureRenderer;
 import net.jukoz.me.entity.beasts.warg.features.WargEyesFeatureRenderer;
 import net.jukoz.me.entity.beasts.warg.features.WargSaddleFeatureRenderer;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
@@ -20,11 +22,23 @@ import java.util.Map;
 
 public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity,BroadhoofGoatModel> {
     private static final String PATH = "textures/entities/broadhoof_goat/";
+    private static final float SIZE = 1f;
 
     public BroadhoofGoatRenderer(EntityRendererFactory.Context context) {
         super(context, new BroadhoofGoatModel(context.getPart(ModEntityModelLayers.BROADHOOF_GOAT)), 0.8f);
         this.addFeature(new BroadhoofGoatArmorFeatureRenderer(this, context.getModelLoader()));
         this.addFeature(new BroadhoofGoatSaddleFeatureRenderer(this, context.getModelLoader()));
+    }
+
+    @Override
+    public void render(BroadhoofGoatEntity entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+        if(entity.isBaby()) {
+            matrixStack.scale(SIZE / 2, SIZE / 2, SIZE / 2);
+        } else {
+            matrixStack.scale(SIZE, SIZE, SIZE);
+        }
+
+        super.render(entity, f, g, matrixStack, vertexConsumerProvider, i);
     }
 
     @Override
