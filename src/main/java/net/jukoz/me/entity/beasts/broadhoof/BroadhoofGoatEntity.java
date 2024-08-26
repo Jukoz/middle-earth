@@ -135,7 +135,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         float f = this.limbAnimator.getSpeed();
         float g = this.limbAnimator.getPos() * (MathHelper.PI / 180) * 18;
         // h is the frequency, which is calculated by dividing the speed of the animation by the duration of the animation.
-        float h = passenger.isSprinting() ? (1.2f/0.74f) : 3;
+        float h = passenger.isSprinting() ? (1.2f/0.74f) : 4;
         float j = passenger.isSprinting() ? 1 : 0;
 
         double y = MathHelper.cos(g * h + (MathHelper.PI * (j - 1))) * f * (0.06 + (0.1 * j)) - 0.1;

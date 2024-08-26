@@ -27,7 +27,7 @@ public class BroadhoofGoatArmorModel extends SinglePartEntityModel<BroadhoofGoat
 
         ModelPartData head = body.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.of(0.0F, -6.0F, -9.0F, -0.2182F, 0.0F, 0.0F));
 
-        ModelPartData headArmour = head.addChild("head_armour", ModelPartBuilder.create().uv(0, 1).cuboid(0.9F, -11.0F, 2.0F, 3.0F, 2.0F, 1.0F, new Dilation(0.1F))
+        ModelPartData headArmour = head.addChild("head_armour", ModelPartBuilder.create().uv(0, 1).cuboid(0.9F, -11.0F, 2.0F, 3.0F, 2.0F, 1.0F, new Dilation(0.05F))
                 .uv(0, 1).mirrored().cuboid(-7.9F, -11.0F, 2.0F, 3.0F, 2.0F, 1.0F, new Dilation(0.05F)).mirrored(false), ModelTransform.pivot(2.0F, 0.0F, -8.0F));
 
         ModelPartData neckplate = headArmour.addChild("neckplate", ModelPartBuilder.create().uv(85, 5).cuboid(-5.0F, -7.0F, 4.0F, 6.0F, 14.0F, 6.0F, new Dilation(0.1F))
@@ -56,7 +56,7 @@ public class BroadhoofGoatArmorModel extends SinglePartEntityModel<BroadhoofGoat
             this.animateMovement(BroadhoofGoatAnimations.RUN, limbAngle, limbDistance, 1.2f, 1.2f);
         }
         else {
-            this.animateMovement(BroadhoofGoatAnimations.WALK, limbAngle, limbDistance, 3f, 3f);
+            this.animateMovement(BroadhoofGoatAnimations.WALK, limbAngle, limbDistance, 4f, 4f);
         }
 
         this.updateAnimation(entity.idleAnimationState, BroadhoofGoatAnimations.EAT, animationProgress, 1f);

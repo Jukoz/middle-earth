@@ -56,7 +56,7 @@ public class BroadhoofGoatSaddleModel extends SinglePartEntityModel<BroadhoofGoa
             this.animateMovement(BroadhoofGoatAnimations.RUN, limbAngle, limbDistance, 1.2f, 1.2f);
         }
         else {
-            this.animateMovement(BroadhoofGoatAnimations.WALK, limbAngle, limbDistance, 3f, 3f);
+            this.animateMovement(BroadhoofGoatAnimations.WALK, limbAngle, limbDistance, 4f, 4f);
         }
 
         this.updateAnimation(entity.idleAnimationState, BroadhoofGoatAnimations.EAT, animationProgress, 1f);
