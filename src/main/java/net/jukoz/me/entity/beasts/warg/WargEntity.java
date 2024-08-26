@@ -88,10 +88,9 @@ public class WargEntity extends AbstractBeastEntity {
         this.goalSelector.add(2, new BeastSitGoal(this));
         this.goalSelector.add(3, new MeleeAttackGoal(this, HUNTING_SPEED, false));
         this.goalSelector.add(4, new ChargeAttackGoal(this, maxChargeCooldown()));
-        this.goalSelector.add(5, new BeastFollowOwnerGoal(this, HUNTING_SPEED, 10.0f, 2.0f));
-        this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(8, new LookAroundGoal(this));
+        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
         this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity)this));
         this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
