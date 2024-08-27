@@ -8,9 +8,8 @@ import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.Race;
 import net.jukoz.me.resources.datas.faction.utils.BannerData;
 import net.jukoz.me.resources.datas.faction.utils.FactionNpcPreviewData;
-import net.jukoz.me.resources.datas.faction.utils.SpawnsData;
+import net.jukoz.me.resources.datas.faction.utils.SpawnDataHandler;
 import net.jukoz.me.utils.LoggerUtil;
-import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.MutableText;
@@ -18,13 +17,8 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import org.joml.Vector3d;
-import org.joml.Vector3i;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 public class Faction {
@@ -35,8 +29,10 @@ public class Faction {
             Codec.list(Codec.STRING, 1, 5).fieldOf("races").forGetter(Faction::getRaceNames),
             NbtCompound.CODEC.optionalFieldOf("preview_gears").forGetter(Faction::getPreviewGearNbt),
             NbtCompound.CODEC.optionalFieldOf("banner").forGetter(Faction::getBannerNbt),
-            NbtCompound.CODEC.optionalFieldOf("spawns").forGetter(Faction::getSpawnDataNbt)
-    ).apply(instance, Faction::new));
+            NbtCompound.CODEC.optionalFieldOf("spawns").forGetter(Faction::getSpawnDataNbt),
+            Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Faction::getJoinCommands),
+            Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Faction::getLeaveCommands)
+        ).apply(instance, Faction::new));
 
     private final Identifier id;
     private final String translatableKey;
@@ -44,8 +40,10 @@ public class Faction {
     private List<Race> official_races;
     private final FactionNpcPreviewData previewGears;
     private final BannerData bannerData;
-    private final SpawnsData spawnsData;
+    private final SpawnDataHandler spawnDataHandler;
     private HashMap<Identifier, Faction> subFactions = null;
+    private List<String> joinCommands;
+    private List<String> leaveCommands;
 
     /**
      * Codec constructor
@@ -53,7 +51,7 @@ public class Faction {
      * @param alignment Alignment name, based on the alignment enum
      * @param races all races, first value is used as preview race
      */
-    public Faction(String id, String alignment, List<String> races, Optional<NbtCompound> previewGearNbt, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt) {
+    public Faction(String id, String alignment, List<String> races, Optional<NbtCompound> previewGearNbt, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
         this.id = Identifier.of(MiddleEarth.MOD_ID, id);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
 
@@ -66,19 +64,27 @@ public class Faction {
         }
         this.previewGears = new FactionNpcPreviewData(previewGearNbt);
         this.bannerData = new BannerData(bannerDataNbt);
-        this.spawnsData = new SpawnsData(spawnsNbt);
+        this.spawnDataHandler = new SpawnDataHandler(spawnsNbt);
         ModFactionRegistry.addFaction(this, this.id);
+
+        this.joinCommands = new ArrayList<>();
+        joinCommands.ifPresent(nbtCompound -> this.joinCommands.addAll(nbtCompound));
+        this.leaveCommands = new ArrayList<>();
+        leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
+
         LoggerUtil.logDebugMsg("Adding faction : \n[Id] : " + this.id + "\n" + "[TranslatableKey] : " + this.translatableKey);
     }
 
-    public Faction(String name, Alignment alignment, FactionNpcPreviewData factionNpcPreviewData, BannerData bannerData, SpawnsData spawnsData, List<Race> races){
+    public Faction(String name, Alignment alignment, FactionNpcPreviewData factionNpcPreviewData, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<Race> races, List<String> joinCommand, List<String> leaveCommand){
         this.id = Identifier.of(MiddleEarth.MOD_ID, name);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.alignment = alignment;
         this.previewGears = factionNpcPreviewData;
         this.bannerData = bannerData;;
-        this.spawnsData = spawnsData;
+        this.spawnDataHandler = spawnDataHandler;
         this.official_races = races;
+        this.joinCommands = joinCommand;
+        this.leaveCommands = leaveCommand;
     }
 
     private List<String> getRaceNames() {
@@ -104,9 +110,21 @@ public class Faction {
         return this.bannerData.getNbt();
     }
     private Optional<NbtCompound> getSpawnDataNbt() {
-        if(this.spawnsData == null)
+        if(this.spawnDataHandler == null)
             return Optional.empty();
-        return this.spawnsData.serializeNbt();
+        return this.spawnDataHandler.serializeNbt();
+    }
+
+    public Optional<List<String>> getJoinCommands() {
+        if(this.joinCommands == null)
+            return Optional.empty();
+        return Optional.of(this.joinCommands);
+    }
+
+    public Optional<List<String>> getLeaveCommands() {
+        if(this.leaveCommands == null)
+            return Optional.empty();
+        return Optional.of(this.leaveCommands);
     }
 
     public void debugPrint(String messsage) {
@@ -133,8 +151,8 @@ public class Faction {
         }
 
         String spawnDataString = "None";
-        if(this.spawnsData != null){
-            spawnDataString = spawnsData.serializeNbt().toString();
+        if(this.spawnDataHandler != null){
+            spawnDataString = spawnDataHandler.serializeNbt().toString();
         }
 
         String print = messsage + "\n" +
@@ -195,7 +213,7 @@ public class Faction {
         return alignment.name();
     }
 
-    public SpawnsData getSpawnData() { return spawnsData; }
+    public SpawnDataHandler getSpawnData() { return spawnDataHandler; }
 
     public Identifier getId() {
         return id;

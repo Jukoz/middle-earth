@@ -14,10 +14,10 @@ public class AffiliationData {
     public Identifier faction;
     public Identifier spawnId;
 
-    public AffiliationData(String alignment, String faction, String spawnId) {
+    public AffiliationData(String alignment, String factionIdPath, String spawnIdPath) {
         this.alignment = Alignment.valueOf(alignment);
-        this.faction = Identifier.of(MiddleEarth.MOD_ID, faction);
-        this.spawnId = Identifier.of(MiddleEarth.MOD_ID, spawnId);
+        this.faction = Identifier.of(MiddleEarth.MOD_ID, factionIdPath);
+        this.spawnId = Identifier.of(MiddleEarth.MOD_ID, spawnIdPath);
     }
 
 
