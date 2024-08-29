@@ -324,6 +324,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.DUCKWEED, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GRASSY_DIRT, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GRASSY_DIRT_SLAB, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GRASSY_DIRT_STAIRS, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.FIRE_OF_ORTHANC, RenderLayer.getCutout());
 
@@ -334,12 +336,16 @@ public class MiddleEarthClient implements ClientModInitializer {
                 return GrassColors.getDefaultColor();
             }
             return BiomeColors.getGrassColor(view, pos);
-        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS, ModBlocks.GRASSY_DIRT, ModBlocks.TURF);
+        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS,
+                ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB, ModBlocks.GRASSY_DIRT_STAIRS,
+                ModBlocks.TURF, ModBlocks.TURF_SLAB, ModBlocks.TURF_STAIRS);
 
         ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
             BlockState blockState = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
             return FoliageColors.getDefaultColor();
-        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS, ModBlocks.GRASSY_DIRT, ModBlocks.TURF);
+        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS,
+                ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB, ModBlocks.GRASSY_DIRT_STAIRS,
+                ModBlocks.TURF, ModBlocks.TURF_SLAB, ModBlocks.TURF_STAIRS);
 
         for(Block block : SimpleDoubleBlockModel.doubleBlocks){
             BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
@@ -389,6 +395,25 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.DARK_MUSHROOM.door(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.MUSHROOM.door(), RenderLayer.getCutout());
 
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.BEECH.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.LARCH.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.BLACK_LEBETHRON.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WHITE_LEBETHRON.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.CHESTNUT.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.HOLLY.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.MALLORN.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.MAPLE.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.SILVER_MAPLE.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.MIRKWOOD.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.PALM.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WHITE_PALM.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.PINE.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.BLACK_PINE.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WILLOW.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.GRAY_MUSHROOM.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.DARK_MUSHROOM.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.MUSHROOM.chair(), RenderLayer.getCutout());
+
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.FALLEN_MALLORN_LEAVES, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.QUARTZ_CLUSTER, RenderLayer.getCutout());
@@ -411,6 +436,17 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.DWARVEN_LANTERN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WALL_DWARVEN_LANTERN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.SILVER_LANTERN, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.NET, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COPPER_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.EXPOSED_COPPER_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WEATHERED_COPPER_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.OXIDIZED_COPPER_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WAXED_COPPER_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WAXED_EXPOSED_COPPER_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WAXED_WEATHERED_COPPER_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WAXED_OXIDIZED_COPPER_BARS, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SILVERS_BARS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GILDED_BARS, RenderLayer.getCutout());
@@ -492,6 +528,10 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WALL_SCONCE, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.GILDED_WALL_SCONCE, RenderLayer.getCutout());
+
+        SimpleWoodChairModel.vanillaChairs.forEach(block -> {
+            BlockRenderLayerMap.INSTANCE.putBlock(block.base(), RenderLayer.getCutout());
+        });
     }
 
     private void registerDyeableItem(Item item) {

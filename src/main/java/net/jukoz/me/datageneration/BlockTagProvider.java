@@ -185,6 +185,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         SimpleWoodStoolModel.vanillaStools.forEach(block -> {
             seat.add(block.base());
         });
+        SimpleWoodBenchModel.benchs.forEach(seat::add);
+        SimpleWoodBenchModel.vanillaBenchs.forEach(block -> {
+            seat.add(block.base());
+        });
         SimpleWoodChairModel.chairs.forEach(seat::add);
         SimpleWoodChairModel.vanillaChairs.forEach(block -> {
             seat.add(block.base());
@@ -414,6 +418,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineableShovel.add(ModBlocks.DIRT_SLAB);
         mineableShovel.add(ModBlocks.DIRT_STAIRS);
+        mineableShovel.add(ModBlocks.ROOTED_DIRT_STAIRS);
         mineableShovel.add(ModBlocks.MUD_SLAB);
         mineableShovel.add(ModBlocks.MUD_STAIRS);
         mineableShovel.add(ModBlocks.COARSE_DIRT_SLAB);
