@@ -25,6 +25,11 @@ public class WoodChairBlock extends SeatBlock implements Waterloggable {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(3, 0, 3, 13, 10, 13);
+        return switch (state.get(FACING)){
+            default -> Block.createCuboidShape(2, 0, 4, 14, 9, 16);
+            case SOUTH -> Block.createCuboidShape(2, 0, 0, 14, 9, 12);
+            case EAST -> Block.createCuboidShape(0, 0, 2, 12, 9, 14);
+            case WEST -> Block.createCuboidShape(4, 0, 2, 16, 9, 14);
+        };
     }
 }

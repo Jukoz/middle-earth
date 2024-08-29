@@ -4,12 +4,8 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.special.WoodChairBlock;
-import net.jukoz.me.block.special.StoolBlock;
-import net.jukoz.me.block.special.TableBlock;
-import net.jukoz.me.block.special.VerticalSlabBlock;
+import net.jukoz.me.block.special.*;
 import net.jukoz.me.item.utils.ModItemGroups;
-import net.jukoz.me.block.special.ModLeavesBlock;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
@@ -59,7 +55,7 @@ public class WoodBlockSets {
     public record SimpleBlockSet(Block leaves, Block log, Block wood, Block woodSlab, Block woodVerticalSlab, Block woodStairs, Block woodWall, Block woodFence,
                                  Block strippedLog, Block strippedWood, Block strippedWoodSlab, Block strippedWoodVerticalSlab, Block strippedWoodStairs, Block strippedWoodWall, Block strippedWoodFence,
                                  Block planks, Block planksSlab, Block planksVerticalSlab, Block planksStairs, Block planksFence, Block planksGate,
-                                 Block door, Block trapdoor, Block pressurePlate, Block button, Block stool, Block table, Block chair, Block sapling) {
+                                 Block door, Block trapdoor, Block pressurePlate, Block button, Block stool, Block bench, Block table, Block chair, Block sapling) {
     }
 
     private static SimpleBlockSet registerWoodSet(String name, float strength, boolean hasLeaves, Block sapling, boolean castShadow, boolean range, ParticleEffect particleEffect) {
@@ -137,10 +133,13 @@ public class WoodBlockSets {
         Block button = ModBlocks.registerWoodBlock(name + "_button",  new ButtonBlock(BlockSetType.OAK, 30, AbstractBlock.Settings.copy(planks).noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY)
                 .sounds(BlockSoundGroup.WOOD)),false);
 
-        Block stool = ModBlocks.registerBlock(name + "_stool", new StoolBlock(AbstractBlock.Settings.copy(planks)
+        Block stool = ModBlocks.registerBlock(name + "_stool", new WoodStoolBlock(AbstractBlock.Settings.copy(planks)
                 .strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
 
-        Block table = ModBlocks.registerBlock(name + "_table", new TableBlock(AbstractBlock.Settings.copy(planks)
+        Block bench = ModBlocks.registerBlock(name + "_bench", new WoodBenchBlock(AbstractBlock.Settings.copy(planks)
+                .strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
+
+        Block table = ModBlocks.registerBlock(name + "_table", new WoodTableBlock(AbstractBlock.Settings.copy(planks)
                 .strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
 
         Block chair = ModBlocks.registerBlock(name + "_chair", new WoodChairBlock(AbstractBlock.Settings.copy(planks)
@@ -149,6 +148,7 @@ public class WoodBlockSets {
         ModItemGroups.NATURE_BLOCKS_CONTENTS.add(log.asItem().getDefaultStack());
 
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(stool.asItem().getDefaultStack());
+        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(bench.asItem().getDefaultStack());
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(table.asItem().getDefaultStack());
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(chair.asItem().getDefaultStack());
 
@@ -177,6 +177,7 @@ public class WoodBlockSets {
         FlammableBlockRegistry.getDefaultInstance().add(fence, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(gate, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(stool, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(bench, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(table, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(chair, 5, 20);
 
@@ -184,6 +185,7 @@ public class WoodBlockSets {
 
         registry.add(table, 300);
         registry.add(chair, 300);
+        registry.add(bench, 300);
         registry.add(stool, 300);
         registry.add(woodSlab, 150);
         registry.add(woodStairs, 300);
@@ -211,7 +213,7 @@ public class WoodBlockSets {
         return new SimpleBlockSet(leaves, log, wood, woodSlab, woodVerticalSlab, woodStairs, woodWall, woodFence,
                 strippedLog, strippedWood, strippedSlab, strippedVerticalSlab, strippedStairs, strippedWoodWall, strippedWoodFence,
                 planks, slab, verticalSlab, stairs, fence, gate,
-                door, trapdoor, pressurePlate, button, stool, table, chair, sapling);
+                door, trapdoor, pressurePlate, button, stool, bench, table, chair, sapling);
     }
 
 

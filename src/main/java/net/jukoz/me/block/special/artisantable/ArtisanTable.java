@@ -1,28 +1,19 @@
 package net.jukoz.me.block.special.artisantable;
 
-import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.MapCodec;
-import net.jukoz.me.block.ModBlockEntities;
-import net.jukoz.me.block.special.alloyfurnace.AlloyFurnaceEntity;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreenHandler;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.enums.BedPart;
-import net.minecraft.entity.Entity;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.*;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.function.BooleanBiFunction;
@@ -37,7 +28,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class ArtisanTable extends HorizontalFacingBlock {
@@ -81,15 +71,17 @@ public class ArtisanTable extends HorizontalFacingBlock {
 
     @Override
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!world.isClient && player.isCreative()) {
-            ArtisanTablePart tablePart = (ArtisanTablePart)state.get(PART);
-            ArtisanTablePart tablePartOpposite = (ArtisanTablePart)state.get(PART).getOpposite(state.get(PART));
+        ArtisanTablePart tablePart = (ArtisanTablePart)state.get(PART);
+        ArtisanTablePart tablePartOpposite = (ArtisanTablePart)state.get(PART).getOpposite(state.get(PART));
 
-            BlockPos blockPos = pos.offset(getDirectionTowardsOtherPart(tablePart, (Direction)state.get(FACING).rotateYClockwise()));
-            BlockState blockState = world.getBlockState(blockPos);
-            if (blockState.isOf(this) && blockState.get(PART) == tablePartOpposite) {
-                world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 35);
-                world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
+        if (!world.isClient && (player.isCreative() || !player.canHarvest(state))) {
+            if (tablePart == ArtisanTablePart.RIGHT) {
+                BlockPos blockPos = pos.offset(state.get(FACING).rotateYCounterclockwise());
+                BlockState blockState = world.getBlockState(blockPos);
+                if (blockState.isOf(state.getBlock()) && blockState.get(PART) == ArtisanTablePart.LEFT) {
+                    world.breakBlock(blockPos, false);
+                    world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
+                }
             }
         }
         return super.onBreak(world, pos, state, player);

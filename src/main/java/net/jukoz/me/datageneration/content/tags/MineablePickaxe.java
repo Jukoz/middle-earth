@@ -166,6 +166,8 @@ public class MineablePickaxe {
             add(ModDecorativeBlocks.BONFIRE);
             add(ModDecorativeBlocks.WALL_SCONCE);
 
+            add(ModDecorativeBlocks.GREAT_GONDORIAN_GATE);
+
             add(ModDecorativeBlocks.GREAT_DWARVEN_GATE);
             add(ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR);
 

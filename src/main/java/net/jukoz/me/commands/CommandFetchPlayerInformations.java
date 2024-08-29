@@ -18,7 +18,7 @@ public class CommandFetchPlayerInformations {
     private static final String PLAYER = "player";
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
-        dispatcher.register((CommandManager.literal(ModCommandRegistry.BASE_COMMAND)
+        dispatcher.register((CommandManager.literal(ModCommands.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2)))
                 .then((CommandManager.literal(INFO))
                 .then(CommandManager.argument(PLAYER, EntityArgumentType.player())

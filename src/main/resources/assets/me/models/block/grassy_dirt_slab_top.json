@@ -1,0 +1,9 @@
+{
+  "parent": "me:block/slab_top_overlay_tint",
+  "textures": {
+    "bottom": "me:block/grassy_dirt",
+    "side": "me:block/grassy_dirt",
+    "top": "me:block/grassy_dirt",
+    "overlay": "me:block/grassy_dirt_overlay"
+  }
+}

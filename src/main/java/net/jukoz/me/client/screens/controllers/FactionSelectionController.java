@@ -8,7 +8,7 @@ import net.jukoz.me.network.packets.C2S.PacketSetSpawnData;
 import net.jukoz.me.resources.ModFactionRegistry;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.faction.Faction;
-import net.jukoz.me.resources.datas.faction.utils.SpawnsData;
+import net.jukoz.me.resources.datas.faction.utils.SpawnDataHandler;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -39,9 +39,9 @@ public class FactionSelectionController {
     private void updateSpawnList() {
         Faction currentFaction = getCurrentlySelectedFaction();
         if(currentFaction == null) return;
-        SpawnsData foundSpawnsData = currentFaction.getSpawnData();
-        if(foundSpawnsData == null) return;
-        spawns = foundSpawnsData.getSpawnList();
+        SpawnDataHandler foundSpawnDataHandler = currentFaction.getSpawnData();
+        if(foundSpawnDataHandler == null) return;
+        spawns = foundSpawnDataHandler.getSpawnList();
         currentSpawnIndex = 0;
     }
 
@@ -74,6 +74,7 @@ public class FactionSelectionController {
                 (faction == null || faction.getSubFactions() == null || faction.getSubFactions().isEmpty())
                         ? 0
                         : random.nextInt(faction.getSubFactions().size());
+        updateSpawnList();
         return 0;
     }
 
@@ -93,6 +94,7 @@ public class FactionSelectionController {
             currentFactionIndex = 0;
             currentSubFactionIndex = 0;
         }
+        updateSpawnList();
     }
 
     public void factionUpdate(boolean add) {
@@ -108,6 +110,7 @@ public class FactionSelectionController {
                 currentFactionIndex = factions.get(getCurrentAlignment()).size() - 1;
             currentSubFactionIndex = 0;
         }
+        updateSpawnList();
     }
 
     public void subfactionUpdate(boolean add){
@@ -121,6 +124,7 @@ public class FactionSelectionController {
             if(currentSubFactionIndex < 0)
                 currentSubFactionIndex = getCurrentFaction().getSubFactions().size() - 1;
         }
+        updateSpawnList();
     }
 
     public void spawnIndexUpdate(boolean add){
@@ -141,7 +145,7 @@ public class FactionSelectionController {
     }
     public String getCurrentSpawnKey(){
         Identifier spawnId = getCurrentSpawnIdentifier();
-        return SpawnsData.getTranslatableKey(spawnId);
+        return SpawnDataHandler.getTranslatableKey(spawnId);
     }
 
     public void confirmSpawnSelection(AbstractClientPlayerEntity player){

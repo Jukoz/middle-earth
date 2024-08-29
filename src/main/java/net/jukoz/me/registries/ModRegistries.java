@@ -78,38 +78,47 @@ public class ModRegistries {
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.WOOD_PILE, 5, 5);
 
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.OAK_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.OAK_BENCH, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.OAK_CHAIR, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.OAK_TABLE, 5, 20);
 
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BIRCH_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BIRCH_BENCH, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BIRCH_CHAIR, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BIRCH_TABLE, 5, 20);
 
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.SPRUCE_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.SPRUCE_BENCH, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.SPRUCE_CHAIR, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.SPRUCE_TABLE, 5, 20);
 
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.DARK_OAK_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.DARK_OAK_BENCH, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.DARK_OAK_CHAIR, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.DARK_OAK_TABLE, 5, 20);
 
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.ACACIA_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.ACACIA_BENCH, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.ACACIA_CHAIR, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.ACACIA_TABLE, 5, 20);
 
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.JUNGLE_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.JUNGLE_BENCH, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.JUNGLE_CHAIR, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.JUNGLE_TABLE, 5, 20);
 
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.MANGROVE_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.MANGROVE_BENCH, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.MANGROVE_CHAIR, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.MANGROVE_TABLE, 5, 20);
 
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.CHERRY_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.CHERRY_BENCH, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.CHERRY_CHAIR, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.CHERRY_TABLE, 5, 20);
 
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_STOOL, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_BENCH, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_CHAIR, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.BAMBOO_TABLE, 5, 20);
     }
@@ -123,6 +132,15 @@ public class ModRegistries {
         OxidizableBlocksRegistry.registerWaxableBlockPair(ModBlocks.EXPOSED_CUT_COPPER_VERTICAL_SLAB, ModBlocks.WAXED_EXPOSED_CUT_COPPER_VERTICAL_SLAB);
         OxidizableBlocksRegistry.registerWaxableBlockPair(ModBlocks.WEATHERED_CUT_COPPER_VERTICAL_SLAB, ModBlocks.WAXED_WEATHERED_CUT_COPPER_VERTICAL_SLAB);
         OxidizableBlocksRegistry.registerWaxableBlockPair(ModBlocks.OXIDIZED_CUT_COPPER_VERTICAL_SLAB, ModBlocks.WAXED_OXIDIZED_CUT_COPPER_VERTICAL_SLAB);
+
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(ModBlocks.COPPER_BARS, ModBlocks.EXPOSED_COPPER_BARS);
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(ModBlocks.EXPOSED_COPPER_BARS, ModBlocks.WEATHERED_COPPER_BARS);
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(ModBlocks.WEATHERED_COPPER_BARS, ModBlocks.OXIDIZED_COPPER_BARS);
+
+        OxidizableBlocksRegistry.registerWaxableBlockPair(ModBlocks.COPPER_BARS, ModBlocks.WAXED_COPPER_BARS);
+        OxidizableBlocksRegistry.registerWaxableBlockPair(ModBlocks.EXPOSED_COPPER_BARS, ModBlocks.WAXED_EXPOSED_COPPER_BARS);
+        OxidizableBlocksRegistry.registerWaxableBlockPair(ModBlocks.WEATHERED_COPPER_BARS, ModBlocks.WAXED_WEATHERED_COPPER_BARS);
+        OxidizableBlocksRegistry.registerWaxableBlockPair(ModBlocks.OXIDIZED_COPPER_BARS, ModBlocks.WAXED_OXIDIZED_COPPER_BARS);
 
         OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.THATCH.block(), RoofBlockSets.WEATHERED_THATCH.block());
         OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.THATCH.slab(), RoofBlockSets.WEATHERED_THATCH.slab());
@@ -243,38 +261,47 @@ public class ModRegistries {
         //registry.add(ModWeaponItems.DUNLAND_CLUB, 300);
 
         registry.add(ModDecorativeBlocks.OAK_STOOL, 300);
+        registry.add(ModDecorativeBlocks.OAK_BENCH, 300);
         registry.add(ModDecorativeBlocks.OAK_CHAIR, 300);
         registry.add(ModDecorativeBlocks.OAK_TABLE, 300);
 
         registry.add(ModDecorativeBlocks.BIRCH_STOOL, 300);
+        registry.add(ModDecorativeBlocks.BIRCH_BENCH, 300);
         registry.add(ModDecorativeBlocks.BIRCH_CHAIR, 300);
         registry.add(ModDecorativeBlocks.BIRCH_TABLE, 300);
 
         registry.add(ModDecorativeBlocks.SPRUCE_STOOL, 300);
+        registry.add(ModDecorativeBlocks.SPRUCE_BENCH, 300);
         registry.add(ModDecorativeBlocks.SPRUCE_CHAIR, 300);
         registry.add(ModDecorativeBlocks.SPRUCE_TABLE, 300);
 
         registry.add(ModDecorativeBlocks.DARK_OAK_STOOL, 300);
+        registry.add(ModDecorativeBlocks.DARK_OAK_BENCH, 300);
         registry.add(ModDecorativeBlocks.DARK_OAK_CHAIR, 300);
         registry.add(ModDecorativeBlocks.DARK_OAK_TABLE, 300);
 
         registry.add(ModDecorativeBlocks.ACACIA_STOOL, 300);
+        registry.add(ModDecorativeBlocks.ACACIA_BENCH, 300);
         registry.add(ModDecorativeBlocks.ACACIA_CHAIR, 300);
         registry.add(ModDecorativeBlocks.ACACIA_TABLE, 300);
 
         registry.add(ModDecorativeBlocks.JUNGLE_STOOL, 300);
+        registry.add(ModDecorativeBlocks.JUNGLE_BENCH, 300);
         registry.add(ModDecorativeBlocks.JUNGLE_CHAIR, 300);
         registry.add(ModDecorativeBlocks.JUNGLE_TABLE, 300);
 
         registry.add(ModDecorativeBlocks.MANGROVE_STOOL, 300);
+        registry.add(ModDecorativeBlocks.MANGROVE_BENCH, 300);
         registry.add(ModDecorativeBlocks.MANGROVE_CHAIR, 300);
         registry.add(ModDecorativeBlocks.MANGROVE_TABLE, 300);
 
         registry.add(ModDecorativeBlocks.CHERRY_STOOL, 300);
+        registry.add(ModDecorativeBlocks.CHERRY_BENCH, 300);
         registry.add(ModDecorativeBlocks.CHERRY_CHAIR, 300);
         registry.add(ModDecorativeBlocks.CHERRY_TABLE, 300);
 
         registry.add(ModDecorativeBlocks.BAMBOO_STOOL, 300);
+        registry.add(ModDecorativeBlocks.BAMBOO_BENCH, 300);
         registry.add(ModDecorativeBlocks.BAMBOO_CHAIR, 300);
         registry.add(ModDecorativeBlocks.BAMBOO_TABLE, 300);
     }

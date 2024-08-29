@@ -18,6 +18,7 @@ public class SimpleDoorInventoryModel {
             add(ModDecorativeItems.LARCH_HOBBIT_DOOR.asItem());
             add(ModDecorativeItems.SPRUCE_HOBBIT_DOOR.asItem());
             add(ModDecorativeItems.REINFORCED_SPRUCE_DOOR.asItem());
+            add(ModDecorativeItems.GREAT_GONDORIAN_GATE.asItem());
             add(ModDecorativeItems.GREAT_DWARVEN_GATE.asItem());
             add(ModDecorativeItems.VARNISHED_DWARVEN_DOOR.asItem());
             add(ModDecorativeItems.GREAT_ELVEN_GATE.asItem());
