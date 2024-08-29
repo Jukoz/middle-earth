@@ -897,9 +897,9 @@ public class ModEquipmentItems {
             new TrollArmorItem(10, "steel", new Item.Settings().maxCount(1)));*/
 
     // GENERIC
-    public static final Item WARG_LEATHER_ARMOR = registerItem("warg_leather_armor", new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4))));
-    public static final Item WARG_PLATE_ARMOR = registerItem("warg_plate_armor", new CustomAnimalArmorItem(ModArmorMaterials.PLATE, CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10))));
-    public static final Item BROADHOOF_GOAT_ARMOR = registerItem("broadhoof_goat_armor", new CustomAnimalArmorItem(ModArmorMaterials.PLATE, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10))));
+    public static final Item WARG_LEATHER_ARMOR = registerGeneratedItem("warg_leather_armor", new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4))));
+    public static final Item WARG_PLATE_ARMOR = registerGeneratedItem("warg_plate_armor", new CustomAnimalArmorItem(ModArmorMaterials.PLATE, CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10))));
+    public static final Item BROADHOOF_GOAT_PLATE_ARMOR = registerGeneratedItem("broadhoof_goat_plate_armor", new CustomAnimalArmorItem(ModArmorMaterials.PLATE, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10))));
 
     private static Item registerItem(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());

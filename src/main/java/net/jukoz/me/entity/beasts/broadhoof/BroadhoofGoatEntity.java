@@ -303,7 +303,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     @Override
     public boolean isHorseArmor(ItemStack stack) {
-        return stack.isOf(ModEquipmentItems.BROADHOOF_GOAT_ARMOR);
+        return stack.isOf(ModEquipmentItems.BROADHOOF_GOAT_PLATE_ARMOR);
     }
 
     @Override
