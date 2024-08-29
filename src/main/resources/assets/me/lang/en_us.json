@@ -3136,6 +3136,7 @@
   "block.me.stripped_beech_wood_stairs": "Stripped Beech Wood Stairs",
 
   "block.me.beech_stool": "Beech Stool",
+  "block.me.beech_bench": "Beech Bench",
   "block.me.beech_table": "Beech Table",
   "block.me.beech_chair": "Beech Chair",
 
@@ -3179,6 +3180,7 @@
   "block.me.stripped_larch_wood_stairs": "Stripped Larch Wood Stairs",
 
   "block.me.larch_stool": "Larch Stool",
+  "block.me.larch_bench": "Larch Bench",
   "block.me.larch_table": "Larch Table",
   "block.me.larch_chair": "Larch Chair",
 
@@ -3221,6 +3223,7 @@
   "block.me.stripped_black_lebethron_wood_stairs": "Stripped Black Lebethron Wood Stairs",
 
   "block.me.black_lebethron_stool": "Black Lebethron Stool",
+  "block.me.black_lebethron_bench": "Black Lebethron Bench",
   "block.me.black_lebethron_table": "Black Lebethron Table",
   "block.me.black_lebethron_chair": "Black Lebethron Chair",
 
@@ -3262,6 +3265,7 @@
   "block.me.stripped_white_lebethron_wood_stairs": "Stripped White Lebethron Wood Stairs",
 
   "block.me.white_lebethron_stool": "White Lebethron Stool",
+  "block.me.white_lebethron_bench": "White Lebethron Bench",
   "block.me.white_lebethron_table": "White Lebethron Table",
   "block.me.white_lebethron_chair": "White Lebethron Chair",
 
@@ -3304,6 +3308,7 @@
   "block.me.stripped_chestnut_wood_stairs": "Stripped Chestnut Wood Stairs",
 
   "block.me.chestnut_stool": "Chestnut Stool",
+  "block.me.chestnut_bench": "Chestnut Bench",
   "block.me.chestnut_table": "Chestnut Table",
   "block.me.chestnut_chair": "Chestnut Chair",
 
@@ -3347,6 +3352,7 @@
   "block.me.stripped_holly_wood_stairs": "Stripped Holly Wood Stairs",
 
   "block.me.holly_stool": "Holly Stool",
+  "block.me.holly_bench": "Holly Bench",
   "block.me.holly_table": "Holly Table",
   "block.me.holly_chair": "Holly Chair",
 
@@ -3391,6 +3397,7 @@
   "block.me.stripped_mallorn_wood_stairs": "Stripped Mallorn Wood Stairs",
 
   "block.me.mallorn_stool": "Mallorn Stool",
+  "block.me.mallorn_bench": "Mallorn Bench",
   "block.me.mallorn_table": "Mallorn Table",
   "block.me.mallorn_chair": "Mallorn Chair",
 
@@ -3436,6 +3443,7 @@
   "block.me.stripped_maple_wood_stairs": "Stripped Maple Wood Stairs",
 
   "block.me.maple_stool": "Maple Stool",
+  "block.me.maple_bench": "Maple Bench",
   "block.me.maple_table": "Maple Table",
   "block.me.maple_chair": "Maple Chair",
 
@@ -3477,6 +3485,7 @@
   "block.me.stripped_silver_maple_wood_stairs": "Stripped Silver Maple Wood Stairs",
 
   "block.me.silver_maple_stool": "Silver Maple Stool",
+  "block.me.silver_maple_bench": "Silver Maple Bench",
   "block.me.silver_maple_table": "Silver Maple Table",
   "block.me.silver_maple_chair": "Silver Maple Chair",
 
@@ -3521,6 +3530,7 @@
   "block.me.stripped_mirkwood_wood_stairs": "Stripped Mirkwood Wood Stairs",
 
   "block.me.mirkwood_stool": "Mirkwood Stool",
+  "block.me.mirkwood_bench": "Mirkwood Bench",
   "block.me.mirkwood_table": "Mirkwood Table",
   "block.me.mirkwood_chair": "Mirkwood Chair",
 
@@ -3563,6 +3573,7 @@
   "block.me.stripped_palm_wood_stairs": "Stripped Palm Wood Stairs",
 
   "block.me.palm_stool": "Palm Stool",
+  "block.me.palm_bench": "Palm Bench",
   "block.me.palm_table": "Palm Table",
   "block.me.palm_chair": "Palm Chair",
 
@@ -3605,6 +3616,7 @@
   "block.me.stripped_white_palm_wood_stairs": "Stripped White Palm Wood Stairs",
 
   "block.me.white_palm_stool": "White Palm Stool",
+  "block.me.white_palm_bench": "White Palm Bench",
   "block.me.white_palm_table": "White Palm Table",
   "block.me.white_palm_chair": "White Palm Chair",
 
@@ -3649,6 +3661,7 @@
   "block.me.stripped_pine_wood_stairs": "Stripped Pine Wood Stairs",
 
   "block.me.pine_stool": "Pine Stool",
+  "block.me.pine_bench": "Pine Bench",
   "block.me.pine_table": "Pine Table",
   "block.me.pine_chair": "Pine Chair",
 
@@ -3693,6 +3706,7 @@
   "block.me.stripped_black_pine_wood_stairs": "Stripped Black Pine Wood Stairs",
 
   "block.me.black_pine_stool": "Black Pine Stool",
+  "block.me.black_pine_bench": "Black Pine Bench",
   "block.me.black_pine_table": "Black Pine Table",
   "block.me.black_pine_chair": "Black Pine Chair",
 
@@ -3735,6 +3749,7 @@
   "block.me.stripped_willow_wood_stairs": "Stripped Willow Wood Stairs",
 
   "block.me.willow_stool": "Willow Stool",
+  "block.me.willow_bench": "Willow Bench",
   "block.me.willow_table": "Willow Table",
   "block.me.willow_chair": "Willow Chair",
 
@@ -3758,6 +3773,7 @@
   "block.me.mushroom_shingles_wall": "Mushroom Shingles Wall",
 
   "block.me.mushroom_stool": "Mushroom Stool",
+  "block.me.mushroom_bench": "Mushroom Bench",
   "block.me.mushroom_table": "Mushroom Table",
   "block.me.mushroom_chair": "Mushroom Chair",
 
@@ -3782,6 +3798,7 @@
   "block.me.dark_mushroom_shingles_wall": "Dark Mushroom Shingles Wall",
 
   "block.me.dark_mushroom_stool": "Dark Mushroom Stool",
+  "block.me.dark_mushroom_bench": "Dark Mushroom Bench",
   "block.me.dark_mushroom_table": "Dark Mushroom Table",
   "block.me.dark_mushroom_chair": "Dark Mushroom Chair",
 
@@ -3806,6 +3823,7 @@
   "block.me.gray_mushroom_shingles_wall": "Gray Mushroom Shingles Wall",
 
   "block.me.gray_mushroom_stool": "Gray Mushroom Stool",
+  "block.me.gray_mushroom_bench": "Gray Mushroom Bench",
   "block.me.gray_mushroom_table": "Gray Mushroom Table",
   "block.me.gray_mushroom_chair": "Gray Mushroom Chair",
 
@@ -4031,46 +4049,57 @@
 "#Comment:": "Block - Furniture",
 
   "block.me.oak_stool": "Oak Stool",
+  "block.me.oak_bench": "Oak Bench",
   "block.me.oak_table": "Oak Table",
   "block.me.oak_chair": "Oak Chair",
 
   "block.me.spruce_stool": "Spruce Stool",
+  "block.me.spruce_bench": "Spruce Bench",
   "block.me.spruce_table": "Spruce Table",
   "block.me.spruce_chair": "Spruce Chair",
 
   "block.me.birch_stool": "Birch Stool",
+  "block.me.birch_bench": "Birch Bench",
   "block.me.birch_table": "Birch Table",
   "block.me.birch_chair": "Birch Chair",
 
   "block.me.jungle_stool": "Jungle Stool",
+  "block.me.jungle_bench": "Jungle Bench",
   "block.me.jungle_table": "Jungle Table",
   "block.me.jungle_chair": "Jungle Chair",
 
   "block.me.acacia_stool": "Acacia Stool",
+  "block.me.acacia_bench": "Acacia Bench",
   "block.me.acacia_table": "Acacia Table",
   "block.me.acacia_chair": "Acacia Chair",
 
   "block.me.dark_oak_stool": "Dark Oak Stool",
+  "block.me.dark_oak_bench": "Dark Oak Bench",
   "block.me.dark_oak_table": "Dark Oak Table",
   "block.me.dark_oak_chair": "Dark Oak Chair",
 
   "block.me.mangrove_stool": "Mangrove Stool",
+  "block.me.mangrove_bench": "Mangrove Bench",
   "block.me.mangrove_table": "Mangrove Table",
   "block.me.mangrove_chair": "Mangrove Chair",
 
   "block.me.cherry_stool": "Cherry Stool",
+  "block.me.cherry_bench": "Cherry Bench",
   "block.me.cherry_table": "Cherry Table",
   "block.me.cherry_chair": "Cherry Chair",
 
   "block.me.bamboo_stool": "Bamboo Stool",
+  "block.me.bamboo_bench": "Bamboo Bench",
   "block.me.bamboo_table": "Bamboo Table",
   "block.me.bamboo_chair": "Bamboo Chair",
 
   "block.me.crimson_stool": "Crimson Stool",
+  "block.me.crimson_bench": "Crimson Bench",
   "block.me.crimson_table": "Crimson Table",
   "block.me.crimson_chair": "Crimson Chair",
 
   "block.me.warped_stool": "Warped Stool",
+  "block.me.warped_bench": "Warped Bench",
   "block.me.warped_table": "Warped Table",
   "block.me.warped_chair": "Warped Chair",
 
@@ -4402,6 +4431,15 @@
   "block.me.waxed_weathered_cut_copper_vertical_slab": "Waxed Weathered Cut Copper Vertical Slab",
   "block.me.waxed_oxidized_cut_copper_vertical_slab": "Waxed Oxidized Cut Copper Vertical Slab",
 
+  "block.me.copper_bars": "Copper Bars",
+  "block.me.exposed_copper_bars": "Exposed Copper Bars",
+  "block.me.weathered_copper_bars": "Weathered Copper Bars",
+  "block.me.oxidized_copper_bars": "Oxidized Copper Bars",
+  "block.me.waxed_copper_bars": "Waxed Copper Bars",
+  "block.me.waxed_exposed_copper_bars": "Waxed Exposed Copper Bars",
+  "block.me.waxed_weathered_copper_bars": "Waxed Weathered Copper Bars",
+  "block.me.waxed_oxidized_copper_bars": "Waxed Oxidized Copper Bars",
+
 "#Comment:": "Block - Coal ores",
   "block.me.gonluin_coal_ore": "Gonluin Coal Ore",
   "block.me.ashen_coal_ore": "Ashen Coal Ore",
@@ -4646,6 +4684,9 @@
   "block.me.wood_pile": "Wood Pile",
 
   "block.me.rope": "Rope",
+
+  "block.me.net": "Net",
+
   "block.me.blue_hobbit_door": "Blue Hobbit Door",
   "block.me.green_hobbit_door": "Green Hobbit Door",
   "block.me.red_hobbit_door": "Red Hobbit Door",
@@ -4654,6 +4695,8 @@
   "block.me.spruce_hobbit_door": "Spruce Hobbit Door",
 
   "block.me.reinforced_spruce_door": "Reinforced Spruce Door",
+
+  "block.me.great_gondorian_gate": "Great Gondorian Gate",
 
   "block.me.great_dwarven_gate": "Great Dwarven Gate",
   "block.me.varnished_dwarven_door": "Varnished Dwarven Door",

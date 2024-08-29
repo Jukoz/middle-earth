@@ -25,8 +25,6 @@ public class ModBlocks {
     public static final float DIRT_STRENGTH = 0.6f;
     public static final float SLAB_RESISTANCE = 6.0f; // From explosions
 
-
-
     //region STONE PILLARS AND CHISELED
     public static final Block STONE_PILLAR = registerStoneBlock("stone_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
@@ -567,12 +565,31 @@ public class ModBlocks {
     public static final Block BLACKSTONE_TRAPDOOR = registerStoneBlock("blackstone_trapdoor",
             new TrapdoorBlock(BlockSetType.POLISHED_BLACKSTONE, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR).strength(StoneBlockSets.STONE_HARDNESS, StoneBlockSets.STONE_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)), true);
 
+    public static final Block NET = registerMiscBlock("net",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)), true);
+
+    public static final Block COPPER_BARS = registerMiscBlock("copper_bars",
+            new OxidizablePaneBlock(Oxidizable.OxidationLevel.UNAFFECTED, AbstractBlock.Settings.copy(Blocks.CUT_COPPER_SLAB)), true);
+    public static final Block EXPOSED_COPPER_BARS = registerMiscBlock("exposed_copper_bars",
+            new OxidizablePaneBlock(Oxidizable.OxidationLevel.EXPOSED, AbstractBlock.Settings.copy(Blocks.EXPOSED_CUT_COPPER_SLAB)), true);
+    public static final Block WEATHERED_COPPER_BARS = registerMiscBlock("weathered_copper_bars",
+            new OxidizablePaneBlock(Oxidizable.OxidationLevel.WEATHERED, AbstractBlock.Settings.copy(Blocks.WEATHERED_CUT_COPPER_SLAB)), true);
+    public static final Block OXIDIZED_COPPER_BARS = registerMiscBlock("oxidized_copper_bars",
+            new OxidizablePaneBlock(Oxidizable.OxidationLevel.OXIDIZED, AbstractBlock.Settings.copy(Blocks.OXIDIZED_CUT_COPPER_SLAB)), true);
+    public static final Block WAXED_COPPER_BARS = registerMiscBlock("waxed_copper_bars",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.WAXED_CUT_COPPER_SLAB)), true);
+    public static final Block WAXED_EXPOSED_COPPER_BARS = registerMiscBlock("waxed_exposed_copper_bars",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB)), true);
+    public static final Block WAXED_WEATHERED_COPPER_BARS = registerMiscBlock("waxed_weathered_copper_bars",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB)), true);
+    public static final Block WAXED_OXIDIZED_COPPER_BARS = registerMiscBlock("waxed_oxidized_copper_bars",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB)), true);
+    
     public static final Block SILVERS_BARS = registerMiscBlock("silver_bars",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.IRON_BARS).sounds(BlockSoundGroup.METAL)), true);
 
     public static final Block GILDED_BARS = registerMiscBlock("gilded_bars",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.IRON_BARS).sounds(BlockSoundGroup.METAL)), true);
-
     //endregion
 
     public static final Block RIVER_SAND = registerMiscBlock("river_sand",
@@ -596,7 +613,7 @@ public class ModBlocks {
     public static final Block ROOTED_DIRT_SLAB = registerMiscBlock("rooted_dirt_slab",
             new SlabBlock(AbstractBlock.Settings.copy(Blocks.ROOTED_DIRT)), true);
     public static final Block MUD_SLAB = registerMiscBlock("mud_slab",
-            new SlabBlock(AbstractBlock.Settings.copy(Blocks.ROOTED_DIRT)), true);
+            new SlabBlock(AbstractBlock.Settings.copy(Blocks.MUD)), true);
 
     public static final Block PACKED_MUD_SLAB = registerStoneBlock("packed_mud_slab",
             new SlabBlock(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)), true);
@@ -606,8 +623,6 @@ public class ModBlocks {
             new StairsBlock(Blocks.PACKED_MUD.getDefaultState(), AbstractBlock.Settings.copy(Blocks.PACKED_MUD)), true);
     public static final Block PACKED_MUD_WALL = registerStoneBlock("packed_mud_wall",
             new WallBlock(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)), true);
-
-
 
     public static final Block CALCITE_SLAB = registerStoneBlock("calcite_slab",
             new SlabBlock(AbstractBlock.Settings.copy(Blocks.CALCITE)), true);
@@ -985,6 +1000,8 @@ public class ModBlocks {
             new StairsBlock(Blocks.DIRT.getDefaultState(), AbstractBlock.Settings.copy(Blocks.DIRT)), true);
     public static final Block COARSE_DIRT_STAIRS = registerMiscBlock("coarse_dirt_stairs",
             new StairsBlock(Blocks.COARSE_DIRT.getDefaultState(), AbstractBlock.Settings.copy(Blocks.COARSE_DIRT)), true);
+    public static final Block ROOTED_DIRT_STAIRS = registerMiscBlock("rooted_dirt_stairs",
+            new StairsBlock(Blocks.ROOTED_DIRT.getDefaultState(), AbstractBlock.Settings.copy(Blocks.ROOTED_DIRT)), true);
     public static final Block MUD_STAIRS = registerMiscBlock("mud_stairs",
             new StairsBlock(Blocks.MUD.getDefaultState(), AbstractBlock.Settings.copy(Blocks.MUD)), true);
 

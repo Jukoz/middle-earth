@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "me:rope"
+    "me:rope",
+    "me:net"
   ]
 }

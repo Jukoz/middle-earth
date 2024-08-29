@@ -36,7 +36,7 @@ public class GroundBookBlock extends Block {
         if(!world.isClient && player.getAbilities().allowModifyWorld){
             world.setBlockState(pos, state.cycle(OPEN), 2 | 3);
         }
-        return super.onUse(state, world, pos, player, hit);
+        return ActionResult.SUCCESS;
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
@@ -71,10 +71,19 @@ public class GroundBookBlock extends Block {
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return switch(state.get(Properties.HORIZONTAL_FACING)) {
-            case WEST, EAST -> Block.createCuboidShape(2, 0, 0, 14, 5, 16);
-            case SOUTH, NORTH -> Block.createCuboidShape(0, 0, 2, 16, 5, 14);
-            default -> VoxelShapes.cuboid(1,1,1,1,1,1);
-        };
+        if(state.get(OPEN)){
+            return switch(state.get(Properties.HORIZONTAL_FACING)) {
+                case WEST, EAST -> Block.createCuboidShape(2, 0, 0, 14, 5, 16);
+                case SOUTH, NORTH -> Block.createCuboidShape(0, 0, 2, 16, 5, 14);
+                default -> VoxelShapes.cuboid(1,1,1,1,1,1);
+            };
+        } else {
+            return switch(state.get(Properties.HORIZONTAL_FACING)) {
+                case WEST, EAST -> Block.createCuboidShape(3, 0, 4, 13, 3, 12);
+                case SOUTH, NORTH -> Block.createCuboidShape(4, 0, 3, 12, 3, 13);
+                default -> VoxelShapes.cuboid(1,1,1,1,1,1);
+            };
+        }
+
     }
 }
