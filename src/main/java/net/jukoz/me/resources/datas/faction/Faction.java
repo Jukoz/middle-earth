@@ -223,6 +223,10 @@ public class Faction {
         return id.getPath();
     }
 
+    public MutableText getFullName() {
+        return MutableText.of(new TranslatableTextContent(translatableKey, "", TranslatableTextContent.EMPTY_ARGUMENTS));
+    }
+
     public MutableText tryGetShortName() {
         String target = translatableKey.concat(".fallback");
         String fallback = Text.translatable(translatableKey).getString();
@@ -240,7 +244,6 @@ public class Faction {
     }
 
     public Faction findSubfaction(Identifier id) {
-        LoggerUtil.logDebugMsg("Trying to find subfaction : " + id);
         return subFactions.get(id);
     }
 }

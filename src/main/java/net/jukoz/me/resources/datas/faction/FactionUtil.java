@@ -1,12 +1,18 @@
 package net.jukoz.me.resources.datas.faction;
 
+import net.jukoz.me.commands.CommandColors;
+import net.jukoz.me.commands.ModCommands;
+import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.resources.ModFactionRegistry;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.persistent_datas.AffiliationData;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,14 +22,12 @@ import java.util.Optional;
 public class FactionUtil {
     public static final String COMMAND_PLAYER_REPLACEMENT = "<p>";
 
-    public static Faction getFactionById(Identifier id){
-        return ModFactionRegistry.findFactionById(id);
-    }
-
-    public static boolean updateFaction(ServerPlayerEntity player, Identifier factionIdentifier, @Nullable Identifier spawnId) {
-        Faction foundFaction = getFactionById(factionIdentifier);
-        if(foundFaction == null) return false;
-        return updateFaction(player, foundFaction, spawnId);
+    public static Faction getFactionById(Identifier id) {
+        try{
+            return ModFactionRegistry.findFactionById(id);
+        } catch (FactionIdentifierException e){
+            return null;
+        }
     }
 
     public static boolean updateFaction(ServerPlayerEntity player, @Nullable Faction faction, @Nullable Identifier spawnId) {
@@ -36,18 +40,33 @@ public class FactionUtil {
         // [CLEAR] If the next faction is null
         if(faction == null){
             playerState.setAffiliationData(null);
-            if(previousFaction != null)
+            if(previousFaction != null){
                 sendOnLeaveCommand(player, previousFaction);
+                // Send leaving message to affected player
+                MutableText targetText = Text.translatable("event.me.faction.leave.source", previousFaction.getFullName());
+                player.sendMessage(targetText.withColor(CommandColors.WARNING.color));
+            }
             return true;
         }
+        // If there is no faction update, return true
+        if(previousFaction == faction) return true;
+
         // [REPLACE] If previous faction is not null and next faction is not null
         if(previousAffiliationData != null && previousFaction != null){
             sendOnLeaveCommand(player, previousFaction);
+            // Send leaving message to affected player
+            MutableText targetText = Text.translatable("event.me.faction.leave.source", previousFaction.getFullName());
+            player.sendMessage(targetText.withColor(CommandColors.WARNING.color));
         }
         // [JOIN] Add new affiliation data
         AffiliationData newAffiliationData = new AffiliationData(faction.getAlignmentString(), faction.getId().getPath(), faction.getSpawnData().getDefaultSpawn().getPath());
         playerState.setAffiliationData(newAffiliationData);
         sendOnJoinCommand(player, faction);
+
+        // Send join message to affected player
+        MutableText targetText = Text.translatable("event.me.faction.join.source", faction.getFullName());
+        player.sendMessage(targetText.withColor(CommandColors.SUCCESS.color));
+
         return true;
     }
 

@@ -2,6 +2,7 @@ package net.jukoz.me.resources;
 
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.utils.ModBannerPatterns;
@@ -11,7 +12,6 @@ import net.jukoz.me.resources.datas.faction.Faction;
 import net.jukoz.me.resources.datas.faction.utils.BannerData;
 import net.jukoz.me.resources.datas.faction.utils.FactionNpcPreviewData;
 import net.jukoz.me.resources.datas.faction.utils.SpawnDataHandler;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.registry.*;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -27,7 +27,7 @@ public class ModFactionRegistry {
     public static final RegistryKey<Registry<Faction>> FACTION_KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
 
     static final String RACE_RESET_COMMAND = "/execute at <p> run function me:reset_race";
-    static final String MAN_RACE_JOIN_COMMAND = "/execute at <p> run function me:join_man";
+    static final String MAN_RACE_JOIN_COMMAND = "/execute at <p> run function me:join_human";
     static final String DWARF_RACE_JOIN_COMMAND = "/execute at <p> run function me:join_dwarf";
     static final String ELF_RACE_JOIN_COMMAND = "/execute at <p> run function me:join_elf";
     static final String HOBBIT_RACE_JOIN_COMMAND = "/execute at <p> run function me:join_hobbit";
@@ -253,15 +253,17 @@ public class ModFactionRegistry {
         return faction;
     }
 
-    public static Faction findFactionById(Identifier factionId) {
+    public static Faction findFactionById(Identifier factionId) throws FactionIdentifierException {
         List<String> splittedId = Arrays.stream(factionId.getPath().split("\\.")).toList();
         Identifier id = Identifier.of(MiddleEarth.MOD_ID, splittedId.get(0));
         Faction foundFaction = factions.get(id);
 
-
         if(foundFaction != null && splittedId.size() == 2){
             foundFaction = foundFaction.findSubfaction(factionId);
         }
+
+        if(foundFaction == null)
+            throw new FactionIdentifierException();
         return foundFaction;
     }
 
