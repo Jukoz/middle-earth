@@ -26,8 +26,6 @@ public class StateSaverAndLoader extends PersistentState {
     public HashMap<UUID, PlayerData> players = new HashMap<>();
     @Override
     public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        LoggerUtil.logDebugMsg("Writing NBT");
-
         NbtCompound playersNbt = new NbtCompound();
         players.forEach((uuid, playerData) -> {
             NbtCompound playerNbt = new NbtCompound();
@@ -53,7 +51,6 @@ public class StateSaverAndLoader extends PersistentState {
     public static StateSaverAndLoader createFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
         StateSaverAndLoader state = new StateSaverAndLoader();
         NbtCompound playersNbt = tag.getCompound("players");
-        LoggerUtil.logDebugMsg("Creating from NBT");
         playersNbt.getKeys().forEach(key -> {
             PlayerData playerData = new PlayerData();
             try{

@@ -1775,7 +1775,7 @@
   "block.me.mossy_polished_limestone_vertical_slab": "Mossy Polished Limestone Vertical Slab",
   "block.me.mossy_polished_limestone_stairs": "Mossy Polished Limestone Stairs",
   "block.me.mossy_polished_limestone_wall": "Mossy Polished Limestone Wall",
-  "block.me.cracked_polished_limestone": "Cracked polished Limestone",
+  "block.me.cracked_polished_limestone": "Cracked Polished Limestone",
   "block.me.cracked_polished_limestone_slab": "Cracked Polished Limestone Slab",
   "block.me.cracked_polished_limestone_vertical_slab": "Cracked Polished Limestone Vertical Slab",
   "block.me.cracked_polished_limestone_stairs": "Cracked Polished Limestone Stairs",
@@ -1859,7 +1859,7 @@
   "block.me.mossy_polished_galonn_vertical_slab": "Mossy Polished Galonn Vertical Slab",
   "block.me.mossy_polished_galonn_stairs": "Mossy Polished Galonn Stairs",
   "block.me.mossy_polished_galonn_wall": "Mossy Polished Galonn Wall",
-  "block.me.cracked_polished_galonn": "Cracked polished Galonn",
+  "block.me.cracked_polished_galonn": "Cracked Polished Galonn",
   "block.me.cracked_polished_galonn_slab": "Cracked Polished Galonn Slab",
   "block.me.cracked_polished_galonn_vertical_slab": "Cracked Polished Galonn Vertical Slab",
   "block.me.cracked_polished_galonn_stairs": "Cracked Polished Galonn Stairs",
@@ -2018,12 +2018,12 @@
   "block.me.cracked_granite_tiles_stairs": "Cracked Granite Tiles Stairs",
   "block.me.cracked_granite_tiles_wall": "Cracked Granite Tiles Wall",
   "block.me.polished_granite_vertical_slab": "Polished Granite Vertical Slab",
-  "block.me.mossy_polished_granite": "Mossy polished Granite",
+  "block.me.mossy_polished_granite": "Mossy Polished Granite",
   "block.me.mossy_polished_granite_slab": "Mossy Polished Granite Slab",
   "block.me.mossy_polished_granite_vertical_slab": "Mossy Polished Granite Vertical Slab",
   "block.me.mossy_polished_granite_stairs": "Mossy Polished Granite Stairs",
   "block.me.mossy_polished_granite_wall": "Mossy Polished Granite Wall",
-  "block.me.cracked_polished_granite": "Cracked polished Granite",
+  "block.me.cracked_polished_granite": "Cracked Polished Granite",
   "block.me.cracked_polished_granite_slab": "Cracked Polished Granite Slab",
   "block.me.cracked_polished_granite_vertical_slab": "Cracked Polished Granite Vertical Slab",
   "block.me.cracked_polished_granite_stairs": "Cracked Polished Granite Stairs",
@@ -4724,6 +4724,7 @@
   "item.me.dragon_banner_pattern": "Dragon Banner Pattern",
   "item.me.dragon_banner_pattern.desc": "A great Dragon",
 
+"#Comment:": "Blocks - Banners",
   "block.me.durin_banner": "Durin Banner",
   "block.me.isengard_banner": "Isengard Banner",
   "block.me.gondor_banner": "Gondor Banner",
@@ -4735,7 +4736,6 @@
   "block.me.mordor_great_eye_banner": "Mordor Great Eye Banner",
   "block.me.rohan_banner": "Rohan Banner",
 
-"#Comment:": "Blocks - Banners",
   "block.me.banner.gondor.black": "Black Gondor Tree",
   "block.me.banner.gondor.blue": "Blue Gondor Tree",
   "block.me.banner.gondor.brown": "Brown Gondor Tree",
@@ -5021,6 +5021,7 @@
   "faction.me.gondor.lossarnach" : "Lossarnach",
   "faction.me.longbeards" : "Longbeards",
   "faction.me.longbeards.erebor" : "Erebor",
+  "faction.me.lothlorien" : "Lothlórien",
   "faction.me.mordor" : "Mordor",
   "faction.me.mordor.gorgoroth" : "Gorgoroth",
 
@@ -5028,8 +5029,12 @@
   "faction.me.example.fallback": "Example...",
 
 "#Comment": "Spawns",
+  "spawn.me.gondor.anorien.minas_tirith" : "Minas Tirith",
+  "spawn.me.gondor.anorien.outskirts" : "Outskirts",
+  "spawn.me.gondor.lossarnach.enui_source" : "Enui Source",
+  "spawn.me.longbeards.erebor.outskirts" : "Outskirts",
   "spawn.me.longbeards.erebor.ravenhill" : "Ravenhill",
-  "spawn.me.longbeards.erebor.outskirt" : "Outskirts",
+  "spawn.me.lothlorien.cerin_amroth" : "Cerin Amroth",
 
   "#Comment:": "Races",
   "race.me.dwarf" : "Dwarf",
@@ -5039,20 +5044,40 @@
   "race.me.orc" : "Orc",
   "race.me.uruk" : "Uruk",
 
+"#Comment:": "Faction Events",
+  "event.me.faction.leave.source" : "You have left %s",
+  "event.me.faction.join.source" : "You have joined %s",
+
+
+"#Comment": "Commands",
+  "command.me.fail" : "Command couldn't be sent properly",
+
+  "command.me.faction.join.source" : "Successfully set %s faction for %s",
+  "command.me.faction.get.target" : "%s faction is %s",
+  "command.me.faction.get.target.none" : "%s have no faction",
+  "command.me.faction.get.source" : "Your faction is %s",
+  "command.me.faction.get.source.none" : "You have no faction",
+
+  "command.me.faction.join.success" : "You have successfully joined %s",
+  "command.me.faction.join.error_faction_id" : "ERR : <%s> is not a proper faction id",
+  "command.me.faction.force_join.success" : "%s have successfully joined %s",
+
+  "command.me.set_player_spawn.success" : "Succesfully modified %s spawn point for %s",
+  "command.me.clear_player_data.success" : "Succesfully cleared the stored player data for %s",
+
+"#Comment": "Alert",
+  "alert.me.large_door.blocked": "Something seems to prevent the door from moving.",
+
+"#Comment": "Exceptions",
+  "exception.me.faction_identifier": "%s is not a valid faction identifier",
+
 "#Comment:": "UI Onboarding",
   "ui.me.continue_character": "Continue",
-  "ui.me.reset_character": "Reset Alignment",
+  "ui.me.reset_character": "Reset Affiliation",
 
 "#Comment": "UI Map",
   "ui.me.map_title_text": "Middle-earth Map",
 
 "#Comment": "UI Search",
-  "ui.me.search.label" : "Search...",
-
-"#Comment": "Commands",
-  "command.me.set_player_spawn.success" : "Succesfully modified {0} spawn point for {1}",
-  "command.me.clear_player_data.success" : "Succesfully cleared the stored player data for {0}",
-
-"#Comment": "Alert",
-  "alert.me.large_door.blocked": "Something seems to prevent the door from moving."
+  "ui.me.search.label" : "Search..."
 }

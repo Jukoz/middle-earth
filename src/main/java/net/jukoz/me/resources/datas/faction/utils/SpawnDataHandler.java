@@ -2,6 +2,7 @@ package net.jukoz.me.resources.datas.faction.utils;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
@@ -11,7 +12,7 @@ import org.joml.Vector2i;
 
 import java.util.*;
 
-public class SpawnsData {
+public class SpawnDataHandler {
     Vector2i mapViewCenter;
 
     /**
@@ -25,13 +26,13 @@ public class SpawnsData {
     HashMap<Identifier, Vec3d> customSpawns;
 
 
-    public SpawnsData(Vector2i mapViewCenter, HashMap<Identifier, Vector2i> dynamicSpawns, HashMap<Identifier, Vec3d> customSpawns){
+    public SpawnDataHandler(Vector2i mapViewCenter, HashMap<Identifier, Vector2i> dynamicSpawns, HashMap<Identifier, Vec3d> customSpawns){
         this.mapViewCenter = mapViewCenter;
         this.dynamicSpawns = dynamicSpawns;
         this.customSpawns = customSpawns;
     }
 
-    public SpawnsData(Optional<NbtCompound> spawnsNbt) {
+    public SpawnDataHandler(Optional<NbtCompound> spawnsNbt) {
         if(spawnsNbt.isEmpty()){
             return;
         }
@@ -115,14 +116,6 @@ public class SpawnsData {
         return Optional.of(nbt);
     }
 
-    public HashMap<Identifier, Vector2i> getDynamicSpawns(){
-        return dynamicSpawns;
-    }
-
-    public HashMap<Identifier, Vec3d> getCustomSpawns(){
-        return customSpawns;
-    }
-
     public Vector2i findDynamicSpawn(Identifier spawnId) {
         return dynamicSpawns.get(spawnId);
     }
@@ -147,5 +140,12 @@ public class SpawnsData {
             }
 
         return spawnList;
+    }
+
+    public Identifier getDefaultSpawn() {
+        LoggerUtil.logDebugMsg("GetDefaultSpawn: [Size] " + getSpawnList().size());
+        Optional<Identifier> defaultSpawnId = getSpawnList().keySet().stream().findFirst();
+        LoggerUtil.logDebugMsg("GetDefaultSpawn: [Found] " + defaultSpawnId.orElse(null));
+        return defaultSpawnId.orElse(null);
     }
 }
