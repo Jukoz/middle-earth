@@ -4978,6 +4978,7 @@
   "faction.me.gondor.lossarnach" : "Lossarnach",
   "faction.me.longbeards" : "Longbeards",
   "faction.me.longbeards.erebor" : "Erebor",
+  "faction.me.lothlorien" : "Lothlórien",
   "faction.me.mordor" : "Mordor",
   "faction.me.mordor.gorgoroth" : "Gorgoroth",
 
@@ -4985,8 +4986,12 @@
   "faction.me.example.fallback": "Example...",
 
 "#Comment": "Spawns",
+  "spawn.me.gondor.anorien.minas_tirith" : "Minas Tirith",
+  "spawn.me.gondor.anorien.outskirts" : "Outskirts",
+  "spawn.me.gondor.lossarnach.enui_source" : "Enui Source",
+  "spawn.me.longbeards.erebor.outskirts" : "Outskirts",
   "spawn.me.longbeards.erebor.ravenhill" : "Ravenhill",
-  "spawn.me.longbeards.erebor.outskirt" : "Outskirts",
+  "spawn.me.lothlorien.cerin_amroth" : "Cerin Amroth",
 
   "#Comment:": "Races",
   "race.me.dwarf" : "Dwarf",
@@ -4996,20 +5001,40 @@
   "race.me.orc" : "Orc",
   "race.me.uruk" : "Uruk",
 
+"#Comment:": "Faction Events",
+  "event.me.faction.leave.source" : "You have left %s",
+  "event.me.faction.join.source" : "You have joined %s",
+
+
+"#Comment": "Commands",
+  "command.me.fail" : "Command couldn't be sent properly",
+
+  "command.me.faction.join.source" : "Successfully set %s faction for %s",
+  "command.me.faction.get.target" : "%s faction is %s",
+  "command.me.faction.get.target.none" : "%s have no faction",
+  "command.me.faction.get.source" : "Your faction is %s",
+  "command.me.faction.get.source.none" : "You have no faction",
+
+  "command.me.faction.join.success" : "You have successfully joined %s",
+  "command.me.faction.join.error_faction_id" : "ERR : <%s> is not a proper faction id",
+  "command.me.faction.force_join.success" : "%s have successfully joined %s",
+
+  "command.me.set_player_spawn.success" : "Succesfully modified %s spawn point for %s",
+  "command.me.clear_player_data.success" : "Succesfully cleared the stored player data for %s",
+
+"#Comment": "Alert",
+  "alert.me.large_door.blocked": "Something seems to prevent the door from moving.",
+
+"#Comment": "Exceptions",
+  "exception.me.faction_identifier": "%s is not a valid faction identifier",
+
 "#Comment:": "UI Onboarding",
   "ui.me.continue_character": "Continue",
-  "ui.me.reset_character": "Reset Alignment",
+  "ui.me.reset_character": "Reset Affiliation",
 
 "#Comment": "UI Map",
   "ui.me.map_title_text": "Middle-earth Map",
 
 "#Comment": "UI Search",
-  "ui.me.search.label" : "Search...",
-
-"#Comment": "Commands",
-  "command.me.set_player_spawn.success" : "Succesfully modified {0} spawn point for {1}",
-  "command.me.clear_player_data.success" : "Succesfully cleared the stored player data for {0}",
-
-"#Comment": "Alert",
-  "alert.me.large_door.blocked": "Something seems to prevent the door from moving."
+  "ui.me.search.label" : "Search..."
 }
