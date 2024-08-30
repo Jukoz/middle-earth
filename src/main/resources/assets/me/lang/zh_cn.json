@@ -353,17 +353,17 @@
 
   "#Comment:": "物品 - 河谷邦",
   "item.me.dalish_sword": "河谷邦剑",
-  "item.me.dalish_heyday_sword": "河谷邦盛世剑",
-  "item.me.dalish_heyday_scimitar": "河谷邦盛世弯刀",
+  "item.me.dalish_heyday_sword": "河谷邦旧日剑",
+  "item.me.dalish_heyday_scimitar": "河谷邦旧日弯刀",
   "item.me.dalish_noble_sword": "河谷邦贵族剑",
   "item.me.dalish_longsword": "河谷邦长剑",
-  "item.me.dalish_heyday_longsword": "河谷邦盛世长剑",
+  "item.me.dalish_heyday_longsword": "河谷邦旧日长剑",
   "item.me.dalish_noble_longsword": "河谷邦贵族长剑",
   "item.me.dalish_axe": "河谷邦斧",
-  "item.me.dalish_heyday_axe": "河谷邦盛世斧",
+  "item.me.dalish_heyday_axe": "河谷邦旧日斧",
   "item.me.dalish_noble_axe": "河谷邦贵族斧",
   "item.me.dalish_dagger": "河谷邦匕首",
-  "item.me.dalish_heyday_dagger": "河谷邦盛世匕首",
+  "item.me.dalish_heyday_dagger": "河谷邦旧日匕首",
   "item.me.dalish_noble_dagger": "河谷邦贵族匕首",
 
   "#Comment:": "物品 - 乌鲁克",
@@ -547,7 +547,7 @@
   "item.me.dalish_arming_coat_black_fur": "河谷邦武装外套 (黑色毛皮)",
   "item.me.dalish_arming_coat_brown_fur": "河谷邦武装外套 (棕色毛皮)",
   "item.me.dalish_arming_coat_tan_fur": "河谷邦武装外套 (鞣制毛皮)",
-  "item.me.dalish_heyday_arming_coat": "河谷邦盛世武装外套",
+  "item.me.dalish_heyday_arming_coat": "河谷邦旧日武装外套",
 
   "item.me.dalish_boots": "河谷邦靴子",
 
@@ -564,10 +564,10 @@
 
   "item.me.dalish_scale_hauberk": "河谷邦鳞片帷子",
 
-  "item.me.dalish_heyday_helmet": "河谷邦盛世头盔",
-  "item.me.dalish_heyday_chestplate": "河谷邦盛世胸甲",
-  "item.me.dalish_heyday_chain_coat": "河谷邦盛世锁链外套",
-  "item.me.dalish_heyday_boots": "河谷邦盛世靴子",
+  "item.me.dalish_heyday_helmet": "河谷邦旧日头盔",
+  "item.me.dalish_heyday_chestplate": "河谷邦旧日胸甲",
+  "item.me.dalish_heyday_chain_coat": "河谷邦旧日锁链外套",
+  "item.me.dalish_heyday_boots": "河谷邦旧日靴子",
 
   "item.me.barding_soldier_helmet": "巴德士兵头盔",
   "item.me.barding_soldier_chestplate": "巴德士兵胸甲",
@@ -605,13 +605,13 @@
   "item.me.elven_arming_skirt": "精灵冠冕武装裙甲",
   "item.me.elven_open_arming_skirt": "精灵冠冕武装裙甲 (敞开式)",
 
-  "item.me.elven_boots": "精灵冠冕靴子",
+  "item.me.elven_boots": "精灵靴子",
 
-  "item.me.elven_chain_coif": "精灵冠冕锁链圆帽",
+  "item.me.elven_chain_coif": "精灵锁链圆帽",
 
-  "item.me.elven_chain_hauberk": "精灵冠冕锁链帷子",
+  "item.me.elven_chain_hauberk": "精灵锁链帷子",
 
-  "item.me.elven_chain_skirt": "精灵冠冕锁链裙甲",
+  "item.me.elven_chain_skirt": "精灵锁链裙甲",
 
   "item.me.lorien_diadem": "罗瑞恩冠冕",
 
@@ -3137,6 +3137,7 @@
   "block.me.stripped_beech_wood_stairs": "去皮山毛榉原木楼梯",
 
   "block.me.beech_stool": "山毛榉木凳",
+  "block.me.beech_bench": "山毛榉木长椅",
   "block.me.beech_table": "山毛榉木桌",
   "block.me.beech_chair": "山毛榉木椅",
 
@@ -3180,6 +3181,7 @@
   "block.me.stripped_larch_wood_stairs": "去皮落叶松原木楼梯",
 
   "block.me.larch_stool": "落叶松木凳",
+  "block.me.larch_bench": "落叶松木长椅",
   "block.me.larch_table": "落叶松木桌",
   "block.me.larch_chair": "落叶松木椅",
 
@@ -3222,6 +3224,7 @@
   "block.me.stripped_black_lebethron_wood_stairs": "去皮黑色莱贝斯隆原木楼梯",
 
   "block.me.black_lebethron_stool": "黑色莱贝斯隆木凳",
+  "block.me.black_lebethron_bench": "黑色莱贝斯隆木长椅",
   "block.me.black_lebethron_table": "黑色莱贝斯隆木桌",
   "block.me.black_lebethron_chair": "黑色莱贝斯隆木椅",
 
@@ -3263,6 +3266,7 @@
   "block.me.stripped_white_lebethron_wood_stairs": "去皮白色莱贝斯隆原木楼梯",
 
   "block.me.white_lebethron_stool": "白色莱贝斯隆木凳",
+  "block.me.white_lebethron_bench": "白色莱贝斯隆木长椅",
   "block.me.white_lebethron_table": "白色莱贝斯隆木桌",
   "block.me.white_lebethron_chair": "白色莱贝斯隆木椅",
 
@@ -3305,6 +3309,7 @@
   "block.me.stripped_chestnut_wood_stairs": "去皮栗木楼梯",
 
   "block.me.chestnut_stool": "栗木凳",
+  "block.me.chestnut_bench": "栗木长椅",
   "block.me.chestnut_table": "栗木桌",
   "block.me.chestnut_chair": "栗木椅",
 
@@ -3348,6 +3353,7 @@
   "block.me.stripped_holly_wood_stairs": "去皮冬青木楼梯",
 
   "block.me.holly_stool": "冬青木凳",
+  "block.me.holly_bench": "冬青木长椅",
   "block.me.holly_table": "冬青木桌",
   "block.me.holly_chair": "冬青木椅",
 
@@ -3392,6 +3398,7 @@
   "block.me.stripped_mallorn_wood_stairs": "去皮瑁珑原木楼梯",
 
   "block.me.mallorn_stool": "瑁珑木凳",
+  "block.me.mallorn_bench": "瑁珑木长椅",
   "block.me.mallorn_table": "瑁珑木桌",
   "block.me.mallorn_chair": "瑁珑木椅",
 
@@ -3437,6 +3444,7 @@
   "block.me.stripped_maple_wood_stairs": "去皮枫木原木楼梯",
 
   "block.me.maple_stool": "枫木凳",
+  "block.me.maple_bench": "枫木长椅",
   "block.me.maple_table": "枫木桌",
   "block.me.maple_chair": "枫木椅",
 
@@ -3478,6 +3486,7 @@
   "block.me.stripped_silver_maple_wood_stairs": "去皮银枫木原木楼梯",
 
   "block.me.silver_maple_stool": "银枫木凳",
+  "block.me.silver_maple_bench": "银枫木长椅",
   "block.me.silver_maple_table": "银枫木桌",
   "block.me.silver_maple_chair": "银枫木椅",
 
@@ -3522,6 +3531,7 @@
   "block.me.stripped_mirkwood_wood_stairs": "去皮阴郁原木楼梯",
 
   "block.me.mirkwood_stool": "阴郁木凳",
+  "block.me.mirkwood_bench": "阴郁木长椅",
   "block.me.mirkwood_table": "阴郁木桌",
   "block.me.mirkwood_chair": "阴郁木椅",
 
@@ -3564,6 +3574,7 @@
   "block.me.stripped_palm_wood_stairs": "去皮棕榈原木楼梯",
 
   "block.me.palm_stool": "棕榈木凳",
+  "block.me.palm_bench": "棕榈木长椅",
   "block.me.palm_table": "棕榈木桌",
   "block.me.palm_chair": "棕榈木椅",
 
@@ -3606,6 +3617,7 @@
   "block.me.stripped_white_palm_wood_stairs": "去皮白色棕榈木楼梯",
 
   "block.me.white_palm_stool": "白色棕榈木凳",
+  "block.me.white_palm_bench": "白色棕榈木长椅",
   "block.me.white_palm_table": "白色棕榈木桌",
   "block.me.white_palm_chair": "白色棕榈木椅",
 
@@ -3650,6 +3662,7 @@
   "block.me.stripped_pine_wood_stairs": "去皮松木原木楼梯",
 
   "block.me.pine_stool": "松木凳",
+  "block.me.pine_bench": "松木长椅",
   "block.me.pine_table": "松木桌",
   "block.me.pine_chair": "松木椅",
 
@@ -3694,6 +3707,7 @@
   "block.me.stripped_black_pine_wood_stairs": "去皮黑松木原木楼梯",
 
   "block.me.black_pine_stool": "黑松木凳",
+  "block.me.black_pine_bench": "黑松木长椅",
   "block.me.black_pine_table": "黑松木桌",
   "block.me.black_pine_chair": "黑松木椅",
 
@@ -3736,6 +3750,7 @@
   "block.me.stripped_willow_wood_stairs": "去皮柳木原木楼梯",
 
   "block.me.willow_stool": "柳木凳",
+  "block.me.willow_bench": "柳木长椅",
   "block.me.willow_table": "柳木桌",
   "block.me.willow_chair": "柳木椅",
 
@@ -3759,6 +3774,7 @@
   "block.me.mushroom_shingles_wall": "蘑菇瓦墙",
 
   "block.me.mushroom_stool": "蘑菇凳",
+  "block.me.mushroom_bench": "蘑菇长椅",
   "block.me.mushroom_table": "蘑菇桌",
   "block.me.mushroom_chair": "蘑菇椅",
 
@@ -3783,6 +3799,7 @@
   "block.me.dark_mushroom_shingles_wall": "暗蘑菇瓦墙",
 
   "block.me.dark_mushroom_stool": "暗蘑菇凳",
+  "block.me.dark_mushroom_bench": "暗蘑菇长椅",
   "block.me.dark_mushroom_table": "暗蘑菇桌",
   "block.me.dark_mushroom_chair": "暗蘑菇椅",
 
@@ -3807,6 +3824,7 @@
   "block.me.gray_mushroom_shingles_wall": "灰蘑菇瓦墙",
 
   "block.me.gray_mushroom_stool": "灰蘑菇凳",
+  "block.me.gray_mushroom_bench": "灰蘑菇长椅",
   "block.me.gray_mushroom_table": "灰蘑菇桌",
   "block.me.gray_mushroom_chair": "灰蘑菇椅",
 
@@ -4032,46 +4050,57 @@
   "#Comment:": "方块 - 原版家具",
 
   "block.me.oak_stool": "橡木凳",
+  "block.me.oak_bench": "橡木长椅",
   "block.me.oak_table": "橡木桌",
   "block.me.oak_chair": "橡木椅",
 
   "block.me.spruce_stool": "云杉木凳",
+  "block.me.spruce_bench": "云杉木长椅",
   "block.me.spruce_table": "云杉木桌",
   "block.me.spruce_chair": "云杉木椅",
 
   "block.me.birch_stool": "白桦木凳",
+  "block.me.birch_bench": "白桦木长椅",
   "block.me.birch_table": "白桦木桌",
   "block.me.birch_chair": "白桦木椅",
 
   "block.me.jungle_stool": "丛林木凳",
+  "block.me.jungle_bench": "丛林木长椅",
   "block.me.jungle_table": "丛林木桌",
   "block.me.jungle_chair": "丛林木椅",
 
   "block.me.acacia_stool": "金合欢木凳",
+  "block.me.acacia_bench": "金合欢木长椅",
   "block.me.acacia_table": "金合欢木桌",
   "block.me.acacia_chair": "金合欢木椅",
 
   "block.me.dark_oak_stool": "深色橡木凳",
+  "block.me.dark_oak_bench": "深色橡木长椅",
   "block.me.dark_oak_table": "深色橡木桌",
   "block.me.dark_oak_chair": "深色橡木椅",
 
   "block.me.mangrove_stool": "红树木凳",
+  "block.me.mangrove_bench": "红树木长椅",
   "block.me.mangrove_table": "红树木桌",
   "block.me.mangrove_chair": "红树木椅",
 
   "block.me.cherry_stool": "樱花木凳",
+  "block.me.cherry_bench": "樱花木长椅",
   "block.me.cherry_table": "樱花木桌",
   "block.me.cherry_chair": "樱花木椅",
 
   "block.me.bamboo_stool": "竹凳",
+  "block.me.bamboo_bench": "竹长椅",
   "block.me.bamboo_table": "竹桌",
   "block.me.bamboo_chair": "竹椅",
 
   "block.me.crimson_stool": "绯红木凳",
+  "block.me.crimson_bench": "绯红木长椅",
   "block.me.crimson_table": "绯红木桌",
   "block.me.crimson_chair": "绯红木椅",
 
   "block.me.warped_stool": "诡异木凳",
+  "block.me.warped_bench": "诡异木长椅",
   "block.me.warped_table": "诡异木桌",
   "block.me.warped_chair": "诡异木椅",
 
@@ -4403,6 +4432,15 @@
   "block.me.waxed_weathered_cut_copper_vertical_slab": "涂蜡的锈蚀切制铜竖台阶",
   "block.me.waxed_oxidized_cut_copper_vertical_slab": "涂蜡的氧化切制铜竖台阶",
 
+  "block.me.copper_bars": "铜栏杆",
+  "block.me.exposed_copper_bars": "斑驳的铜栏杆",
+  "block.me.weathered_copper_bars": "锈蚀的铜栏杆",
+  "block.me.oxidized_copper_bars": "氧化的铜栏杆",
+  "block.me.waxed_copper_bars": "涂蜡的铜栏杆",
+  "block.me.waxed_exposed_copper_bars": "涂蜡的斑驳铜栏杆",
+  "block.me.waxed_weathered_copper_bars": "涂蜡的锈蚀铜栏杆",
+  "block.me.waxed_oxidized_copper_bars": "涂蜡的氧化铜栏杆",
+
   "#Comment:": "方块 - 煤矿石",
   "block.me.gonluin_coal_ore": "路因岩煤矿石",
   "block.me.ashen_coal_ore": "灰烬煤矿石",
@@ -4646,6 +4684,9 @@
   "block.me.wood_pile": "原木堆",
 
   "block.me.rope": "绳子",
+
+  "block.me.net": "网",
+
   "block.me.blue_hobbit_door": "蓝色霍比特门",
   "block.me.green_hobbit_door": "绿色霍比特门",
   "block.me.red_hobbit_door": "红色霍比特门",
@@ -4654,6 +4695,8 @@
   "block.me.spruce_hobbit_door": "云杉霍比特门",
 
   "block.me.reinforced_spruce_door": "加固云杉门",
+
+  "block.me.great_gondorian_gate": "刚铎大门",
 
   "block.me.great_dwarven_gate": "矮人大门",
   "block.me.varnished_dwarven_door": "上漆矮人门",
@@ -4904,7 +4947,7 @@
   "tooltip.me.medium_shield" : "§9普盾",
   "tooltip.me.heavy_shield" : "§c重盾",
 
-  "tooltip.me.generic" : "普通",
+  "tooltip.me.generic" : "通用",
 
   "tooltip.me.dwarven" : "矮人",
   "tooltip.me.elven" : "精灵",
@@ -4926,7 +4969,7 @@
   "tooltip.me.dunland" : "黑蛮地",
   "tooltip.me.dale" : "河谷邦",
 
-  "tooltip.me.dyeable" : "可染色",
+  "tooltip.me.dyeable" : "当前颜色",
   "tooltip.me.cape" : "披风",
   "tooltip.me.hood" : "兜帽",
   "tooltip.me.impaled_skulls" : "头颅尖桩",
@@ -4955,7 +4998,7 @@
   "tooltip.me.eorling_marshal_cape": "埃奥尔元帅披风",
   "tooltip.me.horse_lord_cape": "驭马主披风",
 
-  "tooltip.me.dalish_heyday_cape": "河谷邦盛世披风",
+  "tooltip.me.dalish_heyday_cape": "河谷邦旧日披风",
   "tooltip.me.barding_sergeant_cape": "巴德将领披风",
 
   "tooltip.me.erebor_cape": "埃瑞博披风",
@@ -4978,15 +5021,20 @@
   "faction.me.gondor.lossarnach" : "洛斯阿尔那赫",
   "faction.me.longbeards" : "长须",
   "faction.me.longbeards.erebor" : "埃瑞博",
+  "faction.me.lothlorien" : "洛丝罗瑞恩",
   "faction.me.mordor" : "魔多",
   "faction.me.mordor.gorgoroth" : "戈埚洛斯",
 
   "#Comment": "派系默认",
   "faction.me.example.fallback": "样例",
 
-  "#Comment": "生成",
+  "#Comment": "初始",
+  "spawn.me.gondor.anorien.minas_tirith" : "米那斯提力斯",
+  "spawn.me.gondor.anorien.outskirts" : "外围",
+  "spawn.me.gondor.lossarnach.erui_source" : "埃茹伊河源头",
+  "spawn.me.longbeards.erebor.outskirts" : "外围",
   "spawn.me.longbeards.erebor.ravenhill" : "渡鸦岭",
-  "spawn.me.longbeards.erebor.outskirt" : "外围",
+  "spawn.me.lothlorien.cerin_amroth" : "凯林阿姆洛斯",
 
   "#Comment:": "种族",
   "race.me.dwarf" : "矮人",
@@ -4996,6 +5044,32 @@
   "race.me.orc" : "奥克",
   "race.me.uruk" : "乌鲁克",
 
+  "#Comment:": "派系事件",
+  "event.me.faction.leave.source" : "你离开了%s",
+  "event.me.faction.join.source" : "你加入了%s",
+
+  "#Comment": "命令",
+  "command.me.fail" : "命令发送有误！",
+
+  "command.me.faction.join.source" : "成功将%2$s的派系设为%1$s",
+  "command.me.faction.get.target" : "%s的派系是%s",
+  "command.me.faction.get.target.none" : "%s尚未加入任何派系",
+  "command.me.faction.get.source" : "你的派系是%s",
+  "command.me.faction.get.source.none" : "你尚未加入任何派系",
+
+  "command.me.faction.join.success" : "你成功加入了%s派系",
+  "command.me.faction.join.error_faction_id" : "错误：<%s>并非任一派系代码",
+  "command.me.faction.force_join.success" : "%s成功加入了%s派系",
+
+  "command.me.set_player_spawn.success" : "成功修改了玩家%2$s的重生点%1$s",
+  "command.me.clear_player_data.success" : "成功清除了玩家%s的存储数据",
+
+  "#Comment": "警告",
+  "alert.me.large_door.blocked": "似乎有东西挡住了门，没法打开。",
+
+  "#Comment": "错误",
+  "exception.me.faction_identifier": "错误：%s并非任一派系代码",
+
   "#Comment:": "引导界面",
   "ui.me.continue_character": "下一个",
   "ui.me.reset_character": "重设结盟值",
@@ -5004,12 +5078,5 @@
   "ui.me.map_title_text": "中洲地图",
 
   "#Comment": "搜索界面",
-  "ui.me.search.label" : "搜索……",
-
-  "#Comment": "命令",
-  "command.me.set_player_spawn.success" : "成功修改了玩家 {1} 的重生点 {0}",
-  "command.me.clear_player_data.success" : "成功清除了玩家 {0} 的存储数据",
-
-  "#Comment": "警告",
-  "alert.me.large_door.blocked": "似乎有东西挡住了门，没法打开。"
+  "ui.me.search.label" : "搜索……"
 }
