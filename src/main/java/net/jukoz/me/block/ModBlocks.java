@@ -289,7 +289,7 @@ public class ModBlocks {
             new StairsBlock(MIRE.getDefaultState(), AbstractBlock.Settings.copy(MIRE)),true);
 
     public static final Block TURF = registerMiscBlock("turf",
-            new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
+            new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRASS)),true);
     public static final Block TURF_SLAB = registerMiscBlock("turf_slab",
             new SlabBlock(AbstractBlock.Settings.copy(TURF)),true);
     public static final Block TURF_STAIRS = registerMiscBlock("turf_stairs",
@@ -641,6 +641,23 @@ public class ModBlocks {
             new StairsBlock(Blocks.SMOOTH_BASALT.getDefaultState(), AbstractBlock.Settings.copy(Blocks.SMOOTH_BASALT)), true);
     public static final Block SMOOTH_BASALT_WALL = registerStoneBlock("smooth_basalt_wall",
             new WallBlock(AbstractBlock.Settings.copy(Blocks.SMOOTH_BASALT)), true);
+
+    public static final Block CUT_COPPER_WALL = registerMiscBlock("cut_copper_wall",
+            new OxidizableWallBlock(Oxidizable.OxidationLevel.UNAFFECTED, AbstractBlock.Settings.copy(Blocks.CUT_COPPER_SLAB)), true);
+    public static final Block EXPOSED_CUT_COPPER_WALL = registerMiscBlock("exposed_cut_copper_wall",
+            new OxidizableWallBlock(Oxidizable.OxidationLevel.EXPOSED, AbstractBlock.Settings.copy(Blocks.EXPOSED_CUT_COPPER_SLAB)), true);
+    public static final Block WEATHERED_CUT_COPPER_WALL = registerMiscBlock("weathered_cut_copper_wall",
+            new OxidizableWallBlock(Oxidizable.OxidationLevel.WEATHERED, AbstractBlock.Settings.copy(Blocks.WEATHERED_CUT_COPPER_SLAB)), true);
+    public static final Block OXIDIZED_CUT_COPPER_WALL = registerMiscBlock("oxidized_cut_copper_wall",
+            new OxidizableWallBlock(Oxidizable.OxidationLevel.OXIDIZED, AbstractBlock.Settings.copy(Blocks.OXIDIZED_CUT_COPPER_SLAB)), true);
+    public static final Block WAXED_CUT_COPPER_WALL = registerMiscBlock("waxed_cut_copper_wall",
+            new WallBlock(AbstractBlock.Settings.copy(Blocks.WAXED_CUT_COPPER_SLAB)), true);
+    public static final Block WAXED_EXPOSED_CUT_COPPER_WALL = registerMiscBlock("waxed_exposed_cut_copper_wall",
+            new WallBlock(AbstractBlock.Settings.copy(Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB)), true);
+    public static final Block WAXED_WEATHERED_CUT_COPPER_WALL = registerMiscBlock("waxed_weathered_cut_copper_wall",
+            new WallBlock(AbstractBlock.Settings.copy(Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB)), true);
+    public static final Block WAXED_OXIDIZED_CUT_COPPER_WALL = registerMiscBlock("waxed_oxidized_cut_copper_wall",
+            new WallBlock(AbstractBlock.Settings.copy(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB)), true);
 
     public static final Block BLACK_WOOL_SLAB = registerMiscBlock("black_wool_slab",
             new SlabBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).burnable()), true);

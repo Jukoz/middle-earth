@@ -3,6 +3,7 @@ package net.jukoz.me.item;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.special.CustomTallPlantBlock;
+import net.jukoz.me.block.special.CustomWaterloggableTallPlantBlock;
 import net.jukoz.me.item.items.*;
 import net.jukoz.me.item.items.weapons.ranged.LitPineconeItem;
 import net.jukoz.me.item.items.weapons.ranged.PebbleItem;
@@ -154,7 +155,7 @@ public class ModResourceItems {
     public static final Item STRAW = registerItem("straw",
             new Item(new Item.Settings()));
     public static final Block REEDS = registerBlock("reeds",
-            new CustomTallPlantBlock(AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), false), false);
+            new CustomWaterloggableTallPlantBlock(AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), false), false);
 
     public static final Item DUCK_FEATHER = registerItem("duck_feather",
             new Item(new Item.Settings()));

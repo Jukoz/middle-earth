@@ -1,0 +1,46 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"1": "me:block/calcite_statue",
+		"particle": "me:block/calcite_statue"
+	},
+	"elements": [
+		{
+			"from": [1, 0, 8],
+			"to": [12, 16, 12],
+			"faces": {
+				"north": {"uv": [7, 2.5, 9.75, 6.5], "texture": "#1"},
+				"east": {"uv": [6, 2.5, 7, 6.5], "texture": "#1"},
+				"south": {"uv": [10.75, 2.5, 13.5, 6.5], "texture": "#1"},
+				"west": {"uv": [9.75, 2.5, 10.75, 6.5], "texture": "#1"},
+				"up": {"uv": [7, 0, 9.75, 1], "texture": "#1"},
+				"down": {"uv": [7, 6.5, 9.75, 7.5], "texture": "#1"}
+			}
+		},
+		{
+			"from": [1, 0, 6],
+			"to": [9, 16, 8],
+			"faces": {
+				"north": {"uv": [9, 11.5, 11, 15.5], "texture": "#1"},
+				"east": {"uv": [8.5, 11.5, 9, 15.5], "texture": "#1"},
+				"south": {"uv": [11.5, 11.5, 13.5, 15.5], "texture": "#1"},
+				"west": {"uv": [11, 11.5, 11.5, 15.5], "texture": "#1"},
+				"up": {"uv": [9, 11, 11, 11.5], "texture": "#1"},
+				"down": {"uv": [9, 15.5, 11, 16], "texture": "#1"}
+			}
+		},
+		{
+			"from": [13, 0, 2],
+			"to": [14, 16, 3],
+			"faces": {
+				"north": {"uv": [14.25, 7, 14.5, 11], "texture": "#1"},
+				"east": {"uv": [14, 7, 14.25, 11], "texture": "#1"},
+				"south": {"uv": [14.75, 7, 15, 11], "texture": "#1"},
+				"west": {"uv": [14.5, 7, 14.75, 11], "texture": "#1"},
+				"up": {"uv": [14.25, 6.25, 14.5, 6.5], "texture": "#1"},
+				"down": {"uv": [14.25, 11, 14.5, 11.25], "texture": "#1"}
+			}
+		}
+	]
+}
