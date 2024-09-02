@@ -4431,6 +4431,15 @@
   "block.me.waxed_weathered_cut_copper_vertical_slab": "Waxed Weathered Cut Copper Vertical Slab",
   "block.me.waxed_oxidized_cut_copper_vertical_slab": "Waxed Oxidized Cut Copper Vertical Slab",
 
+  "block.me.cut_copper_wall": "Cut Copper Wall",
+  "block.me.exposed_cut_copper_wall": "Exposed Cut Copper Wall",
+  "block.me.weathered_cut_copper_wall": "Weathered Cut Copper Wall",
+  "block.me.oxidized_cut_copper_wall": "Oxidized Cut Copper Wall",
+  "block.me.waxed_cut_copper_wall": "Waxed Cut Copper Wall",
+  "block.me.waxed_exposed_cut_copper_wall": "Waxed Exposed Cut Copper Wall",
+  "block.me.waxed_weathered_cut_copper_wall": "Waxed Weathered Cut Copper Wall",
+  "block.me.waxed_oxidized_cut_copper_wall": "Waxed Oxidized Cut Copper Wall",
+
   "block.me.copper_bars": "Copper Bars",
   "block.me.exposed_copper_bars": "Exposed Copper Bars",
   "block.me.weathered_copper_bars": "Weathered Copper Bars",
@@ -4704,7 +4713,10 @@
   "block.me.great_elven_gate": "Great Elven Gate",
 
   "block.me.great_orcish_gate": "Great Orcish Gate",
-  
+
+  "block.me.calcite_statue": "Calcite Statue",
+  "block.me.gonluin_statue": "Gonluin Statue",
+
 "#Comment:": "Items - Banners",
   "item.me.gondor_banner_pattern": "Gondor Banner Pattern",
   "item.me.gondor_banner_pattern.desc": "White Tree of Gondor",

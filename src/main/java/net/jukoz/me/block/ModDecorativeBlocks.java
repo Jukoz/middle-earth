@@ -8,6 +8,7 @@ import net.jukoz.me.block.special.doors.*;
 import net.jukoz.me.block.special.fireBlocks.*;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestBlock;
 import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancBlock;
+import net.jukoz.me.block.special.statues.StatueBlock;
 import net.jukoz.me.block.special.toggeable_lights.DwarvenLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.SilverLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.WallDwarvenLanternBlock;
@@ -48,6 +49,11 @@ public class ModDecorativeBlocks {
 
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             new WoodPileBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque()));
+
+    public static final Block CALCITE_STATUE = registerBlockWithItem("calcite_statue",
+            new StatueBlock(AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque()));
+    public static final Block GONLUIN_STATUE = registerBlockWithItem("gonluin_statue",
+            new StatueBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque()));
 
     public static final Block FIRE_OF_ORTHANC = registerBlock("fire_of_orthanc",
             new FireOfOrthancBlock(AbstractBlock.Settings.create().requiresTool().mapColor(MapColor.BLACK)
