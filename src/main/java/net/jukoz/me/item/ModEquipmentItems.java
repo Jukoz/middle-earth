@@ -891,7 +891,7 @@ public class ModEquipmentItems {
                     ModSubFactions.GUNDABAD));
 
     public static final Item MISTY_MOUNTAINS_SHIELD = registerShield("misty_mountains_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_orcs")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_mountains_orcs")));
 
     /*public static final Item STEEL_TROLL_ARMOR = registerGeneratedItem("steel_troll_armor",
             new TrollArmorItem(10, "steel", new Item.Settings().maxCount(1)));*/
