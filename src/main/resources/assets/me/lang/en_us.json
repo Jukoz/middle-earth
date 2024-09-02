@@ -5091,5 +5091,10 @@
   "ui.me.map_title_text": "Middle-earth Map",
 
 "#Comment": "UI Search",
-  "ui.me.search.label" : "Search..."
+  "ui.me.search.label" : "Search...",
+
+"#Comment": "Compat for Mod Menu",
+  "modmenu.nameTranslation.me": "Middle-earth",
+  "modmenu.descriptionTranslation.me": "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!",
+  "modmenu.summaryTranslation.me": "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!"
 }

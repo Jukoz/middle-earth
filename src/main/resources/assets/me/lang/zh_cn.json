@@ -600,10 +600,10 @@
   "item.me.erebor_gatewarden_leggings": "埃瑞博守门人护腿",
   "item.me.erebor_gatewarden_boots": "埃瑞博守门人靴子",
 
-  "item.me.elven_arming_coat": "精灵冠冕武装外套",
+  "item.me.elven_arming_coat": "精灵武装外套",
 
-  "item.me.elven_arming_skirt": "精灵冠冕武装裙甲",
-  "item.me.elven_open_arming_skirt": "精灵冠冕武装裙甲 (敞开式)",
+  "item.me.elven_arming_skirt": "精灵武装裙甲",
+  "item.me.elven_open_arming_skirt": "精灵武装裙甲 (敞开式)",
 
   "item.me.elven_boots": "精灵靴子",
 
@@ -4432,6 +4432,15 @@
   "block.me.waxed_weathered_cut_copper_vertical_slab": "涂蜡的锈蚀切制铜竖台阶",
   "block.me.waxed_oxidized_cut_copper_vertical_slab": "涂蜡的氧化切制铜竖台阶",
 
+  "block.me.cut_copper_wall": "切制铜墙",
+  "block.me.exposed_cut_copper_wall": "斑驳的切制铜墙",
+  "block.me.weathered_cut_copper_wall": "锈蚀的切制铜墙",
+  "block.me.oxidized_cut_copper_wall": "氧化的切制铜墙",
+  "block.me.waxed_cut_copper_wall": "涂蜡的切制铜墙",
+  "block.me.waxed_exposed_cut_copper_wall": "涂蜡的斑驳切制铜墙",
+  "block.me.waxed_weathered_cut_copper_wall": "涂蜡的锈蚀切制铜墙",
+  "block.me.waxed_oxidized_cut_copper_wall": "涂蜡的氧化切制铜墙",
+
   "block.me.copper_bars": "铜栏杆",
   "block.me.exposed_copper_bars": "斑驳的铜栏杆",
   "block.me.weathered_copper_bars": "锈蚀的铜栏杆",
@@ -4704,6 +4713,9 @@
   "block.me.great_elven_gate": "精灵大门",
 
   "block.me.great_orcish_gate": "奥克大门",
+
+  "block.me.calcite_statue": "方解石雕像",
+  "block.me.gonluin_statue": "路因岩雕像",
   
   "#Comment:": "物品 - 旗帜",
   "item.me.gondor_banner_pattern": "刚铎旗帜图案",
@@ -5078,5 +5090,10 @@
   "ui.me.map_title_text": "中洲地图",
 
   "#Comment": "搜索界面",
-  "ui.me.search.label" : "搜索……"
+  "ui.me.search.label" : "搜索……",
+
+  "#Comment": "模组菜单",
+  "modmenu.nameTranslation.me": "中洲",
+  "modmenu.descriptionTranslation.me": "在托尔金的传说故事集中沉浸冒险！",
+  "modmenu.summaryTranslation.me": "在托尔金的传说故事集中沉浸冒险！"
 }
