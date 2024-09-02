@@ -2,7 +2,6 @@ package net.jukoz.me.item;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModNatureBlocks;
-import net.jukoz.me.block.special.CustomTallPlantBlock;
 import net.jukoz.me.block.special.CustomWaterloggableTallPlantBlock;
 import net.jukoz.me.item.items.*;
 import net.jukoz.me.item.items.weapons.ranged.LitPineconeItem;
@@ -189,8 +188,8 @@ public class ModResourceItems {
             new BannerPatternItem(ModBannerPatternTags.LOTHLORIEN_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item MORDOR_BANNER_PATTERN = registerItem("mordor_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.MORDOR_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
-    public static final Item MISTY_ORCS_BANNER_PATTERN = registerItem("misty_orcs_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.MISTY_ORCS_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+    public static final Item MISTY_MOUNTAINS_ORCS_BANNER_PATTERN = registerItem("misty_mountains_orcs_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.MISTY_MOUNTAINS_ORCS_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item ISENGARD_BANNER_PATTERN = registerItem("isengard_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.ISENGARD_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
 
