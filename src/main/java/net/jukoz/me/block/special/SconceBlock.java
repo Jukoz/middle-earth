@@ -1,5 +1,6 @@
 package net.jukoz.me.block.special;
 
+import net.jukoz.me.block.special.fireBlocks.AbstractToggleableFireBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -86,5 +87,9 @@ public class SconceBlock extends net.minecraft.block.TorchBlock {
             double f = (double)pos.getZ() + 0.5;
             world.addParticle(ParticleTypes.SMOKE, d, e, f, 0.0, 0.0, 0.0);
         }
+    }
+
+    public static boolean isLitSconce(BlockState state) {
+        return state.contains(LIT) && (Boolean)state.get(LIT) && state.getBlock() instanceof SconceBlock;
     }
 }

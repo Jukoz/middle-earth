@@ -294,6 +294,8 @@ public class ModBlocks {
             new SlabBlock(AbstractBlock.Settings.copy(TURF)),true);
     public static final Block TURF_STAIRS = registerMiscBlock("turf_stairs",
             new StairsBlock(TURF.getDefaultState(), AbstractBlock.Settings.copy(TURF)),true);
+    public static final Block TURF_VERTICAL_SLAB = registerMiscBlock("turf_vertical_slab",
+            new VerticalSlabBlock(AbstractBlock.Settings.copy(TURF)),true);
 
     public static final Block COBBLY_DIRT = registerMiscBlock("cobbly_dirt",
             new Block(AbstractBlock.Settings.copy(Blocks.COARSE_DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);

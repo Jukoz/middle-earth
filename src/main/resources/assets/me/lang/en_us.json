@@ -3091,6 +3091,7 @@
 
   "block.me.turf": "Turf",
   "block.me.turf_slab": "Turf Slab",
+  "block.me.turf_vertical_slab": "Turf Vertical Slab",
   "block.me.turf_stairs": "Turf Stairs",
 
   "block.me.mire": "Mire",
