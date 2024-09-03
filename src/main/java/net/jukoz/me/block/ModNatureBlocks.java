@@ -135,16 +135,16 @@ public class ModNatureBlocks {
                     .mapColor(DyeColor.GREEN)), true);
 
     public static final Block SHORT_CATTAILS = registerBlock("short_cattails",
-            new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
+            new WaterloggablePlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), true);
     public static final Block SHORT_BULRUSH = registerBlock("short_bulrush",
-            new HaradPlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
+            new WaterloggablePlant(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), true);
 
     public static final Block TALL_CATTAILS = registerBlock("tall_cattails",
-            new CustomTallPlantBlock(AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), false), true);
+            new CustomWaterloggableTallPlantBlock(AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), false), true);
     public static final Block TALL_BULRUSH = registerBlock("tall_bulrush",
-            new CustomTallPlantBlock(AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), false), true);
+            new CustomWaterloggableTallPlantBlock(AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), false), true);
 
     public static final Block SHRIVELED_SHRUB = registerBlock("shriveled_shrub",
             new DeadBushBlock(AbstractBlock.Settings.copy(Blocks.DEAD_BUSH).offset(AbstractBlock.OffsetType.XYZ)

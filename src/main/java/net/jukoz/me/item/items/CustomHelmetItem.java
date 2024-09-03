@@ -68,9 +68,9 @@ public class CustomHelmetItem extends ArmorItem {
             }
             if (hoodDataComponent != null) {
                 if (hoodDataComponent.enabled()) {
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood()).append(": Enabled "));
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood()).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".hood.enable")));
                 } else {
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood()).append(": Disabled"));
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood()).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".hood.disable")));
                 }
             }
         } else {
