@@ -91,14 +91,44 @@ public class MEBiomeDataConfigs {
 
     public static SlopeMap mistyMountains = new SlopeMap().addSlopeData(13, Blocks.GRASS_BLOCK)
             .addSlopeData(16, Blocks.COARSE_DIRT)
-            .addSlopeData(32, Blocks.STONE)
-            .addSlopeData(48, Blocks.TUFF)
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.DOLOMITE.base());
-    public static SlopeMap mistiesPeaks = new SlopeMap().addSlopeData(30, Blocks.SNOW_BLOCK)
-            .addSlopeData(36, StoneBlockSets.FROZEN_STONE.base())
-            .addSlopeData(48, Blocks.STONE)
-            .addSlopeData(60, Blocks.TUFF)
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.DOLOMITE.base());
+            .addSlopeData(22, Blocks.TUFF)
+            .addSlopeData(30, StoneBlockSets.DOLOMITE.base())
+            .addSlopeData(38, Blocks.STONE)
+            .addSlopeData(50, StoneBlockSets.GNEISS.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.ZIGILABAN.base());
+    public static SlopeMap mistiesPeaks = new SlopeMap().addSlopeData(36, Blocks.SNOW_BLOCK)
+            .addSlopeData(45, StoneBlockSets.FROZEN_STONE.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.ZIGILABAN.base());
+    public static SlopeMap caradhras = new SlopeMap().addSlopeData(12, Blocks.GRASS_BLOCK)
+            .addSlopeData(16, Blocks.COARSE_DIRT)
+            .addSlopeData(21, Blocks.TUFF)
+            .addSlopeData(29, StoneBlockSets.DOLOMITE.base())
+            .addSlopeData(37, Blocks.STONE)
+            .addSlopeData(49, Blocks.GRANITE)
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.HEMATITE.base());
+    public static SlopeMap caradhrasPeaks = new SlopeMap().addSlopeData(36, Blocks.SNOW_BLOCK)
+            .addSlopeData(45, StoneBlockSets.FROZEN_STONE.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.HEMATITE.base());
+    public static SlopeMap celebdil = new SlopeMap().addSlopeData(12, Blocks.GRASS_BLOCK)
+            .addSlopeData(16, Blocks.COARSE_DIRT)
+            .addSlopeData(21, Blocks.TUFF)
+            .addSlopeData(29, StoneBlockSets.DOLOMITE.base())
+            .addSlopeData(37, Blocks.STONE)
+            .addSlopeData(48, StoneBlockSets.GNEISS.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.ZIGILABAN.base());
+    public static SlopeMap celebdilPeaks = new SlopeMap().addSlopeData(36, Blocks.SNOW_BLOCK)
+            .addSlopeData(45, StoneBlockSets.FROZEN_STONE.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.ZIGILABAN.base());
+    public static SlopeMap fanuidhol = new SlopeMap().addSlopeData(12, Blocks.GRASS_BLOCK)
+            .addSlopeData(16, Blocks.COARSE_DIRT)
+            .addSlopeData(21, Blocks.TUFF)
+            .addSlopeData(29, StoneBlockSets.DOLOMITE.base())
+            .addSlopeData(37, Blocks.DRIPSTONE_BLOCK)
+            .addSlopeData(49, StoneBlockSets.LIMESTONE.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.GALONN.base());
+    public static SlopeMap fanuidholPeaks = new SlopeMap().addSlopeData(36, Blocks.SNOW_BLOCK)
+            .addSlopeData(45, StoneBlockSets.FROZEN_STONE.base())
+            .addSlopeData(MAX_ANGLE, StoneBlockSets.GALONN.base());
 
     public static SlopeMap mordorMountains = new SlopeMap().addSlopeData(25, ModBlocks.ASHEN_DIRT)
             .addSlopeData(30, ModBlocks.ASH_BLOCK)

@@ -81,7 +81,6 @@ public class OreConfiguredFeatures {
                 OreFeatureConfig.createTarget(stoneTest, Blocks.CALCITE.getDefaultState()),
                 OreFeatureConfig.createTarget(dirtTest, Blocks.CALCITE.getDefaultState()));
         List<OreFeatureConfig.Target> powderSnowList = List.of(
-                OreFeatureConfig.createTarget(stoneTest, Blocks.POWDER_SNOW.getDefaultState()),
                 OreFeatureConfig.createTarget(dirtTest, Blocks.POWDER_SNOW.getDefaultState()),
                 OreFeatureConfig.createTarget(new TagMatchRuleTest(BlockTags.SNOW), Blocks.POWDER_SNOW.getDefaultState()));
 
@@ -181,7 +180,7 @@ public class OreConfiguredFeatures {
                 new OreFeatureConfig(dirtTest, Blocks.PODZOL.getDefaultState(), 48, 0.4f));
 
         ConfiguredFeatures.register(featureRegisterable, POWDER_SNOW_ORE, Feature.ORE,
-                new OreFeatureConfig(powderSnowList, 37));
+                new OreFeatureConfig(powderSnowList, 41));
 
         ConfiguredFeatures.register(featureRegisterable, RIVER_SAND_ORE, Feature.DISK,
                 new DiskFeatureConfig(PredicatedStateProvider.of(ModBlocks.RIVER_SAND), BlockPredicate.matchingBlocks(List.of(Blocks.DIRT, Blocks.SAND, Blocks.GRASS_BLOCK)), UniformIntProvider.create(2, 5), 2));
