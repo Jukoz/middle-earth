@@ -37,9 +37,6 @@ public class AllAvailableSpawnSuggestionProvider implements SuggestionProvider<S
             }
         }
 
-        LoggerUtil.logDebugMsg("current user: " + targettedPlayer);
-
-
         Faction currentSelectedFaction = null; // Null by default
         try {
             Identifier factionId = context.getArgument("faction_id", Identifier.class);

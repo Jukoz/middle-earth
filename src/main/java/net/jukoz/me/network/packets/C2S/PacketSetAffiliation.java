@@ -58,8 +58,10 @@ public class PacketSetAffiliation extends ClientToServerPacket<PacketSetAffiliat
         MinecraftServer server = context.player().getServer();
         server.execute(() -> {
             try{
-                Faction faction = ModFactionRegistry.findFactionById(Identifier.of(MiddleEarth.MOD_ID, factionName));
-                FactionUtil.updateFaction(context.player(), faction, null);
+                Identifier factionId = Identifier.of(MiddleEarth.MOD_ID, factionName);
+                Faction faction = FactionUtil.getFactionById(factionId);
+                Identifier spawnId = Identifier.of(MiddleEarth.MOD_ID, spawnName);
+                FactionUtil.updateFaction(context.player(), faction, spawnId);
             } catch (Exception e){
                 LoggerUtil.logError("AffiliationPacket::Tried getting affiliation packet and couldn't fetch any.", e);
             }

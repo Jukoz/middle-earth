@@ -143,9 +143,7 @@ public class SpawnDataHandler {
     }
 
     public Identifier getDefaultSpawn() {
-        LoggerUtil.logDebugMsg("GetDefaultSpawn: [Size] " + getSpawnList().size());
         Optional<Identifier> defaultSpawnId = getSpawnList().keySet().stream().findFirst();
-        LoggerUtil.logDebugMsg("GetDefaultSpawn: [Found] " + defaultSpawnId.orElse(null));
         return defaultSpawnId.orElse(null);
     }
 }

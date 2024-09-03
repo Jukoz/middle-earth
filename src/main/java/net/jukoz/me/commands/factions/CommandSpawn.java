@@ -24,21 +24,20 @@ public class CommandSpawn {
         dispatcher.register((CommandManager.literal(ModCommands.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2))) // Require OP
                 .then((CommandManager.literal(BASE_SPAWN_COMMAND))
-                        .then(
-                                CommandManager.argument(PLAYER, EntityArgumentType.player()) // Player Target
-                                // Set with target
-                                .then(CommandManager.literal(SET)
-                                    .then(CommandManager.argument(SPAWN_ID, IdentifierArgumentType.identifier())
-                                        .suggests(new AllAvailableSpawnSuggestionProvider())
-                                    .executes(CommandSpawn::runSetWithTarget)))
-                                // Get with target
-                                .then(CommandManager.literal(GET)
-                                                .executes(CommandSpawn::runGetWithTarget)))
+                        .then(CommandManager.argument(PLAYER, EntityArgumentType.player())
+                        // Set with target
+                        .then(CommandManager.literal(SET)
+                        .then(CommandManager.argument(SPAWN_ID, IdentifierArgumentType.identifier())
+                        .suggests(new AllAvailableSpawnSuggestionProvider())
+                        .executes(CommandSpawn::runSetWithTarget)))
+                        // Get with target
+                        .then(CommandManager.literal(GET)
+                        .executes(CommandSpawn::runGetWithTarget)))
                 // Set without target
                 .then(CommandManager.literal(SET)
                 .then(CommandManager.argument(SPAWN_ID, IdentifierArgumentType.identifier())
-                        .suggests(new AllAvailableSpawnSuggestionProvider())
-                                            .executes(CommandSpawn::runGetWithTarget)))
+                    .suggests(new AllAvailableSpawnSuggestionProvider())
+                    .executes(CommandSpawn::runGetWithTarget)))
                 // Get without target
                 .then(CommandManager.literal(GET)
                     .executes(CommandSpawn::runGetWithTarget))));
@@ -46,7 +45,7 @@ public class CommandSpawn {
     }
 
 
-    private static int runGet(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    private static int runGetFromSource(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity targetedPlayer = context.getSource().getPlayer();
 
         return 0;
@@ -58,7 +57,7 @@ public class CommandSpawn {
         return 0;
     }
 
-    private static int runSet(CommandContext<ServerCommandSource> context) {
+    private static int runSetFromSource(CommandContext<ServerCommandSource> context) {
         ServerPlayerEntity targetedPlayer = context.getSource().getPlayer();
 
         return 0;

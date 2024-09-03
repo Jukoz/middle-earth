@@ -5052,7 +5052,7 @@
 "#Comment": "Commands",
   "command.me.fail" : "Command couldn't be sent properly",
 
-  "command.me.faction.join.source" : "Successfully set %s faction for %s",
+  "command.me.faction.join.source" : "%s successfully joined the %s Faction",
   "command.me.faction.get.target" : "%s faction is %s",
   "command.me.faction.get.target.none" : "%s have no faction",
   "command.me.faction.get.source" : "Your faction is %s",
@@ -5060,6 +5060,7 @@
 
   "command.me.faction.join.success" : "You have successfully joined %s",
   "command.me.faction.join.error_faction_id" : "ERR : <%s> is not a proper faction id",
+
   "command.me.faction.force_join.success" : "%s have successfully joined %s",
 
   "command.me.set_player_spawn.success" : "Succesfully modified %s spawn point for %s",
@@ -5070,6 +5071,9 @@
 
 "#Comment": "Exceptions",
   "exception.me.faction_identifier": "%s is not a valid faction identifier",
+  "exception.me.spawn_identifier": "%s is not a valid spawn identifier",
+  "exception.me.identical_faction.target": "%s already joined %s",
+  "exception.me.identical_faction.source": "You already joined %s",
 
 "#Comment:": "UI Onboarding",
   "ui.me.continue_character": "Continue",

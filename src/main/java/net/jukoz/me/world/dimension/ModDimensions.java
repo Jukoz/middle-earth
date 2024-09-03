@@ -1,18 +1,22 @@
 package net.jukoz.me.world.dimension;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.commands.CommandColors;
 import net.jukoz.me.resources.StateSaverAndLoader;
+import net.jukoz.me.resources.datas.faction.FactionUtil;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -60,6 +64,7 @@ public class ModDimensions {
 
                 ((ServerPlayerEntity) player).teleport(serverWorld, coordinates.x , coordinates.y, coordinates.z, 0, 0);
                 player.refreshPositionAfterTeleport(coordinates.x, coordinates.y, coordinates.z);
+                FactionUtil.sendOnFactionJoinMessage(player);
             }
         }
     }
