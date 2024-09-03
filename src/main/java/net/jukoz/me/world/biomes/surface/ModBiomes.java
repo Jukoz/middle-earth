@@ -36,7 +36,9 @@ public class ModBiomes {
 
     public static void bootstrap(Registerable<Biome> context) {
         context.register(MEBiomeKeys.ANDUIN_VALES, createAnduinBiome(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 8703593, 8703593)));
+                defaultSky, defaultFog, defaultWater, defaultWaterFog, 8703593, 6924625), false));
+        context.register(MEBiomeKeys.ANDUIN_VALES_FOREST, createAnduinBiome(context, new BiomeColorsDTO(
+                defaultSky, defaultFog, defaultWater, defaultWaterFog, 8703593, 6463563), true));
         context.register(MEBiomeKeys.ANORIEN, createAnorienBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 6799458, 6662221)));
         context.register(MEBiomeKeys.ANORIEN_RIVERSIDE, createGondorRiverSideBiome(context, new BiomeColorsDTO(
@@ -88,7 +90,7 @@ public class ModBiomes {
         context.register(MEBiomeKeys.DALE_RIVERSIDE, createDaleBiome(context, new BiomeColorsDTO(
                 hillySky, 12637183, defaultWater, defaultWaterFog, 7253882, 7580788)));
         context.register(MEBiomeKeys.DARK_ANDUIN_VALES, createAnduinBiome(context, new BiomeColorsDTO(
-                7246271, 8951443, 4354703, 1128527, 8032632, 7901046)));
+                7246271, 8951443, 4354703, 1128527, 8032632, 7901046), false));
         context.register(MEBiomeKeys.DARK_MIRKWOOD, createMirkwoodBiome(context, new BiomeColorsDTO(
                 5269900, 4806731, 4544130, 338483, 4151612, 3823415), true, true));
         context.register(MEBiomeKeys.DARK_MIRKWOOD_EDGE, createMirkwoodBiome(context, new BiomeColorsDTO(
@@ -236,7 +238,7 @@ public class ModBiomes {
         context.register(MEBiomeKeys.FOREST_RIVER, createMirkwoodSwampBiome(context, new BiomeColorsDTO(
                 6981536, 8821922, 7111535, 1458241, 4546876, 4284215)));
         context.register(MEBiomeKeys.GREAT_RIVER, createRiverBiome(context, new BiomeColorsDTO(
-                waterSky, 12638463, 6853316, 6853316, 10995507, 7181907)));
+                waterSky, 12638463, defaultWater, defaultWaterFog, 10995507, 7181907)));
         context.register(MEBiomeKeys.MISTY_MOUNTAINS_BASE, createMistyMountainsBiome(context, new BiomeColorsDTO(
                 hillySky, defaultFog, defaultWater, defaultWaterFog, 7777673, 7316862), 0));
         context.register(MEBiomeKeys.MISTY_MOUNTAINS, createMistyMountainsBiome(context, new BiomeColorsDTO(
@@ -387,9 +389,8 @@ public class ModBiomes {
                 6849446, 6780008, 7111535, 338483, 4748611, 4093495), true));
     }
 
-    public static Biome createAnduinBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+    public static Biome createAnduinBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, boolean forest) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addDefaultVegetation(generationSettings);
@@ -399,9 +400,38 @@ public class ModBiomes {
         ModBiomeFeatures.addOakBushes(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
         ModBiomeFeatures.addWilderGrass(vegetation);
-        ModBiomeFeatures.addVeryRareBirchTrees(vegetation);
-        ModBiomeFeatures.addSparseLarchTrees(vegetation);
-        ModBiomeFeatures.addMapleTrees(vegetation);
+        vegetation.add(VegetationPlacedFeatures.PATCH_TALL_GRASS_2);
+
+        if(!forest) {
+            vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_PLAIN);
+            ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
+            ModBiomeFeatures.addVeryRareBirchTrees(vegetation);
+            ModBiomeFeatures.addSparseLarchTrees(vegetation);
+            ModBiomeFeatures.addScarceMapleTrees(vegetation);
+            ModBiomeFeatures.addDolomiteBoulder(vegetation);
+        } else {
+            ModSpawnSettingsBuilder.addDeer(spawnSettings);
+            vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
+            vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+            ModBiomeFeatures.addBracken(vegetation);
+            ModBiomeFeatures.addMossyBoulder(vegetation);
+            ModBiomeFeatures.addBirchTrees(vegetation);
+            ModBiomeFeatures.addMegaBirchTrees(vegetation);
+            ModBiomeFeatures.addDarkOakTrees(vegetation);
+            ModBiomeFeatures.addLarchTrees(vegetation);
+            ModBiomeFeatures.addMapleTrees(vegetation);
+            ModBiomeFeatures.addCommonOakTrees(vegetation);
+            ModBiomeFeatures.addPineTrees(vegetation);
+            ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
+            ModBiomeFeatures.addScarceSpruceTrees(vegetation);
+            ModBiomeFeatures.addRareMegaOakTrees(vegetation);
+            ModBiomeFeatures.addPodzolOre(vegetation);
+            ModBiomeFeatures.addForestMoss(vegetation);
+            ModBiomeFeatures.addForestBlockMoss(vegetation);
+            ModBiomeFeatures.addSpruceBushes(vegetation);
+            ModBiomeFeatures.addRareMorsel(vegetation);
+            ModBiomeFeatures.addRareWhiteMushroom(vegetation);
+        }
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }

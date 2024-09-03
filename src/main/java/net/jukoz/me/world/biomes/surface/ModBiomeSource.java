@@ -5,6 +5,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.world.biomes.MEBiomeDataConfigs;
 import net.jukoz.me.world.chunkgen.ProceduralStructures;
 import net.jukoz.me.world.features.tree.trunks.CanopyTrunkPlacer;
@@ -39,8 +40,10 @@ public class ModBiomeSource extends BiomeSource {
             Codec.list(Biome.REGISTRY_CODEC).fieldOf("biomes").forGetter((biomeSource) -> biomeSource.biomes)).apply(instance, ModBiomeSource::new));
 
     private final List<RegistryEntry<Biome>> biomes;
-    private final int CAVE_NOISE = 96;
+    private final int CAVE_NOISE = 128;
     private final int CAVE_OFFSET = 7220;
+    private final int SUB_BIOME_NOISE = 196;
+    private final int SUB_BIOME_OFFSET = 8240;
     private MiddleEarthMapRuntime middleEarthMapRuntime;
     public ModBiomeSource(List<RegistryEntry<Biome>> biomes) {
         this.biomes = biomes;
@@ -61,6 +64,18 @@ public class ModBiomeSource extends BiomeSource {
         float temperature = (float) SimplexNoise.noise((double) x / CAVE_NOISE,  (double) z / CAVE_NOISE);
         float humidity = (float) SimplexNoise.noise((double) (x + CAVE_OFFSET) / CAVE_NOISE, (double)(z + CAVE_OFFSET) / CAVE_NOISE);
         return ModCaveBiomes.getBiome(new Vec2f(temperature, humidity), surfaceBiome);
+    }
+
+    private RegistryKey<Biome> getSubBiome(int x, int z, MEBiome surfaceBiome) {
+        if(SubBiomes.subBiomesMap.containsKey(surfaceBiome.biome)) {
+            double perlin = 1 * BlendedNoise.noise((double) x / SUB_BIOME_NOISE, (double) z / SUB_BIOME_NOISE);
+            perlin += 0.5f * BlendedNoise.noise((double) x * 2 / SUB_BIOME_NOISE, (double) z * 2 / SUB_BIOME_NOISE);
+            perlin = perlin / (1 + 0.5f); // 2 octaves
+
+            SubBiome.SubBiomeData biomeData = SubBiomes.subBiomesMap.get(surfaceBiome.biome).getBiomeAtNoise((float) perlin);
+            if (biomeData != null) return biomeData.biome;
+        }
+        return surfaceBiome.biome;
     }
 
     @Override
@@ -102,13 +117,14 @@ public class ModBiomeSource extends BiomeSource {
                     processedBiome = MEBiomesData.frozenPond.biome;
                 } else if(MEBiomesData.anduinWaterBiomes.contains(biome)){
                     processedBiome = MEBiomesData.greatRiver.biome;
-                }
-                else {
+                } else {
                     processedBiome = MEBiomesData.pond.biome;
                 }
             } else if(biome.isOf(MEBiomeKeys.NAN_CURUNIR.getRegistryRef()) && ProceduralStructures.isInsideIsengard(i, k)) {
                 processedBiome = MEBiomeKeys.ISENGARD;
-            } else processedBiome = biome;
+            } else {
+                processedBiome = getSubBiome(i, k, meBiome);
+            }
         } else processedBiome = biome;
 
         return biomes.stream().filter(

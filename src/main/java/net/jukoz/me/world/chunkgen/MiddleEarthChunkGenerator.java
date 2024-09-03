@@ -69,6 +69,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 new ArrayList<>(Arrays.asList(
                     biomeRegistry.getOrThrow(MEBiomeKeys.OCEAN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ANDUIN_VALES),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.ANDUIN_VALES_FOREST),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ANORIEN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ANORIEN_RIVERSIDE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.ANORIEN_FOOTHILLS),

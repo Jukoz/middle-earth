@@ -11,6 +11,7 @@ import net.minecraft.world.biome.BiomeKeys;
 public class MEBiomeKeys extends BiomeKeys {
     // region SURFACE
     public static final RegistryKey<Biome> ANDUIN_VALES = MEBiomeKeys.register("anduin_vales");
+    public static final RegistryKey<Biome> ANDUIN_VALES_FOREST = MEBiomeKeys.register("anduin_vales_forest");
     public static final RegistryKey<Biome> ANORIEN = MEBiomeKeys.register("anorien");
     public static final RegistryKey<Biome> ANORIEN_RIVERSIDE = MEBiomeKeys.register("anorien_riverside");
     public static final RegistryKey<Biome> ANORIEN_FOOTHILLS = MEBiomeKeys.register("anorien_foothills");
