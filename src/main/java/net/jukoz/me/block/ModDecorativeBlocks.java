@@ -17,6 +17,7 @@ import net.jukoz.me.block.special.wood_pile.WoodPileBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
+import net.minecraft.block.RodBlock;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
@@ -344,6 +345,9 @@ public class ModDecorativeBlocks {
     public static final Block WARPED_CHAIR = registerBlockWithItem("warped_chair",
             new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.WARPED_PLANKS).nonOpaque()));
     //endregion
+
+    public static final Block TREATED_STEEL_ROD = registerBlockWithItem("treated_steel_rod",
+            new DecorativeRodBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool()));
 
     public static final Block ROPE = registerBlockWithItem("rope",
             new ChainBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).noCollision()));

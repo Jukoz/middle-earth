@@ -174,6 +174,8 @@ public class MineablePickaxe {
             add(ModDecorativeBlocks.GREAT_ELVEN_GATE);
 
             add(ModDecorativeBlocks.GREAT_ORCISH_GATE);
+
+            add(ModDecorativeBlocks.TREATED_STEEL_ROD);
         }
     };
 }

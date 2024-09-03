@@ -257,6 +257,15 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         needsDiamondTools.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
 
+        needsIronTools.add(ModDecorativeBlocks.BIG_BRAZIER);
+        needsIronTools.add(ModDecorativeBlocks.GILDED_BIG_BRAZIER);
+        needsIronTools.add(ModDecorativeBlocks.SMALL_BRAZIER);
+        needsIronTools.add(ModDecorativeBlocks.GILDED_SMALL_BRAZIER);
+        needsIronTools.add(ModDecorativeBlocks.FIRE_BOWL);
+        needsIronTools.add(ModDecorativeBlocks.BONFIRE);
+
+        needsIronTools.add(ModDecorativeBlocks.TREATED_STEEL_ROD);
+
         needsStoneTools.add(ModBlocks.BRONZE_BLOCK);
         needsStoneTools.add(ModBlocks.SLAG_BLOCK);
         needsIronTools.add(ModBlocks.STEEL_BLOCK);
