@@ -889,6 +889,29 @@ public class ModBlocks {
     public static final Block WARPED_VERTICAL_SLAB = registerWoodBlock("warped_vertical_slab",
             new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).burnable()), true);
 
+    public static final Block OAK_LADDER = registerWoodBlock("oak_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).burnable()), true);
+    public static final Block SPRUCE_LADDER = registerWoodBlock("spruce_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_SLAB).burnable()), true);
+    public static final Block BIRCH_LADDER = registerWoodBlock("birch_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.BIRCH_SLAB).burnable()), true);
+    public static final Block JUNGLE_LADDER = registerWoodBlock("jungle_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.JUNGLE_SLAB).burnable()), true);
+    public static final Block ACACIA_LADDER = registerWoodBlock("acacia_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.ACACIA_SLAB).burnable()), true);
+    public static final Block DARK_OAK_LADDER = registerWoodBlock("dark_oak_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.DARK_OAK_SLAB).burnable()), true);
+    public static final Block MANGROVE_LADDER = registerWoodBlock("mangrove_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.MANGROVE_SLAB).burnable()), true);
+    public static final Block CHERRY_LADDER = registerWoodBlock("cherry_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.CHERRY_SLAB).burnable()), true);
+    public static final Block BAMBOO_LADDER = registerWoodBlock("bamboo_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO_SLAB).burnable()), true);
+    public static final Block CRIMSON_LADDER = registerWoodBlock("crimson_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.CRIMSON_SLAB).burnable()), true);
+    public static final Block WARPED_LADDER = registerWoodBlock("warped_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).burnable()), true);
+
     public static final Block STONE_VERTICAL_SLAB = registerStoneBlock("stone_vertical_slab",
             new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.STONE_SLAB)), true);
     public static final Block COBBLESTONE_VERTICAL_SLAB = registerStoneBlock("cobblestone_vertical_slab",
@@ -1022,7 +1045,7 @@ public class ModBlocks {
     public static final Block ROOTED_DIRT_STAIRS = registerMiscBlock("rooted_dirt_stairs",
             new StairsBlock(Blocks.ROOTED_DIRT.getDefaultState(), AbstractBlock.Settings.copy(Blocks.ROOTED_DIRT)), true);
     public static final Block MUD_STAIRS = registerMiscBlock("mud_stairs",
-            new StairsBlock(Blocks.MUD.getDefaultState(), AbstractBlock.Settings.copy(Blocks.MUD)), true);
+            new StairsBlock(Blocks.MUD.getDefaultState(), AbstractBlock.Settings.copy(Blocks.DIRT).sounds(BlockSoundGroup.MUD)), true);
 
     public static final Block BLACK_WOOL_STAIRS = registerMiscBlock("black_wool_stairs",
             new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).burnable()), true);

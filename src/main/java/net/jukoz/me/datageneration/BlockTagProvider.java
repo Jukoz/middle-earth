@@ -37,6 +37,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         var baseStoneOverworld = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "base_stone_overworld")));
 
+        var climbable = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("minecraft", "climbable")));
+
         var seat = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")));
         var table = getOrCreateTagBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "table")));
 
@@ -206,6 +208,17 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         seat.add(ModDecorativeBlocks.DARK_RED_CUSHION);
         seat.add(ModDecorativeBlocks.GREEN_CUSHION);
         seat.add(ModDecorativeBlocks.RED_CUSHION);
+
+        SimpleLadderModel.ladders.forEach(block -> {
+            climbable.add(block.ladder());
+        });
+
+        SimpleLadderModel.vanillaLadders.forEach(block -> {
+            climbable.add(block.ladder());
+        });
+
+        climbable.add(ModDecorativeBlocks.ROPE);
+        climbable.add(ModBlocks.NET);
 
         needsStoneTools.add(OreRockSets.GONLUIN.copper_ore());
         needsStoneTools.add(OreRockSets.GONLUIN.tin_ore());

@@ -373,6 +373,14 @@ public class MiddleEarthClient implements ClientModInitializer {
             BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
         }
 
+        for(SimpleLadderModel.Ladder block : SimpleLadderModel.ladders) {
+            BlockRenderLayerMap.INSTANCE.putBlock(block.ladder(), RenderLayer.getCutout());
+        }
+
+        for(SimpleLadderModel.Ladder block : SimpleLadderModel.vanillaLadders) {
+            BlockRenderLayerMap.INSTANCE.putBlock(block.ladder(), RenderLayer.getCutout());
+        }
+
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.DARK_MUSHROOM.trapdoor(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.GRAY_MUSHROOM.trapdoor(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.MUSHROOM.trapdoor(), RenderLayer.getCutout());
