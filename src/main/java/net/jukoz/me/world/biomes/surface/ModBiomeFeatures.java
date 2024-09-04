@@ -93,6 +93,10 @@ public class ModBiomeFeatures {
     public static void addSparseLarchTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.SPARSE_LARCH_PLACED_TREE_KEY);
     }
+    public static void addRareLarchTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.RARE_LARCH_PLACED_TREE_KEY);
+    }
+
     public static void addLebethronTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.BLACK_LEBETHRON_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.WHITE_LEBETHRON_PLACED_TREE_KEY);
@@ -482,6 +486,9 @@ public class ModBiomeFeatures {
     }
     public static void addReedsFoliage(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_REEDS);
+    }
+    public static void addStickySnow(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_STICKY_SNOW);
     }
     public static void addWheatGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_WHEAT_GRASS);

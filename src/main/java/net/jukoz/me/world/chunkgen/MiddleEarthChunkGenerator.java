@@ -6,13 +6,11 @@ import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.utils.noises.BlendedNoise;
 import net.jukoz.me.utils.noises.SimplexNoise;
 import net.jukoz.me.world.biomes.BlocksLayeringData;
+import net.jukoz.me.world.biomes.surface.*;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
-import net.jukoz.me.world.biomes.surface.MEBiome;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
-import net.jukoz.me.world.biomes.surface.MEBiomesData;
-import net.jukoz.me.world.biomes.surface.ModBiomeSource;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -29,6 +27,7 @@ import net.minecraft.util.math.random.RandomSeed;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
+import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.StructureAccessor;
@@ -200,6 +199,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.NURN_SEA),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OCEAN_COAST),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OLD_ANGMAR),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.OLD_ANGMAR_FOREST),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.OLD_ANGMAR_COLD_HILL),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.OLD_ANGMAR_FROZEN_HILL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OLD_ARTHEDAIN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OLD_ARTHEDAIN_FOOTHILL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OLD_CARDOLAN),
@@ -299,13 +301,18 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 float slopeAngle = getTerrainSlope(height, posX, posZ);
                 int waterHeight = meBiome.waterHeight;
 
-                if(meBiome.biome == MEBiomeKeys.MOUNT_DOOM) {
+                if(SubBiomes.isSubBiome(meBiome.biome)) {
+                    SubBiome subBiome = SubBiomes.getSubBiomeFromChild(meBiome.biome);
+                    if(subBiome != null) {
+                        double perlin = ModBiomeSource.getSubBiomeNoise(posX, posZ);
+                        height += subBiome.getAdditionalHeight((float) perlin);
+                    }
+                } else if(meBiome.biome == MEBiomeKeys.MOUNT_DOOM) {
                     float percentage = (float) Math.sqrt(mountDoom.distanceSquared(new Vec2f(posX, posZ))) / 50;
                     percentage = Math.min(1, Math.max(0.0f, percentage));
                     percentage = (float) Math.pow(percentage, 2.45f);
                     height = height * percentage;
-                }
-                if(meBiome.biome == MEBiomeKeys.DEAD_MARSHES || meBiome.biome == MEBiomeKeys.DEAD_MARSHES_WATER) {
+                } else if(meBiome.biome == MEBiomeKeys.DEAD_MARSHES || meBiome.biome == MEBiomeKeys.DEAD_MARSHES_WATER) {
                     float oldHeight = height;
                     height = getMarshesHeight(posX, posZ, height);
                     float percentage = Math.min(MiddleEarthHeightMap.getImageNoiseModifier(posX, posZ), 0.3f) / 0.3f;

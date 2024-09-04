@@ -2,11 +2,13 @@ package net.jukoz.me.world.chunkgen.map;
 
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.noises.BlendedNoise;
+import net.jukoz.me.world.biomes.surface.*;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
-import net.jukoz.me.world.biomes.surface.MEBiome;
-import net.jukoz.me.world.biomes.surface.MEBiomesData;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.biome.Biome;
 
 import java.awt.*;
 import java.util.ArrayList;

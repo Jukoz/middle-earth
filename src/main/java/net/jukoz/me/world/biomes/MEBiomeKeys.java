@@ -146,6 +146,9 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> OCEAN = MEBiomeKeys.register("ocean");
     public static final RegistryKey<Biome> OCEAN_COAST = MEBiomeKeys.register("ocean_coast");
     public static final RegistryKey<Biome> OLD_ANGMAR = MEBiomeKeys.register("old_angmar");
+    public static final RegistryKey<Biome> OLD_ANGMAR_FOREST = MEBiomeKeys.register("old_angmar_forest");
+    public static final RegistryKey<Biome> OLD_ANGMAR_COLD_HILL = MEBiomeKeys.register("old_angmar_cold_hill");
+    public static final RegistryKey<Biome> OLD_ANGMAR_FROZEN_HILL = MEBiomeKeys.register("old_angmar_frozen_hill");
     public static final RegistryKey<Biome> OLD_ARTHEDAIN = MEBiomeKeys.register("old_arthedain");
     public static final RegistryKey<Biome> OLD_ARTHEDAIN_FOOTHILL = MEBiomeKeys.register("old_arthedain_foothill");
     public static final RegistryKey<Biome> OLD_CARDOLAN = MEBiomeKeys.register("old_cardolan");

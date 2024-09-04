@@ -40,10 +40,10 @@ public class ModBiomeSource extends BiomeSource {
             Codec.list(Biome.REGISTRY_CODEC).fieldOf("biomes").forGetter((biomeSource) -> biomeSource.biomes)).apply(instance, ModBiomeSource::new));
 
     private final List<RegistryEntry<Biome>> biomes;
-    private final int CAVE_NOISE = 128;
-    private final int CAVE_OFFSET = 7220;
-    private final int SUB_BIOME_NOISE = 196;
-    private final int SUB_BIOME_OFFSET = 8240;
+    private static final int CAVE_NOISE = 128;
+    private static final int CAVE_OFFSET = 7220;
+    public static final int SUB_BIOME_NOISE = 196;
+    public static final int SUB_BIOME_OFFSET = 8240;
     private MiddleEarthMapRuntime middleEarthMapRuntime;
     public ModBiomeSource(List<RegistryEntry<Biome>> biomes) {
         this.biomes = biomes;
@@ -66,12 +66,17 @@ public class ModBiomeSource extends BiomeSource {
         return ModCaveBiomes.getBiome(new Vec2f(temperature, humidity), surfaceBiome);
     }
 
-    private RegistryKey<Biome> getSubBiome(int x, int z, MEBiome surfaceBiome) {
-        if(SubBiomes.subBiomesMap.containsKey(surfaceBiome.biome)) {
-            double perlin = 1 * BlendedNoise.noise((double) x / SUB_BIOME_NOISE, (double) z / SUB_BIOME_NOISE);
-            perlin += 0.5f * BlendedNoise.noise((double) x * 2 / SUB_BIOME_NOISE, (double) z * 2 / SUB_BIOME_NOISE);
-            perlin = perlin / (1 + 0.5f); // 2 octaves
+    public static double getSubBiomeNoise(int x, int z) {
+        double perlin = 1 * BlendedNoise.noise((double) x / SUB_BIOME_NOISE, (double) z / SUB_BIOME_NOISE);
+        perlin += 0.5f * BlendedNoise.noise((double) x * 2 / SUB_BIOME_NOISE, (double) z * 2 / SUB_BIOME_NOISE);
+        perlin = perlin / (1 + 0.5f); // 2 octaves
+        return perlin;
+    }
 
+    private RegistryKey<Biome> getSubBiome(int x, int z, MEBiome surfaceBiome) {
+        SubBiome subBiome = SubBiomes.getSubBiome(surfaceBiome.biome);
+        if(subBiome != null) {
+            double perlin = getSubBiomeNoise(x, z);
             SubBiome.SubBiomeData biomeData = SubBiomes.subBiomesMap.get(surfaceBiome.biome).getBiomeAtNoise((float) perlin);
             if (biomeData != null) return biomeData.biome;
         }
@@ -95,6 +100,12 @@ public class ModBiomeSource extends BiomeSource {
 
         if(!MEBiomesData.waterBiomes.contains(biome)) {
             float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
+            SubBiome subBiome = SubBiomes.getSubBiome(meBiome.biome);
+            if(subBiome != null) {
+                double perlin = ModBiomeSource.getSubBiomeNoise(i, k);
+                height += subBiome.getAdditionalHeight((float) perlin);
+            }
+
             if(j <= CavesPlacedFeatures.MAX_MITHRIL_HEIGHT && meBiome.caveType == CaveType.MISTIES) {
                 processedBiome = MEBiomeKeys.MITHRIL_CAVE;
             } else if(biome == MEBiomesData.deadMarshes.biome || biome == MEBiomesData.deadMarshesWater.biome) {

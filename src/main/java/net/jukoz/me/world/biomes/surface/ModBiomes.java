@@ -298,7 +298,13 @@ public class ModBiomes {
         context.register(MEBiomeKeys.OCEAN_COAST, createOceanCoastBiome(context, new BiomeColorsDTO(
                 8104447, defaultFog, defaultCoastWater, defaultOceanWaterFog, 7971954, 6590810)));
         context.register(MEBiomeKeys.OLD_ANGMAR, createOldAngmarBiome(context, new BiomeColorsDTO(
-                8954077, 11781343, 4814544, 460593, 7443043, 6982236)));
+                8954077, 11781343, 4814544, 460593, 7443043, 6982236), 1));
+        context.register(MEBiomeKeys.OLD_ANGMAR_FOREST, createOldAngmarBiome(context, new BiomeColorsDTO(
+                8954077, 11781343, 4814544, 460593, 7443043, 6982236), 0));
+        context.register(MEBiomeKeys.OLD_ANGMAR_COLD_HILL, createOldAngmarBiome(context, new BiomeColorsDTO(
+                8954077, 11781343, 4814544, 460593, 7443043, 6982236), 2));
+        context.register(MEBiomeKeys.OLD_ANGMAR_FROZEN_HILL, createOldAngmarBiome(context, new BiomeColorsDTO(
+                8954077, 11781343, 4814544, 460593, 7443043, 6982236), 3));
         context.register(MEBiomeKeys.OLD_ARTHEDAIN, createOldArthedainBiome(context, new BiomeColorsDTO(
                 7907327, defaultFog, defaultWater, defaultWaterFog, 12508275, 11652468)));
         context.register(MEBiomeKeys.OLD_ARTHEDAIN_FOOTHILL, createOldArthedainBiome(context, new BiomeColorsDTO(
@@ -401,18 +407,18 @@ public class ModBiomes {
         ModBiomeFeatures.addWildGrass(vegetation);
         ModBiomeFeatures.addWilderGrass(vegetation);
         vegetation.add(VegetationPlacedFeatures.PATCH_TALL_GRASS_2);
+        vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
 
         if(!forest) {
             vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_PLAIN);
             ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
             ModBiomeFeatures.addVeryRareBirchTrees(vegetation);
-            ModBiomeFeatures.addSparseLarchTrees(vegetation);
+            ModBiomeFeatures.addRareLarchTrees(vegetation);
             ModBiomeFeatures.addScarceMapleTrees(vegetation);
             ModBiomeFeatures.addDolomiteBoulder(vegetation);
         } else {
             ModSpawnSettingsBuilder.addDeer(spawnSettings);
             vegetation.add(VegetationPlacedFeatures.PATCH_LARGE_FERN);
-            vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
             ModBiomeFeatures.addBracken(vegetation);
             ModBiomeFeatures.addMossyBoulder(vegetation);
             ModBiomeFeatures.addBirchTrees(vegetation);
@@ -1655,7 +1661,7 @@ public class ModBiomes {
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
 
-    public static Biome createOldAngmarBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+    public static Biome createOldAngmarBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
@@ -1666,26 +1672,51 @@ public class ModBiomes {
         vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
         vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
         vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
+
         ModBiomeFeatures.addBasaltBoulder(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
-        ModBiomeFeatures.addBrownBolete(vegetation);
-        ModBiomeFeatures.addMorsel(vegetation);
         ModBiomeFeatures.addWhiteMushroom(vegetation);
         ModBiomeFeatures.addToughBerriesRare(vegetation);
-        ModBiomeFeatures.addAshBlockOre(vegetation);
         ModBiomeFeatures.addCoarseDirtOre(vegetation);
-        ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addAshenGravelOre(vegetation);
         ModBiomeFeatures.addDyingGrass(vegetation);
-        ModBiomeFeatures.addRareForestMoss(vegetation);
 
-        ModBiomeFeatures.addDeadPineTrees(vegetation);
-        ModBiomeFeatures.addDeadBlackPineTrees(vegetation);
-        ModBiomeFeatures.addSparsePineTrees(vegetation);
-        ModBiomeFeatures.addScarceSpruceTrees(vegetation);
-        ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
-        ModBiomeFeatures.addSpruceBushes(vegetation);
+        float temperature = 0.35f;
+        if(step == 0) { // Forest
+            ModBiomeFeatures.addAshenDirtOre(vegetation);
+            ModBiomeFeatures.addPodzolOre(vegetation);
+            ModBiomeFeatures.addBrownBolete(vegetation);
+            ModBiomeFeatures.addMorsel(vegetation);
+            ModBiomeFeatures.addRareForestMoss(vegetation);
+            ModBiomeFeatures.addCommonSpruceBushes(vegetation);
+            ModBiomeFeatures.addDeadPineTrees(vegetation);
+            ModBiomeFeatures.addDeadBlackPineTrees(vegetation);
+            ModBiomeFeatures.addCommonPineTrees(vegetation);
+            ModBiomeFeatures.addCommonBlackPineTrees(vegetation);
+            ModBiomeFeatures.addCommonSpruceTrees(vegetation);
+        } else if(step == 1) { // Plains
+            ModBiomeFeatures.addShriveledShrubs(vegetation);
+            ModBiomeFeatures.addSpruceBushes(vegetation);
+            ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
+            ModBiomeFeatures.addVeryRareSpruceTrees(vegetation);
+        } else if(step == 2) { // Cold Hill
+            ModBiomeFeatures.addSparsePineTrees(vegetation);
+            ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
+            ModBiomeFeatures.addRareSpruceTrees(vegetation);
+            ModBiomeFeatures.addSpruceBushes(vegetation);
+            ModBiomeFeatures.addStickySnow(vegetation);
+            temperature = 0.5f;
+        } else if(step == 3) { // Frozen Hill
+            ModBiomeFeatures.addShriveledShrubs(vegetation);
+            ModBiomeFeatures.addSnowOre(vegetation);
+            ModBiomeFeatures.addSparsePineTrees(vegetation);
+            ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
+            ModBiomeFeatures.addScarceSpruceTrees(vegetation);
+            temperature = -0.2f;
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.35f, true);
+        }
+
+        return createBiome(biomeColors, spawnSettings, generationSettings, temperature, true);
     }
 
     public static Biome createOldArthedainBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
