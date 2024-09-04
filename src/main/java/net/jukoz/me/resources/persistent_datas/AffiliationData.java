@@ -2,11 +2,12 @@ package net.jukoz.me.resources.persistent_datas;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.exceptions.FactionIdentifierException;
-import net.jukoz.me.resources.ModFactionRegistry;
 import net.jukoz.me.resources.datas.Alignment;
-import net.jukoz.me.resources.datas.faction.Faction;
+import net.jukoz.me.resources.datas.factions.Faction;
+import net.jukoz.me.resources.datas.factions.FactionLookup;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.dimension.ModDimensions;
+import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Vector2i;
@@ -29,10 +30,12 @@ public class AffiliationData {
 
     public Vec3d getMiddleEarthSpawnCoordinate(){
         try{
-            Faction foundFaction = ModFactionRegistry.findFactionById(faction);
+            Faction foundFaction = FactionLookup.findFactionById(faction);
+            LoggerUtil.logDebugMsg("MiddleEarth spawn coordinate : " + spawnId.toString());
             Vector2i dynamicSpawnFound = foundFaction.getSpawnData().findDynamicSpawn(spawnId);
             // Return dynamic spawn with dimension height
             if(dynamicSpawnFound != null){
+                dynamicSpawnFound = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(dynamicSpawnFound.x, dynamicSpawnFound.y);
                 double y = ModDimensions.getDimensionHeight(dynamicSpawnFound.x, dynamicSpawnFound.y).y;
                 return new Vec3d(dynamicSpawnFound.x, y, dynamicSpawnFound.y);
             }
@@ -46,6 +49,6 @@ public class AffiliationData {
 
     @Override
     public String toString() {
-        return "AffiliationData{Alignment=" + getAlignment().toString() + "; Faction=" + faction + "; Spawn=" + spawnId + ";}";
+        return "Alignment=" + getAlignment().toString() + ";\nFaction=" + faction + ";\nSpawn=" + spawnId + ";";
     }
 }

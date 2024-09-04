@@ -1,14 +1,15 @@
-package net.jukoz.me.resources.datas.faction;
+package net.jukoz.me.resources.datas.factions;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.resources.ModFactionRegistry;
+import net.jukoz.me.resources.Races;
 import net.jukoz.me.resources.datas.Alignment;
-import net.jukoz.me.resources.datas.Race;
-import net.jukoz.me.resources.datas.faction.utils.BannerData;
-import net.jukoz.me.resources.datas.faction.utils.FactionNpcPreviewData;
-import net.jukoz.me.resources.datas.faction.utils.SpawnDataHandler;
+import net.jukoz.me.resources.datas.factions.data.BannerData;
+import net.jukoz.me.resources.datas.factions.data.FactionNpcPreviewData;
+import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
+import net.jukoz.me.resources.datas.races.Race;
+import net.jukoz.me.resources.datas.races.RaceLookup;
+import net.jukoz.me.utils.IdentifierUtil;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.nbt.NbtCompound;
@@ -45,38 +46,29 @@ public class Faction {
     private List<String> joinCommands;
     private List<String> leaveCommands;
 
-    /**
-     * Codec constructor
-     * @param id Id of the faction, meant to be the path of the identifier
-     * @param alignment Alignment name, based on the alignment enum
-     * @param races all races, first value is used as preview race
-     */
     public Faction(String id, String alignment, List<String> races, Optional<NbtCompound> previewGearNbt, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
-        this.id = Identifier.of(MiddleEarth.MOD_ID, id);
+        this.id = IdentifierUtil.getIdentifierFromString(id);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
 
         this.alignment = Alignment.valueOf(alignment.toUpperCase());
 
-        this.official_races = new ArrayList<>();
+        this.official_races = RaceLookup.getRacesFromString(races);
 
-        for(String raceName : races){
-            official_races.add(Race.fromString(raceName.toUpperCase()));
-        }
         this.previewGears = new FactionNpcPreviewData(previewGearNbt);
         this.bannerData = new BannerData(bannerDataNbt);
         this.spawnDataHandler = new SpawnDataHandler(spawnsNbt);
-        ModFactionRegistry.addFaction(this, this.id);
 
         this.joinCommands = new ArrayList<>();
         joinCommands.ifPresent(nbtCompound -> this.joinCommands.addAll(nbtCompound));
         this.leaveCommands = new ArrayList<>();
         leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
+        FactionLookup.addFaction(this);
 
         LoggerUtil.logDebugMsg("Adding faction : \n[Id] : " + this.id + "\n" + "[TranslatableKey] : " + this.translatableKey);
     }
 
     public Faction(String name, Alignment alignment, FactionNpcPreviewData factionNpcPreviewData, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<Race> races, List<String> joinCommand, List<String> leaveCommand){
-        this.id = Identifier.of(MiddleEarth.MOD_ID, name);
+        this.id = IdentifierUtil.getIdentifierFromString(name);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.alignment = alignment;
         this.previewGears = factionNpcPreviewData;
@@ -89,14 +81,14 @@ public class Faction {
 
     private List<String> getRaceNames() {
         List<String> races = new ArrayList<>();
-        for(Race race : official_races){
-            races.add(race.name());
+        for(Race race : this.official_races){
+            races.add(race.getId().toString());
         }
         return races;
     }
 
     private String getIdValue() {
-        return this.id.getPath();
+        return this.id.toString();
     }
     private Optional<NbtCompound> getPreviewGearNbt() {
         if(this.previewGears == null)
@@ -130,7 +122,7 @@ public class Faction {
     public void debugPrint(String messsage) {
         String races = "";
         for(Race race : this.official_races){
-            races += race.name() + ",";
+            races += race.getId() + ",";
         }
 
         String subfactionsText = "";
@@ -190,8 +182,8 @@ public class Faction {
 
     public Race getPreviewRace() {
         if(this.official_races == null || this.official_races.isEmpty()){
-            LoggerUtil.logDebugMsg("Faction::"+id+":Couldn't find race -> returning "+ Race.HUMAN.toString());
-            return Race.HUMAN;
+            LoggerUtil.logDebugMsg("Faction::"+id+":Couldn't find race -> returning "+ Races.HUMAN.getId());
+            return Races.HUMAN;
         }
 
         return this.official_races.get(0);
@@ -245,5 +237,9 @@ public class Faction {
 
     public Faction findSubfaction(Identifier id) {
         return subFactions.get(id);
+    }
+
+    public List<Race> getRaces() {
+        return official_races;
     }
 }

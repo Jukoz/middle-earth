@@ -22,14 +22,17 @@ public class PacketTeleportToDynamicCoordinate extends ClientToServerPacket<Pack
     public static final PacketCodec<RegistryByteBuf, PacketTeleportToDynamicCoordinate> CODEC = PacketCodec.tuple(
             PacketCodecs.INTEGER, p -> p.xCoordinate,
             PacketCodecs.INTEGER, p -> p.zCoordinate,
+            PacketCodecs.BOOL, p -> p.welcomeNeeded,
             PacketTeleportToDynamicCoordinate::new
     );
     private final int xCoordinate;
     private final int zCoordinate;
+    private final boolean welcomeNeeded;
 
-    public PacketTeleportToDynamicCoordinate(int xCoordinate, int zCoordinate){
+    public PacketTeleportToDynamicCoordinate(int xCoordinate, int zCoordinate, boolean welcomeNeeded){
         this.xCoordinate = xCoordinate;
         this.zCoordinate = zCoordinate;
+        this.welcomeNeeded = welcomeNeeded;
     }
     @Override
     public Id<PacketTeleportToDynamicCoordinate> getId() {
@@ -47,7 +50,7 @@ public class PacketTeleportToDynamicCoordinate extends ClientToServerPacket<Pack
             Vector2i worldCoordinate = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(xCoordinate, zCoordinate);
 
             Vec3d coordinates = new Vec3d(worldCoordinate.x, ModDimensions.getDimensionHeight(worldCoordinate.x, worldCoordinate.y).y, worldCoordinate.y);
-            ModDimensions.teleportPlayerToMe(context.player(), coordinates);
+            ModDimensions.teleportPlayerToMe(context.player(), coordinates, welcomeNeeded);
         });
     }
 }

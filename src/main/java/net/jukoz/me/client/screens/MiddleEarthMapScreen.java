@@ -205,7 +205,7 @@ public class MiddleEarthMapScreen extends Screen {
 
     private void getTeleport(Vector2i coord){
         if(ModDimensions.isInMiddleEarth(this.player.getWorld()) && this.player.isCreative()){
-            ClientPlayNetworking.send(new PacketTeleportToDynamicCoordinate(coord.x, coord.y));
+            ClientPlayNetworking.send(new PacketTeleportToDynamicCoordinate(coord.x, coord.y, false));
         }
     }
 

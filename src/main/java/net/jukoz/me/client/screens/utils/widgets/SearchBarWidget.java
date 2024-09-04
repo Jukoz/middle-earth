@@ -1,12 +1,10 @@
 package net.jukoz.me.client.screens.utils.widgets;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.client.screens.utils.CycledSelectionButtonType;
 import net.jukoz.me.resources.datas.Alignment;
-import net.jukoz.me.resources.datas.faction.Faction;
+import net.jukoz.me.resources.datas.factions.Faction;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ScrollableWidget;
 import net.minecraft.text.MutableText;

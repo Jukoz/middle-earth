@@ -1,16 +1,23 @@
 package net.jukoz.me.resources.persistent_datas;
 
+import net.jukoz.me.resources.datas.races.Race;
+import net.jukoz.me.resources.datas.races.RaceLookup;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 public class PlayerData {
     private AffiliationData affiliationData;
+    private Identifier race;
     private BlockPos overworldSpawnCoordinates;
 
     public PlayerData(){
         this.affiliationData = null;
     }
-    public PlayerData(AffiliationData affiliationData){
-        this.affiliationData = affiliationData;
+    public void setRace(Identifier raceId){
+        this.race = raceId;
+    }
+    public Identifier getRace(){
+        return this.race;
     }
 
     public void setAffiliationData(AffiliationData affiliationData){
@@ -26,8 +33,16 @@ public class PlayerData {
 
     @Override
     public String toString() {
+        String text = "";
         if(hasAffilition())
-            return affiliationData + "_Overworld=" + overworldSpawnCoordinates + ";";
+            text += affiliationData+"\n";
+        if(race != null)
+            text += "Race="+race+"\n";
+        if(overworldSpawnCoordinates != null)
+            text += "Overworld="+overworldSpawnCoordinates+"\n";
+
+        if(!text.equals(""))
+            return text;
         else
             return "No Data";
     }

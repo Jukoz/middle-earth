@@ -14,7 +14,9 @@ import net.jukoz.me.network.ModServerNetworkHandler;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.recipe.ModRecipeSerializer;
 import net.jukoz.me.registries.ModRegistries;
-import net.jukoz.me.resources.ModFactionRegistry;
+import net.jukoz.me.resources.CustomServerDataResourceReloadListener;
+import net.jukoz.me.resources.Factions;
+import net.jukoz.me.resources.Races;
 import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.jukoz.me.recipe.ModRecipes;
 import net.jukoz.me.sound.ModSounds;
@@ -40,7 +42,10 @@ public class MiddleEarth implements ModInitializer {
 		LoggerUtil.logInfoMsg("================ MiddleEarth ================");
 
 		ModServerNetworkHandler.register(new ConnectionToClient());
-		ModFactionRegistry.register();
+
+		CustomServerDataResourceReloadListener.register();
+		Races.register();
+		Factions.register();
 
 		ModServerConfigs.registerConfigs();
 		ModClientConfigs.registerConfigs();

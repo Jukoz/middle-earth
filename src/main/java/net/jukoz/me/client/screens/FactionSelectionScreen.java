@@ -7,8 +7,8 @@ import net.jukoz.me.client.screens.controllers.FactionSelectionController;
 import net.jukoz.me.client.screens.utils.CycledSelectionButtonType;
 import net.jukoz.me.client.screens.utils.widgets.*;
 import net.jukoz.me.resources.datas.Alignment;
-import net.jukoz.me.resources.datas.faction.Faction;
-import net.jukoz.me.resources.datas.faction.utils.BannerData;
+import net.jukoz.me.resources.datas.factions.Faction;
+import net.jukoz.me.resources.datas.factions.data.BannerData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.gui.DrawContext;
@@ -59,6 +59,7 @@ public class FactionSelectionScreen extends Screen {
     public ButtonWidget mapFocusButton;
     public boolean mapFocusToggle = false;
     private MapWidget mapWidget;
+    private CycledSelectionWidget raceCycledSelection;
     private CycledSelectionWidget spawnPointCycledSelection;
     public ButtonWidget spawnSelectionRandomizerButton;
     public ButtonWidget spawnSelectionConfirmButton;
@@ -80,8 +81,7 @@ public class FactionSelectionScreen extends Screen {
         addDrawableChild(searchBarWidget.getSearchBarToggleButton());
 
         // NpcPreview
-        playableNpcPreviewWidget = new PlayableNpcPreviewWidget(this.client.world);
-        updateEquipment();
+        playableNpcPreviewWidget = new PlayableNpcPreviewWidget();
 
         addFactionSelectionPanelButtons();
         mapWidget = new MapWidget(114, 114);
@@ -202,6 +202,22 @@ public class FactionSelectionScreen extends Screen {
                 }).build();
         addDrawableChild(mapZoomInButton);
 
+        // Race Selection
+        raceCycledSelection = new CycledSelectionWidget(
+                button -> {
+                    controller.raceIndexUpdate(false);
+                    updateEquipment();
+                },
+                button -> {
+                    controller.raceIndexUpdate(true);
+                    updateEquipment();
+                },
+                null,
+                CycledSelectionButtonType.NORMAL);
+        for(ButtonWidget button: raceCycledSelection.getButtons()){
+            addDrawableChild(button);
+        }
+
         // Spawn Point Selection
         spawnPointCycledSelection = new CycledSelectionWidget(
                 button -> {
@@ -234,12 +250,15 @@ public class FactionSelectionScreen extends Screen {
         addDrawableChild(spawnSelectionConfirmButton);
     }
 
-    private void updateEquipment(){
+    public void updateEquipment(){
+        if(player == null) return;
+
         Faction faction = controller.getCurrentlySelectedFaction();
+
         if(faction != null)
-            playableNpcPreviewWidget.updateEntity(faction.getPreviewGear(), faction.getPreviewRace());
+            playableNpcPreviewWidget.updateEntity(controller.getCurrentPreview(), controller.getCurrentRace(), player.getWorld());
         else
-            playableNpcPreviewWidget.updateToDefaultEntity();
+            playableNpcPreviewWidget.updateToDefaultEntity(player.getWorld());
     }
 
     @Override
@@ -322,6 +341,11 @@ public class FactionSelectionScreen extends Screen {
 
         int centerX = endX - CycledSelectionWidget.TOTAL_WIDTH / 2;
         int endY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight;
+
+        if(!playableNpcPreviewWidget.haveBeenInitialized)
+            updateEquipment();
+
+
 
         int newStartY = startY + searchBarWidget.drawSearchBarCentered(context, centerX, startY, textRenderer);
 
@@ -469,10 +493,15 @@ public class FactionSelectionScreen extends Screen {
             highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
         }
 
-        // Spawn point option
+        // Race option
         startY += MINIMAL_MARGIN;
         spawnPointCycledSelection.drawAnchored(context, startX,  startY,true, Text.translatable(controller.getCurrentSpawnKey()), textRenderer);
-        spawnPointCycledSelection.enableArrows(true);
+        spawnPointCycledSelection.enableArrows(controller.haveManySpawns());
+
+        // Spawn point option
+        startY += MINIMAL_MARGIN + CycledSelectionWidget.TOTAL_HEIGHT;
+        raceCycledSelection.drawAnchored(context, startX,  startY,true, Text.translatable(controller.getCurrentRaceKey()), textRenderer);
+        raceCycledSelection.enableArrows(controller.haveManyRaces());
 
         // Draw selection option
         int sizeX = 52;

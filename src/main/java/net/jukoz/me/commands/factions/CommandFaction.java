@@ -10,30 +10,21 @@ import net.jukoz.me.commands.suggestions.AllJoinableFactionSuggestionProvider;
 import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.exceptions.IdenticalFactionException;
 import net.jukoz.me.exceptions.SpawnIdentifierException;
-import net.jukoz.me.resources.ModFactionRegistry;
 import net.jukoz.me.resources.StateSaverAndLoader;
-import net.jukoz.me.resources.datas.faction.Faction;
-import net.jukoz.me.resources.datas.faction.FactionUtil;
+import net.jukoz.me.resources.datas.factions.Faction;
+import net.jukoz.me.resources.datas.factions.FactionLookup;
+import net.jukoz.me.resources.datas.factions.FactionUtil;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.IdentifierArgumentType;
-import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.registry.*;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Optional;
-import java.util.logging.Logger;
 
 import static net.minecraft.server.command.CommandManager.literal;
 import static net.minecraft.server.command.CommandManager.argument;
@@ -115,7 +106,7 @@ public class CommandFaction {
                 source.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(50);
                 PlayerData playerData = StateSaverAndLoader.getPlayerState(source);
                 if(playerData != null && playerData.hasAffilition()){
-                    Faction foundFaction = FactionUtil.getFactionById(playerData.getAffiliationData().faction);
+                    Faction foundFaction = FactionLookup.getFactionById(playerData.getAffiliationData().faction);
                     if(foundFaction != null){
                         MutableText sourceText = Text.translatable("command.me.faction.get.source", foundFaction.getFullName());
                         source.sendMessage(sourceText.withColor(CommandColors.SUCCESS.color));
@@ -134,26 +125,9 @@ public class CommandFaction {
         if(targetedPlayer != null && context.getSource().isExecutedByPlayer()) {
             ServerPlayerEntity source = context.getSource().getPlayer();
             if(source != null){
-
-                /* TODO : race stuff with custom attributes
-                final DynamicRegistryManager registryManager = source.getWorld().getRegistryManager();
-                EntityAttribute attribute = registryManager.get(RegistryKeys.ATTRIBUTE).get(Identifier.ofVanilla("generic.gravity"));
-                LoggerUtil.logDebugMsg("default value : " + attribute.getDefaultValue());
-
-                Optional<RegistryEntry.Reference<EntityAttribute>> attributeEntry =  Registries.ATTRIBUTE.getEntry(Identifier.ofVanilla("generic.gravity"));
-                if(attributeEntry != null && attributeEntry.isPresent()){
-                    EntityAttributeInstance instance = source.getAttributes().getCustomInstance(attributeEntry.get());
-                    if(instance != null){
-                        instance.setBaseValue(0.3);
-                    }
-                }
-                */
-
-                //source.getAttributeInstance(entry).setBaseValue(0.10000000149011612);
-
                 PlayerData playerData = StateSaverAndLoader.getPlayerState(targetedPlayer);
                 if(playerData != null && playerData.hasAffilition()){
-                    Faction foundFaction = FactionUtil.getFactionById(playerData.getAffiliationData().faction);
+                    Faction foundFaction = FactionLookup.getFactionById(playerData.getAffiliationData().faction);
                     if(foundFaction != null) {
                         // Send success message to source
                         MutableText sourceText = Text.translatable("command.me.faction.get.target", targetedPlayer.getName(), foundFaction.getFullName());
@@ -175,7 +149,7 @@ public class CommandFaction {
             if(source != null){
                 PlayerData playerData = StateSaverAndLoader.getPlayerState(source);
                 if(playerData != null && playerData.hasAffilition()){
-                    Faction foundFaction = FactionUtil.getFactionById(playerData.getAffiliationData().faction);
+                    Faction foundFaction = FactionLookup.getFactionById(playerData.getAffiliationData().faction);
                     if(foundFaction != null){
                         MutableText sourceText = Text.translatable("in progress", foundFaction.getFullName());
                         source.sendMessage(sourceText.withColor(CommandColors.SUCCESS.color));
@@ -195,7 +169,7 @@ public class CommandFaction {
             if(source != null){
                 PlayerData playerData = StateSaverAndLoader.getPlayerState(source);
                 if(playerData != null && playerData.hasAffilition()){
-                    Faction foundFaction = FactionUtil.getFactionById(playerData.getAffiliationData().faction);
+                    Faction foundFaction = FactionLookup.getFactionById(playerData.getAffiliationData().faction);
                     if(foundFaction != null){
                         MutableText sourceText = Text.translatable("command.me.faction.get.source", foundFaction.getFullName());
                         source.sendMessage(sourceText.withColor(CommandColors.SUCCESS.color), true);
@@ -237,7 +211,7 @@ public class CommandFaction {
 
         boolean success = updateFactionFromCommand(targetedPlayer, context.getSource(), factionIdentifier, spawnIdentifier);
         if(success){
-            Faction faction = FactionUtil.getFactionById(factionIdentifier);
+            Faction faction = FactionLookup.getFactionById(factionIdentifier);
             if(context.getSource().isExecutedByPlayer()){
                 ServerPlayerEntity source = context.getSource().getPlayer();
                 // Send success message to source
@@ -252,7 +226,7 @@ public class CommandFaction {
     public static boolean updateFactionFromCommand(ServerPlayerEntity target, ServerCommandSource source, Identifier factionIdentifier, @Nullable Identifier spawnId) {
         Faction foundFaction = null;
         try {
-            foundFaction = ModFactionRegistry.findFactionById(factionIdentifier);
+            foundFaction = FactionLookup.findFactionById(factionIdentifier);
             FactionUtil.updateFaction(target, foundFaction, spawnId);
             return true;
         } catch (FactionIdentifierException e){

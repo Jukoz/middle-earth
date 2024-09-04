@@ -3,27 +3,21 @@ package net.jukoz.me.network.packets.C2S;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.network.contexts.ServerPacketContext;
 import net.jukoz.me.network.packets.ClientToServerPacket;
-import net.jukoz.me.resources.ModFactionRegistry;
-import net.jukoz.me.resources.StateSaverAndLoader;
-import net.jukoz.me.resources.datas.faction.Faction;
-import net.jukoz.me.resources.datas.faction.FactionUtil;
-import net.jukoz.me.resources.persistent_datas.AffiliationData;
-import net.jukoz.me.resources.persistent_datas.PlayerData;
+import net.jukoz.me.resources.datas.factions.Faction;
+import net.jukoz.me.resources.datas.factions.FactionLookup;
+import net.jukoz.me.resources.datas.factions.FactionUtil;
+import net.jukoz.me.utils.IdentifierUtil;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Identifier;
-
-import java.util.Optional;
 
 public class PacketSetAffiliation extends ClientToServerPacket<PacketSetAffiliation>
 {
-    public static final CustomPayload.Id<PacketSetAffiliation> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_affiliation_packet"));
+    public static final CustomPayload.Id<PacketSetAffiliation> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_set_affiliation"));
 
     public static final PacketCodec<RegistryByteBuf, PacketSetAffiliation> CODEC = PacketCodec.tuple(
             PacketCodecs.STRING, p -> p.alignmentName,
@@ -58,9 +52,9 @@ public class PacketSetAffiliation extends ClientToServerPacket<PacketSetAffiliat
         MinecraftServer server = context.player().getServer();
         server.execute(() -> {
             try{
-                Identifier factionId = Identifier.of(MiddleEarth.MOD_ID, factionName);
-                Faction faction = FactionUtil.getFactionById(factionId);
-                Identifier spawnId = Identifier.of(MiddleEarth.MOD_ID, spawnName);
+                Identifier factionId = IdentifierUtil.getIdentifierFromString(factionName);
+                Faction faction = FactionLookup.getFactionById(factionId);
+                Identifier spawnId = IdentifierUtil.getIdentifierFromString(spawnName);
                 FactionUtil.updateFaction(context.player(), faction, spawnId);
             } catch (Exception e){
                 LoggerUtil.logError("AffiliationPacket::Tried getting affiliation packet and couldn't fetch any.", e);

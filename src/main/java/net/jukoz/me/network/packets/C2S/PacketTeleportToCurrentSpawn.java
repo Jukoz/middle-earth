@@ -18,13 +18,13 @@ import net.minecraft.util.math.Vec3d;
 public class PacketTeleportToCurrentSpawn extends ClientToServerPacket<PacketTeleportToCurrentSpawn> {
     public static final CustomPayload.Id<PacketTeleportToCurrentSpawn> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_teleport_current_spawn"));
     public static final PacketCodec<RegistryByteBuf, PacketTeleportToCurrentSpawn> CODEC = PacketCodec.tuple(
-            PacketCodecs.BOOL, p -> p.value,
+            PacketCodecs.BOOL, p -> p.welcomeNeeded,
             PacketTeleportToCurrentSpawn::new
     );
-    private Boolean value;
+    private Boolean welcomeNeeded;
 
-    public PacketTeleportToCurrentSpawn(boolean newValue){
-        this.value = newValue;
+    public PacketTeleportToCurrentSpawn(boolean welcomeNeeded){
+        this.welcomeNeeded = welcomeNeeded;
     }
     @Override
     public Id<PacketTeleportToCurrentSpawn> getId() {
@@ -47,7 +47,7 @@ public class PacketTeleportToCurrentSpawn extends ClientToServerPacket<PacketTel
                     if(data.hasAffilition()){
                         Vec3d spawnCoordinates = data.getAffiliationData().getMiddleEarthSpawnCoordinate();
                         if(spawnCoordinates != null)
-                            ModDimensions.teleportPlayerToMe(context.player(), new Vec3d(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z));
+                            ModDimensions.teleportPlayerToMe(context.player(), new Vec3d(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z), welcomeNeeded);
                     }
                 }
             });

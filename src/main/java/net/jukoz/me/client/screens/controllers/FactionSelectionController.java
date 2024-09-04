@@ -1,14 +1,14 @@
 package net.jukoz.me.client.screens.controllers;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.jukoz.me.network.packets.C2S.PacketSetAffiliation;
-import net.jukoz.me.network.packets.C2S.PacketTeleportToCustomCoordinate;
-import net.jukoz.me.network.packets.C2S.PacketTeleportToDynamicCoordinate;
-import net.jukoz.me.network.packets.C2S.PacketSetSpawnData;
-import net.jukoz.me.resources.ModFactionRegistry;
+import net.jukoz.me.network.packets.C2S.*;
 import net.jukoz.me.resources.datas.Alignment;
-import net.jukoz.me.resources.datas.faction.Faction;
-import net.jukoz.me.resources.datas.faction.utils.SpawnDataHandler;
+import net.jukoz.me.resources.datas.factions.Faction;
+import net.jukoz.me.resources.datas.factions.FactionLookup;
+import net.jukoz.me.resources.datas.factions.data.FactionNpcPreviewData;
+import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
+import net.jukoz.me.resources.datas.races.Race;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -23,17 +23,20 @@ public class FactionSelectionController {
      * Identifier and if the spawn data is from the dynamic pool. True(Dynamic) : False(Custom)
      */
     private Map<Identifier, Boolean> spawns = new HashMap<>();
+    private List<Race> races = new ArrayList();
 
     private int currentAlignementIndex;
     private int currentFactionIndex;
+    private int currentRaceIndex;
     private int currentSubFactionIndex;
     private int currentSpawnIndex;
 
     public FactionSelectionController(){
-        factions.put(Alignment.GOOD, ModFactionRegistry.getFactionsByAlignment(Alignment.GOOD).values().stream().toList());
-        factions.put(Alignment.NEUTRAL, ModFactionRegistry.getFactionsByAlignment(Alignment.NEUTRAL).values().stream().toList());
-        factions.put(Alignment.EVIL, ModFactionRegistry.getFactionsByAlignment(Alignment.EVIL).values().stream().toList());
+        factions.put(Alignment.GOOD, FactionLookup.getFactionsByAlignment(Alignment.GOOD).values().stream().toList());
+        factions.put(Alignment.NEUTRAL, FactionLookup.getFactionsByAlignment(Alignment.NEUTRAL).values().stream().toList());
+        factions.put(Alignment.EVIL, FactionLookup.getFactionsByAlignment(Alignment.EVIL).values().stream().toList());
         updateSpawnList();
+        updateRaces();
     }
 
     private void updateSpawnList() {
@@ -43,6 +46,14 @@ public class FactionSelectionController {
         if(foundSpawnDataHandler == null) return;
         spawns = foundSpawnDataHandler.getSpawnList();
         currentSpawnIndex = 0;
+        currentRaceIndex = 0;
+    }
+
+    private void updateRaces() {
+        races = null;
+        Faction currentFaction = getCurrentlySelectedFaction();
+        if(currentFaction == null) return;
+        races = currentFaction.getRaces();
     }
 
 
@@ -75,6 +86,7 @@ public class FactionSelectionController {
                         ? 0
                         : random.nextInt(faction.getSubFactions().size());
         updateSpawnList();
+        updateRaces();
         return 0;
     }
 
@@ -83,18 +95,20 @@ public class FactionSelectionController {
             currentAlignementIndex++;
             if(currentAlignementIndex >= Alignment.values().length)
                 currentAlignementIndex = 0;
-            currentFactionIndex = 0;
-            currentSubFactionIndex = 0;
         }
         else{
             currentAlignementIndex --;
             if(currentAlignementIndex < 0)
                 currentAlignementIndex = Alignment.values().length - 1;
 
-            currentFactionIndex = 0;
-            currentSubFactionIndex = 0;
+
         }
+        currentFactionIndex = 0;
+        currentSubFactionIndex = 0;
+        currentRaceIndex = 0;
+
         updateSpawnList();
+        updateRaces();
     }
 
     public void factionUpdate(boolean add) {
@@ -102,15 +116,17 @@ public class FactionSelectionController {
             currentFactionIndex++;
             if(currentFactionIndex >= factions.get(getCurrentAlignment()).size())
                 currentFactionIndex = 0;
-            currentSubFactionIndex = 0;
         }
         else{
             currentFactionIndex--;
             if(currentFactionIndex < 0)
                 currentFactionIndex = factions.get(getCurrentAlignment()).size() - 1;
-            currentSubFactionIndex = 0;
         }
+        currentSubFactionIndex = 0;
+        currentRaceIndex = 0;
+
         updateSpawnList();
+        updateRaces();
     }
 
     public void subfactionUpdate(boolean add){
@@ -124,7 +140,9 @@ public class FactionSelectionController {
             if(currentSubFactionIndex < 0)
                 currentSubFactionIndex = getCurrentFaction().getSubFactions().size() - 1;
         }
+        currentRaceIndex = 0;
         updateSpawnList();
+        updateRaces();
     }
 
     public void spawnIndexUpdate(boolean add){
@@ -140,6 +158,39 @@ public class FactionSelectionController {
         }
     }
 
+    public void raceIndexUpdate(boolean add) {
+        if(add){
+            currentRaceIndex++;
+            if(currentRaceIndex >= races.size())
+                currentRaceIndex = 0;
+        }
+        else{
+            currentRaceIndex--;
+            if(currentRaceIndex < 0)
+                currentRaceIndex = races.size() - 1;
+        }
+    }
+
+    public Race getCurrentRace() {
+        if(this.races != null){
+            return races.get(currentRaceIndex);
+        }
+        return null;
+    }
+
+    public String getCurrentRaceKey() {
+        if(getCurrentRace() != null)
+            return getCurrentRace().getTranslatableKey();
+        return "ooops"; // TODO : translatale
+    }
+
+    public boolean haveManyRaces(){
+        if(races == null){
+            return false;
+        }
+        return races.size() > 1;
+    }
+
     private Identifier getCurrentSpawnIdentifier(){
         return spawns.keySet().stream().toList().get(currentSpawnIndex);
     }
@@ -147,6 +198,13 @@ public class FactionSelectionController {
         Identifier spawnId = getCurrentSpawnIdentifier();
         return SpawnDataHandler.getTranslatableKey(spawnId);
     }
+    public boolean haveManySpawns(){
+        if(spawns == null){
+            return false;
+        }
+        return spawns.size() > 1;
+    }
+
 
     public void confirmSpawnSelection(AbstractClientPlayerEntity player){
         Faction faction = getCurrentlySelectedFaction();
@@ -155,13 +213,14 @@ public class FactionSelectionController {
         Identifier currentSpawnIdentifier = getCurrentSpawnIdentifier();
         if(spawns.get(currentSpawnIdentifier)){
             Vector2i coordinates = getCurrentlySelectedFaction().getSpawnData().findDynamicSpawn(currentSpawnIdentifier);
-            ClientPlayNetworking.send(new PacketTeleportToDynamicCoordinate(coordinates.x, coordinates.y));
+            ClientPlayNetworking.send(new PacketTeleportToDynamicCoordinate(coordinates.x, coordinates.y, true));
         } else {
             Vec3d coordinates = getCurrentlySelectedFaction().getSpawnData().findCustomSpawn(currentSpawnIdentifier);
-            ClientPlayNetworking.send(new PacketTeleportToCustomCoordinate(coordinates.x, coordinates.y, coordinates.z));
+            ClientPlayNetworking.send(new PacketTeleportToCustomCoordinate(coordinates.x, coordinates.y, coordinates.z, true));
         }
 
-        ClientPlayNetworking.send(new PacketSetAffiliation(getCurrentAlignment().name(), getCurrentlySelectedFaction().getName(), currentSpawnIdentifier.getPath()));
+        ClientPlayNetworking.send(new PacketSetRace(races.get(currentRaceIndex).getId().toString()));
+        ClientPlayNetworking.send(new PacketSetAffiliation(getCurrentAlignment().name(), getCurrentlySelectedFaction().getId().toString(), currentSpawnIdentifier.toString()));
         if(player != null){
             BlockPos overworldBlockPos = player.getBlockPos();
             ClientPlayNetworking.send(new PacketSetSpawnData(overworldBlockPos.getX(), overworldBlockPos.getY(), overworldBlockPos.getZ()));
@@ -202,5 +261,12 @@ public class FactionSelectionController {
     // Todo : possibily remove this method to have a more precise getter
     public Map<Alignment, List<Faction>> getFactions() {
         return factions;
+    }
+
+    public FactionNpcPreviewData.PreviewData getCurrentPreview() {
+        Faction currentFaction = getCurrentlySelectedFaction();
+        FactionNpcPreviewData data = currentFaction.getPreviewGear();
+        List<Race> races = currentFaction.getRaces();
+        return data.getPreviewData(races.get(currentRaceIndex));
     }
 }
