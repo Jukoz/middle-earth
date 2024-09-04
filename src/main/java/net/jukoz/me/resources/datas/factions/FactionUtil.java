@@ -2,7 +2,9 @@ package net.jukoz.me.resources.datas.factions;
 
 import net.jukoz.me.commands.CommandColors;
 import net.jukoz.me.commands.CommandUtils;
+import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.exceptions.IdenticalFactionException;
+import net.jukoz.me.exceptions.NoFactionException;
 import net.jukoz.me.exceptions.SpawnIdentifierException;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
@@ -25,7 +27,7 @@ import java.util.*;
 public class FactionUtil {
 
 
-    public static boolean updateFaction(ServerPlayerEntity player, @Nullable Faction faction, @Nullable Identifier spawnId) throws IdenticalFactionException, SpawnIdentifierException {
+    public static boolean updateFaction(ServerPlayerEntity player, @Nullable Faction faction, @Nullable Identifier spawnId) throws IdenticalFactionException, SpawnIdentifierException, FactionIdentifierException, NoFactionException {
         if(!assertUpdateFactionValues(player, faction, spawnId))
             return false;
 
@@ -35,14 +37,7 @@ public class FactionUtil {
 
         // [CLEAR] If the next faction is null
         if(faction == null){
-            if(previousFaction != null){
-                sendOnLeaveCommand(player, previousFaction);
-                // Send leaving message to affected player
-                MutableText targetText = Text.translatable("event.me.faction.leave.source", previousFaction.getFullName());
-                player.sendMessage(targetText.withColor(CommandColors.WARNING.color));
-            }
-            playerState.setAffiliationData(null);
-            return true;
+            return clearFaction(player);
         }
 
         // [REPLACE] If previous faction is not null and next faction is not null
@@ -144,6 +139,22 @@ public class FactionUtil {
             ((ServerPlayerEntity) player).networkHandler.sendPacket(
                     new SubtitleS2CPacket(targetText.withColor(CommandColors.SUCCESS.color))
             );
+        }
+    }
+
+    public static boolean clearFaction(ServerPlayerEntity player) throws FactionIdentifierException, NoFactionException {
+        PlayerData data = StateSaverAndLoader.getPlayerState(player);
+        if(data.hasAffilition()){
+            AffiliationData affiliationData = data.getAffiliationData();
+            Faction faction = FactionLookup.findFactionById(affiliationData.faction);
+            data.setAffiliationData(null);
+
+            sendOnLeaveCommand(player, faction);
+            MutableText targetText = Text.translatable("event.me.faction.leave.source", faction.getFullName());
+            player.sendMessage(targetText.withColor(CommandColors.WARNING.color));
+            return true;
+        } else {
+            throw new NoFactionException();
         }
     }
 }

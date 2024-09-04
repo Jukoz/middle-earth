@@ -9,12 +9,14 @@ import net.jukoz.me.commands.suggestions.AllAvailableSpawnSuggestionProvider;
 import net.jukoz.me.commands.suggestions.AllJoinableFactionSuggestionProvider;
 import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.exceptions.IdenticalFactionException;
+import net.jukoz.me.exceptions.NoFactionException;
 import net.jukoz.me.exceptions.SpawnIdentifierException;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
 import net.jukoz.me.resources.datas.factions.FactionUtil;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.IdentifierArgumentType;
@@ -79,7 +81,7 @@ public class CommandFaction {
                 .suggests(new AllJoinableFactionSuggestionProvider())
                 .executes(CommandFaction::joinFaction)))));
 
-        // [JOIN + SET SPAWN] // TODO : spawn need to be set
+        // [JOIN + SET SPAWN]
         dispatcher.register((literal(ModCommands.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2))) // Require OP
                 .then((literal(ModCommands.FACTION_BASE_COMMAND))
@@ -103,7 +105,6 @@ public class CommandFaction {
         if(context.getSource().isExecutedByPlayer()) {
             ServerPlayerEntity source = context.getSource().getPlayer();
             if(source != null){
-                source.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(50);
                 PlayerData playerData = StateSaverAndLoader.getPlayerState(source);
                 if(playerData != null && playerData.hasAffilition()){
                     Faction foundFaction = FactionLookup.getFactionById(playerData.getAffiliationData().faction);
@@ -143,43 +144,53 @@ public class CommandFaction {
         return 0;
     }
 
-    private static int clearFaction(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    private static int clearFaction(CommandContext<ServerCommandSource> context) {
         if(context.getSource().isExecutedByPlayer()) {
             ServerPlayerEntity source = context.getSource().getPlayer();
-            if(source != null){
-                PlayerData playerData = StateSaverAndLoader.getPlayerState(source);
-                if(playerData != null && playerData.hasAffilition()){
-                    Faction foundFaction = FactionLookup.getFactionById(playerData.getAffiliationData().faction);
-                    if(foundFaction != null){
-                        MutableText sourceText = Text.translatable("in progress", foundFaction.getFullName());
+            if(source != null) {
+                try {
+                    if (FactionUtil.clearFaction(source)) {
+                        MutableText sourceText = Text.translatable("command.me.faction.clear.source");
                         source.sendMessage(sourceText.withColor(CommandColors.SUCCESS.color));
-                        return 1;
                     }
+                    return 1;
+                } catch (NoFactionException e) {
+                    MutableText sourceText = Text.translatable(NoFactionException.KEY_SOURCE);
+                    source.sendMessage(sourceText.withColor(CommandColors.ALERT.color));
+                } catch (FactionIdentifierException e) {
+                    MutableText sourceText = Text.translatable(FactionIdentifierException.KEY);
+                    source.sendMessage(sourceText.withColor(CommandColors.ALERT.color));
                 }
-                MutableText sourceText = Text.translatable("in progress");
-                source.sendMessage(sourceText.withColor(CommandColors.WARNING.color));
             }
         }
         return 0;
     }
 
     private static int clearTargetFaction(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        if(context.getSource().isExecutedByPlayer()) {
-            ServerPlayerEntity source = context.getSource().getPlayer();
-            if(source != null){
-                PlayerData playerData = StateSaverAndLoader.getPlayerState(source);
-                if(playerData != null && playerData.hasAffilition()){
-                    Faction foundFaction = FactionLookup.getFactionById(playerData.getAffiliationData().faction);
-                    if(foundFaction != null){
-                        MutableText sourceText = Text.translatable("command.me.faction.get.source", foundFaction.getFullName());
-                        source.sendMessage(sourceText.withColor(CommandColors.SUCCESS.color), true);
-                        return 1;
+        ServerPlayerEntity targetedPlayer = EntityArgumentType.getPlayer(context, PLAYER);
+        boolean isPlayerSource = context.getSource().isExecutedByPlayer();
+
+        if(targetedPlayer != null){
+            ServerPlayerEntity playerSource = null;
+            if(isPlayerSource)
+                playerSource = context.getSource().getPlayer();
+            if(context.getSource() != null) {
+                try {
+                    if (FactionUtil.clearFaction(playerSource)) {
+                        MutableText sourceText = Text.translatable("command.me.faction.clear.target", targetedPlayer.getName());
+                        context.getSource().sendMessage(sourceText.withColor(CommandColors.SUCCESS.color));
                     }
+                    return 1;
+                } catch (NoFactionException e) {
+                    MutableText sourceText = Text.translatable(NoFactionException.KEY_TARGET, targetedPlayer.getName());
+                    context.getSource().sendMessage(sourceText.withColor(CommandColors.ALERT.color));
+                } catch (FactionIdentifierException e) {
+                    MutableText sourceText = Text.translatable(FactionIdentifierException.KEY);
+                    context.getSource().sendMessage(sourceText.withColor(CommandColors.ALERT.color));
                 }
-                MutableText sourceText = Text.translatable("command.me.faction.get.source.none");
-                source.sendMessage(sourceText.withColor(CommandColors.WARNING.color), true);
             }
         }
+
         return 0;
     }
     private static int joinFaction(CommandContext<ServerCommandSource> context) {
@@ -216,7 +227,7 @@ public class CommandFaction {
                 ServerPlayerEntity source = context.getSource().getPlayer();
                 // Send success message to source
                 MutableText sourceText = Text.translatable("command.me.faction.join.source", targetedPlayer.getName(), faction.getFullName());
-                source.sendMessage(sourceText.withColor(CommandColors.SUCCESS.color), true);
+                source.sendMessage(sourceText.withColor(CommandColors.SUCCESS.color));
             }
             return 1;
         }
@@ -225,30 +236,26 @@ public class CommandFaction {
 
     public static boolean updateFactionFromCommand(ServerPlayerEntity target, ServerCommandSource source, Identifier factionIdentifier, @Nullable Identifier spawnId) {
         Faction foundFaction = null;
+        boolean commandOnSelf = source.isExecutedByPlayer() && source.getPlayer() == target;
         try {
             foundFaction = FactionLookup.findFactionById(factionIdentifier);
             FactionUtil.updateFaction(target, foundFaction, spawnId);
             return true;
         } catch (FactionIdentifierException e){
-            if(source != null) {
-                MutableText errorMessage = Text.translatable(FactionIdentifierException.KEY, factionIdentifier.toString());
+            MutableText errorMessage = Text.translatable(FactionIdentifierException.KEY, factionIdentifier.toString());
+            source.sendMessage(errorMessage.withColor(CommandColors.ALERT.color));
+            return false;
+        } catch (IdenticalFactionException e){
+            if(commandOnSelf){ // Player on himself
+                MutableText errorMessage = Text.translatable(IdenticalFactionException.KEY_SOURCE, (foundFaction == null) ? factionIdentifier.toString() : foundFaction.getFullName());
+                source.sendMessage(errorMessage.withColor(CommandColors.ALERT.color));
+                return false;
+            }  else { // Player on another target or Command block
+                MutableText errorMessage = Text.translatable(IdenticalFactionException.KEY_TARGET, target.getName(), (foundFaction == null) ? factionIdentifier.toString() : foundFaction.getFullName());
                 source.sendMessage(errorMessage.withColor(CommandColors.ALERT.color));
                 return false;
             }
-        } catch (IdenticalFactionException e){
-            if(source != null){
-                if(source.isExecutedByPlayer() && source.getPlayer() == target){ // Player on himself
-                    MutableText errorMessage = Text.translatable(IdenticalFactionException.KEY_SOURCE, (foundFaction == null) ? factionIdentifier.toString() : foundFaction.getFullName());
-                    source.sendMessage(errorMessage.withColor(CommandColors.ALERT.color));
-                    return false;
-                }  else { // Player on another target or Command block
-                    MutableText errorMessage = Text.translatable(IdenticalFactionException.KEY_TARGET, target.getName(), (foundFaction == null) ? factionIdentifier.toString() : foundFaction.getFullName());
-                    source.sendMessage(errorMessage.withColor(CommandColors.ALERT.color));
-                    return false;
-                }
-            }
         } catch (SpawnIdentifierException e){
-            if(source != null) {
                 MutableText errorMessage;
                 if(spawnId != null){
                     errorMessage = Text.translatable(SpawnIdentifierException.KEY, spawnId.toString());
@@ -257,10 +264,16 @@ public class CommandFaction {
                 }
                 source.sendMessage(errorMessage.withColor(CommandColors.ALERT.color));
                 return false;
+        } catch (NoFactionException e){
+            if(commandOnSelf){ // Player on himself
+                MutableText errorMessage = Text.translatable(NoFactionException.KEY_SOURCE);
+                source.sendMessage(errorMessage.withColor(CommandColors.ALERT.color));
+                return false;
+            }  else { // Player on another target or Command block
+                MutableText errorMessage = Text.translatable(NoFactionException.KEY_TARGET, target);
+                source.sendMessage(errorMessage.withColor(CommandColors.ALERT.color));
+                return false;
             }
         }
-        MutableText errorMessage = Text.translatable("command.me.fail");
-        source.sendMessage(errorMessage.withColor(CommandColors.ALERT.color));
-        return false;
     }
 }

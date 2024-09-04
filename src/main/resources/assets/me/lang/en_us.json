@@ -5075,6 +5075,9 @@
   "command.me.faction.get.source" : "Your faction is %s",
   "command.me.faction.get.source.none" : "You have no faction",
 
+  "command.me.faction.clear.source" : "Successfully cleared your faction data",
+  "command.me.faction.clear.target" : "Successfully cleared %s faction data",
+
   "command.me.faction.join.success" : "You have successfully joined %s",
   "command.me.faction.join.error_faction_id" : "ERR : <%s> is not a proper faction id",
 
@@ -5087,6 +5090,8 @@
   "alert.me.large_door.blocked": "Something seems to prevent the door from moving.",
 
 "#Comment": "Exceptions",
+  "exception.me.no_faction.target": "%s have no faction",
+  "exception.me.no_faction.source": "You have no faction",
   "exception.me.faction_identifier": "%s is not a valid faction identifier",
   "exception.me.spawn_identifier": "%s is not a valid spawn identifier",
   "exception.me.identical_faction.target": "%s already joined %s",
