@@ -28,6 +28,7 @@ public class MiddleEarthMapGeneration {
     private static final int WATER_BUFFER = 16;
     private static final float WATER_HEIGHT_MULTIPLIER = 1.0f;
     private static BufferedImage baseHeightImage;
+    private static BufferedImage edgeHeightImage;
     public MiddleEarthMapGeneration() throws Exception {
         fileUtils = FileUtils.getInstance();
         generate();
@@ -61,13 +62,19 @@ public class MiddleEarthMapGeneration {
         if(!validateBaseHeightDatas()){
             LoggerUtil.logInfoMsg("Begin initial map HEIGHT MODIFIER generation;");
             generateBaseHeightImage(initialMap);
+            generateBaseEdgeImage(initialMap);
         }
+
 
         LoggerUtil.logInfoMsg("Validating HEIGHT generation availability;");
         if(!validateHeightDatas(initialMap)){
             LoggerUtil.logInfoMsg("Begin HEIGHT generation;");
             generateHeight(initialMap);
         }
+    }
+
+    public static BufferedImage getEdgeHeightImage() {
+        return edgeHeightImage;
     }
 
     private boolean validateBaseColors(BufferedImage initialMap) {
@@ -213,7 +220,7 @@ public class MiddleEarthMapGeneration {
                 int finalY = y;
                 executorService.submit(() -> {
                     fileUtils.saveImage(
-                            FileUtils.blur(processHeightRegion(fileUtils.getRunImageWithBorders(finalX, finalY, HEIGHT_BLUR_SIZE),
+                            ImageUtils.blur(processHeightRegion(fileUtils.getRunImageWithBorders(finalX, finalY, HEIGHT_BLUR_SIZE),
                                             MiddleEarthMapConfigs.REGION_SIZE, true, finalX, finalY, HEIGHT_BLUR_SIZE),
                                     HEIGHT_BLUR_SIZE, true),
                             MiddleEarthMapConfigs.HEIGHT_PATH,
@@ -246,10 +253,19 @@ public class MiddleEarthMapGeneration {
 
     private final static int BASE_HEIGHT_BLUR_SIZE = 25;
     private void generateBaseHeightImage(BufferedImage initialMap) {
-        baseHeightImage = fileUtils.blur(processHeightRegion(initialMap, MiddleEarthMapConfigs.REGION_SIZE, false, 0,0, 0), BASE_HEIGHT_BLUR_SIZE, false);
+        baseHeightImage = ImageUtils.blur(processHeightRegion(initialMap, MiddleEarthMapConfigs.REGION_SIZE, false, 0,0, 0), BASE_HEIGHT_BLUR_SIZE, false);
         fileUtils.saveImage(baseHeightImage,
                 MiddleEarthMapConfigs.BASE_HEIGHT_PATH,
                 MiddleEarthMapConfigs.BASE_HEIGHT_IMAGE_NAME,
+                FileType.Png
+        );
+    }
+    private void generateBaseEdgeImage(BufferedImage initialMap) {
+        edgeHeightImage = ImageUtils.edge(initialMap);
+        edgeHeightImage = ImageUtils.blur(edgeHeightImage, 15, false);
+        fileUtils.saveImage(edgeHeightImage,
+                MiddleEarthMapConfigs.BASE_HEIGHT_PATH,
+                MiddleEarthMapConfigs.BASE_EDGE_IMAGE_NAME,
                 FileType.Png
         );
     }

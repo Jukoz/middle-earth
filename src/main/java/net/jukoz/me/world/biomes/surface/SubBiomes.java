@@ -17,7 +17,7 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.ANDUIN_VALES, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.1f, MEBiomeKeys.ANDUIN_VALES_FOREST));
         subBiomesMap.put(MEBiomeKeys.OLD_ANGMAR, new SubBiome()
-                .addSubBiomeData(-1.0f, -0.22f, MEBiomeKeys.OLD_ANGMAR_FOREST)
+                .addSubBiomeData(-1.0f, -0.2f, MEBiomeKeys.OLD_ANGMAR_FOREST)
                 .addSubBiomeData(0.22f, 0.27f, MEBiomeKeys.OLD_ANGMAR_COLD_HILL, true)
                 .addSubBiomeData(0.27f, 1.01f, MEBiomeKeys.OLD_ANGMAR_FROZEN_HILL, true));
     }

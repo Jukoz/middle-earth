@@ -8,6 +8,7 @@ import net.jukoz.me.item.items.weapons.CustomDaggerWeaponItem;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
 import net.jukoz.me.utils.IEntityDataSaver;
 import net.jukoz.me.utils.PlayerMovementData;
+import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -54,6 +55,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Shadow @Final
     PlayerInventory inventory;
+
+    @Shadow protected abstract void takeShieldHit(LivingEntity attacker);
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);

@@ -1702,16 +1702,17 @@ public class ModBiomes {
         } else if(step == 2) { // Cold Hill
             ModBiomeFeatures.addSparsePineTrees(vegetation);
             ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
-            ModBiomeFeatures.addRareSpruceTrees(vegetation);
+            ModBiomeFeatures.addScarceSpruceTrees(vegetation);
             ModBiomeFeatures.addSpruceBushes(vegetation);
             ModBiomeFeatures.addStickySnow(vegetation);
             temperature = 0.5f;
         } else if(step == 3) { // Frozen Hill
             ModBiomeFeatures.addShriveledShrubs(vegetation);
             ModBiomeFeatures.addSnowOre(vegetation);
+            ModBiomeFeatures.addDeadBlackPineTrees(vegetation);
             ModBiomeFeatures.addSparsePineTrees(vegetation);
             ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
-            ModBiomeFeatures.addScarceSpruceTrees(vegetation);
+            ModBiomeFeatures.addSpruceTrees(vegetation);
             temperature = -0.2f;
 
         }

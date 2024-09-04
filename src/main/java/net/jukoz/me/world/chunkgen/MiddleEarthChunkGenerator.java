@@ -305,7 +305,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     SubBiome subBiome = SubBiomes.getSubBiomeFromChild(meBiome.biome);
                     if(subBiome != null) {
                         double perlin = ModBiomeSource.getSubBiomeNoise(posX, posZ);
-                        height += subBiome.getAdditionalHeight((float) perlin);
+                        double additionalHeight = subBiome.getAdditionalHeight((float) perlin);
+                        additionalHeight *= MiddleEarthMapRuntime.getInstance().getEdge(posX, posZ);
+                        height += (float) additionalHeight;
                     }
                 } else if(meBiome.biome == MEBiomeKeys.MOUNT_DOOM) {
                     float percentage = (float) Math.sqrt(mountDoom.distanceSquared(new Vec2f(posX, posZ))) / 50;

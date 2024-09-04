@@ -1,5 +1,6 @@
 package net.jukoz.me.world.biomes.surface;
 
+import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 

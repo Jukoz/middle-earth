@@ -21,6 +21,7 @@ public class MiddleEarthMapConfigs {
     public static final String HEIGHT_PATH = "%s/heights/i_%s".formatted(MOD_DATA, MAP_ITERATION);
     public static final String BASE_HEIGHT_PATH = "%s/heights/base".formatted(MOD_DATA);
     public static final String BASE_HEIGHT_IMAGE_NAME = "/base_height.png";
+    public static final String BASE_EDGE_IMAGE_NAME = "/base_edge.png";
     public static final String IMAGE_NAME = "/%s_%s.png";
     public static final String INITIAL_IMAGE = "assets/%s/textures/map.png".formatted(MiddleEarth.MOD_ID);;
 
