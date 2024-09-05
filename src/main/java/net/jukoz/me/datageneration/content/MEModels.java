@@ -1,5 +1,6 @@
 package net.jukoz.me.datageneration.content;
 
+import net.jukoz.me.MiddleEarth;
 import net.minecraft.data.client.Model;
 import net.minecraft.data.client.TextureKey;
 import net.minecraft.util.Identifier;
@@ -22,8 +23,14 @@ public class MEModels {
     public static final Model LARGE_DOOR_RIGHT;
     public static final Model LARGE_DOOR_RIGHT_OPEN;
 
+    public static final Model THICK_LADDER;
+
     private static Model block(String parent, TextureKey... requiredTextureKeys) {
-        return new Model(Optional.of(Identifier.of("me", "block/" + parent)), Optional.empty(), requiredTextureKeys);
+        return new Model(Optional.of(Identifier.of(MiddleEarth.MOD_ID, "block/" + parent)), Optional.empty(), requiredTextureKeys);
+    }
+
+    private static Model block(String parent, String variant, TextureKey... requiredTextureKeys) {
+        return new Model(Optional.of(Identifier.of(MiddleEarth.MOD_ID, "block/" + parent)), Optional.of(variant), requiredTextureKeys);
     }
 
     static {
@@ -41,5 +48,7 @@ public class MEModels {
         LARGE_DOOR_LEFT_OPEN = block("large_door_left_open", TextureKey.ALL, TextureKey.PARTICLE);
         LARGE_DOOR_RIGHT = block("large_door_right", TextureKey.ALL, TextureKey.PARTICLE);
         LARGE_DOOR_RIGHT_OPEN = block("large_door_right_open", TextureKey.ALL, TextureKey.PARTICLE);
+
+        THICK_LADDER = block("thick_ladder", TextureKey.TEXTURE, TextureKey.PARTICLE);
     }
 }

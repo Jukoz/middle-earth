@@ -1,6 +1,7 @@
 package net.jukoz.me.block.special;
 
 import com.mojang.serialization.MapCodec;
+import net.jukoz.me.block.ModNatureBlocks;
 import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -19,19 +20,14 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
-public class WaterloggablePlant extends PlantBlock implements Fertilizable, Waterloggable {
+public class WaterloggablePlant extends CustomPlantBlock implements Fertilizable, Waterloggable {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
     public static final MapCodec<WaterloggablePlant> CODEC = WaterloggablePlant.createCodec(WaterloggablePlant::new);
-    protected static final VoxelShape SHAPE = Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 13.0, 14.0);
 
     public WaterloggablePlant(Settings settings) {
         super(settings);
-    }
-
-    @Override
-    protected MapCodec<WaterloggablePlant> getCodec() {
-        return CODEC;
+        this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(WATERLOGGED, false));
     }
 
     @Override
@@ -65,16 +61,6 @@ public class WaterloggablePlant extends PlantBlock implements Fertilizable, Wate
     }
 
     @Override
-    protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isIn(BlockTags.DIRT) || floor.isIn(BlockTags.SAND) || floor.isOf(Blocks.FARMLAND);
-    }
-
-    @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return SHAPE;
-    }
-
-    @Override
     public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
         return true;
     }
@@ -86,7 +72,7 @@ public class WaterloggablePlant extends PlantBlock implements Fertilizable, Wate
 
     @Override
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        TallPlantBlock tallPlantBlock = (TallPlantBlock)(state.isOf(Blocks.FERN) ? Blocks.LARGE_FERN : Blocks.TALL_GRASS);
+        TallPlantBlock tallPlantBlock = (TallPlantBlock)(state.isOf(ModNatureBlocks.SHORT_BULRUSH) ? ModNatureBlocks.TALL_BULRUSH : ModNatureBlocks.TALL_CATTAILS);
         if (tallPlantBlock.getDefaultState().canPlaceAt(world, pos) && world.isAir(pos.up())) {
             TallPlantBlock.placeAt(world, tallPlantBlock.getDefaultState(), pos, 2);
         }

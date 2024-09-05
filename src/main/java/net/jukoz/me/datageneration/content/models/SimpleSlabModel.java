@@ -67,6 +67,7 @@ public class SimpleSlabModel {
             add(new Slab(Blocks.COARSE_DIRT, ModBlocks.COARSE_DIRT_SLAB));
             add(new Slab(Blocks.ROOTED_DIRT, ModBlocks.ROOTED_DIRT_SLAB));
             add(new Slab(Blocks.MUD, ModBlocks.MUD_SLAB));
+            add(new Slab(Blocks.MOSS_BLOCK, ModBlocks.MOSS_SLAB));
 
             add(new Slab(Blocks.PACKED_MUD, ModBlocks.PACKED_MUD_SLAB));
             add(new Slab(Blocks.CALCITE, ModBlocks.CALCITE_SLAB));
