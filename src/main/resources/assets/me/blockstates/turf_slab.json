@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "me:block/turf_slab"
+    },
+    "type=double": {
+      "model": "me:block/turf"
+    },
+    "type=top": {
+      "model": "me:block/turf_slab_top"
+    }
+  }
+}

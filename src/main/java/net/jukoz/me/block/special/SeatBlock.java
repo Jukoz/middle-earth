@@ -5,12 +5,12 @@ import net.jukoz.me.entity.seat.SeatEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.entity.EntityType;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
@@ -18,16 +18,26 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Predicate;
+
 public class SeatBlock extends Block {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+
+    private static final Predicate<Entity> RIDERS = EntityPredicates.EXCEPT_SPECTATOR.and(Entity::canHit);
+
 
     public SeatBlock(Settings settings) {
         super(settings);
@@ -36,28 +46,34 @@ public class SeatBlock extends Block {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        float yaw = state.get(FACING).getOpposite().asRotation();
+        SeatEntity seat = new SeatEntity(ModEntities.SEAT_ENTITY, world);
+        seat.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+        seat.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, yaw, 0);
+        seat.setNoGravity(true);
+        seat.setSilent(true);
+        seat.setInvisible(true);
+        seat.setInvulnerable(true);
+
+        //TODO Remove multiple passengers, crab i hate you for making me do this
+
         if(world.isClient) {
             return ActionResult.CONSUME;
         } else if(player.isSneaking() || player.isSpectator()) {
+            //System.out.println("is sneaking or spectator");
             return ActionResult.FAIL;
         } else if (player.shouldCancelInteraction()) {
+            //System.out.println("canceled interaction");
             return ActionResult.SUCCESS;
         } else {
-            float yaw = state.get(FACING).getOpposite().asRotation();
-            SeatEntity seat = new SeatEntity(ModEntities.SEAT_ENTITY, world);
-            seat.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-            seat.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, yaw, 0);
-            seat.setNoGravity(true);
-            seat.setSilent(true);
-            seat.setInvisible(true);
-            seat.setInvulnerable(true);
-
             if(world.spawnEntity(seat)) {
                 player.startRiding(seat, true);
                 player.setYaw(yaw);
                 player.setHeadYaw(yaw);
+                //System.out.println("spawn new seat");
                 return ActionResult.SUCCESS;
             } else {
+                //System.out.println("could not spawn seat");
                 return ActionResult.CONSUME;
             }
         }

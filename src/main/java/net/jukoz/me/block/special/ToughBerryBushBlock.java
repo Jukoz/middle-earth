@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 
-public class ToughBerryBushBlock extends PlantBlock
+public class ToughBerryBushBlock extends CustomPlantBlock
         implements Fertilizable {
     public static final MapCodec<ToughBerryBushBlock> CODEC = ToughBerryBushBlock.createCodec(ToughBerryBushBlock::new);
     public static final int MAX_AGE = 3;
@@ -38,11 +38,6 @@ public class ToughBerryBushBlock extends PlantBlock
     public ToughBerryBushBlock(AbstractBlock.Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0));
-    }
-
-    @Override
-    protected MapCodec<ToughBerryBushBlock> getCodec() {
-        return CODEC;
     }
 
     @Override

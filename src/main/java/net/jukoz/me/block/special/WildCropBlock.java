@@ -3,7 +3,6 @@ package net.jukoz.me.block.special;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -12,17 +11,12 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
-public class WildCropBlock extends PlantBlock implements Fertilizable {
+public class WildCropBlock extends CustomPlantBlock implements Fertilizable {
     public static final MapCodec<WildCropBlock> CODEC = WildCropBlock.createCodec(WildCropBlock::new);
     protected static final VoxelShape SHAPE = Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 13.0, 14.0);
 
     public WildCropBlock(Settings settings) {
         super(settings);
-    }
-
-    @Override
-    protected MapCodec<WildCropBlock> getCodec() {
-        return CODEC;
     }
 
     @Override

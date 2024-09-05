@@ -27,7 +27,10 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.function.BiConsumer;
 
 public class LargeDoorBlock extends Block {
 
@@ -252,6 +255,102 @@ public class LargeDoorBlock extends Block {
         }
 
         return super.onBreak(world, pos, state, player);
+    }
+
+    @Override
+    protected void onExploded(BlockState state, World world, BlockPos pos, Explosion explosion, BiConsumer<ItemStack, BlockPos> stackMerger) {
+        int part = state.get(getPart());
+        int column = part / doorHeight;
+        int line = part % doorHeight;
+
+        BlockPos blockPos;
+        BlockPos blockPos1;
+        if(state.get(HINGE) == DoorHinge.LEFT){
+            if(state.get(OPEN)){
+                blockPos = pos.offset(state.get(HORIZONTAL_FACING).rotateYClockwise().rotateYClockwise(), column);
+                for(int i = 0; i < line; i++){
+                    blockPos = blockPos.down();
+                }
+                blockPos1 = blockPos;
+            } else {
+                blockPos = pos.offset(state.get(HORIZONTAL_FACING).rotateYCounterclockwise(), column);
+                for(int i = 0; i < line; i++){
+                    blockPos = blockPos.down();
+                }
+                blockPos1 = blockPos;
+            }
+            if(state.get(OPEN)) {
+                for (int j = 0; j < doorWidth; j++){
+                    for (int k = 0; k < doorHeight; k++) {
+                        if(j == 0 && k == 0){
+                            world.breakBlock(blockPos, true);
+                        } else {
+                            world.setBlockState(blockPos, (BlockState)Blocks.AIR.getDefaultState(), 3);
+                        }
+                        blockPos = blockPos.up();
+                    }
+                    blockPos = blockPos1.offset((Direction)state.get(HORIZONTAL_FACING), j + 1);
+                }
+            }else {
+                for (int j = 0; j < doorWidth; j++){
+                    for (int k = 0; k < doorHeight; k++) {
+                        if(j == 0 && k == 0){
+                            world.breakBlock(blockPos, true);
+                        } else {
+                            world.setBlockState(blockPos, (BlockState)Blocks.AIR.getDefaultState(), 3);
+                        }
+                        blockPos = blockPos.up();
+                    }
+                    blockPos = blockPos1.offset((Direction)state.get(HORIZONTAL_FACING).rotateYClockwise(), j + 1);
+                }
+            }
+        } else {
+            if(state.get(OPEN)){
+                blockPos = pos.offset(state.get(HORIZONTAL_FACING).rotateYCounterclockwise().rotateYCounterclockwise(), column);
+                for(int i = 0; i < line; i++){
+                    blockPos = blockPos.down();
+                }
+                blockPos1 = blockPos;
+            } else {
+                blockPos = pos.offset(state.get(HORIZONTAL_FACING).rotateYClockwise(), column);
+                for(int i = 0; i < line; i++){
+                    blockPos = blockPos.down();
+                }
+                blockPos1 = blockPos;
+            }
+            if(state.get(OPEN)) {
+                for (int j = 0; j < doorWidth; j++){
+                    for (int k = 0; k < doorHeight; k++) {
+                        if(j == 0 && k == 0){
+                            world.breakBlock(blockPos, true);
+                        } else {
+                            world.setBlockState(blockPos, (BlockState)Blocks.AIR.getDefaultState(), 3);
+                        }
+                        blockPos = blockPos.up();
+                    }
+                    blockPos = blockPos1.offset((Direction)state.get(HORIZONTAL_FACING), j + 1);
+                }
+            }else {
+                for (int j = 0; j < doorWidth; j++){
+                    for (int k = 0; k < doorHeight; k++) {
+                        if(j == 0 && k == 0){
+                            world.breakBlock(blockPos, true);
+                        } else {
+                            world.setBlockState(blockPos, (BlockState)Blocks.AIR.getDefaultState(), 3);
+                        }
+                        blockPos = blockPos.up();
+                    }
+                    blockPos = blockPos1.offset((Direction)state.get(HORIZONTAL_FACING).rotateYCounterclockwise(), j + 1);
+                }
+            }
+        }
+
+        super.onExploded(state, world, pos, explosion, stackMerger);
+    }
+
+    @Override
+    public void onDestroyedByExplosion(World world, BlockPos pos, Explosion explosion) {
+        super.onDestroyedByExplosion(world, pos, explosion);
     }
 
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "me:block/watering_can",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/watering_can"
+    },
+    "facing=south": {
+      "model": "me:block/watering_can",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/watering_can",
+      "y": 270
+    }
+  }
+}

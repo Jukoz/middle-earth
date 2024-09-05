@@ -5,7 +5,6 @@ import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.datageneration.content.loot_tables.LeavesDrops;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.content.tags.*;
-import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 
 import java.util.Objects;
@@ -127,8 +126,11 @@ public class HelpingGenerator {
             SimpleDoorModel.doors.add(new SimpleDoorModel.Door(set.planks(), set.door()));
 
             SimpleWoodStoolModel.stools.add(set.stool());
+            SimpleWoodBenchModel.benchs.add(set.bench());
             SimpleWoodTableModel.tables.add(set.table());
             SimpleWoodChairModel.chairs.add(set.chair());
+
+            SimpleLadderModel.ladders.add(new SimpleLadderModel.Ladder(set.planks(), set.ladder()));
 
             BlockDrops.blocks.add(set.log());
             BlockDrops.blocks.add(set.strippedLog());
@@ -155,8 +157,10 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.trapdoor());
             BlockDrops.blocks.add(set.door());
             BlockDrops.blocks.add(set.stool());
+            BlockDrops.blocks.add(set.bench());
             BlockDrops.blocks.add(set.table());
             BlockDrops.blocks.add(set.chair());
+            BlockDrops.blocks.add(set.ladder());
 
             MineableAxe.blocks.add(set.log());
             MineableAxe.blocks.add(set.strippedLog());
@@ -183,8 +187,10 @@ public class HelpingGenerator {
             MineableAxe.blocks.add(set.trapdoor());
             MineableAxe.blocks.add(set.door());
             MineableAxe.blocks.add(set.stool());
+            MineableAxe.blocks.add(set.bench());
             MineableAxe.blocks.add(set.table());
             MineableAxe.blocks.add(set.chair());
+            MineableAxe.blocks.add(set.ladder());
 
             if(set.leaves() != null) MineableHoe.blocks.add(set.leaves());
 
@@ -251,6 +257,7 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.trapdoor());
             BlockDrops.blocks.add(set.door());
             BlockDrops.blocks.add(set.stool());
+            BlockDrops.blocks.add(set.bench());
             BlockDrops.blocks.add(set.table());
             BlockDrops.blocks.add(set.chair());
 
@@ -267,6 +274,7 @@ public class HelpingGenerator {
             MineableAxe.blocks.add(set.trapdoor());
             MineableAxe.blocks.add(set.door());
             MineableAxe.blocks.add(set.stool());
+            MineableAxe.blocks.add(set.bench());
             MineableAxe.blocks.add(set.table());
             MineableAxe.blocks.add(set.chair());
 

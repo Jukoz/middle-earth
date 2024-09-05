@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "me:block/treated_steel_rod",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "me:block/treated_steel_rod",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "me:block/treated_steel_rod",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "me:block/treated_steel_rod",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up,": {
+      "model": "me:block/treated_steel_rod"
+    },
+    "facing=west": {
+      "model": "me:block/treated_steel_rod",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

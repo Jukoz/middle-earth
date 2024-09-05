@@ -26,6 +26,16 @@ public class SimpleWallModel {
             add(new SimpleWallModel.Wall(Blocks.PACKED_MUD, ModBlocks.PACKED_MUD_WALL));
             add(new SimpleWallModel.Wall(Blocks.CALCITE, ModBlocks.CALCITE_WALL));
             add(new SimpleWallModel.Wall(Blocks.SMOOTH_BASALT, ModBlocks.SMOOTH_BASALT_WALL));
+
+            add(new SimpleWallModel.Wall(Blocks.CUT_COPPER, ModBlocks.CUT_COPPER_WALL));
+            add(new SimpleWallModel.Wall(Blocks.EXPOSED_CUT_COPPER, ModBlocks.EXPOSED_CUT_COPPER_WALL));
+            add(new SimpleWallModel.Wall(Blocks.WEATHERED_CUT_COPPER, ModBlocks.WEATHERED_CUT_COPPER_WALL));
+            add(new SimpleWallModel.Wall(Blocks.OXIDIZED_CUT_COPPER, ModBlocks.OXIDIZED_CUT_COPPER_WALL));
+            add(new SimpleWallModel.Wall(Blocks.WAXED_CUT_COPPER, ModBlocks.WAXED_CUT_COPPER_WALL));
+            add(new SimpleWallModel.Wall(Blocks.WAXED_EXPOSED_CUT_COPPER, ModBlocks.WAXED_EXPOSED_CUT_COPPER_WALL));
+            add(new SimpleWallModel.Wall(Blocks.WAXED_WEATHERED_CUT_COPPER, ModBlocks.WAXED_WEATHERED_CUT_COPPER_WALL));
+            add(new SimpleWallModel.Wall(Blocks.WAXED_OXIDIZED_CUT_COPPER, ModBlocks.WAXED_OXIDIZED_CUT_COPPER_WALL));
+
         }
     };
 

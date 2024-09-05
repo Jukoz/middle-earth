@@ -26,6 +26,8 @@ public class ModDecorativeItems {
 
     public static final Item SCONCE = registerItem("sconce",
             new VerticallyAttachableBlockItem(ModDecorativeBlocks.SCONCE, ModDecorativeBlocks.WALL_SCONCE, new Item.Settings(), Direction.DOWN));
+    public static final Item GILDED_SCONCE = registerItem("gilded_sconce",
+            new VerticallyAttachableBlockItem(ModDecorativeBlocks.GILDED_SCONCE, ModDecorativeBlocks.GILDED_WALL_SCONCE, new Item.Settings(), Direction.DOWN));
 
     public static final Item ALLOY_FURNACE = registerItem("alloy_furnace",
             new BlockItem(ModDecorativeBlocks.ALLOY_FURNACE, new Item.Settings()));
@@ -53,6 +55,9 @@ public class ModDecorativeItems {
 
     public static final Item REINFORCED_SPRUCE_DOOR = registerItem("reinforced_spruce_door",
             new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR, new Item.Settings().maxCount(16)));
+
+    public static final Item GREAT_GONDORIAN_GATE = registerItem("great_gondorian_gate",
+            new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.GREAT_GONDORIAN_GATE, new Item.Settings().maxCount(16)));
 
     public static final Item GREAT_DWARVEN_GATE = registerItem("great_dwarven_gate",
             new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.GREAT_DWARVEN_GATE, new Item.Settings().maxCount(16)));

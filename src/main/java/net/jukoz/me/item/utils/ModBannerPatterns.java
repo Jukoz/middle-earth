@@ -11,14 +11,14 @@ public class ModBannerPatterns {
     public static final RegistryKey<BannerPattern> LONGBEARD_BANNER_PATTERN = key("longbeard");
     public static final RegistryKey<BannerPattern> LOTHLORIEN_BANNER_PATTERN = key("lothlorien");
     public static final RegistryKey<BannerPattern> MORDOR_BANNER_PATTERN = key("mordor");
-    public static final RegistryKey<BannerPattern> MISTY_ORCS_BANNER_PATTERN = key("misty_orcs");
+    public static final RegistryKey<BannerPattern> MISTY_MOUNTAINS_ORCS_BANNER_PATTERN = key("misty_mountains_orcs");
     public static final RegistryKey<BannerPattern> ISENGARD_BANNER_PATTERN = key("isengard");
 
     // Variants
     public static final RegistryKey<BannerPattern> MORDOR_EYE_BANNER_PATTERN = key("mordor_eye");
     public static final RegistryKey<BannerPattern> MORDOR_GREAT_EYE_BANNER_PATTERN = key("mordor_great_eye");
-    public static final RegistryKey<BannerPattern> MISTY_ORCS_EYE_BANNER_PATTERN = key("misty_orcs_eye");
-    public static final RegistryKey<BannerPattern> MISTY_ORCS_PEAKS_BANNER_PATTERN = key("misty_orcs_peaks");
+    public static final RegistryKey<BannerPattern> MISTY_MOUNTAINS_ORCS_EYE_BANNER_PATTERN = key("misty_mountains_orcs_eye");
+    public static final RegistryKey<BannerPattern> MISTY_MOUNTAINS_ORCS_PEAKS_BANNER_PATTERN = key("misty_mountains_orcs_peaks");
 
     public static final RegistryKey<BannerPattern> DRAGON_BANNER_PATTERN = key("dragon");
 
@@ -32,7 +32,7 @@ public class ModBannerPatterns {
         register(registry, LONGBEARD_BANNER_PATTERN);
         register(registry, LOTHLORIEN_BANNER_PATTERN);
         register(registry, MORDOR_BANNER_PATTERN);
-        register(registry, MISTY_ORCS_BANNER_PATTERN);
+        register(registry, MISTY_MOUNTAINS_ORCS_BANNER_PATTERN);
         register(registry, ISENGARD_BANNER_PATTERN);
 
         register(registry, DRAGON_BANNER_PATTERN);
