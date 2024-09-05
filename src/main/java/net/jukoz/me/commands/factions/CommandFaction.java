@@ -33,6 +33,7 @@ import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.*;
 
 public class CommandFaction {
+    public static String FACTION_BASE_COMMAND = "faction";
     private static final String JOIN = "join";
     private static final String GET = "get";
     private static final String CLEAR = "clear";
@@ -44,14 +45,14 @@ public class CommandFaction {
         // [GET]
         dispatcher.register(literal(ModCommands.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2)) // Require OP
-                .then(literal(ModCommands.FACTION_BASE_COMMAND)
+                .then(literal(FACTION_BASE_COMMAND)
                 .then(literal(GET) // With Player Target
                 .executes(CommandFaction::getFaction))));
 
 
         dispatcher.register(literal(ModCommands.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2)) // Require OP
-                .then(literal(ModCommands.FACTION_BASE_COMMAND)
+                .then(literal(FACTION_BASE_COMMAND)
                 .then(argument(PLAYER, EntityArgumentType.player())
                 .then(literal(GET) // With Player Target
                 .executes(CommandFaction::getTargetFaction)))));
@@ -59,18 +60,18 @@ public class CommandFaction {
         // [CLEAR]
         dispatcher.register(literal(ModCommands.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2)) // Require OP
-                .then(literal(ModCommands.FACTION_BASE_COMMAND)
+                .then(literal(FACTION_BASE_COMMAND)
                 .then(argument(PLAYER, EntityArgumentType.player())
                     .then(literal(CLEAR) // With Player Target
                     .executes(CommandFaction::clearTargetFaction))))
-                .then(literal(ModCommands.FACTION_BASE_COMMAND)
+                .then(literal(FACTION_BASE_COMMAND)
                 .then(literal(CLEAR) // Without Target
                 .executes(CommandFaction::clearFaction))));
 
         // [JOIN]
         dispatcher.register(literal(ModCommands.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2)) // Require OP
-                .then(literal(ModCommands.FACTION_BASE_COMMAND)
+                .then(literal(FACTION_BASE_COMMAND)
                 .then(argument(PLAYER, EntityArgumentType.player())
                     .then(literal(JOIN) // With Player Target
                     .then(argument(FACTION_ID, IdentifierArgumentType.identifier())
@@ -84,7 +85,7 @@ public class CommandFaction {
         // [JOIN + SET SPAWN]
         dispatcher.register((literal(ModCommands.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2))) // Require OP
-                .then((literal(ModCommands.FACTION_BASE_COMMAND))
+                .then((literal(FACTION_BASE_COMMAND))
                     .then(argument(PLAYER, EntityArgumentType.player())
                         .then((literal(JOIN) // With Player Target
                         .then(argument(FACTION_ID, IdentifierArgumentType.identifier())

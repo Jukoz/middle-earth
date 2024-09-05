@@ -5061,15 +5061,13 @@
   "race.me.orc" : "Orc",
   "race.me.uruk" : "Uruk",
 
-"#Comment:": "Faction Events",
-  "event.me.faction.leave.source" : "You have left %s",
-  "event.me.faction.join.source" : "You have joined %s",
-
-
 "#Comment": "Commands",
   "command.me.fail" : "Command couldn't be sent properly",
 
+  "event.me.faction.leave.source" : "You have left %s",
+  "event.me.faction.join.source" : "You have joined %s",
   "command.me.faction.join.source" : "%s successfully joined the %s Faction",
+
   "command.me.faction.get.target" : "%s faction is %s",
   "command.me.faction.get.target.none" : "%s have no faction",
   "command.me.faction.get.source" : "Your faction is %s",
@@ -5078,13 +5076,13 @@
   "command.me.faction.clear.source" : "Successfully cleared your faction data",
   "command.me.faction.clear.target" : "Successfully cleared %s faction data",
 
-  "command.me.faction.join.success" : "You have successfully joined %s",
-  "command.me.faction.join.error_faction_id" : "ERR : <%s> is not a proper faction id",
+  "command.me.spawn.middle_earth.get.source": "Your spawn is %s",
+  "command.me.spawn.middle_earth.get.target": "%s spawn is %s",
 
-  "command.me.faction.force_join.success" : "%s have successfully joined %s",
-
-  "command.me.set_player_spawn.success" : "Succesfully modified %s spawn point for %s",
-  "command.me.clear_player_data.success" : "Succesfully cleared the stored player data for %s",
+  "command.me.spawn.faction.set.success.source" : "Successfully modified %s faction spawn point for %s",
+  "command.me.spawn.faction.set.success.target" : "Successfully modified faction spawn point for %s",
+  "command.me.spawn.origin.set.success.source" : "Successfully modified %s origin spawn point for %s",
+  "command.me.spawn.origin.set.success.target" : "Successfully modified origin spawn point for %s",
 
 "#Comment": "Alert",
   "alert.me.large_door.blocked": "Something seems to prevent the door from moving.",

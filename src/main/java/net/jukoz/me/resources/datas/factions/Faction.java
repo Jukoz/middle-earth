@@ -180,14 +180,6 @@ public class Faction {
 
     }
 
-    public Race getPreviewRace() {
-        if(this.official_races == null || this.official_races.isEmpty()){
-            LoggerUtil.logDebugMsg("Faction::"+id+":Couldn't find race -> returning "+ Races.HUMAN.getId());
-            return Races.HUMAN;
-        }
-
-        return this.official_races.get(0);
-    }
     public HashMap<Identifier,Faction> getSubFactions(){
         return subFactions;
     }
