@@ -91,4 +91,8 @@ public class WallSconceBlock extends net.minecraft.block.WallTorchBlock {
             world.addParticle(ParticleTypes.SMOKE, d + 0.27 * (double)direction2.getOffsetX(), e + 0.22, f + 0.27 * (double)direction2.getOffsetZ(), 0.0, 0.0, 0.0);
         }
     }
+
+    public static boolean isLitWallSconce(BlockState state) {
+        return state.contains(LIT) && (Boolean)state.get(LIT) && state.getBlock() instanceof WallSconceBlock;
+    }
 }

@@ -55,7 +55,7 @@ public class WoodBlockSets {
     public record SimpleBlockSet(Block leaves, Block log, Block wood, Block woodSlab, Block woodVerticalSlab, Block woodStairs, Block woodWall, Block woodFence,
                                  Block strippedLog, Block strippedWood, Block strippedWoodSlab, Block strippedWoodVerticalSlab, Block strippedWoodStairs, Block strippedWoodWall, Block strippedWoodFence,
                                  Block planks, Block planksSlab, Block planksVerticalSlab, Block planksStairs, Block planksFence, Block planksGate,
-                                 Block door, Block trapdoor, Block pressurePlate, Block button, Block stool, Block bench, Block table, Block chair, Block sapling) {
+                                 Block door, Block trapdoor, Block pressurePlate, Block button, Block stool, Block bench, Block table, Block chair, Block ladder, Block sapling) {
     }
 
     private static SimpleBlockSet registerWoodSet(String name, float strength, boolean hasLeaves, Block sapling, boolean castShadow, boolean range, ParticleEffect particleEffect) {
@@ -145,12 +145,16 @@ public class WoodBlockSets {
         Block chair = ModBlocks.registerBlock(name + "_chair", new WoodChairBlock(AbstractBlock.Settings.copy(planks)
                 .sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
 
+        Block ladder = ModBlocks.registerBlock(name + "_ladder", new ThickLadderBlock(AbstractBlock.Settings.copy(planks)
+                .sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
+
         ModItemGroups.NATURE_BLOCKS_CONTENTS.add(log.asItem().getDefaultStack());
 
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(stool.asItem().getDefaultStack());
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(bench.asItem().getDefaultStack());
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(table.asItem().getDefaultStack());
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(chair.asItem().getDefaultStack());
+        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(ladder.asItem().getDefaultStack());
 
         StrippableBlockRegistry.register(log, strippedLog);
         StrippableBlockRegistry.register(wood, strippedWood);
@@ -213,7 +217,7 @@ public class WoodBlockSets {
         return new SimpleBlockSet(leaves, log, wood, woodSlab, woodVerticalSlab, woodStairs, woodWall, woodFence,
                 strippedLog, strippedWood, strippedSlab, strippedVerticalSlab, strippedStairs, strippedWoodWall, strippedWoodFence,
                 planks, slab, verticalSlab, stairs, fence, gate,
-                door, trapdoor, pressurePlate, button, stool, bench, table, chair, sapling);
+                door, trapdoor, pressurePlate, button, stool, bench, table, chair, ladder, sapling);
     }
 
 

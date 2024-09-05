@@ -55,23 +55,25 @@ public class SeatBlock extends Block {
         seat.setInvisible(true);
         seat.setInvulnerable(true);
 
+        //TODO Remove multiple passengers, crab i hate you for making me do this
+
         if(world.isClient) {
             return ActionResult.CONSUME;
         } else if(player.isSneaking() || player.isSpectator()) {
-            System.out.println("is sneaking or spectator");
+            //System.out.println("is sneaking or spectator");
             return ActionResult.FAIL;
         } else if (player.shouldCancelInteraction()) {
-            System.out.println("canceled interaction");
+            //System.out.println("canceled interaction");
             return ActionResult.SUCCESS;
         } else {
             if(world.spawnEntity(seat)) {
                 player.startRiding(seat, true);
                 player.setYaw(yaw);
                 player.setHeadYaw(yaw);
-                System.out.println("spawn new seat");
+                //System.out.println("spawn new seat");
                 return ActionResult.SUCCESS;
             } else {
-                System.out.println("could not spawn seat");
+                //System.out.println("could not spawn seat");
                 return ActionResult.CONSUME;
             }
         }

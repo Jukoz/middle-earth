@@ -1071,6 +1071,21 @@
   "block.me.mossy_stone_pillar": "Mossy Stone Pillar",
   "block.me.cracked_stone_pillar": "Cracked Stone Pillar",
   "block.me.chiseled_smooth_stone": "Chiseled Smooth Stone",
+  "block.me.polished_stone": "Polished Stone",
+  "block.me.polished_stone_slab": "Polished Stone Slab",
+  "block.me.polished_stone_vertical_slab": "Polished Stone Vertical Slab",
+  "block.me.polished_stone_stairs": "Polished Stone Stairs",
+  "block.me.polished_stone_wall": "Polished Stone Wall",
+  "block.me.mossy_polished_stone": "Mossy Polished Stone",
+  "block.me.mossy_polished_stone_slab": "Mossy Polished Stone Slab",
+  "block.me.mossy_polished_stone_vertical_slab": "Mossy Polished Stone Vertical Slab",
+  "block.me.mossy_polished_stone_stairs": "Mossy Polished Stone Stairs",
+  "block.me.mossy_polished_stone_wall": "Mossy Polished Stone Wall",
+  "block.me.cracked_polished_stone": "Cracked Polished Stone Tiles",
+  "block.me.cracked_polished_stone_slab": "Cracked Polished Stone Slab",
+  "block.me.cracked_polished_stone_vertical_slab": "Cracked Polished Stone Vertical Slab",
+  "block.me.cracked_polished_stone_stairs": "Cracked Polished Stone Stairs",
+  "block.me.cracked_polished_stone_wall": "Cracked Polished Stone Wall",
   "block.me.stone_tiles": "Stone Tiles",
   "block.me.stone_tiles_slab": "Stone Tiles Slab",
   "block.me.stone_tiles_vertical_slab": "Stone Tiles Vertical Slab",
@@ -1096,6 +1111,10 @@
   "block.me.cracked_smooth_stone_vertical_slab": "Cracked Smooth Stone Vertical Slab",
   "block.me.cracked_smooth_stone_stairs": "Cracked Smooth Stone Stairs",
   "block.me.cracked_smooth_stone_wall": "Cracked Smooth Stone Wall",
+
+  "block.me.chiseled_stone": "Chiseled Stone",
+  "block.me.chiseled_polished_stone": "Chiseled Polsihed Stone",
+  "block.me.chiseled_stone_tiles": "Chiseled Stone Tiles",
 
   "block.me.stone_stool": "Stone Stool",
   "block.me.stone_table": "Stone Table",
@@ -1707,6 +1726,12 @@
 "#Comment:": "Block - Limestone",
   "block.me.pointed_limestone": "Pointed Limestone",
 
+  "block.me.old_limestone": "Old Limestone",
+  "block.me.old_limestone_slab": "Old Limestone Slab",
+  "block.me.old_limestone_vertical_slab": "Old Limestone Vertical Slab",
+  "block.me.old_limestone_stairs": "Old Limestone Stairs",
+  "block.me.old_limestone_wall": "Old Limestone Wall",
+
   "block.me.smooth_limestone": "Smooth Limestone",
   "block.me.smooth_limestone_slab": "Smooth Limestone Slab",
   "block.me.smooth_limestone_vertical_slab": "Smooth Limestone Vertical Slab",
@@ -1806,6 +1831,30 @@
   "block.me.limestone_chair": "Limestone Chair",
 
 "#Comment:": "Block - Galonn",
+  "block.me.pointed_galonn": "Pointed Galonn",
+
+  "block.me.old_galonn": "Old Galonn",
+  "block.me.old_galonn_slab": "Old Galonn Slab",
+  "block.me.old_galonn_vertical_slab": "Old Galonn Vertical Slab",
+  "block.me.old_galonn_stairs": "Old Galonn Stairs",
+  "block.me.old_galonn_wall": "Old Galonn Wall",
+
+
+  "block.me.smooth_galonn": "Smooth Galonn",
+  "block.me.smooth_galonn_slab": "Smooth Galonn Slab",
+  "block.me.smooth_galonn_vertical_slab": "Smooth Galonn Vertical Slab",
+  "block.me.smooth_galonn_stairs": "Smooth Galonn Stairs",
+  "block.me.smooth_galonn_wall": "Smooth Galonn Wall",
+  "block.me.mossy_smooth_galonn": "Mossy Smooth Galonn",
+  "block.me.mossy_smooth_galonn_slab": "Mossy Smooth Galonn Slab",
+  "block.me.mossy_smooth_galonn_vertical_slab": "Mossy Smooth Galonn Vertical Slab",
+  "block.me.mossy_smooth_galonn_stairs": "Mossy Smooth Galonn Stairs",
+  "block.me.mossy_smooth_galonn_wall": "Mossy Smooth Galonn Wall",
+  "block.me.cracked_smooth_galonn": "Cracked Smooth Galonn",
+  "block.me.cracked_smooth_galonn_slab": "Cracked Smooth Galonn Slab",
+  "block.me.cracked_smooth_galonn_vertical_slab": "Cracked Smooth Galonn Vertical Slab",
+  "block.me.cracked_smooth_galonn_stairs": "Cracked Smooth Galonn Stairs",
+  "block.me.cracked_smooth_galonn_wall": "Cracked Smooth Galonn Wall",
   "block.me.cobbled_galonn": "Cobbled Galonn",
   "block.me.cobbled_galonn_slab": "Cobbled Galonn Slab",
   "block.me.cobbled_galonn_vertical_slab": "Cobbled Galonn Vertical Slab",
@@ -1871,6 +1920,9 @@
   "block.me.cracked_polished_galonn_wall": "Cracked Polished Galonn Wall",
   "block.me.chiseled_polished_galonn": "Chiseled Polished Galonn",
   "block.me.chiseled_galonn_bricks": "Chiseled Galonn Bricks",
+  "block.me.chiseled_galonn": "Chiseled Galonn",
+  "block.me.chiseled_galonn_tiles": "Chiseled Galonn Tiles",
+  "block.me.chiseled_smooth_galonn": "Chiseled Smooth Galonn",
 
   "block.me.galonn_pressure_plate": "Galonn Pressure Plate",
   "block.me.galonn_button": "Galonn Button",
@@ -2140,7 +2192,7 @@
   "block.me.cracked_tuff_pillar": "Cracked Tuff Pillar",
   "block.me.tuff_bricks": "Tuff Bricks",
   "block.me.tuff_bricks_slab": "Tuff Bricks Slab",
-  "block.me.tuff_bricks_vertical_slab": "Tuff Bricks Vertical Slab",
+  "block.me.tuff_brick_vertical_slab": "Tuff Bricks Vertical Slab",
   "block.me.tuff_bricks_stairs": "Tuff Bricks Stairs",
   "block.me.tuff_bricks_wall": "Tuff Bricks Wall",
   "block.me.mossy_tuff_bricks": "Mossy Tuff Bricks",
@@ -3081,6 +3133,8 @@
   "block.me.coarse_dirt_stairs": "Coarse Dirt Stairs",
   "block.me.mud_slab": "Mud Slab",
   "block.me.mud_stairs": "Mud Stairs",
+  "block.me.moss_slab": "Moss Slab",
+  "block.me.moss_stairs": "Moss Stairs",
 
   "block.me.cobbly_dirt": "Cobbly Dirt",
   "block.me.cobbly_dirt_slab": "Cobbly Dirt Slab",
@@ -3096,6 +3150,7 @@
 
   "block.me.turf": "Turf",
   "block.me.turf_slab": "Turf Slab",
+  "block.me.turf_vertical_slab": "Turf Vertical Slab",
   "block.me.turf_stairs": "Turf Stairs",
 
   "block.me.mire": "Mire",
@@ -3145,6 +3200,8 @@
   "block.me.beech_table": "Beech Table",
   "block.me.beech_chair": "Beech Chair",
 
+  "block.me.beech_ladder": "Beech Ladder",
+
 "#Comment:": "Block - Larch",
   "block.me.larch_leaves": "Larch Leaves",
   "block.me.dry_larch_leaves": "Dry Larch Leaves",
@@ -3189,6 +3246,8 @@
   "block.me.larch_table": "Larch Table",
   "block.me.larch_chair": "Larch Chair",
 
+  "block.me.larch_ladder": "Larch Ladder",
+
 "#Comment:": "Block - Black Lebethron",
   "block.me.lebethron_leaves": "Lebethron Leaves",
   "block.me.black_lebethron_log": "Black Lebethron Log",
@@ -3232,6 +3291,8 @@
   "block.me.black_lebethron_table": "Black Lebethron Table",
   "block.me.black_lebethron_chair": "Black Lebethron Chair",
 
+  "block.me.black_lebethron_ladder": "Black Lebethron Ladder",
+
 "#Comment:": "Block - White Lebethron",
   "block.me.white_lebethron_log": "White Lebethron Log",
   "block.me.white_lebethron_wood": "White Lebethron Wood",
@@ -3273,6 +3334,8 @@
   "block.me.white_lebethron_bench": "White Lebethron Bench",
   "block.me.white_lebethron_table": "White Lebethron Table",
   "block.me.white_lebethron_chair": "White Lebethron Chair",
+
+  "block.me.white_lebethron_ladder": "White Lebethron Ladder",
 
 "#Comment:": "Block - Chestnut",
   "block.me.chestnut_leaves": "Chestnut Leaves",
@@ -3316,6 +3379,8 @@
   "block.me.chestnut_bench": "Chestnut Bench",
   "block.me.chestnut_table": "Chestnut Table",
   "block.me.chestnut_chair": "Chestnut Chair",
+
+  "block.me.chestnut_ladder": "Chestnut Ladder",
 
 "#Comment:": "Block - Holly",
   "block.me.holly_leaves": "Holly Leaves",
@@ -3361,6 +3426,8 @@
   "block.me.holly_table": "Holly Table",
   "block.me.holly_chair": "Holly Chair",
 
+  "block.me.holly_ladder": "Holly Ladder",
+
 "#Comment:": "Block - Mallorn",
   "block.me.mallorn_leaves": "Mallorn Leaves",
   "block.me.flowering_mallorn_leaves": "Flowering Mallorn Leaves",
@@ -3405,6 +3472,8 @@
   "block.me.mallorn_bench": "Mallorn Bench",
   "block.me.mallorn_table": "Mallorn Table",
   "block.me.mallorn_chair": "Mallorn Chair",
+
+  "block.me.mallorn_ladder": "Mallorn Ladder",
 
 "#Comment:": "Block - Maple",
   "block.me.maple_leaves": "Maple Leaves",
@@ -3452,6 +3521,8 @@
   "block.me.maple_table": "Maple Table",
   "block.me.maple_chair": "Maple Chair",
 
+  "block.me.maple_ladder": "Maple Ladder",
+
 "#Comment:": "Block - Silver Maple",
   "block.me.silver_maple_log": "Silver Maple Log",
   "block.me.silver_maple_wood": "Silver Maple Wood",
@@ -3493,6 +3564,8 @@
   "block.me.silver_maple_bench": "Silver Maple Bench",
   "block.me.silver_maple_table": "Silver Maple Table",
   "block.me.silver_maple_chair": "Silver Maple Chair",
+
+  "block.me.silver_maple_ladder": "Silver Maple Ladder",
 
 "#Comment:": "Block - Mirkwood",
   "block.me.mirkwood_leaves": "Mirkwood Leaves",
@@ -3539,6 +3612,8 @@
   "block.me.mirkwood_table": "Mirkwood Table",
   "block.me.mirkwood_chair": "Mirkwood Chair",
 
+  "block.me.mirkwood_ladder": "Mirkwood Ladder",
+
 "#Comment:": "Block - Palm",
   "block.me.palm_leaves": "Palm Leaves",
   "block.me.palm_log": "Palm Log",
@@ -3582,6 +3657,8 @@
   "block.me.palm_table": "Palm Table",
   "block.me.palm_chair": "Palm Chair",
 
+  "block.me.palm_ladder": "Palm Ladder",
+
 "#Comment:": "Block - White Palm",
   "block.me.white_palm_leaves": "White Palm Leaves",
   "block.me.white_palm_log": "White Palm Log",
@@ -3624,6 +3701,8 @@
   "block.me.white_palm_bench": "White Palm Bench",
   "block.me.white_palm_table": "White Palm Table",
   "block.me.white_palm_chair": "White Palm Chair",
+
+  "block.me.white_palm_ladder": "White Palm Ladder",
 
 "#Comment:": "Block - Pine",
   "block.me.pine_leaves": "Pine Leaves",
@@ -3670,6 +3749,8 @@
   "block.me.pine_table": "Pine Table",
   "block.me.pine_chair": "Pine Chair",
 
+  "block.me.pine_ladder": "Pine Ladder",
+
 "#Comment:": "Block - Black Pine",
   "block.me.black_pine_leaves": "Black Pine Leaves",
   "block.me.black_pine_branches": "Black Pine Branches",
@@ -3715,6 +3796,8 @@
   "block.me.black_pine_table": "Black Pine Table",
   "block.me.black_pine_chair": "Black Pine Chair",
 
+  "block.me.black_pine_ladder": "Black Pine Ladder",
+
 "#Comment:": "Block - Willow",
   "block.me.willow_leaves": "Willow Leaves",
   "block.me.willow_log": "Willow Log",
@@ -3758,6 +3841,8 @@
   "block.me.willow_table": "Willow Table",
   "block.me.willow_chair": "Willow Chair",
 
+  "block.me.willow_ladder": "Willow Ladder",
+
 "#Comment:": "Block - Mushroom",
   "block.me.mushroom_stem_wall": "Mushroom Stem Wall",
   "block.me.mushroom_stem_fence": "Mushroom Stem Fence",
@@ -3781,6 +3866,8 @@
   "block.me.mushroom_bench": "Mushroom Bench",
   "block.me.mushroom_table": "Mushroom Table",
   "block.me.mushroom_chair": "Mushroom Chair",
+
+  "block.me.mushroom_ladder": "Mushroom Ladder",
 
 "#Comment:": "Block - Dark mushroom",
   "block.me.dark_mushroom_stem": "Dark Mushroom Stem",
@@ -3807,6 +3894,8 @@
   "block.me.dark_mushroom_table": "Dark Mushroom Table",
   "block.me.dark_mushroom_chair": "Dark Mushroom Chair",
 
+  "block.me.dark_mushroom_ladder": "Dark Mushroom Ladder",
+
 "#Comment:": "Block - Gray mushroom",
   "block.me.gray_mushroom_stem": "Gray Mushroom Stem",
   "block.me.gray_mushroom_stem_wall": "Gray Mushroom Stem Wall",
@@ -3831,6 +3920,8 @@
   "block.me.gray_mushroom_bench": "Gray Mushroom Bench",
   "block.me.gray_mushroom_table": "Gray Mushroom Table",
   "block.me.gray_mushroom_chair": "Gray Mushroom Chair",
+
+  "block.me.gray_mushroom_ladder": "Gray Mushroom Ladder",
 
 "#Comment:": "Block - Roofs",
   "block.me.oak_shingles": "Oak Shingles",
@@ -4058,55 +4149,76 @@
   "block.me.oak_table": "Oak Table",
   "block.me.oak_chair": "Oak Chair",
 
+  "block.me.oak_ladder": "Oak Ladder",
+
   "block.me.spruce_stool": "Spruce Stool",
   "block.me.spruce_bench": "Spruce Bench",
   "block.me.spruce_table": "Spruce Table",
   "block.me.spruce_chair": "Spruce Chair",
 
+  "block.me.spruce_ladder": "Spruce Ladder",
+
   "block.me.birch_stool": "Birch Stool",
   "block.me.birch_bench": "Birch Bench",
   "block.me.birch_table": "Birch Table",
   "block.me.birch_chair": "Birch Chair",
+  "block.me.birch_ladder": "Birch Ladder",
 
   "block.me.jungle_stool": "Jungle Stool",
   "block.me.jungle_bench": "Jungle Bench",
   "block.me.jungle_table": "Jungle Table",
   "block.me.jungle_chair": "Jungle Chair",
 
+  "block.me.jungle_ladder": "Jungle Ladder",
+
   "block.me.acacia_stool": "Acacia Stool",
   "block.me.acacia_bench": "Acacia Bench",
   "block.me.acacia_table": "Acacia Table",
   "block.me.acacia_chair": "Acacia Chair",
+
+  "block.me.acacia_ladder": "Acacia Ladder",
 
   "block.me.dark_oak_stool": "Dark Oak Stool",
   "block.me.dark_oak_bench": "Dark Oak Bench",
   "block.me.dark_oak_table": "Dark Oak Table",
   "block.me.dark_oak_chair": "Dark Oak Chair",
 
+  "block.me.dark_oak_ladder": "Dark Oak Ladder",
+
   "block.me.mangrove_stool": "Mangrove Stool",
   "block.me.mangrove_bench": "Mangrove Bench",
   "block.me.mangrove_table": "Mangrove Table",
   "block.me.mangrove_chair": "Mangrove Chair",
+
+  "block.me.mangrove_ladder": "Mangrove Ladder",
 
   "block.me.cherry_stool": "Cherry Stool",
   "block.me.cherry_bench": "Cherry Bench",
   "block.me.cherry_table": "Cherry Table",
   "block.me.cherry_chair": "Cherry Chair",
 
+  "block.me.cherry_ladder": "Cherry Ladder",
+
   "block.me.bamboo_stool": "Bamboo Stool",
   "block.me.bamboo_bench": "Bamboo Bench",
   "block.me.bamboo_table": "Bamboo Table",
   "block.me.bamboo_chair": "Bamboo Chair",
+
+  "block.me.bamboo_ladder": "Bamboo Ladder",
 
   "block.me.crimson_stool": "Crimson Stool",
   "block.me.crimson_bench": "Crimson Bench",
   "block.me.crimson_table": "Crimson Table",
   "block.me.crimson_chair": "Crimson Chair",
 
+  "block.me.crimson_ladder": "Crimson Ladder",
+
   "block.me.warped_stool": "Warped Stool",
   "block.me.warped_bench": "Warped Bench",
   "block.me.warped_table": "Warped Table",
   "block.me.warped_chair": "Warped Chair",
+
+  "block.me.warped_ladder": "Warped Ladder",
 
   "block.me.blue_cushion": "Blue Cushion",
   "block.me.brown_cushion": "Brown Cushion",
@@ -4118,6 +4230,11 @@
   "block.me.red_cushion": "Red Cushion",
 
   "block.me.chimney": "Chimney",
+
+  "block.me.watering_can": "Watering Can",
+  "block.me.wooden_bucket": "Wooden Bucket",
+
+  "block.me.treated_steel_rod": "Treated Steel Rod",
 
   "block.me.big_brazier": "Big Brazier",
   "block.me.gilded_big_brazier": "Gilded Big Brazier",
@@ -4698,6 +4815,7 @@
   "block.me.wood_pile": "Wood Pile",
 
   "block.me.rope": "Rope",
+  "block.me.rope_ladder": "Rope Ladder",
 
   "block.me.net": "Net",
 
