@@ -10,7 +10,8 @@
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/middle-earth",
-    "sources": "https://github.com/Jukoz/middle-earth"
+    "sources": "https://github.com/Jukoz/middle-earth",
+    "issues": "https://github.com/Jukoz/middle-earth/issues"
   },
 
   "license": "MIT",
@@ -44,6 +45,19 @@
     "java": ">=21"
   },
   "suggests": {
-    "roughlyenoughitems": "*"
+    "roughlyenoughitems": "*",
+    "modmenu": "*"
+  },
+
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.wiki": "https://middleearthmcmod.wiki.gg/wiki/Middle_Earth_Minecraft_Mod_Wiki",
+        "modmenu.discord": "https://discord.gg/9yQ7UWkVUz",
+        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/middle-earth",
+        "modmenu.modrinth": "https://modrinth.com/mod/middle-earth"
+      },
+      "update_checker": true
+    }
   }
 }

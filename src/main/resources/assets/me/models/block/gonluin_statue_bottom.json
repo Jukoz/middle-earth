@@ -1,0 +1,49 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"1": "me:block/gonluin_statue",
+		"particle": "me:block/gonluin_statue"
+	},
+	"elements": [
+		{
+			"from": [5, 0, 8],
+			"to": [11, 16, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 2]},
+			"faces": {
+				"north": {"uv": [0, 12, 1.5, 16], "texture": "#1"},
+				"east": {"uv": [4, 12, 5, 16], "texture": "#1"},
+				"south": {"uv": [2.5, 12, 4, 16], "texture": "#1"},
+				"west": {"uv": [1.5, 12, 2.5, 16], "texture": "#1"},
+				"up": {"uv": [0, 10.75, 1.5, 11.75], "texture": "#1"},
+				"down": {"uv": [2.5, 10.75, 4, 11.75], "texture": "#1"}
+			}
+		},
+		{
+			"from": [7.5, 3, 5],
+			"to": [8.5, 16, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 1, 2]},
+			"faces": {
+				"north": {"uv": [10.25, 0.5, 10.5, 3.75], "texture": "#1"},
+				"east": {"uv": [11, 0.5, 11.25, 3.75], "texture": "#1"},
+				"south": {"uv": [10.75, 0.5, 11, 3.75], "texture": "#1"},
+				"west": {"uv": [10.5, 0.5, 10.75, 3.75], "texture": "#1"},
+				"up": {"uv": [11.5, 0.25, 11.75, 0.5], "texture": "#1"},
+				"down": {"uv": [11.5, 0.75, 11.75, 1], "texture": "#1"}
+			}
+		},
+		{
+			"from": [5, 0, 4],
+			"to": [11, 3, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 2]},
+			"faces": {
+				"north": {"uv": [8.75, 8, 10.25, 8.75], "texture": "#1"},
+				"east": {"uv": [8, 8, 8.75, 8.75], "texture": "#1"},
+				"south": {"uv": [11, 8, 12.5, 8.75], "texture": "#1"},
+				"west": {"uv": [10.25, 8, 11, 8.75], "texture": "#1"},
+				"up": {"uv": [8.75, 7.25, 10.25, 8], "texture": "#1"},
+				"down": {"uv": [8.75, 8.75, 10.25, 9.5], "texture": "#1"}
+			}
+		}
+	]
+}

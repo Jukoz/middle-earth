@@ -68,9 +68,9 @@ public class CustomChestplateItem extends ArmorItem {
 
             if (capeDataComponent != null) {
                 if (capeDataComponent.enabled()) {
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape()).append(": Enabled "));
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape()).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".cape.enable")));
                 } else {
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape()).append(": Disabled"));
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape()).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".cape.disable")));
                 }
             }
         }else {

@@ -185,7 +185,7 @@ public class ModFactionRegistry {
                         ),
                         new SpawnDataHandler(new Vector2i(0,0),
                                 new HashMap<>(){{
-                                    put(Identifier.of(MiddleEarth.MOD_ID, gondorLossarnach.concat(".enui_source")), new Vector2i(1890, 1785));
+                                    put(Identifier.of(MiddleEarth.MOD_ID, gondorLossarnach.concat(".erui_source")), new Vector2i(1890, 1785));
                                 }},
                                 new HashMap<>()
                         ),

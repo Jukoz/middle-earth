@@ -254,7 +254,13 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleWallModel.Wall block : SimpleWallModel.vanillaWalls) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath()));
+            TexturedModel texturedModel;
+            if(Registries.BLOCK.getId(block.block()).getPath().contains("waxed_") && Registries.BLOCK.getId(block.block()).getPath().contains("cut_copper")){
+                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("waxed_", "")));
+            } else {
+                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath()));
+
+            }
             Block wall = block.wall();
 
             Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
@@ -569,8 +575,7 @@ public class ModelProvider extends FabricModelProvider {
             String id = String.valueOf(Registries.BLOCK.getId(verticalSlab.block()));
             id = id.substring(id.lastIndexOf(":") + 1);
 
-            if(verticalSlab.block() == Blocks.SANDSTONE || verticalSlab.block() == Blocks.RED_SANDSTONE ||
-                    verticalSlab.block() == Blocks.CUT_SANDSTONE || verticalSlab.block() == Blocks.CUT_RED_SANDSTONE) {
+            if(verticalSlab.block() == Blocks.SANDSTONE || verticalSlab.block() == Blocks.RED_SANDSTONE || verticalSlab.block() == Blocks.CUT_SANDSTONE || verticalSlab.block() == Blocks.CUT_RED_SANDSTONE) {
                 String topId = id + "_top";
                 String bottomId = id + "_bottom";
                 if(verticalSlab.block() == Blocks.CUT_SANDSTONE || verticalSlab.block() == Blocks.CUT_RED_SANDSTONE) {
@@ -578,24 +583,25 @@ public class ModelProvider extends FabricModelProvider {
                     bottomId = bottomId.substring(bottomId.indexOf("_") + 1);
                 }
                 registerColumnVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), "minecraft", topId, bottomId, id);
-            } else {
-                if(verticalSlab.block() == Blocks.SMOOTH_RED_SANDSTONE
-                        || verticalSlab.block() == Blocks.SMOOTH_SANDSTONE) {
-                    id += "_top";
-                    id = id.substring(id.indexOf("_") + 1);
-                } else if(verticalSlab.block() == Blocks.QUARTZ_BLOCK) {
-                    id += "_side";
-                } else if(verticalSlab.block() == Blocks.SMOOTH_QUARTZ) {
-                    id = "quartz_block_bottom";
-                } else if(verticalSlab.block() == Blocks.WAXED_CUT_COPPER
-                        || verticalSlab.block() == Blocks.WAXED_EXPOSED_CUT_COPPER
-                        || verticalSlab.block() == Blocks.WAXED_WEATHERED_CUT_COPPER
-                        || verticalSlab.block() == Blocks.WAXED_OXIDIZED_CUT_COPPER) {
-                    id = id.substring(id.indexOf("_") + 1);
+                } else {
+                    if(verticalSlab.block() == Blocks.SMOOTH_RED_SANDSTONE
+                            || verticalSlab.block() == Blocks.SMOOTH_SANDSTONE) {
+                        id += "_top";
+                        id = id.substring(id.indexOf("_") + 1);
+                    } else if(verticalSlab.block() == Blocks.QUARTZ_BLOCK) {
+                        id += "_side";
+                    } else if(verticalSlab.block() == Blocks.SMOOTH_QUARTZ) {
+                        id = "quartz_block_bottom";
+                    } else if(verticalSlab.block() == Blocks.WAXED_CUT_COPPER
+                            || verticalSlab.block() == Blocks.WAXED_EXPOSED_CUT_COPPER
+                            || verticalSlab.block() == Blocks.WAXED_WEATHERED_CUT_COPPER
+                            || verticalSlab.block() == Blocks.WAXED_OXIDIZED_CUT_COPPER) {
+                        id = id.substring(id.indexOf("_") + 1);
+                    }
+                    registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), id);
                 }
-                registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), id);
-            }
         }
+
         for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaWoodVerticalSlabs) {
             String id = Registries.BLOCK.getId(verticalSlab.block()).getPath();
             String baseTextureId = id.substring(0, id.lastIndexOf("_")) + "_log";
@@ -718,6 +724,9 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     private void registerVerticalSlab(BlockStateModelGenerator blockStateModelGenerator, Block block, Identifier full, Identifier variant) {
+        if(Registries.BLOCK.getId(block).getPath().contains("waxed_") && Registries.BLOCK.getId(block).getPath().contains("copper")){
+            full = Identifier.ofVanilla(full.getPath().replaceAll("waxed_", ""));
+        }
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block)
                 .coordinate(BlockStateVariantMap.create(Properties.HORIZONTAL_FACING, VerticalSlabBlock.DOUBLE)
                         .register(Direction.NORTH, false, BlockStateVariant.create()
