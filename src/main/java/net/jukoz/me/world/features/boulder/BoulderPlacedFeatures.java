@@ -56,6 +56,10 @@ public class BoulderPlacedFeatures {
     public static final RegistryKey<PlacedFeature> MEDIUM_BOULDER_DOLOMITE  = registerKey("medium_boulder_dolomite");
     public static final RegistryKey<PlacedFeature> BIG_BOULDER_DOLOMITE     = registerKey("big_boulder_dolomite");
 
+    public static final RegistryKey<PlacedFeature> SMALL_BOULDER_SMOOTH_DOLOMITE   = registerKey("small_boulder_smooth_dolomite");
+    public static final RegistryKey<PlacedFeature> MEDIUM_BOULDER_SMOOTH_DOLOMITE  = registerKey("medium_boulder_smooth_dolomite");
+    public static final RegistryKey<PlacedFeature> BIG_BOULDER_SMOOTH_DOLOMITE     = registerKey("big_boulder_smooth_dolomite");
+
     public static final RegistryKey<PlacedFeature> SMALL_BOULDER_GNEISS     = registerKey("small_boulder_gneiss");
     public static final RegistryKey<PlacedFeature> MEDIUM_BOULDER_GNEISS    = registerKey("medium_boulder_gneiss");
     public static final RegistryKey<PlacedFeature> BIG_BOULDER_GNEISS       = registerKey("big_boulder_gneiss");
@@ -168,6 +172,12 @@ public class BoulderPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, MEDIUM_BOULDER_DOLOMITE, registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.MEDIUM_BOULDER_DOLOMITE),
                 rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, BIG_BOULDER_DOLOMITE, registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.BIG_BOULDER_DOLOMITE),
+                veryRare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, SMALL_BOULDER_SMOOTH_DOLOMITE, registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.SMALL_BOULDER_SMOOTH_DOLOMITE),
+                sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, MEDIUM_BOULDER_SMOOTH_DOLOMITE, registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.MEDIUM_BOULDER_SMOOTH_DOLOMITE),
+                rare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, BIG_BOULDER_SMOOTH_DOLOMITE, registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.BIG_BOULDER_SMOOTH_DOLOMITE),
                 veryRare, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, SMALL_BOULDER_GNEISS, registryEntryLookup.getOrThrow(BoulderConfiguredFeatures.SMALL_BOULDER_GNEISS),
                 sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

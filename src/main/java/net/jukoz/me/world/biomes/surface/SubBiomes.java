@@ -20,6 +20,9 @@ public class SubBiomes {
                 .addSubBiomeData(-1.0f, -0.2f, MEBiomeKeys.OLD_ANGMAR_FOREST)
                 .addSubBiomeData(0.22f, 0.27f, MEBiomeKeys.OLD_ANGMAR_COLD_HILL, true)
                 .addSubBiomeData(0.27f, 1.01f, MEBiomeKeys.OLD_ANGMAR_FROZEN_HILL, true));
+        subBiomesMap.put(MEBiomeKeys.OLD_ARTHEDAIN, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.28f, MEBiomeKeys.OLD_ARTHEDAIN_FOREST)
+                .addSubBiomeData(0.25f, 1.01f, MEBiomeKeys.OLD_ARTHEDAIN_MEADOW));
     }
 
     public static boolean isSubBiome(RegistryKey<Biome> biomeRegistryKey) {

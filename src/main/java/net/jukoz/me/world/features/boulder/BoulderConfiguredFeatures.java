@@ -58,6 +58,10 @@ public class BoulderConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEDIUM_BOULDER_DOLOMITE = registerKey("medium_boulder_dolomite");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BIG_BOULDER_DOLOMITE = registerKey("big_boulder_dolomite");
 
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SMALL_BOULDER_SMOOTH_DOLOMITE = registerKey("small_boulder_smooth_dolomite");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MEDIUM_BOULDER_SMOOTH_DOLOMITE = registerKey("medium_boulder_smooth_dolomite");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> BIG_BOULDER_SMOOTH_DOLOMITE = registerKey("big_boulder_smooth_dolomite");
+
     public static final RegistryKey<ConfiguredFeature<?, ?>> SMALL_BOULDER_GNEISS = registerKey("small_boulder_gneiss");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEDIUM_BOULDER_GNEISS = registerKey("medium_boulder_gneiss");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BIG_BOULDER_GNEISS = registerKey("big_boulder_gneiss");
@@ -150,6 +154,12 @@ public class BoulderConfiguredFeatures {
             StoneBlockSets.DOLOMITE.base().getDefaultState(),
             StoneBlockSets.COBBLED_DOLOMITE.base().getDefaultState(),
             StoneBlockSets.MOSSY_COBBLED_DOLOMITE.base().getDefaultState());
+
+    private static final List<BlockState> smoothDolomite = Arrays.asList(
+            StoneBlockSets.SMOOTH_DOLOMITE.base().getDefaultState(),
+            StoneBlockSets.SMOOTH_DOLOMITE.base().getDefaultState(),
+            StoneBlockSets.CRACKED_SMOOTH_DOLOMITE.base().getDefaultState(),
+            StoneBlockSets.MOSSY_SMOOTH_DOLOMITE.base().getDefaultState());
 
     private static final List<BlockState> gneiss = Arrays.asList(
             StoneBlockSets.GNEISS.base().getDefaultState(),
@@ -270,6 +280,13 @@ public class BoulderConfiguredFeatures {
                 new BigBoulderFeatureConfig(mediumWidth, mediumLength, mediumHeight, mediumRandomSize, mediumRandomness, dolomite));
         ConfiguredFeatures.register(featureRegisterable, BIG_BOULDER_DOLOMITE, ModFeatures.BIG_BOULDER,
                 new BigBoulderFeatureConfig(bigWidth, bigLength, bigHeight, bigRandomSize, bigRandomness, dolomite));
+
+        ConfiguredFeatures.register(featureRegisterable, SMALL_BOULDER_SMOOTH_DOLOMITE, ModFeatures.BIG_BOULDER,
+                new BigBoulderFeatureConfig(smallWidth, smallLength, smallHeight, smallRandomSize, smallRandomness, smoothDolomite));
+        ConfiguredFeatures.register(featureRegisterable, MEDIUM_BOULDER_SMOOTH_DOLOMITE, ModFeatures.BIG_BOULDER,
+                new BigBoulderFeatureConfig(mediumWidth, mediumLength, mediumHeight, mediumRandomSize, mediumRandomness, smoothDolomite));
+        ConfiguredFeatures.register(featureRegisterable, BIG_BOULDER_SMOOTH_DOLOMITE, ModFeatures.BIG_BOULDER,
+                new BigBoulderFeatureConfig(bigWidth, bigLength, bigHeight, bigRandomSize, bigRandomness, smoothDolomite));
 
         ConfiguredFeatures.register(featureRegisterable, SMALL_BOULDER_GNEISS, ModFeatures.BIG_BOULDER,
                 new BigBoulderFeatureConfig(smallWidth, smallLength, smallHeight, smallRandomSize, smallRandomness, gneiss));
