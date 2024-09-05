@@ -1,5 +1,6 @@
 package net.jukoz.me.datageneration;
 
+import dev.architectury.platform.Mod;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.*;
@@ -427,6 +428,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         createStairsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_SLAB);
+        createVerticalSlabsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_VERTICAL_SLAB);
 
         createStairsRecipe(exporter, ModBlocks.MIRE, ModBlocks.MIRE_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.MIRE, ModBlocks.MIRE_SLAB);

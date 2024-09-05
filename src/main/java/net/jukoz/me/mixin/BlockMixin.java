@@ -1,7 +1,6 @@
 package net.jukoz.me.mixin;
 
 import net.jukoz.me.block.ModDecorativeBlocks;
-import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancEntity;
 import net.jukoz.me.entity.ModEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -36,7 +35,7 @@ public abstract class BlockMixin {
             if(block != Blocks.TNT && block != ModDecorativeBlocks.FIRE_OF_ORTHANC) {
                 if(Math.random() < RANDOM_FLYING_BLOCK) {
                     float distance = (float) pos.getSquaredDistance(explosion.getPosition());
-                    if(distance < explosion.power / DISCARD_DISTANCE) return;
+                    if(distance < explosion.getPower() / DISCARD_DISTANCE) return;
 
                     FallingBlockEntity fallingBlockEntity = FallingBlockEntity.spawnFromBlock(world, pos, block.getDefaultState());
                     fallingBlockEntity.dropItem = false;

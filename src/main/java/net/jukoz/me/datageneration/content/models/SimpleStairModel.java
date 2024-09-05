@@ -36,6 +36,7 @@ public class SimpleStairModel {
     public static List<Stair> vanillaStairs = new ArrayList<>() {
         {
             add(new Stair(Blocks.DIRT, ModBlocks.DIRT_STAIRS));
+            add(new Stair(Blocks.MOSS_BLOCK, ModBlocks.MOSS_STAIRS));
             add(new Stair(Blocks.ROOTED_DIRT, ModBlocks.ROOTED_DIRT_STAIRS));
             add(new Stair(Blocks.COARSE_DIRT, ModBlocks.COARSE_DIRT_STAIRS));
             add(new Stair(Blocks.MUD, ModBlocks.MUD_STAIRS));
