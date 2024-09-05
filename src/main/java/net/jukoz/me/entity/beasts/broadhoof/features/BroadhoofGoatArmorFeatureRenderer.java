@@ -1,10 +1,12 @@
 package net.jukoz.me.entity.beasts.broadhoof.features;
 
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatModel;
 import net.jukoz.me.entity.beasts.warg.WargModel;
 import net.jukoz.me.entity.beasts.warg.features.WargArmorModel;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
+import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.items.CustomAnimalArmorItem;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -16,6 +18,9 @@ import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 
 public class BroadhoofGoatArmorFeatureRenderer extends FeatureRenderer<BroadhoofGoatEntity, BroadhoofGoatModel> {
 
@@ -36,8 +41,21 @@ public class BroadhoofGoatArmorFeatureRenderer extends FeatureRenderer<Broadhoof
 
                 this.model.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
 
-                VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getEntityTexture()));
-                this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, -1);
+                VertexConsumer vertexConsumer;
+
+                if (itemStack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+                    vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getOverlayTexture()));
+                    this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, -1);
+
+                    vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getEntityTexture()));
+                    int color = CustomDyeableDataComponent.getColor(itemStack, CustomDyeableDataComponent.DEFAULT_COLOR);
+                    this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
+                }
+                else {
+                    vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getEntityTexture()));
+                    int color = CustomDyeableDataComponent.getColor(itemStack, CustomDyeableDataComponent.DEFAULT_COLOR);
+                    this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, -1);
+                }
                 return;
             }
         }

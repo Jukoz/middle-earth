@@ -83,13 +83,13 @@ public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntit
         ModelPartData swirly_left_horn_tip_r1 = swirly_left_horn.addChild("swirly_left_horn_tip_r1", ModelPartBuilder.create().uv(21, 80).cuboid(0.0F, 4.0F, -5.0F, 4.0F, 3.0F, 3.0F, new Dilation(0.0F))
                 .uv(1, 81).cuboid(0.0F, 0.0F, -2.0F, 4.0F, 7.0F, 6.0F, new Dilation(0.0F)), ModelTransform.of(13.0F, -1.0F, 1.0F, 0.7854F, 0.0F, 0.0F));
 
-        ModelPartData wide_left_horn = horns.addChild("wide_left_horn", ModelPartBuilder.create(), ModelTransform.of(13.0F, 0.0F, 0.0F, 0.0F, -0.4363F, 0.3491F));
+        ModelPartData wide_left_horn = horns.addChild("wide_left_horn", ModelPartBuilder.create(), ModelTransform.of(13.0F, 0.6F, -0.1F, 0.2012F, -0.2955F, 0.2578F));
 
         ModelPartData wide_left_horn_tip_r1 = wide_left_horn.addChild("wide_left_horn_tip_r1", ModelPartBuilder.create().uv(59, 117).mirrored().cuboid(-11.0F, -3.0F, 0.0F, 2.0F, 3.0F, 4.0F, new Dilation(0.0F)).mirrored(false)
                 .uv(35, 119).mirrored().cuboid(-21.0F, -3.0F, 2.0F, 10.0F, 3.0F, 2.0F, new Dilation(0.0F)).mirrored(false)
                 .uv(17, 115).mirrored().cuboid(-21.0F, -3.0F, -4.0F, 3.0F, 3.0F, 6.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(20.0F, -1.0F, 3.0F, 0.7854F, 0.0F, 0.0F));
 
-        ModelPartData huge_left_horn = horns.addChild("huge_left_horn", ModelPartBuilder.create(), ModelTransform.of(13.0F, 0.0F, 1.0F, 0.0792F, 0.1004F, 0.4055F));
+        ModelPartData huge_left_horn = horns.addChild("huge_left_horn", ModelPartBuilder.create(), ModelTransform.of(12.6F, 1.0F, -0.5F, 0.0576F, -0.2575F, 0.287F));
 
         ModelPartData huge_left_horn4_r1 = huge_left_horn.addChild("huge_left_horn4_r1", ModelPartBuilder.create().uv(85, 88).cuboid(-1.0F, -3.0F, 8.0F, 3.0F, 2.0F, 5.0F, new Dilation(0.0F))
                 .uv(86, 95).cuboid(-1.0F, -12.0F, 11.0F, 3.0F, 9.0F, 2.0F, new Dilation(0.0F))
@@ -115,18 +115,19 @@ public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntit
         ModelPartData swirly_right_horn_tip_r1 = swirly_right_horn.addChild("swirly_right_horn_tip_r1", ModelPartBuilder.create().uv(21, 94).cuboid(-8.0F, 4.0F, -5.0F, 4.0F, 3.0F, 3.0F, new Dilation(0.0F))
                 .uv(1, 95).cuboid(-8.0F, 0.0F, -2.0F, 4.0F, 7.0F, 6.0F, new Dilation(0.0F)), ModelTransform.of(13.0F, -1.0F, 1.0F, 0.7854F, 0.0F, 0.0F));
 
-        ModelPartData wide_right_horn = horns.addChild("wide_right_horn", ModelPartBuilder.create(), ModelTransform.of(9.0F, 0.0F, 0.0F, 0.0F, 0.4363F, -0.3491F));
+        ModelPartData wide_right_horn = horns.addChild("wide_right_horn", ModelPartBuilder.create(), ModelTransform.of(9.0F, 0.6F, -0.1F, 0.2012F, 0.2955F, -0.2578F));
 
         ModelPartData wide_right_horn_tip_r1 = wide_right_horn.addChild("wide_right_horn_tip_r1", ModelPartBuilder.create().uv(59, 117).cuboid(9.0F, -3.0F, 0.0F, 2.0F, 3.0F, 4.0F, new Dilation(0.0F))
                 .uv(35, 119).cuboid(11.0F, -3.0F, 2.0F, 10.0F, 3.0F, 2.0F, new Dilation(0.0F))
                 .uv(17, 115).cuboid(18.0F, -3.0F, -4.0F, 3.0F, 3.0F, 6.0F, new Dilation(0.0F)), ModelTransform.of(-20.0F, -1.0F, 3.0F, 0.7854F, 0.0F, 0.0F));
 
-        ModelPartData huge_right_horn = horns.addChild("huge_right_horn", ModelPartBuilder.create(), ModelTransform.of(9.0F, 0.0F, 1.0F, 0.0792F, -0.1004F, -0.4055F));
+        ModelPartData huge_right_horn = horns.addChild("huge_right_horn", ModelPartBuilder.create(), ModelTransform.of(9.4F, 1.0F, -0.5F, 0.0576F, 0.2575F, -0.287F));
 
-        ModelPartData huge_right_horn4_r1 = huge_right_horn.addChild("huge_right_horn4_r1", ModelPartBuilder.create().uv(85, 88).mirrored().cuboid(-2.0F, -3.0F, 8.0F, 3.0F, 2.0F, 5.0F, new Dilation(0.0F)).mirrored(false)
+        ModelPartData huge_right_horn5_r1 = huge_right_horn.addChild("huge_right_horn5_r1", ModelPartBuilder.create().uv(85, 88).mirrored().cuboid(-2.0F, -3.0F, 8.0F, 3.0F, 2.0F, 5.0F, new Dilation(0.0F)).mirrored(false)
                 .uv(86, 95).mirrored().cuboid(-2.0F, -12.0F, 11.0F, 3.0F, 9.0F, 2.0F, new Dilation(0.0F)).mirrored(false)
                 .uv(67, 94).mirrored().cuboid(-2.0F, -12.0F, -1.0F, 3.0F, 3.0F, 12.0F, new Dilation(0.0F)).mirrored(false)
                 .uv(73, 109).mirrored().cuboid(-2.0F, -12.0F, -5.0F, 3.0F, 12.0F, 4.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(0.0F, -2.0F, 3.0F, 0.7854F, 0.0F, 0.0F));
+
 
         ModelPartData left_front_leg = broadhoof_goat.addChild("left_front_leg", ModelPartBuilder.create().uv(43, 17).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 9.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(4.0F, -9.0F, -6.0F));
 
@@ -154,8 +155,8 @@ public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntit
         this.setHeadAngles(headYaw, headPitch);
 
         for(int i = 0 ; i < BroadhoofGoatHorns.values().length; i++) {
-            this.leftHorns[i].visible = (entity.getHorns().getId() == i) && entity.hasLeftHorn();
-            this.rightHorns[i].visible = (entity.getHorns().getId() == i) && entity.hasRightHorn();
+            this.leftHorns[i].visible = (entity.getHorns().getId() == i) && entity.hasLeftHorn() && !entity.isBaby();
+            this.rightHorns[i].visible = (entity.getHorns().getId() == i) && entity.hasRightHorn() && !entity.isBaby();
         }
 
         if((entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting()) || (entity.isAttacking() && !entity.hasControllingPassenger())) {

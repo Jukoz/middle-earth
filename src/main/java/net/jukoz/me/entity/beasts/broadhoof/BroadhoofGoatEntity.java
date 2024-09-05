@@ -260,7 +260,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
                 entity.damage(entity.getDamageSources().mobAttack(this), 8.0f);
                 entity.pushAwayFrom(this);
 
-                if(this.random.nextInt(10) == 0 && !this.isTame()) {
+                if(this.random.nextInt(10) == 0 && !this.isTame() && !this.isBaby()) {
                     this.dropHorn();
                 }
 
@@ -303,7 +303,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     @Override
     public boolean isHorseArmor(ItemStack stack) {
-        return stack.isOf(ModEquipmentItems.BROADHOOF_GOAT_PLATE_ARMOR);
+        return stack.isOf(ModEquipmentItems.BROADHOOF_GOAT_PLATE_ARMOR) || stack.isOf(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
     }
 
     @Override
