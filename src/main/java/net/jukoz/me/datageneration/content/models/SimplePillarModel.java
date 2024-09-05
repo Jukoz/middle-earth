@@ -27,6 +27,10 @@ public class SimplePillarModel {
             add(new StonePillar(ModBlocks.MOSSY_LIMESTONE_PILLAR, ModBlocks.LIMESTONE_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_LIMESTONE_PILLAR, ModBlocks.LIMESTONE_PILLAR));
 
+            add(new StonePillar(ModBlocks.GALONN_PILLAR, StoneBlockSets.GALONN_BRICKS.base()));
+            add(new StonePillar(ModBlocks.MOSSY_GALONN_PILLAR, ModBlocks.GALONN_PILLAR));
+            add(new StonePillar(ModBlocks.CRACKED_GALONN_PILLAR, ModBlocks.GALONN_PILLAR));
+
             add(new StonePillar(ModBlocks.STONE_PILLAR, Blocks.STONE_BRICKS));
             add(new StonePillar(ModBlocks.MOSSY_STONE_PILLAR, ModBlocks.STONE_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_STONE_PILLAR, ModBlocks.STONE_PILLAR));

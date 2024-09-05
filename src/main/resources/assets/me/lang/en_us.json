@@ -1066,6 +1066,21 @@
   "block.me.mossy_stone_pillar": "Mossy Stone Pillar",
   "block.me.cracked_stone_pillar": "Cracked Stone Pillar",
   "block.me.chiseled_smooth_stone": "Chiseled Smooth Stone",
+  "block.me.polished_stone": "Polished Stone",
+  "block.me.polished_stone_slab": "Polished Stone Slab",
+  "block.me.polished_stone_vertical_slab": "Polished Stone Vertical Slab",
+  "block.me.polished_stone_stairs": "Polished Stone Stairs",
+  "block.me.polished_stone_wall": "Polished Stone Wall",
+  "block.me.mossy_polished_stone": "Mossy Polished Stone",
+  "block.me.mossy_polished_stone_slab": "Mossy Polished Stone Slab",
+  "block.me.mossy_polished_stone_vertical_slab": "Mossy Polished Stone Vertical Slab",
+  "block.me.mossy_polished_stone_stairs": "Mossy Polished Stone Stairs",
+  "block.me.mossy_polished_stone_wall": "Mossy Polished Stone Wall",
+  "block.me.cracked_polished_stone": "Cracked Polished Stone Tiles",
+  "block.me.cracked_polished_stone_slab": "Cracked Polished Stone Slab",
+  "block.me.cracked_polished_stone_vertical_slab": "Cracked Polished Stone Vertical Slab",
+  "block.me.cracked_polished_stone_stairs": "Cracked Polished Stone Stairs",
+  "block.me.cracked_polished_stone_wall": "Cracked Polished Stone Wall",
   "block.me.stone_tiles": "Stone Tiles",
   "block.me.stone_tiles_slab": "Stone Tiles Slab",
   "block.me.stone_tiles_vertical_slab": "Stone Tiles Vertical Slab",
@@ -1091,6 +1106,10 @@
   "block.me.cracked_smooth_stone_vertical_slab": "Cracked Smooth Stone Vertical Slab",
   "block.me.cracked_smooth_stone_stairs": "Cracked Smooth Stone Stairs",
   "block.me.cracked_smooth_stone_wall": "Cracked Smooth Stone Wall",
+
+  "block.me.chiseled_stone": "Chiseled Stone",
+  "block.me.chiseled_polished_stone": "Chiseled Polsihed Stone",
+  "block.me.chiseled_stone_tiles": "Chiseled Stone Tiles",
 
   "block.me.stone_stool": "Stone Stool",
   "block.me.stone_table": "Stone Table",
@@ -1702,6 +1721,12 @@
 "#Comment:": "Block - Limestone",
   "block.me.pointed_limestone": "Pointed Limestone",
 
+  "block.me.old_limestone": "Old Limestone",
+  "block.me.old_limestone_slab": "Old Limestone Slab",
+  "block.me.old_limestone_vertical_slab": "Old Limestone Vertical Slab",
+  "block.me.old_limestone_stairs": "Old Limestone Stairs",
+  "block.me.old_limestone_wall": "Old Limestone Wall",
+
   "block.me.smooth_limestone": "Smooth Limestone",
   "block.me.smooth_limestone_slab": "Smooth Limestone Slab",
   "block.me.smooth_limestone_vertical_slab": "Smooth Limestone Vertical Slab",
@@ -1801,6 +1826,30 @@
   "block.me.limestone_chair": "Limestone Chair",
 
 "#Comment:": "Block - Galonn",
+  "block.me.pointed_galonn": "Pointed Galonn",
+
+  "block.me.old_galonn": "Old Galonn",
+  "block.me.old_galonn_slab": "Old Galonn Slab",
+  "block.me.old_galonn_vertical_slab": "Old Galonn Vertical Slab",
+  "block.me.old_galonn_stairs": "Old Galonn Stairs",
+  "block.me.old_galonn_wall": "Old Galonn Wall",
+
+
+  "block.me.smooth_galonn": "Smooth Galonn",
+  "block.me.smooth_galonn_slab": "Smooth Galonn Slab",
+  "block.me.smooth_galonn_vertical_slab": "Smooth Galonn Vertical Slab",
+  "block.me.smooth_galonn_stairs": "Smooth Galonn Stairs",
+  "block.me.smooth_galonn_wall": "Smooth Galonn Wall",
+  "block.me.mossy_smooth_galonn": "Mossy Smooth Galonn",
+  "block.me.mossy_smooth_galonn_slab": "Mossy Smooth Galonn Slab",
+  "block.me.mossy_smooth_galonn_vertical_slab": "Mossy Smooth Galonn Vertical Slab",
+  "block.me.mossy_smooth_galonn_stairs": "Mossy Smooth Galonn Stairs",
+  "block.me.mossy_smooth_galonn_wall": "Mossy Smooth Galonn Wall",
+  "block.me.cracked_smooth_galonn": "Cracked Smooth Galonn",
+  "block.me.cracked_smooth_galonn_slab": "Cracked Smooth Galonn Slab",
+  "block.me.cracked_smooth_galonn_vertical_slab": "Cracked Smooth Galonn Vertical Slab",
+  "block.me.cracked_smooth_galonn_stairs": "Cracked Smooth Galonn Stairs",
+  "block.me.cracked_smooth_galonn_wall": "Cracked Smooth Galonn Wall",
   "block.me.cobbled_galonn": "Cobbled Galonn",
   "block.me.cobbled_galonn_slab": "Cobbled Galonn Slab",
   "block.me.cobbled_galonn_vertical_slab": "Cobbled Galonn Vertical Slab",
@@ -1866,6 +1915,9 @@
   "block.me.cracked_polished_galonn_wall": "Cracked Polished Galonn Wall",
   "block.me.chiseled_polished_galonn": "Chiseled Polished Galonn",
   "block.me.chiseled_galonn_bricks": "Chiseled Galonn Bricks",
+  "block.me.chiseled_galonn": "Chiseled Galonn",
+  "block.me.chiseled_galonn_tiles": "Chiseled Galonn Tiles",
+  "block.me.chiseled_smooth_galonn": "Chiseled Smooth Galonn",
 
   "block.me.galonn_pressure_plate": "Galonn Pressure Plate",
   "block.me.galonn_button": "Galonn Button",
@@ -2135,7 +2187,7 @@
   "block.me.cracked_tuff_pillar": "Cracked Tuff Pillar",
   "block.me.tuff_bricks": "Tuff Bricks",
   "block.me.tuff_bricks_slab": "Tuff Bricks Slab",
-  "block.me.tuff_bricks_vertical_slab": "Tuff Bricks Vertical Slab",
+  "block.me.tuff_brick_vertical_slab": "Tuff Bricks Vertical Slab",
   "block.me.tuff_bricks_stairs": "Tuff Bricks Stairs",
   "block.me.tuff_bricks_wall": "Tuff Bricks Wall",
   "block.me.mossy_tuff_bricks": "Mossy Tuff Bricks",
@@ -3076,6 +3128,8 @@
   "block.me.coarse_dirt_stairs": "Coarse Dirt Stairs",
   "block.me.mud_slab": "Mud Slab",
   "block.me.mud_stairs": "Mud Stairs",
+  "block.me.moss_slab": "Moss Slab",
+  "block.me.moss_stairs": "Moss Stairs",
 
   "block.me.cobbly_dirt": "Cobbly Dirt",
   "block.me.cobbly_dirt_slab": "Cobbly Dirt Slab",
@@ -4172,6 +4226,9 @@
 
   "block.me.chimney": "Chimney",
 
+  "block.me.watering_can": "Watering Can",
+  "block.me.wooden_bucket": "Wooden Bucket",
+
   "block.me.treated_steel_rod": "Treated Steel Rod",
 
   "block.me.big_brazier": "Big Brazier",
@@ -4753,6 +4810,7 @@
   "block.me.wood_pile": "Wood Pile",
 
   "block.me.rope": "Rope",
+  "block.me.rope_ladder": "Rope Ladder",
 
   "block.me.net": "Net",
 

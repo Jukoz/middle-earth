@@ -346,6 +346,11 @@ public class ModDecorativeBlocks {
             new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.WARPED_PLANKS).nonOpaque()));
     //endregion
 
+    public static final Block WATERING_CAN = registerBlockWithItem("watering_can",
+            new WateringCanBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool()));
+    public static final Block WOODEN_BUCKET = registerBlockWithItem("wooden_bucket",
+            new WoodenBucketBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
+
     public static final Block TREATED_STEEL_ROD = registerBlockWithItem("treated_steel_rod",
             new DecorativeRodBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool()));
 
@@ -385,6 +390,32 @@ public class ModDecorativeBlocks {
             new GroundBookBlock(AbstractBlock.Settings.create().breakInstantly().nonOpaque().noCollision()));
     public static final Block DWARVEN_GROUND_BOOK = registerBlockWithItem("dwarven_ground_book",
             new DwarvenGroundBookBlock(AbstractBlock.Settings.create().breakInstantly().nonOpaque().noCollision()));
+
+    public static final Block OAK_LADDER = registerBlockWithItem("oak_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).burnable()));
+    public static final Block SPRUCE_LADDER = registerBlockWithItem("spruce_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_SLAB).burnable()));
+    public static final Block BIRCH_LADDER = registerBlockWithItem("birch_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.BIRCH_SLAB).burnable()));
+    public static final Block JUNGLE_LADDER = registerBlockWithItem("jungle_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.JUNGLE_SLAB).burnable()));
+    public static final Block ACACIA_LADDER = registerBlockWithItem("acacia_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.ACACIA_SLAB).burnable()));
+    public static final Block DARK_OAK_LADDER = registerBlockWithItem("dark_oak_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.DARK_OAK_SLAB).burnable()));
+    public static final Block MANGROVE_LADDER = registerBlockWithItem("mangrove_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.MANGROVE_SLAB).burnable()));
+    public static final Block CHERRY_LADDER = registerBlockWithItem("cherry_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.CHERRY_SLAB).burnable()));
+    public static final Block BAMBOO_LADDER = registerBlockWithItem("bamboo_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO_SLAB).burnable()));
+    public static final Block CRIMSON_LADDER = registerBlockWithItem("crimson_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.CRIMSON_SLAB).burnable()));
+    public static final Block WARPED_LADDER = registerBlockWithItem("warped_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).burnable()));
+
+    public static final Block ROPE_LADDER = registerBlockWithItem("rope_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).burnable()));
 
     public static final Block LARCH_HOBBIT_DOOR = registerDoorBlock("larch_hobbit_door",
             new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));

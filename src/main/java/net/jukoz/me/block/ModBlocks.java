@@ -97,7 +97,14 @@ public class ModBlocks {
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     public static final Block CRACKED_LIMESTONE_PILLAR = registerStoneBlock("cracked_limestone_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
-
+    
+    public static final Block GALONN_PILLAR = registerStoneBlock("galonn_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block MOSSY_GALONN_PILLAR = registerStoneBlock("mossy_galonn_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CRACKED_GALONN_PILLAR = registerStoneBlock("cracked_galonn_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    
     public static final Block ANDESITE_PILLAR = registerStoneBlock("andesite_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     public static final Block MOSSY_ANDESITE_PILLAR = registerStoneBlock("mossy_andesite_pillar",
@@ -130,6 +137,15 @@ public class ModBlocks {
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     public static final Block CRACKED_JADEITE_PILLAR = registerStoneBlock("cracked_jadeite_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+
+    public static final Block CHISELED_STONE = registerStoneBlock("chiseled_stone",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_POLISHED_STONE = registerStoneBlock("chiseled_polished_stone",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_STONE_TILES = registerStoneBlock("chiseled_stone_tiles",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_SMOOTH_STONE = registerStoneBlock("chiseled_smooth_stone",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
     public static final Block CHISELED_ASHEN_BRICKS = registerStoneBlock("chiseled_ashen_bricks",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.DEEPSLATE)),true);
@@ -227,10 +243,21 @@ public class ModBlocks {
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
     public static final Block POINTED_LIMESTONE = registerStoneBlock("pointed_limestone",
-            new PointedBlock(AbstractBlock.Settings.copy(Blocks.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never)), false);
+            new PointedLimestoneBlock(AbstractBlock.Settings.copy(Blocks.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never)), false);
 
-    public static final Block CHISELED_SMOOTH_STONE = registerStoneBlock("chiseled_smooth_stone",
-            new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_GALONN = registerStoneBlock("chiseled_galonn",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_GALONN_BRICKS = registerStoneBlock("chiseled_galonn_bricks",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_POLISHED_GALONN = registerStoneBlock("chiseled_polished_galonn",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_GALONN_TILES = registerStoneBlock("chiseled_galonn_tiles",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_SMOOTH_GALONN = registerStoneBlock("chiseled_smooth_galonn",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+
+    public static final Block POINTED_GALONN = registerStoneBlock("pointed_galonn",
+            new PointedGalonnBlock(AbstractBlock.Settings.copy(Blocks.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never)), false);
 
     public static final Block CHISELED_ANDESITE_BRICKS = registerStoneBlock("chiseled_andesite_bricks",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
@@ -616,6 +643,8 @@ public class ModBlocks {
             new SlabBlock(AbstractBlock.Settings.copy(Blocks.ROOTED_DIRT)), true);
     public static final Block MUD_SLAB = registerMiscBlock("mud_slab",
             new SlabBlock(AbstractBlock.Settings.copy(Blocks.MUD)), true);
+    public static final Block MOSS_SLAB = registerMiscBlock("moss_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(Blocks.MOSS_BLOCK)), true);
 
     public static final Block PACKED_MUD_SLAB = registerStoneBlock("packed_mud_slab",
             new SlabBlock(AbstractBlock.Settings.copy(Blocks.PACKED_MUD)), true);
@@ -889,29 +918,6 @@ public class ModBlocks {
     public static final Block WARPED_VERTICAL_SLAB = registerWoodBlock("warped_vertical_slab",
             new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).burnable()), true);
 
-    public static final Block OAK_LADDER = registerWoodBlock("oak_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).burnable()), true);
-    public static final Block SPRUCE_LADDER = registerWoodBlock("spruce_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_SLAB).burnable()), true);
-    public static final Block BIRCH_LADDER = registerWoodBlock("birch_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.BIRCH_SLAB).burnable()), true);
-    public static final Block JUNGLE_LADDER = registerWoodBlock("jungle_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.JUNGLE_SLAB).burnable()), true);
-    public static final Block ACACIA_LADDER = registerWoodBlock("acacia_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.ACACIA_SLAB).burnable()), true);
-    public static final Block DARK_OAK_LADDER = registerWoodBlock("dark_oak_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.DARK_OAK_SLAB).burnable()), true);
-    public static final Block MANGROVE_LADDER = registerWoodBlock("mangrove_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.MANGROVE_SLAB).burnable()), true);
-    public static final Block CHERRY_LADDER = registerWoodBlock("cherry_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.CHERRY_SLAB).burnable()), true);
-    public static final Block BAMBOO_LADDER = registerWoodBlock("bamboo_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO_SLAB).burnable()), true);
-    public static final Block CRIMSON_LADDER = registerWoodBlock("crimson_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.CRIMSON_SLAB).burnable()), true);
-    public static final Block WARPED_LADDER = registerWoodBlock("warped_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).burnable()), true);
-
     public static final Block STONE_VERTICAL_SLAB = registerStoneBlock("stone_vertical_slab",
             new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.STONE_SLAB)), true);
     public static final Block COBBLESTONE_VERTICAL_SLAB = registerStoneBlock("cobblestone_vertical_slab",
@@ -945,6 +951,10 @@ public class ModBlocks {
     public static final Block DEEPSLATE_TILE_VERTICAL_SLAB = registerStoneBlock("deepslate_tile_vertical_slab",
             new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.DEEPSLATE_TILE_SLAB)), true);
     public static final Block TUFF_VERTICAL_SLAB = registerStoneBlock("tuff_vertical_slab",
+            new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.TUFF)), true);
+    public static final Block POLISHED_TUFF_VERTICAL_SLAB = registerStoneBlock("polished_tuff_vertical_slab",
+            new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.TUFF)), true);
+    public static final Block TUFF_BRICK_VERTICAL_SLAB = registerStoneBlock("tuff_brick_vertical_slab",
             new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.TUFF)), true);
     public static final Block BRICK_VERTICAL_SLAB = registerStoneBlock("brick_vertical_slab",
             new VerticalSlabBlock(AbstractBlock.Settings.copy(Blocks.BRICK_SLAB)), true);
@@ -1046,6 +1056,8 @@ public class ModBlocks {
             new StairsBlock(Blocks.ROOTED_DIRT.getDefaultState(), AbstractBlock.Settings.copy(Blocks.ROOTED_DIRT)), true);
     public static final Block MUD_STAIRS = registerMiscBlock("mud_stairs",
             new StairsBlock(Blocks.MUD.getDefaultState(), AbstractBlock.Settings.copy(Blocks.DIRT).sounds(BlockSoundGroup.MUD)), true);
+    public static final Block MOSS_STAIRS = registerMiscBlock("moss_stairs",
+            new StairsBlock(Blocks.MOSS_BLOCK.getDefaultState(), AbstractBlock.Settings.copy(Blocks.MOSS_BLOCK)), true);
 
     public static final Block BLACK_WOOL_STAIRS = registerMiscBlock("black_wool_stairs",
             new StairsBlock(Blocks.BLACK_WOOL.getDefaultState(), AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).burnable()), true);

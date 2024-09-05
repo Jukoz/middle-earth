@@ -218,6 +218,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         });
 
         climbable.add(ModDecorativeBlocks.ROPE);
+        climbable.add(ModDecorativeBlocks.ROPE_LADDER);
         climbable.add(ModBlocks.NET);
 
         needsStoneTools.add(OreRockSets.GONLUIN.copper_ore());
@@ -266,6 +267,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         needsIronTools.add(ModDecorativeBlocks.TREATED_STEEL_ROD);
 
+        needsStoneTools.add(ModDecorativeBlocks.WATERING_CAN);
+        mineablePickaxe.add(ModDecorativeBlocks.WATERING_CAN);
+        mineableAxe.add(ModDecorativeBlocks.WOODEN_BUCKET);
+
         needsStoneTools.add(ModBlocks.BRONZE_BLOCK);
         needsStoneTools.add(ModBlocks.SLAG_BLOCK);
         needsIronTools.add(ModBlocks.STEEL_BLOCK);
@@ -281,6 +286,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineablePickaxe.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
         mineablePickaxe.add(ModDecorativeBlocks.DWARVEN_LANTERN);
+        mineablePickaxe.add(ModDecorativeBlocks.SILVER_LANTERN);
         mineablePickaxe.add(ModDecorativeBlocks.SILVER_LANTERN);
 
         mineableShovel.add(ModBlocks.GRASSY_DIRT);
@@ -450,8 +456,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineableShovel.add(ModBlocks.DIRT_SLAB);
         mineableShovel.add(ModBlocks.DIRT_STAIRS);
+        mineableShovel.add(ModBlocks.MOSS_STAIRS);
         mineableShovel.add(ModBlocks.ROOTED_DIRT_STAIRS);
         mineableShovel.add(ModBlocks.MUD_SLAB);
+        mineableShovel.add(ModBlocks.MOSS_SLAB);
         mineableShovel.add(ModBlocks.MUD_STAIRS);
         mineableShovel.add(ModBlocks.COARSE_DIRT_SLAB);
         mineableShovel.add(ModBlocks.COARSE_DIRT_STAIRS);
@@ -465,6 +473,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.PACKED_MUD_WALL);
 
         mineablePickaxe.add(ModBlocks.TUFF_VERTICAL_SLAB);
+        mineablePickaxe.add(ModBlocks.POLISHED_TUFF_VERTICAL_SLAB);
+        mineablePickaxe.add(ModBlocks.TUFF_BRICK_VERTICAL_SLAB);
 
         mineablePickaxe.add(ModBlocks.CALCITE_SLAB);
         mineablePickaxe.add(ModBlocks.CALCITE_VERTICAL_SLAB);

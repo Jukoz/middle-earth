@@ -67,7 +67,6 @@ public class BlockDrops {
             add(ModNatureBlocks.SMALL_FLOWERING_LILY_PADS);
             add(ModNatureBlocks.LILY_PADS);
             add(ModNatureBlocks.DUCKWEED);
-
         }
     };
 }
