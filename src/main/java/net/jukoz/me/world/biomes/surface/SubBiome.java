@@ -1,6 +1,5 @@
 package net.jukoz.me.world.biomes.surface;
 
-import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 
@@ -8,13 +7,15 @@ import java.util.ArrayList;
 
 public class SubBiome {
     public ArrayList<SubBiomeData> subBiomesData;
-
-    public SubBiome(SubBiome subBiome) {
-        this.subBiomesData = new ArrayList<>(subBiome.subBiomesData);
-    }
+    private float additionalHeight;
 
     public SubBiome() {
+        this(56);
+    }
+
+    public SubBiome(float additionalHeight) {
         this.subBiomesData = new ArrayList<>();
+        this.additionalHeight = additionalHeight;
     }
 
     public SubBiome addSubBiomeData(float noiseMin, float noiseMax, RegistryKey<Biome> biome) {
@@ -81,10 +82,6 @@ public class SubBiome {
         public float noiseMax;
         public RegistryKey<Biome> biome;
         public boolean additionalHeight;
-
-        public SubBiomeData(float noiseMin, float noiseMax, RegistryKey<Biome> biome) {
-            this(noiseMin, noiseMax, biome, false);
-        }
 
         public SubBiomeData(float noiseMin, float noiseMax, RegistryKey<Biome> biome, boolean additionalHeight) {
             this.noiseMin = noiseMin;

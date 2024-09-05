@@ -449,6 +449,9 @@ public class ModBiomeFeatures {
     public static void addRareForestMoss(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_RARE_FOREST_MOSS);
     }
+    public static void addGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_GRASS);
+    }
     public static void addCommonHeath(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_HEATH);
     }
@@ -695,8 +698,11 @@ public class ModBiomeFeatures {
     public static void addCalciteStoneOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.CALCITE_STONE_ORE);
     }
-    public static void addGrassStoneOre(List<RegistryKey<PlacedFeature>> vegetation) {
-        vegetation.add(OrePlacedFeatures.GRASS_STONE_ORE);
+    public static void addGrassToStoneOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.GRASS_TO_STONE_ORE);
+    }
+    public static void addGrassToGraniteOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.GRASS_TO_GRANITE_ORE);
     }
     public static void addTerracottaOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.TERRACOTTA_ORE);

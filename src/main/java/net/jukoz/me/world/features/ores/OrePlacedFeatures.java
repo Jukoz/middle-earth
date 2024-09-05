@@ -59,8 +59,9 @@ public class OrePlacedFeatures {
     public static final RegistryKey<PlacedFeature> SAND_ORE = registerKey("sand_ore");
     public static final RegistryKey<PlacedFeature> SNOW_ORE = registerKey("snow_ore");
     public static final RegistryKey<PlacedFeature> SOUL_SAND_ORE = registerKey("soul_sand_ore");
-    public static final RegistryKey<PlacedFeature> CALCITE_STONE_ORE = registerKey("calcite_stone_ore");
-    public static final RegistryKey<PlacedFeature> GRASS_STONE_ORE = registerKey("grass_stone_ore");
+    public static final RegistryKey<PlacedFeature> CALCITE_STONE_ORE = registerKey("calcite_to_stone_ore");
+    public static final RegistryKey<PlacedFeature> GRASS_TO_STONE_ORE = registerKey("grass_to_stone_ore");
+    public static final RegistryKey<PlacedFeature> GRASS_TO_GRANITE_ORE = registerKey("grass_to_granite_ore");
     public static final RegistryKey<PlacedFeature> TERRACOTTA_ORE = registerKey("terracotta_ore");
     public static final RegistryKey<PlacedFeature> TUFF_ORE = registerKey("tuff_ore");
     public static final RegistryKey<PlacedFeature> TURF_ORE = registerKey("turf_ore");
@@ -107,7 +108,8 @@ public class OrePlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> diskSand = registryEntryLookup.getOrThrow(MiscConfiguredFeatures.DISK_SAND);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> sand = registryEntryLookup.getOrThrow(OreConfiguredFeatures.SAND_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> calciteStone = registryEntryLookup.getOrThrow(OreConfiguredFeatures.CALCITE_STONE_ORE);
-        RegistryEntry.Reference<ConfiguredFeature<?, ?>> grassStone = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRASS_STONE_ORE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> grassStone = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRASS_TO_STONE_ORE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> grassGranite = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRASS_TO_GRANITE_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> terracotta = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_TERRACOTTA);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> stoneTuff = registryEntryLookup.getOrThrow(OreConfiguredFeatures.TUFF_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> turf = registryEntryLookup.getOrThrow(OreConfiguredFeatures.TURF_ORE);
@@ -206,7 +208,9 @@ public class OrePlacedFeatures {
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, CALCITE_STONE_ORE, calciteStone, abundant,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, GRASS_STONE_ORE, grassStone, veryCommon,
+        PlacedFeatures.register(featureRegisterable, GRASS_TO_STONE_ORE, grassStone, veryCommon,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, GRASS_TO_GRANITE_ORE, grassGranite, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, TERRACOTTA_ORE, terracotta, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

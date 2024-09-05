@@ -207,6 +207,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.OLD_ARTHEDAIN_MEADOW),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OLD_ARTHEDAIN_FOOTHILL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OLD_CARDOLAN),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.OLD_CARDOLAN_FOREST),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.OLD_CARDOLAN_HILL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OLD_RHUDAUR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.OSGILIATH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.PELENNOR_FIELDS),

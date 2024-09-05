@@ -4,7 +4,6 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.StoneBlockSets;
-import net.jukoz.me.world.biomes.surface.ModBiomeFeatures;
 import net.jukoz.me.world.gen.ModFeatures;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
@@ -14,11 +13,9 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.TagMatchRuleTest;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.PredicatedStateProvider;
 
 import java.util.List;
@@ -62,7 +59,8 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> SNOW_BLOCK_ORE = registerKey("snow_block_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SOUL_SAND_ORE = registerKey("soul_sand_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> CALCITE_STONE_ORE = registerKey("calcite_stone_ore");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> GRASS_STONE_ORE = registerKey("grass_stone_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> GRASS_TO_STONE_ORE = registerKey("grass_to_stone_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> GRASS_TO_GRANITE_ORE = registerKey("grass_to_granite_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> TUFF_ORE = registerKey("stone_tuff_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> TURF_ORE = registerKey("turf_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> WHITE_SAND_ORE = registerKey("white_sand_ore");
@@ -196,8 +194,10 @@ public class OreConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, CALCITE_STONE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.STONE.getDefaultState(), 64, 0.4f));
-        ConfiguredFeatures.register(featureRegisterable, GRASS_STONE_ORE, Feature.ORE,
+        ConfiguredFeatures.register(featureRegisterable, GRASS_TO_STONE_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, Blocks.STONE.getDefaultState(), 64, 0.25f));
+        ConfiguredFeatures.register(featureRegisterable, GRASS_TO_GRANITE_ORE, Feature.ORE,
+                new OreFeatureConfig(dirtTest, Blocks.GRANITE.getDefaultState(), 64, 0.25f));
 
         ConfiguredFeatures.register(featureRegisterable, TUFF_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, Blocks.TUFF.getDefaultState(), 48, 0.25f));

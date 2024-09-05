@@ -234,6 +234,8 @@ public class MEBiomesData {
         addBiome(new Color(200, 224, 127), new MEBiome(4, MEBiomeKeys.OLD_ARTHEDAIN_MEADOW, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(193, 222, 140), new MEBiome(23, MEBiomeKeys.OLD_ARTHEDAIN_FOOTHILL, MEBiomeDataConfigs.foothillModifier.heightModifier(0.2f), MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(156, 185, 97), new MEBiome(4, MEBiomeKeys.OLD_CARDOLAN, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(142, 169, 86), new MEBiome(5, MEBiomeKeys.OLD_CARDOLAN_FOREST, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(156, 182, 104), new MEBiome(27, MEBiomeKeys.OLD_CARDOLAN_HILL, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.stoneHills, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(115, 135, 74), new MEBiome(5, MEBiomeKeys.OLD_RHUDAUR, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(65, 160, 59), new MEBiome(4, MEBiomeKeys.OSGILIATH, MEBiomeDataConfigs.plainsModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers));
         addBiome(new Color(88, 204, 81), new MEBiome(4, MEBiomeKeys.PELENNOR_FIELDS, MEBiomeDataConfigs.plainsModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers));

@@ -42,7 +42,7 @@ public class ModBiomeSource extends BiomeSource {
     private final List<RegistryEntry<Biome>> biomes;
     private static final int CAVE_NOISE = 128;
     private static final int CAVE_OFFSET = 7220;
-    public static final int SUB_BIOME_NOISE = 196;
+    public static final int SUB_BIOME_NOISE = 256;
     public static final int SUB_BIOME_OFFSET = 8240;
     private MiddleEarthMapRuntime middleEarthMapRuntime;
     public ModBiomeSource(List<RegistryEntry<Biome>> biomes) {

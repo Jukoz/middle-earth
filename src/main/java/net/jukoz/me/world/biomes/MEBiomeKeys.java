@@ -154,7 +154,11 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> OLD_ARTHEDAIN_MEADOW = MEBiomeKeys.register("old_arthedain_meadow");
     public static final RegistryKey<Biome> OLD_ARTHEDAIN_FOOTHILL = MEBiomeKeys.register("old_arthedain_foothill");
     public static final RegistryKey<Biome> OLD_CARDOLAN = MEBiomeKeys.register("old_cardolan");
+    public static final RegistryKey<Biome> OLD_CARDOLAN_FOREST = MEBiomeKeys.register("old_cardolan_forest");
+    public static final RegistryKey<Biome> OLD_CARDOLAN_HILL = MEBiomeKeys.register("old_cardolan_hill");
     public static final RegistryKey<Biome> OLD_RHUDAUR = MEBiomeKeys.register("old_rhudaur");
+    public static final RegistryKey<Biome> OLD_RHUDAUR_FOREST = MEBiomeKeys.register("old_rhudaur_forest");
+    public static final RegistryKey<Biome> OLD_RHUDAUR_HILL = MEBiomeKeys.register("old_rhudaur_hill");
     public static final RegistryKey<Biome> OSGILIATH = MEBiomeKeys.register("osgiliath");
     public static final RegistryKey<Biome> PELENNOR_FIELDS = MEBiomeKeys.register("pelennor_fields");
     public static final RegistryKey<Biome> POND = MEBiomeKeys.register("pond");
