@@ -2,7 +2,7 @@ package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.jukoz.me.resources.Races;
+import net.jukoz.me.resources.MiddleEarthRaces;
 import net.minecraft.registry.RegistryWrapper;
 
 import java.util.concurrent.CompletableFuture;
@@ -14,7 +14,7 @@ public class RaceProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.addAll(registries.getWrapperOrThrow(Races.RACE_KEY));
+        entries.addAll(registries.getWrapperOrThrow(MiddleEarthRaces.RACE_KEY));
     }
 
     @Override

@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.*;
 
-public class Races {
+public class MiddleEarthRaces {
     public final static String PATH = "races";
     public static final RegistryKey<Registry<Race>> RACE_KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
 

@@ -2,7 +2,6 @@ package net.jukoz.me.resources.datas.factions;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.jukoz.me.resources.Races;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
 import net.jukoz.me.resources.datas.factions.data.FactionNpcPreviewData;

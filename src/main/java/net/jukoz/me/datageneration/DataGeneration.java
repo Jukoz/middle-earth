@@ -2,8 +2,8 @@ package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.jukoz.me.resources.Factions;
-import net.jukoz.me.resources.Races;
+import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.world.biomes.surface.ModBiomes;
 import net.jukoz.me.world.biomes.caves.ModCaveBiomes;
 import net.jukoz.me.world.features.boulder.BoulderConfiguredFeatures;
@@ -61,7 +61,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, CavesPlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModMiscPlacedFeatures::bootstrap);
         // Dynamic
-        registryBuilder.addRegistry(Races.RACE_KEY, Races::bootstrap);
-        registryBuilder.addRegistry(Factions.FACTION_KEY, Factions::bootstrap);
+        registryBuilder.addRegistry(MiddleEarthRaces.RACE_KEY, MiddleEarthRaces::bootstrap);
+        registryBuilder.addRegistry(MiddleEarthFactions.FACTION_KEY, MiddleEarthFactions::bootstrap);
     }
 }
