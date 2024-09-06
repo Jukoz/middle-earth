@@ -2,6 +2,7 @@ package net.jukoz.me.resources.datas.factions.data;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
@@ -73,6 +74,7 @@ public class SpawnDataHandler {
             Vec3d coordinate = new Vec3d(x,y,z);
             customSpawns.put(id, coordinate);
         }
+        getSpawnList();
     }
 
 
@@ -124,6 +126,8 @@ public class SpawnDataHandler {
     }
 
     public static String getTranslatableKey(Identifier id){
+        if(id == null)
+            return null;
         return "spawn.".concat(id.toTranslationKey());
     }
 
@@ -137,7 +141,6 @@ public class SpawnDataHandler {
             for(Identifier id : customSpawns.keySet()){
                 spawnList.put(id, false);
             }
-
         return spawnList;
     }
 

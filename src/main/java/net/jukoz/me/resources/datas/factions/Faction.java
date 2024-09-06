@@ -2,23 +2,29 @@ package net.jukoz.me.resources.datas.factions;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
-import net.jukoz.me.resources.datas.factions.data.FactionNpcPreviewData;
+import net.jukoz.me.resources.datas.factions.data.NpcPreview;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.utils.IdentifierUtil;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 
 public class Faction {
@@ -26,8 +32,7 @@ public class Faction {
     public static final Codec<Faction> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(Faction::getIdValue),
             Codec.STRING.fieldOf("alignment").forGetter(Faction::getAlignmentString),
-            Codec.list(Codec.STRING, 1, 5).fieldOf("races").forGetter(Faction::getRaceNames),
-            NbtCompound.CODEC.optionalFieldOf("preview_gears").forGetter(Faction::getPreviewGearNbt),
+            NbtCompound.CODEC.fieldOf("races").forGetter(Faction::getPreviewGearNbt),
             NbtCompound.CODEC.optionalFieldOf("banner").forGetter(Faction::getBannerNbt),
             NbtCompound.CODEC.optionalFieldOf("spawns").forGetter(Faction::getSpawnDataNbt),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Faction::getJoinCommands),
@@ -37,23 +42,26 @@ public class Faction {
     private final Identifier id;
     private final String translatableKey;
     private final Alignment alignment;
-    private List<Race> official_races;
-    private final FactionNpcPreviewData previewGears;
+    private final HashMap<Race, NpcPreview> racePreviews;
     private final BannerData bannerData;
     private final SpawnDataHandler spawnDataHandler;
     private HashMap<Identifier, Faction> subFactions = null;
     private List<String> joinCommands;
     private List<String> leaveCommands;
 
-    public Faction(String id, String alignment, List<String> races, Optional<NbtCompound> previewGearNbt, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
+    public Faction(String id, String alignment, NbtCompound races, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
         this.id = IdentifierUtil.getIdentifierFromString(id);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
 
         this.alignment = Alignment.valueOf(alignment.toUpperCase());
 
-        this.official_races = RaceLookup.getRacesFromString(races);
+        this.racePreviews = new HashMap<>();
+        NbtList raceList = races.getList("races", NbtType.COMPOUND);
+        for(int i = 0; i < raceList.size(); i++){
+            NbtCompound nbt = raceList.getCompound(i);
+            this.racePreviews.put(RaceLookup.getRaceFromString(nbt.getString("race")), new NpcPreview(Optional.ofNullable(nbt.getCompound("preview"))));
+        }
 
-        this.previewGears = new FactionNpcPreviewData(previewGearNbt);
         this.bannerData = new BannerData(bannerDataNbt);
         this.spawnDataHandler = new SpawnDataHandler(spawnsNbt);
 
@@ -66,33 +74,44 @@ public class Faction {
         LoggerUtil.logDebugMsg("Adding faction : \n[Id] : " + this.id + "\n" + "[TranslatableKey] : " + this.translatableKey);
     }
 
-    public Faction(String name, Alignment alignment, FactionNpcPreviewData factionNpcPreviewData, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<Race> races, List<String> joinCommand, List<String> leaveCommand){
+    public Faction(String name, Alignment alignment, HashMap<Race, NpcPreview> races, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
         this.id = IdentifierUtil.getIdentifierFromString(name);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.alignment = alignment;
-        this.previewGears = factionNpcPreviewData;
+
+        this.racePreviews = new HashMap<>();
+        if(races != null) {
+            for (Race race : races.keySet()){
+                NpcPreview previewData = races.get(race);
+                this.racePreviews.put(race, previewData);
+            }
+        }
         this.bannerData = bannerData;;
         this.spawnDataHandler = spawnDataHandler;
-        this.official_races = races;
         this.joinCommands = joinCommand;
         this.leaveCommands = leaveCommand;
-    }
-
-    private List<String> getRaceNames() {
-        List<String> races = new ArrayList<>();
-        for(Race race : this.official_races){
-            races.add(race.getId().toString());
-        }
-        return races;
     }
 
     private String getIdValue() {
         return this.id.toString();
     }
-    private Optional<NbtCompound> getPreviewGearNbt() {
-        if(this.previewGears == null)
-            return Optional.empty();
-        return this.previewGears.getNbt();
+
+    public NbtCompound getPreviewGearNbt() {
+        NbtList list = new NbtList();
+        for(Race race : this.racePreviews.keySet()){
+            NbtCompound nbt = new NbtCompound();
+            NpcPreview npcPreviewData = this.racePreviews.get(race);
+            nbt.putString("race", race.getId().toString());
+            NbtCompound nbtPreview = new NbtCompound();
+            for(EquipmentSlot slot : npcPreviewData.data.keySet()){
+                nbtPreview.putString(slot.name().toLowerCase(), npcPreviewData.get(slot).getItem().toString());
+            }
+            nbt.put("preview", nbtPreview);
+            list.add(nbt);
+        }
+        NbtCompound nbt = new NbtCompound();
+        nbt.put("races", list);
+        return nbt;
     }
 
     private Optional<NbtCompound> getBannerNbt() {
@@ -118,54 +137,13 @@ public class Faction {
         return Optional.of(this.leaveCommands);
     }
 
-    public void debugPrint(String messsage) {
-        String races = "";
-        for(Race race : this.official_races){
-            races += race.getId() + ",";
-        }
-
-        String subfactionsText = "";
-        if(this.subFactions != null){
-            for(Faction faction : this.subFactions.values()){
-                subfactionsText += faction.getId() + ",";
-            }
-        }
-
-        String previewGearString = "None";
-        if(this.previewGears != null){
-            previewGearString = previewGears.getNbt().toString();
-        }
-
-        String bannerDataString = "None";
-        if(this.bannerData != null){
-            bannerDataString = bannerData.getNbt().toString();
-        }
-
-        String spawnDataString = "None";
-        if(this.spawnDataHandler != null){
-            spawnDataString = spawnDataHandler.serializeNbt().toString();
-        }
-
-        String print = messsage + "\n" +
-                "Id: " + id + "\n" +
-                "Alignment: " + alignment + "\n" +
-                "Races: " + races + "\n" +
-                "PreviewGear: " + previewGearString + "\n" +
-                "BannerData: " + bannerDataString + "\n" +
-                "SpawnData: " + spawnDataString + "\n" +
-                "Subfactions: " + subfactionsText;
-
-        LoggerUtil.logDebugMsg(print);
-    }
-
-
     @Override
     public String toString() {
     return id.toString();
     }
 
-    public FactionNpcPreviewData getPreviewGear(){
-        return previewGears;
+    public NpcPreview getPreviewGear(Race race){
+        return racePreviews.get(race);
     }
 
     public DyeColor getBaseBannerColor(){
@@ -196,7 +174,8 @@ public class Faction {
         return alignment.name();
     }
 
-    public SpawnDataHandler getSpawnData() { return spawnDataHandler; }
+    public SpawnDataHandler getSpawnData() {
+        return spawnDataHandler; }
 
     public Identifier getId() {
         return id;
@@ -231,6 +210,6 @@ public class Faction {
     }
 
     public List<Race> getRaces() {
-        return official_races;
+        return racePreviews.keySet().stream().toList();
     }
 }

@@ -5,8 +5,12 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.NpcEntity;
 import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
+import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
+import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
+import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
+import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.resources.datas.races.data.AttributeData;
 import net.jukoz.me.utils.IdentifierUtil;
 import net.jukoz.me.utils.LoggerUtil;
@@ -103,6 +107,18 @@ public class Race {
                 break;
             case "dwarf":
                 entity = new LongbeardDwarfEntity(ModEntities.LONGBEARD_SOLDIER, world);
+                break;
+            case "hobbit":
+                entity = new ShireHobbitEntity(ModEntities.HOBBIT_SHIRRIFF, world);
+                break;
+            case "elf":
+                entity = new GaladhrimElfEntity(ModEntities.LORIEN_LEADER, world);
+                break;
+            case "orc":
+                entity = new MordorOrcEntity(ModEntities.MORDOR_ORC_SOLDIER, world);
+                break;
+            case "uruk":
+                entity = new MordorBlackUrukEntity(ModEntities.MORDOR_BLACK_URUK_SOLDIER, world);
                 break;
             default:
                 entity = new BanditHumanEntity(ModEntities.BANDIT_SOLDIER, world);

@@ -22,22 +22,27 @@ public class MiddleEarthRaces {
         DynamicRegistries.registerSynced(RACE_KEY, Race.CODEC);
     }
 
-    public final static Race HUMAN;
+    // CRAB : TODO : This is only bare bone races, to be fleshed out in 1.6 -> I will take care of that :P
     public final static Race DWARF;
+    public final static Race ELF;
+    public final static Race HOBBIT;
+    public final static Race HUMAN;
+    public final static Race ORC;
+    public final static Race URUK;
 
     public static void bootstrap(Registerable<Race> context) {
         RegistryEntryLookup<Race> raceRegistryEntryLookup = context.getRegistryLookup(RACE_KEY);
         // Registering all races
-        register(context, raceRegistryEntryLookup, of("human"), HUMAN);
-        register(context, raceRegistryEntryLookup, of("dwarf"), DWARF);
+        register(context, raceRegistryEntryLookup, DWARF);
+        register(context, raceRegistryEntryLookup, ELF);
+        register(context, raceRegistryEntryLookup, HOBBIT);
+        register(context, raceRegistryEntryLookup, HUMAN);
+        register(context, raceRegistryEntryLookup, ORC);
+        register(context, raceRegistryEntryLookup, URUK);
     }
 
-    private static RegistryKey<Race> of(String name) {
-        return RegistryKey.of(RACE_KEY, Identifier.of(MiddleEarth.MOD_ID, name));
-    }
-
-    private static Race register(Registerable<Race> context, RegistryEntryLookup<Race> raceRegistryEntryLookup,
-                                 RegistryKey<Race> raceRegistryKey, Race race) {
+    private static Race register(Registerable<Race> context, RegistryEntryLookup<Race> raceRegistryEntryLookup, Race race) {
+        RegistryKey<Race> raceRegistryKey = of(race.getId().getPath());
         String name = raceRegistryKey.getValue().getPath();
         RegistryKey<Race> newRace = RegistryKey.of(RACE_KEY,Identifier.of(MiddleEarth.MOD_ID,name));
 
@@ -46,18 +51,35 @@ public class MiddleEarthRaces {
 
         return race;
     }
+    private static RegistryKey<Race> of(String name) {
+        return RegistryKey.of(RACE_KEY, Identifier.of(MiddleEarth.MOD_ID, name));
+    }
+
 
     static {
         DWARF = new Race(Identifier.of(MiddleEarth.MOD_ID, "dwarf"), "dwarf",
                 new AttributeData(new HashMap<>(){{
-                    put(EntityAttributes.GENERIC_SCALE, 0.5);
-                    put(EntityAttributes.GENERIC_ATTACK_SPEED, 50.0);
+                    put(EntityAttributes.GENERIC_SCALE, 0.7);
                 }}), List.of(), List.of());
-
+        ELF = new Race(Identifier.of(MiddleEarth.MOD_ID, "elf"), "elf",
+                new AttributeData(new HashMap<>(){{
+                    put(EntityAttributes.GENERIC_SCALE, 1.02);
+                }}), List.of(), List.of());
+        HOBBIT = new Race(Identifier.of(MiddleEarth.MOD_ID, "hobbit"), "hobbit",
+                new AttributeData(new HashMap<>(){{
+                    put(EntityAttributes.GENERIC_SCALE, 0.5);
+                }}), List.of(), List.of());
         HUMAN = new Race(Identifier.of(MiddleEarth.MOD_ID, "human"), "human",
                 new AttributeData(new HashMap<>(){{
                     put(EntityAttributes.GENERIC_SCALE, 1.0);
-                    put(EntityAttributes.GENERIC_MAX_HEALTH, 50.0);
+                }}), List.of(), List.of());
+        ORC = new Race(Identifier.of(MiddleEarth.MOD_ID, "orc"), "orc",
+                new AttributeData(new HashMap<>(){{
+                    put(EntityAttributes.GENERIC_SCALE, 0.65);
+                }}), List.of(), List.of());
+        URUK = new Race(Identifier.of(MiddleEarth.MOD_ID, "uruk"), "uruk",
+                new AttributeData(new HashMap<>(){{
+                    put(EntityAttributes.GENERIC_SCALE, 0.98);
                 }}), List.of(), List.of());
     }
 }

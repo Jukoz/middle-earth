@@ -5,7 +5,7 @@ import net.jukoz.me.network.packets.C2S.*;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
-import net.jukoz.me.resources.datas.factions.data.FactionNpcPreviewData;
+import net.jukoz.me.resources.datas.factions.data.NpcPreview;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.utils.LoggerUtil;
@@ -35,6 +35,16 @@ public class FactionSelectionController {
         factions.put(Alignment.GOOD, FactionLookup.getFactionsByAlignment(Alignment.GOOD).values().stream().toList());
         factions.put(Alignment.NEUTRAL, FactionLookup.getFactionsByAlignment(Alignment.NEUTRAL).values().stream().toList());
         factions.put(Alignment.EVIL, FactionLookup.getFactionsByAlignment(Alignment.EVIL).values().stream().toList());
+        if(getCurrentlySelectedFaction() == null){
+            if(!factions.get(Alignment.EVIL).isEmpty()){
+                currentAlignementIndex = 2;
+            } else if(!factions.get(Alignment.NEUTRAL).isEmpty()){
+                currentAlignementIndex = 1;
+            }
+        }
+        if(getCurrentlySelectedFaction() == null){
+            LoggerUtil.logError("FactionSelectionController::No faction available!");
+        }
         updateSpawnList();
         updateRaces();
     }
@@ -192,7 +202,14 @@ public class FactionSelectionController {
     }
 
     private Identifier getCurrentSpawnIdentifier(){
-        return spawns.keySet().stream().toList().get(currentSpawnIndex);
+        if(spawns == null || spawns.isEmpty())
+            updateSpawnList();
+
+        List<Identifier> spawnList = spawns.keySet().stream().toList();
+
+        if(spawnList.isEmpty())
+            return null;
+        return spawnList.get(currentSpawnIndex);
     }
     public String getCurrentSpawnKey(){
         Identifier spawnId = getCurrentSpawnIdentifier();
@@ -263,10 +280,9 @@ public class FactionSelectionController {
         return factions;
     }
 
-    public FactionNpcPreviewData.PreviewData getCurrentPreview() {
+    public NpcPreview getCurrentPreview() {
         Faction currentFaction = getCurrentlySelectedFaction();
-        FactionNpcPreviewData data = currentFaction.getPreviewGear();
-        List<Race> races = currentFaction.getRaces();
-        return data.getPreviewData(races.get(currentRaceIndex));
+        NpcPreview data = currentFaction.getPreviewGear(races.get(currentRaceIndex));
+        return data;
     }
 }
