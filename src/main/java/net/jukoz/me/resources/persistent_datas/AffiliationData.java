@@ -10,6 +10,7 @@ import net.jukoz.me.world.dimension.ModDimensions;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import org.joml.Vector2d;
 import org.joml.Vector2i;
 
 public class AffiliationData {
@@ -32,11 +33,11 @@ public class AffiliationData {
         try{
             Faction foundFaction = FactionLookup.findFactionById(faction);
             LoggerUtil.logDebugMsg("MiddleEarth spawn coordinate : " + spawnId.toString());
-            Vector2i dynamicSpawnFound = foundFaction.getSpawnData().findDynamicSpawn(spawnId);
+            Vector2d dynamicSpawnFound = foundFaction.getSpawnData().findDynamicSpawn(spawnId);
             // Return dynamic spawn with dimension height
             if(dynamicSpawnFound != null){
                 dynamicSpawnFound = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(dynamicSpawnFound.x, dynamicSpawnFound.y);
-                double y = ModDimensions.getDimensionHeight(dynamicSpawnFound.x, dynamicSpawnFound.y).y;
+                double y = ModDimensions.getDimensionHeight((int) dynamicSpawnFound.x, (int)dynamicSpawnFound.y).y;
                 return new Vec3d(dynamicSpawnFound.x, y, dynamicSpawnFound.y);
             }
             // Return custom spawn

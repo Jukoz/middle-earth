@@ -16,6 +16,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import org.joml.Vector2d;
 import org.joml.Vector2i;
 
 import java.util.*;
@@ -108,7 +109,7 @@ public class MiddleEarthFactions {
                 )),
                 new SpawnDataHandler(new Vector2i(0,0),
                         new HashMap<>(){{
-                            put(Identifier.of(MiddleEarth.MOD_ID, GONDOR.getName().concat(".anorien.minas_tirith")), new Vector2i(1940, 1785));
+                            put(Identifier.of(MiddleEarth.MOD_ID, GONDOR.getName().concat(".anorien.minas_tirith")), new Vector2d(1940, 1785));
                         }},
                         new HashMap<>(){{
                             put(Identifier.of(MiddleEarth.MOD_ID, GONDOR.getName().concat(".anorien.outskirts")), new Vec3d(62500, 200, 57600));
@@ -135,7 +136,7 @@ public class MiddleEarthFactions {
                 ),
                 new SpawnDataHandler(new Vector2i(0,0),
                         new HashMap<>(){{
-                            put(Identifier.of(MiddleEarth.MOD_ID, GONDOR.getName().concat(".lossarnach.erui_source")), new Vector2i(1890, 1785));
+                            put(Identifier.of(MiddleEarth.MOD_ID, GONDOR.getName().concat(".lossarnach.erui_source")), new Vector2d(1890, 1785));
                         }},
                         new HashMap<>()
                 ), List.of(), List.of()
@@ -159,7 +160,7 @@ public class MiddleEarthFactions {
                 )),
                 new SpawnDataHandler(new Vector2i(0,0),
                         new HashMap<>(){{
-                            put(Identifier.of(MiddleEarth.MOD_ID, "rohan.edoras"), new Vector2i(1745, 1695));
+                            put(Identifier.of(MiddleEarth.MOD_ID, "rohan.edoras"), new Vector2d(1745, 1695));
                         }},
                         new HashMap<>()
                 ), List.of(), List.of()
@@ -182,7 +183,7 @@ public class MiddleEarthFactions {
                 )),
                 new SpawnDataHandler(new Vector2i(0,0),
                         new HashMap<>(){{
-                            put(Identifier.of(MiddleEarth.MOD_ID, "dale.capital"), new Vector2i(2021, 727));
+                            put(Identifier.of(MiddleEarth.MOD_ID, "dale.capital"), new Vector2d(2021, 727));
                         }},
                         new HashMap<>()
                 ), List.of(), List.of()
@@ -208,7 +209,7 @@ public class MiddleEarthFactions {
                 )),
                 new SpawnDataHandler(new Vector2i(0,0),
                         new HashMap<>(){{
-                            put(Identifier.of(MiddleEarth.MOD_ID, LONGBEARDS.getName().concat(".erebor.ravenhill")), new Vector2i(2017, 722));
+                            put(Identifier.of(MiddleEarth.MOD_ID, LONGBEARDS.getName().concat(".erebor.ravenhill")), new Vector2d(2017, 722));
                         }},
                         new HashMap<>(){{
                             put(Identifier.of(MiddleEarth.MOD_ID, LONGBEARDS.getName().concat(".erebor.outskirts")), new Vec3d(63400, 200, 23000));
@@ -236,7 +237,7 @@ public class MiddleEarthFactions {
                 ),
                 new SpawnDataHandler(new Vector2i(0,0),
                         new HashMap<>(){{
-                            put(Identifier.of(MiddleEarth.MOD_ID, "lothlorien.cerin_amroth"), new Vector2i(1614, 1215));
+                            put(Identifier.of(MiddleEarth.MOD_ID, "lothlorien.cerin_amroth"), new Vector2d(1614, 1215));
                         }},
                         new HashMap<>()
                 ), List.of(), List.of()
@@ -269,11 +270,11 @@ public class MiddleEarthFactions {
                 )),
                 new SpawnDataHandler(new Vector2i(0,0),
                         new HashMap<>(){{
-                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.black_gate"), new Vector2i(2017, 722));
-                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.dol_goldur"), new Vector2i(2017, 722));
-                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.minas_morgul"), new Vector2i(2017, 722));
-                            put(Identifier.of(MiddleEarth.MOD_ID,"mordor.nurn"), new Vector2i(2017, 722));
-                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.plateau"), new Vector2i(2017, 722));
+                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.black_gate"), new Vector2d(2017, 722));
+                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.dol_goldur"), new Vector2d(2017, 722));
+                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.minas_morgul"), new Vector2d(2017, 722));
+                            put(Identifier.of(MiddleEarth.MOD_ID,"mordor.nurn"), new Vector2d(2017, 722));
+                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.plateau"), new Vector2d(2017, 722));
                         }},
                         new HashMap<>()
                 ), List.of(), List.of()
@@ -308,7 +309,7 @@ public class MiddleEarthFactions {
                 )),
                 new SpawnDataHandler(new Vector2i(0,0),
                         new HashMap<>(){{
-                            put(Identifier.of(MiddleEarth.MOD_ID, "isengard.orthanc"), new Vector2i(1405, 1464));
+                            put(Identifier.of(MiddleEarth.MOD_ID, "isengard.orthanc"), new Vector2d(1405, 1464));
                         }},
                         new HashMap<>()
                 ), List.of(), List.of()

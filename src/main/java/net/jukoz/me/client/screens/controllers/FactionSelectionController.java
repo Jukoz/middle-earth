@@ -13,6 +13,7 @@ import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import org.joml.Vector2d;
 import org.joml.Vector2i;
 
 import java.util.*;
@@ -229,7 +230,7 @@ public class FactionSelectionController {
 
         Identifier currentSpawnIdentifier = getCurrentSpawnIdentifier();
         if(spawns.get(currentSpawnIdentifier)){
-            Vector2i coordinates = getCurrentlySelectedFaction().getSpawnData().findDynamicSpawn(currentSpawnIdentifier);
+            Vector2d coordinates = getCurrentlySelectedFaction().getSpawnData().findDynamicSpawn(currentSpawnIdentifier);
             ClientPlayNetworking.send(new PacketTeleportToDynamicCoordinate(coordinates.x, coordinates.y, true));
         } else {
             Vec3d coordinates = getCurrentlySelectedFaction().getSpawnData().findCustomSpawn(currentSpawnIdentifier);
