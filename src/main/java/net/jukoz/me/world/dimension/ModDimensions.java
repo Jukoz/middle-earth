@@ -61,6 +61,7 @@ public class ModDimensions {
 
                 ((ServerPlayerEntity) player).teleport(serverWorld, coordinates.x , coordinates.y, coordinates.z, 0, 0);
                 player.refreshPositionAfterTeleport(coordinates.x, coordinates.y, coordinates.z);
+                ((ServerPlayerEntity) player).setSpawnPoint(registryKey, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z), player.getYaw(), true, true);
                 if(welcomeNeeded)
                     FactionUtil.sendOnFactionJoinMessage(player);
             }
@@ -89,6 +90,7 @@ public class ModDimensions {
 
                 player.wakeUp();
 
+                ((ServerPlayerEntity) player).setSpawnPoint(World.OVERWORLD, player.getServer().getOverworld().getSpawnPos(), player.getServer().getOverworld().getSpawnAngle(), true, true);
                 ((ServerPlayerEntity) player).teleport(serverWorld, coordinate.getX() , coordinate.getY(), coordinate.getZ(), 0, 0);
                 player.refreshPositionAfterTeleport(coordinate.getX() , coordinate.getY(), coordinate.getZ());
             }

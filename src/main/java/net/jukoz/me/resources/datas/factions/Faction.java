@@ -206,6 +206,8 @@ public class Faction {
     }
 
     public Faction findSubfaction(Identifier id) {
+        if(subFactions == null)
+            return null;
         return subFactions.get(id);
     }
 

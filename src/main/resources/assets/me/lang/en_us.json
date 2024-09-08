@@ -5159,6 +5159,7 @@
   "faction.me.mordor" : "Mordor",
   "faction.me.misty_mountains_goblins" : "Misty Mountains Goblins",
   "faction.me.isengard" : "Isengard",
+  "faction.me.shire" : "Shire",
 
   "#Comment": "Factions fallback",
   "faction.me.example.fallback": "Example...",
@@ -5197,6 +5198,8 @@
   "spawn.me.misty_mountains_goblins.goblin_town" : "Goblin Town",
   "spawn.me.misty_mountains_goblins.moria" : "Moria",
   "spawn.me.isengard.orthanc" : "Orthanc",
+  "spawn.me.shire.hobbiton" : "Hobbitton",
+  "spawn.me.shire.willowbottom" : "Willowbottom",
 
   "#Comment:": "Races",
   "race.me.dwarf" : "Dwarf",

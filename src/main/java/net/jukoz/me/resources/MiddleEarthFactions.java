@@ -2,6 +2,9 @@ package net.jukoz.me.resources;
 
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.ModBlocks;
+import net.jukoz.me.block.ModDecorativeBlocks;
+import net.jukoz.me.item.ModDecorativeItems;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
@@ -32,7 +35,6 @@ public class MiddleEarthFactions {
     public final static Faction ROHAN;
     // [DALE]
     public final static Faction DALE;
-
     // [LONGBEARDS]
     public final static Faction LONGBEARDS;
     public final static Faction LONGBEARDS_EREBOR;
@@ -41,9 +43,11 @@ public class MiddleEarthFactions {
     // [MORDOR]
     public final static Faction MORDOR;
     // [MISTY MOUNTAINS ORCS]
-    public final static Faction MISTY_MOUNTAINS_GOBLIN;
+    public final static Faction MISTY_MOUNTAINS_GOBLINS;
     // [ISENGARD]
     public final static Faction ISENGARD;
+    // [SHIRE]
+    public final static Faction SHIRE;
 
     public static void register(){
         DynamicRegistries.registerSynced(FACTION_KEY, Faction.CODEC);
@@ -65,9 +69,11 @@ public class MiddleEarthFactions {
         // [MORDOR]
         register(context, factionRegistryEntryLookup, MORDOR);
         // [MISTY MOUNTAINS GOBLINS]
-        register(context, factionRegistryEntryLookup, MISTY_MOUNTAINS_GOBLIN);
+        register(context, factionRegistryEntryLookup, MISTY_MOUNTAINS_GOBLINS);
         // [ISENGARD]
         register(context, factionRegistryEntryLookup, ISENGARD);
+        // [SHIRE]
+        register(context, factionRegistryEntryLookup, SHIRE);
     }
     private static Faction register(Registerable<Faction> context, RegistryEntryLookup<Faction> factionRegistryEntryLookup, Faction faction) {
         RegistryKey<Faction> factionRegistryKey = of(faction.getName());
@@ -118,7 +124,6 @@ public class MiddleEarthFactions {
                 ), List.of(), List.of()
         );
         // endregion
-
         // region [ROHAN]
         ROHAN = new Faction("rohan", Alignment.GOOD,
                 new HashMap<>(){{
@@ -263,9 +268,8 @@ public class MiddleEarthFactions {
                 ), List.of(), List.of()
         );
         //endregion
-
         // region [MISTY MOUNTAINS GOBLINS]
-        MISTY_MOUNTAINS_GOBLIN = new Faction("misty_mountains_goblins", Alignment.EVIL,
+        MISTY_MOUNTAINS_GOBLINS = new Faction("misty_mountains_goblins", Alignment.EVIL,
                 new HashMap<>(){{
                     put(MiddleEarthRaces.ORC, new NpcPreview(
                             ModEquipmentItems.ORC_SALLET,
@@ -299,7 +303,6 @@ public class MiddleEarthFactions {
                 ), List.of(), List.of()
         );
         // endregion
-
         // region [ISENGARD]
         ISENGARD = new Faction("isengard", Alignment.EVIL,
                 new HashMap<>(){{
@@ -332,6 +335,32 @@ public class MiddleEarthFactions {
                 ), List.of(), List.of()
         );
         // endregion
+        //region [SHIRE]
+        SHIRE = new Faction("shire", Alignment.GOOD,
+                new HashMap<>(){{
+                    put(MiddleEarthRaces.HOBBIT, new NpcPreview(
+                            ModEquipmentItems.STRAW_HAT,
+                            null,
+                            null,
+                            null,
+                            ModDecorativeBlocks.WOODEN_BUCKET.asItem(),
+                            null
+                    ));
+                }},
+                new BannerData(DyeColor.YELLOW, List.of(
+                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.GREEN),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.CIRCLE.getValue(), DyeColor.YELLOW),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.BORDER.getValue(), DyeColor.YELLOW)
+                )),
+                new SpawnDataHandler(new Vector2i(0,0),
+                        new HashMap<>(){{
+                            put(Identifier.of(MiddleEarth.MOD_ID, "shire.hobbiton"), new Vector2d(933, 900));
+                            put(Identifier.of(MiddleEarth.MOD_ID, "shire.willowbottom"), new Vector2d(981, 970));
+                        }},
+                        new HashMap<>()
+                ), List.of(), List.of()
+        );
+        //endregion
     }
 }
 
