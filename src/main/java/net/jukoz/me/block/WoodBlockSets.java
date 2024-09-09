@@ -147,7 +147,7 @@ public class WoodBlockSets {
                 .sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
 
         Block ladder = ModBlocks.registerBlock(name + "_ladder", new ThickLadderBlock(AbstractBlock.Settings.copy(planks)
-                .sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
+                .sounds(BlockSoundGroup.LADDER).nonOpaque()),false);
 
         ModItemGroups.NATURE_BLOCKS_CONTENTS.add(log.asItem().getDefaultStack());
 
