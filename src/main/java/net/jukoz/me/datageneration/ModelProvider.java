@@ -8,14 +8,17 @@ import net.jukoz.me.block.*;
 import net.jukoz.me.block.crop.*;
 import net.jukoz.me.block.special.doors.*;
 import net.jukoz.me.block.special.LargeDoorBlock;
-import net.jukoz.me.block.special.VerticalSlabBlock;
+import net.jukoz.me.block.special.verticalSlabs.VerticalSlabBlock;
+import net.jukoz.me.block.special.verticalSlabs.VerticalSlabShape;
 import net.jukoz.me.datageneration.content.CustomItemModels;
 import net.jukoz.me.datageneration.content.MEModels;
 import net.jukoz.me.datageneration.content.models.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.BlockFace;
+import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.block.enums.DoorHinge;
+import net.minecraft.block.enums.StairShape;
 import net.minecraft.data.client.*;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
@@ -707,7 +710,11 @@ public class ModelProvider extends FabricModelProvider {
         Identifier variantId = MEModels.VERTICAL_SLAB.upload(block,
                 TextureMap.of(TextureKey.ALL,Identifier.of("minecraft","block/" + slabPath)),
                 blockStateModelGenerator.modelCollector);
-        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId);
+
+        Identifier inner = MEModels.VERTICAL_SLAB_INNER.upload(block, TextureMap.of(TextureKey.ALL, Identifier.of("minecraft", "block/" + slabPath)), blockStateModelGenerator.modelCollector);
+        Identifier outer = MEModels.VERTICAL_SLAB_OUTER.upload(block, TextureMap.of(TextureKey.ALL, Identifier.of("minecraft", "block/" + slabPath)), blockStateModelGenerator.modelCollector);
+
+        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId, inner, outer);
     }
 
     public void registerVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin, String slabPath){
@@ -715,7 +722,11 @@ public class ModelProvider extends FabricModelProvider {
         Identifier variantId = MEModels.VERTICAL_SLAB.upload(block,
                 TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + slabPath)),
                 blockStateModelGenerator.modelCollector);
-        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId);
+
+        Identifier inner = MEModels.VERTICAL_SLAB_INNER.upload(block, TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + slabPath)), blockStateModelGenerator.modelCollector);
+        Identifier outer = MEModels.VERTICAL_SLAB_OUTER.upload(block, TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + slabPath)), blockStateModelGenerator.modelCollector);
+
+        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId, inner, outer);
     }
 
     public void registerColumnVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin,
@@ -730,32 +741,70 @@ public class ModelProvider extends FabricModelProvider {
                         .put(TextureKey.PARTICLE, sideTexture),
                 blockStateModelGenerator.modelCollector);
 
-        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId);
+        Identifier inner = MEModels.VERTICAL_COLUMN_SLAB_INNER.upload(block, (new TextureMap())
+                        .put(TextureKey.TOP, Identifier.of(modId, "block/" + topTexturePath))
+                        .put(TextureKey.BOTTOM, Identifier.of(modId, "block/" + bottomTexturePath))
+                        .put(TextureKey.SIDE, sideTexture)
+                        .put(TextureKey.PARTICLE, sideTexture),
+                blockStateModelGenerator.modelCollector);
+
+        Identifier outer = MEModels.VERTICAL_COLUMN_SLAB_OUTER.upload(block, (new TextureMap())
+                        .put(TextureKey.TOP, Identifier.of(modId, "block/" + topTexturePath))
+                        .put(TextureKey.BOTTOM, Identifier.of(modId, "block/" + bottomTexturePath))
+                        .put(TextureKey.SIDE, sideTexture)
+                        .put(TextureKey.PARTICLE, sideTexture),
+                blockStateModelGenerator.modelCollector);
+        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId, inner, outer);
     }
 
-    private void registerVerticalSlab(BlockStateModelGenerator blockStateModelGenerator, Block block, Identifier full, Identifier variant) {
+    private void registerVerticalSlab(BlockStateModelGenerator blockStateModelGenerator, Block block, Identifier fullBlock, Identifier regular, Identifier inner, Identifier outer) {
         if(Registries.BLOCK.getId(block).getPath().contains("waxed_") && Registries.BLOCK.getId(block).getPath().contains("copper")){
-            full = Identifier.ofVanilla(full.getPath().replaceAll("waxed_", ""));
+            fullBlock = Identifier.ofVanilla(fullBlock.getPath().replaceAll("waxed_", ""));
         }
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block)
-                .coordinate(BlockStateVariantMap.create(Properties.HORIZONTAL_FACING, VerticalSlabBlock.DOUBLE)
-                        .register(Direction.NORTH, false, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, variant).put(VariantSettings.UVLOCK, true))
-                        .register(Direction.EAST, false, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, variant).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R90))
-                        .register(Direction.SOUTH, false, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, variant).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R180))
-                        .register(Direction.WEST, false, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, variant).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R270))
-                        .register(Direction.NORTH, true, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, full).put(VariantSettings.UVLOCK, true))
-                        .register(Direction.EAST, true, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, full).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R90))
-                        .register(Direction.SOUTH, true, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, full).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R180))
-                        .register(Direction.WEST, true, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, full).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R270))
-                ));
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).coordinate(BlockStateVariantMap
+                .create(Properties.HORIZONTAL_FACING, VerticalSlabBlock.DOUBLE, VerticalSlabBlock.SHAPE)
+                .register(Direction.EAST, false, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, regular).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, false, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, regular).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, false, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, regular).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, false, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, regular).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, false, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, false, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, false, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, false, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, false, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, false, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, false, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, false, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, false, VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, false, VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH,false,  VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, false, VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, false, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, false, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, false, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, false, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.UVLOCK, true))
+
+                .register(Direction.EAST, true, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, true, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, true, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, true, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, true, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, true, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, true, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, true, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, true, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, true, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, true, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, true, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, true, VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, true, VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH,true,  VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, true, VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, true, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, true, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, true, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, true, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))));
+
     }
 
     public void registerWoodStoolModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block){
@@ -974,10 +1023,10 @@ public class ModelProvider extends FabricModelProvider {
                         .register(BlockFace.WALL, Direction.EAST, BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R90).put(VariantSettings.Y, VariantSettings.Rotation.R90))
                         .register(BlockFace.WALL, Direction.SOUTH, BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R90).put(VariantSettings.Y, VariantSettings.Rotation.R180))
                         .register(BlockFace.WALL, Direction.WEST, BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R90).put(VariantSettings.Y, VariantSettings.Rotation.R270))
-                        .register(BlockFace.CEILING, Direction.SOUTH, BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R180))
-                        .register(BlockFace.CEILING, Direction.WEST, BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R180).put(VariantSettings.Y, VariantSettings.Rotation.R90))
-                        .register(BlockFace.CEILING, Direction.NORTH, BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R180).put(VariantSettings.Y, VariantSettings.Rotation.R180))
-                        .register(BlockFace.CEILING, Direction.EAST, BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R180).put(VariantSettings.Y, VariantSettings.Rotation.R270))));
+                        .register(BlockFace.CEILING, Direction.SOUTH, BlockStateVariant.create())
+                        .register(BlockFace.CEILING, Direction.WEST, BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R90))
+                        .register(BlockFace.CEILING, Direction.NORTH, BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R180))
+                        .register(BlockFace.CEILING, Direction.EAST, BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R270))));
 
         MEModels.THICK_LADDER.upload(ladderBlock, new TextureMap().put(TextureKey.TEXTURE, texture).put(TextureKey.PARTICLE,texture), blockStateModelGenerator.modelCollector);
     }
