@@ -2,7 +2,7 @@ package net.jukoz.me.item;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModNatureBlocks;
-import net.jukoz.me.block.special.CustomTallPlantBlock;
+import net.jukoz.me.block.special.CustomWaterloggableTallPlantBlock;
 import net.jukoz.me.item.items.*;
 import net.jukoz.me.item.items.weapons.ranged.LitPineconeItem;
 import net.jukoz.me.item.items.weapons.ranged.PebbleItem;
@@ -58,8 +58,8 @@ public class ModResourceItems {
             new Item(new Item.Settings()));
 
     public static final Item SLAG_INGOT = registerItem("slag_ingot",
-            new SmithingMaterialItem(new Item.Settings()));
-    public static final Item SLAG_SCRAP = registerItem("slag_scrap",
+            new Item(new Item.Settings()));
+    public static final Item SLAG_NUGGET = registerItem("slag_nugget",
             new Item(new Item.Settings()));
 
     public static final Item BURZUM_STEEL_INGOT = registerItem("burzum_steel_ingot",
@@ -108,6 +108,8 @@ public class ModResourceItems {
             new Item(new Item.Settings()));
     public static final Item WARG_BONE = registerItem("warg_bone",
             new Item(new Item.Settings()));
+    public static final Item FANG = registerItem("fang",
+            new Item(new Item.Settings()));
 
     public static final Item ASH = registerItem("ash",
             new Item(new Item.Settings()));
@@ -122,7 +124,7 @@ public class ModResourceItems {
     public static final Item STRAW = registerItem("straw",
             new Item(new Item.Settings()));
     public static final Block REEDS = registerBlock("reeds",
-            new CustomTallPlantBlock(AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), false), false);
+            new CustomWaterloggableTallPlantBlock(AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), false), false);
 
     public static final Item DUCK_FEATHER = registerItem("duck_feather",
             new Item(new Item.Settings()));
@@ -180,8 +182,8 @@ public class ModResourceItems {
             new BannerPatternItem(ModBannerPatternTags.LOTHLORIEN_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item MORDOR_BANNER_PATTERN = registerItem("mordor_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.MORDOR_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
-    public static final Item MISTY_ORCS_BANNER_PATTERN = registerItem("misty_orcs_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.MISTY_ORCS_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+    public static final Item MISTY_MOUNTAINS_ORCS_BANNER_PATTERN = registerItem("misty_mountains_orcs_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.MISTY_MOUNTAINS_ORCS_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item ISENGARD_BANNER_PATTERN = registerItem("isengard_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.ISENGARD_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
 

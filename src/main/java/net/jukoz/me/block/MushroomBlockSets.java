@@ -1,11 +1,7 @@
 package net.jukoz.me.block;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.special.WoodChairBlock;
-import net.jukoz.me.block.special.StoolBlock;
-import net.jukoz.me.block.special.TableBlock;
-import net.jukoz.me.block.special.VerticalSlabBlock;
+import net.jukoz.me.block.special.*;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
@@ -22,7 +18,7 @@ public class MushroomBlockSets {
 
     public record MushroomBlockSet(Block stem, Block stemWall, Block stemFence,
                                  Block planks, Block planksSlab, Block planksVerticalSlab, Block planksStairs, Block planksFence, Block planksGate,
-                                 Block pressurePlate, Block button, Block door, Block trapdoor, Block stool, Block table, Block chair) {
+                                 Block pressurePlate, Block button, Block door, Block trapdoor, Block stool, Block bench, Block table, Block chair) {
     }
 
     public static MushroomBlockSets.MushroomBlockSet[] sets = new MushroomBlockSets.MushroomBlockSet[] {
@@ -69,20 +65,24 @@ public class MushroomBlockSets {
         Block trapdoor = ModBlocks.registerWoodBlock(name + "_trapdoor", new TrapdoorBlock(BlockSetType.OAK, AbstractBlock.Settings.copy(planks)
                 .sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
 
-        Block stool = ModBlocks.registerBlock(name + "_stool", new StoolBlock(AbstractBlock.Settings.copy(planks)
+        Block stool = ModBlocks.registerBlock(name + "_stool", new WoodStoolBlock(AbstractBlock.Settings.copy(planks)
                 .sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
 
-        Block table = ModBlocks.registerBlock(name + "_table", new TableBlock(AbstractBlock.Settings.copy(planks)
+        Block bench = ModBlocks.registerBlock(name + "_bench", new WoodBenchBlock(AbstractBlock.Settings.copy(planks)
+                .sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
+
+        Block table = ModBlocks.registerBlock(name + "_table", new WoodTableBlock(AbstractBlock.Settings.copy(planks)
                 .sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
 
         Block chair = ModBlocks.registerBlock(name + "_chair", new WoodChairBlock(AbstractBlock.Settings.copy(planks)
                 .sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
 
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(stool.asItem().getDefaultStack());
+        ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(bench.asItem().getDefaultStack());
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(table.asItem().getDefaultStack());
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(chair.asItem().getDefaultStack());
 
-        return new MushroomBlockSet(stem, stemWall, stemFence, planks, slab, verticalSlab, stairs, fence, gate, pressurePlate, button, door, trapdoor, stool, table, chair);
+        return new MushroomBlockSet(stem, stemWall, stemFence, planks, slab, verticalSlab, stairs, fence, gate, pressurePlate, button, door, trapdoor, stool, bench, table, chair);
     }
 
     public static void registerModBlockSets() {

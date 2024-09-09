@@ -1,7 +1,10 @@
 package net.jukoz.me.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
+import net.jukoz.me.item.items.CustomSiegeShieldItem;
+import net.jukoz.me.item.items.weapons.CustomDaggerWeaponItem;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
 import net.jukoz.me.utils.IEntityDataSaver;
 import net.jukoz.me.utils.PlayerMovementData;
@@ -24,11 +27,14 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
@@ -115,7 +121,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         ItemStack stackMainHand = this.getInventory().getMainHandStack();
 
         if(stackMainHand != null){
-            if (stackMainHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackMainHand.getItem()).type.twoHanded)) {
+            if ((stackMainHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackMainHand.getItem()).type.twoHanded))
+                    || (stackMainHand.getItem() instanceof CustomSiegeShieldItem)) {
                 twoHanded = true;
             }
         }
@@ -143,6 +150,18 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "attack", at = @At("HEAD"))
     public void attack(Entity target, CallbackInfo ci) {
         PlayerMovementData.resetAFK((IEntityDataSaver) this);
+    }
+
+    @ModifyVariable(method = "attack", ordinal = 3, at = @At(value = "INVOKE", shift = At.Shift.BEFORE,
+            target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", ordinal = 0))
+    public float attackBackStab(float value, Entity target) {
+        ItemStack mainStack = this.getStackInHand(Hand.MAIN_HAND);
+        if(mainStack.getItem() instanceof CustomDaggerWeaponItem) {
+            if(CustomDaggerWeaponItem.canBackStab(target, this)) {
+                return value * 1.5f;
+            }
+        }
+        return value;
     }
 
     @Inject(method = "resetLastAttackedTicks", at = @At("HEAD"))

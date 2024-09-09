@@ -61,6 +61,8 @@ public class TintableCrossModel {
             add(ModNatureBlocks.HEATHER_BUSH);
             add(ModNatureBlocks.RED_HEATHER);
             add(ModNatureBlocks.DEAD_HEATHER);
+            add(ModNatureBlocks.DRY_HEATHER);
+            add(ModNatureBlocks.HEATH);
             add(ModNatureBlocks.WILDERGRASS);
             add(ModNatureBlocks.BEACH_GRASS);
             add(ModNatureBlocks.COASTAL_PANIC_GRASS);

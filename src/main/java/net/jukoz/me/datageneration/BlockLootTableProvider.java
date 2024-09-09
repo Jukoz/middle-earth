@@ -3,6 +3,7 @@ package net.jukoz.me.datageneration;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.jukoz.me.block.ModBlocks;
+import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.OreRockSets;
 import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
@@ -53,6 +54,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 
         this.registryLookup = registryLookup;
     }
+
 
     @Override
     public void generate() {
@@ -109,6 +111,10 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                                     .conditionally(RandomChanceLootCondition.builder(0.125f)))
                             .with(ItemEntry.builder(cd.fruit))));
         }
+
+        addDrop(ModNatureBlocks.DEAD_RUSHES, shortPlantDrops(ModNatureBlocks.DEAD_RUSHES));
+        addDrop(ModNatureBlocks.FALSE_OATGRASS, shortPlantDrops(ModNatureBlocks.FALSE_OATGRASS));
+        addDrop(ModNatureBlocks.BRACKEN, shortPlantDrops(ModNatureBlocks.BRACKEN));
 
         for(Block block : TintableCrossModel.grassLikeBlocks) {
             addDrop(block, shortPlantDrops(block));

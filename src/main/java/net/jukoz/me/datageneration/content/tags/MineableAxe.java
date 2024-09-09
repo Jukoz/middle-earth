@@ -2,6 +2,7 @@ package net.jukoz.me.datageneration.content.tags;
 
 import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModDecorativeBlocks;
+import net.jukoz.me.block.ModNatureBlocks;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -18,6 +19,16 @@ public class MineableAxe {
             add(ModDecorativeBlocks.DARK_RED_CUSHION);
             add(ModDecorativeBlocks.GREEN_CUSHION);
             add(ModDecorativeBlocks.RED_CUSHION);
+
+            add(ModNatureBlocks.PINE_BRANCHES);
+
+            add(ModDecorativeBlocks.BLUE_HOBBIT_DOOR);
+            add(ModDecorativeBlocks.GREEN_HOBBIT_DOOR);
+            add(ModDecorativeBlocks.RED_HOBBIT_DOOR);
+            add(ModDecorativeBlocks.YELLOW_HOBBIT_DOOR);
+            add(ModDecorativeBlocks.LARCH_HOBBIT_DOOR);
+            add(ModDecorativeBlocks.SPRUCE_HOBBIT_DOOR);
+            add(ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR);
         }
     };
 }

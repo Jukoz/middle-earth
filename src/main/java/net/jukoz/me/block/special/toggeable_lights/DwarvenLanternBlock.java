@@ -28,7 +28,7 @@ import java.util.function.ToIntFunction;
 public class DwarvenLanternBlock extends AbstractToggeableLightBlock {
     public static final BooleanProperty HANGING;
     public static final ToIntFunction<BlockState> STATE_TO_LUMINANCE;
-    private static final VoxelShape STANDING_SHAPE, HANGING_SHAPE;
+    private static final VoxelShape SHAPE;
 
     public DwarvenLanternBlock(Settings settings) {
         super(settings);
@@ -67,7 +67,7 @@ public class DwarvenLanternBlock extends AbstractToggeableLightBlock {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return state.get(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
+        return SHAPE;
     }
 
     @Override
@@ -79,11 +79,6 @@ public class DwarvenLanternBlock extends AbstractToggeableLightBlock {
         HANGING = Properties.HANGING;
         STATE_TO_LUMINANCE = (state) -> { return state.get(LIT) ? state.get(LEVEL_15) : 0; };
 
-        STANDING_SHAPE = VoxelShapes.union(
-                Block.createCuboidShape(5.0, 0.0, 5.0, 11.0, 6.0, 11.0),
-                Block.createCuboidShape(6.0, 6.0, 6.0, 10.0, 7.0, 10.0));
-        HANGING_SHAPE = VoxelShapes.union(
-                Block.createCuboidShape(5.0, 3.0, 5.0, 11.0, 8.0, 11.0),
-                Block.createCuboidShape(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
+        SHAPE = Block.createCuboidShape(4, 0, 4, 12, 11, 12);
     }
 }

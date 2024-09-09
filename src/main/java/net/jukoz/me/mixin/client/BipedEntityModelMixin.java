@@ -8,6 +8,7 @@ import net.jukoz.me.utils.PlayerMovementData;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
@@ -16,6 +17,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mixin(BipedEntityModel.class)
 public class BipedEntityModelMixin {
@@ -26,18 +30,23 @@ public class BipedEntityModelMixin {
     @Shadow @Final public ModelPart rightArm;
 
     @Shadow @Final public ModelPart leftArm;
+    private final static float VERTICAL_ANGLE = -1.4f;
 
     @Inject(at = @At("TAIL"), method = "positionRightArm")
     private void positionRightArm(LivingEntity entity, CallbackInfo ci) {
-        if(this.rightArmPose == BipedEntityModel.ArmPose.ITEM) {
-            tryItemAnimation(entity.getMainHandStack(), entity, true);
+        List<ItemStack> handItems = new ArrayList<>();
+        entity.getHandItems().forEach(handItems::add);
+        if(handItems.get(0) != null) {
+            tryItemAnimation(handItems.get(0), entity, true);
         }
     }
 
     @Inject(at = @At("TAIL"), method = "positionLeftArm")
     private void positionLeftArm(LivingEntity entity, CallbackInfo ci) {
-        if(this.leftArmPose == BipedEntityModel.ArmPose.ITEM) {
-            tryItemAnimation(entity.getOffHandStack(), entity, false);
+        List<ItemStack> handItems = new ArrayList<>();
+        entity.getHandItems().forEach(handItems::add);
+        if(handItems.get(1) != null) {
+            tryItemAnimation(handItems.get(1), entity, false);
         }
     }
 
@@ -57,9 +66,21 @@ public class BipedEntityModelMixin {
         } else if(itemStack.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) itemStack.getItem()).type == ModWeaponTypes.SPEAR)) {
             if(entity instanceof PlayerEntity playerEntity) {
                 int afkTime = PlayerMovementData.readAFK((IEntityDataSaver) playerEntity);
-                if(rightHand && afkTime > 60) {
-                    this.rightArm.pitch = -1.4f;
+                if(afkTime > 60) {
+                    if (rightHand) this.rightArm.pitch = VERTICAL_ANGLE;
+                    else this.leftArm.pitch = VERTICAL_ANGLE;
                 }
+            } else if(entity instanceof MobEntity mob) {
+                if (mob.isAiDisabled()) {
+                    if (rightHand) this.rightArm.pitch = VERTICAL_ANGLE;
+                    else this.leftArm.pitch = VERTICAL_ANGLE;
+                }
+            }
+        } else if (itemStack.getItem() == ModDecorativeItems.TORCH_OF_ORTHANC) {
+            if(rightHand) {
+                this.rightArm.pitch = VERTICAL_ANGLE;
+            } else {
+                this.leftArm.pitch = VERTICAL_ANGLE;
             }
         }
     }

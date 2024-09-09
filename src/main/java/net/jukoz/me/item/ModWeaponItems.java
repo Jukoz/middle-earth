@@ -22,8 +22,11 @@ public class ModWeaponItems {
             new CustomSwordWeaponItem(ModToolMaterials.JADE), false);
     public static final Item BRONZE_SWORD = registerItemWithModel("bronze_sword",
             new CustomSwordWeaponItem(ModToolMaterials.BRONZE), false);
+    public static final Item SLAG_FALCHION = registerItemWithModel("slag_falchion",
+            new CustomSwordWeaponItem(ModToolMaterials.SLAG), true);
     public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.STEEL), false);
+
     public static final Item ORC_STEEL_SWORD = registerItemWithModel("orc_steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.SLAG), false);
     public static final Item BURZUM_STEEL_SWORD = registerItemWithModel("burzum_steel_sword",
@@ -33,12 +36,15 @@ public class ModWeaponItems {
     public static final Item KHAZAD_STEEL_SWORD = registerItemWithModel("khazad_steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.KHAZAD_STEEL), false);
 
+
     public static final Item WOODEN_DAGGER = registerItemWithModel("wooden_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.WOOD), false);
     public static final Item STONE_DAGGER = registerItemWithModel("stone_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.STONE), false);
     public static final Item BRONZE_DAGGER = registerItemWithModel("bronze_dagger",
             new CustomDaggerWeaponItem(ModToolMaterials.BRONZE), false);
+    public static final Item SLAG_DAGGER = registerItemWithModel("slag_dagger",
+            new CustomDaggerWeaponItem(ModToolMaterials.SLAG), false);
     public static final Item IRON_DAGGER = registerItemWithModel("iron_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.IRON), false);
     public static final Item GOLDEN_DAGGER = registerItemWithModel("golden_dagger",
@@ -47,6 +53,9 @@ public class ModWeaponItems {
             new CustomDaggerWeaponItem(ToolMaterials.DIAMOND), false);
     public static final Item NETHERITE_DAGGER = registerItemWithModel("netherite_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.NETHERITE), false);
+
+    public static final Item SLAG_LONGBLADE = registerItemWithModel("slag_longblade",
+            new CustomLongswordWeaponItem(ModToolMaterials.SLAG), true);
 
     public static final Item WOODEN_SPEAR = registerItemWithSpearModel("wooden_spear",
             new CustomSpearWeaponItem(ToolMaterials.WOOD));
@@ -68,6 +77,7 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ModToolMaterials.EDHEL_STEEL));
     public static final Item KHAZAD_STEEL_SPEAR = registerItemWithSpearModel("khazad_steel_spear",
             new CustomSpearWeaponItem(ModToolMaterials.KHAZAD_STEEL));
+
     public static final Item GOLDEN_SPEAR = registerItemWithSpearModel("golden_spear",
             new CustomSpearWeaponItem(ToolMaterials.GOLD));
     public static final Item DIAMOND_SPEAR = registerItemWithSpearModel("diamond_spear",

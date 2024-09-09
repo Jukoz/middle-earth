@@ -25,31 +25,11 @@ public class CustomHelmetItem extends ArmorItem {
     public ModSubFactions subFaction;
 
     private ExtendedArmorMaterial material;
-    public HelmetAddonModel additionModel;
-
-    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings, ModFactions faction, HelmetAddonModel helmetModel) {
-        super(material.material(), type, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
-
-        this.material = material;
-        this.additionModel = helmetModel;
-        this.faction = faction;
-        this.subFaction = null;
-    }
-
-    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings, ModSubFactions subFaction, HelmetAddonModel helmetModel) {
-        super(material.material(), type, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
-
-        this.material = material;
-        this.additionModel = helmetModel;
-        this.faction = subFaction.getParent();
-        this.subFaction = subFaction;
-    }
 
     public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings, ModFactions faction) {
         super(material.material(), type, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
-        this.additionModel = null;
         this.faction = faction;
         this.subFaction = null;
     }
@@ -58,7 +38,6 @@ public class CustomHelmetItem extends ArmorItem {
         super(material.material(), type, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
-        this.additionModel = null;
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
     }
@@ -69,7 +48,7 @@ public class CustomHelmetItem extends ArmorItem {
         if (Screen.hasShiftDown()) {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
             if (subFaction != null) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName()));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
             }
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier_" + this.material.tier().toString().toLowerCase()));
             tooltip.add(Text.of(""));
@@ -89,9 +68,9 @@ public class CustomHelmetItem extends ArmorItem {
             }
             if (hoodDataComponent != null) {
                 if (hoodDataComponent.enabled()) {
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood()).append(": Enabled "));
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood()).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".hood.enable")));
                 } else {
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood()).append(": Disabled"));
+                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood()).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".hood.disable")));
                 }
             }
         } else {
@@ -100,7 +79,9 @@ public class CustomHelmetItem extends ArmorItem {
         super.appendTooltip(stack, context, tooltip, type);
     }
 
-    @Override
+
+    //TODO fix with packets
+    /*@Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if(KeyInputHandler.hoodKey.isPressed()){
             HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
@@ -125,5 +106,5 @@ public class CustomHelmetItem extends ArmorItem {
                 }
             }
         }
-    }
+    }*/
 }

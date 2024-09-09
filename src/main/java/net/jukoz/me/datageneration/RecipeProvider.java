@@ -107,9 +107,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createStairsRecipe(exporter, record.strippedWood(), record.strippedWoodStairs());
             createDoorRecipe(exporter, record.planks(), record.door());
             createTrapdoorRecipe(exporter, record.planks(), record.trapdoor());
-            createWoodStoolRecipe(exporter, record.planksSlab().asItem(), record.strippedWoodFence().asItem(), record.stool());
-            createWoodTableRecipe(exporter, record.planksSlab().asItem(), record.strippedWoodFence().asItem(), record.table());
-            createWoodChairRecipe(exporter, record.planksSlab().asItem(), record.strippedWoodFence().asItem(), record.chair());
+            createWoodStoolRecipe(exporter, record.planks().asItem(), record.stool());
+            createWoodTableRecipe(exporter, record.planks().asItem(), record.strippedWoodFence().asItem(), record.table());
+            createWoodChairRecipe(exporter, record.planks().asItem(), record.chair());
 
             ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.planks(), 4)
                     .input(record.log())
@@ -168,9 +168,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createStairsRecipe(exporter, record.planks(), record.planksStairs());
             createDoorRecipe(exporter, record.planks(), record.door());
             createTrapdoorRecipe(exporter, record.planks(), record.trapdoor());
-            createWoodStoolRecipe(exporter, record.planksSlab().asItem(), record.stemFence().asItem(), record.stool());
-            createWoodTableRecipe(exporter, record.planksSlab().asItem(), record.stemFence().asItem(), record.table());
-            createWoodChairRecipe(exporter, record.planksSlab().asItem(), record.stemFence().asItem(), record.chair());
+            createWoodStoolRecipe(exporter, record.planks().asItem(), record.stool());
+            createWoodTableRecipe(exporter, record.planks().asItem(), record.stemFence().asItem(), record.table());
+            createWoodChairRecipe(exporter, record.planks().asItem(), record.chair());
 
             createFenceRecipe(exporter, record.planks().asItem(), record.planksFence());
             createFenceRecipe(exporter, record.stem().asItem(), record.stemFence());
@@ -293,6 +293,12 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         for(SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledPolishedBlocks) {
             createCutPolishedRecipe(exporter, block.origin(), block.base(), 1);
         }
+        for(SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledTilesBlocksTopBottom) {
+            createCutPolishedRecipe(exporter, block.origin(), block.base(), 1);
+        }
+        for(SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledSmoothBlocksTopBottom) {
+            createCutPolishedRecipe(exporter, block.origin(), block.base(), 1);
+        }
 
         for(SimpleSlabModel.Slab slab : SimpleSlabModel.vanillaSlabs){
             createSlabsRecipe(exporter, slab.origin(), slab.slab());
@@ -347,7 +353,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         }
 
         for(SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools){
-            createWoodStoolRecipe(exporter, stool.planks().asItem(), stool.legs().asItem(), stool.base());
+            createWoodStoolRecipe(exporter, stool.planks().asItem(), stool.base());
         }
 
         for(SimpleWoodTableModel.VanillaTable table : SimpleWoodTableModel.vanillaTables){
@@ -355,7 +361,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         }
 
         for(SimpleWoodChairModel.VanillaChair chair : SimpleWoodChairModel.vanillaChairs){
-            createWoodChairRecipe(exporter, chair.planks().asItem(), chair.legs().asItem(), chair.base());
+            createWoodChairRecipe(exporter, chair.planks().asItem(), chair.base());
         }
 
         for(SimpleStoneStoolModel.VanillaStool stool : SimpleStoneStoolModel.vanillaStools){
@@ -421,6 +427,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         createStairsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_SLAB);
+        createVerticalSlabsRecipe(exporter, ModBlocks.TURF, ModBlocks.TURF_VERTICAL_SLAB);
 
         createStairsRecipe(exporter, ModBlocks.MIRE, ModBlocks.MIRE_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.MIRE, ModBlocks.MIRE_SLAB);
@@ -436,6 +443,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         createStairsRecipe(exporter, ModBlocks.COBBLY_DIRT, ModBlocks.COBBLY_DIRT_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.COBBLY_DIRT, ModBlocks.COBBLY_DIRT_SLAB);
+
+        createPaneRecipe(exporter, Blocks.WHITE_WOOL.asItem(), ModBlocks.NET, 16);
+
+        createPaneRecipe(exporter, Blocks.CUT_COPPER.asItem(), ModBlocks.COPPER_BARS, 16);
 
         createPaneRecipe(exporter, ModResourceItems.SILVER_INGOT, ModBlocks.SILVERS_BARS, 6);
 
@@ -546,12 +557,13 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createMetalsRecipe(exporter, ModResourceItems.MITHRIL_NUGGET, ModResourceItems.MITHRIL_INGOT, ModBlocks.MITHRIL_BLOCK);
 
         createMetalsRecipe(exporter, ModResourceItems.BRONZE_NUGGET, ModResourceItems.BRONZE_INGOT, ModBlocks.BRONZE_BLOCK);
-        createMetalsRecipe(exporter, ModResourceItems.SLAG_SCRAP, ModResourceItems.SLAG_SCRAP, ModBlocks.SLAG_BLOCK);
+        createMetalsRecipe(exporter, ModResourceItems.SLAG_NUGGET, ModResourceItems.SLAG_INGOT, ModBlocks.SLAG_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.BURZUM_STEEL_NUGGET, ModResourceItems.BURZUM_STEEL_INGOT, ModBlocks.BURZUM_STEEL_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.STEEL_NUGGET, ModResourceItems.STEEL_INGOT, ModBlocks.STEEL_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.EDHEL_STEEL_NUGGET, ModResourceItems.EDHEL_STEEL_INGOT, ModBlocks.EDHEL_STEEL_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.KHAZAD_STEEL_NUGGET, ModResourceItems.KHAZAD_STEEL_INGOT, ModBlocks.KHAZAD_STEEL_BLOCK);
         createMetalsRecipeNoBlock(exporter, ModResourceItems.MORGUL_STEEL_NUGGET, ModResourceItems.MORGUL_STEEL_INGOT);
+
         //endregion
 
         //region SEEDS
@@ -567,6 +579,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createCookedFoodRecipes(exporter, ModFoodItems.RAW_CRAB_CLAW, ModFoodItems.COOKED_CRAB_CLAW);
         createCookedFoodRecipes(exporter, ModFoodItems.RAW_DUCK, ModFoodItems.COOKED_DUCK);
         createCookedFoodRecipes(exporter, ModFoodItems.RAW_GOOSE, ModFoodItems.COOKED_GOOSE);
+        createCookedFoodRecipes(exporter, ModFoodItems.RAW_VENISON, ModFoodItems.COOKED_VENISON);
         createCookedFoodRecipes(exporter, ModFoodItems.RAW_HORSE, ModFoodItems.COOKED_HORSE);
         createCookedFoodRecipes(exporter, ModFoodItems.RAW_RAT, ModFoodItems.COOKED_RAT);
         createCookedFoodRecipes(exporter, ModFoodItems.RAW_SWAN, ModFoodItems.COOKED_SWAN);
@@ -749,14 +762,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createWoodStoolRecipe(RecipeExporter exporter, Item inputSlab, Item inputLegs, Block output) {
+    private void createWoodStoolRecipe(RecipeExporter exporter, Item inputPlanks,  Block output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 3)
-                .pattern("PPP")
-                .pattern("S S")
-                .input('P', inputSlab)
-                .input('S', inputLegs)
-                .criterion(FabricRecipeProvider.hasItem(inputSlab),
-                        FabricRecipeProvider.conditionsFromItem(inputSlab))
+                .pattern("PP")
+                .pattern("SS")
+                .input('P', inputPlanks)
+                .input('S', Items.STICK)
+                .criterion(FabricRecipeProvider.hasItem(inputPlanks),
+                        FabricRecipeProvider.conditionsFromItem(inputPlanks))
                 .offerTo(exporter);
     }
 
@@ -772,13 +785,13 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createWoodChairRecipe(RecipeExporter exporter, Item inputPlanks, Item inputLegs, Block output) {
+    private void createWoodChairRecipe(RecipeExporter exporter, Item inputPlanks, Block output) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 3)
-                .pattern("S  ")
+                .pattern("P  ")
                 .pattern("PPP")
                 .pattern("S S")
                 .input('P', inputPlanks)
-                .input('S', inputLegs)
+                .input('S', Items.STICK)
                 .criterion(FabricRecipeProvider.hasItem(inputPlanks),
                         FabricRecipeProvider.conditionsFromItem(inputPlanks))
                 .offerTo(exporter);

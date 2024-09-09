@@ -1,6 +1,7 @@
 package net.jukoz.me.resources;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.persistent_datas.AffiliationData;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.LoggerUtil;
@@ -8,6 +9,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
@@ -29,21 +31,14 @@ public class StateSaverAndLoader extends PersistentState {
             NbtCompound playerNbt = new NbtCompound();
             if(playerData.hasAffilition()){
                 AffiliationData affiliationData = playerData.getAffiliationData();
-                playerNbt.putInt("alignment", affiliationData.alignment);
-                playerNbt.putInt("faction", affiliationData.faction);
-                playerNbt.putInt("subfaction", affiliationData.subfaction);
+                playerNbt.putString("alignment", affiliationData.alignment.toString().toLowerCase());
+                playerNbt.putString("faction_id", affiliationData.faction.getPath().toLowerCase());
+                playerNbt.putString("spawn_id", affiliationData.spawnId.getPath().toLowerCase());
             }
 
             BlockPos overworldSpawn = playerData.getOverworldSpawnCoordinates();
             if(overworldSpawn != null){
                 playerNbt.putIntArray("ow", new int[]{overworldSpawn.getX(), overworldSpawn.getY(), overworldSpawn.getZ()});
-                LoggerUtil.logDebugMsg("Overworld="+overworldSpawn+";");
-            }
-
-            BlockPos middleEarthSpawn = playerData.getMiddleEarthSpawnCoordinates();
-            if(playerData.getMiddleEarthSpawnCoordinates() != null){
-                playerNbt.putIntArray("me", new int[]{middleEarthSpawn.getX(), middleEarthSpawn.getY(), middleEarthSpawn.getZ()});
-                LoggerUtil.logDebugMsg("Middle_Earth="+middleEarthSpawn+";");
             }
 
             playersNbt.put(uuid.toString(), playerNbt);
@@ -55,41 +50,38 @@ public class StateSaverAndLoader extends PersistentState {
 
     public static StateSaverAndLoader createFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
         StateSaverAndLoader state = new StateSaverAndLoader();
-
         NbtCompound playersNbt = tag.getCompound("players");
         playersNbt.getKeys().forEach(key -> {
             PlayerData playerData = new PlayerData();
             try{
-                int alignment = playersNbt.getCompound(key).getInt("alignment");
-                int faction = playersNbt.getCompound(key).getInt("faction");
-                int subfaction = playersNbt.getCompound(key).getInt("subfaction");
-
-                AffiliationData affiliationData = new AffiliationData(alignment, faction, subfaction);
-                playerData.setAffiliationData(affiliationData);
-
+                String alignmentValue = playersNbt.getCompound(key).getString("alignment");
+                boolean hasAlignment = alignmentValue != null && !alignmentValue.isEmpty();
+                String factionIdValue = playersNbt.getCompound(key).getString("faction_id");
+                boolean hasFaction = factionIdValue != null && !factionIdValue.isEmpty();
+                String spawnIdValue = playersNbt.getCompound(key).getString("spawn_id");
+                boolean hasSpawn = spawnIdValue != null && !spawnIdValue.isEmpty();
                 int[] overworldPos = playersNbt.getCompound(key).getIntArray("ow");
-                if(overworldPos.length == 3){
+                boolean hasOverworldPos = overworldPos != null && overworldPos.length == 3;
+
+                if(hasAlignment && hasFaction && hasSpawn){
+                    Alignment alignment = Alignment.valueOf(alignmentValue.toUpperCase());
+                    Identifier factionId = Identifier.of(MiddleEarth.MOD_ID, factionIdValue);
+                    Identifier spawnId = Identifier.of(MiddleEarth.MOD_ID, spawnIdValue);
+
+                    AffiliationData affiliationData = new AffiliationData(alignment.name(), factionId.getPath(), spawnId.getPath());
+                    playerData.setAffiliationData(affiliationData);
+                }
+
+                if(hasOverworldPos){
                     BlockPos overworldSpawn = new BlockPos(
                             overworldPos[0],
                             overworldPos[1],
                             overworldPos[2]
                     );
                     playerData.setOverworldSpawn(overworldSpawn);
-                    LoggerUtil.logDebugMsg("Overworld="+overworldSpawn+";");
-                }
-
-                int[] middleEarthPos = playersNbt.getCompound(key).getIntArray("me");
-                if(middleEarthPos.length == 3){
-                    BlockPos middleEarthSpawn = new BlockPos(
-                            middleEarthPos[0],
-                            middleEarthPos[1],
-                            middleEarthPos[2]
-                    );
-                    playerData.setMiddleEarthSpawn(middleEarthSpawn);
-                    LoggerUtil.logDebugMsg("MiddleEarth="+middleEarthSpawn+";");
                 }
             } catch(Exception e){
-
+                LoggerUtil.logError("StateSaverAndLoader",e);
             }
 
             UUID uuid = UUID.fromString(key);

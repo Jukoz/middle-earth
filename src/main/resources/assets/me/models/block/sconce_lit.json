@@ -17,7 +17,7 @@
 				"south": {"uv": [14, 6, 16, 16], "texture": "#0"},
 				"west": {"uv": [14, 6, 16, 16], "texture": "#0"},
 				"up": {"uv": [12, 14, 14, 16], "texture": "#0"},
-				"down": {"uv": [12, 12, 14, 14], "texture": "#0"}
+				"down": {"uv": [14, 13, 16, 15], "texture": "#0"}
 			}
 		},
 		{
@@ -124,12 +124,29 @@
 			}
 		}
 	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 3, 0]
+		},
+		"thirdperson_lefthand": {
+			"translation": [0, 3, 0]
+		},
+		"ground": {
+			"translation": [0, 2.5, 0]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"scale": [0.85, 0.85, 0.85]
+		},
+		"head": {
+			"translation": [0, 14, 0]
+		}
+	},
 	"groups": [
 		{
 			"name": "torch",
 			"origin": [8, 8, 8],
 			"color": 0,
-			"nbt": "{}",
 			"children": [0, 1, 2, 3, 4, 5, 6, 7]
 		},
 		8

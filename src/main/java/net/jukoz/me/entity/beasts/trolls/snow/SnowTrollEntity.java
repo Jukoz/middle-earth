@@ -13,10 +13,11 @@ import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class SnowTrollEntity extends TrollEntity {
-    public SnowTrollEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
+    public SnowTrollEntity(EntityType<? extends SnowTrollEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -47,7 +48,7 @@ public class SnowTrollEntity extends TrollEntity {
     }
 
     @Override
-    public Item getBondingItem() {
-        return null;
+    public boolean isBondingItem(ItemStack itemStack) {
+        return false;
     }
 }

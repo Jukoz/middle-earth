@@ -22,6 +22,8 @@ public class ModBlockEntities {
     public static BlockEntityType<WoodPileBlockEntity> WOOD_PILE;
     public static BlockEntityType<BrazierBlockEntity> BIG_BRAZIER;
     public static BlockEntityType<SmallBrazierBlockEntity> SMALL_BRAZIER;
+    public static BlockEntityType<GildedBrazierBlockEntity> GILDED_BIG_BRAZIER;
+    public static BlockEntityType<GildedSmallBrazierBlockEntity> GILDED_SMALL_BRAZIER;
     public static BlockEntityType<FireBowlBlockEntity> FIRE_BOWL;
     public static BlockEntityType<BonfireBlockEntity> BONFIRE;
     public static BlockEntityType<ChimneyBlockEntity> CHIMNEY;
@@ -55,6 +57,14 @@ public class ModBlockEntities {
                 Identifier.of(MiddleEarth.MOD_ID, "small_brazier"),
                 FabricBlockEntityTypeBuilder.create(SmallBrazierBlockEntity::new,
                         ModDecorativeBlocks.SMALL_BRAZIER).build(null));
+        GILDED_BIG_BRAZIER = Registry.register(Registries.BLOCK_ENTITY_TYPE,
+                Identifier.of(MiddleEarth.MOD_ID, "gilded_big_brazier"),
+                FabricBlockEntityTypeBuilder.create(GildedBrazierBlockEntity::new,
+                        ModDecorativeBlocks.GILDED_BIG_BRAZIER).build(null));
+        GILDED_SMALL_BRAZIER = Registry.register(Registries.BLOCK_ENTITY_TYPE,
+                Identifier.of(MiddleEarth.MOD_ID, "gilded_small_brazier"),
+                FabricBlockEntityTypeBuilder.create(GildedSmallBrazierBlockEntity::new,
+                        ModDecorativeBlocks.GILDED_SMALL_BRAZIER).build(null));
         FIRE_BOWL = Registry.register(Registries.BLOCK_ENTITY_TYPE,
                 Identifier.of(MiddleEarth.MOD_ID, "fire_bowl"),
                 FabricBlockEntityTypeBuilder.create(FireBowlBlockEntity::new,

@@ -41,6 +41,17 @@ public class ModEggItems {
     public static final Item ROHIRRIM_LEADER_SPAWN_EGG = registerItem("rohirrim_leader_spawn_egg",
             new SpawnEggItem(ModEntities.ROHIRRIM_LEADER, 9132338, 32526, new Item.Settings()));
 
+    public static final Item DALISH_MILITIA_SPAWN_EGG = registerItem("dalish_militia_spawn_egg",
+            new SpawnEggItem(ModEntities.DALISH_MILITIA, 9172338, 32576, new Item.Settings()));
+    public static final Item DALISH_SOLDIER_SPAWN_EGG = registerItem("dalish_soldier_spawn_egg",
+            new SpawnEggItem(ModEntities.DALISH_SOLDIER, 9172338, 32576, new Item.Settings()));
+    public static final Item DALISH_KNIGHT_SPAWN_EGG = registerItem("dalish_knight_spawn_egg",
+            new SpawnEggItem(ModEntities.DALISH_KNIGHT, 9172338, 32576, new Item.Settings()));
+    public static final Item DALISH_VETERAN_SPAWN_EGG = registerItem("dalish_veteran_spawn_egg",
+            new SpawnEggItem(ModEntities.DALISH_VETERAN, 9172338, 32576, new Item.Settings()));
+    public static final Item DALISH_LEADER_SPAWN_EGG = registerItem("dalish_leader_spawn_egg",
+            new SpawnEggItem(ModEntities.DALISH_LEADER, 9172338, 32576, new Item.Settings()));
+
     public static final Item LONGBEARD_MILITIA_SPAWN_EGG = registerItem("longbeard_militia_spawn_egg",
             new SpawnEggItem(ModEntities.LONGBEARD_MILITIA, 4541263, 8090735, new Item.Settings()));
     public static final Item LONGBEARD_SOLDIER_SPAWN_EGG = registerItem("longbeard_soldier_spawn_egg",
@@ -85,6 +96,17 @@ public class ModEggItems {
     public static final Item MISTY_HOBGOBLIN_leader_SPAWN_EGG = registerItem("misty_hobgoblin_leader_spawn_egg",
             new SpawnEggItem(ModEntities.MISTY_HOBGOBLIN_LEADER, 4209210, 7682104, new Item.Settings()));
 
+    public static final Item ISENGARD_ORC_SNAGA_SPAWN_EGG = registerItem("isengard_orc_snaga_spawn_egg",
+            new SpawnEggItem(ModEntities.ISENGARD_ORC_SNAGA, 4209250, 7682504, new Item.Settings()));
+    public static final Item ISENGARD_ORC_WARRIOR_SPAWN_EGG = registerItem("isengard_orc_warrior_spawn_egg",
+            new SpawnEggItem(ModEntities.ISENGARD_ORC_WARRIOR, 4209250, 7682504, new Item.Settings()));
+    public static final Item ISENGARD_URUK_HAI_SOLDIER_SPAWN_EGG = registerItem("isengard_uruk_hai_soldier_spawn_egg",
+            new SpawnEggItem(ModEntities.ISENGARD_URUK_HAI_SOLDIER, 4209250, 7682504, new Item.Settings()));
+    public static final Item ISENGARD_URUK_HAI_veteran_SPAWN_EGG = registerItem("isengard_uruk_hai_veteran_spawn_egg",
+            new SpawnEggItem(ModEntities.ISENGARD_URUK_HAI_VETERAN, 4209250, 7682504, new Item.Settings()));
+    public static final Item ISENGARD_URUK_HAI_leader_SPAWN_EGG = registerItem("isengard_uruk_hai_leader_spawn_egg",
+            new SpawnEggItem(ModEntities.ISENGARD_URUK_HAI_LEADER, 4209250, 7682504, new Item.Settings()));
+
     public static final Item BANDIT_MILITIA_SPAWN_EGG = registerItem("bandit_militia_spawn_egg",
             new SpawnEggItem(ModEntities.BANDIT_MILITIA, 4541263, 9132338, new Item.Settings()));
     public static final Item BANDIT_SOLDIER_SPAWN_EGG = registerItem("bandit_soldier_spawn_egg",
@@ -94,6 +116,9 @@ public class ModEggItems {
 
     public static final Item BARROW_WIGHT_SPAWN_EGG = registerItem("barrow_wight_spawn_egg",
             new SpawnEggItem(ModEntities.BARROW_WIGHT, 1852734, 2456136, new Item.Settings()));
+
+    public static final Item WARG_SPAWN_EGG = registerItem("warg_spawn_egg",
+            new SpawnEggItem(ModEntities.WARG, 3812644, 14931405, new Item.Settings()));
 
     public static final Item CAVE_TROLL_SPAWN_EGG = registerItem("cave_troll_spawn_egg",
             new SpawnEggItem(ModEntities.CAVE_TROLL, 4671043, 3485226, new Item.Settings()));

@@ -49,7 +49,7 @@ public class MiddleEarthMapRuntime {
         if(!middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) return null;
 
         MiddleEarthMapRegion region = getRegionToUse(middleEarthMapUtils.getRegionByWorldCoordinate(posX, posZ));
-        if(region == null) return null;
+        if(region == null) return new Color(0);
 
         Vector2i coords = getImageCoordinates(posX, posZ);
         return region.getHeightColor(coords);

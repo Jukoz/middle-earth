@@ -2,6 +2,7 @@ package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.jukoz.me.resources.ModFactionRegistry;
 import net.jukoz.me.world.biomes.surface.ModBiomes;
 import net.jukoz.me.world.biomes.caves.ModCaveBiomes;
 import net.jukoz.me.world.features.boulder.BoulderConfiguredFeatures;
@@ -21,8 +22,11 @@ import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
 
 public class DataGeneration implements DataGeneratorEntrypoint {
+    public static boolean isDataGen = false;
+
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
+        isDataGen = true;
 
         HelpingGenerator.generateFiles();
 
@@ -32,6 +36,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(ItemTagProvider::new);
         pack.addProvider(ModelProvider::new);
         pack.addProvider(RecipeProvider::new);
+        pack.addProvider(FactionProvider::new);
 
         pack.addProvider(DataWorldGenerator::new);
     }
@@ -54,5 +59,6 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, OrePlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, CavesPlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModMiscPlacedFeatures::bootstrap);
+        registryBuilder.addRegistry(ModFactionRegistry.FACTION_KEY, ModFactionRegistry::bootstrap);
     }
 }

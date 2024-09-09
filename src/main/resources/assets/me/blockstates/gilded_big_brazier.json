@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "me:block/gilded_big_brazier"
+    },
+    "lit=true": {
+      "model": "me:block/gilded_big_brazier_lit"
+    }
+  }
+}

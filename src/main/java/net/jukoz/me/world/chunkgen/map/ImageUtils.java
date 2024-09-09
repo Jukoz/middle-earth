@@ -33,45 +33,6 @@ public class ImageUtils {
         File f = new File(path + fileName);
         ImageIO.write(bufferedImage, "png", f);
     }
-    public static BufferedImage blur(BufferedImage image) {
-        // Create new expended image :
-        int width = image.getWidth();
-        int height = image.getHeight();
-        int newWidth = width + (2 * BRUSH_SIZE);
-        int newHeight = height + (2 * BRUSH_SIZE);
-
-        BufferedImage expendedImage = new BufferedImage(newWidth, newHeight, image.getType());
-        // Copy image content
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                expendedImage.setRGB(x + BRUSH_SIZE, y + BRUSH_SIZE, image.getRGB(x, y));
-            }
-        }
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < BRUSH_SIZE; x++) {
-                expendedImage.setRGB(x, y + BRUSH_SIZE, image.getRGB(0, y)); // Left edge
-                expendedImage.setRGB(width + BRUSH_SIZE + x, y + BRUSH_SIZE, image.getRGB(width - 1, y)); // Right edge
-            }
-        }
-
-        for (int x = 0; x < width + 2 * BRUSH_SIZE; x++) {
-            for (int y = 0; y < BRUSH_SIZE; y++) {
-                expendedImage.setRGB(x, y, expendedImage.getRGB(x, BRUSH_SIZE)); // Top edge
-                expendedImage.setRGB(x, height + BRUSH_SIZE + y, expendedImage.getRGB(x, height + BRUSH_SIZE - 1)); // Bottom edge
-            }
-        }
-
-        float[] blurKernel = new float[BRUSH_SIZE * BRUSH_SIZE];
-        Arrays.fill(blurKernel, RATIO);
-        Kernel kernel = new Kernel(BRUSH_SIZE, BRUSH_SIZE, blurKernel);
-        ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
-
-        expendedImage = op.filter(expendedImage, null);
-
-
-        return expendedImage.getSubimage(BRUSH_SIZE, BRUSH_SIZE, width, height);
-    }
-
 
     public static BufferedImage[][] subdivide(BufferedImage parent) {
         BufferedImage[][] subidivedImages = new BufferedImage[2][2];
@@ -204,7 +165,7 @@ public class ImageUtils {
     }
 
     private static int getExpansionWeight(Integer integer) throws Exception{
-        return MEBiomesData.getBiomeByColor(integer).expansionWeight[(MiddleEarthMapGeneration.CURRENT_ITERATION <= 1) ? 0 : 1];
+        return MEBiomesData.getBiomeByColor(integer).biomeGenerationData.biomeWeight[(MiddleEarthMapGeneration.CURRENT_ITERATION <= 1) ? 0 : 1];
     }
 
 

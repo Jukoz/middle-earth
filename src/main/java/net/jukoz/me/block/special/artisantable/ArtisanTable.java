@@ -69,15 +69,17 @@ public class ArtisanTable extends HorizontalFacingBlock {
 
     @Override
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!world.isClient && player.isCreative()) {
-            ArtisanTablePart tablePart = (ArtisanTablePart)state.get(PART);
-            ArtisanTablePart tablePartOpposite = (ArtisanTablePart)state.get(PART).getOpposite(state.get(PART));
+        ArtisanTablePart tablePart = (ArtisanTablePart)state.get(PART);
+        ArtisanTablePart tablePartOpposite = (ArtisanTablePart)state.get(PART).getOpposite(state.get(PART));
 
-            BlockPos blockPos = pos.offset(getDirectionTowardsOtherPart(tablePart, (Direction)state.get(FACING).rotateYClockwise()));
-            BlockState blockState = world.getBlockState(blockPos);
-            if (blockState.isOf(this) && blockState.get(PART) == tablePartOpposite) {
-                world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 35);
-                world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
+        if (!world.isClient && (player.isCreative() || !player.canHarvest(state))) {
+            if (tablePart == ArtisanTablePart.RIGHT) {
+                BlockPos blockPos = pos.offset(state.get(FACING).rotateYCounterclockwise());
+                BlockState blockState = world.getBlockState(blockPos);
+                if (blockState.isOf(state.getBlock()) && blockState.get(PART) == ArtisanTablePart.LEFT) {
+                    world.breakBlock(blockPos, false);
+                    world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
+                }
             }
         }
         return super.onBreak(world, pos, state, player);

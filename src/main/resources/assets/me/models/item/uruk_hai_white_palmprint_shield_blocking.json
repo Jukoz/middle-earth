@@ -1,0 +1,30 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "me:item/uruk_hai_white_palmprint_shield",
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [180, -90, 90],
+			"translation": [4, -2, 3.75]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [180, -90, 90],
+			"translation": [4, -2, 3.75]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 0, 10.25],
+			"translation": [-2, -3, 0]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 0, 10.25],
+			"translation": [-2, -3, 0]
+		}
+	},
+	"groups": [
+		{
+			"name": "root",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+		}
+	]
+}

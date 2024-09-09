@@ -1,21 +1,17 @@
 package net.jukoz.me.item;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleHandheldItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleItemModel;
-import net.jukoz.me.item.items.BronzeBucketItem;
-import net.jukoz.me.item.items.CustomPowderSnowBucket;
 import net.jukoz.me.item.items.SmithingHammerItem;
+import net.jukoz.me.item.items.weapons.CustomAxeWeaponItem;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.ModToolMaterials;
 import net.jukoz.me.utils.LoggerUtil;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 
 public class ModToolItems {
@@ -33,7 +29,7 @@ public class ModToolItems {
     public static final Item JADE_PICKAXE = registerItemHandheld("jade_pickaxe",
             new PickaxeItem(ModToolMaterials.JADE, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.JADE, 0.0f, -3.0f))));
     public static final Item JADE_AXE = registerItemHandheld("jade_axe",
-            new AxeItem(ModToolMaterials.JADE, new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.JADE, 6.0f, -3.1f))));
+            new CustomAxeWeaponItem(ModToolMaterials.JADE));
     public static final Item JADE_SHOVEL = registerItemHandheld("jade_shovel",
             new ShovelItem(ModToolMaterials.JADE, new Item.Settings().attributeModifiers(ShovelItem.createAttributeModifiers(ModToolMaterials.JADE, 1.5f, -3.0f))));
     public static final Item JADE_HOE = registerItemHandheld("jade_hoe",
@@ -42,7 +38,7 @@ public class ModToolItems {
     public static final Item BRONZE_PICKAXE = registerItemHandheld("bronze_pickaxe",
             new PickaxeItem(ModToolMaterials.BRONZE, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.BRONZE, 0.5f, -2.9f))));
     public static final Item BRONZE_AXE = registerItemHandheld("bronze_axe",
-            new AxeItem(ModToolMaterials.BRONZE, new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.BRONZE, 6.0f, -3.1f))));
+            new CustomAxeWeaponItem(ModToolMaterials.BRONZE));
     public static final Item BRONZE_SHOVEL = registerItemHandheld("bronze_shovel",
             new ShovelItem(ModToolMaterials.BRONZE, new Item.Settings().attributeModifiers(ShovelItem.createAttributeModifiers(ModToolMaterials.BRONZE, 1.5f, -3.0f))));
     public static final Item BRONZE_HOE = registerItemHandheld("bronze_hoe",
@@ -52,6 +48,7 @@ public class ModToolItems {
             new PickaxeItem(ModToolMaterials.SLAG, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.SLAG, 1.0f, -2.8f))));
     public static final Item SLAG_AXE = registerItemHandheld("slag_axe",
             new AxeItem(ModToolMaterials.SLAG, new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.SLAG, 6.0f, -3.1f))));
+
     public static final Item SLAG_SHOVEL = registerItemHandheld("slag_shovel",
             new ShovelItem(ModToolMaterials.SLAG, new Item.Settings().attributeModifiers(ShovelItem.createAttributeModifiers(ModToolMaterials.SLAG, 1.5f, -3.0f))));
     public static final Item SLAG_HOE = registerItemHandheld("slag_hoe",
@@ -60,7 +57,7 @@ public class ModToolItems {
     public static final Item STEEL_PICKAXE = registerItemHandheld("steel_pickaxe",
             new PickaxeItem(ModToolMaterials.STEEL, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.STEEL, 1.0f, -2.8f))));
     public static final Item STEEL_AXE = registerItemHandheld("steel_axe",
-            new AxeItem(ModToolMaterials.STEEL, new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.STEEL, 6.0f, -3.1f))));
+            new CustomAxeWeaponItem(ModToolMaterials.STEEL));
     public static final Item STEEL_SHOVEL = registerItemHandheld("steel_shovel",
             new ShovelItem(ModToolMaterials.STEEL, new Item.Settings().attributeModifiers(ShovelItem.createAttributeModifiers(ModToolMaterials.STEEL, 1.5f, -3.0f))));
     public static final Item STEEL_HOE = registerItemHandheld("steel_hoe",
@@ -93,10 +90,11 @@ public class ModToolItems {
     public static final Item KHAZAD_STEEL_HOE = registerItemHandheld("khazad_steel_hoe",
             new HoeItem(ModToolMaterials.KHAZAD_STEEL, new Item.Settings().attributeModifiers(HoeItem.createAttributeModifiers(ModToolMaterials.KHAZAD_STEEL, -2.0f, -1.0f))));
 
+
     public static final Item MITHRIL_PICKAXE = registerItemHandheld("mithril_pickaxe",
             new PickaxeItem(ModToolMaterials.MITHRIL, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.MITHRIL, 1.0f, -2.7f)).fireproof()));
     public static final Item MITHRIL_AXE = registerItemHandheld("mithril_axe",
-            new AxeItem(ModToolMaterials.MITHRIL, new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.MITHRIL, 6.0f, -3.1f)).fireproof()));
+            new CustomAxeWeaponItem(new Item.Settings().fireproof(), ModToolMaterials.MITHRIL));
     public static final Item MITHRIL_SHOVEL = registerItemHandheld("mithril_shovel",
             new ShovelItem(ModToolMaterials.MITHRIL, new Item.Settings().attributeModifiers(ShovelItem.createAttributeModifiers(ModToolMaterials.MITHRIL, 1.5f, -3.0f)).fireproof()));
     public static final Item MITHRIL_HOE = registerItemHandheld("mithril_hoe",
@@ -152,6 +150,12 @@ public class ModToolItems {
         ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
         SimpleHandheldItemModel.items.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
+    private static Item registerItemDualModel(String name, Item item) {
+        ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
+        SimpleBigItemModel.items.add(item);
+        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerItemGenerated(String name, Item item) {

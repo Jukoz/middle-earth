@@ -27,6 +27,10 @@ public class SimplePillarModel {
             add(new StonePillar(ModBlocks.MOSSY_LIMESTONE_PILLAR, ModBlocks.LIMESTONE_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_LIMESTONE_PILLAR, ModBlocks.LIMESTONE_PILLAR));
 
+            add(new StonePillar(ModBlocks.GALONN_PILLAR, StoneBlockSets.GALONN_BRICKS.base()));
+            add(new StonePillar(ModBlocks.MOSSY_GALONN_PILLAR, ModBlocks.GALONN_PILLAR));
+            add(new StonePillar(ModBlocks.CRACKED_GALONN_PILLAR, ModBlocks.GALONN_PILLAR));
+
             add(new StonePillar(ModBlocks.STONE_PILLAR, Blocks.STONE_BRICKS));
             add(new StonePillar(ModBlocks.MOSSY_STONE_PILLAR, ModBlocks.STONE_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_STONE_PILLAR, ModBlocks.STONE_PILLAR));
@@ -45,9 +49,14 @@ public class SimplePillarModel {
             add(new StonePillar(ModBlocks.MOSSY_BLUE_TUFF_PILLAR, ModBlocks.BLUE_TUFF_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_BLUE_TUFF_PILLAR, ModBlocks.BLUE_TUFF_PILLAR));
 
+            add(new StonePillar(ModBlocks.GREEN_TUFF_PILLAR, StoneBlockSets.GREEN_TUFF_BRICKS.base()));
+            add(new StonePillar(ModBlocks.CRACKED_GREEN_TUFF_PILLAR, ModBlocks.GREEN_TUFF_PILLAR));
+
             add(new StonePillar(ModBlocks.FROZEN_PILLAR, StoneBlockSets.FROZEN_BRICKS.base()));
 
             add(new StonePillar(ModBlocks.DOLOMITE_PILLAR, StoneBlockSets.DOLOMITE_BRICKS.base()));
+            add(new StonePillar(ModBlocks.MOSSY_DOLOMITE_PILLAR, ModBlocks.DOLOMITE_PILLAR));
+            add(new StonePillar(ModBlocks.CRACKED_DOLOMITE_PILLAR, ModBlocks.DOLOMITE_PILLAR));
 
             add(new StonePillar(ModBlocks.IRONSTONE_PILLAR, StoneBlockSets.IRONSTONE_BRICKS.base()));
 
@@ -55,7 +64,7 @@ public class SimplePillarModel {
 
             add(new StonePillar(ModBlocks.GNEISS_PILLAR, StoneBlockSets.GNEISS_BRICKS.base()));
 
-            add(new StonePillar(ModBlocks.ZIGILABAD_PILLAR, StoneBlockSets.ZIGILABAD_BRICKS.base()));
+            add(new StonePillar(ModBlocks.ZIGILABAN_PILLAR, StoneBlockSets.ZIGILABAN_BRICKS.base()));
 
             add(new StonePillar(ModBlocks.CALCITE_PILLAR, StoneBlockSets.CALCITE_BRICKS.base()));
             add(new StonePillar(ModBlocks.MOSSY_CALCITE_PILLAR, ModBlocks.CALCITE_PILLAR));
@@ -72,6 +81,10 @@ public class SimplePillarModel {
             add(new StonePillar(ModBlocks.DIORITE_PILLAR, StoneBlockSets.DIORITE_BRICKS.base()));
             add(new StonePillar(ModBlocks.MOSSY_DIORITE_PILLAR, ModBlocks.DIORITE_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_DIORITE_PILLAR, ModBlocks.DIORITE_PILLAR));
+
+            add(new StonePillar(ModBlocks.TUFF_PILLAR, Blocks.TUFF_BRICKS));
+            add(new StonePillar(ModBlocks.MOSSY_TUFF_PILLAR, ModBlocks.TUFF_PILLAR));
+            add(new StonePillar(ModBlocks.CRACKED_TUFF_PILLAR, ModBlocks.TUFF_PILLAR));
 
             add(new StonePillar(ModBlocks.JADEITE_PILLAR, StoneBlockSets.JADEITE_BRICKS.base()));
             add(new StonePillar(ModBlocks.CRACKED_JADEITE_PILLAR, ModBlocks.JADEITE_PILLAR));

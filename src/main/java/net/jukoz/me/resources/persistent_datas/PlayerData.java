@@ -5,7 +5,6 @@ import net.minecraft.util.math.BlockPos;
 public class PlayerData {
     private AffiliationData affiliationData;
     private BlockPos overworldSpawnCoordinates;
-    private BlockPos middleEarthSpawnCoordinates;
 
     public PlayerData(){
         this.affiliationData = null;
@@ -28,7 +27,7 @@ public class PlayerData {
     @Override
     public String toString() {
         if(hasAffilition())
-            return affiliationData + "_Overworld=" + overworldSpawnCoordinates + ";_MiddleEarth=" + middleEarthSpawnCoordinates;
+            return affiliationData + "_Overworld=" + overworldSpawnCoordinates + ";";
         else
             return "No Data";
     }
@@ -40,10 +39,8 @@ public class PlayerData {
         return overworldSpawnCoordinates;
     }
 
-    public void setMiddleEarthSpawn(BlockPos middleEarthSpawnCoordinates) {
-        this.middleEarthSpawnCoordinates = middleEarthSpawnCoordinates;
-    }
-    public BlockPos getMiddleEarthSpawnCoordinates() {
-        return middleEarthSpawnCoordinates;
+    public void clearData() {
+        this.affiliationData = null;
+        this.overworldSpawnCoordinates = null;
     }
 }

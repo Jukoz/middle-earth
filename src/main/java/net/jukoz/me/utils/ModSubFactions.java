@@ -5,6 +5,8 @@ public enum ModSubFactions {
 
     EREBOR("erebor", ModFactions.LONGBEARDS),
 
+    GUNDABAD("gundabad", ModFactions.MISTY_MOUNTAINS_ORCS),
+
     ;
 
     private final String name;

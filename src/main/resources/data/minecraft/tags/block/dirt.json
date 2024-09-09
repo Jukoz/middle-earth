@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "me:cobbly_ashen_dirt",
+    "me:ashen_dirt",
+    "me:old_podzol",
+    "me:dry_dirt",
+    "me:corrupted_moss_block",
+    "me:forest_moss_block",
+    "me:mire",
+    "me:grassy_dirt",
+    "me:cobbly_dirt",
+    "me:turf",
+    "me:turf_slab",
+    "me:turf_stairs",
+    "me:turf_vertical_slab"
+  ]
+}

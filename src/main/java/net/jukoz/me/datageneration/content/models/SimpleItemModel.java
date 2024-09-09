@@ -42,6 +42,8 @@ public class SimpleItemModel {
             add(ModFoodItems.VEGETABLE_SKEWER);
             add(ModFoodItems.COOKED_VEGETABLE_SKEWER);
             add(ModFoodItems.VEGETABLE_SOUP);
+            add(ModFoodItems.RAW_VENISON);
+            add(ModFoodItems.COOKED_VENISON);
             add(ModFoodItems.RAW_HORSE);
             add(ModFoodItems.COOKED_HORSE);
             add(ModFoodItems.RAW_RAT);
@@ -58,6 +60,7 @@ public class SimpleItemModel {
 
             add(ModResourceItems.ORC_BONE);
             add(ModResourceItems.WARG_BONE);
+            add(ModResourceItems.FANG);
 
             add(ModResourceItems.ASH);
 
@@ -76,11 +79,11 @@ public class SimpleItemModel {
             add(ModResourceItems.SILVER_INGOT);
             add(ModResourceItems.SILVER_NUGGET);
 
-            add(ModResourceItems.SLAG_INGOT);
-            add(ModResourceItems.SLAG_SCRAP);
-
             add(ModResourceItems.BURZUM_STEEL_INGOT);
             add(ModResourceItems.BURZUM_STEEL_NUGGET);
+
+            add(ModResourceItems.SLAG_INGOT);
+            add(ModResourceItems.SLAG_NUGGET);
 
             add(ModResourceItems.STEEL_INGOT);
             add(ModResourceItems.STEEL_NUGGET);

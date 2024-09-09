@@ -1,0 +1,8 @@
+{
+  "parent": "me:block/outer_stairs_tint",
+  "textures": {
+    "bottom": "me:block/turf",
+    "side": "me:block/turf",
+    "top": "me:block/turf"
+  }
+}

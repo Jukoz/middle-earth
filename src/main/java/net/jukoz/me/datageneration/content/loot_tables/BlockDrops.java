@@ -16,6 +16,8 @@ public class BlockDrops {
             add(ModDecorativeBlocks.WALL_DWARVEN_LANTERN);
             add(ModDecorativeBlocks.WOOD_PILE);
             add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
+            add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
+            add(ModDecorativeBlocks.SCONCE);
 
             add(ModDecorativeBlocks.ROPE);
 
@@ -47,6 +49,14 @@ public class BlockDrops {
             add(ModDecorativeBlocks.FORGE);
 
             add(ModDecorativeBlocks.REINFORCED_CHEST);
+
+            add(ModDecorativeBlocks.BIG_BRAZIER);
+            add(ModDecorativeBlocks.SMALL_BRAZIER);
+            add(ModDecorativeBlocks.GILDED_BIG_BRAZIER);
+            add(ModDecorativeBlocks.GILDED_SMALL_BRAZIER);
+            add(ModDecorativeBlocks.CHIMNEY);
+            add(ModDecorativeBlocks.FIRE_BOWL);
+            add(ModDecorativeBlocks.BONFIRE);
 
             add(ModNatureBlocks.MALLOS);
             add(ModNatureBlocks.YELLOW_FLOWER);

@@ -2,11 +2,13 @@ package net.jukoz.me.item.items.weapons;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.utils.ModWeaponTypes;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.item.AxeItem;
@@ -16,6 +18,8 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.List;
 
@@ -24,6 +28,13 @@ public class CustomAxeWeaponItem extends AxeItem {
     private final MutableText subFaction;
 
     private final ModWeaponTypes type;
+
+    public CustomAxeWeaponItem(Settings settings, ToolMaterial toolMaterial) {
+        super(toolMaterial, settings.attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
+        this.faction = Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic");
+        this.subFaction = null;
+        this.type = ModWeaponTypes.AXE;
+    }
 
     public CustomAxeWeaponItem(ToolMaterial toolMaterial) {
         super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
@@ -44,6 +55,10 @@ public class CustomAxeWeaponItem extends AxeItem {
         this.faction = faction;
         this.subFaction = subFaction;
         this.type = ModWeaponTypes.AXE;
+    }
+
+    public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
+        return !miner.isCreative();
     }
 
     public static AttributeModifiersComponent createAttributeModifiersAxe(ToolMaterial material, float baseAttackDamage, float attackSpeed) {
