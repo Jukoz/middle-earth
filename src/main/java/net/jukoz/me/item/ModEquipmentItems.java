@@ -1,8 +1,6 @@
 package net.jukoz.me.item;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.client.model.equipment.chest.*;
-import net.jukoz.me.client.model.equipment.head.*;
 import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleItemModel;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
@@ -755,7 +753,7 @@ public class ModEquipmentItems {
                     ModFactions.MORDOR));
 
     public static final Item MORDOR_ORC_CHESTPLATE = registerRustyArmorPiece("mordor_orc_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.URUK_STEEL_T4, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T4, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModFactions.MORDOR));
 
     public static final Item MORDOR_ORC_SCALE_COAT = registerArmorPiece("mordor_orc_scale_coat",
@@ -763,23 +761,23 @@ public class ModEquipmentItems {
                     ModFactions.MORDOR));
     
     public static final Item BLACK_URUK_PLATE_HELMET = registerArmorPiece("black_uruk_plate_helmet",
-            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item BLACK_URUK_PLATE_CHESTPLATE = registerCustomModelArmorPiece("black_uruk_plate_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item BLACK_URUK_PLATE_LEGGINGS = registerArmorPiece("black_uruk_plate_leggings",
-            new CustomLeggingsItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.LEGGINGS, new Item.Settings(),
+            new CustomLeggingsItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.LEGGINGS, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item BLACK_URUK_PLATE_BOOTS = registerArmorPiece("black_uruk_plate_boots",
-            new CustomBootsItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
+            new CustomBootsItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModFactions.MORDOR));
 
     public static final Item BLACK_URUK_COMMANDER_HELMET = registerCustomModelArmorPiece("black_uruk_commander_helmet",
-            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item BLACK_URUK_COMMANDER_CHESTPLATE = registerCustomModelArmorPiece("black_uruk_commander_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModFactions.MORDOR));
 
     public static final Item MORDOR_SHIELD = registerItem("mordor_shield",
@@ -808,37 +806,37 @@ public class ModEquipmentItems {
                     ModFactions.ISENGARD));
 
     public static final Item URUK_HAI_PLATE_HELMET = registerCustomModelArmorPiece("uruk_hai_plate_helmet",
-            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_PLATE_PAINTED_HELMET = registerCustomModelArmorPiece("uruk_hai_plate_painted_helmet",
-            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_SAPPER_HELMET = registerCustomModelArmorPiece("uruk_hai_sapper_helmet",
-            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_SAPPER_PAINTED_HELMET = registerCustomModelArmorPiece("uruk_hai_sapper_painted_helmet",
-            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_BERSERKER_HELMET = registerCustomModelArmorPiece("uruk_hai_berserker_helmet",
-            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_BERSERKER_PAINTED_HELMET = registerCustomModelArmorPiece("uruk_hai_berserker_painted_helmet",
-            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_COMMANDER_HELMET = registerCustomModelArmorPiece("uruk_hai_commander_helmet",
-            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_COMMANDER_PAINTED_HELMET = registerCustomModelArmorPiece("uruk_hai_commander_painted_helmet",
-            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_PLATE_CHESTPLATE = registerCustomModelArmorPiece("uruk_hai_plate_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_PLATE_LEGGINGS = registerArmorPiece("uruk_hai_plate_leggings",
-            new CustomLeggingsItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.LEGGINGS, new Item.Settings(),
+            new CustomLeggingsItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.LEGGINGS, new Item.Settings(),
                     ModFactions.ISENGARD));
     public static final Item URUK_HAI_PLATE_BOOTS = registerArmorPiece("uruk_hai_plate_boots",
-            new CustomBootsItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
+            new CustomBootsItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModFactions.ISENGARD));
 
     public static final Item URUK_HAI_HEATER_SHIELD = registerShield("uruk_hai_heater_shield",
@@ -861,33 +859,33 @@ public class ModEquipmentItems {
     //region MISTY MOUNTAINS ORCS
 
     public static final Item HOBGOBLIN_CHAIN_HAUBERK = registerArmorPiece("hobgoblin_chain_hauberk",
-            new CustomChestplateItem(ModArmorMaterials.URUK_STEEL_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModFactions.MISTY_MOUNTAINS_ORCS));
     
     public static final Item GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_crested_helmet",
-            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
     public static final Item GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_large_crest_helmet",
-            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
     public static final Item GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_long_horn_helmet",
-            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
     public static final Item GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_small_horn_helmet",
-            new CustomHelmetItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
     public static final Item GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
     public static final Item GUNDABAD_HOBGOBLIN_CHAIN_COAT = registerArmorPiece("gundabad_hobgoblin_chain_coat",
-            new CustomLeggingsItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.LEGGINGS, new Item.Settings(),
+            new CustomLeggingsItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.LEGGINGS, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
     public static final Item GUNDABAD_HOBGOBLIN_PLATED_BOOTS = registerArmorPiece("gundabad_hobgoblin_plated_boots",
-            new CustomBootsItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
+            new CustomBootsItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
 
     public static final Item GUNDABAD_HOBGOBLIN_PLATE_TROPHY_CHESTPLATE = registerCustomModelArmorPiece("gundabad_hobgoblin_plate_trophy_chestplate",
-            new CustomChestplateItem(ModArmorMaterials.URUK_STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
 
     public static final Item MISTY_MOUNTAINS_SHIELD = registerShield("misty_mountains_shield",
