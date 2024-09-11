@@ -148,11 +148,11 @@ public class ModEquipmentItems {
                     ModFactions.NONE));
 
     public static final Item ROUND_SHIELD = registerShield("round_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));
     public static final Item HEATER_SHIELD = registerShield("heater_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));
     public static final Item KITE_SHIELD = registerShield("kite_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));
     //endregion
 
     //region HOBBITS
@@ -257,22 +257,22 @@ public class ModEquipmentItems {
                     ModFactions.GONDOR));
 
     public static final Item GONDORIAN_SHIELD = registerShield("gondorian_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
     public static final Item GONDORIAN_TOWER_SHIELD = registerShield("gondorian_tower_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
     public static final Item GONDORIAN_KINGS_GUARD_TOWER_SHIELD = registerShield("gondorian_kings_guard_tower_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
     public static final Item LAST_ALLIANCE_HEILOOM_TOWER_SHIELD = registerShield("last_alliance_heirloom_tower_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
     public static final Item GONDORIAN_HERO_SHIELD = registerShield("gondorian_hero_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
     public static final Item GONDORIAN_KNIGHT_SHIELD = registerShield("gondorian_knight_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.GONDOR));
     public static final Item GONDORIAN_ORNAMENTED_KNIGHT_SHIELD = registerShield("gondorian_ornamented_knight_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.GONDOR));
 
     public static final Item GONDORIAN_HORSE_ARMOR = registerGeneratedItem("gondorian_horse_armor",
-            new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
+            new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.GONDOR));
 
     //endregion
 
@@ -393,26 +393,26 @@ public class ModEquipmentItems {
                     ModFactions.ROHAN));
 
     public static final Item ROHIRRIC_SHIELD = registerShield("rohirric_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
     public static final Item ROHIRRIC_BUCKING_HORSE_SHIELD = registerShield("rohirric_bucking_horse_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
     public static final Item ROHIRRIC_GALLOPING_HORSE_SHIELD = registerShield("rohirric_galloping_horse_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
     public static final Item ROHIRRIC_HORSE_HEAD_SHIELD = registerShield("rohirric_horse_head_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
     public static final Item ROHIRRIC_PLAINSMAN_SHIELD = registerShield("rohirric_plainsman_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
     public static final Item ROHIRRIC_TWIN_HORSES_SHIELD = registerShield("rohirric_twin_horses_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
     public static final Item ROHIRRIC_EORLING_SHIELD = registerShield("rohirric_eorling_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ROHAN));
     public static final Item ROHIRRIC_ORNAMENTED_SHIELD = registerShield("rohirric_ornamented_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ROHAN));
     public static final Item ROHIRRIC_ROYAL_GUARD_SHIELD = registerShield("rohirric_royal_guard_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ROHAN));
 
     public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
-            new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
+            new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.ROHAN));
     //endregion
 
     //region DALE
@@ -573,8 +573,18 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.DWARVEN_STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModSubFactions.EREBOR));
 
-    public static final Item LONGBEARD_SHIELD = registerShield("longbeard_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".longbeards")));
+    public static final Item EREBOR_SHIELD = registerShield("erebor_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_CROSS_SHIELD = registerShield("erebor_cross_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_PLATED_SHIELD = registerShield("erebor_plated_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_ORNAMENTED_SHIELD = registerShield("erebor_ornamented_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_REINFORCED_SHIELD = registerShield("erebor_reinforced_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_HEAVY_SHIELD = registerShield("erebor_heavy_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
 
     //endregion
 
@@ -692,18 +702,18 @@ public class ModEquipmentItems {
                     ModFactions.LOTHLORIEN));
 
     public static final Item LORIEN_SHIELD = registerShield("lorien_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.LOTHLORIEN));
     public static final Item LORIEN_LAURELS_SHIELD = registerShield("lorien_laurels_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.LOTHLORIEN));
     public static final Item LORIEN_MALLORN_SHIELD = registerShield("lorien_mallorn_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.LOTHLORIEN));
     public static final Item GALADHRIM_SHIELD = registerShield("galadhrim_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.LOTHLORIEN));
     public static final Item GALADHRIM_LORD_SHIELD = registerShield("galadhrim_lord_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.LOTHLORIEN));
 
     public static final Item LORIEN_HORSE_ARMOR = registerGeneratedItem("lorien_horse_armor",
-            new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
+            new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.LOTHLORIEN));
 
     //endregion
     //endregion
@@ -783,7 +793,7 @@ public class ModEquipmentItems {
                     ModFactions.MORDOR));
 
     public static final Item MORDOR_SHIELD = registerItem("mordor_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
 
     public static final Item NAZGUL_CLOAK_HOOD = registerArmorPiece("nazgul_cloak_hood",
             new CustomHelmetItem(ModArmorMaterials.MORGUL_STEEL_T3, ArmorItem.Type.HELMET, new Item.Settings(),
@@ -799,7 +809,7 @@ public class ModEquipmentItems {
                     ModFactions.MORDOR));
 
     public static final Item BLACK_NUMENOREAN_TOWER_SHIELD = registerShield("black_numenorean_tower_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mordor")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
     //endregion
 
     //region ISENGARD
@@ -842,19 +852,19 @@ public class ModEquipmentItems {
                     ModFactions.ISENGARD));
 
     public static final Item URUK_HAI_HEATER_SHIELD = registerShield("uruk_hai_heater_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ISENGARD));
 
     public static final Item URUK_HAI_SHIELD = registerShield("uruk_hai_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
     public static final Item URUK_HAI_WHITE_HAND_SHIELD = registerShield("uruk_hai_white_hand_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
     public static final Item URUK_HAI_WHITE_PALMPRINT_SHIELD = registerShield("uruk_hai_white_palmprint_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
     public static final Item URUK_HAI_S_RUNE_SHIELD = registerShield("uruk_hai_s_rune_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
 
     public static final Item URUK_HAI_SIEGE_SHIELD = registerShield("uruk_hai_siege_shield",
-            new CustomSiegeShieldItem(ModShieldTypes.HEAVY_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
+            new CustomSiegeShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
 
     //endregion
 
@@ -891,7 +901,7 @@ public class ModEquipmentItems {
                     ModSubFactions.GUNDABAD));
 
     public static final Item MISTY_MOUNTAINS_SHIELD = registerShield("misty_mountains_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".misty_mountains_orcs")));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MISTY_MOUNTAINS_ORCS));
 
     /*public static final Item STEEL_TROLL_ARMOR = registerGeneratedItem("steel_troll_armor",
             new TrollArmorItem(10, "steel", new Item.Settings().maxCount(1)));*/

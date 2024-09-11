@@ -2,6 +2,8 @@ package net.jukoz.me.item.items;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.utils.ModShieldTypes;
+import net.jukoz.me.utils.ModFactions;
+import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,21 +15,21 @@ import net.minecraft.text.Text;
 import java.util.List;
 
 public class CustomShieldItem extends ShieldItem {
-    private final MutableText faction;
-    private final MutableText subFaction;
+    private final ModFactions faction;
+    private final ModSubFactions subFaction;
     private final ModShieldTypes type;
 
-    public CustomShieldItem(ModShieldTypes type, MutableText faction) {
+    public CustomShieldItem(ModShieldTypes type, ModFactions faction) {
         super(new Item.Settings().maxCount(1).maxDamage(type.durability));
         this.type = type;
         this.faction = faction;
         this.subFaction = null;
     }
 
-    public CustomShieldItem(ModShieldTypes type, MutableText faction, MutableText subFaction) {
+    public CustomShieldItem(ModShieldTypes type, ModSubFactions subFaction) {
         super(new Item.Settings().maxCount(1).maxDamage(type.durability));
         this.type = type;
-        this.faction = faction;
+        this.faction = subFaction.getParent();
         this.subFaction = subFaction;
     }
 
@@ -35,9 +37,9 @@ public class CustomShieldItem extends ShieldItem {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.of(""));
         if (Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(this.faction));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(this.faction.getName()));
             if (this.subFaction != null) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(this.subFaction));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(this.subFaction.getName()));
             }
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shield_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
             tooltip.add(Text.of(""));
