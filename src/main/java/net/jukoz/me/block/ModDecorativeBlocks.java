@@ -82,6 +82,26 @@ public class ModDecorativeBlocks {
     public static final Block DARK_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("dark_wattle_framed_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
+    public static final Block BLACK_WATTLE_FRAMED_WINDOW = registerBlockWithItem("black_wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block BLACK_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("black_wattle_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block GREEN_WATTLE_FRAMED_WINDOW = registerBlockWithItem("green_wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block GREEN_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("green_wattle_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block RED_WATTLE_FRAMED_WINDOW = registerBlockWithItem("red_wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block RED_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("red_wattle_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block WHITE_WATTLE_FRAMED_WINDOW = registerBlockWithItem("white_wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block WHITE_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("white_wattle_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
     public static final Block MEDGON_CARVED_WINDOW = registerBlockWithItem("medgon_carved_window",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
     public static final Block MEDGON_CARVED_WINDOW_PANE = registerBlockWithItem("medgon_carved_window_pane",

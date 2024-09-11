@@ -16,6 +16,10 @@ public class SimplePaneModel {
             add(new Pane(ModDecorativeBlocks.WATTLE_AND_BRICK_WINDOW, ModDecorativeBlocks.WATTLE_AND_BRICK_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.WATTLE_FRAMED_WINDOW, ModDecorativeBlocks.WATTLE_FRAMED_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.DARK_WATTLE_FRAMED_WINDOW, ModDecorativeBlocks.DARK_WATTLE_FRAMED_WINDOW_PANE));
+            add(new Pane(ModDecorativeBlocks.BLACK_WATTLE_FRAMED_WINDOW, ModDecorativeBlocks.BLACK_WATTLE_FRAMED_WINDOW_PANE));
+            add(new Pane(ModDecorativeBlocks.GREEN_WATTLE_FRAMED_WINDOW, ModDecorativeBlocks.GREEN_WATTLE_FRAMED_WINDOW_PANE));
+            add(new Pane(ModDecorativeBlocks.RED_WATTLE_FRAMED_WINDOW, ModDecorativeBlocks.RED_WATTLE_FRAMED_WINDOW_PANE));
+            add(new Pane(ModDecorativeBlocks.WHITE_WATTLE_FRAMED_WINDOW, ModDecorativeBlocks.WHITE_WATTLE_FRAMED_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW, ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW, ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.MEDGON_CARVED_WINDOW, ModDecorativeBlocks.MEDGON_CARVED_WINDOW_PANE));

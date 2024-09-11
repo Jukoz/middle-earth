@@ -4739,8 +4739,26 @@
   "block.me.wattle_framed_window": "Wattle Framed Window",
   "block.me.wattle_framed_window_pane": "Wattle Framed Window Pane",
 
+  "block.me.black_wattle_framed_window": "Black Wattle Framed Window",
+  "block.me.black_wattle_framed_window_pane": "Black Wattle Framed Window Pane",
+
+  "block.me.green_wattle_framed_window": "Green Wattle Framed Window",
+  "block.me.green_wattle_framed_window_pane": "Green Wattle Framed Window Pane",
+
+  "block.me.red_wattle_framed_window": "Red Wattle Framed Window",
+  "block.me.red_wattle_framed_window_pane": "Red Wattle Framed Window Pane",
+
+  "block.me.white_wattle_framed_window": "White Wattle Framed Window",
+  "block.me.white_wattle_framed_window_pane": "White Wattle Framed Window Pane",
+
   "block.me.dark_wattle_framed_window": "Dark Wattle Framed Window",
   "block.me.dark_wattle_framed_window_pane": "Dark Wattle Framed Window Pane",
+
+  "block.me.black_wattle_trapdoor": "Black Wattle Trapdoor",
+  "block.me.dark_wattle_trapdoor": "Dark Wattle Trapdoor",
+  "block.me.green_wattle_trapdoor": "Green Wattle Trapdoor",
+  "block.me.red_wattle_trapdoor": "Red Wattle Trapdoor",
+  "block.me.wattle_trapdoor": "Wattle Trapdoor",
 
   "block.me.black_wool_slab": "Black Wool Slab",
   "block.me.blue_wool_slab": "Blue Wool Slab",

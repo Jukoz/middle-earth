@@ -16,9 +16,7 @@ import net.jukoz.me.datageneration.content.models.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.BlockFace;
-import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.block.enums.DoorHinge;
-import net.minecraft.block.enums.StairShape;
 import net.minecraft.data.client.*;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
@@ -424,7 +422,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.stoneTrapdoors) {
-            registerTrapdoor(blockStateModelGenerator, trapdoor.trapdoor());
+            registerStoneTrapdoor(blockStateModelGenerator, trapdoor.trapdoor());
         }
 
         for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.vanillaStoneTrapdoors) {
@@ -987,7 +985,7 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createBlockStateWithRandomHorizontalRotations(block, ModelIds.getBlockModelId(block)));
     }
 
-    public void registerTrapdoor(BlockStateModelGenerator blockStateModelGenerator, Block trapdoorBlock) {
+    public void registerStoneTrapdoor(BlockStateModelGenerator blockStateModelGenerator, Block trapdoorBlock) {
         TextureMap textureMap = TextureMap.texture(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(trapdoorBlock).getPath().replaceAll("_trapdoor", "")));
         Identifier identifier = Models.TEMPLATE_TRAPDOOR_TOP.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
         Identifier identifier2 = Models.TEMPLATE_TRAPDOOR_BOTTOM.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
