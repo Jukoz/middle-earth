@@ -18,7 +18,7 @@ public class ForgeScreenHandler extends ScreenHandler{
     private final PropertyDelegate propertyDelegate;
 
     public ForgeScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new SimpleInventory(6), new ArrayPropertyDelegate(8));
+        this(syncId, playerInventory, new SimpleInventory(6), new ArrayPropertyDelegate(9));
     }
 
     public ForgeScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
@@ -94,18 +94,22 @@ public class ForgeScreenHandler extends ScreenHandler{
         return this.propertyDelegate.get(4);
     }
 
+    public int getCurrentMetal() {
+        return this.propertyDelegate.get(8);
+    }
+
     public int checkMaxOutput(){
         int liquid = propertyDelegate.get(4);
-        if(liquid > 432){
+        if(liquid >= 432){
             return 4;
         }
-        if(liquid > 288){
+        if(liquid >= 288){
             return 3;
         }
-        if(liquid > 144){
+        if(liquid >= 144){
             return 2;
         }
-        if(liquid > 16){
+        if(liquid >= 16){
             return 1;
         }
         return 0;

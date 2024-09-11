@@ -57,9 +57,9 @@ public class ModResourceItems {
     public static final Item BRONZE_NUGGET = registerItem("bronze_nugget",
             new Item(new Item.Settings()));
 
-    public static final Item SLAG_INGOT = registerItem("slag_ingot",
+    public static final Item CRUDE_INGOT = registerItem("crude_ingot",
             new Item(new Item.Settings()));
-    public static final Item SLAG_NUGGET = registerItem("slag_nugget",
+    public static final Item CRUDE_NUGGET = registerItem("crude_nugget",
             new Item(new Item.Settings()));
 
     public static final Item BURZUM_STEEL_INGOT = registerItem("burzum_steel_ingot",

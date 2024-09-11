@@ -7,6 +7,7 @@
 		"6": "me:block/forge_upper_inner",
 		"7": "me:block/forge_upper_top",
 		"8": "me:block/forge_lower_top",
+		"9": "me:block/forge_lower_front",
 		"particle": "me:block/forge_side"
 	},
 	"elements": [
@@ -14,7 +15,7 @@
 			"from": [0, 0, 0],
 			"to": [16, 16, 16],
 			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#3"},
+				"north": {"uv": [0, 0, 16, 16], "texture": "#9"},
 				"east": {"uv": [0, 0, 16, 16], "texture": "#2"},
 				"south": {"uv": [0, 0, 16, 16], "texture": "#3"},
 				"west": {"uv": [0, 0, 16, 16], "texture": "#2"},

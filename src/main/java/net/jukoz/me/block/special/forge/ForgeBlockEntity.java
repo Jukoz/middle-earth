@@ -1,18 +1,20 @@
 package net.jukoz.me.block.special.forge;
 
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.gui.forge.ForgeScreenHandler;
+import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.ModResourceItems;
-import net.jukoz.me.network.packets.ForgeOutputPacket;
+import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
+import net.jukoz.me.network.packets.C2S.ForgeOutputPacket;
 import net.jukoz.me.recipe.AlloyingRecipe;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -22,17 +24,21 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.trim.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.*;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -60,12 +66,9 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
     private int fuelTime = 0;
     private int maxFuelTime = 0;
     private int mode = 0;
-
-    public void setStorage(int storage) {
-        this.storage = storage;
-    }
-
     private int storage = 0;
+
+    private MetalTypes currentMetal = MetalTypes.EMPTY;
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGE, pos, state);
@@ -81,7 +84,8 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
                     case 5 -> ForgeBlockEntity.this.getPos().getX();
                     case 6 -> ForgeBlockEntity.this.getPos().getZ();
                     case 7 -> ForgeBlockEntity.this.getPos().getY();
-                    default -> 0;
+                    case 8 -> ForgeBlockEntity.this.currentMetal.id;
+                    default -> throw new IllegalStateException("Unexpected value: " + index);
                 };
             }
 
@@ -98,7 +102,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
             @Override
             public int size() {
-                return 8;
+                return 9;
             }
         };
     }
@@ -159,6 +163,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
     public ItemStack getRenderStack() {
         return this.getStack(OUTPUT_SLOT);
     }
+
     public void setInventory(DefaultedList<ItemStack> inventory) {
         for (int i = 0; i < inventory.size(); i++) {
             this.inventory.set(i, inventory.get(i));
@@ -265,9 +270,48 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         boostTime = MAX_BOOST_TIME;
     }
 
-    public static void lowerAmount(ForgeOutputPacket packet, ServerPlayNetworking.Context context){
-        Optional<ForgeBlockEntity> forgeBlockEntity = context.player().getWorld().getBlockEntity(new BlockPos(packet.entityX(), packet.entityZ(), packet.entityY()), ModBlockEntities.FORGE);
-        forgeBlockEntity.ifPresent(entity -> entity.storage = entity.storage - packet.amount());
+    public static void outputItemStack(ForgeOutputPacket packet, ServerPlayerEntity player){
+        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(new BlockPos((int) packet.getPos().x,(int)  packet.getPos().y,(int)  packet.getPos().z), ModBlockEntities.FORGE);
+        ItemStack itemstack = ItemStack.EMPTY;
+        if(forgeBlockEntity.isPresent()){
+            ForgeBlockEntity entity = forgeBlockEntity.get();
+
+            RegistryWrapper.Impl<ArmorTrimMaterial>  armorTrimMaterialRegistry = entity.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.TRIM_MATERIAL);
+            RegistryWrapper.Impl<ArmorTrimPattern>  armorTrimPatternRegistry = entity.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.TRIM_PATTERN);
+
+
+            switch (packet.getAmount()){
+                case 16 -> {
+                    itemstack = new ItemStack(entity.currentMetal.nugget);
+                    itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                }
+                case 144 -> {
+                    itemstack = new ItemStack(entity.currentMetal.ingot);
+                    itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                }
+                case 288 -> {
+                    itemstack = new ItemStack(ModResourceItems.ROD);
+                    itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
+                            armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, entity.currentMetal.name))),
+                            armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
+                    itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                }
+                case 432 -> {
+                    itemstack = new ItemStack(ModResourceItems.LARGE_ROD);
+                    itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
+                            armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, entity.currentMetal.name))),
+                            armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
+                    itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                }
+            }
+
+            if (entity.getStack(OUTPUT_SLOT).isEmpty() || entity.getStack(OUTPUT_SLOT).isOf(itemstack.getItem())){
+                itemstack.setCount(entity.getStack(OUTPUT_SLOT).getCount() + 1);
+                entity.storage = entity.storage - packet.getAmount();
+                entity.setStack(OUTPUT_SLOT, itemstack);
+            }
+
+        }
     }
 
     public static void tick(World world, BlockPos blockPos, BlockState blockState, ForgeBlockEntity entity) {
@@ -318,6 +362,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
                 entity.removeStack(i, 1);
             }
             entity.storage = entity.storage + match.get().value().output.getCount() * 144;
+            entity.currentMetal = MetalTypes.valueOf(Registries.ITEM.getId(match.get().value().output.getItem()).getPath().replaceAll("_ingot", "").toUpperCase());
             entity.markDirty();
         }
     }
@@ -383,5 +428,62 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     private static boolean canInsertLiquid(int storage, Optional<RecipeEntry<AlloyingRecipe>> match ) {
         return (storage + match.get().value().output.getCount() * 144) <= MAX_STORAGE;
+    }
+
+    public enum MetalTypes implements StringIdentifiable {
+        EMPTY(-1, "empty", null, null, false),
+
+        COPPER(0, "copper", Items.COPPER_INGOT, null, true),
+        TIN(1, "tin", ModResourceItems.TIN_INGOT, ModResourceItems.TIN_NUGGET, true),
+
+        BRONZE(2, "bronze", ModResourceItems.BRONZE_INGOT, ModResourceItems.BRONZE_NUGGET, false),
+        CRUDE(3, "crude", ModResourceItems.CRUDE_INGOT, ModResourceItems.CRUDE_NUGGET, false),
+
+        LEAD(4, "lead", ModResourceItems.LEAD_INGOT, ModResourceItems.LEAD_NUGGET, false),
+        SILVER(5, "silver", ModResourceItems.SILVER_INGOT, ModResourceItems.SILVER_NUGGET, false),
+        IRON(6, "iron", Items.IRON_INGOT, Items.IRON_NUGGET, true),
+
+        STEEL(7, "steel", ModResourceItems.STEEL_INGOT, ModResourceItems.STEEL_NUGGET, false),
+        BURZUM_STEEL(8, "burzum_steel", ModResourceItems.BURZUM_STEEL_INGOT, ModResourceItems.BURZUM_STEEL_NUGGET, false),
+        EDHEL_STEEL(9, "edhel_steel", ModResourceItems.EDHEL_STEEL_INGOT, ModResourceItems.EDHEL_STEEL_NUGGET, false),
+        KHAZAD_STEEL(10, "khazad_steel", ModResourceItems.KHAZAD_STEEL_INGOT, ModResourceItems.KHAZAD_STEEL_NUGGET, false),
+
+        MORGUL_STEEL(11, "morgul_steel", ModResourceItems.MORGUL_STEEL_INGOT, ModResourceItems.MORGUL_STEEL_NUGGET, false),
+        MITHRIL(12, "mithril", ModResourceItems.MITHRIL_INGOT, ModResourceItems.MITHRIL_NUGGET, false),
+
+        NETHERITE(13, "netherite", Items.NETHERITE_INGOT, null, true),
+        ;
+
+        private final int id;
+        private final String name;
+        private final Item ingot;
+        private final Item nugget;
+        private final boolean vanilla;
+
+        MetalTypes(int id,String name, Item ingot, Item nugget, boolean vanilla){
+            this.id = id;
+            this.name = name;
+            this.ingot = ingot;
+            this.nugget = nugget;
+            this.vanilla = vanilla;
+        }
+
+        @Override
+        public String asString() {
+            return name;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public static ForgeBlockEntity.MetalTypes getValue(int value) {
+            for(ForgeBlockEntity.MetalTypes e: ForgeBlockEntity.MetalTypes.values()) {
+                if(e.id == value) {
+                    return e;
+                }
+            }
+            return null;
+        }
     }
 }

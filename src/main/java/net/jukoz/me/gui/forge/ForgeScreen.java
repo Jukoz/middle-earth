@@ -3,20 +3,30 @@ package net.jukoz.me.gui.forge;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.item.ModResourceItems;
-import net.jukoz.me.network.packets.ForgeOutputPacket;
+import net.jukoz.me.network.packets.C2S.ForgeOutputPacket;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.gui.widget.ToggleButtonWidget;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.trim.ArmorTrim;
+import net.minecraft.item.trim.ArmorTrimMaterial;
+import net.minecraft.item.trim.ArmorTrimMaterials;
+import net.minecraft.item.trim.ArmorTrimPattern;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.joml.Vector3f;
 
 public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/forge.png");
@@ -58,7 +68,14 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         this.leftExtractCycleButton.setTextures(LEFT_CYCLE_EXTRACT_BUTTON_TEXTURES);
 
         this.extractButton = new TexturedButtonWidget(x + 142, y + 52, 20 ,20, EXTRACT_BUTTON_TEXTURES, (button)-> {
-            ClientPlayNetworking.send(new ForgeOutputPacket(144,(int) handler.returnEntityCoords().x, (int) handler.returnEntityCoords().z,(int) handler.returnEntityCoords().y));
+            int amount = 0;
+            switch (outputMode){
+                case 1 -> amount = 16;
+                case 2 -> amount = 144;
+                case 3 -> amount = 288;
+                case 4 -> amount = 432;
+            }
+            ClientPlayNetworking.send(new ForgeOutputPacket(amount, new Vector3f((float) handler.returnEntityCoords().x, (float)  handler.returnEntityCoords().z,(float)  handler.returnEntityCoords().y)));
             }, Text.translatable("button." + MiddleEarth.MOD_ID + ".extract_metal"));
 
         this.extractButton.setTooltip(Tooltip.of(Text.literal(String.valueOf(this.outputMode))));
@@ -157,7 +174,8 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
         if (mouseX >= x + 112 && mouseX <= x + 128 && mouseY >= y + 10 && mouseY <= y + 70){
-            context.drawTooltip(this.client.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID +".liquid_bronze").append(": ").append(String.valueOf(handler.getStoredLiquid())), mouseX, mouseY);
+            ForgeBlockEntity.MetalTypes metal = ForgeBlockEntity.MetalTypes.getValue(handler.getCurrentMetal());
+            context.drawTooltip(this.client.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID +".liquid_" + metal.asString().toLowerCase()).append(": ").append(String.valueOf(handler.getStoredLiquid())), mouseX, mouseY);
         }
     }
 
@@ -168,22 +186,31 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
         renderLiquidStorageTooltip(context, mouseX, mouseY);
+        drawMouseoverTooltip(context, mouseX, mouseY);
+
+        ItemStack itemstack = ItemStack.EMPTY;
+
 
         switch (outputMode){
             case 0:
                 context.drawTexture(TEXTURE, x + 146, y + 56, 177, 111,12, 12);
                 break;
             case 1:
-                context.drawItem(new ItemStack(ModResourceItems.BRONZE_NUGGET), x + 144, y + 54);
+                itemstack = new ItemStack(Items.IRON_NUGGET);
+                context.drawItem(itemstack, x + 144, y + 54);
                 break;
             case 2:
-                context.drawItem(new ItemStack(ModResourceItems.BRONZE_INGOT), x + 144, y + 54);
+                itemstack = new ItemStack(Items.IRON_INGOT);
+
+                context.drawItem(itemstack, x + 144, y + 54);
                 break;
             case 3:
-                context.drawItem(new ItemStack(ModResourceItems.ROD), x + 144, y + 54);
+                itemstack = new ItemStack(ModResourceItems.ROD);
+                context.drawItem(itemstack, x + 144, y + 54);
                 break;
             case 4:
-                context.drawItem(new ItemStack(ModResourceItems.LARGE_ROD), x + 144, y + 54);
+                itemstack = new ItemStack(ModResourceItems.LARGE_ROD);
+                context.drawItem(itemstack, x + 144, y + 54);
                 break;
         }
     }

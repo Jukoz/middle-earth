@@ -82,8 +82,8 @@ public class SimpleItemModel {
             add(ModResourceItems.BURZUM_STEEL_INGOT);
             add(ModResourceItems.BURZUM_STEEL_NUGGET);
 
-            add(ModResourceItems.SLAG_INGOT);
-            add(ModResourceItems.SLAG_NUGGET);
+            add(ModResourceItems.CRUDE_INGOT);
+            add(ModResourceItems.CRUDE_NUGGET);
 
             add(ModResourceItems.STEEL_INGOT);
             add(ModResourceItems.STEEL_NUGGET);

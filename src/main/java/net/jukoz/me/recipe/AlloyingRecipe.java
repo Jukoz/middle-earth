@@ -84,7 +84,7 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
 
         protected Serializer() {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-                            ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
+                    ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
                             Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs)
                     ).apply(instance, AlloyingRecipe::new));
 

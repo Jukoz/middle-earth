@@ -14,7 +14,7 @@ public class HotMetalsModel {
             add(Items.IRON_INGOT);
             add(Items.GOLD_INGOT);
             add(ModResourceItems.BRONZE_INGOT);
-            add(ModResourceItems.SLAG_INGOT);
+            add(ModResourceItems.CRUDE_INGOT);
             add(ModResourceItems.STEEL_INGOT);
             add(ModResourceItems.KHAZAD_STEEL_INGOT);
             add(ModResourceItems.EDHEL_STEEL_INGOT);
@@ -29,7 +29,7 @@ public class HotMetalsModel {
             add(Items.IRON_NUGGET);
             add(Items.GOLD_NUGGET);
             add(ModResourceItems.BRONZE_NUGGET);
-            add(ModResourceItems.SLAG_NUGGET);
+            add(ModResourceItems.CRUDE_NUGGET);
             add(ModResourceItems.STEEL_NUGGET);
             add(ModResourceItems.KHAZAD_STEEL_NUGGET);
             add(ModResourceItems.EDHEL_STEEL_NUGGET);

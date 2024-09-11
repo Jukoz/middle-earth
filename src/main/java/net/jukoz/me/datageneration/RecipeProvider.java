@@ -534,7 +534,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.BRONZE_INGOT, ModToolItems.BRONZE_PICKAXE, ModToolItems.BRONZE_AXE, ModToolItems.BRONZE_SHOVEL, ModToolItems.BRONZE_HOE);
         
-        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.SLAG_INGOT, ModToolItems.SLAG_PICKAXE, ModToolItems.SLAG_AXE, ModToolItems.SLAG_SHOVEL, ModToolItems.SLAG_HOE);
+        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.CRUDE_INGOT, ModToolItems.CRUDE_PICKAXE, ModToolItems.CRUDE_AXE, ModToolItems.CRUDE_SHOVEL, ModToolItems.CRUDE_HOE);
         
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.BURZUM_STEEL_INGOT, ModToolItems.BURZUM_STEEL_PICKAXE, ModToolItems.BURZUM_STEEL_AXE, ModToolItems.BURZUM_STEEL_SHOVEL, ModToolItems.BURZUM_STEEL_HOE);
         
@@ -557,7 +557,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createMetalsRecipe(exporter, ModResourceItems.MITHRIL_NUGGET, ModResourceItems.MITHRIL_INGOT, ModBlocks.MITHRIL_BLOCK);
 
         createMetalsRecipe(exporter, ModResourceItems.BRONZE_NUGGET, ModResourceItems.BRONZE_INGOT, ModBlocks.BRONZE_BLOCK);
-        createMetalsRecipe(exporter, ModResourceItems.SLAG_NUGGET, ModResourceItems.SLAG_INGOT, ModBlocks.SLAG_BLOCK);
+        createMetalsRecipe(exporter, ModResourceItems.CRUDE_NUGGET, ModResourceItems.CRUDE_INGOT, ModBlocks.CRUDE_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.BURZUM_STEEL_NUGGET, ModResourceItems.BURZUM_STEEL_INGOT, ModBlocks.BURZUM_STEEL_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.STEEL_NUGGET, ModResourceItems.STEEL_INGOT, ModBlocks.STEEL_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.EDHEL_STEEL_NUGGET, ModResourceItems.EDHEL_STEEL_INGOT, ModBlocks.EDHEL_STEEL_BLOCK);

@@ -710,46 +710,46 @@ public class ModEquipmentItems {
 
     //region GENERIC
     public static final Item ORC_MAIL_COIF = registerRustyArmorPiece("orc_mail_coif",
-            new CustomHelmetItem(ModArmorMaterials.SLAG_T3, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.NONE));
     public static final Item ORC_MAIL_HAUBERK = registerRustyArmorPiece("orc_mail_hauberk",
-            new CustomChestplateItem(ModArmorMaterials.SLAG_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+            new CustomChestplateItem(ModArmorMaterials.CRUDE_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModFactions.NONE));
     public static final Item ORC_MAIL_COAT = registerRustyArmorPiece("orc_mail_coat",
-            new CustomLeggingsItem(ModArmorMaterials.SLAG_T3, ArmorItem.Type.LEGGINGS, new Item.Settings(),
+            new CustomLeggingsItem(ModArmorMaterials.CRUDE_T3, ArmorItem.Type.LEGGINGS, new Item.Settings(),
                     ModFactions.NONE));
 
     public static final Item ORC_SALLET = registerCustomModelArmorPiece("orc_sallet",
-            new CustomHelmetItem(ModArmorMaterials.SLAG_T4, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T4, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.NONE));
 
     public static final Item ORC_GORGET_HAUBERK = registerRustyArmorPiece("orc_gorget_hauberk",
-            new CustomChestplateItem(ModArmorMaterials.SLAG_T4, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+            new CustomChestplateItem(ModArmorMaterials.CRUDE_T4, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModFactions.NONE));
 
     public static final Item ORC_PLATE_BOOTS = registerRustyArmorPiece("orc_plate_boots",
-            new CustomBootsItem(ModArmorMaterials.SLAG_T4, ArmorItem.Type.BOOTS, new Item.Settings(),
+            new CustomBootsItem(ModArmorMaterials.CRUDE_T4, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModFactions.NONE));
     //endregion
 
     //region MORDOR
     public static final Item MORDOR_ORC_HELMET = registerRustyArmorPiece("mordor_orc_helmet",
-            new CustomHelmetItem(ModArmorMaterials.SLAG_T2, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T2, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item MORDOR_ORC_EYE_HELMET = registerRustyArmorPiece("mordor_orc_eye_helmet",
-            new CustomHelmetItem(ModArmorMaterials.SLAG_T2, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T2, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item MORDOR_ORC_GREAT_EYE_HELMET = registerRustyArmorPiece("mordor_orc_great_eye_helmet",
-            new CustomHelmetItem(ModArmorMaterials.SLAG_T3, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item MORDOR_ORC_MANDIBLE_HELMET = registerRustyArmorPiece("mordor_orc_mandible_helmet",
-            new CustomHelmetItem(ModArmorMaterials.SLAG_T3, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item MORDOR_ORC_OVERSIGHT_HELMET = registerRustyArmorPiece("mordor_orc_oversight_helmet",
-            new CustomHelmetItem(ModArmorMaterials.SLAG_T4, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T4, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item MORDOR_ORC_SNOUT_HELMET = registerCustomModelArmorPiece("mordor_orc_snout_helmet",
-            new CustomHelmetItem(ModArmorMaterials.SLAG_T4, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.CRUDE_T4, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.MORDOR));
 
     public static final Item MORDOR_ORC_CHESTPLATE = registerRustyArmorPiece("mordor_orc_chestplate",
@@ -757,7 +757,7 @@ public class ModEquipmentItems {
                     ModFactions.MORDOR));
 
     public static final Item MORDOR_ORC_SCALE_COAT = registerArmorPiece("mordor_orc_scale_coat",
-            new CustomLeggingsItem(ModArmorMaterials.SLAG_T4, ArmorItem.Type.LEGGINGS, new Item.Settings(),
+            new CustomLeggingsItem(ModArmorMaterials.CRUDE_T4, ArmorItem.Type.LEGGINGS, new Item.Settings(),
                     ModFactions.MORDOR));
     
     public static final Item BLACK_URUK_PLATE_HELMET = registerArmorPiece("black_uruk_plate_helmet",

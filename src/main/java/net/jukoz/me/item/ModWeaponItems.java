@@ -22,13 +22,11 @@ public class ModWeaponItems {
             new CustomSwordWeaponItem(ModToolMaterials.JADE), false);
     public static final Item BRONZE_SWORD = registerItemWithModel("bronze_sword",
             new CustomSwordWeaponItem(ModToolMaterials.BRONZE), false);
-    public static final Item SLAG_FALCHION = registerItemWithModel("slag_falchion",
-            new CustomSwordWeaponItem(ModToolMaterials.SLAG), true);
+    public static final Item CRUDE_FALCHION = registerItemWithModel("crude_falchion",
+            new CustomSwordWeaponItem(ModToolMaterials.CRUDE), true);
     public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.STEEL), false);
 
-    public static final Item ORC_STEEL_SWORD = registerItemWithModel("orc_steel_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.SLAG), false);
     public static final Item BURZUM_STEEL_SWORD = registerItemWithModel("burzum_steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL), false);
     public static final Item EDHEL_STEEL_SWORD = registerItemWithModel("edhel_steel_sword",
@@ -43,8 +41,8 @@ public class ModWeaponItems {
             new CustomDaggerWeaponItem(ToolMaterials.STONE), false);
     public static final Item BRONZE_DAGGER = registerItemWithModel("bronze_dagger",
             new CustomDaggerWeaponItem(ModToolMaterials.BRONZE), false);
-    public static final Item SLAG_DAGGER = registerItemWithModel("slag_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.SLAG), false);
+    public static final Item CRUDE_DAGGER = registerItemWithModel("crude_dagger",
+            new CustomDaggerWeaponItem(ModToolMaterials.CRUDE), false);
     public static final Item IRON_DAGGER = registerItemWithModel("iron_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.IRON), false);
     public static final Item GOLDEN_DAGGER = registerItemWithModel("golden_dagger",
@@ -54,8 +52,8 @@ public class ModWeaponItems {
     public static final Item NETHERITE_DAGGER = registerItemWithModel("netherite_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.NETHERITE), false);
 
-    public static final Item SLAG_LONGBLADE = registerItemWithModel("slag_longblade",
-            new CustomLongswordWeaponItem(ModToolMaterials.SLAG), true);
+    public static final Item CRUDE_LONGBLADE = registerItemWithModel("crude_longblade",
+            new CustomLongswordWeaponItem(ModToolMaterials.CRUDE), true);
 
     public static final Item WOODEN_SPEAR = registerItemWithSpearModel("wooden_spear",
             new CustomSpearWeaponItem(ToolMaterials.WOOD));
@@ -63,15 +61,17 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ToolMaterials.STONE));
     public static final Item JADE_SPEAR = registerItemWithSpearModel("jade_spear",
             new CustomSpearWeaponItem(ModToolMaterials.JADE));
+
     public static final Item BRONZE_SPEAR = registerItemWithSpearModel("bronze_spear",
             new CustomSpearWeaponItem(ModToolMaterials.BRONZE));
+    public static final Item CRUDE_SPEAR = registerItemWithSpearModel("crude_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.CRUDE));
     public static final Item IRON_SPEAR = registerItemWithSpearModel("iron_spear",
             new CustomSpearWeaponItem(ToolMaterials.IRON));
+
     public static final Item STEEL_SPEAR = registerItemWithSpearModel("steel_spear",
             new CustomSpearWeaponItem(ModToolMaterials.STEEL));
-    public static final Item ORC_STEEL_SPEAR = registerItemWithSpearModel("orc_steel_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.SLAG));
-    public static final Item BURZUM_STEEL_SPEAR = registerItemWithSpearModel("burzul_steel_spear",
+    public static final Item BURZUM_STEEL_SPEAR = registerItemWithSpearModel("burzum_steel_spear",
             new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL));
     public static final Item EDHEL_STEEL_SPEAR = registerItemWithSpearModel("edhel_steel_spear",
             new CustomSpearWeaponItem(ModToolMaterials.EDHEL_STEEL));
