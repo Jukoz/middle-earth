@@ -297,6 +297,8 @@
   "item.me.erebor_noble_dagger": "Erebor Noble Dagger",
   "item.me.erebor_axe": "Erebor Axe",
   "item.me.erebor_noble_axe": "Erebor Noble Axe",
+  "item.me.erebor_spear": "Erebor Spear",
+  "item.me.erebor_noble_spear": "Erebor Noble Spear",
 
 "#Comment:": "Item - Gondor",
   "item.me.gondorian_sword": "Gondorian Sword",
@@ -732,7 +734,13 @@
   "item.me.gondorian_knight_shield": "Gondorian Knight Shield",
   "item.me.gondorian_ornamented_knight_shield": "Gondorian Ornamented Knight Shield",
 
-  "item.me.longbeard_shield": "Longbeard Shield",
+  "item.me.erebor_shield": "Erebor Shield",
+  "item.me.erebor_cross_shield": "Erebor Cross Shield",
+  "item.me.erebor_plated_shield": "Erebor Plated Shield",
+  "item.me.erebor_ornamented_shield": "Erebor Ornamented Shield",
+  "item.me.erebor_reinforced_shield": "Erebor Reinforced Shield",
+
+  "item.me.erebor_heavy_shield": "Erebor Heavy Shield",
 
   "item.me.lorien_shield": "Lórien Shield",
   "item.me.lorien_laurels_shield": "Lórien Laurels Shield",
