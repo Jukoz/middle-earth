@@ -113,7 +113,7 @@ public class ModArmorMaterials {
                 map.put(ArmorItem.Type.BOOTS, 2);
                 map.put(ArmorItem.Type.LEGGINGS, 5);
                 map.put(ArmorItem.Type.CHESTPLATE, 6);
-                map.put(ArmorItem.Type.HELMET, 5);
+                map.put(ArmorItem.Type.HELMET, 2);
                 map.put(ArmorItem.Type.BODY, 8);
                 durabilityMultiplier = 25;
                 toughness = 1.0f;

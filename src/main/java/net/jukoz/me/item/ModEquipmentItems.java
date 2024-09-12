@@ -86,7 +86,7 @@ public class ModEquipmentItems {
 
     public static final Item LEATHER_CAP = registerDyeableArmorPiece("leather_cap",
             new CustomHelmetItem(ModArmorMaterials.LEATHER_T2, ArmorItem.Type.HELMET, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false, 15256475)),
+                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false, -6265536)),
                     ModFactions.NONE));
 
     public static final Item GAMBESON_CAP = registerDyeableArmorPiece("gambeson_cap",
@@ -156,7 +156,7 @@ public class ModEquipmentItems {
     //endregion
 
     //region HOBBITS
-    public static final Item SHIRRIFF_HAT = registerCustomModelArmorPiece("shirriff_hat",
+    public static final Item SHIRRIFF_HAT = registerDyeableCustomModelArmorPiece("shirriff_hat",
             new CustomHelmetItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.HELMET, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, -6265536)),
                     ModFactions.SHIRE));
@@ -969,6 +969,12 @@ public class ModEquipmentItems {
     private static Item registerCustomModelArmorPiece(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
+    private static Item registerDyeableCustomModelArmorPiece(String name, Item item) {
+        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
+        SimpleDyeableItemModel.items.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
