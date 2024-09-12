@@ -44,7 +44,19 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:cloak"
+          "name": "me:fur_cloak"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "me:fur_hood"
         }
       ]
     }

@@ -2,6 +2,8 @@ package net.jukoz.me.item.items;
 
 import net.fabricmc.fabric.api.item.v1.EnchantingContext;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.utils.ModFactions;
+import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.enchantment.Enchantment;
@@ -20,20 +22,19 @@ import java.util.List;
 
 public class CustomHorseArmorItem extends AnimalArmorItem {
 
-    private final MutableText faction;
-    private final MutableText subFaction;
+    private final ModFactions faction;
+    private final ModSubFactions subFaction;
 
-
-    public CustomHorseArmorItem(RegistryEntry<ArmorMaterial> material, Type type, boolean hasOverlay, Settings settings, MutableText faction, MutableText subFaction) {
-        super(material, type, hasOverlay, settings);
-        this.faction = faction;
-        this.subFaction = subFaction;
-    }
-
-    public CustomHorseArmorItem(RegistryEntry<ArmorMaterial> material, Type type, boolean hasOverlay, Settings settings, MutableText faction) {
+    public CustomHorseArmorItem(RegistryEntry<ArmorMaterial> material, Type type, boolean hasOverlay, Settings settings, ModFactions faction) {
         super(material, type, hasOverlay, settings);
         this.faction = faction;
         this.subFaction = null;
+    }
+
+    public CustomHorseArmorItem(RegistryEntry<ArmorMaterial> material, Type type, boolean hasOverlay, Settings settings, ModSubFactions subFaction) {
+        super(material, type, hasOverlay, settings);
+        this.faction = subFaction.getParent();
+        this.subFaction = subFaction;
     }
 
 
@@ -41,9 +42,9 @@ public class CustomHorseArmorItem extends AnimalArmorItem {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.of(""));
         if (Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(this.faction));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
             if (this.subFaction != null) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(this.subFaction));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
             }
             tooltip.add(Text.of(""));
         } else {

@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
+import net.jukoz.me.block.special.verticalSlabs.VerticalSlabBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.utils.LoggerUtil;
@@ -146,7 +147,7 @@ public class WoodBlockSets {
                 .sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
 
         Block ladder = ModBlocks.registerBlock(name + "_ladder", new ThickLadderBlock(AbstractBlock.Settings.copy(planks)
-                .sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
+                .sounds(BlockSoundGroup.LADDER).nonOpaque()),false);
 
         ModItemGroups.NATURE_BLOCKS_CONTENTS.add(log.asItem().getDefaultStack());
 
