@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.OxidizableVerticalSlabBlock;
 import net.jukoz.me.block.special.OxidizableWallBlock;
-import net.jukoz.me.block.special.VerticalSlabBlock;
+import net.jukoz.me.block.special.verticalSlabs.VerticalSlabBlock;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
 
