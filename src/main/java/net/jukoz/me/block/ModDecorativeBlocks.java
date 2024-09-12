@@ -17,7 +17,6 @@ import net.jukoz.me.block.special.wood_pile.WoodPileBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
-import net.minecraft.block.RodBlock;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
@@ -102,9 +101,19 @@ public class ModDecorativeBlocks {
     public static final Block WHITE_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("white_wattle_framed_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
+    public static final Block GONLUIN_CARVED_WINDOW = registerBlockWithItem("gonluin_carved_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block GONLUIN_CARVED_WINDOW_PANE = registerBlockWithItem("gonluin_carved_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
     public static final Block MEDGON_CARVED_WINDOW = registerBlockWithItem("medgon_carved_window",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
     public static final Block MEDGON_CARVED_WINDOW_PANE = registerBlockWithItem("medgon_carved_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block MUD_BRICK_ROUND_WINDOW = registerBlockWithItem("mud_brick_round_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block MUD_BRICK_ROUND_WINDOW_PANE = registerBlockWithItem("mud_brick_round_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
     public static final Block WHITE_DAUB_HOBBIT_WINDOW = registerBlockWithItem("white_daub_hobbit_window",
