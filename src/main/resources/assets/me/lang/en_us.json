@@ -1534,6 +1534,9 @@
   "block.me.gonluin_button": "Gonluin Button",
   "block.me.gonluin_trapdoor": "Gonluin Trapdoor",
 
+  "block.me.gonluin_carved_window": "Gonluin Carved Window",
+  "block.me.gonluin_carved_window_pane": "Gonluin Carved Window Pane",
+
   "block.me.gonluin_stool": "Gonluin Stool",
   "block.me.gonluin_table": "Gonluin Table",
   "block.me.gonluin_chair": "Gonluin Chair",
@@ -4712,7 +4715,7 @@
 
   "block.me.white_daub_hobbit_window": "White Daub Hobbit Window",
   "block.me.white_daub_hobbit_window_pane": "White Daub Hobbit Window Pane",
-
+  
   "block.me.dark_daub": "Dark Daub",
   "block.me.dark_daub_slab": "Dark Daub Slab",
   "block.me.dark_daub_vertical_slab": "Dark Daub Vertical Slab",
@@ -4746,8 +4749,34 @@
   "block.me.wattle_framed_window": "Wattle Framed Window",
   "block.me.wattle_framed_window_pane": "Wattle Framed Window Pane",
 
+  "block.me.black_wattle_framed_window": "Black Wattle Framed Window",
+  "block.me.black_wattle_framed_window_pane": "Black Wattle Framed Window Pane",
+
+  "block.me.green_wattle_framed_window": "Green Wattle Framed Window",
+  "block.me.green_wattle_framed_window_pane": "Green Wattle Framed Window Pane",
+
+  "block.me.red_wattle_framed_window": "Red Wattle Framed Window",
+  "block.me.red_wattle_framed_window_pane": "Red Wattle Framed Window Pane",
+
+  "block.me.white_wattle_framed_window": "White Wattle Framed Window",
+  "block.me.white_wattle_framed_window_pane": "White Wattle Framed Window Pane",
+
   "block.me.dark_wattle_framed_window": "Dark Wattle Framed Window",
   "block.me.dark_wattle_framed_window_pane": "Dark Wattle Framed Window Pane",
+
+  "block.me.mud_brick_round_window": "Mud Brick Round Window",
+  "block.me.mud_brick_round_window_pane": "Mud Brick Round Window Pane",
+
+  "block.me.white_daub_round_window": "White Daub Round Window",
+  "block.me.white_daub_round_window_pane": "White Daub Round Window Pane",
+  "block.me.yellow_daub_round_window": "Yellow Daub Round Window",
+  "block.me.yellow_daub_round_window_pane": "Yellow Daub Round Window Pane",
+
+  "block.me.black_wattle_trapdoor": "Black Wattle Trapdoor",
+  "block.me.dark_wattle_trapdoor": "Dark Wattle Trapdoor",
+  "block.me.green_wattle_trapdoor": "Green Wattle Trapdoor",
+  "block.me.red_wattle_trapdoor": "Red Wattle Trapdoor",
+  "block.me.wattle_trapdoor": "Wattle Trapdoor",
 
   "block.me.black_wool_slab": "Black Wool Slab",
   "block.me.blue_wool_slab": "Blue Wool Slab",

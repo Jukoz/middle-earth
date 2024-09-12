@@ -496,6 +496,16 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(StoneBlockSets.MEDGON.base()))
                 .offerTo(exporter);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GONLUIN_CARVED_WINDOW, 2)
+                .pattern("EEE")
+                .pattern("EGE")
+                .pattern("EEE")
+                .input('E', StoneBlockSets.GONLUIN.base())
+                .input('G', Blocks.GLASS)
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.GONLUIN.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.GONLUIN.base()))
+                .offerTo(exporter);
+
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LEAD_GLASS, 4)
                 .pattern("LGL")
                 .pattern("GLG")

@@ -3,6 +3,7 @@ package net.jukoz.me.block;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
 import net.jukoz.me.block.special.gemstones.CustomBuddingGemBlock;
+import net.jukoz.me.block.special.verticalSlabs.VerticalSlabBlock;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
@@ -301,6 +302,17 @@ public class ModBlocks {
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.MEDGON_BRICKS_HARDNESS, StoneBlockSets.MEDGON_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     //endregion
 
+    public static final Block BLACK_WATTLE_TRAPDOOR = registerStoneBlock("black_wattle_trapdoor",
+            new TrapdoorBlock(BlockSetType.OAK, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR)), true);
+    public static final Block DARK_WATTLE_TRAPDOOR = registerStoneBlock("dark_wattle_trapdoor",
+            new TrapdoorBlock(BlockSetType.OAK, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR)), true);
+    public static final Block GREEN_WATTLE_TRAPDOOR = registerStoneBlock("green_wattle_trapdoor",
+            new TrapdoorBlock(BlockSetType.OAK, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR)), true);
+    public static final Block RED_WATTLE_TRAPDOOR = registerStoneBlock("red_wattle_trapdoor",
+            new TrapdoorBlock(BlockSetType.OAK, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR)), true);
+    public static final Block WATTLE_TRAPDOOR = registerStoneBlock("wattle_trapdoor",
+            new TrapdoorBlock(BlockSetType.OAK, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR)), true);
+
     public static final Block GRASSY_DIRT = registerMiscBlock("grassy_dirt",
             new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
     public static final Block GRASSY_DIRT_SLAB = registerMiscBlock("grassy_dirt_slab",
@@ -573,7 +585,6 @@ public class ModBlocks {
             new AmethystClusterBlock(3,4, AbstractBlock.Settings.copy(ModBlocks.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.SMALL_AMETHYST_BUD).luminance(state -> 5)), false);
     public static final Block BUDDING_GLOWSTONE = registerMiscBlock("budding_glowstone",
             new CustomBuddingGemBlock(AbstractBlock.Settings.copy(Blocks.BUDDING_AMETHYST).luminance(state -> 12), List.of(SMALL_GLOWSTONE_BUD,MEDIUM_GLOWSTONE_BUD,LARGE_GLOWSTONE_BUD, GLOWSTONE_CLUSTER)), false);
-
 
     public static final Block STONE_TRAPDOOR = registerStoneBlock("stone_trapdoor",
             new TrapdoorBlock(BlockSetType.STONE, AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR).strength(StoneBlockSets.STONE_HARDNESS, StoneBlockSets.STONE_BLAST_RESISTANCE).sounds(BlockSoundGroup.STONE)), true);
