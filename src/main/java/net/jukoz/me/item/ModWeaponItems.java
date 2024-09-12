@@ -147,11 +147,11 @@ public class ModWeaponItems {
             new CustomSwordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
     public static final Item DALISH_NOBLE_SWORD = registerItemWithModel("dalish_noble_sword",
             new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
-    public static final Item DALISH_HEYDAY_SCIMITAR = registerItemWithModel("dalish_heyday_scimitar",
-            new CustomSwordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
     public static final Item DALISH_LONGSWORD = registerItemWithModel("dalish_longsword",
             new CustomLongswordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
     public static final Item DALISH_HEYDAY_LONGSWORD = registerItemWithModel("dalish_heyday_longsword",
+            new CustomLongswordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
+    public static final Item DALISH_HEYDAY_SCIMITAR = registerItemWithModel("dalish_heyday_scimitar",
             new CustomLongswordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
     public static final Item DALISH_NOBLE_LONGSWORD = registerItemWithModel("dalish_noble_longsword",
             new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
@@ -211,9 +211,13 @@ public class ModWeaponItems {
     public static final Item EREBOR_NOBLE_DAGGER = registerItemWithModel("erebor_noble_dagger",
             new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_KHAZAD_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")), false);
     public static final Item EREBOR_AXE = registerItemWithModel("erebor_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.EDHEL_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")), true);
+            new CustomAxeWeaponItem(ModToolMaterials.KHAZAD_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")), true);
     public static final Item EREBOR_NOBLE_AXE = registerItemWithModel("erebor_noble_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_EDHEL_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")), true);
+            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_KHAZAD_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")), true);
+    public static final Item EREBOR_SPEAR = registerItemWithSpearModel("erebor_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.KHAZAD_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")));
+    public static final Item EREBOR_NOBLE_SPEAR = registerItemWithSpearModel("erebor_noble_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_KHAZAD_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")));
     //endregion
 
     //region ISENGARD

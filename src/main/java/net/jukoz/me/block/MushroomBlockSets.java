@@ -2,6 +2,7 @@ package net.jukoz.me.block;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
+import net.jukoz.me.block.special.verticalSlabs.VerticalSlabBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;

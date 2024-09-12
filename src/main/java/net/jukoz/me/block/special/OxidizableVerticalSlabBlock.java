@@ -1,5 +1,6 @@
 package net.jukoz.me.block.special;
 
+import net.jukoz.me.block.special.verticalSlabs.VerticalSlabBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Oxidizable;
 import net.minecraft.server.world.ServerWorld;
