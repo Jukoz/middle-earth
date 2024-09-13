@@ -808,6 +808,8 @@
   "item.me.copper_coin": "Copper Coin",
   "item.me.silver_coin": "Silver Coin",
 
+  "item.me.dwarven_key": "Dwarven Key",
+
 "#Comment:": "Item - Seeds",
   "item.me.tomato_seeds": "Tomato Seeds",
   "item.me.bell_pepper_seeds": "Bell Pepper Seeds",
@@ -4856,6 +4858,7 @@
 
   "block.me.great_dwarven_gate": "Great Dwarven Gate",
   "block.me.varnished_dwarven_door": "Varnished Dwarven Door",
+  "block.me.hidden_dwarven_door": "Hidden Dwarven Door",
 
   "block.me.great_elven_gate": "Great Elven Gate",
 

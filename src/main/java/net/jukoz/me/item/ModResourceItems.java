@@ -178,6 +178,9 @@ public class ModResourceItems {
     public static final Item CUCUMBER_SEEDS = registerItem("cucumber_seeds", new AliasedBlockItem(ModNatureBlocks.CUCUMBER_CROP, new Item.Settings()));
     public static final Item LETTUCE_SEEDS = registerItem("lettuce_seeds", new AliasedBlockItem(ModNatureBlocks.LETTUCE_CROP, new Item.Settings()));
 
+    public static final Item DWARVEN_KEY = registerItem("dwarven_key",
+            new Item(new Item.Settings().maxCount(1)));
+
     public static final Item GONDOR_BANNER_PATTERN = registerItem("gondor_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.GONDOR_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item ROHAN_BANNER_PATTERN = registerItem("rohan_banner_pattern",
