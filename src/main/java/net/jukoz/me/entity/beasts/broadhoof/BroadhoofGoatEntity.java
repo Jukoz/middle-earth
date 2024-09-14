@@ -66,6 +66,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     private static final TrackedData<Integer> HORNS = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> LEFT_HORN = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> RIGHT_HORN = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> BRUSHED_BEARD = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState jumpAnimationState = new AnimationState();
     private static final EntityDimensions BABY_BASE_DIMENSIONS = ModEntities.BROADHOOF_GOAT.getDimensions().scaled(0.5f);
 
@@ -118,6 +119,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         builder.add(HORNS, 0);
         builder.add(LEFT_HORN, true);
         builder.add(RIGHT_HORN, true);
+        builder.add(BRUSHED_BEARD, false);
     }
 
     @Override
@@ -127,6 +129,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         nbt.putInt("Horns", this.getTypeHorns());
         nbt.putBoolean("HasLeftHorn", this.hasLeftHorn());
         nbt.putBoolean("HasRightHorn", this.hasRightHorn());
+        nbt.putBoolean("HasBrushedBeard", this.hasBrushedBeard());
     }
 
     @Override
@@ -136,6 +139,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         this.dataTracker.set(HORNS, nbt.getInt("Horns"));
         this.dataTracker.set(LEFT_HORN, nbt.getBoolean("HasLeftHorn"));
         this.dataTracker.set(RIGHT_HORN, nbt.getBoolean("HasRightHorn"));
+        this.dataTracker.set(BRUSHED_BEARD, nbt.getBoolean("HasBrushedBeard"));
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
@@ -168,6 +172,9 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
                     this.lovePlayer(player);
                     return ActionResult.SUCCESS;
                 }
+            }
+            else if(itemStack.isOf(Items.BRUSH)) {
+                this.setBrushedBeard(true);
             }
         }
 
@@ -447,6 +454,13 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     public boolean hasLeftHorn() {
         return this.dataTracker.get(LEFT_HORN);
+    }
+
+    public void setBrushedBeard(boolean brushedBeard) {
+        this.dataTracker.set(BRUSHED_BEARD, brushedBeard);
+    }
+    public boolean hasBrushedBeard() {
+        return this.dataTracker.get(BRUSHED_BEARD);
     }
 
     @Nullable

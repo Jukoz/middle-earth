@@ -12,11 +12,16 @@ public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntit
     private final ModelPart broadhoofGoat;
     private final ModelPart head;
     private final ModelPart horns;
+    private final ModelPart wildBeard;
+    private final ModelPart brushedBeard;
     private final ModelPart[] leftHorns = new ModelPart[BroadhoofGoatHorns.values().length];
     private final ModelPart[] rightHorns = new ModelPart[BroadhoofGoatHorns.values().length];
     public BroadhoofGoatModel(ModelPart root) {
         this.broadhoofGoat = root.getChild("broadhoof_goat");
         this.head = broadhoofGoat.getChild(EntityModelPartNames.BODY).getChild(EntityModelPartNames.HEAD);
+
+        this.wildBeard = this.head.getChild("wild_beard");
+        this.brushedBeard = this.head.getChild("brushed_beard");
 
         this.horns = this.head.getChild("horns");
 
@@ -56,7 +61,13 @@ public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntit
 
         ModelPartData cube_r1 = head.addChild("cube_r1", ModelPartBuilder.create().uv(100, 91).cuboid(-4.0F, -2.0F, -1.0F, 8.0F, 7.0F, 6.0F, new Dilation(-0.1F)), ModelTransform.of(0.0F, -9.0F, -9.0F, 0.3054F, 0.0F, 0.0F));
 
-        ModelPartData beard_r1 = head.addChild("beard_r1", ModelPartBuilder.create().uv(3, 47).cuboid(0.0F, -5.0F, -2.0F, 0.0F, 11.0F, 6.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(0.0F, 2.0F, -4.0F, 2.9232F, 0.0F, 3.1321F));
+        ModelPartData wild_beard = head.addChild("wild_beard", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 2.0F, -4.0F));
+
+        ModelPartData wild_beard_r1 = wild_beard.addChild("wild_beard_r1", ModelPartBuilder.create().uv(3, 47).mirrored().cuboid(0.0F, -5.0F, -2.0F, 0.0F, 11.0F, 6.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(0.0F, 0.0F, 0.0F, 2.9232F, 0.0F, 3.1321F));
+
+        ModelPartData brushed_beard = head.addChild("brushed_beard", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, -7.0F));
+
+        ModelPartData brushed_beard_r1 = brushed_beard.addChild("brushed_beard_r1", ModelPartBuilder.create().uv(54, 31).cuboid(-3.0F, -2.0F, -2.0F, 6.0F, 10.0F, 5.0F, new Dilation(-0.1F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.2182F, 0.0F, 0.0F));
 
         ModelPartData neck_r1 = head.addChild("neck_r1", ModelPartBuilder.create().uv(36, 2).cuboid(-5.0F, -6.0F, -1.0F, 6.0F, 6.0F, 8.0F, new Dilation(0.0F)), ModelTransform.of(2.0F, 2.1213F, -1.636F, 0.7854F, 0.0F, 0.0F));
 
@@ -153,6 +164,9 @@ public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntit
     public void setAngles(BroadhoofGoatEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
         this.setHeadAngles(headYaw, headPitch);
+
+        this.wildBeard.visible = !entity.hasBrushedBeard();
+        this.brushedBeard.visible = entity.hasBrushedBeard();
 
         for(int i = 0 ; i < BroadhoofGoatHorns.values().length; i++) {
             this.leftHorns[i].visible = (entity.getHorns().getId() == i) && entity.hasLeftHorn() && !entity.isBaby();
