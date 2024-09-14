@@ -1,0 +1,42 @@
+{
+  "variants": {
+    "facing=east,hanging=false": {
+      "model": "me:block/wooden_bucket",
+      "uvlock": false,
+      "y": 90
+    },
+    "facing=north,hanging=false": {
+      "model": "me:block/wooden_bucket",
+      "uvlock": false
+    },
+    "facing=south,hanging=false": {
+      "model": "me:block/wooden_bucket",
+      "uvlock": false,
+      "y": 180
+    },
+    "facing=west,hanging=false": {
+      "model": "me:block/wooden_bucket",
+      "uvlock": false,
+      "y": 270
+    },
+    "facing=east,hanging=true": {
+      "model": "me:block/wooden_bucket_hanging",
+      "uvlock": false,
+      "y": 90
+    },
+    "facing=north,hanging=true": {
+      "model": "me:block/wooden_bucket_hanging",
+      "uvlock": false
+    },
+    "facing=south,hanging=true": {
+      "model": "me:block/wooden_bucket_hanging",
+      "uvlock": false,
+      "y": 180
+    },
+    "facing=west,hanging=true": {
+      "model": "me:block/wooden_bucket_hanging",
+      "uvlock": false,
+      "y": 270
+    }
+  }
+}

@@ -4,9 +4,11 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnace;
 import net.jukoz.me.block.special.artisantable.ArtisanTable;
+import net.jukoz.me.block.special.doors.*;
 import net.jukoz.me.block.special.fireBlocks.*;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestBlock;
 import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancBlock;
+import net.jukoz.me.block.special.statues.StatueBlock;
 import net.jukoz.me.block.special.toggeable_lights.DwarvenLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.SilverLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.WallDwarvenLanternBlock;
@@ -33,7 +35,7 @@ public class ModDecorativeBlocks {
             new WallSilverLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
 
     public static final Block DWARVEN_LANTERN = registerBlock("dwarven_lantern",
-            new DwarvenLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
+            new DwarvenLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).nonOpaque()));
     public static final Block WALL_DWARVEN_LANTERN = registerBlock("dwarven_lantern_wall",
             new WallDwarvenLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
 
@@ -47,6 +49,11 @@ public class ModDecorativeBlocks {
 
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             new WoodPileBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque()));
+
+    public static final Block CALCITE_STATUE = registerBlockWithItem("calcite_statue",
+            new StatueBlock(AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque()));
+    public static final Block GONLUIN_STATUE = registerBlockWithItem("gonluin_statue",
+            new StatueBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque()));
 
     public static final Block FIRE_OF_ORTHANC = registerBlock("fire_of_orthanc",
             new FireOfOrthancBlock(AbstractBlock.Settings.create().requiresTool().mapColor(MapColor.BLACK)
@@ -74,9 +81,48 @@ public class ModDecorativeBlocks {
     public static final Block DARK_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("dark_wattle_framed_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
+    public static final Block BLACK_WATTLE_FRAMED_WINDOW = registerBlockWithItem("black_wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block BLACK_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("black_wattle_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block GREEN_WATTLE_FRAMED_WINDOW = registerBlockWithItem("green_wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block GREEN_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("green_wattle_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block RED_WATTLE_FRAMED_WINDOW = registerBlockWithItem("red_wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block RED_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("red_wattle_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block WHITE_WATTLE_FRAMED_WINDOW = registerBlockWithItem("white_wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block WHITE_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("white_wattle_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block GONLUIN_CARVED_WINDOW = registerBlockWithItem("gonluin_carved_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block GONLUIN_CARVED_WINDOW_PANE = registerBlockWithItem("gonluin_carved_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
     public static final Block MEDGON_CARVED_WINDOW = registerBlockWithItem("medgon_carved_window",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
     public static final Block MEDGON_CARVED_WINDOW_PANE = registerBlockWithItem("medgon_carved_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block MUD_BRICK_ROUND_WINDOW = registerBlockWithItem("mud_brick_round_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block MUD_BRICK_ROUND_WINDOW_PANE = registerBlockWithItem("mud_brick_round_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block WHITE_DAUB_ROUND_WINDOW = registerBlockWithItem("white_daub_round_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block WHITE_DAUB_ROUND_WINDOW_PANE = registerBlockWithItem("white_daub_round_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+    public static final Block YELLOW_DAUB_ROUND_WINDOW = registerBlockWithItem("yellow_daub_round_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block YELLOW_DAUB_ROUND_WINDOW_PANE = registerBlockWithItem("yellow_daub_round_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
     public static final Block WHITE_DAUB_HOBBIT_WINDOW = registerBlockWithItem("white_daub_hobbit_window",
@@ -174,149 +220,177 @@ public class ModDecorativeBlocks {
     public static final Block RED_CUSHION = registerBlockWithItem("red_cushion",
             new CushionBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque()));
 
-
     //region VANILLA FURNITURE
     public static final Block STONE_STOOL = registerBlockWithItem("stone_stool",
             new StoolBlock(AbstractBlock.Settings.copy(Blocks.STONE).requiresTool().nonOpaque()));
     public static final Block STONE_TABLE = registerBlockWithItem("stone_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.STONE).requiresTool().nonOpaque()));
+            new StoneTableBlock(AbstractBlock.Settings.copy(Blocks.STONE).requiresTool().nonOpaque()));
     public static final Block STONE_CHAIR = registerBlockWithItem("stone_chair",
             new StoneChairBlock(AbstractBlock.Settings.copy(Blocks.STONE).requiresTool().nonOpaque()));
 
     public static final Block CALCITE_STOOL = registerBlockWithItem("calcite_stool",
             new StoolBlock(AbstractBlock.Settings.copy(Blocks.CALCITE).requiresTool().nonOpaque()));
     public static final Block CALCITE_TABLE = registerBlockWithItem("calcite_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.CALCITE).requiresTool().nonOpaque()));
+            new StoneTableBlock(AbstractBlock.Settings.copy(Blocks.CALCITE).requiresTool().nonOpaque()));
     public static final Block CALCITE_CHAIR = registerBlockWithItem("calcite_chair",
             new StoneChairBlock(AbstractBlock.Settings.copy(Blocks.CALCITE).requiresTool().nonOpaque()));
 
     public static final Block ANDESITE_STOOL = registerBlockWithItem("andesite_stool",
             new StoolBlock(AbstractBlock.Settings.copy(Blocks.ANDESITE).requiresTool().nonOpaque()));
     public static final Block ANDESITE_TABLE = registerBlockWithItem("andesite_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.ANDESITE).requiresTool().nonOpaque()));
+            new StoneTableBlock(AbstractBlock.Settings.copy(Blocks.ANDESITE).requiresTool().nonOpaque()));
     public static final Block ANDESITE_CHAIR = registerBlockWithItem("andesite_chair",
             new StoneChairBlock(AbstractBlock.Settings.copy(Blocks.ANDESITE).requiresTool().nonOpaque()));
 
     public static final Block GRANITE_STOOL = registerBlockWithItem("granite_stool",
             new StoolBlock(AbstractBlock.Settings.copy(Blocks.GRANITE).requiresTool().nonOpaque()));
     public static final Block GRANITE_TABLE = registerBlockWithItem("granite_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.GRANITE).requiresTool().nonOpaque()));
+            new StoneTableBlock(AbstractBlock.Settings.copy(Blocks.GRANITE).requiresTool().nonOpaque()));
     public static final Block GRANITE_CHAIR = registerBlockWithItem("granite_chair",
             new StoneChairBlock(AbstractBlock.Settings.copy(Blocks.GRANITE).requiresTool().nonOpaque()));
 
     public static final Block DIORITE_STOOL = registerBlockWithItem("diorite_stool",
             new StoolBlock(AbstractBlock.Settings.copy(Blocks.DIORITE).requiresTool().nonOpaque()));
     public static final Block DIORITE_TABLE = registerBlockWithItem("diorite_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.DIORITE).requiresTool().nonOpaque()));
+            new StoneTableBlock(AbstractBlock.Settings.copy(Blocks.DIORITE).requiresTool().nonOpaque()));
     public static final Block DIORITE_CHAIR = registerBlockWithItem("diorite_chair",
             new StoneChairBlock(AbstractBlock.Settings.copy(Blocks.DIORITE).requiresTool().nonOpaque()));
 
     public static final Block DEEPSLATE_STOOL = registerBlockWithItem("deepslate_stool",
             new StoolBlock(AbstractBlock.Settings.copy(Blocks.DEEPSLATE).requiresTool().nonOpaque()));
     public static final Block DEEPSLATE_TABLE = registerBlockWithItem("deepslate_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.DEEPSLATE).requiresTool().nonOpaque()));
+            new StoneTableBlock(AbstractBlock.Settings.copy(Blocks.DEEPSLATE).requiresTool().nonOpaque()));
     public static final Block DEEPSLATE_CHAIR = registerBlockWithItem("deepslate_chair",
             new StoneChairBlock(AbstractBlock.Settings.copy(Blocks.DEEPSLATE).requiresTool().nonOpaque()));
 
     public static final Block BLACKSTONE_STOOL = registerBlockWithItem("blackstone_stool",
             new StoolBlock(AbstractBlock.Settings.copy(Blocks.BLACKSTONE).requiresTool().nonOpaque()));
     public static final Block BLACKSTONE_TABLE = registerBlockWithItem("blackstone_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.BLACKSTONE).requiresTool().nonOpaque()));
+            new StoneTableBlock(AbstractBlock.Settings.copy(Blocks.BLACKSTONE).requiresTool().nonOpaque()));
     public static final Block BLACKSTONE_CHAIR = registerBlockWithItem("blackstone_chair",
             new StoneChairBlock(AbstractBlock.Settings.copy(Blocks.BLACKSTONE).requiresTool().nonOpaque()));
 
     public static final Block BASALT_STOOL = registerBlockWithItem("basalt_stool",
             new StoolBlock(AbstractBlock.Settings.copy(Blocks.BASALT).requiresTool().nonOpaque()));
     public static final Block BASALT_TABLE = registerBlockWithItem("basalt_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.BASALT).requiresTool().nonOpaque()));
+            new StoneTableBlock(AbstractBlock.Settings.copy(Blocks.BASALT).requiresTool().nonOpaque()));
     public static final Block BASALT_CHAIR = registerBlockWithItem("basalt_chair",
             new StoneChairBlock(AbstractBlock.Settings.copy(Blocks.BASALT).requiresTool().nonOpaque()));
 
     public static final Block TUFF_STOOL = registerBlockWithItem("tuff_stool",
             new StoolBlock(AbstractBlock.Settings.copy(Blocks.TUFF).requiresTool().nonOpaque()));
     public static final Block TUFF_TABLE = registerBlockWithItem("tuff_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.TUFF).requiresTool().nonOpaque()));
+            new StoneTableBlock(AbstractBlock.Settings.copy(Blocks.TUFF).requiresTool().nonOpaque()));
     public static final Block TUFF_CHAIR = registerBlockWithItem("tuff_chair",
             new StoneChairBlock(AbstractBlock.Settings.copy(Blocks.TUFF).requiresTool().nonOpaque()));
 
-
     public static final Block OAK_STOOL = registerBlockWithItem("oak_stool",
-            new StoolBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
+            new WoodStoolBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
+    public static final Block OAK_BENCH = registerBlockWithItem("oak_bench",
+            new WoodBenchBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
     public static final Block OAK_TABLE = registerBlockWithItem("oak_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
+            new WoodTableBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
     public static final Block OAK_CHAIR = registerBlockWithItem("oak_chair",
             new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
 
     public static final Block SPRUCE_STOOL = registerBlockWithItem("spruce_stool",
-            new StoolBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_PLANKS).nonOpaque()));
+            new WoodStoolBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_PLANKS).nonOpaque()));
+    public static final Block SPRUCE_BENCH = registerBlockWithItem("spruce_bench",
+            new WoodBenchBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_PLANKS).nonOpaque()));
     public static final Block SPRUCE_TABLE = registerBlockWithItem("spruce_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_PLANKS).nonOpaque()));
+            new WoodTableBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_PLANKS).nonOpaque()));
     public static final Block SPRUCE_CHAIR = registerBlockWithItem("spruce_chair",
             new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_PLANKS).nonOpaque()));
 
     public static final Block BIRCH_STOOL = registerBlockWithItem("birch_stool",
-            new StoolBlock(AbstractBlock.Settings.copy(Blocks.BIRCH_PLANKS).nonOpaque()));
+            new WoodStoolBlock(AbstractBlock.Settings.copy(Blocks.BIRCH_PLANKS).nonOpaque()));
+    public static final Block BIRCH_BENCH = registerBlockWithItem("birch_bench",
+            new WoodBenchBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_PLANKS).nonOpaque()));
     public static final Block BIRCH_TABLE = registerBlockWithItem("birch_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.BIRCH_PLANKS).nonOpaque()));
+            new WoodTableBlock(AbstractBlock.Settings.copy(Blocks.BIRCH_PLANKS).nonOpaque()));
     public static final Block BIRCH_CHAIR = registerBlockWithItem("birch_chair",
             new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.BIRCH_PLANKS).nonOpaque()));
 
     public static final Block JUNGLE_STOOL = registerBlockWithItem("jungle_stool",
-            new StoolBlock(AbstractBlock.Settings.copy(Blocks.JUNGLE_PLANKS).nonOpaque()));
+            new WoodStoolBlock(AbstractBlock.Settings.copy(Blocks.JUNGLE_PLANKS).nonOpaque()));
+    public static final Block JUNGLE_BENCH = registerBlockWithItem("jungle_bench",
+            new WoodBenchBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_PLANKS).nonOpaque()));
     public static final Block JUNGLE_TABLE = registerBlockWithItem("jungle_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.JUNGLE_PLANKS).nonOpaque()));
+            new WoodTableBlock(AbstractBlock.Settings.copy(Blocks.JUNGLE_PLANKS).nonOpaque()));
     public static final Block JUNGLE_CHAIR = registerBlockWithItem("jungle_chair",
             new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.JUNGLE_PLANKS).nonOpaque()));
 
     public static final Block ACACIA_STOOL = registerBlockWithItem("acacia_stool",
-            new StoolBlock(AbstractBlock.Settings.copy(Blocks.ACACIA_PLANKS).nonOpaque()));
+            new WoodStoolBlock(AbstractBlock.Settings.copy(Blocks.ACACIA_PLANKS).nonOpaque()));
+    public static final Block ACACIA_BENCH = registerBlockWithItem("acacia_bench",
+            new WoodBenchBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_PLANKS).nonOpaque()));
     public static final Block ACACIA_TABLE = registerBlockWithItem("acacia_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.ACACIA_PLANKS).nonOpaque()));
+            new WoodTableBlock(AbstractBlock.Settings.copy(Blocks.ACACIA_PLANKS).nonOpaque()));
     public static final Block ACACIA_CHAIR = registerBlockWithItem("acacia_chair",
             new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.ACACIA_PLANKS).nonOpaque().nonOpaque()));
 
     public static final Block DARK_OAK_STOOL = registerBlockWithItem("dark_oak_stool",
-            new StoolBlock(AbstractBlock.Settings.copy(Blocks.DARK_OAK_PLANKS).nonOpaque()));
+            new WoodStoolBlock(AbstractBlock.Settings.copy(Blocks.DARK_OAK_PLANKS).nonOpaque()));
+    public static final Block DARK_OAK_BENCH = registerBlockWithItem("dark_oak_bench",
+            new WoodBenchBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_PLANKS).nonOpaque()));
     public static final Block DARK_OAK_TABLE = registerBlockWithItem("dark_oak_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.DARK_OAK_PLANKS).nonOpaque()));
+            new WoodTableBlock(AbstractBlock.Settings.copy(Blocks.DARK_OAK_PLANKS).nonOpaque()));
     public static final Block DARK_OAK_CHAIR = registerBlockWithItem("dark_oak_chair",
             new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.DARK_OAK_PLANKS).nonOpaque()));
     
     public static final Block MANGROVE_STOOL = registerBlockWithItem("mangrove_stool",
-            new StoolBlock(AbstractBlock.Settings.copy(Blocks.MANGROVE_PLANKS).nonOpaque()));
+            new WoodStoolBlock(AbstractBlock.Settings.copy(Blocks.MANGROVE_PLANKS).nonOpaque()));
+    public static final Block MANGROVE_BENCH = registerBlockWithItem("mangrove_bench",
+            new WoodBenchBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_PLANKS).nonOpaque()));
     public static final Block MANGROVE_TABLE = registerBlockWithItem("mangrove_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.MANGROVE_PLANKS).nonOpaque()));
+            new WoodTableBlock(AbstractBlock.Settings.copy(Blocks.MANGROVE_PLANKS).nonOpaque()));
     public static final Block MANGROVE_CHAIR = registerBlockWithItem("mangrove_chair",
             new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.MANGROVE_PLANKS).nonOpaque()));
 
     public static final Block CHERRY_STOOL = registerBlockWithItem("cherry_stool",
-            new StoolBlock(AbstractBlock.Settings.copy(Blocks.CHERRY_PLANKS).nonOpaque()));
+            new WoodStoolBlock(AbstractBlock.Settings.copy(Blocks.CHERRY_PLANKS).nonOpaque()));
+    public static final Block CHERRY_BENCH = registerBlockWithItem("cherry_bench",
+            new WoodBenchBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_PLANKS).nonOpaque()));
     public static final Block CHERRY_TABLE = registerBlockWithItem("cherry_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.CHERRY_PLANKS).nonOpaque()));
+            new WoodTableBlock(AbstractBlock.Settings.copy(Blocks.CHERRY_PLANKS).nonOpaque()));
     public static final Block CHERRY_CHAIR = registerBlockWithItem("cherry_chair",
             new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.CHERRY_PLANKS).nonOpaque()));
 
     public static final Block BAMBOO_STOOL = registerBlockWithItem("bamboo_stool",
-            new StoolBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO_PLANKS).nonOpaque()));
+            new WoodStoolBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO_PLANKS).nonOpaque()));
+    public static final Block BAMBOO_BENCH = registerBlockWithItem("bamboo_bench",
+            new WoodBenchBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_PLANKS).nonOpaque()));
     public static final Block BAMBOO_TABLE = registerBlockWithItem("bamboo_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO_PLANKS).nonOpaque()));
+            new WoodTableBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO_PLANKS).nonOpaque()));
     public static final Block BAMBOO_CHAIR = registerBlockWithItem("bamboo_chair",
             new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO_PLANKS).nonOpaque()));
 
     public static final Block CRIMSON_STOOL = registerBlockWithItem("crimson_stool",
-            new StoolBlock(AbstractBlock.Settings.copy(Blocks.CRIMSON_PLANKS).nonOpaque()));
+            new WoodStoolBlock(AbstractBlock.Settings.copy(Blocks.CRIMSON_PLANKS).nonOpaque()));
+    public static final Block CRIMSON_BENCH = registerBlockWithItem("crimson_bench",
+            new WoodBenchBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_PLANKS).nonOpaque()));
     public static final Block CRIMSON_TABLE = registerBlockWithItem("crimson_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.CRIMSON_PLANKS).nonOpaque()));
+            new WoodTableBlock(AbstractBlock.Settings.copy(Blocks.CRIMSON_PLANKS).nonOpaque()));
     public static final Block CRIMSON_CHAIR = registerBlockWithItem("crimson_chair",
             new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.CRIMSON_PLANKS).nonOpaque()));
 
     public static final Block WARPED_STOOL = registerBlockWithItem("warped_stool",
-            new StoolBlock(AbstractBlock.Settings.copy(Blocks.WARPED_PLANKS).nonOpaque()));
+            new WoodStoolBlock(AbstractBlock.Settings.copy(Blocks.WARPED_PLANKS).nonOpaque()));
+    public static final Block WARPED_BENCH = registerBlockWithItem("warped_bench",
+            new WoodBenchBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_PLANKS).nonOpaque()));
     public static final Block WARPED_TABLE = registerBlockWithItem("warped_table",
-            new TableBlock(AbstractBlock.Settings.copy(Blocks.WARPED_PLANKS).nonOpaque()));
+            new WoodTableBlock(AbstractBlock.Settings.copy(Blocks.WARPED_PLANKS).nonOpaque()));
     public static final Block WARPED_CHAIR = registerBlockWithItem("warped_chair",
             new WoodChairBlock(AbstractBlock.Settings.copy(Blocks.WARPED_PLANKS).nonOpaque()));
     //endregion
+
+    public static final Block WATERING_CAN = registerBlockWithItem("watering_can",
+            new WateringCanBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool()));
+    public static final Block WOODEN_BUCKET = registerBlockWithItem("wooden_bucket",
+            new WoodenBucketBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
+
+    public static final Block TREATED_STEEL_ROD = registerBlockWithItem("treated_steel_rod",
+            new DecorativeRodBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool()));
 
     public static final Block ROPE = registerBlockWithItem("rope",
             new ChainBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).noCollision()));
@@ -329,6 +403,11 @@ public class ModDecorativeBlocks {
     public static final Block SMALL_BRAZIER = registerBlockWithItem("small_brazier",
             new SmallBrazierBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
+    public static final Block GILDED_BIG_BRAZIER = registerBlockWithItem("gilded_big_brazier",
+            new GildedBrazierBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+    public static final Block GILDED_SMALL_BRAZIER = registerBlockWithItem("gilded_small_brazier",
+            new GildedSmallBrazierBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
+
     public static final Block FIRE_BOWL = registerBlockWithItem("fire_bowl",
             new FireBowlBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool()));
 
@@ -340,6 +419,73 @@ public class ModDecorativeBlocks {
     public static final Block WALL_SCONCE = registerBlock("wall_sconce",
             new WallSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
 
+    public static final Block GILDED_SCONCE = registerBlock("gilded_sconce",
+            new SconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
+    public static final Block GILDED_WALL_SCONCE = registerBlock("gilded_wall_sconce",
+            new WallSconceBlock(AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool(), ParticleTypes.FLAME));
+
+    public static final Block GROUND_BOOK = registerBlockWithItem("ground_book",
+            new GroundBookBlock(AbstractBlock.Settings.create().breakInstantly().nonOpaque().noCollision()));
+    public static final Block DWARVEN_GROUND_BOOK = registerBlockWithItem("dwarven_ground_book",
+            new DwarvenGroundBookBlock(AbstractBlock.Settings.create().breakInstantly().nonOpaque().noCollision()));
+
+    public static final Block OAK_LADDER = registerBlockWithItem("oak_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
+    public static final Block SPRUCE_LADDER = registerBlockWithItem("spruce_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
+    public static final Block BIRCH_LADDER = registerBlockWithItem("birch_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.BIRCH_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
+    public static final Block JUNGLE_LADDER = registerBlockWithItem("jungle_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.JUNGLE_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
+    public static final Block ACACIA_LADDER = registerBlockWithItem("acacia_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.ACACIA_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
+    public static final Block DARK_OAK_LADDER = registerBlockWithItem("dark_oak_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.DARK_OAK_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
+    public static final Block MANGROVE_LADDER = registerBlockWithItem("mangrove_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.MANGROVE_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
+    public static final Block CHERRY_LADDER = registerBlockWithItem("cherry_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.CHERRY_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
+    public static final Block BAMBOO_LADDER = registerBlockWithItem("bamboo_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO_SLAB).sounds(BlockSoundGroup.WOOL).burnable()));
+    public static final Block CRIMSON_LADDER = registerBlockWithItem("crimson_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.CRIMSON_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
+    public static final Block WARPED_LADDER = registerBlockWithItem("warped_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
+
+    public static final Block ROPE_LADDER = registerBlockWithItem("rope_ladder",
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL).burnable()));
+
+    public static final Block LARCH_HOBBIT_DOOR = registerDoorBlock("larch_hobbit_door",
+            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final Block SPRUCE_HOBBIT_DOOR = registerDoorBlock("spruce_hobbit_door",
+            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+
+    public static final Block BLUE_HOBBIT_DOOR = registerDoorBlock("blue_hobbit_door",
+            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final Block GREEN_HOBBIT_DOOR = registerDoorBlock("green_hobbit_door",
+            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final Block RED_HOBBIT_DOOR = registerDoorBlock("red_hobbit_door",
+            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final Block YELLOW_HOBBIT_DOOR = registerDoorBlock("yellow_hobbit_door",
+            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+
+    public static final Block REINFORCED_SPRUCE_DOOR = registerDoorBlock("reinforced_spruce_door",
+            new LargeDoor4x2(4,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+
+    public static final Block GREAT_GONDORIAN_GATE = registerDoorBlock("great_gondorian_gate",
+            new LargeDoor10x5(10,5, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+
+    public static final Block GREAT_DWARVEN_GATE = registerDoorBlock("great_dwarven_gate",
+            new LargeDoor5x2(5,2, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+    public static final Block VARNISHED_DWARVEN_DOOR = registerDoorBlock("varnished_dwarven_door",
+            new LargeDoor4x2(4,2, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+
+    public static final Block GREAT_ELVEN_GATE = registerDoorBlock("great_elven_gate",
+            new LargeDoor6x2(6,2, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+
+    public static final Block GREAT_ORCISH_GATE = registerDoorBlock("great_orcish_gate",
+            new LargeDoor10x4(10,4, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);
         return Registry.register(Registries.BLOCK, identifier, block);
@@ -350,6 +496,10 @@ public class ModDecorativeBlocks {
         ModBlocks.registerBlockItem(name, block);
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
         return Registry.register(Registries.BLOCK, identifier, block);
+    }
+
+    public static Block registerDoorBlock(String name, Block block) {
+        return Registry.register(Registries.BLOCK, Identifier.of(MiddleEarth.MOD_ID, name), block);
     }
 
     private static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {

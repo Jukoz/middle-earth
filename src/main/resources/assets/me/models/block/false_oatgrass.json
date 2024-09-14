@@ -3,7 +3,8 @@
 	"texture_size": [22, 22],
 	"ambientocclusion": false,
 	"textures": {
-		"0": "me:block/false_oatgrass"
+		"0": "me:block/false_oatgrass",
+		"particle": "me:block/false_oatgrass"
 	},
 	"elements": [
 		{

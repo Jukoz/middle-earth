@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.network.packets.C2S.TeleportToMeSpawnRequestPacket;
+import net.jukoz.me.network.packets.C2S.PacketTeleportToCurrentSpawn;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -46,7 +46,7 @@ public class OnboardingSelectionScreen extends Screen {
         if(canResetCharacter){
             ButtonWidget.PressAction resetCharacterAction = button -> {
                 MinecraftClient mc = MinecraftClient.getInstance();
-                mc.setScreenAndRender(new FactionSelectionScreen());
+                mc.setScreen(new FactionSelectionScreen());
             };
             resetCharacterButton = ButtonWidget.builder(Text.of("reset_character"), resetCharacterAction).build();
             addDrawableChild(resetCharacterButton);
@@ -54,7 +54,7 @@ public class OnboardingSelectionScreen extends Screen {
     }
 
     private void teleportPlayerToMiddleEarth() {
-        ClientPlayNetworking.send(new TeleportToMeSpawnRequestPacket(true));
+        ClientPlayNetworking.send(new PacketTeleportToCurrentSpawn(true));
     }
 
     @Override
@@ -88,7 +88,7 @@ public class OnboardingSelectionScreen extends Screen {
                 panelSizeX,
                 panelSizeY
         );
-        Text continueText = Text.translatable("me.continue_character");
+        Text continueText = Text.translatable("ui.me.continue_character");
         context.drawText(textRenderer, continueText,
                 startX + (int)((panelSizeX - textRenderer.getWidth(continueText)) / 2f),
                 startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,
@@ -116,7 +116,7 @@ public class OnboardingSelectionScreen extends Screen {
                     panelSizeX,
                     panelSizeY
             );
-            Text resetText = Text.translatable("me.reset_character");
+            Text resetText = Text.translatable("ui.me.reset_character");
             context.drawText(textRenderer, resetText,
                     startX + (int) ((panelSizeX - textRenderer.getWidth(resetText)) / 2f),
                     startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,

@@ -50,6 +50,14 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.REINFORCED_CHEST);
 
+            add(ModDecorativeBlocks.BIG_BRAZIER);
+            add(ModDecorativeBlocks.SMALL_BRAZIER);
+            add(ModDecorativeBlocks.GILDED_BIG_BRAZIER);
+            add(ModDecorativeBlocks.GILDED_SMALL_BRAZIER);
+            add(ModDecorativeBlocks.CHIMNEY);
+            add(ModDecorativeBlocks.FIRE_BOWL);
+            add(ModDecorativeBlocks.BONFIRE);
+
             add(ModNatureBlocks.MALLOS);
             add(ModNatureBlocks.YELLOW_FLOWER);
             add(ModNatureBlocks.HOROKAKA);

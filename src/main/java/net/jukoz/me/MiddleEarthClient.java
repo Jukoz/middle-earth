@@ -35,10 +35,12 @@ import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfRenderer;
 import net.jukoz.me.entity.goose.GooseRenderer;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitRenderer;
 import net.jukoz.me.entity.humans.bandit.BanditHumanRenderer;
+import net.jukoz.me.entity.humans.dale.DaleHumanRenderer;
 import net.jukoz.me.entity.humans.gondor.GondorHumanRenderer;
 import net.jukoz.me.entity.humans.rohan.RohanHumanRenderer;
 import net.jukoz.me.entity.model.ModEntityModels;
 import net.jukoz.me.entity.nazguls.NazgulRenderer;
+import net.jukoz.me.entity.orcs.isengard.IsengardOrcRenderer;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinRenderer;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
 import net.jukoz.me.entity.pheasant.PheasantRenderer;
@@ -50,6 +52,7 @@ import net.jukoz.me.entity.spider.MirkwoodSpiderRenderer;
 import net.jukoz.me.entity.swan.SwanRenderer;
 import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollRenderer;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollRenderer;
+import net.jukoz.me.entity.uruks.isengard.mordor.IsengardUrukHaiRenderer;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinRenderer;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukRenderer;
 import net.jukoz.me.event.KeyInputHandler;
@@ -63,7 +66,8 @@ import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.utils.ModArmorModels;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
-import net.jukoz.me.network.ModNetworks;
+import net.jukoz.me.network.ModClientNetworkHandler;
+import net.jukoz.me.network.connections.ConnectionToServer;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.particles.custom.LeavesParticle;
 import net.minecraft.block.Block;
@@ -78,7 +82,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.biome.FoliageColors;
 import net.minecraft.world.biome.GrassColors;
 
 import java.util.Objects;
@@ -96,6 +99,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        ModClientNetworkHandler.register(new ConnectionToServer());
 
         KeyInputHandler.register();
 
@@ -120,6 +124,12 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.ROHIRRIM_VETERAN, RohanHumanRenderer::new);
         EntityRendererRegistry.register(ModEntities.ROHIRRIM_LEADER, RohanHumanRenderer::new);
 
+        EntityRendererRegistry.register(ModEntities.DALISH_MILITIA, DaleHumanRenderer::new);
+        EntityRendererRegistry.register(ModEntities.DALISH_SOLDIER, DaleHumanRenderer::new);
+        EntityRendererRegistry.register(ModEntities.DALISH_KNIGHT, DaleHumanRenderer::new);
+        EntityRendererRegistry.register(ModEntities.DALISH_VETERAN, DaleHumanRenderer::new);
+        EntityRendererRegistry.register(ModEntities.DALISH_LEADER, DaleHumanRenderer::new);
+
         EntityRendererRegistry.register(ModEntities.LONGBEARD_MILITIA, LongbeardDwarfRenderer::new);
         EntityRendererRegistry.register(ModEntities.LONGBEARD_SOLDIER, LongbeardDwarfRenderer::new);
         EntityRendererRegistry.register(ModEntities.LONGBEARD_ELITE, LongbeardDwarfRenderer::new);
@@ -137,13 +147,18 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.MORDOR_BLACK_URUK_SOLDIER, MordorBlackUrukRenderer::new);
         EntityRendererRegistry.register(ModEntities.MORDOR_BLACK_URUK_VETERAN, MordorBlackUrukRenderer::new);
         EntityRendererRegistry.register(ModEntities.MORDOR_BLACK_URUK_LEADER, MordorBlackUrukRenderer::new);
-
-
+        
         EntityRendererRegistry.register(ModEntities.MISTY_GOBLIN_SNAGA, MistyGoblinRenderer::new);
         EntityRendererRegistry.register(ModEntities.MISTY_GOBLIN_WARRIOR, MistyGoblinRenderer::new);
         EntityRendererRegistry.register(ModEntities.MISTY_HOBGOBLIN_SOLDIER, MistyHobgoblinRenderer::new);
         EntityRendererRegistry.register(ModEntities.MISTY_HOBGOBLIN_VETERAN, MistyHobgoblinRenderer::new);
         EntityRendererRegistry.register(ModEntities.MISTY_HOBGOBLIN_LEADER, MistyHobgoblinRenderer::new);
+
+        EntityRendererRegistry.register(ModEntities.ISENGARD_ORC_SNAGA, IsengardOrcRenderer::new);
+        EntityRendererRegistry.register(ModEntities.ISENGARD_ORC_WARRIOR, IsengardOrcRenderer::new);
+        EntityRendererRegistry.register(ModEntities.ISENGARD_URUK_HAI_SOLDIER, IsengardUrukHaiRenderer::new);
+        EntityRendererRegistry.register(ModEntities.ISENGARD_URUK_HAI_VETERAN, IsengardUrukHaiRenderer::new);
+        EntityRendererRegistry.register(ModEntities.ISENGARD_URUK_HAI_LEADER, IsengardUrukHaiRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.STONE_TROLL, StoneTrollRenderer::new);
         EntityRendererRegistry.register(ModEntities.PETRIFIED_TROLL, PetrifiedTrollRenderer::new);
@@ -186,8 +201,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         HandledScreens.register(ModScreenHandlers.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         BlockEntityRendererFactories.register(ModBlockEntities.ALLOY_FURNACE, AlloyFurnaceEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
-
-        ModNetworks.registerS2CPackets();
 
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_HELMET, CustomHelmetModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_CHESTPLATE, CustomChestplateModel::getTexturedModelData);
@@ -310,20 +323,29 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.DUCKWEED, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GRASSY_DIRT, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GRASSY_DIRT_SLAB, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GRASSY_DIRT_STAIRS, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.FIRE_OF_ORTHANC, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POINTED_LIMESTONE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POINTED_GALONN, RenderLayer.getCutout());
 
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> {
             if (view == null || pos == null) {
                 return GrassColors.getDefaultColor();
             }
             return BiomeColors.getGrassColor(view, pos);
-        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS, ModBlocks.GRASSY_DIRT, ModBlocks.TURF);
+        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS,
+                ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB, ModBlocks.GRASSY_DIRT_STAIRS,
+                ModBlocks.TURF, ModBlocks.TURF_SLAB, ModBlocks.TURF_STAIRS, ModBlocks.TURF_VERTICAL_SLAB);
 
         ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
             BlockState blockState = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
-            return FoliageColors.getDefaultColor();
-        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS, ModBlocks.GRASSY_DIRT, ModBlocks.TURF);
+            return GrassColors.getDefaultColor();
+        }, ModNatureBlocks.WILD_GRASS, ModNatureBlocks.GRASS_TUFT, ModNatureBlocks.WHEATGRASS,
+                ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB, ModBlocks.GRASSY_DIRT_STAIRS,
+                ModBlocks.TURF, ModBlocks.TURF_SLAB, ModBlocks.TURF_STAIRS, ModBlocks.TURF_VERTICAL_SLAB);
 
         for(Block block : SimpleDoubleBlockModel.doubleBlocks){
             BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
@@ -351,6 +373,28 @@ public class MiddleEarthClient implements ClientModInitializer {
             BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
         }
 
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.BEECH.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.LARCH.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.BLACK_LEBETHRON.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WHITE_LEBETHRON.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.CHESTNUT.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.HOLLY.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.MALLORN.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.MAPLE.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.SILVER_MAPLE.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.MIRKWOOD.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.PALM.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WHITE_PALM.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.PINE.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.BLACK_PINE.ladder(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WILLOW.ladder(), RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.ROPE_LADDER, RenderLayer.getCutout());
+
+        for(SimpleLadderModel.Ladder block : SimpleLadderModel.vanillaLadders) {
+            BlockRenderLayerMap.INSTANCE.putBlock(block.ladder(), RenderLayer.getCutout());
+        }
+
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.DARK_MUSHROOM.trapdoor(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.GRAY_MUSHROOM.trapdoor(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.MUSHROOM.trapdoor(), RenderLayer.getCutout());
@@ -372,6 +416,25 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.GRAY_MUSHROOM.door(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.DARK_MUSHROOM.door(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.MUSHROOM.door(), RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.BEECH.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.LARCH.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.BLACK_LEBETHRON.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WHITE_LEBETHRON.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.CHESTNUT.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.HOLLY.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.MALLORN.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.MAPLE.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.SILVER_MAPLE.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.MIRKWOOD.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.PALM.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WHITE_PALM.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.PINE.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.BLACK_PINE.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WoodBlockSets.WILLOW.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.GRAY_MUSHROOM.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.DARK_MUSHROOM.chair(), RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MushroomBlockSets.MUSHROOM.chair(), RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.FALLEN_MALLORN_LEAVES, RenderLayer.getCutout());
 
@@ -396,7 +459,19 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WALL_DWARVEN_LANTERN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.SILVER_LANTERN, RenderLayer.getCutout());
 
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.NET, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COPPER_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.EXPOSED_COPPER_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WEATHERED_COPPER_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.OXIDIZED_COPPER_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WAXED_COPPER_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WAXED_EXPOSED_COPPER_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WAXED_WEATHERED_COPPER_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WAXED_OXIDIZED_COPPER_BARS, RenderLayer.getCutout());
+
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SILVERS_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GILDED_BARS, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILD_CARROT, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.WILD_POTATO, RenderLayer.getCutout());
@@ -410,13 +485,32 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WATTLE_FRAMED_WINDOW_PANE, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.DARK_WATTLE_FRAMED_WINDOW, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.DARK_WATTLE_FRAMED_WINDOW_PANE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.BLACK_WATTLE_FRAMED_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.BLACK_WATTLE_FRAMED_WINDOW_PANE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.GREEN_WATTLE_FRAMED_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.GREEN_WATTLE_FRAMED_WINDOW_PANE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.RED_WATTLE_FRAMED_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.RED_WATTLE_FRAMED_WINDOW_PANE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WHITE_WATTLE_FRAMED_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WHITE_WATTLE_FRAMED_WINDOW_PANE, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW_PANE, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW_PANE, RenderLayer.getTranslucent());
 
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WHITE_DAUB_ROUND_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WHITE_DAUB_ROUND_WINDOW_PANE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.YELLOW_DAUB_ROUND_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.YELLOW_DAUB_ROUND_WINDOW_PANE, RenderLayer.getTranslucent());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.GONLUIN_CARVED_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.GONLUIN_CARVED_WINDOW_PANE, RenderLayer.getTranslucent());
+
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.MEDGON_CARVED_WINDOW, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.MEDGON_CARVED_WINDOW_PANE, RenderLayer.getTranslucent());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.MUD_BRICK_ROUND_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.MUD_BRICK_ROUND_WINDOW_PANE, RenderLayer.getTranslucent());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.LEAD_GLASS, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.BLUE_STAINED_LEAD_GLASS, RenderLayer.getTranslucent());
@@ -458,13 +552,30 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.TALL_CATTAILS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModNatureBlocks.TALL_BULRUSH, RenderLayer.getCutout());
 
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WATERING_CAN, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WOODEN_BUCKET, RenderLayer.getCutout());
+
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.BIG_BRAZIER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.SMALL_BRAZIER, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.GILDED_BIG_BRAZIER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.GILDED_SMALL_BRAZIER, RenderLayer.getCutout());
+
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.FIRE_BOWL, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.TORCH_OF_ORTHANC, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.BONFIRE, RenderLayer.getCutout());
+
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.SCONCE, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.GILDED_SCONCE, RenderLayer.getCutout());
+
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.WALL_SCONCE, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.GILDED_WALL_SCONCE, RenderLayer.getCutout());
+
+        SimpleWoodChairModel.vanillaChairs.forEach(block -> {
+            BlockRenderLayerMap.INSTANCE.putBlock(block.base(), RenderLayer.getCutout());
+        });
     }
 
     private void registerDyeableItem(Item item) {

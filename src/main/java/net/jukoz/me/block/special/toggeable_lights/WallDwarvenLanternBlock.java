@@ -79,7 +79,20 @@ public class WallDwarvenLanternBlock extends DwarvenLanternBlock {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return WALL_SHAPE;
+        switch (state.get(FACING)){
+            case SOUTH -> {
+                return Block.createCuboidShape(4, 0, 6, 12, 11, 14) ;
+            }
+            case EAST -> {
+                return Block.createCuboidShape(6, 0, 4, 14, 11, 12) ;
+            }
+            case WEST -> {
+                return Block.createCuboidShape(2, 0, 4, 10, 11, 12);
+            }
+            default -> {
+                return Block.createCuboidShape(4, 0, 2, 12, 11, 10);
+            }
+        }
     }
 
     @Override

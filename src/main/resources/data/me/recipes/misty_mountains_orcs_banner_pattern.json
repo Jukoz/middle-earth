@@ -1,0 +1,15 @@
+{
+  "type": "me:artisan_table",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:bone"
+    }
+  ],
+  "output": {
+    "id": "me:misty_mountains_orcs_banner_pattern",
+    "count": 1
+  }
+}

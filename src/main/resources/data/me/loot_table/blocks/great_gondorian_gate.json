@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "me:great_gondorian_gate",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "part": "0"
+              }
+            }
+          ],
+          "name": "me:great_gondorian_gate"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "minecraft:blocks/acacia_door"
+}

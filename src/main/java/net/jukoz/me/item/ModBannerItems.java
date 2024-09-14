@@ -1,12 +1,5 @@
 package net.jukoz.me.item;
 
-import me.shedaniel.rei.api.common.display.Display;
-import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
-import me.shedaniel.rei.api.common.entry.EntryIngredient;
-import me.shedaniel.rei.api.common.entry.EntryStack;
-import me.shedaniel.rei.api.common.util.EntryIngredients;
-import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.jukoz.me.item.utils.ModBannerPatterns;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.minecraft.block.entity.BannerPattern;
@@ -16,8 +9,6 @@ import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
@@ -27,15 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModBannerItems {
-    private static final Text DURIN_BANNER_TRANSLATION_KEY = Text.translatable("block.me.durin_banner").formatted(Formatting.GOLD);
+    public static final List<ItemStack> BANNERS = new ArrayList<>();
     public static final List<BannerPatternsComponent.Layer> DURIN_BANNER_LAYERS = new ArrayList<>();
 
+    private static final Text DURIN_BANNER_TRANSLATION_KEY = Text.translatable("block.me.durin_banner").formatted(Formatting.GOLD);
     private static final Text ISENGARD_BANNER_TRANSLATION_KEY = Text.translatable("block.me.isengard_banner").formatted(Formatting.GOLD);
     private static final Text GONDOR_BANNER_TRANSLATION_KEY = Text.translatable("block.me.gondor_banner").formatted(Formatting.GOLD);
     private static final Text GONDOR_WHITE_BANNER_TRANSLATION_KEY = Text.translatable("block.me.gondor_white_banner").formatted(Formatting.GOLD);
     private static final Text LOTHLORIEN_BANNER_TRANSLATION_KEY = Text.translatable("block.me.lothlorien_banner").formatted(Formatting.GOLD);
-    private static final Text MISTY_ORCS_EYE_BANNER_TRANSLATION_KEY = Text.translatable("block.me.misty_orcs_eye_banner").formatted(Formatting.GOLD);
-    private static final Text MISTY_ORCS_PEAKS_BANNER_TRANSLATION_KEY = Text.translatable("block.me.misty_orcs_peaks_banner").formatted(Formatting.GOLD);
+    private static final Text MISTY_MOUNTAINS_ORCS_EYE_BANNER_TRANSLATION_KEY = Text.translatable("block.me.misty_mountains_orcs_eye_banner").formatted(Formatting.GOLD);
+    private static final Text MISTY_MOUNTAINS_ORCS_PEAKS_BANNER_TRANSLATION_KEY = Text.translatable("block.me.misty_mountains_orcs_peaks_banner").formatted(Formatting.GOLD);
     private static final Text MORDOR_BANNER_TRANSLATION_KEY = Text.translatable("block.me.mordor_banner").formatted(Formatting.GOLD);
     private static final Text MORDOR_GREAT_EYE_BANNER_TRANSLATION_KEY = Text.translatable("block.me.mordor_great_eye_banner").formatted(Formatting.GOLD);
     private static final Text ROHAN_BANNER_TRANSLATION_KEY = Text.translatable("block.me.rohan_banner").formatted(Formatting.GOLD);
@@ -51,6 +43,22 @@ public class ModBannerItems {
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(getMordorEyeBanner(bannerPatternLookup));
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(getMordorGreatEyeBanner(bannerPatternLookup));
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(getRohanBanner(bannerPatternLookup));
+    }
+
+    public static List<ItemStack> getList(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
+        if (BANNERS.isEmpty()) {
+            BANNERS.add(getDurinBanner(bannerPatternLookup));
+            BANNERS.add(getIsengardBanner(bannerPatternLookup));
+            BANNERS.add(getGondorBanner(bannerPatternLookup));
+            BANNERS.add(getGondorWhiteBanner(bannerPatternLookup));
+            BANNERS.add(getLothlorienBanner(bannerPatternLookup));
+            BANNERS.add(getMistyOrcsEyeBanner(bannerPatternLookup));
+            BANNERS.add(getMistyOrcsPeaksBanner(bannerPatternLookup));
+            BANNERS.add(getMordorEyeBanner(bannerPatternLookup));
+            BANNERS.add(getMordorGreatEyeBanner(bannerPatternLookup));
+            BANNERS.add(getRohanBanner(bannerPatternLookup));
+        }
+        return BANNERS;
     }
 
     public static ItemStack getDurinBanner(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
@@ -104,18 +112,18 @@ public class ModBannerItems {
         ItemStack itemStack = new ItemStack(Items.BROWN_BANNER);
         BannerPatternsComponent bannerPatternsComponent = (new BannerPatternsComponent.Builder())
                 .add(bannerPatternLookup, BannerPatterns.GRADIENT_UP, DyeColor.BLACK)
-                .add(bannerPatternLookup, ModBannerPatterns.MISTY_ORCS_EYE_BANNER_PATTERN, DyeColor.RED)
+                .add(bannerPatternLookup, ModBannerPatterns.MISTY_MOUNTAINS_ORCS_EYE_BANNER_PATTERN, DyeColor.RED)
                 .build();
-        return formatBanner(itemStack, bannerPatternsComponent, MISTY_ORCS_EYE_BANNER_TRANSLATION_KEY);
+        return formatBanner(itemStack, bannerPatternsComponent, MISTY_MOUNTAINS_ORCS_EYE_BANNER_TRANSLATION_KEY);
     }
 
     public static ItemStack getMistyOrcsPeaksBanner(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
         ItemStack itemStack = new ItemStack(Items.BROWN_BANNER);
         BannerPatternsComponent bannerPatternsComponent = (new BannerPatternsComponent.Builder())
                 .add(bannerPatternLookup, BannerPatterns.GRADIENT_UP, DyeColor.BLACK)
-                .add(bannerPatternLookup, ModBannerPatterns.MISTY_ORCS_PEAKS_BANNER_PATTERN, DyeColor.RED)
+                .add(bannerPatternLookup, ModBannerPatterns.MISTY_MOUNTAINS_ORCS_PEAKS_BANNER_PATTERN, DyeColor.RED)
                 .build();
-        return formatBanner(itemStack, bannerPatternsComponent, MISTY_ORCS_PEAKS_BANNER_TRANSLATION_KEY);
+        return formatBanner(itemStack, bannerPatternsComponent, MISTY_MOUNTAINS_ORCS_PEAKS_BANNER_TRANSLATION_KEY);
     }
 
     public static ItemStack getMordorEyeBanner(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {

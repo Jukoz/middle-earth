@@ -12,8 +12,6 @@ public class SimpleSlabModel {
     public static List<Slab> slabs = new ArrayList<>() {
         {
             add(new Slab(ModBlocks.REED_BLOCK, ModBlocks.REED_SLAB));
-            add(new Slab(ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_SLAB));
-            add(new Slab(ModBlocks.TURF, ModBlocks.TURF_SLAB));
             add(new Slab(ModBlocks.MIRE, ModBlocks.MIRE_SLAB));
             add(new Slab(ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_SLAB));
             add(new Slab(ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT_SLAB));
@@ -69,6 +67,7 @@ public class SimpleSlabModel {
             add(new Slab(Blocks.COARSE_DIRT, ModBlocks.COARSE_DIRT_SLAB));
             add(new Slab(Blocks.ROOTED_DIRT, ModBlocks.ROOTED_DIRT_SLAB));
             add(new Slab(Blocks.MUD, ModBlocks.MUD_SLAB));
+            add(new Slab(Blocks.MOSS_BLOCK, ModBlocks.MOSS_SLAB));
 
             add(new Slab(Blocks.PACKED_MUD, ModBlocks.PACKED_MUD_SLAB));
             add(new Slab(Blocks.CALCITE, ModBlocks.CALCITE_SLAB));

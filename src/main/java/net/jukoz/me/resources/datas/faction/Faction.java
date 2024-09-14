@@ -1,147 +1,172 @@
 package net.jukoz.me.resources.datas.faction;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.resources.ModFactionRegistry;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.Race;
+import net.jukoz.me.resources.datas.faction.utils.BannerData;
 import net.jukoz.me.resources.datas.faction.utils.FactionNpcPreviewData;
+import net.jukoz.me.resources.datas.faction.utils.SpawnDataHandler;
 import net.jukoz.me.utils.LoggerUtil;
-import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import org.joml.Vector2i;
-import org.joml.Vector3i;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 public class Faction {
-    public class BannerPatternWithColor {
-        public BannerPattern pattern;
-        public DyeColor color;
-        BannerPatternWithColor(BannerPattern pattern, DyeColor color){
-            this.pattern = pattern;
-            this.color = color;
-        }
-    }
+
+    public static final Codec<Faction> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.STRING.fieldOf("id").forGetter(Faction::getIdValue),
+            Codec.STRING.fieldOf("alignment").forGetter(Faction::getAlignmentString),
+            Codec.list(Codec.STRING, 1, 5).fieldOf("races").forGetter(Faction::getRaceNames),
+            NbtCompound.CODEC.optionalFieldOf("preview_gears").forGetter(Faction::getPreviewGearNbt),
+            NbtCompound.CODEC.optionalFieldOf("banner").forGetter(Faction::getBannerNbt),
+            NbtCompound.CODEC.optionalFieldOf("spawns").forGetter(Faction::getSpawnDataNbt),
+            Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Faction::getJoinCommands),
+            Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Faction::getLeaveCommands)
+        ).apply(instance, Faction::new));
+
     private final Identifier id;
+    private final String translatableKey;
     private final Alignment alignment;
-    private Race preview_race;
+    private List<Race> official_races;
+    private final FactionNpcPreviewData previewGears;
+    private final BannerData bannerData;
+    private final SpawnDataHandler spawnDataHandler;
     private HashMap<Identifier, Faction> subFactions = null;
-    private FactionNpcPreviewData previewGear = null;
+    private List<String> joinCommands;
+    private List<String> leaveCommands;
 
-    private DyeColor baseBannerColor;
-    private List<Identifier> bannerPatternIds;
-    private List<DyeColor> bannerDyeColors;
-    DyeColor defaultDye = DyeColor.PURPLE;
-    private List<Vector3i> spawnCoordinates;
-    private Vector2i mapPreviewCoordinate;
+    /**
+     * Codec constructor
+     * @param id Id of the faction, meant to be the path of the identifier
+     * @param alignment Alignment name, based on the alignment enum
+     * @param races all races, first value is used as preview race
+     */
+    public Faction(String id, String alignment, List<String> races, Optional<NbtCompound> previewGearNbt, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
+        this.id = Identifier.of(MiddleEarth.MOD_ID, id);
+        this.translatableKey = "faction.".concat(this.id.toTranslationKey());
 
+        this.alignment = Alignment.valueOf(alignment.toUpperCase());
 
-    public Faction(Alignment alignment, JsonObject json, Identifier id, HashMap<Identifier, Faction> subFactions){
-        this(alignment, json, id);
-        this.subFactions = subFactions;
-        LoggerUtil.logDebugMsg("Faction::" + id + " has " + subFactions.size() + " subfactions");
+        this.official_races = new ArrayList<>();
+
+        for(String raceName : races){
+            official_races.add(Race.fromString(raceName.toUpperCase()));
+        }
+        this.previewGears = new FactionNpcPreviewData(previewGearNbt);
+        this.bannerData = new BannerData(bannerDataNbt);
+        this.spawnDataHandler = new SpawnDataHandler(spawnsNbt);
+        ModFactionRegistry.addFaction(this, this.id);
+
+        this.joinCommands = new ArrayList<>();
+        joinCommands.ifPresent(nbtCompound -> this.joinCommands.addAll(nbtCompound));
+        this.leaveCommands = new ArrayList<>();
+        leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
+
+        LoggerUtil.logDebugMsg("Adding faction : \n[Id] : " + this.id + "\n" + "[TranslatableKey] : " + this.translatableKey);
     }
 
-    public Faction(Alignment alignment, JsonObject json, Identifier id) {
+    public Faction(String name, Alignment alignment, FactionNpcPreviewData factionNpcPreviewData, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<Race> races, List<String> joinCommand, List<String> leaveCommand){
+        this.id = Identifier.of(MiddleEarth.MOD_ID, name);
+        this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.alignment = alignment;
-        this.id = id;
-        buildPreview(json);
-        buildSpawnInformation(json);
-        buildBanner(json);
-        LoggerUtil.logDebugMsg("Faction::Created a new faction -> " + id);
+        this.previewGears = factionNpcPreviewData;
+        this.bannerData = bannerData;;
+        this.spawnDataHandler = spawnDataHandler;
+        this.official_races = races;
+        this.joinCommands = joinCommand;
+        this.leaveCommands = leaveCommand;
     }
 
-    private Race parseRace(JsonObject json) {
-        String jsonValue = getValue(json, "race");
-        LoggerUtil.logDebugMsg("Faction::"+id+":found race -> " + jsonValue);
-        return Race.fromString(jsonValue);
+    private List<String> getRaceNames() {
+        List<String> races = new ArrayList<>();
+        for(Race race : official_races){
+            races.add(race.name());
+        }
+        return races;
     }
 
-    private void buildPreview(JsonObject json) {
-        JsonObject jsonObject = json.getAsJsonObject("preview");
-        if(jsonObject == null) return;
-
-        this.preview_race = parseRace(jsonObject);
-        previewGear = new FactionNpcPreviewData(
-                getItem(getValue(jsonObject, "head")),
-                getItem(getValue(jsonObject, "chest")),
-                getItem(getValue(jsonObject, "legs")),
-                getItem(getValue(jsonObject, "boots")),
-                getItem(getValue(jsonObject, "main_hand")),
-                getItem(getValue(jsonObject, "off_hand"))
-        );
+    private String getIdValue() {
+        return this.id.getPath();
+    }
+    private Optional<NbtCompound> getPreviewGearNbt() {
+        if(this.previewGears == null)
+            return Optional.empty();
+        return this.previewGears.getNbt();
     }
 
-    private void buildBanner(JsonObject json){
-        JsonObject jsonObject = json.getAsJsonObject("banner");
-        if(jsonObject == null) return;
-        baseBannerColor = DyeColor.byName(getValue(jsonObject, "base_color"), defaultDye);
+    private Optional<NbtCompound> getBannerNbt() {
+        if(this.bannerData == null)
+            return Optional.empty();
+        return this.bannerData.getNbt();
+    }
+    private Optional<NbtCompound> getSpawnDataNbt() {
+        if(this.spawnDataHandler == null)
+            return Optional.empty();
+        return this.spawnDataHandler.serializeNbt();
+    }
 
-        JsonArray patternArray = jsonObject.getAsJsonArray("patterns");
-        if(patternArray == null) return;
+    public Optional<List<String>> getJoinCommands() {
+        if(this.joinCommands == null)
+            return Optional.empty();
+        return Optional.of(this.joinCommands);
+    }
 
-        bannerPatternIds = new ArrayList<>();
-        bannerDyeColors = new ArrayList<>();
+    public Optional<List<String>> getLeaveCommands() {
+        if(this.leaveCommands == null)
+            return Optional.empty();
+        return Optional.of(this.leaveCommands);
+    }
 
-        for (JsonElement element : patternArray){
-            JsonObject elementObj = element.getAsJsonObject();
-
-            bannerPatternIds.add(Identifier.tryParse(getValue(elementObj, "id")));
-            bannerDyeColors.add(DyeColor.byName(getValue(elementObj, "dye_color"), defaultDye));
+    public void debugPrint(String messsage) {
+        String races = "";
+        for(Race race : this.official_races){
+            races += race.name() + ",";
         }
 
-        baseBannerColor = DyeColor.byName(getValue(jsonObject, "base_color"), DyeColor.PINK);
-    }
-
-    private void buildSpawnInformation(JsonObject json){
-        JsonObject jsonObject = json.getAsJsonObject("spawn");
-        if(jsonObject == null) return;
-
-        JsonObject mapCoordinateJsonObject = jsonObject.getAsJsonObject("map_preview_center");
-        if(mapCoordinateJsonObject == null) return;
-        mapPreviewCoordinate = new Vector2i(
-                mapCoordinateJsonObject.get("x").getAsInt(),
-                mapCoordinateJsonObject.get("y").getAsInt()
-        );
-
-        JsonArray spawnSets = jsonObject.getAsJsonArray("sets");
-        if(spawnSets == null) return;
-        spawnCoordinates = new ArrayList<>();
-
-        for (JsonElement element : spawnSets){
-            JsonObject elementObj = element.getAsJsonObject();
-            Vector3i newCoordinate = new Vector3i(
-                    elementObj.get("x").getAsInt(),
-                    elementObj.get("y").getAsInt(),
-                    elementObj.get("z").getAsInt()
-            );
-            spawnCoordinates.add(newCoordinate);
+        String subfactionsText = "";
+        if(this.subFactions != null){
+            for(Faction faction : this.subFactions.values()){
+                subfactionsText += faction.getId() + ",";
+            }
         }
-        LoggerUtil.logDebugMsg("Faction::"+id+":found spawn -> " + spawnCoordinates.size());
+
+        String previewGearString = "None";
+        if(this.previewGears != null){
+            previewGearString = previewGears.getNbt().toString();
+        }
+
+        String bannerDataString = "None";
+        if(this.bannerData != null){
+            bannerDataString = bannerData.getNbt().toString();
+        }
+
+        String spawnDataString = "None";
+        if(this.spawnDataHandler != null){
+            spawnDataString = spawnDataHandler.serializeNbt().toString();
+        }
+
+        String print = messsage + "\n" +
+                "Id: " + id + "\n" +
+                "Alignment: " + alignment + "\n" +
+                "Races: " + races + "\n" +
+                "PreviewGear: " + previewGearString + "\n" +
+                "BannerData: " + bannerDataString + "\n" +
+                "SpawnData: " + spawnDataString + "\n" +
+                "Subfactions: " + subfactionsText;
+
+        LoggerUtil.logDebugMsg(print);
     }
 
-
-    private String getValue(JsonObject jsonObject, String key){
-        return String.valueOf(jsonObject.get(key)).replace("\"", "");
-    }
-
-    private Item getItem(String itemId){
-        return Registries.ITEM.get(Identifier.of(itemId));
-    }
 
     @Override
     public String toString() {
@@ -149,72 +174,76 @@ public class Faction {
     }
 
     public FactionNpcPreviewData getPreviewGear(){
-        return previewGear;
-    }
-
-    public ItemStack getPreviewGearAt(EquipmentSlot slot){
-        if(previewGear == null) return null;
-        return previewGear.get(slot);
+        return previewGears;
     }
 
     public DyeColor getBaseBannerColor(){
-        if(baseBannerColor == null) return defaultDye;
-        return baseBannerColor;
+        if(bannerData == null) return BannerData.DEFAULT_DYE;
+        return bannerData.getBaseDye();
     }
 
-    public List<BannerPatternWithColor> getBannerPatternsWithColors(ClientWorld world){
-        if(bannerDyeColors == null || bannerPatternIds == null) return null;
-        if(bannerDyeColors.isEmpty() || bannerPatternIds.isEmpty()) return new ArrayList<>();
-        if(bannerDyeColors.size() != bannerPatternIds.size()) return new ArrayList<>();
+    public List<BannerData.BannerPatternWithColor> getBannerPatternsWithColors(ClientWorld world) {
+        if(bannerData == null) return null;
+        return bannerData.getBannerPatternsWithColors(world);
 
-        List<BannerPatternWithColor> patterns = new ArrayList<>();
-        for(int i = 0; i < bannerDyeColors.size(); i++){
-            BannerPattern pattern = world.getRegistryManager().getOptional(RegistryKeys.BANNER_PATTERN).get().get(bannerPatternIds.get(i));
-            DyeColor color = bannerDyeColors.get(i);
-            if(pattern == null){
-                LoggerUtil.logError("Faction::"+id+":Couldn't find pattern for " + bannerPatternIds.get(i));
-                continue;
-            }
-            patterns.add(new BannerPatternWithColor(pattern, color));
-        }
-        return patterns;
     }
 
     public Race getPreviewRace() {
-        if(this.preview_race == null){
-            LoggerUtil.logDebugMsg("Faction::"+id+":Couldn't find race -> returning "+ Race.Human.toString());
-            return Race.Human;
+        if(this.official_races == null || this.official_races.isEmpty()){
+            LoggerUtil.logDebugMsg("Faction::"+id+":Couldn't find race -> returning "+ Race.HUMAN.toString());
+            return Race.HUMAN;
         }
 
-        return this.preview_race;
+        return this.official_races.get(0);
     }
     public HashMap<Identifier,Faction> getSubFactions(){
         return subFactions;
     }
 
     public Faction getSubfaction(int index){
-        if(subFactions == null) return null;
+        if(subFactions == null || index >= subFactions.size())
+            return null;
         return subFactions.values().stream().toList().get(index);
     }
 
     public Alignment getAlignment(){
         return alignment;
     }
-
-    public Vector2i getMapPreviewCoordinate() { return mapPreviewCoordinate; }
-    public List<Vector3i> getSpawnCoordinates() { return spawnCoordinates; }
-
-    public String getId() {
-        return id.toString();
+    public String getAlignmentString(){
+        return alignment.name();
     }
 
-    public MutableText getName() {
-        return Text.translatable(id.toTranslationKey());
+    public SpawnDataHandler getSpawnData() { return spawnDataHandler; }
+
+    public Identifier getId() {
+        return id;
+    }
+
+    public String getName() {
+        return id.getPath();
+    }
+
+    public MutableText getFullName() {
+        return MutableText.of(new TranslatableTextContent(translatableKey, "", TranslatableTextContent.EMPTY_ARGUMENTS));
     }
 
     public MutableText tryGetShortName() {
-        String target = id.toTranslationKey().concat(".fallback");
-        String fallback = Text.translatable(id.toTranslationKey()).getString();
+        String target = translatableKey.concat(".fallback");
+        String fallback = Text.translatable(translatableKey).getString();
         return MutableText.of(new TranslatableTextContent(target, fallback, TranslatableTextContent.EMPTY_ARGUMENTS));
+    }
+
+    public void addSubfaction(Faction faction) {
+        if(subFactions == null)
+            subFactions = new HashMap<>();
+
+        if(faction != null){
+            LoggerUtil.logDebugMsg("[" + id + "] Adding subfaction : " + faction.id);
+            subFactions.put(faction.id, faction);
+        }
+    }
+
+    public Faction findSubfaction(Identifier id) {
+        return subFactions.get(id);
     }
 }

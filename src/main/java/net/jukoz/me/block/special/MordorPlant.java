@@ -12,7 +12,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
-public class MordorPlant extends PlantBlock implements Fertilizable {
+public class MordorPlant extends CustomPlantBlock implements Fertilizable {
     public static final MapCodec<MordorPlant> CODEC = MordorPlant.createCodec(MordorPlant::new);
     protected static final VoxelShape SHAPE = Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 13.0, 14.0);
 
@@ -20,10 +20,6 @@ public class MordorPlant extends PlantBlock implements Fertilizable {
         super(settings);
     }
 
-    @Override
-    protected MapCodec<MordorPlant> getCodec() {
-        return CODEC;
-    }
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
