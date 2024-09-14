@@ -175,6 +175,11 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
             }
             else if(itemStack.isOf(Items.BRUSH)) {
                 this.setBrushedBeard(true);
+                return ActionResult.SUCCESS;
+            }
+            else if(itemStack.isOf(Items.SHEARS)) {
+                this.setBrushedBeard(false);
+                return ActionResult.SUCCESS;
             }
         }
 
