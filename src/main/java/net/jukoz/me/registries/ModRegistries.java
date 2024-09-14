@@ -6,11 +6,13 @@ import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.*;
+import net.jukoz.me.datageneration.content.models.HotMetalsModel;
 import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
 import net.jukoz.me.datageneration.content.tags.LeavesSets;
 import net.jukoz.me.datageneration.content.tags.Saplings;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
+import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.component.DataComponentTypes;
@@ -503,9 +505,32 @@ public class ModRegistries {
         return ItemActionResult.success(world.isClient);
     };
 
+    public static final CauldronBehavior COOL_DOWN_METAL = (state, world, pos, player, hand, stack) -> {
+        if (!stack.contains(ModDataComponentTypes.TEMPERATURE_DATA)) {
+            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+        if (!world.isClient) {
+            stack.remove(ModDataComponentTypes.TEMPERATURE_DATA);
+            LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
+        }
+        return ItemActionResult.success(world.isClient);
+    };
+
     public static void registerCauldronBehaviour() {
         SimpleDyeableItemModel.items.forEach(item -> {
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, CLEAN_CUSTOM_DYEABLE_ITEM);
+        });
+
+        HotMetalsModel.items.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
+        });
+
+        HotMetalsModel.ingots.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
+        });
+
+        HotMetalsModel.nuggets.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
         });
     }
 }
