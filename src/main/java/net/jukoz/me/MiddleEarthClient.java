@@ -187,6 +187,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         SimpleDyeableItemModel.items.forEach(this::registerDyeableItem);
 
         registerDyeableItem(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
+        registerDyeableItem(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
 
         // Animals
         EntityRendererRegistry.register(ModEntities.CRAB, CrabRenderer::new);

@@ -63,7 +63,7 @@ public class BroadhoofGoatModel extends SinglePartEntityModel<BroadhoofGoatEntit
 
         ModelPartData wild_beard = head.addChild("wild_beard", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 2.0F, -4.0F));
 
-        ModelPartData wild_beard_r1 = wild_beard.addChild("wild_beard_r1", ModelPartBuilder.create().uv(3, 47).mirrored().cuboid(0.0F, -5.0F, -2.0F, 0.0F, 11.0F, 6.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(0.0F, 0.0F, 0.0F, 2.9232F, 0.0F, 3.1321F));
+        ModelPartData wild_beard_r1 = wild_beard.addChild("wild_beard_r1", ModelPartBuilder.create().uv(3, 47).mirrored().cuboid(0.0F, -5.0F, -2.0F, 0.0F, 11.0F, 6.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 2.9232F, 0.0F, 3.1321F));
 
         ModelPartData brushed_beard = head.addChild("brushed_beard", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, -7.0F));
 
