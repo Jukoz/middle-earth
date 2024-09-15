@@ -73,11 +73,10 @@ public class ThickLadderBlock extends WallMountedBlock implements Waterloggable 
         Direction[] var2 = ctx.getPlacementDirections();
         int var3 = var2.length;
 
-
         for (Direction direction : var2) {
             BlockState blockState;
             if (direction.getAxis() == Direction.Axis.Y) {
-                if(Objects.requireNonNull(ctx.getPlayer()).isSneaking()){
+                if(!Objects.requireNonNull(ctx.getPlayer()).isSneaking()){
                     blockState = (BlockState) ((BlockState) this.getDefaultState().with(FACE, BlockFace.WALL)).with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);;
                 } else {
                     blockState = (BlockState) ((BlockState) this.getDefaultState().with(FACE, direction == Direction.UP ? BlockFace.CEILING : BlockFace.FLOOR)).with(FACING, ctx.getHorizontalPlayerFacing()).with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);;
