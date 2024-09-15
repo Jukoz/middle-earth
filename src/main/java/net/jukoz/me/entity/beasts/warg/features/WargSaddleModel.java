@@ -8,6 +8,7 @@ import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 
 public class WargSaddleModel extends SinglePartEntityModel<WargEntity> {
     private final ModelPart warg;
@@ -51,7 +52,7 @@ public class WargSaddleModel extends SinglePartEntityModel<WargEntity> {
     public void setAngles(WargEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
 
-        if((entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting()) || (entity.isAttacking() && !entity.hasControllingPassenger())) {
+        if((entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting()) || entity.isRunning()) {
             this.animateMovement(WargAnimations.RUN, limbAngle, limbDistance, 1.2f, 1.2f);
         }
         else {

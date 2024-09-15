@@ -482,11 +482,11 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleLayersModel.Layers block : SimpleLayersModel.layers) {
-            registerLayers(blockStateModelGenerator, block.layers(), block.origin());
+            registerLayers(blockStateModelGenerator, block.layers(), block.origin(), false);
         }
 
         for (SimpleLayersModel.Layers block : SimpleLayersModel.vanillaLayers) {
-            registerLayers(blockStateModelGenerator, block.layers(), block.origin());
+            registerLayers(blockStateModelGenerator, block.layers(), block.origin(), true);
         }
 
         for(SimplePaneModel.Pane pane : SimplePaneModel.panes){
@@ -1024,8 +1024,7 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.blockStateCollector.accept(MultipartBlockStateSupplier.create(pane).with(BlockStateVariant.create().put(VariantSettings.MODEL, identifier)).with(When.create().set(Properties.NORTH, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier2)).with(When.create().set(Properties.EAST, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier2).put(VariantSettings.Y, VariantSettings.Rotation.R90)).with(When.create().set(Properties.SOUTH, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier3)).with(When.create().set(Properties.WEST, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier3).put(VariantSettings.Y, VariantSettings.Rotation.R90)).with(When.create().set(Properties.NORTH, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier4)).with(When.create().set(Properties.EAST, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier5)).with(When.create().set(Properties.SOUTH, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier5).put(VariantSettings.Y, VariantSettings.Rotation.R90)).with(When.create().set(Properties.WEST, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier4).put(VariantSettings.Y, VariantSettings.Rotation.R270)));
     }
 
-    private void registerLayers(BlockStateModelGenerator blockStateModelGenerator, Block layers, Block origin) {
-        TextureMap textureMap = TextureMap.all(Identifier.of("minecraft", Registries.BLOCK.getId(layers).getPath().replaceAll("_layers", "")));
+    private void registerLayers(BlockStateModelGenerator blockStateModelGenerator, Block layers, Block origin, Boolean isVanilla) {
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(layers).coordinate(BlockStateVariantMap.create(Properties.LAYERS).register((height) -> {
             BlockStateVariant var10000 = BlockStateVariant.create();
             VariantSetting var10001 = VariantSettings.MODEL;
@@ -1034,8 +1033,10 @@ public class ModelProvider extends FabricModelProvider {
                 Block var10002 = layers;
                 int var10003 = height;
                 var2 = ModelIds.getBlockSubModelId(var10002, "_height" + var10003 * 2);
-            } else {
+            } else if (isVanilla) {
                 var2 = Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(origin).getPath());
+            } else {
+                var2 = Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath());
             }
             return var10000.put(var10001, var2);
         })));

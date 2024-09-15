@@ -297,6 +297,8 @@
   "item.me.erebor_noble_dagger": "Erebor Noble Dagger",
   "item.me.erebor_axe": "Erebor Axe",
   "item.me.erebor_noble_axe": "Erebor Noble Axe",
+  "item.me.erebor_spear": "Erebor Spear",
+  "item.me.erebor_noble_spear": "Erebor Noble Spear",
 
 "#Comment:": "Item - Gondor",
   "item.me.gondorian_sword": "Gondorian Sword",
@@ -708,6 +710,9 @@
   "item.me.steel_troll_armor": "Steel Troll Armor",
   "item.me.warg_leather_armor": "Warg Leather Armor",
   "item.me.warg_plate_armor": "Warg Plate Armor",
+  "item.me.broadhoof_goat_padded_armor": "Broadhoof Goat Padded Armor",
+  "item.me.broadhoof_goat_ornamented_padded_armor": "Broadhoof Goat Ornamented Padded Armor",
+  "item.me.broadhoof_goat_plate_armor": "Broadhoof Goat Plate Armor",
 
 "#Comment:": "Shields",
   "item.me.round_shield": "Round Shield",
@@ -732,7 +737,13 @@
   "item.me.gondorian_knight_shield": "Gondorian Knight Shield",
   "item.me.gondorian_ornamented_knight_shield": "Gondorian Ornamented Knight Shield",
 
-  "item.me.longbeard_shield": "Longbeard Shield",
+  "item.me.erebor_shield": "Erebor Shield",
+  "item.me.erebor_cross_shield": "Erebor Cross Shield",
+  "item.me.erebor_plated_shield": "Erebor Plated Shield",
+  "item.me.erebor_ornamented_shield": "Erebor Ornamented Shield",
+  "item.me.erebor_reinforced_shield": "Erebor Reinforced Shield",
+
+  "item.me.erebor_heavy_shield": "Erebor Heavy Shield",
 
   "item.me.lorien_shield": "Lórien Shield",
   "item.me.lorien_laurels_shield": "Lórien Laurels Shield",
@@ -829,6 +840,7 @@
   "item.me.barrow_wight_spawn_egg": "Barrow Wight Spawn Egg",
   "item.me.nazgul_spawn_egg": "Nazgûl Spawn Egg",
 
+  "item.me.broadhoof_goat_spawn_egg": "Broadhoof Goat Spawn Egg",
   "item.me.warg_spawn_egg": "Warg Spawn Egg",
   "item.me.stone_troll_spawn_egg": "Stone Troll Spawn Egg",
   "item.me.cave_troll_spawn_egg": "Cave Troll Spawn Egg",
@@ -907,6 +919,7 @@
   "item.me.lit_pinecone": "Lit Pinecone",
 
 "#Comment:": "ENTITIES",
+  "entity.me.broadhoof_goat": "Broadhoof Goat",
   "entity.me.warg": "Warg",
   "entity.me.cave_troll": "Cave Troll",
   "entity.me.snow_troll": "Snow Troll",
@@ -1111,7 +1124,7 @@
   "block.me.cracked_smooth_stone_wall": "Cracked Smooth Stone Wall",
 
   "block.me.chiseled_stone": "Chiseled Stone",
-  "block.me.chiseled_polished_stone": "Chiseled Polsihed Stone",
+  "block.me.chiseled_polished_stone": "Chiseled Polished Stone",
   "block.me.chiseled_stone_tiles": "Chiseled Stone Tiles",
 
   "block.me.stone_stool": "Stone Stool",
@@ -1839,7 +1852,6 @@
   "block.me.old_galonn_vertical_slab": "Old Galonn Vertical Slab",
   "block.me.old_galonn_stairs": "Old Galonn Stairs",
   "block.me.old_galonn_wall": "Old Galonn Wall",
-
 
   "block.me.smooth_galonn": "Smooth Galonn",
   "block.me.smooth_galonn_slab": "Smooth Galonn Slab",
