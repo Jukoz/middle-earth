@@ -26,8 +26,10 @@ public class LargeThickDoor3x2 extends LargeDoorBlock {
     protected static final VoxelShape EAST_SHAPE = Block.createCuboidShape(8, 0, 0, 16, 16, 16);
     protected static final VoxelShape WEST_SHAPE = Block.createCuboidShape(0, 0, 0, 8, 16, 16);
 
-    public LargeThickDoor3x2(int height, int width, Settings settings) {
-        super(height, width, settings);
+    public LargeThickDoor3x2(Settings settings) {
+        super(settings);
+        this.doorHeight = 3;
+        this.doorWidth  = 2;
     }
 
     @Override
