@@ -107,9 +107,6 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(9, new LookAroundGoal(this));
-        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
-        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity) this));
-        this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
     }
 
     @Override
