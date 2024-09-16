@@ -172,6 +172,9 @@ public class ModResourceItems {
     public static final Item SWORD_HILT = registerItem("sword_hilt",
             new SmithingMaterialItem(new Item.Settings().maxCount(16)));
 
+    public static final Item DWARVEN_KEY = registerItem("dwarven_key",
+            new Item(new Item.Settings().maxCount(1)));
+
     public static final Item GONDOR_BANNER_PATTERN = registerItem("gondor_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.GONDOR_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item ROHAN_BANNER_PATTERN = registerItem("rohan_banner_pattern",

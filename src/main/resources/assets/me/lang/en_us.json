@@ -727,6 +727,9 @@
   "item.me.steel_troll_armor": "Steel Troll Armor",
   "item.me.warg_leather_armor": "Warg Leather Armor",
   "item.me.warg_plate_armor": "Warg Plate Armor",
+  "item.me.broadhoof_goat_padded_armor": "Broadhoof Goat Padded Armor",
+  "item.me.broadhoof_goat_ornamented_padded_armor": "Broadhoof Goat Ornamented Padded Armor",
+  "item.me.broadhoof_goat_plate_armor": "Broadhoof Goat Plate Armor",
 
 "#Comment:": "Shields",
   "item.me.round_shield": "Round Shield",
@@ -833,6 +836,8 @@
   "item.me.copper_coin": "Copper Coin",
   "item.me.silver_coin": "Silver Coin",
 
+  "item.me.dwarven_key": "Dwarven Key",
+
 "#Comment:": "Item - Seeds",
   "item.me.tomato_seeds": "Tomato Seeds",
   "item.me.bell_pepper_seeds": "Bell Pepper Seeds",
@@ -852,6 +857,7 @@
   "item.me.barrow_wight_spawn_egg": "Barrow Wight Spawn Egg",
   "item.me.nazgul_spawn_egg": "Nazgûl Spawn Egg",
 
+  "item.me.broadhoof_goat_spawn_egg": "Broadhoof Goat Spawn Egg",
   "item.me.warg_spawn_egg": "Warg Spawn Egg",
   "item.me.stone_troll_spawn_egg": "Stone Troll Spawn Egg",
   "item.me.cave_troll_spawn_egg": "Cave Troll Spawn Egg",
@@ -930,6 +936,7 @@
   "item.me.lit_pinecone": "Lit Pinecone",
 
 "#Comment:": "ENTITIES",
+  "entity.me.broadhoof_goat": "Broadhoof Goat",
   "entity.me.warg": "Warg",
   "entity.me.cave_troll": "Cave Troll",
   "entity.me.snow_troll": "Snow Troll",
@@ -1020,6 +1027,7 @@
   "block.me.basalt_trapdoor": "Basalt Trapdoor",
   "block.me.blackstone_trapdoor": "Blackstone Trapdoor",
   "block.me.old_podzol": "Old Podzol",
+  "block.me.lorien_podzol": "Lorien Podzol",
   "block.me.stone_mycelium": "Stone Mycelium",
   "block.me.ash_block": "Ash Block",
 
@@ -4882,6 +4890,7 @@
 
   "block.me.great_dwarven_gate": "Great Dwarven Gate",
   "block.me.varnished_dwarven_door": "Varnished Dwarven Door",
+  "block.me.hidden_dwarven_door": "Hidden Dwarven Door",
 
   "block.me.great_elven_gate": "Great Elven Gate",
 

@@ -30,7 +30,6 @@ public class WargArmorFeatureRenderer extends FeatureRenderer<WargEntity, WargMo
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, WargEntity wargEntity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-
         ItemStack itemStack = wargEntity.getBodyArmor();
         Item item = itemStack.getItem();
         if(item instanceof CustomAnimalArmorItem animalArmorItem) {

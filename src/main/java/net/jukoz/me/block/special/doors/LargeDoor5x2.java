@@ -6,8 +6,10 @@ import net.minecraft.state.property.IntProperty;
 public class LargeDoor5x2 extends LargeDoorBlock {
     public static final IntProperty PART = IntProperty.of("part", 0, 9);
 
-    public LargeDoor5x2(int height, int width, Settings settings) {
-        super(height, width, settings);
+    public LargeDoor5x2(Settings settings) {
+        super(settings);
+        this.doorHeight = 5;
+        this.doorWidth  = 2;
     }
 
     @Override

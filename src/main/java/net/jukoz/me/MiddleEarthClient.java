@@ -25,6 +25,7 @@ import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.content.tags.Crops;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntityRenderer;
+import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatRenderer;
 import net.jukoz.me.entity.beasts.trolls.petrified.PetrifiedTrollRenderer;
 import net.jukoz.me.entity.beasts.trolls.stone.StoneTrollRenderer;
 import net.jukoz.me.entity.beasts.warg.WargRenderer;
@@ -167,6 +168,8 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(ModEntities.NAZGUL, NazgulRenderer::new);
 
+        EntityRendererRegistry.register(ModEntities.BROADHOOF_GOAT, BroadhoofGoatRenderer::new);
+
         EntityRendererRegistry.register(ModEntities.WARG, WargRenderer::new);
         EntityRendererRegistry.register(ModEntities.MIRKWOOD_SPIDER, MirkwoodSpiderRenderer::new);
         EntityRendererRegistry.register(ModEntities.SNOW_TROLL, SnowTrollRenderer::new);
@@ -184,6 +187,9 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
 
         SimpleDyeableItemModel.items.forEach(this::registerDyeableItem);
+
+        registerDyeableItem(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
+        registerDyeableItem(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
 
         // Animals
         EntityRendererRegistry.register(ModEntities.CRAB, CrabRenderer::new);

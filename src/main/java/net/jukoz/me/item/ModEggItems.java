@@ -117,6 +117,9 @@ public class ModEggItems {
     public static final Item BARROW_WIGHT_SPAWN_EGG = registerItem("barrow_wight_spawn_egg",
             new SpawnEggItem(ModEntities.BARROW_WIGHT, 1852734, 2456136, new Item.Settings()));
 
+    public static final Item BROADHOOF_GOAT_SPAWN_EGG = registerItem("broadhoof_goat_spawn_egg",
+            new SpawnEggItem(ModEntities.BROADHOOF_GOAT, 7367010, 1381137, new Item.Settings()));
+
     public static final Item WARG_SPAWN_EGG = registerItem("warg_spawn_egg",
             new SpawnEggItem(ModEntities.WARG, 3812644, 14931405, new Item.Settings()));
 

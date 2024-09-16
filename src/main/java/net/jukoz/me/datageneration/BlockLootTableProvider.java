@@ -2,10 +2,9 @@ package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.jukoz.me.block.ModBlocks;
-import net.jukoz.me.block.ModNatureBlocks;
-import net.jukoz.me.block.OreRockSets;
-import net.jukoz.me.block.StoneBlockSets;
+import net.jukoz.me.block.*;
+import net.jukoz.me.block.special.LargeDoorBlock;
+import net.jukoz.me.block.special.doors.LargeDoor4x2;
 import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.datageneration.content.loot_tables.CropDrops;
 import net.jukoz.me.datageneration.content.loot_tables.LeavesDrops;
@@ -19,17 +18,15 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.condition.MatchToolLootCondition;
-import net.minecraft.loot.condition.RandomChanceLootCondition;
+import net.minecraft.loot.condition.*;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.predicate.NumberRange;
+import net.minecraft.predicate.StatePredicate;
 import net.minecraft.predicate.item.EnchantmentPredicate;
 import net.minecraft.predicate.item.EnchantmentsPredicate;
 import net.minecraft.predicate.item.ItemSubPredicateTypes;
 import net.minecraft.registry.Registries;
-import net.minecraft.loot.condition.TableBonusLootCondition;
 import net.minecraft.loot.entry.LeafEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
@@ -37,6 +34,8 @@ import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Property;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -151,6 +150,20 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         }
 
         cobbleDrops(ModBlocks.STONE_MYCELIUM, Blocks.COBBLESTONE);
+
+        largeDoorDrop(ModDecorativeBlocks.LARCH_HOBBIT_DOOR);
+        largeDoorDrop(ModDecorativeBlocks.SPRUCE_HOBBIT_DOOR);
+        largeDoorDrop(ModDecorativeBlocks.BLUE_HOBBIT_DOOR);
+        largeDoorDrop(ModDecorativeBlocks.GREEN_HOBBIT_DOOR);
+        largeDoorDrop(ModDecorativeBlocks.RED_HOBBIT_DOOR);
+        largeDoorDrop(ModDecorativeBlocks.YELLOW_HOBBIT_DOOR);
+        largeDoorDrop(ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR);
+        largeDoorDrop(ModDecorativeBlocks.GREAT_GONDORIAN_GATE);
+        largeDoorDrop(ModDecorativeBlocks.GREAT_DWARVEN_GATE);
+        largeDoorDrop(ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR);
+        largeDoorDrop(ModDecorativeBlocks.HIDDEN_DWARVEN_DOOR);
+        largeDoorDrop(ModDecorativeBlocks.GREAT_ELVEN_GATE);
+        largeDoorDrop(ModDecorativeBlocks.GREAT_ORCISH_GATE);
     }
 
     public void cobbleDrops(Block stoneBlock, Block cobbledBlock){
@@ -171,6 +184,10 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                                 .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().subPredicate(ItemSubPredicateTypes.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(enchantmentRegistry.getOrThrow(Enchantments.SILK_TOUCH), NumberRange.IntRange.atLeast(1)))))).invert())
                                 .rolls(ConstantLootNumberProvider.create(1.0F))
                                 .with(ItemEntry.builder(cobbledBlock))));
+    }
+
+    public void largeDoorDrop(Block doorblock){
+        addDrop(doorblock, LootTable.builder().pool((LootPool.Builder)this.addSurvivesExplosionCondition(doorblock, LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).with(ItemEntry.builder(doorblock).conditionally(BlockStatePropertyLootCondition.builder(doorblock).properties(net.minecraft.predicate.StatePredicate.Builder.create().exactMatch(LargeDoorBlock.PART, 0)))))));
     }
 
     public LootTable.Builder leavesDrops(Block leaves, Block drop, float ... chance) {

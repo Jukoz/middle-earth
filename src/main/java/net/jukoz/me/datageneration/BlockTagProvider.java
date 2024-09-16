@@ -325,6 +325,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableShovel.add(ModBlocks.COBBLY_DIRT_SLAB);
         mineableShovel.add(ModBlocks.COBBLY_DIRT_STAIRS);
 
+        mineableShovel.add(ModNatureBlocks.LORIEN_PODZOL);
+
         mineableHoe.add(ModBlocks.REED_BLOCK);
         mineableHoe.add(ModBlocks.REED_SLAB);
         mineableHoe.add(ModBlocks.REED_VERTICAL_SLAB);
