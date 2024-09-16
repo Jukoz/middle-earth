@@ -307,11 +307,22 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
                 }
             }
 
-            if (entity.getStack(OUTPUT_SLOT).isEmpty() || entity.getStack(OUTPUT_SLOT).isOf(itemstack.getItem())){
-                if(packet.getAmount() <= entity.storage){
+            if (entity.getStack(OUTPUT_SLOT).isOf(itemstack.getItem())){
+                if (entity.getStack(OUTPUT_SLOT).get(DataComponentTypes.TRIM) == itemstack.get(DataComponentTypes.TRIM)) {
+                    if (packet.getAmount() <= entity.storage) {
+                        itemstack.setCount(entity.getStack(OUTPUT_SLOT).getCount() + 1);
+                        entity.storage = entity.storage - packet.getAmount();
+                        if (entity.storage == 0) {
+                            entity.currentMetal = MetalTypes.EMPTY;
+                        }
+                        entity.setStack(OUTPUT_SLOT, itemstack);
+                    }
+                }
+            } else if(entity.getStack(OUTPUT_SLOT).isEmpty()){
+                if (packet.getAmount() <= entity.storage) {
                     itemstack.setCount(entity.getStack(OUTPUT_SLOT).getCount() + 1);
                     entity.storage = entity.storage - packet.getAmount();
-                    if (entity.storage == 0){
+                    if (entity.storage == 0) {
                         entity.currentMetal = MetalTypes.EMPTY;
                     }
                     entity.setStack(OUTPUT_SLOT, itemstack);

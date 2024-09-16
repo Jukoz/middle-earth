@@ -92,11 +92,23 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
     @Override
     protected void handledScreenTick() {
         super.handledScreenTick();
-        if(handler.checkMaxOutput() >= 1 && outputMode ==0){
+        if(handler.checkMaxOutput() == 4 && outputMode >= 4){
+            outputMode = 4;
+        }
+        if(handler.checkMaxOutput() == 3 && outputMode >= 3){
+            outputMode = 3;
+        }
+        if(handler.checkMaxOutput() == 2 && outputMode >= 2){
+            outputMode = 2;
+        }
+        if(handler.checkMaxOutput() == 1 && outputMode >= 1){
             outputMode = 1;
         }
         if(handler.checkMaxOutput() == 0 && outputMode >= 1){
             outputMode = 0;
+        }
+        if(handler.checkMaxOutput() >= 1 && outputMode ==0){
+            outputMode = 1;
         }
         if(handler.checkMaxOutput() <= 1){
             this.leftExtractCycleButton.visible = false;
