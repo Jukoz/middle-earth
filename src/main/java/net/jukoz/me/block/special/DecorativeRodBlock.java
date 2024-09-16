@@ -19,7 +19,7 @@ public class DecorativeRodBlock extends RodBlock implements Waterloggable {
 
     public DecorativeRodBlock(Settings settings) {
         super(settings);
-        this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(FACING, Direction.UP));
+        this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(FACING, Direction.UP).with(WATERLOGGED, false));
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {

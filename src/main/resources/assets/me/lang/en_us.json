@@ -819,6 +819,8 @@
   "item.me.copper_coin": "Copper Coin",
   "item.me.silver_coin": "Silver Coin",
 
+  "item.me.dwarven_key": "Dwarven Key",
+
 "#Comment:": "Item - Seeds",
   "item.me.tomato_seeds": "Tomato Seeds",
   "item.me.bell_pepper_seeds": "Bell Pepper Seeds",
@@ -1008,6 +1010,7 @@
   "block.me.basalt_trapdoor": "Basalt Trapdoor",
   "block.me.blackstone_trapdoor": "Blackstone Trapdoor",
   "block.me.old_podzol": "Old Podzol",
+  "block.me.lorien_podzol": "Lorien Podzol",
   "block.me.stone_mycelium": "Stone Mycelium",
   "block.me.ash_block": "Ash Block",
 
@@ -4868,6 +4871,7 @@
 
   "block.me.great_dwarven_gate": "Great Dwarven Gate",
   "block.me.varnished_dwarven_door": "Varnished Dwarven Door",
+  "block.me.hidden_dwarven_door": "Hidden Dwarven Door",
 
   "block.me.great_elven_gate": "Great Elven Gate",
 

@@ -40,8 +40,11 @@ public class StatueBlock extends Block {
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        return (BlockState)((BlockState)this.getDefaultState().with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(HALF, DoubleBlockHalf.LOWER));
+        if(ctx.getWorld().getBlockState(ctx.getBlockPos().up()).canReplace(ctx)){
+            return (BlockState)((BlockState)this.getDefaultState().with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(HALF, DoubleBlockHalf.LOWER));
+        } else {
+            return null;
+        }
     }
 
     @Override
