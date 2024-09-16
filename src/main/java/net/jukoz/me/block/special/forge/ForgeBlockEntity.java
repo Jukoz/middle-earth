@@ -146,6 +146,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         nbt.putInt(ID + ".max-fuel-time", maxFuelTime);
         nbt.putInt(ID + ".mode", mode);
         nbt.putInt(ID + ".storage", storage);
+        nbt.putString(ID + ".current-metal", currentMetal.name);
     }
 
     @Override
@@ -158,6 +159,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         maxFuelTime = nbt.getInt(ID + ".max-fuel-time");
         mode = nbt.getInt(ID + ".mode");
         storage = nbt.getInt(ID + ".storage");
+        currentMetal = MetalTypes.valueOf(nbt.getString(ID + ".current-metal").toUpperCase());
     }
 
     public ItemStack getRenderStack() {
@@ -306,11 +308,15 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
             }
 
             if (entity.getStack(OUTPUT_SLOT).isEmpty() || entity.getStack(OUTPUT_SLOT).isOf(itemstack.getItem())){
-                itemstack.setCount(entity.getStack(OUTPUT_SLOT).getCount() + 1);
-                entity.storage = entity.storage - packet.getAmount();
-                entity.setStack(OUTPUT_SLOT, itemstack);
+                if(packet.getAmount() <= entity.storage){
+                    itemstack.setCount(entity.getStack(OUTPUT_SLOT).getCount() + 1);
+                    entity.storage = entity.storage - packet.getAmount();
+                    if (entity.storage == 0){
+                        entity.currentMetal = MetalTypes.EMPTY;
+                    }
+                    entity.setStack(OUTPUT_SLOT, itemstack);
+                }
             }
-
         }
     }
 
@@ -383,8 +389,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         if(match.isEmpty()) return false;
 
         return canInsertAmountIntoOutput(inventory1, match.get().value().output.getCount())
-                && canInsertRecipeIntoOutput(inventory1, match.get().value().output.getItem())
-                && canInsertLiquid(entity.storage, match);
+                && canInsertLiquid(entity.storage, entity.currentMetal, match);
     }
 
     private boolean hasFuel(ForgeBlockEntity entity) {
@@ -420,14 +425,16 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         int newCount = inventory1.getStack(OUTPUT_SLOT).getCount() + (count- 1);
         return maxCount > newCount;
     }
-    private static boolean canInsertRecipeIntoOutput(SimpleInventory inventory1, Item item) {
-        boolean sameItem = inventory1.getStack(OUTPUT_SLOT).getItem() == item;
-        boolean isEmpty = inventory1.getStack(OUTPUT_SLOT).isEmpty();
-        return sameItem || isEmpty;
-    }
 
-    private static boolean canInsertLiquid(int storage, Optional<RecipeEntry<AlloyingRecipe>> match ) {
-        return (storage + match.get().value().output.getCount() * 144) <= MAX_STORAGE;
+    private static boolean canInsertLiquid(int storage, MetalTypes currentMetal, Optional<RecipeEntry<AlloyingRecipe>> match) {
+        MetalTypes metal = MetalTypes.valueOf(Registries.ITEM.getId(match.get().value().output.getItem()).getPath().replaceAll("_ingot", "").toUpperCase());
+        if((storage + match.get().value().output.getCount() * 144) <= MAX_STORAGE){
+            if(metal == currentMetal){
+                return true;
+            } else return currentMetal == MetalTypes.EMPTY;
+        } else {
+            return false;
+        }
     }
 
     public enum MetalTypes implements StringIdentifiable {
