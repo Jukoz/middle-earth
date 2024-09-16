@@ -84,7 +84,7 @@ public class ThickLadderBlock extends WallMountedBlock implements Waterloggable 
                 if(!Objects.requireNonNull(ctx.getPlayer()).isSneaking()) {
                     blockState = (BlockState) ((BlockState) this.getDefaultState().with(FACE, BlockFace.WALL)).with(FACING, direction.getOpposite()).with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);;
                 } else {
-                    blockState = (BlockState) ((BlockState) this.getDefaultState().with(FACE, BlockFace.FLOOR)).with(FACING, direction.getOpposite()).with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);;
+                    blockState = (BlockState) ((BlockState) this.getDefaultState().with(FACE, (ctx.getHitPos().y - (double)ctx.getBlockPos().getY() > 0.5) ? BlockFace.CEILING : BlockFace.FLOOR)).with(FACING, direction.getOpposite()).with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);;
                 }
             }
             if (blockState.canPlaceAt(ctx.getWorld(), ctx.getBlockPos())) {
