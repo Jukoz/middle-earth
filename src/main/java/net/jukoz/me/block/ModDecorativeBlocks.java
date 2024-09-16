@@ -17,7 +17,6 @@ import net.jukoz.me.block.special.wood_pile.WoodPileBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
-import net.minecraft.block.RodBlock;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
@@ -82,9 +81,48 @@ public class ModDecorativeBlocks {
     public static final Block DARK_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("dark_wattle_framed_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
+    public static final Block BLACK_WATTLE_FRAMED_WINDOW = registerBlockWithItem("black_wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block BLACK_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("black_wattle_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block GREEN_WATTLE_FRAMED_WINDOW = registerBlockWithItem("green_wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block GREEN_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("green_wattle_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block RED_WATTLE_FRAMED_WINDOW = registerBlockWithItem("red_wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block RED_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("red_wattle_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block WHITE_WATTLE_FRAMED_WINDOW = registerBlockWithItem("white_wattle_framed_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block WHITE_WATTLE_FRAMED_WINDOW_PANE = registerBlockWithItem("white_wattle_framed_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block GONLUIN_CARVED_WINDOW = registerBlockWithItem("gonluin_carved_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block GONLUIN_CARVED_WINDOW_PANE = registerBlockWithItem("gonluin_carved_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
     public static final Block MEDGON_CARVED_WINDOW = registerBlockWithItem("medgon_carved_window",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
     public static final Block MEDGON_CARVED_WINDOW_PANE = registerBlockWithItem("medgon_carved_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block MUD_BRICK_ROUND_WINDOW = registerBlockWithItem("mud_brick_round_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block MUD_BRICK_ROUND_WINDOW_PANE = registerBlockWithItem("mud_brick_round_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block WHITE_DAUB_ROUND_WINDOW = registerBlockWithItem("white_daub_round_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block WHITE_DAUB_ROUND_WINDOW_PANE = registerBlockWithItem("white_daub_round_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+    public static final Block YELLOW_DAUB_ROUND_WINDOW = registerBlockWithItem("yellow_daub_round_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block YELLOW_DAUB_ROUND_WINDOW_PANE = registerBlockWithItem("yellow_daub_round_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
     public static final Block WHITE_DAUB_HOBBIT_WINDOW = registerBlockWithItem("white_daub_hobbit_window",
@@ -392,61 +430,63 @@ public class ModDecorativeBlocks {
             new DwarvenGroundBookBlock(AbstractBlock.Settings.create().breakInstantly().nonOpaque().noCollision()));
 
     public static final Block OAK_LADDER = registerBlockWithItem("oak_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).burnable()));
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.OAK_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
     public static final Block SPRUCE_LADDER = registerBlockWithItem("spruce_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_SLAB).burnable()));
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.SPRUCE_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
     public static final Block BIRCH_LADDER = registerBlockWithItem("birch_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.BIRCH_SLAB).burnable()));
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.BIRCH_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
     public static final Block JUNGLE_LADDER = registerBlockWithItem("jungle_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.JUNGLE_SLAB).burnable()));
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.JUNGLE_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
     public static final Block ACACIA_LADDER = registerBlockWithItem("acacia_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.ACACIA_SLAB).burnable()));
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.ACACIA_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
     public static final Block DARK_OAK_LADDER = registerBlockWithItem("dark_oak_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.DARK_OAK_SLAB).burnable()));
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.DARK_OAK_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
     public static final Block MANGROVE_LADDER = registerBlockWithItem("mangrove_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.MANGROVE_SLAB).burnable()));
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.MANGROVE_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
     public static final Block CHERRY_LADDER = registerBlockWithItem("cherry_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.CHERRY_SLAB).burnable()));
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.CHERRY_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
     public static final Block BAMBOO_LADDER = registerBlockWithItem("bamboo_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO_SLAB).burnable()));
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO_SLAB).sounds(BlockSoundGroup.WOOL).burnable()));
     public static final Block CRIMSON_LADDER = registerBlockWithItem("crimson_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.CRIMSON_SLAB).burnable()));
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.CRIMSON_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
     public static final Block WARPED_LADDER = registerBlockWithItem("warped_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).burnable()));
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WARPED_SLAB).sounds(BlockSoundGroup.LADDER).burnable()));
 
     public static final Block ROPE_LADDER = registerBlockWithItem("rope_ladder",
-            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).burnable()));
+            new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL).burnable()));
 
     public static final Block LARCH_HOBBIT_DOOR = registerDoorBlock("larch_hobbit_door",
-            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final Block SPRUCE_HOBBIT_DOOR = registerDoorBlock("spruce_hobbit_door",
-            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
 
     public static final Block BLUE_HOBBIT_DOOR = registerDoorBlock("blue_hobbit_door",
-            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final Block GREEN_HOBBIT_DOOR = registerDoorBlock("green_hobbit_door",
-            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final Block RED_HOBBIT_DOOR = registerDoorBlock("red_hobbit_door",
-            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final Block YELLOW_HOBBIT_DOOR = registerDoorBlock("yellow_hobbit_door",
-            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
 
     public static final Block REINFORCED_SPRUCE_DOOR = registerDoorBlock("reinforced_spruce_door",
-            new LargeDoor4x2(4,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            new LargeDoor4x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
 
     public static final Block GREAT_GONDORIAN_GATE = registerDoorBlock("great_gondorian_gate",
-            new LargeDoor10x5(10,5, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+            new LargeDoor10x5(AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
 
     public static final Block GREAT_DWARVEN_GATE = registerDoorBlock("great_dwarven_gate",
-            new LargeDoor5x2(5,2, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+            new LargeDoor5x2(AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
     public static final Block VARNISHED_DWARVEN_DOOR = registerDoorBlock("varnished_dwarven_door",
-            new LargeDoor4x2(4,2, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+            new LargeDoor4x2(AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+    public static final Block HIDDEN_DWARVEN_DOOR = registerDoorBlock("hidden_dwarven_door",
+            new LargeThickDoor3x2(AbstractBlock.Settings.copy(Blocks.STONE)));
 
     public static final Block GREAT_ELVEN_GATE = registerDoorBlock("great_elven_gate",
-            new LargeDoor6x2(6,2, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+            new LargeDoor6x2(AbstractBlock.Settings.copy(Blocks.OAK_DOOR)));
 
     public static final Block GREAT_ORCISH_GATE = registerDoorBlock("great_orcish_gate",
-            new LargeDoor10x4(10,4, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+            new LargeDoor10x4(AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
 
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);

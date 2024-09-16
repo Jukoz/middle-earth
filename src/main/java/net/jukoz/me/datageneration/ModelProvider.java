@@ -8,7 +8,8 @@ import net.jukoz.me.block.*;
 import net.jukoz.me.block.crop.*;
 import net.jukoz.me.block.special.doors.*;
 import net.jukoz.me.block.special.LargeDoorBlock;
-import net.jukoz.me.block.special.VerticalSlabBlock;
+import net.jukoz.me.block.special.verticalSlabs.VerticalSlabBlock;
+import net.jukoz.me.block.special.verticalSlabs.VerticalSlabShape;
 import net.jukoz.me.datageneration.content.CustomItemModels;
 import net.jukoz.me.datageneration.content.MEModels;
 import net.jukoz.me.datageneration.content.models.*;
@@ -382,13 +383,13 @@ public class ModelProvider extends FabricModelProvider {
             TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
             Block fenceGate = block.fenceGate();
 
-            Identifier open = Models.TEMPLATE_CUSTOM_FENCE_GATE_OPEN.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
-            Identifier closed = Models.TEMPLATE_CUSTOM_FENCE_GATE.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
-            Identifier openWall = Models.TEMPLATE_CUSTOM_FENCE_GATE_WALL_OPEN.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
-            Identifier closedWall = Models.TEMPLATE_CUSTOM_FENCE_GATE_WALL.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier open = Models.TEMPLATE_FENCE_GATE_OPEN.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier closed = Models.TEMPLATE_FENCE_GATE.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier openWall = Models.TEMPLATE_FENCE_GATE_WALL_OPEN.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Identifier closedWall = Models.TEMPLATE_FENCE_GATE_WALL.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
 
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createFenceGateBlockState(fenceGate, open, closed, openWall, closedWall, false));
+                    .createFenceGateBlockState(fenceGate, open, closed, openWall, closedWall, true));
         }
 
         for (SimpleButtonModel.Button block : SimpleButtonModel.buttons) {
@@ -421,7 +422,7 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.stoneTrapdoors) {
-            registerTrapdoor(blockStateModelGenerator, trapdoor.trapdoor());
+            registerStoneTrapdoor(blockStateModelGenerator, trapdoor.trapdoor());
         }
 
         for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.vanillaStoneTrapdoors) {
@@ -481,11 +482,11 @@ public class ModelProvider extends FabricModelProvider {
         }
 
         for (SimpleLayersModel.Layers block : SimpleLayersModel.layers) {
-            registerLayers(blockStateModelGenerator, block.layers(), block.origin());
+            registerLayers(blockStateModelGenerator, block.layers(), block.origin(), false);
         }
 
         for (SimpleLayersModel.Layers block : SimpleLayersModel.vanillaLayers) {
-            registerLayers(blockStateModelGenerator, block.layers(), block.origin());
+            registerLayers(blockStateModelGenerator, block.layers(), block.origin(), true);
         }
 
         for(SimplePaneModel.Pane pane : SimplePaneModel.panes){
@@ -667,6 +668,7 @@ public class ModelProvider extends FabricModelProvider {
 
         registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.GREAT_DWARVEN_GATE, LargeDoor5x2.PART);
         registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR, LargeDoor4x2.PART);
+        registerThickLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.HIDDEN_DWARVEN_DOOR, LargeThickDoor3x2.PART);
 
         registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.GREAT_ELVEN_GATE, LargeDoor6x2.PART);
 
@@ -707,7 +709,11 @@ public class ModelProvider extends FabricModelProvider {
         Identifier variantId = MEModels.VERTICAL_SLAB.upload(block,
                 TextureMap.of(TextureKey.ALL,Identifier.of("minecraft","block/" + slabPath)),
                 blockStateModelGenerator.modelCollector);
-        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId);
+
+        Identifier inner = MEModels.VERTICAL_SLAB_INNER.upload(block, TextureMap.of(TextureKey.ALL, Identifier.of("minecraft", "block/" + slabPath)), blockStateModelGenerator.modelCollector);
+        Identifier outer = MEModels.VERTICAL_SLAB_OUTER.upload(block, TextureMap.of(TextureKey.ALL, Identifier.of("minecraft", "block/" + slabPath)), blockStateModelGenerator.modelCollector);
+
+        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId, inner, outer);
     }
 
     public void registerVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin, String slabPath){
@@ -715,7 +721,11 @@ public class ModelProvider extends FabricModelProvider {
         Identifier variantId = MEModels.VERTICAL_SLAB.upload(block,
                 TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + slabPath)),
                 blockStateModelGenerator.modelCollector);
-        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId);
+
+        Identifier inner = MEModels.VERTICAL_SLAB_INNER.upload(block, TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + slabPath)), blockStateModelGenerator.modelCollector);
+        Identifier outer = MEModels.VERTICAL_SLAB_OUTER.upload(block, TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + slabPath)), blockStateModelGenerator.modelCollector);
+
+        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId, inner, outer);
     }
 
     public void registerColumnVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin,
@@ -730,32 +740,70 @@ public class ModelProvider extends FabricModelProvider {
                         .put(TextureKey.PARTICLE, sideTexture),
                 blockStateModelGenerator.modelCollector);
 
-        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId);
+        Identifier inner = MEModels.VERTICAL_COLUMN_SLAB_INNER.upload(block, (new TextureMap())
+                        .put(TextureKey.TOP, Identifier.of(modId, "block/" + topTexturePath))
+                        .put(TextureKey.BOTTOM, Identifier.of(modId, "block/" + bottomTexturePath))
+                        .put(TextureKey.SIDE, sideTexture)
+                        .put(TextureKey.PARTICLE, sideTexture),
+                blockStateModelGenerator.modelCollector);
+
+        Identifier outer = MEModels.VERTICAL_COLUMN_SLAB_OUTER.upload(block, (new TextureMap())
+                        .put(TextureKey.TOP, Identifier.of(modId, "block/" + topTexturePath))
+                        .put(TextureKey.BOTTOM, Identifier.of(modId, "block/" + bottomTexturePath))
+                        .put(TextureKey.SIDE, sideTexture)
+                        .put(TextureKey.PARTICLE, sideTexture),
+                blockStateModelGenerator.modelCollector);
+        registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId, inner, outer);
     }
 
-    private void registerVerticalSlab(BlockStateModelGenerator blockStateModelGenerator, Block block, Identifier full, Identifier variant) {
+    private void registerVerticalSlab(BlockStateModelGenerator blockStateModelGenerator, Block block, Identifier fullBlock, Identifier regular, Identifier inner, Identifier outer) {
         if(Registries.BLOCK.getId(block).getPath().contains("waxed_") && Registries.BLOCK.getId(block).getPath().contains("copper")){
-            full = Identifier.ofVanilla(full.getPath().replaceAll("waxed_", ""));
+            fullBlock = Identifier.ofVanilla(fullBlock.getPath().replaceAll("waxed_", ""));
         }
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block)
-                .coordinate(BlockStateVariantMap.create(Properties.HORIZONTAL_FACING, VerticalSlabBlock.DOUBLE)
-                        .register(Direction.NORTH, false, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, variant).put(VariantSettings.UVLOCK, true))
-                        .register(Direction.EAST, false, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, variant).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R90))
-                        .register(Direction.SOUTH, false, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, variant).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R180))
-                        .register(Direction.WEST, false, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, variant).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R270))
-                        .register(Direction.NORTH, true, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, full).put(VariantSettings.UVLOCK, true))
-                        .register(Direction.EAST, true, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, full).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R90))
-                        .register(Direction.SOUTH, true, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, full).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R180))
-                        .register(Direction.WEST, true, BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, full).put(VariantSettings.UVLOCK, true).put(VariantSettings.Y, VariantSettings.Rotation.R270))
-                ));
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).coordinate(BlockStateVariantMap
+                .create(Properties.HORIZONTAL_FACING, VerticalSlabBlock.DOUBLE, VerticalSlabBlock.SHAPE)
+                .register(Direction.EAST, false, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, regular).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, false, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, regular).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, false, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, regular).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, false, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, regular).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, false, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, false, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, false, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, false, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, false, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, false, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, false, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, false, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, outer).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, false, VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, false, VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH,false,  VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, false, VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, false, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, false, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, false, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, false, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, inner).put(VariantSettings.UVLOCK, true))
+
+                .register(Direction.EAST, true, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, true, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, true, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, true, VerticalSlabShape.STRAIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, true, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, true, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, true, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, true, VerticalSlabShape.OUTER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, true, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, true, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, true, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, true, VerticalSlabShape.OUTER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, true, VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, true, VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH,true,  VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, true, VerticalSlabShape.INNER_RIGHT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.EAST, true, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, true, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, true, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, true, VerticalSlabShape.INNER_LEFT, BlockStateVariant.create().put(VariantSettings.MODEL, fullBlock).put(VariantSettings.UVLOCK, true))));
+
     }
 
     public void registerWoodStoolModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block){
@@ -890,6 +938,67 @@ public class ModelProvider extends FabricModelProvider {
                 .coordinate(statesMap));
     }
 
+    public final void registerThickLargeDoor(BlockStateModelGenerator blockStateModelGenerator, LargeDoorBlock largeDoor, IntProperty part){
+        var statesMap = BlockStateVariantMap.create(Properties.HORIZONTAL_FACING, Properties.OPEN, Properties.DOOR_HINGE, part);
+        int rot = 0;
+        for (int i = 0; i < largeDoor.getDoorWidth() * largeDoor.getDoorHeight(); i++){
+            for(int k = 2; k < 6; k++){
+                rot = switch (k) {
+                    case 2 -> 0;
+                    case 3 -> 180;
+                    case 4 -> 270;
+                    case 5 -> 90;
+                    default -> rot;
+                };
+
+                statesMap.register(Direction.byId(k), false, DoorHinge.LEFT, i, BlockStateVariant.create()
+                        .put(VariantSettings.MODEL, Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_" + i))
+                        .put(VariantSettings.UVLOCK, false)
+                        .put(VariantSettings.Y, VariantSettings.Rotation.valueOf("R" + rot)));
+
+                statesMap.register(Direction.byId(k), true, DoorHinge.LEFT, i, BlockStateVariant.create()
+                        .put(VariantSettings.MODEL,Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_open_" + i))
+                        .put(VariantSettings.UVLOCK, false)
+                        .put(VariantSettings.Y, VariantSettings.Rotation.valueOf("R" + rot)));
+
+                statesMap.register(Direction.byId(k), false, DoorHinge.RIGHT, i, BlockStateVariant.create()
+                        .put(VariantSettings.MODEL, Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_" + i))
+                        .put(VariantSettings.UVLOCK, false)
+                        .put(VariantSettings.Y, VariantSettings.Rotation.valueOf("R" + rot)));
+
+                statesMap.register(Direction.byId(k), true, DoorHinge.RIGHT, i, BlockStateVariant.create()
+                        .put(VariantSettings.MODEL, Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_open_" + i))
+                        .put(VariantSettings.UVLOCK, false)
+                        .put(VariantSettings.Y, VariantSettings.Rotation.valueOf("R" + rot)));
+
+                if (k == 2){
+                    MEModels.LARGE_THICK_DOOR_LEFT.upload(largeDoor, "_left_" + i,
+                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
+                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID,"block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
+                            blockStateModelGenerator.modelCollector);
+
+                    MEModels.LARGE_THICK_DOOR_LEFT_OPEN.upload(largeDoor,"_left_open_" + i,
+                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" +Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
+                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" +Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
+                            blockStateModelGenerator.modelCollector);
+
+                    MEModels.LARGE_THICK_DOOR_RIGHT.upload(largeDoor,"_right_" + i,
+                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" +Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
+                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" +Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
+                            blockStateModelGenerator.modelCollector);
+
+                    MEModels.LARGE_THICK_DOOR_RIGHT_OPEN.upload(largeDoor,"_right_open_" + i,
+                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" +Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
+                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" +Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
+                            blockStateModelGenerator.modelCollector);
+                }
+            }
+        }
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(largeDoor)
+                .coordinate(statesMap));
+    }
+
+
     public final void registerLeadGlassPane(BlockStateModelGenerator blockStateModelGenerator, Block glass, Block glassPane) {
         blockStateModelGenerator.registerSimpleCubeAll(glass);
         TextureMap textureMap = TextureMap.paneAndTopForEdge(glass, ModDecorativeBlocks.LEAD_GLASS_PANE);
@@ -915,8 +1024,7 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.blockStateCollector.accept(MultipartBlockStateSupplier.create(pane).with(BlockStateVariant.create().put(VariantSettings.MODEL, identifier)).with(When.create().set(Properties.NORTH, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier2)).with(When.create().set(Properties.EAST, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier2).put(VariantSettings.Y, VariantSettings.Rotation.R90)).with(When.create().set(Properties.SOUTH, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier3)).with(When.create().set(Properties.WEST, true), BlockStateVariant.create().put(VariantSettings.MODEL, identifier3).put(VariantSettings.Y, VariantSettings.Rotation.R90)).with(When.create().set(Properties.NORTH, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier4)).with(When.create().set(Properties.EAST, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier5)).with(When.create().set(Properties.SOUTH, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier5).put(VariantSettings.Y, VariantSettings.Rotation.R90)).with(When.create().set(Properties.WEST, false), BlockStateVariant.create().put(VariantSettings.MODEL, identifier4).put(VariantSettings.Y, VariantSettings.Rotation.R270)));
     }
 
-    private void registerLayers(BlockStateModelGenerator blockStateModelGenerator, Block layers, Block origin) {
-        TextureMap textureMap = TextureMap.all(Identifier.of("minecraft", Registries.BLOCK.getId(layers).getPath().replaceAll("_layers", "")));
+    private void registerLayers(BlockStateModelGenerator blockStateModelGenerator, Block layers, Block origin, Boolean isVanilla) {
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(layers).coordinate(BlockStateVariantMap.create(Properties.LAYERS).register((height) -> {
             BlockStateVariant var10000 = BlockStateVariant.create();
             VariantSetting var10001 = VariantSettings.MODEL;
@@ -925,8 +1033,10 @@ public class ModelProvider extends FabricModelProvider {
                 Block var10002 = layers;
                 int var10003 = height;
                 var2 = ModelIds.getBlockSubModelId(var10002, "_height" + var10003 * 2);
-            } else {
+            } else if (isVanilla) {
                 var2 = Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(origin).getPath());
+            } else {
+                var2 = Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath());
             }
             return var10000.put(var10001, var2);
         })));
@@ -938,7 +1048,7 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createBlockStateWithRandomHorizontalRotations(block, ModelIds.getBlockModelId(block)));
     }
 
-    public void registerTrapdoor(BlockStateModelGenerator blockStateModelGenerator, Block trapdoorBlock) {
+    public void registerStoneTrapdoor(BlockStateModelGenerator blockStateModelGenerator, Block trapdoorBlock) {
         TextureMap textureMap = TextureMap.texture(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(trapdoorBlock).getPath().replaceAll("_trapdoor", "")));
         Identifier identifier = Models.TEMPLATE_TRAPDOOR_TOP.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
         Identifier identifier2 = Models.TEMPLATE_TRAPDOOR_BOTTOM.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);

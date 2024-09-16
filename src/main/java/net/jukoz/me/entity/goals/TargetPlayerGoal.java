@@ -1,14 +1,14 @@
 package net.jukoz.me.entity.goals;
 
-import net.jukoz.me.entity.beasts.BeastEntity;
+import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.Difficulty;
 
 public class TargetPlayerGoal extends ActiveTargetGoal<PlayerEntity> {
-    BeastEntity mob;
-    public TargetPlayerGoal(BeastEntity mob) {
+    AbstractBeastEntity mob;
+    public TargetPlayerGoal(AbstractBeastEntity mob) {
         super((MobEntity)mob, PlayerEntity.class, true);
         this.mob = mob;
     }

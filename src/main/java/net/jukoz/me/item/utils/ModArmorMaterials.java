@@ -55,6 +55,7 @@ public class ModArmorMaterials {
     public static final ExtendedArmorMaterial MORGUL_STEEL_T3 = registerArmor("morgul_steel_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.MORGUL_STEEL_INGOT);
 
     public static final RegistryEntry<ArmorMaterial> LEATHER = registerMountArmor("leather", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.MORGUL_STEEL_INGOT);
+    public static final RegistryEntry<ArmorMaterial> MAIL = registerMountArmor("mail", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.MORGUL_STEEL_INGOT);
     public static final RegistryEntry<ArmorMaterial> PLATE = registerMountArmor("plate", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.MORGUL_STEEL_INGOT);
 
 
@@ -113,7 +114,7 @@ public class ModArmorMaterials {
                 map.put(ArmorItem.Type.BOOTS, 2);
                 map.put(ArmorItem.Type.LEGGINGS, 5);
                 map.put(ArmorItem.Type.CHESTPLATE, 6);
-                map.put(ArmorItem.Type.HELMET, 5);
+                map.put(ArmorItem.Type.HELMET, 2);
                 map.put(ArmorItem.Type.BODY, 8);
                 durabilityMultiplier = 25;
                 toughness = 1.0f;

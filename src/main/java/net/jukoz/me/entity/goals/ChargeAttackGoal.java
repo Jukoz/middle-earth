@@ -1,17 +1,17 @@
 package net.jukoz.me.entity.goals;
 
-import net.jukoz.me.entity.beasts.BeastEntity;
+import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNode;
 
 public class ChargeAttackGoal extends Goal {
-    private BeastEntity mob;
+    private AbstractBeastEntity mob;
     private final int MAX_COOLDOWN;
     private int checkCanNavigateCooldown;
 
-    public ChargeAttackGoal(BeastEntity mob, int maxCooldown) {
+    public ChargeAttackGoal(AbstractBeastEntity mob, int maxCooldown) {
         this.mob = mob;
         this.MAX_COOLDOWN = maxCooldown;
     }

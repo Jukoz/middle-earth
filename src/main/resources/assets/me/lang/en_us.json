@@ -297,6 +297,8 @@
   "item.me.erebor_noble_dagger": "Erebor Noble Dagger",
   "item.me.erebor_axe": "Erebor Axe",
   "item.me.erebor_noble_axe": "Erebor Noble Axe",
+  "item.me.erebor_spear": "Erebor Spear",
+  "item.me.erebor_noble_spear": "Erebor Noble Spear",
 
 "#Comment:": "Item - Gondor",
   "item.me.gondorian_sword": "Gondorian Sword",
@@ -708,6 +710,9 @@
   "item.me.steel_troll_armor": "Steel Troll Armor",
   "item.me.warg_leather_armor": "Warg Leather Armor",
   "item.me.warg_plate_armor": "Warg Plate Armor",
+  "item.me.broadhoof_goat_padded_armor": "Broadhoof Goat Padded Armor",
+  "item.me.broadhoof_goat_ornamented_padded_armor": "Broadhoof Goat Ornamented Padded Armor",
+  "item.me.broadhoof_goat_plate_armor": "Broadhoof Goat Plate Armor",
 
 "#Comment:": "Shields",
   "item.me.round_shield": "Round Shield",
@@ -732,7 +737,13 @@
   "item.me.gondorian_knight_shield": "Gondorian Knight Shield",
   "item.me.gondorian_ornamented_knight_shield": "Gondorian Ornamented Knight Shield",
 
-  "item.me.longbeard_shield": "Longbeard Shield",
+  "item.me.erebor_shield": "Erebor Shield",
+  "item.me.erebor_cross_shield": "Erebor Cross Shield",
+  "item.me.erebor_plated_shield": "Erebor Plated Shield",
+  "item.me.erebor_ornamented_shield": "Erebor Ornamented Shield",
+  "item.me.erebor_reinforced_shield": "Erebor Reinforced Shield",
+
+  "item.me.erebor_heavy_shield": "Erebor Heavy Shield",
 
   "item.me.lorien_shield": "Lórien Shield",
   "item.me.lorien_laurels_shield": "Lórien Laurels Shield",
@@ -808,6 +819,8 @@
   "item.me.copper_coin": "Copper Coin",
   "item.me.silver_coin": "Silver Coin",
 
+  "item.me.dwarven_key": "Dwarven Key",
+
 "#Comment:": "Item - Seeds",
   "item.me.tomato_seeds": "Tomato Seeds",
   "item.me.bell_pepper_seeds": "Bell Pepper Seeds",
@@ -827,6 +840,7 @@
   "item.me.barrow_wight_spawn_egg": "Barrow Wight Spawn Egg",
   "item.me.nazgul_spawn_egg": "Nazgûl Spawn Egg",
 
+  "item.me.broadhoof_goat_spawn_egg": "Broadhoof Goat Spawn Egg",
   "item.me.warg_spawn_egg": "Warg Spawn Egg",
   "item.me.stone_troll_spawn_egg": "Stone Troll Spawn Egg",
   "item.me.cave_troll_spawn_egg": "Cave Troll Spawn Egg",
@@ -905,6 +919,7 @@
   "item.me.lit_pinecone": "Lit Pinecone",
 
 "#Comment:": "ENTITIES",
+  "entity.me.broadhoof_goat": "Broadhoof Goat",
   "entity.me.warg": "Warg",
   "entity.me.cave_troll": "Cave Troll",
   "entity.me.snow_troll": "Snow Troll",
@@ -995,6 +1010,7 @@
   "block.me.basalt_trapdoor": "Basalt Trapdoor",
   "block.me.blackstone_trapdoor": "Blackstone Trapdoor",
   "block.me.old_podzol": "Old Podzol",
+  "block.me.lorien_podzol": "Lorien Podzol",
   "block.me.stone_mycelium": "Stone Mycelium",
   "block.me.ash_block": "Ash Block",
 
@@ -1108,7 +1124,7 @@
   "block.me.cracked_smooth_stone_wall": "Cracked Smooth Stone Wall",
 
   "block.me.chiseled_stone": "Chiseled Stone",
-  "block.me.chiseled_polished_stone": "Chiseled Polsihed Stone",
+  "block.me.chiseled_polished_stone": "Chiseled Polished Stone",
   "block.me.chiseled_stone_tiles": "Chiseled Stone Tiles",
 
   "block.me.stone_stool": "Stone Stool",
@@ -1526,6 +1542,9 @@
   "block.me.gonluin_button": "Gonluin Button",
   "block.me.gonluin_trapdoor": "Gonluin Trapdoor",
 
+  "block.me.gonluin_carved_window": "Gonluin Carved Window",
+  "block.me.gonluin_carved_window_pane": "Gonluin Carved Window Pane",
+
   "block.me.gonluin_stool": "Gonluin Stool",
   "block.me.gonluin_table": "Gonluin Table",
   "block.me.gonluin_chair": "Gonluin Chair",
@@ -1833,7 +1852,6 @@
   "block.me.old_galonn_vertical_slab": "Old Galonn Vertical Slab",
   "block.me.old_galonn_stairs": "Old Galonn Stairs",
   "block.me.old_galonn_wall": "Old Galonn Wall",
-
 
   "block.me.smooth_galonn": "Smooth Galonn",
   "block.me.smooth_galonn_slab": "Smooth Galonn Slab",
@@ -4705,7 +4723,7 @@
 
   "block.me.white_daub_hobbit_window": "White Daub Hobbit Window",
   "block.me.white_daub_hobbit_window_pane": "White Daub Hobbit Window Pane",
-
+  
   "block.me.dark_daub": "Dark Daub",
   "block.me.dark_daub_slab": "Dark Daub Slab",
   "block.me.dark_daub_vertical_slab": "Dark Daub Vertical Slab",
@@ -4739,8 +4757,34 @@
   "block.me.wattle_framed_window": "Wattle Framed Window",
   "block.me.wattle_framed_window_pane": "Wattle Framed Window Pane",
 
+  "block.me.black_wattle_framed_window": "Black Wattle Framed Window",
+  "block.me.black_wattle_framed_window_pane": "Black Wattle Framed Window Pane",
+
+  "block.me.green_wattle_framed_window": "Green Wattle Framed Window",
+  "block.me.green_wattle_framed_window_pane": "Green Wattle Framed Window Pane",
+
+  "block.me.red_wattle_framed_window": "Red Wattle Framed Window",
+  "block.me.red_wattle_framed_window_pane": "Red Wattle Framed Window Pane",
+
+  "block.me.white_wattle_framed_window": "White Wattle Framed Window",
+  "block.me.white_wattle_framed_window_pane": "White Wattle Framed Window Pane",
+
   "block.me.dark_wattle_framed_window": "Dark Wattle Framed Window",
   "block.me.dark_wattle_framed_window_pane": "Dark Wattle Framed Window Pane",
+
+  "block.me.mud_brick_round_window": "Mud Brick Round Window",
+  "block.me.mud_brick_round_window_pane": "Mud Brick Round Window Pane",
+
+  "block.me.white_daub_round_window": "White Daub Round Window",
+  "block.me.white_daub_round_window_pane": "White Daub Round Window Pane",
+  "block.me.yellow_daub_round_window": "Yellow Daub Round Window",
+  "block.me.yellow_daub_round_window_pane": "Yellow Daub Round Window Pane",
+
+  "block.me.black_wattle_trapdoor": "Black Wattle Trapdoor",
+  "block.me.dark_wattle_trapdoor": "Dark Wattle Trapdoor",
+  "block.me.green_wattle_trapdoor": "Green Wattle Trapdoor",
+  "block.me.red_wattle_trapdoor": "Red Wattle Trapdoor",
+  "block.me.wattle_trapdoor": "Wattle Trapdoor",
 
   "block.me.black_wool_slab": "Black Wool Slab",
   "block.me.blue_wool_slab": "Blue Wool Slab",
@@ -4827,6 +4871,7 @@
 
   "block.me.great_dwarven_gate": "Great Dwarven Gate",
   "block.me.varnished_dwarven_door": "Varnished Dwarven Door",
+  "block.me.hidden_dwarven_door": "Hidden Dwarven Door",
 
   "block.me.great_elven_gate": "Great Elven Gate",
 
