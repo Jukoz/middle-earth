@@ -21,6 +21,7 @@ public class SimpleDoorInventoryModel {
             add(ModDecorativeItems.GREAT_GONDORIAN_GATE.asItem());
             add(ModDecorativeItems.GREAT_DWARVEN_GATE.asItem());
             add(ModDecorativeItems.VARNISHED_DWARVEN_DOOR.asItem());
+            add(ModDecorativeItems.HIDDEN_DWARVEN_DOOR.asItem());
             add(ModDecorativeItems.GREAT_ELVEN_GATE.asItem());
             add(ModDecorativeItems.GREAT_ORCISH_GATE.asItem());
         }

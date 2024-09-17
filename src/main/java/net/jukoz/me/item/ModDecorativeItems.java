@@ -63,6 +63,8 @@ public class ModDecorativeItems {
             new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.GREAT_DWARVEN_GATE, new Item.Settings().maxCount(16)));
     public static final Item VARNISHED_DWARVEN_DOOR = registerItem("varnished_dwarven_door",
             new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR, new Item.Settings().maxCount(16)));
+    public static final Item HIDDEN_DWARVEN_DOOR = registerItem("hidden_dwarven_door",
+            new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.HIDDEN_DWARVEN_DOOR, new Item.Settings().maxCount(16)));
 
     public static final Item GREAT_ELVEN_GATE = registerItem("great_elven_gate",
             new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.GREAT_ELVEN_GATE, new Item.Settings().maxCount(16)));

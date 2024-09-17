@@ -192,10 +192,10 @@ public class LongbeardDwarfEntity extends NpcEntity {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
         } else if (val3 < 0.55f && val3 > 0.20f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.EREBOR_LONGSWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LONGBEARD_SHIELD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.EREBOR_HEAVY_SHIELD));
         } else if (val3 <= 0.20f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.EREBOR_SWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LONGBEARD_SHIELD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.EREBOR_HEAVY_SHIELD));
         }
     }
 
@@ -210,10 +210,10 @@ public class LongbeardDwarfEntity extends NpcEntity {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.EREBOR_LONGSWORD));
         } else if (val < 0.75f && val > 0.20f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.EREBOR_SWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LONGBEARD_SHIELD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.EREBOR_HEAVY_SHIELD));
         } else if (val <= 0.20f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.EREBOR_NOBLE_SWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LONGBEARD_SHIELD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.EREBOR_HEAVY_SHIELD));
         }
     }
 
@@ -228,10 +228,10 @@ public class LongbeardDwarfEntity extends NpcEntity {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.EREBOR_NOBLE_LONGSWORD));
         } else if (val < 0.75f && val >= 0.50f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.EREBOR_SWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LONGBEARD_SHIELD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.EREBOR_HEAVY_SHIELD));
         } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.EREBOR_NOBLE_SWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.LONGBEARD_SHIELD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.EREBOR_HEAVY_SHIELD));
         }
     }
 
