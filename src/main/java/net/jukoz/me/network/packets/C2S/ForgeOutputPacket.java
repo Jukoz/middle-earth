@@ -18,9 +18,9 @@ public class ForgeOutputPacket extends ClientToServerPacket<ForgeOutputPacket> {
     public static final CustomPayload.Id<ForgeOutputPacket> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "forge_output_packet"));
     public static final PacketCodec<RegistryByteBuf, ForgeOutputPacket> CODEC = PacketCodec.tuple(
             PacketCodecs.INTEGER, p -> p.amount,
-            PacketCodecs.INTEGER, p -> p.x,
-            PacketCodecs.INTEGER, p -> p.y,
-            PacketCodecs.INTEGER, p -> p.z,
+            PacketCodecs.DOUBLE, p -> p.x,
+            PacketCodecs.DOUBLE, p -> p.y,
+            PacketCodecs.DOUBLE, p -> p.z,
             ForgeOutputPacket::new
     );
 
@@ -28,28 +28,33 @@ public class ForgeOutputPacket extends ClientToServerPacket<ForgeOutputPacket> {
         return amount;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public int getZ() {
+    public double getZ() {
         return z;
     }
 
     private final int amount;
-    private final int x;
-    private final int y;
-    private final int z;
+    private final double x;
+    private final double y;
+    private final double z;
 
-    public ForgeOutputPacket(int amount, int x, int y, int z) {
+    public ForgeOutputPacket(int amount, double x, double y, double z) {
         this.amount = amount;
         this.x = x;
         this.y = y;
         this.z = z;
+        System.out.println("Forge output packet ~ Creation");
+        System.out.println("x packet: " + x);
+        System.out.println("y packet: " + y);
+        System.out.println("z packet: " + z);
+        System.out.println("------------------------");
     }
 
     @Override
@@ -66,7 +71,7 @@ public class ForgeOutputPacket extends ClientToServerPacket<ForgeOutputPacket> {
     public void process(ServerPacketContext context) {
         try{
             context.player().getServer().execute(() -> {
-                Vec3i coordinates = new Vec3i(x, y, z);
+                Vec3d coordinates = new Vec3d(x, y, z);
                 ForgeBlockEntity.outputItemStack(amount, coordinates, context.player());
             });
         }catch (Exception e){

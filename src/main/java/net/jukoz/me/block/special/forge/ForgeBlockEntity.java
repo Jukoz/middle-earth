@@ -77,6 +77,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGE, pos, state);
+        System.out.println("Forge Block Entity ~ Creation");
         System.out.println("x block entity: " + ForgeBlockEntity.this.getPos().getX());
         System.out.println("y block entity: " + ForgeBlockEntity.this.getPos().getY());
         System.out.println("z block entity: " + ForgeBlockEntity.this.getPos().getZ());
@@ -124,6 +125,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+        System.out.println("Forge Block Entity ~ Create menu");
         System.out.println("x create menu: " + this.propertyDelegate.get(5));
         System.out.println("y create menu: " + this.propertyDelegate.get(6));
         System.out.println("z create menu: " + this.propertyDelegate.get(7));
@@ -285,8 +287,10 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         boostTime = MAX_BOOST_TIME;
     }
 
-    public static void outputItemStack(int amount, Vec3i coords, ServerPlayerEntity player){
+    public static void outputItemStack(int amount, Vec3d coords, ServerPlayerEntity player){
         Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ()), ModBlockEntities.FORGE);
+
+        System.out.println("Forge block entity ~ OutputItemStack");
         System.out.println("x received: " + coords.getX());
         System.out.println("y received: " + coords.getY());
         System.out.println("z received: " + coords.getZ());

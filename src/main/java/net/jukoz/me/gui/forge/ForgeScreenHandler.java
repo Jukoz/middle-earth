@@ -39,6 +39,7 @@ public class ForgeScreenHandler extends ScreenHandler{
         addPlayerHotbar(playerInventory);
 
         addProperties(delegate);
+        System.out.println("Forge screen handler ~ Creation");
         System.out.println("x handler: " + this.propertyDelegate.get(5));
         System.out.println("y handler: " + this.propertyDelegate.get(6));
         System.out.println("z handler: " + this.propertyDelegate.get(7));
