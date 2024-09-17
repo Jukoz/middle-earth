@@ -39,6 +39,10 @@ public class ForgeScreenHandler extends ScreenHandler{
         addPlayerHotbar(playerInventory);
 
         addProperties(delegate);
+        System.out.println("x handler: " + this.propertyDelegate.get(5));
+        System.out.println("y handler: " + this.propertyDelegate.get(6));
+        System.out.println("z handler: " + this.propertyDelegate.get(7));
+        System.out.println("------------------------");
     }
 
     @Override
@@ -125,16 +129,24 @@ public class ForgeScreenHandler extends ScreenHandler{
         return (float) progress / ForgeBlockEntity.MAX_PROGRESS;
     }
 
+    public int getX(){
+        return this.propertyDelegate.get(5);
+    }
+
+    public int getY(){
+        return this.propertyDelegate.get(6);
+    }
+
+    public int getZ(){
+        return this.propertyDelegate.get(7);
+    }
+
     private void addPlayerInventory(PlayerInventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
                 this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
-    }
-
-    public Vector3d returnEntityCoords(){
-        return new Vector3d(this.propertyDelegate.get(5), this.propertyDelegate.get(6), this.propertyDelegate.get(7));
     }
 
     private void addPlayerHotbar(PlayerInventory playerInventory) {

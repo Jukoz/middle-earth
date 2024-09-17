@@ -75,7 +75,12 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
                 case 3 -> amount = 288;
                 case 4 -> amount = 432;
             }
-            ClientPlayNetworking.send(new ForgeOutputPacket(amount, new Vector3f((float) handler.returnEntityCoords().x, (float)  handler.returnEntityCoords().z,(float)  handler.returnEntityCoords().y)));
+            System.out.println("x menu: " + handler.getX());
+            System.out.println("y menu: " + handler.getY());
+            System.out.println("z menu: " + handler.getZ());
+            System.out.println("------------------------");
+
+            ClientPlayNetworking.send(new ForgeOutputPacket(amount, handler.getX(),handler.getY(),handler.getZ()));
             }, Text.translatable("button." + MiddleEarth.MOD_ID + ".extract_metal"));
 
         this.extractButton.setTooltip(Tooltip.of(Text.literal(String.valueOf(this.outputMode))));

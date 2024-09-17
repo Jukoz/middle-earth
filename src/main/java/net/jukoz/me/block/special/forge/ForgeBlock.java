@@ -53,6 +53,7 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if(blockEntity instanceof ForgeBlockEntity forgeBlockEntity) {
                 ItemScatterer.spawn(world, pos, forgeBlockEntity);
+
             }
             super.onStateReplaced(state, world, pos, newState, moved);
         }

@@ -42,8 +42,11 @@ import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3d;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +73,14 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     private MetalTypes currentMetal = MetalTypes.EMPTY;
 
+    //TODO drop ingots and
+
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGE, pos, state);
+        System.out.println("x block entity: " + ForgeBlockEntity.this.getPos().getX());
+        System.out.println("y block entity: " + ForgeBlockEntity.this.getPos().getY());
+        System.out.println("z block entity: " + ForgeBlockEntity.this.getPos().getZ());
+        System.out.println("------------------------");
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
@@ -82,8 +91,8 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
                     case 3 -> ForgeBlockEntity.this.mode;
                     case 4 -> ForgeBlockEntity.this.storage;
                     case 5 -> ForgeBlockEntity.this.getPos().getX();
-                    case 6 -> ForgeBlockEntity.this.getPos().getZ();
-                    case 7 -> ForgeBlockEntity.this.getPos().getY();
+                    case 6 -> ForgeBlockEntity.this.getPos().getY();
+                    case 7 -> ForgeBlockEntity.this.getPos().getZ();
                     case 8 -> ForgeBlockEntity.this.currentMetal.id;
                     default -> throw new IllegalStateException("Unexpected value: " + index);
                 };
@@ -115,6 +124,10 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+        System.out.println("x create menu: " + this.propertyDelegate.get(5));
+        System.out.println("y create menu: " + this.propertyDelegate.get(6));
+        System.out.println("z create menu: " + this.propertyDelegate.get(7));
+        System.out.println("------------------------");
         return new ForgeScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
@@ -272,8 +285,13 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         boostTime = MAX_BOOST_TIME;
     }
 
-    public static void outputItemStack(ForgeOutputPacket packet, ServerPlayerEntity player){
-        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(new BlockPos((int) packet.getPos().x,(int)  packet.getPos().y,(int)  packet.getPos().z), ModBlockEntities.FORGE);
+    public static void outputItemStack(int amount, Vec3i coords, ServerPlayerEntity player){
+        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ()), ModBlockEntities.FORGE);
+        System.out.println("x received: " + coords.getX());
+        System.out.println("y received: " + coords.getY());
+        System.out.println("z received: " + coords.getZ());
+        System.out.println("------------------------");
+        //TODO FIX THIS
         ItemStack itemstack = ItemStack.EMPTY;
         if(forgeBlockEntity.isPresent()){
             ForgeBlockEntity entity = forgeBlockEntity.get();
@@ -282,7 +300,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
             RegistryWrapper.Impl<ArmorTrimPattern>  armorTrimPatternRegistry = entity.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.TRIM_PATTERN);
 
 
-            switch (packet.getAmount()){
+            switch (amount){
                 case 16 -> {
                     itemstack = new ItemStack(entity.currentMetal.nugget);
                     itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
@@ -309,9 +327,9 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
             if (entity.getStack(OUTPUT_SLOT).isOf(itemstack.getItem())){
                 if (entity.getStack(OUTPUT_SLOT).get(DataComponentTypes.TRIM) == itemstack.get(DataComponentTypes.TRIM)) {
-                    if (packet.getAmount() <= entity.storage) {
+                    if (amount <= entity.storage) {
                         itemstack.setCount(entity.getStack(OUTPUT_SLOT).getCount() + 1);
-                        entity.storage = entity.storage - packet.getAmount();
+                        entity.storage = entity.storage - amount;
                         if (entity.storage == 0) {
                             entity.currentMetal = MetalTypes.EMPTY;
                         }
@@ -319,9 +337,9 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
                     }
                 }
             } else if(entity.getStack(OUTPUT_SLOT).isEmpty()){
-                if (packet.getAmount() <= entity.storage) {
+                if (amount <= entity.storage) {
                     itemstack.setCount(entity.getStack(OUTPUT_SLOT).getCount() + 1);
-                    entity.storage = entity.storage - packet.getAmount();
+                    entity.storage = entity.storage - amount;
                     if (entity.storage == 0) {
                         entity.currentMetal = MetalTypes.EMPTY;
                     }
