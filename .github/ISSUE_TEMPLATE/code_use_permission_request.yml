@@ -1,0 +1,60 @@
+name: Code Use Permission Request
+
+description: Request permission to use part of the code present in the open source repository.
+
+labels: ['request']
+
+body:
+  - type: markdown
+    attributes:
+      value: |-
+        ## Why are we requesting permission to use our code?
+        Fundamentally, we wish others to learn from our project but we still want to keep some of our content under our control.
+        By having the requests via github, we have all the permissions archived, protecting the user and us at the same time.
+        We are keeping the code open source, letting other developers to learn from us and see if they need to make a request beforehand.
+        We are going by trust, if we see that code have been stolen without our consent then we may take action against it with Modrinth/Curseforge.
+
+  - type: dropdown
+    attributes:
+      label: Context 
+      description: How do you want to use the code
+      options:
+        - "📖 Learning only"
+        - "⚙️ In my own mod"
+        - "➕ In a personal project"
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: How will you use the code
+      description: |-
+        Integrality meaning copy and pasting it in your project;
+        Partially meaning only using the concept or small parts here and there.
+      options:
+        - "Integrality"
+        - "Partially"
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Now explain why and how you want to use it
+      description: Describe your reasons behind why you want to use it and how you wish to use the code you are copying
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Code parts
+      description: List of all the files and parts you want to use
+      value:  |-
+        Example; 
+        MiddleEarth.java [line 32]
+          - I would like to use the same identifier concept, having it in the main class and using that same variable elsewhere in my project
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "Thank you for taking the time to request permission to use the code from the Middle-earth mod!"
