@@ -121,6 +121,7 @@ public class WargEntity extends AbstractBeastEntity {
         this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
         this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity)this));
         this.targetSelector.add(3, new BeastRevengeGoal(this, new Class[0]).setGroupRevenge());
+        this.targetSelector.add(5, new BeastActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(5, new BeastActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(6, new BeastActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(7, new BeastActiveTargetGoal<>(this, GondorHumanEntity.class, true));
