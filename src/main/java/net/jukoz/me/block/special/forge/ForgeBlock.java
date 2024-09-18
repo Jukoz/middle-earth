@@ -62,7 +62,7 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
                     if (metal != ForgeBlockEntity.MetalTypes.EMPTY){
                         ItemStack ingotStack = new ItemStack(metal.getIngot(), storage / 144);
                         ingotStack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
-                        ItemStack nuggetStack = new ItemStack(metal.getIngot(), storage % 144 / 16);
+                        ItemStack nuggetStack = new ItemStack(metal.getNugget(), storage % 144 / 16);
                         nuggetStack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
 
                         ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), ingotStack);
