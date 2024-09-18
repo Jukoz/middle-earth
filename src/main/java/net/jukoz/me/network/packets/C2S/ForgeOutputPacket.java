@@ -50,11 +50,6 @@ public class ForgeOutputPacket extends ClientToServerPacket<ForgeOutputPacket> {
         this.x = x;
         this.y = y;
         this.z = z;
-        System.out.println("Forge output packet ~ Creation");
-        System.out.println("x packet: " + x);
-        System.out.println("y packet: " + y);
-        System.out.println("z packet: " + z);
-        System.out.println("------------------------");
     }
 
     @Override

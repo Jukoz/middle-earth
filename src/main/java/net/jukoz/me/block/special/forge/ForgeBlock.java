@@ -2,6 +2,8 @@ package net.jukoz.me.block.special.forge;
 
 import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.ModBlockEntities;
+import net.jukoz.me.item.ModDataComponentTypes;
+import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -52,8 +54,22 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
         if(state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if(blockEntity instanceof ForgeBlockEntity forgeBlockEntity) {
-                ItemScatterer.spawn(world, pos, forgeBlockEntity);
+                if (state.get(PART) == ForgePart.BOTTOM){
+                    ForgeBlockEntity.MetalTypes metal = forgeBlockEntity.getCurrentMetal();
+                    int storage = forgeBlockEntity.getStorage();
+                    System.out.println("storage: " + storage);
 
+                    if (metal != ForgeBlockEntity.MetalTypes.EMPTY){
+                        ItemStack ingotStack = new ItemStack(metal.getIngot(), storage / 144);
+                        ingotStack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                        ItemStack nuggetStack = new ItemStack(metal.getIngot(), storage % 144 / 16);
+                        nuggetStack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+
+                        ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), ingotStack);
+                        ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), nuggetStack);
+                    }
+                    ItemScatterer.spawn(world, pos, forgeBlockEntity);
+                }
             }
             super.onStateReplaced(state, world, pos, newState, moved);
         }

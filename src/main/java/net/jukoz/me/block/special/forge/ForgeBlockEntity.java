@@ -70,6 +70,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     private int fuelTime = 0;
     private int maxFuelTime = 0;
     private int mode = 0;
+
     private int storage = 0;
 
     private MetalTypes currentMetal = MetalTypes.EMPTY;
@@ -113,6 +114,14 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     @Override
     public Text getDisplayName() {
         return Text.translatable("screen." + MiddleEarth.MOD_ID + "." + ID);
+    }
+
+    public int getStorage() {
+        return storage;
+    }
+
+    public MetalTypes getCurrentMetal() {
+        return currentMetal;
     }
 
     @Nullable
@@ -502,6 +511,14 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
         public int getId() {
             return id;
+        }
+
+        public Item getIngot() {
+            return ingot;
+        }
+
+        public Item getNugget() {
+            return nugget;
         }
 
         public static ForgeBlockEntity.MetalTypes getValue(int value) {
