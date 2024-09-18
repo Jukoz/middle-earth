@@ -5173,8 +5173,19 @@
   "tooltip.me.pouch" : "Pouch",
   "tooltip.me.feather" : "Feather",
 
+  "tooltip.me.forge_output_mode0" : "Not enough Metal.",
+  "tooltip.me.forge_output_mode1" : "1 Nugget",
+  "tooltip.me.forge_output_mode2" : "1 Ingot",
+  "tooltip.me.forge_output_mode3" : "2 Ingots",
+  "tooltip.me.forge_output_mode4" : "3 Ingots",
+
   "tooltip.me.temperature" : "Temperature:",
   "tooltip.me.mode" : "Mode:",
+  "tooltip.me.ingots_number" : "Ingots",
+  "tooltip.me.nuggets_number" : "Nuggets",
+
+  "tooltip.me.liquid_bronze" : "Liquid Bronze",
+  "tooltip.me.liquid_steel" : "Liquid Steel",
 
   "trim_pattern.me.smithing_part" : "Smithing Part",
   "trim_material.me.jade" : "Jade",

@@ -51,10 +51,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3d;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
     private static final String ID = "forge";
@@ -77,8 +74,6 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
     private MetalTypes currentMetal = MetalTypes.EMPTY;
 
-    //TODO tooltip for output mode
-    //TODO tooltip for metal amount
     //TODO heating stuff ?
     //TODO alloy recipes
     //TODO melting stuff ?
@@ -329,7 +324,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
             }
 
             if (entity.getStack(OUTPUT_SLOT).isOf(itemstack.getItem())){
-                if (entity.getStack(OUTPUT_SLOT).get(DataComponentTypes.TRIM) == itemstack.get(DataComponentTypes.TRIM)) {
+                if (Objects.equals(entity.getStack(OUTPUT_SLOT).get(DataComponentTypes.TRIM), itemstack.get(DataComponentTypes.TRIM))) {
                     if (amount <= entity.storage && amount > 0) {
                         itemstack.setCount(entity.getStack(OUTPUT_SLOT).getCount() + 1);
                         entity.storage = entity.storage - amount;
@@ -341,6 +336,8 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                     } else {
                         playFailedExtractSound(entity.getWorld(), pos);
                     }
+                }else {
+                    playFailedExtractSound(entity.getWorld(), pos);
                 }
             } else if(entity.getStack(OUTPUT_SLOT).isEmpty()){
                 if (amount <= entity.storage && amount > 0) {
@@ -361,16 +358,10 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     }
 
     private static void playExtractSound(World world, BlockPos pos){
-        System.out.println("playing extract sound");
-        System.out.println(world);
-        System.out.println(pos);
         world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0f, 1.0f);
     }
 
     private static void playFailedExtractSound(World world, BlockPos pos){
-        System.out.println("playing failed extract sound");
-        System.out.println(world);
-        System.out.println(pos);
         world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_INSERT_FAIL, SoundCategory.BLOCKS, 1.0f, 1.0f);
     }
 

@@ -3,6 +3,7 @@ package net.jukoz.me.gui.forge;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.block.special.forge.ForgeBlock;
 import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.network.packets.C2S.ForgeOutputPacket;
@@ -80,7 +81,7 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
             ClientPlayNetworking.send(new ForgeOutputPacket(amount, handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
             }, Text.translatable("button." + MiddleEarth.MOD_ID + ".extract_metal"));
 
-        this.extractButton.setTooltip(Tooltip.of(Text.literal(String.valueOf(this.outputMode))));
+        this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
 
         this.rightExtractCycleButton = new ToggleButtonWidget(x + 164, y + 56, 7,11, true);
         this.rightExtractCycleButton.setTextures(RIGHT_CYCLE_EXTRACT_BUTTON_TEXTURES);
@@ -120,6 +121,8 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
             this.leftExtractCycleButton.visible = true;
             this.rightExtractCycleButton.visible = true;
         }
+        this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
+
     }
 
     @Override
@@ -131,7 +134,7 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
                 outputMode--;
             }
 
-            this.extractButton.setTooltip(Tooltip.of(Text.literal(String.valueOf(this.outputMode))));
+            this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
             return true;
         }
 
@@ -142,7 +145,7 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
                 outputMode++;
             }
 
-            this.extractButton.setTooltip(Tooltip.of(Text.literal(String.valueOf(this.outputMode))));
+            this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
             return true;
         }
         return super.mouseClicked(mouseX, mouseY, button);
@@ -190,7 +193,15 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         int y = (height - backgroundHeight) / 2;
         if (mouseX >= x + 112 && mouseX <= x + 128 && mouseY >= y + 10 && mouseY <= y + 70){
             ForgeBlockEntity.MetalTypes metal = ForgeBlockEntity.MetalTypes.getValue(handler.getCurrentMetal());
-            context.drawTooltip(this.client.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID +".liquid_" + metal.asString().toLowerCase()).append(": ").append(String.valueOf(handler.getStoredLiquid())), mouseX, mouseY);
+            if(metal != ForgeBlockEntity.MetalTypes.EMPTY){
+                context.drawTooltip(this.client.textRenderer,
+                        Text.translatable("tooltip." + MiddleEarth.MOD_ID +".liquid_" + metal.asString().toLowerCase())
+                                .append(": ")
+                                .append(handler.getStoredLiquid() / 144  + " ")
+                                .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".ingots_number")
+                                        .append(" " + handler.getStoredLiquid() % 144 / 16  + " ")
+                                        .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".nuggets_number"))), mouseX, mouseY);
+            }
         }
     }
 
@@ -204,7 +215,6 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         drawMouseoverTooltip(context, mouseX, mouseY);
 
         ItemStack itemstack = ItemStack.EMPTY;
-
 
         switch (outputMode){
             case 0:
