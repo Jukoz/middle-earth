@@ -11,14 +11,19 @@ import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import org.joml.Vector3d;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class ForgeScreenHandler extends ScreenHandler{
     private final Inventory inventory;
     private final PropertyDelegate propertyDelegate;
+    protected final World world;
+    private BlockPos pos;
 
-    public ForgeScreenHandler(int syncId, PlayerInventory playerInventory) {
+
+    public ForgeScreenHandler(int syncId, PlayerInventory playerInventory, Object o) {
         this(syncId, playerInventory, new SimpleInventory(6), new ArrayPropertyDelegate(9));
+        this.pos = ((BlockPos) o);
     }
 
     public ForgeScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
@@ -27,6 +32,8 @@ public class ForgeScreenHandler extends ScreenHandler{
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);
         this.propertyDelegate = delegate;
+        this.world = playerInventory.player.getWorld();
+        pos = BlockPos.ORIGIN;
 
         this.addSlot(new ForgeFuelSlot(inventory, this, 0, 39, 53));
         this.addSlot(new Slot(inventory, 1, 12, 17));
@@ -39,11 +46,10 @@ public class ForgeScreenHandler extends ScreenHandler{
         addPlayerHotbar(playerInventory);
 
         addProperties(delegate);
-        System.out.println("Forge screen handler ~ Creation");
-        System.out.println("x handler: " + this.propertyDelegate.get(5));
-        System.out.println("y handler: " + this.propertyDelegate.get(6));
-        System.out.println("z handler: " + this.propertyDelegate.get(7));
-        System.out.println("------------------------");
+    }
+
+    public BlockPos getPos() {
+        return pos;
     }
 
     @Override
@@ -100,7 +106,7 @@ public class ForgeScreenHandler extends ScreenHandler{
     }
 
     public int getCurrentMetal() {
-        return this.propertyDelegate.get(8);
+        return this.propertyDelegate.get(5);
     }
 
     public int checkMaxOutput(){
@@ -128,18 +134,6 @@ public class ForgeScreenHandler extends ScreenHandler{
         int progress = this.propertyDelegate.get(0);
 
         return (float) progress / ForgeBlockEntity.MAX_PROGRESS;
-    }
-
-    public int getX(){
-        return this.propertyDelegate.get(5);
-    }
-
-    public int getY(){
-        return this.propertyDelegate.get(6);
-    }
-
-    public int getZ(){
-        return this.propertyDelegate.get(7);
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory) {

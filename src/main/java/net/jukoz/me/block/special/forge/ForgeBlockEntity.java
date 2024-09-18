@@ -1,5 +1,6 @@
 package net.jukoz.me.block.special.forge;
 
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.ModDecorativeBlocks;
@@ -53,7 +54,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
+public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
     private static final String ID = "forge";
     public static final int MAX_PROGRESS = 1200;
     public static final int MAX_STORAGE = 2304;
@@ -77,11 +78,6 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGE, pos, state);
-        System.out.println("Forge Block Entity ~ Creation");
-        System.out.println("x block entity: " + ForgeBlockEntity.this.getPos().getX());
-        System.out.println("y block entity: " + ForgeBlockEntity.this.getPos().getY());
-        System.out.println("z block entity: " + ForgeBlockEntity.this.getPos().getZ());
-        System.out.println("------------------------");
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
@@ -91,10 +87,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
                     case 2 -> ForgeBlockEntity.this.maxFuelTime;
                     case 3 -> ForgeBlockEntity.this.mode;
                     case 4 -> ForgeBlockEntity.this.storage;
-                    case 5 -> ForgeBlockEntity.this.getPos().getX();
-                    case 6 -> ForgeBlockEntity.this.getPos().getY();
-                    case 7 -> ForgeBlockEntity.this.getPos().getZ();
-                    case 8 -> ForgeBlockEntity.this.currentMetal.id;
+                    case 5 -> ForgeBlockEntity.this.currentMetal.id;
                     default -> throw new IllegalStateException("Unexpected value: " + index);
                 };
             }
@@ -112,7 +105,7 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
 
             @Override
             public int size() {
-                return 9;
+                return 6;
             }
         };
     }
@@ -125,11 +118,6 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        System.out.println("Forge Block Entity ~ Create menu");
-        System.out.println("x create menu: " + this.propertyDelegate.get(5));
-        System.out.println("y create menu: " + this.propertyDelegate.get(6));
-        System.out.println("z create menu: " + this.propertyDelegate.get(7));
-        System.out.println("------------------------");
         return new ForgeScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
@@ -290,12 +278,6 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
     public static void outputItemStack(int amount, Vec3d coords, ServerPlayerEntity player){
         Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ()), ModBlockEntities.FORGE);
 
-        System.out.println("Forge block entity ~ OutputItemStack");
-        System.out.println("x received: " + coords.getX());
-        System.out.println("y received: " + coords.getY());
-        System.out.println("z received: " + coords.getZ());
-        System.out.println("------------------------");
-        //TODO FIX THIS
         ItemStack itemstack = ItemStack.EMPTY;
         if(forgeBlockEntity.isPresent()){
             ForgeBlockEntity entity = forgeBlockEntity.get();
@@ -468,6 +450,11 @@ public class ForgeBlockEntity extends BlockEntity implements NamedScreenHandlerF
         } else {
             return false;
         }
+    }
+
+    @Override
+    public Object getScreenOpeningData(ServerPlayerEntity player) {
+        return pos;
     }
 
     public enum MetalTypes implements StringIdentifiable {
