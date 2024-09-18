@@ -16,6 +16,15 @@ body:
 
   - type: dropdown
     attributes:
+      label: Do you plan on using the code commercially?
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
       label: Context
       description: How do you want to use the code
       options:
