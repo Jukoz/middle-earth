@@ -1,7 +1,6 @@
 package net.jukoz.me.entity.goals;
 
-import net.jukoz.me.entity.beasts.BeastEntity;
-import net.jukoz.me.entity.beasts.trolls.TrollEntity;
+import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.LivingEntity;
@@ -13,7 +12,7 @@ import net.minecraft.world.WorldView;
 import java.util.EnumSet;
 
 public class BeastFollowOwnerGoal extends Goal {
-    private final BeastEntity mob;
+    private final AbstractBeastEntity mob;
     private LivingEntity owner;
     private final double speed;
     private final EntityNavigation navigation;
@@ -22,7 +21,7 @@ public class BeastFollowOwnerGoal extends Goal {
     private final float minDistance;
     private float oldWaterPathfindingPenalty;
 
-    public BeastFollowOwnerGoal(BeastEntity mob, double speed, float minDistance, float maxDistance) {
+    public BeastFollowOwnerGoal(AbstractBeastEntity mob, double speed, float minDistance, float maxDistance) {
         this.mob = mob;
         this.speed = speed;
         this.navigation = mob.getNavigation();
@@ -79,19 +78,12 @@ public class BeastFollowOwnerGoal extends Goal {
 
     @Override
     public void tick() {
-        boolean bl = this.mob.shouldTryTeleportToOwner();
+        this.mob.getLookControl().lookAt(this.owner, 10.0f, this.mob.getMaxLookPitchChange());
 
-        if(!bl) {
-            this.mob.getLookControl().lookAt(this.owner, 10.0f, this.mob.getMaxLookPitchChange());
-        }
         if (--this.updateCountdownTicks > 0) {
             return;
         }
         this.updateCountdownTicks = this.getTickCount(10);
-        if (bl) {
-            this.mob.tryTeleportToOwner();
-        } else {
-            this.navigation.startMovingTo(this.owner, this.speed);
-        }
+        this.navigation.startMovingTo(this.owner, this.speed);
     }
 }

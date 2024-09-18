@@ -2,7 +2,7 @@ package net.jukoz.me.entity.beasts.trolls;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
-import net.jukoz.me.entity.beasts.BeastEntity;
+import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.*;
@@ -12,8 +12,6 @@ import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntity;
 import net.jukoz.me.item.ModFoodItems;
-import net.jukoz.me.item.items.TrollArmorItem;
-import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -22,9 +20,7 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -32,7 +28,6 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
@@ -40,7 +35,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class TrollEntity extends BeastEntity {
+public class TrollEntity extends AbstractBeastEntity {
     private int throwCooldown = 100;
     public final AnimationState throwingAnimationState = new AnimationState();
 
@@ -76,14 +71,13 @@ public class TrollEntity extends BeastEntity {
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BeastSitGoal(this));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, 0.9f, false));
-        this.goalSelector.add(5, new ChargeAttackGoal(this, maxChargeCooldown()));
-        this.goalSelector.add(6, new BeastFollowOwnerGoal(this, 1.0, 10.0f, 2.0f));
-        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(9, new LookAroundGoal(this));
-        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((BeastEntity) this));
-        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((BeastEntity)this));
+        this.goalSelector.add(3, new MeleeAttackGoal(this, 0.9f, false));
+        this.goalSelector.add(4, new ChargeAttackGoal(this, maxChargeCooldown()));
+        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
+        this.goalSelector.add(7, new LookAroundGoal(this));
+        this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
+        this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity)this));
         this.targetSelector.add(3, new RevengeGoal(this, new Class[0]));
         this.targetSelector.add(4, new TargetPlayerGoal(this));
         this.targetSelector.add(4, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
@@ -109,7 +103,18 @@ public class TrollEntity extends BeastEntity {
 
     @Override
     protected void setupAnimationStates() {
-        super.setupAnimationStates();
+        if (this.idleAnimationTimeout <= 0) {
+            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
+            this.idleAnimationState.start(this.age);
+        } else {
+            --this.idleAnimationTimeout;
+        }
+        if(this.isSitting()) {
+            this.sittingAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.sittingAnimationState.stop();
+        }
 
         if(this.isThrowing() && this.throwingAnimationTimeout <= 0) {
             this.throwingAnimationTimeout = 100;
@@ -161,10 +166,6 @@ public class TrollEntity extends BeastEntity {
             if(this.bondingTimeout > 0) {
                 this.bondingTimeout--;
             }
-        }
-
-        if (this.getWorld().isClient) {
-            setupAnimationStates();
         }
     }
 
@@ -241,6 +242,11 @@ public class TrollEntity extends BeastEntity {
         }
         this.playSound(SoundEvents.ENTITY_HOGLIN_ATTACK, 1.5f, 0.8f);
         return bl;
+    }
+
+    @Override
+    public boolean shouldAttackWhenMounted() {
+        return true;
     }
 
     public boolean canThrow() {

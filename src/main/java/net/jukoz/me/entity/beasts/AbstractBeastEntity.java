@@ -1,6 +1,6 @@
 package net.jukoz.me.entity.beasts;
 
-import net.jukoz.me.entity.beasts.warg.WargEntity;
+import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -8,20 +8,21 @@ import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
 import net.minecraft.entity.ai.pathing.PathNodeType;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AbstractHorseEntity;
-import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -31,26 +32,29 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 
 import java.util.UUID;
 import java.util.function.Predicate;
 
 // Beasts are mostly aggressive Entities which work much like wolves, while also allowing the player to mount them.
-public class BeastEntity extends AbstractHorseEntity {
-    public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    public static final TrackedData<Boolean> SITTING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final TrackedData<Boolean> CHEST = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final TrackedData<Boolean> RUNNING = DataTracker.registerData(BeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+public class AbstractBeastEntity extends AbstractHorseEntity {
+    public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> SITTING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> CHEST = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> RUNNING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState chargeAnimationState = new AnimationState();
     public final AnimationState sittingAnimationState = new AnimationState();
+    public final AnimationState startSittingAnimationState = new AnimationState();
+    public final AnimationState stopSittingAnimationState = new AnimationState();
 
     protected int idleAnimationTimeout = 1000;
     protected int attackTicksLeft = 0;
+    protected boolean hasCharged = false;
+    protected boolean startedSitting = false;
 
     protected int chargeTimeout; // ticking cooldown of the charge attack
 
@@ -59,7 +63,7 @@ public class BeastEntity extends AbstractHorseEntity {
     protected Vec3d targetDir = Vec3d.ZERO;
 
     // Initializing ====================================================================================================
-    protected BeastEntity(EntityType<? extends BeastEntity> entityType, World world) {
+    protected AbstractBeastEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -77,18 +81,7 @@ public class BeastEntity extends AbstractHorseEntity {
     }
 
     protected void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
-            this.idleAnimationState.start(this.age);
-        } else {
-            --this.idleAnimationTimeout;
-        }
-        if(this.isSitting()) {
-            this.sittingAnimationState.startIfNotRunning(this.age);
-        }
-        else {
-            this.sittingAnimationState.stop();
-        }
+
     }
 
     @Override
@@ -104,7 +97,7 @@ public class BeastEntity extends AbstractHorseEntity {
 
             @Override
             public ItemStack get() {
-                return BeastEntity.this.items.getStack(slot);
+                return AbstractBeastEntity.this.items.getStack(slot);
             }
 
             @Override
@@ -112,8 +105,8 @@ public class BeastEntity extends AbstractHorseEntity {
                 if (!predicate.test(stack)) {
                     return false;
                 }
-                BeastEntity.this.items.setStack(slot, stack);
-                BeastEntity.this.updateSaddledFlag();
+                AbstractBeastEntity.this.items.setStack(slot, stack);
+                AbstractBeastEntity.this.updateSaddledFlag();
                 return true;
             }
         };
@@ -175,6 +168,10 @@ public class BeastEntity extends AbstractHorseEntity {
         return this.isSitting() || this.hasVehicle() || this.mightBeLeashed() || this.getOwner() != null && this.getOwner().isSpectator();
     }
 
+    public boolean shouldAttackWhenMounted() {
+        return false;
+    }
+
     public boolean canCharge() {
         return !this.isSitting() && !this.hasPassengers();
     }
@@ -191,7 +188,6 @@ public class BeastEntity extends AbstractHorseEntity {
     public int getJumpCooldown() {
         return this.chargeTimeout;
     }
-
 
     public double getMountedHeightOffset() {
         float f = Math.min(0.25F, this.limbAnimator.getSpeed());
@@ -217,6 +213,14 @@ public class BeastEntity extends AbstractHorseEntity {
             return getPlayerByUuid(this.getOwnerUuid());
         }
         return null;
+    }
+
+    public boolean hasCharged() {
+        return hasCharged;
+    }
+
+    public void setHasCharged(boolean hasCharged) {
+        this.hasCharged = hasCharged;
     }
 
     @Override
@@ -329,6 +333,7 @@ public class BeastEntity extends AbstractHorseEntity {
         }
     }
 
+
     @Override
     public void startJumping(int height) {
         if(!this.isSitting()) {
@@ -383,6 +388,7 @@ public class BeastEntity extends AbstractHorseEntity {
 
         if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && !this.getWorld().isClient) {
             this.tryBonding(player);
+            this.eat(player, hand, itemStack);
         }
 
         if (!this.hasPassengers() && !bl) {
@@ -413,57 +419,6 @@ public class BeastEntity extends AbstractHorseEntity {
     public void chargeAttack() {
     }
 
-    // Follow Owner Behaviour ==========================================================================================
-
-    public boolean shouldTryTeleportToOwner() {
-        LivingEntity livingEntity = this.getOwner();
-        return livingEntity != null && this.squaredDistanceTo(this.getOwner()) >= 200.0;
-    }
-
-    public void tryTeleportToOwner() {
-        LivingEntity livingEntity = this.getOwner();
-        if (livingEntity != null) {
-            this.tryTeleportNear(livingEntity.getBlockPos());
-        }
-    }
-
-    private void tryTeleportNear(BlockPos pos) {
-        for (int i = 0; i < 10; ++i) {
-            int j = this.random.nextBetween(-3, 3);
-            int k = this.random.nextBetween(-3, 3);
-            if (Math.abs(j) < 2 && Math.abs(k) < 2) continue;
-            int l = this.random.nextBetween(-1, 1);
-            if (!this.tryTeleportTo(pos.getX() + j, pos.getY() + l, pos.getZ() + k)) continue;
-            return;
-        }
-    }
-
-    private boolean tryTeleportTo(int x, int y, int z) {
-        if (!this.canTeleportTo(new BlockPos(x, y, z))) {
-            return false;
-        }
-        this.refreshPositionAndAngles((double)x + 0.5, y, (double)z + 0.5, this.getYaw(), this.getPitch());
-        this.navigation.stop();
-        return true;
-    }
-
-    private boolean canTeleportTo(BlockPos pos) {
-        PathNodeType pathNodeType = LandPathNodeMaker.getLandNodeType(this, pos);
-        if (pathNodeType != PathNodeType.WALKABLE) {
-            return false;
-        }
-        BlockState blockState = ((World)this.getWorld()).getBlockState(pos.down());
-        if (!this.canTeleportOntoLeaves() && blockState.getBlock() instanceof LeavesBlock) {
-            return false;
-        }
-        BlockPos blockPos = pos.subtract(this.getBlockPos());
-        return this.getWorld().isSpaceEmpty(this, this.getBoundingBox().offset(blockPos));
-    }
-
-    protected boolean canTeleportOntoLeaves() {
-        return false;
-    }
-
     // Tick Management =================================================================================================
     @Override
     public void tick() {
@@ -490,6 +445,12 @@ public class BeastEntity extends AbstractHorseEntity {
             --this.chargeTimeout;
         }
 
+        if(this.hasControllingPassenger() && !this.shouldAttackWhenMounted()) {
+            this.setAttacker(null);
+            this.setAttacking(null);
+            this.setTarget(null);
+        }
+
         if (this.getWorld().isClient) {
             setupAnimationStates();
         }
@@ -505,12 +466,37 @@ public class BeastEntity extends AbstractHorseEntity {
 
     // =================================================================================================================
 
+    protected void setChildAttribute(PassiveEntity other, AbstractHorseEntity child, RegistryEntry<EntityAttribute> attribute, double min, double max) {
+        double d = this.calculateAttributeBaseValue(this.getAttributeBaseValue(attribute), other.getAttributeBaseValue(attribute), min, max, this.random);
+        child.getAttributeInstance(attribute).setBaseValue(d);
+    }
+
+    static double calculateAttributeBaseValue(double parentBase, double otherParentBase, double min, double max, Random random) {
+        double g;
+        if (max <= min) {
+            throw new IllegalArgumentException("Incorrect range for an attribute");
+        }
+        parentBase = MathHelper.clamp(parentBase, min, max);
+        otherParentBase = MathHelper.clamp(otherParentBase, min, max);
+        double d = 0.15 * (max - min);
+        double f = (parentBase + otherParentBase) / 2.0;
+        double e = Math.abs(parentBase - otherParentBase) + d * 2.0;
+        double h = f + e * (g = (random.nextDouble() + random.nextDouble() + random.nextDouble()) / 3.0 - 0.5);
+        if (h > max) {
+            double i = h - max;
+            return max - i;
+        }
+        if (h < min) {
+            double i = min - h;
+            return min + i;
+        }
+        return h;
+    }
+
     @Override
     public void handleStatus(byte status) {
         if (status == EntityStatuses.PLAY_ATTACK_SOUND) {
             this.attackTicksLeft = ATTACK_COOLDOWN;
-        }
-        if(status == 4){
             this.attackAnimationState.start(this.age);
         }
         if (status == EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES) {

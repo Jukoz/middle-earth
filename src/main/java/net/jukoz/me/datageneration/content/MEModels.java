@@ -27,6 +27,11 @@ public class MEModels {
     public static final Model LARGE_DOOR_RIGHT;
     public static final Model LARGE_DOOR_RIGHT_OPEN;
 
+    public static final Model LARGE_THICK_DOOR_LEFT;
+    public static final Model LARGE_THICK_DOOR_LEFT_OPEN;
+    public static final Model LARGE_THICK_DOOR_RIGHT;
+    public static final Model LARGE_THICK_DOOR_RIGHT_OPEN;
+
     public static final Model THICK_LADDER;
 
     private static Model block(String parent, TextureKey... requiredTextureKeys) {
@@ -58,6 +63,11 @@ public class MEModels {
         LARGE_DOOR_LEFT_OPEN = block("large_door_left_open", TextureKey.ALL, TextureKey.PARTICLE);
         LARGE_DOOR_RIGHT = block("large_door_right", TextureKey.ALL, TextureKey.PARTICLE);
         LARGE_DOOR_RIGHT_OPEN = block("large_door_right_open", TextureKey.ALL, TextureKey.PARTICLE);
+
+        LARGE_THICK_DOOR_LEFT = block("thick_large_door_left", TextureKey.ALL, TextureKey.PARTICLE);
+        LARGE_THICK_DOOR_LEFT_OPEN = block("thick_large_door_left_open", TextureKey.ALL, TextureKey.PARTICLE);
+        LARGE_THICK_DOOR_RIGHT = block("thick_large_door_right", TextureKey.ALL, TextureKey.PARTICLE);
+        LARGE_THICK_DOOR_RIGHT_OPEN = block("thick_large_door_right_open", TextureKey.ALL, TextureKey.PARTICLE);
 
         THICK_LADDER = block("thick_ladder", TextureKey.TEXTURE, TextureKey.PARTICLE);
     }

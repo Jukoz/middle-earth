@@ -29,6 +29,8 @@ public class MineableAxe {
             add(ModDecorativeBlocks.LARCH_HOBBIT_DOOR);
             add(ModDecorativeBlocks.SPRUCE_HOBBIT_DOOR);
             add(ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR);
+            add(ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR);
+            add(ModDecorativeBlocks.GREAT_ELVEN_GATE);
 
             add(ModBlocks.BLACK_WATTLE_TRAPDOOR);
             add(ModBlocks.DARK_WATTLE_TRAPDOOR);

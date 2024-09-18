@@ -7,11 +7,14 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.MathHelper;
 
 public class WargArmorModel extends SinglePartEntityModel<WargEntity> {
 private final ModelPart warg;
+private final ModelPart head;
 public WargArmorModel(ModelPart root) {
         this.warg = root.getChild("root");
+        this.head = warg.getChild(EntityModelPartNames.BODY).getChild("upperBody").getChild(EntityModelPartNames.HEAD);
         }
         public static TexturedModelData getTexturedModelData() {
                 ModelData modelData = new ModelData();
@@ -50,6 +53,9 @@ public WargArmorModel(ModelPart root) {
         @Override
         public void setAngles(WargEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
                 this.getPart().traverse().forEach(ModelPart::resetTransform);
+                if(!entity.hasControllingPassenger()) {
+                        this.setHeadAngles(headYaw, headPitch);
+                }
 
                 if((entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting()) || entity.isRunning()) {
                         this.animateMovement(WargAnimations.RUN, limbAngle, limbDistance, 1.2f, 1.2f);
@@ -63,6 +69,14 @@ public WargArmorModel(ModelPart root) {
                 this.updateAnimation(entity.startSittingAnimationState, WargAnimations.SIT_DOWN, animationProgress, 3f);
                 this.updateAnimation(entity.stopSittingAnimationState, WargAnimations.STAND_UP, animationProgress, 3f);
                 this.updateAnimation(entity.sittingAnimationState, WargAnimations.SIT, animationProgress, 1f);
+        }
+
+        private void setHeadAngles(float headYaw, float headPitch) {
+                headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
+                headPitch = MathHelper.clamp(headPitch, -25.0F, 40.0F);
+
+                this.head.yaw = headYaw * 0.017453292F;
+                this.head.pitch = headPitch * 0.017453292F;
         }
 
         public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {

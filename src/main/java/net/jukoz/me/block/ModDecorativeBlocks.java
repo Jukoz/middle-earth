@@ -456,35 +456,37 @@ public class ModDecorativeBlocks {
             new ThickLadderBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL).burnable()));
 
     public static final Block LARCH_HOBBIT_DOOR = registerDoorBlock("larch_hobbit_door",
-            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final Block SPRUCE_HOBBIT_DOOR = registerDoorBlock("spruce_hobbit_door",
-            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
 
     public static final Block BLUE_HOBBIT_DOOR = registerDoorBlock("blue_hobbit_door",
-            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final Block GREEN_HOBBIT_DOOR = registerDoorBlock("green_hobbit_door",
-            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final Block RED_HOBBIT_DOOR = registerDoorBlock("red_hobbit_door",
-            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final Block YELLOW_HOBBIT_DOOR = registerDoorBlock("yellow_hobbit_door",
-            new LargeDoor2x2(2,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            new LargeDoor2x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
 
     public static final Block REINFORCED_SPRUCE_DOOR = registerDoorBlock("reinforced_spruce_door",
-            new LargeDoor4x2(4,2, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+            new LargeDoor4x2(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
 
     public static final Block GREAT_GONDORIAN_GATE = registerDoorBlock("great_gondorian_gate",
-            new LargeDoor10x5(10,5, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+            new LargeDoor10x5(AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
 
     public static final Block GREAT_DWARVEN_GATE = registerDoorBlock("great_dwarven_gate",
-            new LargeDoor5x2(5,2, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+            new LargeDoor5x2(AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
     public static final Block VARNISHED_DWARVEN_DOOR = registerDoorBlock("varnished_dwarven_door",
-            new LargeDoor4x2(4,2, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+            new LargeDoor4x2(AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+    public static final Block HIDDEN_DWARVEN_DOOR = registerDoorBlock("hidden_dwarven_door",
+            new LargeThickDoor3x2(AbstractBlock.Settings.copy(Blocks.STONE)));
 
     public static final Block GREAT_ELVEN_GATE = registerDoorBlock("great_elven_gate",
-            new LargeDoor6x2(6,2, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+            new LargeDoor6x2(AbstractBlock.Settings.copy(Blocks.OAK_DOOR)));
 
     public static final Block GREAT_ORCISH_GATE = registerDoorBlock("great_orcish_gate",
-            new LargeDoor10x4(10,4, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+            new LargeDoor10x4(AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
 
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);

@@ -71,21 +71,22 @@ public class ThickLadderBlock extends WallMountedBlock implements Waterloggable 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         Direction[] var2 = ctx.getPlacementDirections();
-        int var3 = var2.length;
-
 
         for (Direction direction : var2) {
             BlockState blockState;
             if (direction.getAxis() == Direction.Axis.Y) {
-                if(Objects.requireNonNull(ctx.getPlayer()).isSneaking()){
+                if(!Objects.requireNonNull(ctx.getPlayer()).isSneaking()){
                     blockState = (BlockState) ((BlockState) this.getDefaultState().with(FACE, BlockFace.WALL)).with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);;
                 } else {
                     blockState = (BlockState) ((BlockState) this.getDefaultState().with(FACE, direction == Direction.UP ? BlockFace.CEILING : BlockFace.FLOOR)).with(FACING, ctx.getHorizontalPlayerFacing()).with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);;
                 }
             } else {
-                blockState = (BlockState) ((BlockState) this.getDefaultState().with(FACE, BlockFace.WALL)).with(FACING, direction.getOpposite()).with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);;
+                if(!Objects.requireNonNull(ctx.getPlayer()).isSneaking()) {
+                    blockState = (BlockState) ((BlockState) this.getDefaultState().with(FACE, BlockFace.WALL)).with(FACING, direction.getOpposite()).with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);;
+                } else {
+                    blockState = (BlockState) ((BlockState) this.getDefaultState().with(FACE, (ctx.getHitPos().y - (double)ctx.getBlockPos().getY() > 0.5) ? BlockFace.CEILING : BlockFace.FLOOR)).with(FACING, direction.getOpposite()).with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);;
+                }
             }
-
             if (blockState.canPlaceAt(ctx.getWorld(), ctx.getBlockPos())) {
                 return blockState;
             }
