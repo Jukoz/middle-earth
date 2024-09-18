@@ -57,7 +57,6 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
                 if (state.get(PART) == ForgePart.BOTTOM){
                     ForgeBlockEntity.MetalTypes metal = forgeBlockEntity.getCurrentMetal();
                     int storage = forgeBlockEntity.getStorage();
-                    System.out.println("storage: " + storage);
 
                     if (metal != ForgeBlockEntity.MetalTypes.EMPTY){
                         ItemStack ingotStack = new ItemStack(metal.getIngot(), storage / 144);
