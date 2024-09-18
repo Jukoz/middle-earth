@@ -36,6 +36,8 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -75,7 +77,11 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
     private MetalTypes currentMetal = MetalTypes.EMPTY;
 
-    //TODO drop ingots and
+    //TODO tooltip for output mode
+    //TODO tooltip for metal amount
+    //TODO heating stuff ?
+    //TODO alloy recipes
+    //TODO melting stuff ?
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGE, pos, state);
@@ -285,7 +291,9 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     }
 
     public static void outputItemStack(int amount, Vec3d coords, ServerPlayerEntity player){
-        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ()), ModBlockEntities.FORGE);
+        BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
+
+        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, ModBlockEntities.FORGE);
 
         ItemStack itemstack = ItemStack.EMPTY;
         if(forgeBlockEntity.isPresent()){
@@ -322,26 +330,48 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
             if (entity.getStack(OUTPUT_SLOT).isOf(itemstack.getItem())){
                 if (entity.getStack(OUTPUT_SLOT).get(DataComponentTypes.TRIM) == itemstack.get(DataComponentTypes.TRIM)) {
-                    if (amount <= entity.storage) {
+                    if (amount <= entity.storage && amount > 0) {
                         itemstack.setCount(entity.getStack(OUTPUT_SLOT).getCount() + 1);
                         entity.storage = entity.storage - amount;
                         if (entity.storage == 0) {
                             entity.currentMetal = MetalTypes.EMPTY;
                         }
                         entity.setStack(OUTPUT_SLOT, itemstack);
+                        playExtractSound(entity.getWorld(), pos);
+                    } else {
+                        playFailedExtractSound(entity.getWorld(), pos);
                     }
                 }
             } else if(entity.getStack(OUTPUT_SLOT).isEmpty()){
-                if (amount <= entity.storage) {
+                if (amount <= entity.storage && amount > 0) {
                     itemstack.setCount(entity.getStack(OUTPUT_SLOT).getCount() + 1);
                     entity.storage = entity.storage - amount;
                     if (entity.storage == 0) {
                         entity.currentMetal = MetalTypes.EMPTY;
                     }
                     entity.setStack(OUTPUT_SLOT, itemstack);
+                    playExtractSound(entity.getWorld(), pos);
+                } else {
+                    playFailedExtractSound(entity.getWorld(), pos);
                 }
+            } else {
+                playFailedExtractSound(entity.getWorld(), pos);
             }
         }
+    }
+
+    private static void playExtractSound(World world, BlockPos pos){
+        System.out.println("playing extract sound");
+        System.out.println(world);
+        System.out.println(pos);
+        world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0f, 1.0f);
+    }
+
+    private static void playFailedExtractSound(World world, BlockPos pos){
+        System.out.println("playing failed extract sound");
+        System.out.println(world);
+        System.out.println(pos);
+        world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_INSERT_FAIL, SoundCategory.BLOCKS, 1.0f, 1.0f);
     }
 
     public static void tick(World world, BlockPos blockPos, BlockState blockState, ForgeBlockEntity entity) {

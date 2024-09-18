@@ -66,6 +66,7 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
 
         this.leftExtractCycleButton = new ToggleButtonWidget(x + 133, y + 56, 7 ,11, true);
         this.leftExtractCycleButton.setTextures(LEFT_CYCLE_EXTRACT_BUTTON_TEXTURES);
+        this.leftExtractCycleButton.visible = false;
 
         this.extractButton = new TexturedButtonWidget(x + 142, y + 52, 20 ,20, EXTRACT_BUTTON_TEXTURES, (button)-> {
             int amount = 0;
@@ -83,6 +84,7 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
 
         this.rightExtractCycleButton = new ToggleButtonWidget(x + 164, y + 56, 7,11, true);
         this.rightExtractCycleButton.setTextures(RIGHT_CYCLE_EXTRACT_BUTTON_TEXTURES);
+        this.rightExtractCycleButton.visible = false;
 
 
         addDrawableChild(leftExtractCycleButton);
