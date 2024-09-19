@@ -11,9 +11,11 @@ import net.minecraft.util.math.MathHelper;
 public class WargModel extends SinglePartEntityModel<WargEntity> {
     private final ModelPart warg;
     private final ModelPart head;
+    private final ModelPart mane;
     public WargModel(ModelPart root) {
         this.warg = root.getChild("root");
         this.head = warg.getChild(EntityModelPartNames.BODY).getChild("upperBody").getChild(EntityModelPartNames.HEAD);
+        this.mane = warg.getChild(EntityModelPartNames.BODY).getChild("upperBody").getChild("mane");
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -61,8 +63,6 @@ public class WargModel extends SinglePartEntityModel<WargEntity> {
         return TexturedModelData.of(modelData, 128, 128);
     }
 
-
-
     @Override
     public void setAngles(WargEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
@@ -76,6 +76,8 @@ public class WargModel extends SinglePartEntityModel<WargEntity> {
         else {
             this.animateMovement(WargAnimations.WALK, limbAngle, limbDistance, 1.5f, 1.5f);
         }
+
+        this.mane.visible = !(entity.isSaddled() || entity.isWearingBodyArmor());
 
         this.updateAnimation(entity.idleAnimationState, WargAnimations.GROOM, animationProgress, 1f);
         this.updateAnimation(entity.attackAnimationState, WargAnimations.BITE, animationProgress, 1f);

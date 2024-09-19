@@ -383,7 +383,7 @@ public class WargEntity extends AbstractBeastEntity {
 
     @Override
     public boolean isHorseArmor(ItemStack stack) {
-        return (stack.isOf(ModEquipmentItems.WARG_LEATHER_ARMOR) || stack.isOf(ModEquipmentItems.WARG_PLATE_ARMOR));
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_armor")));
     }
 
     public boolean hasCharged() {
