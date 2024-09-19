@@ -504,6 +504,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
     private static boolean hasHeatingRecipe(ForgeBlockEntity entity) {
         List<ItemStack> inputs = new ArrayList<>();
+        boolean hasColdItem = false;
         for (int i = 0; i < entity.size(); i++) {
             if(i != FUEL_SLOT && i != OUTPUT_SLOT) {
                 Item item = entity.getStack(i).getItem();
@@ -511,10 +512,15 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                     return false; // One of the items cannot be heated
                 } else {
                     inputs.add(entity.getStack(i));
+                    TemperatureDataComponent temperatureComponent = entity.getStack(i).get(ModDataComponentTypes.TEMPERATURE_DATA);
+                    if(temperatureComponent == null || temperatureComponent.temperature() < 1000) {
+                        hasColdItem = true;
+                    }
                 }
             }
         }
-        return !inputs.isEmpty();
+        if(inputs.isEmpty()) return false;
+        else return hasColdItem;
     }
 
     private boolean hasFuel(ForgeBlockEntity entity) {

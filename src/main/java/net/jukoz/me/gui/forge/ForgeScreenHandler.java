@@ -22,7 +22,7 @@ public class ForgeScreenHandler extends ScreenHandler{
 
 
     public ForgeScreenHandler(int syncId, PlayerInventory playerInventory, Object o) {
-        this(syncId, playerInventory, new SimpleInventory(6), new ArrayPropertyDelegate(9));
+        this(syncId, playerInventory, new SimpleInventory(6), new ArrayPropertyDelegate(6));
         this.pos = ((BlockPos) o);
     }
 
@@ -88,6 +88,10 @@ public class ForgeScreenHandler extends ScreenHandler{
 
     public boolean hasBellows() {
         return propertyDelegate.get(3) > 0;
+    }
+
+    public boolean heatingMode() {
+        return propertyDelegate.get(3) == 0;
     }
 
     public float getScaledCooking() {

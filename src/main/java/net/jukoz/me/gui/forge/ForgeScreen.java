@@ -53,6 +53,7 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
     public ToggleButtonWidget rightExtractCycleButton;
 
     private int outputMode = 0;
+    private Boolean heatingMode = null;
 
     public ForgeScreen(ForgeScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -87,7 +88,6 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         this.rightExtractCycleButton.setTextures(RIGHT_CYCLE_EXTRACT_BUTTON_TEXTURES);
         this.rightExtractCycleButton.visible = false;
 
-
         addDrawableChild(leftExtractCycleButton);
         addDrawableChild(extractButton);
         addDrawableChild(rightExtractCycleButton);
@@ -96,6 +96,13 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
     @Override
     protected void handledScreenTick() {
         super.handledScreenTick();
+        if(heatingMode == null)
+            heatingMode = handler.heatingMode();
+        else if(handler.heatingMode() != heatingMode) {
+            heatingMode = handler.heatingMode();
+            this.close();
+        }
+
         if(handler.checkMaxOutput() == 4 && outputMode >= 4){
             outputMode = 4;
         }
@@ -211,11 +218,12 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         super.render(context, mouseX, mouseY, delta);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
-        renderLiquidStorageTooltip(context, mouseX, mouseY);
         drawMouseoverTooltip(context, mouseX, mouseY);
 
         ItemStack itemstack = ItemStack.EMPTY;
 
+        if(heatingMode == null || heatingMode) return;
+        renderLiquidStorageTooltip(context, mouseX, mouseY);
         switch (outputMode){
             case 0:
                 context.drawTexture(TEXTURE, x + 146, y + 56, 177, 111,12, 12);
