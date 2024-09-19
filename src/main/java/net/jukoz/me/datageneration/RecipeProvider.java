@@ -1,9 +1,11 @@
 package net.jukoz.me.datageneration;
 
+import com.ibm.icu.util.SimpleHoliday;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.*;
 import net.jukoz.me.datageneration.content.models.*;
+import net.jukoz.me.datageneration.custom.AlloyRecipeJsonBuilder;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModToolItems;
@@ -13,6 +15,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.data.DataOutput;
 import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
@@ -20,6 +23,8 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -606,6 +611,19 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         ComplexRecipeJsonBuilder.create(ArmorHoodRemovalRecipe::new).offerTo(exporter, "custom_armor_hood_removal");
         ComplexRecipeJsonBuilder.create(ArmorCapeRecipe::new).offerTo(exporter, "custom_armor_cape");
         ComplexRecipeJsonBuilder.create(ArmorCapeRemovalRecipe::new).offerTo(exporter, "custom_armor_cape_removal");
+
+        createAlloyRecipe(exporter, List.of(Items.COPPER_INGOT, Items.COPPER_INGOT, Items.COPPER_INGOT, ModResourceItems.TIN_INGOT), "bronze", 576);
+        createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, ModResourceItems.ASH, ModResourceItems.ASH), "crude", 288);
+        createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, Items.IRON_INGOT, Items.COAL), "steel", 432);
+        createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, ModResourceItems.LEAD_INGOT, Items.COAL), "khazad_steel", 432);
+        createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, Items.IRON_INGOT, ModResourceItems.SILVER_NUGGET), "edhel_steel", 432);
+        createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, ModResourceItems.LEAD_INGOT, ModResourceItems.ASH), "burzum_steel", 432);
+        HotMetalsModel.nuggets.forEach(nugget -> {
+            createMeltRecipe(exporter, nugget, Registries.ITEM.getId(nugget).getPath().replace("_nugget", ""), 16);
+        });
+        HotMetalsModel.ingots.forEach(ingot -> {
+            createMeltRecipe(exporter, ingot, Registries.ITEM.getId(ingot).getPath().replace("_ingot", ""), 144);
+        });
     }
 
     //region BLOCK RECIPE METHODS
@@ -679,6 +697,25 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(input),
                         FabricRecipeProvider.conditionsFromItem(input))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output).getPath() + "_from_smelting"));
+    }
+
+    private void createAlloyRecipe(RecipeExporter exporter, List<Item> inputs, String output, int amount) {
+        AlloyRecipeJsonBuilder.createAlloyRecipe(RecipeCategory.MISC, output,amount)
+                .input(inputs.getFirst())
+                .input(inputs.get(1))
+                .input(inputs.get(2))
+                .input(inputs.get(3))
+                .criterion(FabricRecipeProvider.hasItem(inputs.getFirst()),
+                        FabricRecipeProvider.conditionsFromItem(inputs.getFirst()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, output + "_from_alloying"));
+    }
+
+    private void createMeltRecipe(RecipeExporter exporter, Item input, String output, int amount) {
+        AlloyRecipeJsonBuilder.createAlloyRecipe(RecipeCategory.MISC, output,amount)
+                .input(input)
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_" + Registries.ITEM.getId(input).getPath()));
     }
 
     private void createStairsRecipe(RecipeExporter exporter, Block input, Block output) {
@@ -874,11 +911,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(Items.STICK))
                 .offerTo(exporter);
     }
-
-
-
-
-
     //endregion
 
     //region ITEM RECIPE METHODS

@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "me:jadeite",
     "me:tin_ingot",
@@ -7,10 +8,9 @@
     "me:bronze_ingot",
     "me:steel_ingot",
     "me:crude_ingot",
-    "me:uruk_steel_ingot",
-    "me:elven_steel_ingot",
-    "me:dwarven_steel_ingot",
-    "me:morgul_steel_ingot",
+    "me:burzum_steel_ingot",
+    "me:edhel_steel_ingot",
+    "me:khazad_steel_ingot",
     "me:mithril_ingot"
   ]
 }

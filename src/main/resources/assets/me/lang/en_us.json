@@ -5184,8 +5184,21 @@
   "tooltip.me.ingots_number" : "Ingots",
   "tooltip.me.nuggets_number" : "Nuggets",
 
+  "tooltip.me.liquid_copper" : "Liquid Copper",
+  "tooltip.me.liquid_tin" : "Liquid Tin",
+  "tooltip.me.liquid_lead" : "Liquid Lead",
+  "tooltip.me.liquid_silver" : "Liquid Silver",
+  "tooltip.me.liquid_iron" : "Liquid Iron",
+  "tooltip.me.liquid_gold" : "Liquid Gold",
+  "tooltip.me.liquid_mithril" : "Liquid Mithril",
+  "tooltip.me.liquid_netherite" : "Liquid Netherite",
+
   "tooltip.me.liquid_bronze" : "Liquid Bronze",
+  "tooltip.me.liquid_crude" : "Liquid Crude Metal",
   "tooltip.me.liquid_steel" : "Liquid Steel",
+  "tooltip.me.liquid_khazad_steel" : "Liquid Khâzad-Steel",
+  "tooltip.me.liquid_edhel_steel" : "Liquid Edhel-Steel",
+  "tooltip.me.liquid_burzum_steel" : "Liquid Búrzum-Steel",
 
   "trim_pattern.me.smithing_part" : "Smithing Part",
   "trim_material.me.jade" : "Jade",

@@ -143,9 +143,9 @@ public class ModResourceItems {
     public static final Item LETTUCE_SEEDS = registerItem("lettuce_seeds", new AliasedBlockItem(ModNatureBlocks.LETTUCE_CROP, new Item.Settings()));
 
     public static final Item ROD = registerItem("rod",
-            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+            new Item(new Item.Settings().maxCount(16)));
     public static final Item LARGE_ROD = registerItem("large_rod",
-            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+            new Item(new Item.Settings().maxCount(16)));
 
     public static final Item PICKAXE_HEAD = registerItem("pickaxe_head",
             new SmithingMaterialItem(new Item.Settings().maxCount(16)));
