@@ -1,25 +1,22 @@
 package net.jukoz.me.block.special.forge;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.ModDecorativeBlocks;
+import net.jukoz.me.datageneration.content.models.HotMetalsModel;
 import net.jukoz.me.gui.forge.ForgeScreenHandler;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
-import net.jukoz.me.item.items.SmithingMaterialItem;
-import net.jukoz.me.network.packets.C2S.ForgeOutputPacket;
 import net.jukoz.me.recipe.AlloyingRecipe;
-import net.jukoz.me.resources.datas.faction.Faction;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -29,7 +26,6 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.SmithingTemplateItem;
 import net.minecraft.item.trim.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
@@ -37,7 +33,6 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.*;
-import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -48,14 +43,12 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3d;
 
 import java.util.*;
 
@@ -396,21 +389,43 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         entity.boostTime = Math.max(0, entity.boostTime - 1);
         boolean progress = false;
         entity.mode = entity.hasBellows(world, blockPos, blockState);
-        if(hasRecipe(entity)) {
-            if(entity.hasFuel(entity)) {
-                int progressValue = 1;
-                if(entity.boostTime > 0) {
-                    progressValue = 8;
+        if(entity.mode == 1) { // Alloying mode
+            if(hasAlloyingRecipe(entity)) {
+                if(entity.hasFuel(entity)) {
+                    int progressValue = 1;
+                    if(entity.boostTime > 0) {
+                        progressValue = 8;
+                    }
+                    entity.progress += progressValue;
+                    progress = true;
+                    markDirty(world, blockPos, blockState); // Reloads the origin in this chunk, for sync & saving.
+                    if(entity.progress >= MAX_PROGRESS) {
+                        craftItem(entity);
+                        entity.progress = 0;
+                    }
                 }
-                entity.progress += progressValue;
-                progress = true;
-                markDirty(world, blockPos, blockState); // Reloads the origin in this chunk, for sync & saving.
-                if(entity.progress >= MAX_PROGRESS) {
-                    craftItem(entity);
-                    entity.progress = 0;
+            }
+        } else { // Heating mode
+            dropExtraItems(entity);
+            if(hasHeatingRecipe(entity)) {
+                if(entity.hasFuel(entity)) {
+                    int progressValue = 1;
+                    if(entity.boostTime > 0) {
+                        progressValue = 8;
+                    }
+                    entity.progress += progressValue;
+                    progress = true;
+                    markDirty(world, blockPos, blockState); // Reloads the origin in this chunk, for sync & saving.
+                    if(entity.progress >= MAX_PROGRESS) {
+                        for (int i = 1; i <= 4; i++) {
+                            entity.getStack(i).set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                        }
+                        entity.progress = 0;
+                    }
                 }
             }
         }
+
         if (!progress){
             entity.progress = Math.max(entity.progress - 2, 0);
             markDirty(world, blockPos, blockState);
@@ -432,7 +447,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 .getFirstMatch(AlloyingRecipe.Type.INSTANCE, new MultipleStackRecipeInput(inputs), entity.getWorld());
         if(match.isEmpty()) throw new RuntimeException("Somehow... you crafted an item without recipe?!");
 
-        if(hasRecipe(entity)) {
+        if(hasAlloyingRecipe(entity)) {
             for (int i = 1; i <= 4; i++) {
                 entity.removeStack(i, 1);
             }
@@ -442,7 +457,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         }
     }
 
-    private static boolean hasRecipe(ForgeBlockEntity entity) {
+    private static boolean hasAlloyingRecipe(ForgeBlockEntity entity) {
         SimpleInventory inventory1 = new SimpleInventory(entity.size());
         List<ItemStack> inputs = new ArrayList<>();
         for (int i = 0; i < entity.size(); i++) {
@@ -458,6 +473,48 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         if(match.isEmpty()) return false;
 
         return canInsertLiquid(entity.storage, entity.currentMetal, match);
+    }
+
+    private static void dropExtraItems(ForgeBlockEntity entity) {
+    {
+        if(entity.getWorld() == null) return;
+        for (int i = 0; i < entity.size(); i++)
+            if (i != FUEL_SLOT && i != OUTPUT_SLOT) {
+                ItemStack itemStack = entity.getStack(i);
+                if (!itemStack.isEmpty() && itemStack.getCount() > 1) {
+                    int difference = itemStack.getCount() - 1;
+                    ItemStack extraStack = itemStack.copy();
+                    extraStack.setCount(difference);
+
+                    ItemEntity itemEntity = new ItemEntity(entity.getWorld(),
+                            entity.getPos().getX(),
+                            entity.getPos().getY() + 1.5f,
+                            entity.getPos().getZ(), extraStack);
+                    itemEntity.setToDefaultPickupDelay();
+                    float f = (float) (Math.random() * 0.15f);
+                    float g = (float) (Math.random() * 0.15f);
+                    itemEntity.setVelocity(f, 0.25f, g);
+                    entity.getWorld().spawnEntity(itemEntity);
+
+                    itemStack.setCount(1);
+                }
+            }
+        }
+    }
+
+    private static boolean hasHeatingRecipe(ForgeBlockEntity entity) {
+        List<ItemStack> inputs = new ArrayList<>();
+        for (int i = 0; i < entity.size(); i++) {
+            if(i != FUEL_SLOT && i != OUTPUT_SLOT) {
+                Item item = entity.getStack(i).getItem();
+                if(!HotMetalsModel.nuggets.contains(item) && !HotMetalsModel.ingots.contains(item) && !HotMetalsModel.items.contains(item)) {
+                    return false; // One of the items cannot be heated
+                } else {
+                    inputs.add(entity.getStack(i));
+                }
+            }
+        }
+        return !inputs.isEmpty();
     }
 
     private boolean hasFuel(ForgeBlockEntity entity) {

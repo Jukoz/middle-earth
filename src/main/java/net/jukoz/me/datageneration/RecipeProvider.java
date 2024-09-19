@@ -612,8 +612,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         ComplexRecipeJsonBuilder.create(ArmorCapeRecipe::new).offerTo(exporter, "custom_armor_cape");
         ComplexRecipeJsonBuilder.create(ArmorCapeRemovalRecipe::new).offerTo(exporter, "custom_armor_cape_removal");
 
+        // region Alloying
         createAlloyRecipe(exporter, List.of(Items.COPPER_INGOT, Items.COPPER_INGOT, Items.COPPER_INGOT, ModResourceItems.TIN_INGOT), "bronze", 576);
-        createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, ModResourceItems.ASH, ModResourceItems.ASH), "crude", 288);
+        createAlloyRecipe(exporter, List.of(Items.COPPER_INGOT, Items.COPPER_INGOT, ModResourceItems.TIN_INGOT, ModResourceItems.ASH), "crude", 432);
         createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, Items.IRON_INGOT, Items.COAL), "steel", 432);
         createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, ModResourceItems.LEAD_INGOT, Items.COAL), "khazad_steel", 432);
         createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, Items.IRON_INGOT, ModResourceItems.SILVER_NUGGET), "edhel_steel", 432);
@@ -624,6 +625,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         HotMetalsModel.ingots.forEach(ingot -> {
             createMeltRecipe(exporter, ingot, Registries.ITEM.getId(ingot).getPath().replace("_ingot", ""), 144);
         });
+        // endregion
+        // region Heating
+
+        // endregion
     }
 
     //region BLOCK RECIPE METHODS

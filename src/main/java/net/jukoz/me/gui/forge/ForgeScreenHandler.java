@@ -34,12 +34,14 @@ public class ForgeScreenHandler extends ScreenHandler{
         this.propertyDelegate = delegate;
         this.world = playerInventory.player.getWorld();
         pos = BlockPos.ORIGIN;
+        int maxItemStack = 64;
+        if(this.propertyDelegate.get(3) == 0) maxItemStack = 1; // Heating mode
 
         this.addSlot(new ForgeFuelSlot(inventory, this, 0, 39, 53));
-        this.addSlot(new Slot(inventory, 1, 12, 17));
-        this.addSlot(new Slot(inventory, 2, 30, 17));
-        this.addSlot(new Slot(inventory, 3, 48, 17));
-        this.addSlot(new Slot(inventory, 4, 66, 17));
+        this.addSlot(new ForgeSlot(inventory, 1, 12, 17, maxItemStack));
+        this.addSlot(new ForgeSlot(inventory, 2, 30, 17, maxItemStack));
+        this.addSlot(new ForgeSlot(inventory, 3, 48, 17, maxItemStack));
+        this.addSlot(new ForgeSlot(inventory, 4, 66, 17, maxItemStack));
         this.addSlot(new ForgeOutputSlot(playerInventory.player, inventory, 5, 144, 17));
 
         addPlayerInventory(playerInventory);
