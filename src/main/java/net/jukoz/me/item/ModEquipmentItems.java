@@ -794,16 +794,16 @@ public class ModEquipmentItems {
             new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
 
     public static final Item NAZGUL_CLOAK_HOOD = registerArmorPiece("nazgul_cloak_hood",
-            new CustomHelmetItem(ModArmorMaterials.MORGUL_STEEL_T3, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.STEEL_T3, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item NAZGUL_CLOAK = registerArmorPiece("nazgul_cloak",
-            new CustomChestplateItem(ModArmorMaterials.MORGUL_STEEL_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+            new CustomChestplateItem(ModArmorMaterials.STEEL_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item NAZGUL_PANTS = registerArmorPiece("nazgul_pants",
-            new CustomLeggingsItem(ModArmorMaterials.MORGUL_STEEL_T3, ArmorItem.Type.LEGGINGS, new Item.Settings(),
+            new CustomLeggingsItem(ModArmorMaterials.STEEL_T3, ArmorItem.Type.LEGGINGS, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item NAZGUL_BOOTS = registerArmorPiece("nazgul_boots",
-            new CustomBootsItem(ModArmorMaterials.MORGUL_STEEL_T3, ArmorItem.Type.BOOTS, new Item.Settings(),
+            new CustomBootsItem(ModArmorMaterials.STEEL_T3, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModFactions.MORDOR));
 
     public static final Item BLACK_NUMENOREAN_TOWER_SHIELD = registerShield("black_numenorean_tower_shield",

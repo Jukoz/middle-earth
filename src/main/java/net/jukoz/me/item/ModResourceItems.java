@@ -82,11 +82,6 @@ public class ModResourceItems {
     public static final Item KHAZAD_STEEL_NUGGET = registerItem("khazad_steel_nugget",
             new Item(new Item.Settings()));
 
-    public static final Item MORGUL_STEEL_INGOT = registerItem("morgul_steel_ingot",
-            new SmithingMaterialItem(new Item.Settings()));
-    public static final Item MORGUL_STEEL_NUGGET = registerItem("morgul_steel_nugget",
-            new Item(new Item.Settings()));
-
     public static final Item RAW_MITHRIL = registerItem("raw_mithril",
             new Item(new Item.Settings().fireproof()));
     public static final Item MITHRIL_INGOT = registerItem("mithril_ingot",

@@ -552,14 +552,13 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.EDHEL_STEEL_INGOT, ModToolItems.EDHEL_STEEL_PICKAXE, ModToolItems.EDHEL_STEEL_AXE, ModToolItems.EDHEL_STEEL_SHOVEL, ModToolItems.EDHEL_STEEL_HOE);
         
-        createToolSetRecipes(exporter, ModResourceItems.ROD, ModResourceItems.KHAZAD_STEEL_INGOT, ModToolItems.KHAZAD_STEEL_PICKAXE, ModToolItems.KHAZAD_STEEL_AXE, ModToolItems.KHAZAD_STEEL_SHOVEL, ModToolItems.KHAZAD_STEEL_HOE);
+        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.KHAZAD_STEEL_INGOT, ModToolItems.KHAZAD_STEEL_PICKAXE, ModToolItems.KHAZAD_STEEL_AXE, ModToolItems.KHAZAD_STEEL_SHOVEL, ModToolItems.KHAZAD_STEEL_HOE);
 
-        createToolSetRecipes(exporter, ModResourceItems.ROD, ModResourceItems.MITHRIL_INGOT, ModToolItems.MITHRIL_PICKAXE, ModToolItems.MITHRIL_AXE, ModToolItems.MITHRIL_SHOVEL, ModToolItems.MITHRIL_HOE);
+        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.MITHRIL_INGOT, ModToolItems.MITHRIL_PICKAXE, ModToolItems.MITHRIL_AXE, ModToolItems.MITHRIL_SHOVEL, ModToolItems.MITHRIL_HOE);
 
         //TODO rod specify data component dwarven steel material
 
         createBucketRecipe(exporter, Items.IRON_INGOT, Items.BUCKET);
-        //createBucketRecipe(exporter, ModResourceItems.MITHRIL_INGOT, ModToolItems.MITHRIL_BUCKET);
 
         createMetalsRecipe(exporter, ModResourceItems.TIN_NUGGET, ModResourceItems.TIN_INGOT, ModBlocks.TIN_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.LEAD_NUGGET, ModResourceItems.LEAD_INGOT, ModBlocks.LEAD_BLOCK);
@@ -572,8 +571,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createMetalsRecipe(exporter, ModResourceItems.STEEL_NUGGET, ModResourceItems.STEEL_INGOT, ModBlocks.STEEL_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.EDHEL_STEEL_NUGGET, ModResourceItems.EDHEL_STEEL_INGOT, ModBlocks.EDHEL_STEEL_BLOCK);
         createMetalsRecipe(exporter, ModResourceItems.KHAZAD_STEEL_NUGGET, ModResourceItems.KHAZAD_STEEL_INGOT, ModBlocks.KHAZAD_STEEL_BLOCK);
-        createMetalsRecipeNoBlock(exporter, ModResourceItems.MORGUL_STEEL_NUGGET, ModResourceItems.MORGUL_STEEL_INGOT);
-
         //endregion
 
         //region SEEDS

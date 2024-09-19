@@ -96,9 +96,6 @@ public class SimpleItemModel {
             add(ModResourceItems.KHAZAD_STEEL_INGOT);
             add(ModResourceItems.KHAZAD_STEEL_NUGGET);
 
-            add(ModResourceItems.MORGUL_STEEL_INGOT);
-            add(ModResourceItems.MORGUL_STEEL_NUGGET);
-
             add(ModResourceItems.RAW_MITHRIL);
             add(ModResourceItems.MITHRIL_INGOT);
             add(ModResourceItems.MITHRIL_NUGGET);

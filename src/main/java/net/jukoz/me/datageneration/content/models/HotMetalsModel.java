@@ -19,7 +19,6 @@ public class HotMetalsModel {
             add(ModResourceItems.KHAZAD_STEEL_INGOT);
             add(ModResourceItems.EDHEL_STEEL_INGOT);
             add(ModResourceItems.BURZUM_STEEL_INGOT);
-            add(ModResourceItems.MORGUL_STEEL_INGOT);
             add(ModResourceItems.MITHRIL_INGOT);
         }
     };
@@ -34,7 +33,6 @@ public class HotMetalsModel {
             add(ModResourceItems.KHAZAD_STEEL_NUGGET);
             add(ModResourceItems.EDHEL_STEEL_NUGGET);
             add(ModResourceItems.BURZUM_STEEL_NUGGET);
-            add(ModResourceItems.MORGUL_STEEL_NUGGET);
             add(ModResourceItems.MITHRIL_NUGGET);
         }
     };

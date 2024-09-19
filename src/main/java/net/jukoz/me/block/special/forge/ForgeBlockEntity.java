@@ -1,5 +1,7 @@
 package net.jukoz.me.block.special.forge;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
@@ -10,6 +12,7 @@ import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
 import net.jukoz.me.network.packets.C2S.ForgeOutputPacket;
 import net.jukoz.me.recipe.AlloyingRecipe;
+import net.jukoz.me.resources.datas.faction.Faction;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -43,6 +46,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
@@ -505,10 +509,9 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         EDHEL_STEEL(9, "edhel_steel", ModResourceItems.EDHEL_STEEL_INGOT, ModResourceItems.EDHEL_STEEL_NUGGET, false),
         KHAZAD_STEEL(10, "khazad_steel", ModResourceItems.KHAZAD_STEEL_INGOT, ModResourceItems.KHAZAD_STEEL_NUGGET, false),
 
-        MORGUL_STEEL(11, "morgul_steel", ModResourceItems.MORGUL_STEEL_INGOT, ModResourceItems.MORGUL_STEEL_NUGGET, false),
-        MITHRIL(12, "mithril", ModResourceItems.MITHRIL_INGOT, ModResourceItems.MITHRIL_NUGGET, false),
+        MITHRIL(11, "mithril", ModResourceItems.MITHRIL_INGOT, ModResourceItems.MITHRIL_NUGGET, false),
 
-        NETHERITE(13, "netherite", Items.NETHERITE_INGOT, null, true),
+        NETHERITE(12, "netherite", Items.NETHERITE_INGOT, null, true),
         ;
 
         private final int id;
