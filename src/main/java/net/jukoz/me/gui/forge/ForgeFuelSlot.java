@@ -3,12 +3,13 @@ package net.jukoz.me.gui.forge;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 
 public class ForgeFuelSlot extends Slot {
-    private final ForgeScreenHandler handler;
+    private final ScreenHandler handler;
 
-    public ForgeFuelSlot(Inventory inventory, ForgeScreenHandler handler, int index, int x, int y) {
+    public ForgeFuelSlot(Inventory inventory, ScreenHandler handler, int index, int x, int y) {
         super(inventory, index, x, y);
         this.handler = handler;
     }

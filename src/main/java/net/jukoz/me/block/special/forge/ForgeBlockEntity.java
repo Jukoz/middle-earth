@@ -5,7 +5,8 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.datageneration.content.models.HotMetalsModel;
-import net.jukoz.me.gui.forge.ForgeScreenHandler;
+import net.jukoz.me.gui.forge.ForgeAlloyingScreenHandler;
+import net.jukoz.me.gui.forge.ForgeHeatingScreenHandler;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
@@ -45,7 +46,6 @@ import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -128,7 +128,11 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new ForgeScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+        if(hasBellows(player.getWorld(), this.pos, player.getWorld().getBlockState(this.pos)) == 1) {
+            return new ForgeAlloyingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+        } else {
+            return new ForgeHeatingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+        }
     }
 
     public int hasBellows(World world, BlockPos pos, BlockState state){

@@ -2,7 +2,6 @@ package net.jukoz.me.gui.forge;
 
 import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.gui.ModScreenHandlers;
-import net.jukoz.me.network.packets.C2S.ForgeOutputPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -15,47 +14,39 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ForgeScreenHandler extends ScreenHandler{
-    private final Inventory inventory;
-    private final PropertyDelegate propertyDelegate;
+public class ForgeHeatingScreenHandler extends ScreenHandler {
+    protected final Inventory inventory;
+    protected final PropertyDelegate propertyDelegate;
     protected final World world;
-    private BlockPos pos;
+    protected BlockPos pos;
 
-
-    public ForgeScreenHandler(int syncId, PlayerInventory playerInventory, Object o) {
+    public ForgeHeatingScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos blockPos) {
         this(syncId, playerInventory, new SimpleInventory(6), new ArrayPropertyDelegate(6));
-        this.pos = ((BlockPos) o);
+        this.pos = blockPos;
     }
 
-    public ForgeScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
-        super(ModScreenHandlers.FORGE_SCREEN_HANDLER, syncId);
-        checkSize(inventory, 6);
+    public ForgeHeatingScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
+        super(ModScreenHandlers.FORGE_HEATING_SCREEN_HANDLER, syncId);
         this.inventory = inventory;
-        inventory.onOpen(playerInventory.player);
         this.propertyDelegate = delegate;
         this.world = playerInventory.player.getWorld();
-        pos = BlockPos.ORIGIN;
+        this.pos = BlockPos.ORIGIN;
         int maxItemStack = 64;
+        checkSize(inventory, 6);
 
-        this.addSlot(new ForgeFuelSlot(inventory, this, 0, 39, 53));
-        this.addSlot(new ForgeSlot(inventory, 1, 12, 17, maxItemStack));
-        this.addSlot(new ForgeSlot(inventory, 2, 30, 17, maxItemStack));
-        this.addSlot(new ForgeSlot(inventory, 3, 48, 17, maxItemStack));
-        this.addSlot(new ForgeSlot(inventory, 4, 66, 17, maxItemStack));
-
-        if(this.propertyDelegate.get(3) == 0){
-            maxItemStack = 1;
-            this.addSlot( new ForgeOutputSlot(playerInventory.player, inventory, 5, 144, 17, false));
-            // Heating mode
-        } else {
-            this.addSlot( new ForgeOutputSlot(playerInventory.player, inventory, 5, 144, 17, true));
-        }
+        this.addSlot(new ForgeFuelSlot(inventory, this, 0, 80, 53));
+        this.addSlot(new ForgeSlot(inventory, 1, 53, 17, maxItemStack));
+        this.addSlot(new ForgeSlot(inventory, 2, 71, 17, maxItemStack));
+        this.addSlot(new ForgeSlot(inventory, 3, 89, 17, maxItemStack));
+        this.addSlot(new ForgeSlot(inventory, 4, 107, 17, maxItemStack));
+        //this.addSlot(new ForgeOutputSlot(playerInventory.player, inventory, 5, 144, 17, false));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
-
+        inventory.onOpen(playerInventory.player);
         addProperties(delegate);
     }
+
 
     public BlockPos getPos() {
         return pos;

@@ -3,7 +3,6 @@ package net.jukoz.me.gui.forge;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.special.forge.ForgeBlock;
 import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.network.packets.C2S.ForgeOutputPacket;
@@ -14,25 +13,14 @@ import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.gui.widget.ToggleButtonWidget;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.trim.ArmorTrim;
-import net.minecraft.item.trim.ArmorTrimMaterial;
-import net.minecraft.item.trim.ArmorTrimMaterials;
-import net.minecraft.item.trim.ArmorTrimPattern;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import org.joml.Vector3f;
 
-public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
+public class ForgeAlloyigScreen extends HandledScreen<ForgeAlloyingScreenHandler> {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/forge.png");
-    private static final Identifier TEXTURE_HEATING = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/forge_heating.png");
-
     private static final Identifier EXTRACT_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "extract");
     private static final Identifier EXTRACT_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "extract_focused");
     private static final ButtonTextures EXTRACT_BUTTON_TEXTURES = new ButtonTextures(EXTRACT_BUTTON, EXTRACT_BUTTON_FOCUSED);
@@ -56,7 +44,7 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
     private int outputMode = 0;
     private Boolean heatingMode = null;
 
-    public ForgeScreen(ForgeScreenHandler handler, PlayerInventory inventory, Text title) {
+    public ForgeAlloyigScreen(ForgeAlloyingScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
     }
 
@@ -104,15 +92,9 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
             this.close();
         }
 
-        if(heatingMode == null || heatingMode) {
-            this.leftExtractCycleButton.visible = false;
-            this.rightExtractCycleButton.visible = false;
-            this.extractButton.visible = false;
-        } else {
-            this.leftExtractCycleButton.visible = true;
-            this.rightExtractCycleButton.visible = true;
-            this.extractButton.visible = true;
-        }
+        this.leftExtractCycleButton.visible = true;
+        this.rightExtractCycleButton.visible = true;
+        this.extractButton.visible = true;
 
         if(handler.checkMaxOutput() == 4 && outputMode >= 4){
             outputMode = 4;
@@ -174,16 +156,12 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
-        RenderSystem.setShaderTexture(0, TEXTURE_HEATING);
+
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
-        if(heatingMode == null || heatingMode) {
-            RenderSystem.setShaderTexture(0, TEXTURE_HEATING);
-            context.drawTexture(TEXTURE_HEATING, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
-        } else {
-            RenderSystem.setShaderTexture(0, TEXTURE);
-            context.drawTexture(TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
-        }
+
+        RenderSystem.setShaderTexture(0, TEXTURE);
+        context.drawTexture(TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
 
         renderModeText(context, x, y);
         renderProgressArrow(context, x, y);
@@ -201,11 +179,11 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
     }
 
     private void renderModeText(DrawContext context, int x, int y) {
-        if(handler.hasBellows()){
-            context.drawTextWithShadow(this.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mode").append(" Alloying"), x + 97, y + 73, 0xFF6060);
-        } else {
-            context.drawTextWithShadow(this.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mode").append(" Heating"), x + 97, y + 73, 0xFF6060);
-        }
+        //if(handler.hasBellows()){
+        //    context.drawTextWithShadow(this.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mode").append(" Alloying"), x + 97, y + 73, 0xFF6060);
+        //} else {
+        //    context.drawTextWithShadow(this.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mode").append(" Heating"), x + 97, y + 73, 0xFF6060);
+        //}
     }
 
     private void renderLiquidStorage(DrawContext context, int x, int y) {
@@ -216,26 +194,19 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
     private void renderLiquidStorageTooltip(DrawContext context, int mouseX, int mouseY) {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
-        int x1;
-        int x2;
-        if(heatingMode == null || heatingMode) {
-            x1 = 140;
-            x2 = 155;
-        } else {
-            x1 = 112;
-            x2 = 127;
-        }
+        int x1 = 112;
+        int x2 = 127;
 
         if (mouseX >= x + x1 && mouseX <= x + x2 && mouseY >= y + 12 && mouseY <= y + 71){
             ForgeBlockEntity.MetalTypes metal = ForgeBlockEntity.MetalTypes.getValue(handler.getCurrentMetal());
             if(metal != ForgeBlockEntity.MetalTypes.EMPTY){
                 context.drawTooltip(this.client.textRenderer,
-                        Text.translatable("tooltip." + MiddleEarth.MOD_ID +".liquid_" + metal.asString().toLowerCase())
-                                .append(": ")
-                                .append(handler.getStoredLiquid() / 144  + " ")
-                                .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".ingots_number")
-                                        .append(" " + handler.getStoredLiquid() % 144 / 16  + " ")
-                                        .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".nuggets_number"))), mouseX, mouseY);
+                    Text.translatable("tooltip." + MiddleEarth.MOD_ID +".liquid_" + metal.asString().toLowerCase())
+                        .append(": ")
+                        .append(handler.getStoredLiquid() / 144  + " ")
+                        .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".ingots_number")
+                            .append(" " + handler.getStoredLiquid() % 144 / 16  + " ")
+                            .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".nuggets_number"))), mouseX, mouseY);
             }
         }
     }
@@ -248,11 +219,9 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
         drawMouseoverTooltip(context, mouseX, mouseY);
-
-        ItemStack itemstack = ItemStack.EMPTY;
-
-        if(heatingMode == null || heatingMode) return;
         renderLiquidStorageTooltip(context, mouseX, mouseY);
+
+        ItemStack itemstack;
         switch (outputMode){
             case 0:
                 context.drawTexture(TEXTURE, x + 146, y + 56, 177, 115,12, 12);
