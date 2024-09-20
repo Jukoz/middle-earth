@@ -9,9 +9,12 @@ public class ForgeOutputSlot extends Slot {
     private final PlayerEntity player;
     private int amount;
 
-    public ForgeOutputSlot(PlayerEntity player, Inventory inventory, int index, int x, int y) {
+    private final boolean isEnabled;
+
+    public ForgeOutputSlot(PlayerEntity player, Inventory inventory, int index, int x, int y, boolean isEnabled) {
         super(inventory, index, x, y);
         this.player = player;
+        this.isEnabled = isEnabled;
     }
 
     @Override
@@ -37,5 +40,15 @@ public class ForgeOutputSlot extends Slot {
     protected void onCrafted(ItemStack stack, int amount) {
         this.amount += amount;
         this.onCrafted(stack);
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    @Override
+    public boolean canTakeItems(PlayerEntity playerEntity) {
+        return isEnabled;
     }
 }

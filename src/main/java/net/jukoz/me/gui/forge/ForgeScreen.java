@@ -31,6 +31,7 @@ import org.joml.Vector3f;
 
 public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/forge.png");
+    private static final Identifier TEXTURE_HEATING = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/forge_heating.png");
 
     private static final Identifier EXTRACT_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "extract");
     private static final Identifier EXTRACT_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "extract_focused");
@@ -46,7 +47,7 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
 
     private static final int PROGRESS_ARROW_SIZE = 24;
     private static final int COOKING_FIRE_SIZE = 14;
-    private static final int LIQUID_HEIGHT = 56;
+    private static final int LIQUID_HEIGHT = 60;
 
     public TexturedButtonWidget extractButton;
     public ToggleButtonWidget leftExtractCycleButton;
@@ -101,6 +102,16 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         else if(handler.heatingMode() != heatingMode) {
             heatingMode = handler.heatingMode();
             this.close();
+        }
+
+        if(heatingMode == null || heatingMode) {
+            this.leftExtractCycleButton.visible = false;
+            this.rightExtractCycleButton.visible = false;
+            this.extractButton.visible = false;
+        } else {
+            this.leftExtractCycleButton.visible = true;
+            this.rightExtractCycleButton.visible = true;
+            this.extractButton.visible = true;
         }
 
         if(handler.checkMaxOutput() == 4 && outputMode >= 4){
@@ -163,9 +174,16 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
+        RenderSystem.setShaderTexture(0, TEXTURE_HEATING);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
-        context.drawTexture(TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
+        if(heatingMode == null || heatingMode) {
+            RenderSystem.setShaderTexture(0, TEXTURE_HEATING);
+            context.drawTexture(TEXTURE_HEATING, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
+        } else {
+            RenderSystem.setShaderTexture(0, TEXTURE);
+            context.drawTexture(TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
+        }
 
         renderModeText(context, x, y);
         renderProgressArrow(context, x, y);
@@ -192,13 +210,23 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
 
     private void renderLiquidStorage(DrawContext context, int x, int y) {
         int storedLiquid = (int) (handler.getScaledStoredLiquid() * LIQUID_HEIGHT);
-        context.drawTexture(TEXTURE, x + 114, y + 70 - storedLiquid, 177, LIQUID_HEIGHT, 12, storedLiquid);
+        context.drawTexture(TEXTURE, x + 112, y + 70 - storedLiquid, 177, LIQUID_HEIGHT, 16, storedLiquid);
     }
 
     private void renderLiquidStorageTooltip(DrawContext context, int mouseX, int mouseY) {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
-        if (mouseX >= x + 112 && mouseX <= x + 128 && mouseY >= y + 10 && mouseY <= y + 70){
+        int x1;
+        int x2;
+        if(heatingMode == null || heatingMode) {
+            x1 = 140;
+            x2 = 155;
+        } else {
+            x1 = 112;
+            x2 = 127;
+        }
+
+        if (mouseX >= x + x1 && mouseX <= x + x2 && mouseY >= y + 12 && mouseY <= y + 71){
             ForgeBlockEntity.MetalTypes metal = ForgeBlockEntity.MetalTypes.getValue(handler.getCurrentMetal());
             if(metal != ForgeBlockEntity.MetalTypes.EMPTY){
                 context.drawTooltip(this.client.textRenderer,
@@ -214,6 +242,7 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        if(heatingMode == null) return;
         renderBackground(context, mouseX,mouseY,delta);
         super.render(context, mouseX, mouseY, delta);
         int x = (width - backgroundWidth) / 2;
@@ -226,7 +255,7 @@ public class ForgeScreen extends HandledScreen<ForgeScreenHandler> {
         renderLiquidStorageTooltip(context, mouseX, mouseY);
         switch (outputMode){
             case 0:
-                context.drawTexture(TEXTURE, x + 146, y + 56, 177, 111,12, 12);
+                context.drawTexture(TEXTURE, x + 146, y + 56, 177, 115,12, 12);
                 break;
             case 1:
                 itemstack = new ItemStack(Items.IRON_NUGGET);

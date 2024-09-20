@@ -2,6 +2,7 @@ package net.jukoz.me.gui.forge;
 
 import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.gui.ModScreenHandlers;
+import net.jukoz.me.network.packets.C2S.ForgeOutputPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -35,14 +36,20 @@ public class ForgeScreenHandler extends ScreenHandler{
         this.world = playerInventory.player.getWorld();
         pos = BlockPos.ORIGIN;
         int maxItemStack = 64;
-        if(this.propertyDelegate.get(3) == 0) maxItemStack = 1; // Heating mode
 
         this.addSlot(new ForgeFuelSlot(inventory, this, 0, 39, 53));
         this.addSlot(new ForgeSlot(inventory, 1, 12, 17, maxItemStack));
         this.addSlot(new ForgeSlot(inventory, 2, 30, 17, maxItemStack));
         this.addSlot(new ForgeSlot(inventory, 3, 48, 17, maxItemStack));
         this.addSlot(new ForgeSlot(inventory, 4, 66, 17, maxItemStack));
-        this.addSlot(new ForgeOutputSlot(playerInventory.player, inventory, 5, 144, 17));
+
+        if(this.propertyDelegate.get(3) == 0){
+            maxItemStack = 1;
+            this.addSlot( new ForgeOutputSlot(playerInventory.player, inventory, 5, 144, 17, false));
+            // Heating mode
+        } else {
+            this.addSlot( new ForgeOutputSlot(playerInventory.player, inventory, 5, 144, 17, true));
+        }
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

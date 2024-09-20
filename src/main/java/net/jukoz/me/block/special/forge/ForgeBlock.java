@@ -115,22 +115,6 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
         return super.onBreak(world, pos, state, player);
     }
 
-    public void onEntityLand(BlockView world, Entity entity) {
-        if (entity.bypassesLandingEffects()) {
-            super.onEntityLand(world, entity);
-        } else {
-            this.bounceEntity(entity);
-        }
-    }
-
-    private void bounceEntity(Entity entity) {
-        Vec3d vec3d = entity.getVelocity();
-        if (vec3d.y < 0.0) {
-            double d = entity instanceof LivingEntity ? 1.0 : 0.8;
-            entity.setVelocity(vec3d.x, -vec3d.y * 0.6 * d, vec3d.z);
-        }
-    }
-
     @Override
     public BlockState rotate(BlockState state, BlockRotation rotation) {
         return state.with(FACING, rotation.rotate(state.get(FACING)));

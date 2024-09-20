@@ -300,8 +300,10 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
             switch (amount){
                 case 16 -> {
-                    itemstack = new ItemStack(entity.currentMetal.nugget);
-                    itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                    if (entity.currentMetal.nugget != null){
+                        itemstack = new ItemStack(entity.currentMetal.nugget);
+                        itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                    }
                 }
                 case 144 -> {
                     itemstack = new ItemStack(entity.currentMetal.ingot);
@@ -338,7 +340,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 }
             }
 
-            if (entity.getStack(OUTPUT_SLOT).isOf(itemstack.getItem())){
+            if (entity.getStack(OUTPUT_SLOT).isOf(itemstack.getItem()) && !itemstack.isEmpty()){
                 if (Objects.equals(entity.getStack(OUTPUT_SLOT).get(DataComponentTypes.TRIM), itemstack.get(DataComponentTypes.TRIM))) {
                     if (amount <= entity.storage && amount > 0) {
                         itemstack.setCount(entity.getStack(OUTPUT_SLOT).getCount() + 1);
@@ -355,7 +357,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 }else {
                     playFailedExtractSound(entity.getWorld(), pos);
                 }
-            } else if(entity.getStack(OUTPUT_SLOT).isEmpty()){
+            } else if(entity.getStack(OUTPUT_SLOT).isEmpty() && !itemstack.isEmpty()){
                 if (amount <= entity.storage && amount > 0) {
                     itemstack.setCount(entity.getStack(OUTPUT_SLOT).getCount() + 1);
                     entity.storage = entity.storage - amount;
@@ -479,17 +481,21 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     {
         if(entity.getWorld() == null) return;
         for (int i = 0; i < entity.size(); i++)
-            if (i != FUEL_SLOT && i != OUTPUT_SLOT) {
+            if (i != FUEL_SLOT) {
                 ItemStack itemStack = entity.getStack(i);
                 if (!itemStack.isEmpty() && itemStack.getCount() > 1) {
                     int difference = itemStack.getCount() - 1;
+                    if(i == OUTPUT_SLOT){
+                        difference = itemStack.getCount();
+                    }
+
                     ItemStack extraStack = itemStack.copy();
                     extraStack.setCount(difference);
 
                     ItemEntity itemEntity = new ItemEntity(entity.getWorld(),
-                            entity.getPos().getX(),
+                            entity.getPos().getX() + 0.5f,
                             entity.getPos().getY() + 1.5f,
-                            entity.getPos().getZ(), extraStack);
+                            entity.getPos().getZ() + 0.5f, extraStack);
                     itemEntity.setToDefaultPickupDelay();
                     float f = (float) (Math.random() * 0.15f);
                     float g = (float) (Math.random() * 0.15f);
@@ -497,6 +503,9 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                     entity.getWorld().spawnEntity(itemEntity);
 
                     itemStack.setCount(1);
+                    if(i == OUTPUT_SLOT){
+                        itemStack.setCount(0);
+                    }
                 }
             }
         }
