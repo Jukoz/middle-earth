@@ -58,10 +58,10 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if(blockEntity instanceof ForgeBlockEntity forgeBlockEntity) {
                 if (state.get(PART) == ForgePart.BOTTOM){
-                    ForgeBlockEntity.MetalTypes metal = forgeBlockEntity.getCurrentMetal();
+                    MetalTypes metal = forgeBlockEntity.getCurrentMetal();
                     int storage = forgeBlockEntity.getStorage();
 
-                    if (metal != ForgeBlockEntity.MetalTypes.EMPTY){
+                    if (metal != MetalTypes.EMPTY){
                         ItemStack ingotStack = new ItemStack(metal.getIngot(), storage / 144);
                         ingotStack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
                         ItemStack nuggetStack = new ItemStack(metal.getNugget(), storage % 144 / 16);

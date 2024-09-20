@@ -1,7 +1,7 @@
 {
   "asset_name": "crude",
   "description": {
-    "color": "#85645c",
+    "color": "#735b55",
     "translate": "trim_material.me.crude"
   },
   "ingredient": "me:crude_ingot",

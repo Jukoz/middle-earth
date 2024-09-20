@@ -73,7 +73,6 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
     private MetalTypes currentMetal = MetalTypes.EMPTY;
 
-    //TODO heating stuff
     //TODO melting smithing parts
     //TODO convert metals to registry
     //TODO custom metal trim data component with palette
@@ -89,7 +88,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                     case 2 -> ForgeBlockEntity.this.maxFuelTime;
                     case 3 -> ForgeBlockEntity.this.mode;
                     case 4 -> ForgeBlockEntity.this.storage;
-                    case 5 -> ForgeBlockEntity.this.currentMetal.id;
+                    case 5 -> ForgeBlockEntity.this.currentMetal.getId();
                     default -> throw new IllegalStateException("Unexpected value: " + index);
                 };
             }
@@ -163,7 +162,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         nbt.putInt(ID + ".max-fuel-time", maxFuelTime);
         nbt.putInt(ID + ".mode", mode);
         nbt.putInt(ID + ".storage", storage);
-        nbt.putString(ID + ".current-metal", currentMetal.name);
+        nbt.putString(ID + ".current-metal", currentMetal.getName());
     }
 
     @Override
@@ -304,25 +303,25 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
             switch (amount){
                 case 16 -> {
-                    if (entity.currentMetal.nugget != null){
-                        itemstack = new ItemStack(entity.currentMetal.nugget);
+                    if (entity.currentMetal.getNugget() != null){
+                        itemstack = new ItemStack(entity.currentMetal.getNugget());
                         itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
                     }
                 }
                 case 144 -> {
-                    itemstack = new ItemStack(entity.currentMetal.ingot);
+                    itemstack = new ItemStack(entity.currentMetal.getIngot());
                     itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
                 }
                 case 288 -> {
                     itemstack = new ItemStack(ModResourceItems.ROD);
                     if (entity.currentMetal.isVanilla()){
                         itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
-                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(entity.currentMetal.name))),
+                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(entity.currentMetal.getName()))),
                                 armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
 
                     } else {
                         itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
-                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, entity.currentMetal.name))),
+                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, entity.currentMetal.getName()))),
                                 armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
 
                     }itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
@@ -331,12 +330,12 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                     itemstack = new ItemStack(ModResourceItems.LARGE_ROD);
                     if (entity.currentMetal.isVanilla()){
                         itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
-                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(entity.currentMetal.name))),
+                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(entity.currentMetal.getName()))),
                                 armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
 
                     } else {
                         itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
-                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, entity.currentMetal.name))),
+                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, entity.currentMetal.getName()))),
                                 armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
 
                     }
@@ -577,77 +576,5 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     @Override
     public Object getScreenOpeningData(ServerPlayerEntity player) {
         return pos;
-    }
-
-    public enum MetalTypes implements StringIdentifiable {
-        EMPTY(-1, "empty", null, null, false),
-
-        COPPER(0, "copper", Items.COPPER_INGOT, null, true),
-        TIN(1, "tin", ModResourceItems.TIN_INGOT, ModResourceItems.TIN_NUGGET, true),
-
-        BRONZE(2, "bronze", ModResourceItems.BRONZE_INGOT, ModResourceItems.BRONZE_NUGGET, false),
-        CRUDE(3, "crude", ModResourceItems.CRUDE_INGOT, ModResourceItems.CRUDE_NUGGET, false),
-
-        LEAD(4, "lead", ModResourceItems.LEAD_INGOT, ModResourceItems.LEAD_NUGGET, false),
-        SILVER(5, "silver", ModResourceItems.SILVER_INGOT, ModResourceItems.SILVER_NUGGET, false),
-        IRON(6, "iron", Items.IRON_INGOT, Items.IRON_NUGGET, true),
-        GOLD(7, "gold", Items.GOLD_INGOT, Items.GOLD_NUGGET, true),
-
-        STEEL(8, "steel", ModResourceItems.STEEL_INGOT, ModResourceItems.STEEL_NUGGET, false),
-        BURZUM_STEEL(9, "burzum_steel", ModResourceItems.BURZUM_STEEL_INGOT, ModResourceItems.BURZUM_STEEL_NUGGET, false),
-        EDHEL_STEEL(10, "edhel_steel", ModResourceItems.EDHEL_STEEL_INGOT, ModResourceItems.EDHEL_STEEL_NUGGET, false),
-        KHAZAD_STEEL(11, "khazad_steel", ModResourceItems.KHAZAD_STEEL_INGOT, ModResourceItems.KHAZAD_STEEL_NUGGET, false),
-
-        MITHRIL(12, "mithril", ModResourceItems.MITHRIL_INGOT, ModResourceItems.MITHRIL_NUGGET, false),
-
-        NETHERITE(13, "netherite", Items.NETHERITE_INGOT, null, true),
-        ;
-
-        private final int id;
-        private final String name;
-        private final Item ingot;
-        private final Item nugget;
-
-
-
-        private final boolean vanilla;
-
-        MetalTypes(int id,String name, Item ingot, Item nugget, boolean vanilla){
-            this.id = id;
-            this.name = name;
-            this.ingot = ingot;
-            this.nugget = nugget;
-            this.vanilla = vanilla;
-        }
-
-        public boolean isVanilla() {
-            return vanilla;
-        }
-
-        @Override
-        public String asString() {
-            return name;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public Item getIngot() {
-            return ingot;
-        }
-
-        public Item getNugget() {
-            return nugget;
-        }
-
-        public static ForgeBlockEntity.MetalTypes getValue(int value) {
-            for(ForgeBlockEntity.MetalTypes e: ForgeBlockEntity.MetalTypes.values()) {
-                if(e.id == value) {
-                    return e;
-                }
-            }
-            return null;
-        }
     }
 }

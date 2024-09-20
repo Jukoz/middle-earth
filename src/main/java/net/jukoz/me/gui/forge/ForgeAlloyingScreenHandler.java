@@ -26,7 +26,7 @@ public class ForgeAlloyingScreenHandler extends ScreenHandler {
     }
 
     public ForgeAlloyingScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
-        super(ModScreenHandlers.FORGE_HEATING_SCREEN_HANDLER, syncId);
+        super(ModScreenHandlers.FORGE_ALLOYING_SCREEN_HANDLER, syncId);
         this.inventory = inventory;
         this.propertyDelegate = delegate;
         this.world = playerInventory.player.getWorld();

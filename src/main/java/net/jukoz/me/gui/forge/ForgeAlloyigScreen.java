@@ -1,9 +1,11 @@
 package net.jukoz.me.gui.forge;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.forge.ForgeBlockEntity;
+import net.jukoz.me.block.special.forge.MetalTypes;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.network.packets.C2S.ForgeOutputPacket;
 import net.minecraft.client.gui.DrawContext;
@@ -17,7 +19,10 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+
+import java.util.List;
 
 public class ForgeAlloyigScreen extends HandledScreen<ForgeAlloyingScreenHandler> {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/forge.png");
@@ -163,7 +168,6 @@ public class ForgeAlloyigScreen extends HandledScreen<ForgeAlloyingScreenHandler
         RenderSystem.setShaderTexture(0, TEXTURE);
         context.drawTexture(TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
 
-        renderModeText(context, x, y);
         renderProgressArrow(context, x, y);
         renderLiquidStorage(context, x, y);
     }
@@ -178,14 +182,6 @@ public class ForgeAlloyigScreen extends HandledScreen<ForgeAlloyingScreenHandler
         }
     }
 
-    private void renderModeText(DrawContext context, int x, int y) {
-        //if(handler.hasBellows()){
-        //    context.drawTextWithShadow(this.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mode").append(" Alloying"), x + 97, y + 73, 0xFF6060);
-        //} else {
-        //    context.drawTextWithShadow(this.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".mode").append(" Heating"), x + 97, y + 73, 0xFF6060);
-        //}
-    }
-
     private void renderLiquidStorage(DrawContext context, int x, int y) {
         int storedLiquid = (int) (handler.getScaledStoredLiquid() * LIQUID_HEIGHT);
         context.drawTexture(TEXTURE, x + 112, y + 70 - storedLiquid, 177, LIQUID_HEIGHT, 16, storedLiquid);
@@ -194,32 +190,37 @@ public class ForgeAlloyigScreen extends HandledScreen<ForgeAlloyingScreenHandler
     private void renderLiquidStorageTooltip(DrawContext context, int mouseX, int mouseY) {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
-        int x1 = 112;
-        int x2 = 127;
 
-        if (mouseX >= x + x1 && mouseX <= x + x2 && mouseY >= y + 12 && mouseY <= y + 71){
-            ForgeBlockEntity.MetalTypes metal = ForgeBlockEntity.MetalTypes.getValue(handler.getCurrentMetal());
-            if(metal != ForgeBlockEntity.MetalTypes.EMPTY){
-                context.drawTooltip(this.client.textRenderer,
-                    Text.translatable("tooltip." + MiddleEarth.MOD_ID +".liquid_" + metal.asString().toLowerCase())
-                        .append(": ")
-                        .append(handler.getStoredLiquid() / 144  + " ")
-                        .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".ingots_number")
-                            .append(" " + handler.getStoredLiquid() % 144 / 16  + " ")
-                            .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".nuggets_number"))), mouseX, mouseY);
+        if (mouseX >= x + 112 && mouseX <= x + 127 && mouseY >= y + 12 && mouseY <= y + 71){
+            MetalTypes metal = MetalTypes.getValue(handler.getCurrentMetal());
+            if(metal != MetalTypes.EMPTY){
+                context.drawOrderedTooltip(this.client.textRenderer, Lists.transform(
+                        List.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".liquid_" + metal.asString().toLowerCase()).withColor(metal.getColor()),
+                                Text.literal(handler.getStoredLiquid() / 144  + " ").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".ingots_number")),
+                                Text.literal(handler.getStoredLiquid() % 144 / 16  + " ").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".nuggets_number"))
+                        ), Text::asOrderedText), mouseX, mouseY);
             }
+        }
+    }
+
+    private void renderModeTooltip(DrawContext context, int mouseX, int mouseY) {
+        int x = (width - backgroundWidth) / 2;
+        int y = (height - backgroundHeight) / 2;
+
+        if (mouseX >= x + 7 && mouseX <= x + 21 && mouseY >= y + 55 && mouseY <= y + 69){
+            context.drawTooltip(this.client.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_alloying"), mouseX, mouseY);
         }
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        if(heatingMode == null) return;
         renderBackground(context, mouseX,mouseY,delta);
         super.render(context, mouseX, mouseY, delta);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
         drawMouseoverTooltip(context, mouseX, mouseY);
         renderLiquidStorageTooltip(context, mouseX, mouseY);
+        renderModeTooltip(context, mouseX, mouseY);
 
         ItemStack itemstack;
         switch (outputMode){

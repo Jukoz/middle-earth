@@ -5180,7 +5180,9 @@
   "tooltip.me.forge_output_mode4" : "3 Ingots",
 
   "tooltip.me.temperature" : "Temperature:",
-  "tooltip.me.mode" : "Mode:",
+  "tooltip.me.forge_mode_alloying" : "Alloying Mode",
+  "tooltip.me.forge_mode_heating" : "Heating Mode",
+  "tooltip.me.forge_mode_heating_switch" : "To go into alloying mode, add bellows to the sides of the forge containing a small vent.",
   "tooltip.me.ingots_number" : "Ingots",
   "tooltip.me.nuggets_number" : "Nuggets",
 

@@ -20,6 +20,7 @@ public class HotMetalsModel {
             add(ModResourceItems.EDHEL_STEEL_INGOT);
             add(ModResourceItems.BURZUM_STEEL_INGOT);
             add(ModResourceItems.MITHRIL_INGOT);
+            add(Items.NETHERITE_INGOT);
         }
     };
 
