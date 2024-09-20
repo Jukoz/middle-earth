@@ -47,7 +47,7 @@ public class PacketTeleportToCurrentSpawn extends ClientToServerPacket<PacketTel
                     if(data.hasAffilition()){
                         Vec3d spawnCoordinates = data.getAffiliationData().getMiddleEarthSpawnCoordinate();
                         if(spawnCoordinates != null)
-                            ModDimensions.teleportPlayerToMe(context.player(), new Vec3d(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z), welcomeNeeded);
+                            ModDimensions.teleportPlayerToMe(context.player(), new Vec3d(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z), true, welcomeNeeded);
                     }
                 }
             });

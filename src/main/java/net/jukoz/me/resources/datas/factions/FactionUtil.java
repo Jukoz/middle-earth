@@ -1,5 +1,6 @@
 package net.jukoz.me.resources.datas.factions;
 
+import com.jcraft.jorbis.Block;
 import net.jukoz.me.commands.CommandColors;
 import net.jukoz.me.commands.CommandUtils;
 import net.jukoz.me.exceptions.FactionIdentifierException;
@@ -13,6 +14,8 @@ import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.resources.persistent_datas.AffiliationData;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.dimension.ModDimensions;
+import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.SubtitleS2CPacket;
 import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
@@ -20,6 +23,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -156,5 +161,43 @@ public class FactionUtil {
         } else {
             throw new NoFactionException();
         }
+    }
+
+    /**
+     * Simply used to explore spawn points.
+     * @param target player to teleport
+     * @param spawnId spawn identifier the player need to teleport to
+     * @return if the process was a success or not
+     */
+    public static boolean exploringTeleportToSpawnId(ServerPlayerEntity target, Identifier spawnId){
+        BlockPos spawnBlockPos = getSpawnBlockPos(spawnId);
+        if(spawnBlockPos == null)
+            return false;
+        ModDimensions.teleportPlayerToMe(target, new Vec3d(spawnBlockPos.getX(), spawnBlockPos.getY(), spawnBlockPos.getZ()), false, false);
+        return true;
+    }
+
+    public static BlockPos getSpawnBlockPos(Identifier spawnId){
+        BlockPos spawnBlockPos = null;
+        for(Faction faction: FactionLookup.getAllFactions()){
+            SpawnDataHandler spawnDataHandler = faction.getSpawnData();
+            if(spawnDataHandler != null)
+                spawnBlockPos = spawnDataHandler.getSpawnBlockPos(spawnId);
+            if(spawnBlockPos != null) {
+                return spawnBlockPos;
+            }
+
+            if(faction.getSubFactions() != null){
+                for(Faction subfaction : faction.getSubFactions().values()){
+                    SpawnDataHandler subFacspawnDataHandler = subfaction.getSpawnData();
+                    if(subFacspawnDataHandler != null)
+                        spawnBlockPos = subFacspawnDataHandler.getSpawnBlockPos(spawnId);
+                    if(spawnBlockPos != null) {
+                        return spawnBlockPos;
+                    }
+                }
+            }
+        }
+        return  null;
     }
 }

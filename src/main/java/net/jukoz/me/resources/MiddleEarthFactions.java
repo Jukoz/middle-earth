@@ -187,8 +187,8 @@ public class MiddleEarthFactions {
                             ModEquipmentItems.EREBOR_GATEWARDEN_CHESTPLATE,
                             ModEquipmentItems.EREBOR_GATEWARDEN_LEGGINGS,
                             ModEquipmentItems.EREBOR_GATEWARDEN_BOOTS,
-                            ModWeaponItems.EREBOR_NOBLE_AXE,
-                            ModEquipmentItems.HEATER_SHIELD
+                            ModWeaponItems.EREBOR_NOBLE_SPEAR,
+                            ModEquipmentItems.EREBOR_ORNAMENTED_SHIELD
                     ));
                 }},
                 new BannerData(DyeColor.BLUE, List.of(
@@ -258,11 +258,11 @@ public class MiddleEarthFactions {
                 )),
                 new SpawnDataHandler(new Vector2i(0,0),
                         new HashMap<>(){{
-                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.gorgoroth"), new Vector2d(2017, 722));
-                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.black_gates"), new Vector2d(2017, 722));
-                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.minas_morgul"), new Vector2d(2017, 722));
-                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.nurn"), new Vector2d(2017, 722));
-                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.dol_guldur"), new Vector2d(2017, 722));
+                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.gorgoroth"), new Vector2d(2161, 1717));
+                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.black_gates"), new Vector2d(2010, 1608));
+                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.minas_morgul"), new Vector2d(2029, 1770));
+                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.nurn"), new Vector2d(2345, 1915));
+                            put(Identifier.of(MiddleEarth.MOD_ID, "mordor.dol_guldur"), new Vector2d(1793, 1210));
                         }},
                         new HashMap<>()
                 ), List.of(), List.of()

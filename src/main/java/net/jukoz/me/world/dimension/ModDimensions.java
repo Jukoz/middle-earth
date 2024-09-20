@@ -3,6 +3,7 @@ package net.jukoz.me.world.dimension;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.factions.FactionUtil;
+import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
@@ -50,7 +51,7 @@ public class ModDimensions {
         return new Vector3i(x, height, z);
     }
 
-    public static void teleportPlayerToMe(PlayerEntity player, Vec3d coordinates, boolean welcomeNeeded){
+    public static void teleportPlayerToMe(PlayerEntity player, Vec3d coordinates, boolean setSpawnPoint, boolean welcomeNeeded){
         if(!player.getWorld().isClient()) {
             RegistryKey<World> registryKey = ME_WORLD_KEY;
             ServerWorld serverWorld = (ServerWorld) player.getWorld();
@@ -61,7 +62,8 @@ public class ModDimensions {
 
                 ((ServerPlayerEntity) player).teleport(serverWorld, coordinates.x , coordinates.y, coordinates.z, 0, 0);
                 player.refreshPositionAfterTeleport(coordinates.x, coordinates.y, coordinates.z);
-                ((ServerPlayerEntity) player).setSpawnPoint(registryKey, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z), player.getYaw(), true, true);
+                if(setSpawnPoint)
+                    ((ServerPlayerEntity) player).setSpawnPoint(registryKey, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z), player.getYaw(), true, true);
                 if(welcomeNeeded)
                     FactionUtil.sendOnFactionJoinMessage(player);
             }
@@ -76,25 +78,28 @@ public class ModDimensions {
         return world.getRegistryKey().getValue().equals(OW_DIMENSION_ID);
     }
 
-    public static void teleportPlayerToOverworld(PlayerEntity player) {
+    public static boolean teleportPlayerToOverworld(PlayerEntity player) {
         if(!player.getWorld().isClient()) {
             RegistryKey<World> registryKey = OW_WORLD_KEY;
             ServerWorld serverWorld = (ServerWorld) player.getWorld();
-            BlockPos coordinate = StateSaverAndLoader.getPlayerState(player).getOverworldSpawnCoordinates();
+            PlayerData data = StateSaverAndLoader.getPlayerState(player);
+            BlockPos coordinate = data.getOverworldSpawnCoordinates();
             if(coordinate == null) {
-                LoggerUtil.logError("ModDimensions::Player doesn't have an overworld spawn coordinate ready to be used.");
-                return;
+                coordinate = player.getServer().getOverworld().getSpawnPos();
             }
+
             if (serverWorld != null) {
                 serverWorld = serverWorld.getServer().getWorld(registryKey);
 
                 player.wakeUp();
-
+                // TODO : clear attributes of the player's race
                 ((ServerPlayerEntity) player).setSpawnPoint(World.OVERWORLD, player.getServer().getOverworld().getSpawnPos(), player.getServer().getOverworld().getSpawnAngle(), true, true);
                 ((ServerPlayerEntity) player).teleport(serverWorld, coordinate.getX() , coordinate.getY(), coordinate.getZ(), 0, 0);
                 player.refreshPositionAfterTeleport(coordinate.getX() , coordinate.getY(), coordinate.getZ());
+                return true;
             }
         }
+        return false;
     }
 
     /**

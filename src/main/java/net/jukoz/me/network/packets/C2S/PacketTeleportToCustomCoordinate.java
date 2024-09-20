@@ -44,7 +44,7 @@ public class PacketTeleportToCustomCoordinate extends ClientToServerPacket<Packe
     public void process(ServerPacketContext context) {
         context.player().getServer().execute(() -> {
             Vec3d coordinates = new Vec3d(xCoordinate, yCoordinate, zCoordinate);
-            ModDimensions.teleportPlayerToMe(context.player(), coordinates, welcomeNeeded);
+            ModDimensions.teleportPlayerToMe(context.player(), coordinates, true, welcomeNeeded);
         });
     }
 }

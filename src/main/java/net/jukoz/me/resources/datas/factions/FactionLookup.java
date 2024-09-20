@@ -96,4 +96,8 @@ public class FactionLookup {
         }
         return factionIds;
     }
+
+    public static List<Faction> getAllFactions() {
+        return factions.values().stream().toList();
+    }
 }

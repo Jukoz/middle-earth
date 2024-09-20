@@ -5,13 +5,17 @@ import com.google.gson.JsonParser;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.jukoz.me.utils.IdentifierUtil;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.dimension.ModDimensions;
+import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
+import org.joml.Vector3i;
 
 import java.util.*;
 
@@ -139,5 +143,22 @@ public class SpawnDataHandler {
     public Identifier getDefaultSpawn() {
         Optional<Identifier> defaultSpawnId = getSpawnList().keySet().stream().findFirst();
         return defaultSpawnId.orElse(null);
+    }
+
+    public BlockPos getSpawnBlockPos(Identifier spawnId) {
+        if(dynamicSpawns != null && dynamicSpawns.containsKey(spawnId)){
+            Vector2d coords = dynamicSpawns.get(spawnId);
+            coords = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(coords.x, coords.y);
+
+            Vector3i spawnCoordinates =  ModDimensions.getDimensionHeight((int) coords.x, (int) coords.y);
+
+            BlockPos blockPos = new BlockPos(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z);
+            return blockPos;
+        } else if (customSpawns != null && customSpawns.containsKey(spawnId)){
+            Vec3d coords = customSpawns.get(spawnId);
+            BlockPos blockPos = new BlockPos((int) coords.x, (int) coords.y, (int) coords.z);
+            return blockPos;
+        }
+        return null;
     }
 }

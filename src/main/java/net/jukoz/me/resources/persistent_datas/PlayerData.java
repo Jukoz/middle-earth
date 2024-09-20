@@ -1,5 +1,7 @@
 package net.jukoz.me.resources.persistent_datas;
 
+import net.jukoz.me.exceptions.FactionIdentifierException;
+import net.jukoz.me.resources.datas.factions.FactionLookup;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.minecraft.util.Identifier;
@@ -57,5 +59,15 @@ public class PlayerData {
     public void clearData() {
         this.affiliationData = null;
         this.overworldSpawnCoordinates = null;
+    }
+
+    public boolean setMiddleEarthSpawnId(Identifier foundId) throws FactionIdentifierException {
+        if(hasAffilition()){
+            if(FactionLookup.findFactionById(affiliationData.faction).getSpawnData().getSpawnList().containsKey(foundId)){
+                affiliationData.spawnId = foundId;
+                return true;
+            }
+        }
+        return false;
     }
 }

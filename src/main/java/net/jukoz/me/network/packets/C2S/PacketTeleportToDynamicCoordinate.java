@@ -51,7 +51,7 @@ public class PacketTeleportToDynamicCoordinate extends ClientToServerPacket<Pack
             Vector2d worldCoordinate = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(xCoordinate, zCoordinate);
 
             Vec3d coordinates = new Vec3d(worldCoordinate.x, ModDimensions.getDimensionHeight((int)worldCoordinate.x, (int)worldCoordinate.y).y, worldCoordinate.y);
-            ModDimensions.teleportPlayerToMe(context.player(), coordinates, welcomeNeeded);
+            ModDimensions.teleportPlayerToMe(context.player(), coordinates, true, welcomeNeeded);
         });
     }
 }
