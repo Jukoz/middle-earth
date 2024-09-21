@@ -1,41 +1,55 @@
-package net.jukoz.me.gui.treatedanvil;
+package net.jukoz.me.gui.shapinganvil;
 
-import net.jukoz.me.block.special.treatedAnvil.TreatedAnvilBlockEntity;
+import com.google.common.collect.Lists;
+import net.jukoz.me.block.special.shapingAnvil.ShapingAnvilBlockEntity;
 import net.jukoz.me.gui.ModScreenHandlers;
+import net.jukoz.me.recipe.AnvilShapingRecipe;
+import net.jukoz.me.recipe.ArtisanRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 
-public class TreatedAnvilScreenHandler extends ScreenHandler {
+import java.util.List;
+
+public class ShapingAnvilScreenHandler extends ScreenHandler {
     private final Inventory inventory;
     private final PropertyDelegate propertyDelegate;
 
+    private List<RecipeEntry<AnvilShapingRecipe>> availableRecipes;
 
-    public TreatedAnvilScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new SimpleInventory(3), new ArrayPropertyDelegate(4));
+
+
+    public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory) {
+        this(syncId, playerInventory, new SimpleInventory(2), new ArrayPropertyDelegate(1));
     }
 
-    public TreatedAnvilScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
+    public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
         super(ModScreenHandlers.TREATED_ANVIL_SCREEN_HANDLER, syncId);
-        checkSize(inventory, 3);
+        checkSize(inventory, 2);
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);
         this.propertyDelegate = delegate;
+        this.availableRecipes = Lists.newArrayList();
+
 
         this.addSlot(new Slot(inventory, 0, 23, 34));
-        this.addSlot(new Slot(inventory, 1, 61, 34));
-        this.addSlot(new Slot(inventory, 2, 134, 34));
+        this.addSlot(new Slot(inventory, 1, 134, 34));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
         addProperties(delegate);
+    }
+
+    private boolean isInBounds(int id) {
+        return id >= 0 && id < this.availableRecipes.size();
     }
 
     @Override
@@ -62,13 +76,12 @@ public class TreatedAnvilScreenHandler extends ScreenHandler {
     }
 
     public boolean isBonking() {
-        return propertyDelegate.get(1) > 0;
+        return propertyDelegate.get(0) > 0;
     }
 
     public float getScaledBonking() {
-        int bonking = this.propertyDelegate.get(1);
-        int maxbonking = this.propertyDelegate.get(2);
-        if(maxbonking == 0) maxbonking = 200;
+        int bonking = this.propertyDelegate.get(0);
+        int maxbonking = ShapingAnvilBlockEntity.MAX_PROGRESS;
 
         return (float) bonking / maxbonking;
     }
@@ -76,7 +89,7 @@ public class TreatedAnvilScreenHandler extends ScreenHandler {
     public float getScaledProgress() {
         int progress = this.propertyDelegate.get(0);
 
-        return (float) progress / TreatedAnvilBlockEntity.MAX_PROGRESS;
+        return (float) progress / ShapingAnvilBlockEntity.MAX_PROGRESS;
     }
 
     public boolean canUse(PlayerEntity player) {

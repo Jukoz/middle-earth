@@ -14,7 +14,7 @@ import net.jukoz.me.block.special.toggeable_lights.DwarvenLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.SilverLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.WallDwarvenLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.WallSilverLanternBlock;
-import net.jukoz.me.block.special.treatedAnvil.TreatedAnvilBlock;
+import net.jukoz.me.block.special.shapingAnvil.ShapingAnvilBlock;
 import net.jukoz.me.block.special.wood_pile.WoodPileBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
@@ -44,7 +44,7 @@ public class ModDecorativeBlocks {
     public static final Block FORGE = registerBlock("forge",
             new ForgeBlock(AbstractBlock.Settings.copy(Blocks.BRICKS).luminance(createLightLevelFromLitBlockState(15)).strength(1.65f).requiresTool()));
     public static final Block TREADTED_ANVIL = registerBlock("treated_anvil",
-            new TreatedAnvilBlock(AbstractBlock.Settings.copy(Blocks.STONE).strength(1.65f).requiresTool().nonOpaque()));
+            new ShapingAnvilBlock(AbstractBlock.Settings.copy(Blocks.STONE).strength(1.65f).requiresTool().nonOpaque()));
     public static final Block BELLOWS = registerBlock("bellows",
             new BellowsBlock(AbstractBlock.Settings.copy(Blocks.STONE).strength(1.65f).requiresTool().nonOpaque()));
     public static final Block ARTISAN_TABLE = registerBlock("artisan_table",

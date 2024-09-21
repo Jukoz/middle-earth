@@ -6,6 +6,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.*;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.custom.AlloyRecipeJsonBuilder;
+import net.jukoz.me.datageneration.custom.AnvilShapingRecipeJsonBuilder;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModToolItems;
@@ -21,6 +22,7 @@ import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -619,14 +621,16 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, ModResourceItems.LEAD_INGOT, Items.COAL), "khazad_steel", 432);
         createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, Items.IRON_INGOT, ModResourceItems.SILVER_NUGGET), "edhel_steel", 432);
         createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, ModResourceItems.LEAD_INGOT, ModResourceItems.ASH), "burzum_steel", 432);
+
         HotMetalsModel.nuggets.forEach(nugget -> {
             createMeltRecipe(exporter, nugget, Registries.ITEM.getId(nugget).getPath().replace("_nugget", ""), 16);
         });
         HotMetalsModel.ingots.forEach(ingot -> {
             createMeltRecipe(exporter, ingot, Registries.ITEM.getId(ingot).getPath().replace("_ingot", ""), 144);
         });
-        // endregion
-        // region Heating
+        HotMetalsModel.shapes.forEach(shape -> {
+            createAnvilShapingRecipe(exporter, shape.tagKey(), shape.output());
+        });
 
         // endregion
     }
@@ -721,6 +725,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(input),
                         FabricRecipeProvider.conditionsFromItem(input))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_" + Registries.ITEM.getId(input).getPath()));
+    }
+
+    private void createAnvilShapingRecipe(RecipeExporter exporter, TagKey input, Item output) {
+        AnvilShapingRecipeJsonBuilder.createAnvilShapingRecipe(RecipeCategory.MISC, output)
+                .input(input)
+                .criterion(FabricRecipeProvider.hasItem(Items.COPPER_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(Items.COPPER_INGOT))
+                .offerTo(exporter);
     }
 
     private void createStairsRecipe(RecipeExporter exporter, Block input, Block output) {

@@ -1,20 +1,27 @@
-package net.jukoz.me.block.special.treatedAnvil;
+package net.jukoz.me.block.special.shapingAnvil;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
-import net.jukoz.me.gui.treatedanvil.TreatedAnvilScreenHandler;
+import net.jukoz.me.block.ModDecorativeBlocks;
+import net.jukoz.me.gui.shapinganvil.ShapingAnvilScreenHandler;
+import net.jukoz.me.item.ModDataComponentTypes;
+import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
+import net.jukoz.me.recipe.AnvilShapingRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.trim.ArmorTrim;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
@@ -25,20 +32,21 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
-public class TreatedAnvilBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
-    private static final String ID = "treated_anvil";
-    public static final int MAX_PROGRESS = 1200;
+import java.util.Optional;
 
-    private int progress = 0;
+public class ShapingAnvilBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
+    private static final String ID = "shaping_anvil";
 
+    public int progress = 0;
+    public static final int MAX_PROGRESS = 100;
 
     private final DefaultedList<ItemStack> inventory =
-            DefaultedList.ofSize(3, ItemStack.EMPTY);
+            DefaultedList.ofSize(2, ItemStack.EMPTY);
 
     protected final PropertyDelegate propertyDelegate;
 
-    public TreatedAnvilBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.TREATED_ANVIL, pos, state);
+    public ShapingAnvilBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.SHAPING_ANVIL, pos, state);
 
         this.propertyDelegate = new PropertyDelegate() {
             @Override
@@ -58,6 +66,31 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements NamedScreenH
                 return 1;
             }
         };
+    }
+
+    public void bonk(ShapingAnvilBlockEntity entity){
+        ItemStack input = entity.getStack(0);
+
+        if (!input.isEmpty() && input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null){
+            this.progress += 20;
+
+            input.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature() - 100));
+
+            Optional<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
+                    .getFirstMatch(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());
+
+            ItemStack output = match.get().value().output;
+
+            if (progress >= MAX_PROGRESS){
+                entity.removeStack(0);
+                if(input.get(DataComponentTypes.TRIM) != null){
+                    output.set(DataComponentTypes.TRIM, input.get(DataComponentTypes.TRIM));
+                    output.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature()));
+                }
+                entity.setStack(1, output);
+                progress = 0;
+            }
+        }
     }
 
     @Override
@@ -82,7 +115,7 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements NamedScreenH
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new TreatedAnvilScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+        return new ShapingAnvilScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
     @Nullable

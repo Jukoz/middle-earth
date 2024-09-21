@@ -6,8 +6,7 @@ import net.jukoz.me.block.special.bellows.BellowsBlockEntity;
 import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.block.special.fireBlocks.*;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestBlockEntity;
-import net.jukoz.me.block.special.treatedAnvil.TreatedAnvilBlock;
-import net.jukoz.me.block.special.treatedAnvil.TreatedAnvilBlockEntity;
+import net.jukoz.me.block.special.shapingAnvil.ShapingAnvilBlockEntity;
 import net.jukoz.me.block.special.wood_pile.WoodPileBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
@@ -16,7 +15,7 @@ import net.minecraft.util.Identifier;
 
 public class ModBlockEntities {
     public static BlockEntityType<ForgeBlockEntity> FORGE;
-    public static BlockEntityType<TreatedAnvilBlockEntity> TREATED_ANVIL;
+    public static BlockEntityType<ShapingAnvilBlockEntity> SHAPING_ANVIL;
     public static BlockEntityType<ReinforcedChestBlockEntity> REINFORCED_CHEST;
     public static BlockEntityType<BellowsBlockEntity> BELLOWS;
     public static BlockEntityType<WoodPileBlockEntity> WOOD_PILE;
@@ -33,9 +32,9 @@ public class ModBlockEntities {
                 Identifier.of(MiddleEarth.MOD_ID, "forge"),
                 FabricBlockEntityTypeBuilder.create(ForgeBlockEntity::new,
                         ModDecorativeBlocks.FORGE).build(null));
-        TREATED_ANVIL = Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                Identifier.of(MiddleEarth.MOD_ID, "treated_anvil"),
-                FabricBlockEntityTypeBuilder.create(TreatedAnvilBlockEntity::new,
+        SHAPING_ANVIL = Registry.register(Registries.BLOCK_ENTITY_TYPE,
+                Identifier.of(MiddleEarth.MOD_ID, "shaping_anvil"),
+                FabricBlockEntityTypeBuilder.create(ShapingAnvilBlockEntity::new,
                         ModDecorativeBlocks.TREADTED_ANVIL).build(null));
         REINFORCED_CHEST = Registry.register(Registries.BLOCK_ENTITY_TYPE,
                 Identifier.of(MiddleEarth.MOD_ID, "reinforced_chest"),

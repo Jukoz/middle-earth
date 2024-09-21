@@ -1,4 +1,4 @@
-package net.jukoz.me.gui.treatedanvil;
+package net.jukoz.me.gui.shapinganvil;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.jukoz.me.MiddleEarth;
@@ -9,12 +9,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class TreatedAnvilScreen extends HandledScreen<TreatedAnvilScreenHandler> {
+public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler> {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/anvil.png");
     private static final int PROGRESS_ARROW_SIZE = 24;
     private static final int COOKING_FIRE_SIZE = 14;
 
-    public TreatedAnvilScreen(TreatedAnvilScreenHandler handler, PlayerInventory inventory, Text title) {
+    public ShapingAnvilScreen(ShapingAnvilScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
     }
 
@@ -38,10 +38,6 @@ public class TreatedAnvilScreen extends HandledScreen<TreatedAnvilScreenHandler>
     }
 
     private void renderProgressArrow(DrawContext context, int x, int y) {
-        if(handler.isBonking()) {
-            int cookingTime = (int) (handler.getScaledBonking() * COOKING_FIRE_SIZE);
-            context.drawTexture(TEXTURE, x + 53, y + 50 - cookingTime, 176, COOKING_FIRE_SIZE - cookingTime, COOKING_FIRE_SIZE, cookingTime);
-        }
         if(handler.isBonking()) {
             context.drawTexture(TEXTURE, x + 94, y + 34, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17);
         }

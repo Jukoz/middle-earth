@@ -1,15 +1,15 @@
-package net.jukoz.me.gui.treatedanvil;
+package net.jukoz.me.gui.shapinganvil;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 
-public class TreatedAnvilOutputSlot extends Slot {
+public class ShapingAnvilOutputSlot extends Slot {
     private final PlayerEntity player;
     private int amount;
 
-    public TreatedAnvilOutputSlot(PlayerEntity player, Inventory inventory, int index, int x, int y) {
+    public ShapingAnvilOutputSlot(PlayerEntity player, Inventory inventory, int index, int x, int y) {
         super(inventory, index, x, y);
         this.player = player;
     }

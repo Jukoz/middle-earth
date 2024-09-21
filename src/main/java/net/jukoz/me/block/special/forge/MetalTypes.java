@@ -82,4 +82,22 @@ public enum MetalTypes implements StringIdentifiable {
         }
         return null;
     }
+
+    public static MetalTypes getMetalByIngot(Item ingot) {
+        for(MetalTypes e: MetalTypes.values()) {
+            if(e.getIngot() == ingot) {
+                return e;
+            }
+        }
+        return null;
+    }
+
+    public static MetalTypes getMetalByNugget(Item nugget) {
+        for(MetalTypes e: MetalTypes.values()) {
+            if(e.getNugget() == nugget) {
+                return e;
+            }
+        }
+        return null;
+    }
 }

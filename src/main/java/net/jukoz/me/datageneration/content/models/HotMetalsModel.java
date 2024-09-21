@@ -1,13 +1,21 @@
 package net.jukoz.me.datageneration.content.models;
 
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModResourceItems;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HotMetalsModel {
+
+    public record Shaping(TagKey tagKey, Item output) {}
+
     public static List<Item> ingots = new ArrayList<>() {
         {
             add(Items.COPPER_INGOT);
@@ -51,6 +59,22 @@ public class HotMetalsModel {
             add(ModResourceItems.SWORD_HILT);
             add(ModResourceItems.ROD);
             add(ModResourceItems.LARGE_ROD);
+        }
+    };
+
+    public static List<Shaping> shapes = new ArrayList<>() {
+        {
+            add(new Shaping(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SHORT_BLADE));
+            add(new Shaping(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SHOVEL_HEAD));
+            add(new Shaping(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SWORD_HILT));
+
+            add(new Shaping(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "rod_shaping")), ModResourceItems.BLADE));
+            add(new Shaping(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "rod_shaping")), ModResourceItems.HOE_HEAD));
+
+            add(new Shaping(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "large_rod_shaping")), ModResourceItems.GREAT_AXE_HEAD));
+            add(new Shaping(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "large_rod_shaping")), ModResourceItems.LONG_BLADE));
+            add(new Shaping(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "large_rod_shaping")), ModResourceItems.AXE_HEAD));
+            add(new Shaping(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "large_rod_shaping")), ModResourceItems.PICKAXE_HEAD));
         }
     };
 }

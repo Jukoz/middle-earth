@@ -1,9 +1,14 @@
-package net.jukoz.me.block.special.treatedAnvil;
+package net.jukoz.me.block.special.shapingAnvil;
 
 import com.mojang.serialization.MapCodec;
+import net.jukoz.me.block.ModBlockEntities;
+import net.jukoz.me.block.special.forge.ForgeBlock;
+import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.item.ModToolItems;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -26,17 +31,19 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class TreatedAnvilBlock extends BlockWithEntity implements BlockEntityProvider {
+import java.util.Optional;
+
+public class ShapingAnvilBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
-    public TreatedAnvilBlock(Settings settings) {
+    public ShapingAnvilBlock(Settings settings) {
         super(settings);
         this.setDefaultState(((this.stateManager.getDefaultState()).with(FACING, Direction.NORTH)));
     }
 
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return createCodec(TreatedAnvilBlock::new);
+        return createCodec(ShapingAnvilBlock::new);
     }
 
     @Override
@@ -53,7 +60,7 @@ public class TreatedAnvilBlock extends BlockWithEntity implements BlockEntityPro
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if(state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if(blockEntity instanceof TreatedAnvilBlockEntity treatedAnvilBlockEntity) {
+            if(blockEntity instanceof ShapingAnvilBlockEntity treatedAnvilBlockEntity) {
                 ItemScatterer.spawn(world, pos, treatedAnvilBlockEntity);
             }
             super.onStateReplaced(state, world, pos, newState, moved);
@@ -100,11 +107,16 @@ public class TreatedAnvilBlock extends BlockWithEntity implements BlockEntityPro
     @Override
     protected void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {
         ItemStack stack = player.getEquippedStack(EquipmentSlot.MAINHAND);
+        Optional<ShapingAnvilBlockEntity> blockEntity = world.getBlockEntity(pos, ModBlockEntities.SHAPING_ANVIL);
 
         if (stack.isOf(ModToolItems.SMITHING_HAMMER) && player.getAttackCooldownProgress(0.5f) > 0.9f){
             stack.use(world, player, player.getActiveHand());
             if (!world.isClient){
                 player.getStackInHand(player.getActiveHand()).damage(1, player, EquipmentSlot.MAINHAND);
+            }
+            if(blockEntity.isPresent()){
+                ShapingAnvilBlockEntity shapingAnvilBlockEntity = blockEntity.get();
+                shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity);
             }
             System.out.println("Bonk !");
             world.playSoundAtBlockCenter(pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f, 1.0f, true);
@@ -114,6 +126,6 @@ public class TreatedAnvilBlock extends BlockWithEntity implements BlockEntityPro
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TreatedAnvilBlockEntity(pos, state);
+        return new ShapingAnvilBlockEntity(pos, state);
     }
 }
