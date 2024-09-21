@@ -22,10 +22,6 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
     private final Inventory inventory;
     private final PropertyDelegate propertyDelegate;
 
-    private List<RecipeEntry<AnvilShapingRecipe>> availableRecipes;
-
-
-
     public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, new SimpleInventory(2), new ArrayPropertyDelegate(1));
     }
@@ -36,7 +32,6 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);
         this.propertyDelegate = delegate;
-        this.availableRecipes = Lists.newArrayList();
 
 
         this.addSlot(new Slot(inventory, 0, 23, 34));
@@ -46,10 +41,6 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         addPlayerHotbar(playerInventory);
 
         addProperties(delegate);
-    }
-
-    private boolean isInBounds(int id) {
-        return id >= 0 && id < this.availableRecipes.size();
     }
 
     @Override

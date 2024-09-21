@@ -3,9 +3,12 @@ package net.jukoz.me.block.special.shapingAnvil;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.ModDecorativeBlocks;
+import net.jukoz.me.block.special.forge.ForgeBlockEntity;
+import net.jukoz.me.block.special.forge.MultipleStackRecipeInput;
 import net.jukoz.me.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
+import net.jukoz.me.recipe.AlloyingRecipe;
 import net.jukoz.me.recipe.AnvilShapingRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -15,13 +18,16 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemStackSet;
 import net.minecraft.item.trim.ArmorTrim;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
@@ -32,6 +38,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class ShapingAnvilBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, SidedInventory {
@@ -39,6 +47,8 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements NamedScreenH
 
     public int progress = 0;
     public static final int MAX_PROGRESS = 100;
+
+    public static final int OUTPUT_SLOT = 1;
 
     private final DefaultedList<ItemStack> inventory =
             DefaultedList.ofSize(2, ItemStack.EMPTY);
@@ -71,15 +81,15 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements NamedScreenH
     public void bonk(ShapingAnvilBlockEntity entity){
         ItemStack input = entity.getStack(0);
 
-        if (!input.isEmpty() && input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null){
+        if (!input.isEmpty() && input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null  && hasShapingRecipe(entity)){
             this.progress += 20;
 
             input.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature() - 100));
 
-            Optional<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
-                    .getFirstMatch(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());
+            List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
+                    .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());
 
-            ItemStack output = match.get().value().output;
+            ItemStack output = match.getFirst().value().getOutput();
 
             if (progress >= MAX_PROGRESS){
                 entity.removeStack(0);
@@ -92,6 +102,23 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements NamedScreenH
             }
         }
     }
+
+    private static boolean hasShapingRecipe(ShapingAnvilBlockEntity entity) {
+        SimpleInventory inventory1 = new SimpleInventory(entity.size());
+        ItemStack input;
+
+        inventory1.setStack(0, entity.getStack(0));
+        input = entity.getStack(0);
+
+        if(input.isEmpty()) return false;
+
+        SingleStackRecipeInput inputStack = new SingleStackRecipeInput(input);
+        List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
+                .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, inputStack, entity.getWorld());
+
+        return match.getFirst().value().getOutput() != null;
+    }
+
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {

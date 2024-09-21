@@ -11,16 +11,16 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.input.RecipeInput;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
-public class AnvilShapingRecipe implements Recipe<RecipeInput> {
-    public final ItemStack output;
-    public final Ingredient input;
+public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
+    protected final Ingredient input;
+    protected final ItemStack output;
 
-    public AnvilShapingRecipe(ItemStack output, Ingredient input) {
+    public AnvilShapingRecipe(Ingredient input, ItemStack output) {
         this.output = output;
         this.input = input;
     }
@@ -30,7 +30,7 @@ public class AnvilShapingRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean matches(RecipeInput input, World world) {
+    public boolean matches(SingleStackRecipeInput input, World world) {
         if(input.getStackInSlot(0).isEmpty()) return false;
 
         if(input.getStackInSlot(0).get(ModDataComponentTypes.TEMPERATURE_DATA) == null) return false;
@@ -38,7 +38,7 @@ public class AnvilShapingRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public ItemStack craft(RecipeInput input, RegistryWrapper.WrapperLookup lookup) {
+    public ItemStack craft(SingleStackRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         return this.output.copy();
     }
 
@@ -56,10 +56,8 @@ public class AnvilShapingRecipe implements Recipe<RecipeInput> {
         return output;
     }
 
-    public DefaultedList<Ingredient> getIngredients() {
-        DefaultedList<Ingredient> defaultedList = DefaultedList.of();
-        defaultedList.add(this.input);
-        return defaultedList;
+    public Ingredient getIngredient() {
+        return this.input;
     }
 
     @Override
@@ -91,8 +89,8 @@ public class AnvilShapingRecipe implements Recipe<RecipeInput> {
 
         protected Serializer() {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-                    ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
-                    Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.input)
+                    Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.input),
+                    ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output)
             ).apply(instance, AnvilShapingRecipe::new));
 
             this.packetCodec = PacketCodec.ofStatic(AnvilShapingRecipe.Serializer::write, AnvilShapingRecipe.Serializer::read);
@@ -109,14 +107,14 @@ public class AnvilShapingRecipe implements Recipe<RecipeInput> {
         }
 
         private static AnvilShapingRecipe read(RegistryByteBuf buf) {
-            ItemStack output = ItemStack.PACKET_CODEC.decode(buf);
             Ingredient input = Ingredient.PACKET_CODEC.decode(buf);
-            return new AnvilShapingRecipe(output,input);
+            ItemStack output = ItemStack.PACKET_CODEC.decode(buf);
+            return new AnvilShapingRecipe(input,output);
         }
 
         private static void write(RegistryByteBuf buf, AnvilShapingRecipe recipe) {
-            ItemStack.PACKET_CODEC.encode(buf, recipe.output);
             Ingredient.PACKET_CODEC.encode(buf, recipe.input);
+            ItemStack.PACKET_CODEC.encode(buf, recipe.output);
         }
     }
 }

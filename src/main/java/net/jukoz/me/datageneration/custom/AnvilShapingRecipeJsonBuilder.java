@@ -85,7 +85,7 @@ public class AnvilShapingRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
         Advancement.Builder builder = exporter.getAdvancementBuilder().criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
         Objects.requireNonNull(builder);
         this.criteria.forEach(builder::criterion);
-        AnvilShapingRecipe anvilShapingRecipe = new AnvilShapingRecipe(new ItemStack(this.output), this.input);
+        AnvilShapingRecipe anvilShapingRecipe = new AnvilShapingRecipe(this.input, new ItemStack(this.output));
         exporter.accept(recipeId, anvilShapingRecipe, builder.build(recipeId.withPrefixedPath("recipes/" + this.category.getName() + "/")));
     }
 
