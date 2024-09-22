@@ -61,7 +61,7 @@ public class PlayerData {
         this.overworldSpawnCoordinates = null;
     }
 
-    public boolean setMiddleEarthSpawnId(Identifier foundId) throws FactionIdentifierException {
+    public boolean setSpawnMiddleEarthId(Identifier foundId) throws FactionIdentifierException {
         if(hasAffilition()){
             if(FactionLookup.findFactionById(affiliationData.faction).getSpawnData().getSpawnList().containsKey(foundId)){
                 affiliationData.spawnId = foundId;

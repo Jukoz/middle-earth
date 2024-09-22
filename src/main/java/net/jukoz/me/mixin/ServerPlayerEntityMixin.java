@@ -80,7 +80,7 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
             LoggerUtil.logDebugMsg("RESPAWNING");
             PlayerData data = StateSaverAndLoader.getPlayerState(foundPlayer);
             if(data != null && data.hasAffilition()){
-                Vec3d spawnCoordinates = data.getAffiliationData().getMiddleEarthSpawnCoordinate();
+                Vec3d spawnCoordinates = data.getAffiliationData().getSpawnMiddleEarthCoordinate();
                 if(spawnCoordinates != null){
                     ServerWorld MEWorld = this.server.getWorld(ModDimensions.ME_WORLD_KEY);
                     if(MEWorld != null){

@@ -169,7 +169,7 @@ public class FactionUtil {
      * @param spawnId spawn identifier the player need to teleport to
      * @return if the process was a success or not
      */
-    public static boolean exploringTeleportToSpawnId(ServerPlayerEntity target, Identifier spawnId){
+    public static boolean forceTeleportToSpawnMiddleEarthId(ServerPlayerEntity target, Identifier spawnId){
         BlockPos spawnBlockPos = getSpawnBlockPos(spawnId);
         if(spawnBlockPos == null)
             return false;

@@ -29,7 +29,7 @@ public class AffiliationData {
         return alignment;
     }
 
-    public Vec3d getMiddleEarthSpawnCoordinate(){
+    public Vec3d getSpawnMiddleEarthCoordinate(){
         try{
             Faction foundFaction = FactionLookup.findFactionById(faction);
             LoggerUtil.logDebugMsg("MiddleEarth spawn coordinate : " + spawnId.toString());
@@ -43,7 +43,7 @@ public class AffiliationData {
             // Return custom spawn
             return foundFaction.getSpawnData().findCustomSpawn(spawnId);
         } catch (FactionIdentifierException e){
-            LoggerUtil.logError("AffiliationData::getMiddleEarthSpawnCoordinate", e);
+            LoggerUtil.logError("AffiliationData::getSpawnMiddleEarthCoordinate", e);
             return null;
         }
     }

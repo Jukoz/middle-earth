@@ -5259,6 +5259,7 @@
 
   "event.me.faction.leave.source" : "You have left %s",
   "event.me.faction.join.source" : "You have joined %s",
+
   "command.me.faction.join.source" : "%s successfully joined the %s Faction",
 
   "command.me.faction.get.target" : "%s faction is %s",
@@ -5269,15 +5270,51 @@
   "command.me.faction.clear.source" : "Successfully cleared your faction data",
   "command.me.faction.clear.target" : "Successfully cleared %s faction data",
 
-  "command.me.spawn.middle_earth.get.source": "Your spawn is %s",
-  "command.me.spawn.middle_earth.get.target": "%s spawn is %s",
+  "#Comment": "Above is old, should it be redone",
 
-  "command.me.spawn.faction.set.success.source" : "Successfully modified %s faction spawn point for %s",
-  "command.me.spawn.faction.set.success.target" : "Successfully modified faction spawn point for %s",
-  "command.me.spawn.origin.set.success.source" : "Successfully modified %s origin spawn point for %s",
-  "command.me.spawn.origin.set.success.target" : "Successfully modified origin spawn point for %s",
+  "command.me.get.spawn.overworld.success": "Your overworld spawn is [%s, %s, %s](xyz)",
+  "command.me.get.spawn.overworld.no_spawn": "You have no overworld spawn assigned, default is at [%s, %s, %s](xyz)",
+  "command.me.get.player.spawn.overworld.success": "%s overworld spawn is [%s, %s, %s](xyz)",
+  "command.me.get.player.spawn.overworld.no_spawn": "%s have no overworld spawn assigned, default is at [%s, %s, %s](xyz)",
 
-"#Comment": "Alert",
+  "command.me.get.spawn.middle_earth.success": "Your Middle-earth spawn is <%s> at [%s, %s, %s](xyz)",
+  "command.me.get.spawn.middle_earth.no_spawn": "No Middle-earth spawn assigned",
+  "command.me.get.player.spawn.middle_earth.success": "%s Middle-earth spawn is <%s> at [%s, %s, %s](xyz)",
+  "command.me.get.player.spawn.middle_earth.no_spawn": "%s have no Middle-earth spawn assigned",
+
+  "command.me.set.spawn.overworld.success": "Your new Overworld return spawn is at [%s, %s, %s](xyz)",
+  "command.me.set.player.spawn.overworld.success": "%s new Overworld return spawn is at [%s, %s, %s](xyz)",
+
+  "command.me.set.spawn.middle_earth.success": "Your Middle-earth spawn have been set to <%s> at [%s, %s, %s](xyz)",
+  "command.me.set.spawn.middle_earth.no_faction": "You cannot assign yourself a Middle-earth spawn without having joined an initial faction",
+  "command.me.set.spawn.middle_earth.no_spawn_found": "Couldn't find the spawn <%s>",
+  "command.me.set.player.spawn.middle_earth.success": "%s Middle-earth spawn have been set to <%s> at [%s, %s, %s](xyz)",
+  "command.me.set.player.spawn.middle_earth.no_faction": "You cannot assign a Middle-earth spawn to %s when they have not joined an initial faction",
+
+  "command.me.reset.spawn.overworld.success": "Your Overworld return spawn is reset to [%s, %s, %s](xyz)",
+  "command.me.reset.player.spawn.overworld.success": "%s Overworld return spawn is reset to [%s, %s, %s](xyz)",
+
+  "command.me.reset.spawn.middle_earth.success": "Your Middle-earth spawn have been reset to <%s> at [%s, %s, %s](xyz)",
+  "command.me.reset.spawn.middle_earth.no_faction": "You cannot reset your Middle-earth spawn when you have not joined an initial faction",
+  "command.me.reset.player.spawn.middle_earth.success": "%s Middle-earth spawn have been reset to <%s> at [%s, %s, %s](xyz)",
+  "command.me.reset.player.spawn.middle_earth.no_faction": "You cannot reset the Middle-earth spawn of %s when they have not joined an initial faction",
+
+  "command.me.teleport.spawn.middle_earth.success": "You got teleported to your Middle-earth spawn <%s>",
+  "command.me.teleport.spawn.middle_earth.no_spawn": "You have no Middle-earth spawn assigned",
+  "command.me.teleport.player.spawn.middle_earth.success": "%s got teleported to their Middle-earth spawn <%s> at [%s, %s, %s](xyz)",
+  "command.me.teleport.player.spawn.middle_earth.no_spawn": "%s have no Middle-earth spawn assigned",
+
+  "command.me.teleport.spawn.overworld.success": "You got teleported to your Overworld return spawn",
+  "command.me.teleport.spawn.overworld.error": "There was an error while teleporting you to the Overworld return spawn",
+  "command.me.teleport.player.spawn.overworld.success": "%s got teleported to their Overworld return spawn at [%s, %s, %s](xyz)",
+  "command.me.teleport.player.spawn.overworld.no_spawn": "There was an error while teleporting %s to their Overworld return spawn",
+
+  "command.me.teleport.to.spawn.middle_earth.success": "You got teleported to <%s> at [%s, %s, %s](xyz)",
+  "command.me.teleport.to.spawn.middle_earth.error": "You couldn't be teleported to <%s>",
+  "command.me.teleport.player.to.spawn.middle_earth.success": "%s got teleported to <%s> at [%s, %s, %s](xyz)",
+  "command.me.teleport.player.to.spawn.middle_earth.error": "%s couldn't be teleported to <%s>",
+
+  "#Comment": "Alert",
   "alert.me.large_door.blocked": "Something seems to prevent the door from moving.",
 
 "#Comment": "Exceptions",
