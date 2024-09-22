@@ -81,15 +81,21 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements NamedScreenH
     public void bonk(ShapingAnvilBlockEntity entity){
         ItemStack input = entity.getStack(0);
 
-        if (!input.isEmpty() && input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null  && hasShapingRecipe(entity)){
+        List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
+                .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());
+
+        if (!match.isEmpty() && input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null  && hasShapingRecipe(entity)){
             this.progress += 20;
 
             input.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature() - 100));
 
-            List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
-                    .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());
-
             ItemStack output = match.getFirst().value().getOutput();
+
+            System.out.println("input: " + input);
+
+            for(int i = 0; i < match.size(); i++){
+                System.out.println("output: " + match.get(i).value().getOutput());
+            }
 
             if (progress >= MAX_PROGRESS){
                 entity.removeStack(0);

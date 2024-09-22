@@ -31,10 +31,11 @@ public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
 
     @Override
     public boolean matches(SingleStackRecipeInput input, World world) {
-        if(input.getStackInSlot(0).isEmpty()) return false;
+        if(input.item().isEmpty()) return false;
 
-        if(input.getStackInSlot(0).get(ModDataComponentTypes.TEMPERATURE_DATA) == null) return false;
-        return true;
+        if(input.item().get(ModDataComponentTypes.TEMPERATURE_DATA) == null) return false;
+
+        return this.input.test(input.item());
     }
 
     @Override
