@@ -603,7 +603,6 @@ public class ModBiomes {
     public static Biome createDorwinionBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
-        ModSpawnSettingsBuilder.addGoose(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         ModBiomeFeatures.addDisks(undergroundOres);
@@ -1766,7 +1765,6 @@ public class ModBiomes {
 
         if(step < 2) {
             ModSpawnSettingsBuilder.addEriadorMobs(spawnSettings);
-            ModSpawnSettingsBuilder.addGoose(spawnSettings);
             ModSpawnSettingsBuilder.addRareSnails(spawnSettings);
             ModBiomeFeatures.addFlowerGreenJewel(vegetation);
             ModBiomeFeatures.addRareBeechTrees(vegetation);
@@ -2102,8 +2100,6 @@ public class ModBiomes {
     public static Biome createPondBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addRiverAnimals(spawnSettings);
-        ModSpawnSettingsBuilder.addDuck(spawnSettings);
-        ModSpawnSettingsBuilder.addGoose(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addOceanVegetation(generationSettings);
