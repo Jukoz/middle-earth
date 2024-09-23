@@ -3,15 +3,12 @@ package net.jukoz.me.block.special.shapingAnvil;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
-import net.jukoz.me.block.ModDecorativeBlocks;
-import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.block.special.forge.MetalTypes;
-import net.jukoz.me.block.special.forge.MultipleStackRecipeInput;
 import net.jukoz.me.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
-import net.jukoz.me.recipe.AlloyingRecipe;
 import net.jukoz.me.recipe.AnvilShapingRecipe;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
@@ -22,7 +19,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemStackSet;
 import net.minecraft.item.trim.ArmorTrim;
 import net.minecraft.item.trim.ArmorTrimMaterial;
 import net.minecraft.item.trim.ArmorTrimPattern;
@@ -35,9 +31,7 @@ import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -50,7 +44,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,7 +61,6 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
     protected final PropertyDelegate propertyDelegate;
 
-    //TODO recipe input at index 0 gets set to air after crafted
     //TODO rendering of item not updated when both slots empty
     //TODO particles when bonk
 
@@ -128,11 +120,12 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     public ItemStack getRenderStack() {
-        if (this.getStack(1).isEmpty()){
+        return this.getStack(1);
+        /*if (this.getStack(1).isEmpty()){
             return this.getStack(0);
         } else {
             return this.getStack(1);
-        }
+        }*/
     }
 
     public void bonk(ShapingAnvilBlockEntity entity){
@@ -146,7 +139,6 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
             input.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature() - 100));
 
-            ItemStack output = match.get(entity.outputIndex).value().getOutput();
 
             System.out.println("input: " + input);
 
@@ -157,13 +149,16 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
             System.out.println("input size: " + (entity.maxOutputIndex + 1));
             System.out.println("current input: " + entity.outputIndex);
-            System.out.println("current output: " + output);
-            System.out.println("---------------------");
+
 
             RegistryWrapper.Impl<ArmorTrimMaterial>  armorTrimMaterialRegistry = entity.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.TRIM_MATERIAL);
             RegistryWrapper.Impl<ArmorTrimPattern>  armorTrimPatternRegistry = entity.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.TRIM_PATTERN);
 
             if (progress >= MAX_PROGRESS){
+                ItemStack output = match.get(entity.outputIndex).value().craft(new SingleStackRecipeInput(input), entity.world.getRegistryManager());
+                System.out.println("current output: " + output);
+                System.out.println("---------------------");
+                
                 entity.removeStack(0);
                 if(input.get(DataComponentTypes.TRIM) != null){
                     output.set(DataComponentTypes.TRIM, input.get(DataComponentTypes.TRIM));
@@ -179,6 +174,7 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
                 }
                 entity.setStack(1, output);
                 progress = 0;
+                entity.markDirty();
             }
         }
     }
@@ -263,7 +259,8 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
     @Override
     public void markDirty() {
-        world.updateListeners(pos, getCachedState(), getCachedState(), 3);
+        if(world != null)
+            world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
         super.markDirty();
     }
 

@@ -25,7 +25,9 @@ public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<ShapingAn
 
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
 
-        ItemStack input = entity.getRenderStack();
+        ItemStack stack = entity.getRenderStack();
+
+        if(stack.isEmpty()) return;
 
         matrices.push();
         matrices.translate(0.5f, 1.0f, 0.5f);
@@ -41,7 +43,8 @@ public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<ShapingAn
 
         int currentLight = getLightLevel(entity.getWorld(), entity.getPos());
 
-        itemRenderer.renderItem(input, ModelTransformationMode.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
+
+        itemRenderer.renderItem(stack, ModelTransformationMode.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
                 matrices, vertexConsumers, entity.getWorld(), 1);
 
         matrices.pop();
