@@ -1,8 +1,11 @@
 package net.jukoz.me.gui.shapinganvil;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreenHandler;
+import net.jukoz.me.network.packets.C2S.AnvilIndexPacket;
+import net.jukoz.me.network.packets.C2S.ForgeOutputPacket;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -50,6 +53,19 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
     }
 
     @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (this.leftOutputCycleButton.mouseClicked(mouseX, mouseY, button)) {
+            ClientPlayNetworking.send(new AnvilIndexPacket(true, handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
+        }
+
+        if (this.rightOutputCycleButton.mouseClicked(mouseX, mouseY, button)) {
+            ClientPlayNetworking.send(new AnvilIndexPacket(false, handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
+        }
+
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -72,5 +88,13 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         renderBackground(context, mouseX,mouseY,delta);
         super.render(context, mouseX, mouseY, delta);
         drawMouseoverTooltip(context, mouseX, mouseY);
+        int x = (width - backgroundWidth) / 2;
+        int y = (height - backgroundHeight) / 2;
+
+        if (this.handler.getOutput().isEmpty()){
+            context.drawTexture(TEXTURE, x + 63, y + 36, 177, 115,12, 12);
+        } else {
+            context.drawItem(this.handler.getOutput(), x + 61, y + 34);
+        }
     }
 }

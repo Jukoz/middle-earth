@@ -9,10 +9,12 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.particle.FireworksSparkParticle;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -120,6 +122,7 @@ public class ShapingAnvilBlock extends BlockWithEntity implements BlockEntityPro
             }
             System.out.println("Bonk !");
             world.playSoundAtBlockCenter(pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f, 1.0f, true);
+            world.addParticle(ParticleTypes.ELECTRIC_SPARK, pos.getX()+ 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, 0.0, 0.0, 0.0);
         }
     }
 
@@ -127,5 +130,16 @@ public class ShapingAnvilBlock extends BlockWithEntity implements BlockEntityPro
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new ShapingAnvilBlockEntity(pos, state);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return ShapingAnvilBlock.validateTicker(world, type, ModBlockEntities.SHAPING_ANVIL);
+    }
+
+    @Nullable
+    protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<ShapingAnvilBlockEntity> expectedType) {
+        return world.isClient ? null : ShapingAnvilBlock.validateTicker(givenType, expectedType, ShapingAnvilBlockEntity::tick);
     }
 }

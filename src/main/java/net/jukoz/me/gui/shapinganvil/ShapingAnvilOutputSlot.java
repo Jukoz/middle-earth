@@ -6,12 +6,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 
 public class ShapingAnvilOutputSlot extends Slot {
-    private final PlayerEntity player;
     private int amount;
 
-    public ShapingAnvilOutputSlot(PlayerEntity player, Inventory inventory, int index, int x, int y) {
+    public ShapingAnvilOutputSlot(Inventory inventory, int index, int x, int y) {
         super(inventory, index, x, y);
-        this.player = player;
     }
 
     @Override

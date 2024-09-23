@@ -11,19 +11,26 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.List;
 
 public class ShapingAnvilScreenHandler extends ScreenHandler {
     private final Inventory inventory;
     private final PropertyDelegate propertyDelegate;
+    protected BlockPos pos;
+    private final World world;
 
-    public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new SimpleInventory(2), new ArrayPropertyDelegate(1));
+
+    public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos blockPos) {
+        this(syncId, playerInventory, new SimpleInventory(2), new ArrayPropertyDelegate(3));
+        this.pos = blockPos;
     }
 
     public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
@@ -32,10 +39,11 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);
         this.propertyDelegate = delegate;
+        this.pos = BlockPos.ORIGIN;
+        this.world = playerInventory.player.getWorld();
 
-
-        this.addSlot(new Slot(inventory, 0, 23, 34));
-        this.addSlot(new Slot(inventory, 1, 134, 34));
+        this.addSlot(new ShapingAnvilSlot(inventory, 0, 23, 34));
+        this.addSlot(new ShapingAnvilOutputSlot(inventory, 1, 134, 34));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -66,15 +74,25 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         return stack;
     }
 
-    public boolean isBonking() {
-        return propertyDelegate.get(0) > 0;
+    public BlockPos getPos() {
+        return pos;
     }
 
-    public float getScaledBonking() {
-        int bonking = this.propertyDelegate.get(0);
-        int maxbonking = ShapingAnvilBlockEntity.MAX_PROGRESS;
+    public ItemStack getOutput() {
+        ItemStack input = inventory.getStack(0);
 
-        return (float) bonking / maxbonking;
+        List<RecipeEntry<AnvilShapingRecipe>> match = this.world.getRecipeManager()
+                .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), this.world);
+
+        if(match.isEmpty()) return ItemStack.EMPTY;
+
+        if(match.get(this.propertyDelegate.get(1)).value().getOutput().isEmpty()) return ItemStack.EMPTY;
+
+        return match.get(this.propertyDelegate.get(1)).value().getOutput();
+    }
+
+    public boolean isBonking() {
+        return propertyDelegate.get(0) > 0;
     }
 
     public float getScaledProgress() {

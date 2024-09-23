@@ -16,14 +16,13 @@ import net.minecraft.util.math.BlockPos;
 
 public class ModScreenHandlers {
     public static ScreenHandlerType<ArtisanTableScreenHandler> ARTISAN_SCREEN_HANDLER;
-    public static ScreenHandlerType<ShapingAnvilScreenHandler> TREATED_ANVIL_SCREEN_HANDLER;
+    public static ScreenHandlerType<ShapingAnvilScreenHandler> TREATED_ANVIL_SCREEN_HANDLER = new ExtendedScreenHandlerType<>(ShapingAnvilScreenHandler::new, BlockPos.PACKET_CODEC.cast());;
     public static ScreenHandlerType<WoodPileScreenHandler> WOOD_PILE_SCREEN_HANDLER;
     public static final ScreenHandlerType<ForgeAlloyingScreenHandler> FORGE_ALLOYING_SCREEN_HANDLER = new ExtendedScreenHandlerType<>(ForgeAlloyingScreenHandler::new, BlockPos.PACKET_CODEC.cast());
     public static final ScreenHandlerType<ForgeHeatingScreenHandler> FORGE_HEATING_SCREEN_HANDLER = new ExtendedScreenHandlerType<>(ForgeHeatingScreenHandler::new, BlockPos.PACKET_CODEC.cast());
 
     public static void registerAllScreenHandlers() {
         ARTISAN_SCREEN_HANDLER = new ScreenHandlerType<>(ArtisanTableScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
-        TREATED_ANVIL_SCREEN_HANDLER = new ScreenHandlerType<>(ShapingAnvilScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
         WOOD_PILE_SCREEN_HANDLER = new ScreenHandlerType<>(WoodPileScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
 
         Registry.register(Registries.SCREEN_HANDLER, Identifier.of(MiddleEarth.MOD_ID, "forge_alloying"),

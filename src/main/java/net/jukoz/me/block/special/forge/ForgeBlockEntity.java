@@ -68,7 +68,6 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     private int fuelTime = 0;
     private int maxFuelTime = 0;
     private int mode = 0;
-
     private int storage = 0;
 
     private MetalTypes currentMetal = MetalTypes.EMPTY;
@@ -76,6 +75,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     //TODO melting smithing parts
     //TODO convert metals to registry
     //TODO custom metal trim data component with palette
+    //TODO full liquid storage wrong display
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGE, pos, state);
