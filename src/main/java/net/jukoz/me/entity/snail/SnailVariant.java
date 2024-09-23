@@ -1,7 +1,5 @@
 package net.jukoz.me.entity.snail;
 
-import net.jukoz.me.entity.crab.CrabVariant;
-
 import java.util.Arrays;
 import java.util.Comparator;
 

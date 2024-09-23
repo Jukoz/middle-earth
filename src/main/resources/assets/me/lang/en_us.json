@@ -773,12 +773,6 @@
   "item.me.maggoty_bread": "Maggoty Bread",
   "item.me.strawberry": "Strawberry",
   "item.me.tough_berries": "Tough Berries",
-  "item.me.raw_crab_claw": "Raw Crab Claw",
-  "item.me.cooked_crab_claw": "Cooked Crab Claw",
-  "item.me.raw_goose": "Raw Goose",
-  "item.me.cooked_goose": "Cooked Goose",
-  "item.me.raw_duck": "Raw Duck",
-  "item.me.cooked_duck": "Cooked Duck",
   "item.me.raw_swan": "Raw Swan",
   "item.me.cooked_swan": "Cooked Swan",
   "item.me.raw_venison": "Raw Venison",
@@ -796,7 +790,6 @@
   "item.me.onion": "Onion",
   "item.me.berry_pie": "Berry Pie",
   "item.me.boiled_egg": "Boiled Egg",
-  "item.me.crab_soup": "Crab Soup",
   "item.me.fish_stew": "Fish Stew",
   "item.me.meat_bowl": "Meat Bowl",
   "item.me.meat_egg_meal": "Meat Egg Meal",
@@ -813,7 +806,6 @@
 
 "#Comment:": "Item - Resources",
   "item.me.straw": "Straw",
-  "item.me.duck_feather": "Duck Feather",
   "item.me.swan_feather": "Swan Feather",
 
   "item.me.copper_coin": "Copper Coin",
@@ -838,17 +830,12 @@
 
 "#Comment:": "Item - Spawn Eggs",
   "item.me.barrow_wight_spawn_egg": "Barrow Wight Spawn Egg",
-  "item.me.nazgul_spawn_egg": "Nazgûl Spawn Egg",
 
   "item.me.broadhoof_goat_spawn_egg": "Broadhoof Goat Spawn Egg",
   "item.me.warg_spawn_egg": "Warg Spawn Egg",
   "item.me.stone_troll_spawn_egg": "Stone Troll Spawn Egg",
-  "item.me.cave_troll_spawn_egg": "Cave Troll Spawn Egg",
   "item.me.snow_troll_spawn_egg": "Snow Troll Spawn Egg",
   "item.me.troll_statue": "Troll Statue",
-  "item.me.crab_spawn_egg": "Crab Spawn Egg",
-  "item.me.goose_spawn_egg": "Goose Spawn Egg",
-  "item.me.duck_spawn_egg": "Duck Spawn Egg",
   "item.me.swan_spawn_egg": "Swan Spawn Egg",
 
   "item.me.hobbit_civilian_spawn_egg": "Hobbit Civilian Spawn Egg",
@@ -921,13 +908,9 @@
 "#Comment:": "ENTITIES",
   "entity.me.broadhoof_goat": "Broadhoof Goat",
   "entity.me.warg": "Warg",
-  "entity.me.cave_troll": "Cave Troll",
   "entity.me.snow_troll": "Snow Troll",
   "entity.me.stone_troll": "Stone Troll",
   "entity.me.petrified_troll": "Petrified Troll",
-  "entity.me.crab": "Crab",
-  "entity.me.goose": "Goose",
-  "entity.me.duck": "Duck",
   "entity.me.swan": "Swan",
   "entity.me.pheasant": "Pheasant",
   "entity.me.snail": "Snail",
@@ -986,15 +969,11 @@
   "entity.me.isengard_uruk_hai_veteran": "Isengard Uruk-Hai Veteran",
   "entity.me.isengard_uruk_hai_leader": "Isengard Uruk-Hai Leader",
 
-  "entity.me.nazgul": "Nazgûl",
-
   "entity.me.bandit_militia": "Bandit Militia",
   "entity.me.bandit_soldier": "Bandit Soldier",
   "entity.me.bandit_chieftain": "Bandit Chieftain",
 
   "entity.me.mirkwood_spider": "Mirkwood Spider",
-
-  "entity.me.balrog": "Balrog",
 
   "entity.me.pebble": "Pebble",
   "entity.me.pinecone": "Pinecone",

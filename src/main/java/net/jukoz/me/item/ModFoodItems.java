@@ -18,41 +18,12 @@ public class ModFoodItems {
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(20).saturationModifier(20).build())));
 
-    public static final Item RAW_CRAB_CLAW = registerItem("raw_crab_claw",
-            new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(2).saturationModifier(0.2F).build())));
-    public static final Item COOKED_CRAB_CLAW = registerItem("cooked_crab_claw",
-            new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(5).saturationModifier(0.6F).build())));
-
-    public static final Item RAW_GOOSE = registerItem("raw_goose",
-            new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(3).saturationModifier(0.3F).statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.3F).build())));
-    public static final Item COOKED_GOOSE = registerItem("cooked_goose",
-            new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(7).saturationModifier(0.8F).build())));
-
-    public static final Item RAW_DUCK = registerItem("raw_duck",
-            new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(2).saturationModifier(0.3F).statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.3F).build())));
-    public static final Item COOKED_DUCK = registerItem("cooked_duck",
-            new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(6).saturationModifier(0.7F).build())));
-
     public static final Item RAW_SWAN = registerItem("raw_swan",
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(3).saturationModifier(0.4F).statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.3F).build())));
     public static final Item COOKED_SWAN = registerItem("cooked_swan",
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(8).saturationModifier(0.8F).build())));
-
-    public static final Item RAW_RAT = registerItem("raw_rat",
-            new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(2).saturationModifier(0.3F)
-                            .statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.3F).build())));
-    public static final Item COOKED_RAT = registerItem("cooked_rat",
-            new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(5).saturationModifier(0.6F).build())));
 
     public static final Item RAW_VENISON = registerItem("raw_venison",
             new Item(new Item.Settings().food(
@@ -109,9 +80,6 @@ public class ModFoodItems {
     public static final Item BOILED_EGG = registerItem("boiled_egg",
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(3).saturationModifier(0.6f).build())));
-    public static final Item CRAB_SOUP = registerItem("crab_soup",
-            new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(8).saturationModifier(0.8f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
     public static final Item FISH_STEW = registerItem("fish_stew",
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(8).saturationModifier(1.0f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
@@ -130,13 +98,6 @@ public class ModFoodItems {
     public static final Item POULTRY_MEAL = registerItem("poultry_meal",
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(8).saturationModifier(0.8f).usingConvertsTo(Items.BOWL).build()).maxCount(1)));
-    public static final Item RAT_SKEWER = registerItem("rat_skewer",
-            new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(1).saturationModifier(0.1f)
-                            .statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.3F).usingConvertsTo(Items.STICK).build()).maxCount(16)));
-    public static final Item COOKED_RAT_SKEWER = registerItem("cooked_rat_skewer",
-            new Item(new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(7).saturationModifier(0.8f).usingConvertsTo(Items.STICK).build()).maxCount(16)));
     public static final Item VEGETABLE_SKEWER = registerItem("vegetable_skewer",
             new Item(new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(4).saturationModifier(0.3f).usingConvertsTo(Items.STICK).build()).maxCount(1)));
