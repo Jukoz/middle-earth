@@ -5,6 +5,7 @@ import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
+import org.joml.Vector2i;
 
 public class MapWidget extends ModWidget {
     private static final Identifier MIDDLE_EARTH_WORLD_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
@@ -12,13 +13,17 @@ public class MapWidget extends ModWidget {
     private int uvX, uvY = 0;
     private int startX, startY = 0;
     private float zoomLevel = 1f;
-    private float currentWidth, currentHeight;
+    private Vector2i currentOffsetTarget;
+
+    private float uiCurrentWidth, uiCurrentHeight;
 
     public MapWidget(int mapWidth, int mapHeight) {
         this.uiWidth = mapWidth;
         this.uiHeight = mapHeight;
-        this.currentWidth = mapWidth;
-        this.currentHeight = mapHeight;
+        this.uiCurrentWidth = uiWidth;
+        this.uiCurrentHeight = uiHeight;
+        // By default, center
+        this.currentOffsetTarget = new Vector2i(uiWidth / 2, uiHeight / 2);
     }
 
     public void setStartCoordinates(int startX, int startY){
@@ -51,15 +56,12 @@ public class MapWidget extends ModWidget {
         this.startX = startX;
         this.startY = startY;
 
-        int textureWidth = (int) (uiWidth * 0.5); // Apply zoom?
-        int textureHeight = (int) (uiHeight * 0.5); // Apply zoom?
-
         // TODO : In progress
         context.drawTexture(MIDDLE_EARTH_WORLD_TEXTURE,
                 startX, startY,
                 uvX, uvY,
                 uiWidth,uiHeight,
-                (int)currentWidth, (int)currentHeight
+                (int)uiCurrentWidth, (int)uiCurrentHeight
         );
         /*
         (int) (MAP_IMAGE_WIDTH * getZoomLevel() * minZoom),
@@ -79,63 +81,85 @@ public class MapWidget extends ModWidget {
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
-        if(button == 0 &&  isMouseOver(uiWidth, uiHeight, startX, startY)){
+        if(button == 0 && mouseIsInside(mouseX, mouseY)) {
             int newUvX = (int) (this.uvX - deltaX);
             int newUvY = (int) (this.uvY - deltaY);
 
-            float maxRatioX = (float) uiWidth / MiddleEarthMapConfigs.REGION_SIZE * newUvX;
-            float maxRatioY = (float) uiHeight / MiddleEarthMapConfigs.REGION_SIZE * newUvY;
+            currentOffsetTarget.x = (int) (-startX + mouseX);
+            currentOffsetTarget.y = (int) (-startY + mouseY);
 
-            // TODO : Need better control over drag
-            // Removed temporarily, will be continued
-
-            //LoggerUtil.logDebugMsg(maxRatioX + " (" + newUvX + "), " + maxRatioY + " (" + newUvY + ")");
-            /*
-            if(maxRatioX >= 0 && maxRatioX <= 1)
-                this.uvX = newUvX;
-
-            if(maxRatioY >= 0 && maxRatioY <= 1)
-                this.uvY = newUvY;
-             */
+            setNewUv(newUvX, newUvY);
         }
         return true;
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        if(verticalAmount > 0){
-            zoom();
-        } else {
-            dezoom();
+        if(mouseIsInside(mouseX, mouseY)){
+            currentOffsetTarget.x = (int) (-startX + mouseX);
+            currentOffsetTarget.y = (int) (-startY + mouseY);
+            if(verticalAmount > 0){
+                zoom((float) (0.5f * Math.pow(0.9f, zoomLevel)));
+            } else {
+                dezoom((float) (0.5f * Math.pow(0.9f, zoomLevel)));
+            }
         }
         return true;
     }
 
-    public void zoom() {
+    private boolean mouseIsInside(double mouseX, double mouseY) {
+        return ((mouseX > startX && mouseX < startX + uiWidth) && (mouseY > startY && mouseY < startY + uiHeight));
+    }
+
+    public void zoom(){
+        zoom(1f);
+    }
+    public void zoom(float amount) {
         if(zoomLevel != 15f) {
-            zoomLevel = Math.min(15f,  zoomLevel + 1f);
+            zoomLevel = Math.min(15f,  zoomLevel + amount);
             computeNewOffset();
         }
     }
-
-    public void dezoom() {
+    public void dezoom(){
+        dezoom(1f);
+    }
+    public void dezoom(float amount) {
         if(zoomLevel != 1f) {
-            zoomLevel = Math.max(1f, zoomLevel - 1f);
+            zoomLevel = Math.max(1f, zoomLevel - amount);
             computeNewOffset();
         }
     }
 
     private void computeNewOffset(){
-        float newCurrentWidth = uiWidth * zoomLevel;
-        float newCurrentHeight = uiHeight * zoomLevel;
+        float newUiCurrentWidth = uiWidth * zoomLevel;
+        float newUiCurrentHeight = uiHeight * zoomLevel;
 
-        int newUvX = (int) (uvX + ((newCurrentWidth - currentWidth) / 2));
-        int newUvY = (int) (uvY + ((newCurrentHeight - currentHeight) / 2));
+        // 0.5 means centered
+        float xRatio = (float) currentOffsetTarget.x / uiWidth;
+        float yRatio = (float) currentOffsetTarget.y / uiHeight;
 
-        currentWidth = newCurrentWidth;
-        currentHeight = newCurrentHeight;
+        LoggerUtil.logDebugMsg(xRatio + ", " + yRatio);
 
-        uvX = (int) Math.max(0, Math.min(3000 - newCurrentWidth, newUvX));
-        uvY = (int) Math.max(0, Math.min(3000 - newCurrentHeight, newUvY));
+        float differenceX = (newUiCurrentWidth - uiCurrentWidth);
+        float differenceY = (newUiCurrentHeight - uiCurrentHeight);
+
+        uiCurrentWidth = newUiCurrentWidth;
+        uiCurrentHeight = newUiCurrentHeight;
+
+        setNewUv((int) (uvX + differenceX * xRatio), (int) (uvY + differenceY * yRatio));
+    }
+
+    private void setNewUv(int newUvX, int newUvY){
+        int maxWidth = (int) (uiWidth * zoomLevel) - uiWidth;
+        int maxHeight = (int) (uiHeight * zoomLevel) - uiHeight;;
+
+        float computedX = Math.min(maxWidth, newUvX);
+        computedX = Math.max(0, computedX);
+
+        float computedY = Math.min(maxHeight, newUvY);
+        computedY = Math.max(0, computedY);
+
+        this.uvX = (int) computedX;
+        this.uvY = (int) computedY;
     }
 }
