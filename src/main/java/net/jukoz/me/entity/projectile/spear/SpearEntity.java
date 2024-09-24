@@ -17,7 +17,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 
 public class SpearEntity extends ThrownItemEntity {
-    private Item item;
+    private final Item item;
     private float damage;
 
     public SpearEntity(EntityType<? extends SpearEntity> entityType, World world) {
@@ -31,7 +31,7 @@ public class SpearEntity extends ThrownItemEntity {
         this.damage = dmg;
     }
 
-    protected Item getDefaultItem() {
+    public Item getItem() {
         return item;
     }
 
@@ -61,5 +61,10 @@ public class SpearEntity extends ThrownItemEntity {
             getWorld().sendEntityStatus(this, (byte)3);
             this.discard();
         }
+    }
+
+    @Override
+    protected Item getDefaultItem() {
+        return this.item;
     }
 }
