@@ -25,6 +25,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -37,8 +38,7 @@ public class FactionUtil {
             return false;
 
         PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
-        AffiliationData previousAffiliationData = playerState.getAffiliationData();
-        Faction previousFaction = (previousAffiliationData != null) ? FactionLookup.getFactionById(previousAffiliationData.faction) : null;
+        Faction previousFaction = playerState.getCurrentFaction(player.getWorld());
 
         // [CLEAR] If the next faction is null
         if(faction == null){
@@ -46,10 +46,10 @@ public class FactionUtil {
         }
 
         // [REPLACE] If previous faction is not null and next faction is not null
-        if(previousAffiliationData != null && previousFaction != null){
+        if(previousFaction != null){
             sendOnLeaveCommand(player, previousFaction);
             // Send leaving message to affected player
-            MutableText targetText = Text.translatable("event.me.faction.leave.source", previousFaction.getFullName());
+            MutableText targetText = Text.translatable("event.me.leave.faction.success", previousFaction.getFullName());
             player.sendMessage(targetText.withColor(CommandColors.WARNING.color));
         }
 
@@ -60,7 +60,7 @@ public class FactionUtil {
         sendOnJoinCommand(player, faction);
 
         // Send join message to affected player
-        MutableText targetText = Text.translatable("event.me.faction.join.source", faction.getFullName());
+        MutableText targetText = Text.translatable("event.me.join.faction.success", faction.getFullName());
         player.sendMessage(targetText.withColor(CommandColors.SUCCESS.color));
 
         sendOnFactionJoinMessage(player);
@@ -75,11 +75,10 @@ public class FactionUtil {
         // Verify faction
         // Fetch player datas
         PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
-        AffiliationData previousAffiliationData = playerState.getAffiliationData();
-        Faction previousFaction = (previousAffiliationData != null) ? FactionLookup.getFactionById(previousAffiliationData.faction) : null;
+        Identifier previousFactionId = playerState.getCurrentFactionId();
 
         // If there is no faction update, return true
-        if(previousFaction == faction && spawnId == previousAffiliationData.spawnId) {
+        if(previousFactionId == faction.getId() && spawnId == playerState.getCurrentSpawnId()) {
             throw new IdenticalFactionException();
         };
 
@@ -133,11 +132,17 @@ public class FactionUtil {
         PlayerData data = StateSaverAndLoader.getPlayerState(player);
 
         if(data.hasAffilition()){
-            Identifier factionId = data.getAffiliationData().faction;
-            Faction foundFaction = FactionLookup.getFactionById(factionId);
-            if(foundFaction == null) return;
+            Identifier factionId = data.getCurrentFactionId();
+            Faction faction = null;
+            try {
+                faction = data.getFaction(player.getWorld());
+                if(faction == null) return;
+            } catch (FactionIdentifierException e) {
+                LoggerUtil.logError("Couldn't find faction by id <%s>".formatted(factionId));
+                return;
+            }
 
-            MutableText targetText = Text.translatable("event.me.faction.join.source", foundFaction.getFullName());
+            MutableText targetText = Text.translatable("event.me.join.faction.success", faction.getFullName());
             ((ServerPlayerEntity) player).networkHandler.sendPacket(
                 new TitleS2CPacket(Text.of(""))
             );
@@ -150,12 +155,11 @@ public class FactionUtil {
     public static boolean clearFaction(ServerPlayerEntity player) throws FactionIdentifierException, NoFactionException {
         PlayerData data = StateSaverAndLoader.getPlayerState(player);
         if(data.hasAffilition()){
-            AffiliationData affiliationData = data.getAffiliationData();
-            Faction faction = FactionLookup.findFactionById(affiliationData.faction);
+            Faction faction = data.getFaction(player.getWorld());
             data.setAffiliationData(null);
 
             sendOnLeaveCommand(player, faction);
-            MutableText targetText = Text.translatable("event.me.faction.leave.source", faction.getFullName());
+            MutableText targetText = Text.translatable("event.me.leave.faction.success", faction.getFullName());
             player.sendMessage(targetText.withColor(CommandColors.WARNING.color));
             return true;
         } else {
@@ -170,16 +174,17 @@ public class FactionUtil {
      * @return if the process was a success or not
      */
     public static boolean forceTeleportToSpawnMiddleEarthId(ServerPlayerEntity target, Identifier spawnId){
-        BlockPos spawnBlockPos = getSpawnBlockPos(spawnId);
+        BlockPos spawnBlockPos = null;
+        spawnBlockPos = getSpawnBlockPos(target.getWorld(), spawnId);
         if(spawnBlockPos == null)
             return false;
         ModDimensions.teleportPlayerToMe(target, new Vec3d(spawnBlockPos.getX(), spawnBlockPos.getY(), spawnBlockPos.getZ()), false, false);
         return true;
     }
 
-    public static BlockPos getSpawnBlockPos(Identifier spawnId){
+    public static BlockPos getSpawnBlockPos(World world, Identifier spawnId) {
         BlockPos spawnBlockPos = null;
-        for(Faction faction: FactionLookup.getAllFactions()){
+        for(Faction faction: FactionLookup.getAllFactions(world)){
             SpawnDataHandler spawnDataHandler = faction.getSpawnData();
             if(spawnDataHandler != null)
                 spawnBlockPos = spawnDataHandler.getSpawnBlockPos(spawnId);
@@ -188,12 +193,18 @@ public class FactionUtil {
             }
 
             if(faction.getSubFactions() != null){
-                for(Faction subfaction : faction.getSubFactions().values()){
-                    SpawnDataHandler subFacspawnDataHandler = subfaction.getSpawnData();
-                    if(subFacspawnDataHandler != null)
-                        spawnBlockPos = subFacspawnDataHandler.getSpawnBlockPos(spawnId);
-                    if(spawnBlockPos != null) {
-                        return spawnBlockPos;
+                for(Identifier subfactionId : faction.getSubFactions()){
+                    try {
+                        Faction subFaction = null;
+                        subFaction = FactionLookup.getFactionById(world, subfactionId);
+                        SpawnDataHandler subFacspawnDataHandler = subFaction.getSpawnData();
+                        if(subFacspawnDataHandler != null)
+                            spawnBlockPos = subFacspawnDataHandler.getSpawnBlockPos(spawnId);
+                        if(spawnBlockPos != null) {
+                            return spawnBlockPos;
+                        }
+                    } catch (FactionIdentifierException e) {
+                        return null;
                     }
                 }
             }

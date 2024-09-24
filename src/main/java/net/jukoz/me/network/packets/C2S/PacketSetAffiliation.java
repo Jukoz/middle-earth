@@ -53,7 +53,7 @@ public class PacketSetAffiliation extends ClientToServerPacket<PacketSetAffiliat
         server.execute(() -> {
             try{
                 Identifier factionId = IdentifierUtil.getIdentifierFromString(factionName);
-                Faction faction = FactionLookup.getFactionById(factionId);
+                Faction faction = FactionLookup.getFactionById(context.player().getWorld(), factionId);
                 Identifier spawnId = IdentifierUtil.getIdentifierFromString(spawnName);
                 FactionUtil.updateFaction(context.player(), faction, spawnId);
             } catch (Exception e){

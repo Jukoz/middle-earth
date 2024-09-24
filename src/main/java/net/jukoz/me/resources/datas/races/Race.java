@@ -11,6 +11,7 @@ import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
+import net.jukoz.me.resources.datas.RaceType;
 import net.jukoz.me.resources.datas.races.data.AttributeData;
 import net.jukoz.me.utils.IdentifierUtil;
 import net.jukoz.me.utils.LoggerUtil;
@@ -29,26 +30,25 @@ import java.util.Optional;
 public class Race {
     public static final Codec<Race> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(Race::getIdValue),
-            Codec.STRING.fieldOf("model").forGetter(Race::getModelValue),
+            Codec.STRING.fieldOf("type").forGetter(Race::getRaceTypeValue),
             NbtCompound.CODEC.fieldOf("attributes").forGetter(Race::getAttributeDatas),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Race::getJoinCommands),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Race::getLeaveCommands)
     ).apply(instance, Race::new));
 
     private final Identifier id;
-    private final String modelEntityType;
+    private final RaceType raceType;
     private final String translatableKey;
     private final AttributeData attributeData;
     private List<String> joinCommands;
     private List<String> leaveCommands;
 
-    public Race(String id, String model, NbtCompound attributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands){
+    public Race(String id, String raceTypeValue, NbtCompound attributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands){
         // Create id
-        LoggerUtil.logDebugMsg("Adding " + id);
         this.id = IdentifierUtil.getIdentifierFromString(id);
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
         // Create model
-        this.modelEntityType = model;
+        this.raceType = RaceType.valueOf(raceTypeValue.toUpperCase());
         // Attribute Datas
         this.attributeData = new AttributeData(attributes);
         // Join commands
@@ -59,9 +59,9 @@ public class Race {
         leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
     }
 
-    public Race(Identifier id, String modelType, AttributeData attributeData, List<String> joinCommands, List<String> leaveCommands) {
+    public Race(Identifier id, RaceType raceType, AttributeData attributeData, List<String> joinCommands, List<String> leaveCommands) {
         this.id = id;
-        this.modelEntityType = modelType;
+        this.raceType = raceType;
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
         this.attributeData = attributeData;
         this.joinCommands = joinCommands;
@@ -75,10 +75,9 @@ public class Race {
     private String getIdValue() {
         return this.id.toString();
     }
-    private String getModelValue() {
-        return modelEntityType;
+    private String getRaceTypeValue() {
+        return raceType.toString().toUpperCase();
     }
-
     private NbtCompound getAttributeDatas() {
         if(attributeData == null)
             return null;
@@ -101,23 +100,23 @@ public class Race {
 
     public LivingEntity getModel(World world) {
         NpcEntity entity;
-        switch (modelEntityType){
-            case "human":
+        switch (raceType){
+            case RaceType.HUMAN:
                 entity = new GondorHumanEntity(ModEntities.GONDORIAN_SOLDIER, world);
                 break;
-            case "dwarf":
+            case RaceType.DWARF:
                 entity = new LongbeardDwarfEntity(ModEntities.LONGBEARD_SOLDIER, world);
                 break;
-            case "hobbit":
+            case RaceType.HOBBIT:
                 entity = new ShireHobbitEntity(ModEntities.HOBBIT_SHIRRIFF, world);
                 break;
-            case "elf":
+            case RaceType.ELF:
                 entity = new GaladhrimElfEntity(ModEntities.LORIEN_LEADER, world);
                 break;
-            case "orc":
+            case RaceType.ORC:
                 entity = new MordorOrcEntity(ModEntities.MORDOR_ORC_SOLDIER, world);
                 break;
-            case "uruk":
+            case RaceType.URUK:
                 entity = new MordorBlackUrukEntity(ModEntities.MORDOR_BLACK_URUK_SOLDIER, world);
                 break;
             default:
@@ -140,5 +139,9 @@ public class Race {
 
     public String getTranslatableKey() {
         return translatableKey;
+    }
+
+    public RaceType getRaceType() {
+        return raceType;
     }
 }

@@ -10,6 +10,7 @@ import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.utils.ModBannerPatterns;
 import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
 import net.jukoz.me.resources.datas.factions.data.NpcPreview;
@@ -78,11 +79,10 @@ public class MiddleEarthFactions {
     private static Faction register(Registerable<Faction> context, RegistryEntryLookup<Faction> factionRegistryEntryLookup, Faction faction) {
         RegistryKey<Faction> factionRegistryKey = of(faction.getName());
         String name = factionRegistryKey.getValue().getPath();
-        RegistryKey<Faction> newFaction = RegistryKey.of(FACTION_KEY,Identifier.of(MiddleEarth.MOD_ID,name));
+        RegistryKey<Faction> factionKey = RegistryKey.of(FACTION_KEY,Identifier.of(MiddleEarth.MOD_ID,name));
 
-        Optional<RegistryEntry.Reference<Faction>> optionalBiome = factionRegistryEntryLookup.getOptional(factionRegistryKey);
-        optionalBiome.ifPresent(biomeReference -> context.register(newFaction,
-               faction));
+        Optional<RegistryEntry.Reference<Faction>> optionalFaction = factionRegistryEntryLookup.getOptional(factionRegistryKey);
+        optionalFaction.ifPresent(biomeReference -> context.register(factionKey, faction));
 
         return faction;
     }
@@ -93,7 +93,7 @@ public class MiddleEarthFactions {
 
     static {
         // region [GONDOR]
-        GONDOR = new Faction("gondor", Alignment.GOOD,
+        GONDOR = new Faction("gondor", Alignment.GOOD, FactionType.FACTION, null, null,
                 new HashMap<>(){{
                     put(MiddleEarthRaces.HUMAN, new NpcPreview(
                             ModEquipmentItems.GONDORIAN_PLATE_HELMET,
@@ -125,7 +125,7 @@ public class MiddleEarthFactions {
         );
         // endregion
         // region [ROHAN]
-        ROHAN = new Faction("rohan", Alignment.GOOD,
+        ROHAN = new Faction("rohan", Alignment.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(MiddleEarthRaces.HUMAN, new NpcPreview(
                             ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_HELMET,
@@ -153,7 +153,7 @@ public class MiddleEarthFactions {
         );
         //endregion
         //region [DALE]
-        DALE = new Faction("dale", Alignment.GOOD,
+        DALE = new Faction("dale", Alignment.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(MiddleEarthRaces.HUMAN, new NpcPreview(
                             ModEquipmentItems.DALISH_BURGONET,
@@ -178,9 +178,12 @@ public class MiddleEarthFactions {
         );
         //endregion
         // region [LONGBEARDS]
-        LONGBEARDS = new Faction("longbeards", Alignment.GOOD, null, null, null,null, null);
+        LONGBEARDS = new Faction("longbeards", Alignment.GOOD, FactionType.FACTION,null,
+                List.of(Identifier.of(MiddleEarth.MOD_ID, "longbeards.erebor")),
+                null, null, null,null, null);
 
-        LONGBEARDS_EREBOR = new Faction(LONGBEARDS.getName().concat(".erebor"), Alignment.GOOD,
+
+        LONGBEARDS_EREBOR = new Faction(LONGBEARDS.getName().concat(".erebor"), Alignment.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
                 new HashMap<>(){{
                     put(MiddleEarthRaces.DWARF, new NpcPreview(
                             ModEquipmentItems.EREBOR_GATEWARDEN_HELMET,
@@ -206,9 +209,11 @@ public class MiddleEarthFactions {
                         }}
                 ), List.of(), List.of()
         );
+
+
         // endregion
         // region [LOTHLORIEN]
-        LOTHLORIEN = new Faction("lothlorien", Alignment.GOOD,
+        LOTHLORIEN = new Faction("lothlorien", Alignment.GOOD, FactionType.FACTION, null, null,
                 new HashMap<>(){{
                     put(MiddleEarthRaces.ELF, new NpcPreview(
                             ModEquipmentItems.LORIEN_SOLDIER_HELMET,
@@ -233,7 +238,7 @@ public class MiddleEarthFactions {
         );
         // endregion
         //region [MORDOR]
-        MORDOR = new Faction("mordor", Alignment.EVIL,
+        MORDOR = new Faction("mordor", Alignment.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(MiddleEarthRaces.ORC, new NpcPreview(
                             ModEquipmentItems.MORDOR_ORC_OVERSIGHT_HELMET,
@@ -269,7 +274,7 @@ public class MiddleEarthFactions {
         );
         //endregion
         // region [MISTY MOUNTAINS GOBLINS]
-        MISTY_MOUNTAINS_GOBLINS = new Faction("misty_mountains_goblins", Alignment.EVIL,
+        MISTY_MOUNTAINS_GOBLINS = new Faction("misty_mountains_goblins", Alignment.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(MiddleEarthRaces.ORC, new NpcPreview(
                             ModEquipmentItems.ORC_SALLET,
@@ -304,7 +309,7 @@ public class MiddleEarthFactions {
         );
         // endregion
         // region [ISENGARD]
-        ISENGARD = new Faction("isengard", Alignment.EVIL,
+        ISENGARD = new Faction("isengard", Alignment.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(MiddleEarthRaces.ORC, new NpcPreview(
                             ModEquipmentItems.URUK_HAI_LEATHER_SCOUT_CAP,
@@ -336,7 +341,7 @@ public class MiddleEarthFactions {
         );
         // endregion
         //region [SHIRE]
-        SHIRE = new Faction("shire", Alignment.GOOD,
+        SHIRE = new Faction("shire", Alignment.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(MiddleEarthRaces.HOBBIT, new NpcPreview(
                             ModEquipmentItems.STRAW_HAT,

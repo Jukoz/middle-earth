@@ -6,6 +6,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.controllers.FactionSelectionController;
 import net.jukoz.me.client.screens.utils.CycledSelectionButtonType;
 import net.jukoz.me.client.screens.utils.widgets.*;
+import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
@@ -21,6 +22,7 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.block.entity.BannerBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.model.ModelLoader;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.entity.Entity;
@@ -63,7 +65,6 @@ public class FactionSelectionScreen extends Screen {
     private CycledSelectionWidget spawnPointCycledSelection;
     public ButtonWidget spawnSelectionRandomizerButton;
     public ButtonWidget spawnSelectionConfirmButton;
-
     public FactionSelectionScreen() {
         super(FACTION_SELECTION_TITLE);
         ModWidget.enableFocus(false);
@@ -73,7 +74,13 @@ public class FactionSelectionScreen extends Screen {
     protected void init() {
         assert this.client != null;
         this.bannerField = this.client.getEntityModelLoader().getModelPart(EntityModelLayers.BANNER).getChild("flag");
-        controller = new FactionSelectionController();
+        Entity cameraEntity = this.client.getCameraEntity();
+        if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
+            this.player = abstractClientPlayerEntity;
+            controller = new FactionSelectionController(player);
+        } else {
+            LoggerUtil.logError("FactionSelectionScreen::Init:Couldn't find player");
+        }
 
         // Initialize Buttons
         // Search bar
@@ -89,6 +96,8 @@ public class FactionSelectionScreen extends Screen {
 
         addDrawableChild(searchBarWidget.getScreenClickButton());
     }
+
+
 
     /**
      * Add all faction selection buttons
@@ -188,8 +197,7 @@ public class FactionSelectionScreen extends Screen {
         mapZoomOutButton = ButtonWidget.builder(
                 Text.of("Zoom out"),
                 button -> {
-                    // TODO : Add widget method here
-                    LoggerUtil.logDebugMsg("Zoom out action!");
+                    mapWidget.dezoom();
                 }).build();
         addDrawableChild(mapZoomOutButton);
 
@@ -197,8 +205,7 @@ public class FactionSelectionScreen extends Screen {
         mapZoomInButton = ButtonWidget.builder(
                 Text.of("Zoom in"),
                 button -> {
-                    // TODO : Add widget method here
-                    LoggerUtil.logDebugMsg("Zoom in action!");
+                    mapWidget.zoom();
                 }).build();
         addDrawableChild(mapZoomInButton);
 
@@ -263,17 +270,9 @@ public class FactionSelectionScreen extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        Entity cameraEntity = this.client.getCameraEntity();
-        if (cameraEntity != null) {
-            if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
-                ModWidget.updateMouse(mouseX, mouseY);
-                this.player = abstractClientPlayerEntity;
-                this.renderBackground(context, mouseX, mouseY, delta);
-                this.drawPanels(context);
-            } else {
-                this.player = null;
-            }
-        }
+        ModWidget.updateMouse(mouseX, mouseY);
+        this.renderBackground(context, mouseX, mouseY, delta);
+        this.drawPanels(context);
     }
 
     @Override

@@ -3,7 +3,9 @@ package net.jukoz.me.resources.datas.factions;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.util.NbtType;
+import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
 import net.jukoz.me.resources.datas.factions.data.NpcPreview;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
@@ -20,7 +22,9 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +36,9 @@ public class Faction {
     public static final Codec<Faction> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(Faction::getIdValue),
             Codec.STRING.fieldOf("alignment").forGetter(Faction::getAlignmentString),
+            Codec.STRING.fieldOf("faction_type").forGetter(Faction::getFactionTypeString),
+            Identifier.CODEC.optionalFieldOf("parent_faction").forGetter(Faction::getParentFactionIdentifier),
+            Codec.list(Identifier.CODEC).optionalFieldOf("subfactions").forGetter(Faction::getSubfactionIds),
             NbtCompound.CODEC.fieldOf("races").forGetter(Faction::getPreviewGearNbt),
             NbtCompound.CODEC.optionalFieldOf("banner").forGetter(Faction::getBannerNbt),
             NbtCompound.CODEC.optionalFieldOf("spawns").forGetter(Faction::getSpawnDataNbt),
@@ -39,21 +46,31 @@ public class Faction {
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Faction::getLeaveCommands)
         ).apply(instance, Faction::new));
 
+
     private final Identifier id;
     private final String translatableKey;
     private final Alignment alignment;
+    private final FactionType factionType;
+    private final Identifier parentFactionId;
     private final HashMap<Race, NpcPreview> racePreviews;
     private final BannerData bannerData;
     private final SpawnDataHandler spawnDataHandler;
-    private HashMap<Identifier, Faction> subFactions = null;
+    private List<Identifier> subFactions = null;
     private List<String> joinCommands;
     private List<String> leaveCommands;
 
-    public Faction(String id, String alignment, NbtCompound races, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
+    public Faction(String id, String alignment, String factionType, Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, NbtCompound races, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
         this.id = IdentifierUtil.getIdentifierFromString(id);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
 
         this.alignment = Alignment.valueOf(alignment.toUpperCase());
+        this.factionType = FactionType.valueOf(factionType.toUpperCase());
+        this.parentFactionId = parentFaction.orElse(null);
+
+        if(newSubFactions.isPresent()){
+            this.subFactions = new ArrayList<>();
+            this.subFactions.addAll(newSubFactions.get());
+        }
 
         this.racePreviews = new HashMap<>();
         NbtList raceList = races.getList("races", NbtType.COMPOUND);
@@ -69,16 +86,15 @@ public class Faction {
         joinCommands.ifPresent(nbtCompound -> this.joinCommands.addAll(nbtCompound));
         this.leaveCommands = new ArrayList<>();
         leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
-        FactionLookup.addFaction(this);
-
-        LoggerUtil.logDebugMsg("Adding faction : \n[Id] : " + this.id + "\n" + "[TranslatableKey] : " + this.translatableKey);
     }
 
-    public Faction(String name, Alignment alignment, HashMap<Race, NpcPreview> races, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
+    public Faction(String name, Alignment alignment, FactionType factionType, Identifier parentFactionId, List<Identifier> subFactions, HashMap<Race, NpcPreview> races, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
         this.id = IdentifierUtil.getIdentifierFromString(name);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.alignment = alignment;
-
+        this.factionType = factionType;
+        this.parentFactionId = parentFactionId;
+        this.subFactions = subFactions;
         this.racePreviews = new HashMap<>();
         if(races != null) {
             for (Race race : races.keySet()){
@@ -96,6 +112,14 @@ public class Faction {
         return this.id.toString();
     }
 
+    private Optional<Identifier> getParentFactionIdentifier() {
+        if(this.parentFactionId == null)
+            return Optional.empty();
+        return Optional.of(this.parentFactionId);
+    }
+    public Identifier getParentFactionId() {
+        return parentFactionId;
+    }
     public NbtCompound getPreviewGearNbt() {
         NbtList list = new NbtList();
         for(Race race : this.racePreviews.keySet()){
@@ -114,6 +138,11 @@ public class Faction {
         return nbt;
     }
 
+    private Optional<List<Identifier>> getSubfactionIds() {
+        if(this.subFactions == null)
+            return Optional.empty();
+        return Optional.of(subFactions);
+    }
     private Optional<NbtCompound> getBannerNbt() {
         if(this.bannerData == null)
             return Optional.empty();
@@ -157,14 +186,14 @@ public class Faction {
 
     }
 
-    public HashMap<Identifier,Faction> getSubFactions(){
+    public List<Identifier> getSubFactions(){
         return subFactions;
     }
 
-    public Faction getSubfaction(int index){
-        if(subFactions == null || index >= subFactions.size())
+    public Faction getSubfaction(World world, int index){
+        if(world == null || this.subFactions == null || index >= this.subFactions.size())
             return null;
-        return subFactions.values().stream().toList().get(index);
+        return getSubfactionById(world, subFactions.get(index));
     }
 
     public Alignment getAlignment(){
@@ -172,6 +201,13 @@ public class Faction {
     }
     public String getAlignmentString(){
         return alignment.name();
+    }
+    public String getFactionTypeString(){
+        return factionType.name();
+    }
+
+    public FactionType getFactionType(){
+        return factionType;
     }
 
     public SpawnDataHandler getSpawnData() {
@@ -195,20 +231,10 @@ public class Faction {
         return MutableText.of(new TranslatableTextContent(target, fallback, TranslatableTextContent.EMPTY_ARGUMENTS));
     }
 
-    public void addSubfaction(Faction faction) {
-        if(subFactions == null)
-            subFactions = new HashMap<>();
-
-        if(faction != null){
-            LoggerUtil.logDebugMsg("[" + id + "] Adding subfaction : " + faction.id);
-            subFactions.put(faction.id, faction);
-        }
-    }
-
-    public Faction findSubfaction(Identifier id) {
+    public Faction getSubfactionById(World world, Identifier id) {
         if(subFactions == null)
             return null;
-        return subFactions.get(id);
+        return world.getRegistryManager().get(MiddleEarthFactions.FACTION_KEY).get(id);
     }
 
     public List<Race> getRaces() {

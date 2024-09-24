@@ -1,24 +1,24 @@
 package net.jukoz.me.client.screens.utils.widgets;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 
 public class MapWidget extends ModWidget {
-    private static final Identifier MAP_UI_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
-    private static final Identifier MAP_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
-    int startX = 0;
-    int startY = 0;
-    private int mapWidth;
-    private int mapHeight;
-
-    int uvX = 0;
-    int uvY = 0;
+    private static final Identifier MIDDLE_EARTH_WORLD_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
+    private final int uiWidth, uiHeight;
+    private int uvX, uvY = 0;
+    private int startX, startY = 0;
+    private float zoomLevel = 1f;
+    private float currentWidth, currentHeight;
 
     public MapWidget(int mapWidth, int mapHeight) {
-        this.mapWidth = mapWidth;
-        this.mapHeight = mapHeight;
+        this.uiWidth = mapWidth;
+        this.uiHeight = mapHeight;
+        this.currentWidth = mapWidth;
+        this.currentHeight = mapHeight;
     }
 
     public void setStartCoordinates(int startX, int startY){
@@ -27,14 +27,14 @@ public class MapWidget extends ModWidget {
     }
 
     public void drawCentered(DrawContext context, int centerX, int startY){
-        int startX = centerX - (mapWidth / 2);
+        int startX = centerX - (uiWidth / 2);
         draw(context, startX, startY);
     }
 
     public void drawAnchored(DrawContext context, int anchorX, int startY, boolean isLeftAnchor){
         int startX = anchorX;
         if(!isLeftAnchor)
-            startX -= mapWidth;
+            startX -= uiWidth;
 
         draw(context, startX, startY);
     }
@@ -51,16 +51,21 @@ public class MapWidget extends ModWidget {
         this.startX = startX;
         this.startY = startY;
 
+        int textureWidth = (int) (uiWidth * 0.5); // Apply zoom?
+        int textureHeight = (int) (uiHeight * 0.5); // Apply zoom?
+
         // TODO : In progress
-        // (int)(3000 / 26.25), // 0 - 26.25 [full zoom in - full zoom out]
-        context.drawTexture(MAP_TEXTURE, startX, startY,
-                // UV (x,y)
+        context.drawTexture(MIDDLE_EARTH_WORLD_TEXTURE,
+                startX, startY,
                 uvX, uvY,
-                mapWidth,
-                mapHeight,
-                3000 / (3000 / mapWidth),
-                3000 / (3000 / mapHeight)
+                uiWidth,uiHeight,
+                (int)currentWidth, (int)currentHeight
         );
+        /*
+        (int) (MAP_IMAGE_WIDTH * getZoomLevel() * minZoom),
+                (int) (MAP_IMAGE_HEIGHT * getZoomLevel() * minZoom));
+
+         */
     }
 
 
@@ -74,12 +79,12 @@ public class MapWidget extends ModWidget {
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
-        if(button == 0 &&  isMouseOver(mapWidth, mapHeight, startX, startY)){
+        if(button == 0 &&  isMouseOver(uiWidth, uiHeight, startX, startY)){
             int newUvX = (int) (this.uvX - deltaX);
             int newUvY = (int) (this.uvY - deltaY);
 
-            float maxRatioX = (float) mapWidth / MiddleEarthMapConfigs.REGION_SIZE * newUvX;
-            float maxRatioY = (float) mapHeight / MiddleEarthMapConfigs.REGION_SIZE * newUvY;
+            float maxRatioX = (float) uiWidth / MiddleEarthMapConfigs.REGION_SIZE * newUvX;
+            float maxRatioY = (float) uiHeight / MiddleEarthMapConfigs.REGION_SIZE * newUvY;
 
             // TODO : Need better control over drag
             // Removed temporarily, will be continued
@@ -98,13 +103,39 @@ public class MapWidget extends ModWidget {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        // TODO : Zoom control
-        //LoggerUtil.logDebugMsg("Mouse is scrolled at " + mouseX + ", " + mouseY);
+        if(verticalAmount > 0){
+            zoom();
+        } else {
+            dezoom();
+        }
         return true;
     }
 
-    public void setSize(int mapWidth, int mapHeight) {
-        this.mapWidth = mapWidth;
-        this.mapHeight = mapHeight;
+    public void zoom() {
+        if(zoomLevel != 15f) {
+            zoomLevel = Math.min(15f,  zoomLevel + 1f);
+            computeNewOffset();
+        }
+    }
+
+    public void dezoom() {
+        if(zoomLevel != 1f) {
+            zoomLevel = Math.max(1f, zoomLevel - 1f);
+            computeNewOffset();
+        }
+    }
+
+    private void computeNewOffset(){
+        float newCurrentWidth = uiWidth * zoomLevel;
+        float newCurrentHeight = uiHeight * zoomLevel;
+
+        int newUvX = (int) (uvX + ((newCurrentWidth - currentWidth) / 2));
+        int newUvY = (int) (uvY + ((newCurrentHeight - currentHeight) / 2));
+
+        currentWidth = newCurrentWidth;
+        currentHeight = newCurrentHeight;
+
+        uvX = (int) Math.max(0, Math.min(3000 - newCurrentWidth, newUvX));
+        uvY = (int) Math.max(0, Math.min(3000 - newCurrentHeight, newUvY));
     }
 }

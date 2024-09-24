@@ -10,6 +10,7 @@ import net.jukoz.me.world.dimension.ModDimensions;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
@@ -29,9 +30,9 @@ public class AffiliationData {
         return alignment;
     }
 
-    public Vec3d getSpawnMiddleEarthCoordinate(){
+    public Vec3d getSpawnMiddleEarthCoordinate(World world){
         try{
-            Faction foundFaction = FactionLookup.findFactionById(faction);
+            Faction foundFaction = FactionLookup.getFactionById(world,faction);
             LoggerUtil.logDebugMsg("MiddleEarth spawn coordinate : " + spawnId.toString());
             Vector2d dynamicSpawnFound = foundFaction.getSpawnData().findDynamicSpawn(spawnId);
             // Return dynamic spawn with dimension height

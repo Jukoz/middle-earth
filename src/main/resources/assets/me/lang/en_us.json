@@ -4723,7 +4723,7 @@
 
   "block.me.white_daub_hobbit_window": "White Daub Hobbit Window",
   "block.me.white_daub_hobbit_window_pane": "White Daub Hobbit Window Pane",
-  
+
   "block.me.dark_daub": "Dark Daub",
   "block.me.dark_daub_slab": "Dark Daub Slab",
   "block.me.dark_daub_vertical_slab": "Dark Daub Vertical Slab",
@@ -5257,20 +5257,15 @@
 "#Comment": "Commands",
   "command.me.fail" : "Command couldn't be sent properly",
 
-  "event.me.faction.leave.source" : "You have left %s",
-  "event.me.faction.join.source" : "You have joined %s",
+  "command.me.join.faction.join.success" : "%s successfully joined the %s Faction",
 
-  "command.me.faction.join.source" : "%s successfully joined the %s Faction",
+  "command.me.clear.faction.success" : "Successfully cleared your faction data",
+  "command.me.clear.player.faction.success" : "Successfully cleared %s faction data",
 
-  "command.me.faction.get.target" : "%s faction is %s",
-  "command.me.faction.get.target.none" : "%s have no faction",
-  "command.me.faction.get.source" : "Your faction is %s",
-  "command.me.faction.get.source.none" : "You have no faction",
-
-  "command.me.faction.clear.source" : "Successfully cleared your faction data",
-  "command.me.faction.clear.target" : "Successfully cleared %s faction data",
-
-  "#Comment": "Above is old, should it be redone",
+  "command.me.get.faction.success" : "Your initial faction is %s",
+  "command.me.get.faction.no_faction" : "You have no initial faction",
+  "command.me.get.player.faction.success" : "%s initial faction is %s",
+  "command.me.get.player.faction.no_faction" : "%s have no initial faction",
 
   "command.me.get.spawn.overworld.success": "Your overworld spawn is [%s, %s, %s](xyz)",
   "command.me.get.spawn.overworld.no_spawn": "You have no overworld spawn assigned, default is at [%s, %s, %s](xyz)",
@@ -5314,10 +5309,13 @@
   "command.me.teleport.player.to.spawn.middle_earth.success": "%s got teleported to <%s> at [%s, %s, %s](xyz)",
   "command.me.teleport.player.to.spawn.middle_earth.error": "%s couldn't be teleported to <%s>",
 
-  "#Comment": "Alert",
+"#Comment": "Alert",
   "alert.me.large_door.blocked": "Something seems to prevent the door from moving.",
+"#Comment": "Events",
+  "event.me.join.faction.success": "You have joined %s",
+  "event.me.leave.faction.success": "You have left %s",
 
-"#Comment": "Exceptions",
+  "#Comment": "Exceptions",
   "exception.me.no_faction.target": "%s have no faction",
   "exception.me.no_faction.source": "You have no faction",
   "exception.me.faction_identifier": "%s is not a valid faction identifier",

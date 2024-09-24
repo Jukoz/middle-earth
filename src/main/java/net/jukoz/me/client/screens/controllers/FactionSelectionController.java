@@ -19,7 +19,7 @@ import org.joml.Vector2i;
 import java.util.*;
 
 public class FactionSelectionController {
-    private Map<Alignment, List<Faction>> factions = new HashMap<>();
+    private Map<Alignment, List<Faction>> factions;
     /**
      * Identifier and if the spawn data is from the dynamic pool. True(Dynamic) : False(Custom)
      */
@@ -31,11 +31,14 @@ public class FactionSelectionController {
     private int currentRaceIndex;
     private int currentSubFactionIndex;
     private int currentSpawnIndex;
+    private AbstractClientPlayerEntity player;
 
-    public FactionSelectionController(){
-        factions.put(Alignment.GOOD, FactionLookup.getFactionsByAlignment(Alignment.GOOD).values().stream().toList());
-        factions.put(Alignment.NEUTRAL, FactionLookup.getFactionsByAlignment(Alignment.NEUTRAL).values().stream().toList());
-        factions.put(Alignment.EVIL, FactionLookup.getFactionsByAlignment(Alignment.EVIL).values().stream().toList());
+    public FactionSelectionController(AbstractClientPlayerEntity player){
+        this.player = player;
+        factions = new HashMap<>();
+        factions.put(Alignment.GOOD, FactionLookup.getFactionsByAlignment(player.getWorld(), Alignment.GOOD).values().stream().toList());
+        factions.put(Alignment.NEUTRAL, FactionLookup.getFactionsByAlignment(player.getWorld(), Alignment.NEUTRAL).values().stream().toList());
+        factions.put(Alignment.EVIL, FactionLookup.getFactionsByAlignment(player.getWorld(), Alignment.EVIL).values().stream().toList());
         if(getCurrentlySelectedFaction() == null){
             if(!factions.get(Alignment.EVIL).isEmpty()){
                 currentAlignementIndex = 2;
@@ -256,7 +259,7 @@ public class FactionSelectionController {
     public Faction getCurrentSubfaction(){
         Faction faction = getCurrentFaction();
         if(faction == null) return null;
-        return faction.getSubfaction(currentSubFactionIndex);
+        return faction.getSubfaction(player.getWorld(), currentSubFactionIndex);
     }
 
     public Faction getCurrentlySelectedFaction(){

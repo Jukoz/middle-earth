@@ -30,10 +30,9 @@ public class StateSaverAndLoader extends PersistentState {
         players.forEach((uuid, playerData) -> {
             NbtCompound playerNbt = new NbtCompound();
             if(playerData.hasAffilition()){
-                AffiliationData affiliationData = playerData.getAffiliationData();
-                playerNbt.putString("alignment", affiliationData.alignment.toString().toLowerCase());
-                playerNbt.putString("faction_id", affiliationData.faction.getPath().toLowerCase());
-                playerNbt.putString("spawn_id", affiliationData.spawnId.getPath().toLowerCase());
+                playerNbt.putString("alignment", playerData.getCurrentAlignment().toString().toLowerCase());
+                playerNbt.putString("faction_id", playerData.getCurrentFactionId().getPath().toLowerCase());
+                playerNbt.putString("spawn_id", playerData.getCurrentSpawnId().getPath().toLowerCase());
             }
 
             BlockPos overworldSpawn = playerData.getOverworldSpawnCoordinates();

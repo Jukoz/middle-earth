@@ -159,7 +159,7 @@ public class SearchBarWidget extends ModWidget{
                 valueTotal ++; // Per alignment with values
                 for(int j = 0; j < f.size(); j++){
                     valueTotal ++; // Per faction
-                    HashMap<Identifier, Faction> subF = f.get(j).getSubFactions();
+                    List<Identifier> subF = f.get(j).getSubFactions();
                     if(subF == null || subF.isEmpty()) continue;
                     valueTotal += subF.size(); // Per subFactions
                 }
