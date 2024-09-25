@@ -26,6 +26,9 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.OLD_CARDOLAN, new SubBiome(64)
                 .addSubBiomeData(-1.0f, -0.15f, MEBiomeKeys.OLD_CARDOLAN_FOREST)
                 .addSubBiomeData(0.25f, 2.01f, MEBiomeKeys.OLD_CARDOLAN_HILL, true));
+        subBiomesMap.put(MEBiomeKeys.DALE, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.15f, MEBiomeKeys.DALE_FOREST)
+                .addSubBiomeData(0.25f, 2.01f, MEBiomeKeys.DALE_HILL, true));
     }
 
     public static boolean isSubBiome(RegistryKey<Biome> biomeRegistryKey) {

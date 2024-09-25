@@ -134,6 +134,8 @@ public class MEBiomesData {
         addBiome(new Color(193, 188, 131), new MEBiome(6, MEBiomeKeys.CORSAIR_COASTS, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.nearHarad, MEBiomeDataConfigs.sandstoneLayers, CaveType.HARAD));
         addBiome(new Color(77, 69, 65), new MEBiome(4, MEBiomeKeys.DAGORLAD, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.mordorGrass, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(132, 164, 78), new MEBiome(4, MEBiomeKeys.DALE, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(132, 164, 85), new MEBiome(5, MEBiomeKeys.DALE_FOREST, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(132, 164, 80), new MEBiome(27, MEBiomeKeys.DALE_HILL, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.stoneHills, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(132, 180, 75), new MEBiome(4, MEBiomeKeys.DALE_CITY, MEBiomeDataConfigs.plainsModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(125, 176, 106), new MEBiome(0, MEBiomeKeys.DALE_RIVERSIDE, MEBiomeDataConfigs.landModifier.heightModifier(0.98f).noiseModifier(0.1f), MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(18, 26, 19), new MEBiome(6, MEBiomeKeys.DARK_MIRKWOOD, MEBiomeDataConfigs.mirkwoodModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));

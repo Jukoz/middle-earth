@@ -91,6 +91,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.CELEBDIL_PEAKS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.CORSAIR_COASTS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DALE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DALE_FOREST),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.DALE_HILL),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DALE_CITY),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DAGORLAD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.DALE_RIVERSIDE),
