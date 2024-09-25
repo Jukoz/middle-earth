@@ -81,9 +81,6 @@ public class ModEntitySpawning {
                 new EntitySpawningSettings(ModEntities.MORDOR_BLACK_URUK_VETERAN, 1, 2, 8),
                 new EntitySpawningSettings(ModEntities.MORDOR_BLACK_URUK_LEADER, 1, 1, 2)
         );
-        List<EntitySpawningSettings> caveTrolls = List.of(
-                new EntitySpawningSettings(ModEntities.CAVE_TROLL, 1, 1, 12, true)
-        );
         List<EntitySpawningSettings> mirkwoodSpiders = List.of(
                 new EntitySpawningSettings(ModEntities.MIRKWOOD_SPIDER, 2, 5, 100, true)
         );
@@ -92,11 +89,9 @@ public class ModEntitySpawning {
         List<EntitySpawningSettings> goblinsAndBandits = Stream.concat(wildGoblinsSpawnSettings.stream(), banditSpawnSettings.stream()).toList();
         List<EntitySpawningSettings> goblinsAndStoneTroll = Stream.concat(wildGoblinsSpawnSettings.stream(), stoneTroll.stream()).toList();
         List<EntitySpawningSettings> goblinsAndLongbeards = Stream.concat(wildGoblinsSpawnSettings.stream(), wildLongBeardsSpawnSettings.stream()).toList();
-        List<EntitySpawningSettings> goblinsAndCaveTrolls = Stream.concat(goblinsSpawnSettings.stream(), caveTrolls.stream()).toList();
         List<EntitySpawningSettings> gondorAndMordor = Stream.concat(gondorSpawnSettings.stream(), wildMordorSpawnSettings.stream()).toList();
         List<EntitySpawningSettings> gondorGarrisonAndMordor = Stream.concat(garrisonGondorSpawnSettings.stream(), wildMordorSpawnSettings.stream()).toList();
         List<EntitySpawningSettings> mordorAndSpiders = Stream.concat(wildMordorSpawnSettings.stream(), mirkwoodSpiders.stream()).toList();
-        List<EntitySpawningSettings> wildMordorAndCaveTrolls = Stream.concat(wildMordorSpawnSettings.stream(), caveTrolls.stream()).toList();
 
         spawns.put(MEBiomeKeys.BARROW_DOWNS, List.of(new EntitySpawningSettings(ModEntities.BARROW_WIGHT, 0, 1)));
 
@@ -128,7 +123,6 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.OLD_CARDOLAN_HILL, banditSpawnSettings);
         spawns.put(MEBiomeKeys.EREGION, goblinsAndBandits);
         spawns.put(MEBiomeKeys.ENEDWAITH, goblinsAndBandits);
-        spawns.put(MEBiomeKeys.MISTY_MOUNTAINS_BASE, goblinsAndCaveTrolls);
         spawns.put(MEBiomeKeys.MISTY_MOUNTAINS, goblinsSpawnSettings);
         spawns.put(MEBiomeKeys.GREY_MOUNTAINS, wildGoblinsSpawnSettings);
         spawns.put(MEBiomeKeys.GREY_PLAINS, goblinsAndLongbeards);
@@ -175,7 +169,6 @@ public class ModEntitySpawning {
 
         spawns.put(MEBiomeKeys.MORDOR, mordorSpawnSettings);
         spawns.put(MEBiomeKeys.NURN, wildMordorSpawnSettings);
-        spawns.put(MEBiomeKeys.MORDOR_MOUNTAINS_FOOTHILLS, wildMordorAndCaveTrolls);
         spawns.put(MEBiomeKeys.MORDOR_MOUNTAINS, wildMordorSpawnSettings);
     }
 

@@ -38,8 +38,4 @@ public class ModCaveBiomeFeatures {
     public static void addSnails(SpawnSettings.Builder spawnSettings) {
         spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.SNAIL, 5, 1, 3));
     }
-
-    public static void addCaveTrolls(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.CAVE_TROLL, 2, 1, 3));
-    }
 }

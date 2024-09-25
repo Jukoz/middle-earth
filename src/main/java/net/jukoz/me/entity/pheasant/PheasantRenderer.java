@@ -2,7 +2,6 @@ package net.jukoz.me.entity.pheasant;
 
 import com.google.common.collect.Maps;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollEntity;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
