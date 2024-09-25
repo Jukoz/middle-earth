@@ -14,8 +14,10 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -120,9 +122,8 @@ public class ShapingAnvilBlock extends BlockWithEntity implements BlockEntityPro
                 ShapingAnvilBlockEntity shapingAnvilBlockEntity = blockEntity.get();
                 shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity);
             }
-            System.out.println("Bonk !");
+
             world.playSoundAtBlockCenter(pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f, 1.0f, true);
-            world.addParticle(ParticleTypes.ELECTRIC_SPARK, pos.getX()+ 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, 0.0, 0.0, 0.0);
         }
     }
 

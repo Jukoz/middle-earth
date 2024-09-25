@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "me:epmosto_mithril_ore"
+    "item": "me:medgon_mithril_ore"
   },
   "result": {
     "id": "me:mithril_ingot"

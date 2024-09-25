@@ -44,11 +44,10 @@
         "silver": "me:trims/color_palettes/silver",
         "bronze": "me:trims/color_palettes/bronze",
         "steel": "me:trims/color_palettes/steel",
-        "slag": "me:trims/color_palettes/slag",
+        "slag": "me:trims/color_palettes/crude",
         "burzum_steel": "me:trims/color_palettes/burzum_steel",
         "edhel_steel": "me:trims/color_palettes/edhel_steel",
         "khazad_steel": "me:trims/color_palettes/khazad_steel",
-        "morgul_steel": "me:trims/color_palettes/morgul_steel",
         "mithril": "me:trims/color_palettes/mithril"
       }
     }

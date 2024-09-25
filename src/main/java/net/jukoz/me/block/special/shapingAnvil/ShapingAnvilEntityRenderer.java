@@ -43,7 +43,6 @@ public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<ShapingAn
 
         int currentLight = getLightLevel(entity.getWorld(), entity.getPos());
 
-
         itemRenderer.renderItem(stack, ModelTransformationMode.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
                 matrices, vertexConsumers, entity.getWorld(), 1);
 

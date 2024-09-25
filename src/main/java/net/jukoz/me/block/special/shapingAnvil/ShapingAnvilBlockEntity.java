@@ -7,6 +7,7 @@ import net.jukoz.me.block.special.forge.MetalTypes;
 import net.jukoz.me.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
+import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.recipe.AnvilShapingRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -19,6 +20,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.trim.ArmorTrim;
 import net.minecraft.item.trim.ArmorTrimMaterial;
 import net.minecraft.item.trim.ArmorTrimPattern;
@@ -26,6 +28,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.particle.BlockStateParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryKey;
@@ -35,6 +39,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
@@ -62,7 +67,6 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
     protected final PropertyDelegate propertyDelegate;
 
     //TODO rendering of item not updated when both slots empty
-    //TODO particles when bonk
 
     public ShapingAnvilBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.SHAPING_ANVIL, pos, state);
@@ -114,51 +118,39 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
                     entity.outputIndex += 1;
                 }
             }
-            System.out.println(entity.outputIndex);
-            System.out.println("---------------------");
         }
     }
 
     public ItemStack getRenderStack() {
-        return this.getStack(1);
-        /*if (this.getStack(1).isEmpty()){
+        if (this.getStack(1).isEmpty()){
             return this.getStack(0);
         } else {
             return this.getStack(1);
-        }*/
+        }
     }
 
     public void bonk(ShapingAnvilBlockEntity entity){
         ItemStack input = entity.getStack(0);
 
         List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
-                .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());
+            .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());
 
         if (!match.isEmpty() && input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null  && hasShapingRecipe(entity) && entity.getStack(1).isEmpty()){
             this.progress += 20;
 
-            input.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature() - 100));
-
-
-            System.out.println("input: " + input);
-
-            for (RecipeEntry<AnvilShapingRecipe> anvilShapingRecipeRecipeEntry : match) {
-                System.out.println("output: " + anvilShapingRecipeRecipeEntry.value().getOutput());
+            World serverWorld = this.getWorld();
+            if (serverWorld instanceof ServerWorld) {
+                ((ServerWorld)serverWorld).spawnParticles(ModParticleTypes.ANVIL_SPARK_PARTICLE, pos.getX()+ 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, 5, 0.0, 0.0, 0.0, 0.0);
             }
-            System.out.println("---------------------");
 
-            System.out.println("input size: " + (entity.maxOutputIndex + 1));
-            System.out.println("current input: " + entity.outputIndex);
-
+            input.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature() - 100));
 
             RegistryWrapper.Impl<ArmorTrimMaterial>  armorTrimMaterialRegistry = entity.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.TRIM_MATERIAL);
             RegistryWrapper.Impl<ArmorTrimPattern>  armorTrimPatternRegistry = entity.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.TRIM_PATTERN);
 
             if (progress >= MAX_PROGRESS){
                 ItemStack output = match.get(entity.outputIndex).value().craft(new SingleStackRecipeInput(input), entity.world.getRegistryManager());
-                System.out.println("current output: " + output);
-                System.out.println("---------------------");
-                
+
                 entity.removeStack(0);
                 if(input.get(DataComponentTypes.TRIM) != null){
                     output.set(DataComponentTypes.TRIM, input.get(DataComponentTypes.TRIM));
@@ -183,8 +175,7 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
         ItemStack input = entity.getStack(0);
         if (!input.isEmpty()){
             List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
-                    .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());
-
+                    .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());;
             if(!match.isEmpty()){
                 entity.maxOutputIndex = match.size() - 1;
             } else {

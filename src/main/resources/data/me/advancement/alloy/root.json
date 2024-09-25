@@ -1,11 +1,11 @@
 {
   "criteria": {
-    "alloy_furnace": {
+    "forge": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:alloy_furnace"
+              "me:forge"
             ]
           }
         ]
@@ -23,7 +23,7 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:alloy_furnace"
+      "id":  "me:forge"
     },
     "show_toast": true,
     "title": {
@@ -32,7 +32,7 @@
   },
     "requirements": [
     [
-      "alloy_furnace"
+      "forge"
     ]
   ]
 }

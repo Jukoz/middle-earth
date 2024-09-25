@@ -42,7 +42,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -75,7 +74,6 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     //TODO melting smithing parts
     //TODO convert metals to registry
     //TODO custom metal trim data component with palette
-    //TODO full liquid storage wrong display
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGE, pos, state);
@@ -178,16 +176,11 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         currentMetal = MetalTypes.valueOf(nbt.getString(ID + ".current-metal").toUpperCase());
     }
 
-    public ItemStack getRenderStack() {
-        return this.getStack(OUTPUT_SLOT);
-    }
-
     public void setInventory(DefaultedList<ItemStack> inventory) {
         for (int i = 0; i < inventory.size(); i++) {
             this.inventory.set(i, inventory.get(i));
         }
     }
-
 
     @Override
     public void markDirty() {

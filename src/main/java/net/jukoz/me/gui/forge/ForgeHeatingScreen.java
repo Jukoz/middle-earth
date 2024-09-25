@@ -78,7 +78,7 @@ public class ForgeHeatingScreen extends HandledScreen<ForgeHeatingScreenHandler>
 
     private void renderLiquidStorage(DrawContext context, int x, int y) {
         int storedLiquid = (int) (handler.getScaledStoredLiquid() * LIQUID_HEIGHT);
-        context.drawTexture(TEXTURE, x + 140, y + 71 - storedLiquid, 177, LIQUID_HEIGHT, 16, storedLiquid);
+        context.drawTexture(TEXTURE, x + 140, y + 71 - storedLiquid, 177, 115 - storedLiquid, 16, storedLiquid);
     }
 
     private void renderLiquidStorageTooltip(DrawContext context, int mouseX, int mouseY) {

@@ -73,6 +73,7 @@ import net.jukoz.me.item.utils.ModModelPredicateProvider;
 import net.jukoz.me.network.ModClientNetworkHandler;
 import net.jukoz.me.network.connections.ConnectionToServer;
 import net.jukoz.me.particles.ModParticleTypes;
+import net.jukoz.me.particles.custom.AnvilBonkParticle;
 import net.jukoz.me.particles.custom.LeavesParticle;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -293,6 +294,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MALLORN_LEAVES_PARTICLE, LeavesParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE, LeavesParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.ANVIL_SPARK_PARTICLE, AnvilBonkParticle.Factory::new);
 
         initializeRenderLayerMap();
     }

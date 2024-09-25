@@ -5110,6 +5110,7 @@
   "container.artisan_table": "Artisan Table",
   "screen.me.reinforced_chest": "Reinforced Chest",
   "screen.me.wood_pile": "Wood Pile",
+  "screen.me.shaping_anvil": "Shaping Anvil",
 
 "#Comment": "Tooltips",
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",

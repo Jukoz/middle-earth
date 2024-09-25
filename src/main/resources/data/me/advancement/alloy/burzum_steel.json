@@ -1,11 +1,13 @@
 {
-  "parent": "me:middle_earth/walk_misty_mountains",
+  "parent": "me:alloy/bronze_ingot",
   "criteria": {
-    "raw_mithril": {
+    "burzum_steel": {
       "conditions": {
         "items": [
           {
-            "items": "me:raw_mithril"
+            "items": [
+              "me:burzum_steel_ingot"
+            ]
           }
         ]
       },
@@ -15,22 +17,22 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.mithril.description"
+      "translate": "advancements.alloy.burzum_steel.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:medgon_mithril_ore"
+      "id":  "me:burzum_steel_ingot"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.mithril.title"
+      "translate": "advancements.alloy.burzum_steel.title"
     }
   },
   "requirements": [
     [
-      "raw_mithril"
+      "burzum_steel"
     ]
   ]
 }
