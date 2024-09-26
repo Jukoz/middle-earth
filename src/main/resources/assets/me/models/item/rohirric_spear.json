@@ -175,6 +175,9 @@
 			}
 		}
 	],
+	"overrides": [
+		{"predicate": {"holding": 1}, "model": "me:item/rohirric_spear_holding"}
+	],
 	"groups": [
 		{
 			"name": "Spear",

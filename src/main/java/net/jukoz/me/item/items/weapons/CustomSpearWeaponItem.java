@@ -22,6 +22,7 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
     private static final float CHARGE_STRENGTH = 1.75f;
     private static final int STRENGTH_CHARGE_TIME = 20;
 
+    public float pullProgress = 0;
     public MutableText faction;
     public MutableText subFaction;
     public ModWeaponTypes type;
@@ -74,18 +75,19 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
             return;
         }
         if(i > STRENGTH_CHARGE_TIME) i = STRENGTH_CHARGE_TIME;
-        float percentage = (float) i / STRENGTH_CHARGE_TIME;
+        pullProgress = (float) i / STRENGTH_CHARGE_TIME;
 
         if (!world.isClient) {
-            SpearEntity spearEntity = new SpearEntity(world, stack, user, getAttackDamage() * percentage);
-            spearEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0f, BASE_STRENGTH + (CHARGE_STRENGTH * percentage), 1.0f);
-
+            SpearEntity spearEntity = new SpearEntity(world, stack, user, getAttackDamage() * pullProgress);
+            spearEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0f, BASE_STRENGTH + (CHARGE_STRENGTH * pullProgress), 1.0f);
             world.spawnEntity(spearEntity);
             world.playSoundFromEntity(null, spearEntity, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.PLAYERS, 1.0f, 0.7f);
+
             if (!playerEntity.getAbilities().creativeMode) {
                 stack.decrement(1);
             }
         }
+
         playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
     }
 }

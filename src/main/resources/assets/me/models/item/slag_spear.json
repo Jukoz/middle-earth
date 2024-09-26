@@ -161,6 +161,9 @@
 			}
 		}
 	],
+	"overrides": [
+		{"predicate": {"holding": 1}, "model": "me:item/slag_spear_holding"}
+	],
 	"groups": [
 		{
 			"name": "Spear",

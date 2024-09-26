@@ -148,6 +148,9 @@
 		}
 	],
 	"display": {},
+	"overrides": [
+		{"predicate": {"holding": 1}, "model": "me:item/gondorian_spear_holding"}
+	],
 	"groups": [
 		{
 			"name": "Spear",

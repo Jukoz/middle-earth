@@ -1,5 +1,6 @@
 package net.jukoz.me.item.utils;
 
+import net.jukoz.me.datageneration.content.models.SimpleSpearModel;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
@@ -10,6 +11,7 @@ public class ModModelPredicateProvider {
 
     public static void registerAllPredicates(){
         registerShieldModel();
+        registerSpearModel();
         registerBowModel();
     }
 
@@ -36,8 +38,17 @@ public class ModModelPredicateProvider {
         ModEquipmentItems.shields.forEach(ModModelPredicateProvider::registerShield);
     }
 
+    private static void registerSpearModel() {
+        SimpleSpearModel.items.forEach(ModModelPredicateProvider::registerSpear);
+    }
+
     private static void registerShield(Item shield) {
         ModelPredicateProviderRegistry.register(shield, Identifier.of("blocking"),
+                (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F);
+    }
+
+    private static void registerSpear(Item spear) {
+        ModelPredicateProviderRegistry.register(spear, Identifier.of("holding"),
                 (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F);
     }
 }

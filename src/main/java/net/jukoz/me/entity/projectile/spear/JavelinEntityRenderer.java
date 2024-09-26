@@ -13,6 +13,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.FlyingItemEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -44,14 +45,18 @@ public class JavelinEntityRenderer<T extends SpearEntity> extends EntityRenderer
     public void render(T entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         matrices.push();
 
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevYaw, entity.getYaw()) - 100.0F));
-        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevPitch, entity.getPitch()) + 90.0F));
-        matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180.0F));
+        float cosYaw = (float) Math.cos(Math.toRadians(entity.getYaw()));
+        float sinYaw = (float) Math.sin(Math.toRadians(entity.getYaw()));
+        matrices.translate(sinYaw * -1.3D, 1.55D * (entity.getPitch() / -90), cosYaw * -1.3D);
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevYaw, entity.getYaw()) - 90.0f));
+        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-90));
+        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevPitch, entity.getPitch())));
 
         matrices.scale(scale, scale, scale);
-        matrices.translate(0.0D, -0.2D, 0.0D);
 
-        this.itemRenderer.renderItem(entity.getItemStack(), ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.getWorld(), entity.getId());
+        ItemStack itemStack = entity.getTrackedItemStackData();
+        if(itemStack == null) entity.getDefaultItemStack();
+        this.itemRenderer.renderItem(itemStack, ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.getWorld(), entity.getId());
         matrices.pop();
         super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
     }
