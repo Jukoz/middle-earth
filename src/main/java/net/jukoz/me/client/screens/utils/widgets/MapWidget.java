@@ -5,6 +5,8 @@ import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
+import org.joml.Vector2d;
+import org.joml.Vector2f;
 import org.joml.Vector2i;
 
 public class MapWidget extends ModWidget {
@@ -13,7 +15,10 @@ public class MapWidget extends ModWidget {
     private int uvX, uvY = 0;
     private int startX, startY = 0;
     private float zoomLevel = 1f;
-    private Vector2i currentOffsetTarget;
+    private Vector2d currentPointRatio;
+    private Vector2d currentMapTargetRatio;
+
+    private Vector2d currentUiTargetRatio;
 
     private float uiCurrentWidth, uiCurrentHeight;
 
@@ -23,7 +28,12 @@ public class MapWidget extends ModWidget {
         this.uiCurrentWidth = uiWidth;
         this.uiCurrentHeight = uiHeight;
         // By default, center
-        this.currentOffsetTarget = new Vector2i(uiWidth / 2, uiHeight / 2);
+        resetFocus();
+    }
+
+    private void resetFocus() {
+        this.currentPointRatio = new Vector2d(.5, .5); // Center
+        updateCurrentMapTargetRatio(zoomLevel);
     }
 
     public void setStartCoordinates(int startX, int startY){
@@ -74,7 +84,7 @@ public class MapWidget extends ModWidget {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        // TODO : Marker click? Need a better system..
+        // TODO : Marker click? Need a better system.. Based on buttons? Based on hovering?
         //LoggerUtil.logDebugMsg("Mouse is clicked at " + mouseX + ", " + mouseY);
         return true;
     }
@@ -85,10 +95,10 @@ public class MapWidget extends ModWidget {
             int newUvX = (int) (this.uvX - deltaX);
             int newUvY = (int) (this.uvY - deltaY);
 
-            currentOffsetTarget.x = (int) (-startX + mouseX);
-            currentOffsetTarget.y = (int) (-startY + mouseY);
+            currentPointRatio.x = (-startX + mouseX) / uiWidth;
+            currentPointRatio.y = (-startY + mouseY) / uiHeight;
 
-            setNewUv(newUvX, newUvY);
+            computeUvs(newUvX, newUvY);
         }
         return true;
     }
@@ -96,13 +106,16 @@ public class MapWidget extends ModWidget {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if(mouseIsInside(mouseX, mouseY)){
-            currentOffsetTarget.x = (int) (-startX + mouseX);
-            currentOffsetTarget.y = (int) (-startY + mouseY);
+            currentPointRatio.x = (-startX + mouseX) / uiWidth;
+            currentPointRatio.y = (-startY + mouseY) / uiHeight;
             if(verticalAmount > 0){
-                zoom((float) (0.5f * Math.pow(0.9f, zoomLevel)));
+                zoom(1);
+                //zoom((float) (0.5f * Math.pow(0.9f, zoomLevel)));
             } else {
-                dezoom((float) (0.5f * Math.pow(0.9f, zoomLevel)));
+                dezoom(1);
+                //dezoom((float) (0.5f * Math.pow(0.9f, zoomLevel)));
             }
+            LoggerUtil.logDebugMsg("New Uvs : " + this.uvX + ", " + this.uvY);
         }
         return true;
     }
@@ -112,44 +125,54 @@ public class MapWidget extends ModWidget {
     }
 
     public void zoom(){
-        zoom(1f);
-    }
-    public void zoom(float amount) {
-        if(zoomLevel != 15f) {
-            zoomLevel = Math.min(15f,  zoomLevel + amount);
-            computeNewOffset();
-        }
+        this.currentPointRatio = new Vector2d(0.5, 0.5);
+        zoom(2.5f);
     }
     public void dezoom(){
-        dezoom(1f);
+        this.currentPointRatio = new Vector2d(0.5, 0.5);
+        dezoom(2.5f);
+    }
+
+    public void zoom(float amount) {
+        if(zoomLevel != 35f) {
+            double newZoom = Math.min(35f,  zoomLevel + amount);
+            updateCurrentMapTargetRatio(zoomLevel);
+            zoomLevel =(float)  newZoom;
+            computeNewZoom();
+        }
     }
     public void dezoom(float amount) {
         if(zoomLevel != 1f) {
-            zoomLevel = Math.max(1f, zoomLevel - amount);
-            computeNewOffset();
+            double newZoom = Math.max(1f, zoomLevel - amount);
+            updateCurrentMapTargetRatio(zoomLevel);
+            zoomLevel = (float) newZoom;
+            computeNewZoom();
         }
     }
 
-    private void computeNewOffset(){
+    private void updateCurrentMapTargetRatio(double zoom){
+        double ratioX = (this.uvX + (uiWidth * currentPointRatio.x)) / uiCurrentWidth;
+        double ratioY = (this.uvY + (uiHeight * currentPointRatio.y)) / uiCurrentHeight;
+
+        this.currentMapTargetRatio = new Vector2d(ratioX, ratioY);
+        this.currentUiTargetRatio = new Vector2d(currentPointRatio.x, currentPointRatio.y);
+    }
+
+    private void computeNewZoom(){
+
         float newUiCurrentWidth = uiWidth * zoomLevel;
         float newUiCurrentHeight = uiHeight * zoomLevel;
-
-        // 0.5 means centered
-        float xRatio = (float) currentOffsetTarget.x / uiWidth;
-        float yRatio = (float) currentOffsetTarget.y / uiHeight;
-
-        LoggerUtil.logDebugMsg(xRatio + ", " + yRatio);
-
-        float differenceX = (newUiCurrentWidth - uiCurrentWidth);
-        float differenceY = (newUiCurrentHeight - uiCurrentHeight);
 
         uiCurrentWidth = newUiCurrentWidth;
         uiCurrentHeight = newUiCurrentHeight;
 
-        setNewUv((int) (uvX + differenceX * xRatio), (int) (uvY + differenceY * yRatio));
+        int newUvX = (int) (uiCurrentWidth * currentMapTargetRatio.x - (uiWidth * currentUiTargetRatio.x));
+        int newUvY = (int) (uiCurrentHeight * currentMapTargetRatio.y  - (uiHeight * currentUiTargetRatio.y));
+
+        computeUvs(newUvX, newUvY);
     }
 
-    private void setNewUv(int newUvX, int newUvY){
+    private void computeUvs(int newUvX, int newUvY){
         int maxWidth = (int) (uiWidth * zoomLevel) - uiWidth;
         int maxHeight = (int) (uiHeight * zoomLevel) - uiHeight;;
 
