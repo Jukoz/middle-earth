@@ -1,5 +1,6 @@
 package net.jukoz.me.client.screens.utils.widgets;
 
+import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
@@ -12,15 +13,20 @@ import org.joml.Vector2i;
 public class MapWidget extends ModWidget {
     private static final Identifier MIDDLE_EARTH_WORLD_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
     private final int uiWidth, uiHeight;
-    private int uvX, uvY = 0;
+    private double uvX, uvY = 0;
     private int startX, startY = 0;
     private float zoomLevel = 1f;
+    private float zoomTarget = zoomLevel;
+    private final float ZOOM_TRANSITION_SPEED = 1f / 5f;
+
     private Vector2d currentPointRatio;
     private Vector2d currentMapTargetRatio;
 
     private Vector2d currentUiTargetRatio;
 
     private float uiCurrentWidth, uiCurrentHeight;
+
+    private Vector2d nextUvs = null;
 
     public MapWidget(int mapWidth, int mapHeight) {
         this.uiWidth = mapWidth;
@@ -66,18 +72,27 @@ public class MapWidget extends ModWidget {
         this.startX = startX;
         this.startY = startY;
 
-        // TODO : In progress
+        if(nextUvs != null){
+            this.uvX = nextUvs.x;
+            this.uvY = nextUvs.y;
+            nextUvs = null;
+        } else {
+            if(zoomLevel != zoomTarget){
+                float zoomModifier = ZOOM_TRANSITION_SPEED;
+                if(zoomLevel > zoomTarget){
+                    zoomLevel = Math.max(zoomTarget, zoomLevel - zoomModifier);
+                } else {
+                    zoomLevel = Math.min(zoomTarget, zoomLevel + zoomModifier);
+                }
+            }
+            computeZoom();
+        }
         context.drawTexture(MIDDLE_EARTH_WORLD_TEXTURE,
                 startX, startY,
-                uvX, uvY,
+                (float) uvX, (float) uvY,
                 uiWidth,uiHeight,
                 (int)uiCurrentWidth, (int)uiCurrentHeight
         );
-        /*
-        (int) (MAP_IMAGE_WIDTH * getZoomLevel() * minZoom),
-                (int) (MAP_IMAGE_HEIGHT * getZoomLevel() * minZoom));
-
-         */
     }
 
 
@@ -97,8 +112,11 @@ public class MapWidget extends ModWidget {
 
             currentPointRatio.x = (-startX + mouseX) / uiWidth;
             currentPointRatio.y = (-startY + mouseY) / uiHeight;
+            updateCurrentMapTargetRatio(zoomLevel);
+            zoomTarget = zoomLevel; // Cancels the zoom
 
             computeUvs(newUvX, newUvY);
+            this.nextUvs = new Vector2d(this.uvX, this.uvY);
         }
         return true;
     }
@@ -115,7 +133,6 @@ public class MapWidget extends ModWidget {
                 dezoom(1);
                 //dezoom((float) (0.5f * Math.pow(0.9f, zoomLevel)));
             }
-            LoggerUtil.logDebugMsg("New Uvs : " + this.uvX + ", " + this.uvY);
         }
         return true;
     }
@@ -134,19 +151,17 @@ public class MapWidget extends ModWidget {
     }
 
     public void zoom(float amount) {
-        if(zoomLevel != 35f) {
-            double newZoom = Math.min(35f,  zoomLevel + amount);
+        if(zoomTarget != 35f) {
+            double newZoom = Math.min(35f,  zoomTarget + amount);
             updateCurrentMapTargetRatio(zoomLevel);
-            zoomLevel =(float)  newZoom;
-            computeNewZoom();
+            zoomTarget = (float)newZoom;
         }
     }
     public void dezoom(float amount) {
-        if(zoomLevel != 1f) {
-            double newZoom = Math.max(1f, zoomLevel - amount);
+        if(zoomTarget != 1f) {
+            double newZoom = Math.max(1f, zoomTarget - amount);
             updateCurrentMapTargetRatio(zoomLevel);
-            zoomLevel = (float) newZoom;
-            computeNewZoom();
+            zoomTarget = (float)newZoom;
         }
     }
 
@@ -158,7 +173,7 @@ public class MapWidget extends ModWidget {
         this.currentUiTargetRatio = new Vector2d(currentPointRatio.x, currentPointRatio.y);
     }
 
-    private void computeNewZoom(){
+    private void computeZoom(){
 
         float newUiCurrentWidth = uiWidth * zoomLevel;
         float newUiCurrentHeight = uiHeight * zoomLevel;
@@ -166,23 +181,23 @@ public class MapWidget extends ModWidget {
         uiCurrentWidth = newUiCurrentWidth;
         uiCurrentHeight = newUiCurrentHeight;
 
-        int newUvX = (int) (uiCurrentWidth * currentMapTargetRatio.x - (uiWidth * currentUiTargetRatio.x));
-        int newUvY = (int) (uiCurrentHeight * currentMapTargetRatio.y  - (uiHeight * currentUiTargetRatio.y));
+        double newUvX = uiCurrentWidth * currentMapTargetRatio.x - (uiWidth * currentUiTargetRatio.x);
+        double newUvY = uiCurrentHeight * currentMapTargetRatio.y  - (uiHeight * currentUiTargetRatio.y);
 
         computeUvs(newUvX, newUvY);
     }
 
-    private void computeUvs(int newUvX, int newUvY){
+    private void computeUvs(double newUvX, double newUvY){
         int maxWidth = (int) (uiWidth * zoomLevel) - uiWidth;
         int maxHeight = (int) (uiHeight * zoomLevel) - uiHeight;;
 
-        float computedX = Math.min(maxWidth, newUvX);
+        double computedX = Math.min(maxWidth, newUvX);
         computedX = Math.max(0, computedX);
 
-        float computedY = Math.min(maxHeight, newUvY);
+        double computedY = Math.min(maxHeight, newUvY);
         computedY = Math.max(0, computedY);
 
-        this.uvX = (int) computedX;
-        this.uvY = (int) computedY;
+        this.uvX = computedX;
+        this.uvY = computedY;
     }
 }
