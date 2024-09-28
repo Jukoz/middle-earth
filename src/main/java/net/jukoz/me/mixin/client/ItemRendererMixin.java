@@ -3,7 +3,9 @@ package net.jukoz.me.mixin.client;
 import net.jukoz.me.datageneration.VariantsModelProvider;
 import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleSpearModel;
-import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingDaggerWeaponItem;
+import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingLongswordWeaponItem;
+import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomLongswordWeaponItem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.ItemModels;
@@ -36,6 +38,13 @@ public abstract class ItemRendererMixin {
                     || SimpleBigItemModel.items.contains(stack.getItem())
                     || SimpleSpearModel.items.contains(stack.getItem())) {
                 Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(stack.getItem());
+                if (SimpleBigItemModel.artefactsGlowing.contains(stack.getItem())){
+                    if (stack.getItem() instanceof  ArtefactCustomGlowingLongswordWeaponItem item && item.glowing){
+                        identifier = VariantsModelProvider.getInventoryModelGlowingItem(item);
+                    } else if (stack.getItem() instanceof  ArtefactCustomGlowingDaggerWeaponItem item && item.glowing){
+                        identifier = VariantsModelProvider.getInventoryModelGlowingItem(item);
+                    }
+                }
                 if (SimpleBigItemModel.artefactsBroken.contains(stack.getItem()) && stack.getDamage() == stack.getMaxDamage() - 1){
                     identifier = VariantsModelProvider.getInventoryModelBrokenItem(stack.getItem());
                 }

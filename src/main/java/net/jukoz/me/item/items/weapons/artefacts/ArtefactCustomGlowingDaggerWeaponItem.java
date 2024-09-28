@@ -1,6 +1,9 @@
-package net.jukoz.me.item.items.weapons;
+package net.jukoz.me.item.items.weapons.artefacts;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.entity.orcs.OrcNpcEntity;
+import net.jukoz.me.entity.uruks.UrukNpcEntity;
+import net.jukoz.me.item.items.weapons.CustomDaggerWeaponItem;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.block.BlockState;
@@ -9,10 +12,12 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.component.type.ToolComponent;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
@@ -24,29 +29,45 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem {
+public class ArtefactCustomGlowingDaggerWeaponItem extends CustomDaggerWeaponItem {
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
 
-    public ArtefactCustomLongswordWeaponItem(ToolMaterial toolMaterial) {
+    public boolean glowing;
+    private int counter = 0;
+
+    public ArtefactCustomGlowingDaggerWeaponItem(ToolMaterial toolMaterial) {
         super(toolMaterial);
     }
 
-    public ArtefactCustomLongswordWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
+    public ArtefactCustomGlowingDaggerWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
         super(toolMaterial, faction);
     }
 
-    public ArtefactCustomLongswordWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
+    public ArtefactCustomGlowingDaggerWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
         super(toolMaterial, subFaction);
     }
 
-    public static boolean isUsable(ItemStack stack) {
-        return stack.getDamage() < stack.getMaxDamage() - 1;
+    @Override
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+        if (counter == 100){
+            this.glowing = !world.getEntitiesByClass(OrcNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty()
+                    || !world.getEntitiesByClass(UrukNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty();
+            counter = 0;
+        } else {
+            counter++;
+        }
+    }
+
+    public static boolean isGlowing(ItemStack stack){
+        ArtefactCustomGlowingDaggerWeaponItem item = (ArtefactCustomGlowingDaggerWeaponItem) stack.getItem();
+        return item.glowing;
     }
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.of(""));
         if (Screen.hasShiftDown()) {
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact").formatted(Formatting.AQUA));
             if(!(stack.getDamage() < stack.getMaxDamage() - 1)){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact_broken").formatted(Formatting.ITALIC).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact")).formatted(Formatting.AQUA));
             } else {
@@ -55,19 +76,20 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
             if(this.type != null){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
             }
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".backstab"));
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
         }
     }
 
     @Override
-    public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-        return false;
+    public Text getName(ItemStack stack) {
+        return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.AQUA);
     }
 
     @Override
-    public Text getName(ItemStack stack) {
-        return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.AQUA);
+    public boolean canRepair(ItemStack stack, ItemStack ingredient) {
+        return false;
     }
 
     @Override
@@ -96,7 +118,6 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
                             0.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                     .build());
         }
-
     }
 
     @Override

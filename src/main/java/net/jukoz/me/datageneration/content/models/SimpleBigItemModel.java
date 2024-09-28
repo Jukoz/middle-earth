@@ -23,4 +23,9 @@ public class SimpleBigItemModel {
         }
     };
 
+    public static List<Item> artefactsGlowing = new ArrayList<>() {
+        {
+        }
+    };
+
 }

@@ -1,6 +1,7 @@
-package net.jukoz.me.item.items.weapons;
+package net.jukoz.me.item.items.weapons.artefacts;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.item.items.weapons.CustomSwordWeaponItem;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.block.BlockState;
@@ -13,31 +14,27 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
 
-public class ArtefactCustomDaggerWeaponItem extends CustomDaggerWeaponItem {
-    public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
+public class ArtefactCustomSwordWeaponItem extends CustomSwordWeaponItem {
 
-    public ArtefactCustomDaggerWeaponItem(ToolMaterial toolMaterial) {
+    public ArtefactCustomSwordWeaponItem(ToolMaterial toolMaterial) {
         super(toolMaterial);
     }
 
-    public ArtefactCustomDaggerWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
+    public ArtefactCustomSwordWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
         super(toolMaterial, faction);
     }
 
-    public ArtefactCustomDaggerWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
+    public ArtefactCustomSwordWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
         super(toolMaterial, subFaction);
     }
 
@@ -49,7 +46,6 @@ public class ArtefactCustomDaggerWeaponItem extends CustomDaggerWeaponItem {
             if(this.type != null){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name));
             }
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".backstab"));
             if(!(stack.getDamage() < stack.getMaxDamage() - 1)){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".broken").formatted(Formatting.ITALIC));
             }
@@ -90,8 +86,6 @@ public class ArtefactCustomDaggerWeaponItem extends CustomDaggerWeaponItem {
                             0.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                     .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID,
                             -3.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
-                    .add(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE, new EntityAttributeModifier(ENTITY_INTERACTION_RANGE_MODIFIER_ID,
-                            0.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                     .build());
         }
     }
@@ -112,8 +106,6 @@ public class ArtefactCustomDaggerWeaponItem extends CustomDaggerWeaponItem {
                                     0.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                             .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID,
                                     -3.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
-                            .add(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE, new EntityAttributeModifier(ENTITY_INTERACTION_RANGE_MODIFIER_ID,
-                                    0.0f, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND)
                             .build());
                 }
             }

@@ -2,5 +2,13 @@
   "parent": "me:item/big_weapon",
   "textures": {
     "layer0": "me:item/orcrist"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "glowing": 1
+      },
+      "model": "me:item/orcrist_glowing"
+    }
+  ]
 }

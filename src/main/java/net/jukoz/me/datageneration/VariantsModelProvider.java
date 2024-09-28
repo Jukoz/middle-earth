@@ -16,4 +16,7 @@ public class VariantsModelProvider {
     public static Identifier getInventoryModelBrokenItem(Item item) {
         return Registries.ITEM.getId(item).withPrefixedPath("item/").withSuffixedPath("_broken_inventory");
     }
+    public static Identifier getInventoryModelGlowingItem(Item item) {
+        return Registries.ITEM.getId(item).withPrefixedPath("item/").withSuffixedPath("_glowing_inventory");
+    }
 }

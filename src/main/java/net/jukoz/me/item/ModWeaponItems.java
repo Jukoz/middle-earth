@@ -6,7 +6,7 @@ import net.jukoz.me.datageneration.content.models.SimpleBowItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleHandheldItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleSpearModel;
 import net.jukoz.me.item.items.weapons.*;
-import net.jukoz.me.item.items.weapons.artefacts.MorgulKnifeItem;
+import net.jukoz.me.item.items.weapons.artefacts.*;
 import net.jukoz.me.item.items.weapons.ranged.CustomBowWeaponItem;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.ModToolMaterials;
@@ -275,16 +275,16 @@ public class ModWeaponItems {
 
     //region ARTEFACTS
     public static final Item GLAMDRING = registerItemNoModel("glamdring",
-            new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), false, true);
+            new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), false, true, true);
     public static final Item NARSIL = registerItemNoModel("narsil",
-            new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true, true);
+            new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true, true, false);
     public static final Item ORCRIST = registerItemNoModel("orcrist",
-            new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), false, true);
+            new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), false, true, true);
 
     public static final Item MORGUL_KNIFE = registerItemNoModel("morgul_knife",
-            new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE), false, false);
+            new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE), false, false, false);
     public static final Item STING = registerItemNoModel("sting",
-            new ArtefactCustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL), false, false);
+            new ArtefactCustomGlowingDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL), false, false, true);
     //endregion
 
     private static Item registerItemWithModel(String name, Item item, boolean isDualModel) {
@@ -310,13 +310,16 @@ public class ModWeaponItems {
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
-    private static Item registerItemNoModel(String name, Item item, boolean brokenModel, boolean isDualModel) {
+    private static Item registerItemNoModel(String name, Item item, boolean brokenModel, boolean isDualModel, boolean glowy) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         if(brokenModel){
             SimpleBigItemModel.artefactsBroken.add(item);
         }
         if (isDualModel){
             SimpleBigItemModel.artefacts.add(item);
+        }
+        if (glowy){
+            SimpleBigItemModel.artefactsGlowing.add(item);
         }
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }

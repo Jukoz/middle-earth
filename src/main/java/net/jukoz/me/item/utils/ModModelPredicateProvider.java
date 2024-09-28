@@ -3,7 +3,9 @@ package net.jukoz.me.item.utils;
 import net.jukoz.me.datageneration.content.models.SimpleSpearModel;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
-import net.jukoz.me.item.items.weapons.ArtefactCustomLongswordWeaponItem;
+import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingDaggerWeaponItem;
+import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingLongswordWeaponItem;
+import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomLongswordWeaponItem;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -15,6 +17,7 @@ public class ModModelPredicateProvider {
         registerSpearModel();
         registerBowModel();
         registerArtefactModels();
+        registerGlowingArtefactModels();
     }
 
     private static void registerBowModel() {
@@ -28,6 +31,12 @@ public class ModModelPredicateProvider {
     private static void registerArtefactModels() {
         registerArtefact(ModWeaponItems.NARSIL);
         registerArtefact(ModWeaponItems.MORGUL_KNIFE);
+    }
+
+    private static void registerGlowingArtefactModels() {
+        registerGlowingArtefact(ModWeaponItems.GLAMDRING);
+        registerGlowingArtefact(ModWeaponItems.ORCRIST);
+        registerGlowingArtefact(ModWeaponItems.STING);
     }
 
     private static void registerBow(Item bow) {
@@ -63,5 +72,16 @@ public class ModModelPredicateProvider {
     private static void registerArtefact(Item artefact) {
         ModelPredicateProviderRegistry.register(artefact, Identifier.of("broken"),
                 (stack, world, entity, seed) -> ArtefactCustomLongswordWeaponItem.isUsable(stack) ? 0.0F : 1.0F);
+    }
+
+    private static void registerGlowingArtefact(Item artefact) {
+        if (artefact instanceof ArtefactCustomGlowingLongswordWeaponItem item){
+            ModelPredicateProviderRegistry.register(item, Identifier.of("glowing"),
+                    (stack, world, entity, seed) -> ArtefactCustomGlowingLongswordWeaponItem.isGlowing(stack) ? 1.0F : 0.0F);
+        }
+        if (artefact instanceof ArtefactCustomGlowingDaggerWeaponItem item){
+            ModelPredicateProviderRegistry.register(item, Identifier.of("glowing"),
+                    (stack, world, entity, seed) -> ArtefactCustomGlowingDaggerWeaponItem.isGlowing(stack) ? 1.0F : 0.0F);
+        }
     }
 }
