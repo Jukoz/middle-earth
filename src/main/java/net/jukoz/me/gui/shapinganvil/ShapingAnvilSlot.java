@@ -1,6 +1,7 @@
 package net.jukoz.me.gui.shapinganvil;
 
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 
 public class ShapingAnvilSlot extends Slot {
@@ -17,5 +18,23 @@ public class ShapingAnvilSlot extends Slot {
     @Override
     public int getMaxItemCount() {
         return MAX_ITEM_COUNT;
+    }
+
+    @Override
+    public ItemStack takeStack(int amount) {
+        markDirty();
+        return super.takeStack(amount);
+    }
+
+    @Override
+    public ItemStack insertStack(ItemStack stack) {
+        markDirty();
+        return super.insertStack(stack);
+    }
+
+    @Override
+    protected void onTake(int amount) {
+        markDirty();
+        super.onTake(amount);
     }
 }

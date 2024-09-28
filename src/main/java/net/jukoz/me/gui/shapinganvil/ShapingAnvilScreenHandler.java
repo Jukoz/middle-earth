@@ -105,7 +105,6 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         return this.inventory.canPlayerUse(player);
     }
 
-
     private void addPlayerInventory(PlayerInventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {

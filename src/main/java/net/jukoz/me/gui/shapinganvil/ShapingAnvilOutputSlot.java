@@ -22,12 +22,20 @@ public class ShapingAnvilOutputSlot extends Slot {
         if (this.hasStack()) {
             this.amount += Math.min(amount, this.getStack().getCount());
         }
+        markDirty();
         return super.takeStack(amount);
+    }
+
+    @Override
+    public ItemStack insertStack(ItemStack stack) {
+        markDirty();
+        return super.insertStack(stack);
     }
 
     @Override
     public void onTakeItem(PlayerEntity player, ItemStack stack) {
         this.onCrafted(stack);
+        markDirty();
         super.onTakeItem(player, stack);
     }
 

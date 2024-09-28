@@ -3,6 +3,7 @@ package net.jukoz.me.block.special.shapingAnvil;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
+import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.block.special.forge.MetalTypes;
 import net.jukoz.me.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.jukoz.me.item.ModDataComponentTypes;
@@ -20,7 +21,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.trim.ArmorTrim;
 import net.minecraft.item.trim.ArmorTrimMaterial;
 import net.minecraft.item.trim.ArmorTrimPattern;
@@ -28,8 +28,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryKey;
@@ -123,7 +121,11 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
     public ItemStack getRenderStack() {
         if (this.getStack(1).isEmpty()){
-            return this.getStack(0);
+            if (this.getStack(0).isEmpty()){
+                return ItemStack.EMPTY;
+            } else {
+                return this.getStack(0);
+            }
         } else {
             return this.getStack(1);
         }
@@ -165,8 +167,8 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
                     }
                 }
                 entity.setStack(1, output);
+                update();
                 progress = 0;
-                entity.markDirty();
             }
         }
     }
@@ -248,11 +250,10 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
         return slots;
     }
 
-    @Override
-    public void markDirty() {
+    private void update() {
+        markDirty();
         if(world != null)
             world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
-        super.markDirty();
     }
 
     @Override
@@ -288,11 +289,13 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
     @Override
     public ItemStack removeStack(int slot, int amount) {
+        update();
         return Inventories.splitStack(this.inventory, slot, amount);
     }
 
     @Override
     public ItemStack removeStack(int slot) {
+        update();
         return Inventories.removeStack(inventory, slot);
     }
 
@@ -301,6 +304,7 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
         inventory.set(slot, stack);
         if (stack.getCount() > getMaxCountPerStack()) {
             stack.setCount(getMaxCountPerStack());
+            update();
         }
     }
 
