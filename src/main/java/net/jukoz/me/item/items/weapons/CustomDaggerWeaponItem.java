@@ -2,6 +2,8 @@ package net.jukoz.me.item.items.weapons;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.utils.ModWeaponTypes;
+import net.jukoz.me.utils.ModFactions;
+import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.Entity;
@@ -27,12 +29,12 @@ public class CustomDaggerWeaponItem extends ReachWeaponItem {
         super(toolMaterial, ModWeaponTypes.DAGGER);
     }
 
-    public CustomDaggerWeaponItem(ToolMaterial toolMaterial, MutableText faction) {
+    public CustomDaggerWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
         super(toolMaterial, faction, ModWeaponTypes.DAGGER);
     }
 
-    public CustomDaggerWeaponItem(ToolMaterial toolMaterial, MutableText faction, MutableText subFaction) {
-        super(toolMaterial, faction, subFaction, ModWeaponTypes.DAGGER);
+    public CustomDaggerWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
+        super(toolMaterial, subFaction, ModWeaponTypes.DAGGER);
     }
 
     @Override
@@ -40,13 +42,13 @@ public class CustomDaggerWeaponItem extends ReachWeaponItem {
         tooltip.add(Text.of(""));
         if (Screen.hasShiftDown()) {
             if(this.type != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name));
             }
             if(this.faction != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(this.faction));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
             }
             if (this.subFaction != null) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(this.subFaction));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
             }
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".backstab"));
         } else {

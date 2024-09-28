@@ -59,6 +59,7 @@ import net.jukoz.me.gui.wood_pile.WoodPileScreen;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.utils.ModArmorModels;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
@@ -250,6 +251,17 @@ public class MiddleEarthClient implements ClientModInitializer {
             for(Item item : SimpleBigItemModel.items) {
                 Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
                 pluginContext.addModels(identifier);
+            }
+
+            for(Item item : SimpleBigItemModel.artefacts) {
+                Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
+                pluginContext.addModels(identifier);
+            }
+
+            for(Item item : SimpleBigItemModel.artefactsBroken) {
+                Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
+                Identifier identifierBroken = VariantsModelProvider.getInventoryModelBrokenItem(item);
+                pluginContext.addModels(identifier, identifierBroken);
             }
 
             for(Item item : SimpleSpearModel.items) {

@@ -2,6 +2,8 @@ package net.jukoz.me.item.items.weapons;
 
 import net.jukoz.me.entity.projectile.spear.SpearEntity;
 import net.jukoz.me.item.utils.ModWeaponTypes;
+import net.jukoz.me.utils.ModFactions;
+import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,20 +25,20 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
     private static final int STRENGTH_CHARGE_TIME = 20;
 
     public float pullProgress = 0;
-    public MutableText faction;
-    public MutableText subFaction;
+    public ModFactions faction;
+    public ModSubFactions subFaction;
     public ModWeaponTypes type;
 
     public CustomSpearWeaponItem(ToolMaterial toolMaterial) {
         super(toolMaterial, ModWeaponTypes.SPEAR);
     }
 
-    public CustomSpearWeaponItem(ToolMaterial toolMaterial, MutableText faction) {
+    public CustomSpearWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
         super(toolMaterial, faction, ModWeaponTypes.SPEAR);
     }
 
-    public CustomSpearWeaponItem(ToolMaterial toolMaterial, MutableText faction, MutableText subFaction) {
-        super(toolMaterial, faction, subFaction, ModWeaponTypes.SPEAR);
+    public CustomSpearWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
+        super(toolMaterial, subFaction, ModWeaponTypes.SPEAR);
     }
 
     public float getAttackDamage() {

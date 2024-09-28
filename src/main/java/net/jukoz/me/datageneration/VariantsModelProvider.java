@@ -12,4 +12,8 @@ public class VariantsModelProvider {
     public static Identifier getPullModelIdentifierVariant(Item item) {
         return Registries.ITEM.getId(item).withPrefixedPath("item/").withSuffixedPath("_pull");
     }
+
+    public static Identifier getInventoryModelBrokenItem(Item item) {
+        return Registries.ITEM.getId(item).withPrefixedPath("item/").withSuffixedPath("_broken_inventory");
+    }
 }

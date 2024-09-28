@@ -2,8 +2,11 @@ package net.jukoz.me.item.items.weapons;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.utils.ModWeaponTypes;
+import net.jukoz.me.utils.ModFactions;
+import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.text.MutableText;
@@ -18,11 +21,11 @@ public class CustomLongswordWeaponItem extends ReachWeaponItem {
         super(toolMaterial, ModWeaponTypes.LONGSWORD);
     }
 
-    public CustomLongswordWeaponItem(ToolMaterial toolMaterial, MutableText faction) {
+    public CustomLongswordWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
         super(toolMaterial, faction, ModWeaponTypes.LONGSWORD);
     }
 
-    public CustomLongswordWeaponItem(ToolMaterial toolMaterial, MutableText faction, MutableText subFaction) {
-        super(toolMaterial, faction, subFaction, ModWeaponTypes.LONGSWORD);
+    public CustomLongswordWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
+        super(toolMaterial, subFaction, ModWeaponTypes.LONGSWORD);
     }
 }
