@@ -11,35 +11,48 @@ import org.joml.Vector2f;
 import org.joml.Vector2i;
 
 public class MapWidget extends ModWidget {
-    private static final Identifier MIDDLE_EARTH_WORLD_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
+    private final static int DRAG_COOLDOWN = 25;
+
+    public boolean canZoomIn;
+    public boolean canZoomOut;
+
     private final int uiWidth, uiHeight;
     private double uvX, uvY = 0;
     private int startX, startY = 0;
-    private float zoomLevel = 1f;
+    private float zoomLevel = getMinZoom();
     private float zoomTarget = zoomLevel;
-    private final float ZOOM_TRANSITION_SPEED = 1f / 5f;
-
     private Vector2d currentPointRatio;
     private Vector2d currentMapTargetRatio;
-
     private Vector2d currentUiTargetRatio;
-
     private float uiCurrentWidth, uiCurrentHeight;
-
+    private boolean isDragging = false;
     private Vector2d nextUvs = null;
+    private float cooldown = 0;
 
     public MapWidget(int mapWidth, int mapHeight) {
         this.uiWidth = mapWidth;
         this.uiHeight = mapHeight;
         this.uiCurrentWidth = uiWidth;
         this.uiCurrentHeight = uiHeight;
-        // By default, center
-        resetFocus();
+        this.canZoomOut = false;
+        this.canZoomIn = true;
+        this.currentPointRatio = new Vector2d(.5, .5);
+        updateCurrentMapTargetRatio(zoomLevel);
     }
 
-    private void resetFocus() {
-        this.currentPointRatio = new Vector2d(.5, .5); // Center
-        updateCurrentMapTargetRatio(zoomLevel);
+    private float getZoomTransitionSpeed(){
+        return 0.35f * (zoomLevel / 4f);
+    }
+    private float getMaxZoom(){
+        return 70f;
+    }
+
+    private float getMinZoom(){
+        return 1f;
+    }
+
+    private Identifier getMapTexture(){
+        return Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
     }
 
     public void setStartCoordinates(int startX, int startY){
@@ -72,22 +85,26 @@ public class MapWidget extends ModWidget {
         this.startX = startX;
         this.startY = startY;
 
+        if(cooldown > 0) {
+            cooldown = Math.max(cooldown - 1, 1);
+        }
         if(nextUvs != null){
             this.uvX = nextUvs.x;
             this.uvY = nextUvs.y;
             nextUvs = null;
-        } else {
-            if(zoomLevel != zoomTarget){
-                float zoomModifier = ZOOM_TRANSITION_SPEED;
-                if(zoomLevel > zoomTarget){
-                    zoomLevel = Math.max(zoomTarget, zoomLevel - zoomModifier);
-                } else {
-                    zoomLevel = Math.min(zoomTarget, zoomLevel + zoomModifier);
-                }
+            zoomLevel = zoomTarget;
+
+        } else if(zoomLevel != zoomTarget){
+            float zoomModifier = getZoomTransitionSpeed();
+            if(zoomLevel > zoomTarget){
+                zoomLevel = Math.max(zoomTarget, zoomLevel - zoomModifier);
+            } else {
+                zoomLevel = Math.min(zoomTarget, zoomLevel + zoomModifier);
             }
             computeZoom();
         }
-        context.drawTexture(MIDDLE_EARTH_WORLD_TEXTURE,
+
+        context.drawTexture(getMapTexture(),
                 startX, startY,
                 (float) uvX, (float) uvY,
                 uiWidth,uiHeight,
@@ -95,23 +112,32 @@ public class MapWidget extends ModWidget {
         );
     }
 
-
-
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        // TODO : Marker click? Need a better system.. Based on buttons? Based on hovering?
-        //LoggerUtil.logDebugMsg("Mouse is clicked at " + mouseX + ", " + mouseY);
+        if(cooldown <= 1 && mouseIsInside(mouseX, mouseY)){
+            isDragging = true;
+        }
         return true;
     }
 
     @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        isDragging = false;
+        cooldown = 0;
+        return true;
+    }
+
+    public void setCurrentPointRatioToCursor(double mouseX, double mouseY){
+        currentPointRatio.x = (-startX + mouseX) / uiWidth;
+        currentPointRatio.y = (-startY + mouseY) / uiHeight;
+    }
+
+    @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
-        if(button == 0 && mouseIsInside(mouseX, mouseY)) {
+        if(button == 0 && cooldown == 0 && (isDragging || mouseIsInside(mouseX, mouseY))) {
             int newUvX = (int) (this.uvX - deltaX);
             int newUvY = (int) (this.uvY - deltaY);
-
-            currentPointRatio.x = (-startX + mouseX) / uiWidth;
-            currentPointRatio.y = (-startY + mouseY) / uiHeight;
+            setCurrentPointRatioToCursor(mouseX, mouseY);
             updateCurrentMapTargetRatio(zoomLevel);
             zoomTarget = zoomLevel; // Cancels the zoom
 
@@ -124,15 +150,15 @@ public class MapWidget extends ModWidget {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if(mouseIsInside(mouseX, mouseY)){
-            currentPointRatio.x = (-startX + mouseX) / uiWidth;
-            currentPointRatio.y = (-startY + mouseY) / uiHeight;
-            if(verticalAmount > 0){
-                zoom(1);
-                //zoom((float) (0.5f * Math.pow(0.9f, zoomLevel)));
-            } else {
-                dezoom(1);
-                //dezoom((float) (0.5f * Math.pow(0.9f, zoomLevel)));
+            float zoomAmount = 1f + (zoomTarget / 4f);
+            if(verticalAmount > 0 && zoomLevel != getMaxZoom()){
+                setCurrentPointRatioToCursor(mouseX, mouseY);
+                zoom(zoomAmount);
+            } else if(verticalAmount < 0 && zoomLevel != getMinZoom()) {
+                setCurrentPointRatioToCursor(mouseX, mouseY);
+                dezoom(zoomAmount);
             }
+
         }
         return true;
     }
@@ -141,27 +167,43 @@ public class MapWidget extends ModWidget {
         return ((mouseX > startX && mouseX < startX + uiWidth) && (mouseY > startY && mouseY < startY + uiHeight));
     }
 
-    public void zoom(){
+    public void zoomClick(){
+        cooldown = DRAG_COOLDOWN;
+        isDragging = false;
         this.currentPointRatio = new Vector2d(0.5, 0.5);
-        zoom(2.5f);
+        zoom(1f + (zoomTarget / 2f));
     }
-    public void dezoom(){
+
+    public void dezoomClick(){
+        cooldown = DRAG_COOLDOWN;
+        isDragging = false;
         this.currentPointRatio = new Vector2d(0.5, 0.5);
-        dezoom(2.5f);
+        dezoom(1f + (zoomTarget / 2f));
+
     }
 
     public void zoom(float amount) {
-        if(zoomTarget != 35f) {
-            double newZoom = Math.min(35f,  zoomTarget + amount);
-            updateCurrentMapTargetRatio(zoomLevel);
+        float maxZoom = getMaxZoom();
+        if(zoomTarget != maxZoom) {
+            this.canZoomOut = true;
+            double newZoom = Math.min(maxZoom,  zoomTarget + amount);
             zoomTarget = (float)newZoom;
+            if(zoomTarget == maxZoom){
+                this.canZoomIn = false;
+            }
+            updateCurrentMapTargetRatio(zoomLevel);
         }
     }
     public void dezoom(float amount) {
-        if(zoomTarget != 1f) {
-            double newZoom = Math.max(1f, zoomTarget - amount);
-            updateCurrentMapTargetRatio(zoomLevel);
+        float minZoom = getMinZoom();
+        if(zoomTarget != minZoom) {
+            this.canZoomIn = true;
+            double newZoom = Math.max(minZoom, zoomTarget - amount);
             zoomTarget = (float)newZoom;
+            if(zoomTarget == minZoom){
+                this.canZoomOut = false;
+            }
+            updateCurrentMapTargetRatio(zoomLevel);
         }
     }
 

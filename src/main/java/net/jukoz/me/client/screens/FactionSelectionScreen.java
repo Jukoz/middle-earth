@@ -197,7 +197,7 @@ public class FactionSelectionScreen extends Screen {
         mapZoomOutButton = ButtonWidget.builder(
                 Text.of("Zoom out"),
                 button -> {
-                    mapWidget.dezoom();
+                    mapWidget.dezoomClick();
                 }).build();
         addDrawableChild(mapZoomOutButton);
 
@@ -205,7 +205,7 @@ public class FactionSelectionScreen extends Screen {
         mapZoomInButton = ButtonWidget.builder(
                 Text.of("Zoom in"),
                 button -> {
-                    mapWidget.zoom();
+                    mapWidget.zoomClick();
                 }).build();
         addDrawableChild(mapZoomInButton);
 
@@ -468,27 +468,31 @@ public class FactionSelectionScreen extends Screen {
 
         // Zoom in
         buttonStartX = startX + mapBackgroundWidth - MINIMAL_MARGIN - buttonSize - 2;
+        boolean canZoomIn = mapWidget.canZoomIn;
+        mapZoomInButton.active = canZoomIn;
         context.drawTexture(MAP_SELECTION,
                 buttonStartX, smallButtonsStartY,
-                224, mapZoomInButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
+                224, !canZoomIn ? 20 : mapZoomInButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
                 buttonSize,
                 buttonSize
         );
         mapZoomInButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
-        if(mapZoomInButton.isFocused() && ModWidget.getFocusEnabled()){
+        if(canZoomIn && mapZoomInButton.isFocused() && ModWidget.getFocusEnabled()){
             highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
         }
 
         // Zoom out
         buttonStartX -= buttonSize + MINIMAL_MARGIN;
+        boolean canZoomOut = mapWidget.canZoomOut;
+        mapZoomOutButton.active = canZoomOut;
         context.drawTexture(MAP_SELECTION,
                 buttonStartX, smallButtonsStartY,
-                213, mapZoomOutButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
+                213, !canZoomOut ? 20 : mapZoomOutButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
                 buttonSize,
                 buttonSize
         );
         mapZoomOutButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
-        if(mapZoomOutButton.isFocused() && ModWidget.getFocusEnabled()){
+        if(canZoomOut && mapZoomOutButton.isFocused() && ModWidget.getFocusEnabled()){
             highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
         }
 
@@ -614,81 +618,7 @@ public class FactionSelectionScreen extends Screen {
         );
     }
 
-    // Very WIP, will be worked on once I start making the map widget
-    /*
-    private void drawMap(DrawContext context, float anchorX, float anchorY, int guiScale){
-        int size = (int) (400 * guiScaleModifier.get(guiScale));
 
-        int margin = 4;
-
-        context.drawTexture(MAP_BACKGROUND,
-                (int) anchorX - ((size + margin) / 2),
-                (int) anchorY - ((size + margin) / 2),
-                0, 0,
-                size + margin,
-                size + margin,
-                size + margin,
-                size + margin
-        );
-
-        context.drawTexture(MAP_TEXTURE,
-                (int) anchorX - (size / 2),
-                (int) anchorY - (size / 2),
-                0, 0,
-                size,
-                size,
-                size,
-                size
-        );
-
-        drawMapMarkers(context, (int) anchorX - ((float) size / 2) - margin, (int) anchorY - ((float) size / 2) - margin, size, guiScale);
-    }
-
-    private void drawMapMarkers(DrawContext context, float anchorX, float anchorY, int size, int guiScale) {
-        // TODO : Clean this up to be data driven!
-        int markerSize = (int) (8);
-        int x = (int) anchorX;
-        int y = (int) anchorY;
-
-        int mapSize = 96000;
-        Vector2f coord01 = new Vector2f(48000, 48000);
-        coord01.x = ((float) size / mapSize * coord01.x);
-        coord01.y = ((float) size / mapSize * coord01.y);
-
-        Vector2f coord02 = new Vector2f(64700, 23000);
-        coord02.x = ((float) size / mapSize * coord02.x);
-        coord02.y = ((float) size / mapSize * coord02.y);
-
-        Vector2f coord03 = new Vector2f(62000, 57000);
-        coord03.x = ((float) size / mapSize * coord03.x);
-        coord03.y = ((float) size / mapSize * coord03.y);
-
-        context.drawTexture(MAP_UI_TEXTURE,
-                (int) (x + (coord01.x)),
-                (int) (y + (coord01.y)),
-                54, 0,
-                markerSize,
-                markerSize
-        );
-
-        context.drawTexture(MAP_UI_TEXTURE,
-                (int) (x + (coord02.x)),
-                (int) (y + (coord02.y)),
-                54, 8,
-                markerSize,
-                markerSize
-        );
-
-        context.drawTexture(MAP_UI_TEXTURE,
-                (int) (x + (coord03.x)),
-                (int) (y + (coord03.y)),
-                54, 16,
-                markerSize,
-                markerSize
-        );
-    }
-
-     */
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
@@ -706,6 +636,7 @@ public class FactionSelectionScreen extends Screen {
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         playableNpcPreviewWidget.mouseReleased(mouseX, mouseY, button);
+        mapWidget.mouseReleased(mouseX, mouseY, button);
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
