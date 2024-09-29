@@ -74,6 +74,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     //TODO melting smithing parts
     //TODO convert metals to registry
     //TODO custom metal trim data component with palette
+    //TODO enum constant datagen if no registry
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGE, pos, state);

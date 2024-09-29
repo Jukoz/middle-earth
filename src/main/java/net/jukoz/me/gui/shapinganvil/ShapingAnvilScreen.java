@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreenHandler;
+import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.network.packets.C2S.AnvilIndexPacket;
 import net.jukoz.me.network.packets.C2S.ForgeOutputPacket;
 import net.minecraft.client.gui.DrawContext;
@@ -42,10 +43,10 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        this.leftOutputCycleButton = new ToggleButtonWidget(x + 50, y + 36, 7 ,11, true);
+        this.leftOutputCycleButton = new ToggleButtonWidget(x + 69, y + 19, 7 ,11, true);
         this.leftOutputCycleButton.setTextures(LEFT_CYCLE_OUTPUT_BUTTON_TEXTURES);
 
-        this.rightOutputCycleButton = new ToggleButtonWidget(x + 81, y + 36, 7,11, true);
+        this.rightOutputCycleButton = new ToggleButtonWidget(x + 100, y + 19, 7,11, true);
         this.rightOutputCycleButton.setTextures(RIGHT_CYCLE_OUTPUT_BUTTON_TEXTURES);
 
         addDrawableChild(leftOutputCycleButton);
@@ -73,14 +74,6 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
         context.drawTexture(TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
-
-        renderProgressArrow(context, x, y);
-    }
-
-    private void renderProgressArrow(DrawContext context, int x, int y) {
-        if(handler.isBonking()) {
-            context.drawTexture(TEXTURE, x + 97, y + 34, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17);
-        }
     }
 
     @Override
@@ -91,10 +84,13 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
+        context.drawItem(ModToolItems.SMITHING_HAMMER.getDefaultStack(), x + 80, y + 34);
+
+
         if (this.handler.getOutput().isEmpty()){
-            context.drawTexture(TEXTURE, x + 63, y + 36, 177, 115,12, 12);
+            context.drawTexture(TEXTURE, x + 82, y + 19, 177, 115,12, 12);
         } else {
-            context.drawItem(this.handler.getOutput(), x + 61, y + 34);
+            context.drawItem(this.handler.getOutput(), x + 80, y + 17);
         }
     }
 }

@@ -15,6 +15,7 @@
     "PlayerEntityMixin",
     "PlayerMixin",
     "PotionEntityMixin",
+    "RepairItemRecipeMixin",
     "ServerPlayNetworkHandlerMixin",
     "ServerWorldMixin",
     "ShearItemMixin",

@@ -16,18 +16,17 @@ import net.minecraft.world.World;
 
 public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<ShapingAnvilBlockEntity> {
 
+    private final BlockEntityRendererFactory.Context context;
+
     public ShapingAnvilEntityRenderer(BlockEntityRendererFactory.Context context) {
+        this.context = context;
     }
 
     @Override
     public void render(ShapingAnvilBlockEntity entity, float tickDelta, MatrixStack matrices,
                        VertexConsumerProvider vertexConsumers, int light, int overlay) {
 
-        ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
-
         ItemStack stack = entity.getRenderStack();
-
-        if(stack.isEmpty()) return;
 
         matrices.push();
         matrices.translate(0.5f, 1.0f, 0.5f);
@@ -43,7 +42,7 @@ public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<ShapingAn
 
         int currentLight = getLightLevel(entity.getWorld(), entity.getPos());
 
-        itemRenderer.renderItem(stack, ModelTransformationMode.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
+        this.context.getItemRenderer().renderItem(stack, ModelTransformationMode.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
                 matrices, vertexConsumers, entity.getWorld(), 1);
 
         matrices.pop();

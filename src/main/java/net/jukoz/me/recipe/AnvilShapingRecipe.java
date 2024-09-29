@@ -43,6 +43,7 @@ public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
         return this.output.copy();
     }
 
+
     @Override
     public boolean fits(int width, int height) {
         return true;

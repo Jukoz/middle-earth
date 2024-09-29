@@ -29,21 +29,20 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
 
 
     public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos blockPos) {
-        this(syncId, playerInventory, new SimpleInventory(2), new ArrayPropertyDelegate(3));
+        this(syncId, playerInventory, new SimpleInventory(1), new ArrayPropertyDelegate(1));
         this.pos = blockPos;
     }
 
     public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
         super(ModScreenHandlers.TREATED_ANVIL_SCREEN_HANDLER, syncId);
-        checkSize(inventory, 2);
+        checkSize(inventory, 1);
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);
         this.propertyDelegate = delegate;
         this.pos = BlockPos.ORIGIN;
         this.world = playerInventory.player.getWorld();
 
-        this.addSlot(new ShapingAnvilSlot(inventory, 0, 23, 34));
-        this.addSlot(new ShapingAnvilOutputSlot(inventory, 1, 134, 34));
+        this.addSlot(new ShapingAnvilSlot(inventory, 0, 80, 53));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -86,19 +85,9 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
 
         if(match.isEmpty()) return ItemStack.EMPTY;
 
-        if(match.get(this.propertyDelegate.get(1)).value().getOutput().isEmpty()) return ItemStack.EMPTY;
+        if(match.get(this.propertyDelegate.get(0)).value().getOutput().isEmpty()) return ItemStack.EMPTY;
 
-        return match.get(this.propertyDelegate.get(1)).value().getOutput();
-    }
-
-    public boolean isBonking() {
-        return propertyDelegate.get(0) > 0;
-    }
-
-    public float getScaledProgress() {
-        int progress = this.propertyDelegate.get(0);
-
-        return (float) progress / ShapingAnvilBlockEntity.MAX_PROGRESS;
+        return match.get(this.propertyDelegate.get(0)).value().getOutput();
     }
 
     public boolean canUse(PlayerEntity player) {

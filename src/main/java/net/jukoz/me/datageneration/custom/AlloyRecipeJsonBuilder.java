@@ -41,7 +41,6 @@ public class AlloyRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
         this.metalAmount = metalAmount;
     }
 
-
     @Override
     public CraftingRecipeJsonBuilder group(@Nullable String group) {
         this.group = group;
@@ -97,7 +96,7 @@ public class AlloyRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
         Advancement.Builder builder = exporter.getAdvancementBuilder().criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
         Objects.requireNonNull(builder);
         this.criteria.forEach(builder::criterion);
-        AlloyingRecipe alloyRecipeJsonBuilder = new AlloyingRecipe(this.metalOutput, this.inputs, this.metalAmount);
+        AlloyingRecipe alloyRecipeJsonBuilder = new AlloyingRecipe((String)Objects.requireNonNullElse(this.group, ""), CraftingRecipeJsonBuilder.toCraftingCategory(this.category), this.metalOutput, this.inputs, this.metalAmount);
         exporter.accept(recipeId, alloyRecipeJsonBuilder, builder.build(recipeId.withPrefixedPath("recipes/" + this.category.getName() + "/")));
     }
 

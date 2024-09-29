@@ -47,24 +47,23 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 import java.util.Optional;
 
 public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
     private static final String ID = "shaping_anvil";
 
-    public int progress = 0;
-    public static final int MAX_PROGRESS = 100;
-
     public int outputIndex = 0;
     public int maxOutputIndex = 0;
 
     public final DefaultedList<ItemStack> inventory =
-            DefaultedList.ofSize(2, ItemStack.EMPTY);
+            DefaultedList.ofSize(1, ItemStack.EMPTY);
 
     protected final PropertyDelegate propertyDelegate;
 
-    //TODO rendering of item not updated when both slots empty
+    //TODO rendering of item not updated when slot empty or first input, only updated when crafted, on first input it works when reloading the world
+    //TODO GUI quick move broke
 
     public ShapingAnvilBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.SHAPING_ANVIL, pos, state);
@@ -72,26 +71,24 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
-                return switch (index){
-                    case 0 -> ShapingAnvilBlockEntity.this.progress;
-                    case 1 -> ShapingAnvilBlockEntity.this.outputIndex;
-                    case 2 -> ShapingAnvilBlockEntity.this.maxOutputIndex;
-                    default -> throw new IllegalStateException("Unexpected value: " + index);
-                };
+                if (index == 0) {
+                    return ShapingAnvilBlockEntity.this.outputIndex;
+                } else {
+                    throw new IllegalStateException("Unexpected value: " + index);
+                }
             }
             @Override
             public void set(int index, int value) {
-                switch (index){
-                    case 0 -> ShapingAnvilBlockEntity.this.progress = value;
-                    case 1 -> ShapingAnvilBlockEntity.this.outputIndex = value;
-                    case 2 -> ShapingAnvilBlockEntity.this.maxOutputIndex = value;
-                    default -> throw new IllegalStateException("Unexpected value: " + index);
-                };
+                if (index == 0) {
+                    ShapingAnvilBlockEntity.this.outputIndex = value;
+                } else {
+                    throw new IllegalStateException("Unexpected value: " + index);
+                }
             }
 
             @Override
             public int size() {
-                return 3;
+                return 1;
             }
         };
     }
@@ -120,15 +117,7 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     public ItemStack getRenderStack() {
-        if (this.getStack(1).isEmpty()){
-            if (this.getStack(0).isEmpty()){
-                return ItemStack.EMPTY;
-            } else {
-                return this.getStack(0);
-            }
-        } else {
-            return this.getStack(1);
-        }
+        return this.getStack(0);
     }
 
     public void bonk(ShapingAnvilBlockEntity entity){
@@ -137,8 +126,15 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
         List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
             .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());
 
-        if (!match.isEmpty() && input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null  && hasShapingRecipe(entity) && entity.getStack(1).isEmpty()){
-            this.progress += 20;
+        if (!match.isEmpty() && input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null  && hasShapingRecipe(entity)){
+
+            if (input.getMaxDamage() == 0 && input.getDamage() == 0){
+                input.set(DataComponentTypes.MAX_DAMAGE, 100);
+                input.setDamage(100);
+                input.setDamage(input.getDamage() - 20);
+            } else{
+                input.setDamage(input.getDamage() - 20);
+            }
 
             World serverWorld = this.getWorld();
             if (serverWorld instanceof ServerWorld) {
@@ -150,10 +146,9 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
             RegistryWrapper.Impl<ArmorTrimMaterial>  armorTrimMaterialRegistry = entity.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.TRIM_MATERIAL);
             RegistryWrapper.Impl<ArmorTrimPattern>  armorTrimPatternRegistry = entity.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.TRIM_PATTERN);
 
-            if (progress >= MAX_PROGRESS){
+            if (input.getDamage() == 0){
                 ItemStack output = match.get(entity.outputIndex).value().craft(new SingleStackRecipeInput(input), entity.world.getRegistryManager());
 
-                entity.removeStack(0);
                 if(input.get(DataComponentTypes.TRIM) != null){
                     output.set(DataComponentTypes.TRIM, input.get(DataComponentTypes.TRIM));
                     output.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature()));
@@ -166,9 +161,8 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
                         output.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature()));
                     }
                 }
-                entity.setStack(1, output);
+                entity.setStack(0, output);
                 update();
-                progress = 0;
             }
         }
     }
@@ -180,11 +174,14 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
                     .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());;
             if(!match.isEmpty()){
                 entity.maxOutputIndex = match.size() - 1;
+                markDirty(world, blockPos, blockState);
             } else {
                 entity.maxOutputIndex = 0;
+                markDirty(world, blockPos, blockState);
             }
         } else {
             entity.maxOutputIndex = 0;
+            markDirty(world, blockPos, blockState);
         }
     }
 
@@ -204,19 +201,16 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
         return match.getFirst().value().getOutput() != null;
     }
 
-
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
         Inventories.writeNbt(nbt, inventory, registryLookup);
-        nbt.putInt(ID + ".progress", progress);
     }
 
     @Override
     public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
         Inventories.readNbt(nbt, inventory, registryLookup);
-        progress = nbt.getInt(ID + ".progress");
     }
 
     @Override
@@ -251,9 +245,8 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     private void update() {
+        world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
         markDirty();
-        if(world != null)
-            world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
     }
 
     @Override
