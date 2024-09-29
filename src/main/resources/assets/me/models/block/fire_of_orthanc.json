@@ -1,9 +1,9 @@
 {
 	"texture_size": [80, 48],
 	"textures": {
-		"2": "me:block/black_powder",
+		"2": "me:block/blackpowder",
 		"5": "me:block/fire_of_orthanc",
-		"particle": "me:block/black_powder"
+		"particle": "me:block/blackpowder"
 	},
 	"elements": [
 		{
