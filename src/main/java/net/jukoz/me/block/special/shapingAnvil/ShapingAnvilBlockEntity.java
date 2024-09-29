@@ -30,6 +30,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
@@ -62,8 +63,7 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
     protected final PropertyDelegate propertyDelegate;
 
-    //TODO rendering of item not updated when slot empty or first input, only updated when crafted, on first input it works when reloading the world
-    //TODO GUI quick move broke
+    //TODO rendering of item not updated when slot empty
 
     public ShapingAnvilBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.SHAPING_ANVIL, pos, state);
@@ -103,21 +103,25 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
             if (left){
                 if(entity.outputIndex == 0){
                     entity.outputIndex = entity.maxOutputIndex;
+                    entity.update();
                 } else {
                     entity.outputIndex -= 1;
+                    entity.update();
                 }
             } else{
                 if (entity.outputIndex == entity.maxOutputIndex){
                     entity.outputIndex = 0;
+                    entity.update();
                 } else {
                     entity.outputIndex += 1;
+                    entity.update();
                 }
             }
         }
     }
 
-    public ItemStack getRenderStack() {
-        return this.getStack(0);
+    public ItemStack getRenderStack(ShapingAnvilBlockEntity entity) {
+        return entity.getStack(0);
     }
 
     public void bonk(ShapingAnvilBlockEntity entity){
@@ -162,7 +166,7 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
                     }
                 }
                 entity.setStack(0, output);
-                update();
+                entity.update();
             }
         }
     }
@@ -174,14 +178,14 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
                     .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());;
             if(!match.isEmpty()){
                 entity.maxOutputIndex = match.size() - 1;
-                markDirty(world, blockPos, blockState);
+                entity.update();
             } else {
                 entity.maxOutputIndex = 0;
-                markDirty(world, blockPos, blockState);
+                entity.update();
             }
         } else {
             entity.maxOutputIndex = 0;
-            markDirty(world, blockPos, blockState);
+            entity.update();
         }
     }
 
@@ -204,13 +208,14 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        Inventories.writeNbt(nbt, inventory, registryLookup);
+        Inventories.writeNbt(nbt, this.inventory, true, registryLookup);
     }
 
     @Override
     public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
-        Inventories.readNbt(nbt, inventory, registryLookup);
+        this.inventory.clear();
+        Inventories.readNbt(nbt, this.inventory, registryLookup);
     }
 
     @Override
@@ -244,9 +249,9 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
         return slots;
     }
 
-    private void update() {
-        world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
+    public void update() {
         markDirty();
+        world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
     }
 
     @Override
@@ -282,13 +287,15 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
     @Override
     public ItemStack removeStack(int slot, int amount) {
-        update();
-        return Inventories.splitStack(this.inventory, slot, amount);
+        ItemStack result = Inventories.splitStack(inventory, slot, amount);
+        if (!result.isEmpty()) {
+            update();
+        }
+        return result;
     }
 
     @Override
     public ItemStack removeStack(int slot) {
-        update();
         return Inventories.removeStack(inventory, slot);
     }
 
@@ -297,8 +304,8 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
         inventory.set(slot, stack);
         if (stack.getCount() > getMaxCountPerStack()) {
             stack.setCount(getMaxCountPerStack());
-            update();
         }
+        update();
     }
 
     @Override

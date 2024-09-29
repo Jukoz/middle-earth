@@ -26,7 +26,9 @@ public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<ShapingAn
     public void render(ShapingAnvilBlockEntity entity, float tickDelta, MatrixStack matrices,
                        VertexConsumerProvider vertexConsumers, int light, int overlay) {
 
-        ItemStack stack = entity.getRenderStack();
+        ItemStack stack = entity.getRenderStack(entity);
+
+        if(stack.isEmpty()) return;
 
         matrices.push();
         matrices.translate(0.5f, 1.0f, 0.5f);

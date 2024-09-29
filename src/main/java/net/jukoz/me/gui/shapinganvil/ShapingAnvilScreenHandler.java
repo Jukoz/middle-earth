@@ -16,6 +16,7 @@ import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -26,7 +27,6 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
     private final PropertyDelegate propertyDelegate;
     protected BlockPos pos;
     private final World world;
-
 
     public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos blockPos) {
         this(syncId, playerInventory, new SimpleInventory(1), new ArrayPropertyDelegate(1));
@@ -51,26 +51,28 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int slot) {
-        ItemStack stack = ItemStack.EMPTY;
-        Slot invSlot = this.slots.get(slot);
-
-        if(invSlot.hasStack()) {
-            ItemStack originalStack = invSlot.getStack();
-            if(slot < this.inventory.size()) {
-                if(!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
+    public ItemStack quickMove(PlayerEntity player, int invSlot) {
+        ItemStack newStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(invSlot);
+        if (slot != null && slot.hasStack()) {
+            ItemStack originalStack = slot.getStack();
+            newStack = originalStack.copy();
+            if (invSlot < this.inventory.size()) {
+                if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(originalStack, 0, this.inventory.size() - 1, false)) {
+            } else if (!this.insertItem(originalStack, 0, this.inventory.size(), false)) {
                 return ItemStack.EMPTY;
             }
+
             if (originalStack.isEmpty()) {
-                invSlot.setStack(ItemStack.EMPTY);
+                slot.setStack(ItemStack.EMPTY);
             } else {
-                invSlot.markDirty();
+                slot.markDirty();
             }
         }
-        return stack;
+
+        return newStack;
     }
 
     public BlockPos getPos() {
