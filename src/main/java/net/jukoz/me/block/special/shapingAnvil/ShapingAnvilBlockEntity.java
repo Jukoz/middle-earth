@@ -39,6 +39,8 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
@@ -63,7 +65,14 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
     protected final PropertyDelegate propertyDelegate;
 
-    //TODO rendering of item not updated when slot empty
+    //TODO tooltip showing output
+    //TODO tooltip hammer for stupid
+    //TODO remove great axe head
+    //TODO update voxel shape
+    //TODO small particles when bonk and empty
+    //TODO make work in creative somehow
+    //TODO screen crash index output mismatch
+    //TODO inverted models rendering + tweaks
 
     public ShapingAnvilBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.SHAPING_ANVIL, pos, state);
@@ -165,6 +174,7 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
                         output.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature()));
                     }
                 }
+                entity.getWorld().playSoundAtBlockCenter(pos, SoundEvents.BLOCK_ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f, true);
                 entity.setStack(0, output);
                 entity.update();
             }
