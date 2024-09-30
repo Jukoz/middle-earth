@@ -2,6 +2,8 @@ package net.jukoz.me.item.items.weapons;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.utils.ModWeaponTypes;
+import net.jukoz.me.utils.ModFactions;
+import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.component.type.AttributeModifierSlot;
@@ -24,35 +26,35 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class CustomAxeWeaponItem extends AxeItem {
-    private final MutableText faction;
-    private final MutableText subFaction;
+    private final ModFactions faction;
+    private final ModSubFactions subFaction;
 
     private final ModWeaponTypes type;
 
     public CustomAxeWeaponItem(Settings settings, ToolMaterial toolMaterial) {
         super(toolMaterial, settings.attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
-        this.faction = Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic");
+        this.faction = ModFactions.NONE;
         this.subFaction = null;
         this.type = ModWeaponTypes.AXE;
     }
 
     public CustomAxeWeaponItem(ToolMaterial toolMaterial) {
         super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
-        this.faction = Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic");
+        this.faction = ModFactions.NONE;
         this.subFaction = null;
         this.type = ModWeaponTypes.AXE;
     }
 
-    public CustomAxeWeaponItem(ToolMaterial toolMaterial,  MutableText faction) {
+    public CustomAxeWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
         super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
         this.faction = faction;
         this.subFaction = null;
         this.type = ModWeaponTypes.AXE;
     }
 
-    public CustomAxeWeaponItem(ToolMaterial toolMaterial,  MutableText faction, MutableText subFaction) {
+    public CustomAxeWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
         super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
-        this.faction = faction;
+        this.faction = subFaction.getParent();
         this.subFaction = subFaction;
         this.type = ModWeaponTypes.AXE;
     }
@@ -75,13 +77,13 @@ public class CustomAxeWeaponItem extends AxeItem {
         tooltip.add(Text.of(""));
         if (Screen.hasShiftDown()) {
             if(this.type != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name));
             }
             if(this.faction != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(this.faction));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
             }
             if (this.subFaction != null) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(this.subFaction));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
             }
             tooltip.add(Text.of(""));
         } else {

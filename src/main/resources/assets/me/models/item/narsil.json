@@ -1,0 +1,14 @@
+{
+  "parent": "me:item/big_weapon",
+  "textures": {
+    "layer0": "me:item/narsil"
+  },
+  "overrides": [
+        {
+            "predicate": {
+                "broken": 1
+            },
+            "model": "me:item/narsil_broken"
+        }
+    ]
+}

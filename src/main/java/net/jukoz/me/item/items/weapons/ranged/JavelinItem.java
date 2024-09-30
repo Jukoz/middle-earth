@@ -54,12 +54,12 @@ public class JavelinItem extends ToolItem {
 
     @Override
     public UseAction getUseAction(ItemStack stack) {
-        return UseAction.BOW;
+        return UseAction.SPEAR;
     }
 
     @Override
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
-        return 72000;
+        return 48000;
     }
 
 
@@ -77,7 +77,7 @@ public class JavelinItem extends ToolItem {
         float percentage = (float) i / STRENGTH_CHARGE_TIME;
 
         if (!world.isClient) {
-            SpearEntity spearEntity = new SpearEntity(world, this, user, getAttackDamage() * percentage);
+            SpearEntity spearEntity = new SpearEntity(world, stack, user, getAttackDamage() * percentage);
             spearEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0f, BASE_STRENGTH + (CHARGE_STRENGTH * percentage), 1.0f);
 
             world.spawnEntity(spearEntity);

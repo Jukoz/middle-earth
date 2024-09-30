@@ -42,7 +42,7 @@ import net.jukoz.me.entity.orcs.misties.MistyGoblinRenderer;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
 import net.jukoz.me.entity.pheasant.PheasantRenderer;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntityRenderer;
-import net.jukoz.me.entity.projectile.spear.JavelinEntityRenderer;
+import net.jukoz.me.entity.projectile.spear.SpearEntityRenderer;
 import net.jukoz.me.entity.seat.SeatRenderer;
 import net.jukoz.me.entity.snail.SnailRenderer;
 import net.jukoz.me.entity.spider.MirkwoodSpiderRenderer;
@@ -172,7 +172,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.PEBBLE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.PINECONE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.LIT_PINECONE, FlyingItemEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.SPEAR, JavelinEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.SPEAR, SpearEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
 
         SimpleDyeableItemModel.items.forEach(this::registerDyeableItem);
@@ -250,6 +250,21 @@ public class MiddleEarthClient implements ClientModInitializer {
             for(Item item : SimpleBigItemModel.items) {
                 Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
                 pluginContext.addModels(identifier);
+            }
+
+            for(Item item : SimpleBigItemModel.artefacts) {
+                Identifier identifier = VariantsModelProvider.getInventoryModelIdentifierVariant(item);
+                pluginContext.addModels(identifier);
+            }
+
+            for(Item item : SimpleBigItemModel.artefactsGlowing) {
+                Identifier identifierGlowing = VariantsModelProvider.getInventoryModelGlowingItem(item);
+                pluginContext.addModels(identifierGlowing);
+            }
+
+            for(Item item : SimpleBigItemModel.artefactsBroken) {
+                Identifier identifierBroken = VariantsModelProvider.getInventoryModelBrokenItem(item);
+                pluginContext.addModels(identifierBroken);
             }
 
             for(Item item : SimpleSpearModel.items) {

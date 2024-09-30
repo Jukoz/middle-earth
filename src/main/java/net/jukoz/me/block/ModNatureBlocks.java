@@ -271,7 +271,7 @@ public class ModNatureBlocks {
     public static final Block FLOWERING_MALLORN_LEAVES = registerBlock("flowering_mallorn_leaves",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
     public static final Block FALLEN_MALLORN_LEAVES = registerBlock("fallen_mallorn_leaves",
-            new CarpetBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque()), true);
+            new FallenLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque()), true);
 
     public static final Block MAPLE_LEAVES = registerBlock("maple_leaves",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);

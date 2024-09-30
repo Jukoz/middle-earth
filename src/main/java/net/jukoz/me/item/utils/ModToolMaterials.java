@@ -24,8 +24,10 @@ public enum ModToolMaterials implements ToolMaterial
     NOBLE_ELVEN_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.ELVEN_STEEL_INGOT)),
     DWARVEN_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT)),
     NOBLE_DWARVEN_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT)),
-    MORGUL_STEEL(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 800, 7.5f, 2.0f, 12, () -> Ingredient.ofItems(ModResourceItems.MORGUL_STEEL_INGOT)),
-    MITHRIL(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2031, 9.0f, 2.0f, 15, () -> Ingredient.ofItems(ModResourceItems.MITHRIL_INGOT));
+    ARTEFACT(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.DWARVEN_STEEL_INGOT)),
+    MITHRIL(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2031, 9.0f, 2.0f, 15, () -> Ingredient.ofItems(ModResourceItems.MITHRIL_INGOT)),
+
+    MORGUL_KNIFE(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 2, 7.0f, 2.0f, 10, () -> Ingredient.ofItems(ModResourceItems.STEEL_INGOT));
 
     private final TagKey<Block> inverseTag;
     private final int itemDurability;

@@ -7,6 +7,7 @@ import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
+import net.jukoz.me.entity.orcs.OrcNpcEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.minecraft.component.type.DyedColorComponent;
@@ -31,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class MordorOrcEntity extends NpcEntity {
+public class MordorOrcEntity extends OrcNpcEntity {
     public MordorOrcEntity(EntityType<? extends NpcEntity> entityType, World world) {
         super(entityType, world);
         String name = this.getDefaultName().toString();
@@ -39,7 +40,7 @@ public class MordorOrcEntity extends NpcEntity {
             this.setRank(RANK.MILITIA);
             this.setBow(Items.BOW);
         } else if (name.contains("soldier")) {
-            this.setRank(RANK.SOLDIER);
+            this.setRank(NpcEntity.RANK.SOLDIER);
             this.setBow(Items.BOW);
         }
     }
