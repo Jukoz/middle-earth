@@ -1,31 +1,23 @@
 package net.jukoz.me.entity.projectile.spear;
 
 import net.jukoz.me.entity.ModEntities;
-import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.item.ModWeaponItems;
-import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtHelper;
-import net.minecraft.particle.EntityEffectParticleEffect;
-import net.minecraft.particle.ItemStackParticleEffect;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class SpearEntity extends PersistentProjectileEntity {
@@ -56,11 +48,53 @@ public class SpearEntity extends PersistentProjectileEntity {
         return SoundEvents.ITEM_TRIDENT_HIT;
     }
 
+    @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        super.onEntityHit(entityHitResult);
+        ServerWorld serverWorld;
         Entity entity = entityHitResult.getEntity();
-        if(this.getOwner() instanceof ShireHobbitEntity && entity instanceof ShireHobbitEntity) return;
-        entity.damage(this.getDamageSources().thrown(this, this.getOwner()), this.damage);
+        float f = 8.0f;
+        Entity entity2 = this.getOwner();
+        DamageSource damageSource = this.getDamageSources().trident(this, entity2 == null ? this : entity2);
+        World world = this.getWorld();
+
+        if (entity.damage(damageSource, f)) {
+            if (entity.getType() == EntityType.ENDERMAN) {
+                return;
+            }
+            world = this.getWorld();
+            if (world instanceof ServerWorld) {
+                serverWorld = (ServerWorld)world;
+                EnchantmentHelper.onTargetDamaged(serverWorld, entity, damageSource, this.getWeaponStack());
+            }
+            if (entity instanceof LivingEntity) {
+                LivingEntity livingEntity = (LivingEntity)entity;
+                this.knockback(livingEntity, damageSource);
+                this.onHit(livingEntity);
+            }
+        }
+        this.setVelocity(this.getVelocity().multiply(-0.01, -0.1, -0.01));
+        this.playSound(SoundEvents.ITEM_TRIDENT_HIT, 1.0f, 1.0f);
+    }
+
+    protected void knockback(LivingEntity target, DamageSource source) {
+        float f;
+        World world;
+        if (this.getItemStack() != null && (world = this.getWorld()) instanceof ServerWorld) {
+            ServerWorld serverWorld = (ServerWorld)world;
+            f = EnchantmentHelper.modifyKnockback(serverWorld, this.getItemStack(), target, source, 0.0f);
+        } else {
+            f = 0.0f;
+        }
+        double d = f;
+        double e = Math.max(0.0, 1.0 - target.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE));
+        Vec3d velocity = this.getVelocity();
+        velocity = velocity.multiply(1.0, 0.0, 1.0);
+        velocity = velocity.normalize();
+        Vec3d vec3d = velocity.multiply(1.45 * e + d * 1.5 * e);
+        if (vec3d.lengthSquared() > 0.0) {
+            target.addVelocity(vec3d.x, 0.15, vec3d.z);
+        }
+
     }
 
     @Override

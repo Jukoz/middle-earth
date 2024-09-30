@@ -42,7 +42,7 @@ import net.jukoz.me.entity.orcs.misties.MistyGoblinRenderer;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcRenderer;
 import net.jukoz.me.entity.pheasant.PheasantRenderer;
 import net.jukoz.me.entity.projectile.boulder.BoulderEntityRenderer;
-import net.jukoz.me.entity.projectile.spear.JavelinEntityRenderer;
+import net.jukoz.me.entity.projectile.spear.SpearEntityRenderer;
 import net.jukoz.me.entity.seat.SeatRenderer;
 import net.jukoz.me.entity.snail.SnailRenderer;
 import net.jukoz.me.entity.spider.MirkwoodSpiderRenderer;
@@ -59,7 +59,6 @@ import net.jukoz.me.gui.wood_pile.WoodPileScreen;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
-import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.utils.ModArmorModels;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
@@ -173,7 +172,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.PEBBLE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.PINECONE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.LIT_PINECONE, FlyingItemEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.SPEAR, JavelinEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.SPEAR, SpearEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
 
         SimpleDyeableItemModel.items.forEach(this::registerDyeableItem);

@@ -5,6 +5,7 @@ import net.jukoz.me.item.utils.ModWeaponTypes;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -39,6 +40,11 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
 
     public CustomSpearWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
         super(toolMaterial, subFaction, ModWeaponTypes.SPEAR);
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+        super.inventoryTick(stack, world, entity, slot, selected);
     }
 
     public float getAttackDamage() {
@@ -80,7 +86,11 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
         pullProgress = (float) i / STRENGTH_CHARGE_TIME;
 
         if (!world.isClient) {
-            SpearEntity spearEntity = new SpearEntity(world, stack, user, getAttackDamage() * pullProgress);
+            float damage = getAttackDamage() * pullProgress;
+            if(getAttackDamage() >= 2.0) {
+                damage += 10.0f;
+            }
+            SpearEntity spearEntity = new SpearEntity(world, stack, user, damage);
             spearEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0f, BASE_STRENGTH + (CHARGE_STRENGTH * pullProgress), 1.0f);
             world.spawnEntity(spearEntity);
             world.playSoundFromEntity(null, spearEntity, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.PLAYERS, 1.0f, 0.7f);

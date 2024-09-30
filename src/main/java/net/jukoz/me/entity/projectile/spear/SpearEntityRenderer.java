@@ -10,9 +10,6 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.FlyingItemEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -20,21 +17,21 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 
 @Environment(EnvType.CLIENT)
-public class JavelinEntityRenderer<T extends SpearEntity> extends EntityRenderer<T> {
+public class SpearEntityRenderer<T extends SpearEntity> extends EntityRenderer<T> {
     private static final float MIN_DISTANCE = 12.25F;
     private static final float SCALE = 1.5F;
     private final ItemRenderer itemRenderer;
     private final float scale;
     private final boolean lit;
 
-    public JavelinEntityRenderer(EntityRendererFactory.Context ctx, float scale, boolean lit) {
+    public SpearEntityRenderer(EntityRendererFactory.Context ctx, float scale, boolean lit) {
         super(ctx);
         this.itemRenderer = ctx.getItemRenderer();
         this.scale = SCALE * scale;
         this.lit = lit;
     }
 
-    public JavelinEntityRenderer(EntityRendererFactory.Context context) {
+    public SpearEntityRenderer(EntityRendererFactory.Context context) {
         this(context, 1.0F, false);
     }
 
