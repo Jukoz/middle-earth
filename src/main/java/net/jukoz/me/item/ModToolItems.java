@@ -65,8 +65,8 @@ public class ModToolItems {
 
     public static final Item BURZUM_STEEL_PICKAXE = registerItemHandheld("burzum_steel_pickaxe",
             new PickaxeItem(ModToolMaterials.BURZUM_STEEL, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.BURZUM_STEEL, 1.0f, -2.8f))));
-    public static final Item BURZUM_STEEL_AXE = registerItemHandheld("burzum_steel_axe",
-            new AxeItem(ModToolMaterials.BURZUM_STEEL, new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.BURZUM_STEEL, 6.0f, -3.1f))));
+    public static final Item BURZUM_STEEL_AXE = registerItemWithModel("burzum_steel_axe",
+            new AxeItem(ModToolMaterials.BURZUM_STEEL, new Item.Settings().attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.BURZUM_STEEL, 6.0f, -3.1f))), true);
     public static final Item BURZUM_STEEL_SHOVEL = registerItemHandheld("burzum_steel_shovel",
             new ShovelItem(ModToolMaterials.BURZUM_STEEL, new Item.Settings().attributeModifiers(ShovelItem.createAttributeModifiers(ModToolMaterials.BURZUM_STEEL, 1.5f, -3.0f))));
     public static final Item BURZUM_STEEL_HOE = registerItemHandheld("burzum_steel_hoe",

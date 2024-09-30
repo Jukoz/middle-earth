@@ -103,7 +103,8 @@ public class ForgeHeatingScreen extends HandledScreen<ForgeHeatingScreenHandler>
         if (mouseX >= x + 7 && mouseX <= x + 21 && mouseY >= y + 55 && mouseY <= y + 69){
             context.drawOrderedTooltip(this.client.textRenderer, Lists.transform(
                     List.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_mode_heating"),
-                    Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_mode_heating_switch").formatted(Formatting.GOLD)
+                    Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_mode_heating_switch").formatted(Formatting.GOLD),
+                            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_mode_heating_switch_2").formatted(Formatting.GOLD)
                     ), Text::asOrderedText), mouseX, mouseY);
         }
     }

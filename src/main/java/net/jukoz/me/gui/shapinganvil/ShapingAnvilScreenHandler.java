@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
@@ -29,7 +30,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
     private final World world;
 
     public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos blockPos) {
-        this(syncId, playerInventory, new SimpleInventory(1), new ArrayPropertyDelegate(1));
+        this(syncId, playerInventory, new SimpleInventory(1), new ArrayPropertyDelegate(2));
         this.pos = blockPos;
     }
 
@@ -85,9 +86,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         List<RecipeEntry<AnvilShapingRecipe>> match = this.world.getRecipeManager()
                 .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), this.world);
 
-        if(match.isEmpty()) return ItemStack.EMPTY;
-
-        if(match.get(this.propertyDelegate.get(0)).value().getOutput().isEmpty()) return ItemStack.EMPTY;
+        if (match.isEmpty()) return ItemStack.EMPTY;
 
         return match.get(this.propertyDelegate.get(0)).value().getOutput();
     }

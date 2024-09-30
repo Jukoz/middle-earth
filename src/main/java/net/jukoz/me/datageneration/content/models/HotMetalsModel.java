@@ -56,7 +56,6 @@ public class HotMetalsModel {
             add(ModResourceItems.BLADE);
             add(ModResourceItems.SHORT_BLADE);
             add(ModResourceItems.LONG_BLADE);
-            add(ModResourceItems.GREAT_AXE_HEAD);
             add(ModResourceItems.SWORD_HILT);
             add(ModResourceItems.ROD);
             add(ModResourceItems.LARGE_ROD);
@@ -76,7 +75,6 @@ public class HotMetalsModel {
             add(new ShapingItem(ModResourceItems.ROD, ModResourceItems.BLADE));
             add(new ShapingItem(ModResourceItems.ROD, ModResourceItems.HOE_HEAD));
 
-            add(new ShapingItem(ModResourceItems.LARGE_ROD, ModResourceItems.GREAT_AXE_HEAD));
             add(new ShapingItem(ModResourceItems.LARGE_ROD, ModResourceItems.LONG_BLADE));
             add(new ShapingItem(ModResourceItems.LARGE_ROD, ModResourceItems.AXE_HEAD));
             add(new ShapingItem(ModResourceItems.LARGE_ROD, ModResourceItems.PICKAXE_HEAD));

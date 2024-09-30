@@ -159,8 +159,6 @@ public class ModResourceItems {
             new SmithingMaterialItem(new Item.Settings().maxCount(16)));
     public static final Item LONG_BLADE = registerItem("long_blade",
             new SmithingMaterialItem(new Item.Settings().maxCount(16)));
-    public static final Item GREAT_AXE_HEAD = registerItem("great_axe_head",
-            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
     public static final Item SWORD_HILT = registerItem("sword_hilt",
             new SmithingMaterialItem(new Item.Settings().maxCount(16)));
 

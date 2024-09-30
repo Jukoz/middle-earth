@@ -3,7 +3,7 @@
 	"parent": "me:item/spear",
 	"texture_size": [32, 48],
 	"textures": {
-		"10": "me:item/slag_spear"
+		"10": "me:item/crude_spear"
 	},
 	"elements": [
 		{
@@ -162,7 +162,7 @@
 		}
 	],
 	"overrides": [
-		{"predicate": {"holding": 1}, "model": "me:item/slag_spear_holding"}
+		{"predicate": {"holding": 1}, "model": "me:item/crude_spear_holding"}
 	],
 	"groups": [
 		{

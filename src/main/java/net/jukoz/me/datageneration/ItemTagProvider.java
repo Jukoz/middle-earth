@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.OreRockSets;
+import net.jukoz.me.datageneration.content.models.HotMetalsModel;
 import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
 import net.jukoz.me.datageneration.content.tags.*;
 import net.jukoz.me.item.ModEquipmentItems;
@@ -43,6 +44,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> logs_that_burn = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "logs_that_burn"));
         TagKey<Item> stone_crafting_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "stone_crafting_materials"));
         TagKey<Item> stone_tool_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "stone_tool_materials"));
+
+        TagKey<Item> ingot_shaping = TagKey.of(RegistryKeys.ITEM, Identifier.of("me", "ingot_shaping"));
+        TagKey<Item> nugget_shaping = TagKey.of(RegistryKeys.ITEM, Identifier.of("me", "nugget_shaping"));
 
         TagKey<Item> tin_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("me", "tin_ores"));
         TagKey<Item> lead_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("me", "lead_ores"));
@@ -139,6 +143,14 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         LogsThatBurn.logsThatBurn.forEach(log -> {
             getOrCreateTagBuilder(logs_that_burn).add(log.asItem());
+        });
+
+        HotMetalsModel.ingots.forEach(ingot -> {
+            getOrCreateTagBuilder(ingot_shaping).add(ingot);
+        });
+
+        HotMetalsModel.nuggets.forEach(nugget -> {
+            getOrCreateTagBuilder(nugget_shaping).add(nugget);
         });
 
         Stones.stones.forEach(stone -> {

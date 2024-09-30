@@ -27,15 +27,18 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class ShapingAnvilBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
@@ -52,7 +55,27 @@ public class ShapingAnvilBlock extends BlockWithEntity implements BlockEntityPro
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(1, 0, 1, 15, 16, 15);
+        switch (state.get(FACING)){
+            case NORTH, SOUTH -> {
+                return Stream.of(
+                        Block.createCuboidShape(1, 0, 1, 15, 6, 15),
+                        Block.createCuboidShape(1, 12, 4, 15, 16, 12),
+                        Block.createCuboidShape(3, 6, 3, 13, 8, 13),
+                        Block.createCuboidShape(4, 8, 5, 12, 12, 11)
+                ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();
+            }
+            case EAST, WEST -> {
+                return Stream.of(
+                        Block.createCuboidShape(1, 0, 1, 15, 6, 15),
+                        Block.createCuboidShape(4, 12, 1, 12, 16, 15),
+                        Block.createCuboidShape(3, 6, 3, 13, 8, 13),
+                        Block.createCuboidShape(5, 8, 4, 11, 12, 12)
+                ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();
+            }
+            default -> {
+                return Block.createCuboidShape(1, 0, 1, 15, 16, 15);
+            }
+        }
     }
 
     @Override
@@ -93,8 +116,10 @@ public class ShapingAnvilBlock extends BlockWithEntity implements BlockEntityPro
 
     @Override
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+
         return super.onBreak(world, pos, state, player);
     }
+
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
@@ -122,8 +147,6 @@ public class ShapingAnvilBlock extends BlockWithEntity implements BlockEntityPro
                 ShapingAnvilBlockEntity shapingAnvilBlockEntity = blockEntity.get();
                 shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity);
             }
-
-            world.playSoundAtBlockCenter(pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f, 1.0f, true);
         }
     }
 

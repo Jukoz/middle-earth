@@ -1209,7 +1209,6 @@ public class ModelProvider extends FabricModelProvider {
         registerPalettedItem(ModResourceItems.BLADE, itemModelGenerator);
         registerPalettedItem(ModResourceItems.SHORT_BLADE, itemModelGenerator);
         registerPalettedItem(ModResourceItems.LONG_BLADE, itemModelGenerator);
-        registerPalettedItem(ModResourceItems.GREAT_AXE_HEAD, itemModelGenerator);
         registerPalettedItem(ModResourceItems.SWORD_HILT, itemModelGenerator);
     }
 

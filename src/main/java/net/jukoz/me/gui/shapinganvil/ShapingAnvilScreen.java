@@ -1,5 +1,6 @@
 package net.jukoz.me.gui.shapinganvil;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
@@ -15,6 +16,8 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+
+import java.util.List;
 
 public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler> {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/shaping_anvil.png");
@@ -86,11 +89,34 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
 
         context.drawItem(ModToolItems.SMITHING_HAMMER.getDefaultStack(), x + 80, y + 34);
 
+        renderHammerTooltip(context, mouseX, mouseY);
 
         if (this.handler.getOutput().isEmpty()){
             context.drawTexture(TEXTURE, x + 82, y + 19, 177, 115,12, 12);
         } else {
             context.drawItem(this.handler.getOutput(), x + 80, y + 17);
+            renderOutputTooltip(context, mouseX, mouseY);
+        }
+    }
+
+    private void renderOutputTooltip(DrawContext context, int mouseX, int mouseY) {
+        int x = (width - backgroundWidth) / 2;
+        int y = (height - backgroundHeight) / 2;
+
+        if (mouseX >= x + 79 && mouseX <= x + 96 && mouseY >= y + 16 && mouseY <= y + 33){
+            context.drawTooltip(this.client.textRenderer, handler.getOutput().getItem().getName(), mouseX, mouseY);
+        }
+    }
+
+    private void renderHammerTooltip(DrawContext context, int mouseX, int mouseY) {
+        int x = (width - backgroundWidth) / 2;
+        int y = (height - backgroundHeight) / 2;
+
+        if (mouseX >= x + 79 && mouseX <= x + 96 && mouseY >= y + 34 && mouseY <= y + 51){
+            context.drawOrderedTooltip(this.client.textRenderer,
+                    Lists.transform(List.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".anvil_hammer"),
+                            Text.translatable("tooltip." + MiddleEarth.MOD_ID +".anvil_hammer_2")),
+                            Text::asOrderedText), mouseX, mouseY);
         }
     }
 }

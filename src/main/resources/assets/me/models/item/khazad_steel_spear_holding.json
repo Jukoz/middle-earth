@@ -1,5 +1,5 @@
 {
-	"parent": "me:item/elven_steel_spear",
+	"parent": "me:item/khazad_steel_spear",
 	"display": {
 		"thirdperson_righthand": {
 			"translation": [0, 6, 1.25],

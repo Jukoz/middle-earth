@@ -76,7 +76,6 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     //TODO custom metal trim data component with palette
     //TODO heating requires full inv, should be fine if one is empty
     //TODO heating requires all same item
-    //TODO mode multiple lines tooltip
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGE, pos, state);

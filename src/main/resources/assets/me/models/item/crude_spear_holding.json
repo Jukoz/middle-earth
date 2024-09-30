@@ -1,5 +1,5 @@
 {
-	"parent": "me:item/slag_spear",
+	"parent": "me:item/crude_spear",
 	"display": {
 		"thirdperson_righthand": {
 			"translation": [0, 2, 1.25],
