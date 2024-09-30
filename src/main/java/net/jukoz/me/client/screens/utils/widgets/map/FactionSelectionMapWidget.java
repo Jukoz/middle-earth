@@ -1,9 +1,7 @@
-package net.jukoz.me.client.screens.utils.widgets.advanced;
+package net.jukoz.me.client.screens.utils.widgets.map;
 
 import net.jukoz.me.client.screens.controllers.FactionSelectionController;
 import net.jukoz.me.client.screens.utils.MapMarkerType;
-import net.jukoz.me.client.screens.utils.widgets.MapMarkerWidget;
-import net.jukoz.me.client.screens.utils.widgets.MapWidget;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.utils.LoggerUtil;

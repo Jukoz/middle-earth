@@ -1,7 +1,8 @@
-package net.jukoz.me.client.screens.utils.widgets;
+package net.jukoz.me.client.screens.utils.widgets.map;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.utils.MapMarkerType;
+import net.jukoz.me.client.screens.utils.widgets.ModWidget;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;

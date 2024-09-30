@@ -1,6 +1,7 @@
-package net.jukoz.me.client.screens.utils.widgets;
+package net.jukoz.me.client.screens.utils.widgets.map;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.client.screens.utils.widgets.ModWidget;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
@@ -40,7 +41,7 @@ public class MapWidget extends ModWidget {
         return 0.35f * (zoomLevel / 4f);
     }
     private float getMaxZoom(){
-        return 70f;
+        return 100f;
     }
     private float getMinZoom(){
         return 1f;

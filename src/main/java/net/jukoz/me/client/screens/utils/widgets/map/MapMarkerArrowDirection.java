@@ -1,4 +1,4 @@
-package net.jukoz.me.client.screens.utils.widgets;
+package net.jukoz.me.client.screens.utils.widgets.map;
 
 public enum MapMarkerArrowDirection {
     NONE(0,0),
