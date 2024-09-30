@@ -1,14 +1,10 @@
 package net.jukoz.me.client.screens.utils.widgets;
 
-import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 import org.joml.Vector2d;
-import org.joml.Vector2f;
-import org.joml.Vector2i;
 
 public class MapWidget extends ModWidget {
     public boolean canZoomIn;
@@ -240,5 +236,33 @@ public class MapWidget extends ModWidget {
 
         this.uvX = computedX;
         this.uvY = computedY;
+    }
+
+    public MapMarkerArrowDirection isOutsideBounds(Vector2d uvs, int offsetX, int offsetY) {
+        boolean outOfBoundNorth = uvs.y - offsetY < startY;
+        boolean outOfBoundSouth = uvs.y + offsetY  > startY + uiHeight;
+        boolean outOfBoundEast = uvs.x + offsetX > startX + uiWidth;
+        boolean outOfBoundWest = uvs.x - offsetX < startX;
+
+        if(outOfBoundNorth){
+            if(outOfBoundEast)
+                return MapMarkerArrowDirection.NORTH_EAST;
+            if(outOfBoundWest)
+                return MapMarkerArrowDirection.NORTH_WEST;
+            return MapMarkerArrowDirection.NORTH;
+        }
+        if(outOfBoundSouth){
+            if(outOfBoundEast)
+                return MapMarkerArrowDirection.SOUTH_EAST;
+            if(outOfBoundWest)
+                return MapMarkerArrowDirection.SOUTH_WEST;
+            return MapMarkerArrowDirection.SOUTH;
+        }
+        if(outOfBoundEast)
+            return MapMarkerArrowDirection.EAST;
+        if(outOfBoundWest)
+            return MapMarkerArrowDirection.WEST;
+
+        return MapMarkerArrowDirection.NONE;
     }
 }

@@ -3,9 +3,9 @@ package net.jukoz.me.client.screens.utils;
 import net.minecraft.client.gui.DrawContext;
 
 public enum MapMarkerType {
-    NONE(1, 23, 4, 4),
-    DYNAMIC_SPAWN(1, 29, 17, 17),
-    CUSTOM_SPAWN(1, 48, 17, 17);
+    NONE(1, 1, 4, 4),
+    DYNAMIC_SPAWN(1, 7, 17, 17),
+    CUSTOM_SPAWN(1, 26, 17, 17);
     public final int uvX;
     public final int uvY;
     public final int sizeX;
@@ -14,6 +14,8 @@ public enum MapMarkerType {
     public final int hoveredUvY;
     public final int focusedUvX;
     public final int focusedUvY;
+    public final int manyOverlayUvX;
+    public final int manyOverlayUvY;
     MapMarkerType(int uvX, int uvY, int sizeX, int sizeY) {
         this.uvX = uvX;
         this.uvY = uvY;
@@ -25,5 +27,8 @@ public enum MapMarkerType {
 
         this.focusedUvX = hoveredUvX + sizeX + 2;
         this.focusedUvY = uvY;
+
+        this.manyOverlayUvX = focusedUvX + sizeX + 2;
+        this.manyOverlayUvY = uvY;
     }
 }
