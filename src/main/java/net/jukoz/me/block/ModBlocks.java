@@ -342,6 +342,13 @@ public class ModBlocks {
             new SlabBlock(AbstractBlock.Settings.copy(COBBLY_DIRT)),true);
     public static final Block COBBLY_DIRT_STAIRS = registerMiscBlock("cobbly_dirt_stairs",
             new StairsBlock(COBBLY_DIRT.getDefaultState(), AbstractBlock.Settings.copy(COBBLY_DIRT)),true);
+
+    public static final Block DIRTY_ROOTS = registerMiscBlock("dirty_roots",
+            new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);
+    public static final Block DIRTY_ROOTS_SLAB = registerMiscBlock("dirty_roots_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(DIRTY_ROOTS)),true);
+    public static final Block DIRTY_ROOTS_STAIRS = registerMiscBlock("dirty_roots_stairs",
+            new StairsBlock(DIRTY_ROOTS.getDefaultState(), AbstractBlock.Settings.copy(DIRTY_ROOTS)),true);
     
     public static final Block DRY_DIRT = registerMiscBlock("dry_dirt",
             new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL)),true);

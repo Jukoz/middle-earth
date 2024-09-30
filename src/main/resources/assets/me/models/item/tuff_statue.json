@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "me:block/fallen_mallorn_leaves"
+    "layer0": "me:item/tuff_statue"
   }
 }

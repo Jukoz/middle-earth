@@ -3142,6 +3142,9 @@
   "block.me.dry_dirt": "Dry Dirt",
   "block.me.dry_dirt_slab": "Dry Dirt Slab",
   "block.me.dry_dirt_stairs": "Dry Dirt Stairs",
+  "block.me.dirty_roots": "Dirty Roots",
+  "block.me.dirty_roots_slab": "Dirty Roots Slab",
+  "block.me.dirty_roots_stairs": "Dirty Roots Stairs",
   "block.me.ashen_dirt": "Ashen Dirt",
   "block.me.ashen_dirt_slab": "Ashen Dirt Slab",
   "block.me.ashen_dirt_stairs": "Ashen Dirt Stairs",
@@ -4886,6 +4889,7 @@
 
   "block.me.calcite_statue": "Calcite Statue",
   "block.me.gonluin_statue": "Gonluin Statue",
+  "block.me.tuff_statue": "Tuff Statue",
 
 "#Comment:": "Items - Banners",
   "item.me.gondor_banner_pattern": "Gondor Banner Pattern",
