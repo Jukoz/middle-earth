@@ -9,7 +9,15 @@ import net.jukoz.me.block.special.verticalSlabs.VerticalSlabBlock;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.*;
 
-public class RoofBlockSets {
+public class OtherBlockSets {
+    public static MiscBlockSet TREATED_WOOD = registerMiscSet("treated_wood", null, Blocks.OAK_WOOD, true);
+    public static MiscBlockSet TREATED_WOOD_PLANKS = registerMiscSet("treated_wood_planks", null, Blocks.OAK_PLANKS, false);
+    public static MiscBlockSet TREATED_WOOD_BEAM = registerMiscSet("treated_wood_beam", null, Blocks.OAK_PLANKS, true);
+    public static MiscBlockSet TREATED_WOOD_CARVED_BEAM = registerMiscSet("treated_wood_carved_beam", null, Blocks.OAK_PLANKS, true);
+    public static MiscBlockSet TREATED_WOOD_PANELS = registerMiscSet("treated_wood_panels", null, Blocks.OAK_PLANKS, true);
+    public static MiscBlockSet TREATED_WOOD_TILING = registerMiscSet("treated_wood_tiling", null, Blocks.OAK_PLANKS, false);
+
+    public static RoofBlockSet TAN_CLAY_TILES = registerClaySet("tan_clay_tiles", StoneBlockSets.TAN_CLAY_BRICKS.base());
 
     public static RoofBlockSet OAK_SHINGLES = registerWoodSet("oak_shingles", Blocks.OAK_PLANKS);
     public static RoofBlockSet SPRUCE_SHINGLES = registerWoodSet("spruce_shingles", Blocks.SPRUCE_PLANKS);
@@ -89,6 +97,8 @@ public class RoofBlockSets {
     public static RoofBlockSet WAXED_ROTTEN_THATCH = registerWaxedThatchSet("waxed_rotten_thatch");
 
     public static RoofBlockSet[] sets = new RoofBlockSet[] {
+            TAN_CLAY_TILES,
+
             THATCH,
             WEATHERED_THATCH,
             AGED_THATCH,
@@ -165,8 +175,19 @@ public class RoofBlockSets {
             WHITE_CLAY_TILING,
             YELLOW_CLAY_TILING,
     };
+    public static MiscBlockSet[] specialWoodSets = new MiscBlockSet[] {
+            TREATED_WOOD,
+            TREATED_WOOD_PLANKS,
+            TREATED_WOOD_BEAM,
+            TREATED_WOOD_CARVED_BEAM,
+            TREATED_WOOD_PANELS,
+            TREATED_WOOD_TILING,
+    };
 
     public record RoofBlockSet(Block block, Block slab, Block verticalSlab, Block stairs, Block wall, Block origin) {
+    }
+
+    public record MiscBlockSet(Block block, Block slab, Block verticalSlab, Block stairs, Block origin) {
     }
 
     private static RoofBlockSet registerWoodSet(String name, Block origin) {
@@ -269,6 +290,29 @@ public class RoofBlockSets {
         FlammableBlockRegistry.getDefaultInstance().add(wall, 5, 60);
 
         return new RoofBlockSet(block, slab, verticalSlab, stairs, wall, null);
+    }
+
+    private static MiscBlockSet registerMiscSet(String name, Block origin, Block copy, boolean isPillar) {
+        Block block;
+        if (isPillar){
+            block = ModBlocks.registerMiscBlock(name, new PillarBlock(AbstractBlock.Settings.copy(copy)),true);
+        } else {
+            block = ModBlocks.registerMiscBlock(name, new Block(AbstractBlock.Settings.copy(copy)),true);
+        }
+
+        Block slab = ModBlocks.registerMiscBlock(name + "_slab", new SlabBlock(AbstractBlock.Settings.copy(block)),true);
+
+        Block verticalSlab = ModBlocks.registerMiscBlock(name + "_vertical_slab", new VerticalSlabBlock(AbstractBlock.Settings.copy(block)),true);
+
+        Block stairs = ModBlocks.registerMiscBlock(name + "_stairs", new StairsBlock(block.getDefaultState(),
+                AbstractBlock.Settings.copy(block)),true);
+
+        FlammableBlockRegistry.getDefaultInstance().add(block, 5, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(slab, 5, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(verticalSlab, 5, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(stairs, 5, 60);
+
+        return new MiscBlockSet(block, slab, verticalSlab, stairs, origin);
     }
 
     public static void registerModBlockSets() {
