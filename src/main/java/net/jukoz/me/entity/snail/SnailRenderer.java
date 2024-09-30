@@ -2,8 +2,6 @@ package net.jukoz.me.entity.snail;
 
 import com.google.common.collect.Maps;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.entity.crab.CrabModel;
-import net.jukoz.me.entity.crab.CrabVariant;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;

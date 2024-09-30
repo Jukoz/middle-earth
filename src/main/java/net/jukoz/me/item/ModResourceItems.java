@@ -120,9 +120,6 @@ public class ModResourceItems {
             new Item(new Item.Settings()));
     public static final Block REEDS = registerBlock("reeds",
             new CustomWaterloggableTallPlantBlock(AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), false), false);
-
-    public static final Item DUCK_FEATHER = registerItem("duck_feather",
-            new Item(new Item.Settings()));
     public static final Item SWAN_FEATHER = registerItem("swan_feather",
             new Item(new Item.Settings()));
             

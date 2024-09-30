@@ -60,6 +60,8 @@ public class ModDecorativeBlocks {
             new StatueBlock(AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque()));
     public static final Block GONLUIN_STATUE = registerBlockWithItem("gonluin_statue",
             new StatueBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque()));
+    public static final Block TUFF_STATUE = registerBlockWithItem("tuff_statue",
+            new StatueBlock(AbstractBlock.Settings.copy(Blocks.TUFF).nonOpaque()));
 
     public static final Block FIRE_OF_ORTHANC = registerBlock("fire_of_orthanc",
             new FireOfOrthancBlock(AbstractBlock.Settings.create().requiresTool().mapColor(MapColor.BLACK)

@@ -30,15 +30,12 @@ public class SimpleItemModel {
 
             add(ModFoodItems.BERRY_PIE);
             add(ModFoodItems.BOILED_EGG);
-            add(ModFoodItems.CRAB_SOUP);
             add(ModFoodItems.FISH_STEW);
             add(ModFoodItems.MEAT_BOWL);
             add(ModFoodItems.MEAT_EGG_MEAL);
             add(ModFoodItems.MEAT_SKEWER);
             add(ModFoodItems.COOKED_MEAT_SKEWER);
             add(ModFoodItems.POULTRY_MEAL);
-            add(ModFoodItems.RAT_SKEWER);
-            add(ModFoodItems.COOKED_RAT_SKEWER);
             add(ModFoodItems.VEGETABLE_SKEWER);
             add(ModFoodItems.COOKED_VEGETABLE_SKEWER);
             add(ModFoodItems.VEGETABLE_SOUP);
@@ -46,8 +43,6 @@ public class SimpleItemModel {
             add(ModFoodItems.COOKED_VENISON);
             add(ModFoodItems.RAW_HORSE);
             add(ModFoodItems.COOKED_HORSE);
-            add(ModFoodItems.RAW_RAT);
-            add(ModFoodItems.COOKED_RAT);
 
             add(ModResourceItems.GLOWWORM_BOTTLE);
 

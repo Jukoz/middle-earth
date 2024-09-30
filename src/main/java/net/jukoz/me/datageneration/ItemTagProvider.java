@@ -64,8 +64,6 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         warg_food.add(Items.BEEF);
         warg_food.add(Items.MUTTON);
         warg_food.add(ModFoodItems.RAW_HORSE);
-        warg_food.add(ModFoodItems.RAW_DUCK);
-        warg_food.add(ModFoodItems.RAW_GOOSE);
         warg_food.add(ModFoodItems.RAW_SWAN);
         warg_food.add(ModFoodItems.RAW_VENISON);
 
@@ -73,7 +71,6 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         bones.add(ModResourceItems.ORC_BONE);
         bones.add(ModResourceItems.WARG_BONE);
 
-        feathers.add(ModResourceItems.DUCK_FEATHER);
         feathers.add(ModResourceItems.SWAN_FEATHER);
         feathers.add(Items.FEATHER);
 

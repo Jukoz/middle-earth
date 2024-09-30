@@ -7,11 +7,9 @@ import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatHorns;
 import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatVariant;
 import net.jukoz.me.entity.deer.DeerEntity;
-import net.jukoz.me.entity.duck.DuckEntity;
 import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
 import net.jukoz.me.entity.goals.*;
-import net.jukoz.me.entity.goose.GooseEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
@@ -132,8 +130,6 @@ public class WargEntity extends AbstractBeastEntity {
         this.targetSelector.add(12, new ActiveTargetGoal<>(this, GoatEntity.class, true));
         this.targetSelector.add(13, new ActiveTargetGoal<>(this, DeerEntity.class, true));
         this.targetSelector.add(14, new ActiveTargetGoal<>(this, PheasantEntity.class, true));
-        this.targetSelector.add(15, new ActiveTargetGoal<>(this, GooseEntity.class, true));
-        this.targetSelector.add(16, new ActiveTargetGoal<>(this, DuckEntity.class, true));
     }
 
     @Override

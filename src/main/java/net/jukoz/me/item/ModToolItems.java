@@ -152,6 +152,16 @@ public class ModToolItems {
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
+    private static Item registerItemWithModel(String name, Item item, boolean isDualModel) {
+        ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
+        if(isDualModel) {
+            SimpleBigItemModel.items.add(item);
+        } else {
+            SimpleHandheldItemModel.items.add(item);
+        }
+        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
     private static Item registerItemDualModel(String name, Item item) {
         ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
         SimpleBigItemModel.items.add(item);

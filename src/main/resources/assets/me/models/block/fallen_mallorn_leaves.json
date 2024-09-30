@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/carpet",
+  "parent": "minecraft:block/lily_pad",
   "textures": {
-    "wool": "me:block/fallen_mallorn_leaves"
+    "particle": "me:block/fallen_mallorn_leaves",
+    "texture": "me:block/fallen_mallorn_leaves"
   }
 }

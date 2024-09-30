@@ -384,9 +384,27 @@
   "item.me.dalish_heyday_dagger": "Dalish Heyday Dagger",
   "item.me.dalish_noble_dagger": "Dalish Noble Dagger",
 
+"#Comment:": "Item - Mordor",
+  "item.me.mordor_falchion": "Mordor Falchion",
+  "item.me.mordor_elite_cleaver": "Mordor Elite Cleaver",
+  "item.me.mordor_scimitar": "Mordor Scimitar",
+  "item.me.mordor_elite_warblade": "Mordor Elite Warblade",
+  "item.me.mordor_dagger": "Mordor Dagger",
+  "item.me.mordor_elite_dagger": "Mordor Elite Dagger",
+  "item.me.mordor_spear": "Mordor Spear",
+  "item.me.mordor_elite_spear": "Mordor Elite Spear",
+  "item.me.mordor_axe": "Mordor Axe",
+  "item.me.mordor_elite_axe": "Mordor Elite Axe",
+
+  "item.me.black_numenorean_sword": "Black Númenórean Sword",
+  "item.me.black_numenorean_longsword": "Black Númenórean Longsword",
+  "item.me.black_numenorean_dagger": "Black Númenórean Dagger",
+  "item.me.black_numenorean_spear": "Black Númenórean Spear",
+  "item.me.black_numenorean_axe": "Black Númenórean Axe",
+
 "#Comment:": "Item - Uruk-Hai",
-  "item.me.uruk_hai_sword": "Uruk-Hai Sword",
-  "item.me.uruk_hai_elite_scimitar": "Uruk-Hai Elite Scimitar",
+  "item.me.uruk_hai_cleaver": "Uruk-Hai Cleaver",
+  "item.me.uruk_hai_elite_falchion": "Uruk-Hai Elite Falchion",
   "item.me.uruk_hai_warblade": "Uruk-Hai Warblade",
   "item.me.uruk_hai_elite_warblade": "Uruk-Hai Elite Warblade",
   "item.me.uruk_hai_dagger": "Uruk-Hai Dagger",
@@ -408,6 +426,7 @@
   "item.me.burzum_steel_dagger": "Búrzum-Steel Dagger",
   "item.me.edhel_steel_dagger": "Edhel-Steel Dagger",
   "item.me.khazad_steel_dagger": "Khazad-Steel Dagger",
+
   "item.me.diamond_dagger": "Diamond Dagger",
   "item.me.netherite_dagger": "Netherite Dagger",
 
@@ -430,6 +449,7 @@
   "item.me.burzum_steel_longsword": "Búrzum-Steel Longsword",
   "item.me.edhel_steel_longsword": "Edhel-Steel Longsword",
   "item.me.khazad_steel_longsword": "Khazad-Steel Longsword",
+
   "item.me.diamond_longsword": "Diamond Longsword",
   "item.me.netherite_longsword": "Netherite Longsword",
 
@@ -446,6 +466,16 @@
   "item.me.khazad_steel_spear": "Khazad-Steel Spear",
   "item.me.diamond_spear": "Diamond Spear",
   "item.me.netherite_spear": "Netherite Spear",
+
+"#Comment:": "Item - Artefact Weapons",
+  "item.me.orcrist": "Orcrist",
+
+  "item.me.glamdring": "Glamdring",
+  "item.me.narsil": "Narsil",
+
+  "item.me.sting": "Sting",
+  "item.me.morgul_knife": "Morgul Knife",
+
 
 "#Comment:": "Armours",
   "item.me.cape": "Cape",
@@ -790,12 +820,6 @@
   "item.me.maggoty_bread": "Maggoty Bread",
   "item.me.strawberry": "Strawberry",
   "item.me.tough_berries": "Tough Berries",
-  "item.me.raw_crab_claw": "Raw Crab Claw",
-  "item.me.cooked_crab_claw": "Cooked Crab Claw",
-  "item.me.raw_goose": "Raw Goose",
-  "item.me.cooked_goose": "Cooked Goose",
-  "item.me.raw_duck": "Raw Duck",
-  "item.me.cooked_duck": "Cooked Duck",
   "item.me.raw_swan": "Raw Swan",
   "item.me.cooked_swan": "Cooked Swan",
   "item.me.raw_venison": "Raw Venison",
@@ -813,7 +837,6 @@
   "item.me.onion": "Onion",
   "item.me.berry_pie": "Berry Pie",
   "item.me.boiled_egg": "Boiled Egg",
-  "item.me.crab_soup": "Crab Soup",
   "item.me.fish_stew": "Fish Stew",
   "item.me.meat_bowl": "Meat Bowl",
   "item.me.meat_egg_meal": "Meat Egg Meal",
@@ -830,7 +853,6 @@
 
 "#Comment:": "Item - Resources",
   "item.me.straw": "Straw",
-  "item.me.duck_feather": "Duck Feather",
   "item.me.swan_feather": "Swan Feather",
 
   "item.me.copper_coin": "Copper Coin",
@@ -855,17 +877,12 @@
 
 "#Comment:": "Item - Spawn Eggs",
   "item.me.barrow_wight_spawn_egg": "Barrow Wight Spawn Egg",
-  "item.me.nazgul_spawn_egg": "Nazgûl Spawn Egg",
 
   "item.me.broadhoof_goat_spawn_egg": "Broadhoof Goat Spawn Egg",
   "item.me.warg_spawn_egg": "Warg Spawn Egg",
   "item.me.stone_troll_spawn_egg": "Stone Troll Spawn Egg",
-  "item.me.cave_troll_spawn_egg": "Cave Troll Spawn Egg",
   "item.me.snow_troll_spawn_egg": "Snow Troll Spawn Egg",
   "item.me.troll_statue": "Troll Statue",
-  "item.me.crab_spawn_egg": "Crab Spawn Egg",
-  "item.me.goose_spawn_egg": "Goose Spawn Egg",
-  "item.me.duck_spawn_egg": "Duck Spawn Egg",
   "item.me.swan_spawn_egg": "Swan Spawn Egg",
 
   "item.me.hobbit_civilian_spawn_egg": "Hobbit Civilian Spawn Egg",
@@ -938,13 +955,9 @@
 "#Comment:": "ENTITIES",
   "entity.me.broadhoof_goat": "Broadhoof Goat",
   "entity.me.warg": "Warg",
-  "entity.me.cave_troll": "Cave Troll",
   "entity.me.snow_troll": "Snow Troll",
   "entity.me.stone_troll": "Stone Troll",
   "entity.me.petrified_troll": "Petrified Troll",
-  "entity.me.crab": "Crab",
-  "entity.me.goose": "Goose",
-  "entity.me.duck": "Duck",
   "entity.me.swan": "Swan",
   "entity.me.pheasant": "Pheasant",
   "entity.me.snail": "Snail",
@@ -1003,15 +1016,11 @@
   "entity.me.isengard_uruk_hai_veteran": "Isengard Uruk-Hai Veteran",
   "entity.me.isengard_uruk_hai_leader": "Isengard Uruk-Hai Leader",
 
-  "entity.me.nazgul": "Nazgûl",
-
   "entity.me.bandit_militia": "Bandit Militia",
   "entity.me.bandit_soldier": "Bandit Soldier",
   "entity.me.bandit_chieftain": "Bandit Chieftain",
 
   "entity.me.mirkwood_spider": "Mirkwood Spider",
-
-  "entity.me.balrog": "Balrog",
 
   "entity.me.pebble": "Pebble",
   "entity.me.pinecone": "Pinecone",
@@ -3152,6 +3161,9 @@
   "block.me.dry_dirt": "Dry Dirt",
   "block.me.dry_dirt_slab": "Dry Dirt Slab",
   "block.me.dry_dirt_stairs": "Dry Dirt Stairs",
+  "block.me.dirty_roots": "Dirty Roots",
+  "block.me.dirty_roots_slab": "Dirty Roots Slab",
+  "block.me.dirty_roots_stairs": "Dirty Roots Stairs",
   "block.me.ashen_dirt": "Ashen Dirt",
   "block.me.ashen_dirt_slab": "Ashen Dirt Slab",
   "block.me.ashen_dirt_stairs": "Ashen Dirt Stairs",
@@ -4898,6 +4910,7 @@
 
   "block.me.calcite_statue": "Calcite Statue",
   "block.me.gonluin_statue": "Gonluin Statue",
+  "block.me.tuff_statue": "Tuff Statue",
 
 "#Comment:": "Items - Banners",
   "item.me.gondor_banner_pattern": "Gondor Banner Pattern",
@@ -5115,7 +5128,7 @@
 "#Comment": "Tooltips",
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",
   "tooltip.me.alt" : "Hold §3ALT§f to see custom parts information.",
-  "tooltip.me.weapon_type" : "§eWeapon Type: §f",
+  "tooltip.me.weapon_type" : "§eType: §f",
   "tooltip.me.shield_type" : "§eShield Type: §f",
   "tooltip.me.faction" : "§6Faction: §f",
   "tooltip.me.sub_faction" : "§7Sub Faction: §f",
@@ -5133,6 +5146,9 @@
   "tooltip.me.tier_sturdy" : "§5Sturdy Armor",
   "tooltip.me.tier_heavy" : "§cHeavy Armor",
   "tooltip.me.tier_mithril" : "§bMithril",
+
+  "tooltip.me.artefact" : "Artefact",
+  "tooltip.me.artefact_broken" : "Broken ",
 
   "tooltip.me.sword" : "Sword",
   "tooltip.me.axe" : "Axe",
