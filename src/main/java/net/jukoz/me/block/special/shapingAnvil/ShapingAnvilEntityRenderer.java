@@ -1,12 +1,10 @@
 package net.jukoz.me.block.special.shapingAnvil;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
@@ -15,7 +13,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
-public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<ShapingAnvilBlockEntity> {
+public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<AbstractShapingAnvilBlockEntity> {
 
     private final BlockEntityRendererFactory.Context context;
 
@@ -24,7 +22,7 @@ public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<ShapingAn
     }
 
     @Override
-    public void render(ShapingAnvilBlockEntity entity, float tickDelta, MatrixStack matrices,
+    public void render(AbstractShapingAnvilBlockEntity entity, float tickDelta, MatrixStack matrices,
                        VertexConsumerProvider vertexConsumers, int light, int overlay) {
 
         ItemStack stack = entity.getRenderStack(entity);
@@ -38,14 +36,14 @@ public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<ShapingAn
         matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) Math.toRadians(90)));
 
         if (stack.getItem() instanceof BlockItem){
-            switch (entity.getCachedState().get(ShapingAnvilBlock.FACING)) {
+            switch (entity.getCachedState().get(AbstractTreatedAnvilBlock.FACING)) {
                 case NORTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(270)));
                 case EAST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(180)));
                 case SOUTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(90)));
                 case WEST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(0)));
             }
         } else {
-            switch (entity.getCachedState().get(ShapingAnvilBlock.FACING)) {
+            switch (entity.getCachedState().get(AbstractTreatedAnvilBlock.FACING)) {
                 case NORTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(225)));
                 case EAST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(135)));
                 case SOUTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(45)));

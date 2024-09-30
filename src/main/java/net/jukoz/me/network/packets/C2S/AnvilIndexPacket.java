@@ -1,9 +1,7 @@
 package net.jukoz.me.network.packets.C2S;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.special.forge.ForgeBlockEntity;
-import net.jukoz.me.block.special.shapingAnvil.ShapingAnvilBlockEntity;
-import net.jukoz.me.gui.shapinganvil.ShapingAnvilScreen;
+import net.jukoz.me.block.special.shapingAnvil.AbstractShapingAnvilBlockEntity;
 import net.jukoz.me.network.contexts.ServerPacketContext;
 import net.jukoz.me.network.packets.ClientToServerPacket;
 import net.jukoz.me.utils.LoggerUtil;
@@ -66,10 +64,10 @@ public class AnvilIndexPacket extends ClientToServerPacket<AnvilIndexPacket> {
         try{
             context.player().getServer().execute(() -> {
                 Vec3d coordinates = new Vec3d(x, y, z);
-                ShapingAnvilBlockEntity.updateIndex(left, coordinates, context.player());
+                AbstractShapingAnvilBlockEntity.updateIndex(left, coordinates, context.player());
             });
         }catch (Exception e){
-            LoggerUtil.logError("PacketForgeOutput error: ", e);
+            LoggerUtil.logError("PacketAnvilIndex error: ", e);
         }
     }
 }

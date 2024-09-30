@@ -2,24 +2,17 @@ package net.jukoz.me.block.special.shapingAnvil;
 
 import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.ModBlockEntities;
-import net.jukoz.me.block.special.forge.ForgeBlock;
-import net.jukoz.me.block.special.forge.ForgeBlockEntity;
+import net.jukoz.me.block.special.shapingAnvil.treatedAnvil.TreatedAnvilBlockEntity;
 import net.jukoz.me.item.ModToolItems;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.particle.FireworksSparkParticle;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
@@ -37,45 +30,14 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 
-public class ShapingAnvilBlock extends BlockWithEntity implements BlockEntityProvider {
+public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
-    public ShapingAnvilBlock(Settings settings) {
+    public AbstractTreatedAnvilBlock(Settings settings) {
         super(settings);
         this.setDefaultState(((this.stateManager.getDefaultState()).with(FACING, Direction.NORTH)));
-    }
-
-    @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return createCodec(ShapingAnvilBlock::new);
-    }
-
-    @Override
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        switch (state.get(FACING)){
-            case NORTH, SOUTH -> {
-                return Stream.of(
-                        Block.createCuboidShape(1, 0, 1, 15, 6, 15),
-                        Block.createCuboidShape(1, 12, 4, 15, 16, 12),
-                        Block.createCuboidShape(3, 6, 3, 13, 8, 13),
-                        Block.createCuboidShape(4, 8, 5, 12, 12, 11)
-                ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();
-            }
-            case EAST, WEST -> {
-                return Stream.of(
-                        Block.createCuboidShape(1, 0, 1, 15, 6, 15),
-                        Block.createCuboidShape(4, 12, 1, 12, 16, 15),
-                        Block.createCuboidShape(3, 6, 3, 13, 8, 13),
-                        Block.createCuboidShape(5, 8, 4, 11, 12, 12)
-                ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();
-            }
-            default -> {
-                return Block.createCuboidShape(1, 0, 1, 15, 16, 15);
-            }
-        }
     }
 
     @Override
@@ -87,7 +49,7 @@ public class ShapingAnvilBlock extends BlockWithEntity implements BlockEntityPro
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if(state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if(blockEntity instanceof ShapingAnvilBlockEntity treatedAnvilBlockEntity) {
+            if(blockEntity instanceof AbstractShapingAnvilBlockEntity treatedAnvilBlockEntity) {
                 ItemScatterer.spawn(world, pos, treatedAnvilBlockEntity);
             }
             super.onStateReplaced(state, world, pos, newState, moved);
@@ -136,34 +98,16 @@ public class ShapingAnvilBlock extends BlockWithEntity implements BlockEntityPro
     @Override
     protected void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {
         ItemStack stack = player.getEquippedStack(EquipmentSlot.MAINHAND);
-        Optional<ShapingAnvilBlockEntity> blockEntity = world.getBlockEntity(pos, ModBlockEntities.SHAPING_ANVIL);
+        BlockEntity blockEntity = world.getBlockEntity(pos);
 
         if (stack.isOf(ModToolItems.SMITHING_HAMMER) && player.getAttackCooldownProgress(0.5f) > 0.9f){
             stack.use(world, player, player.getActiveHand());
             if (!world.isClient){
                 player.getStackInHand(player.getActiveHand()).damage(1, player, EquipmentSlot.MAINHAND);
             }
-            if(blockEntity.isPresent()){
-                ShapingAnvilBlockEntity shapingAnvilBlockEntity = blockEntity.get();
+            if(blockEntity instanceof AbstractShapingAnvilBlockEntity shapingAnvilBlockEntity){
                 shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity);
             }
         }
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new ShapingAnvilBlockEntity(pos, state);
-    }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return ShapingAnvilBlock.validateTicker(world, type, ModBlockEntities.SHAPING_ANVIL);
-    }
-
-    @Nullable
-    protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<ShapingAnvilBlockEntity> expectedType) {
-        return world.isClient ? null : ShapingAnvilBlock.validateTicker(givenType, expectedType, ShapingAnvilBlockEntity::tick);
     }
 }

@@ -3,7 +3,6 @@ package net.jukoz.me.block.special.shapingAnvil;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
-import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.block.special.forge.MetalTypes;
 import net.jukoz.me.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.jukoz.me.item.ModDataComponentTypes;
@@ -13,6 +12,7 @@ import net.jukoz.me.recipe.AnvilShapingRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -30,7 +30,6 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
@@ -50,11 +49,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import javax.xml.crypto.Data;
 import java.util.List;
-import java.util.Optional;
 
-public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
+public abstract class AbstractShapingAnvilBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
     private static final String ID = "shaping_anvil";
 
     public int outputIndex = 0;
@@ -67,23 +64,50 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
     //TODO make work in creative somehow
 
-    public ShapingAnvilBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.SHAPING_ANVIL, pos, state);
+    public AbstractShapingAnvilBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.TREATED_ANVIL, pos, state);
 
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> ShapingAnvilBlockEntity.this.outputIndex;
-                    case 1 -> ShapingAnvilBlockEntity.this.maxOutputIndex;
+                    case 0 -> AbstractShapingAnvilBlockEntity.this.outputIndex;
+                    case 1 -> AbstractShapingAnvilBlockEntity.this.maxOutputIndex;
                     default -> throw new IllegalStateException("Unexpected value: " + index);
                 };
             }
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0 -> ShapingAnvilBlockEntity.this.outputIndex = value;
-                    case 1 -> ShapingAnvilBlockEntity.this.maxOutputIndex = value;
+                    case 0 -> AbstractShapingAnvilBlockEntity.this.outputIndex = value;
+                    case 1 -> AbstractShapingAnvilBlockEntity.this.maxOutputIndex = value;
+                }
+            }
+
+            @Override
+            public int size() {
+                return 2;
+            }
+        };
+    }
+
+    public AbstractShapingAnvilBlockEntity(BlockEntityType type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
+
+        this.propertyDelegate = new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch (index) {
+                    case 0 -> AbstractShapingAnvilBlockEntity.this.outputIndex;
+                    case 1 -> AbstractShapingAnvilBlockEntity.this.maxOutputIndex;
+                    default -> throw new IllegalStateException("Unexpected value: " + index);
+                };
+            }
+            @Override
+            public void set(int index, int value) {
+                switch (index) {
+                    case 0 -> AbstractShapingAnvilBlockEntity.this.outputIndex = value;
+                    case 1 -> AbstractShapingAnvilBlockEntity.this.maxOutputIndex = value;
                 }
             }
 
@@ -97,10 +121,9 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
     public static void updateIndex(boolean left, Vec3d coords, ServerPlayerEntity player){
         BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
 
-        Optional<ShapingAnvilBlockEntity> shapingAnvilBlockEntity = player.getWorld().getBlockEntity(pos, ModBlockEntities.SHAPING_ANVIL);
+        BlockEntity shapingAnvilBlockEntity = player.getWorld().getBlockEntity(pos);
 
-        if(shapingAnvilBlockEntity.isPresent()){
-            ShapingAnvilBlockEntity entity = shapingAnvilBlockEntity.get();
+        if(shapingAnvilBlockEntity instanceof AbstractShapingAnvilBlockEntity entity){
             if (left){
                 if(entity.outputIndex == 0){
                     entity.outputIndex = entity.maxOutputIndex;
@@ -123,11 +146,11 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
         }
     }
 
-    public ItemStack getRenderStack(ShapingAnvilBlockEntity entity) {
+    public ItemStack getRenderStack(AbstractShapingAnvilBlockEntity entity) {
         return entity.getStack(0);
     }
 
-    public void bonk(ShapingAnvilBlockEntity entity){
+    public void bonk(AbstractShapingAnvilBlockEntity entity){
         ItemStack input = entity.getStack(0);
 
         List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
@@ -182,7 +205,7 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
         }
     }
 
-    public static void tick(World world, BlockPos blockPos, BlockState blockState, ShapingAnvilBlockEntity entity) {
+    public static void tick(World world, BlockPos blockPos, BlockState blockState, AbstractShapingAnvilBlockEntity entity) {
         ItemStack input = entity.getStack(0);
         if (!input.isEmpty()){
             List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
@@ -201,7 +224,7 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
         }
     }
 
-    private static boolean hasShapingRecipe(ShapingAnvilBlockEntity entity) {
+    private static boolean hasShapingRecipe(AbstractShapingAnvilBlockEntity entity) {
         SimpleInventory inventory1 = new SimpleInventory(entity.size());
         ItemStack input;
 
