@@ -2,17 +2,25 @@ package net.jukoz.me.item.items.weapons;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.utils.ModWeaponTypes;
+import net.jukoz.me.utils.ModFactions;
+import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.component.type.ToolComponent;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.registry.Registries;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ToolItem;
+import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.MutableText;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -20,26 +28,26 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 public class ReachWeaponItem extends ToolItem {
 
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
     public float rangeDistance;
 
-    public MutableText faction;
-    public MutableText subFaction;
+    public ModFactions faction;
+    public ModSubFactions subFaction;
     public ModWeaponTypes type;
 
     public ReachWeaponItem(ToolMaterial toolMaterial, ModWeaponTypes type) {
         super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
         this.rangeDistance = type.attackRange;
-        this.faction = Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic");
+        this.faction = ModFactions.NONE;
         this.subFaction = null;
         this.type = type;
     }
 
-    public ReachWeaponItem(ToolMaterial toolMaterial, MutableText faction, ModWeaponTypes type) {
+    public ReachWeaponItem(ToolMaterial toolMaterial, ModFactions faction, ModWeaponTypes type) {
         super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
         this.rangeDistance = type.attackRange;
         this.faction = faction;
@@ -47,10 +55,10 @@ public class ReachWeaponItem extends ToolItem {
         this.type = type;
     }
 
-    public ReachWeaponItem(ToolMaterial toolMaterial, MutableText faction, MutableText subFaction, ModWeaponTypes type) {
+    public ReachWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, ModWeaponTypes type) {
         super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiers(toolMaterial, type.attack, type.attackSpeed, type.attackRange)));
         this.rangeDistance = type.attackRange;
-        this.faction = faction;
+        this.faction = subFaction.getParent();
         this.subFaction = subFaction;
         this.type = type;
     }
@@ -75,13 +83,13 @@ public class ReachWeaponItem extends ToolItem {
         tooltip.add(Text.of(""));
         if (Screen.hasShiftDown()) {
             if(this.type != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name));
             }
             if(this.faction != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(this.faction));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
             }
             if (this.subFaction != null) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(this.subFaction));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
             }
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
@@ -103,5 +111,28 @@ public class ReachWeaponItem extends ToolItem {
             return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.GOLD);
         }
         return super.getName(stack);
+    }
+
+    public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        return true;
+    }
+
+    @Override
+    public void postDamageEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        stack.damage(1, attacker, EquipmentSlot.MAINHAND);
+    }
+
+    @Override
+    public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
+        ToolComponent toolComponent = (ToolComponent)stack.get(DataComponentTypes.TOOL);
+        if (toolComponent == null) {
+            return false;
+        } else {
+            if (!world.isClient && state.getHardness(world, pos) != 0.0F && toolComponent.damagePerBlock() > 0) {
+                stack.damage(1, miner, EquipmentSlot.MAINHAND);
+            }
+
+            return true;
+        }
     }
 }

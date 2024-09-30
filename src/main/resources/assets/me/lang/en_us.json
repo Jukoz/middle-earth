@@ -367,9 +367,27 @@
   "item.me.dalish_heyday_dagger": "Dalish Heyday Dagger",
   "item.me.dalish_noble_dagger": "Dalish Noble Dagger",
 
+"#Comment:": "Item - Mordor",
+  "item.me.mordor_falchion": "Mordor Falchion",
+  "item.me.mordor_elite_cleaver": "Mordor Elite Cleaver",
+  "item.me.mordor_scimitar": "Mordor Scimitar",
+  "item.me.mordor_elite_warblade": "Mordor Elite Warblade",
+  "item.me.mordor_dagger": "Mordor Dagger",
+  "item.me.mordor_elite_dagger": "Mordor Elite Dagger",
+  "item.me.mordor_spear": "Mordor Spear",
+  "item.me.mordor_elite_spear": "Mordor Elite Spear",
+  "item.me.mordor_axe": "Mordor Axe",
+  "item.me.mordor_elite_axe": "Mordor Elite Axe",
+
+  "item.me.black_numenorean_sword": "Black Númenórean Sword",
+  "item.me.black_numenorean_longsword": "Black Númenórean Longsword",
+  "item.me.black_numenorean_dagger": "Black Númenórean Dagger",
+  "item.me.black_numenorean_spear": "Black Númenórean Spear",
+  "item.me.black_numenorean_axe": "Black Númenórean Axe",
+
 "#Comment:": "Item - Uruk-Hai",
-  "item.me.uruk_hai_sword": "Uruk-Hai Sword",
-  "item.me.uruk_hai_elite_scimitar": "Uruk-Hai Elite Scimitar",
+  "item.me.uruk_hai_cleaver": "Uruk-Hai Cleaver",
+  "item.me.uruk_hai_elite_falchion": "Uruk-Hai Elite Falchion",
   "item.me.uruk_hai_warblade": "Uruk-Hai Warblade",
   "item.me.uruk_hai_elite_warblade": "Uruk-Hai Elite Warblade",
   "item.me.uruk_hai_dagger": "Uruk-Hai Dagger",
@@ -388,7 +406,7 @@
   "item.me.iron_dagger": "Iron Dagger",
   "item.me.steel_dagger": "Steel Dagger",
   "item.me.slag_dagger": "Slag Dagger",
-  "item.me.uruk_steel_dagger": "Uruk Steel Dagger",
+  "item.me.uruk_steel_knife": "Uruk Steel Knife",
   "item.me.elven_steel_dagger": "Elven Steel Dagger",
   "item.me.dwarven_steel_dagger": "Dwarven Steel Dagger",
   "item.me.diamond_dagger": "Diamond Dagger",
@@ -410,7 +428,7 @@
   "item.me.iron_longsword": "Iron Longsword",
   "item.me.steel_longsword": "Steel Longsword",
   "item.me.slag_longblade": "Slag Longblade",
-  "item.me.uruk_steel_longsword": "Uruk Steel Longsword",
+  "item.me.uruk_steel_broadblade": "Uruk Steel Broadblade",
   "item.me.elven_steel_longsword": "Elven Steel Longsword",
   "item.me.dwarven_steel_longsword": "Dwarven Steel Longsword",
   "item.me.diamond_longsword": "Diamond Longsword",
@@ -429,6 +447,16 @@
   "item.me.dwarven_steel_spear": "Dwarven Steel Spear",
   "item.me.diamond_spear": "Diamond Spear",
   "item.me.netherite_spear": "Netherite Spear",
+
+"#Comment:": "Item - Artefact Weapons",
+  "item.me.orcrist": "Orcrist",
+
+  "item.me.glamdring": "Glamdring",
+  "item.me.narsil": "Narsil",
+
+  "item.me.sting": "Sting",
+  "item.me.morgul_knife": "Morgul Knife",
+
 
 "#Comment:": "Armours",
   "item.me.cape": "Cape",
@@ -5077,7 +5105,7 @@
 "#Comment": "Tooltips",
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",
   "tooltip.me.alt" : "Hold §3ALT§f to see custom parts information.",
-  "tooltip.me.weapon_type" : "§eWeapon Type: §f",
+  "tooltip.me.weapon_type" : "§eType: §f",
   "tooltip.me.shield_type" : "§eShield Type: §f",
   "tooltip.me.faction" : "§6Faction: §f",
   "tooltip.me.sub_faction" : "§7Sub Faction: §f",
@@ -5094,6 +5122,9 @@
   "tooltip.me.tier_sturdy" : "§5Sturdy Armor",
   "tooltip.me.tier_heavy" : "§cHeavy Armor",
   "tooltip.me.tier_mithril" : "§bMithril",
+
+  "tooltip.me.artefact" : "Artefact",
+  "tooltip.me.artefact_broken" : "Broken ",
 
   "tooltip.me.sword" : "Sword",
   "tooltip.me.axe" : "Axe",
