@@ -6,6 +6,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.controllers.FactionSelectionController;
 import net.jukoz.me.client.screens.utils.CycledSelectionButtonType;
 import net.jukoz.me.client.screens.utils.widgets.*;
+import net.jukoz.me.client.screens.utils.widgets.advanced.FactionSelectionMapWidget;
 import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.factions.Faction;
@@ -60,7 +61,7 @@ public class FactionSelectionScreen extends Screen {
     public boolean mapViewAllToggle = false;
     public ButtonWidget mapFocusButton;
     public boolean mapFocusToggle = false;
-    private MapWidget mapWidget;
+    private FactionSelectionMapWidget mapWidget;
     private CycledSelectionWidget raceCycledSelection;
     private CycledSelectionWidget spawnPointCycledSelection;
     public ButtonWidget spawnSelectionRandomizerButton;
@@ -91,7 +92,7 @@ public class FactionSelectionScreen extends Screen {
         playableNpcPreviewWidget = new PlayableNpcPreviewWidget();
 
         addFactionSelectionPanelButtons();
-        mapWidget = new MapWidget(114, 114);
+        mapWidget = new FactionSelectionMapWidget(controller, 114, 114);
         addMapPanelButtonsAndWidgets();
 
         addDrawableChild(searchBarWidget.getScreenClickButton());
@@ -171,6 +172,10 @@ public class FactionSelectionScreen extends Screen {
      * - Map widgets & Cycled widgets & Randomizer & Confirms
      */
     private void addMapPanelButtonsAndWidgets() {
+        for(ButtonWidget button: mapWidget.getButtons()){
+            addDrawableChild(button);
+        }
+
         // Focus all spawn points (from data)
         mapViewAllButton = ButtonWidget.builder(
                 Text.of("View all"),

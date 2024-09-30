@@ -5,10 +5,12 @@ import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
+import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.joml.Vector2d;
@@ -34,15 +36,15 @@ public class AffiliationData {
         try{
             Faction foundFaction = FactionLookup.getFactionById(world,faction);
             LoggerUtil.logDebugMsg("MiddleEarth spawn coordinate : " + spawnId.toString());
-            Vector2d dynamicSpawnFound = foundFaction.getSpawnData().findDynamicSpawn(spawnId);
-            // Return dynamic spawn with dimension height
-            if(dynamicSpawnFound != null){
-                dynamicSpawnFound = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(dynamicSpawnFound.x, dynamicSpawnFound.y);
-                double y = ModDimensions.getDimensionHeight((int) dynamicSpawnFound.x, (int)dynamicSpawnFound.y).y;
-                return new Vec3d(dynamicSpawnFound.x, y, dynamicSpawnFound.y);
+            SpawnData spawnData = foundFaction.getSpawnData().findSpawn(spawnId);
+            Vec3d spawnCoordinate = spawnData.getCoordinates();
+            if(spawnData.isDynamic()){
+                Vector2d foundCoordinate = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(spawnCoordinate.getX(), spawnCoordinate.getZ());
+                double y = ModDimensions.getDimensionHeight((int) foundCoordinate.x, (int)foundCoordinate.y).y;
+                return new Vec3d(spawnCoordinate.getX(), y, spawnCoordinate.getY());
             }
             // Return custom spawn
-            return foundFaction.getSpawnData().findCustomSpawn(spawnId);
+            return spawnCoordinate;
         } catch (FactionIdentifierException e){
             LoggerUtil.logError("AffiliationData::getSpawnMiddleEarthCoordinate", e);
             return null;

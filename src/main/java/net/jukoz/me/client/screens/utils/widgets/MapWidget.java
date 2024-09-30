@@ -11,20 +11,20 @@ import org.joml.Vector2f;
 import org.joml.Vector2i;
 
 public class MapWidget extends ModWidget {
-    private final static int DRAG_COOLDOWN = 25;
-
     public boolean canZoomIn;
     public boolean canZoomOut;
+    protected final static double MAP_TO_WORLD_RATIO = (double) MiddleEarthMapConfigs.REGION_SIZE / MiddleEarthMapConfigs.FULL_MAP_SIZE;
+    protected final int uiWidth, uiHeight;
+    protected int startX, startY = 0;
+    protected float uiCurrentWidth, uiCurrentHeight;
 
-    private final int uiWidth, uiHeight;
+    private final static int DRAG_COOLDOWN = 25;
     private double uvX, uvY = 0;
-    private int startX, startY = 0;
     private float zoomLevel = getMinZoom();
     private float zoomTarget = zoomLevel;
     private Vector2d currentPointRatio;
     private Vector2d currentMapTargetRatio;
     private Vector2d currentUiTargetRatio;
-    private float uiCurrentWidth, uiCurrentHeight;
     private boolean isDragging = false;
     private Vector2d nextUvs = null;
     private float cooldown = 0;
@@ -46,18 +46,25 @@ public class MapWidget extends ModWidget {
     private float getMaxZoom(){
         return 70f;
     }
-
     private float getMinZoom(){
         return 1f;
     }
-
     private Identifier getMapTexture(){
         return Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
     }
 
-    public void setStartCoordinates(int startX, int startY){
-        this.startX = startX;
-        this.startY = startY;
+
+    public Vector2d getMapPointFromMapCoordinate(Vector2d point){
+        int mapSize = MiddleEarthMapConfigs.REGION_SIZE;
+        point.x = (point.x / mapSize * uiCurrentWidth) - uvX + startX;
+        point.y = (point.y / mapSize * uiCurrentHeight) - uvY + startY;
+        return point;
+    }
+
+    public Vector2d getMapPointFromWorldCoordinate(Vector2d point){
+        point.x *= MAP_TO_WORLD_RATIO;
+        point.y *= MAP_TO_WORLD_RATIO;
+        return getMapPointFromMapCoordinate(point);
     }
 
     public void drawCentered(DrawContext context, int centerX, int startY){
@@ -73,15 +80,7 @@ public class MapWidget extends ModWidget {
         draw(context, startX, startY);
     }
 
-    /**
-     * Need to set start positions before being used, by default it's 0,0.
-     * @param context
-     */
-    public void draw(DrawContext context){
-        draw(context, this.startX, this.startY);
-    }
-
-    private void draw(DrawContext context, int startX, int startY){
+    protected void draw(DrawContext context, int startX, int startY){
         this.startX = startX;
         this.startY = startY;
 

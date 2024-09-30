@@ -6,6 +6,7 @@ import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
 import net.jukoz.me.resources.datas.factions.data.NpcPreview;
+import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.utils.LoggerUtil;
@@ -23,7 +24,7 @@ public class FactionSelectionController {
     /**
      * Identifier and if the spawn data is from the dynamic pool. True(Dynamic) : False(Custom)
      */
-    private Map<Identifier, Boolean> spawns = new HashMap<>();
+    private List<SpawnData> spawns;
     private List<Race> races = new ArrayList();
 
     private int currentAlignementIndex;
@@ -208,12 +209,9 @@ public class FactionSelectionController {
     private Identifier getCurrentSpawnIdentifier(){
         if(spawns == null || spawns.isEmpty())
             updateSpawnList();
-
-        List<Identifier> spawnList = spawns.keySet().stream().toList();
-
-        if(spawnList.isEmpty())
+        if(spawns.isEmpty())
             return null;
-        return spawnList.get(currentSpawnIndex);
+        return spawns.get(currentSpawnIndex).getIdentifier();
     }
     public String getCurrentSpawnKey(){
         Identifier spawnId = getCurrentSpawnIdentifier();
@@ -231,17 +229,16 @@ public class FactionSelectionController {
         Faction faction = getCurrentlySelectedFaction();
         if(faction == null || spawns == null || spawns.isEmpty()) return;
 
-        Identifier currentSpawnIdentifier = getCurrentSpawnIdentifier();
-        if(spawns.get(currentSpawnIdentifier)){
-            Vector2d coordinates = getCurrentlySelectedFaction().getSpawnData().findDynamicSpawn(currentSpawnIdentifier);
-            ClientPlayNetworking.send(new PacketTeleportToDynamicCoordinate(coordinates.x, coordinates.y, true));
+        SpawnData spawn = spawns.get(currentSpawnIndex);
+        Vec3d coordinate = spawn.getCoordinates();
+        if(spawn.isDynamic()){
+            ClientPlayNetworking.send(new PacketTeleportToDynamicCoordinate(coordinate.getX(), coordinate.getZ(), true));
         } else {
-            Vec3d coordinates = getCurrentlySelectedFaction().getSpawnData().findCustomSpawn(currentSpawnIdentifier);
-            ClientPlayNetworking.send(new PacketTeleportToCustomCoordinate(coordinates.x, coordinates.y, coordinates.z, true));
+            ClientPlayNetworking.send(new PacketTeleportToCustomCoordinate(coordinate.getX(), coordinate.getY(), coordinate.getZ(), true));
         }
 
         ClientPlayNetworking.send(new PacketSetRace(races.get(currentRaceIndex).getId().toString()));
-        ClientPlayNetworking.send(new PacketSetAffiliation(getCurrentAlignment().name(), getCurrentlySelectedFaction().getId().toString(), currentSpawnIdentifier.toString()));
+        ClientPlayNetworking.send(new PacketSetAffiliation(getCurrentAlignment().name(), getCurrentlySelectedFaction().getId().toString(), spawn.getIdentifier().toString()));
         if(player != null){
             BlockPos overworldBlockPos = player.getBlockPos();
             ClientPlayNetworking.send(new PacketSetSpawnData(overworldBlockPos.getX(), overworldBlockPos.getY(), overworldBlockPos.getZ()));
@@ -251,6 +248,7 @@ public class FactionSelectionController {
     public Alignment getCurrentAlignment(){
         return Alignment.values()[currentAlignementIndex];
     }
+
     public Faction getCurrentFaction(){
         Alignment alignment = getCurrentAlignment();
         return (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFactionIndex) : null;
@@ -288,5 +286,10 @@ public class FactionSelectionController {
         Faction currentFaction = getCurrentlySelectedFaction();
         NpcPreview data = currentFaction.getPreviewGear(races.get(currentRaceIndex));
         return data;
+    }
+
+    public SpawnDataHandler getCurrentSpawnDataHandler(){
+        Faction faction = getCurrentlySelectedFaction();
+        return (faction != null) ? faction.getSpawnData() : null;
     }
 }

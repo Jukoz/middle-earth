@@ -95,7 +95,7 @@ public class FactionUtil {
             if(spawnId == null)
                 spawnId = spawnDataHandler.getDefaultSpawn();
 
-            boolean spawnExistInFaction = spawnDataHandler.getSpawnList().containsKey(spawnId);
+            boolean spawnExistInFaction = spawnDataHandler.getAllSpawnIdentifiers().contains(spawnId);
 
             if(spawnId == null || !spawnExistInFaction){
                 throw new SpawnIdentifierException();

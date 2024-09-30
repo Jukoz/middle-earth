@@ -17,26 +17,23 @@ import org.joml.Vector2d;
 import org.joml.Vector2i;
 import org.joml.Vector3i;
 
+import javax.swing.text.html.Option;
 import java.util.*;
 
 public class SpawnDataHandler {
     Vector2i mapViewCenter;
 
-    /**
-     * Spawns without height (Will be based on the map iteration in the future)
-     */
-    HashMap<Identifier, Vector2d> dynamicSpawns;
+    HashMap<Identifier, SpawnData> spawns;
 
     /**
-     * Spawns with every values hardcoded, mainly used for servers for custom spawns
+     * this is this!
+     * @param spawnDatas
      */
-    HashMap<Identifier, Vec3d> customSpawns;
-
-
-    public SpawnDataHandler(Vector2i mapViewCenter, HashMap<Identifier, Vector2d> dynamicSpawns, HashMap<Identifier, Vec3d> customSpawns){
-        this.mapViewCenter = mapViewCenter;
-        this.dynamicSpawns = dynamicSpawns;
-        this.customSpawns = customSpawns;
+    public SpawnDataHandler(List<SpawnData> spawnDatas){
+        spawns = new HashMap<>();
+        for(SpawnData spawn : spawnDatas){
+            spawns.put(spawn.getIdentifier(), spawn);
+        }
     }
 
     public SpawnDataHandler(Optional<NbtCompound> spawnsNbt) {
@@ -47,78 +44,29 @@ public class SpawnDataHandler {
     }
 
     private void deserializeNbt(NbtCompound nbtCompound) {
-        // Get Map view center
-        NbtCompound mapViewCenterNbt = nbtCompound.getCompound("map_view_center");
-        mapViewCenter = new Vector2i(mapViewCenterNbt.getInt("x"), mapViewCenterNbt.getInt("y"));
-
-        // Get all dynamic spawns (XZ)
-        NbtList dynamicSpawnsNbtList = nbtCompound.getList("dynamic_spawns", NbtType.COMPOUND);
-        dynamicSpawns = new HashMap<>();
-        for(int i = 0; i < dynamicSpawnsNbtList.size(); i++){
-            NbtCompound nbt = dynamicSpawnsNbtList.getCompound(i);
-            Identifier id = IdentifierUtil.getIdentifierFromString(nbt.getString("id"));
-            double x = nbt.getDouble("x");
-            double z = nbt.getDouble("z");
-            dynamicSpawns.put(id, new Vector2d(x,z));
-        }
-
-        // Get all custom spawns (XYZ)
-        NbtList customSpawnsNbtList = nbtCompound.getList("custom_spawns", NbtType.COMPOUND);
-        customSpawns = new HashMap<>();
-        for(int i = 0; i < customSpawnsNbtList.size(); i++){
-            NbtCompound nbt = customSpawnsNbtList.getCompound(i);
-            Identifier id = IdentifierUtil.getIdentifierFromString(nbt.getString("id"));
-            double x = nbt.getDouble("x");
-            double y = nbt.getDouble("y");
-            double z = nbt.getDouble("z");
-            customSpawns.put(id, new Vec3d(x,y,z));
+        NbtList compoundList = nbtCompound.getList("data", NbtType.COMPOUND);
+        spawns = new HashMap<>();
+        for(int i = 0; i < compoundList.size(); i++){
+            SpawnData spawnData = SpawnData.deserialize(compoundList.getCompound(i));
+            spawns.put(spawnData.getIdentifier(), spawnData);
         }
     }
 
     public Optional<NbtCompound> serializeNbt() {
-        if(mapViewCenter == null || (dynamicSpawns == null || dynamicSpawns.isEmpty()) && (customSpawns == null || customSpawns.isEmpty()))
+        if((spawns == null || spawns.isEmpty()))
             return Optional.empty();
 
         NbtCompound nbt = new NbtCompound();
-
-        // Write Map view center
-        NbtCompound mapViewCenterNbt = new NbtCompound();
-        mapViewCenterNbt.putInt("x", mapViewCenter.x);
-        mapViewCenterNbt.putInt("y", mapViewCenter.y);
-        nbt.put("map_view_center", mapViewCenterNbt);
-
-        // Write all dynamic spawns
-        NbtList dynamicSpawnsNbt = new NbtList();
-        for(Identifier key : dynamicSpawns.keySet()){
-            NbtCompound compound = new NbtCompound();
-            compound.putString("id", key.toString());
-            compound.putDouble("x",  dynamicSpawns.get(key).x);
-            compound.putDouble("z",  dynamicSpawns.get(key).y);
-            dynamicSpawnsNbt.add(compound);
+        NbtList spawnDataList = new NbtList();
+        for(SpawnData spawnData : spawns.values()){
+            spawnDataList.add(SpawnData.serialize(spawnData));
         }
-        nbt.put("dynamic_spawns", dynamicSpawnsNbt);
-
-        // Write all custom spawns
-        NbtList customSpawnSetsNbt = new NbtList();
-        for(Identifier key : customSpawns.keySet()){
-            NbtCompound compound = new NbtCompound();
-            compound.putString("id", key.toString());
-            compound.putDouble("x",  customSpawns.get(key).getX());
-            compound.putDouble("y",  customSpawns.get(key).getY());
-            compound.putDouble("z",  customSpawns.get(key).getZ());
-            customSpawnSetsNbt.add(compound);
-        }
-        nbt.put("custom_spawns", customSpawnSetsNbt);
-
+        nbt.put("data", spawnDataList);
         return Optional.of(nbt);
     }
 
-    public Vector2d findDynamicSpawn(Identifier spawnId) {
-        return dynamicSpawns.get(spawnId);
-    }
-
-    public Vec3d findCustomSpawn(Identifier spawnId) {
-        return customSpawns.get(spawnId);
+    public SpawnData findSpawn(Identifier spawnId) {
+        return spawns.get(spawnId);
     }
 
     public static String getTranslatableKey(Identifier id){
@@ -127,38 +75,29 @@ public class SpawnDataHandler {
         return "spawn.".concat(id.toTranslationKey());
     }
 
-    public HashMap<Identifier, Boolean> getSpawnList(){
-        HashMap<Identifier, Boolean> spawnList = new HashMap<>();
-        if(dynamicSpawns != null)
-            for(Identifier id : dynamicSpawns.keySet()){
-                spawnList.put(id, true);
-            }
-        if(customSpawns != null)
-            for(Identifier id : customSpawns.keySet()){
-                spawnList.put(id, false);
-            }
-        return spawnList;
+    public List<SpawnData> getSpawnList(){
+        if(spawns == null || spawns.isEmpty())
+            return null;
+        return spawns.values().stream().toList();
+    }
+
+    public List<Identifier> getAllSpawnIdentifiers(){
+        if(spawns == null || spawns.isEmpty())
+            return null;
+        return spawns.keySet().stream().toList();
     }
 
     public Identifier getDefaultSpawn() {
-        Optional<Identifier> defaultSpawnId = getSpawnList().keySet().stream().findFirst();
-        return defaultSpawnId.orElse(null);
+        if(spawns == null || spawns.isEmpty())
+            return null;
+        return spawns.keySet().stream().toList().getFirst();
     }
 
     public BlockPos getSpawnBlockPos(Identifier spawnId) {
-        if(dynamicSpawns != null && dynamicSpawns.containsKey(spawnId)){
-            Vector2d coords = dynamicSpawns.get(spawnId);
-            coords = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(coords.x, coords.y);
-
-            Vector3i spawnCoordinates =  ModDimensions.getDimensionHeight((int) coords.x, (int) coords.y);
-
-            BlockPos blockPos = new BlockPos(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z);
-            return blockPos;
-        } else if (customSpawns != null && customSpawns.containsKey(spawnId)){
-            Vec3d coords = customSpawns.get(spawnId);
-            BlockPos blockPos = new BlockPos((int) coords.x, (int) coords.y, (int) coords.z);
-            return blockPos;
-        }
-        return null;
+        if(spawns == null || spawns.isEmpty())
+            return null;
+        SpawnData data = spawns.get(spawnId);
+        if(data == null) return null;
+        return data.getBlockPos();
     }
 }

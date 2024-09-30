@@ -59,7 +59,7 @@ public class AllAvailableSpawnSuggestionProvider implements SuggestionProvider<S
         if(currentSelectedFaction != null) {
             SpawnDataHandler spawnDataHandler = currentSelectedFaction.getSpawnData();
             if(spawnDataHandler != null && spawnDataHandler.getSpawnList() != null){
-                List<Identifier> factionSpawns = spawnDataHandler.getSpawnList().keySet().stream().toList();
+                List<Identifier> factionSpawns = spawnDataHandler.getAllSpawnIdentifiers().stream().toList();
                 candidates.addAll(factionSpawns);
                 return candidates;
             }
@@ -70,7 +70,7 @@ public class AllAvailableSpawnSuggestionProvider implements SuggestionProvider<S
         for(Faction faction : allFactions){
             SpawnDataHandler spawnDataHandler = faction.getSpawnData();
             if(spawnDataHandler != null && spawnDataHandler.getSpawnList() != null){
-                List<Identifier> factionSpawns = spawnDataHandler.getSpawnList().keySet().stream().toList();
+                List<Identifier> factionSpawns = spawnDataHandler.getAllSpawnIdentifiers().stream().toList();
                 candidates.addAll(factionSpawns);
             }
         }

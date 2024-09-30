@@ -28,7 +28,8 @@ public class FactionLookup {
         HashMap<Identifier, Faction> foundFactions = new HashMap<>();
 
         for(Faction faction : factions.filter(x -> x.getAlignment() == alignment).toList()){
-            foundFactions.put(faction.getId(), faction);
+            if(faction.getFactionType() == FactionType.FACTION)
+                foundFactions.put(faction.getId(), faction);
         }
         return foundFactions;
     }

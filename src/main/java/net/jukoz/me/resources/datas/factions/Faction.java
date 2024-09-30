@@ -151,6 +151,7 @@ public class Faction {
     private Optional<NbtCompound> getSpawnDataNbt() {
         if(this.spawnDataHandler == null)
             return Optional.empty();
+
         return this.spawnDataHandler.serializeNbt();
     }
 

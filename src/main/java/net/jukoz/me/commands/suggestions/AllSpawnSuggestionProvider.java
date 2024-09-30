@@ -38,13 +38,13 @@ public class AllSpawnSuggestionProvider implements SuggestionProvider<ServerComm
         for(Faction faction: factions){
             SpawnDataHandler spawnDataHandler = faction.getSpawnData();
             if(spawnDataHandler != null){
-                candidates.addAll(spawnDataHandler.getSpawnList().keySet());
+                candidates.addAll(spawnDataHandler.getAllSpawnIdentifiers());
             }
             if(faction.getSubFactions() != null){
                 for(Identifier subfactionId : faction.getSubFactions()){
                     Faction subFaction = FactionLookup.getFactionById(context.getSource().getWorld(), subfactionId);
                     SpawnDataHandler subFacspawnDataHandler = subFaction.getSpawnData();
-                    candidates.addAll(subFacspawnDataHandler.getSpawnList().keySet());
+                    candidates.addAll(subFacspawnDataHandler.getAllSpawnIdentifiers());
                 }
             }
         }

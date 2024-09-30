@@ -130,7 +130,7 @@ public class PlayerData {
 
     public boolean setSpawnMiddleEarthId(World world, Identifier foundId) throws FactionIdentifierException {
         if(hasAffilition()){
-            if(FactionLookup.getFactionById(world,affiliationData.faction).getSpawnData().getSpawnList().containsKey(foundId)){
+            if(FactionLookup.getFactionById(world,affiliationData.faction).getSpawnData().getAllSpawnIdentifiers().contains(foundId)){
                 affiliationData.spawnId = foundId;
                 return true;
             }
