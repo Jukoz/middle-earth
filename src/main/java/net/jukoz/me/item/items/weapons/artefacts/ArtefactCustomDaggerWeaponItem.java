@@ -44,14 +44,15 @@ public class ArtefactCustomDaggerWeaponItem extends CustomDaggerWeaponItem {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.of(""));
         if (Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact").formatted(Formatting.AQUA));
+            if(!(stack.getDamage() < stack.getMaxDamage() - 1)){
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact_broken").formatted(Formatting.ITALIC).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact")).formatted(Formatting.AQUA));
+            } else {
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact").formatted(Formatting.AQUA));
+            }
             if(this.type != null){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name));
             }
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".backstab"));
-            if(!(stack.getDamage() < stack.getMaxDamage() - 1)){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".broken").formatted(Formatting.ITALIC));
-            }
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
         }

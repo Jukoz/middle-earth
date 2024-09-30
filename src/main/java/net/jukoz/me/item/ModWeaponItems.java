@@ -18,6 +18,8 @@ import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.Identifier;
 
+import java.util.Optional;
+
 public class ModWeaponItems {
 
     //region GENERIC
@@ -284,7 +286,7 @@ public class ModWeaponItems {
     public static final Item MORGUL_KNIFE = registerItemNoModel("morgul_knife",
             new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE), false, false, false);
     public static final Item STING = registerItemNoModel("sting",
-            new ArtefactCustomGlowingDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL), false, false, true);
+            new ArtefactCustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL), false, false, true);
     //endregion
 
     private static Item registerItemWithModel(String name, Item item, boolean isDualModel) {
