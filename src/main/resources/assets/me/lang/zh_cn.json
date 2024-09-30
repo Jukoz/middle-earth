@@ -298,6 +298,8 @@
   "item.me.erebor_noble_dagger": "埃瑞博贵族匕首",
   "item.me.erebor_axe": "埃瑞博斧",
   "item.me.erebor_noble_axe": "埃瑞博贵族斧",
+  "item.me.erebor_spear": "埃瑞博矛",
+  "item.me.erebor_noble_spear": "埃瑞博贵族矛",
 
   "#Comment:": "物品 - 刚铎",
   "item.me.gondorian_sword": "刚铎剑",
@@ -366,9 +368,27 @@
   "item.me.dalish_heyday_dagger": "河谷邦旧日匕首",
   "item.me.dalish_noble_dagger": "河谷邦贵族匕首",
 
+  "#Comment:": "物品 - 魔多",
+  "item.me.mordor_falchion": "Mordor 砍刀",
+  "item.me.mordor_elite_cleaver": "Mordor Elite 屠刀",
+  "item.me.mordor_scimitar": "Mordor Scimitar",
+  "item.me.mordor_elite_warblade": "Mordor Elite Warblade",
+  "item.me.mordor_dagger": "Mordor Dagger",
+  "item.me.mordor_elite_dagger": "Mordor Elite Dagger",
+  "item.me.mordor_spear": "Mordor Spear",
+  "item.me.mordor_elite_spear": "Mordor Elite Spear",
+  "item.me.mordor_axe": "Mordor Axe",
+  "item.me.mordor_elite_axe": "Mordor Elite Axe",
+
+  "item.me.black_numenorean_sword": "Black Númenórean Sword",
+  "item.me.black_numenorean_longsword": "Black Númenórean Longsword",
+  "item.me.black_numenorean_dagger": "Black Númenórean Dagger",
+  "item.me.black_numenorean_spear": "Black Númenórean Spear",
+  "item.me.black_numenorean_axe": "Black Númenórean Axe",
+
   "#Comment:": "物品 - 乌鲁克",
-  "item.me.uruk_hai_sword": "乌鲁克剑",
-  "item.me.uruk_hai_elite_scimitar": "乌鲁克精英弯刀",
+  "item.me.uruk_hai_cleaver": "乌鲁克屠刀",
+  "item.me.uruk_hai_elite_falchion": "乌鲁克精英砍刀",
   "item.me.uruk_hai_warblade": "乌鲁克战刃",
   "item.me.uruk_hai_elite_warblade": "乌鲁克精英战刃",
   "item.me.uruk_hai_dagger": "乌鲁克匕首",
@@ -387,7 +407,7 @@
   "item.me.iron_dagger": "铁匕首",
   "item.me.steel_dagger": "钢匕首",
   "item.me.slag_dagger": "熔渣匕首",
-  "item.me.uruk_steel_dagger": "乌鲁克钢匕首",
+  "item.me.uruk_steel_knife": "乌鲁克钢匕首",
   "item.me.elven_steel_dagger": "精灵钢匕首",
   "item.me.dwarven_steel_dagger": "矮人钢匕首",
   "item.me.diamond_dagger": "钻石匕首",
@@ -409,7 +429,7 @@
   "item.me.iron_longsword": "铁长剑",
   "item.me.steel_longsword": "钢长剑",
   "item.me.slag_longblade": "熔渣长剑",
-  "item.me.uruk_steel_longsword": "乌鲁克钢长剑",
+  "item.me.uruk_steel_broadblade": "乌鲁克钢宽剑",
   "item.me.elven_steel_longsword": "精灵钢长剑",
   "item.me.dwarven_steel_longsword": "矮人钢长剑",
   "item.me.diamond_longsword": "钻石长剑",
@@ -428,6 +448,15 @@
   "item.me.dwarven_steel_spear": "矮人钢矛",
   "item.me.diamond_spear": "钻石矛",
   "item.me.netherite_spear": "下界合金矛",
+
+  "#Comment:": "物品 - 匠制武器",
+  "item.me.orcrist": "奥克锐斯特",
+
+  "item.me.glamdring": "格拉姆德凛",
+  "item.me.narsil": "纳熙尔",
+
+  "item.me.sting": "刺叮",
+  "item.me.morgul_knife": "魔古尔之刃",
 
   "#Comment:": "盔甲",
   "item.me.cape": "披风",
@@ -664,7 +693,7 @@
   "item.me.mordor_orc_snout_helmet": "魔多奥克凸吻头盔",
 
   "item.me.mordor_orc_scale_coat": "魔多奥克鳞片外套",
-  
+
   "item.me.mordor_orc_chestplate": "魔多奥克胸甲",
 
   "item.me.black_uruk_plate_helmet": "黑乌鲁克板条头盔",
@@ -709,6 +738,9 @@
   "item.me.steel_troll_armor": "钢食人妖铠",
   "item.me.warg_leather_armor": "皮革座狼铠",
   "item.me.warg_plate_armor": "板条座狼铠",
+  "item.me.broadhoof_goat_padded_armor": "布制宽蹄山羊铠",
+  "item.me.broadhoof_goat_ornamented_padded_armor": "布制宽蹄山羊饰样铠",
+  "item.me.broadhoof_goat_plate_armor": "宽蹄山羊板条铠",
 
   "#Comment:": "盾牌",
   "item.me.round_shield": "圆形盾",
@@ -733,7 +765,13 @@
   "item.me.gondorian_knight_shield": "刚铎骑士盾牌",
   "item.me.gondorian_ornamented_knight_shield": "刚铎骑士精饰盾牌",
 
-  "item.me.longbeard_shield": "长须矮人盾牌",
+  "item.me.erebor_shield": "埃瑞博盾牌",
+  "item.me.erebor_cross_shield": "埃瑞博十字盾牌",
+  "item.me.erebor_plated_shield": "埃瑞博披甲盾牌",
+  "item.me.erebor_ornamented_shield": "埃瑞博精饰盾牌",
+  "item.me.erebor_reinforced_shield": "埃瑞博加固盾牌",
+
+  "item.me.erebor_heavy_shield": "埃瑞博重型盾牌",
 
   "item.me.lorien_shield": "罗瑞恩盾牌",
   "item.me.lorien_laurels_shield": "罗瑞恩桂冠盾牌",
@@ -763,12 +801,6 @@
   "item.me.maggoty_bread": "蛆虫面包",
   "item.me.strawberry": "草莓",
   "item.me.tough_berries": "枯浆果",
-  "item.me.raw_crab_claw": "生蟹钳",
-  "item.me.cooked_crab_claw": "熟蟹钳",
-  "item.me.raw_goose": "生鹅肉",
-  "item.me.cooked_goose": "熟鹅肉",
-  "item.me.raw_duck": "生鸭肉",
-  "item.me.cooked_duck": "熟鸭肉",
   "item.me.raw_swan": "生天鹅肉",
   "item.me.cooked_swan": "熟天鹅肉",
   "item.me.raw_venison": "生鹿肉",
@@ -786,7 +818,6 @@
   "item.me.onion": "洋葱",
   "item.me.berry_pie": "浆果馅饼",
   "item.me.boiled_egg": "水煮蛋",
-  "item.me.crab_soup": "蟹肉汤",
   "item.me.fish_stew": "鱼肉炖",
   "item.me.meat_bowl": "肉汤",
   "item.me.meat_egg_meal": "肉蛋炖",
@@ -803,11 +834,12 @@
 
   "#Comment:": "物品 - 资源",
   "item.me.straw": "稻草",
-  "item.me.duck_feather": "鸭羽毛",
   "item.me.swan_feather": "天鹅羽毛",
 
   "item.me.copper_coin": "铜币",
   "item.me.silver_coin": "银币",
+
+  "item.me.dwarven_key": "矮人钥匙",
 
   "#Comment:": "物品 - 种子",
   "item.me.tomato_seeds": "番茄种子",
@@ -826,16 +858,11 @@
 
   "#Comment:": "物品 - 刷怪蛋",
   "item.me.barrow_wight_spawn_egg": "古冢尸妖刷怪蛋",
-  "item.me.nazgul_spawn_egg": "那兹古尔刷怪蛋",
-
+  "item.me.broadhoof_goat_spawn_egg": "宽蹄山羊刷怪蛋",
   "item.me.warg_spawn_egg": "座狼刷怪蛋",
   "item.me.stone_troll_spawn_egg": "岩石食人妖刷怪蛋",
-  "item.me.cave_troll_spawn_egg": "洞穴食人妖刷怪蛋",
   "item.me.snow_troll_spawn_egg": "雪地食人妖刷怪蛋",
   "item.me.troll_statue": "食人妖石像",
-  "item.me.crab_spawn_egg": "螃蟹刷怪蛋",
-  "item.me.goose_spawn_egg": "鹅刷怪蛋",
-  "item.me.duck_spawn_egg": "鸭刷怪蛋",
   "item.me.swan_spawn_egg": "天鹅刷怪蛋",
 
   "item.me.hobbit_civilian_spawn_egg": "霍比特居民刷怪蛋",
@@ -906,14 +933,11 @@
   "item.me.lit_pinecone": "点燃的松果",
 
   "#Comment:": "实体",
+  "entity.me.broadhoof_goat": "宽蹄山羊",
   "entity.me.warg": "座狼",
-  "entity.me.cave_troll": "洞穴食人妖",
   "entity.me.snow_troll": "雪地食人妖",
   "entity.me.stone_troll": "岩石食人妖",
   "entity.me.petrified_troll": "石化的食人妖",
-  "entity.me.crab": "螃蟹",
-  "entity.me.goose": "鹅",
-  "entity.me.duck": "鸭",
   "entity.me.swan": "天鹅",
   "entity.me.pheasant": "野鸡",
   "entity.me.snail": "蜗牛",
@@ -972,15 +996,11 @@
   "entity.me.isengard_uruk_hai_veteran": "艾森加德乌鲁克老兵",
   "entity.me.isengard_uruk_hai_leader": "艾森加德乌鲁克领队",
 
-  "entity.me.nazgul": "那兹古尔",
-
   "entity.me.bandit_militia": "土匪民兵",
   "entity.me.bandit_soldier": "土匪士兵",
   "entity.me.bandit_chieftain": "土匪头领",
 
   "entity.me.mirkwood_spider": "黑森林蜘蛛",
-
-  "entity.me.balrog": "炎魔",
 
   "entity.me.pebble": "石子",
   "entity.me.pinecone": "松果",
@@ -996,6 +1016,7 @@
   "block.me.basalt_trapdoor": "玄武岩活板门",
   "block.me.blackstone_trapdoor": "黑石活板门",
   "block.me.old_podzol": "老灰化土",
+  "block.me.lorien_podzol": "罗瑞恩灰化土",
   "block.me.stone_mycelium": "菌丝石头",
   "block.me.ash_block": "灰烬块",
 
@@ -1526,6 +1547,9 @@
   "block.me.gonluin_pressure_plate": "路因岩压力板",
   "block.me.gonluin_button": "路因岩按钮",
   "block.me.gonluin_trapdoor": "路因岩活板门",
+
+  "block.me.gonluin_carved_window": "路因岩雕纹窗户",
+  "block.me.gonluin_carved_window_pane": "路因岩雕纹窗户板",
 
   "block.me.gonluin_stool": "路因岩凳",
   "block.me.gonluin_table": "路因岩桌",
@@ -2989,8 +3013,8 @@
   "block.me.chiseled_medgon_bricks": "雕纹地心岩砖",
   "block.me.chiseled_medgon": "雕纹地心岩",
 
-  "block.me.medgon_carved_window": "地心岩雕刻窗",
-  "block.me.medgon_carved_window_pane": "地心岩雕刻窗板",
+  "block.me.medgon_carved_window": "地心岩雕纹窗户",
+  "block.me.medgon_carved_window_pane": "地心岩雕纹窗户板",
 
   "block.me.medgon_pressure_plate": "地心岩压力板",
   "block.me.medgon_button": "地心岩按钮",
@@ -3117,6 +3141,9 @@
   "block.me.dry_dirt": "干燥泥土",
   "block.me.dry_dirt_slab": "干燥泥土台阶",
   "block.me.dry_dirt_stairs": "干燥泥土楼梯",
+  "block.me.dirty_roots": "泥土缠根",
+  "block.me.dirty_roots_slab": "泥土缠根台阶",
+  "block.me.dirty_roots_stairs": "泥土缠根楼梯",
   "block.me.ashen_dirt": "灰烬泥土",
   "block.me.ashen_dirt_slab": "灰烬泥土台阶",
   "block.me.ashen_dirt_stairs": "灰烬泥土楼梯",
@@ -3194,6 +3221,7 @@
   "block.me.beech_bench": "山毛榉木长椅",
   "block.me.beech_table": "山毛榉木桌",
   "block.me.beech_chair": "山毛榉木椅",
+
   "block.me.beech_ladder": "山毛榉木梯子",
 
   "#Comment:": "方块 - 落叶松",
@@ -3239,6 +3267,7 @@
   "block.me.larch_bench": "落叶松木长椅",
   "block.me.larch_table": "落叶松木桌",
   "block.me.larch_chair": "落叶松木椅",
+
   "block.me.larch_ladder": "落叶松木梯子",
 
   "#Comment:": "方块 - 黑色莱贝斯隆",
@@ -3283,6 +3312,7 @@
   "block.me.black_lebethron_bench": "黑色莱贝斯隆木长椅",
   "block.me.black_lebethron_table": "黑色莱贝斯隆木桌",
   "block.me.black_lebethron_chair": "黑色莱贝斯隆木椅",
+
   "block.me.black_lebethron_ladder": "黑色莱贝斯隆木梯子",
 
   "#Comment:": "方块 - 白色莱贝斯隆",
@@ -3326,6 +3356,7 @@
   "block.me.white_lebethron_bench": "白色莱贝斯隆木长椅",
   "block.me.white_lebethron_table": "白色莱贝斯隆木桌",
   "block.me.white_lebethron_chair": "白色莱贝斯隆木椅",
+
   "block.me.white_lebethron_ladder": "白色莱贝斯隆木梯子",
 
   "#Comment:": "方块 - 栗树",
@@ -3370,6 +3401,7 @@
   "block.me.chestnut_bench": "栗木长椅",
   "block.me.chestnut_table": "栗木桌",
   "block.me.chestnut_chair": "栗木椅",
+
   "block.me.chestnut_ladder": "栗木梯子",
 
   "#Comment:": "方块 - 冬青树",
@@ -3415,6 +3447,7 @@
   "block.me.holly_bench": "冬青木长椅",
   "block.me.holly_table": "冬青木桌",
   "block.me.holly_chair": "冬青木椅",
+
   "block.me.holly_ladder": "冬青木梯子",
 
   "#Comment:": "方块 - 瑁珑",
@@ -3461,6 +3494,7 @@
   "block.me.mallorn_bench": "瑁珑木长椅",
   "block.me.mallorn_table": "瑁珑木桌",
   "block.me.mallorn_chair": "瑁珑木椅",
+
   "block.me.mallorn_ladder": "瑁珑木梯子",
 
   "#Comment:": "方块 - 枫树",
@@ -3508,6 +3542,7 @@
   "block.me.maple_bench": "枫木长椅",
   "block.me.maple_table": "枫木桌",
   "block.me.maple_chair": "枫木椅",
+
   "block.me.maple_ladder": "枫木梯子",
 
   "#Comment:": "方块 - 银枫木",
@@ -3551,6 +3586,7 @@
   "block.me.silver_maple_bench": "银枫木长椅",
   "block.me.silver_maple_table": "银枫木桌",
   "block.me.silver_maple_chair": "银枫木椅",
+
   "block.me.silver_maple_ladder": "银枫木梯子",
 
   "#Comment:": "方块 - 阴郁树",
@@ -3597,6 +3633,7 @@
   "block.me.mirkwood_bench": "阴郁木长椅",
   "block.me.mirkwood_table": "阴郁木桌",
   "block.me.mirkwood_chair": "阴郁木椅",
+
   "block.me.mirkwood_ladder": "阴郁木梯子",
 
   "#Comment:": "方块 - 棕榈树",
@@ -3641,6 +3678,7 @@
   "block.me.palm_bench": "棕榈木长椅",
   "block.me.palm_table": "棕榈木桌",
   "block.me.palm_chair": "棕榈木椅",
+
   "block.me.palm_ladder": "棕榈木梯子",
 
   "#Comment:": "方块 - 白色棕榈木",
@@ -3685,6 +3723,7 @@
   "block.me.white_palm_bench": "白色棕榈木长椅",
   "block.me.white_palm_table": "白色棕榈木桌",
   "block.me.white_palm_chair": "白色棕榈木椅",
+
   "block.me.white_palm_ladder": "白色棕榈木梯子",
 
   "#Comment:": "方块 - 松树",
@@ -3731,6 +3770,7 @@
   "block.me.pine_bench": "松木长椅",
   "block.me.pine_table": "松木桌",
   "block.me.pine_chair": "松木椅",
+
   "block.me.pine_ladder": "松木梯子",
 
   "#Comment:": "方块 - 黑松树",
@@ -3777,6 +3817,7 @@
   "block.me.black_pine_bench": "黑松木长椅",
   "block.me.black_pine_table": "黑松木桌",
   "block.me.black_pine_chair": "黑松木椅",
+
   "block.me.black_pine_ladder": "黑松木梯子",
 
   "#Comment:": "方块 - 柳树",
@@ -3821,6 +3862,7 @@
   "block.me.willow_bench": "柳木长椅",
   "block.me.willow_table": "柳木桌",
   "block.me.willow_chair": "柳木椅",
+
   "block.me.willow_ladder": "柳木梯子",
 
   "#Comment:": "方块 - 蘑菇",
@@ -3846,6 +3888,7 @@
   "block.me.mushroom_bench": "蘑菇长椅",
   "block.me.mushroom_table": "蘑菇桌",
   "block.me.mushroom_chair": "蘑菇椅",
+
   "block.me.mushroom_ladder": "蘑菇梯子",
 
   "#Comment:": "方块 - 暗蘑菇",
@@ -3872,6 +3915,7 @@
   "block.me.dark_mushroom_bench": "暗蘑菇长椅",
   "block.me.dark_mushroom_table": "暗蘑菇桌",
   "block.me.dark_mushroom_chair": "暗蘑菇椅",
+
   "block.me.dark_mushroom_ladder": "暗蘑菇梯子",
 
   "#Comment:": "方块 - 灰蘑菇",
@@ -3898,6 +3942,7 @@
   "block.me.gray_mushroom_bench": "灰蘑菇长椅",
   "block.me.gray_mushroom_table": "灰蘑菇桌",
   "block.me.gray_mushroom_chair": "灰蘑菇椅",
+
   "block.me.gray_mushroom_ladder": "灰蘑菇梯子",
 
   "#Comment:": "方块 - 房顶",
@@ -4125,66 +4170,77 @@
   "block.me.oak_bench": "橡木长椅",
   "block.me.oak_table": "橡木桌",
   "block.me.oak_chair": "橡木椅",
+
   "block.me.oak_ladder": "橡木梯子",
 
   "block.me.spruce_stool": "云杉木凳",
   "block.me.spruce_bench": "云杉木长椅",
   "block.me.spruce_table": "云杉木桌",
   "block.me.spruce_chair": "云杉木椅",
+
   "block.me.spruce_ladder": "云杉木梯子",
 
   "block.me.birch_stool": "白桦木凳",
   "block.me.birch_bench": "白桦木长椅",
   "block.me.birch_table": "白桦木桌",
   "block.me.birch_chair": "白桦木椅",
+
   "block.me.birch_ladder": "白桦木梯子",
 
   "block.me.jungle_stool": "丛林木凳",
   "block.me.jungle_bench": "丛林木长椅",
   "block.me.jungle_table": "丛林木桌",
   "block.me.jungle_chair": "丛林木椅",
+
   "block.me.jungle_ladder": "丛林木梯子",
 
   "block.me.acacia_stool": "金合欢木凳",
   "block.me.acacia_bench": "金合欢木长椅",
   "block.me.acacia_table": "金合欢木桌",
   "block.me.acacia_chair": "金合欢木椅",
+
   "block.me.acacia_ladder": "金合欢木梯子",
 
   "block.me.dark_oak_stool": "深色橡木凳",
   "block.me.dark_oak_bench": "深色橡木长椅",
   "block.me.dark_oak_table": "深色橡木桌",
   "block.me.dark_oak_chair": "深色橡木椅",
+
   "block.me.dark_oak_ladder": "深色橡木梯子",
 
   "block.me.mangrove_stool": "红树木凳",
   "block.me.mangrove_bench": "红树木长椅",
   "block.me.mangrove_table": "红树木桌",
   "block.me.mangrove_chair": "红树木椅",
+
   "block.me.mangrove_ladder": "红树木梯子",
 
   "block.me.cherry_stool": "樱花木凳",
   "block.me.cherry_bench": "樱花木长椅",
   "block.me.cherry_table": "樱花木桌",
   "block.me.cherry_chair": "樱花木椅",
+
   "block.me.cherry_ladder": "樱花木梯子",
 
   "block.me.bamboo_stool": "竹凳",
   "block.me.bamboo_bench": "竹长椅",
   "block.me.bamboo_table": "竹桌",
   "block.me.bamboo_chair": "竹椅",
+
   "block.me.bamboo_ladder": "竹梯子",
 
   "block.me.crimson_stool": "绯红木凳",
   "block.me.crimson_bench": "绯红木长椅",
   "block.me.crimson_table": "绯红木桌",
   "block.me.crimson_chair": "绯红木椅",
+
   "block.me.crimson_ladder": "绯红木梯子",
 
   "block.me.warped_stool": "诡异木凳",
   "block.me.warped_bench": "诡异木长椅",
   "block.me.warped_table": "诡异木桌",
   "block.me.warped_chair": "诡异木椅",
+
   "block.me.warped_ladder": "诡异木梯子",
 
   "block.me.blue_cushion": "蓝色坐垫",
@@ -4711,8 +4767,34 @@
   "block.me.wattle_framed_window": "编条边框窗户",
   "block.me.wattle_framed_window_pane": "编条边框窗户板",
 
+  "block.me.black_wattle_framed_window": "黑色编条边框窗户",
+  "block.me.black_wattle_framed_window_pane": "黑色编条边框窗户板",
+
+  "block.me.green_wattle_framed_window": "绿色编条边框窗户",
+  "block.me.green_wattle_framed_window_pane": "绿色编条边框窗户板",
+
+  "block.me.red_wattle_framed_window": "红色编条边框窗户",
+  "block.me.red_wattle_framed_window_pane": "红色编条边框窗户板",
+
+  "block.me.white_wattle_framed_window": "白色编条边框窗户",
+  "block.me.white_wattle_framed_window_pane": "白色编条边框窗户板",
+
   "block.me.dark_wattle_framed_window": "深色编条边框窗户",
   "block.me.dark_wattle_framed_window_pane": "深色编条边框窗户板",
+
+  "block.me.mud_brick_round_window": "泥砖圆形窗户",
+  "block.me.mud_brick_round_window_pane": "泥砖圆形窗户板",
+
+  "block.me.white_daub_round_window": "白色泥灰圆形窗户",
+  "block.me.white_daub_round_window_pane": "白色泥灰圆形窗户板",
+  "block.me.yellow_daub_round_window": "黄色泥灰圆形窗户",
+  "block.me.yellow_daub_round_window_pane": "黄色泥灰圆形窗户板",
+
+  "block.me.black_wattle_trapdoor": "黑色编条活板门",
+  "block.me.dark_wattle_trapdoor": "深色编条活板门",
+  "block.me.green_wattle_trapdoor": "绿色编条活板门",
+  "block.me.red_wattle_trapdoor": "红色编条活板门",
+  "block.me.wattle_trapdoor": "编条活板门",
 
   "block.me.black_wool_slab": "黑色羊毛台阶",
   "block.me.blue_wool_slab": "蓝色羊毛台阶",
@@ -4767,6 +4849,7 @@
 
   "block.me.gilded_bars": "镀金栏杆",
 
+
   "#Comment:": "方块 - 装饰",
   "block.me.dwarven_lantern": "矮人灯笼",
   "block.me.silver_lantern": "银灯笼",
@@ -4798,6 +4881,7 @@
 
   "block.me.great_dwarven_gate": "矮人大门",
   "block.me.varnished_dwarven_door": "上漆矮人门",
+  "block.me.hidden_dwarven_door": "隐藏矮人门",
 
   "block.me.great_elven_gate": "精灵大门",
 
@@ -4805,7 +4889,8 @@
 
   "block.me.calcite_statue": "方解石雕像",
   "block.me.gonluin_statue": "路因岩雕像",
-  
+  "block.me.tuff_statue": "凝灰岩雕像",
+
   "#Comment:": "物品 - 旗帜",
   "item.me.gondor_banner_pattern": "刚铎旗帜图案",
   "item.me.gondor_banner_pattern.desc": "刚铎的白树",
@@ -5038,6 +5123,9 @@
   "tooltip.me.tier_heavy" : "§c重甲 (5)",
   "tooltip.me.tier_mithril" : "§b秘银 (6)",
 
+  "tooltip.me.artefact" : "匠制",
+  "tooltip.me.artefact_broken" : "破损",
+
   "tooltip.me.sword" : "剑",
   "tooltip.me.axe" : "斧",
   "tooltip.me.dagger" : "匕首",
@@ -5153,6 +5241,7 @@
   "#Comment:": "派系事件",
   "event.me.faction.leave.source" : "你离开了%s",
   "event.me.faction.join.source" : "你加入了%s",
+
 
   "#Comment": "命令",
   "command.me.fail" : "命令发送有误！",
