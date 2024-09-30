@@ -23,6 +23,8 @@ public class SimpleBlockModel {
 
             add(ModBlocks.MIRE);
 
+            add(ModBlocks.DIRTY_ROOTS);
+
             add(ModBlocks.DRY_DIRT);
 
             add(ModBlocks.ASHEN_DIRT);

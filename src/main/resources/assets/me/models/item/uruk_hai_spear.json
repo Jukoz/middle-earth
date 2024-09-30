@@ -287,7 +287,9 @@
 			}
 		}
 	],
-
+	"overrides": [
+		{"predicate": {"holding": 1}, "model": "me:item/uruk_hai_spear_holding"}
+	],
 	"groups": [
 		{
 			"name": "Spear",

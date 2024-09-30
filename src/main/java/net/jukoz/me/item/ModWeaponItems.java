@@ -6,14 +6,19 @@ import net.jukoz.me.datageneration.content.models.SimpleBowItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleHandheldItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleSpearModel;
 import net.jukoz.me.item.items.weapons.*;
+import net.jukoz.me.item.items.weapons.artefacts.*;
 import net.jukoz.me.item.items.weapons.ranged.CustomBowWeaponItem;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.ModToolMaterials;
-import net.jukoz.me.item.utils.ModWeaponTypes;
 import net.jukoz.me.utils.LoggerUtil;
-import net.minecraft.item.*;
-import net.minecraft.text.Text;
+import net.jukoz.me.utils.ModFactions;
+import net.jukoz.me.utils.ModSubFactions;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.Identifier;
+
+import java.util.Optional;
 
 public class ModWeaponItems {
 
@@ -27,7 +32,7 @@ public class ModWeaponItems {
     public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.STEEL), false);
     public static final Item URUK_STEEL_SWORD = registerItemWithModel("uruk_steel_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.URUK_STEEL), false);
+            new CustomSwordWeaponItem(ModToolMaterials.URUK_STEEL), true);
     public static final Item ELVEN_STEEL_SWORD = registerItemWithModel("elven_steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.ELVEN_STEEL), false);
     public static final Item DWARVEN_STEEL_SWORD = registerItemWithModel("dwarven_steel_sword",
@@ -43,6 +48,8 @@ public class ModWeaponItems {
             new CustomDaggerWeaponItem(ModToolMaterials.SLAG), false);
     public static final Item IRON_DAGGER = registerItemWithModel("iron_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.IRON), false);
+    public static final Item URUK_STEEL_KNIFE = registerItemWithModel("uruk_steel_knife",
+            new CustomSwordWeaponItem(ModToolMaterials.URUK_STEEL), false);
     public static final Item GOLDEN_DAGGER = registerItemWithModel("golden_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.GOLD), false);
     public static final Item DIAMOND_DAGGER = registerItemWithModel("diamond_dagger",
@@ -52,6 +59,8 @@ public class ModWeaponItems {
 
     public static final Item SLAG_LONGBLADE = registerItemWithModel("slag_longblade",
             new CustomLongswordWeaponItem(ModToolMaterials.SLAG), true);
+    public static final Item URUK_STEEL_BROADBLADE = registerItemWithModel("uruk_steel_broadblade",
+            new CustomLongswordWeaponItem(ModToolMaterials.URUK_STEEL), true);
 
     public static final Item WOODEN_SPEAR = registerItemWithSpearModel("wooden_spear",
             new CustomSpearWeaponItem(ToolMaterials.WOOD));
@@ -61,12 +70,12 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ModToolMaterials.JADE));
     public static final Item BRONZE_SPEAR = registerItemWithSpearModel("bronze_spear",
             new CustomSpearWeaponItem(ModToolMaterials.BRONZE));
+    public static final Item SLAG_SPEAR = registerItemWithSpearModel("slag_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.SLAG));
     public static final Item IRON_SPEAR = registerItemWithSpearModel("iron_spear",
             new CustomSpearWeaponItem(ToolMaterials.IRON));
     public static final Item STEEL_SPEAR = registerItemWithSpearModel("steel_spear",
             new CustomSpearWeaponItem(ModToolMaterials.STEEL));
-    public static final Item SLAG_SPEAR = registerItemWithSpearModel("slag_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.SLAG));
     public static final Item URUK_STEEL_SPEAR = registerItemWithSpearModel("uruk_steel_spear",
             new CustomSpearWeaponItem(ModToolMaterials.URUK_STEEL));
     public static final Item ELVEN_STEEL_SPEAR = registerItemWithSpearModel("elven_steel_spear",
@@ -85,157 +94,199 @@ public class ModWeaponItems {
 
     //region GONDOR
     public static final Item GONDORIAN_SWORD = registerItemWithModel("gondorian_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")), true);
+            new CustomSwordWeaponItem(ModToolMaterials.STEEL, ModFactions.GONDOR), true);
     public static final Item GONDORIAN_NOBLE_SWORD = registerItemWithModel("gondorian_noble_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")), true);
+            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.GONDOR), true);
     public static final Item GONDORIAN_LONGSWORD = registerItemWithModel("gondorian_longsword",
-            new CustomLongswordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.STEEL, ModFactions.GONDOR), true);
     public static final Item GONDORIAN_NOBLE_LONGSWORD = registerItemWithModel("gondorian_noble_longsword",
-            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.GONDOR), true);
     public static final Item GONDORIAN_DAGGER = registerItemWithModel("gondorian_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.STEEL, ModFactions.GONDOR), false);
     public static final Item GONDORIAN_NOBLE_DAGGER = registerItemWithModel("gondorian_noble_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.GONDOR), false);
     public static final Item GONDORIAN_AXE = registerItemWithModel("gondorian_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")), true);
+            new CustomAxeWeaponItem(ModToolMaterials.STEEL, ModFactions.GONDOR), true);
     public static final Item GONDORIAN_NOBLE_AXE = registerItemWithModel("gondorian_noble_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")), true);
+            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.GONDOR), true);
     public static final Item GONDORIAN_SPEAR = registerItemWithSpearModel("gondorian_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
+            new CustomSpearWeaponItem(ModToolMaterials.STEEL, ModFactions.GONDOR));
     public static final Item GONDORIAN_NOBLE_SPEAR = registerItemWithSpearModel("gondorian_noble_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor")));
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.GONDOR));
 
     public static final Item GONDORIAN_BOW = registerBowItem("gondorian_bow",
-            new CustomBowWeaponItem(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".gondor"), new Item.Settings().maxDamage(640)));
+            new CustomBowWeaponItem(ModFactions.GONDOR, new Item.Settings().maxDamage(640)));
     //endregion
 
     //region ROHAN
     public static final Item ROHIRRIC_SWORD = registerItemWithModel("rohirric_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")), true);
+            new CustomSwordWeaponItem(ModToolMaterials.STEEL, ModFactions.ROHAN), true);
     public static final Item ROHIRRIC_NOBLE_SWORD = registerItemWithModel("rohirric_noble_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")), true);
+            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.ROHAN), true);
     public static final Item ROHIRRIC_LONGSWORD = registerItemWithModel("rohirric_longsword",
-            new CustomLongswordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.STEEL, ModFactions.ROHAN), true);
     public static final Item ROHIRRIC_NOBLE_LONGSWORD = registerItemWithModel("rohirric_noble_longsword",
-            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.ROHAN), true);
     public static final Item ROHIRRIC_DAGGER = registerItemWithModel("rohirric_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.STEEL, ModFactions.ROHAN), false);
     public static final Item ROHIRRIC_NOBLE_DAGGER = registerItemWithModel("rohirric_noble_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.ROHAN), false);
     public static final Item ROHIRRIC_AXE = registerItemWithModel("rohirric_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")), true);
+            new CustomAxeWeaponItem(ModToolMaterials.STEEL, ModFactions.ROHAN), true);
     public static final Item ROHIRRIC_NOBLE_AXE = registerItemWithModel("rohirric_noble_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")), true);
+            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.ROHAN), true);
     public static final Item ROHIRRIC_SPEAR = registerItemWithSpearModel("rohirric_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
+            new CustomSpearWeaponItem(ModToolMaterials.STEEL, ModFactions.ROHAN));
     public static final Item ROHIRRIC_NOBLE_SPEAR = registerItemWithSpearModel("rohirric_noble_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan")));
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.ROHAN));
 
     public static final Item ROHIRRIC_BOW = registerBowItem("rohirric_bow",
-            new CustomBowWeaponItem(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".rohan"), new Item.Settings().maxDamage(640)));
+            new CustomBowWeaponItem(ModFactions.ROHAN, new Item.Settings().maxDamage(640)));
     //endregion
 
     //region DALE
     public static final Item DALISH_SWORD = registerItemWithModel("dalish_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
+            new CustomSwordWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE), true);
     public static final Item DALISH_HEYDAY_SWORD = registerItemWithModel("dalish_heyday_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
+            new CustomSwordWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE), true);
     public static final Item DALISH_NOBLE_SWORD = registerItemWithModel("dalish_noble_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
+            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE), true);
     public static final Item DALISH_LONGSWORD = registerItemWithModel("dalish_longsword",
-            new CustomLongswordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE), true);
     public static final Item DALISH_HEYDAY_LONGSWORD = registerItemWithModel("dalish_heyday_longsword",
-            new CustomLongswordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE), true);
     public static final Item DALISH_HEYDAY_SCIMITAR = registerItemWithModel("dalish_heyday_scimitar",
-            new CustomLongswordWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE), true);
     public static final Item DALISH_NOBLE_LONGSWORD = registerItemWithModel("dalish_noble_longsword",
-            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE), true);
     public static final Item DALISH_DAGGER = registerItemWithModel("dalish_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE), false);
     public static final Item DALISH_HEYDAY_DAGGER = registerItemWithModel("dalish_heyday_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE), false);
     public static final Item DALISH_NOBLE_DAGGER = registerItemWithModel("dalish_noble_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE), false);
     public static final Item DALISH_AXE = registerItemWithModel("dalish_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
+            new CustomAxeWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE), true);
     public static final Item DALISH_HEYDAY_AXE = registerItemWithModel("dalish_heyday_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
+            new CustomAxeWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE), true);
     public static final Item DALISH_NOBLE_AXE = registerItemWithModel("dalish_noble_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dale")), true);
+            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE), true);
     //endregion
     
     //endregion
 
     //region LOTHLORIEN
     public static final Item LORIEN_SWORD = registerItemWithModel("lorien_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.ELVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")), true);
+            new CustomSwordWeaponItem(ModToolMaterials.ELVEN_STEEL, ModFactions.LOTHLORIEN), true);
     public static final Item LORIEN_NOBLE_SWORD = registerItemWithModel("lorien_noble_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_ELVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")), true);
+            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_ELVEN_STEEL, ModFactions.LOTHLORIEN), true);
     public static final Item LORIEN_GLAIVE = registerItemWithModel("lorien_glaive",
-            new CustomLongswordWeaponItem(ModToolMaterials.ELVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.ELVEN_STEEL, ModFactions.LOTHLORIEN), true);
     public static final Item LORIEN_NOBLE_GLAIVE = registerItemWithModel("lorien_noble_glaive",
-            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_ELVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_ELVEN_STEEL, ModFactions.LOTHLORIEN), true);
     public static final Item LORIEN_DAGGER = registerItemWithModel("lorien_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.ELVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.ELVEN_STEEL, ModFactions.LOTHLORIEN), false);
     public static final Item LORIEN_NOBLE_DAGGER = registerItemWithModel("lorien_noble_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_ELVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_ELVEN_STEEL, ModFactions.LOTHLORIEN), false);
     public static final Item LORIEN_AXE = registerItemWithModel("lorien_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.ELVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")), true);
+            new CustomAxeWeaponItem(ModToolMaterials.ELVEN_STEEL, ModFactions.LOTHLORIEN), true);
     public static final Item LORIEN_NOBLE_AXE = registerItemWithModel("lorien_noble_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_ELVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")), true);
+            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_ELVEN_STEEL, ModFactions.LOTHLORIEN), true);
     public static final Item LORIEN_SPEAR = registerItemWithSpearModel("lorien_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.ELVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
+            new CustomSpearWeaponItem(ModToolMaterials.ELVEN_STEEL, ModFactions.LOTHLORIEN));
     public static final Item LORIEN_NOBLE_SPEAR = registerItemWithSpearModel("lorien_noble_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_ELVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien")));
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_ELVEN_STEEL, ModFactions.LOTHLORIEN));
     
     public static final Item LORIEN_BOW = registerBowItem("lorien_bow",
-            new CustomBowWeaponItem(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".lothlorien"), new Item.Settings().maxDamage(640)));
+            new CustomBowWeaponItem(ModFactions.LOTHLORIEN, new Item.Settings().maxDamage(640)));
     //endregion
 
     //region EREBOR
     public static final Item EREBOR_SWORD = registerItemWithModel("erebor_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.DWARVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")), true);
+            new CustomSwordWeaponItem(ModToolMaterials.DWARVEN_STEEL, ModSubFactions.EREBOR), true);
     public static final Item EREBOR_NOBLE_SWORD = registerItemWithModel("erebor_noble_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")), true);
+            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, ModSubFactions.EREBOR), true);
     public static final Item EREBOR_LONGSWORD = registerItemWithModel("erebor_longsword",
-            new CustomLongswordWeaponItem(ModToolMaterials.DWARVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.DWARVEN_STEEL, ModSubFactions.EREBOR), true);
     public static final Item EREBOR_NOBLE_LONGSWORD = registerItemWithModel("erebor_noble_longsword",
-            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, ModSubFactions.EREBOR), true);
     public static final Item EREBOR_DAGGER = registerItemWithModel("erebor_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.DWARVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.DWARVEN_STEEL, ModSubFactions.EREBOR), false);
     public static final Item EREBOR_NOBLE_DAGGER = registerItemWithModel("erebor_noble_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, ModSubFactions.EREBOR), false);
     public static final Item EREBOR_AXE = registerItemWithModel("erebor_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.DWARVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")), true);
+            new CustomAxeWeaponItem(ModToolMaterials.DWARVEN_STEEL, ModSubFactions.EREBOR), true);
     public static final Item EREBOR_NOBLE_AXE = registerItemWithModel("erebor_noble_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")), true);
+            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, ModSubFactions.EREBOR), true);
     public static final Item EREBOR_SPEAR = registerItemWithSpearModel("erebor_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.DWARVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")));
+            new CustomSpearWeaponItem(ModToolMaterials.DWARVEN_STEEL, ModSubFactions.EREBOR));
     public static final Item EREBOR_NOBLE_SPEAR = registerItemWithSpearModel("erebor_noble_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".erebor")));
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, ModSubFactions.EREBOR));
+    //endregion
+
+    //region MORDOR
+    public static final Item MORDOR_FALCHION = registerItemWithModel("mordor_falchion",
+            new CustomSwordWeaponItem(ModToolMaterials.URUK_STEEL, ModFactions.MORDOR), true);
+    public static final Item MORDOR_ELITE_CLEAVER = registerItemWithModel("mordor_elite_cleaver",
+            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, ModFactions.MORDOR), true);
+    public static final Item MORDOR_SCIMITAR = registerItemWithModel("mordor_scimitar",
+            new CustomLongswordWeaponItem(ModToolMaterials.URUK_STEEL, ModFactions.MORDOR), true);
+    public static final Item MORDOR_ELITE_WARBLADE = registerItemWithModel("mordor_elite_warblade",
+            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, ModFactions.MORDOR), true);
+    public static final Item MORDOR_DAGGER = registerItemWithModel("mordor_dagger",
+            new CustomDaggerWeaponItem(ModToolMaterials.URUK_STEEL, ModFactions.MORDOR), false);
+    public static final Item MORDOR_ELITE_DAGGER = registerItemWithModel("mordor_elite_dagger",
+            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, ModFactions.MORDOR), false);
+    public static final Item MORDOR_AXE = registerItemWithModel("mordor_axe",
+            new CustomAxeWeaponItem(ModToolMaterials.ELVEN_STEEL, ModFactions.MORDOR), true);
+    public static final Item MORDOR_ELITE_AXE = registerItemWithModel("mordor_elite_axe",
+            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_ELVEN_STEEL, ModFactions.MORDOR), true);
+
+    public static final Item BLACK_NUMENOREAN_SWORD = registerItemWithModel("black_numenorean_sword",
+            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, ModFactions.MORDOR), true);
+    public static final Item BLACK_NUMENOREAN_LONGSWORD = registerItemWithModel("black_numenorean_longsword",
+            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, ModFactions.MORDOR), true);
+    public static final Item BLACK_NUMENOREAN_DAGGER = registerItemWithModel("black_numenorean_dagger",
+            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, ModFactions.MORDOR), false);
+    public static final Item BLACK_NUMENOREAN_AXE = registerItemWithModel("black_numenorean_axe",
+            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, ModFactions.MORDOR), true);
     //endregion
 
     //region ISENGARD
-    public static final Item URUK_HAI_SWORD = registerItemWithModel("uruk_hai_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.URUK_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")), true);
-    public static final Item URUK_HAI_ELITE_SCIMITAR = registerItemWithModel("uruk_hai_elite_scimitar",
-            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")), true);
+    public static final Item URUK_HAI_CLEAVER = registerItemWithModel("uruk_hai_cleaver",
+            new CustomSwordWeaponItem(ModToolMaterials.URUK_STEEL, ModFactions.ISENGARD), true);
+    public static final Item URUK_HAI_ELITE_FALCHION = registerItemWithModel("uruk_hai_elite_falchion",
+            new CustomSwordWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, ModFactions.ISENGARD), true);
     public static final Item URUK_HAI_WARBLADE = registerItemWithModel("uruk_hai_warblade",
-            new CustomLongswordWeaponItem(ModToolMaterials.URUK_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.URUK_STEEL, ModFactions.ISENGARD), true);
     public static final Item URUK_HAI_ELITE_WARBLADE = registerItemWithModel("uruk_hai_elite_warblade",
-            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")), true);
+            new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, ModFactions.ISENGARD), true);
     public static final Item URUK_HAI_DAGGER = registerItemWithModel("uruk_hai_dagger",
-            new CustomDaggerWeaponItem(ModToolMaterials.URUK_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.URUK_STEEL, ModFactions.ISENGARD), false);
     public static final Item URUK_HAI_ELITE_KNIFE = registerItemWithModel("uruk_hai_elite_knife",
-            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")), false);
+            new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, ModFactions.ISENGARD), false);
     public static final Item URUK_HAI_AXE = registerItemWithModel("uruk_hai_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.ELVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")), true);
+            new CustomAxeWeaponItem(ModToolMaterials.ELVEN_STEEL, ModFactions.ISENGARD), true);
     public static final Item URUK_HAI_ELITE_AXE = registerItemWithModel("uruk_hai_elite_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_ELVEN_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")), true);
+            new CustomAxeWeaponItem(ModToolMaterials.NOBLE_ELVEN_STEEL, ModFactions.ISENGARD), true);
     public static final Item URUK_HAI_SPEAR = registerItemWithSpearModel("uruk_hai_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.URUK_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
+            new CustomSpearWeaponItem(ModToolMaterials.URUK_STEEL, ModFactions.ISENGARD));
     public static final Item URUK_HAI_ELITE_SPEAR = registerItemWithSpearModel("uruk_hai_elite_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".isengard")));
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, ModFactions.ISENGARD));
+    //endregion
+
+    //region ARTEFACTS
+    public static final Item GLAMDRING = registerItemNoModel("glamdring",
+            new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), false, true, true);
+    public static final Item NARSIL = registerItemNoModel("narsil",
+            new ArtefactCustomLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), true, true, false);
+    public static final Item ORCRIST = registerItemNoModel("orcrist",
+            new ArtefactCustomGlowingLongswordWeaponItem(ModToolMaterials.NOBLE_STEEL), false, true, true);
+
+    public static final Item MORGUL_KNIFE = registerItemNoModel("morgul_knife",
+            new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE), false, false, false);
+    public static final Item STING = registerItemNoModel("sting",
+            new ArtefactCustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL), false, false, true);
     //endregion
 
     private static Item registerItemWithModel(String name, Item item, boolean isDualModel) {
@@ -258,6 +309,20 @@ public class ModWeaponItems {
     private static Item registerBowItem(String name, Item item) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleBowItemModel.items.add(item);
+        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
+    private static Item registerItemNoModel(String name, Item item, boolean brokenModel, boolean isDualModel, boolean glowy) {
+        ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
+        if(brokenModel){
+            SimpleBigItemModel.artefactsBroken.add(item);
+        }
+        if (isDualModel){
+            SimpleBigItemModel.artefacts.add(item);
+        }
+        if (glowy){
+            SimpleBigItemModel.artefactsGlowing.add(item);
+        }
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

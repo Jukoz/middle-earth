@@ -7,6 +7,7 @@ import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
+import net.jukoz.me.entity.uruks.UrukNpcEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.minecraft.entity.EntityData;
@@ -25,7 +26,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class MistyHobgoblinEntity extends NpcEntity {
+public class MistyHobgoblinEntity extends UrukNpcEntity {
     public MistyHobgoblinEntity(EntityType<? extends NpcEntity> entityType, World world) {
         super(entityType, world);
         String name = this.getDefaultName().toString();
