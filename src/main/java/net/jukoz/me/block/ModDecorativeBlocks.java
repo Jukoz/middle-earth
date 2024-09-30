@@ -47,7 +47,7 @@ public class ModDecorativeBlocks {
             new ForgeBlock(AbstractBlock.Settings.copy(Blocks.BRICKS).luminance(createLightLevelFromLitBlockState(15)).strength(1.65f).requiresTool()));
     public static final Block TREADTED_ANVIL = registerBlock("treated_anvil",
             new TreatedAnvilblock(AbstractBlock.Settings.copy(Blocks.STONE).strength(1.65f).requiresTool().nonOpaque()));
-    public static final Block DWARVEN_TREADTED_ANVIL = registerBlock("dwarven_treated_anvil",
+    public static final Block DWARVEN_TREATED_ANVIL = registerBlock("dwarven_treated_anvil",
             new DwarvenShapingAnvilBlock(AbstractBlock.Settings.copy(Blocks.STONE).strength(1.65f).requiresTool().nonOpaque()));
 
     public static final Block BELLOWS = registerBlock("bellows",

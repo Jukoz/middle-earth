@@ -41,7 +41,7 @@ public class ModBlockEntities {
         DWARVEN_SHAPING_ANVIL = Registry.register(Registries.BLOCK_ENTITY_TYPE,
                 Identifier.of(MiddleEarth.MOD_ID, "dwarven_treated_anvil"),
                 FabricBlockEntityTypeBuilder.create(DwarvenTreatedAnvilBlockEntity::new,
-                        ModDecorativeBlocks.DWARVEN_TREADTED_ANVIL).build(null));
+                        ModDecorativeBlocks.DWARVEN_TREATED_ANVIL).build(null));
         REINFORCED_CHEST = Registry.register(Registries.BLOCK_ENTITY_TYPE,
                 Identifier.of(MiddleEarth.MOD_ID, "reinforced_chest"),
                 FabricBlockEntityTypeBuilder.create(ReinforcedChestBlockEntity::new,
