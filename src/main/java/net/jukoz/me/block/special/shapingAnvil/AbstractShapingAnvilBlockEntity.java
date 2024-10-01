@@ -50,6 +50,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Random;
 
 public abstract class AbstractShapingAnvilBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
     private static final String ID = "shaping_anvil";
@@ -160,11 +161,14 @@ public abstract class AbstractShapingAnvilBlockEntity extends BlockEntity implem
 
         if (!match.isEmpty() && input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null  && hasShapingRecipe(entity)){
 
+            int minRandProgress = 6;
+            int maxRandProgress = 14;
+
             if (input.getMaxDamage() == 0 && input.getDamage() == 0){
                 input.set(DataComponentTypes.MAX_DAMAGE, match.get(entity.outputIndex).value().getAmount());
-                input.setDamage(match.get(entity.outputIndex).value().getAmount() - 10);
+                input.setDamage(match.get(entity.outputIndex).value().getAmount() - (int) (Math.random() * (maxRandProgress - minRandProgress) + minRandProgress));
             } else{
-                input.setDamage(input.getDamage() - 10);
+                input.setDamage(input.getDamage() - (int) (Math.random() * (maxRandProgress - minRandProgress) + minRandProgress));
             }
 
             World serverWorld = this.getWorld();
@@ -172,8 +176,15 @@ public abstract class AbstractShapingAnvilBlockEntity extends BlockEntity implem
                 ((ServerWorld)serverWorld).spawnParticles(ModParticleTypes.ANVIL_SPARK_PARTICLE, pos.getX()+ 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, 7, 0.0, 0.0, 0.0, 0.0);
             }
 
-            input.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature() - 100));
+            int minRandTemperature = 10;
+            int maxRandTemperature = 18;
+            int value = (int) (Math.random() * (maxRandTemperature - minRandTemperature) + minRandTemperature);
 
+            if ((input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature() - value) <= 0){
+                input.remove(ModDataComponentTypes.TEMPERATURE_DATA);
+            } else {
+                input.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature() - value));
+            }
             RegistryWrapper.Impl<ArmorTrimMaterial>  armorTrimMaterialRegistry = entity.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.TRIM_MATERIAL);
             RegistryWrapper.Impl<ArmorTrimPattern>  armorTrimPatternRegistry = entity.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.TRIM_PATTERN);
 

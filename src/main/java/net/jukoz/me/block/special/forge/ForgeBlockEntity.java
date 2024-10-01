@@ -300,12 +300,12 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 case 16 -> {
                     if (entity.currentMetal.getNugget() != null){
                         itemstack = new ItemStack(entity.currentMetal.getNugget());
-                        itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                        itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                     }
                 }
                 case 144 -> {
                     itemstack = new ItemStack(entity.currentMetal.getIngot());
-                    itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                    itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                 }
                 case 288 -> {
                     itemstack = new ItemStack(ModResourceItems.ROD);
@@ -319,7 +319,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                                 armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, entity.currentMetal.getName()))),
                                 armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
 
-                    }itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                    }itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                 }
                 case 432 -> {
                     itemstack = new ItemStack(ModResourceItems.LARGE_ROD);
@@ -334,7 +334,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                                 armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
 
                     }
-                    itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                    itemstack.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                 }
             }
 
@@ -418,7 +418,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                     markDirty(world, blockPos, blockState); // Reloads the origin in this chunk, for sync & saving.
                     if(entity.progress >= MAX_PROGRESS) {
                         for (int i = 1; i <= 4; i++) {
-                            entity.getStack(i).set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(1000));
+                            entity.getStack(i).set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                         }
                         entity.progress = 0;
                     }
