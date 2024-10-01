@@ -1,7 +1,6 @@
 package net.jukoz.me.client.screens.utils.widgets.map;
 
 import net.jukoz.me.client.screens.controllers.FactionSelectionController;
-import net.jukoz.me.client.screens.utils.MapMarkerType;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.utils.LoggerUtil;
@@ -83,12 +82,17 @@ public class FactionSelectionMapWidget extends MapWidget {
                     }
                 }
             }
-            if(isSeperate)
+            if(isSeperate){
+                mapMarker.hasMany = false;
                 uniqueIndexes.put(i, List.of(currentCenterCoordinate));
-            else {
+            } else {
                 List<Vector2i> currentList = new ArrayList<>(uniqueIndexes.get(currentUniqueIndex).stream().toList());
                 currentList.add(currentCenterCoordinate);
                 uniqueIndexes.put(currentUniqueIndex, currentList);
+                spawnMapMarkers[currentUniqueIndex].hasMany = true;
+                if(mapMarker.type == MapMarkerType.CUSTOM_SPAWN){
+                    spawnMapMarkers[currentUniqueIndex].updateMarkerType(MapMarkerType.CUSTOM_SPAWN);
+                }
             }
         }
         for (Integer index : uniqueIndexes.keySet()) {

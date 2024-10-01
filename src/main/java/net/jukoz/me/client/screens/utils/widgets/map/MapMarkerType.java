@@ -1,4 +1,4 @@
-package net.jukoz.me.client.screens.utils;
+package net.jukoz.me.client.screens.utils.widgets.map;
 
 import net.minecraft.client.gui.DrawContext;
 

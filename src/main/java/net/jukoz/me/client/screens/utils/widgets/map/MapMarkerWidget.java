@@ -1,7 +1,6 @@
 package net.jukoz.me.client.screens.utils.widgets.map;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.client.screens.utils.MapMarkerType;
 import net.jukoz.me.client.screens.utils.widgets.ModWidget;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -19,7 +18,10 @@ public class MapMarkerWidget extends ModWidget {
     // runtime
     Vector2i runtimeStartCoordinates = null;
     Vector2i runtimeUvs = null;
+    Vector2i runtimeHaveManyUvs = null;
     Vector2i runtimeSize = null;
+    boolean hasMany = false;
+    boolean isArrow = false;
 
     public MapMarkerWidget(String name, ButtonWidget.PressAction onPress) {
         super();
@@ -69,12 +71,16 @@ public class MapMarkerWidget extends ModWidget {
                 Math.min(maxY, Math.max(minY, (int) starts.y)));
         runtimeUvs = new Vector2i(direction.uvX, direction.uvY);
         runtimeSize = new Vector2i(direction.sizeX, direction.sizeY);
+        runtimeHaveManyUvs = null;
+        isArrow = true;
     }
 
     protected void computeMarker(Vector2d starts) {
         runtimeStartCoordinates = new Vector2i((int) starts.x, (int) starts.y);
         runtimeUvs = new Vector2i(type.uvX, type.uvY);
         runtimeSize = new Vector2i(type.sizeX, type.sizeY);
+        runtimeHaveManyUvs = new Vector2i(type.manyOverlayUvX, type.manyOverlayUvY);
+        isArrow = false;
     }
 
     public void draw(DrawContext context) {
@@ -84,6 +90,14 @@ public class MapMarkerWidget extends ModWidget {
                 runtimeUvs.x, runtimeUvs.y,
                 runtimeSize.x, runtimeSize.y
         );
+        if(hasMany && runtimeHaveManyUvs != null){
+            context.drawTexture(MAP_MARKERS,
+                    runtimeStartCoordinates.x,
+                    runtimeStartCoordinates.y,
+                    runtimeHaveManyUvs.x, runtimeHaveManyUvs.y,
+                    runtimeSize.x, runtimeSize.y
+            );
+        }
     }
 
     public Vector2i getCenterCoordinates() {
@@ -96,5 +110,17 @@ public class MapMarkerWidget extends ModWidget {
     public void assignNewCenter(Vector2i newCenter) {
         this.runtimeStartCoordinates.x = newCenter.x - (runtimeSize.x / 2);
         this.runtimeStartCoordinates.y = newCenter.y - (runtimeSize.y / 2);
+    }
+
+    public void updateMarkerType(MapMarkerType mapMarkerType) {
+        if(isArrow) return;
+
+        type = mapMarkerType;
+        Vector2i center = getCenterCoordinates();
+        runtimeSize = new Vector2i(mapMarkerType.sizeX, mapMarkerType.sizeY);
+        runtimeStartCoordinates = new Vector2i(center.x - mapMarkerType.sizeX / 2, center.y - mapMarkerType.sizeY / 2);
+        runtimeUvs = new Vector2i(mapMarkerType.uvX , mapMarkerType.uvY);
+        if(hasMany)
+            runtimeHaveManyUvs = new Vector2i(mapMarkerType.manyOverlayUvX , mapMarkerType.manyOverlayUvY);
     }
 }
