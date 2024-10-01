@@ -6,11 +6,7 @@
     "minecraft:cooked_chicken",
     "minecraft:cooked_mutton",
     "minecraft:cooked_rabbit",
-    "me:cooked_crab_claw",
-    "me:cooked_goose",
-    "me:cooked_duck",
     "me:cooked_swan",
-    "me:cooked_horse",
-    "me:cooked_rat"
+    "me:cooked_horse"
   ]
 }
