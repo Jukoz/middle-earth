@@ -14,8 +14,8 @@ import java.util.List;
 
 public class HotMetalsModel {
 
-    public record ShapingTag(TagKey tagKey, Item output) {}
-    public record ShapingItem(Item item, Item output) {}
+    public record ShapingTag(TagKey tagKey, Item output, int amount) {}
+    public record ShapingItem(Item item, Item output, int amount) {}
 
     public static List<Item> ingots = new ArrayList<>() {
         {
@@ -64,20 +64,20 @@ public class HotMetalsModel {
 
     public static List<ShapingTag> shapesTag = new ArrayList<>() {
         {
-            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SHORT_BLADE));
-            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SHOVEL_HEAD));
-            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SWORD_HILT));
+            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SHORT_BLADE, 80));
+            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SHOVEL_HEAD, 80));
+            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SWORD_HILT, 80));
         }
     };
 
     public static List<ShapingItem> shapesItem = new ArrayList<>() {
         {
-            add(new ShapingItem(ModResourceItems.ROD, ModResourceItems.BLADE));
-            add(new ShapingItem(ModResourceItems.ROD, ModResourceItems.HOE_HEAD));
+            add(new ShapingItem(ModResourceItems.ROD, ModResourceItems.BLADE, 120));
+            add(new ShapingItem(ModResourceItems.ROD, ModResourceItems.HOE_HEAD, 120));
 
-            add(new ShapingItem(ModResourceItems.LARGE_ROD, ModResourceItems.LONG_BLADE));
-            add(new ShapingItem(ModResourceItems.LARGE_ROD, ModResourceItems.AXE_HEAD));
-            add(new ShapingItem(ModResourceItems.LARGE_ROD, ModResourceItems.PICKAXE_HEAD));
+            add(new ShapingItem(ModResourceItems.LARGE_ROD, ModResourceItems.LONG_BLADE, 160));
+            add(new ShapingItem(ModResourceItems.LARGE_ROD, ModResourceItems.AXE_HEAD, 160));
+            add(new ShapingItem(ModResourceItems.LARGE_ROD, ModResourceItems.PICKAXE_HEAD, 160));
         }
     };
 }

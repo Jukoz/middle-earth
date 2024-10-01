@@ -7,6 +7,7 @@ import net.jukoz.me.item.ModDataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
@@ -19,10 +20,12 @@ import net.minecraft.world.World;
 public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
     protected final Ingredient input;
     protected final ItemStack output;
+    protected final int amount;
 
-    public AnvilShapingRecipe(Ingredient input, ItemStack output) {
+    public AnvilShapingRecipe(Ingredient input, ItemStack output, int amount) {
         this.output = output;
         this.input = input;
+        this.amount = amount;
     }
 
     public ItemStack createIcon() {
@@ -62,6 +65,10 @@ public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
         return this.input;
     }
 
+    public int getAmount() {
+        return this.amount;
+    }
+
     @Override
     public RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;
@@ -92,7 +99,8 @@ public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
         protected Serializer() {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
                     Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.input),
-                    ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output)
+                    ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
+                    CODEC.INT.fieldOf("amount").forGetter(recipe -> recipe.amount)
             ).apply(instance, AnvilShapingRecipe::new));
 
             this.packetCodec = PacketCodec.ofStatic(AnvilShapingRecipe.Serializer::write, AnvilShapingRecipe.Serializer::read);
@@ -111,12 +119,14 @@ public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
         private static AnvilShapingRecipe read(RegistryByteBuf buf) {
             Ingredient input = Ingredient.PACKET_CODEC.decode(buf);
             ItemStack output = ItemStack.PACKET_CODEC.decode(buf);
-            return new AnvilShapingRecipe(input,output);
+            int amount = PacketCodecs.INTEGER.decode(buf);
+            return new AnvilShapingRecipe(input,output, amount);
         }
 
         private static void write(RegistryByteBuf buf, AnvilShapingRecipe recipe) {
             Ingredient.PACKET_CODEC.encode(buf, recipe.input);
             ItemStack.PACKET_CODEC.encode(buf, recipe.output);
+            PacketCodecs.INTEGER.encode(buf, recipe.amount);
         }
     }
 }

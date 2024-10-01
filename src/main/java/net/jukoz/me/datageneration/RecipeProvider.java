@@ -670,10 +670,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createMeltRecipe(exporter, ingot, Registries.ITEM.getId(ingot).getPath().replace("_ingot", ""), 144);
         });
         HotMetalsModel.shapesTag.forEach(shape -> {
-            createAnvilShapingRecipeTag(exporter, shape.tagKey(), shape.output());
+            createAnvilShapingRecipeTag(exporter, shape.tagKey(), shape.output(), shape.amount());
         });
         HotMetalsModel.shapesItem.forEach(shape -> {
-            createAnvilShapingRecipeItem(exporter, shape.item(), shape.output());
+            createAnvilShapingRecipeItem(exporter, shape.item(), shape.output(), shape.amount());
         });
 
         // endregion
@@ -771,16 +771,16 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_" + Registries.ITEM.getId(input).getPath()));
     }
 
-    private void createAnvilShapingRecipeTag(RecipeExporter exporter, TagKey input, Item output) {
-        AnvilShapingRecipeJsonBuilder.createAnvilShapingRecipe(RecipeCategory.MISC, output)
+    private void createAnvilShapingRecipeTag(RecipeExporter exporter, TagKey input, Item output, int amount) {
+        AnvilShapingRecipeJsonBuilder.createAnvilShapingRecipe(RecipeCategory.MISC, output, amount)
                 .input(input)
                 .criterion(FabricRecipeProvider.hasItem(Items.COPPER_INGOT),
                         FabricRecipeProvider.conditionsFromItem(Items.COPPER_INGOT))
                 .offerTo(exporter);
     }
 
-    private void createAnvilShapingRecipeItem(RecipeExporter exporter, Item input, Item output) {
-        AnvilShapingRecipeJsonBuilder.createAnvilShapingRecipe(RecipeCategory.MISC, output)
+    private void createAnvilShapingRecipeItem(RecipeExporter exporter, Item input, Item output, int amount) {
+        AnvilShapingRecipeJsonBuilder.createAnvilShapingRecipe(RecipeCategory.MISC, output, amount)
                 .input(input)
                 .criterion(FabricRecipeProvider.hasItem(Items.COPPER_INGOT),
                         FabricRecipeProvider.conditionsFromItem(Items.COPPER_INGOT))

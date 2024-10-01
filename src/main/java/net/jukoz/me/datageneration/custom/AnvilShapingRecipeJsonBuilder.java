@@ -30,12 +30,14 @@ public class AnvilShapingRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
     private final RecipeCategory category;
     private Ingredient input;
     private final Item output;
+    private final int amount;
     private final Map<String, AdvancementCriterion<?>> criteria = new LinkedHashMap<>();
     private String group;
 
-    public AnvilShapingRecipeJsonBuilder(RecipeCategory category, Item output ) {
+    public AnvilShapingRecipeJsonBuilder(RecipeCategory category, Item output, int amount ) {
         this.category = category;
         this.output = output;
+        this.amount = amount;
     }
 
     @Override
@@ -49,8 +51,8 @@ public class AnvilShapingRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
         return this.output;
     }
 
-    public static AnvilShapingRecipeJsonBuilder createAnvilShapingRecipe(RecipeCategory category, Item output) {
-        return new AnvilShapingRecipeJsonBuilder(category, output);
+    public static AnvilShapingRecipeJsonBuilder createAnvilShapingRecipe(RecipeCategory category, Item output, int amount) {
+        return new AnvilShapingRecipeJsonBuilder(category, output, amount);
     }
 
     public AnvilShapingRecipeJsonBuilder input(TagKey<Item> tag) {
@@ -85,7 +87,7 @@ public class AnvilShapingRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
         Advancement.Builder builder = exporter.getAdvancementBuilder().criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
         Objects.requireNonNull(builder);
         this.criteria.forEach(builder::criterion);
-        AnvilShapingRecipe anvilShapingRecipe = new AnvilShapingRecipe(this.input, new ItemStack(this.output));
+        AnvilShapingRecipe anvilShapingRecipe = new AnvilShapingRecipe(this.input, new ItemStack(this.output), this.amount);
         exporter.accept(recipeId, anvilShapingRecipe, builder.build(recipeId.withPrefixedPath("recipes/" + this.category.getName() + "/")));
     }
 

@@ -161,11 +161,10 @@ public abstract class AbstractShapingAnvilBlockEntity extends BlockEntity implem
         if (!match.isEmpty() && input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null  && hasShapingRecipe(entity)){
 
             if (input.getMaxDamage() == 0 && input.getDamage() == 0){
-                input.set(DataComponentTypes.MAX_DAMAGE, 100);
-                input.setDamage(100);
-                input.setDamage(input.getDamage() - 20);
+                input.set(DataComponentTypes.MAX_DAMAGE, match.get(entity.outputIndex).value().getAmount());
+                input.setDamage(match.get(entity.outputIndex).value().getAmount() - 10);
             } else{
-                input.setDamage(input.getDamage() - 20);
+                input.setDamage(input.getDamage() - 10);
             }
 
             World serverWorld = this.getWorld();
