@@ -1,6 +1,5 @@
 package net.jukoz.me.datageneration;
 
-import com.ibm.icu.util.SimpleHoliday;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.*;
@@ -199,7 +198,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         //endregion
 
         //region ROOF RECIPES
-        for (RoofBlockSets.RoofBlockSet record : RoofBlockSets.sets) {
+        for (OtherBlockSets.RoofBlockSet record : OtherBlockSets.sets) {
 
             if(record.origin() != null){
                 ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.block(), 7)
@@ -222,6 +221,29 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createSlabsRecipe(exporter, record.block(), record.slab());
             createStairsRecipe(exporter, record.block(), record.stairs());
             createWallsRecipe(exporter, record.block(), record.wall());
+        }
+
+        for (OtherBlockSets.MiscBlockSet record : OtherBlockSets.specialWoodSets) {
+
+            if(record.origin() != null){
+                ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, record.block(), 7)
+                        .pattern(" l ")
+                        .pattern("lll")
+                        .pattern("lll")
+                        .input('l', record.origin())
+                        .criterion(FabricRecipeProvider.hasItem(record.origin()),
+                                FabricRecipeProvider.conditionsFromItem(record.origin()))
+                        .offerTo(exporter);
+                if(!record.block().toString().contains("shingles")){
+                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.block(), record.origin(), 1);
+                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.block(), 2);
+                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.origin(), 2);
+                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.block(), 1);
+                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.origin(), 1);
+                }
+            }
+            createSlabsRecipe(exporter, record.block(), record.slab());
+            createStairsRecipe(exporter, record.block(), record.stairs());
         }
         //endregion
 
@@ -495,6 +517,17 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(StoneBlockSets.YELLOW_DAUB.base()))
                 .offerTo(exporter);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.PLASTER_HOBBIT_WINDOW, 4)
+                .pattern("WBW")
+                .pattern("BGB")
+                .pattern("WBW")
+                .input('W', StoneBlockSets.PLASTER.base())
+                .input('G', Blocks.GLASS)
+                .input('B', Items.BRICK)
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.PLASTER.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.PLASTER.base()))
+                .offerTo(exporter);
+
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.MEDGON_CARVED_WINDOW, 2)
                 .pattern("EEE")
                 .pattern("EGE")
@@ -513,6 +546,16 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .input('G', Blocks.GLASS)
                 .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.GONLUIN.base()),
                         FabricRecipeProvider.conditionsFromItem(StoneBlockSets.GONLUIN.base()))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.TUFF_CARVED_WINDOW, 2)
+                .pattern("EEE")
+                .pattern("EGE")
+                .pattern("EEE")
+                .input('E', Blocks.TUFF)
+                .input('G', Blocks.GLASS)
+                .criterion(FabricRecipeProvider.hasItem(Blocks.TUFF),
+                        FabricRecipeProvider.conditionsFromItem(Blocks.TUFF))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LEAD_GLASS, 4)

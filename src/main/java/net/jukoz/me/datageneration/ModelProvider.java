@@ -695,6 +695,8 @@ public class ModelProvider extends FabricModelProvider {
         registerPaneModel(blockStateModelGenerator, ModBlocks.WAXED_WEATHERED_COPPER_BARS);
         registerPaneModel(blockStateModelGenerator, ModBlocks.WAXED_OXIDIZED_COPPER_BARS);
 
+        registerPaneModel(blockStateModelGenerator, ModBlocks.TREATED_STEEL_BARS);
+
         registerOrientableTrapdoorLadder(blockStateModelGenerator, ModDecorativeBlocks.ROPE_LADDER);
     }
 
