@@ -32,7 +32,7 @@ public class ModWeaponItems {
     public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.STEEL), false);
     public static final Item URUK_STEEL_SWORD = registerItemWithModel("uruk_steel_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.URUK_STEEL), true);
+            new CustomSwordWeaponItem(ModToolMaterials.URUK_STEEL), false);
     public static final Item ELVEN_STEEL_SWORD = registerItemWithModel("elven_steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.ELVEN_STEEL), false);
     public static final Item DWARVEN_STEEL_SWORD = registerItemWithModel("dwarven_steel_sword",
@@ -48,8 +48,6 @@ public class ModWeaponItems {
             new CustomDaggerWeaponItem(ModToolMaterials.SLAG), false);
     public static final Item IRON_DAGGER = registerItemWithModel("iron_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.IRON), false);
-    public static final Item URUK_STEEL_KNIFE = registerItemWithModel("uruk_steel_knife",
-            new CustomSwordWeaponItem(ModToolMaterials.URUK_STEEL), false);
     public static final Item GOLDEN_DAGGER = registerItemWithModel("golden_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.GOLD), false);
     public static final Item DIAMOND_DAGGER = registerItemWithModel("diamond_dagger",
@@ -59,8 +57,6 @@ public class ModWeaponItems {
 
     public static final Item SLAG_LONGBLADE = registerItemWithModel("slag_longblade",
             new CustomLongswordWeaponItem(ModToolMaterials.SLAG), true);
-    public static final Item URUK_STEEL_BROADBLADE = registerItemWithModel("uruk_steel_broadblade",
-            new CustomLongswordWeaponItem(ModToolMaterials.URUK_STEEL), true);
 
     public static final Item WOODEN_SPEAR = registerItemWithSpearModel("wooden_spear",
             new CustomSpearWeaponItem(ToolMaterials.WOOD));
@@ -224,6 +220,17 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, ModSubFactions.EREBOR));
     //endregion
 
+    public static final Item ORC_SWORD = registerItemWithModel("orc_sword",
+            new CustomSwordWeaponItem(ModToolMaterials.URUK_STEEL), true);
+    public static final Item ORC_BROADBLADE = registerItemWithModel("orc_broadblade",
+            new CustomLongswordWeaponItem(ModToolMaterials.URUK_STEEL), true);
+    public static final Item ORC_KNIFE = registerItemWithModel("orc_knife",
+            new CustomDaggerWeaponItem(ModToolMaterials.URUK_STEEL), false);
+    public static final Item ORC_AXE = registerItemWithModel("orc_axe",
+            new CustomAxeWeaponItem(ModToolMaterials.URUK_STEEL), true);
+    public static final Item ORC_SPEAR = registerItemWithSpearModel("orc_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.URUK_STEEL));
+
     //region MORDOR
     public static final Item MORDOR_FALCHION = registerItemWithModel("mordor_falchion",
             new CustomSwordWeaponItem(ModToolMaterials.URUK_STEEL, ModFactions.MORDOR), true);
@@ -241,6 +248,10 @@ public class ModWeaponItems {
             new CustomAxeWeaponItem(ModToolMaterials.ELVEN_STEEL, ModFactions.MORDOR), true);
     public static final Item MORDOR_ELITE_AXE = registerItemWithModel("mordor_elite_axe",
             new CustomAxeWeaponItem(ModToolMaterials.NOBLE_ELVEN_STEEL, ModFactions.MORDOR), true);
+    public static final Item MORDOR_SPEAR = registerItemWithSpearModel("mordor_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.URUK_STEEL, ModFactions.ISENGARD));
+    public static final Item MORDOR_ELITE_SPEAR = registerItemWithSpearModel("mordor_elite_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, ModFactions.ISENGARD));
 
     public static final Item BLACK_NUMENOREAN_SWORD = registerItemWithModel("black_numenorean_sword",
             new CustomSwordWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, ModFactions.MORDOR), true);
@@ -250,6 +261,8 @@ public class ModWeaponItems {
             new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, ModFactions.MORDOR), false);
     public static final Item BLACK_NUMENOREAN_AXE = registerItemWithModel("black_numenorean_axe",
             new CustomAxeWeaponItem(ModToolMaterials.NOBLE_DWARVEN_STEEL, ModFactions.MORDOR), true);
+    public static final Item BLACK_NUMENOREAN_SPEAR = registerItemWithSpearModel("black_numenorean_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.URUK_STEEL, ModFactions.ISENGARD));
     //endregion
 
     //region ISENGARD
@@ -286,7 +299,7 @@ public class ModWeaponItems {
     public static final Item MORGUL_KNIFE = registerItemNoModel("morgul_knife",
             new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE), false, false, false);
     public static final Item STING = registerItemNoModel("sting",
-            new ArtefactCustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL), false, false, true);
+            new ArtefactCustomGlowingDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL), false, false, true);
     //endregion
 
     private static Item registerItemWithModel(String name, Item item, boolean isDualModel) {

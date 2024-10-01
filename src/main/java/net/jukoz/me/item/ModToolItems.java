@@ -66,8 +66,8 @@ public class ModToolItems {
 
     public static final Item URUK_STEEL_PICKAXE = registerItemHandheld("uruk_steel_pickaxe",
             new PickaxeItem(ModToolMaterials.URUK_STEEL, new Item.Settings().attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.URUK_STEEL, 1.0f, -2.8f))));
-    public static final Item URUK_STEEL_AXE = registerItemWithModel("uruk_steel_axe",
-            new CustomAxeWeaponItem(ModToolMaterials.URUK_STEEL), true);
+    public static final Item URUK_STEEL_AXE = registerItemHandheld("uruk_steel_axe",
+            new CustomAxeWeaponItem(ModToolMaterials.URUK_STEEL));
     public static final Item URUK_STEEL_SHOVEL = registerItemHandheld("uruk_steel_shovel",
             new ShovelItem(ModToolMaterials.URUK_STEEL, new Item.Settings().attributeModifiers(ShovelItem.createAttributeModifiers(ModToolMaterials.URUK_STEEL, 1.5f, -3.0f))));
     public static final Item URUK_STEEL_HOE = registerItemHandheld("uruk_steel_hoe",
@@ -150,16 +150,6 @@ public class ModToolItems {
         ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
         SimpleHandheldItemModel.items.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
-    }
-
-    private static Item registerItemWithModel(String name, Item item, boolean isDualModel) {
-        ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
-        if(isDualModel) {
-            SimpleBigItemModel.items.add(item);
-        } else {
-            SimpleHandheldItemModel.items.add(item);
-        }
-        return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     private static Item registerItemDualModel(String name, Item item) {

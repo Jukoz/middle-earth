@@ -288,6 +288,13 @@
   "item.me.bronze_axolotl_bucket": "Bronze Axolotl Bucket",
   "item.me.bronze_tadpole_bucket": "Bronze Tadpole Bucket",
 
+"#Comment:": "Item - Generic Orc",
+  "item.me.orc_sword": "Orc Sword",
+  "item.me.orc_broadblade": "Orc Broadblade",
+  "item.me.orc_knife": "Orc Knife",
+  "item.me.orc_spear": "Orc Spear",
+  "item.me.orc_axe": "Orc Axe",
+
 "#Comment:": "Item - Erebor",
   "item.me.erebor_sword": "Erebor Sword",
   "item.me.erebor_noble_sword": "Erebor Noble Sword",
@@ -428,7 +435,7 @@
   "item.me.iron_longsword": "Iron Longsword",
   "item.me.steel_longsword": "Steel Longsword",
   "item.me.slag_longblade": "Slag Longblade",
-  "item.me.uruk_steel_broadblade": "Uruk Steel Broadblade",
+  "item.me.uruk_steel_longsword": "Uruk Steel Longsword",
   "item.me.elven_steel_longsword": "Elven Steel Longsword",
   "item.me.dwarven_steel_longsword": "Dwarven Steel Longsword",
   "item.me.diamond_longsword": "Diamond Longsword",
