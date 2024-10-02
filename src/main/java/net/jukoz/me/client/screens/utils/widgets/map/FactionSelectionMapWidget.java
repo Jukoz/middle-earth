@@ -2,13 +2,17 @@ package net.jukoz.me.client.screens.utils.widgets.map;
 
 import net.jukoz.me.client.screens.controllers.FactionSelectionController;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerType;
+import net.jukoz.me.commands.CommandColors;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,6 +73,12 @@ public class FactionSelectionMapWidget extends MapWidget {
                 mapMarker.setType(MapMarkerType.CUSTOM_SPAWN);
                 mapMarker.computeFromWorldPosition(this, coordinates);
             }
+            mapMarker.setContent(
+                    List.of(
+                            Text.translatable("spawn." + spawnData.getIdentifier().toTranslationKey()).formatted(Formatting.GOLD),
+                            Text.translatable("spawn.me.coordinates_base").formatted(Formatting.GRAY)
+                                    .append(Text.translatable("spawn.me.coordinates_base_values", spawnData.getWorldCoordinates().x, spawnData.getWorldCoordinates().z).formatted(Formatting.WHITE))
+                    ));
             Vector2i currentCenterCoordinate = mapMarker.getCenterCoordinates();
             boolean isSeperate = true;
             int currentUniqueIndex = 0;
@@ -89,6 +99,7 @@ public class FactionSelectionMapWidget extends MapWidget {
                 currentList.add(currentCenterCoordinate);
                 uniqueIndexes.put(currentUniqueIndex, currentList);
                 spawnMapMarkers[currentUniqueIndex].updateMarkerType(MapMarkerType.STACKED_SPAWNS);
+                spawnMapMarkers[currentUniqueIndex].addContent(mapMarker.getContent());
                 mapMarker.activateButton(false);
             }
         }

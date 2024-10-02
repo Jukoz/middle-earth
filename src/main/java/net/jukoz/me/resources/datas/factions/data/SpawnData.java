@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.utils.IdentifierUtil;
 import net.jukoz.me.world.dimension.ModDimensions;
+import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -87,6 +88,16 @@ public class SpawnData {
 
     public Vec3d getCoordinates() {
         return coordinates;
+    }
+
+    public Vector3i getWorldCoordinates() {
+        int ratio = (MiddleEarthMapConfigs.FULL_MAP_SIZE / MiddleEarthMapConfigs.REGION_SIZE);
+        Vector3i worldCoordinates = new Vector3i((int) coordinates.x, (int) coordinates.y, (int) coordinates.z);
+        if(isDynamic) {
+            worldCoordinates.x = worldCoordinates.x * ratio;
+            worldCoordinates.z = worldCoordinates.z * ratio;
+        }
+        return worldCoordinates;
     }
 
     public boolean isDynamic() {

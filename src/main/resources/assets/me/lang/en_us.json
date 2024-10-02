@@ -5226,6 +5226,10 @@
   "faction.me.misty_mountains_goblins.fallback": "Misty Mountains Go...",
 
 "#Comment": "Spawns",
+  "spawn.me.coordinates_base": "[x,z] ",
+  "spawn.me.coordinates_base_values": "%s, %s",
+  "spawn.me.selection_border": "[ %s ] ",
+
   "spawn.me.gondor.minas_tirith" : "Minas Tirith",
   "spawn.me.gondor.anorien" : "Anorien",
   "spawn.me.gondor.ithilien" : "Ithilien",

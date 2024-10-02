@@ -6,6 +6,8 @@ import net.jukoz.me.client.screens.utils.widgets.ModWidget;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapArrowType;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerArrowDirections;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerType;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
@@ -13,17 +15,22 @@ import net.minecraft.util.Identifier;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 public class MapMarkerWidget extends ModWidget {
     private static final Identifier MAP_MARKERS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/map_markers.png");
     private static final Identifier MAP_ARROWS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/map_arrows.png");
 
-    ButtonWidget markerButton;
-    MapMarkerType type;
-    MapArrowType arrowType;
-    MapMarkerArrowDirections arrowDirection;
-    Vector2i runtimeStartCoordinates = null;
-    boolean isArrow;
-    boolean isFocused;
+    private ButtonWidget markerButton;
+    private MapMarkerType type;
+    private MapArrowType arrowType;
+    private MapMarkerArrowDirections arrowDirection;
+    private Vector2i runtimeStartCoordinates = null;
+    private boolean isArrow;
+    private boolean isFocused;
+    private List<Text> content;
 
     public MapMarkerWidget(String name, ButtonWidget.PressAction onPress) {
         super();
@@ -32,6 +39,14 @@ public class MapMarkerWidget extends ModWidget {
         arrowType = MapArrowType.NORMAL;
         isArrow = false;
         isFocused = false;
+    }
+
+    public void setContent(List<Text> content){
+        this.content = content;
+    }
+
+    public List<Text> getContent(){
+        return this.content;
     }
 
     public void setType(MapMarkerType type){
@@ -128,14 +143,17 @@ public class MapMarkerWidget extends ModWidget {
             activateButton(true);
 
         boolean isFocused = markerButton.isFocused();
-
-        if(isFocused || isMouseOver(buttonSize.x, buttonSize.y, buttonStartCoordinates.x, buttonStartCoordinates.y)){
+        boolean mouseIsOver = isMouseOver(buttonSize.x, buttonSize.y, buttonStartCoordinates.x, buttonStartCoordinates.y);
+        if(isFocused || mouseIsOver){
             if(isArrow)
                 drawUvs = arrowType.getHoveredUvs(arrowDirection);
             else
                 drawUvs = type.hoveredUvs;
             if(!getFocusEnabled())
                 isFocused = false;
+        }
+        if(mouseIsOver){
+            context.drawTooltip(client.textRenderer, content, Optional.empty(), drawStart.x + 7, drawStart.y);
         }
 
         // draw marker or arrow
@@ -180,5 +198,14 @@ public class MapMarkerWidget extends ModWidget {
         type = mapMarkerType;
         Vector2i center = getCenterCoordinates();
         runtimeStartCoordinates = new Vector2i(center.x - mapMarkerType.size.x / 2, center.y - mapMarkerType.size.y / 2);
+    }
+
+    public void addContent(List<Text> appendContent) {
+        if(content != null && !content.isEmpty()){
+            List<Text> newContent = new ArrayList<>();
+            newContent.addAll(this.content);
+            newContent.addAll(appendContent);
+            this.content = newContent;
+        }
     }
 }
