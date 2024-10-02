@@ -4987,6 +4987,9 @@
   "block.me.gonluin_statue": "Gonluin Statue",
   "block.me.tuff_statue": "Tuff Statue",
 
+  "block.me.fancy_bed": "Fancy Bed",
+  "block.me.fur_bed": "Fur Bed",
+
 "#Comment:": "Items - Banners",
   "item.me.gondor_banner_pattern": "Gondor Banner Pattern",
   "item.me.gondor_banner_pattern.desc": "White Tree of Gondor",

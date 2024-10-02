@@ -4,6 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
 import net.jukoz.me.block.special.alloyfurnace.AlloyFurnace;
 import net.jukoz.me.block.special.artisantable.ArtisanTable;
+import net.jukoz.me.block.special.beds.CustomBedBlock;
 import net.jukoz.me.block.special.doors.*;
 import net.jukoz.me.block.special.fireBlocks.*;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestBlock;
@@ -23,6 +24,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
 import java.util.function.ToIntFunction;
@@ -504,6 +506,11 @@ public class ModDecorativeBlocks {
 
     public static final Block GREAT_ORCISH_GATE = registerDoorBlock("great_orcish_gate",
             new LargeDoor10x4(AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+
+    public static final Block FANCY_BED = registerBlockWithItem("fancy_bed",
+            new CustomBedBlock(DyeColor.BLACK, AbstractBlock.Settings.copy(Blocks.BLACK_BED)));
+    public static final Block FUR_BED = registerBlockWithItem("fur_bed",
+            new CustomBedBlock(DyeColor.BLACK, AbstractBlock.Settings.copy(Blocks.BLACK_BED)));
 
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);
