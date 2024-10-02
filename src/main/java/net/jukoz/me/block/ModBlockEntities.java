@@ -71,5 +71,8 @@ public class ModBlockEntities {
                 Identifier.of(MiddleEarth.MOD_ID, "bed"),
                 FabricBlockEntityTypeBuilder.create(CustomBedBlockEntity::new,
                         ModDecorativeBlocks.FANCY_BED, ModDecorativeBlocks.FUR_BED).build(null));
+
+        BlockEntityType.BARREL.addSupportedBlock(ModDecorativeBlocks.SMALL_CRATE);
+        BlockEntityType.BARREL.addSupportedBlock(ModDecorativeBlocks.THIN_BARREL);
     }
 }

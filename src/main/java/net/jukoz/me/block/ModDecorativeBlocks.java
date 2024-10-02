@@ -46,6 +46,10 @@ public class ModDecorativeBlocks {
     public static final Block ARTISAN_TABLE = registerBlock("artisan_table",
             new ArtisanTable(AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque()));
 
+    public static final Block SMALL_CRATE = registerBlock("small_crate",
+            new CrateBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque()));
+    public static final Block THIN_BARREL = registerBlock("thin_barrel",
+            new ThinBarrelBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque()));
     public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest",
             new ReinforcedChestBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque().requiresTool()));
 
