@@ -1,9 +1,9 @@
 package net.jukoz.me.client.screens.utils.widgets.map;
 
 import net.jukoz.me.client.screens.controllers.FactionSelectionController;
+import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerType;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import org.joml.Vector2d;
@@ -45,7 +45,7 @@ public class FactionSelectionMapWidget extends MapWidget {
     }
 
     private void selectSpawn(int index){
-        LoggerUtil.logDebugMsg("Clicked on spawn #" + index);
+        controller.setSpawnIndex(index);
     }
 
     protected double getMarkerGroupUpRadius(){
@@ -83,16 +83,13 @@ public class FactionSelectionMapWidget extends MapWidget {
                 }
             }
             if(isSeperate){
-                mapMarker.hasMany = false;
                 uniqueIndexes.put(i, List.of(currentCenterCoordinate));
             } else {
                 List<Vector2i> currentList = new ArrayList<>(uniqueIndexes.get(currentUniqueIndex).stream().toList());
                 currentList.add(currentCenterCoordinate);
                 uniqueIndexes.put(currentUniqueIndex, currentList);
-                spawnMapMarkers[currentUniqueIndex].hasMany = true;
-                if(mapMarker.type == MapMarkerType.CUSTOM_SPAWN){
-                    spawnMapMarkers[currentUniqueIndex].updateMarkerType(MapMarkerType.CUSTOM_SPAWN);
-                }
+                spawnMapMarkers[currentUniqueIndex].updateMarkerType(MapMarkerType.STACKED_SPAWNS);
+                mapMarker.activateButton(false);
             }
         }
         for (Integer index : uniqueIndexes.keySet()) {

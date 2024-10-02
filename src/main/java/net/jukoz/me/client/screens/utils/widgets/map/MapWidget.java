@@ -2,6 +2,7 @@ package net.jukoz.me.client.screens.utils.widgets.map;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.utils.widgets.ModWidget;
+import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerArrowDirections;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
@@ -239,7 +240,7 @@ public class MapWidget extends ModWidget {
         this.uvY = computedY;
     }
 
-    public MapMarkerArrowDirection isOutsideBounds(Vector2d uvs, int offsetX, int offsetY) {
+    public MapMarkerArrowDirections isOutsideBounds(Vector2d uvs, int offsetX, int offsetY) {
         boolean outOfBoundNorth = uvs.y - offsetY < startY;
         boolean outOfBoundSouth = uvs.y + offsetY  > startY + uiHeight;
         boolean outOfBoundEast = uvs.x + offsetX > startX + uiWidth;
@@ -247,23 +248,23 @@ public class MapWidget extends ModWidget {
 
         if(outOfBoundNorth){
             if(outOfBoundEast)
-                return MapMarkerArrowDirection.NORTH_EAST;
+                return MapMarkerArrowDirections.NORTH_EAST;
             if(outOfBoundWest)
-                return MapMarkerArrowDirection.NORTH_WEST;
-            return MapMarkerArrowDirection.NORTH;
+                return MapMarkerArrowDirections.NORTH_WEST;
+            return MapMarkerArrowDirections.NORTH;
         }
         if(outOfBoundSouth){
             if(outOfBoundEast)
-                return MapMarkerArrowDirection.SOUTH_EAST;
+                return MapMarkerArrowDirections.SOUTH_EAST;
             if(outOfBoundWest)
-                return MapMarkerArrowDirection.SOUTH_WEST;
-            return MapMarkerArrowDirection.SOUTH;
+                return MapMarkerArrowDirections.SOUTH_WEST;
+            return MapMarkerArrowDirections.SOUTH;
         }
         if(outOfBoundEast)
-            return MapMarkerArrowDirection.EAST;
+            return MapMarkerArrowDirections.EAST;
         if(outOfBoundWest)
-            return MapMarkerArrowDirection.WEST;
+            return MapMarkerArrowDirections.WEST;
 
-        return MapMarkerArrowDirection.NONE;
+        return MapMarkerArrowDirections.NONE;
     }
 }

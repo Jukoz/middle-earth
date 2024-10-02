@@ -292,4 +292,12 @@ public class FactionSelectionController {
         Faction faction = getCurrentlySelectedFaction();
         return (faction != null) ? faction.getSpawnData() : null;
     }
+
+    public void setSpawnIndex(int index) {
+        currentSpawnIndex = Math.min(spawns.size(), Math.max(0, index));
+    }
+
+    public int getCurrentSpawnIndex() {
+        return currentSpawnIndex;
+    }
 }
