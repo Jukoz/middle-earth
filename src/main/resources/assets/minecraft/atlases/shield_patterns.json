@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "sources": [
+    {
+      "type": "single",
+      "resource": "me:entity/heater_shield_base"
+    },
+    {
+      "type": "single",
+      "resource": "me:entity/heater_shield_base_nopattern"
+    },
+    {
+      "type": "directory",
+      "source": "entity/heater_shield",
+      "prefix": "entity/heater_shield/"
+    }
+  ]
+}

@@ -1,14 +1,15 @@
 package net.jukoz.me.item;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.client.model.equipment.chest.*;
-import net.jukoz.me.client.model.equipment.head.*;
 import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleItemModel;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.items.*;
+import net.jukoz.me.item.items.shields.CustomBannerShieldItem;
+import net.jukoz.me.item.items.shields.CustomShieldItem;
+import net.jukoz.me.item.items.shields.CustomSiegeShieldItem;
 import net.jukoz.me.item.utils.*;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.ModFactions;
@@ -16,7 +17,6 @@ import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -148,11 +148,11 @@ public class ModEquipmentItems {
                     ModFactions.NONE));
 
     public static final Item ROUND_SHIELD = registerShield("round_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));
+            new CustomBannerShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));
     public static final Item HEATER_SHIELD = registerShield("heater_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));
+            new CustomBannerShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));
     public static final Item KITE_SHIELD = registerShield("kite_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));
+            new CustomBannerShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));
     //endregion
 
     //region HOBBITS
