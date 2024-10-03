@@ -5221,14 +5221,13 @@
   "faction.me.isengard" : "Isengard",
   "faction.me.shire" : "Shire",
 
-  "#Comment": "Factions fallback",
+"#Comment": "Factions fallback",
   "faction.me.example.fallback": "Example...",
   "faction.me.misty_mountains_goblins.fallback": "Misty Mountains Go...",
 
 "#Comment": "Spawns",
   "spawn.me.coordinates_base": "[x,z] ",
   "spawn.me.coordinates_base_values": "%s, %s",
-  "spawn.me.selection_border": "[ %s ] ",
 
   "spawn.me.gondor.minas_tirith" : "Minas Tirith",
   "spawn.me.gondor.anorien" : "Anorien",
@@ -5265,7 +5264,7 @@
   "spawn.me.shire.hobbiton" : "Hobbitton",
   "spawn.me.shire.willowbottom" : "Willowbottom",
 
-  "#Comment:": "Races",
+"#Comment:": "Races",
   "race.me.dwarf" : "Dwarf",
   "race.me.elf" : "Elf",
   "race.me.human" : "Human",
@@ -5348,6 +5347,13 @@
 
 "#Comment": "UI Map",
   "ui.me.map_title_text": "Middle-earth Map",
+
+"#Comment": "Map Marker Widget",
+  "widget.me.spawn_tooltip_title": "Spawns",
+  "widget.me.marker.selected_title_container.before": "[",
+  "widget.me.marker.selected_title_container.after": "]",
+  "widget.me.marker.margin_front": "   ",
+  "widget.me.marker.more": "More ...",
 
 "#Comment": "UI Search",
   "ui.me.search.label" : "Search...",

@@ -5,6 +5,7 @@ import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerType;
 import net.jukoz.me.commands.CommandColors;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
@@ -39,6 +40,7 @@ public class FactionSelectionMapWidget extends MapWidget {
             spawnMapMarkers[i] = new MapMarkerWidget("SpawnButton_" + i, x -> selectSpawn(finalIndex));
             spawnMapMarkers[i].setType(MapMarkerType.DYNAMIC_SPAWN);
         }
+        updateSelectedSpawn(controller.getCurrentSpawnIndex());
     }
     public ButtonWidget[] getButtons() {
         ButtonWidget[] spawnButtonArray = new ButtonWidget[spawnMapMarkers.length];
@@ -48,13 +50,20 @@ public class FactionSelectionMapWidget extends MapWidget {
         return spawnButtonArray;
     }
 
-    private void selectSpawn(int index){
+    public void selectSpawn(int index){
         controller.setSpawnIndex(index);
+    }
+
+    public void updateSelectedSpawn(int index){
+        for(int i = 0; i < spawnMapMarkers.length; i++){
+            this.spawnMapMarkers[i].setSelected(i == index);
+        }
     }
 
     protected double getMarkerGroupUpRadius(){
         return 15;
     }
+
     @Override
     protected void draw(DrawContext context, int startX, int startY) {
         super.draw(context, startX, startY);
@@ -65,7 +74,7 @@ public class FactionSelectionMapWidget extends MapWidget {
         for(int i = 0; i < spawns.size(); i++){
             SpawnData spawnData = spawns.get(i);
             Vector2d coordinates = new Vector2d(spawnData.getCoordinates().getX(), spawnData.getCoordinates().getZ());
-            MapMarkerWidget mapMarker = spawnMapMarkers[i];
+            MapMarkerWidget mapMarker = this.spawnMapMarkers[i];
             if(spawnData.isDynamic()){
                 mapMarker.setType(MapMarkerType.DYNAMIC_SPAWN);
                 mapMarker.computeFromMapPosition(this, coordinates);
@@ -74,11 +83,13 @@ public class FactionSelectionMapWidget extends MapWidget {
                 mapMarker.computeFromWorldPosition(this, coordinates);
             }
             mapMarker.setContent(
+                    Text.translatable("widget.me.spawn_tooltip_title").formatted(Formatting.UNDERLINE),
                     List.of(
                             Text.translatable("spawn." + spawnData.getIdentifier().toTranslationKey()).formatted(Formatting.GOLD),
-                            Text.translatable("spawn.me.coordinates_base").formatted(Formatting.GRAY)
-                                    .append(Text.translatable("spawn.me.coordinates_base_values", spawnData.getWorldCoordinates().x, spawnData.getWorldCoordinates().z).formatted(Formatting.WHITE))
+                            Text.translatable("widget.me.marker.margin_front").append(Text.translatable("spawn.me.coordinates_base").formatted(Formatting.GRAY)
+                                    .append(Text.translatable("spawn.me.coordinates_base_values", spawnData.getWorldCoordinates().x, spawnData.getWorldCoordinates().z).formatted(Formatting.WHITE)))
                     ));
+            mapMarker.clearChild();
             Vector2i currentCenterCoordinate = mapMarker.getCenterCoordinates();
             boolean isSeperate = true;
             int currentUniqueIndex = 0;
@@ -99,7 +110,7 @@ public class FactionSelectionMapWidget extends MapWidget {
                 currentList.add(currentCenterCoordinate);
                 uniqueIndexes.put(currentUniqueIndex, currentList);
                 spawnMapMarkers[currentUniqueIndex].updateMarkerType(MapMarkerType.STACKED_SPAWNS);
-                spawnMapMarkers[currentUniqueIndex].addContent(mapMarker.getContent());
+                spawnMapMarkers[currentUniqueIndex].addChild(mapMarker);
                 mapMarker.activateButton(false);
             }
         }

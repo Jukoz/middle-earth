@@ -59,7 +59,7 @@ public class FactionSelectionScreen extends Screen {
     public boolean mapViewAllToggle = false;
     public ButtonWidget mapFocusButton;
     public boolean mapFocusToggle = false;
-    private FactionSelectionMapWidget mapWidget;
+    public FactionSelectionMapWidget mapWidget;
     private CycledSelectionWidget raceCycledSelection;
     private CycledSelectionWidget spawnPointCycledSelection;
     public ButtonWidget spawnSelectionRandomizerButton;
@@ -76,7 +76,7 @@ public class FactionSelectionScreen extends Screen {
         Entity cameraEntity = this.client.getCameraEntity();
         if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
             this.player = abstractClientPlayerEntity;
-            controller = new FactionSelectionController(player);
+            controller = new FactionSelectionController(this, player);
         } else {
             LoggerUtil.logError("FactionSelectionScreen::Init:Couldn't find player");
         }
@@ -91,6 +91,8 @@ public class FactionSelectionScreen extends Screen {
 
         addFactionSelectionPanelButtons();
         mapWidget = new FactionSelectionMapWidget(controller, 114, 114);
+        mapWidget.selectSpawn(controller.getCurrentSpawnIndex());
+        mapWidget.updateSelectedSpawn(controller.getCurrentSpawnIndex());
         addMapPanelButtonsAndWidgets();
 
         addDrawableChild(searchBarWidget.getScreenClickButton());

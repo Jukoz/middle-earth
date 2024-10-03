@@ -1,6 +1,7 @@
 package net.jukoz.me.client.screens.controllers;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.jukoz.me.client.screens.FactionSelectionScreen;
 import net.jukoz.me.network.packets.C2S.*;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.factions.Faction;
@@ -33,9 +34,12 @@ public class FactionSelectionController {
     private int currentSubFactionIndex;
     private int currentSpawnIndex;
     private AbstractClientPlayerEntity player;
+    private FactionSelectionScreen screen;
 
-    public FactionSelectionController(AbstractClientPlayerEntity player){
+    public FactionSelectionController(FactionSelectionScreen screen, AbstractClientPlayerEntity player){
         this.player = player;
+        this.screen = screen;
+
         factions = new HashMap<>();
         factions.put(Alignment.GOOD, FactionLookup.getFactionsByAlignment(player.getWorld(), Alignment.GOOD).values().stream().toList());
         factions.put(Alignment.NEUTRAL, FactionLookup.getFactionsByAlignment(player.getWorld(), Alignment.NEUTRAL).values().stream().toList());
@@ -62,6 +66,7 @@ public class FactionSelectionController {
         spawns = foundSpawnDataHandler.getSpawnList();
         currentSpawnIndex = 0;
         currentRaceIndex = 0;
+        setSpawnIndex(currentSpawnIndex);
     }
 
     private void updateRaces() {
@@ -171,6 +176,7 @@ public class FactionSelectionController {
             if(currentSpawnIndex < 0)
                 currentSpawnIndex = spawns.size() - 1;
         }
+        setSpawnIndex(currentSpawnIndex);
     }
 
     public void raceIndexUpdate(boolean add) {
@@ -294,7 +300,11 @@ public class FactionSelectionController {
     }
 
     public void setSpawnIndex(int index) {
-        currentSpawnIndex = Math.min(spawns.size(), Math.max(0, index));
+        if(index != currentSpawnIndex)
+            currentSpawnIndex = Math.min(spawns.size(), Math.max(0, index));
+        if(screen.mapWidget != null)
+            screen.mapWidget.updateSelectedSpawn(index);
+
     }
 
     public int getCurrentSpawnIndex() {

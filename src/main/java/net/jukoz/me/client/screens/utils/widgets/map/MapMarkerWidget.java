@@ -6,11 +6,14 @@ import net.jukoz.me.client.screens.utils.widgets.ModWidget;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapArrowType;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerArrowDirections;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerType;
+import net.jukoz.me.commands.CommandColors;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
@@ -29,8 +32,10 @@ public class MapMarkerWidget extends ModWidget {
     private MapMarkerArrowDirections arrowDirection;
     private Vector2i runtimeStartCoordinates = null;
     private boolean isArrow;
-    private boolean isFocused;
+    private boolean isSelected;
+    private Text title;
     private List<Text> content;
+    private List<MapMarkerWidget> childs = new ArrayList<>();
 
     public MapMarkerWidget(String name, ButtonWidget.PressAction onPress) {
         super();
@@ -38,16 +43,10 @@ public class MapMarkerWidget extends ModWidget {
         type = MapMarkerType.NONE;
         arrowType = MapArrowType.NORMAL;
         isArrow = false;
-        isFocused = false;
+        isSelected = false;
     }
 
-    public void setContent(List<Text> content){
-        this.content = content;
-    }
 
-    public List<Text> getContent(){
-        return this.content;
-    }
 
     public void setType(MapMarkerType type){
         this.type = type;
@@ -144,7 +143,16 @@ public class MapMarkerWidget extends ModWidget {
 
         boolean isFocused = markerButton.isFocused();
         boolean mouseIsOver = isMouseOver(buttonSize.x, buttonSize.y, buttonStartCoordinates.x, buttonStartCoordinates.y);
-        if(isFocused || mouseIsOver){
+
+        boolean forceSelectedVisual = false;
+        for(MapMarkerWidget markerWidget : childs){
+            if(markerWidget.isSelected){
+                forceSelectedVisual = true;
+                break;
+            }
+        }
+
+        if(isFocused || (isSelected || forceSelectedVisual) || mouseIsOver){
             if(isArrow)
                 drawUvs = arrowType.getHoveredUvs(arrowDirection);
             else
@@ -153,7 +161,21 @@ public class MapMarkerWidget extends ModWidget {
                 isFocused = false;
         }
         if(mouseIsOver){
-            context.drawTooltip(client.textRenderer, content, Optional.empty(), drawStart.x + 7, drawStart.y);
+            int maxChildDisplay = 2;
+            List<Text> texts = new ArrayList<>();
+            boolean haveChilds = childs != null && !childs.isEmpty();
+            if(haveChilds)
+                texts.add(title);
+            texts.addAll(getContent());
+            if(haveChilds){
+                for(int i = 0; i < childs.size() && i < maxChildDisplay; i++){
+                    texts.addAll(childs.get(i).getContent());
+                }
+                if(childs.size() > maxChildDisplay){
+                    texts.add(Text.translatable("widget.me.marker.more").formatted(Formatting.BLUE));
+                }
+            }
+            context.drawTooltip(client.textRenderer, texts, Optional.empty(), drawStart.x + (drawSize.x / 2), drawStart.y + (drawSize.y / 2));
         }
 
         // draw marker or arrow
@@ -164,7 +186,7 @@ public class MapMarkerWidget extends ModWidget {
         );
 
         // draw marker or arrow (FOCUSED)
-        if(isFocused){
+        if(isFocused || ((isSelected || forceSelectedVisual) && getFocusEnabled())){
             context.drawTexture((isArrow) ? MAP_ARROWS : MAP_MARKERS,
                     focusedStart.x, focusedStart.y,
                     focusedUvs.x, focusedUvs.y,
@@ -173,8 +195,28 @@ public class MapMarkerWidget extends ModWidget {
         }
     }
 
+    private List<Text> getContent() {
+        if(isSelected){
+            List<Text> modifiedList = new ArrayList<>();
+            modifiedList.add(
+                    Text.translatable("widget.me.marker.selected_title_container.before")
+                            .append(content.get(0).copy().withColor(CommandColors.SUCCESS.color))
+                            .append(Text.translatable("widget.me.marker.selected_title_container.after")));
+            for(int i = 1; i < content.size(); i++){
+                modifiedList.add(content.get(i));
+            }
+            return modifiedList;
+        }
+        return this.content;
+    }
+
+    public void setContent(Text title, List<Text> content){
+        this.title = title;
+        this.content = content;
+    }
+
     public void activateButton(boolean state){
-        markerButton.active = state;
+        this.markerButton.active = state;
     }
 
     public Vector2i getCenterCoordinates() {
@@ -193,19 +235,20 @@ public class MapMarkerWidget extends ModWidget {
     }
 
     public void updateMarkerType(MapMarkerType mapMarkerType) {
-        if(isArrow) return;
+        if(this.isArrow) return;
 
-        type = mapMarkerType;
+        this.type = mapMarkerType;
         Vector2i center = getCenterCoordinates();
-        runtimeStartCoordinates = new Vector2i(center.x - mapMarkerType.size.x / 2, center.y - mapMarkerType.size.y / 2);
+        this.runtimeStartCoordinates = new Vector2i(center.x - mapMarkerType.size.x / 2, center.y - mapMarkerType.size.y / 2);
+    }
+    public void clearChild() {
+        this.childs.clear();
+    }
+    public void addChild(MapMarkerWidget mapMarker) {
+        this.childs.add(mapMarker);
     }
 
-    public void addContent(List<Text> appendContent) {
-        if(content != null && !content.isEmpty()){
-            List<Text> newContent = new ArrayList<>();
-            newContent.addAll(this.content);
-            newContent.addAll(appendContent);
-            this.content = newContent;
-        }
+    public void setSelected(boolean state) {
+        this.isSelected = state;
     }
 }
