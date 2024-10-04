@@ -266,23 +266,23 @@ public class ModWeaponItems {
     //endregion
 
     //region ISENGARD
-    public static final Item URUK_HAI_CLEAVER = registerItemWithModel("uruk_hai_cleaver",
+    public static final Item ISENGARD_ORC_CLEAVER = registerItemWithModel("isengard_orc_cleaver",
             new CustomSwordWeaponItem(ModToolMaterials.URUK_STEEL, ModFactions.ISENGARD), true);
     public static final Item URUK_HAI_ELITE_FALCHION = registerItemWithModel("uruk_hai_elite_falchion",
             new CustomSwordWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, ModFactions.ISENGARD), true);
-    public static final Item URUK_HAI_WARBLADE = registerItemWithModel("uruk_hai_warblade",
+    public static final Item ISENGARD_ORC_WARBLADE = registerItemWithModel("isengard_orc_warblade",
             new CustomLongswordWeaponItem(ModToolMaterials.URUK_STEEL, ModFactions.ISENGARD), true);
     public static final Item URUK_HAI_ELITE_WARBLADE = registerItemWithModel("uruk_hai_elite_warblade",
             new CustomLongswordWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, ModFactions.ISENGARD), true);
-    public static final Item URUK_HAI_DAGGER = registerItemWithModel("uruk_hai_dagger",
+    public static final Item ISENGARD_ORC_DAGGER = registerItemWithModel("isengard_orc_dagger",
             new CustomDaggerWeaponItem(ModToolMaterials.URUK_STEEL, ModFactions.ISENGARD), false);
     public static final Item URUK_HAI_ELITE_KNIFE = registerItemWithModel("uruk_hai_elite_knife",
             new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, ModFactions.ISENGARD), false);
-    public static final Item URUK_HAI_AXE = registerItemWithModel("uruk_hai_axe",
+    public static final Item ISENGARD_ORC_AXE = registerItemWithModel("isengard_orc_axe",
             new CustomAxeWeaponItem(ModToolMaterials.ELVEN_STEEL, ModFactions.ISENGARD), true);
     public static final Item URUK_HAI_ELITE_AXE = registerItemWithModel("uruk_hai_elite_axe",
             new CustomAxeWeaponItem(ModToolMaterials.NOBLE_ELVEN_STEEL, ModFactions.ISENGARD), true);
-    public static final Item URUK_HAI_SPEAR = registerItemWithSpearModel("uruk_hai_spear",
+    public static final Item ISENGARD_ORC_SPEAR = registerItemWithSpearModel("isengard_orc_spear",
             new CustomSpearWeaponItem(ModToolMaterials.URUK_STEEL, ModFactions.ISENGARD));
     public static final Item URUK_HAI_ELITE_SPEAR = registerItemWithSpearModel("uruk_hai_elite_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_URUK_STEEL, ModFactions.ISENGARD));

@@ -3,7 +3,7 @@
 	"parent": "me:item/spear",
 	"texture_size": [32, 48],
 	"textures": {
-		"25": "me:item/uruk_hai_spear"
+		"25": "me:item/isengard_orc_spear"
 	},
 	"elements": [
 		{
@@ -288,7 +288,7 @@
 		}
 	],
 	"overrides": [
-		{"predicate": {"holding": 1}, "model": "me:item/uruk_hai_spear_holding"}
+		{"predicate": {"holding": 1}, "model": "me:item/isengard_orc_spear_holding"}
 	],
 	"groups": [
 		{
