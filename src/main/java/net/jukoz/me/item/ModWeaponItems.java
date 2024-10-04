@@ -107,6 +107,8 @@ public class ModWeaponItems {
             new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.GONDOR), true);
     public static final Item GONDORIAN_SPEAR = registerItemWithSpearModel("gondorian_spear",
             new CustomSpearWeaponItem(ModToolMaterials.STEEL, ModFactions.GONDOR));
+    public static final Item GONDORIAN_FOUNTAIN_GUARD_SPEAR = registerItemWithSpearModel("gondorian_fountain_guard_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.GONDOR));
     public static final Item GONDORIAN_NOBLE_SPEAR = registerItemWithSpearModel("gondorian_noble_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.GONDOR));
 
