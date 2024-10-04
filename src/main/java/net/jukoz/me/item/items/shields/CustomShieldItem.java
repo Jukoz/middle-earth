@@ -14,9 +14,9 @@ import net.minecraft.text.Text;
 import java.util.List;
 
 public class CustomShieldItem extends ShieldItem {
-    private final ModFactions faction;
-    private final ModSubFactions subFaction;
-    private final ModShieldTypes type;
+    public final ModFactions faction;
+    public final ModSubFactions subFaction;
+    public final ModShieldTypes type;
 
     public CustomShieldItem(ModShieldTypes type, ModFactions faction) {
         super(new Item.Settings().maxCount(1).maxDamage(type.durability));

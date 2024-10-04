@@ -456,7 +456,7 @@
   "item.me.diamond_spear": "Diamond Spear",
   "item.me.netherite_spear": "Netherite Spear",
 
-"#Comment:": "Item - Artefact Weapons",
+"#Comment:": "Item - Artefacts",
   "item.me.orcrist": "Orcrist",
 
   "item.me.glamdring": "Glamdring",
@@ -465,6 +465,8 @@
   "item.me.sting": "Sting",
   "item.me.morgul_knife": "Morgul Knife",
 
+  "item.me.anorthann": "Anorthann",
+  "item.me.cuthann": "Cûthann",
 
 "#Comment:": "Armours",
   "item.me.cape": "Cape",
@@ -5263,7 +5265,7 @@
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",
   "tooltip.me.alt" : "Hold §3ALT§f to see custom parts information.",
   "tooltip.me.weapon_type" : "§eType: §f",
-  "tooltip.me.shield_type" : "§eShield Type: §f",
+  "tooltip.me.shield_type" : "§eType: §f",
   "tooltip.me.faction" : "§6Faction: §f",
   "tooltip.me.sub_faction" : "§7Sub Faction: §f",
   "tooltip.me.customizations" : "§6Custom Parts: §f",

@@ -60,7 +60,7 @@ public class ArtefactCustomDaggerWeaponItem extends CustomDaggerWeaponItem {
 
     @Override
     public Text getName(ItemStack stack) {
-        return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.AQUA);
+        return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.AQUA).formatted(Formatting.ITALIC);
     }
 
     @Override
