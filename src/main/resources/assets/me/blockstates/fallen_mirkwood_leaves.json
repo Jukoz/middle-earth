@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "me:block/fallen_mirkwood_leaves"
+    },
+    "facing=east": {
+      "model": "me:block/fallen_mirkwood_leaves",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "me:block/fallen_mirkwood_leaves",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "me:block/fallen_mirkwood_leaves",
+      "y": 270
+    }
+  }
+}

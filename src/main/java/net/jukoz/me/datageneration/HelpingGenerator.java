@@ -5,6 +5,7 @@ import net.jukoz.me.datageneration.content.loot_tables.BlockDrops;
 import net.jukoz.me.datageneration.content.loot_tables.LeavesDrops;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.content.tags.*;
+import net.minecraft.block.PillarBlock;
 import net.minecraft.registry.Registries;
 
 import java.util.Objects;
@@ -290,7 +291,7 @@ public class HelpingGenerator {
             WoodenSlabs.woodenSlabs.add(set.planksSlab());
         }
 
-        for (RoofBlockSets.RoofBlockSet set : RoofBlockSets.sets) {
+        for (OtherBlockSets.RoofBlockSet set : OtherBlockSets.sets) {
             SimpleBlockModel.blocks.add(set.block());
             SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.block(), set.slab()));
             SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.block(), set.slab(), set.verticalSlab()));
@@ -326,6 +327,34 @@ public class HelpingGenerator {
             Walls.walls.add(set.wall());
             if (set.block().toString().contains("shingles")) {
                 Shingles.shingles.add(set.block());
+            }
+        }
+
+        for (OtherBlockSets.MiscBlockSet set : OtherBlockSets.specialWoodSets) {
+            if (set.block() instanceof PillarBlock){
+                SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.block()));
+            } else {
+                SimpleBlockModel.blocks.add(set.block());
+            }
+            SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.block(), set.slab()));
+            SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.block(), set.slab(), set.verticalSlab()));
+            SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.block(), set.stairs()));
+
+            BlockDrops.blocks.add(set.block());
+            BlockDrops.blocks.add(set.slab());
+            BlockDrops.blocks.add(set.verticalSlab());
+            BlockDrops.blocks.add(set.stairs());
+
+            if(set.origin() != null && set.origin().toString().contains("wood")){
+                MineableAxe.blocks.add(set.block());
+                MineableAxe.blocks.add(set.slab());
+                MineableAxe.blocks.add(set.verticalSlab());
+                MineableAxe.blocks.add(set.stairs());
+            }  else {
+                MineablePickaxe.blocks.add(set.block());
+                MineablePickaxe.blocks.add(set.slab());
+                MineablePickaxe.blocks.add(set.verticalSlab());
+                MineablePickaxe.blocks.add(set.stairs());
             }
         }
 

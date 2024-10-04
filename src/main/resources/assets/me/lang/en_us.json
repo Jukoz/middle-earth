@@ -2169,6 +2169,12 @@
   "block.me.chiseled_polished_granite": "Chiseled Polished Granite",
   "block.me.chiseled_granite_bricks": "Chiseled Granite Bricks",
 
+  "block.me.granite_brickwork": "Granite Brickwork",
+  "block.me.granite_brickwork_slab": "Granite Brickwork Slab",
+  "block.me.granite_brickwork_vertical_slab": "Granite Brickwork Vertical Slab",
+  "block.me.granite_brickwork_stairs": "Granite Brickwork Stairs",
+  "block.me.granite_brickwork_wall": "Granite Brickwork Wall",
+
   "block.me.granite_stool": "Granite Stool",
   "block.me.granite_table": "Granite Table",
   "block.me.granite_chair": "Granite Chair",
@@ -2317,6 +2323,9 @@
   "block.me.chiseled_tuff_tiles": "Chiseled Tuff Tiles",
   "block.me.chiseled_smooth_tuff": "Chiseled Smooth Tuff",
 
+  "block.me.tuff_carved_window": "Tuff Carved Window",
+  "block.me.tuff_carved_window_pane": "Tuff Carved Window Pane",
+
   "block.me.tuff_stool": "Tuff Stool",
   "block.me.tuff_table": "Tuff Table",
   "block.me.tuff_chair": "Tuff Chair",
@@ -2391,6 +2400,20 @@
   "block.me.old_bricks_vertical_slab": "Old Bricks Vertical Slab",
   "block.me.old_bricks_stairs": "Old Bricks Stairs",
   "block.me.old_bricks_wall": "Old Bricks Wall",
+
+"#Comment:": "Block - Tan Bricks",
+
+  "block.me.tan_clay_bricks": "Tan Clay Bricks",
+  "block.me.tan_clay_bricks_slab": "Tan Clay Bricks Slab",
+  "block.me.tan_clay_bricks_vertical_slab": "Tan Clay Bricks Vertical Slab",
+  "block.me.tan_clay_bricks_stairs": "Tan Clay Bricks Stairs",
+  "block.me.tan_clay_bricks_wall": "Tan Clay Bricks Wall",
+
+  "block.me.tan_clay_brickwork": "Tan Clay Brickwork",
+  "block.me.tan_clay_brickwork_slab": "Tan Clay Brickwork Slab",
+  "block.me.tan_clay_brickwork_vertical_slab": "Tan Clay Brickwork Vertical Slab",
+  "block.me.tan_clay_brickwork_stairs": "Tan Clay Brickwork Stairs",
+  "block.me.tan_clay_brickwork_wall": "Tan Clay Brickwork Wall",
 
 "#Comment:": "Block - Basalt",
   "block.me.cobbled_basalt": "Cobbled Basalt",
@@ -3220,6 +3243,18 @@
   "block.me.moss_slab": "Moss Slab",
   "block.me.moss_stairs": "Moss Stairs",
 
+  "block.me.packed_mire": "Packed Mire",
+  "block.me.packed_mire_slab": "Packed Mire Slab",
+  "block.me.packed_mire_vertical_slab": "Packed Mire Vertical Slab",
+  "block.me.packed_mire_stairs": "Packed Mire Stairs",
+  "block.me.packed_mire_wall": "Packed Mire Wall",
+
+  "block.me.mire_bricks": "Mire Bricks",
+  "block.me.mire_bricks_slab": "Mire Brick Slab",
+  "block.me.mire_bricks_vertical_slab": "Mire Brick Vertical Slab",
+  "block.me.mire_bricks_stairs": "Mire Brick Stairs",
+  "block.me.mire_bricks_wall": "Mire Brick Wall",
+
   "block.me.cobbly_dirt": "Cobbly Dirt",
   "block.me.cobbly_dirt_slab": "Cobbly Dirt Slab",
   "block.me.cobbly_dirt_stairs": "Cobbly Dirt Stairs",
@@ -3653,6 +3688,7 @@
 
 "#Comment:": "Block - Mirkwood",
   "block.me.mirkwood_leaves": "Mirkwood Leaves",
+  "block.me.fallen_mirkwood_leaves": "Fallen Mirkwood Leaves",
   "block.me.mirkwood_vines": "Mirkwood Vines",
   "block.me.mirkwood_vines_plant": "Mirkwood Vines Plant",
   "block.me.mirkwood_log": "Mirkwood Log",
@@ -4064,6 +4100,12 @@
   "block.me.weathered_shingles_vertical_slab": "Weathered Shingles Vertical Slab",
   "block.me.weathered_shingles_wall": "Weathered Shingles Wall",
 
+  "block.me.tan_clay_tiles": "Tan Clay Tiles",
+  "block.me.tan_clay_tiles_stairs": "Tan Clay Tiles Stairs",
+  "block.me.tan_clay_tiles_slab": "Tan Clay Tiles Slab",
+  "block.me.tan_clay_tiles_vertical_slab": "Tan Clay Tiles Vertical Slab",
+  "block.me.tan_clay_tiles_wall": "Tan Clay Tiles Wall",
+
   "block.me.brick_clay_tiling": "Brick Clay Tiling",
   "block.me.brick_clay_tiling_stairs": "Brick Clay Tiling Stairs",
   "block.me.brick_clay_tiling_slab": "Brick Clay Tiling Slab",
@@ -4246,6 +4288,7 @@
   "block.me.birch_bench": "Birch Bench",
   "block.me.birch_table": "Birch Table",
   "block.me.birch_chair": "Birch Chair",
+
   "block.me.birch_ladder": "Birch Ladder",
 
   "block.me.jungle_stool": "Jungle Stool",
@@ -4319,6 +4362,9 @@
   "block.me.wooden_bucket": "Wooden Bucket",
 
   "block.me.treated_steel_rod": "Treated Steel Rod",
+  "block.me.treated_steel_door": "Treated Steel Door",
+  "block.me.treated_steel_trapdoor": "Treated Steel Trapdoor",
+  "block.me.treated_steel_bars": "Treated Steel Bars",
 
   "block.me.big_brazier": "Big Brazier",
   "block.me.gilded_big_brazier": "Gilded Big Brazier",
@@ -4335,6 +4381,43 @@
 
   "block.me.ground_book": "Ground Book",
   "block.me.dwarven_ground_book": "Dwarven Ground Book",
+
+"#Comment:": "Block - Treated Wood",
+  "block.me.treated_wood": "Treated Wood",
+  "block.me.treated_wood_slab": "Treated Wood Slab",
+  "block.me.treated_wood_vertical_slab": "Treated Wood Vertical Slab",
+  "block.me.treated_wood_stairs": "Treated Wood Stairs",
+  "block.me.treated_wood_wall": "Treated Wood Wall",
+
+  "block.me.treated_wood_planks": "Treated Wood Planks",
+  "block.me.treated_wood_planks_slab": "Treated Wood Planks Slab",
+  "block.me.treated_wood_planks_vertical_slab": "Treated Wood Planks Vertical Slab",
+  "block.me.treated_wood_planks_stairs": "Treated Wood Planks Stairs",
+  "block.me.treated_wood_planks_wall": "Treated Wood Planks Wall",
+
+  "block.me.treated_wood_beam": "Treated Wood Beam",
+  "block.me.treated_wood_beam_slab": "Treated Wood Beam Slab",
+  "block.me.treated_wood_beam_vertical_slab": "Treated Wood Beam Vertical Slab",
+  "block.me.treated_wood_beam_stairs": "Treated Wood Beam Stairs",
+  "block.me.treated_wood_beam_wall": "Treated Wood Beam Wall",
+
+  "block.me.treated_wood_carved_beam": "Treated Wood Carved Beam",
+  "block.me.treated_wood_carved_beam_slab": "Treated Wood Carved Beam Slab",
+  "block.me.treated_wood_carved_beam_vertical_slab": "Treated Wood Beam Carved Vertical Slab",
+  "block.me.treated_wood_carved_beam_stairs": "Treated Wood Carved Beam Stairs",
+  "block.me.treated_wood_carved_beam_wall": "Treated Wood Carved Beam Wall",
+
+  "block.me.treated_wood_panels": "Treated Wood Panels",
+  "block.me.treated_wood_panels_slab": "Treated Wood Panels Slab",
+  "block.me.treated_wood_panels_vertical_slab": "Treated Wood Panels Vertical Slab",
+  "block.me.treated_wood_panels_stairs": "Treated Wood Panels Stairs",
+  "block.me.treated_wood_panels_wall": "Treated Wood Panels Wall",
+
+  "block.me.treated_wood_tiling": "Treated Wood Tiling",
+  "block.me.treated_wood_tiling_slab": "Treated Wood Tiling Slab",
+  "block.me.treated_wood_tiling_vertical_slab": "Treated Wood Tiling Vertical Slab",
+  "block.me.treated_wood_tiling_stairs": "Treated Wood Tiling Stairs",
+  "block.me.treated_wood_tiling_wall": "Treated Wood Tiling Wall",
 
 "#Comment:": "Block - Plants",
   "block.me.brown_grass": "Brown Grass",
@@ -4758,6 +4841,19 @@
 
   "block.me.wattle_and_brick_window": "Wattle and Brick Window",
   "block.me.wattle_and_brick_window_pane": "Wattle and Brick Window Pane",
+
+  "block.me.plaster": "Plaster",
+  "block.me.plaster_slab": "Plaster Slab",
+  "block.me.plaster_vertical_slab": "Plaster Vertical Slab",
+  "block.me.plaster_stairs": "Plaster Stairs",
+  "block.me.plaster_wall": "Plaster Wall",
+
+  "block.me.plaster_hobbit_window": "Plaster Hobbit Window",
+  "block.me.plaster_hobbit_window_pane": "Plaster Hobbit Window Pane",
+
+  "block.me.plaster_round_window": "Plaster Round Window",
+  "block.me.plaster_round_window_pane": "Plaster Round Window Pane",
+
 
   "block.me.white_daub": "White Daub",
   "block.me.white_daub_slab": "White Daub Slab",
