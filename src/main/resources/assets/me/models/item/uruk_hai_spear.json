@@ -3,7 +3,7 @@
 	"parent": "me:item/spear",
 	"texture_size": [32, 48],
 	"textures": {
-		"21": "me:item/uruk_hai_elite_spear"
+		"21": "me:item/uruk_hai_spear"
 	},
 	"elements": [
 		{
@@ -247,7 +247,7 @@
 	],
 	"display": {},
 	"overrides": [
-		{"predicate": {"holding": 1}, "model": "me:item/uruk_hai_elite_spear_holding"}
+		{"predicate": {"holding": 1}, "model": "me:item/uruk_hai_spear_holding"}
 	],
 	"groups": [
 		{
