@@ -14,6 +14,8 @@ import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
 import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
 import net.jukoz.me.client.model.equipment.head.RohirricHelmetArmorAddonModel;
 import net.jukoz.me.client.model.shields.HeaterShieldEntityModel;
+import net.jukoz.me.client.model.shields.KiteShieldEntityModel;
+import net.jukoz.me.client.model.shields.RoundShieldEntityModel;
 import net.jukoz.me.client.renderer.*;
 import net.jukoz.me.datageneration.VariantsModelProvider;
 import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
@@ -95,6 +97,8 @@ public class MiddleEarthClient implements ClientModInitializer {
     public static final EntityModelLayer HOOD_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "hood");
 
     public static final EntityModelLayer HEATER_SHIELD_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "heater_shield"), "main");
+    public static final EntityModelLayer KITE_SHIELD_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "kite_shield"), "main");
+    public static final EntityModelLayer ROUND_SHIELD_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "round_shield"), "main");
 
     @Override
     public void onInitializeClient() {
@@ -208,8 +212,12 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(HOOD_MODEL_LAYER, CloakHoodModel::getTexturedModelData);
 
         EntityModelLayerRegistry.registerModelLayer(HEATER_SHIELD_LAYER, HeaterShieldEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(KITE_SHIELD_LAYER, KiteShieldEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ROUND_SHIELD_LAYER, RoundShieldEntityModel::getTexturedModelData);
 
         BuiltinItemRendererRegistry.INSTANCE.register(ModEquipmentItems.HEATER_SHIELD, new ModBuiltInModelItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(ModEquipmentItems.KITE_SHIELD, new ModBuiltInModelItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(ModEquipmentItems.ROUND_SHIELD, new ModBuiltInModelItemRenderer());
 
         for(ModArmorModels.ModHelmetModels model : ModArmorModels.ModHelmetModels.values()){
             ArmorRenderer.register(new HelmetArmorRenderer(model.getModel()), model.getItem());

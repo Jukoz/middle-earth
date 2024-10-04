@@ -24,11 +24,11 @@ public class HeaterShieldEntityModel extends Model {
         modelPartData.addChild("plate", ModelPartBuilder.create().uv(0, 0).cuboid(-6.0F, -7.0F, -2.0F, 12.0F, 10.0F, 1.0F, new Dilation(0.0F))
                 .uv(1, 11).cuboid(-5.0F, 3.0F, -2.0F, 10.0F, 2.0F, 1.0F, new Dilation(0.0F))
                 .uv(2, 14).cuboid(-4.0F, 5.0F, -2.0F, 8.0F, 2.0F, 1.0F, new Dilation(0.0F))
-                .uv(3, 17).cuboid(-3.0F, 7.0F, -2.0F, 6.0F, 1.0F, 1.0F, new Dilation(0.0F))
-                .uv(5, 19).cuboid(-2.0F, 8.0F, -2.0F, 4.0F, 1.0F, 1.0F, new Dilation(0.0F))
+                .uv(3, 17).mirrored().cuboid(-3.0F, 7.0F, -2.0F, 6.0F, 1.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
+                .uv(5, 19).mirrored().cuboid(-2.0F, 8.0F, -2.0F, 4.0F, 1.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
                 .uv(7, 21).mirrored().cuboid(-1.0F, 9.0F, -2.0F, 2.0F, 1.0F, 1.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.NONE);
 
-        modelPartData.addChild("handle", ModelPartBuilder.create().uv(44, 13).cuboid(-1.0F, -3.0F, -1.0F, 2.0F, 6.0F, 6.0F, new Dilation(0.0F)), ModelTransform.NONE);
+        modelPartData.addChild("handle", ModelPartBuilder.create().uv(26, 0).mirrored().cuboid(-1.0F, -3.0F, -1.0F, 2.0F, 6.0F, 6.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.NONE);
         return TexturedModelData.of(modelData, 64, 64);
     }
 
