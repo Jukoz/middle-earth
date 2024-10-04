@@ -1,6 +1,7 @@
 package net.jukoz.me.entity.projectile.pinecone;
 
 import net.jukoz.me.entity.ModEntities;
+import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.projectile.AbstractProjectileEntity;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.entity.Entity;
@@ -26,10 +27,14 @@ public class LitPineconeEntity extends AbstractProjectileEntity {
     public LitPineconeEntity(World world, double x, double y, double z) {
         super(ModEntities.LIT_PINECONE, x, y, z, world);
     }
-    protected void onEntityHit(EntityHitResult entityHitResult) {
+
+    @Override
+    public void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
+        if(this.getOwner() instanceof ShireHobbitEntity && entity instanceof ShireHobbitEntity) return;
         entity.setOnFireFor(4);
+        entity.damage(this.getDamageSources().thrown(this, this.getOwner()), this.damage);
     }
 
     protected Item getDefaultItem() {
