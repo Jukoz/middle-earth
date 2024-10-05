@@ -272,6 +272,8 @@ public class StoneBlockSets {
     public static SimpleBlockSet MOSSY_GRANITE_TILES = registerStoneSet("mossy_granite_tiles", GRANITE_BRICKS.base.getHardness(), GRANITE_BRICKS.base.getBlastResistance(), GRANITE_TILES.base);
     public static SimpleBlockSet CRACKED_GRANITE_TILES = registerStoneSet("cracked_granite_tiles", GRANITE_BRICKS.base.getHardness(), GRANITE_BRICKS.base.getBlastResistance(), GRANITE_TILES.base);
 
+    public static SimpleBlockSet GRANITE_BRICKWORK = registerStoneSet("granite_brickwork", GRANITE_BRICKS.base.getHardness(), GRANITE_BRICKS.base.getBlastResistance(), GRANITE_TILES.base);
+
     public static SimpleBlockSet SMOOTH_DIORITE = registerStoneSet("smooth_diorite", Blocks.DIORITE.getHardness(), Blocks.DIORITE.getBlastResistance(), Blocks.DIORITE);
     public static SimpleBlockSet COBBLED_DIORITE = registerStoneSet("cobbled_diorite", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, Blocks.DIORITE);
     public static SimpleBlockSet MOSSY_COBBLED_DIORITE = registerStoneSet("mossy_cobbled_diorite", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, COBBLED_DIORITE.base);
@@ -362,6 +364,14 @@ public class StoneBlockSets {
     public static SimpleBlockSet MOSSY_MIXED_STONES = registerStoneSet("mossy_mixed_stones", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, MIXED_STONES.base);
     public static SimpleBlockSet CRACKED_MIXED_STONES = registerStoneSet("cracked_mixed_stones", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, MIXED_STONES.base);
 
+    public static SimpleBlockSet PACKED_MIRE = registerStoneSet("packed_mire",STONE_HARDNESS, STONE_BLAST_RESISTANCE, ModBlocks.MIRE);
+    public static SimpleBlockSet MIRE_BRICKS = registerStoneSet("mire_bricks", STONE_HARDNESS, STONE_BLAST_RESISTANCE, PACKED_MIRE.base);
+
+    public static SimpleBlockSet PLASTER = registerStoneSet("plaster", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
+
+    public static SimpleBlockSet TAN_CLAY_BRICKS = registerStoneSet("tan_clay_bricks", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
+    public static SimpleBlockSet TAN_CLAY_BRICKWORK = registerStoneSet("tan_clay_brickwork", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
+
     public static SimpleBlockSet WHITE_DAUB = registerStoneSet("white_daub", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
     public static SimpleBlockSet DARK_DAUB = registerStoneSet("dark_daub", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
     public static SimpleBlockSet YELLOW_DAUB = registerStoneSet("yellow_daub", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
@@ -414,6 +424,14 @@ public class StoneBlockSets {
     };
 
     public static SimpleBlockSet[] sets = new SimpleBlockSet[] {
+
+            PACKED_MIRE,
+            MIRE_BRICKS,
+
+            PLASTER,
+
+            TAN_CLAY_BRICKS,
+            TAN_CLAY_BRICKWORK,
 
             WHITE_DAUB,
             DARK_DAUB,
@@ -610,6 +628,8 @@ public class StoneBlockSets {
             CRACKED_GRANITE_TILES,
             MOSSY_POLISHED_GRANITE,
             CRACKED_POLISHED_GRANITE,
+
+            GRANITE_BRICKWORK,
 
             SMOOTH_DIORITE,
             COBBLED_DIORITE,
