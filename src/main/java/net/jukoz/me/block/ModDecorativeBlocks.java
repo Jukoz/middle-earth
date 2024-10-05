@@ -56,6 +56,9 @@ public class ModDecorativeBlocks {
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             new WoodPileBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque()));
 
+    public static final Block CANDLE_HEAP = registerBlockWithItem("candle_heap",
+            new CandleHeapBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).nonOpaque().luminance(createLightLevelFromLitBlockState(10))));
+
     public static final Block CALCITE_STATUE = registerBlockWithItem("calcite_statue",
             new StatueBlock(AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque()));
     public static final Block GONLUIN_STATUE = registerBlockWithItem("gonluin_statue",
