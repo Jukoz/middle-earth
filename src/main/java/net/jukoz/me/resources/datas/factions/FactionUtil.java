@@ -1,7 +1,6 @@
 package net.jukoz.me.resources.datas.factions;
 
-import com.jcraft.jorbis.Block;
-import net.jukoz.me.commands.CommandColors;
+import net.jukoz.me.utils.ModColors;
 import net.jukoz.me.commands.CommandUtils;
 import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.exceptions.IdenticalFactionException;
@@ -9,13 +8,10 @@ import net.jukoz.me.exceptions.NoFactionException;
 import net.jukoz.me.exceptions.SpawnIdentifierException;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
-import net.jukoz.me.resources.datas.races.Race;
-import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.resources.persistent_datas.AffiliationData;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.dimension.ModDimensions;
-import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.SubtitleS2CPacket;
 import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
@@ -50,7 +46,7 @@ public class FactionUtil {
             sendOnLeaveCommand(player, previousFaction);
             // Send leaving message to affected player
             MutableText targetText = Text.translatable("event.me.leave.faction.success", previousFaction.getFullName());
-            player.sendMessage(targetText.withColor(CommandColors.WARNING.color));
+            player.sendMessage(targetText.withColor(ModColors.WARNING.color));
         }
 
         // [JOIN] Add new affiliation data
@@ -61,7 +57,7 @@ public class FactionUtil {
 
         // Send join message to affected player
         MutableText targetText = Text.translatable("event.me.join.faction.success", faction.getFullName());
-        player.sendMessage(targetText.withColor(CommandColors.SUCCESS.color));
+        player.sendMessage(targetText.withColor(ModColors.SUCCESS.color));
 
         sendOnFactionJoinMessage(player);
         return true;
@@ -147,7 +143,7 @@ public class FactionUtil {
                 new TitleS2CPacket(Text.of(""))
             );
             ((ServerPlayerEntity) player).networkHandler.sendPacket(
-                    new SubtitleS2CPacket(targetText.withColor(CommandColors.SUCCESS.color))
+                    new SubtitleS2CPacket(targetText.withColor(ModColors.SUCCESS.color))
             );
         }
     }
@@ -160,7 +156,7 @@ public class FactionUtil {
 
             sendOnLeaveCommand(player, faction);
             MutableText targetText = Text.translatable("event.me.leave.faction.success", faction.getFullName());
-            player.sendMessage(targetText.withColor(CommandColors.WARNING.color));
+            player.sendMessage(targetText.withColor(ModColors.WARNING.color));
             return true;
         } else {
             throw new NoFactionException();

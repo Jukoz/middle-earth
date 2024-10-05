@@ -55,8 +55,6 @@ public class FactionSelectionScreen extends Screen {
     // Map buttons
     public ButtonWidget mapZoomInButton;
     public ButtonWidget mapZoomOutButton;
-    public ButtonWidget mapViewAllButton;
-    public boolean mapViewAllToggle = false;
     public ButtonWidget mapFocusButton;
     public boolean mapFocusToggle = false;
     public FactionSelectionMapWidget mapWidget;
@@ -159,7 +157,7 @@ public class FactionSelectionScreen extends Screen {
         }
         // Faction Randomizer
         factionRandomizerButton = ButtonWidget.builder(
-                Text.of("Faction randomizer clicked"),
+                Text.of("Faction randomizer"),
                 button -> {
                     controller.randomizeFaction(5);
                     updateEquipment();
@@ -176,25 +174,13 @@ public class FactionSelectionScreen extends Screen {
             addDrawableChild(button);
         }
 
-        // Focus all spawn points (from data)
-        mapViewAllButton = ButtonWidget.builder(
-                Text.of("View all"),
-                button -> {
-                    // TODO : Add widget method here
-                    LoggerUtil.logDebugMsg("View all action!");
-                    mapViewAllToggle = true;
-                    mapFocusToggle = false;
-                }).build();
-        addDrawableChild(mapViewAllButton);
-
         // Focus current spawn point (from data)
         mapFocusButton = ButtonWidget.builder(
                 Text.of("Focus current"),
                 button -> {
-                    // TODO : Add widget method here
-                    LoggerUtil.logDebugMsg("Focus current action!");
-                    mapFocusToggle = true;
-                    mapViewAllToggle = false;
+                    mapFocusToggle = !mapFocusToggle;
+                    controller.setSpawnIndex(controller.getCurrentSpawnIndex());
+                    mapWidget.addCooldown();
                 }).build();
         addDrawableChild(mapFocusButton);
 
@@ -439,27 +425,15 @@ public class FactionSelectionScreen extends Screen {
         );
 
         mapWidget.drawAnchored(context,startX + 5, startY + 5, true);
-
+        mapFocusToggle = mapWidget.haveForcedMapTarget();
         // Arbritary
         int buttonStartX = startX + MINIMAL_MARGIN + 2;
         int buttonSize = 10;
         startY += mapBackgroundHeight;
 
         int smallButtonsStartY = startY - buttonSize - MINIMAL_MARGIN - 2;
-        // View all
-        context.drawTexture(MAP_SELECTION,
-                buttonStartX, smallButtonsStartY,
-                246, (mapViewAllToggle) ? 20 : mapViewAllButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
-                buttonSize,
-                buttonSize
-        );
-        mapViewAllButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
-        if(mapViewAllButton.isFocused() && ModWidget.getFocusEnabled()){
-            highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
-        }
 
         // Focus current
-        buttonStartX += buttonSize + MINIMAL_MARGIN;
         context.drawTexture(MAP_SELECTION,
                 buttonStartX, smallButtonsStartY,
                 235, (mapFocusToggle) ? 20 : mapFocusButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,

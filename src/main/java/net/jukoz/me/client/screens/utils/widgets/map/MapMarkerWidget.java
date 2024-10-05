@@ -1,15 +1,11 @@
 package net.jukoz.me.client.screens.utils.widgets.map;
 
-import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.utils.widgets.ModWidget;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapArrowType;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerArrowDirections;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerType;
-import net.jukoz.me.commands.CommandColors;
-import net.jukoz.me.utils.LoggerUtil;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
+import net.jukoz.me.utils.ModColors;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
@@ -200,7 +196,7 @@ public class MapMarkerWidget extends ModWidget {
             List<Text> modifiedList = new ArrayList<>();
             modifiedList.add(
                     Text.translatable("widget.me.marker.selected_title_container.before")
-                            .append(content.get(0).copy().withColor(CommandColors.SUCCESS.color))
+                            .append(content.get(0).copy().withColor(ModColors.SUCCESS.color))
                             .append(Text.translatable("widget.me.marker.selected_title_container.after")));
             for(int i = 1; i < content.size(); i++){
                 modifiedList.add(content.get(i));

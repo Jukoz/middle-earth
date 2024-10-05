@@ -302,9 +302,14 @@ public class FactionSelectionController {
     public void setSpawnIndex(int index) {
         if(index != currentSpawnIndex)
             currentSpawnIndex = Math.min(spawns.size(), Math.max(0, index));
-        if(screen.mapWidget != null)
+        if(screen.mapWidget != null){
             screen.mapWidget.updateSelectedSpawn(index);
-
+            if(screen.mapFocusToggle){
+                BlockPos blockPos = spawns.get(currentSpawnIndex).getBlockPos();
+                Vector2i point = new Vector2i(blockPos.getX(), blockPos.getZ());
+                screen.mapWidget.moveTo(point,5f);
+            }
+        }
     }
 
     public int getCurrentSpawnIndex() {

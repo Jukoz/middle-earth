@@ -3,10 +3,13 @@ package net.jukoz.me.client.screens.utils.widgets.map;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.utils.widgets.ModWidget;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerArrowDirections;
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
+import org.joml.Quaterniond;
 import org.joml.Vector2d;
+import org.joml.Vector2i;
 
 public class MapWidget extends ModWidget {
     public boolean canZoomIn;
@@ -20,6 +23,8 @@ public class MapWidget extends ModWidget {
     private double uvX, uvY = 0;
     private float zoomLevel = getMinZoom();
     private float zoomTarget = zoomLevel;
+    private boolean isForcingTargetMovement = false;
+    private Vector2d forcedCurrentMapCenterTargetRatio;
     private Vector2d currentPointRatio;
     private Vector2d currentMapTargetRatio;
     private Vector2d currentUiTargetRatio;
@@ -37,9 +42,11 @@ public class MapWidget extends ModWidget {
         this.currentPointRatio = new Vector2d(.5, .5);
         updateCurrentMapTargetRatio(zoomLevel);
     }
-
     private float getZoomTransitionSpeed(){
         return 0.35f * (zoomLevel / 4f);
+    }
+    private float getMovementSpeed(){
+        return zoomLevel / 4;
     }
     private float getMaxZoom(){
         return 100f;
@@ -52,6 +59,9 @@ public class MapWidget extends ModWidget {
     }
 
 
+    public boolean haveForcedMapTarget(){
+        return isForcingTargetMovement;
+    }
     public Vector2d getMapPointFromMapCoordinate(Vector2d point){
         int mapSize = MiddleEarthMapConfigs.REGION_SIZE;
         point.x = (point.x / mapSize * uiCurrentWidth) - uvX + startX;
@@ -90,7 +100,6 @@ public class MapWidget extends ModWidget {
             this.uvY = nextUvs.y;
             nextUvs = null;
             zoomLevel = zoomTarget;
-
         } else if(zoomLevel != zoomTarget){
             float zoomModifier = getZoomTransitionSpeed();
             if(zoomLevel > zoomTarget){
@@ -100,13 +109,52 @@ public class MapWidget extends ModWidget {
             }
             computeZoom();
         }
-
+        if(forcedCurrentMapCenterTargetRatio != null){
+          computeForcedMovement();
+        }
         context.drawTexture(getMapTexture(),
                 startX, startY,
                 (float) uvX, (float) uvY,
                 uiWidth,uiHeight,
                 (int)uiCurrentWidth, (int)uiCurrentHeight
         );
+    }
+
+    private void computeForcedMovement() {
+        Vector2d currentUvs = new Vector2d((int) this.uvX, (int) this.uvY);
+        Vector2d targetUV = new Vector2d(
+                (uiCurrentWidth * forcedCurrentMapCenterTargetRatio.x) - (uiWidth / 2.0),
+                (uiCurrentHeight * forcedCurrentMapCenterTargetRatio.y) - (uiHeight / 2.0)
+        );
+        if((int) targetUV.x != (int) currentUvs.x && (int) targetUV.y != (int) currentUvs.y){
+            targetUV = verifyUvs(targetUV.x, targetUV.y);
+
+            double distanceForSpeed = targetUV.distance(currentUvs);
+            float basicSpeed = getMovementSpeed();
+            double speed = Math.max(basicSpeed, basicSpeed * (distanceForSpeed / 20));
+            double radians = Math.toRadians(getDegreeAngleFromVectors(targetUV, currentUvs));
+            double directionX = (Math.cos(radians)) * speed;
+            if(currentUvs.x > targetUV.x)
+                directionX *= -1;
+
+            double directionY = (Math.sin(radians)) * speed;
+            if(directionX < 0)
+                directionY *= -1;
+
+            computeUvs(uvX + directionX, uvY + directionY);
+            int distance = (int) Math.round(targetUV.distance(currentUvs));
+            if(distance < 2){
+                forcedCurrentMapCenterTargetRatio = null;
+            }
+        } else {
+            forcedCurrentMapCenterTargetRatio = null;
+        }
+    }
+
+    private double getDegreeAngleFromVectors(Vector2d source, Vector2d target) {
+        double m = (target.y - source.y) / (target.x - source.x);
+        double radians = Math.atan(m);
+        return radians * (180 / Math.PI);
     }
 
     @Override
@@ -132,6 +180,8 @@ public class MapWidget extends ModWidget {
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
         if(button == 0 && cooldown == 0 && (isDragging || mouseIsInside(mouseX, mouseY))) {
+            forcedCurrentMapCenterTargetRatio = null;
+            isForcingTargetMovement = false;
             int newUvX = (int) (this.uvX - deltaX);
             int newUvY = (int) (this.uvY - deltaY);
             setCurrentPointRatioToCursor(mouseX, mouseY);
@@ -147,6 +197,8 @@ public class MapWidget extends ModWidget {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if(mouseIsInside(mouseX, mouseY)){
+            forcedCurrentMapCenterTargetRatio = null;
+            isForcingTargetMovement = false;
             float zoomAmount = 1f + (zoomTarget / 4f);
             if(verticalAmount > 0 && zoomLevel != getMaxZoom()){
                 setCurrentPointRatioToCursor(mouseX, mouseY);
@@ -165,21 +217,28 @@ public class MapWidget extends ModWidget {
     }
 
     public void zoomClick(){
-        cooldown = DRAG_COOLDOWN;
+        addCooldown();
         isDragging = false;
         this.currentPointRatio = new Vector2d(0.5, 0.5);
         zoom(1f + (zoomTarget / 2f));
     }
 
     public void dezoomClick(){
-        cooldown = DRAG_COOLDOWN;
+        addCooldown();
         isDragging = false;
         this.currentPointRatio = new Vector2d(0.5, 0.5);
         dezoom(1f + (zoomTarget / 2f));
 
     }
 
+    public void addCooldown(){
+        cooldown = DRAG_COOLDOWN;
+    }
+
     public void zoom(float amount) {
+        forcedCurrentMapCenterTargetRatio = null;
+        isForcingTargetMovement = false;
+
         float maxZoom = getMaxZoom();
         if(zoomTarget != maxZoom) {
             this.canZoomOut = true;
@@ -192,6 +251,9 @@ public class MapWidget extends ModWidget {
         }
     }
     public void dezoom(float amount) {
+        forcedCurrentMapCenterTargetRatio = null;
+        isForcingTargetMovement = false;
+
         float minZoom = getMinZoom();
         if(zoomTarget != minZoom) {
             this.canZoomIn = true;
@@ -227,6 +289,12 @@ public class MapWidget extends ModWidget {
     }
 
     private void computeUvs(double newUvX, double newUvY){
+        Vector2d computedUvs = verifyUvs(newUvX, newUvY);
+        this.uvX = computedUvs.x;
+        this.uvY = computedUvs.y;
+    }
+
+    private Vector2d verifyUvs(double newUvX, double newUvY){
         int maxWidth = (int) (uiWidth * zoomLevel) - uiWidth;
         int maxHeight = (int) (uiHeight * zoomLevel) - uiHeight;;
 
@@ -236,8 +304,17 @@ public class MapWidget extends ModWidget {
         double computedY = Math.min(maxHeight, newUvY);
         computedY = Math.max(0, computedY);
 
-        this.uvX = computedX;
-        this.uvY = computedY;
+        return new Vector2d(computedX, computedY);
+    }
+
+    public void moveTo(Vector2i worldCoordinates, float desiredZoomTarget){
+        zoomTarget = Math.min(getMaxZoom(), Math.max(getMinZoom(), desiredZoomTarget));
+        forcedCurrentMapCenterTargetRatio = new Vector2d(
+                (double)worldCoordinates.x * MAP_TO_WORLD_RATIO / MiddleEarthMapConfigs.REGION_SIZE,
+                (double) worldCoordinates.y * MAP_TO_WORLD_RATIO / MiddleEarthMapConfigs.REGION_SIZE
+        );
+        isForcingTargetMovement = true;
+        currentPointRatio = new Vector2d(0.5, 0.5);
     }
 
     public MapMarkerArrowDirections isOutsideBounds(Vector2d uvs, int offsetX, int offsetY) {

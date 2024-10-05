@@ -2,10 +2,8 @@ package net.jukoz.me.client.screens.utils.widgets.map;
 
 import net.jukoz.me.client.screens.controllers.FactionSelectionController;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerType;
-import net.jukoz.me.commands.CommandColors;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
@@ -13,7 +11,6 @@ import net.minecraft.util.Formatting;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
