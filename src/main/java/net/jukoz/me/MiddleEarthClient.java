@@ -339,6 +339,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POINTED_LIMESTONE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POINTED_GALONN, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POINTED_IZHERABAN, RenderLayer.getCutout());
 
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> {
             if (view == null || pos == null) {
@@ -527,6 +528,9 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.TUFF_CARVED_WINDOW, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.TUFF_CARVED_WINDOW_PANE, RenderLayer.getTranslucent());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.IZHERABAN_CARVED_WINDOW, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.IZHERABAN_CARVED_WINDOW_PANE, RenderLayer.getTranslucent());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.MEDGON_CARVED_WINDOW, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModDecorativeBlocks.MEDGON_CARVED_WINDOW_PANE, RenderLayer.getTranslucent());

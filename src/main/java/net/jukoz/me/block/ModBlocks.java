@@ -85,6 +85,14 @@ public class ModBlocks {
     public static final Block ZIGILABAN_PILLAR = registerStoneBlock("zigilaban_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
 
+    public static final Block IZHERABAN_PILLAR = registerStoneBlock("izheraban_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block MOSSY_IZHERABAN_PILLAR = registerStoneBlock("mossy_izheraban_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CRACKED_IZHERABAN_PILLAR = registerStoneBlock("cracked_izheraban_pillar",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+
+
     public static final Block CALCITE_PILLAR = registerStoneBlock("calcite_pillar",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.QUARTZ_PILLAR).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     public static final Block MOSSY_CALCITE_PILLAR = registerStoneBlock("mossy_calcite_pillar",
@@ -226,6 +234,20 @@ public class ModBlocks {
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
     public static final Block CHISELED_POLISHED_ZIGILABAN = registerStoneBlock("chiseled_polished_zigilaban",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+
+    public static final Block CHISELED_IZHERABAN = registerStoneBlock("chiseled_izheraban",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_IZHERABAN_BRICKS = registerStoneBlock("chiseled_izheraban_bricks",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_POLISHED_IZHERABAN = registerStoneBlock("chiseled_polished_izheraban",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_IZHERABAN_TILES = registerStoneBlock("chiseled_izheraban_tiles",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+    public static final Block CHISELED_SMOOTH_IZHERABAN = registerStoneBlock("chiseled_smooth_izheraban",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);
+
+    public static final Block POINTED_IZHERABAN = registerStoneBlock("pointed_izheraban",
+            new PointedIzherabanBlock(AbstractBlock.Settings.copy(Blocks.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never)), false);
 
     public static final Block CHISELED_CALCITE_BRICKS = registerStoneBlock("chiseled_calcite_bricks",
             new Block(AbstractBlock.Settings.copy(Blocks.CHISELED_STONE_BRICKS).strength(StoneBlockSets.BRICKS_HARDNESS, StoneBlockSets.BRICKS_BLASTRESISTANCE).sounds(BlockSoundGroup.STONE)),true);

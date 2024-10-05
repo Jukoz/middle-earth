@@ -142,6 +142,24 @@ public class StoneBlockSets {
     //public static SimpleBlockSet MOSSY_ZIGILABAN_TILES = registerStoneSet("mossy_zigilaban_tiles", COBBLED_ZIGILABAN.base.getHardness(), COBBLED_ZIGILABAN.base.getBlastResistance(), ZIGILABAN_TILES.base);
     //public static SimpleBlockSet CRACKED_ZIGILABAN_TILES = registerStoneSet("cracked_zigilaban_tiles", COBBLED_ZIGILABAN.base.getHardness(), COBBLED_ZIGILABAN.base.getBlastResistance(), ZIGILABAN_TILES.base);
 
+    public static SimpleBlockSetMain IZHERABAN = registerMainStoneSet("izheraban", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
+    public static SimpleBlockSet SMOOTH_IZHERABAN = registerStoneSet("smooth_izheraban", IZHERABAN.base.getHardness(), IZHERABAN.base.getBlastResistance(), IZHERABAN.base);
+    public static SimpleBlockSet MOSSY_SMOOTH_IZHERABAN = registerStoneSet("mossy_smooth_izheraban", SMOOTH_IZHERABAN.base.getHardness(), SMOOTH_IZHERABAN.base.getBlastResistance(), SMOOTH_IZHERABAN.base);
+    public static SimpleBlockSet CRACKED_SMOOTH_IZHERABAN = registerStoneSet("cracked_smooth_izheraban", SMOOTH_IZHERABAN.base.getHardness(), SMOOTH_IZHERABAN.base.getBlastResistance(), SMOOTH_IZHERABAN.base);
+    public static SimpleBlockSet COBBLED_IZHERABAN = registerStoneSet("cobbled_izheraban", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, IZHERABAN.base);
+    public static SimpleBlockSet MOSSY_COBBLED_IZHERABAN = registerStoneSet("mossy_cobbled_izheraban", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, COBBLED_IZHERABAN.base);
+    public static SimpleBlockSet POLISHED_IZHERABAN = registerStoneSet("polished_izheraban", IZHERABAN.base.getHardness(), IZHERABAN.base.getBlastResistance(), IZHERABAN.base);
+    public static SimpleBlockSet MOSSY_POLISHED_IZHERABAN = registerStoneSet("mossy_polished_izheraban", IZHERABAN.base.getHardness(), IZHERABAN.base.getBlastResistance(), POLISHED_IZHERABAN.base);
+    public static SimpleBlockSet CRACKED_POLISHED_IZHERABAN = registerStoneSet("cracked_polished_izheraban", IZHERABAN.base.getHardness(), IZHERABAN.base.getBlastResistance(), POLISHED_IZHERABAN.base);
+    public static SimpleBlockSet IZHERABAN_BRICKS = registerStoneSet("izheraban_bricks", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, POLISHED_IZHERABAN.base);
+    public static SimpleBlockSet MOSSY_IZHERABAN_BRICKS = registerStoneSet("mossy_izheraban_bricks", COBBLED_IZHERABAN.base.getHardness(), COBBLED_IZHERABAN.base.getBlastResistance(), IZHERABAN_BRICKS.base);
+    public static SimpleBlockSet CRACKED_IZHERABAN_BRICKS = registerStoneSet("cracked_izheraban_bricks", COBBLED_IZHERABAN.base.getHardness(), COBBLED_IZHERABAN.base.getBlastResistance(), IZHERABAN_BRICKS.base);
+    public static SimpleBlockSet IZHERABAN_TILES = registerStoneSet("izheraban_tiles", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, IZHERABAN_BRICKS.base);
+    public static SimpleBlockSet MOSSY_IZHERABAN_TILES = registerStoneSet("mossy_izheraban_tiles", COBBLED_IZHERABAN.base.getHardness(), COBBLED_IZHERABAN.base.getBlastResistance(), IZHERABAN_TILES.base);
+    public static SimpleBlockSet CRACKED_IZHERABAN_TILES = registerStoneSet("cracked_izheraban_tiles", COBBLED_IZHERABAN.base.getHardness(), COBBLED_IZHERABAN.base.getBlastResistance(), IZHERABAN_TILES.base);
+
+    public static SimpleBlockSet OLD_IZHERABAN = registerStoneSet("old_izheraban", IZHERABAN.base.getHardness(), IZHERABAN.base.getBlastResistance(), null);
+    
     public static SimpleBlockSetMain FROZEN_STONE = registerMainStoneSet("frozen_stone", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet FROZEN_COBBLESTONE = registerStoneSet("frozen_cobblestone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, FROZEN_STONE.base);
     //public static SimpleBlockSet MOSSY_FROZEN_COBBLESTONE = registerStoneSet("mossy_frozen_cobblestone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, FROZEN_STONE.base);
@@ -401,6 +419,8 @@ public class StoneBlockSets {
             GNEISS,
 
             ZIGILABAN,
+            
+            IZHERABAN,
 
             LIMESTONE,
             
@@ -517,6 +537,23 @@ public class StoneBlockSets {
             ZIGILABAN_BRICKS,
             ZIGILABAN_TILES,
             POLISHED_ZIGILABAN,
+
+            SMOOTH_IZHERABAN,
+            MOSSY_SMOOTH_IZHERABAN,
+            CRACKED_SMOOTH_IZHERABAN,
+            COBBLED_IZHERABAN,
+            MOSSY_COBBLED_IZHERABAN,
+            IZHERABAN_BRICKS,
+            MOSSY_IZHERABAN_BRICKS,
+            CRACKED_IZHERABAN_BRICKS,
+            IZHERABAN_TILES,
+            MOSSY_IZHERABAN_TILES,
+            CRACKED_IZHERABAN_TILES,
+            POLISHED_IZHERABAN,
+            MOSSY_POLISHED_IZHERABAN,
+            CRACKED_POLISHED_IZHERABAN,
+
+            OLD_IZHERABAN,
 
             SMOOTH_LIMESTONE,
             MOSSY_SMOOTH_LIMESTONE,
