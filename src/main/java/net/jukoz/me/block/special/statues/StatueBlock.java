@@ -10,10 +10,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
+import net.minecraft.state.property.*;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
@@ -22,28 +19,60 @@ import net.minecraft.util.math.RotationPropertyHelper;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.explosion.Explosion;
 
 import java.util.function.BiConsumer;
 
-public class StatueBlock extends Block {
+public class StatueBlock extends Block implements Waterloggable {
     public static final DirectionProperty HORIZONTAL_FACING = Properties.HORIZONTAL_FACING;
     public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
     public StatueBlock(Settings settings) {
         super(settings);
-        setDefaultState(getDefaultState().with(HORIZONTAL_FACING, Direction.NORTH).with(HALF, DoubleBlockHalf.LOWER));
+        setDefaultState(getDefaultState().with(HORIZONTAL_FACING, Direction.NORTH).with(HALF, DoubleBlockHalf.LOWER).with(WATERLOGGED, false));
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(HORIZONTAL_FACING, HALF);
+        builder.add(HORIZONTAL_FACING, HALF, WATERLOGGED);
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        if(ctx.getWorld().getBlockState(ctx.getBlockPos().up()).canReplace(ctx)){
+        BlockPos blockPos = ctx.getBlockPos();
+        BlockState blockState = ctx.getWorld().getBlockState(ctx.getBlockPos());
+        World world = ctx.getWorld();
+        if(blockPos.getY() < world.getTopY() - 1 && world.getBlockState(blockPos.up()).canReplace(ctx)){
+            if(blockState.isOf(Blocks.WATER)){
+                return this.getDefaultState().with(WATERLOGGED, true);
+            } else{
+                return this.getDefaultState();
+            }
+        } else {
+            return null;
+        }
+        /*if(ctx.getWorld().getBlockState(ctx.getBlockPos().up()).canReplace(ctx)){
             return (BlockState)((BlockState)this.getDefaultState().with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(HALF, DoubleBlockHalf.LOWER));
         } else {
             return null;
+        }*/
+    }
+
+    @Override
+    public FluidState getFluidState(BlockState state) {
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+    }
+
+    @Override
+    protected BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        if (state.get(WATERLOGGED)) {
+            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+        }
+        DoubleBlockHalf doubleBlockHalf = (DoubleBlockHalf)state.get(HALF);
+        if (direction.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP) && (!neighborState.isOf(this) || neighborState.get(HALF) == doubleBlockHalf)) {
+            return Blocks.AIR.getDefaultState();
+        } else {
+            return doubleBlockHalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
         }
     }
 
@@ -94,7 +123,12 @@ public class StatueBlock extends Block {
     }
 
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-        world.setBlockState(pos.up(), (BlockState)state.with(HALF, DoubleBlockHalf.UPPER), 3);
+        if (world.getBlockState(pos.up()).isOf(Blocks.WATER)){
+            world.setBlockState(pos.up(), (BlockState)state.with(HALF, DoubleBlockHalf.UPPER).with(WATERLOGGED, true), 3);
+        } else {
+            world.setBlockState(pos.up(), (BlockState)state.with(HALF, DoubleBlockHalf.UPPER).with(WATERLOGGED, false), 3);
+        }
+
     }
 
     @Override

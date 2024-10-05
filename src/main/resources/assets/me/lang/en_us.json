@@ -1099,7 +1099,7 @@
   "block.me.mossy_polished_stone_vertical_slab": "Mossy Polished Stone Vertical Slab",
   "block.me.mossy_polished_stone_stairs": "Mossy Polished Stone Stairs",
   "block.me.mossy_polished_stone_wall": "Mossy Polished Stone Wall",
-  "block.me.cracked_polished_stone": "Cracked Polished Stone Tiles",
+  "block.me.cracked_polished_stone": "Cracked Polished Stone",
   "block.me.cracked_polished_stone_slab": "Cracked Polished Stone Slab",
   "block.me.cracked_polished_stone_vertical_slab": "Cracked Polished Stone Vertical Slab",
   "block.me.cracked_polished_stone_stairs": "Cracked Polished Stone Stairs",
@@ -5317,7 +5317,7 @@
   "block.me.banner.snail.red": "Red Snail",
   "block.me.banner.snail.white": "White Snail",
   "block.me.banner.snail.yellow": "Yellow Snail",
-  
+
 "#Comment": "SOUNDS",
   "sounds.me.nazgul_fade": "Nazgûl Fading",
   "sounds.me.nazgul_scream": "Nazgûl Screaming",

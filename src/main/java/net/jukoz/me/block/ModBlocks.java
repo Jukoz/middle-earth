@@ -639,12 +639,12 @@ public class ModBlocks {
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.IRON_BARS).sounds(BlockSoundGroup.METAL)), true);
 
     public static final Block GILDED_BARS = registerMiscBlock("gilded_bars",
-            new PaneBlock(AbstractBlock.Settings.copy(Blocks.IRON_BARS).sounds(BlockSoundGroup.METAL)), true);
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.IRON_BARS).sounds(BlockSoundGroup.COPPER)), true);
 
     public static final Block TREATED_STEEL_DOOR = registerMiscBlock("treated_steel_door",
-            new DoorBlock(BlockSetType.OAK, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)), true);
+            new DoorBlock(BlockSetType.COPPER, AbstractBlock.Settings.copy(Blocks.IRON_DOOR)), true);
     public static final Block TREATED_STEEL_TRAPDOOR = registerMiscBlock("treated_steel_trapdoor",
-            new TrapdoorBlock(BlockSetType.OAK, AbstractBlock.Settings.copy(Blocks.IRON_TRAPDOOR)), true);
+            new TrapdoorBlock(BlockSetType.COPPER, AbstractBlock.Settings.copy(Blocks.IRON_TRAPDOOR)), true);
     //endregion
 
     public static final Block RIVER_SAND = registerMiscBlock("river_sand",
