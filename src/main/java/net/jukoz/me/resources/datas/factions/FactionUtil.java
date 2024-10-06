@@ -51,7 +51,7 @@ public class FactionUtil {
 
         // [JOIN] Add new affiliation data
         Identifier foundSpawnId = getSpawnId(faction, spawnId);
-        AffiliationData newAffiliationData = new AffiliationData(faction.getAlignmentString(), faction.getId().getPath(), foundSpawnId.getPath());
+        AffiliationData newAffiliationData = new AffiliationData(faction.getAlignmentString(), faction.getId(), foundSpawnId);
         playerState.setAffiliationData(newAffiliationData);
         sendOnJoinCommand(player, faction);
 
