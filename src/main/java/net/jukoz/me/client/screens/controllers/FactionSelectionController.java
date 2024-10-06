@@ -301,7 +301,7 @@ public class FactionSelectionController {
 
     public void setSpawnIndex(int index) {
         if(index != currentSpawnIndex)
-            currentSpawnIndex = Math.min(spawns.size(), Math.max(0, index));
+            currentSpawnIndex = Math.min(spawns.size() - 1, Math.max(0, index));
         if(screen.mapWidget != null){
             screen.mapWidget.updateSelectedSpawn(index);
             if(screen.mapFocusToggle){

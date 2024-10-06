@@ -38,6 +38,7 @@ public class FactionSelectionMapWidget extends MapWidget {
             spawnMapMarkers[i].setType(MapMarkerType.DYNAMIC_SPAWN);
         }
         updateSelectedSpawn(controller.getCurrentSpawnIndex());
+        MapMarkerWidget.setTitle(Text.translatable("widget.me.spawn_tooltip_title").formatted(Formatting.UNDERLINE));
     }
     public ButtonWidget[] getButtons() {
         ButtonWidget[] spawnButtonArray = new ButtonWidget[spawnMapMarkers.length];
@@ -76,17 +77,23 @@ public class FactionSelectionMapWidget extends MapWidget {
             if(spawnData.isDynamic()){
                 mapMarker.setType(MapMarkerType.DYNAMIC_SPAWN);
                 mapMarker.computeFromMapPosition(this, coordinates);
+                mapMarker.setContent(
+                        List.of(
+                                Text.translatable("spawn." + spawnData.getIdentifier().toTranslationKey()).formatted(Formatting.GOLD),
+                                Text.translatable("widget.me.marker.margin_front").append(Text.translatable("spawn.me.coordinates_base.dynamic").formatted(Formatting.GRAY)
+                                        .append(Text.translatable("spawn.me.coordinates_base_values.dynamic", spawnData.getWorldCoordinates().x, spawnData.getWorldCoordinates().z).formatted(Formatting.WHITE)))
+                        ));
             } else {
                 mapMarker.setType(MapMarkerType.CUSTOM_SPAWN);
                 mapMarker.computeFromWorldPosition(this, coordinates);
+                mapMarker.setContent(
+                        List.of(
+                                Text.translatable("spawn." + spawnData.getIdentifier().toTranslationKey()).formatted(Formatting.GOLD),
+                                Text.translatable("widget.me.marker.margin_front").append(Text.translatable("spawn.me.coordinates_base.custom").formatted(Formatting.GRAY)
+                                        .append(Text.translatable("spawn.me.coordinates_base_values.custom", spawnData.getWorldCoordinates().x, spawnData.getWorldCoordinates().y, spawnData.getWorldCoordinates().z).formatted(Formatting.WHITE)))
+                        ));
             }
-            mapMarker.setContent(
-                    Text.translatable("widget.me.spawn_tooltip_title").formatted(Formatting.UNDERLINE),
-                    List.of(
-                            Text.translatable("spawn." + spawnData.getIdentifier().toTranslationKey()).formatted(Formatting.GOLD),
-                            Text.translatable("widget.me.marker.margin_front").append(Text.translatable("spawn.me.coordinates_base").formatted(Formatting.GRAY)
-                                    .append(Text.translatable("spawn.me.coordinates_base_values", spawnData.getWorldCoordinates().x, spawnData.getWorldCoordinates().z).formatted(Formatting.WHITE)))
-                    ));
+
             mapMarker.clearChild();
             Vector2i currentCenterCoordinate = mapMarker.getCenterCoordinates();
             boolean isSeperate = true;

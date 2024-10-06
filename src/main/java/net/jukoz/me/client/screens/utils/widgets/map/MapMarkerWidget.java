@@ -29,7 +29,7 @@ public class MapMarkerWidget extends ModWidget {
     private Vector2i runtimeStartCoordinates = null;
     private boolean isArrow;
     private boolean isSelected;
-    private Text title;
+    private static Text TITLE;
     private List<Text> content;
     private List<MapMarkerWidget> childs = new ArrayList<>();
 
@@ -161,7 +161,7 @@ public class MapMarkerWidget extends ModWidget {
             List<Text> texts = new ArrayList<>();
             boolean haveChilds = childs != null && !childs.isEmpty();
             if(haveChilds)
-                texts.add(title);
+                texts.add(TITLE);
             texts.addAll(getContent());
             if(haveChilds){
                 for(int i = 0; i < childs.size() && i < maxChildDisplay; i++){
@@ -206,8 +206,10 @@ public class MapMarkerWidget extends ModWidget {
         return this.content;
     }
 
-    public void setContent(Text title, List<Text> content){
-        this.title = title;
+    public static void setTitle(Text title){
+        TITLE = title;
+    }
+    public void setContent(List<Text> content){
         this.content = content;
     }
 

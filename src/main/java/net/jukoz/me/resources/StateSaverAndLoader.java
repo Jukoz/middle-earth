@@ -2,6 +2,7 @@ package net.jukoz.me.resources;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.persistent_datas.AffiliationData;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.IdentifierUtil;
@@ -40,6 +41,9 @@ public class StateSaverAndLoader extends PersistentState {
             if(overworldSpawn != null){
                 playerNbt.putIntArray("overworld_spawn", new int[]{overworldSpawn.getX(), overworldSpawn.getY(), overworldSpawn.getZ()});
             }
+            if(playerData.getRace() != null){
+                playerNbt.putString("race", playerData.getRace().toString());
+            }
 
             playersNbt.put(uuid.toString(), playerNbt);
         });
@@ -70,6 +74,10 @@ public class StateSaverAndLoader extends PersistentState {
 
                     AffiliationData affiliationData = new AffiliationData(alignment.name(), factionId, spawnId);
                     playerData.setAffiliationData(affiliationData);
+                }
+                String raceValue = playersNbt.getCompound(key).getString("race");
+                if(raceValue != null && !raceValue.isEmpty()){
+                    playerData.setRace(IdentifierUtil.getIdentifierFromString(raceValue));
                 }
 
                 if(hasOverworldPos){
