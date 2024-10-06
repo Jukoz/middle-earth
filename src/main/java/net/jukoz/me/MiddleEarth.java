@@ -14,7 +14,6 @@ import net.jukoz.me.network.ModServerNetworkHandler;
 import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.recipe.ModRecipeSerializer;
 import net.jukoz.me.registries.ModRegistries;
-import net.jukoz.me.resources.CustomServerDataResourceReloadListener;
 import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.statusEffects.ModStatusEffects;
@@ -43,7 +42,6 @@ public class MiddleEarth implements ModInitializer {
 
 		ModServerNetworkHandler.register(new ConnectionToClient());
 
-		CustomServerDataResourceReloadListener.register();
 		MiddleEarthRaces.register();
 		MiddleEarthFactions.register();
 
