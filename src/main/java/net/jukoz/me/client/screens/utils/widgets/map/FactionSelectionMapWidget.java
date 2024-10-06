@@ -48,6 +48,7 @@ public class FactionSelectionMapWidget extends MapWidget {
     }
 
     public void selectSpawn(int index){
+        addCooldown();
         controller.setSpawnIndex(index);
     }
 
