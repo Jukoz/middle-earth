@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.ModDecorativeBlocks;
+import net.jukoz.me.block.special.bellows.BellowsBlock;
 import net.jukoz.me.datageneration.content.models.HotMetalsModel;
 import net.jukoz.me.gui.forge.ForgeAlloyingScreenHandler;
 import net.jukoz.me.gui.forge.ForgeHeatingScreenHandler;
@@ -75,7 +76,6 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     //TODO convert metals to registry, enum constant datagen if no registry
     //TODO custom metal trim data component with palette
     //TODO heating requires full inv, should be fine if one is empty
-    //TODO heating requires all same item
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGE, pos, state);
@@ -139,11 +139,36 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         BlockPos pos1 = pos.offset(direction.rotateYClockwise());
         BlockPos pos2 = pos.offset(direction.rotateYClockwise().getOpposite());
 
+        Direction directionForge = state.get(ForgeBlock.FACING);
+
         if(world.getBlockState(pos1).isOf(ModDecorativeBlocks.BELLOWS) && world.getBlockState(pos2).isOf(ModDecorativeBlocks.BELLOWS)){
-            return 1;
-        } else {
-            return 0;
+            Direction direction1 = world.getBlockState(pos1).get(BellowsBlock.FACING);
+            Direction direction2 = world.getBlockState(pos2).get(BellowsBlock.FACING);
+            switch (directionForge){
+                case NORTH -> {
+                    if (direction1 == Direction.WEST && direction2 == Direction.EAST){
+                        return 1;
+                    }
+                }
+                case SOUTH ->{
+                    if (direction1 == Direction.EAST && direction2 == Direction.WEST){
+                        return 1;
+                    }
+                }
+                case EAST ->{
+                    if (direction1 == Direction.NORTH && direction2 == Direction.SOUTH){
+                        return 1;
+                    }
+                }
+                case WEST ->{
+                    if (direction1 == Direction.SOUTH && direction2 == Direction.NORTH){
+                        return 1;
+                    }
+                }
+            }
         }
+
+        return 0;
     }
 
     @Nullable
@@ -186,18 +211,6 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
     @Override
     public void markDirty() {
-        /* if(world != null && !world.isClient()) {
-            PacketByteBuf data = PacketByteBufs.create();
-            data.writeInt(inventory.size());
-            for(int i = 0; i < inventory.size(); i++) {
-                data.writeItemStack(inventory.get(i)); // TODO writeItemStack() no longer exists...
-            }
-            data.writeBlockPos(getPos());
-
-            for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) world, getPos())) {
-                ServerPlayNetworking.send(player, ModNetworks.ITEM_SYNC, data);
-            }
-        } */
         super.markDirty();
     }
 

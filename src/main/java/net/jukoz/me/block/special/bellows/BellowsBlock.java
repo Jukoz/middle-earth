@@ -55,7 +55,7 @@ public class BellowsBlock extends BlockWithEntity {
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(3, 0, 3, 13, 7, 14);
+        return Block.createCuboidShape(3, 0, 3, 13, 7, 13);
     }
 
     @Override

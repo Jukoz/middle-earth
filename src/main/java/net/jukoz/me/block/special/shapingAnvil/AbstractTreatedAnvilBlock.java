@@ -1,18 +1,15 @@
 package net.jukoz.me.block.special.shapingAnvil;
 
-import com.mojang.serialization.MapCodec;
-import net.jukoz.me.block.ModBlockEntities;
-import net.jukoz.me.block.special.shapingAnvil.treatedAnvil.TreatedAnvilBlockEntity;
 import net.jukoz.me.item.ModToolItems;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
@@ -20,17 +17,11 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.stream.Stream;
 
 public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
@@ -82,13 +73,19 @@ public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implemen
         return super.onBreak(world, pos, state, player);
     }
 
-
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        Inventory blockEntity = (Inventory) world.getBlockEntity(pos);
+
         if(!world.isClient) {
-            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-            if(screenHandlerFactory != null) {
-                player.openHandledScreen(screenHandlerFactory);
+            if (player.getMainHandStack().isEmpty() && !blockEntity.getStack(0).isEmpty()){
+                player.equipStack(EquipmentSlot.MAINHAND, blockEntity.getStack(0));
+                blockEntity.removeStack(0);
+            } else {
+                NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+                if(screenHandlerFactory != null) {
+                    player.openHandledScreen(screenHandlerFactory);
+                }
             }
         }
 
@@ -101,6 +98,7 @@ public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implemen
         BlockEntity blockEntity = world.getBlockEntity(pos);
 
         if (stack.isOf(ModToolItems.SMITHING_HAMMER) && player.getAttackCooldownProgress(0.5f) > 0.9f){
+            player.incrementStat(Stats.USED.getOrCreateStat(ModToolItems.SMITHING_HAMMER));
             stack.use(world, player, player.getActiveHand());
             if (!world.isClient){
                 player.getStackInHand(player.getActiveHand()).damage(1, player, EquipmentSlot.MAINHAND);
