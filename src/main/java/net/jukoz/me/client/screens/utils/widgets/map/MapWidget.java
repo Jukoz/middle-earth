@@ -126,7 +126,9 @@ public class MapWidget extends ModWidget {
                 (uiCurrentWidth * forcedCurrentMapCenterTargetRatio.x) - (uiWidth / 2.0),
                 (uiCurrentHeight * forcedCurrentMapCenterTargetRatio.y) - (uiHeight / 2.0)
         );
-        if((int) targetUV.x != (int) currentUvs.x && (int) targetUV.y != (int) currentUvs.y){
+        if((int) targetUV.x == (int) currentUvs.x && (int) targetUV.y == (int) currentUvs.y){
+            forcedCurrentMapCenterTargetRatio = null;
+        } else {
             targetUV = verifyUvs(targetUV.x, targetUV.y);
 
             double distanceForSpeed = targetUV.distance(currentUvs);
@@ -141,13 +143,11 @@ public class MapWidget extends ModWidget {
             if(directionX < 0)
                 directionY *= -1;
 
-            computeUvs(uvX + directionX, uvY + directionY);
             int distance = (int) Math.round(targetUV.distance(currentUvs));
-            if(distance < 2){
+            if(distance <= 4)
                 forcedCurrentMapCenterTargetRatio = null;
-            }
-        } else {
-            forcedCurrentMapCenterTargetRatio = null;
+            else
+                computeUvs(uvX + directionX, uvY + directionY);
         }
     }
 
