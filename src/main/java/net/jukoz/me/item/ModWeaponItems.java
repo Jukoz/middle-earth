@@ -169,6 +169,12 @@ public class ModWeaponItems {
             new CustomAxeWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE), true);
     public static final Item DALISH_NOBLE_AXE = registerItemWithModel("dalish_noble_axe",
             new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE), true);
+    public static final Item DALISH_SPEAR = registerItemWithSpearModel("dalish_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE));
+    public static final Item DALISH_HEYDAY_SPEAR = registerItemWithSpearModel("dalish_heyday_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE));
+    public static final Item DALISH_NOBLE_SPEAR = registerItemWithSpearModel("dalish_noble_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE));
     //endregion
     
     //endregion

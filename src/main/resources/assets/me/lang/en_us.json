@@ -374,6 +374,9 @@
   "item.me.dalish_dagger": "Dalish Dagger",
   "item.me.dalish_heyday_dagger": "Dalish Heyday Dagger",
   "item.me.dalish_noble_dagger": "Dalish Noble Dagger",
+  "item.me.dalish_spear": "Dalish Spear",
+  "item.me.dalish_heyday_spear": "Dalish Heyday Spear",
+  "item.me.dalish_noble_spear": "Dalish Noble Spear",
 
 "#Comment:": "Item - Mordor",
   "item.me.mordor_falchion": "Mordor Falchion",
@@ -827,6 +830,8 @@
   "item.me.gondorian_hero_shield": "Gondorian Hero Shield",
   "item.me.gondorian_knight_shield": "Gondorian Knight Shield",
   "item.me.gondorian_ornamented_knight_shield": "Gondorian Ornamented Knight Shield",
+
+  "item.me.dalish_heyday_round_shield": "Dalish Heyday Round Shield",
 
   "item.me.erebor_shield": "Erebor Shield",
   "item.me.erebor_cross_shield": "Erebor Cross Shield",

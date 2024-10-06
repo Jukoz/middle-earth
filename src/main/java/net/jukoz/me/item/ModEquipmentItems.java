@@ -501,6 +501,9 @@ public class ModEquipmentItems {
             new CustomChestplateItem(ModArmorMaterials.STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings()
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BARDING_SERGEANT_CAPE)),
                     ModFactions.DALE));
+
+    public static final Item DALISH_HEYDAY_ROUND_SHIELD = registerShield("dalish_heyday_round_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.DALE));
     //endregion
 
     //endregion
