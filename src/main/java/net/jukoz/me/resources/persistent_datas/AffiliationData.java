@@ -35,7 +35,6 @@ public class AffiliationData {
     public Vec3d getSpawnMiddleEarthCoordinate(World world){
         try{
             Faction foundFaction = FactionLookup.getFactionById(world,faction);
-            LoggerUtil.logDebugMsg("MiddleEarth spawn coordinate : " + spawnId.toString());
             SpawnData spawnData = foundFaction.getSpawnData().findSpawn(spawnId);
             Vec3d spawnCoordinate = spawnData.getCoordinates();
             if(spawnData.isDynamic()){

@@ -77,7 +77,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             }else if(Registries.BLOCK.getId(block).getPath().contains("_door")){
                 addDrop(block, doorDrops(block));
             } else {
-                // TODO : Sloosh
+                // TODO : @SlooshyBoi crashes during Datagen
                 if(block == null) continue;
                 addDrop(block);
             }

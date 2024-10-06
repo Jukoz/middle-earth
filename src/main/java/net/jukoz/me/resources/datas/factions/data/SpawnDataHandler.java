@@ -25,10 +25,6 @@ public class SpawnDataHandler {
 
     HashMap<Identifier, SpawnData> spawns;
 
-    /**
-     * this is this!
-     * @param spawnDatas
-     */
     public SpawnDataHandler(List<SpawnData> spawnDatas){
         spawns = new HashMap<>();
         for(SpawnData spawn : spawnDatas){
