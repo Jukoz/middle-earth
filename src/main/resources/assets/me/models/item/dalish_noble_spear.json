@@ -1,0 +1,177 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "me:item/spear",
+	"texture_size": [32, 48],
+	"textures": {
+		"23": "me:item/dalish_noble_spear"
+	},
+	"elements": [
+		{
+			"name": "Shaft",
+			"from": [8, 0, 8],
+			"to": [8.5, 23.5, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, 23, 8.5]},
+			"faces": {
+				"north": {"uv": [0.5, 0.33333, 1, 16], "texture": "#23"},
+				"east": {"uv": [0, 0.33333, 0.5, 16], "texture": "#23"},
+				"south": {"uv": [1.5, 0.33333, 2, 16], "texture": "#23"},
+				"west": {"uv": [1, 0.33333, 1.5, 16], "texture": "#23"},
+				"up": {"uv": [1, 0.33333, 0.5, 0], "texture": "#23"},
+				"down": {"uv": [1.5, 0, 1, 0.33333], "texture": "#23"}
+			}
+		},
+		{
+			"name": "dalish_spear_type_C_0",
+			"from": [8.025, 21.30009, 5.9999],
+			"to": [8.475, 22.30011, 6.99992],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.20001, 20.17508, 8.49993]},
+			"faces": {
+				"north": {"uv": [10, 1.66667, 10.5, 2.33333], "texture": "#23"},
+				"east": {"uv": [9.5, 1.66667, 10.5, 2.33333], "texture": "#23"},
+				"south": {"uv": [9.5, 1.66667, 10, 2.33333], "texture": "#23"},
+				"west": {"uv": [10.5, 1.66667, 9.5, 2.33333], "texture": "#23"},
+				"up": {"uv": [9.5, 1.66667, 10.5, 2], "rotation": 270, "texture": "#23"},
+				"down": {"uv": [9.5, 2, 10.5, 2.33333], "rotation": 90, "texture": "#23"}
+			}
+		},
+		{
+			"name": "dalish_spear_type_C_1",
+			"from": [8.025, 19.80008, 6.99992],
+			"to": [8.475, 21.8001, 7.99993],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.20001, 20.17508, 8.49993]},
+			"faces": {
+				"north": {"uv": [9, 2, 9.5, 3.33333], "texture": "#23"},
+				"east": {"uv": [8.5, 2, 9.5, 3.33333], "texture": "#23"},
+				"south": {"uv": [8.5, 2, 9, 3.33333], "texture": "#23"},
+				"west": {"uv": [9.5, 2, 8.5, 3.33333], "texture": "#23"},
+				"up": {"uv": [8.5, 2, 9.5, 2.33333], "rotation": 270, "texture": "#23"},
+				"down": {"uv": [8.5, 3, 9.5, 3.33333], "rotation": 90, "texture": "#23"}
+			}
+		},
+		{
+			"name": "dalish_spear_type_C_2",
+			"from": [8.025, 18.80006, 7.99993],
+			"to": [8.475, 21.30009, 8.49993],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.20001, 20.17508, 8.49993]},
+			"faces": {
+				"north": {"uv": [8, 2.33333, 8.5, 4], "texture": "#23"},
+				"east": {"uv": [8, 2.33333, 8.5, 4], "texture": "#23"},
+				"south": {"uv": [8, 2.33333, 8.5, 4], "texture": "#23"},
+				"west": {"uv": [8.5, 2.33333, 8, 4], "texture": "#23"},
+				"up": {"uv": [8, 2.33333, 8.5, 2.66667], "rotation": 270, "texture": "#23"},
+				"down": {"uv": [8, 3.66667, 8.5, 4], "rotation": 90, "texture": "#23"}
+			}
+		},
+		{
+			"name": "dalish_spear_type_C_3",
+			"from": [8.025, 20.30008, 6.49991],
+			"to": [8.475, 21.30009, 6.99992],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.20001, 20.17508, 8.49993]},
+			"faces": {
+				"north": {"uv": [9.5, 2.33333, 10, 3], "texture": "#23"},
+				"east": {"uv": [9.5, 2.33333, 10, 3], "texture": "#23"},
+				"south": {"uv": [9.5, 2.33333, 10, 3], "texture": "#23"},
+				"west": {"uv": [10, 2.33333, 9.5, 3], "texture": "#23"},
+				"up": {"uv": [9.5, 2.33333, 10, 2.66667], "rotation": 270, "texture": "#23"},
+				"down": {"uv": [9.5, 2.66667, 10, 3], "rotation": 90, "texture": "#23"}
+			}
+		},
+		{
+			"name": "dalish_spear_type_C_4",
+			"from": [8.025, 18.30006, 8.49993],
+			"to": [8.475, 20.80009, 8.99994],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.20001, 20.17508, 8.49993]},
+			"faces": {
+				"north": {"uv": [7.5, 2.66667, 8, 4.33333], "texture": "#23"},
+				"east": {"uv": [7.5, 2.66667, 8, 4.33333], "texture": "#23"},
+				"south": {"uv": [7.5, 2.66667, 8, 4.33333], "texture": "#23"},
+				"west": {"uv": [8, 2.66667, 7.5, 4.33333], "texture": "#23"},
+				"up": {"uv": [7.5, 2.66667, 8, 3], "rotation": 270, "texture": "#23"},
+				"down": {"uv": [7.5, 4, 8, 4.33333], "rotation": 90, "texture": "#23"}
+			}
+		},
+		{
+			"name": "dalish_spear_type_C_5",
+			"from": [8.025, 18.30006, 8.99994],
+			"to": [8.475, 20.30008, 9.49995],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.20001, 20.17508, 8.49993]},
+			"faces": {
+				"north": {"uv": [7, 3, 7.5, 4.33333], "texture": "#23"},
+				"east": {"uv": [7, 3, 7.5, 4.33333], "texture": "#23"},
+				"south": {"uv": [7, 3, 7.5, 4.33333], "texture": "#23"},
+				"west": {"uv": [7.5, 3, 7, 4.33333], "texture": "#23"},
+				"up": {"uv": [7, 3, 7.5, 3.33333], "rotation": 270, "texture": "#23"},
+				"down": {"uv": [7, 4, 7.5, 4.33333], "rotation": 90, "texture": "#23"}
+			}
+		},
+		{
+			"name": "dalish_spear_type_C_6",
+			"from": [8.025, 17.30004, 9.49995],
+			"to": [8.475, 19.80008, 9.99995],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.20001, 20.17508, 8.49993]},
+			"faces": {
+				"north": {"uv": [6.5, 3.33333, 7, 5], "texture": "#23"},
+				"east": {"uv": [6.5, 3.33333, 7, 5], "texture": "#23"},
+				"south": {"uv": [6.5, 3.33333, 7, 5], "texture": "#23"},
+				"west": {"uv": [7, 3.33333, 6.5, 5], "texture": "#23"},
+				"up": {"uv": [6.5, 3.33333, 7, 3.66667], "rotation": 270, "texture": "#23"},
+				"down": {"uv": [6.5, 4.66667, 7, 5], "rotation": 90, "texture": "#23"}
+			}
+		},
+		{
+			"name": "dalish_spear_type_C_7",
+			"from": [8.025, 19.30007, 7.49992],
+			"to": [8.475, 19.80008, 7.99993],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.20001, 20.17508, 8.49993]},
+			"faces": {
+				"north": {"uv": [8.5, 3.33333, 9, 3.66667], "texture": "#23"},
+				"east": {"uv": [8.5, 3.33333, 9, 3.66667], "texture": "#23"},
+				"south": {"uv": [8.5, 3.33333, 9, 3.66667], "texture": "#23"},
+				"west": {"uv": [9, 3.33333, 8.5, 3.66667], "texture": "#23"},
+				"up": {"uv": [8.5, 3.33333, 9, 3.66667], "rotation": 270, "texture": "#23"},
+				"down": {"uv": [8.5, 3.33333, 9, 3.66667], "rotation": 90, "texture": "#23"}
+			}
+		},
+		{
+			"name": "dalish_spear_type_C_8",
+			"from": [8.025, 18.30006, 9.99995],
+			"to": [8.475, 18.80006, 10.99997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.20001, 20.17508, 8.49993]},
+			"faces": {
+				"north": {"uv": [6, 4, 6.5, 4.33333], "texture": "#23"},
+				"east": {"uv": [5.5, 4, 6.5, 4.33333], "texture": "#23"},
+				"south": {"uv": [5.5, 4, 6, 4.33333], "texture": "#23"},
+				"west": {"uv": [6.5, 4, 5.5, 4.33333], "texture": "#23"},
+				"up": {"uv": [5.5, 4, 6.5, 4.33333], "rotation": 270, "texture": "#23"},
+				"down": {"uv": [5.5, 4, 6.5, 4.33333], "rotation": 90, "texture": "#23"}
+			}
+		}
+	],
+	"display": {},
+	"overrides": [
+		{"predicate": {"holding": 1}, "model": "me:item/dalish_noble_spear_holding"}
+	],
+	"groups": [
+		{
+			"name": "Spear",
+			"origin": [8.5, 31, 8.5],
+			"color": 0,
+			"children": [
+				0,
+				{
+					"name": "Head",
+					"origin": [8, 39.832, 5.17],
+					"color": 0,
+					"children": [
+						{
+							"name": "dalish_spear_type_C",
+							"origin": [8, 8, 8],
+							"color": 0,
+							"children": [1, 2, 3, 4, 5, 6, 7, 8, 9]
+						}
+					]
+				}
+			]
+		}
+	]
+}

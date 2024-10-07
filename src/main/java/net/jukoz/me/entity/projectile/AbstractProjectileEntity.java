@@ -32,16 +32,17 @@ public abstract class AbstractProjectileEntity extends ThrownItemEntity {
 
     public void handleStatus(byte status) {
         if (status == 3) {
-            double d = 0.08;
-
             for(int i = 0; i < 8; ++i) {
                 this.getWorld().addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, this.getStack()), this.getX(), this.getY(), this.getZ(), ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08);
             }
         }
-
     }
 
-    protected void onEntityHit(EntityHitResult entityHitResult) {
+    public void setDamage(float damage) {
+        this.damage = damage;
+    }
+
+    public void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
         if(this.getOwner() instanceof ShireHobbitEntity && entity instanceof ShireHobbitEntity) return;

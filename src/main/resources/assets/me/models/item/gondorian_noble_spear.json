@@ -3,7 +3,7 @@
 	"parent": "me:item/spear",
 	"texture_size": [32, 48],
 	"textures": {
-		"71": "me:item/gondorian_fountain_guard_spear"
+		"71": "me:item/gondorian_noble_spear"
 	},
 	"elements": [
 		{

@@ -6,6 +6,7 @@ import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
+import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 
 public class PineconeEntity extends AbstractProjectileEntity {
@@ -26,5 +27,10 @@ public class PineconeEntity extends AbstractProjectileEntity {
 
     protected Item getDefaultItem() {
         return ModResourceItems.PINECONE;
+    }
+
+    @Override
+    public void onEntityHit(EntityHitResult entityHitResult) {
+        super.onEntityHit(entityHitResult);
     }
 }
