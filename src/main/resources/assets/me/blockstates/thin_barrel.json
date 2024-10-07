@@ -1,0 +1,48 @@
+{
+  "variants": {
+    "facing=down,open=false": {
+      "model": "me:block/thin_barrel",
+      "x": 180
+    },
+    "facing=down,open=true": {
+      "model": "me:block/thin_barrel_open",
+      "x": 180
+    },
+    "facing=east,open=false": {
+      "model": "me:block/thin_barrel_side",
+      "y": 90
+    },
+    "facing=east,open=true": {
+      "model": "me:block/thin_barrel_side_open",
+      "y": 90
+    },
+    "facing=north,open=false": {
+      "model": "me:block/thin_barrel_side"
+    },
+    "facing=north,open=true": {
+      "model": "me:block/thin_barrel_side_open"
+    },
+    "facing=south,open=false": {
+      "model": "me:block/thin_barrel_side",
+      "y": 180
+    },
+    "facing=south,open=true": {
+      "model": "me:block/thin_barrel_side_open",
+      "y": 180
+    },
+    "facing=up,open=false": {
+      "model": "me:block/thin_barrel"
+    },
+    "facing=up,open=true": {
+      "model": "me:block/thin_barrel_open"
+    },
+    "facing=west,open=false": {
+      "model": "me:block/thin_barrel_side",
+      "y": 270
+    },
+    "facing=west,open=true": {
+      "model": "me:block/thin_barrel_side_open",
+      "y": 270
+    }
+  }
+}

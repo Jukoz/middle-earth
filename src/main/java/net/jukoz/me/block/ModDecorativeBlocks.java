@@ -5,6 +5,7 @@ import net.jukoz.me.block.special.*;
 import net.jukoz.me.block.special.bellows.BellowsBlock;
 import net.jukoz.me.block.special.forge.ForgeBlock;
 import net.jukoz.me.block.special.artisantable.ArtisanTable;
+import net.jukoz.me.block.special.beds.CustomBedBlock;
 import net.jukoz.me.block.special.doors.*;
 import net.jukoz.me.block.special.fireBlocks.*;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestBlock;
@@ -27,6 +28,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
 import java.util.function.ToIntFunction;
@@ -55,11 +57,18 @@ public class ModDecorativeBlocks {
     public static final Block ARTISAN_TABLE = registerBlock("artisan_table",
             new ArtisanTable(AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque()));
 
+    public static final Block SMALL_CRATE = registerBlock("small_crate",
+            new CrateBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque()));
+    public static final Block THIN_BARREL = registerBlock("thin_barrel",
+            new ThinBarrelBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque()));
     public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest",
             new ReinforcedChestBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque().requiresTool()));
 
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             new WoodPileBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque()));
+
+    public static final Block CANDLE_HEAP = registerBlockWithItem("candle_heap",
+            new CandleHeapBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).nonOpaque().luminance(createLightLevelFromLitBlockState(10))));
 
     public static final Block CALCITE_STATUE = registerBlockWithItem("calcite_statue",
             new StatueBlock(AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque()));
@@ -127,6 +136,11 @@ public class ModDecorativeBlocks {
     public static final Block TUFF_CARVED_WINDOW = registerBlockWithItem("tuff_carved_window",
             new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
     public static final Block TUFF_CARVED_WINDOW_PANE = registerBlockWithItem("tuff_carved_window_pane",
+            new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
+
+    public static final Block IZHERABAN_CARVED_WINDOW = registerBlockWithItem("izheraban_carved_window",
+            new TransparentBlock(AbstractBlock.Settings.copy(Blocks.GLASS)));
+    public static final Block IZHERABAN_CARVED_WINDOW_PANE = registerBlockWithItem("izheraban_carved_window_pane",
             new PaneBlock(AbstractBlock.Settings.copy(Blocks.GLASS_PANE)));
 
     public static final Block MUD_BRICK_ROUND_WINDOW = registerBlockWithItem("mud_brick_round_window",
@@ -515,6 +529,13 @@ public class ModDecorativeBlocks {
 
     public static final Block GREAT_ORCISH_GATE = registerDoorBlock("great_orcish_gate",
             new LargeDoor10x4(AbstractBlock.Settings.copy(Blocks.IRON_DOOR)));
+
+    public static final Block FANCY_BED = registerBlockWithItem("fancy_bed",
+            new CustomBedBlock(DyeColor.BLACK, AbstractBlock.Settings.copy(Blocks.BLACK_BED)));
+    public static final Block FUR_BED = registerBlockWithItem("fur_bed",
+            new CustomBedBlock(DyeColor.BLACK, AbstractBlock.Settings.copy(Blocks.BLACK_BED)));
+    public static final Block STRAW_BED = registerBlockWithItem("straw_bed",
+            new CustomBedBlock(DyeColor.BLACK, AbstractBlock.Settings.copy(Blocks.BLACK_BED)));
 
     public static Block registerBlock(String name, Block block) {
         Identifier identifier = Identifier.of(MiddleEarth.MOD_ID, name);

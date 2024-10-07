@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "me:rohan"
+    "me:rohan",
+    "me:horse"
   ]
 }

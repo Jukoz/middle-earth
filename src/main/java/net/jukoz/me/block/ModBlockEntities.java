@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.bellows.BellowsBlockEntity;
 import net.jukoz.me.block.special.forge.ForgeBlockEntity;
+import net.jukoz.me.block.special.beds.CustomBedBlockEntity;
 import net.jukoz.me.block.special.fireBlocks.*;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestBlockEntity;
 import net.jukoz.me.block.special.shapingAnvil.dwarvenTreatedAnvil.DwarvenTreatedAnvilBlockEntity;
@@ -28,6 +29,7 @@ public class ModBlockEntities {
     public static BlockEntityType<FireBowlBlockEntity> FIRE_BOWL;
     public static BlockEntityType<BonfireBlockEntity> BONFIRE;
     public static BlockEntityType<ChimneyBlockEntity> CHIMNEY;
+    public static BlockEntityType<CustomBedBlockEntity> BED;
 
     public static void registerBlockEntities() {
         FORGE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
@@ -82,5 +84,12 @@ public class ModBlockEntities {
                 Identifier.of(MiddleEarth.MOD_ID, "chimney"),
                 FabricBlockEntityTypeBuilder.create(ChimneyBlockEntity::new,
                         ModDecorativeBlocks.CHIMNEY).build(null));
+        BED = Registry.register(Registries.BLOCK_ENTITY_TYPE,
+                Identifier.of(MiddleEarth.MOD_ID, "bed"),
+                FabricBlockEntityTypeBuilder.create(CustomBedBlockEntity::new,
+                        ModDecorativeBlocks.FANCY_BED, ModDecorativeBlocks.FUR_BED, ModDecorativeBlocks.STRAW_BED).build(null));
+
+        BlockEntityType.BARREL.addSupportedBlock(ModDecorativeBlocks.SMALL_CRATE);
+        BlockEntityType.BARREL.addSupportedBlock(ModDecorativeBlocks.THIN_BARREL);
     }
 }

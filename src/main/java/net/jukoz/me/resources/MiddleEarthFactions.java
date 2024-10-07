@@ -303,7 +303,7 @@ public class MiddleEarthFactions {
                             ModEquipmentItems.URUK_HAI_PLATE_CHESTPLATE,
                             ModEquipmentItems.URUK_HAI_PLATE_LEGGINGS,
                             ModEquipmentItems.URUK_HAI_PLATE_BOOTS,
-                            ModWeaponItems.URUK_HAI_ELITE_FALCHION,
+                            ModWeaponItems.URUK_HAI_FALCHION,
                             ModEquipmentItems.URUK_HAI_WHITE_HAND_SHIELD
                     ));
                     // TODO : add humans? No proper assets for them

@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [48, 32],
+	"textures": {
+		"2": "me:block/thin_barrel_open",
+		"particle": "me:block/thin_barrel"
+	},
+	"elements": [
+		{
+			"from": [1, 0, 0],
+			"to": [15, 14, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 8, 16]},
+			"faces": {
+				"north": {"uv": [10.66667, 0, 6, 7], "texture": "#2"},
+				"east": {"uv": [11.33333, 16, 16, 8], "rotation": 270, "texture": "#2"},
+				"south": {"uv": [10.66667, 9, 6, 16], "rotation": 180, "texture": "#2"},
+				"west": {"uv": [11.33333, 8, 16, 0], "rotation": 90, "texture": "#2"},
+				"up": {"uv": [0, 16, 4.66667, 8], "rotation": 180, "texture": "#2"},
+				"down": {"uv": [0, 8, 4.66667, 0], "texture": "#2"}
+			}
+		}
+	]
+}

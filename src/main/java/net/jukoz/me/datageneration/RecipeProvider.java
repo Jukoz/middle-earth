@@ -558,6 +558,16 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(Blocks.TUFF))
                 .offerTo(exporter);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.IZHERABAN_CARVED_WINDOW, 2)
+                .pattern("EEE")
+                .pattern("EGE")
+                .pattern("EEE")
+                .input('E', StoneBlockSets.IZHERABAN.base())
+                .input('G', Blocks.GLASS)
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.IZHERABAN.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.IZHERABAN.base()))
+                .offerTo(exporter);
+
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LEAD_GLASS, 4)
                 .pattern("LGL")
                 .pattern("GLG")
@@ -655,7 +665,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         ComplexRecipeJsonBuilder.create(ArmorCapeRecipe::new).offerTo(exporter, "custom_armor_cape");
         ComplexRecipeJsonBuilder.create(ArmorCapeRemovalRecipe::new).offerTo(exporter, "custom_armor_cape_removal");
 
-        // region Alloying
+        //region Alloying
         createAlloyRecipe(exporter, List.of(Items.COPPER_INGOT, Items.COPPER_INGOT, Items.COPPER_INGOT, ModResourceItems.TIN_INGOT), "bronze", 576);
         createAlloyRecipe(exporter, List.of(Items.COPPER_INGOT, Items.COPPER_INGOT, ModResourceItems.TIN_INGOT, ModResourceItems.ASH), "crude", 432);
         createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, Items.IRON_INGOT, Items.COAL), "steel", 432);
@@ -676,7 +686,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createAnvilShapingRecipeItem(exporter, shape.item(), shape.output(), shape.amount());
         });
 
-        // endregion
+        //endregion
+
+        ComplexRecipeJsonBuilder.create(CustomShieldDecorationRecipe::new).offerTo(exporter, "custom_shield_decoration");
     }
 
     //region BLOCK RECIPE METHODS

@@ -55,10 +55,10 @@ public class MushroomBlockSets {
                 .strength(MushroomBlockSets.MUSHROOM_STRENGTH).sounds(BlockSoundGroup.WOOD)),false);
 
         Block button = ModBlocks.registerWoodBlock(name + "_button",  new ButtonBlock(BlockSetType.OAK, 5, AbstractBlock.Settings.copy(planks).strength(PLATE_BUTTON_STRENGTH)
-                .sounds(BlockSoundGroup.WOOD)),false);
+                .sounds(BlockSoundGroup.WOOD).noCollision()),false);
 
         Block pressurePlate = ModBlocks.registerWoodBlock(name + "_pressure_plate",  new PressurePlateBlock(BlockSetType.OAK,
-                AbstractBlock.Settings.copy(planks).strength(PLATE_BUTTON_STRENGTH).sounds(BlockSoundGroup.WOOD)),false);
+                AbstractBlock.Settings.copy(planks).strength(PLATE_BUTTON_STRENGTH).sounds(BlockSoundGroup.WOOD).noCollision()),false);
 
         Block door = ModBlocks.registerWoodBlock(name + "_door", new DoorBlock(BlockSetType.OAK, AbstractBlock.Settings.copy(planks)
                 .sounds(BlockSoundGroup.WOOD)),false);

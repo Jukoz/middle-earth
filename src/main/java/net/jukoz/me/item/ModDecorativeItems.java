@@ -40,6 +40,10 @@ public class ModDecorativeItems {
     public static final Item ARTISAN_TABLE = registerItem("artisan_table",
             new BlockItem(ModDecorativeBlocks.ARTISAN_TABLE, new Item.Settings()));
 
+    public static final Item SMALL_CRATE = registerItem("small_crate",
+            new BlockItem(ModDecorativeBlocks.SMALL_CRATE, new Item.Settings()));
+    public static final Item THIN_BARREL = registerItem("thin_barrel",
+            new BlockItem(ModDecorativeBlocks.THIN_BARREL, new Item.Settings()));
     public static final Item REINFORCED_CHEST = registerItem("reinforced_chest",
             new BlockItem(ModDecorativeBlocks.REINFORCED_CHEST, new Item.Settings()));
 
