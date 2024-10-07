@@ -293,7 +293,7 @@ public class ModNatureBlocks {
     public static final Block FLOWERING_MALLORN_LEAVES = registerBlock("flowering_mallorn_leaves",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
     public static final Block FALLEN_MALLORN_LEAVES = registerBlock("fallen_mallorn_leaves",
-            new FallenLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque().noCollision()), true);
+            new FallenLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque().replaceable().noCollision()), true);
 
     public static final Block MAPLE_LEAVES = registerBlock("maple_leaves",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
@@ -305,7 +305,7 @@ public class ModNatureBlocks {
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
 
     public static final Block FALLEN_MIRKWOOD_LEAVES = registerBlock("fallen_mirkwood_leaves",
-            new FallenLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque().noCollision()), true);
+            new FallenLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque().replaceable().noCollision()), true);
 
     public static final Block DRY_PINE_LEAVES = registerBlock("dry_pine_leaves",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);

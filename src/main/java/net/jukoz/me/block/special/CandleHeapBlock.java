@@ -28,7 +28,7 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
-public class CandleHeapBlock extends HorizontalFacingBlock {
+public class CandleHeapBlock extends Block {
     public static final BooleanProperty LIT = Properties.LIT;
 
     private final ImmutableList<Vec3d> particles = ImmutableList.of(
@@ -48,11 +48,11 @@ public class CandleHeapBlock extends HorizontalFacingBlock {
 
     public CandleHeapBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(LIT, false).with(FACING, Direction.NORTH));
+        this.setDefaultState(this.stateManager.getDefaultState().with(LIT, false));
     }
 
     @Override
-    protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
+    protected MapCodec<? extends Block> getCodec() {
         return CandleHeapBlock.createCodec(CandleHeapBlock::new);
     }
 
@@ -101,7 +101,7 @@ public class CandleHeapBlock extends HorizontalFacingBlock {
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(LIT, FACING);
+        builder.add(LIT);
     }
 
     protected BlockRenderType getRenderType(BlockState state) {
