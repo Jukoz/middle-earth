@@ -44,6 +44,21 @@
     "facing=south,stage=2": {
       "model": "me:block/wood_pile_stage_2",
       "y": 180
+    },
+    "facing=east,stage=3": {
+      "model": "me:block/wood_pile_stage_3",
+      "y": 90
+    },
+    "facing=north,stage=3": {
+      "model": "me:block/wood_pile_stage_3"
+    },
+    "facing=west,stage=3": {
+      "model": "me:block/wood_pile_stage_3",
+      "y": 270
+    },
+    "facing=south,stage=3": {
+      "model": "me:block/wood_pile_stage_3",
+      "y": 180
     }
   }
 }

@@ -28,9 +28,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Random;
 
 public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvider {
-    public static final IntProperty STAGE = IntProperty.of("stage", 0, 2);
+    public static final IntProperty STAGE = IntProperty.of("stage", 0, 3);
     public static final DirectionProperty HORIZONTAL_FACING = Properties.HORIZONTAL_FACING;
-    private static final VoxelShape STAGE_0, STAGE_1, STAGE_2;
+    private static final VoxelShape STAGE_0, STAGE_1, STAGE_2, STAGE_3;
     public static final MapCodec<WoodPileBlock> CODEC = FurnaceBlock.createCodec(WoodPileBlock::new);
 
     public WoodPileBlock(Settings settings) {
@@ -121,6 +121,7 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return switch (state.get(STAGE)) {
+            case 3 -> STAGE_3;
             case 2 -> STAGE_2;
             case 1 -> STAGE_1;
             default -> STAGE_0;
@@ -136,5 +137,7 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
 
         STAGE_2 = VoxelShapes.union(
                 Block.createCuboidShape(0, 0, 0, 16, 9, 16));
+
+        STAGE_3 = Block.createCuboidShape(0, 0, 0, 16, 16, 16);
     }
 }

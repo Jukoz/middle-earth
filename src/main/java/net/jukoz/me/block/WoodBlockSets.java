@@ -129,10 +129,10 @@ public class WoodBlockSets {
                 .strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque()),false);
 
         Block pressurePlate = ModBlocks.registerWoodBlock(name + "_pressure_plate",  new PressurePlateBlock(BlockSetType.OAK,
-                AbstractBlock.Settings.copy(planks).strength(PLATE_BUTTON_STRENGTH).sounds(BlockSoundGroup.WOOD)),false);
+                AbstractBlock.Settings.copy(planks).strength(PLATE_BUTTON_STRENGTH).sounds(BlockSoundGroup.WOOD).noCollision()),false);
 
         Block button = ModBlocks.registerWoodBlock(name + "_button",  new ButtonBlock(BlockSetType.OAK, 30, AbstractBlock.Settings.copy(planks).noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY)
-                .sounds(BlockSoundGroup.WOOD)),false);
+                .sounds(BlockSoundGroup.WOOD).noCollision()),false);
 
         Block stool = ModBlocks.registerBlock(name + "_stool", new WoodStoolBlock(AbstractBlock.Settings.copy(planks)
                 .strength(strength).sounds(BlockSoundGroup.WOOD).nonOpaque()),false);

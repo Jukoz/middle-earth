@@ -16,6 +16,9 @@ public class ModBannerPatternTags {
     public static final TagKey<BannerPattern> ISENGARD_PATTERN_ITEM = of("isengard");
 
     public static final TagKey<BannerPattern> DRAGON_PATTERN_ITEM = of("dragon");
+    public static final TagKey<BannerPattern> PIPEWEED_PATTERN_ITEM = of("pipeweed");
+    public static final TagKey<BannerPattern> FELLOWSHIP_PATTERN_ITEM = of("fellowship");
+    public static final TagKey<BannerPattern> SNAIL_PATTERN_ITEM = of("snail");
 
     private static TagKey<BannerPattern> of(String name) {
         return TagKey.of(RegistryKeys.BANNER_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "pattern_item/" + name));

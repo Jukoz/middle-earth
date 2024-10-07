@@ -552,6 +552,16 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(Blocks.TUFF))
                 .offerTo(exporter);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.IZHERABAN_CARVED_WINDOW, 2)
+                .pattern("EEE")
+                .pattern("EGE")
+                .pattern("EEE")
+                .input('E', StoneBlockSets.IZHERABAN.base())
+                .input('G', Blocks.GLASS)
+                .criterion(FabricRecipeProvider.hasItem(StoneBlockSets.IZHERABAN.base()),
+                        FabricRecipeProvider.conditionsFromItem(StoneBlockSets.IZHERABAN.base()))
+                .offerTo(exporter);
+
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LEAD_GLASS, 4)
                 .pattern("LGL")
                 .pattern("GLG")

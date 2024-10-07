@@ -195,6 +195,12 @@ public class ModResourceItems {
 
     public static final Item DRAGON_BANNER_PATTERN = registerItem("dragon_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.DRAGON_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item PIPEWEED_BANNER_PATTERN = registerItem("pipeweed_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.PIPEWEED_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item FELLOWSHIP_BANNER_PATTERN = registerItem("fellowship_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.FELLOWSHIP_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item SNAIL_BANNER_PATTERN = registerItem("snail_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.SNAIL_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static Block registerBlock(String name, Block block, boolean absent) {
         if(!absent) registerBlockItem(name, block);
