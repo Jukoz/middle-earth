@@ -230,7 +230,7 @@ public class MiddleEarthFactions {
                             ModEquipmentItems.MORDOR_ORC_CHESTPLATE,
                             ModEquipmentItems.ORC_MAIL_COAT,
                             ModEquipmentItems.ORC_PLATE_BOOTS,
-                            ModWeaponItems.SLAG_FALCHION,
+                            ModWeaponItems.CRUDE_FALCHION,
                             ModEquipmentItems.MORDOR_SHIELD
                     ));
                     put(MiddleEarthRaces.URUK, new NpcPreview(
@@ -238,7 +238,7 @@ public class MiddleEarthFactions {
                             ModEquipmentItems.BLACK_URUK_PLATE_CHESTPLATE,
                             ModEquipmentItems.BLACK_URUK_PLATE_LEGGINGS,
                             ModEquipmentItems.BLACK_URUK_PLATE_BOOTS,
-                            ModWeaponItems.SLAG_SPEAR,
+                            ModWeaponItems.CRUDE_SPEAR,
                             ModEquipmentItems.MORDOR_SHIELD
                     ));
                 }},
@@ -263,7 +263,7 @@ public class MiddleEarthFactions {
                             ModEquipmentItems.ORC_GORGET_HAUBERK,
                             ModEquipmentItems.ORC_MAIL_COAT,
                             ModEquipmentItems.ORC_PLATE_BOOTS,
-                            ModWeaponItems.SLAG_FALCHION,
+                            ModWeaponItems.CRUDE_FALCHION,
                             ModEquipmentItems.MISTY_MOUNTAINS_SHIELD
                     ));
                     put(MiddleEarthRaces.URUK, new NpcPreview(
@@ -271,7 +271,7 @@ public class MiddleEarthFactions {
                             ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE,
                             ModEquipmentItems.GUNDABAD_HOBGOBLIN_CHAIN_COAT,
                             ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATED_BOOTS,
-                            ModWeaponItems.SLAG_SPEAR,
+                            ModWeaponItems.CRUDE_SPEAR,
                             ModEquipmentItems.MISTY_MOUNTAINS_SHIELD
                     ));
                 }},
@@ -295,7 +295,7 @@ public class MiddleEarthFactions {
                             ModEquipmentItems.ORC_MAIL_HAUBERK,
                             null,
                             ModEquipmentItems.STURDY_BOOTS,
-                            ModToolItems.SLAG_AXE,
+                            ModToolItems.CRUDE_AXE,
                             ModEquipmentItems.URUK_HAI_HEATER_SHIELD
                     ));
                     put(MiddleEarthRaces.URUK, new NpcPreview(
