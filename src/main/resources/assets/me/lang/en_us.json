@@ -5318,7 +5318,7 @@
 
 "#Comment": "Factions fallback",
   "faction.me.example.fallback": "Example...",
-  "faction.me.misty_mountains_goblins.fallback": "Misty Mountains Go...",
+  "faction.me.misty_mountains_goblins.fallback": "Misty Mts. Goblins",
 
 "#Comment": "Spawns",
   "spawn.me.coordinates_base.dynamic": "[x,z] ",
@@ -5438,9 +5438,18 @@
   "exception.me.identical_faction.target": "%s already joined %s",
   "exception.me.identical_faction.source": "You already joined %s",
 
-"#Comment:": "UI Onboarding",
+"#Comment:": "UI Onboarding Screen",
   "ui.me.continue_character": "Continue",
   "ui.me.reset_character": "Reset Affiliation",
+
+"#Comment": "Screen Faction Selection",
+  "screen.me.faction_selection_screen": "Faction Selection",
+  "screen.me.button.faction_randomizer": "Randomize Faction",
+  "screen.me.button.spawn_randomizer": "Randomize Spawn",
+  "screen.me.button.focus_current": "Focus Toggle",
+  "screen.me.button.zoom_out": "Zoom In",
+  "screen.me.button.zoom_in": "Zoom Out",
+  "screen.me.button.confirm": "Confirm",
 
 "#Comment": "UI Map",
   "ui.me.map_title_text": "Middle-earth Map",

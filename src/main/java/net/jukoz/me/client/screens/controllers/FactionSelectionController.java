@@ -1,9 +1,11 @@
 package net.jukoz.me.client.screens.controllers;
 
+import it.unimi.dsi.fastutil.Hash;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.client.screens.FactionSelectionScreen;
 import net.jukoz.me.network.packets.C2S.*;
 import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
 import net.jukoz.me.resources.datas.factions.data.NpcPreview;
@@ -12,9 +14,11 @@ import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
@@ -314,5 +318,21 @@ public class FactionSelectionController {
 
     public int getCurrentSpawnIndex() {
         return currentSpawnIndex;
+    }
+
+    public HashMap<Identifier, Text> getSearchBarPool(World world) {
+        HashMap<Identifier, Text> pool = new HashMap<>();
+        for(List<Faction> factionsByAlignment : factions.values()){
+            for(Faction faction : factionsByAlignment){
+                pool.put(faction.getId(), faction.tryGetShortName());
+                if(faction.getFactionType() == FactionType.FACTION && faction.getSubFactions() != null){
+                    for(Identifier identifier : faction.getSubFactions()){
+                        Faction subfaction = faction.getSubfactionById(world, identifier);
+                        pool.put(subfaction.getId(), subfaction.tryGetShortName());
+                    }
+                }
+            }
+        }
+        return pool;
     }
 }

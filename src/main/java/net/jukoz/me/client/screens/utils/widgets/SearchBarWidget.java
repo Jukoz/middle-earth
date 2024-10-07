@@ -1,8 +1,11 @@
 package net.jukoz.me.client.screens.utils.widgets;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.Faction;
+import net.jukoz.me.resources.datas.factions.FactionLookup;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -12,6 +15,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,12 +34,14 @@ public class SearchBarWidget extends ModWidget{
     private String searchBarInput = "";
     public ButtonWidget screenClick;
     private static boolean focusEnabled = false;
+    HashMap<Identifier, Text> pool;
     int endY = 0;
-    public SearchBarWidget(){
+    public SearchBarWidget(HashMap<Identifier, Text> newPool){
         searchBarToggle = false;
         searchResultToggle = false;
         focusEnabled = false;
         setButtons();
+        pool = newPool;
     }
 
     public static void toggleFocus() {
@@ -121,20 +127,20 @@ public class SearchBarWidget extends ModWidget{
         return panelSizeY + MINIMAL_MARGIN;
     }
 
-    public int drawSearchResultsCentered(DrawContext context, int centerX, int startY, Map<Alignment, List<Faction>> factions) {
+    public int drawSearchResultsCentered(DrawContext context, int centerX, int startY) {
         // TODO : Modify centerX to be startX
         int startX = centerX - (TOTAL_WIDTH / 2);
-        return drawSearchResults(context, startX, startY, factions);
+        return drawSearchResults(context, startX, startY);
     }
-    public int drawSearchResultsAnchored(DrawContext context, int anchorX, int startY, boolean isLeftAnchor, Map<Alignment, List<Faction>> factions) {
+    public int drawSearchResultsAnchored(DrawContext context, int anchorX, int startY, boolean isLeftAnchor) {
         // TODO : Modify anchorX to be startX
         int startX = anchorX;
         if(!isLeftAnchor)
             startX -= TOTAL_WIDTH;
-        return drawSearchResults(context, startX, startY, factions);
+        return drawSearchResults(context, startX, startY);
     }
 
-    public int drawSearchResults(DrawContext context, int startX, int startY, Map<Alignment, List<Faction>> factions) {
+    public int drawSearchResults(DrawContext context, int startX, int startY) {
         // TODO : draw search bar results
         setScreenClickbutton(context.getScaledWindowWidth(), context.getScaledWindowHeight());
         int previousPanelSizeY = 18;
@@ -151,17 +157,10 @@ public class SearchBarWidget extends ModWidget{
 
         // Popup
         if(searchResultToggle){
-            int valueTotal = 0;
-            Map<Alignment, List<Faction>> foundFactions = factions;
-            for(int i = 0; i < foundFactions.size(); i++){
-                List<Faction> f = foundFactions.get(Alignment.values()[i]);
-                if(f == null || f.isEmpty()) continue;
-                valueTotal ++; // Per alignment with values
-                for(int j = 0; j < f.size(); j++){
-                    valueTotal ++; // Per faction
-                    List<Identifier> subF = f.get(j).getSubFactions();
-                    if(subF == null || subF.isEmpty()) continue;
-                    valueTotal += subF.size(); // Per subFactions
+            List<Identifier> results = new ArrayList<>();
+            for(Identifier identifier : pool.keySet()){
+                if(identifier.toString().replace("_", " ").contains(searchBarInput.toLowerCase())){
+                    results.add(identifier);
                 }
             }
             // Top
@@ -175,7 +174,7 @@ public class SearchBarWidget extends ModWidget{
             startY += panelBorderSizeY;
             int valueAmount = Math.min(
                     (endY - startY - panelBorderSizeY) / panelSizeY,
-                    valueTotal
+                    results.size()
             );
 
             for(int i = 0; i < valueAmount; i++){
@@ -226,19 +225,25 @@ public class SearchBarWidget extends ModWidget{
                 int valuePanelStartY = startY + panelBorderSizeY + (i * panelSizeY);
 
                 boolean mouseIsOver = isMouseOver(valuePanelSizeX, valuePanelSizeY, startX, valuePanelStartY);
-                int uvY = mouseIsOver ? 89 : 75;
+                Identifier id = results.get(i);
+                try{
+                    Faction faction = FactionLookup.getFactionById(client.world, id);
+                    FactionType type = faction.getFactionType();
+                    int uvY = mouseIsOver ? 89 : 75;
+                    if(type == FactionType.SUBFACTION)
+                        uvY =  mouseIsOver ? 117 : 103;
 
-                if(i == 0){
-                    uvY = 131;
-                } else if(i % 3 == 0){
-                    uvY = mouseIsOver ? 117 : 103;
+                    context.drawTexture(SEARCH_WIDGET,
+                            valuePanelStartX, valuePanelStartY,
+                            0, uvY,
+                            valuePanelSizeX, valuePanelSizeY
+                    );
+                    context.drawText(client.textRenderer, pool.get(id),
+                            valuePanelStartX + 3, valuePanelStartY + 3,
+                            0, false);
+                } catch (FactionIdentifierException e) {
+                    pool.remove(id);
                 }
-
-                context.drawTexture(SEARCH_WIDGET,
-                        valuePanelStartX, valuePanelStartY,
-                        0, uvY,
-                        valuePanelSizeX, valuePanelSizeY
-                );
             }
 
 
@@ -297,7 +302,7 @@ public class SearchBarWidget extends ModWidget{
             if(keyCode == 257){
                 triggerSearch();
             }
-            if(((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z) || keyCode == KeyEvent.VK_SPACE) && searchBarInput.length() < 12) {
+            if(((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z) || keyCode == KeyEvent.VK_SPACE) && searchBarInput.length() < 13) {
                 String character = String.valueOf((char)keyCode);
                 if(modifiers == 0)
                     character = character.toLowerCase();

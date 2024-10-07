@@ -40,7 +40,7 @@ public class FactionSelectionScreen extends Screen {
     private static final Identifier FACTION_SELECTION_BANNER_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_banner.png");
     private static final Identifier FACTION_SELECTION_BUTTONS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_buttons.png");
     private static final Identifier MAP_SELECTION = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_map.png");
-    private static final Text FACTION_SELECTION_TITLE = Text.of("faction_selection_screen");
+    private static final Text FACTION_SELECTION_TITLE = Text.translatable("screen.me.faction_selection_screen");
     private static final int MINIMAL_MARGIN = 4;
     private FactionSelectionController controller;
     private AbstractClientPlayerEntity player;
@@ -81,7 +81,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Initialize Buttons
         // Search bar
-        searchBarWidget = new SearchBarWidget();
+        searchBarWidget = new SearchBarWidget(controller.getSearchBarPool(player.getWorld()));
         addDrawableChild(searchBarWidget.getSearchBarToggleButton());
 
         // NpcPreview
@@ -157,7 +157,7 @@ public class FactionSelectionScreen extends Screen {
         }
         // Faction Randomizer
         factionRandomizerButton = ButtonWidget.builder(
-                Text.of("Faction randomizer"),
+                Text.translatable("screen.me.button.faction_randomizer"),
                 button -> {
                     controller.randomizeFaction(5);
                     updateEquipment();
@@ -176,7 +176,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Focus current spawn point (from data)
         mapFocusButton = ButtonWidget.builder(
-                Text.of("Focus current"),
+                Text.translatable("screen.me.button.focus_current"),
                 button -> {
                     mapFocusToggle = !mapFocusToggle;
                     controller.setSpawnIndex(controller.getCurrentSpawnIndex());
@@ -186,7 +186,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Zoom out the map to have a more broad view
         mapZoomOutButton = ButtonWidget.builder(
-                Text.of("Zoom out"),
+                Text.translatable("screen.me.button.zoom_out"),
                 button -> {
                     mapWidget.dezoomClick();
                 }).build();
@@ -194,7 +194,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Zoom into the map to have a closeup view
         mapZoomInButton = ButtonWidget.builder(
-                Text.of("Zoom in"),
+                Text.translatable("screen.me.button.zoom_in"),
                 button -> {
                     mapWidget.zoomClick();
                 }).build();
@@ -233,7 +233,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Random spawn selection
         spawnSelectionRandomizerButton = ButtonWidget.builder(
-                Text.of("Click on random spawn selection button"),
+                Text.translatable("screen.me.button.spawn_randomizer"),
                 button -> {
                     // TODO : Add proper logic to randomized spawn selection
                 }).build();
@@ -241,7 +241,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Confirm spawn selection
         spawnSelectionConfirmButton = ButtonWidget.builder(
-                Text.of("Click on spawn selection confirm button"),
+                Text.translatable("screen.me.button.confirm"),
                 button -> {
                     controller.confirmSpawnSelection(player);
                 }).build();
@@ -353,7 +353,7 @@ public class FactionSelectionScreen extends Screen {
             factionSelectionWidget.enableArrows(false);
             subfactionSelectionWidget.enableArrows(false);
             factionRandomizerButton.active = false;
-            searchBarWidget.drawSearchResultsCentered(context, centerX, startY, controller.getFactions()); // Todo : only give what's necessary/need to be showcased
+            searchBarWidget.drawSearchResultsCentered(context, centerX, startY); // Todo : only give what's necessary/need to be showcased
             return;
         }
 
