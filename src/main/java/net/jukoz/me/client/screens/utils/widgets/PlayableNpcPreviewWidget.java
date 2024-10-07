@@ -1,32 +1,17 @@
 package net.jukoz.me.client.screens.utils.widgets;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.datafixers.types.Func;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
-import net.jukoz.me.entity.beasts.trolls.TrollEntity;
-import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollEntity;
-import net.jukoz.me.entity.beasts.trolls.stone.StoneTrollEntity;
-import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
-import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
-import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
-import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
-import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
-import net.jukoz.me.entity.snail.SnailEntity;
-import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
-import net.jukoz.me.resources.datas.Alignment;
-import net.jukoz.me.resources.datas.Race;
-import net.jukoz.me.resources.datas.faction.Faction;
-import net.jukoz.me.resources.datas.faction.utils.FactionNpcPreviewData;
+import net.jukoz.me.resources.datas.races.Race;
+import net.jukoz.me.resources.datas.factions.data.NpcPreview;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -34,11 +19,9 @@ import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,13 +33,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
     private static final float SMOOTH_THRESHOLD = 15000;
     private static final float SMOOTH_SPEED_MODIFIER = 2.5f ;
     private static final float STEP_SPEED = 45;
-    private BanditHumanEntity defaultEntity;
-    private LongbeardDwarfEntity dwarfEntity;
-    private GondorHumanEntity humanEntity;
-    private MordorOrcEntity orcEntity;
-    private MordorBlackUrukEntity urukEntity;
-    private GaladhrimElfEntity elfEntity;
-    private ShireHobbitEntity hobbitEntity;
+
     private LivingEntity entity;
     private static final Quaternionf ENTITY_ROTATION;
     private static final Vector3f VECTOR;
@@ -70,32 +47,14 @@ public class PlayableNpcPreviewWidget extends ModWidget{
     private float tickHoldingStart = 0;
     private boolean isEnterKeyPressed = false;
 
+    public boolean haveBeenInitialized;
 
-    public PlayableNpcPreviewWidget(World world){
-        humanEntity = new GondorHumanEntity(ModEntities.GONDORIAN_SOLDIER, world);
-        humanEntity.setAiDisabled(true);
-
-        dwarfEntity = new LongbeardDwarfEntity(ModEntities.LONGBEARD_SOLDIER, world);
-        dwarfEntity.setAiDisabled(true);
-
-        elfEntity = new GaladhrimElfEntity(ModEntities.LORIEN_SOLDIER, world);
-        elfEntity.setAiDisabled(true);
-
-        orcEntity = new MordorOrcEntity(ModEntities.MORDOR_ORC_SOLDIER, world);
-        orcEntity.setAiDisabled(true);
-
-        urukEntity = new MordorBlackUrukEntity(ModEntities.MORDOR_BLACK_URUK_SOLDIER, world);
-        urukEntity.setAiDisabled(true);
-
-        hobbitEntity = new ShireHobbitEntity(ModEntities.HOBBIT_CIVILIAN, world);
-        hobbitEntity.setAiDisabled(true);
-
-        defaultEntity = new BanditHumanEntity(ModEntities.BANDIT_MILITIA, world);
-
+    public PlayableNpcPreviewWidget(){
         ButtonWidget.PressAction leftButtonAction = button -> {
             addAngle();
             setCurrentButton(true);
         };
+        haveBeenInitialized = false;
 
         ButtonWidget.PressAction resetButtonAction = button -> {
             currentAngle = DEFAULT_ANGLE;
@@ -152,16 +111,22 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         this.tickHoldingStart = 0;
     }
 
-    public void updateEntity(FactionNpcPreviewData data, Race race) {
-        updateEntityRace(race);
+    public void updateEntity(NpcPreview data, Race race, World world) {
+        if(world != null)
+            haveBeenInitialized = true;
+
+        updateEntityRace(race, world);
         updateEquipment(data);
     }
 
-    public void updateToDefaultEntity() {
-        this.entity = defaultEntity;
+    public void updateToDefaultEntity(World world) {
+        BanditHumanEntity entity = new BanditHumanEntity(ModEntities.BANDIT_MILITIA, world);
+        entity.setAiDisabled(true);
+
+        this.entity = entity;
     }
 
-    private void updateEquipment(FactionNpcPreviewData data){
+    private void updateEquipment(NpcPreview data){
         if(data == null) {
             this.entity = null;
             return;
@@ -193,18 +158,8 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         }
     }
 
-    private void updateEntityRace(Race race) {
-        this.entity =
-                switch ( race )
-                {
-                    case Race.HUMAN -> humanEntity;
-                    case Race.DWARF -> dwarfEntity;
-                    case Race.ORC -> orcEntity;
-                    case Race.URUK -> urukEntity;
-                    case Race.ELF -> elfEntity;
-                    case Race.HOBBIT -> hobbitEntity;
-                    default -> defaultEntity;
-                };
+    private void updateEntityRace(Race race, World world) {
+        this.entity = race.getModel(world);
     }
 
     public void drawCenteredAnchoredBottom(DrawContext context, int centerX, int endY) {

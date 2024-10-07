@@ -54,7 +54,7 @@ public class OnboardingSelectionScreen extends Screen {
     }
 
     private void teleportPlayerToMiddleEarth() {
-        ClientPlayNetworking.send(new PacketTeleportToCurrentSpawn(true));
+        ClientPlayNetworking.send(new PacketTeleportToCurrentSpawn(false));
     }
 
     @Override
