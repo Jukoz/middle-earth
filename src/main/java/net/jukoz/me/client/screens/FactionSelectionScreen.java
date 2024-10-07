@@ -6,9 +6,10 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.controllers.FactionSelectionController;
 import net.jukoz.me.client.screens.utils.CycledSelectionButtonType;
 import net.jukoz.me.client.screens.utils.widgets.*;
+import net.jukoz.me.client.screens.utils.widgets.map.FactionSelectionMapWidget;
 import net.jukoz.me.resources.datas.Alignment;
-import net.jukoz.me.resources.datas.faction.Faction;
-import net.jukoz.me.resources.datas.faction.utils.BannerData;
+import net.jukoz.me.resources.datas.factions.Faction;
+import net.jukoz.me.resources.datas.factions.data.BannerData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.gui.DrawContext;
@@ -39,7 +40,7 @@ public class FactionSelectionScreen extends Screen {
     private static final Identifier FACTION_SELECTION_BANNER_UI = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_banner.png");
     private static final Identifier FACTION_SELECTION_BUTTONS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_buttons.png");
     private static final Identifier MAP_SELECTION = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_map.png");
-    private static final Text FACTION_SELECTION_TITLE = Text.of("faction_selection_screen");
+    private static final Text FACTION_SELECTION_TITLE = Text.translatable("screen.me.faction_selection_screen");
     private static final int MINIMAL_MARGIN = 4;
     private FactionSelectionController controller;
     private AbstractClientPlayerEntity player;
@@ -54,15 +55,13 @@ public class FactionSelectionScreen extends Screen {
     // Map buttons
     public ButtonWidget mapZoomInButton;
     public ButtonWidget mapZoomOutButton;
-    public ButtonWidget mapViewAllButton;
-    public boolean mapViewAllToggle = false;
     public ButtonWidget mapFocusButton;
     public boolean mapFocusToggle = false;
-    private MapWidget mapWidget;
+    public FactionSelectionMapWidget mapWidget;
+    private CycledSelectionWidget raceCycledSelection;
     private CycledSelectionWidget spawnPointCycledSelection;
     public ButtonWidget spawnSelectionRandomizerButton;
     public ButtonWidget spawnSelectionConfirmButton;
-
     public FactionSelectionScreen() {
         super(FACTION_SELECTION_TITLE);
         ModWidget.enableFocus(false);
@@ -72,23 +71,32 @@ public class FactionSelectionScreen extends Screen {
     protected void init() {
         assert this.client != null;
         this.bannerField = this.client.getEntityModelLoader().getModelPart(EntityModelLayers.BANNER).getChild("flag");
-        controller = new FactionSelectionController();
+        Entity cameraEntity = this.client.getCameraEntity();
+        if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
+            this.player = abstractClientPlayerEntity;
+            controller = new FactionSelectionController(this, player);
+        } else {
+            LoggerUtil.logError("FactionSelectionScreen::Init:Couldn't find player");
+        }
 
         // Initialize Buttons
         // Search bar
-        searchBarWidget = new SearchBarWidget();
+        searchBarWidget = new SearchBarWidget(controller.getSearchBarPool(player.getWorld()));
         addDrawableChild(searchBarWidget.getSearchBarToggleButton());
 
         // NpcPreview
-        playableNpcPreviewWidget = new PlayableNpcPreviewWidget(this.client.world);
-        updateEquipment();
+        playableNpcPreviewWidget = new PlayableNpcPreviewWidget();
 
         addFactionSelectionPanelButtons();
-        mapWidget = new MapWidget(114, 114);
+        mapWidget = new FactionSelectionMapWidget(controller, 114, 114);
+        mapWidget.selectSpawn(controller.getCurrentSpawnIndex());
+        mapWidget.updateSelectedSpawn(controller.getCurrentSpawnIndex());
         addMapPanelButtonsAndWidgets();
 
         addDrawableChild(searchBarWidget.getScreenClickButton());
     }
+
+
 
     /**
      * Add all faction selection buttons
@@ -149,7 +157,7 @@ public class FactionSelectionScreen extends Screen {
         }
         // Faction Randomizer
         factionRandomizerButton = ButtonWidget.builder(
-                Text.of("Faction randomizer clicked"),
+                Text.translatable("screen.me.button.faction_randomizer"),
                 button -> {
                     controller.randomizeFaction(5);
                     updateEquipment();
@@ -162,45 +170,51 @@ public class FactionSelectionScreen extends Screen {
      * - Map widgets & Cycled widgets & Randomizer & Confirms
      */
     private void addMapPanelButtonsAndWidgets() {
-        // Focus all spawn points (from data)
-        mapViewAllButton = ButtonWidget.builder(
-                Text.of("View all"),
-                button -> {
-                    // TODO : Add widget method here
-                    LoggerUtil.logDebugMsg("View all action!");
-                    mapViewAllToggle = true;
-                    mapFocusToggle = false;
-                }).build();
-        addDrawableChild(mapViewAllButton);
+        for(ButtonWidget button: mapWidget.getButtons()){
+            addDrawableChild(button);
+        }
 
         // Focus current spawn point (from data)
         mapFocusButton = ButtonWidget.builder(
-                Text.of("Focus current"),
+                Text.translatable("screen.me.button.focus_current"),
                 button -> {
-                    // TODO : Add widget method here
-                    LoggerUtil.logDebugMsg("Focus current action!");
-                    mapFocusToggle = true;
-                    mapViewAllToggle = false;
+                    mapFocusToggle = !mapFocusToggle;
+                    controller.setSpawnIndex(controller.getCurrentSpawnIndex());
+                    mapWidget.addCooldown();
                 }).build();
         addDrawableChild(mapFocusButton);
 
         // Zoom out the map to have a more broad view
         mapZoomOutButton = ButtonWidget.builder(
-                Text.of("Zoom out"),
+                Text.translatable("screen.me.button.zoom_out"),
                 button -> {
-                    // TODO : Add widget method here
-                    LoggerUtil.logDebugMsg("Zoom out action!");
+                    mapWidget.dezoomClick();
                 }).build();
         addDrawableChild(mapZoomOutButton);
 
         // Zoom into the map to have a closeup view
         mapZoomInButton = ButtonWidget.builder(
-                Text.of("Zoom in"),
+                Text.translatable("screen.me.button.zoom_in"),
                 button -> {
-                    // TODO : Add widget method here
-                    LoggerUtil.logDebugMsg("Zoom in action!");
+                    mapWidget.zoomClick();
                 }).build();
         addDrawableChild(mapZoomInButton);
+
+        // Race Selection
+        raceCycledSelection = new CycledSelectionWidget(
+                button -> {
+                    controller.raceIndexUpdate(false);
+                    updateEquipment();
+                },
+                button -> {
+                    controller.raceIndexUpdate(true);
+                    updateEquipment();
+                },
+                null,
+                CycledSelectionButtonType.NORMAL);
+        for(ButtonWidget button: raceCycledSelection.getButtons()){
+            addDrawableChild(button);
+        }
 
         // Spawn Point Selection
         spawnPointCycledSelection = new CycledSelectionWidget(
@@ -219,7 +233,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Random spawn selection
         spawnSelectionRandomizerButton = ButtonWidget.builder(
-                Text.of("Click on random spawn selection button"),
+                Text.translatable("screen.me.button.spawn_randomizer"),
                 button -> {
                     // TODO : Add proper logic to randomized spawn selection
                 }).build();
@@ -227,34 +241,29 @@ public class FactionSelectionScreen extends Screen {
 
         // Confirm spawn selection
         spawnSelectionConfirmButton = ButtonWidget.builder(
-                Text.of("Click on spawn selection confirm button"),
+                Text.translatable("screen.me.button.confirm"),
                 button -> {
                     controller.confirmSpawnSelection(player);
                 }).build();
         addDrawableChild(spawnSelectionConfirmButton);
     }
 
-    private void updateEquipment(){
+    public void updateEquipment(){
+        if(player == null) return;
+
         Faction faction = controller.getCurrentlySelectedFaction();
+
         if(faction != null)
-            playableNpcPreviewWidget.updateEntity(faction.getPreviewGear(), faction.getPreviewRace());
+            playableNpcPreviewWidget.updateEntity(controller.getCurrentPreview(), controller.getCurrentRace(), player.getWorld());
         else
-            playableNpcPreviewWidget.updateToDefaultEntity();
+            playableNpcPreviewWidget.updateToDefaultEntity(player.getWorld());
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        Entity cameraEntity = this.client.getCameraEntity();
-        if (cameraEntity != null) {
-            if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
-                ModWidget.updateMouse(mouseX, mouseY);
-                this.player = abstractClientPlayerEntity;
-                this.renderBackground(context, mouseX, mouseY, delta);
-                this.drawPanels(context);
-            } else {
-                this.player = null;
-            }
-        }
+        ModWidget.updateMouse(mouseX, mouseY);
+        this.renderBackground(context, mouseX, mouseY, delta);
+        this.drawPanels(context);
     }
 
     @Override
@@ -323,6 +332,11 @@ public class FactionSelectionScreen extends Screen {
         int centerX = endX - CycledSelectionWidget.TOTAL_WIDTH / 2;
         int endY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f)) + mainPanelHeight;
 
+        if(!playableNpcPreviewWidget.haveBeenInitialized)
+            updateEquipment();
+
+
+
         int newStartY = startY + searchBarWidget.drawSearchBarCentered(context, centerX, startY, textRenderer);
 
         if(!searchBarWidget.searchIsToggled()){
@@ -339,7 +353,7 @@ public class FactionSelectionScreen extends Screen {
             factionSelectionWidget.enableArrows(false);
             subfactionSelectionWidget.enableArrows(false);
             factionRandomizerButton.active = false;
-            searchBarWidget.drawSearchResultsCentered(context, centerX, startY, controller.getFactions()); // Todo : only give what's necessary/need to be showcased
+            searchBarWidget.drawSearchResultsCentered(context, centerX, startY); // Todo : only give what's necessary/need to be showcased
             return;
         }
 
@@ -411,27 +425,15 @@ public class FactionSelectionScreen extends Screen {
         );
 
         mapWidget.drawAnchored(context,startX + 5, startY + 5, true);
-
+        mapFocusToggle = mapWidget.haveForcedMapTarget();
         // Arbritary
         int buttonStartX = startX + MINIMAL_MARGIN + 2;
         int buttonSize = 10;
         startY += mapBackgroundHeight;
 
         int smallButtonsStartY = startY - buttonSize - MINIMAL_MARGIN - 2;
-        // View all
-        context.drawTexture(MAP_SELECTION,
-                buttonStartX, smallButtonsStartY,
-                246, (mapViewAllToggle) ? 20 : mapViewAllButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
-                buttonSize,
-                buttonSize
-        );
-        mapViewAllButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
-        if(mapViewAllButton.isFocused() && ModWidget.getFocusEnabled()){
-            highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
-        }
 
         // Focus current
-        buttonStartX += buttonSize + MINIMAL_MARGIN;
         context.drawTexture(MAP_SELECTION,
                 buttonStartX, smallButtonsStartY,
                 235, (mapFocusToggle) ? 20 : mapFocusButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
@@ -445,34 +447,43 @@ public class FactionSelectionScreen extends Screen {
 
         // Zoom in
         buttonStartX = startX + mapBackgroundWidth - MINIMAL_MARGIN - buttonSize - 2;
+        boolean canZoomIn = mapWidget.canZoomIn;
+        mapZoomInButton.active = canZoomIn;
         context.drawTexture(MAP_SELECTION,
                 buttonStartX, smallButtonsStartY,
-                224, mapZoomInButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
+                224, !canZoomIn ? 20 : mapZoomInButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
                 buttonSize,
                 buttonSize
         );
         mapZoomInButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
-        if(mapZoomInButton.isFocused() && ModWidget.getFocusEnabled()){
+        if(canZoomIn && mapZoomInButton.isFocused() && ModWidget.getFocusEnabled()){
             highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
         }
 
         // Zoom out
         buttonStartX -= buttonSize + MINIMAL_MARGIN;
+        boolean canZoomOut = mapWidget.canZoomOut;
+        mapZoomOutButton.active = canZoomOut;
         context.drawTexture(MAP_SELECTION,
                 buttonStartX, smallButtonsStartY,
-                213, mapZoomOutButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
+                213, !canZoomOut ? 20 : mapZoomOutButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
                 buttonSize,
                 buttonSize
         );
         mapZoomOutButton.setDimensionsAndPosition(buttonSize, buttonSize, buttonStartX, smallButtonsStartY);
-        if(mapZoomOutButton.isFocused() && ModWidget.getFocusEnabled()){
+        if(canZoomOut && mapZoomOutButton.isFocused() && ModWidget.getFocusEnabled()){
             highlightedFocusMapButton(context, buttonStartX - 1, smallButtonsStartY - 1);
         }
 
-        // Spawn point option
+        // Race option
         startY += MINIMAL_MARGIN;
         spawnPointCycledSelection.drawAnchored(context, startX,  startY,true, Text.translatable(controller.getCurrentSpawnKey()), textRenderer);
-        spawnPointCycledSelection.enableArrows(true);
+        spawnPointCycledSelection.enableArrows(controller.haveManySpawns());
+
+        // Spawn point option
+        startY += MINIMAL_MARGIN + CycledSelectionWidget.TOTAL_HEIGHT;
+        raceCycledSelection.drawAnchored(context, startX,  startY,true, Text.translatable(controller.getCurrentRaceKey()), textRenderer);
+        raceCycledSelection.enableArrows(controller.haveManyRaces());
 
         // Draw selection option
         int sizeX = 52;
@@ -586,81 +597,7 @@ public class FactionSelectionScreen extends Screen {
         );
     }
 
-    // Very WIP, will be worked on once I start making the map widget
-    /*
-    private void drawMap(DrawContext context, float anchorX, float anchorY, int guiScale){
-        int size = (int) (400 * guiScaleModifier.get(guiScale));
 
-        int margin = 4;
-
-        context.drawTexture(MAP_BACKGROUND,
-                (int) anchorX - ((size + margin) / 2),
-                (int) anchorY - ((size + margin) / 2),
-                0, 0,
-                size + margin,
-                size + margin,
-                size + margin,
-                size + margin
-        );
-
-        context.drawTexture(MAP_TEXTURE,
-                (int) anchorX - (size / 2),
-                (int) anchorY - (size / 2),
-                0, 0,
-                size,
-                size,
-                size,
-                size
-        );
-
-        drawMapMarkers(context, (int) anchorX - ((float) size / 2) - margin, (int) anchorY - ((float) size / 2) - margin, size, guiScale);
-    }
-
-    private void drawMapMarkers(DrawContext context, float anchorX, float anchorY, int size, int guiScale) {
-        // TODO : Clean this up to be data driven!
-        int markerSize = (int) (8);
-        int x = (int) anchorX;
-        int y = (int) anchorY;
-
-        int mapSize = 96000;
-        Vector2f coord01 = new Vector2f(48000, 48000);
-        coord01.x = ((float) size / mapSize * coord01.x);
-        coord01.y = ((float) size / mapSize * coord01.y);
-
-        Vector2f coord02 = new Vector2f(64700, 23000);
-        coord02.x = ((float) size / mapSize * coord02.x);
-        coord02.y = ((float) size / mapSize * coord02.y);
-
-        Vector2f coord03 = new Vector2f(62000, 57000);
-        coord03.x = ((float) size / mapSize * coord03.x);
-        coord03.y = ((float) size / mapSize * coord03.y);
-
-        context.drawTexture(MAP_UI_TEXTURE,
-                (int) (x + (coord01.x)),
-                (int) (y + (coord01.y)),
-                54, 0,
-                markerSize,
-                markerSize
-        );
-
-        context.drawTexture(MAP_UI_TEXTURE,
-                (int) (x + (coord02.x)),
-                (int) (y + (coord02.y)),
-                54, 8,
-                markerSize,
-                markerSize
-        );
-
-        context.drawTexture(MAP_UI_TEXTURE,
-                (int) (x + (coord03.x)),
-                (int) (y + (coord03.y)),
-                54, 16,
-                markerSize,
-                markerSize
-        );
-    }
-
-     */
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
@@ -678,6 +615,7 @@ public class FactionSelectionScreen extends Screen {
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         playableNpcPreviewWidget.mouseReleased(mouseX, mouseY, button);
+        mapWidget.mouseReleased(mouseX, mouseY, button);
         return super.mouseReleased(mouseX, mouseY, button);
     }
 

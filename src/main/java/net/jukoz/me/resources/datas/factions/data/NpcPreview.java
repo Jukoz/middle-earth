@@ -1,8 +1,9 @@
-package net.jukoz.me.resources.datas.faction.utils;
+package net.jukoz.me.resources.datas.factions.data;
 
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -10,8 +11,8 @@ import net.minecraft.util.Identifier;
 import java.util.HashMap;
 import java.util.Optional;
 
-public class FactionNpcPreviewData{
-    private HashMap<EquipmentSlot, ItemStack> gears;
+public class NpcPreview {
+    public final HashMap<EquipmentSlot, ItemStack> data;
 
     /**
      * Faction Npc Preview Data constructor, for showcasing specific entities with armors and weapons
@@ -19,15 +20,17 @@ public class FactionNpcPreviewData{
      * @param chest Chest equipment [Chestplate]
      * @param legs Leg equipment [Leggings]
      * @param feet Feet equipment [Boots]
-     * @param mainHand Item on the left of the entity (back view)
-     * @param offHand Item on the right of the entity (front view)
+     * @param mainHand Item on the left of the entity
+     * @param offHand Item on the right of the entity
      */
-    public FactionNpcPreviewData(Item head, Item chest, Item legs, Item feet, Item mainHand, Item offHand){
+    public NpcPreview(Item head, Item chest, Item legs, Item feet, Item mainHand, Item offHand){
+        data = new HashMap<>();
         assignItems(head, chest, legs, feet, mainHand, offHand);
     }
 
+    public NpcPreview(Optional<NbtCompound> optionalPreviewGearNbt) {
+        this.data = new HashMap<>();
 
-    public FactionNpcPreviewData(Optional<NbtCompound> optionalPreviewGearNbt) {
         if(optionalPreviewGearNbt.isEmpty()){
             return;
         }
@@ -42,34 +45,22 @@ public class FactionNpcPreviewData{
         );
     }
 
+    public ItemStack get(EquipmentSlot slot) {
+        if(!data.containsKey(slot))
+            return new ItemStack(Items.AIR);
+        return data.get(slot);
+    }
+
     private void assignItems(Item head, Item chest, Item legs, Item feet, Item mainHand, Item offHand){
-        this.gears = new HashMap<>();
-        this.gears.put(EquipmentSlot.HEAD, new ItemStack(head));
-        this.gears.put(EquipmentSlot.CHEST, new ItemStack(chest));
-        this.gears.put(EquipmentSlot.LEGS, new ItemStack(legs));
-        this.gears.put(EquipmentSlot.FEET, new ItemStack(feet));
-        this.gears.put(EquipmentSlot.MAINHAND, new ItemStack(mainHand));
-        this.gears.put(EquipmentSlot.OFFHAND, new ItemStack(offHand));
+        data.put(EquipmentSlot.HEAD, new ItemStack((head == null) ? Items.AIR : head));
+        data.put(EquipmentSlot.CHEST, new ItemStack((chest == null) ? Items.AIR : chest));
+        data.put(EquipmentSlot.LEGS, new ItemStack((legs == null) ? Items.AIR : legs));
+        data.put(EquipmentSlot.FEET, new ItemStack((feet == null) ? Items.AIR : feet));
+        data.put(EquipmentSlot.MAINHAND, new ItemStack((mainHand == null) ? Items.AIR : mainHand));
+        data.put(EquipmentSlot.OFFHAND, new ItemStack((offHand == null) ? Items.AIR : offHand));
     }
 
     private static Item getItem(String itemId){
         return Registries.ITEM.get(Identifier.of(itemId));
-    }
-
-    public ItemStack get(EquipmentSlot slot){
-        if(gears == null || slot == null)
-            return null;
-        return gears.get(slot);
-    }
-
-    public Optional<NbtCompound> getNbt() {
-        if(gears == null || gears.isEmpty())
-            return Optional.empty();
-
-        NbtCompound nbt = new NbtCompound();
-        for(EquipmentSlot slot : gears.keySet()){
-            nbt.putString(slot.name().toLowerCase(), gears.get(slot).getItem().toString());
-        }
-        return Optional.of(nbt);
     }
 }

@@ -4,13 +4,12 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import net.jukoz.me.resources.ModFactionRegistry;
+import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.resources.StateSaverAndLoader;
-import net.jukoz.me.resources.datas.faction.Faction;
-import net.jukoz.me.resources.datas.faction.FactionUtil;
-import net.jukoz.me.resources.datas.faction.utils.SpawnDataHandler;
+import net.jukoz.me.resources.datas.factions.Faction;
+import net.jukoz.me.resources.datas.factions.FactionLookup;
+import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -23,11 +22,16 @@ import java.util.concurrent.CompletableFuture;
 public class AllAvailableSpawnSuggestionProvider implements SuggestionProvider<ServerCommandSource> {
     @Override
     public CompletableFuture<Suggestions> getSuggestions(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {
-        List<Identifier> candidates = getAllSpawns(context);
-        return SuggestionUtil.getCorrespondingIdentifiers(candidates, builder);
+        try {
+            List<Identifier> candidates = null;
+            candidates = getAllSpawns(context);
+            return SuggestionUtil.getCorrespondingIdentifiers(candidates, builder);
+        } catch (FactionIdentifierException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private static List<Identifier> getAllSpawns(CommandContext<ServerCommandSource> context) {
+    private static List<Identifier> getAllSpawns(CommandContext<ServerCommandSource> context) throws FactionIdentifierException {
         ServerPlayerEntity targettedPlayer = null; // Null for command blocks
         try {
             targettedPlayer = EntityArgumentType.getPlayer(context, "player");  // Targeted player when the argument is there
@@ -37,19 +41,16 @@ public class AllAvailableSpawnSuggestionProvider implements SuggestionProvider<S
             }
         }
 
-        LoggerUtil.logDebugMsg("current user: " + targettedPlayer);
-
-
         Faction currentSelectedFaction = null; // Null by default
         try {
             Identifier factionId = context.getArgument("faction_id", Identifier.class);
-            currentSelectedFaction = FactionUtil.getFactionById(factionId);
+            currentSelectedFaction = FactionLookup.getFactionById(context.getSource().getWorld(), factionId);
 
         } catch (Exception e){ // There is no player argument in the command
             if(targettedPlayer != null){
                 PlayerData playerData = StateSaverAndLoader.getPlayerState(targettedPlayer);
                 if(playerData.hasAffilition()){
-                    currentSelectedFaction = FactionUtil.getFactionById(playerData.getAffiliationData().faction);
+                    currentSelectedFaction = playerData.getCurrentFaction(context.getSource().getWorld());
                 }
             }
         }
@@ -58,19 +59,18 @@ public class AllAvailableSpawnSuggestionProvider implements SuggestionProvider<S
         if(currentSelectedFaction != null) {
             SpawnDataHandler spawnDataHandler = currentSelectedFaction.getSpawnData();
             if(spawnDataHandler != null && spawnDataHandler.getSpawnList() != null){
-                List<Identifier> factionSpawns = spawnDataHandler.getSpawnList().keySet().stream().toList();
+                List<Identifier> factionSpawns = spawnDataHandler.getAllSpawnIdentifiers().stream().toList();
                 candidates.addAll(factionSpawns);
                 return candidates;
             }
         }
 
         // Return all faction spawns
-        List<Identifier> allFactionIds = ModFactionRegistry.getAllJoinableFactionId();
-        for(Identifier id : allFactionIds){
-            Faction faction = FactionUtil.getFactionById(id);
+        List<Faction> allFactions = FactionLookup.getAllJoinableFaction(context.getSource().getWorld());
+        for(Faction faction : allFactions){
             SpawnDataHandler spawnDataHandler = faction.getSpawnData();
             if(spawnDataHandler != null && spawnDataHandler.getSpawnList() != null){
-                List<Identifier> factionSpawns = spawnDataHandler.getSpawnList().keySet().stream().toList();
+                List<Identifier> factionSpawns = spawnDataHandler.getAllSpawnIdentifiers().stream().toList();
                 candidates.addAll(factionSpawns);
             }
         }

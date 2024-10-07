@@ -6,8 +6,7 @@ import net.jukoz.me.commands.factions.CommandFaction;
 import net.jukoz.me.commands.factions.CommandSpawn;
 
 public class ModCommands {
-    public static String BASE_COMMAND = MiddleEarth.MOD_ID;
-    public static String FACTION_BASE_COMMAND = "faction";
+    public static String BASE_COMMAND = "middle_earth";
     public static void register() {
         // Faction Commands
         CommandRegistrationCallback.EVENT.register(CommandFaction::register);
