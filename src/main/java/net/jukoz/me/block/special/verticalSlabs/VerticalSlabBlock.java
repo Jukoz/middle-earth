@@ -2,6 +2,7 @@ package net.jukoz.me.block.special.verticalSlabs;
 
 import net.minecraft.block.*;
 import net.minecraft.block.enums.BlockHalf;
+import net.minecraft.block.enums.StairShape;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -132,23 +133,51 @@ public class VerticalSlabBlock extends Block implements Waterloggable {
         }
     }
 
-    @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(FACING, rotation.rotate(state.get(FACING)));
-    }
-
-    @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        Direction direction = state.get(FACING);
+    protected BlockState mirror(BlockState state, BlockMirror mirror) {
+        Direction direction = (Direction) state.get(FACING);
+        VerticalSlabShape verticalSlabShape = (VerticalSlabShape) state.get(SHAPE);
         switch (mirror) {
-            case LEFT_RIGHT -> {
-                if (direction.getAxis() != Direction.Axis.Z) break;
-                return state.rotate(BlockRotation.CLOCKWISE_180);
-            }
-            case FRONT_BACK -> {
-                if (direction.getAxis() != Direction.Axis.X) break;
-                return state.rotate(BlockRotation.CLOCKWISE_180);
-            }
+            case LEFT_RIGHT:
+                if (direction.getAxis() == Direction.Axis.Z) {
+                    switch (verticalSlabShape) {
+                        case INNER_LEFT -> {
+                            return (BlockState) state.rotate(BlockRotation.CLOCKWISE_180).with(SHAPE, VerticalSlabShape.INNER_RIGHT);
+                        }
+                        case INNER_RIGHT -> {
+                            return (BlockState) state.rotate(BlockRotation.CLOCKWISE_180).with(SHAPE, VerticalSlabShape.INNER_LEFT);
+                        }
+                        case OUTER_LEFT -> {
+                            return (BlockState) state.rotate(BlockRotation.CLOCKWISE_180).with(SHAPE, VerticalSlabShape.OUTER_RIGHT);
+                        }
+                        case OUTER_RIGHT -> {
+                            return (BlockState) state.rotate(BlockRotation.CLOCKWISE_180).with(SHAPE, VerticalSlabShape.OUTER_LEFT);
+                        }
+                        default -> {
+                            return state.rotate(BlockRotation.CLOCKWISE_180);
+                        }
+                    }
+                }
+                break;
+            case FRONT_BACK:
+                if (direction.getAxis() == Direction.Axis.X) {
+                    switch (verticalSlabShape) {
+                        case INNER_LEFT -> {
+                            return (BlockState) state.rotate(BlockRotation.CLOCKWISE_180).with(SHAPE, VerticalSlabShape.INNER_LEFT);
+                        }
+                        case INNER_RIGHT -> {
+                            return (BlockState) state.rotate(BlockRotation.CLOCKWISE_180).with(SHAPE, VerticalSlabShape.INNER_RIGHT);
+                        }
+                        case OUTER_LEFT -> {
+                            return (BlockState) state.rotate(BlockRotation.CLOCKWISE_180).with(SHAPE, VerticalSlabShape.OUTER_RIGHT);
+                        }
+                        case OUTER_RIGHT -> {
+                            return (BlockState) state.rotate(BlockRotation.CLOCKWISE_180).with(SHAPE, VerticalSlabShape.OUTER_LEFT);
+                        }
+                        case STRAIGHT -> {
+                            return state.rotate(BlockRotation.CLOCKWISE_180);
+                        }
+                    }
+                }
         }
         return super.mirror(state, mirror);
     }
