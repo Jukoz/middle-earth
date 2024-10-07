@@ -44,18 +44,14 @@ public class StatueBlock extends Block implements Waterloggable {
         World world = ctx.getWorld();
         if(blockPos.getY() < world.getTopY() - 1 && world.getBlockState(blockPos.up()).canReplace(ctx)){
             if(blockState.isOf(Blocks.WATER)){
-                return this.getDefaultState().with(WATERLOGGED, true);
+                return (BlockState)((BlockState)this.getDefaultState().with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(HALF, DoubleBlockHalf.LOWER).with(WATERLOGGED, true));
             } else{
-                return this.getDefaultState();
+                return (BlockState)((BlockState)this.getDefaultState().with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(HALF, DoubleBlockHalf.LOWER).with(WATERLOGGED, false));
             }
         } else {
             return null;
         }
-        /*if(ctx.getWorld().getBlockState(ctx.getBlockPos().up()).canReplace(ctx)){
-            return (BlockState)((BlockState)this.getDefaultState().with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(HALF, DoubleBlockHalf.LOWER));
-        } else {
-            return null;
-        }*/
+
     }
 
     @Override
