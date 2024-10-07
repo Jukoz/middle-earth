@@ -16,16 +16,19 @@ public class PacketTeleportToCustomCoordinate extends ClientToServerPacket<Packe
             PacketCodecs.DOUBLE, p -> p.xCoordinate,
             PacketCodecs.DOUBLE, p -> p.yCoordinate,
             PacketCodecs.DOUBLE, p -> p.zCoordinate,
+            PacketCodecs.BOOL, p -> p.welcomeNeeded,
             PacketTeleportToCustomCoordinate::new
     );
     private final double xCoordinate;
     private final double yCoordinate;
     private final double zCoordinate;
+    private final boolean welcomeNeeded;
 
-    public PacketTeleportToCustomCoordinate(Double xCoordinate, Double yCoordinate, Double zCoordinate){
+    public PacketTeleportToCustomCoordinate(Double xCoordinate, Double yCoordinate, Double zCoordinate, boolean welcomeNeeded){
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.zCoordinate = zCoordinate;
+        this.welcomeNeeded = welcomeNeeded;
     }
     @Override
     public Id<PacketTeleportToCustomCoordinate> getId() {
@@ -41,7 +44,7 @@ public class PacketTeleportToCustomCoordinate extends ClientToServerPacket<Packe
     public void process(ServerPacketContext context) {
         context.player().getServer().execute(() -> {
             Vec3d coordinates = new Vec3d(xCoordinate, yCoordinate, zCoordinate);
-            ModDimensions.teleportPlayerToMe(context.player(), coordinates);
+            ModDimensions.teleportPlayerToMe(context.player(), coordinates, true, welcomeNeeded);
         });
     }
 }

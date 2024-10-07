@@ -1,4 +1,4 @@
-package net.jukoz.me.resources.datas.faction.utils;
+package net.jukoz.me.resources.datas.factions.data;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
