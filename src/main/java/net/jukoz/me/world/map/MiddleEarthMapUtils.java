@@ -5,6 +5,7 @@ import net.jukoz.me.utils.resources.FileUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import org.joml.Vector2d;
 import org.joml.Vector2i;
 
 import java.awt.image.BufferedImage;
@@ -45,8 +46,8 @@ public class MiddleEarthMapUtils {
         return server.getTicks();
     }
 
-    public Vector2i getWorldCoordinateFromInitialMap(int x, int z){
-        return new Vector2i((int) (x * ratioX), (int) (z * ratioZ));
+    public Vector2d getWorldCoordinateFromInitialMap(double x, double z){
+        return new Vector2d( (x * ratioX),  (z * ratioZ));
     }
 
     public Vector2i getRegionByWorldCoordinate(int x, int z){

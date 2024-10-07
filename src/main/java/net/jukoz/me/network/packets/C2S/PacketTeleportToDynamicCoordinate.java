@@ -11,21 +11,24 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-import org.joml.Vector2i;
+import org.joml.Vector2d;
 
 public class PacketTeleportToDynamicCoordinate extends ClientToServerPacket<PacketTeleportToDynamicCoordinate> {
     public static final CustomPayload.Id<PacketTeleportToDynamicCoordinate> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_teleport_dynamic_spawn"));
     public static final PacketCodec<RegistryByteBuf, PacketTeleportToDynamicCoordinate> CODEC = PacketCodec.tuple(
-            PacketCodecs.INTEGER, p -> p.xCoordinate,
-            PacketCodecs.INTEGER, p -> p.zCoordinate,
+            PacketCodecs.DOUBLE, p -> p.xCoordinate,
+            PacketCodecs.DOUBLE, p -> p.zCoordinate,
+            PacketCodecs.BOOL, p -> p.welcomeNeeded,
             PacketTeleportToDynamicCoordinate::new
     );
-    private final int xCoordinate;
-    private final int zCoordinate;
+    private final double xCoordinate;
+    private final double zCoordinate;
+    private final boolean welcomeNeeded;
 
-    public PacketTeleportToDynamicCoordinate(int xCoordinate, int zCoordinate){
+    public PacketTeleportToDynamicCoordinate(double xCoordinate, double zCoordinate, boolean welcomeNeeded){
         this.xCoordinate = xCoordinate;
         this.zCoordinate = zCoordinate;
+        this.welcomeNeeded = welcomeNeeded;
     }
     @Override
     public Id<PacketTeleportToDynamicCoordinate> getId() {
@@ -40,10 +43,10 @@ public class PacketTeleportToDynamicCoordinate extends ClientToServerPacket<Pack
     @Override
     public void process(ServerPacketContext context) {
         context.player().getServer().execute(() -> {
-            Vector2i worldCoordinate = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(xCoordinate, zCoordinate);
+            Vector2d worldCoordinate = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(xCoordinate, zCoordinate);
 
-            Vec3d coordinates = new Vec3d(worldCoordinate.x, ModDimensions.getDimensionHeight(worldCoordinate.x, worldCoordinate.y).y, worldCoordinate.y);
-            ModDimensions.teleportPlayerToMe(context.player(), coordinates);
+            Vec3d coordinates = new Vec3d(worldCoordinate.x, ModDimensions.getDimensionHeight((int)worldCoordinate.x, (int)worldCoordinate.y).y, worldCoordinate.y);
+            ModDimensions.teleportPlayerToMe(context.player(), coordinates, true, welcomeNeeded);
         });
     }
 }

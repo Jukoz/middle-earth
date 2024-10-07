@@ -18,6 +18,8 @@ public class ModServerNetworkHandler {
 
         // REGISTRY : Client to server
         PayloadTypeRegistry.playC2S().register(PacketSetAffiliation.ID, PacketSetAffiliation.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketSetRace.ID, PacketSetRace.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketTeleportToDynamicWorldCoordinate.ID, PacketTeleportToDynamicWorldCoordinate.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketTeleportToCustomCoordinate.ID, PacketTeleportToCustomCoordinate.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketTeleportToDynamicCoordinate.ID, PacketTeleportToDynamicCoordinate.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketTeleportToCurrentSpawn.ID, PacketTeleportToCurrentSpawn.CODEC);
@@ -26,6 +28,8 @@ public class ModServerNetworkHandler {
 
         // Application [SERVER SIDE]
         ServerPlayNetworking.registerGlobalReceiver(PacketSetAffiliation.ID, wrapServerHandler(connection, PacketSetAffiliation::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketSetRace.ID, wrapServerHandler(connection, PacketSetRace::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketTeleportToDynamicWorldCoordinate.ID, wrapServerHandler(connection, PacketTeleportToDynamicWorldCoordinate::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketTeleportToCustomCoordinate.ID, wrapServerHandler(connection, PacketTeleportToCustomCoordinate::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketTeleportToDynamicCoordinate.ID, wrapServerHandler(connection, PacketTeleportToDynamicCoordinate::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketTeleportToCurrentSpawn.ID, wrapServerHandler(connection, PacketTeleportToCurrentSpawn::process));

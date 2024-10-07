@@ -15,6 +15,12 @@ public class MiddleEarthMapConfigs {
      * 7 : 384 000 (1,536,000);
      */
     public static final int MAP_ITERATION = 3;
+    /**
+     *  Current image is 3000 x 3000, should be a common divider;
+     */
+    public static final int REGION_SIZE = 3000;
+    public static final int PIXEL_WEIGHT = 4;
+    public static final int FULL_MAP_SIZE = (int) (REGION_SIZE * Math.pow(2, MAP_ITERATION) * PIXEL_WEIGHT);
 
     private static final String MOD_DATA = "data/me/%s".formatted(MiddleEarth.MOD_VERSION);
     public static final String BIOME_PATH = "%s/biomes/i_%s".formatted(MOD_DATA, "%s");
@@ -24,12 +30,6 @@ public class MiddleEarthMapConfigs {
     public static final String BASE_EDGE_IMAGE_NAME = "/base_edge.png";
     public static final String IMAGE_NAME = "/%s_%s.png";
     public static final String INITIAL_IMAGE = "assets/%s/textures/map.png".formatted(MiddleEarth.MOD_ID);;
-
-    /**
-     *  Current image is 3000 x 3000, should be a common divider;
-     */
-    public static final int REGION_SIZE = 3000;
-    public static final int PIXEL_WEIGHT = 4;
     public static final int THREAD_POOL_SIZE = 16;
     public static final int BIOME_VALIDATION_TICK_DELAY = 1000;
     public static final int BIOME_VALIDATION_BLOCK_DELAY = 5000;

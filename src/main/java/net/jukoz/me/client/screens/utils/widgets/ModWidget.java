@@ -1,11 +1,16 @@
 package net.jukoz.me.client.screens.utils.widgets;
 
+import net.minecraft.client.MinecraftClient;
+
 public abstract class ModWidget {
     protected static final int MARGIN = 4;
     private static int mouseX = 0;
     private static int mouseY = 0;
     private static boolean focusedEnabled = false;
-
+    protected final MinecraftClient client;
+    public ModWidget(){
+        client = MinecraftClient.getInstance();
+    }
     public static void updateMouse(int mouseX, int mouseY){
         ModWidget.mouseX = mouseX;
         ModWidget.mouseY = mouseY;

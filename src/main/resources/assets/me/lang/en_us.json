@@ -2108,6 +2108,12 @@
   "block.me.chiseled_polished_granite": "Chiseled Polished Granite",
   "block.me.chiseled_granite_bricks": "Chiseled Granite Bricks",
 
+  "block.me.granite_brickwork": "Granite Brickwork",
+  "block.me.granite_brickwork_slab": "Granite Brickwork Slab",
+  "block.me.granite_brickwork_vertical_slab": "Granite Brickwork Vertical Slab",
+  "block.me.granite_brickwork_stairs": "Granite Brickwork Stairs",
+  "block.me.granite_brickwork_wall": "Granite Brickwork Wall",
+
   "block.me.granite_stool": "Granite Stool",
   "block.me.granite_table": "Granite Table",
   "block.me.granite_chair": "Granite Chair",
@@ -2256,6 +2262,9 @@
   "block.me.chiseled_tuff_tiles": "Chiseled Tuff Tiles",
   "block.me.chiseled_smooth_tuff": "Chiseled Smooth Tuff",
 
+  "block.me.tuff_carved_window": "Tuff Carved Window",
+  "block.me.tuff_carved_window_pane": "Tuff Carved Window Pane",
+
   "block.me.tuff_stool": "Tuff Stool",
   "block.me.tuff_table": "Tuff Table",
   "block.me.tuff_chair": "Tuff Chair",
@@ -2330,6 +2339,20 @@
   "block.me.old_bricks_vertical_slab": "Old Bricks Vertical Slab",
   "block.me.old_bricks_stairs": "Old Bricks Stairs",
   "block.me.old_bricks_wall": "Old Bricks Wall",
+
+"#Comment:": "Block - Tan Bricks",
+
+  "block.me.tan_clay_bricks": "Tan Clay Bricks",
+  "block.me.tan_clay_bricks_slab": "Tan Clay Bricks Slab",
+  "block.me.tan_clay_bricks_vertical_slab": "Tan Clay Bricks Vertical Slab",
+  "block.me.tan_clay_bricks_stairs": "Tan Clay Bricks Stairs",
+  "block.me.tan_clay_bricks_wall": "Tan Clay Bricks Wall",
+
+  "block.me.tan_clay_brickwork": "Tan Clay Brickwork",
+  "block.me.tan_clay_brickwork_slab": "Tan Clay Brickwork Slab",
+  "block.me.tan_clay_brickwork_vertical_slab": "Tan Clay Brickwork Vertical Slab",
+  "block.me.tan_clay_brickwork_stairs": "Tan Clay Brickwork Stairs",
+  "block.me.tan_clay_brickwork_wall": "Tan Clay Brickwork Wall",
 
 "#Comment:": "Block - Basalt",
   "block.me.cobbled_basalt": "Cobbled Basalt",
@@ -3159,6 +3182,18 @@
   "block.me.moss_slab": "Moss Slab",
   "block.me.moss_stairs": "Moss Stairs",
 
+  "block.me.packed_mire": "Packed Mire",
+  "block.me.packed_mire_slab": "Packed Mire Slab",
+  "block.me.packed_mire_vertical_slab": "Packed Mire Vertical Slab",
+  "block.me.packed_mire_stairs": "Packed Mire Stairs",
+  "block.me.packed_mire_wall": "Packed Mire Wall",
+
+  "block.me.mire_bricks": "Mire Bricks",
+  "block.me.mire_bricks_slab": "Mire Brick Slab",
+  "block.me.mire_bricks_vertical_slab": "Mire Brick Vertical Slab",
+  "block.me.mire_bricks_stairs": "Mire Brick Stairs",
+  "block.me.mire_bricks_wall": "Mire Brick Wall",
+
   "block.me.cobbly_dirt": "Cobbly Dirt",
   "block.me.cobbly_dirt_slab": "Cobbly Dirt Slab",
   "block.me.cobbly_dirt_stairs": "Cobbly Dirt Stairs",
@@ -3592,6 +3627,7 @@
 
 "#Comment:": "Block - Mirkwood",
   "block.me.mirkwood_leaves": "Mirkwood Leaves",
+  "block.me.fallen_mirkwood_leaves": "Fallen Mirkwood Leaves",
   "block.me.mirkwood_vines": "Mirkwood Vines",
   "block.me.mirkwood_vines_plant": "Mirkwood Vines Plant",
   "block.me.mirkwood_log": "Mirkwood Log",
@@ -4003,6 +4039,12 @@
   "block.me.weathered_shingles_vertical_slab": "Weathered Shingles Vertical Slab",
   "block.me.weathered_shingles_wall": "Weathered Shingles Wall",
 
+  "block.me.tan_clay_tiles": "Tan Clay Tiles",
+  "block.me.tan_clay_tiles_stairs": "Tan Clay Tiles Stairs",
+  "block.me.tan_clay_tiles_slab": "Tan Clay Tiles Slab",
+  "block.me.tan_clay_tiles_vertical_slab": "Tan Clay Tiles Vertical Slab",
+  "block.me.tan_clay_tiles_wall": "Tan Clay Tiles Wall",
+
   "block.me.brick_clay_tiling": "Brick Clay Tiling",
   "block.me.brick_clay_tiling_stairs": "Brick Clay Tiling Stairs",
   "block.me.brick_clay_tiling_slab": "Brick Clay Tiling Slab",
@@ -4259,6 +4301,9 @@
   "block.me.wooden_bucket": "Wooden Bucket",
 
   "block.me.treated_steel_rod": "Treated Steel Rod",
+  "block.me.treated_steel_door": "Treated Steel Door",
+  "block.me.treated_steel_trapdoor": "Treated Steel Trapdoor",
+  "block.me.treated_steel_bars": "Treated Steel Bars",
 
   "block.me.big_brazier": "Big Brazier",
   "block.me.gilded_big_brazier": "Gilded Big Brazier",
@@ -4275,6 +4320,43 @@
 
   "block.me.ground_book": "Ground Book",
   "block.me.dwarven_ground_book": "Dwarven Ground Book",
+
+"#Comment:": "Block - Treated Wood",
+  "block.me.treated_wood": "Treated Wood",
+  "block.me.treated_wood_slab": "Treated Wood Slab",
+  "block.me.treated_wood_vertical_slab": "Treated Wood Vertical Slab",
+  "block.me.treated_wood_stairs": "Treated Wood Stairs",
+  "block.me.treated_wood_wall": "Treated Wood Wall",
+
+  "block.me.treated_wood_planks": "Treated Wood Planks",
+  "block.me.treated_wood_planks_slab": "Treated Wood Planks Slab",
+  "block.me.treated_wood_planks_vertical_slab": "Treated Wood Planks Vertical Slab",
+  "block.me.treated_wood_planks_stairs": "Treated Wood Planks Stairs",
+  "block.me.treated_wood_planks_wall": "Treated Wood Planks Wall",
+
+  "block.me.treated_wood_beam": "Treated Wood Beam",
+  "block.me.treated_wood_beam_slab": "Treated Wood Beam Slab",
+  "block.me.treated_wood_beam_vertical_slab": "Treated Wood Beam Vertical Slab",
+  "block.me.treated_wood_beam_stairs": "Treated Wood Beam Stairs",
+  "block.me.treated_wood_beam_wall": "Treated Wood Beam Wall",
+
+  "block.me.treated_wood_carved_beam": "Treated Wood Carved Beam",
+  "block.me.treated_wood_carved_beam_slab": "Treated Wood Carved Beam Slab",
+  "block.me.treated_wood_carved_beam_vertical_slab": "Treated Wood Beam Carved Vertical Slab",
+  "block.me.treated_wood_carved_beam_stairs": "Treated Wood Carved Beam Stairs",
+  "block.me.treated_wood_carved_beam_wall": "Treated Wood Carved Beam Wall",
+
+  "block.me.treated_wood_panels": "Treated Wood Panels",
+  "block.me.treated_wood_panels_slab": "Treated Wood Panels Slab",
+  "block.me.treated_wood_panels_vertical_slab": "Treated Wood Panels Vertical Slab",
+  "block.me.treated_wood_panels_stairs": "Treated Wood Panels Stairs",
+  "block.me.treated_wood_panels_wall": "Treated Wood Panels Wall",
+
+  "block.me.treated_wood_tiling": "Treated Wood Tiling",
+  "block.me.treated_wood_tiling_slab": "Treated Wood Tiling Slab",
+  "block.me.treated_wood_tiling_vertical_slab": "Treated Wood Tiling Vertical Slab",
+  "block.me.treated_wood_tiling_stairs": "Treated Wood Tiling Stairs",
+  "block.me.treated_wood_tiling_wall": "Treated Wood Tiling Wall",
 
 "#Comment:": "Block - Plants",
   "block.me.brown_grass": "Brown Grass",
@@ -4699,6 +4781,19 @@
   "block.me.wattle_and_brick_window": "Wattle and Brick Window",
   "block.me.wattle_and_brick_window_pane": "Wattle and Brick Window Pane",
 
+  "block.me.plaster": "Plaster",
+  "block.me.plaster_slab": "Plaster Slab",
+  "block.me.plaster_vertical_slab": "Plaster Vertical Slab",
+  "block.me.plaster_stairs": "Plaster Stairs",
+  "block.me.plaster_wall": "Plaster Wall",
+
+  "block.me.plaster_hobbit_window": "Plaster Hobbit Window",
+  "block.me.plaster_hobbit_window_pane": "Plaster Hobbit Window Pane",
+
+  "block.me.plaster_round_window": "Plaster Round Window",
+  "block.me.plaster_round_window_pane": "Plaster Round Window Pane",
+
+
   "block.me.white_daub": "White Daub",
   "block.me.white_daub_slab": "White Daub Slab",
   "block.me.white_daub_vertical_slab": "White Daub Vertical Slab",
@@ -4734,7 +4829,7 @@
 
   "block.me.white_daub_hobbit_window": "White Daub Hobbit Window",
   "block.me.white_daub_hobbit_window_pane": "White Daub Hobbit Window Pane",
-  
+
   "block.me.dark_daub": "Dark Daub",
   "block.me.dark_daub_slab": "Dark Daub Slab",
   "block.me.dark_daub_vertical_slab": "Dark Daub Vertical Slab",
@@ -5210,28 +5305,63 @@
   "alignment.me.evil" : "Evil",
 
 "#Comment:": "Factions",
-  "faction.me.dale" : "Dale",
   "faction.me.gondor" : "Gondor",
-  "faction.me.gondor.anorien" : "Anorien",
-  "faction.me.gondor.lossarnach" : "Lossarnach",
+  "faction.me.rohan" : "Rohan",
+  "faction.me.dale" : "Dale",
   "faction.me.longbeards" : "Longbeards",
   "faction.me.longbeards.erebor" : "Erebor",
   "faction.me.lothlorien" : "Lothlórien",
   "faction.me.mordor" : "Mordor",
-  "faction.me.mordor.gorgoroth" : "Gorgoroth",
+  "faction.me.misty_mountains_goblins" : "Misty Mountains Goblins",
+  "faction.me.isengard" : "Isengard",
+  "faction.me.shire" : "Shire",
 
 "#Comment": "Factions fallback",
   "faction.me.example.fallback": "Example...",
+  "faction.me.misty_mountains_goblins.fallback": "Misty Mts. Goblins",
 
 "#Comment": "Spawns",
-  "spawn.me.gondor.anorien.minas_tirith" : "Minas Tirith",
-  "spawn.me.gondor.anorien.outskirts" : "Outskirts",
-  "spawn.me.gondor.lossarnach.erui_source" : "Erui Source",
+  "spawn.me.coordinates_base.dynamic": "[x,z] ",
+  "spawn.me.coordinates_base_values.dynamic": "%s, %s",
+  "spawn.me.coordinates_base.custom": "[x,y,z] ",
+  "spawn.me.coordinates_base_values.custom": "%s, %s, %s",
+
+  "spawn.me.gondor.minas_tirith" : "Minas Tirith",
+  "spawn.me.gondor.anorien" : "Anorien",
+  "spawn.me.gondor.ithilien" : "Ithilien",
+  "spawn.me.gondor.lossarnach" : "Lossarnach",
+  "spawn.me.gondor.pelargir" : "Pelargir",
+  "spawn.me.gondor.lebennin" : "Lebennin",
+  "spawn.me.gondor.ringlo_vale" : "Ringlo Vale",
+  "spawn.me.gondor.dol_amroth" : "Dol Amroth",
+  "spawn.me.gondor.morthond_vale" : "Morthond Vale",
+  "spawn.me.rohan.edoras" : "Edoras",
+  "spawn.me.rohan.helms_deep" : "Helm's Deep",
+  "spawn.me.rohan.westemnet" : "Westemnet",
+  "spawn.me.rohan.aldburg" : "Aldburg",
+  "spawn.me.rohan.eastemnet" : "Eastemnet",
+  "spawn.me.rohan.the_wold" : "The Wold",
+  "spawn.me.dale.capital" : "Dale Capital",
+  "spawn.me.dale.esgaroth" : "Esgaroth",
   "spawn.me.longbeards.erebor.outskirts" : "Outskirts",
   "spawn.me.longbeards.erebor.ravenhill" : "Ravenhill",
+  "spawn.me.longbeards.erebor.iron_hills" : "Iron Hills",
+  "spawn.me.longbeards.erebor.iron_hills_spring" : "Iron Hills Spring",
   "spawn.me.lothlorien.cerin_amroth" : "Cerin Amroth",
+  "spawn.me.mordor.gorgoroth" : "Gorgoroth",
+  "spawn.me.mordor.black_gates" : "Black Gates",
+  "spawn.me.mordor.minas_morgul" : "Minas Morgul",
+  "spawn.me.mordor.nurn" : "Nurn",
+  "spawn.me.mordor.dol_guldur" : "Dol Guldur",
+  "spawn.me.misty_mountains_goblins.gundabad" : "Gundabad",
+  "spawn.me.misty_mountains_goblins.grey_mountains" : "Grey Mountains",
+  "spawn.me.misty_mountains_goblins.goblin_town" : "Goblin Town",
+  "spawn.me.misty_mountains_goblins.moria" : "Moria",
+  "spawn.me.isengard.orthanc" : "Orthanc",
+  "spawn.me.shire.hobbiton" : "Hobbitton",
+  "spawn.me.shire.willowbottom" : "Willowbottom",
 
-  "#Comment:": "Races",
+"#Comment:": "Races",
   "race.me.dwarf" : "Dwarf",
   "race.me.elf" : "Elf",
   "race.me.human" : "Human",
@@ -5239,39 +5369,97 @@
   "race.me.orc" : "Orc",
   "race.me.uruk" : "Uruk",
 
-"#Comment:": "Faction Events",
-  "event.me.faction.leave.source" : "You have left %s",
-  "event.me.faction.join.source" : "You have joined %s",
-
-
 "#Comment": "Commands",
   "command.me.fail" : "Command couldn't be sent properly",
 
-  "command.me.faction.join.source" : "Successfully set %s faction for %s",
-  "command.me.faction.get.target" : "%s faction is %s",
-  "command.me.faction.get.target.none" : "%s have no faction",
-  "command.me.faction.get.source" : "Your faction is %s",
-  "command.me.faction.get.source.none" : "You have no faction",
+  "command.me.join.faction.join.success" : "%s successfully joined the %s Faction",
 
-  "command.me.faction.join.success" : "You have successfully joined %s",
-  "command.me.faction.join.error_faction_id" : "ERR : <%s> is not a proper faction id",
-  "command.me.faction.force_join.success" : "%s have successfully joined %s",
+  "command.me.clear.faction.success" : "Successfully cleared your faction data",
+  "command.me.clear.player.faction.success" : "Successfully cleared %s faction data",
 
-  "command.me.set_player_spawn.success" : "Succesfully modified %s spawn point for %s",
-  "command.me.clear_player_data.success" : "Succesfully cleared the stored player data for %s",
+  "command.me.get.faction.success" : "Your initial faction is %s",
+  "command.me.get.faction.no_faction" : "You have no initial faction",
+  "command.me.get.player.faction.success" : "%s initial faction is %s",
+  "command.me.get.player.faction.no_faction" : "%s have no initial faction",
+
+  "command.me.get.spawn.overworld.success": "Your overworld spawn is [%s, %s, %s](xyz)",
+  "command.me.get.spawn.overworld.no_spawn": "You have no overworld spawn assigned, default is at [%s, %s, %s](xyz)",
+  "command.me.get.player.spawn.overworld.success": "%s overworld spawn is [%s, %s, %s](xyz)",
+  "command.me.get.player.spawn.overworld.no_spawn": "%s have no overworld spawn assigned, default is at [%s, %s, %s](xyz)",
+
+  "command.me.get.spawn.middle_earth.success": "Your Middle-earth spawn is <%s> at [%s, %s, %s](xyz)",
+  "command.me.get.spawn.middle_earth.no_spawn": "No Middle-earth spawn assigned",
+  "command.me.get.player.spawn.middle_earth.success": "%s Middle-earth spawn is <%s> at [%s, %s, %s](xyz)",
+  "command.me.get.player.spawn.middle_earth.no_spawn": "%s have no Middle-earth spawn assigned",
+
+  "command.me.set.spawn.overworld.success": "Your new Overworld return spawn is at [%s, %s, %s](xyz)",
+  "command.me.set.player.spawn.overworld.success": "%s new Overworld return spawn is at [%s, %s, %s](xyz)",
+
+  "command.me.set.spawn.middle_earth.success": "Your Middle-earth spawn have been set to <%s> at [%s, %s, %s](xyz)",
+  "command.me.set.spawn.middle_earth.no_faction": "You cannot assign yourself a Middle-earth spawn without having joined an initial faction",
+  "command.me.set.spawn.middle_earth.no_spawn_found": "Couldn't find the spawn <%s>",
+  "command.me.set.player.spawn.middle_earth.success": "%s Middle-earth spawn have been set to <%s> at [%s, %s, %s](xyz)",
+  "command.me.set.player.spawn.middle_earth.no_faction": "You cannot assign a Middle-earth spawn to %s when they have not joined an initial faction",
+
+  "command.me.reset.spawn.overworld.success": "Your Overworld return spawn is reset to [%s, %s, %s](xyz)",
+  "command.me.reset.player.spawn.overworld.success": "%s Overworld return spawn is reset to [%s, %s, %s](xyz)",
+
+  "command.me.reset.spawn.middle_earth.success": "Your Middle-earth spawn have been reset to <%s> at [%s, %s, %s](xyz)",
+  "command.me.reset.spawn.middle_earth.no_faction": "You cannot reset your Middle-earth spawn when you have not joined an initial faction",
+  "command.me.reset.player.spawn.middle_earth.success": "%s Middle-earth spawn have been reset to <%s> at [%s, %s, %s](xyz)",
+  "command.me.reset.player.spawn.middle_earth.no_faction": "You cannot reset the Middle-earth spawn of %s when they have not joined an initial faction",
+
+  "command.me.teleport.spawn.middle_earth.success": "You got teleported to your Middle-earth spawn <%s>",
+  "command.me.teleport.spawn.middle_earth.no_spawn": "You have no Middle-earth spawn assigned",
+  "command.me.teleport.player.spawn.middle_earth.success": "%s got teleported to their Middle-earth spawn <%s> at [%s, %s, %s](xyz)",
+  "command.me.teleport.player.spawn.middle_earth.no_spawn": "%s have no Middle-earth spawn assigned",
+
+  "command.me.teleport.spawn.overworld.success": "You got teleported to your Overworld return spawn",
+  "command.me.teleport.spawn.overworld.error": "There was an error while teleporting you to the Overworld return spawn",
+  "command.me.teleport.player.spawn.overworld.success": "%s got teleported to their Overworld return spawn at [%s, %s, %s](xyz)",
+  "command.me.teleport.player.spawn.overworld.no_spawn": "There was an error while teleporting %s to their Overworld return spawn",
+
+  "command.me.teleport.to.spawn.middle_earth.success": "You got teleported to <%s> at [%s, %s, %s](xyz)",
+  "command.me.teleport.to.spawn.middle_earth.error": "You couldn't be teleported to <%s>",
+  "command.me.teleport.player.to.spawn.middle_earth.success": "%s got teleported to <%s> at [%s, %s, %s](xyz)",
+  "command.me.teleport.player.to.spawn.middle_earth.error": "%s couldn't be teleported to <%s>",
 
 "#Comment": "Alert",
   "alert.me.large_door.blocked": "Something seems to prevent the door from moving.",
+"#Comment": "Events",
+  "event.me.join.faction.success": "You have joined %s",
+  "event.me.leave.faction.success": "You have left %s",
 
-"#Comment": "Exceptions",
+  "#Comment": "Exceptions",
+  "exception.me.no_faction.target": "%s have no faction",
+  "exception.me.no_faction.source": "You have no faction",
   "exception.me.faction_identifier": "%s is not a valid faction identifier",
+  "exception.me.spawn_identifier": "%s is not a valid spawn identifier",
+  "exception.me.identical_faction.target": "%s already joined %s",
+  "exception.me.identical_faction.source": "You already joined %s",
 
-"#Comment:": "UI Onboarding",
+"#Comment:": "UI Onboarding Screen",
   "ui.me.continue_character": "Continue",
   "ui.me.reset_character": "Reset Affiliation",
 
+"#Comment": "Screen Faction Selection",
+  "screen.me.faction_selection_screen": "Faction Selection",
+  "screen.me.button.faction_randomizer": "Randomize Faction",
+  "screen.me.button.spawn_randomizer": "Randomize Spawn",
+  "screen.me.button.focus_current": "Focus Toggle",
+  "screen.me.button.zoom_out": "Zoom In",
+  "screen.me.button.zoom_in": "Zoom Out",
+  "screen.me.button.confirm": "Confirm",
+
 "#Comment": "UI Map",
   "ui.me.map_title_text": "Middle-earth Map",
+
+"#Comment": "Widget UI Map Marker",
+  "widget.me.spawn_tooltip_title": "Spawns",
+  "widget.me.marker.selected_title_container.before": "[",
+  "widget.me.marker.selected_title_container.after": "]",
+  "widget.me.marker.margin_front": "   ",
+  "widget.me.marker.more": "More ...",
 
 "#Comment": "UI Search",
   "ui.me.search.label" : "Search...",

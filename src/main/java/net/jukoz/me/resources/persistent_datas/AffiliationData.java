@@ -2,13 +2,18 @@ package net.jukoz.me.resources.persistent_datas;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.exceptions.FactionIdentifierException;
-import net.jukoz.me.resources.ModFactionRegistry;
 import net.jukoz.me.resources.datas.Alignment;
-import net.jukoz.me.resources.datas.faction.Faction;
+import net.jukoz.me.resources.datas.factions.Faction;
+import net.jukoz.me.resources.datas.factions.FactionLookup;
+import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.dimension.ModDimensions;
+import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import org.joml.Vector2d;
 import org.joml.Vector2i;
 
 public class AffiliationData {
@@ -16,10 +21,10 @@ public class AffiliationData {
     public Identifier faction;
     public Identifier spawnId;
 
-    public AffiliationData(String alignment, String factionIdPath, String spawnIdPath) {
+    public AffiliationData(String alignment, Identifier factionId, Identifier spawnId) {
         this.alignment = Alignment.valueOf(alignment);
-        this.faction = Identifier.of(MiddleEarth.MOD_ID, factionIdPath);
-        this.spawnId = Identifier.of(MiddleEarth.MOD_ID, spawnIdPath);
+        this.faction = factionId;
+        this.spawnId = spawnId;
     }
 
 
@@ -27,25 +32,26 @@ public class AffiliationData {
         return alignment;
     }
 
-    public Vec3d getMiddleEarthSpawnCoordinate(){
+    public Vec3d getSpawnMiddleEarthCoordinate(World world){
         try{
-            Faction foundFaction = ModFactionRegistry.findFactionById(faction);
-            Vector2i dynamicSpawnFound = foundFaction.getSpawnData().findDynamicSpawn(spawnId);
-            // Return dynamic spawn with dimension height
-            if(dynamicSpawnFound != null){
-                double y = ModDimensions.getDimensionHeight(dynamicSpawnFound.x, dynamicSpawnFound.y).y;
-                return new Vec3d(dynamicSpawnFound.x, y, dynamicSpawnFound.y);
+            Faction foundFaction = FactionLookup.getFactionById(world,faction);
+            SpawnData spawnData = foundFaction.getSpawnData().findSpawn(spawnId);
+            Vec3d spawnCoordinate = spawnData.getCoordinates();
+            if(spawnData.isDynamic()){
+                Vector2d foundCoordinate = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(spawnCoordinate.getX(), spawnCoordinate.getZ());
+                double y = ModDimensions.getDimensionHeight((int) foundCoordinate.x, (int)foundCoordinate.y).y;
+                return new Vec3d(spawnCoordinate.getX(), y, spawnCoordinate.getY());
             }
             // Return custom spawn
-            return foundFaction.getSpawnData().findCustomSpawn(spawnId);
+            return spawnCoordinate;
         } catch (FactionIdentifierException e){
-            LoggerUtil.logError("AffiliationData::getMiddleEarthSpawnCoordinate", e);
+            LoggerUtil.logError("AffiliationData::getSpawnMiddleEarthCoordinate", e);
             return null;
         }
     }
 
     @Override
     public String toString() {
-        return "AffiliationData{Alignment=" + getAlignment().toString() + "; Faction=" + faction + "; Spawn=" + spawnId + ";}";
+        return "Alignment=" + getAlignment().toString() + ";\nFaction=" + faction + ";\nSpawn=" + spawnId + ";";
     }
 }
