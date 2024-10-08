@@ -9,9 +9,8 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
-import java.util.Optional;
 
-public class NpcPreview {
+public class NpcGearData {
     public final HashMap<EquipmentSlot, ItemStack> data;
 
     /**
@@ -23,25 +22,20 @@ public class NpcPreview {
      * @param mainHand Item on the left of the entity
      * @param offHand Item on the right of the entity
      */
-    public NpcPreview(Item head, Item chest, Item legs, Item feet, Item mainHand, Item offHand){
+    public NpcGearData(Item head, Item chest, Item legs, Item feet, Item mainHand, Item offHand){
         data = new HashMap<>();
         assignItems(head, chest, legs, feet, mainHand, offHand);
     }
 
-    public NpcPreview(Optional<NbtCompound> optionalPreviewGearNbt) {
+    public NpcGearData(NbtCompound gearNbt) {
         this.data = new HashMap<>();
-
-        if(optionalPreviewGearNbt.isEmpty()){
-            return;
-        }
-        NbtCompound compound = optionalPreviewGearNbt.get();
         assignItems(
-                getItem(compound.getString(EquipmentSlot.HEAD.asString())),
-                getItem(compound.getString(EquipmentSlot.CHEST.asString())),
-                getItem(compound.getString(EquipmentSlot.LEGS.asString())),
-                getItem(compound.getString(EquipmentSlot.FEET.asString())),
-                getItem(compound.getString(EquipmentSlot.MAINHAND.asString())),
-                getItem(compound.getString(EquipmentSlot.OFFHAND.asString()))
+                getItem(gearNbt.getString(EquipmentSlot.HEAD.asString())),
+                getItem(gearNbt.getString(EquipmentSlot.CHEST.asString())),
+                getItem(gearNbt.getString(EquipmentSlot.LEGS.asString())),
+                getItem(gearNbt.getString(EquipmentSlot.FEET.asString())),
+                getItem(gearNbt.getString(EquipmentSlot.MAINHAND.asString())),
+                getItem(gearNbt.getString(EquipmentSlot.OFFHAND.asString()))
         );
     }
 

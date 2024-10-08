@@ -5,7 +5,7 @@ import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
 import net.jukoz.me.resources.datas.races.Race;
-import net.jukoz.me.resources.datas.factions.data.NpcPreview;
+import net.jukoz.me.resources.datas.factions.data.NpcGearData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -111,7 +111,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         this.tickHoldingStart = 0;
     }
 
-    public void updateEntity(NpcPreview data, Race race, World world) {
+    public void updateEntity(NpcGearData data, Race race, World world) {
         if(world != null)
             haveBeenInitialized = true;
 
@@ -126,7 +126,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         this.entity = entity;
     }
 
-    private void updateEquipment(NpcPreview data){
+    private void updateEquipment(NpcGearData data){
         if(data == null) {
             this.entity = null;
             return;

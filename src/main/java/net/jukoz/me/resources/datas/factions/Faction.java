@@ -7,12 +7,11 @@ import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
-import net.jukoz.me.resources.datas.factions.data.NpcPreview;
+import net.jukoz.me.resources.datas.factions.data.NpcGearData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.utils.IdentifierUtil;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.nbt.NbtCompound;
@@ -24,11 +23,7 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-import javax.swing.text.html.Option;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 public class Faction {
@@ -52,7 +47,7 @@ public class Faction {
     private final Alignment alignment;
     private final FactionType factionType;
     private final Identifier parentFactionId;
-    private final HashMap<Race, NpcPreview> racePreviews;
+    private final HashMap<Race, List<NpcGearData>> npcGears;
     private final BannerData bannerData;
     private final SpawnDataHandler spawnDataHandler;
     private List<Identifier> subFactions = null;
@@ -72,11 +67,17 @@ public class Faction {
             this.subFactions.addAll(newSubFactions.get());
         }
 
-        this.racePreviews = new HashMap<>();
+        this.npcGears = new HashMap<>();
         NbtList raceList = races.getList("races", NbtType.COMPOUND);
         for(int i = 0; i < raceList.size(); i++){
             NbtCompound nbt = raceList.getCompound(i);
-            this.racePreviews.put(RaceLookup.getRaceFromString(nbt.getString("race")), new NpcPreview(Optional.ofNullable(nbt.getCompound("preview"))));
+            NbtList npcGears = nbt.getList("gears", NbtType.COMPOUND);
+            List<NpcGearData> npcGearDatas = new ArrayList<>();
+            for(int j = 0; j < npcGears.size(); j++) {
+                NbtCompound compound = npcGears.getCompound(j);
+                npcGearDatas.add(new NpcGearData(compound));
+            }
+            this.npcGears.put(RaceLookup.getRaceFromString(nbt.getString("race")), npcGearDatas);
         }
 
         this.bannerData = new BannerData(bannerDataNbt);
@@ -88,18 +89,18 @@ public class Faction {
         leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
     }
 
-    public Faction(String name, Alignment alignment, FactionType factionType, Identifier parentFactionId, List<Identifier> subFactions, HashMap<Race, NpcPreview> races, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
+    public Faction(String name, Alignment alignment, FactionType factionType, Identifier parentFactionId, List<Identifier> subFactions, HashMap<Race, List<NpcGearData>> races, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
         this.id = IdentifierUtil.getIdentifierFromString(name);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.alignment = alignment;
         this.factionType = factionType;
         this.parentFactionId = parentFactionId;
         this.subFactions = subFactions;
-        this.racePreviews = new HashMap<>();
+        this.npcGears = new HashMap<>();
         if(races != null) {
             for (Race race : races.keySet()){
-                NpcPreview previewData = races.get(race);
-                this.racePreviews.put(race, previewData);
+                List<NpcGearData> npcGears = races.get(race);
+                this.npcGears.put(race, npcGears);
             }
         }
         this.bannerData = bannerData;;
@@ -122,15 +123,20 @@ public class Faction {
     }
     public NbtCompound getPreviewGearNbt() {
         NbtList list = new NbtList();
-        for(Race race : this.racePreviews.keySet()){
+        for(Race race : this.npcGears.keySet()){
             NbtCompound nbt = new NbtCompound();
-            NpcPreview npcPreviewData = this.racePreviews.get(race);
-            nbt.putString("race", race.getId().toString());
-            NbtCompound nbtPreview = new NbtCompound();
-            for(EquipmentSlot slot : npcPreviewData.data.keySet()){
-                nbtPreview.putString(slot.name().toLowerCase(), npcPreviewData.get(slot).getItem().toString());
+            List<NpcGearData> npcGearDatas = this.npcGears.get(race);
+            NbtList gears = new NbtList();
+            for(NpcGearData npcGearData : npcGearDatas){
+                NbtCompound nbtGears = new NbtCompound();
+                for(EquipmentSlot slot : npcGearData.data.keySet()){
+                    nbtGears.putString(slot.name().toLowerCase(), npcGearData.get(slot).getItem().toString());
+                }
+                gears.add(nbtGears);
             }
-            nbt.put("preview", nbtPreview);
+            nbt.putString("race", race.getId().toString());
+            nbt.put("gears", gears);
+
             list.add(nbt);
         }
         NbtCompound nbt = new NbtCompound();
@@ -172,8 +178,12 @@ public class Faction {
     return id.toString();
     }
 
-    public NpcPreview getPreviewGear(Race race){
-        return racePreviews.get(race);
+    public NpcGearData getPreviewGear(Race race){
+        if(!npcGears.containsKey(race)) return null;
+        if(npcGears.get(race).size() == 1) return npcGears.get(race).get(0);
+        Random random = new Random();
+        int index = random.nextInt(0, npcGears.get(race).size());
+        return npcGears.get(race).get(index);
     }
 
     public DyeColor getBaseBannerColor(){
@@ -239,6 +249,6 @@ public class Faction {
     }
 
     public List<Race> getRaces() {
-        return racePreviews.keySet().stream().toList();
+        return npcGears.keySet().stream().toList();
     }
 }

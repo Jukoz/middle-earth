@@ -1,6 +1,5 @@
 package net.jukoz.me.client.screens.controllers;
 
-import it.unimi.dsi.fastutil.Hash;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.client.screens.FactionSelectionScreen;
 import net.jukoz.me.network.packets.C2S.*;
@@ -8,7 +7,7 @@ import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
-import net.jukoz.me.resources.datas.factions.data.NpcPreview;
+import net.jukoz.me.resources.datas.factions.data.NpcGearData;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.resources.datas.races.Race;
@@ -19,7 +18,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.joml.Vector2d;
 import org.joml.Vector2i;
 
 import java.util.*;
@@ -293,9 +291,9 @@ public class FactionSelectionController {
         return factions;
     }
 
-    public NpcPreview getCurrentPreview() {
+    public NpcGearData getCurrentPreview() {
         Faction currentFaction = getCurrentlySelectedFaction();
-        NpcPreview data = currentFaction.getPreviewGear(races.get(currentRaceIndex));
+        NpcGearData data = currentFaction.getPreviewGear(races.get(currentRaceIndex));
         return data;
     }
 
