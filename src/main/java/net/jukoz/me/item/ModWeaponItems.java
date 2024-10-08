@@ -34,7 +34,7 @@ public class ModWeaponItems {
     public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.STEEL), false);
     public static final Item BURZUM_STEEL_SWORD = registerItemWithModel("burzum_steel_sword",
-            new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL), true);
+            new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL), false);
     public static final Item EDHEL_STEEL_SWORD = registerItemWithModel("edhel_steel_sword",
             new CustomSwordWeaponItem(ModToolMaterials.EDHEL_STEEL), false);
     public static final Item KHAZAD_STEEL_SWORD = registerItemWithModel("khazad_steel_sword",
@@ -51,9 +51,6 @@ public class ModWeaponItems {
     public static final Item IRON_DAGGER = registerItemWithModel("iron_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.IRON), false);
 
-    public static final Item BURZUM_STEEL_KNIFE = registerItemWithModel("burzum_steel_knife",
-            new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL), false);
-
     public static final Item GOLDEN_DAGGER = registerItemWithModel("golden_dagger",
             new CustomDaggerWeaponItem(ToolMaterials.GOLD), false);
     public static final Item DIAMOND_DAGGER = registerItemWithModel("diamond_dagger",
@@ -63,9 +60,6 @@ public class ModWeaponItems {
 
     public static final Item CRUDE_LONGBLADE = registerItemWithModel("crude_longblade",
             new CustomLongswordWeaponItem(ModToolMaterials.CRUDE), true);
-
-    public static final Item BURZUM_STEEL_BROADBLADE = registerItemWithModel("burzum_steel_broadblade",
-            new CustomLongswordWeaponItem(ModToolMaterials.BURZUM_STEEL), true);
 
     public static final Item WOODEN_SPEAR = registerItemWithSpearModel("wooden_spear",
             new CustomSpearWeaponItem(ToolMaterials.WOOD));
