@@ -7,6 +7,7 @@ import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.minecraft.util.Identifier;
@@ -36,14 +37,13 @@ public class AffiliationData {
         try{
             Faction foundFaction = FactionLookup.getFactionById(world,faction);
             SpawnData spawnData = foundFaction.getSpawnData().findSpawn(spawnId);
-            Vec3d spawnCoordinate = spawnData.getCoordinates();
-            if(spawnData.isDynamic()){
-                Vector2d foundCoordinate = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(spawnCoordinate.getX(), spawnCoordinate.getZ());
-                double y = ModDimensions.getDimensionHeight((int) foundCoordinate.x, (int)foundCoordinate.y).y;
-                return new Vec3d(spawnCoordinate.getX(), y, spawnCoordinate.getY());
+            BlockPos blockpos = spawnData.getBlockPos();
+            if(!spawnData.isDynamic()){ // Return custom spawn coords
+                return blockpos.toCenterPos();
             }
-            // Return custom spawn
-            return spawnCoordinate;
+            int height = ModDimensions.getDimensionHeight(blockpos.getX(), blockpos.getZ()).y;
+            blockpos = new BlockPos(blockpos.getX(), height, blockpos.getZ());
+            return blockpos.toCenterPos();
         } catch (FactionIdentifierException e){
             LoggerUtil.logError("AffiliationData::getSpawnMiddleEarthCoordinate", e);
             return null;
