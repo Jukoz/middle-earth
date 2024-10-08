@@ -39,6 +39,7 @@ public class FactionSelectionController {
     private int currentSpawnIndex;
     private AbstractClientPlayerEntity player;
     private FactionSelectionScreen screen;
+    public boolean mapFocusToggle = true;
 
     public FactionSelectionController(FactionSelectionScreen screen, AbstractClientPlayerEntity player){
         this.player = player;
@@ -308,7 +309,7 @@ public class FactionSelectionController {
             currentSpawnIndex = Math.min(spawns.size() - 1, Math.max(0, index));
         if(screen.mapWidget != null){
             screen.mapWidget.updateSelectedSpawn(index);
-            if(screen.mapFocusToggle){
+            if(mapFocusToggle){
                 BlockPos blockPos = spawns.get(currentSpawnIndex).getBlockPos();
                 Vector2i point = new Vector2i(blockPos.getX(), blockPos.getZ());
                 screen.mapWidget.moveTo(point,5f);
@@ -334,5 +335,9 @@ public class FactionSelectionController {
             }
         }
         return pool;
+    }
+
+    public void toggleMapFocus() {
+        mapFocusToggle = !mapFocusToggle;
     }
 }

@@ -56,7 +56,6 @@ public class FactionSelectionScreen extends Screen {
     public ButtonWidget mapZoomInButton;
     public ButtonWidget mapZoomOutButton;
     public ButtonWidget mapFocusButton;
-    public boolean mapFocusToggle = false;
     public FactionSelectionMapWidget mapWidget;
     private CycledSelectionWidget raceCycledSelection;
     private CycledSelectionWidget spawnPointCycledSelection;
@@ -92,11 +91,8 @@ public class FactionSelectionScreen extends Screen {
         mapWidget.selectSpawn(controller.getCurrentSpawnIndex());
         mapWidget.updateSelectedSpawn(controller.getCurrentSpawnIndex());
         addMapPanelButtonsAndWidgets();
-
         addDrawableChild(searchBarWidget.getScreenClickButton());
     }
-
-
 
     /**
      * Add all faction selection buttons
@@ -178,7 +174,7 @@ public class FactionSelectionScreen extends Screen {
         mapFocusButton = ButtonWidget.builder(
                 Text.translatable("screen.me.button.focus_current"),
                 button -> {
-                    mapFocusToggle = !mapFocusToggle;
+                    controller.toggleMapFocus();
                     controller.setSpawnIndex(controller.getCurrentSpawnIndex());
                     mapWidget.addCooldown();
                 }).build();
@@ -425,7 +421,9 @@ public class FactionSelectionScreen extends Screen {
         );
 
         mapWidget.drawAnchored(context,startX + 5, startY + 5, true);
-        mapFocusToggle = mapWidget.haveForcedMapTarget();
+        if(controller.mapFocusToggle != mapWidget.haveForcedMapTarget())
+            controller.toggleMapFocus();
+
         // Arbritary
         int buttonStartX = startX + MINIMAL_MARGIN + 2;
         int buttonSize = 10;
@@ -436,7 +434,7 @@ public class FactionSelectionScreen extends Screen {
         // Focus current
         context.drawTexture(MAP_SELECTION,
                 buttonStartX, smallButtonsStartY,
-                235, (mapFocusToggle) ? 20 : mapFocusButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
+                235, (controller.mapFocusToggle) ? 20 : mapFocusButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
                 buttonSize,
                 buttonSize
         );
