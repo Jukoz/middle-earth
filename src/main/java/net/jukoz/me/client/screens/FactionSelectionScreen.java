@@ -250,7 +250,7 @@ public class FactionSelectionScreen extends Screen {
         Faction faction = controller.getCurrentlySelectedFaction();
 
         if(faction != null)
-            playableNpcPreviewWidget.updateEntity(controller.getCurrentPreview(), controller.getCurrentRace(), player.getWorld());
+            playableNpcPreviewWidget.updateEntity(controller.getCurrentPreview(player.getWorld()), controller.getCurrentRace(), player.getWorld());
         else
             playableNpcPreviewWidget.updateToDefaultEntity(player.getWorld());
     }
@@ -268,7 +268,6 @@ public class FactionSelectionScreen extends Screen {
         if(!playableNpcPreviewWidget.keyPressed(keyCode, scanCode, modifiers)
         || !searchBarWidget.keyPressed(keyCode, scanCode, modifiers))
             return true;
-
 
         if(keyCode == KeyEvent.VK_ESCAPE){
             this.close();

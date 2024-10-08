@@ -39,6 +39,10 @@ public class NpcGearData {
         );
     }
 
+    public static NpcGearData Air() {
+        return new NpcGearData(null, null, null, null, null,null);
+    }
+
     public ItemStack get(EquipmentSlot slot) {
         if(!data.containsKey(slot))
             return new ItemStack(Items.AIR);

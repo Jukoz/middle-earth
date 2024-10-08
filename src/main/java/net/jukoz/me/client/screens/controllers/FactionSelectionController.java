@@ -76,7 +76,7 @@ public class FactionSelectionController {
         races = null;
         Faction currentFaction = getCurrentlySelectedFaction();
         if(currentFaction == null) return;
-        races = currentFaction.getRaces();
+        races = currentFaction.getRaces(player.getWorld());
     }
 
 
@@ -291,9 +291,9 @@ public class FactionSelectionController {
         return factions;
     }
 
-    public NpcGearData getCurrentPreview() {
+    public NpcGearData getCurrentPreview(World world) {
         Faction currentFaction = getCurrentlySelectedFaction();
-        NpcGearData data = currentFaction.getPreviewGear(races.get(currentRaceIndex));
+        NpcGearData data = currentFaction.getPreviewGear(world, races.get(currentRaceIndex));
         return data;
     }
 

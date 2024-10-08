@@ -53,7 +53,6 @@ public class AttributeData {
         NbtList list = new NbtList();
 
         for(Identifier id : datas.keySet()){
-            LoggerUtil.logDebugMsg("DATAS:" + id);
             NbtCompound compound = new NbtCompound();
             compound.putString("id", id.toString());
             compound.putDouble("value",  datas.get(id));

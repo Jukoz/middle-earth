@@ -9,11 +9,15 @@ import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
 import net.jukoz.me.resources.datas.factions.data.NpcGearData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
+import net.jukoz.me.resources.datas.npcs.NpcData;
+import net.jukoz.me.resources.datas.npcs.NpcDataLookup;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.utils.IdentifierUtil;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.Npc;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.text.MutableText;
@@ -33,28 +37,29 @@ public class Faction {
             Codec.STRING.fieldOf("alignment").forGetter(Faction::getAlignmentString),
             Codec.STRING.fieldOf("faction_type").forGetter(Faction::getFactionTypeString),
             Identifier.CODEC.optionalFieldOf("parent_faction").forGetter(Faction::getParentFactionIdentifier),
-            Codec.list(Identifier.CODEC).optionalFieldOf("subfactions").forGetter(Faction::getSubfactionIds),
-            NbtCompound.CODEC.fieldOf("races").forGetter(Faction::getPreviewGearNbt),
+            Codec.list(Identifier.CODEC).optionalFieldOf("subfaction").forGetter(Faction::getSubfactionIds),
+            Codec.list(Codec.STRING).optionalFieldOf("race").forGetter(Faction::getRaceValues),
+            Codec.list(Codec.STRING).optionalFieldOf("npc").forGetter(Faction::getNpcValues),
             NbtCompound.CODEC.optionalFieldOf("banner").forGetter(Faction::getBannerNbt),
             NbtCompound.CODEC.optionalFieldOf("spawns").forGetter(Faction::getSpawnDataNbt),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Faction::getJoinCommands),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Faction::getLeaveCommands)
         ).apply(instance, Faction::new));
 
-
     private final Identifier id;
     private final String translatableKey;
     private final Alignment alignment;
     private final FactionType factionType;
     private final Identifier parentFactionId;
-    private final HashMap<Race, List<NpcGearData>> npcGears;
+    private final List<Identifier> raceIds;
+    private final List<Identifier> npcIds;
     private final BannerData bannerData;
     private final SpawnDataHandler spawnDataHandler;
     private List<Identifier> subFactions = null;
     private List<String> joinCommands;
     private List<String> leaveCommands;
 
-    public Faction(String id, String alignment, String factionType, Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, NbtCompound races, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
+    public Faction(String id, String alignment, String factionType, Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<List<String>> races, Optional<List<String>> npcs, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
         this.id = IdentifierUtil.getIdentifierFromString(id);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
 
@@ -67,18 +72,17 @@ public class Faction {
             this.subFactions.addAll(newSubFactions.get());
         }
 
-        this.npcGears = new HashMap<>();
-        NbtList raceList = races.getList("races", NbtType.COMPOUND);
-        for(int i = 0; i < raceList.size(); i++){
-            NbtCompound nbt = raceList.getCompound(i);
-            NbtList npcGears = nbt.getList("gears", NbtType.COMPOUND);
-            List<NpcGearData> npcGearDatas = new ArrayList<>();
-            for(int j = 0; j < npcGears.size(); j++) {
-                NbtCompound compound = npcGears.getCompound(j);
-                npcGearDatas.add(new NpcGearData(compound));
-            }
-            this.npcGears.put(RaceLookup.getRaceFromString(nbt.getString("race")), npcGearDatas);
-        }
+        this.raceIds = new ArrayList<>();
+        races.ifPresent(elements -> {
+            for(String element : elements)
+                this.raceIds.add(IdentifierUtil.getIdentifierFromString(element));
+        });
+
+        this.npcIds = new ArrayList<>();
+        npcs.ifPresent(elements -> {
+            for(String element : elements)
+                this.npcIds.add(IdentifierUtil.getIdentifierFromString(element));
+        });
 
         this.bannerData = new BannerData(bannerDataNbt);
         this.spawnDataHandler = new SpawnDataHandler(spawnsNbt);
@@ -89,19 +93,26 @@ public class Faction {
         leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
     }
 
-    public Faction(String name, Alignment alignment, FactionType factionType, Identifier parentFactionId, List<Identifier> subFactions, HashMap<Race, List<NpcGearData>> races, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
+    public Faction(String name, Alignment alignment, FactionType factionType, Identifier parentFactionId, List<Identifier> subFactions, List<Race> races, List<NpcData> npcs, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
         this.id = IdentifierUtil.getIdentifierFromString(name);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.alignment = alignment;
         this.factionType = factionType;
         this.parentFactionId = parentFactionId;
         this.subFactions = subFactions;
-        this.npcGears = new HashMap<>();
-        if(races != null) {
-            for (Race race : races.keySet()){
-                List<NpcGearData> npcGears = races.get(race);
-                this.npcGears.put(race, npcGears);
-            }
+        if(races == null || races.isEmpty()){
+            this.raceIds = null;
+        } else{
+            this.raceIds = new ArrayList<>();
+            for(Race race : races)
+                this.raceIds.add(race.getId());
+        }
+        if(npcs == null || npcs.isEmpty()){
+            this.npcIds = null;
+        } else{
+            this.npcIds = new ArrayList<>();
+            for(NpcData npc : npcs)
+                this.npcIds.add(npc.getId());
         }
         this.bannerData = bannerData;;
         this.spawnDataHandler = spawnDataHandler;
@@ -121,28 +132,6 @@ public class Faction {
     public Identifier getParentFactionId() {
         return parentFactionId;
     }
-    public NbtCompound getPreviewGearNbt() {
-        NbtList list = new NbtList();
-        for(Race race : this.npcGears.keySet()){
-            NbtCompound nbt = new NbtCompound();
-            List<NpcGearData> npcGearDatas = this.npcGears.get(race);
-            NbtList gears = new NbtList();
-            for(NpcGearData npcGearData : npcGearDatas){
-                NbtCompound nbtGears = new NbtCompound();
-                for(EquipmentSlot slot : npcGearData.data.keySet()){
-                    nbtGears.putString(slot.name().toLowerCase(), npcGearData.get(slot).getItem().toString());
-                }
-                gears.add(nbtGears);
-            }
-            nbt.putString("race", race.getId().toString());
-            nbt.put("gears", gears);
-
-            list.add(nbt);
-        }
-        NbtCompound nbt = new NbtCompound();
-        nbt.put("races", list);
-        return nbt;
-    }
 
     private Optional<List<Identifier>> getSubfactionIds() {
         if(this.subFactions == null)
@@ -159,6 +148,24 @@ public class Faction {
             return Optional.empty();
 
         return this.spawnDataHandler.serializeNbt();
+    }
+
+    public Optional<List<String>> getNpcValues() {
+        if(this.npcIds == null)
+            return Optional.empty();
+        List<String> newList = new ArrayList<>();
+        for(Identifier id : this.npcIds)
+            newList.add(id.toString());
+        return Optional.of(newList);
+    }
+
+    public Optional<List<String>> getRaceValues() {
+        if(this.raceIds == null)
+            return Optional.empty();
+        List<String> newList = new ArrayList<>();
+        for(Identifier id : this.raceIds)
+            newList.add(id.toString());
+        return Optional.of(newList);
     }
 
     public Optional<List<String>> getJoinCommands() {
@@ -178,12 +185,13 @@ public class Faction {
     return id.toString();
     }
 
-    public NpcGearData getPreviewGear(Race race){
-        if(!npcGears.containsKey(race)) return null;
-        if(npcGears.get(race).size() == 1) return npcGears.get(race).get(0);
+    public NpcGearData getPreviewGear(World world, Race selectedRace){
+        List<NpcData> npcDataList = NpcDataLookup.getAllNpcDatasFromRace(world, npcIds, selectedRace.getId());
+        if(npcDataList.isEmpty())
+            return NpcGearData.Air();
         Random random = new Random();
-        int index = random.nextInt(0, npcGears.get(race).size());
-        return npcGears.get(race).get(index);
+        NpcData foundNpcData = npcDataList.get(random.nextInt(0, npcDataList.size()));
+        return foundNpcData.getGear();
     }
 
     public DyeColor getBaseBannerColor(){
@@ -248,7 +256,7 @@ public class Faction {
         return world.getRegistryManager().get(MiddleEarthFactions.FACTION_KEY).get(id);
     }
 
-    public List<Race> getRaces() {
-        return npcGears.keySet().stream().toList();
+    public List<Race> getRaces(World world) {
+        return RaceLookup.getAllRaces(world, raceIds);
     }
 }

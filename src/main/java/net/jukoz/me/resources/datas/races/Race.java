@@ -66,7 +66,6 @@ public class Race {
         this.attributeData = attributeData;
         this.joinCommands = joinCommands;
         this.leaveCommands = leaveCommands;
-        RaceLookup.addRace(this);
     }
 
     public Identifier getId() {

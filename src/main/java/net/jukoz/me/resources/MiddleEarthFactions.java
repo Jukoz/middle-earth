@@ -13,6 +13,7 @@ import net.jukoz.me.resources.datas.factions.data.BannerData;
 import net.jukoz.me.resources.datas.factions.data.NpcGearData;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.item.Items;
 import net.minecraft.registry.*;
@@ -49,6 +50,7 @@ public class MiddleEarthFactions {
     public final static Faction SHIRE;
 
     public static void register(){
+        LoggerUtil.logDebugMsg("Registering Dynamic Factions for " + MiddleEarth.MOD_ID);
         DynamicRegistries.registerSynced(FACTION_KEY, Faction.CODEC);
     }
 
@@ -92,18 +94,11 @@ public class MiddleEarthFactions {
     static {
         // region [GONDOR]
         GONDOR = new Faction("gondor", Alignment.GOOD, FactionType.FACTION, null, null,
-                new HashMap<>(){{
-                    put(MiddleEarthRaces.HUMAN, List.of(
-                            new NpcGearData(
-                                    ModEquipmentItems.GONDORIAN_PLATE_HELMET,
-                                    ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE,
-                                    ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS,
-                                    ModEquipmentItems.GONDORIAN_PLATE_BOOTS,
-                                    ModWeaponItems.GONDORIAN_NOBLE_SPEAR,
-                                    ModEquipmentItems.GONDORIAN_SHIELD
-                            )
-                    ));
-                }},
+                List.of(MiddleEarthRaces.HUMAN),
+                List.of(
+                        MiddleEarthNpcs.GONDOR_MILITIA,
+                        MiddleEarthNpcs.GONDOR_SOLDIER
+                ),
                 new BannerData(DyeColor.BLACK, List.of(
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.GONDOR_BANNER_PATTERN.getValue(), DyeColor.WHITE)
                 )),
@@ -123,18 +118,10 @@ public class MiddleEarthFactions {
         // endregion
         // region [ROHAN]
         ROHAN = new Faction("rohan", Alignment.GOOD, FactionType.FACTION, null,null,
-                new HashMap<>(){{
-                    put(MiddleEarthRaces.HUMAN, List.of(
-                            new NpcGearData(
-                                    ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_HELMET,
-                                    ModEquipmentItems.ROHIRRIC_SCALE_HAUBERK,
-                                    ModEquipmentItems.ROHIRRIC_SCALE_JACKET,
-                                    ModEquipmentItems.STURDY_BOOTS,
-                                    ModWeaponItems.ROHIRRIC_NOBLE_SPEAR,
-                                    ModEquipmentItems.ROHIRRIC_BUCKING_HORSE_SHIELD
-                            )
-                    ));
-                }},
+                List.of(MiddleEarthRaces.HUMAN),
+                List.of(
+                        MiddleEarthNpcs.ROHAN_MILITIA
+                ),
                 new BannerData(DyeColor.GREEN, List.of(
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.ROHAN_BANNER_PATTERN.getValue(), DyeColor.WHITE)
                 )),
@@ -150,18 +137,10 @@ public class MiddleEarthFactions {
         //endregion
         //region [DALE]
         DALE = new Faction("dale", Alignment.GOOD, FactionType.FACTION, null,null,
-                new HashMap<>(){{
-                    put(MiddleEarthRaces.HUMAN, List.of(
-                            new NpcGearData(
-                                    ModEquipmentItems.DALISH_BURGONET,
-                                    ModEquipmentItems.DALISH_SCALE_HAUBERK,
-                                    ModEquipmentItems.DALISH_CHAIN_COAT,
-                                    ModEquipmentItems.DALISH_BOOTS,
-                                    ModWeaponItems.DALISH_NOBLE_SPEAR,
-                                    ModEquipmentItems.DALISH_HEYDAY_ROUND_SHIELD
-                            )
-                    ));
-                }},
+                List.of(MiddleEarthRaces.HUMAN),
+                List.of(
+                        MiddleEarthNpcs.DALE_MILITIA
+                ),
                 new BannerData(DyeColor.LIGHT_BLUE, List.of(
                         new BannerData.BannerPatternWithColor(BannerPatterns.BORDER.getValue(), DyeColor.BLUE),
                         new BannerData.BannerPatternWithColor(BannerPatterns.CIRCLE.getValue(), DyeColor.YELLOW)
@@ -175,22 +154,13 @@ public class MiddleEarthFactions {
         // region [LONGBEARDS]
         LONGBEARDS = new Faction("longbeards", Alignment.GOOD, FactionType.FACTION,null,
                 List.of(Identifier.of(MiddleEarth.MOD_ID, "longbeards.erebor")),
-                null, null, null,null, null);
-
+                List.of(), List.of(), null, null, List.of(), List.of());
 
         LONGBEARDS_EREBOR = new Faction(LONGBEARDS.getName().concat(".erebor"), Alignment.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
-                new HashMap<>(){{
-                    put(MiddleEarthRaces.DWARF, List.of(
-                            new NpcGearData(
-                                    ModEquipmentItems.EREBOR_GATEWARDEN_HELMET,
-                                    ModEquipmentItems.EREBOR_GATEWARDEN_CHESTPLATE,
-                                    ModEquipmentItems.EREBOR_GATEWARDEN_LEGGINGS,
-                                    ModEquipmentItems.EREBOR_GATEWARDEN_BOOTS,
-                                    ModWeaponItems.EREBOR_NOBLE_SPEAR,
-                                    ModEquipmentItems.EREBOR_ORNAMENTED_SHIELD
-                            )
-                    ));
-                }},
+                List.of(MiddleEarthRaces.DWARF),
+                List.of(
+                        MiddleEarthNpcs.EREBOR_MILITIA
+                ),
                 new BannerData(DyeColor.BLUE, List.of(
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.GRAY),
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.LONGBEARD_BANNER_PATTERN.getValue(), DyeColor.WHITE)
@@ -207,18 +177,10 @@ public class MiddleEarthFactions {
         // endregion
         // region [LOTHLORIEN]
         LOTHLORIEN = new Faction("lothlorien", Alignment.GOOD, FactionType.FACTION, null, null,
-                new HashMap<>(){{
-                    put(MiddleEarthRaces.ELF, List.of(
-                            new NpcGearData(
-                                    ModEquipmentItems.LORIEN_SOLDIER_HELMET,
-                                    ModEquipmentItems.LORIEN_SOLDIER_CHAIN_HAUBERK,
-                                    ModEquipmentItems.LORIEN_ARMING_SKIRT,
-                                    ModEquipmentItems.ELVEN_BOOTS,
-                                    ModWeaponItems.LORIEN_NOBLE_SPEAR,
-                                    ModEquipmentItems.LORIEN_MALLORN_SHIELD
-                            )
-                    ));
-                }},
+                List.of(MiddleEarthRaces.ELF),
+                List.of(
+                        MiddleEarthNpcs.LOTHLORIEN_MILITIA
+                ),
                 new BannerData(DyeColor.WHITE, List.of(
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.YELLOW),
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.LOTHLORIEN_BANNER_PATTERN.getValue(), DyeColor.YELLOW)
@@ -231,28 +193,11 @@ public class MiddleEarthFactions {
         // endregion
         //region [MORDOR]
         MORDOR = new Faction("mordor", Alignment.EVIL, FactionType.FACTION, null,null,
-                new HashMap<>(){{
-                    put(MiddleEarthRaces.ORC, List.of(
-                            new NpcGearData(
-                                    ModEquipmentItems.MORDOR_ORC_OVERSIGHT_HELMET,
-                                    ModEquipmentItems.MORDOR_ORC_CHESTPLATE,
-                                    ModEquipmentItems.MORDOR_ORC_SCALE_COAT,
-                                    ModEquipmentItems.ORC_PLATE_BOOTS,
-                                    ModWeaponItems.MORDOR_FALCHION,
-                                    ModEquipmentItems.HEATER_SHIELD
-                            )
-                    ));
-                    put(MiddleEarthRaces.URUK, List.of(
-                            new NpcGearData(
-                                    ModEquipmentItems.BLACK_URUK_PLATE_HELMET,
-                                    ModEquipmentItems.BLACK_URUK_PLATE_CHESTPLATE,
-                                    ModEquipmentItems.BLACK_URUK_PLATE_LEGGINGS,
-                                    ModEquipmentItems.BLACK_URUK_PLATE_BOOTS,
-                                    ModWeaponItems.MORDOR_ELITE_SPEAR,
-                                    ModEquipmentItems.HEATER_SHIELD
-                            )
-                    ));
-                }},
+                List.of(MiddleEarthRaces.ORC, MiddleEarthRaces.URUK),
+                List.of(
+                        MiddleEarthNpcs.MORDOR_ORC_MILITIA,
+                        MiddleEarthNpcs.BLACK_URUK_SOLDIER
+                ),
                 new BannerData(DyeColor.BLACK, List.of(
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.GRAY),
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.MORDOR_GREAT_EYE_BANNER_PATTERN.getValue(), DyeColor.RED)
@@ -268,28 +213,11 @@ public class MiddleEarthFactions {
         //endregion
         // region [MISTY MOUNTAINS GOBLINS]
         MISTY_MOUNTAINS_GOBLINS = new Faction("misty_mountains_goblins", Alignment.EVIL, FactionType.FACTION, null,null,
-                new HashMap<>(){{
-                    put(MiddleEarthRaces.ORC, List.of(
-                            new NpcGearData(
-                                    ModEquipmentItems.ORC_SALLET,
-                                    ModEquipmentItems.ORC_GORGET_HAUBERK,
-                                    ModEquipmentItems.ORC_MAIL_COAT,
-                                    ModEquipmentItems.ORC_PLATE_BOOTS,
-                                    ModWeaponItems.ORC_SPEAR,
-                                    ModEquipmentItems.HEATER_SHIELD
-                            )
-                    ));
-                    put(MiddleEarthRaces.URUK, List.of(
-                            new NpcGearData(
-                                    ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET,
-                                    ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE,
-                                    ModEquipmentItems.GUNDABAD_HOBGOBLIN_CHAIN_COAT,
-                                    ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATED_BOOTS,
-                                    ModWeaponItems.ORC_AXE,
-                                    ModEquipmentItems.MISTY_MOUNTAINS_SHIELD
-                            )
-                    ));
-                }},
+                List.of(MiddleEarthRaces.ORC, MiddleEarthRaces.URUK),
+                List.of(
+                        MiddleEarthNpcs.MISTY_GOBLIN_MILITIA,
+                        MiddleEarthNpcs.MISTY_HOBGOBLIN_SOLDIER
+                ),
                 new BannerData(DyeColor.BROWN, List.of(
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.BLACK),
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.MISTY_MOUNTAINS_ORCS_PEAKS_BANNER_PATTERN.getValue(), DyeColor.RED)
@@ -304,59 +232,26 @@ public class MiddleEarthFactions {
         // endregion
         // region [ISENGARD]
         ISENGARD = new Faction("isengard", Alignment.EVIL, FactionType.FACTION, null,null,
-                new HashMap<>(){{
-                    put(MiddleEarthRaces.ORC, List.of(
-                            new NpcGearData(
-                                    ModEquipmentItems.URUK_HAI_LEATHER_SCOUT_CAP,
-                                    ModEquipmentItems.ORC_GORGET_HAUBERK,
-                                    null,
-                                    ModEquipmentItems.STURDY_BOOTS,
-                                    ModWeaponItems.ISENGARD_ORC_SPEAR,
-                                    ModEquipmentItems.URUK_HAI_HEATER_SHIELD
-                            )
-                    ));
-                    put(MiddleEarthRaces.URUK, List.of(
-                            new NpcGearData(
-                                    ModEquipmentItems.URUK_HAI_PLATE_PAINTED_HELMET,
-                                    ModEquipmentItems.URUK_HAI_PLATE_CHESTPLATE,
-                                    ModEquipmentItems.URUK_HAI_PLATE_LEGGINGS,
-                                    ModEquipmentItems.URUK_HAI_PLATE_BOOTS,
-                                    ModWeaponItems.URUK_HAI_FALCHION,
-                                    ModEquipmentItems.URUK_HAI_WHITE_HAND_SHIELD
-                            )
-                    ));
-                    // TODO : add humans? No proper assets for them
-                }},
-                new BannerData(DyeColor.BLACK, List.of(
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.ISENGARD_BANNER_PATTERN.getValue(), DyeColor.WHITE)
-                )),
-                new SpawnDataHandler(List.of(
-                        new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "isengard.orthanc"), new Vector2d(1402, 1467))
-                )), List.of(), List.of()
+            List.of(MiddleEarthRaces.ORC, MiddleEarthRaces.URUK),
+            List.of(
+                    MiddleEarthNpcs.ISENGARD_ORC_MILITIA,
+                    MiddleEarthNpcs.URUK_HAI_SOLDIER
+            ),
+            // TODO : add humans? No proper assets for them
+            new BannerData(DyeColor.BLACK, List.of(
+                    new BannerData.BannerPatternWithColor(ModBannerPatterns.ISENGARD_BANNER_PATTERN.getValue(), DyeColor.WHITE)
+            )),
+            new SpawnDataHandler(List.of(
+                    new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "isengard.orthanc"), new Vector2d(1402, 1467))
+            )), List.of(), List.of()
         );
         // endregion
         //region [SHIRE]
         SHIRE = new Faction("shire", Alignment.GOOD, FactionType.FACTION, null,null,
-                new HashMap<>(){{
-                    put(MiddleEarthRaces.HOBBIT, List.of(
-                            new NpcGearData(
-                                    ModEquipmentItems.STRAW_HAT,
-                                    null,
-                                    null,
-                                    null,
-                                    ModDecorativeBlocks.WOODEN_BUCKET.asItem(),
-                                    null
-                            ),
-                            new NpcGearData(
-                                    Items.DIAMOND_HELMET,
-                                    null,
-                                    null,
-                                    null,
-                                    ModDecorativeBlocks.WOODEN_BUCKET.asItem(),
-                                    null
-                            )
-                    ));
-                }},
+                List.of(MiddleEarthRaces.HOBBIT),
+                List.of(
+                        MiddleEarthNpcs.HOBBIT_PEASANT
+                ),
                 new BannerData(DyeColor.YELLOW, List.of(
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.GREEN),
                         new BannerData.BannerPatternWithColor(BannerPatterns.CIRCLE.getValue(), DyeColor.YELLOW),

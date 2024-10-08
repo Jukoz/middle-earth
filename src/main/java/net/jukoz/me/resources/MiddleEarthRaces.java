@@ -5,6 +5,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.resources.datas.RaceType;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.datas.races.data.AttributeData;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.Registry;
@@ -20,6 +21,7 @@ public class MiddleEarthRaces {
     public static final RegistryKey<Registry<Race>> RACE_KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
 
     public static void register(){
+        LoggerUtil.logDebugMsg("Registering Dynamic Races for " + MiddleEarth.MOD_ID);
         DynamicRegistries.registerSynced(RACE_KEY, Race.CODEC);
     }
 
