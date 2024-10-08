@@ -155,8 +155,8 @@ public class MiddleEarthFactions {
                             ModEquipmentItems.DALISH_SCALE_HAUBERK,
                             ModEquipmentItems.DALISH_CHAIN_COAT,
                             ModEquipmentItems.DALISH_BOOTS,
-                            ModWeaponItems.DALISH_SWORD,
-                            ModEquipmentItems.ROUND_SHIELD
+                            ModWeaponItems.DALISH_NOBLE_SPEAR,
+                            ModEquipmentItems.DALISH_HEYDAY_ROUND_SHIELD
                     ));
                 }},
                 new BannerData(DyeColor.LIGHT_BLUE, List.of(
@@ -228,18 +228,18 @@ public class MiddleEarthFactions {
                     put(MiddleEarthRaces.ORC, new NpcPreview(
                             ModEquipmentItems.MORDOR_ORC_OVERSIGHT_HELMET,
                             ModEquipmentItems.MORDOR_ORC_CHESTPLATE,
-                            ModEquipmentItems.ORC_MAIL_COAT,
+                            ModEquipmentItems.MORDOR_ORC_SCALE_COAT,
                             ModEquipmentItems.ORC_PLATE_BOOTS,
-                            ModWeaponItems.SLAG_FALCHION,
-                            ModEquipmentItems.MORDOR_SHIELD
+                            ModWeaponItems.MORDOR_FALCHION,
+                            ModEquipmentItems.HEATER_SHIELD
                     ));
                     put(MiddleEarthRaces.URUK, new NpcPreview(
                             ModEquipmentItems.BLACK_URUK_PLATE_HELMET,
                             ModEquipmentItems.BLACK_URUK_PLATE_CHESTPLATE,
                             ModEquipmentItems.BLACK_URUK_PLATE_LEGGINGS,
                             ModEquipmentItems.BLACK_URUK_PLATE_BOOTS,
-                            ModWeaponItems.SLAG_SPEAR,
-                            ModEquipmentItems.MORDOR_SHIELD
+                            ModWeaponItems.MORDOR_ELITE_SPEAR,
+                            ModEquipmentItems.HEATER_SHIELD
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(
@@ -263,15 +263,15 @@ public class MiddleEarthFactions {
                             ModEquipmentItems.ORC_GORGET_HAUBERK,
                             ModEquipmentItems.ORC_MAIL_COAT,
                             ModEquipmentItems.ORC_PLATE_BOOTS,
-                            ModWeaponItems.SLAG_FALCHION,
-                            ModEquipmentItems.MISTY_MOUNTAINS_SHIELD
+                            ModWeaponItems.ORC_SPEAR,
+                            ModEquipmentItems.HEATER_SHIELD
                     ));
                     put(MiddleEarthRaces.URUK, new NpcPreview(
                             ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET,
                             ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE,
                             ModEquipmentItems.GUNDABAD_HOBGOBLIN_CHAIN_COAT,
                             ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATED_BOOTS,
-                            ModWeaponItems.SLAG_SPEAR,
+                            ModWeaponItems.ORC_AXE,
                             ModEquipmentItems.MISTY_MOUNTAINS_SHIELD
                     ));
                 }},
@@ -292,10 +292,10 @@ public class MiddleEarthFactions {
                 new HashMap<>(){{
                     put(MiddleEarthRaces.ORC, new NpcPreview(
                             ModEquipmentItems.URUK_HAI_LEATHER_SCOUT_CAP,
-                            ModEquipmentItems.ORC_MAIL_HAUBERK,
+                            ModEquipmentItems.ORC_GORGET_HAUBERK,
                             null,
                             ModEquipmentItems.STURDY_BOOTS,
-                            ModToolItems.SLAG_AXE,
+                            ModWeaponItems.ISENGARD_ORC_SPEAR,
                             ModEquipmentItems.URUK_HAI_HEATER_SHIELD
                     ));
                     put(MiddleEarthRaces.URUK, new NpcPreview(
