@@ -140,16 +140,18 @@ public class MiddleEarthFactions {
                             MiddleEarthNpcs.ROHAN_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MiddleEarthNpcs.ROHAN_MILITIA
+                            MiddleEarthNpcs.ROHAN_SOLDIER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.ROHAN_MILITIA
+                            MiddleEarthNpcs.ROHAN_KNIGHT
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.ROHAN_MILITIA
+                            MiddleEarthNpcs.ROHAN_KNIGHT,
+                            MiddleEarthNpcs.ROHAN_ROYAL_GUARD
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.ROHAN_MILITIA
+                            MiddleEarthNpcs.ROHAN_HORSE_LORD,
+                            MiddleEarthNpcs.ROHAN_EORLING_MARSHAL
                     ));
                 }},
                 new BannerData(DyeColor.GREEN, List.of(

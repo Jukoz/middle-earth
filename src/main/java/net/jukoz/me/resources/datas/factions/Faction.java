@@ -83,7 +83,6 @@ public class Faction {
                 NbtList npcDataList = rankCompound.getList("pool", NbtType.STRING);
                 List<Identifier> dataList = new ArrayList<>();
                 for(int j = 0; j < npcDataList.size(); j++){
-                    LoggerUtil.logDebugMsg(npcDataList.getString(j));
                     dataList.add(IdentifierUtil.getIdentifierFromString(npcDataList.getString(j)));
                 }
                 this.npcDatasByRank.put(rank, dataList);
@@ -197,7 +196,8 @@ public class Faction {
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.KNIGHT));
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.VETERAN));
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.LEADER));
-        // Skip Civilian/Leader/Veteran
+        // Should we skip : Civilian/Leader/Veteran ?
+
         List<NpcData> npcDataList = NpcDataLookup.getAllNpcDatasFromRace(world, identifiersToUse, selectedRace.getId());
         if(npcDataList.isEmpty())
             return NpcGearData.Create();
