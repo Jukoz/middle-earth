@@ -1,11 +1,14 @@
 package net.jukoz.me.gui.artisantable;
 
 import com.google.common.collect.Lists;
+import com.mojang.authlib.GameProfile;
 import net.jukoz.me.block.ModDecorativeBlocks;
-import net.jukoz.me.block.special.alloyfurnace.MultipleStackRecipeInput;
+import net.jukoz.me.block.special.forge.MultipleStackRecipeInput;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.recipe.ArtisanRecipe;
 import net.jukoz.me.recipe.ModRecipes;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
@@ -64,13 +67,19 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.context = context;
         this.world = playerInventory.player.getWorld();
 
+        //this.inputSlot0 = this.addSlot(new Slot(this.input, 0, 12, 14));
         this.inputSlot0 = this.addSlot(new Slot(this.input, 0, 31, 14));
+        //this.inputSlot0 = this.addSlot(new Slot(this.input, 0, 50, 14));
+
         this.inputSlot1 = this.addSlot(new Slot(this.input, 1, 12, 34));
         this.inputSlot2 = this.addSlot(new Slot(this.input, 2, 31, 34));
         this.inputSlot3 = this.addSlot(new Slot(this.input, 3, 50, 34));
-        this.inputSlot4 = this.addSlot(new Slot(this.input, 4, 21, 53));
-        this.inputSlot5 = this.addSlot(new Slot(this.input, 5, 41, 53));
-        this.outputSlot = this.addSlot(new Slot(this.output, 6, 184, 33) {
+
+        this.inputSlot4 = this.addSlot(new Slot(this.input, 4, 12, 53));
+        //this.inputSlot4 = this.addSlot(new Slot(this.input, 4, 31, 53));
+        this.inputSlot5 = this.addSlot(new Slot(this.input, 5, 50, 53));
+
+        this.outputSlot = this.addSlot(new Slot(this.output, 6, 165, 33) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return false;
@@ -88,7 +97,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
                 ArtisanTableScreenHandler.this.inputSlot5.takeStack(1);
 
                 if (!itemStack.isEmpty()) {
-                    ArtisanTableScreenHandler.this.populateResult();
+                    ArtisanTableScreenHandler.this.populateResult(player);
                 }
                 context.run((world, pos) -> {
                     long l = world.getTime();
@@ -139,7 +148,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     public boolean onButtonClick(PlayerEntity player, int id) {
         if (this.isInBounds(id)) {
             this.selectedRecipe.set(id);
-            this.populateResult();
+            this.populateResult(player);
         }
         return true;
     }
@@ -168,14 +177,17 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         }
     }
 
-    void populateResult() {
+    void populateResult(PlayerEntity player) {
         if (!this.availableRecipes.isEmpty() && this.isInBounds(this.selectedRecipe.get())) {
             List<ItemStack> inputs = new ArrayList<>();
             for (int i = 0; i < this.input.size(); i++) {
                 inputs.add(this.input.getStack(i));
             }
             RecipeEntry<ArtisanRecipe> recipeEntry = this.availableRecipes.get(this.selectedRecipe.get());
+
             ItemStack itemStack = recipeEntry.value().craft(new MultipleStackRecipeInput(inputs), this.world.getRegistryManager());
+            itemStack.set(DataComponentTypes.PROFILE, new ProfileComponent(new GameProfile(player.getUuid(), player.getName().getString())));
+
             if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
                 this.output.setLastRecipe(recipeEntry);
                 this.outputSlot.setStackNoCallbacks(itemStack);

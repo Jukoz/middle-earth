@@ -2,13 +2,17 @@ package net.jukoz.me.block;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.*;
-import net.jukoz.me.block.special.alloyfurnace.AlloyFurnace;
+import net.jukoz.me.block.special.bellows.BellowsBlock;
+import net.jukoz.me.block.special.forge.ForgeBlock;
 import net.jukoz.me.block.special.artisantable.ArtisanTable;
 import net.jukoz.me.block.special.beds.CustomBedBlock;
 import net.jukoz.me.block.special.doors.*;
 import net.jukoz.me.block.special.fireBlocks.*;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestBlock;
 import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancBlock;
+import net.jukoz.me.block.special.shapingAnvil.AbstractTreatedAnvilBlock;
+import net.jukoz.me.block.special.shapingAnvil.dwarvenTreatedAnvil.DwarvenShapingAnvilBlock;
+import net.jukoz.me.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
 import net.jukoz.me.block.special.statues.StatueBlock;
 import net.jukoz.me.block.special.toggeable_lights.DwarvenLanternBlock;
 import net.jukoz.me.block.special.toggeable_lights.SilverLanternBlock;
@@ -41,8 +45,15 @@ public class ModDecorativeBlocks {
     public static final Block WALL_DWARVEN_LANTERN = registerBlock("dwarven_lantern_wall",
             new WallDwarvenLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
 
-    public static final Block ALLOY_FURNACE = registerBlock("alloy_furnace",
-            new AlloyFurnace(AbstractBlock.Settings.copy(Blocks.STONE).strength(1.65f).requiresTool()));
+    public static final Block FORGE = registerBlock("forge",
+            new ForgeBlock(AbstractBlock.Settings.copy(Blocks.BRICKS).luminance(createLightLevelFromLitBlockState(15)).strength(1.65f).requiresTool()));
+    public static final Block TREADTED_ANVIL = registerBlock("treated_anvil",
+            new TreatedAnvilblock(AbstractBlock.Settings.copy(Blocks.STONE).strength(1.65f).requiresTool().nonOpaque()));
+    public static final Block DWARVEN_TREATED_ANVIL = registerBlock("dwarven_treated_anvil",
+            new DwarvenShapingAnvilBlock(AbstractBlock.Settings.copy(Blocks.STONE).strength(1.65f).requiresTool().nonOpaque()));
+
+    public static final Block BELLOWS = registerBlock("bellows",
+            new BellowsBlock(AbstractBlock.Settings.copy(Blocks.STONE).strength(1.65f).requiresTool().nonOpaque()));
     public static final Block ARTISAN_TABLE = registerBlock("artisan_table",
             new ArtisanTable(AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque()));
 
