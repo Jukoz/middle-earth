@@ -10,6 +10,7 @@ import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.EntityData;
@@ -51,6 +52,7 @@ public class DaleHumanEntity extends NpcEntity{
         }else if (name.contains("leader")) {
             this.setRank(NpcRank.LEADER);
         }
+        factionId = MiddleEarthFactions.DALE.getId();
     }
 
     @Nullable

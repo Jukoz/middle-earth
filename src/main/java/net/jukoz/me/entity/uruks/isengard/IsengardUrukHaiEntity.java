@@ -1,4 +1,4 @@
-package net.jukoz.me.entity.uruks.isengard.mordor;
+package net.jukoz.me.entity.uruks.isengard;
 
 import net.jukoz.me.entity.NpcEntity;
 import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
@@ -9,6 +9,7 @@ import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.uruks.UrukNpcEntity;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -37,6 +38,7 @@ public class IsengardUrukHaiEntity extends UrukNpcEntity {
         }else if (name.contains("leader")) {
             this.setRank(NpcRank.LEADER);
         }
+        factionId = MiddleEarthFactions.ISENGARD.getId();
     }
 
     @Nullable
@@ -82,67 +84,6 @@ public class IsengardUrukHaiEntity extends UrukNpcEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-    }
-
-    @Override
-    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        super.initEquipment(random, localDifficulty);
-
-        switch (this.getRank()){
-            case KNIGHT -> knightEquipment(random);
-            case VETERAN -> veteranEquipment(random);
-            case LEADER -> leaderEquipment(random);
-        }
-    }
-
-    private void knightEquipment(Random random){
-        //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MORDOR_BLACK_URUK_SCALE_HELMET));
-        //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MORDOR_BLACK_URUK_SCALE_CHESTPLATE));
-        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MORDOR_BLACK_URUK_SCALE_LEGGINGS));
-        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MORDOR_BLACK_URUK_SCALE_BOOTS));
-
-        float val = random.nextFloat();
-        if(val >= 0.75f){
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORDOR_ORC_BATTLEAXE));
-        } else if (val < 0.75f && val > 0.20f) {
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORDOR_ORC_SWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MORDOR_SHIELD));
-        } else if (val <= 0.20f) {
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORDOR_ORC_PIKE));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MORDOR_SHIELD));
-        }
-    }
-
-    private void veteranEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.BLACK_URUK_PLATE_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.BLACK_URUK_PLATE_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.BLACK_URUK_PLATE_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.BLACK_URUK_PLATE_BOOTS));
-
-        float val = random.nextFloat();
-        if(val >= 0.50f){
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORDOR_ORC_BATTLEAXE));
-        }  else {
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORDOR_ORC_PIKE));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MORDOR_SHIELD));
-        }
-    }
-
-    private void leaderEquipment(Random random){
-        {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.BLACK_URUK_COMMANDER_HELMET));
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.BLACK_URUK_PLATE_CHESTPLATE));
-            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.BLACK_URUK_PLATE_LEGGINGS));
-            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.BLACK_URUK_PLATE_BOOTS));
-
-            float val = random.nextFloat();
-            if(val >= 0.50f){
-                //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORDOR_ORC_BATTLEAXE));
-            }  else {
-                //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.MORDOR_ORC_PIKE));
-                equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MORDOR_SHIELD));
-            }
-        }
     }
 
     public IsengardUrukHaiVariant getVariant() {

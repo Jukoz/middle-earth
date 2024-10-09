@@ -9,6 +9,7 @@ import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.orcs.OrcNpcEntity;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.EntityData;
@@ -42,6 +43,7 @@ public class IsengardOrcEntity extends OrcNpcEntity {
             this.setRank(NpcRank.SOLDIER);
             this.setBow(Items.BOW);
         }
+        factionId = MiddleEarthFactions.ISENGARD.getId();
     }
 
     @Nullable
@@ -72,74 +74,6 @@ public class IsengardOrcEntity extends OrcNpcEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-    }
-
-    @Override
-    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        super.initEquipment(random, localDifficulty);
-        switch (this.getRank()){
-            case MILITIA -> militiaEquipment(random);
-            case SOLDIER -> soldierEquipment(random);
-        }
-    }
-
-    private void militiaEquipment(Random random){
-        int[] colors = {
-                0x5c544b,
-                0x574a3b,
-                0x484138,
-                0x3b3630
-        };
-        ItemStack leatherHelmet = new ItemStack(Items.LEATHER_HELMET);
-        ItemStack leatherChestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
-        ItemStack leatherLeggings = new ItemStack(Items.LEATHER_LEGGINGS);
-        ItemStack leatherBoots = new ItemStack(Items.LEATHER_BOOTS);
-        DyedColorComponent.setColor(leatherHelmet, List.of(DyeItem.byColor(DyeColor.byId(colors[0]))));
-        DyedColorComponent.setColor(leatherChestplate, List.of(DyeItem.byColor(DyeColor.byId(colors[1]))));
-        DyedColorComponent.setColor(leatherLeggings, List.of(DyeItem.byColor(DyeColor.byId(colors[2]))));
-        DyedColorComponent.setColor(leatherBoots, List.of(DyeItem.byColor(DyeColor.byId(colors[3]))));
-
-        if(random.nextFloat() >= 0.30f){
-            equipStack(EquipmentSlot.HEAD, leatherHelmet);
-        }
-        equipStack(EquipmentSlot.CHEST, leatherChestplate);
-        if(random.nextFloat() >= 0.50f){
-            equipStack(EquipmentSlot.LEGS, leatherLeggings);
-        }
-        equipStack(EquipmentSlot.FEET, leatherBoots);
-
-        float val3 = random.nextFloat();
-        if(val3 >= 0.7f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-        } else if (val3 > 0.3f) {
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SPEAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        } else {
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_DAGGER));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        }
-    }
-
-    private void soldierEquipment(Random random){
-        float val = random.nextFloat();
-        if(val >= 0.30f){
-            //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_GOBLIN_MAIL_HELMET));
-        }
-        //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_GOBLIN_MAIL_CHESTPLATE));
-        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_GOBLIN_MAIL_LEGGINGS));
-        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_GOBLIN_MAIL_BOOTS));
-
-
-        float val3 = random.nextFloat();
-        if(val3 >= 0.6f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-        } else if (val3 > 0.3f) {
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SPEAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MORDOR_SHIELD));
-        } else {
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SCIMITAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MORDOR_SHIELD));
-        }
     }
 
     public IsengardOrcVariant getVariant() {

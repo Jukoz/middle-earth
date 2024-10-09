@@ -102,7 +102,6 @@ public class BanditHumanEntity extends NpcEntity{
 
     @Override
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        super.initEquipment(random, localDifficulty);
         switch (this.getRank()){
             case MILITIA -> militiaEquipment(random);
             case SOLDIER -> soldierEquipment(random);

@@ -189,6 +189,16 @@ public class Faction {
     return id.toString();
     }
 
+    public NpcData getRandomGear(World world, NpcRank npcRank) {
+        if(!this.npcDatasByRank.containsKey(npcRank))
+            return null;
+        List<NpcData> npcDataList = NpcDataLookup.getAllNpcDatas(world, getNpcPoolFromRank(npcRank));
+        if(npcDataList.isEmpty())
+            return null;
+        Random random = new Random();
+        return npcDataList.get(random.nextInt(0, npcDataList.size()));
+    }
+
     public NpcGearData getPreviewGear(World world, Race selectedRace){
         List<Identifier> identifiersToUse = new ArrayList<>();
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.MILITIA));
@@ -206,7 +216,7 @@ public class Faction {
         return foundNpcData.getGear();
     }
 
-    private Collection<Identifier> getNpcPoolFromRank(NpcRank npcRank) {
+    private List<Identifier> getNpcPoolFromRank(NpcRank npcRank) {
         return this.npcDatasByRank.get(npcRank);
     }
 

@@ -10,6 +10,7 @@ import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.EntityData;
@@ -51,6 +52,7 @@ public class RohanHumanEntity extends NpcEntity {
         }else if (name.contains("leader")) {
             this.setRank(NpcRank.LEADER);
         }
+        factionId = MiddleEarthFactions.ROHAN.getId();
     }
 
     @Nullable
@@ -106,143 +108,6 @@ public class RohanHumanEntity extends NpcEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-    }
-
-    @Override
-    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        super.initEquipment(random, localDifficulty);
-        switch (this.getRank()){
-            case MILITIA -> militiaEquipment(random);
-            case SOLDIER -> soldierEquipment(random);
-            case KNIGHT -> knightEquipment(random);
-            case VETERAN -> veteranEquipment(random);
-            case LEADER -> leaderEquipment(random);
-        }
-    }
-
-    private void militiaEquipment(Random random){
-        int[] colors = {
-                0x446635,
-                0x2b5e2c,
-                0x5c5e50,
-                0x6b564c
-        };
-        ItemStack gambeson = new ItemStack(ModEquipmentItems.GAMBESON);
-        ItemStack leatherHelmet = new ItemStack(Items.LEATHER_HELMET);
-        ItemStack leatherChestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
-        ItemStack leatherLeggings = new ItemStack(Items.LEATHER_LEGGINGS);
-        ItemStack leatherBoots = new ItemStack(Items.LEATHER_BOOTS);
-        DyedColorComponent.setColor(gambeson, List.of(DyeItem.byColor(DyeColor.byId(colors[1]))));
-        DyedColorComponent.setColor(leatherHelmet, List.of(DyeItem.byColor(DyeColor.byId(colors[0]))));
-        DyedColorComponent.setColor(leatherChestplate, List.of(DyeItem.byColor(DyeColor.byId(colors[1]))));
-        DyedColorComponent.setColor(leatherLeggings, List.of(DyeItem.byColor(DyeColor.byId(colors[2]))));
-        DyedColorComponent.setColor(leatherBoots, List.of(DyeItem.byColor(DyeColor.byId(colors[3]))));
-
-        if(random.nextFloat() >= 0.20f){
-            equipStack(EquipmentSlot.HEAD, leatherHelmet);
-        }
-
-        if(random.nextFloat() >= 0.30f){
-            equipStack(EquipmentSlot.CHEST, gambeson);
-        } else  {
-            equipStack(EquipmentSlot.CHEST, leatherChestplate);
-        }
-        if(random.nextFloat() >= 0.50f){
-            equipStack(EquipmentSlot.LEGS, leatherLeggings);
-        }
-        equipStack(EquipmentSlot.FEET, leatherBoots);
-
-        float val3 = random.nextFloat();
-        if(val3 >= 0.7f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-        } else if (val3 < 0.7f && val3 > 0.3f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_SPEAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        } else if (val3 <= 0.3f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_DAGGER));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        }
-    }
-
-    private void soldierEquipment(Random random){
-        int[] colors = {
-                0x2b5e2c
-        };
-        int colorIndex = random.nextInt(1);
-        ItemStack gambeson = new ItemStack(ModEquipmentItems.GAMBESON);
-        DyedColorComponent.setColor(gambeson, List.of(DyeItem.byColor(DyeColor.byId(colors[colorIndex]))));
-
-        //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_HELMET));
-
-        float val = random.nextFloat();
-        if(val >= 0.30f){
-            //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_CHESTPLATE));
-        } else  {
-            equipStack(EquipmentSlot.CHEST, gambeson);
-        }
-
-        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_LEGGINGS));
-        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.ROHIRRIC_MAIL_BOOTS));
-
-
-        float val3 = random.nextFloat();
-        if(val3 >= 0.6f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_BOW));
-        } else if (val3 >= 0.3f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_SPEAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.ROHIRRIC_EORLING_SHIELD));
-        } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_SPEAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.ROHIRRIC_ORNAMENTED_SHIELD));
-        }
-    }
-
-    private void knightEquipment(Random random){
-        //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_HELMET));
-        //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_CHESTPLATE));
-        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_LEGGINGS));
-        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_BOOTS));
-
-        float val = random.nextFloat();
-        if(val >= 0.75f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_SWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.ROHIRRIC_ORNAMENTED_SHIELD));
-        } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_SPEAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.ROHIRRIC_ORNAMENTED_SHIELD));
-        }
-    }
-
-    private void veteranEquipment(Random random){
-        if(random.nextFloat() >= 0.10f) {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_HELMET));
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_HAUBERK));
-            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.ROHIRRIC_SCALE_JACKET));
-        } else {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.EORLING_MARSHAL_HELMET));
-            equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.EORLING_MARSHAL_CHESTPLATE));
-            equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.EORLING_MARSHAL_LEGGINGS));
-            equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.EORLING_MARSHAL_BOOTS));
-        }
-        float val1 = random.nextFloat();
-        if(val1 >= 0.75f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_AXE));
-        } else if (val1 >= 0.50f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_LONGSWORD));
-        } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_SPEAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.ROHIRRIC_ORNAMENTED_SHIELD));
-        }
-    }
-
-    private void leaderEquipment(Random random) {
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.HORSE_LORD_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.HORSE_LORD_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.HORSE_LORD_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.HORSE_LORD_BOOTS));
-
-        equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.ROHIRRIC_LONGSWORD));
-        equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.ROHIRRIC_ORNAMENTED_SHIELD));
     }
 
     public RohanHumanVariant getVariant() {

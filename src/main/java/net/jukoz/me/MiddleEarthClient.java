@@ -52,7 +52,7 @@ import net.jukoz.me.entity.snail.SnailRenderer;
 import net.jukoz.me.entity.spider.MirkwoodSpiderRenderer;
 import net.jukoz.me.entity.swan.SwanRenderer;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollRenderer;
-import net.jukoz.me.entity.uruks.isengard.mordor.IsengardUrukHaiRenderer;
+import net.jukoz.me.entity.uruks.isengard.IsengardUrukHaiRenderer;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinRenderer;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukRenderer;
 import net.jukoz.me.gui.forge.ForgeAlloyingScreen;
