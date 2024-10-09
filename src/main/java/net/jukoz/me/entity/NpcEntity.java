@@ -1,6 +1,7 @@
 package net.jukoz.me.entity;
 
 import net.jukoz.me.entity.goals.CustomBowAttackGoal;
+import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
@@ -26,7 +27,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     private Item bow;
     private final CustomBowAttackGoal<NpcEntity> bowAttackGoal = new CustomBowAttackGoal<NpcEntity>(this, 1.0, 16, 30.0f);
     private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.5, false);
-    public RANK rank;
+    public NpcRank rank;
 
     protected NpcEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
@@ -76,11 +77,11 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         this.bow = bow;
     }
 
-    public RANK getRank() {
+    public NpcRank getRank() {
         return rank;
     }
 
-    public void setRank(RANK rank) {
+    public void setRank(NpcRank rank) {
         this.rank = rank;
     }
 
@@ -154,11 +155,11 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     public int getXpToDrop() {
         int exp = 0;
         switch (this.getRank()){
-            case MILITIA -> exp = 10;
-            case SOLDIER -> exp = 15;
-            case KNIGHT -> exp = 20;
-            case VETERAN -> exp = 25;
-            case LEADER -> exp = 30;
+            case NpcRank.MILITIA -> exp = 10;
+            case NpcRank.SOLDIER -> exp = 15;
+            case NpcRank.KNIGHT -> exp = 20;
+            case NpcRank.VETERAN -> exp = 25;
+            case NpcRank.LEADER -> exp = 30;
         }
         return exp;
     }
@@ -169,12 +170,4 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         super.applyDamage(source, amount);
     }
 
-    public enum RANK{
-        CIVILIAN,
-        MILITIA,
-        SOLDIER,
-        KNIGHT,
-        VETERAN,
-        LEADER
-    }
 }

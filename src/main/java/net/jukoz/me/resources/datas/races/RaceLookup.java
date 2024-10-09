@@ -13,7 +13,9 @@ public class RaceLookup {
         Registry<Race> registry = world.getRegistryManager().get(MiddleEarthRaces.RACE_KEY);
         List<Race> list = new ArrayList<>();
         for(Identifier id : ids){
-            list.add(registry.get(id));
+            Race race = registry.get(id);
+            if(!list.contains(race))
+                list.add(race);
         }
         return list;
     }

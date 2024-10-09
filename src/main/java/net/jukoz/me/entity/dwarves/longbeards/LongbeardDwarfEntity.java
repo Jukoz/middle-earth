@@ -11,6 +11,7 @@ import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.EntityData;
@@ -40,17 +41,17 @@ public class LongbeardDwarfEntity extends NpcEntity {
         super(entityType, world);
         String name = this.getDefaultName().toString();
         if(name.contains("militia")){
-            this.setRank(RANK.MILITIA);
+            this.setRank(NpcRank.MILITIA);
             this.setBow(Items.BOW);
         } else if (name.contains("soldier")) {
-            this.setRank(RANK.SOLDIER);
+            this.setRank(NpcRank.SOLDIER);
             this.setBow(Items.BOW);
         }else if (name.contains("elite")) {
-            this.setRank(RANK.KNIGHT);
+            this.setRank(NpcRank.KNIGHT);
         }else if (name.contains("veteran")) {
-            this.setRank(RANK.VETERAN);
+            this.setRank(NpcRank.VETERAN);
         }else if (name.contains("leader")) {
-            this.setRank(RANK.LEADER);
+            this.setRank(NpcRank.LEADER);
         }
     }
 

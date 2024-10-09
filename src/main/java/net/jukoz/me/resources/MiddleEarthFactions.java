@@ -9,6 +9,7 @@ import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
+import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.registry.*;
@@ -89,11 +90,26 @@ public class MiddleEarthFactions {
     static {
         // region [GONDOR]
         GONDOR = new Faction("gondor", Alignment.GOOD, FactionType.FACTION, null, null,
-                List.of(MiddleEarthRaces.HUMAN),
-                List.of(
-                        MiddleEarthNpcs.GONDOR_MILITIA,
-                        MiddleEarthNpcs.GONDOR_SOLDIER
-                ),
+                new HashMap<>(){{
+                    put(NpcRank.CIVILIAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.MILITIA, List.of(
+                            MiddleEarthNpcs.GONDOR_MILITIA
+                    ));
+                    put(NpcRank.SOLDIER, List.of(
+                            MiddleEarthNpcs.GONDOR_SOLDIER
+                    ));
+                    put(NpcRank.KNIGHT, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.VETERAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.LEADER, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                }},
                 new BannerData(DyeColor.BLACK, List.of(
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.GONDOR_BANNER_PATTERN.getValue(), DyeColor.WHITE)
                 )),
@@ -113,10 +129,26 @@ public class MiddleEarthFactions {
         // endregion
         // region [ROHAN]
         ROHAN = new Faction("rohan", Alignment.GOOD, FactionType.FACTION, null,null,
-                List.of(MiddleEarthRaces.HUMAN),
-                List.of(
-                        MiddleEarthNpcs.ROHAN_MILITIA
-                ),
+                new HashMap<>(){{
+                    put(NpcRank.CIVILIAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.MILITIA, List.of(
+                            MiddleEarthNpcs.ROHAN_MILITIA
+                    ));
+                    put(NpcRank.SOLDIER, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.KNIGHT, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.VETERAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.LEADER, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                }},
                 new BannerData(DyeColor.GREEN, List.of(
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.ROHAN_BANNER_PATTERN.getValue(), DyeColor.WHITE)
                 )),
@@ -132,10 +164,26 @@ public class MiddleEarthFactions {
         //endregion
         //region [DALE]
         DALE = new Faction("dale", Alignment.GOOD, FactionType.FACTION, null,null,
-                List.of(MiddleEarthRaces.HUMAN),
-                List.of(
-                        MiddleEarthNpcs.DALE_MILITIA
-                ),
+                new HashMap<>(){{
+                    put(NpcRank.CIVILIAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.MILITIA, List.of(
+                            MiddleEarthNpcs.DALE_MILITIA
+                    ));
+                    put(NpcRank.SOLDIER, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.KNIGHT, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.VETERAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.LEADER, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                }},
                 new BannerData(DyeColor.LIGHT_BLUE, List.of(
                         new BannerData.BannerPatternWithColor(BannerPatterns.BORDER.getValue(), DyeColor.BLUE),
                         new BannerData.BannerPatternWithColor(BannerPatterns.CIRCLE.getValue(), DyeColor.YELLOW)
@@ -147,15 +195,31 @@ public class MiddleEarthFactions {
         );
         //endregion
         // region [LONGBEARDS]
-        LONGBEARDS = new Faction("longbeards", Alignment.GOOD, FactionType.FACTION,null,
+        LONGBEARDS = new Faction("longbeards", Alignment.GOOD, FactionType.FACTION, null,
                 List.of(Identifier.of(MiddleEarth.MOD_ID, "longbeards.erebor")),
-                List.of(), List.of(), null, null, List.of(), List.of());
+                null, null, null, List.of(), List.of());
 
         LONGBEARDS_EREBOR = new Faction(LONGBEARDS.getName().concat(".erebor"), Alignment.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
-                List.of(MiddleEarthRaces.DWARF),
-                List.of(
-                        MiddleEarthNpcs.EREBOR_MILITIA
-                ),
+                new HashMap<>(){{
+                    put(NpcRank.CIVILIAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.MILITIA, List.of(
+                            MiddleEarthNpcs.EREBOR_MILITIA
+                    ));
+                    put(NpcRank.SOLDIER, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.KNIGHT, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.VETERAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.LEADER, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                }},
                 new BannerData(DyeColor.BLUE, List.of(
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.GRAY),
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.LONGBEARD_BANNER_PATTERN.getValue(), DyeColor.WHITE)
@@ -172,10 +236,26 @@ public class MiddleEarthFactions {
         // endregion
         // region [LOTHLORIEN]
         LOTHLORIEN = new Faction("lothlorien", Alignment.GOOD, FactionType.FACTION, null, null,
-                List.of(MiddleEarthRaces.ELF),
-                List.of(
-                        MiddleEarthNpcs.LOTHLORIEN_MILITIA
-                ),
+                new HashMap<>(){{
+                    put(NpcRank.CIVILIAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.MILITIA, List.of(
+                            MiddleEarthNpcs.LOTHLORIEN_MILITIA
+                    ));
+                    put(NpcRank.SOLDIER, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.KNIGHT, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.VETERAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.LEADER, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                }},
                 new BannerData(DyeColor.WHITE, List.of(
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.YELLOW),
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.LOTHLORIEN_BANNER_PATTERN.getValue(), DyeColor.YELLOW)
@@ -188,11 +268,26 @@ public class MiddleEarthFactions {
         // endregion
         //region [MORDOR]
         MORDOR = new Faction("mordor", Alignment.EVIL, FactionType.FACTION, null,null,
-                List.of(MiddleEarthRaces.ORC, MiddleEarthRaces.URUK),
-                List.of(
-                        MiddleEarthNpcs.MORDOR_ORC_MILITIA,
-                        MiddleEarthNpcs.BLACK_URUK_SOLDIER
-                ),
+                new HashMap<>(){{
+                    put(NpcRank.CIVILIAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.MILITIA, List.of(
+                            MiddleEarthNpcs.MORDOR_ORC_MILITIA
+                    ));
+                    put(NpcRank.SOLDIER, List.of(
+                            MiddleEarthNpcs.BLACK_URUK_SOLDIER
+                    ));
+                    put(NpcRank.KNIGHT, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.VETERAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.LEADER, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                }},
                 new BannerData(DyeColor.BLACK, List.of(
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.GRAY),
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.MORDOR_GREAT_EYE_BANNER_PATTERN.getValue(), DyeColor.RED)
@@ -208,11 +303,26 @@ public class MiddleEarthFactions {
         //endregion
         // region [MISTY MOUNTAINS GOBLINS]
         MISTY_MOUNTAINS_GOBLINS = new Faction("misty_mountains_goblins", Alignment.EVIL, FactionType.FACTION, null,null,
-                List.of(MiddleEarthRaces.ORC, MiddleEarthRaces.URUK),
-                List.of(
-                        MiddleEarthNpcs.MISTY_GOBLIN_MILITIA,
-                        MiddleEarthNpcs.MISTY_HOBGOBLIN_SOLDIER
-                ),
+                new HashMap<>(){{
+                    put(NpcRank.CIVILIAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.MILITIA, List.of(
+                            MiddleEarthNpcs.MISTY_GOBLIN_MILITIA
+                    ));
+                    put(NpcRank.SOLDIER, List.of(
+                            MiddleEarthNpcs.MISTY_HOBGOBLIN_SOLDIER
+                    ));
+                    put(NpcRank.KNIGHT, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.VETERAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.LEADER, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                }},
                 new BannerData(DyeColor.BROWN, List.of(
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.BLACK),
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.MISTY_MOUNTAINS_ORCS_PEAKS_BANNER_PATTERN.getValue(), DyeColor.RED)
@@ -227,11 +337,26 @@ public class MiddleEarthFactions {
         // endregion
         // region [ISENGARD]
         ISENGARD = new Faction("isengard", Alignment.EVIL, FactionType.FACTION, null,null,
-            List.of(MiddleEarthRaces.ORC, MiddleEarthRaces.URUK),
-            List.of(
-                    MiddleEarthNpcs.ISENGARD_ORC_MILITIA,
-                    MiddleEarthNpcs.URUK_HAI_SOLDIER
-            ),
+                new HashMap<>(){{
+                    put(NpcRank.CIVILIAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.MILITIA, List.of(
+                            MiddleEarthNpcs.ISENGARD_ORC_MILITIA
+                    ));
+                    put(NpcRank.SOLDIER, List.of(
+                            MiddleEarthNpcs.URUK_HAI_SOLDIER
+                    ));
+                    put(NpcRank.KNIGHT, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.VETERAN, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                    put(NpcRank.LEADER, List.of(
+                            MiddleEarthNpcs.HUMAN_PEASANT
+                    ));
+                }},
             // TODO : add humans? No proper assets for them
             new BannerData(DyeColor.BLACK, List.of(
                     new BannerData.BannerPatternWithColor(ModBannerPatterns.ISENGARD_BANNER_PATTERN.getValue(), DyeColor.WHITE)
@@ -243,10 +368,26 @@ public class MiddleEarthFactions {
         // endregion
         //region [SHIRE]
         SHIRE = new Faction("shire", Alignment.GOOD, FactionType.FACTION, null,null,
-                List.of(MiddleEarthRaces.HOBBIT),
-                List.of(
-                        MiddleEarthNpcs.HOBBIT_PEASANT
-                ),
+                new HashMap<>(){{
+                    put(NpcRank.CIVILIAN, List.of(
+                            MiddleEarthNpcs.HOBBIT_PEASANT
+                    ));
+                    put(NpcRank.MILITIA, List.of(
+                            MiddleEarthNpcs.HOBBIT_PEASANT
+                    ));
+                    put(NpcRank.SOLDIER, List.of(
+                            MiddleEarthNpcs.HOBBIT_PEASANT
+                    ));
+                    put(NpcRank.KNIGHT, List.of(
+                            MiddleEarthNpcs.HOBBIT_PEASANT
+                    ));
+                    put(NpcRank.VETERAN, List.of(
+                            MiddleEarthNpcs.HOBBIT_PEASANT
+                    ));
+                    put(NpcRank.LEADER, List.of(
+                            MiddleEarthNpcs.HOBBIT_PEASANT
+                    ));
+                }},
                 new BannerData(DyeColor.YELLOW, List.of(
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.GREEN),
                         new BannerData.BannerPatternWithColor(BannerPatterns.CIRCLE.getValue(), DyeColor.YELLOW),

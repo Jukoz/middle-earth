@@ -9,6 +9,7 @@ import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.orcs.OrcNpcEntity;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -35,10 +36,10 @@ public class IsengardOrcEntity extends OrcNpcEntity {
         super(entityType, world);
         String name = this.getDefaultName().toString();
         if(name.contains("snaga")){
-            this.setRank(RANK.MILITIA);
+            this.setRank(NpcRank.MILITIA);
             this.setBow(Items.BOW);
         } else if (name.contains("warrior")) {
-            this.setRank(RANK.SOLDIER);
+            this.setRank(NpcRank.SOLDIER);
             this.setBow(Items.BOW);
         }
     }

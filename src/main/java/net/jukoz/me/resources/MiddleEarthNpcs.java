@@ -27,6 +27,9 @@ public class MiddleEarthNpcs {
     public final static String PATH = "npcs";
     public static final RegistryKey<Registry<NpcData>> NPC_KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
 
+    // [GENERIC]
+    public final static NpcData HUMAN_PEASANT;
+
     // [GONDOR]
     public final static NpcData GONDOR_MILITIA;
     public final static NpcData GONDOR_SOLDIER;
@@ -57,6 +60,8 @@ public class MiddleEarthNpcs {
 
     public static void bootstrap(Registerable<NpcData> context) {
         RegistryEntryLookup<NpcData> npcRegistryEntryLookup = context.getRegistryLookup(NPC_KEY);
+        // [GENERIC]
+        register(context, npcRegistryEntryLookup, HUMAN_PEASANT);
         // [GONDOR]
         register(context, npcRegistryEntryLookup, GONDOR_MILITIA);
         register(context, npcRegistryEntryLookup, GONDOR_SOLDIER);
@@ -98,8 +103,20 @@ public class MiddleEarthNpcs {
     }
 
     static {
+        // region [GENERIC]
+        HUMAN_PEASANT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "human.peasant"), MiddleEarthRaces.HUMAN, List.of(
+                new NpcGearData()
+                        .add(EquipmentSlot.HEAD, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.LEATHER_CAP))
+                                .add(new NpcGearItemData(ModEquipmentItems.GAMBESON_CAP))
+                                .add(new NpcGearItemData(ModEquipmentItems.GAMBESON_COWL))
+                        )
+                        .add(EquipmentSlot.FEET, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.STURDY_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData(new NpcGearItemData(ModWeaponItems.WOODEN_SPEAR)))
+        ));
+        // endregion
         // region [GONDOR]
-        GONDOR_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "gondor.militia"), MiddleEarthRaces.HUMAN.getId(), List.of(
+        GONDOR_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "gondor.militia"), MiddleEarthRaces.HUMAN, List.of(
 
                 new NpcGearData()
                         .add(EquipmentSlot.HEAD, new NpcGearSlotData()
@@ -120,7 +137,7 @@ public class MiddleEarthNpcs {
                         .add(EquipmentSlot.MAINHAND, new NpcGearSlotData(new NpcGearItemData(ModWeaponItems.GONDORIAN_LONGSWORD)))
                         .add(EquipmentSlot.OFFHAND, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_SHIELD)))
         ));
-        GONDOR_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "gondor.soldier"), MiddleEarthRaces.HUMAN.getId(), List.of(
+        GONDOR_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "gondor.soldier"), MiddleEarthRaces.HUMAN, List.of(
                 new NpcGearData()
                         .add(EquipmentSlot.HEAD, new NpcGearSlotData()
                                 .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_PLATE_HELMET))
@@ -142,7 +159,7 @@ public class MiddleEarthNpcs {
         ));
         //endregion
         // region [ROHAN]
-        ROHAN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "rohan.militia"), MiddleEarthRaces.HUMAN.getId(), List.of(
+        ROHAN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "rohan.militia"), MiddleEarthRaces.HUMAN, List.of(
                 new NpcGearData()
                         .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.KETTLE_HAT)))
                         .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_LEATHER_CHESTPLATE)))
@@ -153,7 +170,7 @@ public class MiddleEarthNpcs {
         ));
         //endregion
         // region [DALE]
-        DALE_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "dale.militia"), MiddleEarthRaces.HUMAN.getId(), List.of(
+        DALE_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "dale.militia"), MiddleEarthRaces.HUMAN, List.of(
                 new NpcGearData()
                         .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.KETTLE_HAT)))
                         .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_LEATHER_CHESTPLATE)))
@@ -165,7 +182,7 @@ public class MiddleEarthNpcs {
         //endregion
         // region [LONGBEARDS]
         // region [EREBOR]
-        EREBOR_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "longbeards.erebor.militia"), MiddleEarthRaces.DWARF.getId(), List.of(
+        EREBOR_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "longbeards.erebor.militia"), MiddleEarthRaces.DWARF, List.of(
                 new NpcGearData()
                         .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.KETTLE_HAT)))
                         .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_LEATHER_CHESTPLATE)))
@@ -177,7 +194,7 @@ public class MiddleEarthNpcs {
         //endregion
         //endregion
         // region [LOTHLORIEN]
-        LOTHLORIEN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "lothlorien.militia"), MiddleEarthRaces.ELF.getId(), List.of(
+        LOTHLORIEN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "lothlorien.militia"), MiddleEarthRaces.ELF, List.of(
                 new NpcGearData()
                         .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.KETTLE_HAT)))
                         .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_LEATHER_CHESTPLATE)))
@@ -188,7 +205,7 @@ public class MiddleEarthNpcs {
         ));
         //endregion
         // region [MORDOR]
-        MORDOR_ORC_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "mordor.orc.militia"), MiddleEarthRaces.ORC.getId(), List.of(
+        MORDOR_ORC_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "mordor.orc.militia"), MiddleEarthRaces.ORC, List.of(
                 new NpcGearData()
                         .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.KETTLE_HAT)))
                         .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_LEATHER_CHESTPLATE)))
@@ -197,7 +214,7 @@ public class MiddleEarthNpcs {
                         .add(EquipmentSlot.MAINHAND, new NpcGearSlotData(new NpcGearItemData(ModWeaponItems.GONDORIAN_SWORD)))
                         .add(EquipmentSlot.OFFHAND, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_SHIELD)))
         ));
-        BLACK_URUK_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "mordor.black_uruk.militia"), MiddleEarthRaces.URUK.getId(), List.of(
+        BLACK_URUK_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "mordor.black_uruk.militia"), MiddleEarthRaces.URUK, List.of(
                 new NpcGearData()
                         .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.KETTLE_HAT)))
                         .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_LEATHER_CHESTPLATE)))
@@ -208,7 +225,7 @@ public class MiddleEarthNpcs {
         ));
         //endregion
         // region [MISTY MOUNTAINS GOBLINS]
-        MISTY_GOBLIN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "misty_mountains_goblins.goblin.militia"), MiddleEarthRaces.ORC.getId(), List.of(
+        MISTY_GOBLIN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "misty_mountains_goblins.goblin.militia"), MiddleEarthRaces.ORC, List.of(
                 new NpcGearData()
                         .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.KETTLE_HAT)))
                         .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_LEATHER_CHESTPLATE)))
@@ -217,7 +234,7 @@ public class MiddleEarthNpcs {
                         .add(EquipmentSlot.MAINHAND, new NpcGearSlotData(new NpcGearItemData(ModWeaponItems.GONDORIAN_SWORD)))
                         .add(EquipmentSlot.OFFHAND, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_SHIELD)))
         ));
-        MISTY_HOBGOBLIN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "misty_mountains_goblins.hobgoblin.soldier"), MiddleEarthRaces.URUK.getId(), List.of(
+        MISTY_HOBGOBLIN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "misty_mountains_goblins.hobgoblin.soldier"), MiddleEarthRaces.URUK, List.of(
                 new NpcGearData()
                         .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.KETTLE_HAT)))
                         .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_LEATHER_CHESTPLATE)))
@@ -228,7 +245,7 @@ public class MiddleEarthNpcs {
         ));
         //endregion
         // region [ISENGARD]
-        ISENGARD_ORC_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "isengard.orc.militia"), MiddleEarthRaces.ORC.getId(), List.of(
+        ISENGARD_ORC_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "isengard.orc.militia"), MiddleEarthRaces.ORC, List.of(
                 new NpcGearData()
                         .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.KETTLE_HAT)))
                         .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_LEATHER_CHESTPLATE)))
@@ -237,7 +254,7 @@ public class MiddleEarthNpcs {
                         .add(EquipmentSlot.MAINHAND, new NpcGearSlotData(new NpcGearItemData(ModWeaponItems.GONDORIAN_SWORD)))
                         .add(EquipmentSlot.OFFHAND, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_SHIELD)))
         ));
-        URUK_HAI_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "isengard.uruk_hai.militia"), MiddleEarthRaces.URUK.getId(), List.of(
+        URUK_HAI_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "isengard.uruk_hai.militia"), MiddleEarthRaces.URUK, List.of(
                 new NpcGearData()
                         .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.KETTLE_HAT)))
                         .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_LEATHER_CHESTPLATE)))
@@ -248,7 +265,7 @@ public class MiddleEarthNpcs {
         ));
         //endregion
         // region [SHIRE]
-        HOBBIT_PEASANT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "shire.militia"), MiddleEarthRaces.HOBBIT.getId(), List.of(
+        HOBBIT_PEASANT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "shire.militia"), MiddleEarthRaces.HOBBIT, List.of(
                 new NpcGearData()
                         .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.KETTLE_HAT)))
                         .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_LEATHER_CHESTPLATE)))

@@ -293,6 +293,7 @@ public class FactionSelectionController {
 
     public NpcGearData getCurrentPreview(World world) {
         Faction currentFaction = getCurrentlySelectedFaction();
+        races = currentFaction.getRaces(world);
         NpcGearData data = currentFaction.getPreviewGear(world, races.get(currentRaceIndex));
         return data;
     }

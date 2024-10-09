@@ -10,6 +10,7 @@ import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.uruks.UrukNpcEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -31,11 +32,11 @@ public class MistyHobgoblinEntity extends UrukNpcEntity {
         super(entityType, world);
         String name = this.getDefaultName().toString();
         if (name.contains("soldier")) {
-            this.setRank(RANK.KNIGHT);
+            this.setRank(NpcRank.KNIGHT);
         }else if (name.contains("veteran")) {
-            this.setRank(RANK.VETERAN);
+            this.setRank(NpcRank.VETERAN);
         }else if (name.contains("leader")) {
-            this.setRank(RANK.LEADER);
+            this.setRank(NpcRank.LEADER);
         }
     }
 

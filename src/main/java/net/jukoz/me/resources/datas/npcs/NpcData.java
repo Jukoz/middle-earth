@@ -4,7 +4,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
+import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.utils.IdentifierUtil;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -37,9 +39,9 @@ public class NpcData {
         this.gearDatas = npcGearDatas;
     }
 
-    public NpcData(Identifier id, Identifier raceId, List<NpcGearData> gearDatas){
+    public NpcData(Identifier id, Race race, List<NpcGearData> gearDatas){
         this.id = id;
-        this.raceId = raceId;
+        this.raceId = race.getId();
         this.gearDatas = gearDatas;
     }
 

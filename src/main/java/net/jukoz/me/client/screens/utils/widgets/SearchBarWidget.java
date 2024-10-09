@@ -92,7 +92,7 @@ public class SearchBarWidget extends ModWidget{
                 startX,
                 startY,
                 0,
-                searchBarToggleButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
+                searchBarToggleButton.isFocused() || isMouseOver(panelSizeX, panelSizeY, startX, startY) ? 19 : 0,
                 panelSizeX,
                 panelSizeY
         );

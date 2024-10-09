@@ -13,6 +13,7 @@ import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.items.weapons.ranged.PebbleItem;
+import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -43,12 +44,12 @@ public class ShireHobbitEntity extends NpcEntity {
         super(entityType, world);
         String name = this.getDefaultName().toString();
         if(name.contains("civilian")){
-            this.setRank(RANK.CIVILIAN);
+            this.setRank(NpcRank.CIVILIAN);
         }else if(name.contains("bounder")){
-            this.setRank(RANK.MILITIA);
+            this.setRank(NpcRank.MILITIA);
             this.setBow(Items.BOW);
         }else if (name.contains("shirriff")) {
-            this.setRank(RANK.SOLDIER);
+            this.setRank(NpcRank.SOLDIER);
         }
     }
 

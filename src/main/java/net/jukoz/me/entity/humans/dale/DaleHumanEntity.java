@@ -10,6 +10,7 @@ import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -38,17 +39,17 @@ public class DaleHumanEntity extends NpcEntity{
         super(entityType, world);
         String name = this.getDefaultName().toString();
         if(name.contains("militia")){
-            this.setRank(RANK.MILITIA);
+            this.setRank(NpcRank.MILITIA);
             this.setBow(Items.BOW);
         } else if (name.contains("soldier")) {
-            this.setRank(RANK.SOLDIER);
+            this.setRank(NpcRank.SOLDIER);
             this.setBow(ModWeaponItems.GONDORIAN_BOW);
         }else if (name.contains("knight")) {
-            this.setRank(RANK.KNIGHT);
+            this.setRank(NpcRank.KNIGHT);
         }else if (name.contains("veteran")) {
-            this.setRank(RANK.VETERAN);
+            this.setRank(NpcRank.VETERAN);
         }else if (name.contains("leader")) {
-            this.setRank(RANK.LEADER);
+            this.setRank(NpcRank.LEADER);
         }
     }
 
