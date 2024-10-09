@@ -192,11 +192,10 @@ public class Faction {
 
     public NpcGearData getPreviewGear(World world, Race selectedRace){
         List<Identifier> identifiersToUse = new ArrayList<>();
-        identifiersToUse.addAll(getNpcPoolFromRan(NpcRank.CIVILIAN));
         identifiersToUse.addAll(getNpcPoolFromRan(NpcRank.MILITIA));
         identifiersToUse.addAll(getNpcPoolFromRan(NpcRank.SOLDIER));
         identifiersToUse.addAll(getNpcPoolFromRan(NpcRank.KNIGHT));
-        // Skip Leader/Veteran
+        // Skip Civilian/Leader/Veteran
         List<NpcData> npcDataList = NpcDataLookup.getAllNpcDatasFromRace(world, identifiersToUse, selectedRace.getId());
         if(npcDataList.isEmpty())
             return NpcGearData.Create();

@@ -11,6 +11,7 @@ import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
@@ -27,10 +28,12 @@ public class NpcGearItemData {
     private Integer color = null;
     private Integer weight = null;
 
+    public NpcGearItemData() {
+        this.item = Items.AIR;
+    }
     public NpcGearItemData(Item item) {
         this.item = item;
     }
-
     public NpcGearItemData(Identifier itemIdentifier) {
         this.item = getItemFromId(itemIdentifier);
     }

@@ -25,7 +25,7 @@ public class MiddleEarthRaces {
         DynamicRegistries.registerSynced(RACE_KEY, Race.CODEC);
     }
 
-    // CRAB : TODO : This is only bare bone races, to be fleshed out in 1.6 -> I will take care of that :P
+    // TODO : for/from Crab : This is only bare bone races, to be fleshed out in 1.6 -> I will take care of that :P
     public final static Race DWARF;
     public final static Race ELF;
     public final static Race HOBBIT;

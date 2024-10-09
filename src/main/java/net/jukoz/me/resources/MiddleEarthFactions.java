@@ -92,7 +92,7 @@ public class MiddleEarthFactions {
         GONDOR = new Faction("gondor", Alignment.GOOD, FactionType.FACTION, null, null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.HUMAN_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
                             MiddleEarthNpcs.GONDOR_MILITIA
@@ -100,14 +100,10 @@ public class MiddleEarthFactions {
                     put(NpcRank.SOLDIER, List.of(
                             MiddleEarthNpcs.GONDOR_SOLDIER
                     ));
-                    put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
-                    ));
-                    put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
-                    ));
-                    put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                    put(NpcRank.KNIGHT, List.of( // TEMP
+                            MiddleEarthNpcs.HUMAN_CIVILIAN,
+                            MiddleEarthNpcs.GONDOR_MILITIA,
+                            MiddleEarthNpcs.GONDOR_SOLDIER
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(
@@ -131,22 +127,22 @@ public class MiddleEarthFactions {
         ROHAN = new Faction("rohan", Alignment.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.HUMAN_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
                             MiddleEarthNpcs.ROHAN_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.ROHAN_MILITIA
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.ROHAN_MILITIA
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.ROHAN_MILITIA
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.ROHAN_MILITIA
                     ));
                 }},
                 new BannerData(DyeColor.GREEN, List.of(
@@ -166,22 +162,22 @@ public class MiddleEarthFactions {
         DALE = new Faction("dale", Alignment.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.HUMAN_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
                             MiddleEarthNpcs.DALE_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.DALE_MILITIA
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.DALE_MILITIA
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.DALE_MILITIA
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.DALE_MILITIA
                     ));
                 }},
                 new BannerData(DyeColor.LIGHT_BLUE, List.of(
@@ -202,22 +198,22 @@ public class MiddleEarthFactions {
         LONGBEARDS_EREBOR = new Faction(LONGBEARDS.getName().concat(".erebor"), Alignment.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.DWARF_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
                             MiddleEarthNpcs.EREBOR_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.EREBOR_MILITIA
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.EREBOR_MILITIA
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.EREBOR_MILITIA
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.EREBOR_MILITIA
                     ));
                 }},
                 new BannerData(DyeColor.BLUE, List.of(
@@ -238,22 +234,22 @@ public class MiddleEarthFactions {
         LOTHLORIEN = new Faction("lothlorien", Alignment.GOOD, FactionType.FACTION, null, null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.ELF_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
                             MiddleEarthNpcs.LOTHLORIEN_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.LOTHLORIEN_MILITIA
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.LOTHLORIEN_MILITIA
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.LOTHLORIEN_MILITIA
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.LOTHLORIEN_MILITIA
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
@@ -270,22 +266,23 @@ public class MiddleEarthFactions {
         MORDOR = new Faction("mordor", Alignment.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.ORC_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MiddleEarthNpcs.MORDOR_ORC_MILITIA
+                            MiddleEarthNpcs.MORDOR_ORC_MILITIA,
+                            MiddleEarthNpcs.URUK_CIVILIAN
                     ));
                     put(NpcRank.SOLDIER, List.of(
                             MiddleEarthNpcs.BLACK_URUK_SOLDIER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.BLACK_URUK_SOLDIER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.BLACK_URUK_SOLDIER
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.BLACK_URUK_SOLDIER
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(
@@ -305,22 +302,23 @@ public class MiddleEarthFactions {
         MISTY_MOUNTAINS_GOBLINS = new Faction("misty_mountains_goblins", Alignment.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.ORC_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
                             MiddleEarthNpcs.MISTY_GOBLIN_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MiddleEarthNpcs.MISTY_HOBGOBLIN_SOLDIER
+                            MiddleEarthNpcs.MISTY_HOBGOBLIN_SOLDIER,
+                            MiddleEarthNpcs.URUK_CIVILIAN
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.MISTY_HOBGOBLIN_SOLDIER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.MISTY_HOBGOBLIN_SOLDIER
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.MISTY_HOBGOBLIN_SOLDIER
                     ));
                 }},
                 new BannerData(DyeColor.BROWN, List.of(
@@ -339,22 +337,23 @@ public class MiddleEarthFactions {
         ISENGARD = new Faction("isengard", Alignment.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.ORC_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MiddleEarthNpcs.ISENGARD_ORC_MILITIA
+                            MiddleEarthNpcs.ISENGARD_ORC_MILITIA,
+                            MiddleEarthNpcs.URUK_CIVILIAN
                     ));
                     put(NpcRank.SOLDIER, List.of(
                             MiddleEarthNpcs.URUK_HAI_SOLDIER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.URUK_HAI_SOLDIER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.URUK_HAI_SOLDIER
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.HUMAN_PEASANT
+                            MiddleEarthNpcs.URUK_HAI_SOLDIER
                     ));
                 }},
             // TODO : add humans? No proper assets for them
@@ -370,7 +369,7 @@ public class MiddleEarthFactions {
         SHIRE = new Faction("shire", Alignment.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.HOBBIT_PEASANT
+                            MiddleEarthNpcs.HOBBIT_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
                             MiddleEarthNpcs.HOBBIT_PEASANT
