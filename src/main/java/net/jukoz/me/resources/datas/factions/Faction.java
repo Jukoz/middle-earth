@@ -192,9 +192,11 @@ public class Faction {
 
     public NpcGearData getPreviewGear(World world, Race selectedRace){
         List<Identifier> identifiersToUse = new ArrayList<>();
-        identifiersToUse.addAll(getNpcPoolFromRan(NpcRank.MILITIA));
-        identifiersToUse.addAll(getNpcPoolFromRan(NpcRank.SOLDIER));
-        identifiersToUse.addAll(getNpcPoolFromRan(NpcRank.KNIGHT));
+        identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.MILITIA));
+        identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.SOLDIER));
+        identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.KNIGHT));
+        identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.VETERAN));
+        identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.LEADER));
         // Skip Civilian/Leader/Veteran
         List<NpcData> npcDataList = NpcDataLookup.getAllNpcDatasFromRace(world, identifiersToUse, selectedRace.getId());
         if(npcDataList.isEmpty())
@@ -204,7 +206,7 @@ public class Faction {
         return foundNpcData.getGear();
     }
 
-    private Collection<Identifier> getNpcPoolFromRan(NpcRank npcRank) {
+    private Collection<Identifier> getNpcPoolFromRank(NpcRank npcRank) {
         return this.npcDatasByRank.get(npcRank);
     }
 

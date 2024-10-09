@@ -100,10 +100,17 @@ public class MiddleEarthFactions {
                     put(NpcRank.SOLDIER, List.of(
                             MiddleEarthNpcs.GONDOR_SOLDIER
                     ));
-                    put(NpcRank.KNIGHT, List.of( // TEMP
-                            MiddleEarthNpcs.HUMAN_CIVILIAN,
-                            MiddleEarthNpcs.GONDOR_MILITIA,
-                            MiddleEarthNpcs.GONDOR_SOLDIER
+                    put(NpcRank.KNIGHT, List.of(
+                            MiddleEarthNpcs.GONDOR_KNIGHT
+                    ));
+                    put(NpcRank.VETERAN, List.of(
+                            MiddleEarthNpcs.GONDOR_VETERAN,
+                            MiddleEarthNpcs.GONDOR_KING_GUARDS,
+                            MiddleEarthNpcs.GONDOR_CITADEL_GUARDS,
+                            MiddleEarthNpcs.GONDOR_FOUNTAIN_GUARDS
+                    ));
+                    put(NpcRank.LEADER, List.of(
+                            MiddleEarthNpcs.GONDOR_LEADER
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(

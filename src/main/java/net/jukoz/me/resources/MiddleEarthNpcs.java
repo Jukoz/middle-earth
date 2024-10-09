@@ -38,6 +38,15 @@ public class MiddleEarthNpcs {
     // [GONDOR]
     public final static NpcData GONDOR_MILITIA;
     public final static NpcData GONDOR_SOLDIER;
+    public final static NpcData GONDOR_KNIGHT;
+    public final static NpcData GONDOR_VETERAN;
+    public final static NpcData GONDOR_FOUNTAIN_GUARDS;
+    public final static NpcData GONDOR_CITADEL_GUARDS;
+    public final static NpcData GONDOR_KING_GUARDS;
+
+
+    public final static NpcData GONDOR_LEADER;
+
     // [ROHAN]
     public final static NpcData ROHAN_MILITIA;
     // [DALE]
@@ -76,6 +85,12 @@ public class MiddleEarthNpcs {
         // [GONDOR]
         register(context, npcRegistryEntryLookup, GONDOR_MILITIA);
         register(context, npcRegistryEntryLookup, GONDOR_SOLDIER);
+        register(context, npcRegistryEntryLookup, GONDOR_KNIGHT);
+        register(context, npcRegistryEntryLookup, GONDOR_FOUNTAIN_GUARDS);
+        register(context, npcRegistryEntryLookup, GONDOR_CITADEL_GUARDS);
+        register(context, npcRegistryEntryLookup, GONDOR_KING_GUARDS);
+        register(context, npcRegistryEntryLookup, GONDOR_VETERAN);
+        register(context, npcRegistryEntryLookup, GONDOR_LEADER);
         // [ROHAN]
         register(context, npcRegistryEntryLookup, ROHAN_MILITIA);
         // [DALE]
@@ -161,14 +176,50 @@ public class MiddleEarthNpcs {
                                 .add(new NpcGearItemData(ModEquipmentItems.GAMBESON_CAP))
                         )
                         .add(EquipmentSlot.CHEST, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.ARMING_COAT).withWeight(2))
+                                .add(new NpcGearItemData(ModEquipmentItems.ARMING_COAT).withColor(0xE8CB9B).withWeight(2))
                                 .add(new NpcGearItemData(ModEquipmentItems.ARMING_COAT).withColor(0x2b3965))
                                 .add(new NpcGearItemData(ModEquipmentItems.ARMING_COAT).withColor(0x182038))
                                 .add(new NpcGearItemData(ModEquipmentItems.ARMING_COAT).withColor(0xc6764f))
                                 .add(new NpcGearItemData(ModEquipmentItems.ARMING_COAT).withColor(0x82492c))
                         )
                         .add(EquipmentSlot.LEGS, new NpcGearSlotData()
-                                .add(new NpcGearItemData(ModEquipmentItems.ARMING_SKIRT).withColor(0x55565b))
+                                .add(new NpcGearItemData(ModEquipmentItems.ARMING_SKIRT))
+                                .add(new NpcGearItemData(ModEquipmentItems.ARMING_SKIRT).withColor(0xE8CB9B))
                                 .add(new NpcGearItemData().withWeight(2))
+                        )
+                        .add(EquipmentSlot.FEET, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_BOOTS))
+                                .add(new NpcGearItemData().withWeight(2))
+                        )
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModWeaponItems.WOODEN_SPEAR).withWeight(3))
+                                .add(new NpcGearItemData(ModWeaponItems.IRON_SPEAR).withWeight(3))
+                                .add(new NpcGearItemData(Items.WOODEN_SWORD).withWeight(2))
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_SWORD))
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_DAGGER))
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_SPEAR))
+                        )
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.KITE_SHIELD))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROUND_SHIELD))
+                        ),
+                new NpcGearData()
+                        .add(EquipmentSlot.HEAD, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.KETTLE_HAT).withWeight(2))
+                                .add(new NpcGearItemData(ModEquipmentItems.GAMBESON_COWL))
+                                .add(new NpcGearItemData(ModEquipmentItems.GAMBESON_CAP))
+                                .add(new NpcGearItemData(ModEquipmentItems.OPEN_FACE_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GAMBESON).withColor(0x68697d))
+                                .add(new NpcGearItemData(ModEquipmentItems.GAMBESON).withColor(0x555666))
+                        )
+                        .add(EquipmentSlot.LEGS, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_CHAIN_COAT))
+                                .add(new NpcGearItemData(ModEquipmentItems.ARMING_SKIRT).withColor(0x68697d).withWeight(4))
+                                .add(new NpcGearItemData(ModEquipmentItems.ARMING_SKIRT).withColor(0x555666).withWeight(4))
+                                .add(new NpcGearItemData().withWeight(7))
                         )
                         .add(EquipmentSlot.FEET, new NpcGearSlotData()
                                 .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_BOOTS))
@@ -178,27 +229,6 @@ public class MiddleEarthNpcs {
                                 .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_SPEAR))
                                 .add(new NpcGearItemData(ModWeaponItems.IRON_SPEAR))
                                 .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_NOBLE_DAGGER))
-                        )
-                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
-                                .add(new NpcGearItemData(ModEquipmentItems.KITE_SHIELD))
-                                .add(new NpcGearItemData(ModEquipmentItems.ROUND_SHIELD))
-                        ),
-                new NpcGearData()
-                        .add(EquipmentSlot.HEAD, new NpcGearSlotData()
-                                .add(new NpcGearItemData(ModEquipmentItems.GAMBESON_COWL))
-                                .add(new NpcGearItemData(ModEquipmentItems.GAMBESON_CAP))
-                        )
-                        .add(EquipmentSlot.CHEST, new NpcGearSlotData()
-                                .add(new NpcGearItemData(ModEquipmentItems.GAMBESON).withColor(0x55565b))
-                        )
-                        .add(EquipmentSlot.LEGS, new NpcGearSlotData()
-                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_CHAIN_COAT))
-                                .add(new NpcGearItemData(ModEquipmentItems.ARMING_SKIRT).withColor(0x55565b).withWeight(4))
-                                .add(new NpcGearItemData().withWeight(7))
-                        )
-                        .add(EquipmentSlot.FEET, new NpcGearSlotData()
-                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_BOOTS))
-                                .add(new NpcGearItemData().withWeight(2))
                         )
                         .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
                                 .add(new NpcGearItemData(ModEquipmentItems.KITE_SHIELD))
@@ -219,8 +249,9 @@ public class MiddleEarthNpcs {
                                 .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_SOLDIER_CHESTPLATE))
                         )
                         .add(EquipmentSlot.LEGS, new NpcGearSlotData()
-                                .add(new NpcGearItemData(ModEquipmentItems.ARMING_SKIRT).withColor(0xFF0000))
                                 .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_CHAIN_COAT))
+                                .add(new NpcGearItemData(ModEquipmentItems.ARMING_SKIRT).withColor(0x68697d).withWeight(2))
+                                .add(new NpcGearItemData(ModEquipmentItems.ARMING_SKIRT).withColor(0x555666).withWeight(2))
                         )
                         .add(EquipmentSlot.FEET, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_BOOTS)))
                         .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
@@ -229,8 +260,133 @@ public class MiddleEarthNpcs {
                         )
                         .add(EquipmentSlot.MAINHAND, new NpcGearSlotData()
                                 .add(new NpcGearItemData())
-                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_SHIELD
-                        )))
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_SHIELD))
+                        )
+        ));
+        GONDOR_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "gondor.knight"), MiddleEarthRaces.HUMAN, List.of(
+                new NpcGearData()
+                        .add(EquipmentSlot.HEAD, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_PLATE_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_SOLDIER_CHESTPLATE))
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE))
+                        )
+                        .add(EquipmentSlot.LEGS, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_CHAIN_COAT).withWeight(2))
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS))
+                        )
+                        .add(EquipmentSlot.FEET, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_BOOTS)))
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_SWORD))
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_AXE))
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_LONGSWORD))
+                        )
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_SHIELD))
+                        ),
+                new NpcGearData()
+                        .add(EquipmentSlot.HEAD, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_PLATE_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE))
+                        )
+                        .add(EquipmentSlot.LEGS, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS))
+                        )
+                        .add(EquipmentSlot.FEET, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_BOOTS)))
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_SPEAR))
+                        )
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_SHIELD))
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_TOWER_SHIELD))
+                        )
+        ));
+        GONDOR_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "gondor.veteran"), MiddleEarthRaces.HUMAN, List.of(
+                new NpcGearData()
+                        .add(EquipmentSlot.HEAD, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_PLATE_HELMET))
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_CAPTAIN_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE))
+                        )
+                        .add(EquipmentSlot.LEGS, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS))
+                        )
+                        .add(EquipmentSlot.FEET, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_PLATE_BOOTS)))
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_NOBLE_SWORD))
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_NOBLE_AXE))
+                        )
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_HERO_SHIELD))
+                                .add(new NpcGearItemData().withWeight(2))
+                        )
+        ));
+        GONDOR_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "gondor.leader"), MiddleEarthRaces.HUMAN, List.of(
+                new NpcGearData()
+                        .add(EquipmentSlot.CHEST, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE))
+                        )
+                        .add(EquipmentSlot.LEGS, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_CHESTPLATE))
+                        )
+                        .add(EquipmentSlot.FEET, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_KINGS_GUARD_BOOTS)))
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_NOBLE_SWORD))
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_NOBLE_AXE))
+                        )
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_HERO_SHIELD))
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD))
+                        )
+        ));
+        GONDOR_CITADEL_GUARDS = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "gondor.citadel_guards"), MiddleEarthRaces.HUMAN, List.of(
+                new NpcGearData()
+                        .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_HELMET)))
+                        .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_CHESTPLATE)))
+                        .add(EquipmentSlot.LEGS, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_LEGGINGS)))
+                        .add(EquipmentSlot.FEET, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_BOOTS)))
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_NOBLE_SWORD))
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_NOBLE_AXE))
+                        )
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_KNIGHT_SHIELD))
+                        )
+        ));
+        GONDOR_FOUNTAIN_GUARDS = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "gondor.fountain_guards"), MiddleEarthRaces.HUMAN, List.of(
+                new NpcGearData()
+                        .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_HELMET)))
+                        .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE)))
+                        .add(EquipmentSlot.LEGS, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS)))
+                        .add(EquipmentSlot.FEET, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_BOOTS)))
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_FOUNTAIN_GUARD_SPEAR).withWeight(5))
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_NOBLE_LONGSWORD))
+                        )
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.LAST_ALLIANCE_HEILOOM_TOWER_SHIELD))
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_TOWER_SHIELD))
+                        )
+        ));
+        GONDOR_KING_GUARDS = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "gondor.king_guards"), MiddleEarthRaces.HUMAN, List.of(
+                new NpcGearData()
+                        .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_KINGS_GUARD_HELMET)))
+                        .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_KINGS_GUARD_CHESTKPLATE)))
+                        .add(EquipmentSlot.LEGS, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_KINGS_GUARD_LEGGINGS)))
+                        .add(EquipmentSlot.FEET, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.GONDORIAN_KINGS_GUARD_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_NOBLE_SPEAR).withWeight(3))
+                                .add(new NpcGearItemData(ModWeaponItems.GONDORIAN_NOBLE_LONGSWORD))
+                        )
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_KINGS_GUARD_TOWER_SHIELD))
+                                .add(new NpcGearItemData(ModEquipmentItems.GONDORIAN_TOWER_SHIELD))
+                        )
         ));
         //endregion
         // region [ROHAN]
