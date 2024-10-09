@@ -436,7 +436,7 @@
   "item.me.crude_dagger": "Crude Dagger",
   "item.me.burzum_steel_dagger": "Búrzum-Steel Dagger",
   "item.me.edhel_steel_dagger": "Edhel-Steel Dagger",
-  "item.me.khazad_steel_dagger": "Khazad-Steel Dagger",
+  "item.me.khazad_steel_dagger": "Khazâd-Steel Dagger",
 
   "item.me.diamond_dagger": "Diamond Dagger",
   "item.me.netherite_dagger": "Netherite Dagger",
@@ -447,7 +447,7 @@
   "item.me.crude_falchion": "Crude Falchion",
   "item.me.burzum_steel_sword": "Búrzum-Steel Sword",
   "item.me.edhel_steel_sword": "Edhel-Steel Sword",
-  "item.me.khazad_steel_sword": "Khazad-Steel Sword",
+  "item.me.khazad_steel_sword": "Khazâd-Steel Sword",
 
   "item.me.wooden_longsword": "Wooden Longsword",
   "item.me.stone_longsword": "Stone Longsword",
@@ -459,7 +459,7 @@
   "item.me.crude_longblade": "Crude Longblade",
   "item.me.burzum_steel_longsword": "Búrzum-Steel Longsword",
   "item.me.edhel_steel_longsword": "Edhel-Steel Longsword",
-  "item.me.khazad_steel_longsword": "Khazad-Steel Longsword",
+  "item.me.khazad_steel_longsword": "Khazâd-Steel Longsword",
   "item.me.diamond_longsword": "Diamond Longsword",
   "item.me.netherite_longsword": "Netherite Longsword",
 
@@ -473,7 +473,7 @@
   "item.me.crude_spear": "Crude Spear",
   "item.me.burzum_steel_spear": "Búrzum-Steel Spear",
   "item.me.edhel_steel_spear": "Edhel-Steel Spear",
-  "item.me.khazad_steel_spear": "Khazad-Steel Spear",
+  "item.me.khazad_steel_spear": "Khazâd-Steel Spear",
   "item.me.diamond_spear": "Diamond Spear",
   "item.me.netherite_spear": "Netherite Spear",
 
@@ -5821,7 +5821,7 @@
   "tooltip.me.liquid_bronze" : "Liquid Bronze",
   "tooltip.me.liquid_crude" : "Liquid Crude Metal",
   "tooltip.me.liquid_steel" : "Liquid Steel",
-  "tooltip.me.liquid_khazad_steel" : "Liquid Khâzad-Steel",
+  "tooltip.me.liquid_khazad_steel" : "Liquid Khazâd-Steel",
   "tooltip.me.liquid_edhel_steel" : "Liquid Edhel-Steel",
   "tooltip.me.liquid_burzum_steel" : "Liquid Búrzum-Steel",
 

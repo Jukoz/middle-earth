@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.block.special.forge.MetalTypes;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.network.packets.C2S.ForgeOutputPacket;
@@ -19,12 +18,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
 
-public class ForgeAlloyigScreen extends HandledScreen<ForgeAlloyingScreenHandler> {
+public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandler> {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/forge.png");
     private static final Identifier EXTRACT_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "extract");
     private static final Identifier EXTRACT_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "extract_focused");
@@ -49,7 +47,7 @@ public class ForgeAlloyigScreen extends HandledScreen<ForgeAlloyingScreenHandler
     private int outputMode = 0;
     private Boolean heatingMode = null;
 
-    public ForgeAlloyigScreen(ForgeAlloyingScreenHandler handler, PlayerInventory inventory, Text title) {
+    public ForgeAlloyingScreen(ForgeAlloyingScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
     }
 

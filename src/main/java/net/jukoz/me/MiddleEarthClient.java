@@ -55,7 +55,7 @@ import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollRenderer;
 import net.jukoz.me.entity.uruks.isengard.mordor.IsengardUrukHaiRenderer;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinRenderer;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukRenderer;
-import net.jukoz.me.gui.forge.ForgeAlloyigScreen;
+import net.jukoz.me.gui.forge.ForgeAlloyingScreen;
 import net.jukoz.me.gui.forge.ForgeHeatingScreen;
 import net.jukoz.me.event.KeyInputHandler;
 import net.jukoz.me.gui.ModScreenHandlers;
@@ -81,7 +81,6 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -201,7 +200,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         ModModelPredicateProvider.registerAllPredicates();
 
-        HandledScreens.register(ModScreenHandlers.FORGE_ALLOYING_SCREEN_HANDLER, ForgeAlloyigScreen::new);
+        HandledScreens.register(ModScreenHandlers.FORGE_ALLOYING_SCREEN_HANDLER, ForgeAlloyingScreen::new);
         HandledScreens.register(ModScreenHandlers.FORGE_HEATING_SCREEN_HANDLER, ForgeHeatingScreen::new);
         HandledScreens.register(ModScreenHandlers.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
         HandledScreens.register(ModScreenHandlers.TREATED_ANVIL_SCREEN_HANDLER, ShapingAnvilScreen::new);
