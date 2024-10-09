@@ -10,6 +10,7 @@ import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.items.CapeChestplateItem;
 import net.jukoz.me.item.items.CustomChestplateItem;
+import net.jukoz.me.recipe.ModTags;
 import net.jukoz.me.utils.IntToRGB;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.Model;
@@ -46,7 +47,7 @@ public class CapeRenderer implements ArmorRenderer {
         boolean dyeable = false;
 
         if (slot == EquipmentSlot.CHEST) {
-            if (stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+            if (stack.isIn(ModTags.DYEABLE)) {
                 dyeable = true;
             }
 

@@ -4,8 +4,9 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
+import net.jukoz.me.resources.datas.npcs.NpcUtil;
 import net.jukoz.me.resources.datas.races.Race;
-import net.jukoz.me.resources.datas.factions.data.NpcGearData;
+import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -138,24 +139,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         this.entity.headYaw = this.entity.getBodyYaw();
         this.entity.prevHeadYaw = this.entity.getBodyYaw();
 
-        this.entity.equipStack(EquipmentSlot.HEAD, data.get(EquipmentSlot.HEAD));
-        this.entity.equipStack(EquipmentSlot.CHEST, data.get(EquipmentSlot.CHEST));
-        this.entity.equipStack(EquipmentSlot.LEGS, data.get(EquipmentSlot.LEGS));
-        this.entity.equipStack(EquipmentSlot.FEET, data.get(EquipmentSlot.FEET));
-
-        ItemStack mainHandItem = data.get(EquipmentSlot.MAINHAND);
-        ItemStack offhandItem = data.get(EquipmentSlot.OFFHAND);
-
-        if(mainHandItem != null && mainHandItem.getItem() instanceof ReachWeaponItem reachWeaponItem && reachWeaponItem.type.twoHanded){
-            this.entity.equipStack(EquipmentSlot.MAINHAND, mainHandItem);
-            this.entity.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.AIR));
-        } else if(offhandItem != null && offhandItem.getItem() instanceof ReachWeaponItem reachWeaponItem && reachWeaponItem.type.twoHanded){
-            this.entity.equipStack(EquipmentSlot.MAINHAND, offhandItem);
-            this.entity.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.AIR));
-        } else {
-            this.entity.equipStack(EquipmentSlot.MAINHAND, mainHandItem);
-            this.entity.equipStack(EquipmentSlot.OFFHAND, offhandItem);
-        }
+        NpcUtil.equipAll(entity, data);
     }
 
     private void updateEntityRace(Race race, World world) {

@@ -7,7 +7,7 @@ import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
-import net.jukoz.me.resources.datas.factions.data.NpcGearData;
+import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.resources.datas.races.Race;

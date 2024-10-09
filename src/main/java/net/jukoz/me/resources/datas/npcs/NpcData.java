@@ -3,7 +3,7 @@ package net.jukoz.me.resources.datas.npcs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.util.NbtType;
-import net.jukoz.me.resources.datas.factions.data.NpcGearData;
+import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
 import net.jukoz.me.utils.IdentifierUtil;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.nbt.NbtCompound;
@@ -12,6 +12,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class NpcData {
     public static final Codec<NpcData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -24,7 +25,6 @@ public class NpcData {
     private final Identifier raceId;
     private final List<NpcGearData> gearDatas;
     public NpcData(String id, String raceId, NbtCompound gearDatas){
-        // TODO : Add dye parameter, Pool per slot
         this.id = IdentifierUtil.getIdentifierFromString(id);
         this.raceId = IdentifierUtil.getIdentifierFromString(raceId);
 
@@ -32,7 +32,7 @@ public class NpcData {
         List<NpcGearData> npcGearDatas = new ArrayList<>();
         for(int j = 0; j < npcGears.size(); j++) {
             NbtCompound compound = npcGears.getCompound(j);
-            npcGearDatas.add(new NpcGearData(compound));
+            npcGearDatas.add(NpcGearData.readNbt(compound));
         }
         this.gearDatas = npcGearDatas;
     }
@@ -55,15 +55,12 @@ public class NpcData {
         NbtCompound nbt = new NbtCompound();
         NbtList gears = new NbtList();
         for(NpcGearData npcGearData : this.gearDatas){
-            NbtCompound nbtGears = new NbtCompound();
-            for(EquipmentSlot slot : npcGearData.data.keySet()){
-                nbtGears.putString(slot.name().toLowerCase(), npcGearData.get(slot).getItem().toString());
-            }
-            gears.add(nbtGears);
+            gears.add(NpcGearData.createNbt(npcGearData));
         }
         nbt.put("pool", gears);
         return nbt;
     }
+
     public String getName(){
         return id.getPath();
     }
@@ -77,7 +74,12 @@ public class NpcData {
     }
 
     public NpcGearData getGear() {
-        // TODO : Make it random with all the parameters
-        return gearDatas.getFirst();
+        if(gearDatas == null)
+            return null;
+        if(gearDatas.size() == 1)
+            return gearDatas.getFirst();
+
+        Random random = new Random();
+        return gearDatas.get(random.nextInt(0, gearDatas.size()));
     }
 }

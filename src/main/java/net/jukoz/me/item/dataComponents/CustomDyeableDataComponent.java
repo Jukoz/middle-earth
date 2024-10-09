@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModDataComponentTypes;
+import net.jukoz.me.recipe.ModTags;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.codec.PacketCodec;
@@ -54,7 +55,7 @@ public record CustomDyeableDataComponent(int customRgb, boolean overlay) {
     }
 
     public static ItemStack setColor(ItemStack stack, List<DyeItem> dyes) {
-        if (!stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+        if (!stack.isIn(ModTags.DYEABLE)) {
             return ItemStack.EMPTY;
         } else {
             ItemStack itemStack = stack.copyWithCount(1);

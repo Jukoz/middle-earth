@@ -11,6 +11,7 @@ import net.jukoz.me.datageneration.content.tags.LeavesSets;
 import net.jukoz.me.datageneration.content.tags.Saplings;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
+import net.jukoz.me.recipe.ModTags;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.registry.RegistryKeys;
@@ -485,7 +486,7 @@ public class ModRegistries {
     }
 
     public static final CauldronBehavior CLEAN_CUSTOM_DYEABLE_ITEM = (state, world, pos, player, hand, stack) -> {
-        if (!stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+        if (!stack.isIn(ModTags.DYEABLE)) {
             return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         if (!stack.contains(ModDataComponentTypes.DYE_DATA)) {

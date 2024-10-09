@@ -1,16 +1,11 @@
 package net.jukoz.me.resources.datas.races;
 
-import net.jukoz.me.resources.MiddleEarthNpcs;
 import net.jukoz.me.resources.MiddleEarthRaces;
-import net.jukoz.me.resources.datas.npcs.NpcData;
-import net.jukoz.me.utils.IdentifierUtil;
 import net.minecraft.registry.Registry;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class RaceLookup {

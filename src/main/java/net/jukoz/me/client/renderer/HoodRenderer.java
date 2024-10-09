@@ -8,6 +8,7 @@ import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.items.HoodHelmetItem;
+import net.jukoz.me.recipe.ModTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
@@ -38,7 +39,7 @@ public class HoodRenderer implements ArmorRenderer {
 
         if (slot == EquipmentSlot.HEAD) {
 
-            if(stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+            if(stack.isIn(ModTags.DYEABLE)) {
                 dyeable = true;
             }
 

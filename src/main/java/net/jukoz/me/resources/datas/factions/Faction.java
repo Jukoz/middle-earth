@@ -2,24 +2,19 @@ package net.jukoz.me.resources.datas.factions;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.fabricmc.fabric.api.util.NbtType;
 import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
-import net.jukoz.me.resources.datas.factions.data.NpcGearData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.NpcDataLookup;
+import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.utils.IdentifierUtil;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.Npc;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
@@ -188,7 +183,7 @@ public class Faction {
     public NpcGearData getPreviewGear(World world, Race selectedRace){
         List<NpcData> npcDataList = NpcDataLookup.getAllNpcDatasFromRace(world, npcIds, selectedRace.getId());
         if(npcDataList.isEmpty())
-            return NpcGearData.Air();
+            return NpcGearData.Create();
         Random random = new Random();
         NpcData foundNpcData = npcDataList.get(random.nextInt(0, npcDataList.size()));
         return foundNpcData.getGear();

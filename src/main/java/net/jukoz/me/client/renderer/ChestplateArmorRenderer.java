@@ -10,6 +10,7 @@ import net.jukoz.me.client.model.equipment.head.HelmetAddonModel;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.items.CustomChestplateItem;
+import net.jukoz.me.recipe.ModTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
@@ -53,7 +54,7 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
             customChestplateModel.rightLeg.visible = true;
             customChestplateModel.leftLeg.visible = true;
 
-            if (stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+            if (stack.isIn(ModTags.DYEABLE)) {
                 dyeable = true;
             }
 

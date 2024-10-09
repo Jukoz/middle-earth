@@ -8,6 +8,7 @@ import net.jukoz.me.entity.beasts.warg.features.WargArmorModel;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.items.CustomAnimalArmorItem;
+import net.jukoz.me.recipe.ModTags;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -43,7 +44,7 @@ public class BroadhoofGoatArmorFeatureRenderer extends FeatureRenderer<Broadhoof
 
                 VertexConsumer vertexConsumer;
 
-                if (itemStack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+                if (itemStack.isIn(ModTags.DYEABLE)) {
                     vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getOverlayTexture()));
                     this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, -1);
 

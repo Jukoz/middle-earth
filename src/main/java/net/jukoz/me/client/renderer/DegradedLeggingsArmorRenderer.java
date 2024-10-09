@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.MiddleEarthClient;
 import net.jukoz.me.client.model.equipment.CustomLeggingsModel;
+import net.jukoz.me.recipe.ModTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
@@ -38,7 +39,7 @@ public class DegradedLeggingsArmorRenderer implements ArmorRenderer {
             customLeggingsModel.rightLeg.visible = true;
             customLeggingsModel.leftLeg.visible = true;
 
-            if (stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+            if (stack.isIn(ModTags.DYEABLE)) {
                 dyeable = true;
             }
 
