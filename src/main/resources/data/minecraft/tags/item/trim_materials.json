@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "me:jadeite",
+    "me:tin_ingot",
+    "me:lead_ingot",
+    "me:silver_ingot",
+    "me:bronze_ingot",
+    "me:steel_ingot",
+    "me:crude_ingot",
+    "me:burzum_steel_ingot",
+    "me:edhel_steel_ingot",
+    "me:khazad_steel_ingot",
+    "me:mithril_ingot"
+  ]
+}

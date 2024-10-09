@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "sources": [
+    {"type": "single", "resource": "me:gui/sprites/extract"},
+    {"type": "single", "resource": "me:gui/sprites/extract_focused"}
+  ]
+}

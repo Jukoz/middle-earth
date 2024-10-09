@@ -1,0 +1,9 @@
+{
+  "asset_name": "jade",
+  "description": {
+    "color": "#599167",
+    "translate": "trim_material.me.jade"
+  },
+  "ingredient": "me:jadeite",
+  "item_model_index": 0.001
+}

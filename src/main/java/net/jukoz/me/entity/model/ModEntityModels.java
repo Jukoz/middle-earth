@@ -6,6 +6,7 @@ import net.fabricmc.api.Environment;
 import net.jukoz.me.entity.beasts.warg.WargModel;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.MiddleEarthClient;
+import net.jukoz.me.block.special.bellows.BellowsBlockEntityRenderer;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.jukoz.me.entity.snail.SnailModel;
 import net.jukoz.me.entity.spider.MirkwoodSpiderModel;
@@ -34,6 +35,7 @@ public class ModEntityModels {
         builder.put(ModEntityModelLayers.SPIDER, MirkwoodSpiderModel.getTexturedModelData());
 
         builder.put(ModEntityModelLayers.REINFORCED_CHEST, ReinforcedChestEntityRenderer.getSingleTexturedModelData());
+        builder.put(ModEntityModelLayers.BELLOWS, BellowsBlockEntityRenderer.getTexturedModelData());
 
         // Animals
         builder.put(ModEntityModelLayers.SNAIL, SnailModel.getTexturedModelData());

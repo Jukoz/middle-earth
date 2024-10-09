@@ -9,6 +9,10 @@ public class VariantsModelProvider {
         return Registries.ITEM.getId(item).withPrefixedPath("item/").withSuffixedPath("_inventory");
     }
 
+    public static Identifier getHotModelIdentifierVariant(Item item) {
+        return Registries.ITEM.getId(item).withPrefixedPath("item/").withSuffixedPath("_hot");
+    }
+
     public static Identifier getPullModelIdentifierVariant(Item item) {
         return Registries.ITEM.getId(item).withPrefixedPath("item/").withSuffixedPath("_pull");
     }

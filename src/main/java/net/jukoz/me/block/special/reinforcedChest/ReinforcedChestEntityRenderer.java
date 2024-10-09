@@ -53,7 +53,6 @@ public class ReinforcedChestEntityRenderer<T extends ChestBlockEntity> extends C
                 Identifier.of(MiddleEarth.MOD_ID, "model/reinforced_chest"));
         VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
 
-
         World world = entity.getWorld();
         BlockState blockState = world != null ? entity.getCachedState() : Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, Direction.SOUTH);
         Block block = blockState.getBlock();

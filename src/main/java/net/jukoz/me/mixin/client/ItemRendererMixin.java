@@ -8,6 +8,7 @@ import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingLongswordW
 import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomLongswordWeaponItem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.jukoz.me.item.ModDataComponentTypes;
 import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
@@ -51,6 +52,15 @@ public abstract class ItemRendererMixin {
                 return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
             }
         }
+        if(isItemHot(stack)) {
+            Identifier identifier = VariantsModelProvider.getHotModelIdentifierVariant(stack.getItem());
+            return MinecraftClient.getInstance().getBakedModelManager().getModel(identifier);
+        }
         return model;
     }
+
+    private static boolean isItemHot(ItemStack stack) {
+        return stack.getComponents().contains(ModDataComponentTypes.TEMPERATURE_DATA);
+    }
+
 }

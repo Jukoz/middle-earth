@@ -10,10 +10,8 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
 
 import java.util.EnumMap;
-import java.util.List;
 import java.util.function.Supplier;
 
 public class ModArmorMaterials {
@@ -32,31 +30,30 @@ public class ModArmorMaterials {
     public static final ExtendedArmorMaterial BRONZE_T3 = registerArmor("bronze_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.BRONZE_INGOT);
     public static final ExtendedArmorMaterial BRONZE_T4 = registerArmor("bronze_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.BRONZE_INGOT);
 
-    public static final ExtendedArmorMaterial SLAG_T2 = registerArmor("slag_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.SLAG_INGOT);
-    public static final ExtendedArmorMaterial SLAG_T3 = registerArmor("slag_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.SLAG_INGOT);
-    public static final ExtendedArmorMaterial SLAG_T4 = registerArmor("slag_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.SLAG_INGOT);
+
+    public static final ExtendedArmorMaterial CRUDE_T2 = registerArmor("crude_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.CRUDE_INGOT);
+    public static final ExtendedArmorMaterial CRUDE_T3 = registerArmor("crude_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.CRUDE_INGOT);
+    public static final ExtendedArmorMaterial CRUDE_T4 = registerArmor("crude_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.CRUDE_INGOT);
 
     public static final ExtendedArmorMaterial STEEL_T3 = registerArmor("steel_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.STEEL_INGOT);
     public static final ExtendedArmorMaterial STEEL_T4 = registerArmor("steel_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.STEEL_INGOT);
     public static final ExtendedArmorMaterial STEEL_T5 = registerArmor("steel_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ModResourceItems.STEEL_INGOT);
 
-    public static final ExtendedArmorMaterial DWARVEN_STEEL_T3 = registerArmor("dwarven_steel_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.DWARVEN_STEEL_INGOT);
-    public static final ExtendedArmorMaterial DWARVEN_STEEL_T4 = registerArmor("dwarven_steel_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.DWARVEN_STEEL_INGOT);
-    public static final ExtendedArmorMaterial DWARVEN_STEEL_T5 = registerArmor("dwarven_steel_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ModResourceItems.DWARVEN_STEEL_INGOT);
+    public static final ExtendedArmorMaterial DWARVEN_STEEL_T3 = registerArmor("dwarven_steel_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.KHAZAD_STEEL_INGOT);
+    public static final ExtendedArmorMaterial DWARVEN_STEEL_T4 = registerArmor("dwarven_steel_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.KHAZAD_STEEL_INGOT);
+    public static final ExtendedArmorMaterial DWARVEN_STEEL_T5 = registerArmor("dwarven_steel_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ModResourceItems.KHAZAD_STEEL_INGOT);
 
-    public static final ExtendedArmorMaterial ELVEN_STEEL_T3 = registerArmor("elven_steel_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.ELVEN_STEEL_INGOT);
-    public static final ExtendedArmorMaterial ELVEN_STEEL_T4 = registerArmor("elven_steel_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.ELVEN_STEEL_INGOT);
-    public static final ExtendedArmorMaterial ELVEN_STEEL_T5 = registerArmor("elven_steel_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ModResourceItems.ELVEN_STEEL_INGOT);
+    public static final ExtendedArmorMaterial ELVEN_STEEL_T3 = registerArmor("elven_steel_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.EDHEL_STEEL_INGOT);
+    public static final ExtendedArmorMaterial ELVEN_STEEL_T4 = registerArmor("elven_steel_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.EDHEL_STEEL_INGOT);
+    public static final ExtendedArmorMaterial ELVEN_STEEL_T5 = registerArmor("elven_steel_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ModResourceItems.EDHEL_STEEL_INGOT);
 
-    public static final ExtendedArmorMaterial URUK_STEEL_T3 = registerArmor("uruk_steel_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.URUK_STEEL_INGOT);
-    public static final ExtendedArmorMaterial URUK_STEEL_T4 = registerArmor("uruk_steel_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.URUK_STEEL_INGOT);
-    public static final ExtendedArmorMaterial URUK_STEEL_T5 = registerArmor("uruk_steel_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ModResourceItems.URUK_STEEL_INGOT);
+    public static final ExtendedArmorMaterial BURZUM_STEEL_T3 = registerArmor("burzum_steel_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.BURZUM_STEEL_INGOT);
+    public static final ExtendedArmorMaterial BURZUM_STEEL_T4 = registerArmor("burzum_steel_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModResourceItems.BURZUM_STEEL_INGOT);
+    public static final ExtendedArmorMaterial BURZUM_STEEL_T5 = registerArmor("burzum_steel_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ModResourceItems.BURZUM_STEEL_INGOT);
 
-    public static final ExtendedArmorMaterial MORGUL_STEEL_T3 = registerArmor("morgul_steel_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.MORGUL_STEEL_INGOT);
-
-    public static final RegistryEntry<ArmorMaterial> LEATHER = registerMountArmor("leather", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.MORGUL_STEEL_INGOT);
-    public static final RegistryEntry<ArmorMaterial> MAIL = registerMountArmor("mail", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.MORGUL_STEEL_INGOT);
-    public static final RegistryEntry<ArmorMaterial> PLATE = registerMountArmor("plate", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.MORGUL_STEEL_INGOT);
+    public static final RegistryEntry<ArmorMaterial> LEATHER = registerMountArmor("leather", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, Items.LEATHER);
+    public static final RegistryEntry<ArmorMaterial> MAIL = registerMountArmor("mail", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, Items.IRON_INGOT);
+    public static final RegistryEntry<ArmorMaterial> PLATE = registerMountArmor("plate", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModResourceItems.STEEL_INGOT);
 
 
     private static ExtendedArmorMaterial registerArmor(String name, Tiers tier, RegistryEntry<SoundEvent> equipSound, Item repairIngredient) {

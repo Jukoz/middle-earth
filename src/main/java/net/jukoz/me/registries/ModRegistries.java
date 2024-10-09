@@ -6,15 +6,21 @@ import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.*;
+import net.jukoz.me.datageneration.content.models.HotMetalsModel;
 import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
 import net.jukoz.me.datageneration.content.tags.LeavesSets;
 import net.jukoz.me.datageneration.content.tags.Saplings;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
+import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
+import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemActionResult;
@@ -502,9 +508,41 @@ public class ModRegistries {
         return ItemActionResult.success(world.isClient);
     };
 
+    public static final CauldronBehavior COOL_DOWN_METAL = (state, world, pos, player, hand, stack) -> {
+        if (!stack.contains(ModDataComponentTypes.TEMPERATURE_DATA)) {
+            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+        if (!world.isClient) {
+            ItemStack originalStack = stack.copy();
+            originalStack.setCount(1);
+            originalStack.remove(ModDataComponentTypes.TEMPERATURE_DATA);
+            stack.decrement(1);
+            player.giveItemStack(originalStack);
+
+            LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
+
+            world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1.0f, 1.0f);
+        } else {
+            world.addImportantParticle(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, pos.getX() + 0.5f, pos.getY() + 0.9f, pos.getZ()+ 0.5f, 0.0f, 0.07f, 0.0f);
+        }
+        return ItemActionResult.success(world.isClient);
+    };
+
     public static void registerCauldronBehaviour() {
         SimpleDyeableItemModel.items.forEach(item -> {
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, CLEAN_CUSTOM_DYEABLE_ITEM);
+        });
+
+        HotMetalsModel.items.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
+        });
+
+        HotMetalsModel.ingots.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
+        });
+
+        HotMetalsModel.nuggets.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
         });
     }
 }

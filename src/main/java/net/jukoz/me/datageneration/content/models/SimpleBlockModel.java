@@ -48,11 +48,11 @@ public class SimpleBlockModel {
             add(ModBlocks.CUT_SILVER);
 
             add(ModBlocks.BRONZE_BLOCK);
-            add(ModBlocks.SLAG_BLOCK);
+            add(ModBlocks.CRUDE_BLOCK);
             add(ModBlocks.STEEL_BLOCK);
-            add(ModBlocks.DWARVEN_STEEL_BLOCK);
-            add(ModBlocks.ELVEN_STEEL_BLOCK);
-            add(ModBlocks.URUK_STEEL_BLOCK);
+            add(ModBlocks.KHAZAD_STEEL_BLOCK);
+            add(ModBlocks.EDHEL_STEEL_BLOCK);
+            add(ModBlocks.BURZUM_STEEL_BLOCK);
 
             //GEMS
             add(ModBlocks.QUARTZ_BLOCK);
