@@ -1,10 +1,13 @@
 package net.jukoz.me.entity;
 
 import net.jukoz.me.entity.goals.CustomBowAttackGoal;
+import net.jukoz.me.entity.goals.NpcTargetPlayerGoal;
 import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
+import net.jukoz.me.resources.datas.factions.FactionUtil;
 import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.NpcUtil;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
@@ -37,14 +40,16 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     private final CustomBowAttackGoal<NpcEntity> bowAttackGoal = new CustomBowAttackGoal<NpcEntity>(this, 1.0, 16, 30.0f);
     private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.5, false);
     public NpcRank rank;
-    public Identifier factionId = MiddleEarthFactions.SHIRE.getId();
-
     protected NpcEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.updateAttackType();
         for (int i = 0; i < 4; i++) {
             Arrays.fill(this.armorDropChances, 0.0f);
         }
+    }
+
+    protected Identifier getFactionId(){
+        return null;
     }
 
     @Nullable
@@ -62,6 +67,19 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(4, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this, this.getClass()).setGroupRevenge());
+
+        Alignment alignment;
+        Identifier factionId = getFactionId();
+        if(factionId == null)
+            alignment = Alignment.NEUTRAL;
+        else {
+            try {
+                alignment = FactionLookup.getFactionById(getWorld(), factionId).getAlignment();
+            } catch (FactionIdentifierException e) {
+                alignment = Alignment.NEUTRAL; // Attacks everyone, no judgement made
+            }
+        }
+        this.targetSelector.add(2, new NpcTargetPlayerGoal(this, alignment));
     }
 
     public void updateAttackType() {
@@ -110,10 +128,6 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     @Override
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
         tryToEquipGears(this.getRank(), getFactionId());
-    }
-
-    private Identifier getFactionId() {
-        return factionId;
     }
 
     @Override
@@ -186,6 +200,8 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     }
 
     protected void tryToEquipGears(NpcRank npcRank, Identifier factionId) {
+        if(factionId == null)
+            return;
         try{
             Faction faction = FactionLookup.getFactionById(getWorld(), factionId);
             NpcData data = faction.getRandomGear(getWorld(), npcRank);

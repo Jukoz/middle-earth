@@ -28,6 +28,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -52,9 +53,11 @@ public class ShireHobbitEntity extends NpcEntity {
         }else if (name.contains("shirriff")) {
             this.setRank(NpcRank.SOLDIER);
         }
-        factionId = MiddleEarthFactions.SHIRE.getId();
     }
-
+    @Override
+    protected Identifier getFactionId() {
+        return MiddleEarthFactions.SHIRE.getId();
+    }
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {

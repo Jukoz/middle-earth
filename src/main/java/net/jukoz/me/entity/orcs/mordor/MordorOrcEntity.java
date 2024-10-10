@@ -26,6 +26,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -45,9 +46,11 @@ public class MordorOrcEntity extends OrcNpcEntity {
             this.setRank(NpcRank.SOLDIER);
             this.setBow(Items.BOW);
         }
-        factionId = MiddleEarthFactions.MORDOR.getId();
     }
-
+    @Override
+    protected Identifier getFactionId() {
+        return MiddleEarthFactions.MORDOR.getId();
+    }
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {

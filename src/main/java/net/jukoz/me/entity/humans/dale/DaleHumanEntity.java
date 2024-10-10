@@ -26,6 +26,7 @@ import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -52,7 +53,11 @@ public class DaleHumanEntity extends NpcEntity{
         }else if (name.contains("leader")) {
             this.setRank(NpcRank.LEADER);
         }
-        factionId = MiddleEarthFactions.DALE.getId();
+    }
+
+    @Override
+    protected Identifier getFactionId() {
+        return MiddleEarthFactions.DALE.getId();
     }
 
     @Nullable

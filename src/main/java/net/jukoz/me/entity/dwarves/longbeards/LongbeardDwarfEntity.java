@@ -29,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -54,7 +55,10 @@ public class LongbeardDwarfEntity extends NpcEntity {
         }else if (name.contains("leader")) {
             this.setRank(NpcRank.LEADER);
         }
-        factionId = MiddleEarthFactions.LONGBEARDS_EREBOR.getId();
+    }
+    @Override
+    protected Identifier getFactionId() {
+        return MiddleEarthFactions.LONGBEARDS_EREBOR.getId();
     }
 
     @Nullable

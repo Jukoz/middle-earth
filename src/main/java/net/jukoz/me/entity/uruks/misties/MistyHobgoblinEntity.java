@@ -22,6 +22,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -39,9 +40,11 @@ public class MistyHobgoblinEntity extends UrukNpcEntity {
         }else if (name.contains("leader")) {
             this.setRank(NpcRank.LEADER);
         }
-        factionId = MiddleEarthFactions.MISTY_MOUNTAINS_GOBLINS.getId();
     }
-
+    @Override
+    protected Identifier getFactionId() {
+        return MiddleEarthFactions.MISTY_MOUNTAINS_GOBLINS.getId();
+    }
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {

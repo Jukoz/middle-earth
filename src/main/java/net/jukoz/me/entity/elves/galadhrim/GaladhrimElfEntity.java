@@ -23,6 +23,7 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -49,9 +50,11 @@ public class GaladhrimElfEntity extends NpcEntity{
         }else if (name.contains("leader")) {
             this.setRank(NpcRank.LEADER);
         }
-        factionId = MiddleEarthFactions.LOTHLORIEN.getId();
     }
-
+    @Override
+    protected Identifier getFactionId() {
+        return MiddleEarthFactions.LOTHLORIEN.getId();
+    }
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {

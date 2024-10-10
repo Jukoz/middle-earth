@@ -59,7 +59,11 @@ public class GondorHumanEntity extends NpcEntity{
         }else if (name.contains("leader")) {
             this.setRank(NpcRank.LEADER);
         }
-        factionId = MiddleEarthFactions.GONDOR.getId();
+    }
+
+    @Override
+    protected Identifier getFactionId() {
+        return MiddleEarthFactions.GONDOR.getId();
     }
 
     @Nullable

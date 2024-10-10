@@ -4,6 +4,7 @@ import net.jukoz.me.entity.NpcEntity;
 import net.jukoz.me.entity.beasts.trolls.TrollEntity;
 import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
+import net.jukoz.me.entity.goals.NpcTargetPlayerGoal;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
@@ -14,6 +15,8 @@ import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.EntityData;
@@ -32,6 +35,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -86,7 +90,6 @@ public class BanditHumanEntity extends NpcEntity{
     protected void initGoals() {
         super.initGoals();
         int i = 2;
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
@@ -98,6 +101,12 @@ public class BanditHumanEntity extends NpcEntity{
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
+    }
+
+    @Override
+    protected Identifier getFactionId() {
+        // TODO : Create a bandit faction
+        return null;
     }
 
     @Override
