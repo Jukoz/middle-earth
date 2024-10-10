@@ -6,7 +6,6 @@ import net.jukoz.me.client.model.equipment.chest.capes.CapeMediumModel;
 import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
 import net.jukoz.me.client.model.equipment.chest.capes.CapeWideModel;
 import net.jukoz.me.client.model.equipment.chest.capes.CloakCapeModel;
-import net.minecraft.component.type.FireworkExplosionComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -52,7 +51,7 @@ public enum ModCapes implements StringIdentifiable {
     private final ChestplateAddonModel<LivingEntity> model;
 
     public static final Codec<ModCapes> CODEC = StringIdentifiable.createBasicCodec(ModCapes::values);
-    public static final PacketCodec<ByteBuf, ModCapes> PACKET_CODEC = PacketCodecs.indexed(BY_ID, ModCapes::getId);;
+    public static final PacketCodec<ByteBuf, ModCapes> PACKET_CODEC = PacketCodecs.indexed(BY_ID, ModCapes::getId);
 
 
     ModCapes(int id, String name, ChestplateAddonModel<LivingEntity> model){

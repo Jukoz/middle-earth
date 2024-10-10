@@ -73,7 +73,7 @@ public class ArmorHoodRecipe extends SpecialCraftingRecipe {
         }
 
         if (!itemStack.isEmpty()) {
-            return HoodDataComponent.setHood(itemStack, true, ModHoods.valueOf(hood.get(ModDataComponentTypes.HOOD_DATA).hood().toUpperCase()));
+            return HoodDataComponent.setHood(itemStack, true, hood.get(ModDataComponentTypes.HOOD_DATA).hood());
         } else {
             return ItemStack.EMPTY;
         }

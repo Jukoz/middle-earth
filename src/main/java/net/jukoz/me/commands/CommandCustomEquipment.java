@@ -4,13 +4,17 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.MiddleEarthClient;
 import net.jukoz.me.commands.suggestions.AllCapesSuggestionProvider;
+import net.jukoz.me.commands.suggestions.AllHoodsSuggestionProvider;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
+import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.items.CapeChestplateItem;
 import net.jukoz.me.item.items.CustomChestplateItem;
+import net.jukoz.me.item.items.CustomHelmetItem;
+import net.jukoz.me.item.items.HoodHelmetItem;
 import net.jukoz.me.item.utils.ModCapes;
+import net.jukoz.me.item.utils.ModHoods;
 import net.jukoz.me.utils.ModColors;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.item.ItemStack;
@@ -24,17 +28,28 @@ import java.util.Objects;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class CommandCape {
+public class CommandCustomEquipment {
+    private static final String EQUIPMENT = "equipment";
     private static final String CAPE = "cape";
+    private static final String HOOD = "hood";
     private static final String CAPE_VALUE = "cape_value";
+    private static final String HOOD_VALUE = "hood_value";
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
 
         dispatcher.register(literal(ModCommands.BASE_COMMAND)
-                .then(literal(CAPE)
+                .then(literal(EQUIPMENT)
+                    .then(literal(CAPE)
                         .then(argument(CAPE_VALUE, StringArgumentType.string())
                                 .suggests(new AllCapesSuggestionProvider())
-                                .executes(CommandCape::setCape))));
+                                .executes(CommandCustomEquipment::setCape)))));
+
+        dispatcher.register(literal(ModCommands.BASE_COMMAND)
+                .then(literal(EQUIPMENT)
+                    .then(literal(HOOD)
+                        .then(argument(HOOD_VALUE, StringArgumentType.string())
+                                .suggests(new AllHoodsSuggestionProvider())
+                                .executes(CommandCustomEquipment::setHood)))));
     }
 
     private static int setCape(CommandContext<ServerCommandSource> context) {
@@ -50,6 +65,23 @@ public class CommandCape {
         }
 
         MutableText sourceText = Text.translatable("command.me.cape.fail");
+        context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
+        return 0;
+    }
+
+    private static int setHood(CommandContext<ServerCommandSource> context) {
+        ModHoods hood = ModHoods.valueOf(StringArgumentType.getString(context, HOOD_VALUE).toUpperCase());
+
+        ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getInventory().getMainHandStack();
+
+        if ((handStack.getItem() instanceof CustomHelmetItem || handStack.getItem() instanceof HoodHelmetItem) && handStack.get(ModDataComponentTypes.HOOD_DATA) != null){
+            handStack.set(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(hood));
+            MutableText sourceText = Text.translatable("command.me.hood.success").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hood.getName()));
+            context.getSource().sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
+            return 0;
+        }
+
+        MutableText sourceText = Text.translatable("command.me.hood.fail");
         context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
         return 0;
     }

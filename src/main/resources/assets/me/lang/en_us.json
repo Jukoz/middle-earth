@@ -5840,10 +5840,6 @@
   "trim_material.me.mithril" : "Mithril",
 
 "#Comment": "Capes",
-  "tooltip.me.hood.enable": ": Enabled",
-  "tooltip.me.hood.disable": ": Disabled",
-  "tooltip.me.cape.enable": ": Enabled",
-  "tooltip.me.cape.disable": ": Disabled",
 
   "tooltip.me.base_hood": "Basic Hood",
   "tooltip.me.fur_hood": "Fur Hood",
@@ -6003,6 +5999,9 @@
 
   "command.me.cape.success": "Cape successfully applied: ",
   "command.me.cape.fail": "Failed to apply cape.",
+
+  "command.me.hood.success": "Hood successfully applied: ",
+  "command.me.hood.fail": "Failed to apply hood.",
 
 "#Comment": "Alert",
   "alert.me.large_door.blocked": "Something seems to prevent the door from moving.",

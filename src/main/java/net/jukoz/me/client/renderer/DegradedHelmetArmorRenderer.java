@@ -79,15 +79,13 @@ public class DegradedHelmetArmorRenderer implements ArmorRenderer {
             HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
 
             if(hoodDataComponent != null) {
-                if (hoodDataComponent.enabled()) {
-                    contextModel.copyBipedStateTo(hoodModel);
-                    hoodModel.setVisible(false);
-                    hoodModel.hat.visible = true;
-                    if(hoodDataComponent.down()){
-                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.hood() + "_down.png"), false);
-                    } else {
-                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.hood() + ".png"), false);
-                    }
+                contextModel.copyBipedStateTo(hoodModel);
+                hoodModel.setVisible(false);
+                hoodModel.hat.visible = true;
+                if(hoodDataComponent.down()){
+                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.hood() + "_down.png"), false);
+                } else {
+                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + hoodDataComponent.hood() + ".png"), false);
                 }
             }
         }

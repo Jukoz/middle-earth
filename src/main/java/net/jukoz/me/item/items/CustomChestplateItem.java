@@ -75,20 +75,4 @@ public class CustomChestplateItem extends ArmorItem {
 
         super.appendTooltip(stack, context, tooltip, type);
     }
-
-    //TODO fix with packets
-    /*@Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if(KeyInputHandler.capeKey.isPressed()){
-            CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
-
-            if(capeDataComponent != null){
-                if(capeDataComponent.enabled()){
-                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(false, capeDataComponent.cape()));
-                } else {
-                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true, capeDataComponent.cape()));
-                }
-            }
-        }
-    }*/
 }

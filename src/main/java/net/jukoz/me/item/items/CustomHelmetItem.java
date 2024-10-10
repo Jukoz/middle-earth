@@ -67,11 +67,7 @@ public class CustomHelmetItem extends ArmorItem {
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
             }
             if (hoodDataComponent != null) {
-                if (hoodDataComponent.enabled()) {
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood()).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".hood.enable")));
-                } else {
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood()).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".hood.disable")));
-                }
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood()));
             }
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));

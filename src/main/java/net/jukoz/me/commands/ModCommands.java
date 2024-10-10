@@ -1,7 +1,6 @@
 package net.jukoz.me.commands;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.commands.factions.CommandFaction;
 import net.jukoz.me.commands.factions.CommandSpawn;
 
@@ -17,6 +16,6 @@ public class ModCommands {
         CommandRegistrationCallback.EVENT.register(CommandFetchPlayerInformations::register);
 
         //Misc commands
-        CommandRegistrationCallback.EVENT.register(CommandCape::register);
+        CommandRegistrationCallback.EVENT.register(CommandCustomEquipment::register);
     }
 }
