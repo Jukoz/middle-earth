@@ -80,6 +80,9 @@ public class MiddleEarthNpcs {
         register(context, npcRegistryEntryLookup, IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA);
         // [SHIRE]
         register(context, npcRegistryEntryLookup, ShireNpcDataPool.SHIRE_MILITIA);
+        // [BANDIT]
+        register(context, npcRegistryEntryLookup, BanditNpcDataPool.BANDIT_MILITIA);
+        register(context, npcRegistryEntryLookup, BanditNpcDataPool.BANDIT_THIEF);
     }
 
     private static NpcData register(Registerable<NpcData> context, RegistryEntryLookup<NpcData> npcRegistryEntryLookup, NpcData npcData) {

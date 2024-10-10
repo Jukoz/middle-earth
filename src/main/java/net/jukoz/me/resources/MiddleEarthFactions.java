@@ -45,7 +45,8 @@ public class MiddleEarthFactions {
     public final static Faction ISENGARD;
     // [SHIRE]
     public final static Faction SHIRE;
-
+    // [BANDIT]
+    public final static Faction BANDIT;
     public static void register(){
         LoggerUtil.logDebugMsg("Registering Dynamic Factions for " + MiddleEarth.MOD_ID);
         DynamicRegistries.registerSynced(FACTION_KEY, Faction.CODEC);
@@ -72,6 +73,8 @@ public class MiddleEarthFactions {
         register(context, factionRegistryEntryLookup, ISENGARD);
         // [SHIRE]
         register(context, factionRegistryEntryLookup, SHIRE);
+        // [BANDIT]
+        register(context, factionRegistryEntryLookup, BANDIT);
     }
     private static Faction register(Registerable<Faction> context, RegistryEntryLookup<Faction> factionRegistryEntryLookup, Faction faction) {
         RegistryKey<Faction> factionRegistryKey = of(faction.getName());
@@ -90,7 +93,7 @@ public class MiddleEarthFactions {
 
     static {
         // region [GONDOR]
-        GONDOR = new Faction("gondor", Alignment.GOOD, FactionType.FACTION, null, null,
+        GONDOR = new Faction("gondor", true, Alignment.GOOD, FactionType.FACTION, null, null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             MiddleEarthNpcs.HUMAN_CIVILIAN
@@ -132,7 +135,7 @@ public class MiddleEarthFactions {
         );
         // endregion
         // region [ROHAN]
-        ROHAN = new Faction("rohan", Alignment.GOOD, FactionType.FACTION, null,null,
+        ROHAN = new Faction("rohan", true, Alignment.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             MiddleEarthNpcs.HUMAN_CIVILIAN
@@ -169,7 +172,7 @@ public class MiddleEarthFactions {
         );
         //endregion
         //region [DALE]
-        DALE = new Faction("dale", Alignment.GOOD, FactionType.FACTION, null,null,
+        DALE = new Faction("dale", true, Alignment.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             DalishNpcDataPool.DALE_MILITIA
@@ -201,11 +204,11 @@ public class MiddleEarthFactions {
         );
         //endregion
         // region [LONGBEARDS]
-        LONGBEARDS = new Faction("longbeards", Alignment.GOOD, FactionType.FACTION, null,
+        LONGBEARDS = new Faction("longbeards", true, Alignment.GOOD, FactionType.FACTION, null,
                 List.of(Identifier.of(MiddleEarth.MOD_ID, "longbeards.erebor")),
                 null, null, null, List.of(), List.of());
 
-        LONGBEARDS_EREBOR = new Faction(LONGBEARDS.getName().concat(".erebor"), Alignment.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
+        LONGBEARDS_EREBOR = new Faction(LONGBEARDS.getName().concat(".erebor"), true, Alignment.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             EreborNpcDataPool.EREBOR_MILITIA
@@ -241,7 +244,7 @@ public class MiddleEarthFactions {
 
         // endregion
         // region [LOTHLORIEN]
-        LOTHLORIEN = new Faction("lothlorien", Alignment.GOOD, FactionType.FACTION, null, null,
+        LOTHLORIEN = new Faction("lothlorien", true, Alignment.GOOD, FactionType.FACTION, null, null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             LorienNpcDataPool.LOTHLORIEN_MILITIA
@@ -273,7 +276,7 @@ public class MiddleEarthFactions {
         );
         // endregion
         //region [MORDOR]
-        MORDOR = new Faction("mordor", Alignment.EVIL, FactionType.FACTION, null,null,
+        MORDOR = new Faction("mordor", true, Alignment.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             MordorNpcDataPool.MORDOR_ORC_MILITIA,
@@ -314,7 +317,7 @@ public class MiddleEarthFactions {
         );
         //endregion
         // region [MISTY MOUNTAINS GOBLINS]
-        MISTY_MOUNTAINS_GOBLINS = new Faction("misty_mountains_goblins", Alignment.EVIL, FactionType.FACTION, null,null,
+        MISTY_MOUNTAINS_GOBLINS = new Faction("misty_mountains_goblins", true, Alignment.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_MILITIA,
@@ -354,7 +357,7 @@ public class MiddleEarthFactions {
         );
         // endregion
         // region [ISENGARD]
-        ISENGARD = new Faction("isengard", Alignment.EVIL, FactionType.FACTION, null,null,
+        ISENGARD = new Faction("isengard", true, Alignment.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             IsengardNpcDataPool.ISENGARD_ORC_MILITIA,
@@ -391,7 +394,7 @@ public class MiddleEarthFactions {
         );
         // endregion
         //region [SHIRE]
-        SHIRE = new Faction("shire", Alignment.GOOD, FactionType.FACTION, null,null,
+        SHIRE = new Faction("shire", true, Alignment.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             MiddleEarthNpcs.HOBBIT_CIVILIAN
@@ -423,6 +426,38 @@ public class MiddleEarthFactions {
                 )), List.of(), List.of()
         );
         //endregion
+        //region [BANDITS]
+        BANDIT = new Faction("bandit", false, Alignment.NEUTRAL, FactionType.FACTION, null,null,
+                new HashMap<>(){{
+                    put(NpcRank.CIVILIAN, List.of(
+                            BanditNpcDataPool.BANDIT_MILITIA
+                    ));
+                    put(NpcRank.MILITIA, List.of(
+                            BanditNpcDataPool.BANDIT_MILITIA,
+                            BanditNpcDataPool.BANDIT_THIEF
+                    ));
+                    put(NpcRank.SOLDIER, List.of(
+                            BanditNpcDataPool.BANDIT_MILITIA
+                    ));
+                    put(NpcRank.KNIGHT, List.of(
+                            BanditNpcDataPool.BANDIT_MILITIA
+                    ));
+                    put(NpcRank.VETERAN, List.of(
+                            BanditNpcDataPool.BANDIT_MILITIA
+                    ));
+                    put(NpcRank.LEADER, List.of(
+                            BanditNpcDataPool.BANDIT_MILITIA
+                    ));
+                }},
+                new BannerData(DyeColor.BLACK, List.of(
+                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.GRAY),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.CROSS.getValue(), DyeColor.RED),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.SKULL.getValue(), DyeColor.WHITE)
+                )),
+                null , List.of(), List.of()
+        );
+        //endregion
+
     }
 }
 

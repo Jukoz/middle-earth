@@ -23,8 +23,7 @@ public class FactionLookup {
     }
 
     public static HashMap<Identifier, Faction> getFactionsByAlignment(World world, Alignment alignment){
-        Stream<Faction> factions = getAllFactions(world).stream();
-
+        Stream<Faction> factions = getAllJoinableFaction(world).stream();
         HashMap<Identifier, Faction> foundFactions = new HashMap<>();
 
         for(Faction faction : factions.filter(x -> x.getAlignment() == alignment).toList()){
@@ -36,14 +35,11 @@ public class FactionLookup {
 
     public static List<Faction> getAllJoinableFaction(World world) {
         List<Faction> factions = getAllFactions(world);
-
         List<Faction> factionList = new ArrayList<>();
         for(Faction faction : factions) {
-            if(faction.getFactionType() == FactionType.SUBFACTION){
-                factionList.add(faction);
-            }else if(faction.getSubFactions() == null){
-                factionList.add(faction);
-            }
+            if(!faction.isJoinable())
+                continue;
+            factionList.add(faction);
         }
         return factionList;
     }

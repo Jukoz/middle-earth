@@ -5892,6 +5892,7 @@
   "faction.me.misty_mountains_goblins" : "Misty Mountains Goblins",
   "faction.me.isengard" : "Isengard",
   "faction.me.shire" : "Shire",
+  "faction.me.bandit" : "Bandit",
 
 "#Comment": "Factions fallback",
   "faction.me.example.fallback": "Example...",
@@ -5902,6 +5903,8 @@
   "spawn.me.coordinates_base_values.dynamic": "%s, %s",
   "spawn.me.coordinates_base.custom": "[x,y,z] ",
   "spawn.me.coordinates_base_values.custom": "%s, %s, %s",
+
+  "spawn.me.none" : "None",
 
   "spawn.me.gondor.minas_tirith" : "Minas Tirith",
   "spawn.me.gondor.anorien" : "Anorien",

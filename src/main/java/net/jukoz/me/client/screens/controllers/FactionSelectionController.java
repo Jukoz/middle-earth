@@ -123,8 +123,6 @@ public class FactionSelectionController {
             currentAlignementIndex --;
             if(currentAlignementIndex < 0)
                 currentAlignementIndex = Alignment.values().length - 1;
-
-
         }
         currentFactionIndex = 0;
         currentSubFactionIndex = 0;
@@ -215,19 +213,26 @@ public class FactionSelectionController {
         return races.size() > 1;
     }
 
+    public boolean haveSpawns(){
+        return spawns != null && !spawns.isEmpty();
+    }
+
     private Identifier getCurrentSpawnIdentifier(){
-        if(spawns == null || spawns.isEmpty())
+        if(!haveSpawns())
             updateSpawnList();
-        if(spawns.isEmpty())
+        if(!haveSpawns())
             return null;
         return spawns.get(currentSpawnIndex).getIdentifier();
     }
     public String getCurrentSpawnKey(){
-        Identifier spawnId = getCurrentSpawnIdentifier();
-        return SpawnDataHandler.getTranslatableKey(spawnId);
+        if(haveSpawns()){
+            Identifier spawnId = getCurrentSpawnIdentifier();
+            return SpawnDataHandler.getTranslatableKey(spawnId);
+        }
+        return "spawn.me.none";
     }
     public boolean haveManySpawns(){
-        if(spawns == null){
+        if(!haveSpawns()){
             return false;
         }
         return spawns.size() > 1;
@@ -236,7 +241,7 @@ public class FactionSelectionController {
 
     public void confirmSpawnSelection(AbstractClientPlayerEntity player){
         Faction faction = getCurrentlySelectedFaction();
-        if(faction == null || spawns == null || spawns.isEmpty()) return;
+        if(faction == null || !haveSpawns()) return;
 
         SpawnData spawn = spawns.get(currentSpawnIndex);
         Vec3d coordinate = spawn.getCoordinates();
@@ -304,14 +309,21 @@ public class FactionSelectionController {
     }
 
     public void setSpawnIndex(int index) {
-        if(index != currentSpawnIndex)
+        if(!haveSpawns()){
+            currentSpawnIndex = 0;
+            return;
+        }
+        if(index != currentSpawnIndex ||  spawns.isEmpty())
             currentSpawnIndex = Math.min(spawns.size() - 1, Math.max(0, index));
         if(screen.mapWidget != null){
             screen.mapWidget.updateSelectedSpawn(index);
             if(mapFocusToggle){
-                BlockPos blockPos = spawns.get(currentSpawnIndex).getBlockPos();
-                Vector2i point = new Vector2i(blockPos.getX(), blockPos.getZ());
-                screen.mapWidget.moveTo(point,5f);
+                SpawnData spawnData = spawns.get(currentSpawnIndex);
+                if(spawnData != null){
+                    BlockPos blockPos = spawns.get(currentSpawnIndex).getBlockPos();
+                    Vector2i point = new Vector2i(blockPos.getX(), blockPos.getZ());
+                    screen.mapWidget.moveTo(point,5f);
+                }
             }
         }
     }

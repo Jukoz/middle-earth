@@ -37,6 +37,7 @@ public class Faction {
 
     public static final Codec<Faction> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(Faction::getIdValue),
+            Codec.BOOL.fieldOf("joinable").forGetter(Faction::getJoinable),
             Codec.STRING.fieldOf("alignment").forGetter(Faction::getAlignmentString),
             Codec.STRING.fieldOf("faction_type").forGetter(Faction::getFactionTypeString),
             Identifier.CODEC.optionalFieldOf("parent_faction").forGetter(Faction::getParentFactionIdentifier),
@@ -50,6 +51,7 @@ public class Faction {
 
     private final Identifier id;
     private final String translatableKey;
+    private final boolean joinable;
     private final Alignment alignment;
     private final FactionType factionType;
     private final Identifier parentFactionId;
@@ -61,10 +63,10 @@ public class Faction {
     private List<String> leaveCommands;
     public List<Race> races = null;
 
-    public Faction(String id, String alignment, String factionType, Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
+    public Faction(String id, Boolean joinable, String alignment, String factionType, Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
         this.id = IdentifierUtil.getIdentifierFromString(id);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
-
+        this.joinable = joinable;
         this.alignment = Alignment.valueOf(alignment.toUpperCase());
         this.factionType = FactionType.valueOf(factionType.toUpperCase());
         this.parentFactionId = parentFaction.orElse(null);
@@ -98,9 +100,10 @@ public class Faction {
         leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
     }
 
-    public Faction(String name, Alignment alignment, FactionType factionType, Identifier parentFactionId, List<Identifier> subFactions, HashMap<NpcRank, List<NpcData>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
+    public Faction(String name, Boolean joinable, Alignment alignment, FactionType factionType, Identifier parentFactionId, List<Identifier> subFactions, HashMap<NpcRank, List<NpcData>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
         this.id = IdentifierUtil.getIdentifierFromString(name);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
+        this.joinable = joinable;
         this.alignment = alignment;
         this.factionType = factionType;
         this.parentFactionId = parentFactionId;
@@ -125,6 +128,9 @@ public class Faction {
 
     private String getIdValue() {
         return this.id.toString();
+    }
+    private Boolean getJoinable() {
+        return joinable;
     }
 
     private Optional<Identifier> getParentFactionIdentifier() {
@@ -295,5 +301,9 @@ public class Faction {
         }
         races = RaceLookup.getAllRaces(world, allRaceIds);
         return races;
+    }
+
+    public boolean isJoinable() {
+        return joinable;
     }
 }
