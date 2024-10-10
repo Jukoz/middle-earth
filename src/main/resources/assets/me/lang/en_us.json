@@ -506,7 +506,7 @@
   "item.me.shoes": "Shoes",
   "item.me.work_shoes": "Work Shoes",
 
-  "item.me.leather_cap": "Leather Cap",
+  "item.me.leather_skullcap": "Leather Skullcap",
   "item.me.gambeson_cap": "Gambeson Cap",
   "item.me.gambeson_cowl": "Gambeson Cowl",
 
@@ -6000,6 +6000,9 @@
   "command.me.teleport.to.spawn.middle_earth.error": "You couldn't be teleported to <%s>",
   "command.me.teleport.player.to.spawn.middle_earth.success": "%s got teleported to <%s> at [%s, %s, %s](xyz)",
   "command.me.teleport.player.to.spawn.middle_earth.error": "%s couldn't be teleported to <%s>",
+
+  "command.me.cape.success": "Cape successfully applied: ",
+  "command.me.cape.fail": "Failed to apply cape.",
 
 "#Comment": "Alert",
   "alert.me.large_door.blocked": "Something seems to prevent the door from moving.",

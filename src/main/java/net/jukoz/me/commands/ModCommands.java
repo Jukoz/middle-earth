@@ -15,5 +15,8 @@ public class ModCommands {
         // TODO : Commands to clean
         CommandRegistrationCallback.EVENT.register(CommandDimensionTeleport::register);
         CommandRegistrationCallback.EVENT.register(CommandFetchPlayerInformations::register);
+
+        //Misc commands
+        CommandRegistrationCallback.EVENT.register(CommandCape::register);
     }
 }

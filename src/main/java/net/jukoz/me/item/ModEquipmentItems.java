@@ -85,7 +85,7 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModFactions.NONE));
 
-    public static final Item LEATHER_CAP = registerDyeableArmorPiece("leather_cap",
+    public static final Item LEATHER_SKULLCAP = registerDyeableArmorPiece("leather_skullcap",
             new CustomHelmetItem(ModArmorMaterials.LEATHER_T2, ArmorItem.Type.HELMET, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false, -6265536)),
                     ModFactions.NONE));
@@ -358,7 +358,8 @@ public class ModEquipmentItems {
             new CustomChestplateItem(ModArmorMaterials.STEEL_T4, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModFactions.ROHAN));
     public static final Item ROHIRRIC_ORNAMENTED_SCALE_HAUBERK = registerArmorPiece("rohirric_ornamented_scale_hauberk",
-            new CustomChestplateItem(ModArmorMaterials.STEEL_T4, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+            new CustomChestplateItem(ModArmorMaterials.STEEL_T4, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_ROYAL_GUARD_CAPE)),
                     ModFactions.ROHAN));
 
     public static final Item ROHIRRIC_SCALE_JACKET = registerArmorPiece("rohirric_scale_jacket",
@@ -370,7 +371,7 @@ public class ModEquipmentItems {
                     ModFactions.ROHAN));
     public static final Item EORLING_MARSHAL_CHESTPLATE = registerArmorPiece("eorling_marshal_chestplate",
             new CustomChestplateItem(ModArmorMaterials.STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.EORLING_MARHSAL_CAPE)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.EORLING_MARSHAL_CAPE)),
                     ModFactions.ROHAN));
     public static final Item EORLING_MARSHAL_LEGGINGS = registerArmorPiece("eorling_marshal_leggings",
             new CustomLeggingsItem(ModArmorMaterials.STEEL_T5, ArmorItem.Type.LEGGINGS, new Item.Settings(),
@@ -681,7 +682,7 @@ public class ModEquipmentItems {
                     ModFactions.LOTHLORIEN));
     public static final Item GALADHRIM_CHESTPLATE = registerArmorPiece("galadhrim_chestplate",
             new CustomChestplateItem(ModArmorMaterials.ELVEN_STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GALADDHRIM_CAPE)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GALADHRIM_CAPE)),
                     ModFactions.LOTHLORIEN));
     public static final Item GALADHRIM_LEGGINGS = registerArmorPiece("galadhrim_leggings",
             new CustomLeggingsItem(ModArmorMaterials.ELVEN_STEEL_T5, ArmorItem.Type.LEGGINGS, new Item.Settings(),

@@ -1,18 +1,13 @@
-package net.jukoz.me.client.model.equipment.chest;
+package net.jukoz.me.client.model.equipment.chest.capes;
 
+import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
 import net.jukoz.me.utils.ToRad;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.AnimalModel;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
-import com.google.common.collect.ImmutableList;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
-import java.util.Vector;
-
-public class CloakCapeModel<T extends LivingEntity>  extends ChestplateAddonModel<T>  {
+public class CloakCapeModel<T extends LivingEntity>  extends ChestplateAddonModel<T> {
     private static final float MAX_ANGLE_CLOAK = 80f;
     private static final float SPEED_MULTIPLIER_CLOAK = 1.8f;
     private final ModelPart cape;
@@ -41,11 +36,13 @@ public class CloakCapeModel<T extends LivingEntity>  extends ChestplateAddonMode
         body.addChild("cape_shoulder", ModelPartBuilder.create().uv(0, 16).cuboid(-4.0F, -23.5F, -2.0F, 8.0F, 12.0F, 4.0F, new Dilation(1.1F)),
                 ModelTransform.pivot(0.0F, 23.0F, 0.016F));
 
-        ModelPartData cape = body.addChild("cape", ModelPartBuilder.create().uv(92, 32).mirrored().cuboid(-5.5F, -2F, -1F, 11.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
+        ModelPartData cape = body.addChild("cape", ModelPartBuilder.create()
+                .uv(92, 32).mirrored().cuboid(-5.5F, -2F, -1F, 11.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
                 .uv(53, 32).mirrored().cuboid(-6.5F, -2F, -1F, 13.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
                 .uv(0, 32).mirrored().cuboid(-9.5F, -2F, -3F, 19.0F, 13.0F, 6.0F, new Dilation(0.2F)).mirrored(false), ModelTransform.pivot(0.0F, -0.0F, 0.0F));
 
-        cape.addChild("cape_low", ModelPartBuilder.create().uv(92, 50).mirrored().cuboid(-5.5F, -1.8F, -1F, 11.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
+        cape.addChild("cape_low", ModelPartBuilder.create()
+                .uv(92, 50).mirrored().cuboid(-5.5F, -1.8F, -1F, 11.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
                 .uv(53, 50).mirrored().cuboid(-6.5F, -1.8F, -1F, 13.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
                 .uv(0, 51).mirrored().cuboid(-9.5F, -1.8F, -3F, 19.0F, 13.0F, 6.0F, new Dilation(0.2F)).mirrored(false), ModelTransform.pivot(-0.0F, 13.1558F, 0.0F));
 

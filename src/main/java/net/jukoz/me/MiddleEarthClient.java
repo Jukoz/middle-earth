@@ -11,7 +11,7 @@ import net.jukoz.me.block.special.shapingAnvil.ShapingAnvilEntityRenderer;
 import net.jukoz.me.client.model.equipment.*;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
-import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
+import net.jukoz.me.client.model.equipment.chest.capes.CloakCapeModel;
 import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
 import net.jukoz.me.client.model.equipment.head.RohirricHelmetArmorAddonModel;
 import net.jukoz.me.client.model.shields.HeaterShieldEntityModel;
