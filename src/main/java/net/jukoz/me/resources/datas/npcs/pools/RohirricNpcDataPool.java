@@ -1,0 +1,216 @@
+package net.jukoz.me.resources.datas.npcs.pools;
+
+import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.item.ModToolItems;
+import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.resources.MiddleEarthRaces;
+import net.jukoz.me.resources.datas.npcs.NpcData;
+import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
+import net.jukoz.me.resources.datas.npcs.data.NpcGearItemData;
+import net.jukoz.me.resources.datas.npcs.data.NpcGearSlotData;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.Items;
+import net.minecraft.util.Identifier;
+
+import java.util.List;
+
+public class RohirricNpcDataPool {
+    public final static NpcData ROHAN_MILITIA;
+    public final static NpcData ROHAN_SOLDIER;
+    public final static NpcData ROHAN_KNIGHT;
+    public final static NpcData ROHAN_ROYAL_GUARD;
+    public final static NpcData ROHAN_EORLING_MARSHAL;
+    public final static NpcData ROHAN_HORSE_LORD;
+
+    private final static int LIGHT_GREEN = 0x516c42;
+    private final static int DARK_GREEN = 0x2d4122;
+    private final static int LIGHT_RED = 0x7f4442;
+    private final static int DARK_RED = 0x56302d;
+    private final static int LIGHT_BEIGE = 0xa39269;
+    private final static int DARK_BEIGE = 0x827052;
+    private final static int LIGHT_BROWN = 0x69594d;
+    private final static int DARK_BROWN = 0x44382f;
+
+    private final static String FACTION_BASE = "rohan.";
+
+    static {
+        ROHAN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "militia"), MiddleEarthRaces.HUMAN, List.of(
+                new NpcGearData()
+                        .add(EquipmentSlot.HEAD, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_HELMET).withWeight(6))
+                                .add(new NpcGearItemData(ModEquipmentItems.LEATHER_CAP).withWeight(4))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_REINFORCED_LEATHER_HELMET).withWeight(3))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_ORNAMENTED_LEATHER_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_COAT).withColor(LIGHT_GREEN).withWeight(4))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_COAT).withColor(DARK_GREEN).withWeight(4))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_COAT).withColor(LIGHT_BROWN).withWeight(4))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_COAT).withColor(DARK_BROWN).withWeight(4))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_COAT).withColor(LIGHT_BEIGE).withWeight(2))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_COAT).withColor(DARK_BEIGE).withWeight(2))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withColor(LIGHT_GREEN))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withColor(DARK_GREEN))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withColor(LIGHT_BEIGE))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withColor(DARK_BEIGE))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withColor(LIGHT_BROWN))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withColor(DARK_BROWN))
+                        )
+                        .add(EquipmentSlot.FEET, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.STURDY_BOOTS))
+                                .add(new NpcGearItemData(ModEquipmentItems.TRAVELLING_BOOTS))
+                                .add(new NpcGearItemData(ModEquipmentItems.HIGH_CUT_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModWeaponItems.BRONZE_SPEAR).withWeight(4))
+                                .add(new NpcGearItemData(ModWeaponItems.BRONZE_SWORD).withWeight(3))
+                                .add(new NpcGearItemData(ModToolItems.BRONZE_AXE).withWeight(3))
+                                .add(new NpcGearItemData(ModWeaponItems.IRON_SPEAR).withWeight(2))
+                                .add(new NpcGearItemData(Items.IRON_SWORD))
+                                .add(new NpcGearItemData(Items.IRON_AXE))
+                        )
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.KITE_SHIELD))
+                                .add(new NpcGearItemData(ModEquipmentItems.HEATER_SHIELD))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROUND_SHIELD))
+                                .add(new NpcGearItemData().withWeight(5))
+                        )
+        ));
+        ROHAN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "soldier"), MiddleEarthRaces.HUMAN, List.of(
+                new NpcGearData()
+                        .add(EquipmentSlot.HEAD, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_MILITIA_HELMET).withWeight(6))
+                                .add(new NpcGearItemData(ModEquipmentItems.LEATHER_CAP).withWeight(2))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_BRACED_MILITIA_HELMET).withWeight(3))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_REINFORCED_MILITIA_HELMET).withWeight(3))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_ORNAMENTED_MILITIA_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_VEST).withColor(LIGHT_GREEN))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_VEST).withColor(DARK_GREEN))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_VEST).withColor(LIGHT_BEIGE))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_VEST).withColor(DARK_BEIGE))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_VEST).withColor(LIGHT_BROWN))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_VEST).withColor(DARK_BROWN))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_SCALE_VEST).withColor(LIGHT_GREEN))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_SCALE_VEST).withColor(DARK_GREEN))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_SCALE_VEST).withColor(LIGHT_BEIGE))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_SCALE_VEST).withColor(DARK_BEIGE))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_SCALE_VEST).withColor(LIGHT_BROWN))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_SCALE_VEST).withColor(DARK_BROWN))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_GAMBESON).withColor(LIGHT_GREEN))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_GAMBESON).withColor(DARK_GREEN))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_GAMBESON).withColor(LIGHT_BEIGE))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_GAMBESON).withColor(DARK_BEIGE))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_GAMBESON).withColor(LIGHT_BROWN))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_GAMBESON).withColor(DARK_BROWN))
+                        )
+                        .add(EquipmentSlot.FEET, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.STURDY_BOOTS))
+                                .add(new NpcGearItemData(ModEquipmentItems.TRAVELLING_BOOTS))
+                                .add(new NpcGearItemData(ModEquipmentItems.HIGH_CUT_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModWeaponItems.ROHIRRIC_SPEAR).withWeight(3))
+                                .add(new NpcGearItemData(ModWeaponItems.ROHIRRIC_SWORD))
+                                .add(new NpcGearItemData(ModWeaponItems.ROHIRRIC_AXE))
+                        )
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_SHIELD).withWeight(3))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_BUCKING_HORSE_SHIELD))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_GALLOPING_HORSE_SHIELD))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_HORSE_HEAD_SHIELD))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_PLAINSMAN_SHIELD))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_TWIN_HORSES_SHIELD))
+                                .add(new NpcGearItemData().withWeight(10))
+                        )
+        ));
+        ROHAN_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "knight"), MiddleEarthRaces.HUMAN, List.of(
+                new NpcGearData()
+                        .add(EquipmentSlot.HEAD, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_SOLDIER_HELMET).withWeight(6))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_MILITIA_HELMET).withWeight(6))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_BRACED_MILITIA_HELMET).withWeight(3))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_REINFORCED_MILITIA_HELMET).withWeight(3))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_ORNAMENTED_MILITIA_HELMET))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_ORNAMENTED_SOLDIER_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_MAIL_SHIRT).withColor(LIGHT_RED))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_MAIL_SHIRT).withColor(DARK_RED))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_MAIL_HAUBERK).withColor(LIGHT_RED))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_MAIL_HAUBERK).withColor(DARK_RED))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_MAIL_SHIRT_OPEN).withColor(LIGHT_RED))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_MAIL_SHIRT_OPEN).withColor(DARK_RED))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_SCALE_VEST).withColor(LIGHT_RED))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_SCALE_VEST).withColor(DARK_RED))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_VEST).withColor(LIGHT_RED))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_LEATHER_VEST).withColor(DARK_RED))
+                        )
+                        .add(EquipmentSlot.FEET, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.STURDY_BOOTS))
+                                .add(new NpcGearItemData(ModEquipmentItems.TRAVELLING_BOOTS))
+                                .add(new NpcGearItemData(ModEquipmentItems.HIGH_CUT_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModWeaponItems.ROHIRRIC_SWORD))
+                                .add(new NpcGearItemData(ModWeaponItems.ROHIRRIC_AXE))
+                                .add(new NpcGearItemData(ModWeaponItems.ROHIRRIC_SPEAR))
+                        )
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_SHIELD).withWeight(3))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_BUCKING_HORSE_SHIELD))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_GALLOPING_HORSE_SHIELD))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_HORSE_HEAD_SHIELD))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_PLAINSMAN_SHIELD))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_TWIN_HORSES_SHIELD))
+                        )
+        ));
+        ROHAN_ROYAL_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "royal_guard"), MiddleEarthRaces.HUMAN, List.of(
+                new NpcGearData()
+                        .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_HELMET)))
+                        .add(EquipmentSlot.CHEST, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_SCALE_HAUBERK).withWeight(6))
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_ORNAMENTED_SCALE_HAUBERK))
+                        )
+                        .add(EquipmentSlot.LEGS, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_SCALE_JACKET)))
+                        .add(EquipmentSlot.FEET, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.HIGH_CUT_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModWeaponItems.ROHIRRIC_NOBLE_SPEAR).withWeight(6))
+                                .add(new NpcGearItemData(ModWeaponItems.ROHIRRIC_NOBLE_SWORD))
+                        )
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_ROYAL_GUARD_SHIELD)))
+        ));
+        ROHAN_EORLING_MARSHAL = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "eorling_marhsal"), MiddleEarthRaces.HUMAN, List.of(
+                new NpcGearData()
+                        .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.EORLING_MARSHAL_HELMET)))
+                        .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.EORLING_MARSHAL_CHESTPLATE)))
+                        .add(EquipmentSlot.LEGS, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.EORLING_MARSHAL_LEGGINGS)))
+                        .add(EquipmentSlot.FEET, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.EORLING_MARSHAL_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModWeaponItems.ROHIRRIC_NOBLE_SWORD).withWeight(3))
+                                .add(new NpcGearItemData(ModWeaponItems.ROHIRRIC_NOBLE_SPEAR))
+                        )
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_EORLING_SHIELD))
+                                .add(new NpcGearItemData().withWeight(3))
+                        )
+        ));
+        ROHAN_HORSE_LORD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "horse_lord"), MiddleEarthRaces.HUMAN, List.of(
+                new NpcGearData()
+                        .add(EquipmentSlot.HEAD, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.HORSE_LORD_HELMET)))
+                        .add(EquipmentSlot.CHEST, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.HORSE_LORD_CHESTPLATE)))
+                        .add(EquipmentSlot.LEGS, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.HORSE_LORD_LEGGINGS)))
+                        .add(EquipmentSlot.FEET, new NpcGearSlotData(new NpcGearItemData(ModEquipmentItems.HORSE_LORD_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModWeaponItems.ROHIRRIC_NOBLE_SWORD))
+                        )
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData()
+                                .add(new NpcGearItemData(ModEquipmentItems.ROHIRRIC_ORNAMENTED_SHIELD))
+                                .add(new NpcGearItemData().withWeight(3))
+                        )
+        ));
+
+    }
+}

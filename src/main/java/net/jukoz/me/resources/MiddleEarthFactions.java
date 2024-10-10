@@ -10,6 +10,8 @@ import net.jukoz.me.resources.datas.factions.data.BannerData;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
+import net.jukoz.me.resources.datas.npcs.pools.GondorianNpcDataPool;
+import net.jukoz.me.resources.datas.npcs.pools.RohirricNpcDataPool;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.registry.*;
@@ -95,22 +97,22 @@ public class MiddleEarthFactions {
                             MiddleEarthNpcs.HUMAN_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MiddleEarthNpcs.GONDOR_MILITIA
+                            GondorianNpcDataPool.GONDOR_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MiddleEarthNpcs.GONDOR_SOLDIER
+                            GondorianNpcDataPool.GONDOR_SOLDIER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.GONDOR_KNIGHT
+                            GondorianNpcDataPool.GONDOR_KNIGHT
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.GONDOR_VETERAN,
-                            MiddleEarthNpcs.GONDOR_KING_GUARDS,
-                            MiddleEarthNpcs.GONDOR_CITADEL_GUARDS,
-                            MiddleEarthNpcs.GONDOR_FOUNTAIN_GUARDS
+                            GondorianNpcDataPool.GONDOR_VETERAN,
+                            GondorianNpcDataPool.GONDOR_KING_GUARDS,
+                            GondorianNpcDataPool.GONDOR_CITADEL_GUARDS,
+                            GondorianNpcDataPool.GONDOR_FOUNTAIN_GUARDS
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.GONDOR_LEADER
+                            GondorianNpcDataPool.GONDOR_LEADER
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(
@@ -137,21 +139,21 @@ public class MiddleEarthFactions {
                             MiddleEarthNpcs.HUMAN_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MiddleEarthNpcs.ROHAN_MILITIA
+                            RohirricNpcDataPool.ROHAN_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MiddleEarthNpcs.ROHAN_SOLDIER
+                            RohirricNpcDataPool.ROHAN_SOLDIER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.ROHAN_KNIGHT
+                            RohirricNpcDataPool.ROHAN_KNIGHT
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.ROHAN_KNIGHT,
-                            MiddleEarthNpcs.ROHAN_ROYAL_GUARD
+                            RohirricNpcDataPool.ROHAN_KNIGHT,
+                            RohirricNpcDataPool.ROHAN_ROYAL_GUARD
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.ROHAN_HORSE_LORD,
-                            MiddleEarthNpcs.ROHAN_EORLING_MARSHAL
+                            RohirricNpcDataPool.ROHAN_HORSE_LORD,
+                            RohirricNpcDataPool.ROHAN_EORLING_MARSHAL
                     ));
                 }},
                 new BannerData(DyeColor.GREEN, List.of(
