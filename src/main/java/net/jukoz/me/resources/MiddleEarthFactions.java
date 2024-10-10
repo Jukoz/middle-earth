@@ -10,8 +10,7 @@ import net.jukoz.me.resources.datas.factions.data.BannerData;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
-import net.jukoz.me.resources.datas.npcs.pools.GondorianNpcDataPool;
-import net.jukoz.me.resources.datas.npcs.pools.RohirricNpcDataPool;
+import net.jukoz.me.resources.datas.npcs.pools.*;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.registry.*;
@@ -173,22 +172,22 @@ public class MiddleEarthFactions {
         DALE = new Faction("dale", Alignment.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.HUMAN_CIVILIAN
+                            DalishNpcDataPool.DALE_MILITIA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MiddleEarthNpcs.DALE_MILITIA
+                            DalishNpcDataPool.DALE_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MiddleEarthNpcs.DALE_MILITIA
+                            DalishNpcDataPool.DALE_MILITIA
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.DALE_MILITIA
+                            DalishNpcDataPool.DALE_MILITIA
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.DALE_MILITIA
+                            DalishNpcDataPool.DALE_MILITIA
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.DALE_MILITIA
+                            DalishNpcDataPool.DALE_MILITIA
                     ));
                 }},
                 new BannerData(DyeColor.LIGHT_BLUE, List.of(
@@ -209,22 +208,22 @@ public class MiddleEarthFactions {
         LONGBEARDS_EREBOR = new Faction(LONGBEARDS.getName().concat(".erebor"), Alignment.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.DWARF_CIVILIAN
+                            EreborNpcDataPool.EREBOR_MILITIA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MiddleEarthNpcs.EREBOR_MILITIA
+                            EreborNpcDataPool.EREBOR_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MiddleEarthNpcs.EREBOR_MILITIA
+                            EreborNpcDataPool.EREBOR_MILITIA
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.EREBOR_MILITIA
+                            EreborNpcDataPool.EREBOR_MILITIA
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.EREBOR_MILITIA
+                            EreborNpcDataPool.EREBOR_MILITIA
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.EREBOR_MILITIA
+                            EreborNpcDataPool.EREBOR_MILITIA
                     ));
                 }},
                 new BannerData(DyeColor.BLUE, List.of(
@@ -245,22 +244,22 @@ public class MiddleEarthFactions {
         LOTHLORIEN = new Faction("lothlorien", Alignment.GOOD, FactionType.FACTION, null, null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.ELF_CIVILIAN
+                            LorienNpcDataPool.LOTHLORIEN_MILITIA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MiddleEarthNpcs.LOTHLORIEN_MILITIA
+                            LorienNpcDataPool.LOTHLORIEN_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MiddleEarthNpcs.LOTHLORIEN_MILITIA
+                            LorienNpcDataPool.LOTHLORIEN_MILITIA
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.LOTHLORIEN_MILITIA
+                            LorienNpcDataPool.LOTHLORIEN_MILITIA
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.LOTHLORIEN_MILITIA
+                            LorienNpcDataPool.LOTHLORIEN_MILITIA
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.LOTHLORIEN_MILITIA
+                            LorienNpcDataPool.LOTHLORIEN_MILITIA
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
@@ -277,23 +276,28 @@ public class MiddleEarthFactions {
         MORDOR = new Faction("mordor", Alignment.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.ORC_CIVILIAN
+                            MordorNpcDataPool.MORDOR_ORC_MILITIA,
+                            MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MiddleEarthNpcs.MORDOR_ORC_MILITIA,
-                            MiddleEarthNpcs.URUK_CIVILIAN
+                            MordorNpcDataPool.MORDOR_ORC_MILITIA,
+                            MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MiddleEarthNpcs.BLACK_URUK_SOLDIER
+                            MordorNpcDataPool.MORDOR_ORC_MILITIA,
+                            MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.BLACK_URUK_SOLDIER
+                            MordorNpcDataPool.MORDOR_ORC_MILITIA,
+                            MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.BLACK_URUK_SOLDIER
+                            MordorNpcDataPool.MORDOR_ORC_MILITIA,
+                            MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.BLACK_URUK_SOLDIER
+                            MordorNpcDataPool.MORDOR_ORC_MILITIA,
+                            MordorNpcDataPool.MORDOR_BLACK_URUK_MILITIA
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(
@@ -313,23 +317,28 @@ public class MiddleEarthFactions {
         MISTY_MOUNTAINS_GOBLINS = new Faction("misty_mountains_goblins", Alignment.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.ORC_CIVILIAN
+                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_MILITIA,
+                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_MILITIA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MiddleEarthNpcs.MISTY_GOBLIN_MILITIA
+                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_MILITIA,
+                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MiddleEarthNpcs.MISTY_HOBGOBLIN_SOLDIER,
-                            MiddleEarthNpcs.URUK_CIVILIAN
+                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_MILITIA,
+                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_MILITIA
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.MISTY_HOBGOBLIN_SOLDIER
+                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_MILITIA,
+                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_MILITIA
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.MISTY_HOBGOBLIN_SOLDIER
+                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_MILITIA,
+                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_MILITIA
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.MISTY_HOBGOBLIN_SOLDIER
+                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_MILITIA,
+                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_MILITIA
                     ));
                 }},
                 new BannerData(DyeColor.BROWN, List.of(
@@ -348,23 +357,28 @@ public class MiddleEarthFactions {
         ISENGARD = new Faction("isengard", Alignment.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MiddleEarthNpcs.ORC_CIVILIAN
+                            IsengardNpcDataPool.ISENGARD_ORC_MILITIA,
+                            IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MiddleEarthNpcs.ISENGARD_ORC_MILITIA,
-                            MiddleEarthNpcs.URUK_CIVILIAN
+                            IsengardNpcDataPool.ISENGARD_ORC_MILITIA,
+                            IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MiddleEarthNpcs.URUK_HAI_SOLDIER
+                            IsengardNpcDataPool.ISENGARD_ORC_MILITIA,
+                            IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.URUK_HAI_SOLDIER
+                            IsengardNpcDataPool.ISENGARD_ORC_MILITIA,
+                            IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.URUK_HAI_SOLDIER
+                            IsengardNpcDataPool.ISENGARD_ORC_MILITIA,
+                            IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.URUK_HAI_SOLDIER
+                            IsengardNpcDataPool.ISENGARD_ORC_MILITIA,
+                            IsengardNpcDataPool.ISENGARD_URUK_HAI_MILITIA
                     ));
                 }},
             // TODO : add humans? No proper assets for them
@@ -383,19 +397,19 @@ public class MiddleEarthFactions {
                             MiddleEarthNpcs.HOBBIT_CIVILIAN
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MiddleEarthNpcs.HOBBIT_PEASANT
+                            ShireNpcDataPool.SHIRE_MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MiddleEarthNpcs.HOBBIT_PEASANT
+                            ShireNpcDataPool.SHIRE_MILITIA
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MiddleEarthNpcs.HOBBIT_PEASANT
+                            ShireNpcDataPool.SHIRE_MILITIA
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MiddleEarthNpcs.HOBBIT_PEASANT
+                            ShireNpcDataPool.SHIRE_MILITIA
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MiddleEarthNpcs.HOBBIT_PEASANT
+                            ShireNpcDataPool.SHIRE_MILITIA
                     ));
                 }},
                 new BannerData(DyeColor.YELLOW, List.of(
