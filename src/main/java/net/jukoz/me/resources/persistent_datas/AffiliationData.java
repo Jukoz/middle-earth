@@ -1,36 +1,31 @@
 package net.jukoz.me.resources.persistent_datas;
 
-import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.exceptions.FactionIdentifierException;
-import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.utils.LoggerUtil;
-import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.jukoz.me.world.dimension.ModDimensions;
-import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.joml.Vector2d;
-import org.joml.Vector2i;
 
 public class AffiliationData {
-    public Alignment alignment;
+    public Disposition disposition;
     public Identifier faction;
     public Identifier spawnId;
 
-    public AffiliationData(String alignment, Identifier factionId, Identifier spawnId) {
-        this.alignment = Alignment.valueOf(alignment);
+    public AffiliationData(String disposition, Identifier factionId, Identifier spawnId) {
+        this.disposition = Disposition.valueOf(disposition);
         this.faction = factionId;
         this.spawnId = spawnId;
     }
 
 
-    public Alignment getAlignment(){
-        return alignment;
+    public Disposition getDisposition(){
+        return disposition;
     }
 
     public Vec3d getSpawnMiddleEarthCoordinate(World world){
@@ -52,6 +47,6 @@ public class AffiliationData {
 
     @Override
     public String toString() {
-        return "Alignment=" + getAlignment().toString() + ";\nFaction=" + faction + ";\nSpawn=" + spawnId + ";";
+        return "Disposition=" + getDisposition().toString() + ";\nFaction=" + faction + ";\nSpawn=" + spawnId + ";";
     }
 }

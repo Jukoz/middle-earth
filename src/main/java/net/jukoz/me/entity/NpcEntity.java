@@ -3,11 +3,9 @@ package net.jukoz.me.entity;
 import net.jukoz.me.entity.goals.CustomBowAttackGoal;
 import net.jukoz.me.entity.goals.NpcTargetPlayerGoal;
 import net.jukoz.me.exceptions.FactionIdentifierException;
-import net.jukoz.me.resources.MiddleEarthFactions;
-import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
-import net.jukoz.me.resources.datas.factions.FactionUtil;
 import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.NpcUtil;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
@@ -68,18 +66,18 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         this.goalSelector.add(4, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this, this.getClass()).setGroupRevenge());
 
-        Alignment alignment;
+        Disposition disposition;
         Identifier factionId = getFactionId();
         if(factionId == null)
-            alignment = Alignment.NEUTRAL;
+            disposition = Disposition.NEUTRAL;
         else {
             try {
-                alignment = FactionLookup.getFactionById(getWorld(), factionId).getAlignment();
+                disposition = FactionLookup.getFactionById(getWorld(), factionId).getDisposition();
             } catch (FactionIdentifierException e) {
-                alignment = Alignment.NEUTRAL; // Attacks everyone, no judgement made
+                disposition = Disposition.NEUTRAL; // Attacks everyone, no judgement made
             }
         }
-        this.targetSelector.add(2, new NpcTargetPlayerGoal(this, alignment));
+        this.targetSelector.add(2, new NpcTargetPlayerGoal(this, disposition));
     }
 
     public void updateAttackType() {

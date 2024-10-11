@@ -2,24 +2,21 @@ package net.jukoz.me.entity.goals;
 
 import net.jukoz.me.entity.NpcEntity;
 import net.jukoz.me.resources.StateSaverAndLoader;
-import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.Difficulty;
 
-import java.util.Objects;
-
 public class NpcTargetPlayerGoal extends ActiveTargetGoal<PlayerEntity> {
     NpcEntity mob;
-    Alignment ownAlignment;
+    Disposition ownDisposition;
 
-    public NpcTargetPlayerGoal(NpcEntity mob, Alignment ownAlignment) {
+    public NpcTargetPlayerGoal(NpcEntity mob, Disposition ownDisposition) {
         super(mob, PlayerEntity.class, true);
         this.mob = mob;
-        this.ownAlignment = ownAlignment;
+        this.ownDisposition = ownDisposition;
     }
 
     @Override
@@ -40,12 +37,12 @@ public class NpcTargetPlayerGoal extends ActiveTargetGoal<PlayerEntity> {
         if(mob.getWorld().getDifficulty() == Difficulty.PEACEFUL){
             return false;
         }
-        if(ownAlignment != null){
+        if(ownDisposition != null){
             PlayerData data = StateSaverAndLoader.getPlayerState(player);
-            Alignment playerAlignment = data.getCurrentAlignment();
-            if(playerAlignment == null)
+            Disposition playerDisposition = data.getCurrentDisposition();
+            if(playerDisposition == null)
                 return true;
-            if(playerAlignment == ownAlignment){
+            if(playerDisposition == ownDisposition){
                 return false;
             }
         }

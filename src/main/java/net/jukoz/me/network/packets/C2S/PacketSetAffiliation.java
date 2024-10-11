@@ -19,19 +19,19 @@ public class PacketSetAffiliation extends ClientToServerPacket<PacketSetAffiliat
     public static final CustomPayload.Id<PacketSetAffiliation> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_set_affiliation"));
 
     public static final PacketCodec<RegistryByteBuf, PacketSetAffiliation> CODEC = PacketCodec.tuple(
-            PacketCodecs.STRING, p -> p.alignmentName,
+            PacketCodecs.STRING, p -> p.dispositionName,
             PacketCodecs.STRING, p -> p.factionName,
             PacketCodecs.STRING, p -> p.spawnName,
             PacketSetAffiliation::new
     );
 
-    private final String alignmentName;
+    private final String dispositionName;
     private final String factionName;
     private final String spawnName;
 
 
-    public PacketSetAffiliation(String alignmentName, String factionName, String spawnName){
-        this.alignmentName = alignmentName;
+    public PacketSetAffiliation(String dispositionName, String factionName, String spawnName){
+        this.dispositionName = dispositionName;
         this.factionName = factionName;
         this.spawnName = spawnName;
     }

@@ -5,7 +5,7 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public enum Alignment {
+public enum Disposition {
     GOOD,
     NEUTRAL,
     EVIL;
@@ -16,6 +16,6 @@ public enum Alignment {
     }
 
     public MutableText getName() {
-        return Text.translatable("alignment.".concat(Identifier.of(MiddleEarth.MOD_ID, toString()).toTranslationKey()));
+        return Text.translatable("disposition.".concat(Identifier.of(MiddleEarth.MOD_ID, toString()).toTranslationKey()));
     }
 }

@@ -9,7 +9,7 @@ import net.jukoz.me.client.screens.utils.widgets.*;
 import net.jukoz.me.client.screens.utils.widgets.map.FactionSelectionMapWidget;
 import net.jukoz.me.client.screens.utils.widgets.text.TextAlignment;
 import net.jukoz.me.client.screens.utils.widgets.text.TextBlockWidget;
-import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
 import net.jukoz.me.utils.LoggerUtil;
@@ -50,7 +50,7 @@ public class FactionSelectionScreen extends Screen {
     private ModelPart bannerField;
     private SearchBarWidget searchBarWidget;
     private PlayableNpcPreviewWidget playableNpcPreviewWidget;
-    private CycledSelectionWidget alignmentSelectionWidget;
+    private CycledSelectionWidget dispositionSelectionWidget;
     private CycledSelectionWidget factionSelectionWidget;
     private CycledSelectionWidget subfactionSelectionWidget;
     public ButtonWidget factionRandomizerButton;
@@ -104,19 +104,19 @@ public class FactionSelectionScreen extends Screen {
      * - Cycled widgets & Randomizer
      */
     private void addFactionSelectionPanelButtons() {
-        // Alignment
-        alignmentSelectionWidget = new CycledSelectionWidget(
+        // Disposition
+        dispositionSelectionWidget = new CycledSelectionWidget(
                 button -> {
-                    controller.alignmentUpdate(false);
+                    controller.dispositionUpdate(false);
                     updateEquipment();
                 },
                 button -> {
-                    controller.alignmentUpdate(true);
+                    controller.dispositionUpdate(true);
                     updateEquipment();
                 },
                 null,
                 CycledSelectionButtonType.GOLD);
-        for(ButtonWidget button: alignmentSelectionWidget.getButtons()){
+        for(ButtonWidget button: dispositionSelectionWidget.getButtons()){
             addDrawableChild(button);
         }
 
@@ -324,13 +324,13 @@ public class FactionSelectionScreen extends Screen {
                 textStart, 0, false);
         textStart += textRenderer.fontHeight + MINIMAL_MARGIN;
 
-        Text alignmentText = Text.translatable("Alignment :");
-        context.drawText(textRenderer, alignmentText,
+        Text dispositionText = Text.translatable("screen.me.information.faction_disposition");
+        context.drawText(textRenderer, dispositionText,
                 startX + (MINIMAL_MARGIN),
                 textStart, 0, false);
 
-        context.drawText(textRenderer, controller.getCurrentAlignment().getName(),
-                startX + (MINIMAL_MARGIN) + textRenderer.getWidth(alignmentText) + textRenderer.getWidth(" "),
+        context.drawText(textRenderer, controller.getCurrentDisposition().getName(),
+                startX + (MINIMAL_MARGIN) + textRenderer.getWidth(dispositionText),
                 textStart, 0, false);
 
         if(loreDescriptionTextWidget == null){
@@ -363,8 +363,8 @@ public class FactionSelectionScreen extends Screen {
         int startX = Math.max(MINIMAL_MARGIN, endX  - mainPanelWidth);
         int startY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f));
 
-        // Draw alignment option
-        Alignment alignment = controller.getCurrentAlignment();
+        // Draw disposition option
+        Disposition disposition = controller.getCurrentDisposition();
         Faction faction = controller.getCurrentFaction();
         Faction subFaction = controller.getCurrentSubfaction();
 
@@ -388,7 +388,7 @@ public class FactionSelectionScreen extends Screen {
         searchBarWidget.setEndY(endY);
 
         if(searchBarWidget.searchIsToggled()) {
-            alignmentSelectionWidget.enableArrows(false);
+            dispositionSelectionWidget.enableArrows(false);
             factionSelectionWidget.enableArrows(false);
             subfactionSelectionWidget.enableArrows(false);
             factionRandomizerButton.active = false;
@@ -396,13 +396,13 @@ public class FactionSelectionScreen extends Screen {
             return;
         }
 
-        // Alignment
-        factionSelectionWidget.enableArrows(Alignment.values().length > 1);
-        newStartY += MINIMAL_MARGIN + alignmentSelectionWidget.drawAnchored(context, endX, newStartY, false, alignment.getName(), textRenderer);
+        // Disposition
+        factionSelectionWidget.enableArrows(Disposition.values().length > 1);
+        newStartY += MINIMAL_MARGIN + dispositionSelectionWidget.drawAnchored(context, endX, newStartY, false, disposition.getName(), textRenderer);
 
         // Faction
-        int currentFactionCountForAlignment = controller.getCurrentAlignmentFactionCount();
-        factionSelectionWidget.enableArrows(currentFactionCountForAlignment > 1);
+        int currentFactionCountForDisposition = controller.getCurrentDispositionFactionCount();
+        factionSelectionWidget.enableArrows(currentFactionCountForDisposition > 1);
         if(faction != null){
             newStartY += MINIMAL_MARGIN + factionSelectionWidget.drawAnchored(context, endX, newStartY, false, (faction == null) ? null : faction.tryGetShortName(), textRenderer);
 

@@ -5876,10 +5876,10 @@
   "tooltip.me.galadhrim_hood": "Galadhrim Hood",
   "tooltip.me.galadhrim_lord_cape": "Galadhrim Lord Cape",
 
-"#Comment:": "Alignment",
-  "alignment.me.good" : "Good",
-  "alignment.me.neutral" : "Neutral",
-  "alignment.me.evil" : "Evil",
+"#Comment:": "Disposition",
+  "disposition.me.good" : "Good",
+  "disposition.me.neutral" : "Neutral",
+  "disposition.me.evil" : "Evil",
 
 "#Comment:": "Faction Names",
   "faction.me.gondor" : "Gondor",
@@ -5949,7 +5949,7 @@
   "race.me.orc" : "Orc",
   "race.me.uruk" : "Uruk",
 
-"#Comment:": "Faction lores",
+"#Comment:": "Faction descriptions",
   "lore.me.gondor.description_0" : "Gondor, or the South-kingdom, was one of the two Kingdoms of the Dúnedain (the other being Arnor in the north) in the lands about the Mouths of Anduin. Initially the lesser of the Realms in-Exile. Gondor survived to the end of the Third Age, unlike Arnor, and had an instrumental role in the War of the Ring.",
 
 "#Comment": "Commands",
@@ -6033,6 +6033,7 @@
   "screen.me.button.zoom_out": "Zoom In",
   "screen.me.button.zoom_in": "Zoom Out",
   "screen.me.button.confirm": "Confirm",
+  "screen.me.information.faction_disposition": "Disposition : ",
 
 "#Comment": "UI Map",
   "ui.me.map_title_text": "Middle-earth Map",

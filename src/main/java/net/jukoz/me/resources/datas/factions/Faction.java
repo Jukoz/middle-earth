@@ -4,23 +4,19 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.jukoz.me.resources.MiddleEarthFactions;
-import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.NpcDataLookup;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
-import net.jukoz.me.resources.datas.npcs.data.NpcGearItemData;
-import net.jukoz.me.resources.datas.npcs.data.NpcGearSlotData;
 import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.utils.IdentifierUtil;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.text.MutableText;
@@ -38,7 +34,7 @@ public class Faction {
     public static final Codec<Faction> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(Faction::getIdValue),
             Codec.BOOL.fieldOf("joinable").forGetter(Faction::getJoinable),
-            Codec.STRING.fieldOf("alignment").forGetter(Faction::getAlignmentString),
+            Codec.STRING.fieldOf("disposition").forGetter(Faction::getDispositionString),
             Codec.STRING.fieldOf("faction_type").forGetter(Faction::getFactionTypeString),
             Identifier.CODEC.optionalFieldOf("parent_faction").forGetter(Faction::getParentFactionIdentifier),
             Codec.list(Identifier.CODEC).optionalFieldOf("subfaction").forGetter(Faction::getSubfactionIds),
@@ -52,7 +48,7 @@ public class Faction {
     private final Identifier id;
     private final String translatableKey;
     private final boolean joinable;
-    private final Alignment alignment;
+    private final Disposition disposition;
     private final FactionType factionType;
     private final Identifier parentFactionId;
     private final HashMap<NpcRank, List<Identifier>> npcDatasByRank;
@@ -63,11 +59,11 @@ public class Faction {
     private List<String> leaveCommands;
     public List<Race> races = null;
 
-    public Faction(String id, Boolean joinable, String alignment, String factionType, Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
+    public Faction(String id, Boolean joinable, String disposition, String factionType, Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
         this.id = IdentifierUtil.getIdentifierFromString(id);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.joinable = joinable;
-        this.alignment = Alignment.valueOf(alignment.toUpperCase());
+        this.disposition = Disposition.valueOf(disposition.toUpperCase());
         this.factionType = FactionType.valueOf(factionType.toUpperCase());
         this.parentFactionId = parentFaction.orElse(null);
 
@@ -100,11 +96,11 @@ public class Faction {
         leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
     }
 
-    public Faction(String name, Boolean joinable, Alignment alignment, FactionType factionType, Identifier parentFactionId, List<Identifier> subFactions, HashMap<NpcRank, List<NpcData>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
+    public Faction(String name, Boolean joinable, Disposition disposition, FactionType factionType, Identifier parentFactionId, List<Identifier> subFactions, HashMap<NpcRank, List<NpcData>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
         this.id = IdentifierUtil.getIdentifierFromString(name);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.joinable = joinable;
-        this.alignment = alignment;
+        this.disposition = disposition;
         this.factionType = factionType;
         this.parentFactionId = parentFactionId;
         this.subFactions = subFactions;
@@ -247,11 +243,11 @@ public class Faction {
         return getSubfactionById(world, subFactions.get(index));
     }
 
-    public Alignment getAlignment(){
-        return alignment;
+    public Disposition getDisposition(){
+        return disposition;
     }
-    public String getAlignmentString(){
-        return alignment.name();
+    public String getDispositionString(){
+        return disposition.name();
     }
     public String getFactionTypeString(){
         return factionType.name();

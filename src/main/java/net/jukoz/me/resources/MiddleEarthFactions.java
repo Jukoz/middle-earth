@@ -3,7 +3,7 @@ package net.jukoz.me.resources;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.utils.ModBannerPatterns;
-import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
@@ -93,7 +93,7 @@ public class MiddleEarthFactions {
 
     static {
         // region [GONDOR]
-        GONDOR = new Faction("gondor", true, Alignment.GOOD, FactionType.FACTION, null, null,
+        GONDOR = new Faction("gondor", true, Disposition.GOOD, FactionType.FACTION, null, null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             MiddleEarthNpcs.HUMAN_CIVILIAN
@@ -135,7 +135,7 @@ public class MiddleEarthFactions {
         );
         // endregion
         // region [ROHAN]
-        ROHAN = new Faction("rohan", true, Alignment.GOOD, FactionType.FACTION, null,null,
+        ROHAN = new Faction("rohan", true, Disposition.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             MiddleEarthNpcs.HUMAN_CIVILIAN
@@ -172,7 +172,7 @@ public class MiddleEarthFactions {
         );
         //endregion
         //region [DALE]
-        DALE = new Faction("dale", true, Alignment.GOOD, FactionType.FACTION, null,null,
+        DALE = new Faction("dale", true, Disposition.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             DalishNpcDataPool.DALE_MILITIA
@@ -204,11 +204,11 @@ public class MiddleEarthFactions {
         );
         //endregion
         // region [LONGBEARDS]
-        LONGBEARDS = new Faction("longbeards", true, Alignment.GOOD, FactionType.FACTION, null,
+        LONGBEARDS = new Faction("longbeards", true, Disposition.GOOD, FactionType.FACTION, null,
                 List.of(Identifier.of(MiddleEarth.MOD_ID, "longbeards.erebor")),
                 null, null, null, List.of(), List.of());
 
-        LONGBEARDS_EREBOR = new Faction(LONGBEARDS.getName().concat(".erebor"), true, Alignment.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
+        LONGBEARDS_EREBOR = new Faction(LONGBEARDS.getName().concat(".erebor"), true, Disposition.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             EreborNpcDataPool.EREBOR_MILITIA
@@ -244,7 +244,7 @@ public class MiddleEarthFactions {
 
         // endregion
         // region [LOTHLORIEN]
-        LOTHLORIEN = new Faction("lothlorien", true, Alignment.GOOD, FactionType.FACTION, null, null,
+        LOTHLORIEN = new Faction("lothlorien", true, Disposition.GOOD, FactionType.FACTION, null, null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             LorienNpcDataPool.LOTHLORIEN_MILITIA
@@ -276,7 +276,7 @@ public class MiddleEarthFactions {
         );
         // endregion
         //region [MORDOR]
-        MORDOR = new Faction("mordor", true, Alignment.EVIL, FactionType.FACTION, null,null,
+        MORDOR = new Faction("mordor", true, Disposition.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             MordorNpcDataPool.MORDOR_ORC_MILITIA,
@@ -317,7 +317,7 @@ public class MiddleEarthFactions {
         );
         //endregion
         // region [MISTY MOUNTAINS GOBLINS]
-        MISTY_MOUNTAINS_GOBLINS = new Faction("misty_mountains_goblins", true, Alignment.EVIL, FactionType.FACTION, null,null,
+        MISTY_MOUNTAINS_GOBLINS = new Faction("misty_mountains_goblins", true, Disposition.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_MILITIA,
@@ -357,7 +357,7 @@ public class MiddleEarthFactions {
         );
         // endregion
         // region [ISENGARD]
-        ISENGARD = new Faction("isengard", true, Alignment.EVIL, FactionType.FACTION, null,null,
+        ISENGARD = new Faction("isengard", true, Disposition.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             IsengardNpcDataPool.ISENGARD_ORC_MILITIA,
@@ -394,7 +394,7 @@ public class MiddleEarthFactions {
         );
         // endregion
         //region [SHIRE]
-        SHIRE = new Faction("shire", true, Alignment.GOOD, FactionType.FACTION, null,null,
+        SHIRE = new Faction("shire", true, Disposition.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             MiddleEarthNpcs.HOBBIT_CIVILIAN
@@ -427,7 +427,7 @@ public class MiddleEarthFactions {
         );
         //endregion
         //region [BANDITS]
-        BANDIT = new Faction("bandit", false, Alignment.NEUTRAL, FactionType.FACTION, null,null,
+        BANDIT = new Faction("bandit", false, Disposition.NEUTRAL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             BanditNpcDataPool.BANDIT_MILITIA
