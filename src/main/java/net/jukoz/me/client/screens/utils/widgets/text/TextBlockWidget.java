@@ -51,11 +51,14 @@ public class TextBlockWidget extends ModWidget {
     }
 
     public List<Text> draw(DrawContext context, List<Text> texts, boolean showTextLimit){
+        List<Text> unusedTexts = new ArrayList<>();
         if(texts != null){
             int currentHeight = 0;
             for(Text text : texts){
+                boolean touchedText = false;
                 List<Word> words = getWordListFromText(text);
                 while(!words.isEmpty() && currentHeight < height){
+                    touchedText = true;
                     List<Word> currentLine = new ArrayList<>();
                     int currentWidth = 0;
                     boolean forcedEnd = false;
@@ -82,9 +85,25 @@ public class TextBlockWidget extends ModWidget {
                     }
                     currentHeight += textRenderer.fontHeight;
                 }
+                if(!words.isEmpty()){
+                    if(touchedText)
+                        unusedTexts.add(createTextFromWords(words));
+                    else
+                        unusedTexts.add(text);
+                }
             }
         }
-        return texts; // Todo : Make it so it's the leftover texts
+        return unusedTexts; // Todo : Make it so it's the leftover texts
+    }
+
+    private Text createTextFromWords(List<Word> words) {
+        StringBuilder textContentBuilder = new StringBuilder();
+        for(Word word : words) {
+            textContentBuilder.append(word.content);
+            if(word != words.getLast())
+                textContentBuilder.append(" ");
+        }
+        return Text.literal(textContentBuilder.toString());
     }
 
     private void drawTextLimitLine(DrawContext context, int currentStart) {
@@ -94,9 +113,25 @@ public class TextBlockWidget extends ModWidget {
     }
 
     private void drawTextLine(DrawContext context, List<Word> currentLine, int currentStart, boolean isEnd) {
-        Text text = (isJustified && !isEnd) ? getJustifiedTextFromList(currentLine) : getTextFromList(currentLine);
-        context.drawText(textRenderer, text,
-                startX, startY + currentStart, 0, false);
+        if(isJustified && !isEnd){
+            Text text = getJustifiedTextFromList(currentLine);
+            Text lastWordText = Text.literal(currentLine.getLast().content);
+            context.drawText(textRenderer, text,
+                    startX, startY + currentStart, 0, false);
+            context.drawText(textRenderer, lastWordText,
+                    startX + width - textRenderer.getWidth(lastWordText), startY + currentStart, 0, false);
+        } else {
+            Text text = getTextFromList(currentLine);
+            // draw alignment
+            int x = switch (textAlignment) {
+                case LEFT -> startX;
+                case CENTER -> startX + (width / 2) - (textRenderer.getWidth(text) / 2);
+                case RIGHT -> startX + (width - textRenderer.getWidth(text));
+            };
+
+            context.drawText(textRenderer, text,
+                    x, startY + currentStart, 0, false);
+        }
     }
 
     private Text getJustifiedTextFromList(List<Word> currentLine) {
@@ -121,7 +156,7 @@ public class TextBlockWidget extends ModWidget {
                 spaceDifference --;
             }
         }
-        for(int i = 0; i < currentLine.size(); i++){
+        for(int i = 0; i < currentLine.size() - 1; i++){
             stringBuilder.append(currentLine.get(i).content);
             if(i < currentLine.size() - 1){
                 int extraSpaceAmount = 0;
@@ -136,7 +171,9 @@ public class TextBlockWidget extends ModWidget {
     private Text getTextFromList(List<Word> currentLine) {
         StringBuilder stringBuilder = new StringBuilder();
         for(Word word : currentLine){
-            stringBuilder.append(word.content).append(" ");
+            stringBuilder.append(word.content);
+            if(word != currentLine.getLast())
+                stringBuilder.append(" ");
         }
         return Text.literal(stringBuilder.toString());
     }

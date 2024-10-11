@@ -55,6 +55,7 @@ public class FactionSelectionScreen extends Screen {
     private CycledSelectionWidget subfactionSelectionWidget;
     public ButtonWidget factionRandomizerButton;
     public TextBlockWidget loreDescriptionTextWidget;
+    public TextBlockWidget loreDescriptionTextWidgetEXTRA_TEMP;
 
     // Map buttons
     public ButtonWidget mapZoomInButton;
@@ -334,17 +335,25 @@ public class FactionSelectionScreen extends Screen {
 
         if(loreDescriptionTextWidget == null){
             loreDescriptionTextWidget = new TextBlockWidget(
-                    startX + MINIMAL_MARGIN, startY + 95, mainPanelWidth - (MINIMAL_MARGIN * 2), maxLength
+                    startX + MINIMAL_MARGIN, startY + 95, mainPanelWidth - (MINIMAL_MARGIN * 2) - 1, maxLength
             ).setAlignment(TextAlignment.LEFT).setJustified();
         }
 
         int loreTextStart = startY + 95;
+
         context.drawText(client.textRenderer, Text.literal("Lore").formatted(Formatting.UNDERLINE),
                 startX + MINIMAL_MARGIN,
                 loreTextStart - textRenderer.fontHeight - MINIMAL_MARGIN, 0, false);
 
         List<Text> texts = controller.getLoreDump();
-        loreDescriptionTextWidget.draw(context, texts, true, true);
+        List<Text> leftoverTexts = loreDescriptionTextWidget.draw(context, texts, false, false);
+
+        if(loreDescriptionTextWidgetEXTRA_TEMP == null){
+            loreDescriptionTextWidgetEXTRA_TEMP = new TextBlockWidget(
+                    startX + MINIMAL_MARGIN, startY + 95 + maxLength + 1, mainPanelWidth - (MINIMAL_MARGIN * 2) - 1, maxLength
+            ).setAlignment(TextAlignment.LEFT).setJustified();
+        }
+        loreDescriptionTextWidgetEXTRA_TEMP.draw(context, leftoverTexts, false, false);
 
         drawFactionBanner(context, startX + mainPanelWidth - 50, startY + 6);
     }

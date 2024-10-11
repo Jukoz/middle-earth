@@ -366,7 +366,6 @@ public class FactionSelectionController {
 
     public List<Text> getLoreDump(){
         return List.of(
-                Text.translatable("lore.me.gondor.description_0"),
                 Text.translatable("lore.me.gondor.description_0")
         );
     }
