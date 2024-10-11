@@ -38,15 +38,16 @@ public class FactionSelectionController {
     private AbstractClientPlayerEntity player;
     private FactionSelectionScreen screen;
     public boolean mapFocusToggle = true;
-
+    List<Alignment> alignmentsWithContent = new ArrayList<>();
     public FactionSelectionController(FactionSelectionScreen screen, AbstractClientPlayerEntity player){
         this.player = player;
         this.screen = screen;
 
         factions = new HashMap<>();
-        factions.put(Alignment.GOOD, FactionLookup.getFactionsByAlignment(player.getWorld(), Alignment.GOOD).values().stream().toList());
-        factions.put(Alignment.NEUTRAL, FactionLookup.getFactionsByAlignment(player.getWorld(), Alignment.NEUTRAL).values().stream().toList());
-        factions.put(Alignment.EVIL, FactionLookup.getFactionsByAlignment(player.getWorld(), Alignment.EVIL).values().stream().toList());
+        addFactionsByAlignment(Alignment.GOOD);
+        addFactionsByAlignment(Alignment.NEUTRAL);
+        addFactionsByAlignment(Alignment.EVIL);
+
         if(getCurrentlySelectedFaction() == null){
             if(!factions.get(Alignment.EVIL).isEmpty()){
                 currentAlignementIndex = 2;
@@ -56,9 +57,16 @@ public class FactionSelectionController {
         }
         if(getCurrentlySelectedFaction() == null){
             LoggerUtil.logError("FactionSelectionController::No faction available!");
+            throw new RuntimeException();
         }
         updateSpawnList();
         updateRaces();
+    }
+
+    private void addFactionsByAlignment(Alignment alignment) {
+        factions.put(alignment, FactionLookup.getFactionsByAlignment(player.getWorld(), alignment).values().stream().toList());
+        if(!factions.get(alignment).isEmpty())
+            alignmentsWithContent.add(alignment);
     }
 
     private void updateSpawnList() {
@@ -83,8 +91,8 @@ public class FactionSelectionController {
     public int randomizeFaction(int tentativeLeft){
         Random random = new Random();
         // Alignment randomizer
-        currentAlignementIndex = random.nextInt(Alignment.values().length);
-        Alignment alignment = Alignment.values()[currentAlignementIndex];
+        currentAlignementIndex = random.nextInt(alignmentsWithContent.size());
+        Alignment alignment = alignmentsWithContent.get(currentAlignementIndex);
 
         // Recursive trigger
         if(factions.get(alignment) == null || factions.get(alignment).isEmpty()){
@@ -114,15 +122,17 @@ public class FactionSelectionController {
     }
 
     public void alignmentUpdate(boolean add) {
+        if(factions.isEmpty())
+            return;
         if(add){
             currentAlignementIndex++;
-            if(currentAlignementIndex >= Alignment.values().length)
-                currentAlignementIndex = 0;
+            if(currentAlignementIndex >= alignmentsWithContent.size())
+                currentAlignementIndex = getAlignmentIndex(alignmentsWithContent.get(0));
         }
         else{
             currentAlignementIndex --;
             if(currentAlignementIndex < 0)
-                currentAlignementIndex = Alignment.values().length - 1;
+                currentAlignementIndex = getAlignmentIndex(alignmentsWithContent.getLast());
         }
         currentFactionIndex = 0;
         currentSubFactionIndex = 0;
@@ -130,6 +140,10 @@ public class FactionSelectionController {
 
         updateSpawnList();
         updateRaces();
+    }
+
+    private int getAlignmentIndex(Alignment alignment){
+        return factions.keySet().stream().toList().indexOf(alignment);
     }
 
     public void factionUpdate(boolean add) {
@@ -260,7 +274,11 @@ public class FactionSelectionController {
     }
 
     public Alignment getCurrentAlignment(){
-        return Alignment.values()[currentAlignementIndex];
+        if(currentAlignementIndex >= alignmentsWithContent.size())
+            currentAlignementIndex = 0;
+        else if(currentAlignementIndex < 0)
+            currentAlignementIndex = alignmentsWithContent.size() - 1;
+        return alignmentsWithContent.get(currentAlignementIndex);
     }
 
     public Faction getCurrentFaction(){
