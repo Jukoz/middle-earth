@@ -30,6 +30,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -318,20 +319,32 @@ public class FactionSelectionScreen extends Screen {
 
         // TODO : Display the lore dump texts
         int maxLength = mainPanelHeight - startY - 95;
-        int textStart = startY + (MINIMAL_MARGIN * 2);
-        context.drawText(textRenderer, controller.getCurrentFaction().getFullName(),
-                startX + (MINIMAL_MARGIN),
-                textStart, 0, false);
-        textStart += textRenderer.fontHeight + MINIMAL_MARGIN;
+        int textStartY = startY + (MINIMAL_MARGIN * 2);
+        int centerWithBanner = ((startX + (MINIMAL_MARGIN / 2)) + ((mainPanelWidth - 50) / 2));
 
-        Text dispositionText = Text.translatable("screen.me.information.faction_disposition");
-        context.drawText(textRenderer, dispositionText,
-                startX + (MINIMAL_MARGIN),
-                textStart, 0, false);
+        Text factionName =  controller.getCurrentFaction().tryGetShortName().formatted(Formatting.BOLD).formatted(Formatting.DARK_GRAY);
+        int factionNameStartX = centerWithBanner - (textRenderer.getWidth(factionName) / 2);
+        context.drawText(textRenderer, factionName,
+                factionNameStartX,
+                textStartY, 0, false);
+        if(isMouseOver(factionNameStartX, textRenderer.getWidth(factionName), textStartY, textRenderer.fontHeight)){
+            context.drawTooltip(textRenderer, List.of(controller.getCurrentFaction().getFullName()), ModWidget.getMouseX(), ModWidget.getMouseY());
+        }
 
-        context.drawText(textRenderer, controller.getCurrentDisposition().getName(),
-                startX + (MINIMAL_MARGIN) + textRenderer.getWidth(dispositionText),
-                textStart, 0, false);
+        textStartY += textRenderer.fontHeight + MINIMAL_MARGIN;
+
+        Faction subfaction = controller.getCurrentSubfaction();
+        if(subfaction != null){
+            Text dispositionText = Text.translatable("screen.me.information.subfaction");
+            context.drawText(textRenderer, dispositionText,
+                    startX + (MINIMAL_MARGIN),
+                    textStartY, 0, false);
+
+            context.drawText(textRenderer, subfaction.getFullName(),
+                    startX + (MINIMAL_MARGIN) + textRenderer.getWidth(dispositionText),
+                    textStartY, 0, false);
+        }
+
 
         if(loreDescriptionTextWidget == null){
             loreDescriptionTextWidget = new TextBlockWidget(

@@ -6033,7 +6033,7 @@
   "screen.me.button.zoom_out": "Zoom In",
   "screen.me.button.zoom_in": "Zoom Out",
   "screen.me.button.confirm": "Confirm",
-  "screen.me.information.faction_disposition": "Disposition : ",
+  "screen.me.information.subfaction": "Subfaction : ",
 
 "#Comment": "UI Map",
   "ui.me.map_title_text": "Middle-earth Map",
