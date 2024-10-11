@@ -27,8 +27,11 @@ import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.text.StringVisitable;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.awt.event.KeyEvent;
@@ -310,6 +313,45 @@ public class FactionSelectionScreen extends Screen {
                 mainPanelWidth,
                 mainPanelHeight
         );
+
+        // TODO : Display the lore dump texts
+        int maxLength = mainPanelHeight - startY + 95 - (MINIMAL_MARGIN * 2);
+        int textStart = startY + (MINIMAL_MARGIN * 2);
+        context.drawText(textRenderer, controller.getCurrentFaction().getFullName(),
+                startX + (MINIMAL_MARGIN),
+                textStart, 0, false);
+        textStart += textRenderer.fontHeight + MINIMAL_MARGIN;
+
+        Text alignmentText = Text.translatable("Alignment :");
+        context.drawText(textRenderer, alignmentText,
+                startX + (MINIMAL_MARGIN),
+                textStart, 0, false);
+
+        context.drawText(textRenderer, controller.getCurrentAlignment().getName(),
+                startX + (MINIMAL_MARGIN) + textRenderer.getWidth(alignmentText) + textRenderer.getWidth(" "),
+                textStart, 0, false);
+
+        List<Text> texts = controller.getLoreDump();
+        if(texts != null){
+            int loreTextStart = startY + 95;
+            context.drawText(textRenderer, Text.literal("Lore").formatted(Formatting.UNDERLINE),
+                    startX + MINIMAL_MARGIN,
+                    loreTextStart - textRenderer.fontHeight - MINIMAL_MARGIN, 0, false);
+
+            for(Text text : texts){
+                Formatting formatting = Formatting.BLACK;
+                if(controller.getCurrentAlignment() == Alignment.EVIL)
+                    maxLength /= 2;
+                if(loreTextStart + textRenderer.getWrappedLinesHeight(text, mainPanelWidth - (MINIMAL_MARGIN * 2)) >= maxLength){
+                    formatting = Formatting.RED;
+                }
+                context.drawTextWrapped(textRenderer, text.copy().formatted(formatting),
+                        startX + MINIMAL_MARGIN,
+                        loreTextStart + (int) ((10 / 2f) - (textRenderer.fontHeight / 2f)) + 1,
+                        mainPanelWidth - (MINIMAL_MARGIN * 2), 0);
+                loreTextStart += textRenderer.getWrappedLinesHeight(text, mainPanelWidth - (MINIMAL_MARGIN * 2));
+            }
+        }
 
         drawFactionBanner(context, startX + mainPanelWidth - 50, startY + 6);
     }

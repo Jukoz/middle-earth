@@ -126,14 +126,12 @@ public class FactionSelectionController {
             return;
         if(add){
             currentAlignementIndex++;
-            if(currentAlignementIndex >= alignmentsWithContent.size())
-                currentAlignementIndex = getAlignmentIndex(alignmentsWithContent.get(0));
         }
         else{
             currentAlignementIndex --;
-            if(currentAlignementIndex < 0)
-                currentAlignementIndex = getAlignmentIndex(alignmentsWithContent.getLast());
         }
+        currentAlignementIndex = alignmentsWithContent.indexOf(getCurrentAlignment());
+
         currentFactionIndex = 0;
         currentSubFactionIndex = 0;
         currentRaceIndex = 0;
@@ -364,6 +362,13 @@ public class FactionSelectionController {
             }
         }
         return pool;
+    }
+
+    public List<Text> getLoreDump(){
+        return List.of(
+                Text.translatable("lore.me.gondor.description_0"),
+                Text.translatable("lore.me.gondor.description_0")
+        );
     }
 
     public void toggleMapFocus() {

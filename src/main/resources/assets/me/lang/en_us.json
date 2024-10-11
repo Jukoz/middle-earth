@@ -5881,7 +5881,7 @@
   "alignment.me.neutral" : "Neutral",
   "alignment.me.evil" : "Evil",
 
-"#Comment:": "Factions",
+"#Comment:": "Faction Names",
   "faction.me.gondor" : "Gondor",
   "faction.me.rohan" : "Rohan",
   "faction.me.dale" : "Dale",
@@ -5894,7 +5894,7 @@
   "faction.me.shire" : "Shire",
   "faction.me.bandit" : "Bandit",
 
-"#Comment": "Factions fallback",
+"#Comment": "Factions Names fallbacks",
   "faction.me.example.fallback": "Example...",
   "faction.me.misty_mountains_goblins.fallback": "Misty Mts. Goblins",
 
@@ -5948,6 +5948,9 @@
   "race.me.hobbit" : "Hobbit",
   "race.me.orc" : "Orc",
   "race.me.uruk" : "Uruk",
+
+"#Comment:": "Faction lores",
+  "lore.me.gondor.description_0" : "Gondor, or the South-kingdom, was one of the two Kingdoms of the Dúnedain (the other being Arnor in the north) in the lands about the Mouths of Anduin. Initially the lesser of the Realms in-Exile, Gondor survived to the end of the Third Age, unlike Arnor, and had an instrumental role in the War of the Ring.",
 
 "#Comment": "Commands",
   "command.me.fail" : "Command couldn't be sent properly",
