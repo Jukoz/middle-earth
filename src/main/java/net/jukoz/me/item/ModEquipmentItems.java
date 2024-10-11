@@ -693,11 +693,11 @@ public class ModEquipmentItems {
 
     public static final Item GALADHRIM_LORD_HELMET = registerCustomModelArmorPiece("galadhrim_lord_helmet",
             new CustomHelmetItem(ModArmorMaterials.ELVEN_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GALADHRIM_LORD_CAPE)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GALADHRIM_LORD_SURCOAT)),
                     ModFactions.LOTHLORIEN));
     public static final Item GALADHRIM_LORD_CHESTPLATE = registerArmorPiece("galadhrim_lord_chestplate",
             new CustomChestplateItem(ModArmorMaterials.ELVEN_STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GALADHRIM_LORD_CAPE)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GALADHRIM_LORD_SURCOAT)),
                     ModFactions.LOTHLORIEN));
     public static final Item GALADHRIM_LORD_LEGGINGS = registerArmorPiece("galadhrim_lord_leggings",
             new CustomLeggingsItem(ModArmorMaterials.ELVEN_STEEL_T5, ArmorItem.Type.LEGGINGS, new Item.Settings(),

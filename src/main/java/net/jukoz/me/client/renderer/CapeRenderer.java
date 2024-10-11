@@ -3,6 +3,7 @@ package net.jukoz.me.client.renderer;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.MiddleEarthClient;
+import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
 import net.jukoz.me.client.model.equipment.chest.capes.CloakCapeModel;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
@@ -21,8 +22,7 @@ import net.minecraft.util.Identifier;
 
 public class CapeRenderer implements ArmorRenderer {
 
-    private CloakCapeModel<LivingEntity> capeModel;
-
+    private ChestplateAddonModel<LivingEntity> capeModel;
 
     public CapeRenderer() {
     }
@@ -44,6 +44,7 @@ public class CapeRenderer implements ArmorRenderer {
             CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
 
             if (capeDataComponent != null) {
+                this.capeModel = capeDataComponent.cape().getModel();
                 contextModel.copyBipedStateTo(capeModel);
                 capeModel.setVisible(false);
                 capeModel.body.visible = true;
@@ -51,9 +52,9 @@ public class CapeRenderer implements ArmorRenderer {
                 capeModel.leftArm.visible = true;
                 capeModel.rightLeg.visible = true;
                 capeModel.leftLeg.visible = true;
-                capeModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float) entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.roll);
+                this.capeModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float) entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.roll);
                 ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + ".png"), false);
-        }
+            }
         }
     }
 }

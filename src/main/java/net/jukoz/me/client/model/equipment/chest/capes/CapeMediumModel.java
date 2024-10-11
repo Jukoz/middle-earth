@@ -37,12 +37,12 @@ public class CapeMediumModel<T extends LivingEntity>  extends ChestplateAddonMod
                 ModelTransform.pivot(0.0F, 23.0F, 0.016F));
 
         ModelPartData cape = body.addChild("cape", ModelPartBuilder.create()
-                .uv(53, 32).mirrored().cuboid(-6.5F, -1.5F, -1F, 13.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
-                .uv(53, 32).mirrored().cuboid(-6.5F, -1.5F, -1F, 13.0F, 13.0F, 5.0F, new Dilation(0.19F)).mirrored(false), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+                .uv(53, 32).mirrored().cuboid(-6.5F, -1.0F, -1F, 13.0F, 13.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
+                .uv(53, 94).mirrored().cuboid(-6.5F, -1.0F, -1F, 13.0F, 13.0F, 5.0F, new Dilation(0.19F)).mirrored(false), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         cape.addChild("cape_low", ModelPartBuilder.create()
-                .uv(53, 50).mirrored().cuboid(-6.5F, -1.3F, -1F, 13.0F, 10.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
-                .uv(53, 50).mirrored().cuboid(-6.5F, -1.3F, -1F, 13.0F, 10.0F, 5.0F, new Dilation(0.19F)).mirrored(false), ModelTransform.pivot(-0.0F, 13.1558F, 0.0F));
+                .uv(53, 50).mirrored().cuboid(-6.5F, -0.8F, -1F, 13.0F, 10.0F, 5.0F, new Dilation(0.2F)).mirrored(false)
+                .uv(53, 112).mirrored().cuboid(-6.5F, -0.8F, -1F, 13.0F, 10.0F, 5.0F, new Dilation(0.19F)).mirrored(false), ModelTransform.pivot(-0.0F, 13.1558F, 0.0F));
 
         ModelPartData right_arm = modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(),
                 ModelTransform.pivot(0.0F, 0.0F, 0.0F));
@@ -58,12 +58,12 @@ public class CapeMediumModel<T extends LivingEntity>  extends ChestplateAddonMod
         ModelPartData left_leg = modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         left_leg.addChild("left_leg", ModelPartBuilder.create().uv(56, 16).mirrored().cuboid(-1.968F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(1.1F)).mirrored(false), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-
-        return TexturedModelData.of(modelData, 128, 80);
+        return TexturedModelData.of(modelData, 128, 128);
     }
 
     @Override
     public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.cape.traverse().forEach(ModelPart::resetTransform);
         Vec3d velocity = entity.getVelocity();
         double sqrVel = velocity.lengthSquared();
         double speed = (sqrVel * 0.35f) + Math.sqrt(Math.abs(limbDistance)) * 0.4f;

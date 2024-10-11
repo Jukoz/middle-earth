@@ -2,10 +2,8 @@ package net.jukoz.me.item.utils;
 
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
-import net.jukoz.me.client.model.equipment.chest.capes.CapeMediumModel;
+import net.jukoz.me.client.model.equipment.chest.capes.*;
 import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
-import net.jukoz.me.client.model.equipment.chest.capes.CapeWideModel;
-import net.jukoz.me.client.model.equipment.chest.capes.CloakCapeModel;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -17,10 +15,10 @@ import java.util.function.IntFunction;
 public enum ModCapes implements StringIdentifiable {
 
     BASE_CAPE(0,"base_cape", new CapeMediumModel<>(CapeMediumModel.getTexturedModelData().createModel())),
-    SURCOAT(1,"surcoat", new CloakCapeModel<>(CloakCapeModel.getTexturedModelData().createModel())),
-    BASE_CLOAK(2,"base_cloak", new CloakCapeModel<>(CloakCapeModel.getTexturedModelData().createModel())),
+    SURCOAT(1,"surcoat", new CapeSurcoatModel<>(CapeSurcoatModel.getTexturedModelData().createModel())),
+    BASE_CLOAK(2,"base_cloak", new CapeWideModel<>(CapeWideModel.getTexturedModelData().createModel())),
 
-    FUR_CLOAK(3,"fur_cloak", new CloakCapeModel<>(CloakCapeModel.getTexturedModelData().createModel())),
+    FUR_CLOAK(3,"fur_cloak", new FurCapeModel<>(FurCapeModel.getTexturedModelData().createModel())),
 
     GONDORIAN_CAPTAIN_CAPE(4,"gondorian_captain_cape", new CapeMediumModel<>(CapeMediumModel.getTexturedModelData().createModel())),
     GONDORIAN_HERO_CAPE(5,"gondorian_hero_cape", new CapeMediumModel<>(CapeMediumModel.getTexturedModelData().createModel())),
@@ -33,7 +31,7 @@ public enum ModCapes implements StringIdentifiable {
     EORLING_MARSHAL_CAPE(11,"eorling_marshal_cape", new CapeMediumModel<>(CapeMediumModel.getTexturedModelData().createModel())),
     HORSE_LORD_CAPE(12,"horse_lord_cape", new CapeMediumModel<>(CapeMediumModel.getTexturedModelData().createModel())),
 
-    BARDING_SURCOAT(13,"barding_surcoat", new CloakCapeModel<>(CloakCapeModel.getTexturedModelData().createModel())),
+    BARDING_SURCOAT(13,"barding_surcoat", new CapeSurcoatModel<>(CapeSurcoatModel.getTexturedModelData().createModel())),
     DALISH_HEYDAY_CAPE(14,"dalish_heyday_cape", new CapeMediumModel<>(CapeMediumModel.getTexturedModelData().createModel())),
     BARDING_SERGEANT_CAPE(15,"barding_sergeant_cape", new CapeMediumModel<>(CapeMediumModel.getTexturedModelData().createModel())),
 
@@ -41,8 +39,8 @@ public enum ModCapes implements StringIdentifiable {
     RAVENHILL_SENTINEL_CAPE(17,"ravenhill_sentinel_cape", new CapeWideModel<>(CapeWideModel.getTexturedModelData().createModel())),
 
     LORIEN_MARCHWARDEN_CAPE(18,"lorien_marchwarden_cape", new CapeMediumModel<>(CapeMediumModel.getTexturedModelData().createModel())),
-    GALADHRIM_CAPE(19,"galadhrim_cape", new CloakCapeModel<>(CloakCapeModel.getTexturedModelData().createModel())),
-    GALADHRIM_LORD_CAPE(20,"galadhrim_lord_cape", new CloakCapeModel<>(CloakCapeModel.getTexturedModelData().createModel())),
+    GALADHRIM_CAPE(19,"galadhrim_cape", new CapeSlimModel<>(CapeSlimModel.getTexturedModelData().createModel())),
+    GALADHRIM_LORD_SURCOAT(20,"galadhrim_lord_surcoat", new CapeSurcoatModel<>(CapeSurcoatModel.getTexturedModelData().createModel())),
     ;
 
     private static final IntFunction<ModCapes> BY_ID = ValueLists.createIdToValueFunction(ModCapes::getId, ModCapes.values(), ValueLists.OutOfBoundsHandling.ZERO);;

@@ -35,7 +35,7 @@ public class CapeChestplateItem extends ArmorItem {
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
             }
 
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape()));
+            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape().getName()));
 
         }else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
