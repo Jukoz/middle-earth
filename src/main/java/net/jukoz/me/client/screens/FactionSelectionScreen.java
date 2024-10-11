@@ -7,6 +7,8 @@ import net.jukoz.me.client.screens.controllers.FactionSelectionController;
 import net.jukoz.me.client.screens.utils.CycledSelectionButtonType;
 import net.jukoz.me.client.screens.utils.widgets.*;
 import net.jukoz.me.client.screens.utils.widgets.map.FactionSelectionMapWidget;
+import net.jukoz.me.client.screens.utils.widgets.text.TextAlignment;
+import net.jukoz.me.client.screens.utils.widgets.text.TextBlockWidget;
 import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
@@ -27,9 +29,7 @@ import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.text.StringVisitable;
 import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -54,6 +54,7 @@ public class FactionSelectionScreen extends Screen {
     private CycledSelectionWidget factionSelectionWidget;
     private CycledSelectionWidget subfactionSelectionWidget;
     public ButtonWidget factionRandomizerButton;
+    public TextBlockWidget loreDescriptionTextWidget;
 
     // Map buttons
     public ButtonWidget mapZoomInButton;
@@ -315,7 +316,7 @@ public class FactionSelectionScreen extends Screen {
         );
 
         // TODO : Display the lore dump texts
-        int maxLength = mainPanelHeight - startY + 95 - (MINIMAL_MARGIN * 2);
+        int maxLength = mainPanelHeight - startY - 95;
         int textStart = startY + (MINIMAL_MARGIN * 2);
         context.drawText(textRenderer, controller.getCurrentFaction().getFullName(),
                 startX + (MINIMAL_MARGIN),
@@ -331,27 +332,19 @@ public class FactionSelectionScreen extends Screen {
                 startX + (MINIMAL_MARGIN) + textRenderer.getWidth(alignmentText) + textRenderer.getWidth(" "),
                 textStart, 0, false);
 
-        List<Text> texts = controller.getLoreDump();
-        if(texts != null){
-            int loreTextStart = startY + 95;
-            context.drawText(textRenderer, Text.literal("Lore").formatted(Formatting.UNDERLINE),
-                    startX + MINIMAL_MARGIN,
-                    loreTextStart - textRenderer.fontHeight - MINIMAL_MARGIN, 0, false);
-
-            for(Text text : texts){
-                Formatting formatting = Formatting.BLACK;
-                if(controller.getCurrentAlignment() == Alignment.EVIL)
-                    maxLength /= 2;
-                if(loreTextStart + textRenderer.getWrappedLinesHeight(text, mainPanelWidth - (MINIMAL_MARGIN * 2)) >= maxLength){
-                    formatting = Formatting.RED;
-                }
-                context.drawTextWrapped(textRenderer, text.copy().formatted(formatting),
-                        startX + MINIMAL_MARGIN,
-                        loreTextStart + (int) ((10 / 2f) - (textRenderer.fontHeight / 2f)) + 1,
-                        mainPanelWidth - (MINIMAL_MARGIN * 2), 0);
-                loreTextStart += textRenderer.getWrappedLinesHeight(text, mainPanelWidth - (MINIMAL_MARGIN * 2));
-            }
+        if(loreDescriptionTextWidget == null){
+            loreDescriptionTextWidget = new TextBlockWidget(
+                    startX + MINIMAL_MARGIN, startY + 95, mainPanelWidth - (MINIMAL_MARGIN * 2), maxLength
+            ).setAlignment(TextAlignment.LEFT).setJustified();
         }
+
+        int loreTextStart = startY + 95;
+        context.drawText(client.textRenderer, Text.literal("Lore").formatted(Formatting.UNDERLINE),
+                startX + MINIMAL_MARGIN,
+                loreTextStart - textRenderer.fontHeight - MINIMAL_MARGIN, 0, false);
+
+        List<Text> texts = controller.getLoreDump();
+        loreDescriptionTextWidget.draw(context, texts, true, true);
 
         drawFactionBanner(context, startX + mainPanelWidth - 50, startY + 6);
     }
