@@ -384,7 +384,7 @@ public class FactionSelectionScreen extends Screen {
 
         List<Text> texts = controller.getCurrentFactionDescriptions();
         factionDescriptionTextBlockWidget.setStartX(startX + MINIMAL_MARGIN).setStartY(startY + 95);
-        factionDescriptionTextBlockWidget.draw(context, texts, false, false);
+        factionDescriptionTextBlockWidget.draw(context, (texts != null && !texts.isEmpty()) ? List.of(texts.getFirst()) : texts, false, false);
 
         drawFactionBanner(context, startX + mainPanelWidth - 50, startY + 6);
     }
