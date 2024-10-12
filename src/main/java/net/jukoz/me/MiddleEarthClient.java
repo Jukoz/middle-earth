@@ -12,6 +12,7 @@ import net.jukoz.me.client.model.equipment.*;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
 import net.jukoz.me.client.model.equipment.chest.capes.CloakCapeModel;
+import net.jukoz.me.client.model.equipment.chest.capes.armored.CapeMediumModel;
 import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
 import net.jukoz.me.client.model.equipment.head.RohirricHelmetArmorAddonModel;
 import net.jukoz.me.client.model.shields.HeaterShieldEntityModel;
@@ -215,7 +216,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_LEGGINGS, CustomLeggingsModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_BOOTS, CustomBootsModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HELMET_ADDON_MODEL_LAYER, RohirricHelmetArmorAddonModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(CAPE_MODEL_LAYER, CloakCapeModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(CAPE_MODEL_LAYER, CapeMediumModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HOOD_MODEL_LAYER, CloakHoodModel::getTexturedModelData);
 
         EntityModelLayerRegistry.registerModelLayer(HEATER_SHIELD_LAYER, HeaterShieldEntityModel::getTexturedModelData);

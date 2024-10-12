@@ -1,24 +1,14 @@
-package net.jukoz.me.client.model.equipment.chest.capes;
+package net.jukoz.me.client.model.equipment.chest.capes.armored;
 
 import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
-import net.jukoz.me.utils.ToRad;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.Vec3d;
 
 public class CapeSurcoatModel<T extends LivingEntity>  extends ChestplateAddonModel<T> {
-    private static final float MAX_ANGLE_CLOAK = 80f;
-    private static final float SPEED_MULTIPLIER_CLOAK = 1.8f;
-    private final ModelPart capeShoulder;
-    private final ModelPart rightArmShoulderCape;
-    private final ModelPart leftArmShoulderCape;
 
     public CapeSurcoatModel(ModelPart root) {
         super(root);
-        this.capeShoulder = root.getChild("body").getChild("cape_shoulder");
-        this.rightArmShoulderCape = root.getChild("right_arm").getChild("right_arm_shoulder_cape");
-        this.leftArmShoulderCape = root.getChild("left_arm").getChild("left_arm_shoulder_cape");
     }
 
     public static TexturedModelData getTexturedModelData() {

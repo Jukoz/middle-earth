@@ -44,7 +44,7 @@ public class CapeRenderer implements ArmorRenderer {
             CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
 
             if (capeDataComponent != null) {
-                this.capeModel = capeDataComponent.cape().getModel();
+                this.capeModel = capeDataComponent.cape().getModel().getUnarmoredModel();
                 contextModel.copyBipedStateTo(capeModel);
                 capeModel.setVisible(false);
                 capeModel.body.visible = true;
