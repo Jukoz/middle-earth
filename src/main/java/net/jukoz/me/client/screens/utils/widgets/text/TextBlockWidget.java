@@ -28,6 +28,14 @@ public class TextBlockWidget extends ModWidget {
         this.spaceWidth = this.textRenderer.getWidth(" ");
     }
 
+    public TextBlockWidget setStartY(int newStartY){
+        this.startY = newStartY;
+        return this;
+    }
+    public TextBlockWidget setStartX(int newStartX){
+        this.startX = newStartX;
+        return this;
+    }
     public TextBlockWidget setAlignment(TextAlignment alignment){
         this.textAlignment = alignment;
         return this;

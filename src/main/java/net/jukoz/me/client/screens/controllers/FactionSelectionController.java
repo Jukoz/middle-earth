@@ -364,13 +364,23 @@ public class FactionSelectionController {
         return pool;
     }
 
-    public List<Text> getLoreDump(){
-        return List.of(
-                Text.translatable("lore.me.gondor.description_0")
-        );
-    }
-
     public void toggleMapFocus() {
         mapFocusToggle = !mapFocusToggle;
+    }
+
+    public List<Text> getCurrentFactionDescriptions() {
+        Faction faction = getCurrentlySelectedFaction();
+        if(faction != null){
+            return faction.getDescription();
+        }
+        return null;
+    }
+
+    public Text getRaceListText() {
+        Faction faction = getCurrentlySelectedFaction();
+        if(faction != null){
+            return faction.getRaceListText();
+        }
+        return null;
     }
 }

@@ -12,6 +12,7 @@ import net.jukoz.me.client.screens.utils.widgets.text.TextBlockWidget;
 import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
+import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.gui.DrawContext;
@@ -27,6 +28,7 @@ import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
@@ -55,8 +57,8 @@ public class FactionSelectionScreen extends Screen {
     private CycledSelectionWidget factionSelectionWidget;
     private CycledSelectionWidget subfactionSelectionWidget;
     public ButtonWidget factionRandomizerButton;
-    public TextBlockWidget loreDescriptionTextWidget;
-    public TextBlockWidget loreDescriptionTextWidgetEXTRA_TEMP;
+    public TextBlockWidget raceListTextBlockWidget;
+    public TextBlockWidget factionDescriptionTextBlockWidget;
 
     // Map buttons
     public ButtonWidget mapZoomInButton;
@@ -331,42 +333,58 @@ public class FactionSelectionScreen extends Screen {
             context.drawTooltip(textRenderer, List.of(controller.getCurrentFaction().getFullName()), ModWidget.getMouseX(), ModWidget.getMouseY());
         }
 
-        textStartY += textRenderer.fontHeight + MINIMAL_MARGIN;
 
-        Faction subfaction = controller.getCurrentSubfaction();
-        if(subfaction != null){
-            Text dispositionText = Text.translatable("screen.me.information.subfaction");
-            context.drawText(textRenderer, dispositionText,
-                    startX + (MINIMAL_MARGIN),
-                    textStartY, 0, false);
+        Faction faction = controller.getCurrentlySelectedFaction();
+        if(faction != null){
+            Faction subfaction = controller.getCurrentSubfaction();
+            if(subfaction != null){
+                textStartY += textRenderer.fontHeight + MINIMAL_MARGIN;
+                Text dispositionText = Text.translatable("screen.me.information.subfaction");
+                context.drawText(textRenderer, dispositionText,
+                        startX + (MINIMAL_MARGIN),
+                        textStartY, 0, false);
 
-            context.drawText(textRenderer, subfaction.getFullName(),
-                    startX + (MINIMAL_MARGIN) + textRenderer.getWidth(dispositionText),
-                    textStartY, 0, false);
+                context.drawText(textRenderer, subfaction.getFullName(),
+                        startX + (MINIMAL_MARGIN) + textRenderer.getWidth(dispositionText),
+                        textStartY, 0, false);
+            }
+            List<Race> races = faction.getRaces(player.getWorld());
+            if(races != null || !races.isEmpty()){
+                textStartY += textRenderer.fontHeight + MINIMAL_MARGIN;
+                context.drawText(client.textRenderer, Text.translatable((races.size() <= 1) ? "screen.me.information.races" : "screen.me.information.races.many").formatted(Formatting.UNDERLINE),
+                        startX + MINIMAL_MARGIN,
+                        textStartY, 0, false);
+
+                if(raceListTextBlockWidget == null){
+                    raceListTextBlockWidget = new TextBlockWidget(
+                            startX + MINIMAL_MARGIN, textStartY + textRenderer.fontHeight + MINIMAL_MARGIN, mainPanelWidth - 50 - MINIMAL_MARGIN - (MINIMAL_MARGIN / 2), (textRenderer.fontHeight * 2) + MINIMAL_MARGIN
+                    ).setAlignment(TextAlignment.LEFT);
+                }
+                ;
+                raceListTextBlockWidget.setStartX(startX + MINIMAL_MARGIN).setStartY(textStartY + textRenderer.fontHeight + MINIMAL_MARGIN);
+                raceListTextBlockWidget.draw(context, List.of(controller.getRaceListText()), false, false);
+                textStartY += (textRenderer.fontHeight * 2) + MINIMAL_MARGIN;
+            }
         }
 
 
-        if(loreDescriptionTextWidget == null){
-            loreDescriptionTextWidget = new TextBlockWidget(
+
+        if(factionDescriptionTextBlockWidget == null){
+            factionDescriptionTextBlockWidget = new TextBlockWidget(
                     startX + MINIMAL_MARGIN, startY + 95, mainPanelWidth - (MINIMAL_MARGIN * 2) - 1, maxLength
-            ).setAlignment(TextAlignment.LEFT).setJustified();
+            ).setAlignment(TextAlignment.LEFT);
         }
 
         int loreTextStart = startY + 95;
 
-        context.drawText(client.textRenderer, Text.literal("Lore").formatted(Formatting.UNDERLINE),
+        context.drawText(client.textRenderer, Text.translatable("screen.me.information.description").formatted(Formatting.UNDERLINE),
                 startX + MINIMAL_MARGIN,
                 loreTextStart - textRenderer.fontHeight - MINIMAL_MARGIN, 0, false);
 
-        List<Text> texts = controller.getLoreDump();
-        List<Text> leftoverTexts = loreDescriptionTextWidget.draw(context, texts, false, false);
 
-        if(loreDescriptionTextWidgetEXTRA_TEMP == null){
-            loreDescriptionTextWidgetEXTRA_TEMP = new TextBlockWidget(
-                    startX + MINIMAL_MARGIN, startY + 95 + maxLength + 1, mainPanelWidth - (MINIMAL_MARGIN * 2) - 1, maxLength
-            ).setAlignment(TextAlignment.LEFT).setJustified();
-        }
-        loreDescriptionTextWidgetEXTRA_TEMP.draw(context, leftoverTexts, false, false);
+        List<Text> texts = controller.getCurrentFactionDescriptions();
+        factionDescriptionTextBlockWidget.setStartX(startX + MINIMAL_MARGIN).setStartY(startY + 95);
+        factionDescriptionTextBlockWidget.draw(context, texts, false, false);
 
         drawFactionBanner(context, startX + mainPanelWidth - 50, startY + 6);
     }
@@ -538,7 +556,12 @@ public class FactionSelectionScreen extends Screen {
         startY += MINIMAL_MARGIN + CycledSelectionWidget.TOTAL_HEIGHT;
         raceCycledSelection.drawAnchored(context, startX,  startY,true, Text.translatable(controller.getCurrentRaceKey()), textRenderer);
         raceCycledSelection.enableArrows(controller.haveManyRaces());
-
+        if(isMouseOver(startX, CycledSelectionWidget.TOTAL_WIDTH, startY, CycledSelectionWidget.TOTAL_HEIGHT)){
+            Race race = controller.getCurrentRace();
+            if(race != null){
+                race.drawTooltip(player, context, textRenderer, ModWidget.getMouseX(), ModWidget.getMouseY());
+            }
+        }
         // Draw selection option
         int sizeX = 52;
         int sizeY = 18;

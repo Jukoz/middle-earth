@@ -5949,8 +5949,11 @@
   "race.me.orc" : "Orc",
   "race.me.uruk" : "Uruk",
 
+"#Comment:": "Race Tooltip",
+  "race_tooltip.me.attribute_header" : "Attributes : ",
+
 "#Comment:": "Faction descriptions",
-  "lore.me.gondor.description_0" : "Gondor, or the South-kingdom, was one of the two Kingdoms of the Dúnedain (the other being Arnor in the north) in the lands about the Mouths of Anduin. Initially the lesser of the Realms in-Exile. Gondor survived to the end of the Third Age, unlike Arnor, and had an instrumental role in the War of the Ring.",
+  "description.me.gondor.description_0" : "Gondor, or the South-kingdom, was one of the two Kingdoms of the Dúnedain (the other being Arnor in the north) in the lands about the Mouths of Anduin. Initially the lesser of the Realms in-Exile. Gondor survived to the end of the Third Age, unlike Arnor, and had an instrumental role in the War of the Ring.",
 
 "#Comment": "Commands",
   "command.me.fail" : "Command couldn't be sent properly",
@@ -6034,6 +6037,9 @@
   "screen.me.button.zoom_in": "Zoom Out",
   "screen.me.button.confirm": "Confirm",
   "screen.me.information.subfaction": "Subfaction : ",
+  "screen.me.information.races": "Race",
+  "screen.me.information.races.many": "Races",
+  "screen.me.information.description": "Description",
 
 "#Comment": "UI Map",
   "ui.me.map_title_text": "Middle-earth Map",

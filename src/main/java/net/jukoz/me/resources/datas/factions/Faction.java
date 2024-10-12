@@ -15,6 +15,7 @@ import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.utils.IdentifierUtil;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -58,6 +59,8 @@ public class Faction {
     private List<String> joinCommands;
     private List<String> leaveCommands;
     public List<Race> races = null;
+    private List<Text> descriptions = null;
+    private Text raceList = null;
 
     public Faction(String id, Boolean joinable, String disposition, String factionType, Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
         this.id = IdentifierUtil.getIdentifierFromString(id);
@@ -301,5 +304,36 @@ public class Faction {
 
     public boolean isJoinable() {
         return joinable;
+    }
+
+    public List<Text> getDescription() {
+        if(descriptions == null){
+            descriptions = new ArrayList<>();
+            boolean hasDescription = true;
+            String base = "description.me.%s.description_%s".formatted(id.getPath(), "%s");
+            while(hasDescription){
+                String langPath = base.formatted(descriptions.size());
+                Text text = Text.translatable(langPath);
+                if(!Objects.equals(text.getString(), langPath)){
+                    descriptions.add(text);
+                } else {
+                    hasDescription = false;
+                }
+            }
+        }
+        return descriptions;
+    }
+
+    public Text getRaceListText() {
+        if(raceList == null){
+            StringBuilder raceListStringBuilder = new StringBuilder();
+            for(Race race : races){
+                raceListStringBuilder.append(race.getFullName().getString());
+                if(race != races.getLast())
+                    raceListStringBuilder.append(", ");
+            }
+            raceList = Text.literal(raceListStringBuilder.toString());
+        }
+        return raceList;
     }
 }
