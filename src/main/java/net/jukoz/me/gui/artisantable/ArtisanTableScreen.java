@@ -1,12 +1,18 @@
 package net.jukoz.me.gui.artisantable;
 
+import com.google.common.collect.Maps;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.item.ModToolItems;
+import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.recipe.ArtisanRecipe;
+import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.advancement.AdvancementTab;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.render.GameRenderer;
@@ -23,10 +29,14 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Environment(value= EnvType.CLIENT)
 public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler> implements ScreenHandlerListener {
@@ -41,13 +51,50 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     private static final Quaternionf ARMOR_STAND_ROTATION = new Quaternionf().rotationXYZ(0.43633232f, 0.0f, (float)Math.PI);
 
     private ArmorStandEntity armorStand;
-
+    private final List<ArtisanTableTab> categories = new ArrayList<>();
+    private final HashMap<Integer, List<ArtisanTableTab>> tabs = new HashMap<>();
+    @Nullable
+    private ArtisanTableTab selectedCategory;
+    private ArtisanTableTab selectedTab;
 
     public ArtisanTableScreen(ArtisanTableScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
         this.backgroundWidth = 232;
         this.backgroundHeight = 166;
         handler.setContentsChangedListener(this::onInventoryChange);
+
+        int index = 0;
+        categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, Text.of("Weapons"), ModWeaponItems.GONDORIAN_NOBLE_LONGSWORD.getDefaultStack()));
+        tabs.put(index, new ArrayList<>());
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, Text.of("Swords"), ModWeaponItems.STEEL_SWORD.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, Text.of("Axe"), ModToolItems.STEEL_AXE.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, Text.of("Spear"), ModWeaponItems.STEEL_SPEAR.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 3, Text.of("Bow"), ModWeaponItems.GONDORIAN_BOW.getDefaultStack()));
+        index++;
+
+        categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, Text.of("Tools"), ModToolItems.MITHRIL_PICKAXE.getDefaultStack()));
+        tabs.put(index, new ArrayList<>());
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, Text.of("Pickaxe"), ModToolItems.STEEL_PICKAXE.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, Text.of("Shovel"), ModToolItems.STEEL_SHOVEL.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, Text.of("Hoe"), ModToolItems.STEEL_HOE.getDefaultStack()));
+        index++;
+
+        categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, Text.of("Armors"), ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE.getDefaultStack()));
+        tabs.put(index, new ArrayList<>());
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, Text.of("Helmet"), ModEquipmentItems.RAVENHILL_WATCHWARDEN_HELMET.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, Text.of("Chestplate"), ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, Text.of("Leggings"), ModEquipmentItems.RAVENHILL_WATCHWARDEN_LEGGINGS.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 3, Text.of("Boots"), ModEquipmentItems.RAVENHILL_WATCHWARDEN_BOOTS.getDefaultStack()));
+        index++;
+
+        categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, Text.of("Shields"), ModEquipmentItems.URUK_HAI_WHITE_HAND_SHIELD.getDefaultStack()));
+        tabs.put(index, new ArrayList<>());
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, Text.of("Light Shields"), ModEquipmentItems.ROUND_SHIELD.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, Text.of("Heavy Shields"), ModEquipmentItems.URUK_HAI_SHIELD.getDefaultStack()));
+        index++;
+
+        selectedCategory = categories.getFirst();
+        selectedTab = tabs.get(selectedCategory.getIndex()).getFirst();
     }
 
     @Override
@@ -56,7 +103,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
         titleY -= 1;
 
-        ((ArtisanTableScreenHandler)this.handler).addListener(this);
+        (this.handler).addListener(this);
 
         this.armorStand = new ArmorStandEntity(this.client.world, 0.0, 0.0, 0.0);
         this.armorStand.setHideBasePlate(true);
@@ -65,7 +112,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         this.armorStand.setPitch(25.0f);
         this.armorStand.headYaw = this.armorStand.getYaw();
         this.armorStand.prevHeadYaw = this.armorStand.getYaw();
-        this.equipArmorStand(((ArtisanTableScreenHandler)this.handler).getSlot(6).getStack());
+        this.equipArmorStand((this.handler).getSlot(6).getStack());
     }
 
 
@@ -122,6 +169,24 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         renderBackground(context, mouseX, mouseY, delta);
         super.render(context, mouseX, mouseY, delta);
+
+        for (ArtisanTableTab category : this.categories) {
+            category.drawBackground(context, x, y, category == this.selectedCategory);
+            category.drawIcon(context, x, y);
+        }
+        for (ArtisanTableTab tab : this.tabs.get(selectedCategory.getIndex())) {
+            tab.drawBackground(context, x, y, tab == this.selectedTab);
+            tab.drawIcon(context, x, y);
+        }
+
+        for (ArtisanTableTab category : this.categories) {
+            if (!category.isClickOnTab(x, y, mouseX, mouseY)) continue;
+            context.drawTooltip(this.textRenderer, category.getTitle(), mouseX, mouseY);
+        }
+        for (ArtisanTableTab tab : this.tabs.get(selectedCategory.getIndex())) {
+            if (!tab.isClickOnTab(x, y, mouseX, mouseY)) continue;
+            context.drawTooltip(this.textRenderer, tab.getTitle(), mouseX, mouseY);
+        }
         drawMouseoverTooltip(context, mouseX, mouseY);
     }
 
@@ -151,7 +216,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
             int l = j / 4;
             int m = y + l * 18 + 2;
             int n = this.backgroundHeight;
-            if (i == ((ArtisanTableScreenHandler)this.handler).getSelectedRecipe()) {
+            if (i == (this.handler).getSelectedRecipe()) {
                 n += 18;
             } else if (mouseX >= k && mouseY >= m && mouseX < k + 16 && mouseY < m + 18) {
                 n += 36;
@@ -176,6 +241,19 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         this.mouseClicked = false;
+        if (button == 0) {
+            for (ArtisanTableTab category : this.categories) {
+                if (!category.isClickOnTab(x, y, mouseX, mouseY)) continue;
+                this.selectedCategory = category;
+                selectedTab = tabs.get(selectedCategory.getIndex()).getFirst();
+                break;
+            }
+            for (ArtisanTableTab tab : tabs.get(selectedCategory.getIndex())) {
+                if (!tab.isClickOnTab(x, y, mouseX, mouseY)) continue;
+                this.selectedTab = tab;
+                break;
+            }
+        }
         if (this.canCraft) {
             int i = this.x + 76;
             int j = this.y + 14;
@@ -185,9 +263,9 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
                 int m = l - this.scrollOffset;
                 double d = mouseX - (double)(i + m % 4 * 16);
                 double e = mouseY - (double)(j + m / 4 * 18);
-                if (d >= 0.0 && e >= 0.0 && d < 16.0 && e < 18.0 && ((ArtisanTableScreenHandler)this.handler).onButtonClick(this.client.player, l)) {
+                if (d >= 0.0 && e >= 0.0 && d < 16.0 && e < 18.0 && (this.handler).onButtonClick(this.client.player, l)) {
                     MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
-                    this.client.interactionManager.clickButton(((ArtisanTableScreenHandler)this.handler).syncId, l);
+                    this.client.interactionManager.clickButton((this.handler).syncId, l);
                     return true;
                 }
             }
