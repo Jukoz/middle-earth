@@ -26,9 +26,16 @@ public class SnailRenderer extends MobEntityRenderer<SnailEntity, SnailModel> {
     }
 
     public static final Map<SnailVariant, String> LOCATION_BY_VARIANT =
-            Util.make(Maps.newEnumMap(SnailVariant.class), (resourceLocation) -> {
-                resourceLocation.put(SnailVariant.GREEN,
+            Util.make(Maps.newEnumMap(SnailVariant.class), (map) -> {
+                map.put(SnailVariant.GREEN,
                         PATH + "snail_green.png");
+                map.put(SnailVariant.PALE_GREEN,
+                        PATH + "snail_pale_green.png");
+                map.put(SnailVariant.BROWN,
+                        PATH + "snail_brown.png");
+                map.put(SnailVariant.GRAY,
+                        PATH + "snail_gray.png");
+
             });
 
     @Override
