@@ -268,7 +268,7 @@ public class TrollEntity extends AbstractBeastEntity {
 
     @Override
     public boolean isBondingItem(ItemStack itemStack) {
-        return itemStack.isOf(ModFoodItems.COOKED_HORSE);
+        return false;
     }
 
     public int getBondingTimeout() {
