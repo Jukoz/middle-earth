@@ -13,7 +13,7 @@ import net.minecraft.util.Util;
 
 import java.util.Map;
 
-public class SnailRenderer extends MobEntityRenderer<SnailEntity, SnailModel<SnailEntity>> {
+public class SnailRenderer extends MobEntityRenderer<SnailEntity, SnailModel> {
 
     private static final String PATH = "textures/entities/snails/";
 
@@ -27,10 +27,8 @@ public class SnailRenderer extends MobEntityRenderer<SnailEntity, SnailModel<Sna
 
     public static final Map<SnailVariant, String> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(SnailVariant.class), (resourceLocation) -> {
-                resourceLocation.put(SnailVariant.WHITE,
-                        PATH + "snail1.png");
                 resourceLocation.put(SnailVariant.GREEN,
-                        PATH + "snail2.png");
+                        PATH + "snail_green.png");
             });
 
     @Override
