@@ -25,7 +25,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ArtisanTableScreenHandler extends ScreenHandler {
     private final ScreenHandlerContext context;
@@ -34,12 +37,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     private List<RecipeEntry<ArtisanRecipe>> availableRecipes;
     private ItemStack inputStack;
     long lastTakeTime;
-    final Slot inputSlot0;
-    final Slot inputSlot1;
-    final Slot inputSlot2;
-    final Slot inputSlot3;
-    final Slot inputSlot4;
-    final Slot inputSlot5;
+    private ArtisanTableSlot[][] inputSlots;
     final Slot outputSlot;
     Runnable contentsChangedListener;
     public final Inventory input;
@@ -56,7 +54,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.inputStack = ItemStack.EMPTY;
         this.contentsChangedListener = () -> {
         };
-        this.input = new SimpleInventory(6) {
+        this.input = new SimpleInventory(9) {
             public void markDirty() {
                 super.markDirty();
                 ArtisanTableScreenHandler.this.onContentChanged(this);
@@ -67,17 +65,13 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.context = context;
         this.world = playerInventory.player.getWorld();
 
-        //this.inputSlot0 = this.addSlot(new Slot(this.input, 0, 12, 14));
-        this.inputSlot0 = this.addSlot(new Slot(this.input, 0, 31, 14));
-        //this.inputSlot0 = this.addSlot(new Slot(this.input, 0, 50, 14));
-
-        this.inputSlot1 = this.addSlot(new Slot(this.input, 1, 12, 34));
-        this.inputSlot2 = this.addSlot(new Slot(this.input, 2, 31, 34));
-        this.inputSlot3 = this.addSlot(new Slot(this.input, 3, 50, 34));
-
-        this.inputSlot4 = this.addSlot(new Slot(this.input, 4, 12, 53));
-        //this.inputSlot4 = this.addSlot(new Slot(this.input, 4, 31, 53));
-        this.inputSlot5 = this.addSlot(new Slot(this.input, 5, 50, 53));
+        inputSlots = new ArtisanTableSlot[3][3];
+        int index = 0;
+        for(int y = 0; y < 3; y++) {
+            for(int x = 0; x < 3; x++) {
+                inputSlots[y][x] = (ArtisanTableSlot) this.addSlot(new ArtisanTableSlot(this.input, index++, 12 + 19*x, 15 + 19*y));
+            }
+        }
 
         this.outputSlot = this.addSlot(new Slot(this.output, 6, 165, 33) {
             @Override
@@ -89,12 +83,14 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
             public void onTakeItem(PlayerEntity player, ItemStack itemStack) {
                 itemStack.onCraftByPlayer(player.getWorld(), player, itemStack.getCount());
                 ArtisanTableScreenHandler.this.output.unlockLastRecipe(player, this.getInputStacks());
-                itemStack = ArtisanTableScreenHandler.this.inputSlot0.takeStack(1);
-                ArtisanTableScreenHandler.this.inputSlot1.takeStack(1);
-                ArtisanTableScreenHandler.this.inputSlot2.takeStack(1);
-                ArtisanTableScreenHandler.this.inputSlot3.takeStack(1);
-                ArtisanTableScreenHandler.this.inputSlot4.takeStack(1);
-                ArtisanTableScreenHandler.this.inputSlot5.takeStack(1);
+
+                for(int y = 0; y < 3; y++) {
+                    for(int x = 0; x < 3; x++) {
+                        ArtisanTableSlot slot = inputSlots[y][x];
+                        if(x == 0 && y == 0) itemStack = slot.takeStack(1);
+                        else slot.takeStack(1);
+                    }
+                }
 
                 if (!itemStack.isEmpty()) {
                     ArtisanTableScreenHandler.this.populateResult(player);
@@ -110,12 +106,9 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
             }
 
             private List<ItemStack> getInputStacks() {
-                return List.of(ArtisanTableScreenHandler.this.inputSlot0.getStack(),
-                        ArtisanTableScreenHandler.this.inputSlot1.getStack(),
-                        ArtisanTableScreenHandler.this.inputSlot2.getStack(),
-                        ArtisanTableScreenHandler.this.inputSlot3.getStack(),
-                        ArtisanTableScreenHandler.this.inputSlot4.getStack(),
-                        ArtisanTableScreenHandler.this.inputSlot5.getStack());
+                return Arrays.stream(inputSlots)
+                        .flatMap(slots -> Arrays.stream(slots).map(Slot::getStack))
+                        .collect(Collectors.toList());
             }
         });
 
@@ -138,7 +131,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     public boolean canCraft() {
-        return this.inputSlot0.hasStack() && !this.availableRecipes.isEmpty();
+        return this.inputSlots[0][0].hasStack() && !this.availableRecipes.isEmpty();
     }
 
     public boolean canUse(PlayerEntity player) {
@@ -158,7 +151,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     public void onContentChanged(Inventory inventory) {
-        ItemStack itemStack = this.inputSlot0.getStack();
+        ItemStack itemStack = this.inputSlots[0][0].getStack();
         this.inputStack = itemStack.copy();
         this.updateInput(inventory, itemStack);
     }
@@ -168,6 +161,14 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         List<ItemStack> inputs = new ArrayList<>();
         for (int i = 0; i < inventory.size(); i++) {
             inputs.add(inventory.getStack(i));
+        }
+        for(int y = 0; y < 3; y++) {
+            for(int x = 0; x < 3; x++) {
+                ArtisanTableSlot slot = inputSlots[y][x];
+                if(Math.random() < 0.4f) {
+                    slot.setEnabled(!slot.isEnabled());
+                }
+            }
         }
         this.availableRecipes.clear();
         this.selectedRecipe.set(-1);
