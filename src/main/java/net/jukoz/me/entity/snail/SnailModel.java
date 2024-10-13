@@ -30,7 +30,7 @@ public class SnailModel extends SinglePartEntityModel<SnailEntity> {
 
 	@Override
 	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-		this.getPart().render(matrices, vertices, light, overlay, color);
+		this.snail.render(matrices, vertices, light, overlay, color);
 	}
 
 	@Override
@@ -42,6 +42,6 @@ public class SnailModel extends SinglePartEntityModel<SnailEntity> {
 	public void setAngles(SnailEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 		this.getPart().traverse().forEach(ModelPart::resetTransform);
 
-		this.animateMovement(SnailAnimations.CRAWL, limbAngle, limbDistance, 1f, 1f);
+		this.updateAnimation(entity.crawlingAnimationState, SnailAnimations.CRAWL, animationProgress, (float)entity.getVelocity().length() * 2);
 	}
 }
