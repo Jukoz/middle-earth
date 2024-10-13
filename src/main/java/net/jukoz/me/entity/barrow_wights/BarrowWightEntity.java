@@ -123,7 +123,6 @@ public class BarrowWightEntity extends HostileEntity {
 
     @Override
     public void tick() {
-        this.setAiDisabled(true);
         if (!this.getWorld().isClient && this.isAlive() && !this.isAiDisabled()) {
             LivingEntity target = getTarget();
 
