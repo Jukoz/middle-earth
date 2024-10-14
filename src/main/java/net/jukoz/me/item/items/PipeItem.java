@@ -73,12 +73,16 @@ public class PipeItem extends Item {
         return 100;
     }
 
+
     @Override
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.TOOT_HORN;
     }
 
-    // Method to check if the item is smoking
+
+    /**
+     * @return true if the pipe is currently smoking
+     */
     public boolean isSmoking() {
         return this.smoking;
     }
