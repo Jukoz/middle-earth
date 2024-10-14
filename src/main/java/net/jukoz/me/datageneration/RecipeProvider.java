@@ -654,6 +654,11 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createCookedFoodRecipes(exporter, Items.EGG, ModFoodItems.BOILED_EGG);
         //endregion
 
+
+        //region SMOKING-ONLY
+        createSmokingRecipe(exporter, ModResourceItems.PIPEWEED, ModResourceItems.DRIED_PIPEWEED);
+        //endregion
+
         createHelmetRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_HELMET);
         createChestplateRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_CHESTPLATE);
         createLeggingsRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_LEGGINGS);
@@ -1111,6 +1116,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "smelting", RecipeSerializer.SMELTING, SmeltingRecipe::new, 200, rawFood, cookedFood, 0.35f);
         net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, rawFood, cookedFood, 0.35f);
         net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING, CampfireCookingRecipe::new, 600, rawFood, cookedFood, 0.35f);
+    }
+
+    private void createSmokingRecipe(RecipeExporter exporter, Item rawFood, Item cookedFood) {
+        net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "smoking", RecipeSerializer.SMOKING, SmokingRecipe::new, 100, rawFood, cookedFood, 0.35f);
     }
 
     private void createMetalsRecipe(RecipeExporter exporter, Item nugget, Item ingot, Block block) {

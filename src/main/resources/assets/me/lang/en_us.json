@@ -275,6 +275,7 @@
   "item.me.mithril_axe": "Mithril Axe",
   "item.me.mithril_shovel": "Mithril Shovel",
   "item.me.mithril_hoe": "Mithril Hoe",
+  "item.me.pipe": "Pipe",
 
   "item.me.bronze_bucket": "Bronze Bucket",
   "item.me.broken_bronze_bucket": "Broken Bronze Bucket",
@@ -937,6 +938,7 @@
 
 "#Comment:": "Item - Resources",
   "item.me.pipeweed": "Pipeweed",
+  "item.me.dried_pipeweed": "Dried Pipeweed",
   "item.me.flax": "Flax",
   "item.me.red_agate_shard": "Red Agate Shard",
   "item.me.citrine_shard": "Citrine Shard",

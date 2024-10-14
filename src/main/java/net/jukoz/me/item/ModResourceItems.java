@@ -133,7 +133,10 @@ public class ModResourceItems {
     public static final Item FLAX = registerItem("flax", new Item(new Item.Settings()));
     public static final Item FLAX_SEEDS = registerItem("flax_seeds", new AliasedBlockItem(ModNatureBlocks.FLAX_CROP, new Item.Settings()));
     public static final Item PIPEWEED = registerItem("pipeweed", new Item(new Item.Settings()));
+    public static final Item DRIED_PIPEWEED = registerItem("dried_pipeweed", new Item(new Item.Settings()));
     public static final Item PIPEWEED_SEEDS = registerItem("pipeweed_seeds", new AliasedBlockItem(ModNatureBlocks.PIPEWEED_CROP, new Item.Settings()));
+    public static final Item PIPE = registerItem("pipe", new PipeItem(new Item.Settings().maxCount(1).maxDamage(10)));
+
     public static final Item TOMATO_SEEDS = registerItem("tomato_seeds", new AliasedBlockItem(ModNatureBlocks.TOMATO_CROP, new Item.Settings()));
     public static final Item BELL_PEPPER_SEEDS = registerItem("bell_pepper_seeds", new AliasedBlockItem(ModNatureBlocks.BELL_PEPPER_CROP, new Item.Settings()));
     public static final Item CUCUMBER_SEEDS = registerItem("cucumber_seeds", new AliasedBlockItem(ModNatureBlocks.CUCUMBER_CROP, new Item.Settings()));
