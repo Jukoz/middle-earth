@@ -492,6 +492,7 @@
 "#Comment:": "Armours",
   "item.me.cape": "Cape",
   "item.me.hood": "Hood",
+
   "item.me.fur_cloak": "Fur Cloak",
   "item.me.fur_hood": "Fur Hood",
 
@@ -5840,9 +5841,20 @@
 "#Comment": "Capes",
 
   "tooltip.me.base_hood": "Basic Hood",
-  "tooltip.me.fur_hood": "Fur Hood",
+
+  "tooltip.me.black_fur_hood": "Black Fur Hood",
+  "tooltip.me.brown_fur_hood": "Brown Fur Hood",
+  "tooltip.me.gray_fur_hood": "Gray Fur Hood",
+  "tooltip.me.tan_fur_hood": "Tan Fur Hood",
+  "tooltip.me.white_fur_hood": "White Fur Hood",
+
   "tooltip.me.base_cape": "Basic Cape",
-  "tooltip.me.fur_cloak": "Fur Cloak",
+
+  "tooltip.me.black_fur_cloak": "Black Fur Cloak",
+  "tooltip.me.brown_fur_cloak": "Brown Fur Cloak",
+  "tooltip.me.gray_fur_cloak": "Gray Fur Cloak",
+  "tooltip.me.tan_fur_cloak": "Tan Fur Cloak",
+  "tooltip.me.white_fur_cloak": "White Fur Cloak",
 
   "tooltip.me.base_cloak": "Basic Cloak",
 
@@ -5851,6 +5863,7 @@
   "tooltip.me.gondorian_captain_cape": "Gondorian Captain Cape",
   "tooltip.me.gondorian_hero_cape": "Gondorian Hero Cape",
   "tooltip.me.gondorian_kings_guard_cape": "Gondorian King's Guard Cape",
+  "tooltip.me.gondorian_citadel_guard_hood": "Gondorian Citadel Guard Hood",
   "tooltip.me.gondorian_citadel_guard_cape": "Gondorian Citadel Guard Cape",
   "tooltip.me.gondorian_fountain_guard_cape": "Gondorian Fountain Guard Cape",
 

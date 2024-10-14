@@ -52,10 +52,10 @@ public class ModEquipmentItems {
     //Fur cloaks
     public static final Item FUR_HOOD = registerGeneratedItem("fur_hood",
             new HoodHelmetItem(new Item.Settings()
-                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.FUR_HOOD))));
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.BLACK_FUR_HOOD))));
     public static final Item FUR_CLOAK = registerGeneratedItem("fur_cloak",
             new CapeChestplateItem(new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.FUR_CLOAK))));
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BLACK_FUR_CLOAK))));
 
     public static final Item STRAW_HAT = registerCustomModelArmorPiece("straw_hat",
             new CustomHelmetItem(ModArmorMaterials.STRAW_T1, ArmorItem.Type.HELMET, new Item.Settings(),
