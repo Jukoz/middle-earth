@@ -14,6 +14,7 @@ import net.jukoz.me.item.items.CustomChestplateItem;
 import net.jukoz.me.item.items.CustomHelmetItem;
 import net.jukoz.me.item.items.HoodHelmetItem;
 import net.jukoz.me.item.utils.armor.capes.ModCapes;
+import net.jukoz.me.item.utils.armor.hoods.ModHoodStates;
 import net.jukoz.me.item.utils.armor.hoods.ModHoods;
 import net.jukoz.me.utils.ModColors;
 import net.minecraft.command.CommandRegistryAccess;
@@ -22,6 +23,7 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import org.apache.logging.log4j.core.appender.rolling.action.IfAccumulatedFileCount;
 
 import java.util.Objects;
 
@@ -75,7 +77,11 @@ public class CommandCustomEquipment {
         ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getInventory().getMainHandStack();
 
         if ((handStack.getItem() instanceof CustomHelmetItem || handStack.getItem() instanceof HoodHelmetItem) && handStack.get(ModDataComponentTypes.HOOD_DATA) != null){
-            handStack.set(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(hood));
+            if (hood.getConstantState() == ModHoodStates.DOWN){
+                handStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, hood));
+            } else if (hood.getConstantState() == ModHoodStates.UP || hood.getConstantState() == null){
+                handStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(false, hood));
+            }
             MutableText sourceText = Text.translatable("command.me.hood.success").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hood.getName()));
             context.getSource().sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
             return 0;

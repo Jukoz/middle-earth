@@ -233,7 +233,8 @@ public class ModEquipmentItems {
                     ModFactions.GONDOR));
 
     public static final Item GONDORIAN_CITADEL_GUARD_HELMET = registerCustomModelArmorPiece("gondorian_citadel_guard_helmet",
-            new CustomHelmetItem(ModArmorMaterials.STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+            new CustomHelmetItem(ModArmorMaterials.STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings()
+                    .component(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, ModHoods.GONDORIAN_CITADEL_GUARD_HOOD)),
                     ModFactions.GONDOR));
     public static final Item GONDORIAN_CITADEL_GUARD_CHESTPLATE = registerArmorPiece("gondorian_citadel_guard_chestplate",
             new CustomChestplateItem(ModArmorMaterials.STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings()

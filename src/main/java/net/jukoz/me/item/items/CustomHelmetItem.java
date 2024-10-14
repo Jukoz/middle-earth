@@ -74,6 +74,15 @@ public class CustomHelmetItem extends ArmorItem {
 
 
     public static void toggleHoodState(ServerPlayerEntity player, ItemStack stack){
-        player.sendMessage(Text.of("test"));
+        HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
+        if (hoodDataComponent != null){
+            if (hoodDataComponent.down() && hoodDataComponent.getHood().getConstantState() == null) {
+                stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(false, hoodDataComponent.hood()));
+                player.sendMessage(Text.translatable("alert." + MiddleEarth.MOD_ID + ".hood_up"), true);
+            } else if (!hoodDataComponent.down() && hoodDataComponent.getHood().getConstantState() == null){
+                stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, hoodDataComponent.hood()));
+                player.sendMessage(Text.translatable("alert." + MiddleEarth.MOD_ID + ".hood_down"), true);
+            }
+        }
     }
 }
