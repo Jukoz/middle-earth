@@ -5186,7 +5186,6 @@
   "block.me.plaster_round_window": "Plaster Round Window",
   "block.me.plaster_round_window_pane": "Plaster Round Window Pane",
 
-
   "block.me.white_daub": "White Daub",
   "block.me.white_daub_slab": "White Daub Slab",
   "block.me.white_daub_vertical_slab": "White Daub Vertical Slab",
@@ -5337,7 +5336,6 @@
   "block.me.yellow_wool_stairs": "Yellow Wool Stairs",
 
   "block.me.gilded_bars": "Gilded Bars",
-
 
 "#Comment:": "Block - Decoratives",
   "block.me.dwarven_lantern": "Dwarven Lantern",
@@ -6021,11 +6019,12 @@
 
 "#Comment": "Alert",
   "alert.me.large_door.blocked": "Something seems to prevent the door from moving.",
+
 "#Comment": "Events",
   "event.me.join.faction.success": "You have joined %s",
   "event.me.leave.faction.success": "You have left %s",
 
-  "#Comment": "Exceptions",
+"#Comment": "Exceptions",
   "exception.me.no_faction.target": "%s have no faction",
   "exception.me.no_faction.source": "You have no faction",
   "exception.me.faction_identifier": "%s is not a valid faction identifier",
