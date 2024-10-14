@@ -220,7 +220,6 @@ public class BarrowWightEntity extends HostileEntity {
             }
         }
     }
-
     public BarrowWightVariant getVariant() {
         return BarrowWightVariant.BASIC;
     }
