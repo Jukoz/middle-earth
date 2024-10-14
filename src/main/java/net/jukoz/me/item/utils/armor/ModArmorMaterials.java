@@ -1,4 +1,4 @@
-package net.jukoz.me.item.utils;
+package net.jukoz.me.item.utils.armor;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModResourceItems;

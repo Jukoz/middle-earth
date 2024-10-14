@@ -1,10 +1,10 @@
-package net.jukoz.me.item.utils;
+package net.jukoz.me.item.utils.armor;
 
 import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
 import net.jukoz.me.client.model.equipment.chest.HaltChestplateModel;
 import net.jukoz.me.client.model.equipment.chest.HobgoblinPlateChestplateModel;
 import net.jukoz.me.client.model.equipment.chest.HobgoblinTrophyPlateChestplateModel;
-import net.jukoz.me.client.model.equipment.head.*;
+import net.jukoz.me.client.model.equipment.head.helmets.*;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;

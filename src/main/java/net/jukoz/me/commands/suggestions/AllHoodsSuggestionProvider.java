@@ -6,8 +6,7 @@ import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.jukoz.me.exceptions.FactionIdentifierException;
-import net.jukoz.me.item.utils.ModCapes;
-import net.jukoz.me.item.utils.ModHoods;
+import net.jukoz.me.item.utils.armor.hoods.ModHoods;
 import net.minecraft.server.command.ServerCommandSource;
 
 import java.util.List;

@@ -12,6 +12,9 @@ import net.jukoz.me.item.items.shields.CustomBannerShieldItem;
 import net.jukoz.me.item.items.shields.CustomShieldItem;
 import net.jukoz.me.item.items.shields.CustomSiegeShieldItem;
 import net.jukoz.me.item.utils.*;
+import net.jukoz.me.item.utils.armor.ModArmorMaterials;
+import net.jukoz.me.item.utils.armor.capes.ModCapes;
+import net.jukoz.me.item.utils.armor.hoods.ModHoods;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
@@ -64,17 +67,17 @@ public class ModEquipmentItems {
 
     public static final Item BYCOCKET = registerDyeableArmorPiece("bycocket",
             new CustomHelmetItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.HELMET, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false, -6265536)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(-6265536)),
                     ModFactions.NONE));
 
     public static final Item ARMING_COAT = registerDyeableArmorPiece("arming_coat",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475)),
                     ModFactions.NONE));
 
     public static final Item ARMING_SKIRT = registerDyeableArmorPiece("arming_skirt",
             new CustomLeggingsItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.LEGGINGS, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475)),
                     ModFactions.NONE));
 
     public static final Item SHOES = registerArmorPiece("shoes",
@@ -87,31 +90,31 @@ public class ModEquipmentItems {
 
     public static final Item LEATHER_SKULLCAP = registerDyeableArmorPiece("leather_skullcap",
             new CustomHelmetItem(ModArmorMaterials.LEATHER_T2, ArmorItem.Type.HELMET, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false, -6265536)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(-6265536)),
                     ModFactions.NONE));
 
     public static final Item GAMBESON_CAP = registerDyeableArmorPiece("gambeson_cap",
             new CustomHelmetItem(ModArmorMaterials.LEATHER_T2, ArmorItem.Type.HELMET, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false, 15256475)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475)),
                     ModFactions.NONE));
     public static final Item GAMBESON_COWL = registerDyeableArmorPiece("gambeson_cowl",
             new CustomHelmetItem(ModArmorMaterials.LEATHER_T2, ArmorItem.Type.HELMET, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent( 15256475)),
                     ModFactions.NONE));
 
     public static final Item GAMBESON = registerDyeableArmorPiece("gambeson",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475)),
                     ModFactions.NONE));
 
     public static final Item LEATHER_VEST = registerDyeableArmorPiece("leather_vest",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(false, -6265536)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(-6265536)),
                     ModFactions.NONE));
 
     public static final Item LEATHER_SCALE_VEST = registerDyeableArmorPiece("leather_scale_vest",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, -6265536)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(-6265536)),
                     ModFactions.NONE));
 
     public static final Item STURDY_BOOTS = registerArmorPiece("sturdy_boots",
@@ -159,7 +162,7 @@ public class ModEquipmentItems {
     //region HOBBITS
     public static final Item SHIRRIFF_HAT = registerDyeableCustomModelArmorPiece("shirriff_hat",
             new CustomHelmetItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.HELMET, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, -6265536)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(-6265536)),
                     ModFactions.SHIRE));
     //endregion
 
@@ -179,11 +182,11 @@ public class ModEquipmentItems {
 
     public static final Item GONDORIAN_LEATHER_CUIRASS = registerDyeableArmorPiece("gondorian_leather_cuirass",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, -6265536)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(-6265536)),
                     ModFactions.GONDOR));
     public static final Item GONDORIAN_LEATHER_CHESTPLATE = registerDyeableArmorPiece("gondorian_leather_chestplate",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, -6265536)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(-6265536)),
                     ModFactions.GONDOR));
 
     public static final Item GONDORIAN_CHAIN_COAT = registerArmorPiece("gondorian_chain_coat",
@@ -280,12 +283,12 @@ public class ModEquipmentItems {
     //region ROHAN
     public static final Item ROHIRRIC_COAT = registerDyeableArmorPiece("rohirric_coat",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     ModFactions.ROHAN));
     public static final Item ROHIRRIC_REINFORCED_COAT = registerDyeableArmorPiece("rohirric_reinforced_coat",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent( 15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     ModFactions.ROHAN));
 
@@ -301,17 +304,17 @@ public class ModEquipmentItems {
 
     public static final Item ROHIRRIC_LEATHER_VEST = registerDyeableArmorPiece("rohirric_leather_vest",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     ModFactions.ROHAN));
     public static final Item ROHIRRIC_LEATHER_SCALE_VEST = registerDyeableArmorPiece("rohirric_leather_scale_vest",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     ModFactions.ROHAN));
     public static final Item ROHIRRIC_GAMBESON = registerDyeableArmorPiece("rohirric_gambeson",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     ModFactions.ROHAN));
 
@@ -330,12 +333,12 @@ public class ModEquipmentItems {
 
     public static final Item ROHIRRIC_MAIL_SHIRT = registerDyeableArmorPiece("rohirric_mail_shirt",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     ModFactions.ROHAN));
     public static final Item ROHIRRIC_MAIL_SHIRT_OPEN = registerDyeableArmorPiece("rohirric_mail_shirt_open",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475))
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
                     ModFactions.ROHAN));
     public static final Item ROHIRRIC_MAIL_HAUBERK = registerArmorPiece("rohirric_mail_hauberk",
@@ -420,15 +423,15 @@ public class ModEquipmentItems {
     //region DALE
     public static final Item DALISH_ARMING_COAT_BLACK_FUR = registerDyeableArmorPiece("dalish_arming_coat_black_fur",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 7296407)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(7296407)),
                     ModFactions.DALE));
     public static final Item DALISH_ARMING_COAT_BROWN_FUR = registerDyeableArmorPiece("dalish_arming_coat_brown_fur",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 7296407)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(7296407)),
                     ModFactions.DALE));
     public static final Item DALISH_ARMING_COAT_TAN_FUR = registerDyeableArmorPiece("dalish_arming_coat_tan_fur",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 7296407)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(7296407)),
                     ModFactions.DALE));
     public static final Item DALISH_HEYDAY_ARMING_COAT = registerArmorPiece("dalish_heyday_arming_coat",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
@@ -600,16 +603,16 @@ public class ModEquipmentItems {
 
     public static final Item ELVEN_ARMING_COAT = registerDyeableArmorPiece("elven_arming_coat",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 4805220)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(4805220)),
                     ModFactions.NONE));
 
     public static final Item ELVEN_ARMING_SKIRT = registerDyeableArmorPiece("elven_arming_skirt",
             new CustomLeggingsItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.LEGGINGS, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 4805220)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(4805220)),
                     ModFactions.NONE));
     public static final Item ELVEN_OPEN_ARMING_SKIRT = registerDyeableArmorPiece("elven_open_arming_skirt",
             new CustomLeggingsItem(ModArmorMaterials.LEATHER_T1, ArmorItem.Type.LEGGINGS, new Item.Settings()
-                    .component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 4805220)),
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(4805220)),
                     ModFactions.NONE));
 
     public static final Item ELVEN_BOOTS = registerArmorPiece("elven_boots",
@@ -921,9 +924,9 @@ public class ModEquipmentItems {
     public static final Item WARG_LEATHER_ARMOR = registerGeneratedItem("warg_leather_armor", new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, null, CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4))));
     public static final Item WARG_PLATE_ARMOR = registerGeneratedItem("warg_plate_armor", new CustomAnimalArmorItem(ModArmorMaterials.PLATE, null, CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10))));
     public static final Item BROADHOOF_GOAT_PADDED_ARMOR = registerDyeableArmorPiece("broadhoof_goat_padded_armor",
-            new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, null, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4)).component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))));
+            new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, null, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4)).component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475))));
     public static final Item BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR = registerDyeableArmorPiece("broadhoof_goat_ornamented_padded_armor",
-            new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, "_ornamented", CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4)).component(ModDataComponentTypes.DYE_DATA, CustomDyeableDataComponent.withOverlay(true, 15256475))));
+            new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, "_ornamented", CustomAnimalArmorItem.Type.BROADHOOF_GOAT, true, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4)).component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(15256475))));
     public static final Item BROADHOOF_GOAT_PLATE_ARMOR = registerGeneratedItem("broadhoof_goat_plate_armor", new CustomAnimalArmorItem(ModArmorMaterials.PLATE, null, CustomAnimalArmorItem.Type.BROADHOOF_GOAT, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(10))));
 
     private static Item registerItem(String name, Item item) {

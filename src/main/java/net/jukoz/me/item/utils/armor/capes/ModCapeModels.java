@@ -1,4 +1,4 @@
-package net.jukoz.me.item.utils;
+package net.jukoz.me.item.utils.armor.capes;
 
 import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
 import net.jukoz.me.client.model.equipment.chest.capes.armored.*;

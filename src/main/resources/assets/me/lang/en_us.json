@@ -6005,6 +6005,8 @@
 
 "#Comment": "Alert",
   "alert.me.large_door.blocked": "Something seems to prevent the door from moving.",
+  "alert.me.hood_down": "Hood down.",
+  "alert.me.hood_up": "Hood up.",
 "#Comment": "Events",
   "event.me.join.faction.success": "You have joined %s",
   "event.me.leave.faction.success": "You have left %s",

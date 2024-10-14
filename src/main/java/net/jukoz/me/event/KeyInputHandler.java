@@ -2,6 +2,9 @@ package net.jukoz.me.event;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.jukoz.me.network.packets.C2S.ForgeOutputPacket;
+import net.jukoz.me.network.packets.C2S.HoodStateTogglePacket;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
@@ -15,11 +18,19 @@ public class KeyInputHandler {
     public static KeyBinding hoodDownKey;
 
     public static void registerKeyInputs(){
+        var ref = new Object() {
+            int counter = 0;
+        };
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(hoodDownKey.isPressed()){
-                assert client.player != null;
-                client.player.sendMessage(Text.of("Hood Down toggle"), true);
+            if(hoodDownKey.isPressed()) {
+                if (ref.counter == 0) {
+                    ref.counter = 1;
+                    assert client.player != null;
+                    ClientPlayNetworking.send(new HoodStateTogglePacket());
+                }
+            } else {
+                ref.counter = 0;
             }
         });
     }

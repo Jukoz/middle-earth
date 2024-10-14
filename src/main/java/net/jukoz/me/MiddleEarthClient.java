@@ -7,30 +7,28 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.jukoz.me.block.*;
 import net.jukoz.me.block.special.bellows.BellowsBlockEntityRenderer;
-import net.jukoz.me.block.special.shapingAnvil.ShapingAnvilEntityRenderer;
-import net.jukoz.me.client.model.equipment.*;
-import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
-import net.jukoz.me.client.model.equipment.chest.capes.CloakCapeModel;
+import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
+import net.jukoz.me.block.special.shapingAnvil.ShapingAnvilEntityRenderer;
+import net.jukoz.me.client.model.equipment.CustomBootsModel;
+import net.jukoz.me.client.model.equipment.CustomChestplateModel;
+import net.jukoz.me.client.model.equipment.CustomHelmetModel;
+import net.jukoz.me.client.model.equipment.CustomLeggingsModel;
 import net.jukoz.me.client.model.equipment.chest.capes.armored.CapeMediumModel;
-import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
-import net.jukoz.me.client.model.equipment.head.RohirricHelmetArmorAddonModel;
+import net.jukoz.me.client.model.equipment.head.helmets.RohirricHelmetArmorAddonModel;
+import net.jukoz.me.client.model.equipment.head.hoods.armored.HoodModel;
 import net.jukoz.me.client.model.shields.HeaterShieldEntityModel;
 import net.jukoz.me.client.model.shields.KiteShieldEntityModel;
 import net.jukoz.me.client.model.shields.RoundShieldEntityModel;
 import net.jukoz.me.client.renderer.*;
 import net.jukoz.me.datageneration.VariantsModelProvider;
-import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
-import net.jukoz.me.datageneration.content.models.SimpleDoubleBlockModel;
-import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
-import net.jukoz.me.datageneration.content.models.SimpleFlowerBedModel;
-import net.jukoz.me.datageneration.content.models.TintableCrossModel;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.content.tags.Crops;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.barrow_wights.BarrowWightEntityRenderer;
 import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatRenderer;
 import net.jukoz.me.entity.beasts.trolls.petrified.PetrifiedTrollRenderer;
+import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollRenderer;
 import net.jukoz.me.entity.beasts.trolls.stone.StoneTrollRenderer;
 import net.jukoz.me.entity.beasts.warg.WargRenderer;
 import net.jukoz.me.entity.deer.DeerRenderer;
@@ -52,23 +50,23 @@ import net.jukoz.me.entity.seat.SeatRenderer;
 import net.jukoz.me.entity.snail.SnailRenderer;
 import net.jukoz.me.entity.spider.MirkwoodSpiderRenderer;
 import net.jukoz.me.entity.swan.SwanRenderer;
-import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollRenderer;
 import net.jukoz.me.entity.uruks.isengard.mordor.IsengardUrukHaiRenderer;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinRenderer;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukRenderer;
-import net.jukoz.me.gui.forge.ForgeAlloyingScreen;
-import net.jukoz.me.gui.forge.ForgeHeatingScreen;
 import net.jukoz.me.event.KeyInputHandler;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreen;
+import net.jukoz.me.gui.forge.ForgeAlloyingScreen;
+import net.jukoz.me.gui.forge.ForgeHeatingScreen;
 import net.jukoz.me.gui.shapinganvil.ShapingAnvilScreen;
 import net.jukoz.me.gui.wood_pile.WoodPileScreen;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
-import net.jukoz.me.item.utils.ModArmorModels;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
+import net.jukoz.me.item.utils.armor.ModArmorModels;
+import net.jukoz.me.item.utils.armor.ModDyeablePieces;
 import net.jukoz.me.network.ModClientNetworkHandler;
 import net.jukoz.me.network.connections.ConnectionToServer;
 import net.jukoz.me.particles.ModParticleTypes;
@@ -217,7 +215,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_BOOTS, CustomBootsModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(HELMET_ADDON_MODEL_LAYER, RohirricHelmetArmorAddonModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(CAPE_MODEL_LAYER, CapeMediumModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(HOOD_MODEL_LAYER, CloakHoodModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(HOOD_MODEL_LAYER, HoodModel::getTexturedModelData);
 
         EntityModelLayerRegistry.registerModelLayer(HEATER_SHIELD_LAYER, HeaterShieldEntityModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(KITE_SHIELD_LAYER, KiteShieldEntityModel::getTexturedModelData);
@@ -654,7 +652,9 @@ public class MiddleEarthClient implements ClientModInitializer {
     }
 
     private void registerDyeableItem(Item item) {
-        if (Objects.requireNonNull(new ItemStack(item).get(ModDataComponentTypes.DYE_DATA)).overlay()){
+        System.out.println(item);
+        Boolean overlay = ModDyeablePieces.dyeablePieces.get(item);
+        if (overlay){
             ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex > 0 ? -1 : CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR), item);
         }
     }

@@ -9,7 +9,6 @@ import net.jukoz.me.client.model.equipment.chest.capes.CloakCapeModel;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.items.CustomChestplateItem;
-import net.jukoz.me.item.utils.ModCapes;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
@@ -27,7 +26,7 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
     private CustomChestplateModel<LivingEntity> customChestplateModel;
     private ChestplateAddonModel<LivingEntity> capeModel;
     private ChestplateAddonModel<LivingEntity> chestplateModel;
-    
+
 
     public ChestplateArmorRenderer() {
     }

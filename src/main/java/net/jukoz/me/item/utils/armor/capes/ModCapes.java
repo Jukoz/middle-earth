@@ -1,4 +1,4 @@
-package net.jukoz.me.item.utils;
+package net.jukoz.me.item.utils.armor.capes;
 
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;

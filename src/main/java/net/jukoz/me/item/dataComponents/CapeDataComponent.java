@@ -5,12 +5,11 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.jukoz.me.item.ModDataComponentTypes;
-import net.jukoz.me.item.utils.ModCapes;
+import net.jukoz.me.item.utils.armor.capes.ModCapes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
 
-public record CapeDataComponent(ModCapes cape) {
+public record CapeDataComponent(ModCapes cape){
 
     private static final Codec<CapeDataComponent> BASE_CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(ModCapes.CODEC.fieldOf("cape").forGetter(CapeDataComponent::getCape)).apply(instance, CapeDataComponent::new);

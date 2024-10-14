@@ -1,6 +1,5 @@
-package net.jukoz.me.client.model.equipment.head;
+package net.jukoz.me.client.model.equipment.head.helmets;
 
-import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;

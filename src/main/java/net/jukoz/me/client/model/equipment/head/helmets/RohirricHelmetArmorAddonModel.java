@@ -1,11 +1,9 @@
-package net.jukoz.me.client.model.equipment.head;
+package net.jukoz.me.client.model.equipment.head.helmets;
 
-import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.ToRad;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 public class RohirricHelmetArmorAddonModel<T extends LivingEntity> extends HelmetAddonModel<T> {

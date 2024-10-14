@@ -1,21 +1,18 @@
 package net.jukoz.me.item.items;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.client.model.equipment.head.HelmetAddonModel;
-import net.jukoz.me.event.KeyInputHandler;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
-import net.jukoz.me.item.utils.ExtendedArmorMaterial;
+import net.jukoz.me.item.utils.armor.ExtendedArmorMaterial;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.world.World;
 
 import java.util.List;
 
@@ -67,7 +64,7 @@ public class CustomHelmetItem extends ArmorItem {
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
             }
             if (hoodDataComponent != null) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood()));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood().getName()));
             }
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
@@ -76,31 +73,7 @@ public class CustomHelmetItem extends ArmorItem {
     }
 
 
-    //TODO fix with packets
-    /*@Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if(KeyInputHandler.hoodKey.isPressed()){
-            HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
-
-            if(hoodDataComponent != null){
-                if(hoodDataComponent.enabled()){
-                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(false, false, hoodDataComponent.hood()));
-                } else {
-                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, false, hoodDataComponent.hood()));
-                }
-            }
-        }
-
-        if(KeyInputHandler.hoodDownKey.isPressed()){
-            HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
-
-            if(hoodDataComponent != null){
-                if(hoodDataComponent.down()){
-                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, false, hoodDataComponent.hood()));
-                } else {
-                    stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, true, hoodDataComponent.hood()));
-                }
-            }
-        }
-    }*/
+    public static void toggleHoodState(ServerPlayerEntity player, ItemStack stack){
+        player.sendMessage(Text.of("test"));
+    }
 }

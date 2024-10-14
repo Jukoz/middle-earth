@@ -4,7 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
-import net.jukoz.me.item.utils.ModArmorMaterials;
+import net.jukoz.me.item.utils.armor.ModArmorMaterials;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;

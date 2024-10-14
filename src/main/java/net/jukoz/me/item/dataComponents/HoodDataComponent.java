@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.jukoz.me.item.ModDataComponentTypes;
-import net.jukoz.me.item.utils.ModHoods;
+import net.jukoz.me.item.utils.armor.hoods.ModHoods;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
