@@ -1,18 +1,17 @@
 package net.jukoz.me.gui.artisantable;
 
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.network.packets.C2S.ArtisanTableTabPacket;
 import net.jukoz.me.recipe.ArtisanRecipe;
-import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.advancement.AdvancementTab;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.render.GameRenderer;
@@ -36,7 +35,6 @@ import org.joml.Vector3f;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Environment(value= EnvType.CLIENT)
 public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler> implements ScreenHandlerListener {
@@ -91,6 +89,13 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         tabs.put(index, new ArrayList<>());
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, Text.of("Light Shields"), ModEquipmentItems.ROUND_SHIELD.getDefaultStack()));
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, Text.of("Heavy Shields"), ModEquipmentItems.URUK_HAI_SHIELD.getDefaultStack()));
+        index++;
+
+        categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, Text.of("Misc"), ModEquipmentItems.STRAW_HAT.getDefaultStack()));
+        tabs.put(index, new ArrayList<>());
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, Text.of("Hats"), ModEquipmentItems.STRAW_HAT.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, Text.of("Hoods"), ModEquipmentItems.FUR_HOOD.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, Text.of("Cloaks"), ModEquipmentItems.FUR_CLOAK.getDefaultStack()));
         index++;
 
         selectedCategory = categories.getFirst();
@@ -160,6 +165,15 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         int l = this.x + 76;
         int m = this.y + 14;
         int n = this.scrollOffset + 12;
+
+        for(int w = 0; w < 3; w++) {
+            for(int z = 0; z < 3; z++) {
+                if(handler.slots.get(w*3 + z).isEnabled()) {
+                    context.drawTexture(TEXTURE,x + 11 + 19*z,y + 14 + 19*w, 232, 15, 18, 18);
+                }
+            }
+        }
+
         this.renderRecipeBackground(context, mouseX, mouseY, l, m, n);
         this.renderRecipeIcons(context, l, m, n);
         InventoryScreen.drawEntity(context, this.x + 206, this.y + 75, 30.0f, field_45497, ARMOR_STAND_ROTATION, null, this.armorStand);
@@ -168,6 +182,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         renderBackground(context, mouseX, mouseY, delta);
+
         super.render(context, mouseX, mouseY, delta);
 
         for (ArtisanTableTab category : this.categories) {
@@ -246,11 +261,13 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
                 if (!category.isClickOnTab(x, y, mouseX, mouseY)) continue;
                 this.selectedCategory = category;
                 selectedTab = tabs.get(selectedCategory.getIndex()).getFirst();
+                changeTab();
                 break;
             }
             for (ArtisanTableTab tab : tabs.get(selectedCategory.getIndex())) {
                 if (!tab.isClickOnTab(x, y, mouseX, mouseY)) continue;
                 this.selectedTab = tab;
+                changeTab();
                 break;
             }
         }
@@ -305,18 +322,22 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     }
 
     private boolean shouldScroll() {
-        return this.canCraft && ((ArtisanTableScreenHandler)this.handler).getAvailableRecipeCount() > 12;
+        return this.canCraft && this.handler.getAvailableRecipeCount() > 12;
     }
 
     protected int getMaxScroll() {
-        return (((ArtisanTableScreenHandler)this.handler).getAvailableRecipeCount() + 4 - 1) / 4 - 3;
+        return (this.handler.getAvailableRecipeCount() + 4 - 1) / 4 - 3;
     }
 
     private void onInventoryChange() {
-        this.canCraft = ((ArtisanTableScreenHandler)this.handler).canCraft();
+        this.canCraft = this.handler.canCraft();
         if (!this.canCraft) {
             this.scrollAmount = 0.0F;
             this.scrollOffset = 0;
         }
+    }
+    
+    private void changeTab() {
+        ClientPlayNetworking.send(new ArtisanTableTabPacket(selectedCategory.getIndex(), selectedTab.getIndex(), handler.syncId));
     }
 }

@@ -42,6 +42,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     Runnable contentsChangedListener;
     public final Inventory input;
     final CraftingResultInventory output;
+    private PlayerEntity playerEntity;
 
     public ArtisanTableScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
@@ -135,10 +136,12 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     public boolean canUse(PlayerEntity player) {
+        this.playerEntity = player;
         return canUse(this.context, player, ModDecorativeBlocks.ARTISAN_TABLE);
     }
 
     public boolean onButtonClick(PlayerEntity player, int id) {
+        this.playerEntity = player;
         if (this.isInBounds(id)) {
             this.selectedRecipe.set(id);
             this.populateResult(player);
@@ -156,19 +159,14 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.updateInput(inventory, itemStack);
     }
 
+    public void changeTab() {
+        this.context.run((world, pos) -> this.dropInventory(this.playerEntity, this.input));
+    }
 
     private void updateInput(Inventory inventory, ItemStack stack) {
         List<ItemStack> inputs = new ArrayList<>();
         for (int i = 0; i < inventory.size(); i++) {
             inputs.add(inventory.getStack(i));
-        }
-        for(int y = 0; y < 3; y++) {
-            for(int x = 0; x < 3; x++) {
-                ArtisanTableSlot slot = inputSlots[y][x];
-                if(Math.random() < 0.4f) {
-                    slot.setEnabled(!slot.isEnabled());
-                }
-            }
         }
         this.availableRecipes.clear();
         this.selectedRecipe.set(-1);
@@ -179,6 +177,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     void populateResult(PlayerEntity player) {
+        this.playerEntity = player;
         if (!this.availableRecipes.isEmpty() && this.isInBounds(this.selectedRecipe.get())) {
             List<ItemStack> inputs = new ArrayList<>();
             for (int i = 0; i < this.input.size(); i++) {
@@ -214,6 +213,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     public ItemStack quickMove(PlayerEntity player, int slot) {
+        this.playerEntity = player;
         ItemStack stack = ItemStack.EMPTY;
         Slot invSlot = this.slots.get(slot);
 
