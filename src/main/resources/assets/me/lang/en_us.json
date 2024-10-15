@@ -6060,7 +6060,17 @@
   "ui.me.continue_character": "Continue",
   "ui.me.reset_character": "Reset Affiliation",
 
-"#Comment": "Screen Faction Selection",
+"#Comment:": "UI Middle-earth Map Screen",
+  "ui.me.map_screen.button.fullscreen_toggle": "Toggle Fullscreen Button",
+  "ui.me.map_screen.button.zoom_in": "Zoom In Button",
+  "ui.me.map_screen.button.zoom_out": "Zoom Out Button",
+  "ui.me.map_screen.tooltip.coordinates_title": "Coordinates",
+  "ui.me.map_screen.tooltip.coordinates_label": "[x,z] ",
+  "ui.me.map_screen.tooltip.coordinates_content": "%s, %s",
+  "ui.me.map_screen.tooltip.teleport_keybind": "Right click to teleport",
+
+
+  "#Comment": "Screen Faction Selection",
   "screen.me.faction_selection_screen": "Faction Selection",
   "screen.me.button.faction_randomizer": "Randomize Faction",
   "screen.me.button.spawn_randomizer": "Randomize Spawn",

@@ -17,6 +17,7 @@ import net.jukoz.me.network.packets.C2S.PacketTeleportToCustomCoordinate;
 import net.jukoz.me.network.packets.C2S.PacketTeleportToDynamicCoordinate;
 import net.jukoz.me.network.packets.C2S.PacketTeleportToDynamicWorldCoordinate;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.utils.ModColors;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.gui.DrawContext;
@@ -26,6 +27,7 @@ import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.*;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
@@ -35,6 +37,8 @@ import org.joml.Vector2d;
 import org.joml.Vector2i;
 
 import java.awt.event.KeyEvent;
+import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,21 +85,21 @@ public class MiddleEarthMapScreen extends Screen {
         mapWidget = new FullscreenToggeableMapWidget(WIDTH - (MARGIN * 2), HEIGHT - (MARGIN * 2));
 
         // Fullscreen toggle button register
-        fullscreenButton = ButtonWidget.builder(Text.translatable("map_screen.button.fullscreen_toggle"), x -> {
+        fullscreenButton = ButtonWidget.builder(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.button.fullscreen_toggle"), x -> {
             isFullscreen = !isFullscreen;
         }).build();
         fullscreenButton.setDimensions(NORMAL_BUTTON_SIZE.x,NORMAL_BUTTON_SIZE.y);
         addDrawableChild(fullscreenButton);
 
         // Zoom in button register
-        zoomInButton = ButtonWidget.builder(Text.translatable("map_screen.button.zoom_in"), x -> {
+        zoomInButton = ButtonWidget.builder(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.button.zoom_in"), x -> {
             mapWidget.zoomClick();
         }).build();
         zoomInButton.setDimensions(NORMAL_BUTTON_SIZE.x,NORMAL_BUTTON_SIZE.y);
         addDrawableChild(zoomInButton);
 
         // Zoom out button register
-        zoomOutButton = ButtonWidget.builder(Text.translatable("map_screen.button.zoom_out"), x -> {
+        zoomOutButton = ButtonWidget.builder(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.button.zoom_out"), x -> {
             mapWidget.dezoomClick();
         }).build();
         zoomOutButton.setDimensions(NORMAL_BUTTON_SIZE.x,NORMAL_BUTTON_SIZE.y);
@@ -109,10 +113,23 @@ public class MiddleEarthMapScreen extends Screen {
         } else {
             renderNormal(context);
         }
+        showCursorInformationTooltip(context, mouseX, mouseY);
+    }
+
+    private void showCursorInformationTooltip(DrawContext context, int mouseX, int mouseY) {
         if(player != null){
             Vector2d mapRatio = mapWidget.getCurrentMapRatio(mouseX, mouseY);
-            if(mapRatio != null && ModDimensions.isInMiddleEarth(player.getWorld())) {
-                context.drawTooltip(textRenderer, List.of(Text.of(Math.round(mapRatio.x * MiddleEarthMapConfigs.FULL_MAP_SIZE) + ", " + Math.round(mapRatio.y * MiddleEarthMapConfigs.FULL_MAP_SIZE))), mouseX, mouseY);
+            if(mapRatio != null) {
+                List<Text> texts = new ArrayList<>();
+                texts.add(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.coordinates_title").formatted(Formatting.UNDERLINE));
+                double x = Math.round((mapRatio.x * MiddleEarthMapConfigs.FULL_MAP_SIZE) * 10) / 10.0;
+                double z = Math.round((mapRatio.y * MiddleEarthMapConfigs.FULL_MAP_SIZE) * 10) / 10.0;
+                texts.add(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.coordinates_label").formatted(Formatting.GRAY)
+                        .append(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.coordinates_content", x, z).formatted(Formatting.WHITE)));
+                if(player.hasPermissionLevel(2)){
+                    texts.add(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.teleport_keybind").formatted(Formatting.ITALIC).withColor(ModColors.PENDING.color));
+                }
+                context.drawTooltip(textRenderer, texts, mouseX, mouseY);
             }
         }
     }
@@ -121,7 +138,7 @@ public class MiddleEarthMapScreen extends Screen {
         if(!player.hasPermissionLevel(2))
             return;
         Vector2d mapRatio = mapWidget.getCurrentMapRatio(mouseX, mouseY);
-        if(mapRatio != null && ModDimensions.isInMiddleEarth(player.getWorld())){
+        if(mapRatio != null){
             double x = mapRatio.x * MiddleEarthMapConfigs.FULL_MAP_SIZE;
             double y = mapRatio.y * MiddleEarthMapConfigs.FULL_MAP_SIZE;
 
@@ -141,6 +158,7 @@ public class MiddleEarthMapScreen extends Screen {
         mapWidget.drawFullscreen(context, MARGIN);
         drawFullscreenToggleButton(context);
         drawZoomButtons(context);
+        drawPlayer(context);
     }
 
     private void renderNormal(DrawContext context) {
@@ -154,6 +172,16 @@ public class MiddleEarthMapScreen extends Screen {
         mapWidget.drawCentered(context, centerX, startY + MARGIN);
         drawFullscreenToggleButton(context);
         drawZoomButtons(context);
+        drawPlayer(context);
+    }
+
+    private void drawPlayer(DrawContext context) {
+        // TODO : make it a proper map marker, this is temporary
+        Vector2d playerRatio = mapWidget.getMapPointFromWorldCoordinate(new Vector2d(player.getPos().getX(), player.getPos().getZ()));
+        int margin = (isFullscreen) ? 0 : MARGIN;
+        double x = Math.max(startX + margin, Math.min(endX - 4 - margin, playerRatio.x));
+        double y = Math.max(startY + margin, Math.min(endY - 4 - margin, playerRatio.y));
+        context.drawTexture(MAP_UI_TEXTURE, (int) x, (int) y, 251, 2, 4, 4);
     }
 
     private void drawFullscreenToggleButton(DrawContext context){
