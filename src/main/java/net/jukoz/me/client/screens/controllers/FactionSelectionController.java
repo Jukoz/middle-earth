@@ -367,6 +367,9 @@ public class FactionSelectionController {
 
     public void toggleMapFocus() {
         mapFocusToggle = !mapFocusToggle;
+        if(!mapFocusToggle){
+            screen.mapWidget.clearFocus();
+        }
     }
 
     public List<Text> getCurrentFactionDescriptions() {

@@ -177,17 +177,10 @@ public class MapWidget extends ModWidget {
         cooldown = 0;
         return true;
     }
-
-    public void setCurrentPointRatioToCursor(double mouseX, double mouseY){
-        currentPointRatio.x = (-startX + mouseX) / getWidth();
-        currentPointRatio.y = (-startY + mouseY) / getHeight();
-    }
-
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
         if(button == 0 && cooldown == 0 && (isDragging || mouseIsInside(mouseX, mouseY))) {
-            forcedCurrentMapCenterTargetRatio = null;
-            isForcingTargetMovement = false;
+            clearFocus();
             int newUvX = (int) (uvX - deltaX);
             int newUvY = (int) (uvY - deltaY);
             setCurrentPointRatioToCursor(mouseX, mouseY);
@@ -203,8 +196,7 @@ public class MapWidget extends ModWidget {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if(mouseIsInside(mouseX, mouseY)){
-            forcedCurrentMapCenterTargetRatio = null;
-            isForcingTargetMovement = false;
+            clearFocus();
             float zoomAmount = 1f + (zoomTarget / 4f);
             if(verticalAmount > 0 && zoomLevel != getMaxZoom()){
                 setCurrentPointRatioToCursor(mouseX, mouseY);
@@ -217,6 +209,12 @@ public class MapWidget extends ModWidget {
         }
         return true;
     }
+
+    public void setCurrentPointRatioToCursor(double mouseX, double mouseY){
+        currentPointRatio.x = (-startX + mouseX) / getWidth();
+        currentPointRatio.y = (-startY + mouseY) / getHeight();
+    }
+
 
     protected boolean mouseIsInside(double mouseX, double mouseY) {
         return ((mouseX > startX && mouseX < startX + getWidth()) && (mouseY > startY && mouseY < startY + getHeight()));
@@ -360,6 +358,11 @@ public class MapWidget extends ModWidget {
                 (uvX + (size * mouseRatioX)) / currentSize,
                 (uvY + ( size * mouseRatioY)) / currentSize
         );
+    }
+
+    public void clearFocus() {
+        forcedCurrentMapCenterTargetRatio = null;
+        isForcingTargetMovement = false;
     }
 
     public UiDirections isOutsideBounds(Vector2d uvs, int offsetX, int offsetY) {
