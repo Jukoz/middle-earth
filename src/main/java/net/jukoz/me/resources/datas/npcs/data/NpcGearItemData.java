@@ -3,7 +3,12 @@ package net.jukoz.me.resources.datas.npcs.data;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
+import net.jukoz.me.item.dataComponents.HoodDataComponent;
+import net.jukoz.me.item.utils.armor.capes.ModCapes;
+import net.jukoz.me.item.utils.armor.hoods.ModHoodStates;
+import net.jukoz.me.item.utils.armor.hoods.ModHoods;
 import net.jukoz.me.recipe.ModTags;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.component.DataComponentTypes;
@@ -27,6 +32,9 @@ public class NpcGearItemData {
     private Item item;
     private Integer color = null;
     private Integer weight = null;
+    private ModCapes cape = null;
+    private ModHoods hood = null;
+    private boolean isDown = false;
 
     public NpcGearItemData() {
         this.item = Items.AIR;
@@ -48,6 +56,25 @@ public class NpcGearItemData {
         return this;
     }
 
+    public NpcGearItemData withCape(ModCapes cape) {
+        this.cape = cape;
+        return this;
+    }
+    public NpcGearItemData withHood(ModHoods hood) {
+        this.hood = hood;
+        if(this.hood.getConstantState() != null){
+            this.isDown = this.hood.getConstantState() == ModHoodStates.DOWN;
+        }
+        return this;
+    }
+    public NpcGearItemData withHood(ModHoods hood, boolean isDown) {
+        withHood(hood);
+        if(this.hood.getConstantState() == null) {
+            this.isDown = isDown;
+        }
+        return this;
+    }
+
     private static Item getItemFromId(Identifier itemId){
         return Registries.ITEM.get(itemId);
     }
@@ -60,13 +87,20 @@ public class NpcGearItemData {
         ItemStack itemStack = new ItemStack(this.item);
         if(this.color != null){
             List<TagKey<Item>> tags = itemStack.streamTags().toList();
-            if(tags.contains(ItemTags.DYEABLE)){
+            if(tags.contains(ItemTags.DYEABLE))
                 itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(this.color, true));
-            }
-            else if(itemStack.isIn(ModTags.DYEABLE)){
+            else if(itemStack.isIn(ModTags.DYEABLE))
                 itemStack.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(this.color));
-            }
         }
+        if(cape != null)
+            itemStack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(cape));
+        else if(hood != null){
+            if(this.hood.getConstantState() != null){
+                this.isDown = this.hood.getConstantState() == ModHoodStates.DOWN;
+            }
+            itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(isDown, hood));
+        }
+
         return itemStack;
     }
 
@@ -94,6 +128,15 @@ public class NpcGearItemData {
         Integer color = gearItemData.color;
         if(color != null)
             nbt.putInt("color", color);
+
+        if(gearItemData.cape != null)
+            nbt.putString("cape", gearItemData.cape.getName().toLowerCase());
+
+        if(gearItemData.hood != null){
+            nbt.putString("hood", gearItemData.hood.getName().toLowerCase());
+            nbt.putBoolean("hood_is_down", gearItemData.isDown);
+        }
+
         return nbt;
     }
 
@@ -105,6 +148,13 @@ public class NpcGearItemData {
         }
         if(nbt.get("color") != null){
             npcGearItemData.color = nbt.getInt("color");
+        }
+        if(nbt.get("cape") != null){
+            npcGearItemData.cape = ModCapes.valueOf(nbt.getString("cape").toUpperCase());
+        }
+        if(nbt.get("hood") != null){
+            npcGearItemData.hood = ModHoods.valueOf(nbt.getString("hood").toUpperCase());
+            npcGearItemData.isDown = nbt.getBoolean("hood_is_down");
         }
         return npcGearItemData;
     }
