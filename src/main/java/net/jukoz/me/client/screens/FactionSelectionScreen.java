@@ -367,8 +367,6 @@ public class FactionSelectionScreen extends Screen {
             }
         }
 
-
-
         if(factionDescriptionTextBlockWidget == null){
             factionDescriptionTextBlockWidget = new TextBlockWidget(
                     startX + MINIMAL_MARGIN, startY + 95, mainPanelWidth - (MINIMAL_MARGIN * 2) - 1, maxLength

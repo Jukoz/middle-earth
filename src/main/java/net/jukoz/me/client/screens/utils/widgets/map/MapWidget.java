@@ -129,9 +129,7 @@ public class MapWidget extends ModWidget {
                 (getCurrentWidth() * forcedCurrentMapCenterTargetRatio.x) - (getWidth() / 2.0),
                 (getCurrentWidth() * forcedCurrentMapCenterTargetRatio.y) - (getHeight() / 2.0)
         );
-        if((int) targetUV.x == (int) currentUvs.x && (int) targetUV.y == (int) currentUvs.y){
-            forcedCurrentMapCenterTargetRatio = null;
-        } else {
+        if((int) targetUV.x != (int) currentUvs.x || (int) targetUV.y != (int) currentUvs.y){
             targetUV = verifyUvs(targetUV.x, targetUV.y);
 
             double distanceForSpeed = targetUV.distance(currentUvs);
@@ -147,9 +145,7 @@ public class MapWidget extends ModWidget {
                 directionY *= -1;
 
             int distance = (int) Math.round(targetUV.distance(currentUvs));
-            if(distance <= 4)
-                forcedCurrentMapCenterTargetRatio = null;
-            else
+            if(distance > 4)
                 computeUvs(uvX + directionX, uvY + directionY);
         }
     }
@@ -246,9 +242,6 @@ public class MapWidget extends ModWidget {
     }
 
     public void zoom(float amount) {
-        forcedCurrentMapCenterTargetRatio = null;
-        isForcingTargetMovement = false;
-
         float maxZoom = getMaxZoom();
         if(zoomTarget != maxZoom) {
             this.canZoomOut = true;
@@ -261,9 +254,6 @@ public class MapWidget extends ModWidget {
         }
     }
     public void dezoom(float amount) {
-        forcedCurrentMapCenterTargetRatio = null;
-        isForcingTargetMovement = false;
-
         float minZoom = getMinZoom();
         if(zoomTarget != minZoom) {
             this.canZoomIn = true;
