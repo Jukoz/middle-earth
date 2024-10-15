@@ -39,6 +39,11 @@ import java.util.List;
 @Environment(value= EnvType.CLIENT)
 public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler> implements ScreenHandlerListener {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/artisan_table.png");
+    public static final int SLOT_SCALE = 18;
+    public static final int SLOT_OFFSET_X = 12;
+    public static final int SLOT_OFFSET_Y = 15;
+    public static final int SPRITE_OFFSET_X = SLOT_OFFSET_X + 1;
+    public static final int SPRITE_OFFSET_Y = SLOT_OFFSET_Y + 1;
 
     private float scrollAmount;
     private boolean mouseClicked;
@@ -171,14 +176,17 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         for(int w = 0; w < 3; w++) {
             for(int z = 0; z < 3; z++) {
                 if(handler.slots.get(w*3 + z).isEnabled()) {
-                    context.drawTexture(TEXTURE,x + 11 + 19*z,y + 14 + 19*w, 232, 15, 18, 18);
-                    if(shape.getInputType(z, w) == InputType.HANDLE) context.drawTexture(TEXTURE,x + 12 + 19*z,y + 15 + 19*w, 232, 87, 16, 16);
-                    else if(shape.getInputType(z, w) == InputType.HILT) context.drawTexture(TEXTURE,x + 12 + 19*z,y + 15 + 19*w, 232, 103, 16, 16);
-                    else if(shape.getInputType(z, w) == InputType.BLADE) context.drawTexture(TEXTURE,x + 12 + 19*z,y + 15 + 19*w, 232, 119, 16, 16);
-                    else if(shape.getInputType(z, w) == InputType.AXE) context.drawTexture(TEXTURE,x + 12 + 19*z,y + 15 + 19*w, 232, 135, 16, 16);
-                    else if(shape.getInputType(z, w) == InputType.PICKAXE) context.drawTexture(TEXTURE,x + 12 + 19*z,y + 15 + 19*w, 232, 151, 16, 16);
-                    else if(shape.getInputType(z, w) == InputType.SHOVEL) context.drawTexture(TEXTURE,x + 12 + 19*z,y + 15 + 19*w, 232, 167, 16, 16);
-                    else if(shape.getInputType(z, w) == InputType.HOE) context.drawTexture(TEXTURE,x + 12 + 19*z,y + 15 + 19*w, 232, 183, 16, 16);
+                    context.drawTexture(TEXTURE,x + SLOT_OFFSET_X + SLOT_SCALE*z,y + SLOT_OFFSET_Y + SLOT_SCALE*w, 232, 15, SLOT_SCALE, SLOT_SCALE);
+                    InputType inputType = shape.getInputType(z, w);
+                    if(!handler.slots.get(w*3 + z).hasStack()) {
+                        if(inputType == InputType.HANDLE) context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 87, 16, 16);
+                        else if(inputType == InputType.HILT) context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 103, 16, 16);
+                        else if(inputType == InputType.BLADE) context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 119, 16, 16);
+                        else if(inputType == InputType.AXE) context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 135, 16, 16);
+                        else if(inputType == InputType.PICKAXE) context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 151, 16, 16);
+                        else if(inputType == InputType.SHOVEL) context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 167, 16, 16);
+                        else if(inputType == InputType.HOE) context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 183, 16, 16);
+                    }
                 }
             }
         }

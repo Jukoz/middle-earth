@@ -70,7 +70,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         int index = 0;
         for(int y = 0; y < 3; y++) {
             for(int x = 0; x < 3; x++) {
-                inputSlots[y][x] = (ArtisanTableSlot) this.addSlot(new ArtisanTableSlot(this.input, index++, 12 + 19*x, 15 + 19*y));
+                inputSlots[y][x] = (ArtisanTableSlot) this.addSlot(new ArtisanTableSlot(this.input, index++, 13 + 18*x, 16 + 18*y));
             }
         }
 
@@ -160,7 +160,9 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     public void changeTab(String shapeId) {
-        this.context.run((world, pos) -> this.dropInventory(this.playerEntity, this.input));
+        if(playerEntity != null) {
+            this.context.run((world, pos) -> this.dropInventory(this.playerEntity, this.input));
+        }
 
         ArtisanTableInputsShape inputsShape = ArtisanTableInputsShape.getShape(shapeId);
         if(inputsShape == null) return;
