@@ -22,6 +22,8 @@ public class BanditNpcDataPool {
     public final static NpcData BANDIT_THIEF;
     private final static String FACTION_BASE = "bandit.";
     private final static int DARK_BLUE = 0x2d3744;
+    private final static int OLIVE_GREEN = 0x2c2e1f;
+    private final static int DARK_BROWN = 0x2b1c17;
 
     static {
         BANDIT_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "militia"), MiddleEarthRaces.HUMAN, List.of(
@@ -53,6 +55,48 @@ public class BanditNpcDataPool {
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.LEATHER_LEGGINGS).withColor(DARK_BLUE))
+                        )
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.SHOES))
+                                .add(NpcGearItemData.create(ModEquipmentItems.WORK_SHOES))
+                        )
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData(new NpcGearItemData(ModWeaponItems.IRON_DAGGER)))
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData(new NpcGearItemData(ModWeaponItems.IRON_DAGGER)))
+                ,
+                NpcGearData.create()
+                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.LEATHER_SKULLCAP).withColor(OLIVE_GREEN).withHood(ModHoods.BASE_HOOD))
+                                .add(NpcGearItemData.create(ModEquipmentItems.BYCOCKET).withColor(OLIVE_GREEN).withHood(ModHoods.BASE_HOOD))
+                                .add(NpcGearItemData.create(ModEquipmentItems.HOOD).withHood(ModHoods.BASE_HOOD))
+                        )
+                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(OLIVE_GREEN).withWeight(3).withCape(ModCapes.BASE_CLOAK))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(OLIVE_GREEN).withWeight(2).withCape(ModCapes.SURCOAT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_LEATHER_VEST).withColor(OLIVE_GREEN).withCape(ModCapes.BASE_CLOAK))
+                        )
+                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(Items.LEATHER_LEGGINGS).withColor(OLIVE_GREEN))
+                        )
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.SHOES))
+                                .add(NpcGearItemData.create(ModEquipmentItems.WORK_SHOES))
+                        )
+                        .add(EquipmentSlot.MAINHAND, new NpcGearSlotData(new NpcGearItemData(ModWeaponItems.IRON_DAGGER)))
+                        .add(EquipmentSlot.OFFHAND, new NpcGearSlotData(new NpcGearItemData(ModWeaponItems.IRON_DAGGER)))
+                ,
+                NpcGearData.create()
+                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.LEATHER_SKULLCAP).withColor(DARK_BROWN).withHood(ModHoods.BASE_HOOD))
+                                .add(NpcGearItemData.create(ModEquipmentItems.BYCOCKET).withColor(DARK_BROWN).withHood(ModHoods.BASE_HOOD))
+                                .add(NpcGearItemData.create(ModEquipmentItems.HOOD).withHood(ModHoods.BASE_HOOD))
+                        )
+                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(DARK_BROWN).withWeight(3).withCape(ModCapes.BASE_CLOAK))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(DARK_BROWN).withWeight(2).withCape(ModCapes.SURCOAT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_LEATHER_VEST).withColor(DARK_BROWN).withCape(ModCapes.BASE_CLOAK))
+                        )
+                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(Items.LEATHER_LEGGINGS).withColor(DARK_BROWN))
                         )
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(ModEquipmentItems.SHOES))
