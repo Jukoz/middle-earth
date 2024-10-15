@@ -18,6 +18,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.joml.Vector2d;
 import org.joml.Vector2i;
 
 import java.util.*;
@@ -338,7 +339,7 @@ public class FactionSelectionController {
                 if(spawnData != null){
                     BlockPos blockPos = spawns.get(currentSpawnIndex).getBlockPos();
                     Vector2i point = new Vector2i(blockPos.getX(), blockPos.getZ());
-                    screen.mapWidget.moveTo(point,5f);
+                    screen.mapWidget.moveTo(point, new Vector2d(3.5, 45.0));
                 }
             }
         }

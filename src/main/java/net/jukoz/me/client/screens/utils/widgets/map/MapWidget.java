@@ -136,7 +136,7 @@ public class MapWidget extends ModWidget {
 
             double distanceForSpeed = targetUV.distance(currentUvs);
             float basicSpeed = getMovementSpeed();
-            double speed = Math.max(basicSpeed, basicSpeed * (distanceForSpeed / 20));
+            double speed = Math.min(Math.max(basicSpeed, basicSpeed * (distanceForSpeed / 20)), distanceForSpeed);
             double radians = Math.toRadians(getDegreeAngleFromVectors(targetUV, currentUvs));
             double directionX = (Math.cos(radians)) * speed;
             if(currentUvs.x > targetUV.x)
@@ -346,8 +346,10 @@ public class MapWidget extends ModWidget {
         return new Vector2d(computedX, computedY);
     }
 
-    public void moveTo(Vector2i worldCoordinates, float desiredZoomTarget){
-        zoomTarget = Math.min(getMaxZoom(), Math.max(getMinZoom(), desiredZoomTarget));
+    public void moveTo(Vector2i worldCoordinates, Vector2d desiredZoomTargetMax){
+        double minimumZoom = Math.max(getMinZoom(), desiredZoomTargetMax.x);
+        double maximumZoom = Math.min(getMaxZoom(), desiredZoomTargetMax.y);
+        zoomTarget = (float) Math.min(maximumZoom, Math.max(minimumZoom, zoomLevel));
         forcedCurrentMapCenterTargetRatio = new Vector2d(
                 (double)worldCoordinates.x * MAP_TO_WORLD_RATIO / MiddleEarthMapConfigs.REGION_SIZE,
                 (double)worldCoordinates.y * MAP_TO_WORLD_RATIO / MiddleEarthMapConfigs.REGION_SIZE
@@ -369,6 +371,7 @@ public class MapWidget extends ModWidget {
                 (uvY + ( size * mouseRatioY)) / currentSize
         );
     }
+
     public UiDirections isOutsideBounds(Vector2d uvs, int offsetX, int offsetY) {
         boolean outOfBoundNorth = uvs.y - offsetY < startY;
         boolean outOfBoundSouth = uvs.y + offsetY  > startY + getHeight();
