@@ -64,7 +64,7 @@ public class NpcGearItemData {
                 itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(this.color, true));
             }
             else if(itemStack.isIn(ModTags.DYEABLE)){
-                itemStack.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(this.color, true));
+                itemStack.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(this.color));
             }
         }
         return itemStack;

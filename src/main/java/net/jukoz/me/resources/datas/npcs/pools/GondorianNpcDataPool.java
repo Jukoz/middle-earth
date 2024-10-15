@@ -44,11 +44,10 @@ public class GondorianNpcDataPool {
 
                 new NpcGearData()
                         .add(EquipmentSlot.HEAD, new NpcGearSlotData()
-                                .add(new NpcGearItemData(ModEquipmentItems.LEATHER_CAP))
+                                .add(new NpcGearItemData(ModEquipmentItems.LEATHER_SKULLCAP))
                                 .add(new NpcGearItemData(ModEquipmentItems.GAMBESON_CAP))
-                                // TODO : WAIT FOR FIX
-                                //.add(new NpcGearItemData(ModEquipmentItems.LEATHER_CAP).withColor(DARK_BEIGE))
-                                //.add(new NpcGearItemData(ModEquipmentItems.GAMBESON_CAP).withColor(DARK_BEIGE))
+                                .add(new NpcGearItemData(ModEquipmentItems.LEATHER_SKULLCAP).withColor(DARK_BEIGE))
+                                .add(new NpcGearItemData(ModEquipmentItems.GAMBESON_CAP).withColor(DARK_BEIGE))
                         )
                         .add(EquipmentSlot.CHEST, new NpcGearSlotData()
                                 .add(new NpcGearItemData(ModEquipmentItems.ARMING_COAT).withWeight(2))

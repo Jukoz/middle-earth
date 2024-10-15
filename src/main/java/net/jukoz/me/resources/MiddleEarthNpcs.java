@@ -105,7 +105,7 @@ public class MiddleEarthNpcs {
         HUMAN_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "human.civilian"), MiddleEarthRaces.HUMAN, List.of(
                 new NpcGearData()
                         .add(EquipmentSlot.HEAD, new NpcGearSlotData()
-                                .add(new NpcGearItemData(ModEquipmentItems.LEATHER_CAP).withWeight(2))
+                                .add(new NpcGearItemData(ModEquipmentItems.LEATHER_SKULLCAP).withWeight(2))
                                 .add(new NpcGearItemData(ModEquipmentItems.STRAW_HAT).withWeight(2))
                                 .add(new NpcGearItemData(ModEquipmentItems.WOVEN_HAT).withWeight(2))
                                 .add(new NpcGearItemData(ModEquipmentItems.BYCOCKET).withWeight(1))

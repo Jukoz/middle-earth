@@ -22,7 +22,7 @@ public enum BackgroundContainerTypes {
     public Vector2i getUvForDirection(UiDirections direction){
         return switch (direction) {
             case NORTH_WEST -> new Vector2i(uvStartX, uvStartY);
-            case NORTH -> new Vector2i(uvStartX + size + 1, uvStartY);
+            case NORTH -> new Vector2i(uvStartX + size + 2, uvStartY);
             case NORTH_EAST -> new Vector2i(uvStartX + ((size + 2) * 2), uvStartY);
             case WEST -> new Vector2i(uvStartX , uvStartY + size + 2);
             case NONE -> new Vector2i(uvStartX + size + 2, uvStartY + size + 2);
