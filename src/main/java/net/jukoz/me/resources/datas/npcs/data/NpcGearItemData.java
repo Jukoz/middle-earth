@@ -34,7 +34,7 @@ public class NpcGearItemData {
     private Integer weight = null;
     private ModCapes cape = null;
     private ModHoods hood = null;
-    private boolean isDown = false;
+    private Boolean isDown = null;
 
     public NpcGearItemData() {
         this.item = Items.AIR;
@@ -44,6 +44,10 @@ public class NpcGearItemData {
     }
     public NpcGearItemData(Identifier itemIdentifier) {
         this.item = getItemFromId(itemIdentifier);
+    }
+
+    public static NpcGearItemData create(Item item) {
+        return new NpcGearItemData(item);
     }
 
     public NpcGearItemData withWeight(int weight) {
@@ -62,15 +66,20 @@ public class NpcGearItemData {
     }
     public NpcGearItemData withHood(ModHoods hood) {
         this.hood = hood;
-        if(this.hood.getConstantState() != null){
+        if(this.hood.getConstantState() != null)
             this.isDown = this.hood.getConstantState() == ModHoodStates.DOWN;
-        }
+        else
+            this.isDown = null;
         return this;
     }
+
     public NpcGearItemData withHood(ModHoods hood, boolean isDown) {
         withHood(hood);
         if(this.hood.getConstantState() == null) {
             this.isDown = isDown;
+        }
+        if(this.isDown != isDown){
+            LoggerUtil.logError("NpcGearItemData:: [%s - %s] Cannot set the hood state to %s, it was forced to %s!".formatted(this.item.getName(), hood.getName(), isDown, this.isDown));
         }
         return this;
     }
@@ -94,13 +103,17 @@ public class NpcGearItemData {
         }
         if(cape != null)
             itemStack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(cape));
-        else if(hood != null){
+        if(hood != null){
+            boolean hoodState = false;
             if(this.hood.getConstantState() != null){
                 this.isDown = this.hood.getConstantState() == ModHoodStates.DOWN;
+                hoodState = this.isDown;
+                LoggerUtil.logError("NpcGearItemData:: [%s - %s] Cannot set the hood state to %s, it was forced to %s!".formatted(this.item.getName(), hood.getName(), isDown, this.isDown));
+            } else if(isDown == null){
+                hoodState = Math.random() >= 0.5;
             }
-            itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(isDown, hood));
+            itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood));
         }
-
         return itemStack;
     }
 
@@ -129,12 +142,14 @@ public class NpcGearItemData {
         if(color != null)
             nbt.putInt("color", color);
 
-        if(gearItemData.cape != null)
+        if(gearItemData.cape != null){
             nbt.putString("cape", gearItemData.cape.getName().toLowerCase());
+        }
 
         if(gearItemData.hood != null){
             nbt.putString("hood", gearItemData.hood.getName().toLowerCase());
-            nbt.putBoolean("hood_is_down", gearItemData.isDown);
+            if(gearItemData.isDown != null)
+                nbt.putBoolean("hood_is_down", gearItemData.isDown);
         }
 
         return nbt;
@@ -154,7 +169,8 @@ public class NpcGearItemData {
         }
         if(nbt.get("hood") != null){
             npcGearItemData.hood = ModHoods.valueOf(nbt.getString("hood").toUpperCase());
-            npcGearItemData.isDown = nbt.getBoolean("hood_is_down");
+            if(nbt.get("hood_is_down") != null)
+                npcGearItemData.isDown = nbt.getBoolean("hood_is_down");
         }
         return npcGearItemData;
     }

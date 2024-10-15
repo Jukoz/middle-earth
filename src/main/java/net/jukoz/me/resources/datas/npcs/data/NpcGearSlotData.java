@@ -1,6 +1,7 @@
 package net.jukoz.me.resources.datas.npcs.data;
 
 import net.fabricmc.fabric.api.util.NbtType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -16,6 +17,10 @@ public class NpcGearSlotData {
     public NpcGearSlotData() {
         this.npcGearItemPool = new ArrayList<>();
     }
+    public static NpcGearSlotData create() {
+        return new NpcGearSlotData();
+    }
+
 
     public NpcGearSlotData(NpcGearItemData npcGearItemData) {
         this.npcGearItemData = npcGearItemData;

@@ -22,7 +22,9 @@ public class NpcGearData {
     public NpcGearData(){
         gears = new HashMap<>();
     }
-
+    public static NpcGearData create() {
+        return new NpcGearData();
+    }
     public NpcGearData(NbtCompound gearNbt) {
         this.gears = new HashMap<>();
         addSlot(gearNbt, EquipmentSlot.HEAD);
