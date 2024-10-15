@@ -1,6 +1,7 @@
 package net.jukoz.me.item.items;
 
 import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.particles.ModParticleTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -60,7 +61,7 @@ public class PipeItem extends Item {
         // Reset the smoking state
         // add a particle of smoke traveling away from the player "a final breath" -- froosty
         if(smoking)
-            world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE,
+            world.addParticle(ModParticleTypes.RING_OF_SMOKE,
             user.getX() + user.getRotationVec(1.0F).x * 0.5,
             user.getY() + user.getEyeHeight(user.getPose()) + user.getRotationVec(1.0F).y * 0.5 + 0.04,
             user.getZ() + user.getRotationVec(1.0F).z * 0.5,
