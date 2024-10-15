@@ -29,12 +29,16 @@ import net.minecraft.util.Identifier;
 import java.util.List;
 
 public class NpcGearItemData {
+    private final static String NO_HOOD_KEY = "no_hood";
+    private final static String NO_CAPE_KEY = "no_cape";
     private Item item;
     private Integer color = null;
     private Integer weight = null;
     private ModCapes cape = null;
     private ModHoods hood = null;
     private Boolean isDown = null;
+    private Boolean noCape = null;
+    private Boolean noHood = null;
 
     public NpcGearItemData() {
         this.item = Items.AIR;
@@ -64,12 +68,25 @@ public class NpcGearItemData {
         this.color = color;
         return this;
     }
-
+    public NpcGearItemData withoutCape() {
+        this.noCape = true;
+        return this;
+    }
     public NpcGearItemData withCape(ModCapes cape) {
+        if(cape == null){
+            this.noCape = true;
+        }
         this.cape = cape;
         return this;
     }
+    public NpcGearItemData withoutHood() {
+        this.noHood = true;
+        return this;
+    }
     public NpcGearItemData withHood(ModHoods hood) {
+        if(hood == null){
+            this.noHood = true;
+        }
         this.hood = hood;
         if(this.hood.getConstantState() != null)
             this.isDown = this.hood.getConstantState() == ModHoodStates.DOWN;
@@ -99,6 +116,7 @@ public class NpcGearItemData {
 
     public ItemStack getItem(){
         ItemStack itemStack = new ItemStack(this.item);
+
         if(this.color != null){
             List<TagKey<Item>> tags = itemStack.streamTags().toList();
             if(tags.contains(ItemTags.DYEABLE))
@@ -106,9 +124,13 @@ public class NpcGearItemData {
             else if(itemStack.isIn(ModTags.DYEABLE))
                 itemStack.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(this.color));
         }
-        if(cape != null)
+        if(this.noCape != null && this.noCape && itemStack.getComponents().contains(ModDataComponentTypes.CAPE_DATA)){
+            itemStack.remove(ModDataComponentTypes.CAPE_DATA);
+        } else if (cape != null)
             itemStack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(cape));
-        if(hood != null){
+        if(this.noHood != null && this.noHood && itemStack.getComponents().contains(ModDataComponentTypes.HOOD_DATA)){
+            itemStack.remove(ModDataComponentTypes.HOOD_DATA);
+        } else if(hood != null){
             boolean hoodState = false;
             if(this.hood.getConstantState() != null){
                 this.isDown = this.hood.getConstantState() == ModHoodStates.DOWN;
@@ -147,9 +169,17 @@ public class NpcGearItemData {
         if(color != null)
             nbt.putInt("color", color);
 
+        Boolean noCape = gearItemData.noCape;
+        if(noCape != null)
+            nbt.putBoolean("no_cape", noCape);
+
         if(gearItemData.cape != null){
             nbt.putString("cape", gearItemData.cape.getName().toLowerCase());
         }
+
+        Boolean noHood = gearItemData.noHood;
+        if(noHood != null)
+            nbt.putBoolean("no_hood", noHood);
 
         if(gearItemData.hood != null){
             nbt.putString("hood", gearItemData.hood.getName().toLowerCase());
@@ -169,8 +199,14 @@ public class NpcGearItemData {
         if(nbt.get("color") != null){
             npcGearItemData.color = nbt.getInt("color");
         }
+        if(nbt.get("no_cape") != null){
+            npcGearItemData.noCape = nbt.getBoolean("no_cape");
+        }
         if(nbt.get("cape") != null){
             npcGearItemData.cape = ModCapes.valueOf(nbt.getString("cape").toUpperCase());
+        }
+        if(nbt.get("no_hood") != null){
+            npcGearItemData.noHood = nbt.getBoolean("no_hood");
         }
         if(nbt.get("hood") != null){
             npcGearItemData.hood = ModHoods.valueOf(nbt.getString("hood").toUpperCase());

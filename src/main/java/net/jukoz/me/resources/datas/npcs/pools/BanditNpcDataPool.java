@@ -22,7 +22,7 @@ public class BanditNpcDataPool {
     public final static NpcData BANDIT_THIEF;
     private final static String FACTION_BASE = "bandit.";
     private final static int DARK_BLUE = 0x2d3744;
-    private final static int OLIVE_GREEN = 0x2c2e1f;
+    private final static int OLIVE_GREEN = 0x3c3e2a;
     private final static int DARK_BROWN = 0x2b1c17;
 
     static {
@@ -40,6 +40,7 @@ public class BanditNpcDataPool {
                                 .add(NpcGearItemData.create(ModEquipmentItems.GAMBESON).withCape(ModCapes.SURCOAT))
                                 .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT))
                                 .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withCape(ModCapes.SURCOAT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withoutCape())
                                 .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withCape(ModCapes.SURCOAT))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(Items.LEATHER_LEGGINGS)))
@@ -59,6 +60,7 @@ public class BanditNpcDataPool {
                             .add(NpcGearItemData.create(ModEquipmentItems.GAMBESON).withColor(DARK_BLUE).withCape(ModCapes.SURCOAT))
                             .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(DARK_BLUE))
                             .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(DARK_BLUE).withCape(ModCapes.SURCOAT))
+                            .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withColor(DARK_BLUE).withoutCape())
                             .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withColor(DARK_BLUE).withCape(ModCapes.SURCOAT))
                     )
                     .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(Items.LEATHER_LEGGINGS).withColor(DARK_BLUE)))
@@ -78,6 +80,7 @@ public class BanditNpcDataPool {
                                 .add(NpcGearItemData.create(ModEquipmentItems.GAMBESON).withColor(OLIVE_GREEN).withCape(ModCapes.SURCOAT))
                                 .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(OLIVE_GREEN))
                                 .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(OLIVE_GREEN).withCape(ModCapes.SURCOAT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withColor(OLIVE_GREEN).withoutCape())
                                 .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withColor(OLIVE_GREEN).withCape(ModCapes.SURCOAT))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(Items.LEATHER_LEGGINGS).withColor(OLIVE_GREEN)))
@@ -97,6 +100,7 @@ public class BanditNpcDataPool {
                                 .add(NpcGearItemData.create(ModEquipmentItems.GAMBESON).withColor(DARK_BROWN).withCape(ModCapes.SURCOAT))
                                 .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(DARK_BROWN))
                                 .add(NpcGearItemData.create(ModEquipmentItems.ARMING_COAT).withColor(DARK_BROWN).withCape(ModCapes.SURCOAT))
+                                .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withColor(DARK_BROWN).withoutCape())
                                 .add(NpcGearItemData.create(ModEquipmentItems.ROHIRRIC_REINFORCED_COAT).withColor(DARK_BROWN).withCape(ModCapes.SURCOAT))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(Items.LEATHER_LEGGINGS).withColor(DARK_BROWN)))
