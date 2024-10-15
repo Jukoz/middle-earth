@@ -20,27 +20,33 @@ public enum ModCapes implements StringIdentifiable {
     TAN_FUR_CLOAK(6,"tan_fur_cloak", ModCapeModels.FUR_MODELS),
     WHITE_FUR_CLOAK(7,"white_fur_cloak", ModCapeModels.FUR_MODELS),
 
-    GONDORIAN_CAPTAIN_CAPE(8,"gondorian_captain_cape", ModCapeModels.MEDIUM_MODELS),
-    GONDORIAN_HERO_CAPE(9,"gondorian_hero_cape", ModCapeModels.MEDIUM_MODELS),
-    GONDORIAN_KINGS_GUARD_CAPE(10,"gondorian_kings_guard_cape", ModCapeModels.MEDIUM_MODELS),
-    GONDORIAN_CITADEL_GUARD_CAPE(11,"gondorian_citadel_guard_cape", ModCapeModels.MEDIUM_MODELS),
-    GONDORIAN_FOUNTAIN_GUARD_CAPE(12,"gondorian_fountain_guard_cape", ModCapeModels.WIDE_MODELS),
+    BLACK_FUR(8,"black_fur", ModCapeModels.FUR_MODELS),
+    BROWN_FUR(9,"brown_fur", ModCapeModels.FUR_MODELS),
+    GRAY_FUR(10,"gray_fur", ModCapeModels.FUR_MODELS),
+    TAN_FUR(11,"tan_fur", ModCapeModels.FUR_MODELS),
+    WHITE_FUR(12,"white_fur", ModCapeModels.FUR_MODELS),
 
-    ROHIRRIC_CAPE(13,"rohirric_cape", ModCapeModels.MEDIUM_MODELS),
-    ROHIRRIC_ROYAL_GUARD_CAPE(14,"rohirric_royal_guard_cape", ModCapeModels.MEDIUM_MODELS),
-    EORLING_MARSHAL_CAPE(15,"eorling_marshal_cape", ModCapeModels.MEDIUM_MODELS),
-    HORSE_LORD_CAPE(16,"horse_lord_cape", ModCapeModels.MEDIUM_MODELS),
+    GONDORIAN_CAPTAIN_CAPE(13,"gondorian_captain_cape", ModCapeModels.MEDIUM_MODELS),
+    GONDORIAN_HERO_CAPE(14,"gondorian_hero_cape", ModCapeModels.MEDIUM_MODELS),
+    GONDORIAN_KINGS_GUARD_CAPE(15,"gondorian_kings_guard_cape", ModCapeModels.MEDIUM_MODELS),
+    GONDORIAN_CITADEL_GUARD_CAPE(16,"gondorian_citadel_guard_cape", ModCapeModels.MEDIUM_MODELS),
+    GONDORIAN_FOUNTAIN_GUARD_CAPE(17,"gondorian_fountain_guard_cape", ModCapeModels.WIDE_MODELS),
 
-    BARDING_SURCOAT(17,"barding_surcoat", ModCapeModels.SURCOAT_MODELS),
-    DALISH_HEYDAY_CAPE(18,"dalish_heyday_cape", ModCapeModels.MEDIUM_MODELS),
-    BARDING_SERGEANT_CAPE(19,"barding_sergeant_cape", ModCapeModels.MEDIUM_MODELS),
+    ROHIRRIC_CAPE(18,"rohirric_cape", ModCapeModels.MEDIUM_MODELS),
+    ROHIRRIC_ROYAL_GUARD_CAPE(19,"rohirric_royal_guard_cape", ModCapeModels.MEDIUM_MODELS),
+    EORLING_MARSHAL_CAPE(20,"eorling_marshal_cape", ModCapeModels.MEDIUM_MODELS),
+    HORSE_LORD_CAPE(21,"horse_lord_cape", ModCapeModels.MEDIUM_MODELS),
 
-    EREBOR_CAPE(20,"erebor_cape", ModCapeModels.MEDIUM_MODELS),
-    RAVENHILL_SENTINEL_CAPE(21,"ravenhill_sentinel_cape", ModCapeModels.WIDE_MODELS),
+    BARDING_SURCOAT(22,"barding_surcoat", ModCapeModels.SURCOAT_MODELS),
+    DALISH_HEYDAY_CAPE(23,"dalish_heyday_cape", ModCapeModels.MEDIUM_MODELS),
+    BARDING_SERGEANT_CAPE(24,"barding_sergeant_cape", ModCapeModels.MEDIUM_MODELS),
 
-    LORIEN_MARCHWARDEN_CAPE(22,"lorien_marchwarden_cape", ModCapeModels.MEDIUM_MODELS),
-    GALADHRIM_CAPE(23,"galadhrim_cape", ModCapeModels.SLIM_MODELS),
-    GALADHRIM_LORD_SURCOAT(24,"galadhrim_lord_surcoat", ModCapeModels.SURCOAT_MODELS),
+    EREBOR_CAPE(25,"erebor_cape", ModCapeModels.MEDIUM_MODELS),
+    RAVENHILL_SENTINEL_CAPE(26,"ravenhill_sentinel_cape", ModCapeModels.WIDE_MODELS),
+
+    LORIEN_MARCHWARDEN_CAPE(27,"lorien_marchwarden_cape", ModCapeModels.MEDIUM_MODELS),
+    GALADHRIM_CAPE(28,"galadhrim_cape", ModCapeModels.SLIM_MODELS),
+    GALADHRIM_LORD_SURCOAT(29,"galadhrim_lord_surcoat", ModCapeModels.SURCOAT_MODELS),
     ;
 
     private static final IntFunction<ModCapes> BY_ID = ValueLists.createIdToValueFunction(ModCapes::getId, ModCapes.values(), ValueLists.OutOfBoundsHandling.ZERO);;

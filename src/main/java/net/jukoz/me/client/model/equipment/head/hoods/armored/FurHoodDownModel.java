@@ -16,7 +16,7 @@ public class FurHoodDownModel<T extends LivingEntity> extends CloakHoodModel<T> 
         ModelPartData modelPartData = modelData.getRoot();
 
         ModelPartData hat = modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        
+
         ModelPartData cape_armored = hat.addChild("cape_armored", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -1.0F, 0.016F));
 
         ModelPartData Hood2 = cape_armored.addChild("Hood2", ModelPartBuilder.create().uv(0, 73).cuboid(-4.0F, -9.0F, -4.376F, 8.0F, 5.0F, 2.0F, new Dilation(0.1F)), ModelTransform.pivot(0.0F, -21.5F, 0.0F));
