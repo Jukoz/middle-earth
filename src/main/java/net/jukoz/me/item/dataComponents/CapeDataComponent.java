@@ -5,46 +5,38 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.jukoz.me.item.ModDataComponentTypes;
-import net.jukoz.me.item.utils.ModCapes;
+import net.jukoz.me.item.utils.armor.capes.ModCapes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
 
-public record CapeDataComponent(boolean enabled, String cape) {
+public record CapeDataComponent(ModCapes cape){
 
     private static final Codec<CapeDataComponent> BASE_CODEC = RecordCodecBuilder.create((instance) -> {
-        return instance.group(Codec.BOOL.fieldOf("enabled").forGetter(CapeDataComponent::enabled), Codec.STRING.fieldOf("cape").forGetter(CapeDataComponent::getCape)).apply(instance, CapeDataComponent::new);
+        return instance.group(ModCapes.CODEC.fieldOf("cape").forGetter(CapeDataComponent::getCape)).apply(instance, CapeDataComponent::new);
     });
     public static final Codec<CapeDataComponent> CODEC  = Codec.withAlternative(BASE_CODEC, Codec.BOOL, (enabled) -> {
-        return new CapeDataComponent(enabled, "base_cape");
+        return new CapeDataComponent(ModCapes.BASE_CAPE);
     });
-    public static final PacketCodec<ByteBuf, CapeDataComponent> PACKET_CODEC  = PacketCodec.tuple(PacketCodecs.BOOL, CapeDataComponent::enabled, PacketCodecs.STRING, CapeDataComponent::cape, CapeDataComponent::new);
+    public static final PacketCodec<ByteBuf, CapeDataComponent> PACKET_CODEC  = PacketCodec.tuple(ModCapes.PACKET_CODEC, CapeDataComponent::getCape, CapeDataComponent::new);
     ;
 
-
-    public CapeDataComponent(boolean enabled, String cape){
-        this.enabled = enabled;
+    public CapeDataComponent(ModCapes cape){
         this.cape = cape;
     }
 
     public static CapeDataComponent newCape(ModCapes cape) {
-        return new CapeDataComponent(true, cape.getName().toLowerCase());
+        return new CapeDataComponent(cape);
     }
 
-    public static ItemStack setCape(ItemStack stack, boolean enabled, ModCapes cape){
+    public static ItemStack setCape(ItemStack stack, ModCapes cape){
         ItemStack itemStack = stack.copyWithCount(1);
 
-        itemStack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(enabled, cape.getName().toLowerCase()));
+        itemStack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(cape));
         return itemStack;
     }
 
-    @Override
-    public boolean enabled() {
-        return enabled;
-    }
 
-
-    public String getCape(){
+    public ModCapes getCape(){
         return cape();
     }
 }
