@@ -356,6 +356,19 @@ public class MapWidget extends ModWidget {
         currentPointRatio = new Vector2d(0.5, 0.5);
     }
 
+    public Vector2d getCurrentMapRatio(double mouseX, double mouseY) {
+        if(!mouseIsInside(mouseX, mouseY))
+            return null;
+        int size =  Math.max(getWidth(), getHeight());
+        int currentSize =  Math.max(getCurrentWidth(), getCurrentHeight());
+
+        double mouseRatioX = (-startX + mouseX) / size;
+        double mouseRatioY = (-startY + mouseY) / size;
+        return new Vector2d(
+                (uvX + (size * mouseRatioX)) / currentSize,
+                (uvY + ( size * mouseRatioY)) / currentSize
+        );
+    }
     public UiDirections isOutsideBounds(Vector2d uvs, int offsetX, int offsetY) {
         boolean outOfBoundNorth = uvs.y - offsetY < startY;
         boolean outOfBoundSouth = uvs.y + offsetY  > startY + getHeight();

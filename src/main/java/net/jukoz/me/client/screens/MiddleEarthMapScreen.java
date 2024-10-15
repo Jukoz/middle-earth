@@ -5,6 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.client.screens.controllers.FactionSelectionController;
 import net.jukoz.me.client.screens.utils.widgets.CycledSelectionWidget;
 import net.jukoz.me.client.screens.utils.widgets.ModWidget;
 import net.jukoz.me.client.screens.utils.widgets.SearchBarWidget;
@@ -30,9 +31,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import org.joml.Vector2d;
 import org.joml.Vector2i;
 
 import java.awt.event.KeyEvent;
+import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
@@ -60,8 +63,6 @@ public class MiddleEarthMapScreen extends Screen {
     private ButtonWidget zoomOutButton;
 
     AbstractClientPlayerEntity player;
-
-
     public MiddleEarthMapScreen() {
         super(MAP_TITLE_TEXT);
         backgroundContainerWidget = new BackgroundContainerWidget(BackgroundContainerTypes.FULLSCREEN_MAP);
@@ -70,6 +71,13 @@ public class MiddleEarthMapScreen extends Screen {
 
     @Override
     protected void init() {
+        Entity cameraEntity = this.client.getCameraEntity();
+        if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
+            this.player = abstractClientPlayerEntity;
+        } else {
+            LoggerUtil.logError("MiddleEarthMapScreen::Init:Couldn't find player");
+        }
+
         mapWidget = new FullscreenToggeableMapWidget(WIDTH - (MARGIN * 2), HEIGHT - (MARGIN * 2));
 
         // Fullscreen toggle button register
@@ -100,6 +108,24 @@ public class MiddleEarthMapScreen extends Screen {
             renderFullscreen(context);
         } else {
             renderNormal(context);
+        }
+        if(player != null){
+            Vector2d mapRatio = mapWidget.getCurrentMapRatio(mouseX, mouseY);
+            if(mapRatio != null && ModDimensions.isInMiddleEarth(player.getWorld())) {
+                context.drawTooltip(textRenderer, List.of(Text.of(Math.round(mapRatio.x * MiddleEarthMapConfigs.FULL_MAP_SIZE) + ", " + Math.round(mapRatio.y * MiddleEarthMapConfigs.FULL_MAP_SIZE))), mouseX, mouseY);
+            }
+        }
+    }
+
+    private void teleportToCursor(double mouseX, double mouseY) {
+        if(!player.hasPermissionLevel(2))
+            return;
+        Vector2d mapRatio = mapWidget.getCurrentMapRatio(mouseX, mouseY);
+        if(mapRatio != null && ModDimensions.isInMiddleEarth(player.getWorld())){
+            double x = mapRatio.x * MiddleEarthMapConfigs.FULL_MAP_SIZE;
+            double y = mapRatio.y * MiddleEarthMapConfigs.FULL_MAP_SIZE;
+
+            ClientPlayNetworking.send(new PacketTeleportToDynamicWorldCoordinate(x, y));
         }
     }
 
@@ -191,6 +217,9 @@ public class MiddleEarthMapScreen extends Screen {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         mapWidget.mouseClicked(mouseX, mouseY, button);
+        if(button == 1){
+            teleportToCursor(mouseX, mouseY);
+        }
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
