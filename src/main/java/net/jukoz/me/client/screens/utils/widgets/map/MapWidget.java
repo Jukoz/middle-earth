@@ -2,12 +2,10 @@ package net.jukoz.me.client.screens.utils.widgets.map;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.utils.widgets.ModWidget;
-import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerArrowDirections;
-import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.client.screens.utils.widgets.UiDirections;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
-import org.joml.Quaterniond;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
@@ -358,7 +356,7 @@ public class MapWidget extends ModWidget {
         currentPointRatio = new Vector2d(0.5, 0.5);
     }
 
-    public MapMarkerArrowDirections isOutsideBounds(Vector2d uvs, int offsetX, int offsetY) {
+    public UiDirections isOutsideBounds(Vector2d uvs, int offsetX, int offsetY) {
         boolean outOfBoundNorth = uvs.y - offsetY < startY;
         boolean outOfBoundSouth = uvs.y + offsetY  > startY + getHeight();
         boolean outOfBoundEast = uvs.x + offsetX > startX + getWidth();
@@ -366,23 +364,23 @@ public class MapWidget extends ModWidget {
 
         if(outOfBoundNorth){
             if(outOfBoundEast)
-                return MapMarkerArrowDirections.NORTH_EAST;
+                return UiDirections.NORTH_EAST;
             if(outOfBoundWest)
-                return MapMarkerArrowDirections.NORTH_WEST;
-            return MapMarkerArrowDirections.NORTH;
+                return UiDirections.NORTH_WEST;
+            return UiDirections.NORTH;
         }
         if(outOfBoundSouth){
             if(outOfBoundEast)
-                return MapMarkerArrowDirections.SOUTH_EAST;
+                return UiDirections.SOUTH_EAST;
             if(outOfBoundWest)
-                return MapMarkerArrowDirections.SOUTH_WEST;
-            return MapMarkerArrowDirections.SOUTH;
+                return UiDirections.SOUTH_WEST;
+            return UiDirections.SOUTH;
         }
         if(outOfBoundEast)
-            return MapMarkerArrowDirections.EAST;
+            return UiDirections.EAST;
         if(outOfBoundWest)
-            return MapMarkerArrowDirections.WEST;
+            return UiDirections.WEST;
 
-        return MapMarkerArrowDirections.NONE;
+        return UiDirections.NONE;
     }
 }
