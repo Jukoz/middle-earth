@@ -97,6 +97,9 @@ public class Faction {
         joinCommands.ifPresent(nbtCompound -> this.joinCommands.addAll(nbtCompound));
         this.leaveCommands = new ArrayList<>();
         leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
+
+        this.raceList = null;
+        this.descriptions = null;
     }
 
     public Faction(String name, Boolean joinable, Disposition disposition, FactionType factionType, Identifier parentFactionId, List<Identifier> subFactions, HashMap<NpcRank, List<NpcData>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
@@ -123,6 +126,8 @@ public class Faction {
         this.spawnDataHandler = spawnDataHandler;
         this.joinCommands = joinCommand;
         this.leaveCommands = leaveCommand;
+        this.raceList = null;
+        this.descriptions = null;
     }
 
     private String getIdValue() {
