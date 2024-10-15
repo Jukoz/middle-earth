@@ -158,7 +158,7 @@ public class MiddleEarthMapScreen extends Screen {
         mapWidget.drawFullscreen(context, MARGIN);
         drawFullscreenToggleButton(context);
         drawZoomButtons(context);
-        drawPlayer(context);
+        drawPlayer(context, player);
     }
 
     private void renderNormal(DrawContext context) {
@@ -172,10 +172,12 @@ public class MiddleEarthMapScreen extends Screen {
         mapWidget.drawCentered(context, centerX, startY + MARGIN);
         drawFullscreenToggleButton(context);
         drawZoomButtons(context);
-        drawPlayer(context);
+        drawPlayer(context, player);
     }
 
-    private void drawPlayer(DrawContext context) {
+    private void drawPlayer(DrawContext context, AbstractClientPlayerEntity player) {
+        if(!ModDimensions.isInMiddleEarth(player.getWorld()))
+            return;
         // TODO : make it a proper map marker, this is temporary
         Vector2d playerRatio = mapWidget.getMapPointFromWorldCoordinate(new Vector2d(player.getPos().getX(), player.getPos().getZ()));
         int margin = (isFullscreen) ? 0 : MARGIN;
