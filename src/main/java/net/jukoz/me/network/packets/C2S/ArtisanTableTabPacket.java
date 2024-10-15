@@ -18,31 +18,24 @@ import net.minecraft.util.math.Vec3d;
 public class ArtisanTableTabPacket extends ClientToServerPacket<ArtisanTableTabPacket> {
     public static final Id<ArtisanTableTabPacket> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "artisan_table_tab_packet"));
     public static final PacketCodec<RegistryByteBuf, ArtisanTableTabPacket> CODEC = PacketCodec.tuple(
-            PacketCodecs.INTEGER, p -> p.category,
-            PacketCodecs.INTEGER, p -> p.tab,
+            PacketCodecs.STRING, p -> p.shapeId,
             PacketCodecs.INTEGER, p -> p.syncId,
             ArtisanTableTabPacket::new
     );
 
-    public int getCategory() {
-        return category;
-    }
-
-    public int getTab() {
-        return tab;
+    public String getShapeId() {
+        return shapeId;
     }
 
     public int getSyncId() {
         return syncId;
     }
 
-    private final int category;
-    private final int tab;
+    private final String shapeId;
     private final int syncId;
 
-    public ArtisanTableTabPacket(int category, int tab, int syncId) {
-        this.category = category;
-        this.tab = tab;
+    public ArtisanTableTabPacket(String shapeId, int syncId) {
+        this.shapeId = shapeId;
         this.syncId = syncId;
     }
 
@@ -63,7 +56,7 @@ public class ArtisanTableTabPacket extends ClientToServerPacket<ArtisanTableTabP
                 ServerPlayerEntity player = context.player();
                 ScreenHandler screenHandler = player.currentScreenHandler;
                 if (screenHandler.syncId == this.syncId && screenHandler instanceof ArtisanTableScreenHandler artisanTableScreenHandler) {
-                    artisanTableScreenHandler.changeTab();
+                    artisanTableScreenHandler.changeTab(shapeId);
                 }
             });
         }catch (Exception e){

@@ -159,8 +159,20 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.updateInput(inventory, itemStack);
     }
 
-    public void changeTab() {
+    public void changeTab(String shapeId) {
         this.context.run((world, pos) -> this.dropInventory(this.playerEntity, this.input));
+
+        ArtisanTableInputsShape inputsShape = ArtisanTableInputsShape.getShape(shapeId);
+        if(inputsShape == null) return;
+        for(int y = 0; y < 3; y++) {
+            for(int x = 0; x < 3; x++) {
+                ArtisanTableSlot slot = inputSlots[y][x];
+                InputType inputType = inputsShape.getInputType(x,y);
+                if(inputType == null) continue;
+                else if(inputType == InputType.NONE) slot.setEnabled(false);
+                else slot.setEnabled(true);
+            }
+        }
     }
 
     private void updateInput(Inventory inventory, ItemStack stack) {

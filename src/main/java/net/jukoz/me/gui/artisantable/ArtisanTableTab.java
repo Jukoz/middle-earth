@@ -24,6 +24,7 @@ public class ArtisanTableTab {
     private final int index;
     private final ItemStack icon;
     private final Text title;
+    private final ArtisanTableInputsShape inputShape;
     private final Map<AdvancementEntry, AdvancementWidget> widgets = Maps.newLinkedHashMap();
     private double originX;
     private double originY;
@@ -35,13 +36,19 @@ public class ArtisanTableTab {
     private boolean initialized;
 
     public ArtisanTableTab(MinecraftClient client, ArtisanTableScreen screen, ArtisanTableTabType type, int index,
-                           Text title, ItemStack icon) {
+                           Text title, ItemStack icon, ArtisanTableInputsShape inputShape) {
         this.client = client;
         this.screen = screen;
         this.type = type;
         this.index = index;
         this.icon = icon;
         this.title = title;
+        this.inputShape = inputShape;
+    }
+
+    public ArtisanTableTab(MinecraftClient client, ArtisanTableScreen screen, ArtisanTableTabType type, int index,
+                           Text title, ItemStack icon) {
+        this(client, screen, type, index, title, icon, ArtisanTableInputsShape.ANY);
     }
 
     public ArtisanTableTabType getType() {
@@ -55,6 +62,10 @@ public class ArtisanTableTab {
 
     public Text getTitle() {
         return this.title;
+    }
+
+    public ArtisanTableInputsShape getInputShape() {
+        return this.inputShape;
     }
 
     public void drawBackground(DrawContext context, int x, int y, boolean selected) {
