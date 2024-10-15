@@ -20,7 +20,9 @@ public class NpcGearSlotData {
     public static NpcGearSlotData create() {
         return new NpcGearSlotData();
     }
-
+    public static NpcGearSlotData create(NpcGearItemData npcGearItemData) {
+        return new NpcGearSlotData(npcGearItemData);
+    }
 
     public NpcGearSlotData(NpcGearItemData npcGearItemData) {
         this.npcGearItemData = npcGearItemData;
@@ -56,10 +58,10 @@ public class NpcGearSlotData {
     }
     public static NpcGearSlotData readNbt(NbtCompound nbt){
         if(nbt.get("pool") == null){
-            return new NpcGearSlotData(NpcGearItemData.readNbt(nbt));
+            return NpcGearSlotData.create(NpcGearItemData.readNbt(nbt));
         }
         NbtList list = nbt.getList("pool", NbtType.COMPOUND);
-        NpcGearSlotData npcGearSlotData = new NpcGearSlotData();
+        NpcGearSlotData npcGearSlotData = NpcGearSlotData.create();
         for(int i = 0; i < list.size(); i++){
             npcGearSlotData.add(NpcGearItemData.readNbt(list.getCompound(i)));
         }

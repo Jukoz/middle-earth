@@ -51,7 +51,7 @@ public class NpcGearData {
     }
 
     public static NpcGearData Create() {
-        return new NpcGearData();
+        return NpcGearData.create();
     }
 
     public ItemStack get(EquipmentSlot slot) {

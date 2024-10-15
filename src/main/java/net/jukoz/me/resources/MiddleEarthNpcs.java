@@ -103,40 +103,40 @@ public class MiddleEarthNpcs {
     static {
         // region [GENERIC]
         HUMAN_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "human.civilian"), MiddleEarthRaces.HUMAN, List.of(
-                new NpcGearData()
-                        .add(EquipmentSlot.HEAD, new NpcGearSlotData()
-                                .add(new NpcGearItemData(ModEquipmentItems.LEATHER_SKULLCAP).withWeight(2))
-                                .add(new NpcGearItemData(ModEquipmentItems.STRAW_HAT).withWeight(2))
-                                .add(new NpcGearItemData(ModEquipmentItems.WOVEN_HAT).withWeight(2))
-                                .add(new NpcGearItemData(ModEquipmentItems.BYCOCKET).withWeight(1))
-                                .add(new NpcGearItemData().withWeight(4))
+                NpcGearData.create()
+                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.LEATHER_SKULLCAP).withWeight(2))
+                                .add(NpcGearItemData.create(ModEquipmentItems.STRAW_HAT).withWeight(2))
+                                .add(NpcGearItemData.create(ModEquipmentItems.WOVEN_HAT).withWeight(2))
+                                .add(NpcGearItemData.create(ModEquipmentItems.BYCOCKET).withWeight(1))
+                                .add(NpcGearItemData.create().withWeight(4))
                         )
-                        .add(EquipmentSlot.FEET, new NpcGearSlotData()
-                                .add(new NpcGearItemData(ModEquipmentItems.STURDY_BOOTS))
-                                .add(new NpcGearItemData(ModEquipmentItems.WORK_SHOES).withWeight(2))
-                                .add(new NpcGearItemData(ModEquipmentItems.SHOES).withWeight(2))
-                                .add(new NpcGearItemData().withWeight(3))
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(ModEquipmentItems.STURDY_BOOTS))
+                                .add(NpcGearItemData.create(ModEquipmentItems.WORK_SHOES).withWeight(2))
+                                .add(NpcGearItemData.create(ModEquipmentItems.SHOES).withWeight(2))
+                                .add(NpcGearItemData.create().withWeight(3))
                         )
         ));
 
         DWARF_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "dwarf.civilian"), MiddleEarthRaces.DWARF, List.of(
-                new NpcGearData()
+                NpcGearData.create()
         ));
 
         ELF_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "elf.civilian"), MiddleEarthRaces.ELF, List.of(
-                new NpcGearData()
+                NpcGearData.create()
         ));
 
         HOBBIT_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "hobbit.civilian"), MiddleEarthRaces.HOBBIT, List.of(
-                new NpcGearData()
+                NpcGearData.create()
         ));
 
         ORC_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "orc.civilian"), MiddleEarthRaces.ORC, List.of(
-                new NpcGearData()
+                NpcGearData.create()
         ));
 
         URUK_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, "uruk.civilian"), MiddleEarthRaces.URUK, List.of(
-                new NpcGearData()
+                NpcGearData.create()
         ));
         // endregion
     }

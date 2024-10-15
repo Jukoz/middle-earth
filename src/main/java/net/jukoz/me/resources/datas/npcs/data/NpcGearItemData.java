@@ -46,10 +46,15 @@ public class NpcGearItemData {
         this.item = getItemFromId(itemIdentifier);
     }
 
+    public static NpcGearItemData create() {
+        return new NpcGearItemData();
+    }
     public static NpcGearItemData create(Item item) {
         return new NpcGearItemData(item);
     }
-
+    public static NpcGearItemData create(Identifier itemIdentifier) {
+        return new NpcGearItemData(itemIdentifier);
+    }
     public NpcGearItemData withWeight(int weight) {
         this.weight = weight;
         return this;
@@ -157,7 +162,7 @@ public class NpcGearItemData {
 
     public static NpcGearItemData readNbt(NbtCompound nbt){
         Identifier id = Identifier.of(nbt.getString("id"));
-        NpcGearItemData npcGearItemData = new NpcGearItemData(id);
+        NpcGearItemData npcGearItemData = NpcGearItemData.create(id);
         if(nbt.get("weight") != null){
             npcGearItemData.weight = nbt.getInt("weight");
         }
