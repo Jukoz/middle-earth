@@ -6,9 +6,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
 public class ChestplateAddonModel<T extends LivingEntity> extends BipedEntityModel<T> {
-
-    public  Identifier CHESTPLATE_ADDON_TEXTURE;
-
     public ChestplateAddonModel(ModelPart root) {
         super(root);
     }

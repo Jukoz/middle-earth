@@ -492,6 +492,7 @@
 "#Comment:": "Armours",
   "item.me.cape": "Cape",
   "item.me.hood": "Hood",
+
   "item.me.fur_cloak": "Fur Cloak",
   "item.me.fur_hood": "Fur Hood",
 
@@ -506,7 +507,7 @@
   "item.me.shoes": "Shoes",
   "item.me.work_shoes": "Work Shoes",
 
-  "item.me.leather_cap": "Leather Cap",
+  "item.me.leather_skullcap": "Leather Skullcap",
   "item.me.gambeson_cap": "Gambeson Cap",
   "item.me.gambeson_cowl": "Gambeson Cowl",
 
@@ -5838,15 +5839,28 @@
   "trim_material.me.mithril" : "Mithril",
 
 "#Comment": "Capes",
-  "tooltip.me.hood.enable": ": Enabled",
-  "tooltip.me.hood.disable": ": Disabled",
-  "tooltip.me.cape.enable": ": Enabled",
-  "tooltip.me.cape.disable": ": Disabled",
 
   "tooltip.me.base_hood": "Basic Hood",
-  "tooltip.me.fur_hood": "Fur Hood",
+
+  "tooltip.me.black_fur_hood": "Black Fur Hood",
+  "tooltip.me.brown_fur_hood": "Brown Fur Hood",
+  "tooltip.me.gray_fur_hood": "Gray Fur Hood",
+  "tooltip.me.tan_fur_hood": "Tan Fur Hood",
+  "tooltip.me.white_fur_hood": "White Fur Hood",
+
   "tooltip.me.base_cape": "Basic Cape",
-  "tooltip.me.fur_cloak": "Fur Cloak",
+
+  "tooltip.me.black_fur_cloak": "Black Fur Cloak",
+  "tooltip.me.brown_fur_cloak": "Brown Fur Cloak",
+  "tooltip.me.gray_fur_cloak": "Gray Fur Cloak",
+  "tooltip.me.tan_fur_cloak": "Tan Fur Cloak",
+  "tooltip.me.white_fur_cloak": "White Fur Cloak",
+
+  "tooltip.me.black_fur": "Black Fur",
+  "tooltip.me.brown_fur": "Brown Fur",
+  "tooltip.me.gray_fur": "Gray Fur",
+  "tooltip.me.tan_fur": "Tan Fur",
+  "tooltip.me.white_fur": "White Fur",
 
   "tooltip.me.base_cloak": "Basic Cloak",
 
@@ -5855,6 +5869,7 @@
   "tooltip.me.gondorian_captain_cape": "Gondorian Captain Cape",
   "tooltip.me.gondorian_hero_cape": "Gondorian Hero Cape",
   "tooltip.me.gondorian_kings_guard_cape": "Gondorian King's Guard Cape",
+  "tooltip.me.gondorian_citadel_guard_hood": "Gondorian Citadel Guard Hood",
   "tooltip.me.gondorian_citadel_guard_cape": "Gondorian Citadel Guard Cape",
   "tooltip.me.gondorian_fountain_guard_cape": "Gondorian Fountain Guard Cape",
 
@@ -5872,7 +5887,7 @@
   "tooltip.me.lorien_marchwarden_cape": "Lórien Marchwarden Cape",
   "tooltip.me.galadhrim_cape": "Galadhrim Cape",
   "tooltip.me.galadhrim_hood": "Galadhrim Hood",
-  "tooltip.me.galadhrim_lord_cape": "Galadhrim Lord Cape",
+  "tooltip.me.galadhrim_lord_surcoat": "Galadhrim Lord Surcoat",
 
 "#Comment:": "Disposition",
   "disposition.me.good" : "Good",
@@ -6017,8 +6032,17 @@
   "command.me.teleport.player.to.spawn.middle_earth.success": "%s got teleported to <%s> at [%s, %s, %s](xyz)",
   "command.me.teleport.player.to.spawn.middle_earth.error": "%s couldn't be teleported to <%s>",
 
+  "command.me.cape.success": "Cape successfully applied: ",
+  "command.me.cape.fail": "Failed to apply cape.",
+
+  "command.me.hood.success": "Hood successfully applied: ",
+  "command.me.hood.fail": "Failed to apply hood.",
+
 "#Comment": "Alert",
   "alert.me.large_door.blocked": "Something seems to prevent the door from moving.",
+
+  "alert.me.hood_down": "Hood down.",
+  "alert.me.hood_up": "Hood up.",
 
 "#Comment": "Events",
   "event.me.join.faction.success": "You have joined %s",

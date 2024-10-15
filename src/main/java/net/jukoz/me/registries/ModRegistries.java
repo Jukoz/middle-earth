@@ -497,7 +497,7 @@ public class ModRegistries {
             CustomDyeableDataComponent dyeableDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
 
             stack.set(ModDataComponentTypes.DYE_DATA,
-                    CustomDyeableDataComponent.withOverlay(dyeableDataComponent.overlay(), CustomDyeableDataComponent.DEFAULT_COLOR));
+                     new CustomDyeableDataComponent(CustomDyeableDataComponent.DEFAULT_COLOR));
             player.incrementStat(Stats.CLEAN_ARMOR);
             LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
         }
