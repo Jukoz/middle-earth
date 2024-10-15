@@ -13,8 +13,6 @@ public class EreborPouchChestplateArmorAddonModel<T extends LivingEntity> extend
     public EreborPouchChestplateArmorAddonModel(ModelPart root) {
         super(root);
         pouch = root.getChild("body").getChild("pouch");
-
-        CHESTPLATE_ADDON_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/base_pouch.png");
     }
 
     public static TexturedModelData getTexturedModelData() {

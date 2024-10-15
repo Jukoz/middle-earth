@@ -1,20 +1,17 @@
 package net.jukoz.me.item.items;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.event.KeyInputHandler;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
-import net.jukoz.me.item.utils.ExtendedArmorMaterial;
+import net.jukoz.me.item.utils.armor.ExtendedArmorMaterial;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
-import net.minecraft.world.World;
 
 import java.util.List;
 
@@ -67,11 +64,7 @@ public class CustomChestplateItem extends ArmorItem {
             }
 
             if (capeDataComponent != null) {
-                if (capeDataComponent.enabled()) {
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape()).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".cape.enable")));
-                } else {
-                    tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape()).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".cape.disable")));
-                }
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape().getName()));
             }
         }else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
@@ -79,20 +72,4 @@ public class CustomChestplateItem extends ArmorItem {
 
         super.appendTooltip(stack, context, tooltip, type);
     }
-
-    //TODO fix with packets
-    /*@Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if(KeyInputHandler.capeKey.isPressed()){
-            CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
-
-            if(capeDataComponent != null){
-                if(capeDataComponent.enabled()){
-                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(false, capeDataComponent.cape()));
-                } else {
-                    stack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(true, capeDataComponent.cape()));
-                }
-            }
-        }
-    }*/
 }
