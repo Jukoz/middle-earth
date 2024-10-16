@@ -5889,12 +5889,12 @@
   "tooltip.me.galadhrim_hood": "Galadhrim Hood",
   "tooltip.me.galadhrim_lord_surcoat": "Galadhrim Lord Surcoat",
 
-"#Comment:": "Alignment",
-  "alignment.me.good" : "Good",
-  "alignment.me.neutral" : "Neutral",
-  "alignment.me.evil" : "Evil",
+"#Comment:": "Disposition",
+  "disposition.me.good" : "Good",
+  "disposition.me.neutral" : "Neutral",
+  "disposition.me.evil" : "Evil",
 
-"#Comment:": "Factions",
+"#Comment:": "Faction Names",
   "faction.me.gondor" : "Gondor",
   "faction.me.rohan" : "Rohan",
   "faction.me.dale" : "Dale",
@@ -5905,8 +5905,9 @@
   "faction.me.misty_mountains_goblins" : "Misty Mountains Goblins",
   "faction.me.isengard" : "Isengard",
   "faction.me.shire" : "Shire",
+  "faction.me.bandit" : "Bandit",
 
-"#Comment": "Factions fallback",
+"#Comment": "Factions Names fallbacks",
   "faction.me.example.fallback": "Example...",
   "faction.me.misty_mountains_goblins.fallback": "Misty Mts. Goblins",
 
@@ -5915,6 +5916,8 @@
   "spawn.me.coordinates_base_values.dynamic": "%s, %s",
   "spawn.me.coordinates_base.custom": "[x,y,z] ",
   "spawn.me.coordinates_base_values.custom": "%s, %s, %s",
+
+  "spawn.me.none" : "None",
 
   "spawn.me.gondor.minas_tirith" : "Minas Tirith",
   "spawn.me.gondor.anorien" : "Anorien",
@@ -5958,6 +5961,21 @@
   "race.me.hobbit" : "Hobbit",
   "race.me.orc" : "Orc",
   "race.me.uruk" : "Uruk",
+
+"#Comment:": "Race Tooltip",
+  "race_tooltip.me.attribute_header" : "Attributes : ",
+
+"#Comment:": "Faction descriptions",
+  "description.me.gondor.description_0" : "A last bastion for the Men of the West, the Kings of Gondor long stood watch over the neighbouring darkness. Though their line is broken, the stalwart Gondorians stand strong and fight to keep Mordor at bay.",
+  "description.me.mordor.description_0": "In the land of Mordor, where the shadow lie. An arid wasteland of ash and dust lay around Mount Doom. The Black Legions await the orders of The Dark Lord in Barad-dûr with it's watchful Great Eye. The Nazgûls are seeking the One Ring and ready for the upcoming war",
+  "description.me.longbeards.erebor.description_0" : "Erebor, or the Lonely Mountain, is the Dwarven kingdom of Durin’s Folk. Reclaimed from Smaug by Thorin Oakenshield, it is now a prosperous center of wealth and craftsmanship, ruled by King Dáin Ironfoot. It forms a crucial alliance with the neighboring kingdom of Dale.",
+  "description.me.longbeards.description_0" : "The Longbeards, descended from Durin the Deathless, are the most noble of the Dwarven clans. Renowned for their mastery of stone and metal, their realms include Erebor and Khazad-dûm. They are most loyal to their kin and traditions.",
+  "description.me.dale.description_0" : "Dale is a flourishing kingdom of Men located near Erebor, rebuilt after its destruction by Smaug. Known for skilled archers and trade, it is ruled by Bard's descendants and maintains close ties with the Dwarves of Erebor.",
+  "description.me.lothlorien.description_0" : "Lothlórien, the Golden Wood, is an enchanted Elven realm ruled by Galadriel and Celeborn. Sheltered by powerful enchantments and nestled within the golden mallorn trees, it is one of the last strongholds of the Elves in Middle-earth, renowned for its beauty and serenity.",
+  "description.me.rohan.description_0" : "Rohan, also called the Riddermark, is a kingdom of Men renowned for its skilled horse-lords and cavalry. Located north of Gondor, it is ruled by the line of Eorl. Though once strong allies with Gondor, Rohan now faces growing internal and external threats.",
+  "description.me.isengard.description_0" : "Once a fortress of Númenor, the keys of the black tower of Orthanc passed to the White Wizard Saruman in the Third Age. Tempted by dark power, he weaves deceit and plots war from his seat in Isengard upon the neighbouring free peoples.",
+  "description.me.misty_mountains_goblins.description_0": "The Goblins of the Misty Mountains are a warlike race of Orcs inhabiting the caves and tunnels beneath the mountains. Once scattered, they now rebuild their strength, preying on travelers and allying with Sauron’s forces.",
+  "description.me.shire.description_0" : "The Shire is a peaceful land inhabited by Hobbits, located in the northwest of Middle-earth. Known for its pastoral beauty and the simple, unadventurous lives of its people. It remains largely untouched by the turmoil of the outside world.",
 
 "#Comment": "Commands",
   "command.me.fail" : "Command couldn't be sent properly",
@@ -6042,7 +6060,17 @@
   "ui.me.continue_character": "Continue",
   "ui.me.reset_character": "Reset Affiliation",
 
-"#Comment": "Screen Faction Selection",
+"#Comment:": "UI Middle-earth Map Screen",
+  "ui.me.map_screen.button.fullscreen_toggle": "Toggle Fullscreen Button",
+  "ui.me.map_screen.button.zoom_in": "Zoom In Button",
+  "ui.me.map_screen.button.zoom_out": "Zoom Out Button",
+  "ui.me.map_screen.tooltip.coordinates_title": "Coordinates",
+  "ui.me.map_screen.tooltip.coordinates_label": "[x,z] ",
+  "ui.me.map_screen.tooltip.coordinates_content": "%s, %s",
+  "ui.me.map_screen.tooltip.teleport_keybind": "Right click to teleport",
+
+
+  "#Comment": "Screen Faction Selection",
   "screen.me.faction_selection_screen": "Faction Selection",
   "screen.me.button.faction_randomizer": "Randomize Faction",
   "screen.me.button.spawn_randomizer": "Randomize Spawn",
@@ -6050,6 +6078,10 @@
   "screen.me.button.zoom_out": "Zoom In",
   "screen.me.button.zoom_in": "Zoom Out",
   "screen.me.button.confirm": "Confirm",
+  "screen.me.information.subfaction": "Subfaction : ",
+  "screen.me.information.races": "Race",
+  "screen.me.information.races.many": "Races",
+  "screen.me.information.description": "Description",
 
 "#Comment": "UI Map",
   "ui.me.map_title_text": "Middle-earth Map",

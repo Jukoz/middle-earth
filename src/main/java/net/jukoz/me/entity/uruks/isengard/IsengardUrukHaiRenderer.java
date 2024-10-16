@@ -1,4 +1,4 @@
-package net.jukoz.me.entity.uruks.isengard.mordor;
+package net.jukoz.me.entity.uruks.isengard;
 
 import com.google.common.collect.Maps;
 import net.jukoz.me.MiddleEarth;

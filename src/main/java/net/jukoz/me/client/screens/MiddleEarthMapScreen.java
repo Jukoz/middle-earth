@@ -5,10 +5,19 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.client.screens.controllers.FactionSelectionController;
+import net.jukoz.me.client.screens.utils.widgets.CycledSelectionWidget;
+import net.jukoz.me.client.screens.utils.widgets.ModWidget;
+import net.jukoz.me.client.screens.utils.widgets.SearchBarWidget;
+import net.jukoz.me.client.screens.utils.widgets.backgrounds.BackgroundContainerWidget;
+import net.jukoz.me.client.screens.utils.widgets.backgrounds.types.BackgroundContainerTypes;
+import net.jukoz.me.client.screens.utils.widgets.map.FullscreenToggeableMapWidget;
+import net.jukoz.me.client.screens.utils.widgets.map.MapWidget;
 import net.jukoz.me.network.packets.C2S.PacketTeleportToCustomCoordinate;
 import net.jukoz.me.network.packets.C2S.PacketTeleportToDynamicCoordinate;
 import net.jukoz.me.network.packets.C2S.PacketTeleportToDynamicWorldCoordinate;
 import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.utils.ModColors;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.client.gui.DrawContext;
@@ -18,410 +27,247 @@ import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.*;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import org.joml.Vector2d;
 import org.joml.Vector2i;
 
+import java.awt.event.KeyEvent;
+import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class MiddleEarthMapScreen extends Screen {
-    private static final Identifier WINDOW_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
+    private static final Identifier BACKGROUND_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
     private static final Identifier MAP_UI_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
-    private static final Identifier MAP_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
+
     private static final Text MAP_TITLE_TEXT = Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_title_text");
+    private static final Vector2i NORMAL_BUTTON_SIZE = new Vector2i(15,15);
+
+    BackgroundContainerWidget backgroundContainerWidget;
+    private FullscreenToggeableMapWidget mapWidget;
+    private static final int WIDTH = 208;
+    private static final int HEIGHT = 208;
     public static final int MARGIN = 5;
+    private boolean isFullscreen = false;
 
-    public static final int MAP_IMAGE_WIDTH = 3000;
-    public static final int MAP_IMAGE_HEIGHT = 3000;
-    public int windowWidth, windowHeight;
-    public int mapWindowWidth, mapWindowHeight;
-    public float minZoom;
-    private static final int MAX_ZOOM_LEVEL = 20;
-    public static final float [] ZOOM_LEVELS = new float[MAX_ZOOM_LEVEL];
-    private static final Vector2i WORLD_SIZE = getWorldSize();
+    private int startX = 0;
+    private int endX = 0;
+    private int startY = 0;
+    private int endY = 0;
 
-    private static int mapDisplacementX = 0;
-    private static int mapDisplacementY = 0;
+    private ButtonWidget fullscreenButton;
+    private ButtonWidget zoomInButton;
+    private ButtonWidget zoomOutButton;
 
-    private static int zoomLevel = 1;
-
-    private static int zoomButtonIndex;
-    private static int dezoomButtonIndex;
-    private static int centerOnPlayerButtonIndex;
-    private static int debugButtonIndex;
-
-    private Vector2i cursorWorldCoordinate;
-
-    private static boolean debug = false;
     AbstractClientPlayerEntity player;
-
-    private static int pixelWeight;
-
     public MiddleEarthMapScreen() {
         super(MAP_TITLE_TEXT);
-        pixelWeight = MiddleEarthMapConfigs.PIXEL_WEIGHT;
-        float zoom = 1;
-        for(int i = 0; i < ZOOM_LEVELS.length; i++) {
-            ZOOM_LEVELS[i] = zoom;
-            zoom *= 1.2f;
-        }
+        backgroundContainerWidget = new BackgroundContainerWidget(BackgroundContainerTypes.FULLSCREEN_MAP);
     }
 
 
     @Override
     protected void init() {
-        if(this.client != null) {
-            float[]  guiScaleModifiers = { // Index is GUI Scale
-                6.25f, // 0
-                3f, // 1
-                4f, // 2
-                5f, // 3
-                6.25f, // 4
-            };
-
-            int guiScale = Math.max(0, Math.min(guiScaleModifiers.length - 1, this.client.options.getGuiScale().getValue()));
-            windowWidth = Math.round((float)MAP_IMAGE_WIDTH / guiScaleModifiers[guiScale] / 2);
-            windowHeight = Math.round((float)MAP_IMAGE_HEIGHT / guiScaleModifiers[guiScale] / 2);
-
-            mapWindowWidth =  windowWidth - (MARGIN * 2);
-            mapWindowHeight = windowHeight - (MARGIN * 2);
+        Entity cameraEntity = this.client.getCameraEntity();
+        if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
+            this.player = abstractClientPlayerEntity;
+        } else {
+            LoggerUtil.logError("MiddleEarthMapScreen::Init:Couldn't find player");
         }
 
-        minZoom = (float) mapWindowWidth / MAP_IMAGE_WIDTH;
+        mapWidget = new FullscreenToggeableMapWidget(WIDTH - (MARGIN * 2), HEIGHT - (MARGIN * 2));
 
-        int x = (this.width - windowWidth) / 2;
-        int y = (this.height - windowHeight) / 2;
+        // Fullscreen toggle button register
+        fullscreenButton = ButtonWidget.builder(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.button.fullscreen_toggle"), x -> {
+            isFullscreen = !isFullscreen;
+        }).build();
+        fullscreenButton.setDimensions(NORMAL_BUTTON_SIZE.x,NORMAL_BUTTON_SIZE.y);
+        addDrawableChild(fullscreenButton);
 
-        int offset = 18;
-        int buttonMargin = 3;
-        int optionsOffsetX = x + windowWidth + 2;
-        int optionsOffsetY = y + windowHeight - MARGIN;
+        // Zoom in button register
+        zoomInButton = ButtonWidget.builder(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.button.zoom_in"), x -> {
+            mapWidget.zoomClick();
+        }).build();
+        zoomInButton.setDimensions(NORMAL_BUTTON_SIZE.x,NORMAL_BUTTON_SIZE.y);
+        addDrawableChild(zoomInButton);
 
-
-        ButtonWidget debugButton = ButtonWidget.builder(Text.literal("Debug"), button -> {
-                    debug = !debug;
-                })
-                .dimensions(optionsOffsetX, y + MARGIN, 18, 18).build();
-
-
-        ButtonWidget centerOnPlayer = ButtonWidget.builder(Text.literal("Center on Player"), button -> {
-                    centerOnPlayer();
-                })
-                .dimensions(optionsOffsetX, optionsOffsetY - (offset * 3) - (buttonMargin * 2), 18, 18).build();
-
-        ButtonWidget zoomButton = ButtonWidget.builder(Text.literal("Zoom"), button -> {
-                    zoom(1, false);
-                })
-                .dimensions(optionsOffsetX, optionsOffsetY - (offset * 2)  - buttonMargin, 18, 18).build();
-        ButtonWidget dezoomButton = ButtonWidget.builder(Text.literal("Dezoom"), button -> {
-                    zoom(-1, false);
-                })
-                .dimensions(optionsOffsetX, optionsOffsetY - offset, 18, 18).build();
-
-        addDrawableChild(debugButton);
-        addDrawableChild(centerOnPlayer);
-        addDrawableChild(zoomButton);
-        addDrawableChild(dezoomButton);
-
-        debugButtonIndex = children().indexOf(debugButton);
-        centerOnPlayerButtonIndex = children().indexOf(centerOnPlayer);
-        zoomButtonIndex = children().indexOf(zoomButton);
-        dezoomButtonIndex = children().indexOf(dezoomButton);
+        // Zoom out button register
+        zoomOutButton = ButtonWidget.builder(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.button.zoom_out"), x -> {
+            mapWidget.dezoomClick();
+        }).build();
+        zoomOutButton.setDimensions(NORMAL_BUTTON_SIZE.x,NORMAL_BUTTON_SIZE.y);
+        addDrawableChild(zoomOutButton);
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        Entity cameraEntity = this.client.getCameraEntity();
-        if(cameraEntity != null) {
-            if (cameraEntity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
-                this.player = abstractClientPlayerEntity;
+        if(isFullscreen){
+            renderFullscreen(context);
+        } else {
+            renderNormal(context);
+        }
+        showCursorInformationTooltip(context, mouseX, mouseY);
+    }
 
-                this.renderBackground(context, mouseX, mouseY, delta);
-                this.drawWindow(context, mouseX, mouseY);
-            } else{
-                this.player = null;
+    private void showCursorInformationTooltip(DrawContext context, int mouseX, int mouseY) {
+        if(player != null){
+            Vector2d mapRatio = mapWidget.getCurrentMapRatio(mouseX, mouseY);
+            if(mapRatio != null) {
+                List<Text> texts = new ArrayList<>();
+                texts.add(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.coordinates_title").formatted(Formatting.UNDERLINE));
+                double x = Math.round((mapRatio.x * MiddleEarthMapConfigs.FULL_MAP_SIZE) * 10) / 10.0;
+                double z = Math.round((mapRatio.y * MiddleEarthMapConfigs.FULL_MAP_SIZE) * 10) / 10.0;
+                texts.add(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.coordinates_label").formatted(Formatting.GRAY)
+                        .append(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.coordinates_content", x, z).formatted(Formatting.WHITE)));
+                if(player.hasPermissionLevel(2)){
+                    texts.add(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.teleport_keybind").formatted(Formatting.ITALIC).withColor(ModColors.PENDING.color));
+                }
+                context.drawTooltip(textRenderer, texts, mouseX, mouseY);
             }
         }
     }
 
-    public void drawWindow(DrawContext context, int mouseX, int mouseY) {
-        int x = (this.width -  windowWidth) / 2;
-        int y = (this.height - windowHeight) / 2;
-        RenderSystem.enableBlend();
+    private void teleportToCursor(double mouseX, double mouseY) {
+        if(!player.hasPermissionLevel(2))
+            return;
+        Vector2d mapRatio = mapWidget.getCurrentMapRatio(mouseX, mouseY);
+        if(mapRatio != null){
+            double x = mapRatio.x * MiddleEarthMapConfigs.FULL_MAP_SIZE;
+            double y = mapRatio.y * MiddleEarthMapConfigs.FULL_MAP_SIZE;
 
-        drawMaintTextures(context, x, y, mouseX, mouseY);
-        Vec2f mapPlayerPos = getCoordinateOnMap((float)player.getBlockPos().getX(), (float)player.getBlockPos().getZ(), 4,4);
-        if(ModDimensions.isInMiddleEarth(player.getWorld())){
-            context.drawTexture(this.player.getSkinTextures().texture(),
-                    x + MARGIN + (int)mapPlayerPos.x - 4,
-                    y + MARGIN + (int)mapPlayerPos.y - 4,
-                    8, 8, 8, 8, 64, 64);
-
-            boolean outsideBound = cursorIsOutsideOfMapBounds(mouseX, mouseY);
-            cursorWorldCoordinate = getWorldCoordinateOfCursor(mouseX, mouseY);
-
-            // Debug panel
-            if(debug){
-                World world = this.player.getWorld();
-                Optional<RegistryKey<Biome>> biomeRegistry = world.getBiome(this.player.getBlockPos()).getKey();
-                MutableText text = Text.literal("N/A");
-                if(biomeRegistry.isPresent()) {
-                    String currentBiomeId = biomeRegistry.get().getValue().toString().replace(':', '.');
-                    text = Text.literal("Biome: ");
-                    text.append(Text.translatable("biome." + currentBiomeId));
-
-                }
-                context.drawTextWithShadow(textRenderer, Text.literal("Player information"), 0, 5, 0xffffff);
-                BlockPos playerPos = this.player.getBlockPos();
-                context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + (int)playerPos.getX() + ", " + (int)playerPos.getY() + ", " + (int)playerPos.getZ()), 5, 15, 0xffffff);
-                context.drawTextWithShadow(textRenderer, text, 5, 25, 0xffffff);
-
-                context.drawTextWithShadow(textRenderer, Text.literal("Cursor information"), 0, 45, 0xffffff);
-                context.drawTextWithShadow(textRenderer, Text.literal("Coordinates : " + ((outsideBound) ? "N/A" : (int)cursorWorldCoordinate.x + ", "+ (int)cursorWorldCoordinate.y)), 5, 55, 0xffffff);
-
-
-                if(!outsideBound && this.player.isCreative()){
-                    context.drawTextWithShadow(textRenderer, Text.literal("Right Click to teleport"), mouseX + 10, mouseY, 0xcccccc);
-                }
-            }
+            ClientPlayNetworking.send(new PacketTeleportToDynamicWorldCoordinate(x, y));
         }
+    }
+
+    private void renderFullscreen(DrawContext context) {
+        startX = MARGIN;
+        endX = context.getScaledWindowWidth() - MARGIN;
+        startY = MARGIN;
+        endY = context.getScaledWindowHeight() - MARGIN;
+
+        // TODO : Draw dynamic background : context.drawTexture(BACKGROUND_TEXTURE, startX, startY, 0, 0,  WIDTH, HEIGHT);
+        backgroundContainerWidget.draw(context, 0, 0, context.getScaledWindowWidth(), context.getScaledWindowHeight());
+
+        mapWidget.drawFullscreen(context, MARGIN);
+        drawFullscreenToggleButton(context);
+        drawZoomButtons(context);
+        drawPlayer(context, player);
+    }
+
+    private void renderNormal(DrawContext context) {
+        int centerX = context.getScaledWindowWidth() / 2;
+        startX = centerX - (WIDTH / 2);
+        endX = centerX + (WIDTH / 2);
+        startY = 10;
+        endY = HEIGHT + 10;
+
+        context.drawTexture(BACKGROUND_TEXTURE, startX, startY, 0, 0,  WIDTH, HEIGHT);
+        mapWidget.drawCentered(context, centerX, startY + MARGIN);
+        drawFullscreenToggleButton(context);
+        drawZoomButtons(context);
+        drawPlayer(context, player);
+    }
+
+    private void drawPlayer(DrawContext context, AbstractClientPlayerEntity player) {
+        if(!ModDimensions.isInMiddleEarth(player.getWorld()))
+            return;
+        // TODO : make it a proper map marker, this is temporary
+        Vector2d playerRatio = mapWidget.getMapPointFromWorldCoordinate(new Vector2d(player.getPos().getX(), player.getPos().getZ()));
+        int margin = (isFullscreen) ? 0 : MARGIN;
+        double x = Math.max(startX + margin, Math.min(endX - 4 - margin, playerRatio.x));
+        double y = Math.max(startY + margin, Math.min(endY - 4 - margin, playerRatio.y));
+        context.drawTexture(MAP_UI_TEXTURE, (int) x, (int) y, 251, 2, 4, 4);
+    }
+
+    private void drawFullscreenToggleButton(DrawContext context){
+        int fullscreenToggleButtonUvY = (fullscreenButton.isHovered() || fullscreenButton.isFocused()) ? 18 : 1;
+        if(!fullscreenButton.active)
+            fullscreenToggleButtonUvY = 35;
+        if(isFullscreen){
+            int x = context.getScaledWindowWidth() - MARGIN - NORMAL_BUTTON_SIZE.x;
+            int y = MARGIN;
+            fullscreenButton.setPosition(x, y);
+            context.drawTexture(MAP_UI_TEXTURE, x, y, 35, fullscreenToggleButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
+        } else {
+            fullscreenButton.setPosition(endX, startY);
+            context.drawTexture(MAP_UI_TEXTURE, endX, startY, 18, fullscreenToggleButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
+        }
+    }
+
+    private void drawZoomButtons(DrawContext context){
+        int zoomInButtonUvX = 86;
+        int zoomInButtonUvY = (zoomInButton.isHovered() || zoomInButton.isFocused()) ? 18 : 1;
+        zoomInButton.active = mapWidget.canZoomIn;
+        if(!zoomInButton.active)
+            zoomInButtonUvY = 35;
+        int zoomOutButtonUvX = 69;
+        int zoomOutButtonUvY = (zoomOutButton.isHovered() || zoomOutButton.isFocused()) ? 18 : 1;
+        zoomOutButton.active = mapWidget.canZoomOut;
+        if(!zoomOutButton.active)
+            zoomOutButtonUvY = 35;
+
+        if(isFullscreen){
+            // Zoom out
+            int x = context.getScaledWindowWidth() - MARGIN - NORMAL_BUTTON_SIZE.x;
+            int y = context.getScaledWindowHeight() - MARGIN - NORMAL_BUTTON_SIZE.y;
+            zoomOutButton.setPosition(x, y);
+            context.drawTexture(MAP_UI_TEXTURE, x, y, zoomOutButtonUvX, zoomOutButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
+            // Zoom in
+            y -= NORMAL_BUTTON_SIZE.y;
+            zoomInButton.setPosition(x, y);
+            context.drawTexture(MAP_UI_TEXTURE, x, y, zoomInButtonUvX, zoomInButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
+        } else {
+            // Zoom out
+            int y = endY - NORMAL_BUTTON_SIZE.y;
+            zoomOutButton.setPosition(endX, y);
+            context.drawTexture(MAP_UI_TEXTURE, endX, y, zoomOutButtonUvX, zoomOutButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
+            // Zoom in
+            y -= NORMAL_BUTTON_SIZE.y;
+            zoomInButton.setPosition(endX, y);
+            context.drawTexture(MAP_UI_TEXTURE, endX, y, zoomInButtonUvX, zoomInButtonUvY, NORMAL_BUTTON_SIZE.x, NORMAL_BUTTON_SIZE.y);
+        }
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if(keyCode == KeyEvent.VK_CODE_INPUT && !ModWidget.getFocusEnabled()){
+            ModWidget.enableFocus(true);
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        mapWidget.mouseClicked(mouseX, mouseY, button);
         if(button == 1){
-            if(!cursorIsOutsideOfMapBounds(mouseX, mouseY)){
-                if(this.player.isCreative() && debug){
-                    getTeleport(getWorldCoordinateOfCursor(mouseX, mouseY));
-                    this.close();
-                    return true;
-                }
-            }
+            teleportToCursor(mouseX, mouseY);
         }
-        super.mouseClicked(mouseX, mouseY, button);
-        return false;
-    }
-
-    private void getTeleport(Vector2i coord){
-        if(ModDimensions.isInMiddleEarth(this.player.getWorld()) && this.player.isCreative()){
-            ClientPlayNetworking.send(new PacketTeleportToDynamicWorldCoordinate(coord.x, coord.y));
-        }
-    }
-
-    private float getZoomLevel(){
-        return ZOOM_LEVELS[zoomLevel - 1];
-    }
-
-    private void drawMaintTextures(DrawContext context, int x, int y, double mouseX, double mouseY) {
-        // Border
-        context.drawTexture(WINDOW_TEXTURE, x, y, 0, 0,  windowWidth, windowHeight,
-                 windowWidth, windowHeight);
-        // Map
-        context.drawTexture(MAP_TEXTURE, x + MARGIN, y + MARGIN,
-                // UV (x,y)
-                mapDisplacementX, mapDisplacementY,
-                mapWindowWidth,
-                 mapWindowHeight,
-                (int) (MAP_IMAGE_WIDTH * getZoomLevel() * minZoom),
-                (int) (MAP_IMAGE_HEIGHT * getZoomLevel() * minZoom));
-
-        // Map UI
-
-        // Debug Button
-        int debugButtonTextureOffset = children().get(debugButtonIndex).isMouseOver(mouseX, mouseY) ? 18 : 0;
-        if(!ModDimensions.isInMiddleEarth(player.getWorld())){
-            debugButtonTextureOffset = 36;
-        }
-        context.drawTexture(MAP_UI_TEXTURE,
-                ((ButtonWidget)children().get(debugButtonIndex)).getX(),
-                ((ButtonWidget)children().get(debugButtonIndex)).getY(),
-                debugButtonTextureOffset, 54, 18, 18, 256, 256);
-
-        // Center on player
-        int centerOnPlayerTextureOffset = children().get(centerOnPlayerButtonIndex).isMouseOver(mouseX, mouseY) ? 18 : 0;
-        if(!canCenterOnPlayer()){
-            centerOnPlayerTextureOffset = 36;
-        }
-        context.drawTexture(MAP_UI_TEXTURE,
-                ((ButtonWidget)children().get(centerOnPlayerButtonIndex)).getX(),
-                ((ButtonWidget)children().get(centerOnPlayerButtonIndex)).getY(),
-                centerOnPlayerTextureOffset, 36, 18, 18, 256, 256);
-
-        // Zoom +
-        int zoomTextureOffset = children().get(zoomButtonIndex).isMouseOver(mouseX, mouseY) ? 18 : 0;
-        if(zoomLevel ==  MAX_ZOOM_LEVEL - 1){
-            zoomTextureOffset = 36;
-        }
-        context.drawTexture(MAP_UI_TEXTURE,
-                ((ButtonWidget)children().get(zoomButtonIndex)).getX(),
-                ((ButtonWidget)children().get(zoomButtonIndex)).getY(),
-                zoomTextureOffset, 0, 18, 18, 256, 256);
-
-        // Zoom -
-        int dezoomTextureOffset = children().get(dezoomButtonIndex).isMouseOver(mouseX, mouseY) ? 18 : 0;
-        if(zoomLevel == 1){
-            dezoomTextureOffset = 36;
-        }
-        context.drawTexture(MAP_UI_TEXTURE,
-                ((ButtonWidget)children().get(dezoomButtonIndex)).getX(),
-                ((ButtonWidget)children().get(dezoomButtonIndex)).getY(),
-                dezoomTextureOffset, 18, 18, 18, 256, 256);
-
-        ((ButtonWidget)children().get(debugButtonIndex)).active = ModDimensions.isInMiddleEarth(player.getWorld());
-        ((ButtonWidget)children().get(centerOnPlayerButtonIndex)).active = canCenterOnPlayer();
-        ((ButtonWidget)children().get(zoomButtonIndex)).active = (zoomLevel < MAX_ZOOM_LEVEL - 1);
-        ((ButtonWidget)children().get(dezoomButtonIndex)).active = (zoomLevel > 1);
-
-
-        // BREE (TEST)
-        /*
-        Vec2f breeOnMap = getCoordinateOnMap(4100.0f, 2550.0f, 2,2);
-        context.drawTexture(MAP_UI_TEXTURE,
-                x + MARGIN + (int)breeOnMap.x,
-                y + MARGIN + (int)breeOnMap.y,
-                54, 0, 4, 4, 256, 256);
-        context.drawText(textRenderer,"BREE",
-                x + MARGIN + (int)breeOnMap.x + 5,
-                y + MARGIN + (int)breeOnMap.y - 2,
-                0x000000,
-                false);
-         */
-
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
-        if (button != 0) {
-            return false;
-        }
-        if(cursorIsOutsideOfMapBounds(mouseX, mouseY))
-            return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
-
-        mapDisplacementX -= (float) deltaX;
-        mapDisplacementY -= (float) deltaY;
-
-        correctMapVision();
-        return true;
+        mapWidget.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+        return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
     }
 
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        mapWidget.mouseReleased(mouseX, mouseY, button);
+        return super.mouseReleased(mouseX, mouseY, button);
+    }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        if(!cursorIsOutsideOfMapBounds(mouseX, mouseY)){
-            Vector2i coord = getWorldCoordinateOfCursor(mouseX, mouseY);
-            coord.x /= pixelWeight;
-            coord.y /= pixelWeight;
-
-            cursorWorldCoordinate = coord;
-            zoom((int)Math.round(horizontalAmount), true);
-        }
+        mapWidget.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
         return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
-    }
-
-    private void zoom(int amount, boolean towardCursor){
-        int newZoomLevelIndex = (int)Math.min(MAX_ZOOM_LEVEL - 1, Math.max(1, (zoomLevel + amount)));
-        if(newZoomLevelIndex != zoomLevel) {
-            Vector2i center = (towardCursor) ? cursorWorldCoordinate : getCoordinateInCenterOfMap();
-
-            zoomLevel = newZoomLevelIndex;
-
-            centerOnCoordinates(center.x, center.y);
-        }
-    }
-
-    private void correctMapVision() {
-        // Minimum (0)
-        mapDisplacementX = Math.max(0, mapDisplacementX);
-        mapDisplacementY = Math.max(0, mapDisplacementY);
-
-        float modifier = getZoomLevel() - 1;
-        // Maximum (dynamic)
-        // When zoomLevelIndex is 0, maximum should be 0,0
-        mapDisplacementX = (int)Math.min((mapWindowWidth) * modifier, mapDisplacementX);
-        mapDisplacementY = (int) Math.min(( mapWindowHeight) * modifier, mapDisplacementY);
-    }
-
-    private Vec2f getCoordinateOnMap(float posX, float posZ, int textureOffsetX, int textureOffsetY) {
-        float transformedPosX = ((posX / pixelWeight / WORLD_SIZE.x) * mapWindowWidth * getZoomLevel()) - mapDisplacementX;
-        float transformedPosY = ((posZ / pixelWeight / WORLD_SIZE.y) *  mapWindowHeight * getZoomLevel()) - mapDisplacementY;
-
-        transformedPosX = Math.max(textureOffsetX, Math.min(mapWindowWidth - textureOffsetX, transformedPosX));
-        transformedPosY = Math.max(textureOffsetY, Math.min( mapWindowHeight - textureOffsetY, transformedPosY));
-
-        return new Vec2f(transformedPosX, transformedPosY);
-    }
-
-    private boolean cursorIsOutsideOfMapBounds(double mouseX, double mouseY){
-        int x = (this.width -  windowWidth) / 2  + MARGIN;
-        int y = (this.height - windowHeight) / 2 + MARGIN;
-
-        boolean isInBoundX = (int)mouseX - x > 0 && (int)mouseX - x < mapWindowWidth;
-        boolean isInBoundY = (int)mouseY - y > 0 && (int)mouseY - y <  mapWindowHeight;
-
-        return !isInBoundX || !isInBoundY;
-    }
-
-    private void centerOnPlayer() {
-        if(canCenterOnPlayer()){
-            centerOnCoordinates(player.getX()/pixelWeight, player.getZ()/pixelWeight);
-        }
-    }
-
-    private boolean canCenterOnPlayer(){
-        return zoomLevel > 1 && this.player != null && ModDimensions.isInMiddleEarth(player.getWorld());
-    }
-
-    private void centerOnCoordinates(double x, double y){
-        double transformedCoordinatesX = ((x / WORLD_SIZE.x) * mapWindowWidth * getZoomLevel());
-        double transformedCoordinatesY = ((y / WORLD_SIZE.y) *  mapWindowHeight * getZoomLevel());
-
-        centerMapTo((int)transformedCoordinatesX, (int)transformedCoordinatesY);
-    }
-
-    private Vector2i getCenterOfCurrentMap(){
-        int centerX = (int)((mapDisplacementX + (mapWindowWidth / 2)) / (getZoomLevel() * minZoom) / pixelWeight);
-        int centerY =  (int)((mapDisplacementY + ( mapWindowHeight / 2)) / (getZoomLevel() * minZoom) / pixelWeight);
-
-        return new Vector2i(centerX, centerY);
-    }
-
-    private Vector2i getWorldCoordinateOfCursor(double mouseX, double mouseY) {
-        mouseX -= (double) (this.width -  windowWidth) / 2;
-        mouseY -= (double) (this.height - windowHeight) / 2 ;
-
-        int centerX = (int)((mapDisplacementX + mouseX) / (getZoomLevel() * minZoom));
-        int centerY =  (int)((mapDisplacementY + mouseY) / (getZoomLevel() * minZoom));
-
-        centerX= (int)(WORLD_SIZE.x / MAP_IMAGE_WIDTH * centerX);
-        centerY = (int)(WORLD_SIZE.y / MAP_IMAGE_HEIGHT * centerY);
-
-        return new Vector2i(centerX * pixelWeight, centerY * pixelWeight);
-    }
-
-
-    private Vector2i getCoordinateInCenterOfMap(){
-        Vector2i currentCenter = getCenterOfCurrentMap();
-
-        currentCenter.x = (int)(WORLD_SIZE.x / MAP_IMAGE_WIDTH * currentCenter.x);
-        currentCenter.y = (int)(WORLD_SIZE.y / MAP_IMAGE_HEIGHT * currentCenter.y);
-
-        return currentCenter;
-    }
-
-    private void centerMapTo(int x, int y){
-        mapDisplacementX = x - (mapWindowWidth / 2);
-        mapDisplacementY = y - ( mapWindowHeight / 2);;
-
-        correctMapVision();
-    }
-
-    private static Vector2i getWorldSize(){
-        float worldSize = (float) Math.pow(2 , MiddleEarthMapConfigs.MAP_ITERATION);
-
-        return new Vector2i((int)(MAP_IMAGE_WIDTH * worldSize), (int)(MAP_IMAGE_HEIGHT * worldSize));
     }
 }

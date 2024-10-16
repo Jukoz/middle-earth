@@ -12,32 +12,23 @@ import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
-import net.jukoz.me.item.ModEquipmentItems;
-import net.jukoz.me.item.ModWeaponItems;
-import net.minecraft.component.type.DyedColorComponent;
+import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class BanditHumanEntity extends NpcEntity{
 
@@ -45,13 +36,13 @@ public class BanditHumanEntity extends NpcEntity{
         super(entityType, world);
         String name = this.getDefaultName().toString();
         if(name.contains("militia")){
-            this.setRank(RANK.MILITIA);
+            this.setRank(NpcRank.MILITIA);
             this.setBow(Items.BOW);
         } else if (name.contains("soldier")) {
-            this.setRank(RANK.SOLDIER);
+            this.setRank(NpcRank.SOLDIER);
             this.setBow(Items.BOW);
         }else if (name.contains("chieftain")) {
-            this.setRank(RANK.KNIGHT);
+            this.setRank(NpcRank.KNIGHT);
         }
     }
 
@@ -85,7 +76,6 @@ public class BanditHumanEntity extends NpcEntity{
     protected void initGoals() {
         super.initGoals();
         int i = 2;
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MordorBlackUrukEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyHobgoblinEntity.class, true));
@@ -100,99 +90,8 @@ public class BanditHumanEntity extends NpcEntity{
     }
 
     @Override
-    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        super.initEquipment(random, localDifficulty);
-        switch (this.getRank()){
-            case MILITIA -> militiaEquipment(random);
-            case SOLDIER -> soldierEquipment(random);
-            case KNIGHT -> chieftainEquipment(random);
-        }
-    }
-
-    private void militiaEquipment(Random random){
-        int[] colors = {
-                0x8c8572,
-                0x897f64,
-                0x6d685b,
-                0x504e48
-        };
-        ItemStack leatherHelmet = new ItemStack(Items.LEATHER_HELMET);
-        ItemStack leatherChestplate = new ItemStack(Items.LEATHER_CHESTPLATE);
-        ItemStack leatherLeggings = new ItemStack(Items.LEATHER_LEGGINGS);
-        ItemStack leatherBoots = new ItemStack(Items.LEATHER_BOOTS);
-        DyedColorComponent.setColor(leatherHelmet, List.of(DyeItem.byColor(DyeColor.byId(colors[0]))));
-        DyedColorComponent.setColor(leatherChestplate, List.of(DyeItem.byColor(DyeColor.byId(colors[1]))));
-        DyedColorComponent.setColor(leatherLeggings, List.of(DyeItem.byColor(DyeColor.byId(colors[2]))));
-        DyedColorComponent.setColor(leatherBoots, List.of(DyeItem.byColor(DyeColor.byId(colors[3]))));
-
-        if(random.nextFloat() >= 0.30f){
-            equipStack(EquipmentSlot.HEAD, leatherHelmet);
-        }
-        equipStack(EquipmentSlot.CHEST, leatherChestplate);
-        if(random.nextFloat() >= 0.50f){
-            equipStack(EquipmentSlot.LEGS, leatherLeggings);
-        }
-        equipStack(EquipmentSlot.FEET, leatherBoots);
-
-        float val3 = random.nextFloat();
-        if(val3 >= 0.7f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-        } else if (val3 > 0.2f) {
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_SPEAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        } else {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.IRON_DAGGER));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        }
-    }
-
-    private void soldierEquipment(Random random){
-        ItemStack gambeson = new ItemStack(ModEquipmentItems.GAMBESON);
-        ItemStack leatherBoots = new ItemStack(ModEquipmentItems.GAMBESON);
-        DyedColorComponent.setColor(gambeson, List.of(DyeItem.byColor(DyeColor.byId(0x897f64))));
-        DyedColorComponent.setColor(leatherBoots, List.of(DyeItem.byColor(DyeColor.byId(0x504e48))));
-
-        if(random.nextFloat() >= 0.50f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(Items.CHAINMAIL_HELMET));
-        } else  {
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HAT));
-        }
-        if(random.nextFloat() >= 0.30f){
-            equipStack(EquipmentSlot.CHEST, new ItemStack(Items.CHAINMAIL_CHESTPLATE));
-        } else  {
-            equipStack(EquipmentSlot.CHEST, gambeson);
-        }
-        equipStack(EquipmentSlot.LEGS, new ItemStack(Items.CHAINMAIL_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, leatherBoots);
-
-        float val3 = random.nextFloat();
-        if(val3 >= 0.65f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-        } else if (val3 > 0.3f) {
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_SPEAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        } else {
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_PIKE));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        }
-    }
-
-    private void chieftainEquipment(Random random){
-        equipStack(EquipmentSlot.HEAD, new ItemStack(Items.CHAINMAIL_HELMET));
-        equipStack(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
-        equipStack(EquipmentSlot.LEGS, new ItemStack(Items.CHAINMAIL_LEGGINGS));
-        equipStack(EquipmentSlot.FEET, new ItemStack(Items.CHAINMAIL_LEGGINGS));
-
-        float val = random.nextFloat();
-        if(val >= 0.75f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
-        } else if (val > 0.20f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        } else {
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.BRONZE_PIKE));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        }
+    protected Identifier getFactionId() {
+        return MiddleEarthFactions.BANDIT.getId();
     }
 
     public BanditHumanVariant getVariant() {

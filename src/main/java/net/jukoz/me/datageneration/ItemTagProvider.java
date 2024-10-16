@@ -10,6 +10,7 @@ import net.jukoz.me.datageneration.content.tags.*;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.recipe.ModTags;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
@@ -32,7 +33,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var feathers = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "feathers")));
         var cloaks = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "cloaks")));
         var warg_food = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food")));
-        var dyeable = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")));
+        var dyeable = getOrCreateTagBuilder(ModTags.DYEABLE);
 
         TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("iron_ores"));
         TagKey<Item> gold_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("gold_ores"));

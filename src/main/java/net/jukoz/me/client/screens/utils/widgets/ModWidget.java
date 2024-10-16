@@ -16,8 +16,8 @@ public abstract class ModWidget {
         ModWidget.mouseY = mouseY;
     }
 
-    public int getMouseX() {return mouseX;}
-    public int getMouseY() {return mouseY;}
+    public static int getMouseX() {return mouseX;}
+    public static int getMouseY() {return mouseY;}
 
     public static void enableFocus(boolean enabled){
         focusedEnabled = enabled;
