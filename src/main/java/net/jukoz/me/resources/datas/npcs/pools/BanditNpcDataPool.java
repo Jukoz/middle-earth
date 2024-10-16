@@ -11,14 +11,13 @@ import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearItemData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearSlotData;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.Npc;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
 
 public class BanditNpcDataPool {
-    public final static NpcData BANDIT_MILITIA;
+    public final static NpcData BANDIT_THUG;
     public final static NpcData BANDIT_THIEF;
     private final static String FACTION_BASE = "bandit.";
     private final static int DARK_BLUE = 0x2d3744;
@@ -26,7 +25,7 @@ public class BanditNpcDataPool {
     private final static int DARK_BROWN = 0x2b1c17;
 
     static {
-        BANDIT_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "militia"), MiddleEarthRaces.HUMAN, List.of(
+        BANDIT_THUG = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "thug"), MiddleEarthRaces.HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.LEATHER_HELMET).withHood(ModHoods.BASE_HOOD, true))

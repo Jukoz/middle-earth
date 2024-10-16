@@ -430,23 +430,23 @@ public class MiddleEarthFactions {
         BANDIT = new Faction("bandit", false, Disposition.NEUTRAL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            BanditNpcDataPool.BANDIT_MILITIA
+                            BanditNpcDataPool.BANDIT_THUG
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            BanditNpcDataPool.BANDIT_MILITIA,
+                            BanditNpcDataPool.BANDIT_THUG,
                             BanditNpcDataPool.BANDIT_THIEF
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            BanditNpcDataPool.BANDIT_MILITIA
+                            BanditNpcDataPool.BANDIT_THUG
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            BanditNpcDataPool.BANDIT_MILITIA
+                            BanditNpcDataPool.BANDIT_THUG
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            BanditNpcDataPool.BANDIT_MILITIA
+                            BanditNpcDataPool.BANDIT_THUG
                     ));
                     put(NpcRank.LEADER, List.of(
-                            BanditNpcDataPool.BANDIT_MILITIA
+                            BanditNpcDataPool.BANDIT_THUG
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(

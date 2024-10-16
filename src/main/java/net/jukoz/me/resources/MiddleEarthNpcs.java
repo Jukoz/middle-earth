@@ -3,7 +3,6 @@ package net.jukoz.me.resources;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModEquipmentItems;
-import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
 import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearItemData;
@@ -81,7 +80,7 @@ public class MiddleEarthNpcs {
         // [SHIRE]
         register(context, npcRegistryEntryLookup, ShireNpcDataPool.SHIRE_MILITIA);
         // [BANDIT]
-        register(context, npcRegistryEntryLookup, BanditNpcDataPool.BANDIT_MILITIA);
+        register(context, npcRegistryEntryLookup, BanditNpcDataPool.BANDIT_THUG);
         register(context, npcRegistryEntryLookup, BanditNpcDataPool.BANDIT_THIEF);
     }
 
