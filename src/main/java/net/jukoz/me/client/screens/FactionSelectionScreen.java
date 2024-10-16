@@ -628,7 +628,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Positioning
         MatrixStack matrixStack = new MatrixStack();
-        matrixStack.translate(x + borderMarginX + (size / 2f) + 4, y + borderMarginY, 5f);
+        matrixStack.translate(x + borderMarginX + (size / 2f) + 4, y + borderMarginY, 1f);
         matrixStack.push();
         matrixStack.scale(-size, size, 0.1f);
         this.bannerField.pitch = 0.0F;
