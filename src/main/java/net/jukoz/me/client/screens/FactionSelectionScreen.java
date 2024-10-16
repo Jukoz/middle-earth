@@ -320,7 +320,6 @@ public class FactionSelectionScreen extends Screen {
         );
 
         // TODO : Display the lore dump texts
-        int maxLength = mainPanelHeight - startY - 95;
         int textStartY = startY + (MINIMAL_MARGIN * 2);
         int centerWithBanner = ((startX + (MINIMAL_MARGIN / 2)) + ((mainPanelWidth - 50) / 2));
 
@@ -369,7 +368,7 @@ public class FactionSelectionScreen extends Screen {
 
         if(factionDescriptionTextBlockWidget == null){
             factionDescriptionTextBlockWidget = new TextBlockWidget(
-                    startX + MINIMAL_MARGIN, startY + 95, mainPanelWidth - (MINIMAL_MARGIN * 2) - 1, maxLength
+                    startX + MINIMAL_MARGIN, startY + 95, mainPanelWidth - (MINIMAL_MARGIN * 2) - 1, textRenderer.fontHeight * 10
             ).setAlignment(TextAlignment.LEFT);
         }
 
@@ -629,17 +628,14 @@ public class FactionSelectionScreen extends Screen {
 
         // Positioning
         MatrixStack matrixStack = new MatrixStack();
-        matrixStack.translate(x + borderMarginX + (size / 2f) + 4, y + borderMarginY, 0f);
+        matrixStack.translate(x + borderMarginX + (size / 2f) + 4, y + borderMarginY, 5f);
         matrixStack.push();
         matrixStack.scale(-size, size, 0.1f);
         this.bannerField.pitch = 0.0F;
 
 
         // Banner creation
-        Faction faction = controller.getCurrentFaction();
-        Faction subfaction = controller.getCurrentSubfaction();
-        if(subfaction != null)
-            faction = subfaction;
+        Faction faction = controller.getCurrentlySelectedFaction();
         if(faction == null) return;
 
         DyeColor color = faction.getBaseBannerColor();
