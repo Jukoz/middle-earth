@@ -1,6 +1,7 @@
 package net.jukoz.me.entity.beasts;
 
 import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatEntity;
+import net.jukoz.me.resources.datas.Disposition;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -28,6 +29,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -152,6 +154,9 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     // Getters and Setters =============================================================================================
+    protected Disposition getDisposition(){
+        return null;
+    }
 
     public boolean hasChest() {
         return this.dataTracker.get(CHEST);

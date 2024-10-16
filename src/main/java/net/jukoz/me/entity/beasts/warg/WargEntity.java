@@ -16,6 +16,7 @@ import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.pheasant.PheasantEntity;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.resources.datas.Disposition;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
@@ -110,7 +111,7 @@ public class WargEntity extends AbstractBeastEntity {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new BeastSitGoal(this));
         this.goalSelector.add(3, new MeleeAttackGoal(this, HUNTING_SPEED, false));
-        this.goalSelector.add(4, new ChargeAttackGoal(this, maxChargeCooldown()));
+        this.goalSelector.add(4, new ChargeAttackGoal(this, this.getDisposition(), maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
         this.goalSelector.add(6, new TemptGoal(this, 1.0, TEMPTING_INGREDIENT, false));
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
@@ -119,7 +120,7 @@ public class WargEntity extends AbstractBeastEntity {
         this.targetSelector.add(1, new BeastTrackOwnerAttackerGoal((AbstractBeastEntity) this));
         this.targetSelector.add(2, new BeastAttackWithOwnerGoal((AbstractBeastEntity)this));
         this.targetSelector.add(3, new BeastRevengeGoal(this, new Class[0]).setGroupRevenge());
-        this.targetSelector.add(5, new BeastActiveTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.add(4, new BeastTargetPlayerGoal(this, this.getDisposition()));
         this.targetSelector.add(5, new BeastActiveTargetGoal<>(this, GaladhrimElfEntity.class, true));
         this.targetSelector.add(6, new BeastActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(7, new BeastActiveTargetGoal<>(this, GondorHumanEntity.class, true));
@@ -130,8 +131,6 @@ public class WargEntity extends AbstractBeastEntity {
         this.targetSelector.add(12, new BeastActiveTargetGoal<>(this, GoatEntity.class, true));
         this.targetSelector.add(13, new BeastActiveTargetGoal<>(this, DeerEntity.class, true));
         this.targetSelector.add(14, new BeastActiveTargetGoal<>(this, PheasantEntity.class, true));
-        this.targetSelector.add(15, new BeastActiveTargetGoal<>(this, GooseEntity.class, true));
-        this.targetSelector.add(16, new BeastActiveTargetGoal<>(this, DuckEntity.class, true));
     }
 
     @Override
@@ -223,6 +222,11 @@ public class WargEntity extends AbstractBeastEntity {
         this.setChildAttribute(other, child, EntityAttributes.GENERIC_MAX_HEALTH, MIN_HEALTH_BONUS, MAX_HEALTH_BONUS);
         this.setChildAttribute(other, child, EntityAttributes.GENERIC_ATTACK_DAMAGE, MIN_ATTACK_DAMAGE_BONUS, MAX_ATTACK_DAMAGE_BONUS);
         this.setChildAttribute(other, child, EntityAttributes.GENERIC_MOVEMENT_SPEED, MIN_MOVEMENT_SPEED_BONUS, MAX_MOVEMENT_SPEED_BONUS);
+    }
+
+    @Override
+    protected Disposition getDisposition() {
+        return Disposition.EVIL;
     }
 
     @Override
