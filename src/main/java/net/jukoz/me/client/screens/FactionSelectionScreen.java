@@ -358,10 +358,10 @@ public class FactionSelectionScreen extends Screen {
                     raceListTextBlockWidget = new TextBlockWidget(
                             startX + MINIMAL_MARGIN, textStartY + textRenderer.fontHeight + MINIMAL_MARGIN, mainPanelWidth - 50 - MINIMAL_MARGIN - (MINIMAL_MARGIN / 2), (textRenderer.fontHeight * 2) + MINIMAL_MARGIN
                     ).setAlignment(TextAlignment.LEFT);
+                    raceListTextBlockWidget.setText(controller.getRaceListText());
                 }
-                ;
                 raceListTextBlockWidget.setStartX(startX + MINIMAL_MARGIN).setStartY(textStartY + textRenderer.fontHeight + MINIMAL_MARGIN);
-                raceListTextBlockWidget.draw(context, List.of(controller.getRaceListText()), false, false);
+                raceListTextBlockWidget.draw(context, false, false);
                 textStartY += (textRenderer.fontHeight * 2) + MINIMAL_MARGIN;
             }
         }
@@ -370,6 +370,7 @@ public class FactionSelectionScreen extends Screen {
             factionDescriptionTextBlockWidget = new TextBlockWidget(
                     startX + MINIMAL_MARGIN, startY + 95, mainPanelWidth - (MINIMAL_MARGIN * 2) - 1, textRenderer.fontHeight * 10
             ).setAlignment(TextAlignment.LEFT);
+            factionDescriptionTextBlockWidget.setText(controller.getCurrentFactionDescriptions());
         }
 
         int loreTextStart = startY + 95;
@@ -381,9 +382,16 @@ public class FactionSelectionScreen extends Screen {
 
         List<Text> texts = controller.getCurrentFactionDescriptions();
         factionDescriptionTextBlockWidget.setStartX(startX + MINIMAL_MARGIN).setStartY(startY + 95);
-        factionDescriptionTextBlockWidget.draw(context, (texts != null && !texts.isEmpty()) ? List.of(texts.getFirst()) : texts, false, false);
+        factionDescriptionTextBlockWidget.draw(context, false, false);
 
         drawFactionBanner(context, startX + mainPanelWidth - 50, startY + 6);
+    }
+
+    public void reassignTexts(List<Text> races, List<Text> descriptions){
+        if(raceListTextBlockWidget != null)
+            raceListTextBlockWidget.setText(races);
+        if(factionDescriptionTextBlockWidget != null)
+            factionDescriptionTextBlockWidget.setText(descriptions);
     }
 
     private void drawFactionSelectionPanel(DrawContext context, int mainPanelWidth, int mainPanelHeight) {
