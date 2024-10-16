@@ -136,7 +136,7 @@ public class FactionSelectionController {
         currentFactionIndex = 0;
         currentSubFactionIndex = 0;
         currentRaceIndex = 0;
-
+        setFactionIndex(0);
         updateSpawnList();
         updateRaces();
     }
@@ -156,13 +156,17 @@ public class FactionSelectionController {
             if(currentFactionIndex < 0)
                 currentFactionIndex = factions.get(getCurrentDisposition()).size() - 1;
         }
+        setFactionIndex(currentFactionIndex);
+
         currentSubFactionIndex = 0;
         currentRaceIndex = 0;
-
         updateSpawnList();
         updateRaces();
     }
 
+    private void setFactionIndex(int i) {
+        screen.reassignTexts(getRaceListText(), getCurrentFactionDescriptions());
+    }
     public void subfactionUpdate(boolean add){
         if(add){
             currentSubFactionIndex++;
@@ -174,9 +178,17 @@ public class FactionSelectionController {
             if(currentSubFactionIndex < 0)
                 currentSubFactionIndex = getCurrentFaction().getSubFactions().size() - 1;
         }
+        setSubFactionIndex(currentSubFactionIndex);
+
+        screen.reassignTexts(getRaceListText(), getCurrentFactionDescriptions());
         currentRaceIndex = 0;
         updateSpawnList();
         updateRaces();
+    }
+    
+    private void setSubFactionIndex(int i) {
+        if(getCurrentlySelectedFaction().getFactionType() == FactionType.SUBFACTION)
+            screen.reassignTexts(getRaceListText(), getCurrentFactionDescriptions());
     }
 
     public void spawnIndexUpdate(boolean add){
@@ -380,10 +392,10 @@ public class FactionSelectionController {
         return null;
     }
 
-    public Text getRaceListText() {
+    public List<Text> getRaceListText() {
         Faction faction = getCurrentlySelectedFaction();
         if(faction != null){
-            return faction.getRaceListText();
+            return List.of(faction.getRaceListText(player.getWorld()));
         }
         return null;
     }
