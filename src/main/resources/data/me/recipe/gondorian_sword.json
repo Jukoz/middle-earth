@@ -1,12 +1,30 @@
 {
   "type": "me:artisan_table",
-  "category": "swords",
+  "category": "sword",
   "ingredients": [
     {
-      "item": "me:blade"
+      "base": {
+        "item": "me:blade"
+      },
+      "fabric:type": "fabric:components",
+      "components": {
+        "minecraft:trim": {
+          "pattern": "me:smithing_part",
+          "material": "me:steel"
+        }
+      }
     },
     {
-      "item": "me:sword_hilt"
+      "base": {
+        "item": "me:sword_hilt"
+      },
+      "fabric:type": "fabric:components",
+      "components": {
+        "minecraft:trim": {
+          "pattern": "me:smithing_part",
+          "material": "me:steel"
+        }
+      }
     },
     {
       "item": "minecraft:stick"

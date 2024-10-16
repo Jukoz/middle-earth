@@ -134,7 +134,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     public boolean canCraft() {
-        return this.inputSlots[0][0].hasStack() && !this.availableRecipes.isEmpty();
+        return !this.availableRecipes.isEmpty();
     }
 
     public boolean canUse(PlayerEntity player) {
@@ -187,7 +187,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
 
         List<ItemStack> inputs = new ArrayList<>();
         for (int i = 0; i < inventory.size(); i++) {
-            ArtisanTableSlot slot = inputSlots[i % 3][i];
+            ArtisanTableSlot slot = inputSlots[i / 3][i % 3];
             if(slot.isEnabled()) {
                 inputs.add(inventory.getStack(i));
             }
@@ -195,7 +195,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.availableRecipes.clear();
         this.selectedRecipe.set(-1);
         this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
-        if (!stack.isEmpty()) {
+        if (!inputs.isEmpty()) {
             this.availableRecipes = this.world.getRecipeManager().getAllMatches(ModRecipes.ARTISAN_TABLE, new MultipleStackRecipeInput(inputs), this.world);
         }
 

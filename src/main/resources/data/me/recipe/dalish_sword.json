@@ -1,0 +1,19 @@
+{
+  "type": "me:artisan_table",
+  "category": "sword",
+  "ingredients": [
+    {
+      "item": "me:blade"
+    },
+    {
+      "item": "me:sword_hilt"
+    },
+    {
+      "item": "minecraft:stick"
+    }
+  ],
+  "output": {
+    "id": "me:dalish_sword",
+    "count": 1
+  }
+}
