@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "me:medgon_mithril_ore"
+  },
+  "result": {
+    "id": "me:mithril_ingot"
+  },
+  "experience": 2,
+  "cookingtime": 300
+}

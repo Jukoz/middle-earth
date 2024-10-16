@@ -1,0 +1,9 @@
+{
+  "asset_name": "steel",
+  "description": {
+    "color": "#BCBDC0",
+    "translate": "trim_material.me.steel"
+  },
+  "ingredient": "me:steel_ingot",
+  "item_model_index": 0.006
+}

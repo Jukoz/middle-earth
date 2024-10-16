@@ -3,11 +3,9 @@ package net.jukoz.me.block.special.artisantable;
 import com.mojang.serialization.MapCodec;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreenHandler;
 import net.minecraft.block.*;
-import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.*;
@@ -209,7 +207,6 @@ public class ArtisanTable extends HorizontalFacingBlock {
                                 Block.createCuboidShape(7, 4, 0, 9, 8, 12)
                         ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();
                     };
-
         };
     }
 }

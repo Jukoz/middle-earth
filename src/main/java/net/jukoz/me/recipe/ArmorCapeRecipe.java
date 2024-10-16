@@ -1,12 +1,9 @@
 package net.jukoz.me.recipe;
 
 import net.jukoz.me.item.ModDataComponentTypes;
-import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.items.CapeChestplateItem;
 import net.jukoz.me.item.items.CustomChestplateItem;
-import net.jukoz.me.item.utils.ModCapes;
-import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
@@ -14,8 +11,6 @@ import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
-
-import java.util.Objects;
 
 
 public class ArmorCapeRecipe extends SpecialCraftingRecipe {
@@ -71,7 +66,7 @@ public class ArmorCapeRecipe extends SpecialCraftingRecipe {
         }
 
         if (!itemStack.isEmpty()) {
-            return CapeDataComponent.setCape(itemStack, true, ModCapes.valueOf(cape.get(ModDataComponentTypes.CAPE_DATA).cape().toUpperCase()));
+            return CapeDataComponent.setCape(itemStack, cape.get(ModDataComponentTypes.CAPE_DATA).cape());
         } else {
             return ItemStack.EMPTY;
         }

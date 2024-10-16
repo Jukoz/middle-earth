@@ -4,11 +4,12 @@ import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.MiddleEarthClient;
 import net.jukoz.me.client.model.equipment.CustomHelmetModel;
-import net.jukoz.me.client.model.equipment.head.CloakHoodModel;
-import net.jukoz.me.client.model.equipment.head.HelmetAddonModel;
+import net.jukoz.me.client.model.equipment.head.hoods.CloakHoodModel;
+import net.jukoz.me.client.model.equipment.head.helmets.HelmetAddonModel;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.items.CustomHelmetItem;
+import net.jukoz.me.recipe.ModTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
@@ -24,7 +25,7 @@ import net.minecraft.util.Identifier;
 public class HelmetArmorRenderer implements ArmorRenderer {
 
     private CustomHelmetModel<LivingEntity> customHelmetModel;
-    private CloakHoodModel<LivingEntity> hoodModel;
+    private HelmetAddonModel<LivingEntity> hoodModel;
     private HelmetAddonModel<LivingEntity> helmetModel;
 
     public HelmetArmorRenderer() {
@@ -51,7 +52,7 @@ public class HelmetArmorRenderer implements ArmorRenderer {
             customHelmetModel.leftArm.visible = true;
             customHelmetModel.rightArm.visible = true;
 
-            if(stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+            if(stack.isIn(ModTags.DYEABLE)) {
                 dyeable = true;
             }
 
@@ -73,16 +74,18 @@ public class HelmetArmorRenderer implements ArmorRenderer {
             HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
 
             if(hoodDataComponent != null) {
-                if (hoodDataComponent.enabled()) {
-                    contextModel.copyBipedStateTo(hoodModel);
-                    hoodModel.setVisible(false);
-                    hoodModel.hat.visible = true;
-                    if(hoodDataComponent.down()){
-                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().toLowerCase() + "_down.png"), false);
-                    } else {
-                        ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().toLowerCase() + ".png"), false);
-                    }
+                Identifier textureHood;
+                if (hoodDataComponent.down()){
+                    textureHood = Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().getName().toLowerCase() + "_down.png");
+                    this.hoodModel = hoodDataComponent.hood().getModel().getArmoredDownModel();
+                } else {
+                    textureHood = Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().getName().toLowerCase() + ".png");
+                    this.hoodModel = hoodDataComponent.hood().getModel().getArmoredModel();
                 }
+                contextModel.copyBipedStateTo(hoodModel);
+                hoodModel.setVisible(false);
+                hoodModel.hat.visible = true;
+                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, textureHood, false);
             }
         }
     }

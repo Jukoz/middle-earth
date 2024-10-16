@@ -1,6 +1,7 @@
 package net.jukoz.me.item;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
@@ -14,6 +15,9 @@ import java.util.function.UnaryOperator;
 
 public class ModDataComponentTypes {
 
+    public static final ComponentType<TemperatureDataComponent> TEMPERATURE_DATA = register("temperature", (builder) -> {
+        return builder.codec(TemperatureDataComponent.CODEC).packetCodec(TemperatureDataComponent.PACKET_CODEC);
+    });
     public static final ComponentType<CapeDataComponent> CAPE_DATA = register("cape", (builder) -> {
         return builder.codec(CapeDataComponent.CODEC).packetCodec(CapeDataComponent.PACKET_CODEC);
     });

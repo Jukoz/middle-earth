@@ -19,9 +19,13 @@ public class SimplePaneModel {
             add(new Pane(ModDecorativeBlocks.RED_WATTLE_FRAMED_WINDOW, ModDecorativeBlocks.RED_WATTLE_FRAMED_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.WHITE_WATTLE_FRAMED_WINDOW, ModDecorativeBlocks.WHITE_WATTLE_FRAMED_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW, ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW_PANE));
+            add(new Pane(ModDecorativeBlocks.PLASTER_HOBBIT_WINDOW, ModDecorativeBlocks.PLASTER_HOBBIT_WINDOW_PANE));
+            add(new Pane(ModDecorativeBlocks.PLASTER_ROUND_WINDOW, ModDecorativeBlocks.PLASTER_ROUND_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW, ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.MEDGON_CARVED_WINDOW, ModDecorativeBlocks.MEDGON_CARVED_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.GONLUIN_CARVED_WINDOW, ModDecorativeBlocks.GONLUIN_CARVED_WINDOW_PANE));
+            add(new Pane(ModDecorativeBlocks.TUFF_CARVED_WINDOW, ModDecorativeBlocks.TUFF_CARVED_WINDOW_PANE));
+            add(new Pane(ModDecorativeBlocks.IZHERABAN_CARVED_WINDOW, ModDecorativeBlocks.IZHERABAN_CARVED_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.MUD_BRICK_ROUND_WINDOW, ModDecorativeBlocks.MUD_BRICK_ROUND_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.WHITE_DAUB_ROUND_WINDOW, ModDecorativeBlocks.WHITE_DAUB_ROUND_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.YELLOW_DAUB_ROUND_WINDOW, ModDecorativeBlocks.YELLOW_DAUB_ROUND_WINDOW_PANE));

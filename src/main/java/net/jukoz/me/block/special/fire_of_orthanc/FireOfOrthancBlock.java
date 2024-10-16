@@ -31,6 +31,8 @@ public class FireOfOrthancBlock extends Block {
     public static final MapCodec<FireOfOrthancBlock> CODEC = createCodec(FireOfOrthancBlock::new);
     public static final VoxelShape OUTLINE_SHAPE = Block.createCuboidShape(2, 0, 2, 14, 12, 14);
 
+    //TODO update model
+
     public FireOfOrthancBlock(Settings settings) {
         super(settings);
     }

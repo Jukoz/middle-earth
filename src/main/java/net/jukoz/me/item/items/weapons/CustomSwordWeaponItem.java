@@ -2,6 +2,8 @@ package net.jukoz.me.item.items.weapons;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.utils.ModWeaponTypes;
+import net.jukoz.me.utils.ModFactions;
+import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
@@ -11,37 +13,36 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.registry.Registries;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.MutableText;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.util.List;
 
 public class CustomSwordWeaponItem extends SwordItem {
-    private final MutableText faction;
-    private final MutableText subFaction;
+    public final ModFactions faction;
+    public final ModSubFactions subFaction;
 
-    private final ModWeaponTypes type;
+    public final ModWeaponTypes type;
 
     public CustomSwordWeaponItem(ToolMaterial toolMaterial) {
         super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
-        this.faction = Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".generic");
+        this.faction = ModFactions.NONE;
         this.subFaction = null;
         this.type = ModWeaponTypes.SWORD;
     }
 
-    public CustomSwordWeaponItem(ToolMaterial toolMaterial,  MutableText faction) {
+    public CustomSwordWeaponItem(ToolMaterial toolMaterial,  ModFactions faction) {
         super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
         this.faction = faction;
         this.subFaction = null;
         this.type = ModWeaponTypes.SWORD;
     }
 
-    public CustomSwordWeaponItem(ToolMaterial toolMaterial,  MutableText faction, MutableText subFaction) {
+    public CustomSwordWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
         super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersSword(toolMaterial, ModWeaponTypes.SWORD.attack, ModWeaponTypes.SWORD.attackSpeed)));
-        this.faction = faction;
+        this.faction = subFaction.getParent();
         this.subFaction = subFaction;
         this.type = ModWeaponTypes.SWORD;
     }
@@ -60,13 +61,13 @@ public class CustomSwordWeaponItem extends SwordItem {
         tooltip.add(Text.of(""));
         if (Screen.hasShiftDown()) {
             if(this.type != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name));
             }
             if(this.faction != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(this.faction));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
             }
             if (this.subFaction != null) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(this.subFaction));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
             }
             tooltip.add(Text.of(""));
         } else {
@@ -77,7 +78,10 @@ public class CustomSwordWeaponItem extends SwordItem {
 
     @Override
     public Text getName(ItemStack stack) {
-        if(Registries.ITEM.getId(this).getPath().contains("_noble") || Registries.ITEM.getId(this).getPath().contains("_elite")){
+        if(Registries.ITEM.getId(this).getPath().contains("_noble")
+                || Registries.ITEM.getId(this).getPath().contains("_elite")
+                || Registries.ITEM.getId(this).getPath().contains("uruk_hai")
+                || Registries.ITEM.getId(this).getPath().contains("numenorean")){
             return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.GOLD);
         }
         return super.getName(stack);

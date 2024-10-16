@@ -1,0 +1,44 @@
+{
+  "replace": false,
+  "sources": [
+    {
+      "type": "single",
+      "resource": "me:entity/heater_shield_base"
+    },
+    {
+      "type": "single",
+      "resource": "me:entity/heater_shield_base_nopattern"
+    },
+    {
+      "type": "directory",
+      "source": "entity/heater_shield",
+      "prefix": "entity/heater_shield/"
+    },
+    {
+      "type": "single",
+      "resource": "me:entity/kite_shield_base"
+    },
+    {
+      "type": "single",
+      "resource": "me:entity/kite_shield_base_nopattern"
+    },
+    {
+      "type": "directory",
+      "source": "entity/kite_shield",
+      "prefix": "entity/kite_shield/"
+    },
+    {
+      "type": "single",
+      "resource": "me:entity/round_shield_base"
+    },
+    {
+      "type": "single",
+      "resource": "me:entity/round_shield_base_nopattern"
+    },
+    {
+      "type": "directory",
+      "source": "entity/round_shield",
+      "prefix": "entity/round_shield/"
+    }
+  ]
+}

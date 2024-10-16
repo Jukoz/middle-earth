@@ -255,6 +255,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsDiamondTools.add(OreRockSets.MEDGON.mithril_ore());
 
         needsDiamondTools.add(ModDecorativeBlocks.REINFORCED_CHEST);
+        needsDiamondTools.add(ModDecorativeBlocks.TREADTED_ANVIL);
 
         needsDiamondTools.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
 
@@ -272,11 +273,11 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableAxe.add(ModDecorativeBlocks.WOODEN_BUCKET);
 
         needsStoneTools.add(ModBlocks.BRONZE_BLOCK);
-        needsStoneTools.add(ModBlocks.SLAG_BLOCK);
+        needsStoneTools.add(ModBlocks.CRUDE_BLOCK);
         needsIronTools.add(ModBlocks.STEEL_BLOCK);
-        needsIronTools.add(ModBlocks.DWARVEN_STEEL_BLOCK);
-        needsIronTools.add(ModBlocks.ELVEN_STEEL_BLOCK);
-        needsIronTools.add(ModBlocks.URUK_STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.KHAZAD_STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.EDHEL_STEEL_BLOCK);
+        needsIronTools.add(ModBlocks.BURZUM_STEEL_BLOCK);
 
         mineablePickaxe.add(ModBlocks.STONE_MYCELIUM);
         mineableShovel.add(ModBlocks.ASH_BLOCK);
@@ -311,6 +312,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableShovel.add(ModBlocks.DRY_DIRT);
         mineableShovel.add(ModBlocks.DRY_DIRT_SLAB);
         mineableShovel.add(ModBlocks.DRY_DIRT_STAIRS);
+
+        mineableShovel.add(ModBlocks.DIRTY_ROOTS);
+        mineableShovel.add(ModBlocks.DIRTY_ROOTS_SLAB);
+        mineableShovel.add(ModBlocks.DIRTY_ROOTS_STAIRS);
 
         mineableShovel.add(ModBlocks.ASHEN_DIRT);
         mineableShovel.add(ModBlocks.ASHEN_DIRT_SLAB);
@@ -513,6 +518,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(ModBlocks.LARGE_GLOWSTONE_BUD);
         mineablePickaxe.add(ModBlocks.GLOWSTONE_CLUSTER);
 
-        mineablePickaxe.add(ModDecorativeBlocks.ALLOY_FURNACE);
+        mineablePickaxe.add(ModDecorativeBlocks.FORGE);
+        mineablePickaxe.add(ModDecorativeBlocks.TREADTED_ANVIL);
     }
 }

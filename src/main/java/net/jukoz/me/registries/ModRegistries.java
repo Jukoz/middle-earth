@@ -4,21 +4,21 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
-import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.*;
+import net.jukoz.me.datageneration.content.models.HotMetalsModel;
 import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
 import net.jukoz.me.datageneration.content.tags.LeavesSets;
 import net.jukoz.me.datageneration.content.tags.Saplings;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
+import net.jukoz.me.recipe.ModTags;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemActionResult;
 
 public class ModRegistries {
@@ -155,52 +155,52 @@ public class ModRegistries {
         OxidizableBlocksRegistry.registerWaxableBlockPair(ModBlocks.WEATHERED_CUT_COPPER_WALL, ModBlocks.WAXED_WEATHERED_CUT_COPPER_WALL);
         OxidizableBlocksRegistry.registerWaxableBlockPair(ModBlocks.OXIDIZED_CUT_COPPER_WALL, ModBlocks.WAXED_OXIDIZED_CUT_COPPER_WALL);
         
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.THATCH.block(), RoofBlockSets.WEATHERED_THATCH.block());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.THATCH.slab(), RoofBlockSets.WEATHERED_THATCH.slab());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.THATCH.verticalSlab(), RoofBlockSets.WEATHERED_THATCH.verticalSlab());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.THATCH.stairs(), RoofBlockSets.WEATHERED_THATCH.stairs());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.THATCH.wall(), RoofBlockSets.WEATHERED_THATCH.wall());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.WEATHERED_THATCH.block(), RoofBlockSets.AGED_THATCH.block());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.WEATHERED_THATCH.slab(), RoofBlockSets.AGED_THATCH.slab());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.WEATHERED_THATCH.verticalSlab(), RoofBlockSets.AGED_THATCH.verticalSlab());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.WEATHERED_THATCH.stairs(), RoofBlockSets.AGED_THATCH.stairs());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.WEATHERED_THATCH.wall(), RoofBlockSets.AGED_THATCH.wall());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.AGED_THATCH.block(), RoofBlockSets.OLD_THATCH.block());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.AGED_THATCH.slab(), RoofBlockSets.OLD_THATCH.slab());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.AGED_THATCH.verticalSlab(), RoofBlockSets.OLD_THATCH.verticalSlab());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.AGED_THATCH.stairs(), RoofBlockSets.OLD_THATCH.stairs());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.AGED_THATCH.wall(), RoofBlockSets.OLD_THATCH.wall());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.OLD_THATCH.block(), RoofBlockSets.ROTTEN_THATCH.block());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.OLD_THATCH.slab(), RoofBlockSets.ROTTEN_THATCH.slab());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.OLD_THATCH.verticalSlab(), RoofBlockSets.ROTTEN_THATCH.verticalSlab());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.OLD_THATCH.stairs(), RoofBlockSets.ROTTEN_THATCH.stairs());
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(RoofBlockSets.OLD_THATCH.wall(), RoofBlockSets.ROTTEN_THATCH.wall());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.THATCH.block(), OtherBlockSets.WEATHERED_THATCH.block());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.THATCH.slab(), OtherBlockSets.WEATHERED_THATCH.slab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.THATCH.verticalSlab(), OtherBlockSets.WEATHERED_THATCH.verticalSlab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.THATCH.stairs(), OtherBlockSets.WEATHERED_THATCH.stairs());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.THATCH.wall(), OtherBlockSets.WEATHERED_THATCH.wall());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.WEATHERED_THATCH.block(), OtherBlockSets.AGED_THATCH.block());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.WEATHERED_THATCH.slab(), OtherBlockSets.AGED_THATCH.slab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.WEATHERED_THATCH.verticalSlab(), OtherBlockSets.AGED_THATCH.verticalSlab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.WEATHERED_THATCH.stairs(), OtherBlockSets.AGED_THATCH.stairs());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.WEATHERED_THATCH.wall(), OtherBlockSets.AGED_THATCH.wall());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.AGED_THATCH.block(), OtherBlockSets.OLD_THATCH.block());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.AGED_THATCH.slab(), OtherBlockSets.OLD_THATCH.slab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.AGED_THATCH.verticalSlab(), OtherBlockSets.OLD_THATCH.verticalSlab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.AGED_THATCH.stairs(), OtherBlockSets.OLD_THATCH.stairs());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.AGED_THATCH.wall(), OtherBlockSets.OLD_THATCH.wall());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.OLD_THATCH.block(), OtherBlockSets.ROTTEN_THATCH.block());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.OLD_THATCH.slab(), OtherBlockSets.ROTTEN_THATCH.slab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.OLD_THATCH.verticalSlab(), OtherBlockSets.ROTTEN_THATCH.verticalSlab());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.OLD_THATCH.stairs(), OtherBlockSets.ROTTEN_THATCH.stairs());
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(OtherBlockSets.OLD_THATCH.wall(), OtherBlockSets.ROTTEN_THATCH.wall());
 
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.THATCH.block(), RoofBlockSets.WAXED_THATCH.block());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.THATCH.slab(), RoofBlockSets.WAXED_THATCH.slab());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.THATCH.verticalSlab(), RoofBlockSets.WAXED_THATCH.verticalSlab());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.THATCH.stairs(), RoofBlockSets.WAXED_THATCH.stairs());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.THATCH.wall(), RoofBlockSets.WAXED_THATCH.wall());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.WEATHERED_THATCH.block(), RoofBlockSets.WAXED_WEATHERED_THATCH.block());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.WEATHERED_THATCH.slab(), RoofBlockSets.WAXED_WEATHERED_THATCH.slab());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.WEATHERED_THATCH.verticalSlab(), RoofBlockSets.WAXED_WEATHERED_THATCH.verticalSlab());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.WEATHERED_THATCH.stairs(), RoofBlockSets.WAXED_WEATHERED_THATCH.stairs());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.WEATHERED_THATCH.wall(), RoofBlockSets.WAXED_WEATHERED_THATCH.wall());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.AGED_THATCH.block(), RoofBlockSets.WAXED_AGED_THATCH.block());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.AGED_THATCH.slab(), RoofBlockSets.WAXED_AGED_THATCH.slab());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.AGED_THATCH.verticalSlab(), RoofBlockSets.WAXED_AGED_THATCH.verticalSlab());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.AGED_THATCH.stairs(), RoofBlockSets.WAXED_AGED_THATCH.stairs());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.AGED_THATCH.wall(), RoofBlockSets.WAXED_AGED_THATCH.wall());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.OLD_THATCH.block(), RoofBlockSets.WAXED_OLD_THATCH.block());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.OLD_THATCH.slab(), RoofBlockSets.WAXED_OLD_THATCH.slab());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.OLD_THATCH.verticalSlab(), RoofBlockSets.WAXED_OLD_THATCH.verticalSlab());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.OLD_THATCH.stairs(), RoofBlockSets.WAXED_OLD_THATCH.stairs());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.OLD_THATCH.wall(), RoofBlockSets.WAXED_OLD_THATCH.wall());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.ROTTEN_THATCH.block(), RoofBlockSets.WAXED_ROTTEN_THATCH.block());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.ROTTEN_THATCH.slab(), RoofBlockSets.WAXED_ROTTEN_THATCH.slab());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.ROTTEN_THATCH.verticalSlab(), RoofBlockSets.WAXED_ROTTEN_THATCH.verticalSlab());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.ROTTEN_THATCH.stairs(), RoofBlockSets.WAXED_ROTTEN_THATCH.stairs());
-        OxidizableBlocksRegistry.registerWaxableBlockPair(RoofBlockSets.ROTTEN_THATCH.wall(), RoofBlockSets.WAXED_ROTTEN_THATCH.wall());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.THATCH.block(), OtherBlockSets.WAXED_THATCH.block());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.THATCH.slab(), OtherBlockSets.WAXED_THATCH.slab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.THATCH.verticalSlab(), OtherBlockSets.WAXED_THATCH.verticalSlab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.THATCH.stairs(), OtherBlockSets.WAXED_THATCH.stairs());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.THATCH.wall(), OtherBlockSets.WAXED_THATCH.wall());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.WEATHERED_THATCH.block(), OtherBlockSets.WAXED_WEATHERED_THATCH.block());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.WEATHERED_THATCH.slab(), OtherBlockSets.WAXED_WEATHERED_THATCH.slab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.WEATHERED_THATCH.verticalSlab(), OtherBlockSets.WAXED_WEATHERED_THATCH.verticalSlab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.WEATHERED_THATCH.stairs(), OtherBlockSets.WAXED_WEATHERED_THATCH.stairs());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.WEATHERED_THATCH.wall(), OtherBlockSets.WAXED_WEATHERED_THATCH.wall());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.AGED_THATCH.block(), OtherBlockSets.WAXED_AGED_THATCH.block());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.AGED_THATCH.slab(), OtherBlockSets.WAXED_AGED_THATCH.slab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.AGED_THATCH.verticalSlab(), OtherBlockSets.WAXED_AGED_THATCH.verticalSlab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.AGED_THATCH.stairs(), OtherBlockSets.WAXED_AGED_THATCH.stairs());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.AGED_THATCH.wall(), OtherBlockSets.WAXED_AGED_THATCH.wall());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.OLD_THATCH.block(), OtherBlockSets.WAXED_OLD_THATCH.block());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.OLD_THATCH.slab(), OtherBlockSets.WAXED_OLD_THATCH.slab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.OLD_THATCH.verticalSlab(), OtherBlockSets.WAXED_OLD_THATCH.verticalSlab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.OLD_THATCH.stairs(), OtherBlockSets.WAXED_OLD_THATCH.stairs());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.OLD_THATCH.wall(), OtherBlockSets.WAXED_OLD_THATCH.wall());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.ROTTEN_THATCH.block(), OtherBlockSets.WAXED_ROTTEN_THATCH.block());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.ROTTEN_THATCH.slab(), OtherBlockSets.WAXED_ROTTEN_THATCH.slab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.ROTTEN_THATCH.verticalSlab(), OtherBlockSets.WAXED_ROTTEN_THATCH.verticalSlab());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.ROTTEN_THATCH.stairs(), OtherBlockSets.WAXED_ROTTEN_THATCH.stairs());
+        OxidizableBlocksRegistry.registerWaxableBlockPair(OtherBlockSets.ROTTEN_THATCH.wall(), OtherBlockSets.WAXED_ROTTEN_THATCH.wall());
     }
 
     public static void registerFuels() {
@@ -414,6 +414,7 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES, 0.4F);
 
         registry.add(ModNatureBlocks.FALLEN_MALLORN_LEAVES, 0.3F);
+        registry.add(ModNatureBlocks.FALLEN_MIRKWOOD_LEAVES, 0.3F);
 
         registry.add(ModNatureBlocks.DRY_PINE_LEAVES, 0.2F);
         registry.add(ModNatureBlocks.PINE_BRANCHES, 0.2F);
@@ -486,7 +487,7 @@ public class ModRegistries {
     }
 
     public static final CauldronBehavior CLEAN_CUSTOM_DYEABLE_ITEM = (state, world, pos, player, hand, stack) -> {
-        if (!stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+        if (!stack.isIn(ModTags.DYEABLE)) {
             return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         if (!stack.contains(ModDataComponentTypes.DYE_DATA)) {
@@ -496,9 +497,29 @@ public class ModRegistries {
             CustomDyeableDataComponent dyeableDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
 
             stack.set(ModDataComponentTypes.DYE_DATA,
-                    CustomDyeableDataComponent.withOverlay(dyeableDataComponent.overlay(), CustomDyeableDataComponent.DEFAULT_COLOR));
+                     new CustomDyeableDataComponent(CustomDyeableDataComponent.DEFAULT_COLOR));
             player.incrementStat(Stats.CLEAN_ARMOR);
             LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
+        }
+        return ItemActionResult.success(world.isClient);
+    };
+
+    public static final CauldronBehavior COOL_DOWN_METAL = (state, world, pos, player, hand, stack) -> {
+        if (!stack.contains(ModDataComponentTypes.TEMPERATURE_DATA)) {
+            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+        if (!world.isClient) {
+            ItemStack originalStack = stack.copy();
+            originalStack.setCount(1);
+            originalStack.remove(ModDataComponentTypes.TEMPERATURE_DATA);
+            stack.decrement(1);
+            player.giveItemStack(originalStack);
+
+            LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
+
+            world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1.0f, 1.0f);
+        } else {
+            world.addImportantParticle(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, pos.getX() + 0.5f, pos.getY() + 0.9f, pos.getZ()+ 0.5f, 0.0f, 0.07f, 0.0f);
         }
         return ItemActionResult.success(world.isClient);
     };
@@ -506,6 +527,18 @@ public class ModRegistries {
     public static void registerCauldronBehaviour() {
         SimpleDyeableItemModel.items.forEach(item -> {
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, CLEAN_CUSTOM_DYEABLE_ITEM);
+        });
+
+        HotMetalsModel.items.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
+        });
+
+        HotMetalsModel.ingots.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
+        });
+
+        HotMetalsModel.nuggets.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
         });
     }
 }

@@ -2,7 +2,9 @@ package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.jukoz.me.resources.ModFactionRegistry;
+import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.MiddleEarthNpcs;
+import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.world.biomes.surface.ModBiomes;
 import net.jukoz.me.world.biomes.caves.ModCaveBiomes;
 import net.jukoz.me.world.features.boulder.BoulderConfiguredFeatures;
@@ -36,8 +38,9 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(ItemTagProvider::new);
         pack.addProvider(ModelProvider::new);
         pack.addProvider(RecipeProvider::new);
+        pack.addProvider(RaceProvider::new);
+        pack.addProvider(NpcProvider::new);
         pack.addProvider(FactionProvider::new);
-
         pack.addProvider(DataWorldGenerator::new);
     }
 
@@ -59,6 +62,9 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, OrePlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, CavesPlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModMiscPlacedFeatures::bootstrap);
-        registryBuilder.addRegistry(ModFactionRegistry.FACTION_KEY, ModFactionRegistry::bootstrap);
+        // Dynamic
+        registryBuilder.addRegistry(MiddleEarthRaces.RACE_KEY, MiddleEarthRaces::bootstrap);
+        registryBuilder.addRegistry(MiddleEarthNpcs.NPC_KEY, MiddleEarthNpcs::bootstrap);
+        registryBuilder.addRegistry(MiddleEarthFactions.FACTION_KEY, MiddleEarthFactions::bootstrap);
     }
 }

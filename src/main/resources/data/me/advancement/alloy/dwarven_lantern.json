@@ -1,5 +1,5 @@
 {
-  "parent": "me:alloy/dwarven_steel",
+  "parent": "me:alloy/khazad_steel",
   "criteria": {
     "dwarven_lantern": {
       "conditions": {

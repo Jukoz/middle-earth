@@ -66,6 +66,10 @@ public class SimplePillarModel {
 
             add(new StonePillar(ModBlocks.ZIGILABAN_PILLAR, StoneBlockSets.ZIGILABAN_BRICKS.base()));
 
+            add(new StonePillar(ModBlocks.IZHERABAN_PILLAR, StoneBlockSets.IZHERABAN_BRICKS.base()));
+            add(new StonePillar(ModBlocks.MOSSY_IZHERABAN_PILLAR, ModBlocks.IZHERABAN_PILLAR));
+            add(new StonePillar(ModBlocks.CRACKED_IZHERABAN_PILLAR, ModBlocks.IZHERABAN_PILLAR));
+
             add(new StonePillar(ModBlocks.CALCITE_PILLAR, StoneBlockSets.CALCITE_BRICKS.base()));
             add(new StonePillar(ModBlocks.MOSSY_CALCITE_PILLAR, ModBlocks.CALCITE_PILLAR));
             add(new StonePillar(ModBlocks.CRACKED_CALCITE_PILLAR, ModBlocks.CALCITE_PILLAR));

@@ -1,0 +1,9 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "me:block/bed_head_template",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "me:block/fancy_bed",
+		"particle": "me:block/fancy_bed"
+	}
+}

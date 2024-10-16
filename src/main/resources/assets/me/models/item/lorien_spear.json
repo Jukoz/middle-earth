@@ -204,6 +204,9 @@
 		}
 	],
 	"display": {},
+	"overrides": [
+		{"predicate": {"holding": 1}, "model": "me:item/lorien_spear_holding"}
+	],
 	"groups": [
 		{
 			"name": "Spear",

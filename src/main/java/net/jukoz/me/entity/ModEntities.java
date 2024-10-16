@@ -9,18 +9,14 @@ import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.jukoz.me.entity.beasts.trolls.petrified.PetrifiedTrollEntity;
 import net.jukoz.me.entity.beasts.trolls.stone.StoneTrollEntity;
 import net.jukoz.me.entity.beasts.warg.WargEntity;
-import net.jukoz.me.entity.crab.CrabEntity;
 import net.jukoz.me.entity.deer.DeerEntity;
-import net.jukoz.me.entity.duck.DuckEntity;
 import net.jukoz.me.entity.dwarves.longbeards.LongbeardDwarfEntity;
 import net.jukoz.me.entity.elves.galadhrim.GaladhrimElfEntity;
-import net.jukoz.me.entity.goose.GooseEntity;
 import net.jukoz.me.entity.hobbits.shire.ShireHobbitEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.entity.humans.dale.DaleHumanEntity;
 import net.jukoz.me.entity.humans.gondor.GondorHumanEntity;
 import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
-import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.isengard.IsengardOrcEntity;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
@@ -34,9 +30,8 @@ import net.jukoz.me.entity.seat.SeatEntity;
 import net.jukoz.me.entity.snail.SnailEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.swan.SwanEntity;
-import net.jukoz.me.entity.beasts.trolls.cave.CaveTrollEntity;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollEntity;
-import net.jukoz.me.entity.uruks.isengard.mordor.IsengardUrukHaiEntity;
+import net.jukoz.me.entity.uruks.isengard.IsengardUrukHaiEntity;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.utils.LoggerUtil;
@@ -128,10 +123,6 @@ public class ModEntities {
     public static final EntityType<IsengardUrukHaiEntity> ISENGARD_URUK_HAI_VETERAN = registerEntity("isengard_uruk_hai_veteran", IsengardUrukHaiEntity::new, SpawnGroup.CREATURE, 0.85f, 1.9f);
     public static final EntityType<IsengardUrukHaiEntity> ISENGARD_URUK_HAI_LEADER = registerEntity("isengard_uruk_hai_leader", IsengardUrukHaiEntity::new, SpawnGroup.CREATURE, 0.85f, 1.9f);
 
-
-    // Nazgul
-    public static final EntityType<NazgulEntity> NAZGUL = registerEntity("nazgul", NazgulEntity::new, SpawnGroup.CREATURE, 0.8f, 1.9f);
-
     // Wargs
     public static final EntityType<WargEntity> WARG = registerEntity("warg", WargEntity::new, SpawnGroup.CREATURE, 1.4f, 1.4f);
 
@@ -142,7 +133,6 @@ public class ModEntities {
     public static final EntityType<MirkwoodSpiderEntity> MIRKWOOD_SPIDER = registerEntity("mirkwood_spider", MirkwoodSpiderEntity::new, SpawnGroup.CREATURE, 1.15f, 0.9f);
 
     // Trolls
-    public static final EntityType<CaveTrollEntity> CAVE_TROLL = registerEntity("cave_troll", CaveTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
     public static final EntityType<SnowTrollEntity> SNOW_TROLL = registerEntity("snow_troll", SnowTrollEntity::new, SpawnGroup.CREATURE, 2.2f, 2.5f);
     public static final EntityType<StoneTrollEntity> STONE_TROLL = registerEntity("stone_troll", StoneTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
     public static final EntityType<PetrifiedTrollEntity> PETRIFIED_TROLL = registerEntity("petrified_troll", PetrifiedTrollEntity::new, SpawnGroup.CREATURE, 1.4f, 3.4f);
@@ -156,9 +146,6 @@ public class ModEntities {
     public static final EntityType<SpearEntity> SPEAR = registerEntity("spear", SpearEntity::new, SpawnGroup.MISC, 0.5F, 0.5F);
 
     ///* Animals *///
-    public static final EntityType<CrabEntity> CRAB = registerEntity("crab", CrabEntity::new, SpawnGroup.CREATURE, 0.4f, 0.4f);
-    public static final EntityType<GooseEntity> GOOSE = registerEntity("goose", GooseEntity::new, SpawnGroup.CREATURE, 0.6f, 1.25f);
-    public static final EntityType<DuckEntity> DUCK = registerEntity("duck", DuckEntity::new, SpawnGroup.CREATURE, 0.6f, 0.8f);
     public static final EntityType<SwanEntity> SWAN = registerEntity("swan", SwanEntity::new, SpawnGroup.CREATURE, 0.6f, 0.9f);
     public static final EntityType<PheasantEntity> PHEASANT = registerEntity("pheasant", PheasantEntity::new, SpawnGroup.CREATURE, 0.6f, 0.8f);
     public static final EntityType<SnailEntity> SNAIL = registerEntity("snail", SnailEntity::new, SpawnGroup.CREATURE, 0.3f, 0.3f);
@@ -175,8 +162,6 @@ public class ModEntities {
 
     public static void registerModEntities() {
         FabricDefaultAttributeRegistry.register(BARROW_WIGHT, BarrowWightEntity.setAttributes());
-        //FabricDefaultAttributeRegistry.register(BALROG, BalrogEntity.createBalrogAttributes());
-        FabricDefaultAttributeRegistry.register(CAVE_TROLL, CaveTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(STONE_TROLL, StoneTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(PETRIFIED_TROLL, PetrifiedTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
@@ -233,8 +218,6 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(ISENGARD_URUK_HAI_VETERAN, IsengardUrukHaiEntity.setVeteranAttributes());
         FabricDefaultAttributeRegistry.register(ISENGARD_URUK_HAI_LEADER, IsengardUrukHaiEntity.setLeaderAttributes());
 
-        FabricDefaultAttributeRegistry.register(NAZGUL, NazgulEntity.setAttributes());
-
         FabricDefaultAttributeRegistry.register(BROADHOOF_GOAT, BroadhoofGoatEntity.setAttributes());
 
         FabricDefaultAttributeRegistry.register(WARG, WargEntity.setAttributes());
@@ -250,9 +233,6 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(BANDIT_SOLDIER, BanditHumanEntity.setSoldierAttributes());
         FabricDefaultAttributeRegistry.register(BANDIT_CHIEFTAIN, BanditHumanEntity.setKnightAttributes());
         // Animals
-        FabricDefaultAttributeRegistry.register(CRAB, CrabEntity.createCrabAttributes());
-        FabricDefaultAttributeRegistry.register(GOOSE, GooseEntity.createGooseAttributes());
-        FabricDefaultAttributeRegistry.register(DUCK, DuckEntity.createDuckAttributes());
         FabricDefaultAttributeRegistry.register(SWAN, SwanEntity.createSwanAttributes());
         FabricDefaultAttributeRegistry.register(PHEASANT, PheasantEntity.createPheasantAttributes());
         FabricDefaultAttributeRegistry.register(SNAIL, SnailEntity.createSnailAttributes());

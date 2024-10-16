@@ -2,7 +2,6 @@ package net.jukoz.me.entity.pheasant;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
-import net.jukoz.me.entity.duck.DuckEntity;
 import net.jukoz.me.entity.goals.PheasantStartledGoal;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.minecraft.block.BlockState;
@@ -26,6 +25,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
@@ -48,6 +48,7 @@ import java.util.List;
 
 public class PheasantEntity extends AnimalEntity {
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(PheasantEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    public static final Ingredient BREEDING_INGREDIENT = Ingredient.fromTag(ItemTags.CHICKEN_FOOD);
 
     public PheasantEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
@@ -61,7 +62,7 @@ public class PheasantEntity extends AnimalEntity {
         this.goalSelector.add(2, new PheasantStartledGoal(this));
         this.goalSelector.add(3, new FollowParentGoal(this, 1.1));
         this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(5, new TemptGoal(this, 0.9, DuckEntity.BREEDING_INGREDIENT, true));
+        this.goalSelector.add(5, new TemptGoal(this, 0.9, BREEDING_INGREDIENT, true));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(7, new LookAroundGoal(this));

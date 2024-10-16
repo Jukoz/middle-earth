@@ -2,7 +2,6 @@ package net.jukoz.me.entity.hobbits.shire;
 
 import net.jukoz.me.entity.NpcEntity;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
-import net.jukoz.me.entity.nazguls.NazgulEntity;
 import net.jukoz.me.entity.orcs.misties.MistyGoblinEntity;
 import net.jukoz.me.entity.orcs.mordor.MordorOrcEntity;
 import net.jukoz.me.entity.projectile.pebble.PebbleEntity;
@@ -14,6 +13,8 @@ import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.items.weapons.ranged.PebbleItem;
+import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -27,6 +28,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -44,15 +46,18 @@ public class ShireHobbitEntity extends NpcEntity {
         super(entityType, world);
         String name = this.getDefaultName().toString();
         if(name.contains("civilian")){
-            this.setRank(RANK.CIVILIAN);
+            this.setRank(NpcRank.CIVILIAN);
         }else if(name.contains("bounder")){
-            this.setRank(RANK.MILITIA);
+            this.setRank(NpcRank.MILITIA);
             this.setBow(Items.BOW);
         }else if (name.contains("shirriff")) {
-            this.setRank(RANK.SOLDIER);
+            this.setRank(NpcRank.SOLDIER);
         }
     }
-
+    @Override
+    protected Identifier getFactionId() {
+        return MiddleEarthFactions.SHIRE.getId();
+    }
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
@@ -73,7 +78,6 @@ public class ShireHobbitEntity extends NpcEntity {
         this.goalSelector.add(++i, new FleeEntityGoal<>(this, MistyGoblinEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
         this.goalSelector.add(++i, new FleeEntityGoal<>(this, BanditHumanEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
         this.goalSelector.add(++i, new FleeEntityGoal<>(this, MirkwoodSpiderEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
-        this.goalSelector.add(++i, new FleeEntityGoal<>(this, NazgulEntity.class, FLEE_DISTANCE, FLEE_SPEED_MIN, FLEE_SPEED_MAX));
         this.goalSelector.add(++i, new ProjectileAttackGoal(this, 1.0, 12, 24, 20.0f));
         this.goalSelector.add(++i, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(++i, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
@@ -87,7 +91,6 @@ public class ShireHobbitEntity extends NpcEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MistyGoblinEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, NazgulEntity.class, true));
     }
 
     public static DefaultAttributeContainer.Builder setSoldierAttributes() {
@@ -105,65 +108,6 @@ public class ShireHobbitEntity extends NpcEntity {
                 .add(EntityAttributes.GENERIC_ATTACK_SPEED, 1.0)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.5);
-    }
-
-    @Override
-    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        super.initEquipment(random, localDifficulty);
-
-        switch (this.getRank()){
-            case CIVILIAN -> civilianEquipement(random);
-            case MILITIA -> militiaEquipment(random);
-            case SOLDIER -> soldierEquipment(random);
-        }
-    }
-
-    private void civilianEquipement(Random random){
-        float randomVal = random.nextFloat();
-        if(randomVal < 0.03f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
-        } else if (randomVal < 0.15f) {
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModResourceItems.PEBBLE));
-        } else if(randomVal < 0.20f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.APPLE));
-        }  else if(randomVal < 0.25f){
-            equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.CARROT));
-        }
-
-        randomVal = random.nextFloat();
-        if (randomVal < 0.15f) {
-            int[] colors = {
-                    0x375c23,
-                    0x535c23,
-                    0x665723
-            };
-            int colorIndex = random.nextInt(3);
-            ItemStack cloakHood = new ItemStack((Item)ModEquipmentItems.HOOD);
-            ItemStack cloak = new ItemStack((Item)ModEquipmentItems.CAPE);
-
-            DyedColorComponent.setColor(cloak, List.of(DyeItem.byColor(DyeColor.byId(colors[colorIndex]))));
-
-
-            if(randomVal < 0.07f) {
-                DyedColorComponent.setColor(cloakHood, List.of(DyeItem.byColor(DyeColor.byId(colors[colorIndex]))));
-                equipStack(EquipmentSlot.HEAD, cloakHood);
-            }
-            equipStack(EquipmentSlot.CHEST, cloak);
-        }
-    }
-
-    private void militiaEquipment(Random random){
-        if(random.nextFloat() < 0.5f){
-            equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.KETTLE_HAT));
-        }
-        equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.GAMBESON));
-        equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.IRON_DAGGER));
-    }
-
-    private void soldierEquipment(Random random){
-        float  randomVal = random.nextFloat();
-        equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
-        equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.SHIRRIFF_HAT));
     }
 
     public ShireHobbitVariant getVariant() {
