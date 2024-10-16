@@ -1,0 +1,19 @@
+{
+  "type": "me:artisan_table",
+  "category": "swords",
+  "ingredients": [
+    {
+      "item": "me:blade"
+    },
+    {
+      "item": "me:sword_hilt"
+    },
+    {
+      "item": "minecraft:stick"
+    }
+  ],
+  "output": {
+    "id": "me:gondorian_sword",
+    "count": 1
+  }
+}

@@ -1,5 +1,6 @@
 package net.jukoz.me.recipe;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.block.ModDecorativeBlocks;
@@ -15,10 +16,12 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
+    public final String category;
     public final ItemStack output;
     public final List<Ingredient> inputs;
 
-    public ArtisanRecipe(ItemStack output, List<Ingredient> recipeItems) {
+    public ArtisanRecipe(String category, ItemStack output, List<Ingredient> recipeItems) {
+        this.category = category;
         this.output = output;
         this.inputs = recipeItems;
     }
@@ -97,6 +100,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
 
         protected Serializer() {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+                    Codec.STRING.fieldOf("category").forGetter(recipe -> recipe.category),
                     ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
                     Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs)
             ).apply(instance, ArtisanRecipe::new));
@@ -115,11 +119,12 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
         }
 
         private static ArtisanRecipe read(RegistryByteBuf buf) {
+            String category = buf.readString();
             ItemStack output = ItemStack.PACKET_CODEC.decode(buf);
             int i = buf.readVarInt();
             DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i, Ingredient.EMPTY);
             defaultedList.replaceAll(empty -> Ingredient.PACKET_CODEC.decode(buf));
-            return new ArtisanRecipe(output, defaultedList);
+            return new ArtisanRecipe(category, output, defaultedList);
         }
 
         private static void write(RegistryByteBuf buf, ArtisanRecipe recipe) {
@@ -128,6 +133,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
             for (Ingredient ingredient : recipe.inputs) {
                 Ingredient.PACKET_CODEC.encode(buf, ingredient);
             }
+            buf.writeString(recipe.category);
         }
     }
 }

@@ -16,6 +16,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
@@ -43,6 +44,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     public final Inventory input;
     final CraftingResultInventory output;
     private PlayerEntity playerEntity;
+    private ArtisanTableInputsShape inputsShape = null;
 
     public ArtisanTableScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
@@ -166,21 +168,29 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
 
         ArtisanTableInputsShape inputsShape = ArtisanTableInputsShape.getShape(shapeId);
         if(inputsShape == null) return;
+        this.inputsShape = inputsShape;
         for(int y = 0; y < 3; y++) {
             for(int x = 0; x < 3; x++) {
                 ArtisanTableSlot slot = inputSlots[y][x];
-                InputType inputType = inputsShape.getInputType(x,y);
+                InputType inputType = this.inputsShape.getInputType(x,y);
                 if(inputType == null) continue;
                 else if(inputType == InputType.NONE) slot.setEnabled(false);
                 else slot.setEnabled(true);
+                slot.setInputType(inputType);
             }
         }
     }
 
     private void updateInput(Inventory inventory, ItemStack stack) {
+        String currentCategory = this.inputsShape.getId();
+        if(currentCategory == null) return;
+
         List<ItemStack> inputs = new ArrayList<>();
         for (int i = 0; i < inventory.size(); i++) {
-            inputs.add(inventory.getStack(i));
+            ArtisanTableSlot slot = inputSlots[i % 3][i];
+            if(slot.isEnabled()) {
+                inputs.add(inventory.getStack(i));
+            }
         }
         this.availableRecipes.clear();
         this.selectedRecipe.set(-1);
@@ -188,6 +198,14 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         if (!stack.isEmpty()) {
             this.availableRecipes = this.world.getRecipeManager().getAllMatches(ModRecipes.ARTISAN_TABLE, new MultipleStackRecipeInput(inputs), this.world);
         }
+
+        ArrayList<RecipeEntry<ArtisanRecipe>> filteredRecipes = new ArrayList<>();
+        for(RecipeEntry<ArtisanRecipe> recipeEntry : this.availableRecipes) {
+            if(recipeEntry.value().category.equals(currentCategory)) {
+                filteredRecipes.add(recipeEntry);
+            }
+        }
+        this.availableRecipes = filteredRecipes;
     }
 
     void populateResult(PlayerEntity player) {
