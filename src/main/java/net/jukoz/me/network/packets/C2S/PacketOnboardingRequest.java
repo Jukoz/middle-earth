@@ -20,22 +20,8 @@ import net.minecraft.util.Identifier;
 public class PacketOnboardingRequest extends ClientToServerPacket<PacketOnboardingRequest>
 {
     public static final CustomPayload.Id<PacketOnboardingRequest> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_onboarding_request"));
-    public static final PacketCodec<RegistryByteBuf, PacketOnboardingRequest> CODEC = PacketCodec.tuple(
-            PacketCodecs.BOOL, p -> p.havePlayerData,
-            PacketCodecs.BOOL, p -> p.canChangeFaction,
-            PacketCodecs.BOOL, p -> p.canReturnToOverworld,
-            PacketOnboardingRequest::new
-    );
-
-    private final boolean havePlayerData;
-    private final boolean canChangeFaction;
-    private final boolean canReturnToOverworld;
-
-    public PacketOnboardingRequest(boolean havePlayerData, boolean canChangeFaction, boolean canReturnToOverworld) {
-        this.havePlayerData = havePlayerData;
-        this.canChangeFaction = canChangeFaction;
-        this.canReturnToOverworld = canReturnToOverworld;
-    }
+    public static final PacketOnboardingRequest INSTANCE = new PacketOnboardingRequest();
+    public static final PacketCodec<RegistryByteBuf, PacketOnboardingRequest> CODEC = PacketCodec.unit(INSTANCE);
 
     @Override
     public Id<PacketOnboardingRequest> getId() {
@@ -57,7 +43,8 @@ public class PacketOnboardingRequest extends ClientToServerPacket<PacketOnboardi
                 PacketOnboardingResult newPacket = new PacketOnboardingResult(
                         StateSaverAndLoader.getPlayerState(context.player()).hasAffilition(),
                         ModServerConfigs.ENABLE_FACTION_RESET,
-                        ModServerConfigs.ENABLE_RETURN_TO_OVERWORLD
+                        ModServerConfigs.ENABLE_RETURN_TO_OVERWORLD,
+                        ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION
                 );
 
                 server.execute(() -> {

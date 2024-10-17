@@ -1,7 +1,6 @@
-package net.jukoz.me.client.screens.controllers;
+package net.jukoz.me.client.screens.faction_selection;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.jukoz.me.client.screens.FactionSelectionScreen;
 import net.jukoz.me.network.packets.C2S.*;
 import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.FactionType;
@@ -24,7 +23,7 @@ import org.joml.Vector2i;
 import java.util.*;
 
 public class FactionSelectionController {
-    private Map<Disposition, List<Faction>> factions;
+    private Map<Disposition, List<Faction>> factions = null;
     /**
      * Identifier and if the spawn data is from the dynamic pool. True(Dynamic) : False(Custom)
      */
@@ -40,9 +39,13 @@ public class FactionSelectionController {
     private FactionSelectionScreen screen;
     public boolean mapFocusToggle = true;
     List<Disposition> dispositionsWithContent = new ArrayList<>();
-    public FactionSelectionController(FactionSelectionScreen screen, AbstractClientPlayerEntity player){
+    private float currentDelay;
+    public FactionSelectionController(FactionSelectionScreen screen, AbstractClientPlayerEntity player, float delay){
         this.player = player;
         this.screen = screen;
+        this.currentDelay = delay;
+        if(this.currentDelay == 0)
+            screen.enableConfirm();
 
         factions = new HashMap<>();
         addFactionsByDisposition(Disposition.GOOD);
@@ -63,6 +66,7 @@ public class FactionSelectionController {
         updateSpawnList();
         updateRaces();
     }
+
 
     private void addFactionsByDisposition(Disposition disposition) {
         factions.put(disposition, FactionLookup.getFactionsByDisposition(player.getWorld(), disposition).values().stream().toList());
@@ -185,7 +189,7 @@ public class FactionSelectionController {
         updateSpawnList();
         updateRaces();
     }
-    
+
     private void setSubFactionIndex(int i) {
         if(getCurrentlySelectedFaction().getFactionType() == FactionType.SUBFACTION)
             screen.reassignTexts(getRaceListText(), getCurrentFactionDescriptions());
@@ -266,7 +270,7 @@ public class FactionSelectionController {
 
     public void confirmSpawnSelection(AbstractClientPlayerEntity player){
         Faction faction = getCurrentlySelectedFaction();
-        if(faction == null || !haveSpawns()) return;
+        if(faction == null || !haveSpawns() || !canConfirm()) return;
 
         SpawnData spawn = spawns.get(currentSpawnIndex);
         Vec3d coordinate = spawn.getCoordinates();
@@ -398,5 +402,19 @@ public class FactionSelectionController {
             return List.of(faction.getRaceListText(player.getWorld()));
         }
         return null;
+    }
+
+    public boolean canConfirm(){
+        return this.currentDelay == 0;
+    }
+    public float getDelayRounded(){
+        return (Math.round(this.currentDelay * 10f) /10f);
+    }
+    public void reduceDelay(float delta) {
+        if(this.currentDelay > 0){
+            this.currentDelay = Math.max(0, this.currentDelay - delta);
+            if(this.currentDelay == 0)
+                screen.enableConfirm();
+        }
     }
 }

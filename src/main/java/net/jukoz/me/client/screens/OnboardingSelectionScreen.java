@@ -4,7 +4,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.client.screens.faction_selection.FactionSelectionScreen;
 import net.jukoz.me.network.packets.C2S.PacketTeleportToCurrentSpawn;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -28,11 +30,12 @@ public class OnboardingSelectionScreen extends Screen {
     private int mouseY;
     private boolean canResetCharacter;
     private ClientPlayerEntity player;
-
-    public OnboardingSelectionScreen(boolean canResetCharacter) {
+    float currentDelay;
+    public OnboardingSelectionScreen(float delay, boolean canResetCharacter) {
         super(ONBOARDING_SELECTION_TITLE);
         this.canResetCharacter = canResetCharacter;
         focusEnabled = false;
+        currentDelay = delay;
     }
 
     @Override
@@ -46,7 +49,7 @@ public class OnboardingSelectionScreen extends Screen {
         if(canResetCharacter){
             ButtonWidget.PressAction resetCharacterAction = button -> {
                 MinecraftClient mc = MinecraftClient.getInstance();
-                mc.setScreen(new FactionSelectionScreen());
+                mc.setScreen(new FactionSelectionScreen(Math.max(0, currentDelay)));
             };
             resetCharacterButton = ButtonWidget.builder(Text.of("reset_character"), resetCharacterAction).build();
             addDrawableChild(resetCharacterButton);
@@ -71,6 +74,14 @@ public class OnboardingSelectionScreen extends Screen {
                 this.player = null;
             }
         }
+    }
+
+    @Override
+    public void tick() {
+        if(currentDelay > 0){
+            currentDelay = Math.max(0, currentDelay - (1f / 20));
+        }
+        super.tick();
     }
 
     private void drawContent(DrawContext context) {

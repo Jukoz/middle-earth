@@ -1,20 +1,13 @@
 package net.jukoz.me.client.screens;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.client.screens.controllers.FactionSelectionController;
-import net.jukoz.me.client.screens.utils.widgets.CycledSelectionWidget;
 import net.jukoz.me.client.screens.utils.widgets.ModWidget;
-import net.jukoz.me.client.screens.utils.widgets.SearchBarWidget;
 import net.jukoz.me.client.screens.utils.widgets.backgrounds.BackgroundContainerWidget;
 import net.jukoz.me.client.screens.utils.widgets.backgrounds.types.BackgroundContainerTypes;
 import net.jukoz.me.client.screens.utils.widgets.map.FullscreenToggeableMapWidget;
-import net.jukoz.me.client.screens.utils.widgets.map.MapWidget;
-import net.jukoz.me.network.packets.C2S.PacketTeleportToCustomCoordinate;
-import net.jukoz.me.network.packets.C2S.PacketTeleportToDynamicCoordinate;
 import net.jukoz.me.network.packets.C2S.PacketTeleportToDynamicWorldCoordinate;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.ModColors;
@@ -25,22 +18,15 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec2f;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
 import java.awt.event.KeyEvent;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class MiddleEarthMapScreen extends Screen {

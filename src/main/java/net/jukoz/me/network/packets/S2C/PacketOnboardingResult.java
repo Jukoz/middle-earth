@@ -16,17 +16,20 @@ public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardin
             PacketCodecs.BOOL, p -> p.havePlayerData,
             PacketCodecs.BOOL, p -> p.canChangeFaction,
             PacketCodecs.BOOL, p -> p.canReturnToOverworld,
+            PacketCodecs.FLOAT, p -> p.delayOnTeleportationConfirm,
             PacketOnboardingResult::new
     );
 
     private final boolean havePlayerData;
     private final boolean canChangeFaction;
     private final boolean canReturnToOverworld;
+    private final float delayOnTeleportationConfirm;
 
-    public PacketOnboardingResult(boolean havePlayerData, boolean canChangeFaction, boolean canReturnToOverworld) {
+    public PacketOnboardingResult(boolean havePlayerData, boolean canChangeFaction, boolean canReturnToOverworld, float delayOnTeleportationConfirm) {
         this.havePlayerData = havePlayerData;
         this.canChangeFaction = canChangeFaction;
         this.canReturnToOverworld = canReturnToOverworld;
+        this.delayOnTeleportationConfirm = delayOnTeleportationConfirm;
     }
 
     @Override
@@ -41,6 +44,6 @@ public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardin
 
     @Override
     public void process(ClientPacketContext context) {
-        OnboardingScreenHandler.handle(context, havePlayerData);
+        OnboardingScreenHandler.handle(context, havePlayerData, delayOnTeleportationConfirm);
     }
 }
