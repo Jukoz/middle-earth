@@ -20,7 +20,7 @@ import java.awt.event.KeyEvent;
 
 @Environment(EnvType.CLIENT)
 public class OnboardingSelectionScreen extends Screen {
-    private static final Text ONBOARDING_SELECTION_TITLE = Text.of("onboarding_selection_screen");
+    private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.me.onboarding_selection.title");
     private static final Identifier BUTTON_WIDGET = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/button_widget.png");
     private boolean focusEnabled;
     public ButtonWidget continueAsCharacterButton;
@@ -45,6 +45,7 @@ public class OnboardingSelectionScreen extends Screen {
         };
         continueAsCharacterButton = ButtonWidget.builder(Text.of("continue_character"), continueAsFaction).build();
         addDrawableChild(continueAsCharacterButton);
+        continueAsCharacterButton.active = false;
 
         if(canResetCharacter){
             ButtonWidget.PressAction resetCharacterAction = button -> {
@@ -80,6 +81,9 @@ public class OnboardingSelectionScreen extends Screen {
     public void tick() {
         if(currentDelay > 0){
             currentDelay = Math.max(0, currentDelay - (1f / 20));
+            if(currentDelay == 0) {
+                continueAsCharacterButton.active = true;
+            }
         }
         super.tick();
     }
@@ -92,28 +96,42 @@ public class OnboardingSelectionScreen extends Screen {
         // Draw buttons
         int startX = (width / 2) - (panelSizeX / 2);
         int startY = (height / 2) - (panelSizeY / 2);
-        context.drawTexture(BUTTON_WIDGET,
-                startX,
-                startY,
-                0, continueAsCharacterButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
-                panelSizeX,
-                panelSizeY
-        );
-        Text continueText = Text.translatable("ui.me.continue_character");
-        context.drawText(textRenderer, continueText,
-                startX + (int)((panelSizeX - textRenderer.getWidth(continueText)) / 2f),
-                startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,
-                0, false);
-
-        continueAsCharacterButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
-        if(focusEnabled && continueAsCharacterButton.isFocused()){
+        if(continueAsCharacterButton.active){
             context.drawTexture(BUTTON_WIDGET,
                     startX,
                     startY,
-                    103, 0,
+                    0, continueAsCharacterButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
                     panelSizeX,
                     panelSizeY
             );
+            Text continueText = Text.translatable("ui.me.continue_character");
+            context.drawText(textRenderer, continueText,
+                    startX + (int)((panelSizeX - textRenderer.getWidth(continueText)) / 2f),
+                    startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,
+                    0, false);
+
+            continueAsCharacterButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
+            if(focusEnabled && continueAsCharacterButton.isFocused()){
+                context.drawTexture(BUTTON_WIDGET,
+                        startX,
+                        startY,
+                        103, 0,
+                        panelSizeX,
+                        panelSizeY
+                );
+            }
+        } else {
+            context.drawTexture(BUTTON_WIDGET,
+                    startX,
+                    startY,
+                    0, 38,
+                    panelSizeX,
+                    panelSizeY
+            );
+            Text delayText = Text.literal(String.valueOf((Math.round(this.currentDelay * 10f) /10f)));
+            context.drawText(textRenderer, delayText,
+                    startX + (panelSizeX / 2) - (textRenderer.getWidth(delayText) / 2),
+                    startY + 5, 0xc4343e, true);
         }
 
         if(canResetCharacter) {

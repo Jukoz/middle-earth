@@ -1,9 +1,14 @@
 package net.jukoz.me.network.packets.S2C;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.client.screens.OnboardingSelectionScreen;
+import net.jukoz.me.client.screens.ReturnConfirmationScreen;
+import net.jukoz.me.config.ModServerConfigs;
 import net.jukoz.me.network.contexts.ClientPacketContext;
 import net.jukoz.me.network.packets.ServerToClientPacket;
 import net.jukoz.me.network.handlers.OnboardingScreenHandler;
+import net.jukoz.me.world.dimension.ModDimensions;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -44,6 +49,11 @@ public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardin
 
     @Override
     public void process(ClientPacketContext context) {
-        OnboardingScreenHandler.handle(context, havePlayerData, delayOnTeleportationConfirm);
+        if(ModDimensions.isInMiddleEarth(context.player().getWorld())){
+            MinecraftClient client = MinecraftClient.getInstance();
+            client.setScreen(new ReturnConfirmationScreen(delayOnTeleportationConfirm));
+        } else if(ModDimensions.isInOverworld(context.player().getWorld())){
+            OnboardingScreenHandler.handle(context, havePlayerData, delayOnTeleportationConfirm);
+        }
     }
 }
