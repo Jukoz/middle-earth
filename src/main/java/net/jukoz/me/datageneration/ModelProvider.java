@@ -592,7 +592,14 @@ public class ModelProvider extends FabricModelProvider {
             id = id.substring(id.lastIndexOf(":") + 1);
 
             if(verticalSlab.block() == Blocks.SANDSTONE || verticalSlab.block() == Blocks.RED_SANDSTONE || verticalSlab.block() == Blocks.CUT_SANDSTONE || verticalSlab.block() == Blocks.CUT_RED_SANDSTONE) {
-                } else {
+                String topId = id + "_top";
+                String bottomId = id + "_bottom";
+                if(verticalSlab.block() == Blocks.CUT_SANDSTONE || verticalSlab.block() == Blocks.CUT_RED_SANDSTONE) {
+                    topId = topId.substring(topId.indexOf("_") + 1);
+                    bottomId = bottomId.substring(bottomId.indexOf("_") + 1);
+                }
+                registerColumnVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), "minecraft", topId, bottomId, id);
+            } else {
                     if(verticalSlab.block() == Blocks.SMOOTH_RED_SANDSTONE
                             || verticalSlab.block() == Blocks.SMOOTH_SANDSTONE) {
                         id += "_top";
