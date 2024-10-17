@@ -3,7 +3,7 @@
 	"parent": "me:item/spear",
 	"texture_size": [32, 48],
 	"textures": {
-		"25": "me:item/uruk_hai_spear"
+		"21": "me:item/uruk_hai_spear"
 	},
 	"elements": [
 		{
@@ -12,281 +12,240 @@
 			"to": [8.5, 23.5, 8.5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, 23, 8.5]},
 			"faces": {
-				"north": {"uv": [0.5, 0.33333, 1, 16], "texture": "#25"},
-				"east": {"uv": [0, 0.33333, 0.5, 16], "texture": "#25"},
-				"south": {"uv": [1.5, 0.33333, 2, 16], "texture": "#25"},
-				"west": {"uv": [1, 0.33333, 1.5, 16], "texture": "#25"},
-				"up": {"uv": [1, 0.33333, 0.5, 0], "texture": "#25"},
-				"down": {"uv": [1.5, 0, 1, 0.33333], "texture": "#25"}
+				"north": {"uv": [0.5, 0.33333, 1, 16], "texture": "#21"},
+				"east": {"uv": [0, 0.33333, 0.5, 16], "texture": "#21"},
+				"south": {"uv": [1.5, 0.33333, 2, 16], "texture": "#21"},
+				"west": {"uv": [1, 0.33333, 1.5, 16], "texture": "#21"},
+				"up": {"uv": [1, 0.33333, 0.5, 0], "texture": "#21"},
+				"down": {"uv": [1.5, 0, 1, 0.33333], "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_0",
-			"from": [8.025, 23.375, 4.35],
-			"to": [8.475, 24.875, 5.85],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 23.09098, 4.79997],
+			"to": [8.475, 24.09098, 5.79997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [12, 0, 10.5, 0.33333], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [10.5, 1, 12, 0], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [10.5, 0.66667, 12, 0.99907], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [10.5, 0, 12, 1], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [11.5, 0, 12, 0.9972], "texture": "#25"},
-				"down": {"uv": [10.5, 0, 11, 1], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [11.5, 0, 10.5, 0.33333], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [10.5, 0.66667, 11.5, 0], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [10.5, 0.33333, 11.5, 0.66616], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [10.48864, 0, 11.48864, 0.66667], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [11, 0, 11.50227, 0.66667], "texture": "#21"},
+				"down": {"uv": [10.5, 0, 11, 0.66667], "rotation": 180, "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_1",
-			"from": [8.025, 24.875, 4.35],
-			"to": [8.475, 25.875, 4.85],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 24.09098, 4.77497],
+			"to": [8.475, 24.59098, 5.27497],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [13, 0, 12, 0.3324], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [12, 0, 13, 0.33333], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [12, 0, 13, 0.3324], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [12, 0, 13, 0.33333], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [12, 0, 13, 0.33333], "texture": "#25"},
-				"down": {"uv": [12, 0, 12.5, 0.33333], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [11.5, 0, 12, 0.33333], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [11.5, 0, 12, 0.33333], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [11.5, 0, 12, 0.33333], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [11.5, 0, 12, 0.33333], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [11.5, 0, 12, 0.33333], "texture": "#21"},
+				"down": {"uv": [11.5, 0, 12, 0.33333], "rotation": 180, "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_2",
-			"from": [8.025, 22.875, 4.85],
-			"to": [8.475, 23.375, 7.35],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 22.59098, 5.29997],
+			"to": [8.475, 23.09098, 6.79997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [10.5, 0.33333, 10, 0.66667], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [10, 2, 10.5, 0.33333], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [10, 1.66667, 10.5, 2], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [10, 0.33333, 10.5, 2], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [10, 0.33333, 10.5, 2], "texture": "#25"},
-				"down": {"uv": [10, 0.33333, 10.5, 2], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [10.5, 0.33333, 10, 0.66667], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [10, 1.33333, 10.5, 0.33333], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [10, 1, 10.5, 1.33333], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [10, 0.33333, 10.5, 1.33333], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [10, 0.33333, 10.5, 1.33333], "texture": "#21"},
+				"down": {"uv": [10, 0.33333, 10.5, 1.33333], "rotation": 180, "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_3",
-			"from": [8.025, 24.875, 4.85],
-			"to": [8.475, 25.375, 5.35],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 22.09098, 5.79997],
+			"to": [8.475, 22.59098, 7.29997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [12, 0.33333, 12.5, 0.66667], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [12, 0.33333, 12.5, 0.66667], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [12, 0.33333, 12.5, 0.66667], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [12, 0.33333, 12.5, 0.66667], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [12, 0.33333, 12.5, 0.66667], "texture": "#25"},
-				"down": {"uv": [12, 0.33333, 12.5, 0.66667], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [10, 0.66667, 9.5, 1], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [9.5, 1.66667, 10, 0.66667], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [9.5, 1.33333, 10, 1.66667], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [9.5, 0.66667, 10, 1.66667], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [9.5, 0.66667, 10, 1.66667], "texture": "#21"},
+				"down": {"uv": [9.5, 0.66667, 10, 1.66667], "rotation": 180, "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_4",
-			"from": [8.025, 22.375, 5.35],
-			"to": [8.475, 22.875, 7.85],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 23.09098, 5.79997],
+			"to": [8.475, 23.59098, 6.29997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [10, 0.66667, 9.5, 1], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [9.5, 2.33333, 10, 0.66667], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [9.5, 2, 10, 2.33333], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [9.5, 0.66667, 10, 2.33333], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [9.5, 0.66667, 10, 2.33333], "texture": "#25"},
-				"down": {"uv": [9.5, 0.66667, 10, 2.33333], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [10.5, 0.66667, 11, 1], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [10.5, 0.66667, 11, 1], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [10.5, 0.66667, 11, 1], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [10.5, 0.66667, 11, 1], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [10.5, 0.66667, 11, 1], "texture": "#21"},
+				"down": {"uv": [10.5, 0.66667, 11, 1], "rotation": 180, "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_5",
-			"from": [8.025, 21.875, 5.85],
-			"to": [8.475, 22.375, 8.35],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 21.59098, 6.29997],
+			"to": [8.475, 22.09098, 7.79997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [9.5, 1, 9, 1.33333], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [9, 2.66667, 9.5, 1], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [9, 2.33333, 9.5, 2.66667], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [9, 1, 9.5, 2.66667], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [9, 1, 9.5, 2.66667], "texture": "#25"},
-				"down": {"uv": [9, 1, 9.5, 2.66667], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [9.5, 1, 9, 1.33333], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [9, 2, 9.5, 1], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [9, 1.66667, 9.5, 2], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [9, 1, 9.5, 2], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [9, 1, 9.5, 2], "texture": "#21"},
+				"down": {"uv": [9, 1, 9.5, 2], "rotation": 180, "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_6",
-			"from": [8.025, 23.375, 5.85],
-			"to": [8.475, 24.375, 6.35],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 21.09098, 6.79997],
+			"to": [8.475, 21.59098, 8.29997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [11, 1, 11.5, 1.3324], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [10.5, 1, 11.5, 1.33333], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [10.5, 1, 11.5, 1.3324], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [10.5, 1, 11.5, 1.33333], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [11, 1, 11.5, 1.3324], "texture": "#25"},
-				"down": {"uv": [11, 1, 11.49915, 1.33333], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [9, 1.33333, 8.5, 1.66667], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [8.5, 2.33333, 9, 1.33333], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [8.5, 2, 9, 2.33333], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [8.5, 1.33333, 9, 2.33333], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [8.5, 1.33333, 9, 2.33182], "texture": "#21"},
+				"down": {"uv": [8.5, 1.33333, 9, 2.33333], "rotation": 180, "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_7",
-			"from": [8.025, 21.375, 6.35],
-			"to": [8.475, 21.875, 8.85],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 20.59098, 7.29997],
+			"to": [8.475, 21.09098, 8.79997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [9, 1.33333, 8.5, 1.66667], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [8.5, 3, 9, 1.33333], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [8.5, 2.66667, 9, 3], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [8.5, 1.33333, 9, 3], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [8.5, 1.33333, 9, 3], "texture": "#25"},
-				"down": {"uv": [8.5, 1.33333, 9, 3], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [8.5, 1.66667, 8, 2], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [8, 2.66667, 8.5, 1.66667], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [8, 2.33333, 8.5, 2.66616], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [8, 1.66667, 8.50227, 2.66667], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [8, 1.66667, 8.5, 2.66515], "texture": "#21"},
+				"down": {"uv": [8, 1.66667, 8.5, 2.66667], "rotation": 180, "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_8",
-			"from": [8.025, 23.375, 6.35],
-			"to": [8.475, 23.875, 6.85],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 20.09098, 7.79997],
+			"to": [8.475, 20.59098, 10.79997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [10.5, 1.33333, 11, 1.66667], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [10.5, 1.33333, 11, 1.66667], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [10.5, 1.33333, 11, 1.66667], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [10.5, 1.33333, 11, 1.66667], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [10.5, 1.33333, 11, 1.66667], "texture": "#25"},
-				"down": {"uv": [10.5, 1.33333, 11, 1.66667], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [8, 2, 7.5, 2.33283], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [7.5, 4, 8, 2], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [7.5, 3.66667, 8, 3.99949], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [7.5, 2, 8.00227, 4], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [7.5, 2, 8, 3.99697], "texture": "#21"},
+				"down": {"uv": [7.5, 2, 8, 4], "rotation": 180, "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_9",
-			"from": [8.025, 20.875, 6.85],
-			"to": [8.475, 21.375, 9.35],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 19.59098, 8.29997],
+			"to": [8.475, 20.09098, 10.79997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [8.5, 1.66667, 8, 2], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [8, 3.33333, 8.5, 1.66667], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [8, 3, 8.5, 3.33333], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [8, 1.66667, 8.5, 3.33333], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [8, 1.66667, 8.5, 3.33333], "texture": "#25"},
-				"down": {"uv": [8, 1.66667, 8.5, 3.33333], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [7.5, 2.33333, 7, 2.66667], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [7, 4, 7.5, 2.33333], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [7, 3.66667, 7.5, 4], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [7, 2.33333, 7.5, 4], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [7, 2.33333, 7.5, 2.66667], "texture": "#21"},
+				"down": {"uv": [7, 2.33333, 7.5, 4], "rotation": 180, "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_10",
-			"from": [8.025, 20.375, 7.35],
-			"to": [8.475, 20.875, 8.35],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 21.59098, 8.29997],
+			"to": [8.475, 22.59098, 9.29997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [8, 2, 7.5, 2.33333], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [7.5, 2.66667, 8, 2], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [7.5, 2.33333, 8, 2.66667], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [7.5, 2, 8, 2.66667], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [7.5, 2, 8, 2.66667], "texture": "#25"},
-				"down": {"uv": [7.5, 2, 8, 2.66667], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [10, 2.33333, 9, 2.66667], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [9, 3, 10, 2.33333], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [9, 2.66667, 10, 2.99949], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [9, 2.33333, 10, 3], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [9.5, 2.33333, 10, 2.99899], "texture": "#21"},
+				"down": {"uv": [9, 2.33333, 9.5, 3], "rotation": 180, "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_10",
-			"from": [8.025, 19.875, 7.85],
-			"to": [8.475, 20.375, 8.85],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 19.09098, 8.79997],
+			"to": [8.475, 19.59098, 10.29997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [7.5, 2.33333, 7, 2.66667], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [7, 3, 7.5, 2.33333], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [7, 2.66667, 7.5, 3], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [7, 2.33333, 7.5, 3], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [7, 2.33333, 7.49915, 3], "texture": "#25"},
-				"down": {"uv": [7, 2.33333, 7.5, 2.99814], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [7, 2.66667, 6.5, 3], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [6.5, 3.66667, 7, 2.66667], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [6.5, 3.33333, 7, 3.66667], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [6.5, 2.66667, 7, 3.66515], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [6.5, 2.66667, 7.00227, 3.66667], "texture": "#21"},
+				"down": {"uv": [6.5, 2.66667, 7, 3.66667], "rotation": 180, "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_12",
-			"from": [8.025, 19.375, 8.35],
-			"to": [8.475, 19.875, 9.35],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 21.09098, 8.79997],
+			"to": [8.475, 21.59098, 10.29997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [7, 2.66667, 6.5, 2.99907], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [6.5, 3.33333, 7, 2.66667], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [6.5, 3, 7, 3.3324], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [6.5, 2.66667, 7, 3.33333], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [6.5, 2.66667, 7, 3.33147], "texture": "#25"},
-				"down": {"uv": [6.5, 2.66667, 7, 3.33333], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [9, 2.66667, 8.5, 3], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [8.5, 3.66667, 9, 2.66667], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [8.5, 3.33333, 9, 3.66616], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [8.5, 2.66667, 9, 3.66667], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [8.5, 2.66667, 9, 3.66515], "texture": "#21"},
+				"down": {"uv": [8.5, 2.66667, 9, 3.66667], "rotation": 180, "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_13",
-			"from": [8.025, 18.875, 8.85],
-			"to": [8.475, 19.375, 9.85],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 18.59098, 9.29997],
+			"to": [8.475, 19.09098, 9.79997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [6.5, 3, 6, 3.3324], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [6, 3.66667, 6.5, 3], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [6, 3.33333, 6.5, 3.66573], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [6, 3, 6.5, 3.66667], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [6, 3, 6.5, 3.6648], "texture": "#25"},
-				"down": {"uv": [6, 3, 6.5, 3.66667], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [6, 3, 6.5, 3.33333], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [6, 3, 6.5, 3.33333], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [6, 3, 6.5, 3.33333], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [6, 3, 6.5, 3.33333], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [6, 3, 6.5, 3.33333], "texture": "#21"},
+				"down": {"uv": [6, 3, 6.5, 3.33333], "rotation": 180, "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_14",
-			"from": [8.025, 18.375, 9.35],
-			"to": [8.475, 18.875, 10.35],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 20.59098, 9.29997],
+			"to": [8.475, 21.09098, 10.29997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [5.5, 3.33333, 6, 3.66667], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [5.5, 4, 6, 3.33333], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [5.5, 3.66667, 6, 3.99907], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [5.5, 3.33333, 6, 4], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [5.51278, 3.33333, 6.01278, 4], "texture": "#25"},
-				"down": {"uv": [5.5, 3.33333, 6, 3.99814], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [8.5, 3, 8, 3.33333], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [8, 3.66667, 8.5, 3], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [8, 3.33333, 8.5, 3.66667], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [8, 3, 8.5, 3.66667], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [8, 3, 8.5, 3.66667], "texture": "#21"},
+				"down": {"uv": [8, 3, 8.5, 3.66667], "rotation": 180, "texture": "#21"}
 			}
 		},
 		{
-			"name": "uruk_hai_spear_head_15",
-			"from": [8.025, 20.375, 9.35],
-			"to": [8.475, 20.875, 9.85],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
+			"name": "uruk_hai_spear_type_B",
+			"from": [8.025, 21.59098, 9.29997],
+			"to": [8.475, 22.09098, 9.79997],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8.25, 22.09723, 8.15]},
 			"faces": {
-				"north": {"uv": [7.5, 3.33333, 8, 3.66667], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [7.5, 3.33333, 8, 3.66667], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [7.5, 3.33333, 8, 3.66667], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [7.5, 3.33333, 8, 3.66667], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [7.5, 3.33333, 8, 3.66667], "texture": "#25"},
-				"down": {"uv": [7.5, 3.33333, 8, 3.66667], "rotation": 180, "texture": "#25"}
-			}
-		},
-		{
-			"name": "uruk_hai_spear_head_16",
-			"from": [8.025, 17.875, 9.85],
-			"to": [8.475, 18.375, 10.35],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
-			"faces": {
-				"north": {"uv": [5, 3.66667, 5.5, 4], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [5, 3.66667, 5.5, 4], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [5, 3.66667, 5.5, 4], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [5, 3.66667, 5.5, 4], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [5, 3.66667, 5.5, 4], "texture": "#25"},
-				"down": {"uv": [5, 3.66667, 5.5, 4], "rotation": 180, "texture": "#25"}
-			}
-		},
-		{
-			"name": "uruk_hai_spear_head_17",
-			"from": [8.025, 19.875, 9.85],
-			"to": [8.475, 20.375, 10.35],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
-			"faces": {
-				"north": {"uv": [7, 3.66667, 7.5, 4], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [7, 3.66667, 7.5, 4], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [7, 3.66667, 7.5, 4], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [7, 3.66667, 7.5, 4], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [7, 3.66667, 7.5, 4], "texture": "#25"},
-				"down": {"uv": [7, 3.66667, 7.5, 4], "rotation": 180, "texture": "#25"}
-			}
-		},
-		{
-			"name": "uruk_hai_spear_head_18",
-			"from": [8.025, 19.375, 10.35],
-			"to": [8.475, 19.875, 10.85],
-			"rotation": {"angle": 45, "axis": "x", "origin": [8.275, 21.75, 7.6]},
-			"faces": {
-				"north": {"uv": [6.5, 4, 7, 4.33333], "rotation": 90, "texture": "#25"},
-				"east": {"uv": [6.5, 4, 7, 4.33333], "rotation": 270, "texture": "#25"},
-				"south": {"uv": [6.5, 4, 7, 4.33333], "rotation": 270, "texture": "#25"},
-				"west": {"uv": [6.5, 4, 7, 4.33333], "rotation": 270, "texture": "#25"},
-				"up": {"uv": [6.5, 4, 7, 4.33333], "texture": "#25"},
-				"down": {"uv": [6.5, 4, 7, 4.33333], "rotation": 180, "texture": "#25"}
+				"north": {"uv": [9, 3, 9.5, 3.33333], "rotation": 90, "texture": "#21"},
+				"east": {"uv": [9, 3, 9.5, 3.33333], "rotation": 270, "texture": "#21"},
+				"south": {"uv": [9, 3, 9.5, 3.33333], "rotation": 270, "texture": "#21"},
+				"west": {"uv": [9, 3, 9.5, 3.33333], "rotation": 270, "texture": "#21"},
+				"up": {"uv": [9, 3, 9.5, 3.33333], "texture": "#21"},
+				"down": {"uv": [9, 3, 9.5, 3.33333], "rotation": 180, "texture": "#21"}
 			}
 		}
 	],
+	"display": {},
 	"overrides": [
 		{"predicate": {"holding": 1}, "model": "me:item/uruk_hai_spear_holding"}
 	],
@@ -303,10 +262,10 @@
 					"color": 0,
 					"children": [
 						{
-							"name": "uruk_hai_spear_type_A",
+							"name": "uruk_hai_spear_type_B",
 							"origin": [8, 8, 8],
 							"color": 0,
-							"children": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+							"children": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 						}
 					]
 				}

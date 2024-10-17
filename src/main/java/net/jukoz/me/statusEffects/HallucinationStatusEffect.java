@@ -25,7 +25,7 @@ public class HallucinationStatusEffect extends StatusEffect {
     public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
         if(entity instanceof PlayerEntity){
             Map<RegistryEntry<StatusEffect>, StatusEffectInstance> map = entity.getActiveStatusEffects();
-            int ticksLeft = map.get(this).getDuration();
+            int ticksLeft = map.get(ModStatusEffects.HALLUCINATION).getDuration();
             if(ticksLeft != -1 && ticksLeft < HallucinationData.STOPPING_TICK)
                 HallucinationData.addHallucination((IEntityDataSaver) entity, -2);
             else{

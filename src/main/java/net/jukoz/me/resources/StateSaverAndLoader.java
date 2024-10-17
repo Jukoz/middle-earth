@@ -1,8 +1,7 @@
 package net.jukoz.me.resources;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.resources.datas.Alignment;
-import net.jukoz.me.resources.datas.races.Race;
+import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.persistent_datas.AffiliationData;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.IdentifierUtil;
@@ -32,7 +31,7 @@ public class StateSaverAndLoader extends PersistentState {
         players.forEach((uuid, playerData) -> {
             NbtCompound playerNbt = new NbtCompound();
             if(playerData.hasAffilition()){
-                playerNbt.putString("alignment", playerData.getCurrentAlignment().toString().toLowerCase());
+                playerNbt.putString("disposition", playerData.getCurrentDisposition().toString().toLowerCase());
                 playerNbt.putString("faction_id", playerData.getCurrentFactionId().toString().toLowerCase());
                 playerNbt.putString("spawn_id", playerData.getCurrentSpawnId().toString().toLowerCase());
             }
@@ -58,8 +57,8 @@ public class StateSaverAndLoader extends PersistentState {
         playersNbt.getKeys().forEach(key -> {
             PlayerData playerData = new PlayerData();
             try{
-                String alignmentValue = playersNbt.getCompound(key).getString("alignment");
-                boolean hasAlignment = alignmentValue != null && !alignmentValue.isEmpty();
+                String dispositionValue = playersNbt.getCompound(key).getString("disposition");
+                boolean hasDisposition = dispositionValue != null && !dispositionValue.isEmpty();
                 String factionIdValue = playersNbt.getCompound(key).getString("faction_id");
                 boolean hasFaction = factionIdValue != null && !factionIdValue.isEmpty();
                 String spawnIdValue = playersNbt.getCompound(key).getString("spawn_id");
@@ -67,12 +66,12 @@ public class StateSaverAndLoader extends PersistentState {
                 int[] overworldPos = playersNbt.getCompound(key).getIntArray("overworld_spawn");
                 boolean hasOverworldPos = overworldPos != null && overworldPos.length == 3;
 
-                if(hasAlignment && hasFaction && hasSpawn){
-                    Alignment alignment = Alignment.valueOf(alignmentValue.toUpperCase());
+                if(hasDisposition && hasFaction && hasSpawn){
+                    Disposition disposition = Disposition.valueOf(dispositionValue.toUpperCase());
                     Identifier factionId = IdentifierUtil.getIdentifierFromString(factionIdValue);
                     Identifier spawnId = IdentifierUtil.getIdentifierFromString(spawnIdValue);
 
-                    AffiliationData affiliationData = new AffiliationData(alignment.name(), factionId, spawnId);
+                    AffiliationData affiliationData = new AffiliationData(disposition.name(), factionId, spawnId);
                     playerData.setAffiliationData(affiliationData);
                 }
                 String raceValue = playersNbt.getCompound(key).getString("race");

@@ -79,6 +79,12 @@ public class MineablePickaxe {
             add(ModBlocks.CHISELED_POLISHED_GNEISS);
             add(ModBlocks.CHISELED_GNEISS_BRICKS);
 
+            add(ModBlocks.CHISELED_IZHERABAN);
+            add(ModBlocks.CHISELED_IZHERABAN_BRICKS);
+            add(ModBlocks.CHISELED_POLISHED_IZHERABAN);
+            add(ModBlocks.CHISELED_IZHERABAN_TILES);
+            add(ModBlocks.CHISELED_SMOOTH_IZHERABAN);
+
             add(ModBlocks.NURGON_PILLAR);
             add(ModBlocks.CHISELED_NURGON_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_NURGON);
@@ -98,11 +104,11 @@ public class MineablePickaxe {
             add(ModBlocks.SILVER_BLOCK);
 
             add(ModBlocks.BRONZE_BLOCK);
-            add(ModBlocks.SLAG_BLOCK);
+            add(ModBlocks.CRUDE_BLOCK);
             add(ModBlocks.STEEL_BLOCK);
-            add(ModBlocks.DWARVEN_STEEL_BLOCK);
-            add(ModBlocks.ELVEN_STEEL_BLOCK);
-            add(ModBlocks.URUK_STEEL_BLOCK);
+            add(ModBlocks.KHAZAD_STEEL_BLOCK);
+            add(ModBlocks.EDHEL_STEEL_BLOCK);
+            add(ModBlocks.BURZUM_STEEL_BLOCK);
 
             add(ModBlocks.STONE_PILLAR);
             add(ModBlocks.MOSSY_STONE_PILLAR);
@@ -127,6 +133,10 @@ public class MineablePickaxe {
             add(ModBlocks.GNEISS_PILLAR);
 
             add(ModBlocks.ZIGILABAN_PILLAR);
+
+            add(ModBlocks.IZHERABAN_PILLAR);
+            add(ModBlocks.MOSSY_IZHERABAN_PILLAR);
+            add(ModBlocks.CRACKED_IZHERABAN_PILLAR);
 
             add(ModBlocks.BLUE_TUFF_PILLAR);
             add(ModBlocks.MOSSY_BLUE_TUFF_PILLAR);

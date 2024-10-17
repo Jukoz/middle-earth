@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pointed_dripstone",
+  "textures": {
+    "cross": "me:block/pointed_izheraban_up_middle"
+  }
+}

@@ -1,16 +1,9 @@
 package net.jukoz.me.recipe;
 
 import net.jukoz.me.item.ModDataComponentTypes;
-import net.jukoz.me.item.ModEquipmentItems;
-import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
-import net.jukoz.me.item.items.CapeChestplateItem;
-import net.jukoz.me.item.items.CustomChestplateItem;
 import net.jukoz.me.item.items.CustomHelmetItem;
 import net.jukoz.me.item.items.HoodHelmetItem;
-import net.jukoz.me.item.utils.ModCapes;
-import net.jukoz.me.item.utils.ModHoods;
-import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
@@ -73,7 +66,7 @@ public class ArmorHoodRecipe extends SpecialCraftingRecipe {
         }
 
         if (!itemStack.isEmpty()) {
-            return HoodDataComponent.setHood(itemStack, true, ModHoods.valueOf(hood.get(ModDataComponentTypes.HOOD_DATA).hood().toUpperCase()));
+            return HoodDataComponent.setHood(itemStack, true, hood.get(ModDataComponentTypes.HOOD_DATA).hood());
         } else {
             return ItemStack.EMPTY;
         }

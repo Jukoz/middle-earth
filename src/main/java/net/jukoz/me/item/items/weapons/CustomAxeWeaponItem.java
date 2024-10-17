@@ -95,7 +95,10 @@ public class CustomAxeWeaponItem extends AxeItem {
 
     @Override
     public Text getName(ItemStack stack) {
-        if(Registries.ITEM.getId(stack.getItem()).getPath().contains("_noble") || Registries.ITEM.getId(stack.getItem()).getPath().contains("_elite")){
+        if(Registries.ITEM.getId(this).getPath().contains("_noble")
+                || Registries.ITEM.getId(this).getPath().contains("_elite")
+                || Registries.ITEM.getId(this).getPath().contains("uruk_hai")
+                || Registries.ITEM.getId(this).getPath().contains("numenorean")){
             return Text.translatable(this.getTranslationKey(stack)).formatted(Formatting.GOLD);
         }
         return super.getName(stack);

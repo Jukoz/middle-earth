@@ -65,7 +65,7 @@ public class OtherBlockSets {
     public static RoofBlockSet CHARRED_SHINGLES = registerWoodSet("charred_shingles", null);
     public static RoofBlockSet WEATHERED_SHINGLES = registerWoodSet("weathered_shingles", null);
 
-    public static RoofBlockSet BRICK_CLAY_TILING = registerClaySet("brick_clay_tiling", Blocks.BRICKS);
+    public static RoofBlockSet CLAY_TILING = registerClaySet("clay_tiling", Blocks.TERRACOTTA);
 
     public static RoofBlockSet BLACK_CLAY_TILING = registerClaySet("black_clay_tiling", Blocks.BLACK_TERRACOTTA);
     public static RoofBlockSet BLUE_CLAY_TILING = registerClaySet("blue_clay_tiling", Blocks.BLUE_TERRACOTTA);
@@ -83,6 +83,46 @@ public class OtherBlockSets {
     public static RoofBlockSet RED_CLAY_TILING = registerClaySet("red_clay_tiling", Blocks.RED_TERRACOTTA);
     public static RoofBlockSet WHITE_CLAY_TILING = registerClaySet("white_clay_tiling", Blocks.WHITE_TERRACOTTA);
     public static RoofBlockSet YELLOW_CLAY_TILING = registerClaySet("yellow_clay_tiling", Blocks.YELLOW_TERRACOTTA);
+
+    public static RoofBlockSet BLUE_ROOF_TILES = registerClaySet("blue_roof_tiles", null);
+    public static RoofBlockSet BRIGHT_BLUE_ROOF_TILES = registerClaySet("bright_blue_roof_tiles", null);
+    public static RoofBlockSet DARK_BLUE_ROOF_TILES = registerClaySet("dark_blue_roof_tiles", null);
+    public static RoofBlockSet LIGHT_BLUE_ROOF_TILES = registerClaySet("light_blue_roof_tiles", null);
+    public static RoofBlockSet OFF_BLUE_ROOF_TILES = registerClaySet("off_blue_roof_tiles", null);
+
+    public static RoofBlockSet BROWN_ROOF_TILES = registerClaySet("brown_roof_tiles", null);
+    public static RoofBlockSet DARK_BROWN_ROOF_TILES = registerClaySet("dark_brown_roof_tiles", null);
+    public static RoofBlockSet OFF_BROWN_ROOF_TILES = registerClaySet("off_brown_roof_tiles", null);
+    
+    public static RoofBlockSet CYAN_ROOF_TILES = registerClaySet("cyan_roof_tiles", null);
+    public static RoofBlockSet BRIGHT_CYAN_ROOF_TILES = registerClaySet("bright_cyan_roof_tiles", null);
+    public static RoofBlockSet DARK_CYAN_ROOF_TILES = registerClaySet("dark_cyan_roof_tiles", null);
+    public static RoofBlockSet LIGHT_CYAN_ROOF_TILES = registerClaySet("light_cyan_roof_tiles", null);
+    public static RoofBlockSet OFF_CYAN_ROOF_TILES = registerClaySet("off_cyan_roof_tiles", null);
+
+    public static RoofBlockSet GRAY_ROOF_TILES = registerClaySet("gray_roof_tiles", null);
+    public static RoofBlockSet DARK_GRAY_ROOF_TILES = registerClaySet("dark_gray_roof_tiles", null);
+    public static RoofBlockSet LIGHT_GRAY_ROOF_TILES = registerClaySet("light_gray_roof_tiles", null);
+    public static RoofBlockSet OFF_GRAY_ROOF_TILES = registerClaySet("off_gray_roof_tiles", null);
+
+    public static RoofBlockSet GREEN_ROOF_TILES = registerClaySet("green_roof_tiles", null);
+    public static RoofBlockSet BRIGHT_GREEN_ROOF_TILES = registerClaySet("bright_green_roof_tiles", null);
+    public static RoofBlockSet DARK_GREEN_ROOF_TILES = registerClaySet("dark_green_roof_tiles", null);
+    public static RoofBlockSet LIGHT_GREEN_ROOF_TILES = registerClaySet("light_green_roof_tiles", null);
+    public static RoofBlockSet OFF_GREEN_ROOF_TILES = registerClaySet("off_green_roof_tiles", null);
+
+    public static RoofBlockSet RED_ROOF_TILES = registerClaySet("red_roof_tiles", null);
+    public static RoofBlockSet BRIGHT_RED_ROOF_TILES = registerClaySet("bright_red_roof_tiles", null);
+    public static RoofBlockSet DARK_RED_ROOF_TILES = registerClaySet("dark_red_roof_tiles", null);
+    public static RoofBlockSet LIGHT_RED_ROOF_TILES = registerClaySet("light_red_roof_tiles", null);
+    public static RoofBlockSet OFF_RED_ROOF_TILES = registerClaySet("off_red_roof_tiles", null);
+
+    public static RoofBlockSet YELLOW_ROOF_TILES = registerClaySet("yellow_roof_tiles", null);
+    public static RoofBlockSet BRIGHT_YELLOW_ROOF_TILES = registerClaySet("bright_yellow_roof_tiles", null);
+    public static RoofBlockSet DARK_YELLOW_ROOF_TILES = registerClaySet("dark_yellow_roof_tiles", null);
+    public static RoofBlockSet LIGHT_YELLOW_ROOF_TILES = registerClaySet("light_yellow_roof_tiles", null);
+    public static RoofBlockSet OFF_YELLOW_ROOF_TILES = registerClaySet("off_yellow_roof_tiles", null);
+
 
     public static RoofBlockSet THATCH = registerThatchSet("thatch", Oxidizable.OxidationLevel.UNAFFECTED);
     public static RoofBlockSet WEATHERED_THATCH = registerThatchSet("weathered_thatch", Oxidizable.OxidationLevel.EXPOSED);
@@ -156,7 +196,7 @@ public class OtherBlockSets {
             CHARRED_SHINGLES,
             WEATHERED_SHINGLES,
 
-            BRICK_CLAY_TILING,
+            CLAY_TILING,
 
             BLACK_CLAY_TILING,
             BLUE_CLAY_TILING,
@@ -174,6 +214,45 @@ public class OtherBlockSets {
             RED_CLAY_TILING,
             WHITE_CLAY_TILING,
             YELLOW_CLAY_TILING,
+
+            BLUE_ROOF_TILES,
+            BRIGHT_BLUE_ROOF_TILES,
+            DARK_BLUE_ROOF_TILES,
+            LIGHT_BLUE_ROOF_TILES,
+            OFF_BLUE_ROOF_TILES,
+
+            BROWN_ROOF_TILES,
+            DARK_BROWN_ROOF_TILES,
+            OFF_BROWN_ROOF_TILES,
+
+            CYAN_ROOF_TILES,
+            BRIGHT_CYAN_ROOF_TILES,
+            DARK_CYAN_ROOF_TILES,
+            LIGHT_CYAN_ROOF_TILES,
+            OFF_CYAN_ROOF_TILES,
+
+            GRAY_ROOF_TILES,
+            DARK_GRAY_ROOF_TILES,
+            LIGHT_GRAY_ROOF_TILES,
+            OFF_GRAY_ROOF_TILES,
+
+            GREEN_ROOF_TILES,
+            BRIGHT_GREEN_ROOF_TILES,
+            DARK_GREEN_ROOF_TILES,
+            LIGHT_GREEN_ROOF_TILES,
+            OFF_GREEN_ROOF_TILES,
+
+            RED_ROOF_TILES,
+            BRIGHT_RED_ROOF_TILES,
+            DARK_RED_ROOF_TILES,
+            LIGHT_RED_ROOF_TILES,
+            OFF_RED_ROOF_TILES,
+
+            YELLOW_ROOF_TILES,
+            BRIGHT_YELLOW_ROOF_TILES,
+            DARK_YELLOW_ROOF_TILES,
+            LIGHT_YELLOW_ROOF_TILES,
+            OFF_YELLOW_ROOF_TILES,
     };
     public static MiscBlockSet[] specialWoodSets = new MiscBlockSet[] {
             TREATED_WOOD,

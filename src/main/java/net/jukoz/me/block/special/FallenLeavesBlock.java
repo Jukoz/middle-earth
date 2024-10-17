@@ -1,9 +1,7 @@
 package net.jukoz.me.block.special;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.block.LilyPadBlock;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -14,15 +12,22 @@ import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
-public class FallenLeavesBlock extends LilyPadBlock {
+public class FallenLeavesBlock extends PlantBlock {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
 
     public FallenLeavesBlock(Settings settings) {
         super(settings);
         setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected MapCodec<? extends PlantBlock> getCodec() {
+        return FallenLeavesBlock.createCodec(FallenLeavesBlock::new);
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
@@ -36,14 +41,17 @@ public class FallenLeavesBlock extends LilyPadBlock {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        FluidState fluidState = world.getFluidState(pos.up());
-
-        return fluidState.getFluid() == Fluids.EMPTY;
+        return floor.isOpaqueFullCube(world, pos);
     }
 
     @Override
     public BlockState rotate(BlockState state, BlockRotation rotation) {
         return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
+    @Override
+    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 1.5, 15.0);
     }
 
     @Override

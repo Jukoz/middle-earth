@@ -15,7 +15,7 @@ public class RaceUtil {
 
         // [RESET]
         if(havePreviousRace){
-            RaceLookup.getRaceFromString(data.getRace().toString()).reverseAttributes(player);
+            RaceLookup.getRace(player.getWorld(), data.getRace()).reverseAttributes(player);
             data.setRace(null);
         }
 

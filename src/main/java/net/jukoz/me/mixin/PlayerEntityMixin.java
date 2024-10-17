@@ -2,9 +2,8 @@ package net.jukoz.me.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
-import net.jukoz.me.item.items.CustomSiegeShieldItem;
+import net.jukoz.me.item.items.shields.CustomSiegeShieldItem;
 import net.jukoz.me.item.items.weapons.CustomDaggerWeaponItem;
-import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomDaggerWeaponItem;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
 import net.jukoz.me.utils.IEntityDataSaver;
 import net.jukoz.me.utils.PlayerMovementData;

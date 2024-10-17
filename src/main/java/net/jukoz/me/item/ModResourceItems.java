@@ -45,11 +45,6 @@ public class ModResourceItems {
     public static final Item LEAD_NUGGET = registerItem("lead_nugget",
             new Item(new Item.Settings()));
 
-    public static final Item BRONZE_INGOT = registerItem("bronze_ingot",
-            new Item(new Item.Settings()));
-    public static final Item BRONZE_NUGGET = registerItem("bronze_nugget",
-            new Item(new Item.Settings()));
-
     public static final Item RAW_SILVER = registerItem("raw_silver",
             new Item(new Item.Settings()));
     public static final Item SILVER_INGOT = registerItem("silver_ingot",
@@ -57,71 +52,41 @@ public class ModResourceItems {
     public static final Item SILVER_NUGGET = registerItem("silver_nugget",
             new Item(new Item.Settings()));
 
-    public static final Item SLAG_INGOT = registerItem("slag_ingot",
+    public static final Item BRONZE_INGOT = registerItem("bronze_ingot",
             new Item(new Item.Settings()));
-    public static final Item SLAG_NUGGET = registerItem("slag_nugget",
+    public static final Item BRONZE_NUGGET = registerItem("bronze_nugget",
             new Item(new Item.Settings()));
 
-    public static final Item URUK_STEEL_INGOT = registerItem("uruk_steel_ingot",
+    public static final Item CRUDE_INGOT = registerItem("crude_ingot",
             new Item(new Item.Settings()));
-    public static final Item URUK_STEEL_NUGGET = registerItem("uruk_steel_nugget",
+    public static final Item CRUDE_NUGGET = registerItem("crude_nugget",
+            new Item(new Item.Settings()));
+
+    public static final Item BURZUM_STEEL_INGOT = registerItem("burzum_steel_ingot",
+            new SmithingMaterialItem(new Item.Settings()));
+    public static final Item BURZUM_STEEL_NUGGET = registerItem("burzum_steel_nugget",
             new Item(new Item.Settings()));
 
     public static final Item STEEL_INGOT = registerItem("steel_ingot",
-            new Item(new Item.Settings()));
+            new SmithingMaterialItem(new Item.Settings()));
     public static final Item STEEL_NUGGET = registerItem("steel_nugget",
             new Item(new Item.Settings()));
 
-    public static final Item ELVEN_STEEL_INGOT = registerItem("elven_steel_ingot",
-            new Item(new Item.Settings()));
-    public static final Item ELVEN_STEEL_NUGGET = registerItem("elven_steel_nugget",
-            new Item(new Item.Settings()));
-
-    public static final Item DWARVEN_STEEL_INGOT = registerItem("dwarven_steel_ingot",
-            new Item(new Item.Settings()));
-    public static final Item DWARVEN_STEEL_NUGGET = registerItem("dwarven_steel_nugget",
+    public static final Item EDHEL_STEEL_INGOT = registerItem("edhel_steel_ingot",
+            new SmithingMaterialItem(new Item.Settings()));
+    public static final Item EDHEL_STEEL_NUGGET = registerItem("edhel_steel_nugget",
             new Item(new Item.Settings()));
 
-    public static final Item MORGUL_STEEL_INGOT = registerItem("morgul_steel_ingot",
+    public static final Item KHAZAD_STEEL_INGOT = registerItem("khazad_steel_ingot",
+            new SmithingMaterialItem(new Item.Settings()));
+    public static final Item KHAZAD_STEEL_NUGGET = registerItem("khazad_steel_nugget",
             new Item(new Item.Settings()));
-    public static final Item MORGUL_STEEL_NUGGET = registerItem("morgul_steel_nugget",
-            new Item(new Item.Settings()));
-
 
     public static final Item RAW_MITHRIL = registerItem("raw_mithril",
             new Item(new Item.Settings().fireproof()));
     public static final Item MITHRIL_INGOT = registerItem("mithril_ingot",
             new Item(new Item.Settings().fireproof()));
     public static final Item MITHRIL_NUGGET = registerItem("mithril_nugget",
-            new Item(new Item.Settings().fireproof()));
-
-    public static final Item COPPER_ROD = registerItem("copper_rod",
-            new Item(new Item.Settings()));
-    public static final Item TIN_ROD = registerItem("tin_rod",
-            new Item(new Item.Settings()));
-    public static final Item LEAD_ROD = registerItem("lead_rod",
-            new Item(new Item.Settings()));
-    public static final Item BRONZE_ROD = registerItem("bronze_rod",
-            new Item(new Item.Settings()));
-    public static final Item SILVER_ROD = registerItem("silver_rod",
-            new Item(new Item.Settings()));
-    public static final Item GOLD_ROD = registerItem("gold_rod",
-            new Item(new Item.Settings()));
-    public static final Item IRON_ROD = registerItem("iron_rod",
-            new Item(new Item.Settings()));
-    public static final Item SLAG_ROD = registerItem("slag_rod",
-            new Item(new Item.Settings()));
-    public static final Item URUK_STEEL_ROD = registerItem("uruk_steel_rod",
-            new Item(new Item.Settings()));
-    public static final Item STEEL_ROD = registerItem("steel_rod",
-            new Item(new Item.Settings()));
-    public static final Item ELVEN_STEEL_ROD = registerItem("elven_steel_rod",
-            new Item(new Item.Settings()));
-    public static final Item DWARVEN_STEEL_ROD = registerItem("dwarven_steel_rod",
-            new Item(new Item.Settings()));
-    public static final Item MORGUL_STEEL_ROD = registerItem("morgul_steel_rod",
-            new Item(new Item.Settings()));
-    public static final Item MITHRIL_ROD = registerItem("mithril_rod",
             new Item(new Item.Settings().fireproof()));
 
     public static final Item IRON_CHAINMAIL = registerItem("iron_chainmail",
@@ -165,7 +130,6 @@ public class ModResourceItems {
     public static final Item COPPER_COIN = registerItem("copper_coin", new Item(new Item.Settings()));
     public static final Item SILVER_COIN = registerItem("silver_coin", new Item(new Item.Settings()));
 
-
     public static final Item FLAX = registerItem("flax", new Item(new Item.Settings()));
     public static final Item FLAX_SEEDS = registerItem("flax_seeds", new AliasedBlockItem(ModNatureBlocks.FLAX_CROP, new Item.Settings()));
     public static final Item PIPEWEED = registerItem("pipeweed", new Item(new Item.Settings()));
@@ -174,6 +138,29 @@ public class ModResourceItems {
     public static final Item BELL_PEPPER_SEEDS = registerItem("bell_pepper_seeds", new AliasedBlockItem(ModNatureBlocks.BELL_PEPPER_CROP, new Item.Settings()));
     public static final Item CUCUMBER_SEEDS = registerItem("cucumber_seeds", new AliasedBlockItem(ModNatureBlocks.CUCUMBER_CROP, new Item.Settings()));
     public static final Item LETTUCE_SEEDS = registerItem("lettuce_seeds", new AliasedBlockItem(ModNatureBlocks.LETTUCE_CROP, new Item.Settings()));
+
+    public static final Item ROD = registerItem("rod",
+            new Item(new Item.Settings().maxCount(16)));
+    public static final Item LARGE_ROD = registerItem("large_rod",
+            new Item(new Item.Settings().maxCount(16)));
+
+    public static final Item PICKAXE_HEAD = registerItem("pickaxe_head",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item AXE_HEAD = registerItem("axe_head",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item SHOVEL_HEAD = registerItem("shovel_head",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item HOE_HEAD = registerItem("hoe_head",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+
+    public static final Item SHORT_BLADE = registerItem("short_blade",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item BLADE = registerItem("blade",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item LONG_BLADE = registerItem("long_blade",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item SWORD_HILT = registerItem("sword_hilt",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
 
     public static final Item DWARVEN_KEY = registerItem("dwarven_key",
             new Item(new Item.Settings().maxCount(1)));
@@ -195,6 +182,12 @@ public class ModResourceItems {
 
     public static final Item DRAGON_BANNER_PATTERN = registerItem("dragon_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.DRAGON_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item PIPEWEED_BANNER_PATTERN = registerItem("pipeweed_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.PIPEWEED_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item FELLOWSHIP_BANNER_PATTERN = registerItem("fellowship_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.FELLOWSHIP_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item SNAIL_BANNER_PATTERN = registerItem("snail_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.SNAIL_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
 
     public static Block registerBlock(String name, Block block, boolean absent) {
         if(!absent) registerBlockItem(name, block);

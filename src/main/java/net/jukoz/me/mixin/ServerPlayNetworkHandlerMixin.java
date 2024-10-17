@@ -1,6 +1,6 @@
 package net.jukoz.me.mixin;
 
-import net.jukoz.me.item.items.CustomSiegeShieldItem;
+import net.jukoz.me.item.items.shields.CustomSiegeShieldItem;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;

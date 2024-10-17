@@ -46,7 +46,7 @@ public class BlockDrops {
             add(ModNatureBlocks.LEBETHRON_SAPLING);
             add(ModNatureBlocks.WHITE_PALM_SAPLING);
 
-            add(ModDecorativeBlocks.ALLOY_FURNACE);
+            add(ModDecorativeBlocks.FORGE);
 
             add(ModDecorativeBlocks.REINFORCED_CHEST);
 

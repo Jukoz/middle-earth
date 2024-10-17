@@ -186,6 +186,28 @@ public class ModNatureBlocks {
     public static final Block DUCKWEED = registerBlock("duckweed",
             new LilyPadBlock(AbstractBlock.Settings.copy(Blocks.LILY_PAD).noCollision()), false);
 
+    public static final Block AZALEA_FLOWER_GROWTH = registerBlock("azalea_flower_growth",
+            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
+                    .mapColor(DyeColor.GREEN).burnable()), true);
+    public static final Block IVY_GROWTH = registerBlock("ivy_growth",
+            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
+                    .mapColor(DyeColor.GREEN).burnable()), true);
+    public static final Block LILAC_FLOWER_GROWTH = registerBlock("lilac_flower_growth",
+            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
+                    .mapColor(DyeColor.GREEN).burnable()), true);
+    public static final Block PINK_FLOWER_GROWTH = registerBlock("pink_flower_growth",
+            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
+                    .mapColor(DyeColor.GREEN).burnable()), true);
+    public static final Block RED_FLOWER_GROWTH = registerBlock("red_flower_growth",
+            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
+                    .mapColor(DyeColor.GREEN).burnable()), true);
+    public static final Block WHITE_FLOWER_GROWTH = registerBlock("white_flower_growth",
+            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
+                    .mapColor(DyeColor.GREEN).burnable()), true);
+    public static final Block YELLOW_FLOWER_GROWTH = registerBlock("yellow_flower_growth",
+            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
+                    .mapColor(DyeColor.GREEN).burnable()), true);
+
     public static final Block BROWN_BOLETE = registerBlock("brown_bolete",
             new MushroomPlantBlock(MushroomTreeConfiguredFeatures.BROWN_BOLETTE_TREE_KEY, AbstractBlock.Settings.copy(Blocks.BROWN_MUSHROOM)), true);
     public static final Block CAVE_AMANITA = registerBlock("cave_amanita",
@@ -271,7 +293,7 @@ public class ModNatureBlocks {
     public static final Block FLOWERING_MALLORN_LEAVES = registerBlock("flowering_mallorn_leaves",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
     public static final Block FALLEN_MALLORN_LEAVES = registerBlock("fallen_mallorn_leaves",
-            new FallenLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque()), true);
+            new FallenLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque().replaceable().noCollision()), true);
 
     public static final Block MAPLE_LEAVES = registerBlock("maple_leaves",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
@@ -283,8 +305,7 @@ public class ModNatureBlocks {
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);
 
     public static final Block FALLEN_MIRKWOOD_LEAVES = registerBlock("fallen_mirkwood_leaves",
-            new FallenLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque()), true);
-
+            new FallenLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque().replaceable().noCollision()), true);
 
     public static final Block DRY_PINE_LEAVES = registerBlock("dry_pine_leaves",
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS)), true);

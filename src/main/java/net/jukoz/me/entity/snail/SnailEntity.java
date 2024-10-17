@@ -3,6 +3,7 @@ package net.jukoz.me.entity.snail;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
 import net.minecraft.block.*;
+import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
 import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
@@ -29,7 +30,7 @@ import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 public class SnailEntity extends AnimalEntity {
-
+    public final AnimationState crawlingAnimationState = new AnimationState();
     public static final int CLIMBING_TIME_TRANSITION = 12;
     private static final TrackedData<Byte> SNAIL_FLAGS;
     private int climbingTicks = 0;
@@ -186,6 +187,8 @@ public class SnailEntity extends AnimalEntity {
         if(isClimbing()) {
             this.setVelocity(0, 0.01, 0);
         }
+
+        this.crawlingAnimationState.startIfNotRunning(this.age);
     }
 
     @Override

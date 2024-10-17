@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "me:block/candle_heap"
+    },
+    "lit=true": {
+      "model": "me:block/candle_heap_lit"
+    }
+  }
+}

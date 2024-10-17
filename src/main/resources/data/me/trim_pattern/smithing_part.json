@@ -1,0 +1,8 @@
+{
+  "asset_id": "me:smithing_part",
+  "decal": false,
+  "description": {
+    "translate": "trim_pattern.me.smithing_part"
+  },
+  "template_item": "me:smithing_hammer"
+}

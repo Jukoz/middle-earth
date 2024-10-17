@@ -61,59 +61,39 @@ public class SimpleItemModel {
 
             add(ModResourceItems.ASH);
 
-            add(ModResourceItems.COPPER_ROD);
-
             add(ModResourceItems.RAW_TIN);
             add(ModResourceItems.TIN_INGOT);
             add(ModResourceItems.TIN_NUGGET);
-            add(ModResourceItems.TIN_ROD);
 
             add(ModResourceItems.RAW_LEAD);
             add(ModResourceItems.LEAD_INGOT);
             add(ModResourceItems.LEAD_NUGGET);
-            add(ModResourceItems.LEAD_ROD);
 
             add(ModResourceItems.BRONZE_INGOT);
             add(ModResourceItems.BRONZE_NUGGET);
-            add(ModResourceItems.BRONZE_ROD);
 
             add(ModResourceItems.RAW_SILVER);
             add(ModResourceItems.SILVER_INGOT);
             add(ModResourceItems.SILVER_NUGGET);
-            add(ModResourceItems.SILVER_ROD);
 
-            add(ModResourceItems.GOLD_ROD);
+            add(ModResourceItems.BURZUM_STEEL_INGOT);
+            add(ModResourceItems.BURZUM_STEEL_NUGGET);
 
-            add(ModResourceItems.IRON_ROD);
-
-            add(ModResourceItems.SLAG_INGOT);
-            add(ModResourceItems.SLAG_NUGGET);
-            add(ModResourceItems.SLAG_ROD);
-
-            add(ModResourceItems.URUK_STEEL_INGOT);
-            add(ModResourceItems.URUK_STEEL_NUGGET);
-            add(ModResourceItems.URUK_STEEL_ROD);
+            add(ModResourceItems.CRUDE_INGOT);
+            add(ModResourceItems.CRUDE_NUGGET);
 
             add(ModResourceItems.STEEL_INGOT);
             add(ModResourceItems.STEEL_NUGGET);
-            add(ModResourceItems.STEEL_ROD);
 
-            add(ModResourceItems.ELVEN_STEEL_INGOT);
-            add(ModResourceItems.ELVEN_STEEL_NUGGET);
-            add(ModResourceItems.ELVEN_STEEL_ROD);
+            add(ModResourceItems.EDHEL_STEEL_INGOT);
+            add(ModResourceItems.EDHEL_STEEL_NUGGET);
 
-            add(ModResourceItems.DWARVEN_STEEL_INGOT);
-            add(ModResourceItems.DWARVEN_STEEL_NUGGET);
-            add(ModResourceItems.DWARVEN_STEEL_ROD);
-
-            add(ModResourceItems.MORGUL_STEEL_INGOT);
-            add(ModResourceItems.MORGUL_STEEL_NUGGET);
-            add(ModResourceItems.MORGUL_STEEL_ROD);
+            add(ModResourceItems.KHAZAD_STEEL_INGOT);
+            add(ModResourceItems.KHAZAD_STEEL_NUGGET);
 
             add(ModResourceItems.RAW_MITHRIL);
             add(ModResourceItems.MITHRIL_INGOT);
             add(ModResourceItems.MITHRIL_NUGGET);
-            add(ModResourceItems.MITHRIL_ROD);
 
             add(ModResourceItems.IRON_CHAINMAIL);
 
