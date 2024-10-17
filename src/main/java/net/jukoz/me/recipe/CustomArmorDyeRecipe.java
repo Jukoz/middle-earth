@@ -35,7 +35,7 @@ public class CustomArmorDyeRecipe extends SpecialCraftingRecipe {
         for (int i = 0; i < craftingRecipeInput.getSize(); ++i) {
             ItemStack itemStack2 = craftingRecipeInput.getStackInSlot(i);
             if (itemStack2.isEmpty()) continue;
-            if (itemStack2.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+            if (itemStack2.isIn(ModTags.DYEABLE)) {
                 if (!itemStack.isEmpty()) {
                     return false;
                 }
@@ -59,7 +59,7 @@ public class CustomArmorDyeRecipe extends SpecialCraftingRecipe {
         for (int i = 0; i < craftingRecipeInput.getSize(); ++i) {
             ItemStack itemStack2 = craftingRecipeInput.getStackInSlot(i);
             if (itemStack2.isEmpty()) continue;
-            if (itemStack2.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+            if (itemStack2.isIn(ModTags.DYEABLE)) {
                 if (!itemStack.isEmpty()) {
                     return ItemStack.EMPTY;
                 }

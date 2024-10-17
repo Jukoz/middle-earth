@@ -16,6 +16,7 @@ import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.recipe.ModRecipeSerializer;
 import net.jukoz.me.registries.ModRegistries;
 import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.MiddleEarthNpcs;
 import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.statusEffects.ModStatusEffects;
 import net.jukoz.me.recipe.ModRecipes;
@@ -42,9 +43,6 @@ public class MiddleEarth implements ModInitializer {
 		LoggerUtil.logInfoMsg("================ MiddleEarth ================");
 
 		ModServerNetworkHandler.register(new ConnectionToClient());
-
-		MiddleEarthRaces.register();
-		MiddleEarthFactions.register();
 
 		ModServerConfigs.registerConfigs();
 		ModClientConfigs.registerConfigs();
@@ -96,9 +94,13 @@ public class MiddleEarth implements ModInitializer {
 		ModDimensions.register();
 		MEBiomeKeys.registerModBiomes();
 		MEBiomesData.loadBiomes();
-		ModWorldGeneration.generateModWorldGen();
 
+		ModWorldGeneration.generateModWorldGen();
 		LootModifiers.modifyLootTables();
+
+		MiddleEarthRaces.register();
+		MiddleEarthNpcs.register();
+		MiddleEarthFactions.register();
 
 		try {
 			new MiddleEarthMapGeneration();

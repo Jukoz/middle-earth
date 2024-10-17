@@ -5875,9 +5875,9 @@
   "tooltip.me.galadhrim_lord_cape": "加拉兹民领主披风",
 
   "#Comment:": "结盟值",
-  "alignment.me.good" : "良善",
-  "alignment.me.neutral" : "平凡",
-  "alignment.me.evil" : "邪恶",
+  "disposition.me.good" : "良善",
+  "disposition.me.neutral" : "平凡",
+  "disposition.me.evil" : "邪恶",
 
   "#Comment:": "派系",
   "faction.me.gondor" : "刚铎",

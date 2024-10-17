@@ -1,6 +1,6 @@
-package net.jukoz.me.client.screens.utils.widgets.map.types;
+package net.jukoz.me.client.screens.utils.widgets;
 
-public enum MapMarkerArrowDirections {
+public enum UiDirections {
     NONE,
     NORTH,
     NORTH_EAST,

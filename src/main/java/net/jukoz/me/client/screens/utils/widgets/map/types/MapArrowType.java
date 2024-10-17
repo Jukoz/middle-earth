@@ -1,5 +1,6 @@
 package net.jukoz.me.client.screens.utils.widgets.map.types;
 
+import net.jukoz.me.client.screens.utils.widgets.UiDirections;
 import org.joml.Vector2i;
 
 import java.util.HashMap;
@@ -7,7 +8,7 @@ import java.util.HashMap;
 public enum MapArrowType {
     NORMAL(1, 1,11,11),
     GOLDEN(49, 1,11,11);
-    final HashMap<MapMarkerArrowDirections, Integer> basicUvPerDirection;
+    final HashMap<UiDirections, Integer> basicUvPerDirection;
     public final Vector2i size;
     final int baseUvX;
     final int hoveredUvX;
@@ -22,30 +23,30 @@ public enum MapArrowType {
         this.basicUvPerDirection = new HashMap<>();
         // Setting all the uvs
         int currentUvY = startUvY;
-        this.basicUvPerDirection.put(MapMarkerArrowDirections.NORTH, currentUvY);
+        this.basicUvPerDirection.put(UiDirections.NORTH, currentUvY);
         currentUvY += sizeY + 2;
-        this.basicUvPerDirection.put(MapMarkerArrowDirections.SOUTH, currentUvY);
+        this.basicUvPerDirection.put(UiDirections.SOUTH, currentUvY);
         currentUvY += sizeY + 2;
-        this.basicUvPerDirection.put(MapMarkerArrowDirections.WEST, currentUvY);
+        this.basicUvPerDirection.put(UiDirections.WEST, currentUvY);
         currentUvY += sizeY + 2;
-        this.basicUvPerDirection.put(MapMarkerArrowDirections.EAST, currentUvY);
+        this.basicUvPerDirection.put(UiDirections.EAST, currentUvY);
         currentUvY += sizeY + 2;
-        this.basicUvPerDirection.put(MapMarkerArrowDirections.NORTH_WEST, currentUvY);
+        this.basicUvPerDirection.put(UiDirections.NORTH_WEST, currentUvY);
         currentUvY += sizeY + 2;
-        this.basicUvPerDirection.put(MapMarkerArrowDirections.SOUTH_WEST, currentUvY);
+        this.basicUvPerDirection.put(UiDirections.SOUTH_WEST, currentUvY);
         currentUvY += sizeY + 2;
-        this.basicUvPerDirection.put(MapMarkerArrowDirections.NORTH_EAST, currentUvY);
+        this.basicUvPerDirection.put(UiDirections.NORTH_EAST, currentUvY);
         currentUvY += sizeY + 2;
-        this.basicUvPerDirection.put(MapMarkerArrowDirections.SOUTH_EAST, currentUvY);
+        this.basicUvPerDirection.put(UiDirections.SOUTH_EAST, currentUvY);
     }
 
-    public Vector2i getUvs(MapMarkerArrowDirections direction){
+    public Vector2i getUvs(UiDirections direction){
         return new Vector2i(baseUvX, this.basicUvPerDirection.get(direction));
     }
-    public Vector2i getHoveredUvs(MapMarkerArrowDirections direction){
+    public Vector2i getHoveredUvs(UiDirections direction){
         return new Vector2i(hoveredUvX, this.basicUvPerDirection.get(direction));
     }
-    public Vector2i getFocusedUvs(MapMarkerArrowDirections direction){
+    public Vector2i getFocusedUvs(UiDirections direction){
         return new Vector2i(focusedUvX, this.basicUvPerDirection.get(direction));
     }
 }

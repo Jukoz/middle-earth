@@ -1,4 +1,4 @@
-package net.jukoz.me.entity.uruks.isengard.mordor;
+package net.jukoz.me.entity.uruks.isengard;
 
 import java.util.Arrays;
 import java.util.Comparator;

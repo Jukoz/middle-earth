@@ -1,14 +1,13 @@
 package net.jukoz.me.client.screens.controllers;
 
-import it.unimi.dsi.fastutil.Hash;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.jukoz.me.client.screens.FactionSelectionScreen;
 import net.jukoz.me.network.packets.C2S.*;
-import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
-import net.jukoz.me.resources.datas.factions.data.NpcPreview;
+import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.resources.datas.races.Race;
@@ -25,41 +24,50 @@ import org.joml.Vector2i;
 import java.util.*;
 
 public class FactionSelectionController {
-    private Map<Alignment, List<Faction>> factions;
+    private Map<Disposition, List<Faction>> factions;
     /**
      * Identifier and if the spawn data is from the dynamic pool. True(Dynamic) : False(Custom)
      */
     private List<SpawnData> spawns;
     private List<Race> races = new ArrayList();
 
-    private int currentAlignementIndex;
+    private int currentDispositionIndex;
     private int currentFactionIndex;
     private int currentRaceIndex;
     private int currentSubFactionIndex;
     private int currentSpawnIndex;
     private AbstractClientPlayerEntity player;
     private FactionSelectionScreen screen;
-
+    public boolean mapFocusToggle = true;
+    List<Disposition> dispositionsWithContent = new ArrayList<>();
     public FactionSelectionController(FactionSelectionScreen screen, AbstractClientPlayerEntity player){
         this.player = player;
         this.screen = screen;
 
         factions = new HashMap<>();
-        factions.put(Alignment.GOOD, FactionLookup.getFactionsByAlignment(player.getWorld(), Alignment.GOOD).values().stream().toList());
-        factions.put(Alignment.NEUTRAL, FactionLookup.getFactionsByAlignment(player.getWorld(), Alignment.NEUTRAL).values().stream().toList());
-        factions.put(Alignment.EVIL, FactionLookup.getFactionsByAlignment(player.getWorld(), Alignment.EVIL).values().stream().toList());
+        addFactionsByDisposition(Disposition.GOOD);
+        addFactionsByDisposition(Disposition.NEUTRAL);
+        addFactionsByDisposition(Disposition.EVIL);
+
         if(getCurrentlySelectedFaction() == null){
-            if(!factions.get(Alignment.EVIL).isEmpty()){
-                currentAlignementIndex = 2;
-            } else if(!factions.get(Alignment.NEUTRAL).isEmpty()){
-                currentAlignementIndex = 1;
+            if(!factions.get(Disposition.EVIL).isEmpty()){
+                currentDispositionIndex = 2;
+            } else if(!factions.get(Disposition.NEUTRAL).isEmpty()){
+                currentDispositionIndex = 1;
             }
         }
         if(getCurrentlySelectedFaction() == null){
             LoggerUtil.logError("FactionSelectionController::No faction available!");
+            throw new RuntimeException();
         }
         updateSpawnList();
         updateRaces();
+    }
+
+    private void addFactionsByDisposition(Disposition disposition) {
+        factions.put(disposition, FactionLookup.getFactionsByDisposition(player.getWorld(), disposition).values().stream().toList());
+        if(!factions.get(disposition).isEmpty())
+            dispositionsWithContent.add(disposition);
     }
 
     private void updateSpawnList() {
@@ -77,18 +85,18 @@ public class FactionSelectionController {
         races = null;
         Faction currentFaction = getCurrentlySelectedFaction();
         if(currentFaction == null) return;
-        races = currentFaction.getRaces();
+        races = currentFaction.getRaces(player.getWorld());
     }
 
 
     public int randomizeFaction(int tentativeLeft){
         Random random = new Random();
-        // Alignment randomizer
-        currentAlignementIndex = random.nextInt(Alignment.values().length);
-        Alignment alignment = Alignment.values()[currentAlignementIndex];
+        // Disposition randomizer
+        currentDispositionIndex = random.nextInt(dispositionsWithContent.size());
+        Disposition disposition = dispositionsWithContent.get(currentDispositionIndex);
 
         // Recursive trigger
-        if(factions.get(alignment) == null || factions.get(alignment).isEmpty()){
+        if(factions.get(disposition) == null || factions.get(disposition).isEmpty()){
             if(tentativeLeft > 0){
                 return tentativeLeft + randomizeFaction(tentativeLeft - 1);
             }
@@ -96,13 +104,13 @@ public class FactionSelectionController {
 
         // Faction randomizer
         currentFactionIndex =
-                (factions.get(alignment) == null || factions.get(alignment).isEmpty())
+                (factions.get(disposition) == null || factions.get(disposition).isEmpty())
                         ? 0
-                        : random.nextInt(factions.get(alignment).size());
+                        : random.nextInt(factions.get(disposition).size());
         Faction faction =
-                (factions.get(alignment) == null || factions.get(alignment).isEmpty() || currentFactionIndex >= factions.get(alignment).size())
+                (factions.get(disposition) == null || factions.get(disposition).isEmpty() || currentFactionIndex >= factions.get(disposition).size())
                         ? null
-                        : factions.get(alignment).get(currentFactionIndex);
+                        : factions.get(disposition).get(currentFactionIndex);
 
         // Subfaction randomizer
         currentSubFactionIndex =
@@ -114,19 +122,17 @@ public class FactionSelectionController {
         return 0;
     }
 
-    public void alignmentUpdate(boolean add) {
+    public void dispositionUpdate(boolean add) {
+        if(factions.isEmpty())
+            return;
         if(add){
-            currentAlignementIndex++;
-            if(currentAlignementIndex >= Alignment.values().length)
-                currentAlignementIndex = 0;
+            currentDispositionIndex++;
         }
         else{
-            currentAlignementIndex --;
-            if(currentAlignementIndex < 0)
-                currentAlignementIndex = Alignment.values().length - 1;
-
-
+            currentDispositionIndex --;
         }
+        currentDispositionIndex = dispositionsWithContent.indexOf(getCurrentDisposition());
+
         currentFactionIndex = 0;
         currentSubFactionIndex = 0;
         currentRaceIndex = 0;
@@ -135,16 +141,20 @@ public class FactionSelectionController {
         updateRaces();
     }
 
+    private int getDispositionsIndex(Disposition disposition){
+        return factions.keySet().stream().toList().indexOf(disposition);
+    }
+
     public void factionUpdate(boolean add) {
         if(add){
             currentFactionIndex++;
-            if(currentFactionIndex >= factions.get(getCurrentAlignment()).size())
+            if(currentFactionIndex >= factions.get(getCurrentDisposition()).size())
                 currentFactionIndex = 0;
         }
         else{
             currentFactionIndex--;
             if(currentFactionIndex < 0)
-                currentFactionIndex = factions.get(getCurrentAlignment()).size() - 1;
+                currentFactionIndex = factions.get(getCurrentDisposition()).size() - 1;
         }
         currentSubFactionIndex = 0;
         currentRaceIndex = 0;
@@ -216,19 +226,26 @@ public class FactionSelectionController {
         return races.size() > 1;
     }
 
+    public boolean haveSpawns(){
+        return spawns != null && !spawns.isEmpty();
+    }
+
     private Identifier getCurrentSpawnIdentifier(){
-        if(spawns == null || spawns.isEmpty())
+        if(!haveSpawns())
             updateSpawnList();
-        if(spawns.isEmpty())
+        if(!haveSpawns())
             return null;
         return spawns.get(currentSpawnIndex).getIdentifier();
     }
     public String getCurrentSpawnKey(){
-        Identifier spawnId = getCurrentSpawnIdentifier();
-        return SpawnDataHandler.getTranslatableKey(spawnId);
+        if(haveSpawns()){
+            Identifier spawnId = getCurrentSpawnIdentifier();
+            return SpawnDataHandler.getTranslatableKey(spawnId);
+        }
+        return "spawn.me.none";
     }
     public boolean haveManySpawns(){
-        if(spawns == null){
+        if(!haveSpawns()){
             return false;
         }
         return spawns.size() > 1;
@@ -237,7 +254,7 @@ public class FactionSelectionController {
 
     public void confirmSpawnSelection(AbstractClientPlayerEntity player){
         Faction faction = getCurrentlySelectedFaction();
-        if(faction == null || spawns == null || spawns.isEmpty()) return;
+        if(faction == null || !haveSpawns()) return;
 
         SpawnData spawn = spawns.get(currentSpawnIndex);
         Vec3d coordinate = spawn.getCoordinates();
@@ -248,20 +265,24 @@ public class FactionSelectionController {
         }
 
         ClientPlayNetworking.send(new PacketSetRace(races.get(currentRaceIndex).getId().toString()));
-        ClientPlayNetworking.send(new PacketSetAffiliation(getCurrentAlignment().name(), getCurrentlySelectedFaction().getId().toString(), spawn.getIdentifier().toString()));
+        ClientPlayNetworking.send(new PacketSetAffiliation(getCurrentDisposition().name(), getCurrentlySelectedFaction().getId().toString(), spawn.getIdentifier().toString()));
         if(player != null){
             BlockPos overworldBlockPos = player.getBlockPos();
             ClientPlayNetworking.send(new PacketSetSpawnData(overworldBlockPos.getX(), overworldBlockPos.getY(), overworldBlockPos.getZ()));
         }
     }
 
-    public Alignment getCurrentAlignment(){
-        return Alignment.values()[currentAlignementIndex];
+    public Disposition getCurrentDisposition(){
+        if(currentDispositionIndex >= dispositionsWithContent.size())
+            currentDispositionIndex = 0;
+        else if(currentDispositionIndex < 0)
+            currentDispositionIndex = dispositionsWithContent.size() - 1;
+        return dispositionsWithContent.get(currentDispositionIndex);
     }
 
     public Faction getCurrentFaction(){
-        Alignment alignment = getCurrentAlignment();
-        return (!factions.get(alignment).isEmpty()) ? factions.get(alignment).get(currentFactionIndex) : null;
+        Disposition disposition = getCurrentDisposition();
+        return (!factions.get(disposition).isEmpty()) ? factions.get(disposition).get(currentFactionIndex) : null;
     }
 
     public Faction getCurrentSubfaction(){
@@ -283,18 +304,19 @@ public class FactionSelectionController {
         return getCurrentSubfaction() != null;
     }
 
-    public int getCurrentAlignmentFactionCount(){
-        return factions.get(getCurrentAlignment()).size();
+    public int getCurrentDispositionFactionCount(){
+        return factions.get(getCurrentDisposition()).size();
     }
 
     // Todo : possibily remove this method to have a more precise getter
-    public Map<Alignment, List<Faction>> getFactions() {
+    public Map<Disposition, List<Faction>> getFactions() {
         return factions;
     }
 
-    public NpcPreview getCurrentPreview() {
+    public NpcGearData getCurrentPreview(World world) {
         Faction currentFaction = getCurrentlySelectedFaction();
-        NpcPreview data = currentFaction.getPreviewGear(races.get(currentRaceIndex));
+        races = currentFaction.getRaces(world);
+        NpcGearData data = currentFaction.getPreviewGear(world, races.get(currentRaceIndex));
         return data;
     }
 
@@ -304,14 +326,21 @@ public class FactionSelectionController {
     }
 
     public void setSpawnIndex(int index) {
-        if(index != currentSpawnIndex)
+        if(!haveSpawns()){
+            currentSpawnIndex = 0;
+            return;
+        }
+        if(index != currentSpawnIndex ||  spawns.isEmpty())
             currentSpawnIndex = Math.min(spawns.size() - 1, Math.max(0, index));
         if(screen.mapWidget != null){
             screen.mapWidget.updateSelectedSpawn(index);
-            if(screen.mapFocusToggle){
-                BlockPos blockPos = spawns.get(currentSpawnIndex).getBlockPos();
-                Vector2i point = new Vector2i(blockPos.getX(), blockPos.getZ());
-                screen.mapWidget.moveTo(point,5f);
+            if(mapFocusToggle){
+                SpawnData spawnData = spawns.get(currentSpawnIndex);
+                if(spawnData != null){
+                    BlockPos blockPos = spawns.get(currentSpawnIndex).getBlockPos();
+                    Vector2i point = new Vector2i(blockPos.getX(), blockPos.getZ());
+                    screen.mapWidget.moveTo(point, new Vector2d(3.5, 45.0));
+                }
             }
         }
     }
@@ -322,8 +351,8 @@ public class FactionSelectionController {
 
     public HashMap<Identifier, Text> getSearchBarPool(World world) {
         HashMap<Identifier, Text> pool = new HashMap<>();
-        for(List<Faction> factionsByAlignment : factions.values()){
-            for(Faction faction : factionsByAlignment){
+        for(List<Faction> factionsByDisposition : factions.values()){
+            for(Faction faction : factionsByDisposition){
                 pool.put(faction.getId(), faction.tryGetShortName());
                 if(faction.getFactionType() == FactionType.FACTION && faction.getSubFactions() != null){
                     for(Identifier identifier : faction.getSubFactions()){
@@ -334,5 +363,28 @@ public class FactionSelectionController {
             }
         }
         return pool;
+    }
+
+    public void toggleMapFocus() {
+        mapFocusToggle = !mapFocusToggle;
+        if(!mapFocusToggle){
+            screen.mapWidget.clearFocus();
+        }
+    }
+
+    public List<Text> getCurrentFactionDescriptions() {
+        Faction faction = getCurrentlySelectedFaction();
+        if(faction != null){
+            return faction.getDescription();
+        }
+        return null;
+    }
+
+    public Text getRaceListText() {
+        Faction faction = getCurrentlySelectedFaction();
+        if(faction != null){
+            return faction.getRaceListText();
+        }
+        return null;
     }
 }

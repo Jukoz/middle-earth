@@ -8,6 +8,7 @@ import net.jukoz.me.resources.datas.factions.FactionLookup;
 import net.jukoz.me.resources.datas.factions.FactionUtil;
 import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.resources.datas.races.RaceUtil;
+import net.jukoz.me.utils.IdentifierUtil;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -46,7 +47,7 @@ public class PacketSetRace extends ClientToServerPacket<PacketSetRace>
         MinecraftServer server = context.player().getServer();
         server.execute(() -> {
             try{
-                RaceUtil.updateRace(context.player(), RaceLookup.getRaceFromString(race));
+                RaceUtil.updateRace(context.player(), RaceLookup.getRace(context.player().getWorld(), IdentifierUtil.getIdentifierFromString(race)));
             } catch (Exception e){
                 LoggerUtil.logError("PacketSetRace::Tried setting race for player.", e);
             }

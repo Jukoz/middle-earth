@@ -7,9 +7,12 @@ import net.jukoz.me.client.screens.controllers.FactionSelectionController;
 import net.jukoz.me.client.screens.utils.CycledSelectionButtonType;
 import net.jukoz.me.client.screens.utils.widgets.*;
 import net.jukoz.me.client.screens.utils.widgets.map.FactionSelectionMapWidget;
-import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.client.screens.utils.widgets.text.TextAlignment;
+import net.jukoz.me.client.screens.utils.widgets.text.TextBlockWidget;
+import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
+import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.gui.DrawContext;
@@ -25,10 +28,13 @@ import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.awt.event.KeyEvent;
@@ -47,16 +53,17 @@ public class FactionSelectionScreen extends Screen {
     private ModelPart bannerField;
     private SearchBarWidget searchBarWidget;
     private PlayableNpcPreviewWidget playableNpcPreviewWidget;
-    private CycledSelectionWidget alignmentSelectionWidget;
+    private CycledSelectionWidget dispositionSelectionWidget;
     private CycledSelectionWidget factionSelectionWidget;
     private CycledSelectionWidget subfactionSelectionWidget;
     public ButtonWidget factionRandomizerButton;
+    public TextBlockWidget raceListTextBlockWidget;
+    public TextBlockWidget factionDescriptionTextBlockWidget;
 
     // Map buttons
     public ButtonWidget mapZoomInButton;
     public ButtonWidget mapZoomOutButton;
     public ButtonWidget mapFocusButton;
-    public boolean mapFocusToggle = false;
     public FactionSelectionMapWidget mapWidget;
     private CycledSelectionWidget raceCycledSelection;
     private CycledSelectionWidget spawnPointCycledSelection;
@@ -92,30 +99,27 @@ public class FactionSelectionScreen extends Screen {
         mapWidget.selectSpawn(controller.getCurrentSpawnIndex());
         mapWidget.updateSelectedSpawn(controller.getCurrentSpawnIndex());
         addMapPanelButtonsAndWidgets();
-
         addDrawableChild(searchBarWidget.getScreenClickButton());
     }
-
-
 
     /**
      * Add all faction selection buttons
      * - Cycled widgets & Randomizer
      */
     private void addFactionSelectionPanelButtons() {
-        // Alignment
-        alignmentSelectionWidget = new CycledSelectionWidget(
+        // Disposition
+        dispositionSelectionWidget = new CycledSelectionWidget(
                 button -> {
-                    controller.alignmentUpdate(false);
+                    controller.dispositionUpdate(false);
                     updateEquipment();
                 },
                 button -> {
-                    controller.alignmentUpdate(true);
+                    controller.dispositionUpdate(true);
                     updateEquipment();
                 },
                 null,
                 CycledSelectionButtonType.GOLD);
-        for(ButtonWidget button: alignmentSelectionWidget.getButtons()){
+        for(ButtonWidget button: dispositionSelectionWidget.getButtons()){
             addDrawableChild(button);
         }
 
@@ -178,7 +182,7 @@ public class FactionSelectionScreen extends Screen {
         mapFocusButton = ButtonWidget.builder(
                 Text.translatable("screen.me.button.focus_current"),
                 button -> {
-                    mapFocusToggle = !mapFocusToggle;
+                    controller.toggleMapFocus();
                     controller.setSpawnIndex(controller.getCurrentSpawnIndex());
                     mapWidget.addCooldown();
                 }).build();
@@ -254,7 +258,7 @@ public class FactionSelectionScreen extends Screen {
         Faction faction = controller.getCurrentlySelectedFaction();
 
         if(faction != null)
-            playableNpcPreviewWidget.updateEntity(controller.getCurrentPreview(), controller.getCurrentRace(), player.getWorld());
+            playableNpcPreviewWidget.updateEntity(controller.getCurrentPreview(player.getWorld()), controller.getCurrentRace(), player.getWorld());
         else
             playableNpcPreviewWidget.updateToDefaultEntity(player.getWorld());
     }
@@ -272,7 +276,6 @@ public class FactionSelectionScreen extends Screen {
         if(!playableNpcPreviewWidget.keyPressed(keyCode, scanCode, modifiers)
         || !searchBarWidget.keyPressed(keyCode, scanCode, modifiers))
             return true;
-
 
         if(keyCode == KeyEvent.VK_ESCAPE){
             this.close();
@@ -316,6 +319,71 @@ public class FactionSelectionScreen extends Screen {
                 mainPanelHeight
         );
 
+        // TODO : Display the lore dump texts
+        int maxLength = mainPanelHeight - startY - 95;
+        int textStartY = startY + (MINIMAL_MARGIN * 2);
+        int centerWithBanner = ((startX + (MINIMAL_MARGIN / 2)) + ((mainPanelWidth - 50) / 2));
+
+        Text factionName =  controller.getCurrentFaction().tryGetShortName().formatted(Formatting.BOLD).formatted(Formatting.DARK_GRAY);
+        int factionNameStartX = centerWithBanner - (textRenderer.getWidth(factionName) / 2);
+        context.drawText(textRenderer, factionName,
+                factionNameStartX,
+                textStartY, 0, false);
+        if(isMouseOver(factionNameStartX, textRenderer.getWidth(factionName), textStartY, textRenderer.fontHeight)){
+            context.drawTooltip(textRenderer, List.of(controller.getCurrentFaction().getFullName()), ModWidget.getMouseX(), ModWidget.getMouseY());
+        }
+
+
+        Faction faction = controller.getCurrentlySelectedFaction();
+        if(faction != null){
+            Faction subfaction = controller.getCurrentSubfaction();
+            if(subfaction != null){
+                textStartY += textRenderer.fontHeight + MINIMAL_MARGIN;
+                Text dispositionText = Text.translatable("screen.me.information.subfaction");
+                context.drawText(textRenderer, dispositionText,
+                        startX + (MINIMAL_MARGIN),
+                        textStartY, 0, false);
+
+                context.drawText(textRenderer, subfaction.getFullName(),
+                        startX + (MINIMAL_MARGIN) + textRenderer.getWidth(dispositionText),
+                        textStartY, 0, false);
+            }
+            List<Race> races = faction.getRaces(player.getWorld());
+            if(races != null || !races.isEmpty()){
+                textStartY += textRenderer.fontHeight + MINIMAL_MARGIN;
+                context.drawText(client.textRenderer, Text.translatable((races.size() <= 1) ? "screen.me.information.races" : "screen.me.information.races.many").formatted(Formatting.UNDERLINE),
+                        startX + MINIMAL_MARGIN,
+                        textStartY, 0, false);
+
+                if(raceListTextBlockWidget == null){
+                    raceListTextBlockWidget = new TextBlockWidget(
+                            startX + MINIMAL_MARGIN, textStartY + textRenderer.fontHeight + MINIMAL_MARGIN, mainPanelWidth - 50 - MINIMAL_MARGIN - (MINIMAL_MARGIN / 2), (textRenderer.fontHeight * 2) + MINIMAL_MARGIN
+                    ).setAlignment(TextAlignment.LEFT);
+                }
+                ;
+                raceListTextBlockWidget.setStartX(startX + MINIMAL_MARGIN).setStartY(textStartY + textRenderer.fontHeight + MINIMAL_MARGIN);
+                raceListTextBlockWidget.draw(context, List.of(controller.getRaceListText()), false, false);
+                textStartY += (textRenderer.fontHeight * 2) + MINIMAL_MARGIN;
+            }
+        }
+
+        if(factionDescriptionTextBlockWidget == null){
+            factionDescriptionTextBlockWidget = new TextBlockWidget(
+                    startX + MINIMAL_MARGIN, startY + 95, mainPanelWidth - (MINIMAL_MARGIN * 2) - 1, maxLength
+            ).setAlignment(TextAlignment.LEFT);
+        }
+
+        int loreTextStart = startY + 95;
+
+        context.drawText(client.textRenderer, Text.translatable("screen.me.information.description").formatted(Formatting.UNDERLINE),
+                startX + MINIMAL_MARGIN,
+                loreTextStart - textRenderer.fontHeight - MINIMAL_MARGIN, 0, false);
+
+
+        List<Text> texts = controller.getCurrentFactionDescriptions();
+        factionDescriptionTextBlockWidget.setStartX(startX + MINIMAL_MARGIN).setStartY(startY + 95);
+        factionDescriptionTextBlockWidget.draw(context, (texts != null && !texts.isEmpty()) ? List.of(texts.getFirst()) : texts, false, false);
+
         drawFactionBanner(context, startX + mainPanelWidth - 50, startY + 6);
     }
 
@@ -324,8 +392,8 @@ public class FactionSelectionScreen extends Screen {
         int startX = Math.max(MINIMAL_MARGIN, endX  - mainPanelWidth);
         int startY = (int) ((context.getScaledWindowHeight() / 2f) - (mainPanelHeight / 2f));
 
-        // Draw alignment option
-        Alignment alignment = controller.getCurrentAlignment();
+        // Draw disposition option
+        Disposition disposition = controller.getCurrentDisposition();
         Faction faction = controller.getCurrentFaction();
         Faction subFaction = controller.getCurrentSubfaction();
 
@@ -349,7 +417,7 @@ public class FactionSelectionScreen extends Screen {
         searchBarWidget.setEndY(endY);
 
         if(searchBarWidget.searchIsToggled()) {
-            alignmentSelectionWidget.enableArrows(false);
+            dispositionSelectionWidget.enableArrows(false);
             factionSelectionWidget.enableArrows(false);
             subfactionSelectionWidget.enableArrows(false);
             factionRandomizerButton.active = false;
@@ -357,13 +425,13 @@ public class FactionSelectionScreen extends Screen {
             return;
         }
 
-        // Alignment
-        factionSelectionWidget.enableArrows(Alignment.values().length > 1);
-        newStartY += MINIMAL_MARGIN + alignmentSelectionWidget.drawAnchored(context, endX, newStartY, false, alignment.getName(), textRenderer);
+        // Disposition
+        factionSelectionWidget.enableArrows(Disposition.values().length > 1);
+        newStartY += MINIMAL_MARGIN + dispositionSelectionWidget.drawAnchored(context, endX, newStartY, false, disposition.getName(), textRenderer);
 
         // Faction
-        int currentFactionCountForAlignment = controller.getCurrentAlignmentFactionCount();
-        factionSelectionWidget.enableArrows(currentFactionCountForAlignment > 1);
+        int currentFactionCountForDisposition = controller.getCurrentDispositionFactionCount();
+        factionSelectionWidget.enableArrows(currentFactionCountForDisposition > 1);
         if(faction != null){
             newStartY += MINIMAL_MARGIN + factionSelectionWidget.drawAnchored(context, endX, newStartY, false, (faction == null) ? null : faction.tryGetShortName(), textRenderer);
 
@@ -425,7 +493,9 @@ public class FactionSelectionScreen extends Screen {
         );
 
         mapWidget.drawAnchored(context,startX + 5, startY + 5, true);
-        mapFocusToggle = mapWidget.haveForcedMapTarget();
+        if(controller.mapFocusToggle != mapWidget.haveForcedMapTarget())
+            controller.toggleMapFocus();
+
         // Arbritary
         int buttonStartX = startX + MINIMAL_MARGIN + 2;
         int buttonSize = 10;
@@ -436,7 +506,7 @@ public class FactionSelectionScreen extends Screen {
         // Focus current
         context.drawTexture(MAP_SELECTION,
                 buttonStartX, smallButtonsStartY,
-                235, (mapFocusToggle) ? 20 : mapFocusButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
+                235, (controller.mapFocusToggle) ? 20 : mapFocusButton.isFocused() || isMouseOver(buttonStartX, buttonSize, smallButtonsStartY, buttonSize) ? 10 : 0,
                 buttonSize,
                 buttonSize
         );
@@ -484,7 +554,12 @@ public class FactionSelectionScreen extends Screen {
         startY += MINIMAL_MARGIN + CycledSelectionWidget.TOTAL_HEIGHT;
         raceCycledSelection.drawAnchored(context, startX,  startY,true, Text.translatable(controller.getCurrentRaceKey()), textRenderer);
         raceCycledSelection.enableArrows(controller.haveManyRaces());
-
+        if(isMouseOver(startX, CycledSelectionWidget.TOTAL_WIDTH, startY, CycledSelectionWidget.TOTAL_HEIGHT)){
+            Race race = controller.getCurrentRace();
+            if(race != null){
+                race.drawTooltip(player, context, textRenderer, ModWidget.getMouseX(), ModWidget.getMouseY());
+            }
+        }
         // Draw selection option
         int sizeX = 52;
         int sizeY = 18;
