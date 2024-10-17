@@ -5,16 +5,18 @@ import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.*;
+import net.jukoz.me.block.ModBlocks;
+import net.jukoz.me.block.ModDecorativeBlocks;
+import net.jukoz.me.block.ModNatureBlocks;
+import net.jukoz.me.block.MushroomBlockSets;
 import net.jukoz.me.block.crop.*;
-import net.jukoz.me.block.special.doors.*;
 import net.jukoz.me.block.special.LargeDoorBlock;
+import net.jukoz.me.block.special.doors.*;
 import net.jukoz.me.block.special.verticalSlabs.VerticalSlabBlock;
 import net.jukoz.me.block.special.verticalSlabs.VerticalSlabShape;
 import net.jukoz.me.datageneration.content.CustomItemModels;
 import net.jukoz.me.datageneration.content.MEModels;
 import net.jukoz.me.datageneration.content.models.*;
-import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -34,9 +36,6 @@ import net.minecraft.util.math.Direction;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Iterator;
-import java.util.Map;
-
 import java.util.Optional;
 
 public class ModelProvider extends FabricModelProvider {
@@ -717,6 +716,7 @@ public class ModelProvider extends FabricModelProvider {
 
     public void registerVanillaVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin, String slabPath) {
         Identifier fullBlockId = ModelIds.getBlockModelId(origin);
+
         Identifier variantId = MEModels.VERTICAL_SLAB.upload(block,
                 TextureMap.of(TextureKey.ALL, Identifier.of("minecraft", "block/" + slabPath)),
                 blockStateModelGenerator.modelCollector);
