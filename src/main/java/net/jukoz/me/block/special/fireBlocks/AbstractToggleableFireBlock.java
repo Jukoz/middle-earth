@@ -38,7 +38,7 @@ public abstract class AbstractToggleableFireBlock extends BlockWithEntity {
 
     public AbstractToggleableFireBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(LIT, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(LIT, true));
     }
 
     protected abstract MapCodec<? extends AbstractToggleableFireBlock> getCodec();
