@@ -5342,7 +5342,10 @@
 
 "#Comment:": "Block - Decoratives",
   "block.me.dwarven_lantern": "Dwarven Lantern",
+  "block.me.crystal_lamp": "Crystal Lamp",
   "block.me.silver_lantern": "Silver Lantern",
+  "block.me.elven_lantern": "Elven Lantern",
+
   "block.me.forge": "Forge",
   "block.me.bellows": "Bellows",
   "block.me.treated_anvil": "Treated Anvil",
@@ -5362,6 +5365,10 @@
   "block.me.rope_ladder": "Rope Ladder",
 
   "block.me.net": "Net",
+
+  "block.me.bronze_chain": "Bronze Chain",
+  "block.me.bronze_broad_chain": "Bronze Broad Chain",
+  "block.me.spiky_chain": "Spiky Chain",
 
   "block.me.blue_hobbit_door": "Blue Hobbit Door",
   "block.me.green_hobbit_door": "Green Hobbit Door",
