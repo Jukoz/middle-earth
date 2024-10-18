@@ -6057,8 +6057,14 @@
   "exception.me.identical_faction.source": "You already joined %s",
 
 "#Comment:": "UI Onboarding Screen",
+  "ui.me.onboarding_selection.title": "Onboarding Screen",
   "ui.me.continue_character": "Continue",
   "ui.me.reset_character": "Reset Affiliation",
+
+"#Comment:": "UI Return Confirmation Screen",
+  "ui.me.return_confirmation.title": "Onboarding Screen",
+  "ui.me.return_confirmation.continue_character.title": "Return Button",
+  "ui.me.return_confirmation.continue_character.content": "Go to Overworld",
 
 "#Comment:": "UI Middle-earth Map Screen",
   "ui.me.map_screen.button.fullscreen_toggle": "Toggle Fullscreen Button",
@@ -6068,6 +6074,7 @@
   "ui.me.map_screen.tooltip.coordinates_label": "[x,z] ",
   "ui.me.map_screen.tooltip.coordinates_content": "%s, %s",
   "ui.me.map_screen.tooltip.teleport_keybind": "Right click to teleport",
+  "ui.me.map_screen.map_title_text": "Middle-earth Map",
 
 
   "#Comment": "Screen Faction Selection",
@@ -6082,9 +6089,6 @@
   "screen.me.information.races": "Race",
   "screen.me.information.races.many": "Races",
   "screen.me.information.description": "Description",
-
-"#Comment": "UI Map",
-  "ui.me.map_title_text": "Middle-earth Map",
 
 "#Comment": "Widget UI Map Marker",
   "widget.me.spawn_tooltip_title": "Spawns",

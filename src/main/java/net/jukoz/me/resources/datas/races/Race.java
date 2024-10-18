@@ -18,7 +18,10 @@ import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.AttributeContainer;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
@@ -128,13 +131,15 @@ public class Race {
         return entity;
     }
 
-    public void applyAttributes(ServerPlayerEntity playerEntity){
+    public void applyAttributes(PlayerEntity playerEntity){
         attributeData.ApplyAll(playerEntity);
         playerEntity.heal(playerEntity.getMaxHealth());
     }
 
-    public void reverseAttributes(ServerPlayerEntity playerEntity){
-        attributeData.ReverseAll(playerEntity);
+    public void reverseAttributes(PlayerEntity playerEntity){
+        DefaultAttributeContainer.Builder containerBuilder = PlayerEntity.createPlayerAttributes();
+        DefaultAttributeContainer container =  containerBuilder.build();
+        attributeData.ReverseAll(playerEntity, container);
         playerEntity.heal(playerEntity.getMaxHealth());
     }
 

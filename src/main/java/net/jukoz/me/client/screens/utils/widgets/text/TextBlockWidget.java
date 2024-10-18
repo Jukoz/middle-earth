@@ -8,6 +8,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TextBlockWidget extends ModWidget {
@@ -17,6 +18,8 @@ public class TextBlockWidget extends ModWidget {
     private boolean isJustified = false;
     private TextRenderer textRenderer;
     private final int spaceWidth;
+
+    private List<List<Word>> wordsPerLine = new ArrayList<>();
 
     public TextBlockWidget(int startX, int startY, int width, int height){
         this.startX = startX;
@@ -48,60 +51,68 @@ public class TextBlockWidget extends ModWidget {
         this.isJustified = false;
         return this;
     }
-    public List<Text> draw(DrawContext context, List<Text> texts, boolean showLimit, boolean showBorders){
+
+    public List<Text> setText(List<Text> texts){
+        if(texts == null)
+            return texts;
+        wordsPerLine.clear();
+        List<Text> textOverflow = new ArrayList<>();
+        int currentHeight = 0;
+        for(Text text : texts){ // Parse through texts (1 text is 1 paragraph)
+            boolean isManipulated = false;  // Simple variable to check if the input was manipulated
+            List<Word> textWords = getWordListFromText(text); // The text split in words
+            while(!textWords.isEmpty() && currentHeight < height){ // Parse the input until it reaches the end of it or the height limit
+                isManipulated = true;
+                List<Word> currentLineWords = new ArrayList<>();
+                int currentWidth = 0;
+                while(currentWidth < width){
+                    Word chosenWord = textWords.getFirst();
+                    if(currentWidth + chosenWord.width + spaceWidth > width){
+                        currentWidth = width;
+                    } else {
+                        currentLineWords.add(chosenWord);
+                        currentWidth += chosenWord.width + spaceWidth;
+                        textWords.remove(chosenWord);
+                        if(textWords.isEmpty()){
+                            currentWidth = width;
+                        } else if(currentWidth > width){
+                            currentWidth = width;
+                        }
+                    }
+                }
+                wordsPerLine.add(currentLineWords);
+                currentHeight += textRenderer.fontHeight;
+            }
+            if(!textWords.isEmpty()){
+                if(isManipulated) // If the text has content and was manipulated, create new text from leftovers
+                    textOverflow.add(createTextFromWords(textWords));
+                else // If not, simply add the whole text
+                    textOverflow.add(text);
+            }
+        }
+        return textOverflow;
+    }
+
+    public void draw(DrawContext context, boolean showLimit, boolean showBorders){
             if(showBorders) {
                 context.drawVerticalLine(startX, startY, startY + height, Colors.RED);
                 context.drawVerticalLine(startX + width, startY, startY + height, Colors.RED);
                 context.drawHorizontalLine(startX, startX + width, startY, Colors.RED);
                 context.drawHorizontalLine(startX, startX + width, startY + height, Colors.RED);
             }
-            return draw(context, texts, showLimit);
+            draw(context, showLimit);
     }
 
-    public List<Text> draw(DrawContext context, List<Text> texts, boolean showTextLimit){
-        List<Text> unusedTexts = new ArrayList<>();
-        if(texts != null){
-            int currentHeight = 0;
-            for(Text text : texts){
-                boolean touchedText = false;
-                List<Word> words = getWordListFromText(text);
-                while(!words.isEmpty() && currentHeight < height){
-                    touchedText = true;
-                    List<Word> currentLine = new ArrayList<>();
-                    int currentWidth = 0;
-                    boolean forcedEnd = false;
-                    while(currentWidth < width){
-                        Word chosenWord = words.getFirst();
-                        if(currentWidth + chosenWord.width + spaceWidth > width){
-                            currentWidth = width;
-                        } else {
-                            currentLine.add(chosenWord);
-                            currentWidth += chosenWord.width + spaceWidth;
-                            words.remove(chosenWord);
-                            if(words.isEmpty()){
-                                currentWidth = width;
-                                forcedEnd = true;
-                            } else if(currentWidth > width){
-                                currentWidth = width;
-                            }
-                        }
-                    }
-                    if(showTextLimit && !words.isEmpty() && currentHeight + textRenderer.fontHeight > height){
-                        drawTextLimitLine(context, currentHeight);
-                    } else {
-                        drawTextLine(context, currentLine, currentHeight, forcedEnd);
-                    }
-                    currentHeight += textRenderer.fontHeight;
-                }
-                if(!words.isEmpty()){
-                    if(touchedText)
-                        unusedTexts.add(createTextFromWords(words));
-                    else
-                        unusedTexts.add(text);
-                }
+    public void draw(DrawContext context, boolean showTextLimit){
+        int currentHeight = 0;
+        for(List<Word> words : wordsPerLine){
+            if(showTextLimit && !words.isEmpty() && currentHeight + textRenderer.fontHeight > height){
+                drawTextLimitLine(context, currentHeight);
+            } else {
+                drawTextLine(context, words, currentHeight, false);
             }
+            currentHeight += textRenderer.fontHeight;
         }
-        return unusedTexts; // Todo : Make it so it's the leftover texts
     }
 
     private Text createTextFromWords(List<Word> words) {

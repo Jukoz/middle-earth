@@ -16,6 +16,7 @@ import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.utils.IdentifierUtil;
 import net.jukoz.me.utils.LoggerUtil;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -329,9 +330,11 @@ public class Faction {
         return descriptions;
     }
 
-    public Text getRaceListText() {
+    public Text getRaceListText(World world) {
         if(raceList == null){
             StringBuilder raceListStringBuilder = new StringBuilder();
+            if(races == null)
+                races = getRaces(world);
             for(Race race : races){
                 raceListStringBuilder.append(race.getFullName().getString());
                 if(race != races.getLast())
