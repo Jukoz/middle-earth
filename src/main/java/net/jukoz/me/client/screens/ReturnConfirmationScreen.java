@@ -36,7 +36,8 @@ public class ReturnConfirmationScreen extends Screen {
         };
         returnToOverworldButton = ButtonWidget.builder(Text.translatable("ui.me.return_confirmation.continue_character.title"), returnToOverworldAction).build();
         addDrawableChild(returnToOverworldButton);
-        returnToOverworldButton.active = false;
+        if(currentDelay > 0)
+            returnToOverworldButton.active = false;
     }
 
     private void returnToOverworld() {
