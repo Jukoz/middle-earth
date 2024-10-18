@@ -1,6 +1,6 @@
 package net.jukoz.me.client.screens.utils.widgets.map;
 
-import net.jukoz.me.client.screens.controllers.FactionSelectionController;
+import net.jukoz.me.client.screens.faction_selection.FactionSelectionController;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerType;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
