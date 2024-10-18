@@ -4,8 +4,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.jukoz.me.utils.IdentifierUtil;
-import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -17,7 +17,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 
 import java.util.HashMap;
 import java.util.List;
@@ -83,7 +82,7 @@ public class AttributeData {
         }
     }
 
-    public void ReverseAll(LivingEntity entity){
+    public void ReverseAll(LivingEntity entity, DefaultAttributeContainer container){
         final DynamicRegistryManager registryManager = entity.getWorld().getRegistryManager();
 
         for(Identifier id : datas.keySet()){
@@ -92,8 +91,12 @@ public class AttributeData {
             Optional<RegistryEntry.Reference<EntityAttribute>> attributeEntry =  Registries.ATTRIBUTE.getEntry(id);
             if(attribute != null && attributeEntry != null && attributeEntry.isPresent()){
                 EntityAttributeInstance instance = entity.getAttributes().getCustomInstance(attributeEntry.get());
-                if(instance != null){
-                    instance.setBaseValue(attribute.getDefaultValue());
+                if(container.has(attributeEntry.get())){
+                    instance.setBaseValue(container.getValue(attributeEntry.get()));
+                } else {
+                    if(instance != null){
+                        instance.setBaseValue(attribute.getDefaultValue());
+                    }
                 }
             }
         }

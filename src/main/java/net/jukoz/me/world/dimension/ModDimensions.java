@@ -1,8 +1,11 @@
 package net.jukoz.me.world.dimension;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.config.ModServerConfigs;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.factions.FactionUtil;
+import net.jukoz.me.resources.datas.races.Race;
+import net.jukoz.me.resources.datas.races.RaceUtil;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
@@ -66,6 +69,14 @@ public class ModDimensions {
                     ((ServerPlayerEntity) player).setSpawnPoint(registryKey, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z), player.getYaw(), true, true);
                 if(welcomeNeeded)
                     FactionUtil.sendOnFactionJoinMessage(player);
+                if(ModServerConfigs.ENABLE_RACE_SWAP_ON_DIMENSION_SWAP){
+                    PlayerData data = StateSaverAndLoader.getPlayerState(player);
+                    if(data != null){
+                        Race playerRace = data.getRace(player.getWorld());
+                        if(playerRace != null)
+                            RaceUtil.updateRace(player, playerRace);
+                    }
+                }
             }
         }
     }
@@ -92,10 +103,15 @@ public class ModDimensions {
                 serverWorld = serverWorld.getServer().getWorld(registryKey);
 
                 player.wakeUp();
-                // TODO : clear attributes of the player's race
                 ((ServerPlayerEntity) player).setSpawnPoint(World.OVERWORLD, player.getServer().getOverworld().getSpawnPos(), player.getServer().getOverworld().getSpawnAngle(), true, true);
                 ((ServerPlayerEntity) player).teleport(serverWorld, coordinate.getX() , coordinate.getY(), coordinate.getZ(), 0, 0);
                 player.refreshPositionAfterTeleport(coordinate.getX() , coordinate.getY(), coordinate.getZ());
+
+                if(ModServerConfigs.ENABLE_RACE_SWAP_ON_DIMENSION_SWAP){
+                    Race playerRace = data.getRace(player.getWorld());
+                    if(playerRace != null)
+                        playerRace.reverseAttributes(player);
+                }
                 return true;
             }
         }
