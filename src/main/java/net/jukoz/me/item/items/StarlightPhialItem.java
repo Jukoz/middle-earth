@@ -18,7 +18,7 @@ public class StarlightPhialItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         if(world.isClient){
-            ClientPlayNetworking.send(new PacketOnboardingRequest(ModDimensions.isInMiddleEarth(world),false, false));
+            ClientPlayNetworking.send(new PacketOnboardingRequest());
         }
         return TypedActionResult.success(player.getStackInHand(hand));
     }
