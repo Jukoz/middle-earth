@@ -38,9 +38,9 @@ public class ModDecorativeBlocks {
             new WallSilverLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
 
     public static final Block ELVEN_LANTERN = registerBlock("elven_lantern",
-            new SilverLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
+            new ElvenLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
     public static final Block WALL_ELVEN_LANTERN = registerBlock("elven_lantern_wall",
-            new WallSilverLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
+            new WallElvenLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
 
     public static final Block DWARVEN_LANTERN = registerBlock("dwarven_lantern",
             new DwarvenLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).nonOpaque()));
