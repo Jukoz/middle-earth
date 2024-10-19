@@ -736,7 +736,7 @@ public class StoneBlockSets {
     public record SimpleBlockSet(Block source, Block base, Block slab, Block verticalSlab, Block stairs, Block wall) {
     }
 
-    public record SimpleBlockSetMain(Block source, Block base, Block slab, Block verticalSlab, Block stairs, Block wall, Block pressurePlate, Block button, Block trapdoor, Block stool, Block table, Block chair) {
+    public record SimpleBlockSetMain(Block source, Block base, Block slab, Block verticalSlab, Block stairs, Block wall, Block pressurePlate, Block button, Block trapdoor, Block stool, Block table, Block chair, Block rocks) {
     }
 
     private static SimpleBlockSet registerStoneSet(String name, float hardness, float blastResistance, Block source) {
@@ -773,6 +773,8 @@ public class StoneBlockSets {
         Block trapdoor = ModBlocks.registerStoneBlock(name + "_trapdoor", new TrapdoorBlock(BlockSetType.STONE, AbstractBlock.Settings.copy(base)
                 .strength(hardness, blastResistance).sounds(BlockSoundGroup.STONE).nonOpaque()),false);
 
+        Block rocks = ModBlocks.registerStoneBlock(name + "_rocks", new RocksBlock(AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool().noCollision()),false);
+
         Block stool = ModBlocks.registerBlock(name + "_stool", new StoolBlock(AbstractBlock.Settings.copy(base)
                 .strength(hardness, blastResistance).requiresTool().nonOpaque()),false);
 
@@ -785,7 +787,7 @@ public class StoneBlockSets {
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(table.asItem().getDefaultStack());
         ModItemGroups.DECORATIVES_BLOCKS_CONTENT.add(chair.asItem().getDefaultStack());
 
-        return new SimpleBlockSetMain(source, base, slab, verticalSlab, stairs, wall, pressurePlate, button, trapdoor, stool, table, chair);
+        return new SimpleBlockSetMain(source, base, slab, verticalSlab, stairs, wall, pressurePlate, button, trapdoor, stool, table, chair, rocks);
     }
 
     public static void registerModBlockSets() {
