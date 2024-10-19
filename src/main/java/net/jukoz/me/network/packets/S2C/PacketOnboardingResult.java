@@ -50,7 +50,7 @@ public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardin
     @Override
     public void process(ClientPacketContext context) {
         float delay = delayOnTeleportationConfirm;
-        if(context.player().isCreative())
+        if(context.player().isInCreativeMode())
             delay = 0;
         if(ModDimensions.isInMiddleEarth(context.player().getWorld())){
             MinecraftClient client = MinecraftClient.getInstance();
