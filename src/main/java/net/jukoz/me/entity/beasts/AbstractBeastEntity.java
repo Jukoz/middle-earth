@@ -154,6 +154,13 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     // Getters and Setters =============================================================================================
+    protected boolean isMountable() {
+        return true;
+    }
+    protected boolean isTamable() {
+        return true;
+    }
+
     protected Disposition getDisposition(){
         return null;
     }
@@ -351,7 +358,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     public void tryBonding(PlayerEntity player) {
-        if(random.nextDouble() <= 0.1d || player.isCreative()) {
+        if(random.nextDouble() <= 0.1d || player.isInCreativeMode()) {
             this.tameBeast(player);
             this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
 
@@ -376,36 +383,44 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
 
         ItemStack itemStack = player.getStackInHand(hand);
 
-        if(this.isTame()) {
+        if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && this.isTamable()) {
+            if(!this.getWorld().isClient()) {
+                this.tryBonding(player);
+                this.eat(player, hand, itemStack);
+            }
+            return ActionResult.success(this.getWorld().isClient());
+        }
+
+        if(this.isTame() && this.isTamable()) {
             if(isCommandItem(itemStack) && player == getOwner()) {
                 this.setSitting(!isSitting());
             }
 
             if (itemStack.isOf(Items.CHEST) && !this.hasChest()) {
                 this.addChest(player, itemStack);
-                return ActionResult.success(((World)this.getWorld()).isClient);
+                return ActionResult.SUCCESS;
             }
 
-            if(!(isCommandItem(itemStack) || isBreedingItem(itemStack) || itemStack.isOf(Items.CHEST))) {
+            if(!(isCommandItem(itemStack) || isBreedingItem(itemStack) || itemStack.isOf(Items.CHEST)) && this.isMountable()) {
                 super.interactMob(player, hand);
             }
         }
 
-        if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && !this.getWorld().isClient) {
-            this.tryBonding(player);
-            this.eat(player, hand, itemStack);
-        }
-
-        if (!this.hasPassengers() && !bl) {
+        if (!this.hasPassengers() && !bl && this.isMountable()) {
             if (!itemStack.isEmpty()) {
                 if (!this.hasChest() && itemStack.isOf(Items.CHEST) && this.canCarryChest()) {
                     this.addChest(player, itemStack);
-                    return ActionResult.success(this.getWorld().isClient);
+                    return ActionResult.SUCCESS;
                 }
             }
         }
 
-        return ActionResult.success(this.getWorld().isClient);
+        return ActionResult.FAIL;
+    }
+
+    @Override
+    public ActionResult interactHorse(PlayerEntity player, ItemStack stack) {
+        return super.interactHorse(player, stack);
     }
 
     public boolean isBondingItem(ItemStack itemStack) {

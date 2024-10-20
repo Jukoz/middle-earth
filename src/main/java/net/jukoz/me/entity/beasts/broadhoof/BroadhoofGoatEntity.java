@@ -1,6 +1,7 @@
 package net.jukoz.me.entity.beasts.broadhoof;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.config.ModServerConfigs;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.jukoz.me.entity.goals.*;
@@ -70,6 +71,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     private static final TrackedData<Boolean> LEFT_HORN = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> RIGHT_HORN = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> BRUSHED_BEARD = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> MOUNTABLE = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState jumpAnimationState = new AnimationState();
     private static final EntityDimensions BABY_BASE_DIMENSIONS = ModEntities.BROADHOOF_GOAT.getDimensions().scaled(0.5f);
 
@@ -121,6 +123,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         builder.add(LEFT_HORN, true);
         builder.add(RIGHT_HORN, true);
         builder.add(BRUSHED_BEARD, false);
+        builder.add(MOUNTABLE, true);
     }
 
     @Override
@@ -141,6 +144,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         this.dataTracker.set(LEFT_HORN, nbt.getBoolean("HasLeftHorn"));
         this.dataTracker.set(RIGHT_HORN, nbt.getBoolean("HasRightHorn"));
         this.dataTracker.set(BRUSHED_BEARD, nbt.getBoolean("HasBrushedBeard"));
+        this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
@@ -159,14 +163,14 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
-        if(this.isTame()) {
+        if(this.isTame() && this.isTamable()) {
             if (this.isBreedingItem(itemStack)) {
                 if(this.getHealth() < this.getMaxHealth()) {
                     itemStack.decrementUnlessCreative(1, player);
                     FoodComponent foodComponent = itemStack.get(DataComponentTypes.FOOD);
                     float f = foodComponent != null ? (float)foodComponent.nutrition() : 1.0f;
                     this.heal(2.0f * f);
-                    return ActionResult.success(this.getWorld().isClient());
+                    return ActionResult.SUCCESS;
                 }
                 else if (!this.getWorld().isClient && this.getBreedingAge() == 0 && this.canEat()) {
                     this.eat(player, hand, itemStack);
@@ -230,6 +234,16 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     @Override
     public EntityDimensions getBaseDimensions(EntityPose pose) {
         return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getBaseDimensions(pose);
+    }
+
+    @Override
+    protected boolean isMountable() {
+        return this.dataTracker.get(MOUNTABLE);
+    }
+
+    @Override
+    protected boolean isTamable() {
+        return this.isMountable();
     }
 
     @Override
@@ -422,6 +436,10 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
         BroadhoofGoatHorns horns = Util.getRandom(BroadhoofGoatHorns.values(), this.random);
         this.setHorns(horns);
+
+        if(!this.getWorld().isClient()) {
+            this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
+        }
 
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
