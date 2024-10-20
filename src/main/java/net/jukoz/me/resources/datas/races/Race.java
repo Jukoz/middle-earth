@@ -133,7 +133,6 @@ public class Race {
 
     public void applyAttributes(PlayerEntity playerEntity){
         attributeData.ApplyAll(playerEntity);
-        playerEntity.heal(playerEntity.getMaxHealth());
     }
 
     public void reverseAttributes(PlayerEntity playerEntity){

@@ -87,8 +87,10 @@ public class FactionSelectionScreen extends Screen {
 
         // Initialize Buttons
         // Search bar
-        searchBarWidget = new SearchBarWidget(controller.getSearchBarPool(player.getWorld()));
+        searchBarWidget = new SearchBarWidget(controller.getSearchBarPool(player.getWorld()), controller);
         addDrawableChild(searchBarWidget.getSearchBarToggleButton());
+        for(ButtonWidget widget : searchBarWidget.getAllButtons())
+            addDrawableChild(widget);
 
         // NpcPreview
         playableNpcPreviewWidget = new PlayableNpcPreviewWidget();
@@ -249,7 +251,8 @@ public class FactionSelectionScreen extends Screen {
                     controller.confirmSpawnSelection(player);
                 }).build();
         addDrawableChild(spawnSelectionConfirmButton);
-        spawnSelectionConfirmButton.active = false;
+        if(!controller.canConfirm())
+            spawnSelectionConfirmButton.active = false;
     }
 
     public void updateEquipment(){
@@ -636,7 +639,8 @@ public class FactionSelectionScreen extends Screen {
     }
 
     public void enableConfirm(){
-        spawnSelectionConfirmButton.active = true;
+        if(spawnSelectionConfirmButton != null)
+            spawnSelectionConfirmButton.active = true;
     }
 
     private void highlightedFocusMapButton(DrawContext context, int startX, int startY){

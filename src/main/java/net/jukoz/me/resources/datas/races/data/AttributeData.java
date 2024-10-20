@@ -80,6 +80,7 @@ public class AttributeData {
                 }
             }
         }
+        entity.heal(entity.getMaxHealth());
     }
 
     public void ReverseAll(LivingEntity entity, DefaultAttributeContainer container){
@@ -100,6 +101,7 @@ public class AttributeData {
                 }
             }
         }
+        entity.heal(entity.getMaxHealth());
     }
 
     public double getCurrentValue(LivingEntity entity, Identifier id){

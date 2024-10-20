@@ -1,12 +1,16 @@
 package net.jukoz.me.client.screens.utils.widgets;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.client.screens.faction_selection.FactionSelectionController;
+import net.jukoz.me.client.screens.faction_selection.FactionSelectionScreen;
 import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ScrollableWidget;
 import net.minecraft.text.MutableText;
@@ -33,13 +37,25 @@ public class SearchBarWidget extends ModWidget{
     public ButtonWidget screenClick;
     private static boolean focusEnabled = false;
     HashMap<Identifier, Text> pool;
+    List<ButtonWidget> buttons;
+    FactionSelectionController controller;
+
     int endY = 0;
-    public SearchBarWidget(HashMap<Identifier, Text> newPool){
+    public SearchBarWidget(HashMap<Identifier, Text> newPool, FactionSelectionController controller){
+        this.controller = controller;
         searchBarToggle = false;
         searchResultToggle = false;
         focusEnabled = false;
         setButtons();
         pool = newPool;
+        buttons = new ArrayList<>();
+        for(Identifier id : newPool.keySet()){
+            buttons.add(ButtonWidget.builder(newPool.get(id), x -> {onPress(id);}).build());
+        }
+    }
+
+    private void onPress(Identifier id) {
+        controller.setFactionId(id);
     }
 
     public static void toggleFocus() {
@@ -219,11 +235,14 @@ public class SearchBarWidget extends ModWidget{
 
             int valuePanelStartX = startX + 3;
             // Create pool of resources with buttons
-            for(int i = 0; i < valueAmount; i ++){
-                int valuePanelStartY = startY + panelBorderSizeY + (i * panelSizeY);
-
-                boolean mouseIsOver = isMouseOver(valuePanelSizeX, valuePanelSizeY, startX, valuePanelStartY);
+            int offset = 0;
+            List<Identifier> activeIds = new ArrayList<>();
+            for(int i = 0; i < valueAmount; i++){
                 Identifier id = results.get(i);
+                activeIds.add(id);
+                int buttonIndex = pool.keySet().stream().toList().indexOf(id);
+                int valuePanelStartY = startY + panelBorderSizeY + (i * panelSizeY);
+                boolean mouseIsOver = isMouseOver(valuePanelSizeX, valuePanelSizeY, startX, valuePanelStartY);
                 try{
                     Faction faction = FactionLookup.getFactionById(client.world, id);
                     FactionType type = faction.getFactionType();
@@ -236,11 +255,25 @@ public class SearchBarWidget extends ModWidget{
                             0, uvY,
                             valuePanelSizeX, valuePanelSizeY
                     );
+                    buttons.get(buttonIndex).setPosition(valuePanelStartX, valuePanelStartY);
+                    buttons.get(buttonIndex).setDimensions(valuePanelSizeX, valuePanelSizeY);
+                    if(!buttons.get(buttonIndex).active)
+                        buttons.get(buttonIndex).active = true;
+
                     context.drawText(client.textRenderer, pool.get(id),
                             valuePanelStartX + 3, valuePanelStartY + 3,
                             0, false);
                 } catch (FactionIdentifierException e) {
                     pool.remove(id);
+                }
+            }
+
+            for(int i =0; i < pool.size(); i++) {
+                Identifier foundId = pool.keySet().stream().toList().get(i);
+                if(!activeIds.contains(foundId)){
+                    int buttonIndex = pool.keySet().stream().toList().indexOf(foundId);
+                    if(buttons.get(buttonIndex).active)
+                        buttons.get(buttonIndex).active = false;
                 }
             }
 
@@ -326,5 +359,9 @@ public class SearchBarWidget extends ModWidget{
 
     public boolean searchIsToggled() {
         return searchResultToggle;
+    }
+
+    public List<ButtonWidget> getAllButtons() {
+        return buttons;
     }
 }

@@ -49,11 +49,14 @@ public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardin
 
     @Override
     public void process(ClientPacketContext context) {
+        float delay = delayOnTeleportationConfirm;
+        if(context.player().isInCreativeMode())
+            delay = 0;
         if(ModDimensions.isInMiddleEarth(context.player().getWorld())){
             MinecraftClient client = MinecraftClient.getInstance();
-            client.setScreen(new ReturnConfirmationScreen(delayOnTeleportationConfirm));
+            client.setScreen(new ReturnConfirmationScreen(delay));
         } else if(ModDimensions.isInOverworld(context.player().getWorld())){
-            OnboardingScreenHandler.handle(context, havePlayerData, delayOnTeleportationConfirm);
+            OnboardingScreenHandler.handle(context, havePlayerData, delay);
         }
     }
 }

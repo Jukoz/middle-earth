@@ -45,7 +45,8 @@ public class OnboardingSelectionScreen extends Screen {
         };
         continueAsCharacterButton = ButtonWidget.builder(Text.of("continue_character"), continueAsFaction).build();
         addDrawableChild(continueAsCharacterButton);
-        continueAsCharacterButton.active = false;
+        if(currentDelay > 0)
+            continueAsCharacterButton.active = false;
 
         if(canResetCharacter){
             ButtonWidget.PressAction resetCharacterAction = button -> {

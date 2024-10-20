@@ -63,8 +63,8 @@ public class FactionSelectionController {
             LoggerUtil.logError("FactionSelectionController::No faction available!");
             throw new RuntimeException();
         }
-        updateSpawnList();
-        updateRaces();
+        processSpawnList();
+        processRace();
     }
 
 
@@ -74,7 +74,7 @@ public class FactionSelectionController {
             dispositionsWithContent.add(disposition);
     }
 
-    private void updateSpawnList() {
+    private void processSpawnList() {
         Faction currentFaction = getCurrentlySelectedFaction();
         if(currentFaction == null) return;
         SpawnDataHandler foundSpawnDataHandler = currentFaction.getSpawnData();
@@ -85,7 +85,7 @@ public class FactionSelectionController {
         setSpawnIndex(currentSpawnIndex);
     }
 
-    private void updateRaces() {
+    private void processRace() {
         races = null;
         Faction currentFaction = getCurrentlySelectedFaction();
         if(currentFaction == null) return;
@@ -121,8 +121,8 @@ public class FactionSelectionController {
                 (faction == null || faction.getSubFactions() == null || faction.getSubFactions().isEmpty())
                         ? 0
                         : random.nextInt(faction.getSubFactions().size());
-        updateSpawnList();
-        updateRaces();
+        processSpawnList();
+        processRace();
         return 0;
     }
 
@@ -140,9 +140,9 @@ public class FactionSelectionController {
         currentFactionIndex = 0;
         currentSubFactionIndex = 0;
         currentRaceIndex = 0;
-        setFactionIndex(0);
-        updateSpawnList();
-        updateRaces();
+        processSubfaction();
+        processSpawnList();
+        processRace();
     }
 
     private int getDispositionsIndex(Disposition disposition){
@@ -160,15 +160,16 @@ public class FactionSelectionController {
             if(currentFactionIndex < 0)
                 currentFactionIndex = factions.get(getCurrentDisposition()).size() - 1;
         }
-        setFactionIndex(currentFactionIndex);
 
         currentSubFactionIndex = 0;
         currentRaceIndex = 0;
-        updateSpawnList();
-        updateRaces();
+        processFaction();
     }
 
-    private void setFactionIndex(int i) {
+    private void processFaction() {
+        processSubfaction();
+        processSpawnList();
+        processRace();
         screen.reassignTexts(getRaceListText(), getCurrentFactionDescriptions());
     }
     public void subfactionUpdate(boolean add){
@@ -182,17 +183,20 @@ public class FactionSelectionController {
             if(currentSubFactionIndex < 0)
                 currentSubFactionIndex = getCurrentFaction().getSubFactions().size() - 1;
         }
-        setSubFactionIndex(currentSubFactionIndex);
+        processSubfaction();
 
         screen.reassignTexts(getRaceListText(), getCurrentFactionDescriptions());
         currentRaceIndex = 0;
-        updateSpawnList();
-        updateRaces();
+
     }
 
-    private void setSubFactionIndex(int i) {
-        if(getCurrentlySelectedFaction().getFactionType() == FactionType.SUBFACTION)
+    private void processSubfaction() {
+        if(getCurrentlySelectedFaction().getFactionType() == FactionType.SUBFACTION){
             screen.reassignTexts(getRaceListText(), getCurrentFactionDescriptions());
+            setSpawnIndex(0);
+        }
+        processSpawnList();
+        processRace();
     }
 
     public void spawnIndexUpdate(boolean add){
@@ -248,7 +252,7 @@ public class FactionSelectionController {
 
     private Identifier getCurrentSpawnIdentifier(){
         if(!haveSpawns())
-            updateSpawnList();
+            processSpawnList();
         if(!haveSpawns())
             return null;
         return spawns.get(currentSpawnIndex).getIdentifier();
@@ -415,6 +419,34 @@ public class FactionSelectionController {
             this.currentDelay = Math.max(0, this.currentDelay - delta);
             if(this.currentDelay == 0)
                 screen.enableConfirm();
+        }
+    }
+
+    public void setFactionId(Identifier id) {
+        for(Disposition disp : factions.keySet()){
+            for(Faction fac : factions.get(disp)){
+                boolean foundFaction = false;
+                int subfactionIndex = -1;
+                if(fac.getId() == id){
+                    foundFaction = true;
+                } else {
+                    List<Identifier> subfactions = fac.getSubFactions();
+                    if(subfactions != null && !subfactions.isEmpty()){
+                        if(subfactions.contains(id)){
+                            subfactionIndex = fac.getSubFactions().indexOf(id);
+                            foundFaction = true;
+                        }
+                    }
+                }
+                if(foundFaction){
+                    currentDispositionIndex = dispositionsWithContent.indexOf(disp);
+                    currentFactionIndex = factions.get(disp).stream().toList().indexOf(fac);
+                    if(subfactionIndex >= 0)
+                        currentSubFactionIndex = subfactionIndex;
+                    processFaction();
+                    return;
+                }
+            }
         }
     }
 }
