@@ -87,8 +87,10 @@ public class FactionSelectionScreen extends Screen {
 
         // Initialize Buttons
         // Search bar
-        searchBarWidget = new SearchBarWidget(controller.getSearchBarPool(player.getWorld()));
+        searchBarWidget = new SearchBarWidget(controller.getSearchBarPool(player.getWorld()), controller);
         addDrawableChild(searchBarWidget.getSearchBarToggleButton());
+        for(ButtonWidget widget : searchBarWidget.getAllButtons())
+            addDrawableChild(widget);
 
         // NpcPreview
         playableNpcPreviewWidget = new PlayableNpcPreviewWidget();
