@@ -87,7 +87,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Initialize Buttons
         // Search bar
-        searchBarWidget = new SearchBarWidget(controller.getSearchBarPool(player.getWorld()), controller);
+        searchBarWidget = new SearchBarWidget(controller.getSearchBarPool(player.getWorld()), controller, 11);
         addDrawableChild(searchBarWidget.getSearchBarToggleButton());
         for(ButtonWidget widget : searchBarWidget.getAllButtons())
             addDrawableChild(widget);
@@ -292,10 +292,8 @@ public class FactionSelectionScreen extends Screen {
         }
 
         // Keybind : Tabulation
-        if(keyCode == KeyEvent.VK_CODE_INPUT && !ModWidget.getFocusEnabled() && !CycledSelectionWidget.focusEnabled()){
+        if(keyCode == KeyEvent.VK_CODE_INPUT && !ModWidget.getFocusEnabled()){
             ModWidget.enableFocus(true);
-            CycledSelectionWidget.toggleFocus();
-            SearchBarWidget.toggleFocus();
             return true;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
@@ -718,6 +716,7 @@ public class FactionSelectionScreen extends Screen {
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
         mapWidget.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+        searchBarWidget.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
     }
 
@@ -725,12 +724,14 @@ public class FactionSelectionScreen extends Screen {
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         playableNpcPreviewWidget.mouseReleased(mouseX, mouseY, button);
         mapWidget.mouseReleased(mouseX, mouseY, button);
+        searchBarWidget.mouseReleased(mouseX, mouseY, button);
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         mapWidget.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+        searchBarWidget.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
         return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
     }
 }
