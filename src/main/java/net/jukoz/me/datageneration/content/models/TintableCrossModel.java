@@ -37,6 +37,7 @@ public class TintableCrossModel {
 
             add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER);
             add(ModNatureBlocks.MALLOS);
+            add(ModNatureBlocks.ELANOR);
             add(ModNatureBlocks.YELLOW_FLOWER);
         }
     };

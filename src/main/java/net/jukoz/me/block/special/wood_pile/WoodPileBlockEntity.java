@@ -7,6 +7,7 @@ import net.jukoz.me.utils.ImplementedInventory;
 import net.jukoz.me.gui.wood_pile.WoodPileScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -27,10 +28,10 @@ import org.jetbrains.annotations.Nullable;
 
 import static net.jukoz.me.block.special.wood_pile.WoodPileBlock.STAGE;
 
-public class WoodPileBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
+public class WoodPileBlockEntity extends LootableContainerBlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
 
     private static final String ID = "wood_pile";
-    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
+    private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
 
     public WoodPileBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.WOOD_PILE, pos, state);
@@ -41,6 +42,21 @@ public class WoodPileBlockEntity extends BlockEntity implements NamedScreenHandl
         return Text.translatable("screen." + MiddleEarth.MOD_ID + "." + ID);
     }
 
+    @Override
+    protected Text getContainerName() {
+        return Text.translatable("me.container.wood_pile");
+    }
+
+    @Override
+    protected DefaultedList<ItemStack> getHeldStacks() {
+        return this.inventory;
+    }
+
+    @Override
+    protected void setHeldStacks(DefaultedList<ItemStack> inventory) {
+        this.inventory = inventory;
+    }
+
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
@@ -48,15 +64,25 @@ public class WoodPileBlockEntity extends BlockEntity implements NamedScreenHandl
     }
 
     @Override
+    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
+        return null;
+    }
+
+    @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
-        Inventories.readNbt(nbt, inventory, registryLookup);
+        this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
+        if (!this.readLootTable(nbt)) {
+            Inventories.readNbt(nbt, this.inventory, registryLookup);
+        }
     }
 
     @Override
     public void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        Inventories.writeNbt(nbt, inventory, registryLookup);
+        if (!this.writeLootTable(nbt)) {
+            Inventories.writeNbt(nbt, this.inventory, registryLookup);
+        }
     }
 
     public void setInventory(DefaultedList<ItemStack> inventory) {
