@@ -1,17 +1,13 @@
 package net.jukoz.me.block.special;
 
 import net.jukoz.me.block.ModDecorativeBlocks;
-import net.jukoz.me.entity.ModEntities;
-import net.jukoz.me.entity.seat.SeatEntity;
 import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -29,8 +25,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.function.Predicate;
 
 public class WateringCanBlock extends Block {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
@@ -61,7 +55,7 @@ public class WateringCanBlock extends Block {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (player.getStackInHand(player.getActiveHand()).isEmpty() && !player.isCreative()){
+        if (player.getStackInHand(player.getActiveHand()).isEmpty() && !player.isInCreativeMode()){
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
             player.equipStack(EquipmentSlot.MAINHAND,  new ItemStack(ModDecorativeBlocks.WATERING_CAN.asItem()));
             world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f - 1.0f);

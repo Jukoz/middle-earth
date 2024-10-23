@@ -90,7 +90,7 @@ public abstract class AbstractToggeableLightBlock extends Block {
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         Hand hand = player.getActiveHand();
         if (!world.isClient && player.getAbilities().allowModifyWorld) {
-            if(player.isCreative()){
+            if(player.isInCreativeMode()){
                 world.setBlockState(pos, state.cycle(LIT));
             } else {
                 ItemStack itemStack = player.getStackInHand(hand);

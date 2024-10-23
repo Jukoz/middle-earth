@@ -14,10 +14,7 @@ import net.jukoz.me.block.special.shapingAnvil.AbstractTreatedAnvilBlock;
 import net.jukoz.me.block.special.shapingAnvil.dwarvenTreatedAnvil.DwarvenShapingAnvilBlock;
 import net.jukoz.me.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
 import net.jukoz.me.block.special.statues.StatueBlock;
-import net.jukoz.me.block.special.toggeable_lights.DwarvenLanternBlock;
-import net.jukoz.me.block.special.toggeable_lights.SilverLanternBlock;
-import net.jukoz.me.block.special.toggeable_lights.WallDwarvenLanternBlock;
-import net.jukoz.me.block.special.toggeable_lights.WallSilverLanternBlock;
+import net.jukoz.me.block.special.toggeable_lights.*;
 import net.jukoz.me.block.special.wood_pile.WoodPileBlock;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.utils.LoggerUtil;
@@ -40,10 +37,20 @@ public class ModDecorativeBlocks {
     public static final Block WALL_SILVER_LANTERN = registerBlock("silver_lantern_wall",
             new WallSilverLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
 
+    public static final Block ELVEN_LANTERN = registerBlock("elven_lantern",
+            new ElvenLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
+    public static final Block WALL_ELVEN_LANTERN = registerBlock("elven_lantern_wall",
+            new WallElvenLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
+
     public static final Block DWARVEN_LANTERN = registerBlock("dwarven_lantern",
             new DwarvenLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).nonOpaque()));
     public static final Block WALL_DWARVEN_LANTERN = registerBlock("dwarven_lantern_wall",
             new WallDwarvenLanternBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
+    
+    public static final Block CRYSTAL_LAMP = registerBlock("crystal_lamp",
+            new CrystalLampBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).nonOpaque()));
+    public static final Block WALL_CRYSTAL_LAMP = registerBlock("crystal_lamp_wall",
+            new WallCrystalLampBlock(AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f)));
 
     public static final Block FORGE = registerBlock("forge",
             new ForgeBlock(AbstractBlock.Settings.copy(Blocks.BRICKS).luminance(createLightLevelFromLitBlockState(15)).strength(1.65f).requiresTool()));
@@ -436,6 +443,13 @@ public class ModDecorativeBlocks {
 
     public static final Block ROPE = registerBlockWithItem("rope",
             new ChainBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).noCollision()));
+
+    public static final Block BRONZE_CHAIN = registerBlockWithItem("bronze_chain",
+            new ChainBlock(AbstractBlock.Settings.copy(Blocks.CHAIN)));
+    public static final Block BRONZE_BROAD_CHAIN = registerBlockWithItem("bronze_broad_chain",
+            new ChainBlock(AbstractBlock.Settings.copy(Blocks.CHAIN)));
+    public static final Block SPIKY_CHAIN = registerBlockWithItem("spiky_chain",
+            new ChainBlock(AbstractBlock.Settings.copy(Blocks.CHAIN)));
 
     public static final Block CHIMNEY = registerBlockWithItem("chimney",
             new ChimneyBlock(AbstractBlock.Settings.copy(Blocks.STONE_BRICKS).requiresTool()));

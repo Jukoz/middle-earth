@@ -30,6 +30,7 @@ public class HelpingGenerator {
             SimpleStoneStoolModel.stools.add(set.stool());
             SimpleStoneTableModel.tables.add(set.table());
             SimpleStoneChairModel.chairs.add(set.chair());
+            SimpleRocksModel.rocks.add(new SimpleRocksModel.Rocks(set.base(), set.rocks()));
 
             BlockDrops.blocks.add(set.base());
             BlockDrops.blocks.add(set.slab());
@@ -42,6 +43,7 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.stool());
             BlockDrops.blocks.add(set.table());
             BlockDrops.blocks.add(set.chair());
+            BlockDrops.blocks.add(set.rocks());
 
             MineablePickaxe.blocks.add(set.base());
             MineablePickaxe.blocks.add(set.wall());
@@ -54,6 +56,7 @@ public class HelpingGenerator {
             MineablePickaxe.blocks.add(set.stool());
             MineablePickaxe.blocks.add(set.table());
             MineablePickaxe.blocks.add(set.chair());
+            MineablePickaxe.blocks.add(set.rocks());
 
             Walls.walls.add(set.wall());
         }
