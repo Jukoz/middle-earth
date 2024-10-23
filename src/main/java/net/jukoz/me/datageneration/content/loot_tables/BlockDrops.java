@@ -67,6 +67,7 @@ public class BlockDrops {
             add(ModDecorativeBlocks.BONFIRE);
 
             add(ModNatureBlocks.MALLOS);
+            add(ModNatureBlocks.ELANOR);
             add(ModNatureBlocks.YELLOW_FLOWER);
             add(ModNatureBlocks.HOROKAKA);
             add(ModNatureBlocks.GIANT_HOROKAKA);

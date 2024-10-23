@@ -211,6 +211,21 @@ public class StoneBlockSets {
 
     public static SimpleBlockSet OLD_GALONN = registerStoneSet("old_galonn", GALONN.base.getHardness(), GALONN.base.getBlastResistance(), null);
 
+    public static SimpleBlockSetMain GABBRO = registerMainStoneSet("gabbro", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
+    //public static SimpleBlockSet COBBLED_GABBRO = registerStoneSet("cobbled_gabbro", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, GABBRO.base);
+    //public static SimpleBlockSet MOSSY_COBBLED_GABBRO = registerStoneSet("mossy_cobbled_gabbro", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, COBBLED_GABBRO.base);
+    public static SimpleBlockSet POLISHED_GABBRO = registerStoneSet("polished_gabbro", GABBRO.base.getHardness(), GABBRO.base.getBlastResistance(), GABBRO.base);
+    //public static SimpleBlockSet MOSSY_POLISHED_GABBRO = registerStoneSet("mossy_polished_gabbro", GABBRO.base.getHardness(), GABBRO.base.getBlastResistance(), POLISHED_GABBRO.base);
+    //public static SimpleBlockSet CRACKED_POLISHED_GABBRO = registerStoneSet("cracked_polished_gabbro", GABBRO.base.getHardness(), GABBRO.base.getBlastResistance(), POLISHED_GABBRO.base);
+    public static SimpleBlockSet GABBRO_BRICKS = registerStoneSet("gabbro_bricks", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, POLISHED_GABBRO.base);
+    //public static SimpleBlockSet MOSSY_GABBRO_BRICKS = registerStoneSet("mossy_gabbro_bricks", COBBLED_GABBRO.base.getHardness(), COBBLED_GABBRO.base.getBlastResistance(), GABBRO_BRICKS.base);
+    //public static SimpleBlockSet CRACKED_GABBRO_BRICKS = registerStoneSet("cracked_gabbro_bricks", COBBLED_GABBRO.base.getHardness(), COBBLED_GABBRO.base.getBlastResistance(), GABBRO_BRICKS.base);
+    //public static SimpleBlockSet GABBRO_TILES = registerStoneSet("gabbro_tiles", COBBLED_GABBRO.base.getHardness(), COBBLED_GABBRO.base.getBlastResistance(), GABBRO_BRICKS.base);
+    //public static SimpleBlockSet MOSSY_GABBRO_TILES = registerStoneSet("mossy_gabbro_tiles", COBBLED_GABBRO.base.getHardness(), COBBLED_GABBRO.base.getBlastResistance(), GABBRO_TILES.base);
+    //public static SimpleBlockSet CRACKED_GABBRO_TILES = registerStoneSet("cracked_gabbro_tiles", COBBLED_GABBRO.base.getHardness(), COBBLED_GABBRO.base.getBlastResistance(), GABBRO_TILES.base);
+
+    public static SimpleBlockSet GABBRO_BRICKWORK = registerStoneSet("gabbro_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
+    
     public static SimpleBlockSetMain SLATE = registerMainStoneSet("slate", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet COBBLED_SLATE = registerStoneSet("cobbled_slate", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, SLATE.base);
     //public static SimpleBlockSet MOSSY_COBBLED_SLATE = registerStoneSet("mossy_cobbled_slate", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, COBBLED_SLATE.base);
@@ -426,6 +441,8 @@ public class StoneBlockSets {
             
             GALONN,
             
+            GABBRO,
+            
             SLATE,
 
             BLUE_TUFF,
@@ -590,6 +607,20 @@ public class StoneBlockSets {
             CRACKED_POLISHED_GALONN,
 
             OLD_GALONN,
+
+            //COBBLED_GABBRO,
+            //MOSSY_COBBLED_GABBRO,
+            GABBRO_BRICKS,
+            //CRACKED_GABBRO_BRICKS,
+            //MOSSY_GABBRO_BRICKS,
+            //GABBRO_TILES,
+            //MOSSY_GABBRO_TILES,
+            //CRACKED_GABBRO_TILES,
+            POLISHED_GABBRO,
+            //MOSSY_POLISHED_GABBRO,
+            //CRACKED_POLISHED_GABBRO,
+
+            GABBRO_BRICKWORK,
 
             COBBLED_SLATE,
             //MOSSY_COBBLED_SLATE,
