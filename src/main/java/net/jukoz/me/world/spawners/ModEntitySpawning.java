@@ -117,7 +117,9 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.OLD_ANGMAR, wildGoblinsSpawnSettings);
         spawns.put(MEBiomeKeys.OLD_ANGMAR_FOREST, wildGoblinsSpawnSettings);
         spawns.put(MEBiomeKeys.OLD_ANGMAR_FROZEN_HILL, wildGoblinsSpawnSettings);
-        spawns.put(MEBiomeKeys.OLD_RHUDAUR, goblinsAndStoneTroll);
+        spawns.put(MEBiomeKeys.OLD_RHUDAUR, goblinsSpawnSettings);
+        spawns.put(MEBiomeKeys.OLD_RHUDAUR_FOREST, goblinsAndStoneTroll);
+        spawns.put(MEBiomeKeys.OLD_RHUDAUR_HILL, goblinsAndStoneTroll);
         spawns.put(MEBiomeKeys.OLD_CARDOLAN, banditSpawnSettings);
         spawns.put(MEBiomeKeys.OLD_CARDOLAN_FOREST, banditSpawnSettings);
         spawns.put(MEBiomeKeys.OLD_CARDOLAN_HILL, banditSpawnSettings);

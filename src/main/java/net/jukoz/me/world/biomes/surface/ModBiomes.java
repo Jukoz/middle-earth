@@ -324,7 +324,11 @@ public class ModBiomes {
         context.register(MEBiomeKeys.OLD_CARDOLAN_HILL, createOldCardolanBiome(context, new BiomeColorsDTO(
                 defaultSky, 12637429, 4615389, 658236, 9482090, 9154400), 2));
         context.register(MEBiomeKeys.OLD_RHUDAUR, createOldRhudaurBiome(context, new BiomeColorsDTO(
-                7508201, 10863086, 4618461, defaultWaterFog, 6722387, 6198343)));
+                7508201, 10863086, 4618461, defaultWaterFog, 6722387, 6198343), 0));
+        context.register(MEBiomeKeys.OLD_RHUDAUR_FOREST, createOldRhudaurBiome(context, new BiomeColorsDTO(
+                7507684, 10862569, 4618461, defaultWaterFog, 5932359, 6131783), 1));
+        context.register(MEBiomeKeys.OLD_RHUDAUR_HILL, createOldRhudaurBiome(context, new BiomeColorsDTO(
+                7507684, 10862569, 4618461, defaultWaterFog, 7049306, 6525264), 2));
         context.register(MEBiomeKeys.OSGILIATH, createGondorBiome(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 8104558, 7445848)));
         context.register(MEBiomeKeys.PELENNOR_FIELDS, createPelennorFields(context, new BiomeColorsDTO(
@@ -647,7 +651,7 @@ public class ModBiomes {
             ModBiomeFeatures.addGravelOre(vegetation);
             ModBiomeFeatures.addCommonLarchTrees(vegetation);
             ModBiomeFeatures.addCommonPineTrees(vegetation);
-            ModBiomeFeatures.addCommonSpruceTrees(vegetation);
+            ModBiomeFeatures.addFrequentSpruceTrees(vegetation);
             ModBiomeFeatures.addBlackPineTrees(vegetation);
             ModBiomeFeatures.addForestMoss(vegetation);
             ModBiomeFeatures.addForestBlockMoss(vegetation);
@@ -1727,7 +1731,7 @@ public class ModBiomes {
             ModBiomeFeatures.addDeadBlackPineTrees(vegetation);
             ModBiomeFeatures.addCommonPineTrees(vegetation);
             ModBiomeFeatures.addCommonBlackPineTrees(vegetation);
-            ModBiomeFeatures.addCommonSpruceTrees(vegetation);
+            ModBiomeFeatures.addFrequentSpruceTrees(vegetation);
         } else if(step == 1) { // Plains
             ModBiomeFeatures.addShriveledShrubs(vegetation);
             ModBiomeFeatures.addSpruceBushes(vegetation);
@@ -1865,25 +1869,52 @@ public class ModBiomes {
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
 
-    public static Biome createOldRhudaurBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+    public static Biome createOldRhudaurBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addWolves(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addNordicVegetation(generationSettings);
         ModBiomeFeatures.addFalseOatgrass(vegetation);
-        ModBiomeFeatures.addForestMoss(vegetation);
         ModBiomeFeatures.addCoarseDirtOre(vegetation);
-        ModBiomeFeatures.addGravelOre(vegetation);
-        ModBiomeFeatures.addPodzolOre(vegetation);
+        ModBiomeFeatures.addDyingGrass(vegetation);
 
-        ModBiomeFeatures.addOakBushes(vegetation);
-        ModBiomeFeatures.addSparseLarchTrees(vegetation);
-        ModBiomeFeatures.addDeadPineTrees(vegetation);
-        ModBiomeFeatures.addSparsePineTrees(vegetation);
-        ModBiomeFeatures.addBlackPineTrees(vegetation);
-        ModBiomeFeatures.addSpruceTrees(vegetation);
-        ModBiomeFeatures.addSpruceBushes(vegetation);
+        if(step == 0) {
+            ModSpawnSettingsBuilder.addPlainsMobs(spawnSettings);
+            ModBiomeFeatures.addStoneBoulder(vegetation);
+            ModBiomeFeatures.addOakBushes(vegetation);
+            ModBiomeFeatures.addWheatGrass(vegetation);
+            ModBiomeFeatures.addShriveledShrubs(vegetation);
+            vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+        } else if(step == 1) { // Forest
+            ModBiomeFeatures.addMossyBoulder(vegetation);
+            ModSpawnSettingsBuilder.addDeer(spawnSettings);
+            ModBiomeFeatures.addForestMoss(vegetation);
+            ModBiomeFeatures.addBeechTrees(vegetation);
+            ModBiomeFeatures.addSparseLarchTrees(vegetation);
+            ModBiomeFeatures.addOakTrees(vegetation);
+            ModBiomeFeatures.addOakBushes(vegetation);
+            ModBiomeFeatures.addDeadPineTrees(vegetation);
+            ModBiomeFeatures.addSparsePineTrees(vegetation);
+            ModBiomeFeatures.addBlackPineTrees(vegetation);
+            ModBiomeFeatures.addSpruceTrees(vegetation);
+            ModBiomeFeatures.addCommonSpruceTrees(vegetation);
+            ModBiomeFeatures.addSpruceBushes(vegetation);
+            ModBiomeFeatures.addPodzolOre(vegetation);
+        } else if(step == 2) { // Hill
+            ModBiomeFeatures.addAndesiteBoulder(vegetation);
+            ModBiomeFeatures.addDolomiteBoulder(vegetation);
+            ModBiomeFeatures.addGravelOre(vegetation);
+            ModBiomeFeatures.addGrassToStoneOre(vegetation);
+            ModBiomeFeatures.addForestMoss(vegetation);
+            ModBiomeFeatures.addSparseLarchTrees(vegetation);
+            ModBiomeFeatures.addDeadPineTrees(vegetation);
+            ModBiomeFeatures.addPineTrees(vegetation);
+            ModBiomeFeatures.addBlackPineTrees(vegetation);
+            ModBiomeFeatures.addCommonSpruceTrees(vegetation);
+            ModBiomeFeatures.addSpruceBushes(vegetation);
+            ModBiomeFeatures.addPodzolOre(vegetation);
+        }
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
@@ -1937,7 +1968,7 @@ public class ModBiomes {
         ModBiomeFeatures.addSparseBirchTrees(vegetation);
         ModBiomeFeatures.addLarchTrees(vegetation);
         ModBiomeFeatures.addCommonPineTrees(vegetation);
-        ModBiomeFeatures.addCommonSpruceTrees(vegetation);
+        ModBiomeFeatures.addFrequentSpruceTrees(vegetation);
 
         return createBiome(biomeColors, spawnSettings, generationSettings, 0.4f, true);
     }

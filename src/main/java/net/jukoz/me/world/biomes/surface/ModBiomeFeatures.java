@@ -232,6 +232,9 @@ public class ModBiomeFeatures {
     public static void addAbundantSpruceTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.FOOTHILLS_SPRUCE_PLACED_TREE_KEY);
     }
+    public static void addFrequentSpruceTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.FREQUENT_SPRUCE_PLACED_TREE_KEY);
+    }
     public static void addCommonSpruceTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.COMMON_SPRUCE_PLACED_TREE_KEY);
     }
