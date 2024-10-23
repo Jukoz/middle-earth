@@ -14,7 +14,6 @@ import java.util.List;
 
 public class CycledSelectionWidget extends ModWidget{
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/cycled_selection_widget.png");
-    private static boolean focusEnabled = false;
     private final ButtonWidget buttonLeft;
     private final ButtonWidget buttonRight;
     private final ButtonWidget selectionButton;
@@ -38,7 +37,6 @@ public class CycledSelectionWidget extends ModWidget{
         selectionButton.setDimensions(PANEL_SIZE_X, PANEL_SIZE_Y);
         if(selectionAction == null)
             selectionButton.active = false;
-        focusEnabled = false;
     }
 
     public List<ButtonWidget> getButtons(){
@@ -92,7 +90,7 @@ public class CycledSelectionWidget extends ModWidget{
             buttonLeft.setPosition(x, y + arrowStartOffsetY);
             buttonIsHovered = buttonLeft.isFocused() || isMouseOver(ARROW_SIZE_X, ARROW_SIZE_Y, x, y + arrowStartOffsetY);
             context.drawTexture(TEXTURE, x, y + arrowStartOffsetY, 206, buttonIsHovered ? 11 : 0, ARROW_SIZE_X, ARROW_SIZE_Y);
-            if(buttonLeft.isFocused() && focusEnabled)
+            if(buttonLeft.isFocused() && ModWidget.getFocusEnabled())
                 context.drawTexture(TEXTURE, x, y + arrowStartOffsetY, 206, 33, ARROW_SIZE_X, ARROW_SIZE_Y);
         }
 
@@ -101,7 +99,7 @@ public class CycledSelectionWidget extends ModWidget{
         selectionButton.setPosition(x, y + buttonStartOffsetY);
         buttonIsHovered = selectionButton.active && (selectionButton.isFocused() || isMouseOver(PANEL_SIZE_X, PANEL_SIZE_Y, x, y + buttonStartOffsetY));
         context.drawTexture(TEXTURE, x, y + buttonStartOffsetY, buttonIsHovered ? buttonType.hoveredUvX : buttonType.uvX, buttonIsHovered ? buttonType.hoveredUvY : buttonType.uvY, PANEL_SIZE_X, PANEL_SIZE_Y);
-        if(selectionButton.isFocused() && focusEnabled)
+        if(selectionButton.isFocused() && ModWidget.getFocusEnabled())
             context.drawTexture(TEXTURE, x, y + buttonStartOffsetY, CycledSelectionButtonType.FOCUS_UV_X, CycledSelectionButtonType.FOCUS_UV_Y, PANEL_SIZE_X, PANEL_SIZE_Y);
 
         if(text == null)
@@ -117,17 +115,10 @@ public class CycledSelectionWidget extends ModWidget{
             buttonRight.setPosition(x, y + arrowStartOffsetY);
             buttonIsHovered = buttonRight.isFocused() || isMouseOver(ARROW_SIZE_X, ARROW_SIZE_Y, x, y + arrowStartOffsetY);
             context.drawTexture(TEXTURE, x, y + arrowStartOffsetY, 215, buttonIsHovered ? 11 : 0, ARROW_SIZE_X, ARROW_SIZE_Y);
-            if(buttonRight.isFocused() && focusEnabled)
+            if(buttonRight.isFocused() && ModWidget.getFocusEnabled())
                 context.drawTexture(TEXTURE, x, y + arrowStartOffsetY, 215, 33, ARROW_SIZE_X, ARROW_SIZE_Y);
         }
 
         return PANEL_SIZE_Y;
-    }
-
-    public static boolean focusEnabled() {
-        return focusEnabled;
-    }
-    public static void toggleFocus() {
-        focusEnabled = !focusEnabled;
     }
 }
