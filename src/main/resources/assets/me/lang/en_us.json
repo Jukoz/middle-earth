@@ -6267,6 +6267,8 @@
 
 "#Comment": "UI Search",
   "ui.me.search.label" : "Search...",
+  "ui.me.search.toggle_button" : "Search Bar Toggle",
+  "ui.me.search.screen_click_button" : "Screen Click Button",
 
 "#Comment": "Compat for Mod Menu",
   "modmenu.nameTranslation.me": "Middle-earth",
