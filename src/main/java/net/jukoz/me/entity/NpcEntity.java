@@ -1,6 +1,16 @@
 package net.jukoz.me.entity;
 
 import net.jukoz.me.entity.goals.CustomBowAttackGoal;
+import net.jukoz.me.entity.goals.NpcTargetPlayerGoal;
+import net.jukoz.me.exceptions.FactionIdentifierException;
+import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.datas.factions.Faction;
+import net.jukoz.me.resources.datas.factions.FactionLookup;
+import net.jukoz.me.resources.datas.npcs.NpcData;
+import net.jukoz.me.resources.datas.npcs.NpcUtil;
+import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
+import net.jukoz.me.resources.datas.npcs.data.NpcRank;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
@@ -12,6 +22,7 @@ import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -26,14 +37,17 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     private Item bow;
     private final CustomBowAttackGoal<NpcEntity> bowAttackGoal = new CustomBowAttackGoal<NpcEntity>(this, 1.0, 16, 30.0f);
     private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.5, false);
-    public RANK rank;
-
+    public NpcRank rank;
     protected NpcEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         this.updateAttackType();
         for (int i = 0; i < 4; i++) {
             Arrays.fill(this.armorDropChances, 0.0f);
         }
+    }
+
+    protected Identifier getFactionId(){
+        return null;
     }
 
     @Nullable
@@ -51,6 +65,19 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(4, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this, this.getClass()).setGroupRevenge());
+
+        Disposition disposition;
+        Identifier factionId = getFactionId();
+        if(factionId == null)
+            disposition = Disposition.NEUTRAL;
+        else {
+            try {
+                disposition = FactionLookup.getFactionById(getWorld(), factionId).getDisposition();
+            } catch (FactionIdentifierException e) {
+                disposition = Disposition.NEUTRAL; // Attacks everyone, no judgement made
+            }
+        }
+        this.targetSelector.add(2, new NpcTargetPlayerGoal(this, disposition));
     }
 
     public void updateAttackType() {
@@ -76,11 +103,11 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         this.bow = bow;
     }
 
-    public RANK getRank() {
+    public NpcRank getRank() {
         return rank;
     }
 
-    public void setRank(RANK rank) {
+    public void setRank(NpcRank rank) {
         this.rank = rank;
     }
 
@@ -98,6 +125,7 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
 
     @Override
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
+        tryToEquipGears(this.getRank(), getFactionId());
     }
 
     @Override
@@ -154,11 +182,11 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
     public int getXpToDrop() {
         int exp = 0;
         switch (this.getRank()){
-            case MILITIA -> exp = 10;
-            case SOLDIER -> exp = 15;
-            case KNIGHT -> exp = 20;
-            case VETERAN -> exp = 25;
-            case LEADER -> exp = 30;
+            case NpcRank.MILITIA -> exp = 10;
+            case NpcRank.SOLDIER -> exp = 15;
+            case NpcRank.KNIGHT -> exp = 20;
+            case NpcRank.VETERAN -> exp = 25;
+            case NpcRank.LEADER -> exp = 30;
         }
         return exp;
     }
@@ -169,12 +197,17 @@ public class NpcEntity extends PathAwareEntity implements RangedAttackMob {
         super.applyDamage(source, amount);
     }
 
-    public enum RANK{
-        CIVILIAN,
-        MILITIA,
-        SOLDIER,
-        KNIGHT,
-        VETERAN,
-        LEADER
+    protected void tryToEquipGears(NpcRank npcRank, Identifier factionId) {
+        if(factionId == null)
+            return;
+        try{
+            Faction faction = FactionLookup.getFactionById(getWorld(), factionId);
+            NpcData data = faction.getRandomGear(getWorld(), npcRank);
+            NpcGearData gearData = data.getGear();
+            NpcUtil.equipAll(this, gearData);
+        } catch (FactionIdentifierException e) {
+            LoggerUtil.logError("GondorHumanEntity::Couldn't find faction registry with [%s] for rank [%s]".formatted(factionId, npcRank.toString()));
+            throw new RuntimeException(e);
+        }
     }
 }

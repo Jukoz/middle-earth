@@ -12,14 +12,22 @@ public class BlockDrops {
         {
             add(ModDecorativeBlocks.SILVER_LANTERN);
             add(ModDecorativeBlocks.WALL_SILVER_LANTERN);
+            add(ModDecorativeBlocks.ELVEN_LANTERN);
+            add(ModDecorativeBlocks.WALL_ELVEN_LANTERN);
             add(ModDecorativeBlocks.DWARVEN_LANTERN);
             add(ModDecorativeBlocks.WALL_DWARVEN_LANTERN);
+            add(ModDecorativeBlocks.CRYSTAL_LAMP);
+            add(ModDecorativeBlocks.WALL_CRYSTAL_LAMP);
             add(ModDecorativeBlocks.WOOD_PILE);
             add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
             add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
             add(ModDecorativeBlocks.SCONCE);
 
             add(ModDecorativeBlocks.ROPE);
+
+            add(ModDecorativeBlocks.BRONZE_CHAIN);
+            add(ModDecorativeBlocks.BRONZE_BROAD_CHAIN);
+            add(ModDecorativeBlocks.SPIKY_CHAIN);
 
             add(ModDecorativeBlocks.BLUE_CUSHION);
             add(ModDecorativeBlocks.BROWN_CUSHION);
@@ -59,6 +67,7 @@ public class BlockDrops {
             add(ModDecorativeBlocks.BONFIRE);
 
             add(ModNatureBlocks.MALLOS);
+            add(ModNatureBlocks.ELANOR);
             add(ModNatureBlocks.YELLOW_FLOWER);
             add(ModNatureBlocks.HOROKAKA);
             add(ModNatureBlocks.GIANT_HOROKAKA);

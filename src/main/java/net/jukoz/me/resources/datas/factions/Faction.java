@@ -4,19 +4,23 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.jukoz.me.resources.MiddleEarthFactions;
-import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.data.BannerData;
-import net.jukoz.me.resources.datas.factions.data.NpcPreview;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
+import net.jukoz.me.resources.datas.npcs.NpcData;
+import net.jukoz.me.resources.datas.npcs.NpcDataLookup;
+import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
+import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.utils.IdentifierUtil;
 import net.jukoz.me.utils.LoggerUtil;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
@@ -24,46 +28,46 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-import javax.swing.text.html.Option;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 public class Faction {
 
     public static final Codec<Faction> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(Faction::getIdValue),
-            Codec.STRING.fieldOf("alignment").forGetter(Faction::getAlignmentString),
+            Codec.BOOL.fieldOf("joinable").forGetter(Faction::getJoinable),
+            Codec.STRING.fieldOf("disposition").forGetter(Faction::getDispositionString),
             Codec.STRING.fieldOf("faction_type").forGetter(Faction::getFactionTypeString),
             Identifier.CODEC.optionalFieldOf("parent_faction").forGetter(Faction::getParentFactionIdentifier),
-            Codec.list(Identifier.CODEC).optionalFieldOf("subfactions").forGetter(Faction::getSubfactionIds),
-            NbtCompound.CODEC.fieldOf("races").forGetter(Faction::getPreviewGearNbt),
+            Codec.list(Identifier.CODEC).optionalFieldOf("subfaction").forGetter(Faction::getSubfactionIds),
+            NbtCompound.CODEC.optionalFieldOf("npcs").forGetter(Faction::getNpcValues),
             NbtCompound.CODEC.optionalFieldOf("banner").forGetter(Faction::getBannerNbt),
             NbtCompound.CODEC.optionalFieldOf("spawns").forGetter(Faction::getSpawnDataNbt),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Faction::getJoinCommands),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Faction::getLeaveCommands)
         ).apply(instance, Faction::new));
 
-
     private final Identifier id;
     private final String translatableKey;
-    private final Alignment alignment;
+    private final boolean joinable;
+    private final Disposition disposition;
     private final FactionType factionType;
     private final Identifier parentFactionId;
-    private final HashMap<Race, NpcPreview> racePreviews;
+    private final HashMap<NpcRank, List<Identifier>> npcDatasByRank;
     private final BannerData bannerData;
     private final SpawnDataHandler spawnDataHandler;
     private List<Identifier> subFactions = null;
     private List<String> joinCommands;
     private List<String> leaveCommands;
+    public List<Race> races = null;
+    private List<Text> descriptions = null;
+    private Text raceList = null;
 
-    public Faction(String id, String alignment, String factionType, Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, NbtCompound races, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
+    public Faction(String id, Boolean joinable, String disposition, String factionType, Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
         this.id = IdentifierUtil.getIdentifierFromString(id);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
-
-        this.alignment = Alignment.valueOf(alignment.toUpperCase());
+        this.joinable = joinable;
+        this.disposition = Disposition.valueOf(disposition.toUpperCase());
         this.factionType = FactionType.valueOf(factionType.toUpperCase());
         this.parentFactionId = parentFaction.orElse(null);
 
@@ -72,12 +76,20 @@ public class Faction {
             this.subFactions.addAll(newSubFactions.get());
         }
 
-        this.racePreviews = new HashMap<>();
-        NbtList raceList = races.getList("races", NbtType.COMPOUND);
-        for(int i = 0; i < raceList.size(); i++){
-            NbtCompound nbt = raceList.getCompound(i);
-            this.racePreviews.put(RaceLookup.getRaceFromString(nbt.getString("race")), new NpcPreview(Optional.ofNullable(nbt.getCompound("preview"))));
-        }
+        this.npcDatasByRank = new HashMap<>();
+        npcs.ifPresent(nbtCompound -> {
+            NbtList list = nbtCompound.getList("ranks", NbtType.COMPOUND);
+            for(int i = 0; i < list.size(); i++){
+                NbtCompound rankCompound = list.getCompound(i);
+                NpcRank rank = NpcRank.valueOf(rankCompound.getString("rank").toUpperCase());
+                NbtList npcDataList = rankCompound.getList("pool", NbtType.STRING);
+                List<Identifier> dataList = new ArrayList<>();
+                for(int j = 0; j < npcDataList.size(); j++){
+                    dataList.add(IdentifierUtil.getIdentifierFromString(npcDataList.getString(j)));
+                }
+                this.npcDatasByRank.put(rank, dataList);
+            }
+        });
 
         this.bannerData = new BannerData(bannerDataNbt);
         this.spawnDataHandler = new SpawnDataHandler(spawnsNbt);
@@ -86,30 +98,44 @@ public class Faction {
         joinCommands.ifPresent(nbtCompound -> this.joinCommands.addAll(nbtCompound));
         this.leaveCommands = new ArrayList<>();
         leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
+
+        this.raceList = null;
+        this.descriptions = null;
     }
 
-    public Faction(String name, Alignment alignment, FactionType factionType, Identifier parentFactionId, List<Identifier> subFactions, HashMap<Race, NpcPreview> races, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
+    public Faction(String name, Boolean joinable, Disposition disposition, FactionType factionType, Identifier parentFactionId, List<Identifier> subFactions, HashMap<NpcRank, List<NpcData>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
         this.id = IdentifierUtil.getIdentifierFromString(name);
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
-        this.alignment = alignment;
+        this.joinable = joinable;
+        this.disposition = disposition;
         this.factionType = factionType;
         this.parentFactionId = parentFactionId;
         this.subFactions = subFactions;
-        this.racePreviews = new HashMap<>();
-        if(races != null) {
-            for (Race race : races.keySet()){
-                NpcPreview previewData = races.get(race);
-                this.racePreviews.put(race, previewData);
+        if(npcDatas == null || npcDatas.isEmpty()){
+            this.npcDatasByRank = null;
+        } else{
+            this.npcDatasByRank = new HashMap<>();
+            for(NpcRank rank : npcDatas.keySet()){
+                List<Identifier> listOfIdentifiers = new ArrayList<>();
+                for(NpcData data : npcDatas.get(rank)){
+                    listOfIdentifiers.add(data.getId());
+                }
+                this.npcDatasByRank.put(rank, listOfIdentifiers);
             }
         }
         this.bannerData = bannerData;;
         this.spawnDataHandler = spawnDataHandler;
         this.joinCommands = joinCommand;
         this.leaveCommands = leaveCommand;
+        this.raceList = null;
+        this.descriptions = null;
     }
 
     private String getIdValue() {
         return this.id.toString();
+    }
+    private Boolean getJoinable() {
+        return joinable;
     }
 
     private Optional<Identifier> getParentFactionIdentifier() {
@@ -119,23 +145,6 @@ public class Faction {
     }
     public Identifier getParentFactionId() {
         return parentFactionId;
-    }
-    public NbtCompound getPreviewGearNbt() {
-        NbtList list = new NbtList();
-        for(Race race : this.racePreviews.keySet()){
-            NbtCompound nbt = new NbtCompound();
-            NpcPreview npcPreviewData = this.racePreviews.get(race);
-            nbt.putString("race", race.getId().toString());
-            NbtCompound nbtPreview = new NbtCompound();
-            for(EquipmentSlot slot : npcPreviewData.data.keySet()){
-                nbtPreview.putString(slot.name().toLowerCase(), npcPreviewData.get(slot).getItem().toString());
-            }
-            nbt.put("preview", nbtPreview);
-            list.add(nbt);
-        }
-        NbtCompound nbt = new NbtCompound();
-        nbt.put("races", list);
-        return nbt;
     }
 
     private Optional<List<Identifier>> getSubfactionIds() {
@@ -155,6 +164,25 @@ public class Faction {
         return this.spawnDataHandler.serializeNbt();
     }
 
+    public Optional<NbtCompound> getNpcValues() {
+        if(this.npcDatasByRank == null || this.npcDatasByRank.isEmpty())
+            return Optional.empty();
+        NbtCompound nbtCompound = new NbtCompound();
+        NbtList ranks = new NbtList();
+        for(NpcRank rank : this.npcDatasByRank.keySet()){
+            NbtCompound rankNbt = new NbtCompound();
+            rankNbt.putString("rank", rank.toString().toUpperCase());
+            NbtList identifiers = new NbtList();
+            for(Identifier npcDataIdentifier : this.npcDatasByRank.get(rank).stream().toList()) {
+                identifiers.add(NbtString.of(npcDataIdentifier.toString()));
+            }
+            rankNbt.put("pool", identifiers);
+            ranks.add(rankNbt);
+        }
+        nbtCompound.put("ranks", ranks);
+        return Optional.of(nbtCompound);
+    }
+
     public Optional<List<String>> getJoinCommands() {
         if(this.joinCommands == null)
             return Optional.empty();
@@ -172,8 +200,35 @@ public class Faction {
     return id.toString();
     }
 
-    public NpcPreview getPreviewGear(Race race){
-        return racePreviews.get(race);
+    public NpcData getRandomGear(World world, NpcRank npcRank) {
+        if(!this.npcDatasByRank.containsKey(npcRank))
+            return null;
+        List<NpcData> npcDataList = NpcDataLookup.getAllNpcDatas(world, getNpcPoolFromRank(npcRank));
+        if(npcDataList.isEmpty())
+            return null;
+        Random random = new Random();
+        return npcDataList.get(random.nextInt(0, npcDataList.size()));
+    }
+
+    public NpcGearData getPreviewGear(World world, Race selectedRace){
+        List<Identifier> identifiersToUse = new ArrayList<>();
+        identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.MILITIA));
+        identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.SOLDIER));
+        identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.KNIGHT));
+        identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.VETERAN));
+        identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.LEADER));
+        // Should we skip : Civilian/Leader/Veteran ?
+
+        List<NpcData> npcDataList = NpcDataLookup.getAllNpcDatasFromRace(world, identifiersToUse, selectedRace.getId());
+        if(npcDataList.isEmpty())
+            return NpcGearData.Create();
+        Random random = new Random();
+        NpcData foundNpcData = npcDataList.get(random.nextInt(0, npcDataList.size()));
+        return foundNpcData.getGear();
+    }
+
+    private List<Identifier> getNpcPoolFromRank(NpcRank npcRank) {
+        return this.npcDatasByRank.get(npcRank);
     }
 
     public DyeColor getBaseBannerColor(){
@@ -197,11 +252,11 @@ public class Faction {
         return getSubfactionById(world, subFactions.get(index));
     }
 
-    public Alignment getAlignment(){
-        return alignment;
+    public Disposition getDisposition(){
+        return disposition;
     }
-    public String getAlignmentString(){
-        return alignment.name();
+    public String getDispositionString(){
+        return disposition.name();
     }
     public String getFactionTypeString(){
         return factionType.name();
@@ -238,7 +293,55 @@ public class Faction {
         return world.getRegistryManager().get(MiddleEarthFactions.FACTION_KEY).get(id);
     }
 
-    public List<Race> getRaces() {
-        return racePreviews.keySet().stream().toList();
+    public List<Race> getRaces(World world) {
+        if(races != null) return races;
+
+        List<Identifier> allRaceIds = new ArrayList<>();
+        for(NpcRank rank : this.npcDatasByRank.keySet()){
+            List<NpcData> datas = NpcDataLookup.getAllNpcDatas(world, this.npcDatasByRank.get(rank));
+            for(NpcData data : datas){
+                if(data != null)
+                    allRaceIds.add(data.getRaceId());
+            }
+        }
+        races = RaceLookup.getAllRaces(world, allRaceIds);
+        return races;
+    }
+
+    public boolean isJoinable() {
+        return joinable;
+    }
+
+    public List<Text> getDescription() {
+        if(descriptions == null){
+            descriptions = new ArrayList<>();
+            boolean hasDescription = true;
+            String base = "description.me.%s.description_%s".formatted(id.getPath(), "%s");
+            while(hasDescription){
+                String langPath = base.formatted(descriptions.size());
+                Text text = Text.translatable(langPath);
+                if(!Objects.equals(text.getString(), langPath)){
+                    descriptions.add(text);
+                } else {
+                    hasDescription = false;
+                }
+            }
+        }
+        return descriptions;
+    }
+
+    public Text getRaceListText(World world) {
+        if(raceList == null){
+            StringBuilder raceListStringBuilder = new StringBuilder();
+            if(races == null)
+                races = getRaces(world);
+            for(Race race : races){
+                raceListStringBuilder.append(race.getFullName().getString());
+                if(race != races.getLast())
+                    raceListStringBuilder.append(", ");
+            }
+            raceList = Text.literal(raceListStringBuilder.toString());
+        }
+        return raceList;
     }
 }

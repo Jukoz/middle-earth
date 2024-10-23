@@ -10,6 +10,8 @@ import net.jukoz.me.entity.humans.rohan.RohanHumanEntity;
 import net.jukoz.me.entity.uruks.UrukNpcEntity;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.resources.MiddleEarthFactions;
+import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -20,6 +22,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -31,14 +34,17 @@ public class MistyHobgoblinEntity extends UrukNpcEntity {
         super(entityType, world);
         String name = this.getDefaultName().toString();
         if (name.contains("soldier")) {
-            this.setRank(RANK.KNIGHT);
+            this.setRank(NpcRank.KNIGHT);
         }else if (name.contains("veteran")) {
-            this.setRank(RANK.VETERAN);
+            this.setRank(NpcRank.VETERAN);
         }else if (name.contains("leader")) {
-            this.setRank(RANK.LEADER);
+            this.setRank(NpcRank.LEADER);
         }
     }
-
+    @Override
+    protected Identifier getFactionId() {
+        return MiddleEarthFactions.MISTY_MOUNTAINS_GOBLINS.getId();
+    }
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
@@ -83,67 +89,6 @@ public class MistyHobgoblinEntity extends UrukNpcEntity {
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, LongbeardDwarfEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShireHobbitEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, BanditHumanEntity.class, true));
-    }
-
-    @Override
-    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        super.initEquipment(random, localDifficulty);
-
-        switch (this.getRank()){
-            case KNIGHT -> knightEquipment(random);
-            case VETERAN -> veteranEquipment(random);
-            case LEADER -> leaderEquipment(random);
-        }
-    }
-
-    private void knightEquipment(Random random){
-        //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_HELMET));
-        //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_CHESTPLATE));
-        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_LEGGINGS));
-        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_SCALE_BOOTS));
-
-        float val = random.nextFloat();
-        if(val >= 0.75f){
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_BARDICHE));
-        } else if (val < 0.75f && val > 0.20f) {
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_FALCHION));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MISTY_MOUNTAINS_SHIELD));
-        } else if (val <= 0.20f) {
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_SPEAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MISTY_MOUNTAINS_SHIELD));
-        }
-    }
-
-    private void veteranEquipment(Random random){
-        //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_HELMET));
-        //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_CHESTPLATE));
-        //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_LEGGINGS));
-        //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_BOOTS));
-
-        float val = random.nextFloat();
-        if(val >= 0.50f){
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_BARDICHE));
-        }  else {
-            //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_FALCHION));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MISTY_MOUNTAINS_SHIELD));
-        }
-    }
-
-    private void leaderEquipment(Random random){
-        {
-            //equipStack(EquipmentSlot.HEAD, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_HELMET));
-            //equipStack(EquipmentSlot.CHEST, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_COMMANDER_CHESTPLATE));
-            //equipStack(EquipmentSlot.LEGS, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_LEGGINGS));
-            //equipStack(EquipmentSlot.FEET, new ItemStack(ModEquipmentItems.MISTY_HOBGOBLIN_PLATE_BOOTS));
-
-            float val = random.nextFloat();
-            if(val >= 0.50f){
-                //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_BARDICHE));
-            }  else {
-                //equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GUNDABAD_FALCHION));
-                equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.MISTY_MOUNTAINS_SHIELD));
-            }
-        }
     }
 
     public MistyHobgoblinVariant getVariant() {
