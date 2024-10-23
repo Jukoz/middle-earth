@@ -1,4 +1,4 @@
-package net.jukoz.me.commands.factions;
+package net.jukoz.me.commands.custom;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
