@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "me:mordor_eye",
-    "me:mordor_great_eye",
-    "me:sauron_eye"
+    "me:painted_eye",
+    "me:great_eye",
+    "me:eye_of_sauron"
   ]
 }

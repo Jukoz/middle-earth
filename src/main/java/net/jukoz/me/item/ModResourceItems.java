@@ -165,10 +165,14 @@ public class ModResourceItems {
     public static final Item DWARVEN_KEY = registerItem("dwarven_key",
             new Item(new Item.Settings().maxCount(1)));
 
+    public static final Item PIPEWEED_BANNER_PATTERN = registerItem("pipeweed_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.PIPEWEED_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item GONDOR_BANNER_PATTERN = registerItem("gondor_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.GONDOR_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item ROHAN_BANNER_PATTERN = registerItem("rohan_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.ROHAN_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+    public static final Item DALE_BANNER_PATTERN = registerItem("dale_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.DALE_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item LONGBEARD_BANNER_PATTERN = registerItem("longbeard_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.LONGBEARD_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item LOTHLORIEN_BANNER_PATTERN = registerItem("lothlorien_banner_pattern",
@@ -182,10 +186,6 @@ public class ModResourceItems {
 
     public static final Item DRAGON_BANNER_PATTERN = registerItem("dragon_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.DRAGON_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
-    public static final Item PIPEWEED_BANNER_PATTERN = registerItem("pipeweed_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.PIPEWEED_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
-    public static final Item FELLOWSHIP_BANNER_PATTERN = registerItem("fellowship_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.FELLOWSHIP_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item SNAIL_BANNER_PATTERN = registerItem("snail_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.SNAIL_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
 

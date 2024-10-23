@@ -84,6 +84,9 @@ public class ModNatureBlocks {
     public static final Block MALLOS = registerBlock("mallos",
             new FlowerBlock(StatusEffects.GLOWING, 3, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly()
                     .sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ).mapColor(DyeColor.GREEN)), true);
+    public static final Block ELANOR = registerBlock("elanor",
+            new FlowerBlock(StatusEffects.GLOWING, 3, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly()
+                    .sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ).mapColor(DyeColor.GREEN)), true);
     public static final Block TAN_SHRUB = registerBlock("tan_shrub",
             new DesertPlantBlock(AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
                     .mapColor(DyeColor.GREEN)), true);
