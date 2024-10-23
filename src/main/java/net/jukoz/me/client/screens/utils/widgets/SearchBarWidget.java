@@ -33,10 +33,9 @@ public class SearchBarWidget extends ModWidget{
     static final int SEARCH_BAR_PANEL_Y = 18;
     public static final int TOTAL_WIDTH = SEARCH_BAR_PANEL_X;
     public ButtonWidget searchBarToggleButton;
-    private boolean holdingSearchButton = false;
-    private boolean searchResultToggle = false;
-    private boolean searchBarToggle = false;
-    private int currentSearchInputIndex = 0;
+    private boolean searchResultToggle;
+    private boolean searchBarToggle;
+    private int currentSearchInputIndex;
     private String searchBarInput = "";
     public ButtonWidget screenClick;
     HashMap<Identifier, Text> pool;
@@ -75,13 +74,13 @@ public class SearchBarWidget extends ModWidget{
             if(!searchBarToggle)
                 searchBarToggle = true;
         };
-        searchBarToggleButton = ButtonWidget.builder(Text.of("Toggle search bar input"), searchBarInputToggle).build();
+        searchBarToggleButton = ButtonWidget.builder(Text.translatable("ui.me.search.toggle_button"), searchBarInputToggle).build();
 
         // Screen click
         ButtonWidget.PressAction screenClickAction = button -> {
             clickOnScreen();
         };
-        screenClick = ButtonWidget.builder(Text.of("Click on screen"), screenClickAction).build();
+        screenClick = ButtonWidget.builder(Text.translatable("ui.me.search.screen_click_button"), screenClickAction).build();
     }
 
     private void clickOnScreen() {
@@ -151,12 +150,10 @@ public class SearchBarWidget extends ModWidget{
     }
 
     public int drawSearchResultsCentered(DrawContext context, int centerX, int startY) {
-        // TODO : Modify centerX to be startX
         int startX = centerX - (TOTAL_WIDTH / 2);
         return drawSearchResults(context, startX, startY);
     }
     public int drawSearchResultsAnchored(DrawContext context, int anchorX, int startY, boolean isLeftAnchor) {
-        // TODO : Modify anchorX to be startX
         int startX = anchorX;
         if(!isLeftAnchor)
             startX -= TOTAL_WIDTH;
@@ -164,7 +161,6 @@ public class SearchBarWidget extends ModWidget{
     }
 
     public int drawSearchResults(DrawContext context, int startX, int startY) {
-        // TODO : draw search bar results
         setScreenClickbutton(context.getScaledWindowWidth(), context.getScaledWindowHeight());
         int previousPanelSizeY = 18;
 
