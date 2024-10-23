@@ -1323,6 +1323,7 @@
   "block.me.ashen_stone_pressure_plate": "Ashen Stone Pressure Plate",
   "block.me.ashen_stone_button": "Ashen Stone Button",
   "block.me.ashen_stone_trapdoor": "Ashen Stone Trapdoor",
+  "block.me.ashen_stone_rocks": "Ashen Stone Rocks",
 
   "block.me.ashen_stone_stool": "Ashen Stone Stool",
   "block.me.ashen_stone_table": "Ashen Stone Table",
@@ -1399,6 +1400,8 @@
   "block.me.pumice_button": "Pumice Button",
   "block.me.pumice_trapdoor": "Pumice Trapdoor",
 
+  "block.me.pumice_rocks": "Pumice Rocks",
+
   "block.me.pumice_stool": "Pumice Stool",
   "block.me.pumice_table": "Pumice Table",
   "block.me.pumice_chair": "Pumice Chair",
@@ -1466,6 +1469,8 @@
   "block.me.chiseled_calcite_bricks": "Chiseled Calcite Bricks",
 
   "block.me.calcite_trapdoor": "Calcite Trapdoor",
+
+  "block.me.calcite_rocks": "Calcite Rocks",
 
   "block.me.calcite_stool": "Calcite Stool",
   "block.me.calcite_table": "Calcite Table",
@@ -1562,6 +1567,8 @@
   "block.me.dolomite_button": "Dolomite Button",
   "block.me.dolomite_trapdoor": "Dolomite Trapdoor",
 
+  "block.me.dolomite_rocks": "Dolomite Rocks",
+
   "block.me.dolomite_stool": "Dolomite Stool",
   "block.me.dolomite_table": "Dolomite Table",
   "block.me.dolomite_chair": "Dolomite Chair",
@@ -1637,6 +1644,8 @@
   "block.me.gonluin_pressure_plate": "Gonluin Pressure Plate",
   "block.me.gonluin_button": "Gonluin Button",
   "block.me.gonluin_trapdoor": "Gonluin Trapdoor",
+
+  "block.me.gonluin_rocks": "Gonluin Rocks",
 
   "block.me.gonluin_carved_window": "Gonluin Carved Window",
   "block.me.gonluin_carved_window_pane": "Gonluin Carved Window Pane",
@@ -1715,6 +1724,8 @@
   "block.me.blue_tuff_pressure_plate": "Blue Tuff Pressure Plate",
   "block.me.blue_tuff_button": "Blue Tuff Button",
   "block.me.blue_tuff_trapdoor": "Blue Tuff Trapdoor",
+
+  "block.me.blue_tuff_rocks": "Blue Tuff Rocks",
 
   "block.me.blue_tuff_stool": "Blue Tuff Stool",
   "block.me.blue_tuff_table": "Blue Tuff Table",
@@ -1816,6 +1827,8 @@
   "block.me.green_tuff_button": "Green Tuff Button",
   "block.me.green_tuff_trapdoor": "Green Tuff Trapdoor",
 
+  "block.me.green_tuff_rocks": "Green Tuff Rocks",
+
   "block.me.green_tuff_stool": "Green Tuff Stool",
   "block.me.green_tuff_table": "Green Tuff Table",
   "block.me.green_tuff_chair": "Green Tuff Chair",
@@ -1823,6 +1836,8 @@
   "block.me.gilded_green_tuff_pressure_plate": "Gilded Green Tuff Pressure Plate",
   "block.me.gilded_green_tuff_button": "Gilded Green Tuff Button",
   "block.me.gilded_green_tuff_trapdoor": "Gilded Green Tuff Trapdoor",
+
+  "block.me.gilded_green_tuff_rocks": "Gilded Green Tuff Rocks",
 
   "block.me.gilded_green_tuff_stool": "Gilded Green Tuff Stool",
   "block.me.gilded_green_tuff_table": "Gilded Green Tuff Table",
@@ -1936,6 +1951,8 @@
   "block.me.limestone_button": "Limestone Button",
   "block.me.limestone_trapdoor": "Limestone Trapdoor",
 
+  "block.me.limestone_rocks": "Limestone Rocks",
+
   "block.me.limestone_stool": "Limestone Stool",
   "block.me.limestone_table": "Limestone Table",
   "block.me.limestone_chair": "Limestone Chair",
@@ -2037,6 +2054,8 @@
   "block.me.galonn_button": "Galonn Button",
   "block.me.galonn_trapdoor": "Galonn Trapdoor",
 
+  "block.me.galonn_rocks": "Galonn Rocks",
+
   "block.me.galonn_stool": "Galonn Stool",
   "block.me.galonn_table": "Galonn Table",
   "block.me.galonn_chair": "Galonn Chair",
@@ -2111,6 +2130,8 @@
   "block.me.slate_pressure_plate": "Slate Pressure Plate",
   "block.me.slate_button": "Slate Button",
   "block.me.slate_trapdoor": "Slate Trapdoor",
+
+  "block.me.slate_rocks": "Slate Rocks",
 
   "block.me.slate_stool": "Slate Stool",
   "block.me.slate_table": "Slate Table",
@@ -2567,6 +2588,8 @@
   "block.me.jadeite_button": "Jadeite Button",
   "block.me.jadeite_trapdoor": "Jadeite Trapdoor",
 
+  "block.me.jadeite_rocks": "Jadeite Rocks",
+
   "block.me.jadeite_stool": "Jadeite Stool",
   "block.me.jadeite_table": "Jadeite Table",
   "block.me.jadeite_chair": "Jadeite Chair",
@@ -2636,6 +2659,8 @@
   "block.me.quartzite_pressure_plate": "Quartzite Pressure Plate",
   "block.me.quartzite_button": "Quartzite Button",
   "block.me.quartzite_trapdoor": "Quartzite Trapdoor",
+
+  "block.me.quartzite_rocks": "Quartzite Rocks",
 
   "block.me.quartzite_stool": "Quartzite Stool",
   "block.me.quartzite_table": "Quartzite Table",
@@ -2717,6 +2742,8 @@
   "block.me.ironstone_pressure_plate": "Ironstone Pressure Plate",
   "block.me.ironstone_button": "Ironstone Button",
   "block.me.ironstone_trapdoor": "Ironstone Trapdoor",
+
+  "block.me.ironstone_rocks": "Ironstone Rocks",
 
   "block.me.ironstone_stool": "Ironstone Stool",
   "block.me.ironstone_table": "Ironstone Table",
@@ -2805,6 +2832,8 @@
   "block.me.hematite_button": "Hematite Button",
   "block.me.hematite_trapdoor": "Hematite Trapdoor",
 
+  "block.me.hematite_rocks": "Hematite Rocks",
+
   "block.me.hematite_stool": "Hematite Stool",
   "block.me.hematite_table": "Hematite Table",
   "block.me.hematite_chair": "Hematite Chair",
@@ -2892,6 +2921,8 @@
   "block.me.gneiss_button": "Gneiss Button",
   "block.me.gneiss_trapdoor": "Gneiss Trapdoor",
 
+  "block.me.gneiss_rocks": "Gneiss Rocks",
+
   "block.me.gneiss_stool": "Gneiss Stool",
   "block.me.gneiss_table": "Gneiss Table",
   "block.me.gneiss_chair": "Gneiss Chair",
@@ -2978,6 +3009,8 @@
   "block.me.zigilaban_pressure_plate": "Zigil'Aban Pressure Plate",
   "block.me.zigilaban_button": "Zigil'Aban Button",
   "block.me.zigilaban_trapdoor": "Zigil'Aban Trapdoor",
+
+  "block.me.zigilaban_rocks": "Zigil'Aban Rocks",
 
   "block.me.zigilaban_stool": "Zigil'Aban Stool",
   "block.me.zigilaban_table": "Zigil'Aban Table",
@@ -3081,6 +3114,8 @@
   "block.me.izheraban_button": "Izhêr'Aban Button",
   "block.me.izheraban_trapdoor": "Izhêr'Aban Trapdoor",
 
+  "block.me.izheraban_rocks": "Izhêr'Aban Rocks",
+
   "block.me.izheraban_carved_window": "Izhêr'Aban Carved Window",
   "block.me.izheraban_carved_window_pane": "Izhêr'Aban Carved Window Pane",
 
@@ -3153,6 +3188,8 @@
   "block.me.nurgon_pressure_plate": "Núrgon Pressure Plate",
   "block.me.nurgon_button": "Núrgon Button",
   "block.me.nurgon_trapdoor": "Núrgon Trapdoor",
+
+  "block.me.nurgon_rocks": "Núrgon Rocks",
 
   "block.me.nurgon_stool": "Núrgon Stool",
   "block.me.nurgon_table": "Núrgon Table",
@@ -3238,6 +3275,8 @@
   "block.me.medgon_button": "Medgon Button",
   "block.me.medgon_trapdoor": "Medgon Trapdoor",
 
+  "block.me.medgon_rocks": "Medgon Rocks",
+
   "block.me.medgon_stool": "Medgon Stool",
   "block.me.medgon_table": "Medgon Table",
   "block.me.medgon_chair": "Medgon Chair",
@@ -3307,6 +3346,8 @@
   "block.me.frozen_stone_pressure_plate": "Frozen Stone Pressure Plate",
   "block.me.frozen_stone_button": "Frozen Stone Button",
   "block.me.frozen_stone_trapdoor": "Frozen Stone Trapdoor",
+
+  "block.me.frozen_stone_rocks": "Frozen Stone Rocks",
 
   "block.me.frozen_stone_stool": "Frozen Stone Stool",
   "block.me.frozen_stone_table": "Frozen Stone Table",
