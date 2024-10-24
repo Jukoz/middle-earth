@@ -142,7 +142,7 @@ public class CommandRace {
                             return 0;
                         }
                     }
-                    MutableText sourceText = Text.translatable("command.me.race.set.fail", raceId);
+                    MutableText sourceText = Text.translatable("command.me.race.set.fail", raceId.toString());
                     source.sendMessage(sourceText.withColor(ModColors.WARNING.color));
             }
         }
@@ -160,8 +160,8 @@ public class CommandRace {
                 Race race = RaceLookup.getRace(source.getWorld(), raceId);
                 if(race != null){
                     RaceUtil.updateRace(targetPlayer, race);
-                    MutableText sourceText = Text.translatable("command.me.race.set.target.success",
-                            targetPlayer.getName(), race.getFullName().copyContentOnly().withColor(ModColors.PENDING.color));
+                    MutableText sourceText = Text.translatable("command.me.race.set.target.success", targetPlayer.getName(),
+                            race.getFullName().copyContentOnly().withColor(RACE_COLOR));
                     source.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
                     MutableText targetText = Text.translatable("command.me.race.set.success",
                             race.getFullName().copyContentOnly().withColor(RACE_COLOR));
@@ -169,7 +169,7 @@ public class CommandRace {
                     return 0;
                 }
             }
-            MutableText sourceText = Text.translatable("command.me.race.set.target.fail", raceId);
+            MutableText sourceText = Text.translatable("command.me.race.set.target.fail", raceId.toString());
             source.sendMessage(sourceText.withColor(ModColors.WARNING.color));
         }
         return 0;
