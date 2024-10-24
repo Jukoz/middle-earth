@@ -25,7 +25,7 @@ import net.minecraft.util.Identifier;
 public class DegradedChestplateArmorRenderer implements ArmorRenderer {
 
     private CustomChestplateModel<LivingEntity> customChestplateModel;
-    private CloakCapeModel<LivingEntity> capeModel;
+    private ChestplateAddonModel<LivingEntity> capeModel;
     private ChestplateAddonModel<LivingEntity> chestplateModel;
 
 
@@ -77,13 +77,14 @@ public class DegradedChestplateArmorRenderer implements ArmorRenderer {
 
             CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
             if (capeDataComponent != null) {
+                this.capeModel = capeDataComponent.cape().getModel().getArmoredModel();
                 contextModel.copyBipedStateTo(capeModel);
                 capeModel.setVisible(false);
                 capeModel.body.visible = true;
                 capeModel.rightArm.visible = true;
                 capeModel.leftArm.visible = true;
                 capeModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float) entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.roll);
-                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + capeDataComponent.cape().getName() + ".png"), false);
+                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + ".png"), false);
         }
         }
     }
