@@ -157,6 +157,7 @@ public class MapWidget extends ModWidget {
             if(distance > 4)
                 computeUvs(uvX + directionX, uvY + directionY);
         }
+        currentMapTargetRatio = getCurrentMapCenterRatio();
     }
 
     protected int getWidth() {
