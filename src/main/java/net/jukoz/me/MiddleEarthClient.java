@@ -664,8 +664,8 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     private void registerDyeableItem(Item item) {
         Boolean overlay = ModDyeablePieces.dyeablePieces.get(item);
-        if (overlay){
+        //if (overlay){
             ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex > 0 ? -1 : CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR), item);
-        }
+       // }
     }
 }

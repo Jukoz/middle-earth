@@ -638,6 +638,8 @@
   "item.me.barding_sergeant_helmet": "Barding Sergeant Helmet",
   "item.me.barding_sergeant_chestplate": "Barding Sergeant Chestplate",
 
+  "item.me.longbeard_segmented_helmet": "Longbeard Segmented Helmet",
+
   "item.me.dwarven_partisan_chestplate": "Dwarven Partisan Chestplate",
   "item.me.dwarven_partisan_leggings": "Dwarven Partisan Leggings",
 
@@ -729,6 +731,7 @@
   "item.me.mordor_orc_chestplate": "Mordor Orc Chestplate",
 
   "item.me.black_uruk_plate_helmet": "Black Uruk Plate Helmet",
+  "item.me.black_uruk_face_plate_helmet": "Black Uruk Face Plate Helmet",
   "item.me.black_uruk_plate_chestplate": "Black Uruk Plate Chestplate",
   "item.me.black_uruk_plate_leggings": "Black Uruk Plate Leggings",
   "item.me.black_uruk_plate_boots": "Black Uruk Plate Boots",
@@ -6283,5 +6286,11 @@
 "#Comment": "Compat for Mod Menu",
   "modmenu.nameTranslation.me": "Middle-earth",
   "modmenu.descriptionTranslation.me": "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!",
-  "modmenu.summaryTranslation.me": "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!"
+  "modmenu.summaryTranslation.me": "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!",
+
+
+"#Comment": "Keybinds",
+  "key.category.me.me": "Middle-earth",
+  "key.me.hood_state_toggle": "Toggle Worn Hood state"
+
 }
