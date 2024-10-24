@@ -6,36 +6,52 @@ import net.minecraft.registry.*;
 import net.minecraft.util.Identifier;
 
 public class ModBannerPatterns {
-    public static final RegistryKey<BannerPattern> GONDOR_BANNER_PATTERN = key("gondor");
-    public static final RegistryKey<BannerPattern> ROHAN_BANNER_PATTERN = key("rohan");
-    public static final RegistryKey<BannerPattern> LONGBEARD_BANNER_PATTERN = key("longbeard");
-    public static final RegistryKey<BannerPattern> LOTHLORIEN_BANNER_PATTERN = key("lothlorien");
-    public static final RegistryKey<BannerPattern> MORDOR_BANNER_PATTERN = key("mordor");
-    public static final RegistryKey<BannerPattern> MISTY_MOUNTAINS_ORCS_BANNER_PATTERN = key("misty_mountains_orcs");
-    public static final RegistryKey<BannerPattern> ISENGARD_BANNER_PATTERN = key("isengard");
+    public static final RegistryKey<BannerPattern> TREE = key("tree");
+    public static final RegistryKey<BannerPattern> HORSE = key("horse");
+    public static final RegistryKey<BannerPattern> HORSE_HEAD = key("horse_head");
+    public static final RegistryKey<BannerPattern> BELL_AND_ARROW = key("bell_and_arrow");
+    public static final RegistryKey<BannerPattern> CROWN_AND_ANVIL = key("crown_and_anvil");
+    public static final RegistryKey<BannerPattern> GOLDENWOOD = key("goldenwood");
+    public static final RegistryKey<BannerPattern> STAR_AND_LEAF = key("star_and_leaf");
+    public static final RegistryKey<BannerPattern> MALLORN = key("mallorn");
+    public static final RegistryKey<BannerPattern> EYE_OF_SAURON = key("eye_of_sauron");
+    public static final RegistryKey<BannerPattern> GREAT_EYE = key("great_eye");
+    public static final RegistryKey<BannerPattern> PAINTED_EYE = key("painted_eye");
+    public static final RegistryKey<BannerPattern> EVIL_EYE = key("evil_eye");
+    public static final RegistryKey<BannerPattern> EVIL_PEAKS = key("evil_peaks");
+    public static final RegistryKey<BannerPattern> HAND = key("hand");
 
-    // Variants
-    public static final RegistryKey<BannerPattern> MORDOR_EYE_BANNER_PATTERN = key("mordor_eye");
-    public static final RegistryKey<BannerPattern> MORDOR_GREAT_EYE_BANNER_PATTERN = key("mordor_great_eye");
-    public static final RegistryKey<BannerPattern> MISTY_MOUNTAINS_ORCS_EYE_BANNER_PATTERN = key("misty_mountains_orcs_eye");
-    public static final RegistryKey<BannerPattern> MISTY_MOUNTAINS_ORCS_PEAKS_BANNER_PATTERN = key("misty_mountains_orcs_peaks");
-
-    public static final RegistryKey<BannerPattern> DRAGON_BANNER_PATTERN = key("dragon");
+    public static final RegistryKey<BannerPattern> DRAGON = key("dragon");
+    public static final RegistryKey<BannerPattern> SNAIL = key("snail");
+    public static final RegistryKey<BannerPattern> CLOTH = key("cloth");
+    public static final RegistryKey<BannerPattern> SMALL_CIRCLE = key("small_circle");
+    public static final RegistryKey<BannerPattern> PIPE = key("pipe");
 
     private static RegistryKey<BannerPattern> key(String id) {
         return RegistryKey.of(RegistryKeys.BANNER_PATTERN, Identifier.of(MiddleEarth.MOD_ID, id));
     }
 
-    public static void register(Registerable<BannerPattern> registry) { // TODO fixme
-        register(registry, GONDOR_BANNER_PATTERN);
-        register(registry, ROHAN_BANNER_PATTERN);
-        register(registry, LONGBEARD_BANNER_PATTERN);
-        register(registry, LOTHLORIEN_BANNER_PATTERN);
-        register(registry, MORDOR_BANNER_PATTERN);
-        register(registry, MISTY_MOUNTAINS_ORCS_BANNER_PATTERN);
-        register(registry, ISENGARD_BANNER_PATTERN);
+    public static void register(Registerable<BannerPattern> registry) {
+        register(registry, TREE);
+        register(registry, HORSE);
+        register(registry, HORSE_HEAD);
+        register(registry, CROWN_AND_ANVIL);
+        register(registry, GOLDENWOOD);
+        register(registry, STAR_AND_LEAF);
+        register(registry, MALLORN);
+        register(registry, EYE_OF_SAURON);
+        register(registry, GREAT_EYE);
+        register(registry, PAINTED_EYE);
+        register(registry, EVIL_EYE);
+        register(registry, EVIL_PEAKS);
+        register(registry, HAND);
+        register(registry, BELL_AND_ARROW);
 
-        register(registry, DRAGON_BANNER_PATTERN);
+        register(registry, DRAGON);
+        register(registry, SNAIL);
+        register(registry, CLOTH);
+        register(registry, SMALL_CIRCLE);
+        register(registry, PIPE);
     }
 
     public static void register(Registerable<BannerPattern> registry, RegistryKey<BannerPattern> key) {

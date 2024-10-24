@@ -338,6 +338,7 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.FOREST_MOSS_BLOCK, 0.65f);
 
         registry.add(ModNatureBlocks.MALLOS, 0.65f);
+        registry.add(ModNatureBlocks.ELANOR, 0.65f);
         registry.add(ModNatureBlocks.YELLOW_FLOWER, 0.65f);
         registry.add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER, 0.65f);
 

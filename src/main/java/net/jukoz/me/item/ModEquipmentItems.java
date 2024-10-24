@@ -517,6 +517,10 @@ public class ModEquipmentItems {
 
     //region GENERIC
 
+    public static final Item LONGBEARD_SEGMENTED_HELMET = registerArmorPiece("longbeard_segmented_helmet",
+            new CustomHelmetItem(ModArmorMaterials.IRON_T3, ArmorItem.Type.HELMET, new Item.Settings(),
+                    ModFactions.LONGBEARDS));
+
     public static final Item DWARVEN_PARTISAN_CHESTPLATE = registerArmorPiece("dwarven_partisan_chestplate",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModFactions.NONE));
@@ -782,6 +786,9 @@ public class ModEquipmentItems {
                     ModFactions.MORDOR));
     
     public static final Item BLACK_URUK_PLATE_HELMET = registerArmorPiece("black_uruk_plate_helmet",
+            new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
+                    ModFactions.MORDOR));
+    public static final Item BLACK_FACE_URUK_PLATE_HELMET = registerArmorPiece("black_uruk_face_plate_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item BLACK_URUK_PLATE_CHESTPLATE = registerCustomModelArmorPiece("black_uruk_plate_chestplate",

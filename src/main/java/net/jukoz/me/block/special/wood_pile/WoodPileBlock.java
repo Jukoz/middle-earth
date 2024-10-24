@@ -44,6 +44,11 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
     }
 
     @Override
+    protected VoxelShape getSidesShape(BlockState state, BlockView world, BlockPos pos) {
+        return VoxelShapes.empty();
+    }
+
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(HORIZONTAL_FACING, STAGE);
     }
@@ -69,7 +74,7 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
         if (world.isClient) {
             return ActionResult.SUCCESS;
         }  else {
-            if (player.isCreative()) {
+            if (player.isInCreativeMode()) {
                 world.setBlockState(pos, state.cycle(STAGE));
             } else {
                 if (addStackRightClick(world, pos, player, player.getActiveHand())) {
