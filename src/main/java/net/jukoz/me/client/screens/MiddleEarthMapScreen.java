@@ -151,8 +151,8 @@ public class MiddleEarthMapScreen extends Screen {
         int centerX = context.getScaledWindowWidth() / 2;
         startX = centerX - (WIDTH / 2);
         endX = centerX + (WIDTH / 2);
-        startY = 10;
-        endY = HEIGHT + 10;
+        startY = (context.getScaledWindowHeight() / 2) - (HEIGHT / 2);
+        endY = startY + HEIGHT;
 
         context.drawTexture(BACKGROUND_TEXTURE, startX, startY, 0, 0,  WIDTH, HEIGHT);
         mapWidget.drawCentered(context, centerX, startY + MARGIN);

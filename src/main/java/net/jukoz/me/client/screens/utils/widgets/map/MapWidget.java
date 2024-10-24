@@ -16,17 +16,16 @@ public class MapWidget extends ModWidget {
     protected final int uiWidth, uiHeight;
     protected int startX, startY = 0;
     protected float uiCurrentWidth, uiCurrentHeight;
-
     private final static int DRAG_COOLDOWN = 25;
-    protected double uvX;
-    protected double uvY = 0;
-    protected float zoomLevel = getMinZoom();
-    private float zoomTarget = zoomLevel;
+    protected static Double uvX;
+    protected static Double uvY;
+    protected static Float zoomLevel;
+    private Float zoomTarget;
     private boolean isForcingTargetMovement = false;
     private Vector2d forcedCurrentMapCenterTargetRatio;
-    protected Vector2d currentPointRatio;
-    private Vector2d currentMapTargetRatio;
-    private Vector2d currentUiTargetRatio;
+    protected static Vector2d currentPointRatio;
+    private static Vector2d currentMapTargetRatio;
+    private static Vector2d currentUiTargetRatio;
     private boolean isDragging = false;
     private Vector2d nextUvs = null;
     private float cooldown = 0;
@@ -36,10 +35,20 @@ public class MapWidget extends ModWidget {
         this.uiHeight = mapHeight;
         this.uiCurrentWidth = uiWidth;
         this.uiCurrentHeight = uiHeight;
+        if(zoomLevel == null)
+            zoomLevel = getMinZoom();
+        zoomTarget = zoomLevel;
         this.canZoomOut = false;
         this.canZoomIn = true;
-        this.currentPointRatio = new Vector2d(.5, .5);
-        updateCurrentMapTargetRatio();
+        if(currentPointRatio == null)
+            currentPointRatio = new Vector2d(.5, .5);
+
+        if(uvX == null || uvY == null){
+            uvX = 0.0;
+            uvY = 0.0;
+            updateCurrentMapTargetRatio();
+        }
+        computeZoom(true);
     }
     private float getZoomTransitionSpeed(){
         return 0.35f * (zoomLevel / 4f);
@@ -95,8 +104,8 @@ public class MapWidget extends ModWidget {
             cooldown = Math.max(cooldown - 1, 1);
         }
         if(nextUvs != null){
-            this.uvX = nextUvs.x;
-            this.uvY = nextUvs.y;
+            uvX = nextUvs.x;
+            uvY = nextUvs.y;
             nextUvs = null;
             zoomLevel = zoomTarget;
         }
@@ -111,7 +120,7 @@ public class MapWidget extends ModWidget {
         int size = Math.max(getCurrentWidth(), getCurrentHeight());
         context.drawTexture(getMapTexture(),
                 startX, startY,
-                (float) uvX, (float) uvY,
+                uvX.floatValue(), uvY.floatValue(),
                 getWidth(), getHeight(),
                 size, size
         );
@@ -124,7 +133,7 @@ public class MapWidget extends ModWidget {
         return (int) uiCurrentHeight;
     }
     private void computeForcedMovement() {
-        Vector2d currentUvs = new Vector2d((int) this.uvX, (int) this.uvY);
+        Vector2d currentUvs = new Vector2d(uvX.intValue(), uvY.intValue());
         Vector2d targetUV = new Vector2d(
                 (getCurrentWidth() * forcedCurrentMapCenterTargetRatio.x) - (getWidth() / 2.0),
                 (getCurrentWidth() * forcedCurrentMapCenterTargetRatio.y) - (getHeight() / 2.0)
@@ -223,14 +232,14 @@ public class MapWidget extends ModWidget {
     public void zoomClick(){
         addCooldown();
         isDragging = false;
-        this.currentPointRatio = new Vector2d(0.5, 0.5);
+        currentPointRatio = new Vector2d(0.5, 0.5);
         zoom(1f + (zoomTarget / 2f));
     }
 
     public void dezoomClick(){
         addCooldown();
         isDragging = false;
-        this.currentPointRatio = new Vector2d(0.5, 0.5);
+        currentPointRatio = new Vector2d(0.5, 0.5);
         dezoom(1f + (zoomTarget / 2f));
 
     }
@@ -266,8 +275,8 @@ public class MapWidget extends ModWidget {
 
     public Vector2d getCurrentMapCenterRatio() {
         int maxSize = Math.max(getCurrentWidth(), getCurrentHeight());
-        double ratioX = (this.uvX + (getWidth() * 0.5)) / maxSize;
-        double ratioY = (this.uvY + (getHeight() * 0.5)) / maxSize;
+        double ratioX = (uvX + (getWidth() * 0.5)) / maxSize;
+        double ratioY = (uvY + (getHeight() * 0.5)) / maxSize;
         return new Vector2d(ratioX, ratioY);
     }
     protected void instantCenterOnRatio(Vector2d mapCenter) {
@@ -275,22 +284,27 @@ public class MapWidget extends ModWidget {
         double newUvX = (maxSize * mapCenter.x) - (getWidth() * 0.5);
         double newUvY = (maxSize * mapCenter.y) - (getHeight() * 0.5);
         computeUvs(newUvX, newUvY);
-        this.currentPointRatio = new Vector2d(0.5,0.5);
+        currentPointRatio = new Vector2d(0.5,0.5);
         updateCurrentMapTargetRatio();
         computeZoom();
     }
 
     private void updateCurrentMapTargetRatio(){
-        double ratioX = (this.uvX + (getWidth() * currentPointRatio.x)) / getCurrentWidth();
-        double ratioY = (this.uvY + (getHeight() * currentPointRatio.y)) / getCurrentHeight();
+        double ratioX = (uvX + (getWidth() * currentPointRatio.x)) / getCurrentWidth();
+        double ratioY = (uvY + (getHeight() * currentPointRatio.y)) / getCurrentHeight();
 
-        this.currentMapTargetRatio = new Vector2d(ratioX, ratioY);
-        this.currentUiTargetRatio = new Vector2d(currentPointRatio.x, currentPointRatio.y);
+        currentMapTargetRatio = new Vector2d(ratioX, ratioY);
+        currentUiTargetRatio = new Vector2d(currentPointRatio.x, currentPointRatio.y);
     }
 
     protected void computeZoom(){
-        if(zoomLevel == zoomTarget)
+        computeZoom(false);
+    }
+
+    protected void computeZoom(boolean forced){
+        if(!forced && zoomLevel.equals(zoomTarget))
             return;
+
         float zoomModifier = getZoomTransitionSpeed();
         if(zoomLevel > zoomTarget){
             zoomLevel = Math.max(zoomTarget, zoomLevel - zoomModifier);
@@ -312,8 +326,8 @@ public class MapWidget extends ModWidget {
 
     protected void computeUvs(double newUvX, double newUvY){
         Vector2d computedUvs = verifyUvs(newUvX, newUvY);
-        this.uvX = computedUvs.x;
-        this.uvY = computedUvs.y;
+        uvX = computedUvs.x;
+        uvY = computedUvs.y;
     }
 
     protected Vector2d verifyUvs(double newUvX, double newUvY){
