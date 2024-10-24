@@ -1219,6 +1219,7 @@ public class ModBiomes {
 
         addGondorVegetation(generationSettings);
         ModBiomeFeatures.addLebenninFlowers(vegetation);
+        ModBiomeFeatures.addMallos(vegetation);
         ModBiomeFeatures.addGravelOre(vegetation);
         ModBiomeFeatures.addCalciteBoulder(vegetation);
         ModBiomeFeatures.addDioriteBoulder(vegetation);
@@ -1770,6 +1771,8 @@ public class ModBiomes {
             ModBiomeFeatures.addRareHeather(vegetation);
             ModBiomeFeatures.addCommonHeatherBush(vegetation);
             ModBiomeFeatures.addAlliumFlower(vegetation);
+            ModBiomeFeatures.addLilacFlowerGrowth(vegetation);
+            ModBiomeFeatures.addLilacFlower(vegetation);
         } else if(step == 1) { // Plains
             ModBiomeFeatures.addSmoothDolomiteBoulder(vegetation);
             ModBiomeFeatures.addHeath(vegetation);
@@ -2511,7 +2514,8 @@ public class ModBiomes {
         ModBiomeFeatures.addWilderGrass(vegetation);
         ModBiomeFeatures.addMallornBushes(vegetation);
         ModBiomeFeatures.addOakBushes(vegetation);
-        ModBiomeFeatures.addMallos(vegetation);
+        ModBiomeFeatures.addElanor(vegetation);
+        ModBiomeFeatures.addYellowFlowerGrowth(vegetation);
         ModBiomeFeatures.addWildCarrot(vegetation);
         ModBiomeFeatures.addWildFlax(vegetation);
         ModBiomeFeatures.addWildLettuce(vegetation);

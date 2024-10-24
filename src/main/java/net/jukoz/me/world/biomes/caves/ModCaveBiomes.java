@@ -4,6 +4,7 @@ import net.jukoz.me.world.biomes.BiomeColorsDTO;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.surface.MEBiome;
 import net.jukoz.me.world.features.underground.CavesPlacedFeatures;
+import net.jukoz.me.world.features.vegetation.ModVegetationPlacedFeatures;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -107,6 +108,7 @@ public class ModCaveBiomes {
         undergroundOres.add(MiscPlacedFeatures.DISK_CLAY);
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
 
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationPlacedFeatures.AZALEA_GROWTH);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.LUSH_CAVES_CEILING_VEGETATION);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.CAVE_VINES);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.LUSH_CAVES_CLAY);

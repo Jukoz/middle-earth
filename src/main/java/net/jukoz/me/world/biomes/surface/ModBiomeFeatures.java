@@ -266,7 +266,6 @@ public class ModBiomeFeatures {
     public static void addMirkwoodRoots(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(BoulderPlacedFeatures.MIRKWOOD_ROOTS_BOULDER);
     }
-
     public static void addAndesiteBoulder(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(BoulderPlacedFeatures.SMALL_BOULDER_ANDESITE);
         vegetation.add(BoulderPlacedFeatures.MEDIUM_BOULDER_ANDESITE);
@@ -356,6 +355,31 @@ public class ModBiomeFeatures {
     }
     // endregion
 
+    // region GROWTH
+    public static void addAzaleaGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.AZALEA_GROWTH);
+    }
+    public static void addIvyGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.IVY_GROWTH);
+    }
+    public static void addLilacFlowerGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.LILAC_FLOWER_GROWTH);
+    }
+    public static void addRedFlowerGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.RED_FLOWER_GROWTH);
+    }
+    public static void addYellowFlowerGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.YELLOW_FLOWER_GROWTH);
+    }
+    public static void addPinkFlowerGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PINK_FLOWER_GROWTH);
+    }
+    public static void addWhiteFlowerGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.WHITE_FLOWER_GROWTH);
+    }
+
+    // endregion
+
     // region FOLIAGE
     public static void addWaterDelta(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.WATER_DELTA);
@@ -373,6 +397,9 @@ public class ModBiomeFeatures {
     public static void addFlowerGreenJewel(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_GREEN_JEWEL);
     }
+    public static void addLilacFlower(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_LILAC);
+    }
     public static void addFlowerDorwinion(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_DORWINION);
     }
@@ -387,6 +414,12 @@ public class ModBiomeFeatures {
     }
     public static void addFlowerMeadow(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_MEADOW);
+    }
+    public static void addMallos(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_MALLOS);
+    }
+    public static void addElanor(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_ELANOR);
     }
 
     public static void addBasaltPile(List<RegistryKey<PlacedFeature>> vegetation) {
@@ -482,9 +515,6 @@ public class ModBiomeFeatures {
     }
     public static void addRedHeather(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_HEATHER_BUSH);
-    }
-    public static void addMallos(List<RegistryKey<PlacedFeature>> vegetation) {
-        vegetation.add(ModVegetationPlacedFeatures.PATCH_MALLOS);
     }
     public static void addShriveledShrubs(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_SHRIVELED_SHRUB);
