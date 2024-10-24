@@ -76,7 +76,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
             }
         }
 
-        this.outputSlot = this.addSlot(new Slot(this.output, 6, 165, 33) {
+        this.outputSlot = this.addSlot(new Slot(this.output, 9, 165, 33) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return false;

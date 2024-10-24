@@ -3,10 +3,10 @@
   "category": "sword",
   "ingredients": [
     {
+      "fabric:type": "fabric:components",
       "base": {
         "item": "me:blade"
       },
-      "fabric:type": "fabric:components",
       "components": {
         "minecraft:trim": {
           "pattern": "me:smithing_part",
@@ -15,10 +15,10 @@
       }
     },
     {
+      "fabric:type": "fabric:components",
       "base": {
         "item": "me:sword_hilt"
       },
-      "fabric:type": "fabric:components",
       "components": {
         "minecraft:trim": {
           "pattern": "me:smithing_part",

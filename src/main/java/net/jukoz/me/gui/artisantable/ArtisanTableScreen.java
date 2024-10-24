@@ -123,7 +123,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         this.armorStand.setPitch(25.0f);
         this.armorStand.headYaw = this.armorStand.getYaw();
         this.armorStand.prevHeadYaw = this.armorStand.getYaw();
-        this.equipArmorStand((this.handler).getSlot(6).getStack());
+        this.equipArmorStand((this.handler).getSlot(9).getStack());
     }
 
 

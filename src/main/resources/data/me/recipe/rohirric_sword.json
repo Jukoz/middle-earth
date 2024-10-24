@@ -3,10 +3,28 @@
   "category": "sword",
   "ingredients": [
     {
-      "item": "me:blade"
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:blade"
+      },
+      "components": {
+        "minecraft:trim": {
+          "pattern": "me:smithing_part",
+          "material": "me:bronze"
+        }
+      }
     },
     {
-      "item": "me:sword_hilt"
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:sword_hilt"
+      },
+      "components": {
+        "minecraft:trim": {
+          "pattern": "me:smithing_part",
+          "material": "me:bronze"
+        }
+      }
     },
     {
       "item": "minecraft:stick"
