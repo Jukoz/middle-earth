@@ -1,4 +1,4 @@
-package net.jukoz.me.block.special.shapingAnvil.treatedAnvil;
+package net.jukoz.me.block.special.shapingAnvil.orcishTreatedAnvil;
 
 import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.ModBlockEntities;
@@ -21,8 +21,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
-public class TreatedAnvilblock extends AbstractTreatedAnvilBlock {
-    public TreatedAnvilblock(Settings settings) {
+public class OrcishTreatedAnvilblock extends AbstractTreatedAnvilBlock {
+    public OrcishTreatedAnvilblock(Settings settings) {
         super(settings);
     }
 
@@ -31,18 +31,26 @@ public class TreatedAnvilblock extends AbstractTreatedAnvilBlock {
         switch (state.get(FACING)){
             case NORTH, SOUTH -> {
                 return Stream.of(
-                        Block.createCuboidShape(1, 0, 1, 15, 6, 15),
-                        Block.createCuboidShape(1, 12, 4, 15, 16, 12),
-                        Block.createCuboidShape(3, 6, 3, 13, 8, 13),
-                        Block.createCuboidShape(4, 8, 5, 12, 12, 11)
+                        Block.createCuboidShape(10, 7, 4, 12, 10, 12),
+                        Block.createCuboidShape(4, 7, 4, 6, 10, 12),
+                        Block.createCuboidShape(3, 0, 3, 13, 7, 13),
+                        Block.createCuboidShape(5, 7, 5, 11, 13, 11),
+                        Block.createCuboidShape(4, 13, 5, 12, 16, 11),
+                        Block.createCuboidShape(1, 14, 7, 4, 16, 9),
+                        Block.createCuboidShape(12, 14, 7, 15, 16, 9),
+                        Block.createCuboidShape(7, 7, 4, 9, 11, 12)
                 ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();
             }
             case EAST, WEST -> {
                 return Stream.of(
-                        Block.createCuboidShape(1, 0, 1, 15, 6, 15),
-                        Block.createCuboidShape(4, 12, 1, 12, 16, 15),
-                        Block.createCuboidShape(3, 6, 3, 13, 8, 13),
-                        Block.createCuboidShape(5, 8, 4, 11, 12, 12)
+                        Block.createCuboidShape(4, 7, 4, 12, 10, 6),
+                        Block.createCuboidShape(4, 7, 10, 12, 10, 12),
+                        Block.createCuboidShape(3, 0, 3, 13, 7, 13),
+                        Block.createCuboidShape(5, 7, 5, 11, 13, 11),
+                        Block.createCuboidShape(5, 13, 4, 11, 16, 12),
+                        Block.createCuboidShape(7, 14, 12, 9, 16, 15),
+                        Block.createCuboidShape(7, 14, 1, 9, 16, 4),
+                        Block.createCuboidShape(4, 7, 7, 12, 11, 9)
                 ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, BooleanBiFunction.OR)).get();
             }
             default -> {
@@ -53,7 +61,7 @@ public class TreatedAnvilblock extends AbstractTreatedAnvilBlock {
 
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return createCodec(TreatedAnvilblock::new);
+        return createCodec(OrcishTreatedAnvilblock::new);
     }
 
     @Nullable
@@ -65,11 +73,11 @@ public class TreatedAnvilblock extends AbstractTreatedAnvilBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return TreatedAnvilblock.validateTicker(world, type, ModBlockEntities.TREATED_ANVIL);
+        return OrcishTreatedAnvilblock.validateTicker(world, type, ModBlockEntities.TREATED_ANVIL);
     }
 
     @Nullable
     protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<TreatedAnvilBlockEntity> expectedType) {
-        return world.isClient ? null : TreatedAnvilblock.validateTicker(givenType, expectedType, TreatedAnvilBlockEntity::tick);
+        return world.isClient ? null : OrcishTreatedAnvilblock.validateTicker(givenType, expectedType, TreatedAnvilBlockEntity::tick);
     }
 }

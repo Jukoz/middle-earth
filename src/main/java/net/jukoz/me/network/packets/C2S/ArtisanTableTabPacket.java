@@ -1,7 +1,6 @@
 package net.jukoz.me.network.packets.C2S;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.special.shapingAnvil.AbstractShapingAnvilBlockEntity;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreenHandler;
 import net.jukoz.me.network.contexts.ServerPacketContext;
 import net.jukoz.me.network.packets.ClientToServerPacket;
@@ -9,11 +8,9 @@ import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.network.listener.ServerPlayPacketListener;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 
 public class ArtisanTableTabPacket extends ClientToServerPacket<ArtisanTableTabPacket> {
     public static final Id<ArtisanTableTabPacket> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "artisan_table_tab_packet"));
