@@ -1,9 +1,10 @@
 package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientImpl;
+import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.*;
+import net.jukoz.me.block.special.forge.MetalTypes;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.custom.AlloyRecipeJsonBuilder;
 import net.jukoz.me.datageneration.custom.AnvilShapingRecipeJsonBuilder;
@@ -12,13 +13,15 @@ import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.item.utils.ModSmithingTrimMaterials;
+import net.jukoz.me.item.utils.ModSmithingTrimPatterns;
 import net.jukoz.me.recipe.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.component.ComponentChanges;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.data.DataOutput;
 import net.minecraft.data.server.recipe.*;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.*;
 import net.minecraft.item.trim.*;
 import net.minecraft.recipe.*;
@@ -31,7 +34,6 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -712,13 +714,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             throw new IllegalStateException("Data generation without registries failed!");
         }
 
+        RegistryEntry<ArmorTrimPattern> pattern = armorTrimPatternsRegistry
+                .getOrThrow(ModSmithingTrimPatterns.SMITHING_PART);
+
         ItemStack stack1 = new ItemStack(ModResourceItems.BLADE);
-        stack1.set(DataComponentTypes.TRIM, new ArmorTrim(armorTrimMaterialsRegistry.getOrThrow(ArmorTrimMaterials.COPPER),
-                armorTrimPatternsRegistry.getOrThrow(ArmorTrimPatterns.EYE)));
+        stack1.set(DataComponentTypes.TRIM, new ArmorTrim(armorTrimMaterialsRegistry.getOrThrow(ModSmithingTrimMaterials.STEEL), pattern));
 
         ItemStack stack2 = new ItemStack(ModResourceItems.SWORD_HILT);
-        stack2.set(DataComponentTypes.TRIM, new ArmorTrim(armorTrimMaterialsRegistry.getOrThrow(ArmorTrimMaterials.COPPER),
-                armorTrimPatternsRegistry.getOrThrow(ArmorTrimPatterns.EYE)));
+        stack2.set(DataComponentTypes.TRIM, new ArmorTrim(armorTrimMaterialsRegistry.getOrThrow(ModSmithingTrimMaterials.STEEL), pattern));
 
         ItemStack stack3 = new ItemStack(Items.STICK);
 
@@ -838,10 +841,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
     }
 
     private void createArtisanTableSwordRecipe(RecipeExporter exporter, List<ItemStack> inputs, ItemStack output) {
-        ArtisanTableRecipeJsonBuilder.createAlloyRecipe(RecipeCategory.COMBAT, output, "sword")
-                        .componentInput(inputs.get(0))
-                        .componentInput(inputs.get(1))
-                        .componentInput(inputs.get(2))
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "sword")
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(0).getItem()), inputs.get(0).getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(1).getItem()), inputs.get(1).getComponentChanges()))
+                        .input(Ingredient.ofItems(inputs.get(2).getItem()))
                                 .criterion(FabricRecipeProvider.hasItem(inputs.get(0).getItem()),
                                         FabricRecipeProvider.conditionsFromItem(inputs.get(0).getItem()))
                                         .offerTo(exporter);

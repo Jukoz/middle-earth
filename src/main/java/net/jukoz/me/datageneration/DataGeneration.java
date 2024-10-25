@@ -2,6 +2,8 @@ package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.jukoz.me.item.utils.ModSmithingTrimMaterials;
+import net.jukoz.me.item.utils.ModSmithingTrimPatterns;
 import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.MiddleEarthNpcs;
 import net.jukoz.me.resources.MiddleEarthRaces;
@@ -66,5 +68,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(MiddleEarthRaces.RACE_KEY, MiddleEarthRaces::bootstrap);
         registryBuilder.addRegistry(MiddleEarthNpcs.NPC_KEY, MiddleEarthNpcs::bootstrap);
         registryBuilder.addRegistry(MiddleEarthFactions.FACTION_KEY, MiddleEarthFactions::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.TRIM_MATERIAL, ModSmithingTrimMaterials::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.TRIM_PATTERN, ModSmithingTrimPatterns::bootstrap);
     }
 }

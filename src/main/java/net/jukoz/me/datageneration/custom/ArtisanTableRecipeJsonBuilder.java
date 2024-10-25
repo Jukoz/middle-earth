@@ -1,6 +1,6 @@
 package net.jukoz.me.datageneration.custom;
 
-import net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientImpl;
+import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
 import net.jukoz.me.recipe.ArtisanRecipe;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementCriterion;
@@ -49,7 +49,7 @@ public class ArtisanTableRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
         return this.output.getItem();
     }
 
-    public static ArtisanTableRecipeJsonBuilder createAlloyRecipe(RecipeCategory category, ItemStack output, String tab) {
+    public static ArtisanTableRecipeJsonBuilder createArtisanRecipe(RecipeCategory category, ItemStack output, String tab) {
         return new ArtisanTableRecipeJsonBuilder(category, output, tab);
     }
 
@@ -58,22 +58,22 @@ public class ArtisanTableRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
     }
 
     public ArtisanTableRecipeJsonBuilder input(ItemConvertible itemProvider) {
-        return this.input((ItemConvertible)itemProvider, 1);
+        return this.input(itemProvider, 1);
     }
 
-    public ArtisanTableRecipeJsonBuilder componentInput(ItemStack stack) {
-            return this.input(CustomIngredientImpl.ofStacks(stack), 1);
+    public ArtisanTableRecipeJsonBuilder componentInput(ComponentsIngredient ingredient) {
+        return this.input(ingredient.toVanilla(), 1);
     }
 
     public ArtisanTableRecipeJsonBuilder input(ItemConvertible itemProvider, int size) {
         for(int i = 0; i < size; ++i) {
-            this.input(Ingredient.ofItems(new ItemConvertible[]{itemProvider}));
+            this.input(Ingredient.ofItems(itemProvider));
         }
         return this;
     }
 
     public ArtisanTableRecipeJsonBuilder input(Ingredient ingredient) {
-        return this.input((Ingredient)ingredient, 1);
+        return this.input(ingredient, 1);
     }
 
     public ArtisanTableRecipeJsonBuilder input(Ingredient ingredient, int size) {

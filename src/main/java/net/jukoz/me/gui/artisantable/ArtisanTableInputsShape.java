@@ -17,14 +17,14 @@ public class ArtisanTableInputsShape {
             {InputType.ANY, InputType.ANY, InputType.ANY}});
 
     public static ArtisanTableInputsShape SWORD = new ArtisanTableInputsShape("sword", new InputType[][]{
-            {InputType.NONE, InputType.BLADE, InputType.NONE},
+            {InputType.NONE, InputType.NONE, InputType.BLADE},
             {InputType.NONE, InputType.HILT, InputType.NONE},
-            {InputType.NONE, InputType.HANDLE, InputType.NONE}});
+            {InputType.HANDLE, InputType.NONE, InputType.NONE}});
 
     public static ArtisanTableInputsShape AXE = new ArtisanTableInputsShape("axe", new InputType[][]{
-            {InputType.NONE, InputType.AXE, InputType.NONE},
+            {InputType.NONE, InputType.NONE, InputType.AXE},
             {InputType.NONE, InputType.HANDLE, InputType.NONE},
-            {InputType.NONE, InputType.HANDLE, InputType.NONE}});
+            {InputType.HANDLE, InputType.NONE, InputType.NONE}});
 
     public static ArtisanTableInputsShape SPEAR = new ArtisanTableInputsShape("spear", new InputType[][]{
             {InputType.NONE, InputType.BLADE, InputType.NONE},
@@ -37,19 +37,19 @@ public class ArtisanTableInputsShape {
             {InputType.ANY, InputType.ANY, InputType.NONE}});
 
     public static ArtisanTableInputsShape PICKAXE = new ArtisanTableInputsShape("pickaxe", new InputType[][]{
-            {InputType.NONE, InputType.PICKAXE, InputType.NONE},
+            {InputType.NONE, InputType.NONE, InputType.PICKAXE},
             {InputType.NONE, InputType.HANDLE, InputType.NONE},
-            {InputType.NONE, InputType.HANDLE, InputType.NONE}});
+            {InputType.HANDLE, InputType.NONE, InputType.NONE}});
 
     public static ArtisanTableInputsShape SHOVEL = new ArtisanTableInputsShape("shovel", new InputType[][]{
-            {InputType.NONE, InputType.SHOVEL, InputType.NONE},
+            {InputType.NONE, InputType.NONE, InputType.SHOVEL},
             {InputType.NONE, InputType.HANDLE, InputType.NONE},
-            {InputType.NONE, InputType.HANDLE, InputType.NONE}});
+            {InputType.HANDLE, InputType.NONE, InputType.NONE}});
 
     public static ArtisanTableInputsShape HOE = new ArtisanTableInputsShape("hoe", new InputType[][]{
-            {InputType.NONE, InputType.HOE, InputType.NONE},
+            {InputType.NONE, InputType.NONE, InputType.HOE},
             {InputType.NONE, InputType.HANDLE, InputType.NONE},
-            {InputType.NONE, InputType.HANDLE, InputType.NONE}});
+            {InputType.HANDLE, InputType.NONE, InputType.NONE}});
 
     public static ArtisanTableInputsShape HELMET = new ArtisanTableInputsShape("helmet", new InputType[][]{
             {InputType.ANY, InputType.ANY, InputType.ANY},

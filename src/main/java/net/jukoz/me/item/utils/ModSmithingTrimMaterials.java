@@ -1,5 +1,6 @@
 package net.jukoz.me.item.utils;
 
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
@@ -34,6 +35,6 @@ public class ModSmithingTrimMaterials {
     }
 
     private static RegistryKey<ArmorTrimMaterial> of(String id) {
-        return RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(id));
+        return RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, id));
     }
 }
