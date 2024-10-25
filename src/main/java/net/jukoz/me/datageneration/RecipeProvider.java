@@ -1,26 +1,33 @@
 package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientImpl;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.*;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.custom.AlloyRecipeJsonBuilder;
 import net.jukoz.me.datageneration.custom.AnvilShapingRecipeJsonBuilder;
+import net.jukoz.me.datageneration.custom.ArtisanTableRecipeJsonBuilder;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModToolItems;
+import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.recipe.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.data.DataOutput;
 import net.minecraft.data.server.recipe.*;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.item.*;
+import net.minecraft.item.trim.*;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
@@ -31,9 +38,12 @@ import java.util.concurrent.CompletableFuture;
 
 public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvider {
 
+    private final CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup;
 
     public RecipeProvider(DataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookupFuture) {
         super(output, registryLookupFuture);
+
+        this.registryLookup = registryLookupFuture;
     }
 
     @Override
@@ -686,6 +696,34 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
             createAnvilShapingRecipeItem(exporter, shape.item(), shape.output(), shape.amount());
         });
 
+        RegistryWrapper.Impl<ArmorTrimMaterial> armorTrimMaterialsRegistry;
+
+        try {
+            armorTrimMaterialsRegistry = registryLookup.get().getWrapperOrThrow(RegistryKeys.TRIM_MATERIAL);
+        } catch (Exception ignored) {
+            throw new IllegalStateException("Data generation without registries failed!");
+        }
+
+        RegistryWrapper.Impl<ArmorTrimPattern> armorTrimPatternsRegistry;
+
+        try {
+            armorTrimPatternsRegistry = registryLookup.get().getWrapperOrThrow(RegistryKeys.TRIM_PATTERN);
+        } catch (Exception ignored) {
+            throw new IllegalStateException("Data generation without registries failed!");
+        }
+
+        ItemStack stack1 = new ItemStack(ModResourceItems.BLADE);
+        stack1.set(DataComponentTypes.TRIM, new ArmorTrim(armorTrimMaterialsRegistry.getOrThrow(ArmorTrimMaterials.COPPER),
+                armorTrimPatternsRegistry.getOrThrow(ArmorTrimPatterns.EYE)));
+
+        ItemStack stack2 = new ItemStack(ModResourceItems.SWORD_HILT);
+        stack2.set(DataComponentTypes.TRIM, new ArmorTrim(armorTrimMaterialsRegistry.getOrThrow(ArmorTrimMaterials.COPPER),
+                armorTrimPatternsRegistry.getOrThrow(ArmorTrimPatterns.EYE)));
+
+        ItemStack stack3 = new ItemStack(Items.STICK);
+
+        createArtisanTableSwordRecipe(exporter, List.of(stack1, stack2, stack3), ModWeaponItems.BLACK_NUMENOREAN_SWORD.getDefaultStack());
+
         //endregion
 
         ComplexRecipeJsonBuilder.create(CustomShieldDecorationRecipe::new).offerTo(exporter, "custom_shield_decoration");
@@ -797,6 +835,16 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(Items.COPPER_INGOT),
                         FabricRecipeProvider.conditionsFromItem(Items.COPPER_INGOT))
                 .offerTo(exporter);
+    }
+
+    private void createArtisanTableSwordRecipe(RecipeExporter exporter, List<ItemStack> inputs, ItemStack output) {
+        ArtisanTableRecipeJsonBuilder.createAlloyRecipe(RecipeCategory.COMBAT, output, "sword")
+                        .componentInput(inputs.get(0))
+                        .componentInput(inputs.get(1))
+                        .componentInput(inputs.get(2))
+                                .criterion(FabricRecipeProvider.hasItem(inputs.get(0).getItem()),
+                                        FabricRecipeProvider.conditionsFromItem(inputs.get(0).getItem()))
+                                        .offerTo(exporter);
     }
 
     private void createStairsRecipe(RecipeExporter exporter, Block input, Block output) {
@@ -1087,25 +1135,27 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(inputMaterial))
                 .offerTo(exporter);
     }
-        private void createChestplateRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
-            ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
-                    .pattern("M M")
-                    .pattern("MMM")
-                    .pattern("MMM")
-                    .input('M', inputMaterial)
-                    .criterion(FabricRecipeProvider.hasItem(inputMaterial),
-                            FabricRecipeProvider.conditionsFromItem(inputMaterial))
-                    .offerTo(exporter);
-        }
-        private void createHelmetRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
-            ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
-                    .pattern("MMM")
-                    .pattern("M M")
-                    .input('M', inputMaterial)
-                    .criterion(FabricRecipeProvider.hasItem(inputMaterial),
-                            FabricRecipeProvider.conditionsFromItem(inputMaterial))
-                    .offerTo(exporter);
-        }
+
+    private void createChestplateRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
+                .pattern("M M")
+                .pattern("MMM")
+                .pattern("MMM")
+                .input('M', inputMaterial)
+                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
+                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+    }
+
+    private void createHelmetRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
+                .pattern("MMM")
+                .pattern("M M")
+                .input('M', inputMaterial)
+                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
+                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+    }
 
     private void createCookedFoodRecipes(RecipeExporter exporter, Item rawFood, Item cookedFood) {
         net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "smelting", RecipeSerializer.SMELTING, SmeltingRecipe::new, 200, rawFood, cookedFood, 0.35f);
