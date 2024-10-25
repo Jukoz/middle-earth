@@ -1,6 +1,6 @@
 {
   "type": "me:artisan_table",
-  "category": "sword",
+  "category": "spear",
   "ingredients": [
     {
       "fabric:type": "fabric:components",
@@ -15,23 +15,14 @@
       }
     },
     {
-      "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:sword_hilt"
-      },
-      "components": {
-        "minecraft:trim": {
-          "pattern": "me:smithing_part",
-          "material": "me:steel"
-        }
-      }
+      "item": "minecraft:stick"
     },
     {
       "item": "minecraft:stick"
     }
   ],
   "output": {
-    "id": "me:rohirric_sword",
+    "id": "me:dalish_spear",
     "count": 1
   }
 }

@@ -1,23 +1,11 @@
 {
   "type": "me:artisan_table",
-  "category": "sword",
+  "category": "hoe",
   "ingredients": [
     {
       "fabric:type": "fabric:components",
       "base": {
-        "item": "me:blade"
-      },
-      "components": {
-        "minecraft:trim": {
-          "pattern": "me:smithing_part",
-          "material": "me:steel"
-        }
-      }
-    },
-    {
-      "fabric:type": "fabric:components",
-      "base": {
-        "item": "me:sword_hilt"
+        "item": "me:hoe_head"
       },
       "components": {
         "minecraft:trim": {
@@ -28,10 +16,13 @@
     },
     {
       "item": "minecraft:stick"
+    },
+    {
+      "item": "minecraft:stick"
     }
   ],
   "output": {
-    "id": "me:rohirric_sword",
+    "id": "me:steel_hoe",
     "count": 1
   }
 }

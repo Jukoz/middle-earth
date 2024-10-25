@@ -5,12 +5,12 @@
     {
       "fabric:type": "fabric:components",
       "base": {
-        "item": "me:blade"
+        "item": "me:short_blade"
       },
       "components": {
         "minecraft:trim": {
           "pattern": "me:smithing_part",
-          "material": "me:tin"
+          "material": "me:steel"
         }
       }
     },
@@ -22,7 +22,7 @@
       "components": {
         "minecraft:trim": {
           "pattern": "me:smithing_part",
-          "material": "me:tin"
+          "material": "me:steel"
         }
       }
     },

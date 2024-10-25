@@ -621,7 +621,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.BURZUM_STEEL_INGOT, ModToolItems.BURZUM_STEEL_PICKAXE, ModToolItems.BURZUM_STEEL_AXE, ModToolItems.BURZUM_STEEL_SHOVEL, ModToolItems.BURZUM_STEEL_HOE);
         
-        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.STEEL_INGOT, ModToolItems.STEEL_PICKAXE, ModToolItems.STEEL_AXE, ModToolItems.STEEL_SHOVEL, ModToolItems.STEEL_HOE);
+        //createToolSetRecipes(exporter, Items.STICK, ModResourceItems.STEEL_INGOT, ModToolItems.STEEL_PICKAXE, ModToolItems.STEEL_AXE, ModToolItems.STEEL_SHOVEL, ModToolItems.STEEL_HOE);
         
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.EDHEL_STEEL_INGOT, ModToolItems.EDHEL_STEEL_PICKAXE, ModToolItems.EDHEL_STEEL_AXE, ModToolItems.EDHEL_STEEL_SHOVEL, ModToolItems.EDHEL_STEEL_HOE);
         
