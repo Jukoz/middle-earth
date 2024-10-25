@@ -1,9 +1,10 @@
-package net.jukoz.me.commands;
+package net.jukoz.me.commands.custom;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.commands.ModCommands;
 import net.jukoz.me.commands.suggestions.AllCapesSuggestionProvider;
 import net.jukoz.me.commands.suggestions.AllHoodsSuggestionProvider;
 import net.jukoz.me.item.ModDataComponentTypes;
@@ -23,7 +24,6 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import org.apache.logging.log4j.core.appender.rolling.action.IfAccumulatedFileCount;
 
 import java.util.Objects;
 

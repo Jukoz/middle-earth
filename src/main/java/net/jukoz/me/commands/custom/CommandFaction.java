@@ -3,6 +3,7 @@ package net.jukoz.me.commands.custom;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.jukoz.me.commands.CommandUtils;
 import net.jukoz.me.utils.ModColors;
 import net.jukoz.me.commands.ModCommands;
 import net.jukoz.me.commands.suggestions.AllAvailableSpawnSuggestionProvider;
@@ -42,19 +43,9 @@ public class CommandFaction {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, RegistrationEnvironment registrationEnvironment) {
         // [GET]
-        dispatcher.register(literal(ModCommands.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
-                .then(literal(FACTION_BASE_COMMAND)
-                .then(literal(GET) // With Player Target
-                .executes(CommandFaction::getFaction))));
-
-
-        dispatcher.register(literal(ModCommands.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
-                .then(literal(FACTION_BASE_COMMAND)
-                .then(argument(PLAYER, EntityArgumentType.player())
-                .then(literal(GET) // With Player Target
-                .executes(CommandFaction::getTargetFaction)))));
+        CommandUtils.simpleCommand(dispatcher, FACTION_BASE_COMMAND, literal(GET) // With Player Target
+        .executes(CommandFaction::getFaction), PLAYER, literal(GET) // With Player Target
+        .executes(CommandFaction::getTargetFaction));
 
         // [CLEAR]
         dispatcher.register(literal(ModCommands.BASE_COMMAND)

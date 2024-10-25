@@ -11,11 +11,14 @@ public class ModCommands {
         CommandRegistrationCallback.EVENT.register(CommandSpawn::register);
         CommandRegistrationCallback.EVENT.register(CommandRace::register);
 
-        // TODO : Commands to clean
-        CommandRegistrationCallback.EVENT.register(CommandDimensionTeleport::register);
-        CommandRegistrationCallback.EVENT.register(CommandFetchPlayerInformations::register);
+        // Onboarding Commands
+        CommandRegistrationCallback.EVENT.register(CommandOnboarding::register);
 
         //Misc commands
         CommandRegistrationCallback.EVENT.register(CommandCustomEquipment::register);
+
+        // TODO : Commands to clean
+        CommandRegistrationCallback.EVENT.register(CommandDimensionTeleport::register);
+        CommandRegistrationCallback.EVENT.register(CommandFetchPlayerInformations::register);
     }
 }

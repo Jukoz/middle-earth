@@ -3,6 +3,7 @@ package net.jukoz.me.commands.custom;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.jukoz.me.commands.CommandUtils;
 import net.jukoz.me.commands.ModCommands;
 import net.jukoz.me.commands.suggestions.AllJoinableFactionSuggestionProvider;
 import net.jukoz.me.commands.suggestions.AllRaceSuggestionProvider;
@@ -38,18 +39,9 @@ public class CommandRace {
     private static final int RACE_COLOR = ModColors.WARNING.color;
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
         // [GET]
-        dispatcher.register(literal(ModCommands.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
-                .then(literal(RACE_BASE_COMMAND)
-                .then(literal(GET)
-                .executes(CommandRace::getRace))));
-
-        dispatcher.register(literal(ModCommands.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
-                .then(literal(RACE_BASE_COMMAND)
-                .then(argument(PLAYER, EntityArgumentType.player())
-                .then(literal(GET)
-                .executes(CommandRace::getTargetRace)))));
+        CommandUtils.simpleCommand(dispatcher, RACE_BASE_COMMAND, literal(GET)
+            .executes(CommandRace::getRace), PLAYER, literal(GET)
+            .executes(CommandRace::getTargetRace));
 
         // [SET]
         dispatcher.register(literal(ModCommands.BASE_COMMAND)
