@@ -29,6 +29,8 @@ public class BellowsBlockEntity extends BlockEntity {
     public boolean animating = false;
     private static final String ID = "bellows";
 
+    //TODO Sync client/server animation + sound
+
     public BellowsBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.BELLOWS, pos, state);
     }

@@ -3,6 +3,7 @@ package net.jukoz.me.datageneration;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
 import net.jukoz.me.datageneration.custom.ArtisanTableRecipeJsonBuilder;
+import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
@@ -112,6 +113,9 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
         ItemStack goldSwordHilt = new ItemStack(ModResourceItems.SWORD_HILT);
         goldSwordHilt.set(DataComponentTypes.TRIM, goldTrim);
 
+        ItemStack goldRod = new ItemStack(ModResourceItems.ROD);
+        goldRod.set(DataComponentTypes.TRIM, goldTrim);
+
         ItemStack steelBlade = new ItemStack(ModResourceItems.BLADE);
         steelBlade.set(DataComponentTypes.TRIM, steelTrim);
         ItemStack steelShortBlade = new ItemStack(ModResourceItems.SHORT_BLADE);
@@ -130,6 +134,11 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
 
         ItemStack steelSwordHilt = new ItemStack(ModResourceItems.SWORD_HILT);
         steelSwordHilt.set(DataComponentTypes.TRIM, steelTrim);
+
+        ItemStack steelArmorPlate = new ItemStack(ModResourceItems.ARMOR_PLATE);
+        steelArmorPlate.set(DataComponentTypes.TRIM, steelTrim);
+        ItemStack steelHelmetPlate = new ItemStack(ModResourceItems.HELMET_PLATE);
+        steelHelmetPlate.set(DataComponentTypes.TRIM, steelTrim);
 
         ItemStack khazadSteelBlade = new ItemStack(ModResourceItems.BLADE);
         khazadSteelBlade.set(DataComponentTypes.TRIM, khazadSteelTrim);
@@ -230,7 +239,7 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
         createArtisanTableSwordRecipe(exporter, List.of(steelLongBlade, steelSwordHilt, stick), ModWeaponItems.ROHIRRIC_LONGSWORD.getDefaultStack());
         createArtisanTableSwordRecipe(exporter, List.of(steelLongBlade, steelSwordHilt, stick), ModWeaponItems.DALISH_LONGSWORD.getDefaultStack());
         createArtisanTableSwordRecipe(exporter, List.of(steelLongBlade, steelSwordHilt, stick), ModWeaponItems.BLACK_NUMENOREAN_LONGSWORD.getDefaultStack());
-        
+
         createArtisanTableAxeRecipe(exporter, List.of(steelAxeHead, stick, stick), ModWeaponItems.GONDORIAN_AXE.getDefaultStack());
         createArtisanTableAxeRecipe(exporter, List.of(steelAxeHead, stick, stick), ModWeaponItems.ROHIRRIC_AXE.getDefaultStack());
         createArtisanTableAxeRecipe(exporter, List.of(steelAxeHead, stick, stick), ModWeaponItems.DALISH_AXE.getDefaultStack());
@@ -242,14 +251,38 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
         createArtisanTableSpearRecipe(exporter, List.of(steelShortBlade, stick, stick), ModWeaponItems.DALISH_SPEAR.getDefaultStack());
         createArtisanTableSpearRecipe(exporter, List.of(steelShortBlade, stick, stick), ModWeaponItems.STEEL_SPEAR.getDefaultStack());
 
+
+        createArtisanTableNobleAxeRecipe(exporter, List.of(steelAxeHead, goldRod, stick), ModWeaponItems.GONDORIAN_NOBLE_AXE.getDefaultStack());
+        createArtisanTableNobleAxeRecipe(exporter, List.of(steelAxeHead, goldRod, stick), ModWeaponItems.ROHIRRIC_NOBLE_AXE.getDefaultStack());
+        createArtisanTableNobleAxeRecipe(exporter, List.of(steelAxeHead, goldRod, stick), ModWeaponItems.DALISH_NOBLE_AXE.getDefaultStack());
+
+        createArtisanTableNobleSpearRecipe(exporter, List.of(steelShortBlade, goldRod, stick), ModWeaponItems.GONDORIAN_NOBLE_SPEAR.getDefaultStack());
+        createArtisanTableNobleSpearRecipe(exporter, List.of(steelShortBlade, goldRod, stick), ModWeaponItems.ROHIRRIC_NOBLE_SPEAR.getDefaultStack());
+        createArtisanTableNobleSpearRecipe(exporter, List.of(steelShortBlade, goldRod, stick), ModWeaponItems.DALISH_NOBLE_SPEAR.getDefaultStack());
+
+        createArtisanTableSwordRecipe(exporter, List.of(steelBlade, goldSwordHilt, stick), ModWeaponItems.GONDORIAN_NOBLE_SWORD.getDefaultStack());
+        createArtisanTableSwordRecipe(exporter, List.of(steelBlade, goldSwordHilt, stick), ModWeaponItems.ROHIRRIC_NOBLE_SWORD.getDefaultStack());
+        createArtisanTableSwordRecipe(exporter, List.of(steelBlade, goldSwordHilt, stick), ModWeaponItems.DALISH_NOBLE_SWORD.getDefaultStack());
+
+        createArtisanTableSwordRecipe(exporter, List.of(steelShortBlade, goldSwordHilt, stick), ModWeaponItems.GONDORIAN_NOBLE_DAGGER.getDefaultStack());
+        createArtisanTableSwordRecipe(exporter, List.of(steelShortBlade, goldSwordHilt, stick), ModWeaponItems.ROHIRRIC_NOBLE_DAGGER.getDefaultStack());
+        createArtisanTableSwordRecipe(exporter, List.of(steelShortBlade, goldSwordHilt, stick), ModWeaponItems.DALISH_NOBLE_DAGGER.getDefaultStack());
+
+        createArtisanTableSwordRecipe(exporter, List.of(steelLongBlade, goldSwordHilt, stick), ModWeaponItems.GONDORIAN_NOBLE_LONGSWORD.getDefaultStack());
+        createArtisanTableSwordRecipe(exporter, List.of(steelLongBlade, goldSwordHilt, stick), ModWeaponItems.ROHIRRIC_NOBLE_LONGSWORD.getDefaultStack());
+        createArtisanTableSwordRecipe(exporter, List.of(steelLongBlade, goldSwordHilt, stick), ModWeaponItems.DALISH_NOBLE_LONGSWORD.getDefaultStack());
+
         createArtisanTableSwordRecipe(exporter, List.of(khazadSteelBlade, khazadSteelSwordHilt, stick), ModWeaponItems.EREBOR_SWORD.getDefaultStack());
+        createArtisanTableSwordRecipe(exporter, List.of(khazadSteelBlade, goldSwordHilt, stick), ModWeaponItems.EREBOR_NOBLE_SWORD.getDefaultStack());
         createArtisanTableSwordRecipe(exporter, List.of(khazadSteelBlade, khazadSteelSwordHilt, stick), ModWeaponItems.KHAZAD_STEEL_SWORD.getDefaultStack());
 
         createArtisanTableSwordRecipe(exporter, List.of(edhelSteelBlade, edhelSteelSwordHilt, stick), ModWeaponItems.LORIEN_SWORD.getDefaultStack());
+        createArtisanTableSwordRecipe(exporter, List.of(edhelSteelBlade, goldSwordHilt, stick), ModWeaponItems.LORIEN_NOBLE_SWORD.getDefaultStack());
         createArtisanTableSwordRecipe(exporter, List.of(edhelSteelBlade, edhelSteelSwordHilt, stick), ModWeaponItems.EDHEL_STEEL_SWORD.getDefaultStack());
 
         createArtisanTableSwordRecipe(exporter, List.of(burzumSteelBlade, burzumSteelSwordHilt, stick), ModWeaponItems.ORC_SWORD.getDefaultStack());
         createArtisanTableSwordRecipe(exporter, List.of(burzumSteelBlade, burzumSteelSwordHilt, stick), ModWeaponItems.MORDOR_FALCHION.getDefaultStack());
+        createArtisanTableSwordRecipe(exporter, List.of(burzumSteelBlade, goldSwordHilt, stick), ModWeaponItems.MORDOR_ELITE_CLEAVER.getDefaultStack());
         createArtisanTableSwordRecipe(exporter, List.of(burzumSteelBlade, burzumSteelSwordHilt, stick), ModWeaponItems.BURZUM_STEEL_SWORD.getDefaultStack());
 
         createArtisanTablePickaxeRecipe(exporter, List.of(steelPickaxeHead, stick, stick), ModToolItems.STEEL_PICKAXE.getDefaultStack());
@@ -272,6 +305,10 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
         createArtisanTableAxeRecipe(exporter, List.of(mithrilAxeHead, stick, stick), ModToolItems.MITHRIL_AXE.getDefaultStack());
         createArtisanTableShovelRecipe(exporter, List.of(mithrilShovelHead, stick, stick), ModToolItems.MITHRIL_SHOVEL.getDefaultStack());
         createArtisanTableHoeRecipe(exporter, List.of(mithrilHoeHead, stick, stick), ModToolItems.MITHRIL_HOE.getDefaultStack());
+
+        createArtisanTableHelmetRecipe(exporter, List.of(steelArmorPlate, steelHelmetPlate, steelArmorPlate,
+                steelArmorPlate, steelArmorPlate), ModEquipmentItems.GONDORIAN_PLATE_HELMET.getDefaultStack());
+
     }
 
     private void createArtisanTableSwordRecipe(RecipeExporter exporter, List<ItemStack> inputs, ItemStack output) {
@@ -294,10 +331,30 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
                 .offerTo(exporter);
     }
 
+    private void createArtisanTableNobleAxeRecipe(RecipeExporter exporter, List<ItemStack> inputs, ItemStack output) {
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "axe")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(0).getItem()), inputs.get(0).getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(1).getItem()), inputs.get(1).getComponentChanges()))
+                .input(Ingredient.ofItems(inputs.get(2).getItem()))
+                .criterion(FabricRecipeProvider.hasItem(inputs.get(0).getItem()),
+                        FabricRecipeProvider.conditionsFromItem(inputs.get(0).getItem()))
+                .offerTo(exporter);
+    }
+
     private void createArtisanTableSpearRecipe(RecipeExporter exporter, List<ItemStack> inputs, ItemStack output) {
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "spear")
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(0).getItem()), inputs.get(0).getComponentChanges()))
                 .input(Ingredient.ofItems(inputs.get(1).getItem()))
+                .input(Ingredient.ofItems(inputs.get(2).getItem()))
+                .criterion(FabricRecipeProvider.hasItem(inputs.get(0).getItem()),
+                        FabricRecipeProvider.conditionsFromItem(inputs.get(0).getItem()))
+                .offerTo(exporter);
+    }
+
+    private void createArtisanTableNobleSpearRecipe(RecipeExporter exporter, List<ItemStack> inputs, ItemStack output) {
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "spear")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(0).getItem()), inputs.get(0).getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(1).getItem()), inputs.get(1).getComponentChanges()))
                 .input(Ingredient.ofItems(inputs.get(2).getItem()))
                 .criterion(FabricRecipeProvider.hasItem(inputs.get(0).getItem()),
                         FabricRecipeProvider.conditionsFromItem(inputs.get(0).getItem()))
@@ -329,6 +386,18 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(0).getItem()), inputs.get(0).getComponentChanges()))
                 .input(Ingredient.ofItems(inputs.get(1).getItem()))
                 .input(Ingredient.ofItems(inputs.get(2).getItem()))
+                .criterion(FabricRecipeProvider.hasItem(inputs.get(0).getItem()),
+                        FabricRecipeProvider.conditionsFromItem(inputs.get(0).getItem()))
+                .offerTo(exporter);
+    }
+
+    private void createArtisanTableHelmetRecipe(RecipeExporter exporter, List<ItemStack> inputs, ItemStack output) {
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "helmet")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(0).getItem()), inputs.get(0).getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(1).getItem()), inputs.get(1).getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(2).getItem()), inputs.get(2).getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(3).getItem()), inputs.get(3).getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(4).getItem()), inputs.get(4).getComponentChanges()))
                 .criterion(FabricRecipeProvider.hasItem(inputs.get(0).getItem()),
                         FabricRecipeProvider.conditionsFromItem(inputs.get(0).getItem()))
                 .offerTo(exporter);
