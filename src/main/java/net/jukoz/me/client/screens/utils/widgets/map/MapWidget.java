@@ -10,8 +10,6 @@ import org.joml.Vector2d;
 import org.joml.Vector2i;
 
 public class MapWidget extends ModWidget {
-    public boolean canZoomIn;
-    public boolean canZoomOut;
     protected final static double MAP_TO_WORLD_RATIO = (double) MiddleEarthMapConfigs.REGION_SIZE / MiddleEarthMapConfigs.FULL_MAP_SIZE;
     protected final int uiWidth, uiHeight;
     protected int startX, startY = 0;
@@ -38,8 +36,6 @@ public class MapWidget extends ModWidget {
         if(zoomLevel == null)
             zoomLevel = getMinZoom();
         zoomTarget = zoomLevel;
-        this.canZoomOut = false;
-        this.canZoomIn = true;
         if(currentPointRatio == null)
             currentPointRatio = new Vector2d(.5, .5);
 
@@ -252,26 +248,26 @@ public class MapWidget extends ModWidget {
     public void zoom(float amount) {
         float maxZoom = getMaxZoom();
         if(zoomTarget != maxZoom) {
-            this.canZoomOut = true;
             double newZoom = Math.min(maxZoom,  zoomTarget + amount);
             zoomTarget = (float)newZoom;
-            if(zoomTarget == maxZoom){
-                this.canZoomIn = false;
-            }
             updateCurrentMapTargetRatio();
         }
     }
     public void dezoom(float amount) {
         float minZoom = getMinZoom();
         if(zoomTarget != minZoom) {
-            this.canZoomIn = true;
             double newZoom = Math.max(minZoom, zoomTarget - amount);
             zoomTarget = (float)newZoom;
-            if(zoomTarget == minZoom){
-                this.canZoomOut = false;
-            }
             updateCurrentMapTargetRatio();
         }
+    }
+
+    public boolean canZoomIn(){
+        return zoomTarget != getMaxZoom();
+    }
+
+    public boolean canZoomOut(){
+        return zoomTarget != getMinZoom();
     }
 
     public Vector2d getCurrentMapCenterRatio() {

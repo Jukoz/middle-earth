@@ -530,7 +530,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Zoom in
         buttonStartX = startX + mapBackgroundWidth - MINIMAL_MARGIN - buttonSize - 2;
-        boolean canZoomIn = mapWidget.canZoomIn;
+        boolean canZoomIn = mapWidget.canZoomIn();
         mapZoomInButton.active = canZoomIn;
         context.drawTexture(MAP_SELECTION,
                 buttonStartX, smallButtonsStartY,
@@ -545,7 +545,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Zoom out
         buttonStartX -= buttonSize + MINIMAL_MARGIN;
-        boolean canZoomOut = mapWidget.canZoomOut;
+        boolean canZoomOut = mapWidget.canZoomOut();
         mapZoomOutButton.active = canZoomOut;
         context.drawTexture(MAP_SELECTION,
                 buttonStartX, smallButtonsStartY,
