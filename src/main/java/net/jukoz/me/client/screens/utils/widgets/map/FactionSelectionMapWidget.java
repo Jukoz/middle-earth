@@ -103,7 +103,7 @@ public class FactionSelectionMapWidget extends MapWidget {
                 List<Vector2i> currentList = uniqueIndexes.get(currentUniqueIndex);
                 for (Vector2i vector2i : currentList) {
                     double distance = currentCenterCoordinate.distance(vector2i);
-                    if (distance < getMarkerGroupUpRadius()) {
+                    if (Math.round(distance) <= getMarkerGroupUpRadius()) {
                         isSeperate = false;
                     }
                 }

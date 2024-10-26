@@ -63,7 +63,7 @@ public class FactionSelectionController {
             LoggerUtil.logError("FactionSelectionController::No faction available!");
             throw new RuntimeException();
         }
-        processSpawnList();
+        processSpawnList(0);
         processRace();
     }
 
@@ -76,13 +76,13 @@ public class FactionSelectionController {
             dispositionsWithContent.add(disposition);
     }
 
-    private void processSpawnList() {
+    private void processSpawnList(int index) {
         Faction currentFaction = getCurrentlySelectedFaction();
         if(currentFaction == null) return;
         SpawnDataHandler foundSpawnDataHandler = currentFaction.getSpawnData();
         if(foundSpawnDataHandler == null) return;
         spawns = foundSpawnDataHandler.getSpawnList();
-        currentSpawnIndex = 0;
+        currentSpawnIndex = index;
         currentRaceIndex = 0;
         setSpawnIndex(currentSpawnIndex);
     }
@@ -94,6 +94,23 @@ public class FactionSelectionController {
         races = currentFaction.getRaces(player.getWorld());
     }
 
+    public void randomizeSpawn(int tentativeLeft) {
+        Faction currentFaction = getCurrentlySelectedFaction();
+        if(currentFaction == null)
+            return;
+        SpawnDataHandler spawnDataHandler = currentFaction.getSpawnData();
+        if(spawnDataHandler == null || spawnDataHandler.getSpawnList().isEmpty())
+            return;
+        Random random = new Random();
+        for(int i = 0; i < tentativeLeft; i++){
+            int newSpawnIndex = random.nextInt(spawnDataHandler.getSpawnList().size());
+            if(newSpawnIndex != currentSpawnIndex){
+                processSpawnList(newSpawnIndex);
+                return;
+            }
+        }
+        processSpawnList(random.nextInt(spawnDataHandler.getSpawnList().size()));
+    }
 
     public int randomizeFaction(int tentativeLeft){
         Random random = new Random();
@@ -123,7 +140,7 @@ public class FactionSelectionController {
                 (faction == null || faction.getSubFactions() == null || faction.getSubFactions().isEmpty())
                         ? 0
                         : random.nextInt(faction.getSubFactions().size());
-        processSpawnList();
+        processSpawnList(0);
         processRace();
         return 0;
     }
@@ -143,7 +160,7 @@ public class FactionSelectionController {
         currentSubFactionIndex = 0;
         currentRaceIndex = 0;
         processSubfaction();
-        processSpawnList();
+        processSpawnList(0);
         processRace();
     }
 
@@ -170,7 +187,7 @@ public class FactionSelectionController {
 
     private void processFaction() {
         processSubfaction();
-        processSpawnList();
+        processSpawnList(0);
         processRace();
         screen.reassignTexts(getRaceListText(), getCurrentFactionDescriptions());
     }
@@ -197,7 +214,7 @@ public class FactionSelectionController {
             screen.reassignTexts(getRaceListText(), getCurrentFactionDescriptions());
             setSpawnIndex(0);
         }
-        processSpawnList();
+        processSpawnList(0);
         processRace();
     }
 
@@ -254,7 +271,7 @@ public class FactionSelectionController {
 
     private Identifier getCurrentSpawnIdentifier(){
         if(!haveSpawns())
-            processSpawnList();
+            processSpawnList(0);
         if(!haveSpawns())
             return null;
         return spawns.get(currentSpawnIndex).getIdentifier();

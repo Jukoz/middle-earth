@@ -240,7 +240,7 @@ public class FactionSelectionScreen extends Screen {
         spawnSelectionRandomizerButton = ButtonWidget.builder(
                 Text.translatable("screen.me.button.spawn_randomizer"),
                 button -> {
-                    // TODO : Add proper logic to randomized spawn selection
+                    controller.randomizeSpawn(5);
                 }).build();
         addDrawableChild(spawnSelectionRandomizerButton);
 
