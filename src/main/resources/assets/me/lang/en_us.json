@@ -291,6 +291,8 @@
 "#Comment:": "Item - Smithing",
   "item.me.smithing_hammer": "Smithing Hammer",
 
+  "item.me.fabric": "Fabric",
+
   "item.me.rod": "Rod",
   "item.me.large_rod": "Large Rod",
 
@@ -304,6 +306,14 @@
   "item.me.long_blade": "Long Blade",
   "item.me.great_axe_head": "Great Axe Head",
   "item.me.sword_hilt": "Sword Hilt",
+
+  "item.me.chainmail_rings": "Chainmail Rings",
+  "item.me.scale_mail": "Scale Mail",
+  "item.me.armor_plate": "Armor Plate",
+
+  "item.me.helmet_plate": "Helmet Plate",
+  "item.me.shield_border": "Shield Border",
+  "item.me.shield_plate": "Shield Plate",
 
 "#Comment:": "Item - Generic Orc",
   "item.me.orc_sword": "Orc Sword",

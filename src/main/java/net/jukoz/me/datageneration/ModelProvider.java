@@ -1269,6 +1269,14 @@ public class ModelProvider extends FabricModelProvider {
         registerPalettedItem(ModResourceItems.SHORT_BLADE, itemModelGenerator);
         registerPalettedItem(ModResourceItems.LONG_BLADE, itemModelGenerator);
         registerPalettedItem(ModResourceItems.SWORD_HILT, itemModelGenerator);
+
+        registerPalettedItem(ModResourceItems.CHAINMAIL_RINGS, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.SCALE_MAIL, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.ARMOR_PLATE, itemModelGenerator);
+
+        registerPalettedItem(ModResourceItems.HELMET_PLATE, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.SHIELD_BORDER, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.SHIELD_PLATE, itemModelGenerator);
     }
 
     public final void registerDyeableArmor(ArmorItem armor, ItemModelGenerator itemModelGenerator) {

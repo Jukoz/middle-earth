@@ -192,22 +192,24 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
                 if(input.get(DataComponentTypes.TRIM) != null){
                     output.set(DataComponentTypes.TRIM, input.get(DataComponentTypes.TRIM));
-                    output.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature()));
                 } else{
-                    if(input.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")))){
-                        MetalTypes metal = MetalTypes.getMetalByIngot(input.getItem());
-                        if (metal.isVanilla()){
-                            output.set(DataComponentTypes.TRIM, new ArmorTrim(
-                                    armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(metal.getName()))),
-                                    armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID,"smithing_part")))));
-                        } else {
-                            output.set(DataComponentTypes.TRIM, new ArmorTrim(
-                                    armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, metal.getName()))),
-                                    armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
-                        }
-                        output.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature()));
+                    MetalTypes metal = MetalTypes.EMPTY;
+                    if(input.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")))) {
+                        metal = MetalTypes.getMetalByIngot(input.getItem());
+                    }else if(input.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "nugget_shaping")))) {
+                        metal = MetalTypes.getMetalByNugget(input.getItem());
+                    }
+                    if (metal.isVanilla()){
+                        output.set(DataComponentTypes.TRIM, new ArmorTrim(
+                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(metal.getName()))),
+                                armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID,"smithing_part")))));
+                    } else {
+                        output.set(DataComponentTypes.TRIM, new ArmorTrim(
+                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, metal.getName()))),
+                                armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
                     }
                 }
+                output.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature()));
                 entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
                 entity.setStack(0, output);
                 entity.update();
