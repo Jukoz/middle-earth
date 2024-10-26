@@ -1,8 +1,9 @@
-package net.jukoz.me.commands;
+package net.jukoz.me.commands.custom;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.jukoz.me.commands.ModCommands;
 import net.jukoz.me.world.dimension.ModDimensions;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.*;

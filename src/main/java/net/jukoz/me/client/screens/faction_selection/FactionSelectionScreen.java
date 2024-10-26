@@ -240,7 +240,7 @@ public class FactionSelectionScreen extends Screen {
         spawnSelectionRandomizerButton = ButtonWidget.builder(
                 Text.translatable("screen.me.button.spawn_randomizer"),
                 button -> {
-                    // TODO : Add proper logic to randomized spawn selection
+                    controller.randomizeSpawn(5);
                 }).build();
         addDrawableChild(spawnSelectionRandomizerButton);
 
@@ -326,7 +326,6 @@ public class FactionSelectionScreen extends Screen {
                 mainPanelHeight
         );
 
-        // TODO : Display the lore dump texts
         int textStartY = startY + (MINIMAL_MARGIN * 2);
         int centerWithBanner = ((startX + (MINIMAL_MARGIN / 2)) + ((mainPanelWidth - 50) / 2));
 
@@ -440,7 +439,7 @@ public class FactionSelectionScreen extends Screen {
         }
 
         // Disposition
-        factionSelectionWidget.enableArrows(Disposition.values().length > 1);
+        dispositionSelectionWidget.enableArrows(Disposition.values().length > 1);
         newStartY += MINIMAL_MARGIN + dispositionSelectionWidget.drawAnchored(context, endX, newStartY, false, disposition.getName(), textRenderer);
 
         // Faction
@@ -531,7 +530,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Zoom in
         buttonStartX = startX + mapBackgroundWidth - MINIMAL_MARGIN - buttonSize - 2;
-        boolean canZoomIn = mapWidget.canZoomIn;
+        boolean canZoomIn = mapWidget.canZoomIn();
         mapZoomInButton.active = canZoomIn;
         context.drawTexture(MAP_SELECTION,
                 buttonStartX, smallButtonsStartY,
@@ -546,7 +545,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Zoom out
         buttonStartX -= buttonSize + MINIMAL_MARGIN;
-        boolean canZoomOut = mapWidget.canZoomOut;
+        boolean canZoomOut = mapWidget.canZoomOut();
         mapZoomOutButton.active = canZoomOut;
         context.drawTexture(MAP_SELECTION,
                 buttonStartX, smallButtonsStartY,

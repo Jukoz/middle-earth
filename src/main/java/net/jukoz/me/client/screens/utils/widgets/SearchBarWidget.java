@@ -62,6 +62,7 @@ public class SearchBarWidget extends ModWidget{
                     ButtonWidget.builder(
                             newPool.get(id), x -> onPress(id)
                     ).build());
+            buttons.getLast().active = false;
         }
     }
 
@@ -86,6 +87,8 @@ public class SearchBarWidget extends ModWidget{
     private void clickOnScreen() {
         toggleSearch(false);
         screenClick.active = false;
+        for(ButtonWidget button : buttons)
+            button.active = false;
     }
 
     public void setEndY(int endY){

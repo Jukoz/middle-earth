@@ -34,7 +34,10 @@ public class FactionUtil {
             return false;
 
         PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
-        Faction previousFaction = playerState.getCurrentFaction(player.getWorld());
+        Faction previousFaction = null;
+        try{
+            previousFaction = playerState.getCurrentFaction(player.getWorld());
+        } catch (FactionIdentifierException ignored){}
 
         // [CLEAR] If the next faction is null
         if(faction == null){
@@ -64,7 +67,6 @@ public class FactionUtil {
     }
 
     private static boolean assertUpdateFactionValues(ServerPlayerEntity player, Faction faction, Identifier spawnId) throws IdenticalFactionException, SpawnIdentifierException {
-
         // Verify player
         if(player == null) return false;
 
@@ -73,8 +75,11 @@ public class FactionUtil {
         PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
         Identifier previousFactionId = playerState.getCurrentFactionId();
 
+        if(previousFactionId == null)
+            return true;
+
         // If there is no faction update, return true
-        if(previousFactionId == faction.getId() && spawnId == playerState.getCurrentSpawnId()) {
+        if(previousFactionId == faction.getId() || spawnId == playerState.getCurrentSpawnId()) {
             throw new IdenticalFactionException();
         };
 

@@ -6213,6 +6213,21 @@
   "command.me.teleport.player.to.spawn.middle_earth.success": "%s got teleported to <%s> at [%s, %s, %s](xyz)",
   "command.me.teleport.player.to.spawn.middle_earth.error": "%s couldn't be teleported to <%s>",
 
+  "command.me.race.set.success": "Your race is set to %s",
+  "command.me.race.set.fail": "Failed to set race to %s",
+  "command.me.race.set.target.success": "%s race is set to %s",
+  "command.me.race.set.target.fail": "Failed to set race to %s",
+
+  "command.me.race.get.success": "Your race is %s",
+  "command.me.race.get.fail": "You don't have a race",
+  "command.me.race.get.target.success": "%s race is %s",
+  "command.me.race.get.target.fail": "%s don't have a race",
+
+  "command.me.race.reset.success": "Your race is reset",
+  "command.me.race.reset.fail": "Failed to reset your race",
+  "command.me.race.reset.target.success": "%s race is reset",
+  "command.me.race.reset.target.fail": "Failed to reset race for %s",
+
   "command.me.cape.success": "Cape successfully applied: ",
   "command.me.cape.fail": "Failed to apply cape.",
 

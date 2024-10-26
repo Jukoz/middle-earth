@@ -33,7 +33,7 @@ public class MiddleEarthMapScreen extends Screen {
     private static final Identifier BACKGROUND_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_background.png");
     private static final Identifier MAP_UI_TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_ui.png");
 
-    private static final Text MAP_TITLE_TEXT = Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_title_text");
+    private static final Text MAP_TITLE_TEXT = Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.map_title_text");
     private static final Vector2i NORMAL_BUTTON_SIZE = new Vector2i(15,15);
 
     BackgroundContainerWidget backgroundContainerWidget;
@@ -151,8 +151,8 @@ public class MiddleEarthMapScreen extends Screen {
         int centerX = context.getScaledWindowWidth() / 2;
         startX = centerX - (WIDTH / 2);
         endX = centerX + (WIDTH / 2);
-        startY = 10;
-        endY = HEIGHT + 10;
+        startY = (context.getScaledWindowHeight() / 2) - (HEIGHT / 2);
+        endY = startY + HEIGHT;
 
         context.drawTexture(BACKGROUND_TEXTURE, startX, startY, 0, 0,  WIDTH, HEIGHT);
         mapWidget.drawCentered(context, centerX, startY + MARGIN);
@@ -190,12 +190,12 @@ public class MiddleEarthMapScreen extends Screen {
     private void drawZoomButtons(DrawContext context){
         int zoomInButtonUvX = 86;
         int zoomInButtonUvY = (zoomInButton.isHovered() || zoomInButton.isFocused()) ? 18 : 1;
-        zoomInButton.active = mapWidget.canZoomIn;
+        zoomInButton.active = mapWidget.canZoomIn();
         if(!zoomInButton.active)
             zoomInButtonUvY = 35;
         int zoomOutButtonUvX = 69;
         int zoomOutButtonUvY = (zoomOutButton.isHovered() || zoomOutButton.isFocused()) ? 18 : 1;
-        zoomOutButton.active = mapWidget.canZoomOut;
+        zoomOutButton.active = mapWidget.canZoomOut();
         if(!zoomOutButton.active)
             zoomOutButtonUvY = 35;
 

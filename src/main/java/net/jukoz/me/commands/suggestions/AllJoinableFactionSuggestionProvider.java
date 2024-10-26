@@ -4,6 +4,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
+import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
 import net.minecraft.server.command.ServerCommandSource;
@@ -19,7 +20,10 @@ public class AllJoinableFactionSuggestionProvider implements SuggestionProvider<
         List<Faction> candidates = FactionLookup.getAllJoinableFaction(context.getSource().getWorld());
         List<Identifier> identifiers = new ArrayList<>();
         for(Faction faction : candidates){
-            identifiers.add(faction.getId());
+            if(faction.getFactionType() == FactionType.SUBFACTION)
+                identifiers.add(faction.getId());
+            else if(faction.getFactionType() == FactionType.FACTION && faction.getSubFactions() == null || faction.getSubFactions().isEmpty())
+                identifiers.add(faction.getId());
         }
         return SuggestionUtil.getCorrespondingIdentifiers(identifiers, builder);
     }
