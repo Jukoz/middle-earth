@@ -40,7 +40,7 @@ public class AffiliationData {
             blockpos = new BlockPos(blockpos.getX(), height, blockpos.getZ());
             return blockpos.toCenterPos();
         } catch (FactionIdentifierException e){
-            LoggerUtil.logError("AffiliationData::getSpawnMiddleEarthCoordinate", e);
+            LoggerUtil.logError("AffiliationData::getSpawnMiddleEarthCoordinate - Faction couldn't be found <%s>".formatted(faction));
             return null;
         }
     }
