@@ -4,10 +4,16 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.entity.BannerPattern;
+import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.component.type.BannerPatternsComponent;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
@@ -20,18 +26,25 @@ public class BannerData {
     public static class BannerPatternWithColor {
         public Identifier id;
         public DyeColor color;
+        public RegistryKey<BannerPattern> patternRegistryKey;
         public BannerPattern pattern;
-        public BannerPatternWithColor(Identifier id, DyeColor color){
+
+        public BannerPatternWithColor(Identifier id, DyeColor dyeColor){
             this.id = id;
-            this.color = color;
+            this.color = dyeColor;
+            this.patternRegistryKey = null;
             this.pattern = null;
         }
 
+        public BannerPatternWithColor(RegistryKey<BannerPattern> patternRegistryKey, DyeColor dyeColor) {
+            this.patternRegistryKey = patternRegistryKey;
+            this.id = patternRegistryKey.getValue();
+            this.color = dyeColor;
+            this.pattern = null;
+        }
         public void setPattern(BannerPattern pattern){
             this.pattern = pattern;
         }
-
-
         @Override
         public String toString() {
             return id + " in " + color.name();
@@ -108,5 +121,21 @@ public class BannerData {
         nbt.put("patterns", list);
 
         return Optional.of(nbt);
+    }
+
+    /**
+     * Not datadriven, only for hardcoded factions
+     * @param bannerPatternLookup
+     * @return
+     */
+    public BannerPatternsComponent getBannerPatternComponents(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
+        BannerPatternsComponent.Builder bannerPatternsComponentBuilder = new BannerPatternsComponent.Builder();
+
+        bannerPatternsComponentBuilder.add(new BannerPatternsComponent.Layer(bannerPatternLookup.getOrThrow(BannerPatterns.BASE), baseBannerColor));
+        for(BannerPatternWithColor bannerPatternWithColor :  bannerPatternWithColors){
+            bannerPatternsComponentBuilder.add(bannerPatternLookup.getOrThrow(bannerPatternWithColor.patternRegistryKey), bannerPatternWithColor.color);
+        }
+
+        return bannerPatternsComponentBuilder.build();
     }
 }

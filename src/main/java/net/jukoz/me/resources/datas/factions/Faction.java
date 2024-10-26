@@ -15,13 +15,13 @@ import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.utils.IdentifierUtil;
-import net.jukoz.me.utils.LoggerUtil;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
@@ -370,5 +370,11 @@ public class Faction {
             raceList = Text.literal(raceListStringBuilder.toString());
         }
         return raceList;
+    }
+
+    public BannerPatternsComponent getBannerPatternComponents(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
+        if(bannerData == null)
+            return null;
+        return bannerData.getBannerPatternComponents(bannerPatternLookup);
     }
 }
