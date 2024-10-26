@@ -16,6 +16,9 @@ public class SubBiomes {
 
         subBiomesMap.put(MEBiomeKeys.ANDUIN_VALES, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.1f, MEBiomeKeys.ANDUIN_VALES_FOREST));
+        subBiomesMap.put(MEBiomeKeys.DALE, new SubBiome()
+                .addSubBiomeData(-1.0f, -0.15f, MEBiomeKeys.DALE_FOREST)
+                .addSubBiomeData(0.25f, 2.01f, MEBiomeKeys.DALE_HILL, true));
         subBiomesMap.put(MEBiomeKeys.OLD_ANGMAR, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.2f, MEBiomeKeys.OLD_ANGMAR_FOREST)
                 .addSubBiomeData(0.22f, 0.27f, MEBiomeKeys.OLD_ANGMAR_COLD_HILL, true)
@@ -29,9 +32,12 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.OLD_RHUDAUR, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.07f, MEBiomeKeys.OLD_RHUDAUR_FOREST)
                 .addSubBiomeData(0.18f, 2.01f, MEBiomeKeys.OLD_RHUDAUR_HILL, true));
-        subBiomesMap.put(MEBiomeKeys.DALE, new SubBiome()
-                .addSubBiomeData(-1.0f, -0.15f, MEBiomeKeys.DALE_FOREST)
-                .addSubBiomeData(0.25f, 2.01f, MEBiomeKeys.DALE_HILL, true));
+        subBiomesMap.put(MEBiomeKeys.SHIRE, new SubBiome(72)
+                .addSubBiomeData(-1.0f, -0.35f, MEBiomeKeys.SHIRE_WOODS)
+                .addSubBiomeData(0.35f, 2.01f, MEBiomeKeys.SHIRE_HILLS, true));
+        subBiomesMap.put(MEBiomeKeys.SHIRE_EDGE, new SubBiome(72)
+                .addSubBiomeData(-1.0f, -0.27f, MEBiomeKeys.SHIRE_WOODS)
+                .addSubBiomeData(0.32f, 2.01f, MEBiomeKeys.SHIRE_HILLS, true));
     }
 
     public static boolean isSubBiome(RegistryKey<Biome> biomeRegistryKey) {

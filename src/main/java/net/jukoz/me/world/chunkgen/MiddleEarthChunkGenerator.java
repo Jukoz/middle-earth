@@ -27,7 +27,6 @@ import net.minecraft.util.math.random.RandomSeed;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
-import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.StructureAccessor;
@@ -227,6 +226,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.SARN_GEBIR_SHORES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SHIRE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SHIRE_EDGE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.SHIRE_FOREST),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.SHIRE_HILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SHIRE_WOODS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHEAST_RHOVANION),
                     biomeRegistry.getOrThrow(MEBiomeKeys.SOUTHERN_DUNLAND),
@@ -313,7 +314,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     SubBiome subBiome = SubBiomes.getSubBiomeFromChild(meBiome.biome);
                     if(subBiome != null) {
                         double perlin = ModBiomeSource.getSubBiomeNoise(posX, posZ);
-                        double additionalHeight = subBiome.getAdditionalHeight((float) perlin);
+                        double additionalHeight = Math.max(subBiome.getAdditionalHeight((float) perlin) - 1, 0);
                         additionalHeight *= MiddleEarthMapRuntime.getInstance().getEdge(posX, posZ);
                         height += (float) additionalHeight;
                     }

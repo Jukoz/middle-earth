@@ -64,8 +64,9 @@ public class OrePlacedFeatures {
     public static final RegistryKey<PlacedFeature> GRASS_TO_GRANITE_ORE = registerKey("grass_to_granite_ore");
     public static final RegistryKey<PlacedFeature> TERRACOTTA_ORE = registerKey("terracotta_ore");
     public static final RegistryKey<PlacedFeature> TUFF_ORE = registerKey("tuff_ore");
-    public static final RegistryKey<PlacedFeature> TURF_ORE = registerKey("turf_ore");
     public static final RegistryKey<PlacedFeature> ABUNDANT_TUFF_ORE = registerKey("abundant_tuff_ore");
+    public static final RegistryKey<PlacedFeature> TURF_ORE = registerKey("turf_ore");
+    public static final RegistryKey<PlacedFeature> COMMON_TURF_ORE = registerKey("common_turf_ore");
     public static final RegistryKey<PlacedFeature> WHITE_SAND_ORE = registerKey("white_sand_ore");
 
     public static void bootstrap(Registerable<PlacedFeature> featureRegisterable) {
@@ -217,6 +218,8 @@ public class OrePlacedFeatures {
         PlacedFeatures.register(featureRegisterable, TUFF_ORE, stoneTuff, veryCommon,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, TURF_ORE, turf, veryCommon,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, COMMON_TURF_ORE, turf, frequent,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, ABUNDANT_TUFF_ORE, stoneTuff, abundant,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

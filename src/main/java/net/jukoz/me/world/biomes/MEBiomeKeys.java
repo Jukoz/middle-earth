@@ -173,6 +173,8 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> SARN_GEBIR_WILDLANDS = MEBiomeKeys.register("sarn_gebir_wildlands");
     public static final RegistryKey<Biome> SHIRE = MEBiomeKeys.register("shire");
     public static final RegistryKey<Biome> SHIRE_EDGE = MEBiomeKeys.register("shire_edge");
+    public static final RegistryKey<Biome> SHIRE_FOREST = MEBiomeKeys.register("shire_forest");
+    public static final RegistryKey<Biome> SHIRE_HILLS = MEBiomeKeys.register("shire_hills");
     public static final RegistryKey<Biome> SHIRE_WOODS = MEBiomeKeys.register("shire_woods");
     public static final RegistryKey<Biome> SOUTHEAST_RHOVANION = MEBiomeKeys.register("southeast_rhovanion");
     public static final RegistryKey<Biome> SOUTHERN_DUNLAND = MEBiomeKeys.register("southern_dunland");

@@ -252,7 +252,9 @@ public class MEBiomesData {
         addBiome(new Color(136, 158, 87), new MEBiome(11, MEBiomeKeys.SARN_GEBIR_WILDLANDS, MEBiomeDataConfigs.landModifier.heightModifier(0.67f), MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(84, 217, 70), new MEBiome(6, MEBiomeKeys.SHIRE, MEBiomeDataConfigs.shireModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(75, 184, 64), new MEBiome(6, MEBiomeKeys.SHIRE_EDGE, MEBiomeDataConfigs.shireModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
-        addBiome(new Color(61, 152, 52), new MEBiome(7, MEBiomeKeys.SHIRE_WOODS, MEBiomeDataConfigs.shireModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(61, 152, 52), new MEBiome(7, MEBiomeKeys.SHIRE_FOREST, MEBiomeDataConfigs.shireModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(83, 161, 76), new MEBiome(15, MEBiomeKeys.SHIRE_HILLS, MEBiomeDataConfigs.foothillModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
+        addBiome(new Color(67, 168, 57), new MEBiome(7, MEBiomeKeys.SHIRE_WOODS, MEBiomeDataConfigs.shireModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(154, 147, 57), new MEBiome(4, MEBiomeKeys.SOUTHEAST_RHOVANION, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(121, 186, 111), new MEBiome(4, MEBiomeKeys.SOUTHERN_DUNLAND, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers));
         addBiome(new Color(206, 179, 156), new MEBiome(4, MEBiomeKeys.SOUTHERN_FOROCHEL, MEBiomeDataConfigs.landModifier, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.frozenLayers, CaveType.FOROD));

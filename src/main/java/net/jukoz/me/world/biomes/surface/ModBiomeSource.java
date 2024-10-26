@@ -105,7 +105,7 @@ public class ModBiomeSource extends BiomeSource {
                 double perlin = ModBiomeSource.getSubBiomeNoise(i, k);
                 double additionalHeight = subBiome.getAdditionalHeight((float) perlin);
                 additionalHeight *= MiddleEarthMapRuntime.getInstance().getEdge(i, k);
-                height += additionalHeight;
+                height += (float) additionalHeight;
             }
 
             if(j <= CavesPlacedFeatures.MAX_MITHRIL_HEIGHT && meBiome.caveType == CaveType.MISTIES) {
