@@ -200,7 +200,7 @@ public class MiddleEarthFactions {
                 new BannerData(DyeColor.WHITE, List.of(
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH.getValue(), DyeColor.BLUE),
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT.getValue(), DyeColor.BLUE),
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.BELL_AND_ARROW.getValue(), DyeColor.YELLOW)
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.BELL_AND_BOW.getValue(), DyeColor.YELLOW)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "dale.capital"), new Vector2d(2021, 727)),
