@@ -69,7 +69,9 @@ public class FactionSelectionController {
 
 
     private void addFactionsByDisposition(Disposition disposition) {
-        factions.put(disposition, FactionLookup.getFactionsByDisposition(player.getWorld(), disposition).values().stream().toList());
+        List<Faction> foundFaction = new ArrayList<>(FactionLookup.getFactionsByDisposition(player.getWorld(), disposition).values().stream().toList());
+        foundFaction.sort(Comparator.comparingInt(Faction::getFactionSelectionOrderIndex));
+        factions.put(disposition, foundFaction);
         if(!factions.get(disposition).isEmpty())
             dispositionsWithContent.add(disposition);
     }
