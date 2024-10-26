@@ -2,7 +2,6 @@ package net.jukoz.me.datageneration.content.models;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModResourceItems;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
@@ -60,7 +59,7 @@ public class HotMetalsModel {
             add(ModResourceItems.ROD);
             add(ModResourceItems.LARGE_ROD);
 
-            add(ModResourceItems.CHAINMAIL_RINGS);
+            add(ModResourceItems.CHAINMAIL_RING);
             add(ModResourceItems.SCALE_MAIL);
             add(ModResourceItems.ARMOR_PLATE);
             add(ModResourceItems.HELMET_PLATE);
@@ -71,7 +70,7 @@ public class HotMetalsModel {
 
     public static List<ShapingTag> shapesTag = new ArrayList<>() {
         {
-            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "nugget_shaping")), ModResourceItems.CHAINMAIL_RINGS, 30));
+            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "nugget_shaping")), ModResourceItems.CHAINMAIL_RING, 30));
 
             add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SHORT_BLADE, 80));
             add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SHOVEL_HEAD, 80));

@@ -307,9 +307,11 @@
   "item.me.great_axe_head": "Great Axe Head",
   "item.me.sword_hilt": "Sword Hilt",
 
-  "item.me.chainmail_rings": "Chainmail Rings",
+  "item.me.chainmail_ring": "Chainmail Ring",
   "item.me.scale_mail": "Scale Mail",
   "item.me.armor_plate": "Armor Plate",
+
+  "item.me.chainmail": "Chainmail",
 
   "item.me.helmet_plate": "Helmet Plate",
   "item.me.shield_border": "Shield Border",

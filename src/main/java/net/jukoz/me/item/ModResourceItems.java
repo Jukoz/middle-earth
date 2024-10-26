@@ -89,8 +89,6 @@ public class ModResourceItems {
     public static final Item MITHRIL_NUGGET = registerItem("mithril_nugget",
             new Item(new Item.Settings().fireproof()));
 
-    public static final Item IRON_CHAINMAIL = registerItem("iron_chainmail",
-            new Item(new Item.Settings()));
 
     public static final Item RED_AGATE_SHARD = registerItem("red_agate_shard",
             new Item(new Item.Settings()));
@@ -165,12 +163,15 @@ public class ModResourceItems {
     public static final Item SWORD_HILT = registerItem("sword_hilt",
             new SmithingMaterialItem(new Item.Settings().maxCount(16)));
 
-    public static final Item CHAINMAIL_RINGS = registerItem("chainmail_rings",
+    public static final Item CHAINMAIL_RING = registerItem("chainmail_ring",
             new SmithingMaterialItem(new Item.Settings().maxCount(16)));
     public static final Item SCALE_MAIL = registerItem("scale_mail",
             new SmithingMaterialItem(new Item.Settings().maxCount(16)));
     public static final Item ARMOR_PLATE = registerItem("armor_plate",
             new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+
+    public static final Item CHAINMAIL = registerItem("chainmail",
+            new Item(new Item.Settings()));
 
     public static final Item HELMET_PLATE = registerItem("helmet_plate",
             new SmithingMaterialItem(new Item.Settings().maxCount(16)));

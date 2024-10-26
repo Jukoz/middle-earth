@@ -1270,9 +1270,11 @@ public class ModelProvider extends FabricModelProvider {
         registerPalettedItem(ModResourceItems.LONG_BLADE, itemModelGenerator);
         registerPalettedItem(ModResourceItems.SWORD_HILT, itemModelGenerator);
 
-        registerPalettedItem(ModResourceItems.CHAINMAIL_RINGS, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.CHAINMAIL_RING, itemModelGenerator);
         registerPalettedItem(ModResourceItems.SCALE_MAIL, itemModelGenerator);
         registerPalettedItem(ModResourceItems.ARMOR_PLATE, itemModelGenerator);
+
+        registerPalettedItem(ModResourceItems.CHAINMAIL, itemModelGenerator);
 
         registerPalettedItem(ModResourceItems.HELMET_PLATE, itemModelGenerator);
         registerPalettedItem(ModResourceItems.SHIELD_BORDER, itemModelGenerator);

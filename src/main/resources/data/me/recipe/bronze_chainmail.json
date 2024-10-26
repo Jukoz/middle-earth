@@ -1,0 +1,87 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:chainmail_ring"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:bronze",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:chainmail_ring"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:bronze",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:chainmail_ring"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:bronze",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:chainmail_ring"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:bronze",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:chainmail_ring"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:bronze",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:chainmail_ring"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:bronze",
+          "pattern": "me:smithing_part"
+        }
+      }
+    }
+  ],
+  "result": {
+    "id": "me:chainmail",
+    "components": {
+      "minecraft:trim": {
+        "material": "me:bronze",
+        "pattern": "me:smithing_part"
+      }
+    }
+  }
+}
