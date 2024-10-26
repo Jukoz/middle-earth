@@ -238,7 +238,6 @@ public class MiddleEarthFactions {
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH.getValue(), DyeColor.LIGHT_GRAY),
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.BLUE),
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT.getValue(), DyeColor.BLUE),
-                        new BannerData.BannerPatternWithColor(BannerPatterns.TRIANGLES_BOTTOM.getValue(), DyeColor.ORANGE),
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.CROWN_AND_ANVIL.getValue(), DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
@@ -275,7 +274,7 @@ public class MiddleEarthFactions {
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH.getValue(), DyeColor.YELLOW),
-                        new BannerData.BannerPatternWithColor(BannerPatterns.TRIANGLES_BOTTOM.getValue(), DyeColor.WHITE),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT.getValue(), DyeColor.YELLOW),
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.STAR_AND_LEAF.getValue(), DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
@@ -433,8 +432,8 @@ public class MiddleEarthFactions {
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH.getValue(), DyeColor.LIME),
-                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.GREEN),
-                        new BannerData.BannerPatternWithColor(BannerPatterns.RHOMBUS.getValue(), DyeColor.YELLOW),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT.getValue(), DyeColor.LIME),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.CIRCLE.getValue(), DyeColor.YELLOW),
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.PIPE.getValue(), DyeColor.BROWN)
                 )),
                 new SpawnDataHandler(List.of(
