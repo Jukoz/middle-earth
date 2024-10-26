@@ -326,7 +326,6 @@ public class FactionSelectionScreen extends Screen {
                 mainPanelHeight
         );
 
-        // TODO : Display the lore dump texts
         int textStartY = startY + (MINIMAL_MARGIN * 2);
         int centerWithBanner = ((startX + (MINIMAL_MARGIN / 2)) + ((mainPanelWidth - 50) / 2));
 
@@ -440,7 +439,7 @@ public class FactionSelectionScreen extends Screen {
         }
 
         // Disposition
-        factionSelectionWidget.enableArrows(Disposition.values().length > 1);
+        dispositionSelectionWidget.enableArrows(Disposition.values().length > 1);
         newStartY += MINIMAL_MARGIN + dispositionSelectionWidget.drawAnchored(context, endX, newStartY, false, disposition.getName(), textRenderer);
 
         // Faction
