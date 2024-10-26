@@ -620,14 +620,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.BRONZE_INGOT, ModToolItems.BRONZE_PICKAXE, ModToolItems.BRONZE_AXE, ModToolItems.BRONZE_SHOVEL, ModToolItems.BRONZE_HOE);
         
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.CRUDE_INGOT, ModToolItems.CRUDE_PICKAXE, ModToolItems.CRUDE_AXE, ModToolItems.CRUDE_SHOVEL, ModToolItems.CRUDE_HOE);
-        
-        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.BURZUM_STEEL_INGOT, ModToolItems.BURZUM_STEEL_PICKAXE, ModToolItems.BURZUM_STEEL_AXE, ModToolItems.BURZUM_STEEL_SHOVEL, ModToolItems.BURZUM_STEEL_HOE);
-        
-        //createToolSetRecipes(exporter, Items.STICK, ModResourceItems.STEEL_INGOT, ModToolItems.STEEL_PICKAXE, ModToolItems.STEEL_AXE, ModToolItems.STEEL_SHOVEL, ModToolItems.STEEL_HOE);
-        
-        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.EDHEL_STEEL_INGOT, ModToolItems.EDHEL_STEEL_PICKAXE, ModToolItems.EDHEL_STEEL_AXE, ModToolItems.EDHEL_STEEL_SHOVEL, ModToolItems.EDHEL_STEEL_HOE);
-        
-        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.KHAZAD_STEEL_INGOT, ModToolItems.KHAZAD_STEEL_PICKAXE, ModToolItems.KHAZAD_STEEL_AXE, ModToolItems.KHAZAD_STEEL_SHOVEL, ModToolItems.KHAZAD_STEEL_HOE);
 
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.MITHRIL_INGOT, ModToolItems.MITHRIL_PICKAXE, ModToolItems.MITHRIL_AXE, ModToolItems.MITHRIL_SHOVEL, ModToolItems.MITHRIL_HOE);
 
@@ -697,36 +689,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         HotMetalsModel.shapesItem.forEach(shape -> {
             createAnvilShapingRecipeItem(exporter, shape.item(), shape.output(), shape.amount());
         });
-
-        RegistryWrapper.Impl<ArmorTrimMaterial> armorTrimMaterialsRegistry;
-
-        try {
-            armorTrimMaterialsRegistry = registryLookup.get().getWrapperOrThrow(RegistryKeys.TRIM_MATERIAL);
-        } catch (Exception ignored) {
-            throw new IllegalStateException("Data generation without registries failed!");
-        }
-
-        RegistryWrapper.Impl<ArmorTrimPattern> armorTrimPatternsRegistry;
-
-        try {
-            armorTrimPatternsRegistry = registryLookup.get().getWrapperOrThrow(RegistryKeys.TRIM_PATTERN);
-        } catch (Exception ignored) {
-            throw new IllegalStateException("Data generation without registries failed!");
-        }
-
-        RegistryEntry<ArmorTrimPattern> pattern = armorTrimPatternsRegistry
-                .getOrThrow(ModSmithingTrimPatterns.SMITHING_PART);
-
-        ItemStack stack1 = new ItemStack(ModResourceItems.BLADE);
-        stack1.set(DataComponentTypes.TRIM, new ArmorTrim(armorTrimMaterialsRegistry.getOrThrow(ModSmithingTrimMaterials.STEEL), pattern));
-
-        ItemStack stack2 = new ItemStack(ModResourceItems.SWORD_HILT);
-        stack2.set(DataComponentTypes.TRIM, new ArmorTrim(armorTrimMaterialsRegistry.getOrThrow(ModSmithingTrimMaterials.STEEL), pattern));
-
-        ItemStack stack3 = new ItemStack(Items.STICK);
-
-        createArtisanTableSwordRecipe(exporter, List.of(stack1, stack2, stack3), ModWeaponItems.BLACK_NUMENOREAN_SWORD.getDefaultStack());
-
         //endregion
 
         ComplexRecipeJsonBuilder.create(CustomShieldDecorationRecipe::new).offerTo(exporter, "custom_shield_decoration");
@@ -838,16 +800,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .criterion(FabricRecipeProvider.hasItem(Items.COPPER_INGOT),
                         FabricRecipeProvider.conditionsFromItem(Items.COPPER_INGOT))
                 .offerTo(exporter);
-    }
-
-    private void createArtisanTableSwordRecipe(RecipeExporter exporter, List<ItemStack> inputs, ItemStack output) {
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "sword")
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(0).getItem()), inputs.get(0).getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(1).getItem()), inputs.get(1).getComponentChanges()))
-                        .input(Ingredient.ofItems(inputs.get(2).getItem()))
-                                .criterion(FabricRecipeProvider.hasItem(inputs.get(0).getItem()),
-                                        FabricRecipeProvider.conditionsFromItem(inputs.get(0).getItem()))
-                                        .offerTo(exporter);
     }
 
     private void createStairsRecipe(RecipeExporter exporter, Block input, Block output) {

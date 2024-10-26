@@ -27,9 +27,9 @@ public class ArtisanTableInputsShape {
             {InputType.HANDLE, InputType.NONE, InputType.NONE}});
 
     public static ArtisanTableInputsShape SPEAR = new ArtisanTableInputsShape("spear", new InputType[][]{
-            {InputType.NONE, InputType.BLADE, InputType.NONE},
+            {InputType.NONE, InputType.NONE, InputType.BLADE},
             {InputType.NONE, InputType.HANDLE, InputType.NONE},
-            {InputType.NONE, InputType.HANDLE, InputType.NONE}});
+            {InputType.HANDLE, InputType.NONE, InputType.NONE}});
 
     public static ArtisanTableInputsShape BOW = new ArtisanTableInputsShape("bow", new InputType[][]{
             {InputType.ANY, InputType.ANY, InputType.NONE},

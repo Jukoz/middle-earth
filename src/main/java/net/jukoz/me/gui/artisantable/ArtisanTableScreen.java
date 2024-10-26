@@ -129,7 +129,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
     @Override
     public void onSlotUpdate(ScreenHandler handler, int slotId, ItemStack stack) {
-        if (slotId == 6) {
+        if (slotId == 9) {
             this.equipArmorStand(stack);
         }
     }
@@ -149,8 +149,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         if (!stack.isEmpty()) {
             ItemStack itemStack = stack.copy();
             Item item = stack.getItem();
-            if (item instanceof ArmorItem) {
-                ArmorItem armorItem = (ArmorItem)item;
+            if (item instanceof ArmorItem armorItem) {
                 this.armorStand.equipStack(armorItem.getSlotType(), itemStack);
             } else {
                 this.armorStand.equipStack(EquipmentSlot.OFFHAND, itemStack);
