@@ -9,7 +9,7 @@ public class ModBannerPatterns {
     public static final RegistryKey<BannerPattern> TREE = key("tree");
     public static final RegistryKey<BannerPattern> HORSE = key("horse");
     public static final RegistryKey<BannerPattern> HORSE_HEAD = key("horse_head");
-    public static final RegistryKey<BannerPattern> BELL_AND_ARROW = key("bell_and_arrow");
+    public static final RegistryKey<BannerPattern> BELL_AND_BOW = key("bell_and_bow");
     public static final RegistryKey<BannerPattern> CROWN_AND_ANVIL = key("crown_and_anvil");
     public static final RegistryKey<BannerPattern> GOLDENWOOD = key("goldenwood");
     public static final RegistryKey<BannerPattern> STAR_AND_LEAF = key("star_and_leaf");
@@ -45,7 +45,7 @@ public class ModBannerPatterns {
         register(registry, EVIL_EYE);
         register(registry, EVIL_PEAKS);
         register(registry, HAND);
-        register(registry, BELL_AND_ARROW);
+        register(registry, BELL_AND_BOW);
 
         register(registry, DRAGON);
         register(registry, SNAIL);

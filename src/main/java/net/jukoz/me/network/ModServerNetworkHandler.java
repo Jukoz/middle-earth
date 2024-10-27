@@ -17,6 +17,7 @@ public class ModServerNetworkHandler {
     public static void register(IConnectionToClient connection) {
         // REGISTRY : Server to client
         PayloadTypeRegistry.playS2C().register(PacketOnboardingResult.ID, PacketOnboardingResult.CODEC);
+        PayloadTypeRegistry.playS2C().register(PacketForceOnboardingScreen.ID, PacketForceOnboardingScreen.CODEC);
 
         // REGISTRY : Client to server
         PayloadTypeRegistry.playC2S().register(PacketSetAffiliation.ID, PacketSetAffiliation.CODEC);

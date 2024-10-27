@@ -1,10 +1,10 @@
 package net.jukoz.me.utils;
 
 public enum ModColors {
-    ALERT(15553851), //ED553B;
-    WARNING(16176476), //F6D55C;
-    SUCCESS(51281), //00C851;
-    PENDING(2122651); //20639B;
+    ALERT(0xED553B),
+    WARNING(0xF6D55C),
+    SUCCESS(0x00C851),
+    PENDING(0x20639B);
 
     public final int color;
     ModColors(int color){

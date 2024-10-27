@@ -137,7 +137,7 @@ public class Race {
 
     public void reverseAttributes(PlayerEntity playerEntity){
         DefaultAttributeContainer.Builder containerBuilder = PlayerEntity.createPlayerAttributes();
-        DefaultAttributeContainer container =  containerBuilder.build();
+        DefaultAttributeContainer container = containerBuilder.build();
         attributeData.ReverseAll(playerEntity, container);
         playerEntity.heal(playerEntity.getMaxHealth());
     }

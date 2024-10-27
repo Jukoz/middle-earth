@@ -8,6 +8,7 @@ import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
+import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.minecraft.command.argument.EntityArgumentType;
@@ -38,13 +39,18 @@ public class AllSpawnSuggestionProvider implements SuggestionProvider<ServerComm
         for(Faction faction: factions){
             SpawnDataHandler spawnDataHandler = faction.getSpawnData();
             if(spawnDataHandler != null){
-                candidates.addAll(spawnDataHandler.getAllSpawnIdentifiers());
+                List<Identifier> spawnIds = spawnDataHandler.getAllSpawnIdentifiers();
+                if(spawnIds != null)
+                    candidates.addAll(spawnIds);
             }
             if(faction.getSubFactions() != null){
                 for(Identifier subfactionId : faction.getSubFactions()){
                     Faction subFaction = FactionLookup.getFactionById(context.getSource().getWorld(), subfactionId);
                     SpawnDataHandler subFacspawnDataHandler = subFaction.getSpawnData();
-                    candidates.addAll(subFacspawnDataHandler.getAllSpawnIdentifiers());
+
+                    List<Identifier> spawnIds = subFacspawnDataHandler.getAllSpawnIdentifiers();
+                    if(spawnIds != null)
+                        candidates.addAll(spawnIds);
                 }
             }
         }

@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.jukoz.me.utils.IdentifierUtil;
+import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -92,12 +93,11 @@ public class AttributeData {
             Optional<RegistryEntry.Reference<EntityAttribute>> attributeEntry =  Registries.ATTRIBUTE.getEntry(id);
             if(attribute != null && attributeEntry != null && attributeEntry.isPresent()){
                 EntityAttributeInstance instance = entity.getAttributes().getCustomInstance(attributeEntry.get());
-                if(container.has(attributeEntry.get())){
-                    instance.setBaseValue(container.getValue(attributeEntry.get()));
-                } else {
-                    if(instance != null){
+                if(instance != null){
+                    if(container.has(attributeEntry.get()))
+                        instance.setBaseValue(container.getValue(attributeEntry.get()));
+                    else
                         instance.setBaseValue(attribute.getDefaultValue());
-                    }
                 }
             }
         }
@@ -108,12 +108,9 @@ public class AttributeData {
         final DynamicRegistryManager registryManager = entity.getWorld().getRegistryManager();
         EntityAttribute attribute = registryManager.get(RegistryKeys.ATTRIBUTE).get(id);
 
-        Optional<RegistryEntry.Reference<EntityAttribute>> attributeEntry =  Registries.ATTRIBUTE.getEntry(id);
+        Optional<RegistryEntry.Reference<EntityAttribute>> attributeEntry = Registries.ATTRIBUTE.getEntry(id);
         if(attribute != null && attributeEntry != null && attributeEntry.isPresent()){
-            EntityAttributeInstance instance = entity.getAttributes().getCustomInstance(attributeEntry.get());
-            if(instance != null){
-                return instance.getBaseValue();
-            }
+            return entity.getAttributeValue(attributeEntry.get());
         }
         return -999.99;
     }
