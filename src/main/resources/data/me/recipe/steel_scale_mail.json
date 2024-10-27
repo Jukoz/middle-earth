@@ -101,11 +101,11 @@
     {
       "fabric:type": "fabric:components",
       "base": {
-        "item": "me:scale"
+        "item": "me:chainmail_ring"
       },
       "components": {
         "minecraft:trim": {
-          "material": "me:chainmail_ring",
+          "material": "me:steel",
           "pattern": "me:smithing_part"
         }
       }

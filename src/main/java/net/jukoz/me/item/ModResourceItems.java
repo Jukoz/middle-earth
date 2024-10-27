@@ -166,9 +166,9 @@ public class ModResourceItems {
     public static final Item CHAINMAIL_RING = registerItem("chainmail_ring",
             new SmithingMaterialItem(new Item.Settings().maxCount(64)));
     public static final Item CHAINMAIL = registerItem("chainmail",
-            new Item(new Item.Settings().maxCount(64)));
-    public static final Item SCALE = registerItem("scale",
             new Item(new Item.Settings().maxCount(16)));
+    public static final Item SCALE = registerItem("scale",
+            new Item(new Item.Settings().maxCount(64)));
     public static final Item SCALE_MAIL = registerItem("scale_mail",
             new SmithingMaterialItem(new Item.Settings().maxCount(16)));
     public static final Item ARMOR_PLATE = registerItem("armor_plate",
