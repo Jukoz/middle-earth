@@ -5,11 +5,59 @@
     {
       "fabric:type": "fabric:components",
       "base": {
-        "item": "me:chainmail_ring"
+        "item": "me:scale"
       },
       "components": {
         "minecraft:trim": {
-          "material": "minecraft:iron",
+          "material": "me:bronze",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:scale"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:bronze",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:scale"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:bronze",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:scale"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:bronze",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:scale"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:bronze",
           "pattern": "me:smithing_part"
         }
       }
@@ -21,7 +69,7 @@
       },
       "components": {
         "minecraft:trim": {
-          "material": "minecraft:iron",
+          "material": "me:bronze",
           "pattern": "me:smithing_part"
         }
       }
@@ -33,7 +81,7 @@
       },
       "components": {
         "minecraft:trim": {
-          "material": "minecraft:iron",
+          "material": "me:bronze",
           "pattern": "me:smithing_part"
         }
       }
@@ -45,7 +93,7 @@
       },
       "components": {
         "minecraft:trim": {
-          "material": "minecraft:iron",
+          "material": "me:bronze",
           "pattern": "me:smithing_part"
         }
       }
@@ -57,17 +105,17 @@
       },
       "components": {
         "minecraft:trim": {
-          "material": "minecraft:iron",
+          "material": "me:bronze",
           "pattern": "me:smithing_part"
         }
       }
     }
   ],
   "result": {
-    "id": "me:chainmail",
+    "id": "me:scale_mail",
     "components": {
       "minecraft:trim": {
-        "material": "minecraft:iron",
+        "material": "me:bronze",
         "pattern": "me:smithing_part"
       }
     }

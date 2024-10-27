@@ -621,8 +621,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.CRUDE_INGOT, ModToolItems.CRUDE_PICKAXE, ModToolItems.CRUDE_AXE, ModToolItems.CRUDE_SHOVEL, ModToolItems.CRUDE_HOE);
 
-        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.MITHRIL_INGOT, ModToolItems.MITHRIL_PICKAXE, ModToolItems.MITHRIL_AXE, ModToolItems.MITHRIL_SHOVEL, ModToolItems.MITHRIL_HOE);
-
         //TODO rod specify data component dwarven steel material
 
         createBucketRecipe(exporter, Items.IRON_INGOT, Items.BUCKET);

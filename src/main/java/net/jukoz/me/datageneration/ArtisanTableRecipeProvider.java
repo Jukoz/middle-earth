@@ -23,6 +23,7 @@ import net.minecraft.item.trim.ArmorTrimMaterials;
 import net.minecraft.item.trim.ArmorTrimPattern;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
@@ -30,6 +31,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class ArtisanTableRecipeProvider extends RecipeProvider {
@@ -116,13 +118,13 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
         createArtisanTableSwordRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.DALISH_NOBLE_LONGSWORD.getDefaultStack(), true);
         createArtisanTableSwordRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.BLACK_NUMENOREAN_LONGSWORD.getDefaultStack(), true);
 
-        createArtisanTableAxeRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.GONDORIAN_AXE.getDefaultStack(), false);
-        createArtisanTableAxeRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.GONDORIAN_NOBLE_AXE.getDefaultStack(), true);
-        createArtisanTableAxeRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.ROHIRRIC_AXE.getDefaultStack(), false);
-        createArtisanTableAxeRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.ROHIRRIC_NOBLE_AXE.getDefaultStack(), true);
-        createArtisanTableAxeRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.DALISH_AXE.getDefaultStack(), false);
-        createArtisanTableAxeRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.DALISH_NOBLE_AXE.getDefaultStack(), true);
-        createArtisanTableAxeRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.BLACK_NUMENOREAN_AXE.getDefaultStack(), true);
+        createArtisanTableAxeRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.GONDORIAN_AXE.getDefaultStack(), false, Optional.empty());
+        createArtisanTableAxeRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.GONDORIAN_NOBLE_AXE.getDefaultStack(), true, Optional.empty());
+        createArtisanTableAxeRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.ROHIRRIC_AXE.getDefaultStack(), false, Optional.empty());
+        createArtisanTableAxeRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.ROHIRRIC_NOBLE_AXE.getDefaultStack(), true, Optional.empty());
+        createArtisanTableAxeRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.DALISH_AXE.getDefaultStack(), false, Optional.empty());
+        createArtisanTableAxeRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.DALISH_NOBLE_AXE.getDefaultStack(), true, Optional.empty());
+        createArtisanTableAxeRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.BLACK_NUMENOREAN_AXE.getDefaultStack(), true, Optional.empty());
 
         createArtisanTableSpearRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.GONDORIAN_SPEAR.getDefaultStack(), false);
         createArtisanTableSpearRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.GONDORIAN_NOBLE_SPEAR.getDefaultStack(), true);
@@ -146,47 +148,154 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
         createArtisanTableSwordRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.BURZUM_STEEL_SWORD.getDefaultStack(), false);
 
         //region TOOLS
-        createArtisanTablePickaxeRecipe(exporter, MetalTypes.IRON, Items.IRON_PICKAXE.getDefaultStack());
-        createArtisanTableAxeRecipe(exporter, MetalTypes.IRON, Items.IRON_AXE.getDefaultStack(), false);
-        createArtisanTableShovelRecipe(exporter, MetalTypes.IRON, Items.IRON_SHOVEL.getDefaultStack());
-        createArtisanTableHoeRecipe(exporter, MetalTypes.IRON, Items.IRON_HOE.getDefaultStack());
+        createToolSet(exporter, MetalTypes.BRONZE, ModToolItems.BRONZE_PICKAXE.getDefaultStack(),
+                ModToolItems.BRONZE_AXE.getDefaultStack(),
+                ModToolItems.BRONZE_SHOVEL.getDefaultStack(),
+                ModToolItems.BRONZE_HOE.getDefaultStack(),
+                Optional.empty());
 
-        createArtisanTablePickaxeRecipe(exporter, MetalTypes.IRON, Items.GOLDEN_PICKAXE.getDefaultStack());
-        createArtisanTableAxeRecipe(exporter, MetalTypes.IRON, Items.GOLDEN_AXE.getDefaultStack(), false);
-        createArtisanTableShovelRecipe(exporter, MetalTypes.IRON, Items.GOLDEN_SHOVEL.getDefaultStack());
-        createArtisanTableHoeRecipe(exporter, MetalTypes.IRON, Items.GOLDEN_HOE.getDefaultStack());
+        createToolSet(exporter, MetalTypes.CRUDE, ModToolItems.CRUDE_PICKAXE.getDefaultStack(),
+                ModToolItems.CRUDE_AXE.getDefaultStack(),
+                ModToolItems.CRUDE_SHOVEL.getDefaultStack(),
+                ModToolItems.CRUDE_HOE.getDefaultStack(),
+                Optional.empty());
 
-        createArtisanTablePickaxeRecipe(exporter, MetalTypes.STEEL, ModToolItems.STEEL_PICKAXE.getDefaultStack());
-        createArtisanTableAxeRecipe(exporter, MetalTypes.STEEL, ModToolItems.STEEL_AXE.getDefaultStack(), false);
-        createArtisanTableShovelRecipe(exporter, MetalTypes.STEEL, ModToolItems.STEEL_SHOVEL.getDefaultStack());
-        createArtisanTableHoeRecipe(exporter, MetalTypes.STEEL, ModToolItems.STEEL_HOE.getDefaultStack());
+        createToolSet(exporter, MetalTypes.IRON, Items.IRON_PICKAXE.getDefaultStack(),
+                Items.IRON_AXE.getDefaultStack(),
+                Items.IRON_SHOVEL.getDefaultStack(),
+                Items.IRON_HOE.getDefaultStack(),
+                Optional.empty());
 
-        createArtisanTablePickaxeRecipe(exporter, MetalTypes.KHAZAD_STEEL, ModToolItems.KHAZAD_STEEL_PICKAXE.getDefaultStack());
-        createArtisanTableAxeRecipe(exporter, MetalTypes.KHAZAD_STEEL, ModToolItems.KHAZAD_STEEL_AXE.getDefaultStack(), false);
-        createArtisanTableShovelRecipe(exporter, MetalTypes.KHAZAD_STEEL, ModToolItems.KHAZAD_STEEL_SHOVEL.getDefaultStack());
-        createArtisanTableHoeRecipe(exporter, MetalTypes.KHAZAD_STEEL, ModToolItems.KHAZAD_STEEL_HOE.getDefaultStack());
+        createToolSet(exporter, MetalTypes.GOLD, Items.GOLDEN_PICKAXE.getDefaultStack(),
+                Items.GOLDEN_AXE.getDefaultStack(),
+                Items.GOLDEN_SHOVEL.getDefaultStack(),
+                Items.GOLDEN_HOE.getDefaultStack(),
+                Optional.empty());
 
-        createArtisanTablePickaxeRecipe(exporter, MetalTypes.EDHEL_STEEL, ModToolItems.EDHEL_STEEL_PICKAXE.getDefaultStack());
-        createArtisanTableAxeRecipe(exporter, MetalTypes.EDHEL_STEEL, ModToolItems.EDHEL_STEEL_AXE.getDefaultStack(), false);
-        createArtisanTableShovelRecipe(exporter, MetalTypes.EDHEL_STEEL, ModToolItems.EDHEL_STEEL_SHOVEL.getDefaultStack());
-        createArtisanTableHoeRecipe(exporter, MetalTypes.EDHEL_STEEL, ModToolItems.EDHEL_STEEL_HOE.getDefaultStack());
+        createToolSet(exporter, MetalTypes.STEEL, ModToolItems.STEEL_PICKAXE.getDefaultStack(),
+                ModToolItems.STEEL_AXE.getDefaultStack(),
+                ModToolItems.STEEL_SHOVEL.getDefaultStack(),
+                ModToolItems.STEEL_HOE.getDefaultStack(),
+                Optional.empty());
 
-        createArtisanTablePickaxeRecipe(exporter, MetalTypes.EDHEL_STEEL, ModToolItems.BURZUM_STEEL_PICKAXE.getDefaultStack());
-        createArtisanTableAxeRecipe(exporter, MetalTypes.EDHEL_STEEL, ModToolItems.BURZUM_STEEL_AXE.getDefaultStack(), false);
-        createArtisanTableShovelRecipe(exporter, MetalTypes.EDHEL_STEEL, ModToolItems.BURZUM_STEEL_SHOVEL.getDefaultStack());
-        createArtisanTableHoeRecipe(exporter, MetalTypes.EDHEL_STEEL, ModToolItems.BURZUM_STEEL_HOE.getDefaultStack());
+        createToolSet(exporter, MetalTypes.KHAZAD_STEEL, ModToolItems.KHAZAD_STEEL_PICKAXE.getDefaultStack(),
+                ModToolItems.KHAZAD_STEEL_AXE.getDefaultStack(),
+                ModToolItems.KHAZAD_STEEL_SHOVEL.getDefaultStack(),
+                ModToolItems.KHAZAD_STEEL_HOE.getDefaultStack(),
+                Optional.empty());
 
-        createArtisanTablePickaxeRecipe(exporter, MetalTypes.MITHRIL, ModToolItems.MITHRIL_PICKAXE.getDefaultStack());
-        createArtisanTableAxeRecipe(exporter, MetalTypes.MITHRIL, ModToolItems.MITHRIL_AXE.getDefaultStack(), false);
-        createArtisanTableShovelRecipe(exporter, MetalTypes.MITHRIL, ModToolItems.MITHRIL_SHOVEL.getDefaultStack());
-        createArtisanTableHoeRecipe(exporter, MetalTypes.MITHRIL, ModToolItems.MITHRIL_HOE.getDefaultStack());
+        createToolSet(exporter, MetalTypes.EDHEL_STEEL, ModToolItems.EDHEL_STEEL_PICKAXE.getDefaultStack(),
+                ModToolItems.EDHEL_STEEL_AXE.getDefaultStack(),
+                ModToolItems.EDHEL_STEEL_SHOVEL.getDefaultStack(),
+                ModToolItems.EDHEL_STEEL_HOE.getDefaultStack(),
+                Optional.empty());
+
+        createToolSet(exporter, MetalTypes.BURZUM_STEEL, ModToolItems.BURZUM_STEEL_PICKAXE.getDefaultStack(),
+                ModToolItems.BURZUM_STEEL_AXE.getDefaultStack(),
+                ModToolItems.BURZUM_STEEL_SHOVEL.getDefaultStack(),
+                ModToolItems.BURZUM_STEEL_HOE.getDefaultStack(),
+                Optional.empty());
+
+        createToolSet(exporter, MetalTypes.MITHRIL, ModToolItems.MITHRIL_PICKAXE.getDefaultStack(),
+                ModToolItems.MITHRIL_AXE.getDefaultStack(),
+                ModToolItems.MITHRIL_SHOVEL.getDefaultStack(),
+                ModToolItems.MITHRIL_HOE.getDefaultStack(),
+                Optional.of(MetalTypes.STEEL));
+
+        createToolSet(exporter, MetalTypes.MITHRIL, ModToolItems.MITHRIL_PICKAXE.getDefaultStack(),
+                ModToolItems.MITHRIL_AXE.getDefaultStack(),
+                ModToolItems.MITHRIL_SHOVEL.getDefaultStack(),
+                ModToolItems.MITHRIL_HOE.getDefaultStack(),
+                Optional.of(MetalTypes.KHAZAD_STEEL));
+
+        createToolSet(exporter, MetalTypes.MITHRIL, ModToolItems.MITHRIL_PICKAXE.getDefaultStack(),
+                ModToolItems.MITHRIL_AXE.getDefaultStack(),
+                ModToolItems.MITHRIL_SHOVEL.getDefaultStack(),
+                ModToolItems.MITHRIL_HOE.getDefaultStack(),
+                Optional.of(MetalTypes.EDHEL_STEEL));
+
+        createToolSet(exporter, MetalTypes.MITHRIL, ModToolItems.MITHRIL_PICKAXE.getDefaultStack(),
+                ModToolItems.MITHRIL_AXE.getDefaultStack(),
+                ModToolItems.MITHRIL_SHOVEL.getDefaultStack(),
+                ModToolItems.MITHRIL_HOE.getDefaultStack(),
+                Optional.of(MetalTypes.BURZUM_STEEL));
+
+        createToolSet(exporter, MetalTypes.NETHERITE, Items.NETHERITE_PICKAXE.getDefaultStack(),
+                Items.NETHERITE_AXE.getDefaultStack(),
+                Items.NETHERITE_SHOVEL.getDefaultStack(),
+                Items.NETHERITE_HOE.getDefaultStack(),
+                Optional.empty());
         //endregion
 
         //region ARMOR
-        /*createArtisanTableHelmetRecipe(exporter, List.of(steelArmorPlate, steelHelmetPlate, steelArmorPlate,
-                steelArmorPlate, steelArmorPlate), ModEquipmentItems.GONDORIAN_PLATE_HELMET.getDefaultStack());*/
+        ItemStack steelArmorPlate = new ItemStack(ModResourceItems.ARMOR_PLATE);
+        steelArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.STEEL.getName()))), getPattern()));
+        ItemStack steelHelmetPlate = new ItemStack(ModResourceItems.HELMET_PLATE);
+        steelHelmetPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.STEEL.getName()))), getPattern()));
+        ItemStack steelChainmail = new ItemStack(ModResourceItems.CHAINMAIL);
+        steelChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.STEEL.getName()))), getPattern()));
+
+        ItemStack ironChainmail = new ItemStack(ModResourceItems.CHAINMAIL);
+        ironChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MetalTypes.IRON.getName()))), getPattern()));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_PLATE_HELMET.getDefaultStack(), "helmet")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelHelmetPlate.getItem()), steelHelmetPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(steelHelmetPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(steelHelmetPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_PLATE_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE.getDefaultStack(), "chestplate")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .input(ModEquipmentItems.GONDORIAN_SOLDIER_CHESTPLATE)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(steelHelmetPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(steelHelmetPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS.getDefaultStack(), "leggings")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .input(ModEquipmentItems.GONDORIAN_CHAIN_COAT)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(steelHelmetPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(steelHelmetPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_PLATE_BOOTS.getDefaultStack(), "boots")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(steelHelmetPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(steelHelmetPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_PLATE_BOOTS).getPath() + "_artisan"));
+
         //endregion
     }
+
+    private void createToolSet(RecipeExporter exporter, MetalTypes metal, ItemStack outputPickaxe, ItemStack outputAxe, ItemStack outputShovel, ItemStack outputHoe, Optional<MetalTypes> rodMetal) {
+        createArtisanTablePickaxeRecipe(exporter, metal, outputPickaxe, rodMetal);
+        createArtisanTableAxeRecipe(exporter, metal, outputAxe, false, rodMetal);
+        createArtisanTableShovelRecipe(exporter, metal, outputShovel, rodMetal);
+        createArtisanTableHoeRecipe(exporter, metal, outputHoe, rodMetal);
+    }
+
 
     private void createArtisanTableSwordRecipe(RecipeExporter exporter, MetalTypes metal, ItemStack output, boolean noble) {
         ItemStack blade = new ItemStack(ModResourceItems.BLADE);
@@ -209,7 +318,7 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
                 .input(Items.STICK)
                 .criterion(FabricRecipeProvider.hasItem(blade.getItem()),
                         FabricRecipeProvider.conditionsFromItem(blade.getItem()))
-                .offerTo(exporter);
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
     }
 
     private void createArtisanTableSpearRecipe(RecipeExporter exporter, MetalTypes metal, ItemStack output, boolean noble) {
@@ -224,7 +333,7 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
                     .input(Items.STICK)
                     .criterion(FabricRecipeProvider.hasItem(blade.getItem()),
                             FabricRecipeProvider.conditionsFromItem(blade.getItem()))
-                    .offerTo(exporter);
+                    .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
         } else {
             ItemStack rod = new ItemStack(ModResourceItems.ROD);
             rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
@@ -235,88 +344,128 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
                     .input(Items.STICK)
                     .criterion(FabricRecipeProvider.hasItem(blade.getItem()),
                             FabricRecipeProvider.conditionsFromItem(blade.getItem()))
-                    .offerTo(exporter);
+                    .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
         }
     }
 
-    private void createArtisanTablePickaxeRecipe(RecipeExporter exporter, MetalTypes metal, ItemStack output) {
+    private void createArtisanTablePickaxeRecipe(RecipeExporter exporter, MetalTypes metal, ItemStack output, Optional<MetalTypes> rodMetal) {
         ItemStack pickaxeHead = new ItemStack(ModResourceItems.PICKAXE_HEAD);
         pickaxeHead.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 getMetalIdentifier(metal))), getPattern()));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "pickaxe")
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(pickaxeHead.getItem()), pickaxeHead.getComponentChanges()))
-                .input(Items.STICK)
-                .input(Items.STICK)
-                .criterion(FabricRecipeProvider.hasItem(pickaxeHead.getItem()),
-                        FabricRecipeProvider.conditionsFromItem(pickaxeHead.getItem()))
-                .offerTo(exporter);
-    }
-
-    private void createArtisanTableAxeRecipe(RecipeExporter exporter, MetalTypes metal, ItemStack output, boolean noble) {
-        ItemStack pickaxeHead = new ItemStack(ModResourceItems.AXE_HEAD);
-        pickaxeHead.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                getMetalIdentifier(metal))), getPattern()));
-
-        if (!noble){
-            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "axe")
+        if (rodMetal.isPresent()){
+            ItemStack rod = new ItemStack(ModResourceItems.ROD);
+            rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                    getMetalIdentifier(rodMetal.get()))), getPattern()));
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "pickaxe")
+                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(pickaxeHead.getItem()), pickaxeHead.getComponentChanges()))
+                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
+                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
+                    .criterion(FabricRecipeProvider.hasItem(pickaxeHead.getItem()),
+                            FabricRecipeProvider.conditionsFromItem(pickaxeHead.getItem()))
+                    .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_" + rodMetal.get().getName() + "_artisan"));
+        } else {
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "pickaxe")
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(pickaxeHead.getItem()), pickaxeHead.getComponentChanges()))
                     .input(Items.STICK)
                     .input(Items.STICK)
                     .criterion(FabricRecipeProvider.hasItem(pickaxeHead.getItem()),
                             FabricRecipeProvider.conditionsFromItem(pickaxeHead.getItem()))
-                    .offerTo(exporter);
+                    .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
+        }
+    }
+
+    private void createArtisanTableAxeRecipe(RecipeExporter exporter, MetalTypes metal, ItemStack output, boolean noble, Optional<MetalTypes> rodMetal) {
+        ItemStack axeHead = new ItemStack(ModResourceItems.AXE_HEAD);
+        axeHead.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                getMetalIdentifier(metal))), getPattern()));
+
+        if (!noble){
+            if (rodMetal.isPresent()){
+                ItemStack rod = new ItemStack(ModResourceItems.ROD);
+                rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                        getMetalIdentifier(rodMetal.get()))), getPattern()));
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "axe")
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(axeHead.getItem()), axeHead.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
+                        .criterion(FabricRecipeProvider.hasItem(axeHead.getItem()),
+                                FabricRecipeProvider.conditionsFromItem(axeHead.getItem()))
+                        .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_" + rodMetal.get().getName() + "_artisan"));
+            } else {
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "axe")
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(axeHead.getItem()), axeHead.getComponentChanges()))
+                        .input(Items.STICK)
+                        .input(Items.STICK)
+                        .criterion(FabricRecipeProvider.hasItem(axeHead.getItem()),
+                                FabricRecipeProvider.conditionsFromItem(axeHead.getItem()))
+                        .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
+            }
         } else {
             ItemStack rod = new ItemStack(ModResourceItems.ROD);
             rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                     Identifier.of(MetalTypes.GOLD.getName()))), getPattern()));
             ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "axe")
-                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(pickaxeHead.getItem()), pickaxeHead.getComponentChanges()))
+                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(axeHead.getItem()), axeHead.getComponentChanges()))
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
                     .input(Items.STICK)
-                    .criterion(FabricRecipeProvider.hasItem(pickaxeHead.getItem()),
-                            FabricRecipeProvider.conditionsFromItem(pickaxeHead.getItem()))
-                    .offerTo(exporter);
+                    .criterion(FabricRecipeProvider.hasItem(axeHead.getItem()),
+                            FabricRecipeProvider.conditionsFromItem(axeHead.getItem()))
+                    .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
         }
     }
 
-    private void createArtisanTableShovelRecipe(RecipeExporter exporter, MetalTypes metal, ItemStack output) {
-        ItemStack pickaxeHead = new ItemStack(ModResourceItems.SHOVEL_HEAD);
-        pickaxeHead.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+    private void createArtisanTableShovelRecipe(RecipeExporter exporter, MetalTypes metal, ItemStack output, Optional<MetalTypes> rodMetal) {
+        ItemStack shovelHead = new ItemStack(ModResourceItems.SHOVEL_HEAD);
+        shovelHead.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 getMetalIdentifier(metal))), getPattern()));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "shovel")
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(pickaxeHead.getItem()), pickaxeHead.getComponentChanges()))
-                .input(Items.STICK)
-                .input(Items.STICK)
-                .criterion(FabricRecipeProvider.hasItem(pickaxeHead.getItem()),
-                        FabricRecipeProvider.conditionsFromItem(pickaxeHead.getItem()))
-                .offerTo(exporter);
+        if (rodMetal.isPresent()){
+            ItemStack rod = new ItemStack(ModResourceItems.ROD);
+            rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                    getMetalIdentifier(rodMetal.get()))), getPattern()));
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "shovel")
+                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(shovelHead.getItem()), shovelHead.getComponentChanges()))
+                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
+                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
+                    .criterion(FabricRecipeProvider.hasItem(shovelHead.getItem()),
+                            FabricRecipeProvider.conditionsFromItem(shovelHead.getItem()))
+                    .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_" + rodMetal.get().getName() + "_artisan"));
+        } else {
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "shovel")
+                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(shovelHead.getItem()), shovelHead.getComponentChanges()))
+                    .input(Items.STICK)
+                    .input(Items.STICK)
+                    .criterion(FabricRecipeProvider.hasItem(shovelHead.getItem()),
+                            FabricRecipeProvider.conditionsFromItem(shovelHead.getItem()))
+                    .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
+        }
     }
 
-    private void createArtisanTableHoeRecipe(RecipeExporter exporter, MetalTypes metal, ItemStack output) {
-        ItemStack pickaxeHead = new ItemStack(ModResourceItems.SHOVEL_HEAD);
-        pickaxeHead.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+    private void createArtisanTableHoeRecipe(RecipeExporter exporter, MetalTypes metal, ItemStack output, Optional<MetalTypes> rodMetal) {
+        ItemStack hoeHead = new ItemStack(ModResourceItems.HOE_HEAD);
+        hoeHead.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 getMetalIdentifier(metal))), getPattern()));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "hoe")
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(pickaxeHead.getItem()), pickaxeHead.getComponentChanges()))
-                .input(Items.STICK)
-                .input(Items.STICK)
-                .criterion(FabricRecipeProvider.hasItem(pickaxeHead.getItem()),
-                        FabricRecipeProvider.conditionsFromItem(pickaxeHead.getItem()))
-                .offerTo(exporter);
-    }
-
-    private void createArtisanTableHelmetRecipe(RecipeExporter exporter, List<ItemStack> inputs, ItemStack output) {
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "helmet")
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(0).getItem()), inputs.get(0).getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(1).getItem()), inputs.get(1).getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(2).getItem()), inputs.get(2).getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(3).getItem()), inputs.get(3).getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(inputs.get(4).getItem()), inputs.get(4).getComponentChanges()))
-                .criterion(FabricRecipeProvider.hasItem(inputs.get(0).getItem()),
-                        FabricRecipeProvider.conditionsFromItem(inputs.get(0).getItem()))
-                .offerTo(exporter);
+        if (rodMetal.isPresent()){
+            ItemStack rod = new ItemStack(ModResourceItems.ROD);
+            rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                    getMetalIdentifier(rodMetal.get()))), getPattern()));
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "hoe")
+                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(hoeHead.getItem()), hoeHead.getComponentChanges()))
+                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
+                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
+                    .criterion(FabricRecipeProvider.hasItem(hoeHead.getItem()),
+                            FabricRecipeProvider.conditionsFromItem(hoeHead.getItem()))
+                    .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_" + rodMetal.get().getName() + "_artisan"));
+        } else {
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "hoe")
+                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(hoeHead.getItem()), hoeHead.getComponentChanges()))
+                    .input(Items.STICK)
+                    .input(Items.STICK)
+                    .criterion(FabricRecipeProvider.hasItem(hoeHead.getItem()),
+                            FabricRecipeProvider.conditionsFromItem(hoeHead.getItem()))
+                    .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
+        }
     }
 }

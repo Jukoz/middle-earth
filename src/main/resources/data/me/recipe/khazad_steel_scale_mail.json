@@ -5,7 +5,55 @@
     {
       "fabric:type": "fabric:components",
       "base": {
-        "item": "me:chainmail_ring"
+        "item": "me:scale"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:khazad_steel",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:scale"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:khazad_steel",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:scale"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:khazad_steel",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:scale"
+      },
+      "components": {
+        "minecraft:trim": {
+          "material": "me:khazad_steel",
+          "pattern": "me:smithing_part"
+        }
+      }
+    },
+    {
+      "fabric:type": "fabric:components",
+      "base": {
+        "item": "me:scale"
       },
       "components": {
         "minecraft:trim": {
@@ -64,7 +112,7 @@
     }
   ],
   "result": {
-    "id": "me:chainmail",
+    "id": "me:scale_mail",
     "components": {
       "minecraft:trim": {
         "material": "me:khazad_steel",
