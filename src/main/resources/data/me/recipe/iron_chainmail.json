@@ -9,7 +9,7 @@
       },
       "components": {
         "minecraft:trim": {
-          "material": "me:iron",
+          "material": "minecraft:iron",
           "pattern": "me:smithing_part"
         }
       }
@@ -21,7 +21,7 @@
       },
       "components": {
         "minecraft:trim": {
-          "material": "me:iron",
+          "material": "minecraft:iron",
           "pattern": "me:smithing_part"
         }
       }
@@ -33,7 +33,7 @@
       },
       "components": {
         "minecraft:trim": {
-          "material": "me:iron",
+          "material": "minecraft:iron",
           "pattern": "me:smithing_part"
         }
       }
@@ -45,7 +45,7 @@
       },
       "components": {
         "minecraft:trim": {
-          "material": "me:iron",
+          "material": "minecraft:iron",
           "pattern": "me:smithing_part"
         }
       }
@@ -57,7 +57,7 @@
       },
       "components": {
         "minecraft:trim": {
-          "material": "me:iron",
+          "material": "minecraft:iron",
           "pattern": "me:smithing_part"
         }
       }
@@ -69,7 +69,7 @@
       },
       "components": {
         "minecraft:trim": {
-          "material": "me:iron",
+          "material": "minecraft:iron",
           "pattern": "me:smithing_part"
         }
       }
@@ -79,7 +79,7 @@
     "id": "me:chainmail",
     "components": {
       "minecraft:trim": {
-        "material": "me:iron",
+        "material": "minecraft:iron",
         "pattern": "me:smithing_part"
       }
     }
