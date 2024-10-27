@@ -49,6 +49,8 @@ public class SimpleItemModel {
             add(ModResourceItems.COPPER_COIN);
             add(ModResourceItems.SILVER_COIN);
 
+            add(ModResourceItems.FABRIC);
+
             add(ModResourceItems.DWARVEN_KEY);
 
             add(ModResourceItems.RED_AGATE_SHARD);
@@ -94,8 +96,6 @@ public class SimpleItemModel {
             add(ModResourceItems.RAW_MITHRIL);
             add(ModResourceItems.MITHRIL_INGOT);
             add(ModResourceItems.MITHRIL_NUGGET);
-
-            add(ModResourceItems.IRON_CHAINMAIL);
 
             add(ModResourceItems.PINECONE);
             add(ModResourceItems.LIT_PINECONE);

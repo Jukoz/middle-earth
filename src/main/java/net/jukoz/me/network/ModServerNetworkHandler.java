@@ -31,6 +31,7 @@ public class ModServerNetworkHandler {
         PayloadTypeRegistry.playC2S().register(PacketOnboardingRequest.ID, PacketCodecs.codec(Codec.unit(new PacketOnboardingRequest())));
         PayloadTypeRegistry.playC2S().register(ForgeOutputPacket.ID, ForgeOutputPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(AnvilIndexPacket.ID, AnvilIndexPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(ArtisanTableTabPacket.ID, ArtisanTableTabPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(HoodStateTogglePacket.ID, PacketCodecs.codec(Codec.unit(new HoodStateTogglePacket())));
 
         // Application [SERVER SIDE]
@@ -45,6 +46,7 @@ public class ModServerNetworkHandler {
         ServerPlayNetworking.registerGlobalReceiver(PacketOnboardingRequest.ID, wrapServerHandler(connection, PacketOnboardingRequest::process));
         ServerPlayNetworking.registerGlobalReceiver(ForgeOutputPacket.ID, wrapServerHandler(connection, ForgeOutputPacket::process));
         ServerPlayNetworking.registerGlobalReceiver(AnvilIndexPacket.ID, wrapServerHandler(connection, AnvilIndexPacket::process));
+        ServerPlayNetworking.registerGlobalReceiver(ArtisanTableTabPacket.ID, wrapServerHandler(connection, ArtisanTableTabPacket::process));
         ServerPlayNetworking.registerGlobalReceiver(HoodStateTogglePacket.ID, wrapServerHandler(connection, HoodStateTogglePacket::process));
     }
 
