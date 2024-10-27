@@ -1,7 +1,6 @@
 package net.jukoz.me.network.packets.C2S;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.special.shapingAnvil.AbstractShapingAnvilBlockEntity;
 import net.jukoz.me.item.items.CustomHelmetItem;
 import net.jukoz.me.item.items.HoodHelmetItem;
 import net.jukoz.me.network.contexts.ServerPacketContext;
@@ -10,11 +9,7 @@ import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.network.packet.c2s.play.AcknowledgeReconfigurationC2SPacket;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 
 import java.util.Objects;
 

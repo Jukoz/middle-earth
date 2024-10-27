@@ -1,7 +1,9 @@
 package net.jukoz.me.recipe;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientImpl;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.special.forge.MultipleStackRecipeInput;
 import net.minecraft.item.ItemStack;
@@ -15,10 +17,12 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
+    public final String category;
     public final ItemStack output;
     public final List<Ingredient> inputs;
 
-    public ArtisanRecipe(ItemStack output, List<Ingredient> recipeItems) {
+    public ArtisanRecipe(String category, ItemStack output, List<Ingredient> recipeItems) {
+        this.category = category;
         this.output = output;
         this.inputs = recipeItems;
     }
@@ -38,8 +42,11 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
         if(i != this.inputs.size()) return false;
 
         for (int j = 0; j < inputs.size(); j++) {
-            if(!inputs.get(j).test(input.getStackInSlot(j))) return false;
+            for (ItemStack itemStack2 : inputs.get(j).getMatchingStacks()) {
+                if (!ItemStack.areItemsAndComponentsEqual(itemStack2, input.getStackInSlot(j))) return false;
+            }
         }
+
         return true;
     }
 
@@ -97,8 +104,9 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
 
         protected Serializer() {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+                    Codec.STRING.fieldOf("category").forGetter(recipe -> recipe.category),
                     ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
-                    Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs)
+                    CustomIngredientImpl.DISALLOW_EMPTY_CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs)
             ).apply(instance, ArtisanRecipe::new));
 
             this.packetCodec = PacketCodec.ofStatic(ArtisanRecipe.Serializer::write, ArtisanRecipe.Serializer::read);
@@ -115,18 +123,20 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
         }
 
         private static ArtisanRecipe read(RegistryByteBuf buf) {
+            String category = buf.readString();
             ItemStack output = ItemStack.PACKET_CODEC.decode(buf);
             int i = buf.readVarInt();
             DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i, Ingredient.EMPTY);
-            defaultedList.replaceAll(empty -> Ingredient.PACKET_CODEC.decode(buf));
-            return new ArtisanRecipe(output, defaultedList);
+            defaultedList.replaceAll(empty -> CustomIngredientImpl.PACKET_CODEC.decode(buf));
+            return new ArtisanRecipe(category, output, defaultedList);
         }
 
         private static void write(RegistryByteBuf buf, ArtisanRecipe recipe) {
+            buf.writeString(recipe.category);
             ItemStack.PACKET_CODEC.encode(buf, recipe.output);
             buf.writeVarInt(recipe.inputs.size());
             for (Ingredient ingredient : recipe.inputs) {
-                Ingredient.PACKET_CODEC.encode(buf, ingredient);
+                CustomIngredientImpl.PACKET_CODEC.encode(buf, ingredient);
             }
         }
     }
