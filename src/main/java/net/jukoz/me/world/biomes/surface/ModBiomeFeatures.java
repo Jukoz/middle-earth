@@ -268,6 +268,9 @@ public class ModBiomeFeatures {
     public static void addWillowTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.WILLOW_PLACED_TREE_KEY);
     }
+    public static void addCommonWillowTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.COMMON_WILLOW_PLACED_TREE_KEY);
+    }
     // endregion TREES
 
     // region BOULDERS
@@ -403,6 +406,9 @@ public class ModBiomeFeatures {
     public static void addAzureBluetFlower(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_AZURE_BLUET);
     }
+    public static void addBlueOrchidFlower(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.FLOWER_BLUE_ORCHID);
+    }
     public static void addCornflower(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.FLOWER_CORNFLOWER);
     }
@@ -464,6 +470,12 @@ public class ModBiomeFeatures {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_TAN_SHRUB);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_YELLOW_FLOWER);
     }
+    public static void addBulrushAndCattail(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SHORT_BULRUSH);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_TALL_BULRUSH);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SHORT_CATTAIL);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_TALL_CATTAIL);
+    }
     public static void addCoastalFoliage(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_COASTAL_PANIC_GRASS);
         vegetation.add(ModVegetationPlacedFeatures.PATCH_HOROKAKA);
@@ -479,6 +491,9 @@ public class ModBiomeFeatures {
     }
     public static void addDryGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_DRY_GRASS);
+    }
+    public static void addDuckweed(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_DUCKWEED);
     }
     public static void addDyingGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_DYING_GRASS);
@@ -537,6 +552,9 @@ public class ModBiomeFeatures {
     public static void addTallGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_TALL_GRASS);
     }
+    public static void addCommonTallGrass(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_COMMON_TALL_GRASS);
+    }
     public static void addToughBerries(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_TOUGH_BERRY_BUSH);
     }
@@ -548,6 +566,15 @@ public class ModBiomeFeatures {
     }
     public static void addTuftGrass(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_TUFT_GRASS);
+    }
+    public static void addLilyPads(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_LILY_PADS);
+    }
+    public static void addSmallLilyPads(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SMALL_LILY_PADS);
+    }
+    public static void addSmallFloweringLilyPads(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SMALL_FLOWERING_LILY_PADS);
     }
     public static void addMordorLichen(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_MORDOR_LICHEN);

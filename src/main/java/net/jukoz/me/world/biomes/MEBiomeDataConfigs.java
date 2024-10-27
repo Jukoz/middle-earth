@@ -1,6 +1,7 @@
 package net.jukoz.me.world.biomes;
 
 import net.jukoz.me.block.ModBlocks;
+import net.jukoz.me.block.ModNatureBlocks;
 import net.jukoz.me.block.StoneBlockSets;
 import net.minecraft.block.Blocks;
 
@@ -207,6 +208,11 @@ public class MEBiomeDataConfigs {
             .addSlopeData(MAX_ANGLE, Blocks.TERRACOTTA);
     public static SlopeMap ocean = new SlopeMap().addSlopeData(30, Blocks.GRAVEL)
             .addSlopeData(36, ModBlocks.RIVER_SAND)
+            .addSlopeData(MAX_ANGLE, Blocks.STONE);
+    public static SlopeMap pond = new SlopeMap().addSlopeData(20, ModBlocks.MIRE)
+            .addSlopeData(23, Blocks.GRASS_BLOCK)
+            .addSlopeData(27, ModBlocks.RIVER_SAND)
+            .addSlopeData(33, Blocks.GRAVEL)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
     public static SlopeMap beach = new SlopeMap().addSlopeData(30, Blocks.SAND)
             .addSlopeData(36, ModBlocks.RIVER_SAND)

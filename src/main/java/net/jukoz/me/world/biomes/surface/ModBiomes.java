@@ -334,7 +334,7 @@ public class ModBiomes {
         context.register(MEBiomeKeys.PELENNOR_FIELDS, createPelennorFields(context, new BiomeColorsDTO(
                 defaultSky, defaultFog, defaultWater, defaultWaterFog, 8628846, 8169054)));
         context.register(MEBiomeKeys.POND, createPondBiome(context, new BiomeColorsDTO(
-                waterSky, defaultFog, 4290786, defaultWaterFog, 7583083, 6592339)));
+                waterSky, defaultFog, 5141154, 331315, 7583083, 6592339)));
         context.register(MEBiomeKeys.RHUN, createRhunBiome(context, new BiomeColorsDTO(
                 8041727, 12773631, 4618980, defaultWaterFog, 10995507, 7181907)));
         context.register(MEBiomeKeys.HIGH_MOOR, createRivendellBiome(context, new BiomeColorsDTO(
@@ -2397,11 +2397,24 @@ public class ModBiomes {
     public static Biome createPondBiome(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addRiverAnimals(spawnSettings);
+        ModSpawnSettingsBuilder.addSwan(spawnSettings);
+        ModSpawnSettingsBuilder.addSwampMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
-        addOceanVegetation(generationSettings);
+        addPondVegetation(generationSettings);
+        ModBiomeFeatures.addWaterDelta(undergroundOres);
         ModBiomeFeatures.addRiverSand(undergroundOres);
-        ModBiomeFeatures.addWillowTrees(vegetation);
+        ModBiomeFeatures.addAbundantMudOre(undergroundOres);
+        ModBiomeFeatures.addBlueOrchidFlower(undergroundOres);
+        ModBiomeFeatures.addCommonTallGrass(undergroundOres);
+        ModBiomeFeatures.addBulrushAndCattail(undergroundOres);
+        ModBiomeFeatures.addDuckweed(undergroundOres);
+        ModBiomeFeatures.addLilyPads(undergroundOres);
+        ModBiomeFeatures.addSmallLilyPads(undergroundOres);
+        ModBiomeFeatures.addSmallFloweringLilyPads(undergroundOres);
+        ModBiomeFeatures.addWheatGrass(undergroundOres);
+        vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
+        ModBiomeFeatures.addCommonWillowTrees(vegetation);
 
         return createBiome(biomeColors, spawnSettings, generationSettings);
     }
@@ -2625,6 +2638,15 @@ public class ModBiomes {
         ModBiomeFeatures.addDisks(undergroundOres);
         vegetation.add(OceanPlacedFeatures.KELP_COLD);
         vegetation.add(OceanPlacedFeatures.SEAGRASS_NORMAL);
+        ModBiomeFeatures.addGrass(vegetation);
+        vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
+        vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);
+        vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
+        ModBiomeFeatures.addReedsFoliage(vegetation);
+    }
+
+    public static void addPondVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
+        ModBiomeFeatures.addDisks(undergroundOres);
         ModBiomeFeatures.addGrass(vegetation);
         vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
         vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);

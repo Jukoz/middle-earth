@@ -77,7 +77,7 @@ public class MEBiomesData {
         // Ponds
         frozenPond = new MEBiome(-10, MEBiomeKeys.FROZEN_POND, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers, CaveType.FOROD);
         oasis = new MEBiome(-10, MEBiomeKeys.OASIS, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.beach, MEBiomeDataConfigs.sandstoneLayers, CaveType.HARAD);
-        pond = new MEBiome(-10, MEBiomeKeys.POND, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.ocean, MEBiomeDataConfigs.stoneLayers);
+        pond = new MEBiome(-10, MEBiomeKeys.POND, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.pond, MEBiomeDataConfigs.stoneLayers);
         mirkwoodSwamp = new MEBiome(-10, MEBiomeKeys.MIRKWOOD_SWAMP, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.mud, MEBiomeDataConfigs.stoneLayers);
         greatRiver = new MEBiome(-10, MEBiomeKeys.GREAT_RIVER, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.river, MEBiomeDataConfigs.stoneLayers);
         wastePond = new MEBiome(-10, MEBiomeKeys.WASTE_POND, MEBiomeDataConfigs.riverModifier, MEBiomeDataConfigs.ashenDirt, MEBiomeDataConfigs.ashenStoneLayers);

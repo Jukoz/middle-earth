@@ -103,6 +103,7 @@ public class ModTreePlacedFeatures {
     public static final RegistryKey<PlacedFeature> RARE_SPRUCE_PLACED_TREE_KEY = registerKey("rare_spruce_tree");
     public static final RegistryKey<PlacedFeature> VERY_RARE_SPRUCE_PLACED_TREE_KEY = registerKey("very_rare_spruce_tree");
     public static final RegistryKey<PlacedFeature> WILLOW_PLACED_TREE_KEY = registerKey("willow_tree");
+    public static final RegistryKey<PlacedFeature> COMMON_WILLOW_PLACED_TREE_KEY = registerKey("common_willow_tree");
 
     static PlacementModifier foothillsTree = PlacedFeatures.createCountExtraModifier(5, 0.5f, 1);
     static PlacementModifier abundantTree = PlacedFeatures.createCountExtraModifier(3, 0.5f, 1);
@@ -402,6 +403,9 @@ public class ModTreePlacedFeatures {
 
         register(context, WILLOW_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WILLOW_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
+                        ModNatureBlocks.WILLOW_SAPLING));
+        register(context, COMMON_WILLOW_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WILLOW_TREE_KEY),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(commonTree,
                         ModNatureBlocks.WILLOW_SAPLING));
     }
 
