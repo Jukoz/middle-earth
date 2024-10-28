@@ -12,8 +12,8 @@ import java.util.function.BiConsumer;
 public class ModClientNetworkHandler {
     public static void register(IConnectionToServer connection) {
         // Application [CLIENT SIDE]
-        ClientPlayNetworking.registerGlobalReceiver(PacketOnboardingResult.ID, wrapClientHandler(connection, PacketOnboardingResult::process));
         ClientPlayNetworking.registerGlobalReceiver(PacketForceOnboardingScreen.ID, wrapClientHandler(connection, PacketForceOnboardingScreen::process));
+        ClientPlayNetworking.registerGlobalReceiver(PacketOnboardingResult.ID, wrapClientHandler(connection, PacketOnboardingResult::process));
 
     }
 
