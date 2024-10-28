@@ -25,7 +25,7 @@ public class ModBannerPatterns {
     public static final RegistryKey<BannerPattern> CLOTH = key("cloth");
     public static final RegistryKey<BannerPattern> CLOTH_GRADIENT = key("cloth_gradient");
     public static final RegistryKey<BannerPattern> CLOTH_GRADIENT_UP = key("cloth_gradient_up");
-    public static final RegistryKey<BannerPattern> CLOTH_VEIL = key("cloth_veil");
+    public static final RegistryKey<BannerPattern> VEIL = key("veil");
 
     public static final RegistryKey<BannerPattern> ANVIL = key("anvil");
     public static final RegistryKey<BannerPattern> ANVIL_BOTTOM = key("anvil_bottom");
@@ -77,7 +77,7 @@ public class ModBannerPatterns {
         register(registry, CLOTH);
         register(registry, CLOTH_GRADIENT);
         register(registry, CLOTH_GRADIENT_UP);
-        register(registry, CLOTH_VEIL);
+        register(registry, VEIL);
 
         register(registry, ANVIL);
         register(registry, ANVIL_BOTTOM);
