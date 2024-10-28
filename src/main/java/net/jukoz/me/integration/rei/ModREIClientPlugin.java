@@ -1,4 +1,4 @@
-package net.jukoz.me.compat;
+package net.jukoz.me.integration.rei;
 
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
@@ -7,10 +7,10 @@ import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.jukoz.me.block.ModDecorativeBlocks;
-import net.jukoz.me.compat.forge.ForgeCategory;
-import net.jukoz.me.compat.forge.ForgeDisplay;
-import net.jukoz.me.compat.artisanTable.ArtisanTableCategory;
-import net.jukoz.me.compat.artisanTable.ArtisanTableDisplay;
+import net.jukoz.me.integration.rei.forge.ForgeCategory;
+import net.jukoz.me.integration.rei.forge.ForgeDisplay;
+import net.jukoz.me.integration.rei.artisanTable.ArtisanTableCategory;
+import net.jukoz.me.integration.rei.artisanTable.ArtisanTableDisplay;
 import net.jukoz.me.gui.forge.ForgeAlloyingScreen;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreen;
 import net.jukoz.me.recipe.AlloyingRecipe;
