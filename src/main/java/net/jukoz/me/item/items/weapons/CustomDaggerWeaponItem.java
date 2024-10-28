@@ -57,7 +57,6 @@ public class CustomDaggerWeaponItem extends ReachWeaponItem {
         } else {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
         }
-        super.appendTooltip(stack, context, tooltip, type);
     }
 
     public static boolean canBackStab(Entity target, Entity attacker) {
