@@ -50,7 +50,7 @@ public class ArtefactCustomDaggerWeaponItem extends CustomDaggerWeaponItem {
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact").formatted(Formatting.AQUA));
             }
             if(this.type != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
             }
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".backstab"));
         } else {
