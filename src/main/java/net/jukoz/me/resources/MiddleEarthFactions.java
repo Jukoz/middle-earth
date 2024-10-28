@@ -200,7 +200,7 @@ public class MiddleEarthFactions {
                 new BannerData(DyeColor.WHITE, List.of(
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.BLUE),
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.BLUE),
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.BELL_AND_BOW, DyeColor.YELLOW)
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.BELL, DyeColor.YELLOW)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "dale.capital"), new Vector2d(2021, 727)),
@@ -237,7 +237,7 @@ public class MiddleEarthFactions {
                 new BannerData(DyeColor.WHITE, List.of(
                         new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.BLUE),
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP, DyeColor.GRAY),
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CROWN_AND_ANVIL, DyeColor.WHITE)
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.DWARF_CROWN, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, LONGBEARDS.getName().concat(".erebor.ravenhill")), new Vector2d(2017, 722)),
