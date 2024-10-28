@@ -50,9 +50,8 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Random;
 
-public abstract class AbstractShapingAnvilBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
+public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
     private static final String ID = "shaping_anvil";
 
     public int outputIndex = 0;
@@ -65,23 +64,23 @@ public abstract class AbstractShapingAnvilBlockEntity extends BlockEntity implem
 
     //TODO make work in creative somehow
 
-    public AbstractShapingAnvilBlockEntity(BlockPos pos, BlockState state) {
+    public TreatedAnvilBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.TREATED_ANVIL, pos, state);
 
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> AbstractShapingAnvilBlockEntity.this.outputIndex;
-                    case 1 -> AbstractShapingAnvilBlockEntity.this.maxOutputIndex;
+                    case 0 -> TreatedAnvilBlockEntity.this.outputIndex;
+                    case 1 -> TreatedAnvilBlockEntity.this.maxOutputIndex;
                     default -> throw new IllegalStateException("Unexpected value: " + index);
                 };
             }
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0 -> AbstractShapingAnvilBlockEntity.this.outputIndex = value;
-                    case 1 -> AbstractShapingAnvilBlockEntity.this.maxOutputIndex = value;
+                    case 0 -> TreatedAnvilBlockEntity.this.outputIndex = value;
+                    case 1 -> TreatedAnvilBlockEntity.this.maxOutputIndex = value;
                 }
             }
 
@@ -92,23 +91,23 @@ public abstract class AbstractShapingAnvilBlockEntity extends BlockEntity implem
         };
     }
 
-    public AbstractShapingAnvilBlockEntity(BlockEntityType type, BlockPos pos, BlockState state) {
+    public TreatedAnvilBlockEntity(BlockEntityType type, BlockPos pos, BlockState state) {
         super(type, pos, state);
 
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> AbstractShapingAnvilBlockEntity.this.outputIndex;
-                    case 1 -> AbstractShapingAnvilBlockEntity.this.maxOutputIndex;
+                    case 0 -> TreatedAnvilBlockEntity.this.outputIndex;
+                    case 1 -> TreatedAnvilBlockEntity.this.maxOutputIndex;
                     default -> throw new IllegalStateException("Unexpected value: " + index);
                 };
             }
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0 -> AbstractShapingAnvilBlockEntity.this.outputIndex = value;
-                    case 1 -> AbstractShapingAnvilBlockEntity.this.maxOutputIndex = value;
+                    case 0 -> TreatedAnvilBlockEntity.this.outputIndex = value;
+                    case 1 -> TreatedAnvilBlockEntity.this.maxOutputIndex = value;
                 }
             }
 
@@ -124,7 +123,7 @@ public abstract class AbstractShapingAnvilBlockEntity extends BlockEntity implem
 
         BlockEntity shapingAnvilBlockEntity = player.getWorld().getBlockEntity(pos);
 
-        if(shapingAnvilBlockEntity instanceof AbstractShapingAnvilBlockEntity entity){
+        if(shapingAnvilBlockEntity instanceof TreatedAnvilBlockEntity entity){
             if (left){
                 if(entity.outputIndex == 0){
                     entity.outputIndex = entity.maxOutputIndex;
@@ -147,11 +146,11 @@ public abstract class AbstractShapingAnvilBlockEntity extends BlockEntity implem
         }
     }
 
-    public ItemStack getRenderStack(AbstractShapingAnvilBlockEntity entity) {
+    public ItemStack getRenderStack(TreatedAnvilBlockEntity entity) {
         return entity.getStack(0);
     }
 
-    public void bonk(AbstractShapingAnvilBlockEntity entity){
+    public void bonk(TreatedAnvilBlockEntity entity){
         ItemStack input = entity.getStack(0);
 
         List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
@@ -193,22 +192,24 @@ public abstract class AbstractShapingAnvilBlockEntity extends BlockEntity implem
 
                 if(input.get(DataComponentTypes.TRIM) != null){
                     output.set(DataComponentTypes.TRIM, input.get(DataComponentTypes.TRIM));
-                    output.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature()));
                 } else{
-                    if(input.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")))){
-                        MetalTypes metal = MetalTypes.getMetalByIngot(input.getItem());
-                        if (metal.isVanilla()){
-                            output.set(DataComponentTypes.TRIM, new ArmorTrim(
-                                    armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(metal.getName()))),
-                                    armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID,"smithing_part")))));
-                        } else {
-                            output.set(DataComponentTypes.TRIM, new ArmorTrim(
-                                    armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, metal.getName()))),
-                                    armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
-                        }
-                        output.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature()));
+                    MetalTypes metal = MetalTypes.EMPTY;
+                    if(input.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")))) {
+                        metal = MetalTypes.getMetalByIngot(input.getItem());
+                    }else if(input.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "nugget_shaping")))) {
+                        metal = MetalTypes.getMetalByNugget(input.getItem());
+                    }
+                    if (metal.isVanilla()){
+                        output.set(DataComponentTypes.TRIM, new ArmorTrim(
+                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(metal.getName()))),
+                                armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID,"smithing_part")))));
+                    } else {
+                        output.set(DataComponentTypes.TRIM, new ArmorTrim(
+                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, metal.getName()))),
+                                armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
                     }
                 }
+                output.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature()));
                 entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
                 entity.setStack(0, output);
                 entity.update();
@@ -221,7 +222,7 @@ public abstract class AbstractShapingAnvilBlockEntity extends BlockEntity implem
         }
     }
 
-    public static void tick(World world, BlockPos blockPos, BlockState blockState, AbstractShapingAnvilBlockEntity entity) {
+    public static void tick(World world, BlockPos blockPos, BlockState blockState, TreatedAnvilBlockEntity entity) {
         ItemStack input = entity.getStack(0);
         if (!input.isEmpty()){
             List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
@@ -240,7 +241,7 @@ public abstract class AbstractShapingAnvilBlockEntity extends BlockEntity implem
         }
     }
 
-    private static boolean hasShapingRecipe(AbstractShapingAnvilBlockEntity entity) {
+    private static boolean hasShapingRecipe(TreatedAnvilBlockEntity entity) {
         SimpleInventory inventory1 = new SimpleInventory(entity.size());
         ItemStack input;
 

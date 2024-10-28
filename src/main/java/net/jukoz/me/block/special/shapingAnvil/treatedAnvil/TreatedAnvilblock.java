@@ -3,6 +3,7 @@ package net.jukoz.me.block.special.shapingAnvil.treatedAnvil;
 import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.special.shapingAnvil.AbstractTreatedAnvilBlock;
+import net.jukoz.me.block.special.shapingAnvil.TreatedAnvilBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;

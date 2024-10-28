@@ -291,6 +291,8 @@
 "#Comment:": "Item - Smithing",
   "item.me.smithing_hammer": "Smithing Hammer",
 
+  "item.me.fabric": "Fabric",
+
   "item.me.rod": "Rod",
   "item.me.large_rod": "Large Rod",
 
@@ -304,6 +306,16 @@
   "item.me.long_blade": "Long Blade",
   "item.me.great_axe_head": "Great Axe Head",
   "item.me.sword_hilt": "Sword Hilt",
+
+  "item.me.chainmail_ring": "Chainmail Ring",
+  "item.me.chainmail": "Chainmail",
+  "item.me.scale": "Scale",
+  "item.me.scale_mail": "Scale Mail",
+  "item.me.armor_plate": "Armor Plate",
+
+  "item.me.helmet_plate": "Helmet Plate",
+  "item.me.shield_border": "Shield Border",
+  "item.me.shield_plate": "Shield Plate",
 
 "#Comment:": "Item - Generic Orc",
   "item.me.orc_sword": "Orc Sword",
@@ -1326,6 +1338,7 @@
   "block.me.ashen_stone_pressure_plate": "Ashen Stone Pressure Plate",
   "block.me.ashen_stone_button": "Ashen Stone Button",
   "block.me.ashen_stone_trapdoor": "Ashen Stone Trapdoor",
+
   "block.me.ashen_stone_rocks": "Ashen Stone Rocks",
 
   "block.me.ashen_stone_stool": "Ashen Stone Stool",
@@ -5488,6 +5501,8 @@
   "block.me.bellows": "Bellows",
   "block.me.treated_anvil": "Treated Anvil",
   "block.me.dwarven_treated_anvil": "Dwarven Treated Anvil",
+  "block.me.elven_treated_anvil": "Elven Treated Anvil",
+  "block.me.orcish_treated_anvil": "Orcish Treated Anvil",
   "block.me.artisan_table": "Artisan Table",
 
   "block.me.reinforced_chest": "Reinforced Chest",
@@ -6246,12 +6261,33 @@
   "sounds.me.nazgul_fade": "Nazgûl Fading",
   "sounds.me.nazgul_scream": "Nazgûl Screaming",
 
-"Comment": "GUI",
+"#Comment": "GUI",
   "screen.me.forge": "Forge",
   "container.artisan_table": "Artisan Table",
   "screen.me.reinforced_chest": "Reinforced Chest",
   "screen.me.wood_pile": "Wood Pile",
   "screen.me.shaping_anvil": "Shaping Anvil",
+  "screen.me.artisan_table.weapons": "Weapons",
+  "screen.me.artisan_table.swords": "Swords",
+  "screen.me.artisan_table.axe": "Axe",
+  "screen.me.artisan_table.spear": "Spear",
+  "screen.me.artisan_table.bow": "Bow",
+  "screen.me.artisan_table.tools": "Tools",
+  "screen.me.artisan_table.pickaxe": "Pickaxe",
+  "screen.me.artisan_table.shovel": "Shovel",
+  "screen.me.artisan_table.hoe": "Hoe",
+  "screen.me.artisan_table.armors": "Armors",
+  "screen.me.artisan_table.helmet": "Helmet",
+  "screen.me.artisan_table.chestplate": "Chestplate",
+  "screen.me.artisan_table.leggings": "Leggings",
+  "screen.me.artisan_table.boots": "Boots",
+  "screen.me.artisan_table.shields": "Shields",
+  "screen.me.artisan_table.light_shield": "Light Shield",
+  "screen.me.artisan_table.heavy_shield": "Heavy Shield",
+  "screen.me.artisan_table.misc": "Misc",
+  "screen.me.artisan_table.hats": "Hats",
+  "screen.me.artisan_table.hood": "Hood",
+  "screen.me.artisan_table.cloak": "Cloak",
 
 "#Comment": "Tooltips",
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",
@@ -6618,7 +6654,6 @@
   "ui.me.map_screen.tooltip.teleport_keybind": "Right click to teleport",
   "ui.me.map_screen.map_title_text": "Middle-earth Map",
 
-
   "#Comment": "Screen Faction Selection",
   "screen.me.faction_selection_screen": "Faction Selection",
   "screen.me.button.faction_randomizer": "Randomize Faction",
@@ -6648,7 +6683,6 @@
   "modmenu.nameTranslation.me": "Middle-earth",
   "modmenu.descriptionTranslation.me": "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!",
   "modmenu.summaryTranslation.me": "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!",
-
 
 "#Comment": "Keybinds",
   "key.category.me.me": "Middle-earth",

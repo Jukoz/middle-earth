@@ -83,14 +83,14 @@ public class ReachWeaponItem extends ToolItem {
         tooltip.add(Text.of(""));
         ProfileComponent profileComponent = stack.get(DataComponentTypes.PROFILE);
         if (Screen.hasShiftDown()) {
-            if(this.type != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name));
-            }
             if(this.faction != null){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
             }
             if (this.subFaction != null) {
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
+            }
+            if(this.type != null){
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
             }
             if (profileComponent != null && profileComponent.name().isPresent()) {
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artisan").append(profileComponent.name().get()).formatted(Formatting.GRAY));

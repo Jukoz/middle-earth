@@ -1,9 +1,9 @@
 package net.jukoz.me.network.packets.S2C;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.client.screens.OnboardingSelectionScreen;
 import net.jukoz.me.client.screens.ReturnConfirmationScreen;
-import net.jukoz.me.config.ModServerConfigs;
 import net.jukoz.me.network.contexts.ClientPacketContext;
 import net.jukoz.me.network.packets.ServerToClientPacket;
 import net.jukoz.me.network.handlers.OnboardingScreenHandler;
@@ -48,6 +48,7 @@ public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardin
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void process(ClientPacketContext context) {
         float delay = delayOnTeleportationConfirm;
         if(context.player().isInCreativeMode())
