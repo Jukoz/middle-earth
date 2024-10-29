@@ -190,10 +190,6 @@ public class ModResourceItems {
             new BannerPatternItem(ModBannerPatternTags.GONDOR_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item ROHAN_BANNER_PATTERN = registerItem("rohan_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.ROHAN_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
-    public static final Item DALE_BANNER_PATTERN = registerItem("dale_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.DALE_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
-    public static final Item LONGBEARD_BANNER_PATTERN = registerItem("longbeard_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.LONGBEARD_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item LOTHLORIEN_BANNER_PATTERN = registerItem("lothlorien_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.LOTHLORIEN_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item MORDOR_BANNER_PATTERN = registerItem("mordor_banner_pattern",
@@ -202,6 +198,16 @@ public class ModResourceItems {
             new BannerPatternItem(ModBannerPatternTags.MISTY_MOUNTAINS_ORCS_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item ISENGARD_BANNER_PATTERN = registerItem("isengard_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.ISENGARD_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+
+    public static final Item ANVIL_BANNER_PATTERN = registerItem("anvil_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.ANVIL_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+    public static final Item BELL_BANNER_PATTERN = registerItem("bell_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.BELL_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+    public static final Item BOW_BANNER_PATTERN = registerItem("bow_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.BOW_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+
+    public static final Item DWARF_CROWN_BANNER_PATTERN = registerItem("dwarf_crown_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.DWARF_CROWN_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
 
     public static final Item DRAGON_BANNER_PATTERN = registerItem("dragon_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.DRAGON_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));

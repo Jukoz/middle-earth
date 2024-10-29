@@ -2,6 +2,9 @@
   "replace": false,
   "values": [
     "me:cloth",
+    "me:cloth_gradient",
+    "me:cloth_gradient_up",
+    "me:veil",
     "me:small_circle"
   ]
 }
