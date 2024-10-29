@@ -1,6 +1,7 @@
 package net.jukoz.me.mixin.client;
 
 import net.jukoz.me.datageneration.VariantsModelProvider;
+import net.jukoz.me.datageneration.content.models.HotMetalsModel;
 import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleSpearModel;
 import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingDaggerWeaponItem;
@@ -17,10 +18,7 @@ import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import org.spongepowered.asm.mixin.Debug;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
@@ -59,8 +57,13 @@ public abstract class ItemRendererMixin {
         return model;
     }
 
+    @Unique
     private static boolean isItemHot(ItemStack stack) {
-        return stack.getComponents().contains(ModDataComponentTypes.TEMPERATURE_DATA);
+        return stack.getComponents().contains(ModDataComponentTypes.TEMPERATURE_DATA) && (
+                HotMetalsModel.nuggets.contains(stack.getItem()) ||
+                HotMetalsModel.ingots.contains(stack.getItem()) ||
+                HotMetalsModel.items.contains(stack.getItem())
+                );
     }
 
 }
