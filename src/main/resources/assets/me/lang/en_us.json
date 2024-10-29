@@ -547,6 +547,7 @@
 
   "item.me.gondorian_cabasset_helmet": "Gondorian Cabasset Helmet",
 
+  "item.me.gondorian_chain_hauberk": "Gondorian Chain Hauberk",
   "item.me.gondorian_tabbard": "Gondorian Tabbard",
   "item.me.gondorian_leather_cuirass": "Gondorian Leather Cuirass",
   "item.me.gondorian_leather_chestplate": "Gondorian Leather Chestplate",
@@ -6686,6 +6687,35 @@
 
 "#Comment": "Keybinds",
   "key.category.me.me": "Middle-earth",
-  "key.me.hood_state_toggle": "Toggle Worn Hood state"
+  "key.me.hood_state_toggle": "Toggle Worn Hood state",
 
+"#Comment": "Integration",
+  "emi.category.me.forge": "Forge",
+  "emi.category.me.anvil_shaping": "Shaping anvil",
+  "emi.category.me.artisan_table": "Artisan Table",
+
+"#Comment": "Tags",
+  "tag.item.me.anvil_items": "Anvil Items",
+  "tag.item.me.bones": "Bones",
+  "tag.item.me.cloaks": "Cloaks",
+  "tag.item.me.cooked_poultry": "Cooked Poultry",
+  "tag.item.me.dyeable": "Dyeable",
+  "tag.item.me.feathers": "Feathers",
+  "tag.item.me.glowy": "Glowing Items",
+  "tag.item.me.ingot_shaping": "Ingot Shaping",
+  "tag.item.me.lead_ores": "Lead Ores",
+  "tag.item.me.mithril_ores": "Mithril Ores",
+  "tag.item.me.mod_planks": "Middle Earth Planks",
+  "tag.item.me.mod_stripped_logs": "Middle Earth Stripped Logs",
+  "tag.item.me.mushroom_stew_ingredient": "Mushroom Stew Ingredient",
+  "tag.item.me.nugget_shaping": "Nugget Shaping",
+  "tag.item.me.raw_poultry": "Raw Poultry",
+  "tag.item.me.shard": "Shard",
+  "tag.item.me.shingles": "Shingles",
+  "tag.item.me.silver_ores": "Silver Ores",
+  "tag.item.me.thatchy": "Thatch",
+  "tag.item.me.tin": "Tin",
+  "tag.item.me.tin_ores": "Tin Ores",
+  "tag.item.me.warg_food": "Warg Food",
+  "tag.item.me.worm": "Worm"
 }

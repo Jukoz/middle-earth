@@ -1,4 +1,4 @@
-package net.jukoz.me.compat.forge;
+package net.jukoz.me.integration.rei.forge;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
