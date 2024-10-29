@@ -8,19 +8,21 @@ import net.minecraft.util.Identifier;
 
 public class ModRecipes {
     public static RecipeType<ArtisanRecipe> ARTISAN_TABLE;
+    public static RecipeType<AnvilShapingRecipe> ANVIL_SHAPING;
+    public static RecipeType<AlloyingRecipe> FORGE;
 
     public static void registerRecipes() {
         Registry.register(Registries.RECIPE_SERIALIZER,
                 Identifier.of(MiddleEarth.MOD_ID, AlloyingRecipe.Serializer.ID),
                 AlloyingRecipe.Serializer.INSTANCE);
-        Registry.register(Registries.RECIPE_TYPE,
+        FORGE = Registry.register(Registries.RECIPE_TYPE,
                 Identifier.of(MiddleEarth.MOD_ID, AlloyingRecipe.Type.ID),
                 AlloyingRecipe.Type.INSTANCE);
 
         Registry.register(Registries.RECIPE_SERIALIZER,
                 Identifier.of(MiddleEarth.MOD_ID, AnvilShapingRecipe.Serializer.ID),
                 AnvilShapingRecipe.Serializer.INSTANCE);
-        Registry.register(Registries.RECIPE_TYPE,
+        ANVIL_SHAPING = Registry.register(Registries.RECIPE_TYPE,
                 Identifier.of(MiddleEarth.MOD_ID, AnvilShapingRecipe.Type.ID),
                 AnvilShapingRecipe.Type.INSTANCE);
 

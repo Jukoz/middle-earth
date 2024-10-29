@@ -30,6 +30,9 @@
     ],
     "rei_client": [
       "net.jukoz.me.compat.ModREIClientPlugin"
+    ],
+    "emi": [
+      "net.jukoz.me.integration.emi.ModEmiPlugin"
     ]
   },
   "mixins": [
