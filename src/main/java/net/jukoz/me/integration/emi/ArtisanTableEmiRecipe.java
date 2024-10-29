@@ -1,4 +1,4 @@
-package net.jukoz.me.integration.emi.artisanTable;
+package net.jukoz.me.integration.emi;
 
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
@@ -9,7 +9,6 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.gui.artisantable.ArtisanTableInputsShape;
 import net.jukoz.me.gui.artisantable.InputType;
-import net.jukoz.me.integration.emi.ModEmiPlugin;
 import net.jukoz.me.recipe.ArtisanRecipe;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -69,12 +68,12 @@ public class ArtisanTableEmiRecipe implements EmiRecipe {
                 if (index < getInputs().size()){
                     InputType inputType = shape.getInputType(x,y);
                     if (inputType != InputType.NONE){
-                        inputSlots[y][x] = (SlotWidget) widgets.addSlot(inputs.get(index++), 13 + 18*x, 16 + 18*y);
+                        inputSlots[y][x] = (SlotWidget) widgets.addSlot(inputs.get(index++), 13 + 18*x, 18 * y);
                     }
                 }
             }
         }
 
-        widgets.addSlot(output.getFirst(), 58, 0).recipeContext(this);
+        widgets.addSlot(output.getFirst(), 31, 65).recipeContext(this);
     }
 }
