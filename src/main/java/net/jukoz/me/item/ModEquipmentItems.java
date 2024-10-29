@@ -176,10 +176,12 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.IRON_T3, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.GONDOR));
 
+    public static final Item GONDORIAN_CHAIN_HAUBERK = registerArmorPiece("gondorian_chain_hauberk",
+            new CustomChestplateItem(ModArmorMaterials.IRON_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
+                    ModFactions.GONDOR));
     public static final Item GONDORIAN_TABBARD = registerArmorPiece("gondorian_tabbard",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModFactions.GONDOR));
-
     public static final Item GONDORIAN_LEATHER_CUIRASS = registerDyeableArmorPiece("gondorian_leather_cuirass",
             new CustomChestplateItem(ModArmorMaterials.IRON_T3, ArmorItem.Type.CHESTPLATE, new Item.Settings()
                     .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(-6265536)),
