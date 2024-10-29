@@ -87,8 +87,12 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
         return new ItemStack(ModResourceItems.ROD);
     }
 
-    public String getAlloyResult(RegistryWrapper.WrapperLookup registriesLookup) {
+    public String getAlloyResult() {
         return output;
+    }
+
+    public int getAmount() {
+        return amount;
     }
 
     @Override

@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.6-SNAPSHOT'
+	id 'fabric-loom' version '1.7-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -12,6 +12,10 @@ group = project.maven_group
 
 repositories {
 	maven { url "https://maven.shedaniel.me" }
+	maven {
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com/"
+	}
 }
 
 dependencies {
@@ -31,6 +35,9 @@ dependencies {
 	// https://linkie.shedaniel.dev/dependencies
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:16.0.729"
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:16.0.729"
+
+	modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
+	modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
 }
 
 processResources {
