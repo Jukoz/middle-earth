@@ -5,16 +5,19 @@ import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.block.*;
+import net.jukoz.me.block.ModBlocks;
+import net.jukoz.me.block.ModDecorativeBlocks;
+import net.jukoz.me.block.ModNatureBlocks;
+import net.jukoz.me.block.MushroomBlockSets;
 import net.jukoz.me.block.crop.*;
-import net.jukoz.me.block.special.doors.*;
 import net.jukoz.me.block.special.LargeDoorBlock;
+import net.jukoz.me.block.special.RocksBlock;
+import net.jukoz.me.block.special.doors.*;
 import net.jukoz.me.block.special.verticalSlabs.VerticalSlabBlock;
 import net.jukoz.me.block.special.verticalSlabs.VerticalSlabShape;
 import net.jukoz.me.datageneration.content.CustomItemModels;
 import net.jukoz.me.datageneration.content.MEModels;
 import net.jukoz.me.datageneration.content.models.*;
-import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -34,9 +37,6 @@ import net.minecraft.util.math.Direction;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Iterator;
-import java.util.Map;
-
 import java.util.Optional;
 
 public class ModelProvider extends FabricModelProvider {
@@ -554,6 +554,10 @@ public class ModelProvider extends FabricModelProvider {
             registerFanModel(blockStateModelGenerator, block);
         }
 
+        for(SimpleRocksModel.Rocks rocks : SimpleRocksModel.rocks){
+            registerRocksBlock(blockStateModelGenerator, rocks.rocks(), rocks.block());
+        }
+
         registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.MUSHROOM.stool());
         registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.DARK_MUSHROOM.stool());
         registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.GRAY_MUSHROOM.stool());
@@ -593,7 +597,14 @@ public class ModelProvider extends FabricModelProvider {
             id = id.substring(id.lastIndexOf(":") + 1);
 
             if(verticalSlab.block() == Blocks.SANDSTONE || verticalSlab.block() == Blocks.RED_SANDSTONE || verticalSlab.block() == Blocks.CUT_SANDSTONE || verticalSlab.block() == Blocks.CUT_RED_SANDSTONE) {
-                } else {
+                String topId = id + "_top";
+                String bottomId = id + "_bottom";
+                if(verticalSlab.block() == Blocks.CUT_SANDSTONE || verticalSlab.block() == Blocks.CUT_RED_SANDSTONE) {
+                    topId = topId.substring(topId.indexOf("_") + 1);
+                    bottomId = bottomId.substring(bottomId.indexOf("_") + 1);
+                }
+                registerColumnVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), "minecraft", topId, bottomId, id);
+            } else {
                     if(verticalSlab.block() == Blocks.SMOOTH_RED_SANDSTONE
                             || verticalSlab.block() == Blocks.SMOOTH_SANDSTONE) {
                         id += "_top";
@@ -717,6 +728,7 @@ public class ModelProvider extends FabricModelProvider {
 
     public void registerVanillaVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin, String slabPath) {
         Identifier fullBlockId = ModelIds.getBlockModelId(origin);
+
         Identifier variantId = MEModels.VERTICAL_SLAB.upload(block,
                 TextureMap.of(TextureKey.ALL, Identifier.of("minecraft", "block/" + slabPath)),
                 blockStateModelGenerator.modelCollector);
@@ -1068,6 +1080,43 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerParentedItemModel(trapdoorBlock, identifier2);
     }
 
+    public void registerRocksBlock(BlockStateModelGenerator blockStateModelGenerator, Block rocksBlock, Block origin) {
+        Identifier stage0 = MEModels.ROCKS_STAGE_0.upload(rocksBlock,
+                TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath())),
+                blockStateModelGenerator.modelCollector);
+        Identifier stage1 = MEModels.ROCKS_STAGE_1.upload(rocksBlock,
+                TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath())),
+                blockStateModelGenerator.modelCollector);
+        Identifier stage2 = MEModels.ROCKS_STAGE_2.upload(rocksBlock,
+                TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath())),
+                blockStateModelGenerator.modelCollector);
+        Identifier stage3 = MEModels.ROCKS_STAGE_3.upload(rocksBlock,
+                TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath())),
+                blockStateModelGenerator.modelCollector);
+        
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(rocksBlock).coordinate(BlockStateVariantMap
+                .create(Properties.HORIZONTAL_FACING, RocksBlock.STAGE)
+                .register(Direction.EAST, 0, BlockStateVariant.create().put(VariantSettings.MODEL, stage0).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, 0, BlockStateVariant.create().put(VariantSettings.MODEL, stage0).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, 0, BlockStateVariant.create().put(VariantSettings.MODEL, stage0).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, 0, BlockStateVariant.create().put(VariantSettings.MODEL, stage0).put(VariantSettings.UVLOCK, true))
+
+                .register(Direction.EAST, 1, BlockStateVariant.create().put(VariantSettings.MODEL, stage1).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, 1, BlockStateVariant.create().put(VariantSettings.MODEL, stage1).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, 1, BlockStateVariant.create().put(VariantSettings.MODEL, stage1).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, 1, BlockStateVariant.create().put(VariantSettings.MODEL, stage1).put(VariantSettings.UVLOCK, true))
+
+                .register(Direction.EAST, 2, BlockStateVariant.create().put(VariantSettings.MODEL, stage2).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, 2, BlockStateVariant.create().put(VariantSettings.MODEL, stage2).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, 2, BlockStateVariant.create().put(VariantSettings.MODEL, stage2).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, 2, BlockStateVariant.create().put(VariantSettings.MODEL, stage2).put(VariantSettings.UVLOCK, true))
+
+                .register(Direction.EAST, 3, BlockStateVariant.create().put(VariantSettings.MODEL, stage3).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true))
+                .register(Direction.WEST, 3, BlockStateVariant.create().put(VariantSettings.MODEL, stage3).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true))
+                .register(Direction.SOUTH, 3, BlockStateVariant.create().put(VariantSettings.MODEL, stage3).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true))
+                .register(Direction.NORTH, 3, BlockStateVariant.create().put(VariantSettings.MODEL, stage3).put(VariantSettings.UVLOCK, true))));
+    }
+
     public void registerVanillaTrapdoor(BlockStateModelGenerator blockStateModelGenerator, Block trapdoorBlock) {
         TextureMap textureMap;
         if (Registries.BLOCK.getId(trapdoorBlock).getPath().contains("basalt")) {
@@ -1220,6 +1269,19 @@ public class ModelProvider extends FabricModelProvider {
         registerPalettedItem(ModResourceItems.SHORT_BLADE, itemModelGenerator);
         registerPalettedItem(ModResourceItems.LONG_BLADE, itemModelGenerator);
         registerPalettedItem(ModResourceItems.SWORD_HILT, itemModelGenerator);
+
+        registerPalettedItem(ModResourceItems.CHAINMAIL_RING, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.CHAINMAIL, itemModelGenerator);
+
+        registerPalettedItem(ModResourceItems.SCALE, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.SCALE_MAIL, itemModelGenerator);
+
+        registerPalettedItem(ModResourceItems.ARMOR_PLATE, itemModelGenerator);
+
+
+        registerPalettedItem(ModResourceItems.HELMET_PLATE, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.SHIELD_BORDER, itemModelGenerator);
+        registerPalettedItem(ModResourceItems.SHIELD_PLATE, itemModelGenerator);
     }
 
     public final void registerDyeableArmor(ArmorItem armor, ItemModelGenerator itemModelGenerator) {

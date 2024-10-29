@@ -1,0 +1,7 @@
+{
+    "parent": "me:block/thick_chain_template",
+    "textures": {
+        "particle": "me:block/spiky_chain",
+        "all": "me:block/spiky_chain"
+    }
+}

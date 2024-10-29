@@ -13,7 +13,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
-public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<AbstractShapingAnvilBlockEntity> {
+public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<TreatedAnvilBlockEntity> {
 
     private final BlockEntityRendererFactory.Context context;
 
@@ -22,7 +22,7 @@ public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<AbstractS
     }
 
     @Override
-    public void render(AbstractShapingAnvilBlockEntity entity, float tickDelta, MatrixStack matrices,
+    public void render(TreatedAnvilBlockEntity entity, float tickDelta, MatrixStack matrices,
                        VertexConsumerProvider vertexConsumers, int light, int overlay) {
 
         ItemStack stack = entity.getRenderStack(entity);

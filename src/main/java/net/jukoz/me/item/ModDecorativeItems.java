@@ -21,8 +21,12 @@ import net.minecraft.util.math.Direction;
 public class ModDecorativeItems {
     public static final Item DWARVEN_LANTERN = registerItem("dwarven_lantern",
             new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.DWARVEN_LANTERN, ModDecorativeBlocks.WALL_DWARVEN_LANTERN, new Item.Settings(), new Direction[]{Direction.DOWN, Direction.UP}));
+    public static final Item CRYSTAL_LAMP = registerItem("crystal_lamp",
+            new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.CRYSTAL_LAMP, ModDecorativeBlocks.WALL_CRYSTAL_LAMP, new Item.Settings(), new Direction[]{Direction.DOWN, Direction.UP}));
     public static final Item SILVER_LANTERN = registerItem("silver_lantern",
             new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.SILVER_LANTERN, ModDecorativeBlocks.WALL_SILVER_LANTERN, new Item.Settings(), new Direction[]{Direction.DOWN, Direction.UP}));
+    public static final Item ELVEN_LANTERN = registerItem("elven_lantern",
+            new ModVerticallyAttachableBlockItem(ModDecorativeBlocks.ELVEN_LANTERN, ModDecorativeBlocks.WALL_ELVEN_LANTERN, new Item.Settings(), new Direction[]{Direction.DOWN, Direction.UP}));
 
     public static final Item SCONCE = registerItem("sconce",
             new VerticallyAttachableBlockItem(ModDecorativeBlocks.SCONCE, ModDecorativeBlocks.WALL_SCONCE, new Item.Settings(), Direction.DOWN));
@@ -35,6 +39,10 @@ public class ModDecorativeItems {
             new BlockItem(ModDecorativeBlocks.TREADTED_ANVIL, new Item.Settings()));
     public static final Item DWARVEN_TREATED_ANVIL = registerItem("dwarven_treated_anvil",
             new BlockItem(ModDecorativeBlocks.DWARVEN_TREATED_ANVIL, new Item.Settings()));
+    public static final Item ELVEN_TREATED_ANVIL = registerItem("elven_treated_anvil",
+            new BlockItem(ModDecorativeBlocks.ELVEN_TREATED_ANVIL, new Item.Settings()));
+    public static final Item ORCISH_TREATED_ANVIL = registerItem("orcish_treated_anvil",
+            new BlockItem(ModDecorativeBlocks.ORCISH_TREATED_ANVIL, new Item.Settings()));
     public static final Item BELLOWS = registerItem("bellows",
             new BlockItem(ModDecorativeBlocks.BELLOWS, new Item.Settings()));
     public static final Item ARTISAN_TABLE = registerItem("artisan_table",

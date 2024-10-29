@@ -20,4 +20,16 @@ public class SuggestionUtil {
 
         return builder.buildFuture();
     }
+
+    public static CompletableFuture<Suggestions> getCorrespondingNames(List<String> candidates, SuggestionsBuilder builder){
+        String string = builder.getRemaining().toLowerCase(Locale.ROOT);
+
+        for (String name : candidates){
+            if(name.contains(string)){
+                builder.suggest(name);
+            }
+        }
+
+        return builder.buildFuture();
+    }
 }

@@ -2,32 +2,28 @@ package net.jukoz.me.client.screens.utils.widgets.map;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.utils.widgets.ModWidget;
-import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerArrowDirections;
-import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.client.screens.utils.widgets.UiDirections;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
-import org.joml.Quaterniond;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
 public class MapWidget extends ModWidget {
-    public boolean canZoomIn;
-    public boolean canZoomOut;
     protected final static double MAP_TO_WORLD_RATIO = (double) MiddleEarthMapConfigs.REGION_SIZE / MiddleEarthMapConfigs.FULL_MAP_SIZE;
     protected final int uiWidth, uiHeight;
     protected int startX, startY = 0;
     protected float uiCurrentWidth, uiCurrentHeight;
-
     private final static int DRAG_COOLDOWN = 25;
-    private double uvX, uvY = 0;
-    private float zoomLevel = getMinZoom();
-    private float zoomTarget = zoomLevel;
+    protected static Double uvX;
+    protected static Double uvY;
+    protected static Float zoomLevel;
+    private Float zoomTarget;
     private boolean isForcingTargetMovement = false;
     private Vector2d forcedCurrentMapCenterTargetRatio;
-    private Vector2d currentPointRatio;
-    private Vector2d currentMapTargetRatio;
-    private Vector2d currentUiTargetRatio;
+    protected static Vector2d currentPointRatio;
+    private static Vector2d currentMapTargetRatio;
+    private static Vector2d currentUiTargetRatio;
     private boolean isDragging = false;
     private Vector2d nextUvs = null;
     private float cooldown = 0;
@@ -37,10 +33,18 @@ public class MapWidget extends ModWidget {
         this.uiHeight = mapHeight;
         this.uiCurrentWidth = uiWidth;
         this.uiCurrentHeight = uiHeight;
-        this.canZoomOut = false;
-        this.canZoomIn = true;
-        this.currentPointRatio = new Vector2d(.5, .5);
-        updateCurrentMapTargetRatio(zoomLevel);
+        if(zoomLevel == null)
+            zoomLevel = getMinZoom();
+        zoomTarget = zoomLevel;
+        if(currentPointRatio == null)
+            currentPointRatio = new Vector2d(.5, .5);
+
+        if(uvX == null || uvY == null){
+            uvX = 0.0;
+            uvY = 0.0;
+            updateCurrentMapTargetRatio();
+        }
+        computeZoom(true);
     }
     private float getZoomTransitionSpeed(){
         return 0.35f * (zoomLevel / 4f);
@@ -54,7 +58,7 @@ public class MapWidget extends ModWidget {
     private float getMinZoom(){
         return 1f;
     }
-    private Identifier getMapTexture(){
+    protected Identifier getMapTexture(){
         return Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
     }
 
@@ -64,8 +68,8 @@ public class MapWidget extends ModWidget {
     }
     public Vector2d getMapPointFromMapCoordinate(Vector2d point){
         int mapSize = MiddleEarthMapConfigs.REGION_SIZE;
-        point.x = (point.x / mapSize * uiCurrentWidth) - uvX + startX;
-        point.y = (point.y / mapSize * uiCurrentHeight) - uvY + startY;
+        point.x = (point.x / mapSize * getCurrentWidth()) - uvX + startX;
+        point.y = (point.y / mapSize * getCurrentWidth()) - uvY + startY;
         return point;
     }
 
@@ -96,44 +100,46 @@ public class MapWidget extends ModWidget {
             cooldown = Math.max(cooldown - 1, 1);
         }
         if(nextUvs != null){
-            this.uvX = nextUvs.x;
-            this.uvY = nextUvs.y;
+            uvX = nextUvs.x;
+            uvY = nextUvs.y;
             nextUvs = null;
             zoomLevel = zoomTarget;
-        } else if(zoomLevel != zoomTarget){
-            float zoomModifier = getZoomTransitionSpeed();
-            if(zoomLevel > zoomTarget){
-                zoomLevel = Math.max(zoomTarget, zoomLevel - zoomModifier);
-            } else {
-                zoomLevel = Math.min(zoomTarget, zoomLevel + zoomModifier);
-            }
-            computeZoom();
         }
+        computeZoom();
         if(forcedCurrentMapCenterTargetRatio != null){
           computeForcedMovement();
         }
+        drawMapTexture(context, startX, startY);
+    }
+
+    protected void drawMapTexture(DrawContext context, int startX, int startY) {
+        int size = Math.max(getCurrentWidth(), getCurrentHeight());
         context.drawTexture(getMapTexture(),
                 startX, startY,
-                (float) uvX, (float) uvY,
-                uiWidth,uiHeight,
-                (int)uiCurrentWidth, (int)uiCurrentHeight
+                uvX.floatValue(), uvY.floatValue(),
+                getWidth(), getHeight(),
+                size, size
         );
     }
 
+    protected int getCurrentWidth() {
+        return (int) uiCurrentWidth;
+    }
+    protected int getCurrentHeight() {
+        return (int) uiCurrentHeight;
+    }
     private void computeForcedMovement() {
-        Vector2d currentUvs = new Vector2d((int) this.uvX, (int) this.uvY);
+        Vector2d currentUvs = new Vector2d(uvX.intValue(), uvY.intValue());
         Vector2d targetUV = new Vector2d(
-                (uiCurrentWidth * forcedCurrentMapCenterTargetRatio.x) - (uiWidth / 2.0),
-                (uiCurrentHeight * forcedCurrentMapCenterTargetRatio.y) - (uiHeight / 2.0)
+                (getCurrentWidth() * forcedCurrentMapCenterTargetRatio.x) - (getWidth() / 2.0),
+                (getCurrentWidth() * forcedCurrentMapCenterTargetRatio.y) - (getHeight() / 2.0)
         );
-        if((int) targetUV.x == (int) currentUvs.x && (int) targetUV.y == (int) currentUvs.y){
-            forcedCurrentMapCenterTargetRatio = null;
-        } else {
+        if((int) targetUV.x != (int) currentUvs.x || (int) targetUV.y != (int) currentUvs.y){
             targetUV = verifyUvs(targetUV.x, targetUV.y);
 
             double distanceForSpeed = targetUV.distance(currentUvs);
             float basicSpeed = getMovementSpeed();
-            double speed = Math.max(basicSpeed, basicSpeed * (distanceForSpeed / 20));
+            double speed = Math.min(Math.max(basicSpeed, basicSpeed * (distanceForSpeed / 20)), distanceForSpeed);
             double radians = Math.toRadians(getDegreeAngleFromVectors(targetUV, currentUvs));
             double directionX = (Math.cos(radians)) * speed;
             if(currentUvs.x > targetUV.x)
@@ -144,11 +150,17 @@ public class MapWidget extends ModWidget {
                 directionY *= -1;
 
             int distance = (int) Math.round(targetUV.distance(currentUvs));
-            if(distance <= 4)
-                forcedCurrentMapCenterTargetRatio = null;
-            else
+            if(distance > 4)
                 computeUvs(uvX + directionX, uvY + directionY);
         }
+        currentMapTargetRatio = getCurrentMapCenterRatio();
+    }
+
+    protected int getWidth() {
+        return uiWidth;
+    }
+    protected int getHeight() {
+        return uiHeight;
     }
 
     private double getDegreeAngleFromVectors(Vector2d source, Vector2d target) {
@@ -171,25 +183,18 @@ public class MapWidget extends ModWidget {
         cooldown = 0;
         return true;
     }
-
-    public void setCurrentPointRatioToCursor(double mouseX, double mouseY){
-        currentPointRatio.x = (-startX + mouseX) / uiWidth;
-        currentPointRatio.y = (-startY + mouseY) / uiHeight;
-    }
-
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
         if(button == 0 && cooldown == 0 && (isDragging || mouseIsInside(mouseX, mouseY))) {
-            forcedCurrentMapCenterTargetRatio = null;
-            isForcingTargetMovement = false;
-            int newUvX = (int) (this.uvX - deltaX);
-            int newUvY = (int) (this.uvY - deltaY);
+            clearFocus();
+            int newUvX = (int) (uvX - deltaX);
+            int newUvY = (int) (uvY - deltaY);
             setCurrentPointRatioToCursor(mouseX, mouseY);
-            updateCurrentMapTargetRatio(zoomLevel);
+            updateCurrentMapTargetRatio();
             zoomTarget = zoomLevel; // Cancels the zoom
 
             computeUvs(newUvX, newUvY);
-            this.nextUvs = new Vector2d(this.uvX, this.uvY);
+            this.nextUvs = null;
         }
         return true;
     }
@@ -197,8 +202,7 @@ public class MapWidget extends ModWidget {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if(mouseIsInside(mouseX, mouseY)){
-            forcedCurrentMapCenterTargetRatio = null;
-            isForcingTargetMovement = false;
+            clearFocus();
             float zoomAmount = 1f + (zoomTarget / 4f);
             if(verticalAmount > 0 && zoomLevel != getMaxZoom()){
                 setCurrentPointRatioToCursor(mouseX, mouseY);
@@ -212,21 +216,27 @@ public class MapWidget extends ModWidget {
         return true;
     }
 
-    private boolean mouseIsInside(double mouseX, double mouseY) {
-        return ((mouseX > startX && mouseX < startX + uiWidth) && (mouseY > startY && mouseY < startY + uiHeight));
+    public void setCurrentPointRatioToCursor(double mouseX, double mouseY){
+        currentPointRatio.x = (-startX + mouseX) / getWidth();
+        currentPointRatio.y = (-startY + mouseY) / getHeight();
+    }
+
+
+    protected boolean mouseIsInside(double mouseX, double mouseY) {
+        return ((mouseX > startX && mouseX < startX + getWidth()) && (mouseY > startY && mouseY < startY + getHeight()));
     }
 
     public void zoomClick(){
         addCooldown();
         isDragging = false;
-        this.currentPointRatio = new Vector2d(0.5, 0.5);
+        currentPointRatio = new Vector2d(0.5, 0.5);
         zoom(1f + (zoomTarget / 2f));
     }
 
     public void dezoomClick(){
         addCooldown();
         isDragging = false;
-        this.currentPointRatio = new Vector2d(0.5, 0.5);
+        currentPointRatio = new Vector2d(0.5, 0.5);
         dezoom(1f + (zoomTarget / 2f));
 
     }
@@ -236,67 +246,95 @@ public class MapWidget extends ModWidget {
     }
 
     public void zoom(float amount) {
-        forcedCurrentMapCenterTargetRatio = null;
-        isForcingTargetMovement = false;
-
         float maxZoom = getMaxZoom();
         if(zoomTarget != maxZoom) {
-            this.canZoomOut = true;
             double newZoom = Math.min(maxZoom,  zoomTarget + amount);
             zoomTarget = (float)newZoom;
-            if(zoomTarget == maxZoom){
-                this.canZoomIn = false;
-            }
-            updateCurrentMapTargetRatio(zoomLevel);
+            updateCurrentMapTargetRatio();
         }
     }
     public void dezoom(float amount) {
-        forcedCurrentMapCenterTargetRatio = null;
-        isForcingTargetMovement = false;
-
         float minZoom = getMinZoom();
         if(zoomTarget != minZoom) {
-            this.canZoomIn = true;
             double newZoom = Math.max(minZoom, zoomTarget - amount);
             zoomTarget = (float)newZoom;
-            if(zoomTarget == minZoom){
-                this.canZoomOut = false;
-            }
-            updateCurrentMapTargetRatio(zoomLevel);
+            updateCurrentMapTargetRatio();
         }
     }
 
-    private void updateCurrentMapTargetRatio(double zoom){
-        double ratioX = (this.uvX + (uiWidth * currentPointRatio.x)) / uiCurrentWidth;
-        double ratioY = (this.uvY + (uiHeight * currentPointRatio.y)) / uiCurrentHeight;
-
-        this.currentMapTargetRatio = new Vector2d(ratioX, ratioY);
-        this.currentUiTargetRatio = new Vector2d(currentPointRatio.x, currentPointRatio.y);
+    public boolean canZoomIn(){
+        return zoomTarget != getMaxZoom();
     }
 
-    private void computeZoom(){
+    public boolean canZoomOut(){
+        return zoomTarget != getMinZoom();
+    }
 
-        float newUiCurrentWidth = uiWidth * zoomLevel;
-        float newUiCurrentHeight = uiHeight * zoomLevel;
+    public Vector2d getCurrentMapCenterRatio() {
+        int maxSize = Math.max(getCurrentWidth(), getCurrentHeight());
+        double ratioX = (uvX + (getWidth() * 0.5)) / maxSize;
+        double ratioY = (uvY + (getHeight() * 0.5)) / maxSize;
+        return new Vector2d(ratioX, ratioY);
+    }
+    protected void instantCenterOnRatio(Vector2d mapCenter) {
+        int maxSize = Math.max(getCurrentWidth(), getCurrentHeight());
+        double newUvX = (maxSize * mapCenter.x) - (getWidth() * 0.5);
+        double newUvY = (maxSize * mapCenter.y) - (getHeight() * 0.5);
+        computeUvs(newUvX, newUvY);
+        currentPointRatio = new Vector2d(0.5,0.5);
+        updateCurrentMapTargetRatio();
+        computeZoom();
+    }
+
+    private void updateCurrentMapTargetRatio(){
+        double ratioX = (uvX + (getWidth() * currentPointRatio.x)) / getCurrentWidth();
+        double ratioY = (uvY + (getHeight() * currentPointRatio.y)) / getCurrentHeight();
+
+        currentMapTargetRatio = new Vector2d(ratioX, ratioY);
+        currentUiTargetRatio = new Vector2d(currentPointRatio.x, currentPointRatio.y);
+    }
+
+    protected void computeZoom(){
+        computeZoom(false);
+    }
+
+    protected void computeZoom(boolean forced){
+        if(!forced && zoomLevel.equals(zoomTarget))
+            return;
+
+        float zoomModifier = getZoomTransitionSpeed();
+        if(zoomLevel > zoomTarget){
+            zoomLevel = Math.max(zoomTarget, zoomLevel - zoomModifier);
+        } else {
+            zoomLevel = Math.min(zoomTarget, zoomLevel + zoomModifier);
+        }
+
+        float newUiCurrentWidth = getWidth() * zoomLevel;
+        float newUiCurrentHeight = getHeight() * zoomLevel;
 
         uiCurrentWidth = newUiCurrentWidth;
         uiCurrentHeight = newUiCurrentHeight;
 
-        double newUvX = uiCurrentWidth * currentMapTargetRatio.x - (uiWidth * currentUiTargetRatio.x);
-        double newUvY = uiCurrentHeight * currentMapTargetRatio.y  - (uiHeight * currentUiTargetRatio.y);
+        double newUvX = getCurrentWidth() * currentMapTargetRatio.x - (getWidth() * currentUiTargetRatio.x);
+        double newUvY = getCurrentHeight() * currentMapTargetRatio.y  - (getHeight() * currentUiTargetRatio.y);
 
         computeUvs(newUvX, newUvY);
     }
 
-    private void computeUvs(double newUvX, double newUvY){
+    protected void computeUvs(double newUvX, double newUvY){
         Vector2d computedUvs = verifyUvs(newUvX, newUvY);
-        this.uvX = computedUvs.x;
-        this.uvY = computedUvs.y;
+        uvX = computedUvs.x;
+        uvY = computedUvs.y;
     }
 
-    private Vector2d verifyUvs(double newUvX, double newUvY){
-        int maxWidth = (int) (uiWidth * zoomLevel) - uiWidth;
-        int maxHeight = (int) (uiHeight * zoomLevel) - uiHeight;;
+    protected Vector2d verifyUvs(double newUvX, double newUvY){
+        int height = getHeight();
+        int width = getWidth();
+
+        int maxSquareSize = Math.max(height, width);
+
+        int maxWidth = (int) ((maxSquareSize * zoomLevel) - width);
+        int maxHeight = (int) ((maxSquareSize * zoomLevel) - height);
 
         double computedX = Math.min(maxWidth, newUvX);
         computedX = Math.max(0, computedX);
@@ -307,41 +345,62 @@ public class MapWidget extends ModWidget {
         return new Vector2d(computedX, computedY);
     }
 
-    public void moveTo(Vector2i worldCoordinates, float desiredZoomTarget){
-        zoomTarget = Math.min(getMaxZoom(), Math.max(getMinZoom(), desiredZoomTarget));
+    public void moveTo(Vector2i worldCoordinates, Vector2d desiredZoomTargetMax){
+        double minimumZoom = Math.max(getMinZoom(), desiredZoomTargetMax.x);
+        double maximumZoom = Math.min(getMaxZoom(), desiredZoomTargetMax.y);
+        zoomTarget = (float) Math.min(maximumZoom, Math.max(minimumZoom, zoomLevel));
         forcedCurrentMapCenterTargetRatio = new Vector2d(
                 (double)worldCoordinates.x * MAP_TO_WORLD_RATIO / MiddleEarthMapConfigs.REGION_SIZE,
-                (double) worldCoordinates.y * MAP_TO_WORLD_RATIO / MiddleEarthMapConfigs.REGION_SIZE
+                (double)worldCoordinates.y * MAP_TO_WORLD_RATIO / MiddleEarthMapConfigs.REGION_SIZE
         );
         isForcingTargetMovement = true;
         currentPointRatio = new Vector2d(0.5, 0.5);
     }
 
-    public MapMarkerArrowDirections isOutsideBounds(Vector2d uvs, int offsetX, int offsetY) {
+    public Vector2d getCurrentMapRatio(double mouseX, double mouseY) {
+        if(!mouseIsInside(mouseX, mouseY))
+            return null;
+        int size =  Math.max(getWidth(), getHeight());
+        int currentSize =  Math.max(getCurrentWidth(), getCurrentHeight());
+
+        double mouseRatioX = (-startX + mouseX) / size;
+        double mouseRatioY = (-startY + mouseY) / size;
+        return new Vector2d(
+                (uvX + (size * mouseRatioX)) / currentSize,
+                (uvY + ( size * mouseRatioY)) / currentSize
+        );
+    }
+
+    public void clearFocus() {
+        forcedCurrentMapCenterTargetRatio = null;
+        isForcingTargetMovement = false;
+    }
+
+    public UiDirections isOutsideBounds(Vector2d uvs, int offsetX, int offsetY) {
         boolean outOfBoundNorth = uvs.y - offsetY < startY;
-        boolean outOfBoundSouth = uvs.y + offsetY  > startY + uiHeight;
-        boolean outOfBoundEast = uvs.x + offsetX > startX + uiWidth;
+        boolean outOfBoundSouth = uvs.y + offsetY  > startY + getHeight();
+        boolean outOfBoundEast = uvs.x + offsetX > startX + getWidth();
         boolean outOfBoundWest = uvs.x - offsetX < startX;
 
         if(outOfBoundNorth){
             if(outOfBoundEast)
-                return MapMarkerArrowDirections.NORTH_EAST;
+                return UiDirections.NORTH_EAST;
             if(outOfBoundWest)
-                return MapMarkerArrowDirections.NORTH_WEST;
-            return MapMarkerArrowDirections.NORTH;
+                return UiDirections.NORTH_WEST;
+            return UiDirections.NORTH;
         }
         if(outOfBoundSouth){
             if(outOfBoundEast)
-                return MapMarkerArrowDirections.SOUTH_EAST;
+                return UiDirections.SOUTH_EAST;
             if(outOfBoundWest)
-                return MapMarkerArrowDirections.SOUTH_WEST;
-            return MapMarkerArrowDirections.SOUTH;
+                return UiDirections.SOUTH_WEST;
+            return UiDirections.SOUTH;
         }
         if(outOfBoundEast)
-            return MapMarkerArrowDirections.EAST;
+            return UiDirections.EAST;
         if(outOfBoundWest)
-            return MapMarkerArrowDirections.WEST;
+            return UiDirections.WEST;
 
-        return MapMarkerArrowDirections.NONE;
+        return UiDirections.NONE;
     }
 }

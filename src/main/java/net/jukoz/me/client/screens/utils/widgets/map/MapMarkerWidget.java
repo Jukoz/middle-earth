@@ -3,7 +3,7 @@ package net.jukoz.me.client.screens.utils.widgets.map;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.utils.widgets.ModWidget;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapArrowType;
-import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerArrowDirections;
+import net.jukoz.me.client.screens.utils.widgets.UiDirections;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerType;
 import net.jukoz.me.utils.ModColors;
 import net.minecraft.client.gui.DrawContext;
@@ -25,7 +25,7 @@ public class MapMarkerWidget extends ModWidget {
     private ButtonWidget markerButton;
     private MapMarkerType type;
     private MapArrowType arrowType;
-    private MapMarkerArrowDirections arrowDirection;
+    private UiDirections arrowDirection;
     private Vector2i runtimeStartCoordinates = null;
     private boolean isArrow;
     private boolean isSelected;
@@ -64,18 +64,18 @@ public class MapMarkerWidget extends ModWidget {
 
     private void computeCentered(MapWidget mapWidget, Vector2d centerUvs){
         if(centerUvs == null) return;
-        MapMarkerArrowDirections outOfBoundDirection = mapWidget.isOutsideBounds(centerUvs, type.size.x /2, type.size.y / 2);
+        UiDirections outOfBoundDirection = mapWidget.isOutsideBounds(centerUvs, type.size.x /2, type.size.y / 2);
 
         centerUvs.x -= type.size.x / 2.0;
         centerUvs.y -= type.size.y / 2.0;
-        if(outOfBoundDirection == MapMarkerArrowDirections.NONE) {
+        if(outOfBoundDirection == UiDirections.NONE) {
             computeMarker(centerUvs);
             return;
         }
         computeArrow(mapWidget, outOfBoundDirection, centerUvs);
     }
 
-    protected void computeArrow(MapWidget mapWidget, MapMarkerArrowDirections direction, Vector2d starts) {
+    protected void computeArrow(MapWidget mapWidget, UiDirections direction, Vector2d starts) {
         isArrow = true;
 
         int sizeX = arrowType.size.x;

@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
-import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.*;
 import net.jukoz.me.datageneration.content.models.HotMetalsModel;
 import net.jukoz.me.datageneration.content.models.SimpleDyeableItemModel;
@@ -12,17 +11,14 @@ import net.jukoz.me.datageneration.content.tags.LeavesSets;
 import net.jukoz.me.datageneration.content.tags.Saplings;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
-import net.jukoz.me.item.dataComponents.TemperatureDataComponent;
+import net.jukoz.me.recipe.ModTags;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemActionResult;
 
 public class ModRegistries {
@@ -342,6 +338,7 @@ public class ModRegistries {
         registry.add(ModNatureBlocks.FOREST_MOSS_BLOCK, 0.65f);
 
         registry.add(ModNatureBlocks.MALLOS, 0.65f);
+        registry.add(ModNatureBlocks.ELANOR, 0.65f);
         registry.add(ModNatureBlocks.YELLOW_FLOWER, 0.65f);
         registry.add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER, 0.65f);
 
@@ -491,7 +488,7 @@ public class ModRegistries {
     }
 
     public static final CauldronBehavior CLEAN_CUSTOM_DYEABLE_ITEM = (state, world, pos, player, hand, stack) -> {
-        if (!stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "dyeable")))) {
+        if (!stack.isIn(ModTags.DYEABLE)) {
             return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         if (!stack.contains(ModDataComponentTypes.DYE_DATA)) {
@@ -501,7 +498,7 @@ public class ModRegistries {
             CustomDyeableDataComponent dyeableDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
 
             stack.set(ModDataComponentTypes.DYE_DATA,
-                    CustomDyeableDataComponent.withOverlay(dyeableDataComponent.overlay(), CustomDyeableDataComponent.DEFAULT_COLOR));
+                     new CustomDyeableDataComponent(CustomDyeableDataComponent.DEFAULT_COLOR));
             player.incrementStat(Stats.CLEAN_ARMOR);
             LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
         }

@@ -4,8 +4,9 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.humans.bandit.BanditHumanEntity;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
+import net.jukoz.me.resources.datas.npcs.NpcUtil;
 import net.jukoz.me.resources.datas.races.Race;
-import net.jukoz.me.resources.datas.factions.data.NpcPreview;
+import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -14,6 +15,8 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
@@ -111,7 +114,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         this.tickHoldingStart = 0;
     }
 
-    public void updateEntity(NpcPreview data, Race race, World world) {
+    public void updateEntity(NpcGearData data, Race race, World world) {
         if(world != null)
             haveBeenInitialized = true;
 
@@ -126,7 +129,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         this.entity = entity;
     }
 
-    private void updateEquipment(NpcPreview data){
+    private void updateEquipment(NpcGearData data){
         if(data == null) {
             this.entity = null;
             return;
@@ -138,24 +141,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         this.entity.headYaw = this.entity.getBodyYaw();
         this.entity.prevHeadYaw = this.entity.getBodyYaw();
 
-        this.entity.equipStack(EquipmentSlot.HEAD, data.get(EquipmentSlot.HEAD));
-        this.entity.equipStack(EquipmentSlot.CHEST, data.get(EquipmentSlot.CHEST));
-        this.entity.equipStack(EquipmentSlot.LEGS, data.get(EquipmentSlot.LEGS));
-        this.entity.equipStack(EquipmentSlot.FEET, data.get(EquipmentSlot.FEET));
-
-        ItemStack mainHandItem = data.get(EquipmentSlot.MAINHAND);
-        ItemStack offhandItem = data.get(EquipmentSlot.OFFHAND);
-
-        if(mainHandItem != null && mainHandItem.getItem() instanceof ReachWeaponItem reachWeaponItem && reachWeaponItem.type.twoHanded){
-            this.entity.equipStack(EquipmentSlot.MAINHAND, mainHandItem);
-            this.entity.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.AIR));
-        } else if(offhandItem != null && offhandItem.getItem() instanceof ReachWeaponItem reachWeaponItem && reachWeaponItem.type.twoHanded){
-            this.entity.equipStack(EquipmentSlot.MAINHAND, offhandItem);
-            this.entity.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.AIR));
-        } else {
-            this.entity.equipStack(EquipmentSlot.MAINHAND, mainHandItem);
-            this.entity.equipStack(EquipmentSlot.OFFHAND, offhandItem);
-        }
+        NpcUtil.equipAll(entity, data);
     }
 
     private void updateEntityRace(Race race, World world) {

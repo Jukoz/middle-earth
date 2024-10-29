@@ -1,8 +1,6 @@
 package net.jukoz.me.block.special;
 
 import net.jukoz.me.block.ModDecorativeBlocks;
-import net.jukoz.me.block.special.toggeable_lights.DwarvenLanternBlock;
-import net.jukoz.me.item.ModDecorativeItems;
 import net.minecraft.block.*;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,11 +21,9 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 public class WoodenBucketBlock extends Block implements Waterloggable {
@@ -68,7 +64,7 @@ public class WoodenBucketBlock extends Block implements Waterloggable {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (player.getStackInHand(player.getActiveHand()).isEmpty() && !player.isCreative()){
+        if (player.getStackInHand(player.getActiveHand()).isEmpty() && !player.isInCreativeMode()){
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
             player.equipStack(EquipmentSlot.MAINHAND,  new ItemStack(ModDecorativeBlocks.WOODEN_BUCKET.asItem()));
             world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f - 1.0f);

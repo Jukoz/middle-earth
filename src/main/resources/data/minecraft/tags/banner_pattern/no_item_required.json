@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "me:cloth"
+    "me:cloth",
+    "me:small_circle"
   ]
 }

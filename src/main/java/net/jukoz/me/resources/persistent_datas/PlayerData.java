@@ -1,15 +1,13 @@
 package net.jukoz.me.resources.persistent_datas;
 
 import net.jukoz.me.exceptions.FactionIdentifierException;
-import net.jukoz.me.resources.MiddleEarthFactions;
 import net.jukoz.me.resources.MiddleEarthRaces;
-import net.jukoz.me.resources.datas.Alignment;
+import net.jukoz.me.resources.datas.Disposition;
 import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.RaceType;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
 import net.jukoz.me.resources.datas.races.Race;
-import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -70,10 +68,10 @@ public class PlayerData {
             return null;
         return FactionLookup.getFactionById(world, affiliationData.faction);
     }
-    public Alignment getCurrentAlignment() {
+    public Disposition getCurrentDisposition() {
         if(!hasAffilition())
             return null;
-        return affiliationData.alignment;
+        return affiliationData.disposition;
     }
     public Identifier getCurrentFactionId() {
         if(!hasAffilition())

@@ -1,20 +1,20 @@
 package net.jukoz.me.block.special.fireBlocks;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.CampfireBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -38,7 +38,7 @@ public abstract class AbstractToggleableFireBlock extends BlockWithEntity {
 
     public AbstractToggleableFireBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(LIT, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(LIT, true));
     }
 
     protected abstract MapCodec<? extends AbstractToggleableFireBlock> getCodec();
@@ -47,7 +47,7 @@ public abstract class AbstractToggleableFireBlock extends BlockWithEntity {
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         Hand hand = player.getActiveHand();
         if (!world.isClient && player.getAbilities().allowModifyWorld) {
-            if(player.isCreative()){
+            if(player.isInCreativeMode()){
                 world.setBlockState(pos, state.cycle(LIT));
             } else {
                 ItemStack itemStack = player.getStackInHand(hand);

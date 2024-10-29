@@ -1,24 +1,30 @@
 package net.jukoz.me.client.screens.utils.widgets;
 
+import me.shedaniel.rei.impl.client.gui.widget.DraggableWidget;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.client.screens.faction_selection.FactionSelectionController;
+import net.jukoz.me.client.screens.faction_selection.FactionSelectionScreen;
 import net.jukoz.me.exceptions.FactionIdentifierException;
-import net.jukoz.me.resources.datas.Alignment;
 import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
+import net.jukoz.me.utils.LoggerUtil;
+import net.jukoz.me.utils.ModColors;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ScrollableWidget;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
+import org.joml.Vector2d;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SearchBarWidget extends ModWidget{
     private static final Identifier SEARCH_WIDGET = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/search_widget.png");
@@ -27,25 +33,41 @@ public class SearchBarWidget extends ModWidget{
     static final int SEARCH_BAR_PANEL_Y = 18;
     public static final int TOTAL_WIDTH = SEARCH_BAR_PANEL_X;
     public ButtonWidget searchBarToggleButton;
-    public ScrollableWidget searchResultScrollBar;
-    private boolean searchResultToggle = false;
-    private boolean searchBarToggle = false;
-    private int currentSearchInputIndex = 0;
+    private boolean searchResultToggle;
+    private boolean searchBarToggle;
+    private int currentSearchInputIndex;
     private String searchBarInput = "";
     public ButtonWidget screenClick;
-    private static boolean focusEnabled = false;
     HashMap<Identifier, Text> pool;
+    List<ButtonWidget> buttons;
+    FactionSelectionController controller;
+    private final int maximumShownAmount;
+    private int currentAmount;
+    private int currentlyShownEntries;
+    private int currentOffsetIndex = 0;
+    private int currentSearchResultHeight;
+    private Vector2d searchResultPanelStarts = new Vector2d();
+
     int endY = 0;
-    public SearchBarWidget(HashMap<Identifier, Text> newPool){
+    public SearchBarWidget(HashMap<Identifier, Text> newPool, FactionSelectionController controller, int maximumShownAmount){
+        this.controller = controller;
+        this.maximumShownAmount = maximumShownAmount;
         searchBarToggle = false;
         searchResultToggle = false;
-        focusEnabled = false;
         setButtons();
         pool = newPool;
+        buttons = new ArrayList<>();
+        for(Identifier id : newPool.keySet()){
+            buttons.add(
+                    ButtonWidget.builder(
+                            newPool.get(id), x -> onPress(id)
+                    ).build());
+            buttons.getLast().active = false;
+        }
     }
 
-    public static void toggleFocus() {
-        focusEnabled = !focusEnabled;
+    private void onPress(Identifier id) {
+        controller.setFactionId(id);
     }
 
     private void setButtons(){
@@ -53,17 +75,20 @@ public class SearchBarWidget extends ModWidget{
             if(!searchBarToggle)
                 searchBarToggle = true;
         };
-        searchBarToggleButton = ButtonWidget.builder(Text.of("Toggle search bar input"), searchBarInputToggle).build();
-
-        // Search Result ScrollBar
-        // TODO : Add scrollbar button
+        searchBarToggleButton = ButtonWidget.builder(Text.translatable("ui.me.search.toggle_button"), searchBarInputToggle).build();
 
         // Screen click
         ButtonWidget.PressAction screenClickAction = button -> {
-            toggleSearch(false);
-            screenClick.active = false;
+            clickOnScreen();
         };
-        screenClick = ButtonWidget.builder(Text.of("Click on screen"), screenClickAction).build();
+        screenClick = ButtonWidget.builder(Text.translatable("ui.me.search.screen_click_button"), screenClickAction).build();
+    }
+
+    private void clickOnScreen() {
+        toggleSearch(false);
+        screenClick.active = false;
+        for(ButtonWidget button : buttons)
+            button.active = false;
     }
 
     public void setEndY(int endY){
@@ -92,12 +117,12 @@ public class SearchBarWidget extends ModWidget{
                 startX,
                 startY,
                 0,
-                searchBarToggleButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
+                searchBarToggleButton.isFocused() || isMouseOver(panelSizeX, panelSizeY, startX, startY) ? 19 : 0,
                 panelSizeX,
                 panelSizeY
         );
         searchBarToggleButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
-        if(focusEnabled && searchBarToggleButton.isFocused()){
+        if(ModWidget.getFocusEnabled() && searchBarToggleButton.isFocused()){
             context.drawTexture(SEARCH_WIDGET,
                     startX,
                     startY,
@@ -128,12 +153,10 @@ public class SearchBarWidget extends ModWidget{
     }
 
     public int drawSearchResultsCentered(DrawContext context, int centerX, int startY) {
-        // TODO : Modify centerX to be startX
         int startX = centerX - (TOTAL_WIDTH / 2);
         return drawSearchResults(context, startX, startY);
     }
     public int drawSearchResultsAnchored(DrawContext context, int anchorX, int startY, boolean isLeftAnchor) {
-        // TODO : Modify anchorX to be startX
         int startX = anchorX;
         if(!isLeftAnchor)
             startX -= TOTAL_WIDTH;
@@ -141,7 +164,6 @@ public class SearchBarWidget extends ModWidget{
     }
 
     public int drawSearchResults(DrawContext context, int startX, int startY) {
-        // TODO : draw search bar results
         setScreenClickbutton(context.getScaledWindowWidth(), context.getScaledWindowHeight());
         int previousPanelSizeY = 18;
 
@@ -149,11 +171,12 @@ public class SearchBarWidget extends ModWidget{
         int panelSizeY = 14;
         int panelBorderSizeY = 4;
         int footerPanelSizeY = 11;
-
         int sideMargins = MINIMAL_MARGIN / 2;
 
         // Search bar button
         startY += previousPanelSizeY + sideMargins / 2;
+        searchResultPanelStarts.y = startY;
+        searchResultPanelStarts.x = startX;
 
         // Popup
         if(searchResultToggle){
@@ -172,12 +195,10 @@ public class SearchBarWidget extends ModWidget{
             );
             // Center
             startY += panelBorderSizeY;
-            int valueAmount = Math.min(
-                    (endY - startY - panelBorderSizeY) / panelSizeY,
-                    results.size()
-            );
+            currentlyShownEntries = Math.min((endY - startY - panelBorderSizeY) / panelSizeY, results.size());
+            currentAmount = Math.min(currentlyShownEntries, maximumShownAmount);
 
-            for(int i = 0; i < valueAmount; i++){
+            for(int i = 0; i < currentAmount; i++){
                 context.drawTexture(SEARCH_WIDGET,
                         startX, startY + panelSizeY * i,
                         0, 43,
@@ -188,7 +209,7 @@ public class SearchBarWidget extends ModWidget{
             // Footer
             context.drawTexture(SEARCH_WIDGET,
                     startX,
-                    startY + (valueAmount * panelSizeY),
+                    startY + (currentAmount * panelSizeY),
                     0, 58,
                     panelSizeX,
                     footerPanelSizeY
@@ -197,7 +218,7 @@ public class SearchBarWidget extends ModWidget{
             // End
             context.drawTexture(SEARCH_WIDGET,
                     startX,
-                    startY + (valueAmount * panelSizeY) + footerPanelSizeY,
+                    startY + (currentAmount * panelSizeY) + footerPanelSizeY,
                     0, 70,
                     panelSizeX,
                     panelBorderSizeY
@@ -206,26 +227,40 @@ public class SearchBarWidget extends ModWidget{
             // Scroll Bar Button
             startY -= panelBorderSizeY;
 
+
+            currentSearchResultHeight = 0;
+            int searchScrollbarButtonOffset = 0;
+            if(currentAmount > 0 && !results.isEmpty() && results.size() - currentAmount != 0){
+                currentSearchResultHeight = (currentAmount * 14) + 4 + 11 + 4 - 9 - 2; // + top border + bottom + bottom border - scrollSize - bottom margin
+                searchScrollbarButtonOffset = currentSearchResultHeight / (results.size() - currentAmount) * currentOffsetIndex;
+                if(currentOffsetIndex == results.size() - currentAmount)
+                    searchScrollbarButtonOffset = currentSearchResultHeight;
+            }
+
+            searchScrollbarButtonOffset = Math.min(currentSearchResultHeight, searchScrollbarButtonOffset);
+            searchScrollbarButtonOffset = Math.max(0, searchScrollbarButtonOffset);
+
             context.drawTexture(SEARCH_WIDGET,
                     startX + panelSizeX - 5,
-                    startY + 1,
+                    searchScrollbarButtonOffset + (startY + 1),
                     103, 39,
                     4,
                     9
             );
-
-            int indexOffset = 0; // TODO : Adjust with scrollbar value/height
 
             int valuePanelSizeX = 93;
             int valuePanelSizeY = 14;
 
             int valuePanelStartX = startX + 3;
             // Create pool of resources with buttons
-            for(int i = 0; i < valueAmount; i ++){
-                int valuePanelStartY = startY + panelBorderSizeY + (i * panelSizeY);
-
+            int offset = 0;
+            List<Identifier> activeIds = new ArrayList<>();
+            for(int i = 0; i < currentAmount; i++){
+                Identifier id = results.get((i + currentOffsetIndex));
+                activeIds.add(id);
+                int buttonIndex = pool.keySet().stream().toList().indexOf(id);
+                int valuePanelStartY = startY + panelBorderSizeY + ((i) * panelSizeY);
                 boolean mouseIsOver = isMouseOver(valuePanelSizeX, valuePanelSizeY, startX, valuePanelStartY);
-                Identifier id = results.get(i);
                 try{
                     Faction faction = FactionLookup.getFactionById(client.world, id);
                     FactionType type = faction.getFactionType();
@@ -238,6 +273,11 @@ public class SearchBarWidget extends ModWidget{
                             0, uvY,
                             valuePanelSizeX, valuePanelSizeY
                     );
+                    buttons.get(buttonIndex).setPosition(valuePanelStartX, valuePanelStartY);
+                    buttons.get(buttonIndex).setDimensions(valuePanelSizeX, valuePanelSizeY);
+                    if(!buttons.get(buttonIndex).active)
+                        buttons.get(buttonIndex).active = true;
+
                     context.drawText(client.textRenderer, pool.get(id),
                             valuePanelStartX + 3, valuePanelStartY + 3,
                             0, false);
@@ -246,7 +286,15 @@ public class SearchBarWidget extends ModWidget{
                 }
             }
 
-
+            for(int i =0; i < pool.size(); i++) {
+                Identifier foundId = pool.keySet().stream().toList().get(i);
+                if(!activeIds.contains(foundId)){
+                    int buttonIndex = pool.keySet().stream().toList().indexOf(foundId);
+                    if(buttons.get(buttonIndex).active)
+                        buttons.get(buttonIndex).active = false;
+                }
+            }
+            
             // WIP - Will be continued to be worked on
 /*
             for(int i = 0; i < temporaryValues.size(); i++){
@@ -286,7 +334,6 @@ public class SearchBarWidget extends ModWidget{
     public ButtonWidget getScreenClickButton() {
         return screenClick;
     }
-
     private void setScreenClickbutton(int width, int height){
         screenClick.setDimensionsAndPosition(width, height, 0,0);
     }
@@ -308,6 +355,7 @@ public class SearchBarWidget extends ModWidget{
                     character = character.toLowerCase();
                 searchBarInput += character;
                 currentSearchInputIndex ++;
+                currentOffsetIndex = 0;
             }
             else if(!searchBarInput.isEmpty()){
                 // Keybind : Return
@@ -328,5 +376,30 @@ public class SearchBarWidget extends ModWidget{
 
     public boolean searchIsToggled() {
         return searchResultToggle;
+    }
+
+    public List<ButtonWidget> getAllButtons() {
+        return buttons;
+    }
+
+    public void resetHeight() {
+        currentOffsetIndex = 0;
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+        if(searchBarToggle && isMouseOver(TOTAL_WIDTH, currentSearchResultHeight, (int) searchResultPanelStarts.x, (int) searchResultPanelStarts.y))
+        currentOffsetIndex = Math.max(0, Math.min(currentlyShownEntries - currentAmount, currentOffsetIndex - (int) Math.round(verticalAmount)));
+        return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+    }
+
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        return super.mouseReleased(mouseX, mouseY, button);
     }
 }

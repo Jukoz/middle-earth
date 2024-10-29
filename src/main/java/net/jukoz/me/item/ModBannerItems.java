@@ -63,7 +63,7 @@ public class ModBannerItems {
 
     public static ItemStack getDurinBanner(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
         DURIN_BANNER_LAYERS.add(new BannerPatternsComponent.Layer(bannerPatternLookup.getOrThrow(BannerPatterns.GRADIENT_UP), DyeColor.GRAY));
-        DURIN_BANNER_LAYERS.add(new BannerPatternsComponent.Layer(bannerPatternLookup.getOrThrow(ModBannerPatterns.LONGBEARD_BANNER_PATTERN), DyeColor.WHITE));
+        DURIN_BANNER_LAYERS.add(new BannerPatternsComponent.Layer(bannerPatternLookup.getOrThrow(ModBannerPatterns.CROWN_AND_ANVIL), DyeColor.WHITE));
 
         ItemStack itemStack = new ItemStack(Items.BLUE_BANNER);
 
@@ -77,7 +77,7 @@ public class ModBannerItems {
     public static ItemStack getIsengardBanner(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
         ItemStack itemStack = new ItemStack(Items.BLACK_BANNER);
         BannerPatternsComponent bannerPatternsComponent = (new BannerPatternsComponent.Builder())
-                .add(bannerPatternLookup, ModBannerPatterns.ISENGARD_BANNER_PATTERN, DyeColor.WHITE)
+                .add(bannerPatternLookup, ModBannerPatterns.HAND, DyeColor.WHITE)
                 .build();
         return formatBanner(itemStack, bannerPatternsComponent, ISENGARD_BANNER_TRANSLATION_KEY);
     }
@@ -85,7 +85,7 @@ public class ModBannerItems {
     public static ItemStack getGondorBanner(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
         ItemStack itemStack = new ItemStack(Items.BLACK_BANNER);
         BannerPatternsComponent bannerPatternsComponent = (new BannerPatternsComponent.Builder())
-                .add(bannerPatternLookup, ModBannerPatterns.GONDOR_BANNER_PATTERN, DyeColor.WHITE)
+                .add(bannerPatternLookup, ModBannerPatterns.TREE, DyeColor.WHITE)
                 .build();
 
         return formatBanner(itemStack, bannerPatternsComponent, GONDOR_BANNER_TRANSLATION_KEY);
@@ -94,7 +94,7 @@ public class ModBannerItems {
     public static ItemStack getGondorWhiteBanner(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
         ItemStack itemStack = new ItemStack(Items.WHITE_BANNER);
         BannerPatternsComponent bannerPatternsComponent = (new BannerPatternsComponent.Builder())
-                .add(bannerPatternLookup, ModBannerPatterns.GONDOR_BANNER_PATTERN, DyeColor.BLACK)
+                .add(bannerPatternLookup, ModBannerPatterns.TREE, DyeColor.BLACK)
                 .build();
         return formatBanner(itemStack, bannerPatternsComponent, GONDOR_WHITE_BANNER_TRANSLATION_KEY);
     }
@@ -103,7 +103,7 @@ public class ModBannerItems {
         ItemStack itemStack = new ItemStack(Items.WHITE_BANNER);
         BannerPatternsComponent bannerPatternsComponent = (new BannerPatternsComponent.Builder())
                 .add(bannerPatternLookup, BannerPatterns.GRADIENT_UP, DyeColor.YELLOW)
-                .add(bannerPatternLookup, ModBannerPatterns.LOTHLORIEN_BANNER_PATTERN, DyeColor.YELLOW)
+                .add(bannerPatternLookup, ModBannerPatterns.GOLDENWOOD, DyeColor.YELLOW)
                 .build();
         return formatBanner(itemStack, bannerPatternsComponent, LOTHLORIEN_BANNER_TRANSLATION_KEY);
     }
@@ -112,7 +112,7 @@ public class ModBannerItems {
         ItemStack itemStack = new ItemStack(Items.BROWN_BANNER);
         BannerPatternsComponent bannerPatternsComponent = (new BannerPatternsComponent.Builder())
                 .add(bannerPatternLookup, BannerPatterns.GRADIENT_UP, DyeColor.BLACK)
-                .add(bannerPatternLookup, ModBannerPatterns.MISTY_MOUNTAINS_ORCS_EYE_BANNER_PATTERN, DyeColor.RED)
+                .add(bannerPatternLookup, ModBannerPatterns.EVIL_EYE, DyeColor.RED)
                 .build();
         return formatBanner(itemStack, bannerPatternsComponent, MISTY_MOUNTAINS_ORCS_EYE_BANNER_TRANSLATION_KEY);
     }
@@ -121,7 +121,7 @@ public class ModBannerItems {
         ItemStack itemStack = new ItemStack(Items.BROWN_BANNER);
         BannerPatternsComponent bannerPatternsComponent = (new BannerPatternsComponent.Builder())
                 .add(bannerPatternLookup, BannerPatterns.GRADIENT_UP, DyeColor.BLACK)
-                .add(bannerPatternLookup, ModBannerPatterns.MISTY_MOUNTAINS_ORCS_PEAKS_BANNER_PATTERN, DyeColor.RED)
+                .add(bannerPatternLookup, ModBannerPatterns.EVIL_PEAKS, DyeColor.RED)
                 .build();
         return formatBanner(itemStack, bannerPatternsComponent, MISTY_MOUNTAINS_ORCS_PEAKS_BANNER_TRANSLATION_KEY);
     }
@@ -130,7 +130,7 @@ public class ModBannerItems {
         ItemStack itemStack = new ItemStack(Items.BLACK_BANNER);
         BannerPatternsComponent bannerPatternsComponent = (new BannerPatternsComponent.Builder())
                 .add(bannerPatternLookup, BannerPatterns.GRADIENT_UP, DyeColor.GRAY)
-                .add(bannerPatternLookup, ModBannerPatterns.MORDOR_EYE_BANNER_PATTERN, DyeColor.RED)
+                .add(bannerPatternLookup, ModBannerPatterns.EYE_OF_SAURON, DyeColor.RED)
                 .build();
         return formatBanner(itemStack, bannerPatternsComponent, MORDOR_BANNER_TRANSLATION_KEY);
     }
@@ -139,7 +139,7 @@ public class ModBannerItems {
         ItemStack itemStack = new ItemStack(Items.BLACK_BANNER);
         BannerPatternsComponent bannerPatternsComponent = (new BannerPatternsComponent.Builder())
                 .add(bannerPatternLookup, BannerPatterns.GRADIENT_UP, DyeColor.GRAY)
-                .add(bannerPatternLookup, ModBannerPatterns.MORDOR_GREAT_EYE_BANNER_PATTERN, DyeColor.RED)
+                .add(bannerPatternLookup, ModBannerPatterns.GREAT_EYE, DyeColor.RED)
                 .build();
         return formatBanner(itemStack, bannerPatternsComponent, MORDOR_GREAT_EYE_BANNER_TRANSLATION_KEY);
     }
@@ -147,7 +147,7 @@ public class ModBannerItems {
     public static ItemStack getRohanBanner(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
         ItemStack itemStack = new ItemStack(Items.GREEN_BANNER);
         BannerPatternsComponent bannerPatternsComponent = (new BannerPatternsComponent.Builder())
-                .add(bannerPatternLookup, ModBannerPatterns.ROHAN_BANNER_PATTERN, DyeColor.YELLOW)
+                .add(bannerPatternLookup, ModBannerPatterns.HORSE_HEAD, DyeColor.YELLOW)
                 .build();
         return formatBanner(itemStack, bannerPatternsComponent, ROHAN_BANNER_TRANSLATION_KEY);
     }

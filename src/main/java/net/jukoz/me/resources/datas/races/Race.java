@@ -15,17 +15,22 @@ import net.jukoz.me.resources.datas.RaceType;
 import net.jukoz.me.resources.datas.races.data.AttributeData;
 import net.jukoz.me.utils.IdentifierUtil;
 import net.jukoz.me.utils.LoggerUtil;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.AttributeContainer;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Race {
     public static final Codec<Race> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -66,7 +71,6 @@ public class Race {
         this.attributeData = attributeData;
         this.joinCommands = joinCommands;
         this.leaveCommands = leaveCommands;
-        RaceLookup.addRace(this);
     }
 
     public Identifier getId() {
@@ -94,7 +98,7 @@ public class Race {
         return Optional.of(this.leaveCommands);
     }
 
-    public MutableText getFullName() {
+    public Text getFullName() {
         return Text.translatable(translatableKey);
     }
 
@@ -127,13 +131,14 @@ public class Race {
         return entity;
     }
 
-    public void applyAttributes(ServerPlayerEntity playerEntity){
+    public void applyAttributes(PlayerEntity playerEntity){
         attributeData.ApplyAll(playerEntity);
-        playerEntity.heal(playerEntity.getMaxHealth());
     }
 
-    public void reverseAttributes(ServerPlayerEntity playerEntity){
-        attributeData.ReverseAll(playerEntity);
+    public void reverseAttributes(PlayerEntity playerEntity){
+        DefaultAttributeContainer.Builder containerBuilder = PlayerEntity.createPlayerAttributes();
+        DefaultAttributeContainer container = containerBuilder.build();
+        attributeData.ReverseAll(playerEntity, container);
         playerEntity.heal(playerEntity.getMaxHealth());
     }
 
@@ -143,5 +148,30 @@ public class Race {
 
     public RaceType getRaceType() {
         return raceType;
+    }
+
+    public void drawTooltip(LivingEntity entity, DrawContext context, TextRenderer renderer, int x, int y){
+        List<Text> texts = new ArrayList<>();
+        texts.add(getFullName());
+        texts.add(Text.translatable("race_tooltip.me.attribute_header").formatted(Formatting.UNDERLINE));
+        Map<Identifier, Double> datas = attributeData.getDatas();
+        for(Identifier id : datas.keySet()){
+            double value = datas.get(id);
+            double difference = datas.get(id) - attributeData.getCurrentValue(entity, id);
+            // Round them
+            value = Math.round(value * 1000) / 1000.0;
+            difference = Math.round(difference * 1000) / 1000.0;
+
+            String differenceChar = (difference > 0) ? "+" : "";
+            Formatting white = Formatting.WHITE;
+            Formatting differenceColor = (difference < 0) ? Formatting.RED : (difference > 0) ? Formatting.GREEN : white;
+            if(attributeData.isBuffReversed(id)){
+                differenceColor = (difference < 0) ? Formatting.GREEN : (difference > 0) ? Formatting.RED : white;
+            }
+            MutableText rawValue = Text.literal(String.valueOf(value)).formatted(white);
+            MutableText valueText = rawValue.append(Text.literal(" (").formatted(white).append(Text.literal(differenceChar + difference).formatted(differenceColor).append(Text.literal(") ").formatted(white))));
+            texts.add(valueText.append(Text.translatable("attribute.name."+id.getPath()).formatted(Formatting.WHITE)));
+        }
+        context.drawTooltip(renderer, texts, x, y);
     }
 }

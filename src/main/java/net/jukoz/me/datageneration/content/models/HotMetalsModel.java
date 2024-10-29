@@ -2,7 +2,6 @@ package net.jukoz.me.datageneration.content.models;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModResourceItems;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
@@ -59,14 +58,26 @@ public class HotMetalsModel {
             add(ModResourceItems.SWORD_HILT);
             add(ModResourceItems.ROD);
             add(ModResourceItems.LARGE_ROD);
+
+            add(ModResourceItems.CHAINMAIL_RING);
+            add(ModResourceItems.SCALE);
+            add(ModResourceItems.ARMOR_PLATE);
+            add(ModResourceItems.HELMET_PLATE);
+            add(ModResourceItems.SHIELD_BORDER);
+            add(ModResourceItems.SHIELD_PLATE);
         }
     };
 
     public static List<ShapingTag> shapesTag = new ArrayList<>() {
         {
+            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "nugget_shaping")), ModResourceItems.CHAINMAIL_RING, 25));
+            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "nugget_shaping")), ModResourceItems.SCALE, 25));
+
             add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SHORT_BLADE, 80));
             add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SHOVEL_HEAD, 80));
             add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SWORD_HILT, 80));
+            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SCALE_MAIL, 80));
+            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SHIELD_BORDER, 80));
         }
     };
 
@@ -74,10 +85,13 @@ public class HotMetalsModel {
         {
             add(new ShapingItem(ModResourceItems.ROD, ModResourceItems.BLADE, 120));
             add(new ShapingItem(ModResourceItems.ROD, ModResourceItems.HOE_HEAD, 120));
+            add(new ShapingItem(ModResourceItems.ROD, ModResourceItems.ARMOR_PLATE, 120));
 
             add(new ShapingItem(ModResourceItems.LARGE_ROD, ModResourceItems.LONG_BLADE, 160));
             add(new ShapingItem(ModResourceItems.LARGE_ROD, ModResourceItems.AXE_HEAD, 160));
             add(new ShapingItem(ModResourceItems.LARGE_ROD, ModResourceItems.PICKAXE_HEAD, 160));
+            add(new ShapingItem(ModResourceItems.LARGE_ROD, ModResourceItems.HELMET_PLATE, 160));
+            add(new ShapingItem(ModResourceItems.LARGE_ROD, ModResourceItems.SHIELD_PLATE, 160));
         }
     };
 }

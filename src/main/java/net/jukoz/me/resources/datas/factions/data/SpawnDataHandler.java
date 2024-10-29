@@ -1,23 +1,12 @@
 package net.jukoz.me.resources.datas.factions.data;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import net.fabricmc.fabric.api.util.NbtType;
-import net.jukoz.me.utils.IdentifierUtil;
-import net.jukoz.me.utils.LoggerUtil;
-import net.jukoz.me.world.dimension.ModDimensions;
-import net.jukoz.me.world.map.MiddleEarthMapUtils;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import org.joml.Vector2d;
 import org.joml.Vector2i;
-import org.joml.Vector3i;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 
 public class SpawnDataHandler {

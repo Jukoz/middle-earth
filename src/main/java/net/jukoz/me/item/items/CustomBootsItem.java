@@ -3,7 +3,7 @@ package net.jukoz.me.item.items;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
-import net.jukoz.me.item.utils.ExtendedArmorMaterial;
+import net.jukoz.me.item.utils.armor.ExtendedArmorMaterial;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.client.gui.screen.Screen;

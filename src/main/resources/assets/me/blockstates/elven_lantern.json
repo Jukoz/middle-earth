@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=true,hanging=false": {
+      "model": "me:block/elven_lantern"
+    },
+    "lit=true,hanging=true": {
+      "model": "me:block/elven_lantern_ceiling"
+    },
+    "lit=false,hanging=false": {
+      "model": "me:block/elven_lantern_unlit"
+    },
+    "lit=false,hanging=true": {
+      "model": "me:block/elven_lantern_ceiling_unlit"
+    }
+  }
+}

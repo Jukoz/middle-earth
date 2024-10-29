@@ -14,13 +14,20 @@ public class MEModels {
     public static final Model VERTICAL_COLUMN_SLAB;
     public static final Model VERTICAL_COLUMN_SLAB_INNER;
     public static final Model VERTICAL_COLUMN_SLAB_OUTER;
+
     public static final Model WOOD_STOOL;
     public static final Model WOOD_BENCH;
     public static final Model WOOD_TABLE;
     public static final Model WOOD_CHAIR;
+
     public static final Model STONE_STOOL;
     public static final Model STONE_TABLE;
     public static final Model STONE_CHAIR;
+
+    public static final Model ROCKS_STAGE_0;
+    public static final Model ROCKS_STAGE_1;
+    public static final Model ROCKS_STAGE_2;
+    public static final Model ROCKS_STAGE_3;
 
     public static final Model LARGE_DOOR_LEFT;
     public static final Model LARGE_DOOR_LEFT_OPEN;
@@ -58,6 +65,11 @@ public class MEModels {
         STONE_STOOL = block("stone_stool_template", TextureKey.ALL, TextureKey.PARTICLE);
         STONE_TABLE = block("stone_table_template", TextureKey.ALL, TextureKey.PARTICLE);
         STONE_CHAIR = block("stone_chair_template", TextureKey.ALL, TextureKey.PARTICLE);
+
+        ROCKS_STAGE_0 = block("rocks_stage_0_template", TextureKey.ALL, TextureKey.PARTICLE);
+        ROCKS_STAGE_1 = block("rocks_stage_1_template", "_1", TextureKey.ALL, TextureKey.PARTICLE);
+        ROCKS_STAGE_2 = block("rocks_stage_2_template", "_2", TextureKey.ALL, TextureKey.PARTICLE);
+        ROCKS_STAGE_3 = block("rocks_stage_3_template", "_3", TextureKey.ALL, TextureKey.PARTICLE);
 
         LARGE_DOOR_LEFT = block("large_door_left", TextureKey.ALL, TextureKey.PARTICLE);
         LARGE_DOOR_LEFT_OPEN = block("large_door_left_open", TextureKey.ALL, TextureKey.PARTICLE);

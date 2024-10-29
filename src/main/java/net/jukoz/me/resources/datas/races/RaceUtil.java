@@ -3,11 +3,12 @@ package net.jukoz.me.resources.datas.races;
 import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.LoggerUtil;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 public class RaceUtil {
 
-    public static void updateRace(ServerPlayerEntity player, Race race){
+    public static void updateRace(PlayerEntity player, Race race){
         PlayerData data = StateSaverAndLoader.getPlayerState(player);
 
         boolean havePreviousRace = data.getRace() != null;
@@ -15,7 +16,7 @@ public class RaceUtil {
 
         // [RESET]
         if(havePreviousRace){
-            RaceLookup.getRaceFromString(data.getRace().toString()).reverseAttributes(player);
+            RaceLookup.getRace(player.getWorld(), data.getRace()).reverseAttributes(player);
             data.setRace(null);
         }
 

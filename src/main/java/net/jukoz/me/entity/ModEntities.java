@@ -31,7 +31,7 @@ import net.jukoz.me.entity.snail.SnailEntity;
 import net.jukoz.me.entity.spider.MirkwoodSpiderEntity;
 import net.jukoz.me.entity.swan.SwanEntity;
 import net.jukoz.me.entity.beasts.trolls.snow.SnowTrollEntity;
-import net.jukoz.me.entity.uruks.isengard.mordor.IsengardUrukHaiEntity;
+import net.jukoz.me.entity.uruks.isengard.IsengardUrukHaiEntity;
 import net.jukoz.me.entity.uruks.misties.MistyHobgoblinEntity;
 import net.jukoz.me.entity.uruks.mordor.MordorBlackUrukEntity;
 import net.jukoz.me.utils.LoggerUtil;

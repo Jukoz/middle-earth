@@ -3,22 +3,15 @@ package net.jukoz.me.client.renderer;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.MiddleEarthClient;
-import net.jukoz.me.client.model.equipment.CustomChestplateModel;
-import net.jukoz.me.client.model.equipment.chest.CloakCapeModel;
+import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
+import net.jukoz.me.client.model.equipment.chest.capes.CloakCapeModel;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
-import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.items.CapeChestplateItem;
-import net.jukoz.me.item.items.CustomChestplateItem;
-import net.jukoz.me.utils.IntToRGB;
+import net.jukoz.me.item.utils.armor.ModArmorModels;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.model.Model;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -28,12 +21,9 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
-import java.awt.*;
-
 public class CapeRenderer implements ArmorRenderer {
 
-    private CloakCapeModel<LivingEntity> capeModel;
-
+    private ChestplateAddonModel<LivingEntity> capeModel;
 
     public CapeRenderer() {
     }
@@ -55,17 +45,16 @@ public class CapeRenderer implements ArmorRenderer {
             CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
 
             if (capeDataComponent != null) {
-                if (capeDataComponent.enabled()) {
-                    contextModel.copyBipedStateTo(capeModel);
-                    capeModel.setVisible(false);
-                    capeModel.body.visible = true;
-                    capeModel.rightArm.visible = true;
-                    capeModel.leftArm.visible = true;
-                    capeModel.rightLeg.visible = true;
-                    capeModel.leftLeg.visible = true;
-                    capeModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float) entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.roll);
-                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().toLowerCase() + ".png"), false);
-                }
+                this.capeModel = ModArmorModels.ModCapePairedModels.valueOf(capeDataComponent.cape().getName().toUpperCase()).getModel().getUnarmoredModel();
+                contextModel.copyBipedStateTo(capeModel);
+                capeModel.setVisible(false);
+                capeModel.body.visible = true;
+                capeModel.rightArm.visible = true;
+                capeModel.leftArm.visible = true;
+                capeModel.rightLeg.visible = true;
+                capeModel.leftLeg.visible = true;
+                this.capeModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float) entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.roll);
+                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + ".png"), false);
             }
         }
     }

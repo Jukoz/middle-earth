@@ -89,8 +89,6 @@ public class ModResourceItems {
     public static final Item MITHRIL_NUGGET = registerItem("mithril_nugget",
             new Item(new Item.Settings().fireproof()));
 
-    public static final Item IRON_CHAINMAIL = registerItem("iron_chainmail",
-            new Item(new Item.Settings()));
 
     public static final Item RED_AGATE_SHARD = registerItem("red_agate_shard",
             new Item(new Item.Settings()));
@@ -142,6 +140,9 @@ public class ModResourceItems {
     public static final Item CUCUMBER_SEEDS = registerItem("cucumber_seeds", new AliasedBlockItem(ModNatureBlocks.CUCUMBER_CROP, new Item.Settings()));
     public static final Item LETTUCE_SEEDS = registerItem("lettuce_seeds", new AliasedBlockItem(ModNatureBlocks.LETTUCE_CROP, new Item.Settings()));
 
+    public static final Item FABRIC = registerItem("fabric",
+            new Item(new Item.Settings()));
+
     public static final Item ROD = registerItem("rod",
             new Item(new Item.Settings().maxCount(16)));
     public static final Item LARGE_ROD = registerItem("large_rod",
@@ -165,13 +166,35 @@ public class ModResourceItems {
     public static final Item SWORD_HILT = registerItem("sword_hilt",
             new SmithingMaterialItem(new Item.Settings().maxCount(16)));
 
+    public static final Item CHAINMAIL_RING = registerItem("chainmail_ring",
+            new SmithingMaterialItem(new Item.Settings().maxCount(64)));
+    public static final Item CHAINMAIL = registerItem("chainmail",
+            new Item(new Item.Settings().maxCount(16)));
+    public static final Item SCALE = registerItem("scale",
+            new Item(new Item.Settings().maxCount(64)));
+    public static final Item SCALE_MAIL = registerItem("scale_mail",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item ARMOR_PLATE = registerItem("armor_plate",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+
+    public static final Item HELMET_PLATE = registerItem("helmet_plate",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item SHIELD_BORDER = registerItem("shield_border",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+    public static final Item SHIELD_PLATE = registerItem("shield_plate",
+            new SmithingMaterialItem(new Item.Settings().maxCount(16)));
+
     public static final Item DWARVEN_KEY = registerItem("dwarven_key",
             new Item(new Item.Settings().maxCount(1)));
 
+    public static final Item PIPEWEED_BANNER_PATTERN = registerItem("pipeweed_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.PIPEWEED_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item GONDOR_BANNER_PATTERN = registerItem("gondor_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.GONDOR_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item ROHAN_BANNER_PATTERN = registerItem("rohan_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.ROHAN_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+    public static final Item DALE_BANNER_PATTERN = registerItem("dale_banner_pattern",
+            new BannerPatternItem(ModBannerPatternTags.DALE_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item LONGBEARD_BANNER_PATTERN = registerItem("longbeard_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.LONGBEARD_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item LOTHLORIEN_BANNER_PATTERN = registerItem("lothlorien_banner_pattern",
@@ -185,10 +208,6 @@ public class ModResourceItems {
 
     public static final Item DRAGON_BANNER_PATTERN = registerItem("dragon_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.DRAGON_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
-    public static final Item PIPEWEED_BANNER_PATTERN = registerItem("pipeweed_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.PIPEWEED_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
-    public static final Item FELLOWSHIP_BANNER_PATTERN = registerItem("fellowship_banner_pattern",
-            new BannerPatternItem(ModBannerPatternTags.FELLOWSHIP_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item SNAIL_BANNER_PATTERN = registerItem("snail_banner_pattern",
             new BannerPatternItem(ModBannerPatternTags.SNAIL_PATTERN_ITEM, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
 
