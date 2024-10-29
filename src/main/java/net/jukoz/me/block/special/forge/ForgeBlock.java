@@ -97,17 +97,17 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
 
     @Override
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!world.isClient && player.isCreative()) {
-            ForgePart tablePart = (ForgePart)state.get(PART);
-            ForgePart tablePartOpposite = (ForgePart)state.get(PART).getOpposite(state.get(PART));
+        if (!world.isClient) {
+            ForgePart forgePArt = (ForgePart)state.get(PART);
+            ForgePart forgePArtOpposite = (ForgePart)state.get(PART).getOpposite(state.get(PART));
             BlockPos blockPos;
-            if(tablePart == ForgePart.BOTTOM){
+            if(forgePArt == ForgePart.BOTTOM){
                 blockPos = pos.add(0,1,0);
             } else {
                 blockPos = pos.add(0,-1,0);
             }
             BlockState blockState = world.getBlockState(blockPos);
-            if (blockState.isOf(this) && blockState.get(PART) == tablePartOpposite) {
+            if (blockState.isOf(this) && blockState.get(PART) == forgePArtOpposite) {
                 world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 35);
                 world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
             }
