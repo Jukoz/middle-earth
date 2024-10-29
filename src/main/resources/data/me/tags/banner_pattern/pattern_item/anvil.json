@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "me:anvil",
+    "me:anvil_bottom",
+    "me:anvil_hammer",
+    "me:anvil_hammer_bottom",
+    "me:anvil_hammer_top",
+    "me:anvil_top"
+  ]
+}
