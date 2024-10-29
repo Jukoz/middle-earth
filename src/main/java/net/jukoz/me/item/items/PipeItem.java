@@ -29,9 +29,8 @@ public class PipeItem extends Item {
         .filter(stack -> stack.getItem() == ModResourceItems.DRIED_PIPEWEED)
         .findFirst()
         .orElse(ItemStack.EMPTY);
-        user.getItemCooldownManager().set(this, 20);
 
-        if(driedPipeweedStack.isEmpty()) return TypedActionResult.fail(itemStack);
+        if(driedPipeweedStack.isEmpty() && !user.isCreative()) return TypedActionResult.fail(itemStack);
 
         // Set the smoking state
         this.smoking = true;
@@ -60,13 +59,17 @@ public class PipeItem extends Item {
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         // Reset the smoking state
         // add a particle of smoke traveling away from the player "a final breath" -- froosty
-        if(smoking)
+        if(smoking){
             world.addParticle(ModParticleTypes.RING_OF_SMOKE,
-            user.getX() + user.getRotationVec(1.0F).x * 0.5,
-            user.getY() + user.getEyeHeight(user.getPose()) + user.getRotationVec(1.0F).y * 0.5 + 0.04,
-            user.getZ() + user.getRotationVec(1.0F).z * 0.5,
-            user.getRotationVec(1.0F).x * 0.1, user.getRotationVec(1.0F).y*0.1+0.04, user.getRotationVec(1.0F).z * 0.1);
+                    user.getX() + user.getRotationVec(1.0F).x * 0.5,
+                    user.getY() + user.getEyeHeight(user.getPose()) + user.getRotationVec(1.0F).y * 0.5 + 0.04,
+                    user.getZ() + user.getRotationVec(1.0F).z * 0.5,
+                    user.getRotationVec(1.0F).x * 0.1, user.getRotationVec(1.0F).y * 0.1 + 0.04, user.getRotationVec(1.0F).z * 0.1);
+            ((PlayerEntity)user).getItemCooldownManager().set(this, 20);
+        }
+
         this.smoking = false;
+
     }
 
     @Override
@@ -77,7 +80,7 @@ public class PipeItem extends Item {
 
     @Override
     public UseAction getUseAction(ItemStack stack) {
-        return UseAction.TOOT_HORN;
+        return this.smoking ? UseAction.TOOT_HORN : UseAction.NONE;
     }
 
 
