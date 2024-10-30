@@ -282,14 +282,17 @@ public class FactionSelectionScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         // Keybind : Escape || Other Escape
-        if(!playableNpcPreviewWidget.keyPressed(keyCode, scanCode, modifiers)
-        || !searchBarWidget.keyPressed(keyCode, scanCode, modifiers))
-            return true;
-
-        if(keyCode == KeyEvent.VK_ESCAPE){
+        if (keyCode == 256) {
             this.close();
             return true;
         }
+
+        if(!playableNpcPreviewWidget.keyPressed(keyCode, scanCode, modifiers)
+        || !searchBarWidget.keyPressed(keyCode, scanCode, modifiers)){
+            return true;
+        }
+
+
 
         // Keybind : Tabulation
         if(keyCode == KeyEvent.VK_CODE_INPUT && !ModWidget.getFocusEnabled()){
