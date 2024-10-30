@@ -181,7 +181,7 @@ public class TextBlockWidget extends ModWidget {
         while(spaceDifference > 0){
             for(int i = 0; i < currentLine.size() - 1 && spaceDifference > 0; i ++){
                 if(i >= spaces.size()){
-                    spaces.add(1);  // ?
+                    spaces.add(1);
                 } else {
                     int alreadyPresentAmount = spaces.get(i);
                     spaces.set(i, alreadyPresentAmount + 1);
