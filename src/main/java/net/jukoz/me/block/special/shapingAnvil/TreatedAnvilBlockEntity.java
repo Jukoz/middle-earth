@@ -157,7 +157,7 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
             .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());
 
         entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f, 1.0f);
-
+        
         if (!match.isEmpty() && input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null  && hasShapingRecipe(entity)){
 
             int minRandProgress = 6;
@@ -179,6 +179,7 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
             int maxRandTemperature = 18;
             int value = (int) (Math.random() * (maxRandTemperature - minRandTemperature) + minRandTemperature);
 
+
             if ((input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature() - value) <= 0){
                 input.remove(ModDataComponentTypes.TEMPERATURE_DATA);
             } else {
@@ -186,6 +187,7 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
             }
             RegistryWrapper.Impl<ArmorTrimMaterial>  armorTrimMaterialRegistry = entity.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.TRIM_MATERIAL);
             RegistryWrapper.Impl<ArmorTrimPattern>  armorTrimPatternRegistry = entity.getWorld().getRegistryManager().getWrapperOrThrow(RegistryKeys.TRIM_PATTERN);
+
 
             if (input.getDamage() == 0){
                 ItemStack output = match.get(entity.outputIndex).value().craft(new SingleStackRecipeInput(input), entity.world.getRegistryManager());
@@ -209,7 +211,9 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
                                 armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
                     }
                 }
-                output.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature()));
+                if (input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null){
+                    output.set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature()));
+                }
                 entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
                 entity.setStack(0, output);
                 entity.update();
