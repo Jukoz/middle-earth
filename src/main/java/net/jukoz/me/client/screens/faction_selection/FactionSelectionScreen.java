@@ -87,7 +87,7 @@ public class FactionSelectionScreen extends Screen {
 
         // Initialize Buttons
         // Search bar
-        searchBarWidget = new SearchBarWidget(controller.getSearchBarPool(player.getWorld()), controller, 11);
+        searchBarWidget = new SearchBarWidget(controller.getSearchBarPool(player.getWorld()), controller);
         addDrawableChild(searchBarWidget.getSearchBarToggleButton());
         for(ButtonWidget widget : searchBarWidget.getAllButtons())
             addDrawableChild(widget);
@@ -732,5 +732,11 @@ public class FactionSelectionScreen extends Screen {
         mapWidget.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
         searchBarWidget.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
         return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+    }
+
+    @Override
+    public boolean charTyped(char chr, int modifiers) {
+        searchBarWidget.charTyped(chr, modifiers);
+        return super.charTyped(chr, modifiers);
     }
 }
