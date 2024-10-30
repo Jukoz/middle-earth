@@ -193,6 +193,8 @@ public class SearchBarWidget extends ModWidget {
             for (Identifier identifier : pool.keySet()) {
                 if (identifier.toString().replace("_", " ").contains(searchBarInput.toLowerCase())) {
                     results.add(identifier);
+                } else if(pool.get(identifier).getString().contains(searchBarInput.toLowerCase()) || pool.get(identifier).getString().contains(searchBarInput)){
+                    results.add(identifier);
                 }
             }
             // Top
