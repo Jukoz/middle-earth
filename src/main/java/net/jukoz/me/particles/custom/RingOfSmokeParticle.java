@@ -43,7 +43,7 @@ public class RingOfSmokeParticle extends SpriteBillboardParticle {
             setSpriteForAge(spriteProvider);
             float ageRatio = (float)this.age / this.maxAge;
             this.setAlpha(1.0F - ageRatio);
-            this.checkCollisionWithPlayer();
+            //this.checkCollisionWithPlayer();
         }
     }
 
