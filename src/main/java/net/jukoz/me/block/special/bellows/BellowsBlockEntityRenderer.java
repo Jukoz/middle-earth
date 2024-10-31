@@ -22,7 +22,7 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
 
 @Environment(EnvType.CLIENT)
-public class BellowsBlockEntityRenderer<T extends BlockEntity> implements BlockEntityRenderer<T>  {
+public class BellowsBlockEntityRenderer<T extends BellowsBlockEntity> implements BlockEntityRenderer<T>  {
     private final float BELLOW_MAX_ANGLE = 0.72f;
     private final ModelPart bottom;
     private final ModelPart top;
@@ -62,13 +62,12 @@ public class BellowsBlockEntityRenderer<T extends BlockEntity> implements BlockE
     }
 
     @Override
-    public void render(BlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+    public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         World world = entity.getWorld();
         BlockState blockState = world != null ? entity.getCachedState() : ModDecorativeBlocks.BELLOWS.getDefaultState().with(BellowsBlock.FACING, Direction.SOUTH);
         Block block = blockState.getBlock();
 
-        BellowsBlockEntity bellowsBlockEntity = (BellowsBlockEntity) entity;
-        float g = bellowsBlockEntity.animationProgress;
+        float g = ((BellowsBlockEntity) entity).animationProgress;
         if(g > (float) BellowsBlockEntity.MAX_TICKS / 2) g = BellowsBlockEntity.MAX_TICKS - g;
         g /= BellowsBlockEntity.MAX_TICKS;
 
