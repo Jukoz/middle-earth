@@ -12,6 +12,7 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class PipeItem extends Item {
@@ -57,27 +58,35 @@ public class PipeItem extends Item {
         }
     @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        // Reset the smoking state
         // add a particle of smoke traveling away from the player "a final breath" -- froosty
-        if(smoking){
-            world.addParticle(ModParticleTypes.RING_OF_SMOKE,
-                    user.getX() + user.getRotationVec(1.0F).x * 0.5,
-                    user.getY() + user.getEyeHeight(user.getPose()) + user.getRotationVec(1.0F).y * 0.5 + 0.04,
-                    user.getZ() + user.getRotationVec(1.0F).z * 0.5,
-                    user.getRotationVec(1.0F).x * 0.1, user.getRotationVec(1.0F).y * 0.1 + 0.04, user.getRotationVec(1.0F).z * 0.1);
-            ((PlayerEntity)user).getItemCooldownManager().set(this, 20);
+        if(smoking && remainingUseTicks < 50){
+            spawnSmoke(remainingUseTicks, user, world);
         }
 
         this.smoking = false;
 
     }
 
+    public ItemStack finishUsing(ItemStack item, World world, LivingEntity user){
+        spawnSmoke(0, user, world);
+        this.smoking = false;
+        return item;
+    }
+
     @Override
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
         return 100;
     }
-
-
+    public void spawnSmoke(int remainingUseTicks, LivingEntity user, World world){
+        float f = (float) (100 - remainingUseTicks) /500;
+        Vec3d vec = user.getRotationVec(1.0F);
+        world.addParticle(ModParticleTypes.RING_OF_SMOKE,
+                user.getX() + vec.x * 0.5,
+                user.getY() + user.getEyeHeight(user.getPose()) + vec.y * 0.5,
+                user.getZ() + vec.z * 0.5,
+                vec.x * f, vec.y *f, vec.z *f);
+        ((PlayerEntity)user).getItemCooldownManager().set(this, 20);
+    }
     @Override
     public UseAction getUseAction(ItemStack stack) {
         return this.smoking ? UseAction.TOOT_HORN : UseAction.NONE;
