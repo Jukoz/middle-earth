@@ -4,6 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleHandheldItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleItemModel;
+import net.jukoz.me.item.items.PipeItem;
 import net.jukoz.me.item.items.SmithingHammerItem;
 import net.jukoz.me.item.items.weapons.CustomAxeWeaponItem;
 import net.jukoz.me.item.utils.ModItemGroups;
@@ -146,6 +147,11 @@ public class ModToolItems {
     public static final Item MITHRIL_TADPOLE_BUCKET = registerItemGenerated("mithril_tadpole_bucket",
             new EntityBucketItem(EntityType.TADPOLE, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_TADPOLE, new Item.Settings().maxCount(1).fireproof()));
     */
+
+    public static final Item PIPE = registerItemHandheld("pipe", new PipeItem(new Item.Settings().maxCount(1)));
+    public static final Item OLD_PIPE = registerItemHandheld("old_pipe", new PipeItem(new Item.Settings().maxCount(1)));
+    public static final Item FANCY_PIPE = registerItemHandheld("fancy_pipe", new PipeItem(new Item.Settings().maxCount(1)));
+
     private static Item registerItemHandheld(String name, Item item) {
         ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
         SimpleHandheldItemModel.items.add(item);

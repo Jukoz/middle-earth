@@ -657,10 +657,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         //endregion
 
 
-        //region SMOKING-ONLY
-        createSmokingRecipe(exporter, ModResourceItems.PIPEWEED, ModResourceItems.DRIED_PIPEWEED);
-        //endregion
-
         ComplexRecipeJsonBuilder.create(CustomArmorDyeRecipe::new).offerTo(exporter, "custom_armor_dye");
         ComplexRecipeJsonBuilder.create(ArmorHoodRecipe::new).offerTo(exporter, "custom_armor_hood");
         ComplexRecipeJsonBuilder.create(ArmorHoodRemovalRecipe::new).offerTo(exporter, "custom_armor_hood_removal");
