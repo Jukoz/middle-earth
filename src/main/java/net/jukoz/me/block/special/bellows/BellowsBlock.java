@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.special.shapingAnvil.TreatedAnvilBlockEntity;
 import net.jukoz.me.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
+import net.jukoz.me.sound.ModSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -12,6 +13,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
@@ -22,10 +25,14 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 public class BellowsBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
@@ -69,8 +76,10 @@ public class BellowsBlock extends BlockWithEntity {
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         BellowsBlockEntity bellowsBlockEntity = (BellowsBlockEntity) world.getBlockEntity(pos);
+        Direction direction = (Direction)world.getBlockState(pos).get(FACING);
+
         if(bellowsBlockEntity != null) {
-            bellowsBlockEntity.pumpBellows(state, world, pos, bellowsBlockEntity);
+            bellowsBlockEntity.pumpBellows(state, world, pos, bellowsBlockEntity, direction);
             return ActionResult.CONSUME;
         }
         return ActionResult.FAIL;
@@ -79,14 +88,30 @@ public class BellowsBlock extends BlockWithEntity {
     @Override
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         super.onEntityCollision(state, world, pos, entity);
-        if (entity instanceof LivingEntity){
-            BellowsBlockEntity bellowsBlockEntity = (BellowsBlockEntity) world.getBlockEntity(pos);
-            if(bellowsBlockEntity != null) {
-                if(entity.getVelocity().y < -0.1f) {
-                    bellowsBlockEntity.pumpBellows(state, world, pos, bellowsBlockEntity);
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+
+        if (blockEntity instanceof BellowsBlockEntity bellowsBlockEntity && !world.isClient){
+            if (entity instanceof LivingEntity){
+                if (entity.getVelocity().y < -0.1f) {
+                    Direction direction = (Direction)world.getBlockState(pos).get(FACING);
+
+                    bellowsBlockEntity.pumpBellows(state, world, pos, bellowsBlockEntity, direction);
+                    Random random = new Random();
+                    world.playSound((PlayerEntity) null, pos, ModSounds.BELLOWS_PUSH, SoundCategory.BLOCKS, 0.95F + random.nextFloat() * 0.05F, 0.95F + random.nextFloat() * 0.05F);
+                    world.emitGameEvent(entity, GameEvent.BLOCK_CHANGE, pos);
                 }
             }
         }
+
+        Vec3i direction = state.get(BellowsBlock.FACING).getVector();
+        Vec3d center = pos.toCenterPos();
+
+        world.addParticle(ParticleTypes.POOF,
+                center.getX() + direction.getX() * 0.4f,
+                center.getY() - 0.2f,
+                center.getZ() + direction.getZ() * 0.4f,
+                0, 0, 0);
+
     }
     public void onEntityLand(BlockView world, Entity entity) {
         if (entity.bypassesLandingEffects()) {

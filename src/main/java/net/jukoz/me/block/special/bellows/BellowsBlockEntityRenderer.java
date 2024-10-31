@@ -22,7 +22,7 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
 
 @Environment(EnvType.CLIENT)
-public class BellowsBlockEntityRenderer<T extends BellowsBlockEntity> implements BlockEntityRenderer<T>  {
+public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBlockEntity>  {
     private final float BELLOW_MAX_ANGLE = 0.72f;
     private final ModelPart bottom;
     private final ModelPart top;
@@ -62,32 +62,32 @@ public class BellowsBlockEntityRenderer<T extends BellowsBlockEntity> implements
     }
 
     @Override
-    public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+    public void render(BellowsBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         World world = entity.getWorld();
         BlockState blockState = world != null ? entity.getCachedState() : ModDecorativeBlocks.BELLOWS.getDefaultState().with(BellowsBlock.FACING, Direction.SOUTH);
-        Block block = blockState.getBlock();
 
-        float g = entity.animationProgress;
-        if(g > (float) BellowsBlockEntity.MAX_TICKS / 2) g = BellowsBlockEntity.MAX_TICKS - g;
-        g /= BellowsBlockEntity.MAX_TICKS;
+        float g = 0;
+        if (entity.animating){
+            System.out.println("animating");
+            g = entity.animationProgress;
+            if(g > (float) BellowsBlockEntity.MAX_TICKS / 2) g = BellowsBlockEntity.MAX_TICKS - g;
+            g /= BellowsBlockEntity.MAX_TICKS;
+        }
 
         int spriteState = (int) Math.max(0, Math.min(2, g * 7.5f));
         SpriteIdentifier idleBellowsTexture = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
                 Identifier.of(MiddleEarth.MOD_ID, "model/bellows/bellows_" + spriteState));
         VertexConsumer vertexConsumer = idleBellowsTexture.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
 
-        matrices.push();
         float rotation = blockState.get(ChestBlock.FACING).asRotation();
         matrices.translate(0.5D, 1.5D, 0.5D);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation));
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));
 
-        top.pitch = 0.37f + (g * -BELLOW_MAX_ANGLE);
-        top.render(matrices, vertexConsumer, light, overlay);
-        bottom.render(matrices, vertexConsumer, light, overlay);
+        this.top.pitch = 0.37f + (g * -BELLOW_MAX_ANGLE);
+        this.top.render(matrices, vertexConsumer, light, overlay);
+        this.bottom.render(matrices, vertexConsumer, light, overlay);
 
-        cavity.render(matrices, vertexConsumer, light, overlay);
-
-        matrices.pop();
+        this.cavity.render(matrices, vertexConsumer, light, overlay);
     }
 }
