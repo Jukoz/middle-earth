@@ -689,6 +689,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         });
         //endregion
 
+        //region SMOKING-ONLY
+        createSmokingRecipe(exporter, ModResourceItems.PIPEWEED, ModResourceItems.DRIED_PIPEWEED);
+        //endregion
+
         ComplexRecipeJsonBuilder.create(CustomShieldDecorationRecipe::new).offerTo(exporter, "custom_shield_decoration");
     }
 
