@@ -31,6 +31,7 @@ import java.util.List;
 
 public class SearchBarWidget extends ModWidget {
     private static final Identifier SEARCH_WIDGET = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/widget/search_widget.png");
+    private static final List<Integer> KEYS_TO_IGNORE = List.of(260, 262, 264, 263, 265, 266, 267, 268, 269);
     private static final int MINIMAL_MARGIN = 4;
     static final int SEARCH_BAR_PANEL_X = 102;
     static final int SEARCH_BAR_PANEL_Y = 18;
@@ -358,6 +359,8 @@ public class SearchBarWidget extends ModWidget {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if(KEYS_TO_IGNORE.contains(keyCode))
+            return false;
         if (searchBarToggle && searchBarToggleButton.isFocused()) {
             switch (keyCode) {
                 case 257:
@@ -366,11 +369,9 @@ public class SearchBarWidget extends ModWidget {
                 case 259:
                     erase(1);
                     return true;
-                case 260:
-                case 264:
-                case 265:
-                case 266:
-                case 267:
+                case 261:
+                    this.erase();
+                    return true;
                 default:
                     if (Screen.isCopy(keyCode)) {
                         MinecraftClient.getInstance().keyboard.setClipboard(searchBarInput);
@@ -386,13 +387,6 @@ public class SearchBarWidget extends ModWidget {
                         }
                         return false;
                     }
-                case 261:
-                    this.erase();
-                    return true;
-                case 262:
-                case 263:
-                case 268:
-                case 269:
             }
         }
         return false;
