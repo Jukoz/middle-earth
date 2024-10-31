@@ -1,9 +1,14 @@
 package net.jukoz.me.utils.resources;
 
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.resource.language.LanguageManager;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
 import org.joml.Vector2i;
 import org.joml.sampling.Convolution;
 
@@ -93,5 +98,12 @@ public class FileUtils {
         } catch(Exception e){
             LoggerUtil.logError("Image Utils couldn't save image for {0}.".formatted(path + fileName));
         }
+    }
+
+    public static boolean isLanguageFileExist(String languageCode) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        ResourceManager resourceManager = client.getResourceManager();
+        Identifier path = Identifier.of(MiddleEarth.MOD_ID, String.format("lang/%s.json", languageCode));
+        return resourceManager.getResource(path).isPresent();
     }
 }
