@@ -161,8 +161,7 @@ public class FactionSelectionController {
         currentFactionIndex = 0;
         currentSubFactionIndex = 0;
         currentRaceIndex = 0;
-        processSubfaction();
-        processSpawnList(0);
+        processFaction();
     }
 
     private int getDispositionsIndex(Disposition disposition){
@@ -190,8 +189,6 @@ public class FactionSelectionController {
         processSubfaction();
         processSpawnList(0);
         processRace();
-        screen.updateEquipment();
-        screen.reassignTexts(getRaceListText(), getCurrentFactionDescriptions());
     }
     public void subfactionUpdate(boolean add){
         if(add){
