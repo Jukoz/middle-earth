@@ -256,7 +256,7 @@ public class FactionSelectionScreen extends Screen {
     }
 
     public void updateEquipment(){
-        if(player == null) return;
+        if(player == null || controller == null) return;
 
         Faction faction = controller.getCurrentlySelectedFaction();
 
@@ -275,7 +275,8 @@ public class FactionSelectionScreen extends Screen {
 
     @Override
     public void tick() {
-        controller.reduceDelay(1f / 20);
+        if(controller != null)
+            controller.reduceDelay(1f / 20);
         super.tick();
     }
 

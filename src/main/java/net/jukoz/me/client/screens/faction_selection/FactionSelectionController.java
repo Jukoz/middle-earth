@@ -92,6 +92,8 @@ public class FactionSelectionController {
         Faction currentFaction = getCurrentlySelectedFaction();
         if(currentFaction == null) return;
         races = currentFaction.getRaces(player.getWorld());
+        screen.updateEquipment();
+        screen.reassignTexts(getRaceListText(), getCurrentFactionDescriptions());
     }
 
     public void randomizeSpawn(int tentativeLeft) {
@@ -161,7 +163,6 @@ public class FactionSelectionController {
         currentRaceIndex = 0;
         processSubfaction();
         processSpawnList(0);
-        processRace();
     }
 
     private int getDispositionsIndex(Disposition disposition){
