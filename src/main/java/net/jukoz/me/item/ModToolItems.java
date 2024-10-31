@@ -148,9 +148,14 @@ public class ModToolItems {
             new EntityBucketItem(EntityType.TADPOLE, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_TADPOLE, new Item.Settings().maxCount(1).fireproof()));
     */
 
-    public static final Item PIPE = registerItemHandheld("pipe", new PipeItem(new Item.Settings().maxCount(1)));
-    public static final Item OLD_PIPE = registerItemHandheld("old_pipe", new PipeItem(new Item.Settings().maxCount(1)));
-    public static final Item FANCY_PIPE = registerItemHandheld("fancy_pipe", new PipeItem(new Item.Settings().maxCount(1)));
+    public static final Item PIPE = registerItem("pipe", new PipeItem(new Item.Settings().maxCount(1)));
+    public static final Item OLD_PIPE = registerItem("old_pipe", new PipeItem(new Item.Settings().maxCount(1)));
+    public static final Item FANCY_PIPE = registerItem("fancy_pipe", new PipeItem(new Item.Settings().maxCount(1)));
+
+    private static Item registerItem(String name, Item item) {
+        ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
 
     private static Item registerItemHandheld(String name, Item item) {
         ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());

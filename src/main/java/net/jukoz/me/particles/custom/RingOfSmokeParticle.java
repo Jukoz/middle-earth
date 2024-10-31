@@ -23,12 +23,10 @@ public class RingOfSmokeParticle extends SpriteBillboardParticle {
         this.spriteProvider = spriteProvider;
         this.strength =  (Math.abs(vel_x) + Math.abs(vel_y) + Math.abs(vel_z));
 
-
-        // using constructor velocity seems to be scuffing everyhting so im setting it manually after lots of debugging
         this.velocityX = vel_x;
         this.velocityY = vel_y;
         this.velocityZ = vel_z;
-        //fix for 1st frame bug
+
         setSprite(spriteProvider.getSprite(0, this.maxAge));
 
         this.maxAge = (int)((600) * this.strength);
@@ -47,7 +45,6 @@ public class RingOfSmokeParticle extends SpriteBillboardParticle {
         }
     }
 
-
     private void checkCollisionWithPlayer() {
         Box particleBox = this.getBoundingBox();
         for (PlayerEntity player : this.world.getPlayers()) {
@@ -59,33 +56,18 @@ public class RingOfSmokeParticle extends SpriteBillboardParticle {
 
     private void onCollisionWithPlayer(PlayerEntity player) {
         // Handle collision logic here
-        LoggerUtil.logDebugMsg("Collision detected with player: " + player.getName().getString());
+        //LoggerUtil.logDebugMsg("Collision detected with player: " + player.getName().getString());
     }
 
-
-    /**
-     * Returns the particle texture sheet type.
-     *
-     * @return The particle texture sheet type.
-     */
     public ParticleTextureSheet getType() {
         return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
     }
 
-    /**
-     * Returns the size of the particle.
-     *
-     * @param tickDelta The tick delta. ?? --- froosty
-     * @return The size of the particle.
-     */
     public float getSize(float tickDelta) {
         this.scale = (float) this.age/this.maxAge + 0.3F;
         return Math.min(this.scale, 0.8F);
     }
 
-    /**
-     * Factory class for creating RingOfSmokeParticle instances.
-     */
     @Environment(EnvType.CLIENT)
     public static class Factory implements ParticleFactory<SimpleParticleType> {
         private final SpriteProvider spriteProvider;
@@ -115,7 +97,5 @@ public class RingOfSmokeParticle extends SpriteBillboardParticle {
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientWorld clientWorld, double x, double y, double z, double vel_x, double vel_y, double vel_z) {
             return new RingOfSmokeParticle(clientWorld, x, y, z, vel_x, vel_y, vel_z, spriteProvider);
         }
-
-
     }
 }

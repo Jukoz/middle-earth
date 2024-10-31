@@ -16,6 +16,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class PipeItem extends Item {
+    private final int USAGE_TIME = 60;
     private boolean smoking;
 
     public PipeItem(Item.Settings settings) {
@@ -27,13 +28,12 @@ public class PipeItem extends Item {
         ItemStack itemStack = user.getStackInHand(hand);
         user.setCurrentHand(hand);
         ItemStack driedPipeweedStack = user.getInventory().main.stream()
-        .filter(stack -> stack.getItem() == ModResourceItems.DRIED_PIPEWEED)
-        .findFirst()
-        .orElse(ItemStack.EMPTY);
+            .filter(stack -> stack.getItem() == ModResourceItems.DRIED_PIPEWEED)
+            .findFirst()
+            .orElse(ItemStack.EMPTY);
 
         if(driedPipeweedStack.isEmpty() && !user.isCreative()) return TypedActionResult.fail(itemStack);
 
-        // Set the smoking state
         this.smoking = true;
 
         user.incrementStat(Stats.USED.getOrCreateStat(this)); // assuming this is just for stats so why not lol
@@ -43,27 +43,12 @@ public class PipeItem extends Item {
     }
 
     @Override
-    public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
-
-        if(smoking){
-            /*if(remainingUseTicks % 5 == 0)
-                world.addParticle(ParticleTypes.SMOKE,
-                        user.getX() + user.getRotationVec(1.0F).x * 0.5,
-                        user.getY() + user.getEyeHeight(user.getPose()) + user.getRotationVec(1.0F).y * 0.5 + 0.04,
-                        user.getZ() + user.getRotationVec(1.0F).z * 0.5,
-                        0, 0.02, 0);*/
-        }
-
-        }
-    @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         // add a particle of smoke traveling away from the player "a final breath" -- froosty
-        if(smoking && remainingUseTicks < 50){
+        if(smoking && remainingUseTicks < USAGE_TIME / 2){
             spawnSmoke(remainingUseTicks, user, world);
         }
-
         this.smoking = false;
-
     }
 
     public ItemStack finishUsing(ItemStack item, World world, LivingEntity user){
@@ -74,10 +59,11 @@ public class PipeItem extends Item {
 
     @Override
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
-        return 100;
+        return USAGE_TIME;
     }
+
     public void spawnSmoke(int remainingUseTicks, LivingEntity user, World world){
-        float f = (float) (100 - remainingUseTicks) /500;
+        float f = (float) (USAGE_TIME - remainingUseTicks) / 500;
         Vec3d vec = user.getRotationVec(1.0F);
         world.addParticle(ModParticleTypes.RING_OF_SMOKE,
                 user.getX() + vec.x * 0.5,
@@ -91,10 +77,6 @@ public class PipeItem extends Item {
         return this.smoking ? UseAction.TOOT_HORN : UseAction.NONE;
     }
 
-
-    /**
-     * @return true if the pipe is currently smoking
-     */
     public boolean isSmoking() {
         return this.smoking;
     }
