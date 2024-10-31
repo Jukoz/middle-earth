@@ -2,6 +2,8 @@ package net.jukoz.me.block.special.bellows;
 
 import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.ModBlockEntities;
+import net.jukoz.me.block.special.shapingAnvil.TreatedAnvilBlockEntity;
+import net.jukoz.me.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -44,14 +46,15 @@ public class BellowsBlock extends BlockWithEntity {
     }
 
     @Nullable
+    @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        if (world.isClient) {
-            return validateTicker(type, ModBlockEntities.BELLOWS, BellowsBlockEntity::tick);
-        } else {
-            return validateTicker(type, ModBlockEntities.BELLOWS, BellowsBlockEntity::tick);
-        }
+        return BellowsBlock.validateTicker(world, type, ModBlockEntities.BELLOWS);
     }
 
+    @Nullable
+    protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<BellowsBlockEntity> expectedType) {
+        return world.isClient ? null : BellowsBlock.validateTicker(givenType, expectedType, BellowsBlockEntity::tick);
+    }
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
@@ -67,7 +70,7 @@ public class BellowsBlock extends BlockWithEntity {
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         BellowsBlockEntity bellowsBlockEntity = (BellowsBlockEntity) world.getBlockEntity(pos);
         if(bellowsBlockEntity != null) {
-            bellowsBlockEntity.pumpBellows(state, world, pos);
+            bellowsBlockEntity.pumpBellows(state, world, pos, bellowsBlockEntity);
             return ActionResult.CONSUME;
         }
         return ActionResult.FAIL;
@@ -76,10 +79,12 @@ public class BellowsBlock extends BlockWithEntity {
     @Override
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         super.onEntityCollision(state, world, pos, entity);
-        BellowsBlockEntity bellowsBlockEntity = (BellowsBlockEntity) world.getBlockEntity(pos);
-        if(bellowsBlockEntity != null) {
-            if(entity.getVelocity().y < -0.1f) {
-                bellowsBlockEntity.pumpBellows(state, world, pos);
+        if (entity instanceof LivingEntity){
+            BellowsBlockEntity bellowsBlockEntity = (BellowsBlockEntity) world.getBlockEntity(pos);
+            if(bellowsBlockEntity != null) {
+                if(entity.getVelocity().y < -0.1f) {
+                    bellowsBlockEntity.pumpBellows(state, world, pos, bellowsBlockEntity);
+                }
             }
         }
     }

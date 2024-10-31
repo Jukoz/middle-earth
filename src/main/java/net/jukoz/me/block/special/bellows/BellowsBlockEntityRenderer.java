@@ -67,7 +67,7 @@ public class BellowsBlockEntityRenderer<T extends BellowsBlockEntity> implements
         BlockState blockState = world != null ? entity.getCachedState() : ModDecorativeBlocks.BELLOWS.getDefaultState().with(BellowsBlock.FACING, Direction.SOUTH);
         Block block = blockState.getBlock();
 
-        float g = ((BellowsBlockEntity) entity).animationProgress;
+        float g = entity.animationProgress;
         if(g > (float) BellowsBlockEntity.MAX_TICKS / 2) g = BellowsBlockEntity.MAX_TICKS - g;
         g /= BellowsBlockEntity.MAX_TICKS;
 

@@ -4,6 +4,7 @@ import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.sound.ModSounds;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -44,23 +45,25 @@ public class BellowsBlockEntity extends BlockEntity {
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        nbt.putInt(ID + ".animation", animationProgress);
+        nbt.putInt(ID + ".animation", this.animationProgress);
+        nbt.putBoolean(ID + ".animating", this.animating);
     }
 
     @Override
     public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
-        animationProgress = nbt.getInt(ID + ".animation");
+        this.animationProgress = nbt.getInt(ID + ".animation");
+        this.animating = nbt.getBoolean(ID + ".animating");
     }
 
-    public void pumpBellows(BlockState state, World world, BlockPos pos) {
-        if(animationProgress == 0) {
-            animating = true;
+    public void pumpBellows(BlockState state, World world, BlockPos pos, BellowsBlockEntity bellowsBlockEntity) {
+        if(bellowsBlockEntity.animationProgress == 0) {
+            bellowsBlockEntity.animating = true;
             Vec3i direction = state.get(BellowsBlock.FACING).getVector();
             Vec3d center = pos.toCenterPos();
 
             Random random = new Random();
-            world.playSound(pos.getX(), pos.getY(), pos.getZ(), ModSounds.BELLOWS_PUSH, SoundCategory.BLOCKS, 0.95F + random.nextFloat() * 0.05F, 0.95F + random.nextFloat() * 0.05F, true);
+            world.playSound(null, pos, ModSounds.BELLOWS_PUSH, SoundCategory.BLOCKS, 0.95F + random.nextFloat() * 0.05F, 0.95F + random.nextFloat() * 0.05F);
             BlockPos forgePos = pos.offset(state.get(BellowsBlock.FACING));
             if(world.getBlockState(forgePos).getBlock() == ModDecorativeBlocks.FORGE) {
                 ForgeBlockEntity forgeBlockEntity = (ForgeBlockEntity) world.getBlockEntity(forgePos);
@@ -74,15 +77,23 @@ public class BellowsBlockEntity extends BlockEntity {
                     center.getY() - 0.2f,
                     center.getZ() + direction.getZ() * 0.4f,
                     0, 0, 0);
+            System.out.println("pumped");
         }
+    }
+
+    public void update() {
+        markDirty();
+        world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
     }
 
     public static void tick(World world, BlockPos blockPos, BlockState blockState, BellowsBlockEntity entity) {
         if(entity.animating) {
             entity.animationProgress++;
+            entity.update();
             if(entity.animationProgress > MAX_TICKS) {
                 entity.animationProgress = 0;
                 entity.animating = false;
+                entity.update();
             }
         }
     }
