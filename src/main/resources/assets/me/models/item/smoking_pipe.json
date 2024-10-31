@@ -41,13 +41,13 @@
 			"rotation": [0, -30, 0]
 		},
 		"firstperson_righthand": {
-			"rotation": [12, 9, 0],
-			"translation": [2, 2, 0],
+			"rotation": [5, -6, 0],
+			"translation": [1, -2, -8],
 			"scale": [1, 1, 1]
 		},
 		"firstperson_lefthand": {
-			"rotation": [12, 9, 0],
-			"translation": [2, 2, 0],
+			"rotation": [5, -6, 0],
+			"translation": [1, -2, -8],
 			"scale": [1, 1, 1]
 		},
 		"ground": {

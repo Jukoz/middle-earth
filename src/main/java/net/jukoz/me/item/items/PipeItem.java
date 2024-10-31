@@ -46,14 +46,13 @@ public class PipeItem extends Item {
     public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
 
         if(smoking){
-            if(remainingUseTicks % 5 == 0)
+            /*if(remainingUseTicks % 5 == 0)
                 world.addParticle(ParticleTypes.SMOKE,
                         user.getX() + user.getRotationVec(1.0F).x * 0.5,
                         user.getY() + user.getEyeHeight(user.getPose()) + user.getRotationVec(1.0F).y * 0.5 + 0.04,
                         user.getZ() + user.getRotationVec(1.0F).z * 0.5,
-                        0, 0.02, 0);
+                        0, 0.02, 0);*/
         }
-        //spawn some smoke particles for now :)
 
         }
     @Override
