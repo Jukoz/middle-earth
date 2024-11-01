@@ -85,7 +85,7 @@ public class BellowsBlock extends BlockWithEntity {
     @Override
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if(!world.isClient){
-            if (entity.getVelocity().y < -0.1f) {
+            if (entity.getVelocity().y < -0.1f && entity instanceof LivingEntity) {
                 this.pump(world, pos, state, entity);
             }
         }
