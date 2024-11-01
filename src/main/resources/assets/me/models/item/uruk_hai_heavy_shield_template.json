@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
+	"gui_light": "front",
 	"textures": {
 		"1": "me:item/uruk_hai_white_palmprint_shield"
 	},
@@ -237,9 +238,8 @@
 			"scale": [0.25, 0.25, 0.25]
 		},
 		"gui": {
-			"rotation": [-165.64, 50.76, -175.87],
-			"translation": [0, 0.75, 0],
-			"scale": [0.55117, 0.55117, 0.55117]
+			"rotation": [-166.28, 34.83, -175.66],
+			"scale": [0.47109, 0.47109, 0.47109]
 		},
 		"fixed": {
 			"translation": [0, 0, -1.75],

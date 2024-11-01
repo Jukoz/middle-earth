@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
+	"gui_light": "front",
 	"textures": {
 		"0": "me:item/uruk_hai_siege_shield"
 	},
@@ -352,8 +353,8 @@
 			"scale": [0.25, 0.25, 0.25]
 		},
 		"gui": {
-			"rotation": [-165.64, 50.76, -175.87],
-			"scale": [0.4125, 0.4125, 0.4125]
+			"rotation": [-166.28, 34.83, -175.66],
+			"scale": [0.42422, 0.42422, 0.42422]
 		},
 		"fixed": {
 			"translation": [0, -5, -1.75],
