@@ -6,6 +6,7 @@ import net.jukoz.me.block.special.shapingAnvil.TreatedAnvilBlockEntity;
 import net.jukoz.me.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
 import net.jukoz.me.sound.ModSounds;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BellBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -15,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
@@ -60,7 +62,9 @@ public class BellowsBlock extends BlockWithEntity {
 
     @Nullable
     protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<BellowsBlockEntity> expectedType) {
-        return world.isClient ? null : BellowsBlock.validateTicker(givenType, expectedType, BellowsBlockEntity::tick);
+        return world.isClient
+                ? BellowsBlock.validateTicker(givenType, expectedType, BellowsBlockEntity::clientTick)
+                : BellowsBlock.validateTicker(givenType, expectedType, BellowsBlockEntity::serverTick);
     }
 
     @Override
@@ -75,43 +79,17 @@ public class BellowsBlock extends BlockWithEntity {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        BellowsBlockEntity bellowsBlockEntity = (BellowsBlockEntity) world.getBlockEntity(pos);
-        Direction direction = (Direction)world.getBlockState(pos).get(FACING);
-
-        if(bellowsBlockEntity != null) {
-            bellowsBlockEntity.pumpBellows(state, world, pos, bellowsBlockEntity, direction);
-            return ActionResult.CONSUME;
-        }
-        return ActionResult.FAIL;
+        return this.pump(world, pos, state, player) ? ActionResult.success(world.isClient) : ActionResult.CONSUME;
     }
 
     @Override
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        super.onEntityCollision(state, world, pos, entity);
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-
-        if (blockEntity instanceof BellowsBlockEntity bellowsBlockEntity && !world.isClient){
-            if (entity instanceof LivingEntity){
-                if (entity.getVelocity().y < -0.1f) {
-                    Direction direction = (Direction)world.getBlockState(pos).get(FACING);
-
-                    bellowsBlockEntity.pumpBellows(state, world, pos, bellowsBlockEntity, direction);
-                    Random random = new Random();
-                    world.playSound((PlayerEntity) null, pos, ModSounds.BELLOWS_PUSH, SoundCategory.BLOCKS, 0.95F + random.nextFloat() * 0.05F, 0.95F + random.nextFloat() * 0.05F);
-                    world.emitGameEvent(entity, GameEvent.BLOCK_CHANGE, pos);
-                }
+        if(!world.isClient){
+            if (entity.getVelocity().y < -0.1f) {
+                this.pump(world, pos, state, entity);
             }
         }
-
-        Vec3i direction = state.get(BellowsBlock.FACING).getVector();
-        Vec3d center = pos.toCenterPos();
-
-        world.addParticle(ParticleTypes.POOF,
-                center.getX() + direction.getX() * 0.4f,
-                center.getY() - 0.2f,
-                center.getZ() + direction.getZ() * 0.4f,
-                0, 0, 0);
-
+        super.onEntityCollision(state, world, pos, entity);
     }
     public void onEntityLand(BlockView world, Entity entity) {
         if (entity.bypassesLandingEffects()) {
@@ -127,6 +105,17 @@ public class BellowsBlock extends BlockWithEntity {
             double d = entity instanceof LivingEntity ? 1.0 : 0.8;
             entity.setVelocity(vec3d.x, -vec3d.y * 0.6 * d, vec3d.z);
         }
+    }
+
+
+    public boolean pump(World world, BlockPos pos, BlockState state, Entity entity) {
+        if (world.isClient) return false;
+
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if(blockEntity instanceof BellowsBlockEntity bellowsBlockEntity){
+            return bellowsBlockEntity.tryPumpingBellow(state, world, pos, bellowsBlockEntity, world.getBlockState(pos).get(FACING), entity);
+        }
+        return false;
     }
 
     @Override

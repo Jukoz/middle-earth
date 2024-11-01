@@ -6,7 +6,6 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -62,32 +61,40 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
     }
 
     @Override
-    public void render(BellowsBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        World world = entity.getWorld();
-        BlockState blockState = world != null ? entity.getCachedState() : ModDecorativeBlocks.BELLOWS.getDefaultState().with(BellowsBlock.FACING, Direction.SOUTH);
+    public void render(BellowsBlockEntity bellowsBlockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        World world = bellowsBlockEntity.getWorld();
+        BlockState blockState = world != null
+                ? bellowsBlockEntity.getCachedState()
+                : ModDecorativeBlocks.BELLOWS.getDefaultState().with(BellowsBlock.FACING, Direction.SOUTH);
 
-        float g = 0;
-        if (entity.animating){
-            System.out.println("animating");
-            g = entity.animationProgress;
-            if(g > (float) BellowsBlockEntity.MAX_TICKS / 2) g = BellowsBlockEntity.MAX_TICKS - g;
-            g /= BellowsBlockEntity.MAX_TICKS;
-        }
-
-        int spriteState = (int) Math.max(0, Math.min(2, g * 7.5f));
-        SpriteIdentifier idleBellowsTexture = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
-                Identifier.of(MiddleEarth.MOD_ID, "model/bellows/bellows_" + spriteState));
-        VertexConsumer vertexConsumer = idleBellowsTexture.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
+        float animationProgress = getAnimationProgress(bellowsBlockEntity);
 
         float rotation = blockState.get(ChestBlock.FACING).asRotation();
         matrices.translate(0.5D, 1.5D, 0.5D);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation));
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));
 
-        this.top.pitch = 0.37f + (g * -BELLOW_MAX_ANGLE);
+        VertexConsumer vertexConsumer = getSpriteIdentifier(animationProgress).getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
+
+        this.top.pitch = 0.37f + (animationProgress * -BELLOW_MAX_ANGLE);
         this.top.render(matrices, vertexConsumer, light, overlay);
         this.bottom.render(matrices, vertexConsumer, light, overlay);
-
         this.cavity.render(matrices, vertexConsumer, light, overlay);
+    }
+
+    private float getAnimationProgress(BellowsBlockEntity bellowsBlockEntity){
+        float animationProgress = 0;
+        if (bellowsBlockEntity.pumping){
+            animationProgress = bellowsBlockEntity.animationProgress;
+            if(animationProgress > (float) BellowsBlockEntity.MAX_TICKS / 2) animationProgress = BellowsBlockEntity.MAX_TICKS - animationProgress;
+            animationProgress /= BellowsBlockEntity.MAX_TICKS;
+        }
+        return animationProgress;
+    }
+
+    private SpriteIdentifier getSpriteIdentifier(float animationProgress){
+        int spriteState = (int) Math.max(0, Math.min(2, animationProgress * 7.5f));
+        return new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
+                Identifier.of(MiddleEarth.MOD_ID, "model/bellows/bellows_" + spriteState));
     }
 }

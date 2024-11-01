@@ -4,37 +4,42 @@ import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.special.forge.ForgeBlockEntity;
 import net.jukoz.me.sound.ModSounds;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
 public class BellowsBlockEntity extends BlockEntity {
     public static final int MAX_TICKS = 30;
+    public static final int AVERAGE_PARTICLES = 3;
+    public static final int PARTICLE_AMOUNT_MODIFIER = 2;
+
+    public static Random RANDOM;
+
     public int animationProgress;
-    public boolean animating;
     private static final String ID = "bellows";
+    public boolean pumping;
 
     //TODO Sync client/server animation + sound
 
     public BellowsBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.BELLOWS, pos, state);
+        if(RANDOM == null)
+            RANDOM = new Random();
     }
 
     @Nullable
@@ -43,43 +48,82 @@ public class BellowsBlockEntity extends BlockEntity {
         return BlockEntityUpdateS2CPacket.create(this);
     }
 
-    public void pumpBellows(BlockState state, World world, BlockPos pos, BellowsBlockEntity blockEntity, Direction direction) {
+    public boolean tryPumpingBellow(BlockState state, World world, BlockPos pos, BellowsBlockEntity blockEntity, Direction direction, Entity entity) {
         if(blockEntity.animationProgress == 0) {
-            blockEntity.animating = true;
             if (!world.isClient){
-                BlockPos forgePos = pos.offset(state.get(BellowsBlock.FACING));
-                if(world.getBlockState(forgePos).getBlock() == ModDecorativeBlocks.FORGE) {
-                    ForgeBlockEntity forgeBlockEntity = (ForgeBlockEntity) world.getBlockEntity(forgePos);
-                    if(forgeBlockEntity != null) {
-                        forgeBlockEntity.bellowsBoost();
+                if(blockEntity.activate(direction)){
+                    BlockPos forgePos = pos.offset(state.get(BellowsBlock.FACING));
+                    if(world.getBlockState(forgePos).getBlock() == ModDecorativeBlocks.FORGE) {
+                        ForgeBlockEntity forgeBlockEntity = (ForgeBlockEntity) world.getBlockEntity(forgePos);
+                        if(forgeBlockEntity != null) {
+                            forgeBlockEntity.bellowsBoost();
+                        }
                     }
+                    world.playSound((PlayerEntity)null,  pos, ModSounds.BELLOWS_PUSH, SoundCategory.BLOCKS, 2.0F, 1.0F);
+                    world.emitGameEvent(entity, GameEvent.BLOCK_CHANGE, pos);
+                    return true;
                 }
-
-                System.out.println("pumped");
-                this.world.addSyncedBlockEvent(pos, this.getCachedState().getBlock(), 1, direction.getId());
             }
         }
+        return false;
+    }
+
+    public boolean activate(Direction direction) {
+        if (!this.pumping) {
+            this.pumping = true;
+            this.animationProgress = 0;
+            if(this.world != null){
+                BlockPos blockPos = this.getPos();
+                this.world.addSyncedBlockEvent(blockPos, this.getCachedState().getBlock(), 1, direction.getId());
+            }
+            return true;
+        }
+
+        return false;
     }
 
     @Override
     public boolean onSyncedBlockEvent(int type, int data) {
         if (type == 1) {
+            this.pumping = true;
             this.animationProgress = 0;
-            this.animating = true;
             return true;
         } else {
             return super.onSyncedBlockEvent(type, data);
         }
     }
 
-    public static void tick(World world, BlockPos blockPos, BlockState blockState, BellowsBlockEntity entity) {
-        if(entity.animating) {
-            ++entity.animationProgress;
+    private static void tick(BellowsBlockEntity blockEntity) {
+        if(blockEntity.pumping) {
+            ++blockEntity.animationProgress;
+            if(blockEntity.animationProgress > MAX_TICKS) {
+                blockEntity.pumping = false;
+                blockEntity.animationProgress = 0;
+            }
+        }
+    }
+
+    public static void clientTick(World world, BlockPos pos, BlockState state, BellowsBlockEntity blockEntity) {
+        // Only occurs if it's the initial tick
+        if(blockEntity.pumping && blockEntity.animationProgress == 0)
+        {
+            Vec3i directionVec = state.get(BellowsBlock.FACING).getVector();
+            Vec3d center = pos.toCenterPos();
+
+            int particleAmount = RANDOM.nextInt(AVERAGE_PARTICLES - PARTICLE_AMOUNT_MODIFIER, AVERAGE_PARTICLES + PARTICLE_AMOUNT_MODIFIER);
+            for(int i = 0; i < particleAmount; i++){
+                world.addParticle(ParticleTypes.POOF,
+                        center.getX() + directionVec.getX() * 0.4f,
+                        center.getY() - 0.2f,
+                        center.getZ() + directionVec.getZ() * 0.4f,
+                        0, 0, 0);
+            }
         }
 
-        if(entity.animationProgress > MAX_TICKS) {
-            entity.animating = false;
-            entity.animationProgress = 0;
-        }
+        tick(blockEntity);
+    }
+
+    public static void serverTick(World world, BlockPos pos, BlockState state, BellowsBlockEntity blockEntity) {
+        tick(blockEntity);
     }
 }
