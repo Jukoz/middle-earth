@@ -33,7 +33,7 @@ public class ArtefactCustomGlowingLongswordWeaponItem extends CustomLongswordWea
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
 
     public boolean glowing;
-    private int counter = 0;
+    public int counter = 0;
 
     public ArtefactCustomGlowingLongswordWeaponItem(ToolMaterial toolMaterial) {
         super(toolMaterial);
@@ -49,18 +49,18 @@ public class ArtefactCustomGlowingLongswordWeaponItem extends CustomLongswordWea
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if (counter == 100){
-            this.glowing = !world.getEntitiesByClass(OrcNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty()
-                    || !world.getEntitiesByClass(UrukNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty();
-            counter = 0;
-        } else {
-            counter++;
-        }
+        ArtefactCustomGlowingLongswordWeaponItem item = (ArtefactCustomGlowingLongswordWeaponItem) stack.getItem();
+        item.glowing = !world.getEntitiesByClass(OrcNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty()
+                || !world.getEntitiesByClass(UrukNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty();
     }
 
-    public static boolean isGlowing(ItemStack stack){
-        ArtefactCustomGlowingLongswordWeaponItem item = (ArtefactCustomGlowingLongswordWeaponItem) stack.getItem();
-        return item.glowing;
+    public static boolean isGlowing(World world, Entity entity){
+        boolean glowing = false;
+        if (entity != null){
+            glowing = !world.getEntitiesByClass(OrcNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty()
+                    || !world.getEntitiesByClass(UrukNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty();
+        }
+        return glowing;
     }
 
     @Override
@@ -94,7 +94,7 @@ public class ArtefactCustomGlowingLongswordWeaponItem extends CustomLongswordWea
     public boolean isItemBarVisible(ItemStack stack) {
         if(stack.getDamage() == stack.getMaxDamage() - 1) {
             return false;
-        } else if( stack.getDamage() >= 1) {
+        } else if(stack.getDamage() >= 1) {
             return true;
         } else {
             return false;

@@ -49,18 +49,18 @@ public class ArtefactCustomGlowingDaggerWeaponItem extends CustomDaggerWeaponIte
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if (counter == 100){
-            this.glowing = !world.getEntitiesByClass(OrcNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty()
-                    || !world.getEntitiesByClass(UrukNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty();
-            counter = 0;
-        } else {
-            counter++;
-        }
+        ArtefactCustomGlowingDaggerWeaponItem item = (ArtefactCustomGlowingDaggerWeaponItem) stack.getItem();
+        item.glowing = !world.getEntitiesByClass(OrcNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty()
+                || !world.getEntitiesByClass(UrukNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty();
     }
 
-    public static boolean isGlowing(ItemStack stack){
-        ArtefactCustomGlowingDaggerWeaponItem item = (ArtefactCustomGlowingDaggerWeaponItem) stack.getItem();
-        return item.glowing;
+    public static boolean isGlowing(World world, Entity entity){
+        boolean glowing = false;
+        if (entity != null){
+            glowing = !world.getEntitiesByClass(OrcNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty()
+                    || !world.getEntitiesByClass(UrukNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty();
+        }
+        return glowing;
     }
 
     @Override
