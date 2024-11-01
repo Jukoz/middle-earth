@@ -264,9 +264,9 @@ public class ModWeaponItems {
     public static final Item MORDOR_ELITE_AXE = registerItemWithModel("mordor_elite_axe",
             new CustomAxeWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModFactions.MORDOR), true);
     public static final Item MORDOR_SPEAR = registerItemWithSpearModel("mordor_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL, ModFactions.ISENGARD));
+            new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL, ModFactions.MORDOR));
     public static final Item MORDOR_ELITE_SPEAR = registerItemWithSpearModel("mordor_elite_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModFactions.ISENGARD));
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModFactions.MORDOR));
 
     public static final Item BLACK_NUMENOREAN_SWORD = registerItemWithModel("black_numenorean_sword",
             new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR), true);
@@ -276,6 +276,8 @@ public class ModWeaponItems {
             new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR), false);
     public static final Item BLACK_NUMENOREAN_AXE = registerItemWithModel("black_numenorean_axe",
             new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR), true);
+    public static final Item BLACK_NUMENOREAN_SPEAR = registerItemWithSpearModel("black_numenorean_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR));
     //endregion
 
     //region ISENGARD
