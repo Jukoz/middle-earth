@@ -2,7 +2,7 @@ package net.jukoz.me.world.chunkgen;
 
 import net.jukoz.me.block.StoneBlockSets;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
-import net.jukoz.me.world.biomes.surface.MEBiome;
+import net.jukoz.me.world.biomes.surface.CustomBiomeHeightData;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -12,8 +12,8 @@ import net.minecraft.world.chunk.Chunk;
 public class ProceduralStructures {
     public static final int mapMultiplier = (int) Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION + MiddleEarthMapConfigs.PIXEL_WEIGHT - 2);
 
-    public static void generateStructures(MEBiome meBiome, Chunk chunk, int x, int y, int z) {
-        if(meBiome.biome == MEBiomeKeys.NAN_CURUNIR || meBiome.biome == MEBiomeKeys.ISENGARD  || meBiome.biome == MEBiomeKeys.ISENGARD_HILL) {
+    public static void generateStructures(CustomBiomeHeightData biome, Chunk chunk, int x, int y, int z) {
+        if(biome.getBiomeKey() == MEBiomeKeys.NAN_CURUNIR || biome.getBiomeKey() == MEBiomeKeys.ISENGARD  || biome.getBiomeKey() == MEBiomeKeys.ISENGARD_HILL) {
             generateIsengard(chunk, x, y, z);
         }
     }

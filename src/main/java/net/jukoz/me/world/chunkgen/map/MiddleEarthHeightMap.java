@@ -49,10 +49,10 @@ public class MiddleEarthHeightMap {
             float height = color.getRed();
 
             if(blue > 0) { // Water carver
-                MEBiome meBiome = middleEarthMapRuntime.getBiome(xWorld, zWorld);
+                CustomBiomeHeightData meBiome = middleEarthMapRuntime.getBiome(xWorld, zWorld);
                 float percentage = (WATER_MAX - blue) / WATER_MAX;
                 percentage = Math.max(0, Math.min(1, percentage));
-                float waterDifference = (float) (meBiome.waterHeight - MEBiome.DEFAULT_WATER_HEIGHT);
+                float waterDifference = (float) (meBiome.getWaterHeight() - CustomBiomeHeightData.DEFAULT_WATER_HEIGHT);
                 height -= waterDifference;
                 height *= percentage;
                 height += waterDifference;
@@ -60,7 +60,7 @@ public class MiddleEarthHeightMap {
             }
             return height;
         }
-        return MEBiomesData.defaultBiome.height * 2.0f;
+        return MEBiomesData.defaultBiome.getHeight() * 2.0f;
     }
 
     public static float getImageNoiseModifier(int xWorld, int zWorld) {
@@ -163,7 +163,7 @@ public class MiddleEarthHeightMap {
         for(int i = -SMOOTH_BRUSH_SIZE; i <= SMOOTH_BRUSH_SIZE; i++) {
             for(int j = -SMOOTH_BRUSH_SIZE; j <= SMOOTH_BRUSH_SIZE; j++) {
                 if(!MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(x + i, z + j))
-                    total += MEBiomesData.defaultBiome.height;
+                    total += MEBiomesData.defaultBiome.getHeight();
                 else
                     total += getImageHeight(x, z);
             }

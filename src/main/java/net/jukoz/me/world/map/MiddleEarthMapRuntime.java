@@ -2,7 +2,7 @@ package net.jukoz.me.world.map;
 
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.resources.FileUtils;
-import net.jukoz.me.world.biomes.surface.MEBiome;
+import net.jukoz.me.world.biomes.surface.CustomBiomeHeightData;
 import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.joml.Vector2i;
@@ -44,7 +44,7 @@ public class MiddleEarthMapRuntime {
         middleEarthMapUtils = MiddleEarthMapUtils.getInstance();
     }
 
-    public MEBiome getBiome(int posX, int posZ) {
+    public CustomBiomeHeightData getBiome(int posX, int posZ) {
         if(!middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) return MEBiomesData.defaultBiome;
 
         MiddleEarthMapRegion region = getRegionToUse(middleEarthMapUtils.getRegionByWorldCoordinate(posX, posZ));

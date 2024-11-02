@@ -293,37 +293,37 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             for(int z = 0; z < 16; z++) {
                 int posX = (chunk.getPos().x * 16) + x;
                 int posZ = (chunk.getPos().z * 16) + z;
-                MEBiome meBiome = null;
+                 CustomBiomeHeightData customHeightBiomeHeightData = null;
                 if(middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) {
                     RegistryEntry<Biome> biome = region.getBiome(new BlockPos(posX, chunk.getTopY(), posZ));
-                    meBiome = MEBiomesData.getBiomeByKey(biome);
-                    if(meBiome == null) {
-                        meBiome = MEBiomesData.defaultBiome;
+                    customHeightBiomeHeightData = MEBiomesData.getBiomeByKey(biome);
+                    if(customHeightBiomeHeightData == null) {
+                        customHeightBiomeHeightData = MEBiomesData.defaultBiome;
                     }
                 } else {
-                    meBiome = MEBiomesData.defaultBiome;
+                    customHeightBiomeHeightData = MEBiomesData.defaultBiome;
                 }
 
                 float height = MiddleEarthHeightMap.getHeight(posX, posZ);
 
                 float caveBlendNoise = (float) ((2 * CAVE_NOISE * BlendedNoise.noise((double) posX / 24,  (double) posZ / 24)) - CAVE_NOISE);
                 float slopeAngle = getTerrainSlope(height, posX, posZ);
-                int waterHeight = meBiome.waterHeight;
+                int waterHeight = customHeightBiomeHeightData.getWaterHeight();
 
-                if(SubBiomes.isSubBiome(meBiome.biome)) {
-                    SubBiome subBiome = SubBiomes.getSubBiomeFromChild(meBiome.biome);
+                if(SubBiomes.isSubBiome(customHeightBiomeHeightData.getBiomeKey())) {
+                    SubBiome subBiome = SubBiomes.getSubBiomeFromChild(customHeightBiomeHeightData.getBiomeKey());
                     if(subBiome != null) {
                         double perlin = ModBiomeSource.getSubBiomeNoise(posX, posZ);
                         double additionalHeight = Math.max(subBiome.getAdditionalHeight((float) perlin) - 1, 0);
                         additionalHeight *= MiddleEarthMapRuntime.getInstance().getEdge(posX, posZ);
                         height += (float) additionalHeight;
                     }
-                } else if(meBiome.biome == MEBiomeKeys.MOUNT_DOOM) {
+                } else if(customHeightBiomeHeightData.getBiomeKey() == MEBiomeKeys.MOUNT_DOOM) {
                     float percentage = (float) Math.sqrt(mountDoom.distanceSquared(new Vec2f(posX, posZ))) / 50;
                     percentage = Math.min(1, Math.max(0.0f, percentage));
                     percentage = (float) Math.pow(percentage, 2.45f);
                     height = height * percentage;
-                } else if(meBiome.biome == MEBiomeKeys.DEAD_MARSHES || meBiome.biome == MEBiomeKeys.DEAD_MARSHES_WATER) {
+                } else if(customHeightBiomeHeightData.getBiomeKey() == MEBiomeKeys.DEAD_MARSHES || customHeightBiomeHeightData.getBiomeKey() == MEBiomeKeys.DEAD_MARSHES_WATER) {
                     float oldHeight = height;
                     height = getMarshesHeight(posX, posZ, height);
                     float percentage = Math.min(MiddleEarthHeightMap.getImageNoiseModifier(posX, posZ), 0.3f) / 0.3f;
@@ -351,13 +351,13 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 float dirtHeight = HEIGHT + height - 1;
                 int currentHeight = DEEPSLATE_LEVEL + (int) caveBlendNoise;
                 int totalLayersHeight = (int) (dirtHeight - currentHeight);
-                for(BlocksLayeringData.LayerData layerData : meBiome.blocksLayering.layers) {
+                for(BlocksLayeringData.LayerData layerData : customHeightBiomeHeightData.getBiome().getBlocksLayering().layers) {
                     int blocks = (int) (totalLayersHeight * layerData.percentage);
                     for(int y = 0; y <= blocks; y++) {
                         trySetBlock(chunk, chunk.getPos().getBlockPos(x, currentHeight++, z), layerData.block.getDefaultState());
                     }
                 }
-                BlockState surfaceBlock = meBiome.slopeMap.slopeDatas.getFirst().block.getDefaultState();
+                BlockState surfaceBlock = customHeightBiomeHeightData.getBiome().getSlopeMap().slopeDatas.getFirst().block.getDefaultState();
                 BlockState underSurfaceBlock;
 
 
@@ -365,7 +365,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     surfaceBlock = Blocks.DIRT.getDefaultState();
                     underSurfaceBlock = surfaceBlock;
                 } else {
-                    surfaceBlock = meBiome.slopeMap.getBlockAtAngle(slopeAngle).getDefaultState();
+                    surfaceBlock = customHeightBiomeHeightData.getBiome().getSlopeMap().getBlockAtAngle(slopeAngle).getDefaultState();
                     if(surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState()) underSurfaceBlock = Blocks.DIRT.getDefaultState();
                     else underSurfaceBlock = surfaceBlock;
                 }
@@ -376,7 +376,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (DIRT_HEIGHT + height), z), surfaceBlock, false);
 
-                if(meBiome.biome == MEBiomeKeys.MOUNT_DOOM) {
+                if(customHeightBiomeHeightData.getBiomeKey() == MEBiomeKeys.MOUNT_DOOM) {
                     for(int y = (int) (DIRT_HEIGHT + height + 1); y <= 90; y++) {
                         chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.LAVA.getDefaultState(), false);
                     }
@@ -387,7 +387,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
 
 
-                ProceduralStructures.generateStructures(meBiome, chunk, posX, (int) (DIRT_HEIGHT + height), posZ);
+                ProceduralStructures.generateStructures(customHeightBiomeHeightData, chunk, posX, (int) (DIRT_HEIGHT + height), posZ);
             }
         }
     }

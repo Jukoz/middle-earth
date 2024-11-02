@@ -1,7 +1,8 @@
 package net.jukoz.me.world.map;
 
 import net.jukoz.me.utils.resources.FileUtils;
-import net.jukoz.me.world.biomes.surface.MEBiome;
+import net.jukoz.me.world.biomes.surface.CustomBiome;
+import net.jukoz.me.world.biomes.surface.CustomBiomeHeightData;
 import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import org.joml.Vector2i;
 
@@ -26,7 +27,7 @@ public class MiddleEarthMapRegion {
         //LoggerUtil.sendChat(heightPath);
     }
 
-    public MEBiome getBiome(Vector2i imageCoordinates){
+    public CustomBiomeHeightData getBiome(Vector2i imageCoordinates){
         try {
             if(biomeImage != null){
                 return MEBiomesData.getBiomeByColor(biomeImage.getRGB(imageCoordinates.x, imageCoordinates.y));
@@ -41,7 +42,7 @@ public class MiddleEarthMapRegion {
         if(heightImage != null){
             return new Color(heightImage.getRGB(imageCoordinates.x, imageCoordinates.y));
         }
-        return new Color(Math.abs(MEBiomesData.defaultBiome.height), 1, 0);
+        return new Color(Math.abs(MEBiomesData.defaultBiome.getHeight()), 1, 0);
     }
 
     public boolean isInRange(Vector2i playerCoord) {

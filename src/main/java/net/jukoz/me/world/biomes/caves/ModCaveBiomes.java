@@ -2,7 +2,7 @@ package net.jukoz.me.world.biomes.caves;
 
 import net.jukoz.me.world.biomes.BiomeColorsDTO;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
-import net.jukoz.me.world.biomes.surface.MEBiome;
+import net.jukoz.me.world.biomes.surface.CustomBiome;
 import net.jukoz.me.world.features.underground.CavesPlacedFeatures;
 import net.jukoz.me.world.features.vegetation.ModVegetationPlacedFeatures;
 import net.minecraft.registry.Registerable;
@@ -49,13 +49,15 @@ public class ModCaveBiomes {
         forodCaves.addCave(new CaveBiomeDTO(MEBiomeKeys.DRIPSTONE_CAVE, new Vec2f(1.0f,0f)));
     }
 
-    public static RegistryKey<Biome> getBiome(Vec2f coordinates, MEBiome surfaceBiome) {
-        return switch (surfaceBiome.caveType) {
-            case ASHEN -> ashCaves.getClosestBiome(coordinates);
-            case HARAD -> haradCaves.getClosestBiome(coordinates);
-            case FOROD -> forodCaves.getClosestBiome(coordinates);
-            default -> defaultCaves.getClosestBiome(coordinates);
-        };
+    public static RegistryKey<Biome> getBiome(Vec2f coordinates, CustomBiome surfaceBiome) {
+        if(surfaceBiome.getCaveType() != null)
+            return switch (surfaceBiome.getCaveType()) {
+                case ASHEN -> ashCaves.getClosestBiome(coordinates);
+                case HARAD -> haradCaves.getClosestBiome(coordinates);
+                case FOROD -> forodCaves.getClosestBiome(coordinates);
+                default -> defaultCaves.getClosestBiome(coordinates);
+            };
+        return defaultCaves.getClosestBiome(coordinates);
     }
 
     public static void bootstrap(Registerable<Biome> context) {

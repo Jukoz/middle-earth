@@ -2555,9 +2555,9 @@ public class ModBiomes {
                 .spawnSettings(spawnSettings.build())
                 .generationSettings(generationSettings.build())
                 .build();
+        context.register(biomeRegistryKey, biome);
+
         vegetation = new ArrayList<>();
         undergroundOres = new ArrayList<>();
-
-        context.register(biomeRegistryKey, biome);
     }
 }
