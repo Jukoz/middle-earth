@@ -98,7 +98,7 @@ public class ModBiomeSource extends BiomeSource {
         CustomBiome biome = biomeHeightData.getBiome();
         RegistryKey<Biome> processedBiome;
 
-        if(!MEBiomesData.waterBiomes.contains(biome)) {
+        if(!MEBiomesData.waterBiomes.contains(biome.getBiomeRegistryKey())) {
             float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
             SubBiome subBiome = SubBiomes.getSubBiome(biomeHeightData.getBiomeKey());
             if(subBiome != null) {
@@ -118,17 +118,17 @@ public class ModBiomeSource extends BiomeSource {
             } else if(j < (height - 16)) {
                 processedBiome = getCaveBiome(i, k, biome);
             } else if(height <= biomeHeightData.getWaterHeight() + 1.25f) {
-                if(MEBiomesData.coastalBiomes.contains(biome)){
+                if(MEBiomesData.coastalBiomes.contains(biome.getBiomeRegistryKey())){
                     processedBiome = MEBiomesData.oceanCoast.getBiomeKey();
-                } else if(MEBiomesData.wastePondBiomes.contains(biome)) {
+                } else if(MEBiomesData.wastePondBiomes.contains(biome.getBiomeRegistryKey())) {
                     processedBiome = MEBiomesData.wastePond.getBiomeKey();
-                } else if(MEBiomesData.mirkwoodSwampBiomes.contains(biome)) {
+                } else if(MEBiomesData.mirkwoodSwampBiomes.contains(biome.getBiomeRegistryKey())) {
                     processedBiome = MEBiomesData.mirkwoodSwamp.getBiomeKey();
-                } else if(MEBiomesData.oasisBiomes.contains(biome)) {
+                } else if(MEBiomesData.oasisBiomes.contains(biome.getBiomeRegistryKey())) {
                     processedBiome = MEBiomesData.oasis.getBiomeKey();
-                } else if(MEBiomesData.frozenBiomes.contains(biome)) {
+                } else if(MEBiomesData.frozenBiomes.contains(biome.getBiomeRegistryKey())) {
                     processedBiome = MEBiomesData.frozenPond.getBiomeKey();
-                } else if(MEBiomesData.anduinWaterBiomes.contains(biome)){
+                } else if(MEBiomesData.anduinWaterBiomes.contains(biome.getBiomeRegistryKey())){
                     processedBiome = MEBiomesData.greatRiver.getBiomeKey();
                 } else {
                     processedBiome = MEBiomesData.pond.getBiomeKey();
