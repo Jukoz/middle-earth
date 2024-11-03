@@ -99,8 +99,8 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, getTabTranslation("misc"), ModEquipmentItems.STRAW_HAT.getDefaultStack()));
         tabs.put(index, new ArrayList<>());
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, getTabTranslation("hats"), ModEquipmentItems.STRAW_HAT.getDefaultStack()));
-        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("hood"), ModEquipmentItems.FUR_HOOD.getDefaultStack()));
-        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, getTabTranslation("cloak"), ModEquipmentItems.FUR_CLOAK.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("hood"), ModEquipmentItems.BLACK_FUR_HOOD.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, getTabTranslation("cloak"), ModEquipmentItems.BLACK_FUR_CLOAK.getDefaultStack()));
         index++;
 
         selectedCategory = categories.getFirst();
