@@ -330,8 +330,6 @@ public class CustomBiomesData {
                 new BiomeColorsDTO(8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583)));
         addBiome(new CustomBiome(MEBiomeKeys.MOUNT_GUNDABAD_PEAKS, MEBiomeDataConfigs.greyMountains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583)));
-        addBiome(new CustomBiome(MEBiomeKeys.MOUNT_GUNDABAD_SPIRE, MEBiomeDataConfigs.greyMountains, MEBiomeDataConfigs.stoneLayers,
-                new BiomeColorsDTO(8098794, 12701936, defaultWater, defaultWaterFog, 8823414, 9022583)));
         // NAN CURUNIR
         addBiome(new CustomBiome(MEBiomeKeys.NAN_CURUNIR, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, 5076423, defaultWaterFog, 5406786, 4554563)));

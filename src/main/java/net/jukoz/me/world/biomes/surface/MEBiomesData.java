@@ -4,6 +4,7 @@ import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.world.biomes.MEBiomeDataConfigs;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.caves.CaveType;
+import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
@@ -199,7 +200,7 @@ public class MEBiomesData {
         add(new Color(0x635e5e), new CustomBiomeHeightData(MEBiomeKeys.MOUNT_GUNDABAD_BASE, 39, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f)));
         add(new Color(0x4e4a4a), new CustomBiomeHeightData(MEBiomeKeys.MOUNT_GUNDABAD, 73, MEBiomeDataConfigs.mountainModifier.heightModifier(0.33f)));
         add(new Color(0x3e3b3b), new CustomBiomeHeightData(MEBiomeKeys.MOUNT_GUNDABAD_PEAKS, 87, MEBiomeDataConfigs.mountainModifier.heightModifier(0.41f)));
-        add(new Color(0x2a2828), new CustomBiomeHeightData(MEBiomeKeys.MOUNT_GUNDABAD_SPIRE, 98, MEBiomeDataConfigs.mountainModifier.heightModifier(0.69f)));
+        add(new Color(0x2a2828), new CustomBiomeHeightData(MEBiomeKeys.MOUNT_GUNDABAD_PEAKS, 98, MEBiomeDataConfigs.mountainModifier.heightModifier(0.69f)));
         add(new Color(0x60270d), new CustomBiomeHeightData(MEBiomeKeys.MOUNT_DOOM, 90, MEBiomeDataConfigs.mountainModifier.heightModifier(0.36f).noiseModifier(1.0f).expansionWeight(new byte[]{2, 3})));
         add(new Color(0x619b59), new CustomBiomeHeightData(MEBiomeKeys.NAN_CURUNIR, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0x6892c4), new CustomBiomeHeightData(MEBiomeKeys.NEN_HITHOEL, -4, MEBiomeDataConfigs.riverModifier));
@@ -324,14 +325,22 @@ public class MEBiomesData {
 
         deadMarshesBiomes.add(MEBiomeKeys.DEAD_MARSHES);
     }
-
-    public static CustomBiomeHeightData getBiomeByKey(RegistryEntry<Biome> biome) {
+    public static CustomBiomeHeightData getBiome(RegistryEntry<Biome> biome, int posX, int posZ) {
+        CustomBiomeHeightData foundBiome = null;
         if(biome.getKey().isPresent()){
             Identifier biomeId = biome.getKey().get().getValue();
-            return biomeHashMap.values().stream().filter(
+            foundBiome = biomeHashMap.values().stream().filter(
                     b-> b.getBiomeKey().getValue().equals(biomeId)
             ).findFirst().orElse(defaultBiome);
         }
-        return defaultBiome;
+
+        if(foundBiome != null){
+            CustomBiomeHeightData colorBasedBiome = MiddleEarthHeightMap.getBiomeFromMap(posX, posZ);
+            if(colorBasedBiome.getBiomeKey() == foundBiome.getBiomeKey()){
+                return colorBasedBiome;
+            }
+        }
+
+        return foundBiome;
     }
 }
