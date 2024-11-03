@@ -138,9 +138,11 @@ public class MEBiomesData {
         add(new Color(0x857a67), new CustomBiomeHeightData(MEBiomeKeys.EMYN_MUIL, 74, MEBiomeDataConfigs.emynMuilModifier.heightModifier(0.32f)));
         add(new Color(0x948976), new CustomBiomeHeightData(MEBiomeKeys.EMYN_MUIL_PEAKS, 94, MEBiomeDataConfigs.emynMuilModifier.heightModifier(0.53f)));
         add(new Color(0x75a46d), new CustomBiomeHeightData(MEBiomeKeys.ENEDWAITH, 6, MEBiomeDataConfigs.landModifier));
-        add(new Color(0xb9b9bb), new CustomBiomeHeightData(MEBiomeKeys.LONELY_MOUNTAIN_BASE, 60, MEBiomeDataConfigs.mountainModifier.heightModifier(0.55f)));
-        add(new Color(0xa8a8aa), new CustomBiomeHeightData(MEBiomeKeys.LONELY_MOUNTAIN, 73, MEBiomeDataConfigs.mountainModifier.heightModifier(0.65f)));
-        add(new Color(0x979799), new CustomBiomeHeightData(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 94, MEBiomeDataConfigs.mountainModifier.heightModifier(0.76f)));
+        add(new Color(0xc9c9cb), new CustomBiomeHeightData(MEBiomeKeys.LONELY_MOUNTAIN_BASE, 51, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f)));
+        add(new Color(0xb9b9bb), new CustomBiomeHeightData(MEBiomeKeys.LONELY_MOUNTAIN_BASE, 60, MEBiomeDataConfigs.mountainModifier.heightModifier(0.37f)));
+        add(new Color(0xa8a8aa), new CustomBiomeHeightData(MEBiomeKeys.LONELY_MOUNTAIN, 68, MEBiomeDataConfigs.mountainModifier.heightModifier(0.43f)));
+        add(new Color(0x979799), new CustomBiomeHeightData(MEBiomeKeys.LONELY_MOUNTAIN, 81, MEBiomeDataConfigs.mountainModifier.heightModifier(0.57f)));
+        add(new Color(0x7f7f81), new CustomBiomeHeightData(MEBiomeKeys.LONELY_MOUNTAIN_PEAKS, 94, MEBiomeDataConfigs.mountainModifier.heightModifier(0.81f)));
         add(new Color(0x5a9f5a), new CustomBiomeHeightData(MEBiomeKeys.LONELY_MOUNTAIN_TAIGA, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x6a9b68), new CustomBiomeHeightData(MEBiomeKeys.EREGION, 4, MEBiomeDataConfigs.landModifier));
         add(new Color(0x109c6d), new CustomBiomeHeightData(MEBiomeKeys.ETHIR_ANDUIN, 4, MEBiomeDataConfigs.landModifier));
