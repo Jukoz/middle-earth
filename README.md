@@ -1,19 +1,20 @@
 <div align="center">
 
-<img src="https://cdn.modrinth.com/data/cached_images/878f02d73c5caa5506ec2486457b65d1eb199978.png" style="width: 50%;">
-
+<img src="https://cdn.modrinth.com/data/cached_images/878f02d73c5caa5506ec2486457b65d1eb199978.png" style="width: 50%;"><br>
 <a href="https://discord.gg/HNNd8FguqZ"><img src="https://i.imgur.com/CYxKg5M.png"></a><br>
+[Discord Server](https://discord.gg/9yQ7UWkVUz)<br>
 
-[Discord Server](https://discord.gg/9yQ7UWkVUz)
+### Welcome to this source-available project of Middle-earth mod.
 
+This mod is about the famous universe of the Middle Earth, from J. R. R. Tolkien's work, into Minecraft. You'll find a brand new dimension with custom blocks, items, entity, generation, etc.
 </div>
 
 
-<p align="center">Welcome to this source-available project of Middle-earth mod.<br></p>
+
 <hr>
 
 ## Current state of the mod
-As of now, the mod is in Alpha development stage, meaning this project is still a prototype, and missing many core features we are planning on adding. <br>
+As of now, the mod is in the Alpha development stage, meaning this project is still a prototype, and missing many core features we are planning on adding. <br>
 
 ## Licenses of this project
 All of our content is under the **ARR** license (**All Right Reserved**), meaning you cannot use our code without our written consent. If you want to use our code in any way, please write an issue using the request template in our <b>[Github](https://github.com/Jukoz/middle-earth/issues/new?assignees=&labels=request&projects=&template=code_use_permission_request.yml)</b>.
@@ -32,41 +33,41 @@ TomSchlom<br>
 
 ### Artists (Models/Textures)
 >Boenndal<br>
-Sindavar<br>
 Jooble<br>
-Thijs<br>
 Jukoz<br>
 ObliviousCrab<br>
+Sindavar<br>
+Thijs<br>
+
 R3tt0<br>
 
 ### Builders
->Boenndal<br>
-Angmarzku<br>
+>Angmarzku<br>
 Arwaeneth<br>
-Slooshyboi<br>
+Boenndal<br>
 Jooble<br>
-Thijs<br>
 Jukoz<br>
 ObliviousCrab<br>
+Slooshyboi<br>
+Thijs<br>
 
 ### Contributors
->Froosty11<br>
+>Ag3ntCrab<br>
+Froosty11<br>
 Grandison<br>
 JB3<br>
+Khuz<br>
 nullBlade<br>
 Python_200<br>
-Thorian_The_III<br>
-Tyn<br>
+Thorin_The_III<br>
 WorseNotePad<br>
-Ag3ntCrab<br>
-Khuz<br>
 <hr>
 
 ## Planned features
 > - <b>Brews and stews</b><br>
-<i>Features related to cooking and fancy beverage creation.</i>
+<i>Features related to cooking and fancy beverage preparation.</i>
 > - <b>Trading mechanics</b><br>
-<i>A new trading mechanic</i>
+<i>A new trading feature.</i>
 > - <b>Next iteration on smithing & attributes system</b><br>
 <i>Mechanics related to smithing and gear upgrades.</i>
 > - <b>Structures mechanics & Settlements</b><br>
