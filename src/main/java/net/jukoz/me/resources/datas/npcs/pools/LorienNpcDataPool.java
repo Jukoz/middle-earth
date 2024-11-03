@@ -26,7 +26,7 @@ public class LorienNpcDataPool {
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.LORIEN_ARMING_SKIRT)))
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.ELVEN_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create(NpcGearItemData.create(ModWeaponItems.BRONZE_SWORD)))
-                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.LORIEN_SHIELD)))
+                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(ModWeaponItems.LORIEN_SHIELD)))
         ));
     }
 }

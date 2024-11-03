@@ -3,6 +3,7 @@ package net.jukoz.me.resources.datas.npcs.pools;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModToolItems;
+import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.resources.MiddleEarthRaces;
 import net.jukoz.me.resources.datas.npcs.NpcData;
 import net.jukoz.me.resources.datas.npcs.data.NpcGearData;
@@ -52,7 +53,7 @@ public class EreborNpcDataPool {
                         )
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.STURDY_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create(NpcGearItemData.create(ModToolItems.BRONZE_AXE)))
-                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.EREBOR_SHIELD)))
+                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(ModWeaponItems.EREBOR_SHIELD)))
         ));
     }
 }

@@ -4,6 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.orcs.OrcNpcEntity;
 import net.jukoz.me.entity.uruks.UrukNpcEntity;
 import net.jukoz.me.item.items.weapons.CustomDaggerWeaponItem;
+import net.jukoz.me.item.items.weapons.utils.ArtefactUtils;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.block.BlockState;
@@ -17,7 +18,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
@@ -49,18 +49,17 @@ public class ArtefactCustomGlowingDaggerWeaponItem extends CustomDaggerWeaponIte
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if (counter == 100){
-            this.glowing = !world.getEntitiesByClass(OrcNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty()
-                    || !world.getEntitiesByClass(UrukNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty();
-            counter = 0;
-        } else {
-            counter++;
-        }
+        ArtefactCustomGlowingDaggerWeaponItem item = (ArtefactCustomGlowingDaggerWeaponItem) stack.getItem();
+        item.glowing = shouldBeGlowing(world, entity);
     }
 
-    public static boolean isGlowing(ItemStack stack){
-        ArtefactCustomGlowingDaggerWeaponItem item = (ArtefactCustomGlowingDaggerWeaponItem) stack.getItem();
-        return item.glowing;
+    public static boolean shouldBeGlowing(World world, Entity entity){
+        int range = 50;
+        if (entity != null){
+            return ArtefactUtils.isInBound(world, entity, OrcNpcEntity.class, range)
+                    || ArtefactUtils.isInBound(world, entity, UrukNpcEntity.class, range);
+        }
+        return false;
     }
 
     @Override
