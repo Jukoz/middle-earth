@@ -38,24 +38,94 @@ public class ModEquipmentItems {
     public static List<Item> armorPiecesListRustyLeggings = new ArrayList<>();
     public static List<Item> armorPiecesListRustyBoots = new ArrayList<>();
 
-    public static List<Item> shields = new ArrayList<>();
+    public static List<Item> capes = new ArrayList<>();
+    public static List<Item> hoods = new ArrayList<>();
+
 
     //region GENERIC
-    //Cloaks
-    public static final Item HOOD = registerGeneratedItem("hood",
+    //Hoods
+    public static final Item HOOD = registerHood("hood",
             new HoodHelmetItem(new Item.Settings()
-                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.BASE_HOOD))));
-    public static final Item CAPE = registerGeneratedItem("cape",
-            new CapeChestplateItem(new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BASE_CAPE))));
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.BASE_HOOD)),
+                    ModFactions.NONE));
+    
+    public static final Item BLACK_FUR_HOOD = registerHood("black_fur_hood",
+            new HoodHelmetItem(new Item.Settings()
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.BLACK_FUR_HOOD)),
+                    ModFactions.NONE));
+    public static final Item BROWN_FUR_HOOD = registerHood("brown_fur_hood",
+            new HoodHelmetItem(new Item.Settings()
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.BROWN_FUR_HOOD)),
+                    ModFactions.NONE));
+    public static final Item GRAY_FUR_HOOD = registerHood("gray_fur_hood",
+            new HoodHelmetItem(new Item.Settings()
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.GRAY_FUR_HOOD)),
+                    ModFactions.NONE));
+    public static final Item TAN_FUR_HOOD = registerHood("tan_fur_hood",
+            new HoodHelmetItem(new Item.Settings()
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.TAN_FUR_HOOD)),
+                    ModFactions.NONE));
+    public static final Item WHITE_FUR_HOOD = registerHood("white_fur_hood",
+            new HoodHelmetItem(new Item.Settings()
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.WHITE_FUR_HOOD)),
+                    ModFactions.NONE));
+    
 
-    //Fur cloaks
-    public static final Item FUR_HOOD = registerGeneratedItem("fur_hood",
-            new HoodHelmetItem(new Item.Settings()
-                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.BLACK_FUR_HOOD))));
-    public static final Item FUR_CLOAK = registerGeneratedItem("fur_cloak",
+    //capes
+    public static final Item CAPE = registerCape("cape",
             new CapeChestplateItem(new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BLACK_FUR_CLOAK))));
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BASE_CAPE)),
+                    ModFactions.NONE));
+    public static final Item SURCOAT = registerCape("surcoat",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.SURCOAT)),
+                    ModFactions.NONE));
+    public static final Item CLOAK = registerCape("cloak",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BASE_CLOAK)),
+                    ModFactions.NONE));
+    
+    public static final Item BLACK_FUR_CLOAK = registerCape("black_fur_cloak",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BLACK_FUR_CLOAK)),
+                    ModFactions.NONE));
+    public static final Item BROWN_FUR_CLOAK = registerCape("brown_fur_cloak",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BROWN_FUR_CLOAK)),
+                    ModFactions.NONE));
+    public static final Item GRAY_FUR_CLOAK = registerCape("gray_fur_cloak",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GRAY_FUR_CLOAK)),
+                    ModFactions.NONE));
+    public static final Item TAN_FUR_CLOAK = registerCape("tan_fur_cloak",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.TAN_FUR_CLOAK)),
+                    ModFactions.NONE));
+    public static final Item WHITE_FUR_CLOAK = registerCape("white_fur_cloak",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.WHITE_FUR_CLOAK)),
+                    ModFactions.NONE));
+
+    public static final Item BLACK_FUR = registerCape("black_fur",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BLACK_FUR)),
+                    ModFactions.NONE));
+    public static final Item BROWN_FUR = registerCape("brown_fur",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BROWN_FUR)),
+                    ModFactions.NONE));
+    public static final Item GRAY_FUR = registerCape("gray_fur",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GRAY_FUR)),
+                    ModFactions.NONE));
+    public static final Item TAN_FUR = registerCape("tan_fur",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.TAN_FUR)),
+                    ModFactions.NONE));
+    public static final Item WHITE_FUR = registerCape("white_fur",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.WHITE_FUR)),
+                    ModFactions.NONE));
 
     public static final Item STRAW_HAT = registerCustomModelArmorPiece("straw_hat",
             new CustomHelmetItem(ModArmorMaterials.STRAW_T1, ArmorItem.Type.HELMET, new Item.Settings(),
@@ -150,13 +220,6 @@ public class ModEquipmentItems {
     public static final Item SALLET = registerCustomModelArmorPiece("sallet",
             new CustomHelmetItem(ModArmorMaterials.STEEL_T4, ArmorItem.Type.HELMET, new Item.Settings(),
                     ModFactions.NONE));
-
-    public static final Item ROUND_SHIELD = registerShield("round_shield",
-            new CustomBannerShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));
-    public static final Item HEATER_SHIELD = registerShield("heater_shield",
-            new CustomBannerShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));
-    public static final Item KITE_SHIELD = registerShield("kite_shield",
-            new CustomBannerShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));
     //endregion
 
     //region HOBBITS
@@ -263,20 +326,31 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModFactions.GONDOR));
 
-    public static final Item GONDORIAN_SHIELD = registerShield("gondorian_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
-    public static final Item GONDORIAN_TOWER_SHIELD = registerShield("gondorian_tower_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
-    public static final Item GONDORIAN_KINGS_GUARD_TOWER_SHIELD = registerShield("gondorian_kings_guard_tower_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
-    public static final Item LAST_ALLIANCE_HEILOOM_TOWER_SHIELD = registerShield("last_alliance_heirloom_tower_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
-    public static final Item GONDORIAN_HERO_SHIELD = registerShield("gondorian_hero_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
-    public static final Item GONDORIAN_KNIGHT_SHIELD = registerShield("gondorian_knight_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.GONDOR));
-    public static final Item GONDORIAN_ORNAMENTED_KNIGHT_SHIELD = registerShield("gondorian_ornamented_knight_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.GONDOR));
+    public static final Item GONDORIAN_CITADEL_GUARD_HOOD = registerHood("gondorian_citadel_guard_hood",
+            new HoodHelmetItem(new Item.Settings()
+                    .component(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, ModHoods.GONDORIAN_CITADEL_GUARD_HOOD)),
+                    ModFactions.GONDOR));
+
+    public static final Item GONDORIAN_CAPTAIN_CAPE = registerCape("gondorian_captain_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GONDORIAN_CAPTAIN_CAPE)),
+                    ModFactions.GONDOR));
+    public static final Item GONDORIAN_HERO_CAPE = registerCape("gondorian_hero_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GONDORIAN_HERO_CAPE)),
+                    ModFactions.GONDOR));
+    public static final Item GONDORIAN_KINGS_GUARD_CAPE = registerCape("gondorian_kings_guard_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GONDORIAN_KINGS_GUARD_CAPE)),
+                    ModFactions.GONDOR));
+    public static final Item GONDORIAN_CITADEL_GUARD_CAPE = registerCape("gondorian_citadel_guard_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GONDORIAN_CITADEL_GUARD_CAPE)),
+                    ModFactions.GONDOR));
+    public static final Item GONDORIAN_FOUNTAIN_GUARD_CAPE = registerCape("gondorian_fountain_guard_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GONDORIAN_FOUNTAIN_GUARD_CAPE)),
+                    ModFactions.GONDOR));
 
     public static final Item GONDORIAN_HORSE_ARMOR = registerGeneratedItem("gondorian_horse_armor",
             new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.GONDOR));
@@ -400,24 +474,22 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModFactions.ROHAN));
 
-    public static final Item ROHIRRIC_SHIELD = registerShield("rohirric_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
-    public static final Item ROHIRRIC_BUCKING_HORSE_SHIELD = registerShield("rohirric_bucking_horse_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
-    public static final Item ROHIRRIC_GALLOPING_HORSE_SHIELD = registerShield("rohirric_galloping_horse_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
-    public static final Item ROHIRRIC_HORSE_HEAD_SHIELD = registerShield("rohirric_horse_head_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
-    public static final Item ROHIRRIC_PLAINSMAN_SHIELD = registerShield("rohirric_plainsman_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
-    public static final Item ROHIRRIC_TWIN_HORSES_SHIELD = registerShield("rohirric_twin_horses_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
-    public static final Item ROHIRRIC_EORLING_SHIELD = registerShield("rohirric_eorling_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ROHAN));
-    public static final Item ROHIRRIC_ORNAMENTED_SHIELD = registerShield("rohirric_ornamented_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ROHAN));
-    public static final Item ROHIRRIC_ROYAL_GUARD_SHIELD = registerShield("rohirric_royal_guard_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ROHAN));
+    public static final Item ROHIRRIC_CAPE = registerCape("rohirric_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_CAPE)),
+                    ModFactions.ROHAN));
+    public static final Item ROHIRRIC_ROYAL_GUARD_CAPE = registerCape("rohirric_royal_guard_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ROHIRRIC_ROYAL_GUARD_CAPE)),
+                    ModFactions.ROHAN));
+    public static final Item EORLING_MARSHAL_CAPE = registerCape("eorling_marshal_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.EORLING_MARSHAL_CAPE)),
+                    ModFactions.ROHAN));
+    public static final Item HORSE_LORD_CAPE = registerCape("horse_lord_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.HORSE_LORD_CAPE)),
+                    ModFactions.ROHAN));
 
     public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
             new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.ROHAN));
@@ -509,8 +581,18 @@ public class ModEquipmentItems {
                     .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BARDING_SERGEANT_CAPE)),
                     ModFactions.DALE));
 
-    public static final Item DALISH_HEYDAY_ROUND_SHIELD = registerShield("dalish_heyday_round_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.DALE));
+    public static final Item BARDING_SURCOAT = registerCape("barding_surcoat",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BARDING_SURCOAT)),
+                    ModFactions.DALE));
+    public static final Item DALISH_HEYDAY_CAPE = registerCape("dalish_heyday_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.DALISH_HEYDAY_CAPE)),
+                    ModFactions.DALE));
+    public static final Item BARDING_SERGEANT_CAPE = registerCape("barding_sergeant_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BARDING_SERGEANT_CAPE)),
+                    ModFactions.DALE));
     //endregion
 
     //endregion
@@ -588,19 +670,14 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.DWARVEN_STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModSubFactions.EREBOR));
 
-    public static final Item EREBOR_SHIELD = registerShield("erebor_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
-    public static final Item EREBOR_CROSS_SHIELD = registerShield("erebor_cross_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
-    public static final Item EREBOR_PLATED_SHIELD = registerShield("erebor_plated_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
-    public static final Item EREBOR_ORNAMENTED_SHIELD = registerShield("erebor_ornamented_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
-    public static final Item EREBOR_REINFORCED_SHIELD = registerShield("erebor_reinforced_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
-    public static final Item EREBOR_HEAVY_SHIELD = registerShield("erebor_heavy_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
-
+    public static final Item EREBOR_CAPE = registerCape("erebor_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.EREBOR_CAPE)),
+                    ModSubFactions.EREBOR));
+    public static final Item RAVENHILL_SENTINEL_CAPE = registerCape("ravenhill_sentinel_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.RAVENHILL_SENTINEL_CAPE)),
+                    ModSubFactions.EREBOR));
     //endregion
 
     //endregion
@@ -716,16 +793,27 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.ELVEN_STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModFactions.LOTHLORIEN));
 
-    public static final Item LORIEN_SHIELD = registerShield("lorien_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.LOTHLORIEN));
-    public static final Item LORIEN_LAURELS_SHIELD = registerShield("lorien_laurels_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.LOTHLORIEN));
-    public static final Item LORIEN_MALLORN_SHIELD = registerShield("lorien_mallorn_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.LOTHLORIEN));
-    public static final Item GALADHRIM_SHIELD = registerShield("galadhrim_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.LOTHLORIEN));
-    public static final Item GALADHRIM_LORD_SHIELD = registerShield("galadhrim_lord_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.LOTHLORIEN));
+    public static final Item LORIEN_MARCHWARDEN_HOOD = registerHood("lorien_marchwarden_hood",
+            new HoodHelmetItem(new Item.Settings()
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.LORIEN_MARCHWARDEN_HOOD)),
+                    ModFactions.LOTHLORIEN));
+    public static final Item GALADHRIM_HOOD = registerHood("galadhrim_hood",
+            new HoodHelmetItem(new Item.Settings()
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.GALADHRIM_HOOD)),
+                    ModFactions.LOTHLORIEN));
+
+    public static final Item LORIEN_MARCHWARDEN_CAPE = registerCape("lorien_marchwarden_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.LORIEN_MARCHWARDEN_CAPE)),
+                    ModFactions.LOTHLORIEN));
+    public static final Item GALADHRIM_CAPE = registerCape("galadhrim_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GALADHRIM_CAPE)),
+                    ModFactions.LOTHLORIEN));
+    public static final Item GALADHRIM_LORD_SURCOAT = registerCape("galadhrim_lord_surcoat",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GALADHRIM_LORD_SURCOAT)),
+                    ModFactions.LOTHLORIEN));
 
     public static final Item LORIEN_HORSE_ARMOR = registerGeneratedItem("lorien_horse_armor",
             new CustomHorseArmorItem(ArmorMaterials.IRON, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1), ModFactions.LOTHLORIEN));
@@ -825,9 +913,6 @@ public class ModEquipmentItems {
     public static final Item NAZGUL_BOOTS = registerArmorPiece("nazgul_boots",
             new CustomBootsItem(ModArmorMaterials.STEEL_T3, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModFactions.MORDOR));
-
-    public static final Item BLACK_NUMENOREAN_TOWER_SHIELD = registerShield("black_numenorean_tower_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
     //endregion
 
     //region ISENGARD
@@ -869,21 +954,6 @@ public class ModEquipmentItems {
             new CustomBootsItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.BOOTS, new Item.Settings(),
                     ModFactions.ISENGARD));
 
-    public static final Item URUK_HAI_HEATER_SHIELD = registerShield("uruk_hai_heater_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ISENGARD));
-
-    public static final Item URUK_HAI_SHIELD = registerShield("uruk_hai_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
-    public static final Item URUK_HAI_WHITE_HAND_SHIELD = registerShield("uruk_hai_white_hand_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
-    public static final Item URUK_HAI_WHITE_PALMPRINT_SHIELD = registerShield("uruk_hai_white_palmprint_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
-    public static final Item URUK_HAI_S_RUNE_SHIELD = registerShield("uruk_hai_s_rune_shield",
-            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
-
-    public static final Item URUK_HAI_SIEGE_SHIELD = registerShield("uruk_hai_siege_shield",
-            new CustomSiegeShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
-
     //endregion
 
     //region MISTY MOUNTAINS ORCS
@@ -918,17 +988,13 @@ public class ModEquipmentItems {
             new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, ArmorItem.Type.CHESTPLATE, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
 
-    public static final Item MISTY_MOUNTAINS_SHIELD = registerShield("misty_mountains_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MISTY_MOUNTAINS_ORCS));
+
+    //endregion
 
     /*public static final Item STEEL_TROLL_ARMOR = registerGeneratedItem("steel_troll_armor",
             new TrollArmorItem(10, "steel", new Item.Settings().maxCount(1)));*/
 
-    //ARTEFACTS
-    public static final Item ANORTHANN = registerShield("anorthann",
-            new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.NONE));
-    public static final Item CUTHANN = registerShield("cuthann",
-            new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.NONE));
+
 
     // GENERIC
     public static final Item WARG_LEATHER_ARMOR = registerGeneratedItem("warg_leather_armor", new CustomAnimalArmorItem(ModArmorMaterials.LEATHER, null, CustomAnimalArmorItem.Type.WARG, false, new Item.Settings().maxDamage(ArmorItem.Type.BODY.getMaxDamage(4))));
@@ -944,9 +1010,17 @@ public class ModEquipmentItems {
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
-    private static Item registerShield(String name, Item item) {
+    private static Item registerHood(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
-        shields.add(item);
+        SimpleItemModel.items.add(item);
+        hoods.add(item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
+    private static Item registerCape(String name, Item item) {
+        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
+        SimpleItemModel.items.add(item);
+        capes.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
