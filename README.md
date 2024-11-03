@@ -3,10 +3,9 @@
 <img src="https://cdn.modrinth.com/data/cached_images/878f02d73c5caa5506ec2486457b65d1eb199978.png" style="width: 50%;"><br>
 
 -----
-<h2>Welcome to this source-available project of <img src="/.idea/icon.png" width="18"> Middle-earth <img src="/.idea/icon.png" width="18"> mod.</h2>
+<h2>Welcome to this source-available project of <img src="./.idea/icon.png" width="18"> Middle-earth <img src="./.idea/icon.png" width="18"> mod.</h2>
 <p>This mod is about the famous universe of the Middle Earth, from J. R. R. Tolkien's work, into Minecraft.</p> 
 <p>You'll find a brand new dimension with custom blocks, items, entity, generation, etc.</p>
-
 <a href="https://discord.gg/9yQ7UWkVUz"><img src="https://dcbadge.limes.pink/api/server/9yQ7UWkVUz?style=flat" alt="Discord"/></a>
 <br>
 <a href="https://github.com/Jukoz/middle-earth"><img src="https://img.shields.io/github/stars/Jukoz/middle-earth"></a>
