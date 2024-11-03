@@ -1,6 +1,6 @@
 {
 "#Comment:": "Advancements",
-  "advancements.middle_earth.root.title": "Middle Earth",
+  "advancements.middle_earth.root.title": "Middle-earth",
   "advancements.middle_earth.root.description": "Enter Middle-earth!",
   "advancements.middle_earth.enter_mordor.title": "One does not simply...",
   "advancements.middle_earth.enter_mordor.description": "Walk into Mordor",
@@ -227,7 +227,7 @@
 
 "#Comment:": "Item - General",
   "item.me.gold_ring": "Gold Ring",
-  "item.me.middle_earth_map": "Middle Earth Map",
+  "item.me.middle_earth_map": "Middle-earth Map",
   "item.me.ash": "Ash",
   "item.me.iron_chainmail": "Iron Chainmail",
 
@@ -6664,11 +6664,11 @@
   "command.me.hood.success": "Hood successfully applied: ",
   "command.me.hood.fail": "Failed to apply hood.",
 
-  "command.me.cape.hand_empty": "Hand Empty. Take a Middle Earth Mod chestplate in your main hand to apply a cape.",
-  "command.me.hood.hand_empty": "Hand Empty. Take a Middle Earth Mod helmet in your main hand to apply a hood.",
+  "command.me.cape.hand_empty": "Hand Empty. Take a Middle-earth Mod chestplate in your main hand to apply a cape.",
+  "command.me.hood.hand_empty": "Hand Empty. Take a Middle-earth Mod helmet in your main hand to apply a hood.",
 
-  "command.me.cape.wrong_item": "Wrong Item type. Take a Middle Earth Mod chestplate in your main hand to apply a cape.",
-  "command.me.hood.wrong_item": "Wrong Item type. Take a Middle Earth Mod helmet in your main hand to apply a hood.",
+  "command.me.cape.wrong_item": "Wrong Item type. Take a Middle-earth Mod chestplate in your main hand to apply a cape.",
+  "command.me.hood.wrong_item": "Wrong Item type. Take a Middle-earth Mod helmet in your main hand to apply a hood.",
 
 "#Comment": "Alert",
   "alert.me.large_door.blocked": "Something seems to prevent the door from moving.",
@@ -6758,8 +6758,8 @@
   "tag.item.me.ingot_shaping": "Ingot Shaping",
   "tag.item.me.lead_ores": "Lead Ores",
   "tag.item.me.mithril_ores": "Mithril Ores",
-  "tag.item.me.mod_planks": "Middle Earth Planks",
-  "tag.item.me.mod_stripped_logs": "Middle Earth Stripped Logs",
+  "tag.item.me.mod_planks": "Middle-earth Planks",
+  "tag.item.me.mod_stripped_logs": "Middle-earth Stripped Logs",
   "tag.item.me.mushroom_stew_ingredient": "Mushroom Stew Ingredient",
   "tag.item.me.nugget_shaping": "Nugget Shaping",
   "tag.item.me.raw_poultry": "Raw Poultry",
