@@ -182,7 +182,10 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORDOR_WASTES),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORGUL_VALE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MORGUL_RIVER),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.MOUNT_GUNDABAD_BASE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MOUNT_GUNDABAD),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.MOUNT_GUNDABAD_PEAKS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.MOUNT_GUNDABAD_SPIRE),
                     biomeRegistry.getOrThrow(MEBiomeKeys.MOUNT_DOOM),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NAN_CURUNIR),
                     biomeRegistry.getOrThrow(MEBiomeKeys.NEN_HITHOEL),
@@ -297,10 +300,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 if(middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) {
                     RegistryEntry<Biome> biome = region.getBiome(new BlockPos(posX, chunk.getTopY(), posZ));
                     customHeightBiomeHeightData = MEBiomesData.getBiomeByKey(biome);
-                    if(customHeightBiomeHeightData == null) {
-                        customHeightBiomeHeightData = MEBiomesData.defaultBiome;
-                    }
-                } else {
+                }
+                if(customHeightBiomeHeightData == null) {
                     customHeightBiomeHeightData = MEBiomesData.defaultBiome;
                 }
 

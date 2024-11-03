@@ -136,7 +136,10 @@ public class ModBiomes {
         createMordorWastesBiome(context, MEBiomeKeys.MORDOR_WASTES);
         createMorgulVale(context, MEBiomeKeys.MORGUL_VALE);
         createNurnWaterBiome(context, MEBiomeKeys.MORGUL_RIVER);
+        createGreyMountainsBiome(context, MEBiomeKeys.MOUNT_GUNDABAD_BASE, 0);
         createGreyMountainsBiome(context, MEBiomeKeys.MOUNT_GUNDABAD, 1);
+        createGreyMountainsBiome(context, MEBiomeKeys.MOUNT_GUNDABAD_PEAKS, 1);
+        createGreyMountainsBiome(context, MEBiomeKeys.MOUNT_GUNDABAD_SPIRE, 1);
         createMordorMountainsBiome(context, MEBiomeKeys.MOUNT_DOOM);
         createNanCurunirBiome(context, MEBiomeKeys.NAN_CURUNIR);
         createLakeBiome(context, MEBiomeKeys.NEN_HITHOEL);

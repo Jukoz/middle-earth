@@ -196,7 +196,10 @@ public class MEBiomesData {
         add(new Color(0x1a1717), new CustomBiomeHeightData(MEBiomeKeys.MORDOR_MOUNTAINS_PEAKS, 93, MEBiomeDataConfigs.mountainModifier.heightModifier(0.38f)));
         add(new Color(0x585247), new CustomBiomeHeightData(MEBiomeKeys.MORDOR_WASTES, 3, MEBiomeDataConfigs.landModifier));
         add(new Color(0x2d3a2c), new CustomBiomeHeightData(MEBiomeKeys.MORGUL_VALE, 3, MEBiomeDataConfigs.landModifier));
-        add(new Color(0x635e5e), new CustomBiomeHeightData(MEBiomeKeys.MOUNT_GUNDABAD, 87, MEBiomeDataConfigs.mountainModifier.heightModifier(0.59f)));
+        add(new Color(0x635e5e), new CustomBiomeHeightData(MEBiomeKeys.MOUNT_GUNDABAD_BASE, 39, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f)));
+        add(new Color(0x4e4a4a), new CustomBiomeHeightData(MEBiomeKeys.MOUNT_GUNDABAD, 73, MEBiomeDataConfigs.mountainModifier.heightModifier(0.33f)));
+        add(new Color(0x3e3b3b), new CustomBiomeHeightData(MEBiomeKeys.MOUNT_GUNDABAD_PEAKS, 87, MEBiomeDataConfigs.mountainModifier.heightModifier(0.41f)));
+        add(new Color(0x2a2828), new CustomBiomeHeightData(MEBiomeKeys.MOUNT_GUNDABAD_SPIRE, 98, MEBiomeDataConfigs.mountainModifier.heightModifier(0.69f)));
         add(new Color(0x60270d), new CustomBiomeHeightData(MEBiomeKeys.MOUNT_DOOM, 90, MEBiomeDataConfigs.mountainModifier.heightModifier(0.36f).noiseModifier(1.0f).expansionWeight(new byte[]{2, 3})));
         add(new Color(0x619b59), new CustomBiomeHeightData(MEBiomeKeys.NAN_CURUNIR, 5, MEBiomeDataConfigs.landModifier));
         add(new Color(0x6892c4), new CustomBiomeHeightData(MEBiomeKeys.NEN_HITHOEL, -4, MEBiomeDataConfigs.riverModifier));

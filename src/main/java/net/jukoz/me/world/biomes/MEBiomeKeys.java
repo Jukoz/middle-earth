@@ -128,7 +128,10 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> MORDOR_WASTES = MEBiomeKeys.register("mordor_wastes");
     public static final RegistryKey<Biome> MORGUL_VALE = MEBiomeKeys.register("morgul_vale");
     public static final RegistryKey<Biome> MORGUL_RIVER = MEBiomeKeys.register("morgul_river");
+    public static final RegistryKey<Biome> MOUNT_GUNDABAD_BASE = MEBiomeKeys.register("mount_gundabad_base");
     public static final RegistryKey<Biome> MOUNT_GUNDABAD = MEBiomeKeys.register("mount_gundabad");
+    public static final RegistryKey<Biome> MOUNT_GUNDABAD_PEAKS = MEBiomeKeys.register("mount_gundabad_peaks");
+    public static final RegistryKey<Biome> MOUNT_GUNDABAD_SPIRE = MEBiomeKeys.register("mount_gundabad_spire");
     public static final RegistryKey<Biome> MOUNT_DOOM = MEBiomeKeys.register("mount_doom");
     public static final RegistryKey<Biome> NAN_CURUNIR = MEBiomeKeys.register("nan_curunir");
     public static final RegistryKey<Biome> NEN_HITHOEL = MEBiomeKeys.register("nen_hithoel");
