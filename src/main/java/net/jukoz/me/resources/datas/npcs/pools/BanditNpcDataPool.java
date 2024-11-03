@@ -45,7 +45,7 @@ public class BanditNpcDataPool {
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(Items.LEATHER_LEGGINGS)))
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.STURDY_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create(NpcGearItemData.create(ModWeaponItems.BRONZE_SWORD)))
-                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.ROUND_SHIELD))),
+                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(ModWeaponItems.ROUND_SHIELD))),
             NpcGearData.create()
                     .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                             .add(NpcGearItemData.create(Items.LEATHER_HELMET).withHood(ModHoods.BASE_HOOD, true).withColor(DARK_BLUE))
@@ -65,7 +65,7 @@ public class BanditNpcDataPool {
                     .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(Items.LEATHER_LEGGINGS).withColor(DARK_BLUE)))
                     .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.STURDY_BOOTS)))
                     .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create(NpcGearItemData.create(ModWeaponItems.BRONZE_SWORD)))
-                    .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.ROUND_SHIELD))),
+                    .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(ModWeaponItems.ROUND_SHIELD))),
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.LEATHER_HELMET).withHood(ModHoods.BASE_HOOD, true).withColor(OLIVE_GREEN))
@@ -85,7 +85,7 @@ public class BanditNpcDataPool {
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(Items.LEATHER_LEGGINGS).withColor(OLIVE_GREEN)))
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.STURDY_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create(NpcGearItemData.create(ModWeaponItems.BRONZE_SWORD)))
-                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.ROUND_SHIELD))),
+                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(ModWeaponItems.ROUND_SHIELD))),
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.LEATHER_HELMET).withHood(ModHoods.BASE_HOOD, true).withColor(DARK_BROWN))
@@ -105,7 +105,7 @@ public class BanditNpcDataPool {
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(Items.LEATHER_LEGGINGS).withColor(DARK_BROWN)))
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.STURDY_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create(NpcGearItemData.create(ModWeaponItems.BRONZE_SWORD)))
-                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.ROUND_SHIELD)))
+                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(ModWeaponItems.ROUND_SHIELD)))
         ));
         BANDIT_THIEF = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "thief"), MiddleEarthRaces.HUMAN, List.of(
                 NpcGearData.create()

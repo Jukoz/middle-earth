@@ -1,7 +1,6 @@
 {
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
-	"gui_light": "front",
 	"textures": {
 		"3": "me:item/erebor_heavy_shield"
 	},
@@ -259,6 +258,7 @@
 			}
 		}
 	],
+	"gui_light": "front",
 	"overrides": [
 		{"predicate": {"blocking": 1}, "model": "me:item/erebor_heavy_shield_blocking"}
 	],
@@ -284,10 +284,11 @@
 		},
 		"gui": {
 			"rotation": [-166.28, 34.83, -175.66],
+			"translation": [0, -1, 0],
 			"scale": [0.47109, 0.47109, 0.47109]
 		},
 		"fixed": {
-			"translation": [0, 0, -1.75],
+			"translation": [0, -5.25, -1.75],
 			"scale": [1.75, 1.75, 1.75]
 		}
 	},

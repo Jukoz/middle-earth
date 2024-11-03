@@ -63,6 +63,7 @@ import net.jukoz.me.gui.wood_pile.WoodPileScreen;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
+import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.utils.ModModelPredicateProvider;
 import net.jukoz.me.item.utils.armor.ModArmorModels;
@@ -220,9 +221,9 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(KITE_SHIELD_LAYER, KiteShieldEntityModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(ROUND_SHIELD_LAYER, RoundShieldEntityModel::getTexturedModelData);
 
-        BuiltinItemRendererRegistry.INSTANCE.register(ModEquipmentItems.HEATER_SHIELD, new ModBuiltInModelItemRenderer());
-        BuiltinItemRendererRegistry.INSTANCE.register(ModEquipmentItems.KITE_SHIELD, new ModBuiltInModelItemRenderer());
-        BuiltinItemRendererRegistry.INSTANCE.register(ModEquipmentItems.ROUND_SHIELD, new ModBuiltInModelItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(ModWeaponItems.HEATER_SHIELD, new ModBuiltInModelItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(ModWeaponItems.KITE_SHIELD, new ModBuiltInModelItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(ModWeaponItems.ROUND_SHIELD, new ModBuiltInModelItemRenderer());
 
         for(ModArmorModels.ModHelmetModels model : ModArmorModels.ModHelmetModels.values()){
             ArmorRenderer.register(new HelmetArmorRenderer(model.getModel()), model.getItem());

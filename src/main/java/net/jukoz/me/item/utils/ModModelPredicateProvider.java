@@ -52,7 +52,7 @@ public class ModModelPredicateProvider {
     }
 
     private static void registerShieldModel() {
-        ModEquipmentItems.shields.forEach(ModModelPredicateProvider::registerShield);
+        ModWeaponItems.shields.forEach(ModModelPredicateProvider::registerShield);
     }
 
     private static void registerSpearModel() {
