@@ -263,8 +263,13 @@ public class MiddleEarthClient implements ClientModInitializer {
             ArmorRenderer.register(new DegradedBootsArmorRenderer(), armor.asItem());
         });
 
-        ArmorRenderer.register(new HoodRenderer(), ModEquipmentItems.HOOD, ModEquipmentItems.FUR_HOOD);
-        ArmorRenderer.register(new CapeRenderer(), ModEquipmentItems.CAPE, ModEquipmentItems.FUR_CLOAK);
+
+        ModEquipmentItems.hoods.forEach(hood -> {
+            ArmorRenderer.register(new HoodRenderer(), hood);
+        });
+        ModEquipmentItems.capes.forEach(cape -> {
+            ArmorRenderer.register(new CapeRenderer(), cape);
+        });
 
         ModelLoadingPlugin.register(pluginContext -> {
             for(Item item : SimpleBigItemModel.items) {
