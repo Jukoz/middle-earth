@@ -4,6 +4,8 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.orcs.OrcNpcEntity;
 import net.jukoz.me.entity.uruks.UrukNpcEntity;
 import net.jukoz.me.item.items.weapons.CustomLongswordWeaponItem;
+import net.jukoz.me.item.items.weapons.utils.ArtefactUtils;
+import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.block.BlockState;
@@ -17,7 +19,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
@@ -50,17 +51,16 @@ public class ArtefactCustomGlowingLongswordWeaponItem extends CustomLongswordWea
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         ArtefactCustomGlowingLongswordWeaponItem item = (ArtefactCustomGlowingLongswordWeaponItem) stack.getItem();
-        item.glowing = !world.getEntitiesByClass(OrcNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty()
-                || !world.getEntitiesByClass(UrukNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty();
+        item.glowing = shouldBeGlowing(world, entity);
     }
 
-    public static boolean isGlowing(World world, Entity entity){
-        boolean glowing = false;
+    public static boolean shouldBeGlowing(World world, Entity entity){
+        int range = 50;
         if (entity != null){
-            glowing = !world.getEntitiesByClass(OrcNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty()
-                    || !world.getEntitiesByClass(UrukNpcEntity.class, entity.getBoundingBox().expand(50), Entity::isAlive).isEmpty();
+            return ArtefactUtils.isInBound(world, entity, OrcNpcEntity.class, range)
+                    || ArtefactUtils.isInBound(world, entity, UrukNpcEntity.class, range);
         }
-        return glowing;
+        return false;
     }
 
     @Override
