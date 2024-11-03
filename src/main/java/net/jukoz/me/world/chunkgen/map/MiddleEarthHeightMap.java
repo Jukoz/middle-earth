@@ -45,10 +45,10 @@ public class MiddleEarthHeightMap {
             float height = color.getRed();
 
             if(blue > 0) { // Water carver
-                CustomBiomeHeightData meBiome = middleEarthMapRuntime.getBiome(xWorld, zWorld);
+                MapBasedCustomBiome meBiome = middleEarthMapRuntime.getBiome(xWorld, zWorld);
                 float percentage = (WATER_MAX - blue) / WATER_MAX;
                 percentage = Math.max(0, Math.min(1, percentage));
-                float waterDifference = (float) (meBiome.getWaterHeight() - CustomBiomeHeightData.DEFAULT_WATER_HEIGHT);
+                float waterDifference = (float) (meBiome.getWaterHeight() - MapBasedCustomBiome.DEFAULT_WATER_HEIGHT);
                 height -= waterDifference;
                 height *= percentage;
                 height += waterDifference;
@@ -187,7 +187,7 @@ public class MiddleEarthHeightMap {
         return a + interpolation * (b - a);
     }
 
-    public static CustomBiomeHeightData getBiomeFromMap(int posX, int posZ) {
+    public static MapBasedCustomBiome getBiomeFromMap(int posX, int posZ) {
         return middleEarthMapRuntime.getBiome(posX, posZ);
     }
 }

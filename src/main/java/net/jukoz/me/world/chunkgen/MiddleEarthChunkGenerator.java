@@ -295,7 +295,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             for(int z = 0; z < 16; z++) {
                 int posX = (chunk.getPos().x * 16) + x;
                 int posZ = (chunk.getPos().z * 16) + z;
-                 CustomBiomeHeightData customHeightBiomeHeightData = null;
+                 MapBasedCustomBiome customHeightBiomeHeightData = null;
                 if(middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) {
                     RegistryEntry<Biome> biome = region.getBiome(new BlockPos(posX, chunk.getTopY(), posZ));
                     customHeightBiomeHeightData = MEBiomesData.getBiome(biome, posX, posZ);

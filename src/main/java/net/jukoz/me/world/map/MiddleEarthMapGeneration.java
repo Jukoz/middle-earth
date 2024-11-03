@@ -3,7 +3,7 @@ package net.jukoz.me.world.map;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.resources.FileType;
 import net.jukoz.me.utils.resources.FileUtils;
-import net.jukoz.me.world.biomes.surface.CustomBiomeHeightData;
+import net.jukoz.me.world.biomes.surface.MapBasedCustomBiome;
 import net.jukoz.me.world.biomes.surface.MEBiomesData;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
 
@@ -270,13 +270,13 @@ public class MiddleEarthMapGeneration {
         for (int x = 0; x < size + brushSize*2; x++) {
             for (int z = 0; z < size + brushSize*2; z++) {
                 try {
-                    CustomBiomeHeightData biome = MEBiomesData.getBiomeByColor(biomeImage.getRGB(x, z));
+                    MapBasedCustomBiome biome = MEBiomesData.getBiomeByColor(biomeImage.getRGB(x, z));
                     int height = biome.getHeight();
                     if(height > 255){
                         height = 255;
                     }
 
-                    int waterHeightDifference = biome.getWaterHeight() - CustomBiomeHeightData.DEFAULT_WATER_HEIGHT;
+                    int waterHeightDifference = biome.getWaterHeight() - MapBasedCustomBiome.DEFAULT_WATER_HEIGHT;
                     int water = 0;
                     int waterHeight = height - waterHeightDifference;
                     if(waterHeight < 0) {

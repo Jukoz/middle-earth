@@ -1,14 +1,10 @@
 package net.jukoz.me.world.biomes.surface;
 
-import com.mojang.datafixers.kinds.Applicative;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.utils.noises.BlendedNoise;
-import net.jukoz.me.world.biomes.MEBiomeDataConfigs;
 import net.jukoz.me.world.chunkgen.ProceduralStructures;
-import net.jukoz.me.world.features.tree.trunks.CanopyTrunkPlacer;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
@@ -17,20 +13,14 @@ import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.caves.CaveType;
 import net.jukoz.me.world.biomes.caves.ModCaveBiomes;
 import net.jukoz.me.world.features.underground.CavesPlacedFeatures;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeCoords;
 import net.minecraft.world.biome.source.BiomeSource;
-import net.minecraft.world.biome.source.CheckerboardBiomeSource;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -89,7 +79,7 @@ public class ModBiomeSource extends BiomeSource {
         int j = BiomeCoords.toBlock(y);
         int k = BiomeCoords.toBlock(z);
 
-        CustomBiomeHeightData biomeHeightData = middleEarthMapRuntime.getBiome(i, k);
+        MapBasedCustomBiome biomeHeightData = middleEarthMapRuntime.getBiome(i, k);
         
         if (biomeHeightData == null) {
             return biomes.get(0);

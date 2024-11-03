@@ -4,27 +4,27 @@ import net.jukoz.me.world.biomes.BiomeGenerationData;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 
-public class CustomBiomeHeightData {
+public class MapBasedCustomBiome {
     public static final int DEFAULT_WATER_HEIGHT = 64;
     private final RegistryKey<Biome> biomeRegistryKey;
     private final int height;
     private final int waterHeight;
     private final BiomeGenerationData biomeGenerationData;
 
-    public CustomBiomeHeightData(RegistryKey<Biome> key, int height, BiomeGenerationData data){
+    public MapBasedCustomBiome(RegistryKey<Biome> key, int height, BiomeGenerationData data){
         this.biomeRegistryKey = key;
         this.height = Math.min(255, Math.max(-255, height));
         this.waterHeight = DEFAULT_WATER_HEIGHT;
         this.biomeGenerationData = data;
     }
-    public CustomBiomeHeightData(RegistryKey<Biome> key, int height, int waterHeight, BiomeGenerationData data){
+    public MapBasedCustomBiome(RegistryKey<Biome> key, int height, int waterHeight, BiomeGenerationData data){
         this.biomeRegistryKey = key;
         this.height = Math.min(255, Math.max(-255, height));
         this.waterHeight = Math.min(255, Math.max(-255, waterHeight));
         this.biomeGenerationData = data;
     }
 
-    public CustomBiomeHeightData addHeightBasedSubBiome(RegistryKey<Biome> key, int heightThreshold){
+    public MapBasedCustomBiome addHeightBasedSubBiome(RegistryKey<Biome> key, int heightThreshold){
         // TODO : Test with misties
         return this;
     }
