@@ -188,6 +188,8 @@ public class MiddleEarthHeightMap {
     }
 
     public static MapBasedCustomBiome getBiomeFromMap(int posX, int posZ) {
+        if(middleEarthMapRuntime == null)
+            middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
         return middleEarthMapRuntime.getBiome(posX, posZ);
     }
 }
