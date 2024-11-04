@@ -194,10 +194,10 @@ public class DaleHumanEntity extends NpcEntity{
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_BOW));
         } else if (val3 > 0.30f) {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_SPEAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.GONDORIAN_SHIELD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModWeaponItems.GONDORIAN_SHIELD));
         } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_SPEAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.GONDORIAN_SHIELD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModWeaponItems.GONDORIAN_SHIELD));
         }
     }
 
@@ -206,10 +206,10 @@ public class DaleHumanEntity extends NpcEntity{
         float val = random.nextFloat();
         if(val >= 0.75f){
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_SWORD));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.GONDORIAN_SHIELD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModWeaponItems.GONDORIAN_SHIELD));
         } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_SPEAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.GONDORIAN_SHIELD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModWeaponItems.GONDORIAN_SHIELD));
         }
     }
 
@@ -224,7 +224,7 @@ public class DaleHumanEntity extends NpcEntity{
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_LONGSWORD));
         } else {
             equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModWeaponItems.GONDORIAN_SPEAR));
-            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModEquipmentItems.GONDORIAN_SHIELD));
+            equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModWeaponItems.GONDORIAN_SHIELD));
         }
     }
 
