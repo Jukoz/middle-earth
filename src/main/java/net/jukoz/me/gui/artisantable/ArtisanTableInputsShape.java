@@ -32,9 +32,9 @@ public class ArtisanTableInputsShape {
             {InputType.HANDLE, InputType.NONE, InputType.NONE}});
 
     public static ArtisanTableInputsShape BOW = new ArtisanTableInputsShape("bow", new InputType[][]{
-            {InputType.ANY, InputType.ANY, InputType.NONE},
+            {InputType.NONE, InputType.ANY, InputType.ANY},
             {InputType.ANY, InputType.NONE, InputType.ANY},
-            {InputType.ANY, InputType.ANY, InputType.NONE}});
+            {InputType.NONE, InputType.ANY, InputType.ANY}});
 
     public static ArtisanTableInputsShape PICKAXE = new ArtisanTableInputsShape("pickaxe", new InputType[][]{
             {InputType.NONE, InputType.NONE, InputType.PICKAXE},

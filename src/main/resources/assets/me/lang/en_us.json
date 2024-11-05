@@ -6332,7 +6332,7 @@
   "screen.me.artisan_table.misc": "Misc",
   "screen.me.artisan_table.hats": "Hats",
   "screen.me.artisan_table.hood": "Hood",
-  "screen.me.artisan_table.cloak": "Cloak",
+  "screen.me.artisan_table.cape": "Cape",
 
 "#Comment": "Tooltips",
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",

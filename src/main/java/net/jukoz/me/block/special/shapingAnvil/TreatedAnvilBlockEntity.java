@@ -156,7 +156,7 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
         List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
             .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());
 
-        entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f, 1.0f);
+        entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.5f, 1.0f);
 
         if (!match.isEmpty() && input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null  && hasShapingRecipe(entity)){
 

@@ -11,6 +11,7 @@ import net.jukoz.me.gui.artisantable.ArtisanTableInputsShape;
 import net.jukoz.me.gui.artisantable.InputType;
 import net.jukoz.me.recipe.ArtisanRecipe;
 import net.minecraft.registry.Registries;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
@@ -73,6 +74,8 @@ public class ArtisanTableEmiRecipe implements EmiRecipe {
                 }
             }
         }
+
+        widgets.addText(Text.translatable("screen." + MiddleEarth.MOD_ID +".artisan_table." + shape.getId()), 0, 50, 0, false);
 
         widgets.addSlot(output.getFirst(), 31, 65).recipeContext(this);
     }
