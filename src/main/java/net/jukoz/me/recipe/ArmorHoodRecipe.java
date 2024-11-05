@@ -1,10 +1,9 @@
 package net.jukoz.me.recipe;
 
-import dev.architectury.platform.Mod;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
-import net.jukoz.me.item.items.CustomHelmetItem;
-import net.jukoz.me.item.items.HoodHelmetItem;
+import net.jukoz.me.item.items.armor.CustomHelmetItem;
+import net.jukoz.me.item.items.armor.HoodHelmetItem;
 import net.jukoz.me.item.utils.armor.hoods.ModHoodStates;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;

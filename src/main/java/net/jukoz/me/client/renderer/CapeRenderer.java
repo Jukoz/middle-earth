@@ -7,7 +7,7 @@ import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
 import net.jukoz.me.client.model.equipment.chest.capes.CloakCapeModel;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
-import net.jukoz.me.item.items.CapeChestplateItem;
+import net.jukoz.me.item.items.armor.CapeChestplateItem;
 import net.jukoz.me.item.utils.armor.ModArmorModels;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;

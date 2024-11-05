@@ -17,18 +17,18 @@ import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.util.Identifier;
 
 public class ModEmiPlugin implements EmiPlugin {
-    public static final Identifier MY_SPRITE_SHEET = Identifier.of(MiddleEarth.MOD_ID, "textures/item/smithing_hammer.png");
+    public static final Identifier MY_SPRITE_SHEET = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/sprites/emi_sprite_sheet.png");
     public static final EmiStack ARTISAN_TABLE = EmiStack.of(ModDecorativeBlocks.ARTISAN_TABLE);
     public static final EmiRecipeCategory ARTISAN_TABLE_CATEGORY
             = new EmiRecipeCategory(Identifier.of(MiddleEarth.MOD_ID, "artisan_table"), ARTISAN_TABLE, new EmiTexture(MY_SPRITE_SHEET, 0, 0, 16, 16));
 
     public static final EmiStack ANVIL_SHAPING = EmiStack.of(ModDecorativeBlocks.TREADTED_ANVIL);
     public static final EmiRecipeCategory ANVIL_SHAPING_CATEGORY
-            = new EmiRecipeCategory(Identifier.of(MiddleEarth.MOD_ID, "anvil_shaping"), ANVIL_SHAPING, new EmiTexture(MY_SPRITE_SHEET, 0, 0, 16, 16));
+            = new EmiRecipeCategory(Identifier.of(MiddleEarth.MOD_ID, "anvil_shaping"), ANVIL_SHAPING, new EmiTexture(MY_SPRITE_SHEET, 0, 32, 16, 16));
 
     public static final EmiStack FORGE = EmiStack.of(ModDecorativeBlocks.FORGE);
     public static final EmiRecipeCategory FORGE_CATEGORY
-            = new EmiRecipeCategory(Identifier.of(MiddleEarth.MOD_ID, "forge"), FORGE, new EmiTexture(MY_SPRITE_SHEET, 0, 0, 16, 16));
+            = new EmiRecipeCategory(Identifier.of(MiddleEarth.MOD_ID, "forge"), FORGE, new EmiTexture(MY_SPRITE_SHEET, 0, 16, 16, 16));
 
     @Override
     public void register(EmiRegistry registry) {
