@@ -75,7 +75,7 @@ public class ArtisanTableEmiRecipe implements EmiRecipe {
             }
         }
 
-        widgets.addText(Text.translatable("screen." + MiddleEarth.MOD_ID +".artisan_table." + shape.getId()), 0, 50, 0, false);
+        widgets.addText(Text.translatable("screen." + MiddleEarth.MOD_ID +".artisan_table." + shape.getId()), 0, 56, 0, false);
 
         widgets.addSlot(output.getFirst(), 31, 65).recipeContext(this);
     }

@@ -17,7 +17,7 @@ import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.util.Identifier;
 
 public class ModEmiPlugin implements EmiPlugin {
-    public static final Identifier MY_SPRITE_SHEET = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/e.png");
+    public static final Identifier MY_SPRITE_SHEET = Identifier.of(MiddleEarth.MOD_ID, "textures/item/smithing_hammer.png");
     public static final EmiStack ARTISAN_TABLE = EmiStack.of(ModDecorativeBlocks.ARTISAN_TABLE);
     public static final EmiRecipeCategory ARTISAN_TABLE_CATEGORY
             = new EmiRecipeCategory(Identifier.of(MiddleEarth.MOD_ID, "artisan_table"), ARTISAN_TABLE, new EmiTexture(MY_SPRITE_SHEET, 0, 0, 16, 16));
