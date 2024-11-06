@@ -36,6 +36,11 @@ public class ArtisanTableInputsShape {
             {InputType.ANY, InputType.NONE, InputType.ANY},
             {InputType.NONE, InputType.ANY, InputType.ANY}});
 
+    public static ArtisanTableInputsShape CROSSBOW = new ArtisanTableInputsShape("crossbow", new InputType[][]{
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.NONE, InputType.ANY, InputType.NONE}});
+
     public static ArtisanTableInputsShape PICKAXE = new ArtisanTableInputsShape("pickaxe", new InputType[][]{
             {InputType.NONE, InputType.NONE, InputType.PICKAXE},
             {InputType.NONE, InputType.HANDLE, InputType.NONE},

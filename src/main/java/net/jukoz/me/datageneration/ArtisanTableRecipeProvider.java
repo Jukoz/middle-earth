@@ -11,6 +11,7 @@ import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.utils.ModSmithingTrimMaterials;
 import net.jukoz.me.item.utils.ModSmithingTrimPatterns;
+import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.data.DataOutput;
 import net.minecraft.data.server.recipe.RecipeExporter;
@@ -218,6 +219,13 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
         createArtisanTableSpearRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.MORDOR_ELITE_SPEAR.getDefaultStack(), true);
         createArtisanTableSpearRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.ISENGARD_ORC_SPEAR.getDefaultStack(), false);
         createArtisanTableSpearRecipe(exporter, MetalTypes.BURZUM_STEEL, ModWeaponItems.URUK_HAI_SPEAR.getDefaultStack(), true);
+
+        createArtisanTableBowRecipe(exporter, ModWeaponItems.GONDORIAN_BOW.getDefaultStack());
+        createArtisanTableBowRecipe(exporter, ModWeaponItems.ROHIRRIC_BOW.getDefaultStack());
+        createArtisanTableBowRecipe(exporter, ModWeaponItems.LORIEN_BOW.getDefaultStack());
+        createArtisanTableBowRecipe(exporter, Items.BOW.getDefaultStack());
+
+        createArtisanTableCrossbowRecipe(exporter, Items.CROSSBOW.getDefaultStack());
         //endregion
 
         //region TOOLS
@@ -505,6 +513,37 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
                             FabricRecipeProvider.conditionsFromItem(blade.getItem()))
                     .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
         }
+    }
+
+    private void createArtisanTableBowRecipe(RecipeExporter exporter, ItemStack output) {
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "crossbow")
+                .input(Items.STICK)
+                .input(Items.STRING)
+                .input(Items.STICK)
+                .input(Items.STRING)
+                .input(Items.STICK)
+                .input(Items.STRING)
+                .criterion(FabricRecipeProvider.hasItem(Items.STRING),
+                        FabricRecipeProvider.conditionsFromItem(Items.STRING))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
+    }
+
+    private void createArtisanTableCrossbowRecipe(RecipeExporter exporter, ItemStack output) {
+        ItemStack rod = new ItemStack(ModResourceItems.ROD);
+        rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MetalTypes.IRON.getName()))), getPattern()));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, output, "crossbow")
+                .input(Items.STICK)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
+                .input(Items.STICK)
+                .input(Items.STRING)
+                .input(Blocks.TRIPWIRE_HOOK)
+                .input(Items.STRING)
+                .input(Items.STICK)
+                .criterion(FabricRecipeProvider.hasItem(Items.STRING),
+                        FabricRecipeProvider.conditionsFromItem(Items.STRING))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan"));
     }
 
     private void createArtisanTablePickaxeRecipe(RecipeExporter exporter, MetalTypes metal, ItemStack output, Optional<MetalTypes> rodMetal) {
