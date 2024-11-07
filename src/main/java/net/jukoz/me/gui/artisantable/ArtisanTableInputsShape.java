@@ -76,6 +76,16 @@ public class ArtisanTableInputsShape {
             {InputType.ANY, InputType.NONE, InputType.ANY},
             {InputType.ANY, InputType.NONE, InputType.ANY}});
 
+    public static ArtisanTableInputsShape CAPE = new ArtisanTableInputsShape("cape", new InputType[][]{
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY}});
+
+    public static ArtisanTableInputsShape HOOD = new ArtisanTableInputsShape("hood", new InputType[][]{
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.NONE, InputType.NONE, InputType.NONE}});
+
     public ArtisanTableInputsShape(String id, InputType[][] inputs) {
         this.id = id;
         this.inputs = inputs;

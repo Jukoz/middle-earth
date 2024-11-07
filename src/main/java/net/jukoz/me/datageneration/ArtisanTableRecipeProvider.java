@@ -309,6 +309,10 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
         //endregion
 
         //region ARMOR
+        ItemStack goldArmorPlate = new ItemStack(ModResourceItems.ARMOR_PLATE);
+        goldArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MetalTypes.GOLD.getName()))), getPattern()));
+        
         ItemStack steelArmorPlate = new ItemStack(ModResourceItems.ARMOR_PLATE);
         steelArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 Identifier.of(MiddleEarth.MOD_ID, MetalTypes.STEEL.getName()))), getPattern()));
@@ -319,21 +323,37 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
         steelChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 Identifier.of(MiddleEarth.MOD_ID, MetalTypes.STEEL.getName()))), getPattern()));
 
+        ItemStack ironArmorPlate = new ItemStack(ModResourceItems.ARMOR_PLATE);
+        ironArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MetalTypes.IRON.getName()))), getPattern()));
+        ItemStack ironHelmetPlate = new ItemStack(ModResourceItems.HELMET_PLATE);
+        ironHelmetPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MetalTypes.IRON.getName()))), getPattern()));
         ItemStack ironChainmail = new ItemStack(ModResourceItems.CHAINMAIL);
         ironChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 Identifier.of(MetalTypes.IRON.getName()))), getPattern()));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CHAIN_COAT.getDefaultStack(), "leggings")
+        //region GONDOR
+        //T2
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_BOOTS.getDefaultStack(), "boots")
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(Items.LEATHER),
+                        FabricRecipeProvider.conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_BOOTS).getPath() + "_artisan"));
+
+        //T3
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CABASSET_HELMET.getDefaultStack(), "helmet")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironHelmetPlate.getItem()), ironHelmetPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
-                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
-                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_CHAIN_COAT).getPath() + "_artisan"));
+                .criterion(FabricRecipeProvider.hasItem(ironHelmetPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironHelmetPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_CABASSET_HELMET).getPath() + "_artisan"));
 
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CHAIN_HAUBERK.getDefaultStack(), "chestplate")
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
@@ -348,6 +368,68 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_CHAIN_HAUBERK).getPath() + "_artisan"));
 
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_LEATHER_CHESTPLATE.getDefaultStack(), "chestplate")
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(ModEquipmentItems.GONDORIAN_CHAIN_HAUBERK)
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GONDORIAN_CHAIN_HAUBERK),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_CHAIN_HAUBERK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_LEATHER_CHESTPLATE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_LEATHER_CUIRASS.getDefaultStack(), "chestplate")
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(Items.LEATHER)
+                .input(ModEquipmentItems.GONDORIAN_CHAIN_HAUBERK)
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                .input(Items.LEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GONDORIAN_CHAIN_HAUBERK),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_CHAIN_HAUBERK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_LEATHER_CUIRASS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_TABBARD.getDefaultStack(), "chestplate")
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModEquipmentItems.GONDORIAN_CHAIN_HAUBERK)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.LEATHER)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.LEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GONDORIAN_CHAIN_HAUBERK),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_CHAIN_HAUBERK))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_TABBARD).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CHAIN_COAT.getDefaultStack(), "leggings")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ironChainmail.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(ironChainmail.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_CHAIN_COAT).getPath() + "_artisan"));
+
+        //T4
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_SOLDIER_HELMET.getDefaultStack(), "helmet")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelHelmetPlate.getItem()), steelHelmetPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(steelHelmetPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(steelHelmetPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_SOLDIER_HELMET).getPath() + "_artisan"));
+
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_SOLDIER_CHESTPLATE.getDefaultStack(), "chestplate")
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
@@ -361,6 +443,7 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_CHAIN_HAUBERK))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_SOLDIER_CHESTPLATE).getPath() + "_artisan"));
 
+        //T5 PLATE
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_PLATE_HELMET.getDefaultStack(), "helmet")
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelHelmetPlate.getItem()), steelHelmetPlate.getComponentChanges()))
@@ -405,6 +488,236 @@ public class ArtisanTableRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(steelArmorPlate.getItem()))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_PLATE_BOOTS).getPath() + "_artisan"));
 
+        //T5 CAPTAIN
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CAPTAIN_HELMET.getDefaultStack(), "helmet")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .input(ModEquipmentItems.GONDORIAN_PLATE_HELMET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_CAPTAIN_HELMET).getPath() + "_artisan"));
+
+        //T5 KING'S GUARD
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_KINGS_GUARD_HELMET.getDefaultStack(), "helmet")
+                .input(Items.FEATHER)
+                .input(ModEquipmentItems.GONDORIAN_PLATE_HELMET)
+                .input(Items.FEATHER)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_KINGS_GUARD_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_KINGS_GUARD_CHESTKPLATE.getDefaultStack(), "chestplate")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .input(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE)
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_KINGS_GUARD_CHESTKPLATE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_KINGS_GUARD_LEGGINGS.getDefaultStack(), "leggings")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .input(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_KINGS_GUARD_LEGGINGS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_KINGS_GUARD_BOOTS.getDefaultStack(), "boots")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(goldArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(goldArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_KINGS_GUARD_BOOTS).getPath() + "_artisan"));
+
+        //T5 CITADEL GUARD
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_HELMET.getDefaultStack(), "helmet")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .input(ModEquipmentItems.GONDORIAN_PLATE_HELMET)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_HELMET))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_CHESTPLATE.getDefaultStack(), "chestplate")
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE)
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_CHESTPLATE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_LEGGINGS.getDefaultStack(), "leggings")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .input(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_LEGGINGS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_BOOTS.getDefaultStack(), "boots")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(goldArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(goldArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_BOOTS).getPath() + "_artisan"));
+        
+        //T5 FOUNTAIN GUARD
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_HELMET.getDefaultStack(), "helmet")
+                .input(ModResourceItems.MITHRIL_NUGGET)
+                .input(ModEquipmentItems.GONDORIAN_CAPTAIN_HELMET)
+                .input(ModResourceItems.MITHRIL_NUGGET)
+                .input(ModResourceItems.SWAN_FEATHER)
+                .input(ModResourceItems.SWAN_FEATHER)
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GONDORIAN_CAPTAIN_HELMET),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_CAPTAIN_HELMET))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_HELMET).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE.getDefaultStack(), "chestplate")
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE)
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS.getDefaultStack(), "leggings")
+                .input(ModResourceItems.FABRIC)
+                .input(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelChainmail.getItem()), steelChainmail.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS),
+                        FabricRecipeProvider.conditionsFromItem(ModEquipmentItems.GONDORIAN_PLATE_LEGGINGS))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_BOOTS.getDefaultStack(), "boots")
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(goldArmorPlate.getItem()), goldArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
+                .criterion(FabricRecipeProvider.hasItem(goldArmorPlate.getItem()),
+                        FabricRecipeProvider.conditionsFromItem(goldArmorPlate.getItem()))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_BOOTS).getPath() + "_artisan"));
+
+        //HOODS
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_HOOD.getDefaultStack(), "hood")
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.BLACK_DYE)
+                .input(ModResourceItems.FABRIC)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_HOOD).getPath() + "_artisan"));
+
+        //CAPES
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CAPTAIN_CAPE.getDefaultStack(), "cape")
+                .input(ModResourceItems.FABRIC)
+                .input(Items.IRON_NUGGET)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.BLACK_DYE)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.BLACK_DYE)
+                .input(Items.WHITE_DYE)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.WHITE_DYE)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_CAPTAIN_CAPE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_HERO_CAPE.getDefaultStack(), "cape")
+                .input(ModResourceItems.FABRIC)
+                .input(Items.IRON_NUGGET)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.WHITE_DYE)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.WHITE_DYE)
+                .input(Items.BLACK_DYE)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.BLACK_DYE)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_HERO_CAPE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_KINGS_GUARD_CAPE.getDefaultStack(), "cape")
+                .input(ModResourceItems.FABRIC)
+                .input(Items.GOLD_NUGGET)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.BLACK_DYE)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.BLACK_DYE)
+                .input(Items.WHITE_DYE)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.WHITE_DYE)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_KINGS_GUARD_CAPE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_CITADEL_GUARD_CAPE.getDefaultStack(), "cape")
+                .input(ModResourceItems.FABRIC)
+                .input(Items.GOLD_NUGGET)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.BLACK_DYE)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.BLACK_DYE)
+                .input(Items.YELLOW_DYE)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.YELLOW_DYE)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_CITADEL_GUARD_CAPE).getPath() + "_artisan"));
+
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(RecipeCategory.COMBAT, ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_CAPE.getDefaultStack(), "cape")
+                .input(ModResourceItems.FABRIC)
+                .input(Items.GOLD_NUGGET)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.BLACK_DYE)
+                .input(ModResourceItems.FABRIC)
+                .input(Items.BLACK_DYE)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.FABRIC),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.GONDORIAN_FOUNTAIN_GUARD_CAPE).getPath() + "_artisan"));
+
+        //endregion
         //endregion
     }
 
