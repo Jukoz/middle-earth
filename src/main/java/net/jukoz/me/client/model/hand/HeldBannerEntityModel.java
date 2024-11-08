@@ -24,10 +24,7 @@ public class HeldBannerEntityModel extends Model {
 
         modelPartData.addChild("pole", ModelPartBuilder.create()
                         .uv(44, 0).cuboid(-1.0F, -72.0F, -1.0F, 2.0F, 42.0F, 2.0F, new Dilation(0.0F))
-                        .uv(44, 12).cuboid(-1.0F, -30.0F, -1.0F, 2.0F, 30.0F, 2.0F, new Dilation(0.0F)),
-                ModelTransform.NONE);
-
-        modelPartData.addChild("bar", ModelPartBuilder.create()
+                        .uv(44, 12).cuboid(-1.0F, -30.0F, -1.0F, 2.0F, 30.0F, 2.0F, new Dilation(0.0F))
                         .uv(0, 42).mirrored().cuboid(-10.0F, -74.0F, -1.0F, 20.0F, 2.0F, 2.0F, new Dilation(0.0F)),
                 ModelTransform.NONE);
 
