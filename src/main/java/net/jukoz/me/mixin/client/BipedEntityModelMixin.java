@@ -1,6 +1,7 @@
 package net.jukoz.me.mixin.client;
 
 import net.jukoz.me.item.ModDecorativeItems;
+import net.jukoz.me.item.items.HeldBannerItem;
 import net.jukoz.me.item.items.weapons.CustomSpearWeaponItem;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
 import net.jukoz.me.item.utils.ModWeaponTypes;
@@ -64,7 +65,7 @@ public class BipedEntityModelMixin {
             this.leftArm.pitch = pitch - 0.2f;
             this.rightArm.yaw = -0.35f;
             this.leftArm.yaw = 0.8f;
-        } else if(itemStack.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) itemStack.getItem()).type == ModWeaponTypes.SPEAR)) {
+        } else if((itemStack.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) itemStack.getItem()).type == ModWeaponTypes.SPEAR) || itemStack.getItem() instanceof HeldBannerItem)) {
             if(!entity.isUsingItem() && entity instanceof PlayerEntity playerEntity) {
                 int afkTime = PlayerMovementData.readAFK((IEntityDataSaver) playerEntity);
                 if(afkTime > 60) {
