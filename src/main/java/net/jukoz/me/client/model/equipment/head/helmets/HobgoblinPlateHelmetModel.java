@@ -17,7 +17,9 @@ public class HobgoblinPlateHelmetModel<T extends LivingEntity> extends HelmetAdd
         modelPartData.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-        ModelPartData Addon = head.addChild("Addon", ModelPartBuilder.create().uv(28, 0).cuboid(-9.0F, -12.0F, -5.05F, 18.0F, 12.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData Addon = head.addChild("Addon", ModelPartBuilder.create()
+                .uv(28, 0).cuboid(-9.0F, -12.0F, -5.05F, 18.0F, 12.0F, 0.0F, new Dilation(0.0F))
+                .uv(0, 0).cuboid(-4.0F, 0.85F, -4.0F, 8.0F, 9.0F, 3.0F, new Dilation(0.55F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         ModelPartData headthing2 = Addon.addChild("headthing2", ModelPartBuilder.create().uv(54, 49).cuboid(-0.5F, -3.8868F, -0.8666F, 4.0F, 14.0F, 1.0F, new Dilation(0.1F)), ModelTransform.pivot(-1.5F, -10.5976F, -4.4512F));
         headthing2.addChild("cube_r1", ModelPartBuilder.create().uv(38, 53).mirrored().cuboid(-4.0F, -5.5F, 0.0F, 8.0F, 11.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(5.2366F, 0.5132F, 0.3928F, 0.0F, -0.3491F, 0.0F));
         headthing2.addChild("cube_r2", ModelPartBuilder.create().uv(38, 53).cuboid(-5.0F, -4.0F, 0.0F, 8.0F, 11.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-1.3312F, -0.9868F, 0.0562F, 0.0F, 0.3491F, 0.0F));

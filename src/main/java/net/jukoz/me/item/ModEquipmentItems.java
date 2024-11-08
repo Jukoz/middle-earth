@@ -70,7 +70,6 @@ public class ModEquipmentItems {
             new HoodHelmetItem(new Item.Settings()
                     .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.WHITE_FUR_HOOD)),
                     ModFactions.NONE));
-    
 
     //capes
     public static final Item CAPE = registerCape("cape",
@@ -984,9 +983,6 @@ public class ModEquipmentItems {
     public static final Item GUNDABAD_BONE_PAULDRON = registerArmorPiece("gundabad_bone_pauldron",
             new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
-    public static final Item GUNDABAD_LEATHER_COAT = registerArmorPiece("gundabad_leather_coat",
-            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
-                    ModSubFactions.GUNDABAD));
     public static final Item GUNDABAD_LEATHER_SCALE_COAT = registerArmorPiece("gundabad_leather_scale_coat",
             new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
@@ -994,9 +990,6 @@ public class ModEquipmentItems {
             new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
     public static final Item GUNDABAD_REINFORCED_LEATHER_VEST = registerArmorPiece("gundabad_reinforced_leather_vest",
-            new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
-                    ModSubFactions.GUNDABAD));
-    public static final Item ORCISH_LEATHER_VEST = registerArmorPiece("orcish_leather_vest",
             new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
 
@@ -1008,9 +1001,6 @@ public class ModEquipmentItems {
                     ModSubFactions.GUNDABAD));
 
     public static final Item GUNDABAD_LACED_BOOTS = registerArmorPiece("gundabad_laced_boots",
-            new CustomBootsItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
-                    ModSubFactions.GUNDABAD));
-    public static final Item ORC_BOOTS = registerArmorPiece("orc_boots",
             new CustomBootsItem(ModArmorMaterials.BURZUM_STEEL_T5, new Item.Settings(),
                     ModSubFactions.GUNDABAD));
     public static final Item ORCISH_FUR_BOOTS = registerArmorPiece("orcish_fur_boots",
