@@ -7,20 +7,20 @@ import net.minecraft.world.biome.Biome;
 public class MapBasedCustomBiome {
     public static final int DEFAULT_WATER_HEIGHT = 64;
     private final RegistryKey<Biome> biomeRegistryKey;
-    private final int height;
-    private final int waterHeight;
+    private final byte  height;
+    private final byte waterHeight;
     private final BiomeGenerationData biomeGenerationData;
 
     public MapBasedCustomBiome(RegistryKey<Biome> key, int height, BiomeGenerationData data){
         this.biomeRegistryKey = key;
-        this.height = Math.min(255, Math.max(-255, height));
+        this.height = (byte) height;
         this.waterHeight = DEFAULT_WATER_HEIGHT;
         this.biomeGenerationData = data;
     }
     public MapBasedCustomBiome(RegistryKey<Biome> key, int height, int waterHeight, BiomeGenerationData data){
         this.biomeRegistryKey = key;
-        this.height = Math.min(255, Math.max(-255, height));
-        this.waterHeight = Math.min(255, Math.max(-255, waterHeight));
+        this.height = (byte) height;
+        this.waterHeight = (byte) waterHeight;
         this.biomeGenerationData = data;
     }
 
