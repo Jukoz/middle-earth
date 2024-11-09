@@ -1,6 +1,6 @@
 {
 "#Comment:": "Advancements",
-  "advancements.middle_earth.root.title": "Middle Earth",
+  "advancements.middle_earth.root.title": "Middle-earth",
   "advancements.middle_earth.root.description": "Enter Middle-earth!",
   "advancements.middle_earth.enter_mordor.title": "One does not simply...",
   "advancements.middle_earth.enter_mordor.description": "Walk into Mordor",
@@ -227,7 +227,7 @@
 
 "#Comment:": "Item - General",
   "item.me.gold_ring": "Gold Ring",
-  "item.me.middle_earth_map": "Middle Earth Map",
+  "item.me.middle_earth_map": "Middle-earth Map",
   "item.me.ash": "Ash",
   "item.me.iron_chainmail": "Iron Chainmail",
 
@@ -505,11 +505,55 @@
   "item.me.cuthann": "Cûthann",
 
 "#Comment:": "Armours",
-  "item.me.cape": "Cape",
   "item.me.hood": "Hood",
 
-  "item.me.fur_cloak": "Fur Cloak",
-  "item.me.fur_hood": "Fur Hood",
+  "item.me.black_fur_hood": "Black Fur Hood",
+  "item.me.brown_fur_hood": "Brown Fur Hood",
+  "item.me.gray_fur_hood": "Gray Fur Hood",
+  "item.me.tan_fur_hood": "Tan Fur Hood",
+  "item.me.white_fur_hood": "White Fur Hood",
+
+  "item.me.cape": "Cape",
+  "item.me.cloak": "Cloak",
+
+  "item.me.black_fur_cloak": "Black Fur Cloak",
+  "item.me.brown_fur_cloak": "Brown Fur Cloak",
+  "item.me.gray_fur_cloak": "Gray Fur Cloak",
+  "item.me.tan_fur_cloak": "Tan Fur Cloak",
+  "item.me.white_fur_cloak": "White Fur Cloak",
+
+  "item.me.black_fur": "Black Fur",
+  "item.me.brown_fur": "Brown Fur",
+  "item.me.gray_fur": "Gray Fur",
+  "item.me.tan_fur": "Tan Fur",
+  "item.me.white_fur": "White Fur",
+
+  "item.me.surcoat": "Surcoat",
+
+  "item.me.gondorian_captain_cape": "Gondorian Captain Cape",
+  "item.me.gondorian_hero_cape": "Gondorian Hero Cape",
+  "item.me.gondorian_kings_guard_cape": "Gondorian King's Guard Cape",
+  "item.me.gondorian_citadel_guard_hood": "Gondorian Citadel Guard Hood",
+  "item.me.gondorian_citadel_guard_cape": "Gondorian Citadel Guard Cape",
+  "item.me.gondorian_fountain_guard_cape": "Gondorian Fountain Guard Cape",
+
+  "item.me.rohirric_cape": "Rohirric Cape",
+  "item.me.rohirric_royal_guard_cape": "Rohirric Royal Guard Cape",
+  "item.me.eorling_marshal_cape": "Eorling Marshal Cape",
+  "item.me.horse_lord_cape": "Horse Lord Cape",
+
+  "item.me.barding_surcoat": "Barding Surcoat",
+  "item.me.dalish_heyday_cape": "Dalish Heyday Cape",
+  "item.me.barding_sergeant_cape": "Barding Sergeant Cape",
+
+  "item.me.erebor_cape": "Erebor Cape",
+  "item.me.ravenhill_sentinel_cape": "Ravenhill Sentinel Cape",
+
+  "item.me.lorien_marchwarden_hood": "Lórien Marchwarden Hood",
+  "item.me.lorien_marchwarden_cape": "Lórien Marchwarden Cape",
+  "item.me.galadhrim_cape": "Galadhrim Cape",
+  "item.me.galadhrim_hood": "Galadhrim Hood",
+  "item.me.galadhrim_lord_surcoat": "Galadhrim Lord Surcoat",
 
   "item.me.straw_hat": "Straw Hat",
   "item.me.woven_hat": "Woven Hat",
@@ -6446,11 +6490,14 @@
   "tooltip.me.eorling_marshal_cape": "Eorling Marshal Cape",
   "tooltip.me.horse_lord_cape": "Horse Lord Cape",
 
+  "tooltip.me.barding_surcoat": "Barding Surcoat",
   "tooltip.me.dalish_heyday_cape": "Dalish Heyday Cape",
   "tooltip.me.barding_sergeant_cape": "Barding Sergeant Cape",
 
   "tooltip.me.erebor_cape": "Erebor Cape",
   "tooltip.me.ravenhill_sentinel_cape": "Ravenhill Sentinel Cape",
+
+  "tooltip.me.lorien_marchwarden_hood": "Lórien Marchwarden Hood",
 
   "tooltip.me.lorien_marchwarden_cape": "Lórien Marchwarden Cape",
   "tooltip.me.galadhrim_cape": "Galadhrim Cape",
@@ -6621,6 +6668,12 @@
   "command.me.hood.success": "Hood successfully applied: ",
   "command.me.hood.fail": "Failed to apply hood.",
 
+  "command.me.cape.hand_empty": "Hand Empty. Take a Middle-earth Mod chestplate in your main hand to apply a cape.",
+  "command.me.hood.hand_empty": "Hand Empty. Take a Middle-earth Mod helmet in your main hand to apply a hood.",
+
+  "command.me.cape.wrong_item": "Wrong Item type. Take a Middle-earth Mod chestplate in your main hand to apply a cape.",
+  "command.me.hood.wrong_item": "Wrong Item type. Take a Middle-earth Mod helmet in your main hand to apply a hood.",
+
 "#Comment": "Alert",
   "alert.me.large_door.blocked": "Something seems to prevent the door from moving.",
 
@@ -6709,8 +6762,8 @@
   "tag.item.me.ingot_shaping": "Ingot Shaping",
   "tag.item.me.lead_ores": "Lead Ores",
   "tag.item.me.mithril_ores": "Mithril Ores",
-  "tag.item.me.mod_planks": "Middle Earth Planks",
-  "tag.item.me.mod_stripped_logs": "Middle Earth Stripped Logs",
+  "tag.item.me.mod_planks": "Middle-earth Planks",
+  "tag.item.me.mod_stripped_logs": "Middle-earth Stripped Logs",
   "tag.item.me.mushroom_stew_ingredient": "Mushroom Stew Ingredient",
   "tag.item.me.nugget_shaping": "Nugget Shaping",
   "tag.item.me.raw_poultry": "Raw Poultry",

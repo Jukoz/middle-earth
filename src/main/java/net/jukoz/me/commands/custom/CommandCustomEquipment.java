@@ -40,6 +40,7 @@ public class CommandCustomEquipment {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
 
         dispatcher.register(literal(ModCommands.BASE_COMMAND)
+                .requires(source -> source.hasPermissionLevel(2))
                 .then(literal(EQUIPMENT)
                     .then(literal(CAPE)
                         .then(argument(CAPE_VALUE, StringArgumentType.string())
@@ -47,6 +48,7 @@ public class CommandCustomEquipment {
                                 .executes(CommandCustomEquipment::setCape)))));
 
         dispatcher.register(literal(ModCommands.BASE_COMMAND)
+                .requires(source -> source.hasPermissionLevel(2))
                 .then(literal(EQUIPMENT)
                     .then(literal(HOOD)
                         .then(argument(HOOD_VALUE, StringArgumentType.string())
@@ -59,16 +61,22 @@ public class CommandCustomEquipment {
 
         ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getInventory().getMainHandStack();
 
-        if ((handStack.getItem() instanceof CustomChestplateItem || handStack.getItem() instanceof CapeChestplateItem) && handStack.get(ModDataComponentTypes.CAPE_DATA) != null){
+        if (handStack.isEmpty()){
+            MutableText sourceText = Text.translatable("command.me.cape.hand_empty");
+            context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
+            return 0;
+        }
+
+        if ((handStack.getItem() instanceof CustomChestplateItem || handStack.getItem() instanceof CapeChestplateItem)){
             handStack.set(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(cape));
             MutableText sourceText = Text.translatable("command.me.cape.success").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + cape.getName()));
             context.getSource().sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
             return 0;
+        } else {
+            MutableText sourceText = Text.translatable("command.me.cape.wrong_item");
+            context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
+            return 0;
         }
-
-        MutableText sourceText = Text.translatable("command.me.cape.fail");
-        context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
-        return 0;
     }
 
     private static int setHood(CommandContext<ServerCommandSource> context) {
@@ -76,7 +84,13 @@ public class CommandCustomEquipment {
 
         ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getInventory().getMainHandStack();
 
-        if ((handStack.getItem() instanceof CustomHelmetItem || handStack.getItem() instanceof HoodHelmetItem) && handStack.get(ModDataComponentTypes.HOOD_DATA) != null){
+        if (handStack.isEmpty()){
+            MutableText sourceText = Text.translatable("command.me.hood.hand_empty");
+            context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
+            return 0;
+        }
+
+        if ((handStack.getItem() instanceof CustomHelmetItem || handStack.getItem() instanceof HoodHelmetItem)){
             if (hood.getConstantState() == ModHoodStates.DOWN){
                 handStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, hood));
             } else if (hood.getConstantState() == ModHoodStates.UP || hood.getConstantState() == null){
@@ -85,10 +99,10 @@ public class CommandCustomEquipment {
             MutableText sourceText = Text.translatable("command.me.hood.success").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hood.getName()));
             context.getSource().sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
             return 0;
+        } else {
+            MutableText sourceText = Text.translatable("command.me.hood.wrong_item");
+            context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
+            return 0;
         }
-
-        MutableText sourceText = Text.translatable("command.me.hood.fail");
-        context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
-        return 0;
     }
 }

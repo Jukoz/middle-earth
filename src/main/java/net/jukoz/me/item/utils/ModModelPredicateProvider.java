@@ -62,7 +62,7 @@ public class ModModelPredicateProvider {
     }
 
     private static void registerShieldModel() {
-        ModEquipmentItems.shields.forEach(ModModelPredicateProvider::registerShield);
+        ModWeaponItems.shields.forEach(ModModelPredicateProvider::registerShield);
     }
 
     private static void registerSpearModel() {
@@ -87,11 +87,11 @@ public class ModModelPredicateProvider {
     private static void registerGlowingArtefact(Item artefact) {
         if (artefact instanceof ArtefactCustomGlowingLongswordWeaponItem item){
             ModelPredicateProviderRegistry.register(item, Identifier.of("glowing"),
-                    (stack, world, entity, seed) -> ArtefactCustomGlowingLongswordWeaponItem.isGlowing(stack) ? 1.0F : 0.0F);
+                    (stack, world, entity, seed) -> ArtefactCustomGlowingLongswordWeaponItem.shouldBeGlowing(world, entity) ? 1.0F : 0.0F);
         }
         if (artefact instanceof ArtefactCustomGlowingDaggerWeaponItem item){
             ModelPredicateProviderRegistry.register(item, Identifier.of("glowing"),
-                    (stack, world, entity, seed) -> ArtefactCustomGlowingDaggerWeaponItem.isGlowing(stack) ? 1.0F : 0.0F);
+                    (stack, world, entity, seed) -> ArtefactCustomGlowingDaggerWeaponItem.shouldBeGlowing(world, entity) ? 1.0F : 0.0F);
         }
     }
 

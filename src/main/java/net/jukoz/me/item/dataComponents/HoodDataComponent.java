@@ -29,10 +29,10 @@ public record HoodDataComponent(boolean down, ModHoods hood) {
         return new HoodDataComponent(false, hood);
     }
 
-    public static ItemStack setHood(ItemStack stack, boolean enabled, ModHoods hood) {
+    public static ItemStack setHood(ItemStack stack, boolean down, ModHoods hood) {
         ItemStack itemStack = stack.copyWithCount(1);
 
-        itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(false, hood));
+        itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(down, hood));
         return itemStack;
     }
 
