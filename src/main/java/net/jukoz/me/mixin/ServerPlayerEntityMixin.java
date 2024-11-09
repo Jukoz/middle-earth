@@ -11,9 +11,11 @@ import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.network.ServerPlayerInteractionManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameMode;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,6 +31,7 @@ import java.util.logging.Logger;
 @Mixin(ServerPlayerEntity.class)
 public class ServerPlayerEntityMixin extends PlayerEntity {
     @Shadow public MinecraftServer server;
+    @Shadow public ServerPlayerInteractionManager interactionManager;
 
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
@@ -99,11 +102,11 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
 
     @Override
     public boolean isSpectator() {
-        return false;
+        return this.interactionManager.getGameMode() == GameMode.SPECTATOR;
     }
 
     @Override
     public boolean isCreative() {
-        return false;
+        return this.interactionManager.getGameMode() == GameMode.CREATIVE;
     }
 }
