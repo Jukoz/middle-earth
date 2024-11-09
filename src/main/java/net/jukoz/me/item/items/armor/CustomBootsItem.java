@@ -23,16 +23,16 @@ public class CustomBootsItem extends ArmorItem {
 
     private ExtendedArmorMaterial material;
 
-    public CustomBootsItem(ExtendedArmorMaterial material, Type type, Settings settings, ModFactions faction) {
-        super(material.material(), type, settings.maxCount(1).maxDamage(Type.BOOTS.getMaxDamage(material.durabilityModifier())));
+    public CustomBootsItem(ExtendedArmorMaterial material, Settings settings, ModFactions faction) {
+        super(material.material(), ArmorItem.Type.BOOTS, settings.maxCount(1).maxDamage(Type.BOOTS.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
         this.faction = faction;
         this.subFaction = null;
     }
 
-    public CustomBootsItem(ExtendedArmorMaterial material, Type type, Settings settings, ModSubFactions subFaction) {
-        super(material.material(), type, settings.maxCount(1).maxDamage(Type.BOOTS.getMaxDamage(material.durabilityModifier())));
+    public CustomBootsItem(ExtendedArmorMaterial material, Settings settings, ModSubFactions subFaction) {
+        super(material.material(), ArmorItem.Type.BOOTS, settings.maxCount(1).maxDamage(Type.BOOTS.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
         this.faction = subFaction.getParent();

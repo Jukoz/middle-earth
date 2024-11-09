@@ -5,6 +5,7 @@ import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleBowItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleHandheldItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleSpearModel;
+import net.jukoz.me.item.items.HeldBannerItem;
 import net.jukoz.me.item.items.shields.ArtefactCustomShieldItem;
 import net.jukoz.me.item.items.shields.CustomBannerShieldItem;
 import net.jukoz.me.item.items.shields.CustomShieldItem;
@@ -27,7 +28,6 @@ import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class ModWeaponItems {
 
@@ -324,7 +324,6 @@ public class ModWeaponItems {
             new CustomAxeWeaponItem(ModToolMaterials.BURZUM_STEEL), true);
     public static final Item ORC_SPEAR = registerItemWithSpearModel("orc_spear",
             new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL));
-
     //region MORDOR
     public static final Item MORDOR_FALCHION = registerItemWithModel("mordor_falchion",
             new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL, ModFactions.MORDOR), true);
@@ -400,7 +399,7 @@ public class ModWeaponItems {
             new CustomSiegeShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
 
     public static final Item MISTY_MOUNTAINS_SHIELD = registerShield("misty_mountains_shield",
-            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MISTY_MOUNTAINS_ORCS));
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MISTY_MOUNTAINS_GOBLINS));
     //endregion
 
     //region ARTEFACTS
@@ -421,6 +420,10 @@ public class ModWeaponItems {
     public static final Item CUTHANN = registerShield("cuthann",
             new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.NONE));
     //endregion
+
+    public static final Item HELD_BANNER = registerItemNoModel("held_banner",
+            new HeldBannerItem(new Item.Settings().maxCount(1)), false, false, false);
+
 
     private static Item registerItemWithModel(String name, Item item, boolean isDualModel) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());

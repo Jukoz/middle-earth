@@ -26,16 +26,16 @@ public class CustomHelmetItem extends ArmorItem {
 
     private ExtendedArmorMaterial material;
 
-    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings, ModFactions faction) {
-        super(material.material(), type, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
+    public CustomHelmetItem(ExtendedArmorMaterial material, Settings settings, ModFactions faction) {
+        super(material.material(), ArmorItem.Type.HELMET, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
         this.faction = faction;
         this.subFaction = null;
     }
 
-    public CustomHelmetItem(ExtendedArmorMaterial material, Type type, Settings settings, ModSubFactions subFaction) {
-        super(material.material(), type, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
+    public CustomHelmetItem(ExtendedArmorMaterial material, Settings settings, ModSubFactions subFaction) {
+        super(material.material(), ArmorItem.Type.HELMET, settings.maxCount(1).maxDamage(Type.HELMET.getMaxDamage(material.durabilityModifier())));
 
         this.material = material;
         this.faction = subFaction.getParent();

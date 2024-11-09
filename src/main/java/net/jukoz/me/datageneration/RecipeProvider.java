@@ -16,6 +16,7 @@ import net.minecraft.data.DataOutput;
 import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
@@ -679,7 +680,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         });
         //endregion
 
-        ComplexRecipeJsonBuilder.create(CustomShieldDecorationRecipe::new).offerTo(exporter, "custom_shield_decoration");
+        ComplexRecipeJsonBuilder.create(CustomItemDecorationRecipe::new).offerTo(exporter, "custom_shield_decoration");
     }
 
     //region BLOCK RECIPE METHODS
