@@ -1,5 +1,6 @@
 package net.jukoz.me.recipe;
 
+import net.jukoz.me.item.items.HeldBannerItem;
 import net.jukoz.me.item.items.shields.CustomBannerShieldItem;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BannerPatternsComponent;
@@ -12,9 +13,9 @@ import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 
-public class CustomShieldDecorationRecipe extends SpecialCraftingRecipe {
+public class CustomItemDecorationRecipe extends SpecialCraftingRecipe {
 
-    public CustomShieldDecorationRecipe(CraftingRecipeCategory category) {
+    public CustomItemDecorationRecipe(CraftingRecipeCategory category) {
         super(category);
     }
 
@@ -32,7 +33,7 @@ public class CustomShieldDecorationRecipe extends SpecialCraftingRecipe {
 
                     itemStack2 = itemStack3;
                 } else {
-                    if (!(itemStack3.getItem() instanceof CustomBannerShieldItem)) {
+                    if (!(itemStack3.getItem() instanceof CustomBannerShieldItem || itemStack3.getItem() instanceof HeldBannerItem)) {
                         return false;
                     }
 
@@ -66,7 +67,7 @@ public class CustomShieldDecorationRecipe extends SpecialCraftingRecipe {
             if (!itemStack3.isEmpty()) {
                 if (itemStack3.getItem() instanceof BannerItem) {
                     itemStack = itemStack3;
-                } else if (itemStack3.getItem() instanceof CustomBannerShieldItem) {
+                } else if (itemStack3.getItem() instanceof CustomBannerShieldItem || itemStack3.getItem() instanceof HeldBannerItem) {
                     itemStack2 = itemStack3.copy();
                 }
             }
@@ -86,6 +87,6 @@ public class CustomShieldDecorationRecipe extends SpecialCraftingRecipe {
     }
 
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipeSerializer.CUSTOM_SHIELD_DECORATION;
+        return ModRecipeSerializer.CUSTOM_ITEM_DECORATION;
     }
 }
