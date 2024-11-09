@@ -44,7 +44,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:fur_cloak"
+          "name": "me:black_fur_cloak"
         }
       ]
     },
@@ -56,7 +56,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "me:fur_hood"
+          "name": "me:black_fur_hood"
         }
       ]
     }

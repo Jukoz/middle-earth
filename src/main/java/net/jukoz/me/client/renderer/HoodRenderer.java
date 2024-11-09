@@ -8,7 +8,7 @@ import net.jukoz.me.client.model.equipment.head.helmets.HelmetAddonModel;
 import net.jukoz.me.client.model.equipment.head.hoods.CloakHoodModel;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
-import net.jukoz.me.item.items.HoodHelmetItem;
+import net.jukoz.me.item.items.armor.HoodHelmetItem;
 import net.jukoz.me.item.utils.armor.ModArmorModels;
 import net.jukoz.me.recipe.ModTags;
 import net.minecraft.client.MinecraftClient;
@@ -18,8 +18,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public class HoodRenderer implements ArmorRenderer {

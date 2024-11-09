@@ -1,8 +1,8 @@
 package net.jukoz.me.network.packets.C2S;
 
 import net.jukoz.me.MiddleEarth;
-import net.jukoz.me.item.items.CustomHelmetItem;
-import net.jukoz.me.item.items.HoodHelmetItem;
+import net.jukoz.me.item.items.armor.CustomHelmetItem;
+import net.jukoz.me.item.items.armor.HoodHelmetItem;
 import net.jukoz.me.network.contexts.ServerPacketContext;
 import net.jukoz.me.network.packets.ClientToServerPacket;
 import net.jukoz.me.utils.LoggerUtil;

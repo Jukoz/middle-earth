@@ -6,7 +6,7 @@ import net.jukoz.me.datageneration.content.models.SimpleItemModel;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
-import net.jukoz.me.item.items.*;
+import net.jukoz.me.item.items.armor.*;
 import net.jukoz.me.item.items.shields.CustomShieldItem;
 import net.jukoz.me.item.utils.ModItemGroups;
 import net.jukoz.me.item.utils.ModShieldTypes;

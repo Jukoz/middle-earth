@@ -32,9 +32,14 @@ public class ArtisanTableInputsShape {
             {InputType.HANDLE, InputType.NONE, InputType.NONE}});
 
     public static ArtisanTableInputsShape BOW = new ArtisanTableInputsShape("bow", new InputType[][]{
-            {InputType.ANY, InputType.ANY, InputType.NONE},
+            {InputType.NONE, InputType.ANY, InputType.ANY},
             {InputType.ANY, InputType.NONE, InputType.ANY},
-            {InputType.ANY, InputType.ANY, InputType.NONE}});
+            {InputType.NONE, InputType.ANY, InputType.ANY}});
+
+    public static ArtisanTableInputsShape CROSSBOW = new ArtisanTableInputsShape("crossbow", new InputType[][]{
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.NONE, InputType.ANY, InputType.NONE}});
 
     public static ArtisanTableInputsShape PICKAXE = new ArtisanTableInputsShape("pickaxe", new InputType[][]{
             {InputType.NONE, InputType.NONE, InputType.PICKAXE},
@@ -70,6 +75,16 @@ public class ArtisanTableInputsShape {
             {InputType.NONE, InputType.NONE, InputType.NONE},
             {InputType.ANY, InputType.NONE, InputType.ANY},
             {InputType.ANY, InputType.NONE, InputType.ANY}});
+
+    public static ArtisanTableInputsShape CAPE = new ArtisanTableInputsShape("cape", new InputType[][]{
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY}});
+
+    public static ArtisanTableInputsShape HOOD = new ArtisanTableInputsShape("hood", new InputType[][]{
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.ANY, InputType.ANY, InputType.ANY},
+            {InputType.NONE, InputType.NONE, InputType.NONE}});
 
     public ArtisanTableInputsShape(String id, InputType[][] inputs) {
         this.id = id;

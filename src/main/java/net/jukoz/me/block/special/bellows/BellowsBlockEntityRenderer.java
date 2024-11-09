@@ -6,7 +6,6 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -22,7 +21,7 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
 
 @Environment(EnvType.CLIENT)
-public class BellowsBlockEntityRenderer<T extends BlockEntity> implements BlockEntityRenderer<T>  {
+public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBlockEntity>  {
     private final float BELLOW_MAX_ANGLE = 0.72f;
     private final ModelPart bottom;
     private final ModelPart top;
@@ -62,33 +61,40 @@ public class BellowsBlockEntityRenderer<T extends BlockEntity> implements BlockE
     }
 
     @Override
-    public void render(BlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        World world = entity.getWorld();
-        BlockState blockState = world != null ? entity.getCachedState() : ModDecorativeBlocks.BELLOWS.getDefaultState().with(BellowsBlock.FACING, Direction.SOUTH);
-        Block block = blockState.getBlock();
+    public void render(BellowsBlockEntity bellowsBlockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        World world = bellowsBlockEntity.getWorld();
+        BlockState blockState = world != null
+                ? bellowsBlockEntity.getCachedState()
+                : ModDecorativeBlocks.BELLOWS.getDefaultState().with(BellowsBlock.FACING, Direction.SOUTH);
 
-        BellowsBlockEntity bellowsBlockEntity = (BellowsBlockEntity) entity;
-        float g = bellowsBlockEntity.animationProgress;
-        if(g > (float) BellowsBlockEntity.MAX_TICKS / 2) g = BellowsBlockEntity.MAX_TICKS - g;
-        g /= BellowsBlockEntity.MAX_TICKS;
+        float animationProgress = getAnimationProgress(bellowsBlockEntity);
 
-        int spriteState = (int) Math.max(0, Math.min(2, g * 7.5f));
-        SpriteIdentifier idleBellowsTexture = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
-                Identifier.of(MiddleEarth.MOD_ID, "model/bellows/bellows_" + spriteState));
-        VertexConsumer vertexConsumer = idleBellowsTexture.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
-
-        matrices.push();
         float rotation = blockState.get(ChestBlock.FACING).asRotation();
         matrices.translate(0.5D, 1.5D, 0.5D);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation));
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));
 
-        top.pitch = 0.37f + (g * -BELLOW_MAX_ANGLE);
-        top.render(matrices, vertexConsumer, light, overlay);
-        bottom.render(matrices, vertexConsumer, light, overlay);
+        VertexConsumer vertexConsumer = getSpriteIdentifier(animationProgress).getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
 
-        cavity.render(matrices, vertexConsumer, light, overlay);
+        this.top.pitch = 0.37f + (animationProgress * -BELLOW_MAX_ANGLE);
+        this.top.render(matrices, vertexConsumer, light, overlay);
+        this.bottom.render(matrices, vertexConsumer, light, overlay);
+        this.cavity.render(matrices, vertexConsumer, light, overlay);
+    }
 
-        matrices.pop();
+    private float getAnimationProgress(BellowsBlockEntity bellowsBlockEntity){
+        float animationProgress = 0;
+        if (bellowsBlockEntity.pumping){
+            animationProgress = bellowsBlockEntity.animationProgress;
+            if(animationProgress > (float) BellowsBlockEntity.MAX_TICKS / 2) animationProgress = BellowsBlockEntity.MAX_TICKS - animationProgress;
+            animationProgress /= BellowsBlockEntity.MAX_TICKS;
+        }
+        return animationProgress;
+    }
+
+    private SpriteIdentifier getSpriteIdentifier(float animationProgress){
+        int spriteState = (int) Math.max(0, Math.min(2, animationProgress * 7.5f));
+        return new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
+                Identifier.of(MiddleEarth.MOD_ID, "model/bellows/bellows_" + spriteState));
     }
 }
