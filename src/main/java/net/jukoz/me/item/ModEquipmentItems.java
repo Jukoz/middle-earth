@@ -69,7 +69,6 @@ public class ModEquipmentItems {
             new HoodHelmetItem(new Item.Settings()
                     .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.WHITE_FUR_HOOD)),
                     ModFactions.NONE));
-    
 
     //capes
     public static final Item CAPE = registerCape("cape",
