@@ -74,7 +74,7 @@ public class FileUtils {
         BufferedImage imageWithBorders = new BufferedImage(width + 2*padding, height + 2*padding, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = imageWithBorders.createGraphics();
 
-        graphics.setColor(MEBiomesData.defaultBiome.color);
+        graphics.setColor(MEBiomesData.DEFAULT_COLOR);
         graphics.fillRect(0, 0, width + 2*padding, height + 2*padding);
         graphics.drawImage(centerImage, padding, padding, null);
 

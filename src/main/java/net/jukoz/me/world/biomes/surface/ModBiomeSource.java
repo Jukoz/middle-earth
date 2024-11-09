@@ -1,14 +1,10 @@
 package net.jukoz.me.world.biomes.surface;
 
-import com.mojang.datafixers.kinds.Applicative;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.jukoz.me.utils.noises.BlendedNoise;
-import net.jukoz.me.world.biomes.MEBiomeDataConfigs;
 import net.jukoz.me.world.chunkgen.ProceduralStructures;
-import net.jukoz.me.world.features.tree.trunks.CanopyTrunkPlacer;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.chunkgen.MiddleEarthChunkGenerator;
 import net.jukoz.me.world.chunkgen.map.MiddleEarthHeightMap;
@@ -17,20 +13,14 @@ import net.jukoz.me.world.biomes.MEBiomeKeys;
 import net.jukoz.me.world.biomes.caves.CaveType;
 import net.jukoz.me.world.biomes.caves.ModCaveBiomes;
 import net.jukoz.me.world.features.underground.CavesPlacedFeatures;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeCoords;
 import net.minecraft.world.biome.source.BiomeSource;
-import net.minecraft.world.biome.source.CheckerboardBiomeSource;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -60,7 +50,7 @@ public class ModBiomeSource extends BiomeSource {
         return biomes.stream();
     }
 
-    private RegistryKey<Biome> getCaveBiome(int x, int z, MEBiome surfaceBiome) {
+    private RegistryKey<Biome> getCaveBiome(int x, int z, CustomBiome surfaceBiome) {
         float temperature = (float) SimplexNoise.noise((double) x / CAVE_NOISE,  (double) z / CAVE_NOISE);
         float humidity = (float) SimplexNoise.noise((double) (x + CAVE_OFFSET) / CAVE_NOISE, (double)(z + CAVE_OFFSET) / CAVE_NOISE);
         return ModCaveBiomes.getBiome(new Vec2f(temperature, humidity), surfaceBiome);
@@ -73,14 +63,14 @@ public class ModBiomeSource extends BiomeSource {
         return perlin;
     }
 
-    private RegistryKey<Biome> getSubBiome(int x, int z, MEBiome surfaceBiome) {
-        SubBiome subBiome = SubBiomes.getSubBiome(surfaceBiome.biome);
+    private RegistryKey<Biome> getSubBiome(int x, int z, CustomBiome surfaceBiome) {
+        SubBiome subBiome = SubBiomes.getSubBiome(surfaceBiome.getBiomeRegistryKey());
         if(subBiome != null) {
             double perlin = getSubBiomeNoise(x, z);
-            SubBiome.SubBiomeData biomeData = SubBiomes.subBiomesMap.get(surfaceBiome.biome).getBiomeAtNoise((float) perlin);
+            SubBiome.SubBiomeData biomeData = SubBiomes.subBiomesMap.get(surfaceBiome.getBiomeRegistryKey()).getBiomeAtNoise((float) perlin);
             if (biomeData != null) return biomeData.biome;
         }
-        return surfaceBiome.biome;
+        return surfaceBiome.getBiomeRegistryKey();
     }
 
     @Override
@@ -89,18 +79,18 @@ public class ModBiomeSource extends BiomeSource {
         int j = BiomeCoords.toBlock(y);
         int k = BiomeCoords.toBlock(z);
 
-        MEBiome meBiome = middleEarthMapRuntime.getBiome(i, k);
+        MapBasedCustomBiome biomeHeightData = middleEarthMapRuntime.getBiome(i, k);
         
-        if (meBiome == null) {
+        if (biomeHeightData == null) {
             return biomes.get(0);
         }
 
-        RegistryKey<Biome> biome = meBiome.biome;
+        CustomBiome biome = biomeHeightData.getBiome();
         RegistryKey<Biome> processedBiome;
 
-        if(!MEBiomesData.waterBiomes.contains(biome)) {
+        if(!MEBiomesData.waterBiomes.contains(biome.getBiomeRegistryKey())) {
             float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
-            SubBiome subBiome = SubBiomes.getSubBiome(meBiome.biome);
+            SubBiome subBiome = SubBiomes.getSubBiome(biomeHeightData.getBiomeKey());
             if(subBiome != null) {
                 double perlin = ModBiomeSource.getSubBiomeNoise(i, k);
                 double additionalHeight = subBiome.getAdditionalHeight((float) perlin);
@@ -108,37 +98,37 @@ public class ModBiomeSource extends BiomeSource {
                 height += (float) additionalHeight;
             }
 
-            if(j <= CavesPlacedFeatures.MAX_MITHRIL_HEIGHT && meBiome.caveType == CaveType.MISTIES) {
+            if(j <= CavesPlacedFeatures.MAX_MITHRIL_HEIGHT && biome.getCaveType() == CaveType.MISTIES) {
                 processedBiome = MEBiomeKeys.MITHRIL_CAVE;
-            } else if(biome == MEBiomesData.deadMarshes.biome || biome == MEBiomesData.deadMarshesWater.biome) {
+            } else if(biome.getBiomeRegistryKey() == MEBiomesData.deadMarshes.getBiomeKey() || biome.getBiomeRegistryKey() == MEBiomesData.deadMarshesWater.getBiomeKey()) {
                 height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthChunkGenerator.getMarshesHeight(i, k, height);
-                if(j < (height - 16)) processedBiome = getCaveBiome(i, k, meBiome);
-                else if(height < MiddleEarthChunkGenerator.WATER_HEIGHT) processedBiome = MEBiomesData.deadMarshesWater.biome;
-                else processedBiome = MEBiomesData.deadMarshes.biome;
+                if(j < (height - 16)) processedBiome = getCaveBiome(i, k, biome);
+                else if(height < MiddleEarthChunkGenerator.WATER_HEIGHT) processedBiome = MEBiomesData.deadMarshesWater.getBiomeKey();
+                else processedBiome = MEBiomesData.deadMarshes.getBiomeKey();
             } else if(j < (height - 16)) {
-                processedBiome = getCaveBiome(i, k, meBiome);
-            } else if(height <= meBiome.waterHeight + 1.25f) {
-                if(MEBiomesData.coastalBiomes.contains(biome)){
-                    processedBiome = MEBiomesData.oceanCoast.biome;
-                } else if(MEBiomesData.wastePondBiomes.contains(biome)) {
-                    processedBiome = MEBiomesData.wastePond.biome;
-                } else if(MEBiomesData.mirkwoodSwampBiomes.contains(biome)) {
-                    processedBiome = MEBiomesData.mirkwoodSwamp.biome;
-                } else if(MEBiomesData.oasisBiomes.contains(biome)) {
-                    processedBiome = MEBiomesData.oasis.biome;
-                } else if(MEBiomesData.frozenBiomes.contains(biome)) {
-                    processedBiome = MEBiomesData.frozenPond.biome;
-                } else if(MEBiomesData.anduinWaterBiomes.contains(biome)){
-                    processedBiome = MEBiomesData.greatRiver.biome;
+                processedBiome = getCaveBiome(i, k, biome);
+            } else if(height <= biomeHeightData.getWaterHeight() + 1.25f) {
+                if(MEBiomesData.coastalBiomes.contains(biome.getBiomeRegistryKey())){
+                    processedBiome = MEBiomesData.oceanCoast.getBiomeKey();
+                } else if(MEBiomesData.wastePondBiomes.contains(biome.getBiomeRegistryKey())) {
+                    processedBiome = MEBiomesData.wastePond.getBiomeKey();
+                } else if(MEBiomesData.mirkwoodSwampBiomes.contains(biome.getBiomeRegistryKey())) {
+                    processedBiome = MEBiomesData.mirkwoodSwamp.getBiomeKey();
+                } else if(MEBiomesData.oasisBiomes.contains(biome.getBiomeRegistryKey())) {
+                    processedBiome = MEBiomesData.oasis.getBiomeKey();
+                } else if(MEBiomesData.frozenBiomes.contains(biome.getBiomeRegistryKey())) {
+                    processedBiome = MEBiomesData.frozenPond.getBiomeKey();
+                } else if(MEBiomesData.anduinWaterBiomes.contains(biome.getBiomeRegistryKey())){
+                    processedBiome = MEBiomesData.greatRiver.getBiomeKey();
                 } else {
-                    processedBiome = MEBiomesData.pond.biome;
+                    processedBiome = MEBiomesData.pond.getBiomeKey();
                 }
-            } else if(biome.isOf(MEBiomeKeys.NAN_CURUNIR.getRegistryRef()) && ProceduralStructures.isInsideIsengard(i, k)) {
+            } else if(biome.getBiomeRegistryKey().isOf(MEBiomeKeys.NAN_CURUNIR.getRegistryRef()) && ProceduralStructures.isInsideIsengard(i, k)) {
                 processedBiome = MEBiomeKeys.ISENGARD;
             } else {
-                processedBiome = getSubBiome(i, k, meBiome);
+                processedBiome = getSubBiome(i, k, biome);
             }
-        } else processedBiome = biome;
+        } else processedBiome = biome.getBiomeRegistryKey();
 
         return biomes.stream().filter(
                         b -> b.getKey().get().toString().equalsIgnoreCase(processedBiome.toString()))

@@ -168,7 +168,7 @@ public class ImageUtils {
     }
 
     private static int getExpansionWeight(Integer integer) throws Exception{
-        return MEBiomesData.getBiomeByColor(integer).biomeGenerationData.biomeWeight[(MiddleEarthMapGeneration.CURRENT_ITERATION <= 1) ? 0 : 1];
+        return MEBiomesData.getBiomeByColor(integer).getBiomeData().biomeWeight[(MiddleEarthMapGeneration.CURRENT_ITERATION <= 1) ? 0 : 1];
     }
 
 
@@ -188,7 +188,7 @@ public class ImageUtils {
             imageWithBorders = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
             g2d = imageWithBorders.createGraphics();
 
-            g2d.setColor(MEBiomesData.defaultBiome.color);
+            g2d.setColor(MEBiomesData.DEFAULT_COLOR);
             g2d.fillRect(0, 0, newWidth, newHeight);
             g2d.drawImage(image, brushSize, brushSize, null);
         } else { // CLAMP_TO_EDGE
