@@ -1,4 +1,4 @@
-package net.jukoz.me.client.model.shields;
+package net.jukoz.me.client.model.hand.shields;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;

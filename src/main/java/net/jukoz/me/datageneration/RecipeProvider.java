@@ -1,36 +1,24 @@
 package net.jukoz.me.datageneration;
 
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.*;
-import net.jukoz.me.block.special.forge.MetalTypes;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.custom.AlloyRecipeJsonBuilder;
 import net.jukoz.me.datageneration.custom.AnvilShapingRecipeJsonBuilder;
-import net.jukoz.me.datageneration.custom.ArtisanTableRecipeJsonBuilder;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModToolItems;
-import net.jukoz.me.item.ModWeaponItems;
-import net.jukoz.me.item.utils.ModSmithingTrimMaterials;
-import net.jukoz.me.item.utils.ModSmithingTrimPatterns;
 import net.jukoz.me.recipe.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.component.ComponentChanges;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.data.DataOutput;
 import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.*;
-import net.minecraft.item.trim.*;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
@@ -689,7 +677,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createSmokingRecipe(exporter, ModResourceItems.PIPEWEED, ModResourceItems.DRIED_PIPEWEED);
         //endregion
 
-        ComplexRecipeJsonBuilder.create(CustomShieldDecorationRecipe::new).offerTo(exporter, "custom_shield_decoration");
+        ComplexRecipeJsonBuilder.create(CustomItemDecorationRecipe::new).offerTo(exporter, "custom_shield_decoration");
     }
 
     //region BLOCK RECIPE METHODS
