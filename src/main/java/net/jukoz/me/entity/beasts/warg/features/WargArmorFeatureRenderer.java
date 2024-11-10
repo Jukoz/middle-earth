@@ -3,8 +3,7 @@ package net.jukoz.me.entity.beasts.warg.features;
 import net.jukoz.me.entity.beasts.warg.WargEntity;
 import net.jukoz.me.entity.beasts.warg.WargModel;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
-import net.jukoz.me.item.items.CustomAnimalArmorItem;
-import net.jukoz.me.item.items.CustomHorseArmorItem;
+import net.jukoz.me.item.items.armor.CustomAnimalArmorItem;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -13,12 +12,8 @@ import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.component.type.DyedColorComponent;
-import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.util.math.ColorHelper;
 
 public class WargArmorFeatureRenderer extends FeatureRenderer<WargEntity, WargModel> {
     private final WargArmorModel model;

@@ -2,8 +2,8 @@ package net.jukoz.me.recipe;
 
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
-import net.jukoz.me.item.items.CapeChestplateItem;
-import net.jukoz.me.item.items.CustomChestplateItem;
+import net.jukoz.me.item.items.armor.CapeChestplateItem;
+import net.jukoz.me.item.items.armor.CustomChestplateItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;

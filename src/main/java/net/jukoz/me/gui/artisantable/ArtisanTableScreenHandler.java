@@ -2,6 +2,7 @@ package net.jukoz.me.gui.artisantable;
 
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.special.forge.MultipleStackRecipeInput;
 import net.jukoz.me.gui.ModScreenHandlers;
@@ -14,10 +15,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.registry.Registries;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
@@ -25,11 +27,12 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ArtisanTableScreenHandler extends ScreenHandler {
     private final ScreenHandlerContext context;
@@ -219,6 +222,11 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
 
             ItemStack itemStack = recipeEntry.value().craft(new MultipleStackRecipeInput(inputs), this.world.getRegistryManager());
             itemStack.set(DataComponentTypes.PROFILE, new ProfileComponent(new GameProfile(player.getUuid(), player.getName().getString())));
+
+            if (itemStack.get(DataComponentTypes.MAX_DAMAGE) != null){
+                int maxDamage = (int) (itemStack.getMaxDamage() + itemStack.getMaxDamage() * 0.25);
+                itemStack.set(DataComponentTypes.MAX_DAMAGE, maxDamage);
+            }
 
             if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
                 this.output.setLastRecipe(recipeEntry);

@@ -14,6 +14,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataOutput;
 import net.minecraft.data.server.recipe.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.item.*;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
@@ -609,7 +611,13 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.CRUDE_INGOT, ModToolItems.CRUDE_PICKAXE, ModToolItems.CRUDE_AXE, ModToolItems.CRUDE_SHOVEL, ModToolItems.CRUDE_HOE);
 
-        //TODO rod specify data component dwarven steel material
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModResourceItems.FABRIC, 2)
+                .pattern("sss")
+                .pattern("sss")
+                .input('s', Items.STRING)
+                .criterion(FabricRecipeProvider.hasItem(Items.STRING),
+                        FabricRecipeProvider.conditionsFromItem(Items.STRING))
+                .offerTo(exporter);
 
         createBucketRecipe(exporter, Items.IRON_INGOT, Items.BUCKET);
 

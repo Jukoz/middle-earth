@@ -5,7 +5,7 @@ public enum ModSubFactions {
 
     EREBOR("erebor", ModFactions.LONGBEARDS),
 
-    GUNDABAD("gundabad", ModFactions.MISTY_MOUNTAINS_ORCS),
+    GUNDABAD("gundabad", ModFactions.MISTY_MOUNTAINS_GOBLINS),
 
     ;
 
