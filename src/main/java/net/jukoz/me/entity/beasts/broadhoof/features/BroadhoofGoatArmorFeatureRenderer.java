@@ -1,13 +1,10 @@
 package net.jukoz.me.entity.beasts.broadhoof.features;
 
-import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatModel;
-import net.jukoz.me.entity.beasts.warg.WargModel;
-import net.jukoz.me.entity.beasts.warg.features.WargArmorModel;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
-import net.jukoz.me.item.items.CustomAnimalArmorItem;
+import net.jukoz.me.item.items.armor.CustomAnimalArmorItem;
 import net.jukoz.me.recipe.ModTags;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -19,9 +16,6 @@ import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 
 public class BroadhoofGoatArmorFeatureRenderer extends FeatureRenderer<BroadhoofGoatEntity, BroadhoofGoatModel> {
 

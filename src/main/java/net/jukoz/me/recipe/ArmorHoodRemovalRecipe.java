@@ -1,10 +1,7 @@
 package net.jukoz.me.recipe;
 
 import net.jukoz.me.item.ModDataComponentTypes;
-import net.jukoz.me.item.ModEquipmentItems;
-import net.jukoz.me.item.dataComponents.HoodDataComponent;
-import net.jukoz.me.item.items.CustomHelmetItem;
-import net.minecraft.inventory.RecipeInputInventory;
+import net.jukoz.me.item.items.armor.CustomHelmetItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ShearsItem;

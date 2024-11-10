@@ -294,6 +294,7 @@
 "#Comment:": "Item - Smithing",
   "item.me.smithing_hammer": "Smithing Hammer",
 
+  "item.me.fur": "Fur",
   "item.me.fabric": "Fabric",
 
   "item.me.rod": "Rod",
@@ -6319,10 +6320,11 @@
   "screen.me.wood_pile": "Wood Pile",
   "screen.me.shaping_anvil": "Shaping Anvil",
   "screen.me.artisan_table.weapons": "Weapons",
-  "screen.me.artisan_table.swords": "Swords",
+  "screen.me.artisan_table.sword": "Sword",
   "screen.me.artisan_table.axe": "Axe",
   "screen.me.artisan_table.spear": "Spear",
   "screen.me.artisan_table.bow": "Bow",
+  "screen.me.artisan_table.crossbow": "Crossbow",
   "screen.me.artisan_table.tools": "Tools",
   "screen.me.artisan_table.pickaxe": "Pickaxe",
   "screen.me.artisan_table.shovel": "Shovel",
@@ -6338,7 +6340,7 @@
   "screen.me.artisan_table.misc": "Misc",
   "screen.me.artisan_table.hats": "Hats",
   "screen.me.artisan_table.hood": "Hood",
-  "screen.me.artisan_table.cloak": "Cloak",
+  "screen.me.artisan_table.cape": "Cape",
 
 "#Comment": "Tooltips",
   "tooltip.me.shift" : "Hold §3SHIFT§f to see information.",
@@ -6388,7 +6390,7 @@
   "tooltip.me.erebor" : "Erebor",
   "tooltip.me.lothlorien" : "Lothlórien",
   "tooltip.me.mordor" : "Mordor",
-  "tooltip.me.misty_mountains_orcs" : "Misty Mountains Orcs",
+  "tooltip.me.misty_mountains_goblins" : "Misty Mountains Goblins",
   "tooltip.me.gundabad" : "Gundabad",
   "tooltip.me.moria_goblins" : "Moria Goblins",
   "tooltip.me.isengard" : "Isengard",

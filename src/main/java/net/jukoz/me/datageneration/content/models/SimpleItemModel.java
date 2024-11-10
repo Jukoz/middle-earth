@@ -54,6 +54,7 @@ public class SimpleItemModel {
             add(ModResourceItems.COPPER_COIN);
             add(ModResourceItems.SILVER_COIN);
 
+            add(ModResourceItems.FUR);
             add(ModResourceItems.FABRIC);
 
             add(ModResourceItems.DWARVEN_KEY);

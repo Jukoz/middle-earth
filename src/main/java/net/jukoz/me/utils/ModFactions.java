@@ -11,7 +11,7 @@ public enum ModFactions {
     LONGBEARDS("longbeards"),
 
     MORDOR("mordor"),
-    MISTY_MOUNTAINS_ORCS("misty_mountains_orcs"),
+    MISTY_MOUNTAINS_GOBLINS("misty_mountains_goblins"),
     ISENGARD("isengard"),
     ;
 

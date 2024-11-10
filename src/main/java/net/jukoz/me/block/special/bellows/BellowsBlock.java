@@ -2,7 +2,11 @@ package net.jukoz.me.block.special.bellows;
 
 import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.ModBlockEntities;
+import net.jukoz.me.block.special.shapingAnvil.TreatedAnvilBlockEntity;
+import net.jukoz.me.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
+import net.jukoz.me.sound.ModSounds;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BellBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -10,6 +14,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
@@ -20,10 +27,14 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 public class BellowsBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
@@ -44,14 +55,17 @@ public class BellowsBlock extends BlockWithEntity {
     }
 
     @Nullable
+    @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        if (world.isClient) {
-            return validateTicker(type, ModBlockEntities.BELLOWS, BellowsBlockEntity::tick);
-        } else {
-            return validateTicker(type, ModBlockEntities.BELLOWS, BellowsBlockEntity::tick);
-        }
+        return BellowsBlock.validateTicker(world, type, ModBlockEntities.BELLOWS);
     }
 
+    @Nullable
+    protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<BellowsBlockEntity> expectedType) {
+        return world.isClient
+                ? BellowsBlock.validateTicker(givenType, expectedType, BellowsBlockEntity::clientTick)
+                : BellowsBlock.validateTicker(givenType, expectedType, BellowsBlockEntity::serverTick);
+    }
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
@@ -65,23 +79,17 @@ public class BellowsBlock extends BlockWithEntity {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        BellowsBlockEntity bellowsBlockEntity = (BellowsBlockEntity) world.getBlockEntity(pos);
-        if(bellowsBlockEntity != null) {
-            bellowsBlockEntity.pumpBellows(state, world, pos);
-            return ActionResult.CONSUME;
-        }
-        return ActionResult.FAIL;
+        return this.pump(world, pos, state, player) ? ActionResult.success(world.isClient) : ActionResult.CONSUME;
     }
 
     @Override
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        super.onEntityCollision(state, world, pos, entity);
-        BellowsBlockEntity bellowsBlockEntity = (BellowsBlockEntity) world.getBlockEntity(pos);
-        if(bellowsBlockEntity != null) {
-            if(entity.getVelocity().y < -0.1f) {
-                bellowsBlockEntity.pumpBellows(state, world, pos);
+        if(!world.isClient){
+            if (entity.getVelocity().y < -0.1f && entity instanceof LivingEntity) {
+                this.pump(world, pos, state, entity);
             }
         }
+        super.onEntityCollision(state, world, pos, entity);
     }
     public void onEntityLand(BlockView world, Entity entity) {
         if (entity.bypassesLandingEffects()) {
@@ -97,6 +105,17 @@ public class BellowsBlock extends BlockWithEntity {
             double d = entity instanceof LivingEntity ? 1.0 : 0.8;
             entity.setVelocity(vec3d.x, -vec3d.y * 0.6 * d, vec3d.z);
         }
+    }
+
+
+    public boolean pump(World world, BlockPos pos, BlockState state, Entity entity) {
+        if (world.isClient) return false;
+
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if(blockEntity instanceof BellowsBlockEntity bellowsBlockEntity){
+            return bellowsBlockEntity.tryPumpingBellow(state, world, pos, bellowsBlockEntity, world.getBlockState(pos).get(FACING), entity);
+        }
+        return false;
     }
 
     @Override

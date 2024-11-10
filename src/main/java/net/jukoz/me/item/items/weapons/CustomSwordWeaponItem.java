@@ -5,8 +5,10 @@ import net.jukoz.me.item.utils.ModWeaponTypes;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
@@ -59,6 +61,7 @@ public class CustomSwordWeaponItem extends SwordItem {
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.of(""));
+        ProfileComponent profileComponent = stack.get(DataComponentTypes.PROFILE);
         if (Screen.hasShiftDown()) {
             if(this.faction != null){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
@@ -68,6 +71,9 @@ public class CustomSwordWeaponItem extends SwordItem {
             }
             if(this.type != null){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
+            }
+            if (profileComponent != null && profileComponent.name().isPresent()) {
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artisan").append(profileComponent.name().get()).formatted(Formatting.GRAY));
             }
             tooltip.add(Text.of(""));
         } else {

@@ -140,6 +140,8 @@ public class ModResourceItems {
     public static final Item CUCUMBER_SEEDS = registerItem("cucumber_seeds", new AliasedBlockItem(ModNatureBlocks.CUCUMBER_CROP, new Item.Settings()));
     public static final Item LETTUCE_SEEDS = registerItem("lettuce_seeds", new AliasedBlockItem(ModNatureBlocks.LETTUCE_CROP, new Item.Settings()));
 
+    public static final Item FUR = registerItem("fur",
+            new Item(new Item.Settings()));
     public static final Item FABRIC = registerItem("fabric",
             new Item(new Item.Settings()));
 
