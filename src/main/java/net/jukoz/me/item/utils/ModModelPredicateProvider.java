@@ -34,6 +34,7 @@ public class ModModelPredicateProvider {
         registerPipeModel(ModToolItems.PIPE);
         registerPipeModel(ModToolItems.RIVERBEND_PIPE);
         registerPipeModel(ModToolItems.BRIMMINGBEND_PIPE);
+        registerPipeModel(ModToolItems.LONGBOTTOM_PIPE);
 
     }
 

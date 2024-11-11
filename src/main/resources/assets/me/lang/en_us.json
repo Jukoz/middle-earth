@@ -276,9 +276,10 @@
   "item.me.mithril_shovel": "Mithril Shovel",
   "item.me.mithril_hoe": "Mithril Hoe",
   "item.me.pipe": "Pipe",
-  "item.me.clayshire_pipe": "Clayshire Pipe",
+  "item.me.clayshire_pipe": "Clay Pipe",
   "item.me.riverbend_pipe": "Riverbend Pipe",
   "item.me.brimmingbend_pipe": "Brimmingbend Pipe",
+  "item.me.longbottom_pipe": "Longbottom Pipe",
 
   "item.me.bronze_bucket": "Bronze Bucket",
   "item.me.broken_bronze_bucket": "Broken Bronze Bucket",
