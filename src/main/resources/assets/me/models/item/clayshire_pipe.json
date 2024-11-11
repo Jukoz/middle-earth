@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"layer0": "me:item/old_pipe"
+		"layer0": "me:item/clayshire_pipe",
 	},
 	"elements": [
 		{
