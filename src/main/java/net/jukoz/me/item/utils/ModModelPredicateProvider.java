@@ -1,8 +1,6 @@
 package net.jukoz.me.item.utils;
 
 import net.jukoz.me.datageneration.content.models.SimpleSpearModel;
-import net.jukoz.me.item.ModEquipmentItems;
-import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.item.items.weapons.artefacts.ArtefactCustomGlowingDaggerWeaponItem;
@@ -32,9 +30,10 @@ public class ModModelPredicateProvider {
         //registerBow(ModWeaponItems.UMBAR_BOW);
     }
     private static void registerPipeModels() {
-        registerPipeModel(ModToolItems.OLD_PIPE);
+        registerPipeModel(ModToolItems.CLAYSHIRE_PIPE);
         registerPipeModel(ModToolItems.PIPE);
-        registerPipeModel(ModToolItems.FANCY_PIPE);
+        registerPipeModel(ModToolItems.RIVERBEND_PIPE);
+        registerPipeModel(ModToolItems.BRIMMINGBEND_PIPE);
 
     }
 
