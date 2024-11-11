@@ -72,7 +72,7 @@ public class ForgeHeatingScreen extends HandledScreen<ForgeHeatingScreenHandler>
         }
         if(handler.isCrafting()) {
             int progress = (int) (handler.getScaledProgress() * PROGRESS_FIRE_SIZE);
-            context.drawTexture(TEXTURE, x + 23, y + 51 - progress, 177, 53 - progress, 13, progress);
+            context.drawTexture(TEXTURE, x + 24, y + 35 - progress, 177, 53 - progress, 13, progress);
         }
     }
 

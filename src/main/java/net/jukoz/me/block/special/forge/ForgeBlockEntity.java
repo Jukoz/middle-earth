@@ -75,8 +75,6 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     //TODO melting smithing parts
     //TODO convert metals to registry, enum constant datagen if no registry
     //TODO custom metal trim data component with palette
-    //TODO heating requires full inv, should be fine if one is empty
-    //TODO more particles when forge is on
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGE, pos, state);
@@ -399,6 +397,8 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     public static void tick(World world, BlockPos blockPos, BlockState blockState, ForgeBlockEntity entity) {
         if(world.isClient()) return;
 
+        if (blockState.get(ForgeBlock.PART) == ForgePart.TOP) return;
+
         entity.fuelTime = Math.max(0, entity.fuelTime - 1);
         entity.boostTime = Math.max(0, entity.boostTime - 1);
         boolean progress = false;
@@ -445,8 +445,12 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
             markDirty(world, blockPos, blockState);
         }
         boolean isCooking = entity.fuelTime > 0;
+
         blockState = blockState.with(AbstractFurnaceBlock.LIT, isCooking);
+        BlockState blockStateUp = blockState.with(AbstractFurnaceBlock.LIT, isCooking).with(ForgeBlock.PART, ForgePart.TOP);
         world.setBlockState(blockPos, blockState, Block.NOTIFY_ALL);
+        world.setBlockState(blockPos.up(), blockStateUp, Block.NOTIFY_ALL);
+
     }
 
     private static void craftItem(ForgeBlockEntity entity) {
@@ -529,13 +533,15 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         for (int i = 0; i < entity.size(); i++) {
             if(i != FUEL_SLOT && i != OUTPUT_SLOT) {
                 Item item = entity.getStack(i).getItem();
-                if(!HotMetalsModel.nuggets.contains(item) && !HotMetalsModel.ingots.contains(item) && !HotMetalsModel.items.contains(item)) {
+                if (entity.getStack(i).isEmpty()){
+                    hasColdItem = true;
+                } else if(!HotMetalsModel.nuggets.contains(item) && !HotMetalsModel.ingots.contains(item) && !HotMetalsModel.items.contains(item)) {
                     return false; // One of the items cannot be heated
                 } else {
-                    inputs.add(entity.getStack(i));
                     TemperatureDataComponent temperatureComponent = entity.getStack(i).get(ModDataComponentTypes.TEMPERATURE_DATA);
-                    if(temperatureComponent == null || temperatureComponent.temperature() < 1000) {
+                    if(temperatureComponent == null || temperatureComponent.temperature() < 100) {
                         hasColdItem = true;
+                        inputs.add(entity.getStack(i));
                     }
                 }
             }
