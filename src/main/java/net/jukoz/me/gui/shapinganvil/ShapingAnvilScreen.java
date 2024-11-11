@@ -92,7 +92,7 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         renderHammerTooltip(context, mouseX, mouseY);
 
         if (this.handler.getOutput().isEmpty()){
-            context.drawTexture(TEXTURE, x + 82, y + 19, 177, 115,12, 12);
+            context.drawTexture(TEXTURE, x + 79, y + 16, 177, 115,18, 18);
         } else {
             context.drawItem(this.handler.getOutput(), x + 80, y + 17);
             renderOutputTooltip(context, mouseX, mouseY);

@@ -176,20 +176,20 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             context.drawTexture(TEXTURE, x + 40, y + 50 - cookingTime, 176, COOKING_FIRE_SIZE - cookingTime, COOKING_FIRE_SIZE, cookingTime);
         }
         if(handler.isCrafting()) {
-            context.drawTexture(TEXTURE, x + 79, y + 34, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17);
+            context.drawTexture(TEXTURE, x + 86, y + 15, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17);
         }
     }
 
     private void renderLiquidStorage(DrawContext context, int x, int y) {
         int storedLiquid = (int) (handler.getScaledStoredLiquid() * LIQUID_HEIGHT);
-        context.drawTexture(TEXTURE, x + 112, y + 71 - storedLiquid, 177, 114 - storedLiquid, 16, storedLiquid);
+        context.drawTexture(TEXTURE, x + 113, y + 71 - storedLiquid, 177, 114 - storedLiquid, 16, storedLiquid);
     }
 
     private void renderLiquidStorageTooltip(DrawContext context, int mouseX, int mouseY) {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        if (mouseX >= x + 112 && mouseX <= x + 127 && mouseY >= y + 12 && mouseY <= y + 71){
+        if (mouseX >= x + 113 && mouseX <= x + 128 && mouseY >= y + 12 && mouseY <= y + 71){
             MetalTypes metal = MetalTypes.getValue(handler.getCurrentMetal());
             if(metal != MetalTypes.EMPTY){
                 context.drawOrderedTooltip(this.client.textRenderer, Lists.transform(
@@ -205,7 +205,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        if (mouseX >= x + 7 && mouseX <= x + 21 && mouseY >= y + 55 && mouseY <= y + 69){
+        if (mouseX >= x + 11 && mouseX <= x + 25 && mouseY >= y + 55 && mouseY <= y + 69){
             context.drawTooltip(this.client.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_alloying"), mouseX, mouseY);
         }
     }
@@ -223,7 +223,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         ItemStack itemstack;
         switch (outputMode){
             case 0:
-                context.drawTexture(TEXTURE, x + 146, y + 56, 177, 115,12, 12);
+                context.drawTexture(TEXTURE, x + 142, y + 52, 177, 115,22, 22);
                 break;
             case 1:
                 itemstack = new ItemStack(Items.IRON_NUGGET);
