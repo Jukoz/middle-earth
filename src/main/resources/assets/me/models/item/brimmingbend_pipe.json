@@ -65,7 +65,7 @@
 			"predicate": {
 				"smoking": 1
 			},
-			"model": "me:item/smoking_brimmingend_pipe"
+			"model": "me:item/smoking_brimmingbend_pipe"
 		}
 	]
 }
