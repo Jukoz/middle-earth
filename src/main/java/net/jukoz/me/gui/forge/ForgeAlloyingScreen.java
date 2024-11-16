@@ -58,11 +58,11 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        this.leftExtractCycleButton = new ToggleButtonWidget(x + 133, y + 56, 7 ,11, true);
+        this.leftExtractCycleButton = new ToggleButtonWidget(x + 132, y + 56, 7 ,11, true);
         this.leftExtractCycleButton.setTextures(LEFT_CYCLE_EXTRACT_BUTTON_TEXTURES);
         this.leftExtractCycleButton.visible = false;
 
-        this.extractButton = new TexturedButtonWidget(x + 142, y + 52, 20 ,20, EXTRACT_BUTTON_TEXTURES, (button)-> {
+        this.extractButton = new TexturedButtonWidget(x + 141, y + 52, 20 ,20, EXTRACT_BUTTON_TEXTURES, (button)-> {
             int amount = 0;
             switch (outputMode){
                 case 1 -> amount = 16;
@@ -76,7 +76,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
 
         this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
 
-        this.rightExtractCycleButton = new ToggleButtonWidget(x + 164, y + 56, 7,11, true);
+        this.rightExtractCycleButton = new ToggleButtonWidget(x + 163, y + 56, 7,11, true);
         this.rightExtractCycleButton.setTextures(RIGHT_CYCLE_EXTRACT_BUTTON_TEXTURES);
         this.rightExtractCycleButton.visible = false;
 
@@ -173,10 +173,10 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     private void renderProgressArrow(DrawContext context, int x, int y) {
         if(handler.isCooking()) {
             int cookingTime = (int) (handler.getScaledCooking() * COOKING_FIRE_SIZE);
-            context.drawTexture(TEXTURE, x + 40, y + 50 - cookingTime, 176, COOKING_FIRE_SIZE - cookingTime, COOKING_FIRE_SIZE, cookingTime);
+            context.drawTexture(TEXTURE, x + 42, y + 50 - cookingTime, 176, COOKING_FIRE_SIZE - cookingTime, COOKING_FIRE_SIZE, cookingTime);
         }
         if(handler.isCrafting()) {
-            context.drawTexture(TEXTURE, x + 86, y + 15, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17);
+            context.drawTexture(TEXTURE, x + 87, y + 15, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17);
         }
     }
 
@@ -205,7 +205,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        if (mouseX >= x + 11 && mouseX <= x + 25 && mouseY >= y + 55 && mouseY <= y + 69){
+        if (mouseX >= x + 13 && mouseX <= x + 27 && mouseY >= y + 57 && mouseY <= y + 71){
             context.drawTooltip(this.client.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_alloying"), mouseX, mouseY);
         }
     }
@@ -223,24 +223,24 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         ItemStack itemstack;
         switch (outputMode){
             case 0:
-                context.drawTexture(TEXTURE, x + 142, y + 52, 177, 115,22, 22);
+                context.drawTexture(TEXTURE, x + 140, y + 51, 177, 115,22, 22);
                 break;
             case 1:
                 itemstack = new ItemStack(Items.IRON_NUGGET);
-                context.drawItem(itemstack, x + 144, y + 54);
+                context.drawItem(itemstack, x + 143, y + 54);
                 break;
             case 2:
                 itemstack = new ItemStack(Items.IRON_INGOT);
 
-                context.drawItem(itemstack, x + 144, y + 54);
+                context.drawItem(itemstack, x + 143, y + 54);
                 break;
             case 3:
                 itemstack = new ItemStack(ModResourceItems.ROD);
-                context.drawItem(itemstack, x + 144, y + 54);
+                context.drawItem(itemstack, x + 143, y + 54);
                 break;
             case 4:
                 itemstack = new ItemStack(ModResourceItems.LARGE_ROD);
-                context.drawItem(itemstack, x + 144, y + 54);
+                context.drawItem(itemstack, x + 143, y + 54);
                 break;
         }
     }

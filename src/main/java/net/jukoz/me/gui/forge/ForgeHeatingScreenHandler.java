@@ -34,12 +34,11 @@ public class ForgeHeatingScreenHandler extends ScreenHandler {
         int maxItemStack = 64;
         checkSize(inventory, 6);
 
-        this.addSlot(new ForgeFuelSlot(inventory, this, 0, 80, 53));
-        this.addSlot(new ForgeSlot(inventory, 1, 53, 17, 1));
-        this.addSlot(new ForgeSlot(inventory, 2, 71, 17, 1));
-        this.addSlot(new ForgeSlot(inventory, 3, 89, 17, 1));
-        this.addSlot(new ForgeSlot(inventory, 4, 107, 17, 1));
-        //this.addSlot(new ForgeOutputSlot(playerInventory.player, inventory, 5, 144, 17, false));
+        this.addSlot(new ForgeFuelSlot(inventory, this, 0, 80, 55));
+        this.addSlot(new ForgeSlot(inventory, 1, 53, 16, 1));
+        this.addSlot(new ForgeSlot(inventory, 2, 71, 16, 1));
+        this.addSlot(new ForgeSlot(inventory, 3, 89, 16, 1));
+        this.addSlot(new ForgeSlot(inventory, 4, 107, 16, 1));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -111,23 +110,6 @@ public class ForgeHeatingScreenHandler extends ScreenHandler {
 
     public int getCurrentMetal() {
         return this.propertyDelegate.get(5);
-    }
-
-    public int checkMaxOutput(){
-        int liquid = propertyDelegate.get(4);
-        if(liquid >= 432){
-            return 4;
-        }
-        if(liquid >= 288){
-            return 3;
-        }
-        if(liquid >= 144){
-            return 2;
-        }
-        if(liquid >= 16){
-            return 1;
-        }
-        return 0;
     }
 
     public boolean isCrafting() {

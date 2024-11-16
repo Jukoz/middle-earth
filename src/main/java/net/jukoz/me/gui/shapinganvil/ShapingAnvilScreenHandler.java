@@ -38,7 +38,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         this.pos = BlockPos.ORIGIN;
         this.world = playerInventory.player.getWorld();
 
-        this.addSlot(new ShapingAnvilSlot(inventory, 0, 80, 53));
+        this.addSlot(new ShapingAnvilSlot(inventory, 0, 80, 55));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

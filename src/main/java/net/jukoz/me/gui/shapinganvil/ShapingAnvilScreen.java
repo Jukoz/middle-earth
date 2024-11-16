@@ -87,14 +87,14 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        context.drawItem(ModToolItems.SMITHING_HAMMER.getDefaultStack(), x + 80, y + 34);
+        context.drawItem(ModToolItems.SMITHING_HAMMER.getDefaultStack(), x + 81, y + 34);
 
         renderHammerTooltip(context, mouseX, mouseY);
 
         if (this.handler.getOutput().isEmpty()){
-            context.drawTexture(TEXTURE, x + 79, y + 16, 177, 115,18, 18);
+            context.drawTexture(TEXTURE, x + 79, y + 15, 177, 115,18, 18);
         } else {
-            context.drawItem(this.handler.getOutput(), x + 80, y + 17);
+            context.drawItem(this.handler.getOutput(), x + 80, y + 16);
             renderOutputTooltip(context, mouseX, mouseY);
         }
     }
