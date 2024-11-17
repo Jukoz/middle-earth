@@ -65,39 +65,23 @@ enum ArtisanTableTabType {
     }
 
     public int getTabX(int index) {
-        switch (this.ordinal()) {
-            case 0: {
-                return (this.width + 4) * index;
-            }
-            case 1: {
-                return (this.width + 4) * index;
-            }
-            case 2: {
-                return -this.width + 4;
-            }
-            case 3: {
-                return 248;
-            }
-        }
-        throw new UnsupportedOperationException("Don't know what this tab type is!" + String.valueOf((Object)this));
+        return switch (this.ordinal()) {
+            case 0, 1 -> (this.width + 4) * index;
+            case 2 -> -this.width + 4;
+            case 3 -> 248;
+            default ->
+                    throw new UnsupportedOperationException("Don't know what this tab type is!" + String.valueOf((Object) this));
+        };
     }
 
     public int getTabY(int index) {
-        switch (this.ordinal()) {
-            case 0: {
-                return -this.height + 4;
-            }
-            case 1: {
-                return 136;
-            }
-            case 2: {
-                return this.height * index;
-            }
-            case 3: {
-                return this.height * index;
-            }
-        }
-        throw new UnsupportedOperationException("Don't know what this tab type is!" + String.valueOf((Object)this));
+        return switch (this.ordinal()) {
+            case 0 -> -this.height + 4;
+            case 1 -> 136;
+            case 2, 3 -> this.height * index;
+            default ->
+                    throw new UnsupportedOperationException("Don't know what this tab type is!" + String.valueOf((Object) this));
+        };
     }
 
     public boolean isClickOnTab(int screenX, int screenY, int index, double mouseX, double mouseY) {
