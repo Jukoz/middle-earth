@@ -102,7 +102,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
                 context.run((world, pos) -> {
                     long l = world.getTime();
                     if (ArtisanTableScreenHandler.this.lastTakeTime != l) {
-                        world.playSound(null, (BlockPos)pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                        world.playSound(null, (BlockPos)pos, SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH, SoundCategory.BLOCKS, 1.0f, 1.0f);
                         ArtisanTableScreenHandler.this.lastTakeTime = l;
                     }
                 });
