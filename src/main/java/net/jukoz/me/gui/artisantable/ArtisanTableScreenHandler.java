@@ -50,8 +50,11 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     private PlayerEntity playerEntity;
     private ArtisanTableInputsShape inputsShape = null;
 
-    public ArtisanTableScreenHandler(int syncId, PlayerInventory playerInventory) {
+    private String disposition;
+
+    public ArtisanTableScreenHandler(int syncId, PlayerInventory playerInventory, String disposition) {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
+        this.disposition = disposition;
     }
 
     public ArtisanTableScreenHandler(int syncId, PlayerInventory playerInventory, final ScreenHandlerContext context) {
@@ -62,13 +65,12 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.contentsChangedListener = () -> {
         };
 
-        PlayerData playerData = StateSaverAndLoader.getPlayerState(playerInventory.player);
-        Disposition playerDisposition = playerData.getCurrentDisposition();
+        this.disposition = "neutral";
 
         this.input = new SimpleInventory(9) {
             public void markDirty() {
                 super.markDirty();
-                ArtisanTableScreenHandler.this.onContentChanged(this, playerDisposition);
+                ArtisanTableScreenHandler.this.onContentChanged(this);
                 ArtisanTableScreenHandler.this.contentsChangedListener.run();
             }
         };
@@ -163,10 +165,10 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         return id >= 0 && id < this.availableRecipes.size();
     }
 
-    public void onContentChanged(Inventory inventory, Disposition playerDisposition) {
+    public void onContentChanged(Inventory inventory) {
         ItemStack itemStack = this.inputSlots[0][0].getStack();
         this.inputStack = itemStack.copy();
-        this.updateInput(inventory, playerDisposition);
+        this.updateInput(inventory);
     }
 
     public void changeTab(String shapeId) {
@@ -189,7 +191,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         }
     }
 
-    private void updateInput(Inventory inventory, Disposition playerDisposition) {
+    private void updateInput(Inventory inventory) {
         String currentCategory = this.inputsShape.getId();
         if(currentCategory == null) return;
 
@@ -208,15 +210,12 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         }
 
         ArrayList<RecipeEntry<ArtisanRecipe>> filteredRecipes = new ArrayList<>();
-
-
-
         for(RecipeEntry<ArtisanRecipe> recipeEntry : this.availableRecipes) {
             System.out.println(recipeEntry.value().output + " : " + recipeEntry.value().disposition);
             if (recipeEntry.value().category.equals(currentCategory)){
-                if (Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.NEUTRAL || playerDisposition == null){
+                if (Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.NEUTRAL){
                     filteredRecipes.add(recipeEntry);
-                } else if(Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == playerDisposition) {
+                } else if(Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.valueOf(this.disposition.toUpperCase())) {
                     filteredRecipes.add(recipeEntry);
                 }
             }

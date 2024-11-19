@@ -1,19 +1,27 @@
 package net.jukoz.me.block.special.artisantable;
 
 import com.mojang.serialization.MapCodec;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreenHandler;
+import net.jukoz.me.resources.StateSaverAndLoader;
+import net.jukoz.me.resources.datas.Disposition;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.*;
-import net.minecraft.stat.Stats;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.text.Text;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -45,11 +53,31 @@ public class ArtisanTable extends HorizontalFacingBlock {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
+        if(!world.isClient) {
+            player.openHandledScreen(new ExtendedScreenHandlerFactory<>() {
+                @Override
+                public Object getScreenOpeningData(ServerPlayerEntity player) {
+                    Disposition disposition = StateSaverAndLoader.getPlayerState(player).getCurrentDisposition();
+                    if (disposition == null){
+                        disposition = Disposition.NEUTRAL;
+                    }
+                    return disposition.toString();
+                }
+
+                @Override
+                public Text getDisplayName() {
+                    return Text.translatable("screen." + MiddleEarth.MOD_ID + ".artisan_table");
+                }
+
+                @Nullable
+                @Override
+                public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+                    return new ArtisanTableScreenHandler(syncId, playerInventory, "neutral");
+                }
+            });
         }
-        player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
-        return ActionResult.CONSUME;
+
+        return ActionResult.SUCCESS;
     }
 
     @Nullable
@@ -132,15 +160,7 @@ public class ArtisanTable extends HorizontalFacingBlock {
         return BlockRenderType.MODEL;
     }
 
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
-        } else {
-            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
-            player.incrementStat(Stats.INTERACT_WITH_STONECUTTER);
-            return ActionResult.CONSUME;
-        }
-    }
+
 
     @Nullable
     public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
