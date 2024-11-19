@@ -7,6 +7,9 @@ import net.jukoz.me.block.special.forge.MultipleStackRecipeInput;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.recipe.ArtisanRecipe;
 import net.jukoz.me.recipe.ModRecipes;
+import net.jukoz.me.resources.StateSaverAndLoader;
+import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.player.PlayerEntity;
@@ -58,10 +61,14 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.inputStack = ItemStack.EMPTY;
         this.contentsChangedListener = () -> {
         };
+
+        PlayerData playerData = StateSaverAndLoader.getPlayerState(playerInventory.player);
+        Disposition playerDisposition = playerData.getCurrentDisposition();
+
         this.input = new SimpleInventory(9) {
             public void markDirty() {
                 super.markDirty();
-                ArtisanTableScreenHandler.this.onContentChanged(this);
+                ArtisanTableScreenHandler.this.onContentChanged(this, playerDisposition);
                 ArtisanTableScreenHandler.this.contentsChangedListener.run();
             }
         };
@@ -156,10 +163,10 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         return id >= 0 && id < this.availableRecipes.size();
     }
 
-    public void onContentChanged(Inventory inventory) {
+    public void onContentChanged(Inventory inventory, Disposition playerDisposition) {
         ItemStack itemStack = this.inputSlots[0][0].getStack();
         this.inputStack = itemStack.copy();
-        this.updateInput(inventory, itemStack);
+        this.updateInput(inventory, playerDisposition);
     }
 
     public void changeTab(String shapeId) {
@@ -182,7 +189,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         }
     }
 
-    private void updateInput(Inventory inventory, ItemStack stack) {
+    private void updateInput(Inventory inventory, Disposition playerDisposition) {
         String currentCategory = this.inputsShape.getId();
         if(currentCategory == null) return;
 
@@ -201,9 +208,17 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         }
 
         ArrayList<RecipeEntry<ArtisanRecipe>> filteredRecipes = new ArrayList<>();
+
+
+
         for(RecipeEntry<ArtisanRecipe> recipeEntry : this.availableRecipes) {
-            if(recipeEntry.value().category.equals(currentCategory)) {
-                filteredRecipes.add(recipeEntry);
+            System.out.println(recipeEntry.value().output + " : " + recipeEntry.value().disposition);
+            if (recipeEntry.value().category.equals(currentCategory)){
+                if (Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.NEUTRAL || playerDisposition == null){
+                    filteredRecipes.add(recipeEntry);
+                } else if(Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == playerDisposition) {
+                    filteredRecipes.add(recipeEntry);
+                }
             }
         }
         this.availableRecipes = filteredRecipes;
