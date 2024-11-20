@@ -1,30 +1,22 @@
 package net.jukoz.me.client.screens.utils.widgets;
 
-import me.shedaniel.rei.impl.client.gui.widget.DraggableWidget;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.client.screens.faction_selection.FactionSelectionController;
-import net.jukoz.me.client.screens.faction_selection.FactionSelectionScreen;
 import net.jukoz.me.exceptions.FactionIdentifierException;
 import net.jukoz.me.resources.datas.FactionType;
 import net.jukoz.me.resources.datas.factions.Faction;
 import net.jukoz.me.resources.datas.factions.FactionLookup;
-import net.jukoz.me.utils.LoggerUtil;
-import net.jukoz.me.utils.ModColors;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ScrollableWidget;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringHelper;
 import org.joml.Vector2d;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
