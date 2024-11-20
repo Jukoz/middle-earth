@@ -7,9 +7,7 @@ import net.jukoz.me.block.special.forge.MultipleStackRecipeInput;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.recipe.ArtisanRecipe;
 import net.jukoz.me.recipe.ModRecipes;
-import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.Disposition;
-import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.player.PlayerEntity;
@@ -108,13 +106,13 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
                 if (!itemStack.isEmpty()) {
                     ArtisanTableScreenHandler.this.populateResult(player);
                 }
-                context.run((world, pos) -> {
-                    long l = world.getTime();
-                    if (ArtisanTableScreenHandler.this.lastTakeTime != l) {
-                        world.playSound(null, (BlockPos)pos, SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH, SoundCategory.BLOCKS, 1.0f, 1.0f);
-                        ArtisanTableScreenHandler.this.lastTakeTime = l;
-                    }
-                });
+
+                long l = world.getTime();
+                if (ArtisanTableScreenHandler.this.lastTakeTime != l) {
+                    world.playSound(null, (BlockPos)player.getBlockPos(), SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                    ArtisanTableScreenHandler.this.lastTakeTime = l;
+                }
+
                 super.onTakeItem(player, itemStack);
             }
 
@@ -173,7 +171,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
 
     public void changeTab(String shapeId) {
         if(playerEntity != null) {
-            this.context.run((world, pos) -> this.dropInventory(this.playerEntity, this.input));
+            this.dropInventory(this.playerEntity, this.input);
         }
 
         ArtisanTableInputsShape inputsShape = ArtisanTableInputsShape.getShape(shapeId);
@@ -301,9 +299,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     public void onClosed(PlayerEntity player) {
         super.onClosed(player);
         this.output.removeStack(6);
-        this.context.run((world, pos) -> {
-            this.dropInventory(player, this.input);
-        });
+        this.dropInventory(player, this.input);
     }
     private void addPlayerInventory(PlayerInventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
