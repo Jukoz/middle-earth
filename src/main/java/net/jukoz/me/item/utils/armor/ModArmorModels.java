@@ -6,8 +6,14 @@ import net.jukoz.me.client.model.equipment.chest.HobgoblinPlateChestplateModel;
 import net.jukoz.me.client.model.equipment.chest.HobgoblinTrophyPlateChestplateModel;
 import net.jukoz.me.client.model.equipment.head.helmets.*;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.item.utils.armor.capes.ModCapeModels;
+import net.jukoz.me.item.utils.armor.capes.ModCapes;
+import net.jukoz.me.item.utils.armor.hoods.ModHoodModels;
+import net.jukoz.me.item.utils.armor.hoods.ModHoodStates;
+import net.jukoz.me.item.utils.armor.hoods.ModHoods;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
+import net.minecraft.util.StringIdentifiable;
 
 public class ModArmorModels {
 
@@ -67,6 +73,12 @@ public class ModArmorModels {
         URUK_HAI_BERSERKER_PAINTED_HELMET(ModEquipmentItems.URUK_HAI_BERSERKER_PAINTED_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_COMMANDER_HELMET(ModEquipmentItems.URUK_HAI_COMMANDER_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_COMMANDER_PAINTED_HELMET(ModEquipmentItems.URUK_HAI_COMMANDER_PAINTED_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
+
+        GUNDABAD_CAPTAIN_HELMET(ModEquipmentItems.GUNDABAD_CAPTAIN_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_SCREECHER_HELMET(ModEquipmentItems.GUNDABAD_SCREECHER_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_SEEKER_HELMET(ModEquipmentItems.GUNDABAD_SEEKER_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_SKULLCAP_HELMET(ModEquipmentItems.GUNDABAD_SKULLCAP_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
+        GUNDABAD_SOLDIER_HELMET(ModEquipmentItems.GUNDABAD_SOLDIER_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
 
         GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_CRESTED_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
         GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET(ModEquipmentItems.GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET, new HobgoblinPlateHelmetModel<>(HobgoblinPlateHelmetModel.getTexturedModelData().createModel())),
@@ -166,6 +178,98 @@ public class ModArmorModels {
 
         public ChestplateAddonModel<LivingEntity> getModel() {
             return model;
+        }
+    }
+
+    public enum ModCapePairedModels implements StringIdentifiable {
+        BASE_CAPE(ModCapes.BASE_CAPE, ModCapeModels.MEDIUM_MODELS),
+        SURCOAT(ModCapes.SURCOAT, ModCapeModels.SURCOAT_MODELS),
+        BASE_CLOAK(ModCapes.BASE_CLOAK, ModCapeModels.WIDE_MODELS),
+
+        BLACK_FUR_CLOAK(ModCapes.BLACK_FUR_CLOAK, ModCapeModels.FUR_MODELS),
+        BROWN_FUR_CLOAK(ModCapes.BROWN_FUR_CLOAK, ModCapeModels.FUR_MODELS),
+        GRAY_FUR_CLOAK(ModCapes.GRAY_FUR_CLOAK, ModCapeModels.FUR_MODELS),
+        TAN_FUR_CLOAK(ModCapes.TAN_FUR_CLOAK, ModCapeModels.FUR_MODELS),
+        WHITE_FUR_CLOAK(ModCapes.WHITE_FUR_CLOAK, ModCapeModels.FUR_MODELS),
+
+        BLACK_FUR(ModCapes.BLACK_FUR, ModCapeModels.FUR_MODELS),
+        BROWN_FUR(ModCapes.BROWN_FUR, ModCapeModels.FUR_MODELS),
+        GRAY_FUR(ModCapes.GRAY_FUR, ModCapeModels.FUR_MODELS),
+        TAN_FUR(ModCapes.TAN_FUR, ModCapeModels.FUR_MODELS),
+        WHITE_FUR(ModCapes.WHITE_FUR, ModCapeModels.FUR_MODELS),
+
+        GONDORIAN_CAPTAIN_CAPE(ModCapes.GONDORIAN_CAPTAIN_CAPE, ModCapeModels.MEDIUM_MODELS),
+        GONDORIAN_HERO_CAPE(ModCapes.GONDORIAN_HERO_CAPE, ModCapeModels.MEDIUM_MODELS),
+        GONDORIAN_KINGS_GUARD_CAPE(ModCapes.GONDORIAN_KINGS_GUARD_CAPE, ModCapeModels.MEDIUM_MODELS),
+        GONDORIAN_CITADEL_GUARD_CAPE(ModCapes.GONDORIAN_CITADEL_GUARD_CAPE, ModCapeModels.MEDIUM_MODELS),
+        GONDORIAN_FOUNTAIN_GUARD_CAPE(ModCapes.GONDORIAN_FOUNTAIN_GUARD_CAPE, ModCapeModels.WIDE_MODELS),
+
+        ROHIRRIC_CAPE(ModCapes.ROHIRRIC_CAPE, ModCapeModels.MEDIUM_MODELS),
+        ROHIRRIC_ROYAL_GUARD_CAPE(ModCapes.ROHIRRIC_ROYAL_GUARD_CAPE, ModCapeModels.MEDIUM_MODELS),
+        EORLING_MARSHAL_CAPE(ModCapes.EORLING_MARSHAL_CAPE, ModCapeModels.MEDIUM_MODELS),
+        HORSE_LORD_CAPE(ModCapes.HORSE_LORD_CAPE, ModCapeModels.MEDIUM_MODELS),
+
+        BARDING_SURCOAT(ModCapes.BARDING_SURCOAT, ModCapeModels.SURCOAT_MODELS),
+        DALISH_HEYDAY_CAPE(ModCapes.DALISH_HEYDAY_CAPE, ModCapeModels.MEDIUM_MODELS),
+        BARDING_SERGEANT_CAPE(ModCapes.BARDING_SERGEANT_CAPE, ModCapeModels.MEDIUM_MODELS),
+
+        EREBOR_CAPE(ModCapes.EREBOR_CAPE, ModCapeModels.MEDIUM_MODELS),
+        RAVENHILL_SENTINEL_CAPE(ModCapes.RAVENHILL_SENTINEL_CAPE, ModCapeModels.WIDE_MODELS),
+
+        LORIEN_MARCHWARDEN_CAPE(ModCapes.LORIEN_MARCHWARDEN_CAPE, ModCapeModels.MEDIUM_MODELS),
+        GALADHRIM_CAPE(ModCapes.GALADHRIM_CAPE, ModCapeModels.SLIM_MODELS),
+        GALADHRIM_LORD_SURCOAT(ModCapes.GALADHRIM_LORD_SURCOAT, ModCapeModels.SURCOAT_MODELS),;
+
+        private final ModCapes cape;
+        private final ModCapeModels models;
+
+
+        ModCapePairedModels(ModCapes cape, ModCapeModels models){
+            this.cape = cape;
+            this.models = models;
+        }
+
+        public ModCapeModels getModel() {
+            return models;
+        }
+
+        @Override
+        public String asString() {
+            return "";
+        }
+    }
+
+
+    public enum ModHoodPairedModels implements StringIdentifiable {
+        BASE_HOOD(ModHoods.BASE_HOOD, ModHoodModels.REGULAR_MODELS),
+
+        BLACK_FUR_HOOD(ModHoods.BLACK_FUR_HOOD, ModHoodModels.FUR_MODELS),
+        BROWN_FUR_HOOD(ModHoods.BROWN_FUR_HOOD, ModHoodModels.FUR_MODELS),
+        GRAY_FUR_HOOD(ModHoods.GRAY_FUR_HOOD, ModHoodModels.FUR_MODELS),
+        TAN_FUR_HOOD(ModHoods.TAN_FUR_HOOD, ModHoodModels.FUR_MODELS),
+        WHITE_FUR_HOOD(ModHoods.WHITE_FUR_HOOD, ModHoodModels.FUR_MODELS),
+
+        GONDORIAN_CITADEL_GUARD_HOOD(ModHoods.GONDORIAN_CITADEL_GUARD_HOOD, ModHoodModels.REGULAR_MODELS),
+
+        LORIEN_MARCHWARDEN_HOOD(ModHoods.LORIEN_MARCHWARDEN_HOOD, ModHoodModels.REGULAR_MODELS),
+        GALADHRIM_HOOD(ModHoods.GALADHRIM_HOOD, ModHoodModels.REGULAR_MODELS)
+        ;
+        private final ModHoods hood;
+        private final ModHoodModels models;
+
+
+        ModHoodPairedModels(ModHoods hood, ModHoodModels models){
+            this.hood = hood;
+            this.models = models;
+        }
+
+        public ModHoodModels getModel() {
+            return models;
+        }
+
+        @Override
+        public String asString() {
+            return "";
         }
     }
 }

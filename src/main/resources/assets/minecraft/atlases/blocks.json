@@ -28,7 +28,15 @@
         "me:trims/items/short_blade_trim",
         "me:trims/items/sword_hilt_trim",
         "me:trims/items/rod_trim",
-        "me:trims/items/large_rod_trim"
+        "me:trims/items/large_rod_trim",
+        "me:trims/items/chainmail_ring_trim",
+        "me:trims/items/chainmail_trim",
+        "me:trims/items/scale_trim",
+        "me:trims/items/scale_mail_trim",
+        "me:trims/items/armor_plate_trim",
+        "me:trims/items/helmet_plate_trim",
+        "me:trims/items/shield_border_trim",
+        "me:trims/items/shield_plate_trim"
       ],
       "palette_key": "trims/color_palettes/trim_palette",
       "permutations": {
@@ -52,7 +60,7 @@
         "silver": "me:trims/color_palettes/silver",
         "bronze": "me:trims/color_palettes/bronze",
         "steel": "me:trims/color_palettes/steel",
-        "slag": "me:trims/color_palettes/crude",
+        "crude": "me:trims/color_palettes/crude",
         "burzum_steel": "me:trims/color_palettes/burzum_steel",
         "edhel_steel": "me:trims/color_palettes/edhel_steel",
         "khazad_steel": "me:trims/color_palettes/khazad_steel",

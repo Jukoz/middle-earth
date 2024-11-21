@@ -15,8 +15,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.data.DataOutput;
 import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
@@ -24,16 +24,18 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 
 public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvider {
 
+    private final CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup;
 
     public RecipeProvider(DataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookupFuture) {
         super(output, registryLookupFuture);
+
+        this.registryLookup = registryLookupFuture;
     }
 
     @Override
@@ -608,18 +610,14 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.BRONZE_INGOT, ModToolItems.BRONZE_PICKAXE, ModToolItems.BRONZE_AXE, ModToolItems.BRONZE_SHOVEL, ModToolItems.BRONZE_HOE);
         
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.CRUDE_INGOT, ModToolItems.CRUDE_PICKAXE, ModToolItems.CRUDE_AXE, ModToolItems.CRUDE_SHOVEL, ModToolItems.CRUDE_HOE);
-        
-        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.BURZUM_STEEL_INGOT, ModToolItems.BURZUM_STEEL_PICKAXE, ModToolItems.BURZUM_STEEL_AXE, ModToolItems.BURZUM_STEEL_SHOVEL, ModToolItems.BURZUM_STEEL_HOE);
-        
-        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.STEEL_INGOT, ModToolItems.STEEL_PICKAXE, ModToolItems.STEEL_AXE, ModToolItems.STEEL_SHOVEL, ModToolItems.STEEL_HOE);
-        
-        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.EDHEL_STEEL_INGOT, ModToolItems.EDHEL_STEEL_PICKAXE, ModToolItems.EDHEL_STEEL_AXE, ModToolItems.EDHEL_STEEL_SHOVEL, ModToolItems.EDHEL_STEEL_HOE);
-        
-        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.KHAZAD_STEEL_INGOT, ModToolItems.KHAZAD_STEEL_PICKAXE, ModToolItems.KHAZAD_STEEL_AXE, ModToolItems.KHAZAD_STEEL_SHOVEL, ModToolItems.KHAZAD_STEEL_HOE);
 
-        createToolSetRecipes(exporter, Items.STICK, ModResourceItems.MITHRIL_INGOT, ModToolItems.MITHRIL_PICKAXE, ModToolItems.MITHRIL_AXE, ModToolItems.MITHRIL_SHOVEL, ModToolItems.MITHRIL_HOE);
-
-        //TODO rod specify data component dwarven steel material
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModResourceItems.FABRIC, 2)
+                .pattern("sss")
+                .pattern("sss")
+                .input('s', Items.STRING)
+                .criterion(FabricRecipeProvider.hasItem(Items.STRING),
+                        FabricRecipeProvider.conditionsFromItem(Items.STRING))
+                .offerTo(exporter);
 
         createBucketRecipe(exporter, Items.IRON_INGOT, Items.BUCKET);
 
@@ -654,11 +652,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createCookedFoodRecipes(exporter, Items.EGG, ModFoodItems.BOILED_EGG);
         //endregion
 
-        createHelmetRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_HELMET);
-        createChestplateRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_CHESTPLATE);
-        createLeggingsRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_LEGGINGS);
-        createBootsRecipe(exporter, ModResourceItems.IRON_CHAINMAIL, Items.CHAINMAIL_BOOTS);
-
         ComplexRecipeJsonBuilder.create(CustomArmorDyeRecipe::new).offerTo(exporter, "custom_armor_dye");
         ComplexRecipeJsonBuilder.create(ArmorHoodRecipe::new).offerTo(exporter, "custom_armor_hood");
         ComplexRecipeJsonBuilder.create(ArmorHoodRemovalRecipe::new).offerTo(exporter, "custom_armor_hood_removal");
@@ -685,10 +678,9 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         HotMetalsModel.shapesItem.forEach(shape -> {
             createAnvilShapingRecipeItem(exporter, shape.item(), shape.output(), shape.amount());
         });
-
         //endregion
 
-        ComplexRecipeJsonBuilder.create(CustomShieldDecorationRecipe::new).offerTo(exporter, "custom_shield_decoration");
+        ComplexRecipeJsonBuilder.create(CustomItemDecorationRecipe::new).offerTo(exporter, "custom_shield_decoration");
     }
 
     //region BLOCK RECIPE METHODS
@@ -1087,25 +1079,27 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         FabricRecipeProvider.conditionsFromItem(inputMaterial))
                 .offerTo(exporter);
     }
-        private void createChestplateRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
-            ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
-                    .pattern("M M")
-                    .pattern("MMM")
-                    .pattern("MMM")
-                    .input('M', inputMaterial)
-                    .criterion(FabricRecipeProvider.hasItem(inputMaterial),
-                            FabricRecipeProvider.conditionsFromItem(inputMaterial))
-                    .offerTo(exporter);
-        }
-        private void createHelmetRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
-            ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
-                    .pattern("MMM")
-                    .pattern("M M")
-                    .input('M', inputMaterial)
-                    .criterion(FabricRecipeProvider.hasItem(inputMaterial),
-                            FabricRecipeProvider.conditionsFromItem(inputMaterial))
-                    .offerTo(exporter);
-        }
+
+    private void createChestplateRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
+                .pattern("M M")
+                .pattern("MMM")
+                .pattern("MMM")
+                .input('M', inputMaterial)
+                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
+                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+    }
+
+    private void createHelmetRecipe(RecipeExporter exporter, Item inputMaterial, Item output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
+                .pattern("MMM")
+                .pattern("M M")
+                .input('M', inputMaterial)
+                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
+                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+    }
 
     private void createCookedFoodRecipes(RecipeExporter exporter, Item rawFood, Item cookedFood) {
         net.minecraft.data.server.recipe.RecipeProvider.offerFoodCookingRecipe(exporter, "smelting", RecipeSerializer.SMELTING, SmeltingRecipe::new, 200, rawFood, cookedFood, 0.35f);

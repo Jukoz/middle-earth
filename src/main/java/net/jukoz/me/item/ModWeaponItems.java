@@ -5,10 +5,16 @@ import net.jukoz.me.datageneration.content.models.SimpleBigItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleBowItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleHandheldItemModel;
 import net.jukoz.me.datageneration.content.models.SimpleSpearModel;
+import net.jukoz.me.item.items.HeldBannerItem;
+import net.jukoz.me.item.items.shields.ArtefactCustomShieldItem;
+import net.jukoz.me.item.items.shields.CustomBannerShieldItem;
+import net.jukoz.me.item.items.shields.CustomShieldItem;
+import net.jukoz.me.item.items.shields.CustomSiegeShieldItem;
 import net.jukoz.me.item.items.weapons.*;
 import net.jukoz.me.item.items.weapons.artefacts.*;
 import net.jukoz.me.item.items.weapons.ranged.CustomBowWeaponItem;
 import net.jukoz.me.item.utils.ModItemGroups;
+import net.jukoz.me.item.utils.ModShieldTypes;
 import net.jukoz.me.item.utils.ModToolMaterials;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.ModFactions;
@@ -16,11 +22,16 @@ import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModWeaponItems {
+
+    public static List<Item> shields = new ArrayList<>();
 
     //region GENERIC
     public static final Item JADE_SWORD = registerItemWithModel("jade_sword",
@@ -91,6 +102,13 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ToolMaterials.DIAMOND));
     public static final Item NETHERITE_SPEAR = registerItemWithSpearModel("netherite_spear",
             new CustomSpearWeaponItem(ToolMaterials.NETHERITE));
+
+    public static final Item ROUND_SHIELD = registerShield("round_shield",
+            new CustomBannerShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));
+    public static final Item HEATER_SHIELD = registerShield("heater_shield",
+            new CustomBannerShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));
+    public static final Item KITE_SHIELD = registerShield("kite_shield",
+            new CustomBannerShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.NONE));
     //endregion
 
     //region MEN
@@ -121,6 +139,21 @@ public class ModWeaponItems {
 
     public static final Item GONDORIAN_BOW = registerBowItem("gondorian_bow",
             new CustomBowWeaponItem(ModFactions.GONDOR, new Item.Settings().maxDamage(640)));
+
+    public static final Item GONDORIAN_SHIELD = registerShield("gondorian_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
+    public static final Item GONDORIAN_TOWER_SHIELD = registerShield("gondorian_tower_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
+    public static final Item GONDORIAN_KINGS_GUARD_TOWER_SHIELD = registerShield("gondorian_kings_guard_tower_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
+    public static final Item LAST_ALLIANCE_HEILOOM_TOWER_SHIELD = registerShield("last_alliance_heirloom_tower_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
+    public static final Item GONDORIAN_HERO_SHIELD = registerShield("gondorian_hero_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.GONDOR));
+    public static final Item GONDORIAN_KNIGHT_SHIELD = registerShield("gondorian_knight_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.GONDOR));
+    public static final Item GONDORIAN_ORNAMENTED_KNIGHT_SHIELD = registerShield("gondorian_ornamented_knight_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.GONDOR));
     //endregion
 
     //region ROHAN
@@ -147,6 +180,25 @@ public class ModWeaponItems {
 
     public static final Item ROHIRRIC_BOW = registerBowItem("rohirric_bow",
             new CustomBowWeaponItem(ModFactions.ROHAN, new Item.Settings().maxDamage(640)));
+
+    public static final Item ROHIRRIC_SHIELD = registerShield("rohirric_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
+    public static final Item ROHIRRIC_BUCKING_HORSE_SHIELD = registerShield("rohirric_bucking_horse_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
+    public static final Item ROHIRRIC_GALLOPING_HORSE_SHIELD = registerShield("rohirric_galloping_horse_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
+    public static final Item ROHIRRIC_HORSE_HEAD_SHIELD = registerShield("rohirric_horse_head_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
+    public static final Item ROHIRRIC_PLAINSMAN_SHIELD = registerShield("rohirric_plainsman_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
+    public static final Item ROHIRRIC_TWIN_HORSES_SHIELD = registerShield("rohirric_twin_horses_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ROHAN));
+    public static final Item ROHIRRIC_EORLING_SHIELD = registerShield("rohirric_eorling_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ROHAN));
+    public static final Item ROHIRRIC_ORNAMENTED_SHIELD = registerShield("rohirric_ornamented_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ROHAN));
+    public static final Item ROHIRRIC_ROYAL_GUARD_SHIELD = registerShield("rohirric_royal_guard_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ROHAN));
     //endregion
 
     //region DALE
@@ -182,6 +234,9 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ModToolMaterials.STEEL, ModFactions.DALE));
     public static final Item DALISH_NOBLE_SPEAR = registerItemWithSpearModel("dalish_noble_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.DALE));
+
+    public static final Item DALISH_HEYDAY_ROUND_SHIELD = registerShield("dalish_heyday_round_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.DALE));
     //endregion
 
     //endregion
@@ -210,6 +265,17 @@ public class ModWeaponItems {
     
     public static final Item LORIEN_BOW = registerBowItem("lorien_bow",
             new CustomBowWeaponItem(ModFactions.LOTHLORIEN, new Item.Settings().maxDamage(640)));
+
+    public static final Item LORIEN_SHIELD = registerShield("lorien_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.LOTHLORIEN));
+    public static final Item LORIEN_LAURELS_SHIELD = registerShield("lorien_laurels_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.LOTHLORIEN));
+    public static final Item LORIEN_MALLORN_SHIELD = registerShield("lorien_mallorn_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.LOTHLORIEN));
+    public static final Item GALADHRIM_SHIELD = registerShield("galadhrim_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.LOTHLORIEN));
+    public static final Item GALADHRIM_LORD_SHIELD = registerShield("galadhrim_lord_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.LOTHLORIEN));
     //endregion
 
     //region EREBOR
@@ -233,6 +299,19 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ModToolMaterials.KHAZAD_STEEL, ModSubFactions.EREBOR));
     public static final Item EREBOR_NOBLE_SPEAR = registerItemWithSpearModel("erebor_noble_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_KHAZAD_STEEL, ModSubFactions.EREBOR));
+
+    public static final Item EREBOR_SHIELD = registerShield("erebor_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_CROSS_SHIELD = registerShield("erebor_cross_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_PLATED_SHIELD = registerShield("erebor_plated_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_ORNAMENTED_SHIELD = registerShield("erebor_ornamented_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_REINFORCED_SHIELD = registerShield("erebor_reinforced_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModSubFactions.EREBOR));
+    public static final Item EREBOR_HEAVY_SHIELD = registerShield("erebor_heavy_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModSubFactions.EREBOR));
     //endregion
 
     public static final Item ORC_SWORD = registerItemWithModel("orc_sword",
@@ -245,7 +324,6 @@ public class ModWeaponItems {
             new CustomAxeWeaponItem(ModToolMaterials.BURZUM_STEEL), true);
     public static final Item ORC_SPEAR = registerItemWithSpearModel("orc_spear",
             new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL));
-
     //region MORDOR
     public static final Item MORDOR_FALCHION = registerItemWithModel("mordor_falchion",
             new CustomSwordWeaponItem(ModToolMaterials.BURZUM_STEEL, ModFactions.MORDOR), true);
@@ -264,9 +342,9 @@ public class ModWeaponItems {
     public static final Item MORDOR_ELITE_AXE = registerItemWithModel("mordor_elite_axe",
             new CustomAxeWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModFactions.MORDOR), true);
     public static final Item MORDOR_SPEAR = registerItemWithSpearModel("mordor_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL, ModFactions.ISENGARD));
+            new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL, ModFactions.MORDOR));
     public static final Item MORDOR_ELITE_SPEAR = registerItemWithSpearModel("mordor_elite_spear",
-            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModFactions.ISENGARD));
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModFactions.MORDOR));
 
     public static final Item BLACK_NUMENOREAN_SWORD = registerItemWithModel("black_numenorean_sword",
             new CustomSwordWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR), true);
@@ -276,6 +354,11 @@ public class ModWeaponItems {
             new CustomDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR), false);
     public static final Item BLACK_NUMENOREAN_AXE = registerItemWithModel("black_numenorean_axe",
             new CustomAxeWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR), true);
+    public static final Item BLACK_NUMENOREAN_SPEAR = registerItemWithSpearModel("black_numenorean_spear",
+            new CustomSpearWeaponItem(ModToolMaterials.NOBLE_STEEL, ModFactions.MORDOR));
+
+    public static final Item BLACK_NUMENOREAN_TOWER_SHIELD = registerShield("black_numenorean_tower_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MORDOR));
     //endregion
 
     //region ISENGARD
@@ -299,6 +382,24 @@ public class ModWeaponItems {
             new CustomSpearWeaponItem(ModToolMaterials.BURZUM_STEEL, ModFactions.ISENGARD));
     public static final Item URUK_HAI_SPEAR = registerItemWithSpearModel("uruk_hai_spear",
             new CustomSpearWeaponItem(ModToolMaterials.NOBLE_BURZUM_STEEL, ModFactions.ISENGARD));
+
+    public static final Item URUK_HAI_HEATER_SHIELD = registerShield("uruk_hai_heater_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.ISENGARD));
+
+    public static final Item URUK_HAI_SHIELD = registerShield("uruk_hai_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
+    public static final Item URUK_HAI_WHITE_HAND_SHIELD = registerShield("uruk_hai_white_hand_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
+    public static final Item URUK_HAI_WHITE_PALMPRINT_SHIELD = registerShield("uruk_hai_white_palmprint_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
+    public static final Item URUK_HAI_S_RUNE_SHIELD = registerShield("uruk_hai_s_rune_shield",
+            new CustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
+
+    public static final Item URUK_HAI_SIEGE_SHIELD = registerShield("uruk_hai_siege_shield",
+            new CustomSiegeShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.ISENGARD));
+
+    public static final Item MISTY_MOUNTAINS_SHIELD = registerShield("misty_mountains_shield",
+            new CustomShieldItem(ModShieldTypes.MEDIUM_SHIELD, ModFactions.MISTY_MOUNTAINS_GOBLINS));
     //endregion
 
     //region ARTEFACTS
@@ -313,7 +414,16 @@ public class ModWeaponItems {
             new MorgulKnifeItem(ModToolMaterials.MORGUL_KNIFE), false, false, false);
     public static final Item STING = registerItemNoModel("sting",
             new ArtefactCustomGlowingDaggerWeaponItem(ModToolMaterials.NOBLE_STEEL), false, false, true);
+
+    public static final Item ANORTHANN = registerShield("anorthann",
+            new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.NONE));
+    public static final Item CUTHANN = registerShield("cuthann",
+            new ArtefactCustomShieldItem(ModShieldTypes.HEAVY_SHIELD, ModFactions.NONE));
     //endregion
+
+    public static final Item HELD_BANNER = registerItemNoModel("held_banner",
+            new HeldBannerItem(new Item.Settings().maxCount(1)), false, false, false);
+
 
     private static Item registerItemWithModel(String name, Item item, boolean isDualModel) {
         ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
@@ -350,6 +460,12 @@ public class ModWeaponItems {
             SimpleBigItemModel.artefactsGlowing.add(item);
         }
         return Items.register(Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
+    private static Item registerShield(String name, Item item) {
+        ModItemGroups.WEAPONS_CONTENTS.add(item.getDefaultStack());
+        shields.add(item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
     public static void registerModItems() {

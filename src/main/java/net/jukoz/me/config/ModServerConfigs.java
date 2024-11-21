@@ -8,10 +8,12 @@ public class ModServerConfigs {
     public static SimpleConfig CONFIG;
     private final static String PATH = MiddleEarth.MOD_ID + "/config-common";
     private static ModConfigProvider configs;
-
-
     /**Should players be allowed to change factions when they use the starlight phial?**/
     public static boolean ENABLE_FACTION_RESET;
+    /**Should players keep their race when returning to the Overworld**/
+    public static boolean ENABLE_RACE_SWAP_ON_DIMENSION_SWAP;
+    /**Amount of time before teleporting**/
+    public static float DELAY_ON_TELEPORT_CONFIRMATION;
     /**Should players respawn at their selected spawn location in Middle-earth if they die without having a bed assigned?**/
     public static boolean ENABLE_SPAWN_OVERRIDE;
     /**Should players be able to return to the overworld by reusing the starlight phial?**/
@@ -42,6 +44,10 @@ public class ModServerConfigs {
         configs.addComment("Faction configurations");
         configs.addDescription("Should players be allowed to change factions when they use the starlight phial?");
         configs.addKeyValuePair(new Pair<>("enableFactionReset", true), "boolean");
+        configs.addDescription("Should players keep their race when returning to the Overworld");
+        configs.addKeyValuePair(new Pair<>("enableRaceSwapOnDimensionSwap", true), "boolean");
+        configs.addDescription("Amount of time before teleporting");
+        configs.addKeyValuePair(new Pair<>("delayOnTeleportConfirmation", 3), "int");
         configs.addLineJump();
 
         // Mount configurations
@@ -51,9 +57,14 @@ public class ModServerConfigs {
     }
 
     private static void assignServerConfigs() {
+        // World configurations
         ENABLE_SPAWN_OVERRIDE = CONFIG.getOrDefault("enableSpawnOverride", true);
         ENABLE_RETURN_TO_OVERWORLD = CONFIG.getOrDefault("enableReturnToOverworld", true);
+        // Faction configurations
         ENABLE_FACTION_RESET = CONFIG.getOrDefault("enableFactionReset", true);
+        ENABLE_RACE_SWAP_ON_DIMENSION_SWAP = CONFIG.getOrDefault("enableRaceSwapOnDimensionSwap", true);
+        DELAY_ON_TELEPORT_CONFIRMATION = CONFIG.getOrDefault("delayOnTeleportConfirmation", 3);
+        // Mount configurations
         ENABLE_MOUNT_BROADHOOF_GOAT = CONFIG.getOrDefault("enableMountBroadhoofGoat", true);
 
         LoggerUtil.logDebugMsg("All server configs (" + configs.getConfigsList().size() + ") have been set properly");

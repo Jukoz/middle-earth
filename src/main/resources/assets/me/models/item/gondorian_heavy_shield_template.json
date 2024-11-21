@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
+	"gui_light": "front",
 	"textures": {
 		"2": "me:item/gondorian_ornamented_knight_shield"
 	},
@@ -251,8 +252,7 @@
 			"scale": [0.25, 0.25, 0.25]
 		},
 		"gui": {
-			"rotation": [-165.64, 50.76, -175.87],
-			"translation": [0, -0.25, 0],
+			"rotation": [-166.28, 34.83, -175.66],
 			"scale": [0.47109, 0.47109, 0.47109]
 		},
 		"fixed": {

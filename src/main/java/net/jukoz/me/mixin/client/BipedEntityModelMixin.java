@@ -1,6 +1,8 @@
 package net.jukoz.me.mixin.client;
 
 import net.jukoz.me.item.ModDecorativeItems;
+import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.item.items.HeldBannerItem;
 import net.jukoz.me.item.items.weapons.CustomSpearWeaponItem;
 import net.jukoz.me.item.items.weapons.ReachWeaponItem;
 import net.jukoz.me.item.utils.ModWeaponTypes;
@@ -64,7 +66,7 @@ public class BipedEntityModelMixin {
             this.leftArm.pitch = pitch - 0.2f;
             this.rightArm.yaw = -0.35f;
             this.leftArm.yaw = 0.8f;
-        } else if(itemStack.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) itemStack.getItem()).type == ModWeaponTypes.SPEAR)) {
+        } else if((itemStack.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) itemStack.getItem()).type == ModWeaponTypes.SPEAR))) {
             if(!entity.isUsingItem() && entity instanceof PlayerEntity playerEntity) {
                 int afkTime = PlayerMovementData.readAFK((IEntityDataSaver) playerEntity);
                 if(afkTime > 60) {
@@ -77,7 +79,10 @@ public class BipedEntityModelMixin {
                     else this.leftArm.pitch = VERTICAL_ANGLE;
                 }
             }
-        } else if (itemStack.getItem() == ModDecorativeItems.TORCH_OF_ORTHANC) {
+        } else if (itemStack.getItem() == ModWeaponItems.HELD_BANNER) {
+            if (rightHand) this.rightArm.pitch = VERTICAL_ANGLE;
+            else this.leftArm.pitch = VERTICAL_ANGLE;
+        }else if (itemStack.getItem() == ModDecorativeItems.TORCH_OF_ORTHANC) {
             if(rightHand) {
                 this.rightArm.pitch = VERTICAL_ANGLE;
             } else {

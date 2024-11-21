@@ -8,7 +8,8 @@ import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
 import net.jukoz.me.client.model.equipment.chest.capes.CloakCapeModel;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
-import net.jukoz.me.item.items.CustomChestplateItem;
+import net.jukoz.me.item.items.armor.CustomChestplateItem;
+import net.jukoz.me.item.utils.armor.ModArmorModels;
 import net.jukoz.me.recipe.ModTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -18,14 +19,12 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public class DegradedChestplateArmorRenderer implements ArmorRenderer {
 
     private CustomChestplateModel<LivingEntity> customChestplateModel;
-    private CloakCapeModel<LivingEntity> capeModel;
+    private ChestplateAddonModel<LivingEntity> capeModel;
     private ChestplateAddonModel<LivingEntity> chestplateModel;
 
 
@@ -77,13 +76,14 @@ public class DegradedChestplateArmorRenderer implements ArmorRenderer {
 
             CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
             if (capeDataComponent != null) {
+                this.capeModel = ModArmorModels.ModCapePairedModels.valueOf(capeDataComponent.cape().getName().toUpperCase()).getModel().getArmoredModel();
                 contextModel.copyBipedStateTo(capeModel);
                 capeModel.setVisible(false);
                 capeModel.body.visible = true;
                 capeModel.rightArm.visible = true;
                 capeModel.leftArm.visible = true;
                 capeModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float) entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.roll);
-                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/armor/" + capeDataComponent.cape().getName() + ".png"), false);
+                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + ".png"), false);
         }
         }
     }

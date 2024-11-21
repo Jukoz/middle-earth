@@ -8,7 +8,8 @@ import net.jukoz.me.client.model.equipment.head.hoods.CloakHoodModel;
 import net.jukoz.me.client.model.equipment.head.helmets.HelmetAddonModel;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
-import net.jukoz.me.item.items.CustomHelmetItem;
+import net.jukoz.me.item.items.armor.CustomHelmetItem;
+import net.jukoz.me.item.utils.armor.ModArmorModels;
 import net.jukoz.me.recipe.ModTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -18,8 +19,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public class DegradedHelmetArmorRenderer implements ArmorRenderer {
@@ -83,10 +82,10 @@ public class DegradedHelmetArmorRenderer implements ArmorRenderer {
                 Identifier textureHood;
                 if (hoodDataComponent.down()){
                     textureHood = Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().getName().toLowerCase() + "_down.png");
-                    this.hoodModel = hoodDataComponent.hood().getModel().getArmoredDownModel();
+                    this.hoodModel = ModArmorModels.ModHoodPairedModels.valueOf(hoodDataComponent.hood().getName().toUpperCase()).getModel().getArmoredDownModel();
                 } else {
                     textureHood = Identifier.of(MiddleEarth.MOD_ID, "textures/models/hood/" + hoodDataComponent.hood().getName().toLowerCase() + ".png");
-                    this.hoodModel = hoodDataComponent.hood().getModel().getArmoredModel();
+                    this.hoodModel = ModArmorModels.ModHoodPairedModels.valueOf(hoodDataComponent.hood().getName().toUpperCase()).getModel().getArmoredModel();
                 }
                 contextModel.copyBipedStateTo(hoodModel);
                 hoodModel.setVisible(false);

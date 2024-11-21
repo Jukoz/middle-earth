@@ -117,8 +117,10 @@ public class MiddleEarthFactions {
                             GondorianNpcDataPool.GONDOR_LEADER
                     ));
                 }},
-                new BannerData(DyeColor.BLACK, List.of(
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.GONDOR_BANNER_PATTERN.getValue(), DyeColor.WHITE)
+                new BannerData(DyeColor.WHITE, List.of(
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.GRAY),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.BLACK),
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.TREE, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "gondor.minas_tirith"),  new Vector2d(1940, 1785)),
@@ -158,8 +160,10 @@ public class MiddleEarthFactions {
                             RohirricNpcDataPool.ROHAN_EORLING_MARSHAL
                     ));
                 }},
-                new BannerData(DyeColor.GREEN, List.of(
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.ROHAN_BANNER_PATTERN.getValue(), DyeColor.WHITE)
+                new BannerData(DyeColor.WHITE, List.of(
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.GREEN),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.LIME),
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.HORSE_HEAD, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "rohan.edoras"), new Vector2d(1745, 1695)),
@@ -193,9 +197,10 @@ public class MiddleEarthFactions {
                             DalishNpcDataPool.DALE_MILITIA
                     ));
                 }},
-                new BannerData(DyeColor.LIGHT_BLUE, List.of(
-                        new BannerData.BannerPatternWithColor(BannerPatterns.BORDER.getValue(), DyeColor.BLUE),
-                        new BannerData.BannerPatternWithColor(BannerPatterns.CIRCLE.getValue(), DyeColor.YELLOW)
+                new BannerData(DyeColor.WHITE, List.of(
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.BLUE),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.BLUE),
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.BELL, DyeColor.YELLOW)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "dale.capital"), new Vector2d(2021, 727)),
@@ -229,9 +234,10 @@ public class MiddleEarthFactions {
                             EreborNpcDataPool.EREBOR_MILITIA
                     ));
                 }},
-                new BannerData(DyeColor.BLUE, List.of(
-                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.GRAY),
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.LONGBEARD_BANNER_PATTERN.getValue(), DyeColor.WHITE)
+                new BannerData(DyeColor.WHITE, List.of(
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.BLUE),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP, DyeColor.GRAY),
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.DWARF_CROWN, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, LONGBEARDS.getName().concat(".erebor.ravenhill")), new Vector2d(2017, 722)),
@@ -266,10 +272,10 @@ public class MiddleEarthFactions {
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
-                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.YELLOW),
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.LOTHLORIEN_BANNER_PATTERN.getValue(), DyeColor.YELLOW)
-                )
-                ),
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.YELLOW),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.YELLOW),
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.STAR_AND_LEAF, DyeColor.WHITE)
+                )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "lothlorien.cerin_amroth"), new Vector2d(1614, 1215))
                 )), List.of(), List.of()
@@ -304,8 +310,11 @@ public class MiddleEarthFactions {
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(
-                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.GRAY),
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.MORDOR_GREAT_EYE_BANNER_PATTERN.getValue(), DyeColor.RED)
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.GRAY),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.BLACK),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.TRIANGLE_BOTTOM, DyeColor.BLACK),
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.SMALL_CIRCLE, DyeColor.ORANGE),
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.EYE_OF_SAURON, DyeColor.RED)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "mordor.gorgoroth"), new Vector2d(2161, 1717)),
@@ -344,9 +353,12 @@ public class MiddleEarthFactions {
                             MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_MILITIA
                     ));
                 }},
-                new BannerData(DyeColor.BROWN, List.of(
-                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.BLACK),
-                        new BannerData.BannerPatternWithColor(ModBannerPatterns.MISTY_MOUNTAINS_ORCS_PEAKS_BANNER_PATTERN.getValue(), DyeColor.RED)
+                new BannerData(DyeColor.WHITE, List.of(
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.BROWN),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.BLACK),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.TRIANGLE_BOTTOM, DyeColor.LIGHT_GRAY),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.TRIANGLES_BOTTOM, DyeColor.GRAY),
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.EVIL_EYE, DyeColor.RED)
                 )),
                 new SpawnDataHandler(List.of(
                     new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "misty_mountains_goblins.gundabad"), new Vector2d(1595, 640)),
@@ -385,8 +397,10 @@ public class MiddleEarthFactions {
                     ));
                 }},
             // TODO : add humans? No proper assets for them
-            new BannerData(DyeColor.BLACK, List.of(
-                    new BannerData.BannerPatternWithColor(ModBannerPatterns.ISENGARD_BANNER_PATTERN.getValue(), DyeColor.WHITE)
+            new BannerData(DyeColor.WHITE, List.of(
+                new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.GRAY),
+                new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.BLACK),
+                new BannerData.BannerPatternWithColor(ModBannerPatterns.HAND, DyeColor.WHITE)
             )),
             new SpawnDataHandler(List.of(
                     new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "isengard.orthanc"), new Vector2d(1402, 1467))
@@ -415,10 +429,11 @@ public class MiddleEarthFactions {
                             ShireNpcDataPool.SHIRE_MILITIA
                     ));
                 }},
-                new BannerData(DyeColor.YELLOW, List.of(
-                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.GREEN),
-                        new BannerData.BannerPatternWithColor(BannerPatterns.CIRCLE.getValue(), DyeColor.YELLOW),
-                        new BannerData.BannerPatternWithColor(BannerPatterns.BORDER.getValue(), DyeColor.YELLOW)
+                new BannerData(DyeColor.WHITE, List.of(
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.CLOTH, DyeColor.LIME),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.LIME),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.CIRCLE, DyeColor.YELLOW),
+                        new BannerData.BannerPatternWithColor(ModBannerPatterns.PIPE, DyeColor.BROWN)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "shire.hobbiton"), new Vector2d(933, 900)),
@@ -450,9 +465,9 @@ public class MiddleEarthFactions {
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(
-                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP.getValue(), DyeColor.GRAY),
-                        new BannerData.BannerPatternWithColor(BannerPatterns.CROSS.getValue(), DyeColor.RED),
-                        new BannerData.BannerPatternWithColor(BannerPatterns.SKULL.getValue(), DyeColor.WHITE)
+                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP, DyeColor.GRAY),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.CROSS, DyeColor.RED),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.SKULL, DyeColor.WHITE)
                 )),
                 null , List.of(), List.of()
         );

@@ -44,7 +44,7 @@ public class ArtefactCustomSwordWeaponItem extends CustomSwordWeaponItem {
         if (Screen.hasShiftDown()) {
             tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact").formatted(Formatting.AQUA));
             if(this.type != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name));
+                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
             }
             if(!(stack.getDamage() < stack.getMaxDamage() - 1)){
                 tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".broken").formatted(Formatting.ITALIC));

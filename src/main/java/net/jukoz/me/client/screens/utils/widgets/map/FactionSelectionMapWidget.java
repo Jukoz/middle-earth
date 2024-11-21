@@ -1,6 +1,6 @@
 package net.jukoz.me.client.screens.utils.widgets.map;
 
-import net.jukoz.me.client.screens.controllers.FactionSelectionController;
+import net.jukoz.me.client.screens.faction_selection.FactionSelectionController;
 import net.jukoz.me.client.screens.utils.widgets.map.types.MapMarkerType;
 import net.jukoz.me.resources.datas.factions.data.SpawnData;
 import net.jukoz.me.resources.datas.factions.data.SpawnDataHandler;
@@ -103,7 +103,7 @@ public class FactionSelectionMapWidget extends MapWidget {
                 List<Vector2i> currentList = uniqueIndexes.get(currentUniqueIndex);
                 for (Vector2i vector2i : currentList) {
                     double distance = currentCenterCoordinate.distance(vector2i);
-                    if (distance < getMarkerGroupUpRadius()) {
+                    if (Math.round(distance) <= getMarkerGroupUpRadius()) {
                         isSeperate = false;
                     }
                 }

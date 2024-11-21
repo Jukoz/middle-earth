@@ -8,7 +8,8 @@ import net.jukoz.me.client.model.equipment.chest.ChestplateAddonModel;
 import net.jukoz.me.client.model.equipment.chest.capes.CloakCapeModel;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
-import net.jukoz.me.item.items.CustomChestplateItem;
+import net.jukoz.me.item.items.armor.CustomChestplateItem;
+import net.jukoz.me.item.utils.armor.ModArmorModels;
 import net.jukoz.me.recipe.ModTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -18,8 +19,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public class ChestplateArmorRenderer implements ArmorRenderer {
@@ -71,7 +70,7 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
 
             CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
             if (capeDataComponent != null) {
-                this.capeModel = capeDataComponent.cape().getModel().getArmoredModel();
+                this.capeModel = ModArmorModels.ModCapePairedModels.valueOf(capeDataComponent.cape().getName().toUpperCase()).getModel().getArmoredModel();
                 contextModel.copyBipedStateTo(capeModel);
                 capeModel.setVisible(false);
                 capeModel.body.visible = true;

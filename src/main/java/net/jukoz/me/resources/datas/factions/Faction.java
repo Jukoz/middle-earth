@@ -15,11 +15,13 @@ import net.jukoz.me.resources.datas.npcs.data.NpcRank;
 import net.jukoz.me.resources.datas.races.Race;
 import net.jukoz.me.resources.datas.races.RaceLookup;
 import net.jukoz.me.utils.IdentifierUtil;
-import net.jukoz.me.utils.LoggerUtil;
+import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
+import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
@@ -31,9 +33,11 @@ import java.util.*;
 
 
 public class Faction {
+    private static HashMap<Disposition, List<Integer>> factionSelectionOrderIndexPerDisposition;
 
     public static final Codec<Faction> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(Faction::getIdValue),
+            Codec.INT.fieldOf("faction_selection_order_index").forGetter(Faction::getFactionSelectionOrderIndex),
             Codec.BOOL.fieldOf("joinable").forGetter(Faction::getJoinable),
             Codec.STRING.fieldOf("disposition").forGetter(Faction::getDispositionString),
             Codec.STRING.fieldOf("faction_type").forGetter(Faction::getFactionTypeString),
@@ -47,6 +51,7 @@ public class Faction {
         ).apply(instance, Faction::new));
 
     private final Identifier id;
+    private final Integer factionSelectionOrderIndex;
     private final String translatableKey;
     private final boolean joinable;
     private final Disposition disposition;
@@ -62,11 +67,14 @@ public class Faction {
     private List<Text> descriptions = null;
     private Text raceList = null;
 
-    public Faction(String id, Boolean joinable, String disposition, String factionType, Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
+    public Faction(String id, Integer factionSelectionOrderIndex, Boolean joinable, String disposition, String factionType, Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs, Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands) {
         this.id = IdentifierUtil.getIdentifierFromString(id);
+        this.factionSelectionOrderIndex = factionSelectionOrderIndex; // TODO : Validation, rework this part in the future
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.joinable = joinable;
         this.disposition = Disposition.valueOf(disposition.toUpperCase());
+
+
         this.factionType = FactionType.valueOf(factionType.toUpperCase());
         this.parentFactionId = parentFaction.orElse(null);
 
@@ -104,6 +112,21 @@ public class Faction {
 
     public Faction(String name, Boolean joinable, Disposition disposition, FactionType factionType, Identifier parentFactionId, List<Identifier> subFactions, HashMap<NpcRank, List<NpcData>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler, List<String> joinCommand, List<String> leaveCommand){
         this.id = IdentifierUtil.getIdentifierFromString(name);
+
+        if(factionSelectionOrderIndexPerDisposition == null)
+            factionSelectionOrderIndexPerDisposition = new HashMap<>();
+        if(factionSelectionOrderIndexPerDisposition.containsKey(disposition)){
+            this.factionSelectionOrderIndex = factionSelectionOrderIndexPerDisposition.get(disposition).size();
+            List<Integer> orderList = new ArrayList<>(factionSelectionOrderIndexPerDisposition.get(disposition));
+            orderList.add(this.factionSelectionOrderIndex);
+            factionSelectionOrderIndexPerDisposition.put(disposition, orderList);
+        }
+        else {
+            int initialIndex = 0;
+            this.factionSelectionOrderIndex = initialIndex;
+            factionSelectionOrderIndexPerDisposition.put(disposition, List.of(initialIndex));
+        }
+
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.joinable = joinable;
         this.disposition = disposition;
@@ -133,6 +156,11 @@ public class Faction {
     private String getIdValue() {
         return this.id.toString();
     }
+
+    public Integer getFactionSelectionOrderIndex() {
+        return this.factionSelectionOrderIndex;
+    }
+
     private Boolean getJoinable() {
         return joinable;
     }
@@ -329,9 +357,11 @@ public class Faction {
         return descriptions;
     }
 
-    public Text getRaceListText() {
+    public Text getRaceListText(World world) {
         if(raceList == null){
             StringBuilder raceListStringBuilder = new StringBuilder();
+            if(races == null)
+                races = getRaces(world);
             for(Race race : races){
                 raceListStringBuilder.append(race.getFullName().getString());
                 if(race != races.getLast())
@@ -340,5 +370,11 @@ public class Faction {
             raceList = Text.literal(raceListStringBuilder.toString());
         }
         return raceList;
+    }
+
+    public BannerPatternsComponent getBannerPatternComponents(RegistryEntryLookup<BannerPattern> bannerPatternLookup) {
+        if(bannerData == null)
+            return null;
+        return bannerData.getBannerPatternComponents(bannerPatternLookup);
     }
 }

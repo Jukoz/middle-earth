@@ -3,6 +3,7 @@ package net.jukoz.me.block.special.shapingAnvil.dwarvenTreatedAnvil;
 import com.mojang.serialization.MapCodec;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.special.shapingAnvil.AbstractTreatedAnvilBlock;
+import net.jukoz.me.block.special.shapingAnvil.TreatedAnvilBlockEntity;
 import net.jukoz.me.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -64,17 +65,17 @@ public class DwarvenShapingAnvilBlock extends AbstractTreatedAnvilBlock {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new DwarvenTreatedAnvilBlockEntity(ModBlockEntities.DWARVEN_SHAPING_ANVIL, pos, state);
+        return new TreatedAnvilBlockEntity(ModBlockEntities.TREATED_ANVIL, pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return DwarvenShapingAnvilBlock.validateTicker(world, type, ModBlockEntities.DWARVEN_SHAPING_ANVIL);
+        return DwarvenShapingAnvilBlock.validateTicker(world, type, ModBlockEntities.TREATED_ANVIL);
     }
 
     @Nullable
-    protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<DwarvenTreatedAnvilBlockEntity> expectedType) {
-        return world.isClient ? null : DwarvenShapingAnvilBlock.validateTicker(givenType, expectedType, DwarvenTreatedAnvilBlockEntity::tick);
+    protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<TreatedAnvilBlockEntity> expectedType) {
+        return world.isClient ? null : DwarvenShapingAnvilBlock.validateTicker(givenType, expectedType, TreatedAnvilBlockEntity::tick);
     }
 }

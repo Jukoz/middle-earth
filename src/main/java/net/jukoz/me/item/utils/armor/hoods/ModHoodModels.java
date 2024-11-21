@@ -1,6 +1,7 @@
 package net.jukoz.me.item.utils.armor.hoods;
 
 import net.jukoz.me.client.model.equipment.head.helmets.HelmetAddonModel;
+import net.jukoz.me.client.model.equipment.head.hoods.armored.FurHoodDownModel;
 import net.jukoz.me.client.model.equipment.head.hoods.armored.FurHoodModel;
 import net.jukoz.me.client.model.equipment.head.hoods.armored.HoodModel;
 import net.jukoz.me.client.model.equipment.head.hoods.unarmored.UnarmoredFurHoodDownModel;
@@ -11,7 +12,7 @@ import net.minecraft.entity.LivingEntity;
 public enum ModHoodModels {
     REGULAR_MODELS(new HoodModel<>(HoodModel.getTexturedModelData().createModel()), new HoodModel<>(HoodModel.getTexturedModelData().createModel()),
             new UnarmoredHoodModel<>(UnarmoredHoodModel.getTexturedModelData().createModel()), new UnarmoredHoodModel<>(UnarmoredHoodModel.getTexturedModelData().createModel())),
-    FUR_MODELS(new FurHoodModel<>(FurHoodModel.getTexturedModelData().createModel()), new UnarmoredFurHoodModel<>(UnarmoredFurHoodModel.getTexturedModelData().createModel()),
+    FUR_MODELS(new FurHoodModel<>(FurHoodModel.getTexturedModelData().createModel()), new FurHoodDownModel<>(FurHoodDownModel.getTexturedModelData().createModel()),
             new UnarmoredFurHoodModel<>(UnarmoredFurHoodModel.getTexturedModelData().createModel()), new UnarmoredFurHoodDownModel<>(UnarmoredFurHoodDownModel.getTexturedModelData().createModel())),
     ;
 

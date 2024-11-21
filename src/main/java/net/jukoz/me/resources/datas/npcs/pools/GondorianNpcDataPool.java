@@ -78,9 +78,9 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(Items.IRON_AXE))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.KITE_SHIELD))
-                                .add(NpcGearItemData.create(ModEquipmentItems.HEATER_SHIELD))
-                                .add(NpcGearItemData.create(ModEquipmentItems.ROUND_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.KITE_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.HEATER_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.ROUND_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(5))
                         ),
                 NpcGearData.create()
@@ -123,9 +123,9 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(Items.IRON_AXE))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.KITE_SHIELD))
-                                .add(NpcGearItemData.create(ModEquipmentItems.HEATER_SHIELD))
-                                .add(NpcGearItemData.create(ModEquipmentItems.ROUND_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.KITE_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.HEATER_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.ROUND_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(5))
                         )
         ));
@@ -154,7 +154,7 @@ public class GondorianNpcDataPool {
                         )
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create())
-                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_SHIELD))
                         )
         ));
         GONDOR_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "knight"), MiddleEarthRaces.HUMAN, List.of(
@@ -175,7 +175,7 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_LONGSWORD))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_SHIELD))
                         ),
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_PLATE_HELMET)))
@@ -186,8 +186,8 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_SPEAR))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_SHIELD))
-                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_TOWER_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_TOWER_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
         ));
@@ -205,7 +205,7 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_NOBLE_AXE))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_HERO_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_HERO_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(2))
                         )
         ));
@@ -224,8 +224,8 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_NOBLE_AXE))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_HERO_SHIELD))
-                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_HERO_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD))
                         )
         ));
         GONDOR_CITADEL_GUARDS = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "citadel_guards"), MiddleEarthRaces.HUMAN, List.of(
@@ -239,7 +239,7 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_NOBLE_AXE))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_KNIGHT_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_KNIGHT_SHIELD))
                         )
         ));
         GONDOR_FOUNTAIN_GUARDS = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "fountain_guards"), MiddleEarthRaces.HUMAN, List.of(
@@ -261,8 +261,8 @@ public class GondorianNpcDataPool {
                                 .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_NOBLE_LONGSWORD))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_KINGS_GUARD_TOWER_SHIELD).withWeight(8))
-                                .add(NpcGearItemData.create(ModEquipmentItems.GONDORIAN_TOWER_SHIELD))
+                                .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_KINGS_GUARD_TOWER_SHIELD).withWeight(8))
+                                .add(NpcGearItemData.create(ModWeaponItems.GONDORIAN_TOWER_SHIELD))
                         )
         ));
     }

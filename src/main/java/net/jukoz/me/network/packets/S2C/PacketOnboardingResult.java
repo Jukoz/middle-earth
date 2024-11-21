@@ -1,9 +1,14 @@
 package net.jukoz.me.network.packets.S2C;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.client.screens.ReturnConfirmationScreen;
 import net.jukoz.me.network.contexts.ClientPacketContext;
 import net.jukoz.me.network.packets.ServerToClientPacket;
 import net.jukoz.me.network.handlers.OnboardingScreenHandler;
+import net.jukoz.me.world.dimension.ModDimensions;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -16,17 +21,20 @@ public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardin
             PacketCodecs.BOOL, p -> p.havePlayerData,
             PacketCodecs.BOOL, p -> p.canChangeFaction,
             PacketCodecs.BOOL, p -> p.canReturnToOverworld,
+            PacketCodecs.FLOAT, p -> p.delayOnTeleportationConfirm,
             PacketOnboardingResult::new
     );
 
     private final boolean havePlayerData;
     private final boolean canChangeFaction;
     private final boolean canReturnToOverworld;
+    private final float delayOnTeleportationConfirm;
 
-    public PacketOnboardingResult(boolean havePlayerData, boolean canChangeFaction, boolean canReturnToOverworld) {
+    public PacketOnboardingResult(boolean havePlayerData, boolean canChangeFaction, boolean canReturnToOverworld, float delayOnTeleportationConfirm) {
         this.havePlayerData = havePlayerData;
         this.canChangeFaction = canChangeFaction;
         this.canReturnToOverworld = canReturnToOverworld;
+        this.delayOnTeleportationConfirm = delayOnTeleportationConfirm;
     }
 
     @Override
@@ -40,7 +48,16 @@ public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardin
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void process(ClientPacketContext context) {
-        OnboardingScreenHandler.handle(context, havePlayerData);
+        float delay = delayOnTeleportationConfirm;
+        if(context.player().isInCreativeMode())
+            delay = 0;
+        if(ModDimensions.isInMiddleEarth(context.player().getWorld())){
+            MinecraftClient client = MinecraftClient.getInstance();
+            client.setScreen(new ReturnConfirmationScreen(delay));
+        } else if(ModDimensions.isInOverworld(context.player().getWorld())){
+            OnboardingScreenHandler.handle(context, havePlayerData, delay);
+        }
     }
 }

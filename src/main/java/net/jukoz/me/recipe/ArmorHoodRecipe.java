@@ -2,8 +2,9 @@ package net.jukoz.me.recipe;
 
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
-import net.jukoz.me.item.items.CustomHelmetItem;
-import net.jukoz.me.item.items.HoodHelmetItem;
+import net.jukoz.me.item.items.armor.CustomHelmetItem;
+import net.jukoz.me.item.items.armor.HoodHelmetItem;
+import net.jukoz.me.item.utils.armor.hoods.ModHoodStates;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
@@ -66,7 +67,11 @@ public class ArmorHoodRecipe extends SpecialCraftingRecipe {
         }
 
         if (!itemStack.isEmpty()) {
-            return HoodDataComponent.setHood(itemStack, true, hood.get(ModDataComponentTypes.HOOD_DATA).hood());
+            if (hood.get(ModDataComponentTypes.HOOD_DATA).hood().getConstantState() == ModHoodStates.DOWN){
+                return HoodDataComponent.setHood(itemStack, true, hood.get(ModDataComponentTypes.HOOD_DATA).hood());
+            } else {
+                return HoodDataComponent.setHood(itemStack, false, hood.get(ModDataComponentTypes.HOOD_DATA).hood());
+            }
         } else {
             return ItemStack.EMPTY;
         }

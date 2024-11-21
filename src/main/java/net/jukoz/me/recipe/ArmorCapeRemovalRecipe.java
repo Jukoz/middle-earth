@@ -1,14 +1,10 @@
 package net.jukoz.me.recipe;
 
 import net.jukoz.me.item.ModDataComponentTypes;
-import net.jukoz.me.item.ModEquipmentItems;
-import net.jukoz.me.item.dataComponents.CapeDataComponent;
-import net.jukoz.me.item.items.CustomChestplateItem;
-import net.minecraft.inventory.RecipeInputInventory;
+import net.jukoz.me.item.items.armor.CustomChestplateItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ShearsItem;
-import net.minecraft.item.WrittenBookItem;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
