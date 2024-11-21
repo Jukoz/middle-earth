@@ -167,8 +167,8 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected RaceType getRaceType() {
-        return RaceType.DWARF;
+    protected List<RaceType> getRaceType() {
+        return List.of(RaceType.DWARF);
     }
 
     @Override

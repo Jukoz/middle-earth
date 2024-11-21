@@ -33,6 +33,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -162,7 +163,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         return null;
     }
 
-    protected RaceType getRaceType() {
+    protected List<RaceType> getRaceType() {
         return null;
     }
 
@@ -386,9 +387,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
             Disposition playerDisposition = StateSaverAndLoader.getPlayerState(player).getCurrentDisposition();
             RaceType playerRace = StateSaverAndLoader.getPlayerState(player).getRaceType(this.getWorld());
 
-            System.out.println(playerDisposition + ", " + playerRace + ", " + this.getDisposition() + ", " + this.getRaceType());
-
-            if(playerDisposition != this.getDisposition() || playerRace == null || (this.getRaceType() != null && playerRace != this.getRaceType())) {
+            if(playerDisposition != this.getDisposition() || playerRace == RaceType.NONE || (this.getRaceType() != null && !this.getRaceType().contains(playerRace))) {
                 return ActionResult.FAIL;
             }
         }

@@ -231,6 +231,11 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     @Override
+    protected List<RaceType> getRaceType() {
+        return List.of(RaceType.ORC, RaceType.URUK);
+    }
+
+    @Override
     public EntityDimensions getBaseDimensions(EntityPose pose) {
         return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getBaseDimensions(pose);
     }
