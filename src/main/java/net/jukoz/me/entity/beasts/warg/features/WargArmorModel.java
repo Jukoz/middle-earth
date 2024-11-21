@@ -55,7 +55,7 @@ public class WargArmorModel extends SinglePartEntityModel<WargEntity> {
 
                 ModelPartData left_front_leg = upper_body.addChild("left_front_leg", ModelPartBuilder.create().uv(12, 82).cuboid(-2.0F, 2.0F, -1.0F, 4.0F, 8.0F, 3.0F, new Dilation(0.1F)), ModelTransform.pivot(10.0F, 4.0F, 3.0F));
 
-                ModelPartData head = upper_body.addChild("head", ModelPartBuilder.create(), ModelTransform.of(14.3858F, -1.8862F, 1.5F, 0.0F, 0.0F, 0.2618F));
+                ModelPartData head = upper_body.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.of(14.3858F, -1.8862F, 1.5F, 0.0F, 0.0F, 0.2618F));
 
                 ModelPartData head_armor = head.addChild("head_armor", ModelPartBuilder.create().uv(0, 23).cuboid(6.0F, -3.1138F, 1.4F, 3.0F, 3.0F, 3.0F, new Dilation(0.0F))
                         .uv(0, 23).cuboid(6.0F, -3.1138F, -5.5F, 3.0F, 3.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

@@ -4,7 +4,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.beasts.warg.WargEntity;
 import net.jukoz.me.entity.beasts.warg.WargModel;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
-import net.jukoz.me.item.items.CustomAnimalArmorItem;
+import net.jukoz.me.item.items.armor.CustomAnimalArmorItem;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
