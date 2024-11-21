@@ -13,6 +13,7 @@ import net.jukoz.me.entity.beasts.broadhoof.features.BroadhoofGoatSaddleModel;
 import net.jukoz.me.entity.beasts.trolls.petrified.PetrifiedTrollModel;
 import net.jukoz.me.entity.beasts.trolls.stone.StoneTrollModel;
 import net.jukoz.me.entity.beasts.warg.WargModel;
+import net.jukoz.me.entity.beasts.warg.features.WargArmorAddonsModel;
 import net.jukoz.me.entity.beasts.warg.features.WargArmorModel;
 import net.jukoz.me.entity.beasts.warg.features.WargSaddleModel;
 import net.jukoz.me.entity.deer.DeerModel;
@@ -40,6 +41,8 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer BROADHOOF_GOAT_SADDLE = ModEntityModelLayers.registerEntityModelLayer("broadhoof_goat_saddle", BroadhoofGoatSaddleModel.getTexturedModelData());
     public static final EntityModelLayer WARG = ModEntityModelLayers.registerEntityModelLayer("warg", WargModel.getTexturedModelData());
     public static final EntityModelLayer WARG_ARMOR = ModEntityModelLayers.registerEntityModelLayer("warg_armor", WargArmorModel.getTexturedModelData());
+    public static final EntityModelLayer WARG_ARMOR_ADDONS_FRONT = ModEntityModelLayers.registerEntityModelLayer("warg_armor_addons_front", WargArmorAddonsModel.getTexturedModelDataFront());
+    public static final EntityModelLayer WARG_ARMOR_ADDONS_BACK = ModEntityModelLayers.registerEntityModelLayer("warg_armor_addons_back", WargArmorAddonsModel.getTexturedModelDataBack());
     public static final EntityModelLayer WARG_SADDLE = ModEntityModelLayers.registerEntityModelLayer("warg_saddle", WargSaddleModel.getTexturedModelData());
     public static final EntityModelLayer SNOW_TROLL = ModEntityModelLayers.registerEntityModelLayer("snow_troll", SnowTrollModel.getTexturedModelData());
     public static final EntityModelLayer STONE_TROLL = ModEntityModelLayers.registerEntityModelLayer("stone_troll", StoneTrollModel.getTexturedModelData());
