@@ -6,6 +6,8 @@ import net.jukoz.me.entity.ModEntities;
 import net.jukoz.me.entity.beasts.AbstractBeastEntity;
 import net.jukoz.me.entity.goals.*;
 import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.datas.RaceType;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
@@ -157,6 +159,16 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     protected static double getChildMovementSpeedBonus(DoubleSupplier randomDoubleGetter) {
         return ((double)0.2f + randomDoubleGetter.getAsDouble() * 0.15 + randomDoubleGetter.getAsDouble() * 0.15 + randomDoubleGetter.getAsDouble() * 0.15) * 0.25;
+    }
+
+    @Override
+    protected Disposition getDisposition() {
+        return Disposition.GOOD;
+    }
+
+    @Override
+    protected RaceType getRaceType() {
+        return RaceType.DWARF;
     }
 
     @Override

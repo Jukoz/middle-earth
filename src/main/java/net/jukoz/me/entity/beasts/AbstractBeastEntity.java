@@ -1,14 +1,12 @@
 package net.jukoz.me.entity.beasts;
 
-import net.jukoz.me.entity.beasts.broadhoof.BroadhoofGoatEntity;
+import net.jukoz.me.resources.StateSaverAndLoader;
 import net.jukoz.me.resources.datas.Disposition;
+import net.jukoz.me.resources.datas.RaceType;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
-import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -29,7 +27,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -162,6 +159,10 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     protected Disposition getDisposition(){
+        return null;
+    }
+
+    protected RaceType getRaceType() {
         return null;
     }
 
@@ -380,6 +381,17 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         boolean bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
+
+        if(!this.getWorld().isClient()) {
+            Disposition playerDisposition = StateSaverAndLoader.getPlayerState(player).getCurrentDisposition();
+            RaceType playerRace = StateSaverAndLoader.getPlayerState(player).getRaceType(this.getWorld());
+
+            System.out.println(playerDisposition + ", " + playerRace + ", " + this.getDisposition() + ", " + this.getRaceType());
+
+            if(playerDisposition != this.getDisposition() || playerRace == null || (this.getRaceType() != null && playerRace != this.getRaceType())) {
+                return ActionResult.FAIL;
+            }
+        }
 
         ItemStack itemStack = player.getStackInHand(hand);
 
