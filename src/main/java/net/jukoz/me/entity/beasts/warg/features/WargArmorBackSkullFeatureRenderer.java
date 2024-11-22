@@ -4,6 +4,9 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.entity.beasts.warg.WargEntity;
 import net.jukoz.me.entity.beasts.warg.WargModel;
 import net.jukoz.me.entity.model.ModEntityModelLayers;
+import net.jukoz.me.item.ModDataComponentTypes;
+import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.item.dataComponents.MountArmorAddonComponent;
 import net.jukoz.me.item.items.armor.CustomAnimalArmorItem;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -30,16 +33,17 @@ public class WargArmorBackSkullFeatureRenderer extends FeatureRenderer<WargEntit
         ItemStack itemStack = wargEntity.getBodyArmor();
         Item item = itemStack.getItem();
         if(item instanceof CustomAnimalArmorItem animalArmorItem) {
-            if (animalArmorItem.getArmorType() == CustomAnimalArmorItem.Type.WARG) { // Add itemComponent condition here
-                ((WargModel)this.getContextModel()).copyStateTo(this.model);
+            if (itemStack.isOf(ModEquipmentItems.WARG_MORDOR_PLATE_ARMOR)) {
+                if(itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA) != null && itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA).enabled()) {
+                    ((WargModel)this.getContextModel()).copyStateTo(this.model);
 
-                this.model.setAngles(wargEntity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+                    this.model.setAngles(wargEntity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
 
-                Identifier addonTexture = Identifier.of(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_armor_addons.png");
+                    Identifier addonTexture = Identifier.of(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_armor_addons.png");
 
-                VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(addonTexture));
-                this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, -1);
-                return;
+                    VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(addonTexture));
+                    this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, -1);
+                }
             }
         }
     }
