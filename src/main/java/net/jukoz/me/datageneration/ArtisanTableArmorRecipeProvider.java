@@ -1665,6 +1665,10 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         FabricRecipeProvider.conditionsFromItem(ModResourceItems.FABRIC))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ModEquipmentItems.BARDING_SERGEANT_CAPE).getPath() + "_artisan"));
         //endregion
+        
+        //region BLACK NUMENOREANS
+
+        //endregion
 
         //endregion
 
@@ -2066,6 +2070,26 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
         //endregion
 
         //region EREBOR
+
+        //endregion
+
+        //endregion
+
+        //region ORCS
+
+        //region GENERIC
+
+        //endregion
+
+        //region MORDOR
+
+        //endregion
+
+        //region ISENGARD
+
+        //endregion
+
+        //region MISTIES
 
         //endregion
 
