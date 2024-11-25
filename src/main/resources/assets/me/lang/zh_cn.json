@@ -162,17 +162,17 @@
   "biome.me.ice_cave": "冰雪洞窟",
 
   "#Comment:": "物品分类栏",
-  "itemGroup.me.stone_blocks": "石头方块",
-  "itemGroup.me.wood_blocks": "木头方块",
-  "itemGroup.me.misc_blocks": "杂项方块",
-  "itemGroup.me.nature_blocks": "自然方块",
-  "itemGroup.me.decorative_blocks": "装饰方块",
-  "itemGroup.me.food_items": "食物",
-  "itemGroup.me.weapon_items": "武器",
-  "itemGroup.me.equipment_items": "装备",
-  "itemGroup.me.tool_items": "工具",
-  "itemGroup.me.resource_items": "资源",
-  "itemGroup.me.spawn_egg_items": "刷怪蛋",
+  "itemGroup.me.stone_blocks": "[中洲]石类方块",
+  "itemGroup.me.wood_blocks": "[中洲]木类方块",
+  "itemGroup.me.misc_blocks": "[中洲]杂项方块",
+  "itemGroup.me.nature_blocks": "[中洲]自然方块",
+  "itemGroup.me.decorative_blocks": "[中洲]装饰方块",
+  "itemGroup.me.food_items": "[中洲]食物",
+  "itemGroup.me.weapon_items": "[中洲]武器",
+  "itemGroup.me.equipment_items": "[中洲]装备",
+  "itemGroup.me.tool_items": "[中洲]工具",
+  "itemGroup.me.resource_items": "[中洲]资源",
+  "itemGroup.me.spawn_egg_items": "[中洲]刷怪蛋",
 
   "#Comment:": "状态效果",
   "effect.me.hallucination" : "幻觉",
@@ -292,6 +292,7 @@
   "#Comment:": "物品 - 锻造",
   "item.me.smithing_hammer": "锻造锤",
 
+  "item.me.fur": "毛皮",
   "item.me.fabric": "布",
 
   "item.me.rod": "棒",
@@ -312,11 +313,11 @@
   "item.me.chainmail": "锁链甲片",
   "item.me.scale": "鳞片甲粒",
   "item.me.scale_mail": "鳞片甲片",
-  "item.me.armor_plate": "盔甲板",
+  "item.me.armor_plate": "盔甲板材",
 
-  "item.me.helmet_plate": "头盔板",
+  "item.me.helmet_plate": "头盔板材",
   "item.me.shield_border": "盾牌边框",
-  "item.me.shield_plate": "盾牌板",
+  "item.me.shield_plate": "盾牌板材",
 
   "#Comment:": "物品 - 奥克通用",
   "item.me.orc_sword": "奥克剑",
@@ -503,10 +504,55 @@
   "item.me.cuthann": "库桑恩",
 
   "#Comment:": "盔甲",
-  "item.me.cape": "披风",
   "item.me.hood": "兜帽",
-  "item.me.fur_cloak": "毛皮斗篷",
-  "item.me.fur_hood": "毛皮兜帽",
+
+  "item.me.black_fur_hood": "黑色毛皮兜帽",
+  "item.me.brown_fur_hood": "棕色毛皮兜帽",
+  "item.me.gray_fur_hood": "灰色毛皮兜帽",
+  "item.me.tan_fur_hood": "褐色毛皮兜帽",
+  "item.me.white_fur_hood": "白色毛皮兜帽",
+
+  "item.me.cape": "披风",
+  "item.me.cloak": "斗篷",
+
+  "item.me.black_fur_cloak": "黑色毛皮斗篷",
+  "item.me.brown_fur_cloak": "棕色毛皮斗篷",
+  "item.me.gray_fur_cloak": "灰色毛皮斗篷",
+  "item.me.tan_fur_cloak": "褐色毛皮斗篷",
+  "item.me.white_fur_cloak": "白色毛皮斗篷",
+
+  "item.me.black_fur": "黑色毛皮",
+  "item.me.brown_fur": "棕色毛皮",
+  "item.me.gray_fur": "灰色毛皮",
+  "item.me.tan_fur": "褐色毛皮",
+  "item.me.white_fur": "白色毛皮",
+
+  "item.me.surcoat": "罩衣",
+
+  "item.me.gondorian_captain_cape": "刚铎队长披风",
+  "item.me.gondorian_hero_cape": "刚铎英雄披风",
+  "item.me.gondorian_kings_guard_cape": "刚铎国王守卫披风",
+  "item.me.gondorian_citadel_guard_hood": "刚铎王城守卫兜帽",
+  "item.me.gondorian_citadel_guard_cape": "刚铎王城守卫披风",
+  "item.me.gondorian_fountain_guard_cape": "刚铎喷泉守卫披风",
+
+  "item.me.rohirric_cape": "洛汗披风",
+  "item.me.rohirric_royal_guard_cape": "洛汗皇家守卫披风",
+  "item.me.eorling_marshal_cape": "埃奥尔元帅披风",
+  "item.me.horse_lord_cape": "驭马主披风",
+
+  "item.me.barding_surcoat": "巴德罩衣",
+  "item.me.dalish_heyday_cape": "河谷邦旧日披风",
+  "item.me.barding_sergeant_cape": "巴德将领披风",
+
+  "item.me.erebor_cape": "埃瑞博披风",
+  "item.me.ravenhill_sentinel_cape": "渡鸦岭哨卫披风",
+
+  "item.me.lorien_marchwarden_hood": "罗瑞恩边界守卫兜帽",
+  "item.me.lorien_marchwarden_cape": "罗瑞恩边界守卫披风",
+  "item.me.galadhrim_cape": "加拉兹民披风",
+  "item.me.galadhrim_hood": "加拉兹民兜帽",
+  "item.me.galadhrim_lord_surcoat": "加拉兹民领主罩衣",
 
   "item.me.straw_hat": "稻草帽",
   "item.me.woven_hat": "编织帽",
@@ -893,6 +939,8 @@
   "item.me.uruk_hai_siege_shield": "乌鲁克围攻盾牌",
 
   "item.me.misty_mountains_shield": "迷雾山脉盾牌",
+
+  "item.me.held_banner": "手持旗帜",
 
   "#Comment:": "物品 - 马铠",
   "item.me.rohirric_horse_armor": "洛汗马铠",
@@ -3480,7 +3528,7 @@
   "block.me.cracked_mixed_stones_wall": "裂纹混合石墙",
 
   "#Comment:": "方块 - 宝石",
-  "block.me.quartz_block": "石英块",
+  "block.me.quartz_block": "石英碎块",
   "block.me.budding_quartz": "石英母岩",
   "block.me.quartz_cluster": "石英簇",
   "block.me.small_quartz_bud": "小型石英芽",
@@ -6268,10 +6316,11 @@
   "screen.me.wood_pile": "木堆",
   "screen.me.shaping_anvil": "塑型铁砧",
   "screen.me.artisan_table.weapons": "武器",
-  "screen.me.artisan_table.swords": "剑",
+  "screen.me.artisan_table.sword": "剑",
   "screen.me.artisan_table.axe": "斧",
   "screen.me.artisan_table.spear": "矛",
   "screen.me.artisan_table.bow": "弓",
+  "screen.me.artisan_table.crossbow": "十字弩",
   "screen.me.artisan_table.tools": "工具",
   "screen.me.artisan_table.pickaxe": "镐",
   "screen.me.artisan_table.shovel": "锹",
@@ -6287,7 +6336,7 @@
   "screen.me.artisan_table.misc": "杂项",
   "screen.me.artisan_table.hats": "帽子",
   "screen.me.artisan_table.hood": "兜帽",
-  "screen.me.artisan_table.cloak": "斗篷",
+  "screen.me.artisan_table.cape": "披风",
 
   "#Comment": "工具提示",
   "tooltip.me.shift" : "按住 §3SHIFT§f 查看信息。",
@@ -6337,7 +6386,7 @@
   "tooltip.me.erebor" : "埃瑞博",
   "tooltip.me.lothlorien" : "洛丝罗瑞恩",
   "tooltip.me.mordor" : "魔多",
-  "tooltip.me.misty_mountains_orcs" : "迷雾山脉奥克",
+  "tooltip.me.misty_mountains_goblins" : "迷雾山脉半兽人",
   "tooltip.me.gundabad" : "贡达巴德",
   "tooltip.me.moria_goblins" : "墨瑞亚半兽人",
   "tooltip.me.isengard" : "艾森加德",
@@ -6441,11 +6490,14 @@
   "tooltip.me.eorling_marshal_cape": "埃奥尔元帅披风",
   "tooltip.me.horse_lord_cape": "驭马主披风",
 
+  "tooltip.me.barding_surcoat": "巴德罩衣",
   "tooltip.me.dalish_heyday_cape": "河谷邦旧日披风",
   "tooltip.me.barding_sergeant_cape": "巴德将领披风",
 
   "tooltip.me.erebor_cape": "埃瑞博披风",
   "tooltip.me.ravenhill_sentinel_cape": "渡鸦岭哨卫披风",
+
+  "tooltip.me.lorien_marchwarden_hood": "罗瑞恩边界守卫兜帽",
 
   "tooltip.me.lorien_marchwarden_cape": "罗瑞恩边界守卫披风",
   "tooltip.me.galadhrim_cape": "加拉兹民披风",
@@ -6461,14 +6513,14 @@
   "faction.me.gondor" : "刚铎",
   "faction.me.rohan" : "洛汗",
   "faction.me.dale" : "河谷邦",
-  "faction.me.longbeards" : "长须",
+  "faction.me.longbeards" : "长须矮人",
   "faction.me.longbeards.erebor" : "埃瑞博",
   "faction.me.lothlorien" : "洛丝罗瑞恩",
   "faction.me.mordor" : "魔多",
   "faction.me.misty_mountains_goblins" : "迷雾山脉半兽人",
   "faction.me.isengard" : "艾森加德",
   "faction.me.shire" : "夏尔",
-  "faction.me.bandit" : "强盗",
+  "faction.me.bandit" : "匪盗",
 
   "#Comment": "派系默认",
   "faction.me.example.fallback": "样例",
@@ -6499,7 +6551,7 @@
   "spawn.me.rohan.the_wold" : "北高原",
   "spawn.me.dale.capital" : "河谷城",
   "spawn.me.dale.esgaroth" : "埃斯加洛斯",
-  "spawn.me.longbeards.erebor.outskirts" : "外围",
+  "spawn.me.longbeards.erebor.outskirts" : "埃瑞博外围",
   "spawn.me.longbeards.erebor.ravenhill" : "渡鸦岭",
   "spawn.me.longbeards.erebor.iron_hills" : "铁丘陵",
   "spawn.me.longbeards.erebor.iron_hills_spring" : "铁丘陵水源",
@@ -6616,6 +6668,12 @@
   "command.me.hood.success": "已成功加装兜帽：",
   "command.me.hood.fail": "加装兜帽失败了。",
 
+  "command.me.cape.hand_empty": "你当前双手空空。请主手拿上一件中洲模组的胸甲以加装披风。",
+  "command.me.hood.hand_empty": "你当前双手空空。请主手拿上一件中洲模组的头盔以加装兜帽。",
+
+  "command.me.cape.wrong_item": "你当前拿错了物品。请主手拿上一件中洲模组的胸甲以加装披风。",
+  "command.me.hood.wrong_item": "你当前拿错了物品。请主手拿上一件中洲模组的头盔以加装兜帽。",
+
   "#Comment": "警告",
   "alert.me.large_door.blocked": "似乎有东西挡住了门，没法打开。",
 
@@ -6636,7 +6694,7 @@
 
   "#Comment:": "引导界面",
   "ui.me.onboarding_selection.title": "引导界面",
-  "ui.me.continue_character": "下一个",
+  "ui.me.continue_character": "继续中洲旅途",
   "ui.me.reset_character": "重设派系",
 
   "#Comment:": "返回确认界面",
@@ -6665,7 +6723,7 @@
   "screen.me.information.subfaction": "子派系：",
   "screen.me.information.races": "种族",
   "screen.me.information.races.many": "种族",
-  "screen.me.information.description": "描述",
+  "screen.me.information.description": "简介",
 
   "#Comment": "地图界面小标记",
   "widget.me.spawn_tooltip_title": "重生点",
@@ -6690,7 +6748,7 @@
 
   "#Comment": "模组联动-EMI",
   "emi.category.me.forge": "锻造炉",
-  "emi.category.me.anvil_shaping": "塑型铁砧",
+  "emi.category.me.anvil_shaping": "铁砧加工",
   "emi.category.me.artisan_table": "工匠台",
 
   "#Comment": "标签",
@@ -6701,13 +6759,13 @@
   "tag.item.me.dyeable": "可染色",
   "tag.item.me.feathers": "羽毛",
   "tag.item.me.glowy": "发光物品",
-  "tag.item.me.ingot_shaping": "成型金属锭",
+  "tag.item.me.ingot_shaping": "可加工金属锭",
   "tag.item.me.lead_ores": "铅矿石",
   "tag.item.me.mithril_ores": "秘银矿石",
   "tag.item.me.mod_planks": "中洲植物",
   "tag.item.me.mod_stripped_logs": "中洲去皮原木",
   "tag.item.me.mushroom_stew_ingredient": "蘑菇煲食材",
-  "tag.item.me.nugget_shaping": "成型金属粒",
+  "tag.item.me.nugget_shaping": "可加工金属粒",
   "tag.item.me.raw_poultry": "生禽肉",
   "tag.item.me.shard": "碎片",
   "tag.item.me.shingles": "木瓦",

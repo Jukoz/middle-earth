@@ -1,19 +1,22 @@
 package net.jukoz.me.block.special.artisantable;
 
 import com.mojang.serialization.MapCodec;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.jukoz.me.gui.artisantable.ArtisanTableScreenHandler;
+import net.jukoz.me.resources.StateSaverAndLoader;
+import net.jukoz.me.resources.datas.Disposition;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.*;
-import net.minecraft.stat.Stats;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.text.Text;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -45,17 +48,35 @@ public class ArtisanTable extends HorizontalFacingBlock {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
-        }
-        player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
-        return ActionResult.CONSUME;
-    }
+        if(!world.isClient) {
+            player.openHandledScreen(new ExtendedScreenHandlerFactory<>() {
+                @Override
+                public Object getScreenOpeningData(ServerPlayerEntity player) {
+                    Disposition disposition = StateSaverAndLoader.getPlayerState(player).getCurrentDisposition();
+                    if (disposition == null){
+                        disposition = Disposition.NEUTRAL;
+                    }
+                    return disposition.toString();
+                }
 
-    @Nullable
-    public static Direction getDirection(BlockView world, BlockPos pos) {
-        BlockState blockState = world.getBlockState(pos);
-        return blockState.getBlock() instanceof ArtisanTable ? (Direction)blockState.get(FACING) : null;
+                @Override
+                public Text getDisplayName() {
+                    return TITLE;
+                }
+
+                @Nullable
+                @Override
+                public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+                    Disposition disposition = StateSaverAndLoader.getPlayerState(player).getCurrentDisposition();
+                    if (disposition == null){
+                        disposition = Disposition.NEUTRAL;
+                    }
+                    return new ArtisanTableScreenHandler(syncId, playerInventory, disposition.toString());
+                }
+            });
+        }
+
+        return ActionResult.SUCCESS;
     }
 
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
@@ -98,16 +119,6 @@ public class ArtisanTable extends HorizontalFacingBlock {
         return world.getBlockState(blockPos2).canReplace(ctx) && world.getWorldBorder().contains(blockPos2) ? (BlockState)this.getDefaultState().with(FACING, direction).with(PART, ArtisanTablePart.LEFT) : null;
     }
 
-    public static Direction getOppositePartDirection(BlockState state) {
-        Direction direction = (Direction)state.get(FACING);
-        return state.get(PART) == ArtisanTablePart.RIGHT ? direction.getOpposite() : direction;
-    }
-
-    public static DoubleBlockProperties.Type getTablePart(BlockState state) {
-        ArtisanTablePart tablePart = (ArtisanTablePart)state.get(PART);
-        return tablePart == ArtisanTablePart.RIGHT ? DoubleBlockProperties.Type.FIRST : DoubleBlockProperties.Type.SECOND;
-    }
-
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
         if (!world.isClient) {
@@ -123,30 +134,9 @@ public class ArtisanTable extends HorizontalFacingBlock {
         return MathHelper.hashCode(blockPos.getX(), pos.getY(), blockPos.getZ());
     }
 
-    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
-        return false;
-    }
-
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
-    }
-
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
-        } else {
-            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
-            player.incrementStat(Stats.INTERACT_WITH_STONECUTTER);
-            return ActionResult.CONSUME;
-        }
-    }
-
-    @Nullable
-    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
-        return new SimpleNamedScreenHandlerFactory((syncId, playerInventory, player) -> {
-            return new ArtisanTableScreenHandler(syncId, playerInventory, ScreenHandlerContext.create(world, pos));
-        }, TITLE);
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
