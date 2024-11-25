@@ -31,7 +31,7 @@ public record CustomDyeableDataComponent(int customRgb) {
     }
 
     public static int getColor(ItemStack stack, int defaultColor) {
-        CustomDyeableDataComponent dyedColorComponent = (CustomDyeableDataComponent) stack.get(ModDataComponentTypes.DYE_DATA);
+        CustomDyeableDataComponent dyedColorComponent = stack.get(ModDataComponentTypes.DYE_DATA);
         return dyedColorComponent != null ? ColorHelper.Argb.fullAlpha(dyedColorComponent.customRgb()) : defaultColor;
     }
 

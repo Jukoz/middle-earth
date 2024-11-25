@@ -9,6 +9,7 @@ import net.jukoz.me.item.utils.armor.capes.ModCapes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.util.math.ColorHelper;
 
 public record CapeDataComponent(ModCapes cape, int capeColor){
 

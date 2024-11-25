@@ -87,6 +87,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         dyeable.add(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
         dyeable.add(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
 
+        dyeable.add(ModEquipmentItems.CAPE);
+        dyeable.add(ModEquipmentItems.CLOAK);
+
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {
                 getOrCreateTagBuilder(coal_ores)

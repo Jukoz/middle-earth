@@ -27,6 +27,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.ColorHelper;
 
 import java.util.Objects;
 
@@ -69,11 +70,11 @@ public class CapeRenderer implements ArmorRenderer {
 
     static void renderDyeableCape(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture, boolean chestplate) {
         VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), stack.hasGlint());
-        int color = 0;
+        int color;
         if (chestplate){
-            color = CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR);
+            color =  ColorHelper.Argb.fullAlpha(stack.get(ModDataComponentTypes.CAPE_DATA).capeColor());
         } else {
-            color = Objects.requireNonNull(stack.get(ModDataComponentTypes.CAPE_DATA)).capeColor();
+            color = CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR);
         }
         model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
     }

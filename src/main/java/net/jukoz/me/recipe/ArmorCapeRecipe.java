@@ -4,6 +4,7 @@ import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.items.armor.CapeChestplateItem;
 import net.jukoz.me.item.items.armor.CustomChestplateItem;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
@@ -66,9 +67,10 @@ public class ArmorCapeRecipe extends SpecialCraftingRecipe {
         }
 
         if (!itemStack.isEmpty()) {
+            int color = cape.get(ModDataComponentTypes.DYE_DATA).customRgb();
             return CapeDataComponent.setCapeWithColor(itemStack,
                     cape.get(ModDataComponentTypes.CAPE_DATA).cape(),
-                    cape.get(ModDataComponentTypes.CAPE_DATA).capeColor());
+                    color);
         } else {
             return ItemStack.EMPTY;
         }
