@@ -8,15 +8,12 @@ import net.jukoz.me.item.utils.MEEquipmentTooltip;
 import net.jukoz.me.item.utils.armor.ModArmorMaterials;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CapeChestplateItem extends ArmorItem implements MEEquipmentTooltip {
@@ -41,7 +38,7 @@ public class CapeChestplateItem extends ArmorItem implements MEEquipmentTooltip 
 
     @Override
     public List<Text> getAdditionalAltLines(ItemStack stack) {
-        List<Text> list = new java.util.ArrayList<>(List.of());
+        List<Text> list = new ArrayList<>(List.of());
         CapeDataComponent capeDataComponent = stack.get(ModDataComponentTypes.CAPE_DATA);
         CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
 

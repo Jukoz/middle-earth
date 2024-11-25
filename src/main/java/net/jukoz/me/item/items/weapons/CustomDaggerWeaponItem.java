@@ -5,27 +5,17 @@ import net.jukoz.me.item.utils.MEEquipmentTooltip;
 import net.jukoz.me.item.utils.ModWeaponTypes;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class CustomDaggerWeaponItem extends ReachWeaponItem implements MEEquipmentTooltip {
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
@@ -44,7 +34,7 @@ public class CustomDaggerWeaponItem extends ReachWeaponItem implements MEEquipme
 
     @Override
     public List<Text> getAdditionalShiftLines(ItemStack stack) {
-        List<Text> list = new java.util.ArrayList<>(List.of());
+        List<Text> list = new ArrayList<>(List.of());
 
         list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
         list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".backstab"));

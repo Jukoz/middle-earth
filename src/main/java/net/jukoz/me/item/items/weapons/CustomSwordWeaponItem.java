@@ -5,11 +5,8 @@ import net.jukoz.me.item.utils.MEEquipmentTooltip;
 import net.jukoz.me.item.utils.ModWeaponTypes;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
@@ -21,6 +18,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomSwordWeaponItem extends SwordItem implements MEEquipmentTooltip {
@@ -61,7 +59,7 @@ public class CustomSwordWeaponItem extends SwordItem implements MEEquipmentToolt
 
     @Override
     public List<Text> getAdditionalShiftLines(ItemStack stack) {
-        List<Text> list = new java.util.ArrayList<>(List.of());
+        List<Text> list = new ArrayList<>(List.of());
 
         list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
 
