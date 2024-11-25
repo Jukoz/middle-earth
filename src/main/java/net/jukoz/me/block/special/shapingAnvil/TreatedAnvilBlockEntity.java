@@ -156,9 +156,10 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
         List<RecipeEntry<AnvilShapingRecipe>> match = entity.getWorld().getRecipeManager()
             .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());
 
-        entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.5f, 1.0f);
-
         if (!match.isEmpty() && input.get(ModDataComponentTypes.TEMPERATURE_DATA) != null  && hasShapingRecipe(entity)){
+            int temperature = input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature();
+
+            entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.5f, 1.0f - (float) temperature / 1000);
 
             int minRandProgress = 6;
             int maxRandProgress = 14;
@@ -172,13 +173,12 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
             World serverWorld = this.getWorld();
             if (serverWorld instanceof ServerWorld) {
-                ((ServerWorld)serverWorld).spawnParticles(ModParticleTypes.ANVIL_SPARK_PARTICLE, pos.getX()+ 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, 7, 0.0, 0.0, 0.0, 0.0);
+                ((ServerWorld)serverWorld).spawnParticles(ModParticleTypes.ANVIL_SPARK_PARTICLE, pos.getX()+ 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, Math.max(temperature / 10, 3), 0.0, 0.0, 0.0, 0.0);
             }
 
             int minRandTemperature = 10;
             int maxRandTemperature = 18;
             int value = (int) (Math.random() * (maxRandTemperature - minRandTemperature) + minRandTemperature);
-
 
             if ((input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature() - value) <= 0){
                 input.remove(ModDataComponentTypes.TEMPERATURE_DATA);
@@ -223,6 +223,7 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
             if (serverWorld instanceof ServerWorld) {
                 ((ServerWorld)serverWorld).spawnParticles(ModParticleTypes.ANVIL_SPARK_PARTICLE, pos.getX()+ 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, 2, 0.0, 0.0, 0.0, 0.0);
             }
+            entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.5f, 1.0f);
         }
     }
 
@@ -233,6 +234,9 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
                     .getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld());;
             if(!match.isEmpty()){
                 entity.maxOutputIndex = match.size() - 1;
+                if (entity.outputIndex > entity.maxOutputIndex){
+                    entity.outputIndex = entity.maxOutputIndex;
+                }
                 entity.update();
             } else {
                 entity.maxOutputIndex = 0;
@@ -240,7 +244,6 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
             }
         } else {
             entity.maxOutputIndex = 0;
-            entity.outputIndex = 0;
             entity.update();
         }
     }

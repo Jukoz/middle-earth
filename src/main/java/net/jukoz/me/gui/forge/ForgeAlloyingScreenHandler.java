@@ -34,12 +34,12 @@ public class ForgeAlloyingScreenHandler extends ScreenHandler {
         int maxItemStack = 64;
         checkSize(inventory, 6);
 
-        this.addSlot(new ForgeFuelSlot(inventory, this, 0, 39, 53));
-        this.addSlot(new ForgeSlot(inventory, 1, 12, 17, maxItemStack));
-        this.addSlot(new ForgeSlot(inventory, 2, 30, 17, maxItemStack));
-        this.addSlot(new ForgeSlot(inventory, 3, 48, 17, maxItemStack));
-        this.addSlot(new ForgeSlot(inventory, 4, 66, 17, maxItemStack));
-        this.addSlot(new ForgeOutputSlot(playerInventory.player, inventory, 5, 144, 17, true));
+        this.addSlot(new ForgeFuelSlot(inventory, this, 0, 41, 55));
+        this.addSlot(new ForgeSlot(inventory, 1, 14, 16, maxItemStack));
+        this.addSlot(new ForgeSlot(inventory, 2, 32, 16, maxItemStack));
+        this.addSlot(new ForgeSlot(inventory, 3, 50, 16, maxItemStack));
+        this.addSlot(new ForgeSlot(inventory, 4, 68, 16, maxItemStack));
+        this.addSlot(new ForgeOutputSlot(playerInventory.player, inventory, 5, 143, 17, true));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -81,10 +81,6 @@ public class ForgeAlloyingScreenHandler extends ScreenHandler {
 
     public boolean isCooking() {
         return propertyDelegate.get(1) > 0;
-    }
-
-    public boolean hasBellows() {
-        return propertyDelegate.get(3) > 0;
     }
 
     public boolean heatingMode() {

@@ -72,19 +72,19 @@ public class ForgeHeatingScreen extends HandledScreen<ForgeHeatingScreenHandler>
         }
         if(handler.isCrafting()) {
             int progress = (int) (handler.getScaledProgress() * PROGRESS_FIRE_SIZE);
-            context.drawTexture(TEXTURE, x + 23, y + 51 - progress, 177, 53 - progress, 13, progress);
+            context.drawTexture(TEXTURE, x + 13, y + 34 - progress, 177, 53 - progress, 13, progress);
         }
     }
 
     private void renderLiquidStorage(DrawContext context, int x, int y) {
         int storedLiquid = (int) (handler.getScaledStoredLiquid() * LIQUID_HEIGHT);
-        context.drawTexture(TEXTURE, x + 140, y + 71 - storedLiquid, 177, 114 - storedLiquid, 16, storedLiquid);
+        context.drawTexture(TEXTURE, x + 147, y + 71 - storedLiquid, 177, 114 - storedLiquid, 16, storedLiquid);
     }
 
     private void renderLiquidStorageTooltip(DrawContext context, int mouseX, int mouseY) {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
-        if (mouseX >= x + 140 && mouseX <= x + 155 && mouseY >= y + 12 && mouseY <= y + 71){
+        if (mouseX >= x + 147 && mouseX <= x + 162 && mouseY >= y + 12 && mouseY <= y + 71){
             MetalTypes metal = MetalTypes.getValue(handler.getCurrentMetal());
             if(metal != MetalTypes.EMPTY){
                 context.drawOrderedTooltip(this.client.textRenderer, Lists.transform(
@@ -100,7 +100,7 @@ public class ForgeHeatingScreen extends HandledScreen<ForgeHeatingScreenHandler>
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        if (mouseX >= x + 7 && mouseX <= x + 21 && mouseY >= y + 55 && mouseY <= y + 69){
+        if (mouseX >= x + 13 && mouseX <= x + 27 && mouseY >= y + 57 && mouseY <= y + 71){
             context.drawOrderedTooltip(this.client.textRenderer, Lists.transform(
                     List.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_mode_heating"),
                     Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_mode_heating_switch").formatted(Formatting.GOLD),

@@ -6330,6 +6330,7 @@
   "screen.me.artisan_table.chestplate": "Chestplate",
   "screen.me.artisan_table.leggings": "Leggings",
   "screen.me.artisan_table.boots": "Boots",
+  "screen.me.artisan_table.mount_armor": "Mount Armor",
   "screen.me.artisan_table.shields": "Shields",
   "screen.me.artisan_table.light_shield": "Light Shield",
   "screen.me.artisan_table.heavy_shield": "Heavy Shield",
@@ -6412,7 +6413,6 @@
   "tooltip.me.anvil_hammer" : "Left click the anvil with a",
   "tooltip.me.anvil_hammer_2" : "Smithing Hammer to shape the metal.",
 
-  "tooltip.me.temperature" : "Temperature:",
   "tooltip.me.forge_mode_alloying" : "Alloying Mode",
   "tooltip.me.forge_mode_heating" : "Heating Mode",
   "tooltip.me.forge_mode_heating_switch" : "To go into alloying mode, add bellows to the",
@@ -6435,6 +6435,12 @@
   "tooltip.me.liquid_khazad_steel" : "Liquid Khazâd-Steel",
   "tooltip.me.liquid_edhel_steel" : "Liquid Edhel-Steel",
   "tooltip.me.liquid_burzum_steel" : "Liquid Búrzum-Steel",
+
+  "tooltip.me.temp_1" : "Warm",
+  "tooltip.me.temp_2" : "Hot",
+  "tooltip.me.temp_3" : "Very Hot",
+  "tooltip.me.temp_4" : "Searing Hot",
+  "tooltip.me.temp_5" : "Blazing Hot",
 
   "trim_pattern.me.smithing_part" : "Smithing Part",
   "trim_material.me.jade" : "Jade",
