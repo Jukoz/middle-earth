@@ -209,7 +209,6 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
 
         ArrayList<RecipeEntry<ArtisanRecipe>> filteredRecipes = new ArrayList<>();
         for(RecipeEntry<ArtisanRecipe> recipeEntry : this.availableRecipes) {
-            System.out.println(recipeEntry.value().output + " : " + recipeEntry.value().disposition);
             if (recipeEntry.value().category.equals(currentCategory)){
                 if (Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.NEUTRAL){
                     filteredRecipes.add(recipeEntry);

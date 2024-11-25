@@ -160,7 +160,6 @@ public class TreatedAnvilBlockEntity extends BlockEntity implements ExtendedScre
             int temperature = input.get(ModDataComponentTypes.TEMPERATURE_DATA).temperature();
 
             entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.5f, 1.0f - (float) temperature / 1000);
-            System.out.println(1.0f - (float) temperature / 1000);
 
             int minRandProgress = 6;
             int maxRandProgress = 14;

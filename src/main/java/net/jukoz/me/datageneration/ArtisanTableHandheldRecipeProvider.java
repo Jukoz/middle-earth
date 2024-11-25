@@ -94,9 +94,9 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
 
         createArtisanTableSpearRecipe(exporter, MetalTypes.GOLD, ModWeaponItems.GOLDEN_SPEAR.getDefaultStack(), false, Disposition.NEUTRAL);
 
-        createArtisanTableSwordRecipe(exporter, MetalTypes.BRONZE, ModWeaponItems.BRONZE_SWORD.getDefaultStack(), false, Disposition.GOOD);
-        createArtisanTableDaggerRecipe(exporter, MetalTypes.BRONZE, ModWeaponItems.BRONZE_DAGGER.getDefaultStack(), false, Disposition.GOOD);
-        createArtisanTableSpearRecipe(exporter, MetalTypes.BRONZE, ModWeaponItems.BRONZE_SPEAR.getDefaultStack(), false, Disposition.GOOD);
+        createArtisanTableSwordRecipe(exporter, MetalTypes.BRONZE, ModWeaponItems.BRONZE_SWORD.getDefaultStack(), false, Disposition.NEUTRAL);
+        createArtisanTableDaggerRecipe(exporter, MetalTypes.BRONZE, ModWeaponItems.BRONZE_DAGGER.getDefaultStack(), false, Disposition.NEUTRAL);
+        createArtisanTableSpearRecipe(exporter, MetalTypes.BRONZE, ModWeaponItems.BRONZE_SPEAR.getDefaultStack(), false, Disposition.NEUTRAL);
 
         createArtisanTableSwordRecipe(exporter, MetalTypes.CRUDE, ModWeaponItems.CRUDE_FALCHION.getDefaultStack(), false, Disposition.EVIL);
         createArtisanTableDaggerRecipe(exporter, MetalTypes.CRUDE, ModWeaponItems.CRUDE_DAGGER.getDefaultStack(), false, Disposition.EVIL);
@@ -110,8 +110,8 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         createArtisanTableSwordRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.DALISH_SWORD.getDefaultStack(), false, Disposition.GOOD);
         createArtisanTableSwordRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.DALISH_NOBLE_SWORD.getDefaultStack(), true, Disposition.GOOD);
         createArtisanTableSwordRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.DALISH_HEYDAY_SWORD.getDefaultStack(), true, Disposition.GOOD);
-        createArtisanTableSwordRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.STEEL_SWORD.getDefaultStack(), false, Disposition.GOOD);
-        createArtisanTableSwordRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.BLACK_NUMENOREAN_SWORD.getDefaultStack(), true, Disposition.GOOD);
+        createArtisanTableSwordRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.STEEL_SWORD.getDefaultStack(), false, Disposition.NEUTRAL);
+        createArtisanTableSwordRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.BLACK_NUMENOREAN_SWORD.getDefaultStack(), true, Disposition.EVIL);
 
         createArtisanTableDaggerRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.GONDORIAN_DAGGER.getDefaultStack(), false, Disposition.GOOD);
         createArtisanTableDaggerRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.GONDORIAN_NOBLE_DAGGER.getDefaultStack(), true, Disposition.GOOD);
@@ -149,7 +149,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         createArtisanTableSpearRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.DALISH_SPEAR.getDefaultStack(), false, Disposition.GOOD);
         createArtisanTableSpearRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.DALISH_HEYDAY_SPEAR.getDefaultStack(), true, Disposition.GOOD);
         createArtisanTableSpearRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.DALISH_NOBLE_SPEAR.getDefaultStack(), true, Disposition.GOOD);
-        createArtisanTableSpearRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.STEEL_SPEAR.getDefaultStack(), false, Disposition.GOOD);
+        createArtisanTableSpearRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.STEEL_SPEAR.getDefaultStack(), false, Disposition.NEUTRAL);
         createArtisanTableSpearRecipe(exporter, MetalTypes.STEEL, ModWeaponItems.BLACK_NUMENOREAN_SPEAR.getDefaultStack(), true, Disposition.EVIL);
 
         createArtisanTableSwordRecipe(exporter, MetalTypes.KHAZAD_STEEL, ModWeaponItems.EREBOR_SWORD.getDefaultStack(), false, Disposition.GOOD);
@@ -231,7 +231,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 ModToolItems.BRONZE_AXE.getDefaultStack(),
                 ModToolItems.BRONZE_SHOVEL.getDefaultStack(),
                 ModToolItems.BRONZE_HOE.getDefaultStack(),
-                Optional.empty(), Disposition.GOOD);
+                Optional.empty(), Disposition.NEUTRAL);
 
         createToolSet(exporter, MetalTypes.CRUDE, ModToolItems.CRUDE_PICKAXE.getDefaultStack(),
                 ModToolItems.CRUDE_AXE.getDefaultStack(),
@@ -255,7 +255,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 ModToolItems.STEEL_AXE.getDefaultStack(),
                 ModToolItems.STEEL_SHOVEL.getDefaultStack(),
                 ModToolItems.STEEL_HOE.getDefaultStack(),
-                Optional.empty(), Disposition.GOOD);
+                Optional.empty(), Disposition.NEUTRAL);
 
         createToolSet(exporter, MetalTypes.KHAZAD_STEEL, ModToolItems.KHAZAD_STEEL_PICKAXE.getDefaultStack(),
                 ModToolItems.KHAZAD_STEEL_AXE.getDefaultStack(),
