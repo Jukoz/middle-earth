@@ -96,7 +96,6 @@ public record CustomDyeableDataComponent(int customRgb) {
         return this.customRgb;
     }
 
-
     static {
         CODEC = Codec.withAlternative(BASE_CODEC, Codec.INT, CustomDyeableDataComponent::new);
         PACKET_CODEC = PacketCodec.tuple(PacketCodecs.INTEGER, CustomDyeableDataComponent::customRgb, CustomDyeableDataComponent::new);

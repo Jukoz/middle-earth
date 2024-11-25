@@ -127,7 +127,7 @@ public class NpcGearItemData {
         if(this.noCape != null && this.noCape && itemStack.getComponents().contains(ModDataComponentTypes.CAPE_DATA)){
             itemStack.remove(ModDataComponentTypes.CAPE_DATA);
         } else if (cape != null)
-            itemStack.set(ModDataComponentTypes.CAPE_DATA, new CapeDataComponent(cape));
+            itemStack.set(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(cape));
         if(this.noHood != null && this.noHood && itemStack.getComponents().contains(ModDataComponentTypes.HOOD_DATA)){
             itemStack.remove(ModDataComponentTypes.HOOD_DATA);
         } else if(hood != null){
