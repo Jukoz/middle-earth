@@ -11,6 +11,7 @@ import net.jukoz.me.datageneration.content.tags.LeavesSets;
 import net.jukoz.me.datageneration.content.tags.Saplings;
 import net.jukoz.me.item.*;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
+import net.jukoz.me.particles.ModParticleTypes;
 import net.jukoz.me.recipe.ModTags;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -20,6 +21,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ItemActionResult;
+import net.minecraft.util.math.random.Random;
 
 public class ModRegistries {
 
@@ -506,6 +508,11 @@ public class ModRegistries {
     };
 
     public static final CauldronBehavior COOL_DOWN_METAL = (state, world, pos, player, hand, stack) -> {
+        Random random = world.getRandom();
+        int smokeAmount = random.nextInt(9) + 4;
+        int bigSmokeAmount = random.nextInt(3) + 2;
+
+
         if (!stack.contains(ModDataComponentTypes.TEMPERATURE_DATA)) {
             return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
@@ -520,7 +527,24 @@ public class ModRegistries {
 
             world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1.0f, 1.0f);
         } else {
-            world.addImportantParticle(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, pos.getX() + 0.5f, pos.getY() + 0.9f, pos.getZ()+ 0.5f, 0.0f, 0.07f, 0.0f);
+            for (int i = 0; i < bigSmokeAmount; i++){
+                world.addParticle(ParticleTypes.POOF,
+                        pos.getX() + random.nextDouble(),
+                        pos.getY() + 0.9f,
+                        pos.getZ()+ random.nextDouble(),
+                        0.0f,
+                        0.03f + random.nextDouble() * 0.08,
+                        0.0f);
+            }
+            for (int i = 0; i < smokeAmount; i++) {
+                world.addParticle(ParticleTypes.SMOKE,
+                        pos.getX() + random.nextDouble(),
+                        pos.getY() + 0.8f,
+                        pos.getZ() + random.nextDouble(),
+                        0.0f,
+                        0.00f + random.nextDouble() * 0.08,
+                        0.0f);
+            }
         }
         return ItemActionResult.success(world.isClient);
     };

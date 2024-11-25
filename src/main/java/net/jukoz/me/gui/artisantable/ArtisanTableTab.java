@@ -32,7 +32,6 @@ public class ArtisanTableTab {
     private int minPanY = Integer.MAX_VALUE;
     private int maxPanX = Integer.MIN_VALUE;
     private int maxPanY = Integer.MIN_VALUE;
-    private float alpha;
     private boolean initialized;
 
     public ArtisanTableTab(MinecraftClient client, ArtisanTableScreen screen, ArtisanTableTabType type, int index,
@@ -78,33 +77,14 @@ public class ArtisanTableTab {
 
     public void render(DrawContext context, int x, int y) {
         if (!this.initialized) {
-            this.originX = 117 - (this.maxPanX + this.minPanX) / 2;
-            this.originY = 56 - (this.maxPanY + this.minPanY) / 2;
+            this.originX = 117 - (double) (this.maxPanX + this.minPanX) / 2;
+            this.originY = 56 - (double) (this.maxPanY + this.minPanY) / 2;
             this.initialized = true;
         }
     }
 
-    public void drawWidgetTooltip(DrawContext context, int mouseX, int mouseY, int x, int y) {
-        context.getMatrices().push();
-        context.getMatrices().translate(0.0f, 0.0f, -200.0f);
-        context.fill(0, 0, 234, 113, MathHelper.floor(this.alpha * 255.0f) << 24);
-        boolean bl = false;
-        int i = MathHelper.floor(this.originX);
-        int j = MathHelper.floor(this.originY);
-        if (mouseX > 0 && mouseX < 234 && mouseY > 0 && mouseY < 113) {
-            for (AdvancementWidget advancementWidget : this.widgets.values()) {
-                if (!advancementWidget.shouldRender(i, j, mouseX, mouseY)) continue;
-                bl = true;
-                advancementWidget.drawTooltip(context, i, j, this.alpha, x, y);
-                break;
-            }
-        }
-        context.getMatrices().pop();
-        this.alpha = bl ? MathHelper.clamp(this.alpha + 0.02f, 0.0f, 0.3f) : MathHelper.clamp(this.alpha - 0.04f, 0.0f, 1.0f);
-    }
-
     public boolean isClickOnTab(int screenX, int screenY, double mouseX, double mouseY) {
-        return this.type.isClickOnTab(screenX, screenY, this.index, mouseX, mouseY);
+        return !this.type.isClickOnTab(screenX, screenY, this.index, mouseX, mouseY);
     }
 
     public void move(double offsetX, double offsetY) {
@@ -115,35 +95,6 @@ public class ArtisanTableTab {
             this.originY = MathHelper.clamp(this.originY + offsetY, (double)(-(this.maxPanY - 113)), 0.0);
         }
     }
-
-    public void addAdvancement(PlacedAdvancement advancement) {
-        Optional<AdvancementDisplay> optional = advancement.getAdvancement().display();
-        if (optional.isEmpty()) {
-            return;
-        }
-        //AdvancementWidget advancementWidget = new AdvancementWidget(this, this.client, advancement, optional.get());
-        //this.addWidget(advancementWidget, advancement.getAdvancementEntry());
-    }
-
-    private void addWidget(AdvancementWidget widget, AdvancementEntry advancement) {
-        this.widgets.put(advancement, widget);
-        int i = widget.getX();
-        int j = i + 28;
-        int k = widget.getY();
-        int l = k + 27;
-        this.minPanX = Math.min(this.minPanX, i);
-        this.maxPanX = Math.max(this.maxPanX, j);
-        this.minPanY = Math.min(this.minPanY, k);
-        this.maxPanY = Math.max(this.maxPanY, l);
-        for (AdvancementWidget advancementWidget : this.widgets.values()) {
-            advancementWidget.addToTree();
-        }
-    }
-
-    //@Nullable
-    //public AdvancementWidget getWidget(AdvancementEntry advancement) {
-    //    return this.widgets.get(advancement);
-    //}
 
     public ArtisanTableScreen getScreen() {
         return this.screen;

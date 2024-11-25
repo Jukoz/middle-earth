@@ -30,15 +30,6 @@
       "model": "me:block/forge_bottom_on",
       "y": 270
     },
-    "facing=down,lit=false,part=bottom": {
-      "model": "me:block/forge_bottom",
-      "y": 0
-    },
-    "facing=down,lit=true,part=bottom": {
-      "model": "me:block/forge_bottom_on",
-      "y": 0
-    },
-
 
     "facing=east,lit=false,part=top": {
       "model": "me:block/forge_top",
@@ -69,14 +60,6 @@
     "facing=west,lit=true,part=top": {
       "model": "me:block/forge_top_on",
       "y": 270
-    },
-    "facing=down,lit=false,part=top": {
-      "model": "me:block/forge_top",
-      "y": 0
-    },
-    "facing=down,lit=true,part=top": {
-      "model": "me:block/forge_top_on",
-      "y": 0
     }
   }
 }

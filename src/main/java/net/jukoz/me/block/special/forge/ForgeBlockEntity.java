@@ -5,6 +5,7 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModBlockEntities;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.special.bellows.BellowsBlock;
+import net.jukoz.me.block.special.shapingAnvil.TreatedAnvilBlockEntity;
 import net.jukoz.me.datageneration.content.models.HotMetalsModel;
 import net.jukoz.me.gui.forge.ForgeAlloyingScreenHandler;
 import net.jukoz.me.gui.forge.ForgeHeatingScreenHandler;
@@ -75,8 +76,6 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     //TODO melting smithing parts
     //TODO convert metals to registry, enum constant datagen if no registry
     //TODO custom metal trim data component with palette
-    //TODO heating requires full inv, should be fine if one is empty
-    //TODO more particles when forge is on
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGE, pos, state);
@@ -110,6 +109,14 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 return 6;
             }
         };
+    }
+
+    public ItemStack getRenderStack(ForgeBlockEntity entity) {
+        if (this.currentMetal != MetalTypes.EMPTY){
+            return entity.currentMetal.getIngot().getDefaultStack();
+        } else {
+            return ItemStack.EMPTY;
+        }
     }
 
     @Override
@@ -181,38 +188,44 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        Inventories.writeNbt(nbt, inventory, registryLookup);
-        nbt.putInt(ID + ".progress", progress);
-        nbt.putInt(ID + ".boost-time", boostTime);
-        nbt.putInt(ID + ".fuel-time", fuelTime);
-        nbt.putInt(ID + ".max-fuel-time", maxFuelTime);
-        nbt.putInt(ID + ".mode", mode);
-        nbt.putInt(ID + ".storage", storage);
-        nbt.putString(ID + ".current-metal", currentMetal.getName());
+        Inventories.writeNbt(nbt, this.inventory, true, registryLookup);
+        nbt.putInt(ID + ".progress", this.progress);
+        nbt.putInt(ID + ".boost-time", this.boostTime);
+        nbt.putInt(ID + ".fuel-time", this.fuelTime);
+        nbt.putInt(ID + ".max-fuel-time", this.maxFuelTime);
+        nbt.putInt(ID + ".mode", this.mode);
+        nbt.putInt(ID + ".storage", this.storage);
+        nbt.putString(ID + ".current-metal", this.currentMetal.getName());
     }
 
     @Override
     public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
-        Inventories.readNbt(nbt, inventory, registryLookup);
-        progress = nbt.getInt(ID + ".progress");
-        boostTime = nbt.getInt(ID + ".boost-time");
-        fuelTime = nbt.getInt(ID + ".fuel-time");
-        maxFuelTime = nbt.getInt(ID + ".max-fuel-time");
-        mode = nbt.getInt(ID + ".mode");
-        storage = nbt.getInt(ID + ".storage");
-        currentMetal = MetalTypes.valueOf(nbt.getString(ID + ".current-metal").toUpperCase());
+        this.inventory.clear();
+        Inventories.readNbt(nbt, this.inventory, registryLookup);
+        this.progress = nbt.getInt(ID + ".progress");
+        this.boostTime = nbt.getInt(ID + ".boost-time");
+        this.fuelTime = nbt.getInt(ID + ".fuel-time");
+        this.maxFuelTime = nbt.getInt(ID + ".max-fuel-time");
+        this.mode = nbt.getInt(ID + ".mode");
+        this.storage = nbt.getInt(ID + ".storage");
+        this.currentMetal = MetalTypes.valueOf(nbt.getString(ID + ".current-metal").toUpperCase());
+    }
+
+    public void update() {
+        markDirty();
+        world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
+        return createNbt(registryLookup);
     }
 
     public void setInventory(DefaultedList<ItemStack> inventory) {
         for (int i = 0; i < inventory.size(); i++) {
             this.inventory.set(i, inventory.get(i));
         }
-    }
-
-    @Override
-    public void markDirty() {
-        super.markDirty();
     }
 
     protected boolean isFuel(Item item) {
@@ -277,7 +290,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
     @Override
     public void setStack(int slot, ItemStack stack) {
-        inventory.set(slot, stack);
+        this.inventory.set(slot, stack);
         if (stack.getCount() > getMaxCountPerStack()) {
             stack.setCount(getMaxCountPerStack());
         }
@@ -290,11 +303,12 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
     @Override
     public void clear() {
-        inventory.clear();
+        this.inventory.clear();
     }
 
     public void bellowsBoost() {
-        boostTime = MAX_BOOST_TIME;
+        this.boostTime = MAX_BOOST_TIME;
+        update();
     }
 
     public static void outputItemStack(int amount, Vec3d coords, ServerPlayerEntity player){
@@ -362,7 +376,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                         }
                         entity.setStack(OUTPUT_SLOT, itemstack);
                         playExtractSound(entity.getWorld(), pos);
-                        entity.markDirty();
+                        entity.update();
                     } else {
                         playFailedExtractSound(entity.getWorld(), pos);
                     }
@@ -378,7 +392,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                     }
                     entity.setStack(OUTPUT_SLOT, itemstack);
                     playExtractSound(entity.getWorld(), pos);
-                    entity.markDirty();
+                    entity.update();
                 } else {
                     playFailedExtractSound(entity.getWorld(), pos);
                 }
@@ -397,12 +411,16 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     }
 
     public static void tick(World world, BlockPos blockPos, BlockState blockState, ForgeBlockEntity entity) {
-        if(world.isClient()) return;
+        if (blockState.get(ForgeBlock.PART) == ForgePart.TOP) return;
 
         entity.fuelTime = Math.max(0, entity.fuelTime - 1);
         entity.boostTime = Math.max(0, entity.boostTime - 1);
+
         boolean progress = false;
+
         entity.mode = entity.hasBellows(world, blockPos, blockState);
+        entity.update();
+
         if(entity.mode == 1) { // Alloying mode
             if(hasAlloyingRecipe(entity)) {
                 if(entity.hasFuel(entity)) {
@@ -412,10 +430,11 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                     }
                     entity.progress += progressValue;
                     progress = true;
-                    markDirty(world, blockPos, blockState); // Reloads the origin in this chunk, for sync & saving.
+                    entity.update();
                     if(entity.progress >= MAX_PROGRESS) {
                         craftItem(entity);
                         entity.progress = 0;
+                        entity.update();
                     }
                 }
             }
@@ -423,18 +442,19 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
             dropExtraItems(entity);
             if(hasHeatingRecipe(entity)) {
                 if(entity.hasFuel(entity)) {
-                    int progressValue = 1;
+                    int progressValue = 2;
                     if(entity.boostTime > 0) {
-                        progressValue = 8;
+                        progressValue = 16;
                     }
                     entity.progress += progressValue;
                     progress = true;
-                    markDirty(world, blockPos, blockState); // Reloads the origin in this chunk, for sync & saving.
+                    entity.update();
                     if(entity.progress >= MAX_PROGRESS) {
                         for (int i = 1; i <= 4; i++) {
                             entity.getStack(i).set(ModDataComponentTypes.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                         }
                         entity.progress = 0;
+                        entity.update();
                     }
                 }
             }
@@ -442,11 +462,14 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
         if (!progress){
             entity.progress = Math.max(entity.progress - 2, 0);
-            markDirty(world, blockPos, blockState);
+            entity.update();
         }
         boolean isCooking = entity.fuelTime > 0;
+
         blockState = blockState.with(AbstractFurnaceBlock.LIT, isCooking);
+        BlockState blockStateUp = blockState.with(AbstractFurnaceBlock.LIT, isCooking).with(ForgeBlock.PART, ForgePart.TOP);
         world.setBlockState(blockPos, blockState, Block.NOTIFY_ALL);
+        world.setBlockState(blockPos.up(), blockStateUp, Block.NOTIFY_ALL);
     }
 
     private static void craftItem(ForgeBlockEntity entity) {
@@ -467,7 +490,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
             }
             entity.storage = entity.storage + match.get().value().amount;
             entity.currentMetal = MetalTypes.valueOf(match.get().value().output.toUpperCase());
-            entity.markDirty();
+            entity.update();
         }
     }
 
@@ -529,13 +552,15 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         for (int i = 0; i < entity.size(); i++) {
             if(i != FUEL_SLOT && i != OUTPUT_SLOT) {
                 Item item = entity.getStack(i).getItem();
-                if(!HotMetalsModel.nuggets.contains(item) && !HotMetalsModel.ingots.contains(item) && !HotMetalsModel.items.contains(item)) {
+                if (entity.getStack(i).isEmpty()){
+                    hasColdItem = true;
+                } else if(!HotMetalsModel.nuggets.contains(item) && !HotMetalsModel.ingots.contains(item) && !HotMetalsModel.items.contains(item)) {
                     return false; // One of the items cannot be heated
                 } else {
-                    inputs.add(entity.getStack(i));
                     TemperatureDataComponent temperatureComponent = entity.getStack(i).get(ModDataComponentTypes.TEMPERATURE_DATA);
-                    if(temperatureComponent == null || temperatureComponent.temperature() < 1000) {
+                    if(temperatureComponent == null || temperatureComponent.temperature() < 100) {
                         hasColdItem = true;
+                        inputs.add(entity.getStack(i));
                     }
                 }
             }

@@ -38,7 +38,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         this.pos = BlockPos.ORIGIN;
         this.world = playerInventory.player.getWorld();
 
-        this.addSlot(new ShapingAnvilSlot(inventory, 0, 80, 53));
+        this.addSlot(new ShapingAnvilSlot(inventory, 0, 80, 55));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -83,7 +83,11 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
 
         if (match.isEmpty()) return ItemStack.EMPTY;
 
-        return match.get(this.propertyDelegate.get(0)).value().getOutput();
+        if (this.propertyDelegate.get(0) <= this.propertyDelegate.get(1)){
+            return match.get(this.propertyDelegate.get(0)).value().getOutput();
+        } else {
+            return ItemStack.EMPTY;
+        }
     }
 
     public boolean canUse(PlayerEntity player) {

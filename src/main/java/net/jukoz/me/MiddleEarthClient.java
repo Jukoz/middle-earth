@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.jukoz.me.block.*;
 import net.jukoz.me.block.special.bellows.BellowsBlockEntityRenderer;
 import net.jukoz.me.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
+import net.jukoz.me.block.special.forge.ForgeEntityRenderer;
 import net.jukoz.me.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.jukoz.me.block.special.shapingAnvil.ShapingAnvilEntityRenderer;
 import net.jukoz.me.client.model.equipment.CustomBootsModel;
@@ -206,6 +207,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         HandledScreens.register(ModScreenHandlers.TREATED_ANVIL_SCREEN_HANDLER, ShapingAnvilScreen::new);
         HandledScreens.register(ModScreenHandlers.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         BlockEntityRendererFactories.register(ModBlockEntities.TREATED_ANVIL, ShapingAnvilEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.FORGE, ForgeEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.BELLOWS, BellowsBlockEntityRenderer::new);
 

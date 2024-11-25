@@ -2,6 +2,7 @@ package net.jukoz.me.datageneration.custom;
 
 import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
 import net.jukoz.me.recipe.ArtisanRecipe;
+import net.jukoz.me.resources.datas.Disposition;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.AdvancementRequirements;
@@ -29,13 +30,15 @@ public class ArtisanTableRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
     private final String tab;
     private final DefaultedList<Ingredient> inputs = DefaultedList.of();
     private final ItemStack output;
+    private final Disposition disposition;
     private final Map<String, AdvancementCriterion<?>> criteria = new LinkedHashMap<>();
     private String group;
 
-    public ArtisanTableRecipeJsonBuilder(RecipeCategory category, ItemStack output, String tab) {
+    public ArtisanTableRecipeJsonBuilder(RecipeCategory category, ItemStack output, String tab, Disposition disposition) {
         this.category = category;
         this.output = output;
         this.tab = tab;
+        this.disposition = disposition;
     }
 
     @Override
@@ -49,8 +52,11 @@ public class ArtisanTableRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
         return this.output.getItem();
     }
 
+    public static ArtisanTableRecipeJsonBuilder createArtisanRecipe(RecipeCategory category, ItemStack output, String tab, Disposition disposition) {
+        return new ArtisanTableRecipeJsonBuilder(category, output, tab, disposition);
+    }
     public static ArtisanTableRecipeJsonBuilder createArtisanRecipe(RecipeCategory category, ItemStack output, String tab) {
-        return new ArtisanTableRecipeJsonBuilder(category, output, tab);
+        return new ArtisanTableRecipeJsonBuilder(category, output, tab, null);
     }
 
     public ArtisanTableRecipeJsonBuilder input(TagKey<Item> tag) {
@@ -89,7 +95,7 @@ public class ArtisanTableRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
         Advancement.Builder builder = exporter.getAdvancementBuilder().criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
         Objects.requireNonNull(builder);
         this.criteria.forEach(builder::criterion);
-        ArtisanRecipe artisanRecipe = new ArtisanRecipe(this.tab, this.output, this.inputs);
+        ArtisanRecipe artisanRecipe = new ArtisanRecipe(this.tab, this.output, this.inputs, this.disposition.toString().toLowerCase());
         exporter.accept(recipeId, artisanRecipe, builder.build(recipeId.withPrefixedPath("recipes/" + this.category.getName() + "/")));
     }
 
