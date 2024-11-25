@@ -42,17 +42,8 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
         super(toolMaterial, subFaction, ModWeaponTypes.SPEAR);
     }
 
-    @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        super.inventoryTick(stack, world, entity, slot, selected);
-    }
-
     public float getAttackDamage() {
         return this.getMaterial().getAttackDamage();
-    }
-
-    public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
-        return !miner.isCreative();
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
@@ -70,7 +61,6 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
         return 48000;
     }
-
 
     @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {

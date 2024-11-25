@@ -1,6 +1,7 @@
 package net.jukoz.me.item.items.weapons;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.item.utils.MEEquipmentTooltip;
 import net.jukoz.me.item.utils.ModWeaponTypes;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
@@ -30,7 +31,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class ReachWeaponItem extends ToolItem {
+public class ReachWeaponItem extends ToolItem implements MEEquipmentTooltip {
 
     public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
     public float rangeDistance;
@@ -79,26 +80,17 @@ public class ReachWeaponItem extends ToolItem {
     }
 
     @Override
+    public List<Text> getAdditionalShiftLines(ItemStack stack) {
+        List<Text> list = new java.util.ArrayList<>(List.of());
+
+        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
+
+        return list;
+    }
+
+    @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        tooltip.add(Text.of(""));
-        ProfileComponent profileComponent = stack.get(DataComponentTypes.PROFILE);
-        if (Screen.hasShiftDown()) {
-            if(this.faction != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
-            }
-            if (this.subFaction != null) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
-            }
-            if(this.type != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
-            }
-            if (profileComponent != null && profileComponent.name().isPresent()) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artisan").append(profileComponent.name().get()).formatted(Formatting.GRAY));
-            }
-            tooltip.add(Text.of(""));
-        } else {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
-        }
+        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
         super.appendTooltip(stack, context, tooltip, type);
     }
 

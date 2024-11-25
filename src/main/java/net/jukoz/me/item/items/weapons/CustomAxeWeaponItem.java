@@ -1,6 +1,7 @@
 package net.jukoz.me.item.items.weapons;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.item.utils.MEEquipmentTooltip;
 import net.jukoz.me.item.utils.ModWeaponTypes;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
@@ -27,7 +28,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class CustomAxeWeaponItem extends AxeItem {
+public class CustomAxeWeaponItem extends AxeItem implements MEEquipmentTooltip {
     private final ModFactions faction;
     private final ModSubFactions subFaction;
 
@@ -41,21 +42,21 @@ public class CustomAxeWeaponItem extends AxeItem {
     }
 
     public CustomAxeWeaponItem(ToolMaterial toolMaterial) {
-        super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
+        super(toolMaterial, new Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
         this.faction = ModFactions.NONE;
         this.subFaction = null;
         this.type = ModWeaponTypes.AXE;
     }
 
     public CustomAxeWeaponItem(ToolMaterial toolMaterial, ModFactions faction) {
-        super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
+        super(toolMaterial, new Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
         this.faction = faction;
         this.subFaction = null;
         this.type = ModWeaponTypes.AXE;
     }
 
     public CustomAxeWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction) {
-        super(toolMaterial, new Item.Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
+        super(toolMaterial, new Settings().attributeModifiers(createAttributeModifiersAxe(toolMaterial, ModWeaponTypes.AXE.attack, ModWeaponTypes.AXE.attackSpeed)));
         this.faction = subFaction.getParent();
         this.subFaction = subFaction;
         this.type = ModWeaponTypes.AXE;
@@ -75,28 +76,17 @@ public class CustomAxeWeaponItem extends AxeItem {
     }
 
     @Override
+    public List<Text> getAdditionalShiftLines(ItemStack stack) {
+        List<Text> list = new java.util.ArrayList<>(List.of());
+
+        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
+
+        return list;
+    }
+
+    @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        ProfileComponent profileComponent = stack.get(DataComponentTypes.PROFILE);
-
-        tooltip.add(Text.of(""));
-        if (Screen.hasShiftDown()) {
-            if(this.faction != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
-            }
-            if (this.subFaction != null) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
-            }
-            if(this.type != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
-            }
-            if (profileComponent != null && profileComponent.name().isPresent()) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artisan").append(profileComponent.name().get()).formatted(Formatting.GRAY));
-            }
-            tooltip.add(Text.of(""));
-        } else {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
-        }
-
+        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
         super.appendTooltip(stack, context, tooltip, type);
     }
 

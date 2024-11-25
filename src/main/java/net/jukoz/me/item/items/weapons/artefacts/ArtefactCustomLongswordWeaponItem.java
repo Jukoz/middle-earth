@@ -47,23 +47,19 @@ public class ArtefactCustomLongswordWeaponItem extends CustomLongswordWeaponItem
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        tooltip.add(Text.of(""));
-        if (Screen.hasShiftDown()) {
-            if(!(stack.getDamage() < stack.getMaxDamage() - 1)){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact_broken").formatted(Formatting.ITALIC).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact")).formatted(Formatting.AQUA));
-            } else {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact").formatted(Formatting.AQUA));
-            }
-            if(this.type != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
-            }
+    public List<Text> getAdditionalShiftLines(ItemStack stack) {
+        List<Text> list = new java.util.ArrayList<>(List.of());
+
+        if(!(stack.getDamage() < stack.getMaxDamage() - 1)){
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact_broken").formatted(Formatting.ITALIC).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact")).formatted(Formatting.AQUA));
         } else {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artefact").formatted(Formatting.AQUA));
         }
+
+        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
+
+        return list;
     }
-
-
 
     @Override
     public boolean canRepair(ItemStack stack, ItemStack ingredient) {

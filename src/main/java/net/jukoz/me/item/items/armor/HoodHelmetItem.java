@@ -2,8 +2,10 @@ package net.jukoz.me.item.items.armor;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModDataComponentTypes;
+import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
+import net.jukoz.me.item.utils.MEEquipmentTooltip;
 import net.jukoz.me.item.utils.armor.ModArmorMaterials;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
@@ -19,7 +21,7 @@ import net.minecraft.util.Formatting;
 
 import java.util.List;
 
-public class HoodHelmetItem extends ArmorItem {
+public class HoodHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     public ModFactions faction;
     public ModSubFactions subFaction;
 
@@ -40,40 +42,24 @@ public class HoodHelmetItem extends ArmorItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        ProfileComponent profileComponent = stack.get(DataComponentTypes.PROFILE);
-
-        tooltip.add(Text.of(""));
+    public List<Text> getAdditionalAltLines(ItemStack stack) {
+        List<Text> list = new java.util.ArrayList<>(List.of());
         HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
         CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
 
-        if(Screen.hasShiftDown()){
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
-            if(subFaction != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
-            }
-            if (profileComponent != null && profileComponent.name().isPresent()) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artisan").append(profileComponent.name().get()).formatted(Formatting.GRAY));
-            }
-            tooltip.add(Text.of(""));
-        } else {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
+        if(dyeDataComponent != null){
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
+        }
+        if (hoodDataComponent != null) {
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood().getName()));
         }
 
-        if(Screen.hasAltDown()){
-            tooltip.add(Text.of(""));
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
+        return list;
+    }
 
-            if(dyeDataComponent != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
-            }
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood().getName()));
-
-
-        }else {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
-        }
-
+    @Override
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
         super.appendTooltip(stack, context, tooltip, type);
     }
 
