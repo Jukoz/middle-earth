@@ -34,11 +34,6 @@ public class ModEquipmentItems {
     public static List<Item> armorPiecesListLeggings = new ArrayList<>();
     public static List<Item> armorPiecesListBoots = new ArrayList<>();
 
-    public static List<Item> armorPiecesListRustyHelmets = new ArrayList<>();
-    public static List<Item> armorPiecesListRustyChestplates = new ArrayList<>();
-    public static List<Item> armorPiecesListRustyLeggings = new ArrayList<>();
-    public static List<Item> armorPiecesListRustyBoots = new ArrayList<>();
-
     public static List<Item> capes = new ArrayList<>();
     public static List<Item> hoods = new ArrayList<>();
 
@@ -824,13 +819,13 @@ public class ModEquipmentItems {
     //region ORCS
 
     //region GENERIC
-    public static final Item ORC_MAIL_COIF = registerRustyArmorPiece("orc_mail_coif",
+    public static final Item ORC_MAIL_COIF = registerArmorPiece("orc_mail_coif",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.NONE));
-    public static final Item ORC_MAIL_HAUBERK = registerRustyArmorPiece("orc_mail_hauberk",
+    public static final Item ORC_MAIL_HAUBERK = registerArmorPiece("orc_mail_hauberk",
             new CustomChestplateItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.NONE));
-    public static final Item ORC_MAIL_COAT = registerRustyArmorPiece("orc_mail_coat",
+    public static final Item ORC_MAIL_COAT = registerArmorPiece("orc_mail_coat",
             new CustomLeggingsItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.NONE));
 
@@ -838,36 +833,36 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
                     ModFactions.NONE));
 
-    public static final Item ORC_GORGET_HAUBERK = registerRustyArmorPiece("orc_gorget_hauberk",
+    public static final Item ORC_GORGET_HAUBERK = registerArmorPiece("orc_gorget_hauberk",
             new CustomChestplateItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
                     ModFactions.NONE));
 
-    public static final Item ORC_PLATE_BOOTS = registerRustyArmorPiece("orc_plate_boots",
+    public static final Item ORC_PLATE_BOOTS = registerArmorPiece("orc_plate_boots",
             new CustomBootsItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
                     ModFactions.NONE));
     //endregion
 
     //region MORDOR
-    public static final Item MORDOR_ORC_HELMET = registerRustyArmorPiece("mordor_orc_helmet",
+    public static final Item MORDOR_ORC_HELMET = registerArmorPiece("mordor_orc_helmet",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T2, new Item.Settings(),
                     ModFactions.MORDOR));
-    public static final Item MORDOR_ORC_EYE_HELMET = registerRustyArmorPiece("mordor_orc_eye_helmet",
+    public static final Item MORDOR_ORC_EYE_HELMET = registerArmorPiece("mordor_orc_eye_helmet",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T2, new Item.Settings(),
                     ModFactions.MORDOR));
-    public static final Item MORDOR_ORC_GREAT_EYE_HELMET = registerRustyArmorPiece("mordor_orc_great_eye_helmet",
+    public static final Item MORDOR_ORC_GREAT_EYE_HELMET = registerArmorPiece("mordor_orc_great_eye_helmet",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.MORDOR));
-    public static final Item MORDOR_ORC_MANDIBLE_HELMET = registerRustyArmorPiece("mordor_orc_mandible_helmet",
+    public static final Item MORDOR_ORC_MANDIBLE_HELMET = registerArmorPiece("mordor_orc_mandible_helmet",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.MORDOR));
-    public static final Item MORDOR_ORC_OVERSIGHT_HELMET = registerRustyArmorPiece("mordor_orc_oversight_helmet",
+    public static final Item MORDOR_ORC_OVERSIGHT_HELMET = registerArmorPiece("mordor_orc_oversight_helmet",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item MORDOR_ORC_SNOUT_HELMET = registerCustomModelArmorPiece("mordor_orc_snout_helmet",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
                     ModFactions.MORDOR));
 
-    public static final Item MORDOR_ORC_CHESTPLATE = registerRustyArmorPiece("mordor_orc_chestplate",
+    public static final Item MORDOR_ORC_CHESTPLATE = registerArmorPiece("mordor_orc_chestplate",
             new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
                     ModFactions.MORDOR));
 
@@ -1082,19 +1077,6 @@ public class ModEquipmentItems {
             case CustomLeggingsItem leggingsItem -> armorPiecesListLeggings.add(leggingsItem);
             case CustomBootsItem bootsItem -> armorPiecesListBoots.add(bootsItem);
             case CustomAnimalArmorItem animalArmorItem -> {}
-            default -> throw new IllegalStateException("Unexpected value: " + item);
-        }
-        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
-    }
-
-    private static Item registerRustyArmorPiece(String name, Item item) {
-        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
-        SimpleItemModel.items.add(item);
-        switch (item){
-            case CustomHelmetItem helmetItem -> armorPiecesListRustyHelmets.add(helmetItem);
-            case CustomChestplateItem chestplateItem -> armorPiecesListRustyChestplates.add(chestplateItem);
-            case CustomLeggingsItem leggingsItem -> armorPiecesListRustyLeggings.add(leggingsItem);
-            case CustomBootsItem bootsItem -> armorPiecesListRustyBoots.add(bootsItem);
             default -> throw new IllegalStateException("Unexpected value: " + item);
         }
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);

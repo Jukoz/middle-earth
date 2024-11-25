@@ -64,6 +64,9 @@ public class ModArmorModels {
 
         BLACK_URUK_COMMANDER_HELMET(ModEquipmentItems.BLACK_URUK_COMMANDER_HELMET, new HelmetSkullModel<>(HelmetSkullModel.getTexturedModelData().createModel())),
 
+        MORDOR_ORC_SNOUT_HELMET(ModEquipmentItems.MORDOR_ORC_SNOUT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
+        ORC_SALLET(ModEquipmentItems.ORC_SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),
+
         URUK_HAI_LEATHER_SCOUT_CAP(ModEquipmentItems.URUK_HAI_LEATHER_SCOUT_CAP, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_PLATE_HELMET(ModEquipmentItems.URUK_HAI_PLATE_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_PLATE_PAINTED_HELMET(ModEquipmentItems.URUK_HAI_PLATE_PAINTED_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
@@ -103,28 +106,6 @@ public class ModArmorModels {
         }
     }
 
-    public enum ModRustyHelmetModels{
-        MORDOR_ORC_SNOUT_HELMET(ModEquipmentItems.MORDOR_ORC_SNOUT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
-        ORC_SALLET(ModEquipmentItems.ORC_SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),
-        ;
-
-        private final Item item;
-        private final HelmetAddonModel<LivingEntity> model;
-
-        ModRustyHelmetModels(Item item, HelmetAddonModel<LivingEntity> model){
-            this.item = item;
-            this.model = model;
-        }
-
-        public Item getItem() {
-            return item;
-        }
-
-        public HelmetAddonModel<LivingEntity> getModel() {
-            return model;
-        }
-    }
-
     public enum ModChestplateModels{
         GONDORIAN_PLATE_CHESTPLATE(ModEquipmentItems.GONDORIAN_PLATE_CHESTPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
         GONDORIAN_KINGS_GUARD_CHESTPLATE(ModEquipmentItems.GONDORIAN_KINGS_GUARD_CHESTKPLATE, new HaltChestplateModel<>(HaltChestplateModel.getTexturedModelData().createModel())),
@@ -148,26 +129,6 @@ public class ModArmorModels {
         private final ChestplateAddonModel<LivingEntity> model;
 
         ModChestplateModels(Item item, ChestplateAddonModel<LivingEntity> model){
-            this.item = item;
-            this.model = model;
-        }
-
-        public Item getItem() {
-            return item;
-        }
-
-        public ChestplateAddonModel<LivingEntity> getModel() {
-            return model;
-        }
-    }
-
-    public enum ModRustyChestplateModels{
-        ;
-
-        private final Item item;
-        private final ChestplateAddonModel<LivingEntity> model;
-
-        ModRustyChestplateModels(Item item, ChestplateAddonModel<LivingEntity> model){
             this.item = item;
             this.model = model;
         }
