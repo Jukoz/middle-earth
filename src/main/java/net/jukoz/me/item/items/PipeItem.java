@@ -74,6 +74,7 @@ public class PipeItem extends Item {
         spawnSmoke(0, user, world);
 
         this.smoking = false;
+        ((PlayerEntity)user).getItemCooldownManager().set(this, 20);
         return item;
     }
 
