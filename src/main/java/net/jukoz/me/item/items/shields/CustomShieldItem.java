@@ -1,19 +1,20 @@
 package net.jukoz.me.item.items.shields;
 
 import net.jukoz.me.MiddleEarth;
+import net.jukoz.me.item.utils.MEEquipmentTooltip;
 import net.jukoz.me.item.utils.ModShieldTypes;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShieldItem;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CustomShieldItem extends ShieldItem {
+public class CustomShieldItem extends ShieldItem implements MEEquipmentTooltip {
     public final ModFactions faction;
     public final ModSubFactions subFaction;
     public final ModShieldTypes type;
@@ -33,19 +34,17 @@ public class CustomShieldItem extends ShieldItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        tooltip.add(Text.of(""));
-        if (Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
-            if (this.subFaction != null) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
-            }
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shield_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
-            tooltip.add(Text.of(""));
-        } else {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
-        }
-        super.appendTooltip(stack, context, tooltip, type);
+    public List<Text> getAdditionalShiftLines(ItemStack stack) {
+        List<Text> list = new ArrayList<>(List.of());
+
+        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shield_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
+
+        return list;
     }
 
+    @Override
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
+        super.appendTooltip(stack, context, tooltip, type);
+    }
 }

@@ -90,12 +90,13 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("chestplate"), ModEquipmentItems.RAVENHILL_WATCHWARDEN_CHESTPLATE.getDefaultStack(), ArtisanTableInputsShape.CHESTPLATE));
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, getTabTranslation("leggings"), ModEquipmentItems.RAVENHILL_WATCHWARDEN_LEGGINGS.getDefaultStack(), ArtisanTableInputsShape.LEGGINGS));
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 3, getTabTranslation("boots"), ModEquipmentItems.RAVENHILL_WATCHWARDEN_BOOTS.getDefaultStack(), ArtisanTableInputsShape.BOOTS));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 4, getTabTranslation("mount_armor"), ModEquipmentItems.ROHIRRIC_HORSE_ARMOR.getDefaultStack()));
         index++;
 
-        categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, getTabTranslation("shields"), ModWeaponItems.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD.getDefaultStack()));
+        categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, getTabTranslation("shields"), Items.SHIELD.getDefaultStack()));
         tabs.put(index, new ArrayList<>());
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, getTabTranslation("light_shield"), ModWeaponItems.ROUND_SHIELD.getDefaultStack()));
-        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("heavy_shield"), ModWeaponItems.GONDORIAN_KNIGHT_SHIELD.getDefaultStack()));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("heavy_shield"), ModWeaponItems.URUK_HAI_WHITE_HAND_SHIELD.getDefaultStack()));
         index++;
 
         categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, getTabTranslation("misc"), ModEquipmentItems.STRAW_HAT.getDefaultStack()));
@@ -180,13 +181,15 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
                     context.drawTexture(TEXTURE,x + SLOT_OFFSET_X + SLOT_SCALE*z,y + SLOT_OFFSET_Y + SLOT_SCALE*w, 232, 15, SLOT_SCALE, SLOT_SCALE);
                     InputType inputType = shape.getInputType(z, w);
                     if(!handler.slots.get(w*3 + z).hasStack()) {
-                        if(inputType == InputType.HANDLE) context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 87, 16, 16);
-                        else if(inputType == InputType.HILT) context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 103, 16, 16);
-                        else if(inputType == InputType.BLADE) context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 119, 16, 16);
-                        else if(inputType == InputType.AXE) context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 135, 16, 16);
-                        else if(inputType == InputType.PICKAXE) context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 151, 16, 16);
-                        else if(inputType == InputType.SHOVEL) context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 167, 16, 16);
-                        else if(inputType == InputType.HOE) context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 183, 16, 16);
+                        switch (inputType){
+                            case HANDLE -> context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 87, 16, 16);
+                            case HILT -> context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 103, 16, 16);
+                            case BLADE -> context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 119, 16, 16);
+                            case AXE -> context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 135, 16, 16);
+                            case PICKAXE -> context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 151, 16, 16);
+                            case SHOVEL -> context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 167, 16, 16);
+                            case HOE -> context.drawTexture(TEXTURE,x + SPRITE_OFFSET_X + SLOT_SCALE*z,y + SPRITE_OFFSET_Y + SLOT_SCALE*w, 232, 183, 16, 16);
+                        }
                     }
                 }
             }
@@ -204,20 +207,20 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         super.render(context, mouseX, mouseY, delta);
 
         for (ArtisanTableTab category : this.categories) {
-            category.drawBackground(context, x, y, category == this.selectedCategory);
-            category.drawIcon(context, x, y);
+            category.drawBackground(context, x, y + 3, category == this.selectedCategory);
+            category.drawIcon(context, x, y + 3);
         }
         for (ArtisanTableTab tab : this.tabs.get(selectedCategory.getIndex())) {
-            tab.drawBackground(context, x, y, tab == this.selectedTab);
-            tab.drawIcon(context, x, y);
+            tab.drawBackground(context, x + 3, y, tab == this.selectedTab);
+            tab.drawIcon(context, x + 3, y);
         }
 
         for (ArtisanTableTab category : this.categories) {
-            if (!category.isClickOnTab(x, y, mouseX, mouseY)) continue;
+            if (category.isClickOnTab(x, y + 3, mouseX, mouseY)) continue;
             context.drawTooltip(this.textRenderer, category.getTitle(), mouseX, mouseY);
         }
         for (ArtisanTableTab tab : this.tabs.get(selectedCategory.getIndex())) {
-            if (!tab.isClickOnTab(x, y, mouseX, mouseY)) continue;
+            if (tab.isClickOnTab(x + 3, y, mouseX, mouseY)) continue;
             context.drawTooltip(this.textRenderer, tab.getTitle(), mouseX, mouseY);
         }
         drawMouseoverTooltip(context, mouseX, mouseY);
@@ -276,15 +279,17 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         this.mouseClicked = false;
         if (button == 0) {
             for (ArtisanTableTab category : this.categories) {
-                if (!category.isClickOnTab(x, y, mouseX, mouseY)) continue;
+                if (category.isClickOnTab(x, y, mouseX, mouseY)) continue;
                 this.selectedCategory = category;
                 selectedTab = tabs.get(selectedCategory.getIndex()).getFirst();
+                MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                 changeTab();
                 break;
             }
             for (ArtisanTableTab tab : tabs.get(selectedCategory.getIndex())) {
-                if (!tab.isClickOnTab(x, y, mouseX, mouseY)) continue;
+                if (tab.isClickOnTab(x, y, mouseX, mouseY)) continue;
                 this.selectedTab = tab;
+                MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                 changeTab();
                 break;
             }
@@ -299,7 +304,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
                 double d = mouseX - (double)(i + m % 4 * 16);
                 double e = mouseY - (double)(j + m / 4 * 18);
                 if (d >= 0.0 && e >= 0.0 && d < 16.0 && e < 18.0 && (this.handler).onButtonClick(this.client.player, l)) {
-                    MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
+                    MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                     this.client.interactionManager.clickButton((this.handler).syncId, l);
                     return true;
                 }

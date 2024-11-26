@@ -8,13 +8,14 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ToolItem;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class SmithingHammerItem extends ToolItem {
 
     public SmithingHammerItem(Settings settings) {
-        super(ModToolMaterials.STEEL, settings.maxCount(1).maxDamage(64).attributeModifiers(createAttributeModifiers(-3.5f)));
+        super(ToolMaterials.GOLD, settings.maxCount(1).attributeModifiers(createAttributeModifiers(-3.5f)));
     }
 
     public static AttributeModifiersComponent createAttributeModifiers(float attackSpeed) {

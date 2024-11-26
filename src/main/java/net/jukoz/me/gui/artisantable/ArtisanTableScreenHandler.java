@@ -2,12 +2,12 @@ package net.jukoz.me.gui.artisantable;
 
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
-import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.special.forge.MultipleStackRecipeInput;
 import net.jukoz.me.gui.ModScreenHandlers;
 import net.jukoz.me.recipe.ArtisanRecipe;
 import net.jukoz.me.recipe.ModRecipes;
+import net.jukoz.me.resources.datas.Disposition;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,23 +15,22 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.registry.Registries;
-import net.minecraft.screen.*;
+import net.minecraft.screen.Property;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ArtisanTableScreenHandler extends ScreenHandler {
@@ -49,8 +48,11 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     private PlayerEntity playerEntity;
     private ArtisanTableInputsShape inputsShape = null;
 
-    public ArtisanTableScreenHandler(int syncId, PlayerInventory playerInventory) {
+    private String disposition;
+
+    public ArtisanTableScreenHandler(int syncId, PlayerInventory playerInventory, String disposition) {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
+        this.disposition = disposition;
     }
 
     public ArtisanTableScreenHandler(int syncId, PlayerInventory playerInventory, final ScreenHandlerContext context) {
@@ -60,6 +62,9 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.inputStack = ItemStack.EMPTY;
         this.contentsChangedListener = () -> {
         };
+
+        this.disposition = "neutral";
+
         this.input = new SimpleInventory(9) {
             public void markDirty() {
                 super.markDirty();
@@ -101,13 +106,13 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
                 if (!itemStack.isEmpty()) {
                     ArtisanTableScreenHandler.this.populateResult(player);
                 }
-                context.run((world, pos) -> {
-                    long l = world.getTime();
-                    if (ArtisanTableScreenHandler.this.lastTakeTime != l) {
-                        world.playSound(null, (BlockPos)pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.BLOCKS, 1.0f, 1.0f);
-                        ArtisanTableScreenHandler.this.lastTakeTime = l;
-                    }
-                });
+
+                long l = world.getTime();
+                if (ArtisanTableScreenHandler.this.lastTakeTime != l) {
+                    world.playSound(null, (BlockPos)player.getBlockPos(), SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                    ArtisanTableScreenHandler.this.lastTakeTime = l;
+                }
+
                 super.onTakeItem(player, itemStack);
             }
 
@@ -161,12 +166,12 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     public void onContentChanged(Inventory inventory) {
         ItemStack itemStack = this.inputSlots[0][0].getStack();
         this.inputStack = itemStack.copy();
-        this.updateInput(inventory, itemStack);
+        this.updateInput(inventory);
     }
 
     public void changeTab(String shapeId) {
         if(playerEntity != null) {
-            this.context.run((world, pos) -> this.dropInventory(this.playerEntity, this.input));
+            this.dropInventory(this.playerEntity, this.input);
         }
 
         ArtisanTableInputsShape inputsShape = ArtisanTableInputsShape.getShape(shapeId);
@@ -184,7 +189,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         }
     }
 
-    private void updateInput(Inventory inventory, ItemStack stack) {
+    private void updateInput(Inventory inventory) {
         String currentCategory = this.inputsShape.getId();
         if(currentCategory == null) return;
 
@@ -204,8 +209,12 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
 
         ArrayList<RecipeEntry<ArtisanRecipe>> filteredRecipes = new ArrayList<>();
         for(RecipeEntry<ArtisanRecipe> recipeEntry : this.availableRecipes) {
-            if(recipeEntry.value().category.equals(currentCategory)) {
-                filteredRecipes.add(recipeEntry);
+            if (recipeEntry.value().category.equals(currentCategory)){
+                if (Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.NEUTRAL){
+                    filteredRecipes.add(recipeEntry);
+                } else if(Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.valueOf(this.disposition.toUpperCase())) {
+                    filteredRecipes.add(recipeEntry);
+                }
             }
         }
         this.availableRecipes = filteredRecipes;
@@ -289,9 +298,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     public void onClosed(PlayerEntity player) {
         super.onClosed(player);
         this.output.removeStack(6);
-        this.context.run((world, pos) -> {
-            this.dropInventory(player, this.input);
-        });
+        this.dropInventory(player, this.input);
     }
     private void addPlayerInventory(PlayerInventory playerInventory) {
         for (int i = 0; i < 3; ++i) {

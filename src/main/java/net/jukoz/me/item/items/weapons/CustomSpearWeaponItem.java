@@ -4,8 +4,6 @@ import net.jukoz.me.entity.projectile.spear.SpearEntity;
 import net.jukoz.me.item.utils.ModWeaponTypes;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -13,11 +11,9 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.text.MutableText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class CustomSpearWeaponItem extends ReachWeaponItem {
@@ -42,17 +38,8 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
         super(toolMaterial, subFaction, ModWeaponTypes.SPEAR);
     }
 
-    @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        super.inventoryTick(stack, world, entity, slot, selected);
-    }
-
     public float getAttackDamage() {
         return this.getMaterial().getAttackDamage();
-    }
-
-    public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
-        return !miner.isCreative();
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
@@ -70,7 +57,6 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
         return 48000;
     }
-
 
     @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {

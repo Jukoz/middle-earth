@@ -14,10 +14,6 @@
     "facing=west": {
       "model": "me:block/treated_anvil",
       "y": 270
-    },
-    "facing=down": {
-      "model": "me:block/treated_anvil",
-      "y": 0
     }
   }
 }

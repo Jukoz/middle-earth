@@ -76,7 +76,6 @@ public class HotMetalsModel {
             add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SHORT_BLADE, 80));
             add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SHOVEL_HEAD, 80));
             add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SWORD_HILT, 80));
-            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SCALE_MAIL, 80));
             add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ModResourceItems.SHIELD_BORDER, 80));
         }
     };

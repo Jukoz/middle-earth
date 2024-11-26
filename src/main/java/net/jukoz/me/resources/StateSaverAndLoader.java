@@ -7,6 +7,7 @@ import net.jukoz.me.resources.persistent_datas.PlayerData;
 import net.jukoz.me.utils.IdentifierUtil;
 import net.jukoz.me.utils.LoggerUtil;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.MinecraftServer;
@@ -123,7 +124,20 @@ public class StateSaverAndLoader extends PersistentState {
         return state;
     }
 
-    public static PlayerData getPlayerState(LivingEntity player) {
+    public static PlayerData getPlayerState(PlayerEntity player) {
+        try {
+            if(player == null){
+                throw new Exception("Cannot have null as parameter");
+            }
+            if(player.getWorld().isClient){
+                throw new Exception("Cannot be used client side");
+            }
+        } catch (Exception e){
+            LoggerUtil.logError("StateSaverAndLoader::getPlayerState", e);
+            return null;
+        }
+
+
         // If it crashes, it means that you ain't using it correctly.
         StateSaverAndLoader serverState = getServerState(player.getWorld().getServer());
 
