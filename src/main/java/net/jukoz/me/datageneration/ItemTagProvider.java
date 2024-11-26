@@ -89,6 +89,19 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         dyeable.add(ModEquipmentItems.CAPE);
         dyeable.add(ModEquipmentItems.CLOAK);
+        dyeable.add(ModEquipmentItems.SURCOAT);
+        dyeable.add(ModEquipmentItems.BLACK_FUR_CLOAK);
+        dyeable.add(ModEquipmentItems.BROWN_FUR_CLOAK);
+        dyeable.add(ModEquipmentItems.GRAY_FUR_CLOAK);
+        dyeable.add(ModEquipmentItems.TAN_FUR_CLOAK);
+        dyeable.add(ModEquipmentItems.WHITE_FUR_CLOAK);
+
+        dyeable.add(ModEquipmentItems.HOOD);
+        dyeable.add(ModEquipmentItems.BLACK_FUR_HOOD);
+        dyeable.add(ModEquipmentItems.BROWN_FUR_HOOD);
+        dyeable.add(ModEquipmentItems.GRAY_FUR_HOOD);
+        dyeable.add(ModEquipmentItems.TAN_FUR_HOOD);
+        dyeable.add(ModEquipmentItems.WHITE_FUR_HOOD);
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {

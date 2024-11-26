@@ -6,6 +6,7 @@ import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.utils.MEEquipmentTooltip;
 import net.jukoz.me.item.utils.armor.ExtendedArmorMaterial;
+import net.jukoz.me.item.utils.armor.ModDyeablePieces;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.item.ArmorItem;
@@ -54,10 +55,18 @@ public class CustomChestplateItem extends ArmorItem implements MEEquipmentToolti
         CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
 
         if(dyeDataComponent != null){
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyed").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
         }
         if (capeDataComponent != null) {
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape().getName()));
+            if (ModDyeablePieces.dyeableCapes.containsKey(capeDataComponent.cape())){
+                list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape().getName())
+                                .append(" (")
+                        .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyed")
+                        .append(": " + String.format("#%06X", (0xFFFFFF & CapeDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR))))
+                                .append(")")));
+            } else {
+                list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + capeDataComponent.cape().getName()));
+            }
         }
 
         return list;
