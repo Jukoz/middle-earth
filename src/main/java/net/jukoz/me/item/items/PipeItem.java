@@ -2,12 +2,16 @@ package net.jukoz.me.item.items;
 
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.particles.ModParticleTypes;
+import net.jukoz.me.sound.ModSounds;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -43,6 +47,7 @@ public class PipeItem extends Item {
             driedPipeweedStack.decrementUnlessCreative(1, user);
             itemStack.setDamage(0);
             ((PlayerEntity)user).getItemCooldownManager().set(this, 20);
+            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_COMPOSTER_FILL, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
         }
         else{
@@ -61,10 +66,13 @@ public class PipeItem extends Item {
             spawnSmoke(remainingUseTicks, user, world);
         }
         this.smoking = false;
+        ((PlayerEntity)user).getItemCooldownManager().set(this, 20);
+
     }
 
     public ItemStack finishUsing(ItemStack item, World world, LivingEntity user){
         spawnSmoke(0, user, world);
+
         this.smoking = false;
         return item;
     }
@@ -82,7 +90,9 @@ public class PipeItem extends Item {
                 user.getY() + user.getEyeHeight(user.getPose()) + vec.y * 0.5,
                 user.getZ() + vec.z * 0.5,
                 vec.x * f, vec.y *f, vec.z *f);
-        ((PlayerEntity)user).getItemCooldownManager().set(this, 20);
+        //https://pixabay.com/service/license-summary/
+        //https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=106654"
+        world.playSound(null, user.getX(), user.getY(), user.getZ(), ModSounds.PIPE_EXHALE, SoundCategory.PLAYERS, 1.0F, 1.0F);
     }
     @Override
     public UseAction getUseAction(ItemStack stack) {

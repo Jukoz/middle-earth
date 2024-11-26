@@ -11,6 +11,7 @@ public class ModSounds {
     public static SoundEvent BELLOWS_PUSH = registerSoundEvent("bellows_push");
     public static SoundEvent NAZGUL_FADE = registerSoundEvent("nazgul_fade");
     public static SoundEvent NAZGUL_SCREAM = registerSoundEvent("nazgul_scream");
+    public static SoundEvent PIPE_EXHALE = registerSoundEvent("pipe_exhale");
 
     private static SoundEvent registerSoundEvent(String name) {
         Identifier id = Identifier.of(MiddleEarth.MOD_ID, name);
@@ -18,6 +19,6 @@ public class ModSounds {
     }
 
     public static void registerModSounds() {
-        LoggerUtil.logDebugMsg("Registering Mod Entities for " + MiddleEarth.MOD_ID);
+        LoggerUtil.logDebugMsg("Registering Mod SoundEvents for " + MiddleEarth.MOD_ID);
     }
 }

@@ -21,5 +21,11 @@
       "me:nazgul/nazgul_scream2",
       "me:nazgul/nazgul_scream3"
     ]
+  },
+  "pipe_exhale": {
+    "subtitle": "sounds.me.pipe_exhale",
+    "sounds": [
+      "me:pipe/pipe_exhale1"
+    ]
   }
 }
