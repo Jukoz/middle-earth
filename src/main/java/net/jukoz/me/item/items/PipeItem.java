@@ -18,28 +18,40 @@ import net.minecraft.world.World;
 public class PipeItem extends Item {
     private final int USAGE_TIME = 60;
     private boolean smoking;
+    private int usesPerLeaf;
 
-    public PipeItem(Item.Settings settings) {
-        super(settings);
+
+    public PipeItem(Item.Settings settings, int amountOfUses) {
+        super(settings.maxDamage(amountOfUses));
+        usesPerLeaf = amountOfUses;
     }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        user.setCurrentHand(hand);
-        ItemStack driedPipeweedStack = user.getInventory().main.stream()
-            .filter(stack -> stack.getItem() == ModResourceItems.DRIED_PIPEWEED)
-            .findFirst()
-            .orElse(ItemStack.EMPTY);
+        if (itemStack.isDamageable() && itemStack.getDamage() >= itemStack.getMaxDamage()) {
+            // Attempt to refill the pipe using a leaf
+            ItemStack driedPipeweedStack = user.getInventory().main.stream()
+                    .filter(stack -> stack.getItem() == ModResourceItems.DRIED_PIPEWEED)
+                    .findFirst()
+                    .orElse(ItemStack.EMPTY);
 
-        if(driedPipeweedStack.isEmpty() && !user.isCreative()) return TypedActionResult.fail(itemStack);
+            if (driedPipeweedStack.isEmpty() && !user.isCreative()) {
+                return TypedActionResult.fail(itemStack);
+            }
 
-        this.smoking = true;
+            driedPipeweedStack.decrementUnlessCreative(1, user);
+            itemStack.setDamage(0);
+            ((PlayerEntity)user).getItemCooldownManager().set(this, 20);
 
-        user.incrementStat(Stats.USED.getOrCreateStat(this)); // assuming this is just for stats so why not lol
-        driedPipeweedStack.decrementUnlessCreative(1, user);
+        }
+        else{
+            user.setCurrentHand(hand);
+            this.smoking = true;
+            user.incrementStat(Stats.USED.getOrCreateStat(this));
+            itemStack.setDamage(itemStack.getDamage() + 1);
+        }
         return TypedActionResult.consume(itemStack);
-
     }
 
     @Override

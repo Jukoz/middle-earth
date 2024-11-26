@@ -148,11 +148,11 @@ public class ModToolItems {
             new EntityBucketItem(EntityType.TADPOLE, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_TADPOLE, new Item.Settings().maxCount(1).fireproof()));
     */
 
-    public static final Item PIPE = registerItem("pipe", new PipeItem(new Item.Settings().maxCount(1)));
-    public static final Item CLAYSHIRE_PIPE = registerItem("clayshire_pipe", new PipeItem(new Item.Settings().maxCount(1)));
-    public static final Item RIVERBEND_PIPE = registerItem("riverbend_pipe", new PipeItem(new Item.Settings().maxCount(1)));
-    public static final Item BRIMMINGBEND_PIPE = registerItem("brimmingbend_pipe", new PipeItem(new Item.Settings().maxCount(1)));
-    public static final Item LONGBOTTOM_PIPE = registerItem("longbottom_pipe", new PipeItem(new Item.Settings().maxCount(1)));
+    public static final Item PIPE = registerItem("pipe", new PipeItem(new Item.Settings().maxCount(1), 3));
+    public static final Item CLAYSHIRE_PIPE = registerItem("clayshire_pipe", new PipeItem(new Item.Settings().maxCount(1), 3));
+    public static final Item RIVERBEND_PIPE = registerItem("riverbend_pipe", new PipeItem(new Item.Settings().maxCount(1), 3 ));
+    public static final Item BRIMMINGBEND_PIPE = registerItem("brimmingbend_pipe", new PipeItem(new Item.Settings().maxCount(1), 5));
+    public static final Item LONGBOTTOM_PIPE = registerItem("longbottom_pipe", new PipeItem(new Item.Settings().maxCount(1), 5));
 
 
     private static Item registerItem(String name, Item item) {
