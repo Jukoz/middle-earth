@@ -399,7 +399,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
         float eastSlope = Math.abs((eastHeight - height) / offset);
         float southSlope = Math.abs((southHeight - height) / offset);
-        float highestSlope = Math.max(eastSlope, southSlope);
+        float highestSlope = (eastSlope + southSlope) / 2;
 
         return (float) Math.toDegrees(Math.atan(highestSlope));
     }

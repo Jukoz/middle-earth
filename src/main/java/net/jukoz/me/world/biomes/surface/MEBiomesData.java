@@ -193,7 +193,7 @@ public class MEBiomesData {
         add(new Color(0x3c2a2a), new MapBasedCustomBiome(MEBiomeKeys.MORDOR, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0x2d2a2a), new MapBasedCustomBiome(MEBiomeKeys.MORDOR_MOUNTAINS_FOOTHILLS, 36, MEBiomeDataConfigs.mountainModifier.heightModifier(0.33f)));
         add(new Color(0x241f1f), new MapBasedCustomBiome(MEBiomeKeys.MORDOR_MOUNTAINS, 73, MEBiomeDataConfigs.mountainModifier));
-        add(new Color(0x1a1717), new MapBasedCustomBiome(MEBiomeKeys.MORDOR_MOUNTAINS_PEAKS, 93, MEBiomeDataConfigs.mountainModifier.heightModifier(0.38f)));
+        add(new Color(0x1a1717), new MapBasedCustomBiome(MEBiomeKeys.MORDOR_MOUNTAINS_PEAKS, 93, MEBiomeDataConfigs.mountainModifier.heightModifier(0.38f).noiseModifier(0.97f)));
         add(new Color(0x585247), new MapBasedCustomBiome(MEBiomeKeys.MORDOR_WASTES, 3, MEBiomeDataConfigs.landModifier));
         add(new Color(0x2d3a2c), new MapBasedCustomBiome(MEBiomeKeys.MORGUL_VALE, 3, MEBiomeDataConfigs.landModifier));
         add(new Color(0x635e5e), new MapBasedCustomBiome(MEBiomeKeys.MOUNT_GUNDABAD_BASE, 39, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f)));
