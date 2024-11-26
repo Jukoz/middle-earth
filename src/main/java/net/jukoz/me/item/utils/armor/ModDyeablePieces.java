@@ -47,8 +47,8 @@ public class ModDyeablePieces {
         dyeablePieces.put(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR, true);
         dyeablePieces.put(ModEquipmentItems.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR, true);
 
-        dyeableCapes.put(ModCapes.BASE_CAPE, true);
-        dyeableCapes.put(ModCapes.BASE_CLOAK, false);
+        dyeableCapes.put(ModCapes.CAPE, true);
+        dyeableCapes.put(ModCapes.CLOAK, false);
         dyeableCapes.put(ModCapes.SURCOAT, true);
         dyeableCapes.put(ModCapes.BLACK_FUR_CLOAK, true);
         dyeableCapes.put(ModCapes.BROWN_FUR_CLOAK, true);
@@ -56,7 +56,7 @@ public class ModDyeablePieces {
         dyeableCapes.put(ModCapes.TAN_FUR_CLOAK, true);
         dyeableCapes.put(ModCapes.WHITE_FUR_CLOAK, true);
 
-        dyeableHoods.put(ModHoods.BASE_HOOD, true);
+        dyeableHoods.put(ModHoods.HOOD, false);
         dyeableHoods.put(ModHoods.BLACK_FUR_HOOD, true);
         dyeableHoods.put(ModHoods.BROWN_FUR_HOOD, true);
         dyeableHoods.put(ModHoods.GRAY_FUR_HOOD, true);

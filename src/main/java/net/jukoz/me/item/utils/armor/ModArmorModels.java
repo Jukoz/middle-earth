@@ -143,9 +143,9 @@ public class ModArmorModels {
     }
 
     public enum ModCapePairedModels implements StringIdentifiable {
-        BASE_CAPE(ModCapes.BASE_CAPE, ModCapeModels.MEDIUM_MODELS),
+        CAPE(ModCapes.CAPE, ModCapeModels.MEDIUM_MODELS),
         SURCOAT(ModCapes.SURCOAT, ModCapeModels.SURCOAT_MODELS),
-        BASE_CLOAK(ModCapes.BASE_CLOAK, ModCapeModels.WIDE_MODELS),
+        CLOAK(ModCapes.CLOAK, ModCapeModels.WIDE_MODELS),
 
         BLACK_FUR_CLOAK(ModCapes.BLACK_FUR_CLOAK, ModCapeModels.FUR_MODELS),
         BROWN_FUR_CLOAK(ModCapes.BROWN_FUR_CLOAK, ModCapeModels.FUR_MODELS),
@@ -202,7 +202,7 @@ public class ModArmorModels {
 
 
     public enum ModHoodPairedModels implements StringIdentifiable {
-        BASE_HOOD(ModHoods.BASE_HOOD, ModHoodModels.REGULAR_MODELS),
+        HOOD(ModHoods.HOOD, ModHoodModels.REGULAR_MODELS),
 
         BLACK_FUR_HOOD(ModHoods.BLACK_FUR_HOOD, ModHoodModels.FUR_MODELS),
         BROWN_FUR_HOOD(ModHoods.BROWN_FUR_HOOD, ModHoodModels.FUR_MODELS),

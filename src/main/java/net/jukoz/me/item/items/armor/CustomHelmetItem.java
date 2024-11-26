@@ -2,10 +2,12 @@ package net.jukoz.me.item.items.armor;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModDataComponentTypes;
+import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.utils.MEEquipmentTooltip;
 import net.jukoz.me.item.utils.armor.ExtendedArmorMaterial;
+import net.jukoz.me.item.utils.armor.ModDyeablePieces;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
 import net.minecraft.item.ArmorItem;
@@ -58,7 +60,15 @@ public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
             list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyed").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
         }
         if (hoodDataComponent != null) {
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood().getName()));
+            if (ModDyeablePieces.dyeableHoods.containsKey(hoodDataComponent.hood())){
+                list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood().getName())
+                        .append(" (")
+                        .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyed")
+                                .append(": " + String.format("#%06X", (0xFFFFFF & HoodDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR))))
+                                .append(")")));
+            } else {
+                list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood().getName()));
+            }
         }
 
         return list;
@@ -74,10 +84,10 @@ public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
         HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
         if (hoodDataComponent != null){
             if (hoodDataComponent.down() && hoodDataComponent.getHood().getConstantState() == null) {
-                stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(false, hoodDataComponent.hood()));
+                stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(false, hoodDataComponent.hood(), hoodDataComponent.hoodColor()));
                 player.sendMessage(Text.translatable("alert." + MiddleEarth.MOD_ID + ".hood_up"), true);
             } else if (!hoodDataComponent.down() && hoodDataComponent.getHood().getConstantState() == null){
-                stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, hoodDataComponent.hood()));
+                stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, hoodDataComponent.hood(), hoodDataComponent.hoodColor()));
                 player.sendMessage(Text.translatable("alert." + MiddleEarth.MOD_ID + ".hood_down"), true);
             }
         }

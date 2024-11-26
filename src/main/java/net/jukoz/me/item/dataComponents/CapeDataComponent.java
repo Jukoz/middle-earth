@@ -19,7 +19,7 @@ public record CapeDataComponent(ModCapes cape, int capeColor){
                 .apply(instance, CapeDataComponent::new);
     });
     public static final Codec<CapeDataComponent> CODEC  = Codec.withAlternative(BASE_CODEC, Codec.BOOL, (enabled) -> {
-        return new CapeDataComponent(ModCapes.BASE_CAPE, CustomDyeableDataComponent.DEFAULT_COLOR);
+        return new CapeDataComponent(ModCapes.CAPE, CustomDyeableDataComponent.DEFAULT_COLOR);
     });
     public static final PacketCodec<ByteBuf, CapeDataComponent> PACKET_CODEC  = PacketCodec.tuple(ModCapes.PACKET_CODEC, CapeDataComponent::getCape, PacketCodecs.INTEGER, CapeDataComponent::capeColor, CapeDataComponent::new);
     ;

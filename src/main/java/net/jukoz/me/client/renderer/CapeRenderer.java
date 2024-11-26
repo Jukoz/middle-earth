@@ -58,7 +58,7 @@ public class CapeRenderer implements ArmorRenderer {
 
                 if (ModDyeablePieces.dyeableCapes.containsKey(capeDataComponent.getCape())) {
                     renderDyeableCape(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + ".png"), false);
-                    if (ModDyeablePieces.dyeableCapes.get(capeDataComponent.cape()).booleanValue()){
+                    if (ModDyeablePieces.dyeableCapes.get(capeDataComponent.cape())){
                         ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + "_overlay.png"));
                     }
                 } else {

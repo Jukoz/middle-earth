@@ -67,7 +67,12 @@ public class ArmorCapeRecipe extends SpecialCraftingRecipe {
         }
 
         if (!itemStack.isEmpty()) {
-            int color = cape.get(ModDataComponentTypes.DYE_DATA).customRgb();
+            int color;
+            if (cape.get(ModDataComponentTypes.DYE_DATA) != null){
+                color = cape.get(ModDataComponentTypes.DYE_DATA).customRgb();
+            } else {
+                color = 0;
+            }
             return CapeDataComponent.setCapeWithColor(itemStack,
                     cape.get(ModDataComponentTypes.CAPE_DATA).cape(),
                     color);

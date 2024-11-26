@@ -139,7 +139,7 @@ public class NpcGearItemData {
             } else if(isDown == null){
                 hoodState = Math.random() >= 0.5;
             }
-            itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood));
+            itemStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(hoodState, hood, CustomDyeableDataComponent.DEFAULT_COLOR));
         }
         return itemStack;
     }
