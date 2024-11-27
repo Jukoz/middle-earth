@@ -19,8 +19,8 @@ public class MordorOrcHelmetModel<T extends LivingEntity> extends HelmetAddonMod
         ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
         ModelPartData Addon = head.addChild("Addon", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -1.0F, 0.0F));
-        ModelPartData Snout = Addon.addChild("Snout", ModelPartBuilder.create(), ModelTransform.of(0.0F, -0.452F, -2.59F, 1.1345F, 0.0F, 0.0F));
-        Snout.addChild("cube_r1", ModelPartBuilder.create().uv(0, 16).cuboid(-3.0F, -3.0F, -8.5F, 7.0F, 7.0F, 12.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.7854F));
+        ModelPartData Snout = Addon.addChild("snout_parent", ModelPartBuilder.create(), ModelTransform.of(0.0F, -0.452F, -2.59F, 1.1345F, 0.0F, 0.0F));
+        Snout.addChild("snout", ModelPartBuilder.create().uv(0, 16).cuboid(-3.0F, -3.0F, -8.5F, 7.0F, 7.0F, 12.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.7854F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
