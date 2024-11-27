@@ -26,12 +26,8 @@ public record CustomDyeableDataComponent(int customRgb) {
     public static final PacketCodec<ByteBuf, CustomDyeableDataComponent> PACKET_CODEC;
     public static final int DEFAULT_COLOR = -6265536;
 
-    public CustomDyeableDataComponent(int customRgb) {
-        this.customRgb = customRgb;
-    }
-
     public static int getColor(ItemStack stack, int defaultColor) {
-        CustomDyeableDataComponent dyedColorComponent = (CustomDyeableDataComponent) stack.get(ModDataComponentTypes.DYE_DATA);
+        CustomDyeableDataComponent dyedColorComponent = stack.get(ModDataComponentTypes.DYE_DATA);
         return dyedColorComponent != null ? ColorHelper.Argb.fullAlpha(dyedColorComponent.customRgb()) : defaultColor;
     }
 
@@ -95,7 +91,6 @@ public record CustomDyeableDataComponent(int customRgb) {
     public int customRgb() {
         return this.customRgb;
     }
-
 
     static {
         CODEC = Codec.withAlternative(BASE_CODEC, Codec.INT, CustomDyeableDataComponent::new);

@@ -233,14 +233,9 @@ public class MiddleEarthClient implements ClientModInitializer {
         for(ModArmorModels.ModHelmetModels model : ModArmorModels.ModHelmetModels.values()){
             ArmorRenderer.register(new HelmetArmorRenderer(model.getModel()), model.getItem());
         }
-        for(ModArmorModels.ModRustyHelmetModels model : ModArmorModels.ModRustyHelmetModels.values()){
-            ArmorRenderer.register(new DegradedHelmetArmorRenderer(model.getModel()), model.getItem());
-        }
+
         for(ModArmorModels.ModChestplateModels model : ModArmorModels.ModChestplateModels.values()){
             ArmorRenderer.register(new ChestplateArmorRenderer(model.getModel()), model.getItem());
-        }
-        for(ModArmorModels.ModRustyChestplateModels model : ModArmorModels.ModRustyChestplateModels.values()){
-            ArmorRenderer.register(new DegradedChestplateArmorRenderer(model.getModel()), model.getItem());
         }
 
         ModEquipmentItems.armorPiecesListHelmets.forEach(armor -> {
@@ -255,20 +250,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         ModEquipmentItems.armorPiecesListBoots.forEach(armor -> {
             ArmorRenderer.register(new BootsArmorRenderer(), armor.asItem());
         });
-
-        ModEquipmentItems.armorPiecesListRustyHelmets.forEach(armor -> {
-            ArmorRenderer.register(new DegradedHelmetArmorRenderer(), armor.asItem());
-        });
-        ModEquipmentItems.armorPiecesListRustyChestplates.forEach(armor -> {
-            ArmorRenderer.register(new DegradedChestplateArmorRenderer(), armor.asItem());
-        });
-        ModEquipmentItems.armorPiecesListRustyLeggings.forEach(armor -> {
-            ArmorRenderer.register(new DegradedLeggingsArmorRenderer(), armor.asItem());
-        });
-        ModEquipmentItems.armorPiecesListRustyBoots.forEach(armor -> {
-            ArmorRenderer.register(new DegradedBootsArmorRenderer(), armor.asItem());
-        });
-
 
         ModEquipmentItems.hoods.forEach(hood -> {
             ArmorRenderer.register(new HoodRenderer(), hood);

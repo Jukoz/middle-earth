@@ -1,7 +1,11 @@
 package net.jukoz.me.recipe;
 
+import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModDataComponentTypes;
+import net.jukoz.me.item.ModEquipmentItems;
+import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.items.armor.CustomChestplateItem;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ShearsItem;
@@ -9,7 +13,9 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.input.CraftingRecipeInput;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
@@ -30,7 +36,11 @@ public class ArmorCapeRemovalRecipe extends SpecialCraftingRecipe {
                 defaultedList.set(i, new ItemStack(itemStack.getItem().getRecipeRemainder()));
             } else if (itemStack.getItem() instanceof ShearsItem) {
                 defaultedList.set(i, itemStack.copyWithCount(1));
-                break;
+            } else if (itemStack.get(ModDataComponentTypes.CAPE_DATA) != null){
+                ItemStack cape = new ItemStack(Registries.ITEM.get(Identifier.of(MiddleEarth.MOD_ID, itemStack.get(ModDataComponentTypes.CAPE_DATA).cape().getName())));
+                cape.set(ModDataComponentTypes.CAPE_DATA, itemStack.get(ModDataComponentTypes.CAPE_DATA));
+                cape.set(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(itemStack.get(ModDataComponentTypes.CAPE_DATA).capeColor()));
+                defaultedList.set(i, cape);
             }
         }
 

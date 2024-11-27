@@ -10,6 +10,7 @@ import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.items.armor.CustomHelmetItem;
 import net.jukoz.me.item.utils.armor.ModArmorModels;
+import net.jukoz.me.item.utils.armor.ModDyeablePieces;
 import net.jukoz.me.recipe.ModTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -84,7 +85,14 @@ public class HelmetArmorRenderer implements ArmorRenderer {
                 contextModel.copyBipedStateTo(hoodModel);
                 hoodModel.setVisible(false);
                 hoodModel.hat.visible = true;
-                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, hoodModel, textureHood, false);
+                if (ModDyeablePieces.dyeableHoods.containsKey(hoodDataComponent.getHood())) {
+                    HoodRenderer.renderDyeableHood(matrices, vertexConsumers, light, stack, hoodModel, textureHood, true);
+                    if (ModDyeablePieces.dyeableHoods.get(hoodDataComponent.hood())){
+                        ModArmorRenderer.renderTranslucentPiece(matrices, vertexConsumers, light, stack, hoodModel, Identifier.of(MiddleEarth.MOD_ID, textureHood.getPath().replaceAll(".png", "_overlay.png")));
+                    }
+                } else {
+                    ModArmorRenderer.renderTranslucentPiece(matrices, vertexConsumers, light, stack, hoodModel, textureHood);
+                }
             }
         }
     }

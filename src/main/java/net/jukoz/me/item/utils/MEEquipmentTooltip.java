@@ -14,6 +14,8 @@ import java.util.List;
 
 public interface MEEquipmentTooltip {
 
+    String COLOR_PREFIX = "#%06X";
+
     default void appendBaseTooltip(List<Text> tooltip, ItemStack stack, ModFactions faction, ModSubFactions subFaction) {
         ProfileComponent profileComponent = stack.get(DataComponentTypes.PROFILE);
 
