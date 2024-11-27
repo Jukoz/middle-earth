@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,17 +58,17 @@ public class CustomHelmetItem extends ArmorItem implements MEEquipmentTooltip {
         CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
 
         if(dyeDataComponent != null){
-            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyed").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color").append(": " + String.format(MEEquipmentTooltip.COLOR_PREFIX, (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))).formatted(Formatting.GRAY));
         }
         if (hoodDataComponent != null) {
             if (ModDyeablePieces.dyeableHoods.containsKey(hoodDataComponent.hood())){
                 list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood().getName())
                         .append(" (")
-                        .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyed")
+                        .append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color")
                                 .append(": " + String.format("#%06X", (0xFFFFFF & HoodDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR))))
-                                .append(")")));
+                                .append(")")).formatted(Formatting.GRAY));
             } else {
-                list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood().getName()));
+                list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood().getName()).formatted(Formatting.GRAY));
             }
         }
 
