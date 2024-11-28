@@ -4,12 +4,11 @@ import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
+import net.jukoz.me.item.utils.MEEquipmentTooltip;
 import net.jukoz.me.item.utils.armor.ModArmorMaterials;
+import net.jukoz.me.item.utils.armor.ModDyeablePieces;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
@@ -17,9 +16,10 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class HoodHelmetItem extends ArmorItem {
+public class HoodHelmetItem extends ArmorItem implements MEEquipmentTooltip {
     public ModFactions faction;
     public ModSubFactions subFaction;
 
@@ -40,40 +40,24 @@ public class HoodHelmetItem extends ArmorItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        ProfileComponent profileComponent = stack.get(DataComponentTypes.PROFILE);
-
-        tooltip.add(Text.of(""));
+    public List<Text> getAdditionalAltLines(ItemStack stack) {
+        List<Text> list = new ArrayList<>(List.of());
         HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
         CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
 
-        if(Screen.hasShiftDown()){
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
-            if(subFaction != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
-            }
-            if (profileComponent != null && profileComponent.name().isPresent()) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artisan").append(profileComponent.name().get()).formatted(Formatting.GRAY));
-            }
-            tooltip.add(Text.of(""));
-        } else {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
+        if(dyeDataComponent != null){
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".color").append(": " + String.format(MEEquipmentTooltip.COLOR_PREFIX, (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))).formatted(Formatting.GRAY));
+        }
+        if (hoodDataComponent != null) {
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood().getName()).formatted(Formatting.GRAY));
         }
 
-        if(Screen.hasAltDown()){
-            tooltip.add(Text.of(""));
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
+        return list;
+    }
 
-            if(dyeDataComponent != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))));
-            }
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hoodDataComponent.hood().getName()));
-
-
-        }else {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
-        }
-
+    @Override
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
         super.appendTooltip(stack, context, tooltip, type);
     }
 
@@ -81,10 +65,10 @@ public class HoodHelmetItem extends ArmorItem {
         HoodDataComponent hoodDataComponent = stack.get(ModDataComponentTypes.HOOD_DATA);
         if (hoodDataComponent != null){
             if (hoodDataComponent.down() && hoodDataComponent.getHood().getConstantState() == null) {
-                stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(false, hoodDataComponent.hood()));
+                stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(false, hoodDataComponent.hood(), hoodDataComponent.hoodColor()));
                 player.sendMessage(Text.translatable("alert." + MiddleEarth.MOD_ID + ".hood_up"), true);
             } else if (!hoodDataComponent.down() && hoodDataComponent.getHood().getConstantState() == null){
-                stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, hoodDataComponent.hood()));
+                stack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, hoodDataComponent.hood(), hoodDataComponent.hoodColor()));
                 player.sendMessage(Text.translatable("alert." + MiddleEarth.MOD_ID + ".hood_down"), true);
             }
         }

@@ -1,6 +1,7 @@
 package net.jukoz.me.world.features.boulder;
 
 import com.mojang.serialization.Codec;
+import net.jukoz.me.block.StoneBlockSets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -21,6 +22,11 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
         BlockPos blockPos = context.getOrigin();
         StructureWorldAccess structureWorldAccess = context.getWorld();
         Random random = context.getRandom();
+
+        BlockState underBlock = structureWorldAccess.getBlockState(blockPos.down());
+        if(underBlock == StoneBlockSets.COBBLED_NURGON.base().getDefaultState() || underBlock == StoneBlockSets.SMOOTH_MEDGON.base().getDefaultState()) {
+            return false;
+        }
 
         var config = context.getConfig();
         float length = (float) Math.ceil(config.length) + (random.nextFloat() * config.randomSize);

@@ -10,6 +10,7 @@ import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.items.armor.CustomChestplateItem;
 import net.jukoz.me.item.utils.armor.ModArmorModels;
+import net.jukoz.me.item.utils.armor.ModDyeablePieces;
 import net.jukoz.me.recipe.ModTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -26,7 +27,6 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
     private CustomChestplateModel<LivingEntity> customChestplateModel;
     private ChestplateAddonModel<LivingEntity> capeModel;
     private ChestplateAddonModel<LivingEntity> chestplateModel;
-
 
     public ChestplateArmorRenderer() {
     }
@@ -79,8 +79,14 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
                 capeModel.rightLeg.visible = true;
                 capeModel.leftLeg.visible = true;
                 capeModel.setAngles(entity, entity.limbAnimator.getPos(), entity.limbAnimator.getSpeed(), (float) entity.age + MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true), contextModel.head.yaw, contextModel.head.roll);
-                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + ".png"), false);
-        }
+                if (ModDyeablePieces.dyeableCapes.containsKey(capeDataComponent.getCape())) {
+                    CapeRenderer.renderDyeableCape(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + ".png"), true);
+                    if (ModDyeablePieces.dyeableCapes.get(capeDataComponent.cape()).booleanValue()){
+                        ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + "_overlay.png"));
+                    }
+                } else {
+                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/cape/" + capeDataComponent.cape().getName() + ".png"));
+                }}
         }
     }
 }

@@ -67,10 +67,16 @@ public class ArmorHoodRecipe extends SpecialCraftingRecipe {
         }
 
         if (!itemStack.isEmpty()) {
-            if (hood.get(ModDataComponentTypes.HOOD_DATA).hood().getConstantState() == ModHoodStates.DOWN){
-                return HoodDataComponent.setHood(itemStack, true, hood.get(ModDataComponentTypes.HOOD_DATA).hood());
+            int color;
+            if (hood.get(ModDataComponentTypes.DYE_DATA) != null){
+                color = hood.get(ModDataComponentTypes.DYE_DATA).customRgb();
             } else {
-                return HoodDataComponent.setHood(itemStack, false, hood.get(ModDataComponentTypes.HOOD_DATA).hood());
+                color = 0;
+            }
+            if (hood.get(ModDataComponentTypes.HOOD_DATA).hood().getConstantState() == ModHoodStates.DOWN){
+                return HoodDataComponent.setHoodWithcolor(itemStack, true, hood.get(ModDataComponentTypes.HOOD_DATA).hood(), color);
+            } else {
+                return HoodDataComponent.setHoodWithcolor(itemStack, false, hood.get(ModDataComponentTypes.HOOD_DATA).hood(), color);
             }
         } else {
             return ItemStack.EMPTY;

@@ -64,6 +64,9 @@ public class ModArmorModels {
 
         BLACK_URUK_COMMANDER_HELMET(ModEquipmentItems.BLACK_URUK_COMMANDER_HELMET, new HelmetSkullModel<>(HelmetSkullModel.getTexturedModelData().createModel())),
 
+        MORDOR_ORC_SNOUT_HELMET(ModEquipmentItems.MORDOR_ORC_SNOUT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
+        ORC_SALLET(ModEquipmentItems.ORC_SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),
+
         URUK_HAI_LEATHER_SCOUT_CAP(ModEquipmentItems.URUK_HAI_LEATHER_SCOUT_CAP, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_PLATE_HELMET(ModEquipmentItems.URUK_HAI_PLATE_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_PLATE_PAINTED_HELMET(ModEquipmentItems.URUK_HAI_PLATE_PAINTED_HELMET, new IsenUrukHelmetModel<>(IsenUrukHelmetModel.getTexturedModelData().createModel())),
@@ -90,28 +93,6 @@ public class ModArmorModels {
         private final HelmetAddonModel<LivingEntity> model;
 
         ModHelmetModels(Item item, HelmetAddonModel<LivingEntity> model){
-            this.item = item;
-            this.model = model;
-        }
-
-        public Item getItem() {
-            return item;
-        }
-
-        public HelmetAddonModel<LivingEntity> getModel() {
-            return model;
-        }
-    }
-
-    public enum ModRustyHelmetModels{
-        MORDOR_ORC_SNOUT_HELMET(ModEquipmentItems.MORDOR_ORC_SNOUT_HELMET, new MordorOrcHelmetModel<>(MordorOrcHelmetModel.getTexturedModelData().createModel())),
-        ORC_SALLET(ModEquipmentItems.ORC_SALLET, new SalletHelmetAddonModel<>(SalletHelmetAddonModel.getTexturedModelData().createModel())),
-        ;
-
-        private final Item item;
-        private final HelmetAddonModel<LivingEntity> model;
-
-        ModRustyHelmetModels(Item item, HelmetAddonModel<LivingEntity> model){
             this.item = item;
             this.model = model;
         }
@@ -161,30 +142,10 @@ public class ModArmorModels {
         }
     }
 
-    public enum ModRustyChestplateModels{
-        ;
-
-        private final Item item;
-        private final ChestplateAddonModel<LivingEntity> model;
-
-        ModRustyChestplateModels(Item item, ChestplateAddonModel<LivingEntity> model){
-            this.item = item;
-            this.model = model;
-        }
-
-        public Item getItem() {
-            return item;
-        }
-
-        public ChestplateAddonModel<LivingEntity> getModel() {
-            return model;
-        }
-    }
-
     public enum ModCapePairedModels implements StringIdentifiable {
-        BASE_CAPE(ModCapes.BASE_CAPE, ModCapeModels.MEDIUM_MODELS),
+        CAPE(ModCapes.CAPE, ModCapeModels.MEDIUM_MODELS),
         SURCOAT(ModCapes.SURCOAT, ModCapeModels.SURCOAT_MODELS),
-        BASE_CLOAK(ModCapes.BASE_CLOAK, ModCapeModels.WIDE_MODELS),
+        CLOAK(ModCapes.CLOAK, ModCapeModels.WIDE_MODELS),
 
         BLACK_FUR_CLOAK(ModCapes.BLACK_FUR_CLOAK, ModCapeModels.FUR_MODELS),
         BROWN_FUR_CLOAK(ModCapes.BROWN_FUR_CLOAK, ModCapeModels.FUR_MODELS),
@@ -241,7 +202,7 @@ public class ModArmorModels {
 
 
     public enum ModHoodPairedModels implements StringIdentifiable {
-        BASE_HOOD(ModHoods.BASE_HOOD, ModHoodModels.REGULAR_MODELS),
+        HOOD(ModHoods.HOOD, ModHoodModels.REGULAR_MODELS),
 
         BLACK_FUR_HOOD(ModHoods.BLACK_FUR_HOOD, ModHoodModels.FUR_MODELS),
         BROWN_FUR_HOOD(ModHoods.BROWN_FUR_HOOD, ModHoodModels.FUR_MODELS),

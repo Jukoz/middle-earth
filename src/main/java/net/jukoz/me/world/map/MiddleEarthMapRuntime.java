@@ -2,8 +2,8 @@ package net.jukoz.me.world.map;
 
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.resources.FileUtils;
-import net.jukoz.me.world.biomes.surface.MEBiome;
-import net.jukoz.me.world.biomes.surface.MEBiomesData;
+import net.jukoz.me.world.biomes.surface.MapBasedCustomBiome;
+import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.joml.Vector2i;
 import java.awt.*;
@@ -15,6 +15,7 @@ public class MiddleEarthMapRuntime {
     private static MiddleEarthMapRuntime single_instance = null;
     HashMap<Vector2i, MiddleEarthMapRegion> regions;
     HashMap<UUID, Vector2i> regionByUuids;
+    private BufferedImage edgeImage;
     private LoggerUtil loggerUtil;
     private MiddleEarthMapUtils middleEarthMapUtils;
 
@@ -32,15 +33,22 @@ public class MiddleEarthMapRuntime {
     public MiddleEarthMapRuntime() {
         regions = new HashMap<>();
         regionByUuids = new HashMap<>();
-
+        edgeImage = MiddleEarthMapGeneration.getEdgeHeightImage();
+        if(edgeImage == null) {
+            String path = MiddleEarthMapConfigs.BASE_HEIGHT_PATH + MiddleEarthMapConfigs.BASE_EDGE_IMAGE_NAME;
+            BufferedImage image = FileUtils.getInstance().getRunImage(path);
+            if(image != null){
+                edgeImage = image;
+            }
+        }
         middleEarthMapUtils = MiddleEarthMapUtils.getInstance();
     }
 
-    public MEBiome getBiome(int posX, int posZ) {
-        if(!middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) return MEBiomesData.defaultBiome;
+    public MapBasedCustomBiome getBiome(int posX, int posZ) {
+        if(!middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) return MapBasedBiomePool.defaultBiome;
 
         MiddleEarthMapRegion region = getRegionToUse(middleEarthMapUtils.getRegionByWorldCoordinate(posX, posZ));
-        if(region == null) return MEBiomesData.defaultBiome;
+        if(region == null) return MapBasedBiomePool.defaultBiome;
 
         return region.getBiome(getImageCoordinates(posX, posZ));
     }
@@ -53,6 +61,24 @@ public class MiddleEarthMapRuntime {
 
         Vector2i coords = getImageCoordinates(posX, posZ);
         return region.getHeightColor(coords);
+    }
+
+    public float getEdge(int posX, int posZ) {
+        posX /= middleEarthMapUtils.ratioX;
+        posZ /= middleEarthMapUtils.ratioZ;
+        if(!middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) return -0.67f;
+
+        if(edgeImage == null) return 1.001f;
+
+        Color edgeColor = new Color(edgeImage.getRGB(posX, posZ));
+
+        float average = (float)(edgeColor.getRed() + edgeColor.getGreen() +  edgeColor.getBlue()) / 3;
+
+        if(average > 0.01f) {
+            average *= 12;
+        }
+
+        return Math.max(0, 1 - (average / 255));
     }
 
     private Vector2i getImageCoordinates(int posX, int posZ){

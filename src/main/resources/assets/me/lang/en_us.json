@@ -109,6 +109,10 @@
   "biome.me.misty_mountains": "Misty Mountains",
   "biome.me.misty_mountains_base": "Misty Mountains Base",
   "biome.me.misty_mountains_peaks": "Misty Mountains Peaks",
+  "biome.me.mount_gundabad_base": "Mount Gundabad Base",
+  "biome.me.mount_gundabad": "Mount Gundabad",
+  "biome.me.mount_gundabad_peaks": "Mount Gundabad Peaks",
+  "biome.me.mount_doom": "Mount Doom",
   "biome.me.mordor": "Mordor",
   "biome.me.mordor_mountains": "Mordor Mountains",
   "biome.me.mordor_mountains_foothills": "Mordor Mountains Foothills",
@@ -6402,9 +6406,7 @@
   "tooltip.me.dunland" : "Dunland",
   "tooltip.me.dale" : "Dale",
 
-  "tooltip.me.dyeable" : "Dyeable",
-  "tooltip.me.cape" : "Cape",
-  "tooltip.me.hood" : "Hood",
+  "tooltip.me.color" : "Color",
   "tooltip.me.impaled_skulls" : "Impaled Skulls",
   "tooltip.me.skull" : "Skull",
   "tooltip.me.pouch" : "Pouch",
@@ -6464,7 +6466,7 @@
 
 "#Comment": "Capes",
 
-  "tooltip.me.base_hood": "Basic Hood",
+  "tooltip.me.hood": "Hood",
 
   "tooltip.me.black_fur_hood": "Black Fur Hood",
   "tooltip.me.brown_fur_hood": "Brown Fur Hood",
@@ -6472,7 +6474,7 @@
   "tooltip.me.tan_fur_hood": "Tan Fur Hood",
   "tooltip.me.white_fur_hood": "White Fur Hood",
 
-  "tooltip.me.base_cape": "Basic Cape",
+  "tooltip.me.cape": "Cape",
 
   "tooltip.me.black_fur_cloak": "Black Fur Cloak",
   "tooltip.me.brown_fur_cloak": "Brown Fur Cloak",
@@ -6486,7 +6488,7 @@
   "tooltip.me.tan_fur": "Tan Fur",
   "tooltip.me.white_fur": "White Fur",
 
-  "tooltip.me.base_cloak": "Basic Cloak",
+  "tooltip.me.cloak": "Cloak",
 
   "tooltip.me.surcoat": "Surcoat",
 

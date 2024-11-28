@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "me:eregion",
+    "me:ithilien",
+    "me:lothlorien",
+    "me:lorien_edge",
+    "me:northern_dunland",
+    "me:shire_woods",
+    "me:southern_dunland"
+  ]
+}

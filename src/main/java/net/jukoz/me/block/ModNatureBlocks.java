@@ -56,8 +56,8 @@ public class ModNatureBlocks {
                     .mapColor(DyeColor.GREEN).burnable()), true);
 
     public static final Block STICKY_SNOW = registerBlock("sticky_snow",
-            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
-                    .mapColor(DyeColor.GREEN).burnable()), true);
+            new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision()
+                    .strength(0.2f).sounds(BlockSoundGroup.SNOW).mapColor(DyeColor.GREEN).burnable()), true);
 
     public static final Block FOREST_MOSS = registerBlock("forest_moss",
             new GlowLichenBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)

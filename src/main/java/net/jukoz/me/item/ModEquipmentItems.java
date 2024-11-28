@@ -34,76 +34,84 @@ public class ModEquipmentItems {
     public static List<Item> armorPiecesListLeggings = new ArrayList<>();
     public static List<Item> armorPiecesListBoots = new ArrayList<>();
 
-    public static List<Item> armorPiecesListRustyHelmets = new ArrayList<>();
-    public static List<Item> armorPiecesListRustyChestplates = new ArrayList<>();
-    public static List<Item> armorPiecesListRustyLeggings = new ArrayList<>();
-    public static List<Item> armorPiecesListRustyBoots = new ArrayList<>();
-
     public static List<Item> capes = new ArrayList<>();
     public static List<Item> hoods = new ArrayList<>();
 
-
     //region GENERIC
     //Hoods
-    public static final Item HOOD = registerHood("hood",
+    public static final Item HOOD = registerDyeableHood("hood",
             new HoodHelmetItem(new Item.Settings()
-                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.BASE_HOOD)),
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.HOOD))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
-    
-    public static final Item BLACK_FUR_HOOD = registerHood("black_fur_hood",
+
+    public static final Item BLACK_FUR_HOOD = registerDyeableHood("black_fur_hood",
             new HoodHelmetItem(new Item.Settings()
-                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.BLACK_FUR_HOOD)),
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.BLACK_FUR_HOOD))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
-    public static final Item BROWN_FUR_HOOD = registerHood("brown_fur_hood",
+    public static final Item BROWN_FUR_HOOD = registerDyeableHood("brown_fur_hood",
             new HoodHelmetItem(new Item.Settings()
-                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.BROWN_FUR_HOOD)),
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.BROWN_FUR_HOOD))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
-    public static final Item GRAY_FUR_HOOD = registerHood("gray_fur_hood",
+    public static final Item GRAY_FUR_HOOD = registerDyeableHood("gray_fur_hood",
             new HoodHelmetItem(new Item.Settings()
-                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.GRAY_FUR_HOOD)),
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.GRAY_FUR_HOOD))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
-    public static final Item TAN_FUR_HOOD = registerHood("tan_fur_hood",
+    public static final Item TAN_FUR_HOOD = registerDyeableHood("tan_fur_hood",
             new HoodHelmetItem(new Item.Settings()
-                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.TAN_FUR_HOOD)),
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.TAN_FUR_HOOD))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
-    public static final Item WHITE_FUR_HOOD = registerHood("white_fur_hood",
+    public static final Item WHITE_FUR_HOOD = registerDyeableHood("white_fur_hood",
             new HoodHelmetItem(new Item.Settings()
-                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.WHITE_FUR_HOOD)),
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHood(ModHoods.WHITE_FUR_HOOD))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
 
     //capes
-    public static final Item CAPE = registerCape("cape",
+    public static final Item CAPE = registerDyeableCape("cape",
             new CapeChestplateItem(new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BASE_CAPE)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.CAPE))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
-    public static final Item SURCOAT = registerCape("surcoat",
+    public static final Item SURCOAT = registerDyeableCape("surcoat",
             new CapeChestplateItem(new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.SURCOAT)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.SURCOAT))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
-    public static final Item CLOAK = registerCape("cloak",
+    public static final Item CLOAK = registerDyeableCape("cloak",
             new CapeChestplateItem(new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BASE_CLOAK)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.CLOAK))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
-    
-    public static final Item BLACK_FUR_CLOAK = registerCape("black_fur_cloak",
+
+    public static final Item BLACK_FUR_CLOAK = registerDyeableCape("black_fur_cloak",
             new CapeChestplateItem(new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BLACK_FUR_CLOAK)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BLACK_FUR_CLOAK))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
-    public static final Item BROWN_FUR_CLOAK = registerCape("brown_fur_cloak",
+    public static final Item BROWN_FUR_CLOAK = registerDyeableCape("brown_fur_cloak",
             new CapeChestplateItem(new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BROWN_FUR_CLOAK)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.BROWN_FUR_CLOAK))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
-    public static final Item GRAY_FUR_CLOAK = registerCape("gray_fur_cloak",
+    public static final Item GRAY_FUR_CLOAK = registerDyeableCape("gray_fur_cloak",
             new CapeChestplateItem(new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GRAY_FUR_CLOAK)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.GRAY_FUR_CLOAK))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
-    public static final Item TAN_FUR_CLOAK = registerCape("tan_fur_cloak",
+    public static final Item TAN_FUR_CLOAK = registerDyeableCape("tan_fur_cloak",
             new CapeChestplateItem(new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.TAN_FUR_CLOAK)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.TAN_FUR_CLOAK))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
-    public static final Item WHITE_FUR_CLOAK = registerCape("white_fur_cloak",
+    public static final Item WHITE_FUR_CLOAK = registerDyeableCape("white_fur_cloak",
             new CapeChestplateItem(new Item.Settings()
-                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.WHITE_FUR_CLOAK)),
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.WHITE_FUR_CLOAK))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5394247)),
                     ModFactions.NONE));
 
     public static final Item BLACK_FUR = registerCape("black_fur",
@@ -299,7 +307,7 @@ public class ModEquipmentItems {
 
     public static final Item GONDORIAN_CITADEL_GUARD_HELMET = registerCustomModelArmorPiece("gondorian_citadel_guard_helmet",
             new CustomHelmetItem(ModArmorMaterials.STEEL_T5, new Item.Settings()
-                    .component(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, ModHoods.GONDORIAN_CITADEL_GUARD_HOOD)),
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHoodwithState(true, ModHoods.GONDORIAN_CITADEL_GUARD_HOOD)),
                     ModFactions.GONDOR));
     public static final Item GONDORIAN_CITADEL_GUARD_CHESTPLATE = registerArmorPiece("gondorian_citadel_guard_chestplate",
             new CustomChestplateItem(ModArmorMaterials.STEEL_T5, new Item.Settings()
@@ -328,7 +336,7 @@ public class ModEquipmentItems {
 
     public static final Item GONDORIAN_CITADEL_GUARD_HOOD = registerHood("gondorian_citadel_guard_hood",
             new HoodHelmetItem(new Item.Settings()
-                    .component(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, ModHoods.GONDORIAN_CITADEL_GUARD_HOOD)),
+                    .component(ModDataComponentTypes.HOOD_DATA, HoodDataComponent.newHoodwithState(true, ModHoods.GONDORIAN_CITADEL_GUARD_HOOD)),
                     ModFactions.GONDOR));
 
     public static final Item GONDORIAN_CAPTAIN_CAPE = registerCape("gondorian_captain_cape",
@@ -824,13 +832,13 @@ public class ModEquipmentItems {
     //region ORCS
 
     //region GENERIC
-    public static final Item ORC_MAIL_COIF = registerRustyArmorPiece("orc_mail_coif",
+    public static final Item ORC_MAIL_COIF = registerArmorPiece("orc_mail_coif",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.NONE));
-    public static final Item ORC_MAIL_HAUBERK = registerRustyArmorPiece("orc_mail_hauberk",
+    public static final Item ORC_MAIL_HAUBERK = registerArmorPiece("orc_mail_hauberk",
             new CustomChestplateItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.NONE));
-    public static final Item ORC_MAIL_COAT = registerRustyArmorPiece("orc_mail_coat",
+    public static final Item ORC_MAIL_COAT = registerArmorPiece("orc_mail_coat",
             new CustomLeggingsItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.NONE));
 
@@ -838,36 +846,36 @@ public class ModEquipmentItems {
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
                     ModFactions.NONE));
 
-    public static final Item ORC_GORGET_HAUBERK = registerRustyArmorPiece("orc_gorget_hauberk",
+    public static final Item ORC_GORGET_HAUBERK = registerArmorPiece("orc_gorget_hauberk",
             new CustomChestplateItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
                     ModFactions.NONE));
 
-    public static final Item ORC_PLATE_BOOTS = registerRustyArmorPiece("orc_plate_boots",
+    public static final Item ORC_PLATE_BOOTS = registerArmorPiece("orc_plate_boots",
             new CustomBootsItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
                     ModFactions.NONE));
     //endregion
 
     //region MORDOR
-    public static final Item MORDOR_ORC_HELMET = registerRustyArmorPiece("mordor_orc_helmet",
+    public static final Item MORDOR_ORC_HELMET = registerArmorPiece("mordor_orc_helmet",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T2, new Item.Settings(),
                     ModFactions.MORDOR));
-    public static final Item MORDOR_ORC_EYE_HELMET = registerRustyArmorPiece("mordor_orc_eye_helmet",
+    public static final Item MORDOR_ORC_EYE_HELMET = registerArmorPiece("mordor_orc_eye_helmet",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T2, new Item.Settings(),
                     ModFactions.MORDOR));
-    public static final Item MORDOR_ORC_GREAT_EYE_HELMET = registerRustyArmorPiece("mordor_orc_great_eye_helmet",
+    public static final Item MORDOR_ORC_GREAT_EYE_HELMET = registerArmorPiece("mordor_orc_great_eye_helmet",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.MORDOR));
-    public static final Item MORDOR_ORC_MANDIBLE_HELMET = registerRustyArmorPiece("mordor_orc_mandible_helmet",
+    public static final Item MORDOR_ORC_MANDIBLE_HELMET = registerArmorPiece("mordor_orc_mandible_helmet",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T3, new Item.Settings(),
                     ModFactions.MORDOR));
-    public static final Item MORDOR_ORC_OVERSIGHT_HELMET = registerRustyArmorPiece("mordor_orc_oversight_helmet",
+    public static final Item MORDOR_ORC_OVERSIGHT_HELMET = registerArmorPiece("mordor_orc_oversight_helmet",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
                     ModFactions.MORDOR));
     public static final Item MORDOR_ORC_SNOUT_HELMET = registerCustomModelArmorPiece("mordor_orc_snout_helmet",
             new CustomHelmetItem(ModArmorMaterials.CRUDE_T4, new Item.Settings(),
                     ModFactions.MORDOR));
 
-    public static final Item MORDOR_ORC_CHESTPLATE = registerRustyArmorPiece("mordor_orc_chestplate",
+    public static final Item MORDOR_ORC_CHESTPLATE = registerArmorPiece("mordor_orc_chestplate",
             new CustomChestplateItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
                     ModFactions.MORDOR));
 
@@ -1060,9 +1068,23 @@ public class ModEquipmentItems {
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
+    private static Item registerDyeableHood(String name, Item item) {
+        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
+        SimpleDyeableItemModel.items.add(item);
+        hoods.add(item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
     private static Item registerCape(String name, Item item) {
         ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
+        capes.add(item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
+    private static Item registerDyeableCape(String name, Item item) {
+        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
+        SimpleDyeableItemModel.items.add(item);
         capes.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
@@ -1082,19 +1104,6 @@ public class ModEquipmentItems {
             case CustomLeggingsItem leggingsItem -> armorPiecesListLeggings.add(leggingsItem);
             case CustomBootsItem bootsItem -> armorPiecesListBoots.add(bootsItem);
             case CustomAnimalArmorItem animalArmorItem -> {}
-            default -> throw new IllegalStateException("Unexpected value: " + item);
-        }
-        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
-    }
-
-    private static Item registerRustyArmorPiece(String name, Item item) {
-        ModItemGroups.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
-        SimpleItemModel.items.add(item);
-        switch (item){
-            case CustomHelmetItem helmetItem -> armorPiecesListRustyHelmets.add(helmetItem);
-            case CustomChestplateItem chestplateItem -> armorPiecesListRustyChestplates.add(chestplateItem);
-            case CustomLeggingsItem leggingsItem -> armorPiecesListRustyLeggings.add(leggingsItem);
-            case CustomBootsItem bootsItem -> armorPiecesListRustyBoots.add(bootsItem);
             default -> throw new IllegalStateException("Unexpected value: " + item);
         }
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);

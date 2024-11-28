@@ -9,6 +9,7 @@ import net.jukoz.me.commands.suggestions.AllCapesSuggestionProvider;
 import net.jukoz.me.commands.suggestions.AllHoodsSuggestionProvider;
 import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
+import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.dataComponents.HoodDataComponent;
 import net.jukoz.me.item.items.armor.CapeChestplateItem;
 import net.jukoz.me.item.items.armor.CustomChestplateItem;
@@ -92,9 +93,9 @@ public class CommandCustomEquipment {
 
         if ((handStack.getItem() instanceof CustomHelmetItem || handStack.getItem() instanceof HoodHelmetItem)){
             if (hood.getConstantState() == ModHoodStates.DOWN){
-                handStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, hood));
+                handStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(true, hood, CustomDyeableDataComponent.DEFAULT_COLOR));
             } else if (hood.getConstantState() == ModHoodStates.UP || hood.getConstantState() == null){
-                handStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(false, hood));
+                handStack.set(ModDataComponentTypes.HOOD_DATA, new HoodDataComponent(false, hood, CustomDyeableDataComponent.DEFAULT_COLOR));
             }
             MutableText sourceText = Text.translatable("command.me.hood.success").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + hood.getName()));
             context.getSource().sendMessage(sourceText.withColor(ModColors.SUCCESS.color));

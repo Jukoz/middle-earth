@@ -11,7 +11,7 @@ import java.util.function.IntFunction;
 
 public enum ModHoods implements StringIdentifiable {
 
-    BASE_HOOD(0,"base_hood"),
+    HOOD(0,"hood"),
     
     BLACK_FUR_HOOD(1,"black_fur_hood"),
     BROWN_FUR_HOOD(2,"brown_fur_hood"),
