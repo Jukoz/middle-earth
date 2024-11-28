@@ -2540,7 +2540,7 @@ public class ModBiomes {
             generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, feature);
         }
 
-        BiomeColorsDTO biomeColorsDTO = CustomBiomesData.getBiome(biomeRegistryKey).getBiomeColors();
+        BiomeColorsDTO biomeColorsDTO = MapBiomeData.getBiome(biomeRegistryKey).getBiomeColors();
 
         Biome biome = (new Biome.Builder())
                 .precipitation(precipitation)

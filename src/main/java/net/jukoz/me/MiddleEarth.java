@@ -24,7 +24,7 @@ import net.jukoz.me.sound.ModSounds;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.LootModifiers;
 import net.jukoz.me.utils.resources.FileUtils;
-import net.jukoz.me.world.biomes.surface.CustomBiomesData;
+import net.jukoz.me.world.biomes.surface.MapBiomeData;
 import net.jukoz.me.world.map.MiddleEarthMapGeneration;
 import net.jukoz.me.world.gen.ModWorldGeneration;
 import net.jukoz.me.world.spawners.ModEntitySpawning;
@@ -93,7 +93,7 @@ public class MiddleEarth implements ModInitializer {
 		ModStatusEffects.registerStatusEffects();
 
 		ModDimensions.register();
-		CustomBiomesData.loadBiomes();
+		MapBiomeData.loadBiomes();
 		MEBiomeKeys.registerModBiomes();
 		MapBasedBiomePool.loadBiomes();
 

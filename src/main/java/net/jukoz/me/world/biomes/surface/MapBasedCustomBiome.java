@@ -33,8 +33,8 @@ public class MapBasedCustomBiome {
     public RegistryKey<Biome> getBiomeKey(){
         return biomeRegistryKey;
     }
-    public CustomBiome getBiome(){
-        return CustomBiomesData.getBiome(biomeRegistryKey);
+    public BiomeData getBiome(){
+        return MapBiomeData.getBiome(biomeRegistryKey);
     }
 
     public int getHeight(){

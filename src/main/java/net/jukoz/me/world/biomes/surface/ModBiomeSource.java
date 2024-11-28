@@ -50,7 +50,7 @@ public class ModBiomeSource extends BiomeSource {
         return biomes.stream();
     }
 
-    private RegistryKey<Biome> getCaveBiome(int x, int z, CustomBiome surfaceBiome) {
+    private RegistryKey<Biome> getCaveBiome(int x, int z, BiomeData surfaceBiome) {
         float temperature = (float) SimplexNoise.noise((double) x / CAVE_NOISE,  (double) z / CAVE_NOISE);
         float humidity = (float) SimplexNoise.noise((double) (x + CAVE_OFFSET) / CAVE_NOISE, (double)(z + CAVE_OFFSET) / CAVE_NOISE);
         return ModCaveBiomes.getBiome(new Vec2f(temperature, humidity), surfaceBiome);
@@ -63,7 +63,7 @@ public class ModBiomeSource extends BiomeSource {
         return perlin;
     }
 
-    private RegistryKey<Biome> getSubBiome(int x, int z, CustomBiome surfaceBiome) {
+    private RegistryKey<Biome> getSubBiome(int x, int z, BiomeData surfaceBiome) {
         SubBiome subBiome = SubBiomes.getSubBiome(surfaceBiome.getBiomeRegistryKey());
         if(subBiome != null) {
             double perlin = getSubBiomeNoise(x, z);
@@ -85,7 +85,7 @@ public class ModBiomeSource extends BiomeSource {
             return biomes.get(0);
         }
 
-        CustomBiome biome = biomeHeightData.getBiome();
+        BiomeData biome = biomeHeightData.getBiome();
         RegistryKey<Biome> processedBiome;
 
         if(!MapBasedBiomePool.waterBiomes.contains(biome.getBiomeRegistryKey())) {
