@@ -2,7 +2,7 @@ package net.jukoz.me.world.chunkgen.map;
 
 import com.google.common.base.Stopwatch;
 import net.jukoz.me.utils.LoggerUtil;
-import net.jukoz.me.world.biomes.surface.MEBiomesData;
+import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
 import net.jukoz.me.world.map.MiddleEarthMapGeneration;
 import org.joml.sampling.Convolution;
 
@@ -168,7 +168,7 @@ public class ImageUtils {
     }
 
     private static int getExpansionWeight(Integer integer) throws Exception{
-        return MEBiomesData.getBiomeByColor(integer).getBiomeData().biomeWeight[(MiddleEarthMapGeneration.CURRENT_ITERATION <= 1) ? 0 : 1];
+        return MapBasedBiomePool.getBiomeByColor(integer).getBiomeData().biomeWeight[(MiddleEarthMapGeneration.CURRENT_ITERATION <= 1) ? 0 : 1];
     }
 
 
@@ -188,7 +188,7 @@ public class ImageUtils {
             imageWithBorders = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
             g2d = imageWithBorders.createGraphics();
 
-            g2d.setColor(MEBiomesData.DEFAULT_COLOR);
+            g2d.setColor(MapBasedBiomePool.DEFAULT_COLOR);
             g2d.fillRect(0, 0, newWidth, newHeight);
             g2d.drawImage(image, brushSize, brushSize, null);
         } else { // CLAMP_TO_EDGE

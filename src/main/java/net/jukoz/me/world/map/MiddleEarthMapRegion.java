@@ -2,7 +2,7 @@ package net.jukoz.me.world.map;
 
 import net.jukoz.me.utils.resources.FileUtils;
 import net.jukoz.me.world.biomes.surface.MapBasedCustomBiome;
-import net.jukoz.me.world.biomes.surface.MEBiomesData;
+import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
 import org.joml.Vector2i;
 
 import java.awt.*;
@@ -29,19 +29,19 @@ public class MiddleEarthMapRegion {
     public MapBasedCustomBiome getBiome(Vector2i imageCoordinates){
         try {
             if(biomeImage != null){
-                return MEBiomesData.getBiomeByColor(biomeImage.getRGB(imageCoordinates.x, imageCoordinates.y));
+                return MapBasedBiomePool.getBiomeByColor(biomeImage.getRGB(imageCoordinates.x, imageCoordinates.y));
             }
         } catch (Exception exception){
-            return MEBiomesData.defaultBiome;
+            return MapBasedBiomePool.defaultBiome;
         }
-        return MEBiomesData.defaultBiome;
+        return MapBasedBiomePool.defaultBiome;
     }
 
     public Color getHeightColor(Vector2i imageCoordinates) {
         if(heightImage != null){
             return new Color(heightImage.getRGB(imageCoordinates.x, imageCoordinates.y));
         }
-        return new Color(Math.abs(MEBiomesData.defaultBiome.getHeight()), 1, 0);
+        return new Color(Math.abs(MapBasedBiomePool.defaultBiome.getHeight()), 1, 0);
     }
 
     public boolean isInRange(Vector2i playerCoord) {

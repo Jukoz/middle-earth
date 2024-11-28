@@ -4,7 +4,7 @@ import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.resources.FileType;
 import net.jukoz.me.utils.resources.FileUtils;
 import net.jukoz.me.world.biomes.surface.MapBasedCustomBiome;
-import net.jukoz.me.world.biomes.surface.MEBiomesData;
+import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
 
 import java.awt.*;
@@ -75,7 +75,7 @@ public class MiddleEarthMapGeneration {
         for(int x = 0; x < initialMap.getWidth(); x++){
             for(int y = 0; y < initialMap.getWidth(); y++){
                 try{
-                    MEBiomesData.getBiomeByColor(initialMap.getRGB(x,y));
+                    MapBasedBiomePool.getBiomeByColor(initialMap.getRGB(x,y));
                 } catch (Exception e) {
                     LoggerUtil.logError("MiddleEarthMapGeneration::Cannot find color at [%s,%s] in the inital map".formatted(x,y));
                     return false;
@@ -270,7 +270,7 @@ public class MiddleEarthMapGeneration {
         for (int x = 0; x < size + brushSize*2; x++) {
             for (int z = 0; z < size + brushSize*2; z++) {
                 try {
-                    MapBasedCustomBiome biome = MEBiomesData.getBiomeByColor(biomeImage.getRGB(x, z));
+                    MapBasedCustomBiome biome = MapBasedBiomePool.getBiomeByColor(biomeImage.getRGB(x, z));
                     int height = biome.getHeight();
                     if(height > 255){
                         height = 255;

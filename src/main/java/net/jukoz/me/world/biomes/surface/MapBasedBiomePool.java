@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Converts PNG pixel color to a BiomeKey reference.
  */
-public class MEBiomesData {
+public class MapBasedBiomePool {
     private static HashMap<Color, MapBasedCustomBiome> biomeHashMap;
     public static List<RegistryKey<Biome>> coastalBiomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> waterBiomes = new ArrayList<>();

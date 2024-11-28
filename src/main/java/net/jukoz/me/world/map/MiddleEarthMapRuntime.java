@@ -3,7 +3,7 @@ package net.jukoz.me.world.map;
 import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.resources.FileUtils;
 import net.jukoz.me.world.biomes.surface.MapBasedCustomBiome;
-import net.jukoz.me.world.biomes.surface.MEBiomesData;
+import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.joml.Vector2i;
 import java.awt.*;
@@ -45,10 +45,10 @@ public class MiddleEarthMapRuntime {
     }
 
     public MapBasedCustomBiome getBiome(int posX, int posZ) {
-        if(!middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) return MEBiomesData.defaultBiome;
+        if(!middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) return MapBasedBiomePool.defaultBiome;
 
         MiddleEarthMapRegion region = getRegionToUse(middleEarthMapUtils.getRegionByWorldCoordinate(posX, posZ));
-        if(region == null) return MEBiomesData.defaultBiome;
+        if(region == null) return MapBasedBiomePool.defaultBiome;
 
         return region.getBiome(getImageCoordinates(posX, posZ));
     }

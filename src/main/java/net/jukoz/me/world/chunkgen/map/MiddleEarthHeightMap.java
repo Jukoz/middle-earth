@@ -56,7 +56,7 @@ public class MiddleEarthHeightMap {
             }
             return height;
         }
-        return MEBiomesData.defaultBiome.getHeight() * 2.0f;
+        return MapBasedBiomePool.defaultBiome.getHeight() * 2.0f;
     }
 
     public static float getImageNoiseModifier(int xWorld, int zWorld) {
@@ -159,7 +159,7 @@ public class MiddleEarthHeightMap {
         for(int i = -SMOOTH_BRUSH_SIZE; i <= SMOOTH_BRUSH_SIZE; i++) {
             for(int j = -SMOOTH_BRUSH_SIZE; j <= SMOOTH_BRUSH_SIZE; j++) {
                 if(!MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(x + i, z + j))
-                    total += MEBiomesData.defaultBiome.getHeight();
+                    total += MapBasedBiomePool.defaultBiome.getHeight();
                 else
                     total += getImageHeight(x, z);
             }

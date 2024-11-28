@@ -88,7 +88,7 @@ public class ModBiomeSource extends BiomeSource {
         CustomBiome biome = biomeHeightData.getBiome();
         RegistryKey<Biome> processedBiome;
 
-        if(!MEBiomesData.waterBiomes.contains(biome.getBiomeRegistryKey())) {
+        if(!MapBasedBiomePool.waterBiomes.contains(biome.getBiomeRegistryKey())) {
             float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
             SubBiome subBiome = SubBiomes.getSubBiome(biomeHeightData.getBiomeKey());
             if(subBiome != null) {
@@ -100,28 +100,28 @@ public class ModBiomeSource extends BiomeSource {
 
             if(j <= CavesPlacedFeatures.MAX_MITHRIL_HEIGHT && biome.getCaveType() == CaveType.MISTIES) {
                 processedBiome = MEBiomeKeys.MITHRIL_CAVE;
-            } else if(biome.getBiomeRegistryKey() == MEBiomesData.deadMarshes.getBiomeKey() || biome.getBiomeRegistryKey() == MEBiomesData.deadMarshesWater.getBiomeKey()) {
+            } else if(biome.getBiomeRegistryKey() == MapBasedBiomePool.deadMarshes.getBiomeKey() || biome.getBiomeRegistryKey() == MapBasedBiomePool.deadMarshesWater.getBiomeKey()) {
                 height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthChunkGenerator.getMarshesHeight(i, k, height);
                 if(j < (height - 16)) processedBiome = getCaveBiome(i, k, biome);
-                else if(height < MiddleEarthChunkGenerator.WATER_HEIGHT) processedBiome = MEBiomesData.deadMarshesWater.getBiomeKey();
-                else processedBiome = MEBiomesData.deadMarshes.getBiomeKey();
+                else if(height < MiddleEarthChunkGenerator.WATER_HEIGHT) processedBiome = MapBasedBiomePool.deadMarshesWater.getBiomeKey();
+                else processedBiome = MapBasedBiomePool.deadMarshes.getBiomeKey();
             } else if(j < (height - 16)) {
                 processedBiome = getCaveBiome(i, k, biome);
-            } else if(height <= biomeHeightData.getWaterHeight() + 1.25f) {
-                if(MEBiomesData.coastalBiomes.contains(biome.getBiomeRegistryKey())){
-                    processedBiome = MEBiomesData.oceanCoast.getBiomeKey();
-                } else if(MEBiomesData.wastePondBiomes.contains(biome.getBiomeRegistryKey())) {
-                    processedBiome = MEBiomesData.wastePond.getBiomeKey();
-                } else if(MEBiomesData.mirkwoodSwampBiomes.contains(biome.getBiomeRegistryKey())) {
-                    processedBiome = MEBiomesData.mirkwoodSwamp.getBiomeKey();
-                } else if(MEBiomesData.oasisBiomes.contains(biome.getBiomeRegistryKey())) {
-                    processedBiome = MEBiomesData.oasis.getBiomeKey();
-                } else if(MEBiomesData.frozenBiomes.contains(biome.getBiomeRegistryKey())) {
-                    processedBiome = MEBiomesData.frozenPond.getBiomeKey();
-                } else if(MEBiomesData.anduinWaterBiomes.contains(biome.getBiomeRegistryKey())){
-                    processedBiome = MEBiomesData.greatRiver.getBiomeKey();
+            } else if(height <= biomeHeightData.getWaterHeight() + 1.25f) { // TODO : This is really rough, need to be more dynamic
+                if(MapBasedBiomePool.coastalBiomes.contains(biome.getBiomeRegistryKey())){
+                    processedBiome = MapBasedBiomePool.oceanCoast.getBiomeKey();
+                } else if(MapBasedBiomePool.wastePondBiomes.contains(biome.getBiomeRegistryKey())) {
+                    processedBiome = MapBasedBiomePool.wastePond.getBiomeKey();
+                } else if(MapBasedBiomePool.mirkwoodSwampBiomes.contains(biome.getBiomeRegistryKey())) {
+                    processedBiome = MapBasedBiomePool.mirkwoodSwamp.getBiomeKey();
+                } else if(MapBasedBiomePool.oasisBiomes.contains(biome.getBiomeRegistryKey())) {
+                    processedBiome = MapBasedBiomePool.oasis.getBiomeKey();
+                } else if(MapBasedBiomePool.frozenBiomes.contains(biome.getBiomeRegistryKey())) {
+                    processedBiome = MapBasedBiomePool.frozenPond.getBiomeKey();
+                } else if(MapBasedBiomePool.anduinWaterBiomes.contains(biome.getBiomeRegistryKey())){
+                    processedBiome = MapBasedBiomePool.greatRiver.getBiomeKey();
                 } else {
-                    processedBiome = MEBiomesData.pond.getBiomeKey();
+                    processedBiome = MapBasedBiomePool.pond.getBiomeKey();
                 }
             } else if(biome.getBiomeRegistryKey().isOf(MEBiomeKeys.NAN_CURUNIR.getRegistryRef()) && ProceduralStructures.isInsideIsengard(i, k)) {
                 processedBiome = MEBiomeKeys.ISENGARD;

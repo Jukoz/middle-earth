@@ -29,7 +29,7 @@ import net.jukoz.me.world.map.MiddleEarthMapGeneration;
 import net.jukoz.me.world.gen.ModWorldGeneration;
 import net.jukoz.me.world.spawners.ModEntitySpawning;
 import net.jukoz.me.world.biomes.MEBiomeKeys;
-import net.jukoz.me.world.biomes.surface.MEBiomesData;
+import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
 import net.jukoz.me.world.dimension.ModDimensions;
 
 public class MiddleEarth implements ModInitializer {
@@ -95,7 +95,7 @@ public class MiddleEarth implements ModInitializer {
 		ModDimensions.register();
 		CustomBiomesData.loadBiomes();
 		MEBiomeKeys.registerModBiomes();
-		MEBiomesData.loadBiomes();
+		MapBasedBiomePool.loadBiomes();
 
 		ModWorldGeneration.generateModWorldGen();
 		LootModifiers.modifyLootTables();

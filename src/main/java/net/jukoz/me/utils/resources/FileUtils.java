@@ -2,25 +2,19 @@ package net.jukoz.me.utils.resources;
 
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.utils.LoggerUtil;
-import net.jukoz.me.world.biomes.surface.MEBiomesData;
+import net.jukoz.me.world.biomes.surface.MapBasedBiomePool;
 import net.jukoz.me.world.chunkgen.map.ImageUtils;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.resource.language.LanguageManager;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import org.joml.Vector2i;
-import org.joml.sampling.Convolution;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
 
 public class FileUtils {
 
@@ -74,7 +68,7 @@ public class FileUtils {
         BufferedImage imageWithBorders = new BufferedImage(width + 2*padding, height + 2*padding, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = imageWithBorders.createGraphics();
 
-        graphics.setColor(MEBiomesData.DEFAULT_COLOR);
+        graphics.setColor(MapBasedBiomePool.DEFAULT_COLOR);
         graphics.fillRect(0, 0, width + 2*padding, height + 2*padding);
         graphics.drawImage(centerImage, padding, padding, null);
 
