@@ -301,20 +301,11 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     protected void setupAnimationStates() {
         if(this.isSitting()) {
-            if(!this.sittingAnimationState.isRunning()) {
-                this.stopSittingAnimationState.stop();
-                this.startSittingAnimationState.startIfNotRunning(this.age);
-                this.startedSitting = true;
-            }
-            if(!this.startSittingAnimationState.isRunning() && startedSitting) {
-                this.sittingAnimationState.startIfNotRunning(this.age);
-            }
+            this.startSittingAnimationState.startIfNotRunning(this.age);
         }
-        else if (startedSitting){
-            this.stopSittingAnimationState.startIfNotRunning(this.age);
+        if(!this.isSitting() && this.startSittingAnimationState.isRunning()) {
             this.startSittingAnimationState.stop();
-            this.sittingAnimationState.stop();
-            this.startedSitting = false;
+            this.stopSittingAnimationState.start(this.age);
         }
     }
 
