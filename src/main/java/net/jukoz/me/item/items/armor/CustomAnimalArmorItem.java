@@ -5,6 +5,7 @@ import net.jukoz.me.item.ModDataComponentTypes;
 import net.jukoz.me.item.dataComponents.CapeDataComponent;
 import net.jukoz.me.item.dataComponents.CustomDyeableDataComponent;
 import net.jukoz.me.item.dataComponents.MountArmorAddonComponent;
+import net.jukoz.me.item.utils.MEEquipmentTooltip;
 import net.jukoz.me.item.utils.armor.ExtendedArmorMaterial;
 import net.jukoz.me.utils.ModFactions;
 import net.jukoz.me.utils.ModSubFactions;
@@ -25,10 +26,11 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class CustomAnimalArmorItem extends ArmorItem {
+public class CustomAnimalArmorItem extends ArmorItem implements MEEquipmentTooltip {
     public ModFactions faction;
     public ModSubFactions subFaction;
     private final Identifier entityTexture;
@@ -65,40 +67,35 @@ public class CustomAnimalArmorItem extends ArmorItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        ProfileComponent profileComponent = stack.get(DataComponentTypes.PROFILE);
+    public List<Text> getAdditionalShiftLines(ItemStack stack) {
+        List<Text> list = new ArrayList<>(List.of());
+        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier_" + this.material.tier().toString().toLowerCase()));
 
-        tooltip.add(Text.of(""));
-        if(Screen.hasShiftDown()){
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + faction.getName())));
-            if(subFaction != null){
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".sub_faction").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + subFaction.getName())));
-            }
-            if (profileComponent != null && profileComponent.name().isPresent()) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".artisan").append(profileComponent.name().get()).formatted(Formatting.GRAY));
-            }
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".tier_" + this.material.tier().toString().toLowerCase()));
-            tooltip.add(Text.of(""));
-        } else {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".shift"));
-        }
+        return list;
+    }
 
+    @Override
+    public List<Text> getAdditionalAltLines(ItemStack stack) {
+        List<Text> list = new ArrayList<>(List.of());
         MountArmorAddonComponent mountArmorAddonComponent = stack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA);
+        CustomDyeableDataComponent dyeDataComponent = stack.get(ModDataComponentTypes.DYE_DATA);
 
-        if(Screen.hasAltDown()){
-            tooltip.add(Text.of(""));
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".customizations"));
-
-            if (mountArmorAddonComponent != null) {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".addon_enabled"));
-            }
-            else {
-                tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".addon_disabled"));
-            }
-        } else {
-            tooltip.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".alt"));
+        if(dyeDataComponent != null){
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".dyeable").append(": " + String.format("#%06X", (0xFFFFFF & CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR)))).formatted(Formatting.GRAY));
+        }
+        if (mountArmorAddonComponent != null) {
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".addon_enabled"));
+        }
+        else {
+            list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".addon_disabled"));
         }
 
+        return list;
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        appendBaseTooltip(tooltip, stack, this.faction, this.subFaction);
         super.appendTooltip(stack, context, tooltip, type);
     }
 
