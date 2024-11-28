@@ -19,7 +19,7 @@ public class SlopeMap {
         if(!slopeDatas.isEmpty()) {
             float newAngle = slopeDatas.getLast().angle;
             if (newAngle >= angle) {
-                throw new ArithmeticException("Cannot add slope angle smaller than previous slope data");
+                throw new ArithmeticException("Cannot add slope angle smaller than previous slope data: " + newAngle + " >= " + angle);
             } else if(newAngle < 0 || newAngle > 90) {
                 throw new ArithmeticException("The new slope cannot exceed slope angle boundaries (0 to 90 degrees)");
             }

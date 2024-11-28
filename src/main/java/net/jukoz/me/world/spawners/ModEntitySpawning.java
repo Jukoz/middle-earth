@@ -113,9 +113,16 @@ public class ModEntitySpawning {
         ));
 
         spawns.put(MEBiomeKeys.ANDUIN_VALES, wildGoblinsSpawnSettings);
+        spawns.put(MEBiomeKeys.ANDUIN_VALES_FOREST, wildGoblinsSpawnSettings);
         spawns.put(MEBiomeKeys.OLD_ANGMAR, wildGoblinsSpawnSettings);
-        spawns.put(MEBiomeKeys.OLD_RHUDAUR, goblinsAndStoneTroll);
+        spawns.put(MEBiomeKeys.OLD_ANGMAR_FOREST, wildGoblinsSpawnSettings);
+        spawns.put(MEBiomeKeys.OLD_ANGMAR_FROZEN_HILL, wildGoblinsSpawnSettings);
+        spawns.put(MEBiomeKeys.OLD_RHUDAUR, goblinsSpawnSettings);
+        spawns.put(MEBiomeKeys.OLD_RHUDAUR_FOREST, goblinsAndStoneTroll);
+        spawns.put(MEBiomeKeys.OLD_RHUDAUR_HILL, goblinsAndStoneTroll);
         spawns.put(MEBiomeKeys.OLD_CARDOLAN, banditSpawnSettings);
+        spawns.put(MEBiomeKeys.OLD_CARDOLAN_FOREST, banditSpawnSettings);
+        spawns.put(MEBiomeKeys.OLD_CARDOLAN_HILL, banditSpawnSettings);
         spawns.put(MEBiomeKeys.EREGION, goblinsAndBandits);
         spawns.put(MEBiomeKeys.ENEDWAITH, goblinsAndBandits);
         spawns.put(MEBiomeKeys.MISTY_MOUNTAINS, goblinsSpawnSettings);
@@ -143,6 +150,7 @@ public class ModEntitySpawning {
         spawns.put(MEBiomeKeys.IRON_FOOTHILLS, longBeardsSpawnSettings);
         spawns.put(MEBiomeKeys.IRON_HILLS_PLAINS, goblinsAndLongbeards);
         spawns.put(MEBiomeKeys.DALE_RIVERSIDE, goblinsAndLongbeards);
+        spawns.put(MEBiomeKeys.DALE_FOREST, banditSpawnSettings);
 
         spawns.put(MEBiomeKeys.MIRKWOOD, List.of(new EntitySpawningSettings(ModEntities.MIRKWOOD_SPIDER, 1, 5)));
         spawns.put(MEBiomeKeys.DARK_MIRKWOOD, mordorAndSpiders);

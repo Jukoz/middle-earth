@@ -1,12 +1,10 @@
 package net.jukoz.me.world.chunkgen.map;
 
-import net.jukoz.me.utils.LoggerUtil;
 import net.jukoz.me.utils.noises.BlendedNoise;
+import net.jukoz.me.world.biomes.surface.*;
 import net.jukoz.me.world.map.MiddleEarthMapConfigs;
 import net.jukoz.me.world.map.MiddleEarthMapRuntime;
 import net.jukoz.me.world.map.MiddleEarthMapUtils;
-import net.jukoz.me.world.biomes.surface.MEBiome;
-import net.jukoz.me.world.biomes.surface.MEBiomesData;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -47,10 +45,10 @@ public class MiddleEarthHeightMap {
             float height = color.getRed();
 
             if(blue > 0) { // Water carver
-                MEBiome meBiome = middleEarthMapRuntime.getBiome(xWorld, zWorld);
+                MapBasedCustomBiome meBiome = middleEarthMapRuntime.getBiome(xWorld, zWorld);
                 float percentage = (WATER_MAX - blue) / WATER_MAX;
                 percentage = Math.max(0, Math.min(1, percentage));
-                float waterDifference = (float) (meBiome.waterHeight - MEBiome.DEFAULT_WATER_HEIGHT);
+                float waterDifference = (float) (meBiome.getWaterHeight() - MapBasedCustomBiome.DEFAULT_WATER_HEIGHT);
                 height -= waterDifference;
                 height *= percentage;
                 height += waterDifference;
@@ -58,7 +56,7 @@ public class MiddleEarthHeightMap {
             }
             return height;
         }
-        return MEBiomesData.defaultBiome.height * 2.0f;
+        return MapBasedBiomePool.defaultBiome.getHeight() * 2.0f;
     }
 
     public static float getImageNoiseModifier(int xWorld, int zWorld) {
@@ -161,7 +159,7 @@ public class MiddleEarthHeightMap {
         for(int i = -SMOOTH_BRUSH_SIZE; i <= SMOOTH_BRUSH_SIZE; i++) {
             for(int j = -SMOOTH_BRUSH_SIZE; j <= SMOOTH_BRUSH_SIZE; j++) {
                 if(!MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(x + i, z + j))
-                    total += MEBiomesData.defaultBiome.height;
+                    total += MapBasedBiomePool.defaultBiome.getHeight();
                 else
                     total += getImageHeight(x, z);
             }
@@ -187,5 +185,11 @@ public class MiddleEarthHeightMap {
 
     public static float lerp(float a, float b, float interpolation) {
         return a + interpolation * (b - a);
+    }
+
+    public static MapBasedCustomBiome getBiomeFromMap(int posX, int posZ) {
+        if(middleEarthMapRuntime == null)
+            middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
+        return middleEarthMapRuntime.getBiome(posX, posZ);
     }
 }
