@@ -293,7 +293,21 @@
   "item.me.bronze_tadpole_bucket": "Bronze Tadpole Bucket",
 
 "#Comment:": "Item - Smithing",
+  "item.me.copper_smithing_hammer": "Copper Smithing Hammer",
+
   "item.me.smithing_hammer": "Smithing Hammer",
+  "item.me.noble_smithing_hammer": "Noble Smithing Hammer",
+
+  "item.me.dwarven_smithing_hammer": "Dwarven Smithing Hammer",
+  "item.me.dwarven_noble_smithing_hammer": "Dwarven Noble Smithing Hammer",
+
+  "item.me.elven_smithing_hammer": "Elven Smithing Hammer",
+  "item.me.elven_noble_smithing_hammer": "Elven Noble Smithing Hammer",
+
+  "item.me.orcish_smithing_hammer": "Orcish Smithing Hammer",
+  "item.me.orcish_elite_smithing_hammer": "Orcish Elite Smithing Hammer",
+
+  "item.me.mithril_smithing_hammer": "Mithril Smithing Hammer",
 
   "item.me.fur": "Fur",
   "item.me.fabric": "Fabric",
