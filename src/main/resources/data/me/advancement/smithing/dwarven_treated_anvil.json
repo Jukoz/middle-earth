@@ -1,11 +1,12 @@
 {
+  "parent": "me:smithing/khazad_steel",
   "criteria": {
-    "forge": {
+    "dwarven_treated_anvil": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:forge"
+              "me:dwarven_treated_anvil"
             ]
           }
         ]
@@ -15,24 +16,23 @@
   },
   "display": {
     "announce_to_chat": true,
-    "background": "me:textures/block/dolomite_bricks.png",
     "description": {
-      "translate": "advancements.alloy.root.description"
+      "translate": "advancements.smithing.dwarven_treated_anvil.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:forge"
+      "id":  "me:dwarven_treated_anvil"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.alloy.root.title"
+      "translate": "advancements.smithing.dwarven_treated_anvil.title"
     }
   },
-    "requirements": [
+  "requirements": [
     [
-      "forge"
+      "dwarven_treated_anvil"
     ]
   ]
 }

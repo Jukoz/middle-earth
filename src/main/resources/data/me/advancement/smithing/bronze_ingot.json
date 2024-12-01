@@ -5,17 +5,17 @@
       "count": 1
     },
     "title": {
-      "translate": "advancements.alloy.bronze_ingot.title"
+      "translate": "advancements.smithing.bronze_ingot.title"
     },
     "description": {
-      "translate": "advancements.alloy.bronze_ingot.description"
+      "translate": "advancements.smithing.bronze_ingot.description"
     },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "me:alloy/root",
+  "parent": "me:smithing/root",
   "criteria": {
     "bronze_ingot": {
       "trigger": "minecraft:inventory_changed",

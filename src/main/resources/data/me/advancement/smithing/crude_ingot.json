@@ -1,12 +1,12 @@
 {
-  "parent": "me:alloy/bronze_ingot",
+  "parent": "me:smithing/root",
   "criteria": {
-    "khazad_steel": {
+    "crude_ingot": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:khazad_steel_ingot"
+              "me:crude_ingot"
             ]
           }
         ]
@@ -17,22 +17,22 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.alloy.khazad_steel.description"
+      "translate": "advancements.smithing.crude_ingot.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:khazad_steel_ingot"
+      "id":  "me:crude_ingot"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.alloy.khazad_steel.title"
+      "translate": "advancements.smithing.crude_ingot.title"
     }
   },
   "requirements": [
     [
-      "khazad_steel"
+      "crude_ingot"
     ]
   ]
 }

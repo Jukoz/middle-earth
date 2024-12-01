@@ -1,12 +1,12 @@
 {
-  "parent": "me:alloy/root",
+  "parent": "me:smithing/khazad_steel",
   "criteria": {
-    "crude": {
+    "dwarven_lantern": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:crude_ingot"
+              "me:dwarven_lantern"
             ]
           }
         ]
@@ -17,22 +17,22 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.alloy.crude.description"
+      "translate": "advancements.smithing.dwarven_lantern.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:crude_ingot"
+      "id":  "me:dwarven_lantern"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.alloy.crude.title"
+      "translate": "advancements.smithing.dwarven_lantern.title"
     }
   },
   "requirements": [
     [
-      "crude"
+      "dwarven_lantern"
     ]
   ]
 }

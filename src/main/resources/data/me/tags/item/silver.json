@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "me:silver_ingot",
+    "me:raw_silver",
+    "me:medgon_silver_ore",
+    "me:nurgon_silver_ore"
+  ]
+}

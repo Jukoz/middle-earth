@@ -6,10 +6,7 @@ import net.jukoz.me.block.*;
 import net.jukoz.me.datageneration.content.models.*;
 import net.jukoz.me.datageneration.custom.AlloyRecipeJsonBuilder;
 import net.jukoz.me.datageneration.custom.AnvilShapingRecipeJsonBuilder;
-import net.jukoz.me.item.ModFoodItems;
-import net.jukoz.me.item.ModResourceItems;
-import net.jukoz.me.item.ModToolItems;
-import net.jukoz.me.item.ModWeaponItems;
+import net.jukoz.me.item.*;
 import net.jukoz.me.recipe.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -669,19 +666,63 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         ComplexRecipeJsonBuilder.create(ArmorCapeRecipe::new).offerTo(exporter, "custom_armor_cape");
         ComplexRecipeJsonBuilder.create(ArmorCapeRemovalRecipe::new).offerTo(exporter, "custom_armor_cape_removal");
 
-        //region Alloying
-        createAlloyRecipe(exporter, List.of(Items.COPPER_INGOT, Items.COPPER_INGOT, Items.COPPER_INGOT, ModResourceItems.TIN_INGOT), "bronze", 576);
-        createAlloyRecipe(exporter, List.of(Items.COPPER_INGOT, Items.COPPER_INGOT, ModResourceItems.TIN_INGOT, ModResourceItems.ASH), "crude", 432);
-        createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, Items.IRON_INGOT, Items.COAL), "steel", 432);
-        createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, ModResourceItems.LEAD_INGOT, Items.COAL), "khazad_steel", 432);
-        createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, Items.IRON_INGOT, ModResourceItems.SILVER_NUGGET), "edhel_steel", 432);
-        createAlloyRecipe(exporter, List.of(Items.IRON_INGOT, Items.IRON_INGOT, ModResourceItems.LEAD_INGOT, ModResourceItems.ASH), "burzum_steel", 432);
+        //region Alloying6
+        AlloyRecipeJsonBuilder.createAlloyRecipe(RecipeCategory.MISC, "bronze", 576)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "tin")))
+                .criterion(FabricRecipeProvider.hasItem(Items.COPPER_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(Items.COPPER_INGOT))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "bronze" + "_from_alloying"));
+
+        AlloyRecipeJsonBuilder.createAlloyRecipe(RecipeCategory.MISC, "crude", 432)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "tin")))
+                .input(ModResourceItems.ASH)
+                .criterion(FabricRecipeProvider.hasItem(Items.COPPER_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(Items.COPPER_INGOT))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "crude" + "_from_alloying"));
+
+        AlloyRecipeJsonBuilder.createAlloyRecipe(RecipeCategory.MISC, "steel", 432)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
+                .input(Items.COAL)
+                .criterion(FabricRecipeProvider.hasItem(Items.IRON_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(Items.IRON_INGOT))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "steel" + "_from_alloying_tags"));
+
+        AlloyRecipeJsonBuilder.createAlloyRecipe(RecipeCategory.MISC, "khazad_steel", 432)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "lead")))
+                .input(Items.COAL)
+                .criterion(FabricRecipeProvider.hasItem(Items.IRON_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(Items.IRON_INGOT))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "khazad_steel" + "_from_alloying_tags"));
+
+        AlloyRecipeJsonBuilder.createAlloyRecipe(RecipeCategory.MISC, "edhel_steel", 432)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
+                .input(ModResourceItems.SILVER_NUGGET)
+                .criterion(FabricRecipeProvider.hasItem(Items.IRON_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(Items.IRON_INGOT))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "edhel_steel" + "_from_alloying_tags"));
+
+        AlloyRecipeJsonBuilder.createAlloyRecipe(RecipeCategory.MISC, "burzum_steel", 432)
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
+                .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "lead")))
+                .input(ModResourceItems.ASH)
+                .criterion(FabricRecipeProvider.hasItem(Items.IRON_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(Items.IRON_INGOT))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, "burzum_steel" + "_from_alloying_tags"));
 
         HotMetalsModel.nuggets.forEach(nugget -> {
             createMeltRecipe(exporter, nugget, Registries.ITEM.getId(nugget).getPath().replace("_nugget", ""), 16);
-        });
-        HotMetalsModel.ingots.forEach(ingot -> {
-            createMeltRecipe(exporter, ingot, Registries.ITEM.getId(ingot).getPath().replace("_ingot", ""), 144);
         });
         HotMetalsModel.shapesTag.forEach(shape -> {
             createAnvilShapingRecipeTag(exporter, shape.tagKey(), shape.output(), shape.amount());
@@ -689,6 +730,26 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         HotMetalsModel.shapesItem.forEach(shape -> {
             createAnvilShapingRecipeItem(exporter, shape.item(), shape.output(), shape.amount());
         });
+
+        createMeltRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")), "copper", 144);
+        createMeltRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "tin")), "tin", 144);
+
+        createMeltRecipe(exporter, ModResourceItems.BRONZE_INGOT, "bronze", 144);
+        createMeltRecipe(exporter, ModResourceItems.CRUDE_INGOT, "crude", 144);
+
+        createMeltRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "lead")), "lead", 144);
+        createMeltRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "silver")), "silver", 144);
+        createMeltRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")), "iron", 144);
+        createMeltRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "gold")), "gold", 144);
+
+        createMeltRecipe(exporter, ModResourceItems.STEEL_INGOT, "steel", 144);
+        createMeltRecipe(exporter, ModResourceItems.KHAZAD_STEEL_INGOT, "khazad_steel", 144);
+        createMeltRecipe(exporter, ModResourceItems.EDHEL_STEEL_INGOT, "edhel_steel", 144);
+        createMeltRecipe(exporter, ModResourceItems.BURZUM_STEEL_INGOT, "burzum_steel", 144);
+
+        createMeltRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "mithril")), "mithril", 144);
+
+        createMeltRecipe(exporter, Items.NETHERITE_INGOT, "netherite", 144);
         //endregion
 
         ComplexRecipeJsonBuilder.create(CustomItemDecorationRecipe::new).offerTo(exporter, "custom_shield_decoration");
@@ -767,23 +828,20 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output).getPath() + "_from_smelting"));
     }
 
-    private void createAlloyRecipe(RecipeExporter exporter, List<Item> inputs, String output, int amount) {
-        AlloyRecipeJsonBuilder.createAlloyRecipe(RecipeCategory.MISC, output,amount)
-                .input(inputs.getFirst())
-                .input(inputs.get(1))
-                .input(inputs.get(2))
-                .input(inputs.get(3))
-                .criterion(FabricRecipeProvider.hasItem(inputs.getFirst()),
-                        FabricRecipeProvider.conditionsFromItem(inputs.getFirst()))
-                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, output + "_from_alloying"));
-    }
-
     private void createMeltRecipe(RecipeExporter exporter, Item input, String output, int amount) {
         AlloyRecipeJsonBuilder.createAlloyRecipe(RecipeCategory.MISC, output,amount)
                 .input(input)
                 .criterion(FabricRecipeProvider.hasItem(input),
                         FabricRecipeProvider.conditionsFromItem(input))
                 .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_" + Registries.ITEM.getId(input).getPath()));
+    }
+
+    private void createMeltRecipeTag(RecipeExporter exporter, TagKey input, String output, int amount) {
+        AlloyRecipeJsonBuilder.createAlloyRecipe(RecipeCategory.MISC, output,amount)
+                .input(input)
+                .criterion(FabricRecipeProvider.hasItem(ModDecorativeItems.FORGE),
+                        FabricRecipeProvider.conditionsFromItem(ModDecorativeItems.FORGE))
+                .offerTo(exporter, Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_" + input.id().getPath()));
     }
 
     private void createAnvilShapingRecipeTag(RecipeExporter exporter, TagKey input, Item output, int amount) {

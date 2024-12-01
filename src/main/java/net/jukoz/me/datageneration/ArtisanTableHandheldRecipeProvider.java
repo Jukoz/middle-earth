@@ -97,7 +97,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         createArtisanTableSwordRecipe(exporter, MetalTypes.NETHERITE, Items.NETHERITE_SWORD.getDefaultStack(), false, Disposition.NEUTRAL);
         createArtisanTableDaggerRecipe(exporter, MetalTypes.NETHERITE, ModWeaponItems.NETHERITE_DAGGER.getDefaultStack(), false, Disposition.NEUTRAL);
         createArtisanTableSpearRecipe(exporter, MetalTypes.NETHERITE, ModWeaponItems.NETHERITE_SPEAR.getDefaultStack(), false, Disposition.NEUTRAL);
-        
+
         createArtisanTableSwordRecipe(exporter, MetalTypes.BRONZE, ModWeaponItems.BRONZE_SWORD.getDefaultStack(), false, Disposition.NEUTRAL);
         createArtisanTableDaggerRecipe(exporter, MetalTypes.BRONZE, ModWeaponItems.BRONZE_DAGGER.getDefaultStack(), false, Disposition.NEUTRAL);
         createArtisanTableSpearRecipe(exporter, MetalTypes.BRONZE, ModWeaponItems.BRONZE_SPEAR.getDefaultStack(), false, Disposition.NEUTRAL);
