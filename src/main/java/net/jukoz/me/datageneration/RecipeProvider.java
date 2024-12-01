@@ -9,6 +9,7 @@ import net.jukoz.me.datageneration.custom.AnvilShapingRecipeJsonBuilder;
 import net.jukoz.me.item.ModFoodItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModToolItems;
+import net.jukoz.me.item.ModWeaponItems;
 import net.jukoz.me.recipe.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -16,10 +17,10 @@ import net.minecraft.data.DataOutput;
 import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.item.*;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -605,7 +606,17 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         //endregion
 
         //region SMITHING
+        createDaggerRecipeTag(exporter, Items.STICK, TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")), ModWeaponItems.WOODEN_DAGGER);
+        createDaggerRecipeTag(exporter, Items.STICK, TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_tool_materials")), ModWeaponItems.STONE_DAGGER);
+        createDaggerRecipe(exporter, Items.STICK, Items.DIAMOND, ModWeaponItems.DIAMOND_DAGGER);
+
+        createSpearRecipeTag(exporter, Items.STICK, TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")), ModWeaponItems.WOODEN_SPEAR);
+        createSpearRecipeTag(exporter, Items.STICK, TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_tool_materials")), ModWeaponItems.STONE_SPEAR);
+        createSpearRecipe(exporter, Items.STICK, Items.DIAMOND, ModWeaponItems.DIAMOND_SPEAR);
+
         createToolSetRecipes(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModToolItems.JADE_PICKAXE, ModToolItems.JADE_AXE, ModToolItems.JADE_SHOVEL, ModToolItems.JADE_HOE);
+        createSwordRecipe(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModWeaponItems.JADE_SWORD);
+        createSpearRecipe(exporter, Items.STICK, StoneBlockSets.JADEITE.base().asItem(), ModWeaponItems.JADE_SPEAR);
 
         createToolSetRecipes(exporter, Items.STICK, ModResourceItems.BRONZE_INGOT, ModToolItems.BRONZE_PICKAXE, ModToolItems.BRONZE_AXE, ModToolItems.BRONZE_SHOVEL, ModToolItems.BRONZE_HOE);
         
@@ -1040,6 +1051,64 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .input('R', inputRod)
                 .criterion(FabricRecipeProvider.hasItem(inputMaterial),
                         FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+    }
+
+    private void createSwordRecipe(RecipeExporter exporter, Item inputRod, Item inputMaterial, Item output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
+                .pattern(" M ")
+                .pattern(" M ")
+                .pattern(" R ")
+                .input('M', inputMaterial)
+                .input('R', inputRod)
+                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
+                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+    }
+
+    private void createDaggerRecipe(RecipeExporter exporter, Item inputRod, Item inputMaterial, Item output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
+                .pattern(" M ")
+                .pattern(" R ")
+                .input('M', inputMaterial)
+                .input('R', inputRod)
+                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
+                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+    }
+
+    private void createDaggerRecipeTag(RecipeExporter exporter, Item inputRod, TagKey inputMaterial, Item output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
+                .pattern(" M ")
+                .pattern(" R ")
+                .input('M', inputMaterial)
+                .input('R', inputRod)
+                .criterion(FabricRecipeProvider.hasItem(Items.OAK_PLANKS),
+                        FabricRecipeProvider.conditionsFromItem(Items.OAK_PLANKS))
+                .offerTo(exporter);
+    }
+
+    private void createSpearRecipe(RecipeExporter exporter, Item inputRod, Item inputMaterial, Item output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
+                .pattern("  M")
+                .pattern(" R ")
+                .pattern("R  ")
+                .input('M', inputMaterial)
+                .input('R', inputRod)
+                .criterion(FabricRecipeProvider.hasItem(inputMaterial),
+                        FabricRecipeProvider.conditionsFromItem(inputMaterial))
+                .offerTo(exporter);
+    }
+
+    private void createSpearRecipeTag(RecipeExporter exporter, Item inputRod, TagKey inputMaterial, Item output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, output, 1)
+                .pattern("  M")
+                .pattern(" R ")
+                .pattern("R  ")
+                .input('M', inputMaterial)
+                .input('R', inputRod)
+                .criterion(FabricRecipeProvider.hasItem(Items.OAK_PLANKS),
+                        FabricRecipeProvider.conditionsFromItem(Items.OAK_PLANKS))
                 .offerTo(exporter);
     }
 
