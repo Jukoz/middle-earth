@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.alloy.artisan_table.description"
+      "translate": "advancements.smithing.artisan_table.description"
     },
     "frame": "task",
     "hidden": false,
@@ -27,7 +27,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.alloy.artisan_table.title"
+      "translate": "advancements.smithing.artisan_table.title"
     }
   },
   "requirements": [

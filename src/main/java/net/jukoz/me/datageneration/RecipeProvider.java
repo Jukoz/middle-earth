@@ -22,7 +22,6 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -750,6 +749,23 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createMeltRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "mithril")), "mithril", 144);
 
         createMeltRecipe(exporter, Items.NETHERITE_INGOT, "netherite", 144);
+
+        createAnvilRecipe(exporter, ModBlocks.STEEL_BLOCK.asItem(), ModResourceItems.STEEL_INGOT, ModDecorativeItems.TREATED_ANVIL);
+        createAnvilRecipe(exporter, ModBlocks.KHAZAD_STEEL_BLOCK.asItem(), ModResourceItems.KHAZAD_STEEL_INGOT, ModDecorativeItems.DWARVEN_TREATED_ANVIL);
+        createAnvilRecipe(exporter, ModBlocks.EDHEL_STEEL_BLOCK.asItem(), ModResourceItems.EDHEL_STEEL_INGOT, ModDecorativeItems.ELVEN_TREATED_ANVIL);
+        createAnvilRecipe(exporter, ModBlocks.BURZUM_STEEL_BLOCK.asItem(), ModResourceItems.BURZUM_STEEL_INGOT, ModDecorativeItems.ORCISH_TREATED_ANVIL);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModDecorativeItems.BELLOWS, 1)
+                .pattern(" PS")
+                .pattern("PFF")
+                .pattern("TPS")
+                .input('P', TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                .input('S', Items.STICK)
+                .input('F', ModResourceItems.FABRIC)
+                .input('T', ModResourceItems.TIN_INGOT)
+                .criterion(FabricRecipeProvider.hasItem(ModResourceItems.TIN_INGOT),
+                        FabricRecipeProvider.conditionsFromItem(ModResourceItems.TIN_INGOT))
+                .offerTo(exporter);
         //endregion
 
         ComplexRecipeJsonBuilder.create(CustomItemDecorationRecipe::new).offerTo(exporter, "custom_shield_decoration");
@@ -857,6 +873,19 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .input(input)
                 .criterion(FabricRecipeProvider.hasItem(Items.COPPER_INGOT),
                         FabricRecipeProvider.conditionsFromItem(Items.COPPER_INGOT))
+                .offerTo(exporter);
+    }
+
+    private void createAnvilRecipe(RecipeExporter exporter, Item inputBlock, Item inputIngot, Item output) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 1)
+                .pattern("IBI")
+                .pattern(" I ")
+                .pattern("LLL")
+                .input('I', inputIngot)
+                .input('B', inputBlock)
+                .input('L', TagKey.of(RegistryKeys.ITEM, Identifier.of("logs")))
+                .criterion(FabricRecipeProvider.hasItem(inputIngot),
+                        FabricRecipeProvider.conditionsFromItem(inputIngot))
                 .offerTo(exporter);
     }
 

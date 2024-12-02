@@ -15,7 +15,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "me:smithing/root",
+  "parent": "me:smithing/bellows",
   "criteria": {
     "bronze_ingot": {
       "trigger": "minecraft:inventory_changed",

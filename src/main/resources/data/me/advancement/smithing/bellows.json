@@ -1,12 +1,12 @@
 {
-  "parent": "me:smithing/bellows",
+  "parent": "me:smithing/root",
   "criteria": {
-    "crude_ingot": {
+    "bellows": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:crude_ingot"
+              "me:bellows"
             ]
           }
         ]
@@ -17,22 +17,22 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.smithing.crude_ingot.description"
+      "translate": "advancements.alloy.bellows.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:crude_ingot"
+      "id":  "me:bellows"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.smithing.crude_ingot.title"
+      "translate": "advancements.alloy.bellows.title"
     }
   },
   "requirements": [
     [
-      "crude_ingot"
+      "bellows"
     ]
   ]
 }
