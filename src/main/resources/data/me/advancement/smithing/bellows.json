@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.alloy.bellows.description"
+      "translate": "advancements.smithing.bellows.description"
     },
     "frame": "task",
     "hidden": false,
@@ -27,7 +27,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.alloy.bellows.title"
+      "translate": "advancements.smithing.bellows.title"
     }
   },
   "requirements": [
