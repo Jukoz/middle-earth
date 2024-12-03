@@ -1,0 +1,38 @@
+{
+  "criteria": {
+    "forge": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:forge"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "me:textures/block/dolomite_bricks.png",
+    "description": {
+      "translate": "advancements.smithing.root.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:forge"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.root.title"
+    }
+  },
+    "requirements": [
+    [
+      "forge"
+    ]
+  ]
+}

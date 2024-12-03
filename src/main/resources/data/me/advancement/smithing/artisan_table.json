@@ -1,12 +1,12 @@
 {
-  "parent": "me:alloy/root",
+  "parent": "me:smithing/root",
   "criteria": {
-    "crude": {
+    "artisan_table": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:crude_ingot"
+              "me:artisan_table"
             ]
           }
         ]
@@ -17,22 +17,22 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.alloy.crude.description"
+      "translate": "advancements.smithing.artisan_table.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:crude_ingot"
+      "id":  "me:artisan_table"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.alloy.crude.title"
+      "translate": "advancements.smithing.artisan_table.title"
     }
   },
   "requirements": [
     [
-      "crude"
+      "artisan_table"
     ]
   ]
 }

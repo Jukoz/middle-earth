@@ -1,12 +1,12 @@
 {
-  "parent": "me:alloy/root",
+  "parent": "me:smithing/bronze_ingot",
   "criteria": {
-    "artisan_table": {
+    "edhel_steel": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:artisan_table"
+              "me:edhel_steel_ingot"
             ]
           }
         ]
@@ -17,22 +17,22 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.alloy.artisan_table.description"
+      "translate": "advancements.smithing.edhel_steel.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:artisan_table"
+      "id":  "me:edhel_steel_ingot"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.alloy.artisan_table.title"
+      "translate": "advancements.smithing.edhel_steel.title"
     }
   },
   "requirements": [
     [
-      "artisan_table"
+      "edhel_steel"
     ]
   ]
 }

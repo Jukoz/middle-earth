@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 
 public class SmithingHammerItem extends ToolItem {
 
-    public SmithingHammerItem(Settings settings) {
-        super(ToolMaterials.GOLD, settings.maxCount(1).attributeModifiers(createAttributeModifiers(-3.5f)));
+    public SmithingHammerItem(Settings settings, ModToolMaterials material) {
+        super(material, settings.maxCount(1).attributeModifiers(createAttributeModifiers(-3.5f)));
     }
 
     public static AttributeModifiersComponent createAttributeModifiers(float attackSpeed) {

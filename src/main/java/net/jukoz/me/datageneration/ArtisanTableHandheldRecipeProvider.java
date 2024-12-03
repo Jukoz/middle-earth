@@ -5,7 +5,6 @@ import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
 import net.jukoz.me.MiddleEarth;
 import net.jukoz.me.block.special.forge.MetalTypes;
 import net.jukoz.me.datageneration.custom.ArtisanTableRecipeJsonBuilder;
-import net.jukoz.me.item.ModEquipmentItems;
 import net.jukoz.me.item.ModResourceItems;
 import net.jukoz.me.item.ModToolItems;
 import net.jukoz.me.item.ModWeaponItems;
@@ -16,6 +15,7 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.data.DataOutput;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.RecipeProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.trim.ArmorTrim;
@@ -87,12 +87,16 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
 
         //region WEAPONS
         createArtisanTableSwordRecipe(exporter, MetalTypes.IRON, Items.IRON_SWORD.getDefaultStack(), false, Disposition.NEUTRAL);
-
+        createArtisanTableDaggerRecipe(exporter, MetalTypes.IRON, ModWeaponItems.IRON_DAGGER.getDefaultStack(), false, Disposition.NEUTRAL);
         createArtisanTableSpearRecipe(exporter, MetalTypes.IRON, ModWeaponItems.IRON_SPEAR.getDefaultStack(), false, Disposition.NEUTRAL);
 
         createArtisanTableSwordRecipe(exporter, MetalTypes.GOLD, Items.GOLDEN_SWORD.getDefaultStack(), false, Disposition.NEUTRAL);
-
+        createArtisanTableDaggerRecipe(exporter, MetalTypes.GOLD, ModWeaponItems.GOLDEN_DAGGER.getDefaultStack(), false, Disposition.NEUTRAL);
         createArtisanTableSpearRecipe(exporter, MetalTypes.GOLD, ModWeaponItems.GOLDEN_SPEAR.getDefaultStack(), false, Disposition.NEUTRAL);
+
+        createArtisanTableSwordRecipe(exporter, MetalTypes.NETHERITE, Items.NETHERITE_SWORD.getDefaultStack(), false, Disposition.NEUTRAL);
+        createArtisanTableDaggerRecipe(exporter, MetalTypes.NETHERITE, ModWeaponItems.NETHERITE_DAGGER.getDefaultStack(), false, Disposition.NEUTRAL);
+        createArtisanTableSpearRecipe(exporter, MetalTypes.NETHERITE, ModWeaponItems.NETHERITE_SPEAR.getDefaultStack(), false, Disposition.NEUTRAL);
 
         createArtisanTableSwordRecipe(exporter, MetalTypes.BRONZE, ModWeaponItems.BRONZE_SWORD.getDefaultStack(), false, Disposition.NEUTRAL);
         createArtisanTableDaggerRecipe(exporter, MetalTypes.BRONZE, ModWeaponItems.BRONZE_DAGGER.getDefaultStack(), false, Disposition.NEUTRAL);

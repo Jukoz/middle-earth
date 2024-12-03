@@ -1,12 +1,12 @@
 {
-  "parent": "me:alloy/khazad_steel",
+  "parent": "me:smithing/edhel_steel",
   "criteria": {
-    "dwarven_lantern": {
+    "elven_treated_anvil": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:dwarven_lantern"
+              "me:elven_treated_anvil"
             ]
           }
         ]
@@ -17,22 +17,22 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.alloy.dwarven_lantern.description"
+      "translate": "advancements.smithing.elven_treated_anvil.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:dwarven_lantern"
+      "id":  "me:elven_treated_anvil"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.alloy.dwarven_lantern.title"
+      "translate": "advancements.smithing.elven_treated_anvil.title"
     }
   },
   "requirements": [
     [
-      "dwarven_lantern"
+      "elven_treated_anvil"
     ]
   ]
 }
