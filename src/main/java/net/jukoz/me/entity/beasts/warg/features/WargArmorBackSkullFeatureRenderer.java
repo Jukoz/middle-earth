@@ -33,7 +33,7 @@ public class WargArmorBackSkullFeatureRenderer extends FeatureRenderer<WargEntit
         ItemStack itemStack = wargEntity.getBodyArmor();
         Item item = itemStack.getItem();
         if(item instanceof CustomAnimalArmorItem animalArmorItem) {
-            if (itemStack.isOf(ModEquipmentItems.WARG_MORDOR_PLATE_ARMOR)) {
+            if (itemStack.isOf(ModEquipmentItems.WARG_GUNDABAD_PLATE_ARMOR)) {
                 if(itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA) != null && itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA).enabled()) {
                     ((WargModel)this.getContextModel()).copyStateTo(this.model);
 

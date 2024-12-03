@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "combat",
+  "ingredients": [
+    {
+      "item": "me:warg_gundabad_plate_armor"
+    },
+    {
+      "item": "minecraft:skeleton_skull"
+    }
+  ],
+  "result": {
+    "id": "me:warg_gundabad_plate_armor",
+    "components": {
+      "me:mount_armor_addon": {
+        "enabled": true
+      }
+    }
+  }
+}

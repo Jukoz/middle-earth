@@ -75,6 +75,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         warg_food.add(ModFoodItems.RAW_VENISON);
 
         warg_armor.add(ModEquipmentItems.WARG_MORDOR_PLATE_ARMOR);
+        warg_armor.add(ModEquipmentItems.WARG_GUNDABAD_PLATE_ARMOR);
 
         broadhoof_goat_armor.add(ModEquipmentItems.BROADHOOF_GOAT_PLATE_ARMOR);
         broadhoof_goat_armor.add(ModEquipmentItems.BROADHOOF_GOAT_PADDED_ARMOR);
