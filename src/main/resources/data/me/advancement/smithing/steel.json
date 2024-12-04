@@ -1,11 +1,12 @@
 {
+  "parent": "me:smithing/bronze_ingot",
   "criteria": {
-    "forge": {
+    "steel": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:forge"
+              "me:steel_ingot"
             ]
           }
         ]
@@ -15,24 +16,23 @@
   },
   "display": {
     "announce_to_chat": true,
-    "background": "me:textures/block/dolomite_bricks.png",
     "description": {
-      "translate": "advancements.alloy.root.description"
+      "translate": "advancements.smithing.steel.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:forge"
+      "id":  "me:steel_ingot"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.alloy.root.title"
+      "translate": "advancements.smithing.steel.title"
     }
   },
-    "requirements": [
+  "requirements": [
     [
-      "forge"
+      "steel"
     ]
   ]
 }

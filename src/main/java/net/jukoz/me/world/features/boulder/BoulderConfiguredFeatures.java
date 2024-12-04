@@ -58,6 +58,10 @@ public class BoulderConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEDIUM_BOULDER_DOLOMITE = registerKey("medium_boulder_dolomite");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BIG_BOULDER_DOLOMITE = registerKey("big_boulder_dolomite");
 
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SMALL_BOULDER_SMOOTH_DOLOMITE = registerKey("small_boulder_smooth_dolomite");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MEDIUM_BOULDER_SMOOTH_DOLOMITE = registerKey("medium_boulder_smooth_dolomite");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> BIG_BOULDER_SMOOTH_DOLOMITE = registerKey("big_boulder_smooth_dolomite");
+
     public static final RegistryKey<ConfiguredFeature<?, ?>> SMALL_BOULDER_GNEISS = registerKey("small_boulder_gneiss");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEDIUM_BOULDER_GNEISS = registerKey("medium_boulder_gneiss");
     public static final RegistryKey<ConfiguredFeature<?, ?>> BIG_BOULDER_GNEISS = registerKey("big_boulder_gneiss");
@@ -93,9 +97,9 @@ public class BoulderConfiguredFeatures {
     // region Configs
     private static final float smallWidth = 1.5f;
     private static final float smallLength = 2.1f;
-    private static final float smallHeight = 1.55f;
+    private static final float smallHeight = 1.6f;
     private static final float smallRandomSize = 0.6f;
-    private static final float smallRandomness = 0.19f;
+    private static final float smallRandomness = 0.21f;
 
     private static final float mediumWidth = 2.6f;
     private static final float mediumLength = 4.0f;
@@ -103,11 +107,11 @@ public class BoulderConfiguredFeatures {
     private static final float mediumRandomSize = 0.95f;
     private static final float mediumRandomness = 0.26f;
 
-    private static final float bigWidth = 4.5f;
+    private static final float bigWidth = 4.1f;
     private static final float bigLength = 5.85f;
-    private static final float bigHeight = 4.3f;
+    private static final float bigHeight = 4.35f;
     private static final float bigRandomSize = 1.7f;
-    private static final float bigRandomness = 0.27f;
+    private static final float bigRandomness = 0.34f;
     // endregion
 
     private static final List<BlockState> andesite = Arrays.asList(
@@ -150,6 +154,12 @@ public class BoulderConfiguredFeatures {
             StoneBlockSets.DOLOMITE.base().getDefaultState(),
             StoneBlockSets.COBBLED_DOLOMITE.base().getDefaultState(),
             StoneBlockSets.MOSSY_COBBLED_DOLOMITE.base().getDefaultState());
+
+    private static final List<BlockState> smoothDolomite = Arrays.asList(
+            StoneBlockSets.SMOOTH_DOLOMITE.base().getDefaultState(),
+            StoneBlockSets.SMOOTH_DOLOMITE.base().getDefaultState(),
+            StoneBlockSets.CRACKED_SMOOTH_DOLOMITE.base().getDefaultState(),
+            StoneBlockSets.MOSSY_SMOOTH_DOLOMITE.base().getDefaultState());
 
     private static final List<BlockState> gneiss = Arrays.asList(
             StoneBlockSets.GNEISS.base().getDefaultState(),
@@ -270,6 +280,13 @@ public class BoulderConfiguredFeatures {
                 new BigBoulderFeatureConfig(mediumWidth, mediumLength, mediumHeight, mediumRandomSize, mediumRandomness, dolomite));
         ConfiguredFeatures.register(featureRegisterable, BIG_BOULDER_DOLOMITE, ModFeatures.BIG_BOULDER,
                 new BigBoulderFeatureConfig(bigWidth, bigLength, bigHeight, bigRandomSize, bigRandomness, dolomite));
+
+        ConfiguredFeatures.register(featureRegisterable, SMALL_BOULDER_SMOOTH_DOLOMITE, ModFeatures.BIG_BOULDER,
+                new BigBoulderFeatureConfig(smallWidth, smallLength, smallHeight, smallRandomSize, smallRandomness, smoothDolomite));
+        ConfiguredFeatures.register(featureRegisterable, MEDIUM_BOULDER_SMOOTH_DOLOMITE, ModFeatures.BIG_BOULDER,
+                new BigBoulderFeatureConfig(mediumWidth, mediumLength, mediumHeight, mediumRandomSize, mediumRandomness, smoothDolomite));
+        ConfiguredFeatures.register(featureRegisterable, BIG_BOULDER_SMOOTH_DOLOMITE, ModFeatures.BIG_BOULDER,
+                new BigBoulderFeatureConfig(bigWidth, bigLength, bigHeight, bigRandomSize, bigRandomness, smoothDolomite));
 
         ConfiguredFeatures.register(featureRegisterable, SMALL_BOULDER_GNEISS, ModFeatures.BIG_BOULDER,
                 new BigBoulderFeatureConfig(smallWidth, smallLength, smallHeight, smallRandomSize, smallRandomness, gneiss));

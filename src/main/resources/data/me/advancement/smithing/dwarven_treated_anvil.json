@@ -1,12 +1,12 @@
 {
-  "parent": "me:alloy/bronze_ingot",
+  "parent": "me:smithing/khazad_steel",
   "criteria": {
-    "khazad_steel": {
+    "dwarven_treated_anvil": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:khazad_steel_ingot"
+              "me:dwarven_treated_anvil"
             ]
           }
         ]
@@ -17,22 +17,22 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.alloy.khazad_steel.description"
+      "translate": "advancements.smithing.dwarven_treated_anvil.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:khazad_steel_ingot"
+      "id":  "me:dwarven_treated_anvil"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.alloy.khazad_steel.title"
+      "translate": "advancements.smithing.dwarven_treated_anvil.title"
     }
   },
   "requirements": [
     [
-      "khazad_steel"
+      "dwarven_treated_anvil"
     ]
   ]
 }

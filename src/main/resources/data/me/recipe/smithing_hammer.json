@@ -1,19 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "pattern": [
-    "I",
-    "S"
+    "MSM",
+    " S "
   ],
   "key": {
+    "M": {
+      "item": "me:steel_ingot"
+    },
     "S": {
       "item": "minecraft:stick"
-    },
-    "I": {
-      "tag": "minecraft:planks"
     }
   },
   "result": {
-    "id": "me:wooden_dagger",
+    "id": "me:smithing_hammer",
     "count": 1
   }
 }

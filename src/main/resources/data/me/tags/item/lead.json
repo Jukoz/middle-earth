@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "me:lead_ingot",
+    "me:raw_lead",
+    "me:deepslate_lead_ore",
+    "me:medgon_lead_ore",
+    "me:nurgon_lead_ore"
+  ]
+}

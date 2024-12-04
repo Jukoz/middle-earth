@@ -1,0 +1,38 @@
+{
+  "parent": "me:smithing/burzum_steel",
+  "criteria": {
+    "orcish_treated_anvil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "me:orcish_treated_anvil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.orcish_treated_anvil.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "me:orcish_treated_anvil"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.orcish_treated_anvil.title"
+    }
+  },
+  "requirements": [
+    [
+      "orcish_treated_anvil"
+    ]
+  ]
+}

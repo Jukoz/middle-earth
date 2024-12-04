@@ -10,7 +10,6 @@ public class MEBiomeFogData {
     public static Map<RegistryKey<Biome>, MEBiomeFogData> DATA;
     static {
         DATA = new HashMap<>();
-        DATA.put(MEBiomeKeys.ERIADOR, new MEBiomeFogData(0.15f, 0.95f));
         DATA.put(MEBiomeKeys.BARROW_DOWNS, new MEBiomeFogData(0.0f, 0.3f));
         DATA.put(MEBiomeKeys.DARK_MIRKWOOD, new MEBiomeFogData(0.1f, 0.45f));
         DATA.put(MEBiomeKeys.DARK_MIRKWOOD_EDGE, new MEBiomeFogData(0.1f, 0.5f));

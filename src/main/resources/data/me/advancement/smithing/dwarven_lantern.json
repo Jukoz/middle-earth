@@ -1,12 +1,12 @@
 {
-  "parent": "me:alloy/bronze_ingot",
+  "parent": "me:smithing/khazad_steel",
   "criteria": {
-    "burzum_steel": {
+    "dwarven_lantern": {
       "conditions": {
         "items": [
           {
             "items": [
-              "me:burzum_steel_ingot"
+              "me:dwarven_lantern"
             ]
           }
         ]
@@ -17,22 +17,22 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.alloy.burzum_steel.description"
+      "translate": "advancements.smithing.dwarven_lantern.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "me:burzum_steel_ingot"
+      "id":  "me:dwarven_lantern"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.alloy.burzum_steel.title"
+      "translate": "advancements.smithing.dwarven_lantern.title"
     }
   },
   "requirements": [
     [
-      "burzum_steel"
+      "dwarven_lantern"
     ]
   ]
 }
