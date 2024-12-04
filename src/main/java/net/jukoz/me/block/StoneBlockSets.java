@@ -306,9 +306,11 @@ public class StoneBlockSets {
     public static SimpleBlockSet GRANITE_TILES = registerStoneSet("granite_tiles", GRANITE_BRICKS.base.getHardness(), GRANITE_BRICKS.base.getBlastResistance(), GRANITE_BRICKS.base);
     public static SimpleBlockSet MOSSY_GRANITE_TILES = registerStoneSet("mossy_granite_tiles", GRANITE_BRICKS.base.getHardness(), GRANITE_BRICKS.base.getBlastResistance(), GRANITE_TILES.base);
     public static SimpleBlockSet CRACKED_GRANITE_TILES = registerStoneSet("cracked_granite_tiles", GRANITE_BRICKS.base.getHardness(), GRANITE_BRICKS.base.getBlastResistance(), GRANITE_TILES.base);
-
+    
     public static SimpleBlockSet GRANITE_BRICKWORK = registerStoneSet("granite_brickwork", GRANITE_BRICKS.base.getHardness(), GRANITE_BRICKS.base.getBlastResistance(), GRANITE_TILES.base);
 
+    public static SimpleBlockSet OLD_GRANITE = registerStoneSet("old_granite", Blocks.GRANITE.getHardness(), Blocks.GRANITE.getBlastResistance(), null);
+    
     public static SimpleBlockSet SMOOTH_DIORITE = registerStoneSet("smooth_diorite", Blocks.DIORITE.getHardness(), Blocks.DIORITE.getBlastResistance(), Blocks.DIORITE);
     public static SimpleBlockSet COBBLED_DIORITE = registerStoneSet("cobbled_diorite", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, Blocks.DIORITE);
     public static SimpleBlockSet MOSSY_COBBLED_DIORITE = registerStoneSet("mossy_cobbled_diorite", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, COBBLED_DIORITE.base);
@@ -702,6 +704,8 @@ public class StoneBlockSets {
             CRACKED_POLISHED_GRANITE,
 
             GRANITE_BRICKWORK,
+
+            OLD_GRANITE,
 
             SMOOTH_DIORITE,
             COBBLED_DIORITE,

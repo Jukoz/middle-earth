@@ -2332,6 +2332,12 @@
   "block.me.cracked_blackstone_tiles_wall": "Cracked Blackstone Tiles Wall",
 
 "#Comment:": "Block - Granite",
+  "block.me.chiseled_polished_granite": "Chiseled Polished Granite",
+  "block.me.chiseled_granite_bricks": "Chiseled Granite Bricks",
+  "block.me.chiseled_granite": "Chiseled Granite",
+  "block.me.chiseled_granite_tiles": "Chiseled Granite Tiles",
+  "block.me.chiseled_smooth_granite": "Chiseled Smooth Granite",
+
   "block.me.smooth_granite": "Smooth Granite",
   "block.me.smooth_granite_slab": "Smooth Granite Slab",
   "block.me.smooth_granite_vertical_slab": "Smooth Granite Vertical Slab",
@@ -2402,8 +2408,11 @@
   "block.me.cracked_polished_granite_vertical_slab": "Cracked Polished Granite Vertical Slab",
   "block.me.cracked_polished_granite_stairs": "Cracked Polished Granite Stairs",
   "block.me.cracked_polished_granite_wall": "Cracked Polished Granite Wall",
-  "block.me.chiseled_polished_granite": "Chiseled Polished Granite",
-  "block.me.chiseled_granite_bricks": "Chiseled Granite Bricks",
+  "block.me.old_granite": "Old Granite",
+  "block.me.old_granite_slab": "Old Granite Slab",
+  "block.me.old_granite_vertical_slab": "Old Granite Vertical Slab",
+  "block.me.old_granite_stairs": "Old Granite Stairs",
+  "block.me.old_granite_wall": "Old Granite Wall",
 
   "block.me.granite_brickwork": "Granite Brickwork",
   "block.me.granite_brickwork_slab": "Granite Brickwork Slab",
