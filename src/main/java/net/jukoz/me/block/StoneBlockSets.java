@@ -159,6 +159,8 @@ public class StoneBlockSets {
     public static SimpleBlockSet CRACKED_IZHERABAN_TILES = registerStoneSet("cracked_izheraban_tiles", COBBLED_IZHERABAN.base.getHardness(), COBBLED_IZHERABAN.base.getBlastResistance(), IZHERABAN_TILES.base);
 
     public static SimpleBlockSet OLD_IZHERABAN = registerStoneSet("old_izheraban", IZHERABAN.base.getHardness(), IZHERABAN.base.getBlastResistance(), null);
+
+    public static SimpleBlockSet IZHERABAN_BRICKWORK = registerStoneSet("izheraban_brickwork", Blocks.PACKED_MUD.getHardness(), Blocks.PACKED_MUD.getBlastResistance(), null);
     
     public static SimpleBlockSetMain FROZEN_STONE = registerMainStoneSet("frozen_stone", STONE_HARDNESS, STONE_BLAST_RESISTANCE, null);
     public static SimpleBlockSet FROZEN_COBBLESTONE = registerStoneSet("frozen_cobblestone", COBBLE_HARDNESS, COBBLE_BLAST_RESISTANCE, FROZEN_STONE.base);
@@ -575,6 +577,8 @@ public class StoneBlockSets {
             CRACKED_POLISHED_IZHERABAN,
 
             OLD_IZHERABAN,
+
+            IZHERABAN_BRICKWORK,
 
             SMOOTH_LIMESTONE,
             MOSSY_SMOOTH_LIMESTONE,
