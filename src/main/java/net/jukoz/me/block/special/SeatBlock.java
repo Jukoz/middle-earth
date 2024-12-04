@@ -15,6 +15,7 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
@@ -35,13 +36,11 @@ import java.util.function.Predicate;
 public class SeatBlock extends Block {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-
-    private static final Predicate<Entity> RIDERS = EntityPredicates.EXCEPT_SPECTATOR.and(Entity::canHit);
-
+    public static final BooleanProperty OCCUPIED = Properties.OCCUPIED;
 
     public SeatBlock(Settings settings) {
         super(settings);
-        setDefaultState(getDefaultState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
+        setDefaultState(getDefaultState().with(FACING, Direction.NORTH).with(WATERLOGGED, false).with(OCCUPIED, false));
     }
 
     @Override
@@ -55,32 +54,30 @@ public class SeatBlock extends Block {
         seat.setInvisible(true);
         seat.setInvulnerable(true);
 
-        //TODO Remove multiple passengers, crab i hate you for making me do this
-
         if(world.isClient) {
             return ActionResult.CONSUME;
         } else if(player.isSneaking() || player.isSpectator()) {
-            //System.out.println("is sneaking or spectator");
             return ActionResult.FAIL;
         } else if (player.shouldCancelInteraction()) {
-            //System.out.println("canceled interaction");
+            return ActionResult.SUCCESS;
+        } else if (state.get(OCCUPIED)){
+            player.sendMessage(Text.translatable("alert.me.seat.occupied"), true);
             return ActionResult.SUCCESS;
         } else {
             if(world.spawnEntity(seat)) {
                 player.startRiding(seat, true);
                 player.setYaw(yaw);
                 player.setHeadYaw(yaw);
-                //System.out.println("spawn new seat");
+                world.setBlockState(pos, state.with(OCCUPIED, true));
                 return ActionResult.SUCCESS;
             } else {
-                //System.out.println("could not spawn seat");
                 return ActionResult.CONSUME;
             }
         }
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(Properties.HORIZONTAL_FACING, WATERLOGGED);
+        builder.add(Properties.HORIZONTAL_FACING, WATERLOGGED, OCCUPIED);
     }
 
     @Nullable

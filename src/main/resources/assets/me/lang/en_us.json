@@ -4651,7 +4651,7 @@
   "block.me.dark_cyan_roof_tiles_wall": "Dark Cyan Roof Tiles Wall",
 
   "block.me.light_cyan_roof_tiles": "Light Cyan Roof Tiles",
-  "block.me.light_cyan_roof_tiles_stairs": "Light lue Roof Tiles Stairs",
+  "block.me.light_cyan_roof_tiles_stairs": "Light Blue Roof Tiles Stairs",
   "block.me.light_cyan_roof_tiles_slab": "Light Cyan Roof Tiles Slab",
   "block.me.light_cyan_roof_tiles_vertical_slab": "Light Cyan Roof Tiles Vertical Slab",
   "block.me.light_cyan_roof_tiles_wall": "Light Cyan Roof Tiles Wall",
@@ -6728,6 +6728,8 @@
 
   "alert.me.hood_down": "Hood down.",
   "alert.me.hood_up": "Hood up.",
+
+  "alert.me.seat.occupied": "This seat is occupied.",
 
 "#Comment": "Events",
   "event.me.join.faction.success": "You have joined %s",
