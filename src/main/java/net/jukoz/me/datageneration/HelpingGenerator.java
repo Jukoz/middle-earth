@@ -153,7 +153,7 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.strippedWoodVerticalSlab());
             BlockDrops.blocks.add(set.planksStairs());
             BlockDrops.blocks.add(set.woodStairs());
-            BlockDrops.blocks.add(set.strippedWoodVerticalSlab());
+            BlockDrops.blocks.add(set.strippedWoodStairs());
             BlockDrops.blocks.add(set.planksFence());
             BlockDrops.blocks.add(set.planksGate());
             BlockDrops.blocks.add(set.button());
@@ -310,7 +310,7 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.stairs());
             BlockDrops.blocks.add(set.wall());
 
-            if(set.origin() != null && set.origin().toString().contains("planks")){
+            if(set.origin() != null && (set.origin().toString().contains("planks") || set.block().toString().contains("roofing"))){
                 MineableAxe.blocks.add(set.block());
                 MineableAxe.blocks.add(set.slab());
                 MineableAxe.blocks.add(set.verticalSlab());

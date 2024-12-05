@@ -22,6 +22,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
+import javax.print.attribute.standard.MediaSize;
 import java.util.concurrent.CompletableFuture;
 
 public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvider {
@@ -40,7 +41,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         //region STONE RECIPES
         for (StoneBlockSets.SimpleBlockSetMain record : StoneBlockSets.setsMain) {
-            if(record.toString().contains("mossy_")){
+            if(record.toString().contains("mossy_")) {
                 createMossyRecipe(exporter, record.source(), record.base());
             } else if(record.toString().contains("cracked_")) {
                 createSmeltingRecipe(exporter, record.source().asItem(), record.base().asItem());
@@ -55,12 +56,15 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.wall(), record.source());
             }
 
-
-
             createButtonRecipe(exporter, record.base().asItem(), record.button());
             createPressurePlateRecipe(exporter, record.base().asItem(), record.pressurePlate());
             createSlabsRecipe(exporter, record.base(), record.slab());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.base(), 2);
+            createVerticalSlabsRecipe(exporter, record.slab(), record.verticalSlab());
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.verticalSlab(), record.base(), 2);
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.verticalSlab(), record.slab(), 1);
+            createSlabsFromVerticalRecipe(exporter, record.verticalSlab(), record.slab());
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.verticalSlab(), 1);
             createStairsRecipe(exporter, record.base(), record.stairs());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.base(), 1);
             createWallsRecipe(exporter, record.base(), record.wall());
@@ -90,6 +94,11 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
             createSlabsRecipe(exporter, record.base(), record.slab());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.base(), 2);
+            createVerticalSlabsRecipe(exporter, record.slab(), record.verticalSlab());
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.verticalSlab(), record.base(), 2);
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.verticalSlab(), record.slab(), 1);
+            createSlabsFromVerticalRecipe(exporter, record.verticalSlab(), record.slab());
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.verticalSlab(), 1);
             createStairsRecipe(exporter, record.base(), record.stairs());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.base(), 1);
             createWallsRecipe(exporter, record.base(), record.wall());
@@ -101,19 +110,32 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         for (WoodBlockSets.SimpleBlockSet record : WoodBlockSets.sets) {
             createBrickRecipe(exporter, record.log().asItem(), record.wood(), 3);
             createBrickRecipe(exporter, record.strippedLog().asItem(), record.strippedWood(), 3);
+
             createWallsRecipe(exporter, record.wood(), record.woodWall());
             createWallsRecipe(exporter, record.strippedWood(), record.strippedWoodWall());
+
             createFenceRecipe(exporter, record.planks().asItem(), record.planksFence());
             createFenceRecipe(exporter, record.wood().asItem(), record.woodFence());
             createFenceRecipe(exporter, record.strippedWood().asItem(), record.strippedWoodFence());
+
             createSlabsRecipe(exporter, record.planks(), record.planksSlab());
             createSlabsRecipe(exporter, record.wood(), record.woodSlab());
             createSlabsRecipe(exporter, record.strippedWood(), record.strippedWoodSlab());
+
+            createVerticalSlabsRecipe(exporter, record.planksSlab(), record.planksVerticalSlab());
+            createSlabsFromVerticalRecipe(exporter, record.planksVerticalSlab(), record.strippedWoodSlab());
+            createVerticalSlabsRecipe(exporter, record.woodSlab(), record.woodVerticalSlab());
+            createSlabsFromVerticalRecipe(exporter, record.woodVerticalSlab(), record.strippedWoodSlab());
+            createVerticalSlabsRecipe(exporter, record.strippedWoodSlab(), record.strippedWoodVerticalSlab());
+            createSlabsFromVerticalRecipe(exporter, record.strippedWoodVerticalSlab(), record.strippedWoodSlab());
+
             createStairsRecipe(exporter, record.planks(), record.planksStairs());
             createStairsRecipe(exporter, record.wood(), record.woodStairs());
             createStairsRecipe(exporter, record.strippedWood(), record.strippedWoodStairs());
+
             createDoorRecipe(exporter, record.planks(), record.door());
             createTrapdoorRecipe(exporter, record.planks(), record.trapdoor());
+
             createWoodStoolRecipe(exporter, record.planks().asItem(), record.stool());
             createWoodBenchRecipe(exporter, record.planks().asItem(), record.bench());
             createWoodTableRecipe(exporter, record.planks().asItem(), record.table());
@@ -216,14 +238,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         .criterion(FabricRecipeProvider.hasItem(record.origin()),
                                 FabricRecipeProvider.conditionsFromItem(record.origin()))
                         .offerTo(exporter);
-                if(!record.block().toString().contains("shingles")){
-                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.block(), record.origin(), 1);
-                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.block(), 2);
-                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.origin(), 2);
-                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.block(), 1);
-                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.origin(), 1);
-                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.wall(), 1);
-                }
             }
             createSlabsRecipe(exporter, record.block(), record.slab());
             createStairsRecipe(exporter, record.block(), record.stairs());
@@ -241,13 +255,6 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                         .criterion(FabricRecipeProvider.hasItem(record.origin()),
                                 FabricRecipeProvider.conditionsFromItem(record.origin()))
                         .offerTo(exporter);
-                if(!record.block().toString().contains("shingles")){
-                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.block(), record.origin(), 1);
-                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.block(), 2);
-                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.origin(), 2);
-                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.block(), 1);
-                    offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.origin(), 1);
-                }
             }
             createSlabsRecipe(exporter, record.block(), record.slab());
             createStairsRecipe(exporter, record.block(), record.stairs());
@@ -255,52 +262,19 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         //endregion
 
         //region BLOCK LIST SPECIFIC RECIPES
-        for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.verticalSlabs) {
-            createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
-            createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
-            if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
-                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, verticalSlab.verticalSlab(), verticalSlab.block(),2);
-            }
-        }
-
-        for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.strippedVerticalSlabs) {
-            createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
-            createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
-            if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
-                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, verticalSlab.verticalSlab(), verticalSlab.block(),2);
-            }
-        }
-
-        for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.woodVerticalSlabs) {
-            createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
-            createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
-            if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
-                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, verticalSlab.verticalSlab(), verticalSlab.block(),2);
-            }
-        }
-
         for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
             createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
             createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
-            if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
-                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, verticalSlab.verticalSlab(), verticalSlab.block(),2);
-            }
         }
 
         for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaWoodVerticalSlabs) {
             createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
             createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
-            if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
-                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, verticalSlab.verticalSlab(), verticalSlab.block(),2);
-            }
         }
 
         for(SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaStrippedVerticalSlabs) {
             createVerticalSlabsRecipe(exporter, verticalSlab.slab(), verticalSlab.verticalSlab());
             createSlabsFromVerticalRecipe(exporter, verticalSlab.verticalSlab(), verticalSlab.slab());
-            if(!verticalSlab.block().toString().contains("planks") || !verticalSlab.block().toString().contains("shingles")){
-                offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, verticalSlab.verticalSlab(), verticalSlab.block(),2);
-            }
         }
 
         for(SimplePillarModel.StonePillar pillar : SimplePillarModel.stonePillars) {
@@ -405,7 +379,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         }
 
         for(SimpleLadderModel.Ladder ladder : SimpleLadderModel.vanillaLadders){
-            createWoodChairRecipe(exporter, ladder.block().asItem(), ladder.ladder());
+            createWoodLadderRecipe(exporter, ladder.block().asItem(), ladder.ladder());
         }
 
         for(SimpleStoneStoolModel.VanillaStool stool : SimpleStoneStoolModel.vanillaStools){
@@ -422,22 +396,22 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         //endregion
 
         //region MANUAL BLOCK RECIPES
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.BLACK_DYE, ModDecorativeBlocks.BLACK_STAINED_LEAD_GLASS, 8);
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.BLUE_DYE, ModDecorativeBlocks.BLUE_STAINED_LEAD_GLASS, 8);
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.BROWN_DYE, ModDecorativeBlocks.BROWN_STAINED_LEAD_GLASS, 8);
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.CYAN_DYE, ModDecorativeBlocks.CYAN_STAINED_LEAD_GLASS, 8);
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.GRAY_DYE, ModDecorativeBlocks.GRAY_STAINED_LEAD_GLASS, 8);
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.GREEN_DYE, ModDecorativeBlocks.GREEN_STAINED_LEAD_GLASS, 8);
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.LIGHT_BLUE_DYE, ModDecorativeBlocks.LIGHT_BLUE_STAINED_LEAD_GLASS, 8);
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.LIGHT_GRAY_DYE, ModDecorativeBlocks.LIGHT_GRAY_STAINED_LEAD_GLASS, 8);
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.LIME_DYE, ModDecorativeBlocks.LIME_STAINED_LEAD_GLASS, 8);
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.MAGENTA_DYE, ModDecorativeBlocks.MAGENTA_STAINED_LEAD_GLASS, 8);
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.ORANGE_DYE, ModDecorativeBlocks.ORANGE_STAINED_LEAD_GLASS, 8);
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.PINK_DYE, ModDecorativeBlocks.PINK_STAINED_LEAD_GLASS, 8);
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.PURPLE_DYE, ModDecorativeBlocks.PURPLE_STAINED_LEAD_GLASS, 8);
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.RED_DYE, ModDecorativeBlocks.RED_STAINED_LEAD_GLASS, 8);
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.WHITE_DYE, ModDecorativeBlocks.WHITE_STAINED_LEAD_GLASS, 8);
-        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS, Items.YELLOW_DYE, ModDecorativeBlocks.YELLOW_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.BLACK_DYE, ModDecorativeBlocks.BLACK_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.BLUE_DYE, ModDecorativeBlocks.BLUE_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.BROWN_DYE, ModDecorativeBlocks.BROWN_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.CYAN_DYE, ModDecorativeBlocks.CYAN_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.GRAY_DYE, ModDecorativeBlocks.GRAY_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.GREEN_DYE, ModDecorativeBlocks.GREEN_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.LIGHT_BLUE_DYE, ModDecorativeBlocks.LIGHT_BLUE_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.LIGHT_GRAY_DYE, ModDecorativeBlocks.LIGHT_GRAY_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.LIME_DYE, ModDecorativeBlocks.LIME_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.MAGENTA_DYE, ModDecorativeBlocks.MAGENTA_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.ORANGE_DYE, ModDecorativeBlocks.ORANGE_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.PINK_DYE, ModDecorativeBlocks.PINK_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.PURPLE_DYE, ModDecorativeBlocks.PURPLE_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.RED_DYE, ModDecorativeBlocks.RED_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.WHITE_DYE, ModDecorativeBlocks.WHITE_STAINED_LEAD_GLASS, 8);
+        createDyeableBlockRecipe(exporter, ModDecorativeBlocks.LEAD_GLASS.asItem(), Items.YELLOW_DYE, ModDecorativeBlocks.YELLOW_STAINED_LEAD_GLASS, 8);
 
         createLayerRecipe(exporter, Blocks.GRAVEL.asItem(), ModBlocks.GRAVEL_LAYER);
         createLayerRecipe(exporter, Blocks.SAND.asItem(), ModBlocks.SAND_LAYER);
@@ -448,22 +422,26 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD, ModBlocks.LEAD_BLOCK, 4);
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_SLAB, ModBlocks.LEAD_BLOCK, 8);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_VERTICAL_SLAB, ModBlocks.LEAD_BLOCK, 8);
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_STAIRS, ModBlocks.LEAD_BLOCK, 4);
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_SLAB, ModBlocks.CUT_LEAD, 2);
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_LEAD_STAIRS, ModBlocks.CUT_LEAD);
 
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_SILVER, ModBlocks.SILVER_BLOCK, 4);
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_SILVER_SLAB, ModBlocks.SILVER_BLOCK, 8);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_SILVER_VERTICAL_SLAB, ModBlocks.SILVER_BLOCK, 8);
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_SILVER_STAIRS, ModBlocks.SILVER_BLOCK, 4);
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_SILVER_SLAB, ModBlocks.CUT_SILVER, 2);
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_SILVER_STAIRS, ModBlocks.CUT_SILVER);
 
         createStairsRecipe(exporter, ModBlocks.REED_BLOCK, ModBlocks.REED_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.REED_BLOCK, ModBlocks.REED_SLAB);
+        createVerticalSlabsRecipe(exporter, ModBlocks.REED_BLOCK, ModBlocks.REED_VERTICAL_SLAB);
         createWallsRecipe(exporter, ModBlocks.REED_BLOCK, ModBlocks.REED_WALL);
 
         createStairsRecipe(exporter, ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_STAIRS);
         createSlabsRecipe(exporter, ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_SLAB);
+        createVerticalSlabsRecipe(exporter, ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_VERTICAL_SLAB);
         createWallsRecipe(exporter, ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_WALL);
 
         createStairsRecipe(exporter, ModBlocks.GRASSY_DIRT, ModBlocks.GRASSY_DIRT_STAIRS);
@@ -497,10 +475,10 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
         createPaneRecipe(exporter, ModResourceItems.SILVER_INGOT, ModBlocks.SILVERS_BARS, 6);
 
-        createDyeableBlockRecipe(exporter, Blocks.STONE, Blocks.ICE.asItem(), StoneBlockSets.FROZEN_STONE.base(), 8);
-        createDyeableBlockRecipe(exporter, Blocks.COBBLESTONE, Blocks.ICE.asItem(), StoneBlockSets.FROZEN_COBBLESTONE.base(), 8);
-        createDyeableBlockRecipe(exporter, Blocks.STONE_BRICKS, Blocks.ICE.asItem(), StoneBlockSets.FROZEN_BRICKS.base(), 8);
-        createDyeableBlockRecipe(exporter, StoneBlockSets.STONE_TILES.base(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_TILES.base(), 8);
+        createDyeableBlockRecipe(exporter, Blocks.STONE.asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_STONE.base(), 8);
+        createDyeableBlockRecipe(exporter, Blocks.COBBLESTONE.asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_COBBLESTONE.base(), 8);
+        createDyeableBlockRecipe(exporter, Blocks.STONE_BRICKS.asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_BRICKS.base(), 8);
+        createDyeableBlockRecipe(exporter, StoneBlockSets.STONE_TILES.base().asItem(), Blocks.ICE.asItem(), StoneBlockSets.FROZEN_TILES.base(), 8);
 
         createBrickRecipe(exporter, ModResourceItems.CITRINE_SHARD, ModBlocks.CITRINE_BLOCK, 1);
         createFilledRecipe(exporter, Items.GLOWSTONE, ModBlocks.GLOWSTONE_BLOCK, 1);
@@ -653,6 +631,45 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         createBrickworkBlockRecipe(exporter, StoneBlockSets.GRANITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.GRANITE_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.TAN_CLAY_BRICKS.base(), StoneBlockSets.PLASTER.base(), StoneBlockSets.TAN_CLAY_BRICKWORK.base());
         createBrickworkBlockRecipe(exporter, StoneBlockSets.MIXED_STONES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.MIXED_STONES_BRICKWORK.base());
+
+        createDyeableBlockRecipe(exporter, Items.BRICK, Items.BLUE_DYE, OtherBlockSets.BLUE_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.BLUE_ROOF_TILES.block().asItem(), Items.WHITE_DYE, OtherBlockSets.LIGHT_BLUE_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.BLUE_ROOF_TILES.block().asItem(), Items.LIGHT_GRAY_DYE, OtherBlockSets.BRIGHT_BLUE_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.BLUE_ROOF_TILES.block().asItem(), Items.GRAY_DYE, OtherBlockSets.OFF_BLUE_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.BLUE_ROOF_TILES.block().asItem(), Items.BLACK_DYE, OtherBlockSets.DARK_BLUE_ROOF_TILES.block(), 8);
+
+        createDyeableBlockRecipe(exporter, Items.BRICK, Items.BROWN_DYE, OtherBlockSets.BROWN_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.BROWN_ROOF_TILES.block().asItem(), Items.GRAY_DYE, OtherBlockSets.OFF_BROWN_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.BROWN_ROOF_TILES.block().asItem(), Items.BLACK_DYE, OtherBlockSets.DARK_BROWN_ROOF_TILES.block(), 8);
+
+        createDyeableBlockRecipe(exporter, Items.BRICK, Items.CYAN_DYE, OtherBlockSets.CYAN_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.CYAN_ROOF_TILES.block().asItem(), Items.WHITE_DYE, OtherBlockSets.LIGHT_CYAN_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.CYAN_ROOF_TILES.block().asItem(), Items.LIGHT_GRAY_DYE, OtherBlockSets.BRIGHT_CYAN_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.CYAN_ROOF_TILES.block().asItem(), Items.GRAY_DYE, OtherBlockSets.OFF_CYAN_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.CYAN_ROOF_TILES.block().asItem(), Items.BLACK_DYE, OtherBlockSets.DARK_CYAN_ROOF_TILES.block(), 8);
+
+        createDyeableBlockRecipe(exporter, Items.BRICK, Items.GRAY_DYE, OtherBlockSets.GRAY_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.GRAY_ROOF_TILES.block().asItem(), Items.WHITE_DYE, OtherBlockSets.LIGHT_GRAY_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.GRAY_ROOF_TILES.block().asItem(), Items.GRAY_DYE, OtherBlockSets.OFF_GRAY_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.GRAY_ROOF_TILES.block().asItem(), Items.BLACK_DYE, OtherBlockSets.DARK_GRAY_ROOF_TILES.block(), 8);
+
+        createDyeableBlockRecipe(exporter, Items.BRICK, Items.GREEN_DYE, OtherBlockSets.GREEN_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.GREEN_ROOF_TILES.block().asItem(), Items.WHITE_DYE, OtherBlockSets.LIGHT_GREEN_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.GREEN_ROOF_TILES.block().asItem(), Items.LIGHT_GRAY_DYE, OtherBlockSets.BRIGHT_GREEN_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.GREEN_ROOF_TILES.block().asItem(), Items.GRAY_DYE, OtherBlockSets.OFF_GREEN_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.GREEN_ROOF_TILES.block().asItem(), Items.BLACK_DYE, OtherBlockSets.DARK_GREEN_ROOF_TILES.block(), 8);
+
+        createDyeableBlockRecipe(exporter, Items.BRICK, Items.RED_DYE, OtherBlockSets.RED_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.RED_ROOF_TILES.block().asItem(), Items.WHITE_DYE, OtherBlockSets.LIGHT_RED_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.RED_ROOF_TILES.block().asItem(), Items.LIGHT_GRAY_DYE, OtherBlockSets.BRIGHT_RED_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.RED_ROOF_TILES.block().asItem(), Items.GRAY_DYE, OtherBlockSets.OFF_RED_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.RED_ROOF_TILES.block().asItem(), Items.BLACK_DYE, OtherBlockSets.DARK_RED_ROOF_TILES.block(), 8);
+
+        createDyeableBlockRecipe(exporter, Items.BRICK, Items.YELLOW_DYE, OtherBlockSets.YELLOW_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.YELLOW_ROOF_TILES.block().asItem(), Items.WHITE_DYE, OtherBlockSets.LIGHT_YELLOW_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.YELLOW_ROOF_TILES.block().asItem(), Items.LIGHT_GRAY_DYE, OtherBlockSets.BRIGHT_YELLOW_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.YELLOW_ROOF_TILES.block().asItem(), Items.GRAY_DYE, OtherBlockSets.OFF_YELLOW_ROOF_TILES.block(), 8);
+        createDyeableBlockRecipe(exporter, OtherBlockSets.YELLOW_ROOF_TILES.block().asItem(), Items.BLACK_DYE, OtherBlockSets.DARK_YELLOW_ROOF_TILES.block(), 8);
         //endregion
 
         //region SMITHING
@@ -1009,7 +1026,7 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
                 .offerTo(exporter);
     }
 
-    private void createDyeableBlockRecipe(RecipeExporter exporter, Block blockInput, Item dyeItem, Block output, int count) {
+    private void createDyeableBlockRecipe(RecipeExporter exporter, Item blockInput, Item dyeItem, Block output, int count) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, count)
                 .pattern("BBB")
                 .pattern("BDB")
