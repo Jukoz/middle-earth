@@ -1,5 +1,6 @@
 package net.jukoz.me.datageneration.content.loot_tables;
 
+import net.jukoz.me.block.ModBlocks;
 import net.jukoz.me.block.ModDecorativeBlocks;
 import net.jukoz.me.block.ModNatureBlocks;
 import net.minecraft.block.Block;

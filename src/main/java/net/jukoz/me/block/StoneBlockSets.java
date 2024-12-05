@@ -309,7 +309,7 @@ public class StoneBlockSets {
     public static SimpleBlockSet MOSSY_GRANITE_TILES = registerStoneSet("mossy_granite_tiles", GRANITE_BRICKS.base.getHardness(), GRANITE_BRICKS.base.getBlastResistance(), GRANITE_TILES.base);
     public static SimpleBlockSet CRACKED_GRANITE_TILES = registerStoneSet("cracked_granite_tiles", GRANITE_BRICKS.base.getHardness(), GRANITE_BRICKS.base.getBlastResistance(), GRANITE_TILES.base);
     
-    public static SimpleBlockSet GRANITE_BRICKWORK = registerStoneSet("granite_brickwork", GRANITE_BRICKS.base.getHardness(), GRANITE_BRICKS.base.getBlastResistance(), GRANITE_TILES.base);
+    public static SimpleBlockSet GRANITE_BRICKWORK = registerStoneSet("granite_brickwork", GRANITE_BRICKS.base.getHardness(), GRANITE_BRICKS.base.getBlastResistance(), null);
 
     public static SimpleBlockSet OLD_GRANITE = registerStoneSet("old_granite", Blocks.GRANITE.getHardness(), Blocks.GRANITE.getBlastResistance(), null);
     

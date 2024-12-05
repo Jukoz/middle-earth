@@ -34,6 +34,12 @@ public class MineablePickaxe {
             add(ModBlocks.CHISELED_GREEN_TUFF_TILES);
             add(ModBlocks.CHISELED_SMOOTH_GREEN_TUFF);
 
+            add(ModBlocks.GILDED_CHISELED_GREEN_TUFF);
+            add(ModBlocks.GILDED_CHISELED_GREEN_TUFF_BRICKS);
+            add(ModBlocks.GILDED_CHISELED_POLISHED_GREEN_TUFF);
+            add(ModBlocks.GILDED_CHISELED_GREEN_TUFF_TILES);
+            add(ModBlocks.GILDED_CHISELED_SMOOTH_GREEN_TUFF);
+
             add(ModBlocks.CHISELED_LIMESTONE);
             add(ModBlocks.CHISELED_LIMESTONE_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_LIMESTONE);
@@ -96,6 +102,11 @@ public class MineablePickaxe {
             add(ModBlocks.CHISELED_MEDGON);
             add(ModBlocks.CHISELED_MEDGON_BRICKS);
             add(ModBlocks.CHISELED_POLISHED_MEDGON);
+
+            add(ModBlocks.POINTED_GALONN);
+            add(ModBlocks.POINTED_LIMESTONE);
+            add(ModBlocks.POINTED_DOLOMITE);
+            add(ModBlocks.POINTED_IZHERABAN);
 
             add(ModBlocks.RAW_MITHRIL_BLOCK);
             add(ModBlocks.MITHRIL_BLOCK);

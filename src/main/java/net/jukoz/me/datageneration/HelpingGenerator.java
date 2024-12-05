@@ -247,6 +247,7 @@ public class HelpingGenerator {
             SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
             SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(set.planks(), set.trapdoor()));
             SimpleDoorModel.doors.add(new SimpleDoorModel.Door(set.planks(), set.door()));
+            SimpleLadderModel.ladders.add(new SimpleLadderModel.Ladder(set.planks(), set.ladder()));
 
             BlockDrops.blocks.add(set.stemWall());
             BlockDrops.blocks.add(set.stemFence());
@@ -264,6 +265,7 @@ public class HelpingGenerator {
             BlockDrops.blocks.add(set.bench());
             BlockDrops.blocks.add(set.table());
             BlockDrops.blocks.add(set.chair());
+            BlockDrops.blocks.add(set.ladder());
 
             MineableAxe.blocks.add(set.stemWall());
             MineableAxe.blocks.add(set.stemFence());
@@ -281,6 +283,7 @@ public class HelpingGenerator {
             MineableAxe.blocks.add(set.bench());
             MineableAxe.blocks.add(set.table());
             MineableAxe.blocks.add(set.chair());
+            MineableAxe.blocks.add(set.ladder());
 
             Buttons.buttons.add(set.button());
             Fences.fences.add(set.planksFence());
