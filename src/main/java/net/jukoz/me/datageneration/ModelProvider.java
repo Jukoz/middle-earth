@@ -558,6 +558,10 @@ public class ModelProvider extends FabricModelProvider {
             registerRocksBlock(blockStateModelGenerator, rocks.rocks(), rocks.block());
         }
 
+        for(SimpleRocksModel.Rocks rocks : SimpleRocksModel.vanillaRocks){
+            registerRocksBlock(blockStateModelGenerator, rocks.rocks(), rocks.block());
+        }
+
         registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.MUSHROOM.stool());
         registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.DARK_MUSHROOM.stool());
         registerWoodStoolModelBlockStates(blockStateModelGenerator, MushroomBlockSets.GRAY_MUSHROOM.stool());
@@ -1082,16 +1086,16 @@ public class ModelProvider extends FabricModelProvider {
 
     public void registerRocksBlock(BlockStateModelGenerator blockStateModelGenerator, Block rocksBlock, Block origin) {
         Identifier stage0 = MEModels.ROCKS_STAGE_0.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath())),
+                TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
                 blockStateModelGenerator.modelCollector);
         Identifier stage1 = MEModels.ROCKS_STAGE_1.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath())),
+                TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
                 blockStateModelGenerator.modelCollector);
         Identifier stage2 = MEModels.ROCKS_STAGE_2.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath())),
+                TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
                 blockStateModelGenerator.modelCollector);
         Identifier stage3 = MEModels.ROCKS_STAGE_3.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath())),
+                TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath())),
                 blockStateModelGenerator.modelCollector);
         
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(rocksBlock).coordinate(BlockStateVariantMap

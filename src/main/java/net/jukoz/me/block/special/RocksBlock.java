@@ -14,6 +14,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -64,5 +66,15 @@ public class RocksBlock extends HorizontalFacingBlock implements Waterloggable {
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
         boolean bl = fluidState.getFluid() == Fluids.WATER;
         return super.getPlacementState(ctx).with(WATERLOGGED, bl).with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(STAGE, 0);
+    }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return switch (state.get(STAGE)) {
+            case 3 -> Block.createCuboidShape(0, 0, 0, 16, 10, 16);
+            case 2 -> Block.createCuboidShape(0, 0, 0, 16, 8, 16);
+            case 1 -> Block.createCuboidShape(0, 0, 0, 16, 4, 16);
+            default -> Block.createCuboidShape(0, 0, 0, 16, 3, 16);
+        };
     }
 }

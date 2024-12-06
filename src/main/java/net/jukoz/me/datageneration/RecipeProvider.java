@@ -58,18 +58,26 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
 
             createButtonRecipe(exporter, record.base().asItem(), record.button());
             createPressurePlateRecipe(exporter, record.base().asItem(), record.pressurePlate());
+
             createSlabsRecipe(exporter, record.base(), record.slab());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.base(), 2);
+
             createVerticalSlabsRecipe(exporter, record.slab(), record.verticalSlab());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.verticalSlab(), record.base(), 2);
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.verticalSlab(), record.slab(), 1);
             createSlabsFromVerticalRecipe(exporter, record.verticalSlab(), record.slab());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.slab(), record.verticalSlab(), 1);
+
             createStairsRecipe(exporter, record.base(), record.stairs());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.stairs(), record.base(), 1);
+
             createWallsRecipe(exporter, record.base(), record.wall());
             offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.wall(), record.base(), 1);
+
             createTrapdoorRecipe(exporter, record.base(), record.trapdoor());
+
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, record.rocks(), record.base(), 4);
+
             createStoneStoolRecipe(exporter, record.base().asItem(), record.stool());
             createStoneTableRecipe(exporter, record.base().asItem(), record.table());
             createStoneChairRecipe(exporter, record.base().asItem(), record.chair());
@@ -393,6 +401,11 @@ public class RecipeProvider extends net.minecraft.data.server.recipe.RecipeProvi
         for(SimpleStoneChairModel.VanillaChair chair : SimpleStoneChairModel.vanillaChairs){
             createStoneChairRecipe(exporter, chair.origin().asItem(), chair.base());
         }
+
+        for(SimpleRocksModel.Rocks rock : SimpleRocksModel.vanillaRocks){
+            offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, rock.rocks(), rock.block(), 4);
+        }
+
         //endregion
 
         //region MANUAL BLOCK RECIPES

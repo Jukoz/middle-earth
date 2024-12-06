@@ -199,6 +199,15 @@ public class MineablePickaxe {
             add(ModBlocks.BASALT_TRAPDOOR);
             add(ModBlocks.BLACKSTONE_TRAPDOOR);
 
+            add(ModBlocks.STONE_ROCKS);
+            add(ModBlocks.GRANITE_ROCKS);
+            add(ModBlocks.DIORITE_ROCKS);
+            add(ModBlocks.ANDESITE_ROCKS);
+            add(ModBlocks.DEEPSLATE_ROCKS);
+            add(ModBlocks.TUFF_ROCKS);
+            add(ModBlocks.BASALT_ROCKS);
+            add(ModBlocks.BLACKSTONE_ROCKS);
+
             add(ModDecorativeBlocks.BIG_BRAZIER);
             add(ModDecorativeBlocks.SMALL_BRAZIER);
 
