@@ -1282,7 +1282,6 @@ public class ModelProvider extends FabricModelProvider {
 
         registerPalettedItem(ModResourceItems.ARMOR_PLATE, itemModelGenerator);
 
-
         registerPalettedItem(ModResourceItems.HELMET_PLATE, itemModelGenerator);
         registerPalettedItem(ModResourceItems.SHIELD_BORDER, itemModelGenerator);
         registerPalettedItem(ModResourceItems.SHIELD_PLATE, itemModelGenerator);
