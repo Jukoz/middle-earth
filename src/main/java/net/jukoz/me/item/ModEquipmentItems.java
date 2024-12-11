@@ -827,6 +827,40 @@ public class ModEquipmentItems {
     //region ORCS
 
     //region GENERIC
+    public static final Item ORCISH_CAPE = registerCape("orcish_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ORCISH_CAPE)),
+                    ModFactions.NONE));
+    public static final Item ORCISH_LONG_CAPE = registerCape("orcish_long_cape",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ORCISH_LONG_CAPE)),
+                    ModFactions.NONE));
+    public static final Item ORCISH_SHOULDERS = registerDyeableCape("orcish_shoulders",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ORCISH_SHOULDERS))
+                    .component(ModDataComponentTypes.DYE_DATA, new CustomDyeableDataComponent(5186845)),
+                    ModFactions.NONE));
+
+    public static final Item ORCISH_BLACK_FUR_SURCOAT_WITH_BONE = registerCape("orcish_black_fur_surcoat_with_bone",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ORCISH_BLACK_FUR_SURCOAT_WITH_BONE)),
+                    ModFactions.NONE));
+    public static final Item ORCISH_BROWN_FUR_SURCOAT_WITH_BONE = registerCape("orcish_brown_fur_surcoat_with_bone",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ORCISH_BROWN_FUR_SURCOAT_WITH_BONE)),
+                    ModFactions.NONE));
+    public static final Item ORCISH_GRAY_FUR_SURCOAT_WITH_BONE = registerCape("orcish_gray_fur_surcoat_with_bone",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ORCISH_GRAY_FUR_SURCOAT_WITH_BONE)),
+                    ModFactions.NONE));
+    public static final Item ORCISH_TAN_FUR_SURCOAT_WITH_BONE = registerCape("orcish_tan_fur_surcoat_with_bone",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ORCISH_TAN_FUR_SURCOAT_WITH_BONE)),
+                    ModFactions.NONE));
+    public static final Item ORCISH_WHITE_FUR_SURCOAT_WITH_BONE = registerCape("orcish_white_fur_surcoat_with_bone",
+            new CapeChestplateItem(new Item.Settings()
+                    .component(ModDataComponentTypes.CAPE_DATA, CapeDataComponent.newCape(ModCapes.ORCISH_WHITE_FUR_SURCOAT_WITH_BONE)),
+                    ModFactions.NONE));
     //endregion
 
     //region MORDOR
@@ -886,7 +920,6 @@ public class ModEquipmentItems {
     public static final Item RUSTED_MORDOR_SNOUT_HELMET = registerCustomModelArmorPiece("rusted_mordor_snout_helmet",
             new CustomHelmetItem(ModArmorMaterials.BURZUM_STEEL_T4, new Item.Settings(),
                     ModFactions.MORDOR));
-
 
     public static final Item MORDOR_LEATHER_CUIRASS = registerDyeableArmorPiece("mordor_leather_cuirass",
             new CustomChestplateItem(ModArmorMaterials.LEATHER_T2, new Item.Settings()

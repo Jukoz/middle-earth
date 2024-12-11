@@ -62,6 +62,8 @@ public class ModDyeablePieces {
         dyeableCapes.put(ModCapes.TAN_FUR_CLOAK, true);
         dyeableCapes.put(ModCapes.WHITE_FUR_CLOAK, true);
 
+        dyeableCapes.put(ModCapes.ORCISH_SHOULDERS, false);
+
         dyeableHoods.put(ModHoods.HOOD, false);
         dyeableHoods.put(ModHoods.BLACK_FUR_HOOD, true);
         dyeableHoods.put(ModHoods.BROWN_FUR_HOOD, true);

@@ -582,6 +582,16 @@
   "item.me.galadhrim_cape": "Galadhrim Cape",
   "item.me.galadhrim_hood": "Galadhrim Hood",
   "item.me.galadhrim_lord_surcoat": "Galadhrim Lord Surcoat",
+  
+  "item.me.orcish_cape": "Orcish Cape",
+  "item.me.orcish_long_cape": "Orcish Long Cape",
+  "item.me.orcish_shoulders": "Orcish Shoulders",
+
+  "item.me.orcish_black_fur_surcoat_with_bone": "Orcish Black Fur Surcoat With Bone",
+  "item.me.orcish_brown_fur_surcoat_with_bone": "Orcish Brown Fur Surcoat With Bone",
+  "item.me.orcish_gray_fur_surcoat_with_bone": "Orcish Gray Fur Surcoat With Bone",
+  "item.me.orcish_tan_fur_surcoat_with_bone": "Orcish Tan Fur Surcoat With Bone",
+  "item.me.orcish_white_fur_surcoat_with_bone": "Orcish White Fur Surcoat With Bone",
 
   "item.me.straw_hat": "Straw Hat",
   "item.me.woven_hat": "Woven Hat",
@@ -6413,6 +6423,7 @@
   "tooltip.me.sub_faction" : "§7Sub Faction: §f",
   "tooltip.me.customizations" : "§6Custom Parts: §f",
   "tooltip.me.reach" : "Reach: ",
+  "tooltip.me.dyed" : "Dyed: ",
   "tooltip.me.artisan" : "Artisan: ",
   "tooltip.me.blocks_range" : " Blocks",
   "tooltip.me.backstab" : "§7 +50% damage when backstabbing",
@@ -6572,6 +6583,16 @@
   "tooltip.me.galadhrim_cape": "Galadhrim Cape",
   "tooltip.me.galadhrim_hood": "Galadhrim Hood",
   "tooltip.me.galadhrim_lord_surcoat": "Galadhrim Lord Surcoat",
+
+  "tooltip.me.orcish_cape": "Orcish Cape",
+  "tooltip.me.orcish_long_cape": "Orcish Long Cape",
+  "tooltip.me.orcish_shoulders": "Orcish Shoulders",
+
+  "tooltip.me.orcish_black_fur_surcoat_with_bone": "Orcish Black Fur Surcoat With Bone",
+  "tooltip.me.orcish_brown_fur_surcoat_with_bone": "Orcish Brown Fur Surcoat With Bone",
+  "tooltip.me.orcish_gray_fur_surcoat_with_bone": "Orcish Gray Fur Surcoat With Bone",
+  "tooltip.me.orcish_tan_fur_surcoat_with_bone": "Orcish Tan Fur Surcoat With Bone",
+  "tooltip.me.orcish_white_fur_surcoat_with_bone": "Orcish White Fur Surcoat With Bone",
 
 "#Comment:": "Disposition",
   "disposition.me.good" : "Good",
